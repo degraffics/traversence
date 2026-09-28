@@ -139,3 +139,20 @@ precedence isn't applied yet: there is no county-seat data. Auto-seeded clusters
 **New open item:** the 50,000 ceiling is sized for the rural pilot. A single metro ZIP can pass it on its
 own, so a metro hub (e.g. Phoenix/Mesa/Gilbert) would be split into one-ZIP clusters. The ceiling needs to
 scale with density, or be set per hub, before a metro hub goes live.
+
+**Applied 2026-09-28.** The one-time merge ran on the live database: 43 single-ZIP stubs in Ancient
+Borderlands became 18 clusters (plus Concho into St. Johns and Greer into Round Valley). Hand corrections
+after it:
+
+- Chambers (86502), Petrified Forest (86028) and Red Valley (86544) shared one placeholder coordinate in
+  `zip_coordinates`; all three were corrected, and Red Valley (near Shiprock) was split out of the Sanders
+  cluster into its own.
+- **Petrified Forest → Holbrook** — the first Extension Layer A override, bound by hand. It sits ~23 mi from
+  Holbrook, just outside the 20-mile join radius. There is no override ruleset or `system_override` source
+  value yet (`micro_clusters.source` is an ENUM, so adding one is an `ALTER TABLE`, not a data-only change).
+- **McNary → the Show Low cluster** (with Pinetop), out of Vernon. This puts Show Low at 6 towns: the
+  5-town cap governs automatic grouping, not admin decisions.
+
+The merge now only regroups legacy stubs (slug `cluster-auto-` + a ZIP), so re-running it can't undo these.
+Grants and the Catron County clusters (Datil, Pie Town, Quemado, Reserve) remain under Ancient Borderlands
+pending a geo-hub review.
