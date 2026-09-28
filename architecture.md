@@ -430,6 +430,12 @@ Within that hierarchy, each Continental Hub runs two content layers side by side
 
 **The Single Home Rule:** every business profile is assigned exactly one permanent Primary Home Zone, based on its physical address, enforced structurally rather than left to convention. This is what prevents a single business from being duplicated across multiple micro-clusters (database bloat) while keeping local search results precise. This is the rule `charter.md` refers to but doesn't itself define — the principle belongs in the Charter, the enforcement mechanism belongs here.
 
+**Discovery Guides at every level (`decisions/0043`).** Each level of this hierarchy, down through the
+Anchor and Sub-Group tiers `decisions/0042` added, gets its own Discovery Guide, the place's "knowledge":
+a Story (crawler-drafted, human-approved per `decisions/0005`), a Place Profile (population and
+demographics rolled up over its ZIPs), a Local block (listing counts plus a link into the Directory filtered
+to that place), Chameleon picks woven into the story, and links to the next level down.
+
 ## 23. Shared Place Context (Real, Substantially Built — Supersedes the Earlier "Personalized Insight Engine" Placeholder)
 
 **This section previously described a speculative "Personalized Insight & Productivity Engine" with no schema and no real design.** The real platform spec and live code (2026-09-23 export) show the actual, much more concrete system that already exists under this heading: **Shared Place Context** — one model answering "where is this visit?" for the location icon, search scope, business breadcrumbs, and admin hub-scoping, shared by both gateways (§4) rather than owned by either.
