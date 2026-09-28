@@ -116,10 +116,12 @@ Retained from the original blueprint, built natively (no BD):
 - **Geo-Hub** (`geo-hub:`) — regional corridor level (e.g. "Ancient Borderlands")
 - **Micro-Cluster** (`cluster:`) — 3–5 neighboring towns bound into one local pool (e.g. "Cluster 1A: The Little Colorado & Petrified Basin")
 
-**Naming convention (retained as-is from blueprint):**
-- DB tag format: `hub_[id]:geo_[zone]:cluster_[id]` — e.g. `hub_aa:geo_borderlands:cluster_1a`
-- URL format: `/[continental-hub]/[geo-hub]/cluster-[id]` — e.g. `/ancient-america/borderlands/cluster-1a`
+**Naming convention — updated by `decisions/0042`, supersedes the original blueprint's cluster-slug rule:**
+- DB tag format (internal lookup only, never a URL): `hub_[id]:geo_[zone]:cluster_[id]` — e.g. `hub_aa:geo_borderlands:cluster_1a`
+- URL format: `/[continental-hub]/[geo-hub]/[cluster-slug]/[listing-id-or-slug]` — e.g. `/ancient-america/borderlands/cluster-1a-st-johns/...`
+- Cluster slug formula: `slug = "cluster-" + tier_id + "-" + lowercase(anchor_name)` — e.g. `cluster-1a-st-johns`, where `anchor_name` is the tier's resolved City/Municipal Anchor (see §19 addition below), not a raw town name.
 - UI must always show the short-code paired with its descriptive name.
+- **Open, flagged not resolved:** this nests the listing under its cluster, while `routes.md`/`decisions/0020` document a flat `/listing/{slug}` as the public listing page and a Tier 2 dependency root. Which one is canonical isn't decided yet — see `decisions/0042`'s Consequences.
 
 **Data needed (net-new, doesn't exist yet):** a zip-code → cluster mapping table. This is largely config/data-entry work, not logic — clusters have to be manually defined and zip codes assigned to them.
 
@@ -403,7 +405,7 @@ Built as concrete code, matching Section 13's MVP scope. Files under `api/`:
 
 - **Core entity fields (`name`, `latitude`, `longitude`, `primary_zip`) are only crawler-patchable while a listing is still `unclaimed`.** Once claimed, only `entity_metadata` is touched (and only unlocked keys), never the core entity row — this extends the existing `is_locked` field-locking concept from Section 12.1 to the entities table itself, not just metadata, since it wasn't originally specified but is a direct consequence of the same principle.
 - **Category → Chameleon Filter intent mapping is a starting lookup table, not exhaustive.** Unmapped categories default to Utility=true/Experience=false (the safer default for a rural-infrastructure-first platform) and get flagged with an `intent_needs_review` metadata key rather than silently guessing wrong forever — this makes unmapped categories queryable/fixable later.
-- **Auto-seeded clusters (`resolveMicroClusterId`) only target a single configured geo-hub (`DEFAULT_GEO_HUB_SLUG`).** Correct for the pilot, since the crawler only operates within Ancient Borderlands right now. **Explicitly flagged as a limitation, not silently extended:** once a second hub/geo-hub goes live, auto-seeding needs a real way to pick the correct geo-hub per incoming record (e.g. a region parameter the crawler config supplies), not a single default.
+- **Auto-seeded clusters (`resolveMicroClusterId`) only target a single configured geo-hub (`DEFAULT_GEO_HUB_SLUG`).** Correct for the pilot, since the crawler only operates within Ancient Borderlands right now. **Explicitly flagged as a limitation, not silently extended:** once a second hub/geo-hub goes live, auto-seeding needs a real way to pick the correct geo-hub per incoming record (e.g. a region parameter the crawler config supplies), not a single default. **Separately, per `decisions/0042`:** the function's actual clustering logic is being rewritten regardless of geo-hub count — today it stubs one micro-cluster per unmatched ZIP with no grouping at all; it needs to group by a 100-mile radius and a 150,000-population ceiling instead, then resolve a City/Municipal Anchor per resulting pool. These are two separate gaps (which geo-hub, vs. how records within a geo-hub cluster together) — fixing one doesn't fix the other.
 
 **Two items not resolved — flagged rather than guessed:**
 
@@ -515,7 +517,9 @@ Following the migration (Section 17), a live phpMyAdmin check surfaced 43 auto-s
 - *"Rather than fracturing the macro network with endless hub additions, overlapping geo-hub corridors act as tactical multi-directional bridges."* — the blueprint explicitly discourages creating a new dedicated geo-hub reactively for a small number of border-area businesses.
 - *"Border and gateway outposts utilize automated metadata tags to pull into adjacent zone feeds... without duplicating accounts."* — the intended treatment is cross-referencing into the nearest existing geo-hub's feed, not a rigid single-home reassignment.
 
-**Decision:** leave the 43 auto-seeded clusters (both the Arizona sub-region ones and the New Mexico border ones) as-is under Ancient Borderlands for now, rather than doing speculative reorganization at the current low row-count. This is consistent with the source document's explicit anti-fragmentation guidance. Revisit proper sub-grouping (and potentially a real geo-hub split for the Navajo Nation cluster noted separately, or a lightweight border-outpost tagging mechanism for the New Mexico cluster) once real business density in these areas justifies the effort — not preemptively.
+**Original decision:** leave the 43 auto-seeded clusters (both the Arizona sub-region ones and the New Mexico border ones) as-is under Ancient Borderlands for now, rather than doing speculative reorganization at the current low row-count. This was consistent with the source document's explicit anti-fragmentation guidance, and was made before any real multi-town clustering algorithm existed to re-run these rows through.
+
+**Superseded by `decisions/0042`:** now that a real 100-mile/150,000-population clustering algorithm and an Anchor-resolution sequence exist as a decision (not yet shipped), these 43 single-ZIP stubs are to be re-clustered/merged under that algorithm once it's built, not left as permanent stubs. The border-community geography finding above still holds (these New Mexico ZIPs are legitimately within Hub 9's territory) — what changes is that they'll be grouped into real multi-town pools with resolved anchors instead of staying one-ZIP-per-row indefinitely.
 
 
 

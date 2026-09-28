@@ -372,6 +372,30 @@ An earlier draft additionally proposed a colon-delimited composite format (`hub_
 
 **Pilot staging:** the platform seeds outward from a single pilot region before scaling — a 200-mile operational radius centered on a regional hub, used to map collections of intent and deploy resources to an identifiable set before going wider. See `decisions/0006-pilot-hub-scope.md` for which region and why.
 
+**Two more tiers beneath Micro-Cluster, neither addressable in the URL (`decisions/0042`).** The three route
+segments above are unchanged, but a fourth and fifth tier now exist underneath the Micro-Cluster as resolved
+data, not new path segments:
+
+- **Anchor** — the cluster's primary municipal entity, picked automatically when a cluster's town pool has
+  more than one candidate: county seat status first, then incorporated-municipality ranking, then a
+  centroid/numeric fallback. The Single Home Rule binds every listing 1:1 to this resolved anchor. The
+  anchor's name feeds the cluster slug directly: `slug = "cluster-" + tier_id + "-" + lowercase(anchor_name)`
+  (e.g. `cluster-1a-st-johns`), so the listing URL is `/[hub-slug]/[geohub-slug]/[cluster-slug]/[listing-id-or-slug]`.
+- **Sub-group** — unincorporated subdivisions, ranch communities, and colloquial place names sharing the
+  anchor's ZIP (e.g. "Red Sky Ranch"). These are captured as alias metadata on the cluster, validated against
+  land records or postal/historical registries, and are discoverable by that alias without ever getting their
+  own slug or changing the cluster's primary one.
+
+Micro-cluster auto-seeding also changes under the same decision: what's built today (`resolveMicroClusterId`)
+stubs one micro-cluster per unmatched ZIP with no grouping logic — the ~40 "ZIP XXXXX (auto-seeded, needs
+review)" rows this produced are being re-clustered under a real 100-mile/150,000-population spatial algorithm
+rather than left as permanent stubs. A separate `system_override` source (confidence 1.00) force-binds
+low-density, high-value outliers (tourist corridors, historic registers) outside that algorithm entirely. See
+`decisions/0042-five-tier-taxonomy-anchor-resolution-and-density-clustering.md` for the full design and its
+open items — notably, how the nested `.../[cluster-slug]/[listing-id-or-slug]` listing URL reconciles with
+the flat `/listing/{slug}` route this document and `decisions/0020` already depend on, which that ADR flags
+but does not resolve.
+
 ## 20. Data Collection Guardrails & Exclusions
 
 Ingestion (both automated crawling and user-generated content) is restricted strictly to public utilities, commerce, and regional heritage data. Systematically excluded by design and by the Tier 4 quarantine engine: private networks, password-gated databases, adult-only material, and private personal or sensitive government records. This is a hard boundary on what the platform will ever ingest or surface, independent of the HITL review process described in §7 and `decisions/0005-hitl-ai-guardrails.md` — HITL governs whether ingested content is trustworthy; this governs whether it should have been ingested at all.
