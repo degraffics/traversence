@@ -62,9 +62,28 @@ Census profile; anchor facts (county seat, incorporated status), which the ancho
 
 **Open, not decided here:**
 
-- Whether the Place Profile's figures (factual data from public sources, not prose) refresh
-  automatically, or go through the same sign-off as stories.
+- ~~Whether the Place Profile's figures refresh automatically or go through sign-off.~~ **Settled
+  2026-09-28:** figures are published as the source gives them, including small places with wide margins
+  of error, **as long as the source is cited**. Every profile names the survey and tables, a single area's
+  figures show their 90% margin of error, and medians combined across ZIPs are marked approximate. No
+  sign-off step for figures; stories still need one.
 - Whether Chameleon picks need review. They choose among listings that are already public, which is
   closer to search ranking than to publishing.
 - Target length per level. `commercial.md` §7 sets 2,000–3,000 words for Geo-Hub Guides; the smaller
   levels presumably need less.
+
+## Implementation note (2026-09-28): the first Place Profile
+
+Built from the American Community Survey 2019–2023 5-year estimates: population (B01003), median age
+(B01002), median household income (B19013), poverty (B17001), bachelor's or higher (B15003),
+unemployment (B23025), housing units (B25001), seasonal/second homes (B25004 line 6, vacant for seasonal,
+recreational or occasional use), median home value (B25077) and top industries (C24050). Stored per ZIP
+area, county and state in `place_profile`, loaded from Admin → Cluster tools with the server's Census API
+key, and shown on the hub, geo-hub and cluster pages beside the county and state for comparison. Counts
+and rates roll up exactly over a place's ZIPs; medians are population-weighted across ZIPs and marked ≈.
+The Census's negative "not available" codes (e.g. medians for PO-box ZIPs) are treated as missing.
+
+First reading for the pilot: the Show Low cluster is 29% seasonal homes against 5.5% statewide, and
+Pinetop (85935) alone is 54% with a median age near 60, while Snowflake (85937) is 5% seasonal with a
+median age of 32. That split, resort and second-home versus year-round family, is the kind of signal
+the guides and the Chameleon Filter can use.
