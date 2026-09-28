@@ -18,3 +18,12 @@ Each track gets its own accent color token (see `brand.md`) so the UI itself sig
 ## Consequences
 
 Every new discovery feature has to be classified into one track or explicitly built as track-agnostic — there's no default "just add it to search" option. This keeps the two experiences from blurring together over time, at the cost of some engineering duplication where a feature (e.g. a map view) genuinely serves both tracks and needs two entry points instead of one.
+
+## Clarification (2026-09-28): Discovery never hands off to a business list
+
+Discovery pages (`/discovery/` and the hub / geo-hub / cluster landing pages it walks down through) never
+carry a "browse local businesses" link or a business count. Local businesses reach a Discovery visitor only
+**inside** the guides and articles, as connection points the Chameleon Filter places in the story. The
+directory remains its own track (`/directory/`); the two meet in shared places, not through a button that
+turns a traveler's story into a search results page. The placeholder hub page's "Local" panel was removed on
+this basis.
