@@ -388,7 +388,8 @@ data, not new path segments:
 
 Micro-cluster auto-seeding also changes under the same decision: what's built today (`resolveMicroClusterId`)
 stubs one micro-cluster per unmatched ZIP with no grouping logic — the ~40 "ZIP XXXXX (auto-seeded, needs
-review)" rows this produced are being re-clustered under a real 100-mile/150,000-population spatial algorithm
+review)" rows this produced are being re-clustered under a real spatial algorithm (as amended 2026-09-28:
+20-mile join radius, at most 5 towns, and at most 50,000 residents where Census population is known)
 rather than left as permanent stubs. A separate `system_override` source (confidence 1.00) force-binds
 low-density, high-value outliers (tourist corridors, historic registers) outside that algorithm entirely. See
 `decisions/0042-five-tier-taxonomy-anchor-resolution-and-density-clustering.md` for the full design and its
