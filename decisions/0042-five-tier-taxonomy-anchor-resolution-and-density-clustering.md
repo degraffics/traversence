@@ -156,3 +156,27 @@ after it:
 The merge now only regroups legacy stubs (slug `cluster-auto-` + a ZIP), so re-running it can't undo these.
 Grants and the Catron County clusters (Datil, Pie Town, Quemado, Reserve) remain under Ancient Borderlands
 pending a geo-hub review.
+
+## Amendment (2026-09-28): sub-groups are validated by local usage, not records
+
+Extension Layer B's "validate against land records, postal metadata, or historical registries" is
+replaced. A sub-group is a local reference — what residents and businesses call part of a cluster — not a
+legal entity, so the evidence that counts is usage:
+
+- **Suggested by usage.** A scan of listing text proposes a name when at least **two different listings**
+  use it as a place reference: in their own city field (e.g. "Pinetop Lakeside"), or as "<Name> Ranch /
+  Estates / Acres / Subdivision / Association / Village / Mesa / …" in an address or description.
+  Postal-town and cluster names, generic organisation phrases ("Contractors Association", "Association
+  of Realtors"), and a business naming itself are filtered out.
+- **Accepted by an admin.** Suggestions appear on each cluster in Admin → Cluster tools with the listing
+  snippets that used them; the admin accepts (optionally renaming, with aliases), rejects, or adds a
+  sub-group directly. Nothing is public until accepted, and a rejected name is never suggested again.
+  Renaming keeps the old wording as an alias.
+- **Stored** in `cluster_subgroups` (cluster, name, aliases, status suggested/accepted/rejected, origin
+  scan/admin, mention count, example snippets). Merging clusters carries their sub-groups along.
+
+First scan of the pilot's live listings suggested 11 names, all genuine local references (Pinetop
+Lakeside, Bourdon Ranch, Rio Vista Estates, Jones Ranch, Cheney Ranch, Pia Mesa, Hooper Ranch, Sunrise
+Park, …) and no organisations. The scan runs on demand from the page for now; running it as the crawler
+ingests new listings, and making accepted names searchable (a search for a sub-group resolving to its
+cluster), are the next steps. The Single Home Rule is unchanged: a listing's home stays its cluster.
