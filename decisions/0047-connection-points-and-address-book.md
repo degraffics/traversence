@@ -126,3 +126,15 @@ where marketing preferences live. There are two levels, so no one is surprised:
   working.
 - Open: whether groups are private circles only or can also be public community groups; the exact
   profile fields shareable on a contact card; how long message history is kept.
+
+## Progress
+
+- **2026-09-29, phase 1 built:** the account hub (`user/dashboard.php`: profile and role, User Dashboard /
+  Business Portal / Admin Dashboard sections, the Notification Center, the four feed tabs; one swipeable
+  icon row on phones), the Link button (`js/link-button.js` on place and listing pages; `user/api/links.php`;
+  `api/lib/Links.php`; migration `2026-09-30_user_links.sql`), Linked Connections (list, mute, unlink), and
+  the first feeds: Listings (posts from linked businesses, new listings in linked places) and Discovery
+  (linked places and what's new there). Businesses and places can be linked today.
+- **Next:** phase 2, the Address Book (people connections and follows, contact cards shared and revoked,
+  the inbox and message controls; the Community feed); phase 3, businesses asking to link, marketing
+  preferences and the ask-again choices.
