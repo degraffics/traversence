@@ -70,6 +70,8 @@ SEARCH_ON = bool(TAVILY_API_KEY or BRAVE_API_KEY or os.environ.get("SEARCH_FIXTU
 MAX_SEARCHES = int(os.environ.get("MAX_SEARCHES", "10"))
 SOURCE_TIME = int(os.environ.get("SOURCE_TIME", "60"))            # seconds per run for reading one of our sources
 SOURCE_PAGES = int(os.environ.get("SOURCE_PAGES", "25"))          # pages read per source
+REFRESH_PER_RUN = int(os.environ.get("REFRESH_PER_RUN", "3"))     # live listings refreshed from their own website per run
+REFRESH_TIME = int(os.environ.get("REFRESH_TIME", "40"))
 NPI_API = "https://npiregistry.cms.hhs.gov/api/"
 UA = "TraversenceCrawler/1.0 (+https://traversence.com; local directory of community resources)"
 ZIP_RADIUS_M = 19000          # ~12 miles around each ZIP centre of the cluster
@@ -578,6 +580,83 @@ def read_source(deadline):
     log(f"read source {host}: {pages} page(s), {len(uniq)} place(s) found, {res.get('kept', 0)} kept")
 
 
+# ---------------------------------------------------------------------------------------------------
+# Refreshing live listings from their own websites: fill what's empty, find their other locations
+# ---------------------------------------------------------------------------------------------------
+
+DAY_RE = re.compile(r"\b(mon|tue|wed|thu|fri|sat|sun)[a-z]*\b.*\d{1,2}(:\d{2})?\s*(am|pm|a\.m\.|p\.m\.)", re.I)
+REFRESH_HINTS = ("about", "contact", "hour", "location", "service", "clinic", "visit", "find-us", "offices")
+
+
+def hours_from(page):
+    for block in re.findall(r'(?is)<script[^>]+application/ld\+json[^>]*>(.*?)</script>', page):
+        m = re.search(r'"openingHours"\s*:\s*(\[[^\]]*\]|"[^"]*")', block)
+        if m:
+            try:
+                v = json.loads(m.group(1))
+                return [x for x in (v if isinstance(v, list) else [v]) if isinstance(x, str)][:7]
+            except Exception:
+                pass
+    lines = [l for l in page_lines(page) if DAY_RE.search(l) and len(l) <= 60]
+    return list(dict.fromkeys(lines))[:7]
+
+
+def split_city(address):
+    m = re.search(r"^(.*?),?\s*([A-Za-z .'-]+),\s*([A-Z]{2})\s+(\d{5})", address)
+    return (m.group(1).strip(" ,"), m.group(2).strip(), m.group(3), m.group(4)) if m else (address, "", "", "")
+
+
+def refresh_listings(deadline):
+    d = site_call(f"/api/crawl/refresh.php?limit={REFRESH_PER_RUN}")
+    for lst in d.get("listings", []):
+        if time.monotonic() > deadline or out_of_time():
+            break
+        site, host = lst["website"], host_of(lst["website"])
+        home = fetch_page(site)
+        if not home:
+            log(f"refresh {lst['name']}: website didn't load")
+            continue
+        pages = {site: home}
+        links = [urllib.parse.urljoin(site, h) for h in re.findall(r'(?i)href=["\']([^"\'#]+)', home)]
+        links = [u for u in dict.fromkeys(links) if host_of(u) == host and any(k in u.lower() for k in REFRESH_HINTS)][:4]
+        for u in links:
+            if time.monotonic() > deadline:
+                break
+            pg = fetch_page(u)
+            if pg:
+                pages[u] = pg
+        found = {}
+        if "description" in lst["missing"]:
+            found["description"] = meta_description(home)
+        if "hours" in lst["missing"]:
+            for pg in pages.values():
+                h = hours_from(pg)
+                if h:
+                    found["hours"] = h; break
+        if "phone" in lst["missing"]:
+            m = PHONE_RE.search(" ".join(page_lines(home)))
+            if m:
+                found["phone"] = m.group(0)
+        # Other places this organization lists, each with a full address: staged as new finds.
+        own_num = (re.match(r"\s*(\d+)", lst.get("address") or "") or [None, None])[1]
+        locations, seen = [], set()
+        for url, pg in pages.items():
+            for f in jsonld_facts(pg, url) + text_facts(pg, url):
+                street, city, state, zp = split_city(f["address"])
+                num = (re.match(r"\s*(\d+)", street) or [None, None])[1]
+                if not zp or not num or num == own_num or (f["name"].lower(), num) in seen:
+                    continue
+                seen.add((f["name"].lower(), num))
+                locations.append({"name": f["name"], "source": {"start_url": site, "site": host},
+                                  "where": {"address": street, "city": city, "state": state, "zip": zp, "location_page": url},
+                                  "what": {"offerings": [], "description": ""}, "actions": {"phone": f["phone"], "website": site},
+                                  "sources": {"name": [url], "address": [url]}, "corroboration": [],
+                                  "confidence": 15 + 25 + 5 + (15 if f["phone"] else 0)})
+        res = site_call("/api/crawl/refresh.php", {"entity_id": lst["entity_id"], "website": site, "found": found, "locations": locations[:25]})
+        log(f"refresh {lst['name']}: filled {', '.join(res.get('filled', [])) or 'nothing new'}; "
+            f"{len(locations)} other location(s) -> {res.get('auto_imported', 0)} published, {res.get('staged', 0)} to review")
+
+
 def second_look(deadline):
     d = site_call(f"/api/crawl/verify.php?limit={VERIFY_PER_RUN}")
     if d.get("paused"):
@@ -616,6 +695,11 @@ def run():
             second_look(started + min(VERIFY_TIME, TIME_BUDGET))
         except Exception as e:                     # the second look never stops the crawl jobs
             log(f"second look stopped: {e!r}"[:300])
+    if REFRESH_PER_RUN > 0:
+        try:
+            refresh_listings(time.monotonic() + REFRESH_TIME)
+        except Exception as e:                     # refreshing never stops the crawl jobs
+            log(f"refresh stopped: {e!r}"[:300])
     if SOURCE_TIME > 0:
         try:
             read_source(time.monotonic() + SOURCE_TIME)

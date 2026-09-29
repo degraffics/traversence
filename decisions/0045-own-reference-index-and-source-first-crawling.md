@@ -80,3 +80,9 @@ Step 1 built: `api/migrations/2026-09-29_reference_sources.sql`, `api/lib/crawle
   the NPI Registry and then web search run as before. Migration `2026-09-30_source_facts.sql`;
   `api/crawl/sources.php`; worker `SOURCE_TIME` (60 s) and `SOURCE_PAGES` (25).
 
+- **2026-09-30, refreshing live listings:** each run the worker takes up to 3 public listings with a website
+  (each at most every 60 days), reads the homepage and up to 4 likely pages (about, contact, hours,
+  locations, services), and sends back description, hours and phone. The site only fills fields that are
+  empty and crawler-owned (never overwrites, never touches a person's edits). Other locations the site lists
+  with a full address are staged as new finds, so the ADR 0044 guardrails decide them. `api/crawl/refresh.php`,
+  `api/lib/crawler/Refresh.php`; worker `REFRESH_PER_RUN` (3), `REFRESH_TIME` (40 s).
