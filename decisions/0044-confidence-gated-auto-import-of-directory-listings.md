@@ -67,3 +67,12 @@ categories; the "recent auto-imports" admin list; and the guide-driven crawl tha
 
 **Open:** the exact threshold (85 is a starting point to tune against real results), and which official
 registries count as trusted sources for each category.
+
+## Progress (2026-09-29)
+
+**Coverage report built** (Admin → Cluster tools → 4. Directory coverage): public listings per Support &
+wellness group for every cluster in a geo-hub, ordered by how many residents live with each gap. The
+groups are defined once (`api/lib/SupportGroups.php`) and shared with the public place pages. First
+reading of the pilot data: Gallup (~22,000 residents) has no health-care listings despite being the
+region's medical centre, and food & basic needs has only 10 listings across the whole pilot. Those are the
+first crawl targets.
