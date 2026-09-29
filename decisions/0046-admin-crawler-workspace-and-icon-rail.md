@@ -55,3 +55,19 @@ flat single color at rest and a glow when active.
 - Open: whether the rest of admin (Listings, Claims, Categories, Users, Site settings) adopts the same rail,
   with Crawler as one section (recommended, for one consistent admin); and whether the phone row starts at
   the right edge (Jason mentioned "right to left") or the left (built: left, easy to flip).
+
+## Progress (2026-09-29)
+
+- **Field rules** (`IntakeStager::FIELD_RULES`): every listing field says what belongs in it and its limit,
+  shown as help and enforced on approve, merge and admin edit. Offerings are short names (30 lines, 60
+  characters each); explanations go in Description (1,500). Leading bullets are removed; an over-long line
+  is refused with a message naming it.
+- **Edit listing** (`admin/listing-edit.php`): admins edit any live listing, hide it or put it back; edits
+  are recorded as a person's (source admin, locked), so the crawler never overwrites them. Reached from
+  View/Edit links after approving or merging, on Published, on Crawl a site's Published tab, and an
+  "Edit (admin)" link on the public listing page.
+- **Side-by-side merge:** a possible duplicate shows what's listed (left) against what the crawler found
+  (right), one choice per field (Keep / Use new / Combine), matching fields marked "same", fields a person
+  entered marked "kept"; plus "Not the same place: publish it as a new listing".
+- **View first, edit with a pencil** (`js/section-edit.js`): each section of the Review card and of Edit
+  listing reads as plain text; its pencil opens just that section's inputs.

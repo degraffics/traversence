@@ -144,4 +144,12 @@ where marketing preferences live. There are two levels, so no one is surprised:
   switch; blocking (ends follows, the connection and shared cards both ways; the blocker's profile
   disappears for the blocked person). The Community feed shows new connections and shared cards. Groups
   (circles) are not built yet.
+- **2026-09-29, finding people and invites:** search by name (every word, anywhere in the name), by exact
+  email (default on) or exact phone (default off; the phone on the person's card) — each governed by the
+  person's "How people can find me" controls. Never by town or area. People not on Traversence are
+  **invited**, never looked up: one email with a join link (or, for a phone number, a ready-made text the
+  member sends themselves, since there's no texting service); joining through the link connects them.
+  Inviting an address that already belongs to a member sends them a connection request instead, with the
+  same reply, so no one learns who is registered. Up to 20 invites a day. Migration
+  `2026-09-30_people_find_and_invite.sql`; `join.php`; `api/auth/register.php` accepts the invite.
 - **Next:** phase 3, businesses asking to link, marketing preferences and the ask-again choices.
