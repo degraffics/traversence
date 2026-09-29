@@ -135,6 +135,16 @@ where marketing preferences live. There are two levels, so no one is surprised:
   `api/lib/Links.php`; migration `2026-09-30_user_links.sql`), Linked Connections (list, mute, unlink), and
   the first feeds: Listings (posts from linked businesses, new listings in linked places) and Discovery
   (linked places and what's new there). Businesses and places can be linked today.
-- **Next:** phase 2, the Address Book (people connections and follows, contact cards shared and revoked,
+- **2026-09-29, phase 2 built:** the Address Book (`js/address-book.js` in the hub; `user/api/people.php`;
+  `api/lib/People.php`; migration `2026-09-30_address_book.sql`): find people (by name or exact email;
+  only names are ever returned), public profiles (`user/profile.php`: name and join date only) with Link
+  (follow), Connect, Message, Ask for contact info and Block; connection requests; the contact card with
+  per-field, per-connection sharing, live updates and "Who has my contact info" with take-back; one inbox
+  with mute and archive; message controls (connections only by default, or anyone) and a private-profile
+  switch; blocking (ends follows, the connection and shared cards both ways; the blocker's profile
+  disappears for the blocked person). The Community feed shows new connections and shared cards. Groups
+  (circles) are not built yet.
+- **Next:** phase 3, businesses asking to link, marketing preferences and the ask-again choices.
+- *(Superseded plan line:)* phase 2, the Address Book (people connections and follows, contact cards shared and revoked,
   the inbox and message controls; the Community feed); phase 3, businesses asking to link, marketing
   preferences and the ask-again choices.
