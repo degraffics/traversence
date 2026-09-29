@@ -39,7 +39,7 @@ finished returns to the queue by itself when its 20-minute lease runs out.
    `job 12 Health care in Gallup: 9 OSM, 6 sent -> 2 published, 4 to review`.
 
 Optional variables: `JOBS_PER_RUN` (5, at most 10), `MAX_FETCHES` (60), `TIME_BUDGET` (240),
-`OVERPASS_URL` (the public Overpass API).
+`OVERPASS_URL` (an Overpass server to try first; the public one and two mirrors are always tried after it).
 
 ## Pausing
 

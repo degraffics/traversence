@@ -19,7 +19,7 @@ Settings (environment variables):
   JOBS_PER_RUN         default 5 (the site hands out at most 10)
   MAX_FETCHES          website fetches per run, default 60
   TIME_BUDGET          seconds per run, default 240
-  OVERPASS_URL         default https://overpass-api.de/api/interpreter
+  OVERPASS_URL         optional first Overpass server; the public server and two mirrors follow
 Test hooks (not for production): OVERPASS_FIXTURE=file.json, WEB_FIXTURE=file.json ({url: html}).
 Standard library only.
 """
@@ -40,7 +40,11 @@ TOKEN = os.environ.get("CRAWLER_API_TOKEN", "")
 JOBS_PER_RUN = int(os.environ.get("JOBS_PER_RUN", "5"))
 MAX_FETCHES = int(os.environ.get("MAX_FETCHES", "60"))
 TIME_BUDGET = int(os.environ.get("TIME_BUDGET", "240"))
-OVERPASS_URL = os.environ.get("OVERPASS_URL", "https://overpass-api.de/api/interpreter")
+# Public Overpass servers, tried in order: the main one sometimes refuses (406/429/504), so fall back to mirrors.
+OVERPASS_URLS = [u for u in [os.environ.get("OVERPASS_URL"),
+                             "https://overpass-api.de/api/interpreter",
+                             "https://overpass.private.coffee/api/interpreter",
+                             "https://overpass.kumi.systems/api/interpreter"] if u]
 UA = "TraversenceCrawler/1.0 (+https://traversence.com; local directory of community resources)"
 ZIP_RADIUS_M = 19000          # ~12 miles around each ZIP centre of the cluster
 MAX_PER_JOB = 25
@@ -85,8 +89,12 @@ def site_call(path, payload=None):
     req = urllib.request.Request(SITE + path, data=data, method="POST" if data else "GET", headers={
         "X-Crawler-Token": TOKEN, "Authorization": "Bearer " + TOKEN,
         "Content-Type": "application/json", "User-Agent": UA, "Accept": "application/json"})
-    with urllib.request.urlopen(req, timeout=60) as r:
-        return json.loads(r.read().decode("utf-8"))
+    try:
+        with urllib.request.urlopen(req, timeout=60) as r:
+            return json.loads(r.read().decode("utf-8"))
+    except urllib.error.HTTPError as e:
+        # Say which call failed and what the site said (Bluehost's firewall answers 406 with an HTML page).
+        raise RuntimeError(f"site {path} said {e.code}: {e.read()[:200]!r}") from None
 
 
 def overpass(job):
@@ -100,10 +108,20 @@ def overpass(job):
         for p in pts:
             parts.append(f'{q}["name"](around:{ZIP_RADIUS_M},{p["lat"]},{p["lon"]});')
     query = "[out:json][timeout:60];(" + "".join(parts) + ");out center tags 80;"
-    req = urllib.request.Request(OVERPASS_URL, data=urllib.parse.urlencode({"data": query}).encode(),
-                                 headers={"User-Agent": UA})
-    with urllib.request.urlopen(req, timeout=90) as r:
-        return json.loads(r.read().decode("utf-8")).get("elements", [])
+    body = urllib.parse.urlencode({"data": query}).encode()
+    tried = []
+    for url in OVERPASS_URLS:
+        req = urllib.request.Request(url, data=body, headers={
+            "User-Agent": UA, "Accept": "application/json",
+            "Content-Type": "application/x-www-form-urlencoded"})
+        try:
+            with urllib.request.urlopen(req, timeout=90) as r:
+                return json.loads(r.read().decode("utf-8")).get("elements", [])
+        except urllib.error.HTTPError as e:
+            tried.append(f"{urllib.parse.urlparse(url).netloc} {e.code} {e.read()[:120]!r}")
+        except (urllib.error.URLError, TimeoutError, ValueError) as e:
+            tried.append(f"{urllib.parse.urlparse(url).netloc} {e!r}"[:160])
+    raise RuntimeError("OpenStreetMap lookup failed: " + " | ".join(tried))
 
 
 def miles(a, b, c, d):
