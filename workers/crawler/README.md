@@ -26,11 +26,13 @@ finished returns to the queue by itself when its 20-minute lease runs out.
 
 1. **New Project → Deploy from GitHub repo → `degraffics/traversence`.**
 2. In the service's **Settings**:
-   - **Root Directory:** `workers/crawler` (Railway then finds the `Dockerfile` and `railway.json`
-     here, which set the 5-minute cron schedule and "never restart").
+   - **Root Directory:** `workers/crawler` (Railway then finds the `Dockerfile` here).
    - **Branch:** the branch this folder is on (`claude/magical-clarke-cn5pqi` until it is merged to
      `main`).
-3. In **Variables**, add:
+   - **Deploy → Cron Schedule:** `*/5 * * * *`, and **Restart Policy:** Never. Set these in the page:
+     Railway is retiring config files (`railway.json` is kept only as a record of these settings) and
+     new services can't opt in to them.
+3. In **Variables**, add (check each shows its value, not `<empty string>`):
    - `TRAVERSENCE_URL` = `https://traversence.com`
    - `CRAWLER_API_TOKEN` = the same value as `CRAWLER_API_TOKEN` in the site's `.env`
 4. Deploy. Each run's log lines look like
