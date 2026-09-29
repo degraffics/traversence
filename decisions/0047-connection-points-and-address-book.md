@@ -56,30 +56,36 @@ The Notification Center gathers every section's counts (messages, dispute clocks
 - **Recommendations:** using links to shape Chameleon suggestions respects the AI-consent setting
   (`decisions/0010`); feeds show what someone linked either way.
 - **Businesses see counts, not names:** "142 people linked" in Business Insights; who linked stays
-  private unless a person chooses to share. Businesses can also ask a person to link (§3).
+  private unless a person chooses to share. Businesses can also ask a person to link (§3), under the same rules as a person linking to them.
 
-### 3. Businesses asking to link: the marketing and sales funnel
+### 3. Businesses and people linking: the marketing and sales funnel
 
-A listing can **ask** a person to link to it; a person who says yes becomes that business's audience. This
-is where marketing preferences live. There are two levels, so no one is surprised:
+A listing can **ask** a person to link to it, and a person can **link to a business** on their own. Both
+directions follow the same rules; either way the person becomes that business's audience, and this is
+where marketing preferences live. There are two levels, so no one is surprised:
 
 | Level | The person agreed to | The business can |
 |---|---|---|
 | **Linked** (tapped Link, or accepted a business's request) | see this business in my feeds | have its posts, events and offers appear in the person's Listings and Discovery feeds |
-| **Linked + marketing** (a separate, explicit yes) | contact me directly | send offers and news to the inbox, and by email or text if the person allows those channels |
+| **Linked + marketing** (a separate, explicit yes) | contact me directly | send offers and news as **direct messages in the Traversence inbox** |
 
+- **DM only is the policy.** A business reaches people through the in-app inbox and nothing else. Email or
+  text is possible **only when the person has shared that contact detail with that business** (their
+  contact card, §4), and it stops the moment they revoke it.
+- **Text and email compliance, always.** Whenever a business's message goes out by email or text: explicit
+  opt-in for that channel (US telemarketing rules for texts), the sender identified, and a working
+  unsubscribe in every email (US commercial email rules). No exceptions by plan or by business.
+- **The person decides when a business may ask again.** Declining a link or marketing request offers:
+  **Ask again in 1 month · 3 months · 6 months · Never.** "Never" is permanent unless the person reaches
+  out first. The same choice appears when someone turns marketing off for a business.
 - **Marketing preferences** (App Settings → Marketing, and on each business in Linked Connections): per
-  business on/off, channels (in-app only, email, text), frequency (as it happens, weekly digest, big offers
-  only) and topics (offers, events, news); one master switch, "No marketing from anyone"; a one-tap
-  unsubscribe in every message and a one-tap unlink.
-- **Nothing pre-ticked, nothing implied.** Visiting a listing, messaging a business or buying from it never
-  opts anyone in; only an explicit yes does.
-- **A business may ask once.** After a decline it can't ask again for a set period (start: 6 months).
+  business on/off, frequency (as it happens, weekly digest, big offers only) and topics (offers, events,
+  news); one master switch, "No marketing from anyone"; a one-tap unsubscribe in every message and a
+  one-tap unlink.
+- **Nothing pre-ticked, nothing implied.** Visiting a listing, messaging a business, buying from it or
+  linking to it never opts anyone into marketing; only an explicit yes does.
 - **Messages go through Traversence.** A business never receives a person's email or phone unless that
-  person shares their contact card (§4); the business sends, Traversence delivers and enforces the
-  preferences.
-- **Compliance built in:** texts need explicit written opt-in (US telemarketing rules); emails carry an
-  unsubscribe link and identify the sender (US commercial email rules).
+  person shares their contact card; the business sends, Traversence delivers and enforces the preferences.
 - **Business Insights** shows how many people are linked and how many opted into marketing; names only for
   people who chose to share them.
 - Open: how marketing reach maps to the plan tiers in `commercial.md` (e.g. Core: in-feed posts; higher
