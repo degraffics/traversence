@@ -87,3 +87,21 @@ First reading for the pilot: the Show Low cluster is 29% seasonal homes against 
 Pinetop (85935) alone is 54% with a median age near 60, while Snowflake (85937) is 5% seasonal with a
 median age of 32. That split, resort and second-home versus year-round family, is the kind of signal
 the guides and the Chameleon Filter can use.
+
+## Guardrails for tribal lands and heritage (2026-09-29)
+
+Heritage and pre-colonial context are the organising principle for Ancient America's geo-hubs (they are
+what sets the hub apart from state lines). Two rules are settled:
+
+- **Tribal lands are presented as the sovereign nations they are:** named as nations with their own
+  governments, laws and permits, never as scenery. Official boundaries (Census tribal-land geographies)
+  may be used as data.
+- **Sacred or restricted sites are never pinpointed:** no locations, maps or directions for them in
+  guides, profiles or listings.
+
+**Still open, pending an example review:** how much weight guides give to living nations' heritage. The
+working direction is present tense, the nation's own institutions leading ("in their own words"),
+sovereignty shown through practical detail such as permits, and the long human-journey narrative carried
+at the corridor level rather than by speaking for any one nation. Romanticised, past-tense or
+spiritual-cliché framing is out. The hope is that tribal tourism offices will want to work with the
+platform once they see it done right.
