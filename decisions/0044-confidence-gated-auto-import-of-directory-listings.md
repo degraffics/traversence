@@ -100,3 +100,25 @@ Two refinements found in testing:
 Settings: `AUTO_IMPORT=off` in `.env` disables auto-publishing; `AUTO_IMPORT_MIN_CONFIDENCE` sets the
 threshold (default 85). No official registries are wired as trusted sources yet
 (`AutoImport::TRUSTED_REGISTRIES`), so today a listing needs two independent websites.
+
+## Running it in increments, off Bluehost (2026-09-29)
+
+To keep the shared host light, the guide-driven crawl is split:
+
+- **Bluehost** keeps the database, the guardrails and staging, and two small token-protected endpoints:
+  `api/crawl/jobs.php` hands out the next jobs, and `api/crawl/results.php` stages what comes back.
+  Jobs come from a queue (`crawl_jobs`) seeded from the coverage report: one job per gap, ordered by the
+  residents living with it, each with a 20-minute lease and up to 3 attempts. `CRAWL_QUEUE=off` pauses
+  it. The token is the existing `CRAWLER_API_TOKEN`, also accepted as an `X-Crawler-Token` header because
+  shared hosting can strip `Authorization`.
+- **Railway** runs the worker (`workers/crawler/` in this repo) every 15 minutes. Each run takes 2 jobs,
+  makes one OpenStreetMap query per job, fetches at most 20 homepages (robots.txt respected, 1.5 s apart),
+  and stops within 4 minutes. A place counts as corroborated when OpenStreetMap lists it **and** its own
+  website names it.
+- **Supabase** is not used: one database of record.
+- The public place pages cache their profile and support sections for 24 hours (`page_cache`); a
+  profile reload or new auto-imported listings clear the relevant entries.
+
+Note: the older `api/ingest.php` endpoint writes crawled records straight to `entities` without staging
+or these guardrails. The worker does not use it, and it should be retired or routed through staging
+before anything else is pointed at it.
