@@ -317,6 +317,9 @@ def page_text(page):
     return html.unescape(re.sub(r"<[^>]+>", " ", re.sub(r"(?is)<(script|style)[^>]*>.*?</\1>", " ", page)))
 
 
+npi_note = [""]      # what the last NPI lookup found, for the log
+
+
 def npi_lookup(lst):
     """Organisations in the NPI Registry matching the listing's name and its street address or phone."""
     if os.environ.get("NPI_FIXTURE"):
@@ -337,20 +340,27 @@ def npi_lookup(lst):
                 with urllib.request.urlopen(req, timeout=30) as r:
                     reply = json.loads(r.read().decode("utf-8"))
             except Exception as e:
-                log(f"  NPI lookup failed: {e!r}"[:200])
+                npi_note[0] = f"NPI failed: {e!r}"[:120]
                 return []
             replies.append(reply)
             if reply.get("result_count"):
                 break
     want = words(lst["name"])
     found = []
+    total = sum(len(r.get("results", [])) for r in replies)
+    named = 0
+    errors = [str(e.get("description", e))[:80] for r in replies for e in (r.get("Errors") or [])]
+    npi_note[0] = f"NPI error: {errors[0]}" if errors else f"NPI {total} result(s), none matching name" if total else "NPI no results"
     for reply in replies:
         for rec in reply.get("results", []):
             names = [(rec.get("basic") or {}).get("organization_name", "")] + [o.get("organization_name", "") for o in rec.get("other_names", [])]
             if not want or not any(len(want & words(n)) / len(want) >= 0.6 for n in names if n):
                 continue
-            for a in rec.get("addresses", []):
-                if a.get("address_purpose") != "LOCATION":
+            named += 1
+            npi_note[0] = f"NPI {named} name match(es), address/phone differ"
+            # The main practice address, then any other practice locations the provider registered.
+            for a in rec.get("addresses", []) + rec.get("practiceLocations", []):
+                if a.get("address_purpose", "LOCATION") != "LOCATION":
                     continue
                 text = f"{a.get('address_1', '')} {a.get('address_2', '')} {a.get('telephone_number', '')}"
                 ev = evidence(text, lst)
@@ -478,12 +488,15 @@ def second_look(deadline):
         have = set(lst.get("known_hosts") or [])
         found, checked = [], ["npi"]
         try:
+            npi_note[0] = ""
             found += npi_lookup(lst)
             if SEARCH_ON and not found:                  # a registry match is enough on its own
                 checked.append("search")
                 found += web_references(lst, have | {h for f in found for h in [host_of(f["url"])]})
             res = site_call("/api/crawl/verify.php", {"row_id": lst["row_id"], "found": found, "checked": checked})
             kinds = ", ".join(f"{f['kind']} {host_of(f['url'])}" for f in found) or "nothing more"
+            if not any(f["kind"] == "registry" for f in found) and npi_note[0]:
+                kinds += f" [{npi_note[0]}]"
             log(f"second look {lst['name']} ({lst['city']}): {kinds} -> score {res.get('score')}"
                 + (", published" if res.get("auto_imported") else ""))
         except Exception as e:
