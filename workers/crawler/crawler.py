@@ -68,6 +68,8 @@ TAVILY_API_KEY = os.environ.get("TAVILY_API_KEY", "")
 BRAVE_API_KEY = os.environ.get("BRAVE_API_KEY", "")
 SEARCH_ON = bool(TAVILY_API_KEY or BRAVE_API_KEY or os.environ.get("SEARCH_FIXTURE"))
 MAX_SEARCHES = int(os.environ.get("MAX_SEARCHES", "10"))
+SOURCE_TIME = int(os.environ.get("SOURCE_TIME", "60"))            # seconds per run for reading one of our sources
+SOURCE_PAGES = int(os.environ.get("SOURCE_PAGES", "25"))          # pages read per source
 NPI_API = "https://npiregistry.cms.hhs.gov/api/"
 UA = "TraversenceCrawler/1.0 (+https://traversence.com; local directory of community resources)"
 ZIP_RADIUS_M = 19000          # ~12 miles around each ZIP centre of the cluster
@@ -474,6 +476,108 @@ def web_references(lst, have_hosts):
     return found
 
 
+# ---------------------------------------------------------------------------------------------------
+# Reading our own sources (decisions/0045): one "Read regularly" website per run, facts only
+# ---------------------------------------------------------------------------------------------------
+
+PHONE_RE = re.compile(r"\(?\b\d{3}\)?[\s.\-]?\d{3}[\s.\-]?\d{4}\b")
+ADDR_RE = re.compile(r"^\s*\d{1,6}[a-z]?\s+[A-Za-z0-9 .'#-]{3,60}$", re.I)
+CITY_ZIP_RE = re.compile(r"[A-Za-z .'-]+,\s*[A-Z]{2}\s+\d{5}")
+LINK_HINTS = ("list", "member", "director", "clinic", "location", "service", "resource", "business", "provider", "partner", "program")
+
+
+def page_lines(page):
+    """The page's text, one block per line (headings, list items, paragraphs, cells)."""
+    t = re.sub(r"(?is)<(script|style|noscript)[^>]*>.*?</\1>", " ", page)
+    t = re.sub(r"(?i)<br\s*/?>|</(p|div|li|h[1-6]|tr|td|th|address|section|article|dt|dd)>", "\n", t)
+    t = html.unescape(re.sub(r"<[^>]+>", " ", t))
+    return [re.sub(r"\s+", " ", l).strip() for l in t.split("\n") if l.strip()]
+
+
+def jsonld_facts(page, url):
+    out = []
+    for block in re.findall(r'(?is)<script[^>]+application/ld\+json[^>]*>(.*?)</script>', page):
+        try:
+            data = json.loads(block.strip())
+        except Exception:
+            continue
+        stack = data if isinstance(data, list) else [data]
+        while stack:
+            d = stack.pop()
+            if isinstance(d, list):
+                stack.extend(d); continue
+            if not isinstance(d, dict):
+                continue
+            stack.extend(v for v in d.values() if isinstance(v, (dict, list)))
+            name, addr, phone = d.get("name"), d.get("address"), d.get("telephone")
+            if not isinstance(name, str) or not (addr or phone):
+                continue
+            street, zp = "", ""
+            if isinstance(addr, dict):
+                street = " ".join(str(addr.get(k, "")) for k in ("streetAddress", "addressLocality", "addressRegion", "postalCode")).strip()
+                zp = str(addr.get("postalCode", ""))[:5]
+            elif isinstance(addr, str):
+                street = addr
+            out.append({"url": url, "name": name[:255], "address": street[:255], "phone": str(phone or ""), "zip": zp})
+    return out
+
+
+def text_facts(page, url):
+    """A name line followed closely by a street address and/or phone number."""
+    lines, out = page_lines(page), []
+    for i, line in enumerate(lines):
+        phone = PHONE_RE.search(line)
+        is_addr = bool(ADDR_RE.match(line))
+        if not phone and not is_addr:
+            continue
+        name, jname = "", i
+        for j in range(i - 1, max(-1, i - 4), -1):              # the nearest short, word-like line above
+            cand = lines[j]
+            if 3 <= len(cand) <= 80 and re.search(r"[A-Za-z]{3}", cand) and not PHONE_RE.search(cand) and not ADDR_RE.match(cand) \
+                    and not CITY_ZIP_RE.search(cand):
+                name, jname = cand, j; break
+        if not name:
+            continue
+        near = lines[jname + 1:i + 3]                           # this entry only: from its name down
+        addr = next((l for l in near if ADDR_RE.match(l)), "")
+        cz = next((CITY_ZIP_RE.search(l).group(0) for l in near if CITY_ZIP_RE.search(l)), "")
+        ph = phone.group(0) if phone else next((PHONE_RE.search(l).group(0) for l in near if PHONE_RE.search(l)), "")
+        out.append({"url": url, "name": name, "address": (addr + (", " + cz if cz else "")).strip(", "), "phone": ph,
+                    "zip": (re.search(r"\d{5}", cz) or [""])[0] if cz else ""})
+    return out
+
+
+def read_source(deadline):
+    d = site_call("/api/crawl/sources.php")
+    src = d.get("source")
+    if not src:
+        return
+    start, host = src["home_url"], host_of(src["home_url"])
+    queue, seen, facts, pages = [start], set(), [], 0
+    while queue and pages < SOURCE_PAGES and time.monotonic() < deadline and not out_of_time():
+        url = queue.pop(0)
+        if url in seen:
+            continue
+        seen.add(url)
+        page = fetch_page(url)
+        if not page:
+            continue
+        pages += 1
+        facts += jsonld_facts(page, url) + text_facts(page, url)
+        links = []
+        for href in re.findall(r'(?i)href=["\']([^"\'#]+)', page):
+            full = urllib.parse.urljoin(url, href)
+            if host_of(full) == host and full.startswith("http") and not re.search(r"\.(pdf|jpe?g|png|gif|zip|docx?)$", full, re.I):
+                links.append(full)
+        links.sort(key=lambda u: 0 if any(h in u.lower() for h in LINK_HINTS) else 1)   # directory-like pages first
+        queue += [l for l in links if l not in seen][:60]
+    uniq = {}
+    for f in facts:
+        uniq.setdefault((f["name"].lower(), re.sub(r"\D", "", f["phone"])[-10:], f["address"][:20].lower()), f)
+    res = site_call("/api/crawl/sources.php", {"host": host, "pages": pages, "facts": list(uniq.values())})
+    log(f"read source {host}: {pages} page(s), {len(uniq)} place(s) found, {res.get('kept', 0)} kept")
+
+
 def second_look(deadline):
     d = site_call(f"/api/crawl/verify.php?limit={VERIFY_PER_RUN}")
     if d.get("paused"):
@@ -512,6 +616,11 @@ def run():
             second_look(started + min(VERIFY_TIME, TIME_BUDGET))
         except Exception as e:                     # the second look never stops the crawl jobs
             log(f"second look stopped: {e!r}"[:300])
+    if SOURCE_TIME > 0:
+        try:
+            read_source(time.monotonic() + SOURCE_TIME)
+        except Exception as e:                     # reading a source never stops the crawl jobs
+            log(f"reading a source stopped: {e!r}"[:300])
     d = site_call(f"/api/crawl/jobs.php?limit={JOBS_PER_RUN}")
     if d.get("paused"):
         log("Queue paused on the site (CRAWL_QUEUE=off).")

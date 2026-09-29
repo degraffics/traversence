@@ -70,3 +70,13 @@ Step 1 built: `api/migrations/2026-09-29_reference_sources.sql`, `api/lib/crawle
 `admin/sources.php` (Admin → Sources: filters, kind, Read regularly / Cite only / Ignore, add by hand, and
 "Recount from listings" to collect the websites found before the list existed). The second look
 (`api/lib/crawler/Verify.php`) records each accepted reference and skips websites marked Ignore.
+
+- **2026-09-30, steps 2 and 4 (first version):** the worker reads one "Read regularly" source per run
+  (up to 25 pages on that website, directory-like links first; re-read every 30 days) and keeps each place's
+  name, street address and phone (`source_facts`; from schema.org data where a site publishes it, otherwise
+  a name line followed by an address or phone). Before a listing goes to the worker for its second look,
+  the site checks it against these facts (`SourceIndex::matches`: name, plus house number or phone). A match
+  is a free reference; if that confirms the listing, it publishes with no NPI call or paid search. Otherwise
+  the NPI Registry and then web search run as before. Migration `2026-09-30_source_facts.sql`;
+  `api/crawl/sources.php`; worker `SOURCE_TIME` (60 s) and `SOURCE_PAGES` (25).
+
