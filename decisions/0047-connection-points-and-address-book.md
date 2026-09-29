@@ -145,6 +145,3 @@ where marketing preferences live. There are two levels, so no one is surprised:
   disappears for the blocked person). The Community feed shows new connections and shared cards. Groups
   (circles) are not built yet.
 - **Next:** phase 3, businesses asking to link, marketing preferences and the ask-again choices.
-- *(Superseded plan line:)* phase 2, the Address Book (people connections and follows, contact cards shared and revoked,
-  the inbox and message controls; the Community feed); phase 3, businesses asking to link, marketing
-  preferences and the ask-again choices.
