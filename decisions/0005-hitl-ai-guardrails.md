@@ -1,6 +1,6 @@
 # ADR 0005: Human-in-the-Loop Guardrails on All AI/Autonomous Ingestion
 
-**Status:** Accepted. **Amended 2026-09-24** — see the System-Created vs. Self-Generated Partner Content amendment below; the original Decision and Consequences sections are left as written, since the amendment narrows what this ADR's staging-and-sign-off rule was ever meant to cover rather than loosening it.
+**Status:** Accepted. **Amended 2026-09-29 by `decisions/0044`** (crawled directory listings may auto-publish at high confidence, under guardrails; narrative content is unaffected). **Amended 2026-09-24** — see the System-Created vs. Self-Generated Partner Content amendment below; the original Decision and Consequences sections are left as written, since the amendment narrows what this ADR's staging-and-sign-off rule was ever meant to cover rather than loosening it.
 
 ## Context
 
