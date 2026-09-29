@@ -251,5 +251,10 @@ if __name__ == "__main__":
     try:
         sys.exit(run())
     except urllib.error.HTTPError as e:
+        # Exit cleanly: the next scheduled run tries again. A failing exit makes Railway restart the
+        # container at once, which would hammer the site every second.
         log(f"site said {e.code}: {e.read()[:300]!r}")
-        sys.exit(1)
+        sys.exit(0)
+    except Exception as e:                         # site unreachable etc.: same, wait for the next run
+        log(f"run stopped: {e!r}")
+        sys.exit(0)
