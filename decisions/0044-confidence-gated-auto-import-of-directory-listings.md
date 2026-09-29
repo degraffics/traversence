@@ -145,3 +145,6 @@ look by name, address and city (`api/crawl/verify.php`, `api/lib/crawler/Verify.
   stays in Quick approve with its references listed, so a person decides faster.
 - Listings with no street address and no phone are not looked up: nothing could confirm them.
 - Each listing gets one second look (a 20-minute lease, at most 3 attempts).
+
+Next (`decisions/0045`): the websites these second looks find are collected in a source list (Admin →
+Sources), so the crawler can read the good ones directly and needs fewer searches.
