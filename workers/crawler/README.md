@@ -25,8 +25,9 @@ source and looks each up by name, address and city (up to 100 seconds of the run
 - **NPI Registry** (the federal list of health-care providers; free, no key). A record whose name matches and
   whose location shows the same street address or phone counts as a trusted registry, which the guardrails
   accept on its own.
-- **Web search** (only with `BRAVE_API_KEY`): one search for the place and one aimed at **chamber of commerce**
-  listings. A result counts only if it names the place **and** shows its street address or phone (in the
+- **Web search** (only with a search key, `TAVILY_API_KEY` or `BRAVE_API_KEY`, and only when the NPI Registry
+  didn't already confirm it): one search for the place and, if that found no chamber listing, one aimed at
+  **chamber of commerce** listings. A result counts only if it names the place **and** shows its street address or phone (in the
   search snippet, or on the page itself). Each is labelled: chamber of commerce, well-known directory (BBB,
   Yelp, Yellow Pages, Healthgrades, findhelp...), government, the place's own website, or another website.
   Each website counts once; NPI copy sites are ignored.
@@ -55,9 +56,10 @@ finished returns to the queue by itself when its 20-minute lease runs out.
 4. Deploy. Each run's log lines look like
    `job 12 Health care in Gallup: 9 OSM, 6 sent -> 2 published, 4 to review`.
 
-Optional variables: `BRAVE_API_KEY` (turns on the web search part of the second look; get one at
-brave.com/search/api), `VERIFY_PER_RUN` (10; 0 turns the second look off), `VERIFY_TIME` (100),
-`MAX_SEARCHES` (20 per run), `JOBS_PER_RUN` (5, at most 10), `MAX_FETCHES` (60), `TIME_BUDGET` (240),
+Optional variables: `TAVILY_API_KEY` (turns on the web search part of the second look; tavily.com has a free
+plan of 1,000 searches a month, about 500 listings at two searches each), `BRAVE_API_KEY` (paid alternative,
+used only when there is no Tavily key), `VERIFY_PER_RUN` (10; 0 turns the second look off), `VERIFY_TIME` (100),
+`MAX_SEARCHES` (10 per run), `JOBS_PER_RUN` (5, at most 10), `MAX_FETCHES` (60), `TIME_BUDGET` (240),
 `OVERPASS_URL` (an Overpass server to try first; the public one and two mirrors are always tried after it).
 
 ## Pausing

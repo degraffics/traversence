@@ -134,8 +134,9 @@ look by name, address and city (`api/crawl/verify.php`, `api/lib/crawler/Verify.
 
 - **NPI Registry** (federal list of health-care providers, free, no key). A record whose name matches and
   whose location shows the same street address or phone is a **trusted registry** match (+20 confidence).
-- **Web search** (Brave Search API, only when `BRAVE_API_KEY` is set on Railway): one search for the place
-  and one aimed at **chamber of commerce** listings. A result counts only if it names the place and shows its
+- **Web search** (only with a search key on Railway: `TAVILY_API_KEY`, free plan 1,000 searches a month, or
+  the paid `BRAVE_API_KEY`; skipped when the NPI Registry already confirmed the listing): one search for the
+  place and, if it found no chamber listing, one aimed at **chamber of commerce** listings. A result counts only if it names the place and shows its
   street address or phone. Each is labelled: chamber of commerce, well-known directory (BBB, Yelp, Yellow
   Pages, Healthgrades, findhelp…), government, the place's own website, or another website. Each website
   counts once (+10 each); NPI copy sites are ignored as not independent.

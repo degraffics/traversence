@@ -14,7 +14,8 @@ Before the jobs, a "second look" (GET/POST /api/crawl/verify.php) takes a few li
 that have only one source and looks each up by name, address and city:
   - NPI Registry (federal list of health-care providers; free, no key). A match on name AND street
     address or phone counts as a trusted registry.
-  - With BRAVE_API_KEY: a web search for the place and one aimed at chamber of commerce listings. A
+  - With TAVILY_API_KEY (or BRAVE_API_KEY): a web search for the place and, if that found no chamber
+    listing, one aimed at chamber of commerce listings. Skipped when the NPI Registry already confirmed it. A
     result counts only if it names the place AND shows its street address or phone. Each is labelled:
     chamber of commerce, well-known directory (BBB, Yelp, Yellow Pages, Healthgrades...), government,
     the place's own website, or another website. Each website counts once.
@@ -31,10 +32,12 @@ Settings (environment variables):
   OVERPASS_URL         optional first Overpass server; the public server and two mirrors follow
   VERIFY_PER_RUN       listings given a second look per run, default 10 (0 turns it off)
   VERIFY_TIME          seconds of each run for the second look, default 100
-  BRAVE_API_KEY        Brave Search API key; without it the second look uses the NPI Registry only
-  MAX_SEARCHES         web searches per run, default 20
+  TAVILY_API_KEY       Tavily search key (free plan: 1,000 searches a month); without a search key the
+                       second look uses the NPI Registry only
+  BRAVE_API_KEY        Brave Search API key, used instead when there is no Tavily key (paid)
+  MAX_SEARCHES         web searches per run, default 10
 Test hooks (not for production): OVERPASS_FIXTURE=file.json, WEB_FIXTURE=file.json ({url: html}),
-NPI_FIXTURE=file.json (an NPI API reply), SEARCH_FIXTURE=file.json ({query: Brave reply}).
+NPI_FIXTURE=file.json (an NPI API reply), SEARCH_FIXTURE=file.json ({query: {"results": [...]}}).
 Standard library only.
 """
 import html
@@ -61,8 +64,10 @@ OVERPASS_URLS = [u for u in [os.environ.get("OVERPASS_URL"),
                              "https://overpass.kumi.systems/api/interpreter"] if u]
 VERIFY_PER_RUN = int(os.environ.get("VERIFY_PER_RUN", "10"))
 VERIFY_TIME = int(os.environ.get("VERIFY_TIME", "100"))
+TAVILY_API_KEY = os.environ.get("TAVILY_API_KEY", "")
 BRAVE_API_KEY = os.environ.get("BRAVE_API_KEY", "")
-MAX_SEARCHES = int(os.environ.get("MAX_SEARCHES", "20"))
+SEARCH_ON = bool(TAVILY_API_KEY or BRAVE_API_KEY or os.environ.get("SEARCH_FIXTURE"))
+MAX_SEARCHES = int(os.environ.get("MAX_SEARCHES", "10"))
 NPI_API = "https://npiregistry.cms.hhs.gov/api/"
 UA = "TraversenceCrawler/1.0 (+https://traversence.com; local directory of community resources)"
 ZIP_RADIUS_M = 19000          # ~12 miles around each ZIP centre of the cluster
@@ -360,31 +365,40 @@ def npi_lookup(lst):
 
 
 def search(query):
-    """One Brave Search API query; a list of {url, title, description}."""
+    """One web search (Tavily, else Brave); a list of {url, title, snippet}."""
     global searches, last_search
     if os.environ.get("SEARCH_FIXTURE"):
         with open(os.environ["SEARCH_FIXTURE"]) as f:
             data = json.load(f)
-            reply = data.get(query) or data.get("*", {})
+        items = (data.get(query) or data.get("*", {})).get("results", [])
     else:
-        if not BRAVE_API_KEY or searches >= MAX_SEARCHES:
+        if not (TAVILY_API_KEY or BRAVE_API_KEY) or searches >= MAX_SEARCHES:
             return []
         wait = 1.1 - (time.monotonic() - last_search)        # free plans allow about one query a second
         if wait > 0:
             time.sleep(wait)
         searches += 1
         last_search = time.monotonic()
-        q = urllib.parse.urlencode({"q": query, "count": 20, "country": "us"})
-        req = urllib.request.Request("https://api.search.brave.com/res/v1/web/search?" + q, headers={
-            "Accept": "application/json", "X-Subscription-Token": BRAVE_API_KEY, "User-Agent": UA})
         try:
-            with urllib.request.urlopen(req, timeout=20) as r:
-                reply = json.loads(r.read().decode("utf-8"))
+            if TAVILY_API_KEY:
+                req = urllib.request.Request("https://api.tavily.com/search", method="POST",
+                                             data=json.dumps({"query": query, "max_results": 10, "search_depth": "basic"}).encode(),
+                                             headers={"Authorization": "Bearer " + TAVILY_API_KEY, "Content-Type": "application/json",
+                                                      "Accept": "application/json", "User-Agent": UA})
+                with urllib.request.urlopen(req, timeout=30) as r:
+                    items = [{"url": x.get("url", ""), "title": x.get("title", ""), "description": x.get("content", "")}
+                             for x in json.loads(r.read().decode("utf-8")).get("results", [])]
+            else:
+                q = urllib.parse.urlencode({"q": query, "count": 20, "country": "us"})
+                req = urllib.request.Request("https://api.search.brave.com/res/v1/web/search?" + q, headers={
+                    "Accept": "application/json", "X-Subscription-Token": BRAVE_API_KEY, "User-Agent": UA})
+                with urllib.request.urlopen(req, timeout=20) as r:
+                    items = (json.loads(r.read().decode("utf-8")).get("web") or {}).get("results", [])
         except Exception as e:
             log(f"  search failed: {e!r}"[:200])
             return []
     out = []
-    for r in (reply.get("web") or {}).get("results", []):
+    for r in items:
         snippet = " ".join([r.get("title", ""), r.get("description", "")] + list(r.get("extra_snippets") or []))
         out.append({"url": r.get("url", ""), "title": r.get("title", ""), "snippet": html.unescape(re.sub(r"<[^>]+>", " ", snippet))})
     return out
@@ -424,7 +438,9 @@ def web_references(lst, have_hosts):
     city = f"{lst['city']} {lst['state']}".strip()
     queries = [f'"{lst["name"]}" {city}', f'"{lst["name"]}" {city} chamber of commerce']
     looked = 0
-    for q in queries:
+    for n, q in enumerate(queries):
+        if n == 1 and (len(found) >= 3 or any(f["kind"] == "chamber" for f in found)):
+            break                                        # enough already; save the monthly search allowance
         for r in search(q):
             if len(found) >= 4 or out_of_time():
                 return found
@@ -454,7 +470,7 @@ def second_look(deadline):
         return
     listings = d.get("listings", [])
     if listings:
-        log(f"second look: {len(listings)} listing(s)" + ("" if BRAVE_API_KEY else " (NPI Registry only; no BRAVE_API_KEY)"))
+        log(f"second look: {len(listings)} listing(s)" + ("" if SEARCH_ON else " (NPI Registry only; no search key)"))
     for lst in listings:
         if time.monotonic() > deadline or out_of_time():
             log("second look: out of time, the rest go back when their lease ends")
@@ -463,7 +479,7 @@ def second_look(deadline):
         found, checked = [], ["npi"]
         try:
             found += npi_lookup(lst)
-            if BRAVE_API_KEY or os.environ.get("SEARCH_FIXTURE"):
+            if SEARCH_ON and not found:                  # a registry match is enough on its own
                 checked.append("search")
                 found += web_references(lst, have | {h for f in found for h in [host_of(f["url"])]})
             res = site_call("/api/crawl/verify.php", {"row_id": lst["row_id"], "found": found, "checked": checked})
