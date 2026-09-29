@@ -16,8 +16,8 @@ TIME_BUDGET seconds. Unfinished jobs simply go back to the queue when their leas
 Settings (environment variables):
   TRAVERSENCE_URL      e.g. https://traversence.com                        (required)
   CRAWLER_API_TOKEN    same value as CRAWLER_API_TOKEN in the site's .env    (required)
-  JOBS_PER_RUN         default 2
-  MAX_FETCHES          website fetches per run, default 20
+  JOBS_PER_RUN         default 5 (the site hands out at most 10)
+  MAX_FETCHES          website fetches per run, default 60
   TIME_BUDGET          seconds per run, default 240
   OVERPASS_URL         default https://overpass-api.de/api/interpreter
 Test hooks (not for production): OVERPASS_FIXTURE=file.json, WEB_FIXTURE=file.json ({url: html}).
@@ -37,8 +37,8 @@ import urllib.robotparser
 
 SITE = os.environ.get("TRAVERSENCE_URL", "").rstrip("/")
 TOKEN = os.environ.get("CRAWLER_API_TOKEN", "")
-JOBS_PER_RUN = int(os.environ.get("JOBS_PER_RUN", "2"))
-MAX_FETCHES = int(os.environ.get("MAX_FETCHES", "20"))
+JOBS_PER_RUN = int(os.environ.get("JOBS_PER_RUN", "5"))
+MAX_FETCHES = int(os.environ.get("MAX_FETCHES", "60"))
 TIME_BUDGET = int(os.environ.get("TIME_BUDGET", "240"))
 OVERPASS_URL = os.environ.get("OVERPASS_URL", "https://overpass-api.de/api/interpreter")
 UA = "TraversenceCrawler/1.0 (+https://traversence.com; local directory of community resources)"

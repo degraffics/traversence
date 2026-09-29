@@ -111,8 +111,8 @@ To keep the shared host light, the guide-driven crawl is split:
   residents living with it, each with a 20-minute lease and up to 3 attempts. `CRAWL_QUEUE=off` pauses
   it. The token is the existing `CRAWLER_API_TOKEN`, also accepted as an `X-Crawler-Token` header because
   shared hosting can strip `Authorization`.
-- **Railway** runs the worker (`workers/crawler/` in this repo) every 15 minutes. Each run takes 2 jobs,
-  makes one OpenStreetMap query per job, fetches at most 20 homepages (robots.txt respected, 1.5 s apart),
+- **Railway** runs the worker (`workers/crawler/` in this repo) every 5 minutes (raised from 15 the same day). Each run takes 5 jobs,
+  makes one OpenStreetMap query per job, fetches at most 60 homepages (robots.txt respected, 1.5 s apart),
   and stops within 4 minutes. A place counts as corroborated when OpenStreetMap lists it **and** its own
   website names it.
 - **Supabase** is not used: one database of record.
