@@ -56,9 +56,36 @@ The Notification Center gathers every section's counts (messages, dispute clocks
 - **Recommendations:** using links to shape Chameleon suggestions respects the AI-consent setting
   (`decisions/0010`); feeds show what someone linked either way.
 - **Businesses see counts, not names:** "142 people linked" in Business Insights; who linked stays
-  private unless a person chooses to share.
+  private unless a person chooses to share. Businesses can also ask a person to link (§3).
 
-### 3. The Address Book (people and messages)
+### 3. Businesses asking to link: the marketing and sales funnel
+
+A listing can **ask** a person to link to it; a person who says yes becomes that business's audience. This
+is where marketing preferences live. There are two levels, so no one is surprised:
+
+| Level | The person agreed to | The business can |
+|---|---|---|
+| **Linked** (tapped Link, or accepted a business's request) | see this business in my feeds | have its posts, events and offers appear in the person's Listings and Discovery feeds |
+| **Linked + marketing** (a separate, explicit yes) | contact me directly | send offers and news to the inbox, and by email or text if the person allows those channels |
+
+- **Marketing preferences** (App Settings → Marketing, and on each business in Linked Connections): per
+  business on/off, channels (in-app only, email, text), frequency (as it happens, weekly digest, big offers
+  only) and topics (offers, events, news); one master switch, "No marketing from anyone"; a one-tap
+  unsubscribe in every message and a one-tap unlink.
+- **Nothing pre-ticked, nothing implied.** Visiting a listing, messaging a business or buying from it never
+  opts anyone in; only an explicit yes does.
+- **A business may ask once.** After a decline it can't ask again for a set period (start: 6 months).
+- **Messages go through Traversence.** A business never receives a person's email or phone unless that
+  person shares their contact card (§4); the business sends, Traversence delivers and enforces the
+  preferences.
+- **Compliance built in:** texts need explicit written opt-in (US telemarketing rules); emails carry an
+  unsubscribe link and identify the sender (US commercial email rules).
+- **Business Insights** shows how many people are linked and how many opted into marketing; names only for
+  people who chose to share them.
+- Open: how marketing reach maps to the plan tiers in `commercial.md` (e.g. Core: in-feed posts; higher
+  tiers: direct offers and larger monthly send allowances).
+
+### 4. The Address Book (people and messages)
 
 | Section | Holds |
 |---|---|
@@ -85,8 +112,8 @@ The Notification Center gathers every section's counts (messages, dispute clocks
 
 ## Consequences
 
-- The feeds, the Chameleon engine, Business Insights and the Notification Center all read from the same
-  links, so the Link button is built first and everything else builds on it.
+- The feeds, the Chameleon engine, Business Insights, the Notification Center and each business's marketing
+  audience all read from the same links, so the Link button is built first and everything else builds on it.
 - Three new data areas: links (one table for every kind of target), connections and contact-card shares
   (with revocation), and the message store (the Communications Center already named in `architecture.md`).
 - The current `admin/adminportal.php` becomes the Admin Dashboard section of the hub; its routes keep
