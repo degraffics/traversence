@@ -105,3 +105,21 @@ sovereignty shown through practical detail such as permits, and the long human-j
 at the corridor level rather than by speaking for any one nation. Romanticised, past-tense or
 spiritual-cliché framing is out. The hope is that tribal tourism offices will want to work with the
 platform once they see it done right.
+
+## Direction settled from the Whiteriver example (2026-09-29)
+
+- **Lived experience over institutions.** Guides lead with what a visitor actually does (a lake, a canyon
+  drive, a community event), with museums and centres as one stop among several.
+- **Public places and public events only.** A guide may include lakes, recreation areas and events a
+  nation or community openly invites visitors to (often with a permit, which the guide explains).
+  Anything not clearly public stays out. This is the positive test alongside "never pinpoint sacred or
+  restricted sites".
+- **"Living here" is generalised by default.** Plain-words comparisons (younger/older, lower/higher-cost
+  housing, year-round vs seasonal, commute) against the county or state, plus short tags; exact figures
+  sit behind a "See the numbers" toggle, compared with the nearest clusters, county and state, and always
+  cited.
+- **Support & wellness resources are highlighted** on each place page: health care, mental health and
+  recovery, food and basic needs, family and youth, seniors and veterans, community and wellness, drawn
+  from the directory's own categories.
+- **On tribal trust land, housing is described as governed by the nation**, not as an open market, with
+  wording checked with the nation. (Needs tribal-land boundaries as data; not yet built.)
