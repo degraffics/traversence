@@ -98,8 +98,8 @@ Two refinements found in testing:
   care and is not restricted.
 
 Settings: `AUTO_IMPORT=off` in `.env` disables auto-publishing; `AUTO_IMPORT_MIN_CONFIDENCE` sets the
-threshold (default 85). No official registries are wired as trusted sources yet
-(`AutoImport::TRUSTED_REGISTRIES`), so today a listing needs two independent websites.
+threshold (default 85). The NPI Registry is the first trusted registry (`AutoImport::TRUSTED_REGISTRIES`,
+see "Second look" below); otherwise a listing needs two independent websites.
 
 ## Running it in increments, off Bluehost (2026-09-29)
 
@@ -121,4 +121,26 @@ To keep the shared host light, the guide-driven crawl is split:
 
 Note: the older `api/ingest.php` endpoint writes crawled records straight to `entities` without staging
 or these guardrails. The worker does not use it, and it should be retired or routed through staging
-before anything else is pointed at it.
+before anything else is pointed at it. (It has in fact never accepted a request: it reads
+`CRAWLER_API_TOKEN` before the site has loaded `.env`, so it always fails closed. The crawl endpoints had
+the same bug and were fixed on 2026-09-29; `ingest.php` was left as it is.)
+
+## Second look: more references for listings in review (2026-09-29)
+
+Most places found in OpenStreetMap have no website of their own there, so they arrive with one source and
+wait for a person. The first live run (Health care in Gallup) published 1 of 12 and staged 11. To confirm
+more of them without lowering the guardrails, the worker now gives staged, single-source listings a second
+look by name, address and city (`api/crawl/verify.php`, `api/lib/crawler/Verify.php`):
+
+- **NPI Registry** (federal list of health-care providers, free, no key). A record whose name matches and
+  whose location shows the same street address or phone is a **trusted registry** match (+20 confidence).
+- **Web search** (Brave Search API, only when `BRAVE_API_KEY` is set on Railway): one search for the place
+  and one aimed at **chamber of commerce** listings. A result counts only if it names the place and shows its
+  street address or phone. Each is labelled: chamber of commerce, well-known directory (BBB, Yelp, Yellow
+  Pages, Healthgrades, findhelp…), government, the place's own website, or another website. Each website
+  counts once (+10 each); NPI copy sites are ignored as not independent.
+- The bonus is capped at +40. The four guardrails then run again, unchanged: a listing publishes only with a
+  registry match or 2+ independent websites, a score of 85+, a sure category and no duplicate. Otherwise it
+  stays in Quick approve with its references listed, so a person decides faster.
+- Listings with no street address and no phone are not looked up: nothing could confirm them.
+- Each listing gets one second look (a 20-minute lease, at most 3 attempts).

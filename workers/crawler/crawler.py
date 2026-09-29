@@ -10,6 +10,15 @@ Each run is one small, budgeted increment:
      second, independent source only if the page names the place.
   4. Send the findings back (POST /api/crawl/results.php). The site stages them and auto-imports those
      that pass every ADR 0044 guardrail; the rest wait in Listing Intake.
+Before the jobs, a "second look" (GET/POST /api/crawl/verify.php) takes a few listings waiting for review
+that have only one source and looks each up by name, address and city:
+  - NPI Registry (federal list of health-care providers; free, no key). A match on name AND street
+    address or phone counts as a trusted registry.
+  - With BRAVE_API_KEY: a web search for the place and one aimed at chamber of commerce listings. A
+    result counts only if it names the place AND shows its street address or phone. Each is labelled:
+    chamber of commerce, well-known directory (BBB, Yelp, Yellow Pages, Healthgrades...), government,
+    the place's own website, or another website. Each website counts once.
+The site decides what the references are worth and re-runs the guardrails.
 The run stops at whichever budget comes first: JOBS_PER_RUN jobs, MAX_FETCHES website fetches, or
 TIME_BUDGET seconds. Unfinished jobs simply go back to the queue when their lease expires.
 
@@ -20,7 +29,12 @@ Settings (environment variables):
   MAX_FETCHES          website fetches per run, default 60
   TIME_BUDGET          seconds per run, default 240
   OVERPASS_URL         optional first Overpass server; the public server and two mirrors follow
-Test hooks (not for production): OVERPASS_FIXTURE=file.json, WEB_FIXTURE=file.json ({url: html}).
+  VERIFY_PER_RUN       listings given a second look per run, default 10 (0 turns it off)
+  VERIFY_TIME          seconds of each run for the second look, default 100
+  BRAVE_API_KEY        Brave Search API key; without it the second look uses the NPI Registry only
+  MAX_SEARCHES         web searches per run, default 20
+Test hooks (not for production): OVERPASS_FIXTURE=file.json, WEB_FIXTURE=file.json ({url: html}),
+NPI_FIXTURE=file.json (an NPI API reply), SEARCH_FIXTURE=file.json ({query: Brave reply}).
 Standard library only.
 """
 import html
@@ -45,6 +59,11 @@ OVERPASS_URLS = [u for u in [os.environ.get("OVERPASS_URL"),
                              "https://overpass-api.de/api/interpreter",
                              "https://overpass.private.coffee/api/interpreter",
                              "https://overpass.kumi.systems/api/interpreter"] if u]
+VERIFY_PER_RUN = int(os.environ.get("VERIFY_PER_RUN", "10"))
+VERIFY_TIME = int(os.environ.get("VERIFY_TIME", "100"))
+BRAVE_API_KEY = os.environ.get("BRAVE_API_KEY", "")
+MAX_SEARCHES = int(os.environ.get("MAX_SEARCHES", "20"))
+NPI_API = "https://npiregistry.cms.hhs.gov/api/"
 UA = "TraversenceCrawler/1.0 (+https://traversence.com; local directory of community resources)"
 ZIP_RADIUS_M = 19000          # ~12 miles around each ZIP centre of the cluster
 MAX_PER_JOB = 25
@@ -69,7 +88,21 @@ KIND_WORDS = {
     "library": "Library", "veterans": "Veterans organization",
 }
 
+# Well-known directories: a listing there is labelled "directory". NPI copy sites are left out because
+# they repeat the NPI Registry rather than confirm it independently.
+DIRECTORY_HOSTS = {
+    "bbb.org", "yelp.com", "yellowpages.com", "superpages.com", "mapquest.com", "manta.com", "healthgrades.com",
+    "zocdoc.com", "vitals.com", "webmd.com", "findhelp.org", "tripadvisor.com", "foursquare.com", "nextdoor.com",
+    "hotfrog.com", "chamberofcommerce.com", "yellowbook.com", "cylex.us.com", "brownbook.net", "local.com",
+    "caring.com", "psychologytoday.com", "careacross.com", "sharecare.com", "usnews.com", "medicare.gov",
+    "findatreatment.gov", "hrsa.gov", "211.org", "unitedway.org", "feedingamerica.org", "foodpantries.org",
+}
+SKIP_HOSTS = {"openstreetmap.org", "npino.com", "npiprofile.com", "npidb.org", "hipaaspace.com", "opennpi.com",
+              "npi.report", "npiregistry.cms.hhs.gov", "google.com", "bing.com", "duckduckgo.com", "search.brave.com"}
+
 started = time.monotonic()
+searches = 0
+last_search = 0.0
 fetches = 0
 last_fetch = 0.0
 robots_cache = {}
@@ -168,7 +201,10 @@ def fetch_page(url):
 
 
 def words(s):
-    return {w for w in re.findall(r"[a-z0-9]+", (s or "").lower()) if len(w) >= 3 and w not in {"the", "and", "inc", "llc", "center", "centre"}}
+    """Meaningful words, singular ("Walgreens" and "WALGREEN CO" share "walgreen")."""
+    return {w[:-1] if len(w) > 4 and w.endswith("s") and not w.endswith("ss") else w
+            for w in re.findall(r"[a-z0-9]+", (s or "").lower())
+            if len(w) >= 3 and w not in {"the", "and", "inc", "llc", "center", "centre"}}
 
 
 def names_place(page, name):
@@ -226,10 +262,227 @@ def candidate(el, job):
     return c
 
 
+# ---------------------------------------------------------------------------------------------------
+# Second look: more references for listings waiting for review
+# ---------------------------------------------------------------------------------------------------
+
+def digits(s):
+    return re.sub(r"\D", "", s or "")[-10:]
+
+
+STREET_WORDS = {"n": "north", "s": "south", "e": "east", "w": "west", "st": "street", "ave": "avenue", "rd": "road",
+                "dr": "drive", "blvd": "boulevard", "hwy": "highway", "ln": "lane", "ct": "court", "pkwy": "parkway"}
+
+
+def street_parts(address):
+    """House number and the street's distinctive words, e.g. '1662 South 2nd Street' -> ('1662', {'2nd'})."""
+    m = re.match(r"\s*(\d+[a-z]?)\s+(.*)", (address or "").lower())
+    if not m:
+        return None, set()
+    ws = {STREET_WORDS.get(w, w) for w in re.findall(r"[a-z0-9]+", m.group(2))}
+    return m.group(1), {w for w in ws if w not in set(STREET_WORDS.values()) and w not in {"historic", "old", "us", "route"}} or ws
+
+
+def shows_address(text, address):
+    num, street = street_parts(address)
+    if not num:
+        return False
+    t = " ".join(STREET_WORDS.get(w, w) for w in re.findall(r"[a-z0-9]+", text.lower()))
+    for m in re.finditer(r"\b" + re.escape(num) + r"\b", t):
+        near = set(t[m.end():m.end() + 60].split())
+        if street and street & near:
+            return True
+    return False
+
+
+def shows_phone(text, phone):
+    want = digits(phone)
+    if len(want) != 10:
+        return False
+    return any(digits(m) == want for m in re.findall(r"\(?\d{3}\)?[\s.\-]?\d{3}[\s.\-]?\d{4}", text))
+
+
+def evidence(text, lst):
+    a = shows_address(text, lst["address"])
+    p = shows_phone(text, lst["phone"])
+    return "both" if a and p else "address" if a else "phone" if p else None
+
+
+def page_text(page):
+    return html.unescape(re.sub(r"<[^>]+>", " ", re.sub(r"(?is)<(script|style)[^>]*>.*?</\1>", " ", page)))
+
+
+def npi_lookup(lst):
+    """Organisations in the NPI Registry matching the listing's name and its street address or phone."""
+    if os.environ.get("NPI_FIXTURE"):
+        with open(os.environ["NPI_FIXTURE"]) as f:
+            replies = [json.load(f)]
+    else:
+        first = next((w for w in re.findall(r"[A-Za-z0-9]+", lst["name"]) if len(w) >= 2 and w.lower() not in {"the"}), "")
+        if not first:
+            return []
+        replies = []
+        for where in ({"postal_code": lst["zip"]}, {"city": lst["city"], "state": lst["state"]}):
+            if not all(where.values()):
+                continue
+            q = urllib.parse.urlencode({"version": "2.1", "enumeration_type": "NPI-2", "organization_name": first + "*",
+                                        "limit": 200, **where})
+            try:
+                req = urllib.request.Request(NPI_API + "?" + q, headers={"User-Agent": UA, "Accept": "application/json"})
+                with urllib.request.urlopen(req, timeout=30) as r:
+                    reply = json.loads(r.read().decode("utf-8"))
+            except Exception as e:
+                log(f"  NPI lookup failed: {e!r}"[:200])
+                return []
+            replies.append(reply)
+            if reply.get("result_count"):
+                break
+    want = words(lst["name"])
+    found = []
+    for reply in replies:
+        for rec in reply.get("results", []):
+            names = [(rec.get("basic") or {}).get("organization_name", "")] + [o.get("organization_name", "") for o in rec.get("other_names", [])]
+            if not want or not any(len(want & words(n)) / len(want) >= 0.6 for n in names if n):
+                continue
+            for a in rec.get("addresses", []):
+                if a.get("address_purpose") != "LOCATION":
+                    continue
+                text = f"{a.get('address_1', '')} {a.get('address_2', '')} {a.get('telephone_number', '')}"
+                ev = evidence(text, lst)
+                if ev:
+                    tax = next((t.get("desc") for t in rec.get("taxonomies", []) if t.get("primary")), "")
+                    found.append({"url": f"https://npiregistry.cms.hhs.gov/provider-view/{rec.get('number')}",
+                                  "kind": "registry", "registry": "npi", "evidence": ev,
+                                  "label": f"NPI {rec.get('number')}: {names[0]}"[:120],
+                                  "phone": a.get("telephone_number", ""), "taxonomy": tax or ""})
+                    return found[:1]
+    return found
+
+
+def search(query):
+    """One Brave Search API query; a list of {url, title, description}."""
+    global searches, last_search
+    if os.environ.get("SEARCH_FIXTURE"):
+        with open(os.environ["SEARCH_FIXTURE"]) as f:
+            data = json.load(f)
+            reply = data.get(query) or data.get("*", {})
+    else:
+        if not BRAVE_API_KEY or searches >= MAX_SEARCHES:
+            return []
+        wait = 1.1 - (time.monotonic() - last_search)        # free plans allow about one query a second
+        if wait > 0:
+            time.sleep(wait)
+        searches += 1
+        last_search = time.monotonic()
+        q = urllib.parse.urlencode({"q": query, "count": 20, "country": "us"})
+        req = urllib.request.Request("https://api.search.brave.com/res/v1/web/search?" + q, headers={
+            "Accept": "application/json", "X-Subscription-Token": BRAVE_API_KEY, "User-Agent": UA})
+        try:
+            with urllib.request.urlopen(req, timeout=20) as r:
+                reply = json.loads(r.read().decode("utf-8"))
+        except Exception as e:
+            log(f"  search failed: {e!r}"[:200])
+            return []
+    out = []
+    for r in (reply.get("web") or {}).get("results", []):
+        snippet = " ".join([r.get("title", ""), r.get("description", "")] + list(r.get("extra_snippets") or []))
+        out.append({"url": r.get("url", ""), "title": r.get("title", ""), "snippet": html.unescape(re.sub(r"<[^>]+>", " ", snippet))})
+    return out
+
+
+def host_of(url):
+    return re.sub(r"^www\.", "", urllib.parse.urlsplit(url).netloc.lower())
+
+
+def base_domain(host):
+    parts = host.split(".")
+    return ".".join(parts[-3:]) if host.endswith(".us.com") else ".".join(parts[-2:])
+
+
+def kind_of(url, title, lst):
+    host = host_of(url)
+    dom = base_domain(host)
+    if dom in DIRECTORY_HOSTS or host in DIRECTORY_HOSTS:
+        return "directory"
+    if "chamber" in host or "chamber of commerce" in (title or "").lower():
+        return "chamber"
+    if host.endswith(".gov") or host.endswith(".us") or ".gov." in host:
+        return "government"
+    label = dom.split(".")[0]
+    if lst["website"] and host_of(lst["website"]) == host:
+        return "own_site"
+    name_words = [w for w in re.findall(r"[a-z0-9]+", lst["name"].lower()) if len(w) >= 3]
+    initials = "".join(w[0] for w in re.findall(r"[a-z0-9]+", lst["name"].lower()))
+    if sum(1 for w in name_words if w in label) >= 2 or (len(initials) >= 3 and label.startswith(initials)):
+        return "own_site"
+    return "website"
+
+
+def web_references(lst, have_hosts):
+    """Pages that name the place and show its street address or phone: chamber, directories, others."""
+    found = []
+    city = f"{lst['city']} {lst['state']}".strip()
+    queries = [f'"{lst["name"]}" {city}', f'"{lst["name"]}" {city} chamber of commerce']
+    looked = 0
+    for q in queries:
+        for r in search(q):
+            if len(found) >= 4 or out_of_time():
+                return found
+            url, host = r["url"], host_of(r["url"])
+            if not url.startswith("http") or not host:
+                continue
+            dom = base_domain(host)
+            if host in have_hosts or dom in have_hosts or dom in SKIP_HOSTS or host in SKIP_HOSTS:
+                continue
+            ev = evidence(r["snippet"], lst) if names_place(r["snippet"], lst["name"]) else None
+            if not ev and looked < 6:                    # the snippet wasn't enough: read the page itself
+                looked += 1
+                page = fetch_page(url)
+                if page and names_place(page, lst["name"]):
+                    ev = evidence(page_text(page), lst)
+            if ev:
+                have_hosts.add(host)
+                have_hosts.add(dom)
+                found.append({"url": url, "kind": kind_of(url, r["title"], lst), "evidence": ev,
+                              "label": r["title"][:120]})
+    return found
+
+
+def second_look(deadline):
+    d = site_call(f"/api/crawl/verify.php?limit={VERIFY_PER_RUN}")
+    if d.get("paused"):
+        return
+    listings = d.get("listings", [])
+    if listings:
+        log(f"second look: {len(listings)} listing(s)" + ("" if BRAVE_API_KEY else " (NPI Registry only; no BRAVE_API_KEY)"))
+    for lst in listings:
+        if time.monotonic() > deadline or out_of_time():
+            log("second look: out of time, the rest go back when their lease ends")
+            break
+        have = set(lst.get("known_hosts") or [])
+        found, checked = [], ["npi"]
+        try:
+            found += npi_lookup(lst)
+            if BRAVE_API_KEY or os.environ.get("SEARCH_FIXTURE"):
+                checked.append("search")
+                found += web_references(lst, have | {h for f in found for h in [host_of(f["url"])]})
+            res = site_call("/api/crawl/verify.php", {"row_id": lst["row_id"], "found": found, "checked": checked})
+            kinds = ", ".join(f"{f['kind']} {host_of(f['url'])}" for f in found) or "nothing more"
+            log(f"second look {lst['name']} ({lst['city']}): {kinds} -> score {res.get('score')}"
+                + (", published" if res.get("auto_imported") else ""))
+        except Exception as e:
+            log(f"second look {lst.get('name')}: {e!r}"[:300])
+
+
 def run():
     if not SITE or not TOKEN:
         log("TRAVERSENCE_URL and CRAWLER_API_TOKEN must be set.")
         return 2
+    if VERIFY_PER_RUN > 0:
+        try:
+            second_look(started + min(VERIFY_TIME, TIME_BUDGET))
+        except Exception as e:                     # the second look never stops the crawl jobs
+            log(f"second look stopped: {e!r}"[:300])
     d = site_call(f"/api/crawl/jobs.php?limit={JOBS_PER_RUN}")
     if d.get("paused"):
         log("Queue paused on the site (CRAWL_QUEUE=off).")
