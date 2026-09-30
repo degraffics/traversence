@@ -48,8 +48,14 @@ things, or it isn't useful at all.
   do so. Linking a clinic says nothing about you to anyone.
 - **No social-graph mining.** No "people you may know" built from who you link, who links you, or your contacts'
   connections. Connections happen because a person searched for someone or was invited.
-- **No AI training on personal activity.** Your links, messages, contact cards and groups are not used to train or
-  improve AI models, ours or anyone's. (AI Assist is different: see below.)
+- **No AI use of your private activity.** Your links, private messages and contact cards are never used to train or
+  improve AI models (ours or anyone's) and never feed any shared AI system. The only AI that ever reads them is AI
+  Assist, for you, if you activate it (below).
+- **Community content only in abstracted form** (`decisions/0010`, `decisions/0011`). Public contributions (reviews,
+  public posts) may be read by the AI to recognize **topics** that help write guides. Only an abstract classification
+  is kept: never the text, never who wrote it, and a topic counts only once it recurs across independent mentions.
+  This is not training a model on you; nothing traces back to a person. Whether **members-only group posts** are ever
+  used this way is open (see Open).
 - **No off-platform tracking.** No advertising pixels or tracking SDKs, and no following you around other websites.
 - **No location from linking.** A link never reveals where you live or are (`decisions/0047` §2).
 
@@ -106,3 +112,9 @@ target an individual.
   (e.g. replace externally hosted page scripts with self-hosted copies where practical).
 - Open: legal review of the public wording before launch; what aggregate statistics, if any, are ever shared outside
   Traversence (default: none).
+- **Open (Jason): members-only group posts and the topic corpus.** (a) never used, public content only
+  (recommended), or (b) abstracted per `decisions/0011` only if the group's owner opts the group in and members are
+  told.
+- **Inconsistency to resolve:** `architecture.md`'s "chat-vectorization-queue" (embedding live conversation streams)
+  conflicts with `decisions/0011`'s rule that raw content is never persisted into the AI corpus; it must be brought in
+  line with 0011 (classify at intake, store only the abstraction) or removed before anything like it is built.
