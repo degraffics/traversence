@@ -330,3 +330,42 @@ Next: presets as 5W presets (step 5), then saved searches (step 6).
   found except by the loose try.
 - **The Map button** shows only when there are listings to map.
 
+### Progress: the search panel's home, saved searches (step 6), and the directory rebuilt (2026-09-30)
+
+From Jason's review (with Google's "businesses near me" and "places to go near me" as reference).
+
+**The search panel before typing:** two columns on a computer, stacked on a phone.
+- **Where:** "📍 Searching in St. Johns", and why it's set: still set from earlier in this visit (session active),
+  your default place, the region you came from, or chosen by you. It has Change and Search everywhere. A place
+  kept from earlier is never a surprise.
+- **Left, personal:**
+  - **Recent searches:** a clock icon, ✕ on each, and Clear all. They stay in the browser only.
+  - **Saved searches (step 6, on the account):** ★ with the place. Remove one with ✕. Save a search with
+    "☆ Save this search" on its results, up to 20.
+  - **Search in:** All, Places, Listings, Stories, Groups, Topics. The chosen scope becomes a token in the field
+    ("In: Stories ×"), and Backspace at the start of the field removes it.
+- **Right, discovery:** the place's presets (§5), each with its count as a grey badge and a ✎ to put it in the field
+  and change it before searching.
+- **Readability:** the helper text is darker, and the Address Book link is underlined with an arrow.
+- **Still to come:** a "New" count on saved searches (`last_total` is stored for it).
+
+**The directory (Get Local) rebuilt on the layout.** Like a "businesses near me" search:
+- **The place line:** why it's set, Change, "◎ Use precise location" (the device's location, nearest first), and
+  Search everywhere.
+- **Search and filters:** a search field, and filters as chips: the category, the words, 🕒 Open now, 📞 Has a phone,
+  🌐 Has a website, distance, and sort.
+- **The category picks** show until something is chosen.
+- **Results beside a map:** numbered results match numbered pins, and hovering or clicking one highlights the other.
+  "Full map" opens the full-screen map. Phones show the map above the list.
+- **Each result:** its name (Verified if it is), category and distance, address and phone, and **open or closed right
+  now** ("Open · Closes 5 PM", "Closed · Opens tomorrow 8 AM", from `Hours::status`). Then **Call, Directions,
+  Website, Peek**. A confidential location shows its phone only.
+- **"Show more"** loads the next 20.
+- **The address keeps the search** (it can be shared, and Back works). Links from elsewhere (`?q`, `?cat`, a place,
+  a distance) open straight into results.
+- **Kept:** the earlier directory is at `/directory/classic.php`, linked from the toolbar.
+- **The listings API** now also returns each card's website, point (the middle of its ZIP area when it has none of
+  its own), today's hours text, and whether its location is private. The header's universal search now shows on the
+  directory too.
+- **Search matches singular and plural** ("pharmacy" finds Pharmacies, "therapy" finds therapies).
+
