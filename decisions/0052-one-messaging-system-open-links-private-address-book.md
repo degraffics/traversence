@@ -108,3 +108,14 @@ Linking. Links of people who paused Linking don't show. The consent box is now a
 chip and box beside the corner); "Configuration settings" shows a quick review of your tools inside the box instead of
 leaving the page. `api/lib/Links.php` (`linkedBy`, `removeFollower`, `needsOpenNotice`), migration
 `2026-10-01_open_links.sql` (`user_settings.open_links_ack`).
+
+## Progress (2026-09-30): step 3, message requests
+
+A message is **delivered** when the recipient has linked the sender, they're connected, or the recipient accepted or
+replied before (the sender linking the recipient isn't enough, or links would become a way around requests). Anyone
+else's first message arrives as a **message request**: one message, then the sender waits; the recipient chooses
+Accept, Decline or Block (replying accepts). Up to 10 new requests a day per sender. Who-can-message-me now has three
+choices, "requests" being the new default (existing "connections only" settings, the old default, moved to it).
+Every conversation has **Report** (the last messages go to Admin → Reports), **Block** and **Help**. The Notification
+Center counts message requests. Migration `2026-10-01_message_requests.sql` (`message_members.status`, the policy
+enum, `content_reports.kind` gains `thread`). Guests and listing message types follow in steps 4 and 6.
