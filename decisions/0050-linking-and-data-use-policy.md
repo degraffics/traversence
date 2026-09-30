@@ -34,8 +34,8 @@ things, or it isn't useful at all.
    **count** of people linked, never who.
 3. **People you follow:** they can see that you follow them, so they can remove a follower; no one else sees who you
    follow or link.
-4. **AI suggestions, only if you activate them** (`decisions/0049`, `decisions/0010`): your own links shape your own
-   suggestions on Traversence.
+4. **AI Assist, only if you activate it** (`decisions/0049`, `decisions/0010`): your own links and activity help the
+   AI serve you on Traversence, and nothing else (see "AI Assist" below).
 
 ### What Traversence commits never to do
 
@@ -48,10 +48,28 @@ things, or it isn't useful at all.
   do so. Linking a clinic says nothing about you to anyone.
 - **No social-graph mining.** No "people you may know" built from who you link, who links you, or your contacts'
   connections. Connections happen because a person searched for someone or was invited.
-- **No AI training on personal activity.** Your links, messages, contact cards and groups are not used to train AI
-  models, ours or anyone's. AI suggestions, if you activate them, only read your own links to serve you.
+- **No AI training on personal activity.** Your links, messages, contact cards and groups are not used to train or
+  improve AI models, ours or anyone's. (AI Assist is different: see below.)
 - **No off-platform tracking.** No advertising pixels or tracking SDKs, and no following you around other websites.
 - **No location from linking.** A link never reveals where you live or are (`decisions/0047` §2).
+
+### AI Assist: help, not training
+
+**Training** would make a person's activity part of a model, permanently, shaping it for everyone; that is ruled
+out above. **AI Assist** is the AI reading what a task needs, at the person's request, to help that person: suggesting
+places from their links, drafting a message to a business, summarizing their group's posts. It is allowed when:
+
+1. **Activated with consent** under `decisions/0049` (and `decisions/0010`'s AI consent).
+2. **Only what the task needs:** the person's own links, messages, groups or contact card, never other people's
+   private data.
+3. **For that person only:** nothing inferred is shown to or used for anyone else, and the sensitive-inference rule
+   above still holds.
+4. **Not kept for learning:** requests are used to answer and not retained for training; any AI provider must, by
+   its terms, **not train on Traversence data**.
+5. **Visible and revocable:** Assist is labelled wherever it's used, and can be deactivated in Your tools.
+
+Anonymous, aggregate figures (e.g. how often Assist is used, whether answers were marked helpful) may be used to
+improve the feature, never tied to a named person.
 
 ### What you control
 
