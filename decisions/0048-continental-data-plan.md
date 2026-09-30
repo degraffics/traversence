@@ -140,3 +140,8 @@ recreation areas and visitor centers with distance, linked to Recreation.gov and
 listings. **Admin → Crawler → Recreation** (`admin/recreation.php`, linked from the Overview's Bulk data card)
 hides any place that shouldn't be shown; a hidden place stays hidden across monthly reloads, so the
 `decisions/0043` rule on sacred and restricted sites always wins over the data.
+- **2026-09-30 (Jason): keep people on Traversence.** Each recreation place has its own page
+  (`place/recreation.php`: what it is, managing agency, activities, phone, distance from the nearest town we
+  cover, source and month); the place-page section links there, not to Recreation.gov. The only link out is a
+  campground's "reserve on Recreation.gov", since federal reservations can only be made there. All-capitals
+  names read in normal case; RIDB's catch-all "Facility" shows the first activity instead.
