@@ -75,6 +75,15 @@ Words left over after the chips are the search text. Removing a chip searches ag
 - active filters as removable chips;
 - map and list, with the layout toggle from `decisions/0055` §3.
 
+### 4b. "Where should I go" searches get a map and a radius (Jason, 2026-09-30)
+
+Discovery-type queries ("things to do near Show Low", "hikes within 50 miles", "where to go this weekend") are about
+distance and direction, not a list:
+- **In the panel:** when a place is set, a radius chip ("near Show Low · 25 mi ▾": in town, 10, 25, 50, 100 miles)
+  widens every kind of result. A **Map** button shows everything found as pins: places, trailheads and parks, stories,
+  and listings.
+- **On the Discovery page** (`decisions/0055` step 5): the map and the radius are built in, next to the category rail.
+
 ### 5. Presets come from the system, not admins
 
 One-tap searches ("Open now near you", "Trailheads within 20 miles", "Groups in Round Valley") are generated per
@@ -145,4 +154,20 @@ census data already on place pages); whether events and marketplace join at laun
   variables are now all `$tv_`-prefixed;
 - the bell now reopens the Notification Center after ×.
 
-Next: the directory filter panel (step 4), presets (step 5) and saved searches (step 6).
+## Progress (2026-09-30): step 4, the directory's Filters panel
+
+- **Filters button** beside Sort, with a count of the filters in use.
+- **Open:** any time, open now (the visitor's own local time), or open on a chosen day. Read by `api/lib/Hours.php`
+  from hours as people write them: "Mon–Fri 9am–5pm", "Monday - Thursday 6am - 5pm", "Mo-Fr 09:00-15:00",
+  "Weekends 10-4", 24 hours, past-midnight hours, "Closed". Unreadable hours never count as open.
+- **Has** a phone number or a website.
+- **Categories:** tick several to see them together.
+- Each filter shows as a removable chip in the results sentence.
+- `api/search_listings.php` takes `category=a,b`, `has=phone,website`, and `open=now&at=DOW,MIN` or `open=mon…sun`.
+- The existing radius and nearby-towns tools stay, linked from the panel.
+
+**Also:**
+- The search panel's peek card now has **Link** and **Save to Address Book**, with the same consent steps.
+- The universal bar has the **place pin**, and its placeholder names the place ("Search in St. Johns…").
+
+Next: step 4b (radius chip and map in the panel), presets (step 5) and saved searches (step 6).
