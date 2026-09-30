@@ -50,15 +50,24 @@ App Settings gets **Your tools**: every tool, whether it's active, since when, a
 **Deactivate**. Deactivating **pauses** rather than deletes: e.g. links stay but drop out of feeds and businesses
 can no longer message; reactivating restores them. Deleting data remains a separate, explicit action.
 
-### 5. What this does not replace
+### 5. Read-required mode
+
+Some consents must be read before they are given. For those tools, step 2 opens the explanation panel at once
+and **the Consent button stays disabled until the person has scrolled to the end** of the text; tapping CONSENT on
+the chip alone isn't possible. The record notes that the full text was shown. This mode is **required** for any
+consent to **text messages or email** (per channel, per business, with the sender named and how to stop), and is
+available to any other tool whose consent carries a legal requirement to read first.
+
+### 6. What this does not replace
 
 - **Texts and email** keep their own explicit, channel-specific opt-in (US telemarketing and commercial email
-  rules; `decisions/0047` §3). Activating a tool never opts anyone into text or email.
+  rules; `decisions/0047` §3), always in read-required mode (§5). Activating a tool never opts anyone into text
+  or email.
 - **AI consent** under `decisions/0010` is delivered through this pattern (the AI suggestions tool is activated the
   same way), not bypassed by it.
 - Public viewing (reading a listing, a place page, a public profile) never needs activation.
 
-### 6. Existing users
+### 7. Existing users
 
 People already using a tool are asked once, the next time they use it, so everyone ends up with a record.
 
