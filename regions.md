@@ -34,7 +34,9 @@ That's roughly 34 micro-clusters and, on these estimates, somewhere in the neigh
 
 **On the site (2026-09-30):** all 15 zones exist as geo-hubs under Ancient America. The Ancient Borderlands is
 live; the other 14 are `planned` and show as "Coming soon" on the Ancient America page, in this table's order,
-each with a short description of its towns (`api/migrations/2026-10-01_ancient_america_geohubs.sql`). A zone goes
+each with a short description of its towns (`api/migrations/2026-10-01_ancient_america_geohubs.sql`). Zone 8 is
+named **Gila Country & Copper Corridor** on the site (Jason, 2026-09-30): "Apache Stronghold" is the name of a
+real organization protecting Oak Flat, so the platform doesn't use it as a place name. A zone goes
 live when its first town cluster is built in Admin → Cluster tools and its status is set to active.
 
 ## Thematic Messaging Overlay: Pre-Colonial Heavy vs. Frontier & Industrial Transition Zones
