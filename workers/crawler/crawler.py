@@ -172,7 +172,7 @@ def overpass(job):
     tried = []
     for url in OVERPASS_URLS:
         req = urllib.request.Request(url, data=body, headers={
-            "User-Agent": UA, "Accept": "application/json",
+            "User-Agent": UA, "Accept": "*/*",   # a strict "application/json" can earn a 406 Not Acceptable
             "Content-Type": "application/x-www-form-urlencoded"})
         try:
             with urllib.request.urlopen(req, timeout=90) as r:
