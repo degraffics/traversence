@@ -36,30 +36,42 @@ for people and cleaner to operate.
 
 | Source | Author consented | Author declined (or guest who said no) |
 |---|---|---|
-| Public posts, reviews, community content | Read in context; kept only as abstractions (`decisions/0011`) | **Matched, not read** (§3) |
-| Group posts and group chats (incl. members-only) | Read in context; kept only as abstractions | **Matched, not read** |
+| Public posts, reviews, community content | Read in context; kept only as abstractions (`decisions/0011`) | **Not read or scanned**; only the @tags they chose to add (§3) |
+| Group posts and group chats (incl. members-only) | Read in context; kept only as abstractions | **Not read or scanned**; only their @tags |
 | Links, saved places, activity on Traversence | Used for their own experience; de-identified patterns for everyone | Not used for learning |
 | **Private messages** | **Never** in shared learning; only their own AI Assist reads them | Never |
 | **Contact cards** | **Never** in shared learning; only their own AI Assist reads them | Never |
 
 Consent is per **author**: in a group chat, each message follows its own writer's choice, automatically.
 
-### 3. "Matched, not read" for people who decline
+### 3. No consent, no reading: @tags are the person's own choice
 
-No AI reads, interprets or summarizes a decliner's content, and nothing about them enters the learning system. Their
-public and group posts are only **scanned by a simple matcher** against a fixed list of names Traversence already
-knows (places, sub-groups, categories), like a find-in-page search: it can only tell whether a known name appears,
-not what the sentence means or what surrounds it. The only thing kept is **+1 on that name's anonymous count**; the
-message is not copied, analyzed or linked to its author. (This is the same kind of plain processing every post
-already gets to be displayed, searched and moderated.) The decline message says so plainly: "Even if you decline, we
-match posts against a list of known place names to keep the directory accurate. Nothing else is read, and never who
-said it."
+Without AI & Learning consent, **nothing a person writes is read, scanned or matched** by the learning system: no AI,
+no keyword matching, nothing. (Posts are still displayed, searched and moderated as the site needs to work; none of
+that feeds learning.)
+
+Instead, anyone can **tag** what they want to contribute. Typing **@** in a post or group chat opens a picker:
+
+- **@place** (e.g. @Lyman Lake, @Show Low): links the post to that place;
+- **@topic** (e.g. @trail conditions, @farmers market): links it to a topic;
+- **@person**: notifies that person only; never used for learning.
+
+Choosing to add a place or topic tag **is** consent for that tag alone. What is captured is only the tag, where it
+was used (the group or place) and when, as an anonymous count; the rest of the message is never read. A tag the
+system doesn't know yet (e.g. @Bourdon Ranch) is allowed and counts toward recognition: after enough independent
+tags it becomes a **lead** (§4) for a reviewer or the crawler to confirm, which is how sub-groups, local names and
+missing places surface. Tags in **private messages** are only links for the people in the conversation; nothing is
+captured. Consenting members can tag too; their tags are the strongest signal.
+
+The decline message says so plainly: "No problem. Everything else still works. Nothing you write is read for
+learning. If you want to help the guides, tag a place or topic with @ — only the tag is used, never your words or
+your name."
 
 ### Changing your choice: from that point on
 
 A change applies **from that point on**, never backwards. Turning AI & Learning **on** means only messages and posts
-written from then on are read in context; earlier ones stay matched-only. Turning it **off** means only what is
-written from then on is matched-only; what was already learned stays unless the person chooses **Reset**, which
+written from then on are read in context; earlier ones stay unread (only their tags count). Turning it **off** means
+what is written from then on is not read (only its tags count); what was already learned stays unless the person chooses **Reset**, which
 removes it.
 
 ### 4. Leads, not facts
@@ -78,10 +90,10 @@ stored in the shared corpus (`decisions/0011`); AI providers must not train on T
 ## Consequences
 
 - `decisions/0050`'s open question on members-only group posts is resolved: included for consenting authors, as
-  abstractions; decliners' posts are matched only.
+  abstractions; decliners' posts are not read; only their @tags count.
 - `decisions/0010`'s opt-in default stands; this ADR is its single, account-level form.
 - Build needs: a consent record per member (and per guest session); per-author filtering in anything that feeds the
-  learning system; a known-name matcher for decliners' posts; a "What Traversence has learned about you" view with reset.
+  learning system; @place / @topic / @person tagging in posts and group chats (a picker, anonymous tag counts, new tags as leads); a "What Traversence has learned about you" view with reset.
 - Wording for the AI & Learning consent (summary, explanation, and the decline line) is drafted for Jason's approval
   before use, and reviewed legally before public launch.
 - The "chat-vectorization-queue" in `architecture.md` must follow this ADR and `decisions/0011` (consented authors

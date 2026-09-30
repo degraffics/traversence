@@ -113,7 +113,7 @@ target an individual.
 - Open: legal review of the public wording before launch; what aggregate statistics, if any, are ever shared outside
   Traversence (default: none).
 - **Resolved by `decisions/0051` (AI & Learning consent):** group posts, including members-only, are read in context
-  and kept as abstractions only when their author has consented; posts by people who declined are matched against known names, not read.
+  and kept as abstractions only when their author has consented; posts by people who declined are never read or scanned; only @place and @topic tags they chose to add are counted.
   Private messages and contact cards never enter shared learning.
 - **Inconsistency to resolve:** `architecture.md`'s "chat-vectorization-queue" (embedding live conversation streams)
   conflicts with `decisions/0011`'s rule that raw content is never persisted into the AI corpus; it must be brought in
