@@ -57,8 +57,9 @@ Every message a listing sends is labelled **Sales, Support, General inquiry or R
 ### 5. Guests can ask a listing a question
 
 - A guest can send a **General inquiry to a listing**, never to a person.
-- **A privacy-friendly CAPTCHA** (Cloudflare Turnstile or a self-hosted check; never one that tracks visitors across
-  the web, per `decisions/0050`), plus a hidden anti-bot field and a daily limit per device.
+- **A simple self-hosted check** (Jason, 2026-09-30): a hidden anti-bot field, a minimum time on the form, and a
+  small question a person can answer at a glance; no third-party CAPTCHA, so nothing tracks visitors
+  (`decisions/0050`). Plus a daily limit per device.
 - **Contact is the guest's choice:** an email, a phone number, or neither. With neither, they get a **reply code** and
   check back on the listing page.
 - **Like a normal contact form:** the listing sees the guest's message and the contact they chose to give, in its
@@ -94,5 +95,5 @@ App Settings keeps everyday preferences (display, notifications).
 - Existing links: people and businesses already linked are told once that links are now visible both ways, and can
   unlink or move a business to their Address Book.
 - Linking and Address Book consent wording (`decisions/0049`) is updated to match before build.
-- Open: which CAPTCHA (Turnstile vs self-hosted); daily limits for requests and guest inquiries; how admins and
+- Open: daily limits for requests and guest inquiries; how admins and
   stewards appear in the inbox (role labels).
