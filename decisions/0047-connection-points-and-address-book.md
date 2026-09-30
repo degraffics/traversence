@@ -167,5 +167,17 @@ but unsubscribe.
   Portal → Business Insights shows the counts. Migration `2026-09-30_marketing_optins.sql`;
   `api/lib/Marketing.php`; `user/api/marketing.php`; `api/lib/Links.php`; `js/link-button.js`;
   `user/dashboard.php`.
-- **Next:** phase 3b, the business's side: asking people to link (respecting ask-again and never), and
-  sending offers to subscribers' inboxes with one-tap unsubscribe in each message.
+- **2026-09-30, phase 3b built (the business's side):** business conversations are always one person and
+  one business (B2C, 1:1), stored apart from person-to-person messages (`business_messages`), and contact
+  details shared with a business are its own list (`business_contact_shares`), never a share with its staff
+  as people; unlinking takes them back. A person can message any business someone manages; the business
+  replies while they're linked or within 30 days of their last message, and sees a name only for people who
+  wrote to it. Offers go to subscribers' inboxes (at once, Monday 9am for the weekly digest, big-only people
+  only for big offers), one a day, each with Unsubscribe. Requests to link or subscribe again go only to
+  people who unsubscribed or wrote in, once their own wait has passed; one a week; an unanswered request
+  can't repeat for 3 months; the person answers Yes, or No with when to ask again. Business Portal →
+  Messages & offers per listing. Migration `2026-10-01_business_messages.sql`; `api/lib/BizMessages.php`;
+  `user/api/business-messages.php`; `js/business-inbox.js`; `js/address-book.js` (Messages → Businesses).
+- **Open:** email/text delivery of offers to people who shared those details (needs an email service's
+  unsubscribe handling and a texting provider); unread business messages in the Notification Center; a
+  Message button on listing pages; Groups (circles).
