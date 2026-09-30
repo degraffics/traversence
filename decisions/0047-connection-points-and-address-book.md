@@ -152,4 +152,14 @@ where marketing preferences live. There are two levels, so no one is surprised:
   Inviting an address that already belongs to a member sends them a connection request instead, with the
   same reply, so no one learns who is registered. Up to 20 invites a day. Migration
   `2026-09-30_people_find_and_invite.sql`; `join.php`; `api/auth/register.php` accepts the invite.
-- **Next:** phase 3, businesses asking to link, marketing preferences and the ask-again choices.
+- **2026-09-30, phase 3a built (the person's side of marketing):** after linking a business, a separate
+  question, "Would you also like offers and news from …?", with a frequency (weekly digest, as it happens,
+  big offers only), Yes or No thanks; No offers "Ask me again in 1 month · 3 months · 6 months · Never".
+  App Settings → Marketing lists every linked business with the same choices, plus the master switch "No
+  marketing from anyone". Nothing is pre-ticked; a business may ask only when the person hasn't said yes,
+  hasn't said never, the chosen wait has passed and the master switch is off. Migration
+  `2026-09-30_marketing_optins.sql` (`marketing_optins`, `user_settings.no_marketing`); `api/lib/Marketing.php`;
+  `user/api/marketing.php`; `js/link-button.js`; `user/dashboard.php`.
+- **Next:** phase 3b, the business's side: asking linked people to opt in (respecting ask-again and never),
+  sending offers to opted-in people's inbox with one-tap unsubscribe, and linked / opted-in counts in
+  Business Insights.
