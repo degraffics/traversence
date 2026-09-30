@@ -66,8 +66,12 @@ where marketing preferences live. There are two levels, so no one is surprised:
 
 | Level | The person agreed to | The business can |
 |---|---|---|
-| **Linked** (tapped Link, or accepted a business's request) | see this business in my feeds | have its posts, events and offers appear in the person's Listings and Discovery feeds |
-| **Linked + marketing** (a separate, explicit yes) | contact me directly | send offers and news as **direct messages in the Traversence inbox** |
+| **Linked** (tapped Link, or accepted a business's request) | see this business in my feeds, and message each other | have its posts, events and offers appear in the person's feeds, and send offers and news as **direct messages in the Traversence inbox** (two-way) |
+| **Linked + contact shared** (the person ticks fields for that business) | this business may also use my phone or email | email or text, under the compliance rules below |
+
+Changed 2026-09-30 (Jason): linking a business **is** the opt-in to two-way in-app messages; a separate
+"get offers?" question felt like a gate. Unlinking ends it just as easily, and the person can stay linked
+but unsubscribe.
 
 - **DM only is the policy.** A business reaches people through the in-app inbox and nothing else. Email or
   text is possible **only when the person has shared that contact detail with that business** (their
@@ -82,12 +86,13 @@ where marketing preferences live. There are two levels, so no one is surprised:
   business on/off, frequency (as it happens, weekly digest, big offers only) and topics (offers, events,
   news); one master switch, "No marketing from anyone"; a one-tap unsubscribe in every message and a
   one-tap unlink.
-- **Nothing pre-ticked, nothing implied.** Visiting a listing, messaging a business, buying from it or
-  linking to it never opts anyone into marketing; only an explicit yes does.
+- **Nothing implied beyond the link.** Visiting a listing, messaging a business or buying from it never opts
+  anyone in; only tapping Link (or accepting a business's request) does, and only to in-app messages.
+  Email and text always need the person to share that detail with the business.
 - **Messages go through Traversence.** A business never receives a person's email or phone unless that
   person shares their contact card; the business sends, Traversence delivers and enforces the preferences.
-- **Business Insights** shows how many people are linked and how many opted into marketing; names only for
-  people who chose to share them.
+- **Business Insights** shows counts: linked, subscribers, unsubscribed, new links (30 days), people sharing
+  contact info, people who asked never to be asked; names only for people who chose to share them.
 - Open: how marketing reach maps to the plan tiers in `commercial.md` (e.g. Core: in-feed posts; higher
   tiers: direct offers and larger monthly send allowances).
 
@@ -152,14 +157,15 @@ where marketing preferences live. There are two levels, so no one is surprised:
   Inviting an address that already belongs to a member sends them a connection request instead, with the
   same reply, so no one learns who is registered. Up to 20 invites a day. Migration
   `2026-09-30_people_find_and_invite.sql`; `join.php`; `api/auth/register.php` accepts the invite.
-- **2026-09-30, phase 3a built (the person's side of marketing):** after linking a business, a separate
-  question, "Would you also like offers and news from …?", with a frequency (weekly digest, as it happens,
-  big offers only), Yes or No thanks; No offers "Ask me again in 1 month · 3 months · 6 months · Never".
-  App Settings → Marketing lists every linked business with the same choices, plus the master switch "No
-  marketing from anyone". Nothing is pre-ticked; a business may ask only when the person hasn't said yes,
-  hasn't said never, the chosen wait has passed and the master switch is off. Migration
-  `2026-09-30_marketing_optins.sql` (`marketing_optins`, `user_settings.no_marketing`); `api/lib/Marketing.php`;
-  `user/api/marketing.php`; `js/link-button.js`; `user/dashboard.php`.
-- **Next:** phase 3b, the business's side: asking linked people to opt in (respecting ask-again and never),
-  sending offers to opted-in people's inbox with one-tap unsubscribe, and linked / opted-in counts in
-  Business Insights.
+- **2026-09-30, phase 3a built (the person's side), then revised the same day:** linking a business
+  subscribes the person to its in-app messages (weekly digest by default), with a short note under the Link
+  button instead of a question. App Settings → Marketing lists every linked business: name, status
+  (Subscribed / Unsubscribed / Paused, and "sharing N"), and × to unlink. Tapping the name opens its
+  settings: frequency or unsubscribe (with ask again in 1 / 3 / 6 months or never), and which contact
+  details the business can see (shared with the people who manage its listing; untick to take back). The
+  master switch "No marketing from anyone" pauses all. Relinking clears an earlier unsubscribe. Business
+  Portal → Business Insights shows the counts. Migration `2026-09-30_marketing_optins.sql`;
+  `api/lib/Marketing.php`; `user/api/marketing.php`; `api/lib/Links.php`; `js/link-button.js`;
+  `user/dashboard.php`.
+- **Next:** phase 3b, the business's side: asking people to link (respecting ask-again and never), and
+  sending offers to subscribers' inboxes with one-tap unsubscribe in each message.
