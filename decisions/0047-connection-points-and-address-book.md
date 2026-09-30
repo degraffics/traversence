@@ -196,4 +196,9 @@ but unsubscribe.
   show in their Community feed; Community Connections lists their groups. Migration
   `2026-10-01_community_groups.sql`; `api/lib/Community.php`; `user/api/community.php`.
 - **Open:** email/text delivery of offers to people who shared those details (needs an email service's
-  unsubscribe handling and a texting provider); reporting posts to admins; tying a group to a place.
+  unsubscribe handling and a texting provider); tying a group to a place.
+- **2026-09-30, reporting built:** Report on community posts (members) and groups (anyone signed in), with a
+  reason (spam, harassment, a sacred or restricted site, someone's private information, other) and a note;
+  one report per person per item; 3 reports hide a post until an admin decides. Admin → Reports
+  (`admin/reports.php`): remove / hide, dismiss, or restore; the Notification Center counts open items.
+  Reporters are never shown. Migration `2026-10-01_reports.sql`; `api/lib/Reports.php`.
