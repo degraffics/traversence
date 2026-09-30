@@ -123,3 +123,14 @@ platform once they see it done right.
   from the directory's own categories.
 - **On tribal trust land, housing is described as governed by the nation**, not as an open market, with
   wording checked with the nation. (Needs tribal-land boundaries as data; not yet built.)
+
+## Progress (2026-09-30): guide stories, first version
+
+The story part of each guide is built for hubs, geo-hubs and town clusters: one story per place
+(`place_stories`), written in Admin → Crawler → **Stories** (`admin/stories.php`). A draft is private.
+Publishing needs every guardrail on the checklist ticked (tribal lands as sovereign nations in the present
+tense; no sacred or restricted site pinpointed; public places and events only; facts cited) and at least
+one source. The place page shows the published story near the top: the first paragraphs, "Read the whole
+story", the sources, and "Reviewed by Traversence" with the month. Text is plain (blank lines between
+paragraphs, `## ` for headings). The table already marks a story's origin (person or crawler), so crawler
+drafts can join the same review queue later. Migration `2026-10-01_place_stories.sql`; `api/lib/Stories.php`.
