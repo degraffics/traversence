@@ -54,8 +54,8 @@ things, or it isn't useful at all.
 - **Community content only in abstracted form** (`decisions/0010`, `decisions/0011`). Public contributions (reviews,
   public posts) may be read by the AI to recognize **topics** that help write guides. Only an abstract classification
   is kept: never the text, never who wrote it, and a topic counts only once it recurs across independent mentions.
-  This is not training a model on you; nothing traces back to a person. Whether **members-only group posts** are ever
-  used this way is open (see Open).
+  This is not training a model on you; nothing traces back to a person. Group posts follow the same rule, per
+  author, under the account-level AI & Learning consent (`decisions/0051`).
 - **No off-platform tracking.** No advertising pixels or tracking SDKs, and no following you around other websites.
 - **No location from linking.** A link never reveals where you live or are (`decisions/0047` §2).
 
@@ -112,9 +112,9 @@ target an individual.
   (e.g. replace externally hosted page scripts with self-hosted copies where practical).
 - Open: legal review of the public wording before launch; what aggregate statistics, if any, are ever shared outside
   Traversence (default: none).
-- **Open (Jason): members-only group posts and the topic corpus.** (a) never used, public content only
-  (recommended), or (b) abstracted per `decisions/0011` only if the group's owner opts the group in and members are
-  told.
+- **Resolved by `decisions/0051` (AI & Learning consent):** group posts, including members-only, are read in context
+  and kept as abstractions only when their author has consented; posts by people who declined are counted, not read.
+  Private messages and contact cards never enter shared learning.
 - **Inconsistency to resolve:** `architecture.md`'s "chat-vectorization-queue" (embedding live conversation streams)
   conflicts with `decisions/0011`'s rule that raw content is never persisted into the AI corpus; it must be brought in
   line with 0011 (classify at intake, store only the abstraction) or removed before anything like it is built.

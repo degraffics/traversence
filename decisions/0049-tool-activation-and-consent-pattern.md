@@ -79,7 +79,7 @@ People already using a tool are asked once, the next time they use it, so everyo
 | Address Book | opens the Address Book or taps Connect / Message on a person | hidden from search and requests; messages paused |
 | Business messages | messages a business, or answers a business | business conversations paused |
 | Community groups | joins or starts a group | memberships paused (not visible to members) |
-| AI suggestions | turns on suggestions (later) | no AI use of their links or activity |
+| AI & Learning (`decisions/0051`) | is offered AI Assist or learning (members once; guests each session) | no AI Assist; their content is counted, not read |
 
 ## Consequences
 
