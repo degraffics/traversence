@@ -90,3 +90,13 @@ People already using a tool are asked once, the next time they use it, so everyo
   the Activate/Consent chip appears.
 - Open: exact wording per tool (to draft and approve); whether groups' "consent to be seen by members" and business
   messages fold into Linking or stay separate tools; legal review of the wording before public launch.
+
+## Progress (2026-09-30): step 1 built
+
+`tool_consents` + `tool_consent_log` (migration `2026-10-01_tool_consents.sql`), `api/lib/Consent.php` (the three tools
+with Jason's approved wording, versioned), `user/api/consent.php`. Linking requires consent before a new link (the
+links API answers 428 with the prompt); the chain is a small corner icon (`js/link-button.js`, `[data-link-host]`,
+`[data-link-extra]` for the Message button) showing ACTIVATE → ⓘ CONSENT → full panel. Account hub: "Personal
+Security" is now **Privacy Settings** with **Your tools** (switch on with consent, switch off = paused) and Marketing
+moved in. A paused Linking tool drops out of feeds and business offers. Address Book and AI Assist & Learning consent
+is recorded from Your tools; enforcing it in those tools comes with their steps.
