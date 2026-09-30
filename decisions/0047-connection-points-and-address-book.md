@@ -178,6 +178,8 @@ but unsubscribe.
   can't repeat for 3 months; the person answers Yes, or No with when to ask again. Business Portal →
   Messages & offers per listing. Migration `2026-10-01_business_messages.sql`; `api/lib/BizMessages.php`;
   `user/api/business-messages.php`; `js/business-inbox.js`; `js/address-book.js` (Messages → Businesses).
+- **2026-09-30:** a Message button (speech bubble) beside Link on listing pages that someone manages, opening
+  that business's conversation; the Notification Center counts new business messages for the person and
+  waiting customer messages for the people who manage listings.
 - **Open:** email/text delivery of offers to people who shared those details (needs an email service's
-  unsubscribe handling and a texting provider); unread business messages in the Notification Center; a
-  Message button on listing pages; Groups (circles).
+  unsubscribe handling and a texting provider); Groups (circles).
