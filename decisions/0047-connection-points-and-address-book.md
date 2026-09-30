@@ -1,6 +1,7 @@
 # ADR 0047: Connection Points, the Address Book, and the Account Hub
 
-**Status:** Accepted (2026-09-29), from Jason's dashboard mockups. Design only; nothing built yet.
+**Status:** Accepted (2026-09-29), from Jason's dashboard mockups. Messaging, link visibility and business counts are
+superseded by `decisions/0052` (one messaging system, open links, private Address Book). Design only; nothing built yet.
 
 ## Context
 

@@ -30,8 +30,9 @@ things, or it isn't useful at all.
 ### What a link is used for (and only this)
 
 1. **Your feeds:** what you link fills your Community, Discovery and Listings feeds.
-2. **Businesses you link:** they can message you in your Traversence inbox (`decisions/0047` §3), and they see a
-   **count** of people linked, never who.
+2. **Businesses you link:** links are open connections, so a business sees that you linked it and can message you
+   under your marketing preferences (`decisions/0052`). To keep a business within reach privately, add it to your
+   Address Book instead: it doesn't see that.
 3. **People you follow:** they can see that you follow them, so they can remove a follower; no one else sees who you
    follow or link.
 4. **AI Assist, only if you activate it** (`decisions/0049`, `decisions/0010`): your own links and activity help the
