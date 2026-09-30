@@ -187,5 +187,7 @@ but unsubscribe.
   everyone in it (adds per person; taking back stays per person). Ending a connection or blocking takes the
   person out of the other's groups and their conversations. One-to-one conversations stay separate. Up to 30
   groups of 50. Migration `2026-10-01_groups.sql`; `api/lib/Groups.php`. Public community groups remain open.
+- **2026-09-30:** the Link button on every directory search card (beside the category), and card names open
+  the listing page; `js/link-button.js` now picks up cards drawn after the page loads.
 - **Open:** email/text delivery of offers to people who shared those details (needs an email service's
   unsubscribe handling and a texting provider); public community groups.
