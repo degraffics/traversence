@@ -189,5 +189,11 @@ but unsubscribe.
   groups of 50. Migration `2026-10-01_groups.sql`; `api/lib/Groups.php`. Public community groups remain open.
 - **2026-09-30:** the Link button on every directory search card (beside the category), and card names open
   the listing page; `js/link-button.js` now picks up cards drawn after the page loads.
+- **2026-09-30, public community groups built:** `/community/` (find, join, start; up to 5 run per person)
+  and `/community/group.php` (about and member count for anyone; posts and member names for members only;
+  open or approval joining; the owner picks moderators, who accept requests and remove posts or members;
+  owners or admins hide a group). Blocked people don't appear to each other. Posts from a person's groups
+  show in their Community feed; Community Connections lists their groups. Migration
+  `2026-10-01_community_groups.sql`; `api/lib/Community.php`; `user/api/community.php`.
 - **Open:** email/text delivery of offers to people who shared those details (needs an email service's
-  unsubscribe handling and a texting provider); public community groups.
+  unsubscribe handling and a texting provider); reporting posts to admins; tying a group to a place.
