@@ -111,3 +111,38 @@ The directory's current bar becomes the shared bar. Its full results view stays 
 
 Open: which place facts to answer directly (start with population, median age, median household income, from the
 census data already on place pages); whether events and marketplace join at launch or later.
+
+## Progress (2026-09-30): steps 1–3
+
+- **The engine:** `api/lib/UniversalSearch.php` and `/api/search.php`. It returns chips, a top result, grouped
+  results and the Address Book hand-off.
+- **Query understanding:**
+  - a place at the start or end of the query, with an optional state; towns are matched through their ZIPs to
+    their cluster;
+  - an exact business name;
+  - a category by name, everyday word or word root ("physical therapy" becomes Physical Therapists);
+  - a kind ("groups", "stories");
+  - has phone / has website;
+  - facts words.
+- **"Greer Arizona"** is now the place Greer, AZ (28 listings), with the business named "Greer Arizona" listed
+  under it. That business name is likely why the old search showed four results.
+- **Facts** are answered from the census data already on place pages ("Show Low: 18,824 people, median age 49,
+  median household income $60,313").
+- **The panel** (`js/search-panel.js`) is on every page except dashboards, admin pages, sign-in pages and the
+  directory. It has:
+  - removable chips;
+  - listing peek cards (a confidential location shows its phone only);
+  - Back, Esc or ✕ to close it;
+  - the page's or visitor's place as the default area;
+  - recent searches kept in the browser.
+- **"See all"** opens the directory with its place, words and category (`?cluster=&q=&cat=&catname=`).
+- **People:** a "Looking for a person?" row opens the Address Book's Find with the words already typed
+  (`#addressbook:find=`). The full row shows when the query looks like a name or nothing else matched; otherwise it
+  is a footer link.
+
+**Also fixed:**
+- the header's loop variables overwrote the dashboard's icon helper, which crashed the account dashboard; header
+  variables are now all `$tv_`-prefixed;
+- the bell now reopens the Notification Center after ×.
+
+Next: the directory filter panel (step 4), presets (step 5) and saved searches (step 6).
