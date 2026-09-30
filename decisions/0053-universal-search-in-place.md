@@ -123,7 +123,13 @@ collection component), not the first question.
 | **Why** | the intent | eat, heal, explore, connect, buy, learn, get help |
 
 - Each W that was read shows as a chip you can remove, as in §3.
-- **Why only changes the order.** It is the weakest guess, so it never hides a match.
+- **Why orders; alone, it chooses.** With other words ("pizza near Show Low, for dinner") Why only changes the order,
+  because it is the weakest guess. Asked alone ("places to eat in St. Johns"), it chooses what is shown. If nothing is
+  tagged for it, everything in the place is shown instead.
+- **Nouns and verbs.** The nouns in a query name the Who, What and Where. The verbs ("eat", "stay", "explore", "get
+  help") carry the Why.
+- **How is the sixth question:** how to reach it, contact it, or use it. It shows as conditions (has a phone, open,
+  accessible, free) and as the actions on each result (Call, Directions, Website, Link, Save).
 - **When needs data:** hours (`api/lib/Hours.php`), event dates, seasons. Where these are missing, results still show;
   they just aren't boosted.
 - **Presets (§5) are 5Ws filled in ahead of time:** "Where should I go", "What's open now", "What's happening this
@@ -145,6 +151,20 @@ with the role ("Author of …", "Mayor, City of St. Johns"). The rules:
   public result, and the Address Book row.
 - Staff mentions come only from what the business or source published. A person can ask to be removed from one.
   Officials stay listed in their office while they hold it.
+
+**How results are presented** (Jason, 2026-09-30, from the Five Ws, DIKW and progressive disclosure):
+- **Feedback loop:** the chips say back what was understood ("Somewhere to eat · St. Johns · Open now"). Removing
+  one corrects it at once.
+- **The answer first:** a clear top result or a facts answer leads (Minto), then everything else.
+- **In small chunks:** five results at a time in one list, three per kind when grouped, with "Show more". People take
+  in 3 to 5 things at once.
+- **Progressive disclosure:** the panel shows the few that matter. The peek card and the map show more, and the page
+  shows everything.
+- **Context:** the visitor's place and local time are always part of the reading ("open now" is their now). Later,
+  so is the role they are acting in (`decisions/0055` §4).
+- **From data to knowledge:** listings and places are the data. The 5W index turns them into information. Answers
+  (facts, open now, nearest) are knowledge. Presets built from aggregate signals (§5) are the "why" layer: what is
+  worth doing here, now.
 
 **Build: one index.** Every item gets its 5W tags when it is saved, imported or crawled. They go in one search table
 (item kind and id, What terms, Who roles and audiences, When data, Where point and place keys, Why intents, plus
@@ -237,5 +257,37 @@ Next: step 4b (radius chip and map in the panel), presets (step 5) and saved sea
 - `api/search.php` takes `radius`. `UniversalSearch::search` measures from the place's first ZIP and returns `map`
   (the query for the map's pins) and `area`.
 
-Next: the 5W index and reading (§8), then presets (step 5) and saved searches (step 6).
+Next: the 5W index and reading (§8).
+
+### Progress: step 5W-1, the index and the 5W reading (2026-09-30)
+
+- **The index:** `search_index`, filled by `api/lib/SearchIndex.php`.
+  - It holds listings, Recreation.gov outdoors places (hidden ones left out), stories, community groups, and topics
+    (categories and community topics).
+  - Each row has What terms, public Who (the managing agency; who it's for or run by, as it says itself), hours for
+    When, ZIP, town, cluster, place key and point for Where, and Why intents read from its category.
+  - Built from **Admin > Crawler > Data loads > Search index**. After that it keeps itself current with no cron: at
+    most every 15 minutes, a search re-reads changed listings and rebuilds stories, groups and topics.
+  - Until the first build, search works as before.
+- **The reading:**
+  - **When:** open now, tonight, today, this weekend, a day of the week.
+  - **Who:** "for veterans", "for kids", "veteran-owned"; public offices ("the mayor" is searched as the city
+    government, city offices first).
+  - **Why:** "places to eat", "things to do", "where to stay", "get help", "to buy", "to learn".
+  - Each is a chip that can be removed.
+- **The panel:**
+  - One list of everything that matches, with a kind tag on each row, and "Group by kind" (remembered).
+  - Chunks with "Show more".
+  - "Open" or "Hours not listed" when When was asked.
+  - "See all … listings in the directory" at the foot.
+- **Also:**
+  - Tapping the category on a map card or a peek card narrows the search to everything like it in the same place.
+  - The header, its suggestions and the search panel now stay above the full-screen map.
+- **Known gaps:**
+  - **Cuisine:** St. Johns' Mexican restaurants aren't named "Mexican" and have no cuisine data, so "mexican" can't
+    find them yet. Fix: read cuisine from websites (crawler) and from OpenStreetMap.
+  - **"See all" and When:** "See all" doesn't carry When to the directory yet.
+  - **Public roles:** officials and staff come in as sources publish them (crawler).
+
+Next: presets as 5W presets (step 5), then saved searches (step 6).
 
