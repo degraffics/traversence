@@ -171,3 +171,22 @@ census data already on place pages); whether events and marketplace join at laun
 - The universal bar has the **place pin**, and its placeholder names the place ("Search in St. Johns…").
 
 Next: step 4b (radius chip and map in the panel), presets (step 5) and saved searches (step 6).
+
+### Progress: step 4b, the full-screen map and radius (2026-09-30)
+
+- **One map for the site** (`js/map-view.js`, `TvMap`). It fills the screen under the header. A tool strip floats on
+  top with the title, distance (5–100 mi) and List. A card floats above the map for the chosen pin: details, Call,
+  Directions, Website, Open, Link and Save, with previous and next through the pins in view, nearest first (swipe on
+  phones). After the map is moved, **Search this area** appears. Back, Esc or List close it. Leaflet loads on first
+  use.
+- **Directory:** the Map view opens the full-screen map, with the same search and filters.
+- **Search panel:** when a place is understood, a **Distance** menu appears: in the place, or within 10, 25, 50 or
+  100 mi. The place chip shows the distance ("Show Low, AZ + 25 mi"). A **Map** button opens the full-screen map for
+  the same search. List or Back returns to the results as they were.
+- **"See all"** keeps the distance: the directory opens on a point with that radius, named for the place ("within
+  25 mi of Show Low, AZ").
+- `api/search.php` takes `radius`. `UniversalSearch::search` measures from the place's first ZIP and returns `map`
+  (the query for the map's pins) and `area`.
+
+Next: presets (step 5) and saved searches (step 6).
+
