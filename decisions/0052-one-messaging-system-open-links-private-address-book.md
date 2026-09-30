@@ -97,3 +97,14 @@ App Settings keeps everyday preferences (display, notifications).
 - Linking and Address Book consent wording (`decisions/0049`) is updated to match before build.
 - Open: daily limits for requests and guest inquiries; how admins and
   stewards appear in the inbox (role labels).
+
+## Progress (2026-09-30): step 2, open links
+
+Links are visible to the other side: people see **Linked to you** in Linked Connections (with Remove); a business's
+Business Insights lists who linked it, with each person's marketing status. Fairness for earlier links: a link made
+before links were open only shows once its owner has seen the one-time notice ("Links are now open connections…",
+in Linked Connections and the Notification Center) and pressed **Got it**, or it was made after they consented to
+Linking. Links of people who paused Linking don't show. The consent box is now an on-page **lightbox** (page faded,
+chip and box beside the corner); "Configuration settings" shows a quick review of your tools inside the box instead of
+leaving the page. `api/lib/Links.php` (`linkedBy`, `removeFollower`, `needsOpenNotice`), migration
+`2026-10-01_open_links.sql` (`user_settings.open_links_ack`).
