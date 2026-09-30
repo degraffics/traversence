@@ -129,3 +129,85 @@ are a per-community grant stacked on a member account (`architecture.md` §11/§
   breaking current access.
 - Open: whether Stewards get any Traversence-wide view (default: only their communities); what "Trending
   Connections" ranks by, which must follow `decisions/0050` (aggregate counts only, no personal targeting).
+
+## Progress (2026-09-30): the page template, Discover, the Pulse, roles, and the collection component
+
+**Checked against the live site first** (the SQL dump and the website zip Jason uploaded, 30 Sept). The search, map
+and preset files match. Eight crawler and Review files on the site were older than the working copy (the name-from-the-
+web-address, same-location re-crawl, found-listings lightbox, unread Locations pages, and the field checks while
+editing), so a catch-up zip restored them. One migration had not been run (`2026-09-30_people_find_and_invite.sql`:
+find-by-email or phone settings and invites; the code works without it, those features stay off until it is run).
+The error logs held only old, already-fixed errors.
+
+**1. One layout (step 1, §1).** `includes/app-shell.php`:
+- The toolbar runs full height along the left edge, just under the header. It shows icons; the tab at its foot turns
+  labels on, and the choice is remembered. Items can be grouped under small headings and marked "Soon".
+- The workspace fills the right. On phones the toolbar becomes one swipeable row across the top.
+- No transitions.
+- `tv_app_start()` / `tv_app_end()` give a whole page; `tv_app_open()` / `tv_app_close()` fit a page with its own
+  head (the dashboard).
+
+**Discover (step 5) is the first page on it.** Toolbar: Overview, Map, Regions; Outdoors, Food & drink, Culture &
+heritage, Stories & guides; Events and Plan a trip (soon); Your places (signed in).
+- It follows the visitor's place: the address (`?cluster=`, `?geo=`, `?hub=`) or the place chosen on the site.
+- **Overview:** "Ask about {place}" presets (decisions/0053 §5), "What's here" tiles with counts, and regions.
+- **Map:** full screen, choosing Things to do, Places to eat, Places to stay or Everything, with a distance. Outdoors
+  places get their own peek card.
+- **Outdoors: collections instead of repeats.** A place with several parts reads as one ("Luna Lake: 4 places").
+  The rest sit under what they are: Lakes & water, Trails, Campgrounds, Day use, Scenic & overlooks, Wilderness &
+  forests, Visitor centers. This answers the Outdoors concern in future-considerations; place pages use the same
+  collections.
+- **Food & drink:** grouped by what places serve (read from descriptions and menus, decisions/0053 §8).
+- **Culture & heritage:** Museums & history; Tribal nations & cultural centers, shown as sovereign nations whose
+  guidance visitors follow; Arts & galleries; Libraries.
+
+**2. Roles and the Context Switcher (step 4, §4, §8).** `role_grants` and `role_log` tables; `api/lib/Roles.php`.
+- **Grants are stacked on one account.** Existing access counts as grants with no data changes:
+  - super_admin = Admin Owner;
+  - regional_admin = Admin Manager of its region;
+  - a listing's owner or manager = its Owner or Manager;
+  - owners and moderators of community groups = Steward.
+- **What each role can do** follows the tables in §8. No capability reads people's messages or contact cards.
+- **Who can give roles:** an Owner can give any role except Owner, by the exact email of a Traversence account. A
+  Manager can add General members, and anyone can step down. Every grant and removal is logged.
+- **The Context Switcher:** "Acting as" at the top of the workspace, at every size. It shows only the roles the
+  person holds, and the choice lasts the visit.
+- **Toolbars per role:**
+  - Member: Pulse, Address Book, Linked, Groups; Marketplace and Travel plans (soon); Default places, Privacy,
+    App settings, Help.
+  - A listing: Pulse, Messages & insights (that listing only), The listing, Edit listing, Team & roles.
+  - Steward: Pulse, Your communities (with requests to join); Member reports and Charter (soon).
+  - Admin: Needs you, Admin work (grouped Content, People, Listings, Money, System; each role sees its own groups),
+    Procedures, Review, Reports, Staff & roles.
+- **Procedures:** Morning review, Community care and Weekly as step lists linking to each tool. Ticks are kept for
+  the day.
+
+**3. The Pulse (step 3, §5).** `api/lib/Pulse.php`, `/user/api/pulse.php`.
+- **"Needs you" leads.** It is the old Notification Center, now per role:
+  - a listing's unread customer messages and guest questions;
+  - a steward's requests to join;
+  - staff queues and reports.
+- **Then the stream,** newest first: Messages, Community, Discovery, Listings, Marketplace for a member; Messages and
+  Guest questions for a listing; group posts for a steward.
+- **Filter chips** with counts. A setting chooses one combined stream or a tab per source, and switches each source on
+  or off (kept in the browser for now).
+- **Concept cleanup (§6):** "Linked Connections" is now **Linked**, "Community Connections" is now **Groups**, and
+  "Saved Locations" is now **Default places** under Settings. The bell opens the Pulse.
+
+**4. The collection component (step 2, §3).** `js/collection.js` (`TvCollection.mount`).
+- Search within the list; sort; group by; filters, with active ones as removable chips.
+- List, Blocks or Lines layout.
+- Collapse or expand each group and item, or all at once.
+- Select with bulk actions, plus each item's own quick actions.
+- The view is remembered per list (in the browser for now).
+- The toolbar opens collapsed (search, layout, View, Select). **Linked is the first list on it:** grouped by kind,
+  filtered by kind or muted, with bulk Mute, Unmute and Unlink.
+
+**Next:**
+- The collection component on Review, the Address Book's contacts and directory results.
+- Views and Pulse settings saved to the account instead of the browser.
+- Region-scoped staff grants.
+- Discover's Trending Connections, which must follow `decisions/0050`: aggregate counts only.
+- Events and Plan a trip.
+- The cluster and anchor-town naming (future-considerations).
+

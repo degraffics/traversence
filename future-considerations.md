@@ -125,7 +125,7 @@ Two confusions Jason found on the Discover path. Scheduled after the current sea
   Clean up the cluster and anchor model: name clusters as areas ("St. Johns area"), give the anchor town its own
   entry or page, and make the breadcrumb and header say which one you are on. The town spellings also need to match
   ("St. Johns" vs. "Saint Johns").
-- **Outdoors & public lands as collections.** Recreation.gov items sit in a flat list, so four or five entries with
+- **Outdoors & public lands as collections.** (Done 2026-09-30: see `decisions/0055` progress.) Recreation.gov items sit in a flat list, so four or five entries with
   the same stem (a forest, its trailheads, day-use areas, overlooks) read as repeats. Group them into collections:
   by kind (Lakes, Trails and trailheads, Campgrounds, Day use and picnicking, Scenic areas, Wilderness), and under
   the parent area or forest where the source gives one. Each collection collapses to a count. This uses the ADR 0055
