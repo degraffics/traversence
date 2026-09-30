@@ -369,3 +369,29 @@ From Jason's review (with Google's "businesses near me" and "places to go near m
   directory too.
 - **Search matches singular and plural** ("pharmacy" finds Pharmacies, "therapy" finds therapies).
 
+
+**"Tell us": what visitors know, feeding Review and the crawler** (migration `2026-10-06_suggestions.sql`).
+- **One short form, everywhere** (`js/suggest.js`, `TvSuggest.open()`, or any `data-tv-suggest` button). It covers
+  more than businesses: a lake, trail, park, campground, landmark or event; information for a place's guide story;
+  feedback on search results. Without an account it works too, limited to 12 a day per device or person; a hidden field
+  catches bots. We never publish who sent a suggestion.
+- **Kinds:** something missing, a fix, closed or moved, listed twice (with a picker for the other listing), for a
+  guide story, and search feedback. Each keeps its **topic** (business, outdoors, culture, food, event, story), the
+  **section** it was missing from ("Lakes & water" near St. Johns), the place, and the page or search it came from.
+- **Where it's offered:**
+  - the search dropdown's footer: "Tell us what's missing · Feedback on these results";
+  - the peek card: "Suggest an edit or tell us something";
+  - every collection: "Missing a lake or river? Tell us" and "Know a place that isn't here?";
+  - the place page: "Share it for the guide" under the story, or "Know something we should add?";
+  - the listing and recreation pages: "Closed, moved or listed twice?" and "Something wrong or missing?";
+  - the directory: in the empty state and under the results.
+- **Review:** a "From visitors" chip, counted in the Review badge. Each card shows what was sent and offers the next
+  step: **Crawl this website** (Listing Intake with the address filled in), Edit the listing, Open the place, **Open
+  the story editor** for the place, Look it up, Done, or Dismiss. Nothing changes on the site by itself.
+- **Match context for the crawler:** a website or phone a visitor gives for a business is kept. When a crawl finds
+  that business's own website or phone (never the directory site it was crawled from), `IntakeStager` offers the
+  listing as a possible duplicate ("a visitor gave this website for it"), or flags that a visitor suggested the
+  business, so the person merging sees it. Only for business and food topics.
+- The endpoint is `/api/suggestion.php`. `/api/suggest.php` remains the search box's type-ahead.
+- **Layout:** on desktop the side toolbar is now fixed like the header: it stays in place while the workspace and
+  footer scroll, and it starts where the header ends. Phones keep the swipeable row.
