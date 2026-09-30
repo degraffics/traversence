@@ -247,3 +247,19 @@ member dashboard. The page describes the launch model from `decisions/0031`:
 
 It shows the Facebook Marketplace-style grid, filters and categories, with sample cards clearly marked "Sample".
 
+**More from Jason's review (2026-09-30):**
+- **"Marketplace"** is the name everywhere: the header, the phone menu, the toolbars and the page. The role menu
+  lists roles only (the "Your dashboard" line is gone, since switching already opens that role's dashboard).
+- **New message from the Pulse.** A member can pick a connection (or someone who allows being found; they get a
+  message request), write, and send without leaving the Pulse.
+- **The listing landing.** A business role's Pulse opens with the listing at a glance:
+  - its name, status and town;
+  - how complete its profile is, and what to add ("add hours so more searches find you");
+  - its numbers (linked, subscribers, new links);
+  - quick actions: reply to messages, edit, see it as visitors do, team.
+- **A sample business for testing (FPO).** Until real listings have teams, a platform Admin also sees **Sample
+  business (preview)** in the role menu. It shows the business toolbar and the landing with sample figures, sample
+  messages and a sample team, all clearly marked. It never opens a real listing's conversations, and nothing in it
+  can be saved (giving roles is refused). Remove it once real businesses are testing (`Roles::contexts`,
+  `preview:business`).
+
