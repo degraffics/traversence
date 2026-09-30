@@ -93,3 +93,4 @@ shortening the schedule; keep `TIME_BUDGET` below the schedule interval so runs 
 | `NPI_BULK` | on | Monthly NPI Registry load (decisions/0048). When the site says it's due, that run downloads CMS's full NPI file (~1 GB), keeps health-care organizations in AZ and NM, and sends them in batches. `off` stops it. |
 | `NPI_TIME` | 1500 | Seconds allowed for one monthly load. |
 | `IRS_BULK` | on | Monthly IRS exempt-organization list (decisions/0048): `eo_az.csv`, `eo_nm.csv` from irs.gov, used by the site only to confirm listings. `off` stops it. |
+| `RIDB_API_KEY` | (none) | Recreation.gov RIDB key. With it, once a month the worker loads public campgrounds, recreation areas, trailheads and visitor centers in AZ and NM for place pages (decisions/0048). |

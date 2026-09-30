@@ -42,8 +42,10 @@ Settings (environment variables):
   NPI_TIME             seconds allowed for that load, default 1500
   IRS_BULK             "off" stops the monthly IRS exempt-organization load (default on): one small file per state
                        (eo_az.csv, eo_nm.csv), used by the site only to confirm listings
+  RIDB_API_KEY         Recreation.gov RIDB key. With it, once a month the worker loads public campgrounds,
+                       recreation areas, trailheads and visitor centers in the site's states for place pages
 Test hooks (not for production): OVERPASS_FIXTURE=file.json, WEB_FIXTURE=file.json ({url: html}),
-NPI_FIXTURE=file.json (an NPI API reply), NPI_FILE_FIXTURE=file.zip (a small NPI file), IRS_FIXTURE_DIR=dir (eo_az.csv…), SEARCH_FIXTURE=file.json ({query: {"results": [...]}}).
+NPI_FIXTURE=file.json (an NPI API reply), NPI_FILE_FIXTURE=file.zip (a small NPI file), IRS_FIXTURE_DIR=dir (eo_az.csv…), RIDB_FIXTURE=file.json ({"facilities|AZ|0": reply}), SEARCH_FIXTURE=file.json ({query: {"results": [...]}}).
 Standard library only.
 """
 import csv
@@ -86,6 +88,8 @@ NPI_TIME = int(os.environ.get("NPI_TIME", "1500"))                # seconds allo
 NPI_FILES_PAGE = "https://download.cms.gov/nppes/NPI_Files.html"
 IRS_BULK = os.environ.get("IRS_BULK", "on").lower() != "off"      # monthly IRS exempt-organization list (decisions/0048)
 IRS_FILE = "https://www.irs.gov/pub/irs-soi/eo_{state}.csv"
+RIDB_API_KEY = os.environ.get("RIDB_API_KEY", "")                 # Recreation.gov RIDB key (decisions/0048)
+RIDB_API = "https://ridb.recreation.gov/api/v1"
 NPI_API = "https://npiregistry.cms.hhs.gov/api/"
 UA = "TraversenceCrawler/1.0 (+https://traversence.com; local directory of community resources)"
 ZIP_RADIUS_M = 19000          # ~12 miles around each ZIP centre of the cluster
@@ -841,6 +845,82 @@ def irs_bulk():
     return True
 
 
+def ridb_get(kind, state, offset):
+    if os.environ.get("RIDB_FIXTURE"):
+        with open(os.environ["RIDB_FIXTURE"]) as f:
+            return json.load(f).get(f"{kind}|{state}|{offset}", {"RECDATA": [], "METADATA": {"RESULTS": {"TOTAL_COUNT": 0}}})
+    q = urllib.parse.urlencode({"state": state, "limit": 50, "offset": offset, "full": "true"})
+    req = urllib.request.Request(f"{RIDB_API}/{kind}?{q}", headers={"apikey": RIDB_API_KEY, "Accept": "application/json", "User-Agent": UA})
+    with urllib.request.urlopen(req, timeout=60) as r:
+        return json.loads(r.read().decode("utf-8"))
+
+
+def ridb_row(kind, rec):
+    """One RIDB facility or recreation area in the shape the site takes."""
+    if kind == "facilities":
+        if rec.get("Enabled") is False:
+            return None
+        addr = next(iter(rec.get("FACILITYADDRESS") or []), {})
+        fid = str(rec.get("FacilityID", ""))
+        ftype = rec.get("FacilityTypeDescription", "") or ""
+        url = rec.get("FacilityReservationURL") or ""
+        if not url and rec.get("Reservable") and "campground" in ftype.lower():
+            url = f"https://www.recreation.gov/camping/campgrounds/{fid}"
+        return {"kind": "facility", "id": fid, "name": rec.get("FacilityName", ""), "type": ftype,
+                "description": rec.get("FacilityDescription", ""), "phone": rec.get("FacilityPhone", ""),
+                "lat": rec.get("FacilityLatitude"), "lon": rec.get("FacilityLongitude"), "url": url,
+                "city": addr.get("City", ""), "state": addr.get("AddressStateCode", ""), "zip": addr.get("PostalCode", ""),
+                "org": next((o.get("OrgName", "") for o in rec.get("ORGANIZATION") or []), ""),
+                "activities": [a.get("ActivityName", "") for a in rec.get("ACTIVITY") or [] if a.get("ActivityName")]}
+    if rec.get("Enabled") is False:
+        return None
+    addr = next(iter(rec.get("RECAREAADDRESS") or []), {})
+    return {"kind": "recarea", "id": str(rec.get("RecAreaID", "")), "name": rec.get("RecAreaName", ""), "type": "Recreation area",
+            "description": rec.get("RecAreaDescription", ""), "phone": rec.get("RecAreaPhone", ""),
+            "lat": rec.get("RecAreaLatitude"), "lon": rec.get("RecAreaLongitude"), "url": rec.get("RecAreaReservationURL") or "",
+            "city": addr.get("City", ""), "state": addr.get("AddressStateCode", ""), "zip": addr.get("PostalCode", ""),
+            "org": next((o.get("OrgName", "") for o in rec.get("ORGANIZATION") or []), ""),
+            "activities": [a.get("ActivityName", "") for a in rec.get("ACTIVITY") or [] if a.get("ActivityName")]}
+
+
+def rec_bulk():
+    """Loads Recreation.gov places for the site's states when it's due. Returns True if this run did a load."""
+    if not RIDB_API_KEY and not os.environ.get("RIDB_FIXTURE"):
+        return False
+    st = site_call("/api/crawl/rec.php")
+    if not st.get("due"):
+        return False
+    file = "ridb-" + time.strftime("%Y-%m")
+    lid = site_call("/api/crawl/rec.php", {"start": file})["load_id"]
+    seen = calls = 0
+    deadline = time.monotonic() + NPI_TIME
+    for state in [s.upper() for s in st.get("states", ["AZ", "NM"])]:
+        for kind in ("facilities", "recareas"):
+            offset = 0
+            while True:
+                if time.monotonic() > deadline:
+                    raise RuntimeError("Recreation.gov load ran out of time")
+                reply = ridb_get(kind, state, offset)
+                calls += 1
+                recs = reply.get("RECDATA") or []
+                rows = [r for r in (ridb_row(kind, x) for x in recs) if r]
+                for r in rows:
+                    r["state"] = (r.get("state") or state)[:2].upper()   # the address can be missing; the query was by state
+                if rows:
+                    seen += site_call("/api/crawl/rec.php", {"load_id": lid, "file": file, "rows": rows}).get("saved", 0)
+                total = int(((reply.get("METADATA") or {}).get("RESULTS") or {}).get("TOTAL_COUNT") or 0)
+                offset += 50
+                if not recs or offset >= total:
+                    break
+                if not os.environ.get("RIDB_FIXTURE"):
+                    time.sleep(1.3)                # Recreation.gov allows about 50 requests a minute
+    if seen == 0:
+        raise RuntimeError("Recreation.gov returned no places the site accepted")
+    res = site_call("/api/crawl/rec.php", {"load_id": lid, "file": file, "done": True, "seen": seen})
+    log(f"Recreation.gov: {file} done: {seen:,} places from {calls} requests, {res.get('removed', 0)} old records removed")
+    return True
+
+
 def run():
     if not SITE or not TOKEN:
         log("TRAVERSENCE_URL and CRAWLER_API_TOKEN must be set.")
@@ -857,6 +937,11 @@ def run():
                 return 0
         except Exception as e:                     # never stops the rest; the site retries it in 6 hours
             log(f"IRS load stopped: {e!r}"[:300])
+    try:
+        if rec_bulk():
+            return 0
+    except Exception as e:                         # never stops the rest; the site retries it in 6 hours
+        log(f"Recreation.gov load stopped: {e!r}"[:300])
     if VERIFY_PER_RUN > 0:
         try:
             second_look(started + min(VERIFY_TIME, TIME_BUDGET))

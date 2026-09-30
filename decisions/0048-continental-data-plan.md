@@ -129,3 +129,14 @@ The worker loads the IRS Exempt Organizations Business Master File for AZ and NM
 same ZIP and street number is a government reference (apps.irs.gov). It is never shown and never creates a
 listing, because many small nonprofits are registered at a volunteer's home and a registration doesn't prove
 a place is open. Admin → Crawler → Overview now has a "Bulk data" card with each dataset's last load and size.
+
+## Progress (2026-09-30): Recreation.gov (RIDB)
+
+With a free RIDB key kept in Railway (`RIDB_API_KEY`), the worker loads Recreation.gov's facilities and
+recreation areas for AZ and NM monthly (about 50 requests a minute at most) into `rec_places`
+(`api/crawl/rec.php`, `api/lib/crawler/RecBulk.php`, migration `2026-10-01_rec_places.sql`). Permit and lottery
+entries are skipped. Town and geo-hub pages show **Outdoors & public lands**: the nearest public campgrounds,
+recreation areas and visitor centers with distance, linked to Recreation.gov and cited. They are not business
+listings. **Admin → Crawler → Recreation** (`admin/recreation.php`, linked from the Overview's Bulk data card)
+hides any place that shouldn't be shown; a hidden place stays hidden across monthly reloads, so the
+`decisions/0043` rule on sacred and restricted sites always wins over the data.
