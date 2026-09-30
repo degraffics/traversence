@@ -63,9 +63,10 @@ tags it becomes a **lead** (§4) for a reviewer or the crawler to confirm, which
 missing places surface. Tags in **private messages** are only links for the people in the conversation; nothing is
 captured. Consenting members can tag too; their tags are the strongest signal.
 
-The decline message says so plainly: "No problem. Everything else still works. Nothing you write is read for
-learning. If you want to help the guides, tag a place or topic with @ — only the tag is used, never your words or
-your name."
+The decline message (approved wording, Jason 2026-09-30): "Got it! Rest assured, your experience is protected:
+nothing you contribute is used for learning. If you'd like to help others find useful information, tag a place or
+topic with @. Only the tag is shared, never your words or your name. You can turn on AI Assist & Learning any time in
+App Settings → Your tools."
 
 ### Changing your choice: from that point on
 
