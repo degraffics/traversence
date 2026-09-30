@@ -395,3 +395,16 @@ From Jason's review (with Google's "businesses near me" and "places to go near m
 - The endpoint is `/api/suggestion.php`. `/api/suggest.php` remains the search box's type-ahead.
 - **Layout:** on desktop the side toolbar is now fixed like the header: it stays in place while the workspace and
   footer scroll, and it starts where the header ends. Phones keep the swipeable row.
+
+**Directory: one search, List or Map; "Search in" by section.**
+- **The directory has no search box of its own.** The header's search is the search: on the directory, pressing Enter
+  shows the words in the list (`window.tvSearchHere`). The title and place line are gone too, because the header
+  already shows the place. What's left is the filter chips (◎ Near me, Open now, Has a phone, Has a website, distance,
+  sort), the category picks (one swipeable row on phones), and the results.
+- **List or Map toggle** (remembered on the device). The list is full width. The map is full width, with numbered
+  pins. A pin's popup shows the name, category, today's hours and the address, with Call, Peek and Open. "Show 20 more"
+  and "Full screen" sit on the map.
+- **"Search in"** is now the brand sections plus topics: All, Let's Explore, Get Local, Social, Marketplace, Topics
+  (`scope=f:explore|f:local|f:social|f:market` narrows by section; `scope=topics` by kind). The section's name reads
+  "Marketplace".
+- **✎ on a suggested search** puts it in the field and shows its results straight away, ready to change.
