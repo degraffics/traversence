@@ -119,3 +119,16 @@ choices, "requests" being the new default (existing "connections only" settings,
 Every conversation has **Report** (the last messages go to Admin → Reports), **Block** and **Help**. The Notification
 Center counts message requests. Migration `2026-10-01_message_requests.sql` (`message_members.status`, the policy
 enum, `content_reports.kind` gains `thread`). Guests and listing message types follow in steps 4 and 6.
+
+## Progress (2026-09-30): step 4, typed listing messages
+
+Every message a listing sends carries a type: **Sales, Support, General inquiry or Relationship management**, chosen
+by the sender each time (the offers feature is always Sales; "link to us / subscribe again" asks are Relationship
+management). A listing can write to anyone who has openly linked it (Business Insights → "Message someone who linked
+you"), or reply within 30 days of the person's last message. **Sales** goes only to people subscribed to its offers
+who haven't muted Sales; the other types follow the open link or the conversation. In each business conversation the
+person has **Message types**, to mute any type from that listing (offers and asks skip people who muted them), and
+**Report** on each message: "It's Sales, labelled as something else", spam or harassment. Reports reach Admin →
+Reports with the message and the type it was sent as. Migration `2026-10-01_typed_messages.sql`
+(`business_messages.msg_type`, `business_message_mutes`, `content_reports` kind `biz_message` and reason
+`mislabelled`). Also fixed: a duplicate section tag in the account hub hid Business Insights.
