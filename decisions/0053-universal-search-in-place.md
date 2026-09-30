@@ -1,7 +1,8 @@
 # ADR 0053: Universal Search, In Place
 
 **Status:** Accepted (2026-09-30) by Jason. Works with `decisions/0050`
-(data use), `decisions/0054` (Nexus grouping), `decisions/0055` (app shell).
+(data use), `decisions/0054` (Nexus grouping), `decisions/0055` (app shell). Amended 2026-09-30: §8, the 5W search
+model.
 
 ## Context
 
@@ -106,6 +107,54 @@ Alerts for new matches may come later, only if asked for.
 - Query text is never stored against a person. Traversence keeps only aggregate counts (a term, the place, the day)
   to build presets and to spot missing places or listings, the same way as `decisions/0051`'s tags.
 
+### 8. The search model is the 5 Ws, not kinds (Jason, 2026-09-30)
+
+This changes §2 and §3. The query is read into **Who, What, When, Where and Why**, the same "5 Ws and actions" the
+crawler already reads from pages (`architecture.md`). Anything that matches comes back, whatever its kind. Kinds
+(place, listing, story, group, topic, event) become a way to group or filter the results (the `decisions/0055` §3
+collection component), not the first question.
+
+| W | Reads | Examples |
+|---|---|---|
+| **Where** | a place, a distance, along a route | "near Show Low", "within 50 miles", "Round Valley" |
+| **What** | a category, activity, item or topic | "physical therapy", "lakes", "fry bread", "powwow" |
+| **When** | open hours, dates, seasons | "open now", "this weekend", "in winter", "Sunday" |
+| **Who** | a public role or who it's for (below) | "the mayor of St. Johns", "for veterans", "tribally owned" |
+| **Why** | the intent | eat, heal, explore, connect, buy, learn, get help |
+
+- Each W that was read shows as a chip you can remove, as in §3.
+- **Why only changes the order.** It is the weakest guess, so it never hides a match.
+- **When needs data:** hours (`api/lib/Hours.php`), event dates, seasons. Where these are missing, results still show;
+  they just aren't boosted.
+- **Presets (§5) are 5Ws filled in ahead of time:** "Where should I go", "What's open now", "What's happening this
+  weekend", "Where can I get help". **Saved searches (§6) save the Ws.**
+
+**Who: public roles, never personal profiles.** Who someone is in public is searchable:
+- a business or organization name;
+- a person in a public role, as the source published it:
+  - the author or reporter of a story;
+  - an elected or appointed official, in their office ("Mayor, City of St. Johns");
+  - a business's published staff or providers ("physical therapist at White Mountain PT");
+- who something is for or run by: families, veterans, seniors, tribally owned, locally owned.
+
+The result routes to the **public thing**: the story, the office or government listing, the business. It is shown
+with the role ("Author of …", "Mayor, City of St. Johns"). The rules:
+- There is **no page about a person**, and nothing that gathers one person's roles into a profile.
+- Nothing personal is indexed: no member profiles, no home addresses, no personal contacts, no message content.
+- **A name alone goes to the Address Book** (§2, unchanged). If the name also matches a public role, both show: the
+  public result, and the Address Book row.
+- Staff mentions come only from what the business or source published. A person can ask to be removed from one.
+  Officials stay listed in their office while they hold it.
+
+**Build: one index.** Every item gets its 5W tags when it is saved, imported or crawled. They go in one search table
+(item kind and id, What terms, Who roles and audiences, When data, Where point and place keys, Why intents, plus
+text)
+that MySQL 5.7 FULLTEXT can search. It is filled first from existing data: categories, hours, place keys,
+coordinates, story bylines, group topics. The current place, category and distance reading, the map and the peek
+card carry over.
+
+Build order: (a) the index and the 5W reading, (b) presets as 5W presets (§5), (c) saved searches (§6).
+
 ## Consequences
 
 Build order:
@@ -188,5 +237,5 @@ Next: step 4b (radius chip and map in the panel), presets (step 5) and saved sea
 - `api/search.php` takes `radius`. `UniversalSearch::search` measures from the place's first ZIP and returns `map`
   (the query for the map's pins) and `area`.
 
-Next: presets (step 5) and saved searches (step 6).
+Next: the 5W index and reading (§8), then presets (step 5) and saved searches (step 6).
 
