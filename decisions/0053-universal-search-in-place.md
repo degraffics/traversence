@@ -42,6 +42,12 @@ they're on until they choose to go.
 **People are not in universal search.** Finding a person stays in the Address Book, under that person's own "how
 people can find me" settings (`decisions/0047`). Public profiles could opt in later.
 
+**Looking for a person? A quick link hands off to the Address Book.** The panel always carries a "People" row:
+"Looking for a person? Search your Address Book for 'Maria'". It opens the Address Book's Find with the words already
+typed. That search covers the person's own contacts and connections, plus members who allow being found that way. A
+query that reads as a person's name (the "person" chip) puts this row near the top. Signed out, the row offers
+sign-in first. (Jason, 2026-09-30.)
+
 Each kind shows its top few, with "See all" for that kind. A **top result** leads when one answer is clearly it: an
 exact place, an exact business name, or a facts question.
 
