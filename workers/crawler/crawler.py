@@ -40,8 +40,10 @@ Settings (environment variables):
                        (every 30 days), that run downloads CMS's full NPI file (about 1 GB), keeps health-care
                        organizations in the site's states, sends them in batches, and skips the rest of the run.
   NPI_TIME             seconds allowed for that load, default 1500
+  IRS_BULK             "off" stops the monthly IRS exempt-organization load (default on): one small file per state
+                       (eo_az.csv, eo_nm.csv), used by the site only to confirm listings
 Test hooks (not for production): OVERPASS_FIXTURE=file.json, WEB_FIXTURE=file.json ({url: html}),
-NPI_FIXTURE=file.json (an NPI API reply), NPI_FILE_FIXTURE=file.zip (a small NPI file), SEARCH_FIXTURE=file.json ({query: {"results": [...]}}).
+NPI_FIXTURE=file.json (an NPI API reply), NPI_FILE_FIXTURE=file.zip (a small NPI file), IRS_FIXTURE_DIR=dir (eo_az.csv…), SEARCH_FIXTURE=file.json ({query: {"results": [...]}}).
 Standard library only.
 """
 import csv
@@ -82,6 +84,8 @@ REFRESH_TIME = int(os.environ.get("REFRESH_TIME", "40"))
 NPI_BULK = os.environ.get("NPI_BULK", "on").lower() != "off"      # monthly NPI Registry file (decisions/0048)
 NPI_TIME = int(os.environ.get("NPI_TIME", "1500"))                # seconds allowed for one monthly load
 NPI_FILES_PAGE = "https://download.cms.gov/nppes/NPI_Files.html"
+IRS_BULK = os.environ.get("IRS_BULK", "on").lower() != "off"      # monthly IRS exempt-organization list (decisions/0048)
+IRS_FILE = "https://www.irs.gov/pub/irs-soi/eo_{state}.csv"
 NPI_API = "https://npiregistry.cms.hhs.gov/api/"
 UA = "TraversenceCrawler/1.0 (+https://traversence.com; local directory of community resources)"
 ZIP_RADIUS_M = 19000          # ~12 miles around each ZIP centre of the cluster
@@ -807,6 +811,36 @@ def npi_bulk():
     return True
 
 
+def irs_bulk():
+    """Loads the IRS exempt-organization list for the site's states when it's due. Returns True if this run did a load."""
+    st = site_call("/api/crawl/irs.php")
+    if not st.get("due"):
+        return False
+    file = "eo-" + time.strftime("%Y-%m")
+    lid = site_call("/api/crawl/irs.php", {"start": file})["load_id"]
+    seen = 0
+    for state in [s.lower() for s in st.get("states", ["AZ", "NM"])]:
+        if os.environ.get("IRS_FIXTURE_DIR"):
+            stream = open(os.path.join(os.environ["IRS_FIXTURE_DIR"], f"eo_{state}.csv"), "rb")
+        else:
+            stream = urllib.request.urlopen(urllib.request.Request(IRS_FILE.format(state=state), headers={"User-Agent": UA}), timeout=120)
+        batch = []
+        with stream:
+            for r in csv.DictReader(io.TextIOWrapper(stream, encoding="utf-8", errors="replace", newline="")):
+                batch.append({"ein": r.get("EIN", ""), "name": r.get("NAME", ""), "street": r.get("STREET", ""), "city": r.get("CITY", ""),
+                              "state": r.get("STATE", ""), "zip": (r.get("ZIP") or "")[:5], "ntee": r.get("NTEE_CD", "")})
+                if len(batch) >= 1000:
+                    seen += site_call("/api/crawl/irs.php", {"load_id": lid, "file": file, "rows": batch}).get("saved", 0)
+                    batch = []
+        if batch:
+            seen += site_call("/api/crawl/irs.php", {"load_id": lid, "file": file, "rows": batch}).get("saved", 0)
+    if seen == 0:
+        raise RuntimeError("the IRS files had no rows the site accepted")   # never finish (and remove the old copy) on an empty load
+    res = site_call("/api/crawl/irs.php", {"load_id": lid, "file": file, "done": True, "seen": seen})
+    log(f"IRS: {file} done: {seen:,} exempt organizations, {res.get('removed', 0)} old records removed")
+    return True
+
+
 def run():
     if not SITE or not TOKEN:
         log("TRAVERSENCE_URL and CRAWLER_API_TOKEN must be set.")
@@ -817,6 +851,12 @@ def run():
                 return 0
         except Exception as e:                     # the load never stops the rest; the site retries it in 6 hours
             log(f"NPI load stopped: {e!r}"[:300])
+    if IRS_BULK:
+        try:
+            if irs_bulk():
+                return 0
+        except Exception as e:                     # never stops the rest; the site retries it in 6 hours
+            log(f"IRS load stopped: {e!r}"[:300])
     if VERIFY_PER_RUN > 0:
         try:
             second_look(started + min(VERIFY_TIME, TIME_BUDGET))

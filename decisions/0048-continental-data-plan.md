@@ -120,3 +120,12 @@ more reference** before it publishes. Built:
 - **As new places:** organizations in a ZIP one of our town clusters covers, not already listed or staged, are
   staged. `AutoImport` holds them until a second, independent reference is found; the second look skips the
   NPI check for them and searches the web instead.
+
+## Progress (2026-09-30): the IRS exempt-organization list
+
+The worker loads the IRS Exempt Organizations Business Master File for AZ and NM monthly (`eo_az.csv`,
+`eo_nm.csv`; `IRS_BULK`) into `irs_orgs` (`api/crawl/irs.php`, `api/lib/crawler/IrsBulk.php`, migration
+`2026-10-01_irs_bulk.sql`). It is used **only to confirm** listings waiting for review: a similar name at the
+same ZIP and street number is a government reference (apps.irs.gov). It is never shown and never creates a
+listing, because many small nonprofits are registered at a volunteer's home and a registration doesn't prove
+a place is open. Admin → Crawler → Overview now has a "Bulk data" card with each dataset's last load and size.
