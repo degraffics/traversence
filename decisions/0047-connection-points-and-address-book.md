@@ -181,5 +181,11 @@ but unsubscribe.
 - **2026-09-30:** a Message button (speech bubble) beside Link on listing pages that someone manages, opening
   that business's conversation; the Notification Center counts new business messages for the person and
   waiting customer messages for the people who manage listings.
+- **2026-09-30, Groups built:** private circles of a person's own connections (Address Book → Groups):
+  create, rename, delete; add or remove connections; message the group (one group conversation; members see
+  each other's names there and can leave it; deleting the group ends it for everyone); share card fields with
+  everyone in it (adds per person; taking back stays per person). Ending a connection or blocking takes the
+  person out of the other's groups and their conversations. One-to-one conversations stay separate. Up to 30
+  groups of 50. Migration `2026-10-01_groups.sql`; `api/lib/Groups.php`. Public community groups remain open.
 - **Open:** email/text delivery of offers to people who shared those details (needs an email service's
-  unsubscribe handling and a texting provider); Groups (circles).
+  unsubscribe handling and a texting provider); public community groups.
