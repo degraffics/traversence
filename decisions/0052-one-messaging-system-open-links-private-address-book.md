@@ -167,3 +167,18 @@ normal business conversation (the listing's answers typed General inquiry), and 
 removed. Guest conversations with no activity for 180 days are deleted. Migration `2026-10-01_guest_inquiries.sql`;
 `api/lib/GuestInquiries.php`, `api/guest-inquiry.php`, `js/guest-inquiry.js`. The hash key can be set as
 `GUEST_HASH_KEY` in `.env`; without it one is derived from server settings.
+
+## Progress (2026-09-30): step 7, parts a and b
+
+**Our approach to linking** (`our-approach.php`) states `decisions/0050`–`0052` in plain words: what a link is for,
+the private Address Book, what Traversence never does, AI as one choice, messages, what you control, what is counted.
+It is linked from the footer, Privacy Settings → Your tools, and both consent boxes (Linking, Address Book). It says
+plainly that the legal privacy policy is still to be written and reviewed.
+
+**@tags** (`decisions/0051` §3): typing **@** in a group post or a message opens a picker of places, topics, people
+(group members, or your connections), or a new tag. Tags show as links (places, people) or chips (topics). In
+community group posts only, place, topic and new tags are counted: the tag, the group (and its place), the day. A
+one-way keyed code per person and tag counts distinct people; no user id or words are stored. A new tag used by 3
+different people becomes a **Tag lead** in Crawler → Review ("Make it a topic", add as a place, look for a listing,
+or not useful). Person tags, and all tags in messages, are links only. Migration `2026-10-01_tags.sql`;
+`api/lib/Tags.php`, `api/tags.php`, `js/at-tags.js`. Part c, the Discovery page and site navigation, follows.
