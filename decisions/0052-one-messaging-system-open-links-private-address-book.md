@@ -132,3 +132,20 @@ person has **Message types**, to mute any type from that listing (offers and ask
 Reports with the message and the type it was sent as. Migration `2026-10-01_typed_messages.sql`
 (`business_messages.msg_type`, `business_message_mutes`, `content_reports` kind `biz_message` and reason
 `mislabelled`). Also fixed: a duplicate section tag in the account hub hid Business Insights.
+
+## Progress (2026-09-30): step 5, Address Book contacts
+
+The Address Book has a **Contacts** tab (now its first): members, businesses, and people who aren't on Traversence
+(name, phone, email, address, typed in by hand), each with a private note. Only the owner sees them; the other side
+is never told, and nothing here feeds links, feeds, marketing or learning. From a contact you can message a member or
+a managed business, call or email someone not on Traversence, or invite them (the existing invite, pre-filled).
+
+**Where "Save to Address Book" lives** (Jason, 2026-09-30): with the contact details, not beside the Link. On a
+listing it sits in the address and phone card; on a member's profile, with the profile's actions. Linking is open and
+the Address Book is private, so keeping them apart keeps that clear. Places have no Save button: links to places are
+already private (there is no other side), so Linked covers them.
+
+Saving uses the **Address Book tool** (`decisions/0049`): the first save shows ACTIVATE → ⓘ CONSENT in the same
+lightbox as Linking, and the Contacts tab offers the same activation inline. Only private contacts need it; existing
+connections, cards and messages keep working as before. Migration `2026-10-01_address_contacts.sql`
+(`address_contacts`); `api/lib/Contacts.php`.
