@@ -294,3 +294,39 @@ Next: the 5W index and reading (§8).
 
 Next: presets as 5W presets (step 5), then saved searches (step 6).
 
+### Progress: step 5, presets, and results by section (2026-09-30)
+
+**Presets** (`api/lib/SearchPresets.php`). Before typing, the panel shows one-tap questions for the visitor's place
+("Around St. Johns: Dinner 5 · Things to do 6 · Health care 23 · Where to get help 3").
+- **What's there:** each preset shows only if something in the place answers it, with how many.
+- **The time:** at meal times the food preset becomes Breakfast, Lunch or Dinner and moves up. From Thursday, "Things
+  to do this weekend". In the evening, "Open now" (when enough listings publish hours). Friday and Saturday, "Where to
+  stay".
+- **What's asked here:** `search_counts` keeps how often each reading is acted on, per place per day (why:eat,
+  cat:pharmacies, when:now). It stores no words and no person. A count is sent only when someone picks a result, once
+  per question per 10 minutes per visit, and rows are removed after 90 days. A category asked about 3 or more times in
+  30 days in a place becomes its own preset there.
+
+**Results by section** (Jason: "funnel Discovery / Directory / Community / Marketplace within the 5 Ws").
+- Every result belongs to a section of the site, named as in the header:
+  - **Let's Explore:** places, stories, outdoors.
+  - **Get Local:** listings and categories.
+  - **Social:** groups and community topics.
+  - **Market:** shown as "soon" when someone asks to buy.
+- **Tabs with counts** filter the results to one section, with "Open Get Local →" and the like at the foot.
+  "Group by section" lists them section by section.
+- **Naming a section** in the query narrows to it: "in the directory", "in the community", "on the marketplace". The
+  words only count with "in", "on" or "from" in front, so "farmers market", "community college" and "social services"
+  stay words.
+
+**Better reading** (from "remodel my home" finding nothing):
+- **Question words are left out:** my, the, find, need, near, best…
+- **Soft words only help the order:** home, house, service.
+- **If every word is required and nothing matches, any word will do,** with the most matched first.
+- **Verbs for work people want done** find the trades: remodel, renovate, fix, repair, paint, landscaping, moving,
+  cleaning, pest. The new Why "Repairs and projects" covers them.
+- **A direct match ranks above an alternative word.** A short word matches whole ("car" isn't "carpet").
+- **Names:** "Looking for a person?" leads only when the words look like a name: no everyday words, and nothing
+  found except by the loose try.
+- **The Map button** shows only when there are listings to map.
+
