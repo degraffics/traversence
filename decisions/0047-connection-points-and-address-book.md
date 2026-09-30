@@ -206,6 +206,8 @@ but unsubscribe.
   History & culture, Volunteering & causes, Business & careers, Hobbies & games, Other). The Community page
   has topic chips and lists **Interest groups** and **Local groups** (those tied to a place) separately.
   Owners and moderators set the topic on the group page. Migration `2026-10-01_group_topics.sql`.
+- **2026-09-30, place picker:** owners and moderators can add, change or remove a group's place from the
+  group page (search towns, areas and regions by name), so any group can join a place's page later.
 - **2026-09-30, reporting built:** Report on community posts (members) and groups (anyone signed in), with a
   reason (spam, harassment, a sacred or restricted site, someone's private information, other) and a note;
   one report per person per item; 3 reports hide a post until an admin decides. Admin → Reports
