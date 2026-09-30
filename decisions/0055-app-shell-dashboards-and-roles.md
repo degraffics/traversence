@@ -238,3 +238,12 @@ From Jason's review of the live site:
 Not yet on the layout: the home page, the directory (its own full-screen search layout), the business portal, and
 sign-in pages.
 
+**Market placeholder (2026-09-30, Jason).** `/market/` now exists on the layout with its own toolbar: Browse, Near me,
+Post something, Your posts, Saved (all "soon"), and Messages. The header's Market funnel links to it, and so does the
+member dashboard. The page describes the launch model from `decisions/0031`:
+- post and connect, with no payments through Traversence;
+- an approximate area for personal sellers, never a street address;
+- no paid or engagement-ranked placement.
+
+It shows the Facebook Marketplace-style grid, filters and categories, with sample cards clearly marked "Sample".
+
