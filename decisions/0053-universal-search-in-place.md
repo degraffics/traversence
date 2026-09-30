@@ -284,8 +284,11 @@ Next: the 5W index and reading (§8).
   - Tapping the category on a map card or a peek card narrows the search to everything like it in the same place.
   - The header, its suggestions and the search panel now stay above the full-screen map.
 - **Known gaps:**
-  - **Cuisine:** St. Johns' Mexican restaurants aren't named "Mexican" and have no cuisine data, so "mexican" can't
-    find them yet. Fix: read cuisine from websites (crawler) and from OpenStreetMap.
+  - **Cuisine (fixed the same day):** a food place's whole description, offerings and name are read for what it
+    serves ("tacos", "tamales", "fry bread", "pho", "brisket"). The words and the cuisine they point to (Mexican,
+    Southwestern, Native foods, BBQ…) become What terms, so "mexican in St. Johns" finds a place that never says
+    "Mexican" but lists tamales. A place with no description or offerings still needs one: from its website
+    (crawler) or OpenStreetMap.
   - **"See all" and When:** "See all" doesn't carry When to the directory yet.
   - **Public roles:** officials and staff come in as sources publish them (crawler).
 
