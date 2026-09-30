@@ -408,3 +408,17 @@ From Jason's review (with Google's "businesses near me" and "places to go near m
   (`scope=f:explore|f:local|f:social|f:market` narrows by section; `scope=topics` by kind). The section's name reads
   "Marketplace".
 - **✎ on a suggested search** puts it in the field and shows its results straight away, ready to change.
+
+**Directory header, map fills the workspace; Quick picks and "Your searches" in the dropdown.**
+- **The directory's category pills are gone.** Categories come through the search ("food", "auto repair"). The page is
+  now a header line (the title, the count, and the filters in use, each with ×, plus sort when there's more than one
+  result) with the **List | Map** toggle on the same line.
+- **Map fills the workspace**, from under the header to the bottom and from the toolbar to the right edge. The title
+  card and the toggle float over it, and "Show 20 more" sits bottom-left. The page doesn't scroll behind it.
+- **Quick picks** (◎ Near me, 🕒 Open now, 📞 Has a phone, 🌐 Has a website) moved from the page into the search
+  dropdown. On the directory they switch its filters in place (`window.tvQuick`); anywhere else they open the directory
+  with that filter (`?near=me`, `?open=now`, `?has=phone|website`, plus the words typed).
+- **Your searches:** one ✎ Edit on the list of one-tap searches opens a small editor. People can add their own
+  phrases (bookmark terms such as "vegan food in Show Low"), change or remove them, or add one of the place's
+  suggestions with +. Their phrases (🔖) show first, then the place's suggestions. They're kept on the device (up to 12,
+  `tv_my_searches`); saving them to the account goes with the other settings to move there.
