@@ -1,6 +1,6 @@
 # ADR 0055: App Shell, Dashboards and Roles
 
-**Status:** Proposed (2026-09-30), from Jason's UI and roles direction; accepted before build. Builds on
+**Status:** Accepted (2026-09-30) by Jason. Builds on
 `decisions/0046` (crawler shell), `decisions/0052` (one messaging system), `decisions/0054` (Nexus) and the
 Steward role in `architecture.md` §11/§27. Messaging step 7c (Discovery page and navigation) is delivered through
 this ADR.

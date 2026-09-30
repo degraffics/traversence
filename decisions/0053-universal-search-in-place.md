@@ -1,6 +1,6 @@
 # ADR 0053: Universal Search, In Place
 
-**Status:** Proposed (2026-09-30), from Jason's direction; accepted before build. Works with `decisions/0050`
+**Status:** Accepted (2026-09-30) by Jason. Works with `decisions/0050`
 (data use), `decisions/0054` (Nexus grouping), `decisions/0055` (app shell).
 
 ## Context
