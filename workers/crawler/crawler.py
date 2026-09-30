@@ -36,11 +36,17 @@ Settings (environment variables):
                        second look uses the NPI Registry only
   BRAVE_API_KEY        Brave Search API key, used instead when there is no Tavily key (paid)
   MAX_SEARCHES         web searches per run, default 10
+  NPI_BULK             "off" stops the monthly NPI Registry load (default on). When the site says a load is due
+                       (every 30 days), that run downloads CMS's full NPI file (about 1 GB), keeps health-care
+                       organizations in the site's states, sends them in batches, and skips the rest of the run.
+  NPI_TIME             seconds allowed for that load, default 1500
 Test hooks (not for production): OVERPASS_FIXTURE=file.json, WEB_FIXTURE=file.json ({url: html}),
-NPI_FIXTURE=file.json (an NPI API reply), SEARCH_FIXTURE=file.json ({query: {"results": [...]}}).
+NPI_FIXTURE=file.json (an NPI API reply), NPI_FILE_FIXTURE=file.zip (a small NPI file), SEARCH_FIXTURE=file.json ({query: {"results": [...]}}).
 Standard library only.
 """
+import csv
 import html
+import io
 import json
 import math
 import os
@@ -51,6 +57,7 @@ import urllib.error
 import urllib.parse
 import urllib.request
 import urllib.robotparser
+import zipfile
 
 SITE = os.environ.get("TRAVERSENCE_URL", "").rstrip("/")
 TOKEN = os.environ.get("CRAWLER_API_TOKEN", "")
@@ -72,6 +79,9 @@ SOURCE_TIME = int(os.environ.get("SOURCE_TIME", "60"))            # seconds per 
 SOURCE_PAGES = int(os.environ.get("SOURCE_PAGES", "25"))          # pages read per source
 REFRESH_PER_RUN = int(os.environ.get("REFRESH_PER_RUN", "3"))     # live listings refreshed from their own website per run
 REFRESH_TIME = int(os.environ.get("REFRESH_TIME", "40"))
+NPI_BULK = os.environ.get("NPI_BULK", "on").lower() != "off"      # monthly NPI Registry file (decisions/0048)
+NPI_TIME = int(os.environ.get("NPI_TIME", "1500"))                # seconds allowed for one monthly load
+NPI_FILES_PAGE = "https://download.cms.gov/nppes/NPI_Files.html"
 NPI_API = "https://npiregistry.cms.hhs.gov/api/"
 UA = "TraversenceCrawler/1.0 (+https://traversence.com; local directory of community resources)"
 ZIP_RADIUS_M = 19000          # ~12 miles around each ZIP centre of the cluster
@@ -669,10 +679,12 @@ def second_look(deadline):
             log("second look: out of time, the rest go back when their lease ends")
             break
         have = set(lst.get("known_hosts") or [])
-        found, checked = [], ["npi"]
+        from_npi = bool(lst.get("from_npi"))           # came from the NPI file: it needs a different reference
+        found, checked = [], [] if from_npi else ["npi"]
         try:
             npi_note[0] = ""
-            found += npi_lookup(lst)
+            if not from_npi:
+                found += npi_lookup(lst)
             if SEARCH_ON and not found:                  # a registry match is enough on its own
                 checked.append("search")
                 found += web_references(lst, have | {h for f in found for h in [host_of(f["url"])]})
@@ -686,10 +698,125 @@ def second_look(deadline):
             log(f"second look {lst.get('name')}: {e!r}"[:300])
 
 
+# ---------------------------------------------------------------------------------------------------
+# Monthly NPI Registry file (decisions/0048)
+# ---------------------------------------------------------------------------------------------------
+
+def npi_file_url():
+    """The newest full monthly file on CMS's download page (not the weekly or deactivation files)."""
+    req = urllib.request.Request(NPI_FILES_PAGE, headers={"User-Agent": UA})
+    with urllib.request.urlopen(req, timeout=60) as r:
+        page = r.read().decode("utf-8", "replace")
+    names = re.findall(r'href=["\']?([^"\'\s>]*NPPES_Data_Dissemination_[A-Za-z]+_\d{4}(?:_V\.?2)?\.zip)', page, re.I)
+    names = [n for n in names if "weekly" not in n.lower() and "deactiv" not in n.lower()]
+    if not names:
+        raise RuntimeError("no monthly file found on the NPI download page")
+    names.sort(key=lambda n: bool(re.search(r"_V\.?2", n, re.I)), reverse=True)     # the current format first, when both are offered
+    return urllib.parse.urljoin(NPI_FILES_PAGE, names[0])
+
+
+def npi_bulk():
+    """Loads the month's NPI organizations when the site says it's due. Returns True if this run did a load."""
+    st = site_call("/api/crawl/npi.php")
+    if not st.get("due"):
+        return False
+    deadline = time.monotonic() + NPI_TIME
+    if os.environ.get("NPI_FILE_FIXTURE"):
+        path, file = os.environ["NPI_FILE_FIXTURE"], os.path.basename(os.environ["NPI_FILE_FIXTURE"])
+    else:
+        url = npi_file_url()
+        file = os.path.basename(urllib.parse.urlparse(url).path)
+        if file == st.get("last_file"):          # CMS hasn't published a newer month yet: check again in 30 days
+            lid = site_call("/api/crawl/npi.php", {"start": file})["load_id"]
+            site_call("/api/crawl/npi.php", {"load_id": lid, "file": file, "done": True, "seen": st.get("records", 0), "staged": 0})
+            log(f"NPI: {file} is still the newest file")
+            return False
+        path = "/tmp/npi.zip"
+        log(f"NPI: downloading {file}")
+        req = urllib.request.Request(url, headers={"User-Agent": UA})
+        with urllib.request.urlopen(req, timeout=120) as r, open(path, "wb") as f:
+            while True:
+                chunk = r.read(1 << 20)
+                if not chunk:
+                    break
+                f.write(chunk)
+                if time.monotonic() > deadline:
+                    raise RuntimeError("NPI download ran out of time")
+    lid = site_call("/api/crawl/npi.php", {"start": file})["load_id"]
+    states = [s.upper() for s in st.get("states", ["AZ", "NM"])]
+    tokens = [f'"{s}"' for s in states]
+    seen = staged = lines = 0
+    batch = []
+
+    def send():
+        nonlocal staged, batch
+        if batch:
+            res = site_call("/api/crawl/npi.php", {"load_id": lid, "file": file, "rows": batch})
+            staged += int(res.get("staged", 0))
+            batch = []
+
+    with zipfile.ZipFile(path) as zf:
+        member = next(n for n in zf.namelist() if re.match(r"npidata_pfile_.*\.csv$", os.path.basename(n)) and "fileheader" not in n.lower())
+        with zf.open(member) as raw:
+            text = io.TextIOWrapper(raw, encoding="utf-8", errors="replace", newline="")
+            head = next(csv.reader([text.readline()]))
+            col = {h.strip(): i for i, h in enumerate(head)}
+
+            def c(name):
+                return col[name]
+            i_type, i_npi = c("Entity Type Code"), c("NPI")
+            i_name, i_other = c("Provider Organization Name (Legal Business Name)"), c("Provider Other Organization Name")
+            i_other_type = col.get("Provider Other Organization Name Type Code")
+            i_a1 = c("Provider First Line Business Practice Location Address")
+            i_city, i_state = c("Provider Business Practice Location Address City Name"), c("Provider Business Practice Location Address State Name")
+            i_zip, i_phone = c("Provider Business Practice Location Address Postal Code"), c("Provider Business Practice Location Address Telephone Number")
+            i_deact, i_react = col.get("NPI Deactivation Date"), col.get("NPI Reactivation Date")
+            tax = [(col.get(f"Healthcare Provider Taxonomy Code_{n}"), col.get(f"Healthcare Provider Primary Taxonomy Switch_{n}")) for n in range(1, 16)]
+            tax = [t for t in tax if t[0] is not None]
+            for line in text:
+                lines += 1
+                if lines % 1000000 == 0:
+                    log(f"NPI: {lines:,} lines read, {seen:,} kept")
+                    if time.monotonic() > deadline:
+                        raise RuntimeError("NPI load ran out of time")
+                if not any(t in line for t in tokens):
+                    continue
+                try:
+                    row = next(csv.reader([line]))
+                except Exception:
+                    continue
+                if len(row) != len(head) or row[i_type] != "2" or row[i_state].strip().upper() not in states:
+                    continue
+                if i_deact is not None and row[i_deact].strip() and not (i_react is not None and row[i_react].strip()):
+                    continue                       # deactivated
+                code = next((row[a] for a, b in tax if b is not None and row[b] == "Y"), "") or (row[tax[0][0]] if tax else "")
+                other = row[i_other] if (i_other_type is None or row[i_other_type].strip() in ("", "3")) else ""
+                batch.append({"npi": row[i_npi], "name": row[i_name], "other_name": other, "address": row[i_a1],
+                              "city": row[i_city], "state": row[i_state], "zip": row[i_zip][:5], "phone": row[i_phone], "taxonomy": code})
+                seen += 1
+                if len(batch) >= 500:
+                    send()
+            send()
+    res = site_call("/api/crawl/npi.php", {"load_id": lid, "file": file, "done": True, "seen": seen, "staged": staged})
+    log(f"NPI: {file} done: {seen:,} organizations in {', '.join(states)}, {staged} new places staged, {res.get('removed', 0)} old records removed")
+    if not os.environ.get("NPI_FILE_FIXTURE"):
+        try:
+            os.remove(path)
+        except OSError:
+            pass
+    return True
+
+
 def run():
     if not SITE or not TOKEN:
         log("TRAVERSENCE_URL and CRAWLER_API_TOKEN must be set.")
         return 2
+    if NPI_BULK:
+        try:
+            if npi_bulk():                         # a monthly load is a whole run on its own
+                return 0
+        except Exception as e:                     # the load never stops the rest; the site retries it in 6 hours
+            log(f"NPI load stopped: {e!r}"[:300])
     if VERIFY_PER_RUN > 0:
         try:
             second_look(started + min(VERIFY_TIME, TIME_BUDGET))

@@ -102,3 +102,21 @@ covers. Its cost is watched per month in Admin → Crawler.
 - Who reviews stories touching tribal lands, and how nations' offices are approached.
 - Which AI writing service drafts stories, and its monthly budget.
 - Whether the 2-million-row and 2-second triggers are right once real load numbers are in.
+
+## Progress (2026-09-30): the NPI Registry, the first bulk dataset
+
+Decided with Jason: **organizations only** (clinics, hospitals, pharmacies, counseling, home health and so on;
+individual practitioners are not listed), **AZ and NM**, and **a place that comes only from the file needs one
+more reference** before it publishes. Built:
+
+- The worker (`workers/crawler/crawler.py`, `NPI_BULK`, `NPI_TIME`) asks the site whether a load is due (every
+  30 days), finds the newest full monthly file on CMS's download page, streams it, keeps active type-2
+  (organization) records with a practice address in the states the site names, and sends them in batches of 500.
+  The "doing business as" name is used when there is one; the main specialty code becomes plain words.
+- The site (`api/crawl/npi.php`, `api/lib/crawler/NpiBulk.php`, migration `2026-10-01_npi_bulk.sql`) keeps them
+  in `npi_orgs`, removes records missing from a newer file, and records each load in `npi_loads`.
+- **As references:** before the second look, a listing waiting for review is checked against `npi_orgs` (similar
+  name plus street number or phone); a match is a trusted-registry reference with no web call.
+- **As new places:** organizations in a ZIP one of our town clusters covers, not already listed or staged, are
+  staged. `AutoImport` holds them until a second, independent reference is found; the second look skips the
+  NPI check for them and searches the web instead.

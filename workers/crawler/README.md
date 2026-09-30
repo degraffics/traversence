@@ -84,3 +84,11 @@ About 60 jobs an hour: one OpenStreetMap query per job (well inside the public O
 limits), at most 60 homepage fetches per run, 1.5 s apart. Bluehost sees one small request to hand out
 jobs and one per finished job. To go faster, raise `JOBS_PER_RUN` (the site caps it at 10) before
 shortening the schedule; keep `TIME_BUDGET` below the schedule interval so runs don't overlap.
+
+
+## Monthly NPI Registry load (decisions/0048)
+
+| Setting | Default | What it does |
+|---|---|---|
+| `NPI_BULK` | on | Monthly NPI Registry load (decisions/0048). When the site says it's due, that run downloads CMS's full NPI file (~1 GB), keeps health-care organizations in AZ and NM, and sends them in batches. `off` stops it. |
+| `NPI_TIME` | 1500 | Seconds allowed for one monthly load. |
