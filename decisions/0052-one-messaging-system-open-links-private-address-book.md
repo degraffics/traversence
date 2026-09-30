@@ -149,3 +149,21 @@ Saving uses the **Address Book tool** (`decisions/0049`): the first save shows A
 lightbox as Linking, and the Contacts tab offers the same activation inline. Only private contacts need it; existing
 connections, cards and messages keep working as before. Migration `2026-10-01_address_contacts.sql`
 (`address_contacts`); `api/lib/Contacts.php`.
+
+## Progress (2026-09-30): step 6, guest questions
+
+On a listing someone manages, a signed-out visitor sees **Ask a question** and **Check a reply** in the contact card.
+The check is self-hosted: a hidden field people never fill in, at least 4 seconds on the form, and a small sum. It
+lives in the session, each check is used once, and every failure reads the same. Limits: 3 new questions a day per
+device (a first-party cookie holding a random id) and 6 per network. Devices and networks are stored only as keyed
+one-way hashes. The guest chooses **email** (answers are emailed through Traversence), **call me**, or **neither**.
+Every question gets a **reply code** (8 characters, stored hashed; 12 wrong tries an hour per session) to read
+answers and reply on the listing page.
+
+The listing sees **Guest questions** in Business Insights and the Notification Center. It answers there (the only
+option; no marketing), or marks **Couldn't reach** or **Spam**. Two spam marks turn off guest questions from that
+device. A guest who signs in can open the conversation with the code and **move it to their account**: it becomes a
+normal business conversation (the listing's answers typed General inquiry), and the code and guest copy are
+removed. Guest conversations with no activity for 180 days are deleted. Migration `2026-10-01_guest_inquiries.sql`;
+`api/lib/GuestInquiries.php`, `api/guest-inquiry.php`, `js/guest-inquiry.js`. The hash key can be set as
+`GUEST_HASH_KEY` in `.env`; without it one is derived from server settings.
