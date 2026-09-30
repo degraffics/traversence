@@ -134,3 +134,11 @@ one source. The place page shows the published story near the top: the first par
 story", the sources, and "Reviewed by Traversence" with the month. Text is plain (blank lines between
 paragraphs, `## ` for headings). The table already marks a story's origin (person or crawler), so crawler
 drafts can join the same review queue later. Migration `2026-10-01_place_stories.sql`; `api/lib/Stories.php`.
+
+## Progress (2026-09-30): the continental hub page follows the level table
+
+The Ancient America page now matches this ADR's row for a Continental Hub: its geo-hubs come first (live ones
+highlighted, the rest "Coming soon"); **The region** replaces the town-style "Living here" with totals (what it
+spans, geo-hubs and how many are live, towns and ZIP areas covered, people in those towns from the ACS, listings
+so far); and **Support & wellness** shows counts by kind only, pointing people to a geo-hub or town for the
+places themselves. Geo-hub and town pages are unchanged.
