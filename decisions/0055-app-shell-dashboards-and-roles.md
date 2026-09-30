@@ -211,3 +211,30 @@ heritage, Stories & guides; Events and Plan a trip (soon); Your places (signed i
 - Events and Plan a trip.
 - The cluster and anchor-town naming (future-considerations).
 
+### Follow-up (2026-09-30): the layout on every page; the role switch at your name
+
+From Jason's review of the live site:
+- **Every page uses the one layout now,** not just Discover. The shared page frame (`includes/page-shell.php`) opens
+  every page inside the app shell, with the toolbar for its part of the site (`includes/section-rails.php`, chosen by
+  path):
+  - **Let's Explore:** Discover, place pages (with "This place"), recreation places.
+  - **Get Local:** listings, claiming a business.
+  - **Social:** groups, profiles.
+  - **Admin:** Admin work, Review, Reports, Crawler, the portal.
+  - **Traversence:** home, Our approach, Privacy, Terms.
+- **The crawler pages** (Review, Sources, Stories, Places…) keep their own toolbar, now full height at the left edge
+  with the waiting count on Review. The workspace always takes the full width.
+- **The role switch is at your name,** at the top of the toolbar, on every page (`includes/context-switcher.php`).
+  Tapping your name (your initial when the toolbar is narrow; the first icon on phones, pinned while the row scrolls)
+  opens the roles you hold. Choosing one switches the toolbar and workspace. The bar across the dashboard's workspace
+  is gone.
+- **Every page knows who is signed in:** the page frame starts the same session as the API.
+- **Review's counts are honest.** It shows the 300 highest-confidence listings (500 with "show up to 500"), and now
+  says how many are waiting in all, so its count matches the badge and "Needs you". Before, it said "430 of 430
+  shown" while 972 items were waiting.
+- **Two fixes:** Review's "All" chip was dark text on dark (an old crawler-shell style), and the collection component's
+  classes are now `cl-*`, so they can't collide with the crawler's `tc-*`.
+
+Not yet on the layout: the home page, the directory (its own full-screen search layout), the business portal, and
+sign-in pages.
+
