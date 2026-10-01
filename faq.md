@@ -39,6 +39,12 @@ From large to small: North America, then regions, then areas, then towns. Each l
 ### I searched for a local name (like Wide Ruins) and landed on a town. Why?
 Many small communities are known by local names that aren't on maps as towns. We file each local name under the town area it belongs to, and the **Map** button takes you to its spot.
 
+### On a place page, what happens when I tap the kind, the agency or an activity?
+It searches for more like it around there. Tapping **Campground** finds other campgrounds nearby. Tapping the managing agency finds other places it runs nearby, and tapping **Fishing** finds more places to fish. The search shows listings, outdoor places, stories and groups together.
+
+### Can I link a lake, campground or trail?
+Yes. Use the link icon in the corner of its page. It's saved with your other linked places.
+
 ### What does clicking a town name do?
 It opens the directory for that town, so you can switch between the list and the map.
 

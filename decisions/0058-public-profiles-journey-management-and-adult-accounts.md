@@ -195,6 +195,27 @@ Decided 2026-10-01.
   (Outbound social links on profiles will be counted the same way, by link and destination, when profiles are built.)
 - Migration: `2026-10-10_listing_actions.sql`.
 
+### 10. Place pages: everything searches for more
+
+The pattern starts with public recreation places (`place/recreation.php`), for listing and place pages to follow.
+- **No breadcrumbs.** The page says where it is ("About 4 mi from The Show Low District").
+- **Tap to search:**
+  - the **kind** (Campground): more campgrounds near the place;
+  - the **agency** (USDA Forest Service): other places it runs near there;
+  - the **name**: more about it;
+  - each **activity pill** (Boating, Fishing …): more of it near the place.
+
+  Each tap opens the search with those words ("Fishing near The Show Low District"), so it reaches listings,
+  outdoors places, stories and groups.
+- **Actions** under the name:
+  - **See on map**: the full-screen map, this place chosen, with the outdoors around it within 10 mi;
+  - **Get directions**;
+  - **Call**;
+  - **Reserve a campsite**, where Recreation.gov takes reservations.
+- **The Link icon** in the card's corner: a recreation place can be linked, as `place:rec:<id>`.
+- **Layout:** one card, edge to edge on phones, with sizes tightened.
+- **Phones:** the role menu under the person's initial opens leftwards, so it stays on the screen.
+
 ## Consequences
 
 - New columns: `journeys.entity_id` and `journeys.submitted_at`, and `age_confirmations.min_age`. Two new staff roles
@@ -228,3 +249,4 @@ Decided 2026-10-01.
   - built;
   - fixed the phone search's place button squeezing the search field.
 - **2026-10-01, directory (§9):** built the layout and the action counts.
+- **2026-10-01, place pages (§10):** built for recreation places.
