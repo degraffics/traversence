@@ -407,6 +407,26 @@ card has a journey photo (else the brand's art, by name), an icon, the name, and
 
 **Phones:** the hero and tabs run edge to edge under the tool bar. Cards are 3px from the edges and 3px apart.
 
+### 19. Search follows the section (the Chameleon Filter), and a cleaner panel
+
+- **On Let's Explore** (`track=explore`, from the page's `tv-sec`) search puts the place's own content first:
+  - published journeys that mention the words, in the place and the places inside it;
+  - then stories and guides, outdoors, groups and topics;
+  - businesses follow as connections.
+
+  A business whose name matches isn't made the top answer there. "None here" shows only when nothing at all is
+  found, not just no businesses. On Get Local, businesses lead as before (brand.md §5).
+- **The panel's top is one row:** the place (and any category or time it read) on the left, each with ×, and
+  **☆ Save** on the right. "Understood as", the Distance menu and the Map button are gone. The directory has its own
+  List/Map, and Let's Explore has its map.
+- **Destination** lists only names where a word starts with what was typed: "Sport" no longer offers Breesport or
+  Bucksport.
+
+**Decisions recorded:**
+- **Search words (§13):** kept as built.
+- **Unverified claimants (§15):** their pin goes to Review like a visitor's. An admin's "Use this map point" applies it
+  at once.
+
 ## Consequences
 
 - New columns: `journeys.entity_id` and `journeys.submitted_at`, and `age_confirmations.min_age`. Two new staff roles
@@ -480,14 +500,11 @@ card has a journey photo (else the brand's art, by name), an icon, the name, and
   - "Open the place page" is gone; the ☰ menu's "This place" opens the same page.
 
 - **2026-10-01, the Explore hero (§18):** built.
+- **2026-10-01, search by section and the panel's top row (§19):** built.
 
 ### Open items at the end of the 2026-10-01 session
 
-**Decisions Jason owes:**
-- **Search words (§13).** They're kept cleaned, shown only at 3+ visits, and rare ones are deleted after 90 days. Or
-  switch to readings only: the place and the results found, no words.
-- **Unverified claimants (§15).** Should they move pins at once? Today only verified owners, listing_access
-  owners and managers, and org owners and managers can; unverified claimants suggest, like visitors.
+**Decisions:** both made (§19).
 
 **To check on the live site (the sandbox can't reach the Census or show real area names):**
 - The Subway pin on W Cleveland St moves to the street when opened on the map (§14).

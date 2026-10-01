@@ -48,7 +48,7 @@ In Let's Explore, **This place** in the ☰ menu opens the place's own page: its
 From large to small: North America, then regions, then areas, then towns. Each level has its own page with its story, its journeys and guides, and what's there.
 
 ### I searched for a local name (like Wide Ruins) and landed on a town. Why?
-Many small communities are known by local names that aren't on maps as towns. We file each local name under the town area it belongs to, and the **Map** button takes you to its spot.
+Many small communities are known by local names that aren't on maps as towns. We file each local name under the town area it belongs to, so searching it shows that town area's places. **Get Local**'s Map shows them on the map.
 
 ### On a place page, what happens when I tap the kind, the agency or an activity?
 It searches for more like it around there. Tapping **Campground** finds other campgrounds nearby. Tapping the managing agency finds other places it runs nearby, and tapping **Fishing** finds more places to fish. The search shows listings, outdoor places, stories and groups together.
@@ -72,6 +72,9 @@ Use the search bar at the top of any page.
 
 ### Can I search for sports, like football or basketball?
 Yes. **Sports** finds athletic fields, stadiums, gyms, golf courses, public pools, rodeos and sports clubs nearby. **Football**, **basketball**, **baseball**, **soccer** and other sports also find high schools, where most local games are played, and ball fields find parks. Try **gym**, **swimming**, **tennis**, **hunting** or **fishing** too. If a place you play or watch is missing, tap **Tell us what's missing**.
+
+### Why does search show different things on Let's Explore and Get Local?
+Search reads where you are. On **Let's Explore** it puts the place's journeys, stories, outdoors, groups and topics first, with businesses after them. On **Get Local** businesses come first. The place you're searching sits at the top left (tap × to search everywhere), and **☆ Save** at the top right keeps the search.
 
 ### Can I save my own search phrases?
 Yes. In the search dropdown, click **✎ Edit** to add, change or remove your own phrases. For now they're saved in this browser. Saving them to your account is coming.
