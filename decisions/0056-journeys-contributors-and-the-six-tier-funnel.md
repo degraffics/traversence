@@ -120,3 +120,8 @@ phones the Trip Planner is a tool icon and the right column follows the feed.
   resized, a video link, place, "Was here", flags, linked listings); the journey page (views, likes, public comments,
   reports); the Let's Explore magazine layout (hero, guide tabs, feed, Trip Planner panel, Top Contributors, Join the
   Team); staff post as Traversence or as themselves.
+- **2026-10-01, amended by `decisions/0058`:**
+  - accounts are for adults, 18 or older (it was 13);
+  - contributors are people and listings (a member can post as a listing whose team they're on);
+  - Traversence's voice is written by staff with the new Content Creator and Editor roles, from Admin → Journeys,
+    which replaces "staff post as Traversence or as themselves" in the member editor.

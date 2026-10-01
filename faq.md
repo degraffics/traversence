@@ -14,7 +14,7 @@ Traversence is a regional travel guide and local directory in one place. **Let's
 No, not to look around. You need one to save favorites, write journeys, comment, like, report something, or make suggestions under your name.
 
 ### How old do I have to be?
-You must be 13 or older to create an account. You'll be asked to confirm it when you sign up. If your account was made before we asked, we'll ask once the first time you comment or become a contributor.
+Traversence accounts are for adults: you must be 18 or older. You'll confirm it when you sign up. If your account was made before we asked, or you confirmed an earlier age, we'll ask once, the first time you comment or become a contributor.
 
 ### How do I choose where I'm looking?
 Open the place picker at the top of the page. You can:
@@ -83,9 +83,9 @@ Use **Add or claim a business** at the bottom of any page. Find your listing and
 A story about a place you've been, in your words, with your photos. You can add a video link, tag the place and link the businesses you visited. Journeys appear on the place pages, so other people find them while exploring.
 
 ### How do I start writing journeys?
-Become a contributor: go to **Your journeys** (in your Dashboard or the Let's Explore menu) and click **Become a contributor**.
+Become a contributor: go to your **Dashboard**, choose **Your journeys**, and click **Become a contributor**. Writing, editing and managing your journeys all happen in your Dashboard.
 - You'll read the contributor guidelines and accept them.
-- You'll need to be 13 or older.
+- You'll need to be 18 or older.
 - Your profile can't be private, because journeys show your name.
 
 ### How does my journey get onto the front page?
@@ -95,6 +95,13 @@ Publish it. Drafts are seen only by you and our team. A journey needs three thin
 - **A place**, under **About a place**. Without one, it shows only on the North America page. With one, it also shows on that town, area or region.
 
 Once published, it appears in the **Journeys & guides** feed right away, newest first.
+
+### Where do my published journeys show?
+- On **Let's Explore**, in the **Journeys & guides** feed for the place you chose, and the places above it, up to North America.
+- On your **public profile**, under **Journeys**.
+- On the **listing page** of every business you linked in your journey, under "Journeys that mention…".
+
+A journey you post as a business also shows on that business's listing page.
 
 ### How does a photo end up in the big picture at the top of a page?
 The picture at the top is chosen from published journeys at that place. Photos need to be at least 900 pixels wide, and the uploads we store are 2000, so yours qualify. The ones people like and comment on most get shown first.
@@ -108,8 +115,15 @@ An automatic check spotted something it holds back: unsafe or spammy wording, or
 ### The place I wrote about isn't in the place list. What do I pick?
 The place list has regions, areas, towns and local names. For a lake, a park or a trailhead, pick the nearest town or the area. Mention the place itself in your title and story.
 
-### What's the difference between "Traversence" and "Contributor"?
-Every journey and guide is labelled. **Traversence** means our team wrote it. **Contributor** means a member wrote it, with their name on it. **Partnership** means the writer was paid, or given something free, for it.
+### What's the difference between "Traversence", "Contributor" and "Business"?
+Every journey and guide is labelled:
+- **Traversence:** written by our editorial team.
+- **Contributor:** written by a member, with their name on it.
+- **Business:** posted by a local business's team, shown under the business's name and linked to its listing.
+- **Partnership:** the writer was paid, or given something free, for it.
+
+### Can my business post journeys?
+Yes. If you're on a listing's team as its Owner, Manager or General member, the journey editor has a **Post as** choice: yourself, or the business. A business journey shows the business's name and links to its listing. You still need to be a contributor yourself.
 
 ### Do I have to mark a partnership?
 Yes. If you were paid, or given something free, for a journey, mark it **Partnership**. U.S. law requires the disclosure.
