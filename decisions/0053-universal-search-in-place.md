@@ -422,3 +422,22 @@ From Jason's review (with Google's "businesses near me" and "places to go near m
   phrases (bookmark terms such as "vegan food in Show Low"), change or remove them, or add one of the place's
   suggestions with +. Their phrases (🔖) show first, then the place's suggestions. They're kept on the device (up to 12,
   `tv_my_searches`); saving them to the account goes with the other settings to move there.
+
+**Dropdown and directory, round 3.**
+- **Dropdown:** the columns are now two-thirds and one-third, with tighter spacing, so the home view fits without
+  scrolling.
+- **On the directory**, results while typing start with "Show '…' in the directory list" (Enter does the same). When
+  the dropdown closes, the list follows whatever is in the field, so the title, list and map always match the search.
+  The dropdown's reading ("Understood as") is still offered, so both are there: the literal list, and the 5W reading
+  with its other kinds.
+- **The "Ask about" pills on Discover work now.** The click that opened the dropdown was reaching the "click outside
+  closes it" handler; `TvSearch.open` now waits for the click to finish.
+- **Directory filters sit between the title and List | Map:** the words or category in use (×), 🕒 Open now,
+  📞 Phone, 🌐 Website, **★ Favorites** (the businesses you linked or saved to your Address Book; the listings API
+  takes `ids=`), distance and sort. On the map they float as one strip.
+- **Map pins:** listings without their own point share their ZIP's middle, so 20 pins stacked into one. They're now
+  spread in a small spiral, and the map zooms in until each shows. Real points need street addresses geocoded (see the
+  follow-up below).
+- **Follow-up, geocoding:** the crawler's refresh (decisions/0045) fills empty fields, addresses included, for
+  listings with a website, at most every 60 days. It doesn't turn an address into a map point. The U.S. Census
+  geocoder (free, batches of 10,000) can, for every listing with a street address.

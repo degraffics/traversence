@@ -263,3 +263,16 @@ It shows the Facebook Marketplace-style grid, filters and categories, with sampl
   can be saved (giving roles is refused). Remove it once real businesses are testing (`Roles::contexts`,
   `preview:business`).
 
+
+**Progress (menus):**
+- **The hamburger menu has one Dashboard** (your listings, staff tools and roles switch there, at your name), plus
+  **Make a suggestion**. My Listings and Admin Portal are gone from the menu.
+- **The toolbar takes groups:** a parent with its tools underneath, opened and closed with a chevron. The group is
+  remembered, and open when you're on one of its pages.
+- **One admin menu everywhere** (`tv_admin_rail`): **Overview** first (to grow into the system management
+  overview), Needs you, Procedures, Review (with its badge), Reports, **Crawler ▸** (Published, Sources, Stories,
+  Places, Coverage, Crawl a site, Data loads), Admin portal, Staff & roles. The dashboard's Admin role and every
+  admin and crawler page show the same menu, so it never changes however deep you go. As Admin, the dashboard opens
+  on Overview.
+- **On the dashboard,** the old "Admin Panel →" and "Crawler →" cards are removed.
+- **Discover has no breadcrumbs;** the toolbar shows where you are.
