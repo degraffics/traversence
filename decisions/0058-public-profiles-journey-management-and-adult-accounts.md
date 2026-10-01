@@ -167,7 +167,11 @@ Decided 2026-10-01.
     drop-down over the page, with labels and section headings;
   - the person's profile and role switcher sit at the far right.
 
-  It replaces the swipeable row of icons.
+  It replaces the swipeable row of icons. The admin tools work the same way, on every admin and crawler page and on
+  the Dashboard as Admin:
+  - the Crawler's pages are a group in the list;
+  - counts (Review's) show on their row and on the tools button;
+  - on the Dashboard, the button follows the section you switch to.
 - **Auto-detect and ZIPs on Let's Explore:** a device location or a ZIP now opens the town area it belongs to (the
   cluster whose ZIPs include it, else the nearest within 40 miles). `/api/place.php` returns it as `place.cluster`.
 - **Satellite** uses the USGS imagery with towns, roads and boundaries labelled.
