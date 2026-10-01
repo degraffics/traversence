@@ -106,6 +106,12 @@ Totals only, never who. We count how many visits see each section, listing, jour
 ### Why is a pin marked "approximate"?
 Until we've placed a listing's street address, its pin sits in the middle of its ZIP area. When you open it on the map, we look the address up and move the pin if it matches. Rural addresses don't always match an exact spot. Mileposts, roads without numbers and mail-only addresses are examples. When we can only place a listing near where it is, we say so.
 
+### A pin is in the wrong place. How do I fix it?
+Tap **Wrong spot? Fix the pin** on the map card or the listing page. Drag the pin to the door (or tap the map, or tap **I'm here now** if you're there), then **Send**. You don't need an account. We check every suggestion before the map changes. If you run the business, or you're Traversence staff, your pin is saved at once, and you can change the address too.
+
+### I own the business. How do I change our address or pin?
+Open **Location and map pin** from Business in your Dashboard (or from the listing page). Change the address and the pin follows it, or drag the pin to your door and save. Only the business's owners and managers, and Traversence staff, can do this.
+
 ### Why doesn't a listing have a map pin?
 A few reasons:
 - The address is a PO box or mail-only, so there's no place to pin.

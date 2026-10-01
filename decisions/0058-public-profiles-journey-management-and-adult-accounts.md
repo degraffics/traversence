@@ -291,6 +291,43 @@ W Cleveland St showed in the middle of 85936, not on Cleveland St.
 - **Never tried:** confidential listings, PO boxes, mileposts and roads with no number.
 - When the Census can't place it, the pin stays and says so.
 
+### 15. Moving a pin that's in the wrong place
+
+One page, `/listing/location.php?id=`, for everyone. It opens from three places:
+- "Wrong spot? Fix the pin" on the map card;
+- "Wrong spot on the map? Fix the pin" on the listing page;
+- "Location and map pin" in the Dashboard's Business box and in the business portal.
+
+What each person can do there:
+- **Visitors:** drag the pin, tap the map, or use "I'm here now", then Send. Signing in isn't needed.
+  - This is a suggestion (kind fix, field "Map point"), with an optional note.
+  - A person checks it in Review and uses it with "Use this map point".
+  - The device limit for suggestions applies.
+  - "I'm here now" uses the person's location only for this pin; it isn't kept anywhere else.
+- **The business** can drag the pin, and it's saved for everyone at once. The business means:
+  - a listing_access owner or manager;
+  - an org owner or manager role on the listing;
+  - a verified owner.
+
+  The business can also change the street address, town, state and ZIP:
+  - the fields are locked, so crawls don't overwrite them;
+  - the Census places the new address, else the pin sits at the new ZIP's middle (shown as approximate) until it's
+    dragged.
+- **Traversence staff** (is_admin or admin_access) can do the same as the business.
+- **Confidential listings are never pinned** (decisions/0044). No one can move them.
+
+A point a person set or the Census matched stays put. Crawls keep it, and the Census only replaces an empty point or
+a ZIP's middle. Changes by staff and owners are logged (`role_log`). The search index is updated at once.
+
+**Search, same day:** a word that names a category ("pizza") now also finds listings with the word in them, such as
+Dittys Pizza & Pie under Restaurants. Before, the search panel found only the Pizza category, while the directory
+found both. The panel's "See all" and Map now use the same words as the directory.
+
+**Code:**
+- `ListingLocation`, `/api/pin.php`, `listing/location.php`;
+- `Geocoder::setPoint` accepts owner;
+- `CrawlerIngest` keeps a point a person set.
+
 ## Consequences
 
 - New columns: `journeys.entity_id` and `journeys.submitted_at`, and `age_confirmations.min_age`. Two new staff roles
@@ -352,3 +389,6 @@ W Cleveland St showed in the middle of 85936, not on Cleveland St.
     Business Insights;
   - approximate pins are now placed at their street address when opened;
   - a misspelling gets "Did you mean" first.
+- **2026-10-01, pins (§15):**
+  - built the location editor for visitors (suggest), owners and staff (set, or change the address);
+  - search reads a category word as the category or the word.
