@@ -497,3 +497,42 @@ locally: …" is a link to the directory, with its List | Map toggle:
   (the distance can be changed).
 - **A local name** ("Wide Ruins") has no point of its own yet, so it opens the cluster's listings
   (`?cluster=…&local=Wide Ruins`). The summary says "Wide Ruins is part of this area".
+
+**Cold start: North America, the big picture; a compact place picker.**
+- **Let's Explore with no place is North America** ("Let's Explore North America"), not a "choose a place" wall. A
+  visitor sees, in order:
+  - "Exploring North America, the big picture", with Choose a place and Start in Ancient America;
+  - **The big picture:** three eras (the first peoples, Norse voyages, the age of exploration) with sources. It's the
+    `na` story in Stories (Admin → Stories → North America). Until a person reviews and publishes it, the built-in
+    text shows, marked "Traversence summary, being reviewed". The dates follow current research (at least 15,000
+    years; White Sands footprints over 20,000 years). It notes that many Indigenous nations tell their own histories
+    of origin, and that hundreds of sovereign tribal nations carry them forward.
+  - **Exploration guides:** Regions, **Key destinations** (the areas in the open regions, the busiest first) and
+    **National parks** (National Park Service units from Recreation.gov, by state; tribal parks are run by
+    sovereign nations);
+  - **Plan a trip;**
+  - **Regions:** the open ones, with the coming-soon ones folded away ("19 more regions coming soon").
+- **Plan a trip** (on the cold start, and as its own view in the toolbar, no longer "soon") asks:
+  - where would you like to go, and the region;
+  - when (today, this weekend, or a month);
+  - how long, and the price range;
+  - themes and trip types (Discovery, Outdoors, History & heritage, Arts & culture, Food & drink, Road trip,
+    Family, Night skies);
+  - features and offers (Free entry, Pet friendly, Accessible, Open late, Deals & offers).
+
+  Where, when and the first theme become a search in the search panel ("outdoors this weekend in St. Johns"). Length,
+  budget, other themes and features are kept with the plan on the device (`tv_trip_plan`), and the page says so,
+  until trip plans (save, share, day by day) arrive.
+- **The toolbar** adds Key destinations, National parks and Plan a trip. Choosing North America from anywhere on
+  Let's Explore returns to the big picture.
+- **The place picker, compact,** top to bottom:
+  - 🌎 North America (no place);
+  - your places (signed in);
+  - regions on one swipeable row;
+  - **Destination**, typed by name: towns and regions from the type-ahead, plus exact names, local names included,
+    from the search's place reading (a town already placed in its area isn't listed twice);
+  - State · City · ZIP on one line with Go;
+  - Auto-detect;
+  - Sign in for your places, or "My default place" when signed in.
+- **Fixed:** the Let's Explore heading had been commented out by the breadcrumb change, so it showed "Let's Explore"
+  instead of "Let's Explore around …".
