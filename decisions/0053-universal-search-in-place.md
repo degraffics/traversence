@@ -484,3 +484,9 @@ can place. They're sorted and placed another way instead of being skipped.
   is?", which opens "Tell us".
 - `Geocoder::setPoint()` is the one way a point gets set from these sources. The site and visitors fill only a
   missing or ZIP-middle point; staff may replace one.
+
+**A place searched by name opens on the map.** Searching a town or a local name ("Wide Ruins") gave a top result and
+"See all … in the directory", but no Map button: the button needed listings in the results, and a place search
+returns the place. Now a place named in the search (not just the visitor's own place) always offers 🗺 Map, showing
+what's listed there ("180 listings · Wide Ruins"). A local name maps to its whole cluster (Wide Ruins is in the
+Sanders I-40 corridor) until local names get their own areas.
