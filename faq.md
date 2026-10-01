@@ -57,7 +57,24 @@ Use the search bar at the top of any page.
 Yes. In the search dropdown, click **✎ Edit** to add, change or remove your own phrases. For now they're saved in this browser. Saving them to your account is coming.
 
 ### How do I switch between the list and the map?
-Use the **List / Map** toggle next to the directory heading. The map fills the page. Pins that sit on top of each other spread out, so you can pick each one.
+Use the **List / Map** toggle next to the directory heading. The map opens full screen with every result as a pin. **Exit map** brings you back to the list, which keeps any filters you changed on the map.
+
+### What can I do on the map?
+- **Search:** type in the search at the top and press Enter. The pins change to match.
+- **Controls** (bottom right): zoom in and out, **My location**, **Search this area**, and **Map style**.
+- **The panel:** the tab on the map's left edge (the bottom on phones) opens it. It has what's shown, the distance, "Search this area as I move the map", the map style, and the details of the place you tapped. Use the arrows there to step to the next place nearby.
+
+### Does "My location" share where I am?
+No. It only moves the map on your device. It isn't saved or sent anywhere.
+
+### What do the hearts on the map mean?
+A heart in a circle is one of your favorites: a business you linked or saved to your Address Book. Favorites always show on their own, never grouped with other pins.
+
+### What map styles are there?
+- **Streets** and **Light** (a faded map, so pins stand out) cover everywhere.
+- **Terrain** (topographic) and **Satellite** cover the United States.
+
+The map remembers the style you chose.
 
 ### What do filters, Favorites and sort do?
 They sit between the heading and the List/Map toggle:

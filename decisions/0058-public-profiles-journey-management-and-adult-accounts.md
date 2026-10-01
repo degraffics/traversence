@@ -59,9 +59,9 @@ smaller issues surfaced at the same time:
 ### 3. Tags: `@` and `#`
 
 - `@` reaches things that have a page: a person, a listing, a place or a topic.
-- **`#` is proposed, not yet decided.** It would be for free-form themes and moments (`#monsoon`, `#nightskies`,
-  `#route66`). A tag gets its own page of public journeys once it recurs across independent people, counted the way
-  0052 counts tags. It would let new topics emerge without staff creating them first.
+- **`#` is for free-form themes and moments** (`#monsoon`, `#nightskies`, `#route66`), decided 2026-10-01. A tag
+  gets its own page of public journeys once it recurs across independent people, counted the way 0052 counts tags,
+  so new topics emerge without staff creating them first. (Not built yet.)
 
 ### 4. Adult accounts: 18 and older
 
@@ -70,6 +70,52 @@ smaller issues surfaced at the same time:
 - **Existing accounts:** anyone who confirmed the earlier 13+ gate, or none, confirms 18+ once, before commenting or
   becoming a contributor.
 - **What this removes:** no teen defaults are needed.
+
+### 5. The map
+
+Used everywhere a map opens: Let's Explore's Map, the directory's Map, and the map from search results.
+- **Nothing floats over the map but Exit and the map's controls.** The bar that sat over the top of the map is gone.
+- **The header search says what to look for.** While the map is open, pressing Enter in the search above it changes
+  the pins (on Let's Explore it looks across everything, not only the chosen kind).
+- **Controls** (right):
+  - zoom in and out;
+  - **My location**: moves the map on this device only, never saved or sent;
+  - **Search this area**: highlighted when the map has moved;
+  - **Map style**.
+- **A panel from the map's left edge** (a sheet from the bottom on phones) holds:
+  - the chosen place;
+  - what's shown (Things to do / Places to eat / Places to stay / Everything on Let's Explore; Open now, Phone,
+    Website, Favorites in the directory);
+  - the distance;
+  - "Search this area as I move the map";
+  - the map style;
+  - the legend.
+
+  It stays open or closed as you left it.
+- **Map styles:**
+  - Streets and Light (OpenStreetMap);
+  - Terrain and Satellite (USGS The National Map: public domain, United States coverage).
+
+  Heavy traffic will need a tile provider agreement before launch: OpenStreetMap's own tiles are for light use.
+- **Favorites** (businesses you linked or saved) show as a heart in a circle and are never grouped into a cluster.
+- The directory's Map now opens this map with every result as a pin, instead of only the page of the list.
+
+### 6. Navigation
+
+- **Let's Explore menu, in order:**
+  - **Discovery Dashboard**, which always returns to the default landing (North America);
+  - **Plan a trip**;
+  - Map;
+  - Regions;
+  - Key destinations;
+  - National parks;
+  - Things to do: Outdoors, Food & drink, Culture & heritage, Events (inactive until built), and Stories & guides.
+
+  "Your places" and "Your journeys" live in the Dashboard.
+- **The menu's current item** is a flat, slightly tinted row with its icon lit, like the top bar, with no box. The
+  menu keeps its scroll position from page to page.
+- **Journey management lives at `/user/journeys/`**, in the member Dashboard. Old `/journeys/` and
+  `/journeys/compose.php` links redirect there. Published journeys are still read at `/journeys/view.php`.
 
 ## Consequences
 
@@ -96,3 +142,7 @@ smaller issues surfaced at the same time:
     - the writer's public profile (Journeys);
     - each linked listing's page ("Journeys that mention…"), plus "From <business>" for a business's own journeys.
   - The Let's Explore menu no longer has a "Your journeys" item.
+- **2026-10-01, later:**
+  - built the map redesign (§5) and the navigation changes (§6);
+  - moved journey management to `/user/journeys/`;
+  - `#` decided.
