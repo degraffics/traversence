@@ -394,18 +394,23 @@ come first.
 **The pencil** opens the place picker. On a place page, choosing a place opens that place's page; on Let's Explore,
 the page follows the place.
 
-**Tabs:** on Let's Explore, Regions, Destinations and National Parks sit under the hero, with the current one marked
-in sage.
+**Under the hero, a carousel of cards** (replacing the Regions / Destinations / National Parks tab strip): two side by
+side on a phone, three or four on wider screens, swiped left and right (arrows on wider screens). Whole cards snap
+into place. The ☰ menu still has Regions, Key destinations and National parks.
+- **The Discovery Dashboard:** "Explore: <place>", with the regions carousel under it.
+- **Regions, Destinations and National Parks:** each is titled by the page ("Explore: Regions"), with a line about it.
+  The hero shows journey photos from everywhere, since these pages cover the continent, and the page's own cards
+  sit in the carousel.
 
-**Regions, Destinations and National Parks pages** have the hero, the tabs, a one-line lead and photo cards. Each
-card has a journey photo (else the brand's art, by name), an icon, the name, and a line about it. It also shows:
+Each card has a journey photo (else the brand's art, by name), an icon, the name, and a line about it. It also
+shows:
 - **Regions:** areas, town areas and journeys, with a Pilot or Coming soon badge. Coming-soon regions show quieter,
   without a link.
 - **Destinations:** the region, town areas, listings, journeys and the first towns.
 - **National Parks:** Recreation.gov National Park Service units plus the parks, monuments, landmarks and state
   parks we list, so it isn't empty before the Recreation.gov load.
 
-**Phones:** the hero and tabs run edge to edge under the tool bar. Cards are 3px from the edges and 3px apart.
+**Phones:** the hero runs edge to edge under the tool bar. Carousel cards are 3px from the edges and 3px apart.
 
 ### 19. Search follows the section (the Chameleon Filter), and a cleaner panel
 
