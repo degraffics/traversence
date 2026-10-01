@@ -47,11 +47,43 @@ Each one has:
   again.
 - **Staff** add them. A Content Creator's goes to review; an Editor's is published at once.
 
-**A person approves every one** (Admin → Experiences) before it shows:
+**A person approves each one** (Admin → Experiences) before it shows, unless its credibility score posts it at once
+(§5):
 - an Editor approves;
 - a Content Creator can edit, reject or hide;
 - a member's experience can't be rejected without a note, which the member sees;
 - a member's edit to their own experience goes back to review.
+
+### 5. Credibility: posting without waiting (amends §2)
+
+Every member's and system's experience gets a **credibility score from 0 to 100** when it's posted, suggested or
+edited. The score is saved with its reasons, so editors see why. **70 or more posts it at once**; below 70, it waits
+for a person as in §2.
+- **Members:** 20 for a member, then:
+  - account age: +5 at 1 month, +10 at 6 months;
+  - verified email: +10;
+  - experiences a person approved: +10 each, up to +30;
+  - published journeys: +5 each, up to +15;
+  - runs a listed business: +10;
+  - a full description: +5; how to do it: +5; a local business linked: +5; their own journey with photos: +10;
+  - each not approved in the last 90 days: −15; each hidden: −25.
+- **A member needs two experiences approved by a person** before any of theirs can post themselves, so a first post
+  is always read by an editor.
+- **The system:** 30 for a suggestion, then:
+  - an outdoor place: +20 if the agency describes it, +10 for a public place, +10 for being in one of our town areas
+    (so 70 with a real description);
+  - a journey: +15 at 5 likes, +10 at 100 reads, +10 for photos, +10 for a contributor's;
+  - a listing with only a stand-in description: −10. It never reaches 70.
+- **Auto-posted ones are marked.** Admin → Experiences → **Auto-posted** lists those no one has checked yet:
+  - **Looks good** keeps it, and it then counts toward the author's record;
+  - **Edit**;
+  - **Hide**, with a reason, which also lowers the author's score next time.
+
+  The member is told it went up at once and that editors may still look it over.
+- **The threshold is one constant** (`Experiences::AUTO_POST`, and `AUTO_MIN_APPROVED` for the two approvals), so it
+  can be tightened.
+
+**Migration:** `2026-10-13_experience_credibility.sql` (run after `2026-10-12_experiences.sql`).
 
 ### 3. Where they show
 
@@ -101,3 +133,5 @@ Each one has:
 
 - **2026-10-01:** built all of the above and tested it in the sandbox. The system's first pass found 33 suggestions
   there. Some carry crawled business abbreviations ("Otfttrs") that editors tidy before approving.
+- **2026-10-01, credibility (§5):** built and tested. A member's third experience, after two approved, scored 70 and
+  posted itself. The sandbox's outdoor places have no agency descriptions, so they scored 50 and wait.

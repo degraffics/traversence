@@ -45,10 +45,10 @@ Photos from journeys people have shared about that place, or about places inside
 Things to do that are worth the trip: paddling a lake at sunrise, a rodeo weekend, a night under dark skies. You take part, it belongs to the place, and someone local can make it happen. Find them in **Let's Explore → Experiences**, in season first. Each one shows when to go, how long it takes, how hard it is, who can take you, and journeys from people who did it.
 
 ### How do I post an experience?
-Sign in and open **Dashboard → Your experiences**. Say what you do, where, what it's like and when to go, and add the local businesses that make it happen. You need to be 18 or older. Our editors review every experience before it shows. If they don't approve it, you'll see their note and can edit it and send it again.
+Sign in and open **Dashboard → Your experiences**. Say what you do, where, what it's like and when to go, and add the local businesses that make it happen. You need to be 18 or older. Our editors review your first experiences before they show. If they don't approve one, you'll see their note and can edit it and send it again. Once two of yours have been approved, a well-described experience from you can go up at once.
 
 ### Where do the other experiences come from?
-Some are posted by members. Some we suggest from what we already know: outdoor places and their activities, local guides, outfitters and museums, and journeys people shared. Our staff add others. A person reviews every one before it shows.
+Some are posted by members. Some we suggest from what we already know: outdoor places and their activities, local guides, outfitters and museums, and journeys people shared. Our staff add others. Each one gets a credibility score from who posted it and how complete it is. The most credible go up at once and our editors check them afterwards. The rest wait for an editor.
 
 ### What's the difference between Experiences and National Parks?
 National Parks are places. Experiences are what you do, in a park or anywhere else.
