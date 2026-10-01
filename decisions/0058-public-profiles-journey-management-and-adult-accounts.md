@@ -349,6 +349,28 @@ found both. The panel's "See all" and Map now use the same words as the director
 - **Phones:** the section's tools menu ends with "Switch to": Let's Explore, Get Local, Social, Marketplace and
   Dashboard (not the section you're in). On wider screens the top menu does this.
 
+### 17. Destination: towns first, then landmarks
+
+The place picker's Destination lists matches in this order. Within each group, names that start with what was typed
+come first.
+1. **Anchor towns.** The town a town area is built around: "Show Low, AZ · Town · The Show Low District". Each town
+   is listed once, and a hand-made area comes before an automatic one.
+2. **Town areas.**
+3. **Local names** ("Wide Ruins").
+4. **Other towns inside one of our town areas.**
+5. **Areas and regions.**
+6. **Landmarks:**
+   - outdoor places from Recreation.gov (recreation areas first);
+   - listings in attraction categories: museums, monuments, national and state parks, landmarks, resorts and ski
+     resorts, casinos, stadiums, zoos, amusement and theme parks.
+
+   Choosing a landmark sets the town area around it, under the area's own name; "Lyman Lake State Park" sets
+   St. Johns. If a landmark is outside our areas, it sets its own town ("Disneyland" would set Anaheim, CA, once
+   it's listed). Hidden places and confidential listings are never offered.
+7. **Towns elsewhere** come last, from the type-ahead ("Showell, MD").
+
+**Code:** `/api/place.php?action=find` and `js/location-scope.js`.
+
 ## Consequences
 
 - New columns: `journeys.entity_id` and `journeys.submitted_at`, and `age_confirmations.min_age`. Two new staff roles
@@ -414,3 +436,4 @@ found both. The panel's "See all" and Map now use the same words as the director
   - built the location editor for visitors (suggest), owners and staff (set, or change the address);
   - search reads a category word as the category or the word.
 - **2026-10-01, sports and switching (§16):** built.
+- **2026-10-01, Destination order and landmarks (§17):** built.
