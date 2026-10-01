@@ -371,6 +371,42 @@ come first.
 
 **Code:** `/api/place.php?action=find` and `js/location-scope.js`.
 
+### 18. The Explore hero, on Let's Explore and every place page
+
+**One name, said once.** The hero's title is **Explore: <place>** with a pencil to change the place. It replaces:
+- "Let's Explore: <place>";
+- the "Exploring <place>" line and its pills;
+- "around <place>" in the journeys heading;
+- on place pages, the breadcrumbs, the "Regional hub / Geo-hub / Town cluster" label and the separate title.
+
+**One component, `includes/explore-hero.php`,** used by:
+- Let's Explore (the overview, and Regions, Destinations and National Parks);
+- every place page (`/hub/`: region, area and town area).
+
+**What the hero shows:**
+- **Photos:** from published journeys tagged with that place or a place inside it (`Journeys::hero` by scope key).
+  A town area shows its own journeys, an area also its towns', a region all of them. With none, it shows the
+  brand's art and "Share a journey".
+- **"in <region> · <area>":** on a place page, each one a link up.
+- **The Link button.**
+- **Arrows** when there's more than one photo.
+
+**The pencil** opens the place picker. On a place page, choosing a place opens that place's page; on Let's Explore,
+the page follows the place.
+
+**Tabs:** on Let's Explore, Regions, Destinations and National Parks sit under the hero, with the current one marked
+in sage.
+
+**Regions, Destinations and National Parks pages** have the hero, the tabs, a one-line lead and photo cards. Each
+card has a journey photo (else the brand's art, by name), an icon, the name, and a line about it. It also shows:
+- **Regions:** areas, town areas and journeys, with a Pilot or Coming soon badge. Coming-soon regions show quieter,
+  without a link.
+- **Destinations:** the region, town areas, listings, journeys and the first towns.
+- **National Parks:** Recreation.gov National Park Service units plus the parks, monuments, landmarks and state
+  parks we list, so it isn't empty before the Recreation.gov load.
+
+**Phones:** the hero and tabs run edge to edge under the tool bar. Cards are 3px from the edges and 3px apart.
+
 ## Consequences
 
 - New columns: `journeys.entity_id` and `journeys.submitted_at`, and `age_confirmations.min_age`. Two new staff roles
@@ -442,6 +478,8 @@ come first.
     beneath it as one strip.
   - "Exploring <place>" has a small pencil to change the place (it replaces the "Change place" pill).
   - "Open the place page" is gone; the ☰ menu's "This place" opens the same page.
+
+- **2026-10-01, the Explore hero (§18):** built.
 
 ### Open items at the end of the 2026-10-01 session
 
