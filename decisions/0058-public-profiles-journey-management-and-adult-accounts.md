@@ -117,6 +117,61 @@ Used everywhere a map opens: Let's Explore's Map, the directory's Map, and the m
 - **Journey management lives at `/user/journeys/`**, in the member Dashboard. Old `/journeys/` and
   `/journeys/compose.php` links redirect there. Published journeys are still read at `/journeys/view.php`.
 
+### 7. Journey details
+
+Decided 2026-10-01.
+- **Where:**
+  - an optional **"Where it happened" pin** for the whole journey, set by the author;
+  - each photo can have its own pin.
+- **When:** the "Was here" date gets an optional **time**. Each photo gets a **"Taken"** date and time.
+- **The photo's own date and location:**
+  - read **in the author's browser, before upload**, and offered as suggestions ("This photo says it was taken Aug 12
+    near …. Use it?");
+  - kept only if the author ticks them; the stored photo is stripped either way;
+  - the first photo that has a location can also fill the journey's "Where it happened".
+- **Rights:**
+  - **Whose photo** ("Taken by me", or "Used with permission" with a required credit line, shown as "Photo: …");
+  - **Reuse** for the journey: **Shown on Traversence only (the default)**, "Others may share it, with credit", or
+    "Free to use";
+  - ownership stays with the author, shown as "© name".
+- **Co-authors:**
+  - up to 5, found by display name (never email; private profiles aren't listed; blocked people can't be invited);
+  - invited when the journey is saved;
+  - an invitation waits on the invitee's Your journeys page (they confirm 18+ if they haven't);
+  - shown on the journey and on the co-author's profile only once accepted;
+  - the author can remove a co-author.
+- **Mature themes (gated):**
+  - readers see a notice and choose "Show the journey" (remembered for the visit);
+  - the card shows a "Mature themes" panel instead of its photo;
+  - the journey is kept out of the hero.
+- **Caution:** an optional note (terrain, weather, closures) shown as a banner at the top of the journey.
+- **Categories and magazine sections:** Outdoor recreation and Shopping join the list. Each category belongs to a
+  section:
+
+  | Section | Categories |
+  |---|---|
+  | Outdoors | Hiking, Outdoors, Outdoor recreation, Night skies |
+  | Food & drink | Dining |
+  | Culture & heritage | History, Culture |
+  | Events | Events |
+  | Shopping | Shopping |
+  | Trips | Exploring, Road trip, Family |
+
+  The Outdoors, Food & drink and Culture views show that section's journeys for the place.
+- Migration: `2026-10-09_journey_details.sql`.
+
+### 8. Phones and places
+
+- **The phone tool bar:**
+  - one **tools button** on the left, showing where you are (e.g. "☰ Plan a trip ▾"), opens the full tool list as a
+    drop-down over the page, with labels and section headings;
+  - the person's profile and role switcher sit at the far right.
+
+  It replaces the swipeable row of icons.
+- **Auto-detect and ZIPs on Let's Explore:** a device location or a ZIP now opens the town area it belongs to (the
+  cluster whose ZIPs include it, else the nearest within 40 miles). `/api/place.php` returns it as `place.cluster`.
+- **Satellite** uses the USGS imagery with towns, roads and boundaries labelled.
+
 ## Consequences
 
 - New columns: `journeys.entity_id` and `journeys.submitted_at`, and `age_confirmations.min_age`. Two new staff roles
@@ -146,3 +201,6 @@ Used everywhere a map opens: Let's Explore's Map, the directory's Map, and the m
   - built the map redesign (§5) and the navigation changes (§6);
   - moved journey management to `/user/journeys/`;
   - `#` decided.
+- **2026-10-01, journey details (§7) and phones (§8):**
+  - built;
+  - fixed the phone search's place button squeezing the search field.

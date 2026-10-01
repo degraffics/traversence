@@ -64,6 +64,9 @@ Use the **List / Map** toggle next to the directory heading. The map opens full 
 - **Controls** (bottom right): zoom in and out, **My location**, **Search this area**, and **Map style**.
 - **The panel:** the tab on the map's left edge (the bottom on phones) opens it. It has what's shown, the distance, "Search this area as I move the map", the map style, and the details of the place you tapped. Use the arrows there to step to the next place nearby.
 
+### I used Auto-detect. Why didn't the page change?
+It should now. Auto-detect finds the town area you're in and opens Let's Explore there. If it says it couldn't name the area, pick a region or type a ZIP instead.
+
 ### Does "My location" share where I am?
 No. It only moves the map on your device. It isn't saved or sent anywhere.
 
@@ -72,7 +75,7 @@ A heart in a circle is one of your favorites: a business you linked or saved to 
 
 ### What map styles are there?
 - **Streets** and **Light** (a faded map, so pins stand out) cover everywhere.
-- **Terrain** (topographic) and **Satellite** cover the United States.
+- **Terrain** (topographic) and **Satellite** (with towns and roads labelled) cover the United States.
 
 The map remembers the style you chose.
 
@@ -144,6 +147,32 @@ Yes. If you're on a listing's team as its Owner, Manager or General member, the 
 
 ### Do I have to mark a partnership?
 Yes. If you were paid, or given something free, for a journey, mark it **Partnership**. U.S. law requires the disclosure.
+
+### Can I say exactly where and when it happened?
+Yes, if you want to. **Where it happened** is an optional pin you set on a map, and you can add a time next to the "Was here" date. Each photo can also have its own pin and the date it was taken.
+
+### My photo knows where and when it was taken. Does Traversence use that?
+Only if you say so. When you add photos, your browser reads the photo's own date and location and shows them to you: "This photo says it was taken Aug 12 near …. Use it?" Tick what you want to keep. The photo we store has all of that removed either way.
+
+### Can I post a photo someone else took?
+Yes, with their permission. Under the photo, choose **Used with permission** and say who took it. It shows as "Photo: their name".
+
+### Can other people reuse my journey?
+You choose, under **Rights and reuse**:
+- **Shown on Traversence only** (the default);
+- **Others may share it, with credit**;
+- **Free to use, no credit needed**.
+
+You keep ownership either way.
+
+### Can I write a journey with someone else?
+Yes. Under **Co-authors**, search for up to five members by name. They're invited when you save. Their name shows on the journey, and it shows on their profile, once they accept. Invitations wait on their **Your journeys** page.
+
+### What does "Mature themes" do?
+It puts a notice in front of your journey: readers choose to open it. Its card shows a notice instead of a photo, and it isn't used for the big picture at the top of pages. All Traversence accounts are for adults, but this lets readers decide.
+
+### What's the "Caution" note for?
+Anything readers should know first, such as rough roads, weather, closures or gate times. It shows as a banner at the top of your journey.
 
 ### Can I add a video?
 Yes, as a YouTube or Vimeo link. We don't host video uploads.
