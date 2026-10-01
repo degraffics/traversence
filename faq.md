@@ -173,6 +173,26 @@ Our team reviews it, checks it against public sources, and updates the listing o
 
 ## Privacy and your account
 
+### How do I change my name or profile?
+Go to your **Dashboard** and choose **Profile** (under Settings), or tap your name at the top of the menu and choose **Your profile**. There you can:
+- set your **display name**, the name people see on your journeys, comments and messages;
+- edit your **contributor bio**, if you're a contributor;
+- make your profile **public** or **private**.
+
+**See your public profile** shows you what other people see.
+
+### Why do I show as "Member #" and a number?
+You haven't chosen a display name yet. We never show your email, so until you pick a name, people see a member number. Set one under **Profile**.
+
+### What names can I use?
+Any name from 2 to 40 characters, using letters, numbers, spaces and simple punctuation. Leave out phone numbers and email addresses. Names that suggest you speak for Traversence, such as "Traversence", "Admin", "Staff" or "Support", are reserved.
+
+### What's the difference between a public and a private profile?
+- **Public:** anyone can see your name and your journeys, and members can follow you.
+- **Private:** people must send you a connection request instead of following, and you can't publish journeys, because journeys show your name.
+
+Either way, your email and your location are never shown.
+
 ### Who can see my email?
 No one. Your email is never shown on Traversence.
 

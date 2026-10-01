@@ -214,3 +214,16 @@ but unsubscribe.
   one report per person per item; 3 reports hide a post until an admin decides. Admin → Reports
   (`admin/reports.php`): remove / hide, dismiss, or restore; the Notification Center counts open items.
   Reporters are never shown. Migration `2026-10-01_reports.sql`; `api/lib/Reports.php`.
+
+## Progress note (2026-10-01): Profile in the dashboard
+
+Members can now manage how others see them under **Dashboard → Settings → Profile** (also from **Your profile** in
+the menu under their name). They can set:
+- the **display name**: 2–40 characters, with plain reasons when one is refused;
+- the **contributor bio**, for contributors (`decisions/0056`);
+- **public or private**: the same `profile_private` setting as Address Book → Controls.
+
+Names that suggest someone speaks for Traversence (Traversence, Admin, Staff, Support, Moderator) are reserved, and
+so is "Member #N", the name shown until someone picks their own. Phone numbers and email addresses aren't accepted as
+names. Code is in `api/lib/Profile.php` and `user/api/profile.php`. A profile photo is still to come; initials are
+shown for now.
