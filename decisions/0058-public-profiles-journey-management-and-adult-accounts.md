@@ -232,6 +232,21 @@ Decided 2026-10-01: space and visuals are standard practice on every phone layou
 - **Filters** live in the search.
 - **Counts:** outbound actions are counted.
 
+### 12. Nothing here? Say so, and show where it is
+
+When a search finds none of what was asked for in the place you're in, the search panel shows a "none here" box:
+- **It says so:** "No 'pizza' in St. Johns yet."
+- **It offers two ways to fill the gap:**
+  - **Recommend one** opens Tell us, with the words and the place filled in;
+  - **Add a listing**.
+- **"Nearby, with 'pizza'":**
+  - the nearest town areas that have it, within 200 mi (300 for an area or region), nearest first;
+  - each town shows its distance and how many it has, with up to 3 places listed;
+  - each place belongs to the nearest town area we cover, else its own town.
+- **Tapping a place** opens the full-screen map around it (15 mi), with its pin chosen and the other matches
+  around it.
+- **Code:** the server adds `elsewhere` to `/api/search.php` (`UniversalSearch::elsewhere`).
+
 ## Consequences
 
 - New columns: `journeys.entity_id` and `journeys.submitted_at`, and `age_confirmations.min_age`. Two new staff roles

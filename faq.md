@@ -85,6 +85,9 @@ A heart in a circle is one of your favorites: a business you linked or saved to 
 
 The map remembers the style you chose.
 
+### What if there's nothing like it where I am?
+The search tells you: "No 'pizza' in St. Johns yet." You can **Recommend one**, or **Add a listing** if it's yours. Below that, it shows the nearest towns that do have it, nearest first. Tap one to see it on the map with what's around it.
+
 ### How do I filter the directory?
 Tap the search at the top. Its **Quick picks** are **Near me**, **Open now**, **Has a phone**, **Has a website** and **★ Favorites** (businesses you linked or saved). Whatever is narrowing the list shows under the title; tap × to remove it.
 
