@@ -441,3 +441,22 @@ From Jason's review (with Google's "businesses near me" and "places to go near m
 - **Follow-up, geocoding:** the crawler's refresh (decisions/0045) fills empty fields, addresses included, for
   listings with a website, at most every 60 days. It doesn't turn an address into a map point. The U.S. Census
   geocoder (free, batches of 10,000) can, for every listing with a street address.
+
+**Map points: geocoding street addresses** (`api/lib/Geocoder.php`, Admin → Crawler ▸ **Map points**,
+`php api/scripts/geocode_listings.php --all`).
+- **Why the pins stacked:** most listings were imported with the middle of their ZIP area as their point. The live
+  data has street addresses for about 4,250 of about 4,380 listings, so nearly all can get a real point.
+- **How:** the U.S. Census batch geocoder (free, no key), 500 addresses a request. The admin page keeps sending batches
+  while it's open (Stop any time; it picks up where it left off). The script does the same from cron.
+- **Rules:**
+  - It replaces only a point that is missing or is exactly the ZIP's middle, never one a person set or the crawler read
+    from a site.
+  - Confidential listings are never geocoded; they show a phone only.
+  - PO boxes and addresses without a street number are skipped. The street line is cleaned first ("# A", "Suite 2"
+    dropped).
+  - Each try is recorded in the listing's `geocode` metadata. An address the Census can't place is tried again after
+    90 days, or when the address changes.
+- **On the map,** pins still at the ZIP's middle are marked approximate (the listings API sends `approx`), and the note
+  says how many. Points from the Census follow address ranges, so a point can be a few doors off.
+- **Not run against live data from here:** the sandbox can't reach the Census, so the request and reply were tested
+  against a stand-in in the Census's exact format.
