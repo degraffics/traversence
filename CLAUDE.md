@@ -81,3 +81,14 @@ Space on a phone is at a premium. Every page, new or changed, follows this:
 - **Count outbound actions** with `data-out="call|directions|website|contact" data-e="<listing id>"`. This stores
   counts only, never who tapped.
 - Check every page at 390px wide before delivering: card edges at 3px, no sideways scroll.
+
+## Content page standard (decisions/0058 §20): every content page, every build
+
+Listings, outdoor places, experiences, place pages, journeys, and any new kind of content page:
+- **Header:** kind or category (searches for more), the title left-aligned, the place, and the **Link button** in the
+  top-right corner (`data-link="…"` plus `js/link-button.js`). No breadcrumbs.
+- **Engage bar** right under it: `echo tv_engage_bar($pdo, $kind, $ref, ['title' => …])` (`includes/engage-ui.php`).
+  It shows views (platform counts), likes, comments, Share and an optional Report.
+- **Comments** at the end: `echo tv_engage_comments($pdo, $kind, $ref)`. Public, 18+, reportable.
+- **Counts:** `tv_count_item('<kind>:<id>')` so views are counted.
+

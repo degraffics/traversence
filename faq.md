@@ -126,6 +126,12 @@ Tap the place at the top left of the directory (📍 and the place name) and cho
 ### In what order are businesses listed?
 For a town or "Near me", nearest first. Otherwise, the best match for what you searched.
 
+### Can I comment on a business, a place or an experience?
+Yes. Most pages have **Comments** at the bottom: share a tip, or say what it was like. You need to be signed in and 18 or older. Comments are public and show your name. You can remove your own, and report one that breaks the rules. Stars and ratings aren't used: say what you think in words.
+
+### What do the views and likes on a page mean?
+Views count visits that saw the page. Likes count people who liked it. We never show who viewed or liked anything. **Share** sends the page with your phone's share options, or copies its link.
+
 ### Does Traversence track when I call or visit a business's website?
 We count it for the business, never who did it. A tap on Call, Directions, Website or a contact page adds one to that business's count for the day. No name, account, device or address is stored with it. Businesses see the totals for the last 30 days.
 

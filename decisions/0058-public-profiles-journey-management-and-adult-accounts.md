@@ -435,6 +435,39 @@ shows:
 - **Unverified claimants (§15):** their pin goes to Review like a visitor's. An admin's "Use this map point" applies it
   at once.
 
+### 20. The content page standard: header, Link, Engage bar, comments
+
+Every content page follows one layout. The pages are listings, outdoor places, experiences, place pages and
+journeys:
+1. **A header** that says what it is:
+   - its kind or category, which searches for more like it;
+   - its title, left aligned;
+   - its place;
+   - the **Link button** in the top-right corner.
+
+   No breadcrumbs. Journeys and experiences now have the Link button too (`place:jr:<id>`, `place:exp:<id>`).
+2. **The Engage bar** right under the header:
+   - **views:** visits that saw it, from the platform's counts, never who;
+   - **likes:** how many, never who;
+   - **comments:** the count, linking to them;
+   - **Share:** the phone's share sheet, else the link is copied;
+   - **Report**, where the item itself can be reported (experiences).
+
+   Listings have no Like, because the Link button is how you keep a business.
+3. The page's own content.
+4. **Comments** at the end:
+   - public; a signed-in member who is 18 or older can comment, up to 30 an hour;
+   - the writer or staff can remove one;
+   - anyone signed in can report one (Admin → Reports).
+   - On listings, comments are how people review a business, without stars (§ "Star ratings out").
+
+Journeys keep their own likes and comments. Code: `api/lib/Engage.php`, `/api/engage.php`,
+`includes/engage-ui.php`, `js/engage.js`; Reports gained `content_comment` and `experience`. Migration:
+`2026-10-14_engage.sql` (`content_comments`, `content_likes`).
+
+Also fixed: the listing header's category and name were centered and wrapped oddly. They're buttons, and now align
+left.
+
 ## Consequences
 
 - New columns: `journeys.entity_id` and `journeys.submitted_at`, and `age_confirmations.min_age`. Two new staff roles
@@ -509,6 +542,8 @@ shows:
 
 - **2026-10-01, the Explore hero (§18):** built.
 - **2026-10-01, search by section and the panel's top row (§19):** built.
+- **2026-10-01, the content page standard (§20):** built on listings, outdoor places, experiences, place pages and
+  journeys.
 
 ### Open items at the end of the 2026-10-01 session
 
