@@ -59,6 +59,9 @@ Use the search bar at the top of any page.
 - **Quick picks** in the dropdown cover common searches.
 - **Show in directory list** opens your results as a list.
 
+### Can I search for sports, like football or basketball?
+Yes. **Sports** finds athletic fields, stadiums, gyms, golf courses, public pools, rodeos and sports clubs nearby. **Football**, **basketball**, **baseball**, **soccer** and other sports also find high schools, where most local games are played, and ball fields find parks. Try **gym**, **swimming**, **tennis**, **hunting** or **fishing** too. If a place you play or watch is missing, tap **Tell us what's missing**.
+
 ### Can I save my own search phrases?
 Yes. In the search dropdown, click **✎ Edit** to add, change or remove your own phrases. For now they're saved in this browser. Saving them to your account is coming.
 

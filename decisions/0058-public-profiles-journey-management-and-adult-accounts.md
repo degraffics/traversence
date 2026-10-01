@@ -328,6 +328,27 @@ found both. The panel's "See all" and Map now use the same words as the director
 - `Geocoder::setPoint` accepts owner;
 - `CrawlerIngest` keeps a point a person set.
 
+### 16. Sports, and other broad words
+
+- **Descriptions match from the start of a word.** "Sports" found the post office because its description says
+  "Passports". This applies to the search panel and the directory, in strict and loose modes.
+- **Sports words** (`synonyms.php`) find the places to play and to watch.
+  - **"Sports":** athletic fields and stadiums, arenas, gyms, golf, public pools, rodeos, gun clubs, bowling,
+    skating, skiing, and sports and recreation clubs.
+  - **Football, basketball, volleyball, wrestling, baseball, softball, soccer and track:** athletic fields,
+    stadiums and gyms. Most local games are at the high schools, so these also find high schools. Ball fields
+    also find parks.
+  - **Also:** gym, workout, fitness, swimming, pool, tennis, pickleball, rodeo, skate, ski, hunting, fishing and
+    shooting.
+- **A broad word stays words.** It's never read as one category ("sports" isn't Gun Clubs). Only a word with up to
+  3 meanings is read as a category ("pub" is Bars).
+- **A category read from a word** also finds the word in names (§15), but only as the whole word ("pub" isn't
+  "Public").
+- **Near me reads "near you"** in the place tag, the title, the count and "Missing a business near you?". It used
+  to read "your precise location". The point is never shown.
+- **Phones:** the section's tools menu ends with "Switch to": Let's Explore, Get Local, Social, Marketplace and
+  Dashboard (not the section you're in). On wider screens the top menu does this.
+
 ## Consequences
 
 - New columns: `journeys.entity_id` and `journeys.submitted_at`, and `age_confirmations.min_age`. Two new staff roles
@@ -392,3 +413,4 @@ found both. The panel's "See all" and Map now use the same words as the director
 - **2026-10-01, pins (§15):**
   - built the location editor for visitors (suggest), owners and staff (set, or change the address);
   - search reads a category word as the category or the word.
+- **2026-10-01, sports and switching (§16):** built.
