@@ -460,3 +460,27 @@ From Jason's review (with Google's "businesses near me" and "places to go near m
   says how many. Points from the Census follow address ranges, so a point can be a few doors off.
 - **Not run against live data from here:** the sandbox can't reach the Census, so the request and reply were tested
   against a stand-in in the Census's exact format.
+
+**Map points in rural Arizona: no address left behind.** Many places out here have no street address the Census
+can place. They're sorted and placed another way instead of being skipped.
+- **Sorted** (`Geocoder::classify`):
+  - **mailing only:** PO box, HC or rural route, star route, general delivery;
+  - **mile marker** ("Hwy 60 MP 342", "US-191 Milepost 345.5"): the highway and milepost are kept in the `geocode`
+    metadata for a lookup against ADOT's milepost data, once it's loaded;
+  - **road with no number** ("Hwy 191", "County Road 3140");
+  - **sent to the Census:** a numbered rural address ("12345 W Hwy 260", "123 County Road 3144").
+  The Map points page counts each group.
+- **From the business's own website:** the crawler reads schema.org `geo` and embedded or linked maps (Google
+  `!3d…!4d…`, `@lat,lon`, `q=`/`ll=`; Apple; OpenStreetMap). When a one-place site's maps agree within about
+  100 m, the listing takes that point instead of the ZIP's middle; staging uses it, and the merge screen offers it
+  as the pin. Refresh accepts `found.point` too, but it fills only a missing or ZIP-middle point. The refresh worker
+  needs to send it.
+- **From staff:** Edit listing ▸ Where has **Pick on the map**: tap, then drag the pin. Pasting "lat, lon" from Google
+  Maps into Latitude fills both fields.
+- **From visitors:** "Tell us" (missing, fix, closed or moved) has an optional **Where exactly is it?** with
+  **I'm here now** (the device's location, once, used as the place's point and never as the person's) and **Pick on a
+  map**. In Review, the card shows the pin with a map link, and **Use this map point** sets it on the listing.
+- **On the directory map,** an approximate pin's popup says "Approximate: the middle of its ZIP area. Know where it
+  is?", which opens "Tell us".
+- `Geocoder::setPoint()` is the one way a point gets set from these sources. The site and visitors fill only a
+  missing or ZIP-middle point; staff may replace one.
