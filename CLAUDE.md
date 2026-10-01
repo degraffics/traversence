@@ -48,3 +48,11 @@ Authorization is scoped to the session, so a prior successful push does not
 guarantee the next session (or even a later point in the same one, if it
 gets recreated) will have the same repo authorized — check by attempting the
 push and reading the error, rather than assuming.
+
+## Keep the FAQ current (decisions/0057)
+
+`faq.md` is the site's FAQ and its only source: it ships as `website/includes/faq.md` and renders at `/faq.php`.
+With every build, add or update its entries for whatever changed. Write them from a visitor's point of view, describe
+what the site actually does, and say "coming" for anything not built yet. Include the updated `includes/faq.md` in
+the delivery zip. Question anchors come from the wording, so rewording a question breaks links to it; check with
+`grep -rn "faq.php#"` first.
