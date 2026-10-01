@@ -89,7 +89,7 @@ Yes. **Sports** finds athletic fields, stadiums, gyms, golf courses, public pool
 On Let's Explore, if there's nothing for your search in the place you're exploring, we look across the open regions and say so at the top of the results. Words for landscapes work too: try **badlands**, **canyon**, **petroglyphs**, **ruins** or **dark sky**.
 
 ### Why does search show different things on Let's Explore and Get Local?
-Search reads where you are. On **Let's Explore** it puts the place's journeys, stories, outdoors, groups and topics first, with businesses after them. On **Get Local** businesses come first. The place you're searching sits at the top left (tap × to search everywhere), and **☆ Save** at the top right keeps the search.
+Search reads where you are. On **Let's Explore** it puts the place's journeys, stories, outdoors, groups and topics first, with businesses after them. On **Get Local** businesses come first. The place you're searching sits at the top left (tap × to search everywhere), and **☆ Save** at the top right keeps the search. Tapping × on a place you typed (like "near Grants") searches the rest of your words everywhere.
 
 ### Can I save my own search phrases?
 Yes. In the search dropdown, click **✎ Edit** to add, change or remove your own phrases. For now they're saved in this browser. Saving them to your account is coming.
@@ -101,6 +101,7 @@ Use the **List / Map** toggle at the top right of the directory. The map opens f
 - **Search:** type in the search at the top and press Enter. The pins change to match.
 - **Controls** (bottom right): zoom in and out, **My location**, **Search this area**, and **Map style**.
 - **The panel:** the tab on the map's left edge (the bottom on phones) opens it. It has what's shown, the distance, "Search this area as I move the map", the map style, and the details of the place you tapped. Use the arrows there to step to the next place nearby.
+- **Folding the panel (phones):** the chevron at the panel's top right folds it down to its title, so you can see more map. Tap the title or the chevron to bring it back. Tapping a pin brings it back too.
 
 ### What does Auto-detect do?
 It sets your place to the town area you're in, right away: the place shows "· near you", and Let's Explore and the directory follow it. If it can't name the area, it says so; pick a region or type a ZIP instead. To change it, tap the place again.

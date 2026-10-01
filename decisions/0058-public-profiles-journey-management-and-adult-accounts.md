@@ -520,6 +520,36 @@ left.
   drive. For example, "badlands" from St. Johns finds Painted Desert Inn, the Painted Desert Visitor Center, the
   Petrified Forest museum and the national park.
 
+### 23. Outdoor place pages on the hero; a readable hero; the map panel folds; × on a search place
+
+- **Outdoor place pages** (`place/recreation.php`) open with the hero, like listings:
+  - the name, said once;
+  - under it, what it is and where ("Campground · About 10 mi from St. Johns");
+  - views, likes, comments and Share on the hero's foot;
+  - the card below keeps the kind and agency (each searches for more), the description, the activities, the
+    contact details and the round action icons.
+- **"Near" means near.** A town area more than 40 miles away isn't named as near. The page says the place's own town
+  instead ("Near Nambe, NM"), not "About 120 mi from Grants".
+- **The hero's title is always readable:**
+  - the line under the title sits in the same block, so a long name pushes it down instead of covering it;
+  - a long name is cut at three lines;
+  - the top of the photo is darker, so the title reads over a bright sky.
+- **The hero's actions fit one row on a phone:**
+  - views show as an eye with the number;
+  - comments and likes keep their numbers, in bold, light on the dark band;
+  - Share and the owner's Photos & video become round icons (their titles say what they are);
+  - Report moves off the hero on a phone.
+- **The map panel folds instead of closing** (phones). Its corner button is a chevron: it folds the panel down to
+  its title line, and tapping the title or the chevron brings it back. Tapping a pin unfolds it to show the place.
+  The map's controls show while it's folded.
+- **The map panel says the count once:** the title says what's shown ("Places around Empty Pockets Saloon ·
+  “bars”"), and the line under it says how many are on the map.
+- **× on a search's place searches everywhere.** Removing the place chip ("Grants, NM") drops the place words from
+  the search and doesn't fall back to the page's own place. "Health & Medical near Grants" without Grants is Health &
+  Medical everywhere.
+- **"Did you mean" leaves place and category searches alone.** When a search read a place or a category, the words
+  aren't a typo, so it doesn't offer a respelling ("health medical neal grounds").
+
 ## Consequences
 
 - New columns: `journeys.entity_id` and `journeys.submitted_at`, and `age_confirmations.min_age`. Two new staff roles
