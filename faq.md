@@ -36,7 +36,7 @@ No. Auto-detect only picks a starting place for you on this visit. Your location
 The big picture: the story of the continent and its regions, plus the newest journeys and guides from everywhere. From there you can browse by **Regions**, **Key Destinations** or **National Parks**, or open the **Trip Planner**.
 
 ### What's on a place's "About" page?
-On Let's Explore, **About <place> ›** opens the place's own page. It covers living there (services and local support), the outdoors nearby, its groups, and the businesses in the directory. Let's Explore is for stories and trips; the About page is the practical guide. Tap the pencil next to **Exploring <place>** to change the place.
+On Let's Explore, **About <place> ›** opens the place's own page: its story and region, living there, support and wellness, the outdoors and public lands nearby, its local businesses and its community groups. Let's Explore is for stories and trips; the About page is the practical guide. Tap the pencil next to **Exploring <place>** to change the place.
 
 ### How are places organized?
 From large to small: North America, then regions, then areas, then towns. Each level has its own page with its story, its journeys and guides, and what's there.
