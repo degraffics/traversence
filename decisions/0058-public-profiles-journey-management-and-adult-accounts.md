@@ -413,6 +413,8 @@ shows:
 **Phones:** the hero and the strip run edge to edge under the tool bar. Carousel cards are 3px from the edges and
 3px apart. With no photos yet, the continent pages say "No photos of North America yet".
 
+**Update (ADR 0059):** Destinations became **Experiences**. The strip reads Regions / Experiences / National Parks.
+
 ### 19. Search follows the section (the Chameleon Filter), and a cleaner panel
 
 - **On Let's Explore** (`track=explore`, from the page's `tv-sec`) search puts the place's own content first:

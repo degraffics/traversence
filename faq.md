@@ -33,13 +33,25 @@ No. Auto-detect only picks a starting place for you on this visit. Your location
 ## Exploring places
 
 ### What's on the North America page?
-The big picture: the story of the continent and its regions, plus the newest journeys and guides from everywhere. From there you can browse by **Regions**, **Key Destinations** or **National Parks**, or open the **Trip Planner**.
+The big picture: the story of the continent and its regions, plus the newest journeys and guides from everywhere. From there you can browse by **Regions**, **Experiences** or **National Parks**, or open the **Trip Planner**.
 
 ### How do I change the place I'm exploring?
 Tap the pencil next to **Explore: <place>** at the top of Let's Explore or of any place page, and choose another place. On a place page, you go straight to the new place's page.
 
 ### Whose photos are at the top of a place?
 Photos from journeys people have shared about that place, or about places inside it. A region shows photos from all its towns. Share a journey with photos and yours can appear there.
+
+### What are Experiences?
+Things to do that are worth the trip: paddling a lake at sunrise, a rodeo weekend, a night under dark skies. You take part, it belongs to the place, and someone local can make it happen. Find them in **Let's Explore → Experiences**, in season first. Each one shows when to go, how long it takes, how hard it is, who can take you, and journeys from people who did it.
+
+### How do I post an experience?
+Sign in and open **Dashboard → Your experiences**. Say what you do, where, what it's like and when to go, and add the local businesses that make it happen. You need to be 18 or older. Our editors review every experience before it shows. If they don't approve it, you'll see their note and can edit it and send it again.
+
+### Where do the other experiences come from?
+Some are posted by members. Some we suggest from what we already know: outdoor places and their activities, local guides, outfitters and museums, and journeys people shared. Our staff add others. A person reviews every one before it shows.
+
+### What's the difference between Experiences and National Parks?
+National Parks are places. Experiences are what you do, in a park or anywhere else.
 
 ### What's on a place's own page?
 In Let's Explore, **This place** in the ☰ menu opens the place's own page: its story and region, living there, support and wellness, the outdoors and public lands nearby, its local businesses and its community groups. Let's Explore is for stories and trips; the About page is the practical guide. Tap the pencil next to **Exploring <place>** to change the place.
