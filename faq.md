@@ -57,7 +57,7 @@ Use the search bar at the top of any page.
 Yes. In the search dropdown, click **✎ Edit** to add, change or remove your own phrases. For now they're saved in this browser. Saving them to your account is coming.
 
 ### How do I switch between the list and the map?
-Use the **List / Map** toggle next to the directory heading. The map opens full screen with every result as a pin. **Exit map** brings you back to the list, which keeps any filters you changed on the map.
+Use the **List / Map** toggle at the top right of the directory. The map opens full screen with every result as a pin. **Exit map** brings you back to the list, which keeps any filters you changed on the map.
 
 ### What can I do on the map?
 - **Search:** type in the search at the top and press Enter. The pins change to match.
@@ -79,11 +79,17 @@ A heart in a circle is one of your favorites: a business you linked or saved to 
 
 The map remembers the style you chose.
 
-### What do filters, Favorites and sort do?
-They sit between the heading and the List/Map toggle:
-- **Filters** narrow what's shown.
-- **Favorites** shows only the places you've saved.
-- **Sort** changes the order.
+### How do I filter the directory?
+Tap the search at the top. Its **Quick picks** are **Near me**, **Open now**, **Has a phone**, **Has a website** and **★ Favorites** (businesses you linked or saved). Whatever is narrowing the list shows under the title; tap × to remove it.
+
+### How do I change where I'm looking?
+Tap the place at the top left of the directory (📍 and the place name) and choose another.
+
+### In what order are businesses listed?
+For a town or "Near me", nearest first. Otherwise, the best match for what you searched.
+
+### Does Traversence track when I call or visit a business's website?
+We count it for the business, never who did it. A tap on Call, Directions, Website or a contact page adds one to that business's count for the day. No name, account, device or address is stored with it. Businesses see the totals for the last 30 days.
 
 ### Why is a pin marked "approximate"?
 Rural addresses don't always match an exact spot. Mileposts, roads without numbers and mail-only addresses are examples. When we can only place a listing near where it is, we say so.

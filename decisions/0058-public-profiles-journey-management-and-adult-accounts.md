@@ -176,6 +176,25 @@ Decided 2026-10-01.
   cluster whose ZIPs include it, else the nearest within 40 miles). `/api/place.php` returns it as `place.cluster`.
 - **Satellite** uses the USGS imagery with towns, roads and boundaries labelled.
 
+### 9. The directory, and counting what visitors do
+
+- **Layout:**
+  - top row: the **place** (left: "📍 St. Johns ▾", which opens the place picker) and **List | Map** (right);
+  - then the title and the count;
+  - then only what's narrowing the results, each removable (×).
+- **Filters live in the search:** its Quick picks are Near me, Open now, Has a phone, Has a website and Favorites. The
+  page no longer has its own filter row or sort: a town or "near me" lists nearest first; otherwise best match.
+- **Cards:**
+  - edge to edge, 3px apart;
+  - the business name is the link (brand brown, underlined);
+  - Call, Directions, Website and Peek sit left, under the name, in the brand colors;
+  - the **Link** icon sits in each card's corner.
+- **Counting:** Call, Directions, Website and contact-page taps, from the directory, the map, the search's peek card
+  and the listing page, are counted per listing, action and day. Never who: no user, device or address is stored, and
+  one visit counts once per listing and action a day. A business sees the last 30 days in **Business Insights**.
+  (Outbound social links on profiles will be counted the same way, by link and destination, when profiles are built.)
+- Migration: `2026-10-10_listing_actions.sql`.
+
 ## Consequences
 
 - New columns: `journeys.entity_id` and `journeys.submitted_at`, and `age_confirmations.min_age`. Two new staff roles
@@ -208,3 +227,4 @@ Decided 2026-10-01.
 - **2026-10-01, journey details (§7) and phones (§8):**
   - built;
   - fixed the phone search's place button squeezing the search field.
+- **2026-10-01, directory (§9):** built the layout and the action counts.
