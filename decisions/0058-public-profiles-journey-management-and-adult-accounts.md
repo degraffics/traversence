@@ -250,3 +250,20 @@ The pattern starts with public recreation places (`place/recreation.php`), for l
   - fixed the phone search's place button squeezing the search field.
 - **2026-10-01, directory (§9):** built the layout and the action counts.
 - **2026-10-01, place pages (§10):** built for recreation places.
+- **2026-10-01, later:**
+  - **Auto-detect is applied when tapped** (it was a suggestion at the bottom of the place picker, easy to miss on a
+    phone). It's set as the town area it finds, shown as "St. Johns · near you", and every page follows it.
+  - **The place picker's Destination** also searches our own regions, areas, town areas and local names
+    (`/api/place.php?action=find`), forgivingly: "St. Johns", "st johns", "Saint Johns" and "The Greater St. Johns
+    Area" find each other.
+  - **The search no longer reads a feature word as a town** when it's part of a name: "Lyman lake" is the lake, not
+    Lake, MI. Such words (lake, river, park, springs, canyon …) count as a place only on their own or after "in",
+    "near", "at" or "around".
+  - **Listing pages follow §10:**
+    - no breadcrumbs;
+    - group › category and the name search for more;
+    - the actions (Call, Directions, See on map, Website, Contact) are a column of round icons at the top left,
+      with the address beside them;
+    - the Link icon is in the corner.
+
+    Recreation places and directory cards use the same icon column.

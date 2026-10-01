@@ -70,8 +70,8 @@ Use the **List / Map** toggle at the top right of the directory. The map opens f
 - **Controls** (bottom right): zoom in and out, **My location**, **Search this area**, and **Map style**.
 - **The panel:** the tab on the map's left edge (the bottom on phones) opens it. It has what's shown, the distance, "Search this area as I move the map", the map style, and the details of the place you tapped. Use the arrows there to step to the next place nearby.
 
-### I used Auto-detect. Why didn't the page change?
-It should now. Auto-detect finds the town area you're in and opens Let's Explore there. If it says it couldn't name the area, pick a region or type a ZIP instead.
+### What does Auto-detect do?
+It sets your place to the town area you're in, right away: the place shows "· near you", and Let's Explore and the directory follow it. If it can't name the area, it says so; pick a region or type a ZIP instead. To change it, tap the place again.
 
 ### Does "My location" share where I am?
 No. It only moves the map on your device. It isn't saved or sent anywhere.
