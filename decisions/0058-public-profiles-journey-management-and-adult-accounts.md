@@ -267,3 +267,8 @@ The pattern starts with public recreation places (`place/recreation.php`), for l
     - the Link icon is in the corner.
 
     Recreation places and directory cards use the same icon column.
+  - **Trip Planner:**
+    - "Where would you like to go?" finds our places as you type (regions, areas, towns, local names, matched
+      forgivingly), and the Region menu is gone;
+    - its phone tool button and heading use the brand route icon: flat cream at rest, sage with a glow while the
+      planner is open, like the top bar.
