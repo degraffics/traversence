@@ -394,9 +394,9 @@ come first.
 **The pencil** opens the place picker. On a place page, choosing a place opens that place's page; on Let's Explore,
 the page follows the place.
 
-**Under the hero, a carousel of cards** (replacing the Regions / Destinations / National Parks tab strip): two side by
-side on a phone, three or four on wider screens, swiped left and right (arrows on wider screens). Whole cards snap
-into place. The ☰ menu still has Regions, Key destinations and National parks.
+**Under the hero:** first the Regions / Destinations / National Parks strip, with the current page marked in sage.
+Then a carousel of cards: two side by side on a phone, three or four on wider screens, swiped left and right
+(arrows on wider screens). Whole cards snap into place.
 - **The Discovery Dashboard:** "Explore: <place>", with the regions carousel under it.
 - **Regions, Destinations and National Parks:** each is titled by the page ("Explore: Regions"), with a line about it.
   The hero shows journey photos from everywhere, since these pages cover the continent, and the page's own cards
@@ -410,7 +410,8 @@ shows:
 - **National Parks:** Recreation.gov National Park Service units plus the parks, monuments, landmarks and state
   parks we list, so it isn't empty before the Recreation.gov load.
 
-**Phones:** the hero runs edge to edge under the tool bar. Carousel cards are 3px from the edges and 3px apart.
+**Phones:** the hero and the strip run edge to edge under the tool bar. Carousel cards are 3px from the edges and
+3px apart. With no photos yet, the continent pages say "No photos of North America yet".
 
 ### 19. Search follows the section (the Chameleon Filter), and a cleaner panel
 
