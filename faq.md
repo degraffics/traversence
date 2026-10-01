@@ -129,6 +129,9 @@ For a town or "Near me", nearest first. Otherwise, the best match for what you s
 ### Can I comment on a business, a place or an experience?
 Yes. Most pages have **Comments** at the bottom: share a tip, or say what it was like. You need to be signed in and 18 or older. Comments are public and show your name. You can remove your own, and report one that breaks the rules. Stars and ratings aren't used: say what you think in words.
 
+### How do I add photos or a video to my business or my profile?
+Open your listing (as its owner or manager) or your profile, and tap **Photos & video** on the picture at the top. Add up to 8 photos, or link a YouTube or Vimeo video, and choose which shows first. Use your own photos, or ones you have permission to use. We keep a resized copy and nothing else from the file, such as where it was taken. On a private profile, only your connections see them.
+
 ### What do the views and likes on a page mean?
 Views count visits that saw the page. Likes count people who liked it. We never show who viewed or liked anything. **Share** sends the page with your phone's share options, or copies its link.
 

@@ -468,6 +468,30 @@ Journeys keep their own likes and comments. Code: `api/lib/Engage.php`, `/api/en
 Also fixed: the listing header's category and name were centered and wrapped oddly. They're buttons, and now align
 left.
 
+### 21. The hero on listings and profiles; their own photos and video; maps open with the panel
+
+- **Every page with a hero uses one template** (`includes/explore-hero.php`): Let's Explore, place pages, listings and
+  profiles.
+  - **Listings and profiles** title it with the name alone (no "Explore:", no pencil). A listing shows its category
+    and town under the name.
+  - The name is said once: the listing's details card and the profile card no longer repeat it.
+- **Listings and profiles choose their own hero photos and videos.** A **Photos & video** button on the hero opens a
+  panel where you can add photos (several at once), add a YouTube or Vimeo link, put one first, or remove one. Up to
+  8.
+  - **Who:** a listing's owner or managers, or Traversence staff (`ListingLocation::role`); on a profile, the person.
+  - **Photos** are resized and stored as new files; nothing from the original is kept, so no location metadata.
+    Videos are embedded with privacy-enhanced YouTube or Vimeo players.
+  - **Privacy:** a private profile shows its photos only to connections. Confidential listings have none.
+  - **With none yet,** the hero shows the brand's art (and, to the owner, a prompt).
+  - **Code:** `api/lib/HeroMedia.php`, `/api/hero-media.php`, `js/hero-media.js`; migration
+    `2026-10-15_hero_media.sql`.
+- **A page's title is the page, not a search.** The listing's name and the outdoor place's name no longer open the
+  search; their category, agency and activity pills still do (§10).
+- **The hero sits flush under the tool bar on every page.** On the live site, the page wrapper's Tailwind spacing
+  pushed it down; it's now held at the top.
+- **Maps opened as their own view start with the info panel open:** Let's Explore's Map, the directory's Map, "See on
+  map" from a listing or an outdoor place. On a phone that's the bottom sheet (`TvMap.open({panel: true})`).
+
 ## Consequences
 
 - New columns: `journeys.entity_id` and `journeys.submitted_at`, and `age_confirmations.min_age`. Two new staff roles
@@ -542,6 +566,7 @@ left.
 
 - **2026-10-01, the Explore hero (§18):** built.
 - **2026-10-01, search by section and the panel's top row (§19):** built.
+- **2026-10-01, the hero on listings and profiles, their own media, maps with the panel open (§21):** built.
 - **2026-10-01, the content page standard (§20):** built on listings, outdoor places, experiences, place pages and
   journeys.
 
