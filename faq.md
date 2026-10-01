@@ -85,6 +85,9 @@ Use the search bar at the top of any page.
 ### Can I search for sports, like football or basketball?
 Yes. **Sports** finds athletic fields, stadiums, gyms, golf courses, public pools, rodeos and sports clubs nearby. **Football**, **basketball**, **baseball**, **soccer** and other sports also find high schools, where most local games are played, and ball fields find parks. Try **gym**, **swimming**, **tennis**, **hunting** or **fishing** too. If a place you play or watch is missing, tap **Tell us what's missing**.
 
+### I searched for something and got places from somewhere else. Why?
+On Let's Explore, if there's nothing for your search in the place you're exploring, we look across the open regions and say so at the top of the results. Words for landscapes work too: try **badlands**, **canyon**, **petroglyphs**, **ruins** or **dark sky**.
+
 ### Why does search show different things on Let's Explore and Get Local?
 Search reads where you are. On **Let's Explore** it puts the place's journeys, stories, outdoors, groups and topics first, with businesses after them. On **Get Local** businesses come first. The place you're searching sits at the top left (tap × to search everywhere), and **☆ Save** at the top right keeps the search.
 

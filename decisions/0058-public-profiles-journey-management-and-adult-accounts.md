@@ -492,6 +492,34 @@ left.
 - **Maps opened as their own view start with the info panel open:** Let's Explore's Map, the directory's Map, "See on
   map" from a listing or an outdoor place. On a phone that's the bottom sheet (`TvMap.open({panel: true})`).
 
+### 22. Actions over the hero, About as the add-on area, and search that widens on Let's Explore
+
+- **The page's actions sit on the hero's foot** (a dark band along its bottom):
+  - **Place pages:** views, likes, comments and Share.
+  - **Listings:** views, comments, Share, Save (private, to your Address Book) and **Claim** for an unclaimed
+    listing, or **Manage** for its owner.
+  - **The owner's Photos & video button** is on the right.
+  - The side card keeps the guest questions, "Are you the owner? Claim it" and "Closed, moved or listed twice?
+    Tell us".
+- **The Link button and the pencil no longer overlap.** The title keeps clear of the Link button, and the pencil sits
+  right after the title.
+- **A listing's About is the area that grows with its plan** (`entities.plan_tier`, commercial.md §1):
+  - **Every listing:** the description, with "Read more" when it's long, and Hours.
+  - **Core and up:** "What they offer".
+  - **Strategic and up:** "Owner spotlight" and a photo gallery from its hero photos.
+
+  Each add-on is a row that opens. The owner sees what the next plan would add. Add-ons show only when there's
+  something in them.
+- **Search on Let's Explore widens when the place has nothing real.** If only category links match in the place,
+  the search looks across the open regions and says "Nothing in <place> yet. These are from across the open
+  regions." Real places come before categories.
+- **Places to visit rank first:** among businesses, Let's Explore puts parks, monuments, landmarks, museums,
+  historic sites, visitor centers and observatories first.
+- **Landscape words** (`synonyms.php`) find where they are: badlands, canyon, mesa, hoodoo, petroglyph and rock art,
+  ruins and cliff dwellings, fossil and dinosaur, waterfall, hot spring, dark sky and stargazing, overlook, scenic
+  drive. For example, "badlands" from St. Johns finds Painted Desert Inn, the Painted Desert Visitor Center, the
+  Petrified Forest museum and the national park.
+
 ## Consequences
 
 - New columns: `journeys.entity_id` and `journeys.submitted_at`, and `age_confirmations.min_age`. Two new staff roles
@@ -567,6 +595,7 @@ left.
 - **2026-10-01, the Explore hero (§18):** built.
 - **2026-10-01, search by section and the panel's top row (§19):** built.
 - **2026-10-01, the hero on listings and profiles, their own media, maps with the panel open (§21):** built.
+- **2026-10-01, actions over the hero, About add-ons, search that widens (§22):** built.
 - **2026-10-01, the content page standard (§20):** built on listings, outdoor places, experiences, place pages and
   journeys.
 
