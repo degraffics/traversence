@@ -441,4 +441,29 @@ come first.
   - The hero runs edge to edge right under the tool bar, with Regions, Destinations and National Parks directly
     beneath it as one strip.
   - "Exploring <place>" has a small pencil to change the place (it replaces the "Change place" pill).
-  - "Open the place page" now reads "About <place> ›".
+  - "Open the place page" is gone; the ☰ menu's "This place" opens the same page.
+
+### Open items at the end of the 2026-10-01 session
+
+**Decisions Jason owes:**
+- **Search words (§13).** They're kept cleaned, shown only at 3+ visits, and rare ones are deleted after 90 days. Or
+  switch to readings only: the place and the results found, no words.
+- **Unverified claimants (§15).** Should they move pins at once? Today only verified owners, listing_access
+  owners and managers, and org owners and managers can; unverified claimants suggest, like visitors.
+
+**To check on the live site (the sandbox can't reach the Census or show real area names):**
+- The Subway pin on W Cleveland St moves to the street when opened on the map (§14).
+- An owner or staff address change finds the new address (§15).
+- Destination order with real area names: type "Show" (§17).
+- "Sports" no longer lists the post office; "pizza" lists Dittys and Fire Stone (§15, §16).
+
+**Data, not code:**
+- Grand Canyon and Disneyland appear in Destination once their Recreation.gov records or listings are loaded (§17).
+
+**Still to build (Consequences):** profile identity, Personal Guides and follower count, reputation levels,
+Recommendations and Personal Insights, outbound API sharing.
+
+**Housekeeping:**
+- The `claude/magical-clarke-cn5pqi` branch is far ahead of `main`. Merge it when ready.
+- Revoke the GitHub token exposed in the OneDrive repo-local config, if not done.
+
