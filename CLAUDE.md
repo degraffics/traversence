@@ -56,3 +56,28 @@ With every build, add or update its entries for whatever changed. Write them fro
 what the site actually does, and say "coming" for anything not built yet. Include the updated `includes/faq.md` in
 the delivery zip. Question anchors come from the wording, so rewording a question breaks links to it; check with
 `grep -rn "faq.php#"` first.
+
+## Phone layout and visual standard (decisions/0058 §11): apply to every page, every build
+
+Space on a phone is at a premium. Every page, new or changed, follows this:
+
+- **Edge to edge.** Below 768px, cards, lists of cards and panels run edge to edge with **3px** each side and **3px**
+  between them, with small corners (`.5rem`). Text (headings, paragraphs, labels) keeps a small margin. The page
+  frame (`includes/app-shell.php`) does this for the known card classes and Tailwind `rounded-xl/2xl border` cards;
+  anything else opts in with `class="tv-bleed"`. Don't add per-page negative margins.
+- **Card anatomy:**
+  - the **name is the link**, top left, in brand brown (`#92400E`, underlined);
+  - the **Link button** is in the top-right corner;
+  - the **actions** (Call, Directions, See on map, Website, Contact, Peek) are a column of **30px round icon
+    buttons down the right edge, under the Link button**, with `title`/`aria-label` and no text, icons in
+    `#B45309`;
+  - the **details** sit on the left.
+- **Icons are the brand's flat SVGs** (`tv_icon()`), not emoji, for anything you tap. The active state is sage
+  `#8FBCA8` with a soft glow, like the top bar; the rest state is flat cream with a brown ring.
+- **No breadcrumbs on content pages.** The page says where it is. Its kind, category, agency, name and activity
+  pills **search for more** (`TvSearch.open('<words> near <place>')`).
+- **Filters live in the search** (its Quick picks), not in rows on the page. Show only active filters, each with ×.
+- **Phone menus:** the ☰ tools button with a drop-down list (left), the person's profile and role (right).
+- **Count outbound actions** with `data-out="call|directions|website|contact" data-e="<listing id>"`. This stores
+  counts only, never who tapped.
+- Check every page at 390px wide before delivering: card edges at 3px, no sideways scroll.

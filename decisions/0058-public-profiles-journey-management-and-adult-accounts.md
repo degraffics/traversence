@@ -216,6 +216,22 @@ The pattern starts with public recreation places (`place/recreation.php`), for l
 - **Layout:** one card, edge to edge on phones, with sizes tightened.
 - **Phones:** the role menu under the person's initial opens leftwards, so it stays on the screen.
 
+### 11. The phone standard: every page, from now on
+
+Decided 2026-10-01: space and visuals are standard practice on every phone layout. The rules are kept in
+`CLAUDE.md` so every build applies them, and the page frame applies the spacing site-wide:
+- **Spacing:** cards and panels edge to edge, 3px each side and 3px apart, with small corners; text keeps a small
+  margin.
+- **Card anatomy:**
+  - the name is the link, top left;
+  - the Link button sits in the top-right corner;
+  - the actions are a column of round icons down the right edge, under the Link button;
+  - the details sit on the left.
+- **Icons:** flat brand icons, with the sage active state.
+- **Pages:** no breadcrumbs, and labels search for more.
+- **Filters** live in the search.
+- **Counts:** outbound actions are counted.
+
 ## Consequences
 
 - New columns: `journeys.entity_id` and `journeys.submitted_at`, and `age_confirmations.min_age`. Two new staff roles
