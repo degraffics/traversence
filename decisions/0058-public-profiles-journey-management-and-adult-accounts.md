@@ -437,3 +437,8 @@ come first.
   - search reads a category word as the category or the word.
 - **2026-10-01, sports and switching (§16):** built.
 - **2026-10-01, Destination order and landmarks (§17):** built.
+- **2026-10-01, Let's Explore on phones (§11):**
+  - The hero runs edge to edge right under the tool bar, with Regions, Destinations and National Parks directly
+    beneath it as one strip.
+  - "Exploring <place>" has a small pencil to change the place (it replaces the "Change place" pill).
+  - "Open the place page" now reads "About <place> ›".
