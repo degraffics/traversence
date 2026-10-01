@@ -100,8 +100,11 @@ For a town or "Near me", nearest first. Otherwise, the best match for what you s
 ### Does Traversence track when I call or visit a business's website?
 We count it for the business, never who did it. A tap on Call, Directions, Website or a contact page adds one to that business's count for the day. No name, account, device or address is stored with it. Businesses see the totals for the last 30 days.
 
+### What does Traversence count about how the site is used?
+Totals only, never who. We count how many visits see each section, listing, journey and place. We also count how people move between sections, and what they search for in which place, with how many results it found. No name, account, device or address is stored with a count. Search words are lower-cased, with email addresses and long numbers removed. They're only shown in our reports once 3 or more visits searched them. Rarer ones are deleted after 90 days. Businesses see visits to their listing in Business Insights.
+
 ### Why is a pin marked "approximate"?
-Rural addresses don't always match an exact spot. Mileposts, roads without numbers and mail-only addresses are examples. When we can only place a listing near where it is, we say so.
+Until we've placed a listing's street address, its pin sits in the middle of its ZIP area. When you open it on the map, we look the address up and move the pin if it matches. Rural addresses don't always match an exact spot. Mileposts, roads without numbers and mail-only addresses are examples. When we can only place a listing near where it is, we say so.
 
 ### Why doesn't a listing have a map pin?
 A few reasons:

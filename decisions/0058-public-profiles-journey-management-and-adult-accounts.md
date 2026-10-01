@@ -247,6 +247,50 @@ When a search finds none of what was asked for in the place you're in, the searc
   around it.
 - **Code:** the server adds `elsewhere` to `/api/search.php` (`UniversalSearch::elsewhere`).
 
+### 13. Counting how the platform is used (Insights)
+
+We count what's used, never who used it. Each count is a day, a metric, a key and two numbers: how many times, and
+how many distinct visits. No user id, device, IP address or session is stored. A visit is told apart only inside
+its own session, in memory on the server. Bots and headless browsers aren't counted.
+- **Views:**
+  - every section (Home, Let's Explore, Get Local, Plan a trip, Dashboard …);
+  - every listing, journey, outdoor place, place page and Let's Explore view.
+  - A reload doesn't count again.
+- **Routes:** the move from one section to the next, and how visits arrive ("entry → Let's Explore").
+- **Search:**
+  - the words, cleaned: lower case, with no email addresses and no long numbers;
+  - the place it was read in, and how many results it found;
+  - searches that found nothing; "none here" by place;
+  - what was opened from a search; Recommend one and Add a listing.
+- **Listing actions:** calls, directions, website and contact (§9), and now **visits to the listing**, in Business
+  Insights.
+- **Words are shown only once 3 or more visits searched them.** Rarer words are deleted after 90 days.
+- **Admin → Insights** (`/admin/insights.php`, 7, 30 or 90 days) shows:
+  - tiles, and visits per day;
+  - where people go, how they arrive, and the routes they take;
+  - listing actions and Let's Explore views;
+  - what people search for, the gaps, and none here by place;
+  - **searches by place:** the search term, the place, the number of searches and the results found;
+  - what they open from a search, and recommendations;
+  - the most viewed listings, journeys, outdoor places and place pages.
+- A misspelling with nothing found ("pozza") gets "Did you mean pizza?" first, not the none-here box (§12).
+- **Code:**
+  - `PlatformCounts`, `/api/count.php` and `js/out-count.js`;
+  - pages say what they are with `<meta name="tv-sec">` and `<meta name="tv-item">` (`tv_count_item()`).
+- **Migration:** `2026-10-11_platform_counts.sql`.
+
+### 14. Pins at the middle of a ZIP area
+
+A listing whose address the Census batch hasn't placed yet sits at the middle of its ZIP area. Example: Subway on
+W Cleveland St showed in the middle of 85936, not on Cleveland St.
+- When such a listing is opened on the map, the card says "Approximate pin: the middle of its ZIP area".
+- Its street address goes to the Census single-address service (`/api/locate.php`, `Geocoder::locateOne`). When it
+  matches, the point is saved and the pin and Directions move to the street.
+- **Each listing is tried once**, then again after 90 days or when the address changes. A visit can ask at most
+  20 times an hour.
+- **Never tried:** confidential listings, PO boxes, mileposts and roads with no number.
+- When the Census can't place it, the pin stays and says so.
+
 ## Consequences
 
 - New columns: `journeys.entity_id` and `journeys.submitted_at`, and `age_confirmations.min_age`. Two new staff roles
@@ -303,3 +347,8 @@ When a search finds none of what was asked for in the place you're in, the searc
       forgivingly), and the Region menu is gone;
     - its phone tool button and heading use the brand route icon: flat cream at rest, sage with a glow while the
       planner is open, like the top bar.
+- **2026-10-01, Insights and pins (§13, §14):**
+  - built platform counts, Admin → Insights (with searches by place: term, place, results found) and visits in
+    Business Insights;
+  - approximate pins are now placed at their street address when opened;
+  - a misspelling gets "Did you mean" first.
