@@ -490,3 +490,10 @@ can place. They're sorted and placed another way instead of being skipped.
 returns the place. Now a place named in the search (not just the visitor's own place) always offers 🗺 Map, showing
 what's listed there ("180 listings · Wide Ruins"). A local name maps to its whole cluster (Wide Ruins is in the
 Sanders I-40 corridor) until local names get their own areas.
+
+**Town names on a place page open Get Local.** On a town cluster's page, each name in "Towns: …" and "Also known
+locally: …" is a link to the directory, with its List | Map toggle:
+- **A town** opens centred on it (`/directory/?town=Sanders&state=AZ`), nearest first, within 10 miles by default
+  (the distance can be changed).
+- **A local name** ("Wide Ruins") has no point of its own yet, so it opens the cluster's listings
+  (`?cluster=…&local=Wide Ruins`). The summary says "Wide Ruins is part of this area".
