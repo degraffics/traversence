@@ -152,6 +152,12 @@ We ask which help you mean: **help using Traversence** (the Help Center and FAQ)
 ### What happens if search can't tell what I mean?
 It says so instead of guessing. You won't get a list of things that just happen to share a word ("standing on the corner" won't find a business with "corner" in its description). If your words point to a situation, like "stuck" or "leaking", it offers those under **Maybe you mean**. Otherwise, name the kind of place or service (plumber, pizza, campground), or say what's going on (stuck in the mud, the power went out). You don't have to press Enter: pause for a moment while typing and the results, or where your words are heading, appear.
 
+### What are the lines that finish my words as I type?
+They're ways your search could carry on, like "where can i park **overnight for free**" or "parks **for kids**". What you typed is plain and the rest is bold. Tap one to search it. They come from the situations we know, the ways people ask ("…check out", "…worth the drive") and what fits the thing you named (open now, this weekend, near your place). They don't come from other people's searches.
+
+### Why doesn't "parks" show RV parks?
+Search reads the kind of thing you mean. "Parks" are parks, including state and national parks. RV parks and mobile home parks are their own kinds, so search for those by name ("RV parks"). "Where can I park" is about parking: places to stay overnight with an RV or camper, rest areas and truck stops, parking lots, and who to call about parking rules.
+
 ### Can I search near a lake, park or landmark?
 Yes. "Plumber near Lyman Lake" searches about 15 miles around the lake. Your own place stays as you set it.
 

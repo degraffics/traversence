@@ -214,3 +214,31 @@ grammar, no AI. Each W and how it's read:
 - The response carries `parse` (why, what, attrs, where, when, who) so the reading can be checked.
 - Fixed in passing: the panel failed ("Search is unavailable") whenever nothing matched in the place but something did
   beyond it.
+
+### Progress, 2026-10-02: completions, verbs and kin (from Jason's Google comparisons)
+
+- **Completions while typing, Google-style.** Under "Search for …", what was typed in plain text and what it may
+  carry on to in bold; a tap searches it. They stay above the results until one is picked or the words change.
+  Deterministic sources, in order (`Situations::complete`, `UniversalSearch::completions`):
+  1. situation phrases carrying on from the last words typed, the longest overlap first ("where can i park" → "…and
+     sleep in my car", "…overnight for free", "…my car"; "i lost my" → "…keys", "…dog"; "stuck in the" → "…mud");
+  2. the Why phrases ("landmarks i should" → "…check out"; "places to" → "…eat", "…stay", "…see");
+  3. the 5 W's around a thing named: a place to see takes Who and Why ("parks" → "…for kids", "…worth the drive",
+     "…near St. Johns"); anything else takes When and Where ("pizza" → "…open now", "…open this weekend", "…near St.
+     Johns"). Never a word already said ("parks near me" isn't offered "near" again).
+  - A little word ("me", "the") is never finished into another ("parks near me" isn't "meteor shower").
+  - Not yet: completions learned from what people search. `search_terms` keeps the words in their normal form
+    ("automobile part and supplie"), not as typed, so they'd read badly; batch 3 keeps a display form, shows only
+    phrases searched several times that found something, and only with words we know (never a name).
+- **A verb isn't its noun.** "Where can I park" is a new situation, **Somewhere to park** (overnight with an RV or
+  camper, rest areas and truck stops, parking lots, parking rules), not businesses named "Park". When a situation's
+  phrase uses the word a category was read from, the situation takes it ("where can I park overnight" isn't Parks).
+  Seed version 6 (also "stuck in the mud / snow / sand", "park and sleep in my car", "park overnight for free").
+- **A category's kin, and shared words.** "Parks" takes in State Parks and National Parks/Preserves (a qualifier
+  before the same name). A word other kinds of business also use ("park": RV Parks, Mobile Home Parks, Parking) is
+  never read from a business's name, so "parks near me" no longer lists RV and mobile home parks. "Pizza" is in no
+  other category, so Dittys Pizza & Pie still counts (`catKin`).
+- **Places to see.** "Landmarks", "canyons", "springs" (the kinds of place, `TAGS`) find only places for going (outdoor
+  places, stories, explore listings), never a business only named for it ("Landmark Homes"), and skip the "none here"
+  business box. "Check out", "worth the drive", "worth seeing", "must see", "should visit" read as Why: explore.
+- **A landmark needs a name:** "pizza near the park" isn't "near Park Service".
