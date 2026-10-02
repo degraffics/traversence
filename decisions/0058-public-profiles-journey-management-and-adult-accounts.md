@@ -862,6 +862,23 @@ back, and better:
 - **No photos, a smaller hero.** With no photos or video at all, the hero shrinks to a band (12.5rem; 14rem on a
   phone) that holds the title, the line under it, "be the first to share one" and the buttons.
 
+### 34. No-photo hero as small as it can be; Claim in the corner; one camera
+
+- **No photos, a short hero (phone and desktop).** The band is now as tall as the title and the line under it, plus
+  the buttons' row: about 135px on a phone. It replaces §33's fixed 12.5rem.
+- **Claim (or Manage, for the owner)** sits in the hero's top-right corner (the hero's `corner` option), not in the
+  button row.
+- **"Be the first" is a camera button,** an icon at the end of the button row like Share, not a text box. Its title
+  says "No photos of <place> yet. Be the first: share a photo or video". It shows on photo heroes too.
+- **One camera per person.** Two ways to add photos looked like two processes. They are two on purpose, and now each
+  person sees only one:
+  - whoever runs the page (the owner, or staff) gets **Photos & video**: they choose the page's own photos and video,
+    which lead the hero;
+  - everyone else gets the **camera button**: it starts a journey about the place, already filled in, and once
+    published, its photos follow the owner's in the hero, credited to the person. A visitor's photo goes through a
+    journey so it has an author, a credit, comments and reports, and follows a nation's rules on its land.
+  - A listing with a confidential address, and profiles, show no camera for visitors.
+
 ## Consequences
 
 - New columns: `journeys.entity_id` and `journeys.submitted_at`, and `age_confirmations.min_age`. Two new staff roles

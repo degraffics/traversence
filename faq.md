@@ -101,7 +101,7 @@ If you help run a business, or you're on the Traversence team, you can act as yo
 Tapping a result opens its page. A listing also has a **Peek** button: tap it for a quick card with the address, Call and Directions, without leaving the page you're on.
 
 ### How do I add a photo of a place?
-On a place or a business with no photos yet, tap **Share a photo** at the top. It starts a journey with the place already filled in: add your photos and a few words, and publish. Once it's published, your photo shows at the top of that page, credited to you. A business's own photos come first, and visitors' photos follow them. Places on a tribal nation's land follow the nation's rules for photos and pins.
+Tap the camera button at the bottom right of the photo at the top of a place or a business. It starts a journey with the place already filled in: add your photos or video and a few words, and publish. Once it's published, your photo shows at the top of that page, credited to you. A business's own photos come first, and visitors' photos follow them. If you run the business, the camera is **Photos & video** instead: it chooses the page's own photos. Places on a tribal nation's land follow the nation's rules for photos and pins.
 
 ### Why do some names look different from other sites?
 Some listings come from public data that shortens words, like "Visitor Ctr" or "Natl Pk". We show them in full ("Visitor Center", "National Park"). Once a business claims its listing, we show the name exactly as the owner writes it.
