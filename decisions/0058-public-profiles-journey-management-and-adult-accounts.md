@@ -615,6 +615,34 @@ real. Natural landmarks are now their own source.
   - a person adding a landmark the data doesn't have (like the Nambe Badlands);
   - landmarks as a source for experiences.
 
+### 25. Search doesn't pick a far-off town on its own; staff add landmarks
+
+- **A town outside our areas is the place only when you clearly mean it.** Search used to read the last word of
+  anything typed as a town anywhere in the US:
+  - "Four corn", while typing, became Corn, Oklahoma;
+  - "Four corners" became Four Corners, Wyoming.
+
+  Now a town outside our town areas is read as the place only when:
+  - it's the whole search, it comes after "in", "near", "at" or "around", or its state is given;
+  - and no outdoor place or landmark has that name ("Four Corners" is the monument).
+
+  Towns in our areas read as before ("pizza show low"), and the pilot states' town comes first when several states have
+  one.
+- **Staff add the landmarks the data doesn't have:** Admin → Landmarks → "+ Add a landmark the data doesn't have".
+  - **The form asks for:**
+    - name, kind (monument, park, viewpoint, badlands …), state, county, latitude and longitude;
+    - the nation if it's on tribal land, with "The nation welcomes visitors here";
+    - what it's like, in their own words;
+    - optionally, a Wikipedia title and a Wikimedia Commons photo with its credit and free license.
+  - **An Editor's shows at once,** unless it's on a nation's land without the tick. A Content Creator's waits for an
+    Editor.
+  - The monthly reload never removes one added by hand (ids from 900,000,000; `file = 'manual'`).
+  - Its page says "Added by Traversence".
+- **The Destination picker lists landmarks** (after towns, areas and regions): "Four corners" offers Four Corners
+  Monument, near Teec Nos Pos, AZ.
+- **Not in the USGS data:** GNIS's DomesticNames file holds natural features only, so monuments, parks and viewpoints
+  are added by hand, or come later from another source.
+
 ## Consequences
 
 - New columns: `journeys.entity_id` and `journeys.submitted_at`, and `age_confirmations.min_age`. Two new staff roles
