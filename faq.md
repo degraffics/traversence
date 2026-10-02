@@ -77,9 +77,11 @@ Tribal nations are sovereign nations, and we present them that way. We show publ
 ## The directory (Get Local)
 
 ### How do I search the directory?
-Use the search bar at the top of any page.
-- Choose what to search in, such as a brand section or a topic.
-- **Quick picks** in the dropdown cover common searches.
+Use the search bar at the top of any page. The panel that opens has:
+- **Location** at the top: the place you're searching. Tap ✎ to change it.
+- **Search Directory**: search **All**, or just **Discovery**, the **Directory**, **Community** or the **Marketplace**.
+- **Search Results** on the left, and **Suggestions** under them: filters like **Open now**, and other searches for the place.
+- **Quick Search** on the right: one-tap searches for the place, with how many each finds, and your own. **Recent Searches** are under them.
 - **Show in directory list** opens your results as a list.
 
 ### Can I search for sports, like football or basketball?
@@ -95,7 +97,7 @@ Tribal nations are sovereign nations, and each decides what visitors are welcome
 In **Let's Explore**, open **Parks & Landmarks**. National parks, monuments and historic sites come first. Under them are natural landmarks like arches, buttes, canyons and falls: the ones near the place you're exploring, or, with no place chosen, the best-known ones with photos. Tap one for its page. Data from the National Park Service itself is coming.
 
 ### How do I switch between my accounts or roles?
-If you help run a business, or you're on the Traversence team, you can act as yourself or in that role. On a computer, hover over the person icon at the top right: the menu shows who you're acting as and the roles you can switch to. Clicking the icon opens your dashboard. On a phone, tap your initial at the right of the bar under the top of the page.
+If you help run a business, or you're on the Traversence team, you can act as yourself or in that role. On a computer, hover over the person icon at the top right: the menu shows your **Current Account** and every account you can act as (your **Personal Account**, a business's **Listing Account**, a **System Admin Account**). Tap one to switch. ✎ opens your profile. Clicking the icon itself opens your dashboard. On a phone, tap your initial at the right of the bar under the top of the page.
 
 ### What does Peek do in search?
 Tapping a result opens its page. A listing also has a **Peek** button: tap it for a quick card with the address, Call and Directions, without leaving the page you're on.
@@ -121,7 +123,7 @@ On Let's Explore, if there's nothing for your search in the place you're explori
 Search reads where you are. On **Let's Explore** it puts the place's journeys, stories, outdoors, groups and topics first, with businesses after them. On **Get Local** businesses come first. The place you're searching sits at the top left (tap × to search everywhere), and **☆ Save** at the top right keeps the search. Tapping × on a place you typed (like "near Grants") searches the rest of your words everywhere.
 
 ### Can I save my own search phrases?
-Yes. In the search dropdown, click **✎ Edit** to add, change or remove your own phrases. For now they're saved in this browser. Saving them to your account is coming.
+Yes. In the search panel, **⊕** next to **Quick Search** adds the words you've typed as one of your quick searches, and **✎** lets you add, change or remove them. For now they're saved in this browser. To keep a search on your account, with its place, use **☆ Save** on its results.
 
 ### How do I switch between the list and the map?
 Use the **List / Map** toggle at the top right of the directory. The map opens full screen with every result as a pin. **Exit map** brings you back to the list, which keeps any filters you changed on the map.
@@ -151,7 +153,7 @@ The map remembers the style you chose.
 The search tells you: "No 'pizza' in St. Johns yet." You can **Recommend one**, or **Add a listing** if it's yours. Below that, it shows the nearest towns that do have it, nearest first. Tap one to see it on the map with what's around it.
 
 ### How do I filter the directory?
-Tap the search at the top. Its **Quick picks** are **Near me**, **Open now**, **Has a phone**, **Has a website** and **★ Favorites** (businesses you linked or saved). Whatever is narrowing the list shows under the title; tap × to remove it.
+Tap the search at the top. Under the results, **Suggestions** has the filters: **Near me**, **Open now**, **Has a phone**, **Has a website** and **Favorites** (businesses you linked or saved). Whatever is narrowing the list shows under the title; tap × to remove it.
 
 ### How do I change where I'm looking?
 Tap the place at the top left of the directory (📍 and the place name) and choose another.

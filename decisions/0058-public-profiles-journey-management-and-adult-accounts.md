@@ -879,6 +879,26 @@ back, and better:
     journey so it has an author, a credit, comments and reports, and follows a nation's rules on its land.
   - A listing with a confidential address, and profiles, show no camera for visitors.
 
+### 35. The search panel and the account menu, as in the mockups
+
+- **The search bar (wider screens):** a cream field, then a gold block with two round buttons: **Search** and the
+  **place pin**. The panel hangs from the bar, wider than it, with a gold edge.
+- **The search panel:**
+  - **head row:** "Location: <place>" with ✎ (opens the place chooser; "Everywhere" with none), and
+    "Search Directory:" a drop-down of **All, Discovery, Directory, Community, Marketplace** (the four sections: Let's
+    Explore, Get Local, Social, Marketplace). It replaces the "Search in" pills.
+  - **left:** **Search Results** (before typing, a few searches to try), then **Suggestions**: a likely word ("Did you
+    mean"), the standard filters (Near me, Open now, Has a phone, Has a website, Favorites; §11's "filters live in the
+    search" now means here), and more of the place's searches.
+  - **right:** **Quick Search** with ⊕ (the typed words become one of yours) and ✎ (change yours): your saved searches
+    (★, on your account), your own (on this device), then the place's, each with how many it finds; **Recent
+    Searches** with ⊗ to clear; and at the foot "Looking for a specific person? Search Your Address Book".
+  - Phones stack the same parts in one column.
+- **The account menu:** "Current Account / Acting as <role>" with ✎ for your profile, then every account you can act
+  as, each a bar saying what kind it is: Personal Account, Listing Account, Steward Account, System Admin Account. The
+  current one has a sage edge and a ✓. Dashboard and Sign out left the menu: a click on the icon opens the dashboard,
+  and Sign out is in ☰.
+
 ## Consequences
 
 - New columns: `journeys.entity_id` and `journeys.submitted_at`, and `age_confirmations.min_age`. Two new staff roles
