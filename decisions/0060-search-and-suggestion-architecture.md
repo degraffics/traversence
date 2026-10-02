@@ -101,6 +101,22 @@ Typing "Lyman" with the place set to the Greater St. Johns Area searched Lyman, 
 - **Short words match their plural** ("hat" finds Hats Off): a 3-letter word that matches whole also tries its plural.
 - **Category lines in Suggestions** wrap instead of cutting off the place, and drop trade codes like "(Whls)".
 
+- **Why read as an action** ("Going fishing for apache trout", "where can we camp", "take the kids swimming"): an
+  activity (`ACTIVITIES`: fishing, hiking, camping, boating, hunting, swimming, stargazing, skiing, horseback riding,
+  biking, golf, picnics, birding, climbing, off-roading) said with a going-word ("go", "want to", "where can we",
+  "take the kids"), or an "-ing" word, or the word alone. It becomes a "Going fishing" chip (× to search the words
+  instead) and a line: "Looking for places to go fishing near <place>, with 'apache trout' first."
+  - The activity is searched by the words places use (`ACT_WORDS`: a hike is at a trail or trailhead, fishing at a
+    lake, pond or river), any of them, whole words only ("lake" isn't "Lakeside").
+  - Only places for doing things count: recreation places, outdoor places, groups and stories, or a business named
+    for the activity itself (a bait shop says "fishing"). A church named Silver Lakes isn't one.
+  - The rest of the words ("apache trout") put the places that mention them first, never hiding the others.
+  - Not an activity: "fish tacos" (dinner), "fish" alone, and a shop's kind typed without a going-word ("fishing bait"
+    is the Fishing Bait category).
+- **Beyond** never repeats something already listed in the place (a group with no place shows in both).
+- **The panel's head row** stays on one line on wider screens: Location, Search Directory, then Distance at the top
+  right. The slider's last step reads ∞ (no limit).
+
 ### Phase C
 
 - **Graduated widening with counts:** the place, its area, its region, everywhere, each one tap.

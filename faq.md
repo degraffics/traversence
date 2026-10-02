@@ -80,7 +80,7 @@ Tribal nations are sovereign nations, and we present them that way. We show publ
 Use the search bar at the top of any page. The panel that opens has:
 - **Location** at the top: the place you're searching. Tap ✎ to change it.
 - **Search Directory**: search **All**, or just **Discovery**, the **Directory**, **Community** or the **Marketplace**.
-- **Distance**: slide from **My place only** to **Everywhere** (the default), or pick a distance like 25 miles. Your place stays as you set it.
+- **Distance**: slide from **My place only** to **∞** (no limit, the default), or pick a distance like 25 miles. Your place stays as you set it.
 - **Search Results** on the left. Each one says which part of the site it's in: **Directory**, **Discovery** or **Community**.
 - **Suggestions** under them, one per line: the categories that match ("All Churches in Saint Johns"), each word on its own when nothing has them all, and other searches for the place.
 - **Quick Search** on the right: one-tap searches for the place, with how many each finds, your own, and the filters (**Near me**, **Open now**, **Has a phone**, **Has a website**, **Favorites**). **Recent Searches** are under them.
@@ -125,7 +125,7 @@ On Let's Explore, if there's nothing for your search in the place you're explori
 Search reads where you are. On **Let's Explore** it puts the place's journeys, stories, outdoors, groups and topics first, with businesses after them. On **Get Local** businesses come first. The place you're searching sits at the top left (tap × to search everywhere), and **☆ Save** at the top right keeps the search. Tapping × on a place you typed (like "near Grants") searches the rest of your words everywhere.
 
 ### Can I search the way I'd ask a friend?
-Yes. Type it the way you'd say it: "new pizza place in town", "a good taco spot nearby", "pizza place in Show Low". Search reads the place, the kind of business and the time ("open now"), and leaves out words that only describe it, like "new", "good" or "spot". "In town" and "nearby" mean the place you're searching. We can't yet tell which businesses opened recently, so "new" doesn't narrow the list; that's coming.
+Yes. Type it the way you'd say it: "new pizza place in town", "a good taco spot nearby", "pizza place in Show Low", "going fishing for apache trout", "where can we camp". When you name something to do, like fishing, hiking, camping or swimming, we look for places to do it, and anything else you mention ("apache trout") puts the places that mention it first. Search reads the place, the kind of business and the time ("open now"), and leaves out words that only describe it, like "new", "good" or "spot". "In town" and "nearby" mean the place you're searching. We can't yet tell which businesses opened recently, so "new" doesn't narrow the list; that's coming.
 
 ### What shows while I'm typing a search?
 As you type, the top of the search panel shows **Go straight to**: things whose names start with what you've typed, in your place first and then nearby with how far away they are. It also offers kinds of things ("Springs", "Boating"), categories and towns. Tap one to go straight there. Stop typing for a moment, or press Enter, for the full results. If nothing in your place matches, tap **Search the broader region**.

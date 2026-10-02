@@ -941,7 +941,7 @@ Now:
 ### 39. A Distance slider; filters in Quick Search; Suggestions one line each
 
 - **Distance**, beside Search Directory: a slider from **My place only** through 5, 10, 25, 50, 100 and 250 miles to
-  **Everywhere** (the default). It's kept on this device (`tv_reach`) and never changes the place.
+  **∞**, no limit (the default; first labelled Everywhere). It's kept on this device (`tv_reach`) and never changes the place.
   - My place only: no Beyond list, no "nearby" box.
   - Miles: everything within that distance of the place's middle, nearest counting most.
   - Everywhere: the place first, then everything beyond it, nearest first, with no distance cap.
