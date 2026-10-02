@@ -780,6 +780,10 @@ back, and better:
 - **That place's hero shows the photos** from published journeys pinned within half a mile of it, or with a photo
   tagged there: credited, most liked first, mature ones never (`Journeys::heroNear`, the hero's `near` option).
 - A landmark with a Wikimedia Commons photo keeps that photo first.
+- **Listings get it too.** A listing with no photos of its own shows photos from published journeys that tag it
+  (`Journeys::heroTagged`, the hero's `tagged` option). With none, it shows the card with **Share a photo**, which opens
+  the editor with the business tagged (`biz=`). The owner's own photos always come first. A confidential listing gets
+  neither.
 
 **Directions on our own map (decided, waiting for a key).** Use OpenRouteService (OpenStreetMap routing: a free key, about
 2,000 routes a day, driving and hiking). The plan:
