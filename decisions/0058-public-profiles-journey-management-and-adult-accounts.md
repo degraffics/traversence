@@ -724,6 +724,8 @@ This matches Jason's concept (2026-09-29): the title top left, the Link button t
 
 - **The photo's credit** ("Photo: Autopilot, CC BY-SA 3.0", or a journey's caption and who shared it) is a small cream
   card in the bottom-left corner, as in the concept image (no wider than about 44% of the hero).
+- **The card and the button pills are see-through:** a light glass tint with a thin light border and a blur behind,
+  with light words. Claim keeps a gold edge.
 - **"No photos yet"** shrinks to a line and a small "Share a journey" button in the same corner.
 - **The page's buttons** (views, likes, comments, Share, Save, Claim, Photos & video) sit in the bottom-right corner.
   They wrap upward on the right when there are many (a listing).
