@@ -80,9 +80,9 @@ Tribal nations are sovereign nations, and we present them that way. We show publ
 Use the search bar at the top of any page. The panel that opens has:
 - **Location** at the top: the place you're searching. Tap ✎ to change it.
 - **Search Directory**: search **All**, or just **Discovery**, the **Directory**, **Community** or the **Marketplace**.
-- **Distance**: slide from **My place only** to **∞** (no limit, the default), or pick a distance like 25 miles. Your place stays as you set it.
+- **Distance**: slide from **My place only** to **∞** (no limit, the default), or pick a distance like 25 miles. Your place stays as you set it. With no place chosen there's nothing to measure from, so the slider rests at ∞ until you choose one.
 - **Search Results** on the left. Each one says which part of the site it's in: **Directory**, **Discovery** or **Community**.
-- **Suggestions** under them, one per line: the categories that match ("All Churches in Saint Johns"), each word on its own when nothing has them all, and other searches for the place.
+- **Suggestions** under them, one per line: the categories that match a word you typed ("All Churches in Saint Johns"), each word on its own when nothing has them all, and other searches for the place. When your words describe a situation, its answer already says what kind of place helps, so no category lines show.
 - **Quick Search** on the right: one-tap searches for the place, with how many each finds, your own, and the filters (**Near me**, **Open now**, **Has a phone**, **Has a website**, **Favorites**). **Recent Searches** are under them.
 - **Show in directory list** opens your results as a list.
 
@@ -125,7 +125,13 @@ On Let's Explore, if there's nothing for your search in the place you're explori
 Search reads where you are. On **Let's Explore** it puts the place's journeys, stories, outdoors, groups and topics first, with businesses after them. On **Get Local** businesses come first. The place you're searching sits at the top left (tap × to search everywhere), and **☆ Save** at the top right keeps the search. Tapping × on a place you typed (like "near Grants") searches the rest of your words everywhere.
 
 ### Can I search the way I'd ask a friend?
-Yes. Type it the way you'd say it: "new pizza place in town", "a good taco spot nearby", "pizza place in Show Low", "going fishing for apache trout", "where can we camp". When you name something to do, like fishing, hiking, camping or swimming, we look for places to do it, and anything else you mention ("apache trout") puts the places that mention it first. Search reads the place, the kind of business and the time ("open now"), and leaves out words that only describe it, like "new", "good" or "spot". "In town" and "nearby" mean the place you're searching. We can't yet tell which businesses opened recently, so "new" doesn't narrow the list; that's coming.
+Yes. Type it the way you'd say it: "new pizza place in town", "a good taco spot nearby", "pizza place in Show Low", "going fishing for apache trout", "where can we camp". When you name something to do, like fishing, hiking, camping or swimming, we look for places to do it, and anything else you mention ("apache trout") puts the places that mention it first. Search reads the place, the kind of business and the time ("open now"), and leaves out words that only describe it, like "new", "good" or "spot". "In town" and "nearby" mean the place you're searching. We can't yet tell which businesses opened recently, so "new" doesn't narrow the list; that's coming. "Where to buy new" reads as shopping, not as a search for the word "new".
+
+Search reads each part of what you type for its job, even without a full sentence:
+- **The thing you want**: "plumber", "hardware store", "oil change".
+- **Words that narrow it**: "emergency", "urgent", "24 hour" or "after hours" put places open now first and leave out the ones known to be closed ("emergency plumber"). "Emergency room" is still a place, not a filter.
+- **Where**: "in", "near" and "around" mark the place, and so does a town at the end with no little word ("hardware store St Johns"). "St", "Mt" and "Ft" read as Saint, Mount and Fort.
+- **What's going on**: phrases like "power went out" or "stuck on the highway" are situations (below).
 
 ### Can I just describe what's going on?
 Yes. Type it the way you'd say it: "the power went out", "stuck on the highway", "lost my keys", "job interview coming up", "I can't pay my bills". Search recognises the situation and shows what it needs, each part on its own: for being stuck on the road, **Towing**, **Roadside repair**, **Gas** and **Highway patrol**, each in your place first and then nearest. When something is urgent, the phone number and **Call** come first, and places known to be open now lead. Everything else your words found is one tap away under **Everything else**.
@@ -174,6 +180,12 @@ A heart in a circle is one of your favorites: a business you linked or saved to 
 - **Terrain** (topographic) and **Satellite** (with towns and roads labelled) cover the United States.
 
 The map remembers the style you chose.
+
+### I set Distance to "My place only" and nothing came up. Now what?
+Search says so and tells you how far the nearest one is ("Nothing in Saint Johns. The nearest is 23 mi away."), with buttons for **25 mi**, **50 mi** and **No limit**, each showing how many it finds. Tap one and the Distance slider moves with it. Your place stays as you set it.
+
+### Why do some category names look shorter than in other directories?
+Business categories often carry trade codes, like "Automobile Parts & Supplies-Retail-New" or "Feed-Dealers (Whls)". We show the plain name ("Automobile Parts & Supplies", "Feed-Dealers"). "Used" stays, because it tells you something.
 
 ### What if there's nothing like it where I am?
 The search tells you: "No 'pizza' in St. Johns yet." You can **Recommend one**, or **Add a listing** if it's yours. Below that, it shows the nearest towns that do have it, nearest first. Tap one to see it on the map with what's around it.

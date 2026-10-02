@@ -161,3 +161,29 @@ does. Situations follow the same rule, in this order:
   - A new situation, **Can't find my car** (towed or impounded, report it stolen, a ride, a rental); "can't find my
     keys" and "can't find my dog" join their situations. Seed version 3.
 
+- **2026-10-02, reading fragments by the job each word does** (Jason's note on part-of-speech anchors). A search is
+  rarely a sentence; each word is read for its role, in this order, and what's left is the thing searched:
+  | Role | Words | What it does | Where |
+  |---|---|---|---|
+  | **Situation** (trigger) | "power went out", "stuck", "broke down" | the situation map answers; checked first, by whole phrase | `Situations::read` |
+  | **Modifier** (filter) | "emergency", "urgent", "24 hour", "24/7", "after hours"; "open now"; "cheap", "good", "new" | the first five: open now and 24-hour first, known-closed left out, "emergency" in a name ranks up. "Open now" filters. Describing words ("new", "good", "store", "shop") are dropped | `understand()` When; `DESCRIBE` |
+  | **Where** (geometry) | "in", "near", "around", "at"; or a town at the end with no little word ("hardware store St Johns") | the place for this search only; "St", "Mt", "Ft" read as Saint, Mount, Fort | `findPlace()` |
+  | **What** (anchor) | "plumber", "hardware", "pizza" | a category when it names one (everyday words via synonyms), otherwise the words | `findCategory()` |
+  - "Emergency room", "emergency medical services" and similar stay words (a place, not a filter).
+  - Only describing words left after something else was read means nothing to match: "where to buy new" is Shopping,
+    not the word "new" (which found New England and every "-New" category).
+- **2026-10-02, search fixes from the live test ("where to buy new", "broken down"):**
+  - **Trade codes** come off category names wherever they show (`SearchText::catLabel`, the panel's `catName`):
+    "-Retail", "-Wholesale", "-New", "(Whls)", "(Mfrs)". "-Used" stays. The plain name is searchable: "automobile parts
+    & supplies" finds the "…-Retail-New" category.
+  - **Category lines in Suggestions** only when a word typed is one of the category's words (a long word may be its
+    root: "plumber" is Plumbing). "Down" isn't Downspouts. None at all when a situation answers.
+  - **With a situation**, the rest of the results ("Everything else") match whole words only.
+  - **"My place only" with nothing there** says how far the nearest is, with 25 mi, 50 mi and No limit buttons and how
+    many each finds (`results.widen`); a tap moves the slider. The first step of decisions/0060 Phase C.
+  - **"Looking for a person?"** no longer shows for a category, a situation, an activity, or words that were all read
+    as something else.
+  - **No place set:** the Distance slider is greyed at ∞ ("Choose a place to limit distance") and the server treats
+    the reach as no limit.
+  - **Two old slips fixed:** a comment had swallowed the "Did you mean" check and Beyond's Why and Who filters; and an
+    empty "none here" box (no towns) was hiding businesses from Beyond.

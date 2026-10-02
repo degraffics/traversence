@@ -129,7 +129,9 @@ Typing "Lyman" with the place set to the Greater St. Johns Area searched Lyman, 
 
 ### Phase C
 
-- **Graduated widening with counts:** the place, its area, its region, everywhere, each one tap.
+- **Graduated widening with counts:** the place, its area, its region, everywhere, each one tap. *Started 2026-10-02:*
+  at "My place only" with nothing there, the nearest distance and 25 mi / 50 mi / No limit with counts
+  (decisions/0061, progress).
 - **A split view** for words that could mean either: platform support or local services.
 - **Seasonal "When" words** once events exist.
 
