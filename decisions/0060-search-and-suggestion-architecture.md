@@ -117,6 +117,12 @@ Typing "Lyman" with the place set to the Greater St. Johns Area searched Lyman, 
   - An activity skips the "none here" box and the per-word fallback: Beyond carries it, nearest first. With nothing in
     reach: "Nothing listed for stargazing near <place> yet. Know a spot? Tell us below."
   - In whole-word mode a long word (6+ letters, "stargazing") still counts in a place's description.
+  - One thing spelled two ways reads as one: "star gazing", "Star gaz" (still typing), "stargaz" are stargazing.
+  - "Near me", "around me": the person's place. With no place set, a line offers "Choose your place or use
+    Auto-detect"; until then it searches everywhere. We never track where anyone is.
+  - Words read as an activity are never offered as a person's name ("Looking for a person?").
+- **The panel** hides "Search the broader region" when no place is set (there's nothing broader), and hides the
+  Suggestions heading when there's nothing under it.
 - **Beyond** never repeats something already listed in the place (a group with no place shows in both).
 - **The panel's head row** stays on one line on wider screens: Location, Search Directory, then Distance at the top
   right. The slider's last step reads ∞ (no limit).
