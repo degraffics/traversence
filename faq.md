@@ -91,7 +91,7 @@ Yes. Search for words like **badlands**, **arch**, **crater**, **hot springs**, 
 ### Why don't some landmarks on tribal land show?
 Tribal nations are sovereign nations, and each decides what visitors are welcome to see on its land. On a nation's land we show only its public places, the ones the nation itself lists for visitors (like Four Corners Monument), and public businesses. Other places there aren't shown. We never show the location of sacred or restricted sites, and anything a nation asks us to close is closed at once.
 ### Can I see a place's photo bigger?
-Yes. Tap the photo at the top of a place, a listing or a profile to open it full screen, with its credit. If there are several, swipe or use the arrows to move between them. Tap outside the photo, or ×, to close it.
+Yes. Tap the photo at the top of a place, a listing or a profile to open it full screen, with its credit. If there are several, swipe or use the arrows to move between them. You can like it, share it or go to the comments from there too. Tap outside the photo, or ×, to close it.
 
 ### Why did my journey's pin move or disappear?
 On a tribal nation's land, a pin shows only at a place the nation opens to visitors. If your pin is within half a mile of one of those places, it moves onto that place. Anywhere else on the nation's land the pin isn't shown, and your journey says where you were in your own words instead. This follows the nations' own rules: many areas are homes, grazing land or sacred places, and aren't open to visitors.
