@@ -645,6 +645,50 @@ real. Natural landmarks are now their own source.
 - **Not in the USGS data:** GNIS's DomesticNames file holds natural features only, so monuments, parks and viewpoints
   are added by hand, or come later from another source.
 
+### 26. On a nation's land: only its public places, its rules, and no pins elsewhere
+
+Decided by Jason on 2026-10-02. The working draft is the Claude Doc "Sovereign lands: what Traversence shows, and who
+decides".
+
+- **Only the nation's public places.** On a nation's land Traversence shows only the places the nation itself lists for
+  visitors: its parks, museums, events and enterprises.
+- **Opening a place needs the nation's own word.** Approving a landmark on a nation's land (or adding one by hand) needs
+  a link to the nation's own page that lists it for visitors. A county's, state's or travel site's page isn't enough.
+  The link is kept with the place and shown on its page.
+- **Closed by the nation.** "Closed by the nation" needs who at the nation asked, and how. The place stops showing at
+  once. No reload, Undo or staff approval reopens it: only "Reopen at the nation's request", which puts it back to
+  Waiting for an Editor.
+- **The nations' log** (`nation_decision_log`) records every opening, closing and reopening on a nation's land: who,
+  when, the evidence or the nation's contact. It's written once and never edited. Admin → Landmarks shows the last three
+  entries under each place.
+- **Admin → Nations** (`admin/nations.php`) lists the 47 nations whose Census areas touch our regions. For each:
+  - its name as it uses it, and its Census areas (`match_names`);
+  - its website and visitor page;
+  - its tourism or parks office;
+  - the rules visitors most often miss: permits and licenses, fees, guides, photography, drones, alcohol, time, and
+    anything else.
+
+  The rules show on its places' pages only after someone ticks "Checked against the nation's own site". That needs
+  its website or visitor page, and any later save without the tick hides them again. Saving needs an Editor.
+- **Pages:** a place on a nation's land says "On <the nation's own name> land". It shows the nation's checked rules with
+  a link to its visitor information, or, until they're checked, a pointer to the nation's own visitor information.
+  Search results and map cards use the nation's own name too.
+- **Journey and photo pins:** a pin on a nation's land is kept only at a public place within half a mile, and is moved
+  onto it. Public places are a landmark the nation opened, a public listing (never a confidential one) and a public
+  outdoor place. Anywhere else on the nation's land, the pin is dropped and the writer is told why ("Name the place in
+  your words instead"). Pins posted earlier follow the same rule when shown.
+- **Boundaries:** the worker sends the Census reservation and trust-land boundaries, simplified to about 50 m (21,961
+  points for the 70 areas in Arizona and New Mexico), with the monthly landmarks load (`nation_shapes`). A pin check
+  takes a few milliseconds.
+- **Not crawled:** nations' websites aren't crawler sources. They're the evidence for opening a place, kept per nation,
+  and are read by a person.
+- **Migration:** `2026-10-17_nations.sql` (after `2026-10-16_landmarks.sql`). It seeds the 47 nations' names and Census
+  areas. Contacts and rules stay empty until someone fills them in from each nation's own site.
+- **Still to build:**
+  - boundary checks on Recreation.gov places, experiences and listings;
+  - nation accounts, so a nation's own office can open and close its places;
+  - notices to a nation's office when one of its places opens.
+
 ## Consequences
 
 - New columns: `journeys.entity_id` and `journeys.submitted_at`, and `age_confirmations.min_age`. Two new staff roles
@@ -743,7 +787,7 @@ Recommendations and Personal Insights, outbound API sharing.
 **Next session (2026-10-02, Jason):** rebuild the admin dashboard and its menu. Search index, Recreation and other
 data pages are reached only through links in page text today (Crawler → Overview, Cluster tools).
 
-**Decided 2026-10-02 (Jason): on a nation's land, show only the nation's public places.** Only what the nation
+**Decided 2026-10-02 (Jason), built in §26: on a nation's land, show only the nation's public places.** Only what the nation
 itself lists for visitors (its parks, museums, events, enterprises), each with the rules visitors miss: permits and
 licenses, fees, where a tribal guide is required, photography and drones, alcohol, the nation's time zone. Each nation is
 approached on its own; the Navajo Nation's Parks & Recreation first, with Four Corners Monument as the pilot. The

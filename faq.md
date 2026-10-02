@@ -91,6 +91,12 @@ Yes. Search for words like **badlands**, **arch**, **crater**, **hot springs**, 
 ### Why don't some landmarks on tribal land show?
 Tribal nations are sovereign nations. A landmark on a nation's land shows only after our team has confirmed, from the nation's own visitor information, that it welcomes visitors there. Its page then says whose land it's on, and asks you to follow the nation's rules and permits. We never show the location of sacred or restricted sites, so names that may mark one (a shrine, a burial site, a ruin, rock art) are also checked by a person first.
 
+
+### Why did my journey's pin move or disappear?
+On a tribal nation's land, a pin shows only at a place the nation opens to visitors. If your pin is within half a mile of one of those places, it moves onto that place. Anywhere else on the nation's land the pin isn't shown, and your journey says where you were in your own words instead. This follows the nations' own rules: many areas are homes, grazing land or sacred places, and aren't open to visitors.
+
+### Where do the visitor rules on a tribal place come from?
+From the nation's own website. Our team checks each nation's rules for permits, fees, guides, photography, drones and alcohol, and the page says when they were last checked, with a link to the nation's visitor information. Rules change, so check that link before you go. If a nation asks us to close a place, we close it at once.
 ### I searched for something and got places from somewhere else. Why?
 On Let's Explore, if there's nothing for your search in the place you're exploring, we look across the open regions and say so at the top of the results. Words for landscapes work too: try **badlands**, **canyon**, **petroglyphs**, **ruins** or **dark sky**.
 

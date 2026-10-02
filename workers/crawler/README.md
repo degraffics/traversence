@@ -108,5 +108,7 @@ and does nothing else (decisions/0058 §24):
 5. **Wikipedia:** the first three sentences of each article.
 
 It keeps the notable ones (an article, a photo, or a landscape word in the name) and posts them in batches of 500.
+It also sends the nations' boundaries, simplified to about 50 m, one area per request. The site keeps journey and photo
+pins off a nation's land except at its public places (decisions/0058 §26).
 `LANDMARKS=off` turns it off. No key is needed. Test it with `GNIS_FIXTURE_DIR`, `AIANNH_FIXTURE` and `WIKI_FIXTURE`
 (see the top of `crawler.py`).

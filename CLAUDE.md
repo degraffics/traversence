@@ -95,3 +95,12 @@ Listings, outdoor places, experiences, place pages, journeys, and any new kind o
 - **Counts:** `tv_count_item('<kind>:<id>')` so views are counted.
 - **Maps** opened as their own view pass `panel: true` to `TvMap.open()` so the info panel starts open.
 
+
+## Tribal nations' land (decisions/0058 §26): every build
+
+- On a nation's land show only the places the nation lists for visitors, with its rules (`Nations::rules()`). Never a
+  sacred or restricted site, and nothing else on its land.
+- A place opens there only with the nation's own page as evidence. "Closed by the nation" is reopened only at the
+  nation's request.
+- Any new content with a location (pins, photos, events, places) goes through `Nations::pin()` or the same check.
+- Use the nation's own name (`Nations::label()`), not the Census area's.

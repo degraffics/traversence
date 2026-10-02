@@ -1050,6 +1050,49 @@ def inside(lon, lat, rings):
     return hit
 
 
+def simplify(ring, tol=0.0005):
+    """Douglas-Peucker, iterative: drops points that sit within tol degrees (about 50 m) of the line between their neighbours."""
+    if len(ring) < 5:
+        return ring
+    if ring[0] == ring[-1]:                        # a closed ring: split it at its farthest point, simplify both halves
+        x0, y0 = ring[0]
+        k = max(range(len(ring)), key=lambda i: (ring[i][0] - x0) ** 2 + (ring[i][1] - y0) ** 2)
+        if 0 < k < len(ring) - 1:
+            return simplify(ring[:k + 1], tol) + simplify(ring[k:], tol)[1:]
+    keep = [False] * len(ring)
+    keep[0] = keep[-1] = True
+    stack = [(0, len(ring) - 1)]
+    while stack:
+        a, b = stack.pop()
+        (x1, y1), (x2, y2) = ring[a], ring[b]
+        dx, dy = x2 - x1, y2 - y1
+        norm = math.hypot(dx, dy) or 1e-12
+        far, at = 0.0, -1
+        for i in range(a + 1, b):
+            x, y = ring[i]
+            d = abs(dy * x - dx * y + x2 * y1 - y2 * x1) / norm
+            if d > far:
+                far, at = d, i
+        if far > tol and at > 0:
+            keep[at] = True
+            stack += [(a, at), (at, b)]
+    return [p for p, k in zip(ring, keep) if k]
+
+
+def send_nation_shapes(file, nations):
+    """The nations' boundaries, simplified, to the site: it keeps journey and photo pins off a nation's land except at its
+    public places (decisions/0058 §26). One area per call."""
+    sent = 0
+    for name, b, rings in nations:
+        rs = [[[round(x, 5), round(y, 5)] for x, y in simplify(r)] for r in rings]
+        rs = [r for r in rs if len(r) >= 4]
+        if rs:
+            sent += site_call("/api/crawl/landmarks.php", {"file": file, "shape": {"name": name, "bbox": list(b), "rings": rs}}).get("saved", 0)
+    if sent:
+        site_call("/api/crawl/landmarks.php", {"file": file, "shapes_done": True})
+    return sent
+
+
 def nation_at(lon, lat, nations):
     for name, b, rings in nations:
         if b[0] <= lon <= b[2] and b[1] <= lat <= b[3] and inside(lon, lat, rings):
@@ -1216,6 +1259,10 @@ def landmarks_bulk():
         for i in range(0, len(out), 500):
             seen += site_call("/api/crawl/landmarks.php", {"load_id": lid, "file": file, "rows": out[i:i + 500]}).get("saved", 0)
         log(f"landmarks: {s}: {len(rows):,} features, {len(wd):,} on Wikidata, {len(out):,} sent")
+    try:
+        log(f"landmarks: {send_nation_shapes(file, nations)} nations' boundaries sent")
+    except Exception as e:                         # the landmarks still finish; the boundaries come next month
+        log(f"landmarks: boundaries not sent: {e!r}"[:300])
     if seen == 0:
         raise RuntimeError("no landmarks the site accepted")   # never finish (and remove the old copy) on an empty load
     res = site_call("/api/crawl/landmarks.php", {"load_id": lid, "file": file, "done": True, "seen": seen})
