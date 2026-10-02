@@ -922,6 +922,22 @@ Now:
 - The North America overview is still Let's Explore with no place chosen. `chooseAnywhere()` stays for the
   directory's "Search everywhere".
 
+### 38. Search rows say where they live; Suggestions is a list, not pills
+
+- **Each result says which part of the site it's in,** named as in Search Directory: **Directory** (listings),
+  **Discovery** (outdoor places, stories, experiences), **Community** (groups). The row's own line already gives its
+  type and place ("Churches · Saint Johns, AZ").
+- **Categories leave the results.** "Churches" and "Church Organizations" were rows marked "Topic" among the places.
+  They're a way in, not a place, so they're in Suggestions now: "All Churches in Saint Johns, AZ", marked
+  **Category**.
+- **Suggestions is a plain list,** two columns on wider screens, one on a phone. Each line says what it is: Spelling
+  (did you mean), Category, Filter (Near me, Open now…, ✓ when on) or Search. No more pills here.
+- **The "none here" box's rows match the results:** tap opens the listing, **Peek** peeks, and a round map button
+  (title "See it on the map") opens the map at it. No more "Map ›" as the row's action.
+- **The "none here" box reads the words properly:** describing words are left out ("new hat" is hats), every word
+  must match (singular or plural), and nothing in the person's own place is listed as "nearby". With a town chosen,
+  the rest of its area counts as nearby.
+
 ## Consequences
 
 - New columns: `journeys.entity_id` and `journeys.submitted_at`, and `age_confirmations.min_age`. Two new staff roles
