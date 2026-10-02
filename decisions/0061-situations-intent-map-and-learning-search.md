@@ -361,3 +361,34 @@ from what the words mean (`api/lib/SituationReasoner.php`, rule-based, no AI):
   nice/mice, bike/bite). "Dinner", "lunch", "breakfast", "brunch", "supper" are Something to eat; "nice dinner",
   "nice restaurant", "fancy dinner" are A night out (so "somewhere nice for dinner" is A night out). Seed version 9.
 - **A business listed twice** (same name, kind and town) shows once in a situation's answer.
+
+### Progress, 2026-10-02: Resource guides, Search oversight, and predictions that always have something to tap
+
+- **Resource guides** (Admin → Resource guides, `admin/resource-guides.php`; `api/lib/ResourceGuides.php`; migration
+  `2026-10-22_resource_guides.sql`). There is one guide per area (a cluster, or "all" for everywhere we cover). Each
+  entry has a name, phone, hours, what it's for, the situations it answers and its **official source page**.
+  - **Verification:** "Check" fetches the source page and looks for the number's last ten digits in the text or in
+    `tel:` links. Only verified entries in live guides show in search. Editing a phone number or source resets the
+    check, and a check older than 31 days is flagged.
+  - **In search:** a situation's answer gains a **Phone lines and services** need (first when urgent), with Call buttons
+    and no "Get local" tag.
+  - **Public page:** `guide/resources.php?id=N`, built to the content page standard: kind button, title, place, Link
+    button (`place:guide:N`), engage bar, a 911 line, entry cards with Call and Website, "Checked <date> on <host>",
+    Tell us, and comments. Views count as `guide:N`.
+- **Search oversight** (`admin/search-oversight.php`) has three sections:
+  - **Resource numbers to check:** due or failing entries, with "Re-check all due" (15 at a time) or one at a time.
+  - **Incomplete listings:** by area, the businesses a situation would have shown but couldn't, because they're missing
+    what the task needs (a phone for an urgent need). Each has a link to complete it (`Situations::incomplete()`).
+  - **What changed in search:** over 7, 30 or 90 days: situations, phrases, meanings, rules and resource entries
+    edited in Admin.
+- Both pages are on the Admin rail.
+- **Predictions (Jason, 2026-10-02: "Search still requires tap or enter?"):** full results still wait for Enter or a
+  tap, as decided earlier today. But typing never ends on a lone "Search for…" row any more:
+  - When no name contains the whole phrase ("hearing test"), the predictions show what the full search would find,
+    read by the 5 W's (What: hearing): the nearest places, then "All of this kind". Search records nothing; only what's
+    kept is counted.
+  - **Grouped names:** three or more names that start with the typed words, at one spot (within about 5 miles of each
+    other), fold into one row ("Big Lake · 9 places: Boating, Picnicking, Fishing · 42–43 mi"). A tap searches them.
+    Names that share a word but not a place ("Pizza …", "St Johns …") aren't grouped, and neither is a kind of business
+    or a town.
+  - A name that repeats its own ending ("Dump Station Dump Station") shows it once.
