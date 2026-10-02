@@ -23,7 +23,7 @@ Open the place picker at the top of the page. You can:
 - type a **destination**, a **state, city or ZIP**;
 - use **Auto-detect** to start near you.
 
-In **Destination** you can type a town, a town area, a local name, or a landmark like **Grand Canyon**, **Lyman Lake** or a museum. Towns come first. Choosing a landmark takes you to the town area around it.
+In **Destination** you can type a town, a town area, a local name, or a landmark like **Grand Canyon**, **Lyman Lake** or a museum. Towns come first. You can add the state after a comma ("St. Johns, AZ"); the list keeps up while you type it. Choosing a landmark takes you to the town area around it.
 
 Signed in, you can make a place your default (**My default**), so you start there next time.
 

@@ -84,6 +84,10 @@ Typing "Lyman" with the place set to the Greater St. Johns Area searched Lyman, 
   search replaces the quick list only when it finds something ("lym" keeps Lyman Lake on top). Enter runs the full
   search; Enter again opens the first result.
 
+- **The place picker's Destination** (`js/location-scope.js`): a state being typed after a comma ("St. Johns, A")
+  no longer loses the town. The words before the comma are searched, and the towns are kept whose state starts
+  with what's after it (its code or name). Our areas and regions always stay.
+
 ### Phase C
 
 - **Graduated widening with counts:** the place, its area, its region, everywhere, each one tap.
