@@ -165,7 +165,7 @@ They're ways your search could carry on, like "where can i park **overnight for 
 Search reads the kind of thing you mean. "Parks" are parks, including state and national parks. RV parks and mobile home parks are their own kinds, so search for those by name ("RV parks"). "Where can I park" is about parking: places to stay overnight with an RV or camper, rest areas and truck stops, parking lots, and who to call about parking rules.
 
 ### Can I search near a lake, park or landmark?
-Yes. "Plumber near Lyman Lake" searches about 15 miles around the lake. Your own place stays as you set it.
+Yes. "Plumber near Lyman Lake" searches about 15 miles around the lake, and if there are none that close, the nearest ones beyond follow. Your own place stays as you set it.
 
 ### If I search a business by name, can I find others like it?
 Yes. A business named in full shows first, with what it offers and **More like it nearby**.

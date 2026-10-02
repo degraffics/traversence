@@ -303,3 +303,19 @@ grammar, no AI. Each W and how it's read:
 - Checked against MariaDB as well as the sandbox.
 - Still to come in batch 2: resource guides (phone lines like 211 or the power outage number, per area) and the
   oversight view.
+
+### Progress, 2026-10-02: the term analysis (✦ in Teach search)
+
+- **✦ Analyze** in the Teach search box shows how search reads the words, from the reader's own trace
+  (`api/lib/SearchTrace.php`, off unless the analysis turns it on, so ordinary searches pay nothing):
+  - **Each word** and the W that finally used it (Why, What, Where, When, Who, or not used);
+  - **the 5 W's**, each with what was decided and the rule that decided it (Why is shown as intent);
+  - **the result** (the situation that answers, or how many found here and beyond, the top business, "Maybe you
+    mean" offers) and **what shows while typing** (Go straight to, completions);
+  - **step by step**, in the reader's fixed order.
+  It's the same rule-based reading a visitor's search takes, not AI. It re-runs after a phrase is added or a
+  situation saved, so a change can be seen at once.
+- **Found with it and fixed:** completions turning one last word of a longer search into an unrelated situation
+  ("commercial plumber for kids" → "…kids are bored"): with three words or more that aren't a situation's own, a
+  completion now carries on at least two of the last words. "Plumber near Lyman Lake" with none within 15 miles was
+  a dead end: what's beyond the landmark now follows, nearest first (decisions/0060, never only local).
