@@ -254,3 +254,9 @@ grammar, no AI. Each W and how it's read:
 - **Completions keep to the situation the words already name:** "need gas" is a new situation, **Gas for the car**
   (gas stations, propane), and is offered "…station", never "…leak"; "where can i park" still carries on to
   "…overnight for free". The situation the words exactly name leads Go straight to. Seed version 7.
+- **Later the same day (Jason):** the built-in clear × inside the search boxes is gone (the close ✕ sits past the pin;
+  Esc clears). On a phone the **Location line is the toggle**: "Location: <place> · <directory> · <distance> ▾", with
+  ✎ on the same line to change the place; Search Directory and Distance open under it. New situation **A restroom**
+  ("need a bathroom", "public restroom", "toilet"): rest areas, gas stations and travel centers, parks and visitor
+  centers. A long last word that none of our words start with is read as a slip while typing ("need a bathroon").
+  Words that already name a situation get no "open now / near" completions ("bathroom"). Seed version 8.
