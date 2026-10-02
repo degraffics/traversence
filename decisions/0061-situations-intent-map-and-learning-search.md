@@ -277,3 +277,7 @@ grammar, no AI. Each W and how it's read:
 - **No place, no guess.** With no place set, a situation's answer was "nearest" from nowhere (A restroom led with
   Vaseys Paradise near Marble Canyon). Now it shows its needs and asks: "Where are you? Then we'll show the nearest …"
   with **Choose your place or use Auto-detect**, both in the full results and in the preview while typing.
+- **Hotfix:** Missed searches didn't load on the live site. Its most-missed query used the names of its totals inside
+  HAVING and ORDER BY arithmetic, which MySQL refuses (error 1247, "reference to group function"); the sandbox's
+  SQLite allowed it. The totals are now written out, a database error shows on the page instead of a blank one, and
+  the query was checked against MariaDB.
