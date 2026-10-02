@@ -127,8 +127,17 @@ Search reads where you are. On **Let's Explore** it puts the place's journeys, s
 ### Can I search the way I'd ask a friend?
 Yes. Type it the way you'd say it: "new pizza place in town", "a good taco spot nearby", "pizza place in Show Low", "going fishing for apache trout", "where can we camp". When you name something to do, like fishing, hiking, camping or swimming, we look for places to do it, and anything else you mention ("apache trout") puts the places that mention it first. Search reads the place, the kind of business and the time ("open now"), and leaves out words that only describe it, like "new", "good" or "spot". "In town" and "nearby" mean the place you're searching. We can't yet tell which businesses opened recently, so "new" doesn't narrow the list; that's coming.
 
+### Can I just describe what's going on?
+Yes. Type it the way you'd say it: "the power went out", "stuck on the highway", "lost my keys", "job interview coming up", "I can't pay my bills". Search recognises the situation and shows what it needs, each part on its own: for being stuck on the road, **Towing**, **Roadside repair**, **Gas** and **Highway patrol**, each in your place first and then nearest. When something is urgent, the phone number and **Call** come first, and places known to be open now lead. Everything else your words found is one tap away under **Everything else**.
+
+### Why does search say "If anyone is in danger, call 911"?
+For a few situations where someone could be in danger, like a car accident, smelling gas, a wildfire or being stuck on the road, that line comes first. Everything else follows below it.
+
+### Why isn't a business showing for something urgent?
+For an urgent need, a business only shows if its listing has what you'd need to get help: for towing, a phone number. A listing missing it still shows in the directory, but not as an answer when it can't complete the task. If it's your business, claim your listing and add the missing details.
+
 ### What shows while I'm typing a search?
-As you type, the top of the search panel shows **Go straight to**: things whose names start with what you've typed, in your place first and then nearby with how far away they are. It also offers kinds of things ("Springs", "Boating"), categories and towns. Tap one to go straight there. Stop typing for a moment, or press Enter, for the full results. If nothing in your place matches, tap **Search the broader region**.
+As you type, the top of the search panel shows **Go straight to**: what you might be thinking of ("Power out", "Stargazing", "Starting a business"), then things whose names start with what you've typed, in your place first and then nearby with how far away they are. It also offers kinds of things ("Springs", "Boating"), categories and towns. Tap one to go straight there, or press **Enter** for the full results. Results wait for you: half-typed words don't bring up results. If nothing in your place matches, tap **Search the broader region**.
 
 ### What happens if I search for "help"?
 We ask which help you mean: **help using Traversence** (the Help Center and FAQ) or **help in your place** (assistance, services and support). If you type what kind of help, like "legal help" or "housekeeping help", we search for local services straight away.
@@ -191,7 +200,7 @@ Views count visits that saw the page. Likes count people who liked it. We never 
 We count it for the business, never who did it. A tap on Call, Directions, Website or a contact page adds one to that business's count for the day. No name, account, device or address is stored with it. Businesses see the totals for the last 30 days.
 
 ### What does Traversence count about how the site is used?
-Totals only, never who. We count how many visits see each section, listing, journey and place. We also count how people move between sections, and what they search for in which place, with how many results it found. No name, account, device or address is stored with a count. Search words are lower-cased, with email addresses and long numbers removed. They're only shown in our reports once 3 or more visits searched them. Rarer ones are deleted after 90 days. Businesses see visits to their listing in Business Insights.
+Totals only, never who. We count how many visits see each section, listing, journey and place. We also count how people move between sections, and what they search for in which place, with how many results it found. No name, account, device or address is stored with a count. Search words are lower-cased, with email addresses and long numbers removed, and counted by area and day so search can learn what people here look for and what's missing. They're only shown in our reports once 3 or more visits searched them. Rarer ones are deleted after 90 days. Businesses see visits to their listing in Business Insights.
 
 ### Why is a pin marked "approximate"?
 Until we've placed a listing's street address, its pin sits in the middle of its ZIP area. When you open it on the map, we look the address up and move the pin if it matches. Rural addresses don't always match an exact spot. Mileposts, roads without numbers and mail-only addresses are examples. When we can only place a listing near where it is, we say so.
