@@ -731,6 +731,13 @@ This matches Jason's concept (2026-09-29): the title top left, the Link button t
   They wrap upward on the right when there are many (a listing).
 - **A soft shade** along the bottom keeps the words and buttons readable over a bright photo. The full-width band is
   gone.
+- **A tap on a hero photo opens it in a lightbox:**
+  - full screen, at full size, with its credit or caption under it;
+  - with several photos, "2 of 5" plus arrows, swiping and the arrow keys;
+  - closes with ×, Esc or a tap outside the photo.
+
+  Photos that link to a journey (Let's Explore) still open the journey. Videos play in place. Buttons and links on
+  the hero never open it.
 - **On landmark and outdoor place cards, the action icons** (map, directions, call, Wikipedia) are pinned in a column
   under the Link button: the same 30px, the same right edge, an even gap. They used to start with the text and crowd
   the Link button.
