@@ -707,6 +707,12 @@ shows". Jason corrected it the same day; this is the rule.)
 - **An Editor opens a nation's public place by adding it by hand,** with the link to the nation's own page that lists
   it. It shows at once. Without that link, or for a Content Creator, it's refused.
 - **Staff can still hide anything,** and close a place when a nation asks.
+- **Admin → Landmarks has three tabs, by who decided:**
+  - **Public:** what shows, whether from the data or added by hand. Tags say "Added by hand" and "Opened by a person".
+  - **Hidden by us:** staff hid it, with a reason.
+  - **Closed by a nation:** the nation asked.
+
+  One line under the tabs counts what's kept, unused, until the nation tools.
 - **The data stays;** nothing is deleted.
 - **One switch:** `Landmarks::NATION_TOOLS` (false). Every reader of landmarks uses `Landmarks::visibleSql()` /
   `visible()` (shown or approved). Turning the switch on brings back the Waiting tab and approving with evidence.
