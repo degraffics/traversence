@@ -90,11 +90,15 @@ Yes. Search for words like **badlands**, **arch**, **crater**, **hot springs**, 
 
 ### Why don't some landmarks on tribal land show?
 Tribal nations are sovereign nations, and each decides what visitors are welcome to see on its land. On a nation's land we show only its public places, the ones the nation itself lists for visitors (like Four Corners Monument), and public businesses. Other places there aren't shown. We never show the location of sacred or restricted sites, and anything a nation asks us to close is closed at once.
+
+### Where do I find parks and landmarks?
+In **Let's Explore**, open **Parks & Landmarks**. National parks, monuments and historic sites come first. Under them are natural landmarks like arches, buttes, canyons and falls: the ones near the place you're exploring, or, with no place chosen, the best-known ones with photos. Tap one for its page. Data from the National Park Service itself is coming.
+
+### What does Peek do in search?
+Tapping a result opens its page. A listing also has a **Peek** button: tap it for a quick card with the address, Call and Directions, without leaving the page you're on.
+
 ### How do I add a photo of a place?
 On a place or a business with no photos yet, tap **Share a photo** at the top. It starts a journey with the place already filled in: add your photos and a few words, and publish. Once it's published, your photo shows at the top of that page, credited to you. A business's own photos come first, and visitors' photos follow them. Places on a tribal nation's land follow the nation's rules for photos and pins.
-
-### How do I get back to the page I was on?
-On a phone, the bar under the top of the page starts with **‹** and the name of the page you came from: tap it to go back. Tap **☰** to see **Recently viewed**, your last few pages. This list stays on your phone, in this browser tab only; we don't keep it.
 
 ### Why do some names look different from other sites?
 Some listings come from public data that shortens words, like "Visitor Ctr" or "Natl Pk". We show them in full ("Visitor Center", "National Park"). Once a business claims its listing, we show the name exactly as the owner writes it.

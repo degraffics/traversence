@@ -821,12 +821,31 @@ back, and better:
   journeys, the Wikimedia photo is the hero.
 - **A search box on phones.** The top bar shows a box ("Search places, listings…") between the logo and the bell,
   instead of a lone magnifier. A tap opens the full search panel.
-- **Finding your way back (phones).** Moving between a place, an outdoor place and a listing was easy to get lost in;
-  people went home to start again. Now:
-  - **Back chip:** the tool bar starts with "‹ <the page you came from>". It uses the browser's own back, so you land
-    where you were on that page.
-  - **Recently viewed:** the ☰ list ends with your last 5 pages.
-  - **The trail is this tab's own,** kept on the device (`sessionStorage`), never sent or stored by us.
+- **Finding your way back (phones): tried, then taken out.** A Back chip ("‹ <the page you came from>") at the start of
+  the tool bar and a "Recently viewed" list in ☰ were built, then reverted the same day: they didn't work as Jason
+  wanted. The phone's own Back is the way back for now. Waiting on Jason's thoughts before trying again.
+
+### 32. Parks & Landmarks; search results open the page
+
+- **Parks & Landmarks.** The "National Parks" tab under the Explore hero is now **Parks & Landmarks** (still
+  `?view=parks`), and so is its entry in the Let's Explore tools.
+  - **Parks first:** the hero carousel keeps the National Park Service units from Recreation.gov and the park,
+    monument and landmark listings.
+  - **Then landmarks:**
+    - with a place chosen, "Landmarks near <place>": `Landmarks::near()` within 40 miles, ones with a photo or an
+      article first;
+    - with no place, "Natural landmarks": `Landmarks::top()`, the best-known ones with a photo.
+  - Each card links to `/place/landmark.php?id=` and shows its photo (credited, Wikimedia Commons) or the brand's art,
+    its kind and the town it's near, and with a place, how far.
+  - Only what people can see (`Landmarks::visibleSql()`): never waiting or closed, and on a nation's land only what the
+    nation opened (§26, §27).
+  - National Park Service data (NPS API) comes later, once there's a key in Railway.
+- **Search results open the page.** Tapping a listing in the search panel opened its peek card, not its page. Now:
+  - the row opens the page;
+  - only the row's **Peek** button opens the peek card (a pill; Enter or Space works on it too);
+  - Enter in the search box opens the first result's page.
+- **Phone width fix:** the place picker kept its laid-out size when hidden if Tailwind's `hidden` hadn't loaded, which
+  could make the page scroll sideways. It now has its own `#location-modal.hidden{display:none}` and `border-box`.
 
 ## Consequences
 
@@ -961,8 +980,7 @@ pages, boundary checks on Recreation.gov places, experiences and journey pins, a
 1. Directions on our map with OpenRouteService (§30), once `ORS_API_KEY` is in the site's `.env`.
 1. Rebuild the admin dashboard and its menu, with Search index, Recreation and the data pages in it.
 2. Boundary checks on Recreation.gov places and experiences on nation land (§26).
-3. National Parks vs landmarks: the proposed "Parks & Landmarks" tab from National Park Service data. Waiting on
-   Jason's yes and an NPS key in Railway.
+3. Parks & Landmarks is built (§32). National Park Service data still waits on an NPS key in Railway.
 4. Temporarily closed places (seasonal, weather, a nation's closure notice): proposed, not decided.
 5. Nation accounts (the nation tools), which turn `Landmarks::NATION_TOOLS` on.
 
