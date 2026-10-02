@@ -847,6 +847,21 @@ back, and better:
 - **Phone width fix:** the place picker kept its laid-out size when hidden if Tailwind's `hidden` hadn't loaded, which
   could make the page scroll sideways. It now has its own `#location-modal.hidden{display:none}` and `border-box`.
 
+### 33. Wider screens: your account at the person icon; the hero as on a phone
+
+- **Your account at the top bar.** On wider screens the name-and-role block at the top of the toolbar is gone. It now
+  lives at the top bar's person icon:
+  - a **click** on the icon opens your dashboard;
+  - **hovering** it (or ArrowDown from the keyboard) opens the menu: who you are and the role you're acting as, the
+    roles you can switch to, Your profile, Dashboard and Sign out.
+  - Phones are unchanged: your initial at the right of the tool bar opens the same menu.
+  - `includes/header.php` renders the menu once (`tv_context_switcher(false)`); the toolbar's button uses it on phones.
+- **The hero, as on a phone.** On wider screens the hero runs flush with the top bar and the toolbar, with square
+  corners, and its tabs run full width under it. Its height fits the screen (300 to 480px, half the window) instead
+  of a wide 21:9 frame that filled the screen on a big monitor.
+- **No photos, a smaller hero.** With no photos or video at all, the hero shrinks to a band (12.5rem; 14rem on a
+  phone) that holds the title, the line under it, "be the first to share one" and the buttons.
+
 ## Consequences
 
 - New columns: `journeys.entity_id` and `journeys.submitted_at`, and `age_confirmations.min_age`. Two new staff roles

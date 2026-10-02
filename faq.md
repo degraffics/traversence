@@ -94,6 +94,9 @@ Tribal nations are sovereign nations, and each decides what visitors are welcome
 ### Where do I find parks and landmarks?
 In **Let's Explore**, open **Parks & Landmarks**. National parks, monuments and historic sites come first. Under them are natural landmarks like arches, buttes, canyons and falls: the ones near the place you're exploring, or, with no place chosen, the best-known ones with photos. Tap one for its page. Data from the National Park Service itself is coming.
 
+### How do I switch between my accounts or roles?
+If you help run a business, or you're on the Traversence team, you can act as yourself or in that role. On a computer, hover over the person icon at the top right: the menu shows who you're acting as and the roles you can switch to. Clicking the icon opens your dashboard. On a phone, tap your initial at the right of the bar under the top of the page.
+
 ### What does Peek do in search?
 Tapping a result opens its page. A listing also has a **Peek** button: tap it for a quick card with the address, Call and Directions, without leaving the page you're on.
 
