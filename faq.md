@@ -91,7 +91,7 @@ Yes. Search for words like **badlands**, **arch**, **crater**, **hot springs**, 
 ### Why don't some landmarks on tribal land show?
 Tribal nations are sovereign nations, and each decides what visitors are welcome to see on its land. On a nation's land we show only its public places, the ones the nation itself lists for visitors (like Four Corners Monument), and public businesses. Other places there aren't shown. We never show the location of sacred or restricted sites, and anything a nation asks us to close is closed at once.
 ### How do I add a photo of a place?
-On a place or a business with no photos yet, tap **Share a photo** at the top. It starts a journey with the place already filled in: add your photos and a few words, and publish. Once it's published, your photo shows at the top of that page, credited to you. A business's own photos, once it adds them, come first. Places on a tribal nation's land follow the nation's rules for photos and pins.
+On a place or a business with no photos yet, tap **Share a photo** at the top. It starts a journey with the place already filled in: add your photos and a few words, and publish. Once it's published, your photo shows at the top of that page, credited to you. A business's own photos come first, and visitors' photos follow them. Places on a tribal nation's land follow the nation's rules for photos and pins.
 
 ### Can I see a place's photo bigger?
 Yes. Tap the photo at the top of a place, a listing or a profile to open it full screen, with its credit. If there are several, swipe or use the arrows to move between them. You can like it, share it or go to the comments from there too. Tap outside the photo, or ×, to close it.
