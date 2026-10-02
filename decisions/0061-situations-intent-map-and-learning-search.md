@@ -412,3 +412,61 @@ from what the words mean (`api/lib/SituationReasoner.php`, rule-based, no AI):
   Analyze open, so the current predictions show. No new SQL: the outcome column already takes these names.
 - **Fixed:** a search with a town chosen (a town has no place key of its own) was counted under "No place set". It
   now counts under its town area.
+
+### Progress, 2026-10-02: Batch 3, search that learns and the crawler's tiers
+
+Migration `2026-10-23_search_learning.sql`: `search_opens`, `search_learned`, `situation_sources`, `situation_gaps`.
+Code: `api/lib/Learning.php`, `api/crawl/learn.php`, Admin → Search tools → **Learning** (`admin/search-learning.php`).
+
+- **Opens.** Opening something from the results or from a prediction sends one count per thing per search. The site
+  turns it into a kind (the category of what was opened) and stores it by words, area and day. Never who.
+- **Learned completions.** Phrases searched 3 or more times in 90 days, that found something, and made only of words
+  we know: category names, situation phrases and taught meanings, so never a business's name. They lead the
+  completions ("pizza" → "pizza delivery").
+- **Confidence (0 to 1)**, as specified above. A mapping is one set of words leading to one kind of thing; it's scored
+  once 2 or more opens share the words. The four signals:
+  - **Behaviour × 0.45:** the Wilson lower bound of opens over searches.
+  - **Sources × 0.25:** websites in `situation_sources`; 3 or more is full.
+  - **Words × 0.20:** the share of the words found in the kind, the need and the situation.
+  - **Stability × 0.10:** 14 or more days, or 3 or more areas.
+
+  The gates: 10 or more searches, and at least one listing of that kind with a phone. Each mapping carries a "why"
+  line.
+- **Publishing and retiring.**
+  - At 0.85 or more a mapping shows as **May also help** under the results. At 1.00 it's **Published**: it leads as
+    **Most opened**, and when it serves a situation the words become one of its phrases (`situation_triggers.source =
+    'learned'`).
+  - A mapping that was shown and falls below 0.85 is **Retired** on its own (its learned phrase removed), and comes
+    back if its score recovers.
+  - A person can hold any mapping at a status, or let learning decide again.
+  - The situation a mapping serves: the one its words already read as, or else the one whose label, need or own
+    phrases share the most words with it ("car wont go" → Dead battery or won't start, through "car wont start").
+    Never a danger situation, so learned words never bring the 911 line.
+- **Note on the thresholds:** a Wilson lower bound never reaches 1, so Published (1.00) can't be reached by
+  behaviour alone, and words that share none of their words with the kind ("sunday service" → Churches) top out
+  near 0.79. They show only once the thresholds come down. That is the cautious start this ADR asked for; Jason to
+  decide when to lower them.
+- **The pass runs every 6 hours**, from the worker's check-in, or now from Admin.
+- **Situation gaps.** Areas that searched a situation 3 or more times in 30 days, and each of its needs with
+  nothing within 25 miles.
+  - **Tier 1:** a gap that open data covers becomes a crawl job (`crawl_jobs.group_label = 'sit:<need key>'`; the key
+    is stable across seed refreshes). The job carries its own OpenStreetMap filters, plus Wikidata classes for
+    official places (hospital, police, fire station, post office, library, courthouse, pharmacy). Wikidata is
+    queried by SPARQL within 40 km. Findings go through the usual staging and guardrails, and each website they came
+    from is a Tier 1 source.
+  - **Tier 2:** gaps with no open dataset, whose job found nothing, or still unanswered a week later. Web search at
+    most once a month each, and also for mappings people use (behaviour 0.5 or more) that no outside source names
+    yet. Only .gov, .edu, state and local .us sites, and sources marked "Read regularly" count; each page must name
+    the need and one of the area's towns ("Saint" and "St." both count). Every kept page joins Sources, and one that
+    lists 3 or more phone numbers is read regularly from then on.
+- **The missing report.** Oversight has a **What's missing, by area** card (words that found nothing, 3 or more
+  times), and its "What changed" lists what learning published, showed or retired, with the score.
+- **Token windows.** The Learning tab lists "… help" and "help with …" searches, marking the words search doesn't know
+  yet.
+- **Checked** in the SQLite sandbox, with the worker run against the site using fixtures:
+  - a Tier 1 job found a tyre shop and recorded openstreetmap.org as a source;
+  - Tier 2 kept a county .gov page and made it a source read regularly, while a Yelp result was refused;
+  - a mapping went to May also help and then retired when opens fell;
+  - holding one Published added and removed its phrase.
+
+  Learning's and the admin pages' queries were also run on MariaDB.

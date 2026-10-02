@@ -20,6 +20,10 @@ that have only one source and looks each up by name, address and city:
     chamber of commerce, well-known directory (BBB, Yelp, Yellow Pages, Healthgrades...), government,
     the place's own website, or another website. Each website counts once.
 The site decides what the references are worth and re-runs the guardrails.
+Search that learns (decisions/0061): GET /api/crawl/learn.php runs the site's learning pass when due and hands
+out a few Tier 2 web searches for situation gaps open data couldn't fill; pages on .gov, .edu, state and local .us
+sites or sources we read go back with POST /api/crawl/learn.php. Situation gaps open data covers arrive as ordinary
+jobs ("sit:..."), bringing their own OpenStreetMap filters and Wikidata classes (Tier 1).
 The run stops at whichever budget comes first: JOBS_PER_RUN jobs, MAX_FETCHES website fetches, or
 TIME_BUDGET seconds. Unfinished jobs simply go back to the queue when their lease expires.
 
@@ -36,6 +40,8 @@ Settings (environment variables):
                        second look uses the NPI Registry only
   BRAVE_API_KEY        Brave Search API key, used instead when there is no Tavily key (paid)
   MAX_SEARCHES         web searches per run, default 10
+  LEARN_PER_RUN        Tier 2 web searches for situation gaps per run, default 3 (0 turns it off)
+  LEARN_TIME           seconds of each run for them, default 45
   NPI_BULK             "off" stops the monthly NPI Registry load (default on). When the site says a load is due
                        (every 30 days), that run downloads CMS's full NPI file (about 1 GB), keeps health-care
                        organizations in the site's states, sends them in batches, and skips the rest of the run.
@@ -82,6 +88,9 @@ TAVILY_API_KEY = os.environ.get("TAVILY_API_KEY", "")
 BRAVE_API_KEY = os.environ.get("BRAVE_API_KEY", "")
 SEARCH_ON = bool(TAVILY_API_KEY or BRAVE_API_KEY or os.environ.get("SEARCH_FIXTURE"))
 MAX_SEARCHES = int(os.environ.get("MAX_SEARCHES", "10"))
+LEARN_PER_RUN = int(os.environ.get("LEARN_PER_RUN", "3"))         # Tier 2 web searches for situation gaps per run (decisions/0061); 0 turns it off
+LEARN_TIME = int(os.environ.get("LEARN_TIME", "45"))
+WIKIDATA_SPARQL = "https://query.wikidata.org/sparql"
 SOURCE_TIME = int(os.environ.get("SOURCE_TIME", "60"))            # seconds per run for reading one of our sources
 SOURCE_PAGES = int(os.environ.get("SOURCE_PAGES", "25"))          # pages read per source
 REFRESH_PER_RUN = int(os.environ.get("REFRESH_PER_RUN", "3"))     # live listings refreshed from their own website per run
@@ -167,7 +176,8 @@ def overpass(job):
     pts = [p for p in job["place"].get("zip_points", []) if p.get("lat") is not None] or \
           [{"lat": job["place"]["center"]["lat"], "lon": job["place"]["center"]["lon"]}]
     parts = []
-    for q in GROUP_QUERIES.get(job["looking_for"]["group"], []):
+    # a situation gap's job brings its own filters (decisions/0061); the Support & wellness groups use ours
+    for q in job["looking_for"].get("osm") or GROUP_QUERIES.get(job["looking_for"]["group"], []):
         for p in pts:
             parts.append(f'{q}["name"](around:{ZIP_RADIUS_M},{p["lat"]},{p["lon"]});')
     query = "[out:json][timeout:60];(" + "".join(parts) + ");out center tags 80;"
@@ -185,6 +195,52 @@ def overpass(job):
         except (urllib.error.URLError, TimeoutError, ValueError) as e:
             tried.append(f"{urllib.parse.urlparse(url).netloc} {e!r}"[:160])
     raise RuntimeError("OpenStreetMap lookup failed: " + " | ".join(tried))
+
+
+def wikidata(job):
+    """Tier 1 open data (decisions/0061): Wikidata items of the job's classes (a hospital, a post office...) within
+    40 km of the area, as OpenStreetMap-like elements so candidate() reads them the same way."""
+    classes = job["looking_for"].get("wikidata") or []
+    if not classes:
+        return []
+    if os.environ.get("WIKIDATA_FIXTURE"):
+        with open(os.environ["WIKIDATA_FIXTURE"]) as f:
+            rows = json.load(f).get("results", {}).get("bindings", [])
+    else:
+        c = job["place"]["center"]
+        if c.get("lat") is None:
+            return []
+        values = " ".join("wd:" + q for q in classes if re.fullmatch(r"Q\d+", q))
+        query = f"""SELECT ?item ?itemLabel ?coord ?website ?phone WHERE {{
+  VALUES ?cls {{ {values} }}
+  SERVICE wikibase:around {{ ?item wdt:P625 ?coord . bd:serviceParam wikibase:center "Point({c['lon']} {c['lat']})"^^geo:wktLiteral .
+                             bd:serviceParam wikibase:radius "40" . }}
+  ?item wdt:P31/wdt:P279* ?cls .
+  OPTIONAL {{ ?item wdt:P856 ?website . }}
+  OPTIONAL {{ ?item wdt:P1329 ?phone . }}
+  SERVICE wikibase:label {{ bd:serviceParam wikibase:language "en" . }}
+}} LIMIT 60"""
+        req = urllib.request.Request(WIKIDATA_SPARQL + "?" + urllib.parse.urlencode({"query": query, "format": "json"}),
+                                     headers={"User-Agent": UA, "Accept": "application/sparql-results+json"})
+        try:
+            with urllib.request.urlopen(req, timeout=60) as r:
+                rows = json.loads(r.read().decode("utf-8")).get("results", {}).get("bindings", [])
+        except Exception as e:                     # Wikidata busy: OpenStreetMap's answer still counts
+            log(f"  wikidata: {e!r}"[:200])
+            return []
+    out, seen = [], set()
+    for b in rows:
+        item = b.get("item", {}).get("value", "")
+        name = b.get("itemLabel", {}).get("value", "")
+        m = re.match(r"Point\(([-\d.]+) ([-\d.]+)\)", b.get("coord", {}).get("value", ""))
+        if not m or not name or re.fullmatch(r"Q\d+", name) or item in seen:
+            continue                                # no English name: skip
+        seen.add(item)
+        qid = item.rsplit("/", 1)[-1]
+        out.append({"type": "wikidata", "id": qid, "lat": float(m.group(2)), "lon": float(m.group(1)),
+                    "url": "https://www.wikidata.org/wiki/" + qid,
+                    "tags": {"name": name, "website": b.get("website", {}).get("value", ""), "phone": b.get("phone", {}).get("value", "")}})
+    return out
 
 
 def miles(a, b, c, d):
@@ -265,17 +321,17 @@ def candidate(el, job):
             return None                     # not inside this cluster
         zp = min(near)[1]
     towns = job["place"]["towns"]
-    osm_url = f"https://www.openstreetmap.org/{el['type']}/{el['id']}"
+    osm_url = el.get("url") or f"https://www.openstreetmap.org/{el['type']}/{el['id']}"   # Wikidata items bring their own page
     kind = next((t.get(k) for k in ("amenity", "healthcare", "social_facility", "club") if t.get(k) in KIND_WORDS), None)
     street = " ".join(x for x in (t.get("addr:housenumber"), t.get("addr:street")) if x)
     website = t.get("website") or t.get("contact:website") or t.get("url") or ""
     phone = t.get("phone") or t.get("contact:phone") or ""
     c = {
         "name": name,
-        "source": {"start_url": osm_url, "site": "openstreetmap.org", "crawled_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())},
+        "source": {"start_url": osm_url, "site": host_of(osm_url) or "openstreetmap.org", "crawled_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())},
         "where": {"address": street, "city": t.get("addr:city") or (towns[0]["town"] if towns else ""),
                   "state": t.get("addr:state") or (towns[0]["state"] if towns else ""), "zip": zp},
-        "what": {"offerings": [KIND_WORDS[kind]] if kind else [], "description": ""},
+        "what": {"offerings": [KIND_WORDS[kind]] if kind else list(job["looking_for"].get("offerings") or [])[:3], "description": ""},
         "when": {"hours": [t["opening_hours"]] if t.get("opening_hours") else []},
         "actions": {"phone": phone, "website": website},
         "sources": {"name": [osm_url], "address": [osm_url]},
@@ -599,6 +655,58 @@ def read_source(deadline):
         uniq.setdefault((f["name"].lower(), re.sub(r"\D", "", f["phone"])[-10:], f["address"][:20].lower()), f)
     res = site_call("/api/crawl/sources.php", {"host": host, "pages": pages, "facts": list(uniq.values())})
     log(f"read source {host}: {pages} page(s), {len(uniq)} place(s) found, {res.get('kept', 0)} kept")
+
+
+# ---------------------------------------------------------------------------------------------------
+# Search that learns, Tier 2 (decisions/0061): a web search for a situation gap Tier 1 couldn't fill, or for
+# outside sources naming what people open after some words. Only .gov, .edu, state and local .us sites, and
+# sources a person marked "Read regularly" count; each useful page becomes a source on the site.
+# ---------------------------------------------------------------------------------------------------
+
+ALLOWED_RE = re.compile(r"\.(gov|edu)$|\.gov\.|\.[a-z]{2}\.us$")
+LIST_PHONE_RE = re.compile(r"\(?\b\d{3}\)?[-. ]\d{3}[-. ]\d{4}\b")   # phone numbers a page lists
+
+
+def allowed_host(host, read):
+    host = host.lower().removeprefix("www.")
+    return bool(ALLOWED_RE.search(host)) or any(host == r or host.endswith("." + r) for r in read)
+
+
+def learn(deadline):
+    d = site_call(f"/api/crawl/learn.php?limit={LEARN_PER_RUN}")
+    if d.get("paused"):
+        return
+    if d.get("learned"):
+        log(f"learning: {d['learned'].get('scored', 0)} scored, {d['learned'].get('changed', 0)} changed")
+    read = d.get("domains") or []
+    for t in d.get("tasks", []):
+        if time.monotonic() > deadline or out_of_time() or not SEARCH_ON:
+            break
+        words_needed = [w.lower() for w in t.get("need_words") or []]
+        towns = []
+        for x in t.get("towns") or []:                # "Saint Johns" is often written "St. Johns", and the other way round
+            x = x.lower()
+            towns += [x] + ([re.sub(r"^saint ", v, x) for v in ("st. ", "st ")] if x.startswith("saint ") else []) \
+                + (["saint " + x[len(m.group(0)):]] if (m := re.match(r"^st\.? ", x)) else [])
+        pages = []
+        for r in search(t["query"]):
+            host = host_of(r["url"])
+            if not host or not allowed_host(host, read):
+                continue
+            text = (r.get("title", "") + " " + r.get("snippet", "")).lower()
+            # the page is about this: the need's words, and for a gap one of the area's towns
+            if words_needed and not any(w in text for w in words_needed):
+                continue
+            if towns and not any(tw in text for tw in towns):
+                page = fetch_page(r["url"])
+                if not page or not any(tw in page_text(page).lower() for tw in towns):
+                    continue
+            else:
+                page = fetch_page(r["url"])
+            places = len({re.sub(r"\D", "", p) for p in LIST_PHONE_RE.findall(page_text(page))}) if page else 0
+            pages.append({"url": r["url"], "title": r.get("title", "")[:190], "places": places})
+        res = site_call("/api/crawl/learn.php", {"task": t["task"], "id": t["id"], "pages": pages[:10]})
+        log(f"learning: {t['task']} {t['id']} \"{t['query']}\": {len(pages)} official page(s), {res.get('kept', 0)} kept")
 
 
 # ---------------------------------------------------------------------------------------------------
@@ -1307,6 +1415,11 @@ def run():
             refresh_listings(time.monotonic() + REFRESH_TIME)
         except Exception as e:                     # refreshing never stops the crawl jobs
             log(f"refresh stopped: {e!r}"[:300])
+    if LEARN_PER_RUN > 0:
+        try:
+            learn(time.monotonic() + LEARN_TIME)
+        except Exception as e:                     # learning never stops the crawl jobs
+            log(f"learning stopped: {e!r}"[:300])
     if SOURCE_TIME > 0:
         try:
             read_source(time.monotonic() + SOURCE_TIME)
@@ -1324,7 +1437,7 @@ def run():
             log(f"job {jid}: out of time, left for its lease to return it")
             break
         try:
-            elements = overpass(job)
+            elements = overpass(job) + wikidata(job)   # Tier 1: OpenStreetMap, and Wikidata for official places
             seen, cands = set(), []
             for el in elements:
                 if len(cands) >= MAX_PER_JOB or out_of_time():
@@ -1335,7 +1448,7 @@ def run():
                     cands.append(c)
             res = site_call("/api/crawl/results.php", {"job_id": jid, "candidates": cands, "pages": fetches,
                                                        "log": [f"osm elements: {len(elements)}", f"candidates: {len(cands)}"]})
-            log(f"job {jid} {job['looking_for']['group']} in {job['place']['name']}: {len(elements)} OSM, "
+            log(f"job {jid} {job['looking_for']['group']} in {job['place']['name']}: {len(elements)} open-data, "
                 f"{len(cands)} sent -> {res.get('auto_imported', 0)} published, {res.get('staged', 0)} to review")
         except Exception as e:                     # report and let the queue retry it
             log(f"job {jid}: {e!r}")
