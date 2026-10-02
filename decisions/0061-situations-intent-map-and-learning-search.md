@@ -319,3 +319,29 @@ grammar, no AI. Each W and how it's read:
   ("commercial plumber for kids" → "…kids are bored"): with three words or more that aren't a situation's own, a
   completion now carries on at least two of the last words. "Plumber near Lyman Lake" with none within 15 miles was
   a dead end: what's beyond the landmark now follows, nearest first (decisions/0060, never only local).
+
+### Progress, 2026-10-02: the meaning layer (Jason: "bite by something" missed the context)
+
+Phrases alone mean someone has to list every wording. Now, when no phrase in the map matches, search reads a situation
+from what the words mean (`api/lib/SituationReasoner.php`, rule-based, no AI):
+
+- **Meaning classes** for words in all their forms: events (*harm*: bite, bit, bitten, stung, cut, burned, fell,
+  swollen…; *broken*: broke, leaking, clogged, frozen, died, won't start…; *lost*: lost, missing, can't find,
+  stolen…; *stuck*; *without*: out of, ran out, no, can't pay…; *smell*; *sick*; *help*: help with, need help…) and
+  things (*creature*, *venomous*, *body*, *tooth*, *pet*, *vehicle*, *tire*, *battery*, *plumbing*, *water*, *power*,
+  *heating*, *roof*, *device*, *keys*, *house*, *job*, *money*, *food*, *meds*, *fuel*, *smoke*, *road*, *internet*,
+  *taxes*, *legal*, *move*).
+- **Grammar cues:** "by" names what did it ("bit by something", "bit by my dog"); "my"/"our" marks what's theirs
+  ("my dog got bit" is the pet's; "my dog bit me" is the person's); "got", "was", "I" make a weak verb count ("got
+  cut" is a harm, "cut" alone could be a haircut); "a bit" is an amount, never a bite.
+- **Event frames**, first match wins, e.g. harm + venomous → Someone is hurt (911 line); harm + pet (theirs) → Pet is
+  sick or hurt; harm + creature or body → An injury; broken + plumbing → Leak or burst pipe; vehicle + died / won't
+  start → Stuck on the road; lost + keys → Locked out; out of + gas → Gas for the car; help + taxes → Taxes.
+- Each reading carries its reasoning, shown by ✦ Analyze ("'bite' is a harm done to someone, and 'something' says
+  what did it: an injury ('by' names what did it)"); it also leads Go straight to while typing.
+- Phrases still win when one matches. Checked against a regression set: "broken arrow", "snake river", "fire
+  station", "cat food", "dog grooming", "a bit of help" read as before.
+- **Side fixes:** a real word the directory uses ("kitchen") is never "corrected" to one of ours ("kitten");
+  "taxes", "churches" reduce to "tax", "church"; words that already name a situation get only that situation's
+  completions ("bite by something" isn't "…to eat").
+- Next: the meaning classes and frames editable in Admin (Teach search), so new kinds of event or thing need no code.
