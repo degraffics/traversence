@@ -242,3 +242,15 @@ grammar, no AI. Each W and how it's read:
   places, stories, explore listings), never a business only named for it ("Landmark Homes"), and skip the "none here"
   business box. "Check out", "worth the drive", "worth seeing", "must see", "should visit" read as Why: explore.
 - **A landmark needs a name:** "pizza near the park" isn't "near Park Service".
+
+### Progress, 2026-10-02: predictions only while typing; tools fold on phones (Jason)
+
+- **While typing, only the predictions show:** the "Search for …" line, the completions, and Go straight to (with a
+  situation's preview answer). Results, Suggestions, Quick Search, Recent Searches, "Did you mean" and the person row
+  wait until a prediction is tapped or Enter is pressed. The search no longer runs on a pause: less load, and nothing
+  half-read on screen ("need so" no longer says "Did you mean feed so"). This replaces the 700ms pause above.
+- **On a phone, the search tools fold into one line** that says what they're set to ("The Greater St. Johns Area · All
+  · 50 mi ▾"). A tap opens Location, Search Directory and Distance; the choice is kept in this browser.
+- **Completions keep to the situation the words already name:** "need gas" is a new situation, **Gas for the car**
+  (gas stations, propane), and is offered "…station", never "…leak"; "where can i park" still carries on to
+  "…overnight for free". The situation the words exactly name leads Go straight to. Seed version 7.
