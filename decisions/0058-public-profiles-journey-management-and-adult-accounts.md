@@ -732,7 +732,8 @@ This matches Jason's concept (2026-09-29): the title top left, the Link button t
 - **A soft shade** along the bottom keeps the words and buttons readable over a bright photo. The full-width band is
   gone.
 - **A tap on a hero photo opens it in a lightbox:**
-  - full screen, at full size, with its credit or caption under it;
+  - full screen, at full size, with its credit or caption under it, over a see-through dark backdrop (the page
+    shows faintly behind, softly blurred);
   - with several photos, "2 of 5" plus arrows, swiping and the arrow keys;
   - closes with ×, Esc or a tap outside the photo;
   - the page's social bar comes along at the bottom (views, Like, Comments, Share, Report): a like made there shows on
