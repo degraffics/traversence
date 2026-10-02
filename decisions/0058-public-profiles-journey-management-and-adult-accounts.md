@@ -767,6 +767,32 @@ profiles, experiences.
 - **Code:** `includes/journey-ui.php` (`tv_journey_card`), the same card in Let's Explore's "More" (`discovery/index.php`),
   and `js/link-button.js`.
 
+### 30. "Share a photo" on places, and directions on our own map (planned)
+
+**Share a photo (built).** The prompt went missing when outdoor place and landmark pages moved onto the hero. It's
+back, and better:
+- **A place with no photo** shows the hero's corner card: "No photos of <place> yet. Be the first to share one", with
+  **Share a photo**.
+- **The button opens the journey editor** with the place, its town area and its pin filled in. The editor reads
+  `?about=`, `key=` and `pin=`; the nation's pin rule (§26) still applies.
+- **That place's hero shows the photos** from published journeys pinned within half a mile of it, or with a photo
+  tagged there: credited, most liked first, mature ones never (`Journeys::heroNear`, the hero's `near` option).
+- A landmark with a Wikimedia Commons photo keeps that photo first.
+
+**Directions on our own map (decided, waiting for a key).** Use OpenRouteService (OpenStreetMap routing: a free key, about
+2,000 routes a day, driving and hiking). The plan:
+- Directions opens our full-screen map with its panel. The route from your location (or a place typed) is drawn on
+  our map, with distance, time and the turns.
+- Warnings with the route:
+  - unpaved or seasonal roads near the end;
+  - "On <nation> land: stay on public roads, follow the nation's rules";
+  - little or no cell service.
+- "Navigate in Google Maps / Apple Maps" stays for live driving. We don't build voice navigation.
+- The site calls OpenRouteService itself (`api/route.php`), so the key stays in the site's `.env`
+  (`ORS_API_KEY`), never in the page. Recent routes are remembered to stay under the limit.
+- Counting stays counts only. No route to anything not public (§27).
+- Until the key is in `.env`, Directions keeps opening Google Maps.
+
 ## Consequences
 
 - New columns: `journeys.entity_id` and `journeys.submitted_at`, and `age_confirmations.min_age`. Two new staff roles
@@ -897,6 +923,7 @@ pages, boundary checks on Recreation.gov places, experiences and journey pins, a
 - The earlier list still applies: Subway pin, address change, "Show", "Sports", "pizza".
 
 **Next session:**
+1. Directions on our map with OpenRouteService (§30), once `ORS_API_KEY` is in the site's `.env`.
 1. Rebuild the admin dashboard and its menu, with Search index, Recreation and the data pages in it.
 2. Boundary checks on Recreation.gov places and experiences on nation land (§26).
 3. National Parks vs landmarks: the proposed "Parks & Landmarks" tab from National Park Service data. Waiting on
