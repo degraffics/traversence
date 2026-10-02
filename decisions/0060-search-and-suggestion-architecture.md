@@ -113,6 +113,10 @@ Typing "Lyman" with the place set to the Greater St. Johns Area searched Lyman, 
   - The rest of the words ("apache trout") put the places that mention them first, never hiding the others.
   - Not an activity: "fish tacos" (dinner), "fish" alone, and a shop's kind typed without a going-word ("fishing bait"
     is the Fishing Bait category).
+  - Going-words can chain ("where can I go stargazing"); question words never rank.
+  - An activity skips the "none here" box and the per-word fallback: Beyond carries it, nearest first. With nothing in
+    reach: "Nothing listed for stargazing near <place> yet. Know a spot? Tell us below."
+  - In whole-word mode a long word (6+ letters, "stargazing") still counts in a place's description.
 - **Beyond** never repeats something already listed in the place (a group with no place shows in both).
 - **The panel's head row** stays on one line on wider screens: Location, Search Directory, then Distance at the top
   right. The slider's last step reads ∞ (no limit).
