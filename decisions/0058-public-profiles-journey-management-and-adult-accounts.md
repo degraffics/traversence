@@ -743,6 +743,14 @@ Recommendations and Personal Insights, outbound API sharing.
 **Next session (2026-10-02, Jason):** rebuild the admin dashboard and its menu. Search index, Recreation and other
 data pages are reached only through links in page text today (Crawler → Overview, Cluster tools).
 
+**Decided 2026-10-02 (Jason): on a nation's land, show only the nation's public places.** Only what the nation
+itself lists for visitors (its parks, museums, events, enterprises), each with the rules visitors miss: permits and
+licenses, fees, where a tribal guide is required, photography and drones, alcohol, the nation's time zone. Each nation is
+approached on its own; the Navajo Nation's Parks & Recreation first, with Four Corners Monument as the pilot. The
+working draft (workflow, data model, nations, Apache County worked example, open questions) is the Claude Doc
+"Sovereign lands: what Traversence shows, and who decides". Still to build: the `nations` table, per-nation rules on
+pages, boundary checks on Recreation.gov places, experiences and journey pins, and nation accounts.
+
 **Housekeeping:**
 - The `claude/magical-clarke-cn5pqi` branch is far ahead of `main`. Merge it when ready.
 - Revoke the GitHub token exposed in the OneDrive repo-local config, if not done.
