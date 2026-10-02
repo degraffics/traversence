@@ -399,3 +399,16 @@ from what the words mean (`api/lib/SituationReasoner.php`, rule-based, no AI):
   or a tap, in its order: completions, the situation's answer (each need and how many it has), then each Go straight
   to row with its kind (Situation, Group, Kind, Town, Listing, Outdoors…). When there's nothing but "Search for…" it
   says so, so a word or phrase can be taught.
+- **Predictions counted (Jason, 2026-10-02):** three more outcomes in `search_outcomes`, recorded against the words
+  as typed (3 letters or more, as they stood at the last prediction; half-typed words on the way aren't counted):
+  - `picked`: a prediction was tapped (not "Search for…").
+  - `left_pred`: the box was closed or cleared, or the page left, with predictions showing but none tapped and no
+    search: the predictions didn't connect.
+  - `left_none`: the same, with only "Search for…" showing: nothing to predict, so something is missing.
+  - Enter, "Search for…" and the directory's own search mark the words as searched.
+
+  Missed searches has a **Predictions while typing** card. It shows totals, and the words most often left, with
+  Picked / Searched / Left (predictions showed) / Left (nothing to predict). ✦ puts the words in Teach search with
+  Analyze open, so the current predictions show. No new SQL: the outcome column already takes these names.
+- **Fixed:** a search with a town chosen (a town has no place key of its own) was counted under "No place set". It
+  now counts under its town area.
