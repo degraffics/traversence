@@ -822,3 +822,32 @@ pages, boundary checks on Recreation.gov places, experiences and journey pins, a
 - The `claude/magical-clarke-cn5pqi` branch is far ahead of `main`. Merge it when ready.
 - Revoke the GitHub token exposed in the OneDrive repo-local config, if not done.
 
+### Open items at the end of the 2026-10-02 session
+
+**To upload, in this order:**
+1. SQL: `2026-10-16_landmarks.sql`, then `2026-10-17_nations.sql`.
+2. Zips: hero-map-search, landmarks, four-corners, location-panel, nations, nation-public-places. The last one replaces
+   nation-switch; skip that one.
+3. Then:
+   - let the worker run its landmarks load (it also sends the nations' boundaries);
+   - rebuild Outdoors in Admin → Search index;
+   - add Four Corners Monument in Admin → Landmarks with the Navajo Nation's own page;
+   - fill in the Navajo Nation in Admin → Nations from its own site.
+
+**To check on the live site:**
+- The worker log for the first landmarks load: Wikidata, Wikipedia and Commons only ran on sample data here.
+- The hero title on the Grants listing, and × on a search's place chip.
+- The location panel fills the phone screen.
+- The Search index page's "Last full build" date updates after a build.
+- The earlier list still applies: Subway pin, address change, "Show", "Sports", "pizza".
+
+**Next session:**
+1. Rebuild the admin dashboard and its menu, with Search index, Recreation and the data pages in it.
+2. Boundary checks on Recreation.gov places and experiences on nation land (§26).
+3. National Parks vs landmarks: the proposed "Parks & Landmarks" tab from National Park Service data. Waiting on
+   Jason's yes and an NPS key in Railway.
+4. Temporarily closed places (seasonal, weather, a nation's closure notice): proposed, not decided.
+5. Nation accounts (the nation tools), which turn `Landmarks::NATION_TOOLS` on.
+
+**Housekeeping:** merge `claude/magical-clarke-cn5pqi` into `main` when ready. Revoke the GitHub token exposed in the
+OneDrive repo-local config, if not done.
