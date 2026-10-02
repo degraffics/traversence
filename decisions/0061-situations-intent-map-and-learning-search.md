@@ -190,3 +190,27 @@ does. Situations follow the same rule, in this order:
 - **2026-10-02, search panel text:** all text in the panel is small (headings .85rem, rows .82rem, second lines
   .72rem; the phone's box stays 16px so iOS doesn't zoom), and the head row's labels never wrap ("Search Directory:"
   on one line). Search logic is on hold: Jason is writing the exact logic he wants, to implement as specified.
+
+## Addendum, 2026-10-02: the 5 W's deterministic parser (Jason's spec)
+
+Jason's "Traversence Search Architecture: 5 W's Deterministic Parser" is adopted as the search logic: syntax over
+grammar, no AI. Each W and how it's read:
+
+| W | Read as | Built |
+|---|---|---|
+| **Why** (read first) | phrases and Why words against the situation map | Phrases match longest first; the situation's own words are used up, so they're never searched as a What. A Why word with no phrase ("stuck in the elevator", "my pipes are leak") offers the situations that use it, never answers: `Situations::ANCHORS`, `Situations::near()`, ranked by the other words they share. Beside other results, only a situation sharing another word is offered ("lost lake" offers nothing). |
+| **What** | the core noun: a category, an everyday word for one, a kind of place or thing to do | The **What gate**: the words left must be ones the directory knows (`whatVocab`: category words, synonyms, kinds, activities, features) or something's name. **The head noun is the What** ("commercial plumber" is a plumber); words before it are **attributes** that put the best first, never required. Known words that together are a kind of thing stay together ("auto parts", "mexican food"). No loose any-word fallback once a What is read. |
+| **Where** | a preposition boundary, the gazetteer, or the session's place | "in/near/at/around", a town at the end, "St/Mt/Ft". New: **a landmark is a Where** ("plumber near Lyman Lake": 15 mi around it, `landmarkNamed`). The place someone set is never changed. |
+| **When** | time and urgency | "now", "tonight", "today", "weekend", a day; "emergency"/"urgent" ("Emergency: open now first") and "24 hour"/"after hours" ("Open now first"). "New" and "upcoming" wait for dates on listings and events. |
+| **Who** | who it's for, or an entity's name | "for kids" and now plain "kids activities" (unless it's a category's own name). A business named outright leads, with **what it offers** and "More like it nearby" (the relational lookup). "Beginners" reads as Learning. |
+
+- **Nothing read:** no list of stray matches ("standing alone on the corner" no longer finds a pregnancy center and
+  portable toilets). "Maybe you mean" offers the situations its Why words point to, with "Name the kind of place or
+  service, or say what's going on".
+- **No Enter gate:** a pause of 700ms does exactly what Enter does. Half-typed words show "Maybe you mean" (where the
+  words are heading: "stuck on the hig" is Stuck on the road), never a dead end.
+- **Seed version 4:** "stuck in the mud / snow / a ditch / sand", "slid off the road"; "get away", "getaway", "need a
+  break", "vacation" (A getaway or day trip); "feel alone", "all alone" (Meeting people).
+- The response carries `parse` (why, what, attrs, where, when, who) so the reading can be checked.
+- Fixed in passing: the panel failed ("Search is unavailable") whenever nothing matched in the place but something did
+  beyond it.

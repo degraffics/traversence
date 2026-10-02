@@ -129,7 +129,8 @@ Yes. Type it the way you'd say it: "new pizza place in town", "a good taco spot 
 
 Search reads each part of what you type for its job, even without a full sentence:
 - **The thing you want**: "plumber", "hardware store", "oil change".
-- **Words that narrow it**: "emergency", "urgent", "24 hour" or "after hours" put places open now first and leave out the ones known to be closed ("emergency plumber"). "Emergency room" is still a place, not a filter.
+- **Words that narrow it**: "emergency", "urgent", "24 hour" or "after hours" put places open now first and leave out the ones known to be closed ("emergency plumber"). "Emergency room" is still a place, not a filter. Other words in front of the thing ("commercial plumber", "heavy duty generator") put the places that mention them first without hiding the rest.
+- **Who it's for**: "for kids", "kids activities", "for seniors", "for veterans"; "for beginners" looks for lessons and classes.
 - **Where**: "in", "near" and "around" mark the place, and so does a town at the end with no little word ("hardware store St Johns"). "St", "Mt" and "Ft" read as Saint, Mount and Fort.
 - **What's going on**: phrases like "power went out" or "stuck on the highway" are situations (below).
 
@@ -147,6 +148,15 @@ As you type, the top of the search panel shows **Go straight to**: what you migh
 
 ### What happens if I search for "help"?
 We ask which help you mean: **help using Traversence** (the Help Center and FAQ) or **help in your place** (assistance, services and support). If you type what kind of help, like "legal help" or "housekeeping help", we search for local services straight away.
+
+### What happens if search can't tell what I mean?
+It says so instead of guessing. You won't get a list of things that just happen to share a word ("standing on the corner" won't find a business with "corner" in its description). If your words point to a situation, like "stuck" or "leaking", it offers those under **Maybe you mean**. Otherwise, name the kind of place or service (plumber, pizza, campground), or say what's going on (stuck in the mud, the power went out). You don't have to press Enter: pause for a moment while typing and the results, or where your words are heading, appear.
+
+### Can I search near a lake, park or landmark?
+Yes. "Plumber near Lyman Lake" searches about 15 miles around the lake. Your own place stays as you set it.
+
+### If I search a business by name, can I find others like it?
+Yes. A business named in full shows first, with what it offers and **More like it nearby**.
 
 ### What if nothing matches all my words?
 If no place has every word you typed, **Suggestions** lists each word on its own with how many it finds, like **Search "hat" · 1 found**. Tap one to search for it.
