@@ -938,6 +938,23 @@ Now:
   must match (singular or plural), and nothing in the person's own place is listed as "nearby". With a town chosen,
   the rest of its area counts as nearby.
 
+### 39. A Distance slider; filters in Quick Search; Suggestions one line each
+
+- **Distance**, beside Search Directory: a slider from **My place only** through 5, 10, 25, 50, 100 and 250 miles to
+  **Everywhere** (the default). It's kept on this device (`tv_reach`) and never changes the place.
+  - My place only: no Beyond list, no "nearby" box.
+  - Miles: everything within that distance of the place's middle, nearest counting most.
+  - Everywhere: the place first, then everything beyond it, nearest first, with no distance cap.
+  - Suggestions as you type follow it too (`reach=` on both tiers).
+- **The filters** (Near me, Open now, Has a phone, Has a website, Favorites) moved from Suggestions to the foot of
+  **Quick Search**, each marked Filter, with ✓ when on. §11's "filters live in the search" now means there.
+- **Suggestions are one line each,** in one column. A long line ends in … and shows in full on hover. The whole line
+  highlights on hover.
+- **A category in Suggestions searches in the panel** ("All Rodeos in Saint Johns, AZ" searches "Rodeos": the place,
+  then beyond). It no longer opens a directory page that may be empty.
+- **Recent Searches** keeps a search when someone means it: Enter, a tapped suggestion, a result they open, or
+  closing the panel on its results. It used to keep only searches that left the page.
+
 ## Consequences
 
 - New columns: `journeys.entity_id` and `journeys.submitted_at`, and `age_confirmations.min_age`. Two new staff roles

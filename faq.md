@@ -80,9 +80,10 @@ Tribal nations are sovereign nations, and we present them that way. We show publ
 Use the search bar at the top of any page. The panel that opens has:
 - **Location** at the top: the place you're searching. Tap ✎ to change it.
 - **Search Directory**: search **All**, or just **Discovery**, the **Directory**, **Community** or the **Marketplace**.
+- **Distance**: slide from **My place only** to **Everywhere** (the default), or pick a distance like 25 miles. Your place stays as you set it.
 - **Search Results** on the left. Each one says which part of the site it's in: **Directory**, **Discovery** or **Community**.
-- **Suggestions** under them, as a list: the categories that match ("All Churches in Saint Johns"), filters like **Open now**, and other searches for the place.
-- **Quick Search** on the right: one-tap searches for the place, with how many each finds, and your own. **Recent Searches** are under them.
+- **Suggestions** under them, one per line: the categories that match ("All Churches in Saint Johns"), each word on its own when nothing has them all, and other searches for the place.
+- **Quick Search** on the right: one-tap searches for the place, with how many each finds, your own, and the filters (**Near me**, **Open now**, **Has a phone**, **Has a website**, **Favorites**). **Recent Searches** are under them.
 - **Show in directory list** opens your results as a list.
 
 ### Can I search for sports, like football or basketball?
@@ -169,7 +170,7 @@ The map remembers the style you chose.
 The search tells you: "No 'pizza' in St. Johns yet." You can **Recommend one**, or **Add a listing** if it's yours. Below that, it shows the nearest towns that do have it, nearest first. Tap one to see it on the map with what's around it.
 
 ### How do I filter the directory?
-Tap the search at the top. Under the results, **Suggestions** has the filters: **Near me**, **Open now**, **Has a phone**, **Has a website** and **Favorites** (businesses you linked or saved). Whatever is narrowing the list shows under the title; tap × to remove it.
+Tap the search at the top. At the foot of **Quick Search** are the filters: **Near me**, **Open now**, **Has a phone**, **Has a website** and **Favorites** (businesses you linked or saved). Whatever is narrowing the list shows under the title; tap × to remove it.
 
 ### How do I change where I'm looking?
 Tap the place at the top left of the directory (📍 and the place name) and choose another.
