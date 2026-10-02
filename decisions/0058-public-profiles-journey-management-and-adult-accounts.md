@@ -718,6 +718,20 @@ shows". Jason corrected it the same day; this is the rule.)
   `visible()` (shown or approved). Turning the switch on brings back the Waiting tab and approving with evidence.
 - **Not yet covered:** boundary checks on Recreation.gov places and experiences (§26 "Still to build").
 
+### 28. A clean hero: credit bottom left, buttons bottom right
+
+This matches Jason's concept (2026-09-29): the title top left, the Link button top right, and the photo left clear.
+
+- **The photo's credit** ("Photo: Autopilot, CC BY-SA 3.0", or a journey's caption and author) is small words in
+  the bottom-left corner, with no card.
+- **"No photos yet"** shrinks to a line and a small "Share a journey" button in the same corner.
+- **The page's buttons** (views, likes, comments, Share, Save, Claim, Photos & video) sit in the bottom-right corner.
+  They wrap upward on the right when there are many (a listing).
+- **A soft shade** along the bottom keeps the words and buttons readable over a bright photo. The full-width band is
+  gone.
+- **Code:** `includes/explore-hero.php` (CSS only), so every hero follows: places, listings, profiles, landmarks,
+  outdoor places, Let's Explore.
+
 ## Consequences
 
 - New columns: `journeys.entity_id` and `journeys.submitted_at`, and `age_confirmations.min_age`. Two new staff roles
