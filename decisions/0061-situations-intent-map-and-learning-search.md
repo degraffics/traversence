@@ -281,3 +281,25 @@ grammar, no AI. Each W and how it's read:
   HAVING and ORDER BY arithmetic, which MySQL refuses (error 1247, "reference to group function"); the sandbox's
   SQLite allowed it. The totals are now written out, a database error shows on the page instead of a blank one, and
   the query was checked against MariaDB.
+
+### Progress, 2026-10-02: the situation editor (batch 2, first part), in Missed searches
+
+- **Teach search** at the top of Admin → Missed searches: type what someone might search and it says how search
+  reads it now ("Search reads this as A restroom" / "can't tell what this means yet" / "finds 12 things, with no
+  situation"). Under it, the situations the words might belong to (what it reads as first, then by name or phrase),
+  each with **＋** (add the typed words as one of its phrases; search answers them at once) and **✎** (edit). When no
+  situation has the words, every situation is listed with a name filter, so they can be added to any of them. Empty,
+  it lists every situation. Last line: **＋ New situation for "…"**.
+- **Most missed** rows have ✎ (put the words in Teach search) and 👁 (try them in search).
+- **The editor:** name; phrases (one per line); status (live, draft, retired); mostly for (residents, travelers,
+  community, a mix); urgent; danger (the 911 line; the page is Admin-only); a note; and needs, each with its name,
+  where it shows (Get Local, Let's Explore, Community), business categories (typed, from the real list, or "every
+  category starting …"), words for outdoor places, stories and groups, what it finds, and what an answer must have (a
+  phone, hours, a place). Needs can be added, moved up and removed. **Preview** shows what it would answer near any
+  area before saving.
+- **Whose is it:** saving a situation makes it the Admin's (source 'admin'): code updates never change it. A phrase
+  added with ＋ to a built-in situation is marked 'admin' (`situation_triggers.source`, migration
+  `2026-10-20_situation_editor.sql`) and survives the seed refresh, which now replaces only its own phrases.
+- Checked against MariaDB as well as the sandbox.
+- Still to come in batch 2: resource guides (phone lines like 211 or the power outage number, per area) and the
+  oversight view.
