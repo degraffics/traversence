@@ -125,6 +125,9 @@ Search reads where you are. On **Let's Explore** it puts the place's journeys, s
 ### Can I search the way I'd ask a friend?
 Yes. Type it the way you'd say it: "new pizza place in town", "a good taco spot nearby", "pizza place in Show Low". Search reads the place, the kind of business and the time ("open now"), and leaves out words that only describe it, like "new", "good" or "spot". "In town" and "nearby" mean the place you're searching. We can't yet tell which businesses opened recently, so "new" doesn't narrow the list; that's coming.
 
+### Does searching change the place I set?
+No. Search starts in the place you set and never changes it. Results in your place come first. Anything that matches beyond it follows under **Beyond (your place)**, nearest first, with how far away it is. To search somewhere else for one search, say so: "pizza in Show Low". Your place stays as you set it. A town outside our regions counts only when you say "in" or "near" it, or name its state.
+
 ### Can I save my own search phrases?
 Yes. In the search panel, **⊕** next to **Quick Search** adds the words you've typed as one of your quick searches, and **✎** lets you add, change or remove them. For now they're saved in this browser. To keep a search on your account, with its place, use **☆ Save** on its results.
 
