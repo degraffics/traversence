@@ -104,5 +104,6 @@ Listings, outdoor places, experiences, place pages, journeys, and any new kind o
   nation's request.
 - Any new content with a location (pins, photos, events, places) goes through `Nations::pin()` or the same check.
 - Use the nation's own name (`Nations::label()`), not the Census area's.
-- Until the nation tools exist (`Landmarks::NATION_TOOLS` is false, §27), nothing on a nation's land shows: every reader of
-  landmarks goes through `Landmarks::visibleSql()` / `visible()`. Keep the data; never delete it.
+- Until the nation tools exist (`Landmarks::NATION_TOOLS` is false, §27): on a nation's land only its public places
+  (opened with the nation's own page) and public businesses show; nothing waiting or closed shows; no review queue.
+  Every reader of landmarks goes through `Landmarks::visibleSql()` / `visible()`. Keep the data; never delete it.

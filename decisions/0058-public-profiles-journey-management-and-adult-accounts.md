@@ -689,29 +689,28 @@ decides".
   - nation accounts, so a nation's own office can open and close its places;
   - notices to a nation's office when one of its places opens.
 
-### 27. Nothing on a nation's land shows until the nation tools exist
+### 27. No review queue until the nation tools exist; on a nation's land, only its public places and businesses
 
-Decided by Jason on 2026-10-02, building on §26. Until nations have their own tools to open and close their places
-(nation accounts):
+Decided by Jason on 2026-10-02, building on §26. (The first build of this read it as "nothing on a nation's land
+shows". Jason corrected it the same day; this is the rule.)
 
-- **Nothing on a nation's land shows,** whatever its status: approved, added by hand, waiting or closed. That covers
-  pages, search, map pins, the Destination picker, and the places a journey pin may snap to. Four Corners Monument and
-  Bisti Badlands are kept, but not shown. Their pages answer "not found" (404).
-- **No manual review queue.**
-  - Admin → Landmarks has no Waiting tab and no Approve.
-  - A landmark can't be added on a nation's land.
-  - Names that may mark a sacred site stay parked too.
-  - Staff can still hide anything, and close a place when a nation asks.
-- **The data stays.** The 272 places on nation land in the sandbox are all still in `landmarks`, with their statuses,
-  evidence and log. Nothing is deleted.
-- **One switch:** `Landmarks::NATION_TOOLS` (false). `Landmarks::visibleSql()` / `visible()` is the one test every
-  reader uses. Turning it on brings back the Waiting tab, approval with evidence, and adding places on a nation's land.
-- **Search:** a kept landmark's name still stops a far-off town being read as the place. "four corners" doesn't
-  become Four Corners, WY.
-- **Pins:** on a nation's land a pin can now snap only to a public listing or a public outdoor place there, since no
-  landmark there shows.
-- **Not yet covered by the switch:** Recreation.gov places, experiences and listings on nation land still show as
-  before. Their boundary checks are the next step (§26 "Still to build").
+- **On a nation's land, only its public places and public businesses show:**
+  - places opened with the nation's own page as evidence (Four Corners Monument);
+  - public business listings (never one with a confidential address).
+- **Waiting and closed places never show.** That covers pages (they answer "not found"), search, map pins, the
+  Destination picker, and the places a journey pin may snap to.
+- **No review queue until the nations have their own tools (nation accounts):**
+  - Admin → Landmarks has no Waiting tab and no Approve for crawled items.
+  - What was waiting is kept, unused, marked "Not shown: kept, unused, until the nation tools": places on a nation's
+    land, and names that may mark a sacred site. In the sandbox that's 270.
+  - Reopening a closed place waits for the nation tools too.
+- **An Editor opens a nation's public place by adding it by hand,** with the link to the nation's own page that lists
+  it. It shows at once. Without that link, or for a Content Creator, it's refused.
+- **Staff can still hide anything,** and close a place when a nation asks.
+- **The data stays;** nothing is deleted.
+- **One switch:** `Landmarks::NATION_TOOLS` (false). Every reader of landmarks uses `Landmarks::visibleSql()` /
+  `visible()` (shown or approved). Turning the switch on brings back the Waiting tab and approving with evidence.
+- **Not yet covered:** boundary checks on Recreation.gov places and experiences (§26 "Still to build").
 
 ## Consequences
 

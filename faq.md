@@ -88,8 +88,8 @@ Yes. **Sports** finds athletic fields, stadiums, gyms, golf courses, public pool
 ### Can I find natural places like badlands, arches and canyons?
 Yes. Search for words like **badlands**, **arch**, **crater**, **hot springs**, **waterfall** or **canyon**, alone or with a place ("crater near Flagstaff"). Each landmark has its own page with a photo where there's a freely licensed one, a short description from Wikipedia, directions, and comments. Names and locations come from USGS Geographic Names. Some landmarks, like monuments and viewpoints, aren't in that data, and our team adds them by hand. If you know one that's missing, use **Tell us** on any page.
 
-### Why don't landmarks on tribal land show?
-Tribal nations are sovereign nations, and each decides what visitors are welcome to see on its land. For now we don't show any landmarks on a nation's land, not even well-known ones like Four Corners Monument, until each nation can open its own places on Traversence. Meanwhile, use the nation's own visitor information. We never show the location of sacred or restricted sites, and anything a nation asks us to close is closed at once.
+### Why don't some landmarks on tribal land show?
+Tribal nations are sovereign nations, and each decides what visitors are welcome to see on its land. On a nation's land we show only its public places, the ones the nation itself lists for visitors (like Four Corners Monument), and public businesses. Other places there aren't shown. We never show the location of sacred or restricted sites, and anything a nation asks us to close is closed at once.
 ### Why did my journey's pin move or disappear?
 On a tribal nation's land, a pin shows only at a place the nation opens to visitors. If your pin is within half a mile of one of those places, it moves onto that place. Anywhere else on the nation's land the pin isn't shown, and your journey says where you were in your own words instead. This follows the nations' own rules: many areas are homes, grazing land or sacred places, and aren't open to visitors.
 
