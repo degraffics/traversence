@@ -187,3 +187,6 @@ does. Situations follow the same rule, in this order:
     the reach as no limit.
   - **Two old slips fixed:** a comment had swallowed the "Did you mean" check and Beyond's Why and Who filters; and an
     empty "none here" box (no towns) was hiding businesses from Beyond.
+- **2026-10-02, search panel text:** all text in the panel is small (headings .85rem, rows .82rem, second lines
+  .72rem; the phone's box stays 16px so iOS doesn't zoom), and the head row's labels never wrap ("Search Directory:"
+  on one line). Search logic is on hold: Jason is writing the exact logic he wants, to implement as specified.
