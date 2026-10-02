@@ -747,6 +747,26 @@ This matches Jason's concept (2026-09-29): the title top left, the Link button t
 - **Code:** `includes/explore-hero.php` (CSS only), so every hero follows: places, listings, profiles, landmarks,
   outdoor places, Let's Explore.
 
+### 29. The journey card, as in the concept
+
+Journey cards follow Jason's concept image (2026-09-29), wherever they show: Let's Explore and its "More", listings,
+profiles, experiences.
+
+- **Title bar:** the kind and the title ("Outdoor recreation | Petrified Forest at dusk"), with the **Link button** in
+  its corner (`place:jr:<id>`).
+- **On the photo:** "Posted <date>" at the top left, the read time in a pill with a clock at the top right, and the
+  play button when there's a video. The photo sits inset in the card's frame.
+- **The foot:**
+  - the author's initial in a ringed circle, their name in capitals and the place;
+  - the Traversence, Contributor or Business label (moved here from the title bar);
+  - gold pills for views and comments, and the likes with a heart.
+
+  These are the brand's flat icons, not emoji.
+- **The Link button sits beside the card's link, never inside it:** a wrap (`.jr-wrap`, `data-link-host`) holds both.
+  `js/link-button.js` now also stops a tap from following any link around it, and loads only once per page.
+- **Code:** `includes/journey-ui.php` (`tv_journey_card`), the same card in Let's Explore's "More" (`discovery/index.php`),
+  and `js/link-button.js`.
+
 ## Consequences
 
 - New columns: `journeys.entity_id` and `journeys.submitted_at`, and `age_confirmations.min_age`. Two new staff roles
