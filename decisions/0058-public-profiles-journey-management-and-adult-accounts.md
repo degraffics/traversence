@@ -640,6 +640,8 @@ real. Natural landmarks are now their own source.
   - Its page says "Added by Traversence".
 - **The Destination picker lists landmarks** (after towns, areas and regions): "Four corners" offers Four Corners
   Monument, near Teec Nos Pos, AZ.
+- **"Where are you looking?" fills the phone's screen.** Destination's matches sit in the page's flow, so every match
+  shows (they used to be cut off at the panel's edge), with bigger rows to tap.
 - **Not in the USGS data:** GNIS's DomesticNames file holds natural features only, so monuments, parks and viewpoints
   are added by hand, or come later from another source.
 
