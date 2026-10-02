@@ -132,6 +132,9 @@ As you type, the top of the search panel shows **Go straight to**: things whose 
 ### What happens if I search for "help"?
 We ask which help you mean: **help using Traversence** (the Help Center and FAQ) or **help in your place** (assistance, services and support). If you type what kind of help, like "legal help" or "housekeeping help", we search for local services straight away.
 
+### What if nothing matches all my words?
+If no place has every word you typed, **Suggestions** lists each word on its own with how many it finds, like **Search "hat" · 1 found**. Tap one to search for it.
+
 ### Does searching change the place I set?
 No. Search starts in the place you set and never changes it. Results in your place come first. Anything that matches beyond it follows under **Beyond (your place)**, nearest first, with how far away it is. If you chose a town, like "Saint Johns, AZ", that town comes first, and the rest of its area follows under **Beyond**. To search somewhere else for one search, say so: "pizza in Show Low". Your place stays as you set it. A town outside our regions counts only when you say "in" or "near" it, or name its state.
 

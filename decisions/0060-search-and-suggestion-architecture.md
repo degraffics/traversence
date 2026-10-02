@@ -95,6 +95,12 @@ Typing "Lyman" with the place set to the Greater St. Johns Area searched Lyman, 
   "Beyond <town>", nearest first. "See all … in the directory" names the area, since the directory counts the
   whole area.
 
+- **Nothing has all the words** ("news new hat"): each word is counted on its own around the place (within 250 mi),
+  and Suggestions offers **Search "news" · 8 found**, **Search "hat" · 1 found** (`split`). The "none here" box says
+  "Nothing has all of these words. Try them one at a time under Suggestions." Describing words ("new") aren't offered.
+- **Short words match their plural** ("hat" finds Hats Off): a 3-letter word that matches whole also tries its plural.
+- **Category lines in Suggestions** wrap instead of cutting off the place, and drop trade codes like "(Whls)".
+
 ### Phase C
 
 - **Graduated widening with counts:** the place, its area, its region, everywhere, each one tap.
