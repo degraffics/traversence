@@ -152,6 +152,12 @@ We ask which help you mean: **help using Traversence** (the Help Center and FAQ)
 ### What happens if search can't tell what I mean?
 It says so instead of guessing. You won't get a list of things that just happen to share a word ("standing on the corner" won't find a business with "corner" in its description). If your words point to a situation, like "stuck" or "leaking", it offers those under **Maybe you mean**. Otherwise, name the kind of place or service (plumber, pizza, campground), or say what's going on (stuck in the mud, the power went out). You don't have to press Enter: pause for a moment while typing and the results, or where your words are heading, appear.
 
+### Does Traversence keep what I search for?
+Not who searched it. We count the words people search, by area and day, and how those searches turned out (found something, found nothing, or searched again), so we can see what search doesn't understand yet and fix it. No account, device or location is kept with them, and words only show to our team once several searches used them. Your recent searches stay in your own browser.
+
+### Why does search ask "Where are you?"
+For something you need nearby, like a restroom, gas or a tow, "nearest" only means something once we know where you are. Tap **Choose your place or use Auto-detect** and the nearest places show. Auto-detect doesn't share where you are.
+
 ### What are the lines that finish my words as I type?
 They're ways your search could carry on, like "where can i park **overnight for free**" or "parks **for kids**". What you typed is plain and the rest is bold. Tap one to search it. They come from the situations we know, the ways people ask ("…check out", "…worth the drive") and what fits the thing you named (open now, this weekend, near your place). They don't come from other people's searches.
 

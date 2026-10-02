@@ -260,3 +260,20 @@ grammar, no AI. Each W and how it's read:
   ("need a bathroom", "public restroom", "toilet"): rest areas, gas stations and travel centers, parks and visitor
   centers. A long last word that none of our words start with is read as a slip while typing ("need a bathroon").
   Words that already name a situation get no "open now / near" completions ("bathroom"). Seed version 8.
+
+### Progress, 2026-10-02: Missed searches, and catching two misses (first piece of batch 3, brought forward)
+
+- **Missed searches** (`/admin/search-misses.php`, under Insights; `search_outcomes`, migration
+  `2026-10-19_search_outcomes.sql`): how each search someone chose (Enter, a tap, Try it) turned out, as counts of
+  the words as typed, area, day and outcome. Never who. Outcomes: **couldn't tell**, **nothing found**, **no place
+  set**, **searched again** (nothing opened, another search within a minute), **nothing opened**, **offer ignored**
+  ("Maybe you mean" not taken), **feedback** tapped. Opening, calling, peeking, widening or taking a suggestion from
+  the results counts as found. The page lists the most-missed words (3 or more searches, so a name typed once never
+  shows), by period and area, each with **Try it**. Kept 180 days. The panel reopening on the same words isn't a new
+  search.
+- **The directory page answers situations itself.** Enter there handed the words to the directory list, which matches
+  them word for word ("need a bathroon"). Now, when the words name a situation, the panel answers it and stays open;
+  other words still go to the list.
+- **No place, no guess.** With no place set, a situation's answer was "nearest" from nowhere (A restroom led with
+  Vaseys Paradise near Marble Canyon). Now it shows its needs and asks: "Where are you? Then we'll show the nearest …"
+  with **Choose your place or use Auto-detect**, both in the full results and in the preview while typing.
