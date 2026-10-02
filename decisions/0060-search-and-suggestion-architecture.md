@@ -88,6 +88,13 @@ Typing "Lyman" with the place set to the Greater St. Johns Area searched Lyman, 
   no longer loses the town. The words before the comma are searched, and the towns are kept whose state starts
   with what's after it (its code or name). Our areas and regions always stay.
 
+- **A town chosen in its town area is the place itself.** Choosing "Saint Johns, AZ" set the place to The Greater
+  St. Johns Area, so search counted Concho as local and the chip disagreed with the Location line. The panel now sends
+  the chosen town (`town=`) with the area. When it's one of the area's own towns, its ZIPs are the place
+  (`placeFromScope`, `town` flag; `SearchIndex::whereSql` uses only those ZIPs). The rest of the area comes under
+  "Beyond <town>", nearest first. "See all … in the directory" names the area, since the directory counts the
+  whole area.
+
 ### Phase C
 
 - **Graduated widening with counts:** the place, its area, its region, everywhere, each one tap.

@@ -132,7 +132,7 @@ As you type, the top of the search panel shows **Go straight to**: things whose 
 We ask which help you mean: **help using Traversence** (the Help Center and FAQ) or **help in your place** (assistance, services and support). If you type what kind of help, like "legal help" or "housekeeping help", we search for local services straight away.
 
 ### Does searching change the place I set?
-No. Search starts in the place you set and never changes it. Results in your place come first. Anything that matches beyond it follows under **Beyond (your place)**, nearest first, with how far away it is. To search somewhere else for one search, say so: "pizza in Show Low". Your place stays as you set it. A town outside our regions counts only when you say "in" or "near" it, or name its state.
+No. Search starts in the place you set and never changes it. Results in your place come first. Anything that matches beyond it follows under **Beyond (your place)**, nearest first, with how far away it is. If you chose a town, like "Saint Johns, AZ", that town comes first, and the rest of its area follows under **Beyond**. To search somewhere else for one search, say so: "pizza in Show Low". Your place stays as you set it. A town outside our regions counts only when you say "in" or "near" it, or name its state.
 
 ### Can I save my own search phrases?
 Yes. In the search panel, **⊕** next to **Quick Search** adds the words you've typed as one of your quick searches, and **✎** lets you add, change or remove them. For now they're saved in this browser. To keep a search on your account, with its place, use **☆ Save** on its results.
