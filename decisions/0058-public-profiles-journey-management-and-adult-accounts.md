@@ -800,6 +800,34 @@ back, and better:
 - Counting stays counts only. No route to anything not public (§27).
 - Until the key is in `.env`, Directions keeps opening Google Maps.
 
+### 31. Full words, a search box on phones, and finding your way back
+
+- **Crawled names in full words** (`api/lib/NameText.php`). Government and directory data shorten words; visitors read
+  them in full:
+  - "Painted Desert Visitor Ctr" becomes Visitor Center;
+  - "Petrified Forest Natl Pk" becomes National Park;
+  - also Mtn, Hwy, Svc, Assn, Dept, Hosp, Univ, Mgmt, Intl, Otfttrs, Rec, Hist and more, and "Mt" before a name
+    (Mount).
+
+  Whole words only. Only what's shown changes; the stored data stays as crawled, and links keep the stored town. A
+  listing its owner has claimed keeps the owner's own name, exactly. It applies to:
+  - the listing page;
+  - the directory and its map pins;
+  - search results and peek cards;
+  - Destination.
+
+  Search finds them by the full words once the index is rebuilt (Admin → Search index → Build the index).
+- **Landmark photos:** visitors' journey photos first, then the Wikimedia photo (the hero's `own_last` option). With no
+  journeys, the Wikimedia photo is the hero.
+- **A search box on phones.** The top bar shows a box ("Search places, listings…") between the logo and the bell,
+  instead of a lone magnifier. A tap opens the full search panel.
+- **Finding your way back (phones).** Moving between a place, an outdoor place and a listing was easy to get lost in;
+  people went home to start again. Now:
+  - **Back chip:** the tool bar starts with "‹ <the page you came from>". It uses the browser's own back, so you land
+    where you were on that page.
+  - **Recently viewed:** the ☰ list ends with your last 5 pages.
+  - **The trail is this tab's own,** kept on the device (`sessionStorage`), never sent or stored by us.
+
 ## Consequences
 
 - New columns: `journeys.entity_id` and `journeys.submitted_at`, and `age_confirmations.min_age`. Two new staff roles
