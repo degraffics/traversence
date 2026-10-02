@@ -392,3 +392,10 @@ from what the words mean (`api/lib/SituationReasoner.php`, rule-based, no AI):
     Names that share a word but not a place ("Pizza …", "St Johns …") aren't grouped, and neither is a kind of business
     or a town.
   - A name that repeats its own ending ("Dump Station Dump Station") shows it once.
+- **Search tools, one tool (Jason, 2026-10-02):** Missed searches (with Teach search and Meanings), Oversight and
+  Resource guides are one item on the Admin rail, **Search tools**, with tabs across the top of each page
+  (`includes/search-tools.php`).
+- **The predictions in ✦ Analyze:** "While typing it (the predictions)" lists everything the panel shows before Enter
+  or a tap, in its order: completions, the situation's answer (each need and how many it has), then each Go straight
+  to row with its kind (Situation, Group, Kind, Town, Listing, Outdoors…). When there's nothing but "Search for…" it
+  says so, so a word or phrase can be taught.
