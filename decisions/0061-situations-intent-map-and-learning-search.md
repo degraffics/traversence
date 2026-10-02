@@ -345,3 +345,19 @@ from what the words mean (`api/lib/SituationReasoner.php`, rule-based, no AI):
   "taxes", "churches" reduce to "tax", "church"; words that already name a situation get only that situation's
   completions ("bite by something" isn't "…to eat").
 - Next: the meaning classes and frames editable in Admin (Teach search), so new kinds of event or thing need no code.
+
+### Progress, 2026-10-02: Meanings taught in Admin, and a misreading fixed
+
+- **Meanings** card in Admin → Missed searches (under Teach search): **Teach a word** (a word or short phrase → an
+  event or a thing, an existing meaning or a new one; events can be marked "only with a thing or a cue") and **Teach
+  a rule** (an event with any of some things → a situation, with an optional reason shown in ✦ Analyze). What's
+  taught is listed with × to remove; the built-in meanings are listed for reference. Taught rules are checked before
+  the built-in ones. In ✦ Analyze, a word marked "not used" can be tapped to teach it; little words ("my", "the")
+  show as "little word". Tables `search_meanings`, `search_frames` (migration `2026-10-21_search_meanings.sql`).
+  Example: teaching "wallet" as a new meaning "documents" and the rule lost + documents → Government offices made
+  "lost my wallet" and "someone stole my wallet" both read as Government offices.
+- **Fixed (Jason's screenshot):** "Somewhere nice for dinner" read as Pests in the house: "nice" was "corrected" to
+  "mice". Spelling slips are now forgiven only in words of 5 letters or more (4-letter words are too easy to mistake:
+  nice/mice, bike/bite). "Dinner", "lunch", "breakfast", "brunch", "supper" are Something to eat; "nice dinner",
+  "nice restaurant", "fancy dinner" are A night out (so "somewhere nice for dinner" is A night out). Seed version 9.
+- **A business listed twice** (same name, kind and town) shows once in a situation's answer.
