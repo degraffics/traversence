@@ -729,6 +729,8 @@ This matches Jason's concept (2026-09-29): the title top left, the Link button t
 - **"No photos yet"** shrinks to a line and a small "Share a journey" button in the same corner.
 - **The page's buttons** (views, likes, comments, Share, Save, Claim, Photos & video) sit in the bottom-right corner.
   They wrap upward on the right when there are many (a listing).
+- **No credit card (no photo yet): the buttons get the whole row.** On a phone, Save is a round icon like Share, so a
+  listing's buttons fit one line with Claim.
 - **A soft shade** along the bottom keeps the words and buttons readable over a bright photo. The full-width band is
   gone.
 - **A tap on a hero photo opens it in a lightbox:**
