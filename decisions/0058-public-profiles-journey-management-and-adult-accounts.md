@@ -710,6 +710,9 @@ real. Natural landmarks are now their own source.
 **Still to build (Consequences):** profile identity, Personal Guides and follower count, reputation levels,
 Recommendations and Personal Insights, outbound API sharing.
 
+**Next session (2026-10-02, Jason):** rebuild the admin dashboard and its menu. Search index, Recreation and other
+data pages are reached only through links in page text today (Crawler → Overview, Cluster tools).
+
 **Housekeeping:**
 - The `claude/magical-clarke-cn5pqi` branch is far ahead of `main`. Merge it when ready.
 - Revoke the GitHub token exposed in the OneDrive repo-local config, if not done.
