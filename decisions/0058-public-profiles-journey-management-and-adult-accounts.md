@@ -722,8 +722,8 @@ shows". Jason corrected it the same day; this is the rule.)
 
 This matches Jason's concept (2026-09-29): the title top left, the Link button top right, and the photo left clear.
 
-- **The photo's credit** ("Photo: Autopilot, CC BY-SA 3.0", or a journey's caption and author) is small words in
-  the bottom-left corner, with no card.
+- **The photo's credit** ("Photo: Autopilot, CC BY-SA 3.0", or a journey's caption and who shared it) is a small cream
+  card in the bottom-left corner, as in the concept image (no wider than about 44% of the hero).
 - **"No photos yet"** shrinks to a line and a small "Share a journey" button in the same corner.
 - **The page's buttons** (views, likes, comments, Share, Save, Claim, Photos & video) sit in the bottom-right corner.
   They wrap upward on the right when there are many (a listing).
