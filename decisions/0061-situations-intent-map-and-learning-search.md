@@ -149,4 +149,15 @@ does. Situations follow the same rule, in this order:
     crutches, getting better. "Someone is hurt" keeps the life-threatening phrases and the 911 line.
   - Seed versions (`SEED_VERSION`, kept in `search_index_state`): seed situations are brought up to date on the live
     site; ones edited in Admin never are.
+- **2026-10-02, answers while typing (Jason: "having to enter is bugging me"):**
+  - Principle 2 changes: results no longer wait only for Enter. When the words name a situation, the suggestions show
+    a **preview of its answer** (each need that has an answer, its nearest one or two, with Call), from
+    `?suggest=1` (`preview`). After a pause of about a second the full results follow below; Enter and the
+    "Search for" line still run them at once.
+  - What the words might mean stays on top when the full results land ("best place to star" keeps Starting a
+    business and Stargazing above its results).
+  - Situation suggestions try the words as typed, then without leading filler ("best place to star…" is "star…";
+    "place to st…" still offers Somewhere to stay).
+  - A new situation, **Can't find my car** (towed or impounded, report it stolen, a ride, a rental); "can't find my
+    keys" and "can't find my dog" join their situations. Seed version 3.
 
