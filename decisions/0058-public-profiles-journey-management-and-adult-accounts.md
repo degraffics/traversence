@@ -899,6 +899,20 @@ back, and better:
   current one has a sage edge and a ✓. Dashboard and Sign out left the menu: a click on the icon opens the dashboard,
   and Sign out is in ☰.
 
+### 36. Searching the way people ask
+
+"new pizza place in town" listed Autozone and Alegres Mountain: every word had to match, nothing had "new", "pizza"
+and "town", so the loose try matched any one word, and "new" is in categories like "Automobile Parts-Retail-New".
+Now:
+- **"Here" phrases go:** "in town", "around town", "in the area", "around here", "nearby", "close by" mean the place
+  being searched (`UniversalSearch`).
+- **Describing words don't name the thing:** "new", "good", "best", "local", "place", "spot", "joint"… are left out when
+  reading the category, so "new pizza place" is the Pizza category (`UniversalSearch::DESCRIBE`). In matching they help
+  the order but aren't required (`SearchIndex::SOFT` adds new, newest, latest, recent, spot, spots, joint, town), so
+  "new mexico" and "town hall" still work.
+- **The loose try weighs rare words higher:** a word few results have ("pizza") counts for more than a common one.
+- "New" can't mean "opened recently" yet: we don't know when a business opened. Coming with listing dates.
+
 ## Consequences
 
 - New columns: `journeys.entity_id` and `journeys.submitted_at`, and `age_confirmations.min_age`. Two new staff roles

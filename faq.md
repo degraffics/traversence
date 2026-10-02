@@ -122,6 +122,9 @@ On Let's Explore, if there's nothing for your search in the place you're explori
 ### Why does search show different things on Let's Explore and Get Local?
 Search reads where you are. On **Let's Explore** it puts the place's journeys, stories, outdoors, groups and topics first, with businesses after them. On **Get Local** businesses come first. The place you're searching sits at the top left (tap × to search everywhere), and **☆ Save** at the top right keeps the search. Tapping × on a place you typed (like "near Grants") searches the rest of your words everywhere.
 
+### Can I search the way I'd ask a friend?
+Yes. Type it the way you'd say it: "new pizza place in town", "a good taco spot nearby", "pizza place in Show Low". Search reads the place, the kind of business and the time ("open now"), and leaves out words that only describe it, like "new", "good" or "spot". "In town" and "nearby" mean the place you're searching. We can't yet tell which businesses opened recently, so "new" doesn't narrow the list; that's coming.
+
 ### Can I save my own search phrases?
 Yes. In the search panel, **⊕** next to **Quick Search** adds the words you've typed as one of your quick searches, and **✎** lets you add, change or remove them. For now they're saved in this browser. To keep a search on your account, with its place, use **☆ Save** on its results.
 
