@@ -689,6 +689,30 @@ decides".
   - nation accounts, so a nation's own office can open and close its places;
   - notices to a nation's office when one of its places opens.
 
+### 27. Nothing on a nation's land shows until the nation tools exist
+
+Decided by Jason on 2026-10-02, building on §26. Until nations have their own tools to open and close their places
+(nation accounts):
+
+- **Nothing on a nation's land shows,** whatever its status: approved, added by hand, waiting or closed. That covers
+  pages, search, map pins, the Destination picker, and the places a journey pin may snap to. Four Corners Monument and
+  Bisti Badlands are kept, but not shown. Their pages answer "not found" (404).
+- **No manual review queue.**
+  - Admin → Landmarks has no Waiting tab and no Approve.
+  - A landmark can't be added on a nation's land.
+  - Names that may mark a sacred site stay parked too.
+  - Staff can still hide anything, and close a place when a nation asks.
+- **The data stays.** The 272 places on nation land in the sandbox are all still in `landmarks`, with their statuses,
+  evidence and log. Nothing is deleted.
+- **One switch:** `Landmarks::NATION_TOOLS` (false). `Landmarks::visibleSql()` / `visible()` is the one test every
+  reader uses. Turning it on brings back the Waiting tab, approval with evidence, and adding places on a nation's land.
+- **Search:** a kept landmark's name still stops a far-off town being read as the place. "four corners" doesn't
+  become Four Corners, WY.
+- **Pins:** on a nation's land a pin can now snap only to a public listing or a public outdoor place there, since no
+  landmark there shows.
+- **Not yet covered by the switch:** Recreation.gov places, experiences and listings on nation land still show as
+  before. Their boundary checks are the next step (§26 "Still to build").
+
 ## Consequences
 
 - New columns: `journeys.entity_id` and `journeys.submitted_at`, and `age_confirmations.min_age`. Two new staff roles

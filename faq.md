@@ -86,12 +86,10 @@ Use the search bar at the top of any page.
 Yes. **Sports** finds athletic fields, stadiums, gyms, golf courses, public pools, rodeos and sports clubs nearby. **Football**, **basketball**, **baseball**, **soccer** and other sports also find high schools, where most local games are played, and ball fields find parks. Try **gym**, **swimming**, **tennis**, **hunting** or **fishing** too. If a place you play or watch is missing, tap **Tell us what's missing**.
 
 ### Can I find natural places like badlands, arches and canyons?
-Yes. Search for words like **badlands**, **arch**, **crater**, **hot springs**, **waterfall** or **canyon**, alone or with a place ("crater near Flagstaff"). Each landmark has its own page with a photo where there's a freely licensed one, a short description from Wikipedia, directions, and comments. Names and locations come from USGS Geographic Names. Some landmarks, like monuments and viewpoints, aren't in that data, and our team adds them by hand (Four Corners Monument is one). If you know one that's missing, use **Tell us** on any page.
+Yes. Search for words like **badlands**, **arch**, **crater**, **hot springs**, **waterfall** or **canyon**, alone or with a place ("crater near Flagstaff"). Each landmark has its own page with a photo where there's a freely licensed one, a short description from Wikipedia, directions, and comments. Names and locations come from USGS Geographic Names. Some landmarks, like monuments and viewpoints, aren't in that data, and our team adds them by hand. If you know one that's missing, use **Tell us** on any page.
 
-### Why don't some landmarks on tribal land show?
-Tribal nations are sovereign nations. A landmark on a nation's land shows only after our team has confirmed, from the nation's own visitor information, that it welcomes visitors there. Its page then says whose land it's on, and asks you to follow the nation's rules and permits. We never show the location of sacred or restricted sites, so names that may mark one (a shrine, a burial site, a ruin, rock art) are also checked by a person first.
-
-
+### Why don't landmarks on tribal land show?
+Tribal nations are sovereign nations, and each decides what visitors are welcome to see on its land. For now we don't show any landmarks on a nation's land, not even well-known ones like Four Corners Monument, until each nation can open its own places on Traversence. Meanwhile, use the nation's own visitor information. We never show the location of sacred or restricted sites, and anything a nation asks us to close is closed at once.
 ### Why did my journey's pin move or disappear?
 On a tribal nation's land, a pin shows only at a place the nation opens to visitors. If your pin is within half a mile of one of those places, it moves onto that place. Anywhere else on the nation's land the pin isn't shown, and your journey says where you were in your own words instead. This follows the nations' own rules: many areas are homes, grazing land or sacred places, and aren't open to visitors.
 
