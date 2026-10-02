@@ -731,6 +731,9 @@ This matches Jason's concept (2026-09-29): the title top left, the Link button t
   They wrap upward on the right when there are many (a listing).
 - **A soft shade** along the bottom keeps the words and buttons readable over a bright photo. The full-width band is
   gone.
+- **On landmark and outdoor place cards, the action icons** (map, directions, call, Wikipedia) are pinned in a column
+  under the Link button: the same 30px, the same right edge, an even gap. They used to start with the text and crowd
+  the Link button.
 - **Code:** `includes/explore-hero.php` (CSS only), so every hero follows: places, listings, profiles, landmarks,
   outdoor places, Let's Explore.
 
