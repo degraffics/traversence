@@ -18,7 +18,7 @@ Traversence accounts are for adults: you must be 18 or older. You'll confirm it 
 
 ### How do I choose where I'm looking?
 Open the place picker at the top of the page. You can:
-- stay at **North America** for the big picture;
+- open the **Trip Planner** to plan a trip: where, when, how long and what you're after;
 - pick a **region**;
 - type a **destination**, a **state, city or ZIP**;
 - use **Auto-detect** to start near you.
@@ -33,7 +33,7 @@ No. Auto-detect only picks a starting place for you on this visit. Your location
 ## Exploring places
 
 ### What's on the North America page?
-The big picture: the story of the continent and its regions, plus the newest journeys and guides from everywhere. From there you can browse by **Regions**, **Experiences** or **National Parks**, or open the **Trip Planner**.
+The big picture: the story of the continent and its regions, plus the newest journeys and guides from everywhere. From there you can browse by **Regions**, **Experiences** or **Parks & Landmarks**, or open the **Trip Planner**. It's where Let's Explore starts when you haven't chosen a place.
 
 ### How do I change the place I'm exploring?
 Tap the pencil next to **Explore: <place>** at the top of Let's Explore or of any place page, and choose another place. On a place page, you go straight to the new place's page.

@@ -913,6 +913,15 @@ Now:
 - **The loose try weighs rare words higher:** a word few results have ("pizza") counts for more than a common one.
 - "New" can't mean "opened recently" yet: we don't know when a business opened. Coming with listing dates.
 
+### 37. The place picker opens the Trip Planner instead of "North America"
+
+- The picker's first button was **North America** ("the big picture"): it cleared the place. With search reaching
+  beyond the place (decisions/0060), clearing it is no longer needed to see what's elsewhere.
+- It's now **Trip Planner**: "Plan a trip: where, when, how long and what you're after", opening
+  `/discovery/?view=plan`. The place stays as it is.
+- The North America overview is still Let's Explore with no place chosen. `chooseAnywhere()` stays for the
+  directory's "Search everywhere".
+
 ## Consequences
 
 - New columns: `journeys.entity_id` and `journeys.submitted_at`, and `age_confirmations.min_age`. Two new staff roles
