@@ -85,6 +85,12 @@ Use the search bar at the top of any page.
 ### Can I search for sports, like football or basketball?
 Yes. **Sports** finds athletic fields, stadiums, gyms, golf courses, public pools, rodeos and sports clubs nearby. **Football**, **basketball**, **baseball**, **soccer** and other sports also find high schools, where most local games are played, and ball fields find parks. Try **gym**, **swimming**, **tennis**, **hunting** or **fishing** too. If a place you play or watch is missing, tap **Tell us what's missing**.
 
+### Can I find natural places like badlands, arches and canyons?
+Yes. Search for words like **badlands**, **arch**, **crater**, **hot springs**, **waterfall** or **canyon**, alone or with a place ("crater near Flagstaff"). Each landmark has its own page with a photo where there's a freely licensed one, a short description from Wikipedia, directions, and comments. Names and locations come from USGS Geographic Names. Some smaller landmarks aren't in the data yet; if you know one, use **Tell us** on any page.
+
+### Why don't some landmarks on tribal land show?
+Tribal nations are sovereign nations. A landmark on a nation's land shows only after our team has confirmed, from the nation's own visitor information, that it welcomes visitors there. Its page then says whose land it's on, and asks you to follow the nation's rules and permits. We never show the location of sacred or restricted sites, so names that may mark one (a shrine, a burial site, a ruin, rock art) are also checked by a person first.
+
 ### I searched for something and got places from somewhere else. Why?
 On Let's Explore, if there's nothing for your search in the place you're exploring, we look across the open regions and say so at the top of the results. Words for landscapes work too: try **badlands**, **canyon**, **petroglyphs**, **ruins** or **dark sky**.
 

@@ -550,6 +550,71 @@ left.
 - **"Did you mean" leaves place and category searches alone.** When a search read a place or a category, the words
   aren't a typo, so it doesn't offer a respelling ("health medical neal grounds").
 
+### 24. Natural landmarks: badlands, arches, canyons and more
+
+Search could only find natural places that were also a business or a Recreation.gov site. "Badlands" found nothing
+real. Natural landmarks are now their own source.
+
+- **Where they come from.** Once a month, the worker (`workers/crawler`) loads them:
+  - **USGS Geographic Names (GNIS):** every named feature in the pilot states, keeping the natural kinds (areas,
+    arches, rock pillars, cliffs, craters, falls, summits, canyons, springs, lakes …).
+  - **Census reservation boundaries (AIANNH):** marks each feature inside a tribal nation's lands ("On Navajo Nation
+    land").
+  - **Wikidata:** the feature's Wikipedia article and photo, by its GNIS id.
+  - **Wikipedia:** the article's first sentences.
+  - **Wikimedia Commons:** the photo, but only if it's freely licensed (CC0, public domain, CC BY, CC BY-SA). It's
+    credited on the page with its author, license and a link.
+- **Only notable ones are kept:**
+  - one with a Wikipedia article or a photo;
+  - one whose name has a landscape word: badlands, natural bridge, falls, hot springs, dunes, crater, volcano, hoodoos,
+    gorge, slot or box canyon, lava, petrified, cave …;
+  - an arch, a rock pillar, a crater or falls;
+  - a rock formation's name (rock, spire, pinnacle, needle, chimney, castle …), but only on a summit, cliff or area,
+    so "Rock Spring" isn't a landmark;
+  - not Wikidata's description alone, since it describes nearly every feature ("summit in Arizona");
+  - not "(historical)" names.
+
+  In the sandbox's test run, 14,557 Arizona and 12,236 New Mexico features gave 900 landmarks.
+- **The site decides what shows, not the worker** (`Landmarks::decide`):
+  - **On a sovereign nation's land, it waits for a person.** An Editor approves it only after ticking "The nation
+    welcomes visitors here", from the nation's own visitor information. The page then says so, and tells visitors to
+    follow the nation's rules and permits.
+  - **A name that may mark a sacred, burial or archaeological site waits for a person:** shrine, burial, grave,
+    cemetery, kiva, ruin, petroglyph, pictograph, rock art, cliff dwelling, ceremonial, medicine wheel.
+  - **Everything else shows.**
+  - A person's approve or hide is kept across monthly reloads; Undo puts one back.
+  - **The boundary check is deliberately cautious.** Bisti Badlands' point falls on a Navajo trust parcel in the
+    checkerboard, so it waits for a person, who can approve it.
+- **Admin → Landmarks** (`admin/landmarks.php`):
+  - tabs: Waiting, Shown, Approved, Hidden;
+  - find by name;
+  - each has a photo or the brand art, its kind, nation or nearest town, why it's waiting, and links to the map and
+    Wikipedia;
+  - Approve (an Editor), Hide (with a reason), Undo.
+- **Its page** (`/place/landmark.php?id=<GNIS id>`), on the content standard:
+  - the hero with its photo and credit; the name; "kind · near town" or "On <nation> land";
+  - views, likes, comments and Share on the hero;
+  - the card: the kind and county (each searches for more), the Wikipedia summary, the nation's note, "Leave it as you
+    found it", nearest town and county, the sources and licenses, and "Something wrong, or shouldn't be shown? Tell
+    us";
+  - the round icons: See on map, Directions, Wikipedia;
+  - comments;
+  - the Link button (`place:lm:<id>`) and counts (`landmark:<id>`).
+- **The kind comes from the end of the name** ("Bisti Badlands" is Badlands, "Waterfall Canyon" a canyon), else from
+  its GNIS class.
+- **"Near" is the nearest ZIP's town within 40 miles.** That ZIP also puts it in the right place for search.
+- **In search:**
+  - indexed as Outdoors (ids `g` plus the GNIS id), after Recreation.gov places;
+  - ones with a photo or article rank first;
+  - on the map they're pins with a peek card.
+- **Migration:** `2026-10-16_landmarks.sql`. After it runs, the worker loads them on its next run, then rebuild the
+  search index's Outdoors (Admin → Search index). The worker setting `LANDMARKS=off` stops the load.
+- **Also fixed:** the phone menu now opens over the tool bar, and signed in it shows My account, not Login.
+- **Still to build:**
+  - landmarks on place pages (an "Outdoors & public lands" companion);
+  - a person adding a landmark the data doesn't have (like the Nambe Badlands);
+  - landmarks as a source for experiences.
+
 ## Consequences
 
 - New columns: `journeys.entity_id` and `journeys.submitted_at`, and `age_confirmations.min_age`. Two new staff roles

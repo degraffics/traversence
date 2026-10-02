@@ -94,3 +94,19 @@ shortening the schedule; keep `TIME_BUDGET` below the schedule interval so runs 
 | `NPI_TIME` | 1500 | Seconds allowed for one monthly load. |
 | `IRS_BULK` | on | Monthly IRS exempt-organization list (decisions/0048): `eo_az.csv`, `eo_nm.csv` from irs.gov, used by the site only to confirm listings. `off` stops it. |
 | `RIDB_API_KEY` | (none) | Recreation.gov RIDB key. With it, once a month the worker loads public campgrounds, recreation areas, trailheads and visitor centers in AZ and NM for place pages (decisions/0048). |
+
+## Natural landmarks (monthly)
+
+When the site says they're due (`GET /api/crawl/landmarks.php`), one run loads natural landmarks for the site's states
+and does nothing else (decisions/0058 §24):
+
+1. **USGS Geographic Names** (`DomesticNames_<state>_Text.zip`, a few MB each): the named natural features.
+2. **Census AIANNH** (tribal nations' boundaries, about 9 MB): each feature inside a nation's lands is marked with the
+   nation's name. The site never lists those without a person.
+3. **Wikidata** (one query per quarter of each state): the features' Wikipedia articles and photos, by GNIS id.
+4. **Wikimedia Commons:** each photo's license and author. Only CC0, public domain, CC BY and CC BY-SA photos are kept.
+5. **Wikipedia:** the first three sentences of each article.
+
+It keeps the notable ones (an article, a photo, or a landscape word in the name) and posts them in batches of 500.
+`LANDMARKS=off` turns it off. No key is needed. Test it with `GNIS_FIXTURE_DIR`, `AIANNH_FIXTURE` and `WIKI_FIXTURE`
+(see the top of `crawler.py`).

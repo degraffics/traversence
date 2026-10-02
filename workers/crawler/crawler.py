@@ -44,8 +44,11 @@ Settings (environment variables):
                        (eo_az.csv, eo_nm.csv), used by the site only to confirm listings
   RIDB_API_KEY         Recreation.gov RIDB key. With it, once a month the worker loads public campgrounds,
                        recreation areas, trailheads and visitor centers in the site's states for place pages
+  LANDMARKS            "off" stops the monthly natural landmarks load (default on): USGS Geographic Names for the site's
+                       states, tribal nations' boundaries (Census), Wikidata, Wikipedia summaries and Commons photos
 Test hooks (not for production): OVERPASS_FIXTURE=file.json, WEB_FIXTURE=file.json ({url: html}),
-NPI_FIXTURE=file.json (an NPI API reply), NPI_FILE_FIXTURE=file.zip (a small NPI file), IRS_FIXTURE_DIR=dir (eo_az.csv…), RIDB_FIXTURE=file.json ({"facilities|AZ|0": reply}), SEARCH_FIXTURE=file.json ({query: {"results": [...]}}).
+NPI_FIXTURE=file.json (an NPI API reply), NPI_FILE_FIXTURE=file.zip (a small NPI file), IRS_FIXTURE_DIR=dir (eo_az.csv…), RIDB_FIXTURE=file.json ({"facilities|AZ|0": reply}), SEARCH_FIXTURE=file.json ({query: {"results": [...]}}),
+GNIS_FIXTURE_DIR=dir (DomesticNames_AZ_Text.zip…), AIANNH_FIXTURE=file.zip, WIKI_FIXTURE=file.json ({sparql: [bindings], images: {file: {url, page, artist, license}}, extracts: {title: text}}).
 Standard library only.
 """
 import csv
@@ -921,6 +924,305 @@ def rec_bulk():
     return True
 
 
+# ---- natural landmarks (decisions/0058 §24) --------------------------------------------------------------------
+# USGS Geographic Names (GNIS) gives every named natural feature with its point. Most are minor (a draw, a tank), so the
+# worker keeps the notable ones: a Wikipedia article or a freely licensed photo, or a landscape word in the
+# name. The Census reservation boundaries (AIANNH) mark which are on a sovereign nation's land; the site never lists
+# those without a person. Photos must be freely licensed and are credited.
+
+STATE_NAMES = {"AL": "Alabama", "AK": "Alaska", "AZ": "Arizona", "AR": "Arkansas", "CA": "California", "CO": "Colorado",
+               "CT": "Connecticut", "DE": "Delaware", "FL": "Florida", "GA": "Georgia", "HI": "Hawaii", "ID": "Idaho",
+               "IL": "Illinois", "IN": "Indiana", "IA": "Iowa", "KS": "Kansas", "KY": "Kentucky", "LA": "Louisiana",
+               "ME": "Maine", "MD": "Maryland", "MA": "Massachusetts", "MI": "Michigan", "MN": "Minnesota",
+               "MS": "Mississippi", "MO": "Missouri", "MT": "Montana", "NE": "Nebraska", "NV": "Nevada",
+               "NH": "New Hampshire", "NJ": "New Jersey", "NM": "New Mexico", "NY": "New York", "NC": "North Carolina",
+               "ND": "North Dakota", "OH": "Ohio", "OK": "Oklahoma", "OR": "Oregon", "PA": "Pennsylvania",
+               "RI": "Rhode Island", "SC": "South Carolina", "SD": "South Dakota", "TN": "Tennessee", "TX": "Texas",
+               "UT": "Utah", "VT": "Vermont", "VA": "Virginia", "WA": "Washington", "WV": "West Virginia",
+               "WI": "Wisconsin", "WY": "Wyoming"}
+GNIS_FILE = "https://prd-tnm.s3.amazonaws.com/StagedProducts/GeographicNames/DomesticNames/DomesticNames_{state}_Text.zip"
+AIANNH_FILE = "https://www2.census.gov/geo/tiger/TIGER2024/AIANNH/tl_2024_us_aiannh.zip"
+WIKIDATA_SPARQL = "https://query.wikidata.org/sparql"
+COMMONS_API = "https://commons.wikimedia.org/w/api.php"
+WIKIPEDIA_API = "https://en.wikipedia.org/w/api.php"
+LANDMARKS = os.environ.get("LANDMARKS", "on").lower() != "off"
+# GNIS classes that can be a natural landmark; the rest (streams, reservoirs, canals, populated places …) are left out
+LANDMARK_CLASSES = {"Area", "Arch", "Basin", "Bench", "Cliff", "Crater", "Falls", "Flat", "Gap", "Island", "Lake",
+                    "Pillar", "Plain", "Range", "Rapids", "Ridge", "Spring", "Summit", "Valley"}
+# the same landscape words the site uses (api/lib/Landmarks.php NOTABLE, NOTABLE_SHAPE)
+NOTABLE_RE = re.compile(r"\b(badlands?|natural bridge|falls|waterfall|hot springs?|sand dunes|dunes|craters?|volcano|hoodoos?|"
+                        r"gorge|box canyon|slot canyon|lava|malpais|caldera|petrified|painted desert|caves?|caverns?|"
+                        r"sinkhole|blue hole|gardens? of the gods|valley of fires)\b", re.I)
+SHAPE_RE = re.compile(r"\b(arch|arches|rocks?|spires?|pinnacles?|towers?|needles?|monument|chimney|castle|cathedral|wilderness)\b", re.I)
+
+
+def notable(r):
+    return (r["class"] in ("Arch", "Falls", "Crater", "Pillar") or bool(NOTABLE_RE.search(r["name"]))
+            or (r["class"] in ("Area", "Cliff", "Summit") and bool(SHAPE_RE.search(r["name"]))))
+
+
+OK_LICENSE = re.compile(r"^(cc0|cc[ -]by(-sa)?([ -][0-9.]+)?|public domain|pd\b|pd-)", re.I)
+
+
+def fetch_bytes(url, timeout=180):
+    req = urllib.request.Request(url, headers={"User-Agent": UA})
+    with urllib.request.urlopen(req, timeout=timeout) as r:
+        return r.read()
+
+
+def read_dbf(data):
+    """The records of a dBase file, as dicts of strings."""
+    n = int.from_bytes(data[4:8], "little")
+    hlen = int.from_bytes(data[8:10], "little")
+    rlen = int.from_bytes(data[10:12], "little")
+    fields, pos = [], 32
+    while data[pos] != 0x0D:
+        name = data[pos:pos + 11].split(b"\0")[0].decode("ascii")
+        fields.append((name, data[pos + 16]))
+        pos += 32
+    out = []
+    for i in range(n):
+        rec, off = data[hlen + i * rlen: hlen + (i + 1) * rlen], 1
+        row = {}
+        for name, size in fields:
+            row[name] = rec[off:off + size].decode("utf-8", "replace").strip()
+            off += size
+        out.append(row)
+    return out
+
+
+def read_polygons(data):
+    """The polygons of a shapefile: [(bbox, [ring, …]) or None], each ring a list of (lon, lat)."""
+    import struct
+    out, pos = [], 100
+    while pos + 8 <= len(data):
+        clen = struct.unpack(">i", data[pos + 4:pos + 8])[0] * 2
+        rec = data[pos + 8:pos + 8 + clen]
+        pos += 8 + clen
+        if len(rec) < 44 or struct.unpack("<i", rec[0:4])[0] not in (5, 15, 25):
+            out.append(None)
+            continue
+        bbox = struct.unpack("<4d", rec[4:36])
+        nparts, npts = struct.unpack("<2i", rec[36:44])
+        parts = list(struct.unpack(f"<{nparts}i", rec[44:44 + 4 * nparts])) + [npts]
+        pts = struct.unpack(f"<{2 * npts}d", rec[44 + 4 * nparts:44 + 4 * nparts + 16 * npts])
+        rings = [[(pts[2 * k], pts[2 * k + 1]) for k in range(parts[j], parts[j + 1])] for j in range(nparts)]
+        out.append((bbox, rings))
+    return out
+
+
+def nations_map(boxes):
+    """Tribal nations' boundaries (Census AIANNH) that touch these [minlon, minlat, maxlon, maxlat] boxes: [(name, bbox, rings)]."""
+    if os.environ.get("AIANNH_FIXTURE"):
+        with open(os.environ["AIANNH_FIXTURE"], "rb") as f:
+            raw = f.read()
+    else:
+        raw = fetch_bytes(AIANNH_FILE, 300)
+    z = zipfile.ZipFile(io.BytesIO(raw))
+    shp = next(n for n in z.namelist() if n.endswith(".shp"))
+    dbf = next(n for n in z.namelist() if n.endswith(".dbf"))
+    recs, polys = read_dbf(z.read(dbf)), read_polygons(z.read(shp))
+    out = []
+    for rec, poly in zip(recs, polys):
+        if not poly:
+            continue
+        b = poly[0]
+        if any(b[0] <= x2 and b[2] >= x1 and b[1] <= y2 and b[3] >= y1 for x1, y1, x2, y2 in boxes):
+            name = rec.get("NAMELSAD") or rec.get("NAME") or ""
+            # the nation's own name, without the Census's land words ("Navajo Nation Reservation and Off-Reservation Trust Land" -> "Navajo Nation")
+            name = re.sub(r"\s+(and\s+)?Off-Reservation Trust Land$", "", name).strip()
+            name = re.sub(r"\s+(Indian\s+)?Reservation$", "", name).strip()
+            out.append((name, b, poly[1]))
+    return out
+
+
+def inside(lon, lat, rings):
+    """Even-odd point in polygon (holes count as outside)."""
+    hit = False
+    for ring in rings:
+        j = len(ring) - 1
+        for i in range(len(ring)):
+            xi, yi = ring[i]
+            xj, yj = ring[j]
+            if (yi > lat) != (yj > lat) and lon < (xj - xi) * (lat - yi) / (yj - yi) + xi:
+                hit = not hit
+            j = i
+    return hit
+
+
+def nation_at(lon, lat, nations):
+    for name, b, rings in nations:
+        if b[0] <= lon <= b[2] and b[1] <= lat <= b[3] and inside(lon, lat, rings):
+            return name
+    return ""
+
+
+def gnis_rows(state):
+    """The state's named features in the landmark classes: [{gnis_id, name, class, county, lat, lon}]."""
+    if os.environ.get("GNIS_FIXTURE_DIR"):
+        with open(os.path.join(os.environ["GNIS_FIXTURE_DIR"], f"DomesticNames_{state}_Text.zip"), "rb") as f:
+            raw = f.read()
+    else:
+        raw = fetch_bytes(GNIS_FILE.format(state=state), 300)
+    z = zipfile.ZipFile(io.BytesIO(raw))
+    name = next(n for n in z.namelist() if n.endswith(".txt"))
+    out = []
+    for r in csv.DictReader(io.TextIOWrapper(z.open(name), encoding="utf-8-sig"), delimiter="|"):
+        if r.get("state_name") != STATE_NAMES.get(state) or r.get("feature_class") not in LANDMARK_CLASSES:
+            continue
+        if "(historical)" in r.get("feature_name", ""):
+            continue
+        try:
+            lat, lon = float(r["prim_lat_dec"]), float(r["prim_long_dec"])
+        except (TypeError, ValueError):
+            continue
+        if lat == 0 or lon == 0:
+            continue
+        out.append({"gnis_id": int(r["feature_id"]), "name": r["feature_name"], "class": r["feature_class"],
+                    "county": r.get("county_name", ""), "lat": lat, "lon": lon, "state": state})
+    return out
+
+
+def wiki_fixture():
+    if not os.environ.get("WIKI_FIXTURE"):
+        return None
+    with open(os.environ["WIKI_FIXTURE"]) as f:
+        return json.load(f)
+
+
+def wikidata_for(box):
+    """Wikidata items with a GNIS id inside a box: {gnis_id: {qid, description, image, wiki_title}}."""
+    fx = wiki_fixture()
+    if fx is not None:
+        bindings = fx.get("sparql", [])
+    else:
+        x1, y1, x2, y2 = box
+        q = ("SELECT ?item ?gnis ?desc ?img ?title WHERE { SERVICE wikibase:box { ?item wdt:P625 ?c . "
+             f'bd:serviceParam wikibase:cornerSouthWest "Point({x1} {y1})"^^geo:wktLiteral ; '
+             f'wikibase:cornerNorthEast "Point({x2} {y2})"^^geo:wktLiteral . }} ?item wdt:P590 ?gnis . '
+             'OPTIONAL { ?item schema:description ?desc FILTER(LANG(?desc) = "en") } OPTIONAL { ?item wdt:P18 ?img } '
+             'OPTIONAL { ?a schema:about ?item ; schema:isPartOf <https://en.wikipedia.org/> ; schema:name ?title } }')
+        req = urllib.request.Request(WIKIDATA_SPARQL, data=urllib.parse.urlencode({"query": q, "format": "json"}).encode(),
+                                     headers={"User-Agent": UA, "Accept": "application/sparql-results+json"})
+        with urllib.request.urlopen(req, timeout=120) as r:
+            bindings = json.loads(r.read().decode("utf-8")).get("results", {}).get("bindings", [])
+    out = {}
+    for b in bindings:
+        try:
+            gid = int(b["gnis"]["value"])
+        except (KeyError, ValueError):
+            continue
+        cur = out.setdefault(gid, {"qid": b["item"]["value"].rsplit("/", 1)[-1], "description": "", "image": "", "wiki_title": ""})
+        cur["description"] = cur["description"] or b.get("desc", {}).get("value", "")
+        cur["image"] = cur["image"] or urllib.parse.unquote(b.get("img", {}).get("value", "").rsplit("/", 1)[-1])
+        cur["wiki_title"] = cur["wiki_title"] or b.get("title", {}).get("value", "")
+    return out
+
+
+def commons_info(files):
+    """{file name: {url, page, artist, license}} for freely licensed Commons photos (others left out)."""
+    fx = wiki_fixture()
+    if fx is not None:
+        return {k: v for k, v in fx.get("images", {}).items() if k in files and OK_LICENSE.match(v.get("license", ""))}
+    out = {}
+    files = list(files)
+    for i in range(0, len(files), 50):
+        q = urllib.parse.urlencode({"action": "query", "format": "json", "prop": "imageinfo", "iiprop": "url|extmetadata",
+                                    "iiurlwidth": 1280, "titles": "|".join("File:" + f for f in files[i:i + 50])})
+        with urllib.request.urlopen(urllib.request.Request(f"{COMMONS_API}?{q}", headers={"User-Agent": UA}), timeout=60) as r:
+            pages = json.loads(r.read().decode("utf-8")).get("query", {}).get("pages", {})
+        for p in pages.values():
+            ii = (p.get("imageinfo") or [{}])[0]
+            meta = ii.get("extmetadata") or {}
+            lic = (meta.get("LicenseShortName") or {}).get("value", "")
+            if not OK_LICENSE.match(lic) or not ii.get("thumburl"):
+                continue
+            artist = re.sub(r"<[^>]+>", "", (meta.get("Artist") or {}).get("value", "")).strip()
+            out[p.get("title", "")[5:].replace(" ", "_")] = {"url": ii["thumburl"], "page": ii.get("descriptionurl", ""),
+                                                              "artist": html.unescape(artist)[:200], "license": lic}
+            out[p.get("title", "")[5:]] = out[p.get("title", "")[5:].replace(" ", "_")]
+        time.sleep(1)
+    return out
+
+
+def wikipedia_extracts(titles):
+    """{title: the article's opening, in plain text (about three sentences)}."""
+    fx = wiki_fixture()
+    if fx is not None:
+        return {k: v for k, v in fx.get("extracts", {}).items() if k in titles}
+    out = {}
+    titles = list(titles)
+    for i in range(0, len(titles), 20):
+        q = urllib.parse.urlencode({"action": "query", "format": "json", "prop": "extracts", "exintro": 1, "explaintext": 1,
+                                    "exsentences": 3, "exlimit": 20, "redirects": 1, "titles": "|".join(titles[i:i + 20])})
+        with urllib.request.urlopen(urllib.request.Request(f"{WIKIPEDIA_API}?{q}", headers={"User-Agent": UA}), timeout=60) as r:
+            d = json.loads(r.read().decode("utf-8")).get("query", {})
+        back = {x["to"]: x["from"] for x in d.get("redirects", []) + d.get("normalized", [])}
+        for p in d.get("pages", {}).values():
+            t = p.get("title", "")
+            if p.get("extract"):
+                out[back.get(t, t)] = p["extract"].strip()[:1200]
+        time.sleep(1)
+    return out
+
+
+def landmarks_bulk():
+    """Loads the pilot states' natural landmarks when they're due. Returns True if this run did a load."""
+    st = site_call("/api/crawl/landmarks.php")
+    if not st.get("due"):
+        return False
+    file = "gnis-" + time.strftime("%Y-%m")
+    deadline = time.monotonic() + NPI_TIME
+    states = [s.upper() for s in st.get("states", ["AZ", "NM"]) if s.upper() in STATE_NAMES]
+    feats = {s: gnis_rows(s) for s in states}
+    boxes = {}
+    for s, rows in feats.items():
+        if rows:
+            boxes[s] = [min(r["lon"] for r in rows), min(r["lat"] for r in rows), max(r["lon"] for r in rows), max(r["lat"] for r in rows)]
+    nations = nations_map(list(boxes.values()))
+    lid = site_call("/api/crawl/landmarks.php", {"start": file})["load_id"]
+    seen = 0
+    for s in states:
+        rows, box = feats[s], boxes.get(s)
+        if not box:
+            continue
+        # Wikidata, in four tiles so no one query is too big
+        wd = {}
+        mx, my = (box[0] + box[2]) / 2, (box[1] + box[3]) / 2
+        for tile in ([box[0], box[1], mx, my], [mx, box[1], box[2], my], [box[0], my, mx, box[3]], [mx, my, box[2], box[3]]):
+            if time.monotonic() > deadline:
+                raise RuntimeError("the landmarks load ran out of time")
+            try:
+                wd.update(wikidata_for(tile))
+            except Exception as e:                 # a slow tile only loses its descriptions
+                log(f"landmarks: Wikidata tile {tile} for {s} skipped: {e!r}"[:300])
+            if not os.environ.get("WIKI_FIXTURE"):
+                time.sleep(2)
+        keep = []
+        for r in rows:
+            w = wd.get(r["gnis_id"])
+            if (w and (w["image"] or w["wiki_title"])) or notable(r):   # Wikidata describes nearly every GNIS feature ("summit in Arizona"): an article or a photo counts
+                keep.append((r, w))
+        photos = commons_info({w["image"] for _, w in keep if w and w["image"]})
+        texts = wikipedia_extracts({w["wiki_title"] for _, w in keep if w and w["wiki_title"]})
+        out = []
+        for r, w in keep:
+            row = dict(r, nation=nation_at(r["lon"], r["lat"], nations))
+            if w:
+                img = photos.get(w["image"]) or photos.get(w["image"].replace(" ", "_"))
+                row.update(qid=w["qid"], description=w["description"], wiki_title=w["wiki_title"],
+                           extract=texts.get(w["wiki_title"], ""), image=img or {})
+            out.append(row)
+        for i in range(0, len(out), 500):
+            seen += site_call("/api/crawl/landmarks.php", {"load_id": lid, "file": file, "rows": out[i:i + 500]}).get("saved", 0)
+        log(f"landmarks: {s}: {len(rows):,} features, {len(wd):,} on Wikidata, {len(out):,} sent")
+    if seen == 0:
+        raise RuntimeError("no landmarks the site accepted")   # never finish (and remove the old copy) on an empty load
+    res = site_call("/api/crawl/landmarks.php", {"load_id": lid, "file": file, "done": True, "seen": seen})
+    log(f"landmarks: {file} done: {seen:,} kept, {res.get('removed', 0)} old records removed")
+    return True
+
+
 def run():
     if not SITE or not TOKEN:
         log("TRAVERSENCE_URL and CRAWLER_API_TOKEN must be set.")
@@ -942,6 +1244,12 @@ def run():
             return 0
     except Exception as e:                         # never stops the rest; the site retries it in 6 hours
         log(f"Recreation.gov load stopped: {e!r}"[:300])
+    if LANDMARKS:
+        try:
+            if landmarks_bulk():
+                return 0
+        except Exception as e:                     # never stops the rest; the site retries it in 6 hours
+            log(f"landmarks load stopped: {e!r}"[:300])
     if VERIFY_PER_RUN > 0:
         try:
             second_look(started + min(VERIFY_TIME, TIME_BUDGET))
