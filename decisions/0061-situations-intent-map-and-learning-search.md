@@ -136,4 +136,17 @@ does. Situations follow the same rule, in this order:
   - Results run only on Enter or a tap; the counts beacon says whether anything was found; `search_terms` keeps the
     words by area and day.
   - Not yet: the Admin editor, resource guides and the oversight view (batch 2); learning and the crawler (batch 3).
+- **2026-10-02, batch 1 fixes (after the first live test):**
+  - Typing no longer leaves the last search's results on screen: they clear as soon as the words change, and the
+    first line while typing is always "Search for '…' ↵" (Enter or a tap). The "Search the broader region" line went:
+    the full search already shows Beyond.
+  - Clicking into the box selects its words (typing replaces them); a second click places the cursor. Esc clears the
+    words first, then closes.
+  - Spelling slips are forgiven when reading a situation: a word one letter off one of our phrases' words (two for 7+
+    letters) is read as it ("broke my ancle" is ankle). Hedges at the start of a phrase being typed are skipped ("I
+    think I may have broken my…").
+  - A new situation, **An injury** (urgent, not danger): urgent care, ER, bone and joint doctors, braces and
+    crutches, getting better. "Someone is hurt" keeps the life-threatening phrases and the 911 line.
+  - Seed versions (`SEED_VERSION`, kept in `search_index_state`): seed situations are brought up to date on the live
+    site; ones edited in Admin never are.
 
