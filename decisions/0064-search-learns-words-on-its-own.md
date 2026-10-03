@@ -1,0 +1,74 @@
+# 0064: Search learns words on its own; people have access and control, not chores
+
+**Status:** Accepted, 2026-10-04.
+**Amends:** decisions/0063 §7 ("rules and senses are never auto-promoted"). Ranking was already learned without a
+person (decisions/0061).
+**Source:** Jason, building "Found a wallet" by hand: "By definition found is to find, so what did I find is the
+question, and the builder should be able to see that… Not sure why I am having to build these situations." Then:
+"Our system should be intelligent enough to not have a required review and approval for basic word association and
+syntax… Adding words that are recognized, then phrases, should be system work that doesn't need human management.
+Access and control yes, but having to add or structure this is not."
+
+## Context
+
+Search read each word as a bare label. It didn't know that "found" is a form of "find", that finding has an object, or
+that a purse, keys and a passport are all someone's belongings. So every pairing had to be taught by hand ("found +
+wallet", "found + purse"…), and drafts waited for a person to tap Approve. Predictions already learned from what
+people do (they open one, or remove it with ×) without anyone approving them. Words and phrases should work the same
+way.
+
+## Decision
+
+1. **Word knowledge is built in, from a dictionary.** WordNet 3.1 (Princeton, free to use with its notice) is loaded
+   as data (`api/lib/data/word-families.php`, built by `workers/lexicon/build_families.py`). It has three parts:
+   - about 14,000 common nouns, each in the family search acts on: someone's **belongings**, **documents** and cards,
+     money, keys, a phone, computer or appliance, a pet, an animal, a vehicle, a tire, glasses, power and hand tools,
+     plumbing, medicine, food;
+   - the irregular forms of verbs (found → find, stolen → steal) and of plurals (knives → knife).
+
+   Only a noun's most common sense counts. A short list of corrections fixes the senses people don't mean in a search
+   (a "drone" is a device, not a bee).
+2. **Verbs by their base form.** Any form of a verb whose every form means the same thing is that event or action:
+   robbed, robbing and robs are all "lost"; leaked is "broken"; installing is "install". "Find" is deliberately not
+   one of them: "find my keys" is lost, "found a wallet" is found.
+3. **What a verb asks for.** New built-in event: **found** (someone else's thing). Its rules:
+   - found + an animal → the lost-or-found pet situation;
+   - found + belongings, documents, keys, a device, money, glasses or tools → **Found someone's belongings** (the
+     police, non-emergency; on a trail or in a park, a visitor center or ranger station);
+   - "found my …" is their own thing found again, so nothing to hand in.
+
+   And lost, stolen or robbed + belongings, documents, money or a device → **Lost or stolen wallet, phone or ID**:
+   report it, replace an ID at Motor Vehicles, cancel cards at the bank, replace a phone. Both situations are built in
+   (seed 12).
+4. **Applied at once, with nothing to approve.** A word the dictionary knows is read as its family as soon as anyone
+   searches it ("I found someone's purse", "found a hamster", "someone robbed my backpack"). Analyze says so: "'purse'
+   is someone's belongings, from the dictionary". A word taught in Admin always wins, and the built-in lists are read
+   first.
+5. **Learned from searches, applied by the system.**
+   - **What's applied:** every 6 hours the missed searches give words search doesn't know, words that keep leading to
+     one kind of place, and rules to situations that exist. Once at least 3 searches back each one, the system applies
+     it (`SearchDrafts::autoApply`).
+   - **The record:** each is logged as the system's (made_by 0) under Recent corrections, marked "learned on its own",
+     with Undo.
+   - **Reinforced by use, as predictions are:** removing a suggestion with ×, changing the search and leaving with
+     nothing all count.
+6. **What still needs a person:**
+   - **A situation that doesn't exist yet.** A rule for it waits as "Searches that need a situation". Choosing which
+     kinds of places to send people is a real-world judgment, not a word one.
+   - **The 911 line.** Nothing learned on its own can bring in a Danger situation. A reading that rests on a dictionary
+     word and would lead to one is read again without the dictionary (a harm is still an injury).
+   - **Tribal nations' land and confidential addresses** (decisions/0058 §26). These rules hold however a word is read.
+7. **Access and control.** In the Workbench:
+   - every word shows where its reading came from (built in, taught, the dictionary, or learned on its own);
+   - every change has Undo;
+   - a person can override any reading by teaching the word differently.
+
+## Consequences
+
+- Searches about everyday things work the first time, in words nobody listed: belongings, pets, tools, documents.
+- Staff time moves from teaching words to the few things only people can judge: new situations and emergencies.
+- **The dictionary has to be shipped.** It's a 450 KB generated PHP file, loaded only when a search needs it (about 5
+  ms), and rebuilt by running the generator again.
+- **Some mistakes will be read before anyone sees them.** The dictionary is broad; a wrong family shows up in Analyze
+  and in what people remove, and is fixed by teaching the word or adding a correction to the generator. The 911 line is
+  never at risk.

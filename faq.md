@@ -156,10 +156,17 @@ Nothing about you is attached to the suggestion beyond what you type. If it's a 
 mean…?**, offering only words that fit where yours sits ("how to compost" won't offer "compass").
 
 ### What happens to words search didn't understand?
-They're how search learns. Words that keep coming up in searches that found nothing are grouped, along with the ones
-visitors suggested, and our team sees each one with how often it was missed. A person then decides what the word
-means; nothing is taught on its own. Only counts are kept: how many searches, which days, and what kinds of places
-people opened afterwards, never who searched.
+Search learns them. It already knows most everyday words from a dictionary: it knows a purse, a passport and keys are
+someone's belongings, and that a hamster is a pet. So "I found someone's purse" or "someone stole my backpack" works
+without anyone teaching it. For words the dictionary doesn't have (local names, new slang), search learns from what
+people search and open: when enough searches use a word the same way, it starts reading it that way. Our team can see
+everything it learned and undo any of it. Only counts are used, never who searched.
+
+### What should I do if I found someone's wallet or lost mine?
+Search for it the way you'd say it. "Found a wallet" or "I found someone's phone" shows the police (non-emergency)
+near you to hand it in to, and a visitor center or ranger station if you found it on a trail or in a park. "Lost my
+wallet" or "my ID was stolen" shows where to report it, where to replace a driver's license, your bank to cancel cards,
+and where to replace a phone.
 
 ### Can I remove a suggestion that doesn't fit?
 Yes. Tap the **×** beside a "Did you mean", a word that finishes your search, or a "May also help" result. It goes

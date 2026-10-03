@@ -91,7 +91,7 @@ A situation is a frame: a scenario with roles. The builder becomes frame-first:
 
 - **Drafts:** missed searches and unrecognized words are grouped, and drafts of words, senses and rules are proposed,
   each with its evidence.
-- **Approval:** one tap by a person. Rules and senses are never promoted automatically.
+- **Approval:** one tap by a person. Rules and senses are never promoted automatically. *(Amended by decisions/0064: words, category words and rules to existing situations are now applied by the system, logged with Undo; a person decides new situations and anything leading to the 911 line.)*
 - **Zero-touch** stays only for result ranking (May also help → Most opened, decisions/0061).
 - **Auditable:** everything learned shows in ✦ Analyze.
 
