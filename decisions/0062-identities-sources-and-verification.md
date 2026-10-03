@@ -125,3 +125,27 @@ missing, what's in conflict, and the decision (Ask → Decide → Act).
 - Facts are only as good as their sources. A single-source fact is shown as such, never as confirmed.
 - Building profiles of private people is ruled out by design, not just by policy.
 - Sign-up gains one step; nobody is blocked from ordinary use.
+
+### Progress, 2026-10-03: Step 1, the reports fix
+
+- **Cause, reproduced on MariaDB:** `content_reports.kind` was a fixed list (`ENUM`) that never gained
+  `content_comment` or `experience`. On a database that isn't strict (shared hosting), MySQL saves an unknown value
+  as a blank, with only a warning, so those reports counted but showed nothing. On a strict database the report would
+  fail outright.
+- **Second fault:** `Reports::open()` treated any kind it didn't name as a group, so a blank report showed a wrong
+  group or was skipped while still counted. Reports whose content had been deleted were skipped the same way.
+- **Fix:**
+  - The kind and reason become text (`2026-10-25_reports_kinds.sql`), so a new kind of report can't be blanked again.
+  - `Reports::repairBlank()` gives a blank report its kind back when its target can only be one thing: a page comment
+    or an experience.
+  - The ones it can't tell are **one item**, "Reports that lost what they were about", with their reasons and notes
+    and **Dismiss all**. They count as one item on the dashboard too.
+  - A report whose content was deleted says "gone" and can be dismissed.
+  - Group reports have their own branch.
+  - A kind the page doesn't know is shown, never left out.
+  - Headings name what was reported (Comment on a page, Experience, Journey…), with the matching button ("Hide
+    comment", "Hide experience").
+  - Any report can be dismissed.
+- **Checked in the sandbox:** a recoverable blank report came back as a page comment with its text; two unrecoverable
+  ones became one item and "Dismiss all 2" cleared them; a deleted journey showed as gone; a group report showed the
+  group. Also checked on MariaDB: the migration keeps the blank rows, and new reports keep their kind.
