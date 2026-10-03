@@ -152,6 +152,18 @@ Search never changes your words on its own. If a word isn't one it knows, it ask
 ### How does search know which "fall" I mean?
 Some words mean different things depending on the words around them, and search reads them that way. "I took a fall" or "fell down the stairs" is an injury, so it shows urgent care and emergency rooms. "Fall festival" or "fall hours" is the season, September to November. "Show Low Falls" is a waterfall. "A tree fell" is storm damage, so it shows tree services. "Feeling like I'm falling" is something you feel, so it shows someone to talk to and clinics. "Spring", "summer" and "winter" work the same way: "spring break" is the season, "hot springs" is a place. Showing only what's on during a season is coming; for now the season is read but doesn't narrow the list yet. If anyone is in danger, call 911.
 
+### Can I search for something I need done, like "fix my chainsaw"?
+Yes. Search reads what you want done and shows who does it: "fix my chainsaw" finds small-engine repair, "install a
+water heater" finds plumbers and contractors, "register my truck" finds the motor vehicle office, "set up my printer"
+finds computer help, "rent a trailer" finds equipment rental, and "building a deck" finds lumber, tools and builders.
+Step-by-step how-to guides are coming; for now, search shows the people and places that can do it or help.
+
+### Can I say when I need it, like "asap" or "this weekend"?
+Yes. "Now", "asap", "right away" and "emergency" put places that are open now first. "Tonight", "today", "this
+morning" and "this weekend" leave out places known to be closed then. "Fall", "spring", "summer" and "winter" are
+read as the season. "Upcoming" and "coming up" are read as a time, not a word to search for; showing upcoming events
+is coming.
+
 ### What does "May also help" mean in search?
 Search learns from what people open after searching. If most people who search the same words go on to open the same kind of place (say "hearing test" and hearing-aid shops), that kind shows under your results as **May also help**. Once it's very sure, it leads instead, as **Most opened**. If people stop opening it, it goes away on its own. It learns from counts of the words and the kind of place opened, never from who searched, and only when the words have been searched many times. When a place people need is missing nearby, our crawler looks for it in public data and on official government and school websites first.
 

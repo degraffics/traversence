@@ -572,3 +572,61 @@ Teach search became the **Search workbench** (see decisions/0055, the admin dash
 
 Its buttons open the right form already filled in. A single unknown word ("bathroon") is asked about even when it
 could be a person's name, because asking does no harm.
+
+### Progress, 2026-10-04: the intent taxonomy (five kinds of word)
+
+From Jason's "Traversence Intent Taxonomy". Every word the meaning layer reads (`SituationReasoner`) is one of five
+kinds, each feeding one W:
+
+| Kind | What it is | W | What search does |
+|---|---|---|---|
+| **Event** | what happened: broke, leaked, stuck, fell | Why | a situation; urgent ones put the call first and say "call 911" when someone may be in danger |
+| **Thing** | what it happened to, or what did it: wallet, pipe, dog | What / Who | what's looked up |
+| **Action** | how something is done: fix, install, register, build, cook, set up, rent, buy, learn | Why (how) | **who does it** (service providers) |
+| **Tool** | the tool or medium: generator, saw, mower, tractor, app, printer, permit portal, grill | What | narrows what to find |
+| **Time** | when: asap, right away, this morning, upcoming, coming up, the seasons | When | open now first, open today, coming up, the season |
+
+- **Decided with Jason (2026-10-04):**
+  - Actions lead to who does it. **Step-by-step how-to guides are coming**: a later piece of work, not part of this
+    one. The reasoning says so for "learn" ("how-to guides are coming; for now, who teaches it").
+  - This work comes before ADR 0062 step 5.
+- **Built in:**
+  - **Actions** (9 meanings): repair, install, build, register, cook, configure, rent, buy, learn. Weak ones ("make",
+    "set up", "service") count only with a thing or a tool.
+  - **Tools** (8): power-tool, generator, yard-tool, heavy-equipment, computer, calculator, portal, kitchen.
+  - **Time** (10 classes, each with a set effect): urgent, now, tonight, today, weekend, upcoming, fall, spring,
+    summer, winter. Search's own "now", "tonight", "today", "this weekend", "emergency" and "24 hours" stay as they
+    were; these add the other ways people say it. "Upcoming" is read and set aside; events listings are coming.
+  - **A new thing meaning, "project":** shed, deck, porch, patio, addition, barn, cabin, carport, ramp, retaining wall.
+- **26 action rules:**
+  - repair + generator/saw/mower → Small engine repair;
+  - repair + vehicle → Car repair; repair + plumbing → Leak or burst pipe;
+  - install + plumbing/heating/house… → Getting something installed;
+  - build + project → Building or remodeling;
+  - register + vehicle → Registering or renewing a license;
+  - set up + computer/device/internet → Setting up or fixing a phone or computer;
+  - rent + equipment → Renting tools or equipment;
+  - buy + tools → Tools and hardware;
+  - cook (or learn + kitchen) → Cooking and baking;
+  - and others.
+- **8 new situations** (seed version 10): Building or remodeling, Getting something installed, Registering or
+  renewing a license, Cooking and baking, Setting up or fixing a phone or computer, Renting tools or equipment, Small
+  engine repair, Tools and hardware.
+- **An action on a one-word phrase:** when the only phrase found is one word and it's the thing an action acts on,
+  the action's rule wins, unless the phrase found a danger situation. So "install a new toilet" is an installation,
+  "fix the toilet" is a plumber, and "toilet" alone is still A restroom. Phrases of two or more words always stand.
+- **Admin → Search → Workbench → Meanings:**
+  - Teach a word offers all five kinds, each with its W;
+  - time words take one of the ten classes, since search only knows how to act on those;
+  - rules take an event or an action, with things or tools;
+  - ✦ Analyze lists each word's kind, meaning and W, and a word with two readings shows both ("rent": an action, and
+    a bill).
+  - No database change: `search_meanings.kind` already fits "action", "tool" and "time".
+- **FAQ:** two new entries, "Can I search for something I need done, like 'fix my chainsaw'?" and "Can I say when I
+  need it, like 'asap' or 'this weekend'?"
+- **Checked in the sandbox:**
+  - 22 sample searches, every one reading as intended: the new actions; the old meanings ("a dog bit me", "cut my
+    hand", "my car wont start"); and the ambiguous ones, where "make" and "set up" alone and "build a fire" read as
+    nothing.
+  - 8 time searches, including one taught in Admin;
+  - the form at 390px.
