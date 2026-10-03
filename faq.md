@@ -217,7 +217,7 @@ Not who searched it. We count the words people search, by area and day, and how 
 For something you need nearby, like a restroom, gas or a tow, "nearest" only means something once we know where you are. Tap **Choose your place or use Auto-detect** and the nearest places show. Auto-detect doesn't share where you are. Once you've set a place, search uses it. That includes a city, state or ZIP outside our regions, like Seattle, so it won't ask again.
 
 ### I set a place outside your regions. What does search show?
-It searches there. If nothing is listed near that place yet, search says so ("Nothing is listed near Seattle, WA yet") instead of showing places hundreds of miles away. Traversence lists places in its regions so far, and more are coming. Tap **Choose another place** to pick another one.
+It searches there. If we have no listings there yet, search says so ("We have no listings in Seattle, WA yet") instead of showing places hundreds of miles away. Tap **Choose another place** to pick another one.
 
 ### What are the lines that finish my words as I type?
 They're ways your search could carry on, like "where can i park **overnight for free**" or "parks **for kids**". What you typed is plain and the rest is bold. Tap one to search it. They come from the situations we know, the ways people ask ("…check out", "…worth the drive") and what fits the thing you named (open now, this weekend, near your place). They don't come from other people's searches.

@@ -142,8 +142,8 @@ our regions. Search used to ignore those places, so a situation asked "Where are
 `js/search-panel.js` sends them with the search (`city`, `state`, `zip`, `plat`/`plon`). The server builds the place
 with `UniversalSearch::loosePlace`, taking its ZIPs and middle from the ZIP list when it has them. A town set by city
 inside our regions (Show Low, AZ) gets its local answers. Outside them, a situation's needs take only what's in the
-place or within about 150 miles. When there's nothing, search says "Nothing is listed near Seattle, WA yet" and
-offers **Choose another place**. It never fills in places from another state. Suggestions while typing drop
+place or within about 150 miles. When there's nothing, search says "We have no listings in Seattle, WA yet" (once,
+in the situation's answer or as the results note) and offers **Choose another place**. It never fills in places from another state. Suggestions while typing drop
 far-off names when there's no middle to measure from.
 
 ## Consequences
