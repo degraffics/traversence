@@ -73,6 +73,19 @@ way.
    - every change has Undo;
    - a person can override any reading by teaching the word differently.
 
+### Progress, 2026-10-04: every English word is known
+
+"Prepare for" showed "Not recognized: prepare" and offered "propane" and "preserve". The dictionary held only the
+nouns in a family and a short list of verbs. Fixed:
+
+- **The vocabulary:** all 77,519 single-word lemmas from WordNet (nouns, verbs, adjectives and adverbs), each with its
+  parts of speech. They're in `api/lib/data/word-list.php` (1.3 MB, built by the same generator), read only when a
+  word isn't known any other way.
+- **Reading a word:** a word found there is recognized, with its part of speech chosen by its slot ("to prepare": the
+  verb). Plurals and verb forms count ("keys", "prepared"). It has no job until it's part of something search acts on.
+- **"Did you mean"** never corrects a real word. A slip still gets help: "pozza" → pizza, "frobnicat" is still flagged
+  as unknown.
+
 ## Consequences
 
 - Searches about everyday things work the first time, in words nobody listed: belongings, pets, tools, documents.
