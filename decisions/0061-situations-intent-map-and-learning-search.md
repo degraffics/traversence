@@ -523,3 +523,41 @@ word itself is changed, so the rest keeps its punctuation.
   get up", "spring break", "fall cleanup", "fell off a ladder" and a taught sense ("dropped" near a person → An
   injury). The regression set reads as before (power went out, broken arrow, bit by a snake, pipes burst, somewhere
   nice for dinner, bathroon).
+
+### Progress, 2026-10-03: Typos ask "Did you mean…?", never change a word
+
+Jason: "the search should ask did you mean … instead of guessing or changing a word", with "most likely matches
+ranking ahead of less likely based on how much was matched to the original word". This replaces the forgiving of
+spelling slips above (2026-10-02, and the 5-letter rule).
+
+- **No silent fixes.** `Situations::read` reads the words as typed; a slip no longer becomes a situation on its own
+  ("bathroon" isn't A restroom until it's picked). "Maybe you mean" and the typing predictions still look past a
+  slip, because they only offer.
+- **Asking.** A word of 4 or more letters is a typo only when nothing knows it. Known words are:
+  - category names (abbreviations like "Supls" left out);
+  - synonyms;
+  - the situations' phrases and needs as written;
+  - word senses and their groups;
+  - town-area names;
+  - any listing's indexed words;
+  - town names.
+
+  Search and the typing panel then return `did_you_mean_all`: up to three whole searches, each with the situation it
+  would answer ("bathroom: A restroom"). The panel shows them as **Did you mean** rows, the changed words in bold;
+  a tap searches that. While typing, the last word counts as known while a known word starts with it.
+- **Ranking** (`SearchText::likeness`, 0 to 1): letters kept in place (1 − edit distance ÷ the longer length), +0.04
+  for the same first letter, +0.04 for the same sound (soundex), +0.06 × the shared beginning. A kind of business or
+  a situation's word gets +0.02 over a business name's word on a tie. Allowed distance is 1 for 4 letters, 2 for 5–6,
+  3 for 7 or more (one more when they sound the same). Plurals of a likelier option and cut-off stems are left out,
+  and with several typos the likeliest of each come first.
+- **Checked:**
+  - bathroon → bathroom (A restroom);
+  - pozza → pizza;
+  - plumer → plumber, palmer, lumber;
+  - resturant near me → restaurant near me, return…, restroom… (A restroom);
+  - vetrinarian → veterinarian (Pet is sick or hurt);
+  - lockd out → locked out (Locked out or lost keys);
+  - tow truk → tow truck (Stuck on the road).
+
+  No false asks on pizza, broken arrow, Dittys, Show Low Falls, hot springs, Lyman Lake, Springerville, Snowflake,
+  hearing test, apache trout, or the situation set.
