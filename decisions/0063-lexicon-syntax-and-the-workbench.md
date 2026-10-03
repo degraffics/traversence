@@ -172,3 +172,48 @@ Then guides (§8), as their own step after ADR 0062's remaining steps.
   - × on "Did you mean pizza": a visitor's counted; staff's blocked and was undone.
   - The earlier situation and time-word searches gave the same results.
 - **Also checked on MariaDB:** the migration, the category column, and the removal counting, blocking and Undo.
+
+### Progress, 2026-10-04: Piece 2, correcting the 5 W's in place
+
+- **Selecting:**
+  - tapping a word chip selects it, and its W card lights up;
+  - the bar under the chips shows the selection, with **＋ word before / word after ＋** to grow it into a phrase
+    ("first thing tomorrow"), and **Word, senses & forms** (the piece 1 lightbox).
+- **✎ on each W card** opens a guided form inside the card. Only values search can act on are offered:
+  - **Why:** "it names a situation by itself" (a sense, with optional cues), or a rule: an event or action plus
+    things or tools → a situation. The word's own class is preselected.
+  - **What:** "an everyday word for a category" (pick a real category; saved as a sense that reads it as the
+    category), or "a thing, a tool or a modifier" with its meaning.
+  - **Where:** "a local name for a town or area we hold" (checked against our places), or "never a place" (new
+    `search_meanings` kind `notplace`). The card says that the reading is the true place, and whether it can be shown
+    is decided when it's shown.
+  - **When:** one of the ten time classes.
+  - **Who:** one of the audiences search knows (new kind `audience`, read by the Who step). Never a person: anything
+    else is refused.
+- **Dry run before saving:**
+  - Save stays off until a dry run has been done on the form as it stands; changing the form turns it off again.
+  - **How it works:** the Workbench asks for two readings, each in its own request. One is plain. In the other, the
+    change is written inside a transaction, the searches are read, and it's rolled back, so nothing is kept and the
+    real code is used. Taught words are reloaded after the trial write.
+  - **What it reads:** the search being worked on, plus recent searches with the word (`search_terms`, last 90 days,
+    most searched first, up to 20).
+  - **What it shows:** each search that would read differently, W by W, before → after ("cabins in greer — Where:
+    Greer, AZ → nothing"), or "none would read differently; it applies to new ones".
+- **Saving logs it** (`2026-10-29_search_edits.sql`, `search_edits`): the change, its summary, how many searches the
+  dry run said it changes, who made it, and how to undo it (the rows it added, and the taught rows it replaced).
+  **Recent corrections** lists them with **Undo**, which removes what was added and puts back what was replaced.
+- **`SearchEdits`:** `check()`, `apply()`, `save()`, `undo()`, `samples()`, `reading()` and `readings()`.
+  `SituationReasoner::reset()` was added for the trial.
+- **Checked in the sandbox (desktop and 390px):**
+  - What: "pub" → Bars. 2 of 2 searches change; saved, then undone.
+  - Who: "grandparents" → For seniors. 2 change; saved.
+  - Where:
+    - "greer" never a place: 2 change, Where Greer, AZ → nothing;
+    - "sj" a local name for Saint Johns: "plumber in sj" Where → Saint Johns, AZ.
+  - When: the phrase "first thing tomorrow" → Open today. "plumber first thing tomorrow" changes; after saving it's
+    one chip (time → When).
+  - Why: "conked" → Stuck on the road.
+  - A refused Who ("bob smith" as a person).
+  - The trial leaves nothing behind.
+- **Also checked on MariaDB:** the migration runs twice safely, a rolled-back trial leaves the tables unchanged, and a
+  saved change and its undo restore the word's earlier reading.
