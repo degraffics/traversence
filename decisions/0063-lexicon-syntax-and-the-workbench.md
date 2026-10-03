@@ -400,3 +400,17 @@ Then guides (§8), as their own step after ADR 0062's remaining steps.
   - **Also:** a new situation is named from the search words, and the grey hints read "e.g. …" so they aren't taken
     for values.
   - **Checked at 390px:** add twice (by tap and by click), move the second need up (its ticks kept), remove one.
+- **"Build the rule from my example searches"** (Jason: "this process makes no sense to me"). The easy way to make
+  triggers, at the top of step 2; the hand-built way is folded under "Or build a rule by hand".
+  - **How you use it:** write how people would search for it, one per line (step 3), and tap **Build**.
+  - **What it reads** (`auto_rules`):
+    - Each search's first event or action is the first part of the rule; its things and tools are the second.
+    - A word search doesn't know is offered to teach. It's **what happened** when it's a verb, a past form
+      ("spotted", "found", "lost"), or the word right before "a", "my" or "someone's". Otherwise it's **what it's
+      about**.
+    - A word that's part of a name is left alone. A search with nothing for what happened says so, and is skipped.
+  - **The plan, in plain words:** "teach 'found' as what happened · teach 'purse' as what it's about · show this
+    situation when people search found with wallet or purse". Then **Use this** teaches the words, adds the rules
+    and runs the tests.
+  - **Checked at 390px:** "found a wallet / found someones wallet / i found a purse", with "found", "wallet" and
+    "purse" unknown, gave the rule found + wallet or purse. All three were taught, and 3 of 3 tests passed.
