@@ -155,6 +155,15 @@ about 150 miles of such a place, and not at all when we don't know where it is. 
 middle, and without the cap Arizona's pizza would show "1,069 mi" away. It never fills in places from another state. Suggestions while typing drop
 far-off names when there's no middle to measure from.
 
+### Progress, 2026-10-04: 10 miles by default, reset when the place changes
+
+A set place doesn't look outside itself unless the person widens it (Jason). The Distance slider starts at **10 mi**
+(it used to start at ∞), kept per browser as `tv_reach2`, so the old ∞ setting doesn't carry over. It goes back to 10
+mi whenever the place changes: `notifyLocationChanged()` sends a `tv:location` event that the search panel listens
+for. Within a distance, nothing outside it shows (no "beyond", no nearby towns). When nothing is found, the
+widen line offers the next steps out ("Nothing within 10 mi of St. Johns. The nearest is 40 mi away" → **50 mi
+(2)**). Steps that would find nothing more aren't shown, and there's no "No limit" for a place outside our regions.
+
 ## Consequences
 
 - A search never leaves a person at a dead end because their place has nothing: what's nearest beyond it shows.

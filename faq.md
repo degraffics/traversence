@@ -80,7 +80,7 @@ Tribal nations are sovereign nations, and we present them that way. We show publ
 Use the search bar at the top of any page. The panel that opens has:
 - **Location** at the top: the place you're searching. Tap ✎ to change it.
 - **Search Directory**: search **All**, or just **Discovery**, the **Directory**, **Community** or the **Marketplace**.
-- **Distance**: slide from **My place only** to **∞** (no limit, the default), or pick a distance like 25 miles. Your place stays as you set it. With no place chosen there's nothing to measure from, so the slider rests at ∞ until you choose one.
+- **Distance**: slide from **My place only** to **∞** (no limit), or pick a distance like 25 miles. It starts at **10 mi** around your place and goes back to 10 mi whenever you change your place, so search doesn't look outside your place unless you widen it. Your place stays as you set it. With no place chosen there's nothing to measure from, so the slider rests at ∞ until you choose one.
 - **Search Results** on the left. Each one says which part of the site it's in: **Directory**, **Discovery** or **Community**.
 - **Suggestions** under them, one per line: the categories that match a word you typed ("All Churches in Saint Johns"), each word on its own when nothing has them all, and other searches for the place. When your words describe a situation, its answer already says what kind of place helps, so no category lines show.
 - **Quick Search** on the right: one-tap searches for the place, with how many each finds, your own, and the filters (**Near me**, **Open now**, **Has a phone**, **Has a website**, **Favorites**). **Recent Searches** are under them.
@@ -265,7 +265,7 @@ A heart in a circle is one of your favorites: a business you linked or saved to 
 The map remembers the style you chose.
 
 ### I set Distance to "My place only" and nothing came up. Now what?
-Search says so and tells you how far the nearest one is ("Nothing in Saint Johns. The nearest is 23 mi away."), with buttons for **25 mi**, **50 mi** and **No limit**, each showing how many it finds. Tap one and the Distance slider moves with it. Your place stays as you set it.
+Search says so and tells you how far the nearest one is ("Nothing in Saint Johns. The nearest is 23 mi away."), with buttons for the next distances out, like **25 mi**, **50 mi** and **No limit**, each showing how many it finds. The same happens at any distance, including the 10 mi it starts at ("Nothing within 10 mi of St. Johns. The nearest is 40 mi away."). Tap one and the Distance slider moves with it. Search never looks further on its own. Your place stays as you set it.
 
 ### Why do some category names look shorter than in other directories?
 Business categories often carry trade codes, like "Automobile Parts & Supplies-Retail-New" or "Feed-Dealers (Whls)". We show the plain name ("Automobile Parts & Supplies", "Feed-Dealers"). "Used" stays, because it tells you something.
