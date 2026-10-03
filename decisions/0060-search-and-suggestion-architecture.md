@@ -143,7 +143,14 @@ our regions. Search used to ignore those places, so a situation asked "Where are
 with `UniversalSearch::loosePlace`, taking its ZIPs and middle from the ZIP list when it has them. A town set by city
 inside our regions (Show Low, AZ) gets its local answers. Outside them, a situation's needs take only what's in the
 place or within about 150 miles. When there's nothing, search says "We have no listings in Seattle, WA yet" (once,
-in the situation's answer or as the results note) and offers **Choose another place**. It never fills in places from another state. Suggestions while typing drop
+in the situation's answer or as the results note) and offers **Choose another place**. It also refers the person to Google
+Maps, so they can carry on unimpeded. A situation gets one link for each need (the need's own name, plus "near
+<place>"; a need found by words alone becomes "things to do"), and any other search gets one link for its words. Each
+link is a public Maps search URL (`https://www.google.com/maps/search/?api=1&query=…`), opened in a new tab: no key,
+no Google data fetched or stored by us, and only the words and the town reach Google, from the visitor's browser. That
+keeps ADR 0062's rule that Google is a link out, never our data. Taps are counted as `act` / `gmaps:<place>`, never
+who, which shows where people want listings next. The "none here, nearby towns" box (`elsewhere`) only looks within
+about 150 miles of such a place, and not at all when we don't know where it is. It never fills in places from another state. Suggestions while typing drop
 far-off names when there's no middle to measure from.
 
 ## Consequences
