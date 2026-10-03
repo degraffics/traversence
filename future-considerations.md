@@ -115,3 +115,19 @@ Bottom line: keep the manifesto exactly as written, because it's the reason to e
 ---
 
 **Suggested sequencing across the four ideas above** (from the 2026-09-24 assessment, source: [Modular Marketplace Plan summary](https://link.summary.ai/rp64s59)): marketing preference engine first (self-contained, de-risking), then a single-sided marketplace MVP (B2C, no payments), then revisit the plug-in architecture once a second real module is being built. Treat the residency/address index as currently scoped as a hold — pursue the lighter user-supplied-address alternative instead unless the full index is deliberately reconsidered later.
+
+## Place pages: clearer clusters and grouped outdoors lists (added 2026-09-30)
+
+Two confusions Jason found on the Discover path. Scheduled after the current search and shell work.
+
+- **Cluster vs. anchor town.** A town cluster page is named for its anchor town ("St. Johns") and then lists "Towns:
+  Saint Johns, Concho". Coming down the funnel, it reads as the page for St. Johns itself, not the area around it.
+  Clean up the cluster and anchor model: name clusters as areas ("St. Johns area"), give the anchor town its own
+  entry or page, and make the breadcrumb and header say which one you are on. The town spellings also need to match
+  ("St. Johns" vs. "Saint Johns").
+- **Outdoors & public lands as collections.** (Done 2026-09-30: see `decisions/0055` progress.) Recreation.gov items sit in a flat list, so four or five entries with
+  the same stem (a forest, its trailheads, day-use areas, overlooks) read as repeats. Group them into collections:
+  by kind (Lakes, Trails and trailheads, Campgrounds, Day use and picnicking, Scenic areas, Wilderness), and under
+  the parent area or forest where the source gives one. Each collection collapses to a count. This uses the ADR 0055
+  collection component.
+

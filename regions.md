@@ -32,6 +32,13 @@ Cluster identifiers use the hierarchical namespace `hub_aa:...` behind the scene
 
 That's roughly 34 micro-clusters and, on these estimates, somewhere in the neighborhood of 13,000–14,000 local businesses across the full Ancient America footprint once every zone is live — useful context for sequencing which clusters launch first rather than a claim that all of them launch together.
 
+**On the site (2026-09-30):** all 15 zones exist as geo-hubs under Ancient America. The Ancient Borderlands is
+live; the other 14 are `planned` and show as "Coming soon" on the Ancient America page, in this table's order,
+each with a short description of its towns (`api/migrations/2026-10-01_ancient_america_geohubs.sql`). Zone 8 is
+named **Gila Country & Copper Corridor** on the site (Jason, 2026-09-30): "Apache Stronghold" is the name of a
+real organization protecting Oak Flat, so the platform doesn't use it as a place name. A zone goes
+live when its first town cluster is built in Admin → Cluster tools and its status is set to active.
+
 ## Thematic Messaging Overlay: Pre-Colonial Heavy vs. Frontier & Industrial Transition Zones
 
 Per direction, 2026-09-24 — a thematic overlay for `commercial.md` §2's Sales & Partner Onboarding Framework and `brand.md` §2's editorial voice, not a replacement for the operational Geo-Hub Zone geography above. It answers a different question than the table above does: not "where is this zone," but "which layer of history should the Authority Engine lean on when writing about it."

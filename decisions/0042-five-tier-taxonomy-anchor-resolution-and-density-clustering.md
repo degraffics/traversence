@@ -103,3 +103,80 @@ together and resolve an anchor). It remains open, to be addressed when a second 
 
 `source = 'system_override'` needs the same admin-review-queue visibility already planned for
 `automated_seed` rows, so a hardcoded override isn't invisible to admins auditing cluster data.
+
+## Amendment (2026-09-28): grouping limits, as built
+
+Building `resolveMicroClusterId` against the 43 real auto-seeded stubs changed three of the numbers above.
+The Decision section's "100-mile proximity radius and a target 150,000 population ceiling" is superseded by:
+
+- **Join radius: 20 miles, not 100.** An unmatched ZIP joins the nearest cluster in its geo-hub whose
+  center is within 20 miles and that still has room; otherwise it anchors a new cluster. Simulated on the
+  real stubs, a 100-mile radius put every stub within reach of every other, so clusters filled up in
+  whatever order ZIPs arrived — Show Low folded into St. Johns (~45 mi), Gallup landed with Grants.
+  At 20 miles the groups follow real geography (Show Low/Lakeside/McNary, Snowflake/Taylor,
+  Holbrook/Woodruff/Sun Valley, Gallup/Vanderwagen/Mentmore, Zuni/Ramah/Pine Hill).
+- **Population ceiling: 50,000, not 150,000,** applied only when every ZIP involved has a population.
+  Populations come from the 2020 Census (DHC P1_001N per ZCTA), loaded nationwide into a new
+  `zip_coordinates.population` column. ZIPs with no ZCTA (PO boxes, single-business ZIPs) are stored as 0,
+  since the Census counts those residents under the surrounding ZIP.
+- **Town cap: at most 5 distinct towns per cluster, always** — the spec's "3–5 neighboring towns". In
+  population mode alone, rural areas fit 10+ small towns under 50,000 (the Show Low area did in
+  simulation), so the cap applies whether or not population is known. It counts distinct town names,
+  so a city's many ZIPs count once and the cap never splits a metro.
+
+Clusters can absorb ZIPs regardless of source, so curated clusters (St. Johns, Round Valley) grow too.
+Commerce ties that span farther than 20 miles — St. Johns to Show Low or Sanders — are served by the
+Concentric Taxonomy Fallback (Micro-Cluster → Adjacent Cluster → Geo-Hub, `architecture.md`), not by
+cluster membership.
+
+**Anchor, as built:** a runtime-seeded cluster is anchored on whichever ZIP arrived first. The one-time
+merge of the existing stubs places ZIPs largest-population first, so the biggest town in an area becomes
+its anchor — the population stand-in for this ADR's incorporated-municipality ranking. County-seat
+precedence isn't applied yet: there is no county-seat data. Auto-seeded clusters are named
+`"<Town> (auto-seeded, needs review)"` with slug `cluster-auto-<town>` (the slug formula above, with
+`auto` standing in for a tier id).
+
+**New open item:** the 50,000 ceiling is sized for the rural pilot. A single metro ZIP can pass it on its
+own, so a metro hub (e.g. Phoenix/Mesa/Gilbert) would be split into one-ZIP clusters. The ceiling needs to
+scale with density, or be set per hub, before a metro hub goes live.
+
+**Applied 2026-09-28.** The one-time merge ran on the live database: 43 single-ZIP stubs in Ancient
+Borderlands became 18 clusters (plus Concho into St. Johns and Greer into Round Valley). Hand corrections
+after it:
+
+- Chambers (86502), Petrified Forest (86028) and Red Valley (86544) shared one placeholder coordinate in
+  `zip_coordinates`; all three were corrected, and Red Valley (near Shiprock) was split out of the Sanders
+  cluster into its own.
+- **Petrified Forest → Holbrook** — the first Extension Layer A override, bound by hand. It sits ~23 mi from
+  Holbrook, just outside the 20-mile join radius. There is no override ruleset or `system_override` source
+  value yet (`micro_clusters.source` is an ENUM, so adding one is an `ALTER TABLE`, not a data-only change).
+- **McNary → the Show Low cluster** (with Pinetop), out of Vernon. This puts Show Low at 6 towns: the
+  5-town cap governs automatic grouping, not admin decisions.
+
+The merge now only regroups legacy stubs (slug `cluster-auto-` + a ZIP), so re-running it can't undo these.
+Grants and the Catron County clusters (Datil, Pie Town, Quemado, Reserve) remain under Ancient Borderlands
+pending a geo-hub review.
+
+## Amendment (2026-09-28): sub-groups are validated by local usage, not records
+
+Extension Layer B's "validate against land records, postal metadata, or historical registries" is
+replaced. A sub-group is a local reference — what residents and businesses call part of a cluster — not a
+legal entity, so the evidence that counts is usage:
+
+- **Suggested by usage.** A scan of listing text proposes a name when at least **two different listings**
+  use it as a place reference: in their own city field (e.g. "Pinetop Lakeside"), or as "<Name> Ranch /
+  Estates / Acres / Subdivision / Association / Village / Mesa / …" in an address or description.
+  Postal-town and cluster names, generic organisation phrases ("Contractors Association", "Association
+  of Realtors"), and a business naming itself are filtered out.
+- **Accepted by an admin.** Suggestions appear on each cluster in Admin → Cluster tools with the listing
+  snippets that used them; the admin accepts (optionally renaming, with aliases), rejects, or adds a
+  sub-group directly. Nothing is public until accepted, and a rejected name is never suggested again.
+  Renaming keeps the old wording as an alias.
+- **Stored** in `cluster_subgroups` (cluster, name, aliases, status suggested/accepted/rejected, origin
+  scan/admin, mention count, example snippets). Merging clusters carries their sub-groups along.
+
+First scan of the pilot's live listings suggested 11 names, all genuine local references (Pinetop
+Lakeside, Bourdon Ranch, Rio Vista Estates, Jones Ranch, Cheney Ranch, Pia Mesa, Hooper Ranch, Sunrise
+Park, …) and no organisations. The scan runs on demand from the page for now; running it as the crawler
+ingests new listings, and making accepted names searchable (a search for a sub-group resolving to its
+cluster), are the next steps. The Single Home Rule is unchanged: a listing's home stays its cluster.

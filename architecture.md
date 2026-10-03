@@ -222,6 +222,8 @@ A single global column can express "User," and — for now, as a legacy simplifi
 
 **Not confirmed against the live system.** Nothing in the real platform spec or live code describes a Redis message broker, named queues, or a Dead Letter Queue — this section should be read as forward architectural intent for when async infrastructure is actually needed, not as-built. What's real today, per §12.3 of the master platform spec: an offsite worker (a lightweight VPS, not BlueHost itself) posts lightweight, HMAC-signed REST payloads directly to a BlueHost API endpoint (`api/ingest.php`) — no message broker, no queue names, no DLQ. This is deliberate: BlueHost shared hosting can't run multi-threaded scrapers or hold long-lived worker processes, so the actual pattern is "compute offsite, POST a small payload," not "publish to a queue Bluehost itself consumes." If a real Redis/queue layer is ever built, it's likely to land alongside the Railway migration trigger already described in §16 (queue/worker layer), not before.
 
+**As built 2026-09-29 (`decisions/0044`, `decisions/0045`):** the guide-driven crawl runs this way now, without a broker. A Railway cron worker (`workers/crawler/` in this repo) pulls jobs from a `crawl_jobs` table through `api/crawl/jobs.php`, posts findings to `api/crawl/results.php` (staged and auto-imported under the `decisions/0044` guardrails), and gives single-source listings a second look through `api/crawl/verify.php` (NPI Registry, then web search). Every website that confirms a place is recorded in `reference_sources` (Admin → Sources), the start of Traversence's own reference index (`decisions/0045`).
+
 The four conceptual queues below remain useful as a target shape for that future layer:
 
 - `chat-vectorization-queue` — chunks live conversation streams, generates embeddings, appends semantic knowledge nodes to the graph.
@@ -388,7 +390,8 @@ data, not new path segments:
 
 Micro-cluster auto-seeding also changes under the same decision: what's built today (`resolveMicroClusterId`)
 stubs one micro-cluster per unmatched ZIP with no grouping logic — the ~40 "ZIP XXXXX (auto-seeded, needs
-review)" rows this produced are being re-clustered under a real 100-mile/150,000-population spatial algorithm
+review)" rows this produced are being re-clustered under a real spatial algorithm (as amended 2026-09-28:
+20-mile join radius, at most 5 towns, and at most 50,000 residents where Census population is known)
 rather than left as permanent stubs. A separate `system_override` source (confidence 1.00) force-binds
 low-density, high-value outliers (tourist corridors, historic registers) outside that algorithm entirely. See
 `decisions/0042-five-tier-taxonomy-anchor-resolution-and-density-clustering.md` for the full design and its
@@ -428,6 +431,12 @@ Within that hierarchy, each Continental Hub runs two content layers side by side
 **Dual-Behavioral Routing:** local users are routed straight into Layer 2 (locked to their immediate radius); global visitors are led with Layer 1 content, with contextual hand-offs into the local directory as they move through a route.
 
 **The Single Home Rule:** every business profile is assigned exactly one permanent Primary Home Zone, based on its physical address, enforced structurally rather than left to convention. This is what prevents a single business from being duplicated across multiple micro-clusters (database bloat) while keeping local search results precise. This is the rule `charter.md` refers to but doesn't itself define — the principle belongs in the Charter, the enforcement mechanism belongs here.
+
+**Discovery Guides at every level (`decisions/0043`).** Each level of this hierarchy, down through the
+Anchor and Sub-Group tiers `decisions/0042` added, gets its own Discovery Guide, the place's "knowledge":
+a Story (crawler-drafted, human-approved per `decisions/0005`), a Place Profile (population and
+demographics rolled up over its ZIPs), a Local block (listing counts plus a link into the Directory filtered
+to that place), Chameleon picks woven into the story, and links to the next level down.
 
 ## 23. Shared Place Context (Real, Substantially Built — Supersedes the Earlier "Personalized Insight Engine" Placeholder)
 

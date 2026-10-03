@@ -48,3 +48,62 @@ Authorization is scoped to the session, so a prior successful push does not
 guarantee the next session (or even a later point in the same one, if it
 gets recreated) will have the same repo authorized — check by attempting the
 push and reading the error, rather than assuming.
+
+## Keep the FAQ current (decisions/0057)
+
+`faq.md` is the site's FAQ and its only source: it ships as `website/includes/faq.md` and renders at `/faq.php`.
+With every build, add or update its entries for whatever changed. Write them from a visitor's point of view, describe
+what the site actually does, and say "coming" for anything not built yet. Include the updated `includes/faq.md` in
+the delivery zip. Question anchors come from the wording, so rewording a question breaks links to it; check with
+`grep -rn "faq.php#"` first.
+
+## Phone layout and visual standard (decisions/0058 §11): apply to every page, every build
+
+Space on a phone is at a premium. Every page, new or changed, follows this:
+
+- **Edge to edge.** Below 768px, cards, lists of cards and panels run edge to edge with **3px** each side and **3px**
+  between them, with small corners (`.5rem`). Text (headings, paragraphs, labels) keeps a small margin. The page
+  frame (`includes/app-shell.php`) does this for the known card classes and Tailwind `rounded-xl/2xl border` cards;
+  anything else opts in with `class="tv-bleed"`. Don't add per-page negative margins.
+- **Card anatomy:**
+  - the **name is the link**, top left, in brand brown (`#92400E`, underlined);
+  - the **Link button** is in the top-right corner;
+  - the **actions** (Call, Directions, See on map, Website, Contact, Peek) are a column of **30px round icon
+    buttons down the right edge, under the Link button**, with `title`/`aria-label` and no text, icons in
+    `#B45309`;
+  - the **details** sit on the left.
+- **Icons are the brand's flat SVGs** (`tv_icon()`), not emoji, for anything you tap. The active state is sage
+  `#8FBCA8` with a soft glow, like the top bar; the rest state is flat cream with a brown ring.
+- **No breadcrumbs on content pages.** The page says where it is. Its kind, category, agency, name and activity
+  pills **search for more** (`TvSearch.open('<words> near <place>')`).
+- **Filters live in the search** (the foot of its Quick Search, decisions/0058 §39), not in rows on the page. Show only active filters, each with ×.
+- **Phone menus:** the ☰ tools button with a drop-down list (left), the person's profile and role (right).
+- **Count outbound actions** with `data-out="call|directions|website|contact" data-e="<listing id>"`. This stores
+  counts only, never who tapped.
+- Check every page at 390px wide before delivering: card edges at 3px, no sideways scroll.
+
+## Content page standard (decisions/0058 §20): every content page, every build
+
+Listings, outdoor places, experiences, place pages, journeys, and any new kind of content page:
+- **Hero** at the top for places, listings and profiles (`tv_explore_hero()`, decisions/0058 §21), flush under the tool bar.
+  Listings and profiles pass `heading`, `slides` (HeroMedia) and `manage` for the owner.
+- **Header:** kind or category (searches for more), the title (the page itself, not a search link), the place, and the
+  **Link button** in the top-right corner (`data-link="…"` plus `js/link-button.js`). No breadcrumbs.
+- **Engage bar** right under it: `echo tv_engage_bar($pdo, $kind, $ref, ['title' => …])` (`includes/engage-ui.php`).
+  It shows views (platform counts), likes, comments, Share and an optional Report.
+- **Comments** at the end: `echo tv_engage_comments($pdo, $kind, $ref)`. Public, 18+, reportable.
+- **Counts:** `tv_count_item('<kind>:<id>')` so views are counted.
+- **Maps** opened as their own view pass `panel: true` to `TvMap.open()` so the info panel starts open.
+
+
+## Tribal nations' land (decisions/0058 §26): every build
+
+- On a nation's land show only the places the nation lists for visitors, with its rules (`Nations::rules()`). Never a
+  sacred or restricted site, and nothing else on its land.
+- A place opens there only with the nation's own page as evidence. "Closed by the nation" is reopened only at the
+  nation's request.
+- Any new content with a location (pins, photos, events, places) goes through `Nations::pin()` or the same check.
+- Use the nation's own name (`Nations::label()`), not the Census area's.
+- Until the nation tools exist (`Landmarks::NATION_TOOLS` is false, §27): on a nation's land only its public places
+  (opened with the nation's own page) and public businesses show; nothing waiting or closed shows; no review queue.
+  Every reader of landmarks goes through `Landmarks::visibleSql()` / `visible()`. Keep the data; never delete it.

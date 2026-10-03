@@ -1,0 +1,632 @@
+# 0061: Situations: an intent map, the Chameleon Filter as router, and search that learns
+
+**Status:** Accepted, 2026-10-02. Built in three batches (below). Replaces Phases B (in part) and C of decisions/0060;
+0060's principles stand: the place someone sets is never changed, and results are local first, never only local.
+**Source:** discussion with Jason on 2026-10-02 (the "Search & Suggestion Architecture" spec, the Day One / Day Two
+lifecycle, and the Relational Intent Map).
+
+## Context
+
+Search was built from word rules: describing words, going-words, activity lists, plurals, prefixes and fallbacks.
+Each fix worked for the phrase in front of us and missed the next one ("best place to star", "job interview coming
+up", "I can't pay my bills"). People search the way they think: a situation ("the power went out", "stuck on the
+highway", "lost my keys"), not a directory category. Search has to meet that thought, then find what we hold.
+
+## Decision
+
+### Principles
+
+1. **Day One is pre-coded and deterministic; Day Two learns from use.** No AI model is needed or used. (AI could be
+   added later as one more source of suggestions; nothing depends on it.)
+2. **Suggestions follow the person's thinking, not our data model.** While typing, show only suggestions: situations
+   and their needs, direct hits, and learned completions. **Results run only on Enter or a tap,** never on a pause, so
+   half-typed words ("best place to star") never produce results.
+3. **The Relational Intent Map** (the *situation map*) bridges a human situation and the directory's assets. It's
+   data, not code: anyone with the right role edits it in Admin, and learning proposes additions.
+4. **The Chameleon Filter routes by the reading** (brand.md §5): each need goes to its track. The page someone searched
+   from only breaks ties.
+   - **Resident (Get Local):** "stuck on the highway", "fix my car": Call, open now, nearest.
+   - **Traveler (Let's Explore):** "stargazing", "history of St. Johns": places, landmarks, stories.
+   - **Community:** "meet people", "groups for new parents": groups (events when they exist).
+   - **Mixed:** "job interview": each need to its own track.
+5. **Information that can't complete the task isn't a solution.** Each need says what a solution must have (a phone,
+   hours or "24 hours", an address or pin). A listing missing it isn't offered for that need; it stays in the
+   directory, and the gap is counted (an Admin report, and a reason for the business to claim and complete it).
+6. **Danger.** A fixed, Admin-only list of danger situations ("smell gas", "car accident", "stuck on the road") puts
+   "If anyone is in danger, call 911." on top. Learning may add solutions to a danger situation, never declare a new
+   one.
+7. **Sensitive searches are searches.** Shown plainly, counted like any other, kept as a recent search in the person's
+   browser, never tied to who typed them. Search shows what's available; it doesn't decide what someone does with it.
+8. **Counts keep the words typed** (by area and day), never who: no account, device, IP or session. This changes
+   decisions/0053 §5, which counted the reading only.
+
+### The situation map
+
+| Part | What it holds |
+|---|---|
+| **Situation** | label shown ("Stuck on the road"), urgency (normal, urgent), danger (Admin only), track, status (live, may help, learning, retired, draft), confidence, source (seed, admin, crawler) |
+| **Triggers** | many phrases per situation ("stuck on the highway", "broke down on the road", "car died", "need a tow"), stored normalised |
+| **Needs** | ordered; each has a label ("Towing"), its track, the categories and words that find it, what a solution requires (phone, hours, address), and how far to reach |
+| **Resources** | for needs that aren't businesses (an outage line, highway patrol non-emergency, 211): in **resource guides**, one per area, written in the Traversence voice, each entry structured (name, phone, hours, what it's for, area, official source, last checked) |
+
+**Matching (Day One):** normalise (case, contractions, punctuation, plurals), then match whole phrases, longest
+first ("power went out" beats "power" and "out"). Several situations in one search combine ("flat tire on the
+highway at night"): their needs merge, without repeats, and "night" puts open-now and 24-hour first. As someone
+types, partial phrases match ("the power w…" offers Power out).
+
+**Urgent display:** Call, open now or 24 hours, distance and address first; no stories or long descriptions.
+
+**Tribal land (decisions/0058 §26):** on a nation's land, needs map to the nation's own services only where the
+nation lists them publicly, under its own name.
+
+### Learning (Day Two)
+
+1. **What people open:** search words, area and what was opened, as counts. A thing opened often after a phrase rises
+   for that phrase; phrases people complete become suggestions as others type.
+2. **New words and local names:** frequent searches that find little appear for review ("the rez", "upper lake").
+3. **What's missing:** zero-result searches counted by area ("firewood in St. Johns, 40 times this month").
+4. **Token windows:** new "<service> help" pairs counted, so service words grow.
+
+### The crawler and ingestion pipeline: our sources first (builds on decisions/0045)
+
+The crawler is already source-first (decisions/0045): every website that confirms places goes into our own source
+list (`reference_sources`, Admin → Sources) and is read directly from then on; a paid search covers only what no source
+does. Situations follow the same rule, in this order:
+
+1. **Our own index and sources first.** For a situation's needs, the crawler looks in our listings, places and stories,
+   and in the sources we already read regularly (county and municipal pages, chambers, tourism sites, tribal
+   governments' public service pages).
+2. **Tier 1, the free baseline:** official open data: Wikidata, state open-data portals, county GIS, municipal
+   websites. Core assets, the geographic hierarchy, official service providers. About 90% of the structure.
+3. **Tier 2, Tavily (already in the worker, `TAVILY_API_KEY`):** only for a gap that steps 1 and 2 can't fill; only
+   during admin indexing or content work, never on a keystroke; target domains limited to government (.gov), education
+   (.edu) and verified local news.
+4. **Every useful page Tavily finds becomes a source.** A page that lists several places or resources joins the source
+   list ("Read regularly", per decisions/0045), so the next time it's read directly with no paid search. Paid searches
+   shrink over time instead of repeating.
+
+### Confidence for situations found by the crawler (0 to 1)
+
+| Signal | Weight | Measured as |
+|---|---|---|
+| Behaviour | 0.45 | share of searches for the phrase that opened that kind of solution, as a cautious lower bound (Wilson) |
+| Outside sources | 0.25 | independent Tier 1 / Tier 2 sources naming that solution for the situation (3 or more is full) |
+| Text match | 0.20 | overlap between the phrase and the solution's category and description words |
+| Stability | 0.10 | seen over 14+ days or in 3+ areas |
+
+- **Gates, whatever the score:** at least 10 searches; solutions complete (principle 5); tribal land rules; never a
+  sacred or restricted site.
+- **Thresholds, cautious at first:** **1.00** publishes automatically; **0.85** shows as "may also help", below the
+  main results; under 0.85 keeps learning. They can be lowered once there's a track record.
+- **Self-correcting:** if people search again or leave without opening anything, the score falls and the mapping
+  retires on its own.
+- **Phone numbers and resources:** published only when the number appears on the provider's own official site;
+  re-checked monthly and unpublished if it disappears.
+- **Oversight, not approval:** an Admin view shows what was added and why (score and sources). Nobody has to approve
+  everyday additions.
+
+## Build
+
+1. **Batch 1 (search core):** results on Enter or a tap only; the situation map tables and matching; urgent mode with
+   the 911 line; the incomplete-information rule; Chameleon routing per need; seed situations; counting the words.
+2. **Batch 2 (Admin):** the situation editor (danger Admin-only), resource guides, the review and oversight view.
+3. **Batch 3 (learning and the crawler):** opens and completions, the missing report, Tier 1 and Tier 2 ingestion,
+   confidence scoring and retirement.
+
+## Consequences
+
+- Search stops growing by special cases: new understanding is a row in the situation map, not code.
+- Results are slower to appear while typing (by design): suggestions first, results on intent.
+- The counts change (words kept, never who); the FAQ and Our approach say so.
+- Some listings stop appearing for urgent needs until they're complete; the Admin report shows which.
+
+## Progress
+
+- **2026-10-02, batch 1:**
+  - Tables `situations`, `situation_triggers`, `situation_needs`, `search_terms` (`2026-10-18_situations.sql`).
+  - `api/lib/Situations.php`: seed (73 situations, 478 phrases, 175 needs), seeded the first time search reads it
+    and never over Admin edits; normalising and phrase matching (longest first, up to two words between, several
+    situations combine); Tier 1 situation suggestions ("star" offers Starting a business and Stargazing; leading "the",
+    "my", "I" are skipped); answers per need, local first then nearest, open-now first when urgent, with the
+    incomplete-information rule (a listing missing its need's phone, hours or place isn't offered for it).
+  - A need that names categories takes businesses from those categories only; its words find outdoor places,
+    stories, groups and experiences.
+  - Search returns `situation`; the panel shows the 911 line for danger situations, then each need marked with its
+    track, Call first when urgent, and folds everything else under "Everything else for …".
+  - Results run only on Enter or a tap; the counts beacon says whether anything was found; `search_terms` keeps the
+    words by area and day.
+  - Not yet: the Admin editor, resource guides and the oversight view (batch 2); learning and the crawler (batch 3).
+- **2026-10-02, batch 1 fixes (after the first live test):**
+  - Typing no longer leaves the last search's results on screen: they clear as soon as the words change, and the
+    first line while typing is always "Search for '…' ↵" (Enter or a tap). The "Search the broader region" line went:
+    the full search already shows Beyond.
+  - Clicking into the box selects its words (typing replaces them); a second click places the cursor. Esc clears the
+    words first, then closes.
+  - Spelling slips are forgiven when reading a situation: a word one letter off one of our phrases' words (two for 7+
+    letters) is read as it ("broke my ancle" is ankle). Hedges at the start of a phrase being typed are skipped ("I
+    think I may have broken my…").
+  - A new situation, **An injury** (urgent, not danger): urgent care, ER, bone and joint doctors, braces and
+    crutches, getting better. "Someone is hurt" keeps the life-threatening phrases and the 911 line.
+  - Seed versions (`SEED_VERSION`, kept in `search_index_state`): seed situations are brought up to date on the live
+    site; ones edited in Admin never are.
+- **2026-10-02, answers while typing (Jason: "having to enter is bugging me"):**
+  - Principle 2 changes: results no longer wait only for Enter. When the words name a situation, the suggestions show
+    a **preview of its answer** (each need that has an answer, its nearest one or two, with Call), from
+    `?suggest=1` (`preview`). After a pause of about a second the full results follow below; Enter and the
+    "Search for" line still run them at once.
+  - What the words might mean stays on top when the full results land ("best place to star" keeps Starting a
+    business and Stargazing above its results).
+  - Situation suggestions try the words as typed, then without leading filler ("best place to star…" is "star…";
+    "place to st…" still offers Somewhere to stay).
+  - A new situation, **Can't find my car** (towed or impounded, report it stolen, a ride, a rental); "can't find my
+    keys" and "can't find my dog" join their situations. Seed version 3.
+
+- **2026-10-02, reading fragments by the job each word does** (Jason's note on part-of-speech anchors). A search is
+  rarely a sentence; each word is read for its role, in this order, and what's left is the thing searched:
+  | Role | Words | What it does | Where |
+  |---|---|---|---|
+  | **Situation** (trigger) | "power went out", "stuck", "broke down" | the situation map answers; checked first, by whole phrase | `Situations::read` |
+  | **Modifier** (filter) | "emergency", "urgent", "24 hour", "24/7", "after hours"; "open now"; "cheap", "good", "new" | the first five: open now and 24-hour first, known-closed left out, "emergency" in a name ranks up. "Open now" filters. Describing words ("new", "good", "store", "shop") are dropped | `understand()` When; `DESCRIBE` |
+  | **Where** (geometry) | "in", "near", "around", "at"; or a town at the end with no little word ("hardware store St Johns") | the place for this search only; "St", "Mt", "Ft" read as Saint, Mount, Fort | `findPlace()` |
+  | **What** (anchor) | "plumber", "hardware", "pizza" | a category when it names one (everyday words via synonyms), otherwise the words | `findCategory()` |
+  - "Emergency room", "emergency medical services" and similar stay words (a place, not a filter).
+  - Only describing words left after something else was read means nothing to match: "where to buy new" is Shopping,
+    not the word "new" (which found New England and every "-New" category).
+- **2026-10-02, search fixes from the live test ("where to buy new", "broken down"):**
+  - **Trade codes** come off category names wherever they show (`SearchText::catLabel`, the panel's `catName`):
+    "-Retail", "-Wholesale", "-New", "(Whls)", "(Mfrs)". "-Used" stays. The plain name is searchable: "automobile parts
+    & supplies" finds the "…-Retail-New" category.
+  - **Category lines in Suggestions** only when a word typed is one of the category's words (a long word may be its
+    root: "plumber" is Plumbing). "Down" isn't Downspouts. None at all when a situation answers.
+  - **With a situation**, the rest of the results ("Everything else") match whole words only.
+  - **"My place only" with nothing there** says how far the nearest is, with 25 mi, 50 mi and No limit buttons and how
+    many each finds (`results.widen`); a tap moves the slider. The first step of decisions/0060 Phase C.
+  - **"Looking for a person?"** no longer shows for a category, a situation, an activity, or words that were all read
+    as something else.
+  - **No place set:** the Distance slider is greyed at ∞ ("Choose a place to limit distance") and the server treats
+    the reach as no limit.
+  - **Two old slips fixed:** a comment had swallowed the "Did you mean" check and Beyond's Why and Who filters; and an
+    empty "none here" box (no towns) was hiding businesses from Beyond.
+- **2026-10-02, search panel text:** all text in the panel is small (headings .85rem, rows .82rem, second lines
+  .72rem; the phone's box stays 16px so iOS doesn't zoom), and the head row's labels never wrap ("Search Directory:"
+  on one line). Search logic is on hold: Jason is writing the exact logic he wants, to implement as specified.
+
+## Addendum, 2026-10-02: the 5 W's deterministic parser (Jason's spec)
+
+Jason's "Traversence Search Architecture: 5 W's Deterministic Parser" is adopted as the search logic: syntax over
+grammar, no AI. Each W and how it's read:
+
+| W | Read as | Built |
+|---|---|---|
+| **Why** (read first) | phrases and Why words against the situation map | Phrases match longest first; the situation's own words are used up, so they're never searched as a What. A Why word with no phrase ("stuck in the elevator", "my pipes are leak") offers the situations that use it, never answers: `Situations::ANCHORS`, `Situations::near()`, ranked by the other words they share. Beside other results, only a situation sharing another word is offered ("lost lake" offers nothing). |
+| **What** | the core noun: a category, an everyday word for one, a kind of place or thing to do | The **What gate**: the words left must be ones the directory knows (`whatVocab`: category words, synonyms, kinds, activities, features) or something's name. **The head noun is the What** ("commercial plumber" is a plumber); words before it are **attributes** that put the best first, never required. Known words that together are a kind of thing stay together ("auto parts", "mexican food"). No loose any-word fallback once a What is read. |
+| **Where** | a preposition boundary, the gazetteer, or the session's place | "in/near/at/around", a town at the end, "St/Mt/Ft". New: **a landmark is a Where** ("plumber near Lyman Lake": 15 mi around it, `landmarkNamed`). The place someone set is never changed. |
+| **When** | time and urgency | "now", "tonight", "today", "weekend", a day; "emergency"/"urgent" ("Emergency: open now first") and "24 hour"/"after hours" ("Open now first"). "New" and "upcoming" wait for dates on listings and events. |
+| **Who** | who it's for, or an entity's name | "for kids" and now plain "kids activities" (unless it's a category's own name). A business named outright leads, with **what it offers** and "More like it nearby" (the relational lookup). "Beginners" reads as Learning. |
+
+- **Nothing read:** no list of stray matches ("standing alone on the corner" no longer finds a pregnancy center and
+  portable toilets). "Maybe you mean" offers the situations its Why words point to, with "Name the kind of place or
+  service, or say what's going on".
+- **No Enter gate:** a pause of 700ms does exactly what Enter does. Half-typed words show "Maybe you mean" (where the
+  words are heading: "stuck on the hig" is Stuck on the road), never a dead end.
+- **Seed version 4:** "stuck in the mud / snow / a ditch / sand", "slid off the road"; "get away", "getaway", "need a
+  break", "vacation" (A getaway or day trip); "feel alone", "all alone" (Meeting people).
+- The response carries `parse` (why, what, attrs, where, when, who) so the reading can be checked.
+- Fixed in passing: the panel failed ("Search is unavailable") whenever nothing matched in the place but something did
+  beyond it.
+
+### Progress, 2026-10-02: completions, verbs and kin (from Jason's Google comparisons)
+
+- **Completions while typing, Google-style.** Under "Search for …", what was typed in plain text and what it may
+  carry on to in bold; a tap searches it. They stay above the results until one is picked or the words change.
+  Deterministic sources, in order (`Situations::complete`, `UniversalSearch::completions`):
+  1. situation phrases carrying on from the last words typed, the longest overlap first ("where can i park" → "…and
+     sleep in my car", "…overnight for free", "…my car"; "i lost my" → "…keys", "…dog"; "stuck in the" → "…mud");
+  2. the Why phrases ("landmarks i should" → "…check out"; "places to" → "…eat", "…stay", "…see");
+  3. the 5 W's around a thing named: a place to see takes Who and Why ("parks" → "…for kids", "…worth the drive",
+     "…near St. Johns"); anything else takes When and Where ("pizza" → "…open now", "…open this weekend", "…near St.
+     Johns"). Never a word already said ("parks near me" isn't offered "near" again).
+  - A little word ("me", "the") is never finished into another ("parks near me" isn't "meteor shower").
+  - Not yet: completions learned from what people search. `search_terms` keeps the words in their normal form
+    ("automobile part and supplie"), not as typed, so they'd read badly; batch 3 keeps a display form, shows only
+    phrases searched several times that found something, and only with words we know (never a name).
+- **A verb isn't its noun.** "Where can I park" is a new situation, **Somewhere to park** (overnight with an RV or
+  camper, rest areas and truck stops, parking lots, parking rules), not businesses named "Park". When a situation's
+  phrase uses the word a category was read from, the situation takes it ("where can I park overnight" isn't Parks).
+  Seed version 6 (also "stuck in the mud / snow / sand", "park and sleep in my car", "park overnight for free").
+- **A category's kin, and shared words.** "Parks" takes in State Parks and National Parks/Preserves (a qualifier
+  before the same name). A word other kinds of business also use ("park": RV Parks, Mobile Home Parks, Parking) is
+  never read from a business's name, so "parks near me" no longer lists RV and mobile home parks. "Pizza" is in no
+  other category, so Dittys Pizza & Pie still counts (`catKin`).
+- **Places to see.** "Landmarks", "canyons", "springs" (the kinds of place, `TAGS`) find only places for going (outdoor
+  places, stories, explore listings), never a business only named for it ("Landmark Homes"), and skip the "none here"
+  business box. "Check out", "worth the drive", "worth seeing", "must see", "should visit" read as Why: explore.
+- **A landmark needs a name:** "pizza near the park" isn't "near Park Service".
+
+### Progress, 2026-10-02: predictions only while typing; tools fold on phones (Jason)
+
+- **While typing, only the predictions show:** the "Search for …" line, the completions, and Go straight to (with a
+  situation's preview answer). Results, Suggestions, Quick Search, Recent Searches, "Did you mean" and the person row
+  wait until a prediction is tapped or Enter is pressed. The search no longer runs on a pause: less load, and nothing
+  half-read on screen ("need so" no longer says "Did you mean feed so"). This replaces the 700ms pause above.
+- **On a phone, the search tools fold into one line** that says what they're set to ("The Greater St. Johns Area · All
+  · 50 mi ▾"). A tap opens Location, Search Directory and Distance; the choice is kept in this browser.
+- **Completions keep to the situation the words already name:** "need gas" is a new situation, **Gas for the car**
+  (gas stations, propane), and is offered "…station", never "…leak"; "where can i park" still carries on to
+  "…overnight for free". The situation the words exactly name leads Go straight to. Seed version 7.
+- **Later the same day (Jason):** the built-in clear × inside the search boxes is gone (the close ✕ sits past the pin;
+  Esc clears). On a phone the **Location line is the toggle**: "Location: <place> · <directory> · <distance> ▾", with
+  ✎ on the same line to change the place; Search Directory and Distance open under it. New situation **A restroom**
+  ("need a bathroom", "public restroom", "toilet"): rest areas, gas stations and travel centers, parks and visitor
+  centers. A long last word that none of our words start with is read as a slip while typing ("need a bathroon").
+  Words that already name a situation get no "open now / near" completions ("bathroom"). Seed version 8.
+
+### Progress, 2026-10-02: Missed searches, and catching two misses (first piece of batch 3, brought forward)
+
+- **Missed searches** (`/admin/search-misses.php`, under Insights; `search_outcomes`, migration
+  `2026-10-19_search_outcomes.sql`): how each search someone chose (Enter, a tap, Try it) turned out, as counts of
+  the words as typed, area, day and outcome. Never who. Outcomes: **couldn't tell**, **nothing found**, **no place
+  set**, **searched again** (nothing opened, another search within a minute), **nothing opened**, **offer ignored**
+  ("Maybe you mean" not taken), **feedback** tapped. Opening, calling, peeking, widening or taking a suggestion from
+  the results counts as found. The page lists the most-missed words (3 or more searches, so a name typed once never
+  shows), by period and area, each with **Try it**. Kept 180 days. The panel reopening on the same words isn't a new
+  search.
+- **The directory page answers situations itself.** Enter there handed the words to the directory list, which matches
+  them word for word ("need a bathroon"). Now, when the words name a situation, the panel answers it and stays open;
+  other words still go to the list.
+- **No place, no guess.** With no place set, a situation's answer was "nearest" from nowhere (A restroom led with
+  Vaseys Paradise near Marble Canyon). Now it shows its needs and asks: "Where are you? Then we'll show the nearest …"
+  with **Choose your place or use Auto-detect**, both in the full results and in the preview while typing.
+- **Hotfix:** Missed searches didn't load on the live site. Its most-missed query used the names of its totals inside
+  HAVING and ORDER BY arithmetic, which MySQL refuses (error 1247, "reference to group function"); the sandbox's
+  SQLite allowed it. The totals are now written out, a database error shows on the page instead of a blank one, and
+  the query was checked against MariaDB.
+
+### Progress, 2026-10-02: the situation editor (batch 2, first part), in Missed searches
+
+- **Teach search** at the top of Admin → Missed searches: type what someone might search and it says how search
+  reads it now ("Search reads this as A restroom" / "can't tell what this means yet" / "finds 12 things, with no
+  situation"). Under it, the situations the words might belong to (what it reads as first, then by name or phrase),
+  each with **＋** (add the typed words as one of its phrases; search answers them at once) and **✎** (edit). When no
+  situation has the words, every situation is listed with a name filter, so they can be added to any of them. Empty,
+  it lists every situation. Last line: **＋ New situation for "…"**.
+- **Most missed** rows have ✎ (put the words in Teach search) and 👁 (try them in search).
+- **The editor:** name; phrases (one per line); status (live, draft, retired); mostly for (residents, travelers,
+  community, a mix); urgent; danger (the 911 line; the page is Admin-only); a note; and needs, each with its name,
+  where it shows (Get Local, Let's Explore, Community), business categories (typed, from the real list, or "every
+  category starting …"), words for outdoor places, stories and groups, what it finds, and what an answer must have (a
+  phone, hours, a place). Needs can be added, moved up and removed. **Preview** shows what it would answer near any
+  area before saving.
+- **Whose is it:** saving a situation makes it the Admin's (source 'admin'): code updates never change it. A phrase
+  added with ＋ to a built-in situation is marked 'admin' (`situation_triggers.source`, migration
+  `2026-10-20_situation_editor.sql`) and survives the seed refresh, which now replaces only its own phrases.
+- Checked against MariaDB as well as the sandbox.
+- Still to come in batch 2: resource guides (phone lines like 211 or the power outage number, per area) and the
+  oversight view.
+
+### Progress, 2026-10-02: the term analysis (✦ in Teach search)
+
+- **✦ Analyze** in the Teach search box shows how search reads the words, from the reader's own trace
+  (`api/lib/SearchTrace.php`, off unless the analysis turns it on, so ordinary searches pay nothing):
+  - **Each word** and the W that finally used it (Why, What, Where, When, Who, or not used);
+  - **the 5 W's**, each with what was decided and the rule that decided it (Why is shown as intent);
+  - **the result** (the situation that answers, or how many found here and beyond, the top business, "Maybe you
+    mean" offers) and **what shows while typing** (Go straight to, completions);
+  - **step by step**, in the reader's fixed order.
+  It's the same rule-based reading a visitor's search takes, not AI. It re-runs after a phrase is added or a
+  situation saved, so a change can be seen at once.
+- **Found with it and fixed:** completions turning one last word of a longer search into an unrelated situation
+  ("commercial plumber for kids" → "…kids are bored"): with three words or more that aren't a situation's own, a
+  completion now carries on at least two of the last words. "Plumber near Lyman Lake" with none within 15 miles was
+  a dead end: what's beyond the landmark now follows, nearest first (decisions/0060, never only local).
+
+### Progress, 2026-10-02: the meaning layer (Jason: "bite by something" missed the context)
+
+Phrases alone mean someone has to list every wording. Now, when no phrase in the map matches, search reads a situation
+from what the words mean (`api/lib/SituationReasoner.php`, rule-based, no AI):
+
+- **Meaning classes** for words in all their forms: events (*harm*: bite, bit, bitten, stung, cut, burned, fell,
+  swollen…; *broken*: broke, leaking, clogged, frozen, died, won't start…; *lost*: lost, missing, can't find,
+  stolen…; *stuck*; *without*: out of, ran out, no, can't pay…; *smell*; *sick*; *help*: help with, need help…) and
+  things (*creature*, *venomous*, *body*, *tooth*, *pet*, *vehicle*, *tire*, *battery*, *plumbing*, *water*, *power*,
+  *heating*, *roof*, *device*, *keys*, *house*, *job*, *money*, *food*, *meds*, *fuel*, *smoke*, *road*, *internet*,
+  *taxes*, *legal*, *move*).
+- **Grammar cues:** "by" names what did it ("bit by something", "bit by my dog"); "my"/"our" marks what's theirs
+  ("my dog got bit" is the pet's; "my dog bit me" is the person's); "got", "was", "I" make a weak verb count ("got
+  cut" is a harm, "cut" alone could be a haircut); "a bit" is an amount, never a bite.
+- **Event frames**, first match wins, e.g. harm + venomous → Someone is hurt (911 line); harm + pet (theirs) → Pet is
+  sick or hurt; harm + creature or body → An injury; broken + plumbing → Leak or burst pipe; vehicle + died / won't
+  start → Stuck on the road; lost + keys → Locked out; out of + gas → Gas for the car; help + taxes → Taxes.
+- Each reading carries its reasoning, shown by ✦ Analyze ("'bite' is a harm done to someone, and 'something' says
+  what did it: an injury ('by' names what did it)"); it also leads Go straight to while typing.
+- Phrases still win when one matches. Checked against a regression set: "broken arrow", "snake river", "fire
+  station", "cat food", "dog grooming", "a bit of help" read as before.
+- **Side fixes:** a real word the directory uses ("kitchen") is never "corrected" to one of ours ("kitten");
+  "taxes", "churches" reduce to "tax", "church"; words that already name a situation get only that situation's
+  completions ("bite by something" isn't "…to eat").
+- Next: the meaning classes and frames editable in Admin (Teach search), so new kinds of event or thing need no code.
+
+### Progress, 2026-10-02: Meanings taught in Admin, and a misreading fixed
+
+- **Meanings** card in Admin → Missed searches (under Teach search): **Teach a word** (a word or short phrase → an
+  event or a thing, an existing meaning or a new one; events can be marked "only with a thing or a cue") and **Teach
+  a rule** (an event with any of some things → a situation, with an optional reason shown in ✦ Analyze). What's
+  taught is listed with × to remove; the built-in meanings are listed for reference. Taught rules are checked before
+  the built-in ones. In ✦ Analyze, a word marked "not used" can be tapped to teach it; little words ("my", "the")
+  show as "little word". Tables `search_meanings`, `search_frames` (migration `2026-10-21_search_meanings.sql`).
+  Example: teaching "wallet" as a new meaning "documents" and the rule lost + documents → Government offices made
+  "lost my wallet" and "someone stole my wallet" both read as Government offices.
+- **Fixed (Jason's screenshot):** "Somewhere nice for dinner" read as Pests in the house: "nice" was "corrected" to
+  "mice". Spelling slips are now forgiven only in words of 5 letters or more (4-letter words are too easy to mistake:
+  nice/mice, bike/bite). "Dinner", "lunch", "breakfast", "brunch", "supper" are Something to eat; "nice dinner",
+  "nice restaurant", "fancy dinner" are A night out (so "somewhere nice for dinner" is A night out). Seed version 9.
+- **A business listed twice** (same name, kind and town) shows once in a situation's answer.
+
+### Progress, 2026-10-02: Resource guides, Search oversight, and predictions that always have something to tap
+
+- **Resource guides** (Admin → Resource guides, `admin/resource-guides.php`; `api/lib/ResourceGuides.php`; migration
+  `2026-10-22_resource_guides.sql`). There is one guide per area (a cluster, or "all" for everywhere we cover). Each
+  entry has a name, phone, hours, what it's for, the situations it answers and its **official source page**.
+  - **Verification:** "Check" fetches the source page and looks for the number's last ten digits in the text or in
+    `tel:` links. Only verified entries in live guides show in search. Editing a phone number or source resets the
+    check, and a check older than 31 days is flagged.
+  - **In search:** a situation's answer gains a **Phone lines and services** need (first when urgent), with Call buttons
+    and no "Get local" tag.
+  - **Public page:** `guide/resources.php?id=N`, built to the content page standard: kind button, title, place, Link
+    button (`place:guide:N`), engage bar, a 911 line, entry cards with Call and Website, "Checked <date> on <host>",
+    Tell us, and comments. Views count as `guide:N`.
+- **Search oversight** (`admin/search-oversight.php`) has three sections:
+  - **Resource numbers to check:** due or failing entries, with "Re-check all due" (15 at a time) or one at a time.
+  - **Incomplete listings:** by area, the businesses a situation would have shown but couldn't, because they're missing
+    what the task needs (a phone for an urgent need). Each has a link to complete it (`Situations::incomplete()`).
+  - **What changed in search:** over 7, 30 or 90 days: situations, phrases, meanings, rules and resource entries
+    edited in Admin.
+- Both pages are on the Admin rail.
+- **Predictions (Jason, 2026-10-02: "Search still requires tap or enter?"):** full results still wait for Enter or a
+  tap, as decided earlier today. But typing never ends on a lone "Search for…" row any more:
+  - When no name contains the whole phrase ("hearing test"), the predictions show what the full search would find,
+    read by the 5 W's (What: hearing): the nearest places, then "All of this kind". Search records nothing; only what's
+    kept is counted.
+  - **Grouped names:** three or more names that start with the typed words, at one spot (within about 5 miles of each
+    other), fold into one row ("Big Lake · 9 places: Boating, Picnicking, Fishing · 42–43 mi"). A tap searches them.
+    Names that share a word but not a place ("Pizza …", "St Johns …") aren't grouped, and neither is a kind of business
+    or a town.
+  - A name that repeats its own ending ("Dump Station Dump Station") shows it once.
+- **Search tools, one tool (Jason, 2026-10-02):** Missed searches (with Teach search and Meanings), Oversight and
+  Resource guides are one item on the Admin rail, **Search tools**, with tabs across the top of each page
+  (`includes/search-tools.php`).
+- **The predictions in ✦ Analyze:** "While typing it (the predictions)" lists everything the panel shows before Enter
+  or a tap, in its order: completions, the situation's answer (each need and how many it has), then each Go straight
+  to row with its kind (Situation, Group, Kind, Town, Listing, Outdoors…). When there's nothing but "Search for…" it
+  says so, so a word or phrase can be taught.
+- **Predictions counted (Jason, 2026-10-02):** three more outcomes in `search_outcomes`, recorded against the words
+  as typed (3 letters or more, as they stood at the last prediction; half-typed words on the way aren't counted):
+  - `picked`: a prediction was tapped (not "Search for…").
+  - `left_pred`: the box was closed or cleared, or the page left, with predictions showing but none tapped and no
+    search: the predictions didn't connect.
+  - `left_none`: the same, with only "Search for…" showing: nothing to predict, so something is missing.
+  - Enter, "Search for…" and the directory's own search mark the words as searched.
+
+  Missed searches has a **Predictions while typing** card. It shows totals, and the words most often left, with
+  Picked / Searched / Left (predictions showed) / Left (nothing to predict). ✦ puts the words in Teach search with
+  Analyze open, so the current predictions show. No new SQL: the outcome column already takes these names.
+- **Fixed:** a search with a town chosen (a town has no place key of its own) was counted under "No place set". It
+  now counts under its town area.
+
+### Progress, 2026-10-02: Batch 3, search that learns and the crawler's tiers
+
+Migration `2026-10-23_search_learning.sql`: `search_opens`, `search_learned`, `situation_sources`, `situation_gaps`.
+Code: `api/lib/Learning.php`, `api/crawl/learn.php`, Admin → Search tools → **Learning** (`admin/search-learning.php`).
+
+- **Opens.** Opening something from the results or from a prediction sends one count per thing per search. The site
+  turns it into a kind (the category of what was opened) and stores it by words, area and day. Never who.
+- **Learned completions.** Phrases searched 3 or more times in 90 days, that found something, and made only of words
+  we know: category names, situation phrases and taught meanings, so never a business's name. They lead the
+  completions ("pizza" → "pizza delivery").
+- **Confidence (0 to 1)**, as specified above. A mapping is one set of words leading to one kind of thing; it's scored
+  once 2 or more opens share the words. The four signals:
+  - **Behaviour × 0.45:** the Wilson lower bound of opens over searches.
+  - **Sources × 0.25:** websites in `situation_sources`; 3 or more is full.
+  - **Words × 0.20:** the share of the words found in the kind, the need and the situation.
+  - **Stability × 0.10:** 14 or more days, or 3 or more areas.
+
+  The gates: 10 or more searches, and at least one listing of that kind with a phone. Each mapping carries a "why"
+  line.
+- **Publishing and retiring.**
+  - At 0.85 or more a mapping shows as **May also help** under the results. At 1.00 it's **Published**: it leads as
+    **Most opened**, and when it serves a situation the words become one of its phrases (`situation_triggers.source =
+    'learned'`).
+  - A mapping that was shown and falls below 0.85 is **Retired** on its own (its learned phrase removed), and comes
+    back if its score recovers.
+  - A person can hold any mapping at a status, or let learning decide again.
+  - The situation a mapping serves: the one its words already read as, or else the one whose label, need or own
+    phrases share the most words with it ("car wont go" → Dead battery or won't start, through "car wont start").
+    Never a danger situation, so learned words never bring the 911 line.
+- **Note on the thresholds:** a Wilson lower bound never reaches 1, so Published (1.00) can't be reached by
+  behaviour alone, and words that share none of their words with the kind ("sunday service" → Churches) top out
+  near 0.79. They show only once the thresholds come down. That is the cautious start this ADR asked for; Jason to
+  decide when to lower them.
+- **The pass runs every 6 hours**, from the worker's check-in, or now from Admin.
+- **Situation gaps.** Areas that searched a situation 3 or more times in 30 days, and each of its needs with
+  nothing within 25 miles.
+  - **Tier 1:** a gap that open data covers becomes a crawl job (`crawl_jobs.group_label = 'sit:<need key>'`; the key
+    is stable across seed refreshes). The job carries its own OpenStreetMap filters, plus Wikidata classes for
+    official places (hospital, police, fire station, post office, library, courthouse, pharmacy). Wikidata is
+    queried by SPARQL within 40 km. Findings go through the usual staging and guardrails, and each website they came
+    from is a Tier 1 source.
+  - **Tier 2:** gaps with no open dataset, whose job found nothing, or still unanswered a week later. Web search at
+    most once a month each, and also for mappings people use (behaviour 0.5 or more) that no outside source names
+    yet. Only .gov, .edu, state and local .us sites, and sources marked "Read regularly" count; each page must name
+    the need and one of the area's towns ("Saint" and "St." both count). Every kept page joins Sources, and one that
+    lists 3 or more phone numbers is read regularly from then on.
+- **The missing report.** Oversight has a **What's missing, by area** card (words that found nothing, 3 or more
+  times), and its "What changed" lists what learning published, showed or retired, with the score.
+- **Token windows.** The Learning tab lists "… help" and "help with …" searches, marking the words search doesn't know
+  yet.
+- **Checked** in the SQLite sandbox, with the worker run against the site using fixtures:
+  - a Tier 1 job found a tyre shop and recorded openstreetmap.org as a source;
+  - Tier 2 kept a county .gov page and made it a source read regularly, while a Yelp result was refused;
+  - a mapping went to May also help and then retired when opens fell;
+  - holding one Published added and removed its phrase.
+
+  Learning's and the admin pages' queries were also run on MariaDB.
+- **Thresholds lowered (Jason, 2026-10-03):** May also help at **0.75**, Published at **0.90** (from 0.85 and 1.00).
+  A mapping that was shown retires when it falls below 0.75. Words that share none of their words with the kind
+  ("sunday service" → Churches, about 0.79 at best) can now show as May also help; Published still needs strong
+  behaviour plus outside sources or shared words.
+
+### Progress, 2026-10-03: The 5 W's per word (word senses)
+
+A word with more than one meaning gets the sense the words around it pick (`api/lib/WordSenses.php`). Each
+**sense** has:
+- **its W:** Why, When, Where, What, or set aside;
+- **cues:** the words around it that pick it, checked in order, the first that fits wins;
+- **an effect:** a situation, a season, a word to read it as, or nothing.
+
+A word no sense fits is read as before. Senses run first, before the rest of search reads the words, and only the
+word itself is changed, so the rest keeps its punctuation.
+
+- **Cues:**
+  - `@group`: a word of the group anywhere.
+  - `before:` / `after:`: on that side of the word.
+  - `next:` / `prev:`: the word right after or right before ("a", "the" skipped).
+  - `form:falls`: the word as typed.
+  - `!`: must not fit.
+
+  The groups are person, serious, heavy, nature, season_noun, season_prev, sensation and legal.
+- **Built in:** "fall" (fall, falls, fell, fallen, falling), in this order:
+  1. feeling like I'm falling → Someone to talk to + Feeling sick;
+  2. with a lawyer or claim → Legal help;
+  3. with "can't get up", "hit my head" or "bleeding" → Someone is hurt (the 911 line);
+  4. leaves or snow before it → the season (fall);
+  5. a tree, limb or pole before it → Roof leak or storm damage (tree service);
+  6. a person before it, or "down", "off", "stairs", "ladder", "ice" → An injury;
+  7. "fall festival / hours / colors / cleanup", or "this fall" → When: Fall (September to November);
+  8. "falls" → a waterfall ("Show Low Falls": Where Show Low, What waterfall).
+
+  "Spring", "summer" and "winter" are seasons only with a season cue, so "hot springs" stays a place; "autumn" is
+  always the season.
+- **The word after a season** says what it's for:
+  - "hours", "schedule": the When alone;
+  - "colors", "foliage": A getaway or day trip;
+  - "cleanup": landscaping;
+  - "break": Something to do.
+- **Effects in search:** a Why sense is a situation, read when no phrase matches, before the meaning layer. A
+  non-Why sense keeps the meaning layer from reading the word as an event, so "a leaf fell" isn't harm. A season is a
+  When chip ("Fall (September to November)"); narrowing events and hours by season is the next step. Words with
+  senses, and the words their rules look for, are never spell-"corrected" ("dropped" isn't "stopped").
+- **Teach a sense** in Search tools → Missed searches → Meanings: the word and its forms, its W, what it means (a
+  situation, a season, or words to read it as), the cues, and a reason. Taught senses are checked before the
+  built-in ones for that word, and ✦ Analyze shows each word's W and why. Table `search_senses` (migration
+  `2026-10-24_word_senses.sql`).
+- **Checked:** all ten of Jason's examples read as described, plus "slip and fall lawyer", "my grandpa fell and can't
+  get up", "spring break", "fall cleanup", "fell off a ladder" and a taught sense ("dropped" near a person → An
+  injury). The regression set reads as before (power went out, broken arrow, bit by a snake, pipes burst, somewhere
+  nice for dinner, bathroon).
+
+### Progress, 2026-10-03: Typos ask "Did you mean…?", never change a word
+
+Jason: "the search should ask did you mean … instead of guessing or changing a word", with "most likely matches
+ranking ahead of less likely based on how much was matched to the original word". This replaces the forgiving of
+spelling slips above (2026-10-02, and the 5-letter rule).
+
+- **No silent fixes.** `Situations::read` reads the words as typed; a slip no longer becomes a situation on its own
+  ("bathroon" isn't A restroom until it's picked). "Maybe you mean" and the typing predictions still look past a
+  slip, because they only offer.
+- **Asking.** A word of 4 or more letters is a typo only when nothing knows it. Known words are:
+  - category names (abbreviations like "Supls" left out);
+  - synonyms;
+  - the situations' phrases and needs as written;
+  - word senses and their groups;
+  - town-area names;
+  - any listing's indexed words;
+  - town names.
+
+  Search and the typing panel then return `did_you_mean_all`: up to three whole searches, each with the situation it
+  would answer ("bathroom: A restroom"). The panel shows them as **Did you mean** rows, the changed words in bold;
+  a tap searches that. While typing, the last word counts as known while a known word starts with it.
+- **Ranking** (`SearchText::likeness`, 0 to 1): letters kept in place (1 − edit distance ÷ the longer length), +0.04
+  for the same first letter, +0.04 for the same sound (soundex), +0.06 × the shared beginning. A kind of business or
+  a situation's word gets +0.02 over a business name's word on a tie. Allowed distance is 1 for 4 letters, 2 for 5–6,
+  3 for 7 or more (one more when they sound the same). Plurals of a likelier option and cut-off stems are left out,
+  and with several typos the likeliest of each come first.
+- **Checked:**
+  - bathroon → bathroom (A restroom);
+  - pozza → pizza;
+  - plumer → plumber, palmer, lumber;
+  - resturant near me → restaurant near me, return…, restroom… (A restroom);
+  - vetrinarian → veterinarian (Pet is sick or hurt);
+  - lockd out → locked out (Locked out or lost keys);
+  - tow truk → tow truck (Stuck on the road).
+
+  No false asks on pizza, broken arrow, Dittys, Show Low Falls, hot springs, Lyman Lake, Springerville, Snowflake,
+  hearing test, apache trout, or the situation set.
+
+### Progress, 2026-10-03: The Search workbench
+
+Teach search became the **Search workbench** (see decisions/0055, the admin dashboard note). It shows, as you type:
+- the visitor's predictions and results;
+- each word's W and senses (`WordSenses::explain`, with the cues in plain words);
+- the situations;
+- Did you mean.
+
+Its buttons open the right form already filled in. A single unknown word ("bathroon") is asked about even when it
+could be a person's name, because asking does no harm.
+
+### Progress, 2026-10-04: the intent taxonomy (five kinds of word)
+
+From Jason's "Traversence Intent Taxonomy". Every word the meaning layer reads (`SituationReasoner`) is one of five
+kinds, each feeding one W:
+
+| Kind | What it is | W | What search does |
+|---|---|---|---|
+| **Event** | what happened: broke, leaked, stuck, fell | Why | a situation; urgent ones put the call first and say "call 911" when someone may be in danger |
+| **Thing** | what it happened to, or what did it: wallet, pipe, dog | What / Who | what's looked up |
+| **Action** | how something is done: fix, install, register, build, cook, set up, rent, buy, learn | Why (how) | **who does it** (service providers) |
+| **Tool** | the tool or medium: generator, saw, mower, tractor, app, printer, permit portal, grill | What | narrows what to find |
+| **Time** | when: asap, right away, this morning, upcoming, coming up, the seasons | When | open now first, open today, coming up, the season |
+
+- **Decided with Jason (2026-10-04):**
+  - Actions lead to who does it. **Step-by-step how-to guides are coming**: a later piece of work, not part of this
+    one. The reasoning says so for "learn" ("how-to guides are coming; for now, who teaches it").
+  - This work comes before ADR 0062 step 5.
+- **Built in:**
+  - **Actions** (9 meanings): repair, install, build, register, cook, configure, rent, buy, learn. Weak ones ("make",
+    "set up", "service") count only with a thing or a tool.
+  - **Tools** (8): power-tool, generator, yard-tool, heavy-equipment, computer, calculator, portal, kitchen.
+  - **Time** (10 classes, each with a set effect): urgent, now, tonight, today, weekend, upcoming, fall, spring,
+    summer, winter. Search's own "now", "tonight", "today", "this weekend", "emergency" and "24 hours" stay as they
+    were; these add the other ways people say it. "Upcoming" is read and set aside; events listings are coming.
+  - **A new thing meaning, "project":** shed, deck, porch, patio, addition, barn, cabin, carport, ramp, retaining wall.
+- **26 action rules:**
+  - repair + generator/saw/mower → Small engine repair;
+  - repair + vehicle → Car repair; repair + plumbing → Leak or burst pipe;
+  - install + plumbing/heating/house… → Getting something installed;
+  - build + project → Building or remodeling;
+  - register + vehicle → Registering or renewing a license;
+  - set up + computer/device/internet → Setting up or fixing a phone or computer;
+  - rent + equipment → Renting tools or equipment;
+  - buy + tools → Tools and hardware;
+  - cook (or learn + kitchen) → Cooking and baking;
+  - and others.
+- **8 new situations** (seed version 10): Building or remodeling, Getting something installed, Registering or
+  renewing a license, Cooking and baking, Setting up or fixing a phone or computer, Renting tools or equipment, Small
+  engine repair, Tools and hardware.
+- **An action on a one-word phrase:** when the only phrase found is one word and it's the thing an action acts on,
+  the action's rule wins, unless the phrase found a danger situation. So "install a new toilet" is an installation,
+  "fix the toilet" is a plumber, and "toilet" alone is still A restroom. Phrases of two or more words always stand.
+- **Admin → Search → Workbench → Meanings:**
+  - Teach a word offers all five kinds, each with its W;
+  - time words take one of the ten classes, since search only knows how to act on those;
+  - rules take an event or an action, with things or tools;
+  - ✦ Analyze lists each word's kind, meaning and W, and a word with two readings shows both ("rent": an action, and
+    a bill).
+  - No database change: `search_meanings.kind` already fits "action", "tool" and "time".
+- **FAQ:** two new entries, "Can I search for something I need done, like 'fix my chainsaw'?" and "Can I say when I
+  need it, like 'asap' or 'this weekend'?"
+- **Checked in the sandbox:**
+  - 22 sample searches, every one reading as intended: the new actions; the old meanings ("a dog bit me", "cut my
+    hand", "my car wont start"); and the ambiguous ones, where "make" and "set up" alone and "build a fire" read as
+    nothing.
+  - 8 time searches, including one taught in Admin;
+  - the form at 390px.
