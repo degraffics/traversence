@@ -55,8 +55,11 @@ way.
 6. **What still needs a person:**
    - **A situation that doesn't exist yet.** A rule for it waits as "Searches that need a situation". Choosing which
      kinds of places to send people is a real-world judgment, not a word one.
-   - **The 911 line.** Nothing learned on its own can bring in a Danger situation. A reading that rests on a dictionary
-     word and would lead to one is read again without the dictionary (a harm is still an injury).
+   - ~~**The 911 line.**~~ *Removed the same day (Jason): "911 and suggested solutions don't need constraints. They can
+     be offered as a reasonable response to emergency or harmful situations it recognizes. Safety is in the searcher's
+     hands, since we're asking for, or requiring, their action."* A reading from a dictionary word, and a rule learned
+     on its own, may lead to a Danger situation like any other. Its answer, with the 911 line, is offered, and acting
+     on it is the person's choice.
    - **Tribal nations' land and confidential addresses** (decisions/0058 §26). These rules hold however a word is read.
 7. **Access and control.** In the Workbench:
    - every word shows where its reading came from (built in, taught, the dictionary, or learned on its own);
