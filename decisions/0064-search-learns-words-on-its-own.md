@@ -52,9 +52,16 @@ way.
      with Undo.
    - **Reinforced by use, as predictions are:** removing a suggestion with ×, changing the search and leaving with
      nothing all count.
-6. **What still needs a person:**
-   - **A situation that doesn't exist yet.** A rule for it waits as "Searches that need a situation". Choosing which
-     kinds of places to send people is a real-world judgment, not a word one.
+6. **What still needs a person:** nothing by design. *(Jason, the same day: "A situation that doesn't exist? Impossible,
+   since search should be able to discern the content of the words or phrases and suggest a possible prediction of
+   what they are asking for. We aren't making their decisions, just offering routes to information that may apply.")*
+   - ~~**A situation that doesn't exist yet**~~ is made by the system (`SearchDrafts::buildSituation`):
+     - **Name:** the words people used most ("Buy tires").
+     - **Rule:** the draft's (buy + tire).
+     - **What it offers, in order:** the kinds of places people opened after those searches; else the categories whose
+       names carry the words at a word's start ("Tire Service", "Tire Dealers"; not "Retirement"); else listings that
+       mention the words.
+     - It goes live at once with source `auto`, logged with Undo, which removes the situation, its needs and its rule.
    - ~~**The 911 line.**~~ *Removed the same day (Jason): "911 and suggested solutions don't need constraints. They can
      be offered as a reasonable response to emergency or harmful situations it recognizes. Safety is in the searcher's
      hands, since we're asking for, or requiring, their action."* A reading from a dictionary word, and a rule learned
