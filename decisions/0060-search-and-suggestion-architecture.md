@@ -150,7 +150,9 @@ link is a public Maps search URL (`https://www.google.com/maps/search/?api=1&que
 no Google data fetched or stored by us, and only the words and the town reach Google, from the visitor's browser. That
 keeps ADR 0062's rule that Google is a link out, never our data. Taps are counted as `act` / `gmaps:<place>`, never
 who, which shows where people want listings next. The "none here, nearby towns" box (`elsewhere`) only looks within
-about 150 miles of such a place, and not at all when we don't know where it is. It never fills in places from another state. Suggestions while typing drop
+about 150 miles of such a place, and not at all when we don't know where it is. The "beyond your place" list keeps to the same
+150 miles there (it reaches 3,000 miles inside our regions). Production has every US ZIP, so a town like Seattle has a
+middle, and without the cap Arizona's pizza would show "1,069 mi" away. It never fills in places from another state. Suggestions while typing drop
 far-off names when there's no middle to measure from.
 
 ## Consequences
