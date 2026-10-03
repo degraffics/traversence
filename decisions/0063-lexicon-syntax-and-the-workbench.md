@@ -387,3 +387,9 @@ Then guides (§8), as their own step after ADR 0062's remaining steps.
   - Saved as a draft. Reopened, renamed, then Reset (the name came back). Published (the tests passed, so there was no
     question).
   - "I found a wallet" now reads as Found a wallet, with 5 police places near the search.
+- **Collapsible steps** (Jason, same day): the builder's four steps fold.
+  - A new situation opens at step 1. An existing one opens with all four closed.
+  - Each closed step shows a line of what it holds: the name, status and needs; the rules ("found + wallet"); how
+    many example searches; the phrases.
+  - Tap a step to open it.
+  - If saving finds something missing, every step opens so it shows.
