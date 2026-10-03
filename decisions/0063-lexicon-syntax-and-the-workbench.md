@@ -393,3 +393,10 @@ Then guides (§8), as their own step after ADR 0062's remaining steps.
     many example searches; the phrases.
   - Tap a step to open it.
   - If saving finds something missing, every step opens so it shows.
+- **Fix (Jason, same day):** "+ Add a need" and ↑ did nothing.
+  - **Cause:** re-reading the needs from the form gave "Finds" and "must have" as lists, but drawing expected text, so
+    it stopped with an error. This had been broken since the needs editor was built.
+  - **Fix:** drawing now takes either.
+  - **Also:** a new situation is named from the search words, and the grey hints read "e.g. …" so they aren't taken
+    for values.
+  - **Checked at 390px:** add twice (by tap and by click), move the second need up (its ticks kept), remove one.
