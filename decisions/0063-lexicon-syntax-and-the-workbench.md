@@ -125,3 +125,50 @@ Then guides (§8), as their own step after ADR 0062's remaining steps.
   teach.
 - Reading and presentation are separate, so the rules for nations' land and confidential addresses hold however a
   word is read.
+
+### Progress, 2026-10-04: Piece 1, the Workbench and recognized or not
+
+- **Data** (`2026-10-28_lexicon.sql`):
+  - `search_meanings.kind` widens to 10 characters (modifier, wrapper) and gains `pos`, the lexical category;
+  - `search_suggestion_flags` holds removed suggestions.
+- **`Lexicon`** reads every word: its lexical category, its job and W, and whether it's recognized.
+  - **Known:** the reasoner's words (built-in and taught), plus places (towns, our areas) read as Where, categories
+    (What) and words in names (Who).
+  - **Little words** are tagged structure.
+  - **An unknown word** gets a guessed category with the reason: after "to" a verb, after an article or preposition a
+    noun, or from its ending (-ly, -ing, -ed, -tion…). With no clue, it's left unguessed.
+- **New kinds:**
+  - **modifier:** quality, condition, price, locality, access ("heavy duty", "used", "free", "local", "pet friendly");
+  - **wrapper:** procedure ("how to"), place ("where can I"), need ("looking for"), definition ("what is").
+- **Search:**
+  - **What it returns:** `lexicon.unknown`, the words it doesn't recognize. The last word waits while a known word
+    starts with it, since it may still be being typed. After Enter it also returns `lexicon.unread`, meaning the
+    phrase wasn't read as a whole.
+  - **Did you mean:** only words that fit the slot.
+  - **"How to" + a word nobody knows:** reported as a procedure on an unknown word, not searched as a name.
+- **The search panel:**
+  - **Leads with "We don't recognize…":** visitors get **Suggest it**, which saves a "word" suggestion with the
+    search to Review; staff get **Add it**, which opens the Workbench lightbox for that word.
+  - **× on suggestions:** on Did you mean, the words that finish a search, and May also help. A visitor's × only
+    counts; at 5, the suggestion drops out for those words. A staff member's × blocks it at once.
+- **The Workbench:**
+  - **The lead line** is Recognized, Not recognized (with Add it per word), or "Words recognized, the phrase isn't"
+    (with New situation).
+  - **Chips** show each word's lexical category and job → W. An unknown word is dashed red; a guessed category has
+    "?".
+  - **Tapping a chip opens a lightbox,** with no scrolling:
+    - **Word:** category, job, meaning (a new word gets a new meaning named after it), "only with a partner"; saving
+      replaces what was taught for it, and built-in meanings stay;
+    - **Senses:** its senses, and add one;
+    - **Forms:** other forms with the same meaning.
+  - **× on every suggestion,** and a "Removed for these words" list with Undo.
+- **FAQ:** "What happens if search doesn't recognize a word?" and "Can I remove a suggestion that doesn't fit?"
+- **Checked in the sandbox (390px and desktop):**
+  - "how to compost":
+    1. Not recognized: compost (guessed verb, after "to"). Add it opened the lightbox.
+    2. Saved as action / compost / verb, it read as "words recognized, the phrase isn't".
+    3. Forms "composting, composted" were added.
+  - A visitor's "how to frobnicate": We don't recognize, then Suggest it, which reached Review.
+  - × on "Did you mean pizza": a visitor's counted; staff's blocked and was undone.
+  - The earlier situation and time-word searches gave the same results.
+- **Also checked on MariaDB:** the migration, the category column, and the removal counting, blocking and Undo.

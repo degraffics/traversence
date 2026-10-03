@@ -149,6 +149,17 @@ Only predictions, so nothing half-finished gets in the way. First **Search for "
 ### What happens if I misspell something?
 Search never changes your words on its own. If a word isn't one it knows, it asks **Did you mean…?** and offers up to three of the closest words, the likeliest first: the ones that keep the most of what you typed, then the same first letter and the same sound. Each option says what it would find, like "bathroom: A restroom". Tap the one you meant. It asks while you type, too, once a word is finished.
 
+### What happens if search doesn't recognize a word?
+It says so instead of guessing: "We don't recognize the word 'frobnicate'", or "…the phrase" when each word is known
+but together they don't name anything yet. Tap **Suggest it** and we'll look at it and teach search what it means.
+Nothing about you is attached to the suggestion beyond what you type. If it's a slip, search may also ask **Did you
+mean…?**, offering only words that fit where yours sits ("how to compost" won't offer "compass").
+
+### Can I remove a suggestion that doesn't fit?
+Yes. Tap the **×** beside a "Did you mean", a word that finishes your search, or a "May also help" result. It goes
+away for you, and it counts toward taking that suggestion away for everyone who searches the same words. Only the
+count is kept, never who removed it.
+
 ### How does search know which "fall" I mean?
 Some words mean different things depending on the words around them, and search reads them that way. "I took a fall" or "fell down the stairs" is an injury, so it shows urgent care and emergency rooms. "Fall festival" or "fall hours" is the season, September to November. "Show Low Falls" is a waterfall. "A tree fell" is storm damage, so it shows tree services. "Feeling like I'm falling" is something you feel, so it shows someone to talk to and clinics. "Spring", "summer" and "winter" work the same way: "spring break" is the season, "hot springs" is a place. Showing only what's on during a season is coming; for now the season is read but doesn't narrow the list yet. If anyone is in danger, call 911.
 
