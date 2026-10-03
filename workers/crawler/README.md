@@ -73,6 +73,23 @@ used only when there is no Tavily key), `VERIFY_PER_RUN` (10; 0 turns the second
 `OVERPASS_URL` (an Overpass server to try first; the public one and two mirrors are always tried after it), `LEARN_PER_RUN` (3 Tier 2 searches per run; 0 turns
 them off), `LEARN_TIME` (45 seconds). Tier 2 shares `MAX_SEARCHES` with the second look. `SEARCH_MONTHLY` (1000): the search plan's monthly allowance. After each run the worker tells the site which search it has and how many searches it made (`POST /api/crawl/usage.php`), and the admin dashboard's System status shows "Tavily: 340 of 1,000 searches this month", amber at 80%, red when it's used up.
 
+## How-to guides (decisions/0063 §8)
+
+Each run the worker takes up to `GUIDES_PER_RUN` guides (2; 0 turns it off) that people asked for, by searching "how
+to …" 3 or more times in 30 days or by staff asking in Admin (`GET /api/crawl/guides.php`). It spends up to
+`GUIDES_TIME` seconds (45) on them:
+
+1. Two web searches (sharing `MAX_SEARCHES`): `how to … extension`, then `how to … site:.gov OR site:.edu`.
+2. Only official pages are read: `.gov`, `.edu`, `.mil`, or a state's `.us`. Each result must be about the guide's
+   words ("compost" matches "composting").
+3. Up to 4 pages. From each: its best ordered list (3 to 20 items that read as sentences; navigation and breadcrumbs
+   are skipped), or else its "Step 1 …" headings. At most 15 steps of 300 characters each.
+
+It sends the pages back (`POST /api/crawl/guides.php`). The site drafts from the page with the most steps and keeps
+the others as sources. A person rewrites the steps in our words, checks them against the sources and publishes;
+nothing shows before that. If no official page lists steps, the site marks it "nothing found yet" and asks again in
+30 days. With no search key the job reports that and does nothing.
+
 ## Building identities (decisions/0062, step 4)
 
 Each run, after the second look, the worker takes up to `IDENTITY_PER_RUN` listings (5; 0 turns it off) that have no

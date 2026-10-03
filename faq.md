@@ -173,7 +173,14 @@ Some words mean different things depending on the words around them, and search 
 Yes. Search reads what you want done and shows who does it: "fix my chainsaw" finds small-engine repair, "install a
 water heater" finds plumbers and contractors, "register my truck" finds the motor vehicle office, "set up my printer"
 finds computer help, "rent a trailer" finds equipment rental, and "building a deck" finds lumber, tools and builders.
-Step-by-step how-to guides are coming; for now, search shows the people and places that can do it or help.
+If there's a how-to guide for it, it shows first; otherwise search shows the people and places that can do it or help.
+
+### Are there step-by-step how-to guides?
+Some, and more as people ask. When enough people search for how to do something ("how to compost leaves"), we gather
+the steps from official how-to pages only, such as university extension services and government agencies. Our team
+then puts them in our own words and checks each step against its source before the guide shows. Each step links to
+its source. Search for "how to …" and a published guide comes first, followed by who can do it for you. If a step is
+wrong or missing, tell us from the guide.
 
 ### Can I say when I need it, like "asap" or "this weekend"?
 Yes. "Now", "asap", "right away" and "emergency" put places that are open now first. "Tonight", "today", "this

@@ -94,6 +94,8 @@ MAX_SEARCHES = int(os.environ.get("MAX_SEARCHES", "10"))
 SEARCH_MONTHLY = int(os.environ.get("SEARCH_MONTHLY", "1000"))  # the search plan's monthly allowance, shown on the admin dashboard
 LEARN_PER_RUN = int(os.environ.get("LEARN_PER_RUN", "3"))         # Tier 2 web searches for situation gaps per run (decisions/0061); 0 turns it off
 LEARN_TIME = int(os.environ.get("LEARN_TIME", "45"))
+GUIDES_PER_RUN = int(os.environ.get("GUIDES_PER_RUN", "2"))      # how-to guides looked for per run (decisions/0063 §8); 0 turns it off
+GUIDES_TIME = int(os.environ.get("GUIDES_TIME", "45"))
 WIKIDATA_SPARQL = "https://query.wikidata.org/sparql"
 SOURCE_TIME = int(os.environ.get("SOURCE_TIME", "60"))            # seconds per run for reading one of our sources
 SOURCE_PAGES = int(os.environ.get("SOURCE_PAGES", "25"))          # pages read per source
@@ -712,6 +714,73 @@ def learn(deadline):
             pages.append({"url": r["url"], "title": r.get("title", "")[:190], "places": places})
         res = site_call("/api/crawl/learn.php", {"task": t["task"], "id": t["id"], "pages": pages[:10]})
         log(f"learning: {t['task']} {t['id']} \"{t['query']}\": {len(pages)} official page(s), {res.get('kept', 0)} kept")
+
+
+# ---------------------------------------------------------------------------------------------------
+# How-to guides (decisions/0063 §8): the steps from official how-to pages only (.gov, .edu, a state's .us), each
+# with its source. The site keeps them as a draft; a person puts them in our words and publishes.
+# ---------------------------------------------------------------------------------------------------
+
+GUIDE_HOST_RE = re.compile(r"\.(gov|edu|mil)$|\.gov\.[a-z]{2}$|\.[a-z]{2}\.us$")
+STEP_HEAD_RE = re.compile(r"(?is)<h[2-5][^>]*>\s*(?:step\s*)?(\d{1,2})[.):\s-]+(.*?)</h[2-5]>")
+
+
+def official_host(url):
+    host = host_of(url)
+    return bool(host) and bool(GUIDE_HOST_RE.search(host.lower().removeprefix("www.")))
+
+
+def clean_text(fragment):
+    return re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", fragment))).strip()
+
+
+def steps_from(page):
+    """The page's steps: its best ordered list (3 to 20 items that read as sentences), else "Step 1 …" headings."""
+    body = re.sub(r"(?is)<(script|style|nav|header|footer|aside)[^>]*>.*?</\1>", " ", page)
+    best = []
+    for ol in re.findall(r"(?is)<ol[^>]*>(.*?)</ol>", body):
+        items = [clean_text(li) for li in re.findall(r"(?is)<li[^>]*>(.*?)</li>", ol)]
+        items = [t for t in items if len(t) >= 15]
+        if 3 <= len(items) <= 20 and sum(len(t) for t in items) / len(items) >= 25 and len(items) > len(best):
+            best = items
+    if not best:
+        heads = STEP_HEAD_RE.findall(body)
+        if len(heads) >= 3:
+            best = [clean_text(t) for _, t in heads if clean_text(t)]
+    return [t[:300] for t in best[:15]]
+
+
+def guides(deadline):
+    d = site_call(f"/api/crawl/guides.php?limit={GUIDES_PER_RUN}")
+    for g in d.get("guides", []):
+        if time.monotonic() > deadline or out_of_time():
+            log("guides: out of time, the rest go back when their lease ends")
+            break
+        pages, seen, error = [], set(), ""
+        if not SEARCH_ON:
+            error = "No search key: guides need a web search to find official pages."
+        else:
+            topic = set(words(g["words"]))
+            for query in (g["query"] + " extension", g["query"] + " site:.gov OR site:.edu"):
+                for r in search(query):
+                    url = r["url"]
+                    if url in seen or not url.startswith("http") or not official_host(url):
+                        continue                       # official pages only: extension services, agencies
+                    seen.add(url)
+                    seen_words = words(r["title"] + " " + r["snippet"])
+                    if topic and not any(w == x or (len(w) >= 4 and x.startswith(w)) for w in topic for x in seen_words):
+                        continue                       # not about this ("compost" also matches "composting")
+                    page = fetch_page(url)
+                    if not page:
+                        continue
+                    steps = steps_from(page)
+                    pages.append({"url": url, "title": r.get("title", "")[:160], "steps": steps})
+                    if len(pages) >= 4 or time.monotonic() > deadline:
+                        break
+                if len([p for p in pages if len(p["steps"]) >= 3]) >= 2 or len(pages) >= 4:
+                    break
+        res = site_call("/api/crawl/guides.php", {"id": g["id"], "pages": pages, "error": error})
+        log(f"guides: \"{g['title']}\": {len(pages)} official page(s), best {max([len(p['steps']) for p in pages] or [0])} steps -> {res.get('status')}")
 
 
 # ---------------------------------------------------------------------------------------------------
@@ -1601,6 +1670,11 @@ def run():
             learn(time.monotonic() + LEARN_TIME)
         except Exception as e:                     # learning never stops the crawl jobs
             log(f"learning stopped: {e!r}"[:300])
+    if GUIDES_PER_RUN > 0:
+        try:
+            guides(time.monotonic() + GUIDES_TIME)
+        except Exception as e:                     # building guides never stops the crawl jobs
+            log(f"guides stopped: {e!r}"[:300])
     if SOURCE_TIME > 0:
         try:
             read_source(time.monotonic() + SOURCE_TIME)

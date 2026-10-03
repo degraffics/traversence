@@ -307,3 +307,57 @@ Then guides (§8), as their own step after ADR 0062's remaining steps.
   - refresh (run twice: no duplicates);
   - approve, then Undo (the draft returns on the next pass);
   - dismiss.
+
+### Progress, 2026-10-04: How-to guides built by the crawler (§8)
+
+- **The trigger** (`api/lib/HowGuides.php`): a search that asks how to do something. That means a procedure wrapper
+  ("how to", "how do I", "steps to", "learn how to") followed by an action search knows.
+  - The guide is keyed by the action and its thing, if any ("compost", "repair|generator"). Its title is the words
+    people used most ("How to compost leaves"), with a place cut off ("… in Show Low").
+  - **Ignored:** "How to get to Show Low" has no action, so it isn't a guide. A word search doesn't know isn't a
+    guide either; it goes to the Workbench's drafts first (piece 4).
+  - Each learning pass (every 6 hours) reads the last 30 days of searches. Only counts are kept.
+- **Wanted:** at least 3 searches in 30 days, or staff asked for it ("Ask for a guide").
+- **The crawler** (`workers/crawler/crawler.py` `guides()`, `GUIDES_PER_RUN` 2, `GUIDES_TIME` 45):
+  - two searches, "… extension", then "… site:.gov OR site:.edu";
+  - **official pages only** (.gov, .edu, .mil, a state's .us), about the guide's words;
+  - each page's best ordered list (navigation skipped), or its "Step 1 …" headings;
+  - up to 4 pages.
+- **On the site** (`api/crawl/guides.php`):
+  - it accepts official pages only;
+  - it drafts from the page with the most steps (at least 3), each step tagged with its source's number, and keeps
+    the other pages as sources;
+  - with nothing found it looks again in 30 days.
+- **The review** (Admin → Search → **How-to guides**, `/admin/how-guides.php`):
+  - tabs by state: wanted, the crawler is looking, to review, published, nothing found yet, not a guide;
+  - **the editor:** the title, a line to start, and the steps one per line, each ending in its source's number "[1]".
+    The sources are listed with the steps found on each.
+  - **Publishing needs** at least 3 steps, a source on every step, and a tick: "The steps are in our own words, and I
+    checked each one against its source." The crawler's lines are the source's own words and are never published as
+    they are.
+  - A refused Publish keeps the edit as the draft. A live guide is never saved into something that can't be published.
+  - **Other actions:** take it down, have the crawler look again, not a guide, back to wanted.
+- **Shown** (`/guide/how.php?id=`), following the content page standard:
+  - **Header:** the kind ("How-to guide", searches for more), the title, the Link button (`place:how:N`).
+  - **Body:** the Engage bar, numbered steps each linking to its source, the sources, "Rather have someone do it?"
+    (searches the same words, so it finds who does it), "A step wrong or missing? Tell us", and comments.
+  - **Counted** as `how:N`. Comment reports link back to it. (The report link for resource guides was missing too,
+    and is fixed.)
+- **In search:** a published guide for the words ("how to compost", "how do I compost leaves") leads the list, as
+  "How-to guide · 4 steps, from official sources". The situation (who does it) still answers alongside it. A more
+  specific guide ("repair|generator") wins over the action's own ("repair").
+- **Admin:** a Today line "How-to guides to check", and a badge on the Search group and on the page.
+- **Migration:** `2026-11-02_how_guides.sql`.
+- **Checked in the sandbox:**
+  1. Seeded searches gave three wanted guides: How to compost leaves (4 searches, 2 days → Composting), How to fix a
+     generator (→ Small engine repair) and How to frobnicate. "How to get to Show Low" was ignored.
+  2. The worker ran with fixture pages:
+     - the compost guide drafted 5 steps from the extension page, with the EPA page as a second source (3 steps);
+     - the blog page and the breadcrumb list were skipped;
+     - the generator guide's official page had no steps, so it's nothing found yet.
+  3. In review, Publish was refused without the tick, then for a step with no source (the edit kept), then published.
+  4. The page showed the steps with their sources, the Link button, Engage and comments. Search for "how to compost"
+     led with the guide, and Composting still answered. A guide that isn't published is "Guide not found".
+  - 390px: 3px edges, no sideways scroll.
+- **Also checked on MariaDB:** the migration (run twice), refresh, a staff request, lease, complete (a non-official
+  page dropped), publish, and counts.
