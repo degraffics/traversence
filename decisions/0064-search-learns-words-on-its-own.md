@@ -86,6 +86,16 @@ nouns in a family and a short list of verbs. Fixed:
 - **"Did you mean"** never corrects a real word. A slip still gets help: "pozza" → pizza, "frobnicat" is still flagged
   as unknown.
 
+### Progress, 2026-10-04: words that ask for a tool
+
+Search knew "planning" as a word but only offered offices and "planning open now". Words can also ask for one of
+the site's own tools. `UniversalSearch::TOOLS` lists each tool with its *strong* words (trip, planner, itinerary,
+vacation, getaway…), which always mean that tool, and its *plain* words (plan, planning, visit, travel), which mean
+it when they make up most of the search. The tool leads the suggestions while typing, set to the person's place
+(`/discovery/?view=plan&cluster=…`). After Enter it's asked above the results ("Are you looking for… Trip Planner").
+When other words name something else ("planning and zoning"), the tool comes after the places. A tool that leads
+drops "open now" completions. New tools are added to the list.
+
 ## Consequences
 
 - Searches about everyday things work the first time, in words nobody listed: belongings, pets, tools, documents.

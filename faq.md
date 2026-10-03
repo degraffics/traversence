@@ -201,6 +201,9 @@ Search learns from what people open after searching. If most people who search t
 ### Why does search show phone lines, not just businesses?
 Some things that go wrong aren't a business's job: reporting a power outage, a road hazard, or finding local help. For these, search shows **Phone lines and services** from our area guides, with a **Call** button. Every number was found on the provider's own official website when we last checked, and we check them again every month. The full guide for your area is one tap away. If a number is wrong or missing, tap **Tell us** on the guide. If anyone is in danger, call 911.
 
+### Can search take me to the Trip Planner?
+Yes. Type what you're planning, like "planning", "plan a trip", "road trip" or "vacation", and the **Trip Planner** shows first while you type, set to your place. Press **Enter** and search asks if you were looking for it, above the results. If your words name something else too, like "planning and zoning", the offices come first and the Trip Planner follows them. Saving and sharing trip plans is coming.
+
 ### What happens if I search for "help"?
 We ask which help you mean: **help using Traversence** (the Help Center and FAQ) or **help in your place** (assistance, services and support). If you type what kind of help, like "legal help" or "housekeeping help", we search for local services straight away.
 
