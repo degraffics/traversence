@@ -474,3 +474,52 @@ Code: `api/lib/Learning.php`, `api/crawl/learn.php`, Admin → Search tools → 
   A mapping that was shown retires when it falls below 0.75. Words that share none of their words with the kind
   ("sunday service" → Churches, about 0.79 at best) can now show as May also help; Published still needs strong
   behaviour plus outside sources or shared words.
+
+### Progress, 2026-10-03: The 5 W's per word (word senses)
+
+A word with more than one meaning gets the sense the words around it pick (`api/lib/WordSenses.php`). Each
+**sense** has:
+- **its W:** Why, When, Where, What, or set aside;
+- **cues:** the words around it that pick it, checked in order, the first that fits wins;
+- **an effect:** a situation, a season, a word to read it as, or nothing.
+
+A word no sense fits is read as before. Senses run first, before the rest of search reads the words, and only the
+word itself is changed, so the rest keeps its punctuation.
+
+- **Cues:**
+  - `@group`: a word of the group anywhere.
+  - `before:` / `after:`: on that side of the word.
+  - `next:` / `prev:`: the word right after or right before ("a", "the" skipped).
+  - `form:falls`: the word as typed.
+  - `!`: must not fit.
+
+  The groups are person, serious, heavy, nature, season_noun, season_prev, sensation and legal.
+- **Built in:** "fall" (fall, falls, fell, fallen, falling), in this order:
+  1. feeling like I'm falling → Someone to talk to + Feeling sick;
+  2. with a lawyer or claim → Legal help;
+  3. with "can't get up", "hit my head" or "bleeding" → Someone is hurt (the 911 line);
+  4. leaves or snow before it → the season (fall);
+  5. a tree, limb or pole before it → Roof leak or storm damage (tree service);
+  6. a person before it, or "down", "off", "stairs", "ladder", "ice" → An injury;
+  7. "fall festival / hours / colors / cleanup", or "this fall" → When: Fall (September to November);
+  8. "falls" → a waterfall ("Show Low Falls": Where Show Low, What waterfall).
+
+  "Spring", "summer" and "winter" are seasons only with a season cue, so "hot springs" stays a place; "autumn" is
+  always the season.
+- **The word after a season** says what it's for:
+  - "hours", "schedule": the When alone;
+  - "colors", "foliage": A getaway or day trip;
+  - "cleanup": landscaping;
+  - "break": Something to do.
+- **Effects in search:** a Why sense is a situation, read when no phrase matches, before the meaning layer. A
+  non-Why sense keeps the meaning layer from reading the word as an event, so "a leaf fell" isn't harm. A season is a
+  When chip ("Fall (September to November)"); narrowing events and hours by season is the next step. Words with
+  senses, and the words their rules look for, are never spell-"corrected" ("dropped" isn't "stopped").
+- **Teach a sense** in Search tools → Missed searches → Meanings: the word and its forms, its W, what it means (a
+  situation, a season, or words to read it as), the cues, and a reason. Taught senses are checked before the
+  built-in ones for that word, and ✦ Analyze shows each word's W and why. Table `search_senses` (migration
+  `2026-10-24_word_senses.sql`).
+- **Checked:** all ten of Jason's examples read as described, plus "slip and fall lawyer", "my grandpa fell and can't
+  get up", "spring break", "fall cleanup", "fell off a ladder" and a taught sense ("dropped" near a person → An
+  injury). The regression set reads as before (power went out, broken arrow, bit by a snake, pipes burst, somewhere
+  nice for dinner, bathroon).
