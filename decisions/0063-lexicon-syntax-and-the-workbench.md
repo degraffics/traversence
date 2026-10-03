@@ -361,3 +361,29 @@ Then guides (§8), as their own step after ADR 0062's remaining steps.
   - 390px: 3px edges, no sideways scroll.
 - **Also checked on MariaDB:** the migration (run twice), refresh, a staff request, lease, complete (a non-official
   page dropped), publish, and counts.
+
+### Progress, 2026-10-04: The situation builder, from Jason's walk-through
+
+- **Add a word without leaving** (step 2, "A word you need isn't in the lists? Add it here"):
+  - Enter the word and what it is: what happened (event), what they want done (action), what it's about (thing) or
+    a tool.
+  - Then say what it means the same as. An existing meaning gives it that meaning's rules ("purse" → wallet).
+    Otherwise it gets its own new meaning.
+  - Once added, it's already picked in the rule's lists, ready for **Add this rule**.
+- **Triggers explained in place:** a rule is what happened (or what they want done) plus what it's about. "Found" +
+  "wallet" catches every way of saying it.
+- **Save draft / Publish / Reset** replace Save:
+  - **Save draft:** saves without answering searches.
+  - **Publish:** runs the example searches first. If any don't read as this situation yet, it says which and asks
+    before going live. With no examples, it asks too.
+  - **Reset:** puts the form back as last saved (a new one is emptied), after a confirmation.
+- **Situations work everywhere:**
+  - The builder now says so. What would help is found near wherever the person searching is.
+  - The place picker only sets where to **preview** it. It starts at "Where I am" (the place the page is set to).
+- **Checked in the sandbox at 390px:**
+  - "Found a wallet" built start to finish without leaving the builder. "found" was added as an event and "wallet" as
+    a thing, and the rule became found + wallet.
+  - The example "found someones wallet" passed (1 of 1).
+  - Saved as a draft. Reopened, renamed, then Reset (the name came back). Published (the tests passed, so there was no
+    question).
+  - "I found a wallet" now reads as Found a wallet, with 5 police places near the search.
