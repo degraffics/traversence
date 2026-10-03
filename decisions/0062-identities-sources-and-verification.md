@@ -206,3 +206,73 @@ worker (1000 by default; change it in Railway if the plan changes). Checked in t
   - the page at 390px: cards 3px from the edges, no sideways scroll.
 - **Also checked on MariaDB:** the migration runs twice safely, and a clinic matched by its own website, a
   government page and the NPI Registry came out confirmed, with the same 7 facts on a rebuild.
+
+### Progress, 2026-10-03: Step 3, the identity card and the helper
+
+- **The helper** (`/admin/helper.php`, Dashboard → Today → **Start**, or **Work through** on a Today line, or Admin →
+  Helper):
+  - one item at a time, always in three steps:
+    - **Ask:** what we know, already gathered;
+    - **Decide:** the choices, with the one we'd make marked **Recommended** and the reason in plain words;
+    - **Act:** one tap does it and moves to the next.
+  - **Undo** takes the last choice back, and stays offered until the next choice. **Skip for now** leaves an item for
+    later; "Bring back what I skipped" returns them.
+  - A progress bar, and queue chips to work one queue only.
+  - Today's order: reports, possible duplicates, listings to approve, facts where sources disagree, websites to sort,
+    failed crawl jobs.
+  - Queues it doesn't work itself yet (sent in by visitors, experiences, missed searches, local names, areas to name)
+    show their count and **Open it**.
+- **Library:** `Helper` (`queues`, `next`, `act`, `undo`, `approveGroup`). It calls the same code the Review page
+  uses (`AutoImport`, `IntakeStager`, `Verify`, `Sources`, `Reports`), so the rules are the same.
+- **Reports:**
+  - always one at a time, by a person: Remove / Keep it / Bring it back;
+  - "nothing left to look at" is recommended as Dismiss;
+  - Undo reopens the report.
+- **Possible duplicates, side by side:**
+  - the proposed listing and the existing one, field by field: same in green, different in amber;
+  - tap the value to keep (the existing one is suggested, the new one where the existing is empty);
+  - a name counts as the same only when it is identical. "Heritage House West" and "Heritage House" are alike, not the
+    same.
+  - The recommendation says what matches and what differs, for example "Same ZIP. Different name and kind (Pharmacies
+    vs Animal Protection Organizations)".
+  - **Merge** adds what's new to the existing listing and keeps what a person entered. With nothing new, it closes the
+    proposal as a duplicate, and its page counts as a source for the existing listing.
+  - **Not the same place** moves it to the listings to approve. That decision is kept when the crawler finds the
+    listing again.
+  - Merge can't be undone from the helper; the others can.
+- **Listings to approve:**
+  - the facts, the four checks with ✓ and ✗, the sources, and its kind (pick from the suggestions);
+  - Approve / **Find more** / Reject, with the reason taken from the checks.
+  - **Find more is automatic:** a listing with one source that the crawler hasn't looked at a second time yet stays
+    with the crawler (up to 2 days), and the helper says how many. "Find more" sends one back for another look; it
+    returns when that's done.
+  - **Group approval:** when 2 or more listings pass every check that matters (2+ sources or a registry, a sure kind,
+    clean text, no duplicate) and only the score is short, the helper first offers them as a group, with 5 samples:
+    "Approve all N" or "Go one by one". Any it can't approve go one by one.
+  - Undo after approving hides the new listing; it can be brought back from its page.
+- **Facts where sources disagree:**
+  - each value with its sources;
+  - "Use this one" saves it with you as a source and writes it to the listing. The fact is then confirmed and the
+    other value is kept as "not shown".
+  - "✎ Neither: I know the right one" takes a different value.
+  - Undo puts the old value and its source back.
+- **"✎ I know this"** on every fact on the Identities page, and "✎ I know something about it" for a missing one
+  (phone, website, email, address, town, state, hours, about, name):
+  - saved with the person as its source, their note ("Called them"), and "only staff see this note" if wanted;
+  - written to the listing, as staff and locked so the crawler won't overwrite it;
+  - kept through rebuilds;
+  - never a confidential address.
+- **Websites to sort:** Read regularly / Cite only / Ignore. Read is recommended for government, tourism, chamber and
+  community sites; Cite only for the rest.
+- **Failed crawl jobs:** Try again now (recommended when the source was busy or slow) / Drop it.
+- **Today and the menu:**
+  - "Facts where sources disagree" is a Today line;
+  - the reports, listings, websites and failed-jobs lines open the helper;
+  - its count is shared with the menu badge, so ☰ still equals Today's total.
+- **Checked in the sandbox (390px and desktop):**
+  - each queue's choices, Undo and Skip;
+  - Start from Today, with ☰ 67 = Today 67;
+  - a conflict settled and undone;
+  - "✎ I know this" on a website;
+  - approve then Undo (hidden), merge, and group approval with one row that couldn't be approved (it went one by one).
+- **Also checked on MariaDB:** "✎ I know this" and its Undo, and a rebuild keeping the person's fix.
