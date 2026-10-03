@@ -561,3 +561,14 @@ spelling slips above (2026-10-02, and the 5-letter rule).
 
   No false asks on pizza, broken arrow, Dittys, Show Low Falls, hot springs, Lyman Lake, Springerville, Snowflake,
   hearing test, apache trout, or the situation set.
+
+### Progress, 2026-10-03: The Search workbench
+
+Teach search became the **Search workbench** (see decisions/0055, the admin dashboard note). It shows, as you type:
+- the visitor's predictions and results;
+- each word's W and senses (`WordSenses::explain`, with the cues in plain words);
+- the situations;
+- Did you mean.
+
+Its buttons open the right form already filled in. A single unknown word ("bathroon") is asked about even when it
+could be a person's name, because asking does no harm.

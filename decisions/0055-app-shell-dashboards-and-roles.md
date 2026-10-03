@@ -276,3 +276,48 @@ It shows the Facebook Marketplace-style grid, filters and categories, with sampl
   on Overview.
 - **On the dashboard,** the old "Admin Panel →" and "Crawler →" cards are removed.
 - **Discover has no breadcrumbs;** the toolbar shows where you are.
+
+### Progress, 2026-10-03: The admin dashboard, the menu by job, no admin breadcrumbs
+
+Jason: finding tasks and how to finish them felt "disconnected with my thought process". The admin home is now one
+place for notifications, the inbox, the system's status (with links) and the key numbers.
+
+- **Dashboard** (`includes/admin-dashboard.php`, at `/user/dashboard.php#admin`; it replaces Overview). Five parts:
+  - **Today:** what needs a person, most urgent first. The order is Safety, then people waiting, Search, Content,
+    System. Each item has its count, why it matters, and the button that does it or opens the exact queue.
+  - **Notifications:** the last 14 days, newest first: reports, visitor notes, experiences submitted, journeys
+    published, crawl jobs failed, learning changes, phone numbers not found.
+  - **Inbox:** your unread messages, message requests and connection requests, plus visitor feedback, with a way
+    into your Address Book.
+  - **System status:** crawler (last check-in, queue, paused), auto-import, search index, search learning, resource
+    guides, bulk loads, and any missing migration. Each has a dot (running, needs a look, not working, off) and links
+    to its tool.
+  - **Key numbers:** the last 7 days against the 7 before: searches, the share that found something, predictions
+    picked, page views, calls/directions/websites, new members, journeys published.
+
+  The old tool grid is under "All tools, by job".
+- **One set of counts** (`tv_admin_counts`) feeds both Today and the menu, so the number on ☰ is the number of things
+  to do (it was the Review count alone, labelled nowhere). ☰ adds each group's total once.
+- **The admin menu by job**, each group collapsed until opened (it remembers), with what's waiting on it:
+  - Dashboard;
+  - **Listings & places:** Review, Experiences, Journeys, Landmarks, Nations, Claims;
+  - **Search:** Workbench & missed searches, Learning, Oversight, Resource guides;
+  - **Safety:** Reports, Procedures;
+  - **Data & crawler:** its pages;
+  - **Insights**;
+  - **People & roles:** Staff & roles, Accounts & settings.
+
+  "Needs you" folds into the dashboard.
+- **No breadcrumbs on admin pages** (either page frame). The menu says where you are, the Search tools tabs move
+  within a tool, and "← Dashboard" goes home.
+- **Search tools → Workbench** (decisions/0061): one box that reads as you type. It shows:
+  - what a visitor sees while typing (did you mean, completions, the situation's answer, predictions);
+  - what they see after Enter (did you mean ranked, the situation and its needs, or the top results, when, kinds,
+    "maybe you mean", what was learned);
+  - each word's W, and every sense of a word that has some, with the one used in bold and its cues in plain words;
+  - the 5 W's;
+  - the situations that read it or share its words.
+
+  The buttons open the right form already filled in: "Teach *fall* another sense", "Teach *x* as a word", ＋ to add the
+  words to a situation, ✎ to edit one. The A–Z situation list is behind "Browse all situations". Meanings, its three
+  forms, and the report cards are collapsed to a summary line. Step by step is a fold at the end.
