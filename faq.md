@@ -292,6 +292,18 @@ A few reasons:
 - We haven't confirmed the spot yet.
 - The business asked to keep its address confidential. Those listings show a phone number only and never appear on the map.
 
+### Where does the information about a landmark or outdoor place come from?
+- **Landmarks:** the name, the kind of feature and the map point come from the federal names registry (USGS Geographic
+  Names). The description comes from Wikidata and Wikipedia, credited on the page.
+- **Outdoor places** (campgrounds, trailheads, recreation areas): Recreation.gov, the federal recreation registry. That
+  covers who runs the place, what you can do there, its phone and its page. It's refreshed each month.
+- **Phone lines in a resource guide:** our staff enter them. A line shows only when its number was found on the
+  provider's own official page at the last check.
+- **On a tribal nation's land:** we keep only the places the nation has opened to visitors. Nothing is kept about the
+  rest.
+
+Events and Market posts will work the same way when they're added.
+
 ### Where do a listing's phone number and website come from?
 From the business's own website first, then official registries (like the NPI Registry for health care and the IRS
 list of nonprofits), then other public pages that show the business with its name and address. A number goes on a

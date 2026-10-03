@@ -367,3 +367,57 @@ worker (1000 by default; change it in Railway if the plan changes). Checked in t
   - status with a claimed business;
   - the mark removed when switched off.
 - **Next (step 6):** places, events, items and resource lines on the same identity card.
+
+### Progress, 2026-10-04: Step 6, places and resource lines on the same card
+
+- **One card, more kinds** (`Identity::KINDS`). Each kind has its own key facts for "confirmed":
+
+  | Kind | Record | Confirmed when |
+  |---|---|---|
+  | listing | (as before) | name, where, how to reach |
+  | landmark | GNIS number | name and map point |
+  | recarea, facility | Recreation.gov's "a1100" / "f234567", stored as the number | name and map point |
+  | resource | a resource guide's line | name and phone |
+
+  Events and Market posts are listed as **coming** (`Identity::COMING`). Neither exists as data yet; they get the same
+  card when they're built.
+- **New facts:**
+  - **Who:** Run by (the managing agency).
+  - **Where:** On the land of (the nation's own name, `Nations::label`).
+  - **Why:** Purpose, and Answers (the situations a resource line answers).
+- **Builders:**
+  - **Landmarks** (`fromLandmark`): name, kind, map point and state from the federal names registry (USGS GNIS, a
+    registry source, so confirmed). Nearest town and ZIP from our places. Description from Wikidata and Wikipedia
+    (open data).
+  - **Tribal land** (decisions/0058 §26-27): a landmark gets a card only if people can see it (`Landmarks::visible`).
+    For one waiting or closed on a nation's land, nothing is kept and any card it had is removed. One the nation opened
+    shows the nation's own name, with the nation's own page as its source.
+  - **Outdoor places** (`fromRec`, Recreation.gov RIDB, a registry): name, kind, who runs it, about, what to do there,
+    phone, its page (not a search page), map point, town, state, ZIP. Activities are de-capitalised. A hidden place has
+    no card.
+  - **Resource lines** (`fromResource`): name, phone, hours, purpose and the situations it answers, as entered by
+    staff. The provider's own page is a source for the website, and for the phone only when the last check found the
+    number on it. So a resource line reads "one source" until a second independent source agrees. That's honest:
+    staff entry is provenance, not confirmation.
+  - **Rebuilds** clear what the builder added before and keep what people added.
+- **Admin → Identities** has a tab per kind: Listings, Landmarks, Outdoor places, Resource lines, and Events and Market
+  posts (coming).
+  - Each tab has search by name, counts (built, name confirmed, a key fact from one source) and "Build from what we
+    hold", in batches.
+  - The card is the same everywhere: facts by W, each with its sources, a Link button to its page, and Rebuild.
+  - "✎ I know this", the crawler's Look now, and the helper's conflicts stay with listings, which are the only kind
+    written back from the card. Other kinds are changed where they're kept (Landmarks, Resource guides; Recreation.gov
+    refreshes monthly), then rebuilt.
+- **Checked in the sandbox:**
+  - **Builds:** 631 landmarks built and confirmed (18s), plus 3 Recreation.gov places and a resource line (one source,
+    as expected).
+  - **Tribal land:** a landmark waiting on the Navajo Nation's land gets no card and nothing stored. An approved one
+    shows "On the land of: Navajo Nation".
+  - **Pages:** tabs, search, cards and coming tabs at 390px (3px edges, no sideways scroll) and 1200px. Listings are
+    unchanged (their "✎ I know this" forms still show).
+- **Also checked on MariaDB:** the builds, `record()`, `ref()` for Recreation.gov ids, and the waiting landmark left
+  unstored.
+- **Not yet:**
+  - the crawler's identity job for places and resource lines (it looks up listings only);
+  - a second source for resource lines (the identity job could read the provider's page for the name too);
+  - the public "Confirmed by N sources" line on pages.
