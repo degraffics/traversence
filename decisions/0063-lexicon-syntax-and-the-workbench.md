@@ -260,3 +260,50 @@ Then guides (§8), as their own step after ADR 0062's remaining steps.
   - Reopening keeps the rule and the examples. 390px, no sideways scroll.
 - **Also checked on MariaDB:** the migration, a rolled-back test (nothing left behind), and saving with a rule and
   examples.
+
+### Progress, 2026-10-04: Piece 4, drafts from missed searches (the apprentice, §7)
+
+- **Where drafts come from** (`api/lib/SearchDrafts.php`). Each learning pass (every 6 hours) ends by reading the last
+  30 days of missed searches (found nothing, couldn't tell, nothing opened). Staff can also tap **Refresh drafts now**.
+  Three kinds of draft:
+  - **Word:** a word search doesn't know, used by 3 or more missed searches, or suggested by a visitor ("Suggest it").
+    The job comes from where it sits: after "to", a verb, so an action; an adjective, a modifier; otherwise a thing.
+    Approving teaches it as a new meaning named after the word.
+  - **Category:** a single word after which people opened one kind of place at least 3 times and 60% of the time
+    (last 90 days), and that isn't already read as a category.
+  - **Rule:** an event or action with a thing or tool, in 3 or more missed searches that found no situation. Every
+    thing in the search is counted ("rent a moving truck": move and vehicle).
+    - **The situation it points to** comes from the places people opened after those searches, matched against live
+      situations' needs.
+    - **On a tie,** the situation that already has a rule led by the same event or action wins. A rental yard answers
+      both renting and building, and "rent" picks renting.
+    - **No situation fits:** the draft says "start one".
+- **Evidence:** counts only, never who. "4 searches in 30 days said rent with vehicle and found no situation; people
+  opened places Renting tools or equipment answers (4 times)". Up to five of the searches behind it are shown.
+- **Deciding** (Workbench → **Drafts**; it opens by itself when drafts are waiting):
+  - **Approve:** one tap. It goes through the same checks as a hand correction (`SearchEdits::check`), is made and
+    logged, and Undo is under Recent corrections. A new type, `word/word`, teaches a word with any job (event, thing,
+    action, tool, modifier, wrapper) and its part of speech.
+  - **Start a situation** (a rule with no situation): opens the frame-first builder with the searches as examples and
+    the rule already added, ready to test.
+  - **Open in workbench:** puts the first search in the Workbench, where every W can be changed first.
+  - **Dismiss:** set aside. It comes back only if three times as many searches miss.
+  - **Approved, then undone:** the draft comes back on the next pass.
+  - A draft that no longer misses (taught some other way) leaves the queue ("gone").
+- Nothing is taught without a person. Zero-touch stays only for result ranking (decisions/0061).
+- **Admin:** a Today line, "Words and rules to approve", opens `/admin/search-misses.php#drafts`. The count is on the
+  Search group's badge and the Workbench's.
+- **Migration:** `2026-10-31_search_drafts.sql`, the `search_drafts` table.
+- **Checked in the sandbox:**
+  - Seeded missed searches gave four drafts: "frobnicate" (an action, a verb, with a visitor's suggestion), "boozer"
+    (a category), buy + tire (start one), and rent + vehicle → Renting tools or equipment.
+  - **Approve rent + vehicle:** "rent a truck" now reads as Renting tools or equipment.
+  - **Start a situation for buy + tire:** the builder opened with "buy tires / buy new tires" and the rule buy + tire.
+  - Dismiss and Open in workbench work. A second approve of the same draft is refused.
+  - Approving a rule with no situation says "needs a situation first".
+  - 390px: card edges at 3px, no sideways scroll.
+- **Also checked on MariaDB:**
+  - the migration, run twice;
+  - refresh (run twice: no duplicates);
+  - approve, then Undo (the draft returns on the next pass);
+  - dismiss.

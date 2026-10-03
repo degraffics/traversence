@@ -155,6 +155,12 @@ but together they don't name anything yet. Tap **Suggest it** and we'll look at 
 Nothing about you is attached to the suggestion beyond what you type. If it's a slip, search may also ask **Did you
 mean…?**, offering only words that fit where yours sits ("how to compost" won't offer "compass").
 
+### What happens to words search didn't understand?
+They're how search learns. Words that keep coming up in searches that found nothing are grouped, along with the ones
+visitors suggested, and our team sees each one with how often it was missed. A person then decides what the word
+means; nothing is taught on its own. Only counts are kept: how many searches, which days, and what kinds of places
+people opened afterwards, never who searched.
+
 ### Can I remove a suggestion that doesn't fit?
 Yes. Tap the **×** beside a "Did you mean", a word that finishes your search, or a "May also help" result. It goes
 away for you, and it counts toward taking that suggestion away for everyone who searches the same words. Only the
