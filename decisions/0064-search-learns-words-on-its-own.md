@@ -73,5 +73,6 @@ way.
 - **The dictionary has to be shipped.** It's a 450 KB generated PHP file, loaded only when a search needs it (about 5
   ms), and rebuilt by running the generator again.
 - **Some mistakes will be read before anyone sees them.** The dictionary is broad; a wrong family shows up in Analyze
-  and in what people remove, and is fixed by teaching the word or adding a correction to the generator. The 911 line is
-  never at risk.
+  and in what people remove, and is fixed by teaching the word or adding a correction to the generator.
+- **A wrong reading can show the 911 line, or lead away from it.** Either way it's only an offer. People can see why
+  in Analyze, staff can undo it, and the person searching always decides what to do.
