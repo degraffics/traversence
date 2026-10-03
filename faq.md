@@ -263,6 +263,14 @@ A few reasons:
 - We haven't confirmed the spot yet.
 - The business asked to keep its address confidential. Those listings show a phone number only and never appear on the map.
 
+### Where do a listing's phone number and website come from?
+From the business's own website first, then official registries (like the NPI Registry for health care and the IRS
+list of nonprofits), then other public pages that show the business with its name and address. A number goes on a
+listing when the business's own website, a registry or a government page gives it, or when two separate websites
+agree; otherwise our staff check it first. Google, Yelp and Facebook pages are only used to confirm what another
+source shows, and we link to them rather than copy them. If you own the business, claim your listing to set your own
+details: they're never overwritten.
+
 ### I own a business. How do I get it listed?
 Use **Add or claim a business** at the bottom of any page. Find your listing and claim it, or create a new one.
 

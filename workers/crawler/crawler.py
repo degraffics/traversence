@@ -85,6 +85,8 @@ OVERPASS_URLS = [u for u in [os.environ.get("OVERPASS_URL"),
                              "https://overpass.kumi.systems/api/interpreter"] if u]
 VERIFY_PER_RUN = int(os.environ.get("VERIFY_PER_RUN", "10"))
 VERIFY_TIME = int(os.environ.get("VERIFY_TIME", "100"))
+IDENTITY_PER_RUN = int(os.environ.get("IDENTITY_PER_RUN", "5"))   # listings looked up per run for a missing phone or website (decisions/0062); 0 turns it off
+IDENTITY_TIME = int(os.environ.get("IDENTITY_TIME", "60"))
 TAVILY_API_KEY = os.environ.get("TAVILY_API_KEY", "")
 BRAVE_API_KEY = os.environ.get("BRAVE_API_KEY", "")
 SEARCH_ON = bool(TAVILY_API_KEY or BRAVE_API_KEY or os.environ.get("SEARCH_FIXTURE"))
@@ -821,6 +823,177 @@ def second_look(deadline):
 
 
 # ---------------------------------------------------------------------------------------------------
+# Building a listing's identity (decisions/0062, step 4): its missing phone, website and email
+# ---------------------------------------------------------------------------------------------------
+
+# Google, Yelp and Facebook: their terms don't allow copying, so their pages only confirm a value another source gave,
+# and are kept as links. They're never fetched; the search snippet is all that's read.
+def evidence_only(host):
+    return bool(re.search(r"(^|\.)(yelp\.com|facebook\.com|instagram\.com|g\.page)$|(^|\.)google\.[a-z.]+$", host))
+
+
+SOCIAL_RE = re.compile(r"""href=["'](https?://(?:www\.|m\.)?(?:facebook\.com|instagram\.com|yelp\.com|x\.com|twitter\.com|linkedin\.com|youtube\.com|tiktok\.com)/[^"'\s?#]+)""", re.I)
+TEL_RE = re.compile(r"""href=["']tel:([^"']+)""", re.I)
+MAILTO_RE = re.compile(r"""href=["']mailto:([^"'?]+)""", re.I)
+CONTACT_HINTS = ("contact", "about", "location", "hours", "visit", "find-us", "directions")
+
+
+def good_phone(p, rejected):
+    d = digits(p)
+    return d if len(d) == 10 and d[0] >= "2" and f"phone:{d}" not in rejected else ""
+
+
+def phone_near(text, name, rejected):
+    """The phone printed closest after the place's name: a page that lists many places shows each one's phone by it."""
+    low = text.lower()
+    keys = [name.lower(), " ".join([w for w in re.findall(r"[a-z0-9]+", name.lower()) if len(w) >= 3][:2])]
+    for key in keys:
+        if not key:
+            continue
+        for m in re.finditer(re.escape(key), low):
+            for pm in PHONE_RE.finditer(text[m.end():m.end() + 400]):
+                d = good_phone(pm.group(0), rejected)
+                if d:
+                    return d
+    return ""
+
+
+def own_site_facts(site, lst, rejected, deadline):
+    """Its own website: the phone (a tel: link, else the number printed most), email, social pages and hours."""
+    home = fetch_page(site)
+    if not home:
+        return []
+    host = host_of(site)
+    pages = {site: home}
+    links = [urllib.parse.urljoin(site, h) for h in re.findall(r"(?i)href=[\"']([^\"'#]+)", home)]
+    for u in [u for u in dict.fromkeys(links) if host_of(u) == host and any(k in u.lower() for k in CONTACT_HINTS)][:3]:
+        if time.monotonic() > deadline:
+            break
+        pg = fetch_page(u)
+        if pg:
+            pages[u] = pg
+    found = []
+    need = set(lst["need"])
+    if "phone" in need:
+        counts = {}
+        for url, pg in pages.items():
+            for p in TEL_RE.findall(pg):
+                d = good_phone(p, rejected)
+                if d:
+                    counts[(d, url)] = counts.get((d, url), 0) + 5        # a tel: link is the site saying "call us here"
+            for p in PHONE_RE.findall(" ".join(page_lines(pg))):
+                d = good_phone(p, rejected)
+                if d:
+                    counts[(d, url)] = counts.get((d, url), 0) + 1
+        if counts:
+            (d, url), _ = max(counts.items(), key=lambda kv: kv[1])
+            found.append({"fact": "phone", "value": d, "url": url, "kind": "own_site", "evidence": "own_site", "label": "Its own website"})
+    if "email" in need:
+        for url, pg in pages.items():
+            mails = [m.strip() for m in MAILTO_RE.findall(pg) if "@" in m]
+            mails.sort(key=lambda m: 0 if host.split(".")[-2] in m.lower() else 1)       # its own domain first
+            if mails:
+                found.append({"fact": "email", "value": mails[0], "url": url, "kind": "own_site", "evidence": "own_site", "label": "Its own website"})
+                break
+    socials = []
+    for pg in pages.values():
+        socials += [u for u in SOCIAL_RE.findall(pg) if not re.search(r"/(sharer|share|intent|plugins|dialog)\b", u)]
+    for u in list(dict.fromkeys(socials))[:4]:
+        found.append({"fact": "social", "value": u, "url": site, "kind": "own_site", "evidence": "own_site", "label": "Linked from its own website"})
+    for url, pg in pages.items():
+        h = hours_from(pg)
+        if h:
+            found.append({"fact": "hours", "value": "; ".join(h), "url": url, "kind": "own_site", "evidence": "own_site", "label": "Its own website"})
+            break
+    return found
+
+
+def identity_jobs(deadline):
+    d = site_call(f"/api/crawl/identity.php?limit={IDENTITY_PER_RUN}")
+    listings = d.get("listings", [])
+    if listings:
+        log(f"identities: {len(listings)} listing(s) to fill in" + ("" if SEARCH_ON else " (own websites and the NPI Registry only; no search key)"))
+    for lst in listings:
+        if time.monotonic() > deadline or out_of_time():
+            log("identities: out of time, the rest go back when their lease ends")
+            break
+        try:
+            rejected = set(lst.get("rejected") or [])
+            need = set(lst.get("need") or [])
+            found, checked = [], []
+            have = lambda fact: any(f["fact"] == fact for f in found)
+            # 1. its own website
+            if lst.get("website"):
+                checked.append("own_site")
+                found += own_site_facts(lst["website"], lst, rejected, deadline)
+            # 2. the NPI Registry (health care): it gives the phone at the address we hold
+            if "phone" in need and not have("phone") and lst.get("address"):
+                checked.append("npi")
+                for f in npi_lookup(lst):
+                    p = good_phone(f.get("phone", ""), rejected)
+                    if p:
+                        found.append({"fact": "phone", "value": p, "url": f["url"], "kind": "registry", "evidence": "registry", "label": f["label"]})
+            # 3. web search, for what's still missing
+            if SEARCH_ON and (("phone" in need and not have("phone")) or ("website" in need and not lst.get("website") and not have("website"))):
+                checked.append("search")
+                city = f"{lst['city']} {lst['state']}".strip() or lst["zip"]
+                results = search(f'"{lst["name"]}" {city}')
+                looked = 0
+                later = []                               # Google, Yelp, Facebook: read after the others, to confirm
+                for r in results:
+                    url, host = r["url"], host_of(r["url"])
+                    if not url.startswith("http") or not host or base_domain(host) in SKIP_HOSTS or host in SKIP_HOSTS:
+                        continue
+                    if evidence_only(host):
+                        later.append(r)
+                        continue
+                    kind = kind_of(url, r["title"], lst)
+                    text = r["snippet"]
+                    if not names_place(text, lst["name"]) and looked < 4 and time.monotonic() < deadline:
+                        looked += 1
+                        page = fetch_page(url)
+                        text = page_text(page) if page and names_place(page, lst["name"]) else ""
+                    if not text:
+                        continue
+                    shows_addr = bool(lst.get("address")) and shows_address(text, lst["address"])
+                    town = bool(lst.get("city")) and lst["city"].lower() in text.lower()
+                    if kind == "own_site" and "website" in need and not lst.get("website") and not have("website") and (shows_addr or town):
+                        root = f"{urllib.parse.urlsplit(url).scheme}://{urllib.parse.urlsplit(url).netloc}/"
+                        if f"website:{host}" not in rejected:
+                            found.append({"fact": "website", "value": root, "url": url, "kind": "own_site", "evidence": "address" if shows_addr else "own_site",
+                                          "label": r["title"][:120] or host})
+                            if time.monotonic() < deadline:
+                                more = own_site_facts(root, {**lst, "need": [n for n in need if not have(n)]}, rejected, deadline)
+                                found += [f for f in more if not have(f["fact"]) or f["fact"] == "social"]
+                    elif "phone" in need and not have("phone") and shows_addr:
+                        p = phone_near(text, lst["name"], rejected)
+                        if p:
+                            found.append({"fact": "phone", "value": p, "url": url, "kind": kind, "evidence": "address", "label": r["title"][:120] or host})
+                # their pages confirm a phone found above (or our address), and are kept as links
+                phones = {f["value"] for f in found if f["fact"] == "phone"} | ({digits(lst["phone"])} if lst.get("phone") else set())
+                for r in later[:3]:
+                    if not names_place(r["snippet"], lst["name"]):
+                        continue
+                    shown = next((p for p in phones if p and shows_phone(r["snippet"], p)), "")
+                    addr = bool(lst.get("address")) and shows_address(r["snippet"], lst["address"])
+                    if shown or addr:
+                        ev = "both" if shown and addr else ("phone" if shown else "address")
+                        found.append({"fact": "social", "value": r["url"], "url": r["url"], "kind": "evidence", "evidence": ev, "label": r["title"][:120]})
+                        if shown:
+                            found.append({"fact": "phone", "value": shown, "url": r["url"], "kind": "evidence", "evidence": ev, "label": r["title"][:120]})
+            res = site_call("/api/crawl/identity.php", {"job_id": lst["job_id"], "found": found, "checked": checked})
+            log(f"identity {lst['name']} ({lst['city']}): " + (", ".join(f"{f['fact']} from {host_of(f['url'])}" for f in found) or "nothing found")
+                + (f" -> on the listing: {', '.join(res.get('applied', []))}" if res.get("applied") else "")
+                + (f"; {res.get('waiting')} for a person" if res.get("waiting") else ""))
+        except Exception as e:
+            log(f"identity {lst.get('name')}: {e!r}"[:300])
+            try:
+                site_call("/api/crawl/identity.php", {"job_id": lst["job_id"], "error": repr(e)[:240]})
+            except Exception:
+                pass
+
+
+# ---------------------------------------------------------------------------------------------------
 # Monthly NPI Registry file (decisions/0048)
 # ---------------------------------------------------------------------------------------------------
 
@@ -1413,6 +1586,11 @@ def run():
             second_look(started + min(VERIFY_TIME, TIME_BUDGET))
         except Exception as e:                     # the second look never stops the crawl jobs
             log(f"second look stopped: {e!r}"[:300])
+    if IDENTITY_PER_RUN > 0:
+        try:
+            identity_jobs(time.monotonic() + IDENTITY_TIME)
+        except Exception as e:                     # filling in identities never stops the crawl jobs
+            log(f"identities stopped: {e!r}"[:300])
     if REFRESH_PER_RUN > 0:
         try:
             refresh_listings(time.monotonic() + REFRESH_TIME)

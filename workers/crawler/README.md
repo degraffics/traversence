@@ -73,6 +73,33 @@ used only when there is no Tavily key), `VERIFY_PER_RUN` (10; 0 turns the second
 `OVERPASS_URL` (an Overpass server to try first; the public one and two mirrors are always tried after it), `LEARN_PER_RUN` (3 Tier 2 searches per run; 0 turns
 them off), `LEARN_TIME` (45 seconds). Tier 2 shares `MAX_SEARCHES` with the second look. `SEARCH_MONTHLY` (1000): the search plan's monthly allowance. After each run the worker tells the site which search it has and how many searches it made (`POST /api/crawl/usage.php`), and the admin dashboard's System status shows "Tavily: 340 of 1,000 searches this month", amber at 80%, red when it's used up.
 
+## Building identities (decisions/0062, step 4)
+
+Each run, after the second look, the worker takes up to `IDENTITY_PER_RUN` listings (5; 0 turns it off) that have no
+phone or website (`GET /api/crawl/identity.php`) and spends up to `IDENTITY_TIME` seconds (60) looking them up, in
+this order:
+
+1. **Its own website**, when the listing has one: the home page and up to 3 contact/about pages. A `tel:` link or the
+   number printed most, a `mailto:` address, links to its social pages, and its hours.
+2. **The NPI Registry**, for a phone at the address we hold (health care).
+3. **One web search** (`"Name" Town ST`, shares `MAX_SEARCHES`), only for what's still missing:
+   - a result whose domain carries the name and that shows the address or town is its own website, and is read as
+     in step 1;
+   - another page counts only when it names the place **and** shows its street address; the phone printed nearest
+     after the name is taken.
+   - **Google, Yelp and Facebook** are never fetched or copied. Their search snippet only confirms a phone found
+     above (or our address), and their page is kept as a link.
+
+It sends back each value with the page it's on and what that page matched (`POST /api/crawl/identity.php`). The site
+decides what goes on the listing:
+- straight on: a value from its own website, a registry or a government page, or one two separate websites agree on;
+- to the admin helper ("Found by the crawler"): anything else, for a person's one tap.
+
+Nothing a person entered is overwritten, and a value a person marked "Not right" is never sent again. A confidential
+address is never sent to the worker: it searches by name and town. A listing where nothing is found is looked at
+again in 30 days. The site tops up the queue on its own; Admin → Identities shows it and has **Look now** per
+listing.
+
 ## Pausing
 
 - On the site: `CRAWL_QUEUE=off` in `.env`. The worker sees "paused" and exits without doing anything.

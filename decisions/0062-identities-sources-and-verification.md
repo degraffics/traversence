@@ -276,3 +276,46 @@ worker (1000 by default; change it in Railway if the plan changes). Checked in t
   - "✎ I know this" on a website;
   - approve then Undo (hidden), merge, and group approval with one row that couldn't be approved (it went one by one).
 - **Also checked on MariaDB:** "✎ I know this" and its Undo, and a rebuild keeping the person's fix.
+
+### Progress, 2026-10-03: Step 4, the crawler's build-the-identity job
+
+- **Queue** (`2026-10-27_identity_jobs.sql`, `IdentityJobs`):
+  - every public listing with no phone and no website is queued, those with a street address first;
+  - the site tops the queue up on its own when it runs low;
+  - **Look now** on a listing's card puts it first;
+  - a look that found nothing waits 30 days, then tries again.
+- **The worker** (`identity_jobs()` in `workers/crawler/crawler.py`, `IDENTITY_PER_RUN` 5, `IDENTITY_TIME` 60s), in
+  order:
+  1. **its own website:** home and contact pages; the phone, email, social links and hours;
+  2. **the NPI Registry:** the phone at the address we hold;
+  3. **one web search**, only for what's still missing:
+     - its own website: a domain carrying the name, on a page that shows the address or town;
+     - a phone from any other page that names the place **and** shows its street address.
+- **Google, Yelp and Facebook** (§3):
+  - their pages are never fetched;
+  - their snippet can only confirm a value another source gave. The site refuses a value only they give.
+  - Their page is kept as a link under How to reach.
+- **What the site does with a find:**
+  - each value is stored as a fact with its source: the page, what it matched, and "identity job" (`added_by` 0, kept
+    through rebuilds);
+  - **straight onto the listing**, when the listing has none: a value from its own website, a registry or a government
+    page, or one two independent websites agree on;
+  - **to the helper** otherwise: a new queue, **Found by the crawler**, with "Yes, put it on the listing" (recommended
+    when the page showed the name and address) and **Not right**;
+  - "Not right" keeps the value marked, so the worker skips it and the site won't show it.
+- **Never touched:** anything a person entered. A confidential address is never sent to the worker.
+- **Admin:**
+  - Identities shows the job's numbers, "Queue every listing with no phone or website", and on each card what the
+    crawler did and when, with **Look now**;
+  - System status has an "Identity job" line;
+  - "Found by the crawler" is a Today line, its count shared with the menu badge.
+- **FAQ:** "Where do a listing's phone number and website come from?"
+- **Checked in the sandbox,** with the worker running against the site:
+  - Hillcrest Apartments: search found its own website; its phone, email, Facebook page and website went on the
+    listing.
+  - St Johns Ambulance: a chamber page gave the phone and a Yelp snippet confirmed it, so it was confirmed by 2 sources
+    and went on the listing, with the Yelp page kept as a link.
+  - St Johns Indl Air Park: one directory page gave the phone, so it waited in the helper. "Not right" kept the next
+    run from bringing it back; "Yes" put it on the listing.
+- **Also checked on MariaDB:** the migration runs twice safely, and lease → complete puts the own-site phone and
+  website on the listing while refusing a phone only Yelp gave.
