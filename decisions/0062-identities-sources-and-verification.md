@@ -319,3 +319,51 @@ worker (1000 by default; change it in Railway if the plan changes). Checked in t
     run from bringing it back; "Yes" put it on the listing.
 - **Also checked on MariaDB:** the migration runs twice safely, and lease → complete puts the own-site phone and
   website on the listing while refusing a phone only Yelp gave.
+
+### Progress, 2026-10-04: Step 5, consent at sign-up and verification for the roles that need it
+
+- **Consent is a tool like the others** (`Consent::TOOLS['verification']`). It's recorded in `tool_consents` and
+  `tool_consent_log` with its version, the page, and whether the full text was opened.
+  - **The exact wording** of each version is kept the first time anyone agrees to it, in `consent_wordings`
+    (`2026-11-01_verification_consent.sql`). A logged version number always leads back to the words that were shown.
+  - **The one line:** "We'll check the details you give us (name, email, phone, and for owners the business) against
+    the sources we list. Nothing else about you is looked up."
+  - **Behind ⓘ:** what's checked and against what, that only what they gave us is checked, which roles need it, and
+    that switching it off removes the mark, not the account.
+- **Sign-up** (`register.php`) has a Verification step of its own: the line, ⓘ, and two choices, "Yes, check my
+  details" or "Not now". One must be picked. The answer is recorded either way (a "Not now" shows as paused in Privacy).
+- **What's checked** (`api/lib/MemberVerification.php`), only what the person gave us:
+  - the email, by the link we sent;
+  - 18 or older, by their own confirmation (decisions/0058 §7);
+  - the phone, by a texted code: **coming** (we don't take phone numbers at sign-up yet);
+  - for owners, each business they claimed, by its own verification (`api/lib/Verification.php`).
+- **Verified** = consent on + email confirmed + 18 or older. A **✓ Verified** mark shows on the public profile.
+  Switching consent off removes the mark at once.
+- **Required only for these roles**, asked in place with one tick:
+  - **Contributors:** becoming one (`Journeys::become`; a "Switch on Verification" box on the form).
+  - **Owners:** claiming a listing (`listing/api/claim.php` answers 428 `needs_verification`, or switches it on with
+    `verify: true`). The claim page is still a placeholder; it lists the step.
+  - **Stewards:** starting a community (`Community::create`; a box on the form).
+  - **Staff:** being given an admin-side role (`Roles::grant`). They switch it on themselves; an Owner can't do it for
+    them.
+  - Browsing, searching, saving, commenting and messaging never need it.
+- **People who already hold one of these roles** without it see a note in their Pulse ("Switch on Verification to keep
+  being able to …"), and in Privacy Settings under Verification. Nothing they hold is taken away for now.
+- **Privacy Settings → Your tools → Verification** lists each check with its state (✓ done, • to do, … coming), whether
+  the profile shows the mark, and the roles they hold that need it.
+- **Checked in the sandbox at 390px:**
+  - **Sign-up:** the step shows, ⓘ opens, and the form won't send without a choice.
+  - **Consent:** "Yes" is recorded with its wording kept; "Not now" is recorded as paused.
+  - **Privacy:** paused → switched on → the checks and "Your profile shows ✓ Verified".
+  - **Profile:** the mark shows, and goes once Verification is switched off.
+  - **Gates:** a contributor without it is blocked with the reason; with the box ticked it goes through. Starting a
+    community needs the box. A staff grant to someone without it is refused, and goes through once they switch it on.
+  - **Pulse:** the note shows for a contributor without it.
+  - No sideways scroll.
+- **Also checked on MariaDB:**
+  - the migration, run twice;
+  - consent on and off;
+  - the wording kept once;
+  - status with a claimed business;
+  - the mark removed when switched off.
+- **Next (step 6):** places, events, items and resource lines on the same identity card.

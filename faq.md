@@ -459,6 +459,20 @@ Any name from 2 to 40 characters, using letters, numbers, spaces and simple punc
 
 Either way, your email and your location are never shown.
 
+### What does Verified mean?
+A **✓ Verified** mark on someone's profile means they agreed to have the details they gave us checked, and the
+checks are done: their email (with the link we sent them) and that they're 18 or older. We only check what a person
+gave us. We never search for anything more about them, and nothing else about them is shown. Checking a phone with a
+texted code is coming. A business owner's business is checked on its own, against its website and the public
+registries we list.
+
+### Do I have to be verified?
+No, not to use Traversence. Browsing, searching, saving, commenting and messaging never need it. When you create an
+account we ask once, as its own step, and you can answer **Not now**. You need Verification switched on only to write
+as a contributor, claim a business, start a community, or work on Traversence's staff. Each of those asks for it
+in place, with one tick. Switch it on or off any time in **Privacy Settings → Your tools**. Switching it off removes
+the Verified mark, not your account. We keep a record of when you said yes or no and the exact words you were shown.
+
 ### Who can see my email?
 No one. Your email is never shown on Traversence.
 
