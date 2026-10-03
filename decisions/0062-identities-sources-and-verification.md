@@ -159,3 +159,50 @@ reset when the month turns). System status shows "Tavily: 340 of 1,000 searches 
 the allowance is used up, and Off with the reason when there's no key. The allowance is `SEARCH_MONTHLY` on the
 worker (1000 by default; change it in Railway if the plan changes). Checked in the sandbox: 850 + 2 searches showed
 852 of 1,000, amber.
+
+### Progress, 2026-10-03: Step 2, facts and sources for listings
+
+- **Tables** (`2026-10-26_identity_facts.sql`):
+  - `identity_facts`: one row per value of a fact, keyed to its record (`record_kind`, `record_id`), with its W, a
+    value for comparing (a phone's 10 digits, a website's host, an address's number and street), its status, and
+    whether it's the value shown.
+  - `identity_fact_sources`: each source of that value: kind, website, link, label, private or not, who added it,
+    note, when checked.
+  - Places, events, items and resource lines use the same tables later.
+- **Built from what we already hold** (`Identity::fromListing`):
+  - the listing itself (name, kind, map point, ZIP, the owner's claim);
+  - its details (`entity_metadata`, each with who added it);
+  - what the crawler found: the page it came from and the websites that confirmed it, and what each matched (phone,
+    address or both);
+  - the sources we read (`source_facts`, by phone, or by street number and ZIP, with the name);
+  - the NPI Registry (by phone, or street number and ZIP);
+  - IRS nonprofits (by name in the ZIP). A registry's legal name that differs is kept as an "other name".
+- **How a fact is confirmed:**
+  - two independent websites agree (each website counts once, `Sources::site`); or
+  - an official registry or the owner (a verified claim) gives it; or
+  - staff checked it, which comes with "✎ I know this" in step 3.
+- **What counts as one source only:**
+  - our own records;
+  - a value staff typed in the listing editor ("Entered by staff");
+  - a member's suggestion.
+- **A website counts as the listing's own** only when the crawler matched it to the listing's name or website and it
+  isn't a government page, directory or social page. Directory and social pages are kept as links under How to
+  reach, never copied.
+- **A confidential address** (a shelter) is never stored, not even for staff: phone only. Its card doesn't call the
+  address missing.
+- **A rebuild** clears what the builder added and keeps what a person added by hand.
+- **Admin → Listings & places → Identities** (`/admin/identities.php`):
+  - the numbers (built, names confirmed, no phone or website, sources disagree, sources recorded);
+  - **Build from what we hold**, in batches of 150 from the page;
+  - the listings where sources disagree, and the newest with no phone or website;
+  - a lookup by name or number showing the card by W, with each fact's status and its sources (staff see private
+    ones), and **Rebuild**.
+  - Deciding and "✎ I know this" are step 3.
+- **Checked in the sandbox:**
+  - all 4,381 listings built, about 10 ms each;
+  - the safe house kept phone only;
+  - Gallup Indian Medical Center confirmed by IHS, OpenStreetMap and the NPI Registry;
+  - Villa De Gallup showed its two addresses as a conflict;
+  - the page at 390px: cards 3px from the edges, no sideways scroll.
+- **Also checked on MariaDB:** the migration runs twice safely, and a clinic matched by its own website, a
+  government page and the NPI Registry came out confirmed, with the same 7 facts on a rebuild.
