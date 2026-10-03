@@ -214,7 +214,10 @@ It says so instead of guessing. You won't get a list of things that just happen 
 Not who searched it. We count the words people search, by area and day, and how those searches turned out (found something, found nothing, or searched again), for words typed but not searched, whether a suggestion was tapped or the search was closed, and what kind of thing was opened afterwards (a tire shop, a pizza place, never which one you are), so we can see what search doesn't understand yet and fix it. No account, device or location is kept with them, and words only show to our team once several searches used them. Your recent searches stay in your own browser.
 
 ### Why does search ask "Where are you?"
-For something you need nearby, like a restroom, gas or a tow, "nearest" only means something once we know where you are. Tap **Choose your place or use Auto-detect** and the nearest places show. Auto-detect doesn't share where you are.
+For something you need nearby, like a restroom, gas or a tow, "nearest" only means something once we know where you are. Tap **Choose your place or use Auto-detect** and the nearest places show. Auto-detect doesn't share where you are. Once you've set a place, search uses it. That includes a city, state or ZIP outside our regions, like Seattle, so it won't ask again.
+
+### I set a place outside your regions. What does search show?
+It searches there. If nothing is listed near that place yet, search says so ("Nothing is listed near Seattle, WA yet") instead of showing places hundreds of miles away. Traversence lists places in its regions so far, and more are coming. Tap **Choose another place** to pick another one.
 
 ### What are the lines that finish my words as I type?
 They're ways your search could carry on, like "where can i park **overnight for free**" or "parks **for kids**". What you typed is plain and the rest is bold. Tap one to search it. They come from the situations we know, the ways people ask ("…check out", "…worth the drive") and what fits the thing you named (open now, this weekend, near your place). They don't come from other people's searches.
