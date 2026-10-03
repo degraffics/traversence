@@ -217,3 +217,46 @@ Then guides (§8), as their own step after ADR 0062's remaining steps.
   - The trial leaves nothing behind.
 - **Also checked on MariaDB:** the migration runs twice safely, a rolled-back trial leaves the tables unchanged, and a
   saved change and its undo restore the word's earlier reading.
+
+### Progress, 2026-10-04: Piece 3, the frame-first situation builder
+
+- **The situation editor has four steps:**
+  1. **What it is:** the name, status, track, urgent or danger, and what would help (the needs).
+  2. **What triggers it:** rules, each an event or action plus the things or tools it's about (or the action alone).
+     They're added from pick lists of the meanings search knows, and removed with ×. The rules built into the code
+     for this situation are listed read-only.
+  3. **Example searches, the tests:** how people would say it, one per line. They prove the rules; they trigger
+     nothing.
+  4. **Fixed phrases:** only for idioms that can't be built from parts ("fender bender", "tow truck"). Existing
+     situations keep theirs.
+- **"Test them, and recent searches":**
+  - **How it works:** two readings, each in its own request. One reads as things are now. In the other, the situation
+    as edited is written inside a transaction (tried as Live), the searches are read, and it's rolled back.
+  - **Each example** shows ✓ "reads as this, by a rule" or "by the phrase", or ✗ "reads as …", plus:
+    - **Not recognized:** each word search doesn't know, with **Add "word"**, which opens the Workbench lightbox for
+      it over the editor;
+    - **a suggested rule** built from the example's own words (its first event or action, and its things and tools),
+      with **Use this rule**.
+  - **The total:** "N of M pass. Ready to set Live", or "Fix the ones that don't before setting it Live".
+  - **The dry run:** the 60 most-searched recent searches, listing any that would read differently, before → after.
+  - Testing works before the form is complete; only Save asks for a name, a need, and a rule or phrase.
+- **Saving:**
+  - a new situation starts as a draft ("Set it Live once its tests pass");
+  - **New situation** from the Workbench puts the search being worked on into the examples, not the phrases;
+  - the situation's taught rules are the ones in the editor (`search_frames` by slug; the built-in ones stay in code);
+  - examples are kept on the situation (`2026-10-30_situation_examples.sql`).
+- **Also:**
+  - A rule with no things now reads "taught in Admin: 'compost'".
+  - The Workbench shows the server's error messages, not "[object Object]".
+  - A pending refresh of the built-in situations now runs before any trial transaction (piece 2's dry run included),
+    since it opens its own. This was found on MariaDB.
+- **Checked in the sandbox:**
+  1. "how to compost" → **New situation**, with "how to compost" as an example.
+  2. Named Composting, with four examples.
+  3. **First test:** 0 of 4 pass. Each suggested "compost"; "bins" and "pile" were flagged with Add it.
+  4. **Use this rule, then test again:** 4 of 4 pass; none of 29 recent searches change.
+  5. **Saved as a draft:** a draft doesn't answer. Once Live, "how to compost" reads as Composting by the rule, and
+     the Workbench leads "✓ Recognized: reads as Composting".
+  - Reopening keeps the rule and the examples. 390px, no sideways scroll.
+- **Also checked on MariaDB:** the migration, a rolled-back test (nothing left behind), and saving with a rule and
+  examples.
