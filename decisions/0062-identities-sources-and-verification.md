@@ -421,3 +421,19 @@ worker (1000 by default; change it in Railway if the plan changes). Checked in t
   - the crawler's identity job for places and resource lines (it looks up listings only);
   - a second source for resource lines (the identity job could read the provider's page for the name too);
   - the public "Confirmed by N sources" line on pages.
+
+### Progress, 2026-10-04: The helper's "Do all as recommended"
+
+- **The button:** queues where every recommendation can be undone get "Do all N as recommended", after one
+  confirmation. Those queues are websites to sort, crawl jobs that failed, facts where sources disagree, and found by
+  the crawler (`Helper::BATCH`).
+- **What it does** (`Helper::doRecommended`): each item with exactly one recommended choice gets that choice. Items
+  with no clear recommendation are skipped and left for a person ("Bring back what I skipped"). It runs about 25
+  seconds a press; if more are waiting, it says to press again.
+- **One Undo** takes the whole batch back, last first.
+- **Never in a batch:**
+  - reports, which are read one at a time;
+  - possible duplicates, because a merge can't be undone;
+  - listings to approve, which already have their own group approval.
+- **Checked in the sandbox at 390px:** 9 websites were sorted in one press (government and chamber sites read
+  regularly, the others cite only), and Undo put all 9 back.
