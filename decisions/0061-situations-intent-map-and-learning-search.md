@@ -470,3 +470,7 @@ Code: `api/lib/Learning.php`, `api/crawl/learn.php`, Admin → Search tools → 
   - holding one Published added and removed its phrase.
 
   Learning's and the admin pages' queries were also run on MariaDB.
+- **Thresholds lowered (Jason, 2026-10-03):** May also help at **0.75**, Published at **0.90** (from 0.85 and 1.00).
+  A mapping that was shown retires when it falls below 0.75. Words that share none of their words with the kind
+  ("sunday service" → Churches, about 0.79 at best) can now show as May also help; Published still needs strong
+  behaviour plus outside sources or shared words.
