@@ -71,7 +71,7 @@ plan of 1,000 searches a month, about 500 listings at two searches each), `BRAVE
 used only when there is no Tavily key), `VERIFY_PER_RUN` (10; 0 turns the second look off), `VERIFY_TIME` (100),
 `MAX_SEARCHES` (10 per run), `JOBS_PER_RUN` (5, at most 10), `MAX_FETCHES` (60), `TIME_BUDGET` (240),
 `OVERPASS_URL` (an Overpass server to try first; the public one and two mirrors are always tried after it), `LEARN_PER_RUN` (3 Tier 2 searches per run; 0 turns
-them off), `LEARN_TIME` (45 seconds). Tier 2 shares `MAX_SEARCHES` with the second look.
+them off), `LEARN_TIME` (45 seconds). Tier 2 shares `MAX_SEARCHES` with the second look. `SEARCH_MONTHLY` (1000): the search plan's monthly allowance. After each run the worker tells the site which search it has and how many searches it made (`POST /api/crawl/usage.php`), and the admin dashboard's System status shows "Tavily: 340 of 1,000 searches this month", amber at 80%, red when it's used up.
 
 ## Pausing
 

@@ -149,3 +149,13 @@ missing, what's in conflict, and the decision (Ask → Decide → Act).
 - **Checked in the sandbox:** a recoverable blank report came back as a page comment with its text; two unrecoverable
   ones became one item and "Dismiss all 2" cleared them; a deleted journey showed as gone; a group report showed the
   group. Also checked on MariaDB: the migration keeps the blank rows, and new reports keep their kind.
+
+### Progress, 2026-10-03: Web search usage on the dashboard
+
+Web search is **Tavily**: `TAVILY_API_KEY` is set in Railway (confirmed by Jason), and Brave is the fallback.
+After each run the worker reports which search it has and how many searches it made (`POST /api/crawl/usage.php`),
+including runs that stopped early. The site keeps the month's total in `search_index_state` (`websearch_*`,
+reset when the month turns). System status shows "Tavily: 340 of 1,000 searches this month": amber at 80%, red when
+the allowance is used up, and Off with the reason when there's no key. The allowance is `SEARCH_MONTHLY` on the
+worker (1000 by default; change it in Railway if the plan changes). Checked in the sandbox: 850 + 2 searches showed
+852 of 1,000, amber.

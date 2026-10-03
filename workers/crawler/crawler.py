@@ -42,6 +42,7 @@ Settings (environment variables):
   MAX_SEARCHES         web searches per run, default 10
   LEARN_PER_RUN        Tier 2 web searches for situation gaps per run, default 3 (0 turns it off)
   LEARN_TIME           seconds of each run for them, default 45
+  SEARCH_MONTHLY       the search plan's monthly allowance (default 1000), reported to the site for the admin dashboard
   NPI_BULK             "off" stops the monthly NPI Registry load (default on). When the site says a load is due
                        (every 30 days), that run downloads CMS's full NPI file (about 1 GB), keeps health-care
                        organizations in the site's states, sends them in batches, and skips the rest of the run.
@@ -88,6 +89,7 @@ TAVILY_API_KEY = os.environ.get("TAVILY_API_KEY", "")
 BRAVE_API_KEY = os.environ.get("BRAVE_API_KEY", "")
 SEARCH_ON = bool(TAVILY_API_KEY or BRAVE_API_KEY or os.environ.get("SEARCH_FIXTURE"))
 MAX_SEARCHES = int(os.environ.get("MAX_SEARCHES", "10"))
+SEARCH_MONTHLY = int(os.environ.get("SEARCH_MONTHLY", "1000"))  # the search plan's monthly allowance, shown on the admin dashboard
 LEARN_PER_RUN = int(os.environ.get("LEARN_PER_RUN", "3"))         # Tier 2 web searches for situation gaps per run (decisions/0061); 0 turns it off
 LEARN_TIME = int(os.environ.get("LEARN_TIME", "45"))
 WIKIDATA_SPARQL = "https://query.wikidata.org/sparql"
@@ -462,6 +464,7 @@ def search(query):
         with open(os.environ["SEARCH_FIXTURE"]) as f:
             data = json.load(f)
         items = (data.get(query) or data.get("*", {})).get("results", [])
+        searches += 1                                 # counted the same as a real search
     else:
         if not (TAVILY_API_KEY or BRAVE_API_KEY) or searches >= MAX_SEARCHES:
             return []
@@ -1460,14 +1463,30 @@ def run():
     return 0
 
 
+def report_usage():
+    """Tell the site which web search is on and how many searches this run made, for the admin dashboard's System
+    status (it keeps the month's total). Never fails the run."""
+    if not SITE or not TOKEN:
+        return
+    engine = "tavily" if TAVILY_API_KEY else ("brave" if BRAVE_API_KEY else "")
+    try:
+        site_call("/api/crawl/usage.php", {"engine": engine, "searches": searches, "fetches": fetches, "monthly": SEARCH_MONTHLY})
+    except Exception as e:
+        log(f"usage report skipped: {e!r}"[:200])
+
+
 if __name__ == "__main__":
     try:
-        sys.exit(run())
+        code = run()
+        report_usage()
+        sys.exit(code)
     except urllib.error.HTTPError as e:
         # Exit cleanly: the next scheduled run tries again. A failing exit makes Railway restart the
         # container at once, which would hammer the site every second.
         log(f"site said {e.code}: {e.read()[:300]!r}")
+        report_usage()                             # searches already made still count toward the month
         sys.exit(0)
     except Exception as e:                         # site unreachable etc.: same, wait for the next run
         log(f"run stopped: {e!r}")
+        report_usage()
         sys.exit(0)
