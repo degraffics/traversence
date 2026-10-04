@@ -315,6 +315,14 @@ A few reasons:
 - We haven't confirmed the spot yet.
 - The business asked to keep its address confidential. Those listings show a phone number only and never appear on the map.
 
+### Where does a business's information come from?
+From the evidence. Each listing's details (name, address, phone, website, hours) come from what we can find about the business: its own website, official registries, and other pages that match it by name and address or phone. When those disagree with what we had, **the evidence wins**: the value with the most independent sources goes on the listing by itself. Our team can see every change and undo it. Google, Yelp and Facebook pages only confirm what we found; we never copy from them.
+
+Once a business is **claimed**, its owner decides. Nothing we find changes a claimed listing on its own. Instead the owner sees **We found other information about your business** on their listing, with each value and where we found it, and can **Use this** or **Dismiss** it.
+
+### Why does my listing say "We found other information about your business"?
+Only you see it, as the listing's owner. It lists details we found about your business elsewhere (your website, an official registry, another page that matches you) that differ from your listing. Your listing keeps what you set. Tap **Use this** to put a value on your listing, or **Dismiss** to set it aside; dismissed values aren't offered again.
+
 ### Where does the information about a landmark or outdoor place come from?
 - **Landmarks:** the name, the kind of feature and the map point come from the federal names registry (USGS Geographic
   Names). The description comes from Wikidata and Wikipedia, credited on the page.

@@ -437,3 +437,27 @@ worker (1000 by default; change it in Railway if the plan changes). Checked in t
   - listings to approve, which already have their own group approval.
 - **Checked in the sandbox at 390px:** 9 websites were sorted in one press (government and chamber sites read
   regularly, the others cite only), and Undo put all 9 back.
+
+### Progress, 2026-10-04: evidence wins, unless claimed
+
+Jason: "Evidence wins. Unless claimed. Then it's offered as additional info, for clients' use and discretion."
+- **The listing and its identity.** The listing is what the site shows, one value per field. The identity is the
+  evidence: every value any source gave, each with its sources. "Our records" (what we imported or the crawler first
+  added) is provenance, not evidence.
+- **Unclaimed listings.** A value with more independent sources than any other now settles the fact by itself. Only a
+  tie in the evidence is still "Sources disagree" for a person. `Identity::recompute()` then writes the winning value
+  to the listing (`applyEvidence()`), as the crawler (`ai_crawler`, unlocked). One other website is enough when it
+  beats our records, which replaces the helper's "waits for your yes" for those.
+  - **Never changed:** a field a person set (staff, the owner, an accepted member fix, or anything locked); a link-only
+    source (Google, Yelp, Facebook) never supplies a value; a confidential address is never stored.
+  - **Names:** a new name needs two sources, or one that shares the name's words, so a different business's name
+    can't replace it.
+  - **Log and Undo:** each change is logged in `identity_applied` with what the listing held. Admin → Identities →
+    "Applied from the evidence" has Undo, which puts the old value back and marks the new one Not right so it isn't
+    applied again.
+- **Claimed listings.** Evidence never changes them. The owner sees "We found other information about your business"
+  on their listing (`listing/api/evidence.php`, `js/evidence-offers.js`): each differing value with its public
+  sources, **Use this** (the owner becomes its source, and it goes on the listing, locked) or **Dismiss** (kept, never
+  offered again).
+- The card's "Not shown" badge is now "Not chosen": the value is kept, but another has more evidence.
+- Run `api/migrations/2026-11-04_identity_applied.sql` once.
