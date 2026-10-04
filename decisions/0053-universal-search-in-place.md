@@ -536,3 +536,18 @@ locally: …" is a link to the directory, with its List | Map toggle:
   - Sign in for your places, or "My default place" when signed in.
 - **Fixed:** the Let's Explore heading had been commented out by the breadcrumb change, so it showed "Let's Explore"
   instead of "Let's Explore around …".
+
+### Progress, 2026-10-04: map points on a schedule, and approximate spots shown as one
+
+Most listings were imported with their ZIP area's middle as their point. Placing their street addresses (Admin →
+Crawler → Map points, `api/lib/Geocoder.php`) only happened when someone pressed **Find points**, so on the live site
+a town's listings still fanned out from one spot (180 in St. Johns).
+- **On a schedule:** each worker run first asks the site to place up to `GEOCODE_PER_RUN` batches (2 × 500) through
+  `POST /api/crawl/geocode.php`. The site itself sends them to the Census geocoder, under the same rules as the
+  button: only missing or ZIP-middle points change, and confidential listings are never sent. A Census outage is
+  logged and the run carries on. A street address the identity tool confirms (ADR 0062) is placed on the next run,
+  because the geocoder retries as soon as an address changes.
+- **On the map:** three or more listings on exactly the same point are shown as one dashed spot, "157 approx.", never
+  spread out as if they were real places (`js/map-view.js`). Tapping it lists them A to Z in the side panel, with a
+  line saying their location is approximate, and each one opens its card, which already tries to place its address
+  (`api/locate.php`). The map key explains the dashed spot.

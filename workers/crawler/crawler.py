@@ -96,6 +96,8 @@ LEARN_PER_RUN = int(os.environ.get("LEARN_PER_RUN", "3"))         # Tier 2 web s
 LEARN_TIME = int(os.environ.get("LEARN_TIME", "45"))
 GUIDES_PER_RUN = int(os.environ.get("GUIDES_PER_RUN", "2"))      # how-to guides looked for per run (decisions/0063 §8); 0 turns it off
 GUIDES_TIME = int(os.environ.get("GUIDES_TIME", "45"))
+GEOCODE_PER_RUN = int(os.environ.get("GEOCODE_PER_RUN", "2"))    # batches of up to 500 street addresses placed on the map per run (the site asks the Census); 0 turns it off
+GEOCODE_TIME = int(os.environ.get("GEOCODE_TIME", "420"))
 WIKIDATA_SPARQL = "https://query.wikidata.org/sparql"
 SOURCE_TIME = int(os.environ.get("SOURCE_TIME", "60"))            # seconds per run for reading one of our sources
 SOURCE_PAGES = int(os.environ.get("SOURCE_PAGES", "25"))          # pages read per source
@@ -161,14 +163,14 @@ def out_of_time():
     return time.monotonic() - started > TIME_BUDGET
 
 
-def site_call(path, payload=None):
+def site_call(path, payload=None, timeout=60):
     """GET or POST JSON to the Traversence site with the worker token."""
     data = json.dumps(payload).encode() if payload is not None else None
     req = urllib.request.Request(SITE + path, data=data, method="POST" if data else "GET", headers={
         "X-Crawler-Token": TOKEN, "Authorization": "Bearer " + TOKEN,
         "Content-Type": "application/json", "User-Agent": UA, "Accept": "application/json"})
     try:
-        with urllib.request.urlopen(req, timeout=60) as r:
+        with urllib.request.urlopen(req, timeout=timeout) as r:
             return json.loads(r.read().decode("utf-8"))
     except urllib.error.HTTPError as e:
         # Say which call failed and what the site said (Bluehost's firewall answers 406 with an HTML page).
@@ -748,6 +750,23 @@ def steps_from(page):
         if len(heads) >= 3:
             best = [clean_text(t) for _, t in heads if clean_text(t)]
     return [t[:300] for t in best[:15]]
+
+
+def geocode(deadline):
+    """Map points: the site sends a batch of street addresses to the U.S. Census geocoder and places what it finds
+    (api/crawl/geocode.php, api/lib/Geocoder.php), so listings don't stack on their ZIP's middle waiting for someone to
+    press Find points. Only missing or ZIP-middle points change; confidential listings are never geocoded."""
+    for _ in range(GEOCODE_PER_RUN):
+        if time.monotonic() > deadline or out_of_time():
+            break
+        r = site_call("/api/crawl/geocode.php", {}, timeout=250)    # a batch of 500 can take a few minutes at the Census
+        if r.get("paused"):
+            log("map points: queue paused on the site")
+            break
+        log(f"map points: sent {r.get('sent', 0)}, placed {r.get('found', 0)}, not found {r.get('not_found', 0)}, "
+            f"placed another way {r.get('skipped', 0)}, left {r.get('left', 0)}")
+        if not r.get("left") or (r.get("sent", 0) + r.get("skipped", 0) + r.get("private", 0)) == 0:
+            break
 
 
 def guides(deadline):
@@ -1655,6 +1674,11 @@ def run():
             second_look(started + min(VERIFY_TIME, TIME_BUDGET))
         except Exception as e:                     # the second look never stops the crawl jobs
             log(f"second look stopped: {e!r}"[:300])
+    if GEOCODE_PER_RUN > 0:
+        try:
+            geocode(time.monotonic() + GEOCODE_TIME)
+        except Exception as e:                     # placing map points never stops the crawl jobs (first: one batch even when the run is short)
+            log(f"map points stopped: {e!r}"[:300])
     if IDENTITY_PER_RUN > 0:
         try:
             identity_jobs(time.monotonic() + IDENTITY_TIME)

@@ -73,6 +73,16 @@ used only when there is no Tavily key), `VERIFY_PER_RUN` (10; 0 turns the second
 `OVERPASS_URL` (an Overpass server to try first; the public one and two mirrors are always tried after it), `LEARN_PER_RUN` (3 Tier 2 searches per run; 0 turns
 them off), `LEARN_TIME` (45 seconds). Tier 2 shares `MAX_SEARCHES` with the second look. `SEARCH_MONTHLY` (1000): the search plan's monthly allowance. After each run the worker tells the site which search it has and how many searches it made (`POST /api/crawl/usage.php`), and the admin dashboard's System status shows "Tavily: 340 of 1,000 searches this month", amber at 80%, red when it's used up.
 
+## Map points (decisions/0053, 2026-10-04)
+
+First thing each run, the worker asks the site to place up to `GEOCODE_PER_RUN` batches of street addresses on the map
+(2; 0 turns it off), within `GEOCODE_TIME` seconds (420). It does this with `POST /api/crawl/geocode.php`, and
+`GET` returns how many are left. The site sends each batch of up to 500 to the U.S. Census geocoder itself
+(`api/lib/Geocoder.php`), so the worker never sees addresses. Only points that are missing or exactly the ZIP's
+middle change, and confidential listings are never sent. A batch can take a few minutes, so this call waits up to
+250 seconds. A Census outage is logged and the run carries on. It is the same as Admin → Crawler → Map points →
+Find points, without anyone pressing it.
+
 ## How-to guides (decisions/0063 §8)
 
 Each run the worker takes up to `GUIDES_PER_RUN` guides (2; 0 turns it off) that people asked for, by searching "how

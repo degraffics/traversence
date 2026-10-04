@@ -113,6 +113,9 @@ Some listings come from public data that shortens words, like "Visitor Ctr" or "
 ### Can I see a place's photo bigger?
 Yes. Tap the photo at the top of a place, a listing or a profile to open it full screen, with its credit. If there are several, swipe or use the arrows to move between them. You can like it, share it or go to the comments from there too. Tap outside the photo, or ×, to close it.
 
+### Why do some map spots show a number and "approx."?
+They're listings whose exact spot isn't on the map yet. Most listings came to us with only their ZIP code, so they all sat on the middle of the ZIP area. Instead of fanning them out as if they were real places, the map shows one dashed circle with how many there are, like **157 approx.** Tap it to see them as a list, then tap one to open it. We place their street addresses on the map a batch at a time, every time our crawler runs, and each one moves to its real spot as soon as it's placed. Some addresses can't be placed that way, like PO boxes and rural routes, so those get their spot from the business's own website, from our team, or from you: open the listing and tap **Wrong spot? Fix the pin**.
+
 ### Why did my journey's pin move or disappear?
 On a tribal nation's land, a pin shows only at a place the nation opens to visitors. If your pin is within half a mile of one of those places, it moves onto that place. Anywhere else on the nation's land the pin isn't shown, and your journey says where you were in your own words instead. This follows the nations' own rules: many areas are homes, grazing land or sacred places, and aren't open to visitors.
 
