@@ -96,4 +96,13 @@ English, and its families served the situation reasoner, not categories.
     the next search, no rebuild. The next rebuild of `concepts.php` can take them in for WordNet and embeddings too.
   - A new kind starts with no listings, so search doesn't offer it as a place to go until listings arrive (owners,
     staff, or the crawler).
+- 2026-10-08, later: **added on its own, then watched** (Jason: "Shouldn't need approval… automatically done against
+  authority or confidence", and unused ones are monitored). A missing kind is created by the nightly run when
+  **authority** backs it (a live situation already offers it) or **confidence** does (twice the usual searches, 6 in 30
+  days, and a clear kind it belongs under); anything less waits and is rechecked each night. Its parent is where the
+  nearest kinds and the situation's other needs sit, counted equally (Kitchen Supplies: Food & Dining). Logged as
+  search's own change with Undo. **Monitoring:** a kind search added that, 60 days on, has no listings, fewer than 3
+  searches and nothing opened from it is turned off again (kept, words removed, the need restored), and it isn't made
+  again unless three times the searches ask for it; the same holds after a person's Undo. Kinds people added are never
+  touched. A person can still add a waiting one early from Drafts.
 
