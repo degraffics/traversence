@@ -82,4 +82,18 @@ English, and its families served the situation reasoner, not categories.
   cooking", "classes" alone no longer brings Dancing Instruction. When a situation answers the words ("Cooking and
   baking", "Flat tire"), its own list is the answer and no kinds read from single words are added under it. A kind
   shows once, whether it came from its name or from what the words mean.
+- 2026-10-08: **missing kinds are found and seeded** (Jason: "We should be able to recognize missing categories and seed
+  them"). The nightly drafts run (`SearchDrafts::missingKinds`) proposes a new kind of place two ways: a live situation's
+  need that no category holds (found on the data: "Cooking and baking" › Cooking classes and Kitchen supplies), and
+  searches that keep finding nothing and mean no kind we have (grouped by their words, plurals and order aside). Each
+  draft names the kind, suggests where it belongs (where the nearest kinds we have sit: Cooking Classes under Education &
+  Childcare) and lists the words people used, with the searches behind it. A person approves it in Admin › Search tools ›
+  Drafts (name, parent and words editable): never automatic, since it changes the directory. Approving adds the
+  category, its words, and the situation need it came from now shows it; logged with Undo (turns it off, removes the
+  words, restores the need).
+  - **Words for each kind are live** (`category_terms`, `api/migrations/2026-11-07_category_terms.sql`): staff add or
+    remove the words people search a kind by in Admin › Search tools › Words for each kind, and search reads them on
+    the next search, no rebuild. The next rebuild of `concepts.php` can take them in for WordNet and embeddings too.
+  - A new kind starts with no listings, so search doesn't offer it as a place to go until listings arrive (owners,
+    staff, or the crawler).
 
