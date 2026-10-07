@@ -1,0 +1,513 @@
+# Everyday words people search for, per category (decisions/0067). One line per category: its exact name, a tab, then
+# words or short phrases separated by commas. build_concepts.py expands each one through WordNet (plurals, synonyms,
+# the kinds of it: "bread" also reaches sourdough and bagels), so list the plain word, not every variant.
+# Categories not listed here are still found by their own words. Edit freely, then rebuild.
+Agricultural Products	hay, feed, seed, crops, produce, grain, alfalfa
+Auctioneers	auction, bidding, estate sale
+Dairy Products-Retail	milk, cheese, butter, eggs, yogurt, dairy
+Farm Equipment-Manufacturers	tractor, plow, baler, farm machinery
+Farm Supplies (Whls)	feed, fencing, seed, fertilizer, livestock supplies
+Farms	farm, produce, eggs, vegetables, fruit, farm stand, pumpkins, beef, hay
+Fish Farms And Hatcheries	trout, fish hatchery, fingerlings
+Irrigation Companies	irrigation, sprinklers, water rights
+Irrigation Systems & Equipment-Retail	irrigation, drip, sprinkler, pivot
+Livestock Auction Markets (Whls)	cattle sale, livestock auction, sale barn
+Livestock Producers	cattle, beef, sheep, goats, hogs, livestock
+Ranches	ranch, cattle, horses, beef, trail rides
+Water Supply & Irrigation Systems	irrigation, water supply, pump, canal
+Automobile Body-Repairing & Painting	body shop, collision, dent, bumper, fender, paint job, hail damage
+Automobile Clubs	roadside assistance, tow coverage, aaa
+Automobile Dealers-New Cars	car dealer, new car, truck, suv, ford, chevy, toyota, dodge, jeep, dealership
+Automobile Detail & Clean-Up Service	detailing, car wash, wax, interior cleaning
+Automobile Electric Service	alternator, starter, battery, car wiring
+Automobile Glass-Service & Installation	windshield, auto glass, chip repair, cracked windshield
+Automobile Lubrication Service	oil change, lube, filter, fluids
+Automobile Parts & Supplies-Retail-New	auto parts, car parts, brake pads, battery, wipers, filters, spark plugs
+Automobile Radio & Stereo Systs-Sls/Svc	car stereo, speakers, car audio, remote start
+Automobile Renting	rental car, car rental, rent a car
+Automobile Repairing & Service	mechanic, car repair, brakes, engine, check engine light, tune up, garage, transmission, alignment
+Automobile Seatcovers Tops & Upholstery	seat covers, upholstery, convertible top
+Automobile Storage	car storage, vehicle storage
+Automobile/Trucks Dealers-Used	used car, used truck, pre-owned, car lot
+Automotive Glass Coating & Tinting	window tint, tinting, ceramic coating
+Boat Dealers Sales & Service	boat, pontoon, outboard motor, kayak, canoe, jet ski
+Book Dealers-Used & Rare	books, used books, bookstore, rare books
+Car Washing & Polishing	car wash, wash, wax, vacuum
+Carpet & Rug Dealers-New	carpet, rugs, flooring
+Cigar Cigarette & Tobacco Dealers-Retail	cigars, cigarettes, tobacco, vape
+Diesel Fuel (Whls)	diesel, fuel
+Doors-Garage	garage door, opener, overhead door
+Electric Charging Station	ev charger, charging station, electric car, tesla
+Engines-Diesel-Repairing	diesel mechanic, diesel repair
+Fuel-Dealers NEC	fuel, heating oil, firewood, wood pellets, kerosene
+Furniture-Dealers-Retail	furniture, couch, sofa, bed, table, chairs, recliner, mattress
+Gas-Propane-Refilling Stations	propane refill, propane tank, bbq tank
+Glass-Auto Plate & Window & Etc	glass, window glass, mirror, windshield
+Mechanical Contractors	hvac, piping, mechanical
+Motorcycle-Bicycle & Parts (Mfrs)	motorcycle parts, bike parts
+Motorcycles & Motor Scooters-Accessories	motorcycle gear, helmet, riding gear
+Motorcycles & Motor Scooters-Dealers	motorcycle, scooter, harley, dirt bike, atv
+Motorcycles & Motor Scooters-Rpr & Svc	motorcycle repair, atv repair
+Mufflers & Exhaust Systems-Engine	muffler, exhaust, catalytic converter
+Service Stations-Gasoline & Oil	gas station, gas, fuel, gasoline, diesel, petrol, fill up
+Specialized Automotive Repair	brakes, alignment, suspension, lift kit
+Television-Cable & Catv	cable tv, cable
+Tire Service	tires, flat tire, tire repair, rotation, alignment
+Tire-Dealers-Retail	tires, new tires, snow tires
+Transmissions-Automobile	transmission, clutch
+Truck Equipment & Parts-Wholesale	truck parts, hitch, trailer parts
+Truck Stops & Plazas	truck stop, diesel, showers, travel center
+Air Conditioning & Heating-Service/Repair	ac repair, air conditioning, heating, furnace, heat pump, hvac, swamp cooler
+Air Conditioning Contractors & Systems	air conditioning, ac install, hvac, cooling
+Architects	architect, house plans, design
+Bathroom Remodeling	bathroom, shower, tub, bathroom remodel
+Building Contractors	builder, contractor, construction, addition
+Building Materials	building supplies, lumber, drywall, roofing, insulation, cement
+Buildings-Portable	shed, storage shed, portable building, carport
+Carpenters	carpenter, framing, trim, woodwork
+Concrete Contractors	concrete, driveway, slab, sidewalk, foundation
+Concrete-Ready Mixed	ready mix, concrete delivery, cement
+Construction Companies	construction, builder, contractor
+Construction-Sand & Gravel	gravel, sand, rock, fill dirt
+Contractors	contractor, construction, repairs
+Counter Tops	countertops, granite, quartz
+Doors	doors, entry door, storm door
+Drilling & Boring Contractors	drilling, boring
+Dry Wall Contractors	drywall, sheetrock, texture
+Electric Contractors	electrician, wiring, outlet, breaker, panel, lighting
+Engineering	engineer, engineering
+Engineers-Civil	civil engineer, site plan
+Engineers-Structural	structural engineer, foundation inspection
+Excavating Contractors	excavation, digging, backhoe, dirt work
+Fence Contractors	fence, fencing, gate
+Floor Laying Refinishing & Resurfacing	flooring, hardwood, tile floor, vinyl, laminate, refinishing
+General Contractors	contractor, construction, remodel, builder
+General Contractors-Residential Bldgs	home builder, house, remodel
+Grading Contractors	grading, dirt work, leveling
+Gutters & Downspouts	gutters, rain gutters, downspouts
+Hardware-Retail	hardware, tools, nails, screws, paint, keys, plumbing parts, hardware store
+Heating Contractors	heating, furnace, boiler, heater
+Home Builders	home builder, new home, custom home
+Home Improvements	home improvement, remodel, renovation, siding, windows
+Insulation Contractors-Cold & Heat	insulation, spray foam
+Kitchen Remodeling & Planning Service	kitchen, cabinets, kitchen remodel
+Landscape Contractors	landscaping, yard, sod, retaining wall, xeriscape
+Lumber-Retail	lumber, wood, boards, plywood, two by four
+Maintenance Contractors	maintenance, repairs
+Masonry Contractors	masonry, brick, stone, block, stucco
+Painters	painter, painting, house painting, interior painting
+Paving Contractors	paving, asphalt, driveway, sealcoat
+Patio & Deck Builders	deck, patio, pergola
+Plumbing Contractors	plumber, plumbing, leak, pipe, water heater, toilet, faucet, drain, clog
+Plumbing Drain & Sewer Cleaning	drain cleaning, clog, sewer, rooter, snake
+Plumbing Fixtures & Supplies-Wholesale	faucet, toilet, sink, fittings
+Plumbing Heating & Air Conditioning	plumber, heating, air conditioning, hvac
+Pumping Contractors	pumping, pump
+Remodeling & Repairing Building Contractors	remodel, renovation, repairs, handyman
+Roofing Contractors	roof, roofer, roofing, shingles, roof leak, metal roof
+Roofing Consultants	roof inspection, roofing
+Sandblasting	sandblasting, media blasting
+Septic Tanks	septic, septic tank, leach field
+Septic Tanks/Systems-Cleaning/Repairing	septic pumping, septic, septic tank, leach field
+Sheet Metal Work Contractors	sheet metal, ductwork
+Solar Energy Equipment-Wholesale	solar, solar panels
+Surveyors-Land	surveyor, land survey, property line
+Telecommunications Contractors	cabling, fiber, telecom
+Tile-Ceramic-Contractors & Dealers	tile, ceramic tile, backsplash
+Trenching & Underground Contractors	trenching, underground
+Water Well Drilling & Service	well, water well, well pump, well drilling
+Welding	welding, welder, fabrication
+Welding & Steel Fabrication	welding, steel, fabrication, trailer repair
+Well Drilling	well, water well, well drilling
+Window Cleaning	window washing, window cleaning
+Windows	windows, window replacement
+Buses-School Transportation Service	school bus
+Child Care Service	daycare, childcare, babysitter, preschool, nanny
+Dancing Instruction	dance, dance lessons, ballet, dance class
+Day Care Centers-Adult	adult day care, senior day care
+Education Centers	education, learning center
+Head Start	head start, preschool
+Junior-Community College-Tech Institutes	community college, college, classes, trade school, ged
+Language Schools	language, spanish, english classes, esl
+School Districts	school district, schools
+Schools	school, elementary, high school, middle school
+Schools With Special Vocational Educ	trade school, vocational, career training
+Schools-Pre-School/Kindergarten-Academic	preschool, kindergarten, pre-k
+Schools-Universities & Colleges Academic	college, university, campus, degree
+Student Housing	dorm, student housing
+Tutoring	tutor, tutoring, homework help, test prep
+Youth Organizations & Centers	youth, kids, teens, after school, boys and girls club, scouts
+Art Galleries & Dealers	art, gallery, paintings, artwork
+Athletic Organizations	sports, league, team
+Camps	camp, summer camp, kids camp
+Casinos	casino, gambling, slots, poker, bingo
+Convention & Meeting Facilities & Svc	meeting room, event space, venue, conference, banquet hall
+Craft Galleries & Dealers	crafts, handmade, pottery
+Family Entertainment Centers	fun, arcade, bowling, mini golf, go karts, laser tag, kids activities
+Fishing Bait	bait, worms, tackle, fishing
+Fishing Lakes & Ponds	fishing, lake, pond, trout
+Golf Courses	golf, golf course, tee time, driving range
+Golf Equipment & Supplies-Retail	golf clubs, golf balls, golf
+Guide Service	guide, guided tour, hunting guide, fishing guide
+Halls & Auditoriums	hall, auditorium, venue
+Hunting & Fishing Outfitters	hunting, fishing, outfitter, elk, guns, ammo, tackle
+Membership Sports & Recreation Clubs	club, sports club, recreation
+Monuments	monument, memorial
+Museums	museum, history, exhibits, art
+Music & Live Entertainment	live music, band, concert, dj, karaoke
+National Landmark/Historic Site/Memorial	landmark, historic site, ruins, memorial
+National Park/Preserves Visitor Centers	visitor center, park info
+National Parks/Preserves	national park, hiking, scenery, petrified forest
+Outfitters	outfitter, gear, rafting, hunting
+Parks	park, playground, picnic, trail, walking
+Party Supplies-Renting	party rentals, bounce house, tables, chairs, tent rental
+Personal Trainers-Fitness	personal trainer, workout, fitness, training
+Recording Studios	recording studio, music studio
+Recreational Vehicle Parks	rv park, rv, hookups, camper, trailer park
+Recreational Vehicles	rv, camper, motorhome, travel trailer
+Recreational Vehicles-Repairing & Svc	rv repair, camper repair
+Rodeos	rodeo, bull riding
+Skiing Equipment-Rental	ski rental, snowboard, skis
+Sporting Goods-Retail	sporting goods, sports gear, camping gear, fishing gear, guns, ammo, bikes
+Stadiums Arenas & Athletic Fields	stadium, arena, ballpark, fields
+State Recreation Areas	recreation area, lake, camping, boating
+Theatres-Movie	movies, cinema, movie theater, film, theater
+Tours-Operators & Promoters	tour, tours, sightseeing
+Trailers-Camping & Travel	camper, travel trailer, fifth wheel
+Water Sports Equipment-Rental	kayak rental, paddleboard, canoe rental, boat rental
+Yoga Instruction	yoga, pilates, meditation
+Accountants	accountant, cpa, taxes, bookkeeping, audit
+Accounting & Bookkeeping General Svc	bookkeeping, payroll, accounting
+Alcoholism Information & Treatment Ctrs	alcoholism, aa, rehab, sober, drinking problem
+Atm-Automated Teller Machines	atm, cash machine, cash
+Banks	bank, checking, savings, atm, loan, deposit
+Check Cashing Service	check cashing, cash a check
+Collection Agencies	collections, debt collector
+Credit Unions	credit union, bank, loan, savings
+Drug Abuse & Addiction Info & Treatment	addiction, rehab, detox, recovery, substance abuse, opioid
+Financial Advisory Services	financial advisor, investing, retirement planning
+Food Banks	food bank, food pantry, free food, food assistance, groceries
+Insurance	insurance, insurance agent, coverage, home insurance, life insurance
+Insurance-Automobile	car insurance, auto insurance
+Investments	investing, stocks, retirement, ira
+Money Order Service	money order
+Money Transfer Service	wire money, send money, western union, money transfer
+Pawnbrokers	pawn shop, pawn, sell gold, loan
+Payday Loans	payday loan, cash advance, quick loan
+Real Estate Loans	mortgage, home loan, refinance
+Retirement Communities & Homes	retirement home, senior living, assisted living
+Skin Treatments	facial, skin care, acne, botox
+Tax Return Preparation & Filing	taxes, tax preparer, tax return, h&r block, irs
+Title Loans	title loan, car title loan
+Bagels	bagel, breakfast, bakery
+Bars	bar, pub, tavern, drinks, beer, cocktails, happy hour, saloon
+Breweries (Manufacturing)	brewery, craft beer, beer
+Candy & Confectionery-Retail	candy, chocolate, fudge, sweets
+Caterers	catering, caterer, event food
+Cocktail Lounges	lounge, cocktails, bar, drinks
+Coffee & Tea	coffee, tea, espresso, latte, cafe
+Coffee Shops	coffee, coffee shop, cafe, espresso, latte, cappuccino
+Doughnuts	donut, doughnut, pastry
+Food Service Kiosk	snacks, food stand
+Foods-Carry Out	takeout, carry out, to go, fast food, burgers, tacos, fried chicken, sandwiches, hot dogs, food truck
+Grocers-Delicatessen	deli, sandwiches, cold cuts, subs
+Ice Cream Parlors	ice cream, frozen yogurt, shakes, dessert, gelato
+Juices-Retail	juice, smoothies
+Pizza	pizza, pizzeria, calzone, slice
+Restaurants	restaurant, food, dinner, lunch, breakfast, eat, burger, steak, mexican food, chinese food, sushi, tacos, bbq, brunch, diner, cafe, wings, dining
+Wineries (Mfrs)	winery, wine, wine tasting
+Air Ambulance Service	air ambulance, medevac, life flight
+Ambulance Service	ambulance, emt, paramedic
+Animal Rescue Relocation & Transporting	animal rescue, wildlife rescue
+City Government-Courts	court, judge, traffic ticket, municipal court
+City Government-Housing Programs	housing assistance, affordable housing
+City Government-Regulation/Licensing & Inspec	permit, business license, building inspection
+City Government-Social & Human Resources	assistance, social services
+City Hall	city hall, town hall, permits, water bill, mayor
+Community Centers	community center, rec center, senior center
+County Government-Courts	court, courthouse, jury duty, judge
+County Government-Finance & Taxation	property tax, assessor, treasurer
+County Government-Fire Protection	fire department, fire station
+County Government-Public Order & Safety	emergency management, public safety
+Department Of Motor Vehicles	dmv, mvd, drivers license, license plates, vehicle registration, title
+Fire Departments	fire department, fire station, firefighters, burn permit
+Government Offices-Native American	tribal office, tribe, chapter house
+Housing Authorities	public housing, section 8, housing assistance, rent help
+Landfills-Sanitary	dump, landfill, transfer station, trash
+Libraries-Public	library, books, wifi, computers, story time
+Native American Goods	native american art, rugs, pottery, kachina
+Native American Jewelry	turquoise, silver jewelry, native jewelry, zuni, navajo jewelry
+Native American Reservations & Tribes	reservation, tribe, nation
+Police Departments	police, cops, report a crime, non-emergency
+Post Offices	post office, mail, stamps, usps, po box, package
+Public Works Department	public works, streets, potholes, water service
+Recycling Centers (Whls)	recycling, scrap, cans, cardboard
+Rescue Squads	search and rescue, rescue
+Sanctuaries-Wild Life	wildlife, sanctuary, birding
+Sheriff	sheriff, deputy, jail, police
+State Forests	forest, camping, hiking, firewood permit
+State Parks	state park, camping, hiking, lake, picnic
+Travel Agencies & Bureaus	travel agent, vacation, trip, cruise, flights
+Veterans' & Military Organizations	veterans, vfw, american legion, military
+Acupuncture	acupuncture, acupuncturist
+Ambulatory Surgical Centers	surgery center, outpatient surgery
+Audiologists	hearing test, hearing loss, audiologist
+Birth Centers	birth center, birthing, midwife
+Chiropractors DC	chiropractor, back pain, adjustment, neck pain
+Clinics	clinic, doctor, checkup, sick, flu, vaccine, physical
+Counseling Services	counseling, therapy, therapist
+Counselors	counselor, therapist, therapy
+Credit & Debt Counseling Services	debt help, credit counseling, budgeting
+Dental Hygienists	teeth cleaning, hygienist
+Dentists	dentist, teeth, tooth, toothache, cavity, cleaning, braces, dental, orthodontist
+Diabetes Information Centers	diabetes, blood sugar, insulin
+Diagnostic Imaging Centers	x-ray, xray, mri, ct scan, cat scan, ultrasound, mammogram, radiology, imaging
+Dialysis	dialysis, kidney
+Dietitians	dietitian, diet, nutrition
+Emergency Medical & Surgical Services (Hospit	emergency room, er, emergency, trauma
+Exercise & Physical Fitness Programs	exercise, fitness class, workout, cardio, aerobics, zumba
+Health & Diet Foods-Retail	health food, vitamins, organic, gluten free
+Health Care Facilities	health care, medical
+Health Clubs Studios & Gymnasiums	gym, fitness, workout, cardio, weights, treadmill, crossfit, fitness center, lifting
+Health Spas	spa, sauna, hot springs
+Hearing Aids	hearing aids, hearing test, hearing loss
+Holistic Health Services	holistic, natural medicine, reiki, herbal
+Home Health & Health Care Equipment	medical equipment, wheelchair, walker, oxygen, hospital bed
+Home Health Service	home health, in-home care, caregiver, nurse visit
+Homes-Adult	assisted living, group home, adult care
+Hospices	hospice, end of life care
+Hospitals	hospital, emergency room, er, surgery, inpatient, labor and delivery
+Laboratories-Medical	lab, blood test, blood work, drug test
+Marriage & Family Counselors	marriage counseling, couples therapy, family therapy
+Massage	massage, back rub
+Massage Therapists	massage, massage therapist, deep tissue
+Medical Centers	medical center, doctor, clinic
+Mental Health Counselors	therapist, counselor, anxiety, depression
+Mental Health Services	mental health, behavioral health, psychiatrist, crisis, anxiety, depression
+Midwives	midwife, home birth
+Nurses-Practitioners	nurse practitioner, np, primary care
+Nursing & Convalescent Homes	nursing home, rehab, skilled nursing, long term care
+Nutritionists	nutritionist, diet, meal plan
+Occupational Therapists	occupational therapy, ot
+Optical Goods-Retail	glasses, eyeglasses, contacts, frames, sunglasses
+Opticians	glasses, eyeglasses, frames, contacts
+Optometrists OD	eye doctor, eye exam, optometrist, glasses, contacts, vision
+Orthopedic Surgeons	orthopedic, bone, joint, knee, broken bone, sports injury
+Pain Therapy/Management	pain management, chronic pain
+Pharmacies	pharmacy, drugstore, prescription, medicine, meds, walgreens, cvs, insulin, flu shot
+Pharmacists	pharmacist, prescription
+Physical Therapists	physical therapy, pt, rehab, injury
+Physicians & Surgeons	doctor, physician, surgeon, cardiologist, cardiology, pediatrician, family doctor, primary care, specialist, dermatologist
+Physicians Assistants	physician assistant, pa
+Podiatrists	foot doctor, podiatrist, feet
+Pregnancy Counseling Svc & Information	pregnancy test, pregnancy help
+Prosthetic Devices	prosthetics, artificial limb, brace
+Psychologists	psychologist, therapy, counseling, testing
+Residential Care Homes	assisted living, care home, memory care
+Respiratory Therapists	respiratory, breathing, oxygen
+Speech Pathologists	speech therapy, speech therapist
+Substance Abuse Centers	rehab, addiction, detox, recovery
+Urgent Medical Care Centers And Clinics	urgent care, walk-in clinic, sick, stitches, flu, sprain
+Wellness Programs	wellness, health coaching
+Appliances-Household-Major-Used	used appliances, washer, dryer, refrigerator, stove
+Appliances-Household-Small-Repairing	appliance repair, washer repair, dryer repair, fridge repair
+Burglar Alarm Systems (Whls)	alarm, security system, cameras
+Carpet & Rug Cleaners	carpet cleaning, rug cleaning, steam cleaning
+Chimney Accessories & Supplies	chimney, wood stove, chimney sweep
+Cleaners	dry cleaning, cleaners, laundry, alterations
+Garbage Collection	trash, garbage, trash pickup, dumpster
+Garden Centers	garden center, nursery, plants, flowers, trees, soil, seeds
+Handyman Services	handyman, odd jobs, repairs, fix
+Hot Tubs & Spas	hot tub, spa, jacuzzi
+House Cleaning	house cleaning, maid, housekeeper, cleaning service
+Janitor Service	janitorial, office cleaning
+Junk Removal	junk removal, hauling, cleanout
+Landscape Designers	landscape design, yard design
+Lawn & Garden Equip & Supplies-Retail	lawn mower, mower, trimmer, chainsaw, garden tools
+Lawn & Grounds Maintenance	lawn care, mowing, yard work, weeding, landscaping
+Locks & Locksmiths	locksmith, locked out, keys, lock, rekey
+Mold Mildew Moisture Control & Abatement	mold, mold removal, moisture
+Pest Control	exterminator, pest control, bugs, mice, rats, roaches, ants, termites, spiders, bed bugs
+Propane (Lp) Gas	propane, lp gas, propane delivery
+Solid Waste Collection	trash, garbage, waste
+Swimming Pools-Public	pool, swimming, swim lessons
+Toilets-Portable	porta potty, portable toilet
+Tree Service	tree trimming, tree removal, stump, arborist
+Waste Disposal	trash, dump, disposal
+Waste Disposal-Hazardous	hazardous waste, paint disposal, chemicals
+Water Damage Restoration	water damage, flood, leak, mold
+Water Heaters-Dealers	water heater, hot water heater, tankless
+Bed & Breakfast Accommodations	bed and breakfast, b&b, inn, lodging
+Cabin Rentals	cabin, cabin rental, lodging, getaway
+Cabinet Makers	cabinets, custom cabinets, woodworking
+Cabinets	cabinets, kitchen cabinets
+Campgrounds	campground, campsite, camping, tent, rv
+Chalet & Cabin Rentals	cabin, chalet, lodging
+Cottages & Cabins	cabin, cottage, lodging
+Fishing & Hunting Lodges	lodge, fishing lodge, hunting lodge
+Hotels & Motels	hotel, motel, lodging, room, place to stay, inn
+Inns	inn, lodging, hotel
+Resorts	resort, getaway, lodging, spa
+Skiing Centers & Resorts	ski, skiing, snowboarding, ski resort, lift tickets
+Vacation Rentals	vacation rental, airbnb, cabin, lodging
+Ice-Manufacturers	ice, bagged ice
+Logging (Mfrs)	logging, timber
+Meat Packers (Mfrs)	meat processing, butcher, deer processing
+Mining Companies	mining, mine
+Publishers (Mfrs)	publisher, newspaper, magazine
+Sawmills (Mfrs)	sawmill, lumber
+Saws	saws, chainsaw, saw sharpening
+Scrap Metals & Iron (Whls)	scrap metal, scrap yard, recycling
+Tools-New & Used	tools, power tools
+Tools-Renting	tool rental, equipment rental
+Topsoil-Manufacturers	topsoil, dirt, compost
+Woodworkers	woodworking, furniture maker
+Attorneys	lawyer, attorney, legal, divorce, custody, will, dui, bankruptcy, injury lawyer
+Bail Bonds	bail, bail bonds, bondsman, jail
+Legal Services	legal help, legal aid, lawyer
+Notaries-Public	notary, notarize
+Title Companies	title company, closing, escrow
+Animal Adoptions	adopt a pet, adoption, dogs, cats
+Animal Protection Organizations	animal welfare, animal rescue
+Chambers Of Commerce	chamber of commerce, visitor info, tourism, events
+Charitable Institutions	charity, donate, donations
+Civic Organizations	lions club, rotary, civic club
+Community Services	community help, assistance, food, clothing
+Fraternal Organizations	elks, moose lodge, masonic, lodge
+Genealogists	genealogy, family history, ancestry
+Gun Clubs	shooting range, gun range, trap shooting
+Historical Organizations	historical society, history
+Humane Societies	humane society, shelter, adopt, lost pet
+Senior Citizens Service	seniors, senior center, meals on wheels, elderly
+Social Service & Welfare Organizations	assistance, welfare, food stamps, help
+Social Workers	social worker, case worker
+Support Groups	support group, grief, aa, recovery
+Animal Shelters	animal shelter, pound, adopt, lost dog, lost cat
+Dog Breeders	puppies, puppy, dog breeder
+Dog Training	dog training, obedience, puppy class
+Livestock Breeders	livestock, cattle, horses, goats
+Pet Boarding Sitting & Kennels	boarding, kennel, pet sitter, doggy daycare
+Pet Supplies & Foods-Retail	pet food, dog food, cat food, pet supplies, pet store
+Pet Washing & Grooming	grooming, dog groomer, dog wash, pet grooming
+Stables	horse boarding, horseback riding, stable, horses
+Veterinarians	vet, veterinarian, animal hospital, sick dog, sick cat, pet doctor, shots
+Veterinary Services	vet, veterinary, spay, neuter, vaccines
+Barbers	barber, haircut, shave, fade, beard trim
+Beauty Salons	hair salon, haircut, hair color, highlights, stylist, blowout, perm, nails
+Copying & Duplicating Service	copies, printing, print shop, fax
+Crane Service	crane
+Crematories	cremation
+Embroidery	embroidery, custom shirts, patches
+Employment Agencies & Opportunities	jobs, employment, staffing, job search, hiring
+Florists-Retail	florist, flowers, bouquet, roses, wedding flowers, funeral flowers
+Funeral Directors	funeral home, funeral, cremation, obituary, burial
+Investigators	private investigator, pi, background check
+Laundries-Self Service	laundromat, laundry, washers, dryers
+Manicuring	nails, manicure, pedicure, nail salon, acrylics
+Permanent Make-Up	permanent makeup, microblading, eyebrows
+Photo Finishing-Retail	photo prints, photo printing
+Property Maintenance	property maintenance, handyman, snow removal
+Relocation Service	relocation, moving
+Rental Service-Stores & Yards	equipment rental, rentals, trailer rental
+Screen Printing (Mfrs)	screen printing, t-shirts, custom shirts
+Security Guard & Patrol Service	security guard, security
+Signs (Mfrs)	signs, banners
+Spas-Beauty & Day	day spa, facial, massage, spa
+Tanning Salons	tanning, spray tan
+Tattooing	tattoo, piercing, tattoo shop
+Truck-Repairing & Service	truck repair, semi repair, diesel mechanic
+Weight Control Services	weight loss, diet
+Wrecker Service	tow truck, towing, tow, roadside, wrecker
+Apartments	apartment, apartments for rent, rent, housing, studio
+Appraisers	appraisal, appraiser
+Mobile Homes-Dealers	mobile home, manufactured home, trailer
+Mobile Homes-Parks & Communities	mobile home park, trailer park
+Real Estate	realtor, real estate, homes for sale, house, land, buy a house, sell my house, property
+Real Estate Inspection	home inspection, inspector
+Real Estate Management	property management, rentals
+Rental Agencies	rentals, rent, houses for rent
+Residential Property Managers	property manager, rentals, landlord
+Church Organizations	church, ministry
+Churches	church, worship, mass, sunday service, catholic, baptist, lds, christian, chapel
+Missions	mission, outreach
+Religious Organizations	ministry, faith, religious
+Religious Schools	christian school, catholic school
+Synagogues	synagogue, jewish, temple
+Antiques-Dealers	antiques, vintage, collectibles
+Bakers-Retail	bakery, bread, cake, pastries, cookies, pie, cupcakes, birthday cake
+Balloons-Novelty & Toy	balloons, party supplies
+Beer & Ale-Retail	beer, craft beer, six pack
+Bicycles-Dealers	bike, bicycle, bike shop, bike repair, ebike
+Boutique Items-Retail	boutique, clothing, gifts
+Cannabis Dispensary	dispensary, cannabis, marijuana, weed, cbd
+Clothing-Retail	clothes, clothing, apparel, shirts, jeans, dresses, boots
+Coin Dealers Supplies & Etc	coins, gold, silver, bullion
+Consignment Shops	consignment, resale, secondhand
+Convenience Stores	convenience store, snacks, drinks, ice, gas station, beer, cigarettes
+Cosmetics & Perfumes-Retail	makeup, cosmetics, perfume, skincare
+Craft Supplies	crafts, yarn, fabric, art supplies
+Department Stores	department store, clothing, shopping
+Feed-Dealers (Whls)	feed, hay, grain, horse feed, chicken feed
+Furniture-Renting & Leasing	furniture rental
+Games & Game Supplies	games, board games, cards
+General Merchandise-Retail	general store, dollar store, groceries, household goods
+Gift Shops	gifts, souvenirs, gift shop
+Grocers-Retail	grocery, groceries, supermarket, food, produce, meat, milk, bread, vegetables, fruit, mushrooms, grocery store
+Guns & Gunsmiths	guns, firearms, ammo, gunsmith, rifle, pistol
+Herbs	herbs, herbal remedies, tea
+Home Centers	home improvement store, hardware, lumber, appliances
+Jewelers-Retail	jewelry, rings, engagement ring, watches, necklace
+Jewelry-Repairing	jewelry repair, ring sizing, watch battery
+Liquors-Retail	liquor store, liquor, wine, beer, spirits, alcohol
+Mattresses	mattress, bed
+Meat-Retail	butcher, meat, steak, beef, jerky
+Music Dealers	music store, guitar, instruments, records
+Paint-Retail	paint, paint store, stain
+Pianos	piano, piano tuning
+Quilting Materials & Supplies	quilting, fabric, sewing
+Rock Shops	rocks, minerals, gems, crystals, fossils, petrified wood
+Saddlery & Harness	saddle, tack, harness
+Shoes-Retail	shoes, boots, sneakers
+Shopping Centers & Malls	mall, shopping, stores
+Smoke Shops & Supplies	smoke shop, vape, pipes, hookah
+Spices	spices, seasoning, chile
+Thrift Shops	thrift store, secondhand, used clothes, goodwill, donate
+Trading Posts	trading post, native crafts, rugs, jewelry
+Trophies Awards & Medals	trophies, awards, plaques
+Variety Stores	dollar store, variety store
+Video Tapes & Discs-Renting & Leasing	movie rental, dvd
+Vitamin & Food Supplements	vitamins, supplements, protein
+Cellular Telephones (Services)	cell phone, phone, smartphone, phone repair, verizon, at&t
+Computers-Service & Repair	computer repair, laptop, pc repair, virus removal, tech support
+Electronic Equipment & Supplies-Repair	electronics repair, tv repair
+Graphic Designers	graphic design, logo
+Information Technology Services	it support, tech support, network
+Internet Home Page Dev Consulting	website, web design
+Photographers-Commercial	photographer, photos, portraits, wedding photographer
+Radio Stations & Broadcasting Companies	radio, radio station
+Television Stations & Broadcasting Co	tv station, news
+Video Gamerooms	arcade, video games, gaming
+Video Production & Taping Service	videographer, video production
+Website Design Service	website, web design, web developer
+Airports	airport, flights, airfield, plane
+Bus Lines	bus, greyhound, bus station, shuttle
+Limousine Service	limo, limousine, car service
+Local Passenger Transportation NEC	ride, shuttle, transportation, taxi
+Mailing & Shipping Services	shipping, ups, fedex, mail a package
+Movers	movers, moving, moving company, moving truck
+Railroads	train, railroad, amtrak
+Rest Area	rest area, rest stop, restroom
+Storage	storage, storage unit, self storage
+Storage-Household & Commercial	storage unit, self storage, storage
+Taxidermists	taxidermy, taxidermist, mount
+Transportation Services	transportation, ride, shuttle
+Truck Renting & Leasing	truck rental, moving truck, u-haul, trailer rental
+Trucking	trucking, freight, hauling
+Warehouses-Merchandise & Self Storage	storage, storage unit, self storage
+Electric Companies	electric company, power, electricity, power outage, electric bill
+Gas Companies	gas company, natural gas, gas bill, gas leak
+Internet Service	internet, wifi, broadband, internet provider, satellite internet
+Telephone Companies	phone company, landline, phone service
+Utilities	utilities, power, water, gas, sewer
+Water & Sewage Companies-Utility	water company, water bill, sewer, water service
+Water Companies-Bottled/Bulk & Etc	water delivery, bottled water, drinking water
