@@ -61,3 +61,7 @@ how tribal land is presented, and how new areas open.
   to the website (the phone from the site when it shows one). What the site doesn't show stays the OpenStreetMap lead,
   marked as such, for a person to check.
 - Run `2026-11-05_landmarks_public_standard.sql` and `2026-11-06_search_demand.sql` once.
+- 2026-10-07, later: a place named in the words leads while typing even with a place set ("Seattle Washington" with
+  St. Johns set shows Seattle's place card). Words that are only a place get no situation guesses. A real word or a
+  town's name is never typo-corrected into a situation word (`Situations::properWord`: "seattle" was read as
+  "shuttle", which offered Need a ride).
