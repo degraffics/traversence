@@ -87,3 +87,8 @@ how tribal land is presented, and how new areas open.
   ("ford f150") no longer blank the search: typing and Enter use the words that are in names ("ford"), typing also offers
   the kinds those names are (Automobile Dealers), and a business's name found that way doesn't ask "Which Ford?". Real
   words around a name still don't make it a name search ("standing on the corner").
+- 2026-10-07, later: search never changes the place (Jason: "The location should not change unless I specifically ask
+  for my location to change"). Opening an area's page (`?cluster=`, `?geo=`, `?hub=`, as a town tapped in search does)
+  used to make that area the place; now it does only on a first arrival with no place set this visit
+  (`js/location-scope.js`, `readArrivalRegion`). The page still shows its own area. States are offered from two
+  letters, by the start of their name or their code ("ok": Oklahoma, "az": Arizona), at most five.
