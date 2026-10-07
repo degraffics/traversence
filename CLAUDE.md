@@ -96,14 +96,15 @@ Listings, outdoor places, experiences, place pages, journeys, and any new kind o
 - **Maps** opened as their own view pass `panel: true` to `TvMap.open()` so the info panel starts open.
 
 
-## Tribal nations' land (decisions/0058 §26): every build
+## Tribal nations' land: public / private standard (decisions/0066, replacing 0058 §26–27's stricter rule): every build
 
-- On a nation's land show only the places the nation lists for visitors, with its rules (`Nations::rules()`). Never a
-  sacred or restricted site, and nothing else on its land.
-- A place opens there only with the nation's own page as evidence. "Closed by the nation" is reopened only at the
-  nation's request.
-- Any new content with a location (pins, photos, events, places) goes through `Nations::pin()` or the same check.
-- Use the nation's own name (`Nations::label()`), not the Census area's.
-- Until the nation tools exist (`Landmarks::NATION_TOOLS` is false, §27): on a nation's land only its public places
-  (opened with the nation's own page) and public businesses show; nothing waiting or closed shows; no review queue.
-  Every reader of landmarks goes through `Landmarks::visibleSql()` / `visible()`. Keep the data; never delete it.
+- **Public shows, a nation's land included:** established boundaries, key resources and infrastructure, public listings
+  and businesses, and publicly known places, each with the nation's own name (`Nations::label()`) and its rules for
+  visitors (`Nations::rules()`).
+- **Sensitive is held:** a name that may mark a sacred, burial or protected site (`Landmarks::SENSITIVE`, anywhere), and
+  what is specific to the nation (`Landmarks::NATION_SENSITIVE_CLASSES`, its springs). Held places are kept, never
+  shown, until the nation has its own controls (the nation tools, `Landmarks::NATION_TOOLS`) and says.
+- "Closed by the nation" is reopened only at the nation's request. Keep the data; never delete it.
+- Anything about a user or an owner is private unless they say otherwise; same philosophy.
+- Every reader of landmarks goes through `Landmarks::visibleSql()` / `visible()`. Pins on a nation's land
+  (`Nations::pin()`) still move to a public place, so a pin never marks a sensitive spot.

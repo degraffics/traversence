@@ -204,6 +204,12 @@ Search learns from what people open after searching. If most people who search t
 ### Why does search show phone lines, not just businesses?
 Some things that go wrong aren't a business's job: reporting a power outage, a road hazard, or finding local help. For these, search shows **Phone lines and services** from our area guides, with a **Call** button. Every number was found on the provider's own official website when we last checked, and we check them again every month. The full guide for your area is one tap away. If a number is wrong or missing, tap **Tell us** on the guide. If anyone is in danger, call 911.
 
+### Can I search a county?
+Yes. Type it with the word "county": "restaurants in Navajo County", "pizza Apache County AZ", "King County WA". Search looks across every town in the county. Your place stays as you set it.
+
+### What happens if I search just a place's name?
+Search asks what you'd like to know about it: **things to do**, **places to eat**, **places to stay**, **moving there** or **plan a trip**. Tap one to search it there. Your place doesn't change unless you tap **Make it my place**. If a town's name is used in several states, like Springfield, search asks **Which Springfield?** and lists them.
+
 ### Can search take me to the Trip Planner?
 Yes. Type what you're planning, like "planning", "plan a trip", "road trip" or "vacation", and the **Trip Planner** shows first while you type, set to your place. Press **Enter** and search asks if you were looking for it, above the results. If your words name something else too, like "planning and zoning", the offices come first and the Trip Planner follows them. Saving and sharing trip plans is coming.
 
@@ -322,6 +328,9 @@ Once a business is **claimed**, its owner decides. Nothing we find changes a cla
 
 ### Why does my listing say "We found other information about your business"?
 Only you see it, as the listing's owner. It lists details we found about your business elsewhere (your website, an official registry, another page that matches you) that differ from your listing. Your listing keeps what you set. Tap **Use this** to put a value on your listing, or **Dismiss** to set it aside; dismissed values aren't offered again.
+
+### What does Traversence show on a tribal nation's land?
+What is public: established boundaries, key resources and services, public businesses and publicly known places, each with the nation's own name and its rules for visitors. What is sensitive or specific to the nation, such as sacred, burial or ceremonial places and its springs, is not shown. It stays that way until the nation has its own controls on Traversence and decides. When a nation asks us to close something, it stays closed until the nation asks to reopen it.
 
 ### Where does the information about a landmark or outdoor place come from?
 - **Landmarks:** the name, the kind of feature and the map point come from the federal names registry (USGS Geographic

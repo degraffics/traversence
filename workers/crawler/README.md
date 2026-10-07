@@ -73,6 +73,20 @@ used only when there is no Tavily key), `VERIFY_PER_RUN` (10; 0 turns the second
 `OVERPASS_URL` (an Overpass server to try first; the public one and two mirrors are always tried after it), `LEARN_PER_RUN` (3 Tier 2 searches per run; 0 turns
 them off), `LEARN_TIME` (45 seconds). Tier 2 shares `MAX_SEARCHES` with the second look. `SEARCH_MONTHLY` (1000): the search plan's monthly allowance. After each run the worker tells the site which search it has and how many searches it made (`POST /api/crawl/usage.php`), and the admin dashboard's System status shows "Tavily: 340 of 1,000 searches this month", amber at 80%, red when it's used up.
 
+## Search targets (decisions/0066)
+
+Each run the worker also takes up to `TARGETS_PER_RUN` search targets (2; 0 turns it off), within `TARGETS_TIME`
+seconds (90). A target is a town (or county) and a kind of business, queued from Admin → Search → Search demand
+(`GET /api/crawl/targets.php`). It runs the same OpenStreetMap query and `candidate()` checks as a crawl job, around
+the place's ZIPs, and posts what it found to `POST /api/crawl/targets.php`. The site stages them in Listing Intake,
+held for a person and never auto-published, because the place may be outside our areas.
+
+**Facts from the business's own website.** For every candidate (crawl jobs and targets alike): when its website
+names the place, the name, address, phone and hours are sourced to the website. The phone comes from the site when it
+shows one (a `tel:` link or a number), the address when the site shows the house number and street, and the hours
+from its schema data. OpenStreetMap is the lead: what the site doesn't show stays sourced to OpenStreetMap, for a
+person to check.
+
 ## Map points (decisions/0053, 2026-10-04)
 
 First thing each run, the worker asks the site to place up to `GEOCODE_PER_RUN` batches of street addresses on the map

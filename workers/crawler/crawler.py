@@ -96,6 +96,8 @@ LEARN_PER_RUN = int(os.environ.get("LEARN_PER_RUN", "3"))         # Tier 2 web s
 LEARN_TIME = int(os.environ.get("LEARN_TIME", "45"))
 GUIDES_PER_RUN = int(os.environ.get("GUIDES_PER_RUN", "2"))      # how-to guides looked for per run (decisions/0063 §8); 0 turns it off
 GUIDES_TIME = int(os.environ.get("GUIDES_TIME", "45"))
+TARGETS_PER_RUN = int(os.environ.get("TARGETS_PER_RUN", "2"))    # search targets (a place and a kind of business, decisions/0066) per run; 0 turns it off
+TARGETS_TIME = int(os.environ.get("TARGETS_TIME", "90"))
 GEOCODE_PER_RUN = int(os.environ.get("GEOCODE_PER_RUN", "2"))    # batches of up to 500 street addresses placed on the map per run (the site asks the Census); 0 turns it off
 GEOCODE_TIME = int(os.environ.get("GEOCODE_TIME", "420"))
 WIKIDATA_SPARQL = "https://query.wikidata.org/sparql"
@@ -314,6 +316,29 @@ def meta_description(page):
     return html.unescape(m.group(1)).strip() if m else ""
 
 
+def phones_on(page):
+    """The 10-digit phone numbers a page shows: its tel: links first, else numbers in its text."""
+    tel = {digits(m) for m in re.findall(r'href=["\']tel:([^"\']+)', page, re.I)}
+    tel = {d for d in tel if len(d) == 10}
+    if tel:
+        return tel
+    text = re.sub(r"<[^>]+>", " ", re.sub(r"(?is)<(script|style)[^>]*>.*?</\1>", " ", page))
+    return {a + b + c for a, b, c in re.findall(r"\(?\b(\d{3})\)?[\s.-]{0,2}(\d{3})[\s.-](\d{4})\b", text)}
+
+
+def fmt_phone(d):
+    return f"({d[:3]}) {d[3:6]}-{d[6:]}" if len(d) == 10 else d
+
+
+def address_on(page, street):
+    """The page shows this street address: its house number and the street's distinctive words."""
+    num, parts = street_parts(street)
+    if not num:
+        return False
+    text = html.unescape(re.sub(r"<[^>]+>", " ", page)).lower()
+    return re.search(r"\b" + re.escape(num) + r"\b", text) is not None and all(p in text for p in parts)
+
+
 def candidate(el, job):
     t = el.get("tags", {})
     name = (t.get("name") or "").strip()
@@ -352,6 +377,22 @@ def candidate(el, job):
             c["corroboration"] = [website]
             c["what"]["description"] = meta_description(page)
             score += 20 + (10 if c["what"]["description"] else 0)
+            # facts from the business's own website; OpenStreetMap was the lead (decisions/0066). A value the site shows
+            # is sourced to the site; one it doesn't stays the lead's, for a person to check.
+            site_phones = phones_on(page)
+            if phone and digits(phone) in site_phones:
+                c["sources"]["phone"] = [website]
+            elif len(site_phones) == 1:
+                c["actions"]["phone"] = fmt_phone(next(iter(site_phones)))
+                c["sources"]["phone"] = [website]
+            if street and address_on(page, street):
+                c["sources"]["address"] = [website]
+            c["sources"]["name"] = [website]
+            hrs = hours_from(page)
+            if hrs:
+                c["when"]["hours"] = hrs
+                c["sources"]["hours"] = [website]
+            c["lead"] = osm_url
     c["confidence"] = min(100, score)
     return c
 
@@ -750,6 +791,37 @@ def steps_from(page):
         if len(heads) >= 3:
             best = [clean_text(t) for _, t in heads if clean_text(t)]
     return [t[:300] for t in best[:15]]
+
+
+def targets(deadline):
+    """Search targets (decisions/0066): a place people search and the kind of business they look for there, queued by an
+    admin or regional operator. OpenStreetMap finds the businesses (the lead); each is checked on its own website, and
+    what's found goes to Listing Intake, held for a person (the place may be outside our areas)."""
+    d = site_call(f"/api/crawl/targets.php?limit={TARGETS_PER_RUN}")
+    for job in d.get("targets", []):
+        if time.monotonic() > deadline or out_of_time():
+            log("targets: out of time, the rest go back when their lease ends")
+            break
+        tid = job["target_id"]
+        try:
+            elements = overpass(job)
+            seen, cands = set(), []
+            for el in elements:
+                if len(cands) >= MAX_PER_JOB or out_of_time():
+                    break
+                c = candidate(el, job)
+                if c and (c["name"].lower(), c["where"]["zip"]) not in seen:
+                    seen.add((c["name"].lower(), c["where"]["zip"]))
+                    cands.append(c)
+            res = site_call("/api/crawl/targets.php", {"target_id": tid, "candidates": cands, "pages": fetches,
+                                                       "log": [f"osm elements: {len(elements)}", f"candidates: {len(cands)}"]})
+            log(f"target {tid} {job['looking_for']['group']} in {job['place']['name']}: {len(elements)} open-data, {len(cands)} sent -> {res.get('staged', 0)} to review")
+        except Exception as e:
+            log(f"target {tid}: {e!r}"[:300])
+            try:
+                site_call("/api/crawl/targets.php", {"target_id": tid, "candidates": [], "error": repr(e)[:300]})
+            except Exception:
+                pass
 
 
 def geocode(deadline):
@@ -1674,6 +1746,11 @@ def run():
             second_look(started + min(VERIFY_TIME, TIME_BUDGET))
         except Exception as e:                     # the second look never stops the crawl jobs
             log(f"second look stopped: {e!r}"[:300])
+    if TARGETS_PER_RUN > 0:
+        try:
+            targets(time.monotonic() + TARGETS_TIME)
+        except Exception as e:                     # search targets never stop the crawl jobs
+            log(f"targets stopped: {e!r}"[:300])
     if GEOCODE_PER_RUN > 0:
         try:
             geocode(time.monotonic() + GEOCODE_TIME)
