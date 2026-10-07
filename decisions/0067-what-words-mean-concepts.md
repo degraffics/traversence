@@ -77,3 +77,9 @@ English, and its families served the situation reasoner, not categories.
     above (**sure**) none of the 110 was wrong; 0.30 to 0.60 is a **maybe**. The data file carries these two thresholds
     (`sure`, `min`), so the site reads them from it.
   - Words WordNet doesn't have but people type (cardio, vape, airbnb, ebike) are in the vectors, so they're covered too.
+- 2026-10-08: several words are read together, not word by word. A kind counts by how much of the search it answers
+  (its score averaged over the words that lead anywhere), so one word can't carry it: in "cooking classes for outdoor
+  cooking", "classes" alone no longer brings Dancing Instruction. When a situation answers the words ("Cooking and
+  baking", "Flat tire"), its own list is the answer and no kinds read from single words are added under it. A kind
+  shows once, whether it came from its name or from what the words mean.
+
