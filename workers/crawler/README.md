@@ -81,6 +81,16 @@ seconds (90). A target is a town (or county) and a kind of business, queued from
 the place's ZIPs, and posts what it found to `POST /api/crawl/targets.php`. The site stages them in Listing Intake,
 held for a person and never auto-published, because the place may be outside our areas.
 
+**New kinds of place (decisions/0067).** When search adds a kind of place on its own (Cooking Classes), the site
+queues a target for it in every town we cover (`CrawlTargets::queueKind`, kind `cat:<category id>`). The worker looks
+for it by the kind's own words: OpenStreetMap places whose name carries them, and, when there's a search key, one web
+search per target ("Cooking Classes in Show Low, AZ"). A web result counts only when it's the business's own site (not
+a directory, review site, social media, agency or school page), names the town, carries the kind's
+words and shows a ZIP in the place; its name, phone, address and hours come from that site. These are our own towns,
+so the candidates aren't held: Listing Intake's usual checks (and auto-import, when it's on) decide. With a search key,
+a new kind costs about one search per town we cover (43 now), spread over runs by `TARGETS_PER_RUN` and
+`MAX_SEARCHES`.
+
 **Facts from the business's own website.** For every candidate (crawl jobs and targets alike): when its website
 names the place, the name, address, phone and hours are sourced to the website. The phone comes from the site when it
 shows one (a `tel:` link or a number), the address when the site shows the house number and street, and the hours

@@ -105,4 +105,12 @@ English, and its families served the situation reasoner, not categories.
   searches and nothing opened from it is turned off again (kept, words removed, the need restored), and it isn't made
   again unless three times the searches ask for it; the same holds after a person's Undo. Kinds people added are never
   touched. A person can still add a waiting one early from Drafts.
+- 2026-10-08, later: **the crawler fills new kinds** (Jason: "build the crawler for new kinds"). When search adds a kind,
+  it queues a crawler target for it in every town we cover (43 towns: 86 targets for Cooking Classes and Kitchen
+  Supplies; `api/migrations/2026-11-08_crawl_targets_kinds.sql`). The worker looks for it by the kind's words:
+  OpenStreetMap names (`name~"cooking class|culinary|…"`) and, with a search key, a web search in the town, keeping only
+  a business's own site that names the town, carries the words and shows a ZIP there. Facts come from that site, as
+  for every crawl. These are our own towns, so nothing is held for a person: Listing Intake's usual checks and
+  auto-import decide, and the kind shows in category suggestions first. The 60-day watch (no listings → retired) gives
+  the crawler that long to find them. Targets show in Admin › Search › Search demand as "new kind, Cooking Classes".
 

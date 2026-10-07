@@ -796,7 +796,9 @@ def steps_from(page):
 def targets(deadline):
     """Search targets (decisions/0066): a place people search and the kind of business they look for there, queued by an
     admin or regional operator. OpenStreetMap finds the businesses (the lead); each is checked on its own website, and
-    what's found goes to Listing Intake, held for a person (the place may be outside our areas)."""
+    what's found goes to Listing Intake, held for a person (the place may be outside our areas). A new kind of place
+    search added (decisions/0067) is looked for in every town we cover by its own words: OpenStreetMap names, and a web
+    search when there's a key; those are our towns, so Listing Intake's usual checks decide."""
     d = site_call(f"/api/crawl/targets.php?limit={TARGETS_PER_RUN}")
     for job in d.get("targets", []):
         if time.monotonic() > deadline or out_of_time():
@@ -813,8 +815,10 @@ def targets(deadline):
                 if c and (c["name"].lower(), c["where"]["zip"]) not in seen:
                     seen.add((c["name"].lower(), c["where"]["zip"]))
                     cands.append(c)
+            web = web_candidates(job, seen) if job["looking_for"].get("search") else []   # a new kind: also a web search (decisions/0067)
+            cands += web
             res = site_call("/api/crawl/targets.php", {"target_id": tid, "candidates": cands, "pages": fetches,
-                                                       "log": [f"osm elements: {len(elements)}", f"candidates: {len(cands)}"]})
+                                                       "log": [f"osm elements: {len(elements)}", f"web: {len(web)}", f"candidates: {len(cands)}"]})
             log(f"target {tid} {job['looking_for']['group']} in {job['place']['name']}: {len(elements)} open-data, {len(cands)} sent -> {res.get('staged', 0)} to review")
         except Exception as e:
             log(f"target {tid}: {e!r}"[:300])
@@ -822,6 +826,67 @@ def targets(deadline):
                 site_call("/api/crawl/targets.php", {"target_id": tid, "candidates": [], "error": repr(e)[:300]})
             except Exception:
                 pass
+
+
+def web_candidates(job, seen):
+    """A new kind's target (decisions/0067): a web search for it in the town. A result becomes a candidate only when it
+    is a business's own site (not a directory, a review site or social media), names one of the place's towns, and
+    carries the kind's words; its name, phone and address come from that site (its structured data first)."""
+    out = []
+    if not SEARCH_ON:
+        return out
+    look = job["looking_for"]
+    kws = [w.lower() for w in look.get("words", []) if len(w) >= 4]
+    stems = {re.sub(r"(es|s)$", "", w) for w in kws}
+    towns = [t["town"].lower() for t in job["place"].get("towns", [])]
+    zips = job["place"].get("zips", [])
+    for q in look.get("search", [])[:1]:                # one search per target per run: searches are metered
+        for r in search(q):
+            if len(out) >= MAX_PER_JOB or out_of_time():
+                break
+            url = r.get("url", "")
+            host = host_of(url)
+            if not url.startswith("http") or evidence_only(host) or base_domain(host) in DIRECTORY_HOSTS or host in DIRECTORY_HOSTS:
+                continue
+            if host.endswith(".gov") or ".gov." in host or host.endswith(".edu"):
+                continue                                   # an agency or a school's page about it, not the business
+            page = fetch_page(url)
+            if not page:
+                continue
+            text = page_text(page).lower()
+            if not any(t in text for t in towns) or not any(st in text for st in stems):
+                continue
+            facts = jsonld_facts(page, url)
+            f = facts[0] if facts else {}
+            title = re.search(r"(?is)<title[^>]*>(.*?)</title>", page)
+            name = (f.get("name") or (re.split(r"\s+[|\-–—:]\s+", html.unescape(title.group(1)).strip())[0] if title else "")).strip()
+            if not name or len(name) > 120:
+                continue
+            zp = (f.get("zip") or "")[:5]
+            if zp not in zips:
+                zp = next((z for z in re.findall(r"\b(\d{5})\b", text) if z in zips), "")
+            if not zp:
+                continue                                   # can't be placed in this town
+            if (name.lower(), zp) in seen:
+                continue
+            seen.add((name.lower(), zp))
+            phones = phones_on(page)
+            phone = f.get("phone") or (fmt_phone(next(iter(phones))) if len(phones) == 1 else "")
+            street = f.get("address") or ""
+            city = next((t["town"] for t in job["place"]["towns"] if t["town"].lower() in text), job["place"]["towns"][0]["town"])
+            c = {
+                "name": name[:255],
+                "source": {"start_url": url, "site": host, "crawled_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())},
+                "where": {"address": street, "city": city, "state": job["place"]["towns"][0]["state"], "zip": zp},
+                "what": {"offerings": list(look.get("offerings") or [])[:3], "description": meta_description(page)},
+                "when": {"hours": hours_from(page)},
+                "actions": {"phone": phone, "website": url},
+                "sources": {"name": [url], "address": [url] if street else [], "phone": [url] if phone else []},
+                "corroboration": [url],
+            }
+            c["confidence"] = min(100, 20 + (25 if street else 0) + (15 if phone else 0) + (10 if c["when"]["hours"] else 0) + (10 if f else 0) + (10 if c["what"]["description"] else 0))
+            out.append(c)
+    return out
 
 
 def geocode(deadline):
