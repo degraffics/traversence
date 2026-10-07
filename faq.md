@@ -76,6 +76,11 @@ Tribal nations are sovereign nations, and we present them that way. We show publ
 
 ## The directory (Get Local)
 
+### Why do some kinds of business have different names than I expected?
+We show each kind of business by the name people use, so you'll see "Doctors" rather than "Physicians & Surgeons" and "Self
+Storage" rather than "Storage-Household & Commercial". Where a few of the trade headings mean the same thing, they show as one,
+and choosing it shows every business in all of them. Searching by either name works.
+
 ### How do I search the directory?
 Use the search bar at the top of any page. The panel that opens has:
 - **Location** at the top: the place you're searching. Tap ✎ to change it.

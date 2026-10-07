@@ -1,0 +1,563 @@
+# Plain names for categories (decisions/0068). One line per category whose name visitors would stumble on: its exact
+# name in the database, a tab, then the name visitors see. Categories not listed keep their own name (minus a
+# "-Retail" or "(Whls)" ending). Near-duplicates share one plain name on purpose, so people see one kind, not three.
+# Wholesale and manufacturer categories say so in brackets, so they don't read as the shop. Edit freely, then
+# regenerate the migration (or change a name in Admin later).
+Dairy Products-Retail	Dairy & Milk Shops
+Farm Equipment-Manufacturers	Farm Equipment (manufacturer)
+Farm Supplies (Whls)	Farm Supplies (wholesale)
+Fish Farms And Hatcheries	Fish Farms & Hatcheries
+Irrigation Systems & Equipment (Whls)	Irrigation Equipment (wholesale)
+Irrigation Systems & Equipment-Retail	Irrigation Equipment
+Livestock Auction Markets (Whls)	Livestock Auctions
+Water Supply & Irrigation Systems	Water Supply & Irrigation
+Automobile Body-Repairing & Painting	Auto Body Shops
+Automobile Clubs	Auto Clubs
+Automobile Dealers-New Cars	New Car Dealers
+Automobile Detail & Clean-Up Service	Auto Detailing
+Automobile Electric Service	Auto Electrical Repair
+Automobile Glass-Service & Installation	Auto Glass & Windshields
+Automobile Lubrication Service	Oil Change & Lube
+Automobile Machine Shop Equip/Supls-Mfrs	Auto Machine Shop Equipment (manufacturer)
+Automobile Machine Shop Service	Auto Machine Shops
+Automobile Parts & Supplies-Retail-New	Auto Parts Stores
+Automobile Radio & Stereo Systs-Sls/Svc	Car Stereo & Audio
+Automobile Renting	Car Rentals
+Automobile Repair/Svc-Equip & Supls-Mfrs	Auto Repair Equipment (manufacturer)
+Automobile Repairing & Service	Auto Repair
+Automobile Seatcovers Tops & Upholstery	Auto Upholstery & Seat Covers
+Automobile Storage	Vehicle Storage
+Automobile-Manufacturers	Vehicle Manufacturers
+Automobile/Trucks Dealers-Used	Used Car & Truck Dealers
+Automotive Glass Coating & Tinting	Window Tinting
+Boat Dealers Sales & Service	Boat Dealers & Service
+Book Dealers-Used & Rare	Used & Rare Books
+Car Washing & Polishing	Car Washes
+Carpet & Rug Dealers-New	Carpet & Rug Stores
+Cigar Cigarette & Tobacco Dealers-Retail	Tobacco & Vape Shops
+Diesel Fuel (Whls)	Diesel Fuel (wholesale)
+Doors-Garage	Garage Doors
+Engines-Diesel (Whls)	Diesel Engines (wholesale)
+Engines-Diesel-Repairing	Diesel Engine Repair
+Fuel-Dealers NEC	Fuel Dealers
+Furniture-Dealers-Retail	Furniture Stores
+Gas-Propane-Refilling Stations	Propane Refills
+Glass-Auto Plate & Window & Etc	Glass & Windows
+Ignition Interlock Devices (Mfrs)	Ignition Interlock Devices (manufacturer)
+Ignition Interlock Devices-Install & Svc	Ignition Interlock Installation
+Mechanical Contractors	Mechanical Contractors
+Motorcycle-Bicycle & Parts (Mfrs)	Motorcycle & Bicycle Parts (manufacturer)
+Motorcycles & Motor Scooters-Accessories	Motorcycle Gear & Accessories
+Motorcycles & Motor Scooters-Dealers	Motorcycle & Scooter Dealers
+Motorcycles & Motor Scooters-Rpr & Svc	Motorcycle Repair
+Mufflers & Exhaust Systems-Engine	Mufflers & Exhaust
+Oils-Fuel (Whls)	Fuel Oil (wholesale)
+Service Stations-Gasoline & Oil	Gas Stations
+Specialized Automotive Repair	Specialty Auto Repair
+Sprinklers-Automatic-Fire (Whls)	Fire Sprinklers (wholesale)
+Television-Cable & Catv	Cable TV
+Tire-Dealers-Retail	Tire Shops
+Tire Service	Tire Repair
+Transmissions-Automobile	Transmission Repair
+Truck Equipment & Parts-Wholesale	Truck Parts & Equipment (wholesale)
+Truck Stops & Plazas	Truck Stops
+Air Conditioning & Heating-Service/Repair	Heating & AC Repair
+Air Conditioning Contractors & Systems	Air Conditioning Contractors
+Building Finishing Contractors	Finish Contractors
+Buildings-Portable	Sheds & Portable Buildings
+Concrete Products (Whls)	Concrete Products (wholesale)
+Concrete Products-Except Block & Brick (Mfrs)	Concrete Products (manufacturer)
+Concrete-Block & Brick (Mfrs)	Concrete Block & Brick (manufacturer)
+Concrete-Ready Mixed	Ready-Mix Concrete
+Construction Equipment-Manufacturers	Construction Equipment (manufacturer)
+Construction-Sand & Gravel	Sand & Gravel
+Contractors-Boarding & Housing	Worker Housing
+Contractors-Equip/Supls-Dlrs/Svc (Whls)	Contractor Equipment & Supplies (wholesale)
+Counter Tops	Countertops
+Drilling & Boring Contractors	Drilling & Boring
+Dry Wall Contractors	Drywall Contractors
+Electric Contractors	Electricians
+Employment Contractors-Temporary Help	Temp Staffing
+Engineers-Civil	Civil Engineers
+Engineers-Structural	Structural Engineers
+Fence (Whls)	Fencing (wholesale)
+Fence Posts & Fittings (Whls)	Fence Posts & Fittings (wholesale)
+Floor Laying Refinishing & Resurfacing	Flooring Installation & Refinishing
+Floor Materials-Wholesale	Flooring Materials (wholesale)
+Foundation-Educ Philanthropic Research	Foundations & Philanthropy
+Gates (Whls)	Gates (wholesale)
+General Contractors-Residential Bldgs	Home Contractors
+Hardware-Retail	Hardware Stores
+Heating Equipment & Systems (Whls)	Heating Equipment (wholesale)
+Heavy & Civil Engineering Construction	Heavy & Civil Construction
+Insulation Contractors-Cold & Heat	Insulation Contractors
+Kitchen Remodeling & Planning Service	Kitchen Remodeling
+Lumber-Retail	Lumber Yards
+Lumber-Wholesale	Lumber (wholesale)
+Mason Contractors Equip & Supls (Whls)	Masonry Supplies (wholesale)
+Parking Area/Lots Maintenance & Marking	Parking Lot Paving & Striping
+Plumbing Contractors	Plumbers
+Plumbing Drain & Sewer Cleaning	Drain & Sewer Cleaning
+Plumbing Fixtures & Supplies-Wholesale	Plumbing Supplies (wholesale)
+Plumbing Heating & Air Conditioning	Plumbing, Heating & AC
+Remodeling & Repairing Building Contractors	Remodeling Contractors
+Roofing Contractors	Roofers
+Septic Tanks	Septic Tanks & Systems
+Septic Tanks Consultants	Septic Consultants
+Septic Tanks/Systems-Cleaning/Repairing	Septic Pumping & Repair
+Sheet Metal Fabricators (Mfrs)	Sheet Metal Fabrication
+Solar Energy Equipment-Wholesale	Solar Equipment (wholesale)
+Steel-Structural (Mfrs)	Structural Steel
+Surveyors-Land	Land Surveyors
+Tile-Ceramic-Contractors & Dealers	Tile Contractors & Stores
+Trenching & Underground Contractors	Trenching & Underground
+Trusses-Construction Whls & Mfrs	Trusses
+Water Well Drilling & Service	Water Well Drilling
+Welding & Steel Fabrication	Welding & Fabrication
+Buses-School Transportation Service	School Buses
+Child Care Service	Child Care
+County Government-Education Programs	County Education Programs
+Dancing Instruction	Dance Lessons
+Day Care Centers-Adult	Adult Day Care
+Educational Service-Business	Business Education
+Junior-Community College-Tech Institutes	Community & Technical Colleges
+Schools For Blind	Schools for the Blind
+Schools With Special Academic Education	Special Education Schools
+Schools With Special Vocational Educ	Vocational Schools
+Schools-Pre-School/Kindergarten-Academic	Preschools & Kindergartens
+Schools-Universities & Colleges Academic	Colleges & Universities
+Univ/Clg-Governing Body/Regent/Trustee	University Boards & Regents
+University/College-Extension Programs	College Extension Programs
+University/College-Satellite Locations	College Satellite Campuses
+Youth Organizations & Centers	Youth Centers & Programs
+Art Galleries & Dealers	Art Galleries
+Convention & Meeting Facilities & Svc	Convention & Meeting Venues
+Craft Galleries & Dealers	Craft Galleries
+Family Entertainment Centers	Family Fun Centers
+Golf Cars & Carts	Golf Carts
+Golf Equipment & Supplies-Retail	Golf Shops
+Guide Service	Guides
+Halls & Auditoriums	Halls & Auditoriums
+Hunting & Fishing Outfitters	Hunting & Fishing Outfitters
+Membership Sports & Recreation Clubs	Sports & Recreation Clubs
+Music & Live Entertainment	Live Music & Entertainment
+National Landmark/Historic Site/Memorial	Historic Sites & Memorials
+National Park/Preserves Visitor Centers	Park Visitor Centers
+National Parks/Preserves	National Parks & Preserves
+Party Supplies-Renting	Party Rentals
+Personal Trainers-Fitness	Personal Trainers
+Recreational Vehicle Parks	RV Parks
+Recreational Vehicles	RV Dealers
+Recreational Vehicles-Equip/Parts/Svc	RV Parts & Service
+Recreational Vehicles-Repairing & Svc	RV Repair
+Skiing Equipment-Rental	Ski Rentals
+Skiing Organizations	Ski Clubs
+Sporting Goods-Retail	Sporting Goods
+Stadiums Arenas & Athletic Fields	Stadiums & Athletic Fields
+State Fish Hatcheries/Fishing Areas	State Fish Hatcheries & Fishing Areas
+Theatres-Movie	Movie Theaters
+Tours-Operators & Promoters	Tours & Tour Operators
+Trailers-Boat	Boat Trailers
+Trailers-Camping & Travel	Campers & Travel Trailers
+Water Sports Equipment-Rental	Water Sports Rentals
+Yoga Instruction	Yoga Studios
+Accounting & Bookkeeping General Svc	Bookkeeping
+Alcoholism Information & Treatment Ctrs	Alcohol Treatment Centers
+Atm-Automated Teller Machines	ATMs
+Automobile Suspensions	Auto Suspension
+Check Cashing Service	Check Cashing
+Drug Abuse & Addiction Info & Treatment	Addiction Treatment
+Financial Advisory Services	Financial Advisors
+Financial Planners-Certified	Certified Financial Planners
+Financial Planning Consultants	Financial Planners
+Financing Consultants	Financing Consultants
+Holding Companies (Non-Bank)	Holding Companies
+Insurance-Automobile	Auto Insurance
+Insurance-Title	Title Insurance
+Money Order Service	Money Orders
+Money Transfer Service	Money Transfers
+Pawnbrokers	Pawn Shops
+Real Estate Buyers & Brokers	Real Estate Brokers
+Real Estate Loans	Mortgages & Home Loans
+Retirement Communities & Homes	Retirement Communities
+Skin Treatments	Skin Care
+Tax Return Preparation & Filing	Tax Preparation
+Virtual Currency Conversion Kiosk/Atm	Bitcoin ATMs
+Breweries (Manufacturing)	Breweries
+Candy & Confectionery-Mfrs Equip (Mfrs)	Candy-Making Equipment (manufacturer)
+Candy & Confectionery-Retail	Candy Shops
+Coffee & Tea Products-Manufacturers	Coffee & Tea (manufacturer)
+Coffee & Tea	Coffee & Tea Shops
+Doughnuts	Donut Shops
+Food Service Kiosk	Food Stands & Kiosks
+Foods-Carry Out	Takeout & Fast Food
+Grocers-Delicatessen	Delis
+Ice Cream & Frozen Desserts-Distr (Whls)	Ice Cream (wholesale)
+Ice Cream Parlors	Ice Cream Shops
+Juices-Retail	Juice Bars
+Restaurant Management	Restaurant Management
+Wineries (Mfrs)	Wineries
+Air Ambulance Service	Air Ambulances
+Ambulance Service	Ambulances
+Ancsa Native Corporations	Alaska Native Corporations
+Animal Rescue Relocation & Transporting	Animal Rescue
+City Government-Air/Water/Solid Waste Managem	City Water & Waste Management
+City Government-Courts	City Courts
+City Government-Executive Offices	City Offices
+City Government-Finance & Taxation	City Finance & Taxes
+City Government-General Offices	City Offices
+City Government-Housing Programs	City Housing Programs
+City Government-Regulation/Licensing & Inspec	City Permits, Licensing & Inspection
+City Government-Social & Human Resources	City Social Services
+City Government-Urban Planning/Community & Ru	City Planning & Community Development
+City Government-Economic Program Administrati	City Economic Programs
+City Government-Regulation & Administration-C	City Administration
+Civil Defense Agencies	Emergency Management
+County Government-Air/Water/Solid Waste Manag	County Water & Waste Management
+County Government-Courts	County Courts
+County Government-Executive Offices	County Offices
+County Government-Finance & Taxation	County Treasurer & Assessor
+County Government-Fire Protection	County Fire Protection
+County Government-General Offices	County Offices
+County Government-Land/Mineral/Wildlife/Fores	County Land & Wildlife
+County Government-Public Order & Safety	County Public Safety
+County Government-Legal Counsel	County Attorney
+County Government-Public Health Programs	County Public Health
+Department Of Motor Vehicles	Motor Vehicles (DMV/MVD)
+Federal Government Contractors	Federal Contractors
+Federal Government-Land/Mineral/Wildlife/Fore	Federal Land & Wildlife Offices
+Federal Government-Police	Federal Police
+Federal Government-Regulation-Agricultural Ma	Federal Agriculture Offices
+Federal Government-Social & Human Rsrcs	Federal Social Services
+Fire Protection Equipment & Supls (Whls)	Fire Protection Equipment (wholesale)
+General Government Support	Government Support Services
+Government Executive Offices	Government Offices
+Government Offices-City/Village & Twp	City & Town Offices
+Government Offices-County	County Offices
+Government Offices-Federal	Federal Offices
+Government Offices-Native American	Tribal Government Offices
+Government Offices-State	State Offices
+Government-Individual/Family Social Svcs	Family Social Services
+Government-Radio Broadcasting Stations	Public Radio Stations
+Government-Job Training/Voc Rehab Svcs	Job Training & Vocational Rehab
+Landfills-Sanitary	Landfills
+Landfills-Solid Waste	Landfills
+Libraries-Institutional	Libraries
+Libraries-Public	Public Libraries
+Native American Goods-Wholesale	Native American Goods (wholesale)
+Native American Reservations & Tribes	Tribes & Reservations
+Recycling Centers (Whls)	Recycling Centers
+Rescue Squads	Search & Rescue
+Sanctuaries-Wild Life	Wildlife Sanctuaries
+Sheriff	Sheriff's Offices
+State Government-Courts	State Courts
+State Government-Land/Mineral/Wildlife/Forest	State Land & Wildlife Offices
+State Government-Police	State Police
+State Government-Social/Human Resources	State Social Services
+State Government-Public Health Programs	State Public Health
+State Government-Regulation & Administration-	State Administration
+State Govt-Correctional Institutions	Prisons & Corrections
+Travel Agencies & Bureaus	Travel Agencies
+Veterans' & Military Organizations	Veterans' Organizations
+Video Recorders & Players	Video Equipment
+Ambulatory Health Care Services	Outpatient Health Care
+Ambulatory Surgical Centers	Surgery Centers
+Chiropractors DC	Chiropractors
+Counselors-Licensed Professional	Licensed Counselors
+Credit & Debt Counseling Services	Credit & Debt Counseling
+Diabetes Information Centers	Diabetes Centers
+Emergency Medical & Surgical Services (Hospit	Emergency Rooms
+Environmental Conservation/Ecologcl Org	Conservation Groups
+Exercise & Physical Fitness Programs	Fitness Classes
+Forest Nurseries & Gathering Forest Prod	Tree Nurseries & Forest Products
+Gas-Ind & Medical-Cylinder & Bulk-Mfrs	Industrial & Medical Gas (manufacturer)
+Health & Allied Services	Health Services
+Health & Beauty Aids-Manufacturers	Health & Beauty Products (manufacturer)
+Health & Diet Foods-Retail	Health Food Stores
+Health & Fitness Therapy	Fitness Therapy
+Health & Nutrition Consultants	Nutrition Consultants
+Health Clubs Studios & Gymnasiums	Gyms & Fitness Centers
+Health Food Products-Wholesale	Health Food (wholesale)
+Hearing Aids & Devices-Wholesale	Hearing Aids (wholesale)
+Holistic Health Services	Holistic Health
+Home Health & Health Care Equipment	Medical Equipment & Supplies
+Home Health Service	Home Health Care
+Homes-Adult	Adult Care Homes
+Insurance-Health & Accident	Health Insurance
+Laboratories-Dental	Dental Labs
+Laboratories-Medical	Medical Labs
+Laboratories-Research & Development	Research Labs
+Laboratories-Testing	Testing Labs
+Massage	Massage
+Massage Therapists	Massage
+Medical & Surgical Svc Organizations	Medical Groups
+Medical/Dental/Hospital Eqpt & Supl (Whls)	Medical & Dental Supplies (wholesale)
+Mental Health Counselors	Mental Health Counselors
+Nurses-Licensed-Anesthetist	Nurse Anesthetists
+Nurses-Practitioners	Nurse Practitioners
+Nurses-Registered Rn	Registered Nurses
+Nursing & Convalescent Homes	Nursing Homes
+Offices Of Health Practitioners NEC	Health Practitioners
+Optical Goods-Retail	Eyeglasses & Optical
+Optometrists OD	Optometrists & Eye Exams
+Outpatient Mental Health & Substance Abuse Ce	Outpatient Mental Health & Addiction Care
+Pain Therapy/Management	Pain Management
+Pharmacists	Pharmacies
+Physical Engineering & Life Sciences Research	Science Research
+Physicians & Surgeons	Doctors
+Physicians & Surgeons Equip & Supls-Whls	Medical Equipment (wholesale)
+Physicians Assistants	Physician Assistants
+Physicians-Naturopathic	Naturopathic Doctors
+Pregnancy Counseling Svc & Information	Pregnancy Support
+Prosthetic Devices	Prosthetics
+Speech Pathologists	Speech Therapists
+Urgent Medical Care Centers And Clinics	Urgent Care
+Appliances-Household-Major-Used	Used Appliances
+Appliances-Household-Small-Repairing	Appliance Repair
+Burglar Alarm Systems (Whls)	Security Alarms (wholesale)
+Cleaners	Dry Cleaners
+Fire Alarm Systems (Whls)	Fire Alarms (wholesale)
+Janitors Equipment/Supplies (Whls)	Janitorial Supplies (wholesale)
+Janitor Service	Janitorial Services
+Lawn & Garden Equip & Supplies-Retail	Lawn & Garden Equipment
+Lawn & Grounds Maintenance	Lawn Care
+Locks & Locksmiths	Locksmiths
+Mold Mildew Moisture Control & Abatement	Mold Removal
+Propane (Lp) Gas	Propane
+Swimming Pools-Public	Public Pools
+Toilets-Portable	Portable Toilets
+Truck-Washing & Cleaning	Truck Washes
+Waste Disposal-Hazardous	Hazardous Waste Disposal
+Water Heaters-Dealers	Water Heaters
+Water-Sewer Pipeline & Comms/Power Line	Utility Line Contractors
+Bed & Breakfast Accommodations	Bed & Breakfasts
+Chalet & Cabin Rentals	Cabin Rentals
+Cottages & Cabins	Cabin Rentals
+Fishing & Hunting Lodges	Hunting & Fishing Lodges
+Hotel & Motel Management	Hotel Management
+Log Cabins Homes & Buildings (Mfrs)	Log Homes (manufacturer)
+Skiing Centers & Resorts	Ski Resorts
+Beams (Mfrs)	Beams (manufacturer)
+Bottlers (Mfrs)	Bottlers
+Chemicals & Allied Products NEC (Whls)	Chemicals (wholesale)
+Coml Ind Instnl Elec Lighting (Mfrs)	Commercial Lighting (manufacturer)
+Copying & Duplicating Machines & Supls	Copiers & Supplies
+Copying Machines & Supplies-Mfrs	Copiers (manufacturer)
+Electric Equipment & Supplies-Wholesale	Electrical Supplies (wholesale)
+Electric Motors-Dlrs/Repairing (Whls)	Electric Motor Repair
+Engravers-Metal (Mfrs)	Metal Engraving
+Game Processing (Mfrs)	Game Processing
+Ice-Manufacturers	Ice
+Industrial Equipment & Supplies (Whls)	Industrial Supplies (wholesale)
+Logging (Mfrs)	Logging
+Logging Companies (Mfrs)	Logging
+Machine Tools (Whls)	Machine Tools (wholesale)
+Manufactured Housing Eqp/Parts Whls/Mfr	Manufactured Home Parts
+Meat Packers (Mfrs)	Meat Processing
+Olive Oil (Mfrs)	Olive Oil
+Petroleum Products-Manufacturers	Petroleum Products (manufacturer)
+Pipe-Wholesale	Pipe (wholesale)
+Programs (Mfrs)	Printed Programs
+Publishers (Mfrs)	Publishers
+Publishers-Book (Mfrs)	Book Publishers
+Publishers-Directory & Guide (Mfrs)	Directory & Guide Publishers
+Pumps (Whls)	Pumps (wholesale)
+Rock (Whls)	Rock & Stone (wholesale)
+Safes & Vaults-Used (Whls)	Safes & Vaults
+Sawmills (Mfrs)	Sawmills
+Saws	Saws & Sharpening
+Scrap Metals & Iron (Whls)	Scrap Metal
+Security Control Equip & Systems-Whls	Security Systems (wholesale)
+Semiconductors & Related Devices (Mfrs)	Semiconductors (manufacturer)
+Soaps & Detergents-Manufacturers	Soaps & Detergents (manufacturer)
+Tools-Hydraulic (Whls)	Hydraulic Tools (wholesale)
+Tools-New & Used	Tool Stores
+Tools-Renting	Tool Rentals
+Topsoil-Manufacturers	Topsoil
+Wood Products NEC (Mfrs)	Wood Products
+Notaries-Public	Notaries
+Remediation Services	Environmental Remediation
+Real Estate-Law	Real Estate Lawyers
+Attorneys	Lawyers
+Arts Organizations & Information	Arts Organizations
+Business & Trade Organizations	Business & Trade Groups
+Membership Organizations NEC	Membership Organizations
+Motoring Organizations	Auto Clubs
+Senior Citizens Service	Senior Services
+Senior Citizens Service Organizations	Senior Services
+Social Service & Welfare Organizations	Social Services
+Nonclassified Establishments	Other Businesses
+Livestock Breeders	Livestock Breeders
+Pet Boarding Sitting & Kennels	Pet Boarding & Sitting
+Pet Supplies & Foods-Retail	Pet Stores
+Pet Washing & Grooming	Pet Grooming
+Stables	Stables & Horse Boarding
+Veterinary Services	Veterinarians
+Artists-Commercial	Commercial Artists
+Back Flow Device Testing Services	Backflow Testing
+Beauty Salons-Equipment & Supplies-Mfrs	Salon Equipment (manufacturer)
+Business Services NEC	Business Services
+Compensation-Accident Service	Workers' Compensation Services
+Consultants-Business NEC	Business Consultants
+Copying & Duplicating Service	Copy & Print Shops
+Crematories	Crematories
+Electric & Other Services-Combined	Utility Services
+Employment Agencies & Opportunities	Employment Agencies
+Energy Management Systems & Products	Energy Efficiency
+Florists-Retail	Florists
+Foresters-Consulting	Forestry Consultants
+Historical Restoration Consultants	Historic Restoration
+Inspection Service	Inspection Services
+Investigators	Private Investigators
+Laundries-Industrial & Commercial	Commercial Laundries
+Laundries-Self Service	Laundromats
+Linen Supply Service	Linen Supply
+Manicuring	Nail Salons
+Miscellaneous Personal Services NEC	Personal Services
+Organic Foods & Services	Organic Foods
+Outpatient Services	Outpatient Services
+Personal Care Services NEC	Personal Care
+Photo Finishing-Retail	Photo Printing
+Professional & Management Development Trainin	Professional Development Training
+Ranger Services	Ranger Stations
+Recruiting-US Armed Forces	Military Recruiters
+Rental Service-Stores & Yards	Equipment Rentals
+Repair Shops & Related Services NEC	Repair Shops
+Scientists-Consulting	Science Consultants
+Screen Printing (Mfrs)	Screen Printing
+Security Guard & Patrol Service	Security Guards
+Service Industry Machinery NEC (Mfrs)	Commercial Machinery (manufacturer)
+Services NEC	Services
+Shopping Service-Personal	Personal Shoppers
+Signs (Mfrs)	Sign Makers
+Social Sciences & Humanities Research & Devel	Social Research
+Spas-Beauty & Day	Day Spas
+Tattooing	Tattoo Shops
+Truck-Repairing & Service	Truck Repair
+Wrecker Service	Towing
+General Contractors-Nonresidential Buildings	Commercial Contractors
+Lessors Of Real Property NEC	Property Leasing
+Mobile Homes Repairing & Service	Mobile Home Repair
+Mobile Homes-Dealers	Mobile Home Dealers
+Mobile Homes-Parks & Communities	Mobile Home Parks
+Operators Of Nonresidential Buildings	Commercial Property Owners
+Real Estate	Real Estate Agents
+Real Estate Inspection	Home Inspectors
+Real Estate Management	Property Management
+Residential Property Managers	Property Management
+Timber & Timberland Companies (Whls)	Timberland Companies
+Abortion Alternatives Organizations	Pregnancy Resource Centers
+Administrative & General Management Consultin	Management Consultants
+Church Organizations	Church Organizations
+Religious Goods-Manufacturers	Religious Goods
+Airsoft Games & Supls	Airsoft
+Antiques-Dealers	Antique Shops
+Bakers-Retail	Bakeries
+Balloons-Novelty & Toy	Balloons & Party Supplies
+Beer & Ale-Retail	Beer Stores
+Beer & Ale-Wholesale	Beer Distributors
+Bicycles-Dealers	Bike Shops
+Blankets Retail	Blankets
+Boutique Items-Retail	Boutiques
+Cannabis Dispensary	Cannabis Dispensaries
+Clothing-Retail	Clothing Stores
+Coin Dealers Supplies & Etc	Coin Dealers
+Cosmetics & Perfumes-Retail	Cosmetics & Perfume
+Cutlery-Retail	Knives & Cutlery
+Fabricated Structural Metal (Mfrs)	Structural Metal Fabrication
+Feed-Dealers (Whls)	Feed Stores
+Furniture-Renting & Leasing	Furniture Rentals
+Games & Game Supplies	Game Stores
+General Merchandise-Retail	General Stores
+Gifts-Specialty	Gift Shops
+Glass-Stained & Leaded	Stained Glass
+Grocers-Retail	Grocery Stores
+Guns & Gunsmiths	Gun Shops & Gunsmiths
+Jewelers-Retail	Jewelry Stores
+Jewelry-Repairing	Jewelry Repair
+Lamps & Lamp Shades-Retail	Lamps & Lighting
+Linens-Retail	Linens
+Liquors-Retail	Liquor Stores
+Machine Shops (Mfrs)	Machine Shops
+Maternity Apparel & Supports	Maternity Clothing
+Meat-Retail	Butchers & Meat Markets
+Miscellaneous Retail Stores NEC	Retail Stores
+Music Dealers	Music Stores
+Newspaper Distributors (Whls)	Newspaper Distributors
+Newspapers (Publishers/Mfrs)	Newspapers
+Paint-Retail	Paint Stores
+Paper-Shredded	Paper Shredding
+Pianos	Pianos
+Propane Tank Kiosks	Propane Tank Exchange
+Pumps-Retail	Pumps
+Quilting	Quilting
+Quilting Materials & Supplies	Quilting Supplies
+Rock Shops	Rock Shops
+Saddlery & Harness	Saddles & Tack
+Shoes-Retail	Shoe Stores
+Shopping Centers & Malls	Shopping Centers
+Smoke Shops & Supplies	Smoke Shops
+Spices	Spice Shops
+Stone-Retail	Stone Yards
+Trophies Awards & Medals	Trophies & Awards
+Vending Machines	Vending Machines
+Video Tapes & Discs-Renting & Leasing	Movie Rentals
+Video Tapes Discs & Cassettes	Movies & Video
+Vitamin & Food Supplements	Vitamins & Supplements
+Advertising-Computer	Online Advertising
+Broadcasting Companies	Broadcasters
+Cellular Telephones (Services)	Cell Phone Stores
+Computer Integrated Systems Design	IT Systems Design
+Computers-Service & Repair	Computer Repair
+Digital Media & Content Creation	Digital Media
+Electronic Equipment & Supplies-Repair	Electronics Repair
+Information Technology Services	IT Services
+Internet Home Page Dev Consulting	Web Design
+Photographers-Commercial	Photographers
+Printer Cartridges (Whls)	Printer Ink & Cartridges (wholesale)
+Printers (Mfrs)	Printers
+Programming	Software Development
+Radio Stations & Broadcasting Companies	Radio Stations
+Recorded Information	Recorded Information Lines
+Software/Application/Platform Publishing	Software Companies
+Television Station Equipment (Whls)	TV Station Equipment (wholesale)
+Television Stations & Broadcasting Co	TV Stations
+Video Gamerooms	Arcades
+Video Production & Taping Service	Video Production
+Website Design Service	Web Design
+Bus Lines	Bus Lines
+Cargo & Freight Containers-Manufacturers	Shipping Containers (manufacturer)
+Coin & Bill Counting/Sorting Svc Kiosks	Coin Counting Kiosks
+E-Waste (Electronics Recycling) Kiosks	Electronics Recycling Kiosks
+Hazardous Materials-Transporting	Hazardous Materials Transport
+Helicopter-Servicing & Maintenance	Helicopter Service
+Key Duplicating Service Kiosks	Key Copy Kiosks
+Limousine Service	Limousines
+Local Passenger Transportation NEC	Local Transportation & Shuttles
+Mailing & Shipping Kiosks	Shipping Kiosks & Drop Boxes
+Mailing & Shipping Services	Shipping & Mailing
+Meal Kit Delivery Service	Meal Delivery
+Nonscheduled Passenger Air Transportation	Charter Flights
+Packaging Service	Packing Services
+Propane-Bulk & Bottle-Delivery	Propane Delivery
+Recreational Vehicles-Storage	RV Storage
+Storage	Self Storage
+Storage-Household & Commercial	Self Storage
+Transportation	Transportation
+Transportation Authorities	Transit Authorities
+Truck Renting & Leasing	Truck & Trailer Rentals
+Warehouses-Merchandise & Self Storage	Self Storage
+Agents For Wireless Telecommunications Servic	Wireless Service Agents
+Biomass Electric Power Generation	Biomass Power
+Collection Systems	Sewer & Collection Systems
+Electric Companies	Electric Utilities
+Gas Companies	Gas Utilities
+Gas Line Installation & Repair	Gas Line Repair
+Gas-Liquefied Petro-Bttld/Bulk (Whls)	Propane & LP Gas (wholesale)
+Internet Service	Internet Providers
+Pipe Line Companies	Pipelines
+Pole Inspectors	Utility Pole Inspection
+Telecommunications Services	Telecom Services
+Telephone Companies	Phone Companies
+Water & Sewage Companies-Utility	Water & Sewer Utilities
+Water Companies-Bottled/Bulk & Etc	Bottled & Bulk Water
