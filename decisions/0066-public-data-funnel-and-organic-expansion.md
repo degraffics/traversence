@@ -79,3 +79,11 @@ how tribal land is presented, and how new areas open.
   tags. One word ("for") orders places and kinds first, then listings and outdoor places that start with it, then
   stories, groups and experiences (discover and community). Words ending in a town still being typed ("moving to sea",
   "pizza in flag") are offered with each town that fits, as a search ("moving to seattle, wa").
+- 2026-10-07, later: states are places. Typing offers a state by its name ("wash" → Washington, searched as
+  "washington state", never Washington, DC); "<state> state" and a state with no town named are the state
+  (`stateNamed`: every ZIP in it, its middle, outside our areas unless we have an area there); "Which Washington?" lists
+  the state first. Names matching only past the Distance setting get one widen row while typing (the nearest, "38 mi,
+  past your 10 mi · Widen to 50 mi"), the same steps as after Enter: never shown as if near. Words that aren't words
+  ("ford f150") no longer blank the search: typing and Enter use the words that are in names ("ford"), typing also offers
+  the kinds those names are (Automobile Dealers), and a business's name found that way doesn't ask "Which Ford?". Real
+  words around a name still don't make it a name search ("standing on the corner").
