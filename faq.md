@@ -208,7 +208,7 @@ Some things that go wrong aren't a business's job: reporting a power outage, a r
 Yes. Type it with the word "county": "restaurants in Navajo County", "pizza Apache County AZ", "King County WA". Search looks across every town in the county. Your place stays as you set it.
 
 ### What happens if I search just a place's name?
-Search asks what you'd like to know about it: **things to do**, **places to eat**, **places to stay**, **moving there** or **plan a trip**. Tap one to search it there. Your place doesn't change unless you tap **Make it my place**. If a town's name is used in several states, like Springfield, search asks **Which Springfield?** and lists them.
+Search asks what you'd like to know about it: **things to do**, **places to eat**, **places to stay**, **moving there** or **plan a trip**. Tap one to search it there. Your place doesn't change unless you tap **Make it my place**. This works with just the town's name too, like "Seattle". If a town's name is used in several states, like Springfield, search asks **Which Springfield?** and lists them.
 
 ### Can search take me to the Trip Planner?
 Yes. Type what you're planning, like "planning", "plan a trip", "road trip" or "vacation", and the **Trip Planner** shows first while you type, set to your place. Press **Enter** and search asks if you were looking for it, above the results. If your words name something else too, like "planning and zoning", the offices come first and the Trip Planner follows them. Saving and sharing trip plans is coming.

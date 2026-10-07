@@ -65,3 +65,6 @@ how tribal land is presented, and how new areas open.
   St. Johns set shows Seattle's place card). Words that are only a place get no situation guesses. A real word or a
   town's name is never typo-corrected into a situation word (`Situations::properWord`: "seattle" was read as
   "shuttle", which offered Need a ride).
+- 2026-10-07, later: a town's name on its own that nothing on Traversence matches ("Seattle") gets that town's place
+  card, while typing too. A name used in several states asks which one. A name that does match something ("Lyman": Lyman
+  Lake) is left to its results.
