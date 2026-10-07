@@ -29,4 +29,4 @@ Rebuild when categories change. To try words without writing the file:
 
     CONCEPTS_TRY=x-ray,gym,mushroom python3 build_concepts.py /path/to/wordnet31 categories.json /dev/null
 
-`CONCEPTS_FLOOR` (default 0.12; the shipped file used 0.08) is the loosest link kept.
+`CONCEPTS_FLOOR` (default 0.12; the shipped file used 0.04, with links under 0.08 offered as "maybe") is the loosest link kept.

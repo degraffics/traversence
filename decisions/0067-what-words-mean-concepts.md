@@ -60,3 +60,7 @@ English, and its families served the situation reasoner, not categories.
 - The data file is large (every English word that leads somewhere). PHP's opcache keeps it in memory; without opcache
   it's parsed per search request.
 - `api/lib/synonyms.php` stays for now; the seeds supersede it and can absorb it.
+- 2026-10-07, later: never a blank (Jason: "show nothing: not sure… try and modify your search, maybe"). Links between
+  0.04 and 0.08 are kept as **maybes**: after Enter, under "Not sure what "…" means here. Maybe" (or "Maybe" after the
+  sure kinds); while typing, their rows start "Maybe?". With nothing at all, search says "Not sure what "…" means. Try
+  changing your search: fewer words, another word for it, or remove a chip above." (`Concepts::SURE`, `Concepts::MIN`).
