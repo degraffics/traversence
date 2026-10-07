@@ -36,3 +36,10 @@ Rebuild when categories change. To try words without writing the file:
     CONCEPTS_TRY=x-ray,gym,mushroom python3 build_concepts.py /path/to/wordnet31 categories.json /dev/null
 
 `CONCEPTS_FLOOR` (default 0.12; the shipped file used 0.04, with links under 0.08 offered as "maybe") is the loosest link kept.
+
+## build_word_rank.py (decisions/0067, 2026-10-07)
+
+    python3 build_word_rank.py /path/to/en_core_web_lg-3.7.1 /path/to/site/api/lib/data/word-rank.php
+
+How common each English word is (the 100,000 commonest, from the order of the spaCy vectors). Search uses it to finish a
+word still being typed ("new mus" → new music, new museum; never the genus Mus). Rebuild only with a new model.

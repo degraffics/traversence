@@ -114,3 +114,30 @@ English, and its families served the situation reasoner, not categories.
   auto-import decide, and the kind shows in category suggestions first. The 60-day watch (no listings → retired) gives
   the crawler that long to find them. Targets show in Admin › Search › Search demand as "new kind, Cooking Classes".
 
+- 2026-10-07, later: **the essence of what's searched** (Jason: "how we get our search smart enough to recognize the
+  essence of what is being searched"; the screenshots: "New mus" gave Occupational Therapists, "Live mu" gave livestock
+  and cattle companies, "New music" put a nurse named Musick and a real-estate listing above Music & Live
+  Entertainment). Four changes, all on our server, nothing sent anywhere, nothing about who:
+  1. **The word being typed is finished before it's read.** Until there's a space after it, the last word is unfinished:
+     "mus" is a real dictionary word (the mouse genus), but nobody typing "new mus" means it. It's finished from the
+     words that lead to a kind of place, best first: how strongly the word leads somewhere, less a little for how rare
+     it is (a new data file, `api/lib/data/word-rank.php`, the 100,000 commonest English words by their order in the
+     spaCy vectors, CC0, built by `workers/lexicon/build_word_rank.py`). With words before it, a phrase that is one
+     thing comes first ("hot spr" → hot springs, "cooking cla" → cooking classes, "live mu" → live music), from the
+     concepts' phrases, staff's words and the categories' plain names; then the finishing that gives the whole phrase
+     the clearest meaning. The likeliest finishing is read for what it means, for names and for what Enter would find,
+     and the finishings show as completions (the typed part, then the rest in bold). A common word is itself first
+     ("new music" stays new music). A place's name being typed ("washington") isn't finished.
+  2. **The thing, and the words that describe it.** In "live music" and "new music" the noun is what's wanted. A word
+     WordNet has only as a describing or doing word ("live", "new", "outdoor", "hot", "legal") narrows among the
+     noun's kinds (+25% of its own link to a kind the noun already has: Music & Live Entertainment before Music Dealers)
+     and never brings kinds of its own ("live" alone leans to care homes; "live music" no longer does). All describing
+     words ("open late"): read them all.
+  3. **Ranked by meaning.** When the words surely mean a kind of place: that kind first, then its places (fetched for
+     the kind if names don't have them: Exit Mobile DJ for "live mu"), then what Enter would find of that kind; names
+     that only share a word come after, and only with the word whole ("music", never Musick). With no place set, every
+     place counts as near. A situation answering no longer hides a sure kind.
+  4. **Learned from taps, at once.** Tapping a kind of place in the suggestions now counts like opening a listing, in
+     `search_opens` against the words typed (`?opened_kind=`). The kinds people opened after the same words, typed or
+     finished, lead what the words mean on the next search (3 opens in 180 days, any area, so one person never steers
+     it), shown as "most picked for “new mu”". The nightly learning (decisions/0061) still reads the same counts.
