@@ -164,6 +164,15 @@ for. Within a distance, nothing outside it shows (no "beyond", no nearby towns).
 widen line offers the next steps out ("Nothing within 10 mi of St. Johns. The nearest is 40 mi away" → **50 mi
 (2)**). Steps that would find nothing more aren't shown, and there's no "No limit" for a place outside our regions.
 
+### Progress, 2026-10-07: a place named in the words, while typing too
+
+"Moving to Seattle Washington" with no place set asked "Where are you?" while typing: the typing view (`suggest()`) only
+used the place set on the site. It now reads a place from the words the same way Enter does (`findPlace`). A town
+outside our areas is marked `outside`, so the typing view gives the same answer as after Enter: "We have no listings
+in Seattle, WA yet", OpenStreetMap businesses where a need is one (ADR 0065), and Google Maps for the rest. The place
+set on the site doesn't change. "To" is still not read as a place word ("talk to Ruth" isn't Ruth, NV): a town outside
+our areas still needs its state or "in/near/at/around".
+
 ## Consequences
 
 - A search never leaves a person at a dead end because their place has nothing: what's nearest beyond it shows.
