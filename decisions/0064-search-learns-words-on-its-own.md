@@ -96,6 +96,14 @@ it when they make up most of the search. The tool leads the suggestions while ty
 When other words name something else ("planning and zoning"), the tool comes after the places. A tool that leads
 drops "open now" completions. New tools are added to the list.
 
+### Progress, 2026-10-07: never change a word; offer it
+
+The situation matcher used to correct a word one or two letters off a phrase word on its own. "Seattle" became
+"shuttle" and offered Need a ride. Jason: it shouldn't correct a word; it should offer "Did you mean". The matcher now
+reads the words as typed (`Situations::read` and `suggest`; the `correct()` step is gone), and a slip is offered by
+"Did you mean", with the situation it would answer: "bathroon" → **bathroom** (A restroom), "lost my wallett" →
+**lost my wallet**. A real word is never offered a fix, as before.
+
 ## Consequences
 
 - Searches about everyday things work the first time, in words nobody listed: belongings, pets, tools, documents.
