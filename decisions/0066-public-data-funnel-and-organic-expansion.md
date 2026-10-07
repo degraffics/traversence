@@ -72,3 +72,10 @@ how tribal land is presented, and how new areas open.
   town, county or state, one to three words). Checked on the full table with towns never seen before: Bozeman, Moab,
   Twin Falls, Lake Havasu City, Maricopa County, "Which Portland/Santa Fe/Grand Junction?". Town names now match
   whatever their punctuation or spacing ("coeur d alene" is Coeur d'Alene, "winston salem" is Winston-Salem).
+- 2026-10-07, later: typing suggestions offer as many as match, up to 15 (Jason: "as many suggestion solutions that
+  match their search as they type until they stop, enter, or pick one"). Towns come from the whole national ZIP table by
+  prefix (ours first, then by ZIP count, three at most outside our areas, "no listings yet"), counties too ("navajo co";
+  the name itself before a longer one, "king" is King County before Kings County), and up to four kinds and four
+  tags. One word ("for") orders places and kinds first, then listings and outdoor places that start with it, then
+  stories, groups and experiences (discover and community). Words ending in a town still being typed ("moving to sea",
+  "pizza in flag") are offered with each town that fits, as a search ("moving to seattle, wa").
