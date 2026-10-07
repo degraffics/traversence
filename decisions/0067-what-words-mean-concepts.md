@@ -64,3 +64,16 @@ English, and its families served the situation reasoner, not categories.
   0.04 and 0.08 are kept as **maybes**: after Enter, under "Not sure what "…" means here. Maybe" (or "Maybe" after the
   sure kinds); while typing, their rows start "Maybe?". With nothing at all, search says "Not sure what "…" means. Try
   changing your search: fewer words, another word for it, or remove a chip above." (`Concepts::SURE`, `Concepts::MIN`).
+- 2026-10-07, later: **word embeddings** join WordNet (Jason: "go for it"). spaCy's `en_core_web_lg` vectors (Explosion
+  Vectors, CC0: 300 dimensions, trained on web text, news, Wikipedia and subtitles; about 500,000 words, each its own
+  vector) place words by meaning: "burrito" near "tacos", "sedan" near "suv", "treadmill" near "gym". The build reads
+  them (`CONCEPTS_VECTORS`); the site never does, and nothing about a search leaves the server. (The medium model,
+  20,000 vectors shared among its words, was tried first: rare words borrowed a common word's vector, so "parka" read as
+  "parks" and "burrito" as "pizza".)
+  - Each category gets the vectors of its seed words and its name. A word scores by its nearest seed (three quarters)
+    and the category's average (a quarter), blended 60/40 with WordNet's link (scaled so 0.25 is full).
+  - Measured on 110 words: of the 50 no seed has, right first for 43 (WordNet alone: 27), right in the top three for 4
+    more, wrong for 3 (close calls: whiskey → Beer & Ale before Liquor), and never empty (WordNet alone: 12). At 0.60 and
+    above (**sure**) none of the 110 was wrong; 0.30 to 0.60 is a **maybe**. The data file carries these two thresholds
+    (`sure`, `min`), so the site reads them from it.
+  - Words WordNet doesn't have but people type (cardio, vape, airbnb, ebike) are in the vectors, so they're covered too.

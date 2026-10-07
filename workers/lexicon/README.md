@@ -25,6 +25,12 @@ FROM categories c LEFT JOIN categories p ON p.id = c.parent_id
 WHERE c.is_active = 1;
 ```
 
+With word embeddings (recommended, decisions/0067): `pip install "spacy>=3.7,<3.8"`, download the
+`en_core_web_lg-3.7.1` wheel (about 590 MB, build machine only) from github.com/explosion/spacy-models/releases, unzip it, and point `CONCEPTS_VECTORS` at
+the `en_core_web_lg/en_core_web_lg-3.7.1` folder inside:
+
+    CONCEPTS_FLOOR=0.04 CONCEPTS_VECTORS=/path/to/en_core_web_lg-3.7.1 python3 build_concepts.py wordnet31 categories.json concepts.php
+
 Rebuild when categories change. To try words without writing the file:
 
     CONCEPTS_TRY=x-ray,gym,mushroom python3 build_concepts.py /path/to/wordnet31 categories.json /dev/null
