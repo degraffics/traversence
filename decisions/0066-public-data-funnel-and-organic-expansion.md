@@ -68,3 +68,7 @@ how tribal land is presented, and how new areas open.
 - 2026-10-07, later: a town's name on its own that nothing on Traversence matches ("Seattle") gets that town's place
   card, while typing too. A name used in several states asks which one. A name that does match something ("Lyman": Lyman
   Lake) is left to its results.
+- 2026-10-07, later: nothing in place reading is per town. Every rule reads the national `zip_coordinates` table (any
+  town, county or state, one to three words). Checked on the full table with towns never seen before: Bozeman, Moab,
+  Twin Falls, Lake Havasu City, Maricopa County, "Which Portland/Santa Fe/Grand Junction?". Town names now match
+  whatever their punctuation or spacing ("coeur d alene" is Coeur d'Alene, "winston salem" is Winston-Salem).
