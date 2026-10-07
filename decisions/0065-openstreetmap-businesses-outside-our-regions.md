@@ -55,3 +55,5 @@ Two of our rules shape this:
   means we degrade to Google links, never to errors.
 - Taps on OSM and Google rows by town show where people want listings next, which is the signal for expanding regions.
 - Run `api/migrations/2026-11-03_open_places.sql` once.
+- 2026-10-07: rows with the same name read apart. Distances under 10 miles show one decimal ("0.4 mi"), and the street
+  shows when OSM has it. The same business mapped twice (a point and its building, under 0.1 mi apart) shows once.
