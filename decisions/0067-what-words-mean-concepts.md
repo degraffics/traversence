@@ -145,7 +145,8 @@ English, and its families served the situation reasoner, not categories.
   "concerts near me" offered "concerts near medical / medicine / meat", and its "Go straight to" searched "concerts
   near"). Worse, "me" was being read as Maine (the state code), so it searched Maine. Now:
   1. **Found before anything reads the words** (`UniversalSearch::nearMe()`, one list shared with the panel): near me,
-     nearby, close to me, close by, around me, by me, closest, nearest, near here, around here, anywhere in the words.
+     nearby, "nearme", close to me, close by, around me, by me, closest, nearest, near here, around here, anywhere in the
+     words. "Near me" on its own, with a place set, browses everything there.
   2. **Taken out of the words**: "concerts near me" searches concerts (typing, Enter, names, meaning and what Enter
      would find). The words before it count as finished.
   3. **Never finished as a word**: the start of one at the end ("near", "near m", "close to m", "nearb") isn't read as
