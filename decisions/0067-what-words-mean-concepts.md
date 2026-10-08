@@ -141,3 +141,19 @@ English, and its families served the situation reasoner, not categories.
      `search_opens` against the words typed (`?opened_kind=`). The kinds people opened after the same words, typed or
      finished, lead what the words mean on the next search (3 opens in 180 days, any area, so one person never steers
      it), shown as "most picked for “new mu”". The nightly learning (decisions/0061) still reads the same counts.
+- 2026-10-08: **"near me" is where, not words** (Jason: "treat 'near me' as a reserved phrase"; the screenshot:
+  "concerts near me" offered "concerts near medical / medicine / meat", and its "Go straight to" searched "concerts
+  near"). Worse, "me" was being read as Maine (the state code), so it searched Maine. Now:
+  1. **Found before anything reads the words** (`UniversalSearch::nearMe()`, one list shared with the panel): near me,
+     nearby, close to me, close by, around me, by me, closest, nearest, near here, around here, anywhere in the words.
+  2. **Taken out of the words**: "concerts near me" searches concerts (typing, Enter, names, meaning and what Enter
+     would find). The words before it count as finished.
+  3. **Never finished as a word**: the start of one at the end ("near", "near m", "close to m", "nearb") isn't read as
+     a word to complete; the panel offers it whole ("concerts near me") as the completion. "Near" alone may still be
+     "near show low", so it's only offered.
+  4. **Where**: a set place is used. Distance set to no limit (∞) moves to 25 mi when the words say near. With no place
+     set, the panel asks first, **Use my location** or **choose a place** ("Until then, nothing is limited by
+     distance"), never quietly everywhere. Use my location asks the browser once, when tapped, and applies the place as
+     Auto-detect does (the town area), then sets 25 mi. Nothing about the location is kept beyond the place set.
+  5. **Shown**: the Location line reads "Near you (St. Johns) · 25 mi" when the place came from the device and the words
+     say near.
