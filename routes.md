@@ -1,52 +1,199 @@
 # Page Structure & Routing Architecture
 
-*Version: 2026-09-17-1300*
-*Governance tier: Routing — the single source of truth for URLs and page build status. Carried over from `Page-Structure-and-Routing.md`; the hub/geo-hub/cluster block below was restructured per `decisions/0013-consolidated-routing-directory-discovery-entry-points.md` to close a real gap with `architecture.md` §4/§19 — everything else in this file needs no restructuring, only continued upkeep.*
+*Version: 2026-10-08*
+*Governance tier: Routing — the single source of truth for URLs and page build status.*
 
-*Reconciled 2026-09-16 against the live platform spec (`_SUPPORT/spec/06-page-inventory-and-ux.md`, Section 28) and the real deployed file paths; cross-checked 2026-09-17 against `apdex.md`'s direct OneDrive file scan, which caught two real discrepancies (see `daily-logs/` for the finding). The Status column is the source of truth for what's actually live versus scoped — update it directly as pages ship, rather than letting this doc drift out of sync with reality again.*
+*Regenerated 2026-10-08 from the site files themselves (the TRAVERSE-3WAY-SYNC mirror as of its last run, 2026-10-07, plus
+the files uploaded since), replacing the 2026-09-17 version, which had drifted both ways: it listed 14 routes as built
+that were never on the site, and missed most of what was built from `decisions/0043` on. Every route below is a real
+file on the site unless it's in **Designed, not built**. The ADR column is the decision records the file names in its
+own header. Status words: **Live**; **Live, placeholder** (the page says it's a stand-in); **Moved** (forwards to the
+new home); **Remove** (left over, should come off the server).*
 
-| Route | Purpose | Status |
+## 1. Public pages
+
+| Route | Purpose | ADR | Status |
+|---|---|---|---|
+| `/` (`index.php`) | Home: the two ways in, Let's Explore and Get Local | 0058 | Live |
+| `/discovery/` | Let's Explore: overview, map, regions, outdoors, things to do, journeys, the Trip Planner (`?view=plan`) | 0053, 0055, 0056, 0058, 0059 | Live |
+| `/directory/` | Get Local: businesses near you, list and map | 0044, 0053, 0058 | Live |
+| `/directory/classic.php` | The earlier directory page | 0053 | Live, superseded by `/directory/` |
+| `/hub/?hub=` `?geo=` `?cluster=` | One landing page for a hub, geo-hub or cluster | 0043, 0047, 0048, 0058 | Live, placeholder |
+| `/listing/view.php?id=` | A business's page (hero, engage bar, comments, the Link button) | 0044, 0047, 0052, 0053, 0058, 0062 | Live |
+| `/listing/location.php?id=` | Where a listing is: move the pin, "I'm here" | 0058 | Live |
+| `/place/landmark.php?id=` | A natural landmark (USGS names) | 0058 | Live |
+| `/place/recreation.php?id=` | A public recreation place (Recreation.gov) | 0048, 0058 | Live |
+| `/experiences/view.php?id=` | One experience | 0058, 0059 | Live |
+| `/journeys/view.php?id=` | One journey | 0056, 0058 | Live |
+| `/journeys/`, `/journeys/compose.php` | Old addresses for managing journeys | 0058 | Moved to `/user/journeys/` |
+| `/community/` | Public community groups: find, join or start one | 0047 | Live |
+| `/community/group.php?id=` | One community group | 0047 | Live |
+| `/guide/how.php?id=` | A how-to guide the crawler gathered from official pages | 0058, 0063 | Live |
+| `/guide/resources.php?id=` / `?area=` | A resource guide: who to call in an area for what isn't a business | 0058, 0061 | Live |
+| `/market/` | Market, the fourth construct (post and connect) | 0007, 0030 | Live, placeholder |
+| `/faq.php` | The FAQ (`includes/faq.md`, grown with every build) | 0057 | Live |
+| `/our-approach.php` | Our approach to linking, in plain words | 0050, 0051, 0052 | Live |
+| `/join.php?i=` | An invite link: remembers it and sends the person to sign up | 0047 | Live |
+| `/claim.php?listing=` | Claim a listing, or add a business | 0015 (designed), 0062 | Live, placeholder: the page still says it's a disabled mock; the claim API behind it is live (`listing/api/claim.php`) |
+| `/gbp-landing-traversence.html` | Google Business Profile audit landing page | — | Live |
+| `/terms.php`, `/privacy.php` | Terms and privacy | — | Live, placeholder: not real legal text, to replace before launch |
+
+## 2. Accounts and sign-in
+
+| Route | Purpose | ADR | Status |
+|---|---|---|---|
+| `/login.php`, `/register.php` | Sign in; create an account (18+, consent) | 0014, 0047, 0058, 0062 | Live |
+| `/forgot-password.php`, `/reset-password.php` | Password reset | — | Live |
+| `/verify-email.php` | Email confirmation landing page | 0014 | Live |
+| `/email-revert.php` | Undo an email change (type the original address) | — | Live |
+
+## 3. Member dashboard (signed in)
+
+| Route | Purpose | ADR | Status |
+|---|---|---|---|
+| `/user/dashboard.php` | The member Dashboard: Pulse, Address Book, links, saved searches, roles | 0047, 0049, 0052, 0054, 0055, 0056 | Live |
+| `/user/profile.php?id=` | A person's public profile (only what anyone may see) | 0047, 0058 | Live |
+| `/user/journeys/`, `/user/journeys/compose.php` | Your journeys; write or edit one (contributors) | 0056, 0058 | Live |
+| `/user/experiences/` | Your experiences | 0059 | Live |
+| `/dashboard.php` | Old address of the business portal | — | Moved to `/listing/businessportal.php` |
+
+## 4. Business owners
+
+| Route | Purpose | ADR | Status |
+|---|---|---|---|
+| `/listing/businessportal.php` | Manage your listings: verification tiers, vouches, referrals, insights | 0015 | Live |
+| `/listing/confirm-referral.php` | Confirm a Tier 2 referral (token link) | — | Live |
+
+## 5. Admin
+
+All admin pages sit in the admin shell (left rail by job, no breadcrumbs, decisions/0055).
+
+| Route | Purpose | ADR | Status |
+|---|---|---|---|
+| `/admin/adminportal.php` | Admin home: tiles for each admin area | — | Live, placeholder: its header says the page's own check "is not access control" (it holds no private data) |
+| `/admin/helper.php` | The helper: what needs a person, one item at a time | 0062 | Live |
+| `/admin/insights.php` | How the platform is used: sections, routes between them, searches (counts only) | 0058 | Live |
+| `/admin/crawler.php` | Crawler overview: worker, queue, what went live | 0046, 0048, 0061 | Live |
+| `/admin/crawler-review.php` | Crawler review: listings to approve, possible duplicates | 0046, 0051, 0053 | Live |
+| `/admin/auto-imports.php` | Listings the crawler published on its own (confidence-gated) | 0044, 0046 | Live |
+| `/admin/listing-intake.php` | Point the crawler at a website; review what it proposes | 0022, 0029, 0046 | Live |
+| `/admin/listing-edit.php?id=` | Edit a live listing | 0053 | Live |
+| `/admin/sources.php` | Websites that confirm places for the directory | 0045, 0046 | Live |
+| `/admin/identities.php` | Each listing's facts by the 5 W's, with their sources | 0062 | Live |
+| `/admin/geocode.php` | Turn street addresses into map points (Census geocoder) | 0053 | Live |
+| `/admin/cluster-tools.php` | ZIP population import, micro-cluster merge, cluster management | 0042, 0046 | Live |
+| `/admin/search-index.php` | Build the 5 W search index | 0053 | Live |
+| `/admin/search-misses.php` | Missed searches, drafts, words for each kind | 0061, 0063, 0064, 0067 | Live |
+| `/admin/search-learning.php` | What search learned from what people open | 0061 | Live |
+| `/admin/search-oversight.php` | What changed in how search understands people | 0061 | Live |
+| `/admin/search-demand.php` | Where people look and what for (state → county → town) | 0066 | Live |
+| `/admin/resource-guides.php` | Phone lines and services that answer a situation | 0061 | Live |
+| `/admin/how-guides.php` | How-to guides: asked for, found, published | 0063 | Live |
+| `/admin/stories.php` | Guide stories for place pages | 0043 | Live |
+| `/admin/journeys.php` | Journey management (editor queue) | 0058 | Live |
+| `/admin/experiences.php` | Experiences review | 0059 | Live |
+| `/admin/reports.php` | Reports of community posts and groups | 0047 | Live |
+| `/admin/landmarks.php` | Natural landmarks review (held, sensitive) | 0058, 0066 | Live |
+| `/admin/nations.php` | Tribal nations and their visitor rules | 0058, 0066 | Live |
+| `/admin/recreation.php` | Recreation.gov places: hide any that shouldn't show | 0048 | Live |
+
+## 6. API endpoints
+
+### Public and signed-in (site pages call these)
+
+| Route | Purpose | ADR | Status |
+|---|---|---|---|
+| `/api/search.php` | Universal search, typing and Enter | 0053, 0060, 0061, 0063, 0066, 0067 | Live |
+| `/api/search_listings.php` | Directory search | 0044, 0053, 0058, 0068 | Live |
+| `/api/suggest.php` | Older type-ahead for the directory box | — | Live |
+| `/api/suggestion.php` | A visitor tells us something (missing place, fix, closed) | 0053 | Live |
+| `/api/categories.php` | Category tree (plain names) | 0068 | Live |
+| `/api/place.php` | "Where is this?" resolver; Auto-detect lookup | 0058 | Live |
+| `/api/places.php` | Your saved places | — | Live |
+| `/api/set-home-location.php` | Set your home place | — | Live |
+| `/api/nearby_hubs.php` | Hubs near a point | — | Live |
+| `/api/open-places.php` | OpenStreetMap businesses where we have no listings yet | 0065 | Live |
+| `/api/tags.php` | The @ picker | 0051 | Live |
+| `/api/engage.php` | Likes, comments, reports on content pages | 0058 | Live |
+| `/api/hero-media.php` | A listing's or profile's hero photos and videos | 0058 | Live |
+| `/api/journeys.php` | Journeys: read, write | 0056 | Live |
+| `/api/guest-inquiry.php` | A guest asks a listing a question | 0052 | Live |
+| `/api/pin.php` | Where a listing is: read, move the pin | 0058 | Live |
+| `/api/locate.php` | Place an approximate listing at its street address | 0058 | Live |
+| `/api/count.php`, `/api/out.php` | Counts only: page views and flow; calls, directions, website, contact | 0066 | Live |
+| `/api/directory.php` | Older listings endpoint (list, my listings, create) | — | Live |
+| `/api/auth/*` | `session`, `login`, `logout`, `register`, `verify-email`, `change-password`, `password/request-reset`, `password/reset`, `email/request-change`, `email/confirm-change`, `email/revert` | 0047, 0058, 0062 (register) | Live |
+| `/user/api/*` | `profile`, `people` (Address Book), `links`, `consent`, `context`, `pulse`, `marketing`, `business-messages`, `community`, `referrals`, `saved-searches` | 0047, 0049, 0052, 0053, 0055 | Live |
+| `/listing/api/*` | `claim`, `evidence`, `my-listings`, `update-metadata`, `verify/tier1`, `vouch`, `referral/request`, `referral/confirm` | 0062 (claim, evidence) | Live |
+| `/api/admin/intake/*` | `candidates`, `review`, `existing`, `crawl`, `clusters` (admin only) | — | Live |
+
+### Off-site worker (Railway crawler, bearer token)
+
+| Route | Purpose | ADR | Status |
+|---|---|---|---|
+| `/api/crawl/jobs.php`, `results.php`, `verify.php` | Crawl jobs, findings, second look | 0044 | Live |
+| `/api/crawl/refresh.php`, `sources.php` | Refresh live listings; read regular sources | 0045 | Live |
+| `/api/crawl/npi.php`, `irs.php`, `rec.php` | Monthly NPI, IRS exempt-organization and Recreation.gov loads | 0048 | Live |
+| `/api/crawl/landmarks.php` | Monthly natural landmarks load | 0058 | Live |
+| `/api/crawl/geocode.php` | Map points on a schedule | 0053 | Live |
+| `/api/crawl/learn.php` | Search learning pass | 0061 | Live |
+| `/api/crawl/identity.php`, `usage.php` | Build a listing's identity; web search usage | 0062 | Live |
+| `/api/crawl/guides.php` | How-to guides | 0063 | Live |
+| `/api/crawl/targets.php` | Targets from search demand and new kinds | 0066, 0067 | Live |
+| `/api/ingest.php` | Older ingestion endpoint | — | Live |
+| *(no route)* `workers/crawler/` | The worker itself, on Railway | 0044 onward | Live |
+
+### Command line only
+
+| File | Purpose | ADR | Status |
+|---|---|---|---|
+| `api/scripts/geocode_listings.php` | Map points, command-line version | 0053 | Live |
+| `api/scripts/import_zip_population.php` | ZIP population import | 0042 | Live |
+| `api/scripts/recluster_auto_seeded.php` | Merge single-ZIP auto-seeded clusters | 0042 | Live |
+| `scripts/reconcile_clusters.php` | Older cluster reconciliation (changes and deletes `micro_clusters` rows) | — | Command line only since 2026-10-08; it used to run from a browser with no sign-in check |
+
+## 7. Left over on the server: remove
+
+| Route | What it is | Why remove |
 |---|---|---|
-| `/` | Dual-Gateway landing — splits into `/directory` or `/discovery` | Scoped, not built — single "Get Local" hero live today at the root; `/directory` and `/discovery` already exist as their own live routes underneath it (see below), the split landing page itself is the missing piece |
-| `/directory` | Bottom-up entry point — resident directory, radius search. **Corrected 2026-09-23 against the real live code:** this is already the real, live route name — there never was a live `/get-local` route to rename or redirect from; an earlier version of this row assumed otherwise from document-only reconciliation. | Live — substantially built (category filter fed from the real `categories` table, search/sort/map JS) |
-| `/discovery` | Top-down entry point — narrative exploration. **Corrected 2026-09-23:** likewise already the real, live route name, not a pending replacement for `/explore` (which never existed as a route). | Live — placeholder content, but region cards are real, live from the `hubs` table |
-| `/{hub-slug}` | Continental Hub landing — shared by both funnels, per `decisions/0013` | Scoped, not built; real data exists |
-| `/{hub-slug}/{geohub-slug}` | Geo-Hub landing — shared by both funnels | Scoped, not built; real data exists |
-| `/{hub-slug}/{geohub-slug}/{cluster-slug}` | Micro-Cluster landing — shared destination; content emphasis adapts by entry funnel per `architecture.md` §22 | Scoped, not built; real data exists (40 rows) |
-| `/map` | Interactive corridor map | Scoped, not built |
-| `/listing/{slug}` | Public business detail page | Not built |
-| `/guide/{slug}` | Editorial article template w/ `[directory_feed]` shortcode | Scoped, not built |
-| `/claim` | Claim entry point | **Fleshed out 2026-09-23** (`decisions/0015`) — wired to the real, already-live `listing/api/claim.php` OTP start/confirm contract; the page itself had been an explicitly-labeled disabled mock ("PLACEHOLDER... nothing is submitted") until now |
-| `/listing/confirm-referral.php` | Tier 2 referral confirmation landing page | Live front end; **was calling a `POST /listing/api/referral/confirm.php` contract that didn't exist** — built 2026-09-23 alongside its counterpart `listing/api/referral/create.php` (`decisions/0015`) |
-| `/dispute-claim.php?listing={id}` | File a challenge against an existing claim | **New, 2026-09-23** (`decisions/0015`) — the `disputes` table existed in schema with zero code touching it; this is its first real entry point. **2026-09-23** (`decisions/0017`): filing gains an optional document upload to support the claim |
-| `/gbp-landing` | GBP audit/optimization landing page | Live (`gbp-landing-traversence.html`) |
-| `/login`, `/register`, `/forgot-password`, `/reset-password` | Auth pages | Live. **`/register` fleshed out 2026-09-23** (`decisions/0014`): adds required Terms/consent, corrects the password-policy display to the real server rule (8+ chars, upper/lower/number/special — the prior "10+ characters" copy was stale), and registration now requires confirming email (below) before the account can sign in at all — a real change to `/login`'s own behavior, not just `/register`'s. **2026-09-24** (`decisions/0014`, revised): adds one additional, optional, unchecked-by-default toggle — the `decisions/0010` AI-personalization opt-in — visually separate from the required Terms checkbox; a matching toggle also lives in Account Settings. **2026-09-24** (`decisions/0027`): adds Country (all registrants) and, for United States, Zip — City/State auto-resolved from `zip_coordinates`, never free-typed — setting `users.home_cluster_id`. A silent background IP-country check runs alongside; only when both signals agree the registrant is currently in the EU/UK does registration route to a support-contact message instead of completing — see `decisions/0027` for the full dual-signal logic. |
-| `/privacy/dsar` | Public DSAR request form (export or deletion) | **New, 2026-09-24** (`decisions/0026`) — captures email, request type, and confirmation; a `privacy@` mail route feeds the same intake. Verified via a new `dsar_export`/`dsar_deletion` action type on the existing `email_confirmations` mechanism (same lookup-by-email, don't-reveal-existence pattern as `Auth::requestPasswordReset()`) |
-| `/api/privacy/dsar-verify.php` | Confirms a DSAR token and executes the request | **New, 2026-09-24** (`decisions/0026`) — export: queries by `user_id`, generates a time-limited download link, emails it. Deletion: executes synchronously in the same transaction that confirms the token (not cron-first), reusing `DELETED_USER_UUID`; a record under legal hold (e.g. `dmca_notice`-linked, per `decisions/0019`) is suspended (`users.is_suspended`) instead of erased |
-| `/verify-email` | Email verification landing page | Live (`verify-email.php`), now actually reachable end-to-end — `decisions/0014` wires the confirmation email (via `Mailer.php`) that links here into the registration flow, which previously issued a token but never sent it |
-| `/email-revert` | Email-revert flow — requires typing original email (hardened) | Live (`email-revert.php`) |
-| `/user/dashboard.php` | Personal account dashboard — includes Super-Admin bootstrap/panel-link block (rebuilt 2026-09-17 after a confirmed regression) | Live |
-| `listing/businessportal.php` | Merchant management dashboard | Live. **2026-09-23** (`decisions/0015`): gains real actions for Tier 1 self-confirm, Tier 3 vouch-selection, and a Tier 4 "Request manual review" intake — previously this page only *displayed* voucher/referral progress read-only, with no way to act on any of it. **2026-09-23** (`decisions/0017`): the Tier 4 intake action gains an optional document upload. **2026-09-24** (`decisions/0015`, reversed): while the listing's `status = 'disputed'`, general content-editing actions are frozen — but Tier 1/3 re-verification and document upload stay available throughout, since those are exactly how a claimant defends against the dispute |
-| `listing/api/verify/tier1.php` | Tier 1 self-confirm OTP verification | **Corrected 2026-09-23:** this row previously said "Live" — it wasn't actually present in the live code export despite `Verification::applyTier1SelfConfirm()` (the logic it should call) being real and complete. Built now as part of `decisions/0015`. |
-| `admin/adminportal.php` | Admin dashboard shell — naming confirmed 2026-09-17, matching the `businessportal.php`/`dashboard.php` convention (supersedes the earlier bare `/admin/` placeholder) | Live, real placeholder — six original tiles, one (Claims) now real as of `decisions/0016`, four still stand-ins; needs a seventh tile added for `admin/dmca.php` (`decisions/0019`, Proposed, super_admin-visible only), which now also needs to surface `decisions/0019` §5's registration renewal-status badge (`renewal_due_soon`/`lapsed`), not just a notice count |
-| `admin/claims.php` | Ownership verification queue — the "Claims" tile `adminportal.php` already names | **New, 2026-09-23** (`decisions/0016`) — hub-scoped (regional admins see only their hub, via `Auth::canAdministerHub()`); reviews both Tier 2's auto-flagged retroactive audits and Tier 4's claimant-facing manual-review requests from `decisions/0015`. **2026-09-23** (`decisions/0017`): rows now show a document indicator when a supporting file was uploaded |
-| `/api/documents/upload.php` | Attach a supporting document (utility bill, business license, etc.) to a Tier 4 intake request or a dispute filing | **New, 2026-09-23** (`decisions/0017`) — the platform's first real file-upload endpoint; validates the caller owns the related `verification_attempts`/`disputes` row, stores the file outside the webroot in a new `verification_documents` table, emails the entity's hub admins via the existing `Mailer.php`. **2026-09-24:** compresses images on the way in (GD) and rejects unreadable files outright with an immediate reason. Content-relevance checking (OCR + Five Ws classification) moved off this endpoint entirely — Bluehost hard-blocks the binary execution OCR needs — and now runs async on a new Railway worker, so the upload response confirms receipt only; `review_status` (`pending`/`auto_confirmed`/`needs_review`) fills in once the worker finishes. Documents purge 72 hours after the related case resolves. |
-| *(Railway worker, no public route)* | Async OCR + Five-Ws classification for queued documents; also handles real PDF compression, which Bluehost can't | **New, 2026-09-24** (`decisions/0017`) — fetches file bytes from Bluehost via a shared-secret-authenticated internal endpoint (not a public route), writes back only the five-key classification, never raw OCR text. First real workload on `decisions/0004`'s previously-deferred Railway async layer. |
-| `listing/api/managers/invite.php` | Owner invites a colleague to co-manage a listing | **New, 2026-09-24** (`decisions/0018`) — owner-only (`Auth::requireListingAccess($entityId, 'owner')`), confirmation-gated, invitee must be a registered, email-confirmed user (never a guest) |
-| `listing/api/managers/remove.php` | Owner (or a manager, for themselves) removes a `manager` grant | **New, 2026-09-24** (`decisions/0018`) |
-| `admin/api/documents/view.php` | Stream back an uploaded verification/dispute document | **New, 2026-09-23** (`decisions/0017`) — the only way a document is ever read; gated by the same `Auth::requireHubAdmin()`/`requireSuperAdmin()` check `admin/claims.php` itself uses, never a direct public URL |
-| `admin/login.php` | Admin auth entry | **Resolved 2026-09-24** (`decisions/0029`) — shared session auth, not a separate login system: not-authenticated → standard login form posting to the same `/api/auth/login.php`; authenticated non-admin → "not an admin" message, no elevation path; authenticated admin → no-op redirect into `admin/adminportal.php` |
-| `admin/hubs.php` | Super-Admin: hub/geo-hub management | Scoped, not built — **sequenced 2.6.3** (`decisions/0022`); until built, its `adminportal.php` tile shows a shared "Coming Soon" placeholder rather than a dead link, and the route sits behind `Auth::requireSuperAdmin()` from its first commit |
-| `admin/clusters.php` | Regional-Admin: micro-cluster management | Scoped, not built — **sequenced 2.6.4** (`decisions/0022`), can safely wait per direction; same stub-placeholder and pre-built-auth-guard treatment as `admin/hubs.php` |
-| `admin/review-queue.php` | `automated_seed` cluster review queue | Scoped, not built — **sequenced 2.6.2** (`decisions/0022`) — the other half of `decisions/0021`'s hard coupling condition on Tier 2.3's AI article pipeline; same stub-placeholder/pre-built-auth-guard treatment |
-| `/dmca-notice.php` | File a DMCA copyright/IP takedown notice | **New, 2026-09-24** (`decisions/0019`, Proposed) — form-validated intake requiring all six statutory elements; a deliberately separate mechanism from `/dispute-claim.php`, targeting specific `entity_metadata` content rather than listing ownership. **2026-09-24** (`decisions/0019` §5): its required public Designated Agent contact display now reads live from the new `dmca_agent_registration` table rather than hardcoded page copy |
-| `/api/dmca/counter-notice.php` | Accused party files a counter-notice | **New, 2026-09-24** (`decisions/0019`, Proposed) — starts the statute's 10–14 business day restoration window |
-| `admin/dmca.php` | DMCA notice review and execution queue | **New, 2026-09-24** (`decisions/0019`, Proposed) — **super_admin only**, not hub-scoped like `admin/claims.php`; a deliberately different, faster, less-discretionary process than ownership-dispute review |
-| `admin/dmca-settings.php` | Manage the platform's DMCA agent registration (Copyright Office filing) — view/edit the public agent contact and portal account contacts, see renewal status | **New, 2026-09-24** (`decisions/0019` §5, Proposed) — **super_admin only**; a distinct page from `admin/dmca.php` on purpose (compliance/configuration record, not a notice queue). Backed by a new `dmca_agent_registration` table. `/dmca-notice.php`'s public agent-contact display reads live from this table |
-| `admin/api/dmca/agent-info.php` | Save edits to the DMCA agent registration record | **New, 2026-09-24** (`decisions/0019` §5, Proposed) — `Auth::requireSuperAdmin()`, same check `admin/dmca.php` uses |
-| `admin/listings.php` | Pending-listing review | Scoped, not built — **sequenced 2.6.1, first among the remaining admin sub-tools** (`decisions/0022`) — this is `decisions/0021` §3's standing prerequisite before the crawler pipeline can turn on for real new ingestion; same stub-placeholder/pre-built-auth-guard treatment as the rest of Tier 2.6. **2026-09-24** (`decisions/0024`): entities land here with their category field already pre-filled by the automated keyword classifier when confidence is high, or blank/flagged when it isn't — this queue is where a low-confidence category decision actually gets made, not a separate tool |
-| `admin/users.php` | Super-Admin: user management | Scoped, not built — **sequenced 2.6.5, last** (`decisions/0022`) — real moderation levers (`is_suspended`, `dmca_strike_count`, `listing_access`/`admin_access`) already work through their own endpoints; same stub-placeholder/pre-built-auth-guard treatment |
+| `/tv-version.php` | A diagnostic page | Its own header says "TEMPORARY DIAGNOSTIC: delete this file when you are done" |
+| `/website/` (27 files, including `website/admin/adminportal.php` and old `website/api/*`) | A copy of the site uploaded inside itself | Old code reachable on the live site |
+| `/index-gamer.php` | An earlier home page | Superseded by `/` |
+| `/eng/directoryengine.php` | An early directory engine | Not used by any page |
+| `/user/api/bootstrap-super-admin.php` | One-time Super-Admin setup | Excluded from the sync on purpose; delete from the server once used |
 
-**Reserved-slug collision priority (confirmed real, 2026-09-23):** a real top-level folder always wins over a hub slug — `directory`, `discovery`, `listing`, `admin`, `api`, and similar reserved paths are checked before any request is treated as `/[hub-slug]`. No future hub can be named `directory` or similar.
+Delete from both the server and OneDrive `website/` before a sync run: the sync copies a file that exists on only one
+side back to the other, and keeps no record of deletions.
 
-**"Get Local" / "Let's Explore" remain the retained UI/marketing names for the two gateways in real, live copy** (e.g. the account dashboard's Saved Places card), even though the underlying technical route names are `/directory` and `/discovery`. Treat this as intentional, not drift — the two naming systems (marketing copy vs. route/folder names) are allowed to diverge unless a future decision explicitly unifies them.
+## 8. Designed, not built
+
+Kept from the earlier version of this file so the designs aren't lost. None of these files exist on the site.
+
+| Route | Purpose | Designed in | Since |
+|---|---|---|---|
+| `/` split landing | Dual-gateway landing | — | `/` shows both ways in today, without a separate split page |
+| `/{hub-slug}`, `/{hub-slug}/{geohub-slug}`, `/{hub-slug}/{geohub-slug}/{cluster-slug}` | Clean hub, geo-hub and cluster addresses | 0013 | `/hub/?hub=` etc. is the placeholder today |
+| `/map` | Interactive corridor map | — | The map is now a full-screen view inside pages (decisions/0053 §4b), not a route |
+| `/listing/{slug}` | Clean listing addresses | — | `/listing/view.php?id=` today |
+| `/guide/{slug}` | Editorial articles with a `[directory_feed]` shortcode | — | `/guide/how.php` and `/guide/resources.php` are different (crawler-built guides) |
+| `/dispute-claim.php?listing=` | Challenge an existing claim (with document upload) | 0015, 0017 | |
+| `/privacy/dsar`, `/api/privacy/dsar-verify.php` | Data access and deletion requests | 0026 | |
+| `/admin/claims.php` | Ownership verification queue | 0016 | |
+| `/api/documents/upload.php`, `/admin/api/documents/view.php` | Supporting documents for claims and disputes | 0017 | |
+| *(Railway worker)* document OCR and Five-Ws classification | Reads uploaded documents | 0017 | |
+| `/listing/api/managers/invite.php`, `remove.php` | Co-managers for a listing | 0018 | |
+| `/listing/api/referral/create.php` | Create a referral | — | `referral/request.php` exists instead |
+| `/admin/login.php` | Admin sign-in | 0029 | Admin pages use the normal sign-in |
+| `/dmca-notice.php`, `/api/dmca/counter-notice.php`, `/admin/dmca.php`, `/admin/dmca-settings.php`, `/admin/api/dmca/agent-info.php` | DMCA notices, counter-notices, review, agent registration | 0019 (Proposed) | |
+| `/admin/listings.php` | Pending-listing review | 0022 | Covered today by `/admin/crawler-review.php` and `/admin/listing-intake.php` |
+| `/admin/review-queue.php` | Auto-seeded cluster review | 0022 | Partly covered by `/admin/cluster-tools.php` |
+| `/admin/hubs.php`, `/admin/clusters.php` | Hub and cluster management | 0022 | Partly covered by `/admin/cluster-tools.php` |
+| `/admin/users.php` | User management | 0022 | |
+
+## Notes
+
+**Reserved paths win over hub slugs** (confirmed 2026-09-23): a real top-level folder (`directory`, `discovery`,
+`listing`, `admin`, `api` and the rest) is matched before any request is treated as a hub slug. Not re-checked
+2026-10-08: `.htaccess` isn't in the sync mirror.
+
+**"Get Local" and "Let's Explore"** are the names visitors see for `/directory/` and `/discovery/`.

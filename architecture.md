@@ -1,12 +1,16 @@
 # Traversence: System Architecture & Operational Specification (Living Document)
 
-*Version: 2026-09-22*
+*Version: 2026-10-08 (§30 added: the state as built through decisions/0068; the sections it updates are listed there)*
 *Governance tier: Architecture — describes the system as it stands today. This file is edited in place as reality changes. The *why* behind a decision lives in `decisions/`, not here — this document only restates the current state and links back to the relevant ADR.*
 *Primary source: `SAOP.docx` (2026-09-20, your most recent consolidated architecture doc), merged with the parts of the older Technical & Architectural Specification that SAOP doesn't cover (security actor model, async queues, edge-case governance, and the reference implementation code).*
 
 ## Purpose & Governance Role
 
 This document is the bridge between the Charter's philosophy and technical execution. It defines how the architecture enables the platform's core mandate — replacing political borders with living connection points where information organizes organically through natural association — while maintaining network integrity across the ecosystem.
+
+> **Read §30 first for anything built after 2026-09-29.** Sections 3–7, 11, 12, 15 and 23 below describe the
+> platform as it was on 2026-09-22; §30 says what changed and which decision records changed it. The routes
+> themselves are in `routes.md`.
 
 ## 1. Platform Architecture State Model
 
@@ -559,3 +563,70 @@ Governs what actually gets written to the stored corpus (§25 step 1) that AI sy
 - **Retention, resolved per direction: permanent, not `decisions/0017`'s 72-hour default.** A DMCA record (a `dmca_notices` row and any attached `verification_documents` with `related_type = 'dmca_notice'`) carries real statute-of-limitations exposure — civil copyright claims run 3 years under 17 U.S.C. § 507(b), extendable via the discovery rule or ongoing-damages claims — and since it's not knowable in advance which record a future legal challenge will actually need, these records are kept indefinitely rather than on any purge clock. `decisions/0017`'s cron now carries an explicit exclusion for this `related_type` rather than relying on these rows simply never reaching a purge-eligible state.
 - **Content ID-style automated fingerprinting is explicitly out of scope.** That's a scale solution for platforms processing far more uploads than this one ever will; this platform's existing HITL-gated ingestion staging (`decisions/0005`) already provides a real, human-reviewed check before scraped content ever goes live, which most platforms this size don't have at all.
 - **Registration & renewal management, added 2026-09-24 per direction — the platform now tracks its own DMCA registration rather than relying solely on someone remembering an external three-year date.** A new `dmca_agent_registration` table holds the publicly-displayed Designated Agent contact info (name, address, email, phone), the Copyright Office portal's own Primary/Secondary account contacts, and `registered_at`/`last_renewed_at`/`renewal_due_at`/`status`. A new **super_admin-only** page, `admin/dmca-settings.php`, lets a super_admin view and edit this record — distinct from `admin/dmca.php`'s notice-review queue, matching this section's existing "different action, different page" pattern. `/dmca-notice.php`'s public agent-contact display now reads live from this table instead of hardcoded page copy, so an update in one place stays accurate everywhere the law requires it to be shown. The existing daily cron (already used for `decisions/0017`'s purge and this section's own counter-notice restoration) gains a renewal check: within 90 days of `renewal_due_at` (a first default), status flips to `renewal_due_soon` and emails every super_admin via `Mailer.php`, escalating to `lapsed` — treated as a genuine incident, since a lapsed registration means no safe harbor at all — if the date passes with no renewal recorded. `admin/adminportal.php`'s DMCA tile surfaces this status as a visible badge. This tracks and reminds; it doesn't file the renewal itself — the actual $6 renewal still happens on the Copyright Office's own site, per the Consequences item below.
+
+## 30. As Built, 2026-10-08: What Decisions 0043–0068 Put in Place
+
+*This section restates current state only; the reasons live in each decision record. Routes are in `routes.md`.*
+
+**Updates these sections:** §3 (public entry points), §4 (search), §5 (communications and social), §6 (portals), §7 (accounts), §11 (identity), §15 (observability),
+§12 (the off-site worker is built), §23 (shared place context). Where they disagree with this section, this section
+is current.
+
+### The off-site worker (updates §12)
+A crawler worker runs on Railway (`workers/crawler/`) and talks to the site only through `/api/crawl/*` with a bearer
+token (0044). Listings it finds are auto-imported only above a confidence threshold; everything else waits for a
+person in Admin → Crawler → Review (0044, 0046). Facts come from the business's own website, with OpenStreetMap as a
+lead only (0045, 0066). Monthly public loads: NPI, IRS exempt organizations, Recreation.gov, USGS natural landmarks
+(0048, 0058). It also builds listing identities (0062), how-to guides (0063 §8), map points (0053), and targets from
+search demand and new kinds of place (0066, 0067).
+
+### Search (updates §4)
+One universal search, answered in place on every page (0053), reading the words by the 5 W's (0060). Situations map
+what people need to the kinds of place that answer it, with 911 first where there's danger (0061). Each word is read
+through a lexicon and syntax that people can correct in the Workbench (0063), and search learns words on its own
+(0064). A concept layer maps everyday words to kinds of place, built ahead of time from WordNet, word embeddings and
+seed words (0067); the last word is finished while typing, describing words narrow the thing, and what people open
+after the same words leads. Missing kinds of place are added on their own when authority or confidence backs them,
+then retired if unused (0067). "Near me" is a location intent, never words; with no place set, search asks for one.
+Categories show plain names (0068). Search never changes the place a person set.
+
+### Places and expansion (updates §23)
+The funnel is Hub → Region → Cluster → Anchor, with counties and states as places (0066). Where we have no listings,
+search shows OpenStreetMap businesses, marked as such (0065). Search demand (counts by place and day, never who)
+points the crawler at where people look (0066). Tribal nations' land follows the public/private standard: public
+places show with the nation's name and rules; sensitive places are held until the nation has its own controls (0066,
+replacing 0058 §26–27).
+
+### People, connections and messages (updates §5, §7)
+Accounts are for adults, 18 and over (0058). Connection points and a private Address Book (0047); one messaging
+system with open links (0052); tools turned on with consent, one step at a time (0049); a linking and data-use policy
+(0050) and one account-level consent for the learning system (0051). Public profiles show only what anyone may see
+(0058). Nobody's location is exposed; a person may share their own.
+
+### Content (new)
+Discovery guides at every level of the place taxonomy (0043). Journeys by Traversence and named contributors (0056),
+experiences (0059), community groups with reports (0047). Content pages share one standard: hero, engage bar
+(views, likes, comments, share, report) and comments (0058 §20). The FAQ grows with every build (0057).
+
+### App shell, dashboards and roles (updates §6)
+One app shell: a full-height tool rail on the left, the workspace on the right, a phone layout edge to edge
+(0055, 0058 §11). Dashboards by role, with the Pulse; admin pages grouped by job (0046, 0055). Organizations with
+many locations (the Nexus) are designed (0054); the dashboard reads them.
+
+### Identities and verification (updates §11)
+One record per thing, every fact with its sources (0062). Consent to verification is a step at sign-up, required only
+for roles that need it. Claiming a business needs verification on; the claim page itself is still a placeholder
+(see `routes.md`).
+
+### Counting (updates §15)
+Views, routes between sections, searches and outbound actions (call, directions, website, contact) are counted.
+Counts never record who: no user id, device, IP or session (0058 §13, 0066).
+
+### Known gaps, 2026-10-08
+- `claim.php`, `terms.php`, `privacy.php`, `hub/`, `market/` and the admin home are placeholders.
+- The designs in `routes.md` → *Designed, not built* (disputes, DSAR, documents, co-managers, DMCA, admin claims,
+  hubs, clusters, users) have no code.
+- Left-over files on the server to delete (`routes.md` §7). `scripts/reconcile_clusters.php` used to run from a
+  browser without a sign-in check; it's command line only since 2026-10-08.
+- The sync copies a file deleted on one side back from the other, and can't upload files over 4 MB to OneDrive
+  (`api/lib/data/concepts.php` is 6.7 MB); see TRAVERSE-3WAY-SYNC `sync.py`.
