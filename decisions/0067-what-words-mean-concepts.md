@@ -158,3 +158,12 @@ English, and its families served the situation reasoner, not categories.
      Auto-detect does (the town area), then sets 25 mi. Nothing about the location is kept beyond the place set.
   5. **Shown**: the Location line reads "Near you (St. Johns) · 25 mi" when the place came from the device and the words
      say near.
+- 2026-10-08, later: **please set your location** (Jason: "If near me or any other type of specific destination should
+  fire a please set your location"). With no place set, a search for somewhere to go asks for one: "near me" and its
+  kin; other words that mean where the person is ("local", "in my area", "in town", "walking distance", "within 10
+  miles", "directions to", "how far": `UniversalSearch::saysHere()`); a kind of place the words surely mean; a category
+  or a thing to do. The server says so (`need_place`, while typing and after Enter); a situation that needs a place
+  asks on its own, and a business's name, a town or a state never asks. The panel shows **Please set your location**
+  (Use my location · Choose a place · Search everywhere) while typing and over the results, and on Enter opens the
+  place picker once a visit, saying why ("Please set your location to search for “pizza”."). Everywhere chosen on
+  purpose (Search everywhere, or Anywhere in the picker) stands for kinds of place for the visit; "near me" still asks.
