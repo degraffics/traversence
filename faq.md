@@ -542,6 +542,9 @@ Only what you publish. Your dashboard opens on your profile: a cover photo, your
 ### What are the tabs on a profile?
 Quick ways into each tool: **About**, **Contacts** (your private Address Book, only you see it), **Gallery** (photos from your published journeys), **Connections** (how many people follow you, if you publish it), **Journeys**, and **Check-ins**, **Events** and **Reviews**, which are coming. Visitors see the tabs for what you share.
 
+### Can people look at my profile photos?
+Yes, if you've made them public. On your public profile, a tap on your cover or profile photo opens it full screen with your name, likes, comments and Share. Liking, commenting on and sharing photos are coming. To change a photo, use the pencil on it in your dashboard.
+
 ### Why do I show as "Member #" and a number?
 You haven't chosen a display name yet. We never show your email, so until you pick a name, people see a member number. Set one under **Profile**.
 
