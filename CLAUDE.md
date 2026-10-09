@@ -49,11 +49,29 @@ guarantee the next session (or even a later point in the same one, if it
 gets recreated) will have the same repo authorized — check by attempting the
 push and reading the error, rather than assuming.
 
+## Two folders: website/ and app/ (decisions/0069)
+
+The site is two folders, side by side on the server and in OneDrive `Traversence/`:
+- `website/`, the web root: pages, endpoints (`api/*.php`, `api/crawl/`, `api/auth/`, `user/api/`, `listing/api/`), `js/`,
+  `image/`, `uploads/`.
+- `app/`, never served:
+  - `app/lib/` the classes;
+  - `app/data/` the word data;
+  - `app/ui/` the shared page parts (app shell, header, page shell, engage bar, `faq.md`);
+  - `app/bootstrap.php`, `app/middleware/`;
+  - `app/migrations/` the SQL;
+  - `app/scripts/` command-line tools.
+
+Never put backend code, SQL, notes or dumps in `website/`. Delivery zips hold both folders at their real paths. Pages
+reach the backend by relative path: `__DIR__ . '/../app/ui/header.php'` from a root page,
+`__DIR__ . '/../../app/lib/Auth.php'` one folder down. Notes (`_notes`, `_SUPPORT`, `_concepts`, `_pending`) don't
+belong in either folder.
+
 ## Keep the FAQ current (decisions/0057)
 
-`faq.md` is the site's FAQ and its only source: it ships as `website/includes/faq.md` and renders at `/faq.php`.
+`faq.md` is the site's FAQ and its only source: it ships as `app/ui/faq.md` (decisions/0069) and renders at `/faq.php`.
 With every build, add or update its entries for whatever changed. Write them from a visitor's point of view, describe
-what the site actually does, and say "coming" for anything not built yet. Include the updated `includes/faq.md` in
+what the site actually does, and say "coming" for anything not built yet. Include the updated `app/ui/faq.md` in
 the delivery zip. Question anchors come from the wording, so rewording a question breaks links to it; check with
 `grep -rn "faq.php#"` first.
 
@@ -63,7 +81,7 @@ Space on a phone is at a premium. Every page, new or changed, follows this:
 
 - **Edge to edge.** Below 768px, cards, lists of cards and panels run edge to edge with **3px** each side and **3px**
   between them, with small corners (`.5rem`). Text (headings, paragraphs, labels) keeps a small margin. The page
-  frame (`includes/app-shell.php`) does this for the known card classes and Tailwind `rounded-xl/2xl border` cards;
+  frame (`app/ui/app-shell.php`) does this for the known card classes and Tailwind `rounded-xl/2xl border` cards;
   anything else opts in with `class="tv-bleed"`. Don't add per-page negative margins.
 - **Card anatomy:**
   - the **name is the link**, top left, in brand brown (`#92400E`, underlined);
@@ -89,7 +107,7 @@ Listings, outdoor places, experiences, place pages, journeys, and any new kind o
   Listings and profiles pass `heading`, `slides` (HeroMedia) and `manage` for the owner.
 - **Header:** kind or category (searches for more), the title (the page itself, not a search link), the place, and the
   **Link button** in the top-right corner (`data-link="…"` plus `js/link-button.js`). No breadcrumbs.
-- **Engage bar** right under it: `echo tv_engage_bar($pdo, $kind, $ref, ['title' => …])` (`includes/engage-ui.php`).
+- **Engage bar** right under it: `echo tv_engage_bar($pdo, $kind, $ref, ['title' => …])` (`app/ui/engage-ui.php`).
   It shows views (platform counts), likes, comments, Share and an optional Report.
 - **Comments** at the end: `echo tv_engage_comments($pdo, $kind, $ref)`. Public, 18+, reportable.
 - **Counts:** `tv_count_item('<kind>:<id>')` so views are counted.

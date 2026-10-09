@@ -1,6 +1,6 @@
 # Page Structure & Routing Architecture
 
-*Version: 2026-10-08*
+*Version: 2026-10-09 (the backend moved to app/, decisions/0069)*
 *Governance tier: Routing — the single source of truth for URLs and page build status.*
 
 *Regenerated 2026-10-08 from the site files themselves (the TRAVERSE-3WAY-SYNC mirror as of its last run, 2026-10-07, plus
@@ -121,7 +121,6 @@ All admin pages sit in the admin shell (left rail by job, no breadcrumbs, decisi
 | `/api/pin.php` | Where a listing is: read, move the pin | 0058 | Live |
 | `/api/locate.php` | Place an approximate listing at its street address | 0058 | Live |
 | `/api/count.php`, `/api/out.php` | Counts only: page views and flow; calls, directions, website, contact | 0066 | Live |
-| `/api/directory.php` | Older listings endpoint (list, my listings, create) | — | Live |
 | `/api/auth/*` | `session`, `login`, `logout`, `register`, `verify-email`, `change-password`, `password/request-reset`, `password/reset`, `email/request-change`, `email/confirm-change`, `email/revert` | 0047, 0058, 0062 (register) | Live |
 | `/user/api/*` | `profile`, `people` (Address Book), `links`, `consent`, `context`, `pulse`, `marketing`, `business-messages`, `community`, `referrals`, `saved-searches` | 0047, 0049, 0052, 0053, 0055 | Live |
 | `/listing/api/*` | `claim`, `evidence`, `my-listings`, `update-metadata`, `verify/tier1`, `vouch`, `referral/request`, `referral/confirm` | 0062 (claim, evidence) | Live |
@@ -147,10 +146,17 @@ All admin pages sit in the admin shell (left rail by job, no breadcrumbs, decisi
 
 | File | Purpose | ADR | Status |
 |---|---|---|---|
-| `api/scripts/geocode_listings.php` | Map points, command-line version | 0053 | Live |
-| `api/scripts/import_zip_population.php` | ZIP population import | 0042 | Live |
-| `api/scripts/recluster_auto_seeded.php` | Merge single-ZIP auto-seeded clusters | 0042 | Live |
-| `scripts/reconcile_clusters.php` | Older cluster reconciliation (changes and deletes `micro_clusters` rows) | — | Command line only since 2026-10-08; it used to run from a browser with no sign-in check |
+| `app/scripts/geocode_listings.php` | Map points, command-line version | 0053 | Live |
+| `app/scripts/import_zip_population.php` | ZIP population import | 0042 | Live |
+| `app/scripts/recluster_auto_seeded.php` | Merge single-ZIP auto-seeded clusters | 0042 | Live |
+
+## The backend: app/ (no routes)
+
+Since 2026-10-09 (decisions/0069) the code library, data, migrations, scripts and shared page parts live in `app/`,
+next to `website/` and never served: `app/lib/`, `app/data/`, `app/ui/`, `app/bootstrap.php`, `app/middleware/`,
+`app/migrations/`, `app/scripts/`. The `.htaccess` refuses `app/` and the backend's old places inside `website/`.
+Removed with the move, broken before it: `api/directory.php`, `market-placeholder/`, `image/includes/`,
+`scripts/reconcile_clusters.php`.
 
 ## 7. Left over on the server: remove
 

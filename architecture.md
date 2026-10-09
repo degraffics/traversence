@@ -626,7 +626,13 @@ Counts never record who: no user id, device, IP or session (0058 §13, 0066).
 - `claim.php`, `terms.php`, `privacy.php`, `hub/`, `market/` and the admin home are placeholders.
 - The designs in `routes.md` → *Designed, not built* (disputes, DSAR, documents, co-managers, DMCA, admin claims,
   hubs, clusters, users) have no code.
-- Left-over files on the server to delete (`routes.md` §7). `scripts/reconcile_clusters.php` used to run from a
-  browser without a sign-in check; it's command line only since 2026-10-08.
+- Left-over files on the server to delete (`routes.md` §7). `scripts/reconcile_clusters.php`, which used to run from a
+  browser without a sign-in check, is gone.
+
+### Folders (decisions/0069, 2026-10-09)
+`website/` is the web root: pages, endpoints, `js/`, `image/`, `uploads/`. `app/` sits next to it and is never served:
+the code library (`app/lib/`), its data (`app/data/`), the shared page parts (`app/ui/`), `bootstrap.php`,
+`middleware/`, `migrations/` and `scripts/`. The `.htaccess` refuses `app/` on any host, the backend's old places inside
+`website/`, and file types that are never pages (`.sql`, `.md`, `.log`, backups, archives). The sync keeps both folders.
 - The sync copies a file deleted on one side back from the other, and can't upload files over 4 MB to OneDrive
   (`api/lib/data/concepts.php` is 6.7 MB); see TRAVERSE-3WAY-SYNC `sync.py`.
