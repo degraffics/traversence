@@ -11,7 +11,7 @@
 Traversence is a regional travel guide and local directory in one place. **Let's Explore** tells the story of a place and the journeys people take there. **Get Local** is the directory of businesses, services and places. You can use both without an account.
 
 ### Where did the big logo and icons at the top go?
-The top bar starts collapsed, so the page gets the whole screen: no bar, just the compass on the left and the bell, search and menu on the right, each in its own small brown frame. Everything is still in the menu (☰). To bring back the full logo or the row of icons, tap the small tab next to the compass or next to the menu. We remember your choice on this device.
+The top bar starts collapsed, so the page gets the whole screen: no bar, just the compass in the top-left corner and the menu (☰) hanging from the top-right corner, with search between them on pages that have it. Notifications are in your Pulse (the bell there); an orange dot on the menu means something is waiting. Everything is still in the menu (☰). To bring back the full logo or the row of icons, tap the small tab next to the compass or next to the menu. We remember your choice on this device.
 
 ### Do I need an account?
 No, not to look around. You need one to save favorites, write journeys, comment, like, report something, or make suggestions under your name.
@@ -542,8 +542,17 @@ Go to your **Dashboard** and choose **Profile** (under Settings), or tap your na
 ### What shows on my public profile?
 Only what you publish. Your dashboard opens on your profile: a cover photo, your card (photo, name, @handle, status) and your details (where you live, languages, a mantra, work, education and more). Fill in whatever you like with the pencils. Each item has an eye: **green means public**, plain means only you see it. Nothing you add is public until you switch on its eye. Your name always shows. **See it as others do** opens your profile as a visitor sees it.
 
+### What is the Pulse?
+Everything coming in, in one place: messages, your groups and connections, and news from the places, businesses and sellers you link. Each source has a pill with its count; tap one to see only that, tap it again to see everything. The bell shows what needs you, and the gear sets how the Pulse looks (a list, one stream, or a tab per source) and which sources it shows. **Pulse ▾** switches between your accounts: personal, a business you manage, or staff.
+
+### What can I do with an item in my Pulse?
+Tap ▾ to open it in place: its photos, the full text and a comment box. The chain icon goes to where it came from. Reply, forward, pin, report, move to a folder and add to a collection are on each row, and commenting, attachments and Publish, Save as draft or Schedule are in the open item. Most of these are coming: for now they show where they'll be.
+
+### Where are all my photos?
+In the **Gallery** tab of your dashboard: your profile and cover photos, the photos in your journeys (drafts too) and photos you added to listings, newest first. Ones that aren't public say "Only you". Folders and albums are coming. Visitors to your profile see only the photos from your published journeys.
+
 ### What are the tabs on a profile?
-Quick ways into each tool: **About**, **Contacts** (your private Address Book, only you see it), **Gallery** (photos from your published journeys), **Connections** (how many people follow you, if you publish it), **Journeys**, and **Check-ins**, **Events** and **Reviews**, which are coming. Visitors see the tabs for what you share.
+Quick ways into each tool: **About**, **Contacts** (your private Address Book, only you see it), **Gallery** (for you, every photo you've uploaded; for visitors, the photos from your published journeys), **Connections** (how many people follow you, if you publish it), **Journeys**, and **Check-ins**, **Events** and **Reviews**, which are coming. Visitors see the tabs for what you share.
 
 ### How do I frame my profile photo?
 Tap the pencil on your photo, then **Reposition and size**. Drag the photo to move it inside the square, and use the slider (or + and −) to make it bigger or smaller. We keep a private, resized copy of the photo you chose, so you can reframe it later without uploading it again. When you remove the photo, that copy goes too. The cover photo drags up or down the same way.
