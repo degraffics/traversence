@@ -536,6 +536,12 @@ Go to your **Dashboard** and choose **Profile** (under Settings), or tap your na
 
 **See your public profile** shows you what other people see.
 
+### What shows on my public profile?
+Only what you publish. Your dashboard opens on your profile: a cover photo, your card (photo, name, @handle, status) and your details (where you live, languages, a mantra, work, education and more). Fill in whatever you like with the pencils. Each item has an eye: **green means public**, plain means only you see it. Nothing you add is public until you switch on its eye. Your name always shows. **See it as others do** opens your profile as a visitor sees it.
+
+### What are the tabs on a profile?
+Quick ways into each tool: **About**, **Contacts** (your private Address Book, only you see it), **Gallery** (photos from your published journeys), **Connections** (how many people follow you, if you publish it), **Journeys**, and **Check-ins**, **Events** and **Reviews**, which are coming. Visitors see the tabs for what you share.
+
 ### Why do I show as "Member #" and a number?
 You haven't chosen a display name yet. We never show your email, so until you pick a name, people see a member number. Set one under **Profile**.
 
