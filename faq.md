@@ -11,7 +11,7 @@
 Traversence is a regional travel guide and local directory in one place. **Let's Explore** tells the story of a place and the journeys people take there. **Get Local** is the directory of businesses, services and places. You can use both without an account.
 
 ### Where did the big logo and icons at the top go?
-The top bar starts slim, so the page gets more of the screen: the compass on the left, and the bell, search and menu on the right. Everything is still in the menu (☰). To bring back the full logo or the row of icons, tap the small tab next to the compass or next to the menu. We remember your choice on this device.
+The top bar starts collapsed, so the page gets the whole screen: no bar, just the compass on the left and the bell, search and menu on the right, each in its own small brown frame. Everything is still in the menu (☰). To bring back the full logo or the row of icons, tap the small tab next to the compass or next to the menu. We remember your choice on this device.
 
 ### Do I need an account?
 No, not to look around. You need one to save favorites, write journeys, comment, like, report something, or make suggestions under your name.
