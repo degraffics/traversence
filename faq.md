@@ -540,7 +540,7 @@ Go to your **Dashboard** and choose **Profile** (under Settings), or tap your na
 **See your public profile** shows you what other people see.
 
 ### What shows on my public profile?
-Only what you publish. Your dashboard opens on your profile: a cover photo, your card (photo, name, @handle, status) and your details (where you live, languages, a mantra, work, education and more). Fill in whatever you like with the pencils. Each item has an eye: **green means public**, plain means only you see it. Nothing you add is public until you switch on its eye. Your name always shows. **See it as others do** opens your profile as a visitor sees it.
+Only what you publish. Your dashboard opens on your profile: a cover photo, your card (photo, name, @handle, status) and your details (where you live, languages, a mantra, work, education and more). Fill in whatever you like with the pencils. Each item has an eye: **green means public**, plain means only you see it. Nothing you add is public until you switch on its eye. Your name always shows. **See it as others do** opens your profile as a visitor sees it. On a phone your details start folded away so your Pulse is near the top: tap **Details** in your card to open them (we remember your choice on that device).
 
 ### What is the Pulse?
 Everything coming in, in one place: messages, your groups and connections, and news from the places, businesses and sellers you link. Each source has a pill with its count; tap one to see only that, tap it again to see everything. The bell shows what needs you, and the gear sets how the Pulse looks (a list, one stream, or a tab per source) and which sources it shows. **Pulse ▾** switches between your accounts: personal, a business you manage, or staff.
