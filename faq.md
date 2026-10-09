@@ -10,6 +10,9 @@
 ### What is Traversence?
 Traversence is a regional travel guide and local directory in one place. **Let's Explore** tells the story of a place and the journeys people take there. **Get Local** is the directory of businesses, services and places. You can use both without an account.
 
+### Where did the big logo and icons at the top go?
+The top bar starts slim, so the page gets more of the screen: the compass on the left, and the bell, search and menu on the right. Everything is still in the menu (☰). To bring back the full logo or the row of icons, tap the small tab next to the compass or next to the menu. We remember your choice on this device.
+
 ### Do I need an account?
 No, not to look around. You need one to save favorites, write journeys, comment, like, report something, or make suggestions under your name.
 
@@ -541,6 +544,12 @@ Only what you publish. Your dashboard opens on your profile: a cover photo, your
 
 ### What are the tabs on a profile?
 Quick ways into each tool: **About**, **Contacts** (your private Address Book, only you see it), **Gallery** (photos from your published journeys), **Connections** (how many people follow you, if you publish it), **Journeys**, and **Check-ins**, **Events** and **Reviews**, which are coming. Visitors see the tabs for what you share.
+
+### How do I frame my profile photo?
+Tap the pencil on your photo, then **Reposition and size**. Drag the photo to move it inside the square, and use the slider (or + and −) to make it bigger or smaller. We keep a private, resized copy of the photo you chose, so you can reframe it later without uploading it again. When you remove the photo, that copy goes too. The cover photo drags up or down the same way.
+
+### Can I make all my photos public at once?
+Yes. When you add or change a photo, tick **Make all my photo uploads public**. We remember it, and each new photo starts out public. You can still hide any one photo, and untick the box to go back to choosing each time.
 
 ### Can people look at my profile photos?
 Yes, if you've made them public. On your public profile, a tap on your cover or profile photo opens it full screen with your name, likes, comments and Share. Liking, commenting on and sharing photos are coming. To change a photo, use the pencil on it in your dashboard.
