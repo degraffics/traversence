@@ -338,7 +338,7 @@ A few reasons:
 ### Where does a business's information come from?
 From the evidence. Each listing's details (name, address, phone, website, hours) come from what we can find about the business: its own website, official registries, and other pages that match it by name and address or phone. When those disagree with what we had, **the evidence wins**: the value with the most independent sources goes on the listing by itself. Our team can see every change and undo it. Google, Yelp and Facebook pages only confirm what we found; we never copy from them.
 
-Once a business is **claimed**, its owner decides. Nothing we find changes a claimed listing on its own. Instead the owner sees **We found other information about your business** on their listing, with each value and where we found it, and can **Use this** or **Dismiss** it.
+Once a business is **claimed and confirmed** (✓ Verified), its owner decides. Nothing we find changes it on its own. While a claim is only **Managed by owner** (step 1 of claiming), what we find can still update the name, phone, address and website, but never anything the owner wrote. Instead the owner sees **We found other information about your business** on their listing, with each value and where we found it, and can **Use this** or **Dismiss** it.
 
 ### Why does my listing say "We found other information about your business"?
 Only you see it, as the listing's owner. It lists details we found about your business elsewhere (your website, an official registry, another page that matches you) that differ from your listing. Your listing keeps what you set. Tap **Use this** to put a value on your listing, or **Dismiss** to set it aside; dismissed values aren't offered again.
@@ -364,10 +364,33 @@ list of nonprofits), then other public pages that show the business with its nam
 listing when the business's own website, a registry or a government page gives it, or when two separate websites
 agree; otherwise our staff check it first. Google, Yelp and Facebook pages are only used to confirm what another
 source shows, and we link to them rather than copy them. If you own the business, claim your listing to set your own
-details: they're never overwritten.
+details: once your claim is confirmed, they're never overwritten.
 
 ### I own a business. How do I get it listed?
-Use **Add or claim a business** at the bottom of any page. Find your listing and claim it, or create a new one.
+Use **Add or claim a business** at the bottom of any page. Find your listing and claim it. If it isn't listed, tell us about it: we check new listings first, then email you so you can claim it.
+
+### How do I claim my business?
+Open your listing and tap **Claim**. You'll need a Traversence account (18 or older) with Verification switched on. Then:
+1. **Confirm by email.** We send a code to your account email. Enter it and your listing shows **Managed by owner**: you can edit its description, hours, services and photos right away.
+2. **Confirm by text.** Text your claim's code (it looks like TV-1234) to our Verify number, from the phone number on your listing. That confirms you, and the listing shows **✓ Verified**.
+3. **Choose a plan.** Free, or a paid plan (see below).
+
+Your business dashboard (**Manage** on your listing) shows where your claim stands and what's left.
+
+### What does "Managed by owner" mean?
+Someone has claimed the listing by email but hasn't finished the last step yet. They can edit the description, hours, services and photos. Changes to the name, phone, address and website wait for our team until the claim is confirmed, so customers are never sent to the wrong place.
+
+### I texted from a different number. What happens?
+That's fine: in a lot of small businesses the owner's own cell is the business phone. Someone from our team will contact you at that number within 48 hours to confirm who you are and your role with the business. If you can't text, you can instead use an email at your business's own website domain (when your listing has a website), send a document such as a business license or utility bill, or ask for a call or a visit at a time that suits you.
+
+### Someone else already claimed my business. What can I do?
+Ask to claim it anyway. Only one claim goes ahead at a time, so yours is saved as **Claim Request On Hold**, not turned down, and our team is told straight away. Leave a way to reach you and anything that shows the business is yours. If the listing has a confirmed owner and you believe that's wrong, you can question it from the claim page: the owner is told and can answer, and our team decides. Nothing changes on the listing while that happens.
+
+### I have more than one location. Do I claim each one?
+When you claim one, we look for your other locations (the same name, phone or website) and offer to claim them together. Each location stays its own listing, with its own page. One confirmation can cover them all when it shows every location: your website lists them, or you send photos or a brochure that does. Otherwise each location is confirmed on its own.
+
+### What do the plans cost?
+Free costs nothing. Core is $19 a month, Strategic $79 and Cornerstone $249. Paying isn't switched on yet, so a paid plan starts as a free trial; we'll ask you before anything is ever charged.
 
 ## Journeys and contributors
 

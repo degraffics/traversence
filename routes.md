@@ -1,6 +1,6 @@
 # Page Structure & Routing Architecture
 
-*Version: 2026-10-09 (the backend moved to app/, decisions/0069)*
+*Version: 2026-10-09 (claiming built, decisions/0070; the backend moved to app/, decisions/0069)*
 *Governance tier: Routing — the single source of truth for URLs and page build status.*
 
 *Regenerated 2026-10-08 from the site files themselves (the TRAVERSE-3WAY-SYNC mirror as of its last run, 2026-10-07, plus
@@ -34,7 +34,7 @@ new home); **Remove** (left over, should come off the server).*
 | `/faq.php` | The FAQ (`includes/faq.md`, grown with every build) | 0057 | Live |
 | `/our-approach.php` | Our approach to linking, in plain words | 0050, 0051, 0052 | Live |
 | `/join.php?i=` | An invite link: remembers it and sends the person to sign up | 0047 | Live |
-| `/claim.php?listing=` | Claim a listing, or add a business | 0015 (designed), 0062 | Live, placeholder: the page still says it's a disabled mock; the claim API behind it is live (`listing/api/claim.php`) |
+| `/claim.php?listing=` | Claim a listing: email code (Managed by owner), text code to the Verify number (✓ Verified), other ways, other locations, plan. `&dispute=1` questions a listing's owner; `?new=1` adds a business (to Review); `&mode=contribute` suggests details | 0070, 0062 | Live |
 | `/gbp-landing-traversence.html` | Google Business Profile audit landing page | — | Live |
 | `/terms.php`, `/privacy.php` | Terms and privacy | — | Live, placeholder: not real legal text, to replace before launch |
 
@@ -61,7 +61,7 @@ new home); **Remove** (left over, should come off the server).*
 
 | Route | Purpose | ADR | Status |
 |---|---|---|---|
-| `/listing/businessportal.php` | Manage your listings: verification tiers, vouches, referrals, insights | 0015 | Live |
+| `/listing/businessportal.php` | Your business: claims and where each stands, plan, a question about your listing, and the listing editor (`?id=`) | 0070 | Live |
 | `/listing/confirm-referral.php` | Confirm a Tier 2 referral (token link) | — | Live |
 
 ## 5. Admin
@@ -72,6 +72,7 @@ All admin pages sit in the admin shell (left rail by job, no breadcrumbs, decisi
 |---|---|---|---|
 | `/admin/adminportal.php` | Admin home: tiles for each admin area | — | Live, placeholder: its header says the page's own check "is not access control" (it holds no private data) |
 | `/admin/helper.php` | The helper: what needs a person, one item at a time | 0062 | Live |
+| `/admin/claims.php` | Claims: to confirm (overdue first), requests on hold, owner changes waiting, disputes. `?doc=` opens a claim's document (stored outside the site folders in `traversence-private/claims/` next to `.env`, never synced; deleted 72 h after a decision) | 0070 | Live |
 | `/admin/insights.php` | How the platform is used: sections, routes between them, searches (counts only) | 0058 | Live |
 | `/admin/crawler.php` | Crawler overview: worker, queue, what went live | 0046, 0048, 0061 | Live |
 | `/admin/crawler-review.php` | Crawler review: listings to approve, possible duplicates | 0046, 0051, 0053 | Live |
@@ -123,7 +124,7 @@ All admin pages sit in the admin shell (left rail by job, no breadcrumbs, decisi
 | `/api/count.php`, `/api/out.php` | Counts only: page views and flow; calls, directions, website, contact | 0066 | Live |
 | `/api/auth/*` | `session`, `login`, `logout`, `register`, `verify-email`, `change-password`, `password/request-reset`, `password/reset`, `email/request-change`, `email/confirm-change`, `email/revert` | 0047, 0058, 0062 (register) | Live |
 | `/user/api/*` | `profile`, `people` (Address Book), `links`, `consent`, `context`, `pulse`, `marketing`, `business-messages`, `community`, `referrals`, `saved-searches` | 0047, 0049, 0052, 0053, 0055 | Live |
-| `/listing/api/*` | `claim`, `evidence`, `my-listings`, `update-metadata`, `verify/tier1`, `vouch`, `referral/request`, `referral/confirm` | 0062 (claim, evidence) | Live |
+| `/listing/api/*` | `claim` (every claim action, disputes and the owner's answer), `evidence`, `update-metadata` (owner edits; name, phone, address and website wait for an admin until verified), `my-listings`, `vouch`, `referral/request`, `referral/confirm` (Tiers 2–3: future upgrades, not offered). `verify/tier1` answers 410 (retired by 0070) | 0070, 0062 | Live |
 | `/api/admin/intake/*` | `candidates`, `review`, `existing`, `crawl`, `clusters` (admin only) | — | Live |
 
 ### Off-site worker (Railway crawler, bearer token)
@@ -183,10 +184,8 @@ Kept from the earlier version of this file so the designs aren't lost. None of t
 | `/map` | Interactive corridor map | — | The map is now a full-screen view inside pages (decisions/0053 §4b), not a route |
 | `/listing/{slug}` | Clean listing addresses | — | `/listing/view.php?id=` today |
 | `/guide/{slug}` | Editorial articles with a `[directory_feed]` shortcode | — | `/guide/how.php` and `/guide/resources.php` are different (crawler-built guides) |
-| `/dispute-claim.php?listing=` | Challenge an existing claim (with document upload) | 0015, 0017 | |
 | `/privacy/dsar`, `/api/privacy/dsar-verify.php` | Data access and deletion requests | 0026 | |
-| `/admin/claims.php` | Ownership verification queue | 0016 | |
-| `/api/documents/upload.php`, `/admin/api/documents/view.php` | Supporting documents for claims and disputes | 0017 | |
+| `/api/documents/upload.php`, `/admin/api/documents/view.php` | Supporting documents | 0017 | Built differently: claim documents go through `listing/api/claim.php` and `/admin/claims.php?doc=` (0070) |
 | *(Railway worker)* document OCR and Five-Ws classification | Reads uploaded documents | 0017 | |
 | `/listing/api/managers/invite.php`, `remove.php` | Co-managers for a listing | 0018 | |
 | `/listing/api/referral/create.php` | Create a referral | — | `referral/request.php` exists instead |
