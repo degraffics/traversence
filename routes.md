@@ -156,11 +156,12 @@ All admin pages sit in the admin shell (left rail by job, no breadcrumbs, decisi
 
 | Route | What it is | Why remove |
 |---|---|---|
-| `/tv-version.php` | A diagnostic page | Its own header says "TEMPORARY DIAGNOSTIC: delete this file when you are done" |
-| `/website/` (27 files, including `website/admin/adminportal.php` and old `website/api/*`) | A copy of the site uploaded inside itself | Old code reachable on the live site |
-| `/index-gamer.php` | An earlier home page | Superseded by `/` |
 | `/eng/directoryengine.php` | An early directory engine | Not used by any page |
 | `/user/api/bootstrap-super-admin.php` | One-time Super-Admin setup | Excluded from the sync on purpose; delete from the server once used |
+
+*Checked 2026-10-08 against OneDrive `website/`: `tv-version.php`, the nested `website/` copy and `index-gamer.php` were
+already deleted. The sync's GitHub mirror (`sync-storage/`) never removes a file once copied there, so it can list files
+the site no longer has; check OneDrive before treating a row as live.*
 
 Delete from both the server and OneDrive `website/` before a sync run: the sync copies a file that exists on only one
 side back to the other, and keeps no record of deletions.
