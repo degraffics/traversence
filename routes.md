@@ -72,7 +72,7 @@ All admin pages sit in the admin shell (left rail by job, no breadcrumbs, decisi
 |---|---|---|---|
 | `/admin/adminportal.php` | Admin home: tiles for each admin area | — | Live, placeholder: its header says the page's own check "is not access control" (it holds no private data) |
 | `/admin/helper.php` | The helper: what needs a person, one item at a time | 0062 | Live |
-| `/admin/claims.php` | Claims: to confirm (overdue first), requests on hold, owner changes waiting, disputes. `?doc=` opens a claim's document (stored outside the site folders in `traversence-private/claims/` next to `.env`, never synced; folder locked to the site account (0700/0600) with a deny-all `.htaccess`; deleted 72 h after a decision) | 0070 | Live |
+| `/admin/claims.php` | Claims: to confirm (overdue first), requests on hold, owner changes waiting, disputes. `?doc=` opens a claim's document (stored outside the site folders in `traversence-private/claims/` next to `.env`, never synced; folder locked to the site account (0700/0600) with a deny-all `.htaccess`; deleted as soon as the claim is decided; none are kept) | 0070 | Live |
 | `/admin/insights.php` | How the platform is used: sections, routes between them, searches (counts only) | 0058 | Live |
 | `/admin/crawler.php` | Crawler overview: worker, queue, what went live | 0046, 0048, 0061 | Live |
 | `/admin/crawler-review.php` | Crawler review: listings to approve, possible duplicates | 0046, 0051, 0053 | Live |

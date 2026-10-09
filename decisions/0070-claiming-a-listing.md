@@ -96,7 +96,7 @@ For a claimant who can't text, or when the admin asks:
 - **An email at the business's own domain:** a code sent there, offered only when the listing has a website on file.
   ✓ Verified at once.
 - **A document:** a utility bill, business license, lease, or something similar. Stored outside the site folders, next to `.env` (never served, never synced to OneDrive or GitHub),
-  opened only from the admin queue, and deleted 72 hours after the claim is decided (0017).
+  opened only from the admin queue, and deleted as soon as the claim is decided: documents are for verification only, and none are kept (Jason, 2026-10-09).
 - **A call or visit by appointment:** the claimant gives email, phone, address (the business address, prefilled and
   editable), a preferred date and time to meet an agent, and whether they'd like a call or an on-site visit.
 
