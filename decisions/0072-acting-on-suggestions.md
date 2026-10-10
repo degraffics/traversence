@@ -17,22 +17,22 @@ the visitor was signed in, emails them a thank-you. Guests leave no address, so 
 
 | Kind | Button | What it does |
 |---|---|---|
-| Closed or moved | **Mark closed** (with a confirm) | Hides the listing (`is_suppressed`), keeps everything, notes when, who and why (`closed_note`). On a Recreation.gov place it hides that place, and the hide survives monthly reloads. **Moved: edit the address** opens the editor. |
+| Closed or moved | **Mark closed** (asks inline) | The listing **stays on the site**, marked Closed (`closed` metadata: when, who, the note). Its page opens with a Closed banner and "Reopened? Tell us"; search shows "Closed ·" first in its line, ranks it last (weight −40) and never counts it as open. The editor has **Mark closed** / **It's open again**, and the done card has **Undo: it's open**. (Jason, 2026-10-10: people searching for it should see it's closed, not find nothing.) A Recreation.gov place has no Closed state, so it is hidden. **Moved: edit the address** opens the editor. |
 | Suggested fix | **Apply the fix** | `/admin/suggestion.php` shows each field as it is and as sent (name, phone, website, address, hours), ticked when different. Staff can correct the value first. Written as staff edits (`admin`, locked), so the crawler never overwrites them. |
 | Same business | **Merge these** | Both listings side by side, the likelier keeper preselected (owner-managed first, then the fuller one). Fills the kept listing's empty fields from the other, hides the other and records `same_as`; its old link 301s to the kept one. Waiting suggestions about it move over. |
 | Something missing, outdoors | **Create the place** | Goes through `Landmarks::add`, the same path as Admin → Landmarks, so sensitive names (sacred, burial, protected) are held and nations' land follows 0066. The kinds gain **Trail or trailhead** and **Campground**. Needs a map point; the visitor's pin is filled in. |
 | Something missing, event | none | Events aren't built yet. |
 
 After any action, Review comes back to that suggestion as a **done card** that reads the result back from the
-listing itself, so staff can check it worked. A closed listing shows "hidden from the public site". A fix shows each
+listing itself, so staff can check it worked. A closed listing shows that it's marked Closed on its page and in search. A fix shows each
 field as it is now, with ✓ where it matches what the visitor sent. A merge shows which listing was kept and which
 hidden. A new listing or place shows whether it's live or held. The card links to **See the listing** and **Open in the
-editor**, and a closure has **Undo: put it back**. Staff can open a hidden listing; a banner says it's hidden and why.
+editor**, and a closure has **Undo: it's open**. Staff can open a hidden listing; a banner says it's hidden and why.
 Everyone else still gets "not found", or the kept listing for a merged one. Each suggestion card's name links to its
 listing.
 
 Rules:
-- **Nothing is deleted.** Closed and merged-away listings are hidden and can be put back from their editor.
+- **Nothing is deleted.** Closed listings stay listed, marked Closed. Merged-away listings are hidden and can be put back from their editor.
 - **An owner's listing is the owner's.** A visitor's word alone never hides a managed listing or hides it in a merge, and
   never overwrites a field the owner set or the name of a managed listing. Staff use the editor if they're sure.
 - What a merge leaves on the hidden listing (comments, likes, photos) stays with it for now. Moving them is later work.

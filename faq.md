@@ -547,7 +547,7 @@ Use **Make a suggestion** in the menu, or **Tell us** on a listing or place page
 ### What happens to my suggestion?
 Our team reviews it and checks it against public sources. Then:
 - **A correction** (a phone, website, address, hours or name) is made on the listing.
-- **Closed** takes the listing off the site. We keep its details, so it can come back if it reopens.
+- **Closed** keeps the listing on the site, marked **Closed** on its page and in search, so anyone looking for it knows before they go. Closed places come last in results and never show as open. If it reopens, tap **Tell us** on its page.
 - **Listed twice** becomes one listing, and the other one's link takes you to it.
 - **A missing business** becomes a new listing; **a missing lake, trail, park, campground or landmark** becomes a new place. Places whose names may mark a sacred, burial or protected site are held, not shown.
 - **A missing event**: events are coming.
