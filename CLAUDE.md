@@ -109,6 +109,8 @@ Never use `alert()`, `confirm()` or `prompt()` (the browser's grey boxes). Use t
 - in a click handler: `if (!TvAsk.gate(button, 'Remove this comment?', { yes: 'Remove', danger: true })) return;`;
 - `TvAsk.confirm(msg, {anchor})` → Promise, `TvAsk.say(msg, {anchor})` for notices (a toast without an anchor),
   `TvAsk.ask(label, value)` → Promise for a one-field lightbox form.
+- to show a page without leaving the one you're on (checking a listing from Review): `<a href="…" data-peek-frame>` or
+  `TvAsk.peek(url, title)`, a pop-up card with the page in its embedded view and "Open the full page" in its corner.
 
 ## Content page standard (decisions/0058 §20): every content page, every build
 
