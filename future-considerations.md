@@ -142,9 +142,6 @@ Consistent name, address and phone everywhere is what search engines trust; this
 
 ## Facilities and the providers in them (added 2026-10-10)
 
-A clinic or center often shares one address and phone with the providers and offices inside it (Apache Behavioral Health
-Services in Whiteriver and its counselors; a medical plaza's practices). Review now tells these apart from duplicates
-(decisions/0074) and lists each on its own, but nothing links them. Add a "part of" link from a provider or office to its
-facility: the facility's page lists who works there, each provider's page names where, and search can answer "counselor at
-Apache Behavioral Health". The crawler can suggest the link when the phone and address match under a different name
-(NPI's organization and individual records already pair them); staff or the facility's owner confirm it.
+Covered by the Nexus (`decisions/0054`): a clinic or center's providers and offices are members of its Nexus, with the role
+"provider", the same way Changepoint Integrated Health's clinics are its locations. Review already tells them apart from
+duplicates (`decisions/0074`); the Nexus is what links them. 0054 is accepted but not built yet.
