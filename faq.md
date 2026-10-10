@@ -586,6 +586,18 @@ If you were signed in when you sent it, we email you when it's done. A business 
 
 ## Privacy and your account
 
+### Does Traversence use cookies?
+A few that the site needs: one keeps you signed in, one remembers your privacy choices, and one protects a business's question form from abuse when it's used without an account. Your browser also remembers things you set, like your place and recent searches, on your device only. Two optional kinds come from other companies, and only if you say yes: usage analytics, and videos from YouTube or Vimeo. The full list is in the [Privacy Policy](/privacy.php#cookies).
+
+### What is "Usage analytics", and do I have to allow it?
+It lets us count how Traversence is used (which pages are visited, searches that found nothing, what's hard to use) with an analytics service, so we can fix and improve it. It's off until you say yes, and everything works the same without it. We never sell what it shows us or use it for ads. You're asked once, at the foot of the page or when you create an account; change it any time on the [Privacy page](/privacy.php#choices) or in Privacy Settings → Your tools.
+
+### Why does a video show a Play button instead of playing?
+Videos come from YouTube or Vimeo, and once one plays, they can see your visit and set their cookies. So until you allow Videos, each one waits for you: tap Play to watch that one, or **Always play videos** to stop asking. Or open it on YouTube instead. Change it any time on the [Privacy page](/privacy.php#choices).
+
+### Where do I change my privacy choices?
+On the [Privacy page](/privacy.php#choices), signed in or not, or in Privacy Settings → Your tools when you're signed in. Signed in, your choices follow you to any device you sign in on.
+
 ### How long do I stay signed in?
 Until you sign out, or close your browser. A break, even a long one, doesn't sign you out. On a phone, the browser usually stays open in the background, so you stay signed in for days; close it fully, or tap **Sign out**, to end it. If you go 30 days without using Traversence, you'll be asked to sign in again.
 
@@ -657,4 +669,4 @@ No. No one at Traversence, in any role, can read your private messages or your c
 Only if you turn it on. **AI Assist & Learning** is off until you switch it on in Privacy Settings. Private messages and contact cards never enter shared learning, whatever you choose. [Our approach](/our-approach.php) has the details.
 
 ### Do you sell my information or show me targeted ads?
-No. We don't sell or rent your information, target ads, or track you around the web. [Our approach](/our-approach.php) explains what we never do.
+No. We don't sell or rent your information, share it for advertising, target ads, or track you around the web. [Our approach](/our-approach.php) explains what we never do, and the [Privacy Policy](/privacy.php) says exactly what we collect and why.
