@@ -383,6 +383,8 @@ A Traversence account (18 or older) with:
 - **a phone number**: it stays private, only our team sees it, so we can reach you about your listing;
 - **Verification switched on**: we check only the details you give us.
 
+To add a business, the form also asks for **the business's phone and email**. Your account email is filled in; change it if the business has its own. The business email isn't shown on your listing.
+
 If you're not signed in, the page lets you sign in or create an account and keeps what you've typed.
 
 ### Someone told you about a business. How does it get listed?
@@ -409,7 +411,7 @@ Ask to claim it anyway. Only one claim goes ahead at a time, so yours is saved a
 When you claim one, we look for your other locations (the same name, phone or website) and offer to claim them together. Each location stays its own listing, with its own page. One confirmation can cover them all when it shows every location: your website lists them, or you send photos or a brochure that does. Otherwise each location is confirmed on its own.
 
 ### What do the plans cost?
-Free costs nothing. Core is $19 a month, Strategic $79 and Cornerstone $249. Paying isn't switched on yet, so a paid plan starts as a free trial; we'll ask you before anything is ever charged.
+Free costs nothing. Core is $19 a month, Strategic $79 and Cornerstone $249. Paying isn't switched on yet, so a paid plan starts as a free trial; we'll ask you before anything is ever charged. When you choose a plan, each one has its own row: tap ▸ to see what it offers. No plan ranks you higher in search.
 
 ## Journeys and contributors
 
