@@ -405,6 +405,12 @@ To add a business, the form also asks for **the business's phone and email**. Yo
 
 If you're not signed in, the page lets you sign in or create an account and keeps what you've typed.
 
+### Where do the listings come from?
+From public information: the business's own website, official records such as the federal list of health-care providers (the NPI Registry), open map data, and directories like chambers of commerce. Our crawler gathers what's there, checks that a business is real (its own website, an official record, or two separate sources), puts it in the category that fits what it says it is, and joins it with what's already listed instead of making a second copy. Each listing goes up unclaimed, ready for its owner to claim. Each fact keeps where it came from.
+
+### My business is listed and I didn't ask for it. Can I change it or have it removed?
+Yes. Claim it (**Claim it** on the listing) to correct it, add what's missing, or make details private. Or use **Closed, moved or listed twice? Tell us** on the listing to ask us to remove it, and our team takes it off the site.
+
 ### Someone told you about a business. How does it get listed?
 If it isn't yours, use **Not your business? Tell us about it instead** on the same page. Our team checks it, adds it (a website isn't needed) and emails you when it's on the site. If you said it's yours, that email has a **Claim it** link.
 
