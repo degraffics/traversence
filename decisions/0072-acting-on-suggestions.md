@@ -23,6 +23,14 @@ the visitor was signed in, emails them a thank-you. Guests leave no address, so 
 | Something missing, outdoors | **Create the place** | Goes through `Landmarks::add`, the same path as Admin → Landmarks, so sensitive names (sacred, burial, protected) are held and nations' land follows 0066. The kinds gain **Trail or trailhead** and **Campground**. Needs a map point; the visitor's pin is filled in. |
 | Something missing, event | none | Events aren't built yet. |
 
+After any action, Review comes back to that suggestion as a **done card** that reads the result back from the
+listing itself, so staff can check it worked. A closed listing shows "hidden from the public site". A fix shows each
+field as it is now, with ✓ where it matches what the visitor sent. A merge shows which listing was kept and which
+hidden. A new listing or place shows whether it's live or held. The card links to **See the listing** and **Open in the
+editor**, and a closure has **Undo: put it back**. Staff can open a hidden listing; a banner says it's hidden and why.
+Everyone else still gets "not found", or the kept listing for a merged one. Each suggestion card's name links to its
+listing.
+
 Rules:
 - **Nothing is deleted.** Closed and merged-away listings are hidden and can be put back from their editor.
 - **An owner's listing is the owner's.** A visitor's word alone never hides a managed listing or hides it in a merge, and
