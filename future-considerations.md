@@ -139,3 +139,12 @@ Facebook, directly or through an aggregator (Yext, BrightLocal, Semrush Local, D
 our 820 categories to each directory's own list (Google allows 10, Yelp, Facebook and Apple 3), and the owner's say-so.
 Consistent name, address and phone everywhere is what search engines trust; this would make Traversence the one place to keep them.
 
+
+## Facilities and the providers in them (added 2026-10-10)
+
+A clinic or center often shares one address and phone with the providers and offices inside it (Apache Behavioral Health
+Services in Whiteriver and its counselors; a medical plaza's practices). Review now tells these apart from duplicates
+(decisions/0074) and lists each on its own, but nothing links them. Add a "part of" link from a provider or office to its
+facility: the facility's page lists who works there, each provider's page names where, and search can answer "counselor at
+Apache Behavioral Health". The crawler can suggest the link when the phone and address match under a different name
+(NPI's organization and individual records already pair them); staff or the facility's owner confirm it.

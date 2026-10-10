@@ -118,6 +118,9 @@ Tap the camera button at the bottom right of the photo at the top of a place or 
 ### Why do some names look different from other sites?
 Some listings come from public data that shortens words, like "Visitor Ctr" or "Natl Pk". We show them in full ("Visitor Center", "National Park"). Once a business claims its listing, we show the name exactly as the owner writes it.
 
+### Why do several listings share one address and phone number?
+Clinics, medical centers and offices often house several providers or businesses under one roof and one front-desk number: a behavioral health center and the counselors who work there, say. Each is its own listing, so you can find the person or service you need. When our crawler finds a business that is already listed under a shortened name ("Apache Behavioral Health Svc" and "Apache Behavioral Health Services"), with the same phone, street address and ZIP, it adds what it learned to the existing listing instead of making a second one, and never overwrites what's there. Grouping a facility's providers together on one page is coming.
+
 ### Can I see a place's photo bigger?
 Yes. Tap the photo at the top of a place, a listing or a profile to open it full screen, with its credit. If there are several, swipe or use the arrows to move between them. You can like it, share it or go to the comments from there too. Tap outside the photo, or ×, to close it.
 
