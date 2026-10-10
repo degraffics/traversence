@@ -56,6 +56,22 @@ popup: fix, save, close."
 8. Review lists the most confident waiting listings (it read the first 500 by source before, so some never showed),
    and a pop-up opens any waiting row, however many are waiting.
 
+9. **Ready rows publish on their own from Review** (added 2026-10-10, Jason: "100 score but I still need to review
+   them?"). Rows held as possible duplicates before the rules below existed now pass every check, but auto-publish only
+   ran when the crawler first staged a row. Each time Review opens it publishes up to 100 such rows, best first. Each
+   one is first matched again against what's listed now, so a second copy of a business published a moment earlier is
+   merged into it, not published twice. A row that now looks like a duplicate stays for a person, with its matches
+   brought up to date.
+10. **Another location is not a duplicate.** The same name at a different street number (Changepoint Integrated Health's
+    clinics, which share one name and main phone) is labelled **Another location** and published as its own listing.
+    The same street number written differently ("1920 W Commerce Park Dr" and "1920 West Commerce Dr") goes to a person.
+11. **"Same place" needs a person's name.** A different name at the same phone or address counts as a provider at the
+    facility only when one of the two names is a person's ("Hirrlinger, Erinn", "Dalmolin Carly Anne"). Two business
+    names there are often one business under its legal and its trading name ("German Dobson Cvs LLC" is the CVS
+    Pharmacy; "Randolph P Platt DDS, PC" is Platt Comprehensive Dentistry; "Community Counseling Ctr" was Changepoint's
+    name), so a person decides. A first test without this rule published three such duplicates on the local copy; with
+    it, none.
+
 ## Consequences
 
 - Listing Intake stays for crawling a site and for the rare field-by-field merge; Review no longer sends people there.
@@ -67,3 +83,5 @@ popup: fix, save, close."
   `reject` take a null person for automatic work; `oneRow`; `listRows` best-first; category guesses weigh the declared
   kind), `app/lib/crawler/ListingExtractor.php` (keeps the schema.org kind as `what.types`), `website/admin/review-item.php`,
   `website/admin/crawler-review.php`.
+- Code for 9–11: `AutoImport::sweepEligible`, `relationTo`, `looksPerson`; `IntakeStager::freshMatch` (matches now carry
+  each listing's phone and street address).

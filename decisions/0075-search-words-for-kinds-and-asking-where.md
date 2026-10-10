@@ -39,12 +39,19 @@ Pressing Enter on "dentist" with no place opened the place picker over the page.
    **Keep everywhere** and **More choices** (the full picker, only when tapped). Picking a place applies it and the
    results refresh in place. "Near me" asks the same way, without Keep everywhere.
 
+6. **The directory reads the same words** (`api/search_listings.php`): when the words typed are staff words for kinds,
+   listings of those kinds match too, and the loose retry is skipped, since it found "mental" inside "environmental"
+   (Apache Environmental Health for "mental health" in St. Johns).
+7. **Local first, in steps.** With a distance wider than 10 mi around a place, results come in steps (within 10 mi, 25,
+   50, then the rest), the best match first within each. Before, a name 40 mi away outranked counselors in town. A
+   business searched by its own name still leads, wherever it is.
+
 ## Consequences
 
 - Staff words added later from the search-misses tool reach listings at the next index build.
 - Mental health listings filed under plain "Health Services" (Compass Mental Health-Wellness, Renewal Mental Health,
   Vital Mental Health & Wellness) still read as Health Services; recategorizing them is staff's call in the listing editor.
 - "counseling" alone is read as the situation "Someone to talk to", which lists by place; with no place set it asks where.
-- Code: `app/lib/SearchIndex.php` (`kindWords`), `app/lib/UniversalSearch.php` (`meant`), `app/lib/Concepts.php`
+- Code: `app/lib/SearchIndex.php` (`kindWords`; distance steps in `find`), `website/api/search_listings.php`, `app/lib/UniversalSearch.php` (`meant`), `app/lib/Concepts.php`
   (`SEEDED`), `website/js/search-panel.js` (`nearAsk`, `nearType`, `nearPick`; Results count; directory link),
   `app/ui/header.php` (styles), `app/migrations/2026-11-15_mental_health_words.sql`.
