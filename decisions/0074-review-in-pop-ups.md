@@ -85,3 +85,8 @@ popup: fix, save, close."
   `website/admin/crawler-review.php`.
 - Code for 9–11: `AutoImport::sweepEligible`, `relationTo`, `looksPerson`; `IntakeStager::freshMatch` (matches now carry
   each listing's phone and street address).
+- 2026-10-10: Review is now a section of **Manage listings** (`website/admin/listings.php`), the one admin page for every
+  listing tool: Overview (what's waiting, how complete the listings are, and the routine that keeps them right), Review,
+  Find & edit, Add a listing, Nexus (`decisions/0054`), Claims, Identities, Published by the crawler, Crawl a site. Each
+  tool opens in place in its embedded view, filling the page; the section stays in the address (#review). The admin
+  menu's "Listings & places" leads with Manage listings, then the places: Experiences, Journeys, Landmarks, Nations.
