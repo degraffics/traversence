@@ -586,6 +586,9 @@ If you were signed in when you sent it, we email you when it's done. A business 
 
 ## Privacy and your account
 
+### How long do I stay signed in?
+Until you sign out, or close your browser. A break, even a long one, doesn't sign you out. On a phone, the browser usually stays open in the background, so you stay signed in for days; close it fully, or tap **Sign out**, to end it. If you go 30 days without using Traversence, you'll be asked to sign in again.
+
 ### How do I change my name or profile?
 Go to your **Dashboard** and choose **Profile** (under Settings), or tap your name at the top of the menu and choose **Your profile**. There you can:
 - set your **display name**, the name people see on your journeys, comments and messages;
