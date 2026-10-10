@@ -82,3 +82,30 @@ possible duplicates to compare, 14 missing a way to reach them or a place.
 - Review lists only exhausted listings; "Check again" stays for when a person knows something changed.
 - Still to build: reading a business's Locations page into one listing per location, and not publishing an address that
   isn't on the business's own list (an old NPI address); owners' removal requests from the claim page.
+
+## Added 2026-10-10: shelters' addresses, and the deeper look
+
+Jason: "What if someone needs these resources?" and "How can we use OpenStreetMap or the crawler to check listing
+verification when it fails?"
+
+- **Only domestic-violence shelters and safe houses keep their address private** (`ListingSafety::CONFIDENTIAL_NAME`,
+  narrowed). They don't take walk-ins: you call, they screen, they arrange where to meet, and a published address puts
+  the people inside at risk. Every walk-in place shows its address: homeless and family shelters, crisis centers,
+  transitional and sober living, and the elder-care, group and residential care homes (whose whole categories were
+  hidden before). Those are placed on the map again (`Geocoder`). A private listing shows **Need help now?**: its own
+  line, 911, the National Domestic Violence Hotline and its text line (`ListingSafety::HELP_LINES`), and an office
+  address the shelter publishes itself, which staff can add in the listing editor (`office_address`).
+- **The deeper look** (`app/lib/crawler/DeepLook.php`), run by Verify before a listing can be exhausted, a few a call:
+  1. **OpenStreetMap as a second reference:** an entry with nearly the same name or the same phone at the same street
+     number confirms the business (an independent source, kind open_data). The same name and phone at another street
+     number marks the address **probably moved**. OSM data stays OSM's (0065, ODbL): only the yes or no and a link to
+     the entry are kept; its phone, hours and address are never copied. Its website tag is only a pointer. OSM asks
+     share OpenPlaces' hourly budget.
+  2. **The business's own website** (from the listing, or OSM's pointer, never a directory or social page): read like
+     "Crawl a site". A location there at the same street number confirms it from its own site, with that location's
+     phone (which replaces a registry's head-office number) and hours. A site that lists its locations without this
+     street number marks it **probably moved** (Changepoint's 1801 W Deuce of Clubs).
+  - A probably-moved listing goes to Review as its own group ("Probably moved or closed"), never published at the old
+    address.
+- **Listed twice already:** when the directory has the same business twice, a found copy merges into the claimed one,
+  else the oldest, instead of waiting for a person.

@@ -408,6 +408,12 @@ If you're not signed in, the page lets you sign in or create an account and keep
 ### Where do the listings come from?
 From public information: the business's own website, official records such as the federal list of health-care providers (the NPI Registry), open map data, and directories like chambers of commerce. Our crawler gathers what's there, checks that a business is real (its own website, an official record, or two separate sources), puts it in the category that fits what it says it is, and joins it with what's already listed instead of making a second copy. Each listing goes up unclaimed, ready for its owner to claim. Each fact keeps where it came from.
 
+### Why doesn't a domestic-violence shelter show its address?
+To keep the people inside safe. Domestic-violence shelters and safe houses don't take walk-ins: you call, they talk with you, and they arrange where to meet. So their listing shows their phone, and **Need help now?** with 911, the National Domestic Violence Hotline (1-800-799-7233, 24 hours) and its text line (text START to 88788). If a shelter publishes an office address itself, that shows. Calls and texts go straight from your phone; we don't see or keep them. Every other place, including homeless and family shelters, crisis centers and care homes, shows its address.
+
+### How do you know a listing is right?
+Our crawler checks each business against more than one public source before it's listed: its own website, official records, OpenStreetMap, and directories. When its own website lists its locations, that wins for each location's phone and hours. When a source shows the business at another address, it isn't listed at the old one until that's sorted out. Something wrong? Use **Closed, moved or listed twice? Tell us** on the listing, or claim it if it's yours.
+
 ### My business is listed and I didn't ask for it. Can I change it or have it removed?
 Yes. Claim it (**Claim it** on the listing) to correct it, add what's missing, or make details private. Or use **Closed, moved or listed twice? Tell us** on the listing to ask us to remove it, and our team takes it off the site.
 
