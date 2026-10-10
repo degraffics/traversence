@@ -30,6 +30,15 @@ Beside the category field, a round **+** adds another category field, up to four
 On the add form the short "What it is" list gives a broad group; the first exact category picked inside that group
 becomes the main one, and the rest are extra.
 
+**Finding the right one.** A list of 820 trade names ("Theatres-Movie") can't be scrolled, so every category field is a
+search box: type "movie", "venue" or "party rental" and pick from plain names ("Movie Theaters"); the trade name and the
+group are searched too, and among equal matches the one more businesses use comes first. Owners who pick an exact kind
+with + needn't also choose from the short list. **Staff can add a category** the search doesn't find, right in the field
+("Add it as a new category", then its group; `/admin/api/category-add.php`); a name already in that group is reused,
+never copied. Owners pick the closest and tell us. Missing ones added 2026-10-10 (`app/migrations/2026-11-14_more_categories.sql`):
+Event Venues, Private Event & Party Rentals, Event Planners & Organizers, Performing Arts & Live Theater, Arts & Culture,
+Community Events & Festivals.
+
 ### 3. Nobody approves them, for now
 
 Owners set their extra categories themselves, unmonitored (Jason: "let it be an advantage for those using the system
