@@ -377,6 +377,15 @@ Yes. A website isn't needed. Give its name, what it is, the town, a phone number
 
 Before saving, we check whether it's already listed (the same phone, website or Facebook page, or a similar name in the same town). If it is, we show you and you can claim that listing instead, so there aren't two.
 
+### Can my business be in more than one category?
+Yes. Every business has one **main category**, shown on its card, and can be listed under **up to 4 more**. On the add-your-business form or in your business dashboard, tap **+** beside the category to add another. People searching any of those categories find you there too, after the businesses whose main category it is. No plan gets more categories or ranks higher: they're the same for everyone. Pick the ones that match what you really do; that's where they work best.
+
+### What should I put in "What you offer"?
+Short names of what people come to you for, one per line: "Matinees", "Private screenings", "Concessions". Anyone searching for one of them finds you, even if it isn't a category. Your business dashboard suggests a few that similar businesses list.
+
+### What name should I use for my business?
+The name on your sign works best. What you do ("Movies, Popcorn & Parties") is better in your categories and in "What you offer", where people's searches find it. We'll suggest this if your name looks like it carries a list of services, but it's your choice.
+
 ### What do I need to add or claim a business?
 A Traversence account (18 or older) with:
 - **a confirmed email**: the link we email you when you join (you can ask for it again from the page);
