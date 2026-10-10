@@ -112,6 +112,14 @@ Never use `alert()`, `confirm()` or `prompt()` (the browser's grey boxes). Use t
 - to show a page without leaving the one you're on (checking a listing from Review): `<a href="…" data-peek-frame>` or
   `TvAsk.peek(url, title)`, a pop-up card with the page in its embedded view and "Open the full page" in its corner.
 
+## Links past Bluehost's firewall (ModSecurity): every form and request, every build
+
+Bluehost's ModSecurity rejects a request ("Not Acceptable!") when a field holds a link like `…/profile.php?id=…`. Links
+travel wrapped and are unwrapped on arrival, so code never sees the difference:
+- ordinary POST forms: automatic (`js/tv-ask.js` wraps any field containing `://` or `www.`; `app/bootstrap.php` unwraps `$_POST`);
+- `fetch` with JSON: send `JSON.stringify(window.tvSafe ? tvSafe(body) : body)`; `Response::jsonBody()` unwraps it;
+- an endpoint that reads `php://input` itself must pass the decoded body through `Response::unwrap()`.
+
 ## Content page standard (decisions/0058 §20): every content page, every build
 
 Listings, outdoor places, experiences, place pages, journeys, and any new kind of content page:
