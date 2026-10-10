@@ -545,7 +545,14 @@ Journeys publish as soon as they're posted, and our team responds to reports. If
 Use **Make a suggestion** in the menu, or **Tell us** on a listing or place page. It works for anything: a business, a lake, a trail, a landmark, a story idea, or a correction to a listing. You can drop a pin on the map to show where it is.
 
 ### What happens to my suggestion?
-Our team reviews it, checks it against public sources, and updates the listing or adds the place.
+Our team reviews it and checks it against public sources. Then:
+- **A correction** (a phone, website, address, hours or name) is made on the listing.
+- **Closed** takes the listing off the site. We keep its details, so it can come back if it reopens.
+- **Listed twice** becomes one listing, and the other one's link takes you to it.
+- **A missing business** becomes a new listing; **a missing lake, trail, park, campground or landmark** becomes a new place. Places whose names may mark a sacred, burial or protected site are held, not shown.
+- **A missing event**: events are coming.
+
+If you were signed in when you sent it, we email you when it's done. A business run by its owner is changed by its owner, so we check with them first.
 
 ## Privacy and your account
 
