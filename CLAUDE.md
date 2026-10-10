@@ -100,6 +100,16 @@ Space on a phone is at a premium. Every page, new or changed, follows this:
   counts only, never who tapped.
 - Check every page at 390px wide before delivering: card edges at 3px, no sideways scroll.
 
+## No browser dialogs: every page, every build
+
+Never use `alert()`, `confirm()` or `prompt()` (the browser's grey boxes). Use the site's own, from `js/tv-ask.js`
+(loaded on every page by `app/ui/header.php`):
+- a form or submit button that needs a yes: `data-confirm="Hide it from the site?" data-yes="Hide it"` (add `data-danger`
+  for anything that removes or hides), shown inline under the button;
+- in a click handler: `if (!TvAsk.gate(button, 'Remove this comment?', { yes: 'Remove', danger: true })) return;`;
+- `TvAsk.confirm(msg, {anchor})` → Promise, `TvAsk.say(msg, {anchor})` for notices (a toast without an anchor),
+  `TvAsk.ask(label, value)` → Promise for a one-field lightbox form.
+
 ## Content page standard (decisions/0058 §20): every content page, every build
 
 Listings, outdoor places, experiences, place pages, journeys, and any new kind of content page:
