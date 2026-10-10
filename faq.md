@@ -370,18 +370,34 @@ source shows, and we link to them rather than copy them. If you own the business
 details: once your claim is confirmed, they're never overwritten.
 
 ### I own a business. How do I get it listed?
-Use **Add or claim a business** at the bottom of any page. Find your listing and claim it. If it isn't listed, tell us about it: we check new listings first, then email you so you can claim it.
+Use **Add or claim a business** at the bottom of any page. If your business is already listed, claim it. If it isn't, add it yourself: it takes a few minutes from your phone, and it's live as soon as you confirm a code we email you.
+
+### Can I add my business if it only has a Facebook page, or no website at all?
+Yes. A website isn't needed. Give its name, what it is, the town, a phone number, and a street address, or tap **Use where I am now** to drop a pin if there's no usable address. Add your Facebook page, website, hours and what you offer if you like, and photos once it's live. Your Traversence listing can be your business's page on the web.
+
+Before saving, we check whether it's already listed (the same phone, website or Facebook page, or a similar name in the same town). If it is, we show you and you can claim that listing instead, so there aren't two.
+
+### What do I need to add or claim a business?
+A Traversence account (18 or older) with:
+- **a confirmed email**: the link we email you when you join (you can ask for it again from the page);
+- **a phone number**: it stays private, only our team sees it, so we can reach you about your listing;
+- **Verification switched on**: we check only the details you give us.
+
+If you're not signed in, the page lets you sign in or create an account and keeps what you've typed.
+
+### Someone told you about a business. How does it get listed?
+If it isn't yours, use **Not your business? Tell us about it instead** on the same page. Our team checks it, adds it (a website isn't needed) and emails you when it's on the site. If you said it's yours, that email has a **Claim it** link.
 
 ### How do I claim my business?
 Open your listing and tap **Claim**. You'll need a Traversence account (18 or older) with Verification switched on. Then:
 1. **Confirm by email.** We send a code to your account email. Enter it and your listing shows **Managed by owner**: you can edit its description, hours, services and photos right away.
-2. **Confirm by text.** Text your claim's code (it looks like TV-1234) to our Verify number, from the phone number on your listing. That confirms you, and the listing shows **✓ Verified**.
+2. **Get verified.** Tap **Send verification request**. Our team gets your listing and how to reach you, checks it (usually the same day) and confirms it, and your listing shows **✓ Verified**. If they need something first, such as a call or a photo of the storefront, they'll email you, and you can send a new request when it's ready. You can also text your claim's code (it looks like TV-1234) to our Verify number instead.
 3. **Choose a plan.** Free, or a paid plan (see below).
 
 Your business dashboard (**Manage** on your listing) shows where your claim stands and what's left.
 
 ### What does "Managed by owner" mean?
-Someone has claimed the listing by email but hasn't finished the last step yet. They can edit the description, hours, services and photos. Changes to the name, phone, address and website wait for our team until the claim is confirmed, so customers are never sent to the wrong place.
+Someone has added or claimed the listing and confirmed it by email, and it's waiting to be verified. Until it's verified it isn't shown to search engines. They can edit the description, hours, services and photos. Changes to the name, phone, address and website wait for our team until the claim is confirmed, so customers are never sent to the wrong place.
 
 ### I texted from a different number. What happens?
 That's fine: in a lot of small businesses the owner's own cell is the business phone. Someone from our team will contact you at that number within 48 hours to confirm who you are and your role with the business. If you can't text, you can instead use an email at your business's own website domain (when your listing has a website), send a document such as a business license or utility bill (only our team sees it, and it's deleted as soon as your claim is decided), or ask for a call or a visit at a time that suits you.

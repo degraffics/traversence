@@ -1,7 +1,7 @@
 # 0071. Adding a business: live in minutes, verified with one tap
 
 Date: 2026-10-10
-Status: Proposed (Jason's answers, 2026-10-10: "1. live 2. email enough 3. short list yes"; the verification request
+Status: Accepted (Jason, 2026-10-10: "approved, keep text as fallback"; earlier: "1. live 2. email enough 3. short list yes"; the verification request
 and the account rule as he described them)
 
 **Amends:**
