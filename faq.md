@@ -660,7 +660,19 @@ in place, with one tick. Switch it on or off any time in **Privacy Settings → 
 the Verified mark, not your account. We keep a record of when you said yes or no and the exact words you were shown.
 
 ### Who can see my email?
-No one. Your email is never shown on Traversence.
+No one on the site. Your email is never shown on Traversence. The few Traversence staff who look after accounts can
+see it, to find your account when you ask for help.
+
+### What can Traversence staff see about my account?
+Only what they need to help you and keep the site safe: your name, email and phone if you gave one, when you joined,
+whether your email and age are confirmed, the roles you hold (a listing, a community, staff), whether you're
+Verified, and the privacy choices you made. Staff never see your private messages, your Address Book or your contact
+cards, in any role.
+
+### Can my account be suspended?
+Yes, for breaking the [posting guidelines](#posting-guidelines-and-safety) or misusing the site. A suspended account
+is signed out everywhere and can't sign in until it's restored. Every suspension and restore is recorded with who did
+it. If you think yours was suspended by mistake, contact us.
 
 ### Can anyone read my private messages?
 No. No one at Traversence, in any role, can read your private messages or your contact cards.
