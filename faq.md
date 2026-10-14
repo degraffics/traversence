@@ -434,6 +434,13 @@ Someone has added or claimed the listing and confirmed it by email, and it's wai
 ### I texted from a different number. What happens?
 That's fine: in a lot of small businesses the owner's own cell is the business phone. Someone from our team will contact you at that number within 48 hours to confirm who you are and your role with the business. If you can't text, you can instead use an email at your business's own website domain (when your listing has a website), send a document such as a business license or utility bill (only our team sees it, and it's deleted as soon as your claim is decided), or ask for a call or a visit at a time that suits you.
 
+### Why did Traversence contact my business?
+Your business is listed on Traversence from public information, and claiming it is free. Someone from Traversence may
+call, stop by, or email the address your business publishes, to offer you the listing: once it's yours you can
+correct the details, add your hours and photos, and answer people who message you. We use only your business's
+public phone, website and email, and never sell them. If you'd rather not hear from us, say so (or reply "no thanks"
+to the email) and we won't contact you about it again.
+
 ### Someone else already claimed my business. What can I do?
 Ask to claim it anyway. Only one claim goes ahead at a time, so yours is saved as **Claim Request On Hold**, not turned down, and our team is told straight away. Leave a way to reach you and anything that shows the business is yours. If the listing has a confirmed owner and you believe that's wrong, you can question it from the claim page: the owner is told and can answer, and our team decides. Nothing changes on the listing while that happens.
 
