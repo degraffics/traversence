@@ -102,3 +102,9 @@ checks; nothing is closed on Google's word alone.
 - Google's details shown on a Google map, credited to Google: the terms allow that, but we don't need it.
 - The app's logo on Google's sign-in screen, after brand verification.
 - A second, browser-only key restricted to traversence.com, if a Google map is ever put on a page.
+
+## Fix, 2026-10-14
+
+The button didn't show on the live site. The site reads `.env` when it first connects to the database, and the check
+for the Google keys ran before that. Now it connects first, and the sign-in and sign-up pages load the site's settings
+before anything is printed. Checked with the keys only in `.env`, as on the server: the button shows on both pages.
