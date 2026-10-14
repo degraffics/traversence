@@ -39,10 +39,11 @@ Settings (environment variables):
   TAVILY_API_KEY       Tavily search key (free plan: 1,000 searches a month); without a search key the
                        second look uses the NPI Registry only
   BRAVE_API_KEY        Brave Search API key, used instead when there is no Tavily key (paid)
-  MAX_SEARCHES         web searches per run, default 10
+  MAX_SEARCHES         web searches per run at most, default 10; the site may allow fewer (the month's pace)
   LEARN_PER_RUN        Tier 2 web searches for situation gaps per run, default 3 (0 turns it off)
   LEARN_TIME           seconds of each run for them, default 45
-  SEARCH_MONTHLY       the search plan's monthly allowance (default 1000), reported to the site for the admin dashboard
+  SEARCH_MONTHLY       the search plan's monthly allowance (default 1000). The site stops web search at 90% of it and paces
+                       the rest over the days left (decisions/0084)
   NPI_BULK             "off" stops the monthly NPI Registry load (default on). When the site says a load is due
                        (every 30 days), that run downloads CMS's full NPI file (about 1 GB), keeps health-care
                        organizations in the site's states, sends them in batches, and skips the rest of the run.
@@ -94,7 +95,8 @@ TAVILY_API_KEY = os.environ.get("TAVILY_API_KEY", "")
 BRAVE_API_KEY = os.environ.get("BRAVE_API_KEY", "")
 SEARCH_ON = bool(TAVILY_API_KEY or BRAVE_API_KEY or os.environ.get("SEARCH_FIXTURE"))
 MAX_SEARCHES = int(os.environ.get("MAX_SEARCHES", "10"))
-SEARCH_MONTHLY = int(os.environ.get("SEARCH_MONTHLY", "1000"))  # the search plan's monthly allowance, shown on the admin dashboard
+SEARCH_MONTHLY = int(os.environ.get("SEARCH_MONTHLY", "1000"))  # the search plan's monthly allowance: the site stops searching at 90% of it
+search_allow = 0      # searches this run may make: the site says, from the month's use so far (decisions/0084); 0 until it does
 LEARN_PER_RUN = int(os.environ.get("LEARN_PER_RUN", "3"))         # Tier 2 web searches for situation gaps per run (decisions/0061); 0 turns it off
 LEARN_TIME = int(os.environ.get("LEARN_TIME", "45"))
 GUIDES_PER_RUN = int(os.environ.get("GUIDES_PER_RUN", "2"))      # how-to guides looked for per run (decisions/0063 §8); 0 turns it off
@@ -523,8 +525,8 @@ def search(query):
         items = (data.get(query) or data.get("*", {})).get("results", [])
         searches += 1                                 # counted the same as a real search
     else:
-        if not (TAVILY_API_KEY or BRAVE_API_KEY) or searches >= MAX_SEARCHES:
-            return []
+        if not (TAVILY_API_KEY or BRAVE_API_KEY) or searches >= min(MAX_SEARCHES, search_allow):
+            return []                                 # the run's share of the month is used up (or the site didn't say)
         wait = 1.1 - (time.monotonic() - last_search)        # free plans allow about one query a second
         if wait > 0:
             time.sleep(wait)
@@ -1891,6 +1893,23 @@ def run():
     return 0
 
 
+def ask_search_allowance():
+    """How many web searches this run may make (decisions/0084). The site keeps the month's count and paces it: never
+    past 90% of SEARCH_MONTHLY, and spread over the days left, so a plan's allowance can't run out early and nothing
+    is ever billed past it. If the site can't be asked, none."""
+    global search_allow
+    search_allow = 0
+    if not (TAVILY_API_KEY or BRAVE_API_KEY) or not SITE or not TOKEN:
+        return
+    engine = "tavily" if TAVILY_API_KEY else "brave"
+    try:
+        r = site_call("/api/crawl/usage.php", {"ask": 1, "engine": engine, "monthly": SEARCH_MONTHLY}, timeout=20)
+        search_allow = max(0, int(r.get("allow", 0)))
+        log(f"web search: {r.get('month_used', '?')} of {SEARCH_MONTHLY} used this month; this run may make {min(search_allow, MAX_SEARCHES)}")
+    except Exception as e:
+        log(f"web search off this run: the site couldn't say how many are left ({e!r})"[:200])
+
+
 def report_usage():
     """Tell the site which web search is on and how many searches this run made, for the admin dashboard's System
     status (it keeps the month's total). Never fails the run."""
@@ -1910,12 +1929,15 @@ if __name__ == "__main__":
     socket.setdefaulttimeout(60)
     def _stop(*_):
         log("run stopped: over its time limit; the next scheduled run carries on")
+        socket.setdefaulttimeout(10)
+        report_usage()                             # the searches it made still count toward the month
         sys.stdout.flush()
         os._exit(0)
     if hasattr(signal, "SIGALRM"):
         signal.signal(signal.SIGALRM, _stop)
         signal.alarm(int(os.environ.get("RUN_LIMIT", "1800")))
     try:
+        ask_search_allowance()
         code = run()
         report_usage()
         sys.exit(code)

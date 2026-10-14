@@ -118,6 +118,9 @@ Tap the camera button at the bottom right of the photo at the top of a place or 
 ### Why do some names look different from other sites?
 Some listings come from public data that shortens words, like "Visitor Ctr" or "Natl Pk". We show them in full ("Visitor Center", "National Park"). Once a business claims its listing, we show the name exactly as the owner writes it.
 
+### Why does a listing say "Also known as"?
+Some places go by more than one name: a new name after a change of owner, a legal name on official records, or an older name people still use. "Infinia at Show Low" and "Tall Pines Care and Rehab" are one nursing home, for example. The listing keeps its other names and shows them as **Also known as**, and searching any of them finds it. When our crawler finds the same place under another name (the same address, phone and kind of place), it adds what it learned to the existing listing and keeps the name, instead of listing it twice.
+
 ### Why does a listing say "Part of" another name?
 Some organizations have several locations: a school district's schools, a health center's clinics, a chain's stores, an agency's offices. Each location has its own listing, with its own address, phone and hours, and says which organization it's **Part of**. Stores of a franchise brand show **Part of** the brand too, but each is its own business: its owner manages only that store's listing. Tap that name to see every location on one page, nearest you first when your place is set. Under each location's details, **Other locations** lists the nearest few, each with Call and Directions. Searching the organization's name finds all of its locations. Our team links them, from the organization's own website (its own list of its schools, clinics or stores) or records, never from a similar name alone. A chain's shared website never makes two of its stores one listing: each store is its own place. Owners claiming all their locations at once is coming.
 
