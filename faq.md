@@ -608,6 +608,12 @@ Videos come from YouTube or Vimeo, and once one plays, they can see your visit a
 ### Where do I change my privacy choices?
 On the [Privacy page](/privacy.php#choices), signed in or not, or in Privacy Settings → Your tools when you're signed in. Signed in, your choices follow you to any device you sign in on.
 
+### Can I sign in with Google?
+Yes. **Continue with Google** is on the sign-in and sign-up pages. Google tells us only your name, your email address (once Google has confirmed it) and an ID for your Google account, never your Google password or anything else in it. If you already have an account with the same email, Google signs you into it. If you're new, you finish signing up as everyone does: confirm you're 18 or older, choose about verification and privacy, and agree to the terms. There's no password to choose; to sign in without Google too, use **Forgot password?** to set one.
+
+### Does Traversence use Google's information about businesses?
+Only to check our listings. Our crawler asks Google whether it knows a listed place, and if Google's place has the same name and street address, we keep Google's ID for it, nothing else (Google's terms don't let us copy its hours, photos or reviews). When Google lists a place as permanently closed, a person on our team checks before anything changes; nothing is closed on Google's word alone. Places whose address is kept private, such as shelters, are never sent to Google.
+
 ### How long do I stay signed in?
 Until you sign out, or close your browser. A break, even a long one, doesn't sign you out. On a phone, the browser usually stays open in the background, so you stay signed in for days; close it fully, or tap **Sign out**, to end it. If you go 30 days without using Traversence, you'll be asked to sign in again.
 

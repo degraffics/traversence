@@ -42,6 +42,9 @@ Settings (environment variables):
   MAX_SEARCHES         web searches per run at most, default 10; the site may allow fewer (the month's pace)
   LEARN_PER_RUN        Tier 2 web searches for situation gaps per run, default 3 (0 turns it off)
   LEARN_TIME           seconds of each run for them, default 45
+  GOOGLE_PLACES_KEY    Google Places API (New) key: with it, each run checks a few listings against Google (decisions/0085)
+  PLACES_PER_RUN       listings checked against Google per run, default 5 (0 turns it off)
+  GOOGLE_PLACES_MONTHLY  checks a month at most, default 3000; the site stops at 90% and paces it over the days
   SEARCH_MONTHLY       the search plan's monthly allowance (default 1000). The site stops web search at 90% of it and paces
                        the rest over the days left (decisions/0084)
   NPI_BULK             "off" stops the monthly NPI Registry load (default on). When the site says a load is due
@@ -96,6 +99,11 @@ BRAVE_API_KEY = os.environ.get("BRAVE_API_KEY", "")
 SEARCH_ON = bool(TAVILY_API_KEY or BRAVE_API_KEY or os.environ.get("SEARCH_FIXTURE"))
 MAX_SEARCHES = int(os.environ.get("MAX_SEARCHES", "10"))
 SEARCH_MONTHLY = int(os.environ.get("SEARCH_MONTHLY", "1000"))  # the search plan's monthly allowance: the site stops searching at 90% of it
+GOOGLE_PLACES_KEY = os.environ.get("GOOGLE_PLACES_KEY", "")   # Google Places API (New) key (decisions/0085): checks listings against Google
+PLACES_PER_RUN = int(os.environ.get("PLACES_PER_RUN", "5"))       # listings checked against Google per run, at most; the site paces the month
+PLACES_TIME = int(os.environ.get("PLACES_TIME", "40"))            # seconds of each run for it
+PLACES_MONTHLY = int(os.environ.get("GOOGLE_PLACES_MONTHLY", "3000"))   # checks a month at most (the site stops at 90% and paces it)
+places_used = 0
 search_allow = 0      # searches this run may make: the site says, from the month's use so far (decisions/0084); 0 until it does
 LEARN_PER_RUN = int(os.environ.get("LEARN_PER_RUN", "3"))         # Tier 2 web searches for situation gaps per run (decisions/0061); 0 turns it off
 LEARN_TIME = int(os.environ.get("LEARN_TIME", "45"))
@@ -1843,6 +1851,11 @@ def run():
             refresh_listings(time.monotonic() + REFRESH_TIME)
         except Exception as e:                     # refreshing never stops the crawl jobs
             log(f"refresh stopped: {e!r}"[:300])
+    if PLACES_PER_RUN > 0:
+        try:
+            places_check(time.monotonic() + PLACES_TIME)
+        except Exception as e:                     # checking against Google never stops the crawl jobs
+            log(f"Google check stopped: {e!r}"[:300])
     if LEARN_PER_RUN > 0:
         try:
             learn(time.monotonic() + LEARN_TIME)
@@ -1893,6 +1906,64 @@ def run():
     return 0
 
 
+def places_check(deadline):
+    """Checks a few listings against Google (decisions/0085): one Text Search each, asking only for the place's ID, name,
+    address and whether Google lists it as closed (the fewer fields, the cheaper the call). The site picks the listings
+    (never one whose address is kept private), decides whether Google's place is the same one, keeps only Google's place
+    ID, and asks a person about any Google lists as permanently closed. The site paces the month: never past 90% of
+    GOOGLE_PLACES_MONTHLY, spread over the days; Google's own daily limits sit above that."""
+    global places_used
+    if not GOOGLE_PLACES_KEY and not os.environ.get("PLACES_FIXTURE"):
+        return
+    try:
+        a = site_call("/api/crawl/usage.php", {"ask": 1, "service": "places", "engine": "google", "monthly": PLACES_MONTHLY}, timeout=20)
+    except Exception as e:
+        log(f"Google check off this run: the site couldn't say how many are left ({e!r})"[:200])
+        return
+    allow = min(PLACES_PER_RUN, max(0, int(a.get("allow", 0))))
+    if allow <= 0:
+        return
+    batch = site_call(f"/api/crawl/places.php?limit={allow}").get("listings", [])
+    if not batch:
+        return
+    results = []
+    for L in batch:
+        if time.monotonic() > deadline or places_used >= allow:
+            break
+        q = ", ".join(x for x in [L.get("name", ""), L.get("address", ""), L.get("city", ""), L.get("state", "")] if x)
+        body = {"textQuery": q, "pageSize": 1}
+        if L.get("lat") is not None and L.get("lon") is not None:
+            body["locationBias"] = {"circle": {"center": {"latitude": L["lat"], "longitude": L["lon"]}, "radius": 5000.0}}
+        try:
+            if os.environ.get("PLACES_FIXTURE"):
+                with open(os.environ["PLACES_FIXTURE"]) as f:
+                    data = json.load(f).get(L.get("name", ""), {})
+            else:
+                req = urllib.request.Request("https://places.googleapis.com/v1/places:searchText", method="POST",
+                                             data=json.dumps(body).encode(), headers={
+                                                 "Content-Type": "application/json", "X-Goog-Api-Key": GOOGLE_PLACES_KEY,
+                                                 "X-Goog-FieldMask": "places.id,places.displayName,places.formattedAddress,places.businessStatus"})
+                with urllib.request.urlopen(req, timeout=20) as r:
+                    data = json.loads(r.read().decode("utf-8"))
+            places_used += 1
+        except urllib.error.HTTPError as e:
+            places_used += 1                                   # a refused call may still count with Google
+            log(f"  Google check refused ({e.code}): {e.read()[:160]!r}")
+            if e.code in (403, 429):                           # key not allowed, or Google's daily limit reached: stop for this run
+                break
+            continue
+        except Exception as e:
+            log(f"  Google check failed: {e!r}"[:200])
+            continue
+        p = (data.get("places") or [{}])[0]
+        results.append({"id": L["id"], "found": bool(p.get("id")), "place_id": p.get("id", ""),
+                        "name": (p.get("displayName") or {}).get("text", ""), "address": p.get("formattedAddress", ""),
+                        "status": p.get("businessStatus", "")})
+    if results:
+        r = site_call("/api/crawl/places.php", {"results": results})
+        log(f"Google check: {len(results)} listing(s): {r.get('matched', 0)} found, {r.get('closed', 0)} Google lists as closed")
+
+
 def ask_search_allowance():
     """How many web searches this run may make (decisions/0084). The site keeps the month's count and paces it: never
     past 90% of SEARCH_MONTHLY, and spread over the days left, so a plan's allowance can't run out early and nothing
@@ -1918,6 +1989,8 @@ def report_usage():
     engine = "tavily" if TAVILY_API_KEY else ("brave" if BRAVE_API_KEY else "")
     try:
         site_call("/api/crawl/usage.php", {"engine": engine, "searches": searches, "fetches": fetches, "monthly": SEARCH_MONTHLY})
+        if places_used:
+            site_call("/api/crawl/usage.php", {"service": "places", "engine": "google", "searches": places_used, "monthly": PLACES_MONTHLY})
     except Exception as e:
         log(f"usage report skipped: {e!r}"[:200])
 

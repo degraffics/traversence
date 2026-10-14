@@ -217,3 +217,13 @@ Before each run the worker asks the site how many web searches it may make. The 
 `SEARCH_MONTHLY` in a month, paced over the days, so the allowance lasts the month; `MAX_SEARCHES` still caps each
 run. If the site can't be asked, the run makes none. `WEBSEARCH=off` in the site's `.env` stops web search without
 touching Railway. In Tavily's dashboard, keep PAYGO and auto-upgrade off: then nothing is ever billed past the plan.
+
+## Checking listings against Google (decisions/0085)
+
+With `GOOGLE_PLACES_KEY` (a Google Places API (New) key, restricted to that one service), each run checks a few listings
+against Google: one Text Search each (`PLACES_PER_RUN`, default 5), asking only for the place's ID, name, address and
+whether Google lists it as closed. The site picks the listings (never one whose address is private), decides whether
+Google's place is the same one, keeps only Google's place ID, and puts any Google lists as permanently closed in Review
+for a person. The site paces it like web search: never past 90% of `GOOGLE_PLACES_MONTHLY` (default 3000) a month,
+spread over the days. Google's own daily limits on the key and a budget alert sit above that. `GOOGLE_PLACES=off` in
+the site's `.env` stops it.
