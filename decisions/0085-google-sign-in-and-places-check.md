@@ -108,3 +108,11 @@ checks; nothing is closed on Google's word alone.
 The button didn't show on the live site. The site reads `.env` when it first connects to the database, and the check
 for the Google keys ran before that. Now it connects first, and the sign-in and sign-up pages load the site's settings
 before anything is printed. Checked with the keys only in `.env`, as on the server: the button shows on both pages.
+
+## Amendment, 2026-10-14: a day's share
+
+The first live readings: 25 Google checks within the first few runs. The pace lets the month-to-date share go in one
+day (on the 14th, up to about 1,200, until Google's own 200 a day stopped it). Now both counters, web search and the
+Google check, also allow no more in a day than the month's stop divided by the days in the month: about 88 Google
+checks and 29 searches a day. An unused morning never turns into a burst later. Settings shows the day's share and
+today's count. A site-only change (`/api/crawl/usage.php`): the crawler needs nothing new.
