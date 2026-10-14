@@ -79,6 +79,10 @@ Jason, 2026-10-14:
      listings, members, searches, views.
    - The system's status folds into one line unless something needs a look.
 5. **FAQ:** "Why did Traversence contact my business?"
+6. **A missing kind named for what you buy goes under Retail & Shopping.** A draft kind like "Kitchen Supplies",
+   "Home Goods" or "Bike Shop" (…Supplies, …Goods, …Store, …Shop, …Wares, …Accessories, …Outlet, …Dealers) is
+   placed under Retail & Shopping, whatever its words lean toward. "Kitchen" leaned to Food & Dining
+   (`SearchDrafts::refresh`).
 
 ## Consequences
 
