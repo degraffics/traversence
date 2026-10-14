@@ -65,6 +65,8 @@ import json
 import math
 import os
 import re
+import signal
+import socket
 import sys
 import time
 import urllib.error
@@ -1902,6 +1904,17 @@ def report_usage():
 
 
 if __name__ == "__main__":
+    # Never hang (2026-10-14): Railway skips every scheduled run while one is still going, so a single stuck read froze
+    # the crawler for days. Every network wait gives up after 60 s, and the whole run ends after 30 minutes (RUN_LIMIT),
+    # whatever it's doing: past any step's own budget (the monthly NPI load allows 25), never days.
+    socket.setdefaulttimeout(60)
+    def _stop(*_):
+        log("run stopped: over its time limit; the next scheduled run carries on")
+        sys.stdout.flush()
+        os._exit(0)
+    if hasattr(signal, "SIGALRM"):
+        signal.signal(signal.SIGALRM, _stop)
+        signal.alarm(int(os.environ.get("RUN_LIMIT", "1800")))
     try:
         code = run()
         report_usage()

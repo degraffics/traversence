@@ -55,8 +55,8 @@ finished returns to the queue by itself when its 20-minute lease runs out.
 1. **New Project → Deploy from GitHub repo → `degraffics/traversence`.**
 2. In the service's **Settings**:
    - **Root Directory:** `workers/crawler` (Railway then finds the `Dockerfile` here).
-   - **Branch:** the branch this folder is on (`claude/magical-clarke-cn5pqi` until it is merged to
-     `main`).
+   - **Branch:** the branch holding the latest worker. Today that's `claude/optimistic-cannon-9ifg1c`, which has the
+     never-hang fix below (or `main`, once that branch is merged).
    - **Deploy → Cron Schedule:** `*/5 * * * *`, and **Restart Policy:** Never. Set these in the page:
      Railway is retiring config files (`railway.json` is kept only as a record of these settings) and
      new services can't opt in to them.
@@ -202,3 +202,11 @@ It also sends the nations' boundaries, simplified to about 50 m, one area per re
 pins off a nation's land except at its public places (decisions/0058 §26).
 `LANDMARKS=off` turns it off. No key is needed. Test it with `GNIS_FIXTURE_DIR`, `AIANNH_FIXTURE` and `WIKI_FIXTURE`
 (see the top of `crawler.py`).
+
+
+## It never hangs (2026-10-14)
+
+Railway skips every scheduled run while the previous one is still going, so one stuck network read froze the worker
+for days (last heard Oct 9). Now every network wait gives up after 60 seconds (`socket.setdefaulttimeout`), and the
+whole run ends after 30 minutes whatever it's doing (`RUN_LIMIT`, in seconds), then exits cleanly so the next run
+starts on time. A stuck run is logged as "run stopped: over its time limit".
