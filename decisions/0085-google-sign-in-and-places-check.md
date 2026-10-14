@@ -116,3 +116,12 @@ day (on the 14th, up to about 1,200, until Google's own 200 a day stopped it). N
 Google check, also allow no more in a day than the month's stop divided by the days in the month: about 88 Google
 checks and 29 searches a day. An unused morning never turns into a burst later. Settings shows the day's share and
 today's count. A site-only change (`/api/crawl/usage.php`): the crawler needs nothing new.
+
+## Fix, 2026-10-14: Bluehost's firewall and Google's answer
+
+The first live sign-in came back "Not Acceptable!" (ModSecurity). Google's answer lists the granted scopes as links
+(`scope=… https://www.googleapis.com/auth/userinfo.email …`), and the host's firewall refuses a request carrying a link
+to another site. Google now answers after "#" (`response_mode=fragment`), which the browser never sends to the server.
+A small page at the same address reads it and sends on only the code and state. The button starts with `?start=1`.
+Checked with a stand-in for Google answering the way it does: the server saw only `?code=…&state=…`, and the sign-in
+finished.
