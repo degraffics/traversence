@@ -660,19 +660,43 @@ in place, with one tick. Switch it on or off any time in **Privacy Settings → 
 the Verified mark, not your account. We keep a record of when you said yes or no and the exact words you were shown.
 
 ### Who can see my email?
-No one on the site. Your email is never shown on Traversence. The few Traversence staff who look after accounts can
-see it, to find your account when you ask for help.
+No one on the site: your email is never shown on Traversence. Traversence staff can see it only to verify your
+account, or to contact you officially when we can't reach you on Traversence itself, and only when it's truly
+needed. Each time they look, it's recorded.
 
 ### What can Traversence staff see about my account?
-Only what they need to help you and keep the site safe: your name, email and phone if you gave one, when you joined,
-whether your email and age are confirmed, the roles you hold (a listing, a community, staff), whether you're
-Verified, and the privacy choices you made. Staff never see your private messages, your Address Book or your contact
-cards, in any role.
+We don't look at accounts unless there's an issue or you ask us for help. When we do, staff say why before they
+open yours (a report, your request, a claim, a check), and that's recorded with their name. What they see is the
+basics from your sign-up: your display name, when you joined, whether your email and age are confirmed, whether
+you're Verified, the roles you hold, and the privacy choices you made. Your email and phone stay hidden unless they're
+needed to contact you, and showing them is recorded separately. No one, in any role, can see your private
+messages, your Address Book or your contact cards.
 
-### Can my account be suspended?
-Yes, for breaking the [posting guidelines](#posting-guidelines-and-safety) or misusing the site. A suspended account
-is signed out everywhere and can't sign in until it's restored. Every suspension and restore is recorded with who did
-it. If you think yours was suspended by mistake, contact us.
+### How will Traversence contact me?
+On Traversence: through your notifications, your Pulse and a notice at the top of the page. We use your email or
+phone only for official contact when we can't reach you here (for example, if you can't sign in), and only when
+it's needed. If you contact us for help or sales, we reply to you, or to the contact you name, about what you asked.
+A business's address is used only for that business (claiming it, or confirming it); we don't ask members for a
+postal address.
+
+### Can my account be limited or revoked?
+Yes, for breaking the [posting guidelines](#posting-guidelines-and-safety) or misusing the site. You always hear from
+us first, on Traversence, with what happened and the steps to put it right:
+1. **Warning.** You have 24 hours to confirm you'll follow the steps, or to ask for a review.
+2. **Limited, with a final warning.** If we don't hear from you, you can still browse, but you can't post, comment or
+   send messages. You have 24 more hours.
+3. **Access revoked.** If there's still no reply, you can't sign in. We email you what happened, how to recover, and
+   a link to ask for a review.
+
+Something serious (threats, scams, sharing someone's private information) goes straight to step 3. Asking for a
+review at any step stops the clock until a person at Traversence has looked at it, and they reply by email. Your
+posts aren't deleted at any step. Your notice is at [Your account notice](/user/notice.php). If you can't sign in,
+you can get the review link sent again there.
+
+### What lowers my standing?
+Mostly, something you posted being taken down after people reported it. Each one lowers your account's trust score,
+and when the score drops too low, a warning opens on its own. Confirming your email raises it. A take-down that's
+reversed gives it back.
 
 ### Can anyone read my private messages?
 No. No one at Traversence, in any role, can read your private messages or your contact cards.
