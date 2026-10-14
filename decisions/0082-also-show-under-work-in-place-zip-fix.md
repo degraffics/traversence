@@ -1,4 +1,4 @@
-# 0082. Kinds shown under more than one group; work opens in place; no "ZIP 00000"
+# 0082. Kinds shown under more than one group; work opens in a stepped pop-up; no "ZIP 00000"
 
 - **Status:** Accepted
 - **Date:** 2026-10-14
@@ -25,10 +25,16 @@ Jason, 2026-10-14:
    - Searches never needed it: a kind's words find it whatever its group.
    - Example: Cooking Classes lives in Food & Dining, and also shows under Education & Childcare and Entertainment &
      Recreation.
-2. **A step's work opens in place on the admin dashboard.**
-   - Its button, or any of its kinds of work, opens the tool right under the step, in a frame that grows to fit.
-   - A bar shows what you're working on, with **Close** and **Next step ▸**. Both reload the dashboard, so the counts
-     are fresh; Next opens the next step that still has work.
+2. **A step's work opens in a pop-up, with breadcrumbs** (Jason: "The standard should be popup lightbox so I can work
+   the task and once complete closes the popup… Show steps as breadcrumbs so if I need to go between steps I can
+   easily". An earlier in-place version was replaced).
+   - Any step, or any of its kinds of work, opens a large pop-up over the dashboard. Two rows of breadcrumbs sit
+     above the work: the day's six steps with their counts (✓ when clear), then the current step's tasks. Tap any
+     crumb to jump.
+   - **Next ▸** goes through the step's tasks, then on to the next step that has work. **◂ Back** goes back.
+     **Done**, × or Esc closes it and reloads the dashboard, so the counts are fresh.
+   - Whatever the tool opens (a listing to compare, a question) shows on top of the pop-up, never inside it.
+   - Crumbs that don't fit go under More ▾.
    - Ctrl/⌘-click still opens the full page.
 3. **One click to the task.**
    - "Listings the crawler couldn't finish" opens the Helper on possible duplicates (or the rest), one at a time.
@@ -43,6 +49,18 @@ Jason, 2026-10-14:
    - An invalid ZIP never makes an area (`CrawlerIngest::resolveMicroClusterId` returns none).
    - `2026-11-20_fix_zip_00000.sql` gives the listings already saved with "00000" their town's ZIP and area, and
      removes the empty "ZIP 00000" area.
+
+5. **Failed crawl jobs and a stopped worker, in plain words** (Jason: "I have no idea how to fix these issues").
+   - Crawler shows **The crawler worker isn't running: how to fix it**, with the steps on Railway: plan or credit,
+     Redeploy, cron schedule, variables, logs.
+   - Each failed job says what went wrong in plain words; the technical message is one tap away.
+   - **Try them all again now** puts every failed job back in the queue.
+   - On the dashboard, the System step lists each problem and links straight to these.
+   - The worker (`workers/crawler/crawler.py`) has a fourth OpenStreetMap server, and retries a refused (406) request
+     as a GET. Railway must redeploy it.
+6. **More near-identical names merge.** A name that is the other with a parent agency in front, with the same phone
+   and ZIP, is the same place even at another street number: another entrance of the same hospital ("Dhhs, phs,
+   naihs, Gallup Indian Medical Center" and "Gallup Indian Medical Center").
 
 ## Consequences
 

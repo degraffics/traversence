@@ -82,7 +82,8 @@ TIME_BUDGET = int(os.environ.get("TIME_BUDGET", "240"))
 OVERPASS_URLS = [u for u in [os.environ.get("OVERPASS_URL"),
                              "https://overpass-api.de/api/interpreter",
                              "https://overpass.private.coffee/api/interpreter",
-                             "https://overpass.kumi.systems/api/interpreter"] if u]
+                             "https://overpass.kumi.systems/api/interpreter",
+                             "https://maps.mail.ru/osm/tools/overpass/api/interpreter"] if u]
 VERIFY_PER_RUN = int(os.environ.get("VERIFY_PER_RUN", "10"))
 VERIFY_TIME = int(os.environ.get("VERIFY_TIME", "100"))
 IDENTITY_PER_RUN = int(os.environ.get("IDENTITY_PER_RUN", "5"))   # listings looked up per run for a missing phone or website (decisions/0062); 0 turns it off
@@ -201,6 +202,13 @@ def overpass(job):
             with urllib.request.urlopen(req, timeout=90) as r:
                 return json.loads(r.read().decode("utf-8")).get("elements", [])
         except urllib.error.HTTPError as e:
+            if e.code == 406:   # some servers refuse the form POST but take the same query as a GET (2026-10-14)
+                try:
+                    g = urllib.request.Request(url + "?" + urllib.parse.urlencode({"data": query}), headers={"User-Agent": UA, "Accept": "*/*"})
+                    with urllib.request.urlopen(g, timeout=90) as r:
+                        return json.loads(r.read().decode("utf-8")).get("elements", [])
+                except Exception as e2:
+                    tried.append(f"{urllib.parse.urlparse(url).netloc} GET {e2!r}"[:160])
             tried.append(f"{urllib.parse.urlparse(url).netloc} {e.code} {e.read()[:120]!r}")
         except (urllib.error.URLError, TimeoutError, ValueError) as e:
             tried.append(f"{urllib.parse.urlparse(url).netloc} {e!r}"[:160])
