@@ -136,3 +136,5 @@ stand-in that signs like Google:
 - a new person reaches "Finish creating your account";
 - a forged signature and another site's token are refused;
 - no request to the server carried a link.
+
+**Third fix.** The first live try with the ID token passed Google's signature check but read "That sign-in was for another site": on the way back the client ID was compared before `.env` was read (it's read on the first database connection). `/api/auth/google.php` now connects first, and the claim checks do too. Checked with the keys only in `.env`, as on the server: the sign-in reached "Finish creating your account".
