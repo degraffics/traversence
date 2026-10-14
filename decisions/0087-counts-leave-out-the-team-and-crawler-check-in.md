@@ -37,3 +37,14 @@ term-and-place pairs…". The words still show only at 3 visits.
 
 - Bots that pretend to be browsers. Those are left to the analytics service, if it's turned on.
 - Counting team use separately. It's dropped, not kept apart.
+
+## Starting the counts over, 2026-10-14
+
+Jason asked for the traffic counts to be wiped, so the numbers from here on are visitors'. This is a one-time file,
+`2026-11-22_reset_traffic_counts.sql`, to run after the zip is uploaded. It empties three tables:
+- `platform_counts`;
+- `listing_actions`;
+- `search_demand`.
+
+A copy of each is kept first (`*_bak_20261014`), so the reset can be undone until the copies are dropped. What search
+has learned ("most picked") isn't touched.
