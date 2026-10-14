@@ -66,3 +66,23 @@ Jason, 2026-10-14:
 
 - Run `2026-11-19_category_also.sql` and `2026-11-20_fix_zip_00000.sql`.
 - A listing whose town can't be read has no ZIP until its map point is found.
+
+## Amendment, 2026-10-14 (later): the pop-up's breadcrumbs and scroll
+
+Jason, on the Sales pop-up: "The breadcrumbs are not for the 6 steps, but for the steps within the task process. I don't
+like the scroll within the lightbox. Can I just scroll down as if it was a full page?" And the margins were off.
+
+- The breadcrumbs are the steps of the work in front of you: the step's kinds of work, and the tool's own sections
+  (Sales: Calls today › All prospects › Add from the field › New this week › Funnel). The day's six steps are no
+  longer a row in the pop-up; **Next** names the next one ("Next step: Listings ▸") when a step's work is done.
+- Next and Back walk the sections, then the kinds of work, then the steps. Back into an earlier tool lands on its
+  last section.
+- The tool's own tab row and heading are hidden inside the pop-up (the pop-up's crumbs and title replace them).
+- The work grows to its full height: the pop-up scrolls like a page, with one scroll bar, and its header (title,
+  Back, Next, ×, crumbs) stays at the top. The work has a margin around it (3px on a phone).
+- The dashboard never opens a pop-up when it's shown inside a frame. The System step's "Database" task opens
+  Settings → Database updates, which lists each update the site checks for and whether it's been run.
+- The Helper judges each possible duplicate again by today's rules before it asks a person, so ones set aside
+  under older rules ("Dhhs, phs, naihs, Gallup Indian Medical Center") merge on their own.
+- `2026-10-24_word_senses.sql` (table `search_senses`) was referenced but never delivered; it is now in
+  `app/migrations/`.
