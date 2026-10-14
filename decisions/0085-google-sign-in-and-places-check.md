@@ -125,3 +125,14 @@ to another site. Google now answers after "#" (`response_mode=fragment`), which 
 A small page at the same address reads it and sends on only the code and state. The button starts with `?start=1`.
 Checked with a stand-in for Google answering the way it does: the server saw only `?code=…&state=…`, and the sign-in
 finished.
+
+**Second fix, the same day.** Google ignored `response_mode=fragment` for the code flow: the live sign-in came back with
+`iss=https://accounts.google.com` and the scope links in the address, and was blocked again. The sign-in now asks for
+Google's signed ID token directly (`response_type=id_token`, with a nonce). That answer always comes after "#". The page
+posts only the token and state, and the server checks Google's RS256 signature against Google's published keys
+(`googleapis.com/oauth2/v1/certs`, cached for an hour), plus the state, issuer, audience, expiry, nonce and confirmed
+email. No client secret is needed for it. This is the method Google's own "Sign in with Google" button uses. Checked with a
+stand-in that signs like Google:
+- a new person reaches "Finish creating your account";
+- a forged signature and another site's token are refused;
+- no request to the server carried a link.
