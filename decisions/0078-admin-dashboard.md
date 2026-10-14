@@ -3,8 +3,8 @@
 - **Status:** Accepted
 - **Date:** 2026-10-11
 - **Builds on:** 0047 (account hub), 0055 §1 and §4 (one layout; roles and contexts), 0062 (Helper), 0074 and 0076
-- **Changed by:** 0079 (§3 Members: no browsing, a reason to open an account, notices instead of Suspend)
   (Manage listings)
+- **Changed by:** 0079 (§3 Members: no browsing, a reason to open an account, notices instead of Suspend)
 
 ## Context
 
