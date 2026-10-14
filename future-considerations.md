@@ -131,3 +131,17 @@ Two confusions Jason found on the Discover path. Scheduled after the current sea
   the parent area or forest where the source gives one. Each collection collapses to a count. This uses the ADR 0055
   collection component.
 
+## Directory sync: pushing listings to other directories (added 2026-10-10)
+
+Once owners want Traversence to keep their details the same everywhere, sync each listing's name, address, phone, main and
+secondary categories (decisions/0073) and offerings to Google Business Profile, Apple Business Connect, Bing Places, Yelp and
+Facebook, directly or through an aggregator (Yext, BrightLocal, Semrush Local, Data Axle, Neustar Localeze). Needs a map from
+our 820 categories to each directory's own list (Google allows 10, Yelp, Facebook and Apple 3), and the owner's say-so.
+Consistent name, address and phone everywhere is what search engines trust; this would make Traversence the one place to keep them.
+
+
+## Facilities and the providers in them (added 2026-10-10)
+
+Covered by the Nexus (`decisions/0054`): a clinic or center's providers and offices are members of its Nexus, with the role
+"provider", the same way Changepoint Integrated Health's clinics are its locations. Review already tells them apart from
+duplicates (`decisions/0074`); the Nexus is what links them. 0054 is accepted but not built yet.

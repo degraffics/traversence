@@ -1,6 +1,6 @@
 # ADR 0018: Multi-User Listing Access — Manager Invites
 
-**Status:** Accepted (2026-09-24), builds the other half of a table `decisions/0012` already created and `decisions/0015` already started using. Prompted directly by a question about what happens when two people actively work for the same business.
+**Status:** **Amended by `decisions/0070` (2026-10-09):** claiming writes the owner to `listing_access`. Accepted (2026-09-24), builds the other half of a table `decisions/0012` already created and `decisions/0015` already started using. Prompted directly by a question about what happens when two people actively work for the same business.
 
 ## Context
 

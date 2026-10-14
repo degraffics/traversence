@@ -100,6 +100,26 @@ Space on a phone is at a premium. Every page, new or changed, follows this:
   counts only, never who tapped.
 - Check every page at 390px wide before delivering: card edges at 3px, no sideways scroll.
 
+## No browser dialogs: every page, every build
+
+Never use `alert()`, `confirm()` or `prompt()` (the browser's grey boxes). Use the site's own, from `js/tv-ask.js`
+(loaded on every page by `app/ui/header.php`):
+- a form or submit button that needs a yes: `data-confirm="Hide it from the site?" data-yes="Hide it"` (add `data-danger`
+  for anything that removes or hides), shown inline under the button;
+- in a click handler: `if (!TvAsk.gate(button, 'Remove this comment?', { yes: 'Remove', danger: true })) return;`;
+- `TvAsk.confirm(msg, {anchor})` → Promise, `TvAsk.say(msg, {anchor})` for notices (a toast without an anchor),
+  `TvAsk.ask(label, value)` → Promise for a one-field lightbox form.
+- to show a page without leaving the one you're on (checking a listing from Review): `<a href="…" data-peek-frame>` or
+  `TvAsk.peek(url, title)`, a pop-up card with the page in its embedded view and "Open the full page" in its corner.
+
+## Links past Bluehost's firewall (ModSecurity): every form and request, every build
+
+Bluehost's ModSecurity rejects a request ("Not Acceptable!") when a field holds a link like `…/profile.php?id=…`. Links
+travel wrapped and are unwrapped on arrival, so code never sees the difference:
+- ordinary POST forms: automatic (`js/tv-ask.js` wraps any field containing `://` or `www.`; `app/bootstrap.php` unwraps `$_POST`);
+- `fetch` with JSON: send `JSON.stringify(window.tvSafe ? tvSafe(body) : body)`; `Response::jsonBody()` unwraps it;
+- an endpoint that reads `php://input` itself must pass the decoded body through `Response::unwrap()`.
+
 ## Content page standard (decisions/0058 §20): every content page, every build
 
 Listings, outdoor places, experiences, place pages, journeys, and any new kind of content page:

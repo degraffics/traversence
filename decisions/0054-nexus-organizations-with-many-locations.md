@@ -87,3 +87,25 @@ A similar name alone is never enough: White Mountain Precast is not White Mounta
 - To build after messaging step 7 and alongside the search rework; this ADR is accepted first.
 - Open: how far to seed systems from public data (VA facilities, state agencies) up front, versus as crawls find
   them; whether the Nexus page gets its own feed.
+
+## Progress
+
+**2026-10-10, first build** (Jason: "Nexus was supposed to handle this type of business, where one primary has
+multiple listings", after Changepoint Integrated Health's clinics came through Review one by one):
+- Data: `app/migrations/2026-11-16_nexus.sql`, the `nexus` table and `entities.nexus_id` / `nexus_role`, as above. Roles:
+  location, clinic, office, campus, branch, headquarters, meetinghouse, and **provider** (a counselor at a clinic, which
+  folds in the "facilities and their providers" note from `decisions/0074`). `app/lib/Nexus.php`.
+- Admin (Manage listings → Nexus, `website/admin/nexus.php`): create one (or start it from a listing's editor, with that
+  listing as its first location); its locations, each with its role (change it, take it out); find any listing and add
+  it; **on its website, not in it yet**: listings with the same website, one tap each (§6: evidence, a person adds). Its
+  details: name, kind, website, about, and the Nexus it's a branch of (a system's tree).
+- Listing editor: **Part of a Nexus**: find one and add the listing to it with its role, change the role, take it out, or
+  create one from this listing.
+- Listing page: "Part of [Nexus] · N other locations" above the category, and **Other [Nexus] locations** after the
+  details, nearest first, each with its town, Call and Directions; "See all" past six.
+- Nexus page (`/nexus.php?slug=`): what it is, its website, about, its branches, and every location as a card, nearest the
+  visitor first when their place is set on the device, else by town.
+- Search: a location is found by its Nexus's name ("changepoint" finds every clinic).
+- Still to build: claiming a whole Nexus at once (§5), folding a Nexus's locations in search after the first two or three
+  (§3), Review offering "these N are one organization" for rows from one site, the Business Portal view, and the
+  engage bar and Link button on the Nexus page.

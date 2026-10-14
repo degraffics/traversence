@@ -10,6 +10,9 @@
 ### What is Traversence?
 Traversence is a regional travel guide and local directory in one place. **Let's Explore** tells the story of a place and the journeys people take there. **Get Local** is the directory of businesses, services and places. You can use both without an account.
 
+### Where did the big logo and icons at the top go?
+The top bar starts collapsed, so the page gets the whole screen: no bar, just the compass in the top-left corner and the menu (☰) hanging from the top-right corner, with search between them on pages that have it. On a phone, the compass opens the site menu (its big logo takes you home), and the other corner (your photo, or ☰ if you're not signed in) opens the page's tools, with **Dashboard** first so you can always get back, the other parts of the site and the trip planner under **Switch to**, and **Switch account** (your personal account, a business you manage, or staff) and **Sign out** at the bottom (tap a heading like Settings to open it). In your account, the layout switch (your full profile, or just your Pulse) sits next to your photo. Around the site the brown bar stays; in your account the page runs to the top with just those two corners. Notifications are in your Pulse (the bell there); an orange dot on the menu means something is waiting. Everything is still in the menu (☰). To bring back the full logo or the row of icons, tap the small tab next to the compass or next to the menu. We remember your choice on this device.
+
 ### Do I need an account?
 No, not to look around. You need one to save favorites, write journeys, comment, like, report something, or make suggestions under your name.
 
@@ -115,6 +118,12 @@ Tap the camera button at the bottom right of the photo at the top of a place or 
 ### Why do some names look different from other sites?
 Some listings come from public data that shortens words, like "Visitor Ctr" or "Natl Pk". We show them in full ("Visitor Center", "National Park"). Once a business claims its listing, we show the name exactly as the owner writes it.
 
+### Why does a listing say "Part of" another name?
+Some organizations have several locations: a health center's clinics, a chain's stores, an agency's offices. Each location has its own listing, with its own address, phone and hours, and says which organization it's **Part of**. Tap that name to see every location on one page, nearest you first when your place is set. Under each location's details, **Other locations** lists the nearest few, each with Call and Directions. Searching the organization's name finds all of its locations. Our team links them, from the organization's own website or records, never from a similar name alone. Owners claiming all their locations at once is coming.
+
+### Why do several listings share one address and phone number?
+Clinics, medical centers and offices often house several providers or businesses under one roof and one front-desk number: a behavioral health center and the counselors who work there, say. Each is its own listing, so you can find the person or service you need. When our crawler finds a business that is already listed under a shortened name ("Apache Behavioral Health Svc" and "Apache Behavioral Health Services"), with the same phone, street address and ZIP, it adds what it learned to the existing listing instead of making a second one, and never overwrites what's there. Our team can also link a facility and its providers, so the facility's page lists them (see "Part of" above).
+
 ### Can I see a place's photo bigger?
 Yes. Tap the photo at the top of a place, a listing or a profile to open it full screen, with its credit. If there are several, swipe or use the arrows to move between them. You can like it, share it or go to the comments from there too. Tap outside the photo, or ×, to close it.
 
@@ -158,10 +167,13 @@ Only predictions, so nothing half-finished gets in the way. First **Search for "
 "Near me", "nearby", "closest" and "close to me" tell search where to look, so they aren't matched as words: "concerts near me" searches for concerts. If you've set a place, it searches around it, and if your Distance was set to no limit (∞), it moves to **25 mi** so "near" means near; the Location line says **Near you** when the place came from your device. If you haven't set a place, it asks first: **Please set your location**, with **Use my location** (your browser asks permission, once) or **Choose a place**. It never quietly searches everywhere. While you're still typing "near m", it offers **near me** to finish it. We don't keep your location; it's only used to set the place you search from.
 
 ### Why does search ask me to set my location?
-When you search for somewhere to go (a kind of place like pizza or a plumber, a thing to do, or words like "near me", "local", "in town" or "how far") and no place is set, results would come from everywhere. So search says **Please set your location**: **Use my location**, **Choose a place**, or **Search everywhere**. The first time you press Enter on such a search in a visit, the place picker opens on its own. If you choose **Search everywhere** (or Anywhere in the place picker), it won't ask again during this visit for kinds of places, but "near me" still asks, because it can't mean everywhere. Searching a business by name, a town, or a situation that asks on its own (like "flat tire") doesn't ask.
+When you search for somewhere to go (a kind of place like pizza or a plumber, a thing to do, or words like "near me", "local", "in town" or "how far") and no place is set, results would come from everywhere. So search asks **Where should we look?** right above the results, without covering them: type a town or ZIP in the box there and pick it, or tap **Use my location**. The results change to put what's near that place first. **Keep everywhere** stops the question for kinds of places during this visit; "near me" still asks, because it can't mean everywhere. **More choices** opens the full place picker (your saved places, regions, state and city). Searching a business by name, a town, or a situation that asks on its own (like "flat tire") doesn't ask.
 
 ### What happens if I misspell something?
 Search never changes your words on its own. If a word isn't one it knows, it asks **Did you mean…?** and offers up to three of the closest words, the likeliest first: the ones that keep the most of what you typed, then the same first letter and the same sound. Each option says what it would find, like "bathroom: A restroom". Tap the one you meant. It asks while you type, too, once a word is finished. It only offers real slips: one letter off in a short word, two in a longer one. A word search understands, like "cardio" or "x-rays", is never "corrected".
+
+### Why does "mental health" show counselors and psychologists too?
+Because they give that care, even when their name doesn't say "mental health". Search knows which kinds of business a phrase covers: "mental health" and "behavioral health" find mental health services and clinics, counselors, counseling services, psychologists, marriage and family counselors, social workers, and addiction and substance abuse treatment; "addiction" and "substance abuse" find the treatment centers. Places named for what you typed come first. Under **Closest kinds** you can tap one kind to see only those.
 
 ### How does search know what a word means?
 It knows the kinds of place that serve everyday words, even when no business uses the word in its name. "X-rays", "xray" and "x ray" all mean Diagnostic Imaging Centers. "Cardio" and "gym" mean gyms and fitness centers. "Haircut" means barbers and salons. Each kind of business has the everyday words people use for it. An English dictionary (WordNet) and word meanings learned from a large body of everyday writing carry those further: "bread" reaches the bakery and the grocery store, and so do sourdough and bagels; "burrito" finds restaurants; "sedan" finds car dealers. That's worked out ahead of time on our server: your search isn't sent anywhere to be understood. While you type, those kinds show with how many are in your place. After **Enter**, **Closest kinds for "…"** lists them, one tap each. When it's only a loose guess, it says it's not sure and offers the guesses as **Maybe**. If nothing matches by name or kind, search shows what **mentions** your words in its description, then suggests changing your search (fewer words, or another word for it) and offers **Suggest it**. What people open after a search keeps improving it. When people keep searching for a kind of place we don't have yet, like cooking classes, search adds that kind on its own with the words people used, sends our crawler to look for such places in every town we cover (checking each one on its own website), and takes the kind away again if nothing comes of it.
@@ -338,7 +350,7 @@ A few reasons:
 ### Where does a business's information come from?
 From the evidence. Each listing's details (name, address, phone, website, hours) come from what we can find about the business: its own website, official registries, and other pages that match it by name and address or phone. When those disagree with what we had, **the evidence wins**: the value with the most independent sources goes on the listing by itself. Our team can see every change and undo it. Google, Yelp and Facebook pages only confirm what we found; we never copy from them.
 
-Once a business is **claimed**, its owner decides. Nothing we find changes a claimed listing on its own. Instead the owner sees **We found other information about your business** on their listing, with each value and where we found it, and can **Use this** or **Dismiss** it.
+Once a business is **claimed and confirmed** (✓ Verified), its owner decides. Nothing we find changes it on its own. While a claim is only **Managed by owner** (step 1 of claiming), what we find can still update the name, phone, address and website, but never anything the owner wrote. Instead the owner sees **We found other information about your business** on their listing, with each value and where we found it, and can **Use this** or **Dismiss** it.
 
 ### Why does my listing say "We found other information about your business"?
 Only you see it, as the listing's owner. It lists details we found about your business elsewhere (your website, an official registry, another page that matches you) that differ from your listing. Your listing keeps what you set. Tap **Use this** to put a value on your listing, or **Dismiss** to set it aside; dismissed values aren't offered again.
@@ -364,10 +376,79 @@ list of nonprofits), then other public pages that show the business with its nam
 listing when the business's own website, a registry or a government page gives it, or when two separate websites
 agree; otherwise our staff check it first. Google, Yelp and Facebook pages are only used to confirm what another
 source shows, and we link to them rather than copy them. If you own the business, claim your listing to set your own
-details: they're never overwritten.
+details: once your claim is confirmed, they're never overwritten.
 
 ### I own a business. How do I get it listed?
-Use **Add or claim a business** at the bottom of any page. Find your listing and claim it, or create a new one.
+Use **Add or claim a business** at the bottom of any page. If your business is already listed, claim it. If it isn't, add it yourself: it takes a few minutes from your phone, and it's live as soon as you confirm a code we email you.
+
+### Can I add my business if it only has a Facebook page, or no website at all?
+Yes. A website isn't needed. Give its name, what it is, the town, a phone number, and a street address, or tap **Use where I am now** to drop a pin if there's no usable address. Add your Facebook page, website, hours and what you offer if you like, and photos once it's live. Your Traversence listing can be your business's page on the web.
+
+Before saving, we check whether it's already listed (the same phone, website or Facebook page, or a similar name in the same town). If it is, we show you and you can claim that listing instead, so there aren't two.
+
+### Can my business be in more than one category?
+Yes. Every business has one **main category**, shown on its card, and can be listed under **up to 4 more**. On the add-your-business form or in your business dashboard, tap **+** beside the category to add another, then type what it is ("movie theater", "event venue", "party rentals") and pick it from the list. Can't find yours? Pick the closest and tell us; we add new categories as businesses need them. People searching any of those categories find you there too, after the businesses whose main category it is. No plan gets more categories or ranks higher: they're the same for everyone. Pick the ones that match what you really do; that's where they work best.
+
+### What should I put in "What you offer"?
+Short names of what people come to you for, one per line: "Matinees", "Private screenings", "Concessions". Anyone searching for one of them finds you, even if it isn't a category. Your business dashboard suggests a few that similar businesses list.
+
+### What name should I use for my business?
+The name on your sign works best. What you do ("Movies, Popcorn & Parties") is better in your categories and in "What you offer", where people's searches find it. We'll suggest this if your name looks like it carries a list of services, but it's your choice.
+
+### What do I need to add or claim a business?
+A Traversence account (18 or older) with:
+- **a confirmed email**: the link we email you when you join (you can ask for it again from the page);
+- **a phone number**: it stays private, only our team sees it, so we can reach you about your listing;
+- **Verification switched on**: we check only the details you give us.
+
+To add a business, the form also asks for **the business's phone and email**. Your account email is filled in; change it if the business has its own. The business email isn't shown on your listing.
+
+If you're not signed in, the page lets you sign in or create an account and keeps what you've typed.
+
+### Where do the listings come from?
+From public information: the business's own website, official records such as the federal list of health-care providers (the NPI Registry), open map data, and directories like chambers of commerce. Our crawler gathers what's there, checks that a business is real (its own website, an official record, or two separate sources), puts it in the category that fits what it says it is, and joins it with what's already listed instead of making a second copy. Each listing goes up unclaimed, ready for its owner to claim. Each fact keeps where it came from.
+
+### Why doesn't a domestic-violence shelter show its address?
+To keep the people inside safe. Domestic-violence shelters and safe houses don't take walk-ins: you call, they talk with you, and they arrange where to meet. So their listing shows their phone, and **Need help now?** with 911, the National Domestic Violence Hotline (1-800-799-7233, 24 hours) and its text line (text START to 88788). If a shelter publishes an office address itself, that shows. Calls and texts go straight from your phone; we don't see or keep them. Every other place, including homeless and family shelters, crisis centers and care homes, shows its address.
+
+### How do you know a listing is right?
+Our crawler checks each business against more than one public source before it's listed: its own website, official records, OpenStreetMap, and directories. When its own website lists its locations, that wins for each location's phone and hours. When a source shows the business at another address, it isn't listed at the old one until that's sorted out. Something wrong? Use **Closed, moved or listed twice? Tell us** on the listing, or claim it if it's yours.
+
+### My business is listed and I didn't ask for it. Can I change it or have it removed?
+Yes. Claim it (**Claim it** on the listing) to correct it, add what's missing, or make details private. Or use **Closed, moved or listed twice? Tell us** on the listing to ask us to remove it, and our team takes it off the site.
+
+### Someone told you about a business. How does it get listed?
+If it isn't yours, use **Not your business? Tell us about it instead** on the same page. Our team checks it, adds it (a website isn't needed) and emails you when it's on the site. If you said it's yours, that email has a **Claim it** link.
+
+### How do I claim my business?
+Open your listing and tap **Claim**. You'll need a Traversence account (18 or older) with Verification switched on. Then:
+1. **Confirm by email.** We send a code to your account email. Enter it and your listing shows **Managed by owner**: you can edit its description, hours, services and photos right away.
+2. **Get verified.** Tap **Send verification request**. Our team gets your listing and how to reach you, checks it (usually the same day) and confirms it, and your listing shows **✓ Verified**. If they need something first, such as a call or a photo of the storefront, they'll email you, and you can send a new request when it's ready. You can also text your claim's code (it looks like TV-1234) to our Verify number instead.
+3. **Choose a plan.** Free, or a paid plan (see below).
+
+Your business dashboard (**Manage** on your listing) shows where your claim stands and what's left.
+
+### What does "Managed by owner" mean?
+Someone has added or claimed the listing and confirmed it by email, and it's waiting to be verified. Until it's verified it isn't shown to search engines. They can edit the description, hours, services and photos. Changes to the name, phone, address and website wait for our team until the claim is confirmed, so customers are never sent to the wrong place.
+
+### I texted from a different number. What happens?
+That's fine: in a lot of small businesses the owner's own cell is the business phone. Someone from our team will contact you at that number within 48 hours to confirm who you are and your role with the business. If you can't text, you can instead use an email at your business's own website domain (when your listing has a website), send a document such as a business license or utility bill (only our team sees it, and it's deleted as soon as your claim is decided), or ask for a call or a visit at a time that suits you.
+
+### Why did Traversence contact my business?
+Your business is listed on Traversence from public information, and claiming it is free. Someone from Traversence may
+call, stop by, or email the address your business publishes, to offer you the listing: once it's yours you can
+correct the details, add your hours and photos, and answer people who message you. We use only your business's
+public phone, website and email, and never sell them. If you'd rather not hear from us, say so (or reply "no thanks"
+to the email) and we won't contact you about it again.
+
+### Someone else already claimed my business. What can I do?
+Ask to claim it anyway. Only one claim goes ahead at a time, so yours is saved as **Claim Request On Hold**, not turned down, and our team is told straight away. Leave a way to reach you and anything that shows the business is yours. If the listing has a confirmed owner and you believe that's wrong, you can question it from the claim page: the owner is told and can answer, and our team decides. Nothing changes on the listing while that happens.
+
+### I have more than one location. Do I claim each one?
+When you claim one, we look for your other locations (the same name, phone or website) and offer to claim them together. Each location stays its own listing, with its own page. One confirmation can cover them all when it shows every location: your website lists them, or you send photos or a brochure that does. Otherwise each location is confirmed on its own.
+
+### What do the plans cost?
+Free costs nothing. Core is $19 a month, Strategic $79 and Cornerstone $249. Paying isn't switched on yet, so a paid plan starts as a free trial; we'll ask you before anything is ever charged. When you choose a plan, each one has its own row: tap ▸ to see what it offers. No plan ranks you higher in search.
 
 ## Journeys and contributors
 
@@ -501,9 +582,31 @@ Journeys publish as soon as they're posted, and our team responds to reports. If
 Use **Make a suggestion** in the menu, or **Tell us** on a listing or place page. It works for anything: a business, a lake, a trail, a landmark, a story idea, or a correction to a listing. You can drop a pin on the map to show where it is.
 
 ### What happens to my suggestion?
-Our team reviews it, checks it against public sources, and updates the listing or adds the place.
+Our team reviews it and checks it against public sources. Then:
+- **A correction** (a phone, website, address, hours or name) is made on the listing.
+- **Closed** keeps the listing on the site, marked **Closed** on its page and in search, so anyone looking for it knows before they go. Closed places come last in results and never show as open. If it reopens, tap **Tell us** on its page.
+- **Listed twice** becomes one listing, and the other one's link takes you to it.
+- **A missing business** becomes a new listing; **a missing lake, trail, park, campground or landmark** becomes a new place. Places whose names may mark a sacred, burial or protected site are held, not shown.
+- **A missing event**: events are coming.
+
+If you were signed in when you sent it, we email you when it's done. A business run by its owner is changed by its owner, so we check with them first.
 
 ## Privacy and your account
+
+### Does Traversence use cookies?
+A few that the site needs: one keeps you signed in, one remembers your privacy choices, and one protects a business's question form from abuse when it's used without an account. Your browser also remembers things you set, like your place and recent searches, on your device only. Two optional kinds come from other companies, and only if you say yes: usage analytics, and videos from YouTube or Vimeo. The full list is in the [Privacy Policy](/privacy.php#cookies).
+
+### What is "Usage analytics", and do I have to allow it?
+It lets us count how Traversence is used (which pages are visited, searches that found nothing, what's hard to use) with an analytics service, so we can fix and improve it. It's off until you say yes, and everything works the same without it. We never sell what it shows us or use it for ads. You're asked once, at the foot of the page or when you create an account; change it any time on the [Privacy page](/privacy.php#choices) or in Privacy Settings → Your tools.
+
+### Why does a video show a Play button instead of playing?
+Videos come from YouTube or Vimeo, and once one plays, they can see your visit and set their cookies. So until you allow Videos, each one waits for you: tap Play to watch that one, or **Always play videos** to stop asking. Or open it on YouTube instead. Change it any time on the [Privacy page](/privacy.php#choices).
+
+### Where do I change my privacy choices?
+On the [Privacy page](/privacy.php#choices), signed in or not, or in Privacy Settings → Your tools when you're signed in. Signed in, your choices follow you to any device you sign in on.
+
+### How long do I stay signed in?
+Until you sign out, or close your browser. A break, even a long one, doesn't sign you out. On a phone, the browser usually stays open in the background, so you stay signed in for days; close it fully, or tap **Sign out**, to end it. If you go 30 days without using Traversence, you'll be asked to sign in again.
 
 ### How do I change my name or profile?
 Go to your **Dashboard** and choose **Profile** (under Settings), or tap your name at the top of the menu and choose **Your profile**. There you can:
@@ -512,6 +615,30 @@ Go to your **Dashboard** and choose **Profile** (under Settings), or tap your na
 - make your profile **public** or **private**.
 
 **See your public profile** shows you what other people see.
+
+### What shows on my public profile?
+Only what you publish. Your dashboard opens on your profile: a cover photo, your card (photo, name, @handle, status) and your details (where you live, languages, a mantra, work, education and more). Fill in whatever you like with the pencils. Each item has an eye: **green means public**, plain means only you see it. Nothing you add is public until you switch on its eye. Your name always shows. **See it as others do** opens your profile as a visitor sees it. On a phone your details start folded away so your Pulse is near the top: tap **Details** in your card to open them (we remember your choice on that device).
+
+### What is the Pulse?
+Everything coming in, in one place: messages, your groups and connections, and news from the places, businesses and sellers you link. Each source has a pill with its count; tap one to see only that, tap it again to see everything. The bell shows what needs you, and the gear sets how the Pulse looks (a list, one stream, or a tab per source) and which sources it shows. **Pulse ▾** switches between your accounts: personal, a business you manage, or staff.
+
+### What can I do with an item in my Pulse?
+Tap ▾ to open it in place: its photos, the full text and a comment box. The chain icon goes to where it came from. Reply, forward, pin, report, move to a folder and add to a collection are on each row, and commenting, attachments and Publish, Save as draft or Schedule are in the open item. Most of these are coming: for now they show where they'll be.
+
+### Where are all my photos?
+In the **Gallery** tab of your dashboard: your profile and cover photos, the photos in your journeys (drafts too) and photos you added to listings, newest first. Ones that aren't public say "Only you". Tap a photo to see it full size and zoom in to look closer. Swipe side to side (or use the arrows) and the next photo slides in. Beside it you'll see where it's from, with a link to its journey or listing; on a phone that's under the photo, with the likes and comments, so swipe up to read them. To close it, tap ×, or pull the photo down and drop it on the × that appears at the bottom (let go anywhere else and it springs back). The ⋯ menu lets you make any of your photos your profile picture or cover photo, save it to your phone or computer, or share it outside Traversence. Editing captions and alt text, deleting, choosing who sees one photo, folders and albums are coming. Visitors to your profile see only the photos from your published journeys.
+
+### What are the tabs on a profile?
+Quick ways into each tool: **Dashboard** (your profile with your Pulse under it, where your account opens; tap it to come back from any other tab), **About**, **Contacts** (your private Address Book, only you see it), **Gallery** (for you, every photo you've uploaded; for visitors, the photos from your published journeys), **Connections** (how many people follow you, if you publish it), **Journeys**, and **Check-ins**, **Events** and **Reviews**, which are coming. Visitors see the tabs for what you share.
+
+### How do I frame my profile photo?
+Tap the pencil on your photo, then **Reposition and size**. Drag the photo to move it inside the square, and use the slider (or + and −) to make it bigger or smaller. We keep a private, resized copy of the photo you chose, so you can reframe it later without uploading it again. When you remove the photo, that copy goes too. The cover photo drags up or down the same way.
+
+### Can I make all my photos public at once?
+Yes. When you add or change a photo, tick **Make all my photo uploads public**. We remember it, and each new photo starts out public. You can still hide any one photo, and untick the box to go back to choosing each time.
+
+### Can people look at my profile photos?
+Yes, if you've made them public. On your public profile, a tap on your cover or profile photo opens it full screen with your name, likes, comments and Share; on a phone, swipe up from the photo to its comments, and drag the photo down onto the × to close it. Liking, commenting on and sharing photos are coming. To change a photo, use the pencil on it in your dashboard.
 
 ### Why do I show as "Member #" and a number?
 You haven't chosen a display name yet. We never show your email, so until you pick a name, people see a member number. Set one under **Profile**.
@@ -540,7 +667,43 @@ in place, with one tick. Switch it on or off any time in **Privacy Settings → 
 the Verified mark, not your account. We keep a record of when you said yes or no and the exact words you were shown.
 
 ### Who can see my email?
-No one. Your email is never shown on Traversence.
+No one on the site: your email is never shown on Traversence. Traversence staff can see it only to verify your
+account, or to contact you officially when we can't reach you on Traversence itself, and only when it's truly
+needed. Each time they look, it's recorded.
+
+### What can Traversence staff see about my account?
+We don't look at accounts unless there's an issue or you ask us for help. When we do, staff say why before they
+open yours (a report, your request, a claim, a check), and that's recorded with their name. What they see is the
+basics from your sign-up: your display name, when you joined, whether your email and age are confirmed, whether
+you're Verified, the roles you hold, and the privacy choices you made. Your email and phone stay hidden unless they're
+needed to contact you, and showing them is recorded separately. No one, in any role, can see your private
+messages, your Address Book or your contact cards.
+
+### How will Traversence contact me?
+On Traversence: through your notifications, your Pulse and a notice at the top of the page. We use your email or
+phone only for official contact when we can't reach you here (for example, if you can't sign in), and only when
+it's needed. If you contact us for help or sales, we reply to you, or to the contact you name, about what you asked.
+A business's address is used only for that business (claiming it, or confirming it); we don't ask members for a
+postal address.
+
+### Can my account be limited or revoked?
+Yes, for breaking the [posting guidelines](#posting-guidelines-and-safety) or misusing the site. You always hear from
+us first, on Traversence, with what happened and the steps to put it right:
+1. **Warning.** You have 24 hours to confirm you'll follow the steps, or to ask for a review.
+2. **Limited, with a final warning.** If we don't hear from you, you can still browse, but you can't post, comment or
+   send messages. You have 24 more hours.
+3. **Access revoked.** If there's still no reply, you can't sign in. We email you what happened, how to recover, and
+   a link to ask for a review.
+
+Something serious (threats, scams, sharing someone's private information) goes straight to step 3. Asking for a
+review at any step stops the clock until a person at Traversence has looked at it, and they reply by email. Your
+posts aren't deleted at any step. Your notice is at [Your account notice](/user/notice.php). If you can't sign in,
+you can get the review link sent again there.
+
+### What lowers my standing?
+Mostly, something you posted being taken down after people reported it. Each one lowers your account's trust score,
+and when the score drops too low, a warning opens on its own. Confirming your email raises it. A take-down that's
+reversed gives it back.
 
 ### Can anyone read my private messages?
 No. No one at Traversence, in any role, can read your private messages or your contact cards.
@@ -549,4 +712,4 @@ No. No one at Traversence, in any role, can read your private messages or your c
 Only if you turn it on. **AI Assist & Learning** is off until you switch it on in Privacy Settings. Private messages and contact cards never enter shared learning, whatever you choose. [Our approach](/our-approach.php) has the details.
 
 ### Do you sell my information or show me targeted ads?
-No. We don't sell or rent your information, target ads, or track you around the web. [Our approach](/our-approach.php) explains what we never do.
+No. We don't sell or rent your information, share it for advertising, target ads, or track you around the web. [Our approach](/our-approach.php) explains what we never do, and the [Privacy Policy](/privacy.php) says exactly what we collect and why.
