@@ -595,19 +595,25 @@ Our team reviews it and checks it against public sources. Then:
 
 If you were signed in when you sent it, we email you when it's done. A business run by its owner is changed by its owner, so we check with them first.
 
-## QR codes and short links
+## GO Codes and short links
 
-### How do I make a QR code?
-Go to [QR codes](/qr/) (or just trvgo.us). Choose what it does: a link, a phone call, an email, Wi-Fi, a contact card, an event (added to the phone's calendar), text, or a text message. Type what it says and pick how it looks (colors, round dots, your logo); the code is drawn as you type, so you can try anything. To get it, sign in or create a free account. Your codes are kept under **My codes**: download them any time, **SVG** for printing (sharp at any size) or **PNG** for screens, and fix a typo within 24 hours of getting one.
+### What are GO Codes?
+GO Codes are Traversence's QR codes: for a link, a phone call, an email, Wi-Fi, a contact card, an event (it offers "Add to calendar"), text or a text message, in your colors and with your logo. Make one at [GO Codes](/qr/) (or just trvgo.us): choose what it does, type what it says, pick how it looks, and it's drawn as you type so you can scan it to check.
 
-### What do QR codes cost?
-With your free account, link, phone, email and Wi-Fi codes in black and white are **free, 3 a month**. Contact cards, events, text and text messages, any code in your own colors or with your logo, and a basic code once the month's free ones are used are **$4.95 each, once, plus sales tax**. They go into your cart; at checkout you pay on QuickBooks' secure payment page (we never see your card number), the tax is worked out from your billing address, and your codes appear in My codes as soon as it's paid. Every code you get holds what you typed, so it works forever and never depends on us.
+### What do GO Codes cost?
+Each GO Code is **$4.95, once, plus sales tax**, and works forever: it holds what you typed, so it never depends on us. With a free account you also get **5 free GO Codes** (link, phone, email or Wi-Fi in black and white), once your email is confirmed. Add codes to your **Cart**, then check out: you pay on QuickBooks' secure page (we never see your card number), and the tax is worked out from your billing address.
 
-### What's the difference between a static code and a saved code?
-The codes you get under My codes are **static**: they hold the link, card or event itself, so they work forever, but once printed they can't change. A **changeable** code is a short trvgo.us address (like trvgo.us/k7qm2x): after you've printed it you can still change where it goes, switch it off, and see how often it's scanned. Changeable codes come with the QR plan ($14.95 a month or $119.40 a year; free while billing isn't switched on yet) or with a business's Core plan and up. Sign in and go to [QR codes](/qr/) → **Changeable codes**.
+### Do I need an account for GO Codes?
+No. You can make GO Codes, check out as a guest, and download them. We keep them with your browser and email you a private link that opens them on any device. An account is recommended: your codes stay in one place, you get 5 free ones, and you can make Dynamic GO Codes. After a guest checkout we offer to open your account with the name and email you gave; your codes move into it, and so do earlier guest orders paid with that email once it's confirmed.
+
+### Where are my GO Codes after I pay?
+On **Manage GO Codes**. When you pay, QuickBooks' payment page opens in a new tab and your first tab waits on Manage GO Codes; your codes appear there as soon as the payment goes through, and your receipt email links back to them. Download each one as **SVG** for printing (sharp at any size) or **PNG** for screens. You have 24 hours after getting a code to fix a typo.
+
+### What's a Dynamic GO Code?
+A short trvgo.us address (like trvgo.us/k7qm2x) in a code: after you've printed it you can still change where it goes, switch it off, and see how often it's scanned. Dynamic GO Codes need an account and the QR plan ($14.95 a month or $119.40 a year; free while billing isn't switched on yet), or a business's Core plan and up. Find them under **Manage GO Codes**.
 
 ### What happens to my printed codes if my plan ends?
-Nothing you've printed stops working. A business's saved codes go to its listing on Traversence. A person's keep going wherever they pointed last. You just can't change where they go until the plan is back on. Only a code you switch off yourself, or one our team switches off because it's misused, stops working; scanning it then says it isn't active.
+Nothing you've printed stops working. A business's Dynamic GO Codes go to its listing on Traversence; a person's keep going wherever they pointed last. You just can't change where they go until the plan is back on. GO Codes you bought are static and work forever. Only a code switched off by its owner, or by our team because it's misused, stops working; scanning it then says it isn't active.
 
 ### Why do shared links start with trvgo.us?
 When you tap **Share** or **Copy link** on a listing, a place, a journey or a photo, you get a short trvgo.us address that opens the same page. It's easier to text or print, and it's the same short link for everyone sharing that page. The **QR** button beside Share shows the page's code, to scan or print.
