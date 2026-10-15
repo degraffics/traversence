@@ -147,3 +147,18 @@ forwards and redirects. Where the site stands:
 | Host (Bluehost) | SSL Labs 2026-10-15: **A+**, TLS 1.3, HSTS seen. cPanel can't force HTTPS for the addon domains, so `security-headers.php` sends http://(www.)traversence.com to https (301; 308 for POST), and trvgo.us's own `.htaccess` already does. |
 
 Removed from the server 2026-10-15: `website/_htaccess-staged.txt` and `website/error_log` (readable by anyone).
+
+## Addendum (2026-10-15): QuickBooks connection handling (Intuit's OAuth questions)
+
+- **Endpoints** come from Intuit's discovery document (production or sandbox), kept a day in
+  `app/storage/qb-discovery-{env}.json`; the built-in addresses are only the fallback. Only `https://` addresses are taken.
+- **Refresh:** the access token (1 hour) is refreshed when it has run out, on the next call; each refresh saves the new
+  refresh token and its 100-day expiry. A token QuickBooks refuses early (401) is refreshed once and the call repeated.
+- **Retry:** a call that gets no answer, 429 or a 5xx is tried once more after 2 seconds.
+- **invalid_grant / expired refresh token:** the connection is marked as needing a reconnect: buying shows "opens
+  soon", Admin → GO Code orders says "QuickBooks needs reconnecting" with a Reconnect button, and Admin → Today puts it
+  first (also 14 days ahead: "Reconnect QuickBooks soon").
+- **CSRF on the callback:** a `state` that doesn't match says "That sign-in to QuickBooks had expired. Connect again."
+- No OAuth Playground or offline tools: tokens come only from the in-app Connect.
+- Checked against a local stand-in for Intuit: valid token; token refused early (refresh, retry, ok); expired token;
+  busy token server (retry, ok); refresh refused (reconnect asked, buying closed, no further calls).
