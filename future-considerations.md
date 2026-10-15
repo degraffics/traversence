@@ -196,3 +196,23 @@ decisions/0085) are a start, but they don't connect anything.
 4. **Amazon Pay,** with checkout.
 5. **Microsoft calendar,** for bookings.
 6. **File imports** for anything without an API.
+
+
+## Sign in with Apple: built, waiting until it's needed (added 2026-10-15)
+
+Sign in with Apple is built and tested (decisions/0090: `app/lib/SocialAuth.php`, `/api/auth/apple.php`, the Apple tile
+on the sign-in card). Jason has put it on hold because it needs the **Apple Developer Program, $99 a year**. Until
+`APPLE_CLIENT_ID` is in `.env`, the Apple tile doesn't show and nothing else changes.
+
+**When to turn it on:**
+- an iPhone app: Apple requires Sign in with Apple in any iPhone app that offers other social sign-ins (Google,
+  Facebook, Microsoft);
+- or visitors asking for it, since many iPhone users prefer it and its "Hide My Email".
+
+**Setup, when the time comes:**
+1. Join the Apple Developer Program.
+2. Create an App ID with "Sign in with Apple".
+3. Create a Services ID (its identifier goes in `.env` as `APPLE_CLIENT_ID`). List traversence.com and the return
+   address `https://traversence.com/api/auth/apple.php`, plus the www. form.
+
+No code changes are needed; Settings shows "Sign in with Apple: On" once it's set.
