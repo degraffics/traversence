@@ -73,3 +73,13 @@ singular, "trail", and then treated it as a word still being typed, which "rent 
 last word exactly as typed can be unfinished. A word read as its singular, or followed by a space, is finished and
 matches whole words only. "trail" alone still offers trailer rental (it may become "trailer"); "trails" and "trails near
 me" offer only Hiking. The 24 test searches were otherwise unchanged.
+
+**And whole words first** (Jason's suggestion). A word still being typed keeps its partial matches, ranked after the
+situations that match on whole words. The order is:
+1. the situation the words exactly name;
+2. danger (Smell of gas stays on top);
+3. whole-word matches;
+4. urgent.
+
+"trail" offers Hiking, then Renting tools or equipment. More matches are gathered before ranking (6 × the number
+shown, up from 3 ×), so whole-word matches aren't crowded out by the first partial ones.
