@@ -124,3 +124,26 @@ Intuit asks for these before it gives production keys. They are listed on Admin 
   codes fall back when a plan ends; test before printing), buying (prices, QuickBooks, 24-hour fix, refunds), other
   companies' services, disclaimers, liability, law. A draft like the Privacy Policy: the [bracketed] items (legal name,
   address, refund policy, state and county) are to fill in, then an attorney's check.
+
+## Addendum (2026-10-15): Intuit's security requirements, checked
+
+Intuit's list (developer.intuit.com → go-live → security requirements): HTTPS on every page, TLS 1.1+ (1.2 with
+AES-256/SHA-256 recommended), TRACE and unused methods off, session cookies Secure and HttpOnly, no-store on
+sensitive pages, and its security test for CSRF, reflected and stored XSS, SQL/XML injection, session management, and
+forwards and redirects. Where the site stands:
+
+| Requirement | Status |
+|---|---|
+| CSRF | Every form and API call carries the session's form token (`Response::requireCsrf`); cookies SameSite=Lax. OAuth `state` is random, single-use, checked with `hash_equals`. |
+| XSS | Output escaped (`tv_e`, `$e`); QuickBooks' `error` text is shortened and escaped. |
+| SQL injection | PDO prepared statements; the few QuickBooks query strings are escaped (`QuickBooksPay::q`). |
+| Session | HttpOnly, SameSite=Lax, Secure on HTTPS; new session id at sign-in (`session_regenerate_id`); ends when the browser closes. |
+| Redirects | `?next=` takes only a path on this site; OAuth `code` is never shown, the callback redirects. |
+| Tokens | QuickBooks tokens encrypted at rest (libsodium secretbox); keys only in `.env`. |
+| Cache | Session pages send `Cache-Control: no-store`. |
+| Errors | `display_errors` off; errors go to the log. |
+| **New:** methods | `app/ui/security-headers.php` (via bootstrap and the eight pages that don't load it) refuses all but GET, HEAD, POST, OPTIONS with 405: TRACE, PUT, DELETE answered 405. |
+| **New:** headers | `X-Frame-Options: SAMEORIGIN` (Peek still works), `X-Content-Type-Options: nosniff`, `Referrer-Policy: strict-origin-when-cross-origin` (pages with their own keep it), HSTS one year on HTTPS. |
+| Host (Bluehost) | TLS version and "Force HTTPS" are Bluehost settings: check with SSL Labs and cPanel → Domains. |
+
+Also to remove from the server: `website/_htaccess-backups/` (old copies of the root `.htaccess`, readable by anyone).
