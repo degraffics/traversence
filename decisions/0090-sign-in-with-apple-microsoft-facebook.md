@@ -94,3 +94,33 @@ update has run. Settings shows each one and the update.
 - Linking a second sign-in from inside the account (Settings → "Connect Apple"). Today the link happens by confirmed
   email.
 - Connections to platforms' data (future-considerations.md).
+
+## Amendment, 2026-10-15: linking a sign-in with a different email; a clearer finish page
+
+Jason's Microsoft account uses a different email from his Traversence account, so signing in with Microsoft offered a
+new account, without saying why.
+
+**The finish-signing-up page says why:** "You signed in with Microsoft as jason@…, and there's no Traversence account
+for that email yet." It then offers, first, **Already have a Traversence account? Sign in to link it**, and then
+creating a new account.
+
+**Linking** (`app/lib/SignInLinks.php`):
+- **"Sign in to link it"** opens `/login.php?link=1`, which says the waiting sign-in will be linked. Within 15
+  minutes, any successful sign-in (password, or a sign-in already linked to that account) links the waiting Google,
+  Apple, Microsoft or Facebook account to it. The person has proved both accounts.
+- **Dashboard → Privacy → Ways to sign in:** each provider shows Linked (with its email) and **Disconnect**, or Not
+  linked and **Connect**. Connect sends the person to the provider marked "link". Coming back, that account is linked
+  to the person who started it, and only if they're still the one signed in. A different person signed in on that
+  browser meanwhile gets nothing linked.
+- **Never moved:** a provider account already linked to someone else is refused ("already signs in to a different
+  Traversence account"). An account already linked to a different account at the same provider must disconnect first.
+- **Disconnect** removes the link; the account stays. The site's own confirm warns to have another way to sign in.
+
+**Checked** (10 checks):
+- A Microsoft account with a different email reaches the finish page, which explains and offers linking. The sign-in
+  page then says it will link. A password sign-in links it, Privacy shows "Microsoft is linked", and Microsoft then signs
+  straight into the existing account.
+- Connect refuses an account linked to someone else, and links a new one.
+- A Connect started by one person never links to another.
+- Disconnect works.
+- The 21 earlier sign-in checks still pass.

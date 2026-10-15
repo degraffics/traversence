@@ -81,3 +81,33 @@ A first run that hit an error part-way changed nothing at all (the transaction r
 - **Uploaded photos in journeys and posts:** the posts are hidden and erased, but the image files stay in `uploads/`
   until a clean-up removes files nothing points to.
 - **A grace period to undo:** deletion is immediate. The two confirmations and the recent sign-in are the guard.
+
+## Amendment, 2026-10-15: 30 days to change your mind
+
+Jason: "should we have a 30-day revert process just in case someone changes their mind?" Yes. That's the norm, it
+undoes a mistake, and it lets the owner stop a deletion made by someone who got into their account.
+
+**Delete my account now closes the account first** (`AccountDeletion::close`, `2026-11-25_account_closing.sql`,
+`account_closures`):
+- **Straight away:** the person is signed out everywhere, and their journeys, comments, stories, posts, group posts,
+  experiences, profile and solo groups are hidden. Each one's earlier state is kept in the closure record. Nothing is
+  erased. A listing they run stays as it is, and messages aren't touched.
+- **An email** says the date it will be deleted and has a **Restore** link (a one-time link, stored only as a hash).
+- **Signing in during the 30 days** (password, Google, Apple, Microsoft or Facebook) doesn't open the account. It goes
+  to `/user/restore-account.php`: **Restore my account**, **Keep it closed**, or **Delete it now**. The emailed link
+  goes to the same page.
+- **Restore** puts back exactly what was hidden, and only where nobody has changed it since (a moderator's change
+  during the 30 days stands). Then it signs the person in, and the link is used up.
+- **Day 30:** `AccountDeletion::sweep` runs the full deletion described above, then emails that it's done. Page loads
+  run it, at most every 30 minutes (`tickSoon`, beside the enforcement clock).
+- **"Delete it right away instead"** on the page skips the 30 days. Before the database update has run, deletion is
+  immediate as before.
+
+**Checked on a copy of the site** (21 checks):
+- **Close:** journey and comment hidden with their text kept; the listing kept; due in 30 days; signed out.
+- **Signing in while closing:** a password sign-in is held and the restore page offers the three choices; "keep
+  closed" keeps it closing; the emailed link works and a wrong one is refused.
+- **Restore:** brings back exactly what was hidden (a journey changed by someone else during the 30 days stays as they
+  left it), signs the person in, and uses up the link.
+- **Day 30:** closed again, the day-30 sweep deletes the account, releases the listing and erases the journeys.
+- **Right away:** deletes immediately.
