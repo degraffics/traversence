@@ -189,3 +189,5 @@ Removed from the server 2026-10-15: `website/_htaccess-staged.txt` and `website/
 - Admin → GO Code orders: "Download the QuickBooks log" (to share with Intuit support) and the latest errors.
 - Checked against the stand-in: a 401 then refresh and success; a ValidationFault 2020 (Line.Amount) reported with
   its element and `intuit_tid`; a refused refresh (invalid_grant) logged and reconnect asked.
+- Webhooks are logged too (`QuickBooksPay::logWebhook`): each one's status (200 signed, 401 not), and the invoices it
+  named, so "Download the QuickBooks log" shows whether Intuit's webhook reaches the site.
