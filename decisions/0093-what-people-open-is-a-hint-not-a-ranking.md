@@ -79,3 +79,49 @@ often search".
 
 **Checked:** "hiking trails for kids", searched 9 times on one day, isn't offered. Searched on 3 different days, it's
 offered under Maybe try, apart from the predictions. The 24 standard searches are otherwise unchanged.
+
+## Amendment: a pattern is how strongly it stands out, not a day count
+
+Jason: "We don't need limits like this. A pattern can evolve in a day or take years, but we should be able to make sense
+of the pattern and apply it in a way that enhances the UI and UX without needing a rigid timeline."
+
+**Replaces** every "at least 3 different days" above, and the 90-day window behind them. There's no time window and no
+fixed count. A pattern is judged by **how strongly it stands out**, at the confidence the visits give
+(`Learning::wilson`, the cautious lower bound of a share, so a few visits count for less than many):
+- **"Most picked"** (`Learning::picks`): a kind is labeled when its share of the visits that opened anything after those
+  words stands out (`Learning::PATTERN`, 0.30 at that confidence). 5 of 6 visits: labeled. 1 visit: not.
+- **Maybe try** (`Learning::completions`): a phrase is offered when its share of the visits that searched something
+  starting the same way stands out (half of `PATTERN`) and it found something for nearly all of them (the same cautious
+  share, at least half). A single visit never passes; many visits in one day can; the same few spread over years can.
+
+**What still guards it:** each visit counts once, so **one person repeating never makes a shared pattern**; our team and
+bots never count; and Maybe try is still made only of words the search understands.
+
+**Checked:** "hiking trails for kids" is offered after 9 visits in one day, and after 6 visits spread from 2023 to 2026;
+not after 1 visit, nor when it's 2 of 32 visits. The 24 standard searches are unchanged.
+
+## Amendment: one person's pattern is theirs, and AI Assist is how it helps them
+
+Jason: "One person repeating themselves never does, because each visit counts once. This is where AI Assist can come in.
+Personal patterns that will help solve real personal concerns." And: "So if one user is presenting a pattern we offer AI
+Assist as an option to enhance their UI/UX."
+
+**Two kinds of pattern, kept apart:**
+- **Shared patterns** (above): many visits, counted without who. They shape labels and Maybe try for everyone.
+- **Personal patterns:** one person's own repeats (the same need searched again and again, the same kind of place, the
+  same trip). They never enter shared counts and never reach anyone else. They help only that person, through
+  **AI Assist**, under the one AI & Learning consent (decisions/0051, purpose 1: "improving your own experience").
+
+**When a person shows a pattern, offer AI Assist** (planned, not built yet):
+- **Without consent, nothing is kept.** The site notices only within the visit it's in (the session, held in memory,
+  never written to the database): searching the same need again, refining the same words, coming back to the same
+  kind of place. Judged the same way as above, by how clearly it stands out, not by a fixed count.
+- **The offer is once and gentle:** a line in the search panel, in our own UI (no browser dialog), e.g. "Looking for
+  this again? AI Assist can remember what you look for and help you find it faster." with **Turn on** and **Not now**.
+  "Not now" holds for the visit; a guest is asked at most once a visit (decisions/0051 §1). Never shown to bots.
+- **With consent, AI Assist keeps the person's own patterns** and uses them for that person: their usual places and
+  kinds first in their suggestions, a reminder of the search they keep repeating, help with the concern behind it.
+  Visible, resettable and switch-off-able from Privacy settings (decisions/0051 §1), never used for ads, never shared,
+  no sensitive inferences (decisions/0050, 0051 §5).
+- **Shared learning stays blind to it:** a person's patterns never count toward Maybe try, "most picked" or the
+  learning review.
