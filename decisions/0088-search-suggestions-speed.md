@@ -65,3 +65,11 @@ Storden, MN). Before, a tie fell in whatever order the table gave.
 
 - The full listing search, which is what's left in "x ray" and other searches with no name match, still reads listing
   details stored per field (`entity_metadata`). Moving the fallback onto `search_index` would speed it up further.
+
+## Fix, 2026-10-15: "trails" isn't the start of "trailer"
+
+After the upload, "Trails near me" offered "Renting tools or equipment". Situation suggestions read "trails" as its
+singular, "trail", and then treated it as a word still being typed, which "rent a trailer" starts with. Now only the
+last word exactly as typed can be unfinished. A word read as its singular, or followed by a space, is finished and
+matches whole words only. "trail" alone still offers trailer rental (it may become "trailer"); "trails" and "trails near
+me" offer only Hiking. The 24 test searches were otherwise unchanged.
