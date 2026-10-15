@@ -149,3 +149,17 @@ Listings, outdoor places, experiences, place pages, journeys, and any new kind o
 - Anything about a user or an owner is private unless they say otherwise; same philosophy.
 - Every reader of landmarks goes through `Landmarks::visibleSql()` / `visible()`. Pins on a nation's land
   (`Nations::pin()`) still move to a public place, so a pin never marks a sensitive spot.
+
+## Migrations must run on Bluehost's MySQL (not just MariaDB): every build
+
+The live database is MySQL. It rejects `ADD COLUMN IF NOT EXISTS`, `ADD INDEX IF NOT EXISTS` and `DROP … IF EXISTS`
+inside `ALTER TABLE` (#1064), which a local MariaDB accepts. `CREATE TABLE IF NOT EXISTS` is fine. To add a column or
+index safely (re-runnable, no `DELIMITER`, so phpMyAdmin's Import takes it), check `information_schema` first:
+
+```sql
+SET @s = (SELECT IF(COUNT(*) = 0, 'ALTER TABLE t ADD COLUMN c INT DEFAULT NULL', 'DO 0')
+  FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 't' AND COLUMN_NAME = 'c');
+PREPARE q FROM @s; EXECUTE q; DEALLOCATE PREPARE q;
+```
+
+(Indexes: `information_schema.STATISTICS` … `INDEX_NAME = '…'`.) See `app/migrations/2026-11-29_go_codes_guest.sql`.
