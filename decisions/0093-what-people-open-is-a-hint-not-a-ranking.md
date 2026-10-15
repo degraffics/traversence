@@ -163,3 +163,8 @@ glasses" → Eyes and glasses, "dog got loose" → Pet care; "cooking class for 
 60 opens of Plumbers after "tubing": score 0, nothing taught, and the earlier usage-made change was undone. The 24
 standard searches are unchanged (apart from "cooking cla" finishing as "cooking classes", from a Cooking Classes kind
 that the existing outside-source step added during the test run).
+
+**Named (Jason, 2026-10-15):** the free, rule-based part is the **Personal Assistant**: it notices and remembers a
+person's own patterns, with AI & Learning consent, and costs no AI model to run, so it isn't "AI" under the free-account
+rule (commercial.md §0.A). **AI Assist** names only the paid AI-model tools (writing, photos, planning). When a free
+member shows a pattern, the offer is the Personal Assistant ("Remember this for me?"); AI Assist is the upgrade.

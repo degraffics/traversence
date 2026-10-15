@@ -595,6 +595,26 @@ Our team reviews it and checks it against public sources. Then:
 
 If you were signed in when you sent it, we email you when it's done. A business run by its owner is changed by its owner, so we check with them first.
 
+## QR codes and short links
+
+### How do I make a QR code?
+Go to [QR codes](/qr/) (or just trvgo.us). Choose what it should do: open a link, show text, call a number, start a text message or an email, join your Wi-Fi, or add a contact card to the phone. It appears as you type; scan it with your phone to check it, then download it: **SVG** for printing (sharp at any size) or **PNG** for screens and documents. You can pick its colors and round dots; if the colors are too close for phones to read, it tells you. It's free, you don't need an account, and nothing you type is kept.
+
+### What's the difference between a static code and a saved code?
+A **static** code holds the link or card itself. It's free and works forever, but once it's printed it can't change. A **saved** code is a short trvgo.us address (like trvgo.us/k7qm2x): after you've printed it you can still change where it goes, switch it off, and see how often it's scanned. Saved codes come with the QR plan, for anyone, or with a business's Core plan and up, for its listing. Paying isn't switched on yet, so the QR plan starts as a free trial. Sign in and go to [QR codes](/qr/) → **My codes**.
+
+### What happens to my printed codes if my plan ends?
+Nothing you've printed stops working. A business's saved codes go to its listing on Traversence. A person's keep going wherever they pointed last. You just can't change where they go until the plan is back on. Only a code you switch off yourself, or one our team switches off because it's misused, stops working; scanning it then says it isn't active.
+
+### Why do shared links start with trvgo.us?
+When you tap **Share** or **Copy link** on a listing, a place, a journey or a photo, you get a short trvgo.us address that opens the same page. It's easier to text or print, and it's the same short link for everyone sharing that page. The **QR** button beside Share shows the page's code, to scan or print.
+
+### How do I save a business to my phone's contacts?
+On its listing, tap **Save contact** (the person with a +, in the row of round buttons). Your phone offers to add it with its name, phone, address and website as they are now. A shelter whose location is kept private has no address on its card. Each business sees how many times its card was saved, never by whom.
+
+### What's counted when someone scans my code?
+The day, and the kind of phone (iPhone, Android or computer). Nothing else: no name, account, IP address, location or cookie. Link previews (when a link is pasted into a chat) and bots aren't counted. There are no ad trackers on trvgo.us.
+
 ## Privacy and your account
 
 ### Does Traversence use cookies?

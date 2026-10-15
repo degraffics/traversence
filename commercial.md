@@ -1,12 +1,38 @@
 # Traversence: Commercial & Partner Framework
 
-*Version: 2026-09-22*
+*Version: 2026-10-15 (commercial-2, Jason, 2026-10-13: five tiers, personal storage plans, TRVGO; earlier version 2026-09-22)*
 *Governance tier: Commercial. The Charter (`charter.md`) explicitly excludes pricing and business models from itself and designates this file as their home.*
 *Primary sources: "Traversence Part 6: Scaling and Projections" (pricing tiers, revenue targets, operating costs) and "Part 2: The Business Overview, Ecosystem, Strategy, & Services" (what each tier includes, White-Glove services, the operating philosophy).*
 
 **Industry classification, per direction, 2026-09-24 — corrected same day.** An initial "Media & Entertainment" label was wrong and has been replaced with Jason's own description, given directly: **Traversence operates primarily as a platform/directory and business network architecture — focused on local business clusters, listings, and service categorization — rather than a traditional media and entertainment company.** This is the description to use consistently wherever a form, registration, ad platform, or third-party integration asks for an industry type or category (e.g., a payment processor, an ad account, a business directory listing for Traversence itself), rather than reaching for "Media & Entertainment" just because the platform also carries editorial/Discovery content — that content is the Connection Layer's on-ramp into the directory (§0 above), not the business's primary category. Noted here rather than in `charter.md` since it's a business-facing classification fact, not mission/vision language, matching this file's role as "where pricing and business models live." Where a specific form only accepts a single short category term rather than a description, the fit is **NAICS 519130 — "Internet Publishing, Broadcasting, and Web Search Portals" — confirmed by Jason, 2026-09-24** as the code to use for that purpose, not just a suggested mapping anymore.
 
 ## 0. Business Model Philosophy: The Content-to-Commerce Engine
+
+### 0.A Traversence and TRVGO: two platforms, one ecosystem (commercial-2, 2026-10-13)
+
+- **Traversence (traversence.com): the regional hub and intelligence engine.** The directory, the administrative
+  command center, the multi-vendor marketplace and the AI narrative engine for whole regions. Where travelers and locals
+  explore itineraries, food trails and multi-merchant collections; it holds the CMS, the internal CRM and the directory.
+- **TRVGO (trvgo.us): the owned edge and routing engine.**
+  - Short codes and QR routing (`trvgo.us/{code}`) that bridge physical touchpoints (menus, window decals, packaging)
+    and the site's own sharing to digital pages. Built first: `decisions/0094`.
+  - A merchant's own fast, ad-free storefront on their own domain (`clientdomain.com`). Staged for later (Jason,
+    2026-10-15).
+- **Why a separate domain:** user-made short links and campaigns can trip spam filters; keeping them on trvgo.us
+  protects traversence.com's reputation and email deliverability.
+
+**Structural guarantees (commercial-2 §0.C):**
+- **Users and listings stay separate** (`decisions/0035`, `0037`): people manage personal galleries and peer trades;
+  listings hold commercial domains, CRM and payment ledgers; roles on a listing govern who does what.
+- **Peer-to-peer (C2C) trades are paid offline** (cash, local pickup, an outside transfer), so the platform holds no
+  money between people; both sides confirm the deal in chat, which feeds regional trust (`decisions/0031`).
+- **0% platform commission** on partner sales through Stripe Connect. *(commercial-2 cites ADR 0038 for this; 0038 is
+  ownership transfer, so the Stripe Connect decision still needs its own record.)*
+- **No AI model on free accounts:** writing, copy and photo AI tools come only with a paid personal storage plan or a
+  paid business tier. The **Personal Assistant** (remembering a member's own patterns, `decisions/0093`) is rule-based,
+  not an AI model, and is free with AI & Learning consent; **AI Assist** names only the paid AI-model tools.
+
+### 0.B The Content-to-Commerce Engine
 
 Three linked stages, replacing ad-driven networks and commission-taking OTAs:
 
@@ -18,29 +44,74 @@ Three linked stages, replacing ad-driven networks and commission-taking OTAs:
 
 **Contextual Discovery (the bridge) has a name: the Connection Layer.** The mechanism that connects Discovery content to Directory listings — surfacing the right directory entries in the middle of an editorial narrative — is the platform's **Connection Layer**, named for the Charter's founding "Living Connection Points" language. It is not a third duality alongside Directory/Discovery; it's the bridge between the two, made concrete. Starting at the **Strategic** tier, partners gain direct ability to contribute, publish, and amplify their own stories, seasonal updates, events, and media within the platform — channeling Discovery's link equity into Directory categories and partner profiles via that same Connection Layer.
 
-## 1. Pricing Tiers
+## 1. Pricing Tiers (commercial-2, final per Jason 2026-10-15)
 
-| Tier | Price | Target Mix |
+### 1.1 Business tiers: cumulative, each adds to the one below
+
+| Tier | Price | Storage & communications | Core capabilities |
+|---|---|---|---|
+| **Free** (Regional Business Directory) | $0/mo | 10 GB | Directory presence (name, address, phone, hours, categories), manual publishing, basic community messaging, **plain static QR codes**. No AI. |
+| **Basic Partner** | $29.95/mo | 50 GB (automatic WebP/AVIF) | Marketplace e-commerce through Stripe Connect (0% fee), profile sections, taxonomy routing, AI text assistance. |
+| **Core Partner** | $79.95/mo | 100 GB (srcset delivery) | Own domain storefront (staged for later), **dynamic QR codes and short links** (`trvgo.us/{code}`, `decisions/0094`), automated local SEO. |
+| **Strategic Partner** | $229.95/mo | 1 TB + 10k emails / 500 SMS / 10k push a month | High-output content (25 AI articles a month, subdomain routing), white-glove setup, the CRM and communication suite, headless API and widgets. |
+| **Enterprise / Cornerstone Partner** | $399.95+/mo | 2 TB + 50k emails / 2,500 SMS / 50k push a month (pooled) | Multi-unit and co-op master hub, master communication vault, joint regional campaigns, advanced team roles (`decisions/0037`), dedicated support. |
+
+**Resolved (2026-09-22), unchanged:** paid tiers sell tools and support depth, never directory ranking. Visibility stays
+earned through the Trust-Weighted model (`architecture.md` §7) for free and paid partners alike
+(`decisions/0007-paid-tiers-sell-tools-not-placement.md`).
+
+**Local SEO markup stays on every listing.** Free listings already carry schema.org LocalBusiness markup; Core's
+"automated local SEO" is the deeper work (and the markup on a Core partner's own domain), never taking the basics away
+from Free.
+
+**Tier keys on the site:** `free`, `basic`, `core`, `strategic`, `cornerstone`. Listings that started a promotional
+trial on the old $19 Core keep their key; the site's plan list and prices move to these figures in the next pricing
+build (still showing $19 / $79 / $249 on 2026-10-15).
+
+### 1.2 Member cloud storage (people, not listings)
+
+| Plan | Price | What's included |
 |---|---|---|
-| Regional Business Directory | Free | — (every claimed business, by default) |
-| Core Partner | $19/mo | 70% |
-| Strategic Partner | $79/mo | 20% |
-| Cornerstone Partner ("Complete Inclusion") | $249/mo | 10% |
+| Base | $0/mo | 10 GB with any account: uploads, review photos, receipts, C2C item photos. No AI-model tools; the Personal Assistant is free. |
+| 100 GB | $4.95/mo | 100 GB + the AI photo and text tools. |
+| 250 GB | $9.95/mo | 250 GB + the AI photo and text tools. |
 
-**Resolved (2026-09-22):** paid tiers sell tools and support depth, never directory ranking. Visibility stays entirely earned via the Trust-Weighted model in `architecture.md` §7, for free and paid partners alike. See `decisions/0007-paid-tiers-sell-tools-not-placement.md` for the full decision record — this replaces the "priority placement / category leadership / priority routing" language the source business documents originally used.
+**Storage can't live on Bluehost at these sizes** (its file-count ceiling, §1 Free Tier below): these plans need
+object storage (S3, Cloudflare R2 or Bunny) before they open.
 
-**What each tier includes:**
+### 1.3 The standalone QR service (no listing needed)
 
-- **Free — Regional Business Directory:** a fully operational, self-serve marketplace listing. See the Free Tier Specification immediately below — it's detailed enough to warrant its own breakdown rather than a one-line summary.
-- **Core Partner ($19/mo):** enhanced profile, direct map integration, and standard AI-engine content assistance — this is the first tier with any AI-generation capability at all; Free has none (see below). Unlimited profile-level assistance (business-description drafting, basic photo/metadata optimization, not counted against the article quota below), plus **up to 5 AI-generated catalog articles/month** via the scraper-to-article pipeline (`architecture.md` §25) — one article per distinct product/listing variant, same mechanism as every tier, just capped lower. **Access level: self-service AI-assist with self-created publication access** — the partner (owner/manager, `listing_access`) generates and publishes their own content themselves, with no Traversence admin or White-Glove involvement in the workflow at this tier; that support starts at Strategic. Eligible to add the White-Glove support options below.
-- **Strategic Partner ($79/mo):** everything in Core, plus expanded AI-engine access — **up to 25 AI-generated catalog articles/month**, plus **up to 4 custom partner content pieces/month** (seasonal updates, event posts, on top of the catalog-article quota) — the "Connection Feature" (a co-created Owner Spotlight Interview), rich media integration, White-Glove Setup, group-management support for operators with more than one listing, and ongoing quarterly feature updates. **Access level: adds admin/White-Glove-supported content creation and publication** on top of the same self-service tools Core already has — Traversence's own team now helps contribute, publish, and amplify the partner's stories and updates, rather than the partner working the AI-assist tools alone. Multi-location operators on this tier bill under the volume discount schedule in §10, not Core — Core has no multi-location path (§10.1).
-- **Cornerstone Partner ($249/mo):** full AI-engine access across the partner's entire catalog — **no monthly article-count cap**; every distinct product/listing variant in the catalog gets an article, naturally bounded by the size of the partner's own catalog rather than an arbitrary number, regenerated automatically when the underlying catalog item changes — plus unlimited custom partner content pieces (highest content-generation ceiling), dedicated group-management support for multi-location operators, full content contribution rights, and complete White-Glove Support (§2 below). **Access level:** the same admin/White-Glove-supported publication as Strategic, at the platform's deepest support tier. No ranking, category-leadership, or routing advantage over a free or Core listing with a comparable trust score. Multi-location billing follows the same §10 schedule as Strategic.
+QR codes and short links are also a service on their own, for anyone (`decisions/0094`):
+- **Plain static codes: free**, for anyone, signed in or not.
+- **Designed static code (colors, logo, print-ready vector): $4.95 once**, no subscription.
+- **Dynamic codes** (change where it points, scan counts, switch off): a subscription. Included in Core and up for
+  businesses; for people without a listing, a standalone QR plan (price to set).
+- **If a subscription ends, nothing printed breaks:** a business's dynamic codes fall back to its free listing page; a
+  person's keep going to their last destination and can't be edited until the plan is back.
+
+### 1.4 What each tier includes, in more detail
+
+- **Free:** see the Free Tier Specification below.
+- **Basic Partner ($29.95/mo):** the first tier with any AI: profile-level assistance (business-description drafting,
+  basic photo and metadata help). Self-service: the partner generates and publishes their own content.
+- **Core Partner ($79.95/mo):** everything in Basic, plus the TRVGO tools (dynamic QR codes and short links; own domain
+  later) and automated local SEO. Self-service.
+- **Strategic Partner ($229.95/mo):** everything in Core, plus **25 AI-generated catalog articles a month**, custom
+  partner content, the "Connection Feature" (a co-created Owner Spotlight Interview), rich media, White-Glove Setup,
+  group management for more than one listing, and the communication suite. **Access level: admin/White-Glove-supported
+  content creation and publication.** Multi-location billing follows §10.
+- **Enterprise / Cornerstone Partner ($399.95+/mo):** full AI-engine access across the whole catalog (no monthly
+  article cap; every product or listing variant gets an article, regenerated when it changes), unlimited custom
+  content, co-op and multi-unit hubs, dedicated support, complete White-Glove Support (§2). No ranking advantage.
+
+**Open:** the old $19 Core had a first-default of 5 AI catalog articles a month; commercial-2 doesn't say whether Basic
+or Core carries a catalog-article quota. Decide when the AI pipeline is built.
 
 **Tiered support level is a real, distinct axis from the article-volume quotas above, not a restatement of them, per direction 2026-09-24** — this matches the original source language (`Part_2_Business_Overview.docx`: "Starting at the Strategic Partner tier and above, members gain the direct ability to contribute, publish, and amplify their own stories... supported by our white-glove team"). Two different questions: *how much* AI-generated content a tier can produce (the 5/25/uncapped quotas), and *who does the work of creating and publishing it* (self-service alone at Core; admin/White-Glove-supported starting at Strategic).
 
 **Which content this support-level axis actually governs is now settled by `decisions/0005`'s System-Created vs. Self-Generated Partner Content amendment (2026-09-24) — see that ADR for the full reasoning, not repeated here.** In short: a partner's profile fields, seasonal updates, event posts, and Owner Spotlight Interview (whether self-service at Core or White-Glove-assisted at Strategic/Cornerstone) are Self-Generated Partner Content — published on a fast, automated safety/legal/anti-spam check, never `decisions/0005`'s Administrator sign-off, regardless of tier or how much staff assistance went into drafting it. The AI-generated catalog-article quotas above (5/25/uncapped) are the one thing on this page that stays System-Created — every one of those articles still passes through the unchanged staging-and-sign-off gate (`architecture.md` §25 step 3) before publishing to Discovery, at every tier. "Self-created publication access" at Core and "admin/White-Glove-supported" at Strategic+ both describe the Self-Generated side of that line; neither one touches the catalog-article pipeline's gate.
 
-**These figures (5 / 25 / uncapped) are first defaults, not tuned numbers — same status as every other unvalidated figure already in this document set** (`decisions/0024`'s 80%/50% classifier thresholds, §10.2's volume-discount bands). They're picked to scale roughly with the tier pricing ratio ($19 : $79 : $249) and to keep the mandatory per-draft Administrator sign-off (`decisions/0005`) realistically staffable at each tier, but no real admin-review-throughput data exists yet to size them precisely against — revise directly in this bullet list once usage patterns exist, matching `decisions/0017`'s "conservative, revisit once real data exists" posture for the same kind of first-draft number.
+**These figures (25 / uncapped, and the old 5) are first defaults, not tuned numbers — same status as every other unvalidated figure already in this document set** (`decisions/0024`'s 80%/50% classifier thresholds, §10.2's volume-discount bands). They're picked to scale roughly with the tier pricing ratio ($19 : $79 : $249) and to keep the mandatory per-draft Administrator sign-off (`decisions/0005`) realistically staffable at each tier, but no real admin-review-throughput data exists yet to size them precisely against — revise directly in this bullet list once usage patterns exist, matching `decisions/0017`'s "conservative, revisit once real data exists" posture for the same kind of first-draft number.
 
 ### Free Tier — Full Specification
 
@@ -72,13 +143,39 @@ Positioned explicitly as partnership, not vendor/agency extraction: "we do not a
 3. **Local Search Dominance & Optimization** — hyper-local SEO and metadata work aimed at outranking distant corporate aggregators.
 4. **Practical Creative & Display Assets** — collateral, custom QR codes, and print-ready signage bridging the physical location into the digital profile.
 
-**Optional add-on — Google Maps & Local Place Management** (available to Core Partners and above):
+**Optional add-on — Google Maps & Local Place Management** (available to Basic Partners and above):
 
 - **Setup:** $125 one-time fee per location (profile audit, data verification, category engineering, coordinate locking).
 - **Recurring:** $50/mo per location (ongoing optimization, Map Pack monitoring, photo gallery curation, review/Q&A management).
 - **Multi-location:** additional physical locations or branches incur proportional setup and monthly fees.
 
 This add-on is the one place billing is explicitly defined as per-location. The base Core/Strategic/Cornerstone subscriptions aren't stated as per-location or per-business anywhere in the source material — still an open question for a business with multiple sites.
+
+### Agency services and print (commercial-2 §3)
+
+Structured agency and print-on-demand services bridging the profile and the physical storefront:
+- **Graphic design:** brand refreshes, flyers, digital banners, menu and catalog layouts.
+- **Video:** short reels for Temporary Display Mode (under 2 minutes) and evergreen "Owner Spotlights" kept in cloud
+  storage.
+- **Signs, banners and displays:** outdoor signs, window graphics, trade show displays and banners, each with a TRVGO
+  dynamic QR code (`trvgo.us/{code}`).
+- **Marketing print:** business cards, table tents, menu cards, mailers, packaging inserts.
+- **Branded merchandise:** screen-printed or embroidered uniforms, swag, hats, retail merchandise.
+
+### Top-ups when a plan's allowance runs out (commercial-2 §4)
+
+- **Email:** +10k $19.95, +25k $44.95, +50k $74.95, +100k $129.95.
+- **SMS:** +500 $19.95, +2,500 $89.95, +5,000 $169.95, +10,000 $299.95.
+- **Web push:** +5,000 $9.95, +15,000 $24.95, +50,000 $69.95.
+- **Business gallery storage:** +500 GB $24.95/mo, +1 TB $49.95/mo.
+
+### What we don't sell (Jason, 2026-10-15)
+
+- **No review gating.** Review requests (QR signs, emails) ask everyone the same way and offer both a public review and
+  private feedback; never sending only happy customers to Google (Google's review policy prohibits it).
+- **No ad pixels or retargeting** on trvgo.us links, QR scans or pages: scans are counted, never who
+  (`decisions/0051`, `0094`).
+- **No lock-in through printed codes:** a cancelled plan never breaks what's printed (§1.3).
 
 ### Sales & Partner Onboarding Framework, per direction, 2026-09-24
 
@@ -93,6 +190,9 @@ This add-on is the one place billing is explicitly defined as per-location. The 
 - **Nationwide, at full build-out across all 20 planned Continental Hubs:** roughly 24,000 active network partners.
 
 ## 4. Revenue Model (Per Regional Hub, at Target Scale)
+
+> **Out of date (2026-10-15):** §4 and §6 are at the old three paid tiers ($19 / $79 / $249, mix 70/20/10). They need
+> redoing for the five tiers in §1.1 with a new target mix, which commercial-2 doesn't set yet.
 
 **Recurring subscriptions** (1,200 partners: 840 Core, 240 Strategic, 120 Cornerstone):
 
@@ -166,9 +266,9 @@ Resolves the multi-location billing question this document previously left open 
 
 **Per-listing Subscriptions, confirmed 2026-09-25 (`decisions/0035`):** each location under this schedule carries its own individual Subscription record — its own tier, source, and billing cadence — not one shared account-level grant. "Under one parent account" below describes the discount-banding math (how many per-listing Subscriptions get counted together for the volume band), not a single billing object covering every location. What actually links those per-listing Subscriptions together for banding, shared searchability, and admin visibility is an explicit **Location Group** (`decisions/0036`) — never inferred from one person simply holding `listing_access` across several listings, which may not even be the same business. A Location Group requires every member listing to independently hold its own Cornerstone (or, per this schedule, Strategic/Cornerstone) Subscription, and is created only by the group's owner or a single owner-designated Executive-level manager (`decisions/0037`).
 
-### 10.1 Eligibility — Strategic & Cornerstone only; Core stays single-location
+### 10.1 Eligibility — Strategic & Cornerstone only; Basic and Core stay single-location
 
-This schedule is a **Strategic/Cornerstone Enterprise Add-on**, not a new pricing tier and not something a Core account can trigger. Core Partner remains strictly single-location / single-listing, matching the tier boundaries already set in §1 — a Core account has no path into multi-location provisioning, group-dashboard management, or this discount schedule under any circumstance. Multi-location provisioning and group-dashboard management (already named in §1's Strategic and Cornerstone bullets) stay exclusive to those two tiers; this schedule is what governs billing once an account actually exercises that provisioning across more than one location.
+This schedule is a **Strategic/Cornerstone Enterprise Add-on**, not a new pricing tier and not something a Core account can trigger. Basic and Core Partner remain strictly single-location / single-listing, matching the tier boundaries already set in §1 — a Basic or Core account has no path into multi-location provisioning, group-dashboard management, or this discount schedule under any circumstance. Multi-location provisioning and group-dashboard management (already named in §1's Strategic and Cornerstone bullets) stay exclusive to those two tiers; this schedule is what governs billing once an account actually exercises that provisioning across more than one location.
 
 ### 10.2 Volume discount bands, by location count
 
@@ -193,7 +293,7 @@ Any custom onboarding or technical setup work a multi-location account needs bey
 
 ### 10.5 Uniform tier application — no mixed-tier billing
 
-A parent account managing multiple locations under this schedule must run one uniform tier — Strategic or Cornerstone, never a mix — across every location grouped under it. The discount bands in §10.2 apply against a single chosen baseline rate for the whole account ($79/mo Strategic, or $249/mo Cornerstone), applied per location before the volume discount is subtracted. Mixed-tier averaging is explicitly prohibited: an operator cannot group locations across different tiers under one account and have the discount computed against a blended baseline rate. An operator who genuinely wants different tiers at different locations is billed as separate, independent accounts — one per tier in use — each evaluated against this schedule independently by its own location count.
+A parent account managing multiple locations under this schedule must run one uniform tier — Strategic or Cornerstone, never a mix — across every location grouped under it. The discount bands in §10.2 apply against a single chosen baseline rate for the whole account ($229.95/mo Strategic, or $399.95/mo Enterprise / Cornerstone; $79 and $249 before 2026-10-15), applied per location before the volume discount is subtracted. Mixed-tier averaging is explicitly prohibited: an operator cannot group locations across different tiers under one account and have the discount computed against a blended baseline rate. An operator who genuinely wants different tiers at different locations is billed as separate, independent accounts — one per tier in use — each evaluated against this schedule independently by its own location count.
 
 ## 11. Internal Billing System — Subscriptions, Services & Non-User Counterparties
 

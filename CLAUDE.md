@@ -62,6 +62,9 @@ The site is two folders, side by side on the server and in OneDrive `Traversence
   - `app/migrations/` the SQL;
   - `app/scripts/` command-line tools.
 
+A third folder, `trvgo/`, is the document root of the trvgo.us addon domain (decisions/0094): only the short-link
+router (`trvgo/index.php`, `trvgo/.htaccess`), reading `app/` by relative path. Nothing else goes in it.
+
 Never put backend code, SQL, notes or dumps in `website/`. Delivery zips hold both folders at their real paths. Pages
 reach the backend by relative path: `__DIR__ . '/../app/ui/header.php'` from a root page,
 `__DIR__ . '/../../app/lib/Auth.php'` one folder down. Notes (`_notes`, `_SUPPORT`, `_concepts`, `_pending`) don't
