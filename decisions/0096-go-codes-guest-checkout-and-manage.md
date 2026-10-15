@@ -162,3 +162,18 @@ Removed from the server 2026-10-15: `website/_htaccess-staged.txt` and `website/
 - No OAuth Playground or offline tools: tokens come only from the in-app Connect.
 - Checked against a local stand-in for Intuit: valid token; token refused early (refresh, retry, ok); expired token;
   busy token server (retry, ok); refresh refused (reconnect asked, buying closed, no further calls).
+
+## Checked live with Intuit's sandbox (2026-10-15)
+
+- Connected Sandbox Company US aa2c (`QB_ENV=sandbox`, Development keys; redirect URI added under Development).
+  Disconnect and reconnect worked.
+- A contact-card GO Code bought by a member: invoice 1038 created ("Jason DeGraff · TRVGO 1", memo "Traversence GO
+  Codes order #1, member #1", $4.95). The sandbox's invoice link goes to a "coming soon" 404 (Intuit's sandbox has no
+  hosted payment page), so the invoice was paid with Receive payment in the sandbox company; Manage GO Codes showed it
+  Paid and downloadable, and the receipt email arrived.
+- No sales tax on the sandbox invoice: the sandbox company's sales tax isn't set up. The real company needs Automated
+  Sales Tax on before going live.
+- `QB_ENV` is now read forgivingly (first word, any case; a trailing comment ignored), and Admin → GO Code orders says
+  when it isn't set or isn't recognised, naming the `.env` file the site reads (`Database::envPath()`).
+- Still to do live: production keys after Intuit's review, the redirect URI under Production, `QB_ENV=production`,
+  connect the real company, then one real $4.95 purchase with a card and a refund in QuickBooks.
