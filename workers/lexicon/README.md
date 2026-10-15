@@ -11,7 +11,12 @@ Each common noun's family (belongings, documents, pets, vehicles…) and irregul
 
 ## build_concepts.py (decisions/0067)
 
-    python3 build_concepts.py /path/to/wordnet31 categories.json /path/to/site/api/lib/data/concepts.php
+    python3 build_concepts.py /path/to/wordnet31 categories.json /path/to/site/app/data/concepts.php
+    php /path/to/site/app/scripts/split_concepts.php
+
+**Always split after rebuilding** (decisions/0088). The site reads the split copy in `app/data/concepts/` (a small
+file per first two letters), not `concepts.php`, whenever that folder is there. A rebuilt `concepts.php` that isn't
+split again is ignored. Upload the whole `app/data/concepts/` folder with it.
 
 Every English word mapped to the categories that serve it ("x-rays" → Diagnostic Imaging Centers). It reads
 `category-terms.tsv` (the everyday words for each category; edit it freely) and `categories.json`, exported from the
