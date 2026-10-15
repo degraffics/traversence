@@ -95,3 +95,9 @@ only:
 While a word is still being typed, the categories' whole-word matches come first. "trail near" offers Hiking, Trails,
 then Trail, OR, Trail, MN and Trail City, SD. "trail" still offers the trailer categories too. Listing names
 ("Trailriders Family Restaurant") still match the start of a word, after the rest.
+
+**And business names and towns.** "Pond near" offered Ponderosa Meadow Apartments. With the words finished, a
+business, place or story name must have them as a whole word ("pond near": Sinkhole Pond, Blue Hole Pond). Only when no
+name has them whole does the start of a word still count. While the word is still being typed, whole-word names and
+towns come first, then the rest ("pond": Pond Creek, Pond Gap, Pond Eddy, then Pondera County and the Ponderosa
+listings). The 24 test searches were unchanged.
