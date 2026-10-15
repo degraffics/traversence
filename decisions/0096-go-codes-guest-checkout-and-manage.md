@@ -144,6 +144,6 @@ forwards and redirects. Where the site stands:
 | Errors | `display_errors` off; errors go to the log. |
 | **New:** methods | `app/ui/security-headers.php` (via bootstrap and the eight pages that don't load it) refuses all but GET, HEAD, POST, OPTIONS with 405: TRACE, PUT, DELETE answered 405. |
 | **New:** headers | `X-Frame-Options: SAMEORIGIN` (Peek still works), `X-Content-Type-Options: nosniff`, `Referrer-Policy: strict-origin-when-cross-origin` (pages with their own keep it), HSTS one year on HTTPS. |
-| Host (Bluehost) | TLS version and "Force HTTPS" are Bluehost settings: check with SSL Labs and cPanel → Domains. |
+| Host (Bluehost) | SSL Labs 2026-10-15: **A+**, TLS 1.3, HSTS seen. cPanel can't force HTTPS for the addon domains, so `security-headers.php` sends http://(www.)traversence.com to https (301; 308 for POST), and trvgo.us's own `.htaccess` already does. |
 
-Also to remove from the server: `website/_htaccess-backups/` (old copies of the root `.htaccess`, readable by anyone).
+Removed from the server 2026-10-15: `website/_htaccess-staged.txt` and `website/error_log` (readable by anyone).
