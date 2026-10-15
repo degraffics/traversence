@@ -216,3 +216,30 @@ on the sign-in card). Jason has put it on hold because it needs the **Apple Deve
    address `https://traversence.com/api/auth/apple.php`, plus the www. form.
 
 No code changes are needed; Settings shows "Sign in with Apple: On" once it's set.
+
+
+## Businesses selling through their own QuickBooks (added 2026-10-15)
+
+Jason: let listings integrate QuickBooks into their profile as their ecommerce merchant processor, using the GO Codes
+QuickBooks framework (decisions/0095, 0096). Agreed to build later, after two-step sign-in (decisions/0097).
+
+**The shape, as discussed:**
+- A business owner connects **their own** QuickBooks company from their listing's manage page. Their products and
+  prices come from (or go to) their QuickBooks items; a visitor buys on the listing page; the sale becomes an invoice
+  in **the business's** QuickBooks, paid on QuickBooks' hosted page, and **the money goes straight to the business**.
+- No commission at first, and no card form on our site, so no Payments API: Traversence isn't in the money flow.
+  Taking a cut or embedding card entry later would bring in the Payments API, Intuit's regulated "payments / money
+  movement" review and possibly money-transmitter rules: a separate decision.
+- Which tiers can sell (commercial-2) is to be decided.
+
+**What it takes:**
+- **A separate Intuit app** (e.g. "TRVGO for Business"), public, with its own keys and its own review, so the private
+  GO Codes app (Traversence's own sales) stays as approved. Public apps are reviewed again each year.
+- **One connection per listing** (today there's one, Traversence's), each business's tokens encrypted and strictly
+  separate; webhooks routed by the company id (realmId); connect / reconnect / disconnect from the owner's profile;
+  the reconnect alerts going to that owner.
+- **Two-step sign-in for business owners** before they can connect payments (staff have it: decisions/0097).
+- Intuit's questionnaire answered for that app: public; any admin of the connecting company; the same OAuth handling,
+  logging and intuit_tid as the GO Codes app.
+- Terms of Use: a section for businesses selling through Traversence (they're the seller; their refund policy; their
+  sales tax).

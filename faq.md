@@ -728,6 +728,12 @@ No one on the site: your email is never shown on Traversence. Traversence staff 
 account, or to contact you officially when we can't reach you on Traversence itself, and only when it's truly
 needed. Each time they look, it's recorded.
 
+### Why is there a "verify you're human" check when I sign in?
+It stops bots from guessing passwords and making fake accounts. It's Cloudflare Turnstile: usually it passes on its own in a second, with no puzzle to solve. It's on the sign-in, sign-up and "forgot password" forms (signing in with Google, Apple, Microsoft or Facebook skips it, since they check already). It isn't used for ads.
+
+### How is the Traversence team's access protected?
+Anyone on our team who can use the admin side signs in in two steps: their password (or Google and the others), then a 6-digit code we email them, before any admin page opens. They can trust their own browser for 30 days, and changing their password makes every browser ask again. Two-step sign-in for business owners is coming, before businesses can connect payments.
+
 ### What can Traversence staff see about my account?
 We don't look at accounts unless there's an issue or you ask us for help. When we do, staff say why before they
 open yours (a report, your request, a claim, a check), and that's recorded with their name. What they see is the
