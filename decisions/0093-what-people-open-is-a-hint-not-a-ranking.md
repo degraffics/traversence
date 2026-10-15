@@ -58,3 +58,24 @@ ranking."
 
 **Checked:** 60 taps over 3 days on Plumbers for "tubing" add nothing to the suggestions, a search's results carry no
 learned items, and the 24 standard searches are unchanged.
+
+## Amendment: "Maybe try" instead of "what other people often search"
+
+Jason: "'What other people often search' infers that we see and keep what other people are typing and then offer it to
+a stranger… doesn't really feel aligned. But our system seeing a pattern and suggesting it in a way that could benefit
+the user does. Maybe we offer a 'Maybe try' as an option where this pattern exists."
+
+**Before:** learned phrases were mixed into the typing predictions, looking like the search's own.
+
+**Now:** they're offered apart, under **Maybe try** (`UniversalSearch::maybeTry`, `maybe_try`, `js/search-panel.js`):
+- at most 2, and only where a pattern exists;
+- a phrase searched by real visitors on **at least 3 different days**, that found something;
+- made only of words the search already understands, so never a name, an address or anything personal;
+- never a repeat of a prediction already shown.
+
+**The record of searches** (`Situations::logOutcome`, also behind Missed searches and Insights) now counts real visitors
+only: no team, no bots, once per visit for those words and day. The FAQ says "Maybe try" instead of "what other people
+often search".
+
+**Checked:** "hiking trails for kids", searched 9 times on one day, isn't offered. Searched on 3 different days, it's
+offered under Maybe try, apart from the predictions. The 24 standard searches are otherwise unchanged.
