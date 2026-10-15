@@ -50,7 +50,7 @@ Three linked stages, replacing ad-driven networks and commission-taking OTAs:
 
 | Tier | Price | Storage & communications | Core capabilities |
 |---|---|---|---|
-| **Free** (Regional Business Directory) | $0/mo | 10 GB | Directory presence (name, address, phone, hours, categories), manual publishing, basic community messaging, **plain static QR codes**. No AI. |
+| **Free** (Regional Business Directory) | $0/mo | 10 GB | Directory presence (name, address, phone, hours, categories), manual publishing, basic community messaging, **3 free basic QR codes a month** (§1.3). No AI. |
 | **Basic Partner** | $29.95/mo | 50 GB (automatic WebP/AVIF) | Marketplace e-commerce through Stripe Connect (0% fee), profile sections, taxonomy routing, AI text assistance. |
 | **Core Partner** | $79.95/mo | 100 GB (srcset delivery) | Own domain storefront (staged for later), **dynamic QR codes and short links** (`trvgo.us/{code}`, `decisions/0094`), automated local SEO. |
 | **Strategic Partner** | $229.95/mo | 1 TB + 10k emails / 500 SMS / 10k push a month | High-output content (25 AI articles a month, subdomain routing), white-glove setup, the CRM and communication suite, headless API and widgets. |
@@ -79,15 +79,20 @@ build (still showing $19 / $79 / $249 on 2026-10-15).
 **Storage can't live on Bluehost at these sizes** (its file-count ceiling, §1 Free Tier below): these plans need
 object storage (S3, Cloudflare R2 or Bunny) before they open.
 
-### 1.3 The standalone QR service (no listing needed)
+### 1.3 The standalone QR service (no listing needed; decisions/0094, 0095)
 
-QR codes and short links are also a service on their own, for anyone (`decisions/0094`):
-- **Plain static codes: free**, for anyone, signed in or not.
-- **Designed static code (colors, logo, print-ready vector): $4.95 once**, no subscription.
-- **Dynamic codes** (change where it points, scan counts, switch off): a subscription. Included in Core and up for
-  businesses; for people without a listing, a standalone QR plan (price to set).
-- **If a subscription ends, nothing printed breaks:** a business's dynamic codes fall back to its free listing page; a
-  person's keep going to their last destination and can't be edited until the plan is back.
+QR codes and short links are also a service of their own, for anyone with an account:
+- **Free: 3 basic codes a month** per active account: link, phone, email or Wi-Fi, plain black on white.
+- **$4.95 once, plus tax, per code:** contact card, event, text, text message; any code in its own colors or with a
+  logo; and a basic code once the month's free ones are used. Paid through **QuickBooks** (Traversence's merchant
+  account): each checkout is a QuickBooks invoice with Automated Sales Tax, paid on QuickBooks' secure page.
+- **The QR plan** (changeable trvgo.us codes, scan counts): **$14.95 a month or $119.40 a year** ($9.95 a month), for
+  people without a listing. It's included in Core and up for businesses, and is a trial until recurring billing opens
+  (Stripe, on hold).
+- **If a subscription ends, nothing printed breaks:** a business's changeable codes fall back to its free listing page;
+  a person's keep going to their last destination and can't be edited until the plan is back. Codes bought for $4.95
+  are static and work forever.
+- **Anyone can try** the builder; the preview isn't restricted (Jason: deal with it only if abandoned carts pile up).
 
 ### 1.4 What each tier includes, in more detail
 
