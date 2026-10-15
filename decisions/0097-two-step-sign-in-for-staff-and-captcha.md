@@ -42,7 +42,7 @@ Reply-To, the GO Codes receipt, the FAQ), replacing privacy@ and hello@, which w
   without a token (`400 captcha`), and the widget is on the sign-in page. (Cloudflare itself can't be reached from the
   test copy, so the widget's own check wasn't run.)
 - Migration `2026-11-30_two_step.sql` run twice on the test database. Settings shows the migration, the captcha and
-  two-step rows. Privacy lists `tv_2s` and Cloudflare Turnstile; the FAQ has both.
+  two-step rows. Privacy lists `tv_2s` and Cloudflare Turnstile (with its Turnstile Privacy Addendum, which Cloudflare requires for Invisible mode); the FAQ has both.
 
 ## For Intuit's questionnaire
 
