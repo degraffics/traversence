@@ -177,3 +177,15 @@ Removed from the server 2026-10-15: `website/_htaccess-staged.txt` and `website/
   when it isn't set or isn't recognised, naming the `.env` file the site reads (`Database::envPath()`).
 - Still to do live: production keys after Intuit's review, the redirect URI under Production, `QB_ENV=production`,
   connect the real company, then one real $4.95 purchase with a card and a refund in QuickBooks.
+
+## Addendum (2026-10-15): intuit_tid and the QuickBooks log
+
+- Every call to Intuit keeps the response's `intuit_tid` and writes one line to `app/storage/logs/quickbooks.log`
+  (never served): time, environment, method, host and path (no query string, no request body, so no tokens or
+  customer details), status, `intuit_tid`, and for errors what QuickBooks said (its Fault code, message, detail and
+  element, or the OAuth `error`). About 2 MB, then the older half moves to `.log.1`.
+- Errors shown to admins carry the `intuit_tid`; buyers see only "Checkout couldn't start just now. Nothing was
+  charged; your codes are still in your cart."
+- Admin → GO Code orders: "Download the QuickBooks log" (to share with Intuit support) and the latest errors.
+- Checked against the stand-in: a 401 then refresh and success; a ValidationFault 2020 (Line.Amount) reported with
+  its element and `intuit_tid`; a refused refresh (invalid_grant) logged and reconnect asked.
