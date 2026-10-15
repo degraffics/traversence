@@ -22,10 +22,14 @@ causes, each paid on every keystroke:
 
 ## Decision
 
-1. **The concepts are split** into a small file per first two letters (`app/data/concepts/`, by
-   `app/scripts/split_concepts.php`). `Concepts` reads only the parts the typed words start with; the largest part
-   is 250 KB. The data is identical to `concepts.php`, which stays as the source and as a fallback when the folder
-   isn't there. Rebuilding means building `concepts.php`, then running the split (workers/lexicon/README.md).
+1. **The concepts are split** into a small file per first two letters (`app/storage/concepts/`), and `Concepts`
+   reads only the parts the typed words start with. The largest part is 250 KB, and the data is identical to
+   `concepts.php`.
+   - **The site makes the split itself** (`Concepts::split()`), on the first search after `concepts.php` is uploaded
+     or changed. Its time and size are kept with the split, so a new one is noticed.
+   - The split takes about a second, once. One request does it while the others read the whole file.
+   - If storage can't be written, the whole file is read as before.
+   - Nothing extra to upload. A first version shipped the 800 split files in the zip, too many to move by hand.
 2. **Town lookups use indexes** (`2026-11-22_zip_city_index.sql`). The SQL:
    - trims the names;
    - indexes `city` and `county`;
