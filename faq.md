@@ -624,6 +624,9 @@ On its listing, tap **Save contact** (the person with a +, in the row of round b
 ### What's counted when someone scans my code?
 The day, and the kind of phone (iPhone, Android or computer). Nothing else: no name, account, IP address, location or cookie. Link previews (when a link is pasted into a chat) and bots aren't counted. There are no ad trackers on trvgo.us.
 
+### Can I use my GO Codes for my business?
+Yes. Once a GO Code is yours (free or paid), print it and use it on anything you make, for personal or business use, with no fee each time. What it holds and where it points is up to you, but codes and trvgo.us links that lead to scams, malware or anything unlawful are switched off. Test-scan a code at the size you'll print it before printing a lot. The full rules are in our [Terms of Use](/terms.php#go-codes).
+
 ## Privacy and your account
 
 ### Does Traversence use cookies?

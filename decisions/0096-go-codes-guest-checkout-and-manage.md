@@ -98,3 +98,29 @@ Issuing twice is harmless (`markPaid` acts once).
   - checkout → Manage GO Codes "waiting" → paid → "Thank you! Your payment went through", the code ready, and the
     account offer with the email used;
   - no sideways scroll, cards 3px from the edges.
+
+## Addendum (2026-10-15): the Intuit app's settings, and the Terms
+
+Intuit asks for these before it gives production keys. They are listed on Admin → Sales → GO Code orders too.
+
+| Intuit field | Value |
+|---|---|
+| Host domain | `traversence.com` |
+| Launch URL | `https://traversence.com/admin/quickbooks.php` |
+| Connect/Reconnect URL | `https://traversence.com/admin/quickbooks.php?connect=1` (starts connecting straight away for a signed-in admin) |
+| Disconnect URL | `https://traversence.com/admin/quickbooks.php?disconnected=1` |
+| Redirect URI | `https://traversence.com/admin/quickbooks.php` |
+| Webhook | `https://traversence.com/api/qb-webhook.php` |
+| End-user license agreement | `https://traversence.com/terms.php` |
+| Privacy policy | `https://traversence.com/privacy.php` |
+| Categories | Invoicing & payments; Orders & sales; eCommerce |
+
+- **Disconnect** is where Intuit sends someone who disconnected the app inside QuickBooks. Following the link alone
+  can't switch payments off: the page asks QuickBooks (`QuickBooksPay::stillConnected`), and only if QuickBooks refuses
+  our tokens (400/401/403) is the connection forgotten here. A network failure changes nothing.
+- A signed-out admin who opens these is sent to sign in and brought back (`login.php?next=`).
+- **Terms of Use** (`/terms.php`) replace the placeholder and serve as the end-user license agreement: the license to
+  use the service, accounts, posts, listings, GO Codes (yours to use for business; harmful codes switched off; Dynamic
+  codes fall back when a plan ends; test before printing), buying (prices, QuickBooks, 24-hour fix, refunds), other
+  companies' services, disclaimers, liability, law. A draft like the Privacy Policy: the [bracketed] items (legal name,
+  address, refund policy, state and county) are to fill in, then an attorney's check.
