@@ -145,3 +145,54 @@ Consistent name, address and phone everywhere is what search engines trust; this
 Covered by the Nexus (`decisions/0054`): a clinic or center's providers and offices are members of its Nexus, with the role
 "provider", the same way Changepoint Integrated Health's clinics are its locations. Review already tells them apart from
 duplicates (`decisions/0074`); the Nexus is what links them. 0054 is accepted but not built yet.
+
+
+## Connections: one place to manage a business's data across platforms (added 2026-10-15)
+
+Jason's aim: people and businesses connect the platforms they already use, bring their data into Traversence, and
+manage it from here instead of from several places. Sign-in buttons (Google today; Apple and Microsoft next,
+decisions/0085) are a start, but they don't connect anything.
+
+**Sign-in and connections are different things.**
+- **A sign-in** only proves who someone is: name, email and an account ID, nothing more by design.
+- **A connection** is a separate permission the person grants later, when they want it, for one purpose ("Connect your
+  Google Business Profile"). It's kept apart from sign-in, so disconnecting a platform never locks anyone out.
+
+**What a sign-in does give:**
+- The developer app. Google and Microsoft can ask the same app for more access later ("incremental consent").
+- The account link. A signed-in person who taps Connect lands on the right Traversence account without extra matching.
+
+**What each platform offers:**
+
+| Platform | Data a connection could bring in (and send back) | What it takes |
+|---|---|---|
+| Google Business Profile | Hours, address, phone, categories, photos, posts, reviews (read and reply); edits made here can go back to Google | The same Google app, plus Google's approval for the Business Profile APIs |
+| Microsoft (Graph) | Calendar (bookings, events), OneDrive files, Outlook contacts | The same Microsoft app; the person approves each scope |
+| Facebook and Instagram (Meta Graph) | Page details, events, posts, photos | Meta app review for each permission, business verification, a data-deletion page |
+| Amazon Selling Partner API | A seller's catalog, prices and stock, for a local shop that also sells on Amazon | A separate developer registration in Seller Central, Amazon's review, and the seller authorizing it there. Login with Amazon doesn't carry over. |
+| Amazon Pay | Checkout with the buyer's Amazon address and card; Login with Amazon comes with it | When the marketplace has checkout |
+| Apple | Nothing; Sign in with Apple has no data behind it. Apple Business Connect (Maps listings) has no general API. | — |
+| Anything without an API | The platform's own export (Google Takeout, Facebook's "Download your information", a CSV) uploaded and read in | An import tool per format |
+
+**How connections would work:**
+- **Ask only for what a tool uses,** when the person starts it, and show what will be read and written.
+- **Bring in, then let the person choose.** Imported data is staged like the crawler's: the owner sees what's new or
+  different from their listing and picks what to keep. Nothing overwrites a field a person entered.
+- **Traversence as the one place.** Where a platform allows writing back (Google Business Profile hours, Facebook Page
+  details), a change made here goes out to the connected platforms, so the owner edits once. This is the "Directory sync"
+  entry above, done per owner through their own connections, and it needs the same category map.
+- **Keys and control:**
+  - access keys are encrypted on the server and never shown;
+  - any connection can be disconnected at any time, which revokes the key at the platform too;
+  - what was brought in stays.
+- **A `connections` record apart from sign-in identities:** provider, owner (person or business), scopes, encrypted
+  key, status, last sync, last error.
+
+**Suggested order:**
+1. **Google Business Profile.** Most local businesses have one, and it fills listings with hours and photos the owner
+   already keeps up to date.
+2. **Facebook Pages** (events and posts) for venues and groups.
+3. **Amazon seller import,** when the marketplace takes products.
+4. **Amazon Pay,** with checkout.
+5. **Microsoft calendar,** for bookings.
+6. **File imports** for anything without an API.
