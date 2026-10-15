@@ -43,3 +43,18 @@ Suggestions for "tubing" (the two activities, then hardware, pipe and plumbing s
   and Plumbers, which the word doesn't lead to, doesn't move up.
 
 The 24 standard searches are unchanged.
+
+## Amendment, the same day: clicks are for SEO and internal improvement only
+
+Jason: "real users across at least 3 different days: use clicks for SEO and internal improvements, not information
+ranking."
+- **Clicks never add a result.** A kind the words don't lead to is no longer added to suggestions at all because of
+  clicks. A kind they do lead to may carry the "most picked" label, and that's all.
+- **The learned results ("What most people searching this open", "Often opened after these words") are no longer in
+  public results** (`learned` is always empty). They stay in Admin → Search learning, where a person reviews them and
+  decides what to teach the search. That's the internal improvement.
+- **The counts stay for Insights, reports and SEO** (which pages and words matter), counted as above: real visitors only,
+  once per visit, on at least 3 different days.
+
+**Checked:** 60 taps over 3 days on Plumbers for "tubing" add nothing to the suggestions, a search's results carry no
+learned items, and the 24 standard searches are unchanged.
