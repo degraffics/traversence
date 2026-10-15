@@ -83,3 +83,15 @@ situations that match on whole words. The order is:
 
 "trail" offers Hiking, then Renting tools or equipment. More matches are gathered before ranking (6 × the number
 shown, up from 3 ×), so whole-word matches aren't crowded out by the first partial ones.
+
+**And a word with more after it is finished.** "Trail near" still offered trailer rental, Boat Trailers and Campers &
+Travel Trailers, and Traill County. Suggestions drop "near me" before matching and mark the words as finished (`end`),
+but that wasn't passed on. Now, when the words are finished (followed by "near …" or a space), these match whole words
+only:
+- situations;
+- the categories offered for what's typed;
+- towns and counties.
+
+While a word is still being typed, the categories' whole-word matches come first. "trail near" offers Hiking, Trails,
+then Trail, OR, Trail, MN and Trail City, SD. "trail" still offers the trailer categories too. Listing names
+("Trailriders Family Restaurant") still match the start of a word, after the rest.
