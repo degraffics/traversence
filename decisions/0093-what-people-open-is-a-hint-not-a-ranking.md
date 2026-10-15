@@ -125,3 +125,41 @@ Assist as an option to enhance their UI/UX."
   no sensitive inferences (decisions/0050, 0051 §5).
 - **Shared learning stays blind to it:** a person's patterns never count toward Maybe try, "most picked" or the
   learning review.
+
+## Amendment: search teaches itself, by meaning; usage never outweighs relevance
+
+Jason: "A person teaches the search: this should not require a person. The learning: the word and its route, never what
+got picked. We need suggestions that make sense, so if this helps our search deliver relevant suggestions it's good. But
+it cannot use usage to outweigh relevancy."
+
+**The rule:** what the search learns is a word and its route (the kinds of things it means). It learns on its own, with
+no person to approve it, from meaning: the word itself, the words around it, how our listings and trusted outside
+sources use it. Usage (what people opened) may only order routes that are equally relevant. It never adds a route,
+never raises one above a more relevant one, and never keeps one alive. The search record still drives SEO and the list
+of what content to create (searches that found nothing, or nothing anyone explored).
+
+**Found and fixed, two places where usage chose routes on its own:**
+- **`Learning::run`** (words → a kind, published as a situation's phrase): its score was 45% usage. Now the score is
+  relevance only: the words (×0.60) and outside sources that back it (×0.40); usage is kept for ties. "May also help"
+  at 0.60, published at 0.80. No time window and no "10 searches" gate. Admin → Search learning explains it.
+- **`SearchDrafts`** (applied on its own, decisions/0064):
+  - the "category" draft ("read this word as the kind people opened after it") is gone. It was usage alone: on a test
+    copy, 60 opens of Plumbers after "tubing" taught the search that tubing means plumbers. A word's kinds come from its
+    meaning (Concepts).
+  - any such change the system already made is undone on the next run, logged with Undo, unless the word's own meaning
+    leads there too (`undoUsageRoutes`). A person's change is never touched.
+  - a missed phrase is matched to the situation its words mean: the kinds of place they mean (Concepts, score 0.35 or
+    more), each split across the situations it answers (a hardware store answers ten, a tire shop one), plus the
+    situation led by the same event or action. Opens break an exact tie only. When meaning can't tell, the system
+    builds a new situation instead.
+  - a situation the system builds offers the kinds its words mean, never what people opened.
+
+**What stays:** "most picked" stays a label (it never moves anything). The kinds people opened still nominate pairs for
+`Learning::run` to score, but the score is relevance.
+
+**Checked on a copy of the site, with no usage data at all:** "tire went flat on highway" → Flat tire, "car battery
+dead" → Dead battery, "rent a moving truck" → Renting tools or equipment, "power went out" → Power out, "broke my
+glasses" → Eyes and glasses, "dog got loose" → Pet care; "cooking class for teens" → no match, so a new situation.
+60 opens of Plumbers after "tubing": score 0, nothing taught, and the earlier usage-made change was undone. The 24
+standard searches are unchanged (apart from "cooking cla" finishing as "cooking classes", from a Cooking Classes kind
+that the existing outside-source step added during the test run).
