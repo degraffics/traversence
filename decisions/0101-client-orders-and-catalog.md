@@ -88,3 +88,16 @@ Revised the same day (Jason): the proof page shows everything the code holds, as
 card (name, job title and business, then each phone, email, website, the address on one line, the note), any other
 type field by field (`QrIssue::FIELDS`), with the kind of code under its name. Downloaded files are named
 `go-code-<name>-<trvgo code>` (e.g. `go-code-paul-s-card-na76j2-1in.svg`), not `qr-…`.
+
+**Addendum (2026-10-16, the proof lightbox).** A proof opens in its own lightbox (`js/tv-proof.js`, `data-proof`),
+for the client and our team alike: a dark backdrop (86%), × in the corner, only the proof, and under it a bar that
+never scrolls away holding Approve this proof / Ask for changes (the client's, while the order is out for review; our
+team's view has none). The proof fills the window's width less 50 px a side (12 px below 768 px, so it isn't tiny on a
+phone) and scrolls inside when taller than the window. Images show at their own resolution; a PDF is drawn page by page
+with pdf.js 3.11.174 (cdnjs) at the shown width × the screen's density (at least ×2), so small type stays crisp, with
+the browser's own viewer as the fallback. On the order page each proof is a card (a thumbnail, or a PDF mark) with
+"Review the proof". GO Codes are proofed the same way: adding one (or changing what it holds) makes a proof row with
+mime `go-code` and no file, approved like any proof before the order can be; sending an order makes them for codes
+added earlier. Its lightbox shows the vector QR beside everything it holds (`QrIssue::detailsHtml`, shared with the
+trvgo.us proof page); the client sees it by their order's link (`/api/qr.php?…&proof=1`, view only, no download
+until paid). Privacy page: cdnjs also serves the PDF viewer.
