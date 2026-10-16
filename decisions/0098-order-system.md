@@ -339,3 +339,11 @@ switch to move between the QuickBooks sandbox and production for testing.
   CORS block), charged, payment issued the codes at once; refund from the order page went back to the card with a
   Refund Receipt, the order marked Refunded and its GO Code switched off. Next: the same purchase and refund in
   production.
+- **Codes and orders, both sides (Jason: "trvgo.us is the only way to see codes, and the orders side has no way to
+  interact with them"):** each code now says what it does in plain words (`QrIssue::holds`: "Calls 505-555-1234",
+  "Opens example.com", "Saves the contact …"). Manage GO Codes: tap a code's name for its details (larger picture,
+  every field, its trvgo.us address, Try it, downloads, ask for a fix), a Try it button (`?b=1`, not counted as a scan),
+  the order it came from, and **My orders** (each order, what it bought, refunded items included, ask about it). The
+  admin order page: per code Try it, Copy its address, SVG, PNG, a larger view, and **Pause / Turn back on** (shows "not
+  active" without a refund; held while a card dispute is open; noted in the history). Verified in the sandbox with
+  QuickBooks: one invoice, one linked card payment, one refund per order.
