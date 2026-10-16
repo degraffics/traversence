@@ -84,3 +84,7 @@ button that does it (`?go=1`: the link, the contact card, the call…). Proof sc
 paid the code goes live (scans act directly and count); a cancelled order's code reads "not active" again. The admin
 line has "Try it" (opens the trvgo.us address). The extra tap and the PROOF label keep a proof from standing in for a
 paid code.
+Revised the same day (Jason): the proof page shows everything the code holds, as it will arrive: a contact card as a
+card (name, job title and business, then each phone, email, website, the address on one line, the note), any other
+type field by field (`QrIssue::FIELDS`), with the kind of code under its name. Downloaded files are named
+`go-code-<name>-<trvgo code>` (e.g. `go-code-paul-s-card-na76j2-1in.svg`), not `qr-…`.
