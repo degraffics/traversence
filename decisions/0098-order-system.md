@@ -335,3 +335,7 @@ switch to move between the QuickBooks sandbox and production for testing.
   shown to customers; refunds or credit memos in QuickBooks for customers with no paid orders from the site are
   skipped, not put in the inbox (the sandbox's sample customers filled it); a contact card's website may be trvgo.us
   (only a link or Dynamic code can't point to another trvgo.us code).
+- **Verified in the Intuit sandbox (Jason, 2026-10-16):** card sent from the browser to Intuit's tokens endpoint (no
+  CORS block), charged, payment issued the codes at once; refund from the order page went back to the card with a
+  Refund Receipt, the order marked Refunded and its GO Code switched off. Next: the same purchase and refund in
+  production.
