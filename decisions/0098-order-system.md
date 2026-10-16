@@ -365,3 +365,10 @@ weren't the Production keys; the Payments page now shows each mode's Client ID (
 Production uses the Development one. "Connect without card payments" asks for accounting only, for when Intuit hasn't
 approved Payments for production. Still to do: a real $4.95 purchase and refund, a refund made in QuickBooks reaching
 the webhook, and "Automatically apply credits" in QuickBooks.
+
+**Addendum (2026-10-16, inbox by mode, corrected).** Each "From QuickBooks: which order?" item takes the QuickBooks
+mode of the orders it could be for (those were looked up in the mode it came in); an item with none is the sandbox's.
+`2026-12-07_inbox_mode.sql` now does this, and re-running it corrects a first run that marked every older item sandbox
+(including a real production refund). The inbox shows only items of the current mode, never unmarked ones. When more
+than one order could be the one, each is listed with when it was paid and what's left to refund; a single order with
+exactly the refund's amount left is listed first and highlighted.
