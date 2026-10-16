@@ -191,3 +191,21 @@ Removed from the server 2026-10-15: `website/_htaccess-staged.txt` and `website/
   its element and `intuit_tid`; a refused refresh (invalid_grant) logged and reconnect asked.
 - Webhooks are logged too (`QuickBooksPay::logWebhook`): each one's status (200 signed, 401 not), and the invoices it
   named, so "Download the QuickBooks log" shows whether Intuit's webhook reaches the site.
+
+## Addendum (2026-10-16): Intuit's review, credentials; the admin page rewritten
+
+Intuit's first assessment: "Any Intuit credentials including customer IDs, app client ID and client secret must be
+stored securely and not be exposed within your app." The client ID and secret were already only in `.env` (outside
+the web root) and never shown. Tightened:
+- **The QuickBooks company id (realmId) is stored encrypted** with the same secretbox key as the tokens
+  (`2026-12-01_qb_realm_sealed.sql` widens `qb_connection.realm_id`). A plain id from before is still read and is
+  encrypted at the next token refresh.
+- **The QuickBooks log never holds the company id:** paths show `/company/{company}/`.
+- Checked: a connection with a plain id → refreshed → stored encrypted (76 chars) → the next call works; the log has
+  no id.
+
+**Admin → GO Code orders rewritten** (`website/admin/quickbooks.php`): Connection (status, connect / reconnect /
+disconnect, the Intuit addresses folded away), Health (the `QB_ENV` setting, the webhook: token missing / none yet /
+last one accepted or refused, and the QuickBooks log with its latest errors and download), This month, Orders, In
+carts. Every call into the libraries is checked first, so an older library file on the server shows a note instead of
+breaking the page. Checked at 390px: no sideways scroll.
