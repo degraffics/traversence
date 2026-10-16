@@ -10,7 +10,7 @@
 ### 1. Departments are stages and staff capabilities, not separate apps
 
 Each department is **a queue in E-Commerce** and **a capability a staff member can be granted** (the staff side of
-`Roles`, decisions/0080s: today `accountant` holds `money`). One person may hold all six (the solo case); as the team
+`Roles`, decisions/0055: today `accountant` holds `money`). One person may hold all six (the solo case); as the team
 grows, each queue gets its own people without changing the software.
 
 | Department | E-Commerce queue | Capability | Does |
