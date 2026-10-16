@@ -101,3 +101,22 @@ mime `go-code` and no file, approved like any proof before the order can be; sen
 added earlier. Its lightbox shows the vector QR beside everything it holds (`QrIssue::detailsHtml`, shared with the
 trvgo.us proof page); the client sees it by their order's link (`/api/qr.php?…&proof=1`, view only, no download
 until paid). Privacy page: cdnjs also serves the PDF viewer.
+
+**Addendum (2026-10-16, one Orders list, delivery, paying outside QuickBooks; Jason).**
+- *One list.* "Orders" and "Client orders" were two ways into the same thing. E-Commerce → Orders is now the only
+  list, with **New order** at its top; orders still being built or out with the client sit first ("Being built or with
+  the client"); once approved they join the list with every other order, marked "For a client" (and their stage). A
+  client's order always opens its own page (proofs, production, payments); a draft or sent one opened by its number
+  goes there too, so a draft never looks like a placed order. GO Codes on a client order aren't "in a cart".
+- *Delivery.* Terms say how it reaches the client: shipped, picked up, or nothing to deliver (unset = shipped when the
+  order has a shipping line). Shipped: the client gives the ship-to address when approving ("to the billing address" by
+  default); it shows on both pages (`2026-12-08_delivery_outside.sql`: `delivery`, `ship_*`). The shipping line is
+  still how shipping is priced.
+- *Paid outside QuickBooks* (`pay_mode = 'outside'`): no QuickBooks invoice and no card form; no sales tax is added
+  (a tax line if it's owed). Our team can **approve it for the client** (in person, by phone or email: the proofs count
+  as approved, "recorded by our team"), and **records each payment** (cash, check, Zelle, Venmo, bank transfer, another
+  card terminal, other; amount and reference): a deposit while some is left, paid when it's all in, with the usual
+  effects (GO Codes live, production, the client emailed). Recording a payment works on any approved client order; on
+  one with a QuickBooks invoice the page says to receive it there too.
+- *Proof lightbox, final:* a bar across the top of the window, "PROOF: title", Approve, Make changes, ×; the proof 60%
+  of the window's width, whole (the backdrop scrolls), square to its edges with a red dashed cut line.

@@ -372,3 +372,8 @@ mode of the orders it could be for (those were looked up in the mode it came in)
 (including a real production refund). The inbox shows only items of the current mode, never unmarked ones. When more
 than one order could be the one, each is listed with when it was paid and what's left to refund; a single order with
 exactly the refund's amount left is listed first and highlighted.
+
+**Addendum (2026-10-16, E-Commerce layout; Jason).** The area's title is the open section (Orders, Products, Payments,
+Reports) with breadcrumbs top right ("E-Commerce › Orders › Order #5", `tv_admin_start(..., $crumbs)`), the pages fill
+the window with larger type, and the separate Carts tab is a fold under Orders ("In shoppers' carts"). In Production,
+test orders (made in the QuickBooks sandbox) are hidden from the list, with "Show them"; a search finds them anyway.
