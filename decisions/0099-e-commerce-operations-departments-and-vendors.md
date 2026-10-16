@@ -123,7 +123,17 @@ system should have a way for finalized, released-for-use files to be accessible 
 - **Reused in later orders:** a banner order picks the logo from the Assets library instead of a new upload; vendors
   get the released file the job needs, by a signed link.
 - **Versions** are kept (S3 versioning): a refreshed logo is a new version; the old one stays in the history.
-- Agency deliverables don't count against the customer's storage plan (they're our work product); their own uploads
-  do. (To confirm with Jason.)
-- Rights: the customer may use released assets as the order's terms say (Terms of Use to cover agency work and
-  ownership on payment: to write with the attorney).
+- **Released assets count toward the customer's storage plan** (Jason, 2026-10-16: "yes").
+- **Ownership** (Jason, 2026-10-16; Terms of Use, "Design, video and other work we make for you"): proofs, concepts and
+  work in progress stay Traversence's and may not be used or displayed without written permission; **once paid in full,
+  the customer has full, exclusive, perpetual rights** to the final files and concept. Concepts not chosen stay ours.
+  So the DAM releases an asset to the customer's library only when its order is **paid in full**; until then the
+  customer sees proofs only (watermarked).
+
+## Storage: S3, not Bluehost (2026-10-16)
+
+Jason asked whether trvgo.us, being a separate domain, could hold the artwork files for now. No: trvgo.us is an addon
+domain on the same Bluehost account, so it shares the account's disk and its file-count ceiling (planned at 200,000
+files platform-wide, commercial.md Free Tier), and Bluehost's shared-hosting terms don't allow using it as file storage.
+Print files are also large (100 MB+). Files go to S3 from the start; the storage code has a local folder mode only for
+the test copy of the site.
