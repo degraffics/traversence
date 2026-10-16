@@ -200,7 +200,7 @@ the web root) and never shown. Tightened:
 - **The QuickBooks company id (realmId) is stored encrypted** with the same secretbox key as the tokens
   (`2026-12-01_qb_realm_sealed.sql` widens `qb_connection.realm_id`). A plain id from before is still read and is
   encrypted at the next token refresh.
-- **The QuickBooks log never holds the company id:** paths show `/company/{company}/`.
+- **The QuickBooks log never holds the company id:** paths show `/company/{company}/`; lines written before that are masked when shown or downloaded.
 - Checked: a connection with a plain id → refreshed → stored encrypted (76 chars) → the next call works; the log has
   no id.
 
