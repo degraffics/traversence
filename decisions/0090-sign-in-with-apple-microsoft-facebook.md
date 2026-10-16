@@ -124,3 +124,14 @@ creating a new account.
 - A Connect started by one person never links to another.
 - Disconnect works.
 - The 21 earlier sign-in checks still pass.
+
+## Record (2026-10-16): Meta business verification
+
+- Meta business portfolio **Traversence.com**, ID 4445999528994966: business verification **not started** (Unverified)
+  as of 2026-10-16. Needed for advanced access to user data; basic Facebook sign-in (name, email) doesn't need it.
+- Details entered: Traversence, 750 W 1st S St., Lot 11, Saint Johns, AZ 85936, +1 602-708-3795. Meta couldn't match a
+  record, so it asks for a document with that **legal name**, unexpired: IRS 147C or SS-4 (recommended), business bank
+  statement, registration or license, tax document, articles of incorporation, or DBA papers (.jpg, .png, .pdf).
+- App review also needs: privacy policy URL, data-deletion instructions URL (`https://traversence.com/privacy.php#delete`),
+  app domain `traversence.com`, a 1024px icon, and the testing instructions.
+- Keeping these documents on hand: see "Business documents" in future-considerations.md.
