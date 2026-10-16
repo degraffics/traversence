@@ -116,3 +116,10 @@ Each member has a guard of 500 codes.
     QR, Share copies the trvgo.us link) fit with no sideways scroll;
   - cards sit 3px from the edges.
 - **Search:** the 24 standard searches are unchanged.
+
+**Addendum (2026-10-16, print SVG).** The SVG download is drawn by `Qr::svg()` itself from the code's matrix, not by
+the library's SVG writer, which drew every square separately and the light squares too (hundreds of white boxes, hard to
+recolor in Illustrator). Now: one `<rect id="background">` in the light color, and one compound `<path id="code">` whose
+squares are merged into outlines (holes wound the other way, so it fills right under either fill rule). Rounded dots are
+one compound path of circles, with the corner squares and alignment square traced as shapes. A preview's faint corners
+are a second path. Checked module by module against the matrix (no differences). PNG is unchanged.
