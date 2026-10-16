@@ -89,9 +89,14 @@ object storage (S3, Cloudflare R2 or Bunny) before they open.
 - **With a free account: 5 free GO Codes in total** (basic types in black and white), codes in one place, and Dynamic
   GO Codes.
 - **Dynamic GO Codes** (changeable trvgo.us codes, scan counts) need an account: the QR plan, **$14.95 a month or
-  $119.40 a year**, or a business on Core and up. The QR plan is a trial until recurring billing opens (Stripe, on
-  hold).
-- **Nothing printed breaks:** GO Codes bought work forever, **unless refunded or charged back** (`decisions/0098`): then a link GO Code (which points through trvgo.us) shows a 404, and other types leave the buyer's account. A business's Dynamic GO Codes fall back to
+  $119.40 a year**, or a business on Core and up. The QR plan is a trial until recurring billing opens (QuickBooks recurring
+  invoices with AutoPay, `decisions/0098`).
+- **Every GO Code goes through trvgo.us** (except Wi-Fi, which holds the network itself), so scans are counted for
+  everyone and customer service can correct a code after it's printed (`decisions/0098`). Static codes can become
+  Dynamic later by adding the QR plan.
+- **Nothing printed breaks:** GO Codes bought keep working, **unless refunded or charged back** (`decisions/0098`): then
+  the code's trvgo.us address shows "not active" (a 404) and it leaves the buyer's account; a dispute pauses it until
+  decided. A business's Dynamic GO Codes fall back to
   its free listing when its plan ends; a person's keep their last destination.
 - **Anyone can try** the builder; the preview isn't restricted (revisit only if abandoned carts pile up).
 

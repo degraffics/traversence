@@ -233,3 +233,31 @@ by order, product and vendor.
   full payment, and **send it to the customer** to review, approve and pay. The deposit is the first invoice; the
   balance is invoiced on proof approval or delivery, as the order says. Orders customers place themselves are paid in
   full on approval.
+
+## Built (2026-10-16): step 1
+
+- **Tables** (`app/migrations/2026-12-02_orders.sql`, MySQL-safe, safe to run twice): `orders` (kind: traversence,
+  business, c2c; status incl. draft, sent, part_refunded, refunded, disputed; deposit, created_by and staff_note ready
+  for staff draft orders), `order_lines` (product + what it delivers, unit price and cost, approved_at), `order_ledger`
+  (charge, deposit, refund, credit_issued, credit_used, chargeback, chargeback_reversed; each with a unique
+  `request_key`, so a repeat is ignored; only ever added to) and `order_events` (the history, with who did each).
+  `qr_orders` rows move in with the same numbers; paid ones get their charge in the ledger. `qr_orders` stays in the
+  database, unused, until we're sure.
+- **Status follows the money** (`Orders::settle`): paid, part_refunded, refunded, or disputed while a dispute is open.
+- **Every GO Code goes through trvgo.us** except Wi-Fi: a short code of kind `go` (no owner, so it isn't in the
+  member's Dynamic list) pointing at the `qr_issued` row. The router serves by type: link → 302; contact card → .vcf;
+  event → .ics (wrapped in VCALENDAR with a UID); phone, text message, email → a small page with the one button; text →
+  a page. A code not free, paid or granted (refunded = `revoked`) or switched off → "This code isn't active" (404).
+  The two codes issued before this are converted the first time their owner's list or file is opened.
+- **No self-fix after issue.** The customer fixes a code in the cart; once issued, customer service fixes it on the
+  order page (`Orders::fix` → `QrIssue::staffFix`); the printed code stays the same.
+- **Admin → E-Commerce** (`admin/ecommerce.php`): Orders (disputes and waiting first; find by #, email, name or
+  invoice), Carts (Grant), Payments (the QuickBooks page, out of Sales), Reports (this month and last, from the
+  ledger). **An order** (`admin/order.php`): its lines with each GO Code's trvgo.us address, scans and picture; 1 Fix
+  it, 2 Credit (a QuickBooks credit memo, non-taxable, with `requestid`; the customer is emailed), 3 Refund (made in
+  QuickBooks by staff, recorded here with the refund receipt number and a required reason; capped at what was paid less
+  refunds and credits; a full refund switches every line off, a partial one the lines picked), Card dispute (pauses
+  the codes; Won turns them back on, Lost switches them off), Check payment, Cancel unpaid, a team note, the history
+  and the money. Admins only, behind two-step sign-in. A card dispute shows on the admin Today list.
+- **Not yet:** credits taken off at checkout on the site (QuickBooks' "Automatically apply credits" covers the
+  invoice), staff draft orders and deposits, products with options and vendors (step 2).
