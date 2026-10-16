@@ -326,3 +326,6 @@ switch to move between the QuickBooks sandbox and production for testing.
   Webhooks are taken from either mode, by whichever token signed them. Orders made before this are marked sandbox
   (production wasn't on yet).
 - Migration `2026-12-04_qb_checkout.sql` (qb_settings, qb_connection.env, orders.qb_env, orders.charge_id).
+- **Checkout footer** (Jason): the cart and checkout drop the site footer (the claim call-out and site links) for a
+  short customer-service one: how to reach us about an order, how card payment is handled, and links to order help,
+  fixes/credits/refunds, terms of purchase and privacy (`tv_page_end(['footer' => 'checkout'])`, `tv_footer_checkout()`).
