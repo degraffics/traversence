@@ -47,3 +47,17 @@ customer fills themselves, and GO Codes were the only product.
 - Purchase orders emailed to the vendor with the approved proof files.
 - A short trvgo.us address for the client's link (the full link is emailed and can be copied).
 - Shipping charges as their own line type (a custom line for now).
+
+## Addendum (2026-10-16): priced like the print vendor quotes
+
+Jason's vendor quotes a cost per run size (25 … 2,500), turnaround as a share of the run price (+10% two days, +30%
+next day…), flat extras (PDF proof +$5.00, samples +$9.99) and shipping per shipment. The catalog now matches:
+
+- **Run sizes** are rows of vendor cost and our price; our price left empty is the cost plus the product's **markup %**
+  (stored with the rows: `tiers = {"markup", "rows"}`; older plain lists still read). The form shows the margin.
+- **Choices can carry a price:** `Turnaround: 4 Business Days, 2 Business Days +10%` (a % of the run's price and cost)
+  or `PDF proof: No, Yes +5.00` (a vendor cost, marked up). The first choice is the standard one. Fixed specs (size,
+  stock, colors, coating) go in the description.
+- **Shipping** is its own line on a client order (method, the vendor's charge, what the client pays, ship-to, not
+  taxed unless ticked); it's not a production item. Custom lines take an optional cost for margins.
+- The forms no longer show the browser's own "fill out this field" bubbles; the page says what's missing.
