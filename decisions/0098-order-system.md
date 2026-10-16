@@ -133,7 +133,9 @@ storefront build; either way the money is theirs.
      edited by customer service in the event a static code is not working or pointing at something incorrectly"):
      **customer service can correct any static code at any time** (E-Commerce → the order → Fix), and the printed QR
      never changes. Buyers still can't edit a static code themselves.
-   - Codes issued before this keep working as they are (direct).
+   - **No old-style codes kept** (Jason: only 2 exist, both his sandbox tests): the build converts every issued code
+     (Wi-Fi aside) into a trvgo.us code with the same content and look; their QR images change, nothing printed is
+     affected. From then on there is one kind of GO Code.
    - Codes now depend on trvgo.us being up ("works while trvgo.us is up", replacing "never depends on us"): the router
      stays tiny (no session, one count write) so it's the most reliable thing we run.
    - The Terms, FAQ and commercial.md change with the build, so they describe what the site does.
