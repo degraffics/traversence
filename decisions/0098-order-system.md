@@ -248,7 +248,10 @@ by order, product and vendor.
   member's Dynamic list) pointing at the `qr_issued` row. The router serves by type: link → 302; contact card → .vcf;
   event → .ics (wrapped in VCALENDAR with a UID); phone, text message, email → starts it at once (a page that opens
   the tel:/sms:/mailto: link as it loads, so no gate; its one button is there only for a browser that won't open the
-  phone's app without a tap); text → a page. A code not free, paid or granted (refunded = `revoked`) or switched off → "This code isn't active" (404).
+  phone's app without a tap; on Android the scan is counted and then answered with a 302 to an `intent:` link, which
+  the browser lets open the dialer, Messages or email app, with `S.browser_fallback_url` back to the button page
+  `?b=1`, not counted twice); text → a page. **If Traversence closes** (Terms): `GO_DIRECT=on` in .env makes every
+  download hold what the code does directly (no trvgo.us), for the download window the Terms promise. A code not free, paid or granted (refunded = `revoked`) or switched off → "This code isn't active" (404).
   The two codes issued before this are converted the first time their owner's list or file is opened.
 - **No self-fix after issue.** The customer fixes a code in the cart; once issued, customer service fixes it on the
   order page (`Orders::fix` → `QrIssue::staffFix`); the printed code stays the same.
