@@ -329,3 +329,9 @@ switch to move between the QuickBooks sandbox and production for testing.
 - **Checkout footer** (Jason): the cart and checkout drop the site footer (the claim call-out and site links) for a
   short customer-service one: how to reach us about an order, how card payment is handled, and links to order help,
   fixes/credits/refunds, terms of purchase and privacy (`tv_page_end(['footer' => 'checkout'])`, `tv_footer_checkout()`).
+- **Fixes after the first sandbox run (2026-10-16):** card payment refuses before charging if
+  `2026-12-04_qb_checkout.sql` hasn't run (it had charged, then failed saving `charge_id`); once a card is charged,
+  nothing can stop the order being marked paid (a failure is noted for the team instead); database errors are never
+  shown to customers; refunds or credit memos in QuickBooks for customers with no paid orders from the site are
+  skipped, not put in the inbox (the sandbox's sample customers filled it); a contact card's website may be trvgo.us
+  (only a link or Dynamic code can't point to another trvgo.us code).
