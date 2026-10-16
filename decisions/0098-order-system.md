@@ -347,3 +347,7 @@ switch to move between the QuickBooks sandbox and production for testing.
   admin order page: per code Try it, Copy its address, SVG, PNG, a larger view, and **Pause / Turn back on** (shows "not
   active" without a refund; held while a card dispute is open; noted in the history). Verified in the sandbox with
   QuickBooks: one invoice, one linked card payment, one refund per order.
+- **Where GO Codes live (Jason):** the /qr pages had the site's general sidebar (Home, Explore…). They now have their
+  own, **GO Codes**: Create, Cart (with its count), My GO Codes, My orders, Dynamic GO Codes, GO Codes help, and Your
+  Dashboard for members. The top bar has a **Cart** button beside the bell on every page, with the number of codes in
+  the cart (a member's, or a guest's by their browser), going to the cart (`tv_go_cart_count()`).
