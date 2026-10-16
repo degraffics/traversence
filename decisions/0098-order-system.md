@@ -114,6 +114,29 @@ storefront build; either way the money is theirs.
    code isn't active". Wi-Fi, contact card, phone, email, text and event codes hold their content and can't be
    switched off once printed: they leave the buyer's account (no downloads, no fixes). Codes issued before this keep
    working as they are. The Terms and commercial.md say so.
+4a. **Every GO Code routes through TRVGO** (Jason, 2026-10-16, superseding the "link codes only" in 4): "All codes
+   should route through TRVGO for scan capture. They will all have the ability to be dynamic, but only if the code is
+   set to offer access to editing", so a one-time static code can later get a subscription and go dynamic, with the
+   same printed QR.
+   - Every new code is a trvgo.us short code; every scan is counted (day and phone kind, as `decisions/0094`).
+     **Static** = the buyer can't edit it; **Dynamic** = editable, through the QR plan or Core and up. Upgrading adds
+     the subscription to that code; nothing is reprinted.
+   - What a scan does per type: **link** → straight there; **contact card** → the .vcf (the phone offers Add contact);
+     **event** → the .ics (Add to calendar); **phone, text message, email** → a small trvgo.us page that opens the
+     dialer / messages / mail app at once, with a button as a fallback; **text** → a page showing the text with Copy.
+   - **Wi-Fi stays direct** (one-tap joining only works when the camera reads the Wi-Fi code itself; no web page can
+     join a network): not counted, not editable. (Jason didn't choose between the options; the recommended one stands
+     until he says otherwise.)
+   - Refunded or charged-back: the code is switched off and trvgo.us shows the 404 "not active" page. Only a Wi-Fi code
+     can't be (it leaves the buyer's account).
+   - **No more 24-hour self-fix window** (Jason: "there is no need to say edit it within 24 hours, because it can be
+     edited by customer service in the event a static code is not working or pointing at something incorrectly"):
+     **customer service can correct any static code at any time** (E-Commerce → the order → Fix), and the printed QR
+     never changes. Buyers still can't edit a static code themselves.
+   - Codes issued before this keep working as they are (direct).
+   - Codes now depend on trvgo.us being up ("works while trvgo.us is up", replacing "never depends on us"): the router
+     stays tiny (no session, one count write) so it's the most reliable thing we run.
+   - The Terms, FAQ and commercial.md change with the build, so they describe what the site does.
 5. Chargebacks: a disputed payment pauses what it paid for (codes, plans, credits) until the dispute is settled; lost
    means the same as a refund, won restores it.
 
