@@ -120,3 +120,18 @@ until paid). Privacy page: cdnjs also serves the PDF viewer.
   one with a QuickBooks invoice the page says to receive it there too.
 - *Proof lightbox, final:* a bar across the top of the window, "PROOF: title", Approve, Make changes, ×; the proof 60%
   of the window's width, whole (the backdrop scrolls), square to its edges with a red dashed cut line.
+
+**Addendum (2026-10-16, invoice-style order page, pass 1; Jason).** The order page is laid out like an invoice
+(after invoice 112907 and Jason's Traversence example): Billed From (Traversence.com, PO Box 3570, Saint Johns, AZ
+85936, support@traversence.com: `ClientOrders::FROM`), Billed To, and Invoice Details (invoice # `TRV-<year>-<order>`,
+date, due date from payment terms Due on receipt / Net 15 / Net 30, P.O. #), then the item table (item & description,
+status, qty, unit price, amount). **+ Add item** opens a pop-up with Catalog, New product (makes a catalog product
+and adds it, without leaving the order), GO Code, Custom and Shipping. **Each item has its own status** (the order is
+the carrier): Incoming, Under Review, Pending Approval, Changes Requested, Response Required; Approved (Production
+Queue), Creative Queue, Creative In-progress, Pre-production, Holding for resources, In Production, In Finishing, Post
+Production; Ready for pickup, Shipped, Delivery In Route, Delivered, Complete; Payment Hold, Collections, Cancelled;
+Archived, Deactivated, Deleted (hidden, kept). "Changes Required" was dropped (Jason). Until set, an item's status
+follows the order (draft → Incoming, sent → Pending Approval, approved → Approved). Set by hand with a tracking note;
+the client is told only when our team taps **Send update** (each item, its status and tracking). The Orders list sums
+a client order's items ("2 In Production · 1 Shipped"). `2026-12-09_items_invoice.sql`. Pass 2: ship-to and shipping
+cost per item, and the client's page in the same invoice look.
