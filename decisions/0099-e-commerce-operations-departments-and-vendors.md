@@ -94,9 +94,11 @@ the payment fee). Reports show revenue, cost of goods, fees and margin by produc
    proofs and production files go to a private bucket and are reached through short-lived signed links (to customers,
    staff and vendors). The code uses the S3 API, so it's not tied to one provider. For video served to the public, a
    CDN in front (CloudFront) keeps download costs down; to be costed when video upload is built.
-5. **Pay after proof** (0098) is the default for custom products, configurable per product: pay after proof, a deposit
-   at checkout with the balance on approval, or pay at checkout (ready-made items, GO Codes, services sold as fixed
-   packs). Jason hasn't overridden the default.
+5. **Pay upon order approval, no holds** (0098, "Decided"): the customer pays when they approve the order (and proof).
+   Deposits exist only on orders **staff start for a customer** (a draft order sent for review, with a required
+   deposit set by staff).
+6. **Vendor bills are the accountant's** (0098): the site creates the purchase order; the bill is entered and paid in
+   QuickBooks by the accountant.
 
 ## Build order (with 0098)
 
@@ -106,3 +108,22 @@ the payment fee). Reports show revenue, cost of goods, fees and margin by produc
    (Intake, Proofs, Service work, Vendor jobs, Shipping); department capabilities; customer emails at each step.
 4. Vendors, configurable: their order process, the vendor portal and email work orders, blind or coordinated
    shipping, costs, QuickBooks purchase orders and bills, margins.
+
+## The DAM: finished work becomes the customer's assets (Jason, 2026-10-16)
+
+"As an agency, having a DAM for digital assets comes in nicely. As we process orders that create digital assets, the
+system should have a way for finalized, released-for-use files to be accessible to the user."
+
+- **Every file an order produces lives in S3** with a status: **working** (uploads, drafts; staff and vendors only) →
+  **proof** (shown to the customer for approval) → **final** (approved) → **released** (staff release it for use).
+- **Released assets appear in the customer's Assets library** (their account, or the listing's, for business work):
+  logo files in every format, brand palette and type sheet, ad and social graphics, print-ready PDFs, videos, GO Code
+  artwork. Each asset: name, kind, formats and versions, which order made it, usage notes (e.g. "web", "print, CMYK"),
+  and download links that are short-lived and signed.
+- **Reused in later orders:** a banner order picks the logo from the Assets library instead of a new upload; vendors
+  get the released file the job needs, by a signed link.
+- **Versions** are kept (S3 versioning): a refreshed logo is a new version; the old one stays in the history.
+- Agency deliverables don't count against the customer's storage plan (they're our work product); their own uploads
+  do. (To confirm with Jason.)
+- Rights: the customer may use released assets as the order's terms say (Terms of Use to cover agency work and
+  ownership on payment: to write with the attorney).

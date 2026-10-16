@@ -213,3 +213,23 @@ transfer is one number.
 
 **Net realized margin per order** = order total − (sales tax + shipping cost + payment fee + vendor COGS), in Reports
 by order, product and vendor.
+
+## Decided (Jason, 2026-10-16, on the money brief)
+
+- **QuickBooks keeps the books; the site keeps the operations record.** Agreed.
+- **Bills are the accountant's.** The site creates the vendor **purchase order** in QuickBooks when work goes to a
+  vendor; entering the vendor's bill and paying it is the accountant's work in QuickBooks (no bill-pay automation).
+- **Pay upon order approval, no holds.** The customer pays when they approve the order (for custom work: the order and
+  its proof). No card holds or deposits taken by the customer's own choice, unless demand for that appears.
+- **No double charges** (QuickBooks `requestid` on every create; one order token per cart). Confirmed.
+- **Pricing (Jason's formula):** price = **COGS × markup**, where COGS is materials + the vendor's charge; **shipping and
+  handling is a direct pass-through** at cost, added as its own line; **sales tax is separate**. So each product (and
+  each option that changes cost) stores its **cost** and the **markup**; the price is computed, and changes when a
+  vendor's cost does. Per order: **sales subtotal** = COGS × markup (+ S&H at cost); **gross profit** = subtotal − COGS
+  − S&H; **total** = subtotal + tax; **net profit** = gross profit − payment fees. Tax is never revenue. Reports use
+  these, by order, product and vendor.
+- **Deposits are set by staff, never chosen by the requester.** Staff can **start an order for a customer** (a draft
+  order, or quote): build the cart, set prices or adjustments, **require a deposit** (an amount or a percentage) or
+  full payment, and **send it to the customer** to review, approve and pay. The deposit is the first invoice; the
+  balance is invoiced on proof approval or delivery, as the order says. Orders customers place themselves are paid in
+  full on approval.
