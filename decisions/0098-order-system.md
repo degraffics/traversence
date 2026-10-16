@@ -356,3 +356,12 @@ switch to move between the QuickBooks sandbox and production for testing.
 
 Staff-built orders (draft → sent → approved → paid), deposits and the product catalog are decisions/0101. A part-paid
 order (a deposit) stays "waiting for payment" until the ledger covers its total.
+
+## Record (2026-10-16): QuickBooks production connected
+
+Production connected to "M2 ServCore (DBA of degraffics.com)" with card payments on; sandbox stays connected
+separately. The first attempt failed with Intuit's "undefined didn't connect" because `QB_CLIENT_ID`/`QB_CLIENT_SECRET`
+weren't the Production keys; the Payments page now shows each mode's Client ID (first/last four) and warns when
+Production uses the Development one. "Connect without card payments" asks for accounting only, for when Intuit hasn't
+approved Payments for production. Still to do: a real $4.95 purchase and refund, a refund made in QuickBooks reaching
+the webhook, and "Automatically apply credits" in QuickBooks.
