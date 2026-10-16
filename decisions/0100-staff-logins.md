@@ -95,3 +95,29 @@ how to link; a member whose staff login isn't signed in here gets **Sign in**.
 **Listings aren't listed one by one in the menu** (a Nexus owner may have dozens): the menu shows the listing you're
 acting as and **Your listings (N)**, which opens `/user/accounts.php`: every account you can act as, listings grouped
 by Nexus, with a search box past six.
+
+## Addendum (2026-10-16): staff roles open their own areas; mailboxes made from Staff logins
+
+**Roles.** A staff login now takes any of the admin side's roles (0055 §8), each opening its own areas of the admin
+menu (0078), enforced for pages and admin APIs in `app/bootstrap.php` ("Not part of your role" otherwise), with the
+menu and the dashboard showing only those areas:
+
+| Role | Opens |
+|---|---|
+| Owner | everything, and managing staff |
+| Manager | dashboard, Sales, Listings & places, Search, Safety, Data & crawler, Insights, People |
+| Editor | dashboard, Listings & places, Search, Insights |
+| Accountant | dashboard, E-Commerce, Sales, Insights |
+| Executive Assistant | dashboard, Sales, Insights |
+| Content Creator | dashboard, Listings & places, Search |
+| General | dashboard, Sales, Listings & places, Safety |
+
+Settings is the Owner's. Everyone reaches their own login (Staff logins → Your staff login). The earlier "Admin" role
+stays for logins that have it (everything but managing staff) and isn't offered for new ones. Owners reset anyone;
+Managers reset another login that isn't an owner. The map is `StaffLogin::AREAS` / `areaFor()`.
+
+**Mailboxes.** With `CPANEL_HOST`, `CPANEL_USER` and `CPANEL_TOKEN` (a cPanel API token) in `.env`, adding someone
+can make their `first.last@<STAFF_EMAIL_DOMAIN>` mailbox through cPanel's UAPI (`app/lib/CPanelMail.php`) before the
+setup link is emailed to it; its password is shown once (hidden until asked) for the owner to pass on. Ending
+someone's access suspends the mailbox's sign-in; its mail is kept. Without the token, mailboxes are made in cPanel by
+hand. One staff login per person: a person's member account is linked to it, never duplicated as a second login.
