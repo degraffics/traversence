@@ -69,9 +69,9 @@ so they go through this order system, and they need what Jason's e-commerce conc
   first). Tax stays with QuickBooks Automated Sales Tax.
 
 **Not in Sales: its own admin area, "E-Commerce"** (Jason: "I don't like it stuffed into the sales process"). Sales stays the
-prospect pipeline. Store: Orders · Customers · Products · Production & fulfillment · Subscriptions · Promotions ·
+prospect pipeline. E-Commerce: Orders · Customers · Products · Production & fulfillment · Subscriptions · Promotions ·
 Payments (the ledger, deposits, chargebacks, the QuickBooks connection and its health) · Reports. The GO Code orders
-page becomes Store → Orders and Store → Payments.
+page becomes E-Commerce → Orders and E-Commerce → Payments.
 
 **Three kinds of commerce, one order record** (Jason, 2026-10-16: businesses sell "from their storefronts at 0%
 commission: their own payment processor and their own money. Traversence never holds it"; "the user to user
