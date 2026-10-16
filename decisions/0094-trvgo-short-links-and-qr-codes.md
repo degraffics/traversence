@@ -126,3 +126,10 @@ are a second path. Checked module by module against the matrix (no differences).
 Revised the same day (Jason): a downloaded SVG (`download=1`) has **no background**, only the code's path; the
 4-module quiet zone stays in the viewBox as empty space. SVGs shown on a page keep the light rectangle. The PNG keeps
 its background.
+Print size (Jason, same day): a downloaded SVG carries `width`/`height` in inches, so it opens at its print size instead
+of 1 px a module. The size is the code itself; the document is that plus the 4-module margin (`size × n / (n − 8)`).
+Tapping any SVG download link (`/api/qr.php?…format=svg&download=1` without `size=`) opens a size picker
+(`js/tv-ask.js`, `TvAsk.qrSize`): 0.8 in (smallest), 1 in (business card), 1.5, 2, 3, 4, 8 and 12 in (banner, about
+10 ft), or any size from 0.5 to 120 in; the last pick is remembered on that device. A download without a size is 1 in.
+The file name carries the size (`trvgo-abc123-2in.svg`). Sizes follow the usual guidance: at least 2 cm for close-up
+scanning, about 1 in across per 10 in of scanning distance.
