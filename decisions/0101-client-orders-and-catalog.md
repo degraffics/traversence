@@ -135,3 +135,15 @@ follows the order (draft → Incoming, sent → Pending Approval, approved → A
 the client is told only when our team taps **Send update** (each item, its status and tracking). The Orders list sums
 a client order's items ("2 In Production · 1 Shipped"). `2026-12-09_items_invoice.sql`. Pass 2: ship-to and shipping
 cost per item, and the client's page in the same invoice look.
+
+**Addendum (2026-10-16, pass 2: drop ship per item, the client's invoice; Jason).** An order keeps its own ship-to
+addresses (`order_addresses`: a name like "Store 2", the name on the package, the address). Each item ships to the
+client's address, one of those, or pickup, with its own shipping charge and the vendor's charge
+(`order_lines.ship_to`, `ship_cents`, `ship_cost_cents`; `2026-12-10_item_shipping.sql`). Shipping is part of the
+order's total (so payments, deposits and QuickBooks work as before) and shows as one Shipping row with the per-item
+breakdown; on QuickBooks it's one untaxed "Shipping" line naming each item and destination. The destination can change
+any time; the charge only until the client approves. The client is asked for a ship-to address at approval only when
+some item ships to them. The client's page now reads like the invoice: the Traversence header ("Order", then
+"Invoice" once approved), Billed From / Billed To / details (TRV number, date, due date, P.O. #), each item with where
+it ships and, once approved, its status and tracking; items marked Deleted are hidden from them. The order-wide
+"Where it is" steps give way to the per-item statuses.
