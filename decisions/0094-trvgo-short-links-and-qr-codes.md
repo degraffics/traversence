@@ -123,3 +123,6 @@ recolor in Illustrator). Now: one `<rect id="background">` in the light color, a
 squares are merged into outlines (holes wound the other way, so it fills right under either fill rule). Rounded dots are
 one compound path of circles, with the corner squares and alignment square traced as shapes. A preview's faint corners
 are a second path. Checked module by module against the matrix (no differences). PNG is unchanged.
+Revised the same day (Jason): a downloaded SVG (`download=1`) has **no background**, only the code's path; the
+4-module quiet zone stays in the viewBox as empty space. SVGs shown on a page keep the light rectangle. The PNG keeps
+its background.
