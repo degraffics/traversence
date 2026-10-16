@@ -123,7 +123,7 @@ Every password box gets a Show / Hide button, and every new-password box gets a 
   it mustn't contain, e.g. the staff ID);
 - its confirm box: `data-pw-match="#first-box-id"`;
 - the form can't be sent until the list is ticked (the list turns red; no browser pop-ups).
-Secrets shown once (setup keys, recovery codes) stay hidden until asked for, and the page offers a new one, never "open a
+Secrets shown once (authenticator keys, setup links) stay hidden until asked for, and the page offers a new one, never "open a
 private window".
 
 ## Links past Bluehost's firewall (ModSecurity): every form and request, every build

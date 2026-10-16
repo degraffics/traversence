@@ -62,3 +62,36 @@ stops working), for anyone who manages staff logins, until it's used, replaced o
 ends. During the switch-over, a signed-in admin member can also make a **New setup link** for a waiting login.
 From the server, `php app/scripts/staff-reset.php --show TRV-0001` prints the waiting link without changing anything;
 without `--show` it makes a new one.
+
+## Addendum (2026-10-16): rewritten — work email first, the app as a fallback, owner/admin reset; one menu for both accounts
+
+Jason found recovery codes too abstract to rely on ("too abstract in requiring admins to keep something like this
+accessible") and the authenticator step odd. His rule, replacing the recovery parts above:
+
+1. **A work email is required** to create a staff login: `first.last@trvgo.com` (the domain is `STAFF_EMAIL_DOMAIN`
+   in `.env`, default `trvgo.com`; one address per active login). The setup link is emailed there (and stays on the
+   Staff logins row until used). Setup = choose a password + type the code we email to that address, so the mailbox
+   is proven before the login works.
+2. **Sign-in is MFA by email:** staff ID + password, then a 6-digit code emailed to the work email (10 minutes,
+   5 tries, "Send a new code"). The **authenticator app is an optional fallback**, added by the person under Staff
+   logins → Your staff login (QR or key, proven with a code); its code works at sign-in when email is slow.
+3. **Recovery is a reset by an owner or admin:** owners reset anyone; an admin can reset another admin's login (not
+   an owner's). A reset ends the login's sessions, clears the password and app, and emails a new setup link. If no
+   owner can sign in, the server's terminal still can (`app/scripts/staff-reset.php`, now with
+   `--email first.last@…` and `--owner "Name" first.last@…`).
+
+**Recovery codes are gone** (none issued, none accepted; the table stays, unused). The email add-on switch is gone:
+email is no longer optional. Owners change a login's work email on its row; your own password and authenticator
+are changed under Your staff login. The member-side link now proves the staff login with a code emailed to its work
+email (or its app's code). The email-link self-recovery page tried in between was dropped in favour of rule 3.
+
+**One account menu (Jason: "there should be all accounts even though admin have separate creds"):** a staff login's
+own record now acts as **Traversence staff** (owner → the admin side's Owner; admin → everything but `*`), not as a
+plain member. Its menu shows the linked member account; switching moves this browser to that account without a
+password (the link was proven), and the member's menu offers **Traversence staff** to switch back without signing in
+for 12 hours after the staff sign-in (stopped at once if the staff login is reset or ended). Unlinked, the menu says
+how to link; a member whose staff login isn't signed in here gets **Sign in**.
+
+**Listings aren't listed one by one in the menu** (a Nexus owner may have dozens): the menu shows the listing you're
+acting as and **Your listings (N)**, which opens `/user/accounts.php`: every account you can act as, listings grouped
+by Nexus, with a search box past six.
