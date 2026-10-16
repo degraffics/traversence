@@ -295,3 +295,34 @@ entered twice.
 - **Card disputes stay by hand:** QuickBooks has no webhook for them (Intuit emails the merchant); record the dispute,
   then Won or Lost, on the order.
 - Migration `2026-12-03_qb_refunds.sql` (order_inbox, orders.qb_customer_id, qb_connection.scopes).
+
+## Built (2026-10-16): the card on our checkout page, and the Sandbox / Production switch
+
+Jason: the gap between cart and payment (a new tab on Intuit's invoice page, no way back, a wait) had to go; and a
+switch to move between the QuickBooks sandbox and production for testing.
+
+- **Card on our page.** Checkout makes the invoice as before (Automated Sales Tax), then shows subtotal, tax, total
+  and a card form on the cart page. The card number, expiry, security code and billing ZIP go from the browser
+  straight to Intuit's tokens endpoint (`/quickbooks/v4/payments/tokens`, no credentials, as Intuit's own PHP Payments
+  SDK calls it); only the one-time token reaches our server (`go-codes.php` action `pay`), which charges it
+  (`POST /quickbooks/v4/payments/charges`, `capture: true`, `context.isEcommerce`, `Request-Id` per order and attempt),
+  saves `orders.charge_id`, records a QuickBooks Payment on the invoice (`TxnSource: IntuitPayment`,
+  `CreditChargeResponse.CCTransId` = the charge, so it matches the deposit; a plain payment with a note for the team if
+  QuickBooks won't take that form), and issues the codes. One charge per order: a lock while paying, the same request
+  key until a decline (a double tap or retry is never charged twice). A decline shows the bank's reason and "nothing
+  was charged". If the browser can't reach Intuit, the page offers QuickBooks' invoice page instead, which also stays
+  as "Pay on QuickBooks' page instead (card or bank transfer)". Refunds from an order go straight to `charge_id`. A
+  pending order's "Pay now" on Manage GO Codes opens the same form; "Back to the cart" cancels the unpaid order.
+- **PCI:** the card never touches our servers, but the form is on our page, so this is SAQ A-EP (not SAQ A). The Intuit
+  app's security answers about card data need updating to match.
+- **The switch** (E-Commerce → Payments → Mode): Production or Sandbox (testing), kept in `qb_settings` (QB_ENV in
+  .env is only the starting point; QB_ENV=mock still wins for local tests). Each mode has its own keys
+  (`QB_CLIENT_ID`/`QB_CLIENT_SECRET`/`QB_WEBHOOK_TOKEN` for production, `QB_SANDBOX_…` for the sandbox; an older .env
+  with QB_ENV=sandbox and only plain keys reads them as the sandbox's) and its own connection (row 1 production, row 2
+  sandbox; the connection made before is moved to its mode). Tokens are now sealed with the site's own secret, so
+  moving Intuit's keys around in .env doesn't lose a connection. Every order records `qb_env`; QuickBooks work on an
+  order (payment check, card refund, credit) only happens in its mode. While Sandbox is on, checkout is open to our
+  team only, with a "Test mode" note and Intuit's test card. Sandbox orders carry a Test tag and stay out of Reports.
+  Webhooks are taken from either mode, by whichever token signed them. Orders made before this are marked sandbox
+  (production wasn't on yet).
+- Migration `2026-12-04_qb_checkout.sql` (qb_settings, qb_connection.env, orders.qb_env, orders.charge_id).
