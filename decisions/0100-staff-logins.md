@@ -46,3 +46,10 @@ for Traversence keeps their member account, and their admin access must end clea
 - Staff notices delivered into the linked member's Pulse (the member side has no notification store yet); the link is
   in place for it.
 - Finer staff roles than owner/admin (regional admins, editors) on staff logins.
+
+## Addendum (2026-10-16): passwords and the setup key
+
+- Every password box on the site has a Show / Hide button; new-password boxes have a live checklist (length, not
+  containing the staff ID, the two the same) and can't be sent until it's ticked (`js/tv-password.js`, CLAUDE.md rule).
+- The setup page hides the authenticator key until asked ("Can't scan? Show the setup key") and has **Get a new key** for
+  a key someone else saw, so nobody needs a private window or a new link for that.
