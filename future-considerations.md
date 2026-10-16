@@ -247,3 +247,12 @@ QuickBooks framework (decisions/0095, 0096). Agreed to build later, after two-st
 > **Note (2026-10-16):** Jason's FRD §3.1 names **Stripe Connect** (direct payouts, 0% commission) for businesses
 > selling to visitors, not the business's own QuickBooks. Which one is open in `decisions/0098`; this section stands
 > until that's decided.
+
+## Card disputes from Intuit's emails (noted 2026-10-16)
+
+QuickBooks has no webhook for card disputes (chargebacks); Intuit emails the merchant. Plan, once a real dispute email
+has been seen: QuickBooks' company email goes to a dedicated mailbox (Jason's call: a QuickBooks reference mailbox for
+all transactional email); cPanel pipes a copy of Intuit's dispute emails to a script on the site, which acts only on mail
+whose DKIM signature is Intuit's and whose amount and customer match a paid order (records the dispute, pauses its GO
+Codes); anything else goes to E-Commerce → Orders' inbox for a person. Won/lost emails resolve it the same way. Not
+built: the email's wording and layout are unknown until one arrives in the mailbox.
