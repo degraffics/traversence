@@ -147,3 +147,17 @@ some item ships to them. The client's page now reads like the invoice: the Trave
 "Invoice" once approved), Billed From / Billed To / details (TRV number, date, due date, P.O. #), each item with where
 it ships and, once approved, its status and tracking; items marked Deleted are hidden from them. The order-wide
 "Where it is" steps give way to the per-item statuses.
+
+**Addendum (2026-10-16, the order edited in place; Jason, after QuickBooks' invoice screen).** No forms on the order
+page: values are edited where they show and save when you leave them (`/api/admin/client-order.php`, JSON + CSRF,
+the E-Commerce staff area). Top: **Customer** (a past client by email fills the order; a new one is typed into Bill
+to), the email, then **Bill to**, **Ship to** (with "Same as Bill to"; the order's default destination) and **Order
+details**: invoice no. `YYYY-MMDD-<order, 5 digits>` (e.g. 2026-1016-00922), terms, invoice date, due date (from the
+terms, or set directly), order/P.O. no., payment; then a message to the client. Items: a drag handle (the order is
+kept: `order_lines.position`), the number, name and description (in place), status, qty (a catalog item's run size),
+rate, amount, a Tax box, and on the right edge the **ship icon** and **delete**. The ship icon's pop-up sets the item's
+shipping: style (Drop Ship, Courier, Pick Up), carrier (USPS, UPS, FedEx, Other), a free-text address (empty: the
+order's Ship to; replaces pass 2's saved addresses, which still read), our charge, our cost, tracking, and shipping
+labels as files (`order_files`, staff only, listed under the item; shipping never has proofs). "+ Upload proof" sits
+under each item. A new order opens on the page, not the Add pop-up. `2026-12-11_inline_order.sql`. Still to come:
+picking from the QuickBooks customer list.
