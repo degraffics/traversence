@@ -1,0 +1,49 @@
+# 0101 — Orders we build for a client, and the product catalog
+
+Status: accepted (Jason, 2026-10-16). Builds on 0098 (the order system) and 0099 (E-Commerce operations).
+
+## Context
+
+Jason builds orders for clients (business cards with a QR, design work, GO Codes) and needs the client to review and
+approve them, proofs included, before anything is made or charged. Until now the only cart was the GO Codes cart a
+customer fills themselves, and GO Codes were the only product.
+
+## Decision (Jason)
+
+- **Payment, chosen per order:** in full on approval, a deposit on approval and the rest before delivery, or approve
+  now and pay the invoice later.
+- **Printed products are made by a vendor; Jason places the order with them himself** and marks the order's stage.
+  (A purchase order sent by the system can come later.)
+- **Prices come from the catalog and can be changed on any order** (the difference shows as a discount).
+- **QuickBooks sees the order only when the client approves** (an invoice then, as checkout does), not an Estimate
+  before.
+
+## How it works
+
+- **Catalog** (E-Commerce → Products, `products`): name, code, kind, description, options ("Paper: Matte, Glossy"),
+  a price and cost for each quantity (a quantity between tiers is priced from the tier below), taxable, vendor,
+  turnaround, shown or hidden. Its QuickBooks product is found or made by name on the first invoice.
+- **Building** (E-Commerce → Client orders → New order for a client, `admin/client-order.php`): the client (a member
+  is linked by email; no account needed), lines (a catalog product with quantity and options, a GO Code made with
+  what it holds, or a custom line), a proof per line (PDF or image, kept outside the web root, a new version per
+  round, history kept), the terms (payment, deposit %), a note, and how many days the link works. **Send** emails the
+  client their private link (`/order.php?t=…`); **Send again** after changes.
+- **The client's page:** every line with its price (a discount shows the catalog price struck through) and its proof;
+  **Approve this proof** or **Ask for changes** (our team is emailed; the order shows "Changes requested"). With every
+  proof approved: billing address + name + "I approve" → the QuickBooks invoice is made (tax from the address); the
+  approval is recorded with name, email and IP in the order's history.
+- **Paying:** the card form from checkout, for the amount due now (the deposit, then the rest; or the whole). The
+  ledger records a deposit and later the charge; the order stays "waiting for payment" until it's paid in full
+  (`Orders::settle` keeps a part-paid order pending). Paid on QuickBooks' page instead: the webhook or "Check payment"
+  records the rest (`QrIssue::markPaid` hands client orders to `ClientOrders::paidInQuickBooks`).
+- **After payment:** GO Codes are issued through trvgo.us and download from the client's page; printed products move
+  through In production → Ordered from the printer → Shipped / Ready for pickup → Complete, each emailing the client
+  (with a tracking number). With invoice-later terms, production starts on approval.
+- Refunds, credits, chargebacks and the history stay on the order page (`admin/order.php`), as for every order.
+- Staff roles: the pages are E-Commerce's (Owner, Accountant; 0100).
+
+## Not yet
+
+- Purchase orders emailed to the vendor with the approved proof files.
+- A short trvgo.us address for the client's link (the full link is emailed and can be copied).
+- Shipping charges as their own line type (a custom line for now).

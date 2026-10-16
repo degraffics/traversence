@@ -639,6 +639,17 @@ The day, and the kind of phone (iPhone, Android or computer). Nothing else: no n
 ### Can I use my GO Codes for my business?
 Yes. Once a GO Code is yours (free or paid), print it and use it on anything you make, for personal or business use, with no fee each time. What it holds and where it points is up to you, but codes and trvgo.us links that lead to scams, malware or anything unlawful are switched off. Test-scan a code at the size you'll print it before printing a lot. The full rules are in our [Terms of Use](/terms.php#go-codes).
 
+## Orders we prepare for you
+
+### How do I review and approve an order Traversence prepared for me?
+Open the link in our email (no account needed). It shows everything in the order with its price, and a proof for anything we'll print or make. For each proof, tap **Approve this proof**, or **Ask for changes** and tell us what to change: we send you a new proof on the same link. When every proof is approved, add your billing address and your name and tap **Approve the order**. What you approve is made as shown, so check names, numbers and spelling first. The link works until the date shown on it; reply to our email and we'll send it again.
+
+### Do I have to pay for the whole order up front?
+The order says how: in full when you approve, a deposit when you approve and the rest before delivery, or an invoice you pay later. Sales tax is added when you approve, from your billing address. You pay by card on the same page (your card goes straight to QuickBooks Payments; we never see the number), or on QuickBooks' own page by card or bank transfer. If something in the order is a GO Code, it's ready to download from the page as soon as the order is paid.
+
+### Where is my printed order?
+On your order's page: **Where it is** shows whether it's in production, sent to print, shipped (with its tracking number) or ready for pickup. We also email you at each step.
+
 ## Privacy and your account
 
 ### Does Traversence use cookies?

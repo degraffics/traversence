@@ -351,3 +351,8 @@ switch to move between the QuickBooks sandbox and production for testing.
   own, **GO Codes**: Create, Cart (with its count), My GO Codes, My orders, Dynamic GO Codes, GO Codes help, and Your
   Dashboard for members. The top bar has a **Cart** button beside the bell on every page, with the number of codes in
   the cart (a member's, or a guest's by their browser), going to the cart (`tv_go_cart_count()`).
+
+## Addendum (2026-10-16): orders we build for a client
+
+Staff-built orders (draft → sent → approved → paid), deposits and the product catalog are decisions/0101. A part-paid
+order (a deposit) stays "waiting for payment" until the ledger covers its total.
