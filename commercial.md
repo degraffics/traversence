@@ -168,6 +168,25 @@ Structured agency and print-on-demand services bridging the profile and the phys
 - **Marketing print:** business cards, table tents, menu cards, mailers, packaging inserts.
 - **Branded merchandise:** screen-printed or embroidered uniforms, swag, hats, retail merchandise.
 
+**Prices (Jason's FRD §6, 2026-10-16).** These are Traversence's own products ("O2O": online-to-offline print and
+agency work bridging the profile and the storefront), sold and fulfilled through Traversence's order system
+(`decisions/0098`), never through a business's storefront:
+
+| Line | Product | Price |
+|---|---|---|
+| Design | Brand Identity & Logo Refresh Pack (vector logo cleanup, palette, type, social kit) | $249 once |
+| Design | Monthly Social & Ad Creative Pack (8 banners or social graphics) | $149/mo |
+| Design | Menu, Catalog & Collateral Layout (print-ready PDF) | $199 per layout |
+| Video | Owner Spotlight & Brand Showcase (60–90 s edit, archived) | $399 once |
+| Video | Monthly Short-Form Video Refresh (2 vertical reels under 2 min) | $199/mo |
+| Signs (O2O) | Main Street O2O Starter Kit (2 window clings with GO Codes, 5 table tents) | $89.95 per kit |
+| Signs (O2O) | Heavy-Duty Vinyl Retail Banner 3'×6' (hemmed, grommeted, GO Code) | $129.95 each |
+| Signs (O2O) | A-Frame Curb Sign Insert Set (2 double-sided inserts) | $99.95 per pair |
+| Print | Business Card & Badge Kit (premium, vCard GO Code) | $59.95 per 500 |
+| Print | Direct Mail / Packaging Insert Run (with discount codes) | $149.95 per 1,000 |
+| Merch | Staff Uniform Apparel Pack (5 tees, polos or aprons) | $179.95 per bundle |
+| Merch | Retail & Promotional Swag (50 caps or totes) | $249.95 per run |
+
 ### Top-ups when a plan's allowance runs out (commercial-2 §4)
 
 - **Email:** +10k $19.95, +25k $44.95, +50k $74.95, +100k $129.95.

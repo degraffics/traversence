@@ -55,19 +55,47 @@ Resend receipt, Cancel unpaid. Numbers: sales, refunds, chargebacks, net, tax co
 **6. One QuickBooks link.** QuickBooksPay stays the only code that talks to QuickBooks; it gains refund receipts and
 reading deposits and recurring invoices. Every call and webhook stays logged with its intuit_tid (decisions/0096).
 
+## Update (2026-10-16): O2O, and where it lives in the admin
+
+**O2O is Traversence's own print-on-demand and agency line** (Jason's FRD §6, now in `commercial.md`): starter kits,
+banners, curb signs, cards, mailers, apparel, swag, design and video packs. These are products **Traversence sells**,
+so they go through this order system, and they need what Jason's e-commerce concept describes:
+- **Products with options** (size, material, finish, quantity runs, text, artwork upload, GO Codes to print) and price
+  changes per option, so a new product is added in the admin without new code;
+- **production routing**: each order line goes to a queue (proof / pre-press check, in production, at a vendor,
+  shipped or ready for pickup), with **vendors** for outsourced work (decisions/0035's Counterparty) who receive the
+  job and report it shipped, while the order keeps its status from start to finish;
+- **shipping** for physical goods (rates and labels later through EasyPost or ShipStation; flat rates or local pickup
+  first). Tax stays with QuickBooks Automated Sales Tax.
+
+**Not in Sales: its own admin area, "Store"** (Jason: "I don't like it stuffed into the sales process"). Sales stays the
+prospect pipeline. Store: Orders · Customers · Products · Production & fulfillment · Subscriptions · Promotions ·
+Payments (the ledger, deposits, chargebacks, the QuickBooks connection and its health) · Reports. The GO Code orders
+page becomes Store → Orders and Store → Payments.
+
+**Two kinds of commerce, kept apart:**
+1. **Traversence selling** (GO Codes, plans, storage, top-ups, agency and O2O print): this order system, Traversence's
+   merchant account, Traversence's books.
+2. **Businesses selling** to visitors (FRD §3.1: their storefront, 0% commission): their own processor, their own
+   money; Traversence never holds it. The FRD names **Stripe Connect** for this; future-considerations (2026-10-15)
+   discussed the business's own QuickBooks. To decide (below).
+
 ## To confirm with Jason
 
 1. Subscriptions through QuickBooks invoices with AutoPay (above), or hold subscriptions for Stripe?
-2. o2o products: offers or vouchers redeemed at a business, businesses' own products, or Traversence's printed goods?
-   (The model takes all three; the first fulfiller built follows the answer.) Who receives the money for a business's
-   o2o sale: Traversence or the business (see future-considerations, "Businesses selling through their own
-   QuickBooks")?
+2. ~~What o2o is~~: answered, Traversence's print and agency line (above). Businesses selling to visitors: **Stripe
+   Connect** (the FRD) or **the business's own QuickBooks** (future-considerations)? The FRD cites "ADR 0038" for
+   Stripe Connect, but 0038 is ownership transfer: no Stripe Connect decision is recorded yet.
 3. A refunded or charged-back GO Code leaves the buyer's account (recommended), or stays?
 4. Partial refunds allowed for all products, or only full?
 
+5. The admin area's name: Store, Commerce, or Orders & Store?
+
 ## Build order, once confirmed
 
-1. The order model and ledger, with GO Codes moved onto it; Admin → Orders; refunds (full / partial) and chargebacks.
-2. Deposits read from QuickBooks; the numbers net of refunds, chargebacks and fees.
-3. Subscriptions for the business tiers (per listing), with AutoPay.
-4. The first o2o product.
+1. Admin → Store with Orders and Payments; the order model and ledger, GO Codes moved onto it; refunds (full /
+   partial) and chargebacks.
+2. Products with options, and production routing with vendors; the first O2O products (Starter Kit, banner, cards).
+3. Deposits read from QuickBooks; Reports net of refunds, chargebacks and fees.
+4. Subscriptions (business tiers per listing, member storage, monthly design and video packs), with AutoPay.
+5. Customers and Promotions.

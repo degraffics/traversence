@@ -243,3 +243,7 @@ QuickBooks framework (decisions/0095, 0096). Agreed to build later, after two-st
   logging and intuit_tid as the GO Codes app.
 - Terms of Use: a section for businesses selling through Traversence (they're the seller; their refund policy; their
   sales tax).
+
+> **Note (2026-10-16):** Jason's FRD §3.1 names **Stripe Connect** (direct payouts, 0% commission) for businesses
+> selling to visitors, not the business's own QuickBooks. Which one is open in `decisions/0098`; this section stands
+> until that's decided.
