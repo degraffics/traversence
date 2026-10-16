@@ -73,19 +73,28 @@ prospect pipeline. Store: Orders · Customers · Products · Production & fulfil
 Payments (the ledger, deposits, chargebacks, the QuickBooks connection and its health) · Reports. The GO Code orders
 page becomes Store → Orders and Store → Payments.
 
-**Two kinds of commerce, kept apart:**
-1. **Traversence selling** (GO Codes, plans, storage, top-ups, agency and O2O print): this order system, Traversence's
-   merchant account, Traversence's books.
-2. **Businesses selling** to visitors (FRD §3.1: their storefront, 0% commission): their own processor, their own
-   money; Traversence never holds it. The FRD names **Stripe Connect** for this; future-considerations (2026-10-15)
-   discussed the business's own QuickBooks. To decide (below).
+**Three kinds of commerce, one order record** (Jason, 2026-10-16: businesses sell "from their storefronts at 0%
+commission: their own payment processor and their own money. Traversence never holds it"; "the user to user
+marketplace will have order processing" too). Every order has the same record (who, what, lines, status, history), so
+orders look and behave alike; the **money** is what differs:
+
+| Kind | Seller | Money | Managed in |
+|---|---|---|---|
+| 1. Traversence's sales | Traversence: GO Codes, plans, storage, top-ups, O2O print, agency | Traversence's merchant account (QuickBooks now); our ledger: charges, refunds, chargebacks, deposits | Admin → Store |
+| 2. Business storefronts | A business, to visitors | **The business's own processor**, paid to them directly, 0% commission. We record the order and the payment status their processor reports; **no money ledger of ours, never custody** | The business's dashboard; admin read-only for support |
+| 3. Member marketplace (C2C, FRD §3.2) | A member, to a member | **None through us**: settled offline (cash, pickup, their own transfer) | The two members in their chat: agreed → handed over → both mark complete (trust scores); disputes and reports in Admin → Safety |
+
+Refunds, chargebacks and deposits exist only for kind 1 (for kind 2 they happen in the business's own processor; kind
+3 has no payment to reverse, only both people agreeing to cancel). Which processors a business can connect (the FRD
+names Stripe Connect; a business's own QuickBooks was discussed in future-considerations) is decided with the
+storefront build; either way the money is theirs.
 
 ## To confirm with Jason
 
 1. Subscriptions through QuickBooks invoices with AutoPay (above), or hold subscriptions for Stripe?
-2. ~~What o2o is~~: answered, Traversence's print and agency line (above). Businesses selling to visitors: **Stripe
-   Connect** (the FRD) or **the business's own QuickBooks** (future-considerations)? The FRD cites "ADR 0038" for
-   Stripe Connect, but 0038 is ownership transfer: no Stripe Connect decision is recorded yet.
+2. ~~What o2o is~~: answered, Traversence's print and agency line (above). ~~Who holds a business's money~~: answered,
+   the business, through its own processor; Traversence never does. (The FRD cites "ADR 0038" for Stripe Connect, but
+   0038 is ownership transfer: the processor choice gets its own decision with the storefront build.)
 3. A refunded or charged-back GO Code leaves the buyer's account (recommended), or stays?
 4. Partial refunds allowed for all products, or only full?
 
