@@ -53,3 +53,12 @@ for Traversence keeps their member account, and their admin access must end clea
   containing the staff ID, the two the same) and can't be sent until it's ticked (`js/tv-password.js`, CLAUDE.md rule).
 - The setup page hides the authenticator key until asked ("Can't scan? Show the setup key") and has **Get a new key** for
   a key someone else saw, so nobody needs a private window or a new link for that.
+
+## Addendum (2026-10-16): a waiting setup link can always be found again
+
+A login waiting for setup keeps its link on its row in **Staff logins** (*Open setup link*, *Copy link*, and when it
+stops working), for anyone who manages staff logins, until it's used, replaced or expires. The link is stored sealed
+(the same site-secret box as authenticator keys) beside its hash, and is forgotten when setup finishes or the login
+ends. During the switch-over, a signed-in admin member can also make a **New setup link** for a waiting login.
+From the server, `php app/scripts/staff-reset.php --show TRV-0001` prints the waiting link without changing anything;
+without `--show` it makes a new one.
