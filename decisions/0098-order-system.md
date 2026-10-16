@@ -265,3 +265,33 @@ by order, product and vendor.
   and the money. Admins only, behind two-step sign-in. A card dispute shows on the admin Today list.
 - **Not yet:** credits taken off at checkout on the site (QuickBooks' "Automatically apply credits" covers the
   invoice), staff draft orders and deposits, products with options and vendors (step 2).
+
+## Built (2026-10-16): refunds both ways with QuickBooks
+
+Jason: most refunds and disputes start in QuickBooks, so the site listens; and a refund started on an order shouldn't be
+entered twice.
+
+- **Refund from the order page, one step** (`Orders::refundThroughQuickBooks`): the card is refunded through
+  **QuickBooks Payments** (`POST /quickbooks/v4/payments/charges/{CCTransId}/refunds`, the charge found on the invoice's
+  Payment, `Request-Id` = the refund's key), then a **Refund Receipt** goes in the books (tax in the order's proportion,
+  set with `TxnTaxDetail.TotalTax`, from `QB_REFUND_ACCOUNT_ID` or the first bank account, `requestid` = the same key,
+  tagged `[TRV:key]` in its private note), then the order is put right and the customer emailed. A double click is one
+  refund. If QuickBooks Payments refuses (paid by bank transfer, a charge it won't refund from another app), nothing is
+  recorded and the page says to refund it in QuickBooks; if the card is refunded but the receipt fails, the refund is
+  recorded and the order's history says to make the receipt in QuickBooks.
+- **Needs the payments permission:** the connection now asks for `com.intuit.quickbooks.accounting
+  com.intuit.quickbooks.payment` and remembers it (`qb_connection.scopes`). A connection made before shows "Card refunds
+  from an order are off: reconnect" on Payments, and the order page offers only "Already refunded in QuickBooks: record
+  it". **Unverified until a sandbox test:** whether Intuit lets an app refund a charge paid on QuickBooks' own invoice
+  page; the fallback above covers it if not.
+- **The listener** (`api/qb-webhook.php`): RefundReceipt and CreditMemo events (tick them in the Intuit app's
+  Webhooks). Ours (tagged) are skipped. Otherwise matched by QuickBooks customer to our paid orders
+  (`orders.qb_customer_id`, else the customer's invoices): **recorded by itself** when exactly one order can be the one
+  and a refund is the whole amount left (every item switched off) or it's a credit memo; **anything else waits** in
+  `order_inbox`, shown at the top of E-Commerce → Orders, on the admin Today list and in the menu badge, with the
+  possible orders and why. A person opens the order (`order.php?id=…&inbox=…`), ticks which items stop, and records it;
+  or marks it "Not ours". **Check QuickBooks for refunds** asks for the last 45 days, for a missed webhook. Void/Delete
+  of a receipt is logged for a person to check.
+- **Card disputes stay by hand:** QuickBooks has no webhook for them (Intuit emails the merchant); record the dispute,
+  then Won or Lost, on the order.
+- Migration `2026-12-03_qb_refunds.sql` (order_inbox, orders.qb_customer_id, qb_connection.scopes).
