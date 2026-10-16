@@ -61,3 +61,18 @@ next day…), flat extras (PDF proof +$5.00, samples +$9.99) and shipping per sh
 - **Shipping** is its own line on a client order (method, the vendor's charge, what the client pays, ship-to, not
   taxed unless ticked); it's not a production item. Custom lines take an optional cost for margins.
 - The forms no longer show the browser's own "fill out this field" bubbles; the page says what's missing.
+
+## Addendum (2026-10-16): Jason's first real orders
+
+- **GO Codes on a client order are made at once**, with their trvgo.us address, so the real QR goes on the proofs: the
+  line shows it with SVG / PNG downloads and Copy its link (staff only before payment; the address reads "not active"
+  until the order is paid). A code's name and content can be changed until the client approves. Adding one works like
+  the GO Codes page: pick what it does, then its fields.
+- **A draft follows the catalog:** until the order is sent, its catalog lines take the catalog's current price and cost
+  (a price typed by our team stays; only the struck-through catalog price moves). Once sent, never.
+- **Deposit** is off unless chosen; choosing it asks for the %. The builder's forms show the site's messages, not the
+  browser's bubbles (a CSS rule had also been showing every hidden field group).
+- **Past clients:** starting an order offers everyone we've had an order from (name, business, email, phone from their
+  latest order). There's no separate client list yet; QuickBooks keeps the customer when they approve.
+- **QuickBooks inbox by mode** (`2026-12-07_inbox_mode.sql`): items remember the mode they came from; Production never
+  shows the sandbox company's refunds and credit memos.
