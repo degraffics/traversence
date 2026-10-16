@@ -1,6 +1,6 @@
 # 0098. One order system: orders, payments, refunds, deposits, chargebacks, subscriptions
 
-- **Status:** Proposed (2026-10-16), for Jason to confirm before building
+- **Status:** Accepted (Jason, 2026-10-16); the build order is at the end
 - **Builds on:** 0035 (internal billing: Subscriptions, Services, Counterparties), 0095/0096 (GO Codes through QuickBooks)
 - **Jason, 2026-10-16:** "Since this is our transaction system we should have the ability to process orders correctly.
   So refunds, deposits, chargebacks are a part of that system. Also we have the o2o products and subscriptions that will
@@ -68,7 +68,7 @@ so they go through this order system, and they need what Jason's e-commerce conc
 - **shipping** for physical goods (rates and labels later through EasyPost or ShipStation; flat rates or local pickup
   first). Tax stays with QuickBooks Automated Sales Tax.
 
-**Not in Sales: its own admin area, "Store"** (Jason: "I don't like it stuffed into the sales process"). Sales stays the
+**Not in Sales: its own admin area, "E-Commerce"** (Jason: "I don't like it stuffed into the sales process"). Sales stays the
 prospect pipeline. Store: Orders · Customers · Products · Production & fulfillment · Subscriptions · Promotions ·
 Payments (the ledger, deposits, chargebacks, the QuickBooks connection and its health) · Reports. The GO Code orders
 page becomes Store → Orders and Store → Payments.
@@ -80,7 +80,7 @@ orders look and behave alike; the **money** is what differs:
 
 | Kind | Seller | Money | Managed in |
 |---|---|---|---|
-| 1. Traversence's sales | Traversence: GO Codes, plans, storage, top-ups, O2O print, agency | Traversence's merchant account (QuickBooks now); our ledger: charges, refunds, chargebacks, deposits | Admin → Store |
+| 1. Traversence's sales | Traversence: GO Codes, plans, storage, top-ups, O2O print, agency | Traversence's merchant account (QuickBooks now); our ledger: charges, refunds, chargebacks, deposits | Admin → E-Commerce |
 | 2. Business storefronts | A business, to visitors | **The business's own processor**, paid to them directly, 0% commission. We record the order and the payment status their processor reports; **no money ledger of ours, never custody** | The business's dashboard; admin read-only for support |
 | 3. Member marketplace (C2C, FRD §3.2) | A member, to a member | **None through us**: settled offline (cash, pickup, their own transfer) | The two members in their chat: agreed → handed over → both mark complete (trust scores); disputes and reports in Admin → Safety |
 
@@ -89,21 +89,50 @@ Refunds, chargebacks and deposits exist only for kind 1 (for kind 2 they happen 
 names Stripe Connect; a business's own QuickBooks was discussed in future-considerations) is decided with the
 storefront build; either way the money is theirs.
 
+## Decided (Jason, 2026-10-16)
+
+1. **Payments: QuickBooks.** All of Traversence's own sales (kind 1), subscriptions included, go through QuickBooks:
+   invoices, QuickBooks' payment page, AutoPay for recurring. Other payment methods for the cart come with the listings
+   e-commerce module (kind 2).
+2. **The admin area is "E-Commerce"**: Orders · Customers · Products · Production & fulfillment · Subscriptions ·
+   Promotions · Payments · Reports. Out of Sales.
+3. **"Fix it, credit, then refund."** Refunds are avoided: first we **fix** it (redo, reprint, replace); if it can't be
+   fixed, a **full or partial credit** on the buyer's account (store credit, used toward anything we sell); a
+   **refund** only when neither works. **Made-to-order and custom products are final once the order (proof) is
+   approved**: we always fix our own errors, production defects and shipping damage, never a change of mind or a
+   mistake in what was approved. Things outside our control after delivery (weather, wear, mounting, a code printed
+   too small) aren't ours. Written into the Terms of Use ("Fix it, credit, then refund"; the bracketed days and
+   whether credits expire are for Jason and the attorney) and the FAQ.
+   - In the ledger this adds `credit_issued` and `credit_used` (an account balance per customer, applied at
+     checkout), and every order line gets **approved at** (the proof approval; for a GO Code, its issue) after which
+     the line is final.
+   - The E-Commerce order page offers, in this order: **Fix** (opens a remake or reprint linked to the order, at no
+     charge), **Credit** (full or partial), **Refund** (full or partial; the reason is required).
+4. **A refunded or charged-back GO Code becomes inactive, and its link shows a 404.** A QR code that holds its content
+   itself can't be switched off, so: **paid link GO Codes now point through `trvgo.us/{code}`** (a fixed, non-editable
+   short code; the buyer sees no difference) and a refund or a chargeback switches it off: trvgo.us answers 404 "This
+   code isn't active". Wi-Fi, contact card, phone, email, text and event codes hold their content and can't be
+   switched off once printed: they leave the buyer's account (no downloads, no fixes). Codes issued before this keep
+   working as they are. The Terms and commercial.md say so.
+5. Chargebacks: a disputed payment pauses what it paid for (codes, plans, credits) until the dispute is settled; lost
+   means the same as a refund, won restores it.
+
 ## To confirm with Jason
 
-1. Subscriptions through QuickBooks invoices with AutoPay (above), or hold subscriptions for Stripe?
+1. ~~Subscriptions~~: QuickBooks (above).
 2. ~~What o2o is~~: answered, Traversence's print and agency line (above). ~~Who holds a business's money~~: answered,
    the business, through its own processor; Traversence never does. (The FRD cites "ADR 0038" for Stripe Connect, but
    0038 is ownership transfer: the processor choice gets its own decision with the storefront build.)
-3. A refunded or charged-back GO Code leaves the buyer's account (recommended), or stays?
-4. Partial refunds allowed for all products, or only full?
+3. ~~Refunded GO Codes~~: inactive, 404 (above).
+4. ~~Partial refunds~~: fix it, credit, then refund (above).
 
-5. The admin area's name: Store, Commerce, or Orders & Store?
+5. ~~Name~~: E-Commerce.
 
 ## Build order, once confirmed
 
-1. Admin → Store with Orders and Payments; the order model and ledger, GO Codes moved onto it; refunds (full /
-   partial) and chargebacks.
+1. Admin → E-Commerce with Orders and Payments; the order model and ledger (charges, credits, refunds, chargebacks),
+   GO Codes moved onto it; fix / credit / refund on each order; link GO Codes through trvgo.us and switched off on a
+   refund or lost chargeback.
 2. Products with options, and production routing with vendors; the first O2O products (Starter Kit, banner, cards).
 3. Deposits read from QuickBooks; Reports net of refunds, chargebacks and fees.
 4. Subscriptions (business tiers per listing, member storage, monthly design and video packs), with AutoPay.

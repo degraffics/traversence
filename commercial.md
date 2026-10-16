@@ -91,7 +91,7 @@ object storage (S3, Cloudflare R2 or Bunny) before they open.
 - **Dynamic GO Codes** (changeable trvgo.us codes, scan counts) need an account: the QR plan, **$14.95 a month or
   $119.40 a year**, or a business on Core and up. The QR plan is a trial until recurring billing opens (Stripe, on
   hold).
-- **Nothing printed breaks:** GO Codes bought are static and work forever. A business's Dynamic GO Codes fall back to
+- **Nothing printed breaks:** GO Codes bought work forever, **unless refunded or charged back** (`decisions/0098`): then a link GO Code (which points through trvgo.us) shows a 404, and other types leave the buyer's account. A business's Dynamic GO Codes fall back to
   its free listing when its plan ends; a person's keep their last destination.
 - **Anyone can try** the builder; the preview isn't restricted (revisit only if abandoned carts pile up).
 
@@ -186,6 +186,10 @@ agency work bridging the profile and the storefront), sold and fulfilled through
 | Print | Direct Mail / Packaging Insert Run (with discount codes) | $149.95 per 1,000 |
 | Merch | Staff Uniform Apparel Pack (5 tees, polos or aprons) | $179.95 per bundle |
 | Merch | Retail & Promotional Swag (50 caps or totes) | $249.95 per run |
+
+**Policy (Jason, 2026-10-16): fix it first, then a full or partial credit, a refund only if absolutely required.
+Made-to-order and custom products are final once the order (proof) is approved.** Terms of Use, "Fix it, credit, then
+refund" (`decisions/0098`).
 
 ### Top-ups when a plan's allowance runs out (commercial-2 §4)
 
