@@ -162,3 +162,54 @@ storefront build; either way the money is theirs.
 3. Deposits read from QuickBooks; Reports net of refunds, chargebacks and fees.
 4. Subscriptions (business tiers per listing, member storage, monthly design and video packs), with AutoPay.
 5. Customers and Promotions.
+
+## Money and banking (Jason's brief, 2026-10-16), mapped to QuickBooks
+
+The brief's four layers (collection, settlement, accounts payable, tax) and its double-entry mapping, decided for a
+QuickBooks-based setup:
+
+**QuickBooks is the books; our ledger is the operations record.** We don't keep a second double-entry ledger. Every
+money event in our ledger (0098 §2) creates or reads the matching QuickBooks record, and QuickBooks posts the
+accounting entries:
+
+| Event | Our ledger | QuickBooks record (it posts the entries) |
+|---|---|---|
+| Order checked out | order, lines, `approved_at` | **Invoice** (revenue + sales tax payable, by Automated Sales Tax) |
+| Customer pays | `charge` | **Payment** against the invoice (QuickBooks Payments, on its page) |
+| Payout to the bank | `deposit` (read) | **Deposit** (gross, less the processing fee as an expense): read to match orders to bank deposits |
+| Credit on account | `credit_issued` / `credit_used` | **Credit memo**, applied to a later invoice |
+| Refund | `refund` | **Refund receipt** (reverses revenue and tax) |
+| Chargeback | `chargeback` / `…_reversed` | recorded by staff from QuickBooks Payments' dispute notice (the accounting connection doesn't announce disputes) |
+| Work sent to a vendor | unit cost | **Purchase order** |
+| Vendor invoices | vendor bill | **Bill** (COGS + accounts payable); paid by QuickBooks bill pay (ACH/check), weekly batch |
+
+**Collection.**
+- Card data never touches us (tokenization and vaulting are QuickBooks'). ✓ already.
+- **Capture timing → "pay after proof" for custom products.** QuickBooks' hosted invoice page charges in full when paid;
+  card pre-authorization (auth now, capture later) needs Intuit's Payments API, which brings the regulated-payments
+  review we've avoided. The same goal (no charge, so no refund, if a custom order is cancelled before it's made) is
+  met by **invoicing custom lines when the proof is approved**: order → proof → approval → invoice → paid → production.
+  Ready-made products and GO Codes are paid at checkout as now. (Optional per product: a deposit at order, the
+  balance on approval.)
+- **Split payment:** store credit (credit memo) applied first, the rest on the invoice. BNPL (Klarna, Affirm) and gift
+  cards: not now (with the listings e-commerce module, if ever).
+
+**Settlement.** Gross and fees are separate lines (QuickBooks records the Payments fee on the deposit). Reports show
+gross, fees, refunds, chargebacks and net, matched to deposits.
+
+**Accounts payable.** Purchase order → bill → QuickBooks bill pay, weekly. Virtual cards (Ramp, Brex) and split payouts
+at checkout (Stripe Connect) aren't used: vendors are paid on their terms from the operating account.
+
+**Sales tax** is a liability, never revenue: QuickBooks Automated Sales Tax calculates it per address, tracks what's
+owed per state, and files or reminds from its Sales Tax centre. A separate **tax holding account** is a banking choice
+for Jason (a second checking account the collected tax is moved to); Reports show the tax collected per period so the
+transfer is one number.
+
+**Safety.**
+- **Idempotency:** every create call to QuickBooks sends a `requestid` (QuickBooks ignores a repeat with the same id),
+  derived from our order and event, so a retry or a double click never makes a second invoice, refund or bill. Our own
+  checkout uses one order token per cart, so a second click finds the same order.
+- **Refunds and chargebacks** hold unshipped fulfillment units automatically, and update the order.
+
+**Net realized margin per order** = order total − (sales tax + shipping cost + payment fee + vendor COGS), in Reports
+by order, product and vendor.
