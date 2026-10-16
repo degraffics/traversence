@@ -1,6 +1,6 @@
 # 0099. E-Commerce operations: six departments, the order lifecycle, and outsourced vendors
 
-- **Status:** Proposed (2026-10-16), for Jason to confirm; extends 0098 (the order system, E-Commerce admin area)
+- **Status:** Accepted (Jason, 2026-10-16); extends 0098 (the order system, E-Commerce admin area)
 - **From:** Jason's operations brief (2026-10-16): six departments as stages of the order lifecycle (customer service,
   pre-press, inventory and purchasing, production, shipping, accounting), with outsourced manufacturers as an
   automated tier of production and fulfillment. "I really want this part of the platform built correctly."
@@ -74,19 +74,35 @@ the payment fee). Reports show revenue, cost of goods, fees and margin by produc
 - **Files** (uploads, proofs, production files) need object storage (S3, Cloudflare R2 or Bunny; the same need as
   member storage, commercial.md §1.2), not Bluehost's disk.
 
-## To confirm with Jason
+## Decided (Jason, 2026-10-16)
 
-1. Do you produce anything in-house today (a printer, vinyl cutter, embroidery), or is O2O print all outsourced at
-   first? (If all outsourced, the Materials and Production queues start small and vendors come first.)
-2. Your first vendors: who are they, and how do they take orders today (email, their website, a portal)?
-3. Shipping: flat rates and local pickup to start, carrier labels later: right?
-4. Object storage for uploads and proofs: Cloudflare R2 (no download fees) unless you have a preference.
+1. **Traversence makes no physical products in-house**, only labor and professional services (design, video, setup,
+   management). So: **every physical O2O product is outsourced**; in-house work is services only. The **Materials**
+   (inventory) and in-house **Production** queues aren't built: physical production is the vendors', tracked through
+   their fulfillment units. Services get a **Service work** queue (design, video, setup) with the same proof and
+   approval steps.
+2. **Vendors are configurable**, not hard-wired: in E-Commerce → Vendors, staff add a vendor and define **its own
+   order process**: how it receives work (email work order, the vendor portal, a CSV file, later an API), what it
+   needs with each job (files and their format, the packing slip, mockups, a PO number), the steps it reports (e.g.
+   received → proof → production → shipped), its terms (prepaid, card, Net-30), its products (our SKU → its SKU, cost)
+   and its lead times. Each product then names its vendor; the routing follows that vendor's process.
+3. **Shipping is configurable per vendor and per product**: **the vendor ships** (blind, with our return address and
+   packing slip; it reports carrier and tracking), **we coordinate shipping** (we arrange the carrier, enter or buy the
+   label, give the vendor the label or pickup), or **local pickup** / delivery. Rates per product: free, flat, by
+   quantity, or quoted; carrier rates and labels (EasyPost or ShipStation) later.
+4. **File storage: Amazon S3** (Jason: it also makes sense for video uploads instead of YouTube embeds). Uploads,
+   proofs and production files go to a private bucket and are reached through short-lived signed links (to customers,
+   staff and vendors). The code uses the S3 API, so it's not tied to one provider. For video served to the public, a
+   CDN in front (CloudFront) keeps download costs down; to be costed when video upload is built.
+5. **Pay after proof** (0098) is the default for custom products, configurable per product: pay after proof, a deposit
+   at checkout with the balance on approval, or pay at checkout (ready-made items, GO Codes, services sold as fixed
+   packs). Jason hasn't overridden the default.
 
 ## Build order (with 0098)
 
 1. E-Commerce → Orders and Payments, the order model and ledger, GO Codes through trvgo.us (0098).
-2. Products with options and routing rules; fulfillment units and the queues (Intake, Proofs, Production, Shipping);
-   department capabilities; customer emails at each step.
-3. Vendors: the vendor portal and email work orders, blind shipping, vendor costs, QuickBooks purchase orders and
-   bills, margins.
-4. Object storage for files; then Materials (inventory) as needed.
+2. S3 for files (needed by proofs and uploads).
+3. Products with options and routing rules (vendor, payment timing, shipping mode); fulfillment units and the queues
+   (Intake, Proofs, Service work, Vendor jobs, Shipping); department capabilities; customer emails at each step.
+4. Vendors, configurable: their order process, the vendor portal and email work orders, blind or coordinated
+   shipping, costs, QuickBooks purchase orders and bills, margins.
