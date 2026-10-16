@@ -246,8 +246,9 @@ by order, product and vendor.
 - **Status follows the money** (`Orders::settle`): paid, part_refunded, refunded, or disputed while a dispute is open.
 - **Every GO Code goes through trvgo.us** except Wi-Fi: a short code of kind `go` (no owner, so it isn't in the
   member's Dynamic list) pointing at the `qr_issued` row. The router serves by type: link → 302; contact card → .vcf;
-  event → .ics (wrapped in VCALENDAR with a UID); phone, text message, email → a small page with the one button; text →
-  a page. A code not free, paid or granted (refunded = `revoked`) or switched off → "This code isn't active" (404).
+  event → .ics (wrapped in VCALENDAR with a UID); phone, text message, email → starts it at once (a page that opens
+  the tel:/sms:/mailto: link as it loads, so no gate; its one button is there only for a browser that won't open the
+  phone's app without a tap); text → a page. A code not free, paid or granted (refunded = `revoked`) or switched off → "This code isn't active" (404).
   The two codes issued before this are converted the first time their owner's list or file is opened.
 - **No self-fix after issue.** The customer fixes a code in the cart; once issued, customer service fixes it on the
   order page (`Orders::fix` → `QrIssue::staffFix`); the printed code stays the same.
