@@ -76,3 +76,11 @@ next day…), flat extras (PDF proof +$5.00, samples +$9.99) and shipping per sh
   latest order). There's no separate client list yet; QuickBooks keeps the customer when they approve.
 - **QuickBooks inbox by mode** (`2026-12-07_inbox_mode.sql`): items remember the mode they came from; Production never
   shows the sandbox company's refunds and credit memos.
+
+**Addendum (2026-10-16, GO Code proofs).** A GO Code on a client order works before it's paid, as a proof. While its
+code is `pending` and its order is a client order (`created_by` set) in draft, sent or pending, trvgo.us serves it
+instead of "This code isn't active": a page marked PROOF with the code's name, what it does (`QrIssue::holds`) and a
+button that does it (`?go=1`: the link, the contact card, the call…). Proof scans are never counted. Once the order is
+paid the code goes live (scans act directly and count); a cancelled order's code reads "not active" again. The admin
+line has "Try it" (opens the trvgo.us address). The extra tap and the PROOF label keep a proof from standing in for a
+paid code.
