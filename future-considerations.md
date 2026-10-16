@@ -256,3 +256,21 @@ all transactional email); cPanel pipes a copy of Intuit's dispute emails to a sc
 whose DKIM signature is Intuit's and whose amount and customer match a paid order (records the dispute, pauses its GO
 Codes); anything else goes to E-Commerce → Orders' inbox for a person. Won/lost emails resolve it the same way. Not
 built: the email's wording and layout are unknown until one arrives in the mailbox.
+
+## Business documents: a vault for Traversence and for listings (noted 2026-10-16)
+
+Platforms keep asking for the same proof of a business. Meta's business verification wants the legal name, address
+and phone matched by an IRS 147C or SS-4 (EIN letter), a business bank statement, a registration or license, a tax
+document, articles of incorporation or DBA papers (.jpg, .png, .pdf, not expired); Intuit, payment processors and
+directories ask for the same kinds. Two uses:
+
+- **Traversence's own:** a private vault in Settings (Owner only) holding the company's documents, each with its kind,
+  the legal name and address it shows, an expiry date and a reminder before it expires, so the next verification is
+  an upload, not a search. Files kept outside the web root, like client-order proofs (decisions/0101).
+- **Listings:** an owner adds their business's documents to their listing (claims and Verification, decisions/0070,
+  0071), private to the owner and our team. They back the claim and the verified badge, and the owner reuses them when
+  Connections (above) links the listing to Google, Meta or a directory that wants the same proof. The legal name on
+  the document is checked against the listing's name and its DBA; a mismatch goes to Review.
+- Rules: never public; kept only as long as they're needed (deleted with the listing's claim or on the owner's
+  request); who opened one is logged; an expired document stops counting as proof and the owner is asked for a
+  current one. Privacy policy and FAQ updated when built.
