@@ -161,3 +161,8 @@ order's Ship to; replaces pass 2's saved addresses, which still read), our charg
 labels as files (`order_files`, staff only, listed under the item; shipping never has proofs). "+ Upload proof" sits
 under each item. A new order opens on the page, not the Add pop-up. `2026-12-11_inline_order.sql`. Still to come:
 picking from the QuickBooks customer list.
+
+**Addendum (2026-10-17).** The client's page heads with Traversence and its address under the name, then **Bill to**,
+**Ship to** (the order's Ship to, or "each item says where it ships") and the order or invoice details, as on the order
+page. "What the client sees" opens the client's page in a new tab: on the live server the page wouldn't load inside
+the pop-up frame.
