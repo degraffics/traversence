@@ -97,3 +97,11 @@ Status: Built (2026-10-21). Jason's decisions:
   panel on its Vendor tab.
 - A job with no item says "the whole order".
 - The search also finds jobs by item name.
+
+## Fix (2026-10-21)
+
+- Moving a job between the whole order and an item now applies every job on the order again, not only the one that
+  moved.
+- Each job still only moves items forward. So an item that has its own job "Complete: Shipped" shows Shipped even
+  after another job is moved onto it.
+

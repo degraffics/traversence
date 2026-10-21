@@ -171,3 +171,21 @@ columns).
   Stream settings from any workspace.
 - **The admin shortcut bar** became one compact **Shortcuts** button beside the page title. It opens a vertical list
   grouped by Dashboards, Operations, Security, Users, Content, Logs and System, and closes on a click outside or Esc.
+
+## Stream settings (built 2026-10-21)
+
+Pulse → Stream settings (the gear on the board).
+
+- **Routing:** which department's queue each kind of item goes to (Support, Sales, Fulfillment, Payments, Safety,
+  Security, System, Team), or Everyone.
+  - The department decides who sees it in their view, and who it escalates to: that department's Manager, then its
+    Director.
+- **Clocks (SLA):** hours per severity, 0 to 720, where 0 means no clock. The defaults are Critical 2, Alert 8,
+  Update 48 and Event 0.
+  - A case's "Act within …" text and its Over badge follow the setting.
+- **Who can change them:** a Director, an Executive or the Founder. Everyone else sees them read-only.
+  - **Use the defaults** puts everything back.
+  - Each change is written to the action log, for example "Fulfillment → Sales; Critical 4 hours".
+- **Storage:** only the values that differ from a default are stored, in `pulse_settings` (migration
+  `2026-12-19_pulse_settings.sql`). Until that migration runs, the defaults apply.
+

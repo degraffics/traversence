@@ -46,7 +46,7 @@ Opened by: everyone; each department sees its own filter.
 | Pulse | H: the stream; chips for Inquiries, Sales, Fulfillment, Payments, Safety, System, plus Mine, Needs action, Done; critical items pinned | Live (0105) | — |
 | Split drawer | opens the item's own tool beside the stream; full screen with a back arrow on a phone; Done marks it done | Live (0105) | — |
 | Messages | business messages, guest questions, group posts | Live (inbox) | inbox |
-| Stream settings | H: routing rules (which department gets what), SLA timers | Coming | — |
+| Stream settings | H: routing rules (which department gets what), SLA timers | Live (0105) | — |
 
 ## 3. Directory & Places (Get Local 360°)
 Opened by: Ops (H), Con, Sal (view), Svc (view).
