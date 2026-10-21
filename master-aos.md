@@ -1,5 +1,5 @@
 # Traversence & TRVGO: Master Administrative & Operational Specification (Master AOS)
-*Version: 40.0 (Updated October 2026)*  
+*Version: 41.0 (Updated October 21, 2026: C1–C9 decisions)*  
 *Governance Tier: Core Specification & Master Operations*  
 *Industry Classification: NAICS 519130 — Internet Publishing, Broadcasting, and Web Search Portals*
 
@@ -86,6 +86,7 @@ To maintain data integrity, security, and multi-tenant isolation, the system str
 ## 3. Financial Model & Payment Routing
 * **Zero-Escrow P2P / Direct Settlement:** The platform uses a **payment processor ledger** to facilitate integration with independent vendors (Stripe, Square, NMI, Authorize.Net, etc.) without acting as a financial intermediary.
 * **0% Commission:** Marketplace e-commerce runs via direct merchant gateway settlement with 0% platform transaction fees.
+* **Traversence's own sales** (subscriptions, services, GO Codes, client orders) run through the same ledger; QuickBooks Payments is its first gateway (built).
 
 ---
 
@@ -135,7 +136,7 @@ Commercial features scale cumulatively and additively. Paid commercial tiers sel
 ---
 
 ## 6. Multi-Location Volume Discount Schedule
-Multi-location discounting applies strictly to Strategic ($229.95/mo) and Cornerstone ($399.95+/mo) enterprise accounts. Core and Basic tiers remain strictly single-location. Each physical location holds its own distinct Subscription record linked via an explicit Location Group created by an OWNER or designated manager.
+Multi-location discounting applies strictly to Strategic ($229.95/mo) and Cornerstone ($399.95+/mo) enterprise accounts. Core and Basic tiers remain strictly single-location. Each physical location holds its own distinct Subscription record linked via an explicit Location Group created by an OWNER or designated manager. **A Location Group is the brand's Nexus** (decisions/0075): the same grouping that links a brand's locations on the site also carries their billing and discount.
 
 ```
                           +-------------------------------+
@@ -190,14 +191,14 @@ To eliminate financial platform liability and processing fee overhead on local s
 
 1. **Offline Financial Settlement:** Buyer and seller arrange cash, local pickup, or direct peer transfer independently.
 2. **In-App Dual Mutual Confirmation Protocol:** Once physical exchange occurs, both parties execute a mutual completion prompt in the chat.
-3. **Trust Score Accrual:** Upon mutual confirmation, the listing status updates to SOLD and both users gain verified local trust score points without processing platform financial transactions.
+3. **Trust Score Accrual:** Upon mutual confirmation, the listing status updates to SOLD and both users gain verified local trust score points without processing platform financial transactions. Trust points are kept in the platform's existing trust system (the enforcement ladder's trust record), not a separate score.
 
 ---
 
 ## 8. Comprehensive Workspaces & Operational Engines (1 to 11)
 * **1. Dashboard & Quick Actions:** Real-time operational task queues, urgent platform alerts, adaptive navigation shortcuts, and manual order processing terminals.
 * **2. Unified Communications Hub (Pulse Stream):** Filtered, critical-action communications stream (inquiries, sales events, fulfillment drops, and critical system emergencies) equipped with contextual split-drawers.
-* **3. Directory & Places (Get Local 360° Workspace):** Five-Tier Geographic Taxonomy Engine (Macro Hub → Geo-Hub Zone → Micro-Cluster → Anchor → Sub-Group), 20-mile spatial auto-clustering, Single Home Rule enforcement, and Level-1 Master Taxonomy governance.
+* **3. Directory & Places (Get Local 360° Workspace):** Six-Tier Geographic Taxonomy Engine (the six funnel levels of §4: Continental Hub → Regional / State → Geo-Hub Zone → Micro-Cluster → Single-Home-Rule Anchor → Localized Sub-Group), 20-mile spatial auto-clustering, Single Home Rule enforcement, and Level-1 Master Taxonomy governance.
 * **4. Journeys & Exploration (Let's Explore 360° Workspace):** Curated travel guides, interactive map waypoints, GPX/KML route files, and Chameleon Filter editorial picks.
 * **5. Marketplace & Storefronts (Market 360° Workspace):** Post-and-Connect C2C/B2C exchange model, Custom Domain & Storefront Studio (`clientdomain.com`), catalog pricing rules (capped at 250 items), and direct gateway delivery routing.
 * **6. Community & Events (Social 360° Workspace):** User-created topic spaces, group privacy levels, user-authored charters, and 3-Tier escalation moderation.
@@ -205,45 +206,55 @@ To eliminate financial platform liability and processing fee overhead on local s
 * **8. White Glove Concierge:** High-touch client onboarding task boards, OCR asset digitizing studio, and menu/brochure parsing pipelines.
 * **9. Back-Office Operations, Logistics & Governance:** Inventory ledgers, COGS accounting, multi-channel fulfillment splitting, QuickBooks sync, user consent hubs, DMCA take-down queues, and secure private verification vaults.
 * **10. Insights & Analytical Research:** On-demand search engine workbench, 5 W's lexicon parser (Who, What, Where, When, Why), emergency resource mapping, and infrastructure telemetry.
-* **11. Global System Configuration:** Unified technical administration panels covering branding, permalink SEO rules, schema builders, AI assist guardrails, vector search embeddings, SMTP/Twilio notifications, API integrations (Google Maps, QuickBooks), DB replica routing, and Redis/OPcache security policies.
+* **11. Global System Configuration:** Unified technical administration panels covering branding, permalink SEO rules, schema builders, AI assist guardrails, vector search embeddings, SMTP/Twilio notifications, API integrations (Google Maps, QuickBooks), S3 storage configuration (drop in credentials to switch uploads from the server to S3; local storage until then), and backup settings. DB replica routing and Redis are future (§11.4); OPcache settings as Bluehost allows.
 
 ---
 
 ## 9. Two-Sided Role-Based Access Control (RBAC) Architecture
 
 ### A. Platform Staff & Ops Roles (Internal Infrastructure & Ecosystem Governance)
-1. **👑 Founder / Owner / Master Account Holder:** Absolute root-level authority across the entire ecosystem, controlling master root billing accounts and final policy overrides.
-2. **Executive Layer (CEO, COO, CIO/CTO, CFO):** Strategic governance, macro KPIs (MRR/ARR), emergency platform freezes, cluster topology, and compliance oversight.
-3. **Operations Manager:** Merchant onboarding governance, KYC approvals, velocity limit controls, and account suspension overrides.
-4. **Accountant / Financial Ops:** Daily payment batch reconciliations, clearinghouse tracking, tax document generation, and fee configurations.
-5. **Sales & Service Manager:** Sales lead distribution, support queue SLA monitoring, and temporary staff impersonation authorizations linked to active customer tickets.
-6. **Staff (Tier-1 Support / Frontline Ops):** Initial inbound triage, answering basic help tickets, inspecting dashboards with dynamically masked PII, and reviewing webhook delivery logs.
-7. **Staff (Tier-2 Support / Technical Operations):** Investigating complex workflow errors, analyzing application/webhook logs, and managing time-bound impersonation sessions tied to active CRM tickets.
-8. **Staff (Tier-3 Support / Advanced Engineering Ops):** Diagnosing core database anomalies, inspecting APM telemetry metrics (e.g., Datadog traces), and resolving edge routing or TRVGO domain propagation failures.
-9. **Contributor (Developer / Engineer):** Staging code authoring, CI/CD pipeline triggers, and APM telemetry monitoring (strictly isolated from production databases).
-10. **Content Contributor:** Public editorial guides, documentation drafting, and Authority Engine staging reviews.
-11. **Third-Party Vendor / Integrator:** Context-bound, time-expiring external support governed by strict ABAC, IP whitelisting, and automated bearer token kill switches.
+Staff roles run the **whole admin**, all 11 workspaces of §8, not only listings. Each role opens the workspaces below
+(F = full, W = works its queues, V = view). A tool is configured only in its home workspace; roles that work it elsewhere
+use it there (§8).
+
+| # | Role | Workspaces (1–11) | Replaces (0100) |
+|---|---|---|---|
+| 1 | 👑 Founder / Owner | all F; staff logins and roles; final policy overrides | Owner |
+| 2 | Executive (CEO, COO, CIO/CTO, CFO) | all V; 1, 10 F; emergency platform freeze | Executive Assistant (view) |
+| 3 | Operations Manager | 1, 2, 3, 4, 5, 6, 8 F; 9 governance (consent, DMCA, vault) F; KYC and onboarding approvals; suspensions | Manager |
+| 4 | Accountant / Financial Ops | 1, 2 W; 9 finance (ledger, reconciliation, QuickBooks, tax, fees) F; 7 orders V | Accountant |
+| 5 | Sales & Service Manager | 1, 2, 7, 8 F; support queue and SLAs; assigns tickets and standing grants (0102) | (new) |
+| 6 | Tier-1 Support / Frontline | 1, 2 W; 3, 5, 6 V (PII masked); triage tickets | General |
+| 7 | Tier-2 Support / Technical | Tier-1 plus 9 queues W, application and webhook logs; works tickets with timed access (0102) | (new) |
+| 8 | Tier-3 Support / Engineering | Tier-2 plus 10 telemetry, 11 V; TRVGO routing and domain fixes | (new) |
+| 9 | Contributor (Developer) | 11 staging F, 10 telemetry V; no production data | (new) |
+| 10 | Content Contributor | 3, 4, 6 editorial F; HITL staging reviews | Editor, Content Creator |
+| 11 | Third-Party Vendor / Integrator | none by default; ticket-scoped and time-limited, revocable at once | (new) |
 
 ### B. Client Listing Management Roles (External Merchant Environment)
-1. **👑 C-Suite Personnel (Owner):** Absolute legal, financial, and strategic command over the listing tenant (subscription tier billing, payment processor vault keys, custom domain CNAME mappings to `clientdomain.com`, entity deletion, and team provisioning).
-2. **🛡️ Operations Manager:** Cross-departmental workflow execution, system-wide CRM management, campaign execution, catalog updates, and staff invitations.
-3. **📊 Accountant:** Financial, tax, and ledger auditing (invoices, transaction logs, and tax statements; restricted from catalog editing, customer support, and sales pipelines).
-4. **⚙️ General Manager:** Physical facility, branch, or store-level operational leadership (staff scheduling, local inventory/stock adjustments, and localized customer escalations).
-5. **🤝 Sales Representative:** B2B/B2C pipeline management, custom quote generation, deal closing, and sales inquiry routing via the Unified Inbox (`Pulse`).
-6. **✍️ Content Creator (Editor):** Brand storytelling, media asset curation, catalog publishing, and Connection Layer storytelling.
-7. **💻 Developer:** Technical integrations, headless API keys, webhook configurations, and TRVGO edge styling themes.
-8. **🎧 CSR Agent (Clerk):** Front-line customer service, order processing, marketplace/storefront order fulfillment, booking verification, and Unified Inbox (`Pulse`) chat management.
-9. **🧭 TRVGO Agent:** Offline-to-Online (O2O) routing, dynamic short-code (`trvgo.us/{code}`) management, landing page redirects, and physical print/signage scan tracking.
+As decisions/0102 §3–4 (seven roles; the role decides, with no confirmation steps):
+
+1. **👑 Owner:** everything; billing, team and roles, domain and API keys, exports, deleting the business.
+2. **Manager:** runs the business day to day; team roles below Manager; catalog, orders, customers, theme; QR codes and short links (`trvgo.us/{code}`).
+3. **Accountant:** ledger, invoices, payments (edits invoices only).
+4. **Sales:** customers and pipeline (their own), orders; the sales representative in the business's groups.
+5. **Support:** orders and fulfillment, the Support view of the inbox; moderator in the business's groups.
+6. **Creator:** listing details, catalog drafts (publishing is a business setting), theme; posts as the business.
+7. **Developer:** domain, API keys, webhooks, theme.
+
+A one-person business sees no roles. Permission table: decisions/0102 §4.
 
 ---
 
 ## 10. Secure Delegation & System Access Workflow
-When listings require platform support assistance:
-1. **Ticket Initiation:** A support ticket is generated within the merchant or sovereign dashboard.
-2. **Granular Granting:** The listing Principal/C-Suite authorizes temporary system support access inside security settings.
-3. **Cryptographic Scoping:** The platform issues a time-bound JWT (`exp: 3600` max 1 hour) bound strictly to the ticket ID, with sensitive PII automatically masked.
-4. **Immutable Audit Logging:** All platform staff actions are cryptographically signed and recorded in an immutable audit trail (`platform:support:requestImpersonationSession`).
-5. **Automatic Revocation:** Access expires automatically upon timer expiration or ticket resolution.
+As decisions/0102 §5. An agent always acts with a business role (§9B), given by one of two routes:
+1. **Standing grant:** the owner grants a **named agent** a role until revoked. If Traversence reassigns the account, the
+   grant moves to the new agent at once; the owner is told and can revoke. No confirmation needed.
+2. **Ticket queue:** tickets go into a rolling queue; the agent who picks one up gets **timed access** with the role set
+   by the ticket type (e.g. 2 hours, extendable once); it ends at the time limit, on closing, or on reassignment.
+
+Both routes: a banner while an agent is in ("End now"), PII masked where the role doesn't need it, every action in an
+action log that can't be edited, and ending a staff login revokes its grants and returns its tickets to the queue.
 
 ---
 
@@ -260,15 +271,24 @@ When listings require platform support assistance:
 * **Real-time ETL & Webhook Streaming:** Strategic and Cornerstone tiers can configure REST/GraphQL webhooks to continuously stream transactional, catalog, and CRM event data to external enterprise data warehouses.
 
 ### 11.3 Data Deletion Lifecycle & Retention Rules
-* **30-Day Soft-Delete Grace Period:** Deleted records (`deleted_at = TIMESTAMP`, `is_active = FALSE`) are immediately hidden from public/API views but retained in an encrypted holding state for **30 calendar days** for self-service recovery.
-* **Hard Delete Auto-Purge Worker:** A daily CRON task permanently purges all records where `deleted_at > 30 days`, scrubbing DB rows and deleting media blobs (S3/R2) to maintain file storage safety limits.
-* **72-Hour OCR Verification Vault Auto-Purge:** Business verification documents (e.g., utility bills, business licenses) submitted during white-glove onboarding are automatically purged from private storage vaults 72 hours post-verification.
-* **Anonymized Tax Records:** Financial/tax transaction logs scrub all PII while retaining financial figures to fulfill statutory reporting obligations.
+* **Ending, transfer and inactivity follow decisions/0103:** Notice → Hidden → Archived → Removed, with the owner told
+  at each stage; groups follow the transfer terms in their charter; groups with no posts for 30 days or no owner or
+  moderator activity for 90 days enter deactivation.
+* **30-Day Soft-Delete Grace Period, only for what an owner deletes themselves:** hidden at once (`deleted_at`,
+  `is_active = FALSE`), restorable for **30 calendar days**, then the daily purge removes the rows and their files.
+* **Never purged:** a nation's data (decisions/0066); places themselves (a removed listing returns to an unclaimed place).
+* **72-Hour OCR Verification Vault Auto-Purge:** verification documents (utility bills, business licenses) from
+  white-glove onboarding are purged 72 hours after verification.
+* **Anonymized Tax Records:** financial and tax records keep their figures with personal details removed, for the
+  legally required period.
 
-### 11.4 Disaster Recovery & Backup SLA
-* **Recovery Point Objective (RPO):** $< 5 \text{ minutes}$ (Continuous transaction log write-ahead streaming and point-in-time recovery).
-* **Recovery Time Objective (RTO):** $< 2 \text{ hours}$ (Automated database failover routines and standardized containerized deployments).
-* **Daily Encrypted Snapshots:** Automated offsite backups executed every 24 hours, retained for 30 rolling days with end-to-end AES-256 encryption.
+### 11.4 Backup & Recovery (Bluehost shared, now)
+* **Daily backups:** an encrypted database dump every 24 hours, copied off the server (to S3 once configured), kept 30
+  rolling days; Bluehost's own backups as a second copy.
+* **Files:** uploads included in a weekly archive, or held in S3 once configured (§8 #11).
+* **Restore drill:** a restore is tested on the local copy each quarter, with the steps written down.
+* **Future (needs a VPS, dedicated server, or cloud):** RPO < 5 minutes (MySQL replication, frequent snapshots),
+  RTO < 2 hours (automated failover), and SLAs. Recorded in `future-considerations.md`.
 
 ---
 
