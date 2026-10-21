@@ -132,3 +132,32 @@ columns).
   - one action row (Take it, Assign to…, Escalate, Resolve);
   - a composer with Reply to <sender> / Note to the team;
   - the history as a timeline.
+
+## Addendum (2026-10-21, night): procedures, explanations, management, printer jobs, layout
+
+- **How to clear this.** Every case has its procedure as a numbered checklist (`Pulse::playbook()`):
+  - each step has its own button: **Open** (the tool beside the case, at the right spot), **Write it** (fills the
+    email to the sender), a stage change, or **Resolve**;
+  - steps the data proves (paid, approved, dispute closed, order complete) tick themselves;
+  - the rest are ticked by hand, and each tick is logged.
+
+  There are procedures for past due, proofs with changes, disputes, waiting on the client, orders to make and ship,
+  reports, claims, visitor notes, member reviews, locked logins, sign-in spikes, the crawler stopped, failed crawl
+  jobs, files, sales follow-ups, QuickBooks refunds and team posts.
+- **The labels explain themselves.** Tap a chip (source, severity, SLA, status, assigned, escalation) to see what it
+  means for this case, its rule, and where it leads (the department queue, the Manager and Director by name, Escalate
+  now).
+- **Manage**, on an order case: Edit the order, Send to the client again, Record a payment, Change the due date, Refund
+  or credit, Add an order note, Void the order (unpaid only). All of these go through the order system. Your own
+  notes and team posts: Edit and Delete. Forms open inside the case, never as pop-ups over it.
+- **Printer jobs** (`order_vendor_jobs`, migration `2026-12-16_vendor_jobs.sql`): Sent to the printer asks for the
+  vendor (with suggestions), their work order number, the expected date, our cost and a note. More jobs can be added
+  from the case. These are kept on the order's history and the case, and never shown to the client, who is only told
+  it's been sent to print. The Vendors tool (Back-Office) builds on them later.
+- **Shop orders** (bought on the site) have their own steps (Ordered → Paid → Codes issued). They open the order page,
+  aren't counted as "to make and ship", and close once paid.
+- **Order case links** name the pressing issue first (Review, Answer, Make changes, Follow up), then the next
+  production step.
+- **The tool beside the case scrolls**, inside the split view.
+- **Layout:** the Operational Task Queue and Quick Actions sit above the Pulse row and collapse, remembered per
+  browser. The chips sit directly on the stream they filter.
