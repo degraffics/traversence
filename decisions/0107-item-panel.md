@@ -90,3 +90,10 @@ Status: Built (2026-10-21). Jason's decisions:
   - The default is the item itself when the order has only one.
 - Each job in the case's list says what it's for.
 - A job can't be set to an item from another order.
+
+## On the Vendors page
+
+- Each job row says which item it's for, with the item's status. The item's name opens the order with that item's
+  panel on its Vendor tab.
+- A job with no item says "the whole order".
+- The search also finds jobs by item name.
