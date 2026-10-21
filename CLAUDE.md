@@ -97,6 +97,9 @@ Space on a phone is at a premium. Every page, new or changed, follows this:
   `#8FBCA8` with a soft glow, like the top bar; the rest state is flat cream with a brown ring.
 - **No breadcrumbs on content pages.** The page says where it is. Its kind, category, agency, name and activity
   pills **search for more** (`TvSearch.open('<words> near <place>')`).
+- **Filters inline with a list** (a queue, a table) are a **dropdown button like Shortcuts** (Jason, 2026-10-21): a rounded
+  cream button with an icon, the current choice and its count, and ▾, opening a list of each option with its icon and count.
+  Not rows of pills or bare icon buttons.
 - **Filters live in the search** (the foot of its Quick Search, decisions/0058 §39), not in rows on the page. Show only active filters, each with ×.
 - **Phone menus:** the ☰ tools button with a drop-down list (left), the person's profile and role (right).
 - **Count outbound actions** with `data-out="call|directions|website|contact" data-e="<listing id>"`. This stores
