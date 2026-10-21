@@ -52,6 +52,7 @@ No lower role gets anything more easily than the Owner.
 | Inbox | all | all | billing | Sales view | Support view | — | — |
 | Domain, API keys, webhooks | F | — | — | — | — | — | E |
 | Theme & styling | F | E | — | — | — | E | E |
+| Community groups (4c) | F | F (not delete) | — | Sales rep | Moderator | Moderator, posts as the business | — |
 | Exports | F | — | — | — | — | — | — |
 | Delete the business | F | — | — | — | — | — | — |
 
@@ -82,8 +83,70 @@ Already built (0047, `api/lib/Community.php`); listed here so every role lives i
   can't post, change the group's settings, or see member names beyond what reports show.
 - **Handing over:** an owner can make a moderator the owner. If an owner deletes their account, the longest-serving
   moderator becomes owner; with no moderator, the group is hidden until a member asks to take it on (coming).
-- Support access (section 5) doesn't reach groups: a group owner gets help through an ordinary ticket, without an agent
-  acting inside the group.
+- Support access (section 5) doesn't reach a person's own groups: their owner gets help through an ordinary ticket,
+  without an agent acting inside the group. A business's groups (4c) are reached only through the business role a
+  grant or ticket gives.
+- **The 5:** one person can start and run up to 5 groups (0047), to stop group spam. A business's groups have their own
+  allowance by plan and don't use up any team member's 5.
+
+## 4c. Groups run by a business
+
+For a business, its community exists to **educate and win leads**. We support that agenda and keep it from turning
+into unhealthy marketing or system abuse.
+
+**Ownership.** The owner of the group is the **business**, not a person. The group shows "Run by <listing name>" and
+links to the listing. Staff changes don't affect it.
+
+**Who runs it** comes from the business roles (section 4, Community groups row):
+
+| Business role | In the business's groups |
+|---|---|
+| Owner | group owner: everything |
+| Manager | group owner, except deleting |
+| Sales | **sales representative** (below) |
+| Support | moderator: accepts requests, removes posts |
+| Creator | moderator, and posts as the business |
+| Accountant, Developer | nothing, unless they join as an ordinary member |
+
+The business can also appoint ordinary members as moderators (4b limits).
+
+**The charter.** Each business group has a charter: its stated purpose and house rules, shown on the group page. Within
+it, the business publishes what it likes: education, offers, events, product news, calls to get in touch. Joining is
+consent to receive that inside the group.
+
+**Two voices.** A team member posts **as the business** (the listing's name and logo) or **as themselves** if they're
+also a member. The group shows which.
+
+**The sales representative.** A Sales team member acts for the company in the group: posts offers and answers questions
+as "Name · Sales, <business>", and replies to members who ask.
+
+**Contact beyond the group: only when the member starts it.** By any of:
+1. **Contact the business**;
+2. **asking for a quote**;
+3. **messaging the rep**;
+4. **Link** with the business (0047): the standing opt-in. The business and its reps can then contact the member
+   directly and send updates, outside the group too. Unlinking stops it.
+
+Each of these puts a lead into the business's pipeline. Without one of them, the business reaches a member only inside
+the group.
+
+**Guardrails** (against abuse, not content):
+
+| Stops | How |
+|---|---|
+| Outreach nobody asked for | no messages outside the group unless the member started contact or linked; no exporting member lists |
+| Flooding | posts per day capped per group by plan; repeated identical posts held |
+| Bleeding beyond the group | business posts show in the group and its members' Community feeds only; never pushed to non-members or made to look like platform recommendations |
+| Bait and switch | a group can't misrepresent its charter; "not what this group says it is" reports go to Safety |
+| Harmful content | the site's rules, reports and enforcement ladder apply as everywhere |
+| Fake engagement | no paid or rewarded joins, likes or reviews; sock-puppet patterns flagged |
+| Misuse of member data | the team sees member names in the group only; no tracking off it; no selling or sharing |
+
+Members can always leave, mute the business's posts, or report them.
+
+**Allowance:** groups per business set by plan (e.g. 1 on free), outside any person's 5.
+
+**Ending:** a business group follows the lifecycle in 0103 (transfer, hiding, removal, inactivity).
 
 ## 5. Support access: two routes
 
@@ -122,6 +185,7 @@ An agent working on a business always does so **with a role** in it (from sectio
 | Table | Key fields |
 |---|---|
 | `team_members` | business, user, role, status |
+| `community_groups` (add) | `business_id` (set when a business runs it), `charter` |
 | `community_group_members` (exists) | group, user, role (owner / moderator / member), status |
 | `role_perms` | role, permission, level (none / view / draft / edit / full) |
 | `support_grants` | business, agent, role, granted by and when, revoked when |
