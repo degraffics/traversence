@@ -82,7 +82,11 @@ Status: Built (2026-10-21). Jason's decisions:
 
 `app/migrations/2026-12-18_item_panel.sql` adds `order_lines.tags` (MySQL-safe, guarded). Settings lists it.
 
-## Not yet
+## In the Pulse
 
-- In the Pulse, the vendor job form has no Item picker. A job added there covers the order until it's set to an item
-  in the item panel.
+- **For** (the order's case): *Add a vendor job* and a job's *Update* both pick what the job is for:
+  - the whole order (the default);
+  - or one of its printed items.
+  - The default is the item itself when the order has only one.
+- Each job in the case's list says what it's for.
+- A job can't be set to an item from another order.
