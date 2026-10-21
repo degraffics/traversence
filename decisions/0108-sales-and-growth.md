@@ -212,3 +212,51 @@ shared queue when no rep covers it. Commission comes later.
   - SMS to text a GO Code (once SMS is on);
   - the "Met in person" stage (with the stage work, step 2).
 
+## Built: step 2, the lead workspace (2026-10-21)
+
+- **The lead panel (Single Lead Workspace):**
+  - Tapping a lead's name in any Sales list opens it beside the list; on a phone it fills the screen.
+  - `/admin/sales.php?lead=N#all` opens it directly, and **Copy a link to this lead** copies that link to send a teammate.
+  - The panel holds:
+    - the score and why;
+    - contacts (call, email, website);
+    - the listing's milestone (Claimed, Verified, Paying) and any claim;
+    - the stage and the lead's owner, with its territory and how it came in;
+    - **Log a contact** (each outcome sets the next follow-up);
+    - the claim link and invite;
+    - quotes (step 5);
+    - business cards scanned for it;
+    - history and notes.
+- **Stages:** Not contacted → Contacted → **Met in person** → Interested → **Meeting set** → Claim invite sent →
+  **Quote sent** → **Won**, plus Nurture (not now), Not interested, **Lost**, and Closed or wrong number.
+  - Logging an outcome moves the stage, and a stage can also be set by hand.
+  - A card scan logs **Met in person**.
+  - Won, Lost, Not interested and Closed leave the call lists.
+  - The Funnel shows the new stages.
+- **Lead score, 0 to 100, with reasons:**
+
+  | Factor | Points |
+  |---|---|
+  | Reach: views and taps in the last 30 days | up to 25 |
+  | Contact: phone 10, email 8, website of its own 7 (social only 3) | up to 25 |
+  | Profile: address, hours, description, photos | 5 each, up to 20 |
+  | People: comments on its listing, or someone started a claim | up to 15 |
+  | Near a hub: distance from the center of its cluster | up to 10 |
+  | Warm: met, interested or a meeting set | +5 |
+
+  - No outside reviews are stored, so "reviews" means comments on its listing here.
+  - "Best to call first" sorts by the score, which shows as a badge on every row (hover or tap it for the reasons).
+  - `app/scripts/sales_tick.php` (hourly cron) scores each listing once a day; a lead is also re-scored when opened.
+- **Territories** (Sales → Territories):
+  - A territory is a state, a Geo-Hub Zone or a cluster, with a rep and a manager. Directors, Executives and the Founder
+    set them up.
+  - The most specific wins: a cluster beats its zone, and a zone beats its state.
+  - Saving one gives its unowned leads to the rep.
+  - New leads, inbound claims (an owner claiming the listing) and the hourly task route there.
+  - With no rep, a lead waits in the **shared queue**.
+  - Managers and up move a lead between reps, or back to the queue, from its panel.
+- **Whose filter:** All prospects has Everyone's, Mine, and Shared queue.
+- **Data:** `2026-12-21_leads.sql`:
+  - adds the stages and `prospects.territory_id`;
+  - adds `lead_scores` and `sales_territories`.
+
