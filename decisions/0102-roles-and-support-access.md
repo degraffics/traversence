@@ -122,7 +122,7 @@ An agent working on a business always does so **with a role** in it (from sectio
 | Table | Key fields |
 |---|---|
 | `team_members` | business, user, role, status |
-| `community_members` (exists) | group, user, role (owner / moderator / member), status |
+| `community_group_members` (exists) | group, user, role (owner / moderator / member), status |
 | `role_perms` | role, permission, level (none / view / draft / edit / full) |
 | `support_grants` | business, agent, role, granted by and when, revoked when |
 | `support_tickets` | business, opened by, type, subject, role, status, picked up by, access until |
