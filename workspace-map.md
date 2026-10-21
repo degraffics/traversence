@@ -34,8 +34,8 @@ Opened by: everyone (each person sees their own).
 | Your day | daily steps, task queue for your role | Live | `admin/index.php` (Your day) |
 | Helper | one item at a time across queues | Live | `admin/helper.php` |
 | Alerts | U: Pulse's critical items (disputed payment, order past due, a report about safety, a sacred place or private details, crawler stopped, files near the ceiling) | Live (0105) | Pulse |
-| Quick actions | shortcuts for what your role reaches: new client order, add a listing, find a listing, new prospect, Pulse, reports, GO Codes; new ticket coming | Live (0105) | — |
-| Order terminal | U: Orders (new order, take a payment) | Partial: the client order builder exists | `admin/client-order.php` |
+| Quick actions | each opens its tool in a side panel over the dashboard (no leaving it): Scan a card, New client order, Calls today, Find a listing, Add a listing, Review reports, GO Codes, System settings; Open the full page when it isn't quick (Jason, 2026-10-21) | Live (0105, 0108) | — |
+| Order terminal | dropped from Quick actions (Jason, 2026-10-21): new client orders open from Quick actions; orders live in Back-Office | Removed | `admin/client-order.php` |
 | Business numbers | U: Insights tiles (MRR, orders, partners) | Live | dashboard |
 
 ## 2. Unified Communications Hub (Pulse Stream)
