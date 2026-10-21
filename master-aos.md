@@ -1,5 +1,5 @@
 # Traversence & TRVGO: Master Administrative & Operational Specification (Master AOS)
-*Version: 41.0 (Updated October 21, 2026: C1–C9 decisions)*  
+*Version: 42.0 (Updated October 21, 2026: C1–C9 decisions; account models; staff levels and departments)*  
 *Governance Tier: Core Specification & Master Operations*  
 *Industry Classification: NAICS 519130 — Internet Publishing, Broadcasting, and Web Search Portals*
 
@@ -135,33 +135,55 @@ Commercial features scale cumulatively and additively. Paid commercial tiers sel
 
 ---
 
-## 6. Multi-Location Volume Discount Schedule
-Multi-location discounting applies strictly to Strategic ($229.95/mo) and Cornerstone ($399.95+/mo) enterprise accounts. Core and Basic tiers remain strictly single-location. Each physical location holds its own distinct Subscription record linked via an explicit Location Group created by an OWNER or designated manager. **A Location Group is the brand's Nexus** (decisions/0075): the same grouping that links a brand's locations on the site also carries their billing and discount.
+## 6. Account Models, Nexus Location Fees & Volume Discounts
 
-```
-                          +-------------------------------+
-                          |   LOCATION GROUP (PARENT)     |
-                          +-------------------------------+
-                                          |
-                +-------------------------+-------------------------+
-                |                                                   |
-                v                                                   v
-  +---------------------------+                       +---------------------------+
-  |  Location 1 Subscription  |                       |  Location 2 Subscription  |
-  |  (Cornerstone - 10% Off)  |                       |  (Cornerstone - 10% Off)  |
-  +---------------------------+                       +---------------------------+
-```
+Every commercial account runs on one of three models.
 
-| Locations in Group | Volume Discount off Per-Location Rate |
+### A. NEXUS (centralized corporate and franchise networks)
+* **What it is:** a multi-location enterprise, corporate chain or franchise network running several rooftops under one
+  administration. On the site it is the brand's Nexus (decisions/0075), which links its locations.
+* **Uniform tier:** every location in a Nexus runs on the same tier (Strategic or Cornerstone/Enterprise). Mixed tiers
+  are prohibited.
+* **Parent billing and pooling:** the parent holds the master subscription and pays one consolidated bill. Locations
+  don't carry their own matching subscriptions: they draw storage, communication volume, catalog caps and AI quotas
+  from the parent's pooled ledger. The parent upgrades its master tier as demand grows.
+* **Per-location fee:** each location beyond the parent pays a monthly **location fee** covering its listing,
+  storefront presence, QR codes and support. The fee earns the Nexus its margin before pooled resources run short.
+  Volume discounts apply to the fee (table below).
+* **Inventory and fulfillment:** one Master Inventory Ledger (raw materials, work in progress, finished goods), with
+  fulfillment routed across central hubs or branch locations.
+
+**Nexus pricing (proposed; ⏱ Jason to set):**
+
+| | Strategic master | Cornerstone master |
+|---|---|---|
+| Parent (master subscription) | $229.95 / mo | $399.95+ / mo |
+| Location fee, per location beyond the parent | $49.95 / mo | $79.95 / mo |
+
+| Locations in the Nexus | Discount on the location fee |
 | :--- | :--- |
-| **1 Location (Base)** | 0% (Standard rate applied) |
-| **2 – 9 Locations** | 10% discount per location |
-| **10 – 49 Locations** | 20% discount per location |
-| **50 – 99 Locations** | 30% discount per location |
-| **100 – 249 Locations** | 40% discount per location |
-| **250+ Locations** | Automated discount pauses. Requires mandatory enterprise custom agreement review. |
+| **1 (the parent only)** | none (no location fee) |
+| **2 – 9** | 10% |
+| **10 – 49** | 20% |
+| **50 – 99** | 30% |
+| **100 – 249** | 40% |
+| **250+** | Automated discount pauses; a custom enterprise agreement is required. |
 
-*Note: Mixed-tier billing within a single Location Group is prohibited. All member locations in a group must run on the same uniform subscription tier.*
+Example: a Strategic Nexus with 12 locations pays $229.95 + 11 × $49.95 × 0.80 = **$669.51 / mo**, sharing one pool.
+
+### B. CO-OP (chambers, associations and guilds)
+* **What it is:** a merchant association, chamber of commerce or maker guild uniting independent businesses under a
+  regional banner, run from a Co-Op Master Hub.
+* **Marketplace:** the Master Hub configures, bundles and sells Co-Op memberships and shared resource packages (e.g. a
+  Gold Merchant Tier at $500 a year) through the platform marketplace, under its own account tier, settled through its
+  own payment ledger.
+* **Dual compliance:** every member holds both an active Traversence/TRVGO subscription and an active Co-Op
+  membership. If the membership lapses, the Co-Op's shared resources are withdrawn; the member's own listing,
+  storefront and purchases are untouched.
+
+### C. DECENTRALIZED (independent tenants)
+* **What it is:** a standalone merchant or single-location business on its own terms.
+* **Self-contained:** its own subscription tier, its own payment gateway, its own stock ledger; nothing shared.
 
 ---
 
@@ -213,23 +235,51 @@ To eliminate financial platform liability and processing fee overhead on local s
 ## 9. Two-Sided Role-Based Access Control (RBAC) Architecture
 
 ### A. Platform Staff & Ops Roles (Internal Infrastructure & Ecosystem Governance)
-Staff roles run the **whole admin**, all 11 workspaces of §8, not only listings. Each role opens the workspaces below
-(F = full, W = works its queues, V = view). A tool is configured only in its home workspace; roles that work it elsewhere
-use it there (§8).
+Staff roles run the **whole admin**, all 11 workspaces of §8, not only listings. A staff role has two parts:
+- a **level**, which says how much they can do;
+- a **department**, which says which workspaces they work in.
 
-| # | Role | Workspaces (1–11) | Replaces (0100) |
-|---|---|---|---|
-| 1 | 👑 Founder / Owner | all F; staff logins and roles; final policy overrides | Owner |
-| 2 | Executive (CEO, COO, CIO/CTO, CFO) | all V; 1, 10 F; emergency platform freeze | Executive Assistant (view) |
-| 3 | Operations Manager | 1, 2, 3, 4, 5, 6, 8 F; 9 governance (consent, DMCA, vault) F; KYC and onboarding approvals; suspensions | Manager |
-| 4 | Accountant / Financial Ops | 1, 2 W; 9 finance (ledger, reconciliation, QuickBooks, tax, fees) F; 7 orders V | Accountant |
-| 5 | Sales & Service Manager | 1, 2, 7, 8 F; support queue and SLAs; assigns tickets and standing grants (0102) | (new) |
-| 6 | Tier-1 Support / Frontline | 1, 2 W; 3, 5, 6 V (PII masked); triage tickets | General |
-| 7 | Tier-2 Support / Technical | Tier-1 plus 9 queues W, application and webhook logs; works tickets with timed access (0102) | (new) |
-| 8 | Tier-3 Support / Engineering | Tier-2 plus 10 telemetry, 11 V; TRVGO routing and domain fixes | (new) |
-| 9 | Contributor (Developer) | 11 staging F, 10 telemetry V; no production data | (new) |
-| 10 | Content Contributor | 3, 4, 6 editorial F; HITL staging reviews | Editor, Content Creator |
-| 11 | Third-Party Vendor / Integrator | none by default; ticket-scoped and time-limited, revocable at once | (new) |
+A tool is configured only in its home workspace; people who use it elsewhere work it there (§8).
+
+**Levels (who reports to whom):**
+
+| Level | Can | Reports to |
+|---|---|---|
+| 👑 Founder / Owner | everything; staff logins and roles; final policy overrides | — |
+| Executive (CEO, COO, CIO/CTO, CFO) | sees everything; full in Dashboard (1) and Insights (10); emergency platform freeze | Founder |
+| **Director** | oversees a department: configures its tools, sets its rules, approves its exceptions | Executive |
+| **Manager** | runs a department's day-to-day work and its staff; assigns work | Director |
+| **Editor** | approves and publishes content (Content department); peer of a Manager | Director |
+| Staff / Content Creator | works the department's queues; Creators draft content for an Editor to approve | Manager (Creators: Editor's review, Manager's direction) |
+| **Assistant** | assigned to one Executive, Director or Manager; may read, write and update anything that person can, **except delete** and managing staff | the person assisted |
+| Third-Party Vendor / Integrator | nothing by default; ticket-scoped, time-limited, revocable at once | Sales & Service Manager |
+
+**Departments (which workspaces):**
+
+| Department | Workspaces | Notes |
+|---|---|---|
+| Operations | 1, 2, 3, 5, 6, 8; 9 governance (consent, DMCA, verification vault) | KYC and onboarding approvals, suspensions |
+| Finance | 1, 2; 9 finance (ledger, reconciliation, QuickBooks, tax, fees); 7 orders (view) | |
+| Sales & Service | 1, 2, 7, 8; the support queue and SLAs | assigns tickets and standing grants (0102); support staff are Tier-1, Tier-2, Tier-3 |
+| Content | 3, 4, 6 (editorial); HITL staging | Editors approve; Creators draft |
+| Engineering | 10 telemetry; 11 (staging); Tier-3 support's routing and domain fixes | no production data for developers |
+
+**Support tiers** (Staff in Sales & Service):
+- **Tier-1:** triage; sees 3, 5 and 6 with PII masked.
+- **Tier-2:** adds the 9 queues and application and webhook logs; works tickets with timed access (0102).
+- **Tier-3:** adds 10 telemetry and 11 (view); fixes TRVGO routing and domains.
+
+**From the built roles (0100):**
+
+| Built role | Becomes |
+|---|---|
+| Owner | Founder |
+| Manager | Operations Manager |
+| Editor | Content Editor |
+| Content Creator | Content Creator |
+| Accountant | Finance Staff (or Finance Manager) |
+| Executive Assistant | Assistant, assigned to a named person |
+| General | Sales & Service Staff, Tier-1 |
 
 ### B. Client Listing Management Roles (External Merchant Environment)
 As decisions/0102 §3–4 (seven roles; the role decides, with no confirmation steps):
