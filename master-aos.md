@@ -1,5 +1,5 @@
 # Traversence & TRVGO: Master Administrative & Operational Specification (Master AOS)
-*Version: 42.0 (Updated October 21, 2026: C1–C9 decisions; account models; staff levels and departments)*  
+*Version: 43.0 (Updated October 21, 2026: C1–C9 decisions; account models, Nexus pricing, annual plans; staff levels and departments)*  
 *Governance Tier: Core Specification & Master Operations*  
 *Industry Classification: NAICS 519130 — Internet Publishing, Broadcasting, and Web Search Portals*
 
@@ -133,6 +133,12 @@ Commercial features scale cumulatively and additively. Paid commercial tiers sel
 | **Strategic Partner** | $229.95 / mo | 1 TB storage + 10k Email / 500 SMS / 10k Push | High-output AI content (up to 25 articles/mo + 4 custom posts), subdomain routing, White-Glove setup, native internal CRM suite, Headless API access. |
 | **Enterprise / Cornerstone** | $399.95+ / mo | 2 TB storage + 50k Email / 2,500 SMS / 50k Push | Multi-Unit/Co-Op Master-Hub architecture, Master Communication Vault, joint regional campaigns, uncapped AI catalog generation, advanced team RBAC, dedicated support. |
 
+### C. Annual Plans
+* **Pay for 10 months, get 12** (16.7% off), on every tier, Nexus add-on locations, and packs bought for a year.
+* **Combined discount cap:** volume and annual discounts together never exceed **45% off list**. This keeps every
+  location above a 50% margin (deepest case: a Cornerstone add-on at about 55%; the business overall stays near 81%).
+* 250+ locations: custom agreement, with the 45% floor as a guide.
+
 ---
 
 ## 6. Account Models, Nexus Location Fees & Volume Discounts
@@ -147,29 +153,45 @@ Every commercial account runs on one of three models.
 * **Parent billing and pooling:** the parent holds the master subscription and pays one consolidated bill. Locations
   don't carry their own matching subscriptions: they draw storage, communication volume, catalog caps and AI quotas
   from the parent's pooled ledger. The parent upgrades its master tier as demand grows.
-* **Per-location fee:** each location beyond the parent pays a monthly **location fee** covering its listing,
-  storefront presence, QR codes and support. The fee earns the Nexus its margin before pooled resources run short.
-  Volume discounts apply to the fee (table below).
+* **Nexus Starter Pack:** when the first add-on location joins, the parent's pool gets a one-time addition, included
+  in the price: Strategic +100 GB, +5,000 email, +250 SMS, +5,000 push; Cornerstone double that.
+* **Add-on location fee:** each location beyond the parent pays a monthly fee, with volume discounts applied to it:
+  **$59.95** under a Strategic parent and **$99.95** under Cornerstone.
+* **What an add-on location gets:**
+  - its own listing: page, map pin, hours, contact, photos, reviews, and a place in its local cluster;
+  - a storefront section on the parent's domain (`brand.com/location`); its own domain is an extra;
+  - its own QR codes and short links, with scans counted per location;
+  - local team seats (e.g. a General Manager and staff), with roles scoped to that location;
+  - a local inventory and pickup point, connected to the master ledger;
+  - every parent-tier feature, drawn from the pool;
+  - an addition to the pool: Strategic +50 GB, +1,000 email, +50 SMS, +1,000 push; Cornerstone +100 GB, +2,500
+    email, +125 SMS, +2,500 push.
 * **Inventory and fulfillment:** one Master Inventory Ledger (raw materials, work in progress, finished goods), with
   fulfillment routed across central hubs or branch locations.
 
-**Nexus pricing (proposed; ⏱ Jason to set):**
-
-| | Strategic master | Cornerstone master |
-|---|---|---|
-| Parent (master subscription) | $229.95 / mo | $399.95+ / mo |
-| Location fee, per location beyond the parent | $49.95 / mo | $79.95 / mo |
-
-| Locations in the Nexus | Discount on the location fee |
+| Locations in the Nexus | Discount on the add-on location fee |
 | :--- | :--- |
-| **1 (the parent only)** | none (no location fee) |
+| **1 (the parent only)** | none (no add-on fee) |
 | **2 – 9** | 10% |
 | **10 – 49** | 20% |
 | **50 – 99** | 30% |
-| **100 – 249** | 40% |
+| **100 – 249** | 40% (combined with annual, capped at 45%) |
 | **250+** | Automated discount pauses; a custom enterprise agreement is required. |
 
-Example: a Strategic Nexus with 12 locations pays $229.95 + 11 × $49.95 × 0.80 = **$669.51 / mo**, sharing one pool.
+**Examples:**
+
+| | 3-location Strategic | 15-location Cornerstone |
+|---|---|---|
+| Parent | $229.95 | $399.95 |
+| Add-on locations | 2 × $59.95 at −10% = $107.91 | 14 × $99.95 at −20% = $1,119.44 |
+| **Monthly** | **$337.86** | **$1,519.39** |
+| **Annual** (10 months) | **$3,378.60** | **$15,193.90** |
+| Per location, monthly | $112.62 | $101.29 |
+| Saving against separate subscriptions | 51% | 75% |
+| Pool: storage | 1.2 TB | 3.6 TB |
+| Pool: email | 17,000 | 95,000 |
+| Pool: SMS | 850 | 4,750 |
+| Pool: push | 17,000 | 95,000 |
 
 ### B. CO-OP (chambers, associations and guilds)
 * **What it is:** a merchant association, chamber of commerce or maker guild uniting independent businesses under a
@@ -241,30 +263,35 @@ Staff roles run the **whole admin**, all 11 workspaces of §8, not only listings
 
 A tool is configured only in its home workspace; people who use it elsewhere work it there (§8).
 
-**Levels (who reports to whom):**
+**Levels:** each level does one thing, so they don't overlap. One person may hold several levels while the team is
+small.
 
-| Level | Can | Reports to |
+| Level | Its one job | Scope | Reports to |
+|---|---|---|---|
+| 👑 Founder / Owner | everything; staff logins and roles; final policy overrides | all | — |
+| Executive (CEO, COO, CIO/CTO, CFO) | **decides:** targets, policy approval, emergency platform freeze; sees everything; doesn't configure tools or run queues | the whole company | Founder |
+| Director | **configures:** owns a department's tools, rules and exceptions | one department | Executive |
+| Manager / Editor | **assigns and approves:** runs daily work and people; an Editor approves and publishes content | a team in a department | Director |
+| Staff / Content Creator | **does the work:** works queues; Creators draft content for an Editor | their team | Manager (Creators: an Editor approves their work) |
+| Assistant | **supports one named Executive, Director or Manager** with that person's access, read, write and update, except delete and managing staff | the person assisted | that person |
+| Third-Party Vendor / Integrator | nothing by default; ticket-scoped, time-limited, revocable at once | one ticket | Service Manager |
+
+**Departments:** each has its own Director, Managers and Staff.
+
+| Department | Covers | Workspaces |
 |---|---|---|
-| 👑 Founder / Owner | everything; staff logins and roles; final policy overrides | — |
-| Executive (CEO, COO, CIO/CTO, CFO) | sees everything; full in Dashboard (1) and Insights (10); emergency platform freeze | Founder |
-| **Director** | oversees a department: configures its tools, sets its rules, approves its exceptions | Executive |
-| **Manager** | runs a department's day-to-day work and its staff; assigns work | Director |
-| **Editor** | approves and publishes content (Content department); peer of a Manager | Director |
-| Staff / Content Creator | works the department's queues; Creators draft content for an Editor to approve | Manager (Creators: Editor's review, Manager's direction) |
-| **Assistant** | assigned to one Executive, Director or Manager; may read, write and update anything that person can, **except delete** and managing staff | the person assisted |
-| Third-Party Vendor / Integrator | nothing by default; ticket-scoped, time-limited, revocable at once | Sales & Service Manager |
+| Operations | onboarding and KYC approvals, suspensions, governance (consent, DMCA, verification vault), the directory | 1, 2, 3, 5, 6; 9 governance |
+| Finance | ledger, reconciliation, QuickBooks, tax, fees | 1, 2; 9 finance; 7 orders (view) |
+| Sales | leads, unclaimed listings, quotes, promotions; **sells White Glove** as part of the deal | 1, 2, 7; 8 (to schedule onboarding at close) |
+| Service | the support queue, SLAs and Tier-1/2/3 support; tickets and standing grants (0102); order processing and fulfillment; vendor management; **delivers White Glove** | 1, 2, 7 (order processing), 8 (home), 9 (fulfillment, vendors) |
+| Content | 3, 4, 6 editorial; HITL staging | Editors approve; Creators draft |
+| Engineering | 10 telemetry; 11 (staging); Tier-3 routing and domain fixes | developers get no production data |
 
-**Departments (which workspaces):**
+**White Glove** is shared: Sales sells it and Service delivers it. Closing a sale opens the onboarding automatically.
+**Orders** follow the home-and-uses rule: the home is Back-Office (9); Sales starts orders, Service processes them,
+Finance reconciles them.
 
-| Department | Workspaces | Notes |
-|---|---|---|
-| Operations | 1, 2, 3, 5, 6, 8; 9 governance (consent, DMCA, verification vault) | KYC and onboarding approvals, suspensions |
-| Finance | 1, 2; 9 finance (ledger, reconciliation, QuickBooks, tax, fees); 7 orders (view) | |
-| Sales & Service | 1, 2, 7, 8; the support queue and SLAs | assigns tickets and standing grants (0102); support staff are Tier-1, Tier-2, Tier-3 |
-| Content | 3, 4, 6 (editorial); HITL staging | Editors approve; Creators draft |
-| Engineering | 10 telemetry; 11 (staging); Tier-3 support's routing and domain fixes | no production data for developers |
-
-**Support tiers** (Staff in Sales & Service):
+**Support tiers** (Staff in Service):
 - **Tier-1:** triage; sees 3, 5 and 6 with PII masked.
 - **Tier-2:** adds the 9 queues and application and webhook logs; works tickets with timed access (0102).
 - **Tier-3:** adds 10 telemetry and 11 (view); fixes TRVGO routing and domains.
@@ -279,7 +306,7 @@ A tool is configured only in its home workspace; people who use it elsewhere wor
 | Content Creator | Content Creator |
 | Accountant | Finance Staff (or Finance Manager) |
 | Executive Assistant | Assistant, assigned to a named person |
-| General | Sales & Service Staff, Tier-1 |
+| General | Service Staff, Tier-1 |
 
 ### B. Client Listing Management Roles (External Merchant Environment)
 As decisions/0102 §3–4 (seven roles; the role decides, with no confirmation steps):
