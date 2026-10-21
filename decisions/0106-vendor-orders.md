@@ -44,3 +44,24 @@ as that stage, set by our team.
 ## Later (step 3)
 
 The 4OVER and Signs365 APIs fill and update these same records (statuses, tracking, completion dates, costs).
+
+## Addendum (2026-10-21): Paste from 4OVER
+
+A link to a 4OVER order can't be read by our server: the page is behind the 4OVER sign-in, and storing that password
+isn't safe. Instead, **Paste from 4OVER** reads the page's text:
+1. On the 4OVER order page, Ctrl+A then Ctrl+C.
+2. Paste it in the order's case (vendor jobs box) or in Back-Office → Vendor orders.
+
+It reads (`VendorOrders::parse4over`):
+- order #, purchase date, card type and last 4, order totals;
+- each project: P.O., SKU and specs, run size, turnaround, costs, ship-to, method, production facility, completion
+  date;
+- each set: set name, Job ID, job status, tracking, cost per set.
+
+**Matching:** each project is matched to a client order by ship-to name and company (`match4over`), and staff confirm
+or change it in a preview. A project that isn't one of our orders is skipped. **Pasting the same order again updates
+it:** jobs are matched by Job ID, so statuses, tracking, completion dates and costs refresh. The page is read again on
+the server when saving; nothing from the browser preview is trusted. It was tested against the text of 4OVER order
+#017633948.
+
+Later (step 3), 4OVER's API does this on its own; ask the 4OVER rep for API keys.
