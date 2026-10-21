@@ -1,47 +1,52 @@
 # Admin rebuild: batch processing overview
 
-Status: Draft (2026-10-21). Inputs: the Master AOS v34.0 (October 2026), Jason's 11 workspaces, decisions 0102 and 0103,
+Status: Draft (2026-10-21). Inputs: the Master AOS v40.0 (`master-aos.md`), Jason's 11 workspaces, decisions 0102 and 0103,
 and what's built. The build runs through the Message Batches API: half price, asynchronous, jobs in parallel.
 
-## 1. AOS review: what it means for the build
+## 1. AOS review (v40.0, `master-aos.md`)
 
-The AOS is the **platform and business specification**: what Traversence sells, to whom, and how accounts relate. The
-11 workspaces are the **admin that runs it**. Each workspace has to administer a part of the AOS, so the AOS gives
-the build its data model.
+The AOS is the **platform and operations specification**. Its §8 holds the 11 workspaces, so the AOS is the build's
+data model and its admin map in one document.
 
-**Fits what's built or decided:**
-- the two domains: traversence.com as the hub, and trvgo.us for short codes and QR (0094, 0096);
-- the commercial tiers and prices (`commercial.md`);
-- 0% platform fee on merchant sales;
-- the sacred-site quarantine (0066);
-- the inode ceiling, which confirms **Bluehost shared hosting** and settles workspace #11: Redis, replicas and vector
-  search show as "coming", not as controls.
+**Settled by v40** (no longer open):
+- **Payments:** a payment processor ledger with any gateway (Stripe, Square, NMI, Authorize.Net) and 0% commission.
+  The QuickBooks Payments already built for our own sales becomes one gateway on that ledger.
+- **Location Groups:** each location keeps its own subscription, all on the same tier, with the volume discount.
+- **Roles:** 11 platform staff roles (§9A) and 9 business roles (§9B), linked through `listing_memberships`.
+- **Hosting:** Bluehost shared (§14). In workspace #11, Redis, database replicas and vector search show as "coming".
 
 **Conflicts to settle before the spec freeze** (a batch job can't ask; it would guess):
 
-| # | AOS says | Built or decided | Decision needed |
+| # | AOS v40 says | Built or decided | Decision needed |
 |---|---|---|---|
-| C1 | Stripe Connect for payments | QuickBooks Payments for Traversence's own sales (0098, 0101) | Proposed: QuickBooks for our sales and services; Stripe Connect for merchants' storefront sales. Confirm. |
-| C2 | Listing roles OWNER, MANAGER, EDITOR, CLERK | 0102: Owner, Manager, Accountant, Sales, Support, Creator, Developer | Pick one set; 0102's matrix gets rewritten to match |
-| C3 | table `listing_memberships` | 0102: `team_members` | Proposed: use the AOS name |
-| C4 | 6-level funnel (Continental → Regional/State → Geo-Hub → Micro-Commerce → Anchor → Sub-Group) | Workspace #3: 5 tiers (Macro Hub → Geo-Hub Zone → Micro-Cluster → Anchor → Sub-Group); code has hubs, geo-hubs, clusters | One list of level names, mapped to the existing tables |
-| C5 | Parent/Child, Co-Op and Location Groups | Nexus (0075) groups locations | Is a Location Group a Nexus, or separate? |
-| C6 | C2C trades with trust scores | the enforcement ladder has trust flags | Do trade trust points feed the same trust record? |
+| C1 | §10: support access needs the Owner's grant per ticket; 1-hour token | 0102: a standing grant to a named agent until revoked, plus a ticket queue with timed access, no owner approval | Which model? If the AOS, 0102 §5 is rewritten |
+| C2 | §9B: 9 business roles, and the **TRVGO Agent is a business role** (QR and short codes) | 0102: 7 roles; "agent" meant Traversence support | Rewrite 0102's role table to the AOS's 9 |
+| C3 | §9A: 11 staff roles (Executive, Tier-1/2/3 support, vendors…) | 0100: Owner, Manager, Editor, Accountant, Executive Assistant, Content Creator, General | Map the old roles to the new, and say which areas each opens |
+| C4 | §11.3: 30-day soft delete, then a hard purge | 0103: Notice → Hidden → Archived (1 year) → Removed; nations' data never deleted (0066) | Which wins? Proposed: 0103's stages for accounts, listings and groups; the 30-day purge only for things the owner deleted |
+| C5 | §4: 6 funnel levels; §8 #3: 5 tiers (Macro Hub → Geo-Hub Zone → Micro-Cluster → Anchor → Sub-Group) | hubs, geo-hubs, clusters in the code | One list of level names, mapped to the existing tables |
+| C6 | §11.4: under 5 minutes of data loss, under 2 hours to recover, automatic failover, containers | Bluehost shared (§14) | Not possible on shared hosting. Proposed: daily encrypted backups now; the RPO/RTO targets wait for a VPS |
+| C7 | §11.3: media in S3/R2; §9A: Datadog, CI/CD, JWTs, GraphQL | files on the server; no such services | Mark as "coming" or name the services |
+| C8 | §7: C2C trust scores | the enforcement system already keeps trust flags | Do trade trust points feed the same trust record? |
+| C9 | Location Groups | Nexus (0075) groups locations | Is a Location Group a Nexus, or separate? |
 
 **New in the AOS, with nothing built yet** (each needs a workspace home):
 - personal storage plans and AI access per plan;
-- commercial tier entitlements: storage, communication volume, AI quotas, and the overage packs;
-- Parent/Child allocation, Co-Ops and their membership tiers, volume discounts;
+- commercial tier entitlements: storage, communication volume, AI quotas, overage packs;
+- Location Groups and volume discounts;
+- Co-Op Master Hubs;
 - the C2C marketplace with dual confirmation;
+- the import engine with staging and its preview (§11.1);
+- export packages and streaming to outside systems (§11.2);
+- the 72-hour verification vault;
 - HITL staging for AI articles;
 - EXIF/GPS stripping;
-- the inventory ledger: raw materials, work in progress, finished goods;
+- the inventory ledger and COGS;
 - custom domain storefronts.
 
 ## 2. Can it be batched? Yes, with three conditions
 
 1. **A frozen spec.** That means the AOS, the workspace map (homes and uses for every tool), the definitions of the new
-   terms, and answers to C1–C6. Anything left open gets guessed.
+   terms, and answers to C1–C9. Anything left open gets guessed.
 2. **The foundations built first, in-session.** These are the shared pieces every job depends on:
    - the workspace shell;
    - the tool registry;
@@ -56,7 +61,7 @@ the build its data model.
 
 | Step | Where | What |
 |---|---|---|
-| 1. Spec freeze | Jason + session | the AOS, the workspace map, the definitions, C1–C6 signed off |
+| 1. Spec freeze | Jason + session | the AOS, the workspace map, the definitions, C1–C9 signed off |
 | 2. Foundations | session | the shell, registry, permissions, shared components, migrations conventions; committed |
 | 3. Job packets | session (script) | one JSON request per job (section 4) |
 | 4. Submit | script | `messages.batches.create`; results usually within the hour, at most 24 hours |
@@ -102,8 +107,8 @@ response's output limit.
 | 1 | One frame job per workspace (1–11): its sections, existing tools moved into their homes and uses, "coming" placeholders for the rest | 0 |
 | 2 | #1 Dashboard and Quick Actions; #2 Pulse Stream with split drawers | 1 |
 | 3 | #3 Directory & Places (the taxonomy levels from C4, 20-mile clustering, Single Home Rule); #7 Sales & Growth; #6 Community (charters, transfer terms, deactivation from 0102 and 0103) | 1 |
-| 4 | #9 Back-Office: plans and entitlements (tiers, storage, quotas, overage packs), Parent/Child and Co-Op allocation, volume discounts, inventory ledger, consent hub, DMCA queue, verification vault | 1, C1, C5 |
-| 5 | #5 Market: C2C with dual confirmation and trust points, Storefront Studio, custom domains, the 250-item cap | 4, C6 |
+| 4 | #9 Back-Office: plans and entitlements (tiers, storage, quotas, overage packs), Location Groups and Co-Ops, volume discounts, the payment ledger, import and export, inventory ledger, consent hub, DMCA queue, verification vault | 1, C4, C9 |
+| 5 | #5 Market: C2C with dual confirmation and trust points, Storefront Studio, custom domains, the 250-item cap | 4, C8 |
 | 6 | #4 Explore (guides, waypoints, GPX/KML, Chameleon Filter); #8 White Glove (onboarding board, OCR and menu parsing, HITL staging); #10 Insights; #11 Configuration | 1 |
 
 Waves 3 and 6 can run alongside 2 once wave 1 is verified. Wave 4 before 5 because Market draws on plans and
@@ -111,7 +116,7 @@ allocations.
 
 ## 7. What Jason provides
 
-1. **The decisions on C1–C6** (section 1).
+1. **The decisions on C1–C9** (section 1).
 2. **The workspace map:** I draft it from what's built, using your names, and you correct it.
 3. **Definitions** for the new terms:
    - Pulse filters and "critical";
