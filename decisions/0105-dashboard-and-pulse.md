@@ -54,3 +54,59 @@ changes.
 ## Later
 
 **Stream settings** (routing rules per department and answer timers) stays "Coming".
+
+## Addendum (2026-10-21, later): Pulse rebuilt to Jason's mockup
+
+The first build was a task list, which wasn't what Jason designed. The admin Pulse is the role's daily work, shown in
+the same shell as the member Pulse. Workspaces 1 and 2 are now one screen (`tv_pulse_board()` in
+`app/ui/pulse-ui.php`); the Workspace 2 menu entry opens it scrolled to the stream.
+
+- **Header:**
+  - the Pulse mark;
+  - **Working as**: Platform Admin or a department for Founders and Executives, your own department otherwise;
+  - count chips: Operational Queues, Alerts, Order Mgmt, System Health, Mine, Resolved;
+  - the bell (critical cases, and those escalated to you), Stream settings;
+  - **+** (post to the team) and **Search all platform events**.
+- **Operational Task Queue:** critical and alert cases, each with its action link and a live **SLA clock**, filtered by
+  source icon.
+- **Quick Actions & Navigation:** links for what the role reaches, and a box to **post** to a department or everyone.
+- **Unified Communications Hub (Pulse Stream):** a table of From (source icon and label), Severity, Subject with its
+  action link, and Received.
+- **Case drawer** (opens on a row):
+  - Case #, source, severity, received, SLA, status, assigned, escalation, details;
+  - **Open the tool**, as a pop-up of the tool's page;
+  - **Quick comment** with **Post**: *Reply to the sender* (emailed, with a copy kept on the case) when a person raised
+    the item, otherwise *Note to the team*;
+  - **Escalate**, **Assign**, **Take it**, **Mark resolved / Reopen**;
+  - **History**.
+
+**Severities and SLAs** (Jason: double the first proposal; editable later in Stream settings):
+
+| Severity | SLA |
+|---|---|
+| Critical | 2 hours |
+| Alert | 8 hours |
+| Update | 2 days |
+| Event | no clock |
+
+**Escalation:** Escalate sends a case to its department's Manager; still open a further SLA later, it shows as
+escalated to the Director.
+
+**Sources:** Support, Sales, Fulfillment, Payments, Safety, **Security** (staff logins locked, a failed sign-in spike
+of 5+ in an hour), System and **Team** (posts).
+
+**Admin shortcut bar** (above every admin page): Dashboards, Operations, Security, Users, Content, Logs and System,
+each opening the workspaces and tools it groups. The 11 workspaces stay on the left. **Logs** (`/admin/logs.php`)
+shows the action log and staff sign-ins.
+
+**Staff profiles** (`/admin/staff-profile.php`):
+- photo and name from their public profile;
+- TRV ID, level and department, who they report to, who assists them, the workspaces they open;
+- work email and phone, availability (in, away, out, until), about;
+- their open cases.
+
+Each person edits their own; owners edit anyone's. Their public profile shows a **Traversence team** badge only if
+they turn it on.
+
+**Migration:** `2026-12-15_pulse_cases.sql` (case numbers, escalation, `pulse_notes`, `pulse_posts`, staff profile
+columns).

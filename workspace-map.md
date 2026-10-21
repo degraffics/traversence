@@ -24,6 +24,9 @@ departments). Every existing admin tool is placed below; nothing is dropped.
 ---
 
 ## 1. Dashboard & Quick Actions
+
+> Built as one screen with workspace 2: the Pulse board (decisions/0105 addendum). The Alerts and Quick actions rows below are now the board's Operational Task Queue and Quick Actions.
+
 Opened by: everyone (each person sees their own).
 
 | Section | Tools | Status | From |
