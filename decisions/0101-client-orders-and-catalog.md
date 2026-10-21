@@ -166,3 +166,16 @@ picking from the QuickBooks customer list.
 **Ship to** (the order's Ship to, or "each item says where it ships") and the order or invoice details, as on the order
 page. "What the client sees" opens the client's page in a new tab: on the live server the page wouldn't load inside
 the pop-up frame.
+
+## Addendum, 2026-10-21: shipping as manifests (step 1)
+
+- An order's shipping mode is **No shipping** (with a reason: Electronic delivery, Customer will call, None), **One
+  address** (one manifest) or **Multiple destinations** (a manifest each). `orders.ship_mode`, `orders.no_ship_reason`.
+- Destinations are `order_addresses` (`is_main` = the order's Ship to), each with an intake estimate (`est_cents`) and
+  a method. Estimates add into the subtotal; the actual is the sum of the destination's pack costs, and the variance shows.
+- An item splits into **lots** (`order_lots`), each going to one destination. **Packs** (`order_packs`, contents in
+  `order_pack_items`) carry box, weight, carrier, service, cost, tracking and a label file.
+- Printable pages at `/admin/manifest.php`: the master manifest, one destination, or a pack's packing slip.
+- Code: `app/lib/Shipments.php`, `app/ui/pack-form.php`, migration `2026-12-12_shipping_manifests.sql`.
+- Next: step 2, product shipping profiles (weight, fit per box, learned from packs); step 3, vendor and carrier APIs
+  (4OVER, Signs365, EasyPost or Shippo). Later: gang running; the QuickBooks customer list.
