@@ -30,8 +30,8 @@ Opened by: everyone (each person sees their own).
 |---|---|---|---|
 | Your day | daily steps, task queue for your role | Live | `admin/index.php` (Your day) |
 | Helper | one item at a time across queues | Live | `admin/helper.php` |
-| Alerts | urgent platform alerts (payments failing, crawler stopped, reports over threshold) | Partial: notifications exist; ❓ which alerts count as urgent | dashboard notifications |
-| Quick actions | shortcuts that adapt to your role: new client order, add listing, find listing, new ticket | Coming | — |
+| Alerts | U: Pulse's critical items (disputed payment, order past due, a report about safety, a sacred place or private details, crawler stopped, files near the ceiling) | Live (0105) | Pulse |
+| Quick actions | shortcuts for what your role reaches: new client order, add a listing, find a listing, new prospect, Pulse, reports, GO Codes; new ticket coming | Live (0105) | — |
 | Order terminal | U: Orders (new order, take a payment) | Partial: the client order builder exists | `admin/client-order.php` |
 | Business numbers | U: Insights tiles (MRR, orders, partners) | Live | dashboard |
 
@@ -40,8 +40,8 @@ Opened by: everyone; each department sees its own filter.
 
 | Section | Tools | Status | From |
 |---|---|---|---|
-| Pulse | H: the stream (inquiries, sales events, fulfillment, emergencies), with filters by kind and importance | Partial: the inbox and notification center exist; ❓ the filter list and what counts as "critical" | dashboard inbox |
-| Split drawer | opens the item's tool beside the stream (U of any tool), to act without leaving | Coming; ❓ what each kind of item shows | — |
+| Pulse | H: the stream; chips for Inquiries, Sales, Fulfillment, Payments, Safety, System, plus Mine, Needs action, Done; critical items pinned | Live (0105) | — |
+| Split drawer | opens the item's own tool beside the stream; full screen with a back arrow on a phone; Done marks it done | Live (0105) | — |
 | Messages | business messages, guest questions, group posts | Live (inbox) | inbox |
 | Stream settings | H: routing rules (which department gets what), SLA timers | Coming | — |
 
@@ -182,8 +182,7 @@ Opened by: Founder, Eng (Director), Executives (view).
 
 ## Left for Jason (❓)
 
-1. Alerts: which ones count as urgent (1).
-2. Pulse: the filters, what counts as "critical", what each drawer shows (2).
+1. ~~Alerts~~ and 2. ~~Pulse~~: settled and built (decisions/0105).
 3. Six tiers: which existing table holds each level; the 20-mile rule; the Single Home Rule (3).
 4. Chameleon Filter (4).
 5. B2C posts in Post-and-Connect; the 250-item cap per tier (5).
