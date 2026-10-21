@@ -161,3 +161,13 @@ columns).
 - **The tool beside the case scrolls**, inside the split view.
 - **Layout:** the Operational Task Queue and Quick Actions sit above the Pulse row and collapse, remembered per
   browser. The chips sit directly on the stream they filter.
+
+## Addendum (2026-10-21, late): one-screen Dashboard, icons, Shortcuts menu
+
+- **The Dashboard has no tabs.** It's the Pulse board: Operational Task Queue, Quick Actions, and **Your day** (the
+  daily steps, as a third collapsible panel, closed to start) above the Pulse row and stream. **Helper** and **Order
+  terminal** are Quick Actions links. Business numbers live in Insights (workspace 10).
+- **The bell** has a bell icon and shows pressed while it filters to critical and escalated cases. **The gear** opens
+  Stream settings from any workspace.
+- **The admin shortcut bar** became one compact **Shortcuts** button beside the page title. It opens a vertical list
+  grouped by Dashboards, Operations, Security, Users, Content, Logs and System, and closes on a click outside or Esc.
