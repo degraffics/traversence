@@ -21,11 +21,27 @@ line who accepts:
 |---|---|
 | Business | the next Owner on its team → a Manager → a verified claimant (claim process) |
 | Listing | its business → back to **unclaimed** (never deleted) |
-| Group run by a person | its longest-serving moderator → a member who asks (Safety approves) |
-| Group run by a business | the business → its longest-serving member moderator who asks → archived |
+| Group (person or business) | **what its charter says** (section 2a) |
 | Support grant | the agent Traversence reassigns (0102 §5) |
 
 No one accepts within ⏱30 days → the thing moves to **Hidden** (section 3).
+
+### 2a. Groups: transfer terms are set in the charter
+
+Whoever starts a group sets its **transfer terms** when writing the charter, and can change them later. The terms say
+what happens when the owner (a person, or for a business group the business) is gone or steps down:
+
+| Term | What happens |
+|---|---|
+| **End the group** (default) | the group goes into deactivation (section 3); no elections, no handover |
+| Named successor | a named moderator or member is offered the group; if they decline or don't answer in ⏱14 days, the group ends |
+| Longest-serving moderator | offered to them; if they decline, the next; with none left, the group ends |
+| Moderators choose | the moderators pick one of themselves within ⏱14 days; no pick, the group ends |
+
+- The default is **no elections: the group ends.** Anything else is the creator's choice in the charter.
+- The terms are shown on the group page, so members know before they join.
+- A business group's terms apply when the business itself closes or loses the group; staff changes inside the business
+  never trigger them (0102 §4c).
 
 ## 3. Ending: the stages
 
@@ -48,8 +64,7 @@ Routes into the stages:
 
 | Thing | Inactive when | Then |
 |---|---|---|
-| Group | no posts or moderator activity for ⏱6 months | moderators are asked to keep it going; offered to members who'd run it |
-| Group | ⏱12 months | archived read-only; members can still see past posts; restorable by a moderator |
+| Group | **no posts or comments for 30 days**, or **no owner or moderator activity for 90 days** | enters the deactivation policy: Notice → Hidden → Archived → Removed (section 3); posting or moderating during Notice stops it. No dormant groups are kept live |
 | Claimed listing | owner hasn't signed in or updated for ⏱12 months | reminder to confirm the details; after ⏱18 months marked "unconfirmed" and offered back to claim |
 | Business team member | not signed in for ⏱6 months | the owner is told and can end the role; nothing ends on its own |
 | Support grant | unused for ⏱12 months | shown "not used since…"; stays on (0102) |

@@ -81,8 +81,9 @@ Already built (0047, `api/lib/Community.php`); listed here so every role lives i
 - A person runs up to 5 groups. Blocked people don't appear to each other.
 - **Platform side:** Safety staff (Reports, 0047) can remove or hide posts and hide a group, and restore them. They
   can't post, change the group's settings, or see member names beyond what reports show.
-- **Handing over:** an owner can make a moderator the owner. If an owner deletes their account, the longest-serving
-  moderator becomes owner; with no moderator, the group is hidden until a member asks to take it on (coming).
+- **Handing over and ending:** follows the transfer terms in the group's charter (0103 §2a). The default is no
+  elections: the group ends. Groups with no posts for 30 days, or no owner or moderator activity for 90 days, enter
+  deactivation (0103 §4).
 - Support access (section 5) doesn't reach a person's own groups: their owner gets help through an ordinary ticket,
   without an agent acting inside the group. A business's groups (4c) are reached only through the business role a
   grant or ticket gives.
