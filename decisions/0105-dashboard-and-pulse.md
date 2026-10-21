@@ -110,3 +110,25 @@ they turn it on.
 
 **Migration:** `2026-12-15_pulse_cases.sql` (case numbers, escalation, `pulse_notes`, `pulse_posts`, staff profile
 columns).
+
+## Addendum (2026-10-21, evening): one case per order, and the split view
+
+- **One case per order** (`order:ID`). Sent, approved, paid, proofs with changes, past due, to ship, refunds and
+  disputes all fold into it; it takes the most pressing severity among them. A newer event reopens a resolved case.
+  The case closes when the order is Complete or refunded.
+- **The order in the case:**
+  - a stepper: Sent → Approved → Paid → In production → Shipped / Ready for pickup → Complete (orders with nothing to
+    ship skip that step);
+  - **Next step** buttons: Start production, Sent to the printer, Mark shipped (asks for the tracking number in the
+    case), Ready for pickup, Mark complete.
+
+  These use the order's own stage change (`ClientOrders::setStage`), which also emails the client. They're written to
+  the case history, and Complete resolves the case.
+- **Split view:** the case is a fixed column on the right, and the tool opens to its left in the same overlay. It
+  opens there on its own on a wide screen (1100px and up). On a phone, the tool covers the case, with "← Case" to go
+  back.
+- **The case card:**
+  - the title on top, then chips (severity, SLA, open or resolved, who has it, escalation);
+  - one action row (Take it, Assign to…, Escalate, Resolve);
+  - a composer with Reply to <sender> / Note to the team;
+  - the history as a timeline.
