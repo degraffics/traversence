@@ -177,3 +177,38 @@ shared queue when no rep covers it. Commission comes later.
 
 - Renewals: A or B, after the sandbox test.
 - Our cost per plan, for the 65% floor.
+
+## Built: the business card scanner (2026-10-21)
+
+- **Where:** Sales → **Scan cards** (the first tab).
+  - **Scan a card** opens the camera; **Add the back** takes a second photo; **Read it** sends them.
+  - Photos are made smaller on the phone (1600 px JPEG), then on the server turned the right way up and stripped of
+    camera metadata.
+- **Reading:**
+  - Claude Haiku (`claude-haiku-5-5`, effort low, JSON-schema output) reads the card while the upload request is still
+    open, so it's back in seconds.
+  - `app/scripts/ai_worker.php` (cron every minute) catches anything left: a busy moment is retried up to 3 times.
+  - A card scan costs well under a cent.
+  - `AI_CARD_MODEL` overrides the model.
+- **Checking:** the side panel holds the photos, every field (business, name, title, phone, mobile, email, website,
+  street, town, state, ZIP, social, what they do, anything else), and a **suggested category** from what the card says.
+  It also lists the listings it may already be (same phone, website, or similar name in town), each with
+  **It's this one**.
+- **Saving:**
+  - The card joins the existing listing, or creates a new unclaimed listing (the crawler fills in the rest).
+  - The lead goes to the rep (source `card`) with the visit logged: who they met, the person's mobile, email and social
+    in the sales notes (never public), what happened, and the follow-up.
+  - Afterwards: email the claim invite, copy the claim link, see or edit the listing.
+- **No signal:** the scan waits on the phone (IndexedDB) and is sent when the signal is back, once.
+- **No key, or over the monthly cap:** the card is kept, with **Fill it in by hand** and **Try again**.
+- **Settings:** an **AI services** section shows each provider (Connected …last 4, or Not connected), this month's spend
+  against `AI_MONTHLY_CAP_USD`, and whether the worker is keeping up.
+- **Privacy:** card photos are staff-only (`app/storage/cards`, served only through `/admin/api/cards.php`).
+  Discarding a card deletes them. The privacy page says so.
+- **Data:** `2026-12-20_card_scanner.sql` adds `ai_jobs` (the queue every AI job will use) and `sales_cards`, and adds
+  `card` as a lead source.
+- **Not yet:**
+  - the Google and AWS readers (with the Studio);
+  - SMS to text a GO Code (once SMS is on);
+  - the "Met in person" stage (with the stage work, step 2).
+
