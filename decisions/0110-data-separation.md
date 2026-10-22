@@ -127,3 +127,37 @@ databases:
   logged (0102 support access).
 - **Member realm:** moves its private tables to `trv_users` in its own step, after the business side. Until then,
   members run as today.
+
+## Revised again (2026-10-22): four databases, the main one public only
+
+Jason: "the main traversence, then ADMIN, LISTING, USER dbs."
+
+| Database | Holds | Who can read / write |
+|---|---|---|
+| `degraff1_traversence` (main) | **public and shared data only:** the directory (listings' public fields), places, landmarks, nations, categories, taxonomy, published journeys, experiences and guides, public profiles (name, photo, bio) | everyone **reads**; only admin writes |
+| `degraff1_trv_admin` | **ours:** staff logins and logs, the action log, settings and keys (QuickBooks, AWS…), workflows and permissions, and Traversence's own business (tenant 0: our orders, plans and billing, leads, promotions, GO Code sales) | admin only |
+| `degraff1_trv_listings` | **every business's private data** (with `tenant_id`, views and triggers) | the listing login; admin |
+| `degraff1_trv_users` | **members' private data:** sign-in details (email, password, two-step), messages, address book, contacts, saved items, consents, personal settings | the user login; admin |
+
+Logins (cPanel lets each one be given only SELECT on a database):
+
+| Login | Own database | Main | The others |
+|---|---|---|---|
+| `degraff1_TRAV` (admin) | all | all | all |
+| `degraff1_trv_listings` | `trv_listings`: all | **SELECT only** | none |
+| `degraff1_trv_users` | `trv_users`: all | **SELECT only** | none |
+
+- Public pages (no one signed in) use the user login, so they can only read the main database.
+- Writes that change public data (a business editing its listing's public fields, a member publishing a journey) go
+  through a small, checked **publish** step that runs as admin and is written to the action log.
+- The `users` table is split: the public profile stays in main; email, password and private settings move to `trv_users`.
+
+### Order (each step tested, nothing moved without a rollback copy)
+
+1. **`trv_listings`:** new business data lives here from the start. Nothing moves.
+2. **`trv_admin`:** staff, logs, keys, settings and our own business data move out of main.
+3. **`trv_users`:** sign-in details and members' private data move out of main. Biggest step: `users` is read
+   everywhere.
+4. **Main becomes public-only**, and the two realm logins get SELECT on it.
+
+Until step 4, the realm logins don't get any access to main.
