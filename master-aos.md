@@ -72,7 +72,7 @@ To maintain data integrity, security, and multi-tenant isolation, the system str
         +----------------------------+
         | * Custom Domains & SEO     |
         | * CRM & Email/SMS Vaults   |
-        | * Stripe/Payment Gateway   |
+        | * Payment Gateways         |
         | * Storefront & Products    |
         +----------------------------+
 ```

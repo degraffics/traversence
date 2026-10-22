@@ -38,7 +38,7 @@ Marketplace, on its listing, on trvgo.us and on its own domain.
 - **Order:** a business sale paid at checkout, through **the business's own gateway**. It's recorded on our order
   ledger (decisions/0098), but we never hold the money (AOS §3).
 - **Storefront:** a listing's shop settings: theme, sections, pages, its trvgo.us name, its domain.
-- **Gateway connection:** a listing's own Stripe, Square… account (keys or connect).
+- **Gateway connection:** a listing's own payment gateway account (keys or connect).
 - **Rating:** left after a completed, dual-confirmed offer or a paid order (0032).
 
 ### Workflows (built-in, editable in System Configuration → Workflows)
@@ -148,7 +148,11 @@ Marketplace, on its listing, on trvgo.us and on its own domain.
 - **Person to person:** offline (cash, their own app); dual confirmation on the site.
 - **Business sales:** checkout goes **straight to the business's own gateway**. We record the order on the ledger
   (decisions/0098), so it shows in their Orders and our counts, with 0% fee and no money held by us.
-- **First gateway:** Stripe, which commercial.md names ("Stripe Connect"). Square next, then NMI and Authorize.Net.
+- **Direct payment methods** (Zelle, bank transfer, check, cash): a business can list them at checkout. The order waits
+  as "awaiting payment", showing the business's Zelle details and the order number to put in the memo; the business marks
+  it received (the same as our client orders' "paid outside QuickBooks", built). No fee, no automatic confirmation, no
+  card protection for the buyer.
+- **Gateways:** one connector framework; the business picks from the gateways we support. Which gateways come first is decided when checkout is built.
 
 ## 5. Phone and screen standards (as every page)
 
@@ -179,7 +183,7 @@ Marketplace, on its listing, on trvgo.us and on its own domain.
    - the Shop tab on the listing;
    - tier caps enforced.
 4. **Checkout:**
-   - Stripe connection per business;
+   - the payment gateway connection per business;
    - cart and checkout to their gateway;
    - merchant orders on the ledger;
    - admin: Gateways.
@@ -195,7 +199,7 @@ Marketplace, on its listing, on trvgo.us and on its own domain.
 2. **Free businesses:** can they post items (offers only, no checkout), or is selling a business item Basic and up?
 3. **Catalog caps for Basic, Core and Strategic:** Cornerstone is 250 per listing. Proposed: Basic 25, Core 100,
    Strategic 250.
-4. **First gateway:** Stripe (the business connects its own Stripe account). Square second?
+4. **Gateways:** which ones we support first (decided when checkout is built).
 5. **Custom domains on Bluehost shared:** each domain is added by hand as an addon domain with its SSL in cPanel. Is
    that fine for now (we do it when a Core client asks), with automation once the hosting moves?
 6. **Reviews:** only after a completed offer or a paid order (0032). Do businesses reply publicly to ratings?

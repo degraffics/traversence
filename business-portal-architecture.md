@@ -52,7 +52,7 @@ its locations as a filter (AOS §6).
 | Quotes and invoices with pay links | **Already built for us** (client orders); it becomes the business's. |
 | Order management states | **Already built** (the client-order workflow); the business can edit its stages on the plans that open the builder. |
 | Carrier labels and rates | **Later:** labels as files and tracking numbers exist; carrier APIs (rates, printed labels) are a later step. |
-| Tax by jurisdiction | **New:** a tax rate per place the business collects in; Stripe Tax as an option where their gateway is Stripe. |
+| Tax by jurisdiction | **New:** a tax rate per place the business collects in; automatic tax from the business's payment gateway where it offers one. |
 | Shipping matrix | **New:** flat, by weight, free over an amount, local pickup, local delivery by ZIP or distance. |
 | CMS pages, SEO, sitemap | **Adopted:** Storefront & pages. JSON-LD is already AOS Core ("automated local SEO"). |
 | Analytics and margin | **Adopted:** Reports, from the same widgets as Insights. |
@@ -100,7 +100,7 @@ minimums"; 0032 sets Cornerstone at 250 per listing). Everything else follows co
    - Quotes & invoices, Catalog and Orders first (they exist today);
    - then Customers, from leads plus orders;
    - then Discount codes and GO Codes.
-3. **Checkout through their gateway** (Stripe first), with taxes and shipping rules.
+3. **Checkout through the business's own payment gateway** (any gateway on the ledger), with taxes and shipping rules.
 4. **Storefront & pages** on trvgo.us and their own domain: pages, forms, SEO.
 5. **CRM depth:** segments, B2B price lists, automations and campaigns (with the email and SMS metering from the AOS gaps list).
 6. **The Marketplace's public side** (person-to-person posts, offers, dual confirmation) can run alongside from step 1. It uses the same item and offer records.
