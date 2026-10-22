@@ -102,3 +102,28 @@ This comes first: before any business tool moves into the business portal.
 2. The DB users and the views.
 3. The test suite.
 4. Then the tools move across, one at a time, each passing the tests.
+
+## Revised (2026-10-22): separate databases, because cPanel grants per database
+
+Bluehost's cPanel gives a database user its privileges **per whole database**, and a shared-hosting user can't run
+`GRANT` for single tables or views. So the database wall is drawn by **database**, not by table. Jason has created the
+databases:
+
+| Database | Holds | Its user |
+|---|---|---|
+| `degraff1_traversence` (today's) | public data, our own business (tenant 0), staff and settings | `degraff1_TRAV` (admin), as now |
+| `degraff1_trv_listings` | **every business's private data**: catalog, customers, quotes, merchant orders, gateway keys, storefront settings, business files index | `degraff1_trv_listings` (its own user, this database only) |
+| `degraff1_trv_users` | **members' private data** (messages, address book, contacts, saved items, settings), moved in a later step | `degraff1_trv_users` (its own user, this database only) |
+
+- **Business realm:**
+  - connects as `trv_listings`, with **no access to the main database at all**;
+  - what it needs from public data (its own listing's name, address, categories) is handed in by the router as read-only values.
+  - So a business-side bug can't reach staff tables, members, or our keys: MySQL refuses.
+- **Within `trv_listings`:**
+  - every table has `tenant_id`;
+  - the tenant views and write triggers (wall 3) keep one business to itself (tested on Bluehost first);
+  - the gateway (wall 4) does the same in the code.
+- **Admin realm:** `TRAV` is added to both new databases (all privileges), with every read of a business's private data
+  logged (0102 support access).
+- **Member realm:** moves its private tables to `trv_users` in its own step, after the business side. Until then,
+  members run as today.
