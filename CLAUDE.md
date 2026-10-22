@@ -70,6 +70,21 @@ reach the backend by relative path: `__DIR__ . '/../app/ui/header.php'` from a r
 `__DIR__ . '/../../app/lib/Auth.php'` one folder down. Notes (`_notes`, `_SUPPORT`, `_concepts`, `_pending`) don't
 belong in either folder.
 
+## The admin: modules, sections, widgets, workflows (decisions/0109): every build
+
+The admin is 11 modules (AOS §8) at `/admin/<module>/<section>[/<id>]`, drawn by `website/admin/router.php` from the
+manifests in `app/admin/modules.php`, with one endpoint `/admin/api/<module>/<tool>` (`website/admin/api.php`).
+
+- **No admin page outside the manifests.** A new admin tool is a section in `app/admin/modules.php`; a list is also a
+  tool in `app/admin/tools.php`. Build it from widgets (table, pipeline, metrics, detail drawer, quick task), not as a
+  new page in the menus.
+- **Stages are workflows**, edited in System Configuration → Workflows, not hard-coded. The protected moves (money,
+  data) go through the library that owns the record (an adapter in `app/admin/workflows.php`).
+- **Access follows the tool:** `Access::can()` / `Modules::canTool()`. What someone may not do is greyed out with
+  the reason, never hidden without saying.
+- **Tools from another module open in a drawer** over the work (a module's `at_hand`), never by leaving the page.
+- **Old pages are archived:** out of the menus, still there by direct link and in the site map. Don't delete them.
+
 ## Keep the FAQ current (decisions/0057)
 
 `faq.md` is the site's FAQ and its only source: it ships as `app/ui/faq.md` (decisions/0069) and renders at `/faq.php`.
