@@ -436,6 +436,8 @@ When commercial accounts exceed bundled monthly limits, automated top-ups apply:
 * **SMS Packs:** +500 ($19.95) | +2,500 ($89.95) | +5,000 ($169.95) | +10,000 ($299.95)
 * **Web Push Packs:** +5,000 ($9.95) | +15,000 ($24.95) | +50,000 ($69.95)
 * **Commercial Storage Packs:** +500 GB ($24.95/mo) | +1 TB ($49.95/mo)
+  *Kept as written (Jason, 2026-10-22) although below the §5D floor: built with these numbers, editable in the plan
+  configurator (Back-Office → Plans); the cost is addressed after the build.*
 
 ---
 
