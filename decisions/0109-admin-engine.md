@@ -12,7 +12,7 @@ once, so a new tool takes its place in it instead of adding another page.
 
 ## The four layers
 
-1. **Modules:** the 11 workspaces of the Master AOS §8. They're defined in code (`app/admin/modules.php`), in AOS order.
+1. **Modules:** the 11 workspaces of the Master AOS §8. They're defined in code (`app/admin/manifests.php`), in AOS order.
 2. **Sections:** each module's screens, in menu order. A section is built from widgets, or it's a landing page saying
    what's coming.
 3. **Widgets:** the parts every section is built from (`app/admin/widgets.php`, `js/admin-kit.js`):
@@ -74,7 +74,7 @@ once, so a new tool takes its place in it instead of adding another page.
 ## Zip 1 (this build)
 
 - **The engine:**
-  - `app/admin/Access.php`, `Workflow.php`, `workflows.php`, `Modules.php`, `modules.php`, `tools.php`, `widgets.php`,
+  - `app/admin/Access.php`, `Workflow.php`, `workflows.php`, `AdminModules.php`, `manifests.php`, `tools.php`, `widgets.php`,
     `sections.php` and `kit-css.php`;
   - the migration `2026-12-24_admin_engine.sql`, which adds the tables `wf_workflows`, `wf_versions`, `wf_items`,
     `wf_history` and `admin_permissions`.
@@ -136,5 +136,5 @@ once, so a new tool takes its place in it instead of adding another page.
 
 ## Rule from here
 
-No admin page outside the manifests: a new admin tool is a section in `app/admin/modules.php` (and, for a list, a
+No admin page outside the manifests: a new admin tool is a section in `app/admin/manifests.php` (and, for a list, a
 tool in `app/admin/tools.php`). It isn't a new page in the menus. See `CLAUDE.md`.
