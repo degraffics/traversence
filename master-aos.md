@@ -1,5 +1,5 @@
 # Traversence & TRVGO: Master Administrative & Operational Specification (Master AOS)
-*Version: 43.0 (Updated October 21, 2026: C1–C9 decisions; account models, Nexus pricing, annual plans; staff levels and departments)*  
+*Version: 44.0 (Updated October 22, 2026: lower personal storage, storage add-on packs, annual discount on plans only, 65% profit floor)*  
 *Governance Tier: Core Specification & Master Operations*  
 *Industry Classification: NAICS 519130 — Internet Publishing, Broadcasting, and Web Search Portals*
 
@@ -118,9 +118,12 @@ Personal storage attached to individual user accounts operates on a dedicated ti
 
 | Plan | Price | Storage & Capabilities |
 | :--- | :--- | :--- |
-| **Base Personal** | $0 / mo | 10 GB included free. Staging assets, review uploads, receipts, C2C trade photos. **Strictly zero AI access**. |
-| **100 GB Personal** | $4.95 / mo | 100 GB secure cloud storage + full access to AI photo/text editing utilities. |
-| **250 GB Personal** | $9.95 / mo | 250 GB secure cloud storage + full access to AI photo/text editing utilities. |
+| **Base Personal** | $0 / mo | 2 GB included free. Staging assets, review uploads, receipts, C2C trade photos. **Strictly zero AI access**. |
+| **Personal Plus** | $4.95 / mo | 25 GB secure cloud storage + full access to AI photo/text editing utilities. |
+| **Personal Pro** | $9.95 / mo | 50 GB secure cloud storage + full access to AI photo/text editing utilities. |
+
+*Lowered 2026-10-22 (Jason) from 10 GB / 100 GB / 250 GB: once files are on S3, space costs every month, and at full
+use the old 100 GB and 250 GB plans fell below the 65% profit floor. More space comes from the storage packs (§5D).*
 
 ### B. Cumulative Commercial Subscription Tiers (Listings)
 Commercial features scale cumulatively and additively. Paid commercial tiers sell tools, communication volume, storage depth, and White-Glove support—never directory search ranking or algorithmic placement.
@@ -133,11 +136,42 @@ Commercial features scale cumulatively and additively. Paid commercial tiers sel
 | **Strategic Partner** | $229.95 / mo | 1 TB storage + 10k Email / 500 SMS / 10k Push | High-output AI content (up to 25 articles/mo + 4 custom posts), subdomain routing, White-Glove setup, native internal CRM suite, Headless API access. |
 | **Enterprise / Cornerstone** | $399.95+ / mo | 2 TB storage + 50k Email / 2,500 SMS / 50k Push | Multi-Unit/Co-Op Master-Hub architecture, Master Communication Vault, joint regional campaigns, uncapped AI catalog generation, advanced team RBAC, dedicated support. |
 
+*Business storage allowances above are under review (2026-10-22): proposed Free 2 GB, Basic 10 GB, Core 25 GB,
+Strategic 100 GB, Cornerstone 250 GB, with more from the storage packs (§5D). Not yet confirmed; the table stands until it is.*
+
 ### C. Annual Plans
-* **Pay for 10 months, get 12** (16.7% off), on every tier, Nexus add-on locations, and packs bought for a year.
-* **Combined discount cap:** volume and annual discounts together never exceed **45% off list**. This keeps every
-  location above a 50% margin (deepest case: a Cornerstone add-on at about 55%; the business overall stays near 81%).
-* 250+ locations: custom agreement, with the 45% floor as a guide.
+* **Pay for 10 months, get 12** (16.7% off), on **subscriptions of service only**: every tier, personal plans, and Nexus
+  add-on locations (each location is a subscription).
+* **Add-ons are never discounted** (storage packs, AI credit packs). They're billed at full price **on the plan's
+  schedule**, so there's one renewal date and one charge:
+  * monthly plan: add-ons on the same monthly charge;
+  * annual plan: add-ons at 12× the monthly price on the same annual charge;
+  * added mid-term: prorated to the plan's next renewal, then renewing with it.
+* Removing an add-on takes effect at the next renewal (no refund mid-term). If the plan lapses, its add-ons stop with
+  it; storage over the new allowance stays readable for 30 days (nothing is deleted, new uploads pause).
+* **Profit floor:** no discount, promo or combination takes a sale below **65% profit** (decisions/0108). This
+  replaces the earlier 45%-off cap.
+* 250+ locations: custom agreement, with the 65% floor as a guide.
+
+### D. Storage Add-on Packs (personal accounts and listings alike)
+One set of packs for everyone; they stack. Priced at the 65% profit floor on a cost basis of **$0.04 per GB-month**
+(S3 storage $0.023 plus download traffic, allowing about 20% of the pack viewed each month).
+
+| Pack | Price / mo | Our cost / mo | Margin |
+| :--- | :--- | :--- | :--- |
+| +25 GB | $2.95 | $1.00 | 66% |
+| +50 GB | $5.95 | $2.00 | 66% |
+| +100 GB | $11.95 | $4.00 | 67% |
+| +250 GB | $28.95 | $10.00 | 65% |
+| +1 TB | $114.95 | $40.00 | 65% |
+| +5 TB | $574.95 | $200.00 | 65% |
+
+* Space is metered per owner (a person or a listing): every stored file's size is recorded against it.
+* Near the allowance the owner sees what's used; at it, the upload stops with a plain message offering an upgrade or a
+  pack. Nothing stored is ever deleted for being over.
+* Photos are converted to WebP and resized on upload (a 4–8 MB phone photo is kept at about 300 KB); size caps per
+  file; video only on paid plans.
+* If S3 prices or traffic change, the cost basis is reviewed and the packs repriced to hold the floor.
 
 ---
 

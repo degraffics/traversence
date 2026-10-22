@@ -260,3 +260,19 @@ shared queue when no rep covers it. Commission comes later.
   - adds the stages and `prospects.territory_id`;
   - adds `lead_scores` and `sales_territories`.
 
+## Storage: lower personal space, add-on packs, annual discount on plans only (2026-10-22)
+
+Jason's decisions (Master AOS v44, §5):
+- **Personal plans:** free 2 GB; $4.95 with 25 GB; $9.95 with 50 GB.
+- **Storage packs,** the same for personal accounts and listings, priced at the 65% floor on $0.04 per GB-month:
+  +25 GB $2.95 · +50 GB $5.95 · +100 GB $11.95 · +250 GB $28.95 · +1 TB $114.95 · +5 TB $574.95, monthly.
+- **The annual discount applies to subscriptions of service only.** Add-ons (storage and AI credit packs) are full
+  price, billed on the plan's schedule: one renewal date, one charge.
+- **Business allowances:** proposed (Free 2 GB, Basic 10 GB, Core 25 GB, Strategic 100 GB, Cornerstone 250 GB), not yet
+  confirmed.
+- **To build with the S3 step:**
+  - metering per owner;
+  - limits at upload, with an upgrade or pack offer;
+  - WebP on upload;
+  - usage shown to owners and to staff.
+
