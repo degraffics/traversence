@@ -66,8 +66,8 @@ its locations as a filter (AOS §6).
 |---|---|---|---|---|---|
 | Listing, inbox, reply | ✓ | ✓ | ✓ | ✓ | ✓ |
 | Catalog (items, offers, no checkout): commercial.md Free spec | ✓ | ✓ | ✓ | ✓ | ✓ |
-| Checkout (their gateway, 0%: commercial.md Basic) | | ✓ | ✓ | ✓ | ✓ |
-| Manual payments (Zelle, bank transfer, check, pay on pickup), marked paid by the business: **the standard mode for members, Free and Basic** (Jason, 2026-10-22) | ✓ standard | ✓ standard | ✓ | ✓ | ✓ |
+| Card checkout through their own payment gateway (0%) | | | ✓ | ✓ | ✓ |
+| Manual payments (Zelle, bank transfer, check, pay on pickup), marked paid by the business: **members, Free and Basic sell this way only; gateway checkout starts at Core** (Jason, 2026-10-22) | ✓ standard | ✓ standard | ✓ | ✓ | ✓ |
 | Quotes and invoices with pay links | | ✓ | ✓ | ✓ | ✓ |
 | Customers: profiles and order history | | ✓ | ✓ | ✓ | ✓ |
 | Order emails (confirmations, shipping) | | ✓ | ✓ | ✓ | ✓ |
@@ -131,7 +131,7 @@ minimums"; 0032 sets Cornerstone at 250 per listing). Everything else follows co
    Wholesale (the tool-activation pattern, decisions/0049). Wholesale price lists open at Strategic.
 6. **What commercial.md already settles:**
    - Free businesses have the catalog (its Free spec: "a fully operational, self-serve marketplace catalog");
-   - checkout starts at Basic;
+   - **manual payments only on Free and Basic; card checkout through the business's own gateway starts at Core** (Jason, 2026-10-22, changing commercial.md's Basic line);
    - AI is by AI Assist credits (0108: 10 / 50 / 250 / 500), plus the article quotas;
    - embeddable widgets (buy buttons) are Strategic ("headless API and widgets").
 
