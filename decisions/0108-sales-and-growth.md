@@ -268,8 +268,9 @@ Jason's decisions (Master AOS v44, §5):
   +25 GB $2.95 · +50 GB $5.95 · +100 GB $11.95 · +250 GB $28.95 · +1 TB $114.95 · +5 TB $574.95, monthly.
 - **The annual discount applies to subscriptions of service only.** Add-ons (storage and AI credit packs) are full
   price, billed on the plan's schedule: one renewal date, one charge.
-- **Business allowances:** proposed (Free 2 GB, Basic 10 GB, Core 25 GB, Strategic 100 GB, Cornerstone 250 GB), not yet
-  confirmed.
+- **Business allowances:** Free 2 GB, Basic 10 GB, Core 25 GB, Strategic 100 GB, Cornerstone 250 GB (confirmed with "go").
+- **Renewals:** option B: our daily task charges the saved card through QuickBooks Payments and writes the Sales Receipt
+  into QuickBooks (confirmed with "go"). Plan costs: a cost percentage in Settings until real figures are set.
 - **To build with the S3 step:**
   - metering per owner;
   - limits at upload, with an upgrade or pack offer;

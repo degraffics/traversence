@@ -130,14 +130,13 @@ Commercial features scale cumulatively and additively. Paid commercial tiers sel
 
 | Tier | Price | Included Storage & Comms | Core Capabilities & AI Limits |
 | :--- | :--- | :--- | :--- |
-| **Free Directory** | $0 / mo | 10 GB storage | Standard NAP directory listing, manual publishing, baseline C2C messaging. **Zero AI/LLM access**. |
-| **Basic Partner** | $29.95 / mo | 50 GB storage (Auto WebP/AVIF) | Central marketplace listing via direct payment gateway (0% fee), profile sectioning, taxonomy routing, AI text assistance (5 catalog drafts/mo). |
-| **Core Partner** | $79.95 / mo | 100 GB storage (`srcset` asset delivery) | Owned custom domain (`clientdomain.com`), standalone storefront, dynamic QR suite (`trvgo.us/{code}`), automated Local SEO (JSON-LD). |
-| **Strategic Partner** | $229.95 / mo | 1 TB storage + 10k Email / 500 SMS / 10k Push | High-output AI content (up to 25 articles/mo + 4 custom posts), subdomain routing, White-Glove setup, native internal CRM suite, Headless API access. |
-| **Enterprise / Cornerstone** | $399.95+ / mo | 2 TB storage + 50k Email / 2,500 SMS / 50k Push | Multi-Unit/Co-Op Master-Hub architecture, Master Communication Vault, joint regional campaigns, uncapped AI catalog generation, advanced team RBAC, dedicated support. |
+| **Free Directory** | $0 / mo | 2 GB storage | Standard NAP directory listing, manual publishing, baseline C2C messaging. **Zero AI/LLM access**. |
+| **Basic Partner** | $29.95 / mo | 10 GB storage (Auto WebP/AVIF) | Central marketplace listing via direct payment gateway (0% fee), profile sectioning, taxonomy routing, AI text assistance (5 catalog drafts/mo). |
+| **Core Partner** | $79.95 / mo | 25 GB storage (`srcset` asset delivery) | Owned custom domain (`clientdomain.com`), standalone storefront, dynamic QR suite (`trvgo.us/{code}`), automated Local SEO (JSON-LD). |
+| **Strategic Partner** | $229.95 / mo | 100 GB storage + 10k Email / 500 SMS / 10k Push | High-output AI content (up to 25 articles/mo + 4 custom posts), subdomain routing, White-Glove setup, native internal CRM suite, Headless API access. |
+| **Enterprise / Cornerstone** | $399.95+ / mo | 250 GB storage + 50k Email / 2,500 SMS / 50k Push | Multi-Unit/Co-Op Master-Hub architecture, Master Communication Vault, joint regional campaigns, uncapped AI catalog generation, advanced team RBAC, dedicated support. |
 
-*Business storage allowances above are under review (2026-10-22): proposed Free 2 GB, Basic 10 GB, Core 25 GB,
-Strategic 100 GB, Cornerstone 250 GB, with more from the storage packs (§5D). Not yet confirmed; the table stands until it is.*
+*Storage lowered 2026-10-22 (Jason) from 10 GB / 50 GB / 100 GB / 1 TB / 2 TB; more from the storage packs (§5D).*
 
 ### C. Annual Plans
 * **Pay for 10 months, get 12** (16.7% off), on **subscriptions of service only**: every tier, personal plans, and Nexus
