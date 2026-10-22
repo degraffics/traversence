@@ -1,6 +1,6 @@
 # Admin map v2: one structure, one way in (proposal)
 
-Status: **Proposal for Jason's review** (2026-10-22). Replaces how the admin is put together, not what it does. It
+Status: **Superseded** by `admin-architecture.md` (2026-10-22). Kept for the inventory of today's pages. Replaces how the admin is put together, not what it does. It
 builds on `workspace-map.md` (the 11 workspaces, AOS §8). Nothing gets built until this is approved.
 
 Decided already (Jason, 2026-10-22): **start fresh**. Old admin addresses are retired, with no redirects.
