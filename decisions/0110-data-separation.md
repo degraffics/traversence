@@ -233,3 +233,21 @@ touches the admin.
   - the workflow builder creating, publishing and moving items on the moved tables;
   - permissions saved while moved;
   - Undo, with everything written in between kept.
+
+### Phase B, groups 2 and 3 built (2026-10-22)
+
+- **QuickBooks keys and staff and access** (`qb_*`, `staff_*`, `admin_access`, `role_*`, `audit_log`) are now read
+  through `Database::t()` across 39 files:
+  - staff sign-in, the session and two-step checks;
+  - claims, verification and the member dashboard;
+  - QuickBooks checkout;
+  - the scheduled scripts.
+- **These two groups move only once the main login can reach `trv_admin`**, because public pages and scheduled
+  scripts read them too. The Move button checks this first and says what to add in cPanel.
+- **Tested locally with groups 1–3 moved:**
+  - a fresh staff sign-in;
+  - every admin section;
+  - member and public pages and the session API;
+  - QuickBooks settings;
+  - `billing_tick`, `sales_tick` and `standing_tick`;
+  - then Undo, with everything written in between kept.
