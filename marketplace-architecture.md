@@ -119,6 +119,10 @@ Marketplace, on its listing, on trvgo.us and on its own domain.
 
 ### C. A business (by role, AOS §9B): the business portal's **Shop** module
 
+> **Revised (2026-10-22):** the business side is our admin's own tools, scoped to the business and opened by plan. See
+> `business-portal-architecture.md`. The Shop sections below become its Catalog, Quotes & invoices, Orders, Storefront & pages
+> and Settings modules.
+
 | Section | What it's for | Roles |
 |---|---|---|
 | Catalog | items with private cost and markup, stock, categories; import a CSV or a Shopify/Woo export (AOS §11.1); the tier's cap shown | Owner, Manager, Creator (drafts; publishing is a business setting) |
