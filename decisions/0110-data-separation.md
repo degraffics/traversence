@@ -171,3 +171,47 @@ Until step 4, the realm logins don't get any access to main.
   is in the database, not only in the code.
 - **.env** uses Jason's naming (`DB_DATABASE-main`, `DB_USERNAME-admin`, `DB_PASSWORD-lister`…); `Database` reads it
   and fills in the standard names, so everything that reads `DB_PASSWORD` keeps working.
+
+## Restructuring the admin first (Jason, 2026-10-22: "restructure admin before business … I don't want to have issues on my side")
+
+### Phase A: admin pages sign in as the admin login (built 2026-10-22)
+
+- Every admin page and admin endpoint (`/admin/…`, `/api/admin/…`) works on the main database **as
+  `degraff1_trvadmin`**. Exceptions: the staff sign-in and setup pages.
+- Nothing moves. The admin login has all privileges on main, so everything works as before.
+- If the admin login is missing or can't sign in, the admin falls back to the main login and logs it, so it never
+  goes down over a setting.
+- The data check shows which login the admin is using.
+
+### Phase B: admin data moves to `trv_admin`, one group at a time, each with Undo
+
+Some admin tables are also read by shared code on public pages: "is this person staff?", the QuickBooks keys at
+checkout, the card scanner's leads. So each move is built the same way:
+
+1. **One place says where a table lives.** Code names a table through a helper, which points to `trv_admin` once the
+   table has moved there.
+2. **The main site login gets access to `trv_admin` during the move**, so public pages that legitimately need a
+   piece keep working.
+   - Later, when public pages move to the users login, those few uses go through narrow server functions running as
+     admin: "is staff?", "charge with our QuickBooks", "add a card-scan lead". No general access.
+3. **The move tool** (System Configuration → Data separation):
+   - copies a group's tables into `trv_admin` and checks the row counts;
+   - renames the old ones in main to `_moved_<name>`, kept as a backup.
+   - **Undo** copies them back.
+   - Take a phpMyAdmin export before each move.
+
+| Group | Tables | Why this order |
+|---|---|---|
+| 1. Workflows, Pulse, permissions | `wf_*`, `pulse_*`, `admin_permissions`, `admin_edit_log` | admin-only code; the safest first move |
+| 2. Keys | `qb_connection`, `qb_settings` | small; one library |
+| 3. Staff and access | `staff_*`, `admin_access`, `role_grants`, `role_log`, `role_perms`, `audit_log` | read on every request by the sign-in checks |
+| 4. The data pipeline | `crawl_*`, `crawler_*`, `reference_sources`, `source_facts`, `identity_*`, `irs_*`, `npi_*`, `rec_loads`, `landmark_loads`, `ai_jobs` | large; the crawler and imports |
+| 5. Our sales | `prospects`, `prospect_log`, `sales_cards`, `sales_territories`, `lead_scores`, `vendor_*`, `products`, `order_inbox` | used by the sales and order tools |
+
+**Stay in main until the members step:** orders, subscriptions, promotions, GO Codes and short links. Members and
+businesses touch them too, so they move with the members' gateway.
+
+### Then
+
+The business portal foundation builds on top. New business data goes straight into `trv_listings`, so it never
+touches the admin.
