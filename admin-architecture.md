@@ -15,6 +15,15 @@ delegation), §11 (data). Decided by Jason (2026-10-22):
 - **Coming sections show greyed out in the menus** and open a landing page explaining what's coming.
 - **White Glove follows the subscription:** services are configured per client, not a fixed checklist (B8, C).
 - **The merchant side comes after the platform admin**, on the same engine.
+- **Addresses:** `/admin/<module>/<section>` (for example `/admin/backoffice/orders`), with no query strings for
+  navigation.
+- **Placements confirmed:**
+  - Guides go to Explore;
+  - Hidden places go to Nations;
+  - GO Codes go to Market;
+  - Intake goes to Listings;
+  - Logs go to System Configuration.
+- **Old pages are archived, not deleted** (A9).
 
 ---
 
@@ -264,6 +273,18 @@ registry of checks and what-happens (in code).
 - **The site map** (System Configuration → Site map) checks the build: every route is in a manifest, every widget is
   in the catalog, every workflow is valid, no file is missing.
 
+### A9. The archive (old pages)
+
+- Today's admin pages **stay at their addresses** (nothing is moved, so their links and code keep working), but
+  they're **taken out of the admin navigation**: no menu, Shortcuts or Quick action points to them.
+- They're reachable **by direct link** and from the **site map's "Archived" group**. Each shows a slim banner at the
+  top: "Archived: replaced by Back-Office › Orders", linking to the new section.
+- The archive list (old page → its new section) is one file, read by the banner and the site map.
+- When a new section has fully replaced an archived page and you're happy with it, the old page can be deleted later.
+  It's your call, one page at a time.
+- The new addresses (`/admin/<module>/<section>`) are served by the router only where no old file exists, so the two
+  never collide.
+
 ### A8. The merchant side (AOS §9B)
 
 - A business's own dashboard (owner, manager, accountant, sales, support, creator, developer) runs on **the same
@@ -495,7 +516,8 @@ Each starts from how the site works today.
    - the built-in workflows seeded from Part C, with today's items placed in their current stages.
 4. **Every live section rebuilt from widgets** (Part B), module by module, with all 11 in this build. Module widgets
    are wrapped from today's code. Partial sections are completed where the gap is small; Coming sections are listed.
-5. **Old area pages and endpoints deleted;** admin endpoints folded into `/admin/api/<module>/`.
+5. **Old pages archived** (A9): out of the navigation, banner to their new section, listed in the site map. Old admin
+   endpoints stay for the archived pages; the new sections use `/admin/api/<module>/`.
 6. **`CLAUDE.md` rule, site map checks, tests:** every section at 390px and on a desktop; every workflow moved
    end to end.
 
@@ -512,3 +534,7 @@ workflows.
 5. **The merchant side after the platform admin,** on the same engine.
 6. **Coming sections greyed out** in the menus, each with a landing page explaining what's coming. Actions you may
    not take are **greyed out with the reason**.
+7. **Addresses:** `/admin/backoffice/orders`.
+8. **Placements confirmed:** Guides → Explore, Hidden places → Nations, GO Codes → Market, Intake → Listings, Logs →
+   System Configuration.
+9. **Old pages archived, not deleted:** reachable by direct link and the site map, out of the navigation.
