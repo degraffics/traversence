@@ -148,10 +148,24 @@ Marketplace, on its listing, on trvgo.us and on its own domain.
 - **Person to person:** offline (cash, their own app); dual confirmation on the site.
 - **Business sales:** checkout goes **straight to the business's own gateway**. We record the order on the ledger
   (decisions/0098), so it shows in their Orders and our counts, with 0% fee and no money held by us.
-- **Direct payment methods** (Zelle, bank transfer, check, cash): a business can list them at checkout. The order waits
-  as "awaiting payment", showing the business's Zelle details and the order number to put in the memo; the business marks
-  it received (the same as our client orders' "paid outside QuickBooks", built). No fee, no automatic confirmation, no
-  card protection for the buyer.
+- **Manual payments module** (store settings; each method switched on by the business):
+  - **Methods:** Zelle, bank transfer, check, pay on pickup / delivery, or one the business names.
+  - **At checkout:** the buyer picks one and sees the business's own instructions, filled in. For Zelle that's its
+    email or phone, or its Zelle QR image, with the amount and **"put Order #1042 in the memo"**. The same
+    instructions go in the order email.
+  - **The order** is placed as **Awaiting payment**. Stock is held for a set time (the business chooses, e.g. 3 days),
+    with a reminder to the buyer, then released and the order cancelled if nothing arrives.
+  - **The business** checks its bank, matches the order number and taps **Mark paid** in Orders. That starts
+    fulfillment and records the payment on the ledger (method, reference), the same as our client orders' "paid
+    outside QuickBooks" (built).
+  - **What it costs and risks:** no fee, but no automatic confirmation and no protection for the buyer. Suited to local
+    businesses, services and large custom quotes, not high-volume retail.
+- **Lower-cost automated options** (offered when the business's gateway supports them):
+  - **Bank payment (ACH)**, where the buyer signs in to their bank to authorize it: usually about 0.8–1.5%, often capped.
+  - **Wallet buttons** (Cash App, Venmo and others): fees usually below standard card rates.
+  - **Card surcharge** (the buyer pays the card fee): a switch the business turns on only where it's allowed. Card
+    network rules cap it, it's never allowed on debit cards, some states restrict or ban it, and it must be shown
+    before payment.
 - **Gateways:** one connector framework; the business picks from the gateways we support. Which gateways come first is decided when checkout is built.
 
 ## 5. Phone and screen standards (as every page)

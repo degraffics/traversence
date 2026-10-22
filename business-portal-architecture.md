@@ -67,6 +67,7 @@ its locations as a filter (AOS §6).
 | Listing, inbox, reply | ✓ | ✓ | ✓ | ✓ | ✓ |
 | Catalog (items, offers, no checkout): commercial.md Free spec | ✓ | ✓ | ✓ | ✓ | ✓ |
 | Checkout (their gateway, 0%: commercial.md Basic) | | ✓ | ✓ | ✓ | ✓ |
+| Manual payments (Zelle, bank transfer, check, pay on pickup), marked paid by the business | | ✓ | ✓ | ✓ | ✓ |
 | Quotes and invoices with pay links | | ✓ | ✓ | ✓ | ✓ |
 | Customers: profiles and order history | | ✓ | ✓ | ✓ | ✓ |
 | Order emails (confirmations, shipping) | | ✓ | ✓ | ✓ | ✓ |
