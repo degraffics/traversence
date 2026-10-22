@@ -215,3 +215,21 @@ businesses touch them too, so they move with the members' gateway.
 
 The business portal foundation builds on top. New business data goes straight into `trv_listings`, so it never
 touches the admin.
+
+### Phase B, group 1 built (2026-10-22)
+
+- **`Database::t('<table>')`** gives a movable table's name. Once a table has moved, the name has the admin database
+  in front. Workflows, Pulse and permissions read their tables through it.
+- **Moved tables are recorded in main's `data_moves` table, not in a file**, so an upload of the code can never lose
+  track of where a table is.
+- **The move tool** (System Configuration → Data separation → Move the admin's data):
+  - shows each group, where its tables are and their row counts;
+  - **Move** copies, checks the counts, keeps the old table as `_moved_<name>` and records it. A failure puts back
+    everything that run moved.
+  - **Undo** brings the group back with anything written since.
+  - It refuses to run unless the admin pages are signed in as the admin login.
+- **Tested locally:**
+  - move, then all 82 admin sections;
+  - the workflow builder creating, publishing and moving items on the moved tables;
+  - permissions saved while moved;
+  - Undo, with everything written in between kept.
