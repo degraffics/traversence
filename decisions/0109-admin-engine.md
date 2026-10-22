@@ -91,11 +91,48 @@ once, so a new tool takes its place in it instead of adding another page.
 - **A workflow made in the builder** gets its own section in the module it was made for, with its items and
   "New item".
 
-## Zip 2
+## Zip 2 (built 2026-10-22)
 
-- The other nine modules rebuilt from widgets, with the Directory workflows (claims, review).
-- The remaining old pages archived.
-- A full test at 390px and on a desktop.
+- **Seven more built-in workflows**, each reading its stage from the site's own records and doing its moves through
+  the library that owns them:
+  - **Claim:** confirming their email → managing, to verify → verified, declined or withdrawn; on hold. Any time:
+    log a call, ask for more. Uses `Claims`.
+  - **Place review (landmarks):** waiting → shown → hidden, or closed by a nation. Held places stay held
+    (decisions/0066). Uses `Landmarks::review`.
+  - **Journey:** draft → published → hidden. Uses `Journeys`.
+  - **Experience:** suggested → waiting for review → published, not approved, or hidden. Uses `Experiences::review`.
+  - **How-to guide:** wanted → the crawler is looking → to review → published; nothing found; not a guide. Uses
+    `HowGuides`.
+  - **Report:** new → taken down or left up; put back. Uses `Reports::decide`, which also moves the author's
+    standing.
+  - **Standing notice:** open → review asked → put right, lifted or closed. Uses `Standing::decide`.
+  - Moves that happen on the other person's side (the claimant confirms, the member asks for a review) are marked
+    as happening on their own.
+- **Rebuilt from widgets** (lists with search and filters, the detail drawer, quick tasks):
+  - **Directory & Places:** Listings, Review (what visitors told us), Claims, Nexus, Landmarks, Nations.
+  - **Journeys & Exploration:** Journeys, Experiences, Stories, Resource guides, How-to guides (with "Ask for a
+    guide").
+  - **Market:** GO Codes & short links.
+  - **Community:** Reports, Standing.
+  - **Back-Office:** People (members and staff).
+  - **Insights:** Sources.
+  - **System Configuration:** Logs (actions, workflow moves, staff sign-ins).
+  - **Dashboard:** Quick actions, each opening over the Dashboard.
+- **Kept as their own tools inside the frame** (module widgets: interactive tools rather than lists, opened in the
+  section and in drawers):
+  - the Helper; Find, merge & bulk edit; Intake from a website; the crawler's review cards; Identities; Recreation
+    sites; Map pins; Hidden places; Taxonomy;
+  - Procedures; Add from the field;
+  - Payments; Money reports; Staff levels; Staff logins; Import & export;
+  - the Insights numbers; the Search workbench; the Crawler; the Data browser;
+  - Settings; the Site map.
+- **Every old admin page is archived to a section:** out of the menus, still open by its address and in the site map,
+  with a note saying where its work is now.
+- **Fixed along the way:**
+  - The member dashboard's Pulse feed is back. The staff Pulse had replaced the class it used, so the member feed is
+    now `MemberPulse`.
+  - The Pulse case panel's own actions work: resend, record a payment, due date, order note, void, and edit or
+    delete a post or a note. They were wired in the panel but had nothing behind them (`Pulse::manage`).
 
 ## Rule from here
 
