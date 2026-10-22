@@ -148,6 +148,8 @@ Marketplace, on its listing, on trvgo.us and on its own domain.
 - **Person to person:** offline (cash, their own app); dual confirmation on the site.
 - **Business sales:** checkout goes **straight to the business's own gateway**. We record the order on the ledger
   (decisions/0098), so it shows in their Orders and our counts, with 0% fee and no money held by us.
+- **Manual payments are the standard mode for members (person to person) and for Free and Basic listings** (Jason,
+  2026-10-22). A member's accepted offer shows their own payment instructions the same way.
 - **Manual payments module** (store settings; each method switched on by the business):
   - **Methods:** Zelle, bank transfer, check, pay on pickup / delivery, or one the business names.
   - **At checkout:** the buyer picks one and sees the business's own instructions, filled in. For Zelle that's its
