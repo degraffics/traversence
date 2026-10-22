@@ -204,8 +204,8 @@ refund" (`decisions/0098`).
 - **Email:** +10k $19.95, +25k $44.95, +50k $74.95, +100k $129.95.
 - **SMS:** +500 $19.95, +2,500 $89.95, +5,000 $169.95, +10,000 $299.95.
 - **Web push:** +5,000 $9.95, +15,000 $24.95, +50,000 $69.95.
-- **Business gallery storage:** +500 GB $24.95/mo, +1 TB $49.95/mo. *Below the 65% floor on today's storage cost; kept
-  as written for the build and editable in the plan configurator (Jason, 2026-10-22), the cost to be addressed after.*
+- **Storage:** the packs in Master AOS §5D, the same for personal accounts and listings (+25 GB $2.95 up to +5 TB
+  $574.95 a month, at the 65% floor). They replace the older +500 GB $24.95 / +1 TB $49.95 business packs.
 
 ### What we don't sell (Jason, 2026-10-15)
 

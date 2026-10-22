@@ -266,9 +266,8 @@ Jason's decisions (Master AOS v44, §5):
 - **Personal plans:** free 2 GB; $4.95 with 25 GB; $9.95 with 50 GB.
 - **Storage packs,** the same for personal accounts and listings, priced at the 65% floor on $0.04 per GB-month:
   +25 GB $2.95 · +50 GB $5.95 · +100 GB $11.95 · +250 GB $28.95 · +1 TB $114.95 · +5 TB $574.95, monthly.
-- **The commercial packs in AOS §13B** (+500 GB $24.95, +1 TB $49.95) are below that floor. Jason (2026-10-22): keep
-  them, build with these numbers, make every pack price editable in the plan configurator; the cost is addressed after
-  the build.
+- **These replace the older commercial packs in AOS §13B** (+500 GB $24.95, +1 TB $49.95), which fell below the
+  floor. Every pack price is editable in the plan configurator.
 - **The annual discount applies to subscriptions of service only.** Add-ons (storage and AI credit packs) are full
   price, billed on the plan's schedule: one renewal date, one charge.
 - **Business allowances:** Free 2 GB, Basic 10 GB, Core 25 GB, Strategic 100 GB, Cornerstone 250 GB (confirmed with "go").

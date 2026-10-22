@@ -435,9 +435,9 @@ When commercial accounts exceed bundled monthly limits, automated top-ups apply:
 * **Email Packs:** +10k ($19.95) | +25k ($44.95) | +50k ($74.95) | +100k ($129.95)
 * **SMS Packs:** +500 ($19.95) | +2,500 ($89.95) | +5,000 ($169.95) | +10,000 ($299.95)
 * **Web Push Packs:** +5,000 ($9.95) | +15,000 ($24.95) | +50,000 ($69.95)
-* **Commercial Storage Packs:** +500 GB ($24.95/mo) | +1 TB ($49.95/mo)
-  *Kept as written (Jason, 2026-10-22) although below the §5D floor: built with these numbers, editable in the plan
-  configurator (Back-Office → Plans); the cost is addressed after the build.*
+* **Storage Packs:** the one set in §5D, for personal accounts and listings alike (+25 GB $2.95 up to +5 TB $574.95).
+  *The older commercial packs here (+500 GB $24.95, +1 TB $49.95) are replaced by §5D (v44). All pack prices are
+  editable in the plan configurator.*
 
 ---
 

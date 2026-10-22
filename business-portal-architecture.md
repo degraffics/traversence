@@ -124,7 +124,7 @@ minimums"; 0032 sets Cornerstone at 250 per listing). Everything else follows co
    - **Viewer (read-only)** is added, making eight roles: Owner, Manager, Accountant, Sales, Support, Creator, Developer, Viewer.
 4. **Plans are configured in our admin:**
    - Back-Office → Plans gets the **plan configurator** (AOS Part B #9's PlanEditor): prices, allowances (storage, AI credits, email/SMS/push, catalog cap), and which tools each tier opens;
-   - **add-on pack prices too** (storage, AI credits, email, SMS, push), editable, starting from AOS §13B's numbers;
+   - **add-on pack prices too** (storage, AI credits, email, SMS, push), editable, starting from AOS §5D (storage) and §13B (email, SMS, push);
    - versioned like workflows; a change applies at each account's next renewal;
    - checked against the 65% floor.
    - Today the plans are fixed in code (`Billing::PLANS`); the configurator moves them into the database.
