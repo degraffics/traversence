@@ -1,6 +1,6 @@
 # 0110: Data separation: three realms (member, business, admin), walls in the database, not only in the code
 
-Status: Proposed (Jason, 2026-10-22: "a clear line of separation for data. USER/LISTING/ADMIN router to specific
+Status: Accepted and set up (2026-10-22). Proposed by Jason, 2026-10-22: "a clear line of separation for data. USER/LISTING/ADMIN router to specific
 datasets. Even if the tools are shared we need 100% data security no matter what comes at us.")
 
 ## The principle
@@ -161,3 +161,13 @@ Logins (cPanel lets each one be given only SELECT on a database):
 4. **Main becomes public-only**, and the two realm logins get SELECT on it.
 
 Until step 4, the realm logins don't get any access to main.
+
+## Verified on Bluehost (2026-10-22, System Configuration → Data separation)
+
+- **The four databases and their logins:** `degraff1_traversence` (main, `degraff1_TRAV`), `degraff1_trv_admin`
+  (`degraff1_trvadmin`, all four), `degraff1_trv_listings` (`degraff1_trvlister`), `degraff1_trv_users` (`degraff1_trvuser`).
+- **Every wall holds:** the listings and users logins see only their own database and are refused by main, admin and each other.
+- **Bluehost allows the tenant function, the filtered view and the write trigger** inside `trv_listings`, so wall 3
+  is in the database, not only in the code.
+- **.env** uses Jason's naming (`DB_DATABASE-main`, `DB_USERNAME-admin`, `DB_PASSWORD-lister`…); `Database` reads it
+  and fills in the standard names, so everything that reads `DB_PASSWORD` keeps working.
