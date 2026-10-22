@@ -136,6 +136,8 @@ minimums"; 0032 sets Cornerstone at 250 per listing). Everything else follows co
 
 ## 8. Keeping each business's data its own (how it's enforced)
 
+> **Superseded by decisions/0110** (three realms, separate database users, tenant views): the points below are its walls 4 and 5.
+
 - **One gate:**
   - every business tool runs through one scoped layer that adds `owner = this business` to every read and write;
   - the business comes from the signed-in person's membership (`listing_memberships`), **never from the address or the request**;
