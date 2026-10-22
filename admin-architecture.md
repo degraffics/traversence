@@ -273,6 +273,13 @@ registry of checks and what-happens (in code).
 - **The site map** (System Configuration → Site map) checks the build: every route is in a manifest, every widget is
   in the catalog, every workflow is valid, no file is missing.
 
+### A8. The merchant side (AOS §9B)
+
+- A business's own dashboard (owner, manager, accountant, sales, support, creator, developer) runs on **the same
+  engine**: its own modules (Orders, Customers, Catalog, Team, Billing), the same widgets, and **its own workflows**
+  (a business's order or lead process), configured by its Owner or Manager.
+- In scope for the structure now; built after the platform admin.
+
 ### A9. The archive (old pages)
 
 - Today's admin pages **stay at their addresses** (nothing is moved, so their links and code keep working), but
@@ -284,13 +291,6 @@ registry of checks and what-happens (in code).
   It's your call, one page at a time.
 - The new addresses (`/admin/<module>/<section>`) are served by the router only where no old file exists, so the two
   never collide.
-
-### A8. The merchant side (AOS §9B)
-
-- A business's own dashboard (owner, manager, accountant, sales, support, creator, developer) runs on **the same
-  engine**: its own modules (Orders, Customers, Catalog, Team, Billing), the same widgets, and **its own workflows**
-  (a business's order or lead process), configured by its Owner or Manager.
-- In scope for the structure now; built after the platform admin.
 
 ---
 
