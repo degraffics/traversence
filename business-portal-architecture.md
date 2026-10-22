@@ -39,7 +39,7 @@ and plan. Nothing is built only for businesses.
 | Marketing | ✓ Promotions, GO Codes; ✗ campaigns, automations |
 | Reports | partial: Insights; ✗ margin, new and returning customers |
 | Settings & team | ✓ Configuration, workflows, people |
-| Customers (CRM) | ✗ → **building first** (Growth → Customers) |
+| Customers (CRM) | ✓ Growth → Customers (decisions/0111): profiles from orders and plans, segments, tags, notes |
 | Storefront & pages | ✗ |
 | Taxes, shipping and pickup rules | ✗ |
 | B2B price lists, volume breaks | ✗ |
