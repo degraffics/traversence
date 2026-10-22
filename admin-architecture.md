@@ -1,6 +1,6 @@
 # Admin architecture: modules, widgets, workflows (outline)
 
-Status: **Outline for Jason's review** (2026-10-22). Nothing gets built until it's approved. Replaces
+Status: **Outline, decisions recorded** (2026-10-22); ready to become the build's decision record once approved. Nothing gets built until it's approved. Replaces
 `admin-map-v2.md` (a page-by-page map) with a structure: **modules → sections → widgets**, and **workflows**
 configured in the admin.
 
@@ -8,8 +8,13 @@ Follows: Master AOS §8 (the 11 workspaces), §9A (staff levels and departments)
 delegation), §11 (data). Decided by Jason (2026-10-22):
 - **Start fresh:** no redirects from old admin addresses.
 - **Full scope, no pilot.**
-- **Pipelines show a table**, with kanban as an option.
-- **Workflows are created, configured and edited in the admin** from the start.
+- **Tables everywhere.** Kanban is looked at later, only if a table proves not enough.
+- **Workflows are created, configured and edited in the admin** from the start, by **Managers and up**.
+- **Publishing a changed workflow:** whoever publishes chooses whether items in progress move to the new version.
+- **What you may not do shows greyed out, with the reason**, never hidden. Jason, as Founder, has everything.
+- **Coming sections show greyed out in the menus** and open a landing page explaining what's coming.
+- **White Glove follows the subscription:** services are configured per client, not a fixed checklist (B8, C).
+- **The merchant side comes after the platform admin**, on the same engine.
 
 ---
 
@@ -39,8 +44,9 @@ Underneath all four:
   - its sections: key, name, icon, status, the layout of widgets, who may open it, and the **actions by level**
     (Director configures, Manager assigns and approves, Staff does the work);
   - the module's endpoints.
-- **Status per section:** live, partial or coming. Coming sections don't appear in the menus; they're listed in the
-  module's **"Coming here"** note.
+- **Status per section:** live, partial or coming. **Coming sections appear greyed out** in the menus. Opening one
+  shows its **landing page**: what it will do, how it fits the module, what it waits on, and the tools you can use
+  meanwhile.
 - **Addresses:** `/admin/<module>/<section>`, and `/admin/<module>/<section>/<id>` for one item (opened in the detail
   panel). No other admin page addresses exist.
 - **The shell** (one for the whole admin):
@@ -48,7 +54,7 @@ Underneath all four:
   - inside a module, its sections as a **Shortcuts-style dropdown** (the inline-filter rule);
   - crumbs "Module › Section › Item";
   - the detail panel;
-  - the "Coming here" note.
+  - the landing page for coming sections.
 
 ### A3. Widgets (code): the catalog
 
@@ -65,7 +71,7 @@ widget is a PHP renderer plus one JS file, with no build step.
 | Widget | Does | Options |
 |---|---|---|
 | **Table** | rows from a source; search, sort, paging, bulk actions, export; tap a row → DetailPanel | columns, row actions, bulk actions, density |
-| **Pipeline** | a Table bucketed by workflow stage: a stage dropdown with counts, **table by default, kanban optional** (drag a card to move it, if the move is allowed) | workflow, view: table / kanban |
+| **Pipeline** | a Table bucketed by workflow stage: a stage dropdown (FilterMenu) with counts; each row shows its stage and SLA; moves from the row or the detail panel (a kanban view can be added later if a table isn't enough) | workflow |
 | **FilterMenu** | the Shortcuts-style dropdown: icon, current choice and its count ▾, each option with its icon and count | options from the source |
 | **SearchBox** | search inside a source; feeds Table or Pipeline | placeholder, fields |
 | **Queue** | one item at a time, with Skip and Done (Helper, Review) | source, actions |
@@ -138,9 +144,10 @@ task, close it, and you're exactly where you were.
   kept in the address, like `…/prospects#lead=4378&listing=4378`).
 - **Going to the full page keeps your place.** Your view (filters, search, page, scroll) is saved for the module, and
   **← Back to Prospects** returns you to exactly that view.
-- **Access follows the tool, not the module.** You can open a tool from anywhere if your level and department allow
-  that action (a Sales rep may edit a listing's details but not merge listings). If you may not, the tool simply
-  isn't offered. The tool's own checks and its endpoint (`/admin/api/<its home module>/…`) apply wherever it's opened.
+- **Access follows the tool, not the module.** Each action in a tool has its own permission, the same wherever the
+  tool is opened (a Sales rep may edit a listing's details; merging needs an Operations Manager, as an example). An
+  action you may not take **shows greyed out with the reason** ("Merging needs an Operations Manager"); the endpoint
+  refuses it too. The rules are set in System Configuration → Permissions. The tool's own checks and its endpoint (`/admin/api/<its home module>/…`) apply wherever it's opened.
 - **"At hand" in every module:** each module's manifest lists the tools from other modules its people use most. They
   appear as icons in the module's tool bar and as actions in its detail panels (for example "Edit listing" on a lead).
 - **Built once:** the shell holds one drawer stack and one quick-task panel for the whole admin. Tools render into it
@@ -185,7 +192,7 @@ task, close it, and you're exactly where you were.
   - move the lead.
 - So a workflow can be built and changed in the admin without breaking the money or the data.
 
-**The builder** (System Configuration → Workflows, Directors and up)
+**The builder** (System Configuration → Workflows, **Managers and up**)
 - List the workflows, with how many items are in each stage.
 - **Edit as a draft:**
   - add, rename, reorder or remove stages (drag);
@@ -198,8 +205,8 @@ task, close it, and you're exactly where you were.
   - every stage except the end ones has a way out;
   - money stages keep their protections (B below).
 - **Preview:** click through a test item.
-- **Publish as a new version.** Items already in progress stay on their version unless you **map** them (old stage →
-  new stage) when you publish.
+- **Publish as a new version.** Whoever publishes chooses for the items in progress: **keep them on their version**,
+  or **move them to the new one**, mapping each old stage to a new one.
 - History of versions: who changed what, when.
 
 **Protections**
@@ -233,7 +240,8 @@ registry of checks and what-happens (in code).
 
 - **Opening a module:** by department (the table in §9A). Founders and Executives open all 11. An Assistant opens
   what their person opens. A Vendor opens nothing except a ticket.
-- **Doing things, by level:**
+- **Doing things, by level** (each action's rule set in System Configuration → Permissions; an action you may not take
+  shows greyed out with the reason):
   - Director configures (settings, workflows, templates);
   - Manager assigns and approves;
   - Staff does the work;
@@ -270,7 +278,7 @@ registry of checks and what-happens (in code).
 **How to read it:**
 - **Built from** lists today's tools, so nothing is lost.
 - Status: **L** live, **P** partial, **C** coming.
-- Sections marked C appear only in the module's "Coming here" note until built.
+- Sections marked C appear greyed out in the menu and open a landing page explaining what's coming.
 
 ### 1. Dashboard & Quick Actions
 - **Opened by:** everyone (each person sees their own).
@@ -358,22 +366,30 @@ registry of checks and what-happens (in code).
 | Section | Widgets | Workflows | Built from | St |
 |---|---|---|---|---|
 | Calls today | Queue (follow-ups due, then best to call), DetailPanel (module widget LeadPanel: call log, outcomes) | Lead | Sales → Calls today | L |
-| Prospects | Pipeline (table / kanban of the lead stages), FilterMenu (Whose: Everyone's, Mine, Shared queue; territory; web presence), DetailPanel | Lead | Sales → All prospects, New this week | L |
+| Prospects | Pipeline (the lead stages), FilterMenu (Whose: Everyone's, Mine, Shared queue; territory; web presence), DetailPanel | Lead | Sales → All prospects, New this week | L |
 | Scan cards | module widget CardScanner | Lead (creates or joins) | Sales → Scan cards | L |
 | Add from the field | Form | Lead | Sales → Add from the field | L |
-| Quotes & deals | Pipeline, DetailPanel (lines, terms, Files), StageActions (send, accept → Won) | Quote / deal → opens White Glove onboarding | — | C (step 5) |
+| Quotes & deals | Pipeline, DetailPanel (lines, terms, Files), StageActions (send, accept → Won) | Quote / deal → opens the White Glove engagement | — | C (step 5) |
 | Promotions | Table, DetailPanel, module widget PromoMaker (offers, GO Code, lead mail-out CSV) | Promotion | Sales → Promotions | L |
 | Territories | Table, Map, Form | — | Sales → Territories | L |
 | Funnel | Chart (funnel), MetricCards | Lead (counts) | Sales → Funnel | L |
 | Orders | Back-Office → Orders opened in place, filtered to "started by me" | Client order | — | L |
 
 ### 8. White Glove Concierge
-- **Opened by:** Service (home; delivers), Sales (schedules at close).
+- **Opened by:** Service (home; delivers), Sales (sells it and sets it up with the client at close).
+- **How it works (Jason, 2026-10-22):** White Glove follows the subscription. When a subscription is created (or a deal
+  is Won), an **engagement** opens for the client. The client and their rep decide together which services to do,
+  starting from what the plan includes, adding any others. Services are **top-level and flexible**: no fixed must-do
+  list. Each service has a light stage (Planned → In progress → Delivered, or Not now), an owner and an optional
+  suggested task list that can be ignored. The engagement keeps **opportunities in view**: included benefits not yet
+  used, services that fit this business, and upgrades, so nothing is overlooked.
 - **At hand (opened over the work, A3a):** Edit listing (3), Order (9), Products (9), Import (9), Lead and Deal (7).
 
 | Section | Widgets | Workflows | Built from | St |
 |---|---|---|---|---|
-| Onboarding board | Pipeline (**kanban by default here**), DetailPanel (tasks, Files, Notes) | White Glove onboarding (opened by a Won deal) | — | C |
+| Clients | Table (each client with a White Glove engagement: their plan, rep, services, progress, opportunities), DetailPanel (the engagement) | White Glove engagement | — | C |
+| Engagement | DetailPanel: the plan's included services (from the subscription's benefits), the services chosen with the client, each with its own stage, owner, due date and notes; **Opportunities** (benefits not yet used, services that fit the business, upgrades); Timeline | White Glove engagement; White Glove service | — | C |
+| Service catalog | Table, Form: the top-level services (setup, photography, menu digitizing, content, GO Codes, storefront…), which plans include them, their price outside a plan, and an optional **suggested** task list (never required) | — | — | C |
 | Asset studio | Queue, module widget OCR reader (menus, brochures → catalog drafts), DetailPanel (side by side) | Asset digitizing | AI jobs (cards) | P |
 | Imports | Back-Office → Import & export opened in place | Import | — | C |
 
@@ -444,9 +460,10 @@ Each starts from how the site works today.
 | Report | 6 | New → Tier 1 → Tier 2 → Tier 3 → Resolved | removes or restores the post; standing step |
 | Standing ladder | 6 | Good → Notice → Limited → Suspended → Ended | notices, review requests |
 | Lead | 7 | New → Contacted → Met → Interested → Meeting → Invited → Quote → Won / Lost / Not now / Closed | next follow-up; tells the rep; a promo scan moves to Interested |
-| Quote / deal | 7 | Draft → Sent → Accepted → Won / Lost | **Won opens White Glove onboarding** and the order |
+| Quote / deal | 7 | Draft → Sent → Accepted → Won / Lost | **Won opens the White Glove engagement**, the subscription and the order |
 | Promotion | 7 | Draft → Active → Paused → Ended | profit floor; issues the GO Code |
-| White Glove onboarding | 8 | stages to define (Jason) | tasks per stage; client emails |
+| White Glove engagement | 8 | Opened → Planning with client → In service → Review → Ongoing / Closed | opened by a new subscription or a Won deal; reads the plan's benefits; lists opportunities |
+| White Glove service | 8 | Planned → In progress → Delivered; Not now | per service; optional suggested tasks, never required; tells the client when delivered |
 | Asset digitizing | 8 | Uploaded → Read → Checked → In the catalog | AI read; a person checks |
 | Client order | 9 | Draft → With client → Approved → Paid → In production → Shipped / Ready → Done; Cancelled | proofs approved; billing address; makes the invoice; charges; issues GO Codes; sends to vendors. Any stage: Fix, Credit, Refund, Chargeback |
 | Site order (GO Codes) | 9 | In cart → Pending payment → Paid → Issued; Void | releases the promo on void |
@@ -466,9 +483,9 @@ Each starts from how the site works today.
 1. **Engine and shell:**
    - the router at `/admin/<module>/<section>[/<id>]` and the one access check;
    - the module manifests for all 11 modules;
-   - the shell (☰, section dropdown, crumbs, detail panel, "Coming here");
+   - the shell (☰, section dropdown, crumbs, detail panel, drawer stack and quick-task panel, landing pages for coming sections);
    - the endpoint contract.
-2. **The widget library:** Table, Pipeline (table and kanban), FilterMenu, SearchBox, DetailPanel, Stepper,
+2. **The widget library:** Table, Pipeline, FilterMenu, SearchBox, DetailPanel, Stepper,
    StageActions, ActionBar, Fields, Form, Timeline, Notes, Files, Assignee, Related, MetricCards, Chart, Queue, Stream,
    Map, SettingsForm, PermissionMatrix, TemplateEditor.
 3. **The workflow engine and builder:**
@@ -485,12 +502,13 @@ Each starts from how the site works today.
 Step 5 of Sales & Growth (Quotes → Won → onboarding) is built as part of this, as the Quote/deal and White Glove
 workflows.
 
-## Part E. For Jason to decide
+## Part E. Decided (Jason, 2026-10-22)
 
-1. **White Glove onboarding stages:** what they are (Part C).
-2. **Who builds workflows:** Directors and up (proposed), or Founder only at first?
-3. **Changing a workflow with items in progress:** keep them on their version, or always map them to the new one
-   when publishing (proposed: you choose at publish)?
-4. **Kanban default:** table everywhere, except the White Glove board as kanban (proposed)?
-5. **Merchant side (A8):** confirm it comes after the platform admin, on the same engine.
-6. **Coming sections** (Part B, C): which, if any, to bring into this build rather than after.
+1. **White Glove** follows the subscription: an engagement per client, services chosen by the client and the rep from
+   the plan's benefits and beyond, light stages, suggested (never required) tasks, opportunities kept in view.
+2. **Workflows are built by Managers and up.**
+3. **Publishing a changed workflow:** the publisher chooses whether items in progress move to the new version.
+4. **Tables everywhere;** kanban only if a table proves not enough.
+5. **The merchant side after the platform admin,** on the same engine.
+6. **Coming sections greyed out** in the menus, each with a landing page explaining what's coming. Actions you may
+   not take are **greyed out with the reason**.
