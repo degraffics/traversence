@@ -309,3 +309,34 @@ Jason's decisions (Master AOS v44, §5):
 - **Not yet:** AI Assist credit metering (the `ai_credit_usage` table is ready; credits are counted with the AI tools that
   spend them), storage metering against the allowance (S3), and promo codes on plans (step 4).
 
+
+## Built: step 4, promotions and codes (2026-10-22)
+
+- **Promotions** (`app/lib/Promotions.php`), made by Managers and Directors in **Sales → Promotions**:
+  - The offer: a **free trial** of a plan (30, 60 or 90 days, no card), or a **percentage off** plans, creative,
+    additional services, print or GO Codes. On plans it applies to the first 1, 3, 6 or 12 payments, or every one.
+  - Dates, a limit on uses, terms, and who may use it: **anyone with the code** (general) or **one listing or member**
+    (assigned). Each account uses a code once. Pause, resume or end it.
+- **The 65% profit floor** is enforced:
+  - Plans: up to 42% off, from `PLAN_COST_PCT` in `.env` (default 20%) until real costs are set.
+  - GO Codes: up to 71% off, from `GO_CODE_COST_PCT` (default 10%).
+  - Products: each line is capped by its own cost. A line with no cost entered isn't checked, so costs must be entered.
+  - Packs are never discounted.
+- **Where codes work:**
+  - **Plans page:** a trial code starts its trial at once (it replaces a trial already running, never a paid plan); a
+    percentage comes off the plan line of the first charge and of its renewals, then full price.
+  - **GO Codes cart:** taken off each code's price at checkout (the invoice shows the lower prices); a cancelled unpaid
+    order gives the code back.
+  - **Orders we prepare (quotes):** our team or the client adds the code before approval; it comes off the eligible
+    lines' prices when the client approves. Custom lines get a kind (Creative, Additional service, Print) on the
+    builder; catalog products get one on the product form.
+- **As a GO Code:** **Issue as GO Code** makes a trvgo.us link and QR to the offer's page (`/promo.php?c=CODE`), which
+  says what it is and where to use it, with the code ready.
+- **Mail-outs, one code per lead:** **Codes for leads** makes an assigned copy of a promotion, with its own GO Code, for
+  each listing. A CSV (business, code, link, QR files, scans, used) feeds the mail merge.
+  - The first scan moves the lead to **Interested** (the stage list has no "Engaged"; Interested is the nearest) and
+    emails its rep.
+  - Scans and uses show on the campaign's row.
+- **Migration** `2026-12-23_promotions.sql`: `promotions`, `promotion_uses`; `products.service_type`;
+  `order_lines.service_type`, `order_lines.promo_off_cents`; `orders.promo_id`; and on subscriptions `promo_id`,
+  `promo_percent`, `promo_left`.
