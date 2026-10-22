@@ -175,7 +175,7 @@ shared queue when no rep covers it. Commission comes later.
 
 ## Open
 
-- Renewals: A or B, after the sandbox test.
+- Renewals: decided B (the card on file, charged by us; Master AOS v44). Saving a card (`createFromToken`) still needs its sandbox test.
 - Our cost per plan, for the 65% floor.
 
 ## Built: the business card scanner (2026-10-21)
@@ -276,4 +276,36 @@ Jason's decisions (Master AOS v44, §5):
   - limits at upload, with an upgrade or pack offer;
   - WebP on upload;
   - usage shown to owners and to staff.
+
+## Built: step 3, plans and renewals (2026-10-22)
+
+- **Plans** (`app/lib/Billing.php`), prices from Master AOS v44:
+  - Listings: Free, Basic Partner $29.95, Core Partner $79.95, Strategic Partner $229.95, Cornerstone $399.95 a month.
+  - People: Personal (free), Personal Plus $4.95, Personal Pro $9.95.
+  - Each plan's storage and AI Assist credits: 2/10/25/100/250 GB and 0/10/50/250/500 credits; personal 2/25/50 GB and 0/10/25.
+  - Yearly is 10 months' price for 12, on the plan only. Packs (storage +25 GB to +5 TB, +50 AI credits $29.95) are full
+    price and billed on the plan's schedule: one renewal date, one charge.
+- **Paying (option B):** the card goes from the browser to Intuit; the token is saved as a card on file in QuickBooks
+  Payments (the wallet `TRV-L<listing>` or `TRV-U<user>`). We charge it at each renewal with a key per charge, so nothing
+  is charged twice, and each charge is a Sales Receipt in QuickBooks and a receipt email.
+- **Changes:** a bigger plan starts at once and the difference for the rest of the period is charged then; a smaller one
+  (or Free) starts at the renewal. A pack added mid-period is charged for the rest of it; **Remove at renewal** takes it off then.
+- **Trials:** 30, 60 or 90 days, no card. Reminders 7 days and 1 day before, and on the day. A trial ends on Free unless
+  the owner keeps it (adding a card turns the same subscription paid from that day). A paid plan chosen when claiming a
+  business now starts a 30-day trial (`Claims::activate`), and its listing stays noindex while on trial (0034).
+- **Declines:** a declined renewal is tried again after 3 and 7 days (the plan is *past due* meanwhile, and a new card is
+  charged at once); then the plan ends on Free and the listing stays up.
+- **Stopping:** **Stop at the end of this period**; nothing is refunded for a period already started (Terms → Plans and
+  automatic renewal).
+- **Who manages a plan:** the listing's owner, or a team member with *Plan & billing* at Edit (0104); a person their own.
+- **Pages:**
+  - `/plans.php` for owners and members: the list of their plans; `?listing=N` or `?me=1` for one. Linked from the business
+    dashboard (**Manage plan**) and the member Dashboard. API `/api/plans.php`.
+  - **E-Commerce → Plans** for our team: monthly revenue (yearly counted by the month), trials, declines, every plan;
+    **Start a trial**, **Stop at renewal**, **End now**; the daily run's last result.
+- **Daily run:** `app/scripts/billing_tick.php` (cPanel cron, daily 6:13 am) renews, retries, ends and sends reminders.
+- **Migration** `2026-12-22_billing.sql`: the Stripe-era `subscriptions` table (only claim trials used it) is kept as
+  `subscriptions_old`; its open trials became 30-day trials from the day it runs.
+- **Not yet:** AI Assist credit metering (the `ai_credit_usage` table is ready; credits are counted with the AI tools that
+  spend them), storage metering against the allowance (S3), and promo codes on plans (step 4).
 
