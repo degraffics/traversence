@@ -26,7 +26,9 @@
   listings hold commercial domains, CRM and payment ledgers; roles on a listing govern who does what.
 - **Peer-to-peer (C2C) trades are paid offline** (cash, local pickup, an outside transfer), so the platform holds no
   money between people; both sides confirm the deal in chat, which feeds regional trust (`decisions/0031`).
-- **0% platform commission** on partner sales through the partner's own payment gateway (Master AOS §3).
+- **0% system processing fees** on partner sales through the partner's own payment gateway (Master AOS §3): Traversence
+  takes no cut of any sale. The payment processor (the partner's own account) charges its own fees, which we don't set
+  or control.
 - **No AI model on free accounts:** writing, copy and photo AI tools come only with a paid personal storage plan or a
   paid business tier. The **Personal Assistant** (remembering a member's own patterns, `decisions/0093`) is rule-based,
   not an AI model, and is free with AI & Learning consent; **AI Assist** names only the paid AI-model tools.
@@ -51,7 +53,7 @@ Three linked stages, replacing ad-driven networks and commission-taking OTAs:
 |---|---|---|---|
 | **Free** (Regional Business Directory) | $0/mo | 2 GB | Directory presence (name, address, phone, hours, categories), manual publishing, basic community messaging, **5 free GO Codes** with an account (§1.3), selling with **manual payments** (Zelle, bank transfer, check, cash; marked paid by the business). No AI. |
 | **Basic Partner** | $29.95/mo | 10 GB (automatic WebP/AVIF) | Marketplace selling with manual payments (Zelle, bank transfer, check, pay on pickup; marked paid by the business), profile sections, taxonomy routing, AI text assistance. |
-| **Core Partner** | $79.95/mo | 25 GB (srcset delivery) | **Card checkout through the partner's own payment gateway (0% fee)**, own domain storefront (staged for later), **dynamic QR codes and short links** (`trvgo.us/{code}`, `decisions/0094`), automated local SEO. |
+| **Core Partner** | $79.95/mo | 25 GB (srcset delivery) | **Card checkout through the partner's own payment gateway (0% system processing fees: no cut to Traversence; the processor's own fees apply)**, own domain storefront (staged for later), **dynamic QR codes and short links** (`trvgo.us/{code}`, `decisions/0094`), automated local SEO. |
 | **Strategic Partner** | $229.95/mo | 100 GB + 10k emails / 500 SMS / 10k push a month | High-output content (25 AI articles a month, subdomain routing), white-glove setup, the CRM and communication suite, headless API and widgets. |
 | **Enterprise / Cornerstone Partner** | $399.95+/mo | 250 GB + 50k emails / 2,500 SMS / 50k push a month (pooled) | Multi-unit and co-op master hub, master communication vault, joint regional campaigns, advanced team roles (`decisions/0037`), dedicated support. |
 

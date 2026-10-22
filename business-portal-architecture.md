@@ -66,7 +66,7 @@ its locations as a filter (AOS §6).
 |---|---|---|---|---|---|
 | Listing, inbox, reply | ✓ | ✓ | ✓ | ✓ | ✓ |
 | Catalog (items, offers, no checkout): commercial.md Free spec | ✓ | ✓ | ✓ | ✓ | ✓ |
-| Card checkout through their own payment gateway (0%) | | | ✓ | ✓ | ✓ |
+| Card checkout through their own payment gateway (0% system processing fees; the processor's own fees apply) | | | ✓ | ✓ | ✓ |
 | Manual payments (Zelle, bank transfer, check, pay on pickup), marked paid by the business: **members, Free and Basic sell this way only; gateway checkout starts at Core** (Jason, 2026-10-22) | ✓ standard | ✓ standard | ✓ | ✓ | ✓ |
 | Quotes and invoices with pay links | | ✓ | ✓ | ✓ | ✓ |
 | Customers: profiles and order history | | ✓ | ✓ | ✓ | ✓ |

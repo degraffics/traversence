@@ -85,7 +85,7 @@ To maintain data integrity, security, and multi-tenant isolation, the system str
 
 ## 3. Financial Model & Payment Routing
 * **Zero-Escrow P2P / Direct Settlement:** The platform uses a **payment processor ledger** to facilitate integration with independent vendors (Stripe, Square, NMI, Authorize.Net, etc.) without acting as a financial intermediary.
-* **0% Commission:** Marketplace e-commerce runs via direct merchant gateway settlement with 0% platform transaction fees.
+* **0% System Processing Fees:** Marketplace e-commerce runs via direct merchant gateway settlement. Traversence takes no cut of any sale; the merchant's payment processor charges its own fees, which Traversence does not set or control.
 * **Traversence's own sales** (subscriptions, services, GO Codes, client orders) run through the same ledger; QuickBooks Payments is its first gateway (built).
 
 ---
@@ -132,7 +132,7 @@ Commercial features scale cumulatively and additively. Paid commercial tiers sel
 | :--- | :--- | :--- | :--- |
 | **Free Directory** | $0 / mo | 2 GB storage | Standard NAP directory listing, manual publishing, baseline C2C messaging. **Zero AI/LLM access**. |
 | **Basic Partner** | $29.95 / mo | 10 GB storage (Auto WebP/AVIF) | Central marketplace listing with manual payments (Zelle, bank transfer, check, pay on pickup), profile sectioning, taxonomy routing, AI text assistance (5 catalog drafts/mo). |
-| **Core Partner** | $79.95 / mo | 25 GB storage (`srcset` asset delivery) | Card checkout via the partner's own payment gateway (0% fee), owned custom domain (`clientdomain.com`), standalone storefront, dynamic QR suite (`trvgo.us/{code}`), automated Local SEO (JSON-LD). |
+| **Core Partner** | $79.95 / mo | 25 GB storage (`srcset` asset delivery) | Card checkout via the partner's own payment gateway (0% system processing fees; the processor's own fees apply), owned custom domain (`clientdomain.com`), standalone storefront, dynamic QR suite (`trvgo.us/{code}`), automated Local SEO (JSON-LD). |
 | **Strategic Partner** | $229.95 / mo | 100 GB storage + 10k Email / 500 SMS / 10k Push | High-output AI content (up to 25 articles/mo + 4 custom posts), subdomain routing, White-Glove setup, native internal CRM suite, Headless API access. |
 | **Enterprise / Cornerstone** | $399.95+ / mo | 250 GB storage + 50k Email / 2,500 SMS / 50k Push | Multi-Unit/Co-Op Master-Hub architecture, Master Communication Vault, joint regional campaigns, uncapped AI catalog generation, advanced team RBAC, dedicated support. |
 
@@ -453,6 +453,6 @@ When commercial accounts exceed bundled monthly limits, automated top-ups apply:
 | **Primary Domain** | `traversence.com` (Central Hub & Narrative Engine) |
 | **Edge Routing Domain** | `trvgo.us` (Storefront Host & O2O QR Router) |
 | **Entity Security Architecture** | Decoupled users vs listings (via `listing_memberships` / two-sided RBAC) |
-| **Payment Processing** | 0% Platform Fee on Merchant Direct Sales via Payment Ledger |
+| **Payment Processing** | 0% system processing fees on merchant direct sales via the payment ledger (the processor's own fees apply) |
 | **C2C Marketplace** | Offline Settlement + In-App Dual Mutual Confirmation Protocol |
 | **Server Safety Ceiling** | 200,000 Files / Inodes Platform-Wide |

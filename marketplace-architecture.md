@@ -139,7 +139,7 @@ Marketplace, on its listing, on trvgo.us and on its own domain.
 |---|---|
 | Free | the listing, and posting single items (C2C-style, offers only) |
 | **Basic** | catalog and the Shop tab on the listing, with manual payments only |
-| **Core** | **card checkout through their own gateway (0% fee)**; Storefront on trvgo.us and their own domain; dynamic QR to items |
+| **Core** | **card checkout through their own gateway (0% system processing fees; the processor's own fees apply)**; Storefront on trvgo.us and their own domain; dynamic QR to items |
 | **Strategic** | subdomains, CRM, headless API, AI catalog drafts (HITL) |
 | **Cornerstone** | 250 items per listing; multi-location inventory; Co-Op hub |
 
@@ -147,7 +147,7 @@ Marketplace, on its listing, on trvgo.us and on its own domain.
 
 - **Person to person:** offline (cash, their own app); dual confirmation on the site.
 - **Business sales:** checkout goes **straight to the business's own gateway**. We record the order on the ledger
-  (decisions/0098), so it shows in their Orders and our counts, with 0% fee and no money held by us.
+  (decisions/0098), so it shows in their Orders and our counts, with 0% system processing fees (we take no cut; their processor charges its own fees) and no money held by us.
 - **Manual payments are the only mode for members (person to person) and for Free and Basic listings; gateway checkout starts at Core** (Jason,
   2026-10-22). A member's accepted offer shows their own payment instructions the same way.
 - **Manual payments module** (store settings; each method switched on by the business):
