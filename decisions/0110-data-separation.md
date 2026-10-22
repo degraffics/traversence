@@ -251,3 +251,25 @@ touches the admin.
   - QuickBooks settings;
   - `billing_tick`, `sales_tick` and `standing_tick`;
   - then Undo, with everything written in between kept.
+
+### Phase B, groups 4 and 5 built (2026-10-22)
+
+- **The data pipeline and our sales** (`crawl_*`, `crawler_*`, `reference_sources`, `source_facts`, `identity_*`,
+  `irs_*`, `npi_*`, `rec_loads`, `landmark_loads`, `ai_jobs`; `prospects`, `prospect_log`, `sales_*`, `lead_scores`,
+  `vendor_*`, `products`, `order_inbox`) are now read through `Database::t()` across 41 files:
+  - the crawler worker endpoints (`/api/crawl/*`), which sign in as the main login;
+  - the bulk loads (NPI, IRS, Recreation.gov), identity jobs, verification and auto-import;
+  - sales, lead scores, the card scanner, vendor orders, products and the QuickBooks inbox;
+  - the admin dashboard's checks and the older crawler pages.
+- **Undo turns off foreign-key checks while it copies rows back.** The crawler's tables point at listings and at each
+  other; without this, putting them back could refuse or blank out rows.
+- **Fixed with it:** account deletion named its tables directly, so with group 3 moved it skipped the member's
+  `admin_access` row. It now goes through `Database::t()`.
+- **Install the code before pressing Move.** Moving a group before its code is live leaves those pages unable to find
+  their tables until Undo.
+- **Tested locally with all five groups moved (47 tables):**
+  - every admin section, with the same results as before the move;
+  - the older admin pages, the crawler worker endpoints and public pages;
+  - `ai_worker`, `sales_tick` (writing lead scores to `trv_admin`), `billing_tick` and `standing_tick`;
+  - then Undo of all five, with row counts and foreign keys back as they were.
+- **Next:** the business portal foundation (members and listings move with it).
