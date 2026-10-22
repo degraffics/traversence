@@ -26,6 +26,26 @@ It is **the same engine** (decisions/0109: modules → sections → widgets → 
 **Address:** `/business/<listing>/<module>/<section>`, drawn by the same router, widgets and kit. A Nexus parent sees
 its locations as a filter (AOS §6).
 
+**Admin first (Jason, 2026-10-22):** "Admin should have any and everything the business would." Traversence is
+business zero: every business tool is built in our admin first, for our own data, then opened to a business by scope
+and plan. Nothing is built only for businesses.
+
+| Business module | In our admin (2026-10-22) |
+|---|---|
+| Dashboard, Inbox | ✓ Dashboard, Pulse |
+| Quotes & invoices | ✓ client orders (Net terms, pay links) |
+| Catalog | ✓ Products (no stock or import yet) |
+| Orders & fulfillment | ✓ Orders, Vendor orders, labels |
+| Marketing | ✓ Promotions, GO Codes; ✗ campaigns, automations |
+| Reports | partial: Insights; ✗ margin, new and returning customers |
+| Settings & team | ✓ Configuration, workflows, people |
+| Customers (CRM) | ✗ → **building first** (Growth → Customers) |
+| Storefront & pages | ✗ |
+| Taxes, shipping and pickup rules | ✗ |
+| B2B price lists, volume breaks | ✗ |
+
+So the build order in §5 starts by closing these gaps in our admin, CRM first, then scopes them per business.
+
 ## 2. The business portal's modules (mirroring ours)
 
 | Business module | Ours it comes from | What the business does there |
