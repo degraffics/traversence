@@ -21,7 +21,7 @@ delegation), §11 (data). Decided by Jason (2026-10-22):
 |---|---|---|---|
 | **Module** | one of the 11 workspaces (AOS §8): its sections, who opens it, its endpoints | code: one manifest per module | Back-Office |
 | **Section** | one screen in a module, with its own address; a layout of widgets | the module's manifest | Back-Office → Orders |
-| **Widget** | a reusable building block (table, panel, stepper…); takes a config and a data source, knows nothing about where it sits | code: the widget library | Table, DetailPanel |
+| **Widget** | a reusable building block (table, panel, stepper…); takes a config and a data source, knows nothing about where it sits; can open in a section, a drawer or a quick task (A3a) | code: the widget library | Table, DetailPanel |
 | **Workflow** | the stages something moves through, the moves allowed, who may make them, what's checked, what happens | **the database, built and edited in the admin** | Client order: Draft → … → Shipped |
 
 Underneath all four:
@@ -110,6 +110,41 @@ catalog, with a config and a data source like the rest:
 - LeadPanel's call log;
 - SearchWorkbench;
 - QRDesigner.
+
+### A3a. Tools at hand: use any tool without leaving your work
+
+Rule: **one home per tool, reachable from anywhere, without leaving where you are** (Jason, 2026-10-22). A tool's code
+lives only in its home module. Other modules don't link to it: they **open it over the current work**. You do the
+task, close it, and you're exactly where you were.
+
+**How a tool can open** (each tool declares which of these it supports):
+
+| Opens as | For | Desktop | Phone |
+|---|---|---|---|
+| **Drawer** | look at or change one thing: edit a listing, adjust a territory, check a product, see an order | slides over the right side, the work behind it dimmed and kept as it was | a full-screen sheet; ← or the phone's Back closes it |
+| **Quick task** | make something in a few steps: scan a card, new client order, start a trial, add from the field | a centred panel, stepped where needed | a full-screen sheet with steps |
+| **Full page** | a long, deep job: build a large order, rebuild a Nexus | the tool's own section | the same |
+
+**What makes it work**
+- **Your place is kept.** The section underneath stays loaded: its filters, search, page, scroll and open item. A
+  drawer or quick task never reloads it.
+- **The result comes back.** When the tool finishes, it tells the section you came from. For example:
+  - a scanned card adds or updates the lead in your prospect list;
+  - an edited listing updates the lead's row;
+  - a new order appears in the lead's Related list.
+- **One over another, two deep at most.** From a lead (drawer) you can open its listing (a second drawer). Closing it
+  returns you to the lead, then to the list.
+- **The Back button closes the top layer**, never leaving the page, and a refresh reopens the same layers (they're
+  kept in the address, like `…/prospects#lead=4378&listing=4378`).
+- **Going to the full page keeps your place.** Your view (filters, search, page, scroll) is saved for the module, and
+  **← Back to Prospects** returns you to exactly that view.
+- **Access follows the tool, not the module.** You can open a tool from anywhere if your level and department allow
+  that action (a Sales rep may edit a listing's details but not merge listings). If you may not, the tool simply
+  isn't offered. The tool's own checks and its endpoint (`/admin/api/<its home module>/…`) apply wherever it's opened.
+- **"At hand" in every module:** each module's manifest lists the tools from other modules its people use most. They
+  appear as icons in the module's tool bar and as actions in its detail panels (for example "Edit listing" on a lead).
+- **Built once:** the shell holds one drawer stack and one quick-task panel for the whole admin. Tools render into it
+  as widgets (no frames, no separate pages), using the same endpoint contract.
 
 ### A4. Workflows (database, edited in the admin)
 
@@ -240,6 +275,7 @@ registry of checks and what-happens (in code).
 ### 1. Dashboard & Quick Actions
 - **Opened by:** everyone (each person sees their own).
 - **AOS §8:** task queues, urgent alerts, adaptive shortcuts, manual order processing.
+- **At hand (opened over the work, A3a):** Every Quick action: each opens as a drawer or quick task over the Dashboard.
 
 | Section | Widgets | Workflows | Built from | St |
 |---|---|---|---|---|
@@ -250,6 +286,7 @@ registry of checks and what-happens (in code).
 
 ### 2. Pulse Stream (Unified Communications)
 - **Opened by:** everyone; each department its own channels.
+- **At hand (opened over the work, A3a):** Any item's own tool, opened beside the stream (the split drawer): an order, a lead, a listing, a report, a claim.
 
 | Section | Widgets | Workflows | Built from | St |
 |---|---|---|---|---|
@@ -259,6 +296,7 @@ registry of checks and what-happens (in code).
 
 ### 3. Directory & Places (Get Local 360°)
 - **Opened by:** Operations (home), Content, Sales and Service (view).
+- **At hand (opened over the work, A3a):** Scan a card (7), Lead (7), Claim invite (7), Promotions (7), GO Codes (5), Report (6).
 
 | Section | Widgets | Workflows | Built from | St |
 |---|---|---|---|---|
@@ -276,6 +314,7 @@ registry of checks and what-happens (in code).
 
 ### 4. Journeys & Exploration (Let's Explore 360°)
 - **Opened by:** Content (home), Operations.
+- **At hand (opened over the work, A3a):** Edit listing (3), Place (3), Report (6).
 
 | Section | Widgets | Workflows | Built from | St |
 |---|---|---|---|---|
@@ -288,6 +327,7 @@ registry of checks and what-happens (in code).
 
 ### 5. Marketplace & Storefronts (Market 360°)
 - **Opened by:** Operations (home), Service, Sales (view).
+- **At hand (opened over the work, A3a):** Edit listing (3), Order (9), Report (6).
 
 | Section | Widgets | Workflows | Built from | St |
 |---|---|---|---|---|
@@ -300,6 +340,7 @@ registry of checks and what-happens (in code).
 
 ### 6. Community & Events (Social 360°)
 - **Opened by:** Operations (home), Content, Service.
+- **At hand (opened over the work, A3a):** Edit listing (3), Member (9 People), Standing (6).
 
 | Section | Widgets | Workflows | Built from | St |
 |---|---|---|---|---|
@@ -312,6 +353,7 @@ registry of checks and what-happens (in code).
 
 ### 7. Sales, Marketing & Customer Growth
 - **Opened by:** Sales (home), Service (order processing), Finance (orders, view).
+- **At hand (opened over the work, A3a):** Edit listing (3), Nexus (3), Claim (3), New client order and Order (9), Products (9), Plans & subscriptions: start a trial (9), Territory (7), GO Codes (5).
 
 | Section | Widgets | Workflows | Built from | St |
 |---|---|---|---|---|
@@ -323,19 +365,21 @@ registry of checks and what-happens (in code).
 | Promotions | Table, DetailPanel, module widget PromoMaker (offers, GO Code, lead mail-out CSV) | Promotion | Sales → Promotions | L |
 | Territories | Table, Map, Form | — | Sales → Territories | L |
 | Funnel | Chart (funnel), MetricCards | Lead (counts) | Sales → Funnel | L |
-| Orders | shortcut → Back-Office → Orders, filtered to "started by me" | Client order | — | L |
+| Orders | Back-Office → Orders opened in place, filtered to "started by me" | Client order | — | L |
 
 ### 8. White Glove Concierge
 - **Opened by:** Service (home; delivers), Sales (schedules at close).
+- **At hand (opened over the work, A3a):** Edit listing (3), Order (9), Products (9), Import (9), Lead and Deal (7).
 
 | Section | Widgets | Workflows | Built from | St |
 |---|---|---|---|---|
 | Onboarding board | Pipeline (**kanban by default here**), DetailPanel (tasks, Files, Notes) | White Glove onboarding (opened by a Won deal) | — | C |
 | Asset studio | Queue, module widget OCR reader (menus, brochures → catalog drafts), DetailPanel (side by side) | Asset digitizing | AI jobs (cards) | P |
-| Imports | shortcut → Back-Office → Import & export | Import | — | C |
+| Imports | Back-Office → Import & export opened in place | Import | — | C |
 
 ### 9. Back-Office Operations, Logistics & Governance
 - **Opened by:** Finance (finance), Service (fulfillment, vendors), Operations (governance).
+- **At hand (opened over the work, A3a):** Edit listing (3), Lead (7), Promotions (7), Member (9 People), Report (6).
 
 | Section | Widgets | Workflows | Built from | St |
 |---|---|---|---|---|
@@ -355,6 +399,7 @@ registry of checks and what-happens (in code).
 
 ### 10. Insights & Analytical Research
 - **Opened by:** Executives, Operations, Content, Engineering (telemetry).
+- **At hand (opened over the work, A3a):** Edit listing (3), Review item (3), Search workbench item (10).
 
 | Section | Widgets | Workflows | Built from | St |
 |---|---|---|---|---|
@@ -367,6 +412,7 @@ registry of checks and what-happens (in code).
 
 ### 11. Global System Configuration
 - **Opened by:** Founder, Engineering (Director), Executives (view).
+- **At hand (opened over the work, A3a):** Any section's settings, opened as a drawer from that section (Directors).
 
 | Section | Widgets | Workflows | Built from | St |
 |---|---|---|---|---|
