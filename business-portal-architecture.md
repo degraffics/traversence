@@ -65,8 +65,8 @@ its locations as a filter (AOS §6).
 | | Free | Basic $29.95 | Core $79.95 | Strategic $229.95 | Cornerstone $399.95+ |
 |---|---|---|---|---|---|
 | Listing, inbox, reply | ✓ | ✓ | ✓ | ✓ | ✓ |
-| Single items (offers, no checkout) | ? (to decide) | ✓ | ✓ | ✓ | ✓ |
-| Catalog and checkout (their gateway, 0%) | | ✓ (cap to set) | ✓ | ✓ | ✓ (250) |
+| Catalog (items, offers, no checkout): commercial.md Free spec | ✓ | ✓ | ✓ | ✓ | ✓ |
+| Checkout (their gateway, 0%: commercial.md Basic) | | ✓ | ✓ | ✓ | ✓ |
 | Quotes and invoices with pay links | | ✓ | ✓ | ✓ | ✓ |
 | Customers: profiles and order history | | ✓ | ✓ | ✓ | ✓ |
 | Order emails (confirmations, shipping) | | ✓ | ✓ | ✓ | ✓ |
@@ -78,12 +78,14 @@ its locations as a filter (AOS §6).
 | Leads pipeline, automations, campaigns (email/SMS/push volume) | | | | ✓ (10k / 500 / 10k) | ✓ (50k / 2,500 / 50k) |
 | B2B price lists, volume breaks | | | | ✓ | ✓ |
 | Their own workflows (the builder) | | | | ✓ | ✓ |
-| Webhooks, API, QuickBooks sync | | | | ✓ | ✓ |
+| Webhooks, headless API, **embeddable widgets / buy buttons** (commercial.md Strategic), QuickBooks sync | | | | ✓ | ✓ |
 | Multi-location inventory, Nexus and Co-Op hub, master communication vault | | | | | ✓ |
-| Team | Owner | + 1 | up to 5 | up to 15 | unlimited (+ seats per location) |
-| AI catalog drafts (HITL) | 0 | 5 / mo | ? | 25 articles + 4 posts / mo | uncapped |
+| Team roles (the 8 business roles) | Owner | ✓ | ✓ | ✓ | ✓ + custom roles and one Executive (0037) |
+| AI Assist credits a month (0108, built) | 0 | 10 | 50 | 250 | 500 |
+| AI catalog articles (HITL) | 0 | 5 / mo (AOS §5B) | 5 (cumulative) | 25 + 4 posts / mo | uncapped |
 
-Seat numbers, the Basic/Core caps and Core's AI are proposals, not AOS. The rest follows AOS §5B.
+Catalog item caps for Basic, Core and Strategic are still open (commercial.md leaves item counts to "sensible baseline
+minimums"; 0032 sets Cornerstone at 250 per listing). Everything else follows commercial.md and AOS §5B.
 
 ## 5. Effect on the build order
 
@@ -111,3 +113,39 @@ Seat numbers, the Basic/Core caps and Core's AI are proposals, not AOS. The rest
 3. A Viewer (read-only) role added to the seven?
 4. B2C and B2B both from the start (price lists at Strategic), or B2C first?
 5. Basic: the Shop tab on their listing plus pay links. Also **buy buttons to embed on their existing website**?
+
+## 7. Decided (Jason, 2026-10-22)
+
+1. **The shape:** one engine; our tools scoped to a business and opened by plan; greyed tools are the upgrade path.
+2. **Ownership:** every record has an owner, with **no way to reach data that isn't ours or the business's** (§8).
+3. **Business roles:**
+   - listings keep their own role structure (AOS §9B, 0102);
+   - **Viewer (read-only)** is added, making eight roles: Owner, Manager, Accountant, Sales, Support, Creator, Developer, Viewer.
+4. **Plans are configured in our admin:**
+   - Back-Office → Plans gets the **plan configurator** (AOS Part B #9's PlanEditor): prices, allowances (storage, AI credits, email/SMS/push, catalog cap), and which tools each tier opens;
+   - versioned like workflows; a change applies at each account's next renewal;
+   - checked against the 65% floor.
+   - Today the plans are fixed in code (`Billing::PLANS`); the configurator moves them into the database.
+5. **Selling to consumers and to businesses are activations, not defaults.** A business switches on Retail and/or
+   Wholesale (the tool-activation pattern, decisions/0049). Wholesale price lists open at Strategic.
+6. **What commercial.md already settles:**
+   - Free businesses have the catalog (its Free spec: "a fully operational, self-serve marketplace catalog");
+   - checkout starts at Basic;
+   - AI is by AI Assist credits (0108: 10 / 50 / 250 / 500), plus the article quotas;
+   - embeddable widgets (buy buttons) are Strategic ("headless API and widgets").
+
+## 8. Keeping each business's data its own (how it's enforced)
+
+- **One gate:**
+  - every business tool runs through one scoped layer that adds `owner = this business` to every read and write;
+  - the business comes from the signed-in person's membership (`listing_memberships`), **never from the address or the request**;
+  - a tool can't run a query without it.
+- **Checked twice:**
+  - before any change, the record is reloaded and its owner compared with the business;
+  - a mismatch is refused and logged as a security event.
+- **Files** (photos, documents, labels) are served through the same check, never by a public path.
+- **Our team** sees a business's data only through support access (a standing grant or a ticket, 0102). It shows the
+  "agent is in" banner and is written to the action log.
+- **Tested on every build:** a test signs in as business A and tries every tool, item and file of business B; every
+  attempt must fail.
+- **Nexus parents** see their own locations' data through the Nexus link, nothing wider (AOS §6).

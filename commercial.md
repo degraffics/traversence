@@ -50,11 +50,11 @@ Three linked stages, replacing ad-driven networks and commission-taking OTAs:
 
 | Tier | Price | Storage & communications | Core capabilities |
 |---|---|---|---|
-| **Free** (Regional Business Directory) | $0/mo | 10 GB | Directory presence (name, address, phone, hours, categories), manual publishing, basic community messaging, **5 free GO Codes** with an account (§1.3). No AI. |
-| **Basic Partner** | $29.95/mo | 50 GB (automatic WebP/AVIF) | Marketplace e-commerce through Stripe Connect (0% fee), profile sections, taxonomy routing, AI text assistance. |
-| **Core Partner** | $79.95/mo | 100 GB (srcset delivery) | Own domain storefront (staged for later), **dynamic QR codes and short links** (`trvgo.us/{code}`, `decisions/0094`), automated local SEO. |
-| **Strategic Partner** | $229.95/mo | 1 TB + 10k emails / 500 SMS / 10k push a month | High-output content (25 AI articles a month, subdomain routing), white-glove setup, the CRM and communication suite, headless API and widgets. |
-| **Enterprise / Cornerstone Partner** | $399.95+/mo | 2 TB + 50k emails / 2,500 SMS / 50k push a month (pooled) | Multi-unit and co-op master hub, master communication vault, joint regional campaigns, advanced team roles (`decisions/0037`), dedicated support. |
+| **Free** (Regional Business Directory) | $0/mo | 2 GB | Directory presence (name, address, phone, hours, categories), manual publishing, basic community messaging, **5 free GO Codes** with an account (§1.3). No AI. |
+| **Basic Partner** | $29.95/mo | 10 GB (automatic WebP/AVIF) | Marketplace e-commerce through Stripe Connect (0% fee), profile sections, taxonomy routing, AI text assistance. |
+| **Core Partner** | $79.95/mo | 25 GB (srcset delivery) | Own domain storefront (staged for later), **dynamic QR codes and short links** (`trvgo.us/{code}`, `decisions/0094`), automated local SEO. |
+| **Strategic Partner** | $229.95/mo | 100 GB + 10k emails / 500 SMS / 10k push a month | High-output content (25 AI articles a month, subdomain routing), white-glove setup, the CRM and communication suite, headless API and widgets. |
+| **Enterprise / Cornerstone Partner** | $399.95+/mo | 250 GB + 50k emails / 2,500 SMS / 50k push a month (pooled) | Multi-unit and co-op master hub, master communication vault, joint regional campaigns, advanced team roles (`decisions/0037`), dedicated support. |
 
 **Resolved (2026-09-22), unchanged:** paid tiers sell tools and support depth, never directory ranking. Visibility stays
 earned through the Trust-Weighted model (`architecture.md` §7) for free and paid partners alike
@@ -70,11 +70,13 @@ build (still showing $19 / $79 / $249 on 2026-10-15).
 
 ### 1.2 Member cloud storage (people, not listings)
 
+*Storage figures in §1.1 and §1.2 lowered 2026-10-22 to match Master AOS v44 §5 (more space from the storage packs, AOS §5D).*
+
 | Plan | Price | What's included |
 |---|---|---|
-| Base | $0/mo | 10 GB with any account: uploads, review photos, receipts, C2C item photos. No AI-model tools; the Personal Assistant is free. |
-| 100 GB | $4.95/mo | 100 GB + the AI photo and text tools. |
-| 250 GB | $9.95/mo | 250 GB + the AI photo and text tools. |
+| Base | $0/mo | 2 GB with any account: uploads, review photos, receipts, C2C item photos. No AI-model tools; the Personal Assistant is free. |
+| Personal Plus | $4.95/mo | 25 GB + the AI photo and text tools. |
+| Personal Pro | $9.95/mo | 50 GB + the AI photo and text tools. |
 
 **Storage can't live on Bluehost at these sizes** (its file-count ceiling, §1 Free Tier below): these plans need
 object storage (S3, Cloudflare R2 or Bunny) before they open.
