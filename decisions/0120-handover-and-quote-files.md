@@ -52,7 +52,7 @@ could offer upgrades here."
 - **Sizes:** up to **24 MB** a file just uploads; above it the page asks first ("big.pdf is 30.0 MB. Large files take
   a while to upload (keep this page open) and use your storage: … Upload it?"), with a progress bar; **1 GB** is the
   most one file can be (`BizFiles::STANDARD`, `MAX`).
-- **Sent in pieces** (`BizFiles::chunk`, `business/files.php`): the page sends each file in pieces just under the
+- **Sent in pieces** (superseded by decisions/0122 once S3 is set up: files go straight to S3; this stays the fallback) (`BizFiles::chunk`, `business/files.php`): the page sends each file in pieces just under the
   host's own upload limit (read from PHP, at most 8 MB; Bluehost's is often 2 MB), retries a piece twice, and the
   server joins them in `storage/biz-files/<business>/tmp/` (unfinished uploads go after a day). The last piece checks
   what the file really is, then records it. So no host setting has to change for 1 GB files. Without JavaScript the
