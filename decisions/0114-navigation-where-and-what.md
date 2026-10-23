@@ -37,6 +37,9 @@ Jason: "When signed in the top line of the menu needs to be the user switcher. A
 - **Tapping it opens the account switcher in place, under it,** inside the menu, and tapping again folds it away.
   - It's the same switcher as on wider screens (`context-switcher.php`), moved into the menu.
   - Choosing an account inside it doesn't close the menu first.
+- **Each thing once:**
+  - the top line drops what your name already says ("Acting as Traversence staff · Owner", not the staff ID again);
+  - the switcher under it lists only the other accounts, not the one you're on, and not its own Current Account heading.
 - "Switch account" is gone from the foot of the menu. Sign out stays there.
 - The menu's headings (Things to do, Settings…) fold open and shut as before.
 - Wider screens: unchanged (the switcher opens from the person icon).
