@@ -42,3 +42,25 @@ files on their quotes, counting against their storage? Yes."
   upload past it is refused with what's used. Other tools' files join the meter as they store files.
 - **Terms** (business quotes: approving a proof; files and storage) and FAQ ("Can I send proofs and files with a
   quote?", "How much storage does my business have?").
+
+## Addendum (same day): big files, video, and adding storage
+
+Jason: "Up to 25 MB each. I don't know this is enough. I have files that can be up to a GB… video uploads… Maybe a
+standard 24 MB, with a notice when larger that needs a confirmation to proceed" and "message says how much is in use…
+could offer upgrades here."
+
+- **Sizes:** up to **24 MB** a file just uploads; above it the page asks first ("big.pdf is 30.0 MB. Large files take
+  a while to upload (keep this page open) and use your storage: … Upload it?"), with a progress bar; **1 GB** is the
+  most one file can be (`BizFiles::STANDARD`, `MAX`).
+- **Sent in pieces** (`BizFiles::chunk`, `business/files.php`): the page sends each file in pieces just under the
+  host's own upload limit (read from PHP, at most 8 MB; Bluehost's is often 2 MB), retries a piece twice, and the
+  server joins them in `storage/biz-files/<business>/tmp/` (unfinished uploads go after a day). The last piece checks
+  what the file really is, then records it. So no host setting has to change for 1 GB files. Without JavaScript the
+  plain form still works, up to the host's limit.
+- **Video:** MP4, MOV, WebM and M4V are taken as proofs and files; the customer's page plays a video proof, and files
+  are served with byte ranges so players can seek.
+- **Adding storage:** the meter offers **Add storage** (the Plans page's packs, `#packs`), as a button when past 80%;
+  a refused upload (`BizStorageFull`, 413 `storage_full` with the link) says what's used, what it needs, and offers it.
+- Fixed on the way: the site's pill rows ("More ▾", `data-more`) used the class `.tvm`, which the map script also uses
+  for its full-screen panel, so on a page with the map loaded a pill row could pin itself to the foot of the screen.
+  Pill rows are `.tvpills` now (`js/tv-ask.js`).
