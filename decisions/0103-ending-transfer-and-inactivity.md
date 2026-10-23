@@ -90,3 +90,10 @@ Routes into the stages:
 | `transfers` | kind, ref, from, to, requested, accepted, declined |
 
 A daily job advances stages when their time is up and sends the notices. Everything is logged.
+
+## Addendum (2026-10-24)
+
+Section 2 "By hand" is built for businesses (decisions/0120): the Owner names a successor in Plan & settings, the
+successor accepts at `/user/transfer.php`, the team is told, the previous Owner stays as Manager, and the plan's card
+comes off at the handover. The `transfers` table is as section 6 sets out. Automatic succession and the daily job are
+still to come.
