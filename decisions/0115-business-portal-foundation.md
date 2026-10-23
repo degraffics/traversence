@@ -153,3 +153,7 @@ completeness, its numbers; `tv_biz_glance()`) moved there from the dashboard's l
 dashboard (`/user/dashboard.php`) sends you to the Overview; its Pulse, Messages & insights and Team & roles still open
 there when asked for (`?in=pulse|business|team`, which the menu's links carry). The sample business (preview) keeps
 its dashboard view. In the menu, Overview is first, under the business's name.
+
+**No separate "Business portal" item** (same day). Jason: "M2 listing and business portal aren't they the same?" Yes:
+the account menu drops its Business portal item; choosing a listing under Your listings switches to it and opens its
+Overview (`/business/<listing>`), where all its tools are.
