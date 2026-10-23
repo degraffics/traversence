@@ -14,7 +14,7 @@ Traversence is a regional travel guide and local directory in one place. **Let's
 Email **support@traversence.com**. It's at the foot of every page, and in the emails we send you (or just reply to one of them: replies come to us too). Ask anything: your account, a listing, a GO Code order, or your privacy and data.
 
 ### Where did the big logo and icons at the top go?
-The top bar starts collapsed, so the page gets the whole screen: no bar, just the compass in the top-left corner and the menu (☰) hanging from the top-right corner, with search between them on pages that have it. On a phone, the compass opens the site menu (its big logo takes you home), and the other corner (your photo, or ☰ if you're not signed in) opens the page's tools, with **Dashboard** first so you can always get back, the other parts of the site and the trip planner under **Switch to**, and **Switch account** (your personal account, a business you manage, or staff) and **Sign out** at the bottom (tap a heading like Settings to open it). In your account, the layout switch (your full profile, or just your Pulse) sits next to your photo. Around the site the brown bar stays; in your account the page runs to the top with just those two corners. Notifications are in your Pulse (the bell there); an orange dot on the menu means something is waiting. Everything is still in the menu (☰). To bring back the full logo or the row of icons, tap the small tab next to the compass or next to the menu. We remember your choice on this device.
+The top bar starts collapsed, so the page gets the whole screen: no bar, just the compass in the top-left corner and the menu (☰) hanging from the top-right corner, with search between them on pages that have it. On a phone the two corners do different jobs. The **compass** is *where you can go*, the same on every page: Let's Explore, Get Local, Social, Marketplace, the Trip planner, Sign in or your Dashboard, and the Help Center (its big logo takes you home). The other corner (your photo, or ☰ if you're not signed in) is *what you can do here*: this part of the site's tools, with **Dashboard** first so you can always get back, and **Switch account** (your personal account, a business you manage, or staff) and **Sign out** at the bottom (tap a heading like Settings to open it). On pages with no tools of their own, like the FAQ, it holds just you, and isn't there when you're not signed in. In your account, the layout switch (your full profile, or just your Pulse) sits next to your photo. Around the site the brown bar stays; in your account the page runs to the top with just those two corners. Notifications are in your Pulse (the bell there); an orange dot on the menu means something is waiting. Everything is still in the menu (☰). To bring back the full logo or the row of icons, tap the small tab next to the compass or next to the menu. We remember your choice on this device.
 
 ### Do I need an account?
 No, not to look around. You need one to save favorites, write journeys, comment, like, report something, or make suggestions under your name.
@@ -114,6 +114,9 @@ If you help run a business, or you're on the Traversence team, you can act as yo
 
 ### I'm on the Traversence team. How do my staff login and my own account fit together?
 They're separate: the staff login (a staff ID like TRV-0001, your work email and a password) opens the admin side; your own account is for everything else. Link them once from your own account (Dashboard → Privacy → Staff login: your staff ID, then the code we email to your work email). After you sign in with the staff login, the account menu switches to your own account and back without signing in again, for up to 12 hours. Signing in with your own account never opens the admin side.
+
+### I'm on the Traversence team. Where is everything in the admin?
+The admin has 11 modules, in the menu on the left (☰ on a phone). Each module has its own sections, listed in the menu next to the page title. Your role and department decide which modules you see. Anything your role can't do is greyed out, with the reason. A section that's coming is greyed out in that menu and opens a page saying what it will do. Lists work the same way everywhere: a search box, filters, and the stage of each item. Tap an item to open it in a panel at the side. The panel shows where the item stands, how long it's been there, and the next steps you can take. The round icons beside the section menu open tools from other modules in a panel over your work, so you don't lose your place, and Back closes the panel. Managers and up can change the steps work goes through, and who may take each one, in **System Configuration → Workflows**. The older admin pages still open from their old links and the site map, with a note saying where their work is now.
 
 ### What does Peek do in search?
 Tapping a result opens its page. A listing also has a **Peek** button: tap it for a quick card with the address, Call and Directions, without leaving the page you're on.
@@ -458,8 +461,29 @@ Ask to claim it anyway. Only one claim goes ahead at a time, so yours is saved a
 When you claim one, we look for your other locations (the same name, phone or website) and offer to claim them together. Each location stays its own listing, with its own page. One confirmation can cover them all when it shows every location: your website lists them, or you send photos or a brochure that does. Otherwise each location is confirmed on its own.
 
 ### What do the plans cost?
-Free costs nothing. Core is $19 a month, Strategic $79 and Cornerstone $249. Paying isn't switched on yet, so a paid plan starts as a free trial; we'll ask you before anything is ever charged. When you choose a plan, each one has its own row: tap ▸ to see what it offers. No plan ranks you higher in search.
+For a business: **Free** costs nothing; **Basic Partner** is $29.95 a month, **Core Partner** $79.95, **Strategic Partner** $229.95 and **Cornerstone** $399.95. For yourself: **Personal** is free, **Personal Plus** $4.95 a month and **Personal Pro** $9.95. Paying by the year costs 10 months' price for 12 (two months free). Each plan includes storage and AI Assist credits; the **Plans** page lists them. No plan ranks you higher in search: plans pay for tools, storage and support.
 
+### How do I choose or change my plan?
+Open **Plans**: **Manage plan** in your business dashboard, or **Plans** under your account in your Dashboard. Pick a plan, monthly or yearly, and add your card. The card goes straight to QuickBooks Payments (Intuit); we never see or keep the number. A bigger plan starts right away and you pay the difference for the rest of the period; a smaller one starts at your next renewal, and you keep what you paid for until then.
+
+### How does a free trial work?
+A paid plan you choose when you claim your business starts with a 30-day free trial, and our team sometimes offers trials of 30, 60 or 90 days. No card is needed. We email you 7 days and 1 day before it ends, and on the day. To keep the plan, choose **Keep** on the Plans page and add a card; otherwise it goes back to the free plan on its own and nothing is charged. Your listing stays up either way.
+
+### Does my plan renew on its own?
+Yes, on the same date each month or year, charged to the card on file, with a receipt by email each time. A yearly plan gets a reminder 7 days before it renews. Choose **Stop at the end of this period** on the Plans page any time: you keep everything until then and aren't charged again. Periods already started aren't refunded.
+
+### What happens if my card is declined?
+We email you and try again 3 days later, and once more after 7 days. Update the card on the Plans page and we charge it right away. If it's still declined after that, the plan goes back to Free; your listing stays up, and you can choose a plan again any time.
+
+### What are storage and AI packs?
+Extra storage (+25 GB, +50 GB, +100 GB, +250 GB, +1 TB or +5 TB) and +50 AI Assist credits a month, the same for every plan and for personal accounts. Add one on the Plans page once your plan is paid: you pay for the rest of the current period now, then it renews with your plan on the same date. Packs are always full price, also on a yearly plan. **Remove at renewal** takes one off at the next renewal.
+
+
+### How do I use a promo code?
+Type it where it says **Promo code**: on the **Plans** page, in your **GO Codes cart**, or on an order we've prepared for you, before you approve it. A trial code starts the free trial right away, with no card. A code for a percentage off shows what it takes off before you pay. If a code came with a QR code (a GO Code), scan it: its page shows the offer and takes you to where it works, with the code ready. Each code works once per account, between its dates, and some are only for one business.
+
+### Why didn't my code take anything off?
+A code works on certain things: plans, GO Codes, or kinds of work such as creative or printing. It never takes anything off storage or AI Assist packs. Some prices are already as low as they go, so a code can't take them lower. If you think it should apply, write to support@traversence.com with the code.
 ## Journeys and contributors
 
 ### What is a journey?
@@ -642,13 +666,28 @@ Yes. Once a GO Code is yours (free or paid), print it and use it on anything you
 ## Orders we prepare for you
 
 ### How do I review and approve an order Traversence prepared for me?
-Open the link in our email (no account needed). It shows everything in the order with its price, and a proof for anything we'll print or make, and for each GO Code. Tap **Review the proof**: it opens large and sharp on its own (a long proof scrolls; × closes it), with **Approve** and **Make changes** in the bar across the top. A GO Code's proof shows the code and everything it holds (a contact card as the card people will save). Tap **Make changes** and tell us what to change: we send you a new proof on the same link. Proofs are shown square, to their edges, with a **red dashed line** where the piece is cut. When every proof is approved, add your billing address and your name and tap **Approve the order**. What you approve is made as shown, so check names, numbers and spelling first. A GO Code in your order can be tested before you pay: scan it from the proof and it opens a page marked **Proof** with a button that does what the code does (opens the link, saves the contact, and so on). Those test scans aren't counted. Once the order is paid, the code goes live: scans open it directly and are counted. The link works until the date shown on it; reply to our email and we'll send it again. Your order reads like an invoice: each item shows where it ships (each can go to a different address, or be picked up) and its own shipping, added up in a Shipping line. If something ships to you, you give the address when you approve (or tick that it goes to your billing address). Once it's approved, each item shows where it stands (in production, shipped, delivered…), with tracking when there is any, and we email you updates. If we've agreed you'll pay us directly (cash, check, Zelle), there's no card form: we confirm each payment by email and it shows on the same link.
+Open the link in our email (no account needed). It shows everything in the order with its price, and a proof for anything we'll print or make, and for each GO Code. Tap **Review the proof**: it opens large and sharp on its own (a long proof scrolls; × closes it), with **Approve** and **Make changes** in the bar across the top. A GO Code's proof shows the code and everything it holds (a contact card as the card people will save). Tap **Make changes** and tell us what to change: we send you a new proof on the same link. A proof can have several files (front and back, or each size): they're shown together, and **Approve** approves them all. If we send a new version, it replaces the one before. Proofs are shown square, to their edges, with a **red dashed line** where the piece is cut. When every proof is approved, add your billing address and your name and tap **Approve the order**. What you approve is made as shown, so check names, numbers and spelling first. A GO Code in your order can be tested before you pay: scan it from the proof and it opens a page marked **Proof** with a button that does what the code does (opens the link, saves the contact, and so on). Those test scans aren't counted. Once the order is paid, the code goes live: scans open it directly and are counted. The link works until the date shown on it; reply to our email and we'll send it again. Your order reads like an invoice: each item shows where it ships (each can go to a different address, or be picked up) and its own shipping, added up in a Shipping line. If something ships to you, you give the address when you approve (or tick that it goes to your billing address). Once it's approved, each item shows where it stands (in production, shipped, delivered…), with tracking when there is any, and we email you updates. If we've agreed you'll pay us directly (cash, check, Zelle), there's no card form: we confirm each payment by email and it shows on the same link.
 
 ### Do I have to pay for the whole order up front?
 The order says how: in full when you approve, a deposit when you approve and the rest before delivery, or an invoice you pay later. Sales tax is added when you approve, from your billing address. You pay by card on the same page (your card goes straight to QuickBooks Payments; we never see the number), or on QuickBooks' own page by card or bank transfer. If something in the order is a GO Code, it's ready to download from the page as soon as the order is paid.
 
 ### Where is my printed order?
 On your order's page: **Where it is** shows whether it's in production, sent to print, shipped (with its tracking number) or ready for pickup. We also email you at each step.
+
+### What does Traversence keep about me when I buy something?
+Your customer record, made from your own orders and plans: your name, email, phone and company as you gave them, what you've bought and when, and the total. Our team can add a note (say, that you asked us to call in spring) or a tag (like Wholesale) to help look after you. It's private to our team, never shown on the site and never sold. Your orders are kept for our accounts even if you close your account.
+
+### Will my business get a list of its own customers?
+Coming. With the business tools, your listing gets its own customer list, built from the orders and messages that come to you, with notes, tags and groups like new, returning and VIP. It's private to your business: no other business, and no one outside your team, can see it.
+
+### What happens to a message I send from one of your pages?
+It comes to our team, who answer by email (or by phone, if you gave a number and asked us to call). We keep your name, email, phone and message so we can answer and follow up, and they become your customer record with us. We never add you to a mailing list from it, and never sell or share it. A page's form takes a few messages an hour from one connection, to keep out spam.
+
+### Can my business set its own sales tax, shipping and wholesale prices?
+Coming, with the business tools. You'll set your own sales tax rate for each place you sell in (a state, a city or a set of ZIP codes), your shipping and pickup options (flat rate, by weight, free over an amount, local pickup, or delivery by ZIP code or distance), and price lists for groups of customers, like Wholesale, with volume breaks.
+
+### Will my business have its own pages?
+Coming, with the business tools. Your listing will get its own pages (About, Services, FAQ, Contact and others) with a contact or quote form, a search description and a share picture. Messages from your forms come to you and into your customer list.
 
 ## Privacy and your account
 
