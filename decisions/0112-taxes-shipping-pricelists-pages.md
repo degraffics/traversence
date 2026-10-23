@@ -85,3 +85,16 @@ list. Each tool is ours today (owner 0) and is scoped to a business by the busin
 - The business checkout step uses `Commerce::taxFor`, `Commerce::shipOptions` and `PriceLists::priceFor`. The client
   order builder can offer the customer's price-list price at the same time.
 - Carrier rates and labels (USPS, UPS) are a later step (business-portal-architecture.md §3).
+
+## Addendum (2026-10-23): the site's own "page not found"
+
+- There was no custom 404 page. Now there's one: `app/ui/not-found.php` (`tv_not_found()`), shown by
+  `website/_errors/404.php`.
+- **What it shows:** the site's frame, "We couldn't find that page", a Search Traversence button, and Home, Get Local,
+  Let's Explore and FAQ. It returns status 404, so search engines don't list the address.
+- **Pages/view.php** uses it for an address with no page, and for a draft or hidden page opened by someone who isn't
+  on our team.
+- **Apache:** the web root's `.htaccess` needs one line, `ErrorDocument 404 /_errors/404.php`. It's added by hand,
+  since our copy doesn't hold the live `.htaccess`.
+- **Other pages:** pages that say "not found" themselves (listings, journeys, guides) can switch to `tv_not_found()`
+  as they're next changed.
