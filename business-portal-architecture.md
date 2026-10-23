@@ -110,6 +110,8 @@ minimums"; 0032 sets Cornerstone at 250 per listing). Everything else follows co
 
 ## 5. Effect on the build order
 
+**Status (2026-10-23):** step 1 built (decisions/0115): the scope, the business gateway and walls, `/business/<listing>`, roles with Viewer, plan gates and Plan features; Customers is the first tool across.
+
 1. **Make the engine multi-business**, before any business tool:
    - an owner (listing) on the records;
    - `Plan::allows` / `Plan::limit`;
