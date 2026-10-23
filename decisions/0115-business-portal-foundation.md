@@ -123,7 +123,7 @@ Jason, 2026-10-23: "I am not seeing my business account."
   from `listing_access` only. `Team::listingsOf()` now reads all three (team, listing access, the claimed owner) and
   all three places use it, so they agree.
 - **Our team puts people on a business.** Admin → Local → Listings → a listing's drawer shows **Owner & team** and
-  **Add to the team** (their member account's email and a role) and **Take off the team** (`Team::adminSet()`,
+  **Assign to a user account** (or **Add a user account** once it has an owner: the account email and a role) and **Remove a user account**, with Owner & team first in the panel (`Team::adminSet()`,
   `adminRemove()`; managers in Operations, Service or Sales). Owner also makes them the listing's claimed owner (the
   owner before stays on as Manager); Owner and Manager are kept in `listing_access` too, which the listing editor
   reads. The member is emailed; every change is in the audit log (route `admin`). A staff login can't be added: the
