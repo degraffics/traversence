@@ -121,3 +121,17 @@ can make their `first.last@<STAFF_EMAIL_DOMAIN>` mailbox through cPanel's UAPI (
 setup link is emailed to it; its password is shown once (hidden until asked) for the owner to pass on. Ending
 someone's access suspends the mailbox's sign-in; its mail is kept. Without the token, mailboxes are made in cPanel by
 hand. One staff login per person: a person's member account is linked to it, never duplicated as a second login.
+
+## Addendum (2026-10-23): an owner links the accounts; the member confirms
+
+Jason, 2026-10-23: "It should be the other way. Admin can link user accts." Members no longer link a staff login
+themselves (the Privacy box and its code are gone; `/user/api/staff-link.php` only confirms and unlinks).
+
+- **An owner asks.** Admin → People → Staff logins → **Link a member account** on a login: the person's member
+  account email. `StaffLogin::requestMemberLink()` emails that account a link (signed with the staff key, good for
+  3 days, no table) and logs `link_asked`.
+- **The member confirms.** A linked staff login switches into that member account without its password, so the
+  member says yes: `/user/staff-link.php?t=…`, signed in as the account the email went to, explains this and offers
+  **Link them** or **Not me** (`confirmMemberLink()`). A wrong account or an old link says so and links nothing.
+- **Unlinking** is from either side: the owner on Staff logins, or the member in Dashboard → Privacy → Staff login.
+- The account menu no longer shows "Your staff login · link it in Privacy" to unlinked admins.

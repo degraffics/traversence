@@ -113,3 +113,18 @@ platform admins, just segmented into plans", "Admin should have any and everythi
    - then Discount codes and GO Codes;
    - then the business's own Taxes & shipping, Price lists and Storefront & pages (built for us in 0112).
 3. Support access for our team (a standing grant or a ticket, 0102), with the "agent is in" banner.
+
+## Addendum (2026-10-23): your businesses, from every record; our team adds people
+
+Jason, 2026-10-23: "I am not seeing my business account."
+
+- **One list of your businesses.** A business you're on was read three different ways: the account menu from
+  `listing_access` and grants, `/business/` from the team (`listing_memberships`), and today's business dashboard
+  from `listing_access` only. `Team::listingsOf()` now reads all three (team, listing access, the claimed owner) and
+  all three places use it, so they agree.
+- **Our team puts people on a business.** Admin → Local → Listings → a listing's drawer shows **Owner & team** and
+  **Add to the team** (their member account's email and a role) and **Take off the team** (`Team::adminSet()`,
+  `adminRemove()`; managers in Operations, Service or Sales). Owner also makes them the listing's claimed owner (the
+  owner before stays on as Manager); Owner and Manager are kept in `listing_access` too, which the listing editor
+  reads. The member is emailed; every change is in the audit log (route `admin`). A staff login can't be added: the
+  person's own member account is.
