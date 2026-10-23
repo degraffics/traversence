@@ -94,7 +94,7 @@ list. Each tool is ours today (owner 0) and is scoped to a business by the busin
   Let's Explore and FAQ. It returns status 404, so search engines don't list the address.
 - **Pages/view.php** uses it for an address with no page, and for a draft or hidden page opened by someone who isn't
   on our team.
-- **Apache:** the web root's `.htaccess` needs one line, `ErrorDocument 404 /_errors/404.php`. It's added by hand,
-  since our copy doesn't hold the live `.htaccess`.
+- **Apache:** the domain's `.htaccess` (in `public_html/traversence/`, beside `website/`) has rule 7,
+  `ErrorDocument 404 /website/_errors/404.php`, next to the 403 page's. Added 2026-10-23 to Jason's live file.
 - **Other pages:** pages that say "not found" themselves (listings, journeys, guides) can switch to `tv_not_found()`
   as they're next changed.
