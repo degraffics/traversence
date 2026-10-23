@@ -128,3 +128,21 @@ Jason, 2026-10-23: "I am not seeing my business account."
   owner before stays on as Manager); Owner and Manager are kept in `listing_access` too, which the listing editor
   reads. The member is emailed; every change is in the audit log (route `admin`). A staff login can't be added: the
   person's own member account is.
+
+## Addendum (2026-10-23): one menu for a business; which account you're in
+
+Jason: "Business portal vs listing landing page?" and "maybe more of a visual indicator".
+
+- **One menu.** `tv_biz_rail()` (`app/business/portal.php`) is the menu for a business wherever you are: on the
+  dashboard while acting as the listing, and in its portal. The listing (Pulse, Messages & insights, The listing, Edit
+  listing), then **Business tools** (the portal's modules: Overview, Inbox, Customers, Quotes & invoices, Catalog,
+  Orders, Storefront & pages, Marketing, Reports, greyed with the reason), then **Organization** (Team & roles, Plan &
+  settings). The portal's "Dashboard" is now **Overview** and "Settings & team" **Plan & settings**, so nothing is named
+  twice.
+- **Opening a business acts as it.** Opening `/business/<listing>` switches you to acting as that listing.
+  `/business/` goes straight to the one you're acting as, or your only one; with several and none chosen it lists them
+  (`?all=1` always lists). In the account menu, acting as a listing, the item reads "<listing>'s tools".
+- **Which account you're in** (`tv_acting()`, `context-switcher.php`): while acting as a listing, Steward or Admin
+  (not as yourself, and not on a staff login, whose side says so), a band at the top of every page in that account's
+  colour (listing amber, Steward blue, Admin sage) says "Acting as <name> · <role>" with **Switch**, and your photo in
+  the corner wears a badge with its icon and a ring in its colour.
