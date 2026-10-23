@@ -43,3 +43,9 @@ Jason: "When signed in the top line of the menu needs to be the user switcher. A
 - "Switch account" is gone from the foot of the menu. Sign out stays there.
 - The menu's headings (Things to do, Settings…) fold open and shut as before.
 - Wider screens: unchanged (the switcher opens from the person icon).
+- **Fixes (2026-10-23):**
+  - the open phone menu sits above the page's own buttons (Shortcuts);
+  - on account and admin pages your name keeps clear of your photo in the corner;
+  - "Your member account · Not linked yet · how to link" opens the FAQ's steps, not the archived staff logins page;
+  - with listing accounts, the switcher has **Business portal** (`/business/`) beside **Your listings**
+    (`/user/accounts.php`).
