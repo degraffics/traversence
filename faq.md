@@ -689,6 +689,9 @@ Your business's own tools, for you and your team, at traversence.com/business/. 
 ### My business doesn't show in my account menu. How do I get it there?
 Your business shows under **Your listings** and **Business portal** once your account is on its team: when you claim it and the claim is approved, when its owner adds you, or when our team adds you (we can make you its owner or give you a role, and we email you when we do). If you run a business that isn't showing, claim it from its page or ask us to add you.
 
+### My plan includes White Glove. Who can get into my business, and what can they do?
+Strategic Partner and Cornerstone include White Glove: our team sets up and keeps up your business for you. So we can, your White Glove agent (a named member of our staff) gets access to your business when the plan starts, and we email you who it is, and again if it ever changes to someone else. They can update your profile, catalog, content, storefront and codes, and see your customers, orders and messages to help with them. They can't touch your billing or payouts, your team, your keys, exports or deleting the business. Every change they make is logged. You can see who has access, and turn it off or on again, in your Business portal → **Settings & team**. The [Terms](/terms.php#white-glove) say the rest.
+
 ### What happens to a message I send from one of your pages?
 It comes to our team, who answer by email (or by phone, if you gave a number and asked us to call). We keep your name, email, phone and message so we can answer and follow up, and they become your customer record with us. We never add you to a mailing list from it, and never sell or share it. A page's form takes a few messages an hour from one connection, to keep out spam.
 

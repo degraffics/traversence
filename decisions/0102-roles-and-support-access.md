@@ -219,3 +219,8 @@ Dropped:
 2. `audit_log` and the agent banner.
 3. Standing grants and reassignment notices.
 4. Ticket queue with timed access.
+
+## Addendum (2026-10-23)
+
+Route 1 is built for White Glove accounts: decisions/0117. The grant is automatic with a plan that includes White
+Glove and the account's rep, moves with the rep, and is scoped by the Terms (`#white-glove`); the owner can turn it off.

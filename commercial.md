@@ -165,6 +165,12 @@ Positioned explicitly as partnership, not vendor/agency extraction: "we do not a
 
 This add-on is the one place billing is explicitly defined as per-location. The base Core/Strategic/Cornerstone subscriptions aren't stated as per-location or per-business anywhere in the source material — still an open question for a business with multiple sites.
 
+**Access for White Glove (decisions/0117, 2026-10-23).** A plan that includes White Glove (Strategic Partner,
+Cornerstone) gives the assigned White Glove agent standing access to the business automatically, limited to the White
+Glove services in the Terms (`/terms.php#white-glove`): profile, catalog, content, storefront and codes; seeing
+customers, orders and messages; never billing, the team, keys, exports or deleting the business. The owner can turn
+it off.
+
 ### Agency services and print (commercial-2 §3)
 
 Structured agency and print-on-demand services bridging the profile and the physical storefront:
