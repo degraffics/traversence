@@ -49,3 +49,11 @@ Jason: "When signed in the top line of the menu needs to be the user switcher. A
   - "Your member account · Not linked yet · how to link" opens the FAQ's steps, not the archived staff logins page;
   - with listing accounts, the switcher has **Business portal** (`/business/`) beside **Your listings**
     (`/user/accounts.php`).
+
+## Addendum (2026-10-23): your listings open in the menu
+
+Jason: "I dont want to leave menu to see my listings." **Your listings** in the account menu now folds open in place
+(remembered): up to three of your other listings, each one tap to switch to, and **See all N listings**, a pop-up over
+the page with every listing and a search box, also one tap to switch. All your accounts (`/user/accounts.php`, grouped
+by Nexus) stays for the full view. One menu at a time: the tools list closes a page's section or filter drop-down, and
+the other way round.
