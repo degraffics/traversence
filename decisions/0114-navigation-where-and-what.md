@@ -27,3 +27,16 @@ competitive or redundant… Ui/Ux from a what... how... where... simple", and "W
 - `app/ui/section-rails.php`: the rail for pages outside a section is Help.
 - `app/ui/page-shell.php`: marks those pages.
 - `faq.md`: "Where did the big logo and icons at the top go?" describes the two corners.
+
+## Addendum (2026-10-23): you at the top of the phone menu
+
+Jason: "When signed in the top line of the menu needs to be the user switcher. Also collapse toggles within the menu."
+
+- **Signed in, the right-hand menu's first line on phones is you:** your initial, your name, and the account you're
+  acting as.
+- **Tapping it opens the account switcher in place, under it,** inside the menu, and tapping again folds it away.
+  - It's the same switcher as on wider screens (`context-switcher.php`), moved into the menu.
+  - Choosing an account inside it doesn't close the menu first.
+- "Switch account" is gone from the foot of the menu. Sign out stays there.
+- The menu's headings (Things to do, Settings…) fold open and shut as before.
+- Wider screens: unchanged (the switcher opens from the person icon).
