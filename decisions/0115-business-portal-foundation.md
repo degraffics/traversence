@@ -146,3 +146,10 @@ Jason: "Business portal vs listing landing page?" and "maybe more of a visual in
   (not as yourself, and not on a staff login, whose side says so), a band at the top of every page in that account's
   colour (listing amber, Steward blue, Admin sage) says "Acting as <name> · <role>" with **Switch**, and your photo in
   the corner wears a badge with its icon and a ring in its colour.
+
+**One landing (later the same day).** Jason: "Why two different? Why not just one landing dashboard?" A business has
+one landing: its **Overview** (`/business/<listing>`). The listing at a glance (status, town, quick actions, profile
+completeness, its numbers; `tv_biz_glance()`) moved there from the dashboard's listing view. Acting as a listing, the
+dashboard (`/user/dashboard.php`) sends you to the Overview; its Pulse, Messages & insights and Team & roles still open
+there when asked for (`?in=pulse|business|team`, which the menu's links carry). The sample business (preview) keeps
+its dashboard view. In the menu, Overview is first, under the business's name.
