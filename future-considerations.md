@@ -274,3 +274,25 @@ directories ask for the same kinds. Two uses:
 - Rules: never public; kept only as long as they're needed (deleted with the listing's claim or on the owner's
   request); who opened one is logged; an expired document stops counting as proof and the owner is asked for a
   current one. Privacy policy and FAQ updated when built.
+
+## A password vault for Traversence's own keys and logins (on hold, noted 2026-10-24)
+
+Jason wants something like Google Password Manager for every key, login and password tied to traversence.com and
+trvgo: AWS, Bluehost and cPanel, Google, QuickBooks, Anthropic, the domains, and the like. On hold at his request.
+
+- **Option 1: an outside manager** (Bitwarden or 1Password; Google Password Manager is weaker for shared company
+  secrets). It lives completely apart from the website, so nothing that happens to the site can expose it. It has
+  sharing with staff, recovery and access history built in. Recommended.
+- **Option 2: built into Traversence, only if zero-knowledge.**
+  - Unlocked with a vault password that never leaves the browser. Every entry is encrypted and decrypted there
+    (WebCrypto: PBKDF2 or Argon2 key, AES-GCM), so the server and S3 hold only scrambled data, and even the whole
+    server with its `.env` couldn't read it.
+  - Its own locked-down page: no outside scripts (not even the Tailwind CDN), a strict Content Security Policy.
+  - The staff authenticator code to open it, auto-lock after a few minutes, a password generator, and a log of who
+    opened which entry.
+  - Owner first; sharing chosen entries with staff by role later.
+  - The catch: a forgotten vault password means nothing can be recovered. There's a printed recovery key, kept
+    somewhere safe.
+- Either way, the site's own `.env` secrets stay in `.env` (the site needs them to run). The vault is the record of
+  them and of everything else. Plain settings are already changed from the admin (decisions/0125).
+- Related, still separate: the business documents vault (above) for proof documents.
