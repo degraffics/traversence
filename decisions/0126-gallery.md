@@ -260,3 +260,15 @@ local S3 (moto) and with no S3:
 - Searching and tagging files across albums, and sharing a single file, are for the DAM's next step.
 - Originals and files need S3.
 - A client's picks are per album; they aren't carried across albums.
+
+
+## Fix (2026-10-24, afternoon): photos missing on the live site; the dashboard's Gallery tab
+
+- **Photos were blank** on traversence.com (profile, cover and journey photos). `website/uploads/.htaccess` sent missing
+  photos to `media.php` (S3) only for the old folders (`hero`, `journeys`, `profile`). The owner folders
+  (decisions/0124: `members/`, `businesses/`, `guests/`, `orders/`) were left out. That's where new photos go and where
+  **Move files** puts the old ones, and once a photo is kept in S3 its server copy is gone, so those addresses gave
+  a 404. The rule now covers every folder. The local test router already did, which is why testing didn't catch it.
+- **The dashboard's Gallery tab** was still the old list ("Folders and albums are coming"). It's now the gallery
+  module: the newest 12 items and up to 4 albums, opening in the same viewer (with editing), and **Open your
+  gallery** for the rest.
