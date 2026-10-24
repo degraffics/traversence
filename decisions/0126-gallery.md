@@ -272,3 +272,11 @@ local S3 (moto) and with no S3:
 - **The dashboard's Gallery tab** was still the old list ("Folders and albums are coming"). It's now the gallery
   module: the newest 12 items and up to 4 albums, opening in the same viewer (with editing), and **Open your
   gallery** for the rest.
+- **Upload failed with "Unexpected end of JSON input"** in a business's gallery on the live site: PHP stopped part way
+  and sent nothing back. It didn't happen here, even acting as the business. The fix covers both likely causes:
+  - **Memory:** a photo is now given room to be worked on (`Gallery::room`, raising `memory_limit` up to 1 GB as
+    needed, like `PlaceProfile`). The EXIF turn no longer keeps two copies in memory. A 12-megapixel photo sent at
+    full size went through under a 128M limit.
+  - **Silence:** `gallery/api.php` and the guest upload (`drop.php`) now answer in JSON even when PHP stops (out of
+    memory, out of time, a fatal error). The page then says why, and the cause goes to the error log
+    (`website/gallery/error_log` on Bluehost).
