@@ -192,3 +192,11 @@ PREPARE q FROM @s; EXECUTE q; DEALLOCATE PREPARE q;
 ```
 
 (Indexes: `information_schema.STATISTICS` … `INDEX_NAME = '…'`.) See `app/migrations/2026-11-29_go_codes_guest.sql`.
+
+## The live server runs PHP 8.0: every build
+
+Local tests run PHP 8.3, so 8.1+ features pass here and break on Bluehost (a parse error takes the whole file down).
+Don't use: `readonly` properties or classes, `enum`, first-class callables (`strlen(...)`), `new` in parameter
+defaults, `array_is_list()`, `json_validate()`, typed class constants, standalone `true`/`false`/`null` types. (`: never`
+happens to parse on 8.0 as a class name, and only on functions that never return.) Before a delivery, grep the
+changed files for these.

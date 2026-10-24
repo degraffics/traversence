@@ -286,3 +286,7 @@ local S3 (moto) and with no S3:
   (`Store::mode`; private storage stays 0750). `Store::openPublic()` opens the folders already made shut (folders
   0755, files 0644) once, from `app/bootstrap.php`, then writes the marker `app/storage/.uploads-open-v1`, so
   later requests cost a single `is_file()`.
+- **Business upload: "The server stopped part way (BizFiles.php, line 336)".** The live server runs **PHP 8.0**, and
+  `BizStorageFull`'s constructor used `readonly` properties (8.1+), a syntax error there. It was first loaded on a live
+  business request by the gallery's storage check. Now plain `public`. The same scan found `array_is_list()` (8.1+)
+  in `Concepts.php` and `api/ingest.php`; both now check keys themselves.
