@@ -280,3 +280,9 @@ local S3 (moto) and with no S3:
   - **Silence:** `gallery/api.php` and the guest upload (`drop.php`) now answer in JSON even when PHP stops (out of
     memory, out of time, a fatal error). The page then says why, and the cause goes to the error log
     (`website/gallery/error_log` on Bluehost).
+- **Photos still blank, "403 Forbidden: Server unable to read htaccess file".** The real cause: `Store::relocate`
+  (**Move files**) and the gallery made folders 0750. Under `website/uploads/` that shuts out Apache's own user, so
+  every photo in an owner folder was refused before any rewrite rule ran. Public photo folders are now made 0755
+  (`Store::mode`; private storage stays 0750). `Store::openPublic()` opens the folders already made shut (folders
+  0755, files 0644) once, from `app/bootstrap.php`, then writes the marker `app/storage/.uploads-open-v1`, so
+  later requests cost a single `is_file()`.
