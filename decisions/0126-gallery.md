@@ -290,3 +290,13 @@ local S3 (moto) and with no S3:
   `BizStorageFull`'s constructor used `readonly` properties (8.1+), a syntax error there. It was first loaded on a live
   business request by the gallery's storage check. Now plain `public`. The same scan found `array_is_list()` (8.1+)
   in `Concepts.php` and `api/ingest.php`; both now check keys themselves.
+
+## Fix (2026-10-24): the business's Plan & settings page
+
+- **No way to buy a plan** from a business's Plan & settings. A **Your plan** card now opens the page: the plan, the
+  storage used, and **Choose / Change plan** and **Add storage** (`/plans.php?listing=<id>`, `#packs`). The Overview's
+  plan and storage tiles already linked there.
+- **The page stopped after the team list on the live site**, with no hand-over section and no footer. Most likely
+  `Team::pendingTransfer()`'s query failing against an older `transfers` table. It's now caught and logged, and so is
+  the White Glove block. The portal router now shows "This page stopped part way (file, line)" if it ever stops again,
+  and logs why.
