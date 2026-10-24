@@ -44,6 +44,10 @@ left is the bucket's CORS rule, the lifecycle rule and the key's permissions bel
 doesn't (red), and asks to check it by hand when the key may not read the rule (`s3:GetBucketCORS`, optional).
 Until the rule is set, uploads to S3 fail at the first part, so set it before businesses upload.
 
+**The AWS account** (so it isn't hunted for again): account name **Traversence**, ID **573199225597**, owner (root) sign-in
+**support@traversence.com** with MFA on (choose "Root user" at sign-in). The site's own IAM user is **traversence-site**
+(its key is in `.env`). It's for the website only and isn't used to sign in.
+
 For reference, `.env` (secrets only there):
 
 ```
