@@ -40,9 +40,15 @@ changes, and with S3 off everything works from the server as before.
 
 ## Moving the files already there
 
-`php app/scripts/move_files_to_s3.php` says what it would move. Run it again with `--go` to move them. Running it twice
-is safe, and a file that won't go stays and still works. Addresses don't change, so it can run any time. Run it once
-the CORS rule is set.
+Jason has no terminal on the host, so **Settings → AWS S3** has a **Move N files to S3** button (admins only,
+`admin/api/move-files.php`). It shows how many files from before are still on the server, then moves them a batch per
+request (40 files or 20 seconds, `Store::moveOld`) until none are left, with a running count. A file that won't go
+stays on the server and still works, and pressing the button again picks up where it stopped. Addresses don't change,
+so it can run any time after the CORS rule is set. GO Code logos that move are marked on their code (`has_logo`).
+`php app/scripts/move_files_to_s3.php [--go]` does the same from a terminal or a cron job.
+
+Tested: 70 files (63 MB) moved by the button at 390 px wide, done in a few seconds against the local stand-in. After a
+reload it reads "Every file is in S3: none left on the server" and the button is gone.
 
 ## Also
 
