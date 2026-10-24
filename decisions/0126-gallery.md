@@ -1,6 +1,6 @@
 # 0126: The gallery, one module for every photo and video
 
-Status: Phase 1 built (2026-10-24). Jason: "The gallery is how uploaded photos and videos are viewed, like an album. The
+Status: Phases 1 and 2 built (2026-10-24). Jason: "The gallery is how uploaded photos and videos are viewed, like an album. The
 user profile has gallery, but the gallery is the module that plugs in and holds all, for user, admin, listing…" His
 brief sets the standard below: immersive viewing, frictionless navigation, clarity. The interface frames the photos
 and stays out of the way. It must suit a photographer's portfolio (client proofing, download limits), a personal or
@@ -102,3 +102,67 @@ At 390 px and 1280 px, against a local S3 stand-in:
 - **Private again:** everything refused.
 - **Layout:** edges at 3px on phones, no sideways scroll, no script errors.
 - The older profile viewer still works.
+
+## Phase 2 built (2026-10-24): social, people, guests
+
+**Likes and comments are pinned to each photo.** They use the site's tables (`content_likes` / `content_comments`, kind
+`photo`, ref = the gallery item).
+- They go only through `gallery/api.php`, which checks that the person may see that photo. `api/engage.php` refuses
+  kind `photo`.
+- The viewer's side panel is now real:
+  - the like count and your like;
+  - the comments, oldest first, each with when;
+  - **Remove** on your own comments, and on any comment on your own photo;
+  - **Report** (Admin → Reports, like other comments);
+  - **double-tap to like** on phones, with a heart.
+- Comments need an account that's 18 or older. The panel asks once, the way content pages do.
+
+**People** (`gallery_album_people`): the owner invites by email as **View only** or **Can contribute**.
+- The email carries a one-time link, `gallery/join.php`. The invitee signs in or makes an account, and the link is
+  then used up.
+- Invited people see the album whatever its setting, under **Shared with you** in their gallery.
+- Contributors add their own photos (they stay theirs, in their own folder) and can take out only those. They can't
+  remove anyone else's photos or change the album; the API enforces this, not just the page.
+- The owner can change a role, take back an invitation, or **Remove** someone. Removing them takes their photos out
+  of the album and deletes their likes and comments on its photos, though they keep their own photos.
+- Anyone can **Leave**.
+
+**Guest uploads** (`gallery_guest_keys`, `gallery_guest_items`): for an event, **Let guests add photos** gives a
+guest link (`gallery/drop.php?g=…`) and a QR code.
+- Guests need no account: an optional name, then photos only, made a sensible size on the phone.
+- Limits: 60 a day per guest per album (a hash of their address and browser; nothing about them is stored), and
+  2,000 per album.
+- The photos are the owner's to keep or delete, shown as "Added by {name} (guest)".
+- **New guest link** or **Turn off** stops the old link and QR code at once.
+- The page uses its own form key, made from the guest link, so it works without a session or cookies.
+
+**Share** is now a sheet with the link, the phone's share sheet, and a **QR code** (`tvQr`, on a trvgo.us short link,
+decisions/0094). A new album link leaves the old short link pointing at a dead link, so revocation holds.
+
+The viewer shows who can see each photo: Public, Anyone with the link, Invited people, or Only you.
+
+**Tested** at 390 px, with three accounts and a guest:
+- **Invitations:** two people invited (emails sent); the contributor joined from the link and landed in the album.
+- **The contributor:**
+  - uploaded into the album;
+  - liked a photo;
+  - commented after confirming they're 18 or older;
+  - saw "Invited people" in the viewer.
+- **The viewer-only person:** saw the album with only Leave; adding photos was refused by the server; double-tap
+  liked.
+- **The guest:** added 2 photos as "Pat", without an account.
+- **The owner:**
+  - saw the guest credit;
+  - removed the contributor's comment;
+  - removed the contributor: their photo left the album and their likes there were deleted, while the photo stayed
+    theirs; the album is now a 404 for them;
+  - made a new guest link, after which the old one was a 404.
+- **Share:** the QR code was made on a trvgo.us link.
+- No sideways scroll and no script errors.
+
+**Phase 3 remains:**
+- portfolio mode (client picks, download limits, watermarks);
+- brand & documents (the DAM);
+- galleries for listings and businesses;
+- the admin view;
+- editing a caption or alt text from the viewer.
