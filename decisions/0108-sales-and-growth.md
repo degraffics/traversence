@@ -342,3 +342,33 @@ Jason's decisions (Master AOS v44, §5):
 - **Migration** `2026-12-23_promotions.sql`: `promotions`, `promotion_uses`; `products.service_type`;
   `order_lines.service_type`, `order_lines.promo_off_cents`; `orders.promo_id`; and on subscriptions `promo_id`,
   `promo_percent`, `promo_left`.
+
+## Addendum (2026-10-24): a trial starts only after its checkout; reminders 5 days before
+
+Jason, on starting a Core Partner trial from the claim page: "No terms or confirmation upon clicking activate. Needs a
+checkout process so it can legitimately feel like they are creating a subscription. The free trial should be explicit
+and well explained… Also an email sent 5 days before trial ends to have them activate their billing to keep
+subscription or revert to free account if no billing is set up."
+
+- **Checkout:** on the claim page, the plan step's button is now **Continue**. For a paid plan it opens a review:
+  - the plan;
+  - $0.00 today, no card needed;
+  - the trial's start and end dates;
+  - the price after the trial, only if they keep it;
+  - when the reminders come;
+  - what keeping it takes (set up billing: a card and *Keep my plan*), and what happens if they don't (back to
+    Free on its own: nothing charged, content kept, paid tools paused);
+  - what the plan includes.
+
+  **Start my free trial** stays disabled until "I agree to the Terms of Service, including the plan and free trial
+  terms" is ticked.
+- **The server enforces it:** `Claims::activate` refuses a paid plan without `agreed`. Each agreement is logged
+  (`role_log`, context `billing`, "trial terms agreed": who, which listing, plan, length, IP address).
+- **The "trial has started" email** is now a receipt: the plan, the start and end dates, "charged today: nothing",
+  the price after the trial, how to keep it, what happens if they don't, the reminder schedule, and a link to the Terms.
+- **Reminders:** 5 days before the trial ends (was 7), the day before, and on the day (`Billing::tick`, tags
+  `t5`/`t1`/`t0`). Each says: set up billing to keep it (the price from then, cancel any time), or it goes back to
+  Free on its own with nothing charged and nothing lost.
+- **Terms §Plans → Trials** and the FAQ ("How does a free trial work?") say the same.
+- **Not changed:** a trial *code* entered on the Plans page still starts its trial straight away. Typing a code is an
+  explicit choice, but it could get the same review later. A trial staff start from the admin is unchanged.
