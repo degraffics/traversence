@@ -160,9 +160,103 @@ The viewer shows who can see each photo: Public, Anyone with the link, Invited p
 - **Share:** the QR code was made on a trvgo.us link.
 - No sideways scroll and no script errors.
 
-**Phase 3 remains:**
-- portfolio mode (client picks, download limits, watermarks);
-- brand & documents (the DAM);
-- galleries for listings and businesses;
-- the admin view;
-- editing a caption or alt text from the viewer.
+**Phase 3 remained** (built below).
+
+## Phase 3 built (2026-10-24): editing, businesses, portfolio, brand & documents, admin
+
+**Editing from the viewer.** On your own photo (`mine`), the viewer's ⋯ menu has Edit caption, Edit alt text, When it
+was taken, and Delete (gallery uploads only). The edits use the site's own prompts (`TvAsk`), shown above the viewer,
+and the page updates in place.
+
+**Business galleries.** A gallery's owner can be a business (`owner_kind` `businesses`, ref = the listing).
+- `gallery/?b=<listing>` and every action with `b` check `Gallery::canManage`: the business's team with Team
+  `catalog` edit, or `HeroMedia::canManage('listing')`. Anyone else gets a 403.
+- The photos at the top of the listing (hero media) join it, like a member's journey photos (`syncBusiness`).
+- The business portal's rail has **Gallery**. The listing page shows the business's public albums under **Albums**,
+  plus **Manage the gallery** for its team.
+- A business's gallery counts toward its plan's storage (`BizFiles::used` adds `Gallery::bytes`; `Gallery::roomFor`
+  refuses uploads past the allowance).
+
+**Album modes** (`gallery_albums.mode`): Personal (`social`), Portfolio, Brand & documents. They're chosen in the
+album sheet. The rules live in `app/lib/GalleryModes.php`.
+
+**Portfolio** (`gallery_album_opts`, `gallery_picks`, `gallery_pick_sends`, `gallery_downloads`):
+- **Rules** (owner): picks on or off, a pick limit, downloads `none` / `picks` / `all`, a per-person download
+  allowance, and a watermark (on by default; text defaults to "© owner name").
+- **Picks:** clients, signed in (invited, or holding the unlisted link), tap **Choose my picks**, then **Send my
+  picks** with a note. The owners get an email; **Client picks** lists each client's picks, whether they were sent,
+  and the note, and can highlight them on the album.
+- **Watermark:** `gallery/m.php` serves a watermarked copy whenever someone other than the owner can see the photo
+  *only* through watermarked portfolio albums. If any of their ways in has no watermark (a public personal album,
+  say), there's nothing to step around, so none is added.
+  - The stamp is GD's own font, enlarged, tilted and tiled at 38%. It's made once per photo, size and text
+    (`<file>-wm[c]-<sha8>.jpg`) and kept beside the photo.
+  - Watermarked copies are never sent with public caching. Videos aren't watermarked (their posters are).
+- **Originals:** photos uploaded into a Portfolio or Brand album also send their full-size original, in parts,
+  straight to S3 (`gallery_files`, `<file>-orig.<ext>`).
+- **Downloads:** `m.php?s=orig` gives the original (or the photo as shown, if no original was kept) as an attachment.
+  `GalleryModes::canDownload` checks the rules; the reason it gives when it says no ("Pick it first…", "You've used
+  all N downloads…", "Sign in to download.") shows in the viewer's menu. Each download is counted per album and
+  person; downloading the same photo again doesn't use up the allowance.
+
+**Brand & documents** (the start of the DAM; `gallery_files`, `gallery_versions`):
+- **Upload files:** any of PDF, SVG, AI, EPS, PSD, INDD, ZIP, Office, fonts, TIFF, images, audio or video, up to
+  1 GB each, in parts straight to S3. A file is an item of kind `file`. It lives in its album and isn't in the photo
+  timeline.
+- **The list:** each file is a card with its type, name (the download), size and version. Its actions sit down the
+  right edge (Download, Versions, New version, Describe, Delete).
+- **New version** uploads beside the current file. Once the upload is whole and the size checks out, the current
+  file becomes `-vN` and is recorded in `gallery_versions`. Every version stays downloadable (`m.php?s=orig&v=N`),
+  and old versions count toward storage.
+- Deleting a file deletes every version. Deleting a Brand album deletes the files that are in no other album.
+- Files need S3: without it, the page says so.
+- Contributors can add files too (they stay theirs).
+
+**Admin** (Social → **Galleries**, decisions/0109: a section built from widgets, with no new page):
+- **Metrics:** public, unlisted and private album counts, and gallery storage.
+- **Tables:** `social/gallery_albums` (filters: who sees it, what it's for, whose) and `social/gallery_items`
+  (filters: kind, guest uploads).
+- **Privacy:** only what's already shared (public and unlisted) is listed or opened. Private albums are only counted,
+  and their drawer says nothing about them.
+- **Moderation** never deletes the owner's files:
+  - **Take it off the site** on an album makes it private, which gives it a new token, so its links and QR codes
+    stop;
+  - on a photo, it takes it out of every shared album.
+  - Both ask why, log it (`role_log`, context `gallery`), and email the owner, or a business's owners and managers.
+- Access is `view` for ops/svc/con staff and `edit` (the actions) for ops/svc, through `Access::can`.
+
+**Tested** at 390 px, with the owner, a client, a signed-out visitor, someone outside the business, and staff, on
+local S3 (moto) and with no S3:
+- **Portfolio:**
+  - the sheet's options scroll on a phone;
+  - 3 photos uploaded with their originals;
+  - the client's card was watermarked while the owner's wasn't;
+  - a third pick was refused at the limit of 2;
+  - the picks were sent with a note and the owner was emailed;
+  - downloads: the first picked photo gave 200, the second gave "used all 1", an unpicked one gave "Pick it first",
+    and downloading the first again was allowed;
+  - signed out: "Sign in to pick", and downloads refused;
+  - **Client picks** showed the client, the note and the time, and highlighted their 2 picks.
+- **Editing:** the caption and date were edited from the viewer's menu.
+- **Brand:**
+  - an SVG and a PDF were uploaded;
+  - **New version** gave version 2, with version 1 still downloadable byte for byte;
+  - a visitor downloaded from the public album but had no edit actions;
+  - files stayed out of the timeline;
+  - deleting a file worked;
+  - the card edges were 3 px.
+- **Business:**
+  - the owner got 200; someone outside the team got 403 on the page and an error from the API;
+  - a business album was made and a photo uploaded to it;
+  - the listing page showed the album.
+- **Admin** (390 and 1280):
+  - the metrics and both tables showed;
+  - the album drawer took the album off the site: it became private and the owner was emailed;
+  - the photo drawer took the photo out of its album and the owner was emailed.
+- No sideways scroll and no script errors.
+
+**Limits / next:**
+- Watermarks are on photos and posters only, not inside videos.
+- Searching and tagging files across albums, and sharing a single file, are for the DAM's next step.
+- Originals and files need S3.
+- A client's picks are per album; they aren't carried across albums.
