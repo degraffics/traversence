@@ -541,6 +541,9 @@ Yes, if you want to. **Where it happened** is an optional pin you set on a map, 
 ### My photo knows where and when it was taken. Does Traversence use that?
 Only if you say so. When you add photos, your browser reads the photo's own date and location and shows them to you: "This photo says it was taken Aug 12 near …. Use it?" Tick what you want to keep. The photo we store has all of that removed either way.
 
+### Where are my photos and files kept?
+In secure file storage with Amazon Web Services (Amazon S3), not on the web server: photos of places, businesses, journeys and profiles, a business's proofs and files, and order artwork. Photos you've made public load from there; private files (proofs, documents, order files, anything shared only with a customer) open through links that work for a few minutes and only for people allowed to see them. Removing a photo or file deletes it from storage. Documents sent to prove a claim are deleted as soon as the claim is decided.
+
 ### Can I post a photo someone else took?
 Yes, with their permission. Under the photo, choose **Used with permission** and say who took it. It shows as "Photo: their name".
 

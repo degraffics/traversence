@@ -1,6 +1,6 @@
 # 0122: Business files go straight to S3
 
-Status: Built (2026-10-24). Jason: "Why are we worried about Bluehost limits if uploads are going to S3?" He's right:
+Status: Built (2026-10-24); extended to every file the site keeps by decisions/0123. Jason: "Why are we worried about Bluehost limits if uploads are going to S3?" He's right:
 master-aos §5D and commercial.md put business and member files in object storage, not on the web host. 0120's
 addendum sent big files to Bluehost in pieces; this replaces that path whenever S3 is set up.
 
