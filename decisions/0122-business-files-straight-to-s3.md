@@ -38,7 +38,13 @@ before the bucket exists.
 
 ## What has to be set (Jason)
 
-`.env` (secrets only there):
+The bucket is already connected (**traversence-media**, us-east-2: Admin → Settings → AWS S3), so `.env` is done; what's
+left is the bucket's CORS rule, the lifecycle rule and the key's permissions below. The Settings card now says
+**"· uploads ready"** once the CORS rule allows PUT and shows the ETag, **"· uploads need the CORS rule"** when it
+doesn't (red), and asks to check it by hand when the key may not read the rule (`s3:GetBucketCORS`, optional).
+Until the rule is set, uploads to S3 fail at the first part, so set it before businesses upload.
+
+For reference, `.env` (secrets only there):
 
 ```
 AWS_ACCESS_KEY_ID=…
@@ -49,7 +55,8 @@ S3_BUCKET=traversence-files   # the bucket's name
 ```
 
 The key's IAM policy needs `s3:PutObject`, `s3:GetObject`, `s3:DeleteObject`, `s3:AbortMultipartUpload` and
-`s3:ListMultipartUploadParts` on `arn:aws:s3:::<bucket>/*`.
+`s3:ListMultipartUploadParts` on `arn:aws:s3:::<bucket>/*`, and (optional, for the Settings check) `s3:GetBucketCORS`
+on `arn:aws:s3:::<bucket>`.
 
 **Bucket CORS** (S3 → the bucket → Permissions → Cross-origin resource sharing), so the browser may PUT parts and read
 the ETag:
@@ -66,7 +73,7 @@ the ETag:
 ]
 ```
 
-**Lifecycle rule** (Management → Create lifecycle rule, whole bucket): "Delete expired object delete markers or
+**Lifecycle rule** (Management → Create lifecycle rule, whole bucket, alongside the existing textract/ 7-day rule): "Delete expired object delete markers or
 incomplete multipart uploads" → incomplete multipart uploads after **1 day**. This clears uploads someone walked away from.
 Keep the bucket private (Block all public access on), because every link is signed.
 
