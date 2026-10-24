@@ -333,6 +333,12 @@ For a town or "Near me", nearest first. Otherwise, the best match for what you s
 ### Can I comment on a business, a place or an experience?
 Yes. Most pages have **Comments** at the bottom: share a tip, or say what it was like. You need to be signed in and 18 or older. Comments are public and show your name. You can remove your own, and report one that breaks the rules. Stars and ratings aren't used: say what you think in words.
 
+### What is my gallery?
+Every photo and video you keep on Traversence, in one place: open **Gallery** in your Dashboard menu. It's grouped by year and month, by when each photo was taken (six a month, then **View all**), and photos from your journeys and your profile appear there too. **Upload** adds photos and videos (a video can be up to 1 GB; your phone makes photos a sensible size first, and the place a photo was taken is never sent). Tap a photo to see it full screen: swipe or use the arrows, pinch to zoom, and tap the dark background, press Esc or tap × to close. **Select** lets you put several in an album, or delete ones you uploaded (photos from journeys or your profile are removed where they live). Galleries for businesses, comments and likes on photos, and sharing an album with chosen people are coming.
+
+### Who can see my albums?
+You choose for each album, under **Edit & who sees it**: **Public** (anyone, shown on your profile's Gallery tab), **Unlisted** (only people with its link; search engines don't list it) or **Private** (only you). What you upload is private until you put it in an album you share. **New link** gives an album a fresh link at once, and making it private does the same, so any link or QR code you shared before stops working, photos included. Deleting an album keeps its photos in your gallery.
+
 ### How do I add photos or a video to my business or my profile?
 Open your listing (as its owner or manager) or your profile, and tap **Photos & video** on the picture at the top. Add up to 8 photos, or link a YouTube or Vimeo video, and choose which shows first. Use your own photos, or ones you have permission to use. We keep a resized copy and nothing else from the file, such as where it was taken. On a private profile, only your connections see them.
 
