@@ -74,7 +74,7 @@ team role (Team: Owner, Manager…) and plan features.
 | Sales tax | live | Rates by state, city, ZIP (`backoffice/taxes`) |
 | Shipping & pickup | live | Flat, by weight, free over, pickup, local delivery (`backoffice/shipping`) |
 | Discount codes | live | Percent or amount off, dates, limits (`business/codes`) |
-| Files | live | Proofs and shared files, counted against the plan's storage (`website/business/files.php`, `app/lib/BizFiles.php`) |
+| Files | live | Proofs and shared files up to 1 GB each, counted against the plan's storage (sent through the site's uploader, target `biz_file`; served by `website/business/files.php`, `app/lib/BizFiles.php`) |
 | Storefront & pages | coming | Its storefront on trvgo.us and its own domain |
 | Marketing | coming | QR codes, short links, email campaigns |
 | Reports | coming | Sales, margin, turnover, new and returning customers |
@@ -190,6 +190,11 @@ Router `website/admin/router.php`, one endpoint `website/admin/api.php`, widgets
 
 - **Accounts & access:** `Auth`, `SocialAuth` (Google/Apple/Microsoft), `TwoStep`, `StaffLogin`, `Roles` (contexts),
   `Team` (business roles), `Scope` + `BusinessData` (each business's data walled off).
+- **Uploads (decisions/0127):** one uploader for every file on the site: `js/tv-upload.js` (size checked first, over
+  10 MB asks, progress bar, S3 in parts or pieces through the server, result beside the item), `website/api/upload.php`,
+  `Uploads` (staging, sniffing, signed tokens, up to 1 GB). Each destination is a target in
+  `app/lib/upload-targets.php`: order proofs and files, gallery photos/videos/files, guest drop, business files, hero,
+  journey and profile photos, claim documents, card scans, GO Code logos, the census file.
 - **Files:** `Store` (owner folders, S3 or the server), `S3`, `HeroMedia`, `BizFiles`, `Gallery`, `GalleryModes`;
   `website/media.php` (public photos from S3).
 - **Money:** `Orders`, `ClientOrders`, `Products`, `Commerce` (tax, shipping), `PriceLists`, `Billing`, `Promotions`,

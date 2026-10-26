@@ -144,6 +144,23 @@ Every password box gets a Show / Hide button, and every new-password box gets a 
 Secrets shown once (authenticator keys, setup links) stay hidden until asked for, and the page offers a new one, never "open a
 private window".
 
+## One uploader for every file (decisions/0127): every build
+
+Every file anyone sends the site goes through one path: `js/tv-upload.js` in the browser (loaded on every page by
+`app/ui/header.php` and `app/ui/page-shell.php`), `/api/upload.php`, and `app/lib/Uploads.php`. Never a page or endpoint
+of its own that takes `$_FILES`, `is_uploaded_file()` or `move_uploaded_file()`, and never a `multipart/form-data` form
+that posts files anywhere else.
+- **A new place to upload is a target** in `app/lib/upload-targets.php`: `check` (who may, what kinds, the most it takes,
+  where it's staged) and `done` (what happens to the file that arrived: `$u->moveTo()`, `$u->local()`, `$u->asFile()`).
+  The library that owns the record does the work (Gallery, ClientOrders, BizFiles…), as for any protected move.
+- **In the page:** `TvUpload.send(files, {target, ctx, el})` or `TvUpload.bind(input, …)`; the result shows beside `el`
+  (`TvUpload.reloadHere(message, el)` after a reload). Size checked first, over 10 MB asks, a progress bar, S3 in parts
+  or pieces through the server when S3 is off. Up to 1 GB a file; a target may take less.
+- A form that has other fields as well sends the file first, then the form with the id it got back (labels on an order's
+  shipment, a GO Code's logo, a journey's photos after the journey is saved).
+- Check with `grep -rn '\$_FILES\|is_uploaded_file\|move_uploaded_file' app website` before delivering: only
+  `app/lib/Uploads.php` and `website/api/upload.php` may match.
+
 ## Links past Bluehost's firewall (ModSecurity): every form and request, every build
 
 Bluehost's ModSecurity rejects a request ("Not Acceptable!") when a field holds a link like `…/profile.php?id=…`. Links
