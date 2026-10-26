@@ -195,3 +195,23 @@ the run's price, and the line came to $17.59 instead of $8,795.00.
   $8,795.00") and the client's order page ("500 × $17.59").
 - A line saved under the old behavior keeps its wrong price and shows a tiny per-item rate (e.g. 0.0352), so it's
   plain to see. Type the rate again, or change the quantity to re-price it from the catalog.
+
+## Addendum (2026-10-26): proof and file uploads: size checked first, a progress bar, the result beside the item
+
+Jason uploaded a 36 MB press proof. It went up whole, with no progress shown, then the page jumped to the top to say
+"over 15 MB". He asked for a progress bar, a confirmation before a large upload, and the notice "inline with the
+update, not having to jump on the page."
+
+- **The limit:** `PROOF_MAX` is now 100 MB, for proofs and item files alike. The real limit is
+  `ClientOrders::uploadMax()`: that, or the server's `upload_max_filesize` / `post_max_size` if lower. The page shows
+  it and checks it.
+- **Before sending** (every upload form on the order page): a file over the limit is refused at once, under the
+  upload, before anything is sent. Over 10 MB in total asks first (`TvAsk.confirm`: what, how big, keep the page open).
+- **Sending:** in the background, with a bar under the upload ("Uploading MP5-Manual.pdf: 18 MB of 36 MB (50%)",
+  then "Uploaded. Saving…").
+- **The result:** an error shows right under the upload, with no reload. A success reloads the page at the same
+  place, hides the notice at the top, and says it beside the item (`TvAsk.say` anchored to the line).
+- **Not the same as the gallery's uploader.** The gallery (decisions/0126) and a business's big files (0122) send
+  files straight to S3 in parts, so the web server's limits don't apply. Order uploads still pass through the server
+  in one piece. Moving them onto the same direct-to-S3 uploader is the next step if files bigger than the server
+  allows are needed.
