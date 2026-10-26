@@ -179,3 +179,19 @@ the pop-up frame.
 - Code: `app/lib/Shipments.php`, `app/ui/pack-form.php`, migration `2026-12-12_shipping_manifests.sql`.
 - Next: step 2, product shipping profiles (weight, fit per box, learned from packs); step 3, vendor and carrier APIs
   (4OVER, Signs365, EasyPost or Shippo). Later: gang running; the QuickBooks customer list.
+
+## Addendum (2026-10-26): a catalog line's Rate is each item's
+
+Jason: "The rate per item × the quantity should calculate." On a catalog line, the order builder showed the run size as
+the quantity (500) and the stored price of the whole run as the Rate. So a rate typed per item (17.59) was saved as
+the run's price, and the line came to $17.59 instead of $8,795.00.
+
+- A catalog line is still stored as one run: `qty` 1, `unit_cents` the run's price, and the run size in its title
+  (`… · 500`).
+- **Rate** now shows and takes each item's price: the run's price ÷ the run size, up to 4 decimals (17.59, 0.0425).
+  A rate typed in is saved as rate × run size (`ClientOrders::rateTotal`). Changing the quantity still prices the run
+  from the catalog, as before.
+- `ClientOrders::runQty()` and `rate()` are used by the builder's line, the item's details ("500 × $17.59 =
+  $8,795.00") and the client's order page ("500 × $17.59").
+- A line saved under the old behavior keeps its wrong price and shows a tiny per-item rate (e.g. 0.0352), so it's
+  plain to see. Type the rate again, or change the quantity to re-price it from the catalog.
