@@ -442,3 +442,11 @@ payment details so I can easily push order payment received"; "quickbooks should
   (`ClientOrders::reproof()`), puts the version back to waiting: its approval, initials and IP, or its changes
   request, are cleared, and the history says "the client approves it again". A new version now also marks an approved
   earlier one replaced, so only the latest version can count as approved.
+- **Our team sees a real order's client page read only** (Jason, 2026-10-28). When someone on staff (`TwoStep::isStaff`)
+  opens `/order.php?t=…` for a real order that isn't their own (`ClientOrders::staffView()`), a banner says so and every
+  action on the page is greyed out with the reason: approving proofs or the order, Make changes, promo codes, choosing
+  how to pay, the card form, the wire code and details, reporting a payment, and the progress-email box. The server
+  refuses them too (`order.php` and the card charge in `/api/client-order.php`, 403 `staff_view`), so nothing done while
+  looking changes the order. Viewing and downloading proofs still work, and the client's own link is unaffected. To act
+  for a client, staff use the order in Back-Office (Approve for the client, Confirm received). Sandbox orders stay fully
+  usable from end to end for testing.
