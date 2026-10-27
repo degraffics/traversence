@@ -585,4 +585,4 @@ payment details so I can easily push order payment received"; "quickbooks should
   automatically again), or connect to another listing.
 - **Handled outside** has the same one save button with four ways: every way processes the order; the work order is
   saved (and stays open, or a new one, or closed) or sent. A missing vendor or no items ticked stops it before anything
-  is processed.
+  is processed. The button sits at the form's right edge, its menu opening up from it.
