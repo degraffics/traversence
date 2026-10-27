@@ -323,3 +323,28 @@ Also include a delete button"; "Status Icon - use the gear and progress circle o
   at the proofs, approve and pay with a test card. A draft (or a sent link that's expired) is marked sent first, with
   no email (`ClientOrders::send(…, mail: false)`, logged "Opened as the client by our team"). A real order is refused:
   it's sent.
+
+## Addendum 2026-10-28: wire, check and cash; the payment hold; progress emails
+
+Jason: "for this client I will have them wire me the money … select wire and then a screen to enter the wire
+confirmation code or an email that lets them click and enter code once sent. Once I get the wire I will need to release
+the order from the payment hold … cash, check, or other payment methods would bypass the quickbooks processing as
+well." And: "We email you as your order moves along. this should be a check box".
+
+- **Also pay by** (`orders.pay_offer`, `2026-12-30_pay_methods.sql`), ticked by our team on the order: Wire transfer,
+  Check, Cash. The client's **Pay** box then offers Card (unless the order is paid outside QuickBooks) and those.
+- **Choosing one** (`ClientOrders::choosePay()`) shows how to pay on the page and emails it, with the order number for
+  the reference and a link back to the page; our team is emailed. The details are `WIRE_INSTRUCTIONS`,
+  `CHECK_INSTRUCTIONS`, `CASH_INSTRUCTIONS` in `.env` (" | " between lines), set by hand only and never editable from
+  a page, so a stolen admin login can't swap the bank details.
+- **Telling us it's sent** (`reportPay()`): the wire's confirmation code or the check number, kept on the order
+  (`pay_report`, `pay_reported_at`); our team is emailed.
+- **The payment hold**: an approved order waiting on payment stays out of production (stage empty) until our team
+  records the money: **Payment received: release to production** (`recordPayment()`, the method and the client's
+  reference filled in), which marks it paid, starts production and emails the receipts. **Release to production before
+  payment** (`releaseHold()`) is there for a client we trust. Orders paid outside QuickBooks now wait on the hold too
+  (they went straight to production at approval). A card or QuickBooks payment releases it as before.
+- The order's QuickBooks invoice is still made at approval when the order isn't "paid outside QuickBooks" (sales tax
+  and the books); a wire recorded on it says to receive it on the invoice in QuickBooks too.
+- **Progress emails** (`orders.notify_progress`): **Email me as my order moves along** is a checkbox when the client
+  approves and under Pay (and after it's paid). Off: no stage emails and no "Send update"; receipts always go.
