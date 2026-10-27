@@ -400,3 +400,6 @@ credits.
   (`Orders::creditBalance()`) uses the oldest credit first and drops what's left of a credit past its date; the email
   that announces a credit says when it runs out. QuickBooks keeps its credit memo as issued; an expired credit's
   balance there is for the books to write off.
+
+- **Changed the same day: credits last 90 days**, not 12 months (Jason: "12-month credit: change to 90 day").
+  `Orders::CREDIT_DAYS = 90`; the Terms, the FAQ and the credit email say so.
