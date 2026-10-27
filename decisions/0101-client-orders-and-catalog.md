@@ -538,3 +538,27 @@ payment details so I can easily push order payment received"; "quickbooks should
     that order is paid in full), under **Your artwork** on Your orders, with **Ask to reorder** (quantity, changes or not,
     a note): it makes the draft, emails our orders inbox, and shows in the Pulse as a new order not sent yet.
   - Old system: start fresh (Jason).
+- **Clients are listings** (Jason, 2026-10-28). `app/lib/Clients.php`, `2027-01-04_clients.sql` (`client_listings`;
+  `orders.listing_id` and `ordered_by`; `collateral.listing_id`; `listing_invites` gains name, phone, token, sent_at).
+  - **The business is the client.** A client order belongs to a listing (`orders.listing_id`; 0 = a person alone, NULL =
+    not settled yet). Its people are the listing's team, with the listing's roles (owner, manager, accountant, sales,
+    support, creator, developer, viewer): the business owns its orders and artwork, and whoever orders is a contact.
+  - **Tagging = connecting a listing already on Traversence.** Nothing about it changes: not claimed, not published.
+  - **Checked from the jump:** opening a staff order connects it when the match is clear (the same phone, the website of
+    the client's email, or the same name in the same town); possible matches are offered on the order's **Business**
+    row (Connect / a private listing / the person alone); with a business name and no listing at all, a **private
+    listing** is made (`is_suppressed`, never shown on the site, never pushed public). **Back-Office → Clients → Add a
+    client** checks the same way before it makes anything.
+  - **Orders to match** (`backoffice/client_match`, in Clients): our orders not settled yet, grouped by company (else the
+    email's business domain, folded into the company that uses it; else the email). Each group is settled at once:
+    connect to a listing it may be, by listing #, make a private listing, or a person with no business.
+  - **Contacts:** our team (Back-Office → Clients drawer) or the listing's Owner or Manager (business portal → Your team)
+    add them; no account needed. **The invite** emails a link to `/join.php`, where they tick **Activate my contact** and
+    **Create my Traversence account** (or sign in, when the email has one); the link proves the email. It **claims the
+    contact's place, not the listing**: on a public listing nobody has claimed, a contact sees it, but editing its
+    details, catalog, look, publishing or deleting it waits for the listing claim (`Team::can`). The portal's Add uses
+    the same invite (with **Send again**).
+  - **Individuals:** "do you have a listing?" is a checkout step (sign in or guest, then a listing or just me), not a
+    gate while configuring. Person-only clients work on their user account; their collateral is theirs alone, like a
+    gallery, and a listing's collateral follows its roles. (Next: QuickBooks customer per listing, with "Ordered by"
+    on the invoice; reorders across a listing's items; the client views by role; the checkout step.)
