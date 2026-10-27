@@ -601,3 +601,9 @@ payment details so I can easily push order payment received"; "quickbooks should
   tracking** (courier, number): kept on the work order, shown on the vendor's page, and emailed to the vendor once it's
   sent. Will Call says we pick it up. Our preview of a work order not sent yet shows the Accept / Decline the vendor
   will get, greyed out, with "Not sent yet".
+- **Reopen for changes** (Jason, 2026-10-28: a wrong quantity on an approved order). An approved order waiting for
+  payment has **Reopen for changes** beside its status: it's no longer approved or in production, its items, quantities
+  and prices can be changed, and it's approved again as before (Approve for the client, or Handled outside). Its proofs
+  stay approved; its collateral takes the new quantity when it's approved again. It's greyed out, with the reason, when
+  money is recorded on it (use Money: credit or refund), when its QuickBooks invoice was made here, or while a work
+  order is with the vendor (cancel it first, so they're told; a work order not sent yet stays and follows the changes).
