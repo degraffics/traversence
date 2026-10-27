@@ -518,3 +518,23 @@ payment details so I can easily push order payment received"; "quickbooks should
 - **Admin lists remember filters only for a reload or Back** (Jason, 2026-10-28: "orders page still not working"): arriving
   by a link or the menu starts a list fresh, so a filter left from earlier can't hide everything; and a list that
   filters down to nothing says so with a Clear filters button. (`js/admin-kit.js`, every admin list.)
+- **Work orders, step 3: the Collateral Center and Reorder** (Jason, 2026-10-28). `app/lib/Collateral.php`,
+  `2027-01-03_collateral.sql`.
+  - **A collateral item** is a client's configured piece: the artwork (the approved proof, print-ready files, production
+    setups, 1-up print files, natives) with its product, options, quantity, vendor and notes. It's **tied to the order
+    item** it came from (`order_lines.collateral_id`) and made when an order is approved (`ClientOrders::approve`; past
+    approved orders are brought in the first time the Collateral Center opens). A reorder that's approved moves it to
+    the newest order of it (its files and specs) and counts the times ordered.
+  - **Back-Office → Collateral:** every item with its client, product, quantity, files and whether the client sees it
+    (filter: in use / released / not released / archived, with counts). Its drawer lists and downloads the files, opens
+    its first and newest orders, and does **Reorder** (quantity; the same art, or with changes), **Release to the client**
+    / stop, **Rename**, **Archive**.
+  - **Reorder** makes a new draft for the client with the items at their quantities, priced from today's catalog, files
+    copied over. **The same art:** the approved proof goes along as a reuse (`order_proofs.reuse_of`); the client sees
+    "The same art as before" and **Confirm reuse** next to Review the proof, which opens the usual sign-off with their
+    initials (Jason). **With changes:** no proof or output files; a new proof round. The order page's Duplicate menu
+    has **Reorder with the same art** for all of an order's pieces.
+  - **The client** sees only items released to them, with only what's theirs (the approved proof; print-ready files once
+    that order is paid in full), under **Your artwork** on Your orders, with **Ask to reorder** (quantity, changes or not,
+    a note): it makes the draft, emails our orders inbox, and shows in the Pulse as a new order not sent yet.
+  - Old system: start fresh (Jason).

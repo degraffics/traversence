@@ -715,6 +715,9 @@ Yes: under **Pay** on your order's page, choose **Wire transfer** (for orders of
 ### Where do I see all my orders?
 Once you've done your part (paid, or told us your wire or check is sent), your order's page says **Thank you** and shows what's next. From there, **Create your free account** with the email the order came to (or sign in), and **Your orders** in your account lists every order we've prepared for you, with its proofs, payment, where it stands and your files. Orders sent to your email join your account once you've confirmed that email. If your order is for a business, **Put [your business] on Traversence** adds it in the same step, filled in from your order: one account for you, with your business on it.
 
+### Can I reorder something you made for me?
+Yes. Once we've released a piece to you, it's under **Your artwork** on your **Your orders** page (sign in with the email your orders went to): look it over, download the files that are yours, and tap **Ask to reorder** with the quantity and anything we should know. Tick **I want changes** if the art changes. We send you the reorder to approve like any order. With the same art there's no new proof round: next to the proof you'll see **Confirm reuse**, and you sign off with your initials as you did the first time.
+
 ### Where is my printed order?
 On your order's page: **Where it is** shows whether it's in production, sent to print, shipped (with its tracking number) or ready for pickup. If you ticked **Email me as my order moves along**, we also email you at each step.
 
