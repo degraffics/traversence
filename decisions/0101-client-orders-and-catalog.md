@@ -215,3 +215,33 @@ update, not having to jump on the page."
   files straight to S3 in parts, so the web server's limits don't apply. Order uploads still pass through the server
   in one piece. Moving them onto the same direct-to-S3 uploader is the next step if files bigger than the server
   allows are needed.
+
+
+## Addendum 2026-10-27: projects, bundles, and files released by approval
+
+Jason: a client added a German version of a manual, which needs a creative service and its own printed run, each with
+its own setup. "Proofs assigned to item, so if the creative services has a proof to approve vs the print ready file
+assigned to the printed manual." "Only the final versions approved are ever available once the approval is received
+and clients don't have messy folders or access to unapproved concepts. I see approval as the release for use on files
+once payment is confirmed." "Client can see cost per item within a project, but only its subtotal" — a bundled item
+shows as one item and price, never its lines.
+
+- **Projects** (`order_projects`, `order_lines.project_id`): a heading for an order's items, with a subtotal. An item
+  in no project stands on its own, so existing orders are unchanged. In the order: **+ New project**, **+ Add item
+  here**, each item's **Project** menu (or **New project…**), **Take off project** (its items stay).
+- **Bundles** (`order_line_parts`): a custom item can be made of lines only our team sees (translation 6 × $85,
+  typesetting…), each with our cost. The item becomes one of it at their total, so tax, QuickBooks, promo codes and
+  shipping keep working on the item. The client's page never shows the lines.
+- **Change options** on a catalog item: priced again from the catalog, unless its rate was typed (the rate stays).
+- **Proofs stay on the item**, kept apart by purpose: a creative item's concept rounds (v1, v2…), a print item's
+  print-ready file. An item's kind is its type (Creative, Print, Additional; a catalog product's own, else Print).
+- **What the client may open** (`ClientOrders::released()` / `clientMay()`, enforced by `api/order-proof.php`, not
+  only the page): the current proof, to view. Earlier rounds are ours alone, even by a direct link. Nothing is
+  downloaded before the order is **paid in full**. Then: in a project with print, the print items' approved files;
+  a creative item's approved artwork stays view only. In a project with no print, the creative item's **print-ready
+  file** (`order_proofs.kind = 'final'`), added by our team after the artwork is approved (upload target
+  `order_final`), is released. A deposit doesn't release files.
+- Viewing in the browser can't stop a screenshot; "view only" means no download offered or served. A watermark on
+  creative proofs would be the next step if needed.
+
+Migration: `app/migrations/2026-12-27_order_projects.sql`.
