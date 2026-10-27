@@ -245,3 +245,20 @@ shows as one item and price, never its lines.
   creative proofs would be the next step if needed.
 
 Migration: `app/migrations/2026-12-27_order_projects.sql`.
+
+## Addendum 2026-10-27 (later): one page, test copies, run sizes, proof files
+
+- **An order is a whole page in Back-Office** at `/admin/backoffice/orders/<id>` (and `/new`): the router draws the
+  order page itself, with its module header and menu, no frame inside the module (Jason: "frames inside frames…
+  have the page scroll as a whole"). `/admin/client-order.php` forwards there; it's no longer listed as archived. The
+  Pulse's Open on an order goes to that page. Admin pages have no site footer.
+- **Duplicate** on the order: **Test copy, billed to you** (made in the QuickBooks mode that's on: switch to Sandbox
+  first; nothing reaches the client) or **Copy for the same client** (a reorder). It copies projects, items, options,
+  bundled lines, rates, run sizes and proofs (each item's latest version waiting again); GO Codes aren't copied.
+- **Run sizes** are kept on the item (`order_lines.run_qty`, `2026-12-28_order_run_qty.sql`), not read from its name,
+  so renaming an item ("… – DE version") keeps its size. An item renamed before this: set its quantity once and its
+  price stays.
+- **Proof files**: the item panel's Proofs tab lists every version; each file can be **replaced** (same version) or
+  **removed** (a version left empty is gone; the one before it is current again).
+- **Messages show where you're working**: an Add item error reopens its tab with what you typed; a change to an item
+  or project shows its message beside it. A new service product needs no run size.
