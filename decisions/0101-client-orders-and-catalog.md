@@ -262,3 +262,29 @@ Migration: `app/migrations/2026-12-27_order_projects.sql`.
   **removed** (a version left empty is gone; the one before it is current again).
 - **Messages show where you're working**: an Add item error reopens its tab with what you typed; a change to an item
   or project shows its message beside it. A new service product needs no run size.
+
+## Addendum 2026-10-27 (evening): Edit, the project icon, order documents, quantities that stay
+
+Jason: "the items need an edit button to change item configurations easily, instead of title with toggle"; "Move [the
+project choice] to the order toolkit right edge make it an icon that click opens the dropdown"; "I need a way to
+attach documents to the order not just items"; "Something keeps resetting the quantity and rate."
+
+- **Edit** (the pencil, first in an item's right-edge icons) opens one form with all of the item's setup: name,
+  description, how many (a catalog item's run), rate each or **the catalog's price for this run**, its options, its
+  kind (custom items) and tax (`ClientOrders::editLine()`). Typing a rate unticks the catalog price, so a rate typed
+  stays. A bundle's price stays the sum of its lines. An error reopens the form with what was typed. Values can still
+  be changed in place; the Kind and Change options rows left the item body for the form.
+- **The project icon** (the folder) sits with the item's icons and opens a menu: On its own, each project (the
+  current one ticked), + New project…. The Project select under the item's name is gone.
+- **Files & versions** on the order: the order's own documents (`order_files.line_id = 0`, kinds Document, Reference,
+  Artwork; a contract, a P.O., a brief), sent through the one uploader (target `order_file`, line 0), each with
+  Remove; and a table of each item's proofs (current version, how many earlier) and files, opening the item's
+  Proofs or Files tab. Item files can be removed from their tab too (`ClientOrders::removeFile()`; a pack keeps its
+  place without the label). Word, Excel, PowerPoint, text, CSV and InDesign files are accepted for documents and item
+  files (stored under short type names, so `order_files.mime` needs no change).
+- **Quantities that stay**: the cause was a run size read only from an item's name ending in "· N". A name like
+  "… · 1,000 - EN version" read as no size, so the quantity showed 0 and the rate was the whole price; and while
+  `2026-12-28_order_run_qty.sql` hasn't been run, a size typed had nowhere to be kept. Now the size is the first
+  number after the name's last "·"; until the migration runs, a size typed is written into the name ("… · 250");
+  a draft's catalog prices aren't refreshed for an item whose size is unknown; and a quantity is read leniently
+  ("1,000", "1 000", "500 pcs", and the hard space an in-place edit can leave), which is what was being refused.
