@@ -389,3 +389,25 @@ should."
   draft or sent: their proofs count as approved and the QuickBooks invoice is made (sales tax from Bill to), as if
   they'd approved it on their page. **Release to production now** (a box on it) starts production without waiting for
   the payment; otherwise the client pays on their page as usual.
+
+## Addendum 2026-10-28 (night): wire details, shown safely
+
+Jason: "Wire information should be available but super secure"; "for only 2500 or larger. yes only in .env.
+6027083795 is the phone number. make it where the screen can not be screen shot, printed, or copied."
+
+- **Wire is offered only on orders of $2,500 or more** (`ClientOrders::WIRE_MIN_CENTS`); below that, card or check.
+- **Never emailed, never on the page as text.** Choosing Wire emails that the details are on the order page. There,
+  **Email me a code** sends a 6-digit code to the order's email (`wireSendCode()`: 10 minutes, 5 an hour, 5 tries);
+  entering it (`wireCheckCode()`) shows the details for 10 minutes as a picture (`/api/wire-card.php`,
+  `wireCard()`: drawn on the server, never cached), stamped across with the order number, the client's email, the
+  time and their IP. **Hide now** ends it; the 10 minutes ending does too.
+- **Logged and told:** each code and each viewing is in the order's history, and our team is emailed on each viewing
+  ("If that wasn't your client, call them before any money moves").
+- **Hard to copy, print or capture:** a picture (no text to select or scrape), no right-click or drag, copy and print
+  blocked, hidden when printed, covered (blurred) whenever the window isn't in front or a capture key is pressed.
+  A website can't truly stop a screenshot or a phone camera; the stamp makes any copy traceable to who, when and where.
+- **Only in .env, by hand:** `WIRE_INSTRUCTIONS` (" | " between lines) and `WIRE_VERIFY_PHONE` ((602) 708-3795 when
+  unset). No page shows or edits them. Without `WIRE_INSTRUCTIONS`, the client is told we'll send the details
+  ourselves.
+- **The habit that matters most:** the page, the code email and the payment email all say to call (602) 708-3795 to
+  confirm before sending, and that we never send or change bank details by email.
