@@ -318,3 +318,8 @@ Also include a delete button"; "Status Icon - use the gear and progress circle o
   description; the header boxes wrap with a wrapped box taking the whole row; and a message beside an item sits inside
   its description (it had been dropped into the row's grid, pushing the icons out under the menu). Removing a file
   deletes it from S3 too (`Store::remove`), checked against the S3 test server.
+- **Open as the client** (Jason: "I want a way to process sandbox orders directly to the proofing/cart"): a sandbox
+  order has a button at its top, and a row button in Sandbox orders, that opens the client's page in a new tab to look
+  at the proofs, approve and pay with a test card. A draft (or a sent link that's expired) is marked sent first, with
+  no email (`ClientOrders::send(…, mail: false)`, logged "Opened as the client by our team"). A real order is refused:
+  it's sent.
