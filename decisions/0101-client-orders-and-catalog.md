@@ -460,7 +460,7 @@ payment details so I can easily push order payment received"; "quickbooks should
   - **Work orders** (an approved order): the items (printed ones ticked; creative work and services can be added),
     their files (print-ready files, else the current proof; artwork too), ship to, needed by, notes; Send to the vendor
     or Save without sending; Send again; each shows when it was sent and when the vendor opened it.
-  - The vendor gets an email **from orders@trvgo.com** (`ORDERS_FROM_EMAIL`, with `ORDERS_SMTP_*` when that mailbox
+  - The vendor gets an email **from orders@trvgo.us** (`ORDERS_FROM_EMAIL`, with `ORDERS_SMTP_*` when that mailbox
     signs in on its own; `Mailer::send(..., 'ORDERS')`) and a private page, `/wo.php?w=…` (60 days, noindex): what to
     make, how many, specs, ship to, due date, notes and each file to download. **No prices and no client billing.**
     Printable. "Ordered from the printer" is set on the order (the client hears only if they asked for progress emails).
@@ -655,6 +655,6 @@ payment details so I can easily push order payment received"; "quickbooks should
   (`ORDERS_FROM_EMAIL`: work orders go from it, vendors' updates come to it), **Orders sender name**, **Orders
   reply-to** and **Wire check phone number** (`WIRE_VERIFY_PHONE`), written into .env like the others (decisions/0125).
   Its mail login (`ORDERS_SMTP_*`) and the bank details stay set by hand.
-- **The orders mailbox is orders@trvgo.us** (Jason, 2026-10-28), a Bluehost cPanel mailbox on the trvgo.us domain, not
-  orders@trvgo.com as written above. The site's fallback and wording now say orders@trvgo.us; `ORDERS_FROM_EMAIL` in .env
-  (Settings → Orders email) is what's used, with its own login in `ORDERS_SMTP_*` (set by hand).
+- **The orders mailbox is orders@trvgo.us** (Jason, 2026-10-28), a Bluehost cPanel mailbox on the trvgo.us domain;
+  there is no orders@trvgo.com, and it appears nowhere in the site. `ORDERS_FROM_EMAIL` in .env (Settings → Orders
+  email) is what's used, with its own login in `ORDERS_SMTP_*` (set by hand); orders@trvgo.us is the fallback.
