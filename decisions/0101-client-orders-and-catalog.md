@@ -372,3 +372,20 @@ able to fit full page to window top/bottom or with multiple pages 2, 3, 4 column
 - **Wire details** (Jason: "I really dont want my bank info out there"): `WIRE_INSTRUCTIONS` is optional. Without it
   the page and email say we'll send the details ourselves and confirm them by phone, and our team's email says to;
   a wire's page always warns that our bank details are never changed by email.
+
+## Addendum 2026-10-28 (evening): the client chooses how to pay; our team's bypass
+
+Jason: "This is in the order side, it should be on the checkout side. We should have a way to bypass the checkout as an
+admin and push the order into quickbooks/production but we should not configure the order payment method the client
+should."
+
+- **The client chooses at checkout.** The per-order "Ways to pay" boxes are gone; every client order offers Card plus
+  the site-wide ways in Settings (`CLIENT_PAY_WAYS`, "Ways clients can pay": wire, check, cash; unset: wire and check;
+  empty: card only). `orders.pay_offer` is no longer read.
+- **Our team's side shows the client's choice, read only:** "The client's checkout: paying by wire transfer, they say
+  it's sent (reference …)". **When the money arrives**, our team records it (How it came in starts at Choose…, or the
+  client's choice), which releases the hold.
+- **The bypass: Approve for the client (skip their checkout)**, on any order (not only those paid outside QuickBooks),
+  draft or sent: their proofs count as approved and the QuickBooks invoice is made (sales tax from Bill to), as if
+  they'd approved it on their page. **Release to production now** (a box on it) starts production without waiting for
+  the payment; otherwise the client pays on their page as usual.
