@@ -658,3 +658,9 @@ payment details so I can easily push order payment received"; "quickbooks should
 - **The orders mailbox is orders@trvgo.us** (Jason, 2026-10-28), a Bluehost cPanel mailbox on the trvgo.us domain;
   the only orders address anywhere in the site. `ORDERS_FROM_EMAIL` in .env (Settings → Orders
   email) is what's used, with its own login in `ORDERS_SMTP_*` (set by hand); orders@trvgo.us is the fallback.
+- **System mailboxes only send** (Jason, 2026-10-28): donotreply@ and orders@ are system-only accounts nobody reads.
+  Every email from either replies to **support@traversence.com** (unless `SMTP_REPLY_TO` / `ORDERS_REPLY_TO` says
+  otherwise, both in Settings); vendors' work order updates are sent to the orders reply-to (support@), and the vendor
+  page's "Bill and questions" shows it. Staff logins → **System mailboxes** makes one in cPanel with no staff login
+  (orders@trvgo.us, its password shown once), and can set it as the Orders email (with support@ as its reply-to);
+  its mail login still goes into .env by hand.
