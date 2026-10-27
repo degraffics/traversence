@@ -646,3 +646,8 @@ payment details so I can easily push order payment received"; "quickbooks should
   number, project, must-have date and the link). One not sent yet asks first and is marked sent by it (its cost first,
   as for sending), so the rep can accept it; the order is marked "Ordered from the printer" as when it's sent. The
   Work orders panel has **Get the link to send yourself**.
+- **Fix: Copy link / Email the link did nothing on the live site** (Jason, 2026-10-28). They went through the in-place
+  request (`/api/admin/client-order.php`), which the live server isn't answering (the same silence as the Rate cell).
+  Now a sent work order's link is in the page: **Copy link** copies it with no request, **Email the link** is a plain
+  mailto link. One not sent yet is a normal form (asks first, marks it sent); the page comes back with the link to copy,
+  or opens your email. Their script is in its own block, so another script failing can't stop it.
