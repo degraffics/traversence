@@ -638,3 +638,6 @@ payment details so I can easily push order payment received"; "quickbooks should
   **Work order code** (1-4 letters, not another vendor's) is set in Back-Office → Vendors; left blank, it's the name's
   initials (Competition Printing → CP; one word: its first two letters). A draft whose vendor changes keeps its number
   with the new code. Numbers already given (…-WO0001) stay. `2027-01-06_vendor_code.sql` (`vendors.code`).
+- **Fix: the save button's ▾ list didn't show** (Jason, 2026-10-28: "it saves and closes, just no dropdown"). The list
+  now floats over the page pinned to the ▾ (fixed position, above everything), so a card around the form can't clip it:
+  up when there's room, else down; it closes on scroll or a tap elsewhere.
