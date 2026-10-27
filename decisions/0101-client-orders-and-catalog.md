@@ -618,3 +618,8 @@ payment details so I can easily push order payment received"; "quickbooks should
 - **Reopened, then Handled outside again: the work order comes back** (Jason: "it lost all the work order info"). The
   form starts from the order's last work order: one not sent yet is saved again (the same number); one cancelled or
   declined fills a new one. A line above the form says which.
+- **An in-place edit that didn't save now says so** (Jason, 2026-10-28: a rate typed in the Rate cell didn't recalculate).
+  The rate, quantity and the other in-place fields save through `/api/admin/client-order.php`; a reply that wasn't ours
+  (a server error page, the host's firewall) was dropped without a word, leaving the typed value in place. Now the value
+  goes back and the notice says what happened ("the server answered 406: blocked by the host's firewall", a server
+  error with its kind, or no connection), and the endpoint answers every error in words and logs its cause.
