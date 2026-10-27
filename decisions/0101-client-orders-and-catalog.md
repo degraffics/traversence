@@ -515,3 +515,6 @@ payment details so I can easily push order payment received"; "quickbooks should
   - A list filter can now show counts (`count_by` on the tool).
   - **Fix:** the Orders "To make" card stands for paid, in production and ordered together; it used to filter to Paid
     only, so it showed nothing (and the page remembered it).
+- **Admin lists remember filters only for a reload or Back** (Jason, 2026-10-28: "orders page still not working"): arriving
+  by a link or the menu starts a list fresh, so a filter left from earlier can't hide everything; and a list that
+  filters down to nothing says so with a Clear filters button. (`js/admin-kit.js`, every admin list.)
