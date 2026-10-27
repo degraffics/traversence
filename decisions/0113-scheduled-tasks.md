@@ -13,6 +13,7 @@ things like cron jobs?", then "Scheduler. Then business portal."
 | Notices of action | `app/scripts/standing_tick.php` | every 10 minutes |
 | Lead scores | `app/scripts/sales_tick.php` | every hour, at :17 |
 | Plans and renewals | `app/scripts/billing_tick.php` | every day at 6:13 am |
+| Work order reminders | `app/scripts/work_orders_tick.php` | every hour (at :17) |
 
 - **Each job shows:**
   - its schedule in cPanel, or "Not set up in cPanel";

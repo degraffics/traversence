@@ -178,6 +178,7 @@ Router `website/admin/router.php`, one endpoint `website/admin/api.php`, widgets
 | `files_tick.php` | Moves files from before into owners' folders in S3, 300 at a time (every 10 min) |
 | `move_files_to_s3.php` | The same move, by hand |
 | `billing_tick.php` | Subscription renewals, trials ending, charges |
+| `work_orders_tick.php` | Work order reminders to vendors (not accepted by 9 am next business day, 24 h before and at the must-have time) |
 | `sales_tick.php` | Sales follow-ups and prospect timers |
 | `standing_tick.php` | Standing notices' timers (enforcement ladder) |
 | `ai_worker.php` | The queue of AI jobs (within the monthly AI cap) |

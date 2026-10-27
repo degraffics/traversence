@@ -479,3 +479,28 @@ payment details so I can easily push order payment received"; "quickbooks should
 - **Pulse and orders** (Jason, 2026-10-28): sandbox (and mock) test orders no longer show in the Pulse; they're in
   Orders → Sandbox orders. A new order being built (a draft our team started in the last 30 days) shows as "New order,
   not sent yet" (Sales, Finish it), so an order like #12 is visible before it's sent.
+- **Work orders, step 1: the vendor moves it along** (Jason, 2026-10-28, from how his old system worked). `2027-01-02_work_order_status.sql`.
+  - **Numbered `YYYYMMDD-WO####`**: the day it's made and a running number across all work orders (`WO_START_NO` in
+    `.env` can continue an old count; Jason: start fresh).
+  - **Fields:** project name, total cost (our cost of goods for that vendor; **required to send**), must-have date and
+    time, delivery method (Will Call, Internal Transfer, Blind Drop Ship, Local Delivery, Next-day Courier, Ship USPS / UPS
+    / FedEx, Freight), P.O. number, production notes, and for each item our product code (the catalog SKU) with the
+    vendor's part number, remembered per product and vendor (`product_vendor_parts`).
+  - **File types:** Production setup (imposed and output-configured, for a vendor that skips preflight and prepress, like
+    Competition) and Print file, 1-up (for a vendor that does prepress, like 4OVER), plus Native, Estimate and Invoice.
+    Each vendor says which it takes (Vendors → Files they take) and the work order ticks those.
+  - **The vendor's page** (`/wo.php?w=…`, no login): download the files; **Accept at our cost** (their job # and ship
+    date) **or Decline** (why); no counter-offers (Jason). Then In production → Shipped (carrier, tracking) or Ready for
+    pickup → Complete. Each step is logged, emails our orders inbox, and moves the order's items forward (never back,
+    never out of a hold); when every printed item is out the door the order is marked shipped / ready (the client hears
+    only if they asked for progress emails).
+  - **Ours:** Receive (who, the date) or Reject on receipt (why; the vendor is told), Reprint / Make it again (a new
+    work order with the same details), Cancel (the vendor is told to stop), and each work order's history.
+  - **Reminders** (`app/scripts/work_orders_tick.php`, hourly), each once: not accepted by 9:00 am the next business day
+    after it went; 24 hours before the must-have time; at the must-have time.
+  - **Pulse:** declined (critical), past its must-have time (critical), not accepted by that 9 am (alert), rejected on
+    receipt (alert), and on its way to us or ready to pick up (Receive it).
+  - **Next:** the order management view and the work orders list; then the Collateral Center (collateral tied to the
+    item and reusable for reorders; a reorder with the same art shows "Confirm reuse" next to See proof on the client's
+    approval page and still opens the sign-off pop-up with initials; clients see only approved collateral released for
+    use).
