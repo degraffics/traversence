@@ -562,3 +562,18 @@ payment details so I can easily push order payment received"; "quickbooks should
     gate while configuring. Person-only clients work on their user account; their collateral is theirs alone, like a
     gallery, and a listing's collateral follows its roles. (Next: QuickBooks customer per listing, with "Ordered by"
     on the invoice; reorders across a listing's items; the client views by role; the checkout step.)
+- **Work order form, round 2** (Jason, 2026-10-28).
+  - **Layout:** Ship to and the purchase order sit side by side; production notes run full width under them. Boxes grow
+    downward only, and labels stay on their boxes (a tall neighbor no longer pushes Ship to down or cuts a box off).
+  - **Where it goes:** Ship to starts from the order's address (or its one ship-to address); with several, **Use an
+    address** fills it, or "All of them (per the labels / manifest)". Under it, **Shipping labels and manifests**: every
+    label and manifest on the order or its items, ticked, and sent with the work order. A new file kind, **Shipping
+    manifest**, joins the order's Documents.
+  - **One save button with four ways** (like QuickBooks): **Save** (it stays open), **Save and new**, **Save and close**,
+    **Save and send** (asks first). The main button is the last way used. A saved work order that hasn't gone has
+    **Edit** in the list and opens with everything as it was; once sent, it changes only with the vendor (or cancel and
+    make it again). The order is marked "Ordered from the printer" when the work order is sent, not when it's saved.
+  - **See it as the vendor:** each work order opens the vendor's page as they get it, with its files; for our team it says
+    it's a preview, its buttons are off, and opening it isn't counted as the vendor's.
+  - The vendor page only opens with its private link (a 40-character token, 60 days); without it, or a wrong one, it's
+    "not found". The client's order page and the contact invite work the same way.
