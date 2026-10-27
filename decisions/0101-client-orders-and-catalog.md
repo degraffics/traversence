@@ -411,3 +411,29 @@ Jason: "Wire information should be available but super secure"; "for only 2500 o
   ourselves.
 - **The habit that matters most:** the page, the code email and the payment email all say to call (602) 708-3795 to
   confirm before sending, and that we never send or change bank details by email.
+
+## Addendum 2026-10-28 (late): thank you, your orders, one account with the business; QuickBooks on a recorded payment
+
+Jason: "the page doesnt feel like the order was processed. If it complete move to thank you for your order page, link
+to account for client to see orders, also this will prompt non-registered clients to login/create an account so we need
+to consider how business clients get listing with personal accounts in one process"; "should have a confirm next to
+payment details so I can easily push order payment received"; "quickbooks should be updated once marked paid".
+
+- **Thank you.** Once the client has done their part (`ClientOrders::placed()`: paid, or a wire or check they've said
+  is sent, or cash), their page opens on **Thank you, … order #… is placed / paid**: what happens next, the steps
+  (Proofs approved → Order approved → Payment → In production → Shipped or ready), and the payment box folded away.
+- **Their account.** Signed in as the client: **See all your orders**. Not signed in: **Create your free account** (the
+  order's email filled in) or **sign in**, both coming back to **Your orders** (`/user/orders.php`, in the member
+  menu): every order we prepared for them, newest first, each with where it stands. Orders sent to their email join
+  the account once that email is confirmed (`QrIssue::claim()`).
+- **One account, the business on it.** A personal account is the person; a business is a listing that account
+  manages (decisions/0071, 0104), never a second login. For an order with a company, **Put [company] on Traversence**
+  goes to Add a business (`/claim.php?new=1&order=…`), filled in from the order (name, phone, email, address); not
+  signed in, it goes through Create your account first and comes back to it. The add-a-business flow's own checks
+  (Is this yours?, the email code, the phone) apply as usual.
+- **Confirm received.** Beside the client's payment details on our order page: **✓ Confirm $… received** records the
+  amount due by the way they chose, with their reference, releases the order to production and emails the receipt.
+- **QuickBooks.** Recording a payment (that button, or the form) also receives it on the order's QuickBooks invoice
+  (`QuickBooksPay::recordOtherPayment()`: a payment linked to the invoice, the client's reference as its number), in
+  the order's own mode (sandbox or production). If QuickBooks won't take it, the payment is still recorded here, and
+  the message and history say to receive it on the invoice by hand.

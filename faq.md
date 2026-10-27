@@ -712,6 +712,9 @@ The order says how: in full when you approve, a deposit when you approve and the
 ### Can I pay by wire transfer or check?
 Yes: under **Pay** on your order's page, choose **Wire transfer** (for orders of $2,500 or more) or **Check** instead of Card (it's your choice, at checkout). For your safety our wire details are never emailed: tap **Email me a code**, enter the 6-digit code we send to the order's email, and they show on the page for 10 minutes (they can't be copied or printed, and each viewing is recorded). Before sending a wire, call us at (602) 708-3795 to confirm the details: we never send or change our bank details by email, so if anyone does, it isn't us. Our check details show there and come by email. Put the order number in the reference. Once you've sent it, come back to the same link (the email has it) and enter the wire's confirmation code from your bank, or the check number. Your order waits on a payment hold until the money reaches us: then we email you a receipt and it goes to production.
 
+### Where do I see all my orders?
+Once you've done your part (paid, or told us your wire or check is sent), your order's page says **Thank you** and shows what's next. From there, **Create your free account** with the email the order came to (or sign in), and **Your orders** in your account lists every order we've prepared for you, with its proofs, payment, where it stands and your files. Orders sent to your email join your account once you've confirmed that email. If your order is for a business, **Put [your business] on Traversence** adds it in the same step, filled in from your order: one account for you, with your business on it.
+
 ### Where is my printed order?
 On your order's page: **Where it is** shows whether it's in production, sent to print, shipped (with its tracking number) or ready for pickup. If you ticked **Email me as my order moves along**, we also email you at each step.
 
