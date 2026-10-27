@@ -623,3 +623,6 @@ payment details so I can easily push order payment received"; "quickbooks should
   (a server error page, the host's firewall) was dropped without a word, leaving the typed value in place. Now the value
   goes back and the notice says what happened ("the server answered 406: blocked by the host's firewall", a server
   error with its kind, or no connection), and the endpoint answers every error in words and logs its cause.
+- **The vendor accepts or rejects the order, nothing about price** (Jason, 2026-10-28): **Accept order** (job #, ship
+  date) and **Reject order** ("Can't take it? Say why"), centered under their fields on the work order page. A work
+  order the vendor turns down reads "Rejected by vendor"; the reminder asks them to accept or reject it.
