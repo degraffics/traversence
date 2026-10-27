@@ -595,3 +595,9 @@ payment details so I can easily push order payment received"; "quickbooks should
   vendor (and their job #), project, must-have date and time, delivery, cost, P.O., items with our code and their part #,
   ship-to, files, production notes, when it was sent and its history (the same step saved again shows once, ×n). Links:
   **See it as the vendor**, **Edit it** (not sent yet) and its order; actions: **Send it** (again) and **Cancel it**.
+- **The vendor's page** (Jason, 2026-10-28): "Must Have By:" on its own line, the date under it and the time under
+  that; no line under the total cost. **Courier** (we book it): "We book the courier and send you the tracking number
+  once it's secured" until we add it. The work order's panel (Back-Office → Work orders) has **Courier booked: add
+  tracking** (courier, number): kept on the work order, shown on the vendor's page, and emailed to the vendor once it's
+  sent. Will Call says we pick it up. Our preview of a work order not sent yet shows the Accept / Decline the vendor
+  will get, greyed out, with "Not sent yet".
