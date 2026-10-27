@@ -476,3 +476,6 @@ payment details so I can easily push order payment received"; "quickbooks should
   with × beside what was done; with nowhere to put it, a pop-up in the middle (tap the background or × to close). A
   page's message after a form posts (`data-tv-flash="ok|error"`) shows beside the form that was sent (remembered as
   it's sent), opening the section it's in.
+- **Pulse and orders** (Jason, 2026-10-28): sandbox (and mock) test orders no longer show in the Pulse; they're in
+  Orders → Sandbox orders. A new order being built (a draft our team started in the last 30 days) shows as "New order,
+  not sent yet" (Sales, Finish it), so an order like #12 is visible before it's sent.
