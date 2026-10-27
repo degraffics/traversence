@@ -504,3 +504,14 @@ payment details so I can easily push order payment received"; "quickbooks should
     item and reusable for reorders; a reorder with the same art shows "Confirm reuse" next to See proof on the client's
     approval page and still opens the sign-off pop-up with initials; clients see only approved collateral released for
     use).
+- **Work orders, step 2: the lists** (Jason, 2026-10-28, like his old Order Management dashboard).
+  - **Back-Office → Order management** (`backoffice/production`): every item on an approved order, soonest due first:
+    order, client, product (with how many), product code, status, vendor and work order, due (the work order's must-have
+    date, else the order's). Its Status filter counts each: In the queue, In production, Shipped or ready, Delivered.
+    Delivered items stay in the list for 90 days.
+  - **Back-Office → Work orders** (`backoffice/work_orders`): every work order with its order, client, project, vendor
+    (and their job #), status, must-have date and cost; filters by status (with counts) and vendor. Each opens its order
+    at Work orders. Sandbox orders are left out of both.
+  - A list filter can now show counts (`count_by` on the tool).
+  - **Fix:** the Orders "To make" card stands for paid, in production and ordered together; it used to filter to Paid
+    only, so it showed nothing (and the page remembered it).
