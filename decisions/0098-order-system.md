@@ -377,3 +377,26 @@ exactly the refund's amount left is listed first and highlighted.
 Reports) with breadcrumbs top right ("E-Commerce › Orders › Order #5", `tv_admin_start(..., $crumbs)`), the pages fill
 the window with larger type, and the separate Carts tab is a fold under Orders ("In shoppers' carts"). In Production,
 test orders (made in the QuickBooks sandbox) are hidden from the list, with "Show them"; a search finds them anyway.
+
+## Addendum 2026-10-28: all sales final; what counts as a fix; credits last 12 months
+
+Jason settled the open points of "Fix it, credit, then refund" (Terms, `#fix-credit-refund`): "All-sales are final, so
+if we cant fix it we will credit you for our failure", with the boundaries below and "Recommendation: 12 Months" for
+credits.
+
+- **All sales are final.** A genuine, unexpected problem (in production, or with files the client approved) is fixed
+  first; if it can't be, a credit for our failure; a refund only if neither works. Reported to support@traversence.com
+  within **14 days** of receiving it, with the order number and, for physical items, photos.
+- **What counts as a fix** (Terms, `#what-is-a-fix`). Digital work (designs, video, GO Codes, plans): something that
+  doesn't work, or differs from the approved proof (a code that won't scan or goes to the wrong place through our
+  error, a corrupt file or the wrong agreed format, something missing that was on the approved proof). Not a fix:
+  changes of mind after approval, mistakes on the proof the client initialled (decisions/0101, the final-approval
+  terms), work outside what was ordered. Physical and made-to-order: damage in transit, manufacturing defects (severe
+  color shift, bleeding text, cuts out of line with the proof), the wrong size, material or quantity. Not a fix: slight
+  screen-to-ink (RGB/CMYK) color differences, damage after delivery.
+- **Shipping delays** (Terms, `#shipping-delays`): the 14 days start when the carrier's tracking marks the package
+  delivered. Shipping damage is reported within the same 14 days (it was a 7-day placeholder).
+- **Credits last 12 months** from the day they're given and aren't cash (`Orders::CREDIT_MONTHS`). The balance
+  (`Orders::creditBalance()`) uses the oldest credit first and drops what's left of a credit past its date; the email
+  that announces a credit says when it runs out. QuickBooks keeps its credit memo as issued; an expired credit's
+  balance there is for the books to write off.
