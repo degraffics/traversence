@@ -348,3 +348,27 @@ well." And: "We email you as your order moves along. this should be a check box"
   and the books); a wire recorded on it says to receive it on the invoice in QuickBooks too.
 - **Progress emails** (`orders.notify_progress`): **Email me as my order moves along** is a checkbox when the client
   approves and under Pay (and after it's paid). Off: no stage emails and no "Send update"; receipts always go.
+
+## Addendum 2026-10-28 (later): a proof's final approval, signed; how a proof is shown
+
+Jason: "For proof artwork approvals: I want a pop-up to confirm …" (the terms below), "Final proofs need a download
+option, so in this confirmation window allow a download link here", "Proofs need to be resizable on screen, at least
+able to fit full page to window top/bottom or with multiple pages 2, 3, 4 columns with rows."
+
+- **Approve** on a proof (in the proof's top bar) opens the **final approval** pop-up: the terms
+  (`ClientOrders::PROOF_TERMS`: 100% Client Responsibility, All Sales Are Final, Error Liability), two boxes to tick
+  (`PROOF_CHECKS`) and the client's initials. **Submit Final Approval** stays off until both are ticked and two
+  letters are typed; the server checks the same (`decideProof(…, $sign)`), so nothing approves without them.
+  **Cancel & Request Changes** goes back to the proof with its Make changes box open.
+- The approval is kept with the proof (`order_proofs.client_initials`, `client_ip`, beside `decided_at`;
+  `2026-12-31_proof_signoff.sql`) and in the order's history with the terms' version (`PROOF_TERMS_V`). Our team sees
+  "final approval initialled …" on each version in the item's Proofs tab. Changing the wording: change
+  `PROOF_TERMS_V` too.
+- **Download**: the proof being approved (waiting for the client's OK) downloads from the pop-up. Earlier rounds stay
+  ours; approved and print-ready files still release on payment in full.
+- **How a proof is shown** (`js/tv-proof.js`, the bar's buttons, remembered per device): Width (as before), Page (each
+  page whole, top to bottom of the window), 2, 3 or 4 pages across in rows (2 at most on a phone). Our team's viewer
+  has the same.
+- **Wire details** (Jason: "I really dont want my bank info out there"): `WIRE_INSTRUCTIONS` is optional. Without it
+  the page and email say we'll send the details ourselves and confirm them by phone, and our team's email says to;
+  a wire's page always warns that our bank details are never changed by email.
