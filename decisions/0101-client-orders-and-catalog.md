@@ -641,3 +641,8 @@ payment details so I can easily push order payment received"; "quickbooks should
 - **Fix: the save button's ▾ list didn't show** (Jason, 2026-10-28: "it saves and closes, just no dropdown"). The list
   now floats over the page pinned to the ▾ (fixed position, above everything), so a card around the form can't clip it:
   up when there's room, else down; it closes on scroll or a tap elsewhere.
+- **Send the link yourself** (Jason, 2026-10-28): each work order on the order has **Copy link** (the vendor's private
+  link to the clipboard, to paste in your own email) and **Email the link** (opens your email to the vendor with its
+  number, project, must-have date and the link). One not sent yet asks first and is marked sent by it (its cost first,
+  as for sending), so the rep can accept it; the order is marked "Ordered from the printer" as when it's sent. The
+  Work orders panel has **Get the link to send yourself**.
