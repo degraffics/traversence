@@ -586,3 +586,8 @@ payment details so I can easily push order payment received"; "quickbooks should
 - **Handled outside** has the same one save button with four ways: every way processes the order; the work order is
   saved (and stays open, or a new one, or closed) or sent. A missing vendor or no items ticked stops it before anything
   is processed. The button sits at the form's right edge, its menu opening up from it.
+- **The save button, again** (Jason, 2026-10-28): the ▾ is a plain button beside the main one (same height, no inherited
+  styles), and picking a way from its list closes the list, makes it the main button and runs it, so the question shows
+  under the main button. On **Handled outside** the question says how the order is processed: "against QuickBooks
+  invoice #1044 (the one you made there: nothing new is made or posted)" when its number is typed above, else "outside
+  QuickBooks (no invoice made here or there)".
