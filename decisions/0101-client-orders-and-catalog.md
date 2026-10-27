@@ -668,3 +668,12 @@ payment details so I can easily push order payment received"; "quickbooks should
   order's history names the vendor ("Work order issued to vendor (Competition Printing)"), while a client who asked for
   progress emails still hears only "has been sent to print" (never the vendor). The send line names the real sender
   address.
+
+### Addendum (2026-10-28): recording a payment without a receipt
+
+Record a payment on the client order page now has an "Email the client a receipt" box. It starts unticked when the order
+is paid outside the site (QBO, check, cash) and ticked otherwise. Unticked, nothing goes to the client. The order's
+history says "· no receipt emailed", and staff still get their paid / deposit notice. `ClientOrders::recordPayment()`
+takes `bool $receipt = true`. Also fixed in `js/tv-ask.js`: a form with a field named `method` (the payment method)
+hid the form's own method, which threw a JS error and skipped link wrapping on that form. It now reads
+`getAttribute('method')`.
