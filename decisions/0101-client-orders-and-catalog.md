@@ -607,3 +607,7 @@ payment details so I can easily push order payment received"; "quickbooks should
   stay approved; its collateral takes the new quantity when it's approved again. It's greyed out, with the reason, when
   money is recorded on it (use Money: credit or refund), when its QuickBooks invoice was made here, or while a work
   order is with the vendor (cancel it first, so they're told; a work order not sent yet stays and follows the changes).
+- **Fix: a notice inside the wrong menu** (Jason, 2026-10-28: "Reopened" showed inside Duplicate). When the form that
+  was sent is gone from the page (what it did changed the page), its notice goes beside the section it was in only when
+  that section holds just that form and is open; otherwise it's the pop-up in the middle. It never opens a closed menu
+  to show itself. (`js/tv-ask.js`, every page.)
