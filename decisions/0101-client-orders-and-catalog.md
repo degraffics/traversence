@@ -577,3 +577,12 @@ payment details so I can easily push order payment received"; "quickbooks should
     it's a preview, its buttons are off, and opening it isn't counted as the vendor's.
   - The vendor page only opens with its private link (a 40-character token, 60 days); without it, or a wrong one, it's
     "not found". The client's order page and the contact invite work the same way.
+- **Fix: a wrong business by its phone** (Jason, 2026-10-28: order #12, Sonoran Hospitality Group, was connected to NAPA
+  Auto Parts-White Mtn Auto). The phone check took any listing whose phone held the same **last four digits** as a match.
+  A phone now matches only on all ten digits. **Orders to match** also lists connected orders whose listing doesn't
+  clearly match (same full phone, same name, or the website/email of the client's business email) as "check: is it …?",
+  with **It's right** (kept, not asked again), **Not this one** (back to Orders to match; it isn't connected
+  automatically again), or connect to another listing.
+- **Handled outside** has the same one save button with four ways: every way processes the order; the work order is
+  saved (and stays open, or a new one, or closed) or sent. A missing vendor or no items ticked stops it before anything
+  is processed.
