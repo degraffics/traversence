@@ -313,3 +313,8 @@ Also include a delete button"; "Status Icon - use the gear and progress circle o
 - **The item panel** opens over the page unless the screen is wide enough (1500px) to sit beside it; the order's
   three header boxes wrap instead of squeezing, and their labels don't break.
 - **Shortcuts** and the filter menus sit under the site's top bar when the page scrolls.
+- **Later the same night:** the items lay out by the room they have (a container query on the items card), not the
+  screen's width, so with the item panel beside them they switch to the stacked layout instead of squeezing the
+  description; the header boxes wrap with a wrapped box taking the whole row; and a message beside an item sits inside
+  its description (it had been dropped into the row's grid, pushing the icons out under the menu). Removing a file
+  deletes it from S3 too (`Store::remove`), checked against the S3 test server.
