@@ -611,3 +611,10 @@ payment details so I can easily push order payment received"; "quickbooks should
   was sent is gone from the page (what it did changed the page), its notice goes beside the section it was in only when
   that section holds just that form and is open; otherwise it's the pop-up in the middle. It never opens a closed menu
   to show itself. (`js/tv-ask.js`, every page.)
+- **Fix: a new quantity didn't change the price** (Jason, 2026-10-28: 9,000 at $0.12 still $720). A catalog item's
+  quantity changed in place follows the catalog only when its price is the catalog's for that run and the product is
+  still there with prices; otherwise its rate stays and the amount follows the run (9,000 × $0.12 = $1,080). When its
+  product isn't in the catalog any more, its name ("· 9,000") and run size still change.
+- **Reopened, then Handled outside again: the work order comes back** (Jason: "it lost all the work order info"). The
+  form starts from the order's last work order: one not sent yet is saved again (the same number); one cancelled or
+  declined fills a new one. A line above the form says which.
