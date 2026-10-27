@@ -288,3 +288,28 @@ attach documents to the order not just items"; "Something keeps resetting the qu
   number after the name's last "·"; until the migration runs, a size typed is written into the name ("… · 250");
   a draft's catalog prices aren't refreshed for an item whose size is unknown; and a quantity is read leniently
   ("1,000", "1 000", "500 pcs", and the hard space an in-place edit can leave), which is what was being refused.
+
+## Addendum 2026-10-27 (night): sandbox orders on their own, item icons, the side panel
+
+Jason: "we should have a section within the orders that are sandbox orders. We should use a different ordering number
+system for sandbox orders so they dont consume real order sequencing. It can be toggle collapsed until we need them.
+Also include a delete button"; "Status Icon - use the gear and progress circle one"; "Convert items to project icon:
+… the one to three tier icon"; "use the folder icon for file management"; "Side panel blows out the invoice page."
+
+- **Order numbers** (`2026-12-29_order_numbers.sql`): a real order's number is `orders.order_no`, the next in the real
+  sequence; a sandbox order (made while E-Commerce → Payments is on the QuickBooks sandbox, `qb_env = 'sandbox'`) is
+  **S-1, S-2…** (`orders.test_no`). Orders from before keep the number they had (their id). `Orders::no()` is the
+  number shown everywhere (pages, lists, emails, QuickBooks notes, the invoice reference); `Orders::number()` gives
+  one when an order is made and again at approval if its mode changed. The id stays the address
+  (`/admin/backoffice/orders/<id>`). Before the migration runs, numbers are ids, as before.
+- **Sandbox orders** are out of the Orders lists, counts and site orders, in their own **Sandbox orders** section at
+  the foot of Back-Office → Orders, folded until opened, each with **Delete** (`ClientOrders::deleteTest()`: the order,
+  items, proofs and files from storage, projects, shipping, history and test money; only a sandbox order; a real one
+  is cancelled, never deleted). What was made in the QuickBooks sandbox stays there.
+- **An item's icons**: Edit (pencil), **Status** (gear in a progress circle: the item panel's Status tab), **Files**
+  (folder: its Proofs tab, every version, then Files), **Project** (the one-to-three tier icon: its menu), Ship,
+  Delete. Two rows of three on a wide screen, pairs on a phone. The order has a **Files** button (folder) at the top,
+  to its Files & versions card.
+- **The item panel** opens over the page unless the screen is wide enough (1500px) to sit beside it; the order's
+  three header boxes wrap instead of squeezing, and their labels don't break.
+- **Shortcuts** and the filter menus sit under the site's top bar when the page scrolls.
