@@ -664,3 +664,7 @@ payment details so I can easily push order payment received"; "quickbooks should
   page's "Bill and questions" shows it. Staff logins → **System mailboxes** makes one in cPanel with no staff login
   (orders@trvgo.us, its password shown once), and can set it as the Orders email (with support@ as its reply-to);
   its mail login still goes into .env by hand.
+- **"Work order issued", not "Ordered from the printer"** (Jason, 2026-10-28): the stage is **Work order issued**; the
+  order's history names the vendor ("Work order issued to vendor (Competition Printing)"), while a client who asked for
+  progress emails still hears only "has been sent to print" (never the vendor). The send line names the real sender
+  address.
