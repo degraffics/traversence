@@ -629,3 +629,7 @@ payment details so I can easily push order payment received"; "quickbooks should
 - **The work order prints on one sheet** (Jason, 2026-10-28): letter, .4" margins, 10pt type; Ordered, Delivery, Total
   cost and Bill and questions in one row; tight boxes that don't split across pages; the buttons, download links, the
   preview note and "This link works until…" left off the paper.
+- **Accepting: Received by, no ship date** (Jason, 2026-10-28): the vendor gives the **agent's name** (Received by) and
+  their job number; accepting accepts the must-have date, so no date is asked (it's kept as the promised date). The name
+  shows on their page, on the order's Work orders list and in the work order's panel. `2027-01-05_work_order_accepted_by.sql`
+  (`order_work_orders.accepted_by`).
