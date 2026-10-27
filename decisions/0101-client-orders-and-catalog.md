@@ -626,3 +626,6 @@ payment details so I can easily push order payment received"; "quickbooks should
 - **The vendor accepts or rejects the order, nothing about price** (Jason, 2026-10-28): **Accept order** (job #, ship
   date) and **Reject order** (with its **Production comments**), centered under their fields on the work order page. A work
   order the vendor turns down reads "Rejected by vendor"; the reminder asks them to accept or reject it.
+- **The work order prints on one sheet** (Jason, 2026-10-28): letter, .4" margins, 10pt type; Ordered, Delivery, Total
+  cost and Bill and questions in one row; tight boxes that don't split across pages; the buttons, download links, the
+  preview note and "This link works until…" left off the paper.
