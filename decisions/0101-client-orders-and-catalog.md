@@ -651,3 +651,7 @@ payment details so I can easily push order payment received"; "quickbooks should
   Now a sent work order's link is in the page: **Copy link** copies it with no request, **Email the link** is a plain
   mailto link. One not sent yet is a normal form (asks first, marks it sent); the page comes back with the link to copy,
   or opens your email. Their script is in its own block, so another script failing can't stop it.
+- **The orders email set from Settings** (Jason, 2026-10-28): Settings → Change here now has **Orders email**
+  (`ORDERS_FROM_EMAIL`: work orders go from it, vendors' updates come to it), **Orders sender name**, **Orders
+  reply-to** and **Wire check phone number** (`WIRE_VERIFY_PHONE`), written into .env like the others (decisions/0125).
+  Its mail login (`ORDERS_SMTP_*`) and the bank details stay set by hand.
