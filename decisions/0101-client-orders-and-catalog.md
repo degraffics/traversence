@@ -677,3 +677,14 @@ history says "· no receipt emailed", and staff still get their paid / deposit n
 takes `bool $receipt = true`. Also fixed in `js/tv-ask.js`: a form with a field named `method` (the payment method)
 hid the form's own method, which threw a JS error and skipped link wrapping on that form. It now reads
 `getAttribute('method')`.
+
+### Addendum (2026-10-28): a hand-made QuickBooks invoice that doesn't match the order
+
+On an order paid outside the site, the QuickBooks invoice number is a reference only. Nothing is posted to that
+invoice, and the order's total comes from its own lines. The payment box used to say recording a payment "also
+receives it on QuickBooks invoice N" whenever a number was there. That is only true when the site made the invoice
+(`invoice_id` set). The box now says, for a reference invoice, that nothing is posted to it and its lines should match.
+When a payment is more than the order has left and the order has a reference invoice, the error explains why: the lines
+don't match the invoice. It says to use Reopen for changes, match the prices and extra lines (shipping, a tax line),
+then record the payment. Seen on invoice 112906: paid $1,111.14 ($0.1098 a piece, shrink wrap, shipping, tax), while
+the order had $0.0899 a piece and no extra lines ($809.10).
