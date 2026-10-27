@@ -655,3 +655,6 @@ payment details so I can easily push order payment received"; "quickbooks should
   (`ORDERS_FROM_EMAIL`: work orders go from it, vendors' updates come to it), **Orders sender name**, **Orders
   reply-to** and **Wire check phone number** (`WIRE_VERIFY_PHONE`), written into .env like the others (decisions/0125).
   Its mail login (`ORDERS_SMTP_*`) and the bank details stay set by hand.
+- **The orders mailbox is orders@trvgo.us** (Jason, 2026-10-28), a Bluehost cPanel mailbox on the trvgo.us domain, not
+  orders@trvgo.com as written above. The site's fallback and wording now say orders@trvgo.us; `ORDERS_FROM_EMAIL` in .env
+  (Settings → Orders email) is what's used, with its own login in `ORDERS_SMTP_*` (set by hand).
