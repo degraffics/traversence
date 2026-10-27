@@ -437,3 +437,8 @@ payment details so I can easily push order payment received"; "quickbooks should
   (`QuickBooksPay::recordOtherPayment()`: a payment linked to the invoice, the client's reference as its number), in
   the order's own mode (sandbox or production). If QuickBooks won't take it, the payment is still recorded here, and
   the message and history say to receive it on the invoice by hand.
+- **A changed proof is approved again** (Jason: "if the proof is changed it needs to be reapproved, so it should happen
+  on new proofs or changes made to a file"). Replacing a file in a proof version, or taking one out with others left
+  (`ClientOrders::reproof()`), puts the version back to waiting: its approval, initials and IP, or its changes
+  request, are cleared, and the history says "the client approves it again". A new version now also marks an approved
+  earlier one replaced, so only the latest version can count as approved.
