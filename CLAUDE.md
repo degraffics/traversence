@@ -130,6 +130,10 @@ Never use `alert()`, `confirm()` or `prompt()` (the browser's grey boxes). Use t
 - in a click handler: `if (!TvAsk.gate(button, 'Remove this comment?', { yes: 'Remove', danger: true })) return;`;
 - `TvAsk.confirm(msg, {anchor})` → Promise, `TvAsk.say(msg, {anchor})` for notices (a toast without an anchor),
   `TvAsk.ask(label, value)` → Promise for a one-field lightbox form.
+- **notices** (Jason, 2026-10-28): `TvAsk.say(msg, {anchor, bad})` is the one look for good and bad news, a green ✓
+  "Success:" or red ! "Error:" with ×, beside what was done (`anchor`), else a pop-up in the middle that the background or
+  × closes. Pass `bad: true/false`. A message a page prints after a form posts carries `data-tv-flash="ok|error"`, and it
+  shows beside the form that was sent. No other success/error boxes or toasts.
 - to show a page without leaving the one you're on (checking a listing from Review): `<a href="…" data-peek-frame>` or
   `TvAsk.peek(url, title)`, a pop-up card with the page in its embedded view and "Open the full page" in its corner.
 

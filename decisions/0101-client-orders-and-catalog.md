@@ -450,3 +450,29 @@ payment details so I can easily push order payment received"; "quickbooks should
   looking changes the order. Viewing and downloading proofs still work, and the client's own link is unaffected. To act
   for a client, staff use the order in Back-Office (Approve for the client, Confirm received). Sandbox orders stay fully
   usable from end to end for testing.
+- **Work orders to vendors, and orders handled outside** (Jason, 2026-10-28: "orders that are handled outside QBO and
+  TRV I need a way to process the order and send the work order to the vendor, without duplicating the qbo transaction
+  or creating unneeded friction"). `app/lib/WorkOrders.php`, `order_work_orders` (2027-01-01_work_orders.sql).
+  - **Handled outside: create the work order** (an unapproved order): one step approves it for the client with *no
+    invoice made here*, keeps the hand-made QuickBooks invoice number for reference only (`invoice_no`, never
+    `invoice_id`, so nothing is posted to it and Confirm received doesn't touch QuickBooks), puts it into production,
+    and sends the work order. Where it ships goes on the work order, so approval doesn't ask for a ship-to address.
+  - **Work orders** (an approved order): the items (printed ones ticked; creative work and services can be added),
+    their files (print-ready files, else the current proof; artwork too), ship to, needed by, notes; Send to the vendor
+    or Save without sending; Send again; each shows when it was sent and when the vendor opened it.
+  - The vendor gets an email **from orders@trvgo.com** (`ORDERS_FROM_EMAIL`, with `ORDERS_SMTP_*` when that mailbox
+    signs in on its own; `Mailer::send(..., 'ORDERS')`) and a private page, `/wo.php?w=…` (60 days, noindex): what to
+    make, how many, specs, ship to, due date, notes and each file to download. **No prices and no client billing.**
+    Printable. "Ordered from the printer" is set on the order (the client hears only if they asked for progress emails).
+- **Vendors** (Back-Office → Vendors, `app/lib/Vendors.php`, `vendors`, `order_lines.vendor_id`): name, orders email,
+  contact, phone, website, our account number, notes; retired ones stay for history. An item's Vendor tab picks its
+  vendor (or it follows the catalog product's vendor) and links to Send a work order; the work order form picks from
+  the list, and a new vendor typed there joins it.
+- **Smaller fixes, same round:** rates take up to 4 decimals in any form (`.1225`, `0.12250`, a hard space from an
+  in-place edit); several files uploaded at once say "3 files added to proof v1" with their names; the proofs table
+  counts each version's files; the staff order page no longer applies promo codes (the client enters one at checkout)
+  and offers Make a promo code instead.
+- **One notice style, site-wide** (Jason, 2026-10-28): `TvAsk.say()` draws a green ✓ "Success:" or red ! "Error:" notice
+  with × beside what was done; with nowhere to put it, a pop-up in the middle (tap the background or × to close). A
+  page's message after a form posts (`data-tv-flash="ok|error"`) shows beside the form that was sent (remembered as
+  it's sent), opening the section it's in.
