@@ -591,3 +591,7 @@ payment details so I can easily push order payment received"; "quickbooks should
   under the main button. On **Handled outside** the question says how the order is processed: "against QuickBooks
   invoice #1044 (the one you made there: nothing new is made or posted)" when its number is typed above, else "outside
   QuickBooks (no invoice made here or there)".
+- **Back-Office → Work orders opens the work order** (Jason, 2026-10-28), not its client order: a panel with its status,
+  vendor (and their job #), project, must-have date and time, delivery, cost, P.O., items with our code and their part #,
+  ship-to, files, production notes, when it was sent and its history (the same step saved again shows once, ×n). Links:
+  **See it as the vendor**, **Edit it** (not sent yet) and its order; actions: **Send it** (again) and **Cancel it**.
