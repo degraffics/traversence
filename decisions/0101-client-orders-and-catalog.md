@@ -633,3 +633,8 @@ payment details so I can easily push order payment received"; "quickbooks should
   their job number; accepting accepts the must-have date, so no date is asked (it's kept as the promised date). The name
   shows on their page, on the order's Work orders list and in the work order's panel. `2027-01-05_work_order_accepted_by.sql`
   (`order_work_orders.accepted_by`).
+- **The vendor's code in the work order number** (Jason, 2026-10-28): `YYYYMMDD-CP0001`, the vendor's code where "WO"
+  was, the running number still one count across all vendors (WO_START_NO still continues an old count). Each vendor's
+  **Work order code** (1-4 letters, not another vendor's) is set in Back-Office → Vendors; left blank, it's the name's
+  initials (Competition Printing → CP; one word: its first two letters). A draft whose vendor changes keeps its number
+  with the new code. Numbers already given (…-WO0001) stay. `2027-01-06_vendor_code.sql` (`vendors.code`).
