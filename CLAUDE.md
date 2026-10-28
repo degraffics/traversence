@@ -217,6 +217,18 @@ PREPARE q FROM @s; EXECUTE q; DEALLOCATE PREPARE q;
 
 (Indexes: `information_schema.STATISTICS` … `INDEX_NAME = '…'`.) See `app/migrations/2026-11-29_go_codes_guest.sql`.
 
+## cPanel through its API, not by hand (Jason, 2026-10-28): every build
+
+The site holds a cPanel API token (`CPANEL_HOST`, `CPANEL_USER`, `CPANEL_TOKEN` in .env; `app/lib/CPanel.php`). Use it
+instead of sending Jason into cPanel:
+- **Cron jobs:** a new scheduled script goes in `Scheduler::JOBS` (name, what it does, preset) and in `Scheduler::AUTO`.
+  `Scheduler::sync()` adds it through the API within the hour (any running job calls it), or at once when System
+  Configuration → Scheduled tasks opens. Removing one there keeps it removed. Never write "add this in cPanel → Cron
+  Jobs" in delivery notes.
+- **Mailboxes:** `CPanelMail` (Staff logins, System mailboxes).
+- Still by hand: secrets in `.env` (cPanel File Manager, never a web page), and only what the API can't do. Say why when
+  that's the case.
+
 ## The live server runs PHP 8.0: every build
 
 Local tests run PHP 8.3, so 8.1+ features pass here and break on Bluehost (a parse error takes the whole file down).

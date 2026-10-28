@@ -736,3 +736,15 @@ place: green ✓, amber i for info (new), red !, each with a ×. Changed so far:
 - Cluster tools: the queue message.
 
 CLAUDE.md records the rule.
+
+### Addendum (2026-10-28): scheduled jobs set themselves up through the cPanel API
+
+The site already set cron jobs through the cPanel API (System Configuration → Scheduled tasks, `CPanel::api2` Cron),
+but a new job still waited for someone to press Add. `Scheduler::sync()` now adds every job in `Scheduler::AUTO` that
+cPanel doesn't have yet, on its usual schedule:
+- it runs at most once an hour, from `Scheduler::run()` (so any running job triggers it), and at once when the
+  Scheduled tasks page opens;
+- a table, `job_setup`, remembers which jobs were added and which were removed, so a job removed on the page (or one
+  taken out in cPanel after we added it) isn't put back.
+
+AUTO for now: `work_orders_tick` and `pay_wait_tick`. CLAUDE.md makes the API the default for cron and mailboxes.
