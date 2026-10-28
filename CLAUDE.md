@@ -49,6 +49,33 @@ guarantee the next session (or even a later point in the same one, if it
 gets recreated) will have the same repo authorized — check by attempting the
 push and reading the error, rather than assuming.
 
+## The 3-way sync: OneDrive ⇄ server, recorded in GitHub (Jason, 2026-10-28): every build
+
+`degraffics/traverse-3way-sync` keeps OneDrive `Traversence/website` + `Traversence/app` and the server (FTP) the same,
+twice a day (6:00 and 18:00 UTC) or on demand (its workflow's Run button), and commits what it settled on to
+`sync-storage/` (website) and `sync-app/` (app). Remember it before building, delivering or deleting anything:
+- **What's live:** read `sync-storage/` and `sync-app/` on that repo's main branch, not a copy from an earlier session.
+  Compare before building: a file there may be newer than ours, or a delivery may never have arrived.
+- **Delivering:** Jason puts files in OneDrive or uploads them to the server; either way the sync carries them across.
+- **Deleting:** delete on one side and the sync deletes on the other (OneDrive to its recycle bin; a server copy saved
+  in the sync repo's `deleted/`). Claude can delete in OneDrive through the Microsoft 365 connector. Never re-send a
+  deleted file in a later zip. More than max(10, 5%) deletions in one run are held until the workflow runs with
+  `allow_mass_delete` ticked.
+- **Never synced:** dotfiles (`.env`, `.htaccess`, which has its own staged promotion), `app/storage/`, `_notes`,
+  `_SUPPORT`, `_pending`, `_concepts`, `error_log`, `bootstrap-super-admin.php`.
+
+## Files used once, and the archive (Jason, 2026-10-28): every build
+
+- **Migrations are used once.** Run it (phpMyAdmin → Import), then clear it in System Configuration → **Database
+  updates**, which checks each file against the database and deletes the ones that have been run. A delivery zip
+  carries only the new migrations.
+- **Test files, dumps and one-off scripts** don't go in `website/` or `app/`; once used, they're deleted.
+- **Archived pages** (out of the menus, still reachable) are listed in `archive.md`: what replaced each one, what still
+  opens it, and what has to happen before it goes. Nothing is removed until Jason clears it; then remove it the same
+  build and move it to the register's "Removed".
+- **Dead code** (nothing calls it, checked against the live mirror too) is deleted, not kept "just in case": the sync
+  repo's history keeps every version.
+
 ## Two folders: website/ and app/ (decisions/0069)
 
 The site is two folders, side by side on the server and in OneDrive `Traversence/`:
