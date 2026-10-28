@@ -696,3 +696,17 @@ their bank, or the check number. They leave it blank if they haven't sent it yet
 payment report (`pay_report`), the same as **Tell us it's sent**. Our "Paying by …" email then carries it ("Their
 confirmation code: …"). With no code, the email says none is given yet and that a "Wire sent" / "Check sent" email
 follows when they enter it. `ClientOrders::choosePay()` takes an optional `$ref`.
+
+### Addendum (2026-10-28): wires and checks can't sit unseen; a Money waiting step
+
+Once a client picked wire or check, nothing followed up. If the code email went to spam, or they never came back, the
+order sat on its payment hold with no reminder to anyone. Today (`app/ui/admin-dashboard.php`) now lists two items:
+- **Wire or check chosen, nothing heard for 2 days**: no confirmation code yet. Call them.
+- **Wires and checks on their way**: they gave a code. Record it when it reaches the bank.
+
+Both link to the order's payment section. Today's Payments items had no step of their own, so "QuickBooks needs
+reconnecting" and "Card disputes open" never showed in the daily process either. A first step, **Money waiting**,
+now holds them all.
+
+Also: Review's **From visitors** list (the People waiting step) showed the crawler's "Listings that need you" block
+above the visitors' messages. That block and the "still working on" line now show only under All and Listings.
