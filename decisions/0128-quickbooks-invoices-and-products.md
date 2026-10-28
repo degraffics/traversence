@@ -163,3 +163,29 @@ Each step is its own delivery, tested in the sandbox company before production.
 - **What each needs to work** (`Books::requirements`), shown as status boxes under the roles: QuickBooks connected
   when it's the processor or bookkeeper; every QuickBooks item mapped when it's the bookkeeper; tax rates in Taxes &
   shipping when Traversence is the tax authority. A role isn't functional until its line is green.
+
+## Step 2, built (2026-10-28): pull an invoice with no site order
+
+Back-Office → Orders → **Pull an invoice from QuickBooks** (`tv_admin_mod_qb_pull`, `app/lib/QbPull.php`):
+- The number shows a preview first. It covers the customer, the date and due date, the total with tax, and what's paid.
+  Each line shows what it becomes: a product (through its item's tag), a charge, or "not mapped yet".
+- **Items not mapped yet are decided in the preview, once per item** however many lines use it (invoice 112906 has three
+  gift certificate lines on one item). The choices are tag to a product, make a product, or it's a charge, and the
+  answer is remembered for every later invoice (`Books::decide`). A general item tagged to several products picks the
+  one its words fit best, changeable per line.
+- **The client:** a QuickBooks customer tagged to a client listing goes there. Otherwise there's a choice: match it as
+  other new orders are (`Clients::autoConnect`), one of the listings found by name or phone, or the person alone. The
+  listing chosen is tagged with the QuickBooks customer (`qbo.customer`) for next time.
+- **Make the order** reads the invoice again from QuickBooks (never trusting the page) and builds the order:
+  - Product lines are one line per run ("$25 Gift Certificates · 3,000", QuickBooks' exact amount, run size kept).
+  - Charges are shipping or custom lines tagged `charge`.
+  - QuickBooks' tax and total are kept as they are. The order is approved on the invoice date, linked to the invoice
+    (`invoice_id`, tag `qbo.invoice`), with `pay_mode` invoice.
+- **Payments made in QuickBooks** go into the ledger with the payment date, and are never posted back. Paid in full
+  means paid. Unpaid or part paid: a later payment in QuickBooks marks it paid through the webhook, as for any linked
+  invoice.
+- **Reorder items:** each product line becomes one of the client's collateral items, before its artwork comes
+  (`Collateral::fromOrder(..., true)`). Lines tagged `charge` are never collateral (on any order).
+- The order's history says "Pulled from QuickBooks invoice N: lines, total, tax, paid; set up: books, tax, history".
+- **Refused:** pulling an invoice that's already an order (it links to it), or one an order already refers to by number
+  (the Sonoran order): that's step 3's merge, so it isn't counted twice.
