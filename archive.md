@@ -94,9 +94,9 @@ Opened from a working tool (pop-up, detail, action or print page):
 
 | File | Note |
 |---|---|
-| `website/admin/chamber-builder.php` and `chamber-builder.php.php` | Added on the server (Oct 26–27), not from a delivery. The `.php.php` copy looks like an accidental duplicate. As an admin page outside the manifests, it should become a section if it stays. |
-| `website/MP5-Manual-Partial-Proof.pdf` | 56 MB in the web root, so anyone with the link can open it. A client proof belongs with its order (Orders → Files), not here. |
-| `website/user/api/bootstrap-super-admin.php` (on the server) | The sync never touches this name, so the server copy is whatever was last put there by hand. Delete it in cPanel → File Manager. The admin is staff logins only now (decisions/0100). |
+| `website/admin/chamber-builder.php` | Jason's work in progress (2026-10-28). Stays. When it's ready it becomes a section in the manifests. |
+| `website/admin/chamber-builder.php.php` | An older copy of the same builder (8.6 KB, Oct 26; the current one is 33 KB, Oct 27). Jason: delete if not needed. To remove: delete it on the server, and the sync takes it off OneDrive. |
+| `website/user/api/bootstrap-super-admin.php` (on the server) | The sync never touches this name, so it didn't come back from the sync. It came back in full delivery zips (Oct 23 and 24) that still carried the retired stub. It's gone from the working copy now and won't be in another zip. Delete it once more in cPanel → File Manager. |
 
 ## Removed
 

@@ -66,6 +66,8 @@ twice a day (6:00 and 18:00 UTC) or on demand (its workflow's Run button), and c
   in the sync repo's `deleted/`). Claude can delete in OneDrive through the Microsoft 365 connector. Never re-send a
   deleted file in a later zip. More than max(10, 5%) deletions in one run are held until the workflow runs with
   `allow_mass_delete` ticked.
+- **Never in a zip:** `bootstrap-super-admin.php` (retired; the sync never touches the name, so a zip is the only way it
+  comes back), and files listed under the archive register's "Removed".
 - **Never synced:** dotfiles (`.env`, `.htaccess`, which has its own staged promotion), `app/storage/`, `_notes`,
   `_SUPPORT`, `_pending`, `_concepts`, `error_log`, `bootstrap-super-admin.php`.
 
