@@ -57,6 +57,10 @@ twice a day (6:00 and 18:00 UTC) or on demand (its workflow's Run button), and c
 - **What's live:** read `sync-storage/` and `sync-app/` on that repo's main branch, not a copy from an earlier session.
   Compare before building: a file there may be newer than ours, or a delivery may never have arrived.
 - **Delivering:** Jason puts files in OneDrive or uploads them to the server; either way the sync carries them across.
+  A delivery zip holds **only the files that differ from the live mirror** (new or changed, compared byte for byte),
+  never a blanket upload: fetch the sync repo's main branch, compare, zip the difference. That also catches anything
+  an earlier round left behind. Dotfiles (`.htaccess`) aren't in the mirror, so they're named separately when they
+  change.
 - **Deleting:** delete on one side and the sync deletes on the other (OneDrive to its recycle bin; a server copy saved
   in the sync repo's `deleted/`). Claude can delete in OneDrive through the Microsoft 365 connector. Never re-send a
   deleted file in a later zip. More than max(10, 5%) deletions in one run are held until the workflow runs with
