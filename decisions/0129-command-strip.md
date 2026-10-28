@@ -38,3 +38,14 @@ order-wide save, since each part saves on its own, so the button made a work ord
 ## Next
 
 The same strip on the client, listing, product and vendor pages.
+
+## Revised (Jason, 2026-10-28)
+
+- The strip sits **above the page**, in place of its title and breadcrumbs. The admin **Shortcuts** move into ☰, so the
+  strip has the whole width.
+- **One button for the master commands:** it reads **Save** when something's changed and **Close** otherwise. Its ▾
+  holds Save, Save and close, Send (to the client) and Close.
+- **☰** holds the record's other actions. On the order: What the client sees, Money, Documents and files, Cancel, and
+  the page's own Reopen for changes, Open as the client and Duplicate controls, moved there as they are.
+- **No repeats:** the order's old top row (status pills, those buttons) is gone. "Client opened it" became a pill in
+  the strip.

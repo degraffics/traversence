@@ -143,11 +143,12 @@ Never use `alert()`, `confirm()` or `prompt()` (the browser's grey boxes). Use t
 ## Record pages: the command strip and section controls (decisions/0129): every admin record page, every build
 
 An admin page about one record (an order, and next a client, listing, product, vendor) carries the **command strip**
-(`tv_command_strip()`, `app/ui/command-strip.php` + `js/tv-strip.js`), pinned just under the header:
+(`tv_command_strip()`, `app/ui/command-strip.php` + `js/tv-strip.js`), at the top of the page, pinned under the header as it scrolls:
 - **left:** Back, what the record is and its status pills, "N unsaved" (tap: goes to it), the latest notice;
-- **right, the master commands:** **Save** (every section changed and not saved; never makes anything new), **Send**
-  (to the client), **Close** (back to its list; asks first when something is unsaved), **More ▾** (the record's other
-  actions: they trigger the page's own buttons, so their questions still apply).
+- **right:** one button for the master commands, reading **Save** when something's changed and **Close** otherwise, with
+  ▾ for Save, Save and close, **Send** (to the client) and Close (asks first when something is unsaved); and **☰** for
+  the record's other actions and the admin Shortcuts (they trigger the page's own buttons, so their questions still apply).
+- The strip sits at the very top in place of the page's title and breadcrumbs; nothing it shows is repeated below it.
 - **Sections** start at each `h2.hb-h`; each gets a bar (a dot when unsaved, Close/Open to fold). A section's own
   buttons name it ("Save work order", "Save and send to vendor"); only sections make new things.
 - Forms that make something new (`'new'` selector) or whose button asks first (`data-confirm`) wait for their own button;
