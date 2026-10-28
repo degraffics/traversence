@@ -2,6 +2,9 @@
 
 Status: proposed (Jason, 2026-10-28), for review before building
 Builds on: 0096 (QuickBooks connector), 0101 (client orders, catalog, work orders, collateral)
+Also: one QuickBooks item may stand for several products (a general "Printing" item); a pulled line is matched on its
+description and asks when unsure, and the answer is remembered. Pulling the same invoice again refreshes the order it
+made, never a second one. When QuickBooks is the tax authority, its tax is taken as given.
 
 ## The problem
 
@@ -13,6 +16,31 @@ offer it again as a reorder.
 Products have the same split. QuickBooks has its own items. Our catalog has products with specs, tiers, proofs and
 vendors. Today an invoice the site makes finds its QuickBooks item **by name** (`QuickBooksPay::namedItem`) and makes
 one if the name isn't there. Rename either side and they drift apart; a typo makes a duplicate item in QuickBooks.
+
+## Three roles, set separately (Jason, 2026-10-28)
+
+Each role is chosen on its own, and each can be Traversence or an outside service:
+
+| Role | What it does | Today |
+|---|---|---|
+| **Processor** | The payment gateway Traversence uses at checkout, and only that | QuickBooks Payments |
+| **Bookkeeper** | Matches or manages Traversence's orders, payments, clients and taxes; the tax and history authority when the setting says so. It need not be the processor. | QuickBooks |
+| **Order / CRM management** | Orders, work orders, customer relations, marketing | Traversence |
+
+Each order records the setup it was made under, so changing a role later never rewrites old orders. Turning on a
+bookkeeper starts with mapping (§3) before it records anything, whether the catalog and orders are new or already
+there (a business that ran on Traversence and a gateway only).
+
+## Tags and links (Jason, 2026-10-28)
+
+- **A tag** ties a reference to one or many things. A Traversence client tagged with a QuickBooks customer, a product
+  with a QuickBooks item, an order with an invoice: all tags, kept in one place, each by system and mode (sandbox or
+  production), with who set it and when, and undo. One QuickBooks customer may tag several clients (a company and its
+  contacts); a thing with more than one tag in a system has one marked **primary**, the one written back to.
+- **A link** is a one-to-one relationship that can grant rights: a person to a business as its manager, staff to a
+  listing, a contact to a client. The site's memberships become one Links system over time.
+
+This decision builds the tags for QuickBooks. Links are recorded here as the direction, not built in this step.
 
 ## The rule
 
@@ -40,9 +68,16 @@ Clients tool). If none fits, the preview asks: pick a client or make one from th
 Center), as approved orders do now. Shipping, fees and tax stay on the order only. So an invoice with no site order
 still gives the client a Reorder.
 
-## 2. One product list, linked to QuickBooks items by id
+## Once an invoice is paid, the payment rules
 
-- **A link, not a copy.** A product links to one QuickBooks item by its **id** (`products.qb_item_id`, already there),
+A paid amount is what was agreed. Traversence records it and never reopens the price. If we charged too little, the
+order is marked **underpriced** with the gap, so the product's or the reorder item's price is fixed for next time;
+the client isn't billed again. If the client was overcharged, nothing happens on its own: when either side sees it,
+the Money tools credit or refund it.
+
+## 2. One product list, tagged to QuickBooks items by id
+
+- **A tag, not a copy.** A product is tagged with a QuickBooks item by its **id** (`products.qb_item_id`, already there),
   never by name. Names can differ and be renamed on either side without breaking anything.
 - **Each side owns its part.** QuickBooks owns the item's name on invoices, its income account and whether it's taxed.
   Our catalog owns specs, price tiers, proofs, vendor, turnaround and files.
@@ -76,7 +111,7 @@ Guarantees for history:
 
 ## Build order
 
-1. **Item links and the mapping page** (read QuickBooks items, suggest, decide, report); invoices the site sends use the
+1. **Roles and tags**: the three roles in the QuickBooks module's setup, the tags store, then **the mapping page** (read QuickBooks items, suggest, decide, report); invoices the site sends use the
    link and save it when they create an item.
 2. **Pull an invoice with no site order**: preview, client match, build the order, payments, reorder items.
 3. **Merge into an existing order**: unpaid (merge) and paid (rebuild to match), with the line-by-line preview.
