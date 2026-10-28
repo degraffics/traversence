@@ -24,8 +24,12 @@ Each role is chosen on its own, and each can be Traversence or an outside servic
 | Role | What it does | Today |
 |---|---|---|
 | **Processor** | The payment gateway Traversence uses at checkout, and only that | QuickBooks Payments |
-| **Bookkeeper** | Matches or manages Traversence's orders, payments, clients and taxes; the tax and history authority when the setting says so. It need not be the processor. | QuickBooks |
+| **Bookkeeper** | Matches or manages Traversence's orders, payments, clients and taxes. It need not be the processor. | QuickBooks |
 | **Order / CRM management** | Orders, work orders, customer relations, marketing | Traversence |
+
+**Tax** and **history** are each set to **authority** or **follower** for the bookkeeper. The authority's numbers win
+and the follower takes them as given (QuickBooks as tax authority: its tax is used, never worked out here). Each has
+exactly one authority; with no bookkeeper, Traversence is the authority for both.
 
 Each order records the setup it was made under, so changing a role later never rewrites old orders. Turning on a
 bookkeeper starts with mapping (§3) before it records anything, whether the catalog and orders are new or already
@@ -33,12 +37,18 @@ there (a business that ran on Traversence and a gateway only).
 
 ## Tags and links (Jason, 2026-10-28)
 
-- **A tag** ties a reference to one or many things. A Traversence client tagged with a QuickBooks customer, a product
-  with a QuickBooks item, an order with an invoice: all tags, kept in one place, each by system and mode (sandbox or
-  production), with who set it and when, and undo. One QuickBooks customer may tag several clients (a company and its
-  contacts); a thing with more than one tag in a system has one marked **primary**, the one written back to.
+- **A tag** ties a reference to one or many things. Tags are assigned and managed, and each **kind of tag** carries its
+  own configuration for the situations it meets: who it notifies, what it may write, which one is used when a thing
+  has several.
+  - **People and topic tags** act: @someone in a comment reaches the users or listings assigned to that tag, with a
+    notice in the Pulse or a push.
+  - **System tags** are reference only, with no notifications: a Traversence client's QuickBooks customer id, a
+    product's QuickBooks item id, an order's invoice. Kept in one place by system and mode (sandbox or production),
+    with who set it and when, and undo. Their configuration says which one is written back to when a thing carries
+    more than one (a company and its contacts sharing one QuickBooks customer; duplicate customers in QuickBooks).
 - **A link** is a one-to-one relationship that can grant rights: a person to a business as its manager, staff to a
-  listing, a contact to a client. The site's memberships become one Links system over time.
+  listing, a contact to a client.
+- **The test:** if a tag can't give what's needed (a privilege, or data the reference doesn't carry), it takes a link.
 
 This decision builds the tags for QuickBooks. Links are recorded here as the direction, not built in this step.
 
