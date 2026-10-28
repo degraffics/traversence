@@ -189,3 +189,35 @@ Back-Office → Orders → **Pull an invoice from QuickBooks** (`tv_admin_mod_qb
 - The order's history says "Pulled from QuickBooks invoice N: lines, total, tax, paid; set up: books, tax, history".
 - **Refused:** pulling an invoice that's already an order (it links to it), or one an order already refers to by number
   (the Sonoran order): that's step 3's merge, so it isn't counted twice.
+
+## Step 3, built (2026-10-28): merge an invoice into an order that's already here
+
+On the order page, an order that refers to a QuickBooks invoice by number (made by hand: the Sonoran order and
+112906) gets a **QuickBooks invoice** section (`app/ui/qb-merge.php`, `QbPull::mergePlan()` / `merge()`). The Orders
+pull box's "Merge instead" now links straight to it.
+- **Asked only when opened.** The section says what merging does. "Show what merging does" asks QuickBooks then, not on
+  every page view.
+- **The preview, line by line.** Each invoice line is matched to the order's line it updates, or it's added:
+  - The match goes by the same product, then the run size, then the words; a charge pairs with a shipping or custom line.
+  - Updates show the old amount struck through and the invoice's beside it.
+  - Order lines the invoice doesn't have are listed too.
+  - A price gap between the two totals is shown, and items not mapped yet are decided there, once per item, as for a pull.
+- **Merge into this order:**
+  - Matched lines take the invoice's run, price and tax, and keep their proofs, files and work orders. Invoice-only
+    lines are added (charges tagged `charge`).
+  - The order takes QuickBooks' tax and total and is linked to the invoice (`invoice_id`, tag `qbo.invoice`; the
+    client's business tagged `qbo.customer`), with `pay_mode` invoice.
+  - Payments made in QuickBooks that aren't recorded here yet go into the ledger once. A payment already recorded here
+    isn't counted twice.
+  - The history notes the merge, each dropped line, and a price gap ("the order here was $277.04 under the invoice:
+    check the products' prices").
+- **Paid invoice: the payment rules.** The order is rebuilt to match exactly. Lines the invoice doesn't have come off
+  (kept in the history) and the order is marked paid.
+- **Unpaid invoice:** each order-only line can be kept, a tick per line. A kept line shows on top of the invoice's total
+  until it's added in QuickBooks and the order is refreshed.
+- **Refresh from the invoice:** a linked order shows "Check it against the invoice", the same preview. It's used when
+  the invoice changes in QuickBooks.
+- **Refused:** an invoice already linked to another order, a cancelled order, and someone without the pull permission
+  (the button is greyed with the reason).
+- "Make a product" on an item a product was made from before (its tag since taken off) tags that product again, never
+  a second copy.
