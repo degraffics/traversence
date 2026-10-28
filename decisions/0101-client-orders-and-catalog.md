@@ -688,3 +688,11 @@ When a payment is more than the order has left and the order has a reference inv
 don't match the invoice. It says to use Reopen for changes, match the prices and extra lines (shipping, a tax line),
 then record the payment. Seen on invoice 112906: paid $1,111.14 ($0.1098 a piece, shrink wrap, shipping, tax), while
 the order had $0.0899 a piece and no extra lines ($809.10).
+
+### Addendum (2026-10-28): the confirmation code is asked for when the client chooses wire or check
+
+When a client taps **Wire transfer** or **Check** on their order page, a box asks for the wire's confirmation code from
+their bank, or the check number. They leave it blank if they haven't sent it yet. A code given there is saved as the
+payment report (`pay_report`), the same as **Tell us it's sent**. Our "Paying by …" email then carries it ("Their
+confirmation code: …"). With no code, the email says none is given yet and that a "Wire sent" / "Check sent" email
+follows when they enter it. `ClientOrders::choosePay()` takes an optional `$ref`.
