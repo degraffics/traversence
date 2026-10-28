@@ -140,6 +140,19 @@ Never use `alert()`, `confirm()` or `prompt()` (the browser's grey boxes). Use t
 - to show a page without leaving the one you're on (checking a listing from Review): `<a href="…" data-peek-frame>` or
   `TvAsk.peek(url, title)`, a pop-up card with the page in its embedded view and "Open the full page" in its corner.
 
+## Record pages: the command strip and section controls (decisions/0129): every admin record page, every build
+
+An admin page about one record (an order, and next a client, listing, product, vendor) carries the **command strip**
+(`tv_command_strip()`, `app/ui/command-strip.php` + `js/tv-strip.js`), pinned just under the header:
+- **left:** Back, what the record is and its status pills, "N unsaved" (tap: goes to it), the latest notice;
+- **right, the master commands:** **Save** (every section changed and not saved; never makes anything new), **Send**
+  (to the client), **Close** (back to its list; asks first when something is unsaved), **More ▾** (the record's other
+  actions: they trigger the page's own buttons, so their questions still apply).
+- **Sections** start at each `h2.hb-h`; each gets a bar (a dot when unsaved, Close/Open to fold). A section's own
+  buttons name it ("Save work order", "Save and send to vendor"); only sections make new things.
+- Forms that make something new (`'new'` selector) or whose button asks first (`data-confirm`) wait for their own button;
+  searches are `'skip'`. Never a button that says just "Save and close" inside a section.
+
 ## Password boxes: every page, every build (Jason, 2026-10-16)
 
 Every password box gets a Show / Hide button, and every new-password box gets a live checklist under it. Both come from
