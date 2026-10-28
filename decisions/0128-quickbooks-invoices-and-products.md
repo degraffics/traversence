@@ -1,6 +1,6 @@
 # 0128: QuickBooks invoices into Traversence orders, and one product list across both
 
-Status: proposed (Jason, 2026-10-28), for review before building
+Status: accepted (Jason, 2026-10-28); step 1 built
 Builds on: 0096 (QuickBooks connector), 0101 (client orders, catalog, work orders, collateral)
 Also: one QuickBooks item may stand for several products (a general "Printing" item); a pulled line is matched on its
 description and asks when unsure, and the answer is remembered. Pulling the same invoice again refreshes the order it
@@ -134,3 +134,20 @@ Each step is its own delivery, tested in the sandbox company before production.
 - Which QuickBooks items are charges (shipping, shrink wrap, setup, rush): set on the mapping page, starting with
   any item named like "Shipping" or "Shrink" suggested as a charge.
 - Credit memos and refunds on a pulled invoice: shown in the preview and recorded, as the refund webhook does now.
+
+## Step 1, built (2026-10-28)
+
+- **System tags** (`app/lib/SystemTags.php`, table `system_tags`): kinds `qbo.item` (product, several products may
+  share one item), `qbo.customer` (client), `qbo.invoice` (order, one each); by mode; set, take off, undo, recent.
+- **Who does what** (`app/lib/Books.php`, kept in `qb_settings` as `role_*`): processor, bookkeeper, order/CRM, tax
+  authority, history authority. Today's setup is the default (QuickBooks Payments, QuickBooks, Traversence; tax:
+  the bookkeeper; history: Traversence). No bookkeeper sets both authorities to Traversence. `Books::snapshot()` is
+  what an order will record.
+- **QuickBooks items** (Back-Office → QuickBooks items, `tv_admin_mod_qb_items`): read QuickBooks' items (read only,
+  `QuickBooksPay::items`) into `qbo_items`; suggestions (same or close name: tag; a charge-like name: charge;
+  otherwise: make a product); per item tag / make a product / charge / leave / undecided again; take all suggested
+  matches and charges at once (products are made only when you say); progress line; recent changes with Undo.
+  Products that held a QuickBooks item id the old way are tagged with it when the items are read.
+- **Invoices the site sends** use the product's tagged item; a product with none gets its item found or made once,
+  and tagged then (`QuickBooksPay::invoiceFor`, lines now carry `product_id`).
+- Migration: `2027-01-07_system_tags.sql` (the tables are also made on first use).
