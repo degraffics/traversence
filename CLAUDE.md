@@ -268,6 +268,11 @@ PREPARE q FROM @s; EXECUTE q; DEALLOCATE PREPARE q;
 
 (Indexes: `information_schema.STATISTICS` … `INDEX_NAME = '…'`.) See `app/migrations/2026-11-29_go_codes_guest.sql`.
 
+**Tables that may have moved** (decisions/0110: System Configuration → Data separation moves groups of tables, e.g.
+`products`, to the admin database; `DataMove::GROUPS`): a migration that changes one can't assume it's in main. Find it
+first (main, else the database holding every table main's `data_moves` lists for the admin realm) and build the
+statement with its database name. See the `products` part of `app/migrations/2026-12-23_promotions.sql`.
+
 ## cPanel through its API, not by hand (Jason, 2026-10-28): every build
 
 The site holds a cPanel API token (`CPANEL_HOST`, `CPANEL_USER`, `CPANEL_TOKEN` in .env; `app/lib/CPanel.php`). Use it
