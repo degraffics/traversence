@@ -710,3 +710,18 @@ now holds them all.
 
 Also: Review's **From visitors** list (the People waiting step) showed the crawler's "Listings that need you" block
 above the visitors' messages. That block and the "still working on" line now show only under All and Listings.
+
+### Addendum (2026-10-28): payment reminders for a wire or check with no confirmation code
+
+`app/scripts/pay_wait_tick.php` runs every 15 minutes (Scheduler job `pay_wait_tick`) and calls
+`ClientOrders::payWaitTick()`. A pending order whose client chose wire or check and gave no confirmation code gets three
+reminders, each once. Each goes to the client (with the order link to give the code) and to support
+(`SUPPORT_EMAIL`, default support@traversence.com):
+1. 2 hours after they chose;
+2. 9:00 am the next business day;
+3. 4:00 pm that day, listing the other ways to pay (card unless the order is paid outside, and the other client
+   methods).
+
+Each reminder is recorded as an order event (`pay_nudge1`–`3`), counted from the latest choice. Choosing again starts
+over, and a code, a payment or switching to card stops the reminders. After an outage, only the latest due reminder
+goes, never a backlog. Today's item became "Wire or check chosen, no confirmation code" after 2 hours (was 2 days).
