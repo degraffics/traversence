@@ -761,3 +761,26 @@ for a moment in a browser, so these don't count:
 only. `ClientOrders::opens()` gives the last time and the number of visits. Back-Office shows it as a pill at the top of
 the order: "Client opened it Oct 28, 2:14 pm · 3 visits" or "Client hasn't opened it yet". Support's payment reminder
 says when they last opened it. The FAQ tells clients this is noted.
+
+### Addendum (2026-10-28): a Pulse order case shows the order as it really is
+
+An order's Pulse case (Fulfillment) was out of step with the order:
+- the progress bar said "In production" while the order's stage was "Work order issued to vendor";
+- "Vendor jobs" read the older 4OVER-paste list, so it said "None yet" with work orders out;
+- the history held only notes typed on the case;
+- the checklist was the same for every order;
+- "To make and ship" went red 8 hours after approval even while a vendor had the job.
+
+Now (`Pulse::byOrder`, `playbook`, `caseOf`, `pulse-ui.php`):
+- **Why**: a plain sentence on why the case is open and what closes it.
+- **Progress**: "With the vendor" when the stage is work order issued.
+- **Work orders**: each one, its vendor, where it stands (opened or not), must-have time, tracking. The older vendor
+  jobs box shows only when it has jobs, or when there are no work orders (Paste from 4OVER stays there).
+- **How to clear this**: "Record the payment ($X left)" (it explains a payment made outside the site; ticked once
+  paid); "Issue the work order" when there's none; one line per work order, ticked when the vendor has shipped or it's
+  ready; then the order's next stage; then Resolve.
+- **History**: the order's own events (sent, approved, work orders, payments, client opens) with the case's notes,
+  newest first, with readable times.
+- **Severity**: an order a vendor has (a work order sent, accepted, in production, shipped or ready) is an Update, not
+  an Alert. The work order's own alerts (not accepted by 9 am the next business day, past its must-have time, rejected)
+  do the chasing.
