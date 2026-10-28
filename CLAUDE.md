@@ -175,12 +175,17 @@ Never use `alert()`, `confirm()` or `prompt()` (the browser's grey boxes). Use t
 ## Record pages: the command strip and section controls (decisions/0129): every admin record page, every build
 
 An admin page about one record (an order, and next a client, listing, product, vendor) carries the **command strip**
-(`tv_command_strip()`, `app/ui/command-strip.php` + `js/tv-strip.js`), at the top of the page, pinned under the header as it scrolls:
-- **left:** Back, what the record is and its status pills, "N unsaved" (tap: goes to it), the latest notice;
-- **right:** one button for the master commands, reading **Save** when something's changed and **Close** otherwise, with
-  ▾ for Save, Save and close, **Send** (to the client) and Close (asks first when something is unsaved); and **☰** for
-  the record's other actions and the admin Shortcuts (they trigger the page's own buttons, so their questions still apply).
-- The strip sits at the very top in place of the page's title and breadcrumbs; nothing it shows is repeated below it.
+(`tv_command_strip()`, `app/ui/command-strip.php` + `js/tv-strip.js`): **one slim line** at the top of the page in place
+of its title and breadcrumbs, that slides away as you scroll down and back as you scroll up (it stays while something's
+unsaved) (Jason, 2026-10-28):
+- **left:** Back and the record's short name ("Order #9"); no status pills in the strip;
+- **right:** one button for the master commands, reading **Save** (with how many, when more than one) when something's
+  changed and **Close** otherwise, with ▾ for Save, Save and close, **Send** (to the client) and Close (asks first when
+  something is unsaved); and **☰** for the record's other actions and the admin Shortcuts (they trigger the page's own
+  buttons, so their questions still apply).
+- **Where the record stands** (paid, in production, the client opened it) is a notices box under the strip (`news`),
+  shown on page load and closed with ×; it stays closed until what it says changes. Save results are TvAsk notices.
+- Nothing the strip or its notices box shows is repeated below them.
 - **Sections** start at each `h2.hb-h`; each gets a bar (a dot when unsaved, Close/Open to fold). A section's own
   buttons name it ("Save work order", "Save and send to vendor"); only sections make new things.
 - Forms that make something new (`'new'` selector) or whose button asks first (`data-confirm`) wait for their own button;

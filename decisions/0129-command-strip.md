@@ -49,3 +49,15 @@ The same strip on the client, listing, product and vendor pages.
   the page's own Reopen for changes, Open as the client and Duplicate controls, moved there as they are.
 - **No repeats:** the order's old top row (status pills, those buttons) is gone. "Client opened it" became a pill in
   the strip.
+
+## Revised again (Jason, 2026-10-28, from a phone): slimmer, and the status moves out of the strip
+
+On a phone the strip took about a quarter of the screen and stayed there: three status pills wrapped onto extra lines,
+and the business name repeated the header. Now:
+- **One line, 44px:** Back, "Order #9", the master button (Save, with a count when more than one form is changed, or
+  Close) with ▾, and ☰. No pills, and no latest-notice text in the strip.
+- **It slides away as you scroll down and comes back as you scroll up.** It stays in view while something is unsaved,
+  or while one of its menus is open.
+- **Where the order stands** goes in a notices box under the strip, shown when the page loads: the state, the
+  production stage, test (sandbox), and when the client opened it. Close it with × once read. It stays closed (per
+  order, in this browser) until what it says changes, then shows again.
