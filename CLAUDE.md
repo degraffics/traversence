@@ -134,6 +134,9 @@ Never use `alert()`, `confirm()` or `prompt()` (the browser's grey boxes). Use t
   "Success:" or red ! "Error:" with ×, beside what was done (`anchor`), else a pop-up in the middle that the background or
   × closes. Pass `bad: true/false`. A message a page prints after a form posts carries `data-tv-flash="ok|error"`, and it
   shows beside the form that was sent. No other success/error boxes or toasts.
+- **status lines** (Jason, 2026-10-28): a line a page shows about where things stand ("No listings need you", "3 were
+  merged", "The crawler is still working on…") is never plain colored text: `<p data-tv-status="ok|info|bad"
+  data-tv-label="All clear:">…</p>` draws it as the same notice box in its place (green ✓, amber i for info, red !).
 - to show a page without leaving the one you're on (checking a listing from Review): `<a href="…" data-peek-frame>` or
   `TvAsk.peek(url, title)`, a pop-up card with the page in its embedded view and "Open the full page" in its corner.
 

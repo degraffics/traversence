@@ -725,3 +725,14 @@ reminders, each once. Each goes to the client (with the order link to give the c
 Each reminder is recorded as an order event (`pay_nudge1`–`3`), counted from the latest choice. Choosing again starts
 over, and a code, a payment or switching to card stops the reminders. After an outage, only the latest due reminder
 goes, never a backlog. Today's item became "Wire or check chosen, no confirmation code" after 2 hours (was 2 days).
+
+### Addendum (2026-10-28): status lines as notice boxes
+
+Inline green ✓ text was hard to tell apart from the page's own text. A page's status lines now carry
+`data-tv-status="ok|info|bad"` (plus an optional `data-tv-label`). `js/tv-ask.js` draws each one as the notice box, in
+place: green ✓, amber i for info (new), red !, each with a ×. Changed so far:
+- Review: "All clear: No listings need you", now shown only under All and Listings; "Done: … merged on their own";
+  "Working: The crawler is still working on N listings".
+- Cluster tools: the queue message.
+
+CLAUDE.md records the rule.
