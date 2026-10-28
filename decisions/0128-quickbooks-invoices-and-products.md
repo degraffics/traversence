@@ -221,3 +221,8 @@ pull box's "Merge instead" now links straight to it.
   (the button is greyed with the reason).
 - "Make a product" on an item a product was made from before (its tag since taken off) tags that product again, never
   a second copy.
+- **A line split on the invoice stays one line (2026-10-28, from the Sonoran order).** One line here, "Gift Certificate
+  Vouchers · 9,000", was invoiced as three lines of 3,000 ($25, $50, $100). When several invoice lines share the words of
+  one order line and their runs add up to its run, they all update that line. It takes their total and keeps its proofs,
+  files and work order, and the versions are written in its note. Before, the preview dropped the line and added three new
+  ones.

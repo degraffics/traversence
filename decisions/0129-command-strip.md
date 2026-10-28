@@ -61,3 +61,6 @@ and the business name repeated the header. Now:
 - **Where the order stands** goes in a notices box under the strip, shown when the page loads: the state, the
   production stage, test (sandbox), and when the client opened it. Close it with × once read. It stays closed (per
   order, in this browser) until what it says changes, then shows again.
+- **The notices box says whose turn it is (2026-10-28).** "Approved: waiting on the client's payment", "With the vendor:
+  work order issued". When the client opened the order shows only while it's theirs to approve (sent). Otherwise it read
+  as if the client owed a reply when the vendor had the job.
