@@ -748,3 +748,16 @@ cPanel doesn't have yet, on its usual schedule:
   taken out in cPanel after we added it) isn't put back.
 
 AUTO for now: `work_orders_tick` and `pay_wait_tick`. CLAUDE.md makes the API the default for cron and mailboxes.
+
+### Addendum (2026-10-28): knowing the client opened their order page
+
+Email opens can't be trusted: read receipts are refused, and pixels need HTML mail, which Apple Mail opens on its own.
+What we can trust is when the client's order page opens. The page tells us (POST `do=seen`) once it has been showing
+for a moment in a browser, so these don't count:
+- mail scanners that only fetch the link;
+- our own team (`QuickBooksPay::staffHere`).
+
+`ClientOrders::seen()` records an order event, `client_opened`, at most one per 30 minutes, with the kind of device
+only. `ClientOrders::opens()` gives the last time and the number of visits. Back-Office shows it as a pill at the top of
+the order: "Client opened it Oct 28, 2:14 pm · 3 visits" or "Client hasn't opened it yet". Support's payment reminder
+says when they last opened it. The FAQ tells clients this is noted.
