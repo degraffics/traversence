@@ -151,3 +151,15 @@ Each step is its own delivery, tested in the sandbox company before production.
 - **Invoices the site sends** use the product's tagged item; a product with none gets its item found or made once,
   and tagged then (`QuickBooksPay::invoiceFor`, lines now carry `product_id`).
 - Migration: `2027-01-07_system_tags.sql` (the tables are also made on first use).
+
+### Step 1 revised (Jason, 2026-10-28): every role is filled, and each says what it needs
+
+- **Bookkeeper: Traversence or QuickBooks**, never "none": Traversence keeps its own books (the order ledger,
+  payments, credits, refunds, Money reports). Traversence as bookkeeper makes it the tax and history authority (those
+  two lock).
+- **Processor: QuickBooks Payments, or no card gateway** (our team records wires, checks, cash).
+- **Tax authority is the existing tax source** in Taxes & shipping (`Commerce::taxSource`: quickbooks or rates),
+  read and written through `Books`, so there's one setting, not two.
+- **What each needs to work** (`Books::requirements`), shown as status boxes under the roles: QuickBooks connected
+  when it's the processor or bookkeeper; every QuickBooks item mapped when it's the bookkeeper; tax rates in Taxes &
+  shipping when Traversence is the tax authority. A role isn't functional until its line is green.
