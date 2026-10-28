@@ -51,12 +51,13 @@ push and reading the error, rather than assuming.
 
 ## The 3-way sync: OneDrive ⇄ server, recorded in GitHub (Jason, 2026-10-28): every build
 
-`degraffics/traverse-3way-sync` keeps OneDrive `Traversence/website` + `Traversence/app` and the server (FTP) the same,
+`degraffics/traverse-3way-sync` keeps the server (FTP) and OneDrive `Traversence/website` + `Traversence/app` the same,
 twice a day (6:00 and 18:00 UTC) or on demand (its workflow's Run button), and commits what it settled on to
 `sync-storage/` (website) and `sync-app/` (app). Remember it before building, delivering or deleting anything:
 - **What's live:** read `sync-storage/` and `sync-app/` on that repo's main branch, not a copy from an earlier session.
   Compare before building: a file there may be newer than ours, or a delivery may never have arrived.
-- **Delivering:** Jason puts files in OneDrive or uploads them to the server; either way the sync carries them across.
+- **Delivering:** Jason uploads to the server (FTP) and the sync brings OneDrive up to date (2026-10-28). The server is
+  the home copy: when a file changed on both sides between runs, the server's wins (`SYNC_HOME=ftp`).
   A delivery zip holds **only the files that differ from the live mirror** (new or changed, compared byte for byte),
   never a blanket upload: fetch the sync repo's main branch, compare, zip the difference. That also catches anything
   an earlier round left behind. Dotfiles (`.htaccess`) aren't in the mirror, so they're named separately when they
