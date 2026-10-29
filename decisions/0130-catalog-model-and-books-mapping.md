@@ -92,3 +92,19 @@ The first step toward bills of materials, made for costing jobs rather than stoc
 
 First costed job: HK Parts MP5 manuals, 80 pages (4 cover, 76 guts = 38 leaves), 2-up on 11×17 and 12×18:
 COGS $736.18 for 100, $7,316.86 for 1,000 (printing at .25 a sheet is two thirds of it).
+
+### The cost list is the catalog's materials (Jason, 2026-10-29)
+
+The cost list is not a side list: it is the **materials** layer of the catalog, what a Print Procurement product is made
+of, and what bundles and projects are built from.
+
+- **Material** (`cost_items`): a component with its market cost (paper, coil, shrink wrap), filed in a department
+  (Print Procurement › Stock, › Binding, › Finishing). Not sold on its own, unless it is also an option that is a
+  service of its own (shrink wrap): then the same entry carries a sell price and its own item.
+- **Option → material.** An option ("Guts Stock: 100# Gloss Text", "Binding: 10mm black") points to a material, so
+  choosing it sets that line of the product's costing; changing the option changes the COGS.
+- **Product recipe = its bill of materials** (parts, sheets, printing, labor), the same one that later counts stock down.
+- **Bundle COGS** = its pieces' COGS; **project COGS** = its items' COGS, each with its margin.
+
+Next build: the Cost list moves under Products as Materials, with departments; options link to materials and drive the
+recipe; bundles and projects show COGS and margin.
