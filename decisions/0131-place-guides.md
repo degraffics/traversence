@@ -77,9 +77,14 @@ A guide publishes when every name is linked, or removed. A sacred or protected n
 - **Weather:** the National Weather Service (free, official): the latest observation, today and tonight, three days,
   and active alerts for the place's point. Fetched by our server for the place (never the visitor's location), kept
   30 minutes. A region shows a strip of towns side by side. Climate averages (NOAA normals) feed "best time to visit".
-- **Roads:** Arizona's 511 (`AZ511_API_KEY` in .env, a free developer key): closures, incidents and restrictions on
-  the roads the guide names and within reach of the place, and winter road conditions; kept 10 minutes; hidden without
-  a key. Other states' 511 services follow as their regions open.
+- **Roads:** Arizona's 511, two sources. The **WZDx work zone feed** (`az511.com/api/wzdx`, the national Work Zone
+  Data Exchange format, v4: `core_details`, `vehicle_impact`, cross streets or mileposts, dates, reduced speed,
+  workers present, restrictions) is public and needs no key: road work, lane closures and detours, now or starting
+  within three days. The **developer API** (`AZ511_API_KEY` in .env, a free key) adds its Events (incidents, closures)
+  and Alerts (statewide notices, shown when they name the guide's roads); a keyed road-work event a work zone already
+  shows is left out. Both are filtered to the roads the guide names and those within reach of the place, and kept 10
+  minutes. The API's cameras, weather stations, message boards and rest areas are for later. Other states' 511
+  services and WZDx feeds follow as their regions open.
 
 ### 6. Resource guides fold in
 
