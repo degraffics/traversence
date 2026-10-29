@@ -132,3 +132,12 @@ variant, or pick another), never a guess. The same attribute filters are how you
   and the catalog changes only when someone chooses "Also update the catalog".
 - **Adding an item, a price or a cost that the catalog doesn't have creates it there** (marked "added from Order #N"
   for review), so the next order picks it instead of typing it.
+
+Built (2026-10-29, first step): an item's cost on the order is its COGS once costed (order_lines.cost_cents follows the
+Cost tab; a draft's catalog refresh no longer overwrites it); an uncosted item's Cost tab starts from its product's
+recipe, else one "From the catalog" line equal to the cost it came with; a listed rate typed on an order is that order's
+own (shown with the list's beside it); typed costs join the cost list ("Added from Order #N"); "No hard cost" checks a $0
+COGS (services done in-house: project rate, no time tracked); "Keep as the product's recipe" also writes the product's
+run sizes (each tier's COGS as its cost, its tier price as its price); the product drawer shows "Made of"; Back-Office →
+Products shows the materials and services under the products. Still to come: materials with variants, options linked
+to materials, hourly services priced by hours.
