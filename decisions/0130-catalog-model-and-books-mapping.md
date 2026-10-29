@@ -118,3 +118,17 @@ and SKU. A product's option sets some attributes ("Guts Stock: 100# Gloss Text" 
 the printed part supplies the rest (it runs 2-up on 11×17, so size 11×17). Together they narrow to one variant, and its
 cost a sheet is the stock line of the costing. No variant matches → the Cost tab says what's missing (add that
 variant, or pick another), never a guess. The same attribute filters are how you find a stock by hand.
+
+### One system: the catalog is the source, the order is the copy that can differ (Jason, 2026-10-29)
+
+- **One catalog for everything**: products and services we sell, services we buy or do (translation, labor), and
+  materials (paper, coil, boxes). Each entry may carry a **price** (to the client), a **cost** (to us), or both; service
+  and product are kinds, costed the same way. The separate Cost list becomes this catalog's materials.
+- **An item is made of entries** (its recipe / bill of materials, with quantities); its COGS is always that list summed.
+- **The order pulls from the catalog**: adding an item copies its price and its cost lines from the catalog, and that
+  copy is what the item, its Cost tab, the work order and the profit tile all use. One number: no "catalog cost" beside
+  a different "COGS".
+- **The order can override** any price or cost for itself. It's marked as overridden with the catalog value beside it,
+  and the catalog changes only when someone chooses "Also update the catalog".
+- **Adding an item, a price or a cost that the catalog doesn't have creates it there** (marked "added from Order #N"
+  for review), so the next order picks it instead of typing it.
