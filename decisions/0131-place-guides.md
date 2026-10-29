@@ -112,3 +112,10 @@ drafts are Jason's text, corrected where our data disagreed (elevations), pasted
 names one shows it as **Closed** in the editor, which keeps the guide from going live until the name is taken out or
 the listing reopened. `/api/guide-live.php` builds the weather, roads and town strip each on its own (a failure in one
 is logged with where, and never empties the others), and only an answer that has weather is cached.
+
+**Addendum (2026-10-30, Jason):** Visiting now reads Essentials, Things to do, then At a glance and the rest; on a
+wide screen the places one tier down (towns, neighborhoods) run in a third column beside the guide. The weather card
+opens a compact forecast on the page (24 hours as temperature, rain or wind, seven days; folded on load); the weather
+service is a link inside it, never the first tap. Weather is asked for in one parallel batch, kept 40 minutes and
+renewed ahead of visitors by the `guide_live_tick` job (every 15 minutes, with the AZ 511 feeds); when it's out of
+date or the service is down, the last good forecast (up to 12 hours) shows at once.
