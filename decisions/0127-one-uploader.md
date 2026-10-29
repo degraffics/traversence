@@ -72,3 +72,30 @@ files, a portfolio original; a guest's photo; a business proof; a hero photo; a 
 avatar; a guest's GO Code with a logo; a claim document (a fake PDF refused, someone else's claim refused); a card's
 front and back (both kept as clean JPEGs, a back for a card already read refused); the census file. A 30 MB proof
 asked first and went in pieces. Nothing left in `incoming/` or in S3's unfinished uploads. Checked at 390 px.
+
+## Addendum, 2026-10-29: uploads carry on across pages (Jason: "I upload a very large file or video and I can't stay in one spot")
+
+- **The browser keeps the file, not the page.** `TvUpload.send()` puts each file in an IndexedDB queue (`tv-uploads` →
+  `jobs`: the file, its target, ctx and extra settled when it was chosen, where it was started, how far it got). Any page
+  of the site sends the queue, one page at a time (`navigator.locks`, else a renewed lease in `localStorage`), oldest
+  file first. Another page takes over when the sending one closes.
+- **Resume:** `/api/upload.php` `do=status` (`Uploads::status()`) says how far a file got: pieces received (a cut-off
+  piece is trimmed back to the last whole one), or fresh S3 part addresses and whether the file is already whole.
+  `finish()` accepts an S3 file that's already whole (a page left while saving asks again). The server's upload token is
+  good for a day; a job older than 23 hours is let go with a message.
+- **Connection lost:** the job waits and tries every minute, and on the browser's `online` event.
+- **What shows:** the page that started it shows its bar beside the form as before; every page shows a card in the
+  bottom-left (each file with its size and how much has gone, one bar, Hide/Show) with what to do before leaving: on a
+  computer keep one Traversence page open until 100%; on a phone keep the browser in front (phones suspend background
+  tabs; it carries on when the page is in front again). Finished on another page: a notice with "Open <page>". With
+  **Tell me when it's done** (the browser's permission, asked from that button only), a finish while the page is hidden
+  shows a browser notification.
+- **Leaving the last page** while files are still going: the browser's own leave question (`beforeunload`), the only
+  one a closing tab can ask; links within the site don't ask, since the next page carries on. Other open Traversence
+  pages are counted over a `BroadcastChannel`.
+- **Sizes with names:** `finish()` returns `bytes`; the summary reads "big.pdf (1.2 GB) added…" or one line per file
+  with its size. An order's file lists show each file's size (from the order's storage listing, here or in S3).
+- **Fallback:** when the browser can't keep a copy (a private window, storage blocked), the page sends the files itself,
+  as before, and links, the command strip's Back/Close and closing the tab ask first, with how far it got.
+- **Not possible:** sending while no Traversence page is open at all (a closed browser, or a phone with the browser in
+  the background). That needs Background Fetch, which only Chromium has and which can't send our pieces; not taken.
