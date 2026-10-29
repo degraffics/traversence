@@ -118,4 +118,5 @@ wide screen the places one tier down (towns, neighborhoods) run in a third colum
 opens a compact forecast on the page (24 hours as temperature, rain or wind, seven days; folded on load); the weather
 service is a link inside it, never the first tap. Weather is asked for in one parallel batch, kept 40 minutes and
 renewed ahead of visitors by the `guide_live_tick` job (every 15 minutes, with the AZ 511 feeds); when it's out of
-date or the service is down, the last good forecast (up to 12 hours) shows at once.
+date or the service is down, the last good forecast (up to 12 hours) shows at once. A community of one town and no
+neighborhoods (Farmington) opens that town's guide, unless one has been written for the community itself.
