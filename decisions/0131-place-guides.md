@@ -107,3 +107,8 @@ roads, loaded after the page), Let's Explore → **Guides** (the list) and its e
 left over are generic ("Molly Butler Lodge" is "Molly Butler Lodge & Rstrnt"; "Mount Baldy Wilderness" isn't the peak;
 "Apache County" isn't "Apache County Road Yards"). Towns are kept from each cluster's ZIP towns. The Greer and St. Johns
 drafts are Jason's text, corrected where our data disagreed (elevations), pasted in as drafts.
+
+**Addendum (2026-10-30):** a listing marked closed (`decisions/0072`) is never a pick, pinned or not, and a guide that
+names one shows it as **Closed** in the editor, which keeps the guide from going live until the name is taken out or
+the listing reopened. `/api/guide-live.php` builds the weather, roads and town strip each on its own (a failure in one
+is logged with where, and never empties the others), and only an answer that has weather is cached.
