@@ -128,3 +128,10 @@ banks & ATMs, visitor info & libraries; Visiting adds car trouble, getting aroun
 here adds town hall & government, utilities, schools & childcare, doctors/dentists/counseling, home repairs and
 community help. A listing that keeps its address private (`ListingSafety::isConfidential`) is never one of them. At a
 glance and Landmarks & heritage join the places one tier down in the third column.
+
+**Addendum (2026-10-30, Jason): the weather right now.** `Weather::conditions` reads the stored forecast (no wait) and
+says what it means today: indoor places lead in Things to do and Shopping when there's a severe alert, thunder, rain
+now or likely in the next hours (50%+), 95°+, 20° or colder without snow, or wind of 30 mph+; the outdoors leads on a
+fair day (50–88°, sun or clear, under 30% rain); snow without a warning is left to the season. A **Right now** line
+at the top of Things to do says why (amber; red with an alert). The weather placeholder is drawn at once (stored
+weather, else a shimmer) and the live call fills it in.

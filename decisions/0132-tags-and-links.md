@@ -157,3 +157,14 @@ roles, never by the Chameleon Filter.
   (`js/tv-tagcard.js`, `/api/tag-card.php`: what it is, where, phone, See more). **Featured in** on listings,
   landmarks and outdoor places (`app/ui/featured-in.php`) lists the published guides that name them. `guide_mentions`
   stays, unused, until Jason clears it.
+- **2026-10-30, all of it on the tag store:** the other discovery content moves on: journeys, place stories,
+  experiences and how-tos are read by the Chameleon Filter when they're published (`ContentTags::retag`, called from
+  each library's save; a member's words go to Claude only with AI & Learning consent, otherwise our name dictionary
+  only). Their names are highlighted with the preview card, they show under **Featured in**, and the author sees the
+  tags as chips with × right after publishing and on the piece afterwards (`app/ui/tag-chips.php`,
+  `/api/content-tags.php`; a removed tag stays removed). **Tags reach followers** (§4): the follow feeds and so the
+  Pulse carry "named in" items for businesses and places a person follows, and the new journeys of people they follow;
+  a member's piece reaches a business's followers only if they also follow its author or its place
+  (`ContentTags::feedFor`, `Links::feed`). **@mentions** in group posts are kept as mention tags, tell the person once
+  if they're in the group, and never show outside it. Migration `2027-01-13_content_tags_place.sql` adds each piece's
+  place.
