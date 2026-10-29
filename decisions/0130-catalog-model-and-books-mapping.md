@@ -108,3 +108,13 @@ of, and what bundles and projects are built from.
 
 Next build: the Cost list moves under Products as Materials, with departments; options link to materials and drive the
 recipe; bundles and projects show COGS and margin.
+
+### Materials have variants, and an option resolves to one exact material (Jason, 2026-10-29)
+
+Choosing an option is like choosing a variant: it must land on the exact material, automatically. A material is a
+parent (Blazer Gloss Text) with variants by its attributes: **type and finish** (gloss text, matte cover), **weight**
+(100#, 148g), **size** (11×17, 12×18), **color**, brand; each exact variant has its own package price, count, source
+and SKU. A product's option sets some attributes ("Guts Stock: 100# Gloss Text" = type gloss text, weight 100#, white);
+the printed part supplies the rest (it runs 2-up on 11×17, so size 11×17). Together they narrow to one variant, and its
+cost a sheet is the stock line of the costing. No variant matches → the Cost tab says what's missing (add that
+variant, or pick another), never a guess. The same attribute filters are how you find a stock by hand.
