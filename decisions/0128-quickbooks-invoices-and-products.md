@@ -37,6 +37,8 @@ there (a business that ran on Traversence and a gateway only).
 
 ## Tags and links (Jason, 2026-10-28)
 
+*Now set out in full in `decisions/0132` (tags and links), which this section started.*
+
 - **A tag** ties a reference to one or many things. Tags are assigned and managed, and each **kind of tag** carries its
   own configuration for the situations it meets: who it notifies, what it may write, which one is used when a thing
   has several.
