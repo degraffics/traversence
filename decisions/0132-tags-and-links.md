@@ -56,6 +56,29 @@ Tag rules:
   content, never about the author or a reader.
 - A tag is the same record whoever made it (a member, a listing, staff, the crawler); who made it is kept with it.
 
+### 2a. Which content the Chameleon Filter reads (Jason, 2026-10-30)
+
+| Content | Associations come from |
+|---|---|
+| **Attached to an item**: a comment, a review, a photo caption, a post in a group | **the author's @tags only.** It already belongs to the thing it's on; the Chameleon Filter adds nothing |
+| **Authored discovery content**: a member's journey (a local's day out), a guide, a story, an experience, a how-to, an event, a listing's description | **the Chameleon Filter**: it reads the piece, finds what it names, and inserts the associations, plus any @tags the author added |
+
+- **Inserted associations show in the text:** a name it found ("Lyman Lake") is highlighted, and hovering it (tapping,
+  on a phone) opens a preview card of that thing with **See more**.
+- **Reading a member's words:** with AI & Learning consent (`decisions/0051`), Claude reads the piece to find the
+  names; without it, only our own name dictionary and the author's @tags are used, and nothing is sent to Claude.
+  Staff, listing and crawler content is always read in full.
+- **Publishing is never held up by tagging.** Publish puts the piece live with its tags at once. The confirmation
+  the author lands on shows the published piece with its tags as chips (**Lyman Lake ×**), each removable, and one
+  **Looks good** button. Removing a tag takes the highlight out of the text and the piece off that thing's page;
+  the author can do the same any time later from the piece's edit page.
+- **Only things we have are tagged.** A name we don't have goes to Find it and Review (§2).
+- **A member's piece on a business's page:** it shows under "Featured in" on the page, but reaches that business's
+  followers' feeds only for those who also follow the author or the place, so naming a business never puts a post
+  in front of its whole audience. Report and Hide apply to the piece as anywhere.
+- **Every kind of discovery content goes through it**, whatever section it's in; the order they move onto it is
+  only the order of building.
+
 ### 3. Links
 
 Every link is one of these kinds. A new kind is added to this table, never as a table of its own with its own rules.
@@ -114,11 +137,8 @@ roles, never by the Chameleon Filter.
     `listing_memberships`, `role_grants`, client contacts and `vendors`.
 - **First:** the guides' name-linking (`GuideLinks`, `decisions/0131`) becomes the Chameleon Filter's first user of
   the tag store, with "Featured in" on listings and landmarks.
-- **Open:**
-  - how a member's own text is read for tags (rules and @tags only, or Claude when they've consented under
-    `decisions/0051`);
-  - whether tags found in a member's post appear at once (the author can remove them) or after the author confirms;
-  - which content moves next (journeys and stories, experiences and how-tos, listing descriptions, member posts).
+- **Settled (2026-10-30):** see §2a: which content is read, how a member's words are read (consent), and
+  publishing at once with the tags shown as removable chips.
 
 ## Consequences
 
