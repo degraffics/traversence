@@ -784,3 +784,32 @@ Now (`Pulse::byOrder`, `playbook`, `caseOf`, `pulse-ui.php`):
 - **Severity**: an order a vendor has (a work order sent, accepted, in production, shipped or ready) is an Update, not
   an Alert. The work order's own alerts (not accepted by 9 am the next business day, past its must-have time, rejected)
   do the chasing.
+
+## Addendum 2026-10-30: how an order completes, and the reorder
+
+Jason: "once the order is confirmed delivered it is considered complete. So if it was delivered and the customer is
+happy it moves to the archive as completed." And: reorders are always priced at the current market rate; rerun costing
+and use the previous specs.
+
+- **Out the door.** When the last item on an order is Shipped, In route, Delivered or Ready for pickup, the client is
+  emailed once (if they get progress emails): each item with its tracking, and a link to their order page asking them
+  to tell us when they have it. "Send the client an update" carries the same link once everything is out the door.
+- **The client confirms.** The order page asks **Do you have it?**: **Yes, I have it** (with optional stars, a few
+  words, and "you may quote my words") completes the order. **Something isn't right?** reports a problem instead: our
+  team is emailed, it's a critical item in the Pulse and a red line on the order, and the order stays open until it's
+  marked resolved.
+- **Our team can complete it too:** Close ▾ → Complete the order in the command strip (for a pickup, or when the client
+  told us another way). The question lists what's still open (an unpaid balance, work orders not received).
+- **Complete** means: stage and items Complete, `orders.received_at` when the client confirmed, and the order moves to
+  the archive: Order management → **Completed (archive)**, out of the default list but found by searching. Nothing is
+  deleted. The client gets a thank-you with a link to reorder, and, if they haven't given any yet, to tell us how it
+  went. Their stars and words show on the order and in the Pulse (`order_feedback`, migration
+  `2027-01-10_order_received.sql`).
+- **Reorder.** From the completed order's page (or Your artwork, or our Collateral Center): a draft of the pieces at the
+  quantities asked for, priced from today's catalog. Each item's costing is carried and **re-run at today's costs**
+  (listed stocks and costs at their list price, not last time's own rate), saved unchecked so it's looked at again; a
+  costing that was only "From the catalog" isn't carried. The work order starts from the **specs last written for the
+  same piece** on an earlier order. Our team checks the draft and sends it to the client to approve; with the same art
+  they confirm the reuse with their initials.
+- **The work order's cost:** "Reset to COGS ($X)" shows only when the cost typed differs from the vendor's share of the
+  ticked items' COGS.
