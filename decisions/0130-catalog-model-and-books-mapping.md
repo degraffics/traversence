@@ -71,3 +71,24 @@ The same engine serves the business portal's catalogs (0116).
 2. Option sets, options that are services of their own (with item and vendor), bundles with pieces tied to items,
    production steps (print → finish → mail) with their own work orders and reorder.
 3. Variants with stock, then bills of materials and stock counted down.
+
+## Addendum, 2026-10-29: COGS checked before a work order goes (Jason)
+
+The first step toward bills of materials, made for costing jobs rather than stock:
+
+- **Cost list** (Back-Office → Cost list, `cost_items`): paper at the best price on the market (Competition Printing uses
+  its own paper; we pay its cost a sheet at the best current price), binding and other materials. Each has a package
+  price, how many in it, a discount, its source and link, and the date it was priced; its cost a sheet or each is worked
+  out, never typed.
+- **Recipe per product** (`cost_recipes`): printed parts (pages, one or both sides, how many to a sheet, printing a sheet,
+  the stock) and other costs (a rate each or once a run: binding, labor, P&S), spoilage (0 outsourced; 2% was the
+  in-house figure), and price tiers (run → multiplier on COGS, the price each rounded up to the cent). With none, a
+  starting recipe from Jason's coil-bound manual worksheet. Sheets = run × leaves ÷ to a sheet (+ spoilage), rounded up.
+- **Each item's Cost tab** (`order_line_costs`): the recipe at the item's run, saved with the item, laid out like the
+  worksheet with each line's working, COGS against the item's price (margin and × COGS), and the tiers. **Save and
+  mark checked** records who and when; any change after un-checks it. Lines are marked the vendor's or ours, so the work
+  order's cost can be filled with the vendor's share of the ticked items' COGS.
+- **The work order asks first** when a ticked printed item's COGS isn't checked ("Save and send to vendor").
+
+First costed job: HK Parts MP5 manuals, 80 pages (4 cover, 76 guts = 38 leaves), 2-up on 11×17 and 12×18:
+COGS $736.18 for 100, $7,316.86 for 1,000 (printing at .25 a sheet is two thirds of it).
