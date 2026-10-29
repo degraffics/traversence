@@ -147,3 +147,13 @@ roles, never by the Chameleon Filter.
 - The Link button keeps its name and job; its row becomes the **Follow** kind of link, so feeds, notifications and
   business messages keep working as they do.
 - New features add a tag kind or a link kind with its configuration, never a new relationship table with its own rules.
+
+## Progress
+
+- **2026-10-30, the guides on the tag store:** the tag store is `content_tags` (migration `2027-01-12_content_tags.sql`,
+  which copies the guides' names from `guide_mentions` with their ids; `app/lib/ContentTags.php`). The guides' names
+  (`GuideLinks`) are its first source (`guide:<place key>`): matching, hand links, Find it and closed checks work as
+  before, now as content tags. A highlighted name opens its **preview card** on hover or a first tap
+  (`js/tv-tagcard.js`, `/api/tag-card.php`: what it is, where, phone, See more). **Featured in** on listings,
+  landmarks and outdoor places (`app/ui/featured-in.php`) lists the published guides that name them. `guide_mentions`
+  stays, unused, until Jason clears it.
