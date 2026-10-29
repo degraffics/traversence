@@ -813,3 +813,12 @@ and use the previous specs.
   they confirm the reuse with their initials.
 - **The work order's cost:** "Reset to COGS ($X)" shows only when the cost typed differs from the vendor's share of the
   ticked items' COGS.
+
+Follow-up (Jason, 2026-10-30):
+- **Something isn't right opens a support ticket:** a case in the Pulse (Support, critical) with its number, the
+  client's words as its first entry, replies emailed to the client from the case. The client is emailed the ticket
+  number. Resolving the case (or Mark resolved on the order) closes it on the order too.
+- **Who completes:** the client, or our team. One reminder 72 hours after the last item went out the door
+  (`app/scripts/got_it_tick.php`, hourly, set up in cPanel through the API), to orders that went out within the last
+  30 days, none while a ticket is open. After it, the Pulse shows "Not confirmed yet" so our team can complete it.
+- **The thank-you** goes to every client on completion, progress emails or not: it's the last message on the order.
