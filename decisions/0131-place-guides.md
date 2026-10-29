@@ -120,3 +120,11 @@ service is a link inside it, never the first tap. Weather is asked for in one pa
 renewed ahead of visitors by the `guide_live_tick` job (every 15 minutes, with the AZ 511 feeds); when it's out of
 date or the service is down, the last good forecast (up to 12 hours) shows at once. A community of one town and no
 neighborhoods (Farmington) opens that town's guide, unless one has been written for the community itself.
+
+**Addendum (2026-10-30, Jason): Essentials by who needs them.** Essentials lists the nearest places for what someone
+might need, three each, nearest first (`Guides::ESSENTIALS`): for everyone, emergency & urgent care (the two nearest
+ERs or hospitals and a walk-in clinic within 15 miles), pharmacies, police/fire/ambulance, fuel & charging, groceries,
+banks & ATMs, visitor info & libraries; Visiting adds car trouble, getting around, pet emergencies, laundry/mail; Live
+here adds town hall & government, utilities, schools & childcare, doctors/dentists/counseling, home repairs and
+community help. A listing that keeps its address private (`ListingSafety::isConfidential`) is never one of them. At a
+glance and Landmarks & heritage join the places one tier down in the third column.
