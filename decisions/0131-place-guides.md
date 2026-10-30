@@ -222,3 +222,17 @@ it is found in the dossier or in the pages Claude cites (`Guides::publishedIn`, 
 taken out as before. Names kept this way are recorded with the guide (`draft_info.published`), so the guide names them as
 plain text and they don't hold it back. The landmark's own page stays held until a person approves it (`decisions/0066`).
 
+**Addendum (2026-10-30, Jason): rich with history, culture and the experience of being there.** "I expected something rich
+with history and culture as well as clear real life immersion aspects that make wanting to come to St. Johns and
+experience it first hand." The first compiled St. Johns guide was thin: no research (the dossier was a short article and
+a bill-pay home page), nine sections in one 8,000-token answer, and instructions that rewarded caution over substance.
+Now: (1) **a research brief** per place (`Dossier::research`, feature *Research briefs*, kept a year in `place_dossiers`,
+migration `2027-01-17_dossier_research.sql`): Claude researches the place in depth on the web once (its peoples and
+founding, families and turning points, faith, food, crafts, the year's festivals, the land, what being there is like)
+and every later guide draws on it; (2) **two writing passes** with room each (the story: at a glance, landmarks and
+heritage, events, itineraries; then the practical sections), 16,000 tokens each; (3) **an immersive brief**: make a
+reader want to come and help them do it well, history running through every section, concrete over general (the bells
+across Commercial Street on Sunday, not "a historic church"); and each section's purpose rewritten the same way. The
+score credits the brief (Claude 30, dossier 15, brief 10, ground 10, sources 10, names 25). Guides written before are
+written again (`DRAFT_V` 3).
+
