@@ -197,5 +197,8 @@ for a website, an address, a phone and two sources. At or over **Finds become li
 (80), a business, museum or organization with a phone and an address or map point is added as a listing from its
 suggestion (`AddBusiness::fromSuggestion`), and the name links. One we already list under a name like it (same phone
 or website) is linked instead. If its phone or website is another listing's under another name (a county fairground on
-the courthouse's line), a person looks. Anything else waits in Review, as before.
+the courthouse's line), a person looks. Anything else waits in Review, as before. Guides Claude wrote before the dossier and the score are written again from them by the guide job, one a run (the
+oldest first, under *Guide drafts on their own*), Claude's own sections only. A guide that went live by itself stays
+live only while its score holds: if a rewrite brings it under the lowest score, it goes back to a draft. A guide a
+person published stays live.
 
