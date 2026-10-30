@@ -296,16 +296,23 @@ never creates a listing. A bulk dataset is never an automatic publish.
 
 ### Thresholds and gates
 
-One table, in System Configuration, each value named by what it gates. Today's values:
+One table, in System Configuration → Thresholds & gates (`Thresholds`), each value named by what it gates. Numbers a
+director may tune there (kept with who changed them and when, and a Reset to the default); the AI switches are the same
+values AI use holds; standards are shown there but change only by a decision. Built 2026-10-30. Today's values:
 
-| Gate | Value |
-| --- | --- |
-| Listing publishes | readiness rules (no score) |
-| Guide publishes itself | score 70 |
-| Find it adds a listing | score 80 + readiness |
-| Category auto-fill | above 80%; below 50% to a person |
-| Situation published / "may help" | 0.90 / 0.75 |
-| Heritage fact cataloged | a primary record or two independent sources |
+| Gate | Value | |
+| --- | --- | --- |
+| Listing publishes | readiness rules (no score) | standard |
+| Guide publishes itself | score 70 | tuned |
+| Find it adds a listing | score 80 + readiness | tuned |
+| Category auto-fill | above 80%; below 50% to a person (decisions/0024) | standard; the weighted classifier isn't built yet: a word match suggests, the readiness rules check |
+| Search: published / "may also help" | 0.80 / 0.60 relevance (decisions/0093; the 0.90 / 0.75 of decisions/0061 was replaced) | tuned |
+| Heritage fact cataloged | a primary record or two independent sources, one of which may supply it | standard |
+| Free AI Assist asks a day (paid plans) | 3 | tuned |
+| A member's AI cost a month | at most 0.5 of what their plans pay | tuned |
+| Takedown hidden within | 24 hours (at once for a protected reason) | standard |
+| Takedown requests a person a day | 5 | tuned |
+| Quarterly audit sample | 0.1 of live guides (5 to 40) | tuned |
 
 ### Services & usage
 
