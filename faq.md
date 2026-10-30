@@ -973,6 +973,12 @@ reversed gives it back.
 ### Can anyone read my private messages?
 No. No one at Traversence, in any role, can read your private messages or your contact cards.
 
+### What does AI Assist do?
+It helps you write about the places and topics our guides cover: a caption, a paragraph for your journey, a few lines for a post. Open **AI Assist** in the menu, choose a topic, and say what you'd like. It writes only from what we've researched (historic records, public sources and our guides), never from guesses, shows how many of our facts it used, and tells you when we're still learning about something; asking moves that topic up our research list. What you ask goes to our AI provider only with **AI Assist & Learning** turned on, and is never shown to anyone else. Members can ask 10 times a day. It never says where a sacred, burial or archaeological place is.
+
+### Why does search suggest topics as I type?
+When the words match a topic our guides cover (a river, a trade, a town's history), it's offered under **From our guides**, and search results show the facts from our guides that your words name. What people search for and don't find helps decide what we research next (counts only, never who searched).
+
 ### Does Traversence use AI on what I write?
 Only if you turn it on. **AI Assist & Learning** is off until you switch it on in Privacy Settings. Private messages and contact cards never enter shared learning, whatever you choose. [Our approach](/our-approach.php) has the details.
 

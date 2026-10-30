@@ -406,6 +406,16 @@ in the footsteps". Restricted facts never show; a topic whose facts are all held
 need a vetted fact we may show. A thin topic asked about is queued for research. Everyday searches (a business, a place,
 a category) are unchanged.
 
+**Search, step two, and AI Assist for members (2026-10-30).** As you type, topics with a vetted fact we may show are
+offered after the tools the words ask for (`Topics::suggest`, kind `knowledge`, "From our guides"). Results gain a "From
+our guides" group (`Heritage::searchPublic`): vetted public and story-only facts whose words match, story-only without
+its place, linking to the guide's "Walking in the footsteps", drawn under the answer card. Once a day the heritage job
+reads the Missed searches report (`Topics::fromMissedSearches`: zero, unread and left-with-nothing outcomes, counts
+only) and credits the topics people looked for, queuing thin ones for research. `/ai/` is AI Assist for members: signed
+in, with AI Assist & Learning on (their words go to Claude only then), 10 asks a day; it shows the topic's summary,
+vetted facts and state of knowledge, and writes from the record only (`Topics::assist`), saying when a topic is thin.
+Still to decide: AI Assist credits from plans (+50 a month) aren't wired to the daily allowance yet.
+
 ## Records this replaces (for the crawler)
 
 Each keeps its history and carries a pointer here: 0005 (crawler and guide gates), 0024 §3, 0043 (crawler parts), 0044,
