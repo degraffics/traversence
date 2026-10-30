@@ -414,7 +414,7 @@ reads the Missed searches report (`Topics::fromMissedSearches`: zero, unread and
 only) and credits the topics people looked for, queuing thin ones for research. `/ai/` is AI Assist for members: signed
 in, with AI Assist & Learning on (their words go to Claude only then), 10 asks a day; it shows the topic's summary,
 vetted facts and state of knowledge, and writes from the record only (`Topics::assist`), saying when a topic is thin.
-Still to decide: AI Assist credits from plans (+50 a month) aren't wired to the daily allowance yet.
+AI Assist allowance (built, 2026-10-30): every member gets 10 free asks a day (`Topics::FREE_PER_DAY`); past those, each ask uses one of the month's AI Assist credits from their personal plan and packs (`Billing::allowance(…, 'user', …)`, packs not during a trial). Credits used are counted from the written asks in `ai_jobs` (each day's asks beyond the free ones), so no new table and a failed ask costs nothing (`Topics::assistAllowance`). When both are used up the page says so and links to Plans. A listing plan's credits stay with the listing's own tools; they aren't drawn on for a member's asks.
 
 ## Records this replaces (for the crawler)
 
