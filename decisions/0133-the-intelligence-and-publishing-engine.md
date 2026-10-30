@@ -370,8 +370,25 @@ in Phase 3's coverage setting.
     territory's review needs the attorney's name and date; any change sends a record back to draft. Still to build:
     holding a region closed until its record is reviewed, and the source register reading the effects.
 11. Protected tiers in the catalog, enforced in publishing and in the Chameleon Filter; created and refreshed dates shown.
+    **Built 2026-10-30:** tiers on every heritage fact (public, story, restricted) set by `Jurisdictions::tier`; a guide's
+    check before saving (`Guides::scrub`) keeps a sensitive sentence only when a public source presents it, and then
+    cuts any way in (`Guides::WAY_IN`: distances, directions, trailheads, parking, roads, coordinates) unless it names an
+    access point the managing authority offers (`PUBLIC_ACCESS`: ranger-led and guided tours, visitor centers, state and
+    national parks, museums); story-only places carry the courtesy line. The Seeker's "Tell a held place's story" turns a
+    held landmark (not on a nation's land, with its public source, where the law of the place is reviewed, with no
+    directions) into a story-only catalog fact; the landmark stays held, no page and no pin. Tags and preview cards
+    already never link a held landmark. Guides show first published and checked dates; listings, listed since and
+    checked. Still to build: the 24-hour takedown path for any published item and the quarterly sample audit.
 12. The Topic index: topic records with facts, sources and state of knowledge; system summaries; AI assist grounded in
     it (thin topics queued for research); topic tags and follows pointing to it.
+    **Built 2026-10-30:** `topics`, `topic_names`, `topic_facts`, `topic_places`, `topic_relations` (`Topics`). Heritage
+    extraction names each fact's topics; each guide place is a topic; shared facts relate topics. `Topics::record`: names,
+    places, vetted facts (restricted never), sources, related topics and the state of knowledge (coverage, freshness, what
+    isn't confirmed). The heritage job keeps summaries current from vetted facts (`topic_summary`, Haiku) and researches the
+    most asked-for thin topic (`topic_research`, kept as unvetted research). `Topics::assist` (`topic_assist`) writes from
+    the record only, cites facts, and queues a thin topic. Insights → Topic index. Topics with three or more public vetted
+    facts are taggable (`Tags::topics`, keys `ti-<slug>`). Still to build: AI Assist for members (the /ai/ page), and search
+    reading the index.
 13. Content maintenance: clocks, event triggers, queue priority on view, the background reader.
 
 ## Records this replaces (for the crawler)
