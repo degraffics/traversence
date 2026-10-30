@@ -112,6 +112,8 @@ HERITAGE_PER_RUN = int(os.environ.get("HERITAGE_PER_RUN", "2"))  # places search
 HERITAGE_TIME = int(os.environ.get("HERITAGE_TIME", "40"))
 LOC_SEARCH = "https://www.loc.gov/search/"
 LOC_DELAY = 3.0                     # seconds between Library of Congress requests (its API asks for a gentle pace)
+LOC_NEWS = "https://www.loc.gov/collections/chronicling-america/"   # historic newspapers (public domain), searched by place and state
+LOC_NEWS_PER_PLACE = int(os.environ.get("LOC_NEWS_PER_PLACE", "15"))  # newspaper pages read per place; 0 turns them off
 GUIDES_PER_RUN = int(os.environ.get("GUIDES_PER_RUN", "2"))      # how-to guides looked for per run (decisions/0063 §8); 0 turns it off
 GUIDES_TIME = int(os.environ.get("GUIDES_TIME", "45"))
 TARGETS_PER_RUN = int(os.environ.get("TARGETS_PER_RUN", "2"))    # search targets (a place and a kind of business, decisions/0066) per run; 0 turns it off
@@ -1019,8 +1021,37 @@ def heritage(deadline):
                 about += (" Subjects: " if about else "Subjects: ") + flat(it.get("subject"))[:200]
             items.append({"url": url.replace("http://", "https://"), "title": flat(it.get("title"))[:500], "date": flat(it.get("date"))[:40], "about": about,
                           "rights": flat(it.get("rights") or it.get("rights_advisory"))[:500], "format": flat(it.get("original_format"))})
-        res = site_call("/api/crawl/heritage.php", {"key": pl["key"], "items": items})
-        log(f"heritage {pl['name']}: {len(items)} Library of Congress records, {res.get('kept', 0)} kept")
+        news = loc_news(pl) if LOC_NEWS_PER_PLACE > 0 and time.monotonic() < deadline else []
+        res = site_call("/api/crawl/heritage.php", {"key": pl["key"], "items": items + news})
+        log(f"heritage {pl['name']}: {len(items)} Library of Congress records, {len(news)} newspaper pages, {res.get('kept', 0)} kept")
+
+
+def loc_news(pl):
+    """Free sources first (decisions/0133): historic newspaper pages that name the place, from the Library of Congress's
+    Chronicling America (public domain), in its state. Each page's record and the text the API gives with it (its OCR),
+    which the site cuts to the passages about the past before the cheapest model reads them."""
+    params = {"q": f'"{pl["name"]}"', "fo": "json", "c": str(LOC_NEWS_PER_PLACE), "at": "results"}
+    if pl.get("state"):
+        params["fa"] = "location_state:" + pl["state"].lower()
+    data = fetch_json(f"{LOC_NEWS}?{urllib.parse.urlencode(params)}")
+    time.sleep(0 if os.environ.get("LOC_FIXTURE") else LOC_DELAY)
+    if data is None:
+        log(f"heritage {pl['name']}: Chronicling America didn't answer")
+        return []
+    flat = lambda v: " ".join(str(x) for x in v) if isinstance(v, list) else str(v or "")
+    out = []
+    for it in (data.get("results") or [])[:LOC_NEWS_PER_PLACE]:
+        url = it.get("url") or it.get("id") or ""
+        if not isinstance(url, str) or "loc.gov/" not in url:
+            continue
+        text = flat(it.get("description"))
+        if not text.strip():
+            continue                                   # a page with no text to read adds nothing
+        paper = flat(it.get("partof_title") or it.get("partof"))[:200]
+        out.append({"url": url.replace("http://", "https://"), "title": (flat(it.get("title")) + (f" ({paper})" if paper else ""))[:500],
+                    "date": flat(it.get("date"))[:40], "about": re.sub(r"\s+", " ", text)[:6000], "rights": flat(it.get("rights") or it.get("rights_advisory"))[:500],
+                    "format": "newspaper", "kind": "news"})
+    return out
 
 
 def guides(deadline):
