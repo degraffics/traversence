@@ -75,9 +75,9 @@ them in the **source register** (below).
 - **Each source gets a dossier entry:** what it covers (place, years, subject), who made it, how credible it is, how
   often it changes (volatility), and its licence.
 
-### Phase 2: Extraction (harvesting experience and environment)
+### Phase 2: Extraction (facts from every source; the pillars first for stories)
 
-Turn pages and files into facts, cheaply.
+Turn pages and files into facts, cheaply, whatever their subject. For stories, the pillars' passages go first.
 
 - **Code first (about 80%, free):** structured data (schema.org, registries, tables) is parsed by code: the site's
   `ListingExtractor` and the worker's parser (Python: BeautifulSoup, MIT licence).
@@ -105,7 +105,8 @@ Check what was extracted, and shape the research. **Configuration lives here.**
 
 ### Phase 4: The catalog (the tapestry of place and terrain)
 
-Vetted facts are stored, each with its source and who set it, in one schema where people, land and places meet on the map.
+Every vetted fact, on any subject, is stored in our own record (services, civic, events, infrastructure as much as
+history). For the pillars, vetted facts are stored each with its source and who set it, in one schema where people, land and places meet on the map.
 
 - **Modern places:** listings, landmarks, outdoor places, with provenance.
 - **The Human Record:** turning points, builders and families, trades, industries, institutions, traditions.
