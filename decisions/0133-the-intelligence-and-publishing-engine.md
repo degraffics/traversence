@@ -335,8 +335,13 @@ in Phase 3's coverage setting.
    days. A website that fails twice, 3+ days apart, comes off the listing when the crawler gave it (kept as
    `website_dead`), else goes to Review; robots.txt blocks and spent budgets never count. A business's own site saying
    it closed for good marks it Closed (decisions/0072) when unclaimed and not sharing its site (a chain); otherwise
-   Review. Still to build: "moved" from the site, and the clocks for guides, dossiers, research and events.
-6. robots.txt `Crawl-delay` honoured; every hop checked against private addresses.
+   Review. **Built 2026-10-30 (guides):** `Guides::maintainTick` (in the guide job) checks each live guide every 30
+   days, opened-since-last-check first: the dossier renewed when due (6 months), dates passed, linked names closed,
+   research a year old. A finding in Claude's own sections renews the guide (rewritten, re-scored); one in a person's
+   sections is flagged in the editor. Events are kept monthly by the date check, not a monthly rewrite. Still to
+   build: "moved" from a business's own site.
+6. robots.txt `Crawl-delay` honoured; every hop checked against private addresses. **Built 2026-10-30** in the worker
+   (`public_host`, `SafeRedirect`; a site asking for more than 30 s between pages is left alone).
 7. The source register gains licence, use, credit, cadence and terms-checked fields; facts keep their source.
 8. Services & usage page, alerts and monthly report; independence measured.
 9. The heritage pipeline: worker job, Haiku extraction, catalog tables, the Seeker, the Footsteps chapter.

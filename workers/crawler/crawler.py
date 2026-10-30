@@ -65,6 +65,7 @@ Standard library only.
 import csv
 import html
 import io
+import ipaddress
 import json
 import math
 import os
@@ -279,18 +280,65 @@ def miles(a, b, c, d):
     return 2 * 3959 * math.asin(min(1, math.sqrt(x)))
 
 
+MAX_CRAWL_DELAY = 30                # a site asking for more than this between pages is left alone (decisions/0133)
+host_last = {}                      # when we last fetched from each host, for its Crawl-delay
+
+
+def public_host(url):
+    """Only the open web: http(s) to a name whose every address is public. Checked before each fetch and each
+    redirect, so no page can send us to a private, loopback, link-local or cloud-metadata address (decisions/0133)."""
+    p = urllib.parse.urlsplit(url)
+    if p.scheme not in ("http", "https") or not p.hostname:
+        return False
+    try:
+        infos = socket.getaddrinfo(p.hostname, p.port or (443 if p.scheme == "https" else 80), proto=socket.IPPROTO_TCP)
+    except Exception:
+        return False
+    try:
+        return bool(infos) and all(ipaddress.ip_address(i[4][0].split("%")[0]).is_global for i in infos)
+    except ValueError:
+        return False
+
+
+def crawl_delay(url):
+    """The site's robots.txt Crawl-delay for us, in seconds (0 when it sets none)."""
+    p = urllib.parse.urlsplit(url)
+    rp = robots_cache.get(f"{p.scheme}://{p.netloc}")
+    try:
+        d = rp.crawl_delay(UA) if rp else None
+        return float(d) if d else 0.0
+    except Exception:
+        return 0.0
+
+
 def allowed(url):
     host = urllib.parse.urlsplit(url)
     base = f"{host.scheme}://{host.netloc}"
     if base not in robots_cache:
         rp = urllib.robotparser.RobotFileParser(base + "/robots.txt")
         try:
-            rp.read()
+            if public_host(base + "/robots.txt"):
+                rp.read()
+            else:
+                rp = None
         except Exception:
             rp = None                      # no robots.txt reachable: treat as allowed
         robots_cache[base] = rp
     rp = robots_cache[base]
+    if crawl_delay(url) > MAX_CRAWL_DELAY:
+        return False                       # it asks us to crawl slower than we can: we don't
     return rp is None or rp.can_fetch(UA, url)
+
+
+class SafeRedirect(urllib.request.HTTPRedirectHandler):
+    """Every hop is checked like the first: the open web only, and robots.txt."""
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        if not public_host(newurl) or not allowed(newurl):
+            raise urllib.error.URLError("redirect to a private or disallowed address")
+        return super().redirect_request(req, fp, code, msg, headers, newurl)
+
+
+SAFE_OPENER = urllib.request.build_opener(SafeRedirect)
 
 
 def fetch_page(url):
@@ -299,16 +347,17 @@ def fetch_page(url):
     if os.environ.get("WEB_FIXTURE"):
         with open(os.environ["WEB_FIXTURE"]) as f:
             return json.load(f).get(url)
-    if fetches >= MAX_FETCHES or out_of_time() or not allowed(url):
+    if fetches >= MAX_FETCHES or out_of_time() or not public_host(url) or not allowed(url):
         return None
-    wait = FETCH_DELAY - (time.monotonic() - last_fetch)
+    host = urllib.parse.urlsplit(url).netloc.lower()
+    wait = max(FETCH_DELAY - (time.monotonic() - last_fetch), crawl_delay(url) - (time.monotonic() - host_last.get(host, -1e9)))
     if wait > 0:
         time.sleep(wait)
     fetches += 1
-    last_fetch = time.monotonic()
+    last_fetch = host_last[host] = time.monotonic()
     try:
         req = urllib.request.Request(url, headers={"User-Agent": UA, "Accept": "text/html"})
-        with urllib.request.urlopen(req, timeout=12) as r:
+        with SAFE_OPENER.open(req, timeout=12) as r:
             if "html" not in (r.headers.get("Content-Type") or ""):
                 return None
             return r.read(400_000).decode("utf-8", "replace")
