@@ -202,3 +202,16 @@ oldest first, under *Guide drafts on their own*), Claude's own sections only. A 
 live only while its score holds: if a rewrite brings it under the lowest score, it goes back to a draft. A guide a
 person published stays live.
 
+**Addendum (2026-10-30, Jason): nothing about our sources reaches visitors.** St. Johns's draft told visitors the
+city's website was suspended: Wikidata still gave the old sjaz.us, the crawler read its "Account Suspended" page as the
+official site, and Claude passed it on (the city's site is stjohnsaz.gov). "If we post crap like this we will be fit to
+be called out for it." Three guards: (1) **dead websites are caught** (`Dossier::dead`: suspended, parked, for sale, a
+host's default page, next to nothing) and never read; the official site is the first that's alive and names the place,
+from Wikidata (preferred rank first, never deprecated), our own listing of the city or town, then the usual government
+addresses (`{town}{state}.gov`, `cityof{town}.org`…); dossiers built before this are built again. (2) Claude is told the
+guide speaks about the place, never about our research: no dossier, lists, sources, Wikipedia, Wikidata, websites being
+down, or what it couldn't confirm; those go in the notes for our team. (3) **Every draft is scrubbed** before it's saved
+(`Guides::scrub`): a sentence about our research or a broken site, or one naming what may be a sacred, burial or
+protected site (`Landmarks::SENSITIVE`, decisions/0066), is taken out and listed for our team as "Taken out of the
+guide". Guides written before this are written again by the guide job (`Guides::DRAFT_V`).
+
