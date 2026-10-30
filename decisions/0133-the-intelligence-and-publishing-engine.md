@@ -27,6 +27,29 @@ one, and we use outside services while we grow, but:
 - **The record is ours to keep:** sources, facts and catalog live in our database, survive any provider leaving, and are
   reused by every page, guide and story.
 
+## Curators, not controllers
+
+Traversence curates the record; it doesn't control what people may know. **No topic is left out because it's sensitive,
+uncomfortable or contested**: conflict and violence in a place's history, faith, politics, crime, health and addiction,
+land and water disputes, a nation's history. What we manage is **exposure and representation**, so neither we nor the
+people who use the site are put at risk and nothing is misrepresented:
+
+- **The topic is told; specific details are protected.** The protected tiers (below) limit only particular details: a
+  site's location, a private person's identity, a shelter's address. The topic and its story stay.
+- **Fair representation:** credible sources from more than one side; where they disagree, we say so and attribute each
+  account ("according to the county history… the Navajo Nation's account…"); disputed facts are marked as disputed; the
+  editorial voice describes, it doesn't take sides.
+- **Communities speak for themselves:** a nation's or community's own account of its history is presented in its own
+  terms and credited, beside the other sources, never replaced by ours.
+- **Context and care:** a short note before distressing material (violence, death, abuse); adult topics behind the site's
+  18+ settings; help close at hand where a topic touches a need (help lines with mental health and addiction topics).
+- **Sources shown:** every published piece shows where its facts came from.
+- **Corrections and a right of reply:** anyone can flag a misrepresentation; a community or nation can add its account.
+  A takedown happens for law, safety or a private person's privacy, never because a topic is uncomfortable, and even then
+  the topic stays with what can be said.
+- **The Chameleon Filter delivers; it doesn't suppress.** Sensitive topics are indexed and delivered by context like any
+  other; nothing is ranked down or hidden for being sensitive (decisions/0132).
+
 ## What the crawler gathers, and what Traversence writes about
 
 **The crawler's scope is research identification, and it is broad.** It finds and indexes every open source with research
@@ -208,7 +231,8 @@ reject, never applied silently, and the call is logged. A member's words go to A
 
 ### The protected-information standard
 
-"Tell the story, never the way in." Every catalog fact carries a tier set in Phase 3 and enforced in Phase 5:
+"Tell the story, never the way in." The standard protects details, never topics (curators, not controllers). Every
+catalog fact carries a tier set in Phase 3 and enforced in Phase 5:
 
 | Tier | Published | Applies to |
 | --- | --- | --- |
