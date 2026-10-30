@@ -1082,6 +1082,8 @@ DEAD_TEXT_RE = re.compile(r"\b(account|site|website|domain|page)\s+(has\s+been\s
                           r"|this domain (is|may be) for sale|buy this domain|domain (is )?parked|parked free|default (web )?page|future home of", re.I)
 CLOSED_HINT_RE = re.compile(r"permanently\s+closed|closed\s+permanently|closed\s+for\s+good|closed\s+(our|the)\s+(doors|business)|"
                             r"ceased\s+(operations|trading)|no\s+longer\s+in\s+business|out\s+of\s+business|closing\s+(our|its)\s+doors", re.I)
+MOVED_HINT_RE = re.compile(r"\b(we|we\s+have|we've|we\s+are|we're|has|have)\s+(now\s+)?(moved|relocated)\b|\b(our|the)\s+new\s+(location|address|home|shop|store|office)\s+is\b|"
+                           r"\b(now|newly)\s+located\s+at\b|\bnew\s+location\s*:|\bfind\s+us\s+at\s+our\s+new\b|\bmoved\s+to\s+a\s+new\s+(location|home|space|building)\b", re.I)
 
 
 def dead_site(page):
@@ -1151,8 +1153,10 @@ def refresh_listings(deadline):
                                   "confidence": 15 + 25 + 5 + (15 if f["phone"] else 0)})
         # the closed check (decisions/0133): lines where the business says it closed; the site keeps only one about itself
         closed = [l for pg in pages.values() for l in page_lines(pg) if CLOSED_HINT_RE.search(l) and len(l) <= 400][:3]
+        # and the moved check: lines where it says it moved (the site sends it to Review with the new street, never changes it)
+        moved = [l for pg in pages.values() for l in page_lines(pg) if MOVED_HINT_RE.search(l) and len(l) <= 400][:3]
         res = site_call("/api/crawl/refresh.php", {"entity_id": lst["entity_id"], "website": site, "found": found, "locations": locations[:25],
-                                                   "site": {"status": "ok", "closed": " ".join(closed)}})
+                                                   "site": {"status": "ok", "closed": " ".join(closed), "moved": " ".join(moved)}})
         log(f"refresh {lst['name']}: filled {', '.join(res.get('filled', [])) or 'nothing new'}; "
             f"{len(locations)} other location(s) -> {res.get('auto_imported', 0)} published, {res.get('staged', 0)} to review; site: {res.get('site', 'ok')}")
 
