@@ -162,3 +162,22 @@ counts, never who). **System Configuration → AI use** sets each AI feature (gu
 their own, names in guides, names in journeys and stories, Find it): on or off, model, runs a day, its own monthly
 budget and web searches a run, with what it has used, all under the overall `AI_MONTHLY_CAP_USD`
 (`AiClient::FEATURES`, `allow()`, table `ai_features`, migration `2027-01-15_ai_use_and_field_notes.sql`).
+
+**Addendum (2026-10-30, Jason): the crawler gathers, Claude writes, the guide publishes itself.** Two things cut the
+cost: a **dossier** and a **crawler-first Find it**. The dossier (`app/lib/Dossier.php`, kept 90 days) holds the place's
+Wikipedia article (its lead and its history, geography and culture sections, read for facts, never copied), its
+Wikidata facts (founded, elevation, population, official website), a few pages of that official website, and the
+landmarks and outdoor places we hold nearby with their summaries. A community's dossier is its two busiest towns'.
+Claude writes from the dossier first and searches the web only for what it lacks. Default searches a run drop to 3
+for drafts asked for and 2 for drafts on their own. Find it (`GuideLinks::crawlFind`) first asks OpenStreetMap near
+the place (that it exists, its map link and its website as a pointer only, under ODbL), then reads that website as the
+crawler reads any business's (name, address, phone, hours). It asks Claude only when the crawler finds nothing. Then
+the guide **goes live by itself** (`Guides::autoPublish`, `decisions/0005` amendment 2026-10-30). It waits only for a
+name that may mark a protected site or a closed business, after Claude has been asked once to write it without that
+name. A name we don't have yet no longer holds a guide back: it stays plain text until Find it links it, and this
+applies to publishing by hand too. A guide our team takes down (**Take it down**) stays down until someone publishes
+it. A live written guide carries "Compiled by Traversence from public sources and local knowledge · updated {date}"
+and **Suggest a change**. The Guides list shows **Live (compiled by Claude)** and **Claude's draft, waiting**. The switch
+is System Configuration → AI use → **Guides publish themselves** (on). There's no migration: the state is kept in
+`draft_info` (`auto_published`, `kept`, `dossier`).
+
