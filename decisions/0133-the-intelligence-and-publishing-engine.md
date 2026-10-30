@@ -390,6 +390,21 @@ in Phase 3's coverage setting.
     facts are taggable (`Tags::topics`, keys `ti-<slug>`). Still to build: AI Assist for members (the /ai/ page), and search
     reading the index.
 13. Content maintenance: clocks, event triggers, queue priority on view, the background reader.
+    **Built 2026-10-30:** `Guides::due` brings a guide's check forward on an event: a place it names closes
+    (`SuggestionActions::markClosed`), a signed-in visitor suggests a change, new Library of Congress records arrive, the
+    season turns (`guides_season`), or views spike (3× the prior four weeks' average and 20 or more in a week). The check
+    runs on the guide job's next turn, never on the spot: events first, then opened since the last check, then oldest. The
+    background reader adds the link check (`deadLinks`: no answer, an error or a parked page) and a closed check on the
+    listings a guide names; each guide gets a freshness score (`Guides::freshness`), shown in the editor with what brought
+    the check forward. Still to build: the cheapest model reading what the free checks flag before a full renewal.
+
+**Search answers from our own knowledge (2026-10-30).** `Topics::answer`, called by `UniversalSearch::search` before
+the place card: when the words name a topic in the index (as typed, then as search kept them, then a topic name that
+holds them), or ask about a place's past (`Topics::ASKS_KNOWLEDGE`: history, founded, heritage, culture, legends...),
+the top card is the topic's summary and up to three vetted facts, with related topics and a link to the guide's "Walking
+in the footsteps". Restricted facts never show; a topic whose facts are all held back gives no answer; related topics
+need a vetted fact we may show. A thin topic asked about is queued for research. Everyday searches (a business, a place,
+a category) are unchanged.
 
 ## Records this replaces (for the crawler)
 
