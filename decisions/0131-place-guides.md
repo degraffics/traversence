@@ -215,3 +215,10 @@ down, or what it couldn't confirm; those go in the notes for our team. (3) **Eve
 protected site (`Landmarks::SENSITIVE`, decisions/0066), is taken out and listed for our team as "Taken out of the
 guide". Guides written before this are written again by the guide job (`Guides::DRAFT_V`).
 
+**Addendum (2026-10-30, Jason): if a source publishes it, we can too.** A guide may name a place whose name sounds
+protected (rock art, ruins, a cemetery: `Landmarks::SENSITIVE`) when a public source already publishes it: the Lyman Lake
+Rock Art Site is run and promoted by Arizona State Parks. Our crawler checks it: the sentence stays only if every name in
+it is found in the dossier or in the pages Claude cites (`Guides::publishedIn`, `Dossier::pageText`); otherwise it's
+taken out as before. Names kept this way are recorded with the guide (`draft_info.published`), so the guide names them as
+plain text and they don't hold it back. The landmark's own page stays held until a person approves it (`decisions/0066`).
+
