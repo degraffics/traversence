@@ -367,8 +367,14 @@ in Phase 3's coverage setting.
     Mexico (NMSA 18-6-1 to 17, 18-6-11.2); the citations are as understood and are confirmed in the attorney review.
     `Jurisdictions::forPlace` layers federal, state or territory and nation; `tier()` gives a sensitive item story-only
     once every layer is reviewed, restricted until then, and always restricted on a nation's land. A state's or
-    territory's review needs the attorney's name and date; any change sends a record back to draft. Still to build:
-    holding a region closed until its record is reviewed, and the source register reading the effects.
+    territory's review needs the attorney's name and date; any change sends a record back to draft.
+    **Built 2026-10-30 (regions):** `Jurisdictions::regionOpen`: a state or territory opens when its record and the federal
+    baseline are both reviewed; Arizona and New Mexico (`OPENED`) were open before the register and stay open while theirs
+    are reviewed; a place with no state yet is in a region we opened. In a closed region a guide doesn't go live, by itself
+    or by a person (it waits as a draft and says why), and the heritage job doesn't gather its history (asked again in a
+    week). The source register reads the effects: where a record lists a law limiting reading or copying websites
+    (`scraping`, `Jurisdictions::limitsReading`), the dossier keeps an official website as a pointer only unless a person
+    set that site's rules to keep its facts (`Dossier::mayRead`). The register shows each state open or closed.
 11. Protected tiers in the catalog, enforced in publishing and in the Chameleon Filter; created and refreshed dates shown.
     **Built 2026-10-30:** tiers on every heritage fact (public, story, restricted) set by `Jurisdictions::tier`; a guide's
     check before saving (`Guides::scrub`) keeps a sensitive sentence only when a public source presents it, and then
@@ -378,7 +384,18 @@ in Phase 3's coverage setting.
     held landmark (not on a nation's land, with its public source, where the law of the place is reviewed, with no
     directions) into a story-only catalog fact; the landmark stays held, no page and no pin. Tags and preview cards
     already never link a held landmark. Guides show first published and checked dates; listings, listed since and
-    checked. Still to build: the 24-hour takedown path for any published item and the quarterly sample audit.
+    checked. **Built 2026-10-30 (limiting exposure):** the takedown path (`Takedowns`, `/takedown.php`, "Ask us to take
+    this down" under each written guide section, on landmark pages and under a topic in AI Assist): anyone, signed in or
+    not (a captcha for guests, 5 a day each, counted by a one-way daily hash). A protected reason (a way in to a sacred,
+    burial or archaeological place; a nation asking; someone's private information; a safety risk) hides it at once;
+    anything else when 24 hours pass without a decision (`takedowns_tick`, every 10 minutes). A fact is held (`status
+    held`; re-extraction keeps it held) and the guide's footsteps chapter stays out until the guide is written again; a
+    landmark is hidden; a guide's section or a topic is left out. Social → Takedowns: Restore (brought back, every request
+    on the item closed) or Keep it down (a fact becomes restricted); the asker hears by email if they left one. Members'
+    posts, journeys and comments keep Report; listings their owners and Suggest a change. The quarterly sample audit
+    (`GuideAudits`, Insights → Quarterly audit): the first run of each quarter draws a tenth of the live guides (5 to 40)
+    with a pre-check (a way in near a protected-sounding name, names to read, freshness, open takedowns); a person marks
+    each passed, fixed or taken down.
 12. The Topic index: topic records with facts, sources and state of knowledge; system summaries; AI assist grounded in
     it (thin topics queued for research); topic tags and follows pointing to it.
     **Built 2026-10-30:** `topics`, `topic_names`, `topic_facts`, `topic_places`, `topic_relations` (`Topics`). Heritage
@@ -387,8 +404,8 @@ in Phase 3's coverage setting.
     isn't confirmed). The heritage job keeps summaries current from vetted facts (`topic_summary`, Haiku) and researches the
     most asked-for thin topic (`topic_research`, kept as unvetted research). `Topics::assist` (`topic_assist`) writes from
     the record only, cites facts, and queues a thin topic. Insights → Topic index. Topics with three or more public vetted
-    facts are taggable (`Tags::topics`, keys `ti-<slug>`). Still to build: AI Assist for members (the /ai/ page), and search
-    reading the index.
+    facts are taggable (`Tags::topics`, keys `ti-<slug>`). AI Assist for members and search reading the index: built
+    2026-10-30 (below).
 13. Content maintenance: clocks, event triggers, queue priority on view, the background reader.
     **Built 2026-10-30:** `Guides::due` brings a guide's check forward on an event: a place it names closes
     (`SuggestionActions::markClosed`), a signed-in visitor suggests a change, new Library of Congress records arrive, the
