@@ -305,7 +305,7 @@ values AI use holds; standards are shown there but change only by a decision. Bu
 | Listing publishes | readiness rules (no score) | standard |
 | Guide publishes itself | score 70 | tuned |
 | Find it adds a listing | score 80 + readiness | tuned |
-| Category auto-fill | above 80%; below 50% to a person (decisions/0024) | standard; the weighted classifier isn't built yet: a word match suggests, the readiness rules check |
+| Category set without a person / a person picks | 80% / under 50% (decisions/0024, `CategoryClassifier`) | tuned; "Other" never set by itself |
 | Search: published / "may also help" | 0.80 / 0.60 relevance (decisions/0093; the 0.90 / 0.75 of decisions/0061 was replaced) | tuned |
 | Heritage fact cataloged | a primary record or two independent sources, one of which may supply it | standard |
 | Free AI Assist asks a day (paid plans) | 3 | tuned |

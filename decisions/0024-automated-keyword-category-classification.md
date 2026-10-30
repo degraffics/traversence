@@ -32,3 +32,27 @@ Each Level-1 (and eventually Level-2 leaf) category gets an explicit, versioned 
 ## Consequences
 
 `architecture.md` §18 gets this classification mechanism documented alongside the taxonomy it feeds. `decisions/0022`'s `admin/listings.php` (2.6.1) — already sequenced first among the remaining admin sub-tools specifically because it's the crawler pipeline's completion half — is where a low-confidence entity actually lands; this ADR is the logic that decides whether an entity reaches that queue with a filled-in category or an empty one. `decisions/0023` §2a (amended 2026-09-24) now runs this classifier, not a manual pass, for the existing 121; this ADR is what keeps that from being a recurring cleanup either way. The keyword dictionaries themselves (which words, what weights) are a content/tuning task for whoever owns the category list day-to-day, not fixed by this ADR — same posture as `decisions/0017` leaving its OCR match bar "conservative, revisit once real data exists." **Update, 2026-09-24:** the real 24-group target list this ADR's dictionaries classify into is now `decisions/0028`'s Refined 24-Group Level-1 Master Taxonomy — see §1 above.
+
+## Built (2026-10-30)
+
+`app/lib/CategoryClassifier.php`, against the live taxonomy (22 groups and "Other", decisions/0028's fallback):
+
+- **Tokens, not substrings:** word boundaries, a light stemmer (plurals, -ing, -ed, -ist; "churches" → church), stop
+  words, short forms expanded ("Sch Dist", "Surgcl Ctr", "MHP"), two-word meanings read first ("animal hospital" is a vet).
+- **Scoring:** each category from its own name's distinctive words, by where they appear: what the business calls itself
+  on its own site (schema.org type) counts most, then its name, what it offers, its description. A match is only as sure as
+  its weakest word ("Language Schools" from "school" in a name and "languages" in a description is a description match).
+  Each group's weighted dictionary (§1) says which industry the words point to: agreement adds, a clear disagreement takes
+  away. A single word in a name ("Red Roof Inn", "Dollar Tree") or a word many categories share counts as sure only when
+  the rest of what the business says points clearly to that industry. Confidence 0 to 99, with the reasons.
+- **Thresholds (§3), tunable in System Configuration → Thresholds & gates:** at 80% a new find's category is set; under
+  50% a person picks; between, the readiness rules decide, and a fit resting on one incidental or common word goes to a
+  person. "Other" is never set on its own.
+- **Listings already live (§4):** the listings job assesses each crawler-categorized listing once per classifier
+  version, never one an owner or our team set or locked, never a claimed one. It changes a category by itself only when
+  it is sure (80%+) of another industry and the category the listing has barely fits its own words (under 20%); a sure
+  or likely fix it can't make by itself (65%+, another industry) goes to Get Local → Categories for a person (Apply /
+  Keep). Every change is kept in `category_changes` with the old category, and can be undone there; a kept or undone
+  suggestion isn't made again. Get Local → Categories also has a tester.
+- On the local copy of the 4,718 crawler-categorized listings: 14 corrected by themselves (school districts filed under
+  nurses and federal contractors, trading posts under pawnbrokers, a tire shop under ceramic tile), 26 for a person.

@@ -451,6 +451,9 @@ Yes. A website isn't needed. Give its name, what it is, the town, a phone number
 
 Before saving, we check whether it's already listed (the same phone, website or Facebook page, or a similar name in the same town). If it is, we show you and you can claim that listing instead, so there aren't two.
 
+### How do you decide which category a business is in?
+From what the business says about itself: what its own website calls it, its name, what it offers and its description, matched as whole words (so a "spa" is never found inside "newspaper"), and from which industry those words point to. When it's clearly one category, that's the one; when it isn't, a person picks. A word that happens to be in a name ("Dollar Tree" isn't a tree service) never decides on its own. We also check the businesses already listed and correct a category that plainly doesn't fit (a school district filed under nurses); anything less certain goes to our team, and a category an owner or our team chose is never changed. If yours is wrong, claim your listing and set it, or use **Suggest a change** on the listing.
+
 ### Can my business be in more than one category?
 Yes. Every business has one **main category**, shown on its card, and can be listed under **up to 4 more**. On the add-your-business form or in your business dashboard, tap **+** beside the category to add another, then type what it is ("movie theater", "event venue", "party rentals") and pick it from the list. Can't find yours? Pick the closest and tell us; we add new categories as businesses need them. People searching any of those categories find you there too, after the businesses whose main category it is. No plan gets more categories or ranks higher: they're the same for everyone. Pick the ones that match what you really do; that's where they work best.
 
