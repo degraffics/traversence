@@ -264,6 +264,8 @@ Sourced from the full business blueprint (Parts 1–8, financial/scaling project
 
 ## 11. Dynamic Taxonomy & Discovery Engine (Phased)
 
+> **Crawler parts superseded by `decisions/0133` (2026-10-30).** The rules for sources, gathering, publishing and maintenance are there; this section stays as history. Withdrawn: the "unbounded" discovery crawl, the `api/ingest.php` path, and Google Business Profile as a source.
+
 Two distinct capabilities, deliberately kept separate due to very different risk/readiness profiles:
 
 **Phase A — Automated Business Discovery/Seeding & Boundary Generation (near-term, low-risk, high-value):** two parts, both geography/registry-driven rather than usage-driven (avoids the cold-start problem — see below):
@@ -392,6 +394,8 @@ Built as concrete code, matching Section 13's MVP scope. Files under `api/`:
 - **Email delivery itself is not wired up.** `register.php` and `password/request-reset.php` both generate real tokens and leave an explicit integration point (`// Mailer::sendVerificationEmail(...)`) rather than guessing at a mail provider — BlueHost supports PHP's native `mail()` if no transactional email service is configured yet.
 
 ## 15. Phase 3 Deliverable: Legacy Migration & Crawler Ingestion
+
+> **Crawler parts superseded by `decisions/0133` (2026-10-30).** The rules for sources, gathering, publishing and maintenance are there; this section stays as history. Withdrawn: the "unbounded" discovery crawl, the `api/ingest.php` path, and Google Business Profile as a source.
 
 **Critical context discovered mid-build:** the platform already has a live production database (`listings`, `users`, `zip_coordinates` — a flat, non-graph schema), not a blank slate. Confirmed as **Option 2**: single controlled migration into the graph architecture (Sections 12–14), with `listings` as the one-time seed source rather than an ongoing parallel schema.
 
@@ -841,6 +845,8 @@ Raised after a fully successful end-to-end test of the revert flow: a single cli
 
 ## 21. Crawler Ingestion & Experiential Content Pipeline (Expanded Scope)
 
+> **Crawler parts superseded by `decisions/0133` (2026-10-30).** The rules for sources, gathering, publishing and maintenance are there; this section stays as history. Withdrawn: the "unbounded" discovery crawl, the `api/ingest.php` path, and Google Business Profile as a source.
+
 ### 21.0 Scope & Relationship to Existing Systems (Clarification)
 
 A separately-drafted architecture document proposed expanding the crawler beyond structured listing ingestion into narrative/experiential content extraction, a 4-tier safety engine, and synthesis with source citations. Confirmed: this is a **separate system from Trust/Verification (Section 4, 20)**, not an extension of it.
@@ -1221,6 +1227,8 @@ Backfilled `listing_access` from existing `entities.owner_user_id` (`ON DUPLICAT
 ---
 
 ## 30. Pilot Market Penetration — Configurable Crawler Sources & Role-Based Context Building
+
+> **Crawler parts superseded by `decisions/0133` (2026-10-30).** The rules for sources, gathering, publishing and maintenance are there; this section stays as history. Withdrawn: the "unbounded" discovery crawl, the `api/ingest.php` path, and Google Business Profile as a source.
 
 - **Trigger**: Surfaced while designing the St. Johns pilot's go-to-market flow (Competitive Positioning doc's cold-start risk resolution) — deciding operationally how the AI scraper/crawler is actually used to penetrate a target market at deployment, rather than just that it would be used.
 - **Scope Summary**: Three related decisions:

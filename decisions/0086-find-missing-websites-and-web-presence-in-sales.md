@@ -1,5 +1,7 @@
 # 0086. The crawler finds the websites listings are missing; Sales shows each prospect's web presence
 
+> **Crawler rules: superseded by `decisions/0133` (2026-10-30), the crawler's one rule book.** This record stays as history; where it and 0133 disagree, 0133 rules.
+
 - **Status:** Accepted
 - **Date:** 2026-10-14
 - **Builds on:** 0062 (the identity job), 0081 (Sales), 0084 (web search allowance), 0085 (the Google check)

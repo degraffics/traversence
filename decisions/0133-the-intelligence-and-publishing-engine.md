@@ -1,0 +1,257 @@
+# ADR 0133: The Intelligence & Publishing Engine (the crawler's one rule book)
+
+**Status:** Accepted (2026-10-30) by Jason. **This is the master record for the crawler and everything it feeds**
+(listings, landmarks, outdoor places, dossiers, research, guides and stories). Where an older record says otherwise, this
+one rules. Older records keep their history; each carries a line at its top pointing here (list at the end).
+
+## Why one record
+
+The crawler's rules had grown across eighteen records (0005, 0024, 0043, 0044, 0045, 0048, 0054, 0061, 0062, 0065,
+0066, 0067, 0076, 0083, 0084, 0085, 0086, 0131) and four sections of the platform spec, and some disagreed with each
+other and with the code (the review of 2026-10-30, "Crawler scope: what's been decided and what's built"). This record
+puts the rules in one place, in the order the work happens.
+
+## The principle: we build our own record of the open web
+
+Traversence's crawler exists so that a small region's information doesn't depend on Google, Yelp or any gatekeeper that
+captures the web and rents it back. **We build our own resources for information and research**: our own index of the
+open sources (the places' own websites, governments, public registries, archives, museums, historical societies), our own
+verified facts with their sources, and our own catalog of the human and natural record. We don't have to compete on day
+one, and we use outside services while we grow, but:
+
+- **Every outside lookup is a bridge, not a foundation.** Paid search, Google and AI web search fill gaps only after our own
+  sources are asked, and every useful page they turn up becomes a source we read ourselves next time (the source register).
+- **We keep the facts and their sources, never the gatekeeper's content** (licences below).
+- **We measure independence**: the share of verifications and guide facts settled from our own index and the open sources,
+  without a paid lookup. It should rise every quarter; Services & usage reports it.
+- **The record is ours to keep:** sources, facts and catalog live in our database, survive any provider leaving, and are
+  reused by every page, guide and story.
+
+## The two pillars
+
+- **The Human Journey:** people moving, trading, building and keeping a life on this land across generations: who came,
+  why, what they built and with what, how they got through hard years, what they celebrate.
+- **The Living Landscape:** the land that shaped them: plateaus and valleys, rivers and water tables, timber and stone,
+  weather and seasons, wildlife, the old routes that today's roads follow.
+
+Every data point, archive and listing exists to honor the lived experience of the people and the enduring character of the
+land, and every guide shows how the two shaped each other.
+
+## The six phases
+
+Phases 1 and 2 are **always-on automation**: they gather everything within the guardrails, with no content settings.
+**Configuration starts at Phase 3**, where research is shaped.
+
+### Phase 1: Source building (mapping the human and natural record)
+
+Find and catalog the repositories of real information, and keep them in the **source register** (below).
+
+- **Seeds:** the places' own websites and official sites; public registries (NPI, IRS exempt organizations, Recreation.gov,
+  GNIS, Census); and for the record of people and land: newspaper archives (Arizona Memory Project, the Library of Congress),
+  National Register of Historic Places nominations, BLM land surveys, state library and university special collections, oral
+  histories, county historical societies, museums, water and irrigation records. Every useful page any step turns up is
+  offered to the register.
+- **Order:** our own sources first, then the place's own site and official registries, then the owner, then outside search
+  only for what's still missing.
+- **Guardrails (fixed, not configured):** public, unauthenticated pages only; robots.txt obeyed, including `Crawl-delay`;
+  a polite pace; every network hop checked against private addresses; terms and licence checked and recorded before a
+  source is read regularly; never a gated group or private forum.
+- **Restricted sources:** cultural-resource reports marked restricted, and anything a nation keeps to itself, are never
+  gathered.
+- **Each source gets a dossier entry:** what it covers (place, years, subject), who made it, how credible it is, how
+  often it changes (volatility), and its licence.
+
+### Phase 2: Extraction (harvesting experience and environment)
+
+Turn pages and files into facts, cheaply.
+
+- **Code first (about 80%, free):** structured data (schema.org, registries, tables) is parsed by code: the site's
+  `ListingExtractor` and the worker's parser (Python: BeautifulSoup, MIT licence).
+- **Strip and compress:** boilerplate, menus and ads are stripped (the worker: trafilatura, open licence, confirmed per
+  version), and long historical or geographic texts are cut to the passages that matter (keyword windows on people,
+  trades, water, materials, land and hardship).
+- **AI only for the narrative remainder:** those passages go to the cheapest model (Haiku) with a fixed schema: turning
+  points, people and their roles, trades and building materials, water and land use, hardships, local names and lore,
+  sites you can walk today. Facts only; never whole pages kept.
+- Listings and places are extracted as facts (name, address, phone, hours, kind), never page text.
+
+### Phase 3: Vetting (protecting the record) and configuration
+
+Check what was extracted, and shape the research. **Configuration lives here.**
+
+- **Cross-checks:** against official registries and our own index; a heritage fact needs a primary record or two
+  independent sources; overlapping citations count as corroboration, not duplicates.
+- **Identity and duplicates:** the match rules (same place, another location, provider, covered, another business,
+  maybe), website brand and page levels, other names, the Nexus rules (made automatically when locations share a
+  website or main phone; never on a similar name alone; districts and `.gov`/`.us` parents never one brand).
+- **Privacy and dignity** (people, below) and the **protected-information tiers** (below) are assigned here.
+- **Configuration (System Configuration):** which areas and themes are vetted and cataloged first (coverage: active
+  regions, states, priority by search demand and residents affected), how deep research goes, and the thresholds
+  table. Phases 1 and 2 aren't configured by area; they gather within their guardrails and budgets.
+
+### Phase 4: The catalog (the tapestry of place and terrain)
+
+Vetted facts are stored, each with its source and who set it, in one schema where people, land and places meet on the map.
+
+- **Modern places:** listings, landmarks, outdoor places, with provenance.
+- **The Human Record:** turning points, builders and families, trades, industries, institutions, traditions.
+- **The Living Landscape:** landforms, water, trails and old routes, native materials, climate and seasons, environmental
+  milestones.
+- **Footprints:** the map point or address where a past event, person or landscape feature can be stood on today.
+- **Dossiers and research briefs** (decisions/0131) feed it and are kept with the place.
+- **The Seeker:** an admin search across the catalog by theme and place ("water management and stone masonry tied to sites
+  in Apache County").
+
+### Phase 5: Publishing (walking in their footsteps, with the land)
+
+- **Writing:** Sonnet (or the model set in AI use) writes from the catalog: the place's "Walking in the Footsteps" chapter
+  (its story) and the guide sections. **Every historical mention is anchored to a place a visitor can stand today**, and
+  people and land are told together.
+- **Gates (rule-based, the thresholds table):**
+  - **Listings:** publish when **ready** (decisions/0076): real (own site, a trusted registry, or two independent sources;
+    the NPI file alone needs one more), complete (name, phone or website, a street number or point in an area we cover),
+    appropriate (a category fits, no spam or adult content), unique (no unresolved duplicate). **No confidence threshold**:
+    the score only orders work and shows how sure we are. Everything after publishing is handled by rule in Phase 6.
+  - **Guides:** publish themselves at score 70 or more; **Find it** results become listings at 80 or more **and** pass the
+    same readiness checks as any listing.
+  - **A person** only for exceptions: a pipeline exhausted, a protected item, a conflict with a person's own content.
+- **The protected-information standard** and the **people rules** (below) are enforced here, and the check before saving
+  removes anything that breaks them, plus any talk of our research ("according to our sources", dead websites).
+- **The Chameleon Filter follows the same process.** Its tags, highlighted names, preview cards, map pins and feed delivery
+  (decisions/0132) obey the protected tiers: no tag, card or pin that locates a story-only or restricted item; tags never
+  infer anything about a person; delivery by context follows the same gates as publishing.
+- **Freshness is shown:** every guide and listing shows when it was created and when it was last refreshed.
+- **Bridges to the real place:** GO Codes at markers, trailheads, theaters and storefronts (later).
+
+### Phase 6: Content maintenance (review, renew, refresh)
+
+A loop back through Phases 1 to 3 that keeps what's published true.
+
+- **Clocks:** listings every 30 days; guides every 30 days; dossiers every 6 months; research briefs every year; events
+  every month.
+- **Events that start a check:** a source we read changes; a listing closes or moves; a name in a guide goes closed; a
+  visitor reports something; a date in the text passes; search demand spikes; the season turns.
+- **Opening a guide** raises its place in the queue; it never runs a check on the spot.
+- **The background reader:** free checks first (links alive, linked names still open, dates not past, facts matching the
+  catalog), the cheapest model only for what they flag; each piece gets a freshness score.
+- **Outcomes:** **Refresh** (crawler-owned facts updated automatically); **Renew** (content the system wrote is re-researched,
+  rewritten and re-scored under the same gates); **Review** (a person, only when their own content or a protected item is
+  involved).
+- **Closed and moved:** checked on live listings at each refresh, not only from visitors and Google; a closure from Google
+  alone is a Review item, never automatic.
+
+## Rules across every phase
+
+### Provenance and ownership
+
+Every fact and field records its source and who set it (crawler, staff, owner, member). The crawler writes only to its own
+fields, and only empty or crawler-owned ones; a field a person entered or locked is never overwritten; a claimed listing is
+only offered a change (evidence wins, unless claimed: decisions/0062).
+
+### AI acts on a person's words only when called
+
+AI writes freely only content the system owns (guides and stories it compiled, marked as compiled). On a person's own words
+it acts **only when that person calls it** (Write, Rewrite, Assist): the result comes back as a suggestion they accept or
+reject, never applied silently, and the call is logged. A member's words go to AI only with their AI & Learning consent
+(decisions/0051). Maintenance may flag a person's content as possibly out of date; it never edits it.
+
+### People
+
+- **Public figures** (officials, authors, artists, founders, business owners in their business role, anyone known for
+  public acts): named, with their public deeds.
+- **Historical figures** (documented in published history: books, National Register filings, historical societies, period
+  newspapers): named and their story told, with respect; living descendants' private details are never published.
+- **Private individuals** (anyone appearing only incidentally: census rows, deeds, court and cemetery records, notices,
+  photos): not named, no profile, unless the family consents or a published history already tells their story. Anyone who
+  may be living (born within about 100 years) is private unless a public figure. Living people's addresses, health and legal
+  matters, and minors, are never published.
+- No identities are built for people who merely appear in data (decisions/0062).
+
+### The protected-information standard
+
+"Tell the story, never the way in." Every catalog fact carries a tier set in Phase 3 and enforced in Phase 5:
+
+| Tier | Published | Applies to |
+| --- | --- | --- |
+| **Public** | freely | public places, businesses, public history |
+| **Story only** | the name and story; never location, pin, coordinates, directions or access, except an access point the managing authority offers publicly (a state park's rock-art tour) | sacred, burial and archaeological sites a public source already presents; private property (only public viewpoints or tours); sensitive wildlife (nests, dens, rare plants) |
+| **Restricted** | never; kept for our records only | what a nation restricts; site locations protected by law (the confidentiality rules of ARPA and NHPA §304, Arizona's antiquities and burial statutes); domestic-violence shelters' addresses; private individuals' details |
+
+- A sacred, burial or protected place is **held** by default; it moves to Story only when a public source presents it to
+  visitors and our crawler confirms that, and never when a nation has closed or restricted it (decisions/0066).
+- Story-only places carry a fixed courtesy line (look, don't touch, follow the nation's rules) and no pin; a pin on a
+  nation's land moves to a public place.
+- **Limiting exposure:** every published fact keeps its source; anyone can ask for a takedown and the item is hidden
+  within 24 hours while we look; a quarterly sample audit of published guides; an attorney signs off on this standard once.
+
+## The three registers
+
+### The source register
+
+Every source is a record; **its licence decides what we may do with its facts**, and every fact carries its source, so the
+licence travels with the fact.
+
+| Field | What it holds |
+| --- | --- |
+| Kind | website, official site, registry, bulk file, API, archive, museum, historical society |
+| Licence | public domain, open (ODbL, CC BY-SA, CC BY, CC0), terms-restricted (Google, commercial directories), unknown |
+| Use | store facts · keep a pointer only · cite only · evidence only (may confirm, never supply) · show with credit |
+| Credit line | the attribution to show, when the licence asks |
+| Status | read regularly · cite only · ignore · suggested |
+| Rate limit, cap, refresh cadence | per source |
+| Terms checked | the date and the page read |
+
+Standing uses: OpenStreetMap (ODbL): existence, a map link, the website as a pointer, never its phone, hours or address;
+data outside our regions kept in its own tables. Wikipedia (CC BY-SA): facts only, never copied. Wikidata: CC0 facts.
+Commons photos: CC0, public domain, CC BY or CC BY-SA, with credit. Google: the place ID, check date and match only;
+"Google verifies and links; it doesn't fill in listings". Yelp, MapQuest, BBB, Yellow Pages, Healthgrades: cite only.
+Google, Yelp, Facebook and Instagram results: evidence only. The IRS exempt-organizations file: confirms, never shown,
+never creates a listing. A bulk dataset is never an automatic publish.
+
+### Thresholds and gates
+
+One table, in System Configuration, each value named by what it gates. Today's values:
+
+| Gate | Value |
+| --- | --- |
+| Listing publishes | readiness rules (no score) |
+| Guide publishes itself | score 70 |
+| Find it adds a listing | score 80 + readiness |
+| Category auto-fill | above 80%; below 50% to a person |
+| Situation published / "may help" | 0.90 / 0.75 |
+| Heritage fact cataloged | a primary record or two independent sources |
+
+### Services & usage
+
+One page for every paid or limited service (web search, Google Places, Claude, and any added later): its cap, use today and
+this month, the month's projected cost, **alerts at 80% and 100%**, a **monthly report**, and an automatic stop at the cap.
+Today: web search 1,000 a month with a stop at 90% and a daily share; Google Places 3,000 a month, stop at 90%, a $10 alert;
+Claude under `AI_MONTHLY_CAP_USD` and each feature's own budget. The page also reports **independence** (the principle).
+
+## Where the crawler works
+
+Bulk loads run state by state as regions open: Arizona and New Mexico now; Utah and Colorado as their hubs open; nothing
+loaded "just in case" (decisions/0048). Crawl targets can come from searches anywhere (decisions/0066). Research is shaped
+in Phase 3's coverage setting.
+
+## What changes in the code (to build)
+
+1. The dead 85 setting is removed; the score orders work only.
+2. Find it's listings pass the readiness checks.
+3. Waiting listings are re-matched and published by a scheduled job, not only when Review opens.
+4. Confidential listings are never sent to outside services in verification.
+5. Refresh marks a listing when the work is done; live listings get a closed/moved check; clocks per this record.
+6. robots.txt `Crawl-delay` honoured; every hop checked against private addresses.
+7. The source register gains licence, use, credit, cadence and terms-checked fields; facts keep their source.
+8. Services & usage page, alerts and monthly report; independence measured.
+9. The heritage pipeline: worker job, Haiku extraction, catalog tables, the Seeker, the Footsteps chapter.
+10. Protected tiers in the catalog, enforced in publishing and in the Chameleon Filter; created and refreshed dates shown.
+11. Content maintenance: clocks, event triggers, queue priority on view, the background reader.
+
+## Records this replaces (for the crawler)
+
+Each keeps its history and carries a pointer here: 0005 (crawler and guide gates), 0024 §3, 0043 (crawler parts), 0044,
+0045, 0048 (sources and loads), 0054 §6, 0061 (thresholds), 0062 (crawler and identity-job rules), 0065, 0066 (crawl
+targets; the tribal standard is restated here), 0067, 0076, 0083 to 0086 (crawler parts), 0131 (dossier, research, Find
+it, publishing). In the platform spec, §11, §15, §21 and §30 point here: the "unbounded" crawl, the old `api/ingest.php`
+path, and Google Business Profile as a source are withdrawn.

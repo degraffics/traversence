@@ -1,5 +1,7 @@
 # 0085. Continue with Google; the crawler checks listings against Google, paced and capped
 
+> **Crawler rules: superseded by `decisions/0133` (2026-10-30), the crawler's one rule book.** This record stays as history; where it and 0133 disagree, 0133 rules.
+
 - **Status:** Accepted
 - **Date:** 2026-10-14
 - **Builds on:** 0079 (standing), 0084 (web search allowance; the Google notes)

@@ -1,5 +1,7 @@
 # 0083. A website says which brand, its page says which place; merge several at once; rebuild an organization from its website
 
+> **Crawler rules: superseded by `decisions/0133` (2026-10-30), the crawler's one rule book.** This record stays as history; where it and 0133 disagree, 0133 rules.
+
 - **Status:** Accepted
 - **Date:** 2026-10-14
 - **Builds on:** 0054 (the Nexus), 0074 and 0081 (merging the same place), 0076 (listings build themselves)

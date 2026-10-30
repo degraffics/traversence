@@ -1,5 +1,7 @@
 # ADR 0005: Human-in-the-Loop Guardrails on All AI/Autonomous Ingestion
 
+> **Crawler rules: superseded by `decisions/0133` (2026-10-30), the crawler's one rule book.** This record stays as history; where it and 0133 disagree, 0133 rules.
+
 **Status:** Accepted. **Amended 2026-10-30 for place guides** (see the last amendment: Claude's guides publish themselves, a person corrects after). **Amended 2026-09-29 by `decisions/0044`** (crawled directory listings may auto-publish at high confidence, under guardrails; narrative content is unaffected). **Amended 2026-09-24** — see the System-Created vs. Self-Generated Partner Content amendment below; the original Decision and Consequences sections are left as written, since the amendment narrows what this ADR's staging-and-sign-off rule was ever meant to cover rather than loosening it.
 
 ## Context

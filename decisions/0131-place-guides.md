@@ -1,5 +1,7 @@
 # ADR 0131: Place Guides on the Six-Tier Funnel
 
+> **Crawler rules: superseded by `decisions/0133` (2026-10-30), the crawler's one rule book.** This record stays as history; where it and 0133 disagree, 0133 rules.
+
 **Status:** Accepted (2026-10-30) by Jason. Builds on `decisions/0043` (a guide at every level), `decisions/0056` §8
 (the six-tier discovery funnel), `decisions/0003` (the Chameleon Filter), `decisions/0061` (resource guides),
 `decisions/0005` (a person approves what the system writes) and `decisions/0007` (money never buys placement).

@@ -85,6 +85,14 @@ twice a day (6:00 and 18:00 UTC) or on demand (its workflow's Run button), and c
 - **Dead code** (nothing calls it, checked against the live mirror too) is deleted, not kept "just in case": the sync
   repo's history keeps every version.
 
+## The crawler, research and guides follow decisions/0133: every build
+
+`decisions/0133` is the one rule book for the crawler and everything it feeds (listings, landmarks, dossiers, research,
+guides, stories): the principle (we build our own record of the open web), the six phases, the people rules, the
+protected-information standard ("tell the story, never the way in"), provenance (never overwrite what a person entered;
+AI acts on a person's words only when called), the source register (the licence decides the use), the thresholds table
+and Services & usage. Older crawler records are history; where they disagree, 0133 rules.
+
 ## Two folders: website/ and app/ (decisions/0069)
 
 The site is two folders, side by side on the server and in OneDrive `Traversence/`:

@@ -1,5 +1,7 @@
 # ADR 0054: The Nexus — Organizations With Many Locations
 
+> **Crawler rules: superseded by `decisions/0133` (2026-10-30), the crawler's one rule book.** This record stays as history; where it and 0133 disagree, 0133 rules.
+
 **Status:** Accepted (2026-09-30) by Jason. Works with `decisions/0042`
 (Single Home Rule), `decisions/0044` (auto-import guardrails), `decisions/0050` (no sensitive inferences) and the search
 rework (`decisions/0053`, to be written).

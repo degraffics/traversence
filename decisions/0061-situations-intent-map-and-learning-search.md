@@ -1,5 +1,7 @@
 # 0061: Situations: an intent map, the Chameleon Filter as router, and search that learns
 
+> **Crawler rules: superseded by `decisions/0133` (2026-10-30), the crawler's one rule book.** This record stays as history; where it and 0133 disagree, 0133 rules.
+
 **Status:** Accepted, 2026-10-02. Built in three batches (below). Replaces Phases B (in part) and C of decisions/0060;
 0060's principles stand: the place someone sets is never changed, and results are local first, never only local.
 **Source:** discussion with Jason on 2026-10-02 (the "Search & Suggestion Architecture" spec, the Day One / Day Two

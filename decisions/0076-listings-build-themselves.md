@@ -1,5 +1,7 @@
 # 0076. Listings build themselves: one pipeline, a person only when it's exhausted
 
+> **Crawler rules: superseded by `decisions/0133` (2026-10-30), the crawler's one rule book.** This record stays as history; where it and 0133 disagree, 0133 rules.
+
 - **Status:** Accepted
 - **Date:** 2026-10-10
 - **Replaces:** the publishing guardrails of 0044 (two sources, confidence 85, a sure category, categories always reviewed
