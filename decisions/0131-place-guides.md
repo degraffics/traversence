@@ -153,3 +153,12 @@ the Human Journey read through the Living Geography: it researches the place's h
 is, Spanish and Mexican-era settlers, pioneers, ranching and railroad families, the old routes its roads follow), gives
 it depth with names and dates, and respects rural life as a way of living, never framing a place by what it lacks. The
 editor says whether Claude searched the web for a draft and, if the search was refused, why.
+
+**Addendum (2026-10-30, Jason): from the ground, history, visitors' intent; AI spending under control.** A draft is
+written from, in this order: boots on the ground (the guide's **From the ground** notes, which only our team sees, and
+the journeys and experiences published about the place, a member's only with AI & Learning consent), history (our
+story of the place and Claude's research), and visitors' intent (what people search for there, from search demand
+counts, never who). **System Configuration → AI use** sets each AI feature (guide drafts asked for, guide drafts on
+their own, names in guides, names in journeys and stories, Find it): on or off, model, runs a day, its own monthly
+budget and web searches a run, with what it has used, all under the overall `AI_MONTHLY_CAP_USD`
+(`AiClient::FEATURES`, `allow()`, table `ai_features`, migration `2027-01-15_ai_use_and_field_notes.sql`).
