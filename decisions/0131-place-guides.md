@@ -181,3 +181,21 @@ and **Suggest a change**. The Guides list shows **Live (compiled by Claude)** an
 is System Configuration → AI use → **Guides publish themselves** (on). There's no migration: the state is kept in
 `draft_info` (`auto_published`, `kept`, `dossier`).
 
+**Addendum (2026-10-30, Jason): dossiers kept, confidence scores, finds approved by rule.** The dossier is the place's
+own data, not a cache: table `place_dossiers` (migration `2027-01-16_place_dossiers.sql`) keeps its text, sources and
+Wikidata facts (founded, elevation, population, official website), refreshed every six months, and a refresh that
+can't reach Wikipedia keeps what's held. Towns and neighborhoods show Founded and Population under At a glance, and a
+missing elevation comes from it. **A guide's confidence score** (`Guides::score`, 0-100, worked out each time) adds
+Claude's own confidence (up to 35), the dossier (20), notes from the ground (10), its sources (up to 10) and how many
+of its names link (up to 25), less 4 for each thing to check (up to 16) and 10 for a refused web search. A guide
+publishes itself only at or over **Guides publish themselves → Lowest score** (70). Below that it waits as a draft and
+publishes on a later guide job once Find it has linked enough of its names. The editor shows the score and what made
+it, and the Guides list has a Score column. **Approval by rule** (Jason: "the standing rule is we approve, but not
+review it unless required"): each find gets a score. The crawler gives 40 for the map, 20 for reading its own website,
+15 for an address, 15 for a phone and 10 for its name on that site. Claude gives 50 or 70 by its confidence, plus 5 each
+for a website, an address, a phone and two sources. At or over **Finds become listings by themselves → Lowest score**
+(80), a business, museum or organization with a phone and an address or map point is added as a listing from its
+suggestion (`AddBusiness::fromSuggestion`), and the name links. One we already list under a name like it (same phone
+or website) is linked instead. If its phone or website is another listing's under another name (a county fairground on
+the courthouse's line), a person looks. Anything else waits in Review, as before.
+

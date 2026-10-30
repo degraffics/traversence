@@ -49,8 +49,12 @@ What still holds, unchanged:
 - **The protected places rule:** a guide that names a place that may be sacred, burial or protected
   (`decisions/0066`), or a closed business, never goes live by itself. Claude is asked once to write it without that
   name; if the name stays, the guide waits as a draft.
-- **Nothing new enters the graph without a person.** A name the guide uses that we don't have shows as plain text.
-  Find it's result (crawler first, then Claude) still goes to Review as a suggestion, and a person adds the listing.
+- **Approval by rule, review when required** (Jason: "the standing rule is we approve, but not review it unless
+  required"). A name the guide uses that we don't have shows as plain text. Find it's result (crawler first, then
+  Claude) carries a confidence score. At or over the rule's lowest score (System Configuration → AI use, 80 by default),
+  with a phone and an address, it becomes a listing under that standing approval. Below it, or when its phone or
+  website belongs to another listing, it goes to Review for a person. A guide publishes itself only at or over its own
+  lowest score (70 by default).
 - **Human words come first:** Claude never rewrites a section a person wrote.
 - **The switch:** System Configuration → AI use → *Guides publish themselves* turns this off, and with it off every
   guide returns to this ADR's original sign-off.
