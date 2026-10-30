@@ -114,8 +114,30 @@ history). For the pillars, vetted facts are stored each with its source and who 
   milestones.
 - **Footprints:** the map point or address where a past event, person or landscape feature can be stood on today.
 - **Dossiers and research briefs** (decisions/0131) feed it and are kept with the place.
+- **The Topic index (our encyclopedia):** see below.
 - **The Seeker:** an admin search across the catalog by theme and place ("water management and stone masonry tied to sites
   in Apache County").
+
+### The Topic index: our encyclopedia of the state of knowledge
+
+The catalog grows into an encyclopedia: **every topic the research touches has a record of what we know about it**, so
+anyone (a writer, an owner, a member, staff or Claude) who calls on AI assist to write about a topic writes from our own
+researched knowledge, with its sources, not from a model's memory or a fresh web search.
+
+- **A topic** is any subject: a place, a person of public or historical note, an event, a landform or river, a species, an
+  industry or trade, a practice or tradition, an institution, a dish, a route, a service. Topics nest (Apache County >
+  St. Johns > Pioneer Days) and relate (the Little Colorado River ↔ ranching ↔ irrigation). They build on the concepts of
+  decisions/0067 (what words mean) and are what topic tags and topic follows point to (decisions/0132).
+- **Each topic's record holds:** its name and other names; a definition; its places and footprints; its facts, each with
+  its source and licence (the source register); related topics; and a **state of knowledge**: how well covered it is,
+  how fresh, which sources agree or conflict, and the open questions (what we don't know yet).
+- **A summary** of each topic, written by the system from its facts (system-owned content), is kept current by Phase 6.
+- **AI assist uses it:** called on a topic, it's given the topic's record (summary, facts, sources, protected tiers) and
+  writes from it, citing what it used. Where the record is thin, the call says so, works from what there is, and queues
+  the topic for research (Phases 1 to 3) so the next call knows more. Every protected tier and people rule applies.
+- **Gaps drive the crawler:** a topic with low coverage, stale facts or open questions becomes a research target, ordered
+  by how often it's asked for (AI assist calls, searches, guides that need it).
+- **Public topic pages** (an encyclopedia people can read) are a later decision; the index serves our own writing first.
 
 ### Phase 5: Publishing (walking in their footsteps, with the land)
 
@@ -147,6 +169,8 @@ A loop back through Phases 1 to 3 that keeps what's published true.
 - **Events that start a check:** a source we read changes; a listing closes or moves; a name in a guide goes closed; a
   visitor reports something; a date in the text passes; search demand spikes; the season turns.
 - **Opening a guide** raises its place in the queue; it never runs a check on the spot.
+- **Topics:** a topic's summary and state of knowledge are refreshed when its facts change; topics asked for often are
+  checked first.
 - **The background reader:** free checks first (links alive, linked names still open, dates not past, facts matching the
   catalog), the cheapest model only for what they flag; each piece gets a freshness score.
 - **Outcomes:** **Refresh** (crawler-owned facts updated automatically); **Renew** (content the system wrote is re-researched,
@@ -286,7 +310,9 @@ in Phase 3's coverage setting.
 10. The jurisdiction register (federal baseline, Arizona and New Mexico first, then each state, territory and nation as it
     opens), read by the protected tiers and the source register.
 11. Protected tiers in the catalog, enforced in publishing and in the Chameleon Filter; created and refreshed dates shown.
-12. Content maintenance: clocks, event triggers, queue priority on view, the background reader.
+12. The Topic index: topic records with facts, sources and state of knowledge; system summaries; AI assist grounded in
+    it (thin topics queued for research); topic tags and follows pointing to it.
+13. Content maintenance: clocks, event triggers, queue priority on view, the background reader.
 
 ## Records this replaces (for the crawler)
 
