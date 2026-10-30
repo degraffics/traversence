@@ -147,4 +147,9 @@ editor shows what Claude says to check and its sources. A person publishes. Cost
 Migration `2027-01-14_guide_drafts.sql`. A draft is a guide, not a
 directory: Claude first learns what the place is known for and names only places worth the time, never filler from our
 lists. Elevation comes from the weather service's forecast for the place. **Rewrite Claude's sections** redoes only the
-sections still exactly as Claude wrote them; anything a person changed stays.
+sections still exactly as Claude wrote them; anything a person changed stays. Claude's drafts are written in the
+Traversence voice (`brand.md` §1: atmospheric, intellectual, authoritative, enduring, deeply grounded) as a chapter of
+the Human Journey read through the Living Geography: it researches the place's history first (the nations whose land it
+is, Spanish and Mexican-era settlers, pioneers, ranching and railroad families, the old routes its roads follow), gives
+it depth with names and dates, and respects rural life as a way of living, never framing a place by what it lacks. The
+editor says whether Claude searched the web for a draft and, if the search was refused, why.
