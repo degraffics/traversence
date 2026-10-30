@@ -73,9 +73,11 @@ twice a day (6:00 and 18:00 UTC) or on demand (its workflow's Run button), and c
 
 ## Files used once, and the archive (Jason, 2026-10-28): every build
 
-- **Migrations are used once.** Run it (phpMyAdmin → Import), then clear it in System Configuration → **Database
-  updates**, which checks each file against the database and deletes the ones that have been run. A delivery zip
-  carries only the new migrations.
+- **Migrations are used once, and the site runs them** (Jason, 2026-10-30). Upload the file; the site runs each new one
+  itself, oldest first, within the hour (any scheduled job) or when System Configuration → **Database updates** opens,
+  logs it (`db_updates_log`) and deletes it. One that fails stays there with its error and holds the later ones until
+  it's replaced. No phpMyAdmin in delivery notes. So every migration must run twice safely and finish on its own (never
+  a step for a person), and a delivery zip carries only the new migrations.
 - **Test files, dumps and one-off scripts** don't go in `website/` or `app/`; once used, they're deleted.
 - **Archived pages** (out of the menus, still reachable) are listed in `archive.md`: what replaced each one, what still
   opens it, and what has to happen before it goes. Nothing is removed until Jason clears it; then remove it the same
@@ -257,6 +259,9 @@ Listings, outdoor places, experiences, place pages, journeys, and any new kind o
   (`Nations::pin()`) still move to a public place, so a pin never marks a sensitive spot.
 
 ## Migrations must run on Bluehost's MySQL (not just MariaDB): every build
+
+The site runs migrations through its own connection (`DbUpdates::autoRun`, statements split on `;` outside quotes and
+comments): no `DELIMITER`, no stored procedures, and nothing that depends on which database phpMyAdmin has open.
 
 The live database is MySQL. It rejects `ADD COLUMN IF NOT EXISTS`, `ADD INDEX IF NOT EXISTS` and `DROP … IF EXISTS`
 inside `ALTER TABLE` (#1064), which a local MariaDB accepts. `CREATE TABLE IF NOT EXISTS` is fine. To add a column or
