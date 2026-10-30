@@ -135,3 +135,13 @@ now or likely in the next hours (50%+), 95°+, 20° or colder without snow, or w
 fair day (50–88°, sun or clear, under 30% rain); snow without a warning is left to the season. A **Right now** line
 at the top of Things to do says why (amber; red with an alert). The weather placeholder is drawn at once (stored
 weather, else a shimmer) and the live call fills it in.
+
+**Addendum (2026-10-30, Jason): Claude drafts, a person confirms.** "I want the LLM and site to do the work; I will
+review and confirm." Each guide's editor has **Write a draft with Claude**, and the guide job drafts one guide a run
+on its own (asked-for ones first, then the busiest city and community guides nobody has written; one-town communities
+are their town's guide). Claude writes only the empty sections, never one a person wrote, from what we have (the place,
+its listings by section, landmarks, outdoor places, towns) and what it confirms on the web, naming only real places in
+bold; no invented phone numbers, hours or prices; tribal nations by their own names, sacred sites never. The names are
+matched as on any save. The draft stays a draft: the Guides list shows **Claude's draft to review** first, and the
+editor shows what Claude says to check and its sources. A person publishes. Cost goes through the AI monthly cap.
+Migration `2027-01-14_guide_drafts.sql`.
