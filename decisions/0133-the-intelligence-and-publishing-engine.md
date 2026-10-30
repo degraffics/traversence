@@ -338,16 +338,23 @@ in Phase 3's coverage setting.
    Review. **Built 2026-10-30 (guides):** `Guides::maintainTick` (in the guide job) checks each live guide every 30
    days, opened-since-last-check first: the dossier renewed when due (6 months), dates passed, linked names closed,
    research a year old. A finding in Claude's own sections renews the guide (rewritten, re-scored); one in a person's
-   sections is flagged in the editor. Events are kept monthly by the date check, not a monthly rewrite. Still to
-   build: "moved" from a business's own site.
+   sections is flagged in the editor. Events are kept monthly by the date check, not a monthly rewrite.
+   **Built 2026-10-30 (moved):** the worker also sends the lines where a business's own site says it moved
+   (`MOVED_HINT_RE`); `Refresh::movedLine` keeps one about the business itself (not a branch, not for a season, not its
+   hours or its website) and the new street when it gives one. It's never changed on its own: Review gets a fix with the
+   street filled in, once per sentence (`site_moved`), and not when the listing already has that address.
 6. robots.txt `Crawl-delay` honoured; every hop checked against private addresses. **Built 2026-10-30** in the worker
    (`public_host`, `SafeRedirect`; a site asking for more than 30 s between pages is left alone).
 7. The source register gains licence, use, credit, cadence and terms-checked fields; facts keep their source.
    **Built 2026-10-30:** `source_rules` (its own table in main) holds a person's rules per website; `Sources::STANDING`
    the engine's standing sources (OSM, Wikipedia, Wikidata, Commons, Google, Tavily, Claude, IRS, NPI, RIDB, Census,
    USGS, NWS, AZ 511, Library of Congress); `Sources::rules()` / `mayStore()`. Terms-restricted sources can't be set to
-   store or show. Tier 2 learning reads only sources whose rules let us keep what they say. Still to build: each stored
-   fact carrying its source's rule.
+   store or show. Tier 2 learning reads only sources whose rules let us keep what they say. **Built 2026-10-30 (facts carry
+   the rule):** each heritage fact's sources are stamped with their rule, licence and credit line when it's read
+   (`Heritage::stamp`), and again when a person changes that site's rules (`Sources::setRules` → `Heritage::restamp`);
+   older facts are stamped by the heritage job. A fact is cataloged only when a source whose rule lets us keep and show
+   it backs it (`supplies`): cite-only, evidence-only and pointer-only sources may confirm, never supply. Credit lines
+   show under the guide's "Walking in the footsteps", on "From our guides" results and on AI Assist's facts.
 8. Services & usage page, alerts and monthly report; independence measured. **Built 2026-10-30:** System Configuration
    → Services & usage (`Services`), the `services_tick` job (hourly): emails at 80% and 100% once a month each (retried
    if no email went), the report in the first days of the month. Independence: the Find it share our crawler answered,
@@ -413,7 +420,11 @@ in Phase 3's coverage setting.
     runs on the guide job's next turn, never on the spot: events first, then opened since the last check, then oldest. The
     background reader adds the link check (`deadLinks`: no answer, an error or a parked page) and a closed check on the
     listings a guide names; each guide gets a freshness score (`Guides::freshness`), shown in the editor with what brought
-    the check forward. Still to build: the cheapest model reading what the free checks flag before a full renewal.
+    the check forward. **Built 2026-10-30 (the cheapest model first):** when everything the free checks find is a small
+    fix in Claude's own sections (a passed date, a business that closed, a dead link) and there's nothing new to write
+    from, Haiku proposes exact edits (`guide_triage`, `Guides::triage`); each is applied only when its text appears once,
+    it adds no link and nothing the scrub would cut, and the finding is gone afterwards. What it doesn't fix still renews
+    the guide in full. A closed name counts only while the text still names it.
 
 **Search answers from our own knowledge (2026-10-30).** `Topics::answer`, called by `UniversalSearch::search` before
 the place card: when the words name a topic in the index (as typed, then as search kept them, then a topic name that
