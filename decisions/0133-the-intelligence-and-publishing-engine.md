@@ -353,8 +353,22 @@ in Phase 3's coverage setting.
    if no email went), the report in the first days of the month. Independence: the Find it share our crawler answered,
    and paid lookups per new crawler listing.
 9. The heritage pipeline: worker job, Haiku extraction, catalog tables, the Seeker, the Footsteps chapter.
+   **Built 2026-10-30:** the worker's `heritage()` searches the Library of Congress per guide place (catalog records and
+   links only) into `heritage_sources`; `heritage_tick` (hourly) runs `Heritage::extractTick`: keyword windows from the
+   LOC records, the dossier and the research brief, read by `heritage_extract` (Haiku) into `heritage_facts`. Vetting: a
+   LOC primary record or two independent groups (the dossier counts as one; the research brief never counts). Tiers by
+   `Jurisdictions::tier`; protected facts are never pinned. Insights → The Seeker. Guides gain "Walking in the
+   footsteps" (`DRAFT_V` 4), written from vetted public and story-only facts; the monthly check renews a guide when the
+   catalog gains vetted facts.
 10. The jurisdiction register (federal baseline, Arizona and New Mexico first, then each state, territory and nation as it
     opens), read by the protected tiers and the source register.
+    **Built 2026-10-30:** `jurisdictions` / `jurisdiction_laws`, System Configuration → Jurisdictions. Seeded as drafts:
+    the federal baseline (ARPA, NHPA §304, NAGPRA, COPPA), Arizona (A.R.S. 41-841 to 847, 41-865, 39-125) and New
+    Mexico (NMSA 18-6-1 to 17, 18-6-11.2); the citations are as understood and are confirmed in the attorney review.
+    `Jurisdictions::forPlace` layers federal, state or territory and nation; `tier()` gives a sensitive item story-only
+    once every layer is reviewed, restricted until then, and always restricted on a nation's land. A state's or
+    territory's review needs the attorney's name and date; any change sends a record back to draft. Still to build:
+    holding a region closed until its record is reviewed, and the source register reading the effects.
 11. Protected tiers in the catalog, enforced in publishing and in the Chameleon Filter; created and refreshed dates shown.
 12. The Topic index: topic records with facts, sources and state of knowledge; system summaries; AI assist grounded in
     it (thin topics queued for research); topic tags and follows pointing to it.

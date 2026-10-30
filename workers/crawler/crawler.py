@@ -108,6 +108,10 @@ places_used = 0
 search_allow = 0      # searches this run may make: the site says, from the month's use so far (decisions/0084); 0 until it does
 LEARN_PER_RUN = int(os.environ.get("LEARN_PER_RUN", "3"))         # Tier 2 web searches for situation gaps per run (decisions/0061); 0 turns it off
 LEARN_TIME = int(os.environ.get("LEARN_TIME", "45"))
+HERITAGE_PER_RUN = int(os.environ.get("HERITAGE_PER_RUN", "2"))  # places searched at the Library of Congress per run (decisions/0133); 0 turns it off
+HERITAGE_TIME = int(os.environ.get("HERITAGE_TIME", "40"))
+LOC_SEARCH = "https://www.loc.gov/search/"
+LOC_DELAY = 3.0                     # seconds between Library of Congress requests (its API asks for a gentle pace)
 GUIDES_PER_RUN = int(os.environ.get("GUIDES_PER_RUN", "2"))      # how-to guides looked for per run (decisions/0063 §8); 0 turns it off
 GUIDES_TIME = int(os.environ.get("GUIDES_TIME", "45"))
 TARGETS_PER_RUN = int(os.environ.get("TARGETS_PER_RUN", "2"))    # search targets (a place and a kind of business, decisions/0066) per run; 0 turns it off
@@ -973,6 +977,50 @@ def geocode(deadline):
             f"placed another way {r.get('skipped', 0)}, left {r.get('left', 0)}")
         if not r.get("left") or (r.get("sent", 0) + r.get("skipped", 0) + r.get("private", 0)) == 0:
             break
+
+
+def fetch_json(url, timeout=30):
+    """A JSON API on the open web, through the same checks as a page (public address on every hop). None on failure."""
+    if os.environ.get("LOC_FIXTURE"):
+        with open(os.environ["LOC_FIXTURE"]) as f:
+            return json.load(f)
+    if not public_host(url):
+        return None
+    try:
+        req = urllib.request.Request(url, headers={"User-Agent": UA, "Accept": "application/json"})
+        with SAFE_OPENER.open(req, timeout=timeout) as r:
+            return json.loads(r.read(3_000_000).decode("utf-8", "replace"))
+    except Exception:
+        return None
+
+
+def heritage(deadline):
+    """The Library of Congress for each guide's place (decisions/0133 Phase 1): the catalog records of its items (title,
+    date, description, subjects, format, rights) and their links, never the items themselves. The site reads them into
+    the heritage catalog."""
+    d = site_call(f"/api/crawl/heritage.php?limit={HERITAGE_PER_RUN}")
+    for pl in d.get("places", []):
+        if time.monotonic() > deadline or out_of_time():
+            break
+        q = urllib.parse.urlencode({"q": pl["query"], "fo": "json", "c": "30", "at": "results"})
+        data = fetch_json(f"{LOC_SEARCH}?{q}")
+        time.sleep(0 if os.environ.get("LOC_FIXTURE") else LOC_DELAY)
+        if data is None:
+            log(f"heritage {pl['name']}: the Library of Congress didn't answer")
+            continue
+        flat = lambda v: "; ".join(str(x) for x in v) if isinstance(v, list) else str(v or "")
+        items = []
+        for it in (data.get("results") or [])[:30]:
+            url = it.get("url") or it.get("id") or ""
+            if not isinstance(url, str) or "loc.gov/" not in url:
+                continue
+            about = flat(it.get("description"))[:600]
+            if it.get("subject"):
+                about += (" Subjects: " if about else "Subjects: ") + flat(it.get("subject"))[:200]
+            items.append({"url": url.replace("http://", "https://"), "title": flat(it.get("title"))[:500], "date": flat(it.get("date"))[:40], "about": about,
+                          "rights": flat(it.get("rights") or it.get("rights_advisory"))[:500], "format": flat(it.get("original_format"))})
+        res = site_call("/api/crawl/heritage.php", {"key": pl["key"], "items": items})
+        log(f"heritage {pl['name']}: {len(items)} Library of Congress records, {res.get('kept', 0)} kept")
 
 
 def guides(deadline):
@@ -1934,6 +1982,11 @@ def run():
             learn(time.monotonic() + LEARN_TIME)
         except Exception as e:                     # learning never stops the crawl jobs
             log(f"learning stopped: {e!r}"[:300])
+    if HERITAGE_PER_RUN > 0:
+        try:
+            heritage(time.monotonic() + HERITAGE_TIME)
+        except Exception as e:                     # the heritage reading never stops the crawl jobs
+            log(f"heritage stopped: {e!r}"[:300])
     if GUIDES_PER_RUN > 0:
         try:
             guides(time.monotonic() + GUIDES_TIME)

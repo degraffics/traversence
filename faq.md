@@ -71,6 +71,9 @@ They show the same guide in two orders. **Visiting** starts with the essentials 
 ### Where do a guide's weather and road conditions come from?
 Weather and alerts come from the National Weather Service. Tap the weather by the guide's name to open the forecast (it starts folded): the next 24 hours as temperature, rain or wind, and the next seven days. It stays on the page; the weather service's own forecast is a link inside it. Arizona road work, lane closures, detours, incidents and alerts come from AZ 511 (its work zone feed uses the national WZDx format). Our server asks for the place's weather, not yours: your location is never sent. Weather updates every half hour, roads every ten minutes. Check AZ 511 before you drive.
 
+### What is "Walking in the footsteps" in a guide?
+The place's story, told where you can stand today: the peoples and families, trades, building materials, water and hard times that made it, each tied to a street, a building, a river crossing or a view you can visit. It's written from our heritage catalog: facts drawn from historic records (the Library of Congress's newspapers, photographs and maps, linked, never copied), the place's public records and our research, and only those backed by a historic record or two independent sources. Archaeological, sacred and burial places follow the law of the place: their story may be told, but never where they are or how to get there, and on a tribal nation's land nothing is told until the nation says.
+
 ### What does a highlighted name in a guide do?
 Point at it (tap it on a phone) and a small card shows what it is, where it is, its phone number if it has one, and **See more**, which opens its page. Every business, landmark and outdoor place a guide names is highlighted this way, and so are the names in journeys, place stories, experiences and how-tos, so you can go deeper without losing your place.
 
