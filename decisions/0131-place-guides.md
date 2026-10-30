@@ -144,4 +144,7 @@ its listings by section, landmarks, outdoor places, towns) and what it confirms 
 bold; no invented phone numbers, hours or prices; tribal nations by their own names, sacred sites never. The names are
 matched as on any save. The draft stays a draft: the Guides list shows **Claude's draft to review** first, and the
 editor shows what Claude says to check and its sources. A person publishes. Cost goes through the AI monthly cap.
-Migration `2027-01-14_guide_drafts.sql`.
+Migration `2027-01-14_guide_drafts.sql`. A draft is a guide, not a
+directory: Claude first learns what the place is known for and names only places worth the time, never filler from our
+lists. Elevation comes from the weather service's forecast for the place. **Rewrite Claude's sections** redoes only the
+sections still exactly as Claude wrote them; anything a person changed stays.
