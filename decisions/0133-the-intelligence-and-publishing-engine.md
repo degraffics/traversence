@@ -27,7 +27,19 @@ one, and we use outside services while we grow, but:
 - **The record is ours to keep:** sources, facts and catalog live in our database, survive any provider leaving, and are
   reused by every page, guide and story.
 
-## The two pillars
+## What the crawler gathers, and what Traversence writes about
+
+**The crawler's scope is research identification, and it is broad.** It finds and indexes every open source with research
+value in the areas we cover, whatever the subject: services and help lines, health, education, civic and government, public
+safety, businesses and organizations, events, transport and infrastructure, land, water, weather and environment, history,
+culture, faith and the arts. It isn't limited to what we publish today: a source that's useful later (a utility's outage page,
+a school calendar, a county's records) is indexed now. Breadth is bounded only by the guardrails (public, licensed, polite,
+within budget), never by topic.
+
+**The two pillars are Traversence's content focus**: the lens for what Phase 2 extracts first for stories and how Phase 5
+writes. They shape the narrative; they don't narrow the gathering.
+
+### The two pillars
 
 - **The Human Journey:** people moving, trading, building and keeping a life on this land across generations: who came,
   why, what they built and with what, how they got through hard years, what they celebrate.
@@ -42,11 +54,13 @@ land, and every guide shows how the two shaped each other.
 Phases 1 and 2 are **always-on automation**: they gather everything within the guardrails, with no content settings.
 **Configuration starts at Phase 3**, where research is shaped.
 
-### Phase 1: Source building (mapping the human and natural record)
+### Phase 1: Source building (identifying the research)
 
-Find and catalog the repositories of real information, and keep them in the **source register** (below).
+Find and catalog every repository of real information in the areas we cover, on any subject (the scope above), and keep
+them in the **source register** (below).
 
-- **Seeds:** the places' own websites and official sites; public registries (NPI, IRS exempt organizations, Recreation.gov,
+- **Seeds, broad:** the places' own websites; city, county, state, tribal and federal sites; school, health, transit and
+  utility sites; chambers, museums, libraries, newspapers and event calendars. **Seeds for the pillars, deep:** the places' own websites and official sites; public registries (NPI, IRS exempt organizations, Recreation.gov,
   GNIS, Census); and for the record of people and land: newspaper archives (Arizona Memory Project, the Library of Congress),
   National Register of Historic Places nominations, BLM land surveys, state library and university special collections, oral
   histories, county historical societies, museums, water and irrigation records. Every useful page any step turns up is
@@ -57,7 +71,7 @@ Find and catalog the repositories of real information, and keep them in the **so
   a polite pace; every network hop checked against private addresses; terms and licence checked and recorded before a
   source is read regularly; never a gated group or private forum.
 - **Restricted sources:** cultural-resource reports marked restricted, and anything a nation keeps to itself, are never
-  gathered.
+  gathered. What counts as restricted follows the jurisdiction register (below).
 - **Each source gets a dossier entry:** what it covers (place, years, subject), who made it, how credible it is, how
   often it changes (volatility), and its licence.
 
@@ -175,14 +189,37 @@ reject, never applied silently, and the call is logged. A member's words go to A
 | --- | --- | --- |
 | **Public** | freely | public places, businesses, public history |
 | **Story only** | the name and story; never location, pin, coordinates, directions or access, except an access point the managing authority offers publicly (a state park's rock-art tour) | sacred, burial and archaeological sites a public source already presents; private property (only public viewpoints or tours); sensitive wildlife (nests, dens, rare plants) |
-| **Restricted** | never; kept for our records only | what a nation restricts; site locations protected by law (the confidentiality rules of ARPA and NHPA §304, Arizona's antiquities and burial statutes); domestic-violence shelters' addresses; private individuals' details |
+| **Restricted** | never; kept for our records only | what a nation restricts; site locations protected by law in that place's jurisdiction (the jurisdiction register); domestic-violence shelters' addresses; private individuals' details |
 
 - A sacred, burial or protected place is **held** by default; it moves to Story only when a public source presents it to
   visitors and our crawler confirms that, and never when a nation has closed or restricted it (decisions/0066).
 - Story-only places carry a fixed courtesy line (look, don't touch, follow the nation's rules) and no pin; a pin on a
   nation's land moves to a public place.
 - **Limiting exposure:** every published fact keeps its source; anyone can ask for a takedown and the item is hidden
-  within 24 hours while we look; a quarterly sample audit of published guides; an attorney signs off on this standard once.
+  within 24 hours while we look; a quarterly sample audit of published guides; an attorney signs off on this standard once,
+  and on each jurisdiction record as its region opens.
+
+## The jurisdiction register (laws by place)
+
+Traversence expands state by state, so **the law that applies is the law of the place**, not one state's. Each place's
+rules come from a jurisdiction record, layered:
+
+1. **Federal baseline, everywhere in the U.S.:** archaeological site locations kept confidential (ARPA; NHPA §304, also
+   protecting the locations of historic properties when disclosure risks harm); Native American graves and cultural items
+   (NAGPRA); federal privacy and children's rules.
+2. **Each state and territory** (Puerto Rico, Guam, the U.S. Virgin Islands, the Northern Mariana Islands, American Samoa,
+   and D.C.): its antiquities and burial-site statutes, unmarked-grave rules, state privacy and data laws, rules on
+   scraping and public records, and its state historic preservation office's confidentiality practice.
+3. **Each tribal nation** where it publishes them: its cultural-resource and sacred-site codes, visitor rules, photography
+   and research permits. A nation's rule outranks ours on its land, and a nation that hasn't published one is treated as
+   restricting what it hasn't made public.
+4. **Other countries** as the continental plan reaches them (Canada's provinces and First Nations, Mexico's states and
+   Indigenous communities): their heritage and privacy laws, added the same way.
+
+Each record holds: the jurisdiction, its laws (name, citation, what it protects, what it requires of us), its effect on our
+tiers and sources, the reviewer and date. **A region opens only after its records are reviewed** (an attorney signs off on
+each new state's or territory's record once); **where a record is missing or unclear, the strictest known rule applies**
+(Restricted until reviewed). The protected tiers, the source register's uses and the takedown path all read from it.
 
 ## The three registers
 
@@ -245,8 +282,10 @@ in Phase 3's coverage setting.
 7. The source register gains licence, use, credit, cadence and terms-checked fields; facts keep their source.
 8. Services & usage page, alerts and monthly report; independence measured.
 9. The heritage pipeline: worker job, Haiku extraction, catalog tables, the Seeker, the Footsteps chapter.
-10. Protected tiers in the catalog, enforced in publishing and in the Chameleon Filter; created and refreshed dates shown.
-11. Content maintenance: clocks, event triggers, queue priority on view, the background reader.
+10. The jurisdiction register (federal baseline, Arizona and New Mexico first, then each state, territory and nation as it
+    opens), read by the protected tiers and the source register.
+11. Protected tiers in the catalog, enforced in publishing and in the Chameleon Filter; created and refreshed dates shown.
+12. Content maintenance: clocks, event triggers, queue priority on view, the background reader.
 
 ## Records this replaces (for the crawler)
 
