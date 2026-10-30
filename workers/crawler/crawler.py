@@ -980,6 +980,21 @@ def hours_from(page):
     return list(dict.fromkeys(lines))[:7]
 
 
+DEAD_RE = re.compile(r"suspendedpage|/cgi-sys/|parkingcrew|sedoparking|bodis\.com|domain-?for-?sale|hugedomains|dan\.com", re.I)
+DEAD_TEXT_RE = re.compile(r"\b(account|site|website|domain|page)\s+(has\s+been\s+|is\s+(currently\s+)?)?(suspended|disabled|expired|deactivated)\b"
+                          r"|this domain (is|may be) for sale|buy this domain|domain (is )?parked|parked free|default (web )?page|future home of", re.I)
+CLOSED_HINT_RE = re.compile(r"permanently\s+closed|closed\s+permanently|closed\s+for\s+good|closed\s+(our|the)\s+(doors|business)|"
+                            r"ceased\s+(operations|trading)|no\s+longer\s+in\s+business|out\s+of\s+business|closing\s+(our|its)\s+doors", re.I)
+
+
+def dead_site(page):
+    """A parked, suspended or empty page (the site's checks in app/lib/Dossier.php::dead() match this)."""
+    if DEAD_RE.search(page):
+        return True
+    text = " ".join(page_lines(page))
+    return len(text) < 150 or bool(DEAD_TEXT_RE.search(text))
+
+
 def split_city(address):
     m = re.search(r"^(.*?),?\s*([A-Za-z .'-]+),\s*([A-Z]{2})\s+(\d{5})", address)
     return (m.group(1).strip(" ,"), m.group(2).strip(), m.group(3), m.group(4)) if m else (address, "", "", "")
@@ -991,9 +1006,15 @@ def refresh_listings(deadline):
         if time.monotonic() > deadline or out_of_time():
             break
         site, host = lst["website"], host_of(lst["website"])
+        if not os.environ.get("WEB_FIXTURE") and (fetches >= MAX_FETCHES or out_of_time() or not allowed(site)):
+            how = "skipped" if fetches >= MAX_FETCHES or out_of_time() else "blocked"   # this run's budget / its robots.txt
+            site_call("/api/crawl/refresh.php", {"entity_id": lst["entity_id"], "website": site, "found": {}, "locations": [], "site": {"status": how}})
+            continue                               # not read: never counts against the site
         home = fetch_page(site)
-        if not home:
-            log(f"refresh {lst['name']}: website didn't load")
+        if not home or dead_site(home):            # the site decides: tried again in a few days, then off the listing or to Review
+            how = "dead" if home else "unreachable"
+            res = site_call("/api/crawl/refresh.php", {"entity_id": lst["entity_id"], "website": site, "found": {}, "locations": [], "site": {"status": how}})
+            log(f"refresh {lst['name']}: website {'shows a parked or suspended page' if home else 'did not load'}: {res.get('site', '')}")
             continue
         pages = {site: home}
         links = [urllib.parse.urljoin(site, h) for h in re.findall(r'(?i)href=["\']([^"\'#]+)', home)]
@@ -1031,9 +1052,12 @@ def refresh_listings(deadline):
                                   "what": {"offerings": [], "description": ""}, "actions": {"phone": f["phone"], "website": site},
                                   "sources": {"name": [url], "address": [url]}, "corroboration": [],
                                   "confidence": 15 + 25 + 5 + (15 if f["phone"] else 0)})
-        res = site_call("/api/crawl/refresh.php", {"entity_id": lst["entity_id"], "website": site, "found": found, "locations": locations[:25]})
+        # the closed check (decisions/0133): lines where the business says it closed; the site keeps only one about itself
+        closed = [l for pg in pages.values() for l in page_lines(pg) if CLOSED_HINT_RE.search(l) and len(l) <= 400][:3]
+        res = site_call("/api/crawl/refresh.php", {"entity_id": lst["entity_id"], "website": site, "found": found, "locations": locations[:25],
+                                                   "site": {"status": "ok", "closed": " ".join(closed)}})
         log(f"refresh {lst['name']}: filled {', '.join(res.get('filled', [])) or 'nothing new'}; "
-            f"{len(locations)} other location(s) -> {res.get('auto_imported', 0)} published, {res.get('staged', 0)} to review")
+            f"{len(locations)} other location(s) -> {res.get('auto_imported', 0)} published, {res.get('staged', 0)} to review; site: {res.get('site', 'ok')}")
 
 
 def second_look(deadline):

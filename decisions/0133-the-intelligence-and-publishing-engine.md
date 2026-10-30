@@ -322,7 +322,7 @@ in Phase 3's coverage setting.
 
 ## What changes in the code (to build)
 
-1. The dead 85 setting is removed; the score orders work only.
+1. The dead 85 setting is removed; the score orders work only. **Built 2026-10-30.**
 2. Find it's listings pass the readiness checks. **Built 2026-10-30:** a find approved by its score is staged with the
    crawler's listings (`GuideLinks::stageFind` → `IntakeStager::stage`) and published only through `AutoImport`; the
    old direct add is gone. A find that fails a check waits there with the reason, and its guide name links once listed.
@@ -331,6 +331,11 @@ in Phase 3's coverage setting.
 4. Confidential listings are never sent to outside services in verification. **Built 2026-10-30:** `Verify` checks them
    in our own records only (no DeepLook, never leased to the worker); Find it never looks up a confidential name.
 5. Refresh marks a listing when the work is done; live listings get a closed/moved check; clocks per this record.
+   **Built 2026-10-30 (listings):** a refresh counts when the worker reports (a lease holds it two hours); every 30
+   days. A website that fails twice, 3+ days apart, comes off the listing when the crawler gave it (kept as
+   `website_dead`), else goes to Review; robots.txt blocks and spent budgets never count. A business's own site saying
+   it closed for good marks it Closed (decisions/0072) when unclaimed and not sharing its site (a chain); otherwise
+   Review. Still to build: "moved" from the site, and the clocks for guides, dossiers, research and events.
 6. robots.txt `Crawl-delay` honoured; every hop checked against private addresses.
 7. The source register gains licence, use, credit, cadence and terms-checked fields; facts keep their source.
 8. Services & usage page, alerts and monthly report; independence measured.
