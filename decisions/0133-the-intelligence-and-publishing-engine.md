@@ -343,7 +343,15 @@ in Phase 3's coverage setting.
 6. robots.txt `Crawl-delay` honoured; every hop checked against private addresses. **Built 2026-10-30** in the worker
    (`public_host`, `SafeRedirect`; a site asking for more than 30 s between pages is left alone).
 7. The source register gains licence, use, credit, cadence and terms-checked fields; facts keep their source.
-8. Services & usage page, alerts and monthly report; independence measured.
+   **Built 2026-10-30:** `source_rules` (its own table in main) holds a person's rules per website; `Sources::STANDING`
+   the engine's standing sources (OSM, Wikipedia, Wikidata, Commons, Google, Tavily, Claude, IRS, NPI, RIDB, Census,
+   USGS, NWS, AZ 511, Library of Congress); `Sources::rules()` / `mayStore()`. Terms-restricted sources can't be set to
+   store or show. Tier 2 learning reads only sources whose rules let us keep what they say. Still to build: each stored
+   fact carrying its source's rule.
+8. Services & usage page, alerts and monthly report; independence measured. **Built 2026-10-30:** System Configuration
+   → Services & usage (`Services`), the `services_tick` job (hourly): emails at 80% and 100% once a month each (retried
+   if no email went), the report in the first days of the month. Independence: the Find it share our crawler answered,
+   and paid lookups per new crawler listing.
 9. The heritage pipeline: worker job, Haiku extraction, catalog tables, the Seeker, the Footsteps chapter.
 10. The jurisdiction register (federal baseline, Arizona and New Mexico first, then each state, territory and nation as it
     opens), read by the protected tiers and the source register.
