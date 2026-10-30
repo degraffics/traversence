@@ -323,9 +323,13 @@ in Phase 3's coverage setting.
 ## What changes in the code (to build)
 
 1. The dead 85 setting is removed; the score orders work only.
-2. Find it's listings pass the readiness checks.
-3. Waiting listings are re-matched and published by a scheduled job, not only when Review opens.
-4. Confidential listings are never sent to outside services in verification.
+2. Find it's listings pass the readiness checks. **Built 2026-10-30:** a find approved by its score is staged with the
+   crawler's listings (`GuideLinks::stageFind` → `IntakeStager::stage`) and published only through `AutoImport`; the
+   old direct add is gone. A find that fails a check waits there with the reason, and its guide name links once listed.
+3. Waiting listings are re-matched and published by a scheduled job, not only when Review opens. **Built 2026-10-30:**
+   `listings_tick` (every 15 minutes, `Scheduler::AUTO`) runs `AutoImport::advance`.
+4. Confidential listings are never sent to outside services in verification. **Built 2026-10-30:** `Verify` checks them
+   in our own records only (no DeepLook, never leased to the worker); Find it never looks up a confidential name.
 5. Refresh marks a listing when the work is done; live listings get a closed/moved check; clocks per this record.
 6. robots.txt `Crawl-delay` honoured; every hop checked against private addresses.
 7. The source register gains licence, use, credit, cadence and terms-checked fields; facts keep their source.
