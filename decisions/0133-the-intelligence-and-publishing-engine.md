@@ -632,6 +632,39 @@ average score; issues found by each source (Google, OpenStreetMap, the crawler, 
 automatically versus by a person; the time to resolve; what each paid source cost per issue found. A monthly sample of
 listings in each band is spot-checked, like the quarterly guide audit, to tune the weights.
 
+### Claude's role: reader, researcher, writer, helper; never the source
+
+- **Reader (Haiku):** turns what the crawler fetches (a town's site, a newspaper page, a business's "About us") into
+  structured lines for the record. A page is read once and stored, so every later reader uses that reading.
+- **Researcher (Sonnet with web search):** fills gaps only, after the record and the free sources come up short
+  (research briefs, Find it, Live events beyond official pages, topic research). What it finds goes into the record.
+- **Writer (Sonnet):** guides, summaries, AI Assist answers and event descriptions, **only from the record**, through the
+  same scrub and gates as everything else.
+- **Helper to people:** on request (Check my facts), and next, **Review pre-sorting**: for each uncertain item (a possible
+  duplicate, a closure, an unclear category) Haiku drafts a recommended answer with its reasons, and the person agrees or
+  corrects (about a tenth of a cent each; seconds instead of minutes).
+- **Claude's word is never evidence.** What it researches counts only through the pages it cites, which our crawler
+  reads and records under their own sources (as the research brief never counts as a source for a heritage fact). In
+  listing confidence a fact Claude found carries the weight of the page behind it, never "Claude said so".
+- Cheapest model first, each feature's budget in AI use, prompts shaped in Content templates with a free Preview, every
+  answer kept in the record; a member's words reach Claude only with their AI Assist & Learning consent.
+
+### Social pages (Facebook, Instagram): links, not sources we crawl (Jason, 2026-10-31)
+
+Many rural businesses have only a Facebook page (Diamond C Feed, St. Johns: facebook.com/diamondcfeedarizona).
+- **Never crawled or scraped.** Meta's terms bar automated collection without its permission, and the pages sit behind
+  its login wall; the crawler never fetches them, and neither does Claude.
+- **Kept as the listing's social link**, shown on the card (a Facebook action button) and in How we know. Its existence
+  (found by a search, given by the owner or a visitor) is **weak evidence the business exists**, never of its phone,
+  address or hours (decisions/0086 already: a social page doesn't count as a website).
+- **Search results that show it** (the title and snippet a web search returns, which we already pay for) count as one
+  ordinary web source, with the snippet's details weighed like any other page.
+- **People read it:** our team can open the page and confirm details (recorded as our confirmation, "seen on its
+  Facebook page", and counted as Traversence's confirmation), and visitors' "Is this right?" works the same.
+- **The owner can connect it (later):** on claiming, an owner may link their own Page with Facebook Login, letting us
+  read their Page's details (hours, phone, about, events) with their permission through Meta's Graph API. That's the
+  one way a Facebook page feeds the record directly, and it also brings their posted events into Live events.
+
 ### Build order
 
 1. The observations store, filled from what we already hold.
@@ -640,6 +673,7 @@ listings in each band is spot-checked, like the quarterly guide audit, to tune t
    cadence by band; automatic decisions; value-ordered Review; closure and moved notices.
 4. Opening a hub: the stages, the readiness meter, the opening budget and its estimate.
 5. The Listing quality report.
+6. Review pre-sorting by Haiku; the owner's Facebook connection.
 
 ## Records this replaces (for the crawler)
 
