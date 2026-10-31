@@ -187,7 +187,7 @@ researched knowledge, with its sources, not from a model's memory or a fresh web
 
 A loop back through Phases 1 to 3 that keeps what's published true.
 
-- **Clocks:** listings every 30 days; guides every 30 days; dossiers every 6 months; research briefs every year; events
+- **Clocks:** listings every 30 days (replaced by the band cadence below: monthly to quarterly, never over 90 days); guides every 30 days; dossiers every 6 months; research briefs every year; events
   every month.
 - **Events that start a check:** a source we read changes; a listing closes or moves; a name in a guide goes closed; a
   visitor reports something; a date in the text passes; search demand spikes; the season turns.
@@ -454,6 +454,192 @@ AI Assist allowance (built, 2026-10-30; Jason: no one causes us an AI cost that 
 AI Assist asks (built, 2026-10-30; Jason: check live costs; cost and save asks; track where asks come from, for routing; members may ask about anything; free asks answer from what we have, queue the crawler and follow up). A member may ask about any subject, from `/ai/` (on its own or under a topic) or from the **✦ AI Assist** button in the journey and experience editors (`/api/ai-assist.php`, `js/tv-ai-assist.js`; Insert puts the text in the story). Each ask is kept in `ai_asks` (`AiAssist`): the member's words and answer (theirs alone, shown under Your asks with Copy, deleted with the account), its **source** (ai_page, journey, experience, topic, guide, search) for routing, what it cost (Claude's charge), the model and what paid (`free`, `user:<id>`, `listing:<id>`). The answer is written only from our record (the topic's vetted facts, cataloged heritage facts, the place guide's shown sections). When the record doesn't cover it, the answer says so and the subject goes to the research queue (`Topics::ensure`, queued); `AiAssist::followupTick` (heritage job) writes the answer again once research or new cataloged facts arrive, emails the member, and charges the follow-up to us (`followup`), not to their credits; an ask still waiting after 45 days closes. Insights → **AI Assist** shows the month's asks, members, cost, cost per ask against the 1 to 2 cents planned, free asks' cost, follow-ups waiting and sent, by source, and the subjects we didn't know yet: counts and money only, never what anyone asked. The free asks a day are a tuned value in Thresholds & gates (`ai_free_asks`).
 
 **The AI Content Crawler's templates (Jason, 2026-10-30; all six steps built).** Each kind of content the crawler and Claude make is a template people create and shape before anything is spent: a Place guide, Live events, and more without a build. A template says what it applies to and when it runs, what it gathers (free sources first, paid web search only for gaps), what it writes (sections of prose, or records with fields, each with its instruction; the purpose, order of trust and voice; the AI feature that writes it), how it's checked and published, its shelf life, where it shows and its cost. The exposure standard is shared by every template and locked (`ContentTemplates::LOCKED`): shown, changed only by a decision. Protected places follow three levels (Jason, 2026-10-30, curators not controllers): **public** (the managing authority invites visitors: named, told, directions like any place, a town's pioneer cemetery included); **known publicly, not open to visit** (named and told as public sources present it, never the way in, with "visit only with the authorization of" the nation or the land's managers and who grants it when public); **held** (we know it exists, no public source names it: never named or located; the guide may say the area holds sacred places that aren't for visiting without permission, and whose). Step 1: `content_templates` and `content_template_versions` (every save a version: who, when, what changed; restore saves a new version), `ContentTemplates`, and the Place guide template set up from the code by the guide job; nothing reads it yet. Step 2: the guide writer and the guide job read the Place guide template (`Guides::template()`, the saved template over the code's, part by part; the code's when there's none): the purpose, order of trust, voice and formatting; each section's heading, instruction, pass and whether it's on; the length a pass may run and the searches allowed beside a research brief; which tiers write themselves, how busy a place must be and how many a run; how often a live guide is checked. A template being shaped or switched off writes only what someone asks for. The guide editor shows each section's instruction from the template. Checked: the prompt Claude receives is byte-for-byte the same as before for a new guide, a rewrite and a partly written one. Sections the guide page doesn't draw yet aren't written until step 4. Step 3, the three levels: `Landmarks::isProtected()` replaces the single word test everywhere it decides (the writer's scrub, Find it, landmark loads, heritage tiers, the audit's pre-check): a cemetery is civic unless it's on a nation's land or names its peoples (`Landmarks::loadPeoples()` reads them from the nations register, with Indian, native, tribal, ancestral), while ruins, rock art, kivas, shrines, burial grounds and the like stay protected whatever surrounds them. The scrub keeps a public-access sentence with its directions; keeps a known-not-open place's story, cuts its way in, and adds the authorization line (`Guides::AUTH_LINE`) when the section doesn't already say whose permission it needs; and keeps a general acknowledgement of held places (no name, no way in, says permission is needed: `Guides::acknowledges()`). The writer's rule says the three levels. Sentences no longer split after St., Mt. or Ft. (St. Johns was being cut in two). Migration `2027-01-28_landmarks_town_cemeteries.sql` shows the town cemeteries the site had held only for the word, leaving any a person reviewed, any on a nation's land, and any naming a nation's peoples or a protected kind. Step 3, free sources first: a place picked for its first guide starts `gathering` (`Guides::gather()`): the dossier at once, now with the National Register of Historic Places listings near it from Wikidata (CC0; never coordinates, and a site whose location the Register restricts has none there), and the worker's Library of Congress reading, led by gathering places, now also searching Chronicling America's newspaper pages in the place's state and sending their text (kind `news`, up to 3,000 characters each). `Guides::gatherTick()` waits up to 24 hours for that reading, then writes the research brief told what the public records hold (`Heritage::held()`), searching only for the gaps and with half the searches when the free material is rich (8 or more records, or a long dossier), reads the passages into heritage facts (`Heritage::extractPlace()`), and queues the guide; after 48 hours it's queued with whatever came in. A guide someone asks for is still written at once. Step 4: System Configuration → **Content templates** (`/admin/config/content`, each template at `/admin/config/content/<id>` with the command strip; `admin/content-template.php`). A director in engineering, operations or content shapes a template in sections: what it is (name, status, what it's for), when it runs (which tiers write themselves, listings a place needs, guides a run), what it gathers (the sources in order, free first; searches beside a brief), what it writes (purpose, order of trust, voice, formatting, the longest a pass may run, and each section's instruction, pass, order and whether Claude writes it), how it's checked, how long it lasts (days between checks), and the exposure standard (locked). **Preview** builds exactly what Claude would be sent for a place under the template as it is in the form, saved or not, and estimates the cost per pass (tokens in from its length, out from the sections asked, each search about 1¢, the upper figure if every search is used, a brief not yet held added), spending nothing: the writer was split into one core with three modes (`Guides::compose`: write, as before and byte-for-byte the same; preview, which reads a held brief only, `Dossier::research(..., $spend = false)`; try). **Try it** writes the place under the form's template, runs the same scrub and checks, saves nothing to the guide or the template, and keeps what came back (`content_template_tries`, migration `2027-01-29_content_template_tries.sql`) with its cost. Every save is a version with who and what changed; **Go back to it** saves an earlier version as the next. **Make a copy** shapes a variant without touching what runs; **Use it as the running template** saves the copy's spec as the running one's next version; a copy can be removed, a running template only switched off. Step 5, **Live events** (`LiveEvents`, migration `2027-01-30_live_events.sql`: `live_events`, `live_event_places`): the first template that makes records. Set up as being shaped, so it spends nothing until a director sets it running in Content templates (where its page shows the fields, how often and how far ahead it looks, the searches allowed, and Preview and Try it). While it runs, the guide job looks for one place's events a run (community and city guides that are live, each every 7 days, 120 days ahead): the official site's events and calendar pages first (`Dossier::eventPages`, free, under each state's reading rules), Claude for the list and web search only for what those pages don't list (`live_events` in AI use: Sonnet, 3 searches). Each event is checked (`LiveEvents::check`): a date ahead inside the window, the page that announces it, a venue matched to our listings where we have it; a name or venue that may mark a protected place is held for a person (Let's Explore → **Live events**, where any event can be shown or taken down; one taken down stays down). Events show in the guide's Events section under "Coming up" (a community's guide includes its towns', shown once) and on the venue's listing under "Coming up here", until the day after they end. Step 6: **what members ask feeds the guides**: the guide writer's ground truth now carries "what members asked about here" (AI Assist subjects asked in the place, its community's towns included, the last six months, with their counts; never a member's words or who), after visitors' intent; it's a source in the Place guide template ("What members asked here", added to the saved template as a version of its own). **Fact tips for a person's sections** (curator, not controller; never changing their words): `Guides::personSections` (sections a person wrote or changed since Claude did); `Guides::factTips`, free, compares their words with the facts the dossier holds (Wikidata's founding year, elevation, population) and shows a Tip under the section with the source; **Check my facts** (`Guides::checkFacts`, on request only, `fact_check` in AI use: Haiku, no searches) has Claude read their sections against the dossier, the held research brief and the heritage catalog and list what conflicts or isn't supported, each with the words in question (kept only when those words are really there), shown under the section while it reads as it did when checked. Nothing is ever rewritten.
+
+## The one record: observations, listing confidence and opening a hub (Jason, 2026-10-31)
+
+Listings and content are two readers of **one record of what we've seen**. Every check, free or paid, by the crawler,
+Google, OpenStreetMap, a registry, Claude, a visitor, an owner or our team, writes what it saw once, and every part of
+the system reads that record before it spends anything. Each paid answer is bought once and serves listings, guides,
+events, topics and AI Assist alike. Over time the record grows into our own research source: deeper on the places we
+cover than any general index, kept current by the people who live there, and cheaper to run with every hub we open.
+That's our edge over Google: not more crawling, but knowing our places better, provably, and showing how sure we are.
+
+### Why: what was being lost
+
+- Pages found by paid web searches (Verify, Find it, guide research, Live events) stay with the feature that paid for
+  them, often as a bare link, so another feature can pay to find the same page again.
+- A business's own website is read monthly for its listing only; its events, history and offerings aren't passed on.
+- An event announced at a venue is good evidence the venue is open, and isn't recorded as such.
+- Guide research names businesses with details (when a store opened) that feed only the guide's text.
+- Each feature has its own "check before paying" rule; there's no single one.
+- A listing's evidence is weighed once, at intake. After it's published nothing adds up what we know, nothing ages it,
+  and visitors can't tell a crawled listing from one its owner verified last week. So every problem lands on a person,
+  and most of Google's answers go unused (decisions/0085 kept only the place ID and acted only on "permanently closed").
+
+### The observations store
+
+- **One line per thing seen:** what it's about (a listing, a place, a topic), which field (exists, name, address,
+  phone, website, hours, open, category, event), the source (its host and kind), whether it **agrees or disagrees** with
+  what we show, and when. What's kept follows the source register: the content where its terms allow, otherwise a link
+  and our own verdict (Google: its place ID and our verdict only; OpenStreetMap under its licence with credit).
+- **Read before paying, everywhere:** listing confidence, the guide writer, Live events, Find it, AI Assist and the
+  research brief ask the store first; a paid call is made only when nothing fresh enough is held, and its answer goes
+  back into the store for the next reader.
+- **Both directions:** a guide's research and Find it feed listings (as now); a business's own site, read for its
+  listing, also feeds events and guides; an event at a venue counts as evidence the venue is active; a guide's facts
+  about a business become evidence on its listing.
+- **The cost log notes what each paid call produced**, so Services & usage shows the return on each source and catches
+  money spent twice.
+- Built first, filled from what we already hold (Verify's references, the reference index, dossiers, heritage sources,
+  Google matches, Refresh reads, claims, admin edits, suggestions), at no cost.
+
+### Listing confidence (0 to 100)
+
+Built on the store, it **only orders work and shows how sure we are**, as Phase 5 already says: publishing still hangs on
+the readiness rules (decisions/0076), never on a number.
+
+- **Phase 3 for listings:** the same vetting test as heritage. Independent sources count; pages on one host, and
+  directories copying each other, count once.
+- **Weights (tuned in Thresholds & gates, first values to be adjusted after a month of sampled checks):** the owner's
+  claim and confirmation strongest; an official registry strong; the business's own live website showing its phone and
+  address strong; a Google match strong for existence and place (a Google "not found" is weak, since many rural
+  businesses aren't on Google); OpenStreetMap medium; two or more independent pages medium; our team's confirmation
+  strong; visitors' "Is this right? Yes" small each, counted per device a day, never who. Disagreements lower it: a dead
+  website, an address mismatch, an open closure report, a likely duplicate. **Evidence ages**: each line counts for less
+  as it gets older.
+- **Green means a person stands behind it.** Machine evidence alone tops out at **75**; 76 and above take our team's
+  confirmation or the owner's claim. A green listing whose evidence turns against it (a dead site, a closure report)
+  drops out of green until someone looks again.
+- **State business and licence registries** only ever add: a record found raises the score; a record not found never
+  lowers it (many rural sole proprietors, ranches and family businesses are never registered, and a business on a
+  nation's land is licensed by the nation, whose register comes first); a record saying dissolved or revoked goes to a
+  person, never straight onto the card.
+- **Provenance holds:** evidence never overwrites what a person or an owner entered; a disagreement is a tip or a
+  Review item, and a claimed listing is only offered the change (as for a person's guide sections: fact tips, never
+  rewrites).
+
+### On the card: the ring and "How we know"
+
+- A ring in the card's top-right column, under the Link button, at the actions' 30px size: the number inside, the arc
+  filled to the score, its colour taken from the red-orange-yellow-green gradient at that score (solid band colours are
+  a one-line switch if the olive between yellow and green reads badly). The ring uses a deeper gold than pure yellow so
+  it shows on cream; the number stays dark brown; the label is spoken for screen readers, so the score never rests on
+  colour alone.
+
+| Score | Band | What it means | What "How we know" tells a visitor |
+|---|---|---|---|
+| 0–25 | Red | Raw crawled data, unconfirmed | **Unconfirmed:** found by our crawler and not yet checked |
+| 26–50 | Orange | Vetted by sources; scores compounding | **Being checked:** some sources agree, and it's being confirmed |
+| 51–75 | Yellow | Qualifies on confidence scoring | **Qualified:** enough independent sources agree |
+| 76–100 | Green | Confirmed by Traversence or claimed by the owner | **Confirmed by Traversence**, or **Claimed by the owner ✓** |
+
+- Tapping the ring opens **How we know**: each piece of evidence and its date ("Address matches Google Maps · Oct 2026",
+  "Phone on its own website · Sep 2026", "Owner confirmed · Aug 2026") and the number. Each field has **Is this right?**
+  Yes (strengthens it) or No (opens a pre-filled correction).
+
+### Closed or moved: notified, never hidden
+
+A listing stays findable at every step:
+- **Possibly closed:** one source says so (an amber notice).
+- **Reported closed:** two or more sources agree, or a visitor reports it (a red notice; it sorts below open places).
+- **Closed:** confirmed by a person or the owner. Still found by name with a "Closed" tag; out of browse lists.
+- **Moved:** a notice with the new address when we have it.
+Each notice carries **Still open? Tell us**, so the owner or a visitor corrects it in one tap.
+
+### Upkeep and touchpoints
+
+- **Automatic checks** (its own website, Google, OpenStreetMap): **monthly** below 51, **quarterly** at 51 and above,
+  **never more than 90 days apart**. Anything that changes (a closure report, a dead site) starts a check at once.
+- **Owner "Still right?" email:** twice a year (one tap confirms; a change opens their editor).
+- **Full re-verification** (registries, licences): yearly.
+- This replaces Phase 6's single "listings every 30 days" clock.
+
+### Less work for people
+
+- **Machines decide when the evidence is overwhelming; people see the uncertain middle.** The same Google place ID and
+  the same phone on two listings is an automatic merge (the Helper's rule); a closure agreed by three sources becomes a
+  "Reported closed" notice without waiting. Every automatic decision is reversible.
+- **Review is ordered by value:** low confidence on listings many people view comes first.
+- **Paid checks go where they move the score:** weak and much-viewed listings first, settled ones on the slow clock.
+- **Google's answers are used in full:** a shared place ID marks duplicates; a name that matches with a different
+  street number or town is a "Moved or wrong address?" item (Google's address isn't kept); a listing Google can't find
+  several times, with nothing else confirming it, goes on a low-priority list, never removed on Google's word.
+
+### Listing check: the checking process as a template
+
+The checking process is a Content template, **Listing check**: its sources in order, free first (its own website,
+OpenStreetMap, registries, our reference index), then Google, then web search only for the gaps; the cadence per band;
+its budget. It's shaped, previewed and tried like the Place guide and Live events, so guides, events and listings run on
+one engine. The same store and score can later rate landmarks, outdoor places, event venues and Nexus brands; listings
+come first, where the payoff and the labor are.
+
+### Opening a hub (no cold start)
+
+"Read the record before paying" fails where the record is empty, so a new hub opens in stages and never fails in public:
+
+| Stage | What happens | Visitors see |
+|---|---|---|
+| **1. Planned** | The state's laws reviewed in the jurisdiction register (the region hold blocks publishing until then); the free sources set: statewide files, the official visitor bureau and chambers, the state's and nations' registries. | Nothing |
+| **2. Seeding** | Free bulk sources fill the store first: OpenStreetMap, NPI, IRS, landmarks, the National Register, the Library of Congress, outdoor recreation, state registries, chamber and visitor-bureau directories. Nothing publishes unless it passes readiness. | Nothing |
+| **3. Opening budget** | A one-time paid allowance for the hub, separate from monthly upkeep (opening never starves existing hubs, nor they it), spent highest value first: the busiest towns, then the essentials (fuel, food, lodging, medical, emergency), then the rest. | Nothing |
+| **4. Soft open** | When the readiness targets are met (every town's essentials at 51+, most listings at 51+, the community and city guides written), it opens marked as a new area: honest rings, monthly checks, missed searches feeding gap-filling. | The hub |
+| **5. Open** | Most listings at 51+: normal upkeep. | Normal |
+
+- **"Read first; if it's thin, fill it from the hub's budget":** a thin record starts gathering, never a failure.
+- **Each hub makes the next cheaper:** state registries, chains (Nexus), statewide files and businesses near borders are
+  already in the store; the second hub in a state starts warmer than the first.
+- **A hub readiness meter** in the admin shows each target, the opening budget spent and left, and what's still to fill.
+  A hub that falls short stays in Seeding.
+- The readiness targets and the opening budget are settings in Thresholds & gates; the budget is set per hub when it's
+  opened, from a suggested amount the meter works out from its town and listing counts.
+
+### Costing a hub: Payson (Rim Country), worked example (2026-10-31)
+
+Planning estimates (the live counts come from the meter; Preview shows exact costs before anything runs), at the rates
+the site is configured with: Sonnet $2/$10 and Haiku $0.10/$0.50 per million tokens in/out, web search about 1¢, Google
+Text Search $0.032 at list price inside Google's free monthly allowance.
+
+- **Scope:** 13 guides (the Rim Country area guide; communities: Payson and Star Valley, Pine and Strawberry, Christopher
+  Creek with Kohl's Ranch and Tonto Village; about 9 towns), about 22,000 people, about 1,500 raw candidates and about
+  900 listings published. The Tonto Apache Tribe's land borders Payson and follows the nation rules; Arizona's laws are
+  reviewed, so there's no region hold.
+
+| Opening work | How much | Cost |
+|---|---|---|
+| Seeding from free bulk sources | Everything | $0 |
+| Verify for candidates lacking references | ~900 × ~2 searches | ~$18 |
+| Google checks on published listings | ~900 | $0 inside the free allowance (~$29 at list) |
+| Research briefs (gaps only) | 13 × ~$0.20 | ~$3 |
+| Guide drafts (two passes) | 13 × ~$0.25 | ~$3 |
+| Heritage facts, names, topic summaries (Haiku) | 13 places | under $1 |
+| Find it (crawler first; Claude for ~40%) | ~130 names, ~50 paid | ~$4 |
+| **Total** | | **≈ $30** (≈ $60 if Google charged list) |
+
+- **Suggested opening budget: $50.**
+- **Monthly upkeep after:** listing checks about 450 a month (~$1–2), guide checks free plus a renewal or two (~$0.50),
+  Live events for 4 places weekly (~$0.50): **≈ $2–5 a month**. Members' AI Assist asks are paid for by plan credits.
+- **People are the real cost:** about 150–200 Review items at opening (1–2 minutes each, **4–6 hours**, mostly in the
+  first two weeks), then **about an hour a month**, falling as owners claim and visitors confirm. Green rings take our
+  team or the owners: owner outreach (Sales) is the lever, and it's revenue.
+- **Watch:** Payson's ~900 checks on top of today's ~1,600 a month pass the worker's cap (3,000, stopping at 2,700):
+  raise `GOOGLE_PLACES_MONTHLY` to about 4,500 (inside Google's free 5,000, as Google's pricing stands) or let the
+  opening checks spread over two months. Seeding takes about 1–2 weeks of paced crawler runs before soft open.
+
+### Proving the return
+
+A **Listing quality** card in Insights and in Services & usage, monthly: the share of listings in each band and the
+average score; issues found by each source (Google, OpenStreetMap, the crawler, registries, visitors); issues resolved
+automatically versus by a person; the time to resolve; what each paid source cost per issue found. A monthly sample of
+listings in each band is spot-checked, like the quarterly guide audit, to tune the weights.
+
+### Build order
+
+1. The observations store, filled from what we already hold.
+2. Listing confidence: the score, the ring and How we know, visitor confirmations.
+3. Google and OpenStreetMap used in full (duplicates, address mismatches, not-found); the Listing check template;
+   cadence by band; automatic decisions; value-ordered Review; closure and moved notices.
+4. Opening a hub: the stages, the readiness meter, the opening budget and its estimate.
+5. The Listing quality report.
 
 ## Records this replaces (for the crawler)
 
