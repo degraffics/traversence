@@ -1,6 +1,8 @@
 # ADR 0005: Human-in-the-Loop Guardrails on All AI/Autonomous Ingestion
 
-**Status:** Accepted. **Amended 2026-09-29 by `decisions/0044`** (crawled directory listings may auto-publish at high confidence, under guardrails; narrative content is unaffected). **Amended 2026-09-24** — see the System-Created vs. Self-Generated Partner Content amendment below; the original Decision and Consequences sections are left as written, since the amendment narrows what this ADR's staging-and-sign-off rule was ever meant to cover rather than loosening it.
+> **Crawler rules: superseded by `decisions/0133` (2026-10-30), the crawler's one rule book.** This record stays as history; where it and 0133 disagree, 0133 rules.
+
+**Status:** Accepted. **Amended 2026-10-30 for place guides** (see the last amendment: Claude's guides publish themselves, a person corrects after). **Amended 2026-09-29 by `decisions/0044`** (crawled directory listings may auto-publish at high confidence, under guardrails; narrative content is unaffected). **Amended 2026-09-24** — see the System-Created vs. Self-Generated Partner Content amendment below; the original Decision and Consequences sections are left as written, since the amendment narrows what this ADR's staging-and-sign-off rule was ever meant to cover rather than loosening it.
 
 ## Context
 
@@ -32,6 +34,34 @@ All autonomous scraping (`ingestion-scrape-queue`) and AI-assisted drafting outp
 - **The vision risk this guards against — corporate overreach.** A filter built like a heavy-handed social-media content-moderation algorithm — over-filtering tone, flagging colloquialisms, injecting rigid stylistic rules — would betray the platform's anti-extraction, pro-autonomy positioning (`commercial.md` §9, `brand.md` §1's "replacing legacy corporate directories"). It would make Traversence feel like exactly the kind of gatekeeping tech platform it's positioned against, to the small businesses it exists to serve.
 - **The actual mandate — guardrails without friction.** The filter's scope is strictly hard safety and integrity: blocking malicious actors, illegal goods or services, explicit spam, and fraudulent representations. It protects the directory's integrity. It never questions a merchant's local flavor, regional voice, or personal expression — tone, colloquialism, dialect, and style are explicitly out of scope, not edge cases to tune conservatively.
 - **Framed as a network defense shield, not a content tax.** Whatever technical subsystem eventually gets chosen or built for this check must be evaluated against this scope before it's evaluated on accuracy or convenience — a filter that's technically effective at catching spam but also flags regional phrasing or informal tone as a side effect fails this ADR's actual requirement, not just a style preference. This is the same posture `decisions/0007` already established for tier pricing (sell tools, never gatekeep visibility) applied to content instead of ranking.
+
+## Amendment (2026-10-30, Jason): place guides publish themselves
+
+"I don't want this process to bog me, the human, down with processing or fixing. I would prefer the LLM and crawler
+compile guides as best they can and publish them; the Chameleon Filter injects relevant tags to drive visitors and
+locals to the listings and resources they need. Admins can always edit or unpublish guides as needed."
+
+**The place guides (`decisions/0131`) move from sign-off before to correction after.** The crawler gathers a dossier
+(Wikipedia, Wikidata, the place's official website, our own records), Claude writes the guide from it and from our
+team's field notes, and the guide goes live by itself, marked "Compiled by Traversence from public sources and local
+knowledge" with its date and a Suggest a change link. Our team edits it or takes it down at any time, and a guide
+taken down stays down until a person publishes it.
+
+What still holds, unchanged:
+- **The protected places rule:** a guide that names a place that may be sacred, burial or protected
+  (`decisions/0066`), or a closed business, never goes live by itself. Claude is asked once to write it without that
+  name; if the name stays, the guide waits as a draft.
+- **Approval by rule, review when required** (Jason: "the standing rule is we approve, but not review it unless
+  required"). A name the guide uses that we don't have shows as plain text. Find it's result (crawler first, then
+  Claude) carries a confidence score. At or over the rule's lowest score (System Configuration → AI use, 80 by default),
+  with a phone and an address, it becomes a listing under that standing approval. Below it, or when its phone or
+  website belongs to another listing, it goes to Review for a person. A guide publishes itself only at or over its own
+  lowest score (70 by default).
+- **Human words come first:** Claude never rewrites a section a person wrote.
+- **The switch:** System Configuration → AI use → *Guides publish themselves* turns this off, and with it off every
+  guide returns to this ADR's original sign-off.
+
+The other System-Created content (the catalog articles, `architecture.md` §25) keeps the original gate.
 
 ## Consequences
 

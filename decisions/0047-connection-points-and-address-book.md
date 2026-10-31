@@ -33,6 +33,9 @@ The Notification Center gathers every section's counts (messages, dispute clocks
 
 ### 2. Connection points (the Link action)
 
+*Refined by `decisions/0132`: the Link button is the **Follow** kind of link (communication only); tags say what
+content is about, and links are the relationships that grant rights.*
+
 - **One Link button, on anything:** a person, business/listing, place (hub, geo-hub, cluster, anchor,
   local name), topic or category, guide or story, marketplace item, event. It is the chain icon, with the
   same states: flat gold unlinked, green glow linked. One tap links; another unlinks.

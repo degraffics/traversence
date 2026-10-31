@@ -1,5 +1,7 @@
 # 0085. Continue with Google; the crawler checks listings against Google, paced and capped
 
+> **Crawler rules: superseded by `decisions/0133` (2026-10-30), the crawler's one rule book.** This record stays as history; where it and 0133 disagree, 0133 rules.
+
 - **Status:** Accepted
 - **Date:** 2026-10-14
 - **Builds on:** 0079 (standing), 0084 (web search allowance; the Google notes)
@@ -108,3 +110,33 @@ checks; nothing is closed on Google's word alone.
 The button didn't show on the live site. The site reads `.env` when it first connects to the database, and the check
 for the Google keys ran before that. Now it connects first, and the sign-in and sign-up pages load the site's settings
 before anything is printed. Checked with the keys only in `.env`, as on the server: the button shows on both pages.
+
+## Amendment, 2026-10-14: a day's share
+
+The first live readings: 25 Google checks within the first few runs. The pace lets the month-to-date share go in one
+day (on the 14th, up to about 1,200, until Google's own 200 a day stopped it). Now both counters, web search and the
+Google check, also allow no more in a day than the month's stop divided by the days in the month: about 88 Google
+checks and 29 searches a day. An unused morning never turns into a burst later. Settings shows the day's share and
+today's count. A site-only change (`/api/crawl/usage.php`): the crawler needs nothing new.
+
+## Fix, 2026-10-14: Bluehost's firewall and Google's answer
+
+The first live sign-in came back "Not Acceptable!" (ModSecurity). Google's answer lists the granted scopes as links
+(`scope=… https://www.googleapis.com/auth/userinfo.email …`), and the host's firewall refuses a request carrying a link
+to another site. Google now answers after "#" (`response_mode=fragment`), which the browser never sends to the server.
+A small page at the same address reads it and sends on only the code and state. The button starts with `?start=1`.
+Checked with a stand-in for Google answering the way it does: the server saw only `?code=…&state=…`, and the sign-in
+finished.
+
+**Second fix, the same day.** Google ignored `response_mode=fragment` for the code flow: the live sign-in came back with
+`iss=https://accounts.google.com` and the scope links in the address, and was blocked again. The sign-in now asks for
+Google's signed ID token directly (`response_type=id_token`, with a nonce). That answer always comes after "#". The page
+posts only the token and state, and the server checks Google's RS256 signature against Google's published keys
+(`googleapis.com/oauth2/v1/certs`, cached for an hour), plus the state, issuer, audience, expiry, nonce and confirmed
+email. No client secret is needed for it. This is the method Google's own "Sign in with Google" button uses. Checked with a
+stand-in that signs like Google:
+- a new person reaches "Finish creating your account";
+- a forged signature and another site's token are refused;
+- no request to the server carried a link.
+
+**Third fix.** The first live try with the ID token passed Google's signature check but read "That sign-in was for another site": on the way back the client ID was compared before `.env` was read (it's read on the first database connection). `/api/auth/google.php` now connects first, and the claim checks do too. Checked with the keys only in `.env`, as on the server: the sign-in reached "Finish creating your account".

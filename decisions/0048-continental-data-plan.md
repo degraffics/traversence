@@ -1,5 +1,7 @@
 # ADR 0048: Continental Data Plan
 
+> **Crawler rules: superseded by `decisions/0133` (2026-10-30), the crawler's one rule book.** This record stays as history; where it and 0133 disagree, 0133 rules.
+
 **Status:** Proposed (2026-09-30), for Jason's decision. Builds on `decisions/0004` (phased infrastructure),
 `decisions/0005` (people approve system-created content), `decisions/0043` (guides), `decisions/0044`
 (confidence-gated auto-import) and `decisions/0045` (our own reference index, source-first crawling).

@@ -1,5 +1,7 @@
 # 0062: Identities: one record per thing, every fact with its sources, verification by consent
 
+> **Crawler rules: superseded by `decisions/0133` (2026-10-30), the crawler's one rule book.** This record stays as history; where it and 0133 disagree, 0133 rules.
+
 **Status:** Accepted, 2026-10-03. To be built in steps (below), listings first.
 **Source:** discussion with Jason on 2026-10-03 (the admin helper: duplicates that aren't clear, listings missing
 phone numbers with no way to find them, and "this shouldn't be a single phone number search, it's an identity builder

@@ -1,0 +1,191 @@
+# 0105: Workspaces 1 and 2, Dashboard and Pulse
+
+Status: Built (2026-10-21). Jason approved the definitions below the same day.
+
+## Pulse Stream (workspace 2)
+
+Everything that needs an answer or an action, in one stream. Items are read live from where they happen; nothing is
+copied (`app/lib/Pulse.php`).
+
+**Filter chips** (each kind shows only to those whose role reaches it):
+
+| Chip | Items | Needs the area |
+|---|---|---|
+| Inquiries | claims to confirm or on hold; visitors' suggestions and feedback; your own unread messages | Listings |
+| Sales | prospects due a follow-up; orders sent and waiting on the client; orders approved | Sales |
+| Fulfillment | orders past their due date; proofs with changes asked; approved orders to make and ship | E-Commerce |
+| Payments | card disputes; payments received; refunds; QuickBooks refunds to place | E-Commerce |
+| Safety | open reports; reviews asked on a notice | Safety |
+| System | failed crawl jobs; the crawler stopped; files near the ceiling | Data |
+
+Plus **Mine** (items you've taken), **Needs action** (the default), and **Done**.
+
+**Critical items** are pinned on top in red and shown in Dashboard → Alerts:
+- a card dispute;
+- an order past its due date;
+- a report about safety, a sacred or restricted place, or private details;
+- the crawler with no work for more than a day while jobs wait;
+- files over 90% of the 200,000 ceiling (counted at most hourly).
+
+**The split drawer** opens the item's own tool beside the stream (its page in the embedded view). On a phone it fills
+the screen with a back arrow. **Done** marks the item done and closes the drawer; **Full page** opens the tool in a new
+tab.
+
+**Card actions** (30px round icons down the right edge): Take it / Let it go, Done / Not done, Open the full page.
+`pulse_marks` keeps who took an item and when it was done. Each mark is also written to the action log
+(`audit_log`). An item's key includes what changes it (e.g. a claim's status), so a done item comes back if it
+changes.
+
+## Dashboard (workspace 1)
+
+- **Your day:** unchanged.
+- **Helper:** unchanged.
+- **Alerts:** Pulse's critical items, with a count on the tab.
+- **Quick actions:** tiles for what the person's role reaches: New client order, Add a listing, Find a listing, New
+  prospect, Pulse, Reports, GO Codes. "New ticket" is shown as coming (Service's workspace).
+- **Order terminal** and **Business numbers:** as in 0104.
+
+## Files
+
+- New: `app/lib/Pulse.php`, `app/ui/pulse-ui.php`, `website/admin/api/pulse.php`, `app/migrations/2026-12-14_pulse.sql`.
+- Changed: `app/lib/Workspaces.php`, `website/admin/w.php`, `app/lib/StaffLogin.php` (the Pulse API is in every
+  staff member's area), `app/ui/app-shell.php` (a check icon), `website/admin/settings.php`.
+
+## Later
+
+**Stream settings** (routing rules per department and answer timers) stays "Coming".
+
+## Addendum (2026-10-21, later): Pulse rebuilt to Jason's mockup
+
+The first build was a task list, which wasn't what Jason designed. The admin Pulse is the role's daily work, shown in
+the same shell as the member Pulse. Workspaces 1 and 2 are now one screen (`tv_pulse_board()` in
+`app/ui/pulse-ui.php`); the Workspace 2 menu entry opens it scrolled to the stream.
+
+- **Header:**
+  - the Pulse mark;
+  - **Working as**: Platform Admin or a department for Founders and Executives, your own department otherwise;
+  - count chips: Operational Queues, Alerts, Order Mgmt, System Health, Mine, Resolved;
+  - the bell (critical cases, and those escalated to you), Stream settings;
+  - **+** (post to the team) and **Search all platform events**.
+- **Operational Task Queue:** critical and alert cases, each with its action link and a live **SLA clock**, filtered by
+  source icon.
+- **Quick Actions & Navigation:** links for what the role reaches, and a box to **post** to a department or everyone.
+- **Unified Communications Hub (Pulse Stream):** a table of From (source icon and label), Severity, Subject with its
+  action link, and Received.
+- **Case drawer** (opens on a row):
+  - Case #, source, severity, received, SLA, status, assigned, escalation, details;
+  - **Open the tool**, as a pop-up of the tool's page;
+  - **Quick comment** with **Post**: *Reply to the sender* (emailed, with a copy kept on the case) when a person raised
+    the item, otherwise *Note to the team*;
+  - **Escalate**, **Assign**, **Take it**, **Mark resolved / Reopen**;
+  - **History**.
+
+**Severities and SLAs** (Jason: double the first proposal; editable later in Stream settings):
+
+| Severity | SLA |
+|---|---|
+| Critical | 2 hours |
+| Alert | 8 hours |
+| Update | 2 days |
+| Event | no clock |
+
+**Escalation:** Escalate sends a case to its department's Manager; still open a further SLA later, it shows as
+escalated to the Director.
+
+**Sources:** Support, Sales, Fulfillment, Payments, Safety, **Security** (staff logins locked, a failed sign-in spike
+of 5+ in an hour), System and **Team** (posts).
+
+**Admin shortcut bar** (above every admin page): Dashboards, Operations, Security, Users, Content, Logs and System,
+each opening the workspaces and tools it groups. The 11 workspaces stay on the left. **Logs** (`/admin/logs.php`)
+shows the action log and staff sign-ins.
+
+**Staff profiles** (`/admin/staff-profile.php`):
+- photo and name from their public profile;
+- TRV ID, level and department, who they report to, who assists them, the workspaces they open;
+- work email and phone, availability (in, away, out, until), about;
+- their open cases.
+
+Each person edits their own; owners edit anyone's. Their public profile shows a **Traversence team** badge only if
+they turn it on.
+
+**Migration:** `2026-12-15_pulse_cases.sql` (case numbers, escalation, `pulse_notes`, `pulse_posts`, staff profile
+columns).
+
+## Addendum (2026-10-21, evening): one case per order, and the split view
+
+- **One case per order** (`order:ID`). Sent, approved, paid, proofs with changes, past due, to ship, refunds and
+  disputes all fold into it; it takes the most pressing severity among them. A newer event reopens a resolved case.
+  The case closes when the order is Complete or refunded.
+- **The order in the case:**
+  - a stepper: Sent → Approved → Paid → In production → Shipped / Ready for pickup → Complete (orders with nothing to
+    ship skip that step);
+  - **Next step** buttons: Start production, Sent to the printer, Mark shipped (asks for the tracking number in the
+    case), Ready for pickup, Mark complete.
+
+  These use the order's own stage change (`ClientOrders::setStage`), which also emails the client. They're written to
+  the case history, and Complete resolves the case.
+- **Split view:** the case is a fixed column on the right, and the tool opens to its left in the same overlay. It
+  opens there on its own on a wide screen (1100px and up). On a phone, the tool covers the case, with "← Case" to go
+  back.
+- **The case card:**
+  - the title on top, then chips (severity, SLA, open or resolved, who has it, escalation);
+  - one action row (Take it, Assign to…, Escalate, Resolve);
+  - a composer with Reply to <sender> / Note to the team;
+  - the history as a timeline.
+
+## Addendum (2026-10-21, night): procedures, explanations, management, printer jobs, layout
+
+- **How to clear this.** Every case has its procedure as a numbered checklist (`Pulse::playbook()`):
+  - each step has its own button: **Open** (the tool beside the case, at the right spot), **Write it** (fills the
+    email to the sender), a stage change, or **Resolve**;
+  - steps the data proves (paid, approved, dispute closed, order complete) tick themselves;
+  - the rest are ticked by hand, and each tick is logged.
+
+  There are procedures for past due, proofs with changes, disputes, waiting on the client, orders to make and ship,
+  reports, claims, visitor notes, member reviews, locked logins, sign-in spikes, the crawler stopped, failed crawl
+  jobs, files, sales follow-ups, QuickBooks refunds and team posts.
+- **The labels explain themselves.** Tap a chip (source, severity, SLA, status, assigned, escalation) to see what it
+  means for this case, its rule, and where it leads (the department queue, the Manager and Director by name, Escalate
+  now).
+- **Manage**, on an order case: Edit the order, Send to the client again, Record a payment, Change the due date, Refund
+  or credit, Add an order note, Void the order (unpaid only). All of these go through the order system. Your own
+  notes and team posts: Edit and Delete. Forms open inside the case, never as pop-ups over it.
+- **Printer jobs** (`order_vendor_jobs`, migration `2026-12-16_vendor_jobs.sql`): Sent to the printer asks for the
+  vendor (with suggestions), their work order number, the expected date, our cost and a note. More jobs can be added
+  from the case. These are kept on the order's history and the case, and never shown to the client, who is only told
+  it's been sent to print. The Vendors tool (Back-Office) builds on them later.
+- **Shop orders** (bought on the site) have their own steps (Ordered → Paid → Codes issued). They open the order page,
+  aren't counted as "to make and ship", and close once paid.
+- **Order case links** name the pressing issue first (Review, Answer, Make changes, Follow up), then the next
+  production step.
+- **The tool beside the case scrolls**, inside the split view.
+- **Layout:** the Operational Task Queue and Quick Actions sit above the Pulse row and collapse, remembered per
+  browser. The chips sit directly on the stream they filter.
+
+## Addendum (2026-10-21, late): one-screen Dashboard, icons, Shortcuts menu
+
+- **The Dashboard has no tabs.** It's the Pulse board: Operational Task Queue, Quick Actions, and **Your day** (the
+  daily steps, as a third collapsible panel, closed to start) above the Pulse row and stream. **Helper** and **Order
+  terminal** are Quick Actions links. Business numbers live in Insights (workspace 10).
+- **The bell** has a bell icon and shows pressed while it filters to critical and escalated cases. **The gear** opens
+  Stream settings from any workspace.
+- **The admin shortcut bar** became one compact **Shortcuts** button beside the page title. It opens a vertical list
+  grouped by Dashboards, Operations, Security, Users, Content, Logs and System, and closes on a click outside or Esc.
+
+## Stream settings (built 2026-10-21)
+
+Pulse → Stream settings (the gear on the board).
+
+- **Routing:** which department's queue each kind of item goes to (Support, Sales, Fulfillment, Payments, Safety,
+  Security, System, Team), or Everyone.
+  - The department decides who sees it in their view, and who it escalates to: that department's Manager, then its
+    Director.
+- **Clocks (SLA):** hours per severity, 0 to 720, where 0 means no clock. The defaults are Critical 2, Alert 8,
+  Update 48 and Event 0.
+  - A case's "Act within …" text and its Over badge follow the setting.
+- **Who can change them:** a Director, an Executive or the Founder. Everyone else sees them read-only.
+  - **Use the defaults** puts everything back.
+  - Each change is written to the action log, for example "Fulfillment → Sales; Critical 4 hours".
+- **Storage:** only the values that differ from a default are stored, in `pulse_settings` (migration
+  `2026-12-19_pulse_settings.sql`). Until that migration runs, the defaults apply.
+

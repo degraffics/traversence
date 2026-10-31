@@ -145,3 +145,154 @@ Consistent name, address and phone everywhere is what search engines trust; this
 Covered by the Nexus (`decisions/0054`): a clinic or center's providers and offices are members of its Nexus, with the role
 "provider", the same way Changepoint Integrated Health's clinics are its locations. Review already tells them apart from
 duplicates (`decisions/0074`); the Nexus is what links them. 0054 is accepted but not built yet.
+
+
+## Connections: one place to manage a business's data across platforms (added 2026-10-15)
+
+Jason's aim: people and businesses connect the platforms they already use, bring their data into Traversence, and
+manage it from here instead of from several places. Sign-in buttons (Google today; Apple and Microsoft next,
+decisions/0085) are a start, but they don't connect anything.
+
+**Sign-in and connections are different things.**
+- **A sign-in** only proves who someone is: name, email and an account ID, nothing more by design.
+- **A connection** is a separate permission the person grants later, when they want it, for one purpose ("Connect your
+  Google Business Profile"). It's kept apart from sign-in, so disconnecting a platform never locks anyone out.
+
+**What a sign-in does give:**
+- The developer app. Google and Microsoft can ask the same app for more access later ("incremental consent").
+- The account link. A signed-in person who taps Connect lands on the right Traversence account without extra matching.
+
+**What each platform offers:**
+
+| Platform | Data a connection could bring in (and send back) | What it takes |
+|---|---|---|
+| Google Business Profile | Hours, address, phone, categories, photos, posts, reviews (read and reply); edits made here can go back to Google | The same Google app, plus Google's approval for the Business Profile APIs |
+| Microsoft (Graph) | Calendar (bookings, events), OneDrive files, Outlook contacts | The same Microsoft app; the person approves each scope |
+| Facebook and Instagram (Meta Graph) | Page details, events, posts, photos | Meta app review for each permission, business verification, a data-deletion page |
+| Amazon Selling Partner API | A seller's catalog, prices and stock, for a local shop that also sells on Amazon | A separate developer registration in Seller Central, Amazon's review, and the seller authorizing it there. Login with Amazon doesn't carry over. |
+| Amazon Pay | Checkout with the buyer's Amazon address and card; Login with Amazon comes with it | When the marketplace has checkout |
+| Apple | Nothing; Sign in with Apple has no data behind it. Apple Business Connect (Maps listings) has no general API. | — |
+| Anything without an API | The platform's own export (Google Takeout, Facebook's "Download your information", a CSV) uploaded and read in | An import tool per format |
+
+**How connections would work:**
+- **Ask only for what a tool uses,** when the person starts it, and show what will be read and written.
+- **Bring in, then let the person choose.** Imported data is staged like the crawler's: the owner sees what's new or
+  different from their listing and picks what to keep. Nothing overwrites a field a person entered.
+- **Traversence as the one place.** Where a platform allows writing back (Google Business Profile hours, Facebook Page
+  details), a change made here goes out to the connected platforms, so the owner edits once. This is the "Directory sync"
+  entry above, done per owner through their own connections, and it needs the same category map.
+- **Keys and control:**
+  - access keys are encrypted on the server and never shown;
+  - any connection can be disconnected at any time, which revokes the key at the platform too;
+  - what was brought in stays.
+- **A `connections` record apart from sign-in identities:** provider, owner (person or business), scopes, encrypted
+  key, status, last sync, last error.
+
+**Suggested order:**
+1. **Google Business Profile.** Most local businesses have one, and it fills listings with hours and photos the owner
+   already keeps up to date.
+2. **Facebook Pages** (events and posts) for venues and groups.
+3. **Amazon seller import,** when the marketplace takes products.
+4. **Amazon Pay,** with checkout.
+5. **Microsoft calendar,** for bookings.
+6. **File imports** for anything without an API.
+
+
+## Sign in with Apple: built, waiting until it's needed (added 2026-10-15)
+
+Sign in with Apple is built and tested (decisions/0090: `app/lib/SocialAuth.php`, `/api/auth/apple.php`, the Apple tile
+on the sign-in card). Jason has put it on hold because it needs the **Apple Developer Program, $99 a year**. Until
+`APPLE_CLIENT_ID` is in `.env`, the Apple tile doesn't show and nothing else changes.
+
+**When to turn it on:**
+- an iPhone app: Apple requires Sign in with Apple in any iPhone app that offers other social sign-ins (Google,
+  Facebook, Microsoft);
+- or visitors asking for it, since many iPhone users prefer it and its "Hide My Email".
+
+**Setup, when the time comes:**
+1. Join the Apple Developer Program.
+2. Create an App ID with "Sign in with Apple".
+3. Create a Services ID (its identifier goes in `.env` as `APPLE_CLIENT_ID`). List traversence.com and the return
+   address `https://traversence.com/api/auth/apple.php`, plus the www. form.
+
+No code changes are needed; Settings shows "Sign in with Apple: On" once it's set.
+
+
+## Businesses selling through their own QuickBooks (added 2026-10-15)
+
+Jason: let listings integrate QuickBooks into their profile as their ecommerce merchant processor, using the GO Codes
+QuickBooks framework (decisions/0095, 0096). Agreed to build later, after two-step sign-in (decisions/0097).
+
+**The shape, as discussed:**
+- A business owner connects **their own** QuickBooks company from their listing's manage page. Their products and
+  prices come from (or go to) their QuickBooks items; a visitor buys on the listing page; the sale becomes an invoice
+  in **the business's** QuickBooks, paid on QuickBooks' hosted page, and **the money goes straight to the business**.
+- No commission at first, and no card form on our site, so no Payments API: Traversence isn't in the money flow.
+  Taking a cut or embedding card entry later would bring in the Payments API, Intuit's regulated "payments / money
+  movement" review and possibly money-transmitter rules: a separate decision.
+- Which tiers can sell (commercial-2) is to be decided.
+
+**What it takes:**
+- **A separate Intuit app** (e.g. "TRVGO for Business"), public, with its own keys and its own review, so the private
+  GO Codes app (Traversence's own sales) stays as approved. Public apps are reviewed again each year.
+- **One connection per listing** (today there's one, Traversence's), each business's tokens encrypted and strictly
+  separate; webhooks routed by the company id (realmId); connect / reconnect / disconnect from the owner's profile;
+  the reconnect alerts going to that owner.
+- **Two-step sign-in for business owners** before they can connect payments (staff have it: decisions/0097).
+- Intuit's questionnaire answered for that app: public; any admin of the connecting company; the same OAuth handling,
+  logging and intuit_tid as the GO Codes app.
+- Terms of Use: a section for businesses selling through Traversence (they're the seller; their refund policy; their
+  sales tax).
+
+> **Note (2026-10-16):** Jason's FRD §3.1 names **Stripe Connect** (direct payouts, 0% commission) for businesses
+> selling to visitors, not the business's own QuickBooks. Which one is open in `decisions/0098`; this section stands
+> until that's decided.
+
+## Card disputes from Intuit's emails (noted 2026-10-16)
+
+QuickBooks has no webhook for card disputes (chargebacks); Intuit emails the merchant. Plan, once a real dispute email
+has been seen: QuickBooks' company email goes to a dedicated mailbox (Jason's call: a QuickBooks reference mailbox for
+all transactional email); cPanel pipes a copy of Intuit's dispute emails to a script on the site, which acts only on mail
+whose DKIM signature is Intuit's and whose amount and customer match a paid order (records the dispute, pauses its GO
+Codes); anything else goes to E-Commerce → Orders' inbox for a person. Won/lost emails resolve it the same way. Not
+built: the email's wording and layout are unknown until one arrives in the mailbox.
+
+## Business documents: a vault for Traversence and for listings (noted 2026-10-16)
+
+Platforms keep asking for the same proof of a business. Meta's business verification wants the legal name, address
+and phone matched by an IRS 147C or SS-4 (EIN letter), a business bank statement, a registration or license, a tax
+document, articles of incorporation or DBA papers (.jpg, .png, .pdf, not expired); Intuit, payment processors and
+directories ask for the same kinds. Two uses:
+
+- **Traversence's own:** a private vault in Settings (Owner only) holding the company's documents, each with its kind,
+  the legal name and address it shows, an expiry date and a reminder before it expires, so the next verification is
+  an upload, not a search. Files kept outside the web root, like client-order proofs (decisions/0101).
+- **Listings:** an owner adds their business's documents to their listing (claims and Verification, decisions/0070,
+  0071), private to the owner and our team. They back the claim and the verified badge, and the owner reuses them when
+  Connections (above) links the listing to Google, Meta or a directory that wants the same proof. The legal name on
+  the document is checked against the listing's name and its DBA; a mismatch goes to Review.
+- Rules: never public; kept only as long as they're needed (deleted with the listing's claim or on the owner's
+  request); who opened one is logged; an expired document stops counting as proof and the owner is asked for a
+  current one. Privacy policy and FAQ updated when built.
+
+## A password vault for Traversence's own keys and logins (on hold, noted 2026-10-24)
+
+Jason wants something like Google Password Manager for every key, login and password tied to traversence.com and
+trvgo: AWS, Bluehost and cPanel, Google, QuickBooks, Anthropic, the domains, and the like. On hold at his request.
+
+- **Option 1: an outside manager** (Bitwarden or 1Password; Google Password Manager is weaker for shared company
+  secrets). It lives completely apart from the website, so nothing that happens to the site can expose it. It has
+  sharing with staff, recovery and access history built in. Recommended.
+- **Option 2: built into Traversence, only if zero-knowledge.**
+  - Unlocked with a vault password that never leaves the browser. Every entry is encrypted and decrypted there
+    (WebCrypto: PBKDF2 or Argon2 key, AES-GCM), so the server and S3 hold only scrambled data, and even the whole
+    server with its `.env` couldn't read it.
+  - Its own locked-down page: no outside scripts (not even the Tailwind CDN), a strict Content Security Policy.
+  - The staff authenticator code to open it, auto-lock after a few minutes, a password generator, and a log of who
+    opened which entry.
+  - Owner first; sharing chosen entries with staff by role later.
+  - The catch: a forgotten vault password means nothing can be recovered. There's a printed recovery key, kept
+    somewhere safe.
+- Either way, the site's own `.env` secrets stay in `.env` (the site needs them to run). The vault is the record of
+  them and of everything else. Plain settings are already changed from the admin (decisions/0125).
+- Related, still separate: the business documents vault (above) for proof documents.

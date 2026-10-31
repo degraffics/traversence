@@ -1,5 +1,7 @@
 # ADR 0044: Confidence-Gated Auto-Import of Directory Listings
 
+> **Crawler rules: superseded by `decisions/0133` (2026-10-30), the crawler's one rule book.** This record stays as history; where it and 0133 disagree, 0133 rules.
+
 **Status:** Accepted (2026-09-29). Amends `decisions/0005` for crawled **directory listings** only.
 
 ## Context

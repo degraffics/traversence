@@ -1,5 +1,7 @@
 # 0066. Public data, the Discovery funnel, and expansion that grows on its own
 
+> **Crawler rules: superseded by `decisions/0133` (2026-10-30), the crawler's one rule book.** This record stays as history; where it and 0133 disagree, 0133 rules.
+
 Date: 2026-10-07
 Status: Accepted
 
@@ -92,3 +94,9 @@ how tribal land is presented, and how new areas open.
   used to make that area the place; now it does only on a first arrival with no place set this visit
   (`js/location-scope.js`, `readArrivalRegion`). The page still shows its own area. States are offered from two
   letters, by the start of their name or their code ("ok": Oklahoma, "az": Arizona), at most five.
+
+**Amendment (2026-10-30, Jason): published by a source.** "If a source publishes something we can too." A name that may
+mark a sacred, burial or protected site can be named in our writing (a guide) when a public source already publishes it
+(a state or national park, a museum, the place's official site), and our crawler confirms the source says so. The
+place's own landmark page still waits for a person, and a place a nation has asked to be closed stays closed.
+

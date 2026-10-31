@@ -1094,3 +1094,13 @@ pages, boundary checks on Recreation.gov places, experiences and journey pins, a
 
 **Housekeeping:** merge `claude/magical-clarke-cn5pqi` into `main` when ready. Revoke the GitHub token exposed in the
 OneDrive repo-local config, if not done.
+
+## Addendum to §13, 2026-10-30: pages by address, routes between them, and where visits come from (SEO proof)
+
+Jason: "I want to see actual page url and routes traffic take. This is SEO proof." Besides the sections, counts now
+keep each page's address (path, with ?id= or ?view= only; admin and API pages never), the move from one page to the next
+in a visit, the first page of a visit from outside, and the site that sent it, by name only (Google, Bing, ChatGPT,
+Facebook, trvgo.us for short links and QR codes, another site's name, or Direct); never the referring address or the
+search. Insights shows: arrivals from search engines and from AI assistants, where visitors come from, where they land
+and from where, pages by address, and the routes between pages. Still counts only: no person, account or device. The
+"About pages" section is renamed "Help and other pages" (everything outside the main sections). Privacy updated.
