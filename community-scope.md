@@ -15,6 +15,7 @@ Scope of the Community ("Connect") build, checked on 2026-11-01 against the live
 | Steward role in the dashboard: "Your communities" with members and join requests | `user/dashboard.php`, `app/lib/Roles.php` | 0055 |
 | **Charters** (built 2026-11-01, live once uploaded): every new group opens with one; What you're agreeing to, the whole charter and its versions, Agree and join, Edit the charter, 14 days' notice for transfer terms and opening the member list, members told once | `app/lib/GroupCharters.php`, `community/group.php`, `community/index.php` | 0137 §3 |
 | **Business-owned groups** (built 2026-11-01, live once uploaded): one per business, run by its team's roles; posts as the business or its rep | `Community::roleIn()`, `can()` | 0137 §1 |
+| **The group page as a content page** (built 2026-11-01, live once uploaded): hero with Join top right, kind and topic pills, engage bar (views, Share, QR), at a glance; no breadcrumbs | `community/group.php` | 0137 §4 |
 | Private circles (a person's own lists of connections) | `app/lib/Groups.php` | 0047 §4 |
 | Groups in Universal Search (posts never searched); the Community feed | `app/lib/SearchIndex.php` | 0053, 0055 |
 | Live events from the crawler (a place's official pages), in guides and on venue listings | `app/lib/LiveEvents.php` | 0133 |
@@ -178,7 +179,7 @@ where the people decide who reaches them and nothing can be bought to the top.
    job are still to come.
 5. Events is accepted (0134) but not built: the admin still has it in two places (Let's Explore → Live events, and
    Social → Events "coming") until the build moves it to Let's Explore → Events.
-6. `/community/index.php` still passes breadcrumbs (`crumbs`), which 0058 rules out on content pages.
+6. ~~`/community/` breadcrumbs~~: removed in step 2 (live once uploaded).
 
 ## Missing before the build (2026-11-01)
 
@@ -221,7 +222,7 @@ Already there, so not missing: short links and QR (`ShortCodes`, `Qr`, `QrIssue`
 
 ### D. Fixes to what's live
 
-1. `/community/index.php` and `/community/group.php` pass breadcrumbs (0058 rules them out).
+1. ~~Breadcrumbs on `/community/` and the group page~~: removed in step 2 (live once uploaded).
 2. The group page has no Share or QR button (the site-wide `tvShort` / `[data-qr]` just need adding), and no share
    card.
 3. Groups aren't an engage-bar kind (`Engage::KINDS`), so they have no Link/Share/QR bar like other content.
