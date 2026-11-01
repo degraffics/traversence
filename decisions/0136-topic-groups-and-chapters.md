@@ -4,7 +4,7 @@
 is the group's focus, say traveling the world or cooking with Crisco?" Design; not built. Builds on 0047 (community
 groups), 0102 §4b–4c (group roles, business groups), 0103 (charters, transfer, inactivity), 0132 (tags and links), 0053
 (search), 0066 (nations' land), 0134 (events). Jason's answers are at the end; section 5 (Growing a
-group) is new, for his review before this is accepted.
+group) is written out from his questions, for his review before this is accepted.
 
 ## Context
 
@@ -166,13 +166,11 @@ look. None messages people who didn't ask, and none can be bought (0007).
 - **What a visitor sees:** about, charter and house rules, topic and tags, member count, how active it is ("active this
   week"), upcoming events, places it's about, and its chapters.
 
-**Sharing it themselves**
-- **Invite your connections:** members invite people from their Address Book or a circle (0047). An invite is from
-  the member, to someone they're connected to, a few a day; it can't reach strangers.
-- **A share link and QR:** each group has a short link (trvgo.us); a printable flyer with a QR uses one of the owner's
-  GO Codes (5 free with an account, `commercial.md` §1.3).
-- **Invite codes** for approval groups: someone with the code joins without waiting.
-- **A badge or link** for the group's own website or social pages, pointing back to its Traversence page.
+**Sharing it themselves** (the processes are in 5a–5d)
+- **Invites:** members invite their connections; a business or chamber invites its own people in bulk (5a).
+- **The group's short link, QR and flyer** (5b).
+- **Joining by invite or invite code** (5c).
+- **Share buttons, link previews and badges** that bring people back to the group's page (5d).
 
 **Keeping the members it gets**
 - **A welcome message** to each new member, written by the owner; **join questions** for approval groups.
@@ -181,8 +179,88 @@ look. None messages people who didn't ask, and none can be bought (0007).
 - **How it's growing:** for the owner, page views, joins, and where joins came from (place page, search, event, invite,
   link), counted only, never who (as for outbound taps, 0058 §11).
 
-**What it never does:** message non-members, sell placement, export member lists, or show where members live. A
-business-run group's outreach follows 0102 §4c, and its campaigns come from its plan (Strategic and up).
+**What it never does:** reach people with no tie to the inviter (a stranger only meets a group by finding it), sell
+placement, export member lists, or show where members live. A business-run group's outreach otherwise follows 0102 §4c.
+
+#### 5a. Invites, one at a time and in bulk
+
+**Why invites are limited at all.** Not to slow anyone down: to stop one account (or a stolen one) from flooding
+people with invitations. So the guard is on the pattern, not a daily count:
+- **A member invites any of their connections** (Address Book, a circle, 0047), as many as they like, **once per
+  person per group** (again after 90 days if not answered).
+- The person invited can **turn off group invites**, from everyone or from that person. Someone who blocked the
+  inviter never receives it.
+- If many of one person's invites are reported or turned down, their invites pause and it goes to Standing (0079).
+
+**A business or chamber inviting its own people.** A business (a chamber of commerce is a business listing too)
+invites from the business portal → its group → **Invite your people**, choosing who:
+
+| Who | How they're reached | Plans |
+|---|---|---|
+| **People Linked to the business** (0047) | In-app invitation, under each person's marketing settings (`Marketing`): their frequency, unsubscribe and "no marketing from anyone" are honored | Every plan |
+| **Its customers who are members** (`Customers`) | In-app invitation, as above | Every plan |
+| **Its customers who aren't members**, and **its own list** (a chamber's member businesses, a newsletter list, uploaded as a file) | **One invitation email per address per group**, in the business's name, with a one-click "no more from this business". The business confirms these people agreed to hear from it. Sending pauses if too many bounce or complain | **Strategic and Cornerstone**, counted against the plan's email volume (10k / 50k a month, `commercial.md` §1.1) |
+
+- **All at once:** the whole audience is sent in one go; email goes out in batches the mail system can carry, and
+  the business sees sent, opened (where the mail app tells us) and joined, as counts.
+- **Nothing leaks:** an uploaded list stays the business's (its CRM), is never shared with another business or used
+  by Traversence for anything else, and can be deleted by the business.
+- On Free, Basic and Core, the indirect tools (5b, 5d) and in-app invitations carry the rest; email invitations are a
+  reason to move up.
+
+#### 5b. The short link, QR and flyer: making and using them
+
+From the group page → **Share & invite** (owner and moderators; also in the Steward dashboard):
+1. **Short link.** Made when the group is made: trvgo.us/{code} (`ShortCodes`, kind `page`, 0094), free, the same
+   for everyone and never changed. A chapter has its own. Copy it anywhere.
+2. **QR code.** "Make a QR" draws it on our server (`Qr`), pointing to the short link:
+   - a plain black-on-white code uses one of the owner's **5 free GO Codes** (`QrIssue::FREE_TOTAL`);
+   - a designed code (colors, the group's logo) is a GO Code at **$4.95**, through QuickBooks (0095);
+   - a business-run group on **Core and up** gets **dynamic** codes it can repoint (to a chapter, an event), as its
+     plan already gives.
+3. **Flyer.** Pick a layout (letter flyer, half sheet, table tent, card), and it fills itself: group name, the
+   welcome post's first lines and photo, place, next event, the QR and short link. Download a print-ready PDF (or PNG
+   for screens), or **order it printed** through our print catalog (`Products`, 0101).
+4. **Putting it out:** a short checklist on the page: venues the group uses (with their permission), its events
+   (table tents, sign-in sheets), notice boards, newsletters.
+5. **Keeping it working:** scans are counted per code (never who) and show in the group's growth counts as "QR". The
+   short link always leads to the group page, so a printed flyer never goes stale; if the group ends, it shows that the
+   group has closed and offers its parent or groups like it, never a dead end.
+
+#### 5c. From invitation to member
+
+How someone becomes a member depends on the group's join mode (0047) and how they arrived:
+
+| How they arrive | Open group | Approval group |
+|---|---|---|
+| **Finds it** (place page, search, event, link, QR) | Join → member at once | Ask to join → answers the join questions → a moderator accepts or declines → member |
+| **Invited by an ordinary member** | Accept → member at once | Accept → a request to join, marked "Invited by Maria", for a moderator to accept (unless the charter says members' invitations count as approval) |
+| **Invited by the owner or a moderator**, or by the business (5a) | Accept → member at once | Accept → **member at once**: the invitation *is* the approval |
+| **Uses an invite code** | Member at once | Member at once if the code is set as approved; otherwise a request marked with the code |
+
+**"Skipping approval" means skipping the wait in the request queue,** because a moderator already said yes when they
+sent the invitation or made the code. The person still accepts it themselves, still sees the charter first, and
+joining is still their consent to be seen by members (0047).
+
+**Invite codes:** made by the owner or moderators for a meeting, a class, a customer list. Each has: approved or not,
+an end date, how many uses, and which chapter. A code shows as a link and a QR (as 5b), counts its uses, and can be
+switched off at any time.
+
+**Without an account:** the invitation or code opens the group's page; "Join" leads through sign-up and comes back to
+finish joining. Joining needs an account, not Verification (that's for running a group).
+
+#### 5d. Share buttons, link previews and badges
+
+- **Share** on every group page, for anyone: copy the link, text, email, and the usual social apps; each carries the
+  short link, so a share is counted (as "share") and arrives at the group page.
+- **Link previews:** every group page has its own preview card (name, photo, place, member count, next event), so a
+  link pasted into a social post or a message looks like the group.
+- **Badges for the group's own site and social pages** (owner and moderators, Share & invite → Badges): "Join us on
+  Traversence" buttons (light and dark, three sizes) with a copy-and-paste snippet, and a small **live card** (name,
+  member count, next event, Join) to embed. Free for every group: each one brings people to Traversence.
+- **The landing page is the group page.** A visitor arriving by a link, QR, badge or invitation sees what makes people
+  join (the welcome post, charter, activity, events, chapters) with Join first; someone invited sees "Maria invited
+  you".
 
 ## Data (sketch)
 
@@ -192,7 +270,10 @@ business-run group's outreach follows 0102 §4c, and its campaigns come from its
 | Group tags | in 0132's content tags, kind `group` |
 | `community_group_places` | group, kind (place, listing, outdoor place, landmark), ref, note, added by, removed by owner |
 | `community_groups` (growing) | welcome post id, welcome message, join questions, invite code, short link |
-| `community_group_joins` | group, how the join came (place page, search, tag, event, invite, link, code), day: counts only |
+| `community_group_joins` | group, how the join came (place page, search, tag, event, invite, QR, share, badge, code), day: counts only |
+| `community_group_invites` | group, from (member or business), to (member, or an email for 5a), approved or not, sent, answered |
+| `community_invite_codes` | group or chapter, code, approved or not, ends, uses allowed, used, off |
+| `community_invite_lists` | the business, the uploaded list (in its CRM), consent confirmed by, sends, bounces, complaints |
 
 Migrations guarded with `information_schema` and safe to run twice. Group names stay unique site-wide; a chapter's full
 name is unique by its parent and place.
@@ -209,8 +290,10 @@ groups (0102 §4b).
 3. Chapters: opening, joining (as an existing local group too), posting to all chapters, moderation levels, the
    parent's Chapters list.
 4. Search by topic and place.
-5. Growing a group: Join everywhere, the public welcome post, invites, share link and flyer, invite codes, welcome
-   message and join questions, "Groups like this" and "Groups near you", follower notices, the owner's growth counts.
+5. Growing a group: Join everywhere, the public welcome post, Share & invite (short link, QR, flyer, badges, link
+   previews), invitations and invite codes, welcome message and join questions, "Groups like this" and "Groups near
+   you", follower notices, the owner's growth counts; then business bulk invitations (in-app on every plan, email on
+   Strategic and up).
 6. Chapter endings and reactivation, with the 0103 build (the `lifecycle` table and its daily job), and the Steward's
    activity nudges.
 
@@ -222,5 +305,11 @@ Each step adds its FAQ entries (0057).
 2. **No limit on chapters;** a chapter shows on its place's page from the start; inactivity handles ghost groups, and
    an inactive chapter can be brought back.
 3. **Joining:** the parent's charter decides.
-4. **Tags:** free words with suggestions as you type; **5 per group**, chapters included (Jason: "5 per"); 10 places it's about.
+4. **Tags:** free words with suggestions as you type; **5 per group**, chapters included (Jason: "5 per"); 10
+   places it's about.
+
+For Jason to confirm (section 5, written out 2026-11-01 from his questions):
 5. **Growing a group** (section 5): indirect tools so people find groups and join.
+6. **Invitations** (5a): no daily count; once per person per group; businesses and chambers invite their own people
+   all at once (in-app on every plan; email to customers and their own lists on Strategic and Cornerstone).
+7. **Short link, QR and flyer** (5b), **joining by invitation or code** (5c), **badges and sharing** (5d): as written.
