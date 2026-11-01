@@ -220,3 +220,6 @@ steps.
 - **One case, not one each** (Jason: "These should be consolidated into one pulse"). The source terms to read are one
   case (`terms:due`), with a step per source: its terms link, and I read them. Failed crawl jobs are one case
   (`crawl:failed`), and Retry them all re-queues every one of them in one tap.
+- **Outside services, listed** (Jason, 2026-11-01: "add the outside services list"): System Configuration → Services &
+  usage opens with every outside service we run on (`Pulse::SERVICES`: Railway, QuickBooks, AWS S3, Cloudflare, Claude
+  Console, Tavily, Google Cloud, Bluehost, the GitHub sync), each with what it's for and Open ↗.
