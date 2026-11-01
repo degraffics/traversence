@@ -13,11 +13,11 @@ Scope of the Community ("Connect") build, checked on 2026-11-01 against the live
 | Starting a group needs Verification | `MemberVerification::require(…, 'steward')` | 0062 §4 |
 | Reports on posts and groups (3 reports hide a post until an admin decides) → Admin → Social → Reports, Standing | `app/lib/Reports.php`, admin `social/reports`, `social/standing` | 0047, 0109 |
 | Steward role in the dashboard: "Your communities" with members and join requests | `user/dashboard.php`, `app/lib/Roles.php` | 0055 |
-| **Charters** (built 2026-11-01, live once uploaded): every new group opens with one; What you're agreeing to, the whole charter and its versions, Agree and join, Edit the charter, 14 days' notice for transfer terms and opening the member list, members told once | `app/lib/GroupCharters.php`, `community/group.php`, `community/index.php` | 0137 §3 |
-| **Business-owned groups** (built 2026-11-01, live once uploaded): one per business, run by its team's roles; posts as the business or its rep | `Community::roleIn()`, `can()` | 0137 §1 |
-| **The group page as a content page** (built 2026-11-01, live once uploaded): hero with Join top right, kind and topic pills, engage bar (views, Share, QR), at a glance; no breadcrumbs | `community/group.php` | 0137 §4 |
-| **Moderation run by the group** (built 2026-11-01, live once uploaded): reports to the group's moderators under its charter, held posts, the group's queue, Group help cases; danger and whole-group reports to Traversence's Safety team | `Community.php`, `Reports.php`, `Pulse.php` | 0137 §5 |
-| **Notices sent once** (built 2026-11-01, live once uploaded): join answered, charter changed, post removed, a new group in a followed place; off switches in App Settings | `app/lib/Notices.php` | 0137 §6 |
+| **Charters** (built and live 2026-11-01): every new group opens with one; What you're agreeing to, the whole charter and its versions, Agree and join, Edit the charter, 14 days' notice for transfer terms and opening the member list, members told once | `app/lib/GroupCharters.php`, `community/group.php`, `community/index.php` | 0137 §3 |
+| **Business-owned groups** (built and live 2026-11-01): one per business, run by its team's roles; posts as the business or its rep | `Community::roleIn()`, `can()` | 0137 §1 |
+| **The group page as a content page** (built and live 2026-11-01): hero with Join top right, kind and topic pills, engage bar (views, Share, QR), at a glance; no breadcrumbs | `community/group.php` | 0137 §4 |
+| **Moderation run by the group** (built and live 2026-11-01): reports to the group's moderators under its charter, held posts, the group's queue, Group help cases; danger and whole-group reports to Traversence's Safety team | `Community.php`, `Reports.php`, `Pulse.php` | 0137 §5 |
+| **Notices sent once** (built and live 2026-11-01): join answered, charter changed, post removed, a new group in a followed place; off switches in App Settings | `app/lib/Notices.php` | 0137 §6 |
 | Private circles (a person's own lists of connections) | `app/lib/Groups.php` | 0047 §4 |
 | Groups in Universal Search (posts never searched); the Community feed | `app/lib/SearchIndex.php` | 0053, 0055 |
 | Live events from the crawler (a place's official pages), in guides and on venue listings | `app/lib/LiveEvents.php` | 0133 |
@@ -224,10 +224,9 @@ Already there, so not missing: short links and QR (`ShortCodes`, `Qr`, `QrIssue`
 
 ### D. Fixes to what's live
 
-1. ~~Breadcrumbs on `/community/` and the group page~~: removed in step 2 (live once uploaded).
-2. The group page has no Share or QR button (the site-wide `tvShort` / `[data-qr]` just need adding), and no share
-   card.
-3. Groups aren't an engage-bar kind (`Engage::KINDS`), so they have no Link/Share/QR bar like other content.
+1. ~~Breadcrumbs on `/community/` and the group page~~: removed in step 2.
+2. ~~The group page has no Share or QR button~~ and 3. ~~groups aren't an engage-bar kind~~: fixed in step 2 (the
+   engage bar, kind `group`, with Share and QR).
 4. 0047's header, 0020's "unschedulable", and §27's wording (above, Out of step).
 
 ### Order to close them
@@ -237,6 +236,18 @@ Already there, so not missing: short links and QR (`ShortCodes`, `Qr`, `QrIssue`
 3. Fix what's live (D): it's small, and B2 replaces most of it.
 4. Platform pieces in the order the build needs them: C5 and C4 (with charters), C2 and C3 (with tags and chapters),
    C1 (before business email invitations), C6 (with events), C7 (with flyers).
+
+## Build status (2026-11-01, live mirror 21:51 UTC)
+
+- **Live (0137 steps 1–5, each checked against the mirror):** charters and business-owned groups; the group page;
+  moderation run by the group; notices sent once; email through Amazon SES (the sending side, in mock mode).
+- **Waiting on AWS:** `send.` and `via.traversence.com` are pending verification; the setup runs itself
+  (`ses_setup_tick`), asks for production access once a domain verifies, then `SES_MODE=live`.
+- **Handed off:** 0137 step 6, Connect your domain, to the Storefronts build (`marketplace-architecture.md` §8).
+- **Not built yet:** chapters, tags on groups, places a group is about, topic plus place in search, growing a group
+  (0136); inactivity and the lifecycle job (C4); a member's private home place (C3); Admin → Social → Groups and
+  Business groups; events (0134, C6); flyers (0137 step 7, C7); moving non-system mail to SES and the bulk account (C1).
+- **Next:** chapters, then growing a group.
 
 ## Next build
 
