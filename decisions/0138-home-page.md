@@ -108,3 +108,26 @@ Delivered as `home-step1_20261101.zip` (3 files, built on the 20:17 UTC sync): `
 - **Checked** locally at 390px and 1280px: one search on the home page and still one in the header elsewhere, no
   sideways scroll, the search panel opens from the hero, no script errors from the page.
 - **Next:** step 2, the five-tab ribbon (§4) with its invitations; then the Stock library (§6) and sample events (§5).
+
+## The full layout built (2026-11-01, after Jason's review of step 1)
+
+Jason, on step 1: "this doesn't look close to what I asked for". The home page now follows the prototype's layout in our
+branding, in one build: `home-full_20261101.zip` (2 files, built on the 20:45 UTC sync): `website/index.php`,
+`app/ui/faq.md` (`header.php` from step 1 is unchanged).
+- **Hero band:** brand dark brown with a dot texture, a small section badge, the title with its accents, a line on what
+  the site is, the one search, Where (Change, Use my location), and "New here?" to the FAQ.
+- **Four ways in:** tall picture-style doors, one brand tone each, with the section's icon large behind; the whole card
+  opens the section. (Photos come with the Stock library, §6.)
+- **Groups to join (Connect):** up to three real groups (`Community::directory`), member counts real; with fewer than
+  three, "Be the first: start a group for <your town>" (the place the visitor chose).
+- **Coming up:** real events (`live_events`, status live, from today); topped up to three with cards marked **Sample**;
+  "Tickets: coming" greyed on every card.
+- **What's new:** the five tabs over one feed, newest first: Events (`live_events`), Deals (none yet: an invitation),
+  Gallery (public albums with a cover), Journey (`Journeys::feed`: journeys and guides, with a Peek button), Business
+  (owner-run listings, newest). Nine shown, "Show more" for the rest; a tab shows only its kind (tapped again, all);
+  an empty tab invites; an empty feed shows one invitation.
+- The GO Code box and the directory counts follow.
+- **Checked** locally at 390px and 1280px with no database (every section falls back to its invitation), tabs and
+  invitations, no sideways scroll, no script errors. The real data runs on the live site.
+- **Still to come:** the Stock library (§6) for photos on doors and cards, business deals, and "nearest first" by the
+  visitor's place (today: newest across the region).
