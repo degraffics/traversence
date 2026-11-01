@@ -780,6 +780,12 @@ Many rural businesses have only a Facebook page (Diamond C Feed, St. Johns: face
    verified claim 90 to 100, a claim or our team's check 80 to 90). **Cadence by band** (built 2026-11-01): the refresh
    reads a listing's own website every 30 days below 51 and every 90 days at 51 and up, the least sure first; Google's
    check every 90 days (it was 120); nothing waits longer than 90 days.
+   **Our own data and people count most** (Jason, 2026-11-01: "many rural listings won't have websites or verified NAP,
+   so the claim process and TRV input data must be considered better sources and high validity"): what our team types
+   in the editor counts like a check (strong in the identity, 30 in the score, and green, Confirmed by Traversence), as
+   does the owner's word (30); a member's fix our team accepted is a local source (12); each visitor's Yes counts 6 (to
+   24 a year), so a few local confirmations move a crawler-only listing out of red. Having no website or online record
+   never counts against a listing.
 3. Google and OpenStreetMap used in full (duplicates, address mismatches, not-found); the Listing check template;
    cadence by band; automatic decisions; value-ordered Review; closure and moved notices.
 4. Opening a hub: the stages, the readiness meter, the opening budget and its estimate.
