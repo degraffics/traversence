@@ -74,7 +74,7 @@ The frame, menus, workflows, permissions and archive are **built** (0109). What'
 | 1 | Adaptive shortcuts (your most used) |
 | 3 | Single Home Rule queue; auto-clustering settings |
 | 4 | Waypoints & GPX/KML routes; Chameleon Filter picks |
-| 5 | Post-and-Connect; Storefront Studio; custom domains; catalog rules (250-item cap); merchant gateways |
+| 5 | Post-and-Connect; Storefront Studio; custom domains; catalog rules (caps by plan, 0135); merchant gateways |
 | 6 | Groups (charters, privacy levels, transfer terms, deactivation); events; business groups |
 | 7 | Quotes & deals (Won → subscription, order, White Glove) |
 | 8 | White Glove: clients, engagements, service catalog; the Asset studio (menus and brochures → catalog drafts) |
@@ -158,7 +158,7 @@ Each step is one or two zips. Earlier steps make money or remove risk; later one
    - merchant gateways on the ledger;
    - Storefront Studio;
    - custom domains on trvgo.us;
-   - the 250-item catalog;
+   - catalog caps by plan (0135);
    - Post-and-Connect with dual confirmation.
 7. **Governance (§9 #9, §11):**
    - ending, transfer and inactivity (0103);
