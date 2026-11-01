@@ -28,7 +28,7 @@ Scope of the Community ("Connect") build, checked on 2026-11-01 against the live
 | Steward member reports and Level 2 escalation (3-tier moderation) | Steward dashboard "soon"; admin (Level 3) is live | architecture §27, 0055, master-aos §6 |
 | Admin → Social → Groups (table, charter drawer) | "Coming" card in `app/admin/manifests.php` | admin-architecture §6, 0109 |
 | Admin → Social → Business groups | Not yet a section | admin-architecture §6 |
-| **Events, a site-wide tool** (below) | **0134**: Jason's answers all in; ready to accept | Jason, 2026-11-01; 0134 |
+| **Events, a site-wide tool** (below) | **0134 Accepted**; not built | Jason, 2026-11-01; 0134 |
 | **Tags on groups:** a group carries its own @tags under its topic ("Food & cooking" → baking, cast iron), so search and topic pages narrow to them | New proposal | Jason, 2026-11-01; uses 0132 |
 | **Local chapters:** a topic group opens chapters tied to a place ("World Travelers: White Mountains"); a chapter is a local group with a parent, shown on its place's page, listed on the parent | New proposal; needs a decision | Jason, 2026-11-01 |
 | **Places a group names:** a group lists places it's about (trips planned, places visited) on its public page, so those place pages show "Discussed by: <group>". The group's choice only, never inferred from members-only posts; passes 0066's checks | New proposal | Jason, 2026-11-01; 0053, 0066 |
@@ -159,7 +159,7 @@ where the people decide who reaches them and nothing can be bought to the top.
   groups), 0103 (charter transfer terms, inactivity; Accepted, terms set).
 - **Around it:** 0055 (Steward role and dashboard), 0062 (Verification), 0053 (search), 0132 (group membership as a
   link; tags), 0052 (messaging between group members), 0058 (Steward badge), 0109 (admin module 6), 0007 (no paid
-  placement), 0134 (events, Proposed).
+  placement), 0134 (events).
 - **Safety and data:** 0009 (guest abuse in communities), 0010 (authorship), 0011 (AI corpus), 0066 (no sacred or
   restricted sites).
 - **Sequencing:** 0020, 0030 (Connect after Directory and Discovery).
@@ -173,13 +173,13 @@ where the people decide who reaches them and nothing can be bought to the top.
 4. 0103's header read "Proposed" though its terms were set and in use (0120); corrected 2026-11-01. Built so far:
    hand transfer for businesses only (`transfers` table, `/user/transfer.php`); the `lifecycle` table and the daily
    job are still to come.
-5. Events is written up (0134, Proposed); until it's accepted, the admin still has it in two places (Let's Explore → Live
-   events, and Social → Events "coming").
+5. Events is accepted (0134) but not built: the admin still has it in two places (Let's Explore → Live events, and
+   Social → Events "coming") until the build moves it to Let's Explore → Events.
 6. `/community/index.php` still passes breadcrumbs (`crumbs`), which 0058 rules out on content pages.
 
 ## Next build
 
-1. Accept **0134 Events** and write a **chapters** decision (tags on groups and places a group names can
+1. Write a **chapters** decision (tags on groups and places a group names can
    ride with it).
 2. **Charter and transfer terms** on the group page, shown before joining.
 3. **Inactivity and ending:** the `lifecycle` table and a daily `Scheduler::JOBS` entry for groups.
