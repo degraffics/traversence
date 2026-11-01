@@ -209,3 +209,14 @@ steps.
   (`dailyrep:DATE`, alert) an hour after the time when today's didn't go, with **Send it now**.
 - **Settings** in Pulse → Stream settings: who it goes to (one Owner), the hour, Preview today's report, Send me a copy
   now. No AI and no paid service: the site's own mail (`Mailer::send` now takes an HTML version as well).
+
+## Addendum (2026-11-01): outside services inline, and one case per kind of chore
+
+- **Outside services in the step** (Jason: "Railway link should be inline with the steps to fix issues and any other
+  outside service too"). `Pulse::SERVICES` lists them (Railway, QuickBooks, AWS S3, Cloudflare, Claude Console, Tavily,
+  Google Cloud). A step that needs one carries it, and Pulse shows "Open Railway ↗" in the step. The daily report shows
+  it beside the case and beside a system check that needs it. The crawler-stopped case now says to restart the worker
+  on Railway, which was the real fix (not this site's Scheduled tasks).
+- **One case, not one each** (Jason: "These should be consolidated into one pulse"). The source terms to read are one
+  case (`terms:due`), with a step per source: its terms link, and I read them. Failed crawl jobs are one case
+  (`crawl:failed`), and Retry them all re-queues every one of them in one tap.

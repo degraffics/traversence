@@ -166,6 +166,14 @@ Space on a phone is at a premium. Every page, new or changed, follows this:
   counts only, never who tapped.
 - Check every page at 390px wide before delivering: card edges at 3px, no sideways scroll.
 
+## Pulse: steps do the work, links to outside services sit in the step (Jason, 2026-11-01): every build
+
+- A Pulse step that can be done from the case is a button that does it (`['do', what, label]` or `['form', …]` →
+  `Pulse::manage`), not a link to another page.
+- A step that needs an outside service (Railway, QuickBooks, AWS, Cloudflare…) carries its link in the step
+  (`Pulse::SERVICES`, the step's `ext`); the daily report shows it too. Never "go to Railway" without the link.
+- One case per kind of chore, a step per item (terms to read, failed crawl jobs), not a case for each.
+
 ## No browser dialogs: every page, every build
 
 Never use `alert()`, `confirm()` or `prompt()` (the browser's grey boxes). Use the site's own, from `js/tv-ask.js`

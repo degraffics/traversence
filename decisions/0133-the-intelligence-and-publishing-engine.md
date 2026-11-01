@@ -304,7 +304,7 @@ values AI use holds; standards are shown there but change only by a decision. Bu
 | --- | --- | --- |
 | Listing publishes | readiness rules (no score) | standard |
 | Guide publishes itself | score 70 | tuned |
-| Find it adds a listing | score 80 + readiness | tuned |
+| Find it adds a listing | score 80 + readiness (Claude: high 75 / medium 65, +5 each phone, address, website, 2+ sources; 2026-11-01) | tuned |
 | Category set without a person / a person picks | 80% / under 50% (decisions/0024, `CategoryClassifier`) | tuned; "Other" never set by itself |
 | Search: published / "may also help" | 0.80 / 0.60 relevance (decisions/0093; the 0.90 / 0.75 of decisions/0061 was replaced) | tuned |
 | Heritage fact cataloged | a primary record or two independent sources, one of which may supply it | standard |
@@ -815,3 +815,12 @@ Each keeps its history and carries a pointer here: 0005 (crawler and guide gates
 targets; the tribal standard is restated here), 0067, 0076, 0083 to 0086 (crawler parts), 0131 (dossier, research, Find
 it, publishing). In the platform spec, §11, §15, §21 and §30 point here: the "unbounded" crawl, the old `api/ingest.php`
 path, and Google Business Profile as a source are withdrawn.
+
+### Find it: a medium find with the facts is enough (Jason, 2026-11-01)
+
+"Based on the listing names it is obviously what these are, so I am not sure why they aren't being handled by the system
+automatically." Claude's own word (medium) had capped a find at 70 against the 80 the rule needs, so every chain seen on
+its brand's locator and every rural place without a website of its own waited for a person. Now Claude's word starts the
+score (high 75, medium 65) and the facts carry it: a phone, an address and two or more sources reach 80, no website
+needed. The listing still passes the readiness rules and starts orange (machine-confirmed), so the Call list confirms it.
+Finds already waiting in Review are looked at again by the Find it job (`GuideLinks::recheckWaiting`).
