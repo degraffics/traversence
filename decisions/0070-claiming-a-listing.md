@@ -207,3 +207,5 @@ then the claim proceeds from step 1.
 
 ## Open
 - The 7-day dispute answer is a first default.
+
+**Since 2026-11-01** (decisions/0133, "The observations store is the identity record"): a claim is a claim: any claim (email code included) puts the listing in the top band, Claimed by owner, with the owner as a strong source; the ✓ follows once the owner's link to the business is proved.

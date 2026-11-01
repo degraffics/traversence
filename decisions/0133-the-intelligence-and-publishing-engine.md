@@ -476,22 +476,81 @@ That's our edge over Google: not more crawling, but knowing our places better, p
   and visitors can't tell a crawled listing from one its owner verified last week. So every problem lands on a person,
   and most of Google's answers go unused (decisions/0085 kept only the place ID and acted only on "permanently closed").
 
-### The observations store
+### The observations store is the identity record (Jason, 2026-11-01)
 
-- **One line per thing seen:** what it's about (a listing, a place, a topic), which field (exists, name, address,
-  phone, website, hours, open, category, event), the source (its host and kind), whether it **agrees or disagrees** with
-  what we show, and when. What's kept follows the source register: the content where its terms allow, otherwise a link
-  and our own verdict (Google: its place ID and our verdict only; OpenStreetMap under its licence with credit).
+There is no new store. The **identity record** (decisions/0062: `identity_facts` and `identity_fact_sources`) is the one
+primary record of every business, place and resource line, from the first sighting. A data review on 2026-11-01 found it
+was a cache instead: rebuilt from the listing's own fields (`entity_metadata`), with 99.5% of its sources wiped on every
+rebuild, and 17 places in the code that changed a listing without telling it. That is what this replaces.
+
+- **Three layers, one direction.** `entities` is the business (its id, owner, status, category). The identity is the
+  evidence: every value any source gave for each fact, with its source, date, and whether sources agree. The listing's
+  fields (`entity_metadata`) are the shown copy of the identity's current values, kept for fast pages, never a source.
+- **One line per thing seen:** the fact (name, other name, address, town, state, ZIP, point, phone, website, email,
+  hours, about, offers, kind, social), its value, and each source: its kind and site, the page, who added it, a note,
+  when it was checked. The status (confirmed, single, conflict, not right, taken off the listing) is worked out from
+  the sources. What's kept follows the source register and *Owning our data* below.
+- **Every write is recorded as it happens** (`Identity::listingWrote`, `Identity::syncFromListing`): the crawler and
+  its refresh, the Census and site map points, staff in the editor, the owner, a visitor's accepted fix, add a business,
+  address moves, aliases, rebuilds, approvals and merges. Each becomes a source of the new value that lasts through
+  rebuilds. What the listing no longer says is kept as **taken off the listing** (history: never shown, never written
+  back by the evidence) until the listing is given that value again. So a dead website the refresh took off stays off.
+- **Merges join the evidence** (`Identity::mergeInto`): the hidden listing's sources join the kept one's, noted
+  "Merged from #id", and Undo takes exactly those back off.
+- **`crawler_raw_index` stays the raw archive**, the intake queue and the dedupe fingerprint; its facts are written
+  into the identity once, when they're found, not re-read on every rebuild. `source_facts` stays the reference index
+  (re-read per site); a match becomes an identity source when it's found. `reference_sources` with `source_rules` is the
+  one source register; heritage's hosts join it.
+- **It lives in the main database** with the listings, since public cards read it for the ring and How we know: Data
+  separation (decisions/0110) no longer moves `identity_facts`, `identity_fact_sources` or `identity_applied`, and one an
+  earlier move took to the admin database comes back on its own (`DataMove::home`, run by scheduled jobs and the Data
+  separation page). The crawler's raw archive, its queues and the registry copies may still move.
 - **Read before paying, everywhere:** listing confidence, the guide writer, Live events, Find it, AI Assist and the
-  research brief ask the store first; a paid call is made only when nothing fresh enough is held, and its answer goes
-  back into the store for the next reader.
-- **Both directions:** a guide's research and Find it feed listings (as now); a business's own site, read for its
-  listing, also feeds events and guides; an event at a venue counts as evidence the venue is active; a guide's facts
-  about a business become evidence on its listing.
+  research brief ask the record first; a paid call is made only when nothing fresh enough is held, and its answer goes
+  back into the record for the next reader.
+- **Both directions:** a guide's research and Find it feed listings; a business's own site, read for its listing, also
+  feeds events and guides; an event at a venue counts as evidence the venue is active; a guide's facts about a business
+  become evidence on its listing.
 - **The cost log notes what each paid call produced**, so Services & usage shows the return on each source and catches
   money spent twice.
-- Built first, filled from what we already hold (Verify's references, the reference index, dossiers, heritage sources,
-  Google matches, Refresh reads, claims, admin edits, suggestions), at no cost.
+- **Still to fold in** (later steps): sightings get an identity before they're published (`record_kind = 'intake'`,
+  keyed by the raw row, moved onto the listing when it's approved); the rebuild (`fromListing`) stops reading the
+  listing's fields back as a source and becomes a backfill and repair tool; Verify's and the registries' matches are
+  written once when found; secondary categories become kind facts; the duplicate `category` name in the listing's fields
+  goes once its one reader uses the category id.
+
+### Owning our data: what we store, what we only reference (Jason, 2026-11-01)
+
+We store only what we may own. Anything whose terms would stop us owning our record is a **reference**: a lead that
+tells the crawler where to look. The crawler then reads the business's own site, a registry or a public record, and
+that is what we store and cite.
+
+| Source | Under this rule |
+|---|---|
+| OpenStreetMap (ODbL, share-alike) | A lead only: never a stored value we show. Its share-alike would reach our record. `open_places` (outside our regions, a week, display only) is a short-lived reference, never merged in. |
+| Google | Its place ID only, as a link (`evidence`); its hours and status prompt a check. |
+| Facebook, Instagram, Yelp and other commercial directories | Links; nothing read from them is stored as our value. |
+| The business's own site, government registries (NPI, IRS, state and county), the Census, Wikidata (CC0) | Owned: stored with the source. |
+| The owner, staff (a call, a visit), a postcard code, a visitor's confirmation | Owned: our own evidence. |
+| Claude's results | Ours (Anthropic's terms give the customer the outputs), but never evidence: what Claude found leads the crawler to the page, and the page is the source. |
+
+A link (`evidence` kind) is never counted as a source agreeing, in the status or the score (built 2026-11-01).
+This replaces "OpenStreetMap under its licence with credit" as a stored source, and the OSM seeding in *Opening a hub*.
+
+### A claim is a claim (Jason, 2026-11-01)
+
+Any claim (the email code, a text from the listed phone, a domain email, a document) puts a listing in the top band,
+**Claimed by owner**: the owner is a strong source on their own. The ✓ is the next step, once the owner's link to the
+business is proved (the listed phone, a postcard code, a staff call, a domain email, a document, a field visit). A
+claim later found false drops the listing back to what its evidence earns. This settles 0070's "Managed" question.
+
+### Find it under the one record (Jason, 2026-11-01)
+
+Find it (decisions/0131) links the names a guide mentions to listings. It keeps its search order (the crawler first:
+our record, the business's own site; Claude with web search for what's left), but it no longer has a score of its own:
+Claude's confidence (50 or 70) and OpenStreetMap's 40 are leads, not evidence. A find becomes a candidate identity like
+any sighting, the crawler reads the pages Claude found, and the same listing confidence decides whether it's listed. One
+score, one record. (To build; until then the 80 rule stands, with this as its replacement.)
 
 ### Listing confidence (0 to 100)
 
@@ -580,7 +639,7 @@ come first, where the payoff and the labor are.
 | Stage | What happens | Visitors see |
 |---|---|---|
 | **1. Planned** | The state's laws reviewed in the jurisdiction register (the region hold blocks publishing until then); the free sources set: statewide files, the official visitor bureau and chambers, the state's and nations' registries. | Nothing |
-| **2. Seeding** | Free bulk sources fill the store first: OpenStreetMap, NPI, IRS, landmarks, the National Register, the Library of Congress, outdoor recreation, state registries, chamber and visitor-bureau directories. Nothing publishes unless it passes readiness. | Nothing |
+| **2. Seeding** | Free bulk sources fill the record first (OpenStreetMap as leads only, each checked at the business's own site or a registry before its values are kept): NPI, IRS, landmarks, the National Register, the Library of Congress, outdoor recreation, state registries, chamber and visitor-bureau directories. Nothing publishes unless it passes readiness. | Nothing |
 | **3. Opening budget** | A one-time paid allowance for the hub, separate from monthly upkeep (opening never starves existing hubs, nor they it), spent highest value first: the busiest towns, then the essentials (fuel, food, lodging, medical, emergency), then the rest. | Nothing |
 | **4. Soft open** | When the readiness targets are met (every town's essentials at 51+, most listings at 51+, the community and city guides written), it opens marked as a new area: honest rings, monthly checks, missed searches feeding gap-filling. | The hub |
 | **5. Open** | Most listings at 51+: normal upkeep. | Normal |
@@ -667,7 +726,10 @@ Many rural businesses have only a Facebook page (Diamond C Feed, St. Johns: face
 
 ### Build order
 
-1. The observations store, filled from what we already hold.
+1. The observations store is the identity record. **Built 2026-11-01:** the identity tables stay in main; every
+   listing write records into the identity with its source (the one writer); values taken off stay off; merges join
+   the evidence; Google's place ID is a link, and links aren't counted. Next: identities from first sighting, the
+   rebuild as backfill only, matches written once.
 2. Listing confidence: the score, the ring and How we know, visitor confirmations.
 3. Google and OpenStreetMap used in full (duplicates, address mismatches, not-found); the Listing check template;
    cadence by band; automatic decisions; value-ordered Review; closure and moved notices.

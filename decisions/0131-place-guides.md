@@ -238,3 +238,4 @@ across Commercial Street on Sunday, not "a historic church"); and each section's
 score credits the brief (Claude 30, dossier 15, brief 10, ground 10, sources 10, names 25). Guides written before are
 written again (`DRAFT_V` 3).
 
+**Since 2026-11-01** (decisions/0133, "The observations store is the identity record"): Find it's own score (with Claude's confidence and OpenStreetMap's 40) is replaced: a find becomes a candidate identity and the same listing confidence decides it (to build; see 0133, "Find it under the one record").

@@ -147,3 +147,5 @@ hides any place that shouldn't be shown; a hidden place stays hidden across mont
   cover, source and month); the place-page section links there, not to Recreation.gov. The only link out is a
   campground's "reserve on Recreation.gov", since federal reservations can only be made there. All-capitals
   names read in normal case; RIDB's catch-all "Facility" shows the first activity instead.
+
+**Since 2026-11-01** (decisions/0133, "The observations store is the identity record"): OpenStreetMap is a lead only (its share-alike would reach our record); Overture belongs in the source register under the same rule. What we store is what the crawler reads at the business's own site or a registry.

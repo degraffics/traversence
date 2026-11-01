@@ -142,3 +142,5 @@ stand-in that signs like Google:
 **Third fix.** The first live try with the ID token passed Google's signature check but read "That sign-in was for another site": on the way back the client ID was compared before `.env` was read (it's read on the first database connection). `/api/auth/google.php` now connects first, and the claim checks do too. Checked with the keys only in `.env`, as on the server: the sign-in reached "Finish creating your account".
 
 **Since 2026-10-31:** the Places check's answers are used in full: a shared place ID marks duplicates, a different street number or town is a "Moved or wrong address?" item, repeated not-found with nothing else confirming goes on a low-priority list, and every answer is an evidence line in the shared observations store feeding listing confidence. See decisions/0133, "The one record".
+
+**Since 2026-11-01** (decisions/0133, "The observations store is the identity record"): Google's place ID is kept as a link in the identity record (never evidence of its own); rechecks follow 0133's cadence (never more than 90 days).

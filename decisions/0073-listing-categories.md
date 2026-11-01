@@ -112,3 +112,5 @@ businesses.
 - Code: `app/lib/ListingCategories.php`, `app/ui/category-fields.php`, `website/js/cat-more.js`, `website/admin/listing-add.php`;
   changes in `SearchIndex`, `UniversalSearch`, `AddBusiness`, the staff and owner editors, `claim.php`, the listing page and
   the admin menu.
+
+**Since 2026-11-01** (decisions/0133, "The observations store is the identity record"): secondary categories become kind facts in the identity record (to build).

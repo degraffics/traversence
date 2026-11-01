@@ -100,3 +100,4 @@ mark a sacred, burial or protected site can be named in our writing (a guide) wh
 (a state or national park, a museum, the place's official site), and our crawler confirms the source says so. The
 place's own landmark page still waits for a person, and a place a nation has asked to be closed stays closed.
 
+**Since 2026-11-01** (decisions/0133, "The observations store is the identity record"): OpenStreetMap and other share-alike or commercial sources are leads only; nothing publishes without passing readiness (0076) and the listing confidence of 0133.

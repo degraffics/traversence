@@ -273,3 +273,5 @@ touches the admin.
   - `ai_worker`, `sales_tick` (writing lead scores to `trv_admin`), `billing_tick` and `standing_tick`;
   - then Undo of all five, with row counts and foreign keys back as they were.
 - **Next:** the business portal foundation (members and listings move with it).
+
+**Since 2026-11-01** (decisions/0133, "The observations store is the identity record"): Data separation no longer moves `identity_facts`, `identity_fact_sources` or `identity_applied`: public cards read them, so they live in main, and any an earlier move took to the admin database come back on their own.

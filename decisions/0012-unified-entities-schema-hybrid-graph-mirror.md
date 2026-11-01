@@ -134,3 +134,5 @@ CREATE TABLE users (
 `decisions/0005-hitl-ai-guardrails.md` and `architecture.md` §25 should describe the claim-aware overwrite protection at the field level (`is_locked`), not as a record-level HITL quarantine trigger on every match against a claimed listing — corrected in this same pass.
 
 The real system also has a working, four-tier verification model (self-confirm OTP, referrals, peer-vouch `VERIFIED_BY` edges, admin override) with its own trust-score economy, considerably more concrete than anything this ADR or `architecture.md` §25 previously described. See `architecture.md` §25's revised text for the full mechanism — recording it there rather than duplicating it in this ADR, since it's now confirmed as-built rather than a decision still being made.
+
+**Since 2026-11-01** (decisions/0133, "The observations store is the identity record"): listing fields in `entity_metadata` are the shown copy of the identity record's current values; the identity (`identity_facts`, `identity_fact_sources`) is primary.

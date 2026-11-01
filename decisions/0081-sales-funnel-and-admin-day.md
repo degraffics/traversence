@@ -93,3 +93,5 @@ Jason, 2026-10-14:
   - a daily goal set per person;
   - bulk import of a list of businesses collected offline;
   - a printable leave-behind with the claim link and a QR code.
+
+**Since 2026-11-01** (decisions/0133, "The observations store is the identity record"): listings publish only through readiness (0076) and are scored by 0133's listing confidence.
