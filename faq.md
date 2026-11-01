@@ -10,11 +10,21 @@
 ### What is Traversence?
 Traversence is a regional travel guide and local directory in one place. **Let's Explore** tells the story of a place and the journeys people take there. **Get Local** is the directory of businesses, services and places. You can use both without an account.
 
+### What's on the home page?
+The search comes first, in two parts: **Discover more** (type what you're after; results show right under it as you type) and **Let's get local** (where: tap it to pick a town, ZIP or area, or tap the target to use your location; it then shows the place you're searching). Then:
+- **Four ways in**, one for each main section: **Let's Explore** (places, trails, history), **Get Local** (businesses and services), **Connect** (groups) and the **Marketplace**.
+- **Community Groups** on Connect. Next to the groups already running are a few a place usually needs but doesn't have yet (your town's neighbors, the outdoors, local history, families, volunteers, business owners), each with **Start this group**.
+- **Events** near you, from the places' own calendars. Until there are enough, a few cards marked **Sample** show how events will look. Buying tickets is coming.
+- **What's new**, newest first, with five tabs: **Events**, **Deals**, **Gallery** (public photo albums), **Journey** (journeys and guides) and **Business** (businesses run by their owners). Tap a tab to see only that kind, and again to see everything. Deals from businesses are coming.
+- **Have a GO Code?**: type the code from a sign or flyer to open its page.
+
+Nothing on the home page is paid placement: it's newest first.
+
 ### How do I contact Traversence?
 Email **support@traversence.com**. It's at the foot of every page, and in the emails we send you (or just reply to one of them: replies come to us too). Ask anything: your account, a listing, a GO Code order, or your privacy and data.
 
 ### Where did the big logo and icons at the top go?
-The top bar starts collapsed, so the page gets the whole screen: no bar, just the compass in the top-left corner and the menu (☰) hanging from the top-right corner, with search between them on pages that have it. On a phone the two corners do different jobs. The **compass** is *where you can go*, the same on every page: Let's Explore, Get Local, Connect, Marketplace, the Trip planner, Sign in or your Dashboard, and the Help Center (its big logo takes you home). The other corner (your photo, or ☰ if you're not signed in) is *what you can do here*. Signed in, its top line is you and the account you're acting as: tap it to switch (your personal account, a business you manage, or staff) right there in the menu, and tap again to fold it away. Then **Dashboard**, so you can always get back, this part of the site's tools (tap a heading like Things to do to fold it open or shut), and **Sign out** at the bottom. On pages with no tools of their own, like the FAQ, it holds just you, and isn't there when you're not signed in. In your account, the layout switch (your full profile, or just your Pulse) sits next to your photo. Around the site the brown bar stays; in your account the page runs to the top with just those two corners. Notifications are in your Pulse (the bell there); an orange dot on the menu means something is waiting. Everything is still in the menu (☰). To bring back the full logo or the row of icons, tap the small tab next to the compass or next to the menu. We remember your choice on this device.
+The top bar starts collapsed, so the page gets the whole screen: no bar, just the compass in the top-left corner and the menu (☰) hanging from the top-right corner, with search between them on pages that have it (on the home page the search sits in the page itself, under the title). On a phone the two corners do different jobs. The **compass** is *where you can go*, the same on every page: Let's Explore, Get Local, Connect, Marketplace, the Trip planner, Sign in or your Dashboard, and the Help Center (its big logo takes you home). The other corner (your photo, or ☰ if you're not signed in) is *what you can do here*. Signed in, its top line is you and the account you're acting as: tap it to switch (your personal account, a business you manage, or staff) right there in the menu, and tap again to fold it away. Then **Dashboard**, so you can always get back, this part of the site's tools (tap a heading like Things to do to fold it open or shut), and **Sign out** at the bottom. On pages with no tools of their own, like the FAQ, it holds just you, and isn't there when you're not signed in. In your account, the layout switch (your full profile, or just your Pulse) sits next to your photo. Around the site the brown bar stays; in your account the page runs to the top with just those two corners. Notifications are in your Pulse (the bell there); an orange dot on the menu means something is waiting. Everything is still in the menu (☰). To bring back the full logo or the row of icons, tap the small tab next to the compass or next to the menu. We remember your choice on this device.
 
 ### Do I need an account?
 No, not to look around. You need one to save favorites, write journeys, comment, like, report something, or make suggestions under your name.
@@ -23,7 +33,7 @@ No, not to look around. You need one to save favorites, write journeys, comment,
 Traversence accounts are for adults: you must be 18 or older. You'll confirm it when you sign up. If your account was made before we asked, or you confirmed an earlier age, we'll ask once, the first time you comment or become a contributor.
 
 ### How do I choose where I'm looking?
-Open the place picker at the top of the page. You can:
+Open the place picker at the top of the page (on the home page, **Change** under the search). You can:
 - open the **Trip Planner** to plan a trip: where, when, how long and what you're after;
 - pick a **region**;
 - type a **destination**, a **state, city or ZIP**;
@@ -973,13 +983,37 @@ Tap **Report** on a post and choose why. Reports on a group's posts go to its ow
 Yes. A group's owner and moderators can use **Ask Traversence for help** on the group's page for what the group can't settle, such as someone harassing people across groups or a moderator's account taken over. It reaches our support team as a case, and we reply by email. If reports in a group wait 14 days with nobody deciding, we're asked to help on our own.
 
 ### What notices will I get about groups, and can I turn them off?
-Each one goes to your Pulse once, when it's about you or something you follow: your request to join a group was answered, the charter of a group you're in changed, a group's moderators removed your post, or a new group started in a place you follow. Switch any of them off in **Dashboard → App Settings → Notices**. There you also choose how they reach you: in your Pulse only (the usual), also by email as they happen, or also in one weekly email.
+Each one goes to your Pulse once, when it's about you or something you follow: your request to join a group was answered (with the group's welcome message), the charter of a group you're in changed, a group's moderators removed your post, a new group started in a place you follow, or one of your connections invited you to a group. If you run a group or lead a chapter, you also hear about its chapters; if you run a business, you hear when a group lists it among the places it's about. Switch any of them off in **Dashboard → App Settings → Notices**. There you also choose how they reach you: in your Pulse only (the usual), also by email as they happen, or also in one weekly email.
 
 ### How do I stop emails from Traversence?
 Every email we send for a group, a business or your notices has **Stop these** at the foot: one tap stops that kind (notices go back to your Pulse only; a business's email stops from that business). Your mail app's own Unsubscribe button does the same. Emails about your account itself, such as sign-in codes and receipts for what you buy from us, can't be switched off. We never send to an address that bounced or marked us as spam.
 
 ### What happens to a group if its owner leaves?
 Whatever its charter says: the group ends (the usual choice, with no elections), a member the owner named is offered it, the longest-serving moderator is offered it, or the moderators choose one of themselves. The steps that carry this out, and closing groups that have gone quiet for 30 days, are coming.
+
+### What are a group's tags?
+Up to 5 words that say what the group is about, under its topic: baking, cast iron, trail running. The owner and moderators set them, and existing tags are suggested as you type so spellings stay together. Tap one to find more groups like it; the Community page shows the popular ones for each topic. Tags help people find a group; they never rank it higher, and they're never taken from posts. A tag that might name a sacred or protected site waits for our team before it shows.
+
+### What does "Places we're about" mean?
+A group can name up to 10 places it goes to or talks about: towns, businesses, outdoor places and public landmarks, each with a short note ("planned for June"). They show on the group's page, and each place's page shows the group (under **Featured in**, or **Talked about by** on a town's page) with its name and member count, nothing more. Only the group's own choice puts it there; its posts are never read for it. If you run a business a group names, you're told once, and you can take your business off its list from the group's page.
+
+### What's a chapter?
+A branch of a larger group, for a place or a topic: *World Travelers* can have *World Travelers: White Mountains*, or *Cast Iron Cooks: Beginners*. A chapter has its own members, posts, moderators and lead, starts with the whole group's charter and tags, and shows on its place's page with "part of" its group. The group's owner opens chapters, or approves a member's request to start one; the person who leads it needs Verification. The group's charter says how chapters are joined: joining a chapter joins the whole group too, each chapter is joined on its own, or members of the whole group only. The group's owner and moderators can post to all its chapters at once and help moderate them. An existing local group can become a chapter when both owners agree, and a chapter can leave to stand on its own after 14 days' notice to its members. Closing quiet chapters and bringing them back are coming.
+
+### How do I invite people to a group?
+On the group's page, under **Share & invite**: tick connections from your Address Book and send. Each person gets one invitation from a group (again after 30 days if they don't answer), can say no thanks, and can switch group invitations off in App Settings. Someone who blocked you never gets one. The group's owner and moderators can also make **invite codes**: a link for a meeting, a class or a list, with an end date, that can be switched off at any time. Share and the QR code are under the group's name for anyone. Inviting a business's customers by email, flyers and badges for your own site are coming.
+
+### Do I skip the approval queue if I'm invited?
+Only if the group's charter says so. In a group that approves its members, the charter decides whether an invitation lets you straight in (from the owner and moderators, or from any member) and whether invite codes can. Otherwise your request goes to the moderators marked with who invited you. You always see the charter first and agree to it yourself. Some groups ask a few questions when you ask to join; only the moderators see your answers.
+
+### Can anyone read a group's posts?
+Only members, except for one: the group's owner can pin a **welcome** post that anyone can read, members or not, so visitors can see what the group does. The owner can also write a welcome message each new member gets when they join.
+
+### How do I find groups near me?
+Open **Community** from a place's page, or search for a place there. Groups come nearest first: those in that town or area, then nearby ones, then groups that talk about places nearby, and, if you picked a topic or typed a word, groups anywhere that match, marked "Anywhere". Groups with more active members come first within each; no one can pay to be shown higher.
+
+### How does a group see how it's growing?
+Whoever runs a group sees its page views and how many joined in the last 90 days, by how they came (the group's page, a place's page, search, invitations, invite codes, groups like it). Counts only: never who.
 
 ## Privacy and your account
 

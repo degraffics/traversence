@@ -384,3 +384,41 @@ Each step adds its FAQ entries (0057).
 7. **Flyers:** made by the owner, free; "Write it for me" is AI Assist, on plans with AI, from their credits.
 8. **Core's email allowance:** 500 a month with top-ups (settled in 0137 §8).
 9. **Growing a group** (section 5) and **selling in groups**: accepted as written.
+
+## Built (2026-11-01, built on the 23:31 UTC sync; with 0137's build order done through step 5)
+
+One zip, 14 files: migration `2027-01-24_groups_grow.sql`; new `app/lib/GroupGrowth.php` and `app/lib/GroupChapters.php`;
+`Community.php`, `ContentTags.php`, `Notices.php`, `SearchIndex.php`, `app/admin/manifests.php` and `tools.php`, `faq.md`;
+`website/community/group.php` and `index.php`, `website/user/api/community.php`, `website/hub/index.php`.
+- **Tags (§1):** 5 per group, free words merged by spelling ("Cast-Iron" → "cast iron"), suggested as you type; tap one
+  to search; "Popular in <topic>" on the Community page; search and the search index read them; "Groups like this" by
+  shared tags, then topic. A word matching `Landmarks::SENSITIVE` waits for our team (Admin → Social → Groups).
+- **Places a group is about (§3):** up to 10 (towns, areas, regions, city guides, listings, outdoor places, public
+  landmarks through `Landmarks::visibleSql()`), each with a note. Kept in the tag store as source `group:<id>`, so a
+  listing, landmark or outdoor place shows the group under **Featured in**; a town's page lists **Talked about by**. A
+  listing's Owner or Manager is told once and can take it off; it can't be added back without them.
+- **Chapters (§2):** opened by whoever runs the parent, or asked for by a member (status `proposed`, which the
+  migration adds to `community_groups.status`) and approved; one per place or topic per parent, inside a region parent's
+  place; named "Parent: Place"; the lead needs Verification and a person's chapters count toward their 5; a business's
+  chapters belong to the business. They start with the parent's charter, topic and tags. The parent's rule for joining
+  (`chapter_join`: both, own, parent members only; default both) is set on the group page. The parent's owner and
+  moderators post to all chapters ("From <group>"), moderate in them, and can change a chapter's lead. An existing group
+  becomes a chapter when both sides agree; a chapter leaves after 14 days' notice. Leaving a parent offers leaving its
+  chapters.
+- **Search by topic and place (§4):** with a place, the Community page shows groups there ("Here") and nearby (the area,
+  its towns, the region), then groups about places nearby, then, with a topic or words, interest groups ("Anywhere");
+  more members first within each.
+- **Growing a group (§5, §5a, §5c, part of §5d):** a pinned welcome post anyone can read; a welcome message to each new
+  member; answers to the charter's join questions, seen by the moderators with who invited the person or the code they
+  used; invitations to connections (once per person per group, again after 30 days; switched off in App Settings;
+  paused after many are turned down); invite codes (end date, uses, letting people straight in when the charter allows);
+  an invitation or code skips approval only as the charter says; joins counted by how people came, with page views, for
+  whoever runs the group.
+- **Admin → Social → Groups:** every group, chapters under their parent; hide (the owner is told why) or show again;
+  allow or remove a tag that waits.
+- **Tested** on MariaDB: the migration twice, 52 checks of the functions, and the pages in a browser at 390px and
+  1280px (no sideways scroll; joining by an invite code through the page).
+- **Not yet:** chapter endings and reactivation, the Steward's activity nudges and closing quiet groups (the 0103
+  lifecycle job); flyers and badges (5b, 5d); a business's bulk invitations (5a, needs the bulk SES account); telling a
+  parent's members near a new chapter and "Groups near you" (a member's private home place, `community-scope.md` C3);
+  notices to people who follow a tag or topic.
