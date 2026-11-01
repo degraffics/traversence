@@ -235,7 +235,10 @@ Answered 2026-11-01 in `decisions/0135`:
 3. **Catalog caps:** an allowance by plan, active items: personal 5, Free 10, Basic 25, Core 100, Strategic 250,
    Cornerstone 1,000 per listing (§7).
 4. **Gateways:** Square and Stripe first (§6).
-5. **Custom domains:** in the Storefronts build (§9).
+5. **Custom domains:** in the Storefronts build (§9). One **Connect your domain** step sets up the storefront and the
+   business's email together (0137 §8), with the same DomainCheck. Hosting: Bluehost shared hosting caps addon
+   domains and SSL, so custom domains go through **Cloudflare's custom hostnames** (Cloudflare for SaaS), not addon
+   domains.
 6. **Reviews** are comments (§5).
 7. **Post lifetime:** "Offer this for" (personal items 30 days, personal services 90, business Ongoing) and one
    30-day check that asks and, a check later, expires what wasn't confirmed (§8).
