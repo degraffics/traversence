@@ -557,6 +557,10 @@ that is what we store and cite.
 | Claude's results | Ours (Anthropic's terms give the customer the outputs), but never evidence: what Claude found leads the crawler to the page, and the page is the source. |
 
 A link (`evidence` kind) is never counted as a source agreeing, in the status or the score (built 2026-11-01).
+**Checking the terms happens in Pulse** (Jason, 2026-11-01: "I don't want to dig through pages to find something
+needing attention"): each source the engine runs on whose terms no person has read, or not in a year, is a System item
+in Pulse with our rule in its summary, a step to open its terms in their own tab, and **I read them**, which records who
+and when and resolves it (it comes back in a year). If they don't allow our rule, a step opens Manage sources to change it.
 This replaces "OpenStreetMap under its licence with credit" as a stored source, and the OSM seeding in *Opening a hub*.
 
 ### A claim is a claim (Jason, 2026-11-01)
