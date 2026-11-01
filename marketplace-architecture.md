@@ -206,7 +206,7 @@ disputes and Marketplace rules belong to Marketplace; Storefronts, Custom domain
    - Message the seller;
    - Buying / Selling in the dashboard;
    - admin: Items, Marketplace rules (categories and fields, prohibited list, hold rules).
-2. **Offers and trust:**
+2. **Offers and trust** (built 2026-11-01, decisions/0135 "Step 2 built"):
    - offers and counters;
    - dual confirmation and trust points;
    - ratings;
