@@ -105,7 +105,7 @@ So the build order in §5 starts by closing these gaps in our admin, CRM first, 
 | AI Assist credits a month (0108, built) | 0 | 10 | 50 | 250 | 500 |
 | AI catalog articles (HITL) | 0 | 5 / mo (AOS §5B) | 5 (cumulative) | 25 + 4 posts / mo | uncapped |
 
-Catalog caps are an allowance by plan (decisions/0135 §7, numbers in commercial.md §1.1; Cornerstone 250 per listing). Everything else follows commercial.md and AOS §5B.
+Catalog caps are an allowance by plan (decisions/0135 §7, numbers in commercial.md §1.1: Free 10, Basic 25, Core 100, Strategic 250, Cornerstone 1,000 per listing). Everything else follows commercial.md and AOS §5B.
 
 ## 5. Effect on the build order
 

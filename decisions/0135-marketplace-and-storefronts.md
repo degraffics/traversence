@@ -1,6 +1,6 @@
 # ADR 0135: The Marketplace and Storefronts (the one record)
 
-**Status:** Accepted in part (2026-11-01) by Jason. Items marked **(proposed)** are waiting for his OK.
+**Status:** Accepted (2026-11-01) by Jason, except section 8 (post lifetime), marked **(proposed)**.
 **This is the master record for the Marketplace, Storefronts and the business catalog they show.** Where an older record
 says otherwise, this one rules. Older records keep their history; each carries a line at its top pointing here (list at
 the end). The build plan and screens stay in `marketplace-architecture.md`; tier prices and allowances in
@@ -10,7 +10,8 @@ the end). The build plan and screens stay in `marketplace-architecture.md`; tier
 
 Marketplace rules had grown across 0031, 0032, 0036, 0055 and 0116, the AOS (§3, §5, §7), `commercial.md` and the
 outline, and some no longer agreed:
-- 0031 said no payments ever pass through the site at launch, while `commercial.md` now gives Core card checkout;
+- 0031's "no transaction processing" read as "no payments on the site", while `commercial.md` gives Core card
+  checkout (Jason, 2026-11-01: it meant no payments pass **through Traversence**, which still holds);
 - 0032 built ratings, and 0058 later dropped star ratings;
 - 0032 set a catalog cap only for Cornerstone, while the AOS and the admin docs read "the 250-item cap" as every tier;
 - the outline planned a new "Item" record, while the business catalog has been live since 0116.
@@ -73,28 +74,34 @@ completed offer or a paid order is marked as such (0032's "verified interaction"
 
 ### 6. Payments
 
-0031's "no payments through the site" stays true for **people**: they pay each other offline, and dual confirmation is
-on the site. For businesses it is replaced by:
+**No payment ever passes through Traversence (0031, Jason 2026-11-01).** We never stand between a buyer and a seller's
+gateway, hold money or act as the merchant of record. That's what 0031 meant, and it holds:
+- **People** pay each other offline; dual confirmation is on the site.
 - **Manual payments on every plan** (Zelle, bank transfer, check, pay on pickup), marked paid by the business
   (`commercial.md` §1.1). Free businesses can sell.
-- **Card checkout from Core**, on the business's own gateway's hosted page: no card data on our server, no cut taken,
-  the order recorded on our ledger (0098). We are never the merchant of record.
+- **Card checkout from Core**, straight to the business's own gateway's hosted page: no card data on our server, no
+  cut taken. We only record the order on our ledger (0098).
 - **Square and Stripe first (Jason, 2026-11-01).** Square fits the counter shops we sign; Stripe covers the rest, with
   low-cost bank payment (ACH). PayPal / Venmo next if buyers ask; QuickBooks Payments and others when a business asks.
   The options compared are in `marketplace-architecture.md` §4.
 
-### 7. Catalog caps: an allowance on the plan (proposed)
+### 7. Catalog caps: an allowance on the plan (Jason, 2026-11-01)
 
 The catalog cap is an **allowance**, like storage and AI credits. It sits beside them in `Billing::PLANS`, shows on
 Back-Office → Plans and the business's Plans page, and is listed in `commercial.md` §1.1.
-- **Counted per listing**, Active items only; hidden items don't count. A Location Group adds no combined cap (0032,
-  0036).
+- **Active items only;** hidden, sold and expired ones don't count. A business's cap is per listing, and a Location
+  Group adds no combined cap (0036).
 - **At the cap:** adding or showing another item is greyed out with the reason and the plan that raises it, never a bare
   error. Nothing already showing is taken down.
-- **Numbers:** Cornerstone 250 per listing is decided (0032). Free 25, Basic 100, Core 250, Strategic 250
-  **(proposed)**. Strategic and Cornerstone match because Cornerstone's extra is many locations, each with its own 250.
-- **More** later, as a pack like the storage packs, if businesses ask.
-- **People's posts** aren't a catalog. How many one person runs at once is a Marketplace rule (a setting).
+- **Numbers:**
+
+  | Personal (a member) | Free | Basic | Core | Strategic | Enterprise / Cornerstone |
+  |---|---|---|---|---|---|
+  | 5 active posts | 10 | 25 | 100 | 250 | 1,000 per listing |
+
+  Cornerstone's 1,000 replaces 0032's 250.
+- **No item packs.** Every active item uses storage (its photos), so storage is the natural bridge: a business that
+  grows its catalog grows into the storage packs, and then a higher plan.
 
 ### 8. How long a post stays up (proposed)
 
@@ -123,7 +130,6 @@ Belong to the Storefronts build (`marketplace-architecture.md` §6 step 5). How 
 
 ### Still open
 
-- The catalog cap numbers below Cornerstone (section 7).
 - The post-length details (section 8).
 
 ## What changes
@@ -132,7 +138,7 @@ Belong to the Storefronts build (`marketplace-architecture.md` §6 step 5). How 
   `admin-rebuild-batch-plan.md` and `business-portal-architecture.md` now say "catalog caps by plan (0135)" in place of
   "the 250-item cap". `marketplace-architecture.md` follows this record.
 - **When built** (site code):
-  - `Billing::PLANS` gains an items allowance and `Plan` a `limit()` (as `business-portal-architecture.md` §7 planned);
+  - `Billing::PLANS` gains an items allowance (personal plans 5) and `Plan` a `limit()` (as `business-portal-architecture.md` §7 planned);
     the Catalog greys out Add / Show at the cap.
   - Workspace 5's manifest splits into Marketplace and Storefronts; the Catalog rules placeholder's text ("the 250-item
     cap per catalog") becomes "catalog caps by plan".
@@ -140,5 +146,6 @@ Belong to the Storefronts build (`marketplace-architecture.md` §6 step 5). How 
 
 ## Older records that point here
 
-0031 (Post-and-Connect), 0032 (quotes, pricing, catalog depth), 0036 (the catalog-cap part only), 0116 (the catalog in the
+0031 (Post-and-Connect; its "no payments through Traversence" stands), 0032 (quotes, pricing, catalog depth; its 250 is
+now 1,000), 0036 (the catalog-cap part only), 0116 (the catalog in the
 business portal). 0055's Marketplace naming and 0058's comments-not-stars stand as they are.

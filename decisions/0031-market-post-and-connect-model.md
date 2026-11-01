@@ -1,6 +1,6 @@
 # ADR 0031: Market Launches as a Post-and-Connect Model — No Transaction Processing at Launch
 
-> **Marketplace rules: superseded by `decisions/0135` (2026-11-01), the Marketplace's one record.** This record stays as history; where it and 0135 disagree (payments for businesses, the name "Market"), 0135 rules.
+> **Marketplace rules: superseded by `decisions/0135` (2026-11-01), the Marketplace's one record.** This record stays as history; where it and 0135 disagree (the name "Market"; businesses' own card checkout, which still never passes through Traversence), 0135 rules.
 
 **Status:** Accepted (2026-09-25)
 

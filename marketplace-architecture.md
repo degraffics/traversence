@@ -232,7 +232,8 @@ Answered 2026-11-01 in `decisions/0135`:
 1. **Name and address:** Market 360° in the admin (`/admin/market/`), with Marketplace and Storefronts managed
    independently; the public page stays `/market/` (§1).
 2. **Free businesses** sell, with manual payments (§6).
-3. **Catalog caps:** an allowance by plan (§7); numbers below Cornerstone proposed.
+3. **Catalog caps:** an allowance by plan, active items: personal 5, Free 10, Basic 25, Core 100, Strategic 250,
+   Cornerstone 1,000 per listing (§7).
 4. **Gateways:** Square and Stripe first (§6).
 5. **Custom domains:** in the Storefronts build (§9).
 6. **Reviews** are comments (§5).
