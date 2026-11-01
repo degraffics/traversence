@@ -296,3 +296,27 @@ trvgo: AWS, Bluehost and cPanel, Google, QuickBooks, Anthropic, the domains, and
 - Either way, the site's own `.env` secrets stay in `.env` (the site needs them to run). The vault is the record of
   them and of everything else. Plain settings are already changed from the admin (decisions/0125).
 - Related, still separate: the business documents vault (above) for proof documents.
+
+## A Facebook agent: the Traversence Page that answers (noted 2026-11-01)
+
+Jason: "Can I create a Facebook agent for Traversence so its AI can go on, act as an entity, and interact with people?"
+Yes, as the Traversence **Facebook Page** (and a linked Instagram business account) through Meta's official API, never
+as a personal profile (automated personal accounts break Meta's terms and get banned).
+
+- **What a Page can do:** post (guides, listings, events, stories from the site); reply to comments on its own posts;
+  answer Messenger messages from people who wrote first (within 24 hours of their last message, else a person or an
+  approved message type); the same on Instagram.
+- **What it can't:** run as a person, message people who didn't write first, comment on others' posts, post in Groups
+  (Meta closed the Groups API in 2024), or read Facebook to collect data (our standing rule: never crawl Facebook).
+- **How it would fit the site:**
+  1. Every comment and message lands in Pulse as a case with the AI's suggested reply; a person taps Send or edits it
+     (decisions/0133: AI acts on a person's word).
+  2. Later, by choice: it answers simple things itself (hours, directions, claiming a listing, FAQ answers); the rest
+     still waits in Pulse.
+  3. It says it's Traversence's assistant, never a person; "talk to a person" hands off to staff.
+  4. Posts come from the site's own content, approved one by one or on a schedule.
+  5. Cost: Meta's API is free; AI replies count toward the AI monthly cap (Services & usage).
+- **Before building:** a Meta developer app, business verification, Meta's review of the posting and messaging
+  permissions (days to a couple of weeks), the Page connected; its token in `.env` by hand. Add Meta to
+  `Pulse::SERVICES` (the outside services list) when it starts.
+- **Status:** a future consideration, not scheduled. Draft the plan for review before any build.
