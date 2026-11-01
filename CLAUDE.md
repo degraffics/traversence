@@ -1,308 +1,188 @@
 # Working notes for Claude sessions on this repo
 
-## Pushing to GitHub from a cloud Cowork/Claude Code session
+This repo (`degraffics/traversence`) is the durable record of Traversence's governance and technical docs: charter, PRD,
+commercial, architecture, brand, phases, regions, routes, workflow, future-considerations, `decisions/*.md`,
+`traversence-platform-spec.md`, and Claude Docs exports in `claude-docs/`. The site's code lives on the server and in
+OneDrive, mirrored to `degraffics/traverse-3way-sync` (below). Rules marked "every build" apply to every delivery.
 
-This repo (`degraffics/traversence` on GitHub) is version-controlled here as
-the durable backup of Traversence's governance and technical documentation
-(charter, PRD, commercial model, architecture, brand, phases, regions,
-routes, workflow, future-considerations, `decisions/*.md`, the live
-`traversence-platform-spec.md`, and Claude Docs exports under `claude-docs/`).
+## Pushing from a cloud session
 
-Cloud sessions reach GitHub through a local egress proxy. Two environment
-variables (`GH_TOKEN`, `GITHUB_TOKEN`) show up as `proxy-injected`, and git is
-configured to rewrite both SSH remote forms (`git@github.com:...` and
-`ssh://git@github.com/...`) to HTTPS so the proxy can intercept the request
-and inject a credential automatically — normal `git push`/`git pull` over
-HTTPS, no manual token handling.
-
-**The injection is gated per session, per repo.** A push can still fail with:
-
-```
-remote: access denied by the git proxy: <owner>/<repo> is not in this
-session's authorized repository set, so the proxy will not inject a
-credential for it. To fix, add the repository to the session's sources.
-```
-
-This means the proxy mechanism exists but this particular repo hasn't been
-authorized for *this* session. It is not a token, config, or gitconfig
-problem in this working tree — nothing in this repo or in `~/.gitconfig` can
-fix it. If you hit this:
-
-1. Don't retry the push as-is or try to route around it (no alternate auth,
-   no disabling the proxy) — same guidance as any other 403 from the agent
-   proxy (see `/root/.ccr/README.md`).
-2. Tell Jason plainly that the push is blocked on repository authorization
-   for this session, and give him the options:
-   - Add `degraffics/traversence` to this session's authorized repository
-     set (however that's surfaced in the Cowork/Claude session UI — this
-     hasn't been pinned down from inside the session itself).
-   - Supply a personal access token with push rights, and push with that
-     directly instead of relying on the proxy.
-   - Push from his own machine instead, if a folder/computer is linked via
-     the remote-devices bridge and has its own git/GitHub access.
-3. Local commits are safe either way — commit normally in the working copy
-   even if the push has to wait. Don't let a blocked push stop you from
-   getting the work committed.
-
-Authorization is scoped to the session, so a prior successful push does not
-guarantee the next session (or even a later point in the same one, if it
-gets recreated) will have the same repo authorized — check by attempting the
-push and reading the error, rather than assuming.
+Git goes through the session's proxy, which adds the credential itself: plain `git push`/`git pull`, no tokens. If a push
+fails with "access denied by the git proxy: … not in this session's authorized repository set", the repo isn't
+authorized for *this* session (nothing in the repo or gitconfig fixes it). Don't retry or route around it. Commit
+locally anyway, and tell Jason his options: add `degraffics/traversence` to the session's repositories, give a personal
+access token with push rights, or push from his own computer. Authorization is per session, so try the push rather than
+assume.
 
 ## One copy: all work ends up in `main` (Jason, 2026-11-01): every session
 
-`main` is the single source of truth for Traversence. Jason doesn't want work split across branches, because that
-leaves information out of step and the site behaving inconsistently.
+`main` is the single source of truth; split branches leave information out of step and behavior inconsistent.
+- **Start from the latest `main`.** Fetch `origin/main` and base the session's branch on it. Work on the given branch
+  that isn't in `main` gets merged or rebased first, never thrown away.
+- **Finish in `main`.** When done (or Jason says "push", "wrap up", "merge it"): commit, push the `claude/…` branch, open
+  a PR into `main` (or update the open one) and merge it. Only one open PR at a time; merge an earlier one first.
+- **Check:** `git merge-base --is-ancestor origin/<branch> origin/main`, then tell Jason plainly the work is in `main`.
+  Merged branches can be deleted on GitHub (Branches → trash); if that's blocked, leave it to Jason.
+- If the merge can't happen (blocked push, conflict, failed check), say what's still outside `main`. Never call work
+  saved when it's only on a branch.
 
-- **Start from the latest `main`.** Before you change anything, fetch `origin/main` and base the session's branch on
-  it. If the branch you were given is behind `main`, or carries work that isn't in `main`, deal with that first: merge
-  or rebase it, and never throw away commits that aren't merged.
-- **Finish in `main`.** When the work is done (or Jason says "push", "wrap up", "merge it"), commit, push the
-  session's `claude/…` branch, open a pull request into `main` (or update the open one), and merge it. Don't leave
-  work sitting on a branch at the end of a session.
-- **Only one open pull request at a time.** If one is already open from an earlier session, merge it before you start
-  new work, or add to it. Don't open a second, competing one.
-- **After merging, check it worked:** the branch must be fully contained in `origin/main`
-  (`git merge-base --is-ancestor origin/<branch> origin/main`). Tell Jason in plain words that the work is in `main`.
-- **Merged branches can be deleted** on GitHub (Branches → trash icon). If deleting is blocked in the session, say so
-  and leave it to Jason; a merged branch does no harm.
-- If the merge can't happen (the push is blocked, there's a conflict, a check fails), say so plainly and say what's
-  still outside `main`. Never report work as saved when it's only on a branch.
+## Keep this file lean
 
-## The 3-way sync: OneDrive ⇄ server, recorded in GitHub (Jason, 2026-10-28): every build
+It loads in full every session. One short rule per point; the detail lives in the decision it cites. Remove rules a
+later decision replaces.
+
+## The 3-way sync: server ⇄ OneDrive, recorded in GitHub (Jason, 2026-10-28): every build
 
 `degraffics/traverse-3way-sync` keeps the server (FTP) and OneDrive `Traversence/website` + `Traversence/app` the same,
-twice a day (6:00 and 18:00 UTC) or on demand (its workflow's Run button), and commits what it settled on to
-`sync-storage/` (website) and `sync-app/` (app). Remember it before building, delivering or deleting anything:
-- **What's live:** read `sync-storage/` and `sync-app/` on that repo's main branch, not a copy from an earlier session.
-  Compare before building: a file there may be newer than ours, or a delivery may never have arrived.
-- **Delivering:** Jason uploads to the server (FTP) and the sync brings OneDrive up to date (2026-10-28). The server is
-  the home copy: when a file changed on both sides between runs, the server's wins (`SYNC_HOME=ftp`).
-  A delivery zip holds **only the files that differ from the live mirror** (new or changed, compared byte for byte),
-  never a blanket upload: fetch the sync repo's main branch, compare, zip the difference. That also catches anything
-  an earlier round left behind. Dotfiles (`.htaccess`) aren't in the mirror, so they're named separately when they
-  change.
-- **Deleting:** delete on one side and the sync deletes on the other (OneDrive to its recycle bin; a server copy saved
-  in the sync repo's `deleted/`). Claude can delete in OneDrive through the Microsoft 365 connector. Never re-send a
-  deleted file in a later zip. More than max(10, 5%) deletions in one run are held until the workflow runs with
-  `allow_mass_delete` ticked.
-- **Never in a zip:** `bootstrap-super-admin.php` (retired; the sync never touches the name, so a zip is the only way it
-  comes back), and files listed under the archive register's "Removed".
-- **Never synced:** dotfiles (`.env`, `.htaccess`, which has its own staged promotion), `app/storage/`, `_notes`,
-  `_SUPPORT`, `_pending`, `_concepts`, `error_log`, `bootstrap-super-admin.php`.
+at 6:00 and 18:00 UTC or on demand (its workflow's Run button), committing the result to `sync-storage/` (website) and
+`sync-app/` (app).
+- **What's live** is those folders on that repo's `main`, not a copy from an earlier session. Compare before building.
+- **Delivering:** Jason uploads to the server; the sync updates OneDrive. The server wins a two-sided change
+  (`SYNC_HOME=ftp`). A zip holds **only files that differ byte for byte from the live mirror**, never a blanket upload.
+  Dotfiles (`.htaccess`) aren't mirrored, so name them separately when they change.
+- **Deleting** on one side deletes on the other (OneDrive recycle bin; server copy in the sync repo's `deleted/`).
+  Claude can delete in OneDrive via the Microsoft 365 connector. Never re-send a deleted file. More than max(10, 5%)
+  deletions in a run wait for `allow_mass_delete`.
+- **Never in a zip:** `bootstrap-super-admin.php` (retired) and anything under the archive register's "Removed".
+- **Never synced:** dotfiles (`.env`, `.htaccess`), `app/storage/`, `_notes`, `_SUPPORT`, `_pending`, `_concepts`,
+  `error_log`, `bootstrap-super-admin.php`.
 
 ## Files used once, and the archive (Jason, 2026-10-28): every build
 
-- **Migrations are used once, and the site runs them** (Jason, 2026-10-30). Upload the file; the site runs each new one
-  itself, oldest first, within the hour (any scheduled job) or when System Configuration → **Database updates** opens,
-  logs it (`db_updates_log`) and deletes it. One that fails stays there with its error and holds the later ones until
-  it's replaced. No phpMyAdmin in delivery notes. So every migration must run twice safely and finish on its own (never
-  a step for a person), and a delivery zip carries only the new migrations.
-- **Test files, dumps and one-off scripts** don't go in `website/` or `app/`; once used, they're deleted.
-- **Archived pages** (out of the menus, still reachable) are listed in `archive.md`: what replaced each one, what still
-  opens it, and what has to happen before it goes. Nothing is removed until Jason clears it; then remove it the same
-  build and move it to the register's "Removed".
-- **Dead code** (nothing calls it, checked against the live mirror too) is deleted, not kept "just in case": the sync
-  repo's history keeps every version.
+- **Migrations run themselves** (2026-10-30): upload the file; the site runs new ones oldest first within the hour, or
+  when System Configuration → Database updates opens, logs them (`db_updates_log`) and deletes them. A failed one holds
+  the rest until replaced. So each must be safe to run twice and need no person; zips carry only new ones; no phpMyAdmin
+  steps in delivery notes.
+- Test files, dumps and one-off scripts never go in `website/` or `app/`; delete them once used.
+- **Archived pages** (out of menus, still reachable) are listed in `archive.md` with what replaced them. Remove one only
+  when Jason clears it, then move it to the register's "Removed" in the same build.
+- **Dead code** (nothing calls it, checked against the live mirror) is deleted; the sync history keeps old versions.
 
-## The crawler, research and guides follow decisions/0133: every build
+## The crawler, research and guides: decisions/0133 rules: every build
 
-`decisions/0133` is the one rule book for the crawler and everything it feeds (listings, landmarks, dossiers, research,
-guides, stories): the principles (we build our own record of the open web; curators, not controllers: no topic left out for being
-sensitive, only its exposure and representation managed), the six phases, the people rules, the
-protected-information standard ("tell the story, never the way in"), provenance (never overwrite what a person entered;
-AI acts on a person's words only when called), the source register (the licence decides the use), the thresholds table
-and Services & usage. Older crawler records are history; where they disagree, 0133 rules.
+`decisions/0133` is the one rule book for the crawler and what it feeds (listings, landmarks, dossiers, research, guides,
+stories): curators, not controllers (no topic left out for being sensitive; only exposure and representation managed);
+"tell the story, never the way in"; never overwrite what a person entered; AI acts on a person's words only when called;
+the licence decides the use. Where older crawler records disagree, 0133 wins.
 
-## Two folders: website/ and app/ (decisions/0069)
+## Folders: website/, app/, trvgo/ (decisions/0069, 0094)
 
-The site is two folders, side by side on the server and in OneDrive `Traversence/`:
-- `website/`, the web root: pages, endpoints (`api/*.php`, `api/crawl/`, `api/auth/`, `user/api/`, `listing/api/`), `js/`,
-  `image/`, `uploads/`.
-- `app/`, never served:
-  - `app/lib/` the classes;
-  - `app/data/` the word data;
-  - `app/ui/` the shared page parts (app shell, header, page shell, engage bar, `faq.md`);
-  - `app/bootstrap.php`, `app/middleware/`;
-  - `app/migrations/` the SQL;
-  - `app/scripts/` command-line tools.
+- `website/` is the web root: pages, endpoints (`api/`, `api/crawl/`, `api/auth/`, `user/api/`, `listing/api/`), `js/`,
+  `image/`, `uploads/`. Never backend code, SQL, notes or dumps.
+- `app/` is never served: `lib/` classes, `data/` word data, `ui/` shared page parts (shell, header, engage bar,
+  `faq.md`), `bootstrap.php`, `middleware/`, `migrations/`, `scripts/`.
+- `trvgo/` is the trvgo.us document root: only the short-link router (`index.php`, `.htaccess`).
+- Pages reach `app/` by relative path (`__DIR__ . '/../app/ui/header.php'` from the root). Zips hold the folders at real
+  paths. Notes folders (`_notes`, `_SUPPORT`, `_concepts`, `_pending`) go in neither.
 
-A third folder, `trvgo/`, is the document root of the trvgo.us addon domain (decisions/0094): only the short-link
-router (`trvgo/index.php`, `trvgo/.htaccess`), reading `app/` by relative path. Nothing else goes in it.
+## The admin (decisions/0109): every build
 
-Never put backend code, SQL, notes or dumps in `website/`. Delivery zips hold both folders at their real paths. Pages
-reach the backend by relative path: `__DIR__ . '/../app/ui/header.php'` from a root page,
-`__DIR__ . '/../../app/lib/Auth.php'` one folder down. Notes (`_notes`, `_SUPPORT`, `_concepts`, `_pending`) don't
-belong in either folder.
+11 modules at `/admin/<module>/<section>[/<id>]`, drawn by `website/admin/router.php` from `app/admin/manifests.php`, one
+endpoint `/admin/api/<module>/<tool>`.
+- No admin page outside the manifests: a new tool is a section there (a list also a tool in `app/admin/tools.php`),
+  built from widgets (table, pipeline, metrics, detail drawer, quick task).
+- Stages are workflows (System Configuration → Workflows), not hard-coded; money and data moves go through the owning
+  library (`app/admin/workflows.php`).
+- Access: `Access::can()` / `Modules::canTool()`. Disallowed actions are greyed out with the reason, never silently hidden.
+- Another module's tools open in a drawer (`at_hand`), never by leaving the page. Old pages are archived, not deleted.
 
-## The admin: modules, sections, widgets, workflows (decisions/0109): every build
+## Record pages: the command strip (decisions/0129): every admin record page
 
-The admin is 11 modules (AOS §8) at `/admin/<module>/<section>[/<id>]`, drawn by `website/admin/router.php` from the
-manifests in `app/admin/manifests.php`, with one endpoint `/admin/api/<module>/<tool>` (`website/admin/api.php`).
+`tv_command_strip()` (`app/ui/command-strip.php`, `js/tv-strip.js`) replaces the title and breadcrumbs: one slim line
+that hides on scroll down, returns on scroll up, and stays while anything is unsaved.
+- Left: Back and the short name ("Order #9"), no pills. Right: **Save** (with a count) when changed, else **Close**, ▾
+  for Save and close, Send, Close; **☰** for other actions and Shortcuts (they trigger the page's own buttons).
+- Where the record stands is a notices box under the strip (`news`), closed with ×, back only when it changes. Nothing
+  shown there is repeated below.
+- Each `h2.hb-h` section gets a bar (unsaved dot, fold). Section buttons name the section ("Save work order"); never a
+  bare "Save and close" inside one. `'new'` forms and `data-confirm` buttons wait for their own button; searches `'skip'`.
 
-- **No admin page outside the manifests.** A new admin tool is a section in `app/admin/manifests.php`; a list is also a
-  tool in `app/admin/tools.php`. Build it from widgets (table, pipeline, metrics, detail drawer, quick task), not as a
-  new page in the menus.
-- **Stages are workflows**, edited in System Configuration → Workflows, not hard-coded. The protected moves (money,
-  data) go through the library that owns the record (an adapter in `app/admin/workflows.php`).
-- **Access follows the tool:** `Access::can()` / `Modules::canTool()`. What someone may not do is greyed out with
-  the reason, never hidden without saying.
-- **Tools from another module open in a drawer** over the work (a module's `at_hand`), never by leaving the page.
-- **Old pages are archived:** out of the menus, still there by direct link and in the site map. Don't delete them.
+## Keep the FAQ current (decisions/0057): every build
 
-## Keep the FAQ current (decisions/0057)
+`faq.md` ships as `app/ui/faq.md` and renders at `/faq.php`. Every build adds or updates entries for what changed, from a
+visitor's view, saying "coming" for what isn't built; include it in the zip. Anchors come from the question wording, so
+check `grep -rn "faq.php#"` before rewording one.
 
-`faq.md` is the site's FAQ and its only source: it ships as `app/ui/faq.md` (decisions/0069) and renders at `/faq.php`.
-With every build, add or update its entries for whatever changed. Write them from a visitor's point of view, describe
-what the site actually does, and say "coming" for anything not built yet. Include the updated `app/ui/faq.md` in
-the delivery zip. Question anchors come from the wording, so rewording a question breaks links to it; check with
-`grep -rn "faq.php#"` first.
+## Phone layout and visual standard (decisions/0058 §11): every page
 
-## Phone layout and visual standard (decisions/0058 §11): apply to every page, every build
+- **Edge to edge below 768px:** cards and panels 3px from each side and each other, `.5rem` corners; text keeps a small
+  margin. `app/ui/app-shell.php` handles known card classes; others add `class="tv-bleed"`. No per-page negative margins.
+- **Card anatomy:** the name is the link, top left, brand brown `#92400E` underlined; Link button top right; actions
+  (Call, Directions, See on map, Website, Contact, Peek) as 30px round icon buttons down the right edge under it, with
+  `title`/`aria-label`, no text, icons `#B45309`; details on the left.
+- **Icons** are the brand's flat SVGs (`tv_icon()`), never emoji. Active: sage `#8FBCA8` with a soft glow; rest: cream
+  with a brown ring.
+- **No breadcrumbs** on content pages; kind, category, agency, name and activity pills search for more
+  (`TvSearch.open('<words> near <place>')`).
+- **Filters** live in the search (foot of Quick Search, §39), showing only active ones with ×. Filters on a list or queue
+  are one dropdown button like Shortcuts (icon, current choice, count, ▾), not rows of pills.
+- **Phone menus:** ☰ tools drop-down left, profile and role right.
+- **Count outbound taps:** `data-out="call|directions|website|contact" data-e="<listing id>"` (counts only, never who).
+- Check every page at 390px: 3px card edges, no sideways scroll.
 
-Space on a phone is at a premium. Every page, new or changed, follows this:
+## Content pages (decisions/0058 §20, §21): every build
 
-- **Edge to edge.** Below 768px, cards, lists of cards and panels run edge to edge with **3px** each side and **3px**
-  between them, with small corners (`.5rem`). Text (headings, paragraphs, labels) keeps a small margin. The page
-  frame (`app/ui/app-shell.php`) does this for the known card classes and Tailwind `rounded-xl/2xl border` cards;
-  anything else opts in with `class="tv-bleed"`. Don't add per-page negative margins.
-- **Card anatomy:**
-  - the **name is the link**, top left, in brand brown (`#92400E`, underlined);
-  - the **Link button** is in the top-right corner;
-  - the **actions** (Call, Directions, See on map, Website, Contact, Peek) are a column of **30px round icon
-    buttons down the right edge, under the Link button**, with `title`/`aria-label` and no text, icons in
-    `#B45309`;
-  - the **details** sit on the left.
-- **Icons are the brand's flat SVGs** (`tv_icon()`), not emoji, for anything you tap. The active state is sage
-  `#8FBCA8` with a soft glow, like the top bar; the rest state is flat cream with a brown ring.
-- **No breadcrumbs on content pages.** The page says where it is. Its kind, category, agency, name and activity
-  pills **search for more** (`TvSearch.open('<words> near <place>')`).
-- **Filters inline with a list** (a queue, a table) are a **dropdown button like Shortcuts** (Jason, 2026-10-21): a rounded
-  cream button with an icon, the current choice and its count, and ▾, opening a list of each option with its icon and count.
-  Not rows of pills or bare icon buttons.
-- **Filters live in the search** (the foot of its Quick Search, decisions/0058 §39), not in rows on the page. Show only active filters, each with ×.
-- **Phone menus:** the ☰ tools button with a drop-down list (left), the person's profile and role (right).
-- **Count outbound actions** with `data-out="call|directions|website|contact" data-e="<listing id>"`. This stores
-  counts only, never who tapped.
-- Check every page at 390px wide before delivering: card edges at 3px, no sideways scroll.
+Listings, outdoor places, experiences, places, journeys and any new content kind:
+- **Hero** (`tv_explore_hero()`) flush under the tool bar for places, listings and profiles (pass `heading`, `slides`,
+  `manage` for the owner).
+- **Header:** kind or category (searches), the title (not a link), the place, Link button top right (`data-link` +
+  `js/link-button.js`). No breadcrumbs.
+- **Engage bar** under it: `tv_engage_bar($pdo, $kind, $ref, ['title' => …])` (`app/ui/engage-ui.php`).
+- **Comments** at the end: `tv_engage_comments($pdo, $kind, $ref)` (public, 18+, reportable).
+- **Views:** `tv_count_item('<kind>:<id>')`. Maps opened as their own view pass `panel: true` to `TvMap.open()`.
 
-## Pulse: steps do the work, links to outside services sit in the step (Jason, 2026-11-01): every build
+## Pulse (Jason, 2026-11-01): every build
 
-- A Pulse step that can be done from the case is a button that does it (`['do', what, label]` or `['form', …]` →
-  `Pulse::manage`), not a link to another page.
-- A step that needs an outside service (Railway, QuickBooks, AWS, Cloudflare…) carries its link in the step
-  (`Pulse::SERVICES`, the step's `ext`); the daily report shows it too. Never "go to Railway" without the link.
-- One case per kind of chore, a step per item (terms to read, failed crawl jobs), not a case for each.
+A step doable from the case is a button that does it (`['do', …]` / `['form', …]` → `Pulse::manage`), not a link. A step
+needing an outside service (Railway, QuickBooks, AWS, Cloudflare…) carries its link (`Pulse::SERVICES`, the step's
+`ext`); never "go to Railway" without it. One case per kind of chore, a step per item.
 
-## No browser dialogs: every page, every build
+## No browser dialogs; one look for notices (`js/tv-ask.js`): every page
 
-Never use `alert()`, `confirm()` or `prompt()` (the browser's grey boxes). Use the site's own, from `js/tv-ask.js`
-(loaded on every page by `app/ui/header.php`):
-- a form or submit button that needs a yes: `data-confirm="Hide it from the site?" data-yes="Hide it"` (add `data-danger`
-  for anything that removes or hides), shown inline under the button;
-- in a click handler: `if (!TvAsk.gate(button, 'Remove this comment?', { yes: 'Remove', danger: true })) return;`;
-- `TvAsk.confirm(msg, {anchor})` → Promise, `TvAsk.say(msg, {anchor})` for notices (a toast without an anchor),
-  `TvAsk.ask(label, value)` → Promise for a one-field lightbox form.
-- **notices** (Jason, 2026-10-28): `TvAsk.say(msg, {anchor, bad})` is the one look for good and bad news, a green ✓
-  "Success:" or red ! "Error:" with ×, beside what was done (`anchor`), else a pop-up in the middle that the background or
-  × closes. Pass `bad: true/false`. A message a page prints after a form posts carries `data-tv-flash="ok|error"`, and it
-  shows beside the form that was sent. No other success/error boxes or toasts.
-- **status lines** (Jason, 2026-10-28): a line a page shows about where things stand ("No listings need you", "3 were
-  merged", "The crawler is still working on…") is never plain colored text: `<p data-tv-status="ok|info|bad"
-  data-tv-label="All clear:">…</p>` draws it as the same notice box in its place (green ✓, amber i for info, red !).
-- to show a page without leaving the one you're on (checking a listing from Review): `<a href="…" data-peek-frame>` or
-  `TvAsk.peek(url, title)`, a pop-up card with the page in its embedded view and "Open the full page" in its corner.
+Never `alert()`, `confirm()` or `prompt()`.
+- Needs a yes: `data-confirm="Hide it from the site?" data-yes="Hide it"` (+ `data-danger` for removing or hiding); in
+  code `if (!TvAsk.gate(btn, 'Remove this comment?', {yes: 'Remove', danger: true})) return;`. Also
+  `TvAsk.confirm(msg, {anchor})`, `TvAsk.ask(label, value)` (one-field form).
+- **Notices:** `TvAsk.say(msg, {anchor, bad})`, green ✓ "Success:" / red ! "Error:" beside `anchor`, else a centered
+  pop-up. After a form post, the page's message carries `data-tv-flash="ok|error"`. No other success/error boxes.
+- **Status lines** are `<p data-tv-status="ok|info|bad" data-tv-label="All clear:">…</p>`, never plain colored text.
+- **Peek** at a page without leaving: `<a href="…" data-peek-frame>` or `TvAsk.peek(url, title)`.
 
-## Record pages: the command strip and section controls (decisions/0129): every admin record page, every build
+## Password boxes (`js/tv-password.js`, Jason, 2026-10-16): every page
 
-An admin page about one record (an order, and next a client, listing, product, vendor) carries the **command strip**
-(`tv_command_strip()`, `app/ui/command-strip.php` + `js/tv-strip.js`): **one slim line** at the top of the page in place
-of its title and breadcrumbs, that slides away as you scroll down and back as you scroll up (it stays while something's
-unsaved) (Jason, 2026-10-28):
-- **left:** Back and the record's short name ("Order #9"); no status pills in the strip;
-- **right:** one button for the master commands, reading **Save** (with how many, when more than one) when something's
-  changed and **Close** otherwise, with ▾ for Save, Save and close, **Send** (to the client) and Close (asks first when
-  something is unsaved); and **☰** for the record's other actions and the admin Shortcuts (they trigger the page's own
-  buttons, so their questions still apply).
-- **Where the record stands** (paid, in production, the client opened it) is a notices box under the strip (`news`),
-  shown on page load and closed with ×; it stays closed until what it says changes. Save results are TvAsk notices.
-- Nothing the strip or its notices box shows is repeated below them.
-- **Sections** start at each `h2.hb-h`; each gets a bar (a dot when unsaved, Close/Open to fold). A section's own
-  buttons name it ("Save work order", "Save and send to vendor"); only sections make new things.
-- Forms that make something new (`'new'` selector) or whose button asks first (`data-confirm`) wait for their own button;
-  searches are `'skip'`. Never a button that says just "Save and close" inside a section.
+Every password box gets Show/Hide; new-password boxes (`autocomplete="new-password"`, `minlength`, optional
+`data-pw-not`) get a live checklist, and the confirm box `data-pw-match="#id"`. The form won't send until it's ticked.
+One-time secrets stay hidden until asked for, with an offer of a new one.
 
-## Password boxes: every page, every build (Jason, 2026-10-16)
+## One uploader (decisions/0127): every build
 
-Every password box gets a Show / Hide button, and every new-password box gets a live checklist under it. Both come from
-`js/tv-password.js`, loaded on every page by `app/ui/header.php` and `app/ui/page-shell.php`:
-- a box for a new password: `autocomplete="new-password"` and `minlength="N"` (add `data-pw-not="<text>"` for something
-  it mustn't contain, e.g. the staff ID);
-- its confirm box: `data-pw-match="#first-box-id"`;
-- the form can't be sent until the list is ticked (the list turns red; no browser pop-ups).
-Secrets shown once (authenticator keys, setup links) stay hidden until asked for, and the page offers a new one, never "open a
-private window".
+Every upload goes `js/tv-upload.js` → `/api/upload.php` → `app/lib/Uploads.php`. A new place to upload is a target in
+`app/lib/upload-targets.php` (`check`: who, kinds, size, staging; `done`: the owning library handles the file). In pages:
+`TvUpload.send(files, {target, ctx, el})` or `TvUpload.bind(input, …)`. Forms with other fields send the file first, then
+the form with its id. Before delivering, `grep -rn '\$_FILES\|is_uploaded_file\|move_uploaded_file' app website` may
+match only `app/lib/Uploads.php` and `website/api/upload.php`.
 
-## One uploader for every file (decisions/0127): every build
+## Links past Bluehost's ModSecurity: every request
 
-Every file anyone sends the site goes through one path: `js/tv-upload.js` in the browser (loaded on every page by
-`app/ui/header.php` and `app/ui/page-shell.php`), `/api/upload.php`, and `app/lib/Uploads.php`. Never a page or endpoint
-of its own that takes `$_FILES`, `is_uploaded_file()` or `move_uploaded_file()`, and never a `multipart/form-data` form
-that posts files anywhere else.
-- **A new place to upload is a target** in `app/lib/upload-targets.php`: `check` (who may, what kinds, the most it takes,
-  where it's staged) and `done` (what happens to the file that arrived: `$u->moveTo()`, `$u->local()`, `$u->asFile()`).
-  The library that owns the record does the work (Gallery, ClientOrders, BizFiles…), as for any protected move.
-- **In the page:** `TvUpload.send(files, {target, ctx, el})` or `TvUpload.bind(input, …)`; the result shows beside `el`
-  (`TvUpload.reloadHere(message, el)` after a reload). Size checked first, over 10 MB asks, a progress bar, S3 in parts
-  or pieces through the server when S3 is off. Up to 1 GB a file; a target may take less.
-- A form that has other fields as well sends the file first, then the form with the id it got back (labels on an order's
-  shipment, a GO Code's logo, a journey's photos after the journey is saved).
-- Check with `grep -rn '\$_FILES\|is_uploaded_file\|move_uploaded_file' app website` before delivering: only
-  `app/lib/Uploads.php` and `website/api/upload.php` may match.
+A field holding a link (`…?id=…`) gets "Not Acceptable!", so links travel wrapped. POST forms: automatic (`tv-ask.js`
+wraps, `app/bootstrap.php` unwraps). JSON `fetch`: `JSON.stringify(window.tvSafe ? tvSafe(body) : body)`, read with
+`Response::jsonBody()`. Endpoints reading `php://input` themselves pass it through `Response::unwrap()`.
 
-## Links past Bluehost's firewall (ModSecurity): every form and request, every build
+## Tribal nations' land (decisions/0066): every build
 
-Bluehost's ModSecurity rejects a request ("Not Acceptable!") when a field holds a link like `…/profile.php?id=…`. Links
-travel wrapped and are unwrapped on arrival, so code never sees the difference:
-- ordinary POST forms: automatic (`js/tv-ask.js` wraps any field containing `://` or `www.`; `app/bootstrap.php` unwraps `$_POST`);
-- `fetch` with JSON: send `JSON.stringify(window.tvSafe ? tvSafe(body) : body)`; `Response::jsonBody()` unwraps it;
-- an endpoint that reads `php://input` itself must pass the decoded body through `Response::unwrap()`.
+- **Public:** boundaries, key resources and infrastructure, public listings and businesses, publicly known places, with
+  the nation's name (`Nations::label()`) and visitor rules (`Nations::rules()`).
+- **Held, never shown:** names that may mark sacred, burial or protected sites (`Landmarks::SENSITIVE`) and what's
+  specific to the nation (`Landmarks::NATION_SENSITIVE_CLASSES`), until the nation's own tools exist
+  (`Landmarks::NATION_TOOLS`) and it says. "Closed by the nation" reopens only at its request. Never delete the data.
+- Anything about a user or owner is private unless they say otherwise.
+- All landmark reads go through `Landmarks::visibleSql()` / `visible()`; pins on nation land (`Nations::pin()`) move to a
+  public place.
 
-## Content page standard (decisions/0058 §20): every content page, every build
+## Migrations for Bluehost's MySQL: every build
 
-Listings, outdoor places, experiences, place pages, journeys, and any new kind of content page:
-- **Hero** at the top for places, listings and profiles (`tv_explore_hero()`, decisions/0058 §21), flush under the tool bar.
-  Listings and profiles pass `heading`, `slides` (HeroMedia) and `manage` for the owner.
-- **Header:** kind or category (searches for more), the title (the page itself, not a search link), the place, and the
-  **Link button** in the top-right corner (`data-link="…"` plus `js/link-button.js`). No breadcrumbs.
-- **Engage bar** right under it: `echo tv_engage_bar($pdo, $kind, $ref, ['title' => …])` (`app/ui/engage-ui.php`).
-  It shows views (platform counts), likes, comments, Share and an optional Report.
-- **Comments** at the end: `echo tv_engage_comments($pdo, $kind, $ref)`. Public, 18+, reportable.
-- **Counts:** `tv_count_item('<kind>:<id>')` so views are counted.
-- **Maps** opened as their own view pass `panel: true` to `TvMap.open()` so the info panel starts open.
-
-
-## Tribal nations' land: public / private standard (decisions/0066, replacing 0058 §26–27's stricter rule): every build
-
-- **Public shows, a nation's land included:** established boundaries, key resources and infrastructure, public listings
-  and businesses, and publicly known places, each with the nation's own name (`Nations::label()`) and its rules for
-  visitors (`Nations::rules()`).
-- **Sensitive is held:** a name that may mark a sacred, burial or protected site (`Landmarks::SENSITIVE`, anywhere), and
-  what is specific to the nation (`Landmarks::NATION_SENSITIVE_CLASSES`, its springs). Held places are kept, never
-  shown, until the nation has its own controls (the nation tools, `Landmarks::NATION_TOOLS`) and says.
-- "Closed by the nation" is reopened only at the nation's request. Keep the data; never delete it.
-- Anything about a user or an owner is private unless they say otherwise; same philosophy.
-- Every reader of landmarks goes through `Landmarks::visibleSql()` / `visible()`. Pins on a nation's land
-  (`Nations::pin()`) still move to a public place, so a pin never marks a sensitive spot.
-
-## Migrations must run on Bluehost's MySQL (not just MariaDB): every build
-
-The site runs migrations through its own connection (`DbUpdates::autoRun`, statements split on `;` outside quotes and
-comments): no `DELIMITER`, no stored procedures, and nothing that depends on which database phpMyAdmin has open.
-
-The live database is MySQL. It rejects `ADD COLUMN IF NOT EXISTS`, `ADD INDEX IF NOT EXISTS` and `DROP … IF EXISTS`
-inside `ALTER TABLE` (#1064), which a local MariaDB accepts. `CREATE TABLE IF NOT EXISTS` is fine. To add a column or
-index safely (re-runnable, no `DELIMITER`, so phpMyAdmin's Import takes it), check `information_schema` first:
+Run by `DbUpdates::autoRun` (split on `;`): no `DELIMITER`, no stored procedures. MySQL rejects `ADD COLUMN/INDEX IF NOT
+EXISTS` and `DROP … IF EXISTS` inside `ALTER TABLE`; `CREATE TABLE IF NOT EXISTS` is fine. Guard with `information_schema`:
 
 ```sql
 SET @s = (SELECT IF(COUNT(*) = 0, 'ALTER TABLE t ADD COLUMN c INT DEFAULT NULL', 'DO 0')
@@ -310,29 +190,17 @@ SET @s = (SELECT IF(COUNT(*) = 0, 'ALTER TABLE t ADD COLUMN c INT DEFAULT NULL',
 PREPARE q FROM @s; EXECUTE q; DEALLOCATE PREPARE q;
 ```
 
-(Indexes: `information_schema.STATISTICS` … `INDEX_NAME = '…'`.) See `app/migrations/2026-11-29_go_codes_guest.sql`.
+(Indexes: `information_schema.STATISTICS`.) Tables may have moved to the admin database (decisions/0110,
+`DataMove::GROUPS`, e.g. `products`): find the table first and name its database (see
+`app/migrations/2026-12-23_promotions.sql`).
 
-**Tables that may have moved** (decisions/0110: System Configuration → Data separation moves groups of tables, e.g.
-`products`, to the admin database; `DataMove::GROUPS`): a migration that changes one can't assume it's in main. Find it
-first (main, else the database holding every table main's `data_moves` lists for the admin realm) and build the
-statement with its database name. See the `products` part of `app/migrations/2026-12-23_promotions.sql`.
+## cPanel through its API (`app/lib/CPanel.php`, Jason, 2026-10-28): every build
 
-## cPanel through its API, not by hand (Jason, 2026-10-28): every build
-
-The site holds a cPanel API token (`CPANEL_HOST`, `CPANEL_USER`, `CPANEL_TOKEN` in .env; `app/lib/CPanel.php`). Use it
-instead of sending Jason into cPanel:
-- **Cron jobs:** a new scheduled script goes in `Scheduler::JOBS` (name, what it does, preset) and in `Scheduler::AUTO`.
-  `Scheduler::sync()` adds it through the API within the hour (any running job calls it), or at once when System
-  Configuration → Scheduled tasks opens. Removing one there keeps it removed. Never write "add this in cPanel → Cron
-  Jobs" in delivery notes.
-- **Mailboxes:** `CPanelMail` (Staff logins, System mailboxes).
-- Still by hand: secrets in `.env` (cPanel File Manager, never a web page), and only what the API can't do. Say why when
-  that's the case.
+New cron jobs go in `Scheduler::JOBS` and `Scheduler::AUTO`; `Scheduler::sync()` adds them within the hour. Mailboxes via
+`CPanelMail`. Never send Jason into cPanel, except for `.env` secrets (File Manager) or what the API can't do (say why).
 
 ## The live server runs PHP 8.0: every build
 
-Local tests run PHP 8.3, so 8.1+ features pass here and break on Bluehost (a parse error takes the whole file down).
-Don't use: `readonly` properties or classes, `enum`, first-class callables (`strlen(...)`), `new` in parameter
-defaults, `array_is_list()`, `json_validate()`, typed class constants, standalone `true`/`false`/`null` types. (`: never`
-happens to parse on 8.0 as a class name, and only on functions that never return.) Before a delivery, grep the
-changed files for these.
+Local tests run 8.3. Don't use `readonly`, `enum`, first-class callables (`strlen(...)`), `new` in parameter defaults,
+`array_is_list()`, `json_validate()`, typed class constants, or standalone `true`/`false`/`null` types. Grep changed files
+before delivering.
