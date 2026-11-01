@@ -21,21 +21,21 @@ outline, and some no longer agreed:
 - **The business catalog** (0116): the business portal's **Catalog**, our Products tool scoped to the business
   (`products` with `owner_id`). Items, services, classes or events; prices for one or more quantities; private cost,
   markup and supplier; options; Active or Hidden. Every plan has it (Back-Office → Plans → Plan features: "Catalog
-  (items and offers)" from Free). **No item count is enforced**, and no plan carries one.
+  (items and offers)" from Free). Publishing to the Marketplace is capped by plan (§7, step 3).
 - **Back-Office → Plans & subscriptions:** the subscriptions pipeline and metrics, and **Plan features** (which tool
   each plan opens, `Plan::FEATURES`, changeable there). The plans' allowances are in `Billing::PLANS`: price, storage
   GB and AI credits a month. Packs (`Billing::ADDONS`) add storage or AI credits.
 - **The Marketplace, step 1 (people's posts):** live since 2026-11-01 (the 15:14 UTC sync): `/market/`, the item page,
   `/user/market/`, `Market.php` and the daily `market_tick`. What it does is in "Step 1 built" below.
 - **Admin workspace 5, Market 360°** (`/admin/market/`), grouped under Marketplace, Storefronts and GO Codes & our pages:
-  Items and Marketplace rules, GO Codes & short links, our pages and their form entries are live; Offers & disputes,
-  Storefront Studio, Catalog rules, Gateways and Custom domains are placeholders, each naming its step. The Catalog
-  rules placeholder reads "catalog caps by plan" (the old "250-item cap" text is gone, also from the Workspaces list).
-- **The Marketplace, step 2 (offers, Sold / Got it, notes, disputes):** delivered 2026-11-01 in
-  `marketplace-step2-plus_20261101.zip` (19 files, with the Workspaces text fix), built on the 15:29 UTC mirror; live
-  once uploaded and `app/migrations/2027-01-13_market_offers.sql` has run. What it does is in "Step 2 built" below.
-- **Not built:** businesses' catalogs on the Marketplace and their caps (step 3),
-  checkout and gateways (step 4), the Shop tab, Storefronts, `trvgo.us/<shop>` and custom domains (step 5).
+  Items, Business items, Offers & disputes, Marketplace rules, GO Codes & short links, our pages and their form
+  entries are live; Catalog rules reads the caps by plan; Storefront Studio, Gateways and Custom domains are
+  placeholders, each naming its step.
+- **The Marketplace, steps 2 and 3:** live, their migrations run (`2027-01-13_market_offers.sql`,
+  `2027-01-15_market_business.sql`). What they do is in "Step 2 built" and "Step 3 built" below.
+- **Step 4a (checkout through the business's own Stripe or Square):** delivered, not yet uploaded; live once uploaded
+  and `app/migrations/2027-01-16_market_checkout.sql` has run. See "Step 4a built" below.
+- **Not built:** Square catalog sync (4b); Storefront Studio, `trvgo.us/<shop>` and custom domains (step 5).
 
 ## The rules
 
@@ -86,8 +86,8 @@ gateway, hold money or act as the merchant of record. That's what 0031 meant, an
 - **People** pay each other offline; dual confirmation is on the site.
 - **Manual payments on every plan** (Zelle, bank transfer, check, pay on pickup), marked paid by the business
   (`commercial.md` §1.1). Free businesses can sell.
-- **Card checkout from Core**, straight to the business's own gateway's hosted page: no card data on our server, no
-  cut taken. We only record the order on our ledger (0098).
+- **Card checkout from Core**, through the business's own gateway, with the gateway's own card fields on our page
+  (Step 4 decided): no card data on our page or server, no cut taken. We only record the order on our ledger (0098).
 - **Square and Stripe first (Jason, 2026-11-01).** Square fits the counter shops we sign; Stripe covers the rest, with
   low-cost bank payment (ACH). PayPal / Venmo next if buyers ask; QuickBooks Payments and others when a business asks.
   The options compared are in `marketplace-architecture.md` §4.
@@ -259,13 +259,17 @@ test posts); live once uploaded and `app/migrations/2027-01-15_market_business.s
 From Jason's gateway overview (Stripe and Square first; PayPal / Venmo next; Authorize.Net and Adyen later; 0% to us)
 and his answers of 2026-11-01:
 - **Connecting:** each business signs in to its own Stripe (Connect, Standard accounts) or Square (OAuth) account from
-  the portal; nothing is pasted. We keep Stripe's account id, or Square's tokens encrypted (AES-256-GCM, a key in
-  `.env`) and refreshed by a daily job (Square's expire after 30 days). Traversence registers once with each as a
+  the portal; nothing is pasted. We keep Stripe's account id, or Square's tokens sealed (as built in 4a: libsodium
+  secretbox from the site's secret, as QuickBooks' are), checked daily and refreshed a week before they expire
+  (Square's last 30 days). Traversence registers once with each as a
   platform (Jason: the Stripe platform account and the Square developer app, their keys in `.env`). A sandbox / mock
   mode, as QuickBooks has, so it's built and tested before they exist.
 - **Checkout on our page, the gateway's card fields:** Stripe's embedded Checkout and Square's Web Payments form put
   the gateway's own fields inside our page: the buyer never leaves, and card data never touches our page or server
-  (lighter PCI than our QuickBooks card form, SAQ A-EP, 0098).
+  (lighter PCI than our QuickBooks card form, 0098). The PCI questionnaire is the business's, as the merchant; fields
+  in the gateway's own frame keep it at the lightest one (SAQ A). PCI DSS 4.0 still asks that the checkout page's
+  scripts be listed and guarded against change (6.4.3, 11.6.1): only our own and the gateway's scripts load there,
+  under a content security policy.
 - **Buy now and a cart, one per business:** each business is paid through its own gateway, so a cart never mixes
   businesses ("Your order from …"). Both go to the same checkout.
 - **E-commerce setup** in the portal, step by step within the plan: Getting paid (Stripe or Square from Core; manual
@@ -358,8 +362,8 @@ accounts; real payments wait for Jason's one-time setup below.
 - **Connecting:** `/business/pay-connect.php`, a sign-in at Stripe or Square; the answer must carry the state we gave
   that person's session (a forged one is refused and logged). Stripe keeps the account id; Square's tokens are sealed
   (libsodium secretbox from the site's secret, as QuickBooks' are) and refreshed a week before they expire.
-- **Buying:** Buy now and Add to cart on items whose buttons include it (the button "Buy now and Add to cart", now on
-  every plan once checkout is live); one cart per business (`/market/cart.php`); checkout with the gateway's own card
+- **Buying:** Buy now and Add to cart on items whose buttons include them, on every plan (the order is placed on every
+  plan; paying by card needs the business on Core or up and connected, otherwise the business's own ways are shown); one cart per business (`/market/cart.php`); checkout with the gateway's own card
   fields on our page (Stripe embedded Checkout, Square Web Payments) or a direct way with the business's
   instructions; the order page `/market/order.php`; orders in Your Marketplace → Buying; a Cart entry in the
   Marketplace menu.
