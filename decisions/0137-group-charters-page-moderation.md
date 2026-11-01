@@ -484,6 +484,12 @@ AWS grants production access.
   nothing changes for those emails); `via` reply forwarding and the bulk account (with businesses' invitations);
   businesses' email allowance and top-ups in `Billing`.
 
+**DMARC reports go to support@traversence.com** (Jason, 2026-11-01), not a separate `dmarc@` mailbox (none was made, so
+reports would have bounced). `SesMail::DMARC` holds the value. A name keeps one DMARC record, so `CPanel::dnsEnsure`
+changes an existing one in place instead of adding a second (two would make both invalid); the setup reruns its DNS
+step once when the value changes (`dmarc_value`). Built on the 21:51 UTC sync: `app/lib/SesMail.php`,
+`app/lib/CPanel.php`.
+
 ### Setting up AWS (Jason's existing account)
 1. **Region:** US East (Ohio), us-east-2: where SES was set up (Jason, 2026-11-01). Sending is the same anywhere; `via`
    reply forwarding (later) is checked against Ohio's options when it's built.
