@@ -534,3 +534,14 @@ sending domains" ran: send.traversence.com read back, via.traversence.com made.
    storefront and email; two AWS accounts; a business paused at 3% bounces or 0.08% complaints; a postal address in
    every bulk email; `via` replies forwarded; DNS through the cPanel API (both domains are on Bluehost's nameservers); storefront
    domains on Cloudflare custom hostnames; SES capped and tracked in Services & usage.
+
+**Setup runs itself (built on 20:45 UTC, 4 files: `app/lib/SesMail.php`, `app/lib/Pulse.php`, `app/lib/Scheduler.php`,
+`app/scripts/ses_setup_tick.php`):** "If I have to click a button and then it does what it needs to do, why do I have to
+click it?" (Jason). `SesMail::autoSetup` does every step that needs no person, in order: the sending domains, their DNS
+records (cPanel API), bounce reports, the AWS check, asking for production access once a domain is verified
+(`PutAccountDetails`, Transactional, with `SesMail::USE_CASE`), and one test to support@traversence.com once live. The job
+`ses_setup_tick` (every 15 minutes, in `Scheduler::AUTO`) runs it until nothing is left. The Pulse case has no setup
+buttons now: each step says where it stands, and the first unfinished one shows the last run and what AWS or cPanel said
+if it stopped. People do only the AWS key, `.env` (`SES_MODE=live` once production access is on), and production
+access by hand if AWS refuses the site's request (then add `ses:PutAccountDetails` to `traversence-ses`, or use the SES
+console).
