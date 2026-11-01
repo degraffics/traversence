@@ -1,7 +1,8 @@
 # ADR 0134: Events, One Tool for the Whole Site
 
 **Status:** Proposed (2026-11-01), direction from Jason: "Event creation is a site-wide tool, not just community."
-Design; not built. Jason's answers of 2026-11-01 are in: Verification, who's going, and tickets (section 6a). Builds on `decisions/0133` (Live events), and fills the "events, when they exist" gaps left in
+Design; not built. All of Jason's answers of 2026-11-01 are in; three small defaults wait under "For Jason".
+Builds on `decisions/0133` (Live events), and fills the "events, when they exist" gaps left in
 0047, 0053, 0055, 0058, 0059, 0060, 0061 and 0062. Choices marked **(Jason)** are proposals for him to confirm.
 
 ## Context
@@ -51,8 +52,10 @@ same day and a near-identical title count as the same event.
   repeating event can be cancelled or changed on its own.
 - **Where:** a venue listing, a landmark or outdoor place, a place (town or area), or online. A private home's address
   shows only to people going (section 6).
-- **Cost:** free, free with registration (a limited number of places), tickets sold through Traversence (section 6a),
-  or a link to tickets sold elsewhere.
+- **Cost:** free, free with registration (a limited number of places), or tickets sold through Traversence's Ticket
+  Sales (sections 6a, 6b). **No links to outside ticket sellers and no "pay at the door" notes** (Jason, 2026-11-01:
+  never lose the opportunity or promote outside selling). The one exception is the source page of an event the crawler
+  or our team listed, which is a citation (0133), not a ticket link.
 - **Who for:** all ages, 18+ or 21+.
 - **Host and sources:** who runs it, shown; where the details came from (0062 identity record).
 
@@ -112,9 +115,11 @@ sold through the order system, with nothing new needed for the money.
   repeating event).
 - **Registration** is a free ticket type: the same tool, for events that need a head count or have limited places.
 - **Buying:** the buyer picks tickets, uses the host's discount code if they have one, pays, and the order lands on the
-  ledger with its tax. Each ticket gets a code (a QR) shown in the buyer's account and email.
+  ledger with its tax. Each ticket is on the host's guest list and in the buyer's account and email; from Core up it's
+  also a GO Code (a QR) for the door (section 6b).
 - **Sold out** closes the type; a **waiting list** (later) offers places that come back.
-- **At the door:** the host opens the event's check-in on a phone, scans or types the code, and it's marked used.
+- **At the door (Core and up):** the host opens the event's check-in on a phone, scans or types the code, and it's
+  marked used. On Free and Basic, the host works from the guest list.
 - **Refunds:** the host's refund terms are shown before buying; refunds and credits run through the order system's
   policy (0098). **A cancelled event refunds or credits everyone**, the buyer's choice where the host allows a credit.
 
@@ -133,34 +138,52 @@ just tickets. Everything else can be built with the events.
 
 - **Never paid placement:** selling tickets never moves an event up the calendar or search (0007).
 
-### 6b. Who needs what: RSVP for people, tickets as a business tool that grows with the plan
+### 6b. Ticket Sales: a listing's module, with its own onboarding
 
-Jason, 2026-11-01: we make our money on scaling access and tools, so tickets follow that. We take no cut of ticket money
-(0% system fees, as for every Market sale), so a ticket sale earns us nothing by itself: the plan is what pays, and each
-step up has to save the host real work or bring in more money.
+Jason, 2026-11-01: we make our money on scaling access and tools, so ticket selling is offered as **Ticket Sales**, a
+module a listing turns on, with its own onboarding, and its limits follow the listing's plan. We take no cut of ticket
+money (0% system fees, as for every Market sale): the plan is what pays.
 
-**Members and groups run by a person: RSVP, not tickets.** What they need is a head count and a reminder: a potluck, a
-trail clean-up, a club meetup. They get everything in section 6 (Going / Interested, free registration with a limit on
-places, reminders, the who's-going setting) and a plain cost note ("$10 at the door") or a link to tickets sold
-elsewhere. Traversence handles no money for them. A club or cause that wants to sell tickets gets a listing (a free
-one is enough to start): that's the way in.
+**Members and groups run by a person: RSVP only.** What they need is a head count and a reminder: a potluck, a trail
+clean-up, a club meetup. They get everything in section 6 (Going / Interested, free registration with a limit on
+places, reminders, the who's-going setting). They can't charge, link to outside sellers or note a price at the door.
+**When one of them tries to charge** (enters a price), the event form offers Ticket Sales: start a listing for the
+club, cause or venture (a free one is enough) and go through the onboarding. That's how a group becomes a business on
+Traversence.
 
-**Posting events is never limited by plan.** Every public event fills the calendar, places and guides, which is
-what Let's Explore needs; only the per-day spam cap applies (section 7). The ladder is in the ticket tools:
+**Posting events is never limited by plan.** Every public event fills the calendar, places and guides, which is what
+Let's Explore needs; only the per-day spam cap applies (section 7). The limits are on tickets sold:
 
-| Plan | Ticket tools (proposed limits) | The reason to move up |
+| Plan | Tickets a month | What's included |
 |---|---|---|
-| **Free** | **Try it:** 1 ticketed event at a time, up to 50 tickets, manual payment (marked paid by the business), the guest list | Sells out a small event; the guest list shows who came |
-| **Basic** $29.95 | 3 ticketed events at a time, up to 250 tickets each; QR tickets and check-in at the door; discount codes, taxes, order emails, customers (all already Basic) | Runs several events and the door without a paper list |
-| **Core** $79.95 | **Card checkout through its own gateway** (paid straight to the business, at once); unlimited ticketed events and tickets; repeating series; waiting lists; the event's QR code and short link (trvgo.us); tickets on its storefront and own domain; tags and segments for attendees | Money in hand when the ticket sells, and no more chasing payments |
-| **Strategic** $229.95 | Attendees into the CRM and leads pipeline; campaigns to Linked followers and past attendees (the plan's email, SMS and push volume); automations (reminders, thank-yous, "next time" offers); tickets sold on its own site (widgets, API); AI help with event pages | Fills the next event from the last one |
-| **Cornerstone** $399.95+ | Events across locations; joint events with other businesses (a festival with many vendors, a Co-Op's market day) with shared ticketing; door-staff roles; pooled communications | Runs the region's big events |
+| **Free** | **50** | Ticket types, manual payment (marked paid by the business), the guest list, order emails |
+| **Basic** $29.95 | **150** | As Free, plus discount codes, taxes, customers (already Basic). **No QR tickets or door support** |
+| **Core** $79.95 | **250** | As Basic, plus **GO Codes for tickets and door support** (check-in by scanning at the door); card checkout through its own gateway once the Market's gateway step is built (until then, manual payment); the event's short link (trvgo.us) |
+| **Strategic** $229.95 and **Enterprise / Cornerstone** $399.95+ | **No monthly limit** | **Full access and support:** everything above, plus every ticket tool as it's built (repeating series, waiting lists, attendees into the CRM, campaigns to followers and past attendees, tickets on their own site, multi-location and joint events) and priority event support |
 
-- **What counts:** "ticketed events at a time" are upcoming events with paid tickets on sale. Free registration
-  (a head count) doesn't count, on any plan.
-- **A business-run group** sells tickets under its business's plan.
-- **Our own events** (Traversence) use our QuickBooks checkout and no plan.
+- **What counts:** paid tickets sold in a calendar month, across all the listing's events. Free registration (a head
+  count) doesn't count, on any plan.
+- **Near the limit:** at 80% the business is told, with what the next plan gives. **At the limit**, ticket sales pause
+  until the 1st of the next month or an upgrade, whichever comes first; tickets already sold are untouched and the
+  event stays listed.
+- **A business-run group** sells under its business's plan. **Our own events** (Traversence) use our QuickBooks
+  checkout and no plan.
 
+**The Ticket Sales onboarding** (business portal → Ticket Sales; offered from the event form, the plan page, and to a
+member who tries to charge). Owner or Manager, on a claimed listing, with Verification on:
+1. **Turn it on:** what Ticket Sales does and the plan's monthly limit.
+2. **How you get paid:** the manual ways (pay link, Zelle, check) from the business's settings (0118, 0119); at Core
+   and up, connect its own gateway once that's built.
+3. **Refund and cancellation terms**, shown to every buyer.
+4. **Taxes:** confirm the business's rates (0119).
+5. **The first ticketed event,** with a test purchase of a $0 ticket; at Core and up, a test scan at the door.
+6. **Done:** the Ticket Sales page: this month's tickets against the limit, upcoming ticketed events, guest lists.
+
+Until every step is done, the onboarding shows as a case in the business's Pulse, each step a button that does it.
+
+**Outside tickets we find are leads.** When the crawler or our team lists an event whose tickets are sold elsewhere,
+and the host is a listing (or could be), it goes to Growth → Prospects as a Ticket Sales lead: an opportunity, not a
+link we promote.
 
 ### 7. Checks before an event shows
 
@@ -227,7 +250,8 @@ member's events. Our team reaches one only when:
 3. Business and staff events (business portal, admin section).
 4. Group and member events; visibility.
 5. Going / Interested, who's going settings, reminders, .ics, change notices.
-6. **Tickets and registration** on the order system: Traversence's own and manual payment first; check-in.
+6. **Ticket Sales:** the module and its onboarding, tickets on the order system with manual payment and the monthly
+   limits; GO Codes and door check-in for Core and up; Traversence's own events.
 7. Repeating events.
 8. Later: card checkout through a business's own gateway (with the Market's gateway step), waiting lists, events from
    a connected Facebook Page.
@@ -244,5 +268,9 @@ Settled 2026-11-01:
    Rodeo & sports; Outdoors & adventure; Food & drink; Classes & workshops; Family & kids; Faith; Community & civic;
    Meetups & social; Business & networking; Holidays & seasonal.
 
-Still to confirm:
-5. **The ticket ladder** (section 6b): members RSVP only, and the limits per plan.
+5. **Ticket Sales** (section 6b): members RSVP only, no outside ticket links; a listing's module with its own
+   onboarding; Free 50, Basic 150 (no QR or door support), Core 250 (GO Codes and door support), Strategic and
+   Enterprise full access and support.
+
+Proposed with it, for Jason to change if wanted: sales pause at the monthly limit (warned at 80%); free registration
+doesn't count toward it; outside-ticket events the crawler finds become Ticket Sales leads.
