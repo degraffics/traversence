@@ -25,11 +25,14 @@ outline, and some no longer agreed:
 - **Back-Office → Plans & subscriptions:** the subscriptions pipeline and metrics, and **Plan features** (which tool
   each plan opens, `Plan::FEATURES`, changeable there). The plans' allowances are in `Billing::PLANS`: price, storage
   GB and AI credits a month. Packs (`Billing::ADDONS`) add storage or AI credits.
-- **`/market/`:** the placeholder (0055). Sample cards marked "Sample", and "Post something" greyed out.
-- **Admin workspace 5, Market 360°** (`/admin/market/`): GO Codes & short links, and our own site pages and their form
-  entries, are built. Post-and-Connect, Catalog rules, Storefront Studio, Custom domains and Gateways are placeholders.
-  The Catalog rules placeholder reads "catalog caps by plan" (changed 2026-11-01; it said "the 250-item cap").
-- **Not built:** personal posts, offers, dual confirmation, the Shop tab, checkout, gateways, `trvgo.us/<shop>`.
+- **The Marketplace, step 1 (people's posts):** live since 2026-11-01 (the 15:14 UTC sync): `/market/`, the item page,
+  `/user/market/`, `Market.php` and the daily `market_tick`. What it does is in "Step 1 built" below.
+- **Admin workspace 5, Market 360°** (`/admin/market/`), grouped under Marketplace, Storefronts and GO Codes & our pages:
+  Items and Marketplace rules, GO Codes & short links, our pages and their form entries are live; Offers & disputes,
+  Storefront Studio, Catalog rules, Gateways and Custom domains are placeholders, each naming its step. The Catalog
+  rules placeholder reads "catalog caps by plan" (the old "250-item cap" text is gone, also from the Workspaces list).
+- **Not built:** offers and dual confirmation (step 2), businesses' catalogs on the Marketplace and their caps (step 3),
+  checkout and gateways (step 4), the Shop tab, Storefronts, `trvgo.us/<shop>` and custom domains (step 5).
 
 ## The rules
 
@@ -49,8 +52,8 @@ outline, and some no longer agreed:
 
 - **A business's items are its catalog** (0116). An item that's Active shows in the Marketplace and in its Storefront;
   an edit shows in both. No second item record is built for businesses.
-- **A person posts one thing at a time** (0032): no catalog screens. Personal posts are a new record when step 1 is
-  built.
+- **A person posts one thing at a time** (0032): no catalog screens. Personal posts are their own record
+  (`market_posts`, step 1).
 - **Private to the business:** cost, markup (flat or percent, 0032) and supplier.
 - **Single items only** (0032): no product variants yet (`future-considerations.md`). Options that change the price
   (0116) cover sizes and add-ons.
@@ -139,8 +142,8 @@ Nothing. Section 6's gateways after Square and Stripe are added when asked for.
 
 ## What changes
 
-- **FAQ** (2026-11-01): the catalog answer gives the caps as coming, and "Can I sell things on Traversence?" describes
-  §2–§8 as coming.
+- **FAQ** (2026-11-01): the catalog answer gives businesses' caps as coming (step 3); "Can I sell things on
+  Traversence?" and the Buying and selling answers describe step 1 as live.
 - **Docs:** `future-considerations.md` (variants) and the SJ Portables BRD and FRD exports (a note at the top) carry
   the 1,000 cap. `commercial.md` §1.1 and the AOS, `admin-architecture.md`, `workspace-map.md`, `aos-gap-review.md`,
   `admin-rebuild-batch-plan.md` and `business-portal-architecture.md` now say "catalog caps by plan (0135)" in place of
