@@ -179,10 +179,10 @@ where the people decide who reaches them and nothing can be bought to the top.
 
 ## Next build
 
-1. Settle **0136 Topic groups and chapters** (four sizes for Jason).
+1. Accept **0136 Topic groups and chapters** (answers in; section 5, Growing a group, for review).
 2. **Charter and transfer terms** on the group page, shown before joining.
 3. **Inactivity and ending:** the `lifecycle` table and a daily `Scheduler::JOBS` entry for groups.
 4. **Admin → Social → Groups** and **Business groups**; Steward member reports and escalation.
 5. **Business-run groups** (0102 §4c).
-6. **Tags on groups**, **places a group is about**, **chapters**, topic plus place in search (0136's build order).
+6. **Tags on groups**, **places a group is about**, **chapters**, topic plus place in search, and **growing a group** (0136's build order).
 7. **Events**, in 0134's build order.

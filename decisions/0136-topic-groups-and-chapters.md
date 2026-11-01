@@ -3,7 +3,8 @@
 **Status:** Proposed (2026-11-01), from Jason's question: "Tie groups to the geography is good, but what if the topic
 is the group's focus, say traveling the world or cooking with Crisco?" Design; not built. Builds on 0047 (community
 groups), 0102 §4b–4c (group roles, business groups), 0103 (charters, transfer, inactivity), 0132 (tags and links), 0053
-(search), 0066 (nations' land), 0134 (events). Choices marked **(Jason)** wait for him; they're listed at the end.
+(search), 0066 (nations' land), 0134 (events). Jason's answers are at the end; section 5 (Growing a
+group) is new, for his review before this is accepted.
 
 ## Context
 
@@ -31,7 +32,13 @@ name groups freely; problems are handled through reports.
 ### 1. Tags on groups
 
 - A group carries **up to 5 tags** under its topic ("Food & cooking" → baking, cast iron, Crisco), set by its owner and
-  moderators with the tag picker (0132). New tags are allowed: people describe their group in their own words.
+  moderators. **Free words, with existing tags suggested as you type** (Jason, 2026-11-01), so "cast iron",
+  "cast-iron" and "castiron" end up one tag; the word data (lexicon) merges spellings that slip through.
+- **What tags do:** find the group by what it's about, not just its name; show it on the tag's page beside the
+  listings, guides, events and stories with the same tag (0132); tell people who follow the tag when a new group with
+  it starts near them; and show related groups ("Groups like this"). They grant nothing, never rank a group higher, and
+  are never taken from posts.
+- **Why a limit:** without one, a group could tag itself with 40 popular words to show up everywhere.
 - Tags are **what the group is about** (0132: a tag grants nothing). They show on the group's card and public page;
   tapping one searches for more (`TvSearch.open('<tag> groups')`, 0058).
 - Search and the topic's page use them: "Popular in Food & cooking: baking, cast iron, canning".
@@ -46,8 +53,14 @@ members and posts; *World Travelers: White Mountains* is its chapter there.
 **Opening a chapter**
 - A parent is any active group without a place, or with a hub-level place (a region's group can have town chapters).
   Chapters go **one level deep**: a chapter can't have chapters.
-- The parent's owner opens a chapter, or approves a member's request to start one. The parent needs **at least 25
-  active members (Jason)**, and can have **up to 50 chapters (Jason)**.
+- The parent's owner opens a chapter, or approves a member's request to start one.
+- **Chapters are about geography, not size** (Jason, 2026-11-01): no member count to open one and no limit on how many
+  a parent has. Instead:
+  - **one chapter per place per parent** (one *World Travelers: White Mountains*, never two);
+  - **a chapter sits inside its parent's place:** a region's group has chapters in that region's towns and areas; a
+    parent with no place can have chapters anywhere.
+- **A chapter shows on its place's page from the day it opens,** so people there can find and join it. Empty or quiet
+  chapters are handled by inactivity (Endings, below), not by hiding them.
 - Each chapter has a **place** (a town cluster, geo-hub or hub; Single Home Rule anchors when they exist) and a
   **chapter lead**, the chapter's owner, who must have Verification on (0062). The lead's chapters count toward their
   5 groups (0047); the parent's owner doesn't use up their 5 on chapters they don't lead.
@@ -91,7 +104,10 @@ members and posts; *World Travelers: White Mountains* is its chapter there.
 - In **search** by place (section 4).
 
 **Endings (0103)**
-- A chapter that goes inactive follows the stages on its own; its members are offered the parent.
+- A chapter that goes inactive follows the stages on its own (0103 §3–4); its members are offered the parent.
+- **It can be brought back** (Jason, 2026-11-01): posting or moderating during Notice stops the clock; while Hidden
+  (30 days) the lead or the parent's owner restores it; while Archived (1 year) it's restored through a support ticket.
+  Once removed, the place is free again and the parent can open a new chapter there.
 - A chapter can **leave** to become an independent local group: the lead asks, members get 14 days' notice, and it drops
   the parent's name.
 - When the **parent ends**, each chapter's lead is offered to carry it on as an independent group (14 days); a chapter
@@ -126,6 +142,48 @@ business's roles run them as they run the parent.
 Within each, groups with more active members come first. Never by payment (0007). Members-only posts are never
 searched (0053).
 
+### 5. Growing a group: indirect tools so people find it and join
+
+Jason, 2026-11-01: groups need tools to secure members, as a marketing build for groups that's indirect: people find
+them and join, rather than being pushed at. Every tool brings people to the group or the group to where people already
+look. None messages people who didn't ask, and none can be bought (0007).
+
+**Being found where people already look**
+- **Join from everywhere a group shows:** its card on place pages, chapter lists, search results, tag pages, "Talked
+  about by" sections, the Community page and members' profiles (groups they choose to show) all carry Join (or Ask to
+  join).
+- **Events are the front door:** a group's public events (0134) show on the calendar, place pages and venue listings
+  as "Hosted by <group>", with Join beside them.
+- **Suggestions people asked for:** "Groups like this" (shared tags) on every group page; "Groups near you" on the
+  Community page for the place a person is looking at; people who **follow** a tag, topic or place (0132) are told once
+  when a new group or chapter with it starts near them.
+- **Chapters reach the parent's members:** when a chapter opens, the parent's members whose own home place is near are
+  told once. Only the system knows their home place; no one else sees it (0047).
+
+**A page that makes people want to join**
+- **A public welcome post:** the owner pins one post that non-members can read (what the group does, a recent outing,
+  photos). Every other post stays members-only.
+- **What a visitor sees:** about, charter and house rules, topic and tags, member count, how active it is ("active this
+  week"), upcoming events, places it's about, and its chapters.
+
+**Sharing it themselves**
+- **Invite your connections:** members invite people from their Address Book or a circle (0047). An invite is from
+  the member, to someone they're connected to, a few a day; it can't reach strangers.
+- **A share link and QR:** each group has a short link (trvgo.us); a printable flyer with a QR uses one of the owner's
+  GO Codes (5 free with an account, `commercial.md` §1.3).
+- **Invite codes** for approval groups: someone with the code joins without waiting.
+- **A badge or link** for the group's own website or social pages, pointing back to its Traversence page.
+
+**Keeping the members it gets**
+- **A welcome message** to each new member, written by the owner; **join questions** for approval groups.
+- **Activity nudges to the Steward, not the members:** "No posts in 3 weeks: your group enters Notice in 9 days",
+  with ideas (post an event, pin a welcome post).
+- **How it's growing:** for the owner, page views, joins, and where joins came from (place page, search, event, invite,
+  link), counted only, never who (as for outbound taps, 0058 §11).
+
+**What it never does:** message non-members, sell placement, export member lists, or show where members live. A
+business-run group's outreach follows 0102 §4c, and its campaigns come from its plan (Strategic and up).
+
 ## Data (sketch)
 
 | Change | Fields |
@@ -133,6 +191,8 @@ searched (0053).
 | `community_groups` | `parent_id` (null for a parent or a stand-alone group), `chapter_name` (the part after the colon) |
 | Group tags | in 0132's content tags, kind `group` |
 | `community_group_places` | group, kind (place, listing, outdoor place, landmark), ref, note, added by, removed by owner |
+| `community_groups` (growing) | welcome post id, welcome message, join questions, invite code, short link |
+| `community_group_joins` | group, how the join came (place page, search, tag, event, invite, link, code), day: counts only |
 
 Migrations guarded with `information_schema` and safe to run twice. Group names stay unique site-wide; a chapter's full
 name is unique by its parent and place.
@@ -149,13 +209,18 @@ groups (0102 §4b).
 3. Chapters: opening, joining (as an existing local group too), posting to all chapters, moderation levels, the
    parent's Chapters list.
 4. Search by topic and place.
-5. Chapter endings, with the 0103 build (the `lifecycle` table and its daily job).
+5. Growing a group: Join everywhere, the public welcome post, invites, share link and flyer, invite codes, welcome
+   message and join questions, "Groups like this" and "Groups near you", follower notices, the owner's growth counts.
+6. Chapter endings and reactivation, with the 0103 build (the `lifecycle` table and its daily job), and the Steward's
+   activity nudges.
 
 Each step adds its FAQ entries (0057).
 
-## For Jason
+## Jason's answers (2026-11-01)
 
-1. A parent needs **25 active members** to open chapters?
-2. **Up to 50 chapters** a parent?
-3. ~~Joining a chapter also joins the parent?~~ Settled: the parent's charter decides (section 2, Members).
-4. Up to **5 tags** a group (2 more for a chapter) and **10 places** it's about: right sizes?
+1. **Chapters are about geography, not size:** one per place per parent, inside the parent's place; no member minimum.
+2. **No limit on chapters;** a chapter shows on its place's page from the start; inactivity handles ghost groups, and
+   an inactive chapter can be brought back.
+3. **Joining:** the parent's charter decides.
+4. **Tags:** free words with suggestions as you type; 5 a group (2 more for a chapter), 10 places it's about.
+5. **Growing a group** (section 5): indirect tools so people find groups and join.
