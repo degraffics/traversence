@@ -191,7 +191,8 @@ The same checks Live events already make, applied to every event:
 - the date is ahead; the place exists; the venue matches our listings where it can;
 - **0066:** a name that may mark a sacred, burial or protected site waits for a person (`Landmarks::SENSITIVE`); pins
   on nation land move to a public place (`Nations::pin()`), with the nation's visitor rules shown;
-- spam and safety checks; a business's events per day capped by plan; repeated identical events held;
+- spam and safety checks; no limit on how many events anyone posts, unless we see abuse (0137 §7); repeated identical
+  events held;
 - three reports hide an event until an admin decides (as for posts), through Social → Reports. Our team can take one
   down, and **it stays down** (0133).
 

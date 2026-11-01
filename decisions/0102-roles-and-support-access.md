@@ -87,8 +87,8 @@ Already built (0047, `api/lib/Community.php`); listed here so every role lives i
 - Support access (section 5) doesn't reach a person's own groups: their owner gets help through an ordinary ticket,
   without an agent acting inside the group. A business's groups (4c) are reached only through the business role a
   grant or ticket gives.
-- **The 5:** one person can start and run up to 5 groups (0047), to stop group spam. A business's groups have their own
-  allowance by plan and don't use up any team member's 5.
+- **The 5:** one person can start and run up to 5 groups (0047), to stop group spam. A business has **one group**, owned
+  by its listing, with chapters instead of more groups (0137 §1); it doesn't use up any team member's 5.
 
 ## 4c. Groups run by a business
 
@@ -136,7 +136,7 @@ the group.
 | Stops | How |
 |---|---|
 | Outreach nobody asked for | no messages outside the group unless the member started contact or linked; no exporting member lists |
-| Flooding | posts per day capped per group by plan; repeated identical posts held |
+| Flooding | no daily cap (0137 §7); repeated identical posts held; floods handled by the group's reports |
 | Bleeding beyond the group | business posts show in the group and its members' Community feeds only; never pushed to non-members or made to look like platform recommendations |
 | Bait and switch | a group can't misrepresent its charter; "not what this group says it is" reports go to Safety |
 | Harmful content | the site's rules, reports and enforcement ladder apply as everywhere |

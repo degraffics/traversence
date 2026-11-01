@@ -183,36 +183,32 @@ Jason: address the missing pieces before building. Checked against the live mirr
 choices only Jason can make, specs nobody has written, platform pieces the build leans on that don't exist, and fixes
 to what's live.
 
-### A. Choices for Jason
+### A. Choices for Jason: answered 2026-11-01
 
-| # | Choice | Where it comes from | Proposed |
+| # | Choice | Answer | Recorded in |
 |---|---|---|---|
-| A1 | Core's monthly **email allowance** (email invitations start at Core) | 0136 §5a | 2,500 |
-| A2 | **Growing a group** as written | 0136 §5 | Accept, then 0136 is Accepted |
-| A3 | How many **groups a business may run**, by plan (its own allowance, not a person's 5) | 0102 §4c ("by plan", no numbers) | Free 1, Basic 2, Core 5, Strategic 10, Cornerstone 1 per location + 5 |
-| A4 | A business group's **posts per day**, by plan | 0102 §4c (no numbers) | Free 3, Basic 5, Core 10, Strategic and up 25 |
-| A5 | A business's **events per day** (spam cap) | 0134 §7 ("by plan", no numbers) | 5 a day on every plan (posting events is never limited by plan; this is only against flooding) |
-| A6 | **Single Home Rule anchors** (the tier below a town): what one is | gap review, 0136 §2 (chapters' places) | Chapters use towns, areas and regions until it's defined |
+| A1 | Core's email allowance | **500 a month**, with add-on packs for more | 0137 §8, `commercial.md` |
+| A2 | Growing a group | Outline sent for review | 0136 §5 |
+| A3 | Groups per business | **One group per business**, with chapters for locations and for topics (support, sales, how-tos) | 0137 §1, 0136 §2, 0102 §4c |
+| A4 | Posts per day | **No limit**; identical repeats held | 0137 §7, 0102 §4c |
+| A5 | Events per day | **No limit** unless abused; tickets stay capped | 0137 §7, 0134 §7 |
+| A6 | Chapters' anchors | **A place (Single Home anchors once defined) or a topic** | 0137 §2, 0136 §2 |
 
-### B. Specs nobody has written yet
+### B. Specs: proposed in 0137
 
-| # | What | Why it's needed | What it must settle |
-|---|---|---|---|
-| B1 | **The charter** | Charters hold the transfer terms (0103), joining rules for chapters, approval-skipping (0136), house rules; it's the first build step, and no decision says what one is | its parts (purpose, house rules, transfer terms, join mode, chapter joining, approval skipping, local rules for chapters); a starting template; who edits it; how changes reach members (told, and shown with "changed on"); whether members must accept a changed charter |
-| B2 | **The group page as a content page** | It predates the content-page standard (0058 §20–21): breadcrumbs, no hero, no Link, Share or QR, no share card, not an engage-bar kind | hero (photo, name), header (topic and tags as pills that search, place, Link), Share and QR, its own share card (`tv_page_start` `head`), the public welcome post, events, chapters, "Talked about by" places, Join first; members' part below |
-| B3 | **Steward moderation (Level 2)** | Reports go only to admin today; §27, 0055 and 0136 send them to Stewards first, then the parent, then us | what a Steward sees (the post, reason, never the reporter), their actions (remove, warn, remove member), timings before it rises to the parent and to us, what's logged |
-| B4 | **Admin → Social → Groups** | A "coming" card | the table (groups, chapters under parents, members, activity, lifecycle stage), the drawer (charter, reports, history), what staff may do (hide, restore, end; never post or read beyond reports, 0102 §4b) |
-| B5 | **"Tell once" notices** | 0136 tells followers of a tag, topic or place, and a parent's nearby members, once each; 0134 sends event changes | one rule for "once" (per person, per thing, per kind), how it's turned off, and where it shows (Notification Center, the weekly digest) |
+B1 the charter (0137 §3), B2 the group page (§4, with a mockup), B3 moderation (§5: the group's own, Traversence by
+support ticket), B4 the admin's Groups section (shrinks to legal and safety reports, groups as a whole, and support
+tickets), B5 notices sent once (§6).
 
 ### C. Platform pieces the build leans on that don't exist
 
 | # | Missing | Today | Needed for | What to do |
 |---|---|---|---|---|
-| C1 | **Sending email in bulk** | `Mailer` sends one at a time through a Bluehost mailbox (fine for codes and receipts; Bluehost caps how many go out an hour) | business invitations by email (0136 §5a), campaigns, event change notices to many people (0134) | a sending service (Amazon SES on the AWS account we already use for S3, 0123) with bounce and complaint handling and one-click unsubscribe; Bluehost keeps sign-in and receipt mail |
+| C1 | **Sending email in bulk** (0137 §8: SES costs and integration) | `Mailer` sends one at a time through a Bluehost mailbox (fine for codes and receipts; Bluehost caps how many go out an hour) | business invitations by email (0136 §5a), campaigns, event change notices to many people (0134) | a sending service (Amazon SES on the AWS account we already use for S3, 0123) with bounce and complaint handling and one-click unsubscribe; Bluehost keeps sign-in and receipt mail |
 | C2 | **Tags as one system** (0132) | Accepted, not built as one system; follows cover people, businesses and places only (`Links::TYPES`) | tags on groups, tag pages, following a tag or topic (0136 §1, §5) | build 0132's tag store first, with tag and topic follows |
 | C3 | **A member's private home place** | Only the public profile's free-text "Lives in" | "Groups near you", telling a parent's members near a new chapter (0136 §5) | a private setting (town, chosen by the member, with consent; never shown to anyone), used only for these suggestions |
 | C4 | **The lifecycle table and its daily job** (0103 §6) | Only the `transfers` table (businesses) | group inactivity, chapter endings and reactivation, event cancellations when a host ends | build 0103 §6 for groups first |
-| C5 | **A business as a group's owner** | Groups belong to a person (`owner_id`) | business-run groups and their chapters (0102 §4c, 0136 §2) | an owner kind (person or listing), with the business roles mapped to group roles |
+| C5 | **A business as a group's owner** (0137 §1: the listing owns it) | Groups belong to a person (`owner_id`) | business-run groups and their chapters (0102 §4c, 0136 §2) | an owner kind (person or listing), with the business roles mapped to group roles |
 | C6 | **The events store** (0134) | Only the crawler's `live_events` | group events, events as a group's front door (0136 §5) | 0134's step 1 |
 | C7 | **Flyers as print products** | The print catalog exists (`Products`); no flyer products | "order it printed" (0136 §5b) | add flyer, half sheet and table tent to the catalog with the vendor's prices; flyers download through the browser's print-to-PDF, as quotes do (0118), so no PDF library is needed |
 

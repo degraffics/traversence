@@ -54,9 +54,10 @@ members and posts; *World Travelers: White Mountains* is its chapter there.
 - A parent is any active group without a place, or with a hub-level place (a region's group can have town chapters).
   Chapters go **one level deep**: a chapter can't have chapters.
 - The parent's owner opens a chapter, or approves a member's request to start one.
-- **Chapters are about geography, not size** (Jason, 2026-11-01): no member count to open one and no limit on how many
-  a parent has. Instead:
-  - **one chapter per place per parent** (one *World Travelers: White Mountains*, never two);
+- **Chapters are about geography or topic, not size** (Jason, 2026-11-01; topic chapters added by 0137 §2): no member
+  count to open one and no limit on how many a parent has. Instead:
+  - **one chapter per place, or per topic, per parent** (one *World Travelers: White Mountains*, never two; a topic
+    chapter such as *Cast Iron Cooks: Beginners* shows on the parent's page and in search, not on place pages);
   - **a chapter sits inside its parent's place:** a region's group has chapters in that region's towns and areas; a
     parent with no place can have chapters anywhere.
 - **A chapter shows on its place's page from the day it opens,** so people there can find and join it. Empty or quiet
@@ -113,9 +114,9 @@ members and posts; *World Travelers: White Mountains* is its chapter there.
 - When the **parent ends**, each chapter's lead is offered to carry it on as an independent group (14 days); a chapter
   whose lead doesn't answer ends with it.
 
-**Business-run groups (0102 §4c).** A business's group can have a chapter for each of its locations (a Location Group,
-0036, or a Cornerstone business's units). Its chapters count toward the business's group allowance by plan; the
-business's roles run them as they run the parent.
+**Business-run groups (0102 §4c, 0137 §1).** A business has **one group**, owned by its listing, and uses chapters for
+each location (a Location Group, 0036, or a Cornerstone business's units) and each part of what it does (Support,
+Sales, How-tos). The business's roles run them as they run the parent.
 
 ### 3. Places a group is about
 
