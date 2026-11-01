@@ -159,7 +159,8 @@ where the people decide who reaches them and nothing can be bought to the top.
   groups), 0103 (charter transfer terms, inactivity; Accepted, terms set).
 - **Around it:** 0055 (Steward role and dashboard), 0062 (Verification), 0053 (search), 0132 (group membership as a
   link; tags), 0052 (messaging between group members), 0058 (Steward badge), 0109 (admin module 6), 0007 (no paid
-  placement), 0134 (events), 0136 (topic groups and chapters, Proposed).
+  placement), 0134 (events), 0136 (topic groups and chapters, Proposed), 0137 (charters, group page, moderation, notices,
+  email; Accepted).
 - **Safety and data:** 0009 (guest abuse in communities), 0010 (authorship), 0011 (AI corpus), 0066 (no sacred or
   restricted sites).
 - **Sequencing:** 0020, 0030 (Connect after Directory and Discovery).
@@ -194,7 +195,7 @@ to what's live.
 | A5 | Events per day | **No limit** unless abused; tickets stay capped | 0137 §7, 0134 §7 |
 | A6 | Chapters' anchors | **A place (Single Home anchors once defined) or a topic** | 0137 §2, 0136 §2 |
 
-### B. Specs: proposed in 0137
+### B. Specs: decided in 0137 (Accepted)
 
 B1 the charter (0137 §3), B2 the group page (§4, with a mockup), B3 moderation (§5: the group's own, Traversence by
 support ticket), B4 the admin's Groups section (shrinks to legal and safety reports, groups as a whole, and support

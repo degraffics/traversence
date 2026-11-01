@@ -117,7 +117,7 @@ object storage (S3, Cloudflare R2 or Bunny) before they open.
 - **Basic Partner ($29.95/mo):** the first tier with any AI: profile-level assistance (business-description drafting,
   basic photo and metadata help). Self-service: the partner generates and publishes their own content.
 - **Core Partner ($79.95/mo):** everything in Basic, plus the TRVGO tools (dynamic QR codes and short links; own domain
-  later) and automated local SEO. Self-service.
+  later, for the storefront and for email together, one Connect your domain step, 0137 §8) and automated local SEO. Self-service.
 - **Strategic Partner ($229.95/mo):** everything in Core, plus **25 AI-generated catalog articles a month**, custom
   partner content, the "Connection Feature" (a co-created Owner Spotlight Interview), rich media, White-Glove Setup,
   group management for more than one listing, and the communication suite. **Access level: admin/White-Glove-supported
@@ -215,7 +215,7 @@ refund" (`decisions/0098`).
 
 ### Top-ups when a plan's allowance runs out (commercial-2 §4)
 
-- **Email:** +10k $19.95, +25k $44.95, +50k $74.95, +100k $129.95.
+- **Email:** +1,000 $2.95 (for Core's 500, 0137 §8), +10k $19.95, +25k $44.95, +50k $74.95, +100k $129.95.
 - **SMS:** +500 $19.95, +2,500 $89.95, +5,000 $169.95, +10,000 $299.95.
 - **Web push:** +5,000 $9.95, +15,000 $24.95, +50,000 $69.95.
 - **Storage:** the packs in Master AOS §5D, the same for personal accounts and listings (+25 GB $2.95 up to +5 TB
