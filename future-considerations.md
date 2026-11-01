@@ -335,3 +335,12 @@ overview and the Marketplace's step 4 talk (`decisions/0135`):
 - **Accounting:** a business's own QuickBooks or Xero (see "Businesses selling through their own QuickBooks").
 - **Direct payments with no API:** Zelle, wire and check stay manual methods, marked paid by hand; Zelle's own
   business tools come through banks, not a platform API.
+
+## Selling domains in storefront onboarding (noted 2026-11-01)
+
+Decided in decisions/0139 §3, not built: Connect your domain could search for and buy a domain through **Name.com's
+reseller API** (no signup fee; an API key). Registered in the business's name with WHOIS privacy (the business owns it
+and can transfer it away), its DNS records for the storefront and email set through the same API so it's live with
+nothing typed, billed by us through QuickBooks with a yearly renewal on the card on file and a reminder before; domain
+fees aren't refundable once registered. Businesses bring their own domain until then.
+
