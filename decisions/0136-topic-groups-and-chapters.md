@@ -187,7 +187,7 @@ placement, export member lists, or show where members live. A business-run group
 **Why invites are limited at all.** Not to slow anyone down: to stop one account (or a stolen one) from flooding
 people with invitations. So the guard is on the pattern, not a daily count:
 - **A member invites any of their connections** (Address Book, a circle, 0047), as many as they like, **once per
-  person per group** (again after 90 days if not answered).
+  person per group** (again after 30 days if not answered; Jason, 2026-11-01).
 - The person invited can **turn off group invites**, from everyone or from that person. Someone who blocked the
   inviter never receives it.
 - If many of one person's invites are reported or turned down, their invites pause and it goes to Standing (0079).
@@ -199,16 +199,26 @@ invites from the business portal → its group → **Invite your people**, choos
 |---|---|---|
 | **People Linked to the business** (0047) | In-app invitation, under each person's marketing settings (`Marketing`): their frequency, unsubscribe and "no marketing from anyone" are honored | Every plan |
 | **Its customers who are members** (`Customers`) | In-app invitation, as above | Every plan |
-| **Its customers who aren't members**, and **its own list** (a chamber's member businesses, a newsletter list, uploaded as a file) | **One invitation email per address per group**, in the business's name, with a one-click "no more from this business". The business confirms these people agreed to hear from it. Sending pauses if too many bounce or complain | **Strategic and Cornerstone**, counted against the plan's email volume (10k / 50k a month, `commercial.md` §1.1) |
+| **Its customers who aren't members**, and **its own list** (a chamber's member businesses, a newsletter list, uploaded as a file) | **One invitation email per address per group**, in the business's name, with a one-click "no more from this business". The business confirms these people agreed to hear from it. Sending pauses if too many bounce or complain | **Core and up** (Jason, 2026-11-01), counted against the plan's monthly email allowance |
 
 - **All at once:** the whole audience is sent in one go; email goes out in batches the mail system can carry, and
   the business sees sent, opened (where the mail app tells us) and joined, as counts.
 - **Nothing leaks:** an uploaded list stays the business's (its CRM), is never shared with another business or used
   by Traversence for anything else, and can be deleted by the business.
-- On Free, Basic and Core, the indirect tools (5b, 5d) and in-app invitations carry the rest; email invitations are a
-  reason to move up.
+- **The email allowance** is how many emails a business may send through Traversence in a month: invitations,
+  campaigns and newsletters together. It exists because every email costs us to send, and every send puts our
+  mail reputation (whether inboxes trust mail from us) on the line for everyone. Receipts, tickets and other
+  transactional mail don't count; in-app invitations don't count. Strategic has 10,000 and Cornerstone 50,000 pooled
+  (`commercial.md` §1.1); **Core needs a number** (proposed: 2,500 a month).
+- On Free and Basic, the indirect tools (5b, 5d) and in-app invitations carry the rest; email invitations are a reason
+  to move up to Core.
 
 #### 5b. The short link, QR and flyer: making and using them
+
+**What's live to build on (checked in the live mirror, 2026-11-01):** short links for any page (`/api/short.php`,
+`js/short-link.js`, loaded on every page), the QR card (`tvQr`, `[data-qr]`, used by the engage bar) and GO Codes
+(`QrIssue`). **None of it is on the group page yet:** it has no Share or QR button and no share card, and flyers,
+invitations, invite codes and badges aren't built.
 
 From the group page → **Share & invite** (owner and moderators; also in the Steward dashboard):
 1. **Short link.** Made when the group is made: trvgo.us/{code} (`ShortCodes`, kind `page`, 0094), free, the same
@@ -219,8 +229,16 @@ From the group page → **Share & invite** (owner and moderators; also in the St
    - a business-run group on **Core and up** gets **dynamic** codes it can repoint (to a chapter, an event), as its
      plan already gives.
 3. **Flyer.** Pick a layout (letter flyer, half sheet, table tent, card), and it fills itself: group name, the
-   welcome post's first lines and photo, place, next event, the QR and short link. Download a print-ready PDF (or PNG
-   for screens), or **order it printed** through our print catalog (`Products`, 0101).
+   welcome post's first lines and photo, place, next event, the QR and short link. The owner can edit every word.
+   Download a print-ready PDF (or PNG for screens), or **order it printed** through our print catalog (`Products`,
+   0101).
+   - **Made by the owner** (the layout filled from the group's own details, then edited): **free** for every group.
+     Filling a layout isn't AI.
+   - **"Write it for me" (AI Assist):** Claude drafts the headline and a few lines from the group's about, charter,
+     welcome post and next event, in a choice of tones, for the owner to edit. It follows the rule for every AI-model
+     tool (`commercial.md`, "No AI model on free accounts"): it comes with a paid personal plan (Personal Plus or Pro)
+     or a business on Basic and up, and draws on that plan's AI credits. On a free account the button shows greyed out
+     with the reason. A draft costs us a few cents; there's no separate fee.
 4. **Putting it out:** a short checklist on the page: venues the group uses (with their permission), its events
    (table tents, sign-in sheets), notice boards, newsletters.
 5. **Keeping it working:** scans are counted per code (never who) and show in the group's growth counts as "QR". The
@@ -234,12 +252,16 @@ How someone becomes a member depends on the group's join mode (0047) and how the
 | How they arrive | Open group | Approval group |
 |---|---|---|
 | **Finds it** (place page, search, event, link, QR) | Join → member at once | Ask to join → answers the join questions → a moderator accepts or declines → member |
-| **Invited by an ordinary member** | Accept → member at once | Accept → a request to join, marked "Invited by Maria", for a moderator to accept (unless the charter says members' invitations count as approval) |
-| **Invited by the owner or a moderator**, or by the business (5a) | Accept → member at once | Accept → **member at once**: the invitation *is* the approval |
-| **Uses an invite code** | Member at once | Member at once if the code is set as approved; otherwise a request marked with the code |
+| **Invited by an ordinary member** | Accept → member at once | Accept → member at once **if the charter lets members' invitations skip approval**; otherwise a request marked "Invited by Maria" for a moderator |
+| **Invited by the owner or a moderator**, or by the business (5a) | Accept → member at once | Accept → member at once **if the charter lets invitations skip approval**; otherwise a request marked with who invited them |
+| **Uses an invite code** (a sign-up) | Member at once | Member at once **if the charter lets sign-ups by code skip approval** and the code is set that way; otherwise a request marked with the code |
 
-**"Skipping approval" means skipping the wait in the request queue,** because a moderator already said yes when they
-sent the invitation or made the code. The person still accepts it themselves, still sees the charter first, and
+**"Skipping approval" means skipping the wait in the request queue,** because someone the group trusts already said
+yes when they sent the invitation or made the code. **Whether it's allowed is set in the charter** (Jason,
+2026-11-01), shown to everyone before they join:
+- **Invitations skip approval:** never; from the owner and moderators; or from any member.
+- **Sign-ups by invite code skip approval:** yes or no.
+The default is "never" and "no": every new member is approved, until the owner chooses otherwise. The person still accepts it themselves, still sees the charter first, and
 joining is still their consent to be seen by members (0047).
 
 **Invite codes:** made by the owner or moderators for a meeting, a class, a customer list. Each has: approved or not,
@@ -271,6 +293,7 @@ finish joining. Joining needs an account, not Verification (that's for running a
 | `community_group_places` | group, kind (place, listing, outdoor place, landmark), ref, note, added by, removed by owner |
 | `community_groups` (growing) | welcome post id, welcome message, join questions, invite code, short link |
 | `community_group_joins` | group, how the join came (place page, search, tag, event, invite, QR, share, badge, code), day: counts only |
+| `community_groups` (charter) | invitations skip approval (never, moderators, any member), sign-ups by code skip approval |
 | `community_group_invites` | group, from (member or business), to (member, or an email for 5a), approved or not, sent, answered |
 | `community_invite_codes` | group or chapter, code, approved or not, ends, uses allowed, used, off |
 | `community_invite_lists` | the business, the uploaded list (in its CRM), consent confirmed by, sends, bounces, complaints |
@@ -307,9 +330,11 @@ Each step adds its FAQ entries (0057).
 3. **Joining:** the parent's charter decides.
 4. **Tags:** free words with suggestions as you type; **5 per group**, chapters included (Jason: "5 per"); 10
    places it's about.
+5. **Invitations:** once per person per group, again after **30 days**; businesses invite in-app on every plan and
+   by email from **Core and up**.
+6. **Skipping approval:** the charter decides, for invitations and for sign-ups by code.
+7. **Flyers:** made by the owner, free; "Write it for me" is AI Assist, on plans with AI, from their credits.
 
-For Jason to confirm (section 5, written out 2026-11-01 from his questions):
-5. **Growing a group** (section 5): indirect tools so people find groups and join.
-6. **Invitations** (5a): no daily count; once per person per group; businesses and chambers invite their own people
-   all at once (in-app on every plan; email to customers and their own lists on Strategic and Cornerstone).
-7. **Short link, QR and flyer** (5b), **joining by invitation or code** (5c), **badges and sharing** (5d): as written.
+Still to confirm:
+8. **Core's email allowance:** proposed 2,500 a month.
+9. **Growing a group** (section 5) otherwise as written.
