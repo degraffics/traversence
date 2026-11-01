@@ -347,7 +347,8 @@ in). It's listed because it isn't built yet, and group events need it.
    (subdomains, production access, bounces and the early pause, unsubscribe, the legal footer and mailing address,
    `via` reply forwarding, the sending job); the allowance and top-ups in `Billing`; SES in Services & usage.
 6. Connect your domain (storefront and email together, from Core), with the Storefronts build's custom domains on
-   Cloudflare custom hostnames.
+   Cloudflare custom hostnames. **Handed to the Storefronts build (2026-11-01):** `marketplace-architecture.md` §8 has
+   Jason's answers (storefront first; only trvgo.us moves to Cloudflare) and the domain review's open points.
 7. Flyer print products and ordering.
 
 Each step adds its FAQ entries (0057).
