@@ -184,6 +184,31 @@ database update `app/migrations/2027-01-12_marketplace.sql` has run (by itself, 
   Reports; taking one down there takes the post down with the reason. Staff can see a held or taken-down post's photos.
 - **Not yet:** "Near me" on a map, businesses' catalogs (step 3), offers and dual confirmation (step 2).
 
+## Step 2 built (2026-11-01): offers, Sold / Got it, notes
+
+Delivered as a zip (18 files that differ from the live mirror of 2026-11-01 15:14 UTC, which holds step 1); live once
+uploaded and `app/migrations/2027-01-13_market_offers.sql` has run.
+- **Records:** `market_offers` (asked, countered, accepted, completed, declined, withdrawn, fell_through, lapsed,
+  disputed), `market_offer_events` (every move, by whom), `market_notes`. `app/lib/MarketOffers.php` owns them.
+- **Offers:** on a post, the buyer sends an amount (a free post: "I'd like it"); the seller accepts, counters or
+  declines; the buyer accepts a counter, counters again or withdraws. One open offer per buyer per post. Every move is
+  also a line in the two people's conversation. No answer in 7 days: the offer closes (lapsed). Accepting marks the
+  post Pending.
+- **Dual confirmation (§4):** after accepting, the seller taps **Sold** and the buyer taps **Got it**; both: completed.
+  The post is marked sold, other open offers on it close, and both earn trust points (`TrustScore::USER_MARKET_COMPLETED`,
+  2 each, once a month for the same two people). One side confirmed and the other silent for 3 days: one email
+  reminder. Before both confirm, either can call it off (the post shows again).
+- **Notes (§5):** after a completed trade, each can leave one short public note about the other ("Say how it went").
+  The latest three show on the seller card of their posts with "Bought from them" or "Sold to them". Reportable;
+  Social → Reports hides one. No stars.
+- **Problems:** "Report a problem" (once accepted, and up to 14 days after completing) goes to Market 360° → **Offers &
+  disputes** (live: metrics, table, drawer with the full history) and to one Pulse case (Safety) with a Settle form per
+  trade. Settling: it went through (completes it), it fell through, or the buyer or seller was in the wrong (falls
+  through, and that person loses 5 trust points, `USER_MARKET_DISPUTE_LOST`). Both are emailed the note.
+- **Where people see it:** the post page (Make an offer for buyers, Offers for the seller), Your Marketplace → Offers
+  (`#market:offers`), and the Pulse ("Marketplace offer waiting on you"). A buyer with an offer on a post keeps seeing
+  it after it sells.
+
 ## Older records that point here
 
 0031 (Post-and-Connect; its "no payments through Traversence" stands), 0032 (quotes, pricing, catalog depth; its 250 is

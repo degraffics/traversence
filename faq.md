@@ -797,7 +797,7 @@ In your business portal, open **Catalog** and tap **Add a product**: its name, t
 Coming with the Marketplace: each plan shows a number of active items at once (Free 10, Basic 25, Core 100, Strategic 250, Enterprise / Cornerstone 1,000 per listing). Hidden, sold and expired items don't count. At your plan's number, adding or showing another item is greyed out with the plan that raises it; nothing already showing is taken down.
 
 ### Can I sell things on Traversence?
-Yes: anyone with an account who is 18 or older can post on the **Marketplace** (see Buying and selling below). A post shows the town or area you pick, never your address. No payment ever passes through Traversence: people pay each other directly. Coming next: offers and the dual confirmation (the seller taps Sold, the buyer taps Got it), businesses' active catalog items in the Marketplace and in their own storefront, and card payments through a business's own provider (Square or Stripe first), with no cut to us.
+Yes: anyone with an account who is 18 or older can post on the **Marketplace** (see Buying and selling below). A post shows the town or area you pick, never your address. No payment ever passes through Traversence: people pay each other directly. Offers and the dual confirmation (the seller taps Sold, the buyer taps Got it) are live too. Coming next: businesses' active catalog items in the Marketplace and in their own storefront, and card payments through a business's own provider (Square or Stripe first), with no cut to us.
 
 ### What is the business portal?
 Your business's own tools, for you and your team. When you act as your listing, its **Overview** is your one landing page: the listing at a glance (its status, how complete your profile is, your numbers, Reply to messages and Edit listing), then every tool. Its menu has everything in one place: Overview, its Pulse and messages, the listing and Edit listing, then its tools (Customers, Catalog and the rest), then Team & roles and Plan & settings. Open it by choosing the business under **Your listings** in your account menu, or at traversence.com/business/. Each person sees what their role allows (Owner, Manager, Accountant, Sales, Support, Creator, Developer or Viewer, who can look but not change anything), and each tool is opened by your plan: one your plan doesn't include shows greyed with the plan it comes with. Customers, Catalog, Quotes & invoices, Orders, Discount codes, Sales tax, Shipping & pickup and Plan & settings (with your team) are open now; the inbox, storefront, marketing (QR codes, short links, campaigns) and reports are coming. Your business's information is kept in its own place, walled off from every other business: no other business can reach it, whatever happens.
@@ -889,7 +889,19 @@ No. A post shows only the town or area you pick. Share the exact spot in message
 Tap the bookmark on a post to save it. Your saved posts, and the sellers you've messaged, are in **Your Marketplace → Buying** (in your Dashboard, or Saved and messaged on the Marketplace's menu). Sellers see how many people saved a post, never who.
 
 ### What does "Pending" mean on a post?
-The seller has someone lined up but it hasn't sold yet. It still shows, so you can message them in case it falls through.
+The seller has someone lined up (an accepted offer) but it hasn't sold yet. It still shows, so you can message them or make an offer in case it falls through.
+
+### How do offers work on the Marketplace?
+On a post, enter an amount and tap **Send offer** (on a free post, **I'd like it**). The seller can **Accept**, **Counter** with another amount, or **Decline**; you can accept their counter, counter again, or **Withdraw**. Every move also shows in your messages with them. An offer nobody answers closes after 7 days. Your offers, and offers on your posts, are in **Your Marketplace → Offers**; your Pulse tells you when one is waiting on you. An offer is what you agreed: no payment passes through Traversence.
+
+### What are Sold and Got it?
+Once an offer is accepted, meet up. Then the seller taps **Sold** and the buyer taps **Got it**. When you've both tapped, the trade is complete: the post is marked sold, other offers on it close, and you both earn trust points (once a month for the same two people). If one of you hasn't tapped after 3 days, we remind them once. If the deal falls through before then, either of you can **Call it off**, and the post shows as available again.
+
+### Can I say how a trade went?
+Yes, after you've both confirmed it: tap **Say how it went** on the trade in Your Marketplace and write a short note. It shows on the other person's posts, under their name, with whether you bought from them or sold to them. There are no stars: a note is only possible after a real, confirmed trade. Anyone signed in can report a note.
+
+### What if something goes wrong with a trade?
+Tap **Report a problem** on the trade (once an offer is accepted, and up to 14 days after it completed) and say what happened. A person on our team reads the whole history and settles it: it went through, it fell through, or one of you was in the wrong, which lowers that person's trust. We email you both what we found, usually within two days. Traversence never holds money, so we can't refund a payment: never pay before you meet.
 
 ### How do I report a post?
 Open it and tap **Report** under the title. Choose why. Our team looks at it, and a post taken down tells its seller why.
