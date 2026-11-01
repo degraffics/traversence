@@ -73,7 +73,7 @@ members and posts; *World Travelers: White Mountains* is its chapter there.
 
 | From the parent | Its own |
 |---|---|
-| Topic and tags (it can add 2 tags of its own) | Place, members, posts, moderators, lead |
+| Topic, and its tags to start with (a chapter has its own 5 and can change them) | Place, members, posts, moderators, lead |
 | The charter's purpose and house rules (it can add local rules that don't contradict them) | Join mode (open or approval), its own events (0134) |
 | The charter's transfer terms (0103 §2a), applied to the chapter | Its own inactivity clock (0103 §4) |
 
@@ -222,5 +222,5 @@ Each step adds its FAQ entries (0057).
 2. **No limit on chapters;** a chapter shows on its place's page from the start; inactivity handles ghost groups, and
    an inactive chapter can be brought back.
 3. **Joining:** the parent's charter decides.
-4. **Tags:** free words with suggestions as you type; 5 a group (2 more for a chapter), 10 places it's about.
+4. **Tags:** free words with suggestions as you type; **5 per group**, chapters included (Jason: "5 per"); 10 places it's about.
 5. **Growing a group** (section 5): indirect tools so people find groups and join.
