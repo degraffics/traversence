@@ -215,7 +215,7 @@ disputes and Marketplace rules belong to Marketplace; Storefronts, Custom domain
    - the Shop module's Catalog (with private cost and markup), Offers and Settings;
    - the Shop tab on the listing;
    - tier caps enforced.
-4. **Checkout:**
+4. **Checkout** (4a built 2026-11-01, decisions/0135 "Step 4a built"; 4b, Square's catalog, next):
    - the payment gateway connection per business;
    - cart and checkout to their gateway;
    - merchant orders on the ledger;

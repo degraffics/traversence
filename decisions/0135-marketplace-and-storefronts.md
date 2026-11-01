@@ -346,6 +346,50 @@ Request a quote (Basic and up); the old Core-only card "Buy now" becomes the **P
 Buy now take stock down and add customers, as §6 and step 4 expect for "manual orders marked paid". People's posts
 get Buy now and Send a price in place of offers.
 
+## Step 4a built (2026-11-01): checkout through the business's own gateway
+
+Delivered as a zip (25 files that differ from the live mirror of 2026-11-01 16:40 UTC); live once uploaded and
+`app/migrations/2027-01-16_market_checkout.sql` has run. Built in a mock mode and tested without real Stripe or Square
+accounts; real payments wait for Jason's one-time setup below.
+- **E-commerce setup** (business portal, a new module): Getting paid (Connect Stripe / Connect Square from Core; Zelle,
+  bank transfer, check, pay at pickup or another way, each with its instructions, on every plan) → sales tax → shipping
+  and pickup → days to hold items for a direct payment → a test purchase → Go live / Pause. Then its Marketplace
+  orders. Roles: Ledger to see and change it, Plan & billing to connect or disconnect, Publish to go live.
+- **Connecting:** `/business/pay-connect.php`, a sign-in at Stripe or Square; the answer must carry the state we gave
+  that person's session (a forged one is refused and logged). Stripe keeps the account id; Square's tokens are sealed
+  (libsodium secretbox from the site's secret, as QuickBooks' are) and refreshed a week before they expire.
+- **Buying:** Buy now and Add to cart on items whose buttons include it (the button "Buy now and Add to cart", now on
+  every plan once checkout is live); one cart per business (`/market/cart.php`); checkout with the gateway's own card
+  fields on our page (Stripe embedded Checkout, Square Web Payments) or a direct way with the business's
+  instructions; the order page `/market/order.php`; orders in Your Marketplace → Buying; a Cart entry in the
+  Marketplace menu.
+- **Paid:** only when the gateway says so: webhooks at `/api/market-webhook.php?p=stripe|square` (signature first,
+  each event once, a failed one forgotten so the retry runs, then the payment asked of the gateway), the order page
+  asking on return, and the daily reconcile. Then stock comes off and the business's own invoice is written (or its
+  payment recorded) through the same gate as its portal. A direct payment is marked received by the business in
+  Quotes & invoices, which marks the Marketplace order paid.
+- **The totals** are the invoice's own arithmetic (tax on taxable items at its rate, shipping untaxed), so the order and
+  the business's invoice agree to the cent; each published item now carries its taxable flag.
+- **Stock:** Track stock and how many, per published item, in the portal's Marketplace page, live at once; 30 minutes
+  held for a card payment, the business's days for a direct one; Sold out at 0.
+- **People's trades:** "How you take payment" in Your Marketplace → Offers, shown only to the buyer whose offer was
+  accepted, with the no-buyer-protection warning.
+- **Admin:** Market 360° → **Gateways** (live): the mode, connections (connected, stopped), live checkouts, paid orders
+  and the businesses' sales this week (to them, not us).
+- **Next, 4b:** Square catalog import and sync (Basic: catalog; Core: catalog and payments, orders sent back to Square).
+
+**Jason's one-time setup (until then, Connect says "opens soon"):**
+1. **Stripe:** in Traversence's Stripe account, turn on Connect (Standard accounts, OAuth). Add the redirect
+   `https://traversence.com/business/pay-connect.php`. Add a Connect webhook to
+   `https://traversence.com/api/market-webhook.php?p=stripe` for `checkout.session.completed`,
+   `checkout.session.async_payment_succeeded` and `account.application.deauthorized`.
+2. **Square:** in the Square Developer Dashboard, make an application; set its OAuth redirect to the same address, and a
+   webhook subscription to `https://traversence.com/api/market-webhook.php?p=square` for `payment.created`,
+   `payment.updated` and `oauth.authorization.revoked`.
+3. **`.env`** (File Manager): `MARKET_PAY_ENV=sandbox` first (Stripe's test mode keys, Square's sandbox app), then
+   `live`; `STRIPE_CLIENT_ID`, `STRIPE_SECRET_KEY`, `STRIPE_PUBLISHABLE_KEY`, `STRIPE_WEBHOOK_SECRET`; `SQUARE_APP_ID`,
+   `SQUARE_APP_SECRET`, `SQUARE_WEBHOOK_KEY`.
+
 ## Older records that point here
 
 0031 (Post-and-Connect; its "no payments through Traversence" stands), 0032 (quotes, pricing, catalog depth; its 250 is
