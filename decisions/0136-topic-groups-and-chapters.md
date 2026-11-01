@@ -203,12 +203,12 @@ joining a business's group is consent to its offers, events and product news ins
   - **A share is a pointer, not a copy:** the card always shows the item as published now (price, photos, sold out).
     Publish changes and every card updates; **Unpublish** and every card shows "No longer offered", without the buy
     buttons. Only published items can be shared, and sharing doesn't count toward the catalog cap (0135 §7).
-  - **What a buyer can do from the card** is exactly what the item page allows (0135 step 3, `MarketBiz`): **Message**
-    the business (always), **Make an offer** (off until the business switches it on), **Request a quote** (Basic and
-    up; the quote carries the business's pay link), **Buy now** (Core and up, card checkout through its own gateway,
-    0135 step 4). A sale made by message, offer or quote is paid the business's way (Zelle, check, pay on pickup) and
-    marked paid or sold by the business (0135 §6). The card never offers more than the item page.
-  - **Tickets** share the same way, with 0134's rules: manual payment on Free and Basic (0134 §6a), card from Core.
+  - **What a buyer can do from the card** is exactly what the item page allows (0135, amendment "the seller sets the
+    price"): **Order now** at the seller's price (every plan; paid the business's way, or Pay now by card from Core),
+    **Request a quote** (Basic and up, where negotiation happens), **Message**. Buyers never propose a price; a business
+    can send one buyer a special price from the conversation. The card never offers more than the item page.
+  - **Tickets** share the same way, with Order now: paid the business's way on Free and Basic (0134 §6a), Pay now by
+    card from Core.
   - A **person's** Marketplace post (0135 step 1) shares the same way, to their feed and to groups whose charter allows
     members' items.
 - **Only Traversence's own Marketplace and Shop:** a post can't link to another selling site (no outside shops or

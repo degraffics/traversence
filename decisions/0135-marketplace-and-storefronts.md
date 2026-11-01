@@ -289,6 +289,54 @@ and his answers of 2026-11-01:
 - **Later:** restaurant ordering systems, outside ticketing, accounting sync and more gateways
   (`future-considerations.md`, "Commerce integrations").
 
+## Amendment (2026-11-01, Jason): the seller sets the price; the buyer orders
+
+Jason: "This needs to be fast and clean. Request a quote is where negotiation comes in, but I still want a
+straightforward way: pricing set by the seller, and the buyer accepts to proceed. If there are messages and
+negotiations outside the transaction, let the seller address pricing overrides, not the buyer." This replaces Make an
+offer on businesses' items and closes the gap where an accepted offer never became an order.
+
+**1. Order now: the buyer accepts the seller's price.** On a business's item with a set price (fixed, or "from" with
+its options), the main button is **Order now**, on every plan:
+1. The buyer picks the quantity and options (the catalog's own price rows and options, 0116), and pickup or delivery
+   (the business's Shipping & pickup).
+2. The order shows the seller's price, tax from the business's settings, and shipping, with the business's refund
+   terms. The buyer confirms; nothing is negotiated here.
+3. It becomes an **order** in the business's Orders (0098, the business's walled records), and the buyer gets it by
+   email (sent for the business, 0137 §8) and in their account.
+4. **Paying,** by the business's plan and setup (§6): from Core, **Pay now** through its own gateway, on our page
+   (step 4); on every plan, the business's own ways (pay link, Zelle, check, pay on pickup), shown on the order, and
+   the business marks it paid.
+5. **Paid:** the item counts as sold (or its stock goes down, step 4), the buyer is added to the business's Customers,
+   and a receipt goes out. Unpaid after the business's set time (default 3 days), the order is cancelled and the item
+   (or stock) is released.
+
+**2. Negotiation is the seller's, never the buyer's.**
+- **Buyers can't propose a price** on a business's item: Make an offer is retired for businesses' items (it was off by
+  default; any open offers are honored to the end).
+- **Request a quote** (Basic and up) is where negotiation happens: the business writes the quote at the price it
+  chooses (Quotes & invoices, 0118), and the buyer accepts it, which makes the order.
+- **A price override from the conversation:** when a buyer and business talk in messages, the business (Inbox
+  permission) can **Send a price** for that item, to that buyer: an amount, a quantity, an end date. It shows in the
+  conversation as a card with **Order at this price**; only that buyer can use it, once, before it ends. On Free (no
+  quotes), this is how a business makes a special price. The buyer only ever accepts.
+- Every override is logged (who set it, from what price, for whom), and shows on the order as "Price set by the
+  business".
+
+**3. Items with no price** ("Ask" items, services priced per job) show **Request a quote** (Basic and up) or
+**Message** (Free), and the business answers with a quote or Send a price.
+
+**4. Where else it applies.**
+- **Shared cards** (0136, Selling in groups) carry the same buttons as the item page: Order now, Request a quote,
+  Message.
+- **Tickets** (0134) use Order now: on Free and Basic the order is paid the business's way and marked paid; from Core,
+  Pay now.
+- **People's posts** (step 1–2: one member selling to another) keep offers and Sold / Got it as built, for now.
+
+**Changes from step 3:** the buttons become Message, **Order now**, Request a quote (Basic and up); Buy now (Core,
+card) becomes the Pay now step of an order rather than a separate button. Orders from Order now take stock down and
+add customers, as §6 and step 4 expect for "manual orders marked paid".
+
 ## Older records that point here
 
 0031 (Post-and-Connect; its "no payments through Traversence" stands), 0032 (quotes, pricing, catalog depth; its 250 is
