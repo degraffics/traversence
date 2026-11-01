@@ -513,8 +513,16 @@ rebuild, and 17 places in the code that changed a listing without telling it. Th
   become evidence on its listing.
 - **The cost log notes what each paid call produced**, so Services & usage shows the return on each source and catches
   money spent twice.
-- **Still to fold in** (later steps): sightings get an identity before they're published (`record_kind = 'intake'`,
-  keyed by the raw row, moved onto the listing when it's approved); the rebuild (`fromListing`) stops reading the
+- **Identities from first sighting** (built 2026-11-01): every crawler sighting gets an identity the moment it's
+  staged (`record_kind = 'intake'`, keyed by its `crawler_raw_index` row; `Identity::fromIntake`): the page it came from,
+  the sites that confirmed it, and the reference index and NPI/IRS matches, read once then. Verify's results and a
+  re-crawl of the same location rebuild it. Approving it, merging it into a listing, or closing it as the same as one
+  (nothing new, covered by) moves its evidence onto that listing, noted "From the crawler's sighting #id", and the
+  sighting's own copy goes (`Identity::adopt`): one record. Sightings turned down for other reasons keep theirs, so
+  what we saw is never lost. Those from before were given theirs by scheduled jobs, 50 a run
+  (`Identity::backfillIntake`). OpenStreetMap is now a link (`evidence`), not a counted source; Wikidata (CC0) still
+  counts.
+- **Still to fold in** (later steps): the rebuild (`fromListing`) stops reading the
   listing's fields back as a source and becomes a backfill and repair tool; Verify's and the registries' matches are
   written once when found; secondary categories become kind facts; the duplicate `category` name in the listing's fields
   goes once its one reader uses the category id.
@@ -728,8 +736,9 @@ Many rural businesses have only a Facebook page (Diamond C Feed, St. Johns: face
 
 1. The observations store is the identity record. **Built 2026-11-01:** the identity tables stay in main; every
    listing write records into the identity with its source (the one writer); values taken off stay off; merges join
-   the evidence; Google's place ID is a link, and links aren't counted. Next: identities from first sighting, the
-   rebuild as backfill only, matches written once.
+   the evidence; Google's place ID is a link, and links aren't counted. Identities from first sighting (also
+   2026-11-01): every sighting has one, moved onto its listing when approved or matched. Next: the rebuild as backfill
+   only; Review shows a sighting's identity card.
 2. Listing confidence: the score, the ring and How we know, visitor confirmations.
 3. Google and OpenStreetMap used in full (duplicates, address mismatches, not-found); the Listing check template;
    cadence by band; automatic decisions; value-ordered Review; closure and moved notices.
