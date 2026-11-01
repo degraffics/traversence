@@ -291,13 +291,20 @@ and 100%. So Free and Basic businesses' order emails can't add up unnoticed.
 
 ### DNS and hosting
 
-- **Our DNS is done through the cPanel API, not by hand** (CLAUDE.md): `app/lib/CPanel.php` gains the cPanel API's DNS
-  functions to add and check the records. **First step: confirm where `traversence.com`'s DNS lives** (Bluehost or
-  Cloudflare); if it's Cloudflare, its API does the same job.
+- **Where our DNS lives (confirmed by Jason, 2026-11-01):** `traversence.com` and `trvgo.us` are registered at
+  whois.com, with their nameservers pointing to Bluehost, so **Bluehost's Zone Editor holds the DNS** for both.
+- **So it's done through the cPanel API, not by hand** (CLAUDE.md): `app/lib/CPanel.php` gains the cPanel API's DNS
+  functions (read the zone, add and change records) and a check that each record is live. The SES records for
+  `via.traversence.com` and `send.traversence.com` go in that way.
+- Renewals stay at whois.com (`trvgo.us` to Oct 15, 2027; `traversence.com` to Aug 21, 2028).
 - **Storefront custom domains won't scale on Bluehost shared hosting:** each needs an addon domain and its own SSL,
   and those are capped per plan. When the Storefronts build reaches custom domains (`marketplace-architecture.md`
   step 5), plan on **Cloudflare's custom hostnames** (Cloudflare for SaaS) instead: the business points one record at
   us, and Cloudflare handles the certificate.
+- **What that will need:** Cloudflare for SaaS runs on a zone that's on Cloudflare. Since both our domains are on
+  Bluehost's nameservers, that step either moves `trvgo.us` (the storefront domain) to Cloudflare's nameservers or uses
+  a separate domain for it; `traversence.com` and its mail can stay on Bluehost. Decided when the Storefronts build
+  reaches custom domains.
 
 ## 9. Flyers printed through us create orders (0136 §5b)
 
@@ -335,7 +342,7 @@ in). It's listed because it isn't built yet, and group events need it.
 2. The group page (section 4) and `/community/` without breadcrumbs.
 3. Group-led moderation and the "Group help" ticket type; legal and safety reports to Safety.
 4. Notices sent once (`notices_sent`), used by everything above.
-5. Email: confirm where our DNS lives and add DNS to `CPanel.php`; mark every send system or not; two SES accounts
+5. Email: add DNS to `CPanel.php` (our DNS is on Bluehost); mark every send system or not; two SES accounts
    (subdomains, production access, bounces and the early pause, unsubscribe, the legal footer and mailing address,
    `via` reply forwarding, the sending job); the allowance and top-ups in `Billing`; SES in Services & usage.
 6. Connect your domain (storefront and email together, from Core), with the Storefronts build's custom domains on
@@ -357,5 +364,5 @@ Each step adds its FAQ entries (0057).
    private at once and less private after 14 days, with members able to hide themselves.
 6. **Email:** Core 500 a month, the existing top-ups plus +1,000 $2.95; one Connect your domain flow from Core for the
    storefront and email; two AWS accounts; a business paused at 3% bounces or 0.08% complaints; a postal address in
-   every bulk email; `via` replies forwarded; DNS through the cPanel API (Cloudflare's if the DNS is there); storefront
+   every bulk email; `via` replies forwarded; DNS through the cPanel API (both domains are on Bluehost's nameservers); storefront
    domains on Cloudflare custom hostnames; SES capped and tracked in Services & usage.
