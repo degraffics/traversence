@@ -34,6 +34,7 @@ The site's code isn't here. It runs on the server and in OneDrive, and its live 
 | `routes.md` | Page structure and routing |
 | `master-aos.md` | Master Administrative & Operational Specification (Traversence and TRVGO) |
 | `aos-gap-review.md` | What's built and what's left against the AOS |
+| `ux-review.md` | UI/UX check of the visitor path, start to finish, against the build standards (2026-11-01) |
 | `admin-architecture.md` | The admin: modules, widgets, workflows |
 | `admin-map-v2.md`, `workspace-map.md`, `admin-rebuild-batch-plan.md` | Admin structure proposals and the rebuild plan |
 | `business-portal-architecture.md` | The business portal (the admin, scoped to a business) |
