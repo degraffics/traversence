@@ -189,3 +189,23 @@ Pulse → Stream settings (the gear on the board).
 - **Storage:** only the values that differ from a default are stored, in `pulse_settings` (migration
   `2026-12-19_pulse_settings.sql`). Until that migration runs, the defaults apply.
 
+
+## Addendum (2026-11-01): the daily report
+
+Jason: "for the pulse and the system status check, there should be one email per day with a report of every thing that
+needs attention and fires actions to complete." Decided: to the Founder only, 5 am Arizona time, sections folded, one-tap
+steps.
+
+- **One email a day** (`app/lib/DailyReport.php`, scheduled job `daily_report`, hourly at :02, sends once the hour
+  comes in Arizona). Sections, each folded (`<details>`; mail apps that don't fold show them open): **Needs you now**
+  (critical, an alert past its clock, escalated to you), **Today** (alerts), **Can wait** (updates and events, marked
+  "past its clock" when they are), **System status** (the dashboard's checks, now one function `tv_admin_status()`,
+  which also gained Scheduled tasks and Database updates), and **Yesterday** (cases closed, calls logged).
+- **Actions:** each case has a button to its step: `/admin/pulse/stream#case=KEY&step=N` opens the case with that step
+  lit and its button focused, so after the usual staff sign-in it's one tap. The email never acts by itself: mail
+  scanners open every link in a message.
+- **Privacy:** no visitor's email, phone or name in the email (`DailyReport::scrub`); those stay behind the sign-in.
+- **All clear still sends** one line, so a missing email means the report stopped; and Pulse raises its own case
+  (`dailyrep:DATE`, alert) an hour after the time when today's didn't go, with **Send it now**.
+- **Settings** in Pulse → Stream settings: who it goes to (one Owner), the hour, Preview today's report, Send me a copy
+  now. No AI and no paid service: the site's own mail (`Mailer::send` now takes an HTML version as well).
