@@ -31,7 +31,10 @@ outline, and some no longer agreed:
   Items and Marketplace rules, GO Codes & short links, our pages and their form entries are live; Offers & disputes,
   Storefront Studio, Catalog rules, Gateways and Custom domains are placeholders, each naming its step. The Catalog
   rules placeholder reads "catalog caps by plan" (the old "250-item cap" text is gone, also from the Workspaces list).
-- **Not built:** offers and dual confirmation (step 2), businesses' catalogs on the Marketplace and their caps (step 3),
+- **The Marketplace, step 2 (offers, Sold / Got it, notes, disputes):** delivered 2026-11-01 in
+  `marketplace-step2-plus_20261101.zip` (19 files, with the Workspaces text fix), built on the 15:29 UTC mirror; live
+  once uploaded and `app/migrations/2027-01-13_market_offers.sql` has run. What it does is in "Step 2 built" below.
+- **Not built:** businesses' catalogs on the Marketplace and their caps (step 3),
   checkout and gateways (step 4), the Shop tab, Storefronts, `trvgo.us/<shop>` and custom domains (step 5).
 
 ## The rules
@@ -182,7 +185,7 @@ database update `app/migrations/2027-01-12_marketplace.sql` has run (by itself, 
   live; Offers & disputes, Storefront Studio, Catalog rules, Gateways and Custom domains are placeholders with their
   step. Held posts are one Pulse case (Safety) with a "Let it show" button per post. Reports on a post go to Social →
   Reports; taking one down there takes the post down with the reason. Staff can see a held or taken-down post's photos.
-- **Not yet:** "Near me" on a map, businesses' catalogs (step 3), offers and dual confirmation (step 2).
+- **Not yet:** "Near me" on a map, businesses' catalogs (step 3); offers and dual confirmation came with step 2.
 
 ## Step 2 built (2026-11-01): offers, Sold / Got it, notes
 
