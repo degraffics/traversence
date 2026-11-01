@@ -951,6 +951,9 @@ Open **Community** and fill in **Start a group**: a name, what it's about, its k
 ### What's a group's charter?
 The rules the group runs by, written by whoever starts it, and what you agree to when you join. Every group's page shows **What you're agreeing to**: its purpose, house rules, who sees that you're in it, what happens if the owner leaves, and how joining works, with **Read the whole charter** for everything else and every past version. Each charter also carries Traversence's ground rules, which no group can remove: our Terms, no harassment, no one's private information, no sacred or restricted sites, and selling only through Traversence. Groups started before charters show the ground rules until their owner writes one.
 
+### What's on a group's page?
+At the top, the group's name with **Join** (or **Ask to join**) on the right; a local group shows photos people have shared of its place. Under it: what kind of group it is and its topic (tap either to find more like it), what it's about, **Share** and a **QR code** for the group, and its numbers at a glance: members, posts this week, how joining works, and since when. Then the charter (**What you're agreeing to**), and, for members, the posts and the member list. A group's own cover photos are coming.
+
 ### What happens when a group's charter changes?
 Members are told once, in their Community feed and on the group's page, with what changed. You don't have to agree again and nobody is removed by a change; if you don't like it, you can leave. Most changes take effect at once. Two give 14 days' notice first: what happens if the owner leaves, and opening the member list to all members (you can hide your own name meanwhile). Making the member list more private happens at once.
 

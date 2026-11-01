@@ -381,6 +381,28 @@ Delivered as a zip (7 files that differ from the live mirror of 2026-11-01 16:40
   not built yet (invitations and codes, selling, report thresholds): they're saved and shown, and take effect as those
   are built.
 
+## Step 2 built (2026-11-01): the group page layout
+
+Built on the 19:30 UTC sync; delivered as a zip of 5 files (`website/community/group.php`, `website/community/index.php`,
+`app/lib/Community.php`, `app/lib/Engage.php`, `app/ui/faq.md`). No migration.
+- **The top is drawn on the server** (§4): `tv_explore_hero()` with the group's name as the heading; a local group's
+  hero shows journeys' photos of its place, others the brand's band. **Join** (or Ask to join, Asked, Joined, "Your
+  team's") sits top right where other pages have Link: joining is how a person links to a group (0132). With a
+  charter, Join opens it to agree to first.
+- **Under it:** the kind (Interest, Local or Business group) and the topic as pills that search (`TvSearch.open`,
+  "<topic> groups near <place>"), Run by the business, the about, the engage bar (`tv_engage_bar` kind `group`: views,
+  Share, QR; no likes or comments, since posts are the group's own), and **at a glance**: members, posts this week, how
+  joining works, since when. Views counted (`tv_count_item('group:<id>')`, `Engage::COUNT_KEY['group']`).
+- **No breadcrumbs** on the group page or `/community/`; a share card (title, description, URL) in the page's head; an
+  unknown or hidden group is a 404 page. Cards are `tv-bleed` with .5rem corners; group cards on `/community/` have the
+  brand-brown underlined name.
+- The charter, the owner's tools (topic, place, edit, hide), Report, Leave, and the posts and members stay as before,
+  below.
+- **Tested** in a browser at 390px and 1200px (no sideways scroll, no page errors): a visitor's Join opens the charter,
+  Agree and join turns the hero's button to Joined; the business owner sees "Your team's".
+- **Not yet:** a group's own cover photos (HeroMedia knows listings and profiles; groups need a storage home first),
+  the public welcome post, events, chapters and places it's about (0136, 0134), and tags as pills.
+
 ## Jason's answers (2026-11-01)
 
 1. **Legal and safety reports** and reports on a group open a Safety ticket automatically; our Terms apply on it.
