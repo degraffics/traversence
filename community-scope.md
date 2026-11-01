@@ -28,7 +28,7 @@ Scope of the Community ("Connect") build, checked on 2026-11-01 against the live
 | Steward member reports and Level 2 escalation (3-tier moderation) | Steward dashboard "soon"; admin (Level 3) is live | architecture §27, 0055, master-aos §6 |
 | Admin → Social → Groups (table, charter drawer) | "Coming" card in `app/admin/manifests.php` | admin-architecture §6, 0109 |
 | Admin → Social → Business groups | Not yet a section | admin-architecture §6 |
-| **Events, a site-wide tool** (below) | "Coming" under Social → Events, waiting on its definition; **no decision covers it** | Jason, 2026-11-01; admin-architecture §6, master-aos |
+| **Events, a site-wide tool** (below) | Decided in principle; **0134 Proposed**, four choices for Jason | Jason, 2026-11-01; 0134 |
 | **Tags on groups:** a group carries its own @tags under its topic ("Food & cooking" → baking, cast iron), so search and topic pages narrow to them | New proposal | Jason, 2026-11-01; uses 0132 |
 | **Local chapters:** a topic group opens chapters tied to a place ("World Travelers: White Mountains"); a chapter is a local group with a parent, shown on its place's page, listed on the parent | New proposal; needs a decision | Jason, 2026-11-01 |
 | **Places a group names:** a group lists places it's about (trips planned, places visited) on its public page, so those place pages show "Discussed by: <group>". The group's choice only, never inferred from members-only posts; passes 0066's checks | New proposal | Jason, 2026-11-01; 0053, 0066 |
@@ -39,15 +39,15 @@ Scope of the Community ("Connect") build, checked on 2026-11-01 against the live
 
 ### Events: one tool for the whole site (Jason, 2026-11-01)
 
-Events aren't a Community feature. Creating an event is one tool used across the site, and its decision covers all of
+Events aren't a Community feature. Creating an event is one tool used across the site; `decisions/0134` covers all of
 it:
 - **Who creates:** members, groups (including chapters), businesses and listings, and our team for places; the
   crawler's Live events (0133) land in the same place.
 - **Where one shows:** its venue's listing, its place's page and guide, the group or business that runs it, a public
   calendar, and search.
-- **To settle in the decision:** who may create what, approval and reporting, recurring and seasonal events, RSVPs,
-  sacred-site checks (0066), and where Events sits in the admin (today a "coming" section under Social; as a site-wide
-  tool it may need its own home, opened in a drawer from the modules that use it).
+- **For a group:** owner and moderators post; members suggest. A group event can be public or members-only.
+- **Still for Jason (0134):** whether members' events need Verification, who sees who's going, one admin home in Let's
+  Explore (Social → Events removed), and the list of event kinds.
 
 ### Not controlled
 
@@ -67,37 +67,46 @@ It promises four things the big platforms don't: **true locality without noise**
 
 ### What each offers
 
-**Nextdoor.** A neighborhood social network. You join with a verified address and see your neighborhood's feed:
-recommendations, lost pets, safety posts, for-sale items, and neighborhood groups. Businesses get free pages and pay
-for ads and sponsored posts; neighbors recommend them ("Faves"). Its September 2026 redesign added a Local Faves hub
-ranked by neighbor endorsements and AI search over neighbors' posts.
-- *Strong at:* trust between neighbors; real local talk.
+**Nextdoor.** A neighborhood social network. You join by verifying your address and see your neighborhood's feed:
+recommendations, lost pets, safety alerts, local news, for-sale items, and neighborhood groups. Businesses get free
+pages and pay for advertising. Neighbors endorse them ("Faves"). Its July 2025 redesign added AI-picked
+recommendations from years of neighbors' posts, local news and emergency alerts. Its September 2026 update added a Local
+Faves hub ranked by neighbor endorsements, AI search that summarizes 15 years of neighbors' posts, redesigned business
+pages with AI summaries, and paid Opportunity Alerts that show businesses neighbors' requests.
+- *Strong at:* trust between neighbors; real local talk; endorsements from verified neighbors, not paid reviews.
 - *Short of our mission:* bound to where you live, with nothing for travelers or interests beyond the neighborhood;
-  paid ads in the feed; endorsements are a popularity count; neighbors' posts feed its AI search.
+  advertising pays for it; an endorsement is a count, not a record of who vouched; neighbors' posts feed its AI
+  search and summaries.
 
 **Google (Business Profile, Search and Maps).** The listing people find when they search: hours, phone, directions,
-website, photos, reviews and Q&A, plus the business's short posts. Google retired its business chat in 2024; contact is
-calls, the website or the business's own channels.
+website, photos, reviews, plus the business's short posts. Google ended its business chat on July 31, 2024 (contact is
+calls, the website or the business's own channels). It is removing the public Q&A on profiles (its API ended November
+3, 2025) in favor of Gemini answering questions about a place ("Ask about this place" in Maps).
 - *Strong at:* being found; getting there (directions, call, open now).
 - *Short of our mission:* a one-off transaction, not a relationship; no groups or community; ranking and ads decide who
-  is seen; reviews are anonymous stars.
+  is seen; reviews are stars from strangers; questions about a business are now answered by Google's AI, not by the
+  business or its neighbors.
 
 **Meta (Facebook Pages and Groups, Instagram).** A business Page with a feed, followers and reviews; Groups on any topic,
 public or private, run by admins with few fixed rules; ads that reach people far beyond followers.
 - *Strong at:* reach; groups for every interest; social proof.
 - *Short of our mission:* the algorithm decides who sees what; ads and boosted posts; members can be targeted and
-  messaged; groups have no charter, no say in succession, and abandoned ones stay up for years.
+  messaged; groups have no charter. When admins go quiet or leave, Meta itself suggests or appoints new admins, or
+  archives the group: members have no say set in advance.
 
 **Messenger (and WhatsApp).** Private conversations, one to one or in small groups; businesses get an inbox and bots.
 - *Strong at:* quick, direct answers.
 - *Short of our mission:* no shared space, rules or place around the conversation; nothing others can learn from;
   either side can start it, so it can turn into outreach nobody asked for.
 
-**AI chats (ChatGPT, Gemini, Claude and others).** Answer questions about a place or business from what's on the web, and
-increasingly plan trips.
+**AI chats (ChatGPT, Gemini, Claude and others).** Answer questions about a place or business, recommend businesses and
+plan trips, from the web and from listing data. Gemini and Google's AI Mode draw on Google's Business Profiles and Maps.
+Other assistants draw on other directories and review sites. Industry surveys report that a fast-growing share of
+people now ask AI for local recommendations, and that the businesses named tend to be those with the most reviews.
 - *Strong at:* a fast summary; trip ideas.
-- *Short of our mission:* the business doesn't control what's said about it; answers can be stale or wrong, with no
-  local check; no relationship, community or follow-up; little care for whose words trained the answer.
+- *Short of our mission:* a business can shape its listings but not what the answer says; answers can be stale or wrong,
+  with no local check; the most-reviewed win; no relationship, community or follow-up; little care for whose words
+  went into the answer.
 
 ### Side by side
 
@@ -107,7 +116,7 @@ increasingly plan trips.
 | Google | Finding and getting to a business | The customer, one-off | Yes, the listing's address | Yes (ads, ranking) | Google |
 | Meta Pages and Groups | Reach and social proof; groups on anything | Either side; ads reach people | Loosely (location tags, local groups) | Yes (ads, boosts) | Meta; used for ad targeting |
 | Messenger | Private conversations | Either side | No | No, but anyone can message | Meta |
-| AI chats | Answers and plans | The asker | Only as text | Not directly; sources decide | The AI provider |
+| AI chats | Answers, recommendations, plans | The asker | Through the listing data they draw on | Not directly; listings and review counts decide | The AI provider |
 | **Traversence Community** | Groups for places and for interests, with charters; businesses that teach and earn trust | **The member** for anything from a business (contact, quote, message the rep, or Link) | Yes when it matters: local groups and chapters on place pages; interest groups stand on their topic | **No** (0007: paid tiers sell tools, not placement) | **The person**: posts members-only, never searched, never ad fuel; AI use by consent and abstraction (0010, 0011) |
 
 ### How we deliver better
@@ -124,13 +133,28 @@ increasingly plan trips.
 **In one line:** the others sell reach or answers. Traversence gives a place, or an interest, a home with its own rules,
 where the people decide who reaches them and nothing can be bought to the top.
 
+### Sources (checked 2026-11-01)
+
+- Nextdoor: [September 2026 announcement](https://www.nasdaq.com/press-release/nextdoor-deepens-its-commitment-local-business-discovery-and-recommendations-2026-09)
+  (the company's own claims), [July 2025 redesign](https://techcrunch.com/2025/07/15/nextdoor-redesigns-app-with-ai-recommendations-local-news-and-real-time-emergency-alerts),
+  [address verification](https://www.digitalunite.com/technology-guides/social-networking-blogs/how-join-local-social-network-nextdoor).
+- Google: [business chat ended July 31, 2024](https://developers.google.com/business-communications/business-messages/resources/release-notes/update-on-gbm?hl=en)
+  ([9to5Google](https://9to5google.com/2024/05/28/google-business-messages-shutting-down/)); Q&A removal
+  ([Birdeye](https://birdeye.com/blog/google-business-profile-qa-api-discontinued/),
+  [Accrisoft](https://www.accrisoft.com/blog/2026/01/28/main/google-removes-business-profile-q-a-what-it-means-and-what-to-do-now/)).
+- Meta groups without active admins: [Social Media Today](https://www.socialmediatoday.com/news/meta-warns-group-admins-maintain-activity-or-theyll-be-replaced/690606/).
+  Secondary reporting; Meta's own current help pages weren't found.
+- AI recommendations: [Arfadia](https://www.arfadia.com/blog/how-chatgpt-gemini-perplexity-pick-local-businesses/),
+  [RankRabbit](https://rankrabbit.ai/blog/business-listings-backbone-ai-search). Marketing firms citing industry
+  surveys; the trend is consistent, the exact figures vary, so none are quoted here.
+
 ## Decisions that cover the build
 
 - **Core:** `architecture.md` §27 (the governance model), 0047 (what was built), 0102 §4b–4c (group roles, business
   groups), 0103 (charter transfer terms, inactivity; Accepted, terms set).
 - **Around it:** 0055 (Steward role and dashboard), 0062 (Verification), 0053 (search), 0132 (group membership as a
   link; tags), 0052 (messaging between group members), 0058 (Steward badge), 0109 (admin module 6), 0007 (no paid
-  placement).
+  placement), 0134 (events, Proposed).
 - **Safety and data:** 0009 (guest abuse in communities), 0010 (authorship), 0011 (AI corpus), 0066 (no sacred or
   restricted sites).
 - **Sequencing:** 0020, 0030 (Connect after Directory and Discovery).
@@ -144,16 +168,17 @@ where the people decide who reaches them and nothing can be bought to the top.
 4. 0103's header read "Proposed" though its terms were set and in use (0120); corrected 2026-11-01. Built so far:
    hand transfer for businesses only (`transfers` table, `/user/transfer.php`); the `lifecycle` table and the daily
    job are still to come.
-5. Events has no decision, and the admin files it under Social though it's a site-wide tool.
+5. Events is written up (0134, Proposed); until it's accepted, the admin still has it in two places (Let's Explore → Live
+   events, and Social → Events "coming").
 6. `/community/index.php` still passes breadcrumbs (`crumbs`), which 0058 rules out on content pages.
 
 ## Next build
 
-1. Write the **Events** decision (site-wide) and a **chapters** decision (tags on groups and places a group names can
+1. Settle **0134 Events** (four choices) and write a **chapters** decision (tags on groups and places a group names can
    ride with it).
 2. **Charter and transfer terms** on the group page, shown before joining.
 3. **Inactivity and ending:** the `lifecycle` table and a daily `Scheduler::JOBS` entry for groups.
 4. **Admin → Social → Groups** and **Business groups**; Steward member reports and escalation.
 5. **Business-run groups** (0102 §4c).
 6. **Tags on groups**, **chapters**, **places a group names**, topic plus place in search.
-7. **Events**, once defined.
+7. **Events**, in 0134's build order.
