@@ -786,6 +786,14 @@ Many rural businesses have only a Facebook page (Diamond C Feed, St. Johns: face
    does the owner's word (30); a member's fix our team accepted is a local source (12); each visitor's Yes counts 6 (to
    24 a year), so a few local confirmations move a crawler-only listing out of red. Having no website or online record
    never counts against a listing.
+   **The Call list** (built 2026-11-01; Jason: "good for the marketing and CRM process"): one list and one call record
+   with Sales. Calls today has a **Confirm listings** view (red and orange listings with a phone and no call in 90 days,
+   the least sure first; `Sales::toConfirm`), and Pulse shows one item a day, "Call list: N listings to confirm". Every
+   call is also a check (`Sales::verify`): anyone at the business answering (confirmed, interested, not now, a meeting,
+   the claim link sent, no) puts our team's word on its name and phone, a visit or "Confirmed" its address too, so the
+   listing turns green; **Wrong number** marks that phone not right and sends it to Review; **Closed for good** shows it
+   Closed (still found by name); **They moved** sends it to Review with what they said. The prospect, its stage and the
+   call log carry on in Sales and the CRM as before.
 3. Google and OpenStreetMap used in full (duplicates, address mismatches, not-found); the Listing check template;
    cadence by band; automatic decisions; value-ordered Review; closure and moved notices.
 4. Opening a hub: the stages, the readiness meter, the opening budget and its estimate.
