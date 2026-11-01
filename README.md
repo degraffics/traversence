@@ -14,7 +14,7 @@ The site's code isn't here. It runs on the server and in OneDrive, and its live 
 | `prd.md` | Functional spec and feature roadmap |
 | `architecture.md` | System architecture and operational spec (living) |
 | `traversence-platform-spec.md` | The live master technical spec: an append-only phase log |
-| `decisions/` | Architecture Decision Records, numbered `0001`–`0136`. A newer decision can replace an older one. |
+| `decisions/` | Architecture Decision Records, numbered `0001`–`0137`. A newer decision can replace an older one. |
 
 ## Business and brand
 
