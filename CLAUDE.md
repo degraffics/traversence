@@ -28,8 +28,11 @@ assume.
 
 ## Keep this file lean
 
-It loads in full every session. One short rule per point; the detail lives in the decision it cites. Remove rules a
-later decision replaces.
+It loads in full every session, and so does `README.md` (imported below). One short rule per point; the detail lives in
+the decision it cites. Remove rules a later decision replaces. Keep the README a short map of the repo, updated when
+files are added, moved or removed.
+
+@README.md
 
 ## The 3-way sync: server ⇄ OneDrive, recorded in GitHub (Jason, 2026-10-28): every build
 
