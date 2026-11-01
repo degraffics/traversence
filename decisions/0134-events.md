@@ -1,7 +1,7 @@
 # ADR 0134: Events, One Tool for the Whole Site
 
 **Status:** Proposed (2026-11-01), direction from Jason: "Event creation is a site-wide tool, not just community."
-Design; not built. Builds on `decisions/0133` (Live events), and fills the "events, when they exist" gaps left in
+Design; not built. Jason's answers of 2026-11-01 are in: Verification, who's going, and tickets (section 6a). Builds on `decisions/0133` (Live events), and fills the "events, when they exist" gaps left in
 0047, 0053, 0055, 0058, 0059, 0060, 0061 and 0062. Choices marked **(Jason)** are proposals for him to confirm.
 
 ## Context
@@ -37,7 +37,7 @@ same day and a near-identical title count as the same event.
 |---|---|---|
 | **A business or listing** | Owner, Manager, Creator; Sales for offers-led events (0102 §4 roles) | Shows "Hosted by <listing name>". Self-generated partner content: publishes at once after the automated checks (0005) |
 | **A community group** | Owner and moderators; members suggest, moderators approve | Public or members-only (section 4) |
-| **A member** | Any signed-in member with **Verification** on **(Jason)**, as for running a community (0062) | An event invites strangers to a real place, so it needs the same accountability |
+| **A member** | A member with **Verification** on (0062), as for running a community | Jason, 2026-11-01: "event creation requires a verified user's account at minimum." Every host's poster is a verified member; a business also needs its claim |
 | **Traversence** | Content and Operations staff, for places (a town's festival, a park's program) | Shows "Listed by Traversence" with its source |
 | **The crawler** | Live events (0133), and later a business's connected Facebook Page (0133) | Shows its source page; held for a person when the checks say so |
 | **A tribal nation** | Its own account, once its tools exist (0066) | A nation's ceremonies and sacred observances are never listed unless the nation posts them itself |
@@ -51,8 +51,8 @@ same day and a near-identical title count as the same event.
   repeating event can be cancelled or changed on its own.
 - **Where:** a venue listing, a landmark or outdoor place, a place (town or area), or online. A private home's address
   shows only to people going (section 6).
-- **Cost:** free, a price, or a ticket link. Selling tickets through Traversence waits for the Market's gateways
-  (`aos-gap-review.md` step 6) and its own decision.
+- **Cost:** free, free with registration (a limited number of places), tickets sold through Traversence (section 6a),
+  or a link to tickets sold elsewhere.
 - **Who for:** all ages, 18+ or 21+.
 - **Host and sources:** who runs it, shown; where the details came from (0062 identity record).
 
@@ -80,11 +80,60 @@ same day and a near-identical title count as the same event.
 
 ### 6. People's part
 
-- **Going / Interested**, with counts shown. Who is going is seen only by the host, and by other members inside a group
-  event **(Jason)**. Never where anyone lives.
+- **Going / Interested**, with counts shown. Registering or buying a ticket counts as Going.
+- **Who sees who's going is set by the host when creating the event** (Jason, 2026-11-01), and can be changed later
+  with notice to those going:
+  - **Host only** (the default);
+  - **Everyone going** (people who are going see each other);
+  - **Anyone who can see the event**.
+  Each person can still hide their own name from the list (anything about a member is private unless they say); the
+  count always includes them. Never where anyone lives.
 - **Add to calendar** (an .ics file) and reminders through the Notification Center, if the person wants them.
 - **Changes reach people:** a time, place or cancellation is sent to everyone going or interested.
 - **Report** an event (spam, unsafe, a sacred or restricted site, someone's private information, other), as for posts.
+
+### 6a. Tickets and registration, on the order system we already have
+
+Jason, 2026-11-01: we have the ecommerce framework, so buying is part of the event. It is: a ticket is a catalog item
+sold through the order system, with nothing new needed for the money.
+
+**What's already built and used:**
+- **The order system** (0098): one order record whatever it sells, an append-only money ledger, refunds, credits,
+  deposits and chargebacks, and the order's history.
+- **The business catalog** (0116): it already has the kind **"Class or event"** (`Products::BUSINESS_KINDS`).
+- **A business's own sales settings:** tax rates, pay link and other ways to pay (0118, 0119), its own discount codes
+  (0121).
+- **Our own checkout** through QuickBooks (0095): tax from the buyer's address, paid on QuickBooks' page, no card
+  on our server.
+
+**How it works:**
+- **Ticket types** on the event: a name (General, Child, VIP, Table for 8), price, how many, when sales open and close,
+  a limit per order. Each is a "Class or event" item in the host's catalog, tied to the event (and to one date of a
+  repeating event).
+- **Registration** is a free ticket type: the same tool, for events that need a head count or have limited places.
+- **Buying:** the buyer picks tickets, uses the host's discount code if they have one, pays, and the order lands on the
+  ledger with its tax. Each ticket gets a code (a QR) shown in the buyer's account and email.
+- **Sold out** closes the type; a **waiting list** (later) offers places that come back.
+- **At the door:** the host opens the event's check-in on a phone, scans or types the code, and it's marked used.
+- **Refunds:** the host's refund terms are shown before buying; refunds and credits run through the order system's
+  policy (0098). **A cancelled event refunds or credits everyone**, the buyer's choice where the host allows a credit.
+
+**How the money moves (the rules the Market already set):**
+
+| Host | Paid by | Status |
+|---|---|---|
+| Traversence (our own events, workshops) | Our QuickBooks checkout (0095) | Built: usable at step 1 |
+| A business, Free or Basic plan | **Manual payment**: its pay link, Zelle, check, or pay at the door, marked paid by the business (0118, 0119) | Built for quotes and invoices; the same way for tickets |
+| A business, Core and up | **Card checkout through the business's own gateway**, straight to the business, 0% system fees, no money held by us | The gateway step of the Market (`marketplace-architecture.md`): until it's built, Core businesses use manual payment too |
+| A member, or a group run by a person | **Manual payment** (marketplace rule: members sell person to person) | As for members' Market offers |
+| A business-run group | The business's own checkout, as above | |
+
+So the only part that waits is card checkout through a business's own gateway, which waits for every Market sale, not
+just tickets. Everything else can be built with the events.
+
+- **Never paid placement:** selling tickets never moves an event up the calendar or search (0007).
+- **To set (Jason):** whether selling tickets is open to every plan or starts at a tier, and the per-event limits for
+  members (number of tickets, price).
 
 ### 7. Checks before an event shows
 
@@ -105,13 +154,17 @@ The same checks Live events already make, applied to every event:
 - When a host ends (a group closes, a business closes, an account is deleted; 0103), its future events are cancelled with
   notice. A listing going back to unclaimed keeps its Traversence- and crawler-listed events.
 
-### 9. Where events are run
+### 9. Where events live: three homes, for three kinds of people
 
-- **Admin: one Events section** in Let's Explore, replacing Live events: every event from every source, waiting ones
-  first, with its source and checks. Opened over the work (`at_hand`) from Social, Local and Growth. Social → Events
-  ("coming") is removed **(Jason)**. Reports on events go through Social → Reports like any content.
-- **Business portal:** an Events section (create, repeat, cancel, who's going).
-- **Group page:** an Events tab. **Member dashboard:** "Your events" (going, hosting).
+| Home | For | What it shows |
+|---|---|---|
+| **The Events page** `/events/` (public) | Visitors and members | Every public event: by place, date and kind, with the calendar view; Things to do → Events and the header's Events open it |
+| **Your own events** | Whoever hosts or goes | **Members:** dashboard → "Your events" (hosting, going, tickets). **Businesses:** business portal → Events (create, repeat, cancel, ticket sales, who's going, check-in). **Groups:** the group page's Events tab, and the Steward dashboard |
+| **The admin's Events section** | Our team | Every event from every source (hosts, staff, crawler), waiting ones first, with sources and checks; reports, takedowns, our own events and their ticket sales |
+
+- The admin has events in two places today: **Let's Explore → Live events** (built: the crawler's) and **Social →
+  Events** (a "coming" card). They become **one Events section (Jason: which module)**, opened over the work
+  (`at_hand`) from the others. Reports on events go through Social → Reports like any content.
 - **System Configuration → Content templates → Live events** stays as is: it shapes the crawler's source.
 
 ## Data (sketch)
@@ -121,7 +174,9 @@ The same checks Live events already make, applied to every event:
 | `events` | host kind and ref, title, about, kind, starts, ends, all day, repeat rule, venue (listing, landmark, outdoor place, place key or online), address shown to going only, cost, age, visibility, status (draft, live, held, cancelled, past, removed), why |
 | `event_dates` | each date of a repeating event, and its own changes or cancellation |
 | `event_sources` | the event, the source (host, crawler page, staff, Facebook Page), when seen |
-| `event_rsvps` | the event (or date), the person, going or interested, reminder wanted |
+| `event_rsvps` | the event (or date), the person, going or interested, name hidden or shown, reminder wanted |
+| `event_tickets` | a ticket type: the event (or date), the catalog item, price, how many, sales window, per-order limit |
+| `event_ticket_codes` | each ticket sold: its order line (0098), its code, used at |
 
 `live_events` moves into `events` (with its sources) by a migration that's safe to run twice; `LiveEvents` then writes to
 `events`.
@@ -133,15 +188,20 @@ The same checks Live events already make, applied to every event:
 2. The calendar and search (Events kind, When words).
 3. Business and staff events (business portal, admin section).
 4. Group and member events; visibility.
-5. Going / Interested, reminders, .ics, change notices.
-6. Repeating events.
-7. Later: tickets through the Market; events from a connected Facebook Page.
+5. Going / Interested, who's going settings, reminders, .ics, change notices.
+6. **Tickets and registration** on the order system: Traversence's own and manual payment first; check-in.
+7. Repeating events.
+8. Later: card checkout through a business's own gateway (with the Market's gateway step), waiting lists, events from
+   a connected Facebook Page.
 
 Each step adds its FAQ entries (0057).
 
 ## For Jason
 
-1. Members' events need Verification on?
-2. Who sees who's going: the host only, or also other members in a group event?
-3. One admin home in Let's Explore, with Social → Events removed?
-4. The event kinds in section 3: right list?
+1. **Verification:** settled (required).
+2. **Who's going:** settled (the host chooses at creation).
+3. **The admin's Events section:** which module: Let's Explore (where the crawler's Live events are) or Social?
+4. **Event kinds:** one required kind, with @tags for detail. Proposed: Festivals & fairs; Markets; Music &
+   performance; Arts & culture; Rodeo & sports; Outdoors & adventure; Food & drink; Classes & workshops; Family & kids;
+   Faith; Community & civic (meetings, volunteering); Meetups & social; Business & networking; Holidays & seasonal.
+5. **Tickets:** open to every plan, or starting at a tier? Limits for members' ticket sales?
