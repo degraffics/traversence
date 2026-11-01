@@ -36,7 +36,7 @@ Scope of the Community ("Connect") build, checked on 2026-11-01 against the live
 ## Decisions that cover the build
 
 - **Core:** `architecture.md` §27 (the governance model), 0047 (what was built), 0102 §4b–4c (group roles, business
-  groups), 0103 (charter transfer terms, inactivity; **Proposed**).
+  groups), 0103 (charter transfer terms, inactivity; Accepted, terms set).
 - **Around it:** 0055 (Steward role and dashboard), 0062 (Verification), 0053 (search), 0132 (group membership as a
   link), 0052 (messaging between group members), 0058 (Steward badge), 0109 (admin module 6).
 - **Safety and data:** 0009 (guest abuse in communities), 0010 (authorship), 0011 (AI corpus), 0066 (no sacred or
@@ -49,14 +49,15 @@ Scope of the Community ("Connect") build, checked on 2026-11-01 against the live
 2. 0020 calls Communities "unschedulable" until a design pass; the groups are live.
 3. §27 says "Steward" and trust-score gating; the code has owner/moderator (both count as Steward in `Roles.php`) and
    Verification.
-4. 0103 is Proposed, with its ⏱ timings unset. Its 2026-10-24 addendum built hand transfer for businesses only
-   (`transfers` table, `/user/transfer.php`); the `lifecycle` table and the daily job are still to come.
+4. 0103's header read "Proposed" though its terms were set and in use (0120); corrected 2026-11-01. Built so far:
+   hand transfer for businesses only (`transfers` table, `/user/transfer.php`); the `lifecycle` table and the daily
+   job are still to come.
 5. Events has no decision.
 6. `/community/index.php` still passes breadcrumbs (`crumbs`), which 0058 rules out on content pages.
 
 ## Next build
 
-1. **Accept 0103** (set its ⏱ timings), and write an **Events** decision.
+1. Write an **Events** decision (0103's terms are already set).
 2. **Charter and transfer terms** on the group page, shown before joining.
 3. **Inactivity and ending:** the `lifecycle` table and a daily `Scheduler::JOBS` entry for groups.
 4. **Admin → Social → Groups** and **Business groups**; Steward member reports and escalation.

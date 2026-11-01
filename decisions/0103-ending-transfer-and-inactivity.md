@@ -1,8 +1,8 @@
 # 0103: Ending, transfer and inactivity
 
-Status: Proposed (Jason, 2026-10-21). Covers accounts, businesses, listings and community groups. Works with 0102
-(roles), the account deletion with its 30-day restore, the enforcement ladder, and 0066 (nations' data). **Timings
-marked ⏱ are proposals for Jason to set.**
+Status: Accepted (Jason, 2026-10-21; terms set, applied in 0120). Covers accounts, businesses, listings and community
+groups. Works with 0102 (roles), the account deletion with its 30-day restore, the enforcement ladder, and 0066
+(nations' data). The timings below are Jason's set terms.
 
 ## 1. Principle
 
@@ -24,7 +24,7 @@ line who accepts:
 | Group (person or business) | **what its charter says** (section 2a) |
 | Support grant | the agent Traversence reassigns (0102 §5) |
 
-No one accepts within ⏱30 days → the thing moves to **Hidden** (section 3).
+No one accepts within 30 days → the thing moves to **Hidden** (section 3).
 
 ### 2a. Groups: transfer terms are set in the charter
 
@@ -34,9 +34,9 @@ what happens when the owner (a person, or for a business group the business) is 
 | Term | What happens |
 |---|---|
 | **End the group** (default) | the group goes into deactivation (section 3); no elections, no handover |
-| Named successor | a named moderator or member is offered the group; if they decline or don't answer in ⏱14 days, the group ends |
+| Named successor | a named moderator or member is offered the group; if they decline or don't answer in 14 days, the group ends |
 | Longest-serving moderator | offered to them; if they decline, the next; with none left, the group ends |
-| Moderators choose | the moderators pick one of themselves within ⏱14 days; no pick, the group ends |
+| Moderators choose | the moderators pick one of themselves within 14 days; no pick, the group ends |
 
 - The default is **no elections: the group ends.** Anything else is the creator's choice in the charter.
 - The terms are shown on the group page, so members know before they join.
@@ -47,9 +47,9 @@ what happens when the owner (a person, or for a business group the business) is 
 
 | Stage | What happens | How long |
 |---|---|---|
-| 1. Notice | the owner (and team, members) is told what's coming, why, and how to stop it | ⏱14 days |
-| 2. Hidden | gone from public view; data kept; the owner can still see it and restore it | ⏱30 days |
-| 3. Archived | read-only, kept for records; restore only through support | ⏱1 year |
+| 1. Notice | the owner (and team, members) is told what's coming, why, and how to stop it | 14 days |
+| 2. Hidden | gone from public view; data kept; the owner can still see it and restore it | 30 days |
+| 3. Archived | read-only, kept for records; restore only through support | 1 year |
 | 4. Removed / deleted | personal data deleted or anonymised; records in section 5 kept | — |
 
 Routes into the stages:
@@ -65,17 +65,17 @@ Routes into the stages:
 | Thing | Inactive when | Then |
 |---|---|---|
 | Group | **no posts or comments for 30 days**, or **no owner or moderator activity for 90 days** | enters the deactivation policy: Notice → Hidden → Archived → Removed (section 3); posting or moderating during Notice stops it. No dormant groups are kept live |
-| Claimed listing | owner hasn't signed in or updated for ⏱12 months | reminder to confirm the details; after ⏱18 months marked "unconfirmed" and offered back to claim |
-| Business team member | not signed in for ⏱6 months | the owner is told and can end the role; nothing ends on its own |
-| Support grant | unused for ⏱12 months | shown "not used since…"; stays on (0102) |
-| Account | not signed in for ⏱2 years | a warning email; ⏱60 days later archived; never deleted without a further notice |
+| Claimed listing | owner hasn't signed in or updated for 12 months | reminder to confirm the details; after 18 months marked "unconfirmed" and offered back to claim |
+| Business team member | not signed in for 6 months | the owner is told and can end the role; nothing ends on its own |
+| Support grant | unused for 12 months | shown "not used since…"; stays on (0102) |
+| Account | not signed in for 2 years | a warning email; 60 days later archived; never deleted without a further notice |
 | Account with paid service or open orders | — | never treated as inactive while they're open |
 
 ## 5. Kept regardless
 
-- The ledger, orders, invoices and payments: kept for tax and legal periods (⏱7 years), with personal details reduced
+- The ledger, orders, invoices and payments: kept for tax and legal periods (7 years), with personal details reduced
   to what the law needs.
-- The action log (0102): kept ⏱3 years.
+- The action log (0102): kept 3 years.
 - A member's own posts in a group: theirs. When a group is removed, each member can still see and delete their own
   posts until stage 4; then the posts are deleted.
 - A nation's data: never deleted (0066); hidden only.
