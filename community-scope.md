@@ -28,7 +28,7 @@ Scope of the Community ("Connect") build, checked on 2026-11-01 against the live
 | Steward member reports and Level 2 escalation (3-tier moderation) | Steward dashboard "soon"; admin (Level 3) is live | architecture §27, 0055, master-aos §6 |
 | Admin → Social → Groups (table, charter drawer) | "Coming" card in `app/admin/manifests.php` | admin-architecture §6, 0109 |
 | Admin → Social → Business groups | Not yet a section | admin-architecture §6 |
-| **Events, a site-wide tool** (below) | **0134 Proposed**; Verification and who-sees-who settled; tickets defined | Jason, 2026-11-01; 0134 |
+| **Events, a site-wide tool** (below) | **0134 Proposed**; all settled but the ticket ladder's limits | Jason, 2026-11-01; 0134 |
 | **Tags on groups:** a group carries its own @tags under its topic ("Food & cooking" → baking, cast iron), so search and topic pages narrow to them | New proposal | Jason, 2026-11-01; uses 0132 |
 | **Local chapters:** a topic group opens chapters tied to a place ("World Travelers: White Mountains"); a chapter is a local group with a parent, shown on its place's page, listed on the parent | New proposal; needs a decision | Jason, 2026-11-01 |
 | **Places a group names:** a group lists places it's about (trips planned, places visited) on its public page, so those place pages show "Discussed by: <group>". The group's choice only, never inferred from members-only posts; passes 0066's checks | New proposal | Jason, 2026-11-01; 0053, 0066 |
@@ -47,9 +47,11 @@ it:
   calendar, and search.
 - **For a group:** owner and moderators post; members suggest. A group event can be public or members-only.
 - **Settled (Jason, 2026-11-01):** creating an event needs a verified account at minimum; the host sets who sees who's
-  going when creating it; tickets and registration are sold on the order system we have (0134 §6a).
-- **Still for Jason (0134):** which admin module holds the one Events section, the event kinds, and whether tickets
-  are open to every plan.
+  going when creating it; one kind plus tags; the admin sees only system events and event support tickets (Let's
+  Explore → Events; Social → Events removed).
+- **People RSVP, businesses sell tickets:** members and person-run groups get Going / Interested and free registration;
+  ticket tools grow with the business plan (0134 §6b). A group that wants to sell tickets gets a listing.
+- **Still for Jason (0134):** the ticket ladder's limits per plan.
 
 ### Not controlled
 
@@ -176,7 +178,7 @@ where the people decide who reaches them and nothing can be bought to the top.
 
 ## Next build
 
-1. Settle **0134 Events** (three choices left) and write a **chapters** decision (tags on groups and places a group names can
+1. Settle **0134 Events** (the ticket ladder) and write a **chapters** decision (tags on groups and places a group names can
    ride with it).
 2. **Charter and transfer terms** on the group page, shown before joining.
 3. **Inactivity and ending:** the `lifecycle` table and a daily `Scheduler::JOBS` entry for groups.
