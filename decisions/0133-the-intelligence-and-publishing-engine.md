@@ -772,8 +772,10 @@ Many rural businesses have only a Facebook page (Diamond C Feed, St. Johns: face
    report −5 each (to −10), sources disagreeing −5 each (to −15). Machine evidence stops at 75; our team's check lifts it
    to at least 80 (Confirmed by Traversence), a claim to 80 (Claimed by the owner), a verified claim to 90 (✓), unless
    something speaks against it. Refreshed whenever the identity changes, and weekly by scheduled jobs. The ring heads the
-   listing card's actions column; How we know opens under the card with Is this right? Yes / No per detail. Next: the
-   ring on listing cards in search and lists; cadence by band.
+   listing card's actions column; How we know opens under the card with Is this right? Yes / No per detail. The ring
+   is on listing cards everywhere too (2026-11-01: `js/tv-conf.js` on every page, one request to
+   `api/listing-confidence.php` for the cards on screen): the top of a card's actions column (directory, guides), else
+   beside its Link button (the map, search's Peek); it opens the listing at How we know. Next: cadence by band.
 3. Google and OpenStreetMap used in full (duplicates, address mismatches, not-found); the Listing check template;
    cadence by band; automatic decisions; value-ordered Review; closure and moved notices.
 4. Opening a hub: the stages, the readiness meter, the opening budget and its estimate.
