@@ -402,6 +402,78 @@ accounts; real payments wait for Jason's one-time setup below.
    `live`; `STRIPE_CLIENT_ID`, `STRIPE_SECRET_KEY`, `STRIPE_PUBLISHABLE_KEY`, `STRIPE_WEBHOOK_SECRET`; `SQUARE_APP_ID`,
    `SQUARE_APP_SECRET`, `SQUARE_WEBHOOK_KEY`.
 
+## Step 4b built (2026-11-01): Square catalog sync, card-page protection, the review's follow-ups
+
+Built on the live mirror's **17:44 UTC sync** (2026-11-01), which carries the reviewed 4a. Zip:
+`marketplace-step4b_20261101.zip` (30 files; two migrations that run themselves).
+
+**Square catalog import and sync** (`app/lib/MarketSquare.php`; Plan feature `pos_sync`, Basic and up):
+- **Connect:** Basic connects Square for its catalog only (card checkout stays Core and up, `cardOk()` unchanged);
+  Core and up use the same connection for both. One gateway per business: a business on Stripe disconnects it before
+  connecting Square. The Square sign-in now also asks for `INVENTORY_WRITE`.
+- **Import** (E-commerce setup → **Your Square catalog** → Import from Square): each Square variation becomes one catalog
+  item ("Halter (Large)" when an item has several), as a **draft**: nothing is on the Marketplace until the business
+  publishes it, so imports count toward the cap only when published. Linked in `market_square_map`.
+- **Square is the source of truth, both ways.** Its price and in-stock count come here every day (`market_tick`),
+  on **Sync now**, and at once from Square's `inventory.count.updated` webhook; `catalog.version.updated` marks the
+  business for the next check. A price change updates the catalog item; if its Marketplace item was published with
+  nothing else waiting, it's published again as a new version (by the sync); if the business has its own changes
+  waiting, only the draft takes the price and the business publishes when ready. A variation gone from Square is out of
+  stock here and marked. What sells here comes off Square's count (an inventory adjustment, `IN_STOCK` → `SOLD`,
+  referenced `TV-<order>`).
+- **Core and up:** a paid Marketplace order also goes to Square as an order (`/v2/orders`, source "Traversence
+  Marketplace", a pickup or shipment fulfillment), so it's in Square's Orders to fulfil with the rest. Its money was
+  already taken (by Square's card form, or the business's direct way), so no payment is attached to it.
+- A Square call that fails never fails the order: it's noted on the order ("adjust it in Square") and logged.
+- Mock mode has a three-item test catalog (`SQUARE_MOCK_PRICE`, `SQUARE_MOCK_STOCK`, `SQUARE_MOCK_GONE` change it in tests).
+
+**Card-page protection (PCI DSS 4.0 rules 6.4.3 and 11.6.1), with 0098:**
+- `app/ui/csp.php`: `tv_card_page_csp($page, $gateways)` sends a `Content-Security-Policy` on the five card pages:
+  scripts only from our site, this request's nonce, the styling script and the named gateway; no `unsafe-eval`, no
+  `unsafe-inline` for scripts, `script-src-attr 'none'`; frames and connections only to that gateway;
+  `object-src 'none'`, `base-uri 'self'`, `form-action 'self'`, `frame-ancestors 'self'`. The Marketplace pages name
+  Stripe and Square; our own checkout pages name Intuit (0098).
+- So the policy can forbid inline code, the shared page shell lost its inline handlers (`onclick=…` became
+  `data-tv-click`, run by `js/tv-on.js`) and its inline scripts carry the nonce (`tv_nonce()`), on every page.
+  Analytics doesn't load on a card page.
+- Violations go to `/api/csp-report.php` (report-uri and report-to), kept as counts by day, page, rule and blocked host
+  (`csp_reports`), never who; browser add-ons are left out. 25 or more in a day open one Pulse case (Security), with
+  steps: see what was blocked, was it us (then the list changes through review), else treat it as an attack.
+
+**The scripts each Marketplace card page loads, and why (6.4.3).** A change to this list goes through review (a decision
+here, and `csp.php` with it); anything else is blocked and reported.
+
+| Script | From | Why |
+|---|---|---|
+| Tailwind (styling) | `cdn.tailwindcss.com` | The site's styling. To self-host as a built stylesheet (then dropped from the list). |
+| `tv-on.js` | our site | The shell's buttons without inline handlers. |
+| `tv-ask.js`, `tv-password.js`, `tv-upload.js`, `tv-conf.js` | our site | Notices and confirmations, password boxes, the one uploader, settings. |
+| `consent.js` | our site | Privacy choices (loads no analytics on a card page). |
+| `suggest.js`, `out-count.js`, `short-link.js`, `search-panel.js`, `map-view.js`, `location-scope.js`, `header-nav.js` | our site | The header: search, place, menu, counts of outbound taps (never who). |
+| Inline scripts (5–6, each with the request's nonce) | our pages | The page's own code: cart, order, the shell's menus. |
+| Stripe.js | `js.stripe.com` | Stripe's embedded Checkout, for a business on Stripe (frames and calls: `js.stripe.com`, `checkout.stripe.com`, `hooks.stripe.com`, `api.stripe.com`, `m.stripe.network`, `q.stripe.com`). |
+| Square Web Payments SDK | `web.squarecdn.com`, `sandbox.web.squarecdn.com` | Square's card fields, for a business on Square (frames and calls: `*.squarecdn.com`, `connect.squareup.com` and its sandbox, `pci-connect.squareup.com` and its sandbox). |
+
+**The review's follow-ups:** `stripe` and `square` in `Pulse::SERVICES`. A stopped connection (`broken()`: from either
+side, or a Square sign-in that couldn't be renewed) is a Pulse case (Payments: See what stopped it, **Reconnect** with
+"Open Stripe ↗" / "Open Square ↗", Resolve; it goes on its own once reconnected) and a line in the business's own
+Pulse ("Card payments stopped: reconnect Square in E-commerce setup"). **Mock mode is refused off a local test:**
+`MarketPay::env()` gives mock only to PHP's command line or its built-in server answering on this computer; on the
+server it's `off` with a SECURITY line in the error log, whatever `.env` says.
+
+**Tested** (local, mock mode; the gateways and Intuit can't be reached from the build session, so their hosts were stood
+in for): all five card pages enforce the policy with no violations; the shell's menu, location box and logo behave
+as before on card and other pages, phone and desktop; Stripe's and Square's scripts, frames and calls are allowed on
+the Marketplace pages and refused on ours, and Intuit's tokens call the other way round; an injected script, inline
+script, inline handler and call to another host are all blocked and reported; a Marketplace card payment and our
+QuickBooks card form both complete under the policy, and the proof viewer (pdf.js) draws. Square sync: 30 checks;
+the earlier suites (218 checks) pass. **To check in the sandbox:** a Stripe and a Square test payment and an Intuit
+sandbox payment on the live pages with the browser console open; a Square sandbox import, a count change in Square,
+and an order seen in Square's Orders.
+
+**Jason's one-time setup for 4b:** in the Square application's webhook subscription, add `inventory.count.updated` and
+`catalog.version.updated`. A business that connected Square before 4b connects again once (for `INVENTORY_WRITE`).
+
 ## Older records that point here
 
 0031 (Post-and-Connect; its "no payments through Traversence" stands), 0032 (quotes, pricing, catalog depth; its 250 is
