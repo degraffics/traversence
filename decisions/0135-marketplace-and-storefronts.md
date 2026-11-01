@@ -223,6 +223,37 @@ team; untick for a real post), `market_posts.is_test` (`2027-01-14_market_test_p
 - It uses up no one's 5 posts and counts in no numbers: metrics, the seller card, trades, notes or trust points.
 - Market 360° → Items lists them under **Test posts**. Testing a trade needs two team accounts (seller and buyer).
 
+## Step 3 built (2026-11-01): businesses' items
+
+Jason's direction: "The catalog management is walled, but the post or publish to the marketplace should not be"; per
+item draft and publish versioning; what a buyer can do depends on the listing's setup; offers off by default; photos in
+this step. Delivered as a zip (21 files that differ from the live mirror of 2026-11-01 15:56 UTC, which holds step 2 and
+test posts); live once uploaded and `app/migrations/2027-01-15_market_business.sql` has run.
+- **Publishing, not reading through the walls:** the catalog item (in the business's walled data, 0110) is the draft.
+  **Publish** copies only its public parts into `market_items` in the main database (name, description, kind, price
+  shown, photos, the business's town). Cost, markup and supplier never leave the walls. The Marketplace, the Shop and
+  search read only published records. Publishing is an action of the business portal after its role check: drafts and
+  photos need **Catalog & content**; Publish, Unpublish and the buttons need **Publish** (Team).
+- **Versions:** each Publish is a numbered version (`market_item_versions`, all kept). Edits to the draft show as
+  **Published, with unpublished changes** until **Publish changes**. **Unpublish** takes it off; Publish brings it back.
+- **Caps (§7):** published items per listing, Free 10, Basic 25, Core 100, Strategic 250, Cornerstone 1,000. At the cap
+  Publish is greyed with the plan that raises it; republishing an item already up isn't blocked; nothing comes down.
+- **What buyers can do:** Marketplace settings in the portal (`market_biz`), and per item: **Message** (its inbox),
+  **Make an offer** (off by default; offers and counters as in step 2, answered by the team with Inbox; once accepted,
+  the business marks it Sold, which completes it: no Got it, no trust points, no notes, as a business is reviewed in
+  its listing's comments), **Request a quote** (Basic and up; a quote request in its inbox, the quote made in Quotes &
+  invoices), **Buy now** (Core and up; greyed as coming until step 4).
+- **Photos:** up to 10 per item, uploaded in the portal (target `catalog_photo`) into the business's gallery, counted
+  against its plan's storage, shown through its public "Marketplace" album only while published.
+- **Where buyers see them:** the Marketplace grid (people's posts and businesses' items together, newest first, with a
+  **From** filter), the item page `/market/item.php` (Sold by, with the Link button), and the listing's **Shop** section
+  (Basic and up).
+- **The 30-day check:** "Still on offer?" in the business's Pulse; unconfirmed by the next check, the item expires.
+- **Our team:** Market 360° → **Business items** (take down with a line the business sees, put back). Reports on an item
+  go to Social → Reports. Offers & disputes includes offers on businesses' items.
+- **Not yet:** the business's own inbox module in the portal (messages arrive in its listing's messages, as today),
+  Buy now (step 4), storefronts on trvgo.us and custom domains (step 5), and test mode for business items.
+
 ## Older records that point here
 
 0031 (Post-and-Connect; its "no payments through Traversence" stands), 0032 (quotes, pricing, catalog depth; its 250 is
