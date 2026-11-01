@@ -364,7 +364,7 @@ registry of checks and what-happens (in code).
 | Post-and-Connect | Pipeline (posts, offers), DetailPanel (dual confirmation, trust points) | C2C exchange (AOS §7) | — | C |
 | Storefront Studio | Table (storefronts), DetailPanel (theme) | Storefront setup | — | C |
 | Custom domains | Table, DetailPanel (DNS checks) | Domain connection | — | C |
-| Catalog rules | SettingsForm (pricing rules, the 250-item cap) | — | — | C |
+| Catalog rules | SettingsForm (pricing rules, catalog caps by plan, 0135) | — | — | C |
 | Gateways | Table (merchant gateways), DetailPanel | Gateway connection | — | C |
 
 ### 6. Community & Events (Social 360°)

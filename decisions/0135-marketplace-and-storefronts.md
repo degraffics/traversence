@@ -1,106 +1,144 @@
-# ADR 0135: Marketplace and Storefronts, Jason's Answers to the Outline
+# ADR 0135: The Marketplace and Storefronts (the one record)
 
-**Status:** Proposed (2026-11-01). Jason's answers to `marketplace-architecture.md` §7. Design only; nothing is built.
-Choices marked **(Jason)** are proposals waiting for him to confirm. Builds on 0031, 0032, 0058, 0098, 0103 and 0109,
-and on `commercial.md` §1.1.
+**Status:** Accepted in part (2026-11-01) by Jason. Items marked **(proposed)** are waiting for his OK.
+**This is the master record for the Marketplace, Storefronts and the business catalog they show.** Where an older record
+says otherwise, this one rules. Older records keep their history; each carries a line at its top pointing here (list at
+the end). The build plan and screens stay in `marketplace-architecture.md`; tier prices and allowances in
+`commercial.md` §1.1.
 
-## What's live (checked against the `traverse-3way-sync` mirror, 2026-11-01)
+## Why one record
 
-- `/market/`: the placeholder from 2026-09-30 (decisions/0055). Sample cards marked "Sample", and "Post something" is
-  greyed out.
-- Admin workspace 5 (`market`, `app/lib/Workspaces.php`, label "Market 360°"):
-  - **Built:** GO Codes & short links; Storefront & pages and Form entries (our own site pages, `SitePages`).
-  - **Placeholders:** Post-and-Connect, Storefront Studio, Custom domains.
-- Not built: items, offers, ratings, the Shop tab, checkout, gateways, storefronts at `trvgo.us/<shop>`.
+Marketplace rules had grown across 0031, 0032, 0036, 0055 and 0116, the AOS (§3, §5, §7), `commercial.md` and the
+outline, and some no longer agreed:
+- 0031 said no payments ever pass through the site at launch, while `commercial.md` now gives Core card checkout;
+- 0032 built ratings, and 0058 later dropped star ratings;
+- 0032 set a catalog cap only for Cornerstone, while the AOS and the admin docs read "the 250-item cap" as every tier;
+- the outline planned a new "Item" record, while the business catalog has been live since 0116.
 
-## Decision
+## What's live (the `traverse-3way-sync` mirror, 2026-11-01)
 
-### 1. Two display models, one admin workspace (Jason)
+- **The business catalog** (0116): the business portal's **Catalog**, our Products tool scoped to the business
+  (`products` with `owner_id`). Items, services, classes or events; prices for one or more quantities; private cost,
+  markup and supplier; options; Active or Hidden. Every plan has it (Back-Office → Plans → Plan features: "Catalog
+  (items and offers)" from Free). **No item count is enforced**, and no plan carries one.
+- **Back-Office → Plans & subscriptions:** the subscriptions pipeline and metrics, and **Plan features** (which tool
+  each plan opens, `Plan::FEATURES`, changeable there). The plans' allowances are in `Billing::PLANS`: price, storage
+  GB and AI credits a month. Packs (`Billing::ADDONS`) add storage or AI credits.
+- **`/market/`:** the placeholder (0055). Sample cards marked "Sample", and "Post something" greyed out.
+- **Admin workspace 5, Market 360°** (`/admin/market/`): GO Codes & short links, and our own site pages and their form
+  entries, are built. Post-and-Connect, Catalog rules, Storefront Studio and Custom domains are placeholders.
+- **Not built:** personal posts, offers, dual confirmation, the Shop tab, checkout, gateways, `trvgo.us/<shop>`.
 
-The Marketplace and Storefronts are **two different display models**:
-- **Marketplace:** one shared grid where everyone browses posts near a place.
-- **Storefronts:** one business's own shop (its listing's Shop tab, `trvgo.us/<shop>`, its own domain).
+## The rules
 
-Admin workspace 5 keeps the name **Market 360°** (`/admin/market/`). Inside it, **Marketplace** and **Storefronts** are
-two sub-sections, **managed independently**: each has its own sections, rules, metrics and settings. Neither depends on
-the other being set up. GO Codes & short links and our own pages stay in the workspace beside them.
+### 1. Two display models, one workspace
 
-What they share is the record underneath: a business's catalog item is one record, so an edit shows in both.
+- **The Marketplace** (`/market/`, named "Marketplace" everywhere, 0055): one shared grid where everyone browses posts
+  near a place. Facebook Marketplace is the UX base (0031): grid, filters in the Quick Search, item page with Message at
+  the top and "Hi, is this available?" below, Seller details on their own view.
+- **Storefronts:** one business's own shop, shown on its listing's Shop tab, at `trvgo.us/<shop>` and on its own
+  domain.
+- **Admin:** workspace 5 keeps the name **Market 360°** at `/admin/market/`. **Marketplace** and **Storefronts** are two
+  sub-sections, managed independently: each has its own sections, rules, metrics and settings, and neither needs the
+  other set up.
+- **No paid or engagement ranking** anywhere in either (0007, 0031).
 
-### 2. Free businesses can sell (already decided)
+### 2. What's posted: one catalog for a business, simple posts for a person
 
-`commercial.md` §1.1 already gives the Free tier selling with manual payments, marked paid by the business. Card checkout
-through the business's own gateway starts at Core.
+- **A business's items are its catalog** (0116). An item that's Active shows in the Marketplace and in its Storefront;
+  an edit shows in both. No second item record is built for businesses.
+- **A person posts one thing at a time** (0032): no catalog screens. Personal posts are a new record when step 1 is
+  built.
+- **Private to the business:** cost, markup (flat or percent, 0032) and supplier.
+- **Single items only** (0032): no product variants yet (`future-considerations.md`). Options that change the price
+  (0116) cover sizes and add-ons.
 
-### 3. Catalog caps live in `commercial.md` (Jason)
+### 3. Where it is
 
-The per-listing item caps are a tier axis, so they sit in `commercial.md` §1.1 beside the tier table. Cornerstone's 250
-per listing is decided (0032). Free, Basic, Core and Strategic are proposed there **(Jason)**. A member's personal posts
-have no catalog and no cap (0032); limits on how many personal posts one person runs at once go in Marketplace rules.
+A person's post shows an **approximate area**, a circle, never a pin, unless they choose to show their address (0031).
+A business shows its public address. Pins on a nation's land follow 0066.
 
-### 4. Ratings are comments (0058 replaces 0032 here)
+### 4. Offers and dual confirmation (0032)
 
-decisions/0058 dropped star ratings: on a listing, comments are how people review a business. So the outline's "Rating"
-record becomes a comment, anchored to a completed, dual-confirmed offer or a paid order where there is one (0032's
-"verified interaction" stays). Businesses reply the way anyone replies to a comment.
+- An offer or quote is its own record with stages (Asked → Countered → Accepted → Both confirmed → Completed; Declined,
+  Withdrawn, Disputed), not a message thread.
+- **Completed needs both:** the seller taps "Sold", the buyer taps "Got it". Then the item is marked sold (kept, never
+  deleted) and both earn trust points.
+- **Response time:** each business sets its own target and sales steps; its actual times show against it (0032).
 
-### 5. Custom domains: in the Storefronts build (Jason)
+### 5. Reviews are comments
 
-Connecting a business's own domain belongs to the Storefronts build (outline §6 step 5). How it's done on Bluehost
-(addon domain and SSL by hand, or automated) is decided when that build starts.
+0058 dropped star ratings: on a listing, comments are how people review a business. A comment from someone with a
+completed offer or a paid order is marked as such (0032's "verified interaction"). Businesses reply as anyone replies.
 
-### 6. How long a post stays up (Jason's direction; details proposed)
+### 6. Payments
 
-Jason: the system checks posts and asks the seller to confirm they're still on offer; no confirmation takes the post
-down. But a personal item and a business's product or service are offered for very different lengths of time, so the
+0031's "no payments through the site" stays true for **people**: they pay each other offline, and dual confirmation is
+on the site. For businesses it is replaced by:
+- **Manual payments on every plan** (Zelle, bank transfer, check, pay on pickup), marked paid by the business
+  (`commercial.md` §1.1). Free businesses can sell.
+- **Card checkout from Core**, on the business's own gateway's hosted page: no card data on our server, no cut taken,
+  the order recorded on our ledger (0098). We are never the merchant of record.
+- **Square and Stripe first (Jason, 2026-11-01).** Square fits the counter shops we sign; Stripe covers the rest, with
+  low-cost bank payment (ACH). PayPal / Venmo next if buyers ask; QuickBooks Payments and others when a business asks.
+  The options compared are in `marketplace-architecture.md` §4.
+
+### 7. Catalog caps: an allowance on the plan (proposed)
+
+The catalog cap is an **allowance**, like storage and AI credits. It sits beside them in `Billing::PLANS`, shows on
+Back-Office → Plans and the business's Plans page, and is listed in `commercial.md` §1.1.
+- **Counted per listing**, Active items only; hidden items don't count. A Location Group adds no combined cap (0032,
+  0036).
+- **At the cap:** adding or showing another item is greyed out with the reason and the plan that raises it, never a bare
+  error. Nothing already showing is taken down.
+- **Numbers:** Cornerstone 250 per listing is decided (0032). Free 25, Basic 100, Core 250, Strategic 250
+  **(proposed)**. Strategic and Cornerstone match because Cornerstone's extra is many locations, each with its own 250.
+- **More** later, as a pack like the storage packs, if businesses ask.
+- **People's posts** aren't a catalog. How many one person runs at once is a Marketplace rule (a setting).
+
+### 8. How long a post stays up (proposed)
+
+Jason: posts are checked every 30 days and need a confirmation that they're still on offer; no confirmation takes them
+down. A personal item and a business's product or service are offered for very different lengths of time, so the
 seller sets how long.
-
-**Proposed (Jason):**
 - **"Offer this for"** on every post, with a default by kind:
 
   | Kind | Default | Choices |
   |---|---|---|
   | Personal item | 30 days | 7, 14, 30, 60 or 90 days; until a date |
   | Personal service (lawn mowing, lessons) | 90 days | the same, plus Ongoing |
-  | Business product | Ongoing | the same, plus Ongoing |
-  | Business service | Ongoing | the same, plus Ongoing |
+  | Business item or service | Ongoing | 7–90 days, until a date, Ongoing |
 
-- **The check.**
-  - **Dated posts:** when the time is up, the seller gets "Still available?" in their Pulse and by email. One tap renews
-    it for the same length again.
-  - **Ongoing posts:** checked every 30 days, but they keep showing while the business answers.
-    - A product with stock tracked that has **sold out** comes down by itself.
-    - One **Pulse case** "Still on offer?" carries a step per post (the Pulse rule: one case per kind of chore). Confirm
-      all, or untick the ones that are gone.
-- **No confirmation:** after 7 days with no answer, the post moves to a new Item stage, **Expired**. It's off the
-  Marketplace and the Storefront, kept (never deleted), and the seller can relist it in one tap. Expired posts follow
-  0103's inactivity path (Hidden → Archived) after that.
-- The lengths, the reminder and the grace period are settings in Marketplace rules, not code.
+- **Dated posts:** when the time is up, "Still available?" in the Pulse and by email; one tap renews it.
+- **Ongoing posts:** checked every 30 days and kept showing while the business answers. One **Pulse case**
+  "Still on offer?" carries a step per item (the Pulse rule). An item whose stock is tracked and sold out comes down by
+  itself.
+- **No answer in 7 days:** the post becomes **Expired**: off the Marketplace and the Storefront, kept, relisted in one
+  tap. After that it follows 0103's inactivity path.
+- Lengths, reminder and grace period are settings in Marketplace rules.
 
-### 7. Gateways: Square and Stripe first (Jason)
+### 9. Custom domains
 
-Checkout is built for **Square** and **Stripe** together (the options compared are in `marketplace-architecture.md`
-§4). Square fits the counter shops we sign; Stripe covers the rest, with low-cost bank payment (ACH). PayPal / Venmo
-come next if buyers ask; QuickBooks Payments and others when a business asks. Fixed already: the business
-connects **its own** account; checkout is the gateway's hosted page (no card data on our server); we take no cut
-(`commercial.md`); the order is recorded on our ledger (0098).
-
-### 8. The public address stays `/market/` (Jason)
-
-The Marketplace keeps the live address `/market/`; the name shown everywhere stays "Marketplace" (0055). The admin
-stays `/admin/market/`.
+Belong to the Storefronts build (`marketplace-architecture.md` §6 step 5). How they're added on Bluehost is decided then.
 
 ### Still open
 
-- **Catalog caps below Cornerstone.** No ADR sets them: 0032 sets only Cornerstone (250 per listing) and says Core and
-  Strategic "still need their own numbers"; Free and Basic aren't mentioned. Some docs read "the 250-item cap" as if it
-  were every tier (AOS §5, `admin-architecture.md`); `workspace-map.md` asks the same question.
-- The post-length details in section 6.
+- The catalog cap numbers below Cornerstone (section 7).
+- The post-length details (section 8).
 
-## Consequences
+## What changes
 
-- `marketplace-architecture.md`: §0 and §3A follow section 1; the Item workflow gains **Expired**; Rating becomes a
-  comment; §4 lists the gateway options; §7 points here.
-- `commercial.md` §1.1 gains the catalog-cap row.
-- When built: `app/admin/manifests.php` splits workspace 5's sections under Marketplace and Storefronts, and the
-  existing placeholders (Post-and-Connect, Storefront Studio, Custom domains) move under them.
+- **Docs:** `commercial.md` §1.1 and the AOS, `admin-architecture.md`, `workspace-map.md`, `aos-gap-review.md`,
+  `admin-rebuild-batch-plan.md` and `business-portal-architecture.md` now say "catalog caps by plan (0135)" in place of
+  "the 250-item cap". `marketplace-architecture.md` follows this record.
+- **When built** (site code):
+  - `Billing::PLANS` gains an items allowance and `Plan` a `limit()` (as `business-portal-architecture.md` §7 planned);
+    the Catalog greys out Add / Show at the cap.
+  - Workspace 5's manifest splits into Marketplace and Storefronts; the Catalog rules placeholder's text ("the 250-item
+    cap per catalog") becomes "catalog caps by plan".
+  - The Item workflow gains **Expired**.
+
+## Older records that point here
+
+0031 (Post-and-Connect), 0032 (quotes, pricing, catalog depth), 0036 (the catalog-cap part only), 0116 (the catalog in the
+business portal). 0055's Marketplace naming and 0058's comments-not-stars stand as they are.

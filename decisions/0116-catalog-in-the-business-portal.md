@@ -1,5 +1,7 @@
 # 0116: The catalog in the business portal (step 2, first tool)
 
+> **How the catalog shows in the Marketplace and Storefronts, and its caps: `decisions/0135` (2026-11-01).** What was built stays as this record says.
+
 Status: Built (2026-10-23). Jason, 2026-10-23: "Go on 2", meaning business-portal-architecture.md §5 step 2: move our
 own tools across one at a time.
 

@@ -1,5 +1,7 @@
 # ADR 0032: Market Quote & Inventory Mechanics — Dual-Confirmation Completion, Item Pricing Fields, Tiered Catalog Depth
 
+> **Marketplace rules: superseded by `decisions/0135` (2026-11-01), the Marketplace's one record.** This record stays as history; where it and 0135 disagree (ratings are comments, catalog caps by plan), 0135 rules.
+
 **Status:** Accepted (2026-09-25)
 
 ## Context

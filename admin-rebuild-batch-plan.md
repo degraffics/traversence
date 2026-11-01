@@ -108,7 +108,7 @@ response's output limit.
 | 2 | #1 Dashboard and Quick Actions; #2 Pulse Stream with split drawers | 1 |
 | 3 | #3 Directory & Places (the taxonomy levels from C4, 20-mile clustering, Single Home Rule); #7 Sales & Growth; #6 Community (charters, transfer terms, deactivation from 0102 and 0103) | 1 |
 | 4 | #9 Back-Office: plans and entitlements (tiers, storage, quotas, overage packs), Location Groups and Co-Ops, volume discounts, the payment ledger, import and export, inventory ledger, consent hub, DMCA queue, verification vault | 1, C4, C9 |
-| 5 | #5 Market: C2C with dual confirmation and trust points, Storefront Studio, custom domains, the 250-item cap | 4, C8 |
+| 5 | #5 Market: C2C with dual confirmation and trust points, Storefront Studio, custom domains, catalog caps by plan (0135) | 4, C8 |
 | 6 | #4 Explore (guides, waypoints, GPX/KML, Chameleon Filter); #8 White Glove (onboarding board, OCR and menu parsing, HITL staging); #10 Insights; #11 Configuration | 1 |
 
 Waves 3 and 6 can run alongside 2 once wave 1 is verified. Wave 4 before 5 because Market draws on plans and

@@ -1,13 +1,12 @@
 # Marketplace: how it's built, who uses it, who configures it (outline for discussion, 2026-10-22)
 
-**Answers of 2026-11-01 are in `decisions/0135`** (two display models in one workspace, Market 360°; catalog caps in
-`commercial.md`; ratings are comments; how long a post stays up; custom domains in the Storefronts build). Where this
-outline differs, 0135 wins.
+**The rules are in `decisions/0135`**, the Marketplace's one record. This file is the build plan and screens; where
+it differs, 0135 wins. A business's items are its live catalog (0116), not a new record.
 
 Builds on:
 - the Master AOS §3 (payments), §5 (tiers), §7 (C2C) and §8 #5 (the workspace);
 - decisions/0031 (Post-and-Connect, Facebook Marketplace as the UX base);
-- decisions/0032 (quotes, dual confirmation, item pricing, the 250-item cap);
+- decisions/0032 (quotes, dual confirmation, item pricing), now gathered in decisions/0135;
 - decisions/0036 (location groups);
 - decisions/0109 (the admin engine).
 
@@ -143,11 +142,11 @@ disputes and Marketplace rules belong to Marketplace; Storefronts, Custom domain
 
 | Tier | What it adds |
 |---|---|
-| Free | the listing, and posting single items (C2C-style, offers only) |
-| **Basic** | catalog and the Shop tab on the listing, with manual payments only |
+| Free | the listing, and the catalog (live, 0116) with offers and manual payments |
+| **Basic** | the Shop tab on the listing, quotes and invoices, discount codes; manual payments |
 | **Core** | **card checkout through their own gateway (0% system processing fees; the processor's own fees apply)**; Storefront on trvgo.us and their own domain; dynamic QR to items |
 | **Strategic** | subdomains, CRM, headless API, AI catalog drafts (HITL) |
-| **Cornerstone** | 250 items per listing; multi-location inventory; Co-Op hub |
+| **Cornerstone** | multi-location inventory; Co-Op hub (catalog caps by plan: `commercial.md` §1.1) |
 
 ## 4. Payments, kept simple
 
@@ -229,14 +228,12 @@ disputes and Marketplace rules belong to Marketplace; Storefronts, Custom domain
 
 ## 7. To decide
 
-**Answered 2026-11-01 in `decisions/0135`**; what's still open is listed there. The original questions:
-
-1. **Name and address:** "Marketplace & Storefronts", `/admin/marketplace/`, `/marketplace`. Agree?
-2. **Free businesses:** can they post items (offers only, no checkout), or is selling a business item Basic and up?
-3. **Catalog caps for Basic, Core and Strategic:** Cornerstone is 250 per listing. Proposed: Basic 25, Core 100,
-   Strategic 250.
-4. **Gateways:** which ones we support first (decided when checkout is built).
-5. **Custom domains on Bluehost shared:** each domain is added by hand as an addon domain with its SSL in cPanel. Is
-   that fine for now (we do it when a Core client asks), with automation once the hosting moves?
-6. **Reviews:** only after a completed offer or a paid order (0032). Do businesses reply publicly to ratings?
-7. **Posts expire:** after 30 days, with a "still available?" email to renew. OK?
+Answered 2026-11-01 in `decisions/0135`:
+1. **Name and address:** Market 360° in the admin (`/admin/market/`), with Marketplace and Storefronts managed
+   independently; the public page stays `/market/` (§1).
+2. **Free businesses** sell, with manual payments (§6).
+3. **Catalog caps:** an allowance by plan (§7); numbers below Cornerstone proposed.
+4. **Gateways:** Square and Stripe first (§6).
+5. **Custom domains:** in the Storefronts build (§9).
+6. **Reviews** are comments (§5).
+7. **Post lifetime:** "Offer this for" and a 30-day check (§8), details proposed.

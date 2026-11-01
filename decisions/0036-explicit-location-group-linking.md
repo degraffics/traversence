@@ -1,5 +1,7 @@
 # ADR 0036: Explicit Location Group Linking — Strategic/Cornerstone-Gated, Not Inferred From Shared `listing_access`
 
+> **Catalog caps: see `decisions/0135` (2026-11-01).** Only the catalog-cap part moves there; Location Groups stay as this record says.
+
 **Status:** Accepted (2026-09-25)
 
 ## Context

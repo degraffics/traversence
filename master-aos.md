@@ -279,7 +279,7 @@ To eliminate financial platform liability and processing fee overhead on local s
 * **2. Unified Communications Hub (Pulse Stream):** Filtered, critical-action communications stream (inquiries, sales events, fulfillment drops, and critical system emergencies) equipped with contextual split-drawers.
 * **3. Directory & Places (Get Local 360° Workspace):** Six-Tier Geographic Taxonomy Engine (the six funnel levels of §4: Continental Hub → Regional / State → Geo-Hub Zone → Micro-Cluster → Single-Home-Rule Anchor → Localized Sub-Group), 20-mile spatial auto-clustering, Single Home Rule enforcement, and Level-1 Master Taxonomy governance.
 * **4. Journeys & Exploration (Let's Explore 360° Workspace):** Curated travel guides, interactive map waypoints, GPX/KML route files, and Chameleon Filter editorial picks.
-* **5. Marketplace & Storefronts (Market 360° Workspace):** Post-and-Connect C2C/B2C exchange model, Custom Domain & Storefront Studio (`clientdomain.com`), catalog pricing rules (capped at 250 items), and direct gateway delivery routing.
+* **5. Marketplace & Storefronts (Market 360° Workspace):** Post-and-Connect C2C/B2C exchange model, Custom Domain & Storefront Studio (`clientdomain.com`), catalog pricing rules (catalog caps by plan, `decisions/0135`), and direct gateway delivery routing.
 * **6. Community & Events (Social 360° Workspace):** User-created topic spaces, group privacy levels, user-authored charters, and 3-Tier escalation moderation.
 * **7. Sales, Marketing & Customer Growth:** B2B lead prospecting, unclaimed listing pipelines, order processing workspaces, and regional promo tools.
 * **8. White Glove Concierge:** High-touch client onboarding task boards, OCR asset digitizing studio, and menu/brochure parsing pipelines.

@@ -83,7 +83,7 @@ Opened by: Ops (H), Svc, Sal (view).
 | Post-and-Connect | C2C/B2C exchange: posts, offers, dual confirmation, trust points (to the trust system) | Coming; ❓ define B2C posts | — |
 | Storefront Studio | merchant storefronts, themes | Coming | — |
 | Custom domains | H: `clientdomain.com` mapping, checks | Coming | — |
-| Catalog rules | H: pricing rules, the 250-item cap | Coming; ❓ is 250 per listing on every tier? | — |
+| Catalog rules | H: pricing rules, catalog caps by plan (0135) | Coming | — |
 | Gateways | H: merchant payment gateways on the ledger (direct delivery routing) | Coming | — |
 | Short codes & QR | GO Codes, short links, scans | Live | `short-codes.php` (now under Safety) |
 
@@ -188,7 +188,7 @@ Opened by: Founder, Eng (Director), Executives (view).
 1. ~~Alerts~~ and 2. ~~Pulse~~: settled and built (decisions/0105).
 3. Six tiers: which existing table holds each level; the 20-mile rule; the Single Home Rule (3).
 4. Chameleon Filter (4).
-5. B2C posts in Post-and-Connect; the 250-item cap per tier (5).
+5. B2C posts in Post-and-Connect; catalog caps by plan (5, 0135).
 6. The three moderation tiers; what Events are (6).
 7. Regional promos (7).
 8. White Glove stages; OCR input and output (8).
