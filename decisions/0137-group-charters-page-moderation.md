@@ -65,6 +65,7 @@ write or police it; it holds the group to it.
 | **Who sees who's in it** | Members see each other (the default), or **only the moderators see the member list** (for support, recovery, health groups) | Owner |
 | **Reports** | Who handles them, when a reported post hides, how to appeal (section 5) | Owner |
 | **Chapters** (a parent) | How joining a chapter works (0136 §2); whether chapters may add local rules | Owner |
+| **Selling** | Not allowed; members' own Market items; or businesses' items too. Defaults: a person's group, not allowed; a business's group, its own items; a Co-Op's group, its member businesses' items (0136 §5, Selling in groups) | Owner |
 | **What the business publishes** (a business's group) | Education, offers, events, product news; and the fixed contact rule: the business reaches a member outside the group only when the member starts it or Links (0102 §4c) | Business; the contact rule is fixed |
 | **Transfer terms** | End the group (default), named successor, longest-serving moderator, or moderators choose (0103 §2a) | Owner |
 | **Inactivity** | 30 days without posts, or 90 without owner or moderator activity, starts the ending stages (0103 §4) | Fixed: shown, not editable |
