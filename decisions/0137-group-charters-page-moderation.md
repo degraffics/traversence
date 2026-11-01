@@ -446,6 +446,58 @@ has run (`notices_sent` with its once-only key per person, kind and thing; `noti
   aren't built (invitations, events, chapters, group inactivity, ticket limits, a group listing your business), each
   added with its feature.
 
+## Step 5 built (2026-11-01): email through Amazon SES (the sending side), notices by email
+
+Built on the 20:08 UTC sync; delivered as a zip of 13 files; live once uploaded and
+`app/migrations/2027-01-19_email_sending.sql` has run (`email_sends`, `email_suppress`, `email_pauses`, `email_events`,
+`email_state`, `notice_delivery`; safe to run twice). Runs in **mock** mode (every message recorded, none sent) until
+AWS grants production access.
+- **One AWS account for now** (Jason, 2026-11-01: the existing account is on file): personal mail uses the site's
+  existing key (`AWS_ACCESS_KEY_ID`, the S3 one) with SES permissions added; a service paused in an account doesn't touch
+  its others, so S3 is safe. The separate **bulk** account (`SES_BULK_KEY_ID` / `_SECRET`) is set up when businesses'
+  invitations and campaigns are built: nothing sends bulk mail yet.
+- **`app/lib/SesMail.php`:** `send()` through SES API v2 (signed with `Aws::authorization`), the suppression list,
+  sender pauses (3% bounces or 0.08% complaints over 30 days, at least 50 sends; never Traversence's own notices), the
+  bulk cap (`SES_MONTHLY_CAP_USD`; personal mail only alerts), the footer (why, and for bulk the sender's postal address,
+  required), Reply-To, one-click unsubscribe headers (RFC 8058); addresses kept only as a hash.
+- **`/api/ses-events.php`:** SNS bounce and complaint reports, each verified (AWS's certificate from an
+  `sns.<region>.amazonaws.com` address, our topic only) and handled once; a permanent bounce or a complaint stops all mail
+  to that address and marks the send; transient bounces are kept.
+- **`/email/unsubscribe.php`:** "Stop these", signed links, one-click POST from mail apps; notices go back to the Pulse
+  only; a business's mail stops from that business (and, for a member, its "no more" in Marketing).
+- **Notices by email** (§6): Dashboard → App Settings → how notices reach you: Pulse only (the default), by email as they
+  happen (once, like the notice), or a weekly digest (`notice_digest`, a daily job sending each person at most one a
+  week; in `Scheduler::AUTO`). From notices@send.traversence.com.
+- **Setup is a case in the admin Pulse** ("Set up email sending", System): AWS steps carry their links (IAM, SES,
+  Bluehost for `.env`); the rest are buttons: make the sending domains (send. and via.), add their DNS records to
+  traversence.com through the cPanel API (`CPanel::dnsEnsure`, DKIM, the bounce MX and SPF, DMARC), connect bounce reports
+  (an SNS topic to our endpoint), check with AWS, send a test. The case goes when nothing's left.
+- **Services & usage** shows SES: this month's emails and cost against the cap.
+- **Tested** on MariaDB in mock mode: the migration twice, 28 checks (mock sending, the footer and headers, tokens,
+  suppression, bounces, complaints and pauses, notices by email and the digest, the setup checklist, the month's count),
+  and through the local server: the events endpoint refusing what isn't from AWS, the unsubscribe page and one-click.
+- **Not tested against AWS or Bluehost** (this session can't reach them): the SES and SNS calls, SNS's real signature,
+  and cPanel's DNS functions (`DNS::parse_zone`, `DNS::mass_edit_zone`). The Pulse case's buttons are where they're tried
+  first; each says what came back.
+- **Not yet:** moving the site's existing non-system mail from Bluehost to SES (once SES is live and verified; until then
+  nothing changes for those emails); `via` reply forwarding and the bulk account (with businesses' invitations);
+  businesses' email allowance and top-ups in `Billing`.
+
+### Setting up AWS (Jason's existing account)
+1. **Region:** US West (Oregon), us-west-2 (SES can receive mail there, which `via` reply forwarding needs later).
+2. **IAM → Users → the site's user** (the one whose access key is `AWS_ACCESS_KEY_ID`) → Add permissions → inline policy
+   `traversence-ses`: send only from `*@send.traversence.com` / `*@via.traversence.com`, plus the one-time setup actions
+   (`ses:GetAccount`, `CreateEmailIdentity`, `GetEmailIdentity`, `PutEmailIdentityMailFromAttributes`,
+   `CreateConfigurationSet`, `CreateConfigurationSetEventDestination`, `sns:CreateTopic`, `Subscribe`,
+   `GetTopicAttributes`). Once setup is done, remove the setup statement.
+3. **Amazon SES → Account dashboard → Request production access:** Transactional, https://traversence.com, and a use
+   case saying what's sent, that bounces and complaints are handled through SNS and stop mail to that address, and that
+   every message carries one-click unsubscribe.
+4. **Billing → Budgets:** a $10 monthly budget with an alert at 80%.
+5. **`.env`:** `SES_MODE=mock` (then `live` once production access is granted), `SES_REGION=us-west-2`,
+   `SES_MONTHLY_CAP_USD=10`. No new key.
+6. **Then the Pulse case** does the rest with its buttons.
+
 ## Jason's answers (2026-11-01)
 
 1. **Legal and safety reports** and reports on a group open a Safety ticket automatically; our Terms apply on it.
