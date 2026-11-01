@@ -909,6 +909,22 @@ Tap **Report a problem** on the trade (once an offer is accepted, and up to 14 d
 ### How do I report a post?
 Open it and tap **Report** under the title. Choose why. Our team looks at it, and a post taken down tells its seller why.
 
+
+### Can my business sell on the Marketplace?
+Yes, on every plan. In your business portal, open **Marketplace**: each item in your Catalog is a draft there. Choose its Marketplace category and tap **Publish**, and its name, description, price and photos show on the Marketplace and in your listing's **Shop** (Shop from Basic Partner up). Your cost, markup and supplier stay private to your team. Publishing needs a role with **Publish**; drafts and photos need **Catalog & content**.
+
+### How many items can my business publish?
+Free 10, Basic Partner 25, Core Partner 100, Strategic Partner 250, Cornerstone 1,000 per listing. Only published items count: drafts, unpublished and expired ones don't. At your plan's number, Publish is greyed out with the plan that raises it, and nothing already up comes down. Every photo counts toward your plan's storage, so a bigger catalog grows into a storage pack or the next plan.
+
+### What happens when I change an item that's already published?
+The Marketplace keeps showing the published version while you edit the draft in your Catalog. The item then says **Published, with unpublished changes**; tap **Publish changes** when you're ready, and that becomes the next version (every version is kept). **Unpublish** takes it off the Marketplace and your Shop; Publish brings it back.
+
+### What can buyers do on my business's items?
+You choose, in Marketplace → **What buyers can do**, within what your plan opens: **Message** (to your inbox; your team answers), **Make an offer** (off until you switch it on; you accept, counter or decline in the portal, and Mark sold once it's paid), **Request a quote** (Basic Partner and up: the request comes to your inbox and you make the quote in Quotes & invoices), and **Buy now** (coming, through your own Square or Stripe account, Core Partner and up). An item can have its own buttons. No payment ever passes through Traversence.
+
+### Do my business's items expire?
+They stay up, but every 30 days your Pulse asks **Still on offer?** for each published item. Confirm with one tap (or all at once). An item nobody confirms by the next check comes off, kept in your portal: Publish brings it back.
+
 ## Privacy and your account
 
 ### Does Traversence use cookies?

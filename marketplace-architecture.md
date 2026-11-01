@@ -211,7 +211,7 @@ disputes and Marketplace rules belong to Marketplace; Storefronts, Custom domain
    - dual confirmation and trust points;
    - ratings;
    - admin: Offers & disputes.
-3. **Business catalog:**
+3. **Business catalog** (built 2026-11-01, decisions/0135 "Step 3 built"):
    - the Shop module's Catalog (with private cost and markup), Offers and Settings;
    - the Shop tab on the listing;
    - tier caps enforced.
