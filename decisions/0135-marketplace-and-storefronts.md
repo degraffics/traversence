@@ -152,6 +152,35 @@ Nothing. Section 6's gateways after Square and Stripe are added when asked for.
     "catalog caps by plan").
   - The Item workflow gains **Expired**.
 
+## Step 1 built (2026-11-01): people's posts
+
+Delivered as a zip (24 files that differ from the live mirror of 2026-11-01 12:55 UTC); live once uploaded and the
+database update `app/migrations/2027-01-12_marketplace.sql` has run (by itself, within the hour).
+- **Records:** `market_posts` (status active, held, pending, sold, paused, expired, removed), `market_photos`,
+  `market_saves`, `market_contacts`, `market_settings`. `app/lib/Market.php` owns them.
+- **Public:** `/market/` is the grid: newest first, search words, a town or area, and one Filters button (category,
+  items or services, price, free) with the ones in use shown with ×. `/market/view.php?id=` is the item page: photos
+  with thumbnails, price, "Listed … in <town>", Message the seller (top button and the quick message "Hi, is this
+  available?"), Save, Details, the Seller card (name, since when, how many sold, the Link button for the person), "More
+  from" the seller. The engage bar gives views, Share, QR and Report; **no public comments or likes on a post**
+  (buyers talk to the seller privately; Save is the bookmark).
+- **Posting:** `/user/market/` (also the Dashboard's Marketplace section, `#market`): Selling (each post's status and
+  buttons: Still available, Mark pending, Mark sold, Put it back up, Edit, Take off for now, Take down), Buying (saved
+  posts, sellers messaged) and Post something. 18 or older. Photos go through the one uploader (target
+  `market_photo`) into the member's gallery and show through a public "Marketplace" album only while the post is up.
+- **Messages:** a buyer's message goes through the site's messages with the post's link. A post invites messages about
+  it, so it reaches the seller whatever their message setting, unless either blocked the other (`People::send`,
+  `$invited`). Up to 20 new sellers a day.
+- **Rules (§7, §8):** 5 posts out per member; 30 days for an item, 90 for a service, Ongoing for services, or a date;
+  the daily `market_tick` asks "Still available?" (Pulse and email) and expires what wasn't confirmed by the next
+  check. Words that block a post and words that hold it for a person are settings.
+- **Admin, Market 360°:** sections grouped under Marketplace, Storefronts and GO Codes & our pages. **Items** (metrics,
+  table, drawer: Let it show, Take it down with a line the seller sees, Put it back up) and **Marketplace rules** are
+  live; Offers & disputes, Storefront Studio, Catalog rules, Gateways and Custom domains are placeholders with their
+  step. Held posts are one Pulse case (Safety) with a "Let it show" button per post. Reports on a post go to Social →
+  Reports; taking one down there takes the post down with the reason. Staff can see a held or taken-down post's photos.
+- **Not yet:** "Near me" on a map, businesses' catalogs (step 3), offers and dual confirmation (step 2).
+
 ## Older records that point here
 
 0031 (Post-and-Connect; its "no payments through Traversence" stands), 0032 (quotes, pricing, catalog depth; its 250 is

@@ -199,7 +199,7 @@ disputes and Marketplace rules belong to Marketplace; Storefronts, Custom domain
 
 ## 6. Build steps (each one or two zips)
 
-1. **Person-to-person:**
+1. **Person-to-person** (built 2026-11-01, decisions/0135 "Step 1 built"):
    - items and the Item workflow;
    - Sell an item;
    - the Marketplace grid and the item page;
