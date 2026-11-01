@@ -762,8 +762,18 @@ Many rural businesses have only a Facebook page (Diamond C Feed, St. Johns: face
    the evidence; Google's place ID is a link, and links aren't counted. Identities from first sighting (also
    2026-11-01): every sighting has one, moved onto its listing when approved or matched. The rebuild is a repair tool;
    one site counts once; replacing a listing's value takes two sources; Review shows a sighting's identity card
-   (2026-11-01). Next: listing confidence (the score, the ring, How we know).
-2. Listing confidence: the score, the ring and How we know, visitor confirmations.
+   (2026-11-01).
+2. Listing confidence. **Built 2026-11-01** (`ListingConfidence`, `listing_confidence`, `listing_confirms`): the score
+   from the identity record (each independent source once, weighted by kind: our team 30, an official registry 22, a
+   government page or its own website 18, a chamber 12, a community directory 10, another page 8, open data 6, a
+   directory 4; a Google match 10 as our verdict that it's there; other links nothing), each counting a little less than
+   the one before and less as it ages (to 40% over three years); +5 for each of who, where and how confirmed; visitors'
+   Yes, up to 8 a year. Against it: a dead website −10, reported closed −20, its site says it moved −8, an open visitor
+   report −5 each (to −10), sources disagreeing −5 each (to −15). Machine evidence stops at 75; our team's check lifts it
+   to at least 80 (Confirmed by Traversence), a claim to 80 (Claimed by the owner), a verified claim to 90 (✓), unless
+   something speaks against it. Refreshed whenever the identity changes, and weekly by scheduled jobs. The ring heads the
+   listing card's actions column; How we know opens under the card with Is this right? Yes / No per detail. Next: the
+   ring on listing cards in search and lists; cadence by band.
 3. Google and OpenStreetMap used in full (duplicates, address mismatches, not-found); the Listing check template;
    cadence by band; automatic decisions; value-ordered Review; closure and moved notices.
 4. Opening a hub: the stages, the readiness meter, the opening budget and its estimate.
