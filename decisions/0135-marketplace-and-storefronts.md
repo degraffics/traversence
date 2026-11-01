@@ -471,6 +471,11 @@ the earlier suites (218 checks) pass. **To check in the sandbox:** a Stripe and 
 sandbox payment on the live pages with the browser console open; a Square sandbox import, a count change in Square,
 and an order seen in Square's Orders.
 
+**Bank transfer details (Jason, 2026-11-01):** the bank transfer box in E-commerce setup no longer suggests writing
+account and routing numbers. Its hint is "How to reach you for transfer details (we suggest a phone call)", with a line
+under it: full account and routing numbers are better shared by phone, because they're what someone needs to forge
+checks or set up debits. Only that order's buyer sees the instructions either way.
+
 **Jason's one-time setup for 4b:** in the Square application's webhook subscription, add `inventory.count.updated` and
 `catalog.version.updated`. A business that connected Square before 4b connects again once (for `INVENTORY_WRITE`).
 
