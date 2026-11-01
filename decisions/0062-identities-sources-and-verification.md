@@ -1,5 +1,7 @@
 # 0062: Identities: one record per thing, every fact with its sources, verification by consent
 
+> **Crawler rules: superseded by `decisions/0133` (2026-10-30), the crawler's one rule book.** This record stays as history; where it and 0133 disagree, 0133 rules.
+
 **Status:** Accepted, 2026-10-03. To be built in steps (below), listings first.
 **Source:** discussion with Jason on 2026-10-03 (the admin helper: duplicates that aren't clear, listings missing
 phone numbers with no way to find them, and "this shouldn't be a single phone number search, it's an identity builder
@@ -461,3 +463,5 @@ Jason: "Evidence wins. Unless claimed. Then it's offered as additional info, for
   offered again).
 - The card's "Not shown" badge is now "Not chosen": the value is kept, but another has more evidence.
 - Run `api/migrations/2026-11-04_identity_applied.sql` once.
+
+**Since 2026-11-01** (decisions/0133, "The observations store is the identity record"): the identity is the one primary record of each business from the first sighting, not a copy rebuilt from our records. Every listing write records into it with its source and lasts through rebuilds; a value taken off the listing is kept as history and never written back; merges join the evidence. It lives in the main database. Links (Google, Facebook, Yelp) are where to look, never counted as agreeing sources; OpenStreetMap is a lead only. Where this record says the identity is built only from our records, can be rebuilt and pruned, or confirmed by counting sources, 0133 rules.

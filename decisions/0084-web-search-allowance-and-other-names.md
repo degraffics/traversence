@@ -1,5 +1,7 @@
 # 0084. The crawler's web search can't run past its allowance; listings keep the other names they go by
 
+> **Crawler rules: superseded by `decisions/0133` (2026-10-30), the crawler's one rule book.** This record stays as history; where it and 0133 disagree, 0133 rules.
+
 - **Status:** Accepted
 - **Date:** 2026-10-14
 - **Builds on:** 0062 (web search usage on the dashboard), 0074 and 0081 (merging the same place), 0083

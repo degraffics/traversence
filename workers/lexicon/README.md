@@ -11,7 +11,11 @@ Each common noun's family (belongings, documents, pets, vehicles…) and irregul
 
 ## build_concepts.py (decisions/0067)
 
-    python3 build_concepts.py /path/to/wordnet31 categories.json /path/to/site/api/lib/data/concepts.php
+    python3 build_concepts.py /path/to/wordnet31 categories.json /path/to/site/app/data/concepts.php
+
+Upload only `concepts.php`. The site splits it into small files by first letters (`app/storage/concepts/`) on the
+first search after it changes, and reads only the parts a search needs (decisions/0088).
+`php app/scripts/split_concepts.php` does the split ahead of time, if wanted.
 
 Every English word mapped to the categories that serve it ("x-rays" → Diagnostic Imaging Centers). It reads
 `category-terms.tsv` (the everyday words for each category; edit it freely) and `categories.json`, exported from the

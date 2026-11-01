@@ -43,3 +43,5 @@ Rules:
 - Code: `app/lib/SuggestionActions.php`, `website/admin/suggestion.php`, buttons and `sg_closed` in
   `website/admin/crawler-review.php`, the merged-listing redirect in `website/listing/view.php`, two new landmark kinds in
   `app/lib/Landmarks.php`. No migration.
+
+**Since 2026-11-01** (decisions/0133, "The observations store is the identity record"): closures follow 0133's four steps (possibly closed, reported closed, closed, moved), notified and never hidden; the visitor's report is kept as evidence.

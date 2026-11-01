@@ -1,5 +1,7 @@
 # ADR 0045: Our Own Reference Index and Source-First Crawling
 
+> **Crawler rules: superseded by `decisions/0133` (2026-10-30), the crawler's one rule book.** This record stays as history; where it and 0133 disagree, 0133 rules.
+
 **Status:** Accepted (2026-09-29). Builds on `decisions/0044` (confidence-gated auto-import) and its
 "Second look" section. Step 1 (the source list) is built; steps 2–4 are the plan.
 
@@ -86,3 +88,5 @@ Step 1 built: `api/migrations/2026-09-29_reference_sources.sql`, `api/lib/crawle
   empty and crawler-owned (never overwrites, never touches a person's edits). Other locations the site lists
   with a full address are staged as new finds, so the ADR 0044 guardrails decide them. `api/crawl/refresh.php`,
   `api/lib/crawler/Refresh.php`; worker `REFRESH_PER_RUN` (3), `REFRESH_TIME` (40 s).
+
+**Since 2026-11-01** (decisions/0133, "The observations store is the identity record"): the reference index (`source_facts`) stays; a match becomes an identity source when it's found. Rechecks follow 0133's cadence (never more than 90 days).

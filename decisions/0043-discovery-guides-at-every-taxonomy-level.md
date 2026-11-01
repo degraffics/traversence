@@ -1,5 +1,7 @@
 # ADR 0043: A Discovery Guide at Every Level of the Place Taxonomy
 
+> **Crawler rules: superseded by `decisions/0133` (2026-10-30), the crawler's one rule book.** This record stays as history; where it and 0133 disagree, 0133 rules.
+
 **Status:** Accepted (2026-09-28)
 
 ## Context

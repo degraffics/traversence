@@ -1,5 +1,7 @@
 # 0076. Listings build themselves: one pipeline, a person only when it's exhausted
 
+> **Crawler rules: superseded by `decisions/0133` (2026-10-30), the crawler's one rule book.** This record stays as history; where it and 0133 disagree, 0133 rules.
+
 - **Status:** Accepted
 - **Date:** 2026-10-10
 - **Replaces:** the publishing guardrails of 0044 (two sources, confidence 85, a sure category, categories always reviewed
@@ -109,3 +111,5 @@ verification when it fails?"
     address.
 - **Listed twice already:** when the directory has the same business twice, a found copy merges into the claimed one,
   else the oldest, instead of waiting for a person.
+
+**Since 2026-10-31:** a published listing's evidence keeps adding up in one record shared with the content side, and its confidence (0 to 100, a ring on its card with How we know) orders upkeep and shows how sure we are; readiness stays the publishing gate. See decisions/0133, "The one record: observations, listing confidence and opening a hub".

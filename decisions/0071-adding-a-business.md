@@ -140,3 +140,5 @@ It stays a suggestion (0053). It's sent signed in or out, as now.
 
 - The list in §3 can change.
 - Should the text option for claims stay as a fallback (as written), or go?
+
+**Since 2026-11-01** (decisions/0133, "The observations store is the identity record"): what a person adds goes into the identity record with them as its source at once.

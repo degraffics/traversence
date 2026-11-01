@@ -65,6 +65,7 @@ Standard library only.
 import csv
 import html
 import io
+import ipaddress
 import json
 import math
 import os
@@ -107,6 +108,12 @@ places_used = 0
 search_allow = 0      # searches this run may make: the site says, from the month's use so far (decisions/0084); 0 until it does
 LEARN_PER_RUN = int(os.environ.get("LEARN_PER_RUN", "3"))         # Tier 2 web searches for situation gaps per run (decisions/0061); 0 turns it off
 LEARN_TIME = int(os.environ.get("LEARN_TIME", "45"))
+HERITAGE_PER_RUN = int(os.environ.get("HERITAGE_PER_RUN", "2"))  # places searched at the Library of Congress per run (decisions/0133); 0 turns it off
+HERITAGE_TIME = int(os.environ.get("HERITAGE_TIME", "40"))
+LOC_SEARCH = "https://www.loc.gov/search/"
+LOC_DELAY = 3.0                     # seconds between Library of Congress requests (its API asks for a gentle pace)
+LOC_NEWS = "https://www.loc.gov/collections/chronicling-america/"   # historic newspapers (public domain), searched by place and state
+LOC_NEWS_PER_PLACE = int(os.environ.get("LOC_NEWS_PER_PLACE", "15"))  # newspaper pages read per place; 0 turns them off
 GUIDES_PER_RUN = int(os.environ.get("GUIDES_PER_RUN", "2"))      # how-to guides looked for per run (decisions/0063 §8); 0 turns it off
 GUIDES_TIME = int(os.environ.get("GUIDES_TIME", "45"))
 TARGETS_PER_RUN = int(os.environ.get("TARGETS_PER_RUN", "2"))    # search targets (a place and a kind of business, decisions/0066) per run; 0 turns it off
@@ -279,18 +286,65 @@ def miles(a, b, c, d):
     return 2 * 3959 * math.asin(min(1, math.sqrt(x)))
 
 
+MAX_CRAWL_DELAY = 30                # a site asking for more than this between pages is left alone (decisions/0133)
+host_last = {}                      # when we last fetched from each host, for its Crawl-delay
+
+
+def public_host(url):
+    """Only the open web: http(s) to a name whose every address is public. Checked before each fetch and each
+    redirect, so no page can send us to a private, loopback, link-local or cloud-metadata address (decisions/0133)."""
+    p = urllib.parse.urlsplit(url)
+    if p.scheme not in ("http", "https") or not p.hostname:
+        return False
+    try:
+        infos = socket.getaddrinfo(p.hostname, p.port or (443 if p.scheme == "https" else 80), proto=socket.IPPROTO_TCP)
+    except Exception:
+        return False
+    try:
+        return bool(infos) and all(ipaddress.ip_address(i[4][0].split("%")[0]).is_global for i in infos)
+    except ValueError:
+        return False
+
+
+def crawl_delay(url):
+    """The site's robots.txt Crawl-delay for us, in seconds (0 when it sets none)."""
+    p = urllib.parse.urlsplit(url)
+    rp = robots_cache.get(f"{p.scheme}://{p.netloc}")
+    try:
+        d = rp.crawl_delay(UA) if rp else None
+        return float(d) if d else 0.0
+    except Exception:
+        return 0.0
+
+
 def allowed(url):
     host = urllib.parse.urlsplit(url)
     base = f"{host.scheme}://{host.netloc}"
     if base not in robots_cache:
         rp = urllib.robotparser.RobotFileParser(base + "/robots.txt")
         try:
-            rp.read()
+            if public_host(base + "/robots.txt"):
+                rp.read()
+            else:
+                rp = None
         except Exception:
             rp = None                      # no robots.txt reachable: treat as allowed
         robots_cache[base] = rp
     rp = robots_cache[base]
+    if crawl_delay(url) > MAX_CRAWL_DELAY:
+        return False                       # it asks us to crawl slower than we can: we don't
     return rp is None or rp.can_fetch(UA, url)
+
+
+class SafeRedirect(urllib.request.HTTPRedirectHandler):
+    """Every hop is checked like the first: the open web only, and robots.txt."""
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        if not public_host(newurl) or not allowed(newurl):
+            raise urllib.error.URLError("redirect to a private or disallowed address")
+        return super().redirect_request(req, fp, code, msg, headers, newurl)
+
+
+SAFE_OPENER = urllib.request.build_opener(SafeRedirect)
 
 
 def fetch_page(url):
@@ -299,16 +353,17 @@ def fetch_page(url):
     if os.environ.get("WEB_FIXTURE"):
         with open(os.environ["WEB_FIXTURE"]) as f:
             return json.load(f).get(url)
-    if fetches >= MAX_FETCHES or out_of_time() or not allowed(url):
+    if fetches >= MAX_FETCHES or out_of_time() or not public_host(url) or not allowed(url):
         return None
-    wait = FETCH_DELAY - (time.monotonic() - last_fetch)
+    host = urllib.parse.urlsplit(url).netloc.lower()
+    wait = max(FETCH_DELAY - (time.monotonic() - last_fetch), crawl_delay(url) - (time.monotonic() - host_last.get(host, -1e9)))
     if wait > 0:
         time.sleep(wait)
     fetches += 1
-    last_fetch = time.monotonic()
+    last_fetch = host_last[host] = time.monotonic()
     try:
         req = urllib.request.Request(url, headers={"User-Agent": UA, "Accept": "text/html"})
-        with urllib.request.urlopen(req, timeout=12) as r:
+        with SAFE_OPENER.open(req, timeout=12) as r:
             if "html" not in (r.headers.get("Content-Type") or ""):
                 return None
             return r.read(400_000).decode("utf-8", "replace")
@@ -926,6 +981,79 @@ def geocode(deadline):
             break
 
 
+def fetch_json(url, timeout=30):
+    """A JSON API on the open web, through the same checks as a page (public address on every hop). None on failure."""
+    if os.environ.get("LOC_FIXTURE"):
+        with open(os.environ["LOC_FIXTURE"]) as f:
+            return json.load(f)
+    if not public_host(url):
+        return None
+    try:
+        req = urllib.request.Request(url, headers={"User-Agent": UA, "Accept": "application/json"})
+        with SAFE_OPENER.open(req, timeout=timeout) as r:
+            return json.loads(r.read(3_000_000).decode("utf-8", "replace"))
+    except Exception:
+        return None
+
+
+def heritage(deadline):
+    """The Library of Congress for each guide's place (decisions/0133 Phase 1): the catalog records of its items (title,
+    date, description, subjects, format, rights) and their links, never the items themselves. The site reads them into
+    the heritage catalog."""
+    d = site_call(f"/api/crawl/heritage.php?limit={HERITAGE_PER_RUN}")
+    for pl in d.get("places", []):
+        if time.monotonic() > deadline or out_of_time():
+            break
+        q = urllib.parse.urlencode({"q": pl["query"], "fo": "json", "c": "30", "at": "results"})
+        data = fetch_json(f"{LOC_SEARCH}?{q}")
+        time.sleep(0 if os.environ.get("LOC_FIXTURE") else LOC_DELAY)
+        if data is None:
+            log(f"heritage {pl['name']}: the Library of Congress didn't answer")
+            continue
+        flat = lambda v: "; ".join(str(x) for x in v) if isinstance(v, list) else str(v or "")
+        items = []
+        for it in (data.get("results") or [])[:30]:
+            url = it.get("url") or it.get("id") or ""
+            if not isinstance(url, str) or "loc.gov/" not in url:
+                continue
+            about = flat(it.get("description"))[:600]
+            if it.get("subject"):
+                about += (" Subjects: " if about else "Subjects: ") + flat(it.get("subject"))[:200]
+            items.append({"url": url.replace("http://", "https://"), "title": flat(it.get("title"))[:500], "date": flat(it.get("date"))[:40], "about": about,
+                          "rights": flat(it.get("rights") or it.get("rights_advisory"))[:500], "format": flat(it.get("original_format"))})
+        news = loc_news(pl) if LOC_NEWS_PER_PLACE > 0 and time.monotonic() < deadline else []
+        res = site_call("/api/crawl/heritage.php", {"key": pl["key"], "items": items + news})
+        log(f"heritage {pl['name']}: {len(items)} Library of Congress records, {len(news)} newspaper pages, {res.get('kept', 0)} kept")
+
+
+def loc_news(pl):
+    """Free sources first (decisions/0133): historic newspaper pages that name the place, from the Library of Congress's
+    Chronicling America (public domain), in its state. Each page's record and the text the API gives with it (its OCR),
+    which the site cuts to the passages about the past before the cheapest model reads them."""
+    params = {"q": f'"{pl["name"]}"', "fo": "json", "c": str(LOC_NEWS_PER_PLACE), "at": "results"}
+    if pl.get("state"):
+        params["fa"] = "location_state:" + pl["state"].lower()
+    data = fetch_json(f"{LOC_NEWS}?{urllib.parse.urlencode(params)}")
+    time.sleep(0 if os.environ.get("LOC_FIXTURE") else LOC_DELAY)
+    if data is None:
+        log(f"heritage {pl['name']}: Chronicling America didn't answer")
+        return []
+    flat = lambda v: " ".join(str(x) for x in v) if isinstance(v, list) else str(v or "")
+    out = []
+    for it in (data.get("results") or [])[:LOC_NEWS_PER_PLACE]:
+        url = it.get("url") or it.get("id") or ""
+        if not isinstance(url, str) or "loc.gov/" not in url:
+            continue
+        text = flat(it.get("description"))
+        if not text.strip():
+            continue                                   # a page with no text to read adds nothing
+        paper = flat(it.get("partof_title") or it.get("partof"))[:200]
+        out.append({"url": url.replace("http://", "https://"), "title": (flat(it.get("title")) + (f" ({paper})" if paper else ""))[:500],
+                    "date": flat(it.get("date"))[:40], "about": re.sub(r"\s+", " ", text)[:6000], "rights": flat(it.get("rights") or it.get("rights_advisory"))[:500],
+                    "format": "newspaper", "kind": "news"})
+    return out
+
+
 def guides(deadline):
     d = site_call(f"/api/crawl/guides.php?limit={GUIDES_PER_RUN}")
     for g in d.get("guides", []):
@@ -980,6 +1108,23 @@ def hours_from(page):
     return list(dict.fromkeys(lines))[:7]
 
 
+DEAD_RE = re.compile(r"suspendedpage|/cgi-sys/|parkingcrew|sedoparking|bodis\.com|domain-?for-?sale|hugedomains|dan\.com", re.I)
+DEAD_TEXT_RE = re.compile(r"\b(account|site|website|domain|page)\s+(has\s+been\s+|is\s+(currently\s+)?)?(suspended|disabled|expired|deactivated)\b"
+                          r"|this domain (is|may be) for sale|buy this domain|domain (is )?parked|parked free|default (web )?page|future home of", re.I)
+CLOSED_HINT_RE = re.compile(r"permanently\s+closed|closed\s+permanently|closed\s+for\s+good|closed\s+(our|the)\s+(doors|business)|"
+                            r"ceased\s+(operations|trading)|no\s+longer\s+in\s+business|out\s+of\s+business|closing\s+(our|its)\s+doors", re.I)
+MOVED_HINT_RE = re.compile(r"\b(we|we\s+have|we've|we\s+are|we're|has|have)\s+(now\s+)?(moved|relocated)\b|\b(our|the)\s+new\s+(location|address|home|shop|store|office)\s+is\b|"
+                           r"\b(now|newly)\s+located\s+at\b|\bnew\s+location\s*:|\bfind\s+us\s+at\s+our\s+new\b|\bmoved\s+to\s+a\s+new\s+(location|home|space|building)\b", re.I)
+
+
+def dead_site(page):
+    """A parked, suspended or empty page (the site's checks in app/lib/Dossier.php::dead() match this)."""
+    if DEAD_RE.search(page):
+        return True
+    text = " ".join(page_lines(page))
+    return len(text) < 150 or bool(DEAD_TEXT_RE.search(text))
+
+
 def split_city(address):
     m = re.search(r"^(.*?),?\s*([A-Za-z .'-]+),\s*([A-Z]{2})\s+(\d{5})", address)
     return (m.group(1).strip(" ,"), m.group(2).strip(), m.group(3), m.group(4)) if m else (address, "", "", "")
@@ -991,9 +1136,15 @@ def refresh_listings(deadline):
         if time.monotonic() > deadline or out_of_time():
             break
         site, host = lst["website"], host_of(lst["website"])
+        if not os.environ.get("WEB_FIXTURE") and (fetches >= MAX_FETCHES or out_of_time() or not allowed(site)):
+            how = "skipped" if fetches >= MAX_FETCHES or out_of_time() else "blocked"   # this run's budget / its robots.txt
+            site_call("/api/crawl/refresh.php", {"entity_id": lst["entity_id"], "website": site, "found": {}, "locations": [], "site": {"status": how}})
+            continue                               # not read: never counts against the site
         home = fetch_page(site)
-        if not home:
-            log(f"refresh {lst['name']}: website didn't load")
+        if not home or dead_site(home):            # the site decides: tried again in a few days, then off the listing or to Review
+            how = "dead" if home else "unreachable"
+            res = site_call("/api/crawl/refresh.php", {"entity_id": lst["entity_id"], "website": site, "found": {}, "locations": [], "site": {"status": how}})
+            log(f"refresh {lst['name']}: website {'shows a parked or suspended page' if home else 'did not load'}: {res.get('site', '')}")
             continue
         pages = {site: home}
         links = [urllib.parse.urljoin(site, h) for h in re.findall(r'(?i)href=["\']([^"\'#]+)', home)]
@@ -1031,9 +1182,14 @@ def refresh_listings(deadline):
                                   "what": {"offerings": [], "description": ""}, "actions": {"phone": f["phone"], "website": site},
                                   "sources": {"name": [url], "address": [url]}, "corroboration": [],
                                   "confidence": 15 + 25 + 5 + (15 if f["phone"] else 0)})
-        res = site_call("/api/crawl/refresh.php", {"entity_id": lst["entity_id"], "website": site, "found": found, "locations": locations[:25]})
+        # the closed check (decisions/0133): lines where the business says it closed; the site keeps only one about itself
+        closed = [l for pg in pages.values() for l in page_lines(pg) if CLOSED_HINT_RE.search(l) and len(l) <= 400][:3]
+        # and the moved check: lines where it says it moved (the site sends it to Review with the new street, never changes it)
+        moved = [l for pg in pages.values() for l in page_lines(pg) if MOVED_HINT_RE.search(l) and len(l) <= 400][:3]
+        res = site_call("/api/crawl/refresh.php", {"entity_id": lst["entity_id"], "website": site, "found": found, "locations": locations[:25],
+                                                   "site": {"status": "ok", "closed": " ".join(closed), "moved": " ".join(moved)}})
         log(f"refresh {lst['name']}: filled {', '.join(res.get('filled', [])) or 'nothing new'}; "
-            f"{len(locations)} other location(s) -> {res.get('auto_imported', 0)} published, {res.get('staged', 0)} to review")
+            f"{len(locations)} other location(s) -> {res.get('auto_imported', 0)} published, {res.get('staged', 0)} to review; site: {res.get('site', 'ok')}")
 
 
 def second_look(deadline):
@@ -1861,6 +2017,11 @@ def run():
             learn(time.monotonic() + LEARN_TIME)
         except Exception as e:                     # learning never stops the crawl jobs
             log(f"learning stopped: {e!r}"[:300])
+    if HERITAGE_PER_RUN > 0:
+        try:
+            heritage(time.monotonic() + HERITAGE_TIME)
+        except Exception as e:                     # the heritage reading never stops the crawl jobs
+            log(f"heritage stopped: {e!r}"[:300])
     if GUIDES_PER_RUN > 0:
         try:
             guides(time.monotonic() + GUIDES_TIME)

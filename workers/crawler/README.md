@@ -124,6 +124,16 @@ the others as sources. A person rewrites the steps in our words, checks them aga
 nothing shows before that. If no official page lists steps, the site marks it "nothing found yet" and asks again in
 30 days. With no search key the job reports that and does nothing.
 
+## Heritage: the Library of Congress (decisions/0133)
+
+Each run the worker takes up to `HERITAGE_PER_RUN` places (2; 0 turns it off), places gathering for their first guide
+first, within `HERITAGE_TIME` seconds (40). For each it searches the Library of Congress's catalog (records and links,
+never the items) and its historic newspapers, Chronicling America (public domain), for pages naming the place in its
+state: up to `LOC_NEWS_PER_PLACE` pages (15; 0 turns the newspapers off), each with the text the API gives. It waits
+three seconds between requests, as the Library asks. Log lines look like
+`heritage St. Johns: 24 Library of Congress records, 11 newspaper pages, 33 kept`; "Chronicling America didn't answer"
+means that search failed this time and the catalog records were still sent. Test with `LOC_FIXTURE=<a saved JSON answer>`.
+
 ## Building identities (decisions/0062, step 4)
 
 Each run, after the second look, the worker takes up to `IDENTITY_PER_RUN` listings (5; 0 turns it off) that have no

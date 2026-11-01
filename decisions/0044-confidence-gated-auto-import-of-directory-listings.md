@@ -1,5 +1,7 @@
 # ADR 0044: Confidence-Gated Auto-Import of Directory Listings
 
+> **Crawler rules: superseded by `decisions/0133` (2026-10-30), the crawler's one rule book.** This record stays as history; where it and 0133 disagree, 0133 rules.
+
 **Status:** Accepted (2026-09-29). Amends `decisions/0005` for crawled **directory listings** only.
 
 ## Context
@@ -148,3 +150,5 @@ look by name, address and city (`api/crawl/verify.php`, `api/lib/crawler/Verify.
 
 Next (`decisions/0045`): the websites these second looks find are collected in a source list (Admin →
 Sources), so the crawler can read the good ones directly and needs fewer searches.
+
+**Since 2026-11-01** (decisions/0133, "The observations store is the identity record"): a merge joins both listings' evidence in the kept one's identity (Undo takes it back). Automatic merges follow 0133's thresholds.

@@ -1,5 +1,7 @@
 # 0065. OpenStreetMap businesses where we have no listings yet
 
+> **Crawler rules: superseded by `decisions/0133` (2026-10-30), the crawler's one rule book.** This record stays as history; where it and 0133 disagree, 0133 rules.
+
 Date: 2026-10-04
 Status: Accepted
 
