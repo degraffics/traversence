@@ -1,9 +1,9 @@
 # ADR 0134: Events, One Tool for the Whole Site
 
-**Status:** Proposed (2026-11-01), direction from Jason: "Event creation is a site-wide tool, not just community."
-Design; not built. All of Jason's answers of 2026-11-01 are in; three small defaults wait under "For Jason".
+**Status:** Accepted (Jason, 2026-11-01), from his direction: "Event creation is a site-wide tool, not just
+community." Design; not built.
 Builds on `decisions/0133` (Live events), and fills the "events, when they exist" gaps left in
-0047, 0053, 0055, 0058, 0059, 0060, 0061 and 0062. Choices marked **(Jason)** are proposals for him to confirm.
+0047, 0053, 0055, 0058, 0059, 0060, 0061 and 0062.
 
 ## Context
 
@@ -258,19 +258,16 @@ member's events. Our team reaches one only when:
 
 Each step adds its FAQ entries (0057).
 
-## For Jason
-
-Settled 2026-11-01:
+## Jason's answers (2026-11-01)
 1. **Verification:** required to create an event.
 2. **Who's going:** the host chooses at creation.
 3. **The admin:** system events and event support only (section 9); Let's Explore → Events, Social → Events removed.
 4. **Event kinds:** one required kind plus @tags: Festivals & fairs; Markets; Music & performance; Arts & culture;
    Rodeo & sports; Outdoors & adventure; Food & drink; Classes & workshops; Family & kids; Faith; Community & civic;
    Meetups & social; Business & networking; Holidays & seasonal.
-
 5. **Ticket Sales** (section 6b): members RSVP only, no outside ticket links; a listing's module with its own
    onboarding; Free 50, Basic 150 (no QR or door support), Core 250 (GO Codes and door support), Strategic and
    Enterprise full access and support.
 
-Proposed with it, for Jason to change if wanted: sales pause at the monthly limit (warned at 80%); free registration
-doesn't count toward it; outside-ticket events the crawler finds become Ticket Sales leads.
+6. **The defaults with it:** sales pause at the monthly limit (warned at 80%); free registration doesn't count toward
+   it; outside-ticket events the crawler finds become Ticket Sales leads.
