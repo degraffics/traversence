@@ -63,7 +63,9 @@ catalog and aren't capped here.
 
 | Free | Basic | Core | Strategic | Cornerstone |
 |---|---|---|---|---|
-| 10 (proposed) | 25 (proposed) | 100 (proposed) | 250 (proposed) | **250 (decided, 0032)** |
+| open | open | open | open | **250 (decided, 0032)** |
+
+No ADR sets the caps below Cornerstone (0135, "Still open").
 
 **Resolved (2026-09-22), unchanged:** paid tiers sell tools and support depth, never directory ranking. Visibility stays
 earned through the Trust-Weighted model (`architecture.md` §7) for free and paid partners alike
