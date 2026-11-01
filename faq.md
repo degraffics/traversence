@@ -940,6 +940,29 @@ Yes. In your portal's Marketplace page, switch on **Track stock** for an item an
 ### Do my business's items expire?
 They stay up, but every 30 days your Pulse asks **Still on offer?** for each published item. Confirm with one tap (or all at once). An item nobody confirms by the next check comes off, kept in your portal: Publish brings it back.
 
+## Community groups
+
+### How do I start a group?
+Open **Community** and fill in **Start a group**: a name, what it's about, its kind (interest, local or support), and its charter: the purpose (required), who it's for, house rules, and what happens if you step down. Starting a group needs Verification switched on. One person can run up to 5 groups. If you run a business on Traversence, you can start its group instead (see Can a business run a group?).
+
+### What's a group's charter?
+The rules the group runs by, written by whoever starts it, and what you agree to when you join. Every group's page shows **What you're agreeing to**: its purpose, house rules, who sees that you're in it, what happens if the owner leaves, and how joining works, with **Read the whole charter** for everything else and every past version. Each charter also carries Traversence's ground rules, which no group can remove: our Terms, no harassment, no one's private information, no sacred or restricted sites, and selling only through Traversence. Groups started before charters show the ground rules until their owner writes one.
+
+### What happens when a group's charter changes?
+Members are told once, in their Community feed and on the group's page, with what changed. You don't have to agree again and nobody is removed by a change; if you don't like it, you can leave. Most changes take effect at once. Two give 14 days' notice first: what happens if the owner leaves, and opening the member list to all members (you can hide your own name meanwhile). Making the member list more private happens at once.
+
+### Who can see that I'm in a group?
+It depends on the group's charter, which you see before you join. Usually members see each other's names; in some groups, such as support groups, only the moderators do. Nobody in a group ever sees your email or where you live. When a group is about to open its member list, you can hide your name from it; the moderators still see it, to run the group.
+
+### Can a business run a group?
+Yes, one group per business, run by its team. Its Owner or a Manager starts it from **Start a group**, choosing the business under **Start it as**. The group shows **Run by** and the business's name. The Owner and Managers run it (only the Owner can close it), Creators and Support moderate it, and Sales answers as the business's rep. A business's places and topics, such as Support or How-tos, will be chapters of its one group (coming). The business contacts you outside the group only if you ask it to or Link with it.
+
+### Why does a post say "Sales, Pine Cafe"?
+In a business's group, its team can post as the business (the Owner, Managers and Creators), or as its sales rep, shown as their name with "Sales" and the business's name, so you always know who's speaking for the business.
+
+### What happens to a group if its owner leaves?
+Whatever its charter says: the group ends (the usual choice, with no elections), a member the owner named is offered it, the longest-serving moderator is offered it, or the moderators choose one of themselves. The steps that carry this out, and closing groups that have gone quiet for 30 days, are coming.
+
 ## Privacy and your account
 
 ### Does Traversence use cookies?
