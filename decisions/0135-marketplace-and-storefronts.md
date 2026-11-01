@@ -374,8 +374,10 @@ accounts; real payments wait for Jason's one-time setup below.
   Quotes & invoices, which marks the Marketplace order paid.
 - **The totals** are the invoice's own arithmetic (tax on taxable items at its rate, shipping untaxed), so the order and
   the business's invoice agree to the cent; each published item now carries its taxable flag.
-- **Stock:** Track stock and how many, per published item, in the portal's Marketplace page, live at once; 30 minutes
-  held for a card payment, the business's days for a direct one; Sold out at 0.
+- **Stock:** Track stock and how many, per published item, in the portal's Marketplace page, live at once; 35 minutes
+  held for a card payment, the business's days for a direct one; Sold out at 0. The card window closes first (Stripe's
+  checkout ends at 31 minutes; a Square payment after the hold is refused), so a released item is never paid for
+  (review fix, 2026-11-01).
 - **People's trades:** "How you take payment" in Your Marketplace → Offers, shown only to the buyer whose offer was
   accepted, with the no-buyer-protection warning.
 - **Admin:** Market 360° → **Gateways** (live): the mode, connections (connected, stopped), live checkouts, paid orders
