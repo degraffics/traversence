@@ -38,7 +38,7 @@ The site's code isn't here. It runs on the server and in OneDrive, and its live 
 | `admin-architecture.md` | The admin: modules, widgets, workflows |
 | `admin-map-v2.md`, `workspace-map.md`, `admin-rebuild-batch-plan.md` | Admin structure proposals and the rebuild plan |
 | `business-portal-architecture.md` | The business portal (the admin, scoped to a business) |
-| `marketplace-architecture.md` | The marketplace |
+| `marketplace-architecture.md` | The marketplace (§8: the hand-off for storefronts and Connect your domain) |
 | `community-scope.md` | Community build: what's live and proposed, how it compares (Nextdoor, Google, Meta, Messenger, AI chats), its decisions |
 | `toolkit.md` | The Traversence toolkit |
 | `faq.md` | The site's FAQ, shipped as `app/ui/faq.md` |

@@ -226,6 +226,8 @@ disputes and Marketplace rules belong to Marketplace; Storefronts, Custom domain
    - `trvgo.us/<shop>` with themes;
    - custom domains with the DNS check;
    - admin: Storefronts and Custom domains.
+   - **Hand-off from the Community session (2026-11-01):** 0137's build order had "Connect your domain" as its step 6;
+     it belongs here, so it moves to this step. Jason's answers and the domain review are below.
 6. **Import / export:** for catalogs (shared with AOS §11).
 
 ## 7. To decide
@@ -244,3 +246,42 @@ Answered 2026-11-01 in `decisions/0135`:
 6. **Reviews** are comments (§5).
 7. **Post lifetime:** "Offer this for" (personal items 30 days, personal services 90, business Ongoing) and one
    30-day check that asks and, a check later, expires what wasn't confirmed (§8).
+
+## 8. Hand-off: storefronts and Connect your domain (from the Community session, 2026-11-01)
+
+0137's build order listed **Connect your domain** (storefront and email together, from Core) as step 6. It's the
+Storefronts build's work (§6 step 5), so it moves here; the Community session goes on with chapters and invites.
+
+### Jason's answers (2026-11-01)
+1. **Storefront first:** businesses have no storefront yet (`trvgo.us/<shop>` isn't built; the portal's "Storefront &
+   pages" module isn't live for them). Build a basic storefront at `trvgo.us/<shop>` (the listing, its Shop items, its
+   pages from `SitePages`), then Connect your domain on top of it.
+2. **Only trvgo.us moves to Cloudflare:** its nameservers change at whois.com to Cloudflare (the existing account, the
+   one with the sign-in captcha), for Cloudflare's custom hostnames (Cloudflare for SaaS; the free plan includes the
+   first 100, as understood). `traversence.com` and all its mail stay on Bluehost. This settles 0137 §8 "DNS and
+   hosting", 0135 §9 and 0094's "Not now".
+
+### How the domains fit (the decisions agree)
+- **traversence.com is the source:** the one write path, database, admin and content (0033).
+- **trvgo.us is the edge:** short codes, the storefront engine, the gateway for businesses' domains (AOS §1B,
+  `commercial.md` §0.A). Its router reads the same database through `app/` (0094); it keeps no copy.
+- **A business's domain points at trvgo.us:** the router finds the listing that owns the domain and shows its
+  storefront, drawn live from traversence.com's data.
+- **Offsite hosting hooks back** (0033, 0041): an exported bundle on the business's own hosting, with one write-back
+  endpoint so inquiries and quote requests reach Traversence; a followed link from the listing; "Powered by
+  Traversence" (removable on Cornerstone only). A separate option, not part of Connect your domain.
+
+### Open points the review found (to settle in the build's decision)
+1. **Shop names and GO Codes share `trvgo.us/<name>`.** Proposed: a shop name may not look like a code (exactly 6
+   characters from the code alphabet, `ShortCodes`), and no new code is issued that matches a shop name.
+2. **Bluehost may not route a business's domain:** shared hosting picks the folder by the Host name, and doesn't know
+   `pinecafe.com`, so it would likely serve the wrong folder, not trvgo's router. The usual fix is a small Cloudflare
+   Worker that forwards to trvgo.us with the original domain in a header the router reads. Fairly likely, not
+   certain: test once trvgo.us is on Cloudflare.
+3. **Locations under a parent brand:** the AOS gives them a section on the parent's domain (`brand.com/location`); the
+   router should allow for the path from the start.
+4. **One address for search engines:** once a domain is connected, it's the storefront's canonical address, and
+   `trvgo.us/<shop>` redirects to it.
+5. **Email from the business's own domain stays with 0137 §8:** the same Connect your domain step shows the three DKIM
+   records for SES (`SesMail`, built in 0137 step 5) beside the storefront's record; they go in the business's own
+   DNS, not trvgo's. Its sending (invitations, campaigns, the bulk SES account) is built with businesses' email.
