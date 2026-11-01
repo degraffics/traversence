@@ -237,4 +237,5 @@ Answered 2026-11-01 in `decisions/0135`:
 4. **Gateways:** Square and Stripe first (§6).
 5. **Custom domains:** in the Storefronts build (§9).
 6. **Reviews** are comments (§5).
-7. **Post lifetime:** "Offer this for" and a 30-day check (§8), details proposed.
+7. **Post lifetime:** "Offer this for" (personal items 30 days, personal services 90, business Ongoing) and one
+   30-day check that asks and, a check later, expires what wasn't confirmed (§8).
