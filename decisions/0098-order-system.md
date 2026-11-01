@@ -403,3 +403,34 @@ credits.
 
 - **Changed the same day: credits last 90 days**, not 12 months (Jason: "12-month credit: change to 90 day").
   `Orders::CREDIT_DAYS = 90`; the Terms, the FAQ and the credit email say so.
+
+## Addendum 2026-11-01: the card pages' scripts (PCI DSS 4.0 rules 6.4.3 and 11.6.1)
+
+Traversence is the merchant on GO Codes and client orders, and our card form sends the card from the browser straight
+to Intuit, so we complete SAQ A-EP ourselves. Rule 6.4.3 asks for a list of every script on a page that takes a card,
+why it's there, and a way to stop anything else; 11.6.1 asks to be told when the page changes. Built with the
+Marketplace's step 4b (0135, which has the Marketplace's own list).
+
+- **The policy:** `tv_card_page_csp()` (`app/ui/csp.php`) on `/qr/cart.php`, `/order.php` and `/plans.php`: scripts
+  only from our site, this request's nonce and the styling script; calls to our site and Intuit's tokens endpoint
+  (`api.intuit.com`, `sandbox.api.intuit.com`); no frames but our own; no `unsafe-eval`, no inline scripts or handlers
+  without the nonce. Intuit loads no script of its own here: `go-codes.js` posts the card to Intuit's tokens endpoint.
+- **Change control:** a change to the list below goes through review (this record, and `csp.php` with it). Anything
+  not on it is blocked and reported to `/api/csp-report.php`, counted by day, page, rule and blocked host, never who;
+  25 or more in a day open one Pulse case (Security).
+
+| Script | From | Why |
+|---|---|---|
+| Tailwind (styling) | `cdn.tailwindcss.com` | The site's styling. To self-host as a built stylesheet (then dropped from the list). |
+| `go-codes.js` | our site | The card form: checks the card, sends it to Intuit for a one-time token, sends us only the token. |
+| `tv-proof.js` (`/order.php` only) and pdf.js 3.11.174 | our site; `cdnjs.cloudflare.com/ajax/libs/pdf.js/` | The proof viewer on a client's order: draws a PDF proof (without eval). |
+| `tv-on.js` | our site | The shell's buttons without inline handlers. |
+| `tv-ask.js`, `tv-password.js`, `tv-upload.js`, `tv-conf.js` | our site | Notices and confirmations, password boxes, the one uploader, settings. |
+| `consent.js` | our site | Privacy choices (no analytics on a card page). |
+| `suggest.js`, `out-count.js`, `short-link.js`, `search-panel.js`, `map-view.js`, `location-scope.js`, `header-nav.js` | our site | The header: search, place, menu, counts of outbound taps (never who). |
+| Inline scripts (5–6, each with the request's nonce) | our pages | The page's own code and the shell's menus. |
+
+No Cloudflare Turnstile and no analytics on these pages. Tested under the enforced policy with no violations: the card
+form paying through a stand-in for Intuit's sandbox, and the proof viewer. To check on the live site: an Intuit
+sandbox payment on each page with the browser console open.
+

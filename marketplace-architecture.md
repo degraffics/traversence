@@ -215,11 +215,13 @@ disputes and Marketplace rules belong to Marketplace; Storefronts, Custom domain
    - the Shop module's Catalog (with private cost and markup), Offers and Settings;
    - the Shop tab on the listing;
    - tier caps enforced.
-4. **Checkout** (4a built 2026-11-01, decisions/0135 "Step 4a built"; 4b, Square's catalog, next):
+4. **Checkout** (4a and 4b built 2026-11-01, decisions/0135 "Step 4a built", "Step 4b built"):
    - the payment gateway connection per business;
    - cart and checkout to their gateway;
    - merchant orders on the ledger;
-   - admin: Gateways.
+   - admin: Gateways;
+   - Square catalog import and sync (Basic and up; Square's price and stock win; Core sends orders to Square);
+   - the card pages' content security policy and its violation counts (with decisions/0098).
 5. **Storefronts:**
    - `trvgo.us/<shop>` with themes;
    - custom domains with the DNS check;
