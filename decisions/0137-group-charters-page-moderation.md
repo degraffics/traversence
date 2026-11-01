@@ -352,6 +352,35 @@ in). It's listed because it isn't built yet, and group events need it.
 
 Each step adds its FAQ entries (0057).
 
+## Step 1 built (2026-11-01): business-owned groups and the charter
+
+Delivered as a zip (7 files that differ from the live mirror of 2026-11-01 16:40 UTC); live once uploaded and
+`app/migrations/2027-01-16_group_charters.sql` has run.
+- **Data:** `community_groups.owner_kind` / `owner_ref` (person or listing), `community_charters` (numbered versions),
+  `community_group_members.charter_version` and `list_hidden`, `community_posts.voice` and `as_listing`. Safe to run twice.
+- **Business-owned groups** (§1): a business's Owner or a Manager starts its **one** group from **Start a group → Start
+  it as**; it doesn't use up anyone's 5. Its team runs it by role, through `Team::roleOf` (no membership rows needed):
+  Owner (everything, the only one who can hide it), Manager (runs it), Creator (moderates, posts as the business),
+  Support (moderates), Sales (posts as the rep, "Name · Sales, <business>"); Accountant, Developer and Viewer have no
+  part unless they join. The page shows **Run by** the business. `Community::roleIn()` / `can()` hold the rules.
+- **The charter** (§3, `app/lib/GroupCharters.php`): every new group opens with one (a purpose is required), filled
+  from a starting charter by kind (interest, local, business, support). **What you're agreeing to** on the group page,
+  **Read the whole charter** (with the ground rules, the inactivity rule and every version), **Agree and join** (joining
+  records the version; a charter that changed while someone read it asks them to read again), **Edit the charter** for
+  whoever runs the group. Transfer terms and opening the member list wait 14 days; members can hide their names
+  meanwhile; a more private list is at once. Members are told once in their Community feed, until **Got it**. Groups
+  from before charters show the ground rules, and their owner gets **Write the charter**.
+- **Posts** (§7): the 30-a-day cap is gone; the same words twice in a day are held.
+- **FAQ:** a new **Community groups** section (7 entries).
+- **Tested** on MariaDB: the migration twice, 34 checks of the rules (charters, versions and notice, joining, roles,
+  voices, one group per business), and the pages in a browser at 390px (no sideways scroll, no JS errors from these
+  pages).
+- **Not in this step:** Nexus- and Co-Op-owned groups (a Nexus has no managers in the code yet, and Co-Op memberships
+  don't exist), chapters (0136), the group page's new layout (step 2: it still has breadcrumbs), group-led reports
+  (step 3: reports still come to Traversence), the inactivity job (0103), and the charter settings that steer features
+  not built yet (invitations and codes, selling, report thresholds): they're saved and shown, and take effect as those
+  are built.
+
 ## Jason's answers (2026-11-01)
 
 1. **Legal and safety reports** and reports on a group open a Safety ticket automatically; our Terms apply on it.
