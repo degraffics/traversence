@@ -57,13 +57,13 @@ Three linked stages, replacing ad-driven networks and commission-taking OTAs:
 | **Strategic Partner** | $229.95/mo | 100 GB + 10k emails / 500 SMS / 10k push a month | High-output content (25 AI articles a month, subdomain routing), white-glove setup, the CRM and communication suite, headless API and widgets. |
 | **Enterprise / Cornerstone Partner** | $399.95+/mo | 250 GB + 50k emails / 2,500 SMS / 50k push a month (pooled) | Multi-unit and co-op master hub, master communication vault, joint regional campaigns, advanced team roles (`decisions/0037`), dedicated support. |
 
-**Catalog caps: Active items per listing** (decisions/0135 §7). An allowance like storage and AI credits, shown on
-Back-Office → Plans. Hidden items don't count; a Location Group (0036) adds no combined cap; a member's personal posts
-aren't a catalog.
+**Catalog caps: active items** (decisions/0135 §7, Jason 2026-11-01). An allowance like storage and AI credits, shown
+on Back-Office → Plans. Only active items count; a business's cap is per listing, and a Location Group (0036) adds no
+combined cap. No item packs: every active item uses storage, so storage packs are the bridge.
 
-| Free | Basic | Core | Strategic | Cornerstone |
-|---|---|---|---|---|
-| 25 (proposed) | 100 (proposed) | 250 (proposed) | 250 (proposed) | **250 (decided, 0032)** |
+| Personal (a member) | Free | Basic | Core | Strategic | Enterprise / Cornerstone |
+|---|---|---|---|---|---|
+| 5 active posts | 10 | 25 | 100 | 250 | 1,000 per listing |
 
 **Resolved (2026-09-22), unchanged:** paid tiers sell tools and support depth, never directory ranking. Visibility stays
 earned through the Trust-Weighted model (`architecture.md` §7) for free and paid partners alike
