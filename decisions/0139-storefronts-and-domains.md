@@ -33,18 +33,22 @@ session's hand-off), 0135 §9 and 0137 §8 "DNS and hosting". Builds as the Mark
   in a header the router trusts only from the proxy (a shared secret). Railway was looked at first: it caps custom
   domains per service (2 on Hobby, 20 on Pro) and won't raise it for one domain per customer, so it doesn't fit. Fly
   has no cap on domains per app; its price per domain (first 10 free) is checked on Fly's pricing page when set up.
-- **What the business does:** in Connect your domain, types its domain; we show the records (the domain's A record
+- **Two ways in, both built in 5b** (Jason, 2026-11-01: "Build both domain sales and bring your own option"):
+  buy a new domain through us, or bring one the business already owns.
+- **Bring your own:** in Connect your domain, the business types its domain; we show the records (the domain's A record
   and `www` CNAME, pointing at the Fly app; and the three DKIM records for email, 0137 §8); the same DomainCheck checks
   them and turns each on as it passes. Stages: Added → DNS pointed → Checked → Live; Failed.
-- **Domain sales: later, through Name.com** (Jason, 2026-11-01). When added, onboarding can search and buy a domain
-  through Name.com's reseller API, registered in the business's name (it owns it and can move it away), its DNS set
-  through the same API so it's live with nothing typed, billed through QuickBooks with yearly renewal. Not built now:
-  in `future-considerations.md`.
+- **Buy a domain, through Name.com** (Jason, 2026-11-01): Connect your domain searches for a name and buys it through
+  Name.com's reseller API. It's registered in the business's name with WHOIS privacy (the business owns it and can
+  transfer it away); its DNS records for the storefront and email are set through the same API, so it's live with
+  nothing typed. We're the seller: billed through QuickBooks like GO Codes, renewing yearly on the card on file with a
+  reminder before; domain fees aren't refundable once registered. The price is Name.com's cost plus a markup set in
+  Plan features.
 
 ## Build order
 
 - **5a:** the trvgo/ folder into the sync; shop names; `trvgo.us/<shop>` (the listing, its Shop items, its pages from
   `SitePages`) with the brand's ready themes plus the business's logo, cover and one accent color; the portal's
   Storefront & pages for the business; the admin's Storefronts section.
-- **5b:** Connect your domain: the Fly proxy, DomainCheck, the domain workflow, the admin's Custom domains; email DKIM
-  shown beside the storefront's records.
+- **5b:** Connect your domain, both ways: buying through Name.com and bringing your own; the Fly proxy, DomainCheck,
+  the domain workflow, the admin's Custom domains; email DKIM beside the storefront's records.
