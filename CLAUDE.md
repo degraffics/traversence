@@ -45,11 +45,13 @@ at 6:00 and 18:00 UTC or on demand (its workflow's Run button), committing the r
   Dotfiles (`.htaccess`) aren't mirrored, so name them separately when they change.
 - **Several sessions at once** (Jason, 2026-11-01): current first, so nothing is rebuilt.
   - **Before writing any file for a zip**, fetch the mirror and start every file from its live copy, never from a copy
-    held earlier in the session. If Jason uploaded anything since the newest sync, ask him to run the sync first.
+    held earlier in the session. If Jason uploaded anything since the newest sync, run the sync first.
   - **Just before zipping**, fetch once more. A file changed there since gets only this build's change re-applied
     (most often `faq.md`, `manifests.php`, `tools.php`, `Pulse.php`, `section-rails.php`, `portal.php`, the router).
   - The hand-off names the sync it's built on ("built on 17:44 UTC") and lists the zip's files. Never build on another
     session's zip that isn't live yet. One upload at a time, the sync run after each.
+  - **Claude runs the sync** (Jason, 2026-11-01): when Jason says he's uploaded, run the workflow (`sync.yml` on `main`),
+    wait for its "Sync: …" commit, and check the mirror matches the zip byte for byte.
 - **Deleting** on one side deletes on the other (OneDrive recycle bin; server copy in the sync repo's `deleted/`).
   Claude can delete in OneDrive via the Microsoft 365 connector. Never re-send a deleted file. More than max(10, 5%)
   deletions in a run wait for `allow_mass_delete`.
