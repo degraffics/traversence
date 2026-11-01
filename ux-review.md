@@ -147,3 +147,66 @@ Each at 390px wide, signed out then signed in:
 6. Claim a listing, then the business portal.
 7. Admin: open an order, a listing and a staff member; watch for the command strip hiding on scroll down and returning on
    scroll up.
+
+## The Marketplace, for members (checked 2026-11-01, built on the 18:30 UTC sync, `4b77677`)
+
+The pages a member uses: `/market/` (browse), `market/view.php` (a person's post), `market/item.php` (a business's
+item), `/user/market/` (Your Marketplace: Selling, Offers, Buying, Post something), and `market/cart.php` and
+`market/order.php` (checkout). The rules are decisions/0135 and the build standards in `CLAUDE.md`.
+
+### First: the 18:30 sync took part of checkout back out
+Between the 17:44 and 18:30 syncs, 11 shared files went back to their pre-checkout versions while the new checkout files
+stayed. It looks like an upload from another session (Community groups) carried older copies of shared files, which is
+what the "Several sessions at once" rule is there to stop.
+- **Reverted:** `market/item.php` (Buy now, Add to cart, stock left), `api/market.php` (the `payhow` action),
+  `business/router.php` and `app/business/portal.php` (E-commerce setup), `app/admin/tools.php`,
+  `app/admin/manifests.php`, `app/lib/MarketBiz.php`, `app/lib/MarketOffers.php`, `app/ui/market-ui.php`,
+  `app/scripts/market_tick.php`, `business/api.php`, and five checkout entries in `app/ui/faq.md`.
+- **Still there:** `market/cart.php`, `market/order.php`, `api/market-pay.php`, `api/market-webhook.php`,
+  `business/pay-connect.php`, `app/lib/MarketCheckout.php`, `app/lib/MarketPay.php`, `app/business/checkout.php`,
+  and the dashboard's **Cart** link (`app/ui/section-rails.php`). The migration `2027-01-16_market_checkout.sql` is
+  gone from the mirror; migrations delete themselves once they run, so its tables most likely exist.
+- **What members see now:**
+  - **How you take payment** (Your Marketplace → Offers) has a Save button, but the action behind it was removed, so it
+    answers "Unknown action."
+  - The dashboard shows a Cart link to a cart nothing can be added to.
+  - Businesses lost E-commerce setup.
+  - Buy now is hidden, not broken: `MarketBiz` marks it "Coming" again.
+- **Fix:** re-apply the checkout changes to the 18:30 copies of those 11 files, and keep the Community groups changes,
+  rather than re-sending the 17:44 versions. One upload, then the sync.
+
+### What meets the standard
+- **No browser dialogs:** every yes/no and every one-field question goes through `TvAsk.gate` / `TvAsk.ask`, and every
+  result through `TvAsk.say`. Status lines use `data-tv-status` throughout.
+- **One uploader:** post photos go through `TvUpload.send` (target `market_photo`).
+- **Links past ModSecurity:** every Marketplace `fetch` sends `tvSafe(body)` through `tvMarketPost`, except the one
+  under "Needs fixing".
+- **No emoji, no breadcrumbs, no PHP 8.1+ features** in the Marketplace files.
+- **Cards and phone layout:** edge to edge on phones (`tv-bleed`, a 2-column grid with 3px gaps below 768px). The name is
+  the brown underlined link, and Save is a 30px round icon button with a label.
+- **Filters:** one Filters ▾ button with a count; only the filters in use show beside it, each with ×.
+- **The item pages:** views counted (`tv_count_item`); the engage bar (Share, QR, Report) with likes and comments off,
+  per 0135 §5. A person's post shows only the town, never an address (§3).
+- **The rules in 0135 hold:** the 5-post cap for a person (§7), "Offer this for" lengths and the 30-day "Still
+  available?" check (§8), offers with Sold / Got it (§4), and no paid ranking (§1).
+
+### Needs fixing
+1. **`payhow` Save is broken** (above). Restoring `api/market.php` fixes it.
+2. **At the cap, "Post it" still works.** `user/market/index.php` shows "You have 5 posts out" but leaves the submit
+   button live, and `/market/` still offers "Post something". 0135 §7 says to grey these out with the reason.
+3. **The note Report on a post isn't wrapped.** `market/view.php` sends the reason to `/api/engage.php` with a plain
+   `JSON.stringify`. A reason that holds a link gets "Not Acceptable!", and a failed request shows nothing (there's no
+   `.catch`). Use `tvSafe`, or `tvMarketPost`'s pattern.
+4. **No Link button on a post's header.** On both item pages the Link button sits only on the seller's card. The
+   content-page rule puts one top right of the header, beside Save and Message.
+5. **The copy says no payment passes through the site.** The intro on `/market/` and on Your Marketplace says "message
+   the seller and work out the price, payment and pickup together." Once checkout is back, businesses' items are paid on
+   the site (through the business's own gateway, 0135 §6). Say that for business items, so the line "no one from
+   Traversence will ever ask you to pay through the site" doesn't read as a contradiction.
+6. **The More button can skip posts.** `/market/` pages by time (`before_at` = the last post's time), so posts listed
+   in the same second as that post are skipped on the next page. Page by time and id.
+
+### Not breaking a rule, but a decision to record
+The item pages use 0135's Facebook-style gallery (photos with a thumbnail strip) instead of `tv_explore_hero()`, and the
+card shows the price above the name. Both follow 0135 §1 but differ from the content-page and card-anatomy rules in
+`CLAUDE.md`. Record the exception in 0135 so a later build doesn't "fix" it.
