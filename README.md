@@ -38,6 +38,7 @@ The site's code isn't here. It runs on the server and in OneDrive, and its live 
 | `admin-map-v2.md`, `workspace-map.md`, `admin-rebuild-batch-plan.md` | Admin structure proposals and the rebuild plan |
 | `business-portal-architecture.md` | The business portal (the admin, scoped to a business) |
 | `marketplace-architecture.md` | The marketplace |
+| `community-scope.md` | Community build: what's live, what's proposed, the decisions behind it |
 | `toolkit.md` | The Traversence toolkit |
 | `faq.md` | The site's FAQ, shipped as `app/ui/faq.md` |
 | `archive.md` | Register of archived and removed site pages |
