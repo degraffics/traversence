@@ -484,7 +484,8 @@ AWS grants production access.
   businesses' email allowance and top-ups in `Billing`.
 
 ### Setting up AWS (Jason's existing account)
-1. **Region:** US West (Oregon), us-west-2 (SES can receive mail there, which `via` reply forwarding needs later).
+1. **Region:** US East (Ohio), us-east-2: where SES was set up (Jason, 2026-11-01). Sending is the same anywhere; `via`
+   reply forwarding (later) is checked against Ohio's options when it's built.
 2. **IAM → Users → the site's user** (the one whose access key is `AWS_ACCESS_KEY_ID`) → Add permissions → inline policy
    `traversence-ses`: send only from `*@send.traversence.com` / `*@via.traversence.com`, plus the one-time setup actions
    (`ses:GetAccount`, `CreateEmailIdentity`, `GetEmailIdentity`, `PutEmailIdentityMailFromAttributes`,
@@ -494,9 +495,20 @@ AWS grants production access.
    case saying what's sent, that bounces and complaints are handled through SNS and stop mail to that address, and that
    every message carries one-click unsubscribe.
 4. **Billing → Budgets:** a $10 monthly budget with an alert at 80%.
-5. **`.env`:** `SES_MODE=mock` (then `live` once production access is granted), `SES_REGION=us-west-2`,
+5. **`.env`:** `SES_MODE=mock` (then `live` once production access is granted), `SES_REGION=us-east-2`,
    `SES_MONTHLY_CAP_USD=10`. No new key.
-6. **Then the Pulse case** does the rest with its buttons.
+6. **Then the Pulse case** does the rest with its buttons. AWS asks for a verified sending domain before production
+   access, so production access comes after "Add their DNS records" and "Check".
+
+What was done in the SES console (Jason, 2026-11-01): the setup wizard in US East (Ohio), with `support@traversence.com`
+verified, `send.traversence.com` as the sending domain (MAIL FROM `bounce.send.traversence.com`, default on MX failure),
+**à la carte** pricing (pay per email, about $0.10 per 1,000), and Virtual Deliverability Manager, engagement tracking,
+optimized shared delivery, Auto Validation, dedicated IPs and tenant management all **off** (cost, and engagement tracking
+would follow who opens and clicks). The DNS records the console listed are left to the Pulse button.
+
+**Fix (built on 20:17 UTC, 2 files: `app/lib/Pulse.php`, `app/lib/SesMail.php`):** the setup case puts production
+access after the domains and DNS, links to SES without a fixed region, and says Ohio; `SesMail::region()` falls back to
+`AWS_REGION`, then us-east-2.
 
 ## Jason's answers (2026-11-01)
 
