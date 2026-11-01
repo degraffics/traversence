@@ -383,6 +383,12 @@ accounts; real payments wait for Jason's one-time setup below.
 - **Admin:** Market 360° → **Gateways** (live): the mode, connections (connected, stopped), live checkouts, paid orders
   and the businesses' sales this week (to them, not us).
 - **Next, 4b:** Square catalog import and sync (Basic: catalog; Core: catalog and payments, orders sent back to Square).
+- **Also in 4b (the review of 2026-11-01, not blocking):** `stripe` and `square` in `Pulse::SERVICES`; when a
+  connection stops (`MarketCheckout::broken()`), a Pulse case for the business with a Reconnect step carrying the
+  "Open Stripe ↗" / "Open Square ↗" link; a content security policy on `/market/cart.php` and `/market/order.php` (only
+  our scripts and the gateway's); and mock mode refused anywhere but a local test (it lets a buyer mark their own order
+  paid), so a wrong `.env` can't open it. Built on the live mirror once it shows the reviewed 4a
+  (`marketplace-step4a-reviewed_20261101.zip`), not on an earlier copy.
 
 **Jason's one-time setup (until then, Connect says "opens soon"):**
 1. **Stripe:** in Traversence's Stripe account, turn on Connect (Standard accounts, OAuth). Add the redirect
