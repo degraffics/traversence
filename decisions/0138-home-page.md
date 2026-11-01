@@ -26,10 +26,12 @@ Under the search, one card each, opening that section's page (not filtering the 
 |---|---|
 | **Let's Explore** | `/discovery/` |
 | **Get Local** | `/directory/` |
-| **Social** (Community) | `/community/` |
+| **Connect** (Community) | `/community/` |
 | **Marketplace** | `/market/` |
 
-Names, icons and one-line descriptions come from the section rails (`app/ui/section-rails.php`), so a renamed section
+The Community section is named **Connect** across the site (Jason, 2026-11-01; it was "Social": the header, its
+menu, the section rail, search's sections and the FAQ; internal keys stay `social`, and the admin's Social 360° is
+unchanged). Names, icons and one-line descriptions come from the section rails (`app/ui/section-rails.php`), so a renamed section
 renames its door. Each card follows the card anatomy (0058 §11): the name is the link.
 
 ## 4. The category ribbon: five tabs over the home feed
