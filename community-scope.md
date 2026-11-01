@@ -16,6 +16,7 @@ Scope of the Community ("Connect") build, checked on 2026-11-01 against the live
 | **Charters** (built 2026-11-01, live once uploaded): every new group opens with one; What you're agreeing to, the whole charter and its versions, Agree and join, Edit the charter, 14 days' notice for transfer terms and opening the member list, members told once | `app/lib/GroupCharters.php`, `community/group.php`, `community/index.php` | 0137 §3 |
 | **Business-owned groups** (built 2026-11-01, live once uploaded): one per business, run by its team's roles; posts as the business or its rep | `Community::roleIn()`, `can()` | 0137 §1 |
 | **The group page as a content page** (built 2026-11-01, live once uploaded): hero with Join top right, kind and topic pills, engage bar (views, Share, QR), at a glance; no breadcrumbs | `community/group.php` | 0137 §4 |
+| **Moderation run by the group** (built 2026-11-01, live once uploaded): reports to the group's moderators under its charter, held posts, the group's queue, Group help cases; danger and whole-group reports to Traversence's Safety team | `Community.php`, `Reports.php`, `Pulse.php` | 0137 §5 |
 | Private circles (a person's own lists of connections) | `app/lib/Groups.php` | 0047 §4 |
 | Groups in Universal Search (posts never searched); the Community feed | `app/lib/SearchIndex.php` | 0053, 0055 |
 | Live events from the crawler (a place's official pages), in guides and on venue listings | `app/lib/LiveEvents.php` | 0133 |

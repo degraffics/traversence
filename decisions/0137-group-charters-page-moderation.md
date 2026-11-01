@@ -403,6 +403,32 @@ Built on the 19:30 UTC sync; delivered as a zip of 5 files (`website/community/g
 - **Not yet:** a group's own cover photos (HeroMedia knows listings and profiles; groups need a storage home first),
   the public welcome post, events, chapters and places it's about (0136, 0134), and tags as pills.
 
+## Step 3 built (2026-11-01): moderation run by the group, Traversence by case
+
+Built on the 19:44 UTC sync; delivered as a zip of 9 files; live once uploaded and
+`app/migrations/2027-01-17_group_reports.sql` has run (`content_reports.route`, `community_posts.held_at`,
+`community_help`; safe to run twice).
+- **Reports on a group's posts go to the group** (`route = 'group'`): to its moderators, or only whoever runs it if
+  the charter says so (`Community::handlesReports`). Traversence's Reports page, the admin Reports tool and the Safety
+  Pulse leave them out (`Reports::staffOnly`).
+- **Held while it's looked at** (`Community::reportFiled`): at the charter's count (2, 3 or 5; "only when a moderator
+  decides" never holds by count) of different reporters who've been members more than 7 days; at the first report for
+  private information, a sacred site or danger. The author sees it marked; other members don't; the feed leaves it out.
+- **The group's queue** on its page ("Reports to decide"): each reported post with its reasons, count and days waiting,
+  never the reporters; **Keep it**, **Remove the post**, **Remove it and its author**. The group's decision doesn't touch
+  the author's standing on Traversence (0079 stays ours).
+- **Reminders:** the Steward's Pulse counts reported posts waiting (with days). At 14 days a **Group help** case opens
+  in the admin Pulse on its own (support source).
+- **Ask Traversence for help** (owner and moderators): a "Group help" case in the admin Pulse (`community_help`,
+  numbered at once by `Pulse::openTicket`), with steps: read, help (reply by email), resolve. Up to 3 open per group.
+- **Safety cases:** "Breaks the law or puts someone in danger" (the reason `unsafe`, relabelled) and reports on a group
+  as a whole stay with Traversence (`route = 'staff'`) and are numbered as Safety cases the moment they're filed; a
+  danger report also holds the post at once. If our team dismisses it and the group has nothing open, the post shows again.
+- **Tested** on MariaDB: the migration twice, 28 checks of the rules, the Pulse and admin queries, and the page in a
+  browser at 390px (queue, Keep, Ask for help, a member's report saying where it went; no sideways scroll or page errors).
+- **Not yet:** appeals, warnings and muting, blocking a removed member from rejoining, and an agent's timed access to a
+  group through a case (the support-access ticket queue, 0102 §5 route 2, isn't built).
+
 ## Jason's answers (2026-11-01)
 
 1. **Legal and safety reports** and reports on a group open a Safety ticket automatically; our Terms apply on it.
