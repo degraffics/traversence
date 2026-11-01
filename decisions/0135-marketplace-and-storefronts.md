@@ -77,19 +77,25 @@ seller sets how long.
   0103's inactivity path (Hidden → Archived) after that.
 - The lengths, the reminder and the grace period are settings in Marketplace rules, not code.
 
-### 7. Gateways: under discussion
+### 7. Gateways: Square and Stripe first (Jason)
 
-Which gateways come first is open; the options are in `marketplace-architecture.md` §4. Fixed already: the business
+Checkout is built for **Square** and **Stripe** together (the options compared are in `marketplace-architecture.md`
+§4). Square fits the counter shops we sign; Stripe covers the rest, with low-cost bank payment (ACH). PayPal / Venmo
+come next if buyers ask; QuickBooks Payments and others when a business asks. Fixed already: the business
 connects **its own** account; checkout is the gateway's hosted page (no card data on our server); we take no cut
 (`commercial.md`); the order is recorded on our ledger (0098).
 
+### 8. The public address stays `/market/` (Jason)
+
+The Marketplace keeps the live address `/market/`; the name shown everywhere stays "Marketplace" (0055). The admin
+stays `/admin/market/`.
+
 ### Still open
 
-- The public address: keep `/market/` (live) or move to `/marketplace`. "Marketplace" is already the name shown
-  everywhere (0055).
-- The catalog cap numbers below Cornerstone (`commercial.md`).
+- **Catalog caps below Cornerstone.** No ADR sets them: 0032 sets only Cornerstone (250 per listing) and says Core and
+  Strategic "still need their own numbers"; Free and Basic aren't mentioned. Some docs read "the 250-item cap" as if it
+  were every tier (AOS §5, `admin-architecture.md`); `workspace-map.md` asks the same question.
 - The post-length details in section 6.
-- Which gateways first.
 
 ## Consequences
 

@@ -16,16 +16,14 @@ Builds on:
 Workspace 5 is **Marketplace & Storefronts**. The admin menu shows its old nickname, "Market 360°", and its address
 is `/admin/market/`. That's where "Market" came from.
 
-**Proposal:**
-- The name in the menu becomes **5. Marketplace & Storefronts**.
-- Its address becomes `/admin/marketplace/` (nothing links to the old one yet).
-- The public page is `traversence.com/marketplace`.
+**Decided (0135):** the workspace stays **Market 360°** at `/admin/market/`, with Marketplace and Storefronts as two
+sub-sections managed independently. The public page stays `/market/`, named "Marketplace".
 
 ## 1. What the Marketplace is: three surfaces, one engine
 
 | Surface | Who sees it | What it is |
 |---|---|---|
-| **The Marketplace** (`/marketplace`) | everyone | Browse and search what people and businesses offer, near a place: a grid of item cards (photo, price, title, where), filters in the Quick Search, an item page, Message the seller / Make an offer. Facebook Marketplace is the base; no paid ranking (0007). |
+| **The Marketplace** (`/market/`) | everyone | Browse and search what people and businesses offer, near a place: a grid of item cards (photo, price, title, where), filters in the Quick Search, an item page, Message the seller / Make an offer. Facebook Marketplace is the base; no paid ranking (0007). |
 | **Storefronts** | everyone | A business's own shop, from the same catalog, shown three ways: the **Shop** tab on its listing page; `trvgo.us/<shop>`; and its own domain (`clientdomain.com`, Core and up). Ad-free; its own theme. |
 | **Back of house** | sellers; our team | Members: **Buying / Selling** in their dashboard. Businesses: the **Shop** module in the business portal. Our team: workspace 5 in the admin. |
 
@@ -176,8 +174,8 @@ disputes and Marketplace rules belong to Marketplace; Storefronts, Custom domain
   - **Card surcharge** (the buyer pays the card fee): a switch the business turns on only where it's allowed. Card
     network rules cap it, it's never allowed on debit cards, some states restrict or ban it, and it must be shown
     before payment.
-- **Gateways:** one connector framework; the business picks from the gateways we support. Which come first is under
-  discussion (0135 §7). The options, all with a hosted checkout page and the business's own account connected by
+- **Gateways:** one connector framework; the business picks from the gateways we support. **Square and Stripe first**
+  (0135 §7). The options, all with a hosted checkout page and the business's own account connected by
   sign-in (no keys pasted, no card data on our server):
 
   | Gateway | Why | Watch out for |
