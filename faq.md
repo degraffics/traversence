@@ -436,7 +436,7 @@ What is public: established boundaries, key resources and services, public busin
 - **On a tribal nation's land:** we keep only the places the nation has opened to visitors. Nothing is kept about the
   rest.
 
-Events and Market posts will work the same way when they're added.
+Events will work the same way when they're added. Marketplace posts come from the people who post them (see Buying and selling).
 
 ### Where do a listing's phone number and website come from?
 From the business's own website first, then official registries (like the NPI Registry for health care and the IRS
@@ -797,7 +797,7 @@ In your business portal, open **Catalog** and tap **Add a product**: its name, t
 Coming with the Marketplace: each plan shows a number of active items at once (Free 10, Basic 25, Core 100, Strategic 250, Enterprise / Cornerstone 1,000 per listing). Hidden, sold and expired items don't count. At your plan's number, adding or showing another item is greyed out with the plan that raises it; nothing already showing is taken down.
 
 ### Can I sell things on Traversence?
-Coming. The **Marketplace** will let anyone with an account post things for sale or services nearby, and businesses' active catalog items will show there and in their own storefront. A person's post shows an approximate area, never your address unless you choose to. You set how long a post is offered (30 days for an item, 90 for a service, or ongoing for a business); every 30 days we ask "Still available?", and a post nobody confirms comes down, kept so you can relist it in one tap. Offers have their own steps, and a sale is complete when the seller taps Sold and the buyer taps Got it. No payment ever passes through Traversence: people pay each other directly, and businesses take card payments through their own payment provider (Square or Stripe first), with no cut to us.
+Yes: anyone with an account who is 18 or older can post on the **Marketplace** (see Buying and selling below). A post shows the town or area you pick, never your address. No payment ever passes through Traversence: people pay each other directly. Coming next: offers and the dual confirmation (the seller taps Sold, the buyer taps Got it), businesses' active catalog items in the Marketplace and in their own storefront, and card payments through a business's own provider (Square or Stripe first), with no cut to us.
 
 ### What is the business portal?
 Your business's own tools, for you and your team. When you act as your listing, its **Overview** is your one landing page: the listing at a glance (its status, how complete your profile is, your numbers, Reply to messages and Edit listing), then every tool. Its menu has everything in one place: Overview, its Pulse and messages, the listing and Edit listing, then its tools (Customers, Catalog and the rest), then Team & roles and Plan & settings. Open it by choosing the business under **Your listings** in your account menu, or at traversence.com/business/. Each person sees what their role allows (Owner, Manager, Accountant, Sales, Support, Creator, Developer or Viewer, who can look but not change anything), and each tool is opened by your plan: one your plan doesn't include shows greyed with the plan it comes with. Customers, Catalog, Quotes & invoices, Orders, Discount codes, Sales tax, Shipping & pickup and Plan & settings (with your team) are open now; the inbox, storefront, marketing (QR codes, short links, campaigns) and reports are coming. Your business's information is kept in its own place, walled off from every other business: no other business can reach it, whatever happens.
@@ -855,6 +855,44 @@ Coming, with the business tools. You'll set your own sales tax rate for each pla
 
 ### Will my business have its own pages?
 Coming, with the business tools. Your listing will get its own pages (About, Services, FAQ, Contact and others) with a contact or quote form, a search description and a share picture. Messages from your forms come to you and into your customer list.
+
+## Buying and selling (the Marketplace)
+
+### What is the Marketplace?
+Where people near you post what they have: something to sell or give away, or a service (lessons, repairs, hauling). Open **Marketplace** from the compass, search by words and a town, and narrow it with **Filters** (category, items or services, price, free only). Newest posts come first. Nothing is ranked by payment or clicks. Businesses' catalogs are coming to the Marketplace and to their own storefronts.
+
+### How do I post something on the Marketplace?
+Tap **Post something** on the Marketplace (or in your Dashboard, open **Your Marketplace**). Add photos (at least one for an item, up to 10; the first is the cover), a title, a price (or **Free**, or **Ask me**), a category and the town or area. Then choose how long to offer it. You need an account and must be 18 or older. Your photos go into your Gallery, in an album called Marketplace. They show there while the post is up, and go private when it comes off.
+
+### What can I sell on the Marketplace?
+Most everyday things and services. Not allowed: weapons and ammunition, drugs, alcohol and tobacco, anything stolen or fake, and anything taken from a burial, sacred or protected site. A post that names something on that list can't go up, and we tell you which word stopped it. Some words, like cultural items, protected wildlife, live animals, or a request for a deposit, mean a person on our team looks before the post shows, usually within a day.
+
+### Why does my post say "Waiting for a look"?
+A word in it is one our team checks first (see What can I sell on the Marketplace?). Only you and our team can see it until then. Once it's fine, it shows on its own. If we take a post down, Your Marketplace shows why.
+
+### How many posts can I have up at once?
+Five: showing, pending, or waiting for a look. Mark one **sold**, or **Take off for now**, to make room. Sold and expired posts stay in your list and don't count. Businesses' catalogs have their own limits by plan (coming).
+
+### How long does a post stay up?
+You choose when you post: an item for 7 to 90 days (30 unless you change it) or until a date, and a service the same, or **Ongoing** (90 days unless you change it). When the time is up, and every 30 days for Ongoing, we ask **Still available?** in your Pulse and by email. Tap **Still available** in Your Marketplace and it stays up. If nobody confirms it by the next check 30 days later, it comes off. It stays in Your Marketplace, and **Put it back up** brings it back in one tap.
+
+### How do I contact a seller?
+Open the post and tap **Message the seller**, or send the quick message ("Hi, is this available?"). It goes to the seller in Traversence messages, and their reply comes to yours. They see your name, never your email. A post is an invitation to message about it, so it reaches the seller even if they usually take messages only from people they know, unless one of you blocked the other. You can message up to 20 new sellers a day.
+
+### How do I pay for something on the Marketplace?
+Between you and the seller: cash, your own payment app, whatever you agree. No payment passes through Traversence, and no one from Traversence will ever ask you to pay through the site. Never send a deposit to someone you haven't met, and meet somewhere public. Businesses' card checkout, paid straight to the business, is coming.
+
+### Can people see my address on the Marketplace?
+No. A post shows only the town or area you pick. Share the exact spot in messages with the person you're meeting.
+
+### Where are the posts I saved?
+Tap the bookmark on a post to save it. Your saved posts, and the sellers you've messaged, are in **Your Marketplace → Buying** (in your Dashboard, or Saved and messaged on the Marketplace's menu). Sellers see how many people saved a post, never who.
+
+### What does "Pending" mean on a post?
+The seller has someone lined up but it hasn't sold yet. It still shows, so you can message them in case it falls through.
+
+### How do I report a post?
+Open it and tap **Report** under the title. Choose why. Our team looks at it, and a post taken down tells its seller why.
 
 ## Privacy and your account
 
