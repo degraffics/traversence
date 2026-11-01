@@ -1,5 +1,9 @@
 # Marketplace: how it's built, who uses it, who configures it (outline for discussion, 2026-10-22)
 
+**Answers of 2026-11-01 are in `decisions/0135`** (two display models in one workspace, Market 360°; catalog caps in
+`commercial.md`; ratings are comments; how long a post stays up; custom domains in the Storefronts build). Where this
+outline differs, 0135 wins.
+
 Builds on:
 - the Master AOS §3 (payments), §5 (tiers), §7 (C2C) and §8 #5 (the workspace);
 - decisions/0031 (Post-and-Connect, Facebook Marketplace as the UX base);
@@ -39,13 +43,14 @@ Marketplace, on its listing, on trvgo.us and on its own domain.
   ledger (decisions/0098), but we never hold the money (AOS §3).
 - **Storefront:** a listing's shop settings: theme, sections, pages, its trvgo.us name, its domain.
 - **Gateway connection:** a listing's own payment gateway account (keys or connect).
-- **Rating:** left after a completed, dual-confirmed offer or a paid order (0032).
+- **Rating:** now a **comment** (0058 dropped stars; 0135 §4), anchored to a completed, dual-confirmed offer or a
+  paid order where there is one (0032).
 
 ### Workflows (built-in, editable in System Configuration → Workflows)
 
 | Workflow | Stages |
 |---|---|
-| **Item** | Draft → Active → Pending (an offer accepted) → Sold; Paused; Removed (kept, never deleted) |
+| **Item** | Draft → Active → Pending (an offer accepted) → Sold; Paused; Expired (not confirmed still on offer, 0135 §6); Removed (kept, never deleted) |
 | **Offer (C2C and B2C quotes)** | Asked → Countered → Accepted → **Both confirmed** → Completed; Declined; Withdrawn; Disputed |
 | **Merchant order** | Placed → Paid (by their gateway) → Ready / Shipped → Delivered; Refunded; Cancelled |
 | **Storefront setup** | Not started → Building → Live → Paused |
@@ -88,7 +93,10 @@ Marketplace, on its listing, on trvgo.us and on its own domain.
 
 ## 3. Who does what
 
-### A. You and the team: admin workspace 5, Marketplace & Storefronts (configure and keep it safe)
+### A. You and the team: admin workspace 5, Market 360° (configure and keep it safe)
+
+Two sub-sections, **Marketplace** and **Storefronts**, managed independently (0135 §1). Overview, Items, Offers &
+disputes and Marketplace rules belong to Marketplace; Storefronts, Custom domains and Gateways to Storefronts.
 
 | Section | What it's for | Widgets |
 |---|---|---|
@@ -98,7 +106,7 @@ Marketplace, on its listing, on trvgo.us and on its own domain.
 | Storefronts | every store, its tier, status, domain | Table, DetailPanel |
 | Custom domains | each domain's DNS check; fix or help | Pipeline (domain workflow) |
 | Gateways | which are connected, which are broken | Table |
-| **Marketplace rules** (configuration) | **categories and their fields** (cars: year, mileage; clothes: size…); **what can't be sold**; **catalog caps per tier** (Cornerstone 250; Basic, Core and Strategic to set); **which gateways are offered**; **automatic hold rules** (keywords, prices, sacred-site tags, decisions/0066); trust points per completed trade; how long a post stays up before it asks to be renewed | SettingsForm |
+| **Marketplace rules** (configuration) | **categories and their fields** (cars: year, mileage; clothes: size…); **what can't be sold**; **catalog caps per tier** (from `commercial.md` §1.1); **which gateways are offered**; **automatic hold rules** (keywords, prices, sacred-site tags, decisions/0066); trust points per completed trade; how long a post stays up before it asks to be renewed | SettingsForm |
 | GO Codes & short links | (built) | Table |
 
 **At hand:** Edit listing, Member, Report, Order.
@@ -168,7 +176,19 @@ Marketplace, on its listing, on trvgo.us and on its own domain.
   - **Card surcharge** (the buyer pays the card fee): a switch the business turns on only where it's allowed. Card
     network rules cap it, it's never allowed on debit cards, some states restrict or ban it, and it must be shown
     before payment.
-- **Gateways:** one connector framework; the business picks from the gateways we support. Which gateways come first is decided when checkout is built.
+- **Gateways:** one connector framework; the business picks from the gateways we support. Which come first is under
+  discussion (0135 §7). The options, all with a hosted checkout page and the business's own account connected by
+  sign-in (no keys pasted, no card data on our server):
+
+  | Gateway | Why | Watch out for |
+  |---|---|---|
+  | **Square** | What many small and rural shops already use at the counter; one catalog and stock for counter and online; Cash App Pay, Apple Pay, Google Pay; ACH | Online rates a bit above Stripe's |
+  | **Stripe** (Connect, Standard accounts) | The broadest checkout: cards, wallets, ACH (about 0.8%, capped), Cash App Pay; tax; the business owns its account and we set no fee | Fewer counter (POS) users in our towns |
+  | **PayPal** (with Venmo) | Buyers trust it; the Venmo button | Highest standard rates; holds on new accounts |
+  | **QuickBooks Payments** | Businesses that keep their books in QuickBooks; we already use it for our own sales (0095) | No hosted checkout like Stripe's (0095), so more to build |
+  | Later: Clover, Authorize.net, Helcim | Ones a business already has | Asked for one at a time |
+
+  Rates change: check each processor's current pricing when checkout is built.
 
 ## 5. Phone and screen standards (as every page)
 
@@ -210,6 +230,8 @@ Marketplace, on its listing, on trvgo.us and on its own domain.
 6. **Import / export:** for catalogs (shared with AOS §11).
 
 ## 7. To decide
+
+**Answered 2026-11-01 in `decisions/0135`**; what's still open is listed there. The original questions:
 
 1. **Name and address:** "Marketplace & Storefronts", `/admin/marketplace/`, `/marketplace`. Agree?
 2. **Free businesses:** can they post items (offers only, no checkout), or is selling a business item Basic and up?

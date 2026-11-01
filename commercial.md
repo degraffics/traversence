@@ -57,6 +57,14 @@ Three linked stages, replacing ad-driven networks and commission-taking OTAs:
 | **Strategic Partner** | $229.95/mo | 100 GB + 10k emails / 500 SMS / 10k push a month | High-output content (25 AI articles a month, subdomain routing), white-glove setup, the CRM and communication suite, headless API and widgets. |
 | **Enterprise / Cornerstone Partner** | $399.95+/mo | 250 GB + 50k emails / 2,500 SMS / 50k push a month (pooled) | Multi-unit and co-op master hub, master communication vault, joint regional campaigns, advanced team roles (`decisions/0037`), dedicated support. |
 
+**Catalog caps: items per listing** (decisions/0032, 0135). A business's catalog in the Marketplace and its
+Storefront, counted per listing; a Location Group (0036) adds no combined cap. A member's personal posts aren't a
+catalog and aren't capped here.
+
+| Free | Basic | Core | Strategic | Cornerstone |
+|---|---|---|---|---|
+| 10 (proposed) | 25 (proposed) | 100 (proposed) | 250 (proposed) | **250 (decided, 0032)** |
+
 **Resolved (2026-09-22), unchanged:** paid tiers sell tools and support depth, never directory ranking. Visibility stays
 earned through the Trust-Weighted model (`architecture.md` §7) for free and paid partners alike
 (`decisions/0007-paid-tiers-sell-tools-not-placement.md`).
