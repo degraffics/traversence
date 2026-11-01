@@ -320,3 +320,18 @@ as a personal profile (automated personal accounts break Meta's terms and get ba
   permissions (days to a couple of weeks), the Page connected; its token in `.env` by hand. Add Meta to
   `Pulse::SERVICES` (the outside services list) when it starts.
 - **Status:** a future consideration, not scheduled. Draft the plan for review before any build.
+
+## Commerce integrations: tools a business already uses (noted 2026-11-01)
+
+Jason: "Third-party tools to expand business transactions and processing need to be considered." From his gateway
+overview and the Marketplace's step 4 talk (`decisions/0135`):
+- **More gateways:** PayPal / Venmo (Partner Connect, a BN code), then Authorize.Net (keys pasted, so encrypted at rest,
+  with Accept.js) and Adyen (an enterprise contract; for Nexus and Cornerstone clients who ask). Stripe and Square are
+  in step 4.
+- **Restaurant ordering systems:** orders sent straight to the kitchen (tickets, KDS) and the menu kept in step: Square
+  for Restaurants first (the same Square connection), then Toast and Lightspeed (partner approval) and Clover
+  (an app on the terminal). Their payment usually stays inside their own system.
+- **Outside ticketing:** Eventbrite, Ticket Tailor (0134's amendment, options B and C).
+- **Accounting:** a business's own QuickBooks or Xero (see "Businesses selling through their own QuickBooks").
+- **Direct payments with no API:** Zelle, wire and check stay manual methods, marked paid by hand; Zelle's own
+  business tools come through banks, not a platform API.

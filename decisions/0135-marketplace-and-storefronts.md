@@ -254,6 +254,41 @@ test posts); live once uploaded and `app/migrations/2027-01-15_market_business.s
 - **Not yet:** the business's own inbox module in the portal (messages arrive in its listing's messages, as today),
   Buy now (step 4), storefronts on trvgo.us and custom domains (step 5), and test mode for business items.
 
+## Step 4 decided (2026-11-01): card checkout through the business's own gateway
+
+From Jason's gateway overview (Stripe and Square first; PayPal / Venmo next; Authorize.Net and Adyen later; 0% to us)
+and his answers of 2026-11-01:
+- **Connecting:** each business signs in to its own Stripe (Connect, Standard accounts) or Square (OAuth) account from
+  the portal; nothing is pasted. We keep Stripe's account id, or Square's tokens encrypted (AES-256-GCM, a key in
+  `.env`) and refreshed by a daily job (Square's expire after 30 days). Traversence registers once with each as a
+  platform (Jason: the Stripe platform account and the Square developer app, their keys in `.env`). A sandbox / mock
+  mode, as QuickBooks has, so it's built and tested before they exist.
+- **Checkout on our page, the gateway's card fields:** Stripe's embedded Checkout and Square's Web Payments form put
+  the gateway's own fields inside our page: the buyer never leaves, and card data never touches our page or server
+  (lighter PCI than our QuickBooks card form, SAQ A-EP, 0098).
+- **Buy now and a cart, one per business:** each business is paid through its own gateway, so a cart never mixes
+  businesses ("Your order from …"). Both go to the same checkout.
+- **E-commerce setup** in the portal, step by step within the plan: Getting paid (Stripe or Square from Core; manual
+  methods on every plan) → Sales tax (the gateway's, or the business's own rates) → Shipping & pickup → What buyers can
+  do → a test purchase ($1, refunded) → Go live (the checkout settings published, public parts only, as items are).
+- **Webhooks, by industry practice:** the signature checked first (Stripe's with a 5-minute window; Square's HMAC),
+  each event once (ids kept), the payment confirmed with the gateway before anything is marked paid (never the
+  return page alone), a fast reply with the work after, a daily reconcile of orders still waiting. Only then does the
+  server write the paid order and the customer into the business's own records, through the same gate as the portal.
+- **Stock:** "Track stock" per item (off for services and made to order): held for about 30 minutes while someone is
+  checking out, taken off when paid (quotes and manual orders marked paid too), Sold out at 0, low-stock alerts
+  (Core). A Square-synced item's stock is Square's, both ways.
+- **Square's catalog** (Jason: "yes, aligned with onboarding for subscription tiers"): Basic, catalog only (import as
+  drafts, prices and stock kept in step); Core and up, catalog and payments (online orders sent back to Square).
+  Imported items count toward the cap only when published.
+- **Zelle and other direct payments** (Jason): Zelle has no platform API, so it stays a manual method, like wire and
+  check: the business's Zelle details at checkout, marked paid by the business (already in §6). For people
+  (step 2's offers), the seller can add how they take payment (Zelle, Venmo, Cash App, cash), shown only to the buyer
+  whose offer they accepted, with the warning that these have no buyer protection.
+- **Ticketing a business already sells elsewhere:** options B and C, recorded in 0134's amendment.
+- **Later:** restaurant ordering systems, outside ticketing, accounting sync and more gateways
+  (`future-considerations.md`, "Commerce integrations").
+
 ## Older records that point here
 
 0031 (Post-and-Connect; its "no payments through Traversence" stands), 0032 (quotes, pricing, catalog depth; its 250 is
