@@ -199,18 +199,26 @@ joining a business's group is consent to its offers, events and product news ins
      - **other groups whose charter allows businesses' items** (a Co-Op's group, say), by someone with a role on the
        business;
      - **outside social apps**, through the Share button (short link and preview card, 0136 §5d), bringing people back
-       to the item's page.
+       to the item's page. **Already live:** the item page (`/market/item.php`) has the engage bar with Share and QR.
   - **A share is a pointer, not a copy:** the card always shows the item as published now (price, photos, sold out).
     Publish changes and every card updates; **Unpublish** and every card shows "No longer offered", without the buy
     buttons. Only published items can be shared, and sharing doesn't count toward the catalog cap (0135 §7).
-  - **What a buyer can do from the card** is what the item allows (0135 step 3): **Message** the business, **Make an
-    offer** (if the business turned offers on), **Request a quote** (Basic and up), **Buy now** (Core and up, with
-    checkout through its own gateway, 0135 step 4). Tickets work the same way (0134).
+  - **What a buyer can do from the card** is exactly what the item page allows (0135 step 3, `MarketBiz`): **Message**
+    the business (always), **Make an offer** (off until the business switches it on), **Request a quote** (Basic and
+    up; the quote carries the business's pay link), **Buy now** (Core and up, card checkout through its own gateway,
+    0135 step 4). A sale made by message, offer or quote is paid the business's way (Zelle, check, pay on pickup) and
+    marked paid or sold by the business (0135 §6). The card never offers more than the item page.
+  - **Tickets** share the same way, with 0134's rules: manual payment on Free and Basic (0134 §6a), card from Core.
   - A **person's** Marketplace post (0135 step 1) shares the same way, to their feed and to groups whose charter allows
     members' items.
 - **Only Traversence's own Marketplace and Shop:** a post can't link to another selling site (no outside shops or
   ticket sellers; 0134, Jason: never promote outside selling). The business's Shop on its own domain is ours, so it's
-  fine.
+  fine. **One exception, from 0134's amendment:** a business that connected its existing box office (option B,
+  "Tickets through Eventbrite") shares its events with that system's Buy tickets, clearly marked, until it moves to
+  Traversence (option C).
+- **Reports on a shared card:** reporting the *post* in a group goes to that group's moderators (0137 §5); reporting the
+  *item* itself goes to the Marketplace, which is ours (0135: Social → Reports, Market 360° → Business items), so a
+  takedown there removes it from every card at once.
 - **Where it shows:** wherever it was shared, and nowhere else (0102 §4c: never pushed to people who didn't join, Link or
   follow, or made to look like our recommendations). It can't be boosted or pinned for pay.
 - **No cap on product posts** (posts have no daily limit, 0137 §7); repeated identical posts are held, and members can
