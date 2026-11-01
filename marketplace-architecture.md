@@ -249,6 +249,9 @@ Answered 2026-11-01 in `decisions/0135`:
 
 ## 8. Hand-off: storefronts and Connect your domain (from the Community session, 2026-11-01)
 
+> **Settled in decisions/0139 (2026-11-01):** no Cloudflare: trvgo.us stays on Bluehost, and businesses' domains run
+> through a proxy on Fly.io; the open points below are decided there; domain sales later, through Name.com.
+
 0137's build order listed **Connect your domain** (storefront and email together, from Core) as step 6. It's the
 Storefronts build's work (§6 step 5), so it moves here; the Community session goes on with chapters and invites.
 
