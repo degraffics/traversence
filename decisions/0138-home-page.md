@@ -162,3 +162,7 @@ header's bar, and the panel hangs from its bar. `home-v4_20261101.zip` (built on
 - **Phones:** a tap on Discover more opens the full-screen search at once with its own field, so no letter is lost.
 - Rule for later home-page work: a search box that opens the site's search must be that search's own bar
   (`#tv-search`), never a second box driving a hidden one.
+- **One piece** (v5, `home-v5_20261101.zip`, `index.php` only, built on the 21:24 UTC sync): Jason, "janky… the search
+  needs to fit better and flow as attached to the search bar". The box is as wide as the results (1040px at most);
+  when the results open they take the box's left edge and width, the box's bottom corners square off, and both share
+  one surface and shadow (`.hm-sopen`). The place in Let's get local shows its name only.
