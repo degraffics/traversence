@@ -510,6 +510,10 @@ would follow who opens and clicks). The DNS records the console listed are left 
 access after the domains and DNS, links to SES without a fixed region, and says Ohio; `SesMail::region()` falls back to
 `AWS_REGION`, then us-east-2.
 
+**Fix (built on 20:32 UTC, 1 file: `app/lib/SesMail.php`):** "Check now" asks AWS in mock mode too (reading what AWS has
+is fine before sending is live); before, it only checked in live mode. The three Community migrations (group reports,
+notices, email sending) ran on the server 2026-11-01, and `traversence-ses` is attached to the `traversence-site` user.
+
 ## Jason's answers (2026-11-01)
 
 1. **Legal and safety reports** and reports on a group open a Safety ticket automatically; our Terms apply on it.
