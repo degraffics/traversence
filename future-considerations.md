@@ -33,7 +33,7 @@
 
 **Why it came up:** raised while designing SJ Portables' inventory build, explicitly flagged as not applying to SJ Portables — sheds, containers, and tanks sell as discrete units, not size/color variants — but recognized as a real gap for a different kind of seller, like a retail shop selling apparel.
 
-**Fit against the current build:** `decisions/0032`'s per-listing catalog cap (250 items on a Cornerstone listing — the group/combined cap variant floated during scoping was removed, per direction 2026-09-25, so there is no separate combined number anymore) counts items as posted. Whether a future variant model would count one parent product as one item against that cap, or count each variant separately, isn't decided, and materially changes what that cap number means for a variant-heavy catalog.
+**Fit against the current build:** the per-listing catalog cap (`decisions/0135` §7: active items only, set by plan, 1,000 on a Cornerstone listing, replacing 0032's 250; no combined cap across a Location Group) counts items as posted. Whether a future variant model would count one parent product as one item against that cap, or count each variant separately, isn't decided, and materially changes what that cap number means for a variant-heavy catalog.
 
 **Recommended next step:** don't design the parent/variant schema now, on spec — the same reasoning as the Plug-in Module Architecture entry below: wait for a real seller who actually needs it (a retail/apparel-type listing) and design against that concrete case rather than guessing at a general-purpose variant model in the abstract.
 
