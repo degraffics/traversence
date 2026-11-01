@@ -147,7 +147,8 @@ searched (0053).
 
 Jason, 2026-11-01: groups need tools to secure members, as a marketing build for groups that's indirect: people find
 them and join, rather than being pushed at. Every tool brings people to the group or the group to where people already
-look. None messages people who didn't ask, and none can be bought (0007).
+look. None messages people who didn't ask, and no one can buy a higher place or a wider reach (0007). Selling to the
+group's own members is a different thing, and allowed ("Selling in groups", below).
 
 **Being found where people already look**
 - **Join from everywhere a group shows:** its card on place pages, chapter lists, search results, tag pages, "Talked
@@ -181,7 +182,32 @@ look. None messages people who didn't ask, and none can be bought (0007).
   link), counted only, never who (as for outbound taps, 0058 §11).
 
 **What it never does:** reach people with no tie to the inviter (a stranger only meets a group by finding it), sell
-placement, export member lists, or show where members live. A business-run group's outreach otherwise follows 0102 §4c.
+placement or reach, export member lists, or show where members live. A business-run group's outreach otherwise follows 0102 §4c.
+
+#### Selling in groups
+
+"Nothing can be bought" means **placement and reach**: no one pays to rank higher, show up more, or reach people who
+didn't ask (0007). It doesn't stop a business selling to people who chose to join its group: 0102 §4c already says
+joining a business's group is consent to its offers, events and product news inside it.
+
+- **Product cards in posts:** a business's post can attach items from **its own catalog** (0116, 0135): each shows
+  as a card with photo, price and **Buy** (or Add to cart), and checks out the way its plan allows: manual payment on
+  Free and Basic, card checkout through its own gateway from Core (`marketplace-architecture.md`). Tickets attach the
+  same way (0134).
+- **Only Traversence's own catalog and storefront:** a post can't link to another selling site (no outside shops or
+  ticket sellers; 0134, Jason: never promote outside selling). A link to the business's own storefront on its own
+  domain is ours, so it's fine.
+- **Where it shows:** only in the group and its members' Community feeds (0102 §4c: never pushed to non-members or made
+  to look like our recommendations). A product post can't be boosted, pinned for pay, or sent to other groups.
+- **No cap on product posts** (posts have no daily limit, 0137 §7); repeated identical posts are held, and members can
+  mute a business's posts or report them as spam through the group's reports (0137 §5).
+- **Counting what it earns:** a sale that starts from a group post is counted as coming from that group (counts only,
+  never who), so the business can see what its community brings in.
+- **In someone else's group** (an interest group, a Co-Op's group): selling follows that group's charter, **Selling**
+  (0137 §3): not allowed, members' own Market items, or businesses' items too. The default for a person's group is
+  not allowed; for a business's own group, its own items; for a Co-Op's group, its member businesses' items.
+- **Members** (people, not businesses) can share their own Market items (0031) in a group only where its charter allows
+  members' items.
 
 #### 5a. Invites, one at a time and in bulk
 
