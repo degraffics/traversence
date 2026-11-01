@@ -935,7 +935,7 @@ The business: refunds are made from its own Stripe or Square account, or the way
 In your business portal, open **E-commerce setup** and go through its steps. **1. Getting paid:** from Core Partner up, connect your own Stripe or Square account by signing in (you never paste keys); the money goes straight to your account, Traversence takes nothing, and your processor charges its usual fee. On every plan you can also take Zelle, bank transfers, checks or payment at pickup, each with your own instructions. **2. Sales tax**, **3. Shipping and pickup**, **4. how long to hold items** for a direct payment, **5. a test purchase**, then **6. Go live**. Every Marketplace order also appears in Quotes & invoices: paid by card, or waiting for you to mark a direct payment received.
 
 ### Can I track stock on my Marketplace items?
-Yes. In your portal's Marketplace page, switch on **Track stock** for an item and enter how many you have. Items being paid for are held (30 minutes for a card, your chosen days for Zelle or a check), paid orders take them off, and at 0 the item shows **Sold out** until you add more. Leave it off for services and made-to-order work.
+Yes. In your portal's Marketplace page, switch on **Track stock** for an item and enter how many you have. Items being paid for are held (about half an hour for a card, your chosen days for Zelle or a check), paid orders take them off, and at 0 the item shows **Sold out** until you add more. Leave it off for services and made-to-order work.
 
 ### Do my business's items expire?
 They stay up, but every 30 days your Pulse asks **Still on offer?** for each published item. Confirm with one tap (or all at once). An item nobody confirms by the next check comes off, kept in your portal: Publish brings it back.
