@@ -190,15 +190,29 @@ placement or reach, export member lists, or show where members live. A business-
 didn't ask (0007). It doesn't stop a business selling to people who chose to join its group: 0102 §4c already says
 joining a business's group is consent to its offers, events and product news inside it.
 
-- **Product cards in posts:** a business's post can attach items from **its own catalog** (0116, 0135): each shows
-  as a card with photo, price and **Buy** (or Add to cart), and checks out the way its plan allows: manual payment on
-  Free and Basic, card checkout through its own gateway from Core (`marketplace-architecture.md`). Tickets attach the
-  same way (0134).
-- **Only Traversence's own catalog and storefront:** a post can't link to another selling site (no outside shops or
-  ticket sellers; 0134, Jason: never promote outside selling). A link to the business's own storefront on its own
-  domain is ours, so it's fine.
-- **Where it shows:** only in the group and its members' Community feeds (0102 §4c: never pushed to non-members or made
-  to look like our recommendations). A product post can't be boosted, pinned for pay, or sent to other groups.
+- **Publish once, share anywhere it's allowed** (Jason, 2026-11-01; the Marketplace's model, 0135 §2 and step 3):
+  1. The item lives once, in the business's **catalog** (walled, with cost and supplier private).
+  2. **Publish** puts it on the **Marketplace** and the business's **Shop** (0135), as a numbered version.
+  3. **Share** posts a card of the *published* item, from the item or from the post box ("Add an item"), to:
+     - the business's **own group** and its chapters;
+     - its **feed**, which reaches people Linked to the business (0047, under their marketing settings);
+     - **other groups whose charter allows businesses' items** (a Co-Op's group, say), by someone with a role on the
+       business;
+     - **outside social apps**, through the Share button (short link and preview card, 0136 §5d), bringing people back
+       to the item's page.
+  - **A share is a pointer, not a copy:** the card always shows the item as published now (price, photos, sold out).
+    Publish changes and every card updates; **Unpublish** and every card shows "No longer offered", without the buy
+    buttons. Only published items can be shared, and sharing doesn't count toward the catalog cap (0135 §7).
+  - **What a buyer can do from the card** is what the item allows (0135 step 3): **Message** the business, **Make an
+    offer** (if the business turned offers on), **Request a quote** (Basic and up), **Buy now** (Core and up, with
+    checkout through its own gateway, 0135 step 4). Tickets work the same way (0134).
+  - A **person's** Marketplace post (0135 step 1) shares the same way, to their feed and to groups whose charter allows
+    members' items.
+- **Only Traversence's own Marketplace and Shop:** a post can't link to another selling site (no outside shops or
+  ticket sellers; 0134, Jason: never promote outside selling). The business's Shop on its own domain is ours, so it's
+  fine.
+- **Where it shows:** wherever it was shared, and nowhere else (0102 §4c: never pushed to people who didn't join, Link or
+  follow, or made to look like our recommendations). It can't be boosted or pinned for pay.
 - **No cap on product posts** (posts have no daily limit, 0137 §7); repeated identical posts are held, and members can
   mute a business's posts or report them as spam through the group's reports (0137 §5).
 - **Counting what it earns:** a sale that starts from a group post is counted as coming from that group (counts only,
@@ -206,8 +220,6 @@ joining a business's group is consent to its offers, events and product news ins
 - **In someone else's group** (an interest group, a Co-Op's group): selling follows that group's charter, **Selling**
   (0137 §3): not allowed, members' own Market items, or businesses' items too. The default for a person's group is
   not allowed; for a business's own group, its own items; for a Co-Op's group, its member businesses' items.
-- **Members** (people, not businesses) can share their own Market items (0031) in a group only where its charter allows
-  members' items.
 
 #### 5a. Invites, one at a time and in bulk
 
