@@ -775,7 +775,11 @@ Many rural businesses have only a Facebook page (Diamond C Feed, St. Johns: face
    listing card's actions column; How we know opens under the card with Is this right? Yes / No per detail. The ring
    is on listing cards everywhere too (2026-11-01: `js/tv-conf.js` on every page, one request to
    `api/listing-confidence.php` for the cards on screen): the top of a card's actions column (directory, guides), else
-   beside its Link button (the map, search's Peek); it opens the listing at How we know. Next: cadence by band.
+   beside its Link button (the map, search's Peek); it opens the listing at How we know. Green still follows the
+   evidence (Jason, 2026-11-01, "for a claim listing?"): above a person's floor, the machine score adds up to 10 (a
+   verified claim 90 to 100, a claim or our team's check 80 to 90). **Cadence by band** (built 2026-11-01): the refresh
+   reads a listing's own website every 30 days below 51 and every 90 days at 51 and up, the least sure first; Google's
+   check every 90 days (it was 120); nothing waits longer than 90 days.
 3. Google and OpenStreetMap used in full (duplicates, address mismatches, not-found); the Listing check template;
    cadence by band; automatic decisions; value-ordered Review; closure and moved notices.
 4. Opening a hub: the stages, the readiness meter, the opening budget and its estimate.
