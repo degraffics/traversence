@@ -49,6 +49,26 @@ guarantee the next session (or even a later point in the same one, if it
 gets recreated) will have the same repo authorized — check by attempting the
 push and reading the error, rather than assuming.
 
+## One copy: all work ends up in `main` (Jason, 2026-11-01): every session
+
+`main` is the single source of truth for Traversence. Jason doesn't want work split across branches, because that
+leaves information out of step and the site behaving inconsistently.
+
+- **Start from the latest `main`.** Before you change anything, fetch `origin/main` and base the session's branch on
+  it. If the branch you were given is behind `main`, or carries work that isn't in `main`, deal with that first: merge
+  or rebase it, and never throw away commits that aren't merged.
+- **Finish in `main`.** When the work is done (or Jason says "push", "wrap up", "merge it"), commit, push the
+  session's `claude/…` branch, open a pull request into `main` (or update the open one), and merge it. Don't leave
+  work sitting on a branch at the end of a session.
+- **Only one open pull request at a time.** If one is already open from an earlier session, merge it before you start
+  new work, or add to it. Don't open a second, competing one.
+- **After merging, check it worked:** the branch must be fully contained in `origin/main`
+  (`git merge-base --is-ancestor origin/<branch> origin/main`). Tell Jason in plain words that the work is in `main`.
+- **Merged branches can be deleted** on GitHub (Branches → trash icon). If deleting is blocked in the session, say so
+  and leave it to Jason; a merged branch does no harm.
+- If the merge can't happen (the push is blocked, there's a conflict, a check fails), say so plainly and say what's
+  still outside `main`. Never report work as saved when it's only on a branch.
+
 ## The 3-way sync: OneDrive ⇄ server, recorded in GitHub (Jason, 2026-10-28): every build
 
 `degraffics/traverse-3way-sync` keeps the server (FTP) and OneDrive `Traversence/website` + `Traversence/app` the same,
