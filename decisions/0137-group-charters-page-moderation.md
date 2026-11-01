@@ -429,6 +429,23 @@ Built on the 19:44 UTC sync; delivered as a zip of 9 files; live once uploaded a
 - **Not yet:** appeals, warnings and muting, blocking a removed member from rejoining, and an agent's timed access to a
   group through a case (the support-access ticket queue, 0102 §5 route 2, isn't built).
 
+## Step 4 built (2026-11-01): notices sent once
+
+Built on the 19:56 UTC sync; delivered as a zip of 7 files; live once uploaded and `app/migrations/2027-01-18_notices.sql`
+has run (`notices_sent` with its once-only key per person, kind and thing; `notice_prefs`; safe to run twice).
+- **`app/lib/Notices.php`:** `send()` (once each, skipping anyone who switched the kind off), `forUser()`, `unread()`,
+  `markSeen()`, `prefs()`, `setPref()`. Notices show in the member's Pulse (Community source) and count in its to-do
+  ("new notices") until the Pulse has shown them.
+- **Sent now:** a request to join answered (accepted or not); a charter changed (to members, once per version; the
+  feed-based charter item from step 1 stands down once notices are on); a post removed by the group's moderators (and
+  "removed from the group too"); a new local group in a place someone follows (their place link).
+- **Off switches:** Dashboard → App Settings → Notices (`/user/api/notices.php`).
+- **Tested** on MariaDB: the migration twice, 13 checks (who's told, once only, switched off, the Pulse and seen), and
+  the API and Pulse through the local server.
+- **Not yet:** by email or in a weekly digest (with the sending service, step 5: Amazon SES); the notices whose features
+  aren't built (invitations, events, chapters, group inactivity, ticket limits, a group listing your business), each
+  added with its feature.
+
 ## Jason's answers (2026-11-01)
 
 1. **Legal and safety reports** and reports on a group open a Safety ticket automatically; our Terms apply on it.

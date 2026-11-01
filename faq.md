@@ -972,6 +972,9 @@ Tap **Report** on a post and choose why. Reports on a group's posts go to its ow
 ### Can a group ask Traversence for help?
 Yes. A group's owner and moderators can use **Ask Traversence for help** on the group's page for what the group can't settle, such as someone harassing people across groups or a moderator's account taken over. It reaches our support team as a case, and we reply by email. If reports in a group wait 14 days with nobody deciding, we're asked to help on our own.
 
+### What notices will I get about groups, and can I turn them off?
+Each one goes to your Pulse once, when it's about you or something you follow: your request to join a group was answered, the charter of a group you're in changed, a group's moderators removed your post, or a new group started in a place you follow. Switch any of them off in **Dashboard → App Settings → Notices**. Notices by email or in a weekly digest are coming.
+
 ### What happens to a group if its owner leaves?
 Whatever its charter says: the group ends (the usual choice, with no elections), a member the owner named is offered it, the longest-serving moderator is offered it, or the moderators choose one of themselves. The steps that carry this out, and closing groups that have gone quiet for 30 days, are coming.
 
