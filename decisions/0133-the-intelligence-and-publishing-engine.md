@@ -794,6 +794,14 @@ Many rural businesses have only a Facebook page (Diamond C Feed, St. Johns: face
    listing turns green; **Wrong number** marks that phone not right and sends it to Review; **Closed for good** shows it
    Closed (still found by name); **They moved** sends it to Review with what they said. The prospect, its stage and the
    call log carry on in Sales and the CRM as before.
+   **Pulse steps do the work** (Jason, 2026-11-01: "action steps that actually do the actions or process the person step
+   by step to completion"): a step can open a form inside the case and act when it's sent (`['form', what, label,
+   fields]`), beside the one-tap step (`['do', …]`). First: a missing business. **Found for the guide: <name>** (a guide's
+   find, no clock: nobody waits on a reply) or **From a visitor: missing** opens with what was found filled in (name,
+   kind, category suggested, street, town, state, phone, website, hours, what it offers) and its sources; **Create the
+   listing** creates it checked by our team, links the guide's name to it, notes it and closes the case; **Set it aside**
+   keeps it in Review and closes the case; a visitor gets a line back from the case. Fixes, closures and the other
+   case types follow the same way.
 3. Google and OpenStreetMap used in full (duplicates, address mismatches, not-found); the Listing check template;
    cadence by band; automatic decisions; value-ordered Review; closure and moved notices.
 4. Opening a hub: the stages, the readiness meter, the opening budget and its estimate.
