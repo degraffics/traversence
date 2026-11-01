@@ -148,3 +148,17 @@ branding, in one build: `home-full_20261101.zip` (2 files, built on the 20:45 UT
   **Join group**. Real groups first; then **anchors that need groups** to make six: the town's neighbors, outdoors,
   local history, families, volunteers, business owners (a topic already running isn't suggested), each "Needs a group"
   with **Start this group** (`/community/?topic=…#cg-new`).
+
+## The split search done right (2026-11-01)
+
+Jason, on v3 ("this is bad design"): typing in Discover more opened the search over the whole page with no box showing
+the words, and asked "Where are you?" with the where box right there. Cause: the hero drove a hidden copy of the
+header's bar, and the panel hangs from its bar. `home-v4_20261101.zip` (built on the 21:04 UTC sync):
+- **The split box is the search itself** (`id="tv-search"`, Discover more is `.tvs-in`): results hang right under it as
+  you type, the words staying in view and editable; it sits above the search's dimming on desktop, as the header's bar
+  does. The search's own place wording doesn't replace "Discover more".
+- **Let's get local opens the place picker** (a town, ZIP, area or region; the target auto-detects) and then shows the
+  place chosen, so the search searches there; no free-text "near" guessing.
+- **Phones:** a tap on Discover more opens the full-screen search at once with its own field, so no letter is lost.
+- Rule for later home-page work: a search box that opens the site's search must be that search's own bar
+  (`#tv-search`), never a second box driving a hidden one.
