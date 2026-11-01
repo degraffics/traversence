@@ -177,9 +177,68 @@ where the people decide who reaches them and nothing can be bought to the top.
    Social → Events "coming") until the build moves it to Let's Explore → Events.
 6. `/community/index.php` still passes breadcrumbs (`crumbs`), which 0058 rules out on content pages.
 
+## Missing before the build (2026-11-01)
+
+Jason: address the missing pieces before building. Checked against the live mirror and the decisions. Four kinds:
+choices only Jason can make, specs nobody has written, platform pieces the build leans on that don't exist, and fixes
+to what's live.
+
+### A. Choices for Jason
+
+| # | Choice | Where it comes from | Proposed |
+|---|---|---|---|
+| A1 | Core's monthly **email allowance** (email invitations start at Core) | 0136 §5a | 2,500 |
+| A2 | **Growing a group** as written | 0136 §5 | Accept, then 0136 is Accepted |
+| A3 | How many **groups a business may run**, by plan (its own allowance, not a person's 5) | 0102 §4c ("by plan", no numbers) | Free 1, Basic 2, Core 5, Strategic 10, Cornerstone 1 per location + 5 |
+| A4 | A business group's **posts per day**, by plan | 0102 §4c (no numbers) | Free 3, Basic 5, Core 10, Strategic and up 25 |
+| A5 | A business's **events per day** (spam cap) | 0134 §7 ("by plan", no numbers) | 5 a day on every plan (posting events is never limited by plan; this is only against flooding) |
+| A6 | **Single Home Rule anchors** (the tier below a town): what one is | gap review, 0136 §2 (chapters' places) | Chapters use towns, areas and regions until it's defined |
+
+### B. Specs nobody has written yet
+
+| # | What | Why it's needed | What it must settle |
+|---|---|---|---|
+| B1 | **The charter** | Charters hold the transfer terms (0103), joining rules for chapters, approval-skipping (0136), house rules; it's the first build step, and no decision says what one is | its parts (purpose, house rules, transfer terms, join mode, chapter joining, approval skipping, local rules for chapters); a starting template; who edits it; how changes reach members (told, and shown with "changed on"); whether members must accept a changed charter |
+| B2 | **The group page as a content page** | It predates the content-page standard (0058 §20–21): breadcrumbs, no hero, no Link, Share or QR, no share card, not an engage-bar kind | hero (photo, name), header (topic and tags as pills that search, place, Link), Share and QR, its own share card (`tv_page_start` `head`), the public welcome post, events, chapters, "Talked about by" places, Join first; members' part below |
+| B3 | **Steward moderation (Level 2)** | Reports go only to admin today; §27, 0055 and 0136 send them to Stewards first, then the parent, then us | what a Steward sees (the post, reason, never the reporter), their actions (remove, warn, remove member), timings before it rises to the parent and to us, what's logged |
+| B4 | **Admin → Social → Groups** | A "coming" card | the table (groups, chapters under parents, members, activity, lifecycle stage), the drawer (charter, reports, history), what staff may do (hide, restore, end; never post or read beyond reports, 0102 §4b) |
+| B5 | **"Tell once" notices** | 0136 tells followers of a tag, topic or place, and a parent's nearby members, once each; 0134 sends event changes | one rule for "once" (per person, per thing, per kind), how it's turned off, and where it shows (Notification Center, the weekly digest) |
+
+### C. Platform pieces the build leans on that don't exist
+
+| # | Missing | Today | Needed for | What to do |
+|---|---|---|---|---|
+| C1 | **Sending email in bulk** | `Mailer` sends one at a time through a Bluehost mailbox (fine for codes and receipts; Bluehost caps how many go out an hour) | business invitations by email (0136 §5a), campaigns, event change notices to many people (0134) | a sending service (Amazon SES on the AWS account we already use for S3, 0123) with bounce and complaint handling and one-click unsubscribe; Bluehost keeps sign-in and receipt mail |
+| C2 | **Tags as one system** (0132) | Accepted, not built as one system; follows cover people, businesses and places only (`Links::TYPES`) | tags on groups, tag pages, following a tag or topic (0136 §1, §5) | build 0132's tag store first, with tag and topic follows |
+| C3 | **A member's private home place** | Only the public profile's free-text "Lives in" | "Groups near you", telling a parent's members near a new chapter (0136 §5) | a private setting (town, chosen by the member, with consent; never shown to anyone), used only for these suggestions |
+| C4 | **The lifecycle table and its daily job** (0103 §6) | Only the `transfers` table (businesses) | group inactivity, chapter endings and reactivation, event cancellations when a host ends | build 0103 §6 for groups first |
+| C5 | **A business as a group's owner** | Groups belong to a person (`owner_id`) | business-run groups and their chapters (0102 §4c, 0136 §2) | an owner kind (person or listing), with the business roles mapped to group roles |
+| C6 | **The events store** (0134) | Only the crawler's `live_events` | group events, events as a group's front door (0136 §5) | 0134's step 1 |
+| C7 | **Flyers as print products** | The print catalog exists (`Products`); no flyer products | "order it printed" (0136 §5b) | add flyer, half sheet and table tent to the catalog with the vendor's prices; flyers download through the browser's print-to-PDF, as quotes do (0118), so no PDF library is needed |
+
+Already there, so not missing: short links and QR (`ShortCodes`, `Qr`, `QrIssue`), AI credits for AI Assist
+(`AiCredits`), place coordinates for distance (`Guides` reads each place's lat/long), the Notification Center
+(`MemberPulse`), Verification, Reports.
+
+### D. Fixes to what's live
+
+1. `/community/index.php` and `/community/group.php` pass breadcrumbs (0058 rules them out).
+2. The group page has no Share or QR button (the site-wide `tvShort` / `[data-qr]` just need adding), and no share
+   card.
+3. Groups aren't an engage-bar kind (`Engage::KINDS`), so they have no Link/Share/QR bar like other content.
+4. 0047's header, 0020's "unschedulable", and §27's wording (above, Out of step).
+
+### Order to close them
+
+1. Jason's choices (A).
+2. Write the charter (B1), the group page (B2) and Steward moderation (B3) into a decision; B4 and B5 go with them.
+3. Fix what's live (D): it's small, and B2 replaces most of it.
+4. Platform pieces in the order the build needs them: C5 and C4 (with charters), C2 and C3 (with tags and chapters),
+   C1 (before business email invitations), C6 (with events), C7 (with flyers).
+
 ## Next build
 
-1. Accept **0136 Topic groups and chapters** (answers in; section 5, Growing a group, for review).
+1. Close **Missing before the build** (above), and accept **0136**.
 2. **Charter and transfer terms** on the group page, shown before joining.
 3. **Inactivity and ending:** the `lifecycle` table and a daily `Scheduler::JOBS` entry for groups.
 4. **Admin → Social → Groups** and **Business groups**; Steward member reports and escalation.
