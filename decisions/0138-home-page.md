@@ -89,3 +89,22 @@ A **Stock library** collection in Galleries' brand & documents mode (phase 3d), 
 4. Sample event cards, marked, until real events fill them.
 
 Each step adds its FAQ entries (0057).
+
+## Step 1 built (2026-11-01): the search and the four doors
+
+Delivered as `home-step1_20261101.zip` (3 files, built on the 20:17 UTC sync): `website/index.php`, `app/ui/header.php`,
+`app/ui/faq.md`. Live once uploaded; no database change.
+- **The search in the hero:** `header.php` captures its search bar as `$tv_search_bar` and leaves it out of the header
+  on `/` and `/index.php` only (`$tv_home`); the home page prints it under the title, so it's the same Quick Search
+  (`js/search-panel.js` binds to it as before). Under it, **Where:** the place the header's menu shows, with **Change**
+  (the location picker) and **Use my location** (auto-detect).
+- **Four doors:** Let's Explore, Get Local, Connect, Marketplace, their names, links and icons taken from the header's
+  funnels (`$tv_funnels`, `$tv_i`), so a renamed section renames its door; a one-line description each (kept in
+  `index.php`, as the rails have no section-level line). A section not yet live shows "Coming soon".
+- **Have a GO Code?:** `trvgo.us/abc12`, a full link or just `abc12` opens `https://trvgo.us/<code>`; anything else is
+  answered in place (`TvAsk.say`).
+- **Removed:** the old landing's sample stories ("Maria's Bakery" and the heritage trail, which had no pages) and the
+  Quick Feature Links (mostly "soon"), per §5; the directory counts stay.
+- **Checked** locally at 390px and 1280px: one search on the home page and still one in the header elsewhere, no
+  sideways scroll, the search panel opens from the hero, no script errors from the page.
+- **Next:** step 2, the five-tab ribbon (§4) with its invitations; then the Stock library (§6) and sample events (§5).
