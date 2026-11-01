@@ -561,6 +561,11 @@ A link (`evidence` kind) is never counted as a source agreeing, in the status or
 needing attention"): each source the engine runs on whose terms no person has read, or not in a year, is a System item
 in Pulse with our rule in its summary, a step to open its terms in their own tab, and **I read them**, which records who
 and when and resolves it (it comes back in a year). If they don't allow our rule, a step opens Manage sources to change it.
+**Failed crawls clear themselves where no one is needed** (Jason, 2026-11-01): a failed source is removed when the same
+address was crawled with success since (its sightings move to the run that worked), when it was never a website (a
+phone number typed as an address), or when it's a site we never crawl (social media, Google, Yelp). Those two can't be
+entered any more. A failure that may be the site's own (it was down) is a System item in Pulse: crawl it again, or
+**Remove it** (what it found stays).
 This replaces "OpenStreetMap under its licence with credit" as a stored source, and the OSM seeding in *Opening a hub*.
 
 ### A claim is a claim (Jason, 2026-11-01)
