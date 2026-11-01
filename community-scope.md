@@ -187,7 +187,7 @@ to what's live.
 
 | # | Choice | Answer | Recorded in |
 |---|---|---|---|
-| A1 | Core's email allowance | **500 a month**, with add-on packs for more | 0137 §8, `commercial.md` |
+| A1 | Core's email allowance | **500 a month**, with the existing email top-ups | 0137 §8, `commercial.md` |
 | A2 | Growing a group | Outline sent for review | 0136 §5 |
 | A3 | Groups per business | **One group per business**, with chapters for locations and for topics (support, sales, how-tos) | 0137 §1, 0136 §2, 0102 §4c |
 | A4 | Posts per day | **No limit**; identical repeats held | 0137 §7, 0102 §4c |
