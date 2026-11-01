@@ -1,6 +1,6 @@
 # ADR 0135: The Marketplace and Storefronts (the one record)
 
-**Status:** Accepted (2026-11-01) by Jason, except section 8 (post lifetime), marked **(proposed)**.
+**Status:** Accepted (2026-11-01) by Jason.
 **This is the master record for the Marketplace, Storefronts and the business catalog they show.** Where an older record
 says otherwise, this one rules. Older records keep their history; each carries a line at its top pointing here (list at
 the end). The build plan and screens stay in `marketplace-architecture.md`; tier prices and allowances in
@@ -103,7 +103,7 @@ Back-Office → Plans and the business's Plans page, and is listed in `commercia
 - **No item packs.** Every active item uses storage (its photos), so storage is the natural bridge: a business that
   grows its catalog grows into the storage packs, and then a higher plan.
 
-### 8. How long a post stays up (proposed)
+### 8. How long a post stays up (Jason, 2026-11-01)
 
 Jason: posts are checked every 30 days and need a confirmation that they're still on offer; no confirmation takes them
 down. A personal item and a business's product or service are offered for very different lengths of time, so the
@@ -116,13 +116,17 @@ seller sets how long.
   | Personal service (lawn mowing, lessons) | 90 days | the same, plus Ongoing |
   | Business item or service | Ongoing | 7–90 days, until a date, Ongoing |
 
-- **Dated posts:** when the time is up, "Still available?" in the Pulse and by email; one tap renews it.
-- **Ongoing posts:** checked every 30 days and kept showing while the business answers. One **Pulse case**
-  "Still on offer?" carries a step per item (the Pulse rule). An item whose stock is tracked and sold out comes down by
-  itself.
-- **No answer in 7 days:** the post becomes **Expired**: off the Marketplace and the Storefront, kept, relisted in one
-  tap. After that it follows 0103's inactivity path.
-- Lengths, reminder and grace period are settings in Marketplace rules.
+- **One check, every 30 days.** It does two things at once:
+  - **Asks:** "Still available?" for every post whose time is up (dated posts) or that's due its 30-day check
+    (ongoing posts), in the Pulse and by email. For a business, one **Pulse case** "Still on offer?" carries a step
+    per item (the Pulse rule). One tap confirms; a dated post renews for its length again.
+  - **Expires:** any post asked at the last check and still not confirmed. So a post has 30 days to answer, and the
+    answer window is the next check, not a separate grace period.
+- While it waits for an answer, the post keeps showing.
+- **Expired:** off the Marketplace and the Storefront, kept (never deleted), relisted in one tap. After that it follows
+  0103's inactivity path.
+- An item whose stock is tracked and sold out comes down by itself, without waiting for a check.
+- The default lengths and the 30-day check are settings in Marketplace rules.
 
 ### 9. Custom domains
 
@@ -130,7 +134,7 @@ Belong to the Storefronts build (`marketplace-architecture.md` §6 step 5). How 
 
 ### Still open
 
-- The post-length details (section 8).
+Nothing. Section 6's gateways after Square and Stripe are added when asked for.
 
 ## What changes
 
