@@ -1,10 +1,10 @@
 # ADR 0136: Topic Groups, Chapters, and the Places a Group Is About
 
-**Status:** Proposed (2026-11-01), from Jason's question: "Tie groups to the geography is good, but what if the topic
-is the group's focus, say traveling the world or cooking with Crisco?" Design; not built. Builds on 0047 (community
-groups), 0102 §4b–4c (group roles, business groups), 0103 (charters, transfer, inactivity), 0132 (tags and links), 0053
-(search), 0066 (nations' land), 0134 (events). Jason's answers are at the end; section 5 (Growing a
-group) is written out from his questions, for his review before this is accepted.
+**Status:** Accepted (Jason, 2026-11-01), from his question: "Tie groups to the geography is good, but what if the
+topic is the group's focus, say traveling the world or cooking with Crisco?" Design; not built. Builds on 0047
+(community groups), 0102 §4b–4c (group roles, business groups), 0103 (charters, transfer, inactivity), 0132 (tags and
+links), 0053 (search), 0066 (nations' land), 0134 (events). Amended by 0137 (chapters by topic, business groups) and
+0135's amendment (selling). Jason's answers are at the end.
 
 ## Context
 
@@ -204,10 +204,11 @@ joining a business's group is consent to its offers, events and product news ins
     Publish changes and every card updates; **Unpublish** and every card shows "No longer offered", without the buy
     buttons. Only published items can be shared, and sharing doesn't count toward the catalog cap (0135 §7).
   - **What a buyer can do from the card** is exactly what the item page allows (0135, amendment "the seller sets the
-    price"): **Order now** at the seller's price (every plan; paid the business's way, or Pay now by card from Core),
+    price"): **Buy now** at the seller's price (every plan; **Place order**, then paid the business's way, or Pay now by card
+    from Core),
     **Request a quote** (Basic and up, where negotiation happens), **Message**. Buyers never propose a price; a business
     can send one buyer a special price from the conversation. The card never offers more than the item page.
-  - **Tickets** share the same way, with Order now: paid the business's way on Free and Basic (0134 §6a), Pay now by
+  - **Tickets** share the same way, with Buy now: paid the business's way on Free and Basic (0134 §6a), Pay now by
     card from Core.
   - A **person's** Marketplace post (0135 step 1) shares the same way, to their feed and to groups whose charter allows
     members' items.
@@ -381,7 +382,5 @@ Each step adds its FAQ entries (0057).
    by email from **Core and up**.
 6. **Skipping approval:** the charter decides, for invitations and for sign-ups by code.
 7. **Flyers:** made by the owner, free; "Write it for me" is AI Assist, on plans with AI, from their credits.
-
-Still to confirm:
-8. **Core's email allowance:** proposed 2,500 a month.
-9. **Growing a group** (section 5) otherwise as written.
+8. **Core's email allowance:** 500 a month with top-ups (settled in 0137 §8).
+9. **Growing a group** (section 5) and **selling in groups**: accepted as written.
