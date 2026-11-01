@@ -512,7 +512,12 @@ access after the domains and DNS, links to SES without a fixed region, and says 
 
 **Fix (built on 20:32 UTC, 1 file: `app/lib/SesMail.php`):** "Check now" asks AWS in mock mode too (reading what AWS has
 is fine before sending is live); before, it only checked in live mode. The three Community migrations (group reports,
-notices, email sending) ran on the server 2026-11-01, and `traversence-ses` is attached to the `traversence-site` user.
+notices, email sending) ran on the server 2026-11-01, and `traversence-ses` is attached to the `traversence-site` user. That fix went out
+folded into the next zip (built on 20:32 UTC, 3 files: `app/lib/SesMail.php`, `app/lib/Pulse.php`, `app/ui/pulse-ui.php`):
+a finished setup step loses its button (Check now and the test keep theirs); and the admin Pulse's list fits the room it
+has, not the screen: below 48rem of its own width (split screen, the admin rail beside it) it uses the phone's stacked rows
+(a container query on `.pb-stream`), where before the subject column was squeezed to a few letters (Jason). "Make the
+sending domains" ran: send.traversence.com read back, via.traversence.com made.
 
 ## Jason's answers (2026-11-01)
 
