@@ -3,8 +3,11 @@
 A check of the visitor's path through the live site, from first arrival to the admin, against the standards in
 `CLAUDE.md` (decisions/0058 §11, §20–21, 0129, 0057, `tv-ask.js`, `tv-password.js`, 0127).
 
-**What was checked:** the live mirror `degraffics/traverse-3way-sync` at `383ee83` (`sync-storage/` = `website/`,
-`sync-app/` = `app/`). This was a read of the code, not a click-through: the site needs its database and server to run.
+**Built on the 17:44 UTC sync** (2026-11-01, `f71d092`) of the live mirror `degraffics/traverse-3way-sync`
+(`sync-storage/` = `website/`, `sync-app/` = `app/`). First read at 16:40 UTC (`383ee83`), then rechecked: the 17:44 run
+added marketplace checkout (`market/cart.php`, `market/order.php`, `business/pay-connect.php`, payment endpoints).
+None of the findings below changed, and the new pages pass the same checks (no emoji, no dialogs, no plain colored
+messages, no breadcrumbs). This was a read of the code, not a click-through: the site needs its database and server to run.
 The 390px pass at the end has to be done on the live site.
 
 **Short answer:** the middle of the path holds up. Content pages, search, the uploader and the FAQ meet the standard.
@@ -115,7 +118,8 @@ internal file paths. Nothing is written, but a visitor who finds the URL sees a 
 - **One uploader:** `$_FILES` appears only in `app/lib/Uploads.php` and `website/api/upload.php`.
 - **Password boxes** get `tv-password.js` everywhere the shared header or shell is used (`app/ui/header.php:392`,
   `app/ui/page-shell.php:62`), including `user/dashboard.php`, `join.php` and the admin.
-- **FAQ:** all 8 `faq.php#…` links resolve, and the live `app/ui/faq.md` matches this repo's `faq.md`.
+- **FAQ:** all 8 `faq.php#…` links resolve. This repo's `faq.md` is one section ahead of the live `app/ui/faq.md`:
+  "Community groups" (start a group, charters) isn't live yet, waiting on another session's upload.
 - **No breadcrumbs** on listings, places, journeys or Let's Explore.
 - **Phone layout:** no page-level negative margins used to fake edge-to-edge; wide-screen rules are behind
   `min-width` media queries.
