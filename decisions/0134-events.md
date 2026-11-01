@@ -125,15 +125,42 @@ sold through the order system, with nothing new needed for the money.
 | Traversence (our own events, workshops) | Our QuickBooks checkout (0095) | Built: usable at step 1 |
 | A business, Free or Basic plan | **Manual payment**: its pay link, Zelle, check, or pay at the door, marked paid by the business (0118, 0119) | Built for quotes and invoices; the same way for tickets |
 | A business, Core and up | **Card checkout through the business's own gateway**, straight to the business, 0% system fees, no money held by us | The gateway step of the Market (`marketplace-architecture.md`): until it's built, Core businesses use manual payment too |
-| A member, or a group run by a person | **Manual payment** (marketplace rule: members sell person to person) | As for members' Market offers |
+| A member, or a group run by a person | **No ticket sales: RSVP and free registration** (section 6b) | |
 | A business-run group | The business's own checkout, as above | |
 
 So the only part that waits is card checkout through a business's own gateway, which waits for every Market sale, not
 just tickets. Everything else can be built with the events.
 
 - **Never paid placement:** selling tickets never moves an event up the calendar or search (0007).
-- **To set (Jason):** whether selling tickets is open to every plan or starts at a tier, and the per-event limits for
-  members (number of tickets, price).
+
+### 6b. Who needs what: RSVP for people, tickets as a business tool that grows with the plan
+
+Jason, 2026-11-01: we make our money on scaling access and tools, so tickets follow that. We take no cut of ticket money
+(0% system fees, as for every Market sale), so a ticket sale earns us nothing by itself: the plan is what pays, and each
+step up has to save the host real work or bring in more money.
+
+**Members and groups run by a person: RSVP, not tickets.** What they need is a head count and a reminder: a potluck, a
+trail clean-up, a club meetup. They get everything in section 6 (Going / Interested, free registration with a limit on
+places, reminders, the who's-going setting) and a plain cost note ("$10 at the door") or a link to tickets sold
+elsewhere. Traversence handles no money for them. A club or cause that wants to sell tickets gets a listing (a free
+one is enough to start): that's the way in.
+
+**Posting events is never limited by plan.** Every public event fills the calendar, places and guides, which is
+what Let's Explore needs; only the per-day spam cap applies (section 7). The ladder is in the ticket tools:
+
+| Plan | Ticket tools (proposed limits) | The reason to move up |
+|---|---|---|
+| **Free** | **Try it:** 1 ticketed event at a time, up to 50 tickets, manual payment (marked paid by the business), the guest list | Sells out a small event; the guest list shows who came |
+| **Basic** $29.95 | 3 ticketed events at a time, up to 250 tickets each; QR tickets and check-in at the door; discount codes, taxes, order emails, customers (all already Basic) | Runs several events and the door without a paper list |
+| **Core** $79.95 | **Card checkout through its own gateway** (paid straight to the business, at once); unlimited ticketed events and tickets; repeating series; waiting lists; the event's QR code and short link (trvgo.us); tickets on its storefront and own domain; tags and segments for attendees | Money in hand when the ticket sells, and no more chasing payments |
+| **Strategic** $229.95 | Attendees into the CRM and leads pipeline; campaigns to Linked followers and past attendees (the plan's email, SMS and push volume); automations (reminders, thank-yous, "next time" offers); tickets sold on its own site (widgets, API); AI help with event pages | Fills the next event from the last one |
+| **Cornerstone** $399.95+ | Events across locations; joint events with other businesses (a festival with many vendors, a Co-Op's market day) with shared ticketing; door-staff roles; pooled communications | Runs the region's big events |
+
+- **What counts:** "ticketed events at a time" are upcoming events with paid tickets on sale. Free registration
+  (a head count) doesn't count, on any plan.
+- **A business-run group** sells tickets under its business's plan.
+- **Our own events** (Traversence) use our QuickBooks checkout and no plan.
+
 
 ### 7. Checks before an event shows
 
@@ -142,8 +169,8 @@ The same checks Live events already make, applied to every event:
 - **0066:** a name that may mark a sacred, burial or protected site waits for a person (`Landmarks::SENSITIVE`); pins
   on nation land move to a public place (`Nations::pin()`), with the nation's visitor rules shown;
 - spam and safety checks; a business's events per day capped by plan; repeated identical events held;
-- three reports hide an event until an admin decides (as for posts). Our team can take one down, and **it stays down**
-  (0133).
+- three reports hide an event until an admin decides (as for posts), through Social → Reports. Our team can take one
+  down, and **it stays down** (0133).
 
 ### 8. After it's over, and when the host ends
 
@@ -160,11 +187,22 @@ The same checks Live events already make, applied to every event:
 |---|---|---|
 | **The Events page** `/events/` (public) | Visitors and members | Every public event: by place, date and kind, with the calendar view; Things to do → Events and the header's Events open it |
 | **Your own events** | Whoever hosts or goes | **Members:** dashboard → "Your events" (hosting, going, tickets). **Businesses:** business portal → Events (create, repeat, cancel, ticket sales, who's going, check-in). **Groups:** the group page's Events tab, and the Steward dashboard |
-| **The admin's Events section** | Our team | Every event from every source (hosts, staff, crawler), waiting ones first, with sources and checks; reports, takedowns, our own events and their ticket sales |
+| **The admin's Events section** | Our team | **System events only** (Jason, 2026-11-01): what the crawler found, the events Traversence lists for places, and our own events with their ticket sales |
 
-- The admin has events in two places today: **Let's Explore → Live events** (built: the crawler's) and **Social →
-  Events** (a "coming" card). They become **one Events section (Jason: which module)**, opened over the work
-  (`at_hand`) from the others. Reports on events go through Social → Reports like any content.
+**What our team doesn't see.** Hosts run their own events; the admin doesn't list every business's, group's or
+member's events. Our team reaches one only when:
+- it's **reported** (Social → Reports, as for any content), or held by the checks in section 7; or
+- the host asks for help: a **support ticket** of the type "Event help" in the support queue (0102 §5), giving the
+  agent timed access to that business's events with the role the ticket type sets. (Event tickets and support tickets
+  are different things; the admin always says "support ticket" for the second.)
+
+**The admin's two event places today, and what becomes of them:**
+- **Let's Explore → Live events** (built) reviews what the crawler finds. It becomes **Let's Explore → Events**: the
+  crawler's events, Traversence-listed events and our own, waiting ones first. Content templates → Live events stays as
+  the crawler's settings.
+- **Social → Events** ("coming") was drawn when events were planned as a Community feature: "group and business
+  events, and a public calendar". Hosts now run those themselves and the public calendar is `/events/`, so it has no
+  job left: **it's removed**, and Social keeps Reports.
 - **System Configuration → Content templates → Live events** stays as is: it shapes the crawler's source.
 
 ## Data (sketch)
@@ -198,10 +236,13 @@ Each step adds its FAQ entries (0057).
 
 ## For Jason
 
-1. **Verification:** settled (required).
-2. **Who's going:** settled (the host chooses at creation).
-3. **The admin's Events section:** which module: Let's Explore (where the crawler's Live events are) or Social?
-4. **Event kinds:** one required kind, with @tags for detail. Proposed: Festivals & fairs; Markets; Music &
-   performance; Arts & culture; Rodeo & sports; Outdoors & adventure; Food & drink; Classes & workshops; Family & kids;
-   Faith; Community & civic (meetings, volunteering); Meetups & social; Business & networking; Holidays & seasonal.
-5. **Tickets:** open to every plan, or starting at a tier? Limits for members' ticket sales?
+Settled 2026-11-01:
+1. **Verification:** required to create an event.
+2. **Who's going:** the host chooses at creation.
+3. **The admin:** system events and event support only (section 9); Let's Explore → Events, Social → Events removed.
+4. **Event kinds:** one required kind plus @tags: Festivals & fairs; Markets; Music & performance; Arts & culture;
+   Rodeo & sports; Outdoors & adventure; Food & drink; Classes & workshops; Family & kids; Faith; Community & civic;
+   Meetups & social; Business & networking; Holidays & seasonal.
+
+Still to confirm:
+5. **The ticket ladder** (section 6b): members RSVP only, and the limits per plan.
