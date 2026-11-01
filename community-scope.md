@@ -29,10 +29,10 @@ Scope of the Community ("Connect") build, checked on 2026-11-01 against the live
 | Admin → Social → Groups (table, charter drawer) | "Coming" card in `app/admin/manifests.php` | admin-architecture §6, 0109 |
 | Admin → Social → Business groups | Not yet a section | admin-architecture §6 |
 | **Events, a site-wide tool** (below) | **0134 Accepted**; not built | Jason, 2026-11-01; 0134 |
-| **Tags on groups:** a group carries its own @tags under its topic ("Food & cooking" → baking, cast iron), so search and topic pages narrow to them | **0136 Proposed** | Jason, 2026-11-01; 0136 |
-| **Local chapters:** a topic group opens chapters tied to a place ("World Travelers: White Mountains"); a chapter is a local group with a parent, shown on its place's page, listed on the parent | **0136 Proposed** | Jason, 2026-11-01; 0136 |
-| **Places a group names:** a group lists places it's about (trips planned, places visited) on its public page, so those place pages show "Discussed by: <group>". The group's choice only, never inferred from members-only posts; passes 0066's checks | **0136 Proposed** | Jason, 2026-11-01; 0136 |
-| **Topic plus place in search:** "cooking groups near Show Low" returns local groups and chapters by distance, and interest groups by topic without a distance | **0136 Proposed** | Jason, 2026-11-01; 0136 |
+| **Tags on groups:** a group carries its own @tags under its topic ("Food & cooking" → baking, cast iron), so search and topic pages narrow to them | **0136 Accepted** | Jason, 2026-11-01; 0136 |
+| **Local chapters:** a topic group opens chapters tied to a place ("World Travelers: White Mountains"); a chapter is a local group with a parent, shown on its place's page, listed on the parent | **0136 Accepted** | Jason, 2026-11-01; 0136 |
+| **Places a group names:** a group lists places it's about (trips planned, places visited) on its public page, so those place pages show "Discussed by: <group>". The group's choice only, never inferred from members-only posts; passes 0066's checks | **0136 Accepted** | Jason, 2026-11-01; 0136 |
+| **Topic plus place in search:** "cooking groups near Show Low" returns local groups and chapters by distance, and interest groups by topic without a distance | **0136 Accepted** | Jason, 2026-11-01; 0136 |
 | Creation gated by trust score; signal-based visibility for new groups | Only Verification and the cap of 5 are live | architecture §27 |
 | Community threads into the AI corpus (classified at intake, abstraction only) | Not built | 0011, 0010, architecture §27–28 |
 | Rest of gap-review step 8: waypoints and GPX/KML, Trip Planner, Single Home Rule queue, emergency map | Not built | `aos-gap-review.md` §8 |
@@ -159,7 +159,7 @@ where the people decide who reaches them and nothing can be bought to the top.
   groups), 0103 (charter transfer terms, inactivity; Accepted, terms set).
 - **Around it:** 0055 (Steward role and dashboard), 0062 (Verification), 0053 (search), 0132 (group membership as a
   link; tags), 0052 (messaging between group members), 0058 (Steward badge), 0109 (admin module 6), 0007 (no paid
-  placement), 0134 (events), 0136 (topic groups and chapters, Proposed), 0137 (charters, group page, moderation, notices,
+  placement), 0134 (events), 0136 (topic groups and chapters, Accepted), 0137 (charters, group page, moderation, notices,
   email; Accepted).
 - **Safety and data:** 0009 (guest abuse in communities), 0010 (authorship), 0011 (AI corpus), 0066 (no sacred or
   restricted sites).
@@ -235,7 +235,7 @@ Already there, so not missing: short links and QR (`ShortCodes`, `Qr`, `QrIssue`
 
 ## Next build
 
-1. Close **Missing before the build** (above), and accept **0136**.
+1. Close **Missing before the build** (above); 0134, 0136 and 0137 are accepted.
 2. **Charter and transfer terms** on the group page, shown before joining.
 3. **Inactivity and ending:** the `lifecycle` table and a daily `Scheduler::JOBS` entry for groups.
 4. **Admin → Social → Groups** and **Business groups**; Steward member reports and escalation.

@@ -296,12 +296,12 @@ straightforward way: pricing set by the seller, and the buyer accepts to proceed
 negotiations outside the transaction, let the seller address pricing overrides, not the buyer." This replaces Make an
 offer on businesses' items and closes the gap where an accepted offer never became an order.
 
-**1. Order now: the buyer accepts the seller's price.** On a business's item with a set price (fixed, or "from" with
-its options), the main button is **Order now**, on every plan:
+**1. Buy now: the buyer accepts the seller's price.** On a business's item with a set price (fixed, or "from" with
+its options), the main button is **Buy now** (Jason, 2026-11-01: "Place order or Buy now"), on every plan:
 1. The buyer picks the quantity and options (the catalog's own price rows and options, 0116), and pickup or delivery
    (the business's Shipping & pickup).
 2. The order shows the seller's price, tax from the business's settings, and shipping, with the business's refund
-   terms. The buyer confirms; nothing is negotiated here.
+   terms. The buyer taps **Place order**; nothing is negotiated here.
 3. It becomes an **order** in the business's Orders (0098, the business's walled records), and the buyer gets it by
    email (sent for the business, 0137 §8) and in their account.
 4. **Paying,** by the business's plan and setup (§6): from Core, **Pay now** through its own gateway, on our page
@@ -318,7 +318,7 @@ its options), the main button is **Order now**, on every plan:
   chooses (Quotes & invoices, 0118), and the buyer accepts it, which makes the order.
 - **A price override from the conversation:** when a buyer and business talk in messages, the business (Inbox
   permission) can **Send a price** for that item, to that buyer: an amount, a quantity, an end date. It shows in the
-  conversation as a card with **Order at this price**; only that buyer can use it, once, before it ends. On Free (no
+  conversation as a card with **Buy at this price**; only that buyer can use it, once, before it ends. On Free (no
   quotes), this is how a business makes a special price. The buyer only ever accepts.
 - Every override is logged (who set it, from what price, for whom), and shows on the order as "Price set by the
   business".
@@ -327,15 +327,24 @@ its options), the main button is **Order now**, on every plan:
 **Message** (Free), and the business answers with a quote or Send a price.
 
 **4. Where else it applies.**
-- **Shared cards** (0136, Selling in groups) carry the same buttons as the item page: Order now, Request a quote,
+- **Shared cards** (0136, Selling in groups) carry the same buttons as the item page: Buy now, Request a quote,
   Message.
-- **Tickets** (0134) use Order now: on Free and Basic the order is paid the business's way and marked paid; from Core,
+- **Tickets** (0134) use Buy now: on Free and Basic the order is paid the business's way and marked paid; from Core,
   Pay now.
-- **People's posts** (step 1–2: one member selling to another) keep offers and Sold / Got it as built, for now.
+- **People's posts** (one member selling to another): **the seller sets the price there too** (Jason, 2026-11-01).
+  - **Buy now** at the post's price reserves it for that buyer (the post shows Pending) and shows the seller's
+    payment ways (Zelle, Venmo, Cash App, cash; step 4, with the no-buyer-protection warning). No order or ledger:
+    people pay each other directly (§6).
+  - **Sold / Got it** (the dual confirmation, trust points and notes) completes it, as built in step 2.
+  - **Buyers can't propose a price.** In messages, the seller can **Send a price** to that buyer, as businesses do. A
+    free post's button is "I'd like it", and the seller picks who gets it.
+  - Unanswered for 3 days (no Sold, no Got it), the reservation lapses and the post shows again.
+  - Make an offer is retired for people's posts too; open offers are honored to the end.
 
-**Changes from step 3:** the buttons become Message, **Order now**, Request a quote (Basic and up); Buy now (Core,
-card) becomes the Pay now step of an order rather than a separate button. Orders from Order now take stock down and
-add customers, as §6 and step 4 expect for "manual orders marked paid".
+**Changes from steps 2 and 3:** a business's buttons become Message, **Buy now** (every plan, creating an order),
+Request a quote (Basic and up); the old Core-only card "Buy now" becomes the **Pay now** step of an order. Orders from
+Buy now take stock down and add customers, as §6 and step 4 expect for "manual orders marked paid". People's posts
+get Buy now and Send a price in place of offers.
 
 ## Older records that point here
 
