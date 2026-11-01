@@ -5,19 +5,35 @@ not built. Settles B1–B5 and C5 there, and A1 and A3–A6. Changes 0102 §4b�
 allowance, post caps), 0134 §7 (events per day) and 0136 §2 (chapters by place or topic). Proposals waiting for Jason
 are listed at the end.
 
-## 1. A business owns its group as a listing, and has one
+## 1. Who owns a business's group: one group per business, with chapters
 
 Jason, 2026-11-01: listings as entities own groups; a business has **one group**, and uses **chapters** instead of
-more groups.
+more groups. A group's owner is **a person, a listing or a Nexus** (`owner_kind`, `owner_id`); a business's group shows
+"Run by <name>" and is run by the business's roles (0102 §4c). Staff changes never touch it.
 
-- A group's owner is **a person or a listing** (`owner_kind`, `owner_id`). A business's group belongs to its listing
-  (the entity), shows "Run by <listing name>", and is run by the business's roles (0102 §4c). Staff changes never
-  touch it.
-- **One group per business.** A business with several listings (a Location Group, 0036) has one group, owned by its
-  main listing.
-- **Chapters do what more groups would have done:** one for each location, and one for each part of what it does
-  (Support, Sales, How-tos, a product line). A member joins the business once and picks the chapters they want.
-- This replaces 0102 §4c's "own allowance by plan": there's nothing to count.
+Businesses come in the three models of the Master AOS (§B: Nexus, Co-Op, Decentralized), and each owns its group
+differently:
+
+| Model | Who owns the group | Chapters | What it avoids |
+|---|---|---|---|
+| **Decentralized** (one business, one listing) | The listing | Topics (Support, Sales, How-tos) and, if it has them, places | — |
+| **Nexus: brand or chain** (one operator, many locations, 0054) | **The Nexus**, not a "main listing" (a chain has none) | A place chapter for each location, led by that location's managers (a franchisee runs its own); topic chapters run by the brand | Picking one location to own the brand's community |
+| **Nexus: system or agency** (a branch tree: VA → VA Northern Arizona → a clinic) | Each Nexus level that chooses to run a group owns one | Its own locations as place chapters, and topics. A child level's group shows "Part of <parent>" as an affiliation, not as a chapter (chapters stay one level deep, 0136) | Deep trees of groups inside groups |
+| **Nexus: affiliation** (independent units under an umbrella: parishes under a diocese) | **Each unit owns its own group**; the umbrella may run its own | A unit's group becomes the umbrella's chapter only if both agree (0136 §2), never by being under it | The umbrella controlling units' groups (0054: "Affiliations never grant management") |
+| **Co-Op** (a chamber, association or guild, run from its Master Hub) | **The Co-Op** (its listing and hub) owns the Co-Op's group | Committees and topics (Networking, Events, Advocacy) and places | Member businesses' groups being swallowed |
+
+**Co-Ops, in more detail:**
+- **Member businesses keep their own group** (each still one). Co-Op membership never gives the Co-Op any control of a
+  member's group (Master AOS §B: dual compliance, independent tenants).
+- **In the Co-Op's group, member businesses can post as their business** (the two voices, 0102 §4c), so a chamber's
+  group is where its members speak to each other and to the town.
+- **Members-only chapters:** the Co-Op can make a chapter (or the whole group) open only to businesses with an active
+  Co-Op membership. If the membership lapses, the business leaves those chapters and keeps everything of its own.
+- The Co-Op's group lists its member businesses' groups, so the chamber is a way into all of them.
+
+**Moving between models:** when a listing joins a Nexus, its group can become the Nexus group's place chapter (both
+agree), or stay its own if the Nexus is an affiliation. When a listing leaves a Nexus, its chapter can leave to become
+its own group (0136 §2, Endings).
 
 ## 2. Chapters by place or by topic (amends 0136 §2)
 
@@ -118,13 +134,17 @@ Jason, 2026-11-01: Traversence interacts with a group only by support ticket. Re
 - **By support ticket, the normal way:** the owner or a moderator opens a "Group help" ticket (0102 §5) for anything
   they can't handle: a member harassing across groups, a moderator account taken over, a dispute they're stuck on. The
   agent gets timed access with the role the ticket sets.
-- **Without a ticket, only where the law or someone's safety makes us** (proposed, see the end): a report can choose
-  **"This breaks the law or puts someone in danger"** (a threat of violence, child abuse material, someone's private
-  information exposed, a court order, a copyright notice through the DMCA queue). That report comes to Traversence's
-  Safety team as well as the group. Reports on **a group as a whole** (a group set up to harass someone) come to us too,
-  because the group can't judge itself. Standing across the site (0079) stays ours.
-- **This changes 0047 and 0102 §4b:** ordinary reports no longer come to Admin → Social → Reports, and 3 reports no
-  longer hide a post for an admin to decide; the group's charter decides.
+- **Legal and safety reports open a ticket on their own** (Jason, 2026-11-01). A report marked **"This breaks the law or
+  puts someone in danger"** (a threat of violence, child abuse material, someone's private information exposed, a
+  court order, a copyright notice), and **any report about a group as a whole**, creates a **Safety ticket**
+  automatically, in the support queue with the group and the item attached. The group is told a report went to
+  Traversence; the reporter is never shown.
+- **Our Terms are applied rigorously on those tickets:** the Safety team decides on the Terms, not the charter: remove
+  the content, restrict or end accounts through the enforcement ladder and Standing (0079), hide or end the group, and
+  report to the authorities where the law requires. Child abuse material is removed at once and reported as the law
+  requires. Every action is in the ticket's log.
+- **Everything else stays with the group.** Ordinary reports no longer come to Admin → Social → Reports, and 3 reports
+  no longer hide a post for an admin to decide: the group's charter decides (this changes 0047 and 0102 §4b).
 
 ## 6. Notices that are sent once: to whom, and why
 
@@ -153,49 +173,85 @@ turn each kind off.
 - **Events** (A5): no limit on how many anyone posts; we step in only on abuse. Tickets stay capped by plan (0134 §6b).
   This replaces 0134 §7's "events per day capped by plan".
 
-## 8. Email: allowances, add-ons and the sending service
+## 8. Email: two services, allowances and top-ups
 
-### Allowance (A1)
+### Which service sends what (Jason, 2026-11-01)
 
-- **Core: 500 emails a month** (Jason, 2026-11-01), with **add-on packs** for more. Strategic 10,000 and Cornerstone
-  50,000 pooled stay as `commercial.md` has them.
-- The allowance counts invitations, campaigns and newsletters. Receipts, tickets, sign-in codes and in-app messages
-  don't count.
-- **Add-ons follow the existing pattern.** Plans already carry storage and AI-credit allowances with monthly add-on
-  packs (`Billing::PLANS`, `Billing::ADDONS`: +25 GB … +5 TB storage, +50 AI credits). Email has no allowance or
-  add-on in the code yet: it's added the same way, an email column on each plan and email packs in `ADDONS`.
-- **Proposed packs:** +1,000 emails a month $2.95; +5,000 $9.95; +25,000 $29.95. Sending costs us about $0.10 per
-  1,000, so the price is for the tool, not the cost.
+**Bluehost sends system email only. Everything else goes through Amazon SES (AWS).**
 
-### The sending service: Amazon SES
+| Bluehost (system email, from traversence.com) | Amazon SES (everything else) |
+|---|---|
+| Sign-in and verification codes, password resets, two-step | Group invitations, from members and from businesses (0136 §5a) |
+| Account notices: deletion, restore, security, Standing | Business and Co-Op campaigns and newsletters |
+| Traversence's own sales: GO Code, print and plan receipts, invoices, payment failures | A business's own sales: order confirmations, tickets and their changes (0134) |
+| Support tickets and their replies | Event changes and cancellations to people going |
+| Staff and system reports (the daily report) | Notification emails and the weekly digest (0137 §6) |
 
-**Cost (AWS's published pricing as reported in 2026; the AWS site couldn't be reached from this session to confirm):**
-- About **$0.10 per 1,000 emails**, plus a small charge for attachment data (our invitations have none).
-- New AWS accounts get starting credits; the free allowance depends on when the account was made, so it's checked in
-  the billing console.
-- A dedicated IP address is optional, about $24.95 a month: not needed until we send hundreds of thousands a month.
-- At Core's 500 and Strategic's 10,000, a month's mail costs cents to a dollar per business.
+Every place the site sends mail (39 files call `Mailer::send`) is marked system or not; the not-system ones move to SES.
 
-**What integrating it needs:**
-1. **The AWS account we already use** for S3 (0123): `app/lib/Aws.php` already signs requests (Signature Version 4,
-   no Composer), so SES's API can be called the same way. Or SES's SMTP endpoint plugs into `Mailer` as its own
-   sender (`Mailer::send(..., $as)` already reads a sender's own SMTP settings by prefix, e.g. `CAMPAIGN_SMTP_*`).
-2. **Our domain verified in SES:** three DKIM records, SPF including Amazon SES, a DMARC record, and a mail-from
-   subdomain (e.g. `mail.traversence.com`), added in DNS.
+### What "a separate sender" means
+
+The site's mail code (`app/lib/Mailer.php`) has one function that pages call to send an email. It can send as more
+than one **sender**: each sender is a from-address plus the mail server it signs in to, set in `.env` under a name
+prefix. Today there are two: the default (`noreply@`, through Bluehost) and `ORDERS` (`orders@`). So adding Amazon SES
+doesn't mean rewriting the pages that send mail: SES becomes another sender, and each page says which sender to use.
+For SES we'd call its API through `app/lib/Aws.php` (which already signs AWS requests for S3) rather than its SMTP
+server, because the API lets each message carry which business sent it, for counting and for bounce handling.
+
+### Sending on behalf of people and businesses: whose domain?
+
+Mail from a member, a group or a business isn't Traversence's own, but it can't be sent "from" their domain unless
+they've let us (inboxes check the domain's DNS records, and fail mail that isn't authorized). So:
+
+1. **By default, it comes from our sending domain, in their name.**
+   - From: "Pine Cafe via Traversence" `<pine-cafe@via.traversence.com>`
+   - Reply-To: the business's own email (from its listing), so replies go straight to them.
+   - The footer says who sent it, why the person got it, and how to stop it.
+   - Their DNS isn't touched. We manage the records for our sending subdomains, once.
+2. **Two sending subdomains on SES, kept apart:** `via.traversence.com` for mail on behalf of members and
+   businesses, and `send.traversence.com` for Traversence's own notifications and digest. A business with a bad list
+   can't hurt the notifications, and neither can hurt sign-in codes, which stay on Bluehost from `traversence.com`.
+3. **"Send from your own domain"** (Strategic and up, optional): the business adds three DKIM records to its own DNS
+   (we show them and check them, and White Glove can do it on a ticket). Then its mail comes from `news@pinecafe.com`,
+   on its own reputation; we still count, watch bounces and complaints, and pause if needed. Members never send from
+   their own domain.
+
+**Who does the DNS:** for our subdomains, the records go wherever `traversence.com`'s DNS is kept (Bluehost's Zone
+Editor or Cloudflare), once; `app/lib/CPanel.php` has no DNS calls today, so either they're added by hand once or the
+cPanel API's DNS functions are added. For a business's own domain, the business adds them, with our check.
+
+### Allowance and top-ups
+
+- **Core: 500 emails a month** (Jason, 2026-11-01). Strategic 10,000 and Cornerstone 50,000 pooled, as
+  `commercial.md` §1.1 has them; a Nexus pools its locations' allowances (Master AOS §5B).
+- **The top-ups already exist** in `commercial.md` ("Top-ups when a plan's allowance runs out"): **+10k $19.95,
+  +25k $44.95, +50k $74.95, +100k $129.95**, with SMS and push alongside. Those are used; nothing new is priced here.
+  (The code has storage and AI-credit packs in `Billing::ADDONS`, but no email yet: the allowance and these top-ups
+  are added there.)
+- The allowance counts the business's invitations, campaigns and newsletters. Its order confirmations and tickets
+  don't count, and neither does anything Traversence sends.
+
+### Amazon SES: cost and what it needs
+
+**Cost** (AWS's published pricing as reported in 2026; the AWS site couldn't be reached from this session to confirm):
+about **$0.10 per 1,000 emails**, plus a small charge for attachment data. A dedicated IP address (about $24.95 a
+month) isn't needed at our volumes. A Core business's 500 a month costs us about 5 cents.
+
+**What it needs:**
+1. The AWS account we already use for S3, with a key allowed to send only, from our sending subdomains.
+2. The DNS records for `via.traversence.com` and `send.traversence.com`: three DKIM records each, SPF, DMARC, and a
+   mail-from record.
 3. **Production access:** new SES accounts start in a sandbox (only verified addresses, about 200 a day); AWS is asked
-   to lift it, explaining that we send consented invitations with unsubscribe and handle bounces.
-4. **Bounces and complaints:** SES reports them (through SNS) to an endpoint on our site, which marks the address
-   (never mail it again), and pauses a business's sending if its bounce or complaint rate climbs (complaints above
-   0.3% is the line Gmail and Yahoo hold bulk senders to).
-5. **One-click unsubscribe** in every bulk email (the List-Unsubscribe headers Gmail and Yahoo require), tied to
-   `Marketing` (a business's "no more from this business") and the person's master switch.
-6. **A restricted key:** the site's AWS key gets permission to send only, from our domain.
-7. **The queue:** a `Scheduler::JOBS` job sends in batches within SES's rate, counts each send against the
-   business's allowance, and stops at the allowance.
-8. **Bluehost stays for the rest:** sign-in codes, receipts and one-to-one mail keep going through `Mailer` as now.
+   to lift it, explaining that we send consented mail with unsubscribe and handle bounces.
+4. **Bounces and complaints:** SES reports them (through SNS) to an endpoint on our site, which stops mail to that
+   address and pauses a business's sending if its rates climb (complaints above 0.3% is Gmail's and Yahoo's line).
+5. **One-click unsubscribe** in every bulk email, tied to `Marketing` (a business's "no more from this business") and
+   the person's master switch.
+6. **The queue:** a `Scheduler::JOBS` job sends in batches within SES's rate, counts each send against the business's
+   allowance, and stops at it.
 
-Where Jason does it: the AWS console (production access request, the key's permissions) and DNS records; the
-`.env` keys go in through File Manager, as for S3.
+Where Jason does it: the AWS console (production access, the key's permissions) and the DNS records; the `.env` keys
+go in through File Manager, as for S3.
 
 ## 9. Flyers printed through us create orders (0136 §5b)
 
@@ -218,11 +274,11 @@ in). It's listed because it isn't built yet, and group events need it.
 
 | Change | Fields |
 |---|---|
-| `community_groups` | `owner_kind` (person, listing), `anchor_kind` for chapters (place, topic), `sub_topic` |
+| `community_groups` | `owner_kind` (person, listing, nexus), `anchor_kind` for chapters (place, topic), `sub_topic`, `coop_only` |
 | `community_charters` | group, version, purpose, who for, house rules, joining settings, member-list visibility, report settings, chapter settings, business publishing, transfer terms, changed by, changed at, takes effect at |
 | `community_reports` | the group's own report queue: item, reason, count, hidden, handled by, action, appeal |
 | `notices_sent` | person, thing, reason, sent: one row = "once" |
-| `Billing` | an email allowance per plan; email packs in `ADDONS` |
+| `Billing` | an email allowance per plan; the existing email top-ups in `ADDONS` |
 | `email_sends` | business, campaign or invitation, address hash, sent, bounced, complained |
 
 ## Build order
@@ -231,16 +287,22 @@ in). It's listed because it isn't built yet, and group events need it.
 2. The group page (section 4) and `/community/` without breadcrumbs.
 3. Group-led moderation and the "Group help" ticket type; legal and safety reports to Safety.
 4. Notices sent once (`notices_sent`), used by everything above.
-5. Email allowance and packs; SES (domain, production access, bounces, unsubscribe, the sending job).
+5. Email: mark every send system or not; SES (subdomains, production access, bounces, unsubscribe, the sending job);
+   the allowance and existing top-ups in `Billing`; later, sending from a business's own domain.
 6. Flyer print products and ordering.
 
 Each step adds its FAQ entries (0057).
 
 ## For Jason
 
-1. **Legal and safety reports** (section 5): a report marked "breaks the law or puts someone in danger", and reports on
-   a group as a whole, come to Traversence without a ticket. Agree? (Recommended: without it we can't act on threats,
-   child abuse material or court orders inside a group.)
-2. **Report defaults:** a post hides after 3 reports; moderators reminded at 2 days, owner at 7.
-3. **Charter changes:** members told, nobody re-accepts; 14 days' notice for transfer terms and member-list visibility.
-4. **Email packs:** +1,000 $2.95, +5,000 $9.95, +25,000 $29.95 a month.
+Settled 2026-11-01: legal and safety reports open a Safety ticket automatically, and our Terms apply on it; Bluehost
+for system email only, everything else on SES; email top-ups are the existing ones.
+
+Still to confirm:
+1. **Who owns a business's group** by model (section 1): the Nexus for a chain, each level for a system, each unit for
+   an affiliation, the Co-Op for a chamber, with members-only Co-Op chapters.
+2. **Notification emails and the weekly digest on SES** (section 8): they're Traversence's own, but not "system" in
+   the sense of sign-in and receipts. Agree?
+3. **Report defaults:** a post hides after 3 reports; moderators reminded at 2 days, owner at 7.
+4. **Charter changes:** members told, nobody re-accepts; 14 days' notice for transfer terms and member-list visibility.
+5. **Core's top-up step:** the smallest existing top-up is +10k; should Core get a smaller one (e.g. +1,000)?
