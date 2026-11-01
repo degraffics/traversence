@@ -131,3 +131,20 @@ branding, in one build: `home-full_20261101.zip` (2 files, built on the 20:45 UT
   invitations, no sideways scroll, no script errors. The real data runs on the live site.
 - **Still to come:** the Stock library (§6) for photos on doors and cards, business deals, and "nearest first" by the
   visitor's place (today: newest across the region).
+
+## Jason's changes to the full layout (2026-11-01)
+
+`home-v3_20261101.zip` (2 files, built on the 20:54 UTC sync): `website/index.php`, `app/ui/faq.md`.
+- **Split search** (the prototype's): **Discover more** (what) and **Let's get local** (where, with the target button to
+  use the visitor's location), and the search button. It opens the one search panel (`TvSearch.open`, the header's bar
+  kept hidden on the page so the panel runs): "<what> near <where>" when a new place is typed, the words alone when the
+  place is the one already chosen. Replaces the Where / Change line.
+- **First-time visitors line** as in the prototype: "First-time visitors: Click here to learn more about our discovery
+  portal, local directory, community hub, and marketplace", each linking to its FAQ section.
+- **Removed:** the section badge above the title and the "Where to start / Four ways in" and "What's on / Coming up"
+  headings (the four doors and the events row stay).
+- **Community Groups** in the prototype's layout (our colors): "Traversence Connect" over the title, **Explore all
+  groups** top right; each card: what kind top left, a badge top right, the name, what it's about, members and
+  **Join group**. Real groups first; then **anchors that need groups** to make six: the town's neighbors, outdoors,
+  local history, families, volunteers, business owners (a topic already running isn't suggested), each "Needs a group"
+  with **Start this group** (`/community/?topic=…#cg-new`).
