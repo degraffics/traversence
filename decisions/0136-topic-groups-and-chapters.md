@@ -65,8 +65,12 @@ members and posts; *World Travelers: White Mountains* is its chapter there.
 | The charter's transfer terms (0103 §2a), applied to the chapter | Its own inactivity clock (0103 §4) |
 
 **Members**
-- Joining a chapter **also joins the parent (Jason)**, so the whole group grows; the person can leave the parent and
-  stay in the chapter. Leaving the parent offers to leave its chapters too.
+- **How joining works is set by the parent's charter** (Jason, 2026-11-01), shown before anyone joins:
+  - **Joining a chapter joins the parent too** (a person can leave the parent and stay in the chapter);
+  - **Chapters are joined on their own** (the parent offers itself, nothing more); or
+  - **Parent members only** (a person joins the parent first, then a chapter).
+  The parent's owner can change it later; members already in are never removed by the change.
+- Leaving the parent offers to leave its chapters too.
 - Members see the chapter's posts, and the parent's posts if they're also parent members, as always.
 
 **Posts and announcements**
@@ -153,5 +157,5 @@ Each step adds its FAQ entries (0057).
 
 1. A parent needs **25 active members** to open chapters?
 2. **Up to 50 chapters** a parent?
-3. Joining a chapter **also joins the parent**?
+3. ~~Joining a chapter also joins the parent?~~ Settled: the parent's charter decides (section 2, Members).
 4. Up to **5 tags** a group (2 more for a chapter) and **10 places** it's about: right sizes?
