@@ -43,6 +43,11 @@ at 6:00 and 18:00 UTC or on demand (its workflow's Run button), committing the r
 - **Delivering:** Jason uploads to the server; the sync updates OneDrive. The server wins a two-sided change
   (`SYNC_HOME=ftp`). A zip holds **only files that differ byte for byte from the live mirror**, never a blanket upload.
   Dotfiles (`.htaccess`) aren't mirrored, so name them separately when they change.
+- **Several sessions at once** (Jason, 2026-11-01): build on the newest sync and name its time in the hand-off ("built
+  on 17:44 UTC"), with the zip's file list. Before handing over, fetch the mirror again; any file in the zip that
+  changed there since is rebuilt on the live copy (shared files most often: `faq.md`, `manifests.php`, `tools.php`,
+  `Pulse.php`, `section-rails.php`, `portal.php`, the portal router). Never build on another session's zip that isn't
+  live yet; ask Jason to upload it and run the sync first. One upload at a time, the sync run after each.
 - **Deleting** on one side deletes on the other (OneDrive recycle bin; server copy in the sync repo's `deleted/`).
   Claude can delete in OneDrive via the Microsoft 365 connector. Never re-send a deleted file. More than max(10, 5%)
   deletions in a run wait for `allow_mass_delete`.
