@@ -212,6 +212,17 @@ uploaded and `app/migrations/2027-01-13_market_offers.sql` has run.
   (`#market:offers`), and the Pulse ("Marketplace offer waiting on you"). A buyer with an offer on a post keeps seeing
   it after it sells.
 
+## Test posts: the Marketplace's sandbox (2026-11-01)
+
+Jason asked to sandbox-test the Marketplace; it had no test mode (the site's sandbox is the QuickBooks switch for our
+own orders). Now a team account (a row in `admin_access`) posts with **Test post** ticked (ticked by default for the
+team; untick for a real post), `market_posts.is_test` (`2027-01-14_market_test_posts.sql`).
+- Only our team sees a test post (marked Test); to anyone else it doesn't exist (404, never in the grid).
+- Messages and offers on it are only between team accounts; the whole flow (counter, accept, Sold, Got it, note,
+  problem, settling) works as usual.
+- It uses up no one's 5 posts and counts in no numbers: metrics, the seller card, trades, notes or trust points.
+- Market 360° → Items lists them under **Test posts**. Testing a trade needs two team accounts (seller and buyer).
+
 ## Older records that point here
 
 0031 (Post-and-Connect; its "no payments through Traversence" stands), 0032 (quotes, pricing, catalog depth; its 250 is

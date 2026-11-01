@@ -164,6 +164,9 @@ They're separate: the staff login (a staff ID like TRV-0001, your work email and
 ### I'm on the Traversence team. Where is everything in the admin?
 The admin has 11 modules, in the menu on the left (☰ on a phone). Each module has its own sections, listed in the menu next to the page title. Your role and department decide which modules you see. Anything your role can't do is greyed out, with the reason. A section that's coming is greyed out in that menu and opens a page saying what it will do. Lists work the same way everywhere: a search box, filters, and the stage of each item. Tap an item to open it in a panel at the side. The panel shows where the item stands, how long it's been there, and the next steps you can take. The round icons beside the section menu open tools from other modules in a panel over your work, so you don't lose your place, and Back closes the panel. Managers and up can change the steps work goes through, and who may take each one, in **System Configuration → Workflows**. The older admin pages still open from their old links and the site map, with a note saying where their work is now.
 
+
+### I'm on the Traversence team. How do I test the Marketplace?
+Post with **Test post** ticked (it's ticked for team accounts; untick it for a real post). A test post shows only to our team, marked **Test**, and never to anyone else. With a second team account (or a teammate) as the buyer, you can message, make and counter offers, tap Sold and Got it, leave a note and report a problem, all as usual. Tests use up no one's 5 posts and count in no numbers, notes or trust points. Find them in Market 360° → Items under **Test posts**, and take them down when you're done.
 ### What does Peek do in search?
 Tapping a result opens its page. A listing also has a **Peek** button: tap it for a quick card with the address, Call and Directions, without leaving the page you're on.
 
