@@ -1,5 +1,9 @@
 # SJ Portables – Functional Requirements Document
 
+> **Updated by `decisions/0135` (2026-11-01):** the catalog cap is now an allowance by plan, counting active items only:
+> 1,000 per listing on Enterprise / Cornerstone (replacing the 250 below), still with no combined cap across a Location
+> Group. Card payments go to the business's own gateway; none pass through Traversence. This export predates it.
+
 Sep 25, 2026 · @Jason
 
 ## Document Overview

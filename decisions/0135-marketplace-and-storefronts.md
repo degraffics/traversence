@@ -27,7 +27,8 @@ outline, and some no longer agreed:
   GB and AI credits a month. Packs (`Billing::ADDONS`) add storage or AI credits.
 - **`/market/`:** the placeholder (0055). Sample cards marked "Sample", and "Post something" greyed out.
 - **Admin workspace 5, Market 360°** (`/admin/market/`): GO Codes & short links, and our own site pages and their form
-  entries, are built. Post-and-Connect, Catalog rules, Storefront Studio and Custom domains are placeholders.
+  entries, are built. Post-and-Connect, Catalog rules, Storefront Studio, Custom domains and Gateways are placeholders.
+  The Catalog rules placeholder reads "catalog caps by plan" (changed 2026-11-01; it said "the 250-item cap").
 - **Not built:** personal posts, offers, dual confirmation, the Shop tab, checkout, gateways, `trvgo.us/<shop>`.
 
 ## The rules
@@ -138,14 +139,17 @@ Nothing. Section 6's gateways after Square and Stripe are added when asked for.
 
 ## What changes
 
-- **Docs:** `commercial.md` §1.1 and the AOS, `admin-architecture.md`, `workspace-map.md`, `aos-gap-review.md`,
+- **FAQ** (2026-11-01): the catalog answer gives the caps as coming, and "Can I sell things on Traversence?" describes
+  §2–§8 as coming.
+- **Docs:** `future-considerations.md` (variants) and the SJ Portables BRD and FRD exports (a note at the top) carry
+  the 1,000 cap. `commercial.md` §1.1 and the AOS, `admin-architecture.md`, `workspace-map.md`, `aos-gap-review.md`,
   `admin-rebuild-batch-plan.md` and `business-portal-architecture.md` now say "catalog caps by plan (0135)" in place of
   "the 250-item cap". `marketplace-architecture.md` follows this record.
 - **When built** (site code):
   - `Billing::PLANS` gains an items allowance (personal plans 5) and `Plan` a `limit()` (as `business-portal-architecture.md` §7 planned);
     the Catalog greys out Add / Show at the cap.
-  - Workspace 5's manifest splits into Marketplace and Storefronts; the Catalog rules placeholder's text ("the 250-item
-    cap per catalog") becomes "catalog caps by plan".
+  - Workspace 5's manifest splits into Marketplace and Storefronts (the Catalog rules placeholder's text already reads
+    "catalog caps by plan").
   - The Item workflow gains **Expired**.
 
 ## Older records that point here
