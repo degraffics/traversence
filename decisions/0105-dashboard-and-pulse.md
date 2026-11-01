@@ -223,3 +223,6 @@ steps.
 - **Outside services, listed** (Jason, 2026-11-01: "add the outside services list"): System Configuration → Services &
   usage opens with every outside service we run on (`Pulse::SERVICES`: Railway, QuickBooks, AWS S3, Cloudflare, Claude
   Console, Tavily, Google Cloud, Bluehost, the GitHub sync), each with what it's for and Open ↗.
+- **Monthly plans** (Jason, 2026-11-01, Railway's Hobby plan now active): Services & usage lists the flat monthly plans
+  (`Services::PLANS`: Railway Hobby, $5 a month including $5 of usage; a price in .env overrides it) beside the usage
+  services, with the month's total (plans + usage so far), and the report on the 1st includes them.
