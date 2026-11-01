@@ -272,3 +272,16 @@ Each step adds its FAQ entries (0057).
 
 6. **The defaults with it:** sales pause at the monthly limit (warned at 80%); free registration doesn't count toward
    it; outside-ticket events the crawler finds become Ticket Sales leads.
+
+## Amendment (2026-11-01, Jason): a business that already sells tickets elsewhere
+
+Section 3's "no links to outside ticket sellers" stays the rule for everyone else. A business that already runs its box
+office on another system (Eventbrite, Ticket Tailor) gets two options (Jason: "B and C as options"), from its Ticket
+Sales onboarding (6b):
+- **B. Connect your ticketing:** its events come in from that system automatically, and Buy tickets opens that
+  system's checkout, clearly marked ("Tickets through Eventbrite"). Their fees are between the business and that
+  system; we take nothing.
+- **C. Move to Traversence:** the same connection, used once to bring its events and ticket types over, after which
+  tickets are sold here (6a) and the link goes.
+A business can start with B and move to C at any time. Built after the Marketplace's gateway step
+(`decisions/0135`, "Step 4 decided"), which card ticket sales need anyway.
