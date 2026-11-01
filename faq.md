@@ -966,6 +966,12 @@ Yes, one group per business, run by its team. Its Owner or a Manager starts it f
 ### Why does a post say "Sales, Pine Cafe"?
 In a business's group, its team can post as the business (the Owner, Managers and Creators), or as its sales rep, shown as their name with "Sales" and the business's name, so you always know who's speaking for the business.
 
+### How do reports work in a group?
+Tap **Report** on a post and choose why. Reports on a group's posts go to its own moderators (or only its owner, if the charter says so), never to Traversence, and nobody learns who reported. A post is hidden while it's looked at once enough members have reported it (the charter sets how many, counting only different members who've been in the group more than a week), or at once if it shares someone's private information or a sacred or restricted site. Its author still sees it, marked. The moderators keep it, remove it, or remove it and its author. Two kinds of report come to Traversence's Safety team instead, where our Terms apply: **Breaks the law or puts someone in danger**, and a report on a whole group.
+
+### Can a group ask Traversence for help?
+Yes. A group's owner and moderators can use **Ask Traversence for help** on the group's page for what the group can't settle, such as someone harassing people across groups or a moderator's account taken over. It reaches our support team as a case, and we reply by email. If reports in a group wait 14 days with nobody deciding, we're asked to help on our own.
+
 ### What happens to a group if its owner leaves?
 Whatever its charter says: the group ends (the usual choice, with no elections), a member the owner named is offered it, the longest-serving moderator is offered it, or the moderators choose one of themselves. The steps that carry this out, and closing groups that have gone quiet for 30 days, are coming.
 
