@@ -37,8 +37,8 @@ files are added, moved or removed.
 ## The 3-way sync: server ⇄ OneDrive, recorded in GitHub (Jason, 2026-10-28): every build
 
 `degraffics/traverse-3way-sync` keeps the server (FTP) and OneDrive `Traversence/website` + `Traversence/app` the same,
-at 6:00 and 18:00 UTC or on demand (its workflow's Run button), committing the result to `sync-storage/` (website) and
-`sync-app/` (app).
+at 6:00 and 18:00 UTC or on demand (its workflow's Run button), committing the result to `sync-storage/` (website),
+`sync-app/` (app) and `sync-trvgo/` (trvgo.us, since 2026-11-01).
 - **What's live** is those folders on that repo's `main`, not a copy from an earlier session. Compare before building.
 - **Delivering:** Jason uploads to the server; the sync updates OneDrive. The server wins a two-sided change
   (`SYNC_HOME=ftp`). A zip holds **only files that differ byte for byte from the live mirror**, never a blanket upload.
@@ -83,7 +83,8 @@ the licence decides the use. Where older crawler records disagree, 0133 wins.
   `image/`, `uploads/`. Never backend code, SQL, notes or dumps.
 - `app/` is never served: `lib/` classes, `data/` word data, `ui/` shared page parts (shell, header, engage bar,
   `faq.md`), `bootstrap.php`, `middleware/`, `migrations/`, `scripts/`.
-- `trvgo/` is the trvgo.us document root: only the short-link router (`index.php`, `.htaccess`).
+- `trvgo/` is the trvgo.us document root: the router (`index.php`, `.htaccess`) for short codes, GO Codes and businesses'
+  storefronts (decisions/0139); storefront pages are drawn by `app/ui/storefront-view.php`. Mirrored to `sync-trvgo/`.
 - Pages reach `app/` by relative path (`__DIR__ . '/../app/ui/header.php'` from the root). Zips hold the folders at real
   paths. Notes folders (`_notes`, `_SUPPORT`, `_concepts`, `_pending`) go in neither.
 

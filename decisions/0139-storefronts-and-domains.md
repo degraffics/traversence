@@ -52,3 +52,35 @@ session's hand-off), 0135 §9 and 0137 §8 "DNS and hosting". Builds as the Mark
   Storefront & pages for the business; the admin's Storefronts section.
 - **5b:** Connect your domain, both ways: buying through Name.com and bringing your own; the Fly proxy, DomainCheck,
   the domain workflow, the admin's Custom domains; email DKIM beside the storefront's records.
+
+## Step 5a built (2026-11-02): the storefront on trvgo.us
+
+Built on the **23:57 UTC sync** (2026-11-01), the first with `trvgo/` mirrored (`sync-trvgo/`; the sync's PR #6).
+- **The router** (`trvgo/index.php`): a path that isn't a code and looks like a shop (`Storefront::looksLikeShop`)
+  goes to `app/ui/storefront-view.php`; anything else is as before, including "This code isn't active". Codes are
+  always made 6 characters from the code alphabet (`ShortCodes::fresh`), so a shop name can't collide; a name matching
+  any existing code is refused as well.
+- **`Storefront`** (`app/lib/Storefront.php`, table `storefronts`, migration `2027-01-22_storefronts.sql`): one per
+  listing; its name (3 to 40 letters, numbers and hyphens; not a code's shape; not reserved; unique); Building → Live →
+  Paused; four ready themes (Canyon, Sage, Paper, Night) with an accent color checked for contrast, a tagline, a few
+  lines about it, a logo and a cover; a parent brand for a location (only when the person runs both).
+- **The page:** the listing's public details (`VCard::listingCard`, so a confidential listing's address stays off),
+  its published items (each links to its item page on traversence.com, where buying, offers and messages happen), the
+  brand's live locations, and its live pages as tabs (`SitePages`, owner = the listing; pictures and links in them
+  point at traversence.com). No script, no session, no cookie: its policy forbids every script. Canonical address and
+  LocalBusiness data for search engines. Not showing (building, paused, its plan below Core, its listing hidden): a
+  plain "isn't open right now" page; its team sees it through a signed preview link (7 days, from the portal).
+- **The portal's Storefront & pages** (live, Core and up): set up, name and look, logo and cover (uploaded through the
+  one uploader, target `storefront_photo`, into the business's gallery and its storage; or chosen from its photos; kept
+  in a public "Storefront" album), its pages (add, write, Draft / Live / Hidden), Preview, Go live and Pause (Publish).
+  Its own domain shows as "coming next".
+- **The admin:** Market 360° → Storefronts (live): every storefront, its status, plan and pages; our team can pause one.
+- **The listing's Shop** links to the storefront when it's showing.
+- **Tested** on a local copy (MariaDB, PHP's own server for trvgo.us and the site): 40 storefront checks (names and
+  the code rule, plan, building, preview, live, pages, paused, plan ending, a hidden listing, locations, existing codes,
+  capitals, an unknown code, trvgo.us alone), 10 portal actions, the upload target's refusals; phone and desktop
+  widths with no sideways scroll and no console errors.
+- **Not checked here:** `trvgo/.htaccess` isn't mirrored (a dotfile). It must send every path that isn't a file to
+  `index.php`, including ones with hyphens and slashes (`round-valley`, `brand/location`), or a storefront address
+  gets the server's own 404.
+
