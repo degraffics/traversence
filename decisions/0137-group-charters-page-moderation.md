@@ -565,3 +565,8 @@ each of send. and via.). The step counted cPanel answering as the records being 
   only when all are found, and re-adds what's missing until then.
 - Two hours in cPanel's zone and still not public means the DNS the world sees isn't that zone: the step says so and
   lists the records to add by hand in Bluehost → Domains → traversence.com → DNS.
+- **Run now, and step 5 confirmed** (`ses-runnow_20261102.zip`, `SesMail.php`, `Pulse.php`, built on the 02:06 UTC sync):
+  Jason asked for a button to run the setup rather than wait for the 15 minutes. Steps 4 and 5 carry **Run now** and
+  step 6 **Check now** while they're open (`ses_run` → `SesMail::autoSetup`, noted on the case; an error shows as the
+  answer). Step 5 (bounce and complaint reports) is done only once AWS's SNS subscription is confirmed with the site
+  (`/api/ses-events.php` records it), not when the topic is made; until then each run asks AWS again.
