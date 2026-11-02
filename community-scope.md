@@ -244,7 +244,7 @@ Already there, so not missing: short links and QR (`ShortCodes`, `Qr`, `QrIssue`
 - **Waiting on AWS:** `send.` and `via.traversence.com` are pending verification; the setup runs itself
   (`ses_setup_tick`), asks for production access once a domain verifies, then `SES_MODE=live`.
 - **Handed off:** 0137 step 6, Connect your domain, to the Storefronts build (`marketplace-architecture.md` §8).
-- **Built 2026-11-01, waiting for upload** (0136 "Built"): tags on groups, places a group is about, chapters, search by
+- **Live 2026-11-02** (0136 "Built"; checked against the 01:36 UTC sync; its migration runs within the hour): tags on groups, places a group is about, chapters, search by
   topic and place, growing a group (welcome post and message, join questions, invitations, invite codes, join counts,
   groups like this), and Admin → Social → Groups.
 - **Not built yet:** inactivity and the lifecycle job (C4), with chapter endings and the Steward's nudges; a member's

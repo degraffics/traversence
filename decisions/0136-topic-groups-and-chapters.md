@@ -387,6 +387,8 @@ Each step adds its FAQ entries (0057).
 
 ## Built (2026-11-01, built on the 23:31 UTC sync; with 0137's build order done through step 5)
 
+**Live:** uploaded and checked byte for byte against the 01:36 UTC sync (2026-11-02).
+
 One zip, 14 files: migration `2027-01-24_groups_grow.sql`; new `app/lib/GroupGrowth.php` and `app/lib/GroupChapters.php`;
 `Community.php`, `ContentTags.php`, `Notices.php`, `SearchIndex.php`, `app/admin/manifests.php` and `tools.php`, `faq.md`;
 `website/community/group.php` and `index.php`, `website/user/api/community.php`, `website/hub/index.php`.
