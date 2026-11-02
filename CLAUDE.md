@@ -161,8 +161,9 @@ Never `alert()`, `confirm()` or `prompt()`.
 - **Status lines** are `<p data-tv-status="ok|info|bad" data-tv-label="All clear:">…</p>`, never plain colored text.
 - **Peek** at a page without leaving: `<a href="…" data-peek-frame>` or `TvAsk.peek(url, title)`.
 - **Busy** (Jason, 2026-11-02): any click that doesn't finish at once shows a spinner on what was clicked,
-  `TvAsk.busy(btn, true)` before the request and `false` when it answers, then the answer beside it (`TvAsk.say`).
-  Never a button that greys out and looks dead.
+  `TvAsk.busy(btn, true)` before the request and `false` when it answers, then the answer as the site's notice
+  (`TvAsk.say`: beside it, or the centered pop-up when there's no room, as in a Pulse case). Never a button that greys out
+  and looks dead.
 
 ## Password boxes (`js/tv-password.js`, Jason, 2026-10-16): every page
 
