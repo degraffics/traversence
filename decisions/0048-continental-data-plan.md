@@ -149,3 +149,10 @@ hides any place that shouldn't be shown; a hidden place stays hidden across mont
   names read in normal case; RIDB's catch-all "Facility" shows the first activity instead.
 
 **Since 2026-11-01** (decisions/0133, "The observations store is the identity record"): OpenStreetMap is a lead only (its share-alike would reach our record); Overture belongs in the source register under the same rule. What we store is what the crawler reads at the business's own site or a registry.
+
+**The monthly NPI file load is off (Jason, 2026-11-02).** CMS took its NPI file page (download.cms.gov/nppes) down
+"until further notice". `NpiBulk::OFF` makes the site report the load as never due, so the worker doesn't try; the
+Crawler page's Bulk data card says it's off. The records already loaded stay and keep confirming listings, and the
+single-listing NPI Registry lookups are separate and unchanged. To turn it back on: `NpiBulk::OFF = false`.
+Delivered as `npi-off_20261102.zip` (`app/lib/crawler/NpiBulk.php`, `website/admin/crawler.php`; built on the
+14:28 UTC sync).
