@@ -1,0 +1,35 @@
+# The storefront edge (decisions/0139 §3): businesses' own domains point here. Fly.io holds each domain's certificate
+# (added by the site through Fly's API) and hands the visit over as plain HTTP on :8080. Caddy passes it to trvgo.us,
+# whose router shows the storefront: the domain asked for in X-TV-Host, our shared key in X-TV-Edge.
+{
+	admin off
+	auto_https off
+	servers {
+		trusted_proxies static private_ranges
+	}
+}
+
+:8080 {
+	# Fly's health check
+	handle /__edge {
+		respond "ok" 200
+	}
+
+	# www.yourshop.com → yourshop.com, so a shop has one address
+	@www header_regexp www Host ^www\.(.+)$
+	redir @www https://{re.www.1}{uri} 301
+
+	# a visitor's own copies of our headers are never passed on
+	request_header -X-TV-Host
+	request_header -X-TV-Edge
+
+	reverse_proxy https://trvgo.us {
+		header_up Host trvgo.us
+		header_up X-TV-Host {host}
+		header_up X-TV-Edge {$STOREFRONT_EDGE_KEY}
+		header_up X-Forwarded-Proto https
+		transport http {
+			tls_server_name trvgo.us
+		}
+	}
+}
