@@ -80,7 +80,9 @@ Built on the **23:57 UTC sync** (2026-11-01), the first with `trvgo/` mirrored (
   the code rule, plan, building, preview, live, pages, paused, plan ending, a hidden listing, locations, existing codes,
   capitals, an unknown code, trvgo.us alone), 10 portal actions, the upload target's refusals; phone and desktop
   widths with no sideways scroll and no console errors.
-- **Not checked here:** `trvgo/.htaccess` isn't mirrored (a dotfile). It must send every path that isn't a file to
-  `index.php`, including ones with hyphens and slashes (`round-valley`, `brand/location`), or a storefront address
-  gets the server's own 404.
+- **`trvgo/.htaccess` changes too** (a dotfile, not mirrored; uploaded by hand with the zip). Read from OneDrive's copy:
+  it sent only letters and digits (`^([A-Za-z0-9]{1,16})/?$`, the codes) to the router and 404'd the rest, so
+  `trvgo.us/round-valley` would never have reached it. One rule is added after the codes' rule: shop paths,
+  `^([A-Za-z0-9-]{3,40}(?:/[A-Za-z0-9-]{1,80}){0,2})/?$` → `index.php?c=$1`. Everything else in it is as it was
+  (https, www, the 404 for anything else, dotfiles denied).
 
