@@ -160,6 +160,9 @@ Never `alert()`, `confirm()` or `prompt()`.
   pop-up. After a form post, the page's message carries `data-tv-flash="ok|error"`. No other success/error boxes.
 - **Status lines** are `<p data-tv-status="ok|info|bad" data-tv-label="All clear:">…</p>`, never plain colored text.
 - **Peek** at a page without leaving: `<a href="…" data-peek-frame>` or `TvAsk.peek(url, title)`.
+- **Busy** (Jason, 2026-11-02): any click that doesn't finish at once shows a spinner on what was clicked,
+  `TvAsk.busy(btn, true)` before the request and `false` when it answers, then the answer beside it (`TvAsk.say`).
+  Never a button that greys out and looks dead.
 
 ## Password boxes (`js/tv-password.js`, Jason, 2026-10-16): every page
 
