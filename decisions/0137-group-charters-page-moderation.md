@@ -552,3 +552,16 @@ buttons now: each step says where it stands, and the first unfinished one shows 
 if it stopped. People do only the AWS key, `.env` (`SES_MODE=live` once production access is on), and production
 access by hand if AWS refuses the site's request (then add `ses:PutAccountDetails` to `traversence-ses`, or use the SES
 console).
+
+## Email setup: DNS checked in public DNS, not taken on cPanel's word (2026-11-02)
+
+Jason, "aws verification is taking way to long": the Pulse step "Add their DNS records" said done, but traversence.com's
+zone (Bluehost → Domains → DNS) had none of the 12 records (3 DKIM CNAMEs and the bounce MX, bounce TXT and DMARC for
+each of send. and via.). The step counted cPanel answering as the records being there. `ses-dns-fix_20261102.zip`
+(`CPanel.php`, `SesMail.php`, `Pulse.php`, built on the 01:36 UTC sync):
+- `CPanel::dnsEnsure` compares names however cPanel writes them (short, whole, with a final dot: `recKey`, `fqName`) and
+  reads the zone back after adding: any record still missing stops the step with which ones.
+- `SesMail::unpublished` looks every record up in public DNS (what AWS reads) on each 15-minute run; the step is done
+  only when all are found, and re-adds what's missing until then.
+- Two hours in cPanel's zone and still not public means the DNS the world sees isn't that zone: the step says so and
+  lists the records to add by hand in Bluehost → Domains → traversence.com → DNS.
