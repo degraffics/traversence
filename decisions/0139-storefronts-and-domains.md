@@ -86,3 +86,49 @@ Built on the **23:57 UTC sync** (2026-11-01), the first with `trvgo/` mirrored (
   `^([A-Za-z0-9-]{3,40}(?:/[A-Za-z0-9-]{1,80}){0,2})/?$` → `index.php?c=$1`. Everything else in it is as it was
   (https, www, the 404 for anything else, dotfiles denied).
 
+## Step 5b built (2026-11-02): Connect your domain, bought or brought
+
+Built on the **00:13 UTC sync** (2026-11-02, the one with 5a live).
+- **`Domains`** (`app/lib/Domains.php`, table `business_domains`, migration `2027-01-24_business_domains.sql`): one domain
+  per storefront; Added → DNS pointed → Certificate coming → Live; Failed; Removed. Our own domains, malformed ones and
+  one another business has connected are refused.
+- **Bring your own:** the portal shows the records (A for the domain to the edge's IPv4, AAAA if there is one, CNAME
+  `www` to `trvgo-edge.fly.dev`; the three DKIM CNAMEs for email when SES is set up). DNS is checked by the site
+  (`dns_get_record`); once it answers with the edge, the edge is asked for a certificate (Fly's GraphQL API:
+  `addCertificate`, then its status); when it's ready, the domain is Live and becomes the storefront's address.
+- **Buy one, through Name.com's reseller API** (v4; `NAMECOM_ENV` sandbox first): a search offers the typed name and
+  .com, .net, .shop, .store, .co, .us, .biz with our price a year (Name.com's cost + `DOMAIN_MARKUP_CENTS`, default
+  $5.00); premium names are referred to us. Buying re-checks the price (never more than shown), charges the plan's card
+  on file (`Billing::chargeExtra`: a QuickBooks receipt and email, like a pack; recorded as kind `domain`, which the
+  migration adds to `subscription_charges.kind`), then registers it with the business as registrant, admin, tech and
+  billing contact (WHOIS privacy on), then sets its records at Name.com. If registering fails, the charge is refunded
+  (`QuickBooksPay::refundCharge`); if that fails too, it's logged as SECURITY for our team to refund by hand.
+- **Renewal:** two weeks before a bought domain runs out, the card is charged and Name.com renews it for a year (once;
+  a failure is noted and the business's Pulse says so). Renewal can be switched off; **Move it to another registrar**
+  unlocks it and shows its transfer code once.
+- **The edge** (`workers/storefront-edge/`, Caddy on Fly.io): passes each visit to trvgo.us with `X-TV-Host` (the
+  domain) and `X-TV-Edge` (the shared key), drops any copies a visitor sends, and sends `www.` to the bare domain. The
+  router serves a business's domain only with the key, and only its storefront (codes aren't served there).
+- **One address:** a live domain is the storefront's canonical address; `trvgo.us/<shop>` and its pages redirect to it
+  (301), a brand's locations sit under its domain (`brand.com/location`). DNS gone for 3 days: Failed, the storefront
+  goes back to trvgo.us, the business's Pulse says what to fix.
+- **The job** `domains_tick` (every 15 minutes, `Scheduler::AUTO`): checks waiting domains, live ones once a day,
+  renews due ones.
+- **The admin:** Market 360° → Custom domains (live): every domain, its stage, how it came, its expiry; Check now and
+  Disconnect.
+- **Test mode:** `DOMAINS_MODE=mock`, a local test only (refused on the server, like `MARKET_PAY_ENV`): no Fly, no
+  Name.com, no charge.
+- **Tested** locally in mock mode: 39 checks (cleaning, plan, own domains refused, bring your own through DNS waiting,
+  the wrong answer, the certificate and Live; the edge with and without its key, an unknown domain, codes refused there;
+  the 301s from trvgo.us, a location under the brand's domain; DNS gone for 3 days; search, taken names, the price
+  guard, the registrant's details, buying, transfer code, renewal once, auto-renew); 9 portal actions; the storefront's
+  40 and the earlier Marketplace suites again; the card at phone width. **Not tested here** (not reachable from this
+  session): Fly's and Name.com's real APIs, and the Caddy config itself: they're checked in their sandboxes first.
+
+### Jason's one-time setup for 5b
+1. **Fly.io:** follow `workers/storefront-edge/README.md` (deploy the edge, set its key, note its IPs, make a deploy token).
+2. **Name.com:** the reseller account's API tokens (sandbox and live).
+3. **`.env`** (File Manager): `DOMAINS_MODE=live`, `FLY_API_TOKEN`, `FLY_APP=trvgo-edge`, `FLY_IPV4`, `FLY_IPV6`,
+   `STOREFRONT_EDGE_KEY` (the same as the edge's), `NAMECOM_USER`, `NAMECOM_TOKEN`, `NAMECOM_ENV=sandbox` (then
+   `live`), optionally `DOMAIN_MARKUP_CENTS`. Until `DOMAINS_MODE` is set, the card says "opens soon".
+
