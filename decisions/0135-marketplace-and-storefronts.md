@@ -481,6 +481,12 @@ itself through an inline `onchange`, which the card page's security policy block
 carries `data-tv-autosubmit`, answered by a nonced script on the page. `order-notify-fix_20261102.zip` (`website/order.php`
 only, built on the 14:16 UTC sync). With this, 4b's follow-ups are all done.
 
+**What's missing, by name (2026-11-02):** Market 360° → Gateways shows a card each for Stripe and Square: **Ready**,
+or the `.env` settings still missing, by name only, never a value (`MarketPay::missingAll()`; the webhook secrets
+are listed but don't stop connecting). Jason's Connect Stripe stayed greyed with no way to tell which key the site
+couldn't read. `gateway-check_20261102.zip` (`app/lib/MarketPay.php`, `app/admin/tools.php`; built on the 15:05 UTC
+sync).
+
 **Jason's one-time setup for 4b:** in the Square application's webhook subscription, add `inventory.count.updated` and
 `catalog.version.updated`. A business that connected Square before 4b connects again once (for `INVENTORY_WRITE`).
 
