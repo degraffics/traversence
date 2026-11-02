@@ -72,6 +72,14 @@ can point to them but don't track them.
   where a role or plan doesn't open them.
 - Checked with sample data at 390px and desktop: no sideways scroll.
 
+**One button (Jason, 2026-11-02: "like the admin: one button for Market 360").** The menu has a single **Market
+360°** button, lit on all its pages; its pages are in a **Market 360° ▾** dropdown beside each page's title, as the
+admin's section dropdown: Set up (Get selling, Storefront & pages, Catalog, Marketplace, E-commerce setup, Shipping &
+pickup, Sales tax), then Run your store (Customers, Quotes & invoices, Orders, Discount codes, Marketing, Reports),
+greyed with the reason where a role or plan doesn't open them (`tv_biz_m360_sections()`). The business Overview's
+tiles show Market 360° once, not each of its pages. `market360-onebutton_20261102.zip` (3 files; built on the 15:55
+UTC sync).
+
 ## Next stages
 
 2. **Verification & payouts:** read the connected account's status from Stripe (can take payments, can pay out,
