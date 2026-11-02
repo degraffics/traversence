@@ -4,7 +4,7 @@ The record of Traversence's governance and technical documentation. `main` is th
 
 The site's code isn't here. It runs on the server and in OneDrive, and its live mirror is
 [`degraffics/traverse-3way-sync`](https://github.com/degraffics/traverse-3way-sync) (`sync-storage/` = `website/`,
-`sync-app/` = `app/`). Build rules for Claude sessions are in `CLAUDE.md`.
+`sync-app/` = `app/`, `sync-trvgo/` = `trvgo/`). Build rules for Claude sessions are in `CLAUDE.md`.
 
 ## Start here
 
