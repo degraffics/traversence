@@ -487,6 +487,15 @@ are listed but don't stop connecting). Jason's Connect Stripe stayed greyed with
 couldn't read. `gateway-check_20261102.zip` (`app/lib/MarketPay.php`, `app/admin/tools.php`; built on the 15:05 UTC
 sync).
 
+**Step 5 walks the test through (Jason, 2026-11-02: "if this is onboarding shouldn't #5 have the steps to test").** In
+test mode (sandbox), E-commerce setup's step 5 is a checklist that ticks itself: card payments connected; **Run a test
+purchase** (a $1 stand-in from the business, paid on the buyers' own card form at `/market/cart.php?test=<id>` with a
+test card, through the business's own gateway; its team only; no product, nothing on the Marketplace); paid, confirmed
+by the gateway (the order in Quotes & invoices, the receipt sent); its items on the Marketplace. Test orders carry the
+note "Test purchase from E-commerce setup" (`MarketCheckout::placeTest`, `lastTest`). Once live, the step says to buy
+one of its own items from a personal account and refund it. `test-purchase_20261102.zip` (5 files; built on the 15:13
+UTC sync).
+
 **Jason's one-time setup for 4b:** in the Square application's webhook subscription, add `inventory.count.updated` and
 `catalog.version.updated`. A business that connected Square before 4b connects again once (for `INVENTORY_WRITE`).
 
