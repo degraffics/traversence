@@ -1,8 +1,9 @@
 # ADR 0140: Market 360 for a Business: One Module, Guided Segments
 
-**Status:** Proposed (Jason, 2026-11-02: "address the Market 360 for the listing as one module where all of the segments
-fall underneath it and have intuitive onboarding for each one"). Waiting for his OK on the layout below before building.
-Builds on 0110/0115 (the business portal), 0116 (catalog), 0135 (marketplace and checkout), 0139 (storefronts).
+**Status:** Accepted (Jason, 2026-11-02: "Market 360° yes. Move customers and sells under it too. Stages, if you need
+to."), from his ask the same day: "address the Market 360 for the listing as one module where all of the segments fall
+underneath it and have intuitive onboarding for each one". Builds on 0110/0115 (the business portal), 0116 (catalog),
+0135 (marketplace and checkout), 0139 (storefronts).
 
 ## Why
 
@@ -41,9 +42,40 @@ under the same module as its "Run" half.
 - A segment that needs an outside service (Stripe, Square) says so and carries its link.
 - Test mode is visible throughout: while payments are in sandbox, every segment that touches money says so.
 
-## Questions for Jason
+## Jason's answers (2026-11-02)
 
-1. The name in the business portal: **Market 360** (as in the admin) or **Selling**?
-2. Should **Customers** and **Quotes & invoices** move under it too, or stay as their own (they serve quotes and
-   services as well as the Marketplace)?
-3. Build order: the overview and segment shells first (one zip), then each segment's own checklist in turn?
+- The name is **Market 360°**, as on the admin side.
+- **Customers** and **Quotes & invoices** (sales) move under it too. Inbox and Plan & settings stay outside it.
+- Built in stages.
+
+## What the reference guides added
+
+Jason shared common "start an online store" guides (theme, store setup, products, shipping and payments, go live;
+brand, register, name and domain, design, payments, optimize, market, support). What they add here: **name and
+domain** belong in the Store segment (trvgo.us/<shop> and Connect your domain, 0139); **optimize** (phone view, speed,
+search) belongs in Test & launch; **market** and **support** are the "Run your store" half (Marketing; Inbox and
+Customers). Registering the business and choosing a niche are the owner's own steps outside the site; the guided steps
+can point to them but don't track them.
+
+## Stage 1 built (2026-11-02): the module and Get selling
+
+`market360-stage1_20261102.zip` (4 files; built on the 15:40 UTC sync): `app/business/market360.php` (new),
+`app/business/portal.php`, `website/business/router.php`, `app/ui/faq.md`.
+- **The menu:** the business portal's menu has a **Market 360°** group: Get selling, then every selling page (Customers,
+  Quotes & invoices, Catalog, Marketplace, E-commerce setup, Orders, Sales tax, Shipping & pickup, Storefront & pages,
+  Discount codes, Marketing, Reports; each module marks `'in' => 'market360'`). Inbox stays under Business tools.
+  Every page keeps its address.
+- **Get selling** (`/business/<id>/market360`): a progress bar ("3 of 7 done · next: Store"), then the seven segments,
+  each with what it is and why, where it stands now (from real data), and the button to the page where it's done, the
+  next one highlighted. Segment 6 links to the gateway's own dashboard and says its status here is coming.
+- **Run your store:** Customers, Quotes & invoices, Orders, Discount codes, Marketing, Reports, greyed with the reason
+  where a role or plan doesn't open them.
+- Checked with sample data at 390px and desktop: no sideways scroll.
+
+## Next stages
+
+2. **Verification & payouts:** read the connected account's status from Stripe (can take payments, can pay out,
+   what's still due) and Square, and tick segment 6 from it.
+3. Each segment's own guided checklist at the top of its page (as step 5 of E-commerce setup has): Business profile,
+   Store (logo, colors, pages, address, domain, phone preview), Catalog (first item with price, photo, stock), Shipping
+   & tax (moved out of E-commerce setup's steps 2–4 into their own pages' checklists).
