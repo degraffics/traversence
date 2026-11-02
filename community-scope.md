@@ -250,7 +250,13 @@ Already there, so not missing: short links and QR (`ShortCodes`, `Qr`, `QrIssue`
 - **Not built yet:** inactivity and the lifecycle job (C4), with chapter endings and the Steward's nudges; a member's
   private home place (C3); flyers and badges (0137 step 7, C7); a business's bulk invitations and moving non-system mail
   to SES (C1); events (0134, C6).
-- **Next:** the lifecycle job (C4) and the home place (C3), or events.
+- **Next (Jason, 2026-11-02): the look.** Landing pages much cleaner, starting with `/community/`, to the mockup in
+  `design/community-landing-mockup.png`: a left rail (Connect: Groups, Start a group; Yours: Your groups, Address Book,
+  Your Pulse); a title with **Start a Group** top right; one search box with a category dropdown and a sort (Most
+  active); topic chips; **Trending & growing groups** as white cards (topic icon, "+18 this week", name, a short about,
+  members, **Join Group**). Built to the standards: brand icons (`tv_icon()`), the name as the link, filters as one
+  dropdown where the standard asks, 3px edges at 390px. "+N this week" comes from the join counts (0136 §5). Then the
+  lifecycle job (C4), the home place (C3), or events.
 
 ## Next build
 
