@@ -476,6 +476,11 @@ account and routing numbers. Its hint is "How to reach you for transfer details 
 under it: full account and routing numbers are better shared by phone, because they're what someone needs to forge
 checks or set up debits. Only that order's buyer sees the instructions either way.
 
+**The client order page's email checkbox (2026-11-02):** "Email me as my order moves along" on `/order.php` saved
+itself through an inline `onchange`, which the card page's security policy blocks, so ticking it did nothing. It now
+carries `data-tv-autosubmit`, answered by a nonced script on the page. `order-notify-fix_20261102.zip` (`website/order.php`
+only, built on the 14:16 UTC sync). With this, 4b's follow-ups are all done.
+
 **Jason's one-time setup for 4b:** in the Square application's webhook subscription, add `inventory.count.updated` and
 `catalog.version.updated`. A business that connected Square before 4b connects again once (for `INVENTORY_WRITE`).
 
