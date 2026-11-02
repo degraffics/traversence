@@ -505,6 +505,14 @@ new try closes an earlier unpaid one. A business tests the gateway it connected.
 from their labels (an `input{width:100%}` rule); fixed for every buyer. `test-fixes_20261102.zip` (5 files; built on the
 15:31 UTC sync).
 
+**Stripe's new embedded mode (2026-11-02).** Pinning didn't help: Stripe retired `ui_mode=embedded` on older API
+versions too. Checked against Stripe's own current libraries (stripe-node 23.1.0, stripe-js 10.2.0): the session is
+`ui_mode=embedded_page` (`return_url` and `client_secret` unchanged) and Stripe.js mounts it with
+`createEmbeddedCheckoutPage({fetchClientSecret})` (the cart falls back to `initEmbeddedCheckout` if an older Stripe.js
+loads). The pin moves to `2026-10-28.endive`. Failed test purchases are left out of the Marketplace orders list, and
+test orders that reached the card form are marked "Test". `stripe-embedded-page_20261102.zip` (4 files; built on the
+15:40 UTC sync).
+
 **Jason's one-time setup for 4b:** in the Square application's webhook subscription, add `inventory.count.updated` and
 `catalog.version.updated`. A business that connected Square before 4b connects again once (for `INVENTORY_WRITE`).
 
