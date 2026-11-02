@@ -135,3 +135,17 @@ themselves (the Privacy box and its code are gone; `/user/api/staff-link.php` on
   **Link them** or **Not me** (`confirmMemberLink()`). A wrong account or an old link says so and links nothing.
 - **Unlinking** is from either side: the owner on Staff logins, or the member in Dashboard → Privacy → Staff login.
 - The account menu no longer shows "Your staff login · link it in Privacy" to unlinked admins.
+
+## Addendum (Jason, 2026-11-02): the switch back, and your listings from the admin side
+
+- **The switch back counts from last use.** Switching from your own account back to the staff login without signing
+  in works for 12 hours after the staff login was **last used** in that browser (each admin page renews it), not 12
+  hours after its sign-in. Past that, or after the staff login is reset or ended, it asks for the staff sign-in again,
+  as before.
+- **Your listings from the admin side.** A staff login still has no listings of its own, but the account menu's
+  **Your listings** now shows the linked member account's listings; tapping one switches to that account and opens the
+  listing (`/user/api/context.php`, `{account: "member", then: "entity:<id>"}`; only a role the member holds).
+- **No browser bubbles on required fields.** A field the browser won't send gets the site's notice beside it
+  ("Fill in "Staff ID or work email" first."), never Chrome's "Please fill out this field" (`js/tv-ask.js`, every page).
+- Delivered as `staff-switch_20261102.zip` (built on the 14:41 UTC sync): `app/lib/StaffLogin.php`,
+  `app/ui/context-switcher.php`, `website/user/api/context.php`, `website/js/tv-ask.js`, `app/ui/faq.md`.
