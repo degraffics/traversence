@@ -63,7 +63,7 @@ can point to them but don't track them.
 `app/business/portal.php`, `website/business/router.php`, `app/ui/faq.md`.
 - **The menu:** the business portal's menu has a **Market 360°** group: Get selling, then every selling page (Customers,
   Quotes & invoices, Catalog, Marketplace, E-commerce setup, Orders, Sales tax, Shipping & pickup, Storefront & pages,
-  Discount codes, Marketing, Reports; each module marks `'in' => 'market360'`). Inbox stays under Business tools.
+  Discount codes, Marketing, Reports; each module marks `'in' => 'market'`). Inbox stays under Business tools.
   Every page keeps its address.
 - **Get selling** (`/business/<id>/market`): a progress bar ("3 of 7 done · next: Store"), then the seven segments,
   each with what it is and why, where it stands now (from real data), and the button to the page where it's done, the
