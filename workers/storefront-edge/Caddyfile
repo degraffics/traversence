@@ -15,6 +15,12 @@
 		respond "ok" 200
 	}
 
+	# the edge's own address (Fly's checks, a person looking): answered here, never passed to trvgo.us
+	@self host *.fly.dev localhost
+	handle @self {
+		respond "Traversence storefront edge: ok" 200
+	}
+
 	# www.yourshop.com → yourshop.com, so a shop has one address
 	@www header_regexp www Host ^www\.(.+)$
 	redir @www https://{re.www.1}{uri} 301
