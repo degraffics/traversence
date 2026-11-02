@@ -43,6 +43,7 @@ The site's code isn't here. It runs on the server and in OneDrive, and its live 
 | `toolkit.md` | The Traversence toolkit |
 | `faq.md` | The site's FAQ, shipped as `app/ui/faq.md` |
 | `archive.md` | Register of archived and removed site pages |
+| `design/` | Design references: mockups to build to (`community-landing-mockup.png`) |
 
 ## Process
 
