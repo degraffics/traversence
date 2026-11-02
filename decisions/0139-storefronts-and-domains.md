@@ -132,3 +132,11 @@ Built on the **00:13 UTC sync** (2026-11-02, the one with 5a live).
    `STOREFRONT_EDGE_KEY` (the same as the edge's), `NAMECOM_USER`, `NAMECOM_TOKEN`, `NAMECOM_ENV=sandbox` (then
    `live`), optionally `DOMAIN_MARKUP_CENTS`. Until `DOMAINS_MODE` is set, the card says "opens soon".
 
+**Test mode and the switch in Settings (2026-11-02, Jason: "need a way to toggle this for testing").** `DOMAINS_MODE`
+and `NAMECOM_ENV` are now among the plain settings changeable in Admin → Settings (`EnvSettings`, decisions/0125; the
+tokens and the edge's key stay in `.env` by hand). `DOMAINS_MODE` takes **off** (the card says "opens soon"), **test**
+(only our team sees Connect your domain; the real edge and real DNS, so a domain we own connects for real; buying uses
+Name.com's sandbox whatever `NAMECOM_ENV` says, and no card is charged, nor on renewal) or **live** (businesses on Core
+and up, real charges). `mock` stays a local test only. Built on the 01:13 UTC sync: `app/lib/Domains.php`,
+`app/lib/EnvSettings.php`, `app/business/storefront.php`, `app/admin/tools.php`.
+
