@@ -63,9 +63,9 @@ can point to them but don't track them.
 `app/business/portal.php`, `website/business/router.php`, `app/ui/faq.md`.
 - **The menu:** the business portal's menu has a **Market 360°** group: Get selling, then every selling page (Customers,
   Quotes & invoices, Catalog, Marketplace, E-commerce setup, Orders, Sales tax, Shipping & pickup, Storefront & pages,
-  Discount codes, Marketing, Reports; each module marks `'in' => 'market360'`). Inbox stays under Business tools.
+  Discount codes, Marketing, Reports; each module marks `'in' => 'market'`). Inbox stays under Business tools.
   Every page keeps its address.
-- **Get selling** (`/business/<id>/market360`): a progress bar ("3 of 7 done · next: Store"), then the seven segments,
+- **Get selling** (`/business/<id>/market`): a progress bar ("3 of 7 done · next: Store"), then the seven segments,
   each with what it is and why, where it stands now (from real data), and the button to the page where it's done, the
   next one highlighted. Segment 6 links to the gateway's own dashboard and says its status here is coming.
 - **Run your store:** Customers, Quotes & invoices, Orders, Discount codes, Marketing, Reports, greyed with the reason
@@ -79,6 +79,11 @@ pickup, Sales tax), then Run your store (Customers, Quotes & invoices, Orders, D
 greyed with the reason where a role or plan doesn't open them (`tv_biz_m360_sections()`). The business Overview's
 tiles show Market 360° once, not each of its pages. `market360-onebutton_20261102.zip` (3 files; built on the 15:55
 UTC sync).
+
+**Its address is `/business/<id>/market` (2026-11-02).** `/business/<id>/market360` gave the server's own "Not Found":
+`business/.htaccess` (not mirrored) passes only letter-only module names to the router, so the module key is `market`
+(the label stays Market 360°). `market360-address_20261102.zip` replaces `market360-onebutton_20261102.zip` (the same 3
+files with the one-button change and the new key; built on the 15:55 UTC sync).
 
 ## Next stages
 
