@@ -496,6 +496,15 @@ note "Test purchase from E-commerce setup" (`MarketCheckout::placeTest`, `lastTe
 one of its own items from a personal account and refund it. `test-purchase_20261102.zip` (5 files; built on the 15:13
 UTC sync).
 
+**After the first test (2026-11-02).** Stripe refused the session: `ui_mode=embedded` is "no longer supported" from API
+version `2026-10-28.endive` (the new sandbox's default). Our Stripe calls now pin `Stripe-Version: 2026-03-25.dahlia`
+(`MarketPay::STRIPE_VERSION`), so a newer account default can't change them; moving to `embedded_page` is a later,
+tested change. Step 5 now says how the last try went (Worked / Waiting / Didn't work with the gateway's reason / Not
+paid), ticks only when the test is paid, shows the connected gateway's own test cards (`MarketPay::TEST_CARDS`), and a
+new try closes an earlier unpaid one. A business tests the gateway it connected. The checkout's radio buttons sat apart
+from their labels (an `input{width:100%}` rule); fixed for every buyer. `test-fixes_20261102.zip` (5 files; built on the
+15:31 UTC sync).
+
 **Jason's one-time setup for 4b:** in the Square application's webhook subscription, add `inventory.count.updated` and
 `catalog.version.updated`. A business that connected Square before 4b connects again once (for `INVENTORY_WRITE`).
 
