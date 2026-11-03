@@ -176,3 +176,12 @@ payment account; each gateway's own list still applies on top.
 - **`/market/rules.php`:** a public page with a quick check by name (the same check publishing makes) and the rules by
   tier; linked from the business's Marketplace page, the catalog and the FAQ. The words our team looks at first aren't
   listed (that would show how to word around them); the check still says when an item would wait.
+- **Reading a name the way search does** (Jason, 2026-11-03: "a wine rack should not ask about a license"): for the rules
+  about things (alcohol, tobacco, CBD, food, meat, weapons, drugs, medicine, wildlife, gambling, documents), a word counts
+  only when it's the thing itself, the last noun of its phrase (`MarketRules::isThing`, using the site's word data):
+  "wine rack", "beer mug", "gun safe", "cheese board" pass; "red wine", "craft beer, 6-pack", "beef jerky", "CBD oil" ask.
+  Each rule keeps the following words that still mean the thing ("rifle parts", "vape pen", "ivory carving", "raffle
+  tickets"); "for", "holds", "fits" before a word make it something held ("a rack for wine"); "and", "of" join two things
+  ("wine and cheese basket", "bottle of wine"). Describing rules ("counterfeit", "stolen") count anywhere. The name decides;
+  a prohibited word only in the description sends the item to our team, never blocks it. Homemade food looks at the food
+  (jam, salsa, cookies), not the word "homemade". 40 sample names checked.
