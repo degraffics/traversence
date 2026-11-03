@@ -165,3 +165,14 @@ payment account; each gateway's own list still applies on top.
 - **Also in this zip:** Stripe checkout is card only (Apple Pay and Google Pay included; a business's slower Stripe
   methods could settle after the 35-minute hold); the test purchase returns its team to E-commerce setup step 5, whose
   result now says when it happened.
+
+## The rules where the work happens (Jason, 2026-11-03, built on the 19:17 UTC sync)
+
+"Someone puts a ton of work into their catalog and finds out at Publish": the rulebook now speaks while an item is shaped.
+- **Catalog:** a Marketplace column on every item (Can publish · May need your license · Can't be published · Our team
+  looks first) and, on its card, the reason and a "Check what can be sold" link (`MarketRules::forCatalog`). The catalog
+  stays private: anything can be kept there for quotes and invoices.
+- **Square import** says at once how many imported items can't go on the Marketplace or may need a license.
+- **`/market/rules.php`:** a public page with a quick check by name (the same check publishing makes) and the rules by
+  tier; linked from the business's Marketplace page, the catalog and the FAQ. The words our team looks at first aren't
+  listed (that would show how to word around them); the check still says when an item would wait.
