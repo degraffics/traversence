@@ -92,3 +92,5 @@ files with the one-button change and the new key; built on the 15:55 UTC sync).
 3. Each segment's own guided checklist at the top of its page (as step 5 of E-commerce setup has): Business profile,
    Store (logo, colors, pages, address, domain, phone preview), Catalog (first item with price, photo, stock), Shipping
    & tax (moved out of E-commerce setup's steps 2–4 into their own pages' checklists).
+
+**Since 2026-11-03 (decisions/0141):** **Widened by 0141** (2026-11-03): the seven Get selling segments become the onboarding across 0141's six modules; segment 6 (Verification & payouts) is 0141's Trust score; the stage plan continues as 0141's phases A–E.

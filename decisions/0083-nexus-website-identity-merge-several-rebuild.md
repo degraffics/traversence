@@ -154,3 +154,5 @@ It's useful as a parent-company reference, not as a list of store brands:
 - **Store locators:** each brand's locator address saved on its Nexus, for Rebuild.
 - **The crawler's own extractor** names every location found on a site after the site. Rebuild's rule (a place takes
   the name the site's own list gives it) belongs there too.
+
+**Since 2026-11-03 (decisions/0141):** 0141 §2.1, §6: NEXUS routing chooses which branch's gateway and fulfillment an order goes to; each branch connects its own gateway, and money never pools at the brand.

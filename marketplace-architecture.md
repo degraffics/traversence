@@ -289,3 +289,5 @@ Storefronts build's work (§6 step 5), so it moves here; the Community session g
 5. **Email from the business's own domain stays with 0137 §8:** the same Connect your domain step shows the three DKIM
    records for SES (`SesMail`, built in 0137 step 5) beside the storefront's record; they go in the business's own
    DNS, not trvgo's. Its sending (invitations, campaigns, the bulk SES account) is built with businesses' email.
+
+**Since 2026-11-03:** decisions/0141 sets the Marketplace's selling side for a business: money never pools, one invoice per business with a combined orders summary, going live opens the shop only, nine item kinds, tax-exempt buyers, the Trust score, reach without caps or paid placement.

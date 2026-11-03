@@ -275,3 +275,5 @@ touches the admin.
 - **Next:** the business portal foundation (members and listings move with it).
 
 **Since 2026-11-01** (decisions/0133, "The observations store is the identity record"): Data separation no longer moves `identity_facts`, `identity_fact_sources` or `identity_applied`: public cards read them, so they live in main, and any an earlier move took to the admin database come back on their own.
+
+**Since 2026-11-03 (decisions/0141):** 0141 §2.6: a business's customers (people who transacted) live in its walls and can be exported; people who only linked are a live view of their own settings, never copied into the business's data. Tax-exemption certificates (0141 §4) stay in the walls too.

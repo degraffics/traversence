@@ -19,3 +19,5 @@ No tier — including Cornerstone — grants a ranking, category-leadership, or 
 ## Consequences
 
 Marketing and sales language for Cornerstone needs to be rewritten wherever it still promises "category leadership" or "maximum visibility" (the original source business documents use this language throughout and should be corrected to match this decision, not treated as still-current). The revenue model and financial projections in `commercial.md` §4–6 are unaffected — this changes what partners are told they're buying, not the price or the target mix. Product work building search ranking, category ordering, or map-pin prominence must never accept tier or payment status as an input signal; trust score, verification status, and community resonance are the only legitimate inputs.
+
+**Since 2026-11-03 (decisions/0141):** Reaffirmed by 0141 §2.4: Market 360°'s reach is linking, feeds, tag followers, groups and published content; no paid reach, and no caps on what a business posts (offers grouped one card per business).

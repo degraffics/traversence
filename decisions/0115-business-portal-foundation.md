@@ -157,3 +157,5 @@ its dashboard view. In the menu, Overview is first, under the business's name.
 **No separate "Business portal" item** (same day). Jason: "M2 listing and business portal aren't they the same?" Yes:
 the account menu drops its Business portal item; choosing a listing under Your listings switches to it and opens its
 Overview (`/business/<listing>`), where all its tools are.
+
+**Since 2026-11-03 (decisions/0141):** 0140 and 0141: selling now sits under one **Market 360°** button in the business menu, its six modules (Business Identification, Money & Processing, Products & Inventory, E-commerce, Storefront, Marketing) in its dropdown.
