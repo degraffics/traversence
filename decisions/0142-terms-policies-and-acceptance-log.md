@@ -117,3 +117,31 @@ payment account; each gateway's own list still applies on top.
 4. The checkout line and per-kind disclosures; the order's policy snapshot.
 5. The Seller Agreement before Go live; the Restricted confirmations; the rulebook check at publish.
 6. The chargeback packet.
+
+## Built: zip 2, Phase B core (2026-11-03, built on the 16:50 UTC sync)
+
+- **The acceptance log** `terms_acceptances` exactly as §2 (migration `2027-02-02_terms_acceptances.sql`, which also
+  adds `market_checkout.policies` and `market_orders.policy_json`). `Acceptance::record()` stores the SHA-256 of the
+  exact text shown, the IP and browser; the class has no update or delete. Records hold a user id, never a name or email.
+- **Legal templates** (`LegalTexts`, the `legal` family of content templates): Platform Terms and Privacy Policy
+  (today's pages as sections, plus §3's Marketplace section, Stripe, Square and Stripe Identity under other companies,
+  and a Privacy section "Records of what you agreed to": 7 years, kept without name and email after deletion), a
+  Seller Agreement, the store policies' master clauses and the checkout line. Seeded once from `app/lib/legal-seed.php`
+  as **drafts**, edited at System Configuration → Content templates → Legal texts (`app/admin/legal-editor.php`):
+  sections in a small Markdown, every save a version, Publish with a label (`v2026.1`), an effective date and "needs
+  acceptance"; going back to a version restores its sections and never the publish record. `/terms.php` and
+  `/privacy.php` show the version in effect; until one is published they show today's text.
+- **Identity:** `LEGAL_NAME`, `LEGAL_ADDRESS`, `LEGAL_EMAIL`, `LEGAL_STATE`, `LEGAL_COUNTY` in System Configuration →
+  Settings, defaulting to Traversence.com, PO Box 3570, Saint Johns, AZ 85936, support@traversence.com, Arizona, Apache
+  County.
+- **Sign-up** (password, Google and the other social sign-ins) writes `account_terms` with the Terms version shown
+  ('site' while today's page is shown) and the Privacy Policy's in its snapshot.
+- **Store policies** at Market 360° → Money & Processing → Store policies (`app/business/policies.php`,
+  `StorePolicies`): returns (final, 7, 14, 30 days, exchanges), cancellations, deposits, house rules. Saving publishes
+  them and writes `store_policy_published`. The box (the master's locked clauses first, then the choices) shows on items,
+  the storefront, checkout, the order page and the receipt email; E-commerce setup's Go live says whether they're set.
+- **Checkout:** the line above Place order (the checkout template); placing an order, and the setup's test purchase,
+  writes a `checkout` record (version `<line>|<terms>|s<store version>`) and keeps the policies on the order, so a later
+  change never rewrites it.
+- **Not yet:** asking members to accept a "needs acceptance" version again (the flag is kept); AI Assist on legal
+  sections; kind-specific defaults (Phase C).
