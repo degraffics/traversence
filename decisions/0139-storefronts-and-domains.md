@@ -141,3 +141,12 @@ and up, real charges). `mock` stays a local test only. Built on the 01:13 UTC sy
 `app/lib/EnvSettings.php`, `app/business/storefront.php`, `app/admin/tools.php`.
 
 **Since 2026-11-03 (decisions/0141):** 0141 §2.3, §7: Publish opens or pauses the shop; it never adds or removes the listing or its map pin from discovery. Layout themes (Retail, Venue, Lodging, Service) come in Phase E, suggested by the business's main item kinds.
+
+## Name.com refusing our sign-in (2026-11-03)
+
+Seen live: `NAMECOM_ENV=sandbox` with the live username gave "Permission Denied" in a business's domain search. Now:
+the sandbox has its own pair, `NAMECOM_TEST_USER` (the `-test` username) and `NAMECOM_TEST_TOKEN` (the live pair is tried
+when they're missing); a refusal is remembered, businesses see "Buying a domain through us is paused for a moment…"
+(and can still connect one they own), and our team gets one Pulse case (`namecom:down`) with the error, the Name.com
+link and **Check again**; the 15-minute domains job re-checks, so buying reopens by itself. `DOMAINS_MODE=live` with
+the sandbox refuses to sell, so no real charge is ever made for a sandbox domain.
