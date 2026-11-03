@@ -63,10 +63,12 @@ Market 360° is one button in the business menu (0140); its dropdown groups thes
 
 - **Getting paid:** Stripe or Square (card, Apple Pay, Google Pay). **Direct payments:** Zelle, bank transfer, check,
   pay on pickup.
-- **Tax & exemption:** rates as built; **tax-exempt buyers** when the business switches it on: the buyer chooses
-  Resale (Arizona Form 5000A) or another exemption (Form 5000) and uploads it; **the business approves it** (its tax,
-  its call); tax comes off after approval and on later orders until it expires; kept in the business's walls.
-  501(c)(3) status alone isn't an exemption. Forms confirmed with an accountant before building.
+- **Tax & exemption:** rates as built; **tax-exempt buyers** when the business switches it on. Collecting tax, and
+  deciding who's exempt, is the business's responsibility, not Traversence's: no gate or review on our side, just a
+  plain record of **who** (the buyer and the business), **what** (the form, e.g. Arizona Form 5000A resale or Form 5000,
+  and its certificate number), **how long** (valid until) and **proof** (the uploaded form). The business chooses
+  whether a certificate applies at once or after it looks; it can revoke one any time. Tax comes off that buyer's
+  orders with that business while it's valid. Kept in the business's walls (Jason, 2026-11-03).
 - **Checkout disclosures:** refund window, deposits, holds, chargeback notes (the terms work, Jason drafting).
 
 ## 5. Products & Inventory: nine item kinds
@@ -116,5 +118,5 @@ who opted in (plan allowance), then texts (explicit written consent; attorney-re
 | A | The six modules in the Market 360° dropdown; the Trust score page with what we hold; Stripe and Square status read; the linkers view matching the Linking consent (names, contacts as shared, no export) |
 | B | The terms work: the acceptance record, store policies, checkout disclosures, the seller agreement before Go live, the chargeback packet (waits on Jason's draft) |
 | C | The item-kind framework, then all nine kinds in turn: physical and service, made to order, tickets, digital, perishables, rentals, bookings, subscriptions |
-| D | Bundles, tax-exempt buyers, legal identity, state-record checks, the owner ID check, the Pulse support line |
+| D | Bundles, tax-exempt buyers (who, what, how long, proof), legal identity, state-record checks, the owner ID check, the Pulse support line |
 | E | Storefront themes, the local-deals digest, email campaigns, then texts and push |
