@@ -64,3 +64,5 @@ and the business name repeated the header. Now:
 - **The notices box says whose turn it is (2026-10-28).** "Approved: waiting on the client's payment", "With the vendor:
   work order issued". When the client opened the order shows only while it's theirs to approve (sent). Otherwise it read
   as if the client owed a reply when the vendor had the job.
+
+**Since 2026-11-03 (decisions/0141):** 0141 §1: the same action bar (Add, Edit, Download, Duplicate, Delete, Archive, Lock) comes to Market 360°'s pages in the business portal.

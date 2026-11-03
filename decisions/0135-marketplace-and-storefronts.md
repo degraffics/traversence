@@ -521,3 +521,5 @@ test orders that reached the card form are marked "Test". `stripe-embedded-page_
 0031 (Post-and-Connect; its "no payments through Traversence" stands), 0032 (quotes, pricing, catalog depth; its 250 is
 now 1,000), 0036 (the catalog-cap part only), 0116 (the catalog in the
 business portal). 0055's Marketplace naming and 0058's comments-not-stars stand as they are.
+
+**Since 2026-11-03 (decisions/0141):** 0141: Market 360° widens this: one invoice per business with a combined orders summary (§2.2), going live opens the shop only (§2.3), tax-exempt buyers with Forms 5000/5000A approved by the business (§4), deposit choices that work (hold for short rentals, charge and refund otherwise) and gateways that differ (§5), the chargeback packet (§6).

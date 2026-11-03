@@ -230,3 +230,5 @@ Names that suggest someone speaks for Traversence (Traversence, Admin, Staff, Su
 so is "Member #N", the name shown until someone picks their own. Phone numbers and email addresses aren't accepted as
 names. Code is in `api/lib/Profile.php` and `user/api/profile.php`. A profile photo is still to come; initials are
 shown for now.
+
+**Since 2026-11-03 (decisions/0141):** 0141 §2.5–2.6: this preference framework is Market 360°'s unsubscribe for every email, text and push. Linkers are **prospects**: linking is the consent to be known to the business; contact details only as shared, read live and never copied; no export of prospects. Business Insights' "counts only" applies to anonymous reach; the portal's linkers view shows names as the Linking consent promises (Phase A). Offers are grouped one card per business.

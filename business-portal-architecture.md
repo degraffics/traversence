@@ -175,3 +175,5 @@ Then the Catalog (decisions/0116), White Glove access (0117), one landing and on
 - **Tested on every build:** a test signs in as business A and tries every tool, item and file of business B; every
   attempt must fail.
 - **Nexus parents** see their own locations' data through the Nexus link, nothing wider (AOS §6).
+
+**Since 2026-11-03:** Selling in the business portal is now **Market 360°** (decisions/0140, 0141): one menu button; six modules (Business Identification, Money & Processing, Products & Inventory, E-commerce, Storefront, Marketing); nine item kinds; the Trust score; phases A–E in 0141 §9.

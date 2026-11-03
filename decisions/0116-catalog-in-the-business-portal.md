@@ -44,3 +44,5 @@ only):
 
 - the business marks an order paid (Zelle, bank transfer, check, cash, pay on pickup) with a reference;
 - card checkout through its own gateway comes at Core, with the gateway step.
+
+**Since 2026-11-03 (decisions/0141):** 0141 §5: every catalog item has a **kind** (physical, service, made to order, ticket, digital, subscription, booking, perishable, rental), each a full configuration of editor fields, item page, checkout, after-purchase delivery, order handling, policies and gateway support.

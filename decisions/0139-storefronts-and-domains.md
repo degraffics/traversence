@@ -140,3 +140,4 @@ Name.com's sandbox whatever `NAMECOM_ENV` says, and no card is charged, nor on r
 and up, real charges). `mock` stays a local test only. Built on the 01:13 UTC sync: `app/lib/Domains.php`,
 `app/lib/EnvSettings.php`, `app/business/storefront.php`, `app/admin/tools.php`.
 
+**Since 2026-11-03 (decisions/0141):** 0141 §2.3, §7: Publish opens or pauses the shop; it never adds or removes the listing or its map pin from discovery. Layout themes (Retail, Venue, Lodging, Service) come in Phase E, suggested by the business's main item kinds.

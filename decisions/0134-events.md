@@ -285,3 +285,5 @@ Sales onboarding (6b):
   tickets are sold here (6a) and the link goes.
 A business can start with B and move to C at any time. Built after the Marketplace's gateway step
 (`decisions/0135`, "Step 4 decided"), which card ticket sales need anyway.
+
+**Since 2026-11-03 (decisions/0141):** 0141 §5: tickets become the catalog's Event tickets kind (date and time, capacity, terms, a GO Code ticket scanned at the door), sold through the business's own gateway.
