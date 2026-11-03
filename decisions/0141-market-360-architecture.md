@@ -122,3 +122,30 @@ who opted in (plan allowance), then texts (explicit written consent; attorney-re
 | E | Storefront themes, the local-deals digest, email campaigns, then texts and push |
 
 **Phase B is decisions/0142** (2026-11-03): legal texts as versioned templates filled from business identity, the acceptance log, the Marketplace section of the Terms, and the rulebook of what can be sold.
+
+## Built: zip 1, Phase A (2026-11-03, built on the 13:53 UTC sync)
+
+- **Six modules in the dropdown** (`tv_biz_m360_sections()`): Get selling first, then Business Identification (Trust
+  score, Legal identity), Money & Processing (E-commerce setup, Sales tax, Store policies), Products & Inventory
+  (Catalog, Marketplace, Bundles), E-commerce (Orders, Customers, Quotes & invoices, Shipping & pickup, Discount codes,
+  Reports), Storefront (Storefront & pages), Marketing (Linked people, Marketing). Pages not built yet (`legal`,
+  `policies`, `bundles`, `marketing`, `reports`) are listed greyed with "coming" and what they'll do. Get selling's
+  "Run your store" tiles became the six modules. On a phone the dropdown spans the header's width.
+- **Trust score** at `/business/<id>/trust` (`app/business/trust.php`): six tasks; phone (the claim: entity status
+  `verified`, button Confirm by text) and payments tick from real data; legal identity, state records, owner ID (its
+  price rule shown) and agreements show as coming. The badge text names only what's done ("Verified: phone ·
+  payments"); showing it on storefronts and items comes later.
+- **Payments verified:** `MarketPay::accountStatus()` (Stripe `GET /v1/accounts/{id}` with the platform key:
+  `charges_enabled`, `payouts_enabled`, `requirements` in plain words, a dashboard link; Square `GET /v2/merchants/me`,
+  ACTIVE). Cached on `market_gateways` (`acct_json`, `acct_checked_at`; migration `2027-02-01_gateway_status.sql`)
+  by `MarketCheckout::payStatus()`, tied to the account id; asked daily by `market_tick`, hourly at most from Get
+  selling, every 10 minutes from E-commerce setup (a status line under the connected gateway), and on Check now (busy
+  spinner, at most once a minute). Get selling's segment 6 ticks from it and says what's still needed.
+- **Linked people** at `/business/<id>/linkers` (`Marketing::linkers()`): names under the open-links rule of
+  `Links::linkedBy` (0052: made under the open terms or the notice seen; paused and suspended people hidden), offers
+  status, contact fields only as each person shares them, read live (`cardForBusiness`); search and pages of 50; no
+  export. Counts stay counts.
+- **Restored in the same zip:** the admin's Storefronts and Custom domains sections (`manifests.php`, `tools.php`) and the
+  FAQ's two storefront entries, lost to the Nov 2 01:36 UTC upload, re-applied from the 01:27 UTC sync onto the live
+  copies (nothing newer undone).
+
