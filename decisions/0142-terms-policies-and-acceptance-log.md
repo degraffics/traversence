@@ -185,3 +185,27 @@ payment account; each gateway's own list still applies on top.
   ("wine and cheese basket", "bottle of wine"). Describing rules ("counterfeit", "stolen") count anywhere. The name decides;
   a prohibited word only in the description sends the item to our team, never blocks it. Homemade food looks at the food
   (jam, salsa, cookies), not the word "homemade". 40 sample names checked.
+
+## Four tiers and the Seller Agreement's shield clauses (Jason, 2026-11-03, built on the 19:17 UTC sync)
+
+Jason's framework: Traversence keeps the duties the law and the processors put on a platform (moderation, takedowns,
+INFORM Act data, the processors' restricted lists) and passes product, service and licensing responsibility to the seller
+by contract, with the evidence chain to prove it.
+- **Four tiers** (`MarketRules`): **prohibited** (never listed); **restricted** = what Stripe and Square restrict
+  themselves (alcohol, tobacco and vapes, CBD and hemp): license confirmed, card checkout off; **confirm conditions**
+  (new): lawful with conditions, confirmed once per item as a record, card checkout on, conditions shown to buyers: meat
+  and dairy (an inspected processor or licensed dairy; homemade meat can't be sold), eggs (clean, 45°F or below, labeled
+  cartons), homemade food (a licensed kitchen or Arizona's cottage food program), live animals and plants, lodging,
+  resold tickets; **notice**.
+- **The Seller Agreement's shield clauses** (draft, for the attorney): **What you promise** (rights, licenses and permits,
+  safe, lawful, not recalled, as described, qualified for services); **Responsibility for your products and claims**
+  (defend, indemnify, hold harmless, except Traversence's own wrongdoing); **Our right to act** (replacing "Pausing a
+  shop": immediate action on a report, notice, recall or processor's word: hide, pause, turn off card checkout through
+  Traversence, report to the processor; we never hold or freeze a business's money); **Records and verification** (the
+  records as evidence; INFORM Act information for high-volume sellers within 10 days and yearly, contact shown past
+  $20,000, the shop paused until given). Added once to the template already set up (`LegalTexts::ADDED`, `REWORDED`;
+  never put back once removed); publish it as "needs acceptance" to have businesses accept the new version.
+- **Corrections to the framework recorded:** payouts can't be frozen (each business is paid into its own account); the
+  DMCA covers copyright only (trademark: "knew or had reason to know"); Section 230 doesn't cover IP; no contract shifts
+  everything (consumer law); the entity's name is still to be set. Jason's: the attorney's review, registering a DMCA
+  agent with the US Copyright Office, the legal entity's name.
