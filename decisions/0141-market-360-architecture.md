@@ -120,3 +120,5 @@ who opted in (plan allowance), then texts (explicit written consent; attorney-re
 | C | The item-kind framework, then all nine kinds in turn: physical and service, made to order, tickets, digital, perishables, rentals, bookings, subscriptions |
 | D | Bundles, tax-exempt buyers (who, what, how long, proof), legal identity, state-record checks, the owner ID check, the Pulse support line |
 | E | Storefront themes, the local-deals digest, email campaigns, then texts and push |
+
+**Phase B is decisions/0142** (2026-11-03): legal texts as versioned templates filled from business identity, the acceptance log, the Marketplace section of the Terms, and the rulebook of what can be sold.
