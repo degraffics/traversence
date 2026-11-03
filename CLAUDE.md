@@ -216,6 +216,11 @@ PREPARE q FROM @s; EXECUTE q; DEALLOCATE PREPARE q;
 New cron jobs go in `Scheduler::JOBS` and `Scheduler::AUTO`; `Scheduler::sync()` adds them within the hour. Mailboxes via
 `CPanelMail`. Never send Jason into cPanel, except for `.env` secrets (File Manager) or what the API can't do (say why).
 
+## No income, no expense (Jason, 2026-11-03): every build
+
+Nothing we build spends Traversence money (a per-use API, email, text, push, ID check, AI call) unless revenue covers
+it: inside a paying plan's allowance, a paid top-up, or a fee charged first. Free tiers get only what costs us nothing.
+
 ## The live server runs PHP 8.0: every build
 
 Local tests run 8.3. Don't use `readonly`, `enum`, first-class callables (`strlen(...)`), `new` in parameter defaults,
