@@ -145,3 +145,23 @@ payment account; each gateway's own list still applies on top.
   change never rewrites it.
 - **Not yet:** asking members to accept a "needs acceptance" version again (the flag is kept); AI Assist on legal
   sections; kind-specific defaults (Phase C).
+
+## Built: zip 3, Phase B rest (2026-11-03, built on the 18:17 UTC sync)
+
+- **The Seller Agreement before Go live** (`MarketCheckout::seller()`, `acceptSeller()`): shown in E-commerce setup,
+  step 6, accepted by someone who may publish (a `seller_agreement` record); Go live is greyed until then. Until it's
+  published, the version accepted is the saved draft ('draft'). A published version marked "needs acceptance" asks again
+  before the next item publish; shops already live are never paused for it, and a live shop with no record is asked
+  before its next publish.
+- **The rulebook** (`MarketRules`, §4), checked at publish: prohibited (the categories above, plus the Marketplace's
+  "blocked" words) isn't published, with the reason; restricted asks first whether the item is that ("a wine glass isn't
+  wine"), then for the license and conditions, both kept as `restricted_item` records; an answer stands only while the
+  title and description are unchanged. Restricted items can't be paid by card (direct ways or a quote) and show their
+  conditions; notice items show their notice. A "hold" word sends the item to the admin's Business items as "Waiting
+  for our team" (Approve or Take it down). `market_items.rule_flag` (migration `2027-02-03_market_rules.sql`).
+- **The dispute packet** (0141 §6): "Dispute packet" on each Marketplace order in E-commerce setup downloads one HTML file
+  (order, receipt, the policies it was placed under, the acceptance record with its fingerprint, IP and browser, and the
+  exact line the buyer saw), to save as PDF for the gateway. Each order now keeps that line with its policies.
+- **Also in this zip:** Stripe checkout is card only (Apple Pay and Google Pay included; a business's slower Stripe
+  methods could settle after the 35-minute hold); the test purchase returns its team to E-commerce setup step 5, whose
+  result now says when it happened.

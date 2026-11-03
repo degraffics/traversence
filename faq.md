@@ -972,6 +972,19 @@ In your business portal, open **Market 360°** → **Store policies** (under Mon
 ### What does Traversence keep when I agree to its Terms or place an order?
 A record that you agreed: which document and which version you were shown (with a fingerprint of the exact text), the choices shown with it (for an order, the business's returns, cancellations, deposits and house rules), when, and the internet address and browser it came from. Records are only ever added to, never changed, and kept 7 years. A business can include its order's record if it answers a dispute about that order with its payment company. If you delete your account, the records stay, without your name or email. The Privacy Policy explains it under **Records of what you agreed to**.
 
+### What can my business sell on the Marketplace?
+Most things, under the same written rules for every business, checked when you publish an item:
+- **Never:** weapons, firearms and ammunition; illegal drugs and paraphernalia; prescription medicine; counterfeit or stolen goods; hazardous materials; adult content and services; gambling, lotteries and raffles; investments, crypto and multi-level marketing; government IDs; human remains and anything from a burial, sacred or protected site; endangered species. An item like that doesn't go up, and you're told why.
+- **With your license:** alcohol, tobacco and vapes, CBD and hemp, homemade food, meat, eggs and dairy, live animals and plants, lodging, resold tickets. When an item sounds like one of these, we ask whether it is (a wine glass isn't wine). If it is, you confirm you hold the license and meet the conditions; it's kept as a record. Buyers pay you directly or ask for a quote, since card processors restrict these.
+- **With a notice:** perishables, used or as-is goods, made-to-order and digital goods show buyers a short notice.
+Some words mean our team looks first, usually within a day. Stripe's and Square's own rules apply too, and can be stricter. Anyone can report an item; a shop that keeps breaking the rules can be paused (never its listing or map pin).
+
+### What is the Seller Agreement?
+The agreement between your business and Traversence for selling on the Marketplace and your storefront: you're the seller, payments go straight to you (Traversence takes 0%), refunds and disputes are yours through your processor, what can be sold, your store policies, and your customers' information. Read and accept it in **E-commerce setup**, step 6, before you go live; it's kept as a record. If it changes in a way that needs your acceptance, we ask again before your next publish. Your shop stays open meanwhile.
+
+### A buyer disputed a card payment. What do I send?
+In **E-commerce setup**, under **Marketplace orders**, tap **Dispute packet** on the order. It's one file with the order, its receipt, the store policies it was placed under, and the record of the buyer placing it (when, from what browser, and a fingerprint of the exact terms they saw). Save it as a PDF (Print, then Save as PDF) and attach it to your answer in Stripe or Square.
+
 ### Can I bring my Square items onto Traversence?
 Yes, from Basic Partner up. In your business portal, open **E-commerce setup** and, under **Your Square catalog**, **Connect Square** by signing in, then **Import from Square**. Each Square item comes into your catalog as a draft (an item with sizes or colors comes in once for each). Nothing goes on the Marketplace until you publish it, and drafts don't count toward your plan's limit. From then on Square is in charge of price and stock. Prices and counts update every day, when you tap **Sync now**, and as soon as your stock changes in Square. Whatever sells here also comes off your Square stock. From Core Partner up, the same connection takes card payments, and Marketplace orders also show up in Square's Orders.
 
