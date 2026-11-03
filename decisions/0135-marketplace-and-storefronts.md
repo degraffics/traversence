@@ -523,3 +523,24 @@ now 1,000), 0036 (the catalog-cap part only), 0116 (the catalog in the
 business portal). 0055's Marketplace naming and 0058's comments-not-stars stand as they are.
 
 **Since 2026-11-03 (decisions/0141):** 0141: Market 360° widens this: one invoice per business with a combined orders summary (§2.2), going live opens the shop only (§2.3), tax-exempt buyers with Forms 5000/5000A approved by the business (§4), deposit choices that work (hold for short rentals, charge and refund otherwise) and gateways that differ (§5), the chargeback packet (§6).
+
+## The landing page, reviewed (Jason, 2026-11-03, against `design/marketplace-landing-mockup.png`)
+
+Built on the 16:32 UTC sync. Jason's choices: the site's own rail for the Marketplace menu; category tiles on the plain
+landing only; Newest, Nearest and Price sorts; the title "Marketplace" with a local line.
+- **Top:** "Marketplace" and "Buy, sell and trade with local businesses, makers and neighbors" (plus the town when one
+  is chosen); Post something top right; four promises, each opening its FAQ answer: 0% from any sale, paid to the seller
+  (directly, or a business's own Stripe or Square), pickup or meet locally, town only. They replace the old "How the
+  Marketplace works" block.
+- **Find:** the search and town box, Filters (one dropdown, as before), and **Sort by**: Newest (the default), Nearest,
+  Price low to high, high to low (`Market::SORTS`). Never by payment or clicks (0007). Newest pages by time; the other
+  sorts by page number, each source giving its first part in the same order and the two merged.
+- **Nearest** is town to town (`Market::placeCenter`, `milesSql`: a town's center or its ZIP's, an area's average), from
+  the town typed here; else the location set at the top of the page (sent rounded to about a mile, never kept); else a
+  signed-in member's home town; without any, it says so and shows the newest. Cards show the miles.
+- **Category tiles** (brand icons) in one row that scrolls sideways, only on the plain landing; a chosen category is a
+  chip with ×. **The grid's heading** names its order and place ("Nearest to Springerville") with a count.
+- **Cards:** the category on the photo; a photo that can't load shows the store icon instead. On phones the grid, not
+  each card, runs edge to edge (the cards had overlapped by 18px).
+- **The rail:** Browse all, Near me (`/market/?sort=near`, live), Post something, Your posts (with a count), Saved &
+  messages, Cart & checkout.
