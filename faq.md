@@ -969,7 +969,7 @@ Yes. In your portal's Marketplace page, switch on **Track stock** for an item an
 Yes, as you type names, descriptions and notes. Your browser underlines words it doesn't know, and once you pause, the site offers what you might have meant under the box, from its own dictionary: "Holstr: **Holster** · Host". Tap one to put it in, or **Keep it** for a name or brand you spelled on purpose (that device remembers it). Nothing is changed unless you tap. Lists whose choices each mean something have an **i** beside them: tap it to see what each choice is, and pick from there.
 
 ### What kinds of item can my business sell?
-Nine, and each one works its own way, everywhere it shows (your catalog, the Marketplace, your storefront, checkout, orders and receipts). In **Catalog**, choose an item's **Kind** (tap the **i** beside the list to see what each kind is, with an example, and pick one from there), then open its card and tap **Kind details**:
+Nine, and each one works its own way, everywhere it shows (your catalog, the Marketplace, your storefront, checkout, orders and receipts). In **Catalog**, choose an item's **Kind** (tap the **i** beside the list: a pop-up shows what each kind is, with an example, and you can pick one there), then open its card and tap **Kind details**:
 - **Physical goods:** weight and size, a stock alert, pickup only if you like.
 - **Service / labor:** a flat price bought at checkout (with a travel fee if you charge one), or by the hour, which buyers ask you to quote; the area you serve.
 - **Made to order:** the questions buyers answer at checkout ("Size", "Wording"), a deposit paid when ordering (50% unless you change it) with the rest invoiced when it's ready, and a proof they approve first.
