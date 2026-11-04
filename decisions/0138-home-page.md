@@ -166,3 +166,5 @@ header's bar, and the panel hangs from its bar. `home-v4_20261101.zip` (built on
   needs to fit better and flow as attached to the search bar". The box is as wide as the results (1040px at most);
   when the results open they take the box's left edge and width, the box's bottom corners square off, and both share
   one surface and shadow (`.hm-sopen`). The place in Let's get local shows its name only.
+
+**Since 2026-11-04 (decisions/0143):** §6's stock library is a system repository in System Configuration, open to anyone publishing in illustrative slots only (never as a product's, journey's or event's own photo), with per-source handling (copies, or Unsplash's links).
