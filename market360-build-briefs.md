@@ -112,14 +112,21 @@ Marketplace item page, `website/market/cart.php`, `app/lib/MarketCheckout.php`, 
 **Done when:** an item of each kind can be added, shown and bought (sandbox), with its fields on the item page and in
 the order.
 
-**Also in zip 4: the "Acting as" band only where it matters** (Jason, 2026-11-04, option A). Today
-`tv_acting_strip()` (`app/ui/context-switcher.php`) shows the full band on every page while acting as a listing,
-Steward or Admin; on pages with a hero flush under the bar (`tv_explore_hero()`, e.g. `/discovery/?view=experiences`)
-it collides with the hero. Show the full band only where acting changes what happens: the business portal
-(`/business/…`), the admin, and pages where the person posts, replies, comments or messages (composers, inboxes, the
-engage bar's comment form). Everywhere else, only the amber shop badge on the profile photo (already there). Nothing
-changes in who you act as. Update the FAQ entry "How do I know which account I'm acting as?" (keep its wording of the
-question). Check at 390px and on a hero page.
+**Also in zip 4: the "Acting as" band as a mode bar above the header** (Jason, 2026-11-04; replaces the earlier
+option A). Today `tv_acting_strip()` (`app/ui/context-switcher.php`, echoed in `app/ui/app-shell.php`) draws the band
+inside the page, under the tool bar, so on pages with a hero flush under the bar (`tv_explore_hero()`, e.g.
+`/discovery/?view=experiences`) it collides with the hero. Instead:
+- **Where:** a slim full-width bar at the very top of the page, **above the header**, on every page while acting as a
+  listing, Steward or Admin (never when you're just you, never on a staff login), so it never sits between the bar and
+  a hero. Not sticky beyond the header's own behavior; no layout shift when it appears.
+- **Looks switched on:** like a mode that's active (the kind's colour, amber for a listing, blue for Steward, sage for
+  Admin; its icon with a soft pulse or glow), "Acting as **M2 ServCore** · Owner".
+- **End it from the bar:** an **End** button (busy spinner while it answers) that stops acting as the listing and
+  returns to your own account on the same page (`Roles::setCurrent` to you; through `website/user/api/context.php`);
+  **Switch** stays beside it for another account. Ending acting-as never signs you out.
+- The amber badge on the profile photo stays. Update the FAQ entry "How do I know which account I'm acting as?" (keep
+  its wording of the question) and add "How do I stop acting as my business?". Check at 390px (one line, the name
+  ellipsed, End and Switch as buttons) and on a hero page.
 
 ## Zip 5: Tickets, Digital, Perishables
 
