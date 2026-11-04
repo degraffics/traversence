@@ -24,8 +24,9 @@ and for a list like the nine item kinds, a "small i icon for education … so us
 ## 2. The list ⓘ
 
 A list whose choices each mean something carries the meaning as each option's third part (`[key, name, what it is]`; in
-PHP `key => [name, help]`, converted by `tv_w_fields()`). The kit draws a small **i** beside the list: it opens each
-choice with what it is, and tapping one picks it. The nine kinds use `ItemKinds::choices()`, each with an example
+PHP `key => [name, help]`, converted by `tv_w_fields()`). The kit draws a small **i** beside the list. Tapping it opens a
+**pop-up** over the form (Jason, 2026-11-04: "If the icon is clicked popup the info", never laid out in the form): each
+choice with what it is, the current one ticked; tapping one picks it and closes it, as do ×, Esc and a tap outside. The nine kinds use `ItemKinds::choices()`, each with an example
 ("like a holster, a saddle or a jar of honey").
 
 ## 3. The rule
