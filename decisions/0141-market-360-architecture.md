@@ -199,3 +199,11 @@ own copy of its lines. A Square-linked item's link is kept as `removed`, so the 
 digital file no published item still sells is removed. **Hidden** (Details → Shown) stays for keeping an item without
 showing it. The admin kit gained an action that removes its record (`['gone' => true]`): the drawer closes and the list
 reloads.
+
+## Photos in the catalog card (Jason, 2026-11-04: "what about photos?"; built on the 14:38 UTC sync)
+
+An item's card in Catalog has **Photos**: its draft photos (the first its cover), **+ Photos** through the one uploader
+(target `catalog_photo`) and × to take one off (`MarketBiz::setDraftPhotos`). The same draft the Marketplace page shows,
+so there's one set of photos, wherever they're added; a published item shows them after Publish changes. The admin kit
+draws a `photos` block for any record that carries one (`items`, `max`, `target`, `ctx`, `note`).
+

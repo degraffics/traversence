@@ -59,3 +59,12 @@ scope of the item into what is an allowed kind. Animals can't be made to order, 
   marked, hover never looking like a choice; the kinds that fit first, the rest under "Not for …" by name only. Esc, ×
   or a tap outside closes it; arrows move between choices.
 
+## 5. Refinements (Jason, 2026-11-04; built on the 14:38 UTC sync)
+
+- **Reading a name:** "kit", "set" and "pack" are the thing, never a quantity ("Home Testing Kit" is a kit, a made thing;
+  it had read as "testing"). After a group word (set, pack, box, sampler, gift…) the noun before it says what's inside
+  when that's a thing ("cookie sampler" and "tamale gift box" are food; "knife set" knives; "home testing kit" stays a kit).
+- **The line under the list** is short and opens the pop-up: "Kit is a made thing · 6 of 9 kinds fit · See which". The
+  pop-up's header says the rest. The pop-up is tighter: less padding, smaller descriptions, a narrower dialog.
+- **"Add an item"**, not "Add a product", and the list's column is "Item": services, tickets and stays aren't products.
+
