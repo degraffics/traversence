@@ -241,3 +241,26 @@ page couldn't work) and says "Done as M2 ServCore: you're back to your own accou
 own (`siteLogout()`). Where the menu bar shrinks to icons pinned to the top (the signed-in side on a phone, app-shell.php),
 the bar is pinned above them and the page starts below both.
 
+## What buyers can do follows the kind; sales tax by kind; Write it for me (Jason, 2026-11-04; built on the 16:01 UTC sync)
+
+- **Buttons by kind** ("based on the product kind should the marketplace UI UX adjust to how that product is handled.
+  Services is request services, products buy now, made to order request a quote"): `MarketBiz::buttonsFor()` decides,
+  never the seller. The kind's main action first: Buy now (goods, harvest), Get tickets, Book your stay, Rent it,
+  Subscribe, Buy and download (`MarketBiz::label()`); **Request this service** for a service and **Request a quote** for
+  made to order (`mainAction()`: they're requested, not checked out; the quote carries any deposit and proof, Quotes &
+  invoices). Without a set price or live checkout, a quote; without quotes on the plan, Message. Then Message, and Make an
+  offer on goods (physical, harvest, rentals) when the store's one choice, **Accept offers**, is on (Marketplace → How
+  buyers buy). The per-item ticks and the card's "What buyers can do" are gone; the item page asks a service "what you
+  need done, where and when" and made to order "size, wording, colors".
+- **Sales tax by kind** ("I don't like having to do work that the system should already know how to handle"):
+  `ItemKinds::TAXED` sets a new item's sales tax, and a kind change carries the new kind's unless the business changed
+  it: goods, made to order, tickets, digital, subscriptions, rentals taxed; services, harvest and stays (lodging tax is
+  its own line) not. Details shows it as **Sales tax** ("Charge sales tax" / "Don't charge sales tax", with the ⓘ); the
+  card says "Charged, at your store's rate". Each state and town differs: the FAQ says to check with their accountant.
+- **Write it for me** ("where is the AI assist feature for helping craft the description"): under Description in
+  Details, `ItemWriter` has Claude draft it from the item's name, kind, kind details and the business's words so far,
+  never inventing materials, origins or claims; the draft goes into the box (Undo puts theirs back) and nothing is saved
+  until Save. Paid as AI Assist is (`AiCredits`: the day's free asks with a paid plan, then the plan's credits, the
+  business's pot first; `item_write` counted with `topic_assist`), switched and capped in System Configuration → AI use
+  (`item_write`); needs AI Assist & Learning on; greyed with why on Free.
+
