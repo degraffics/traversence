@@ -50,6 +50,9 @@ crop) and unknown are left out automatically. Hand-picked only: no bulk download
 
 Each source switches on when its key is in `.env` and shows "not set up" until then. Wikimedia works with none.
 The `.env` names: `PIXABAY_KEY` (set, 2026-11-04), `UNSPLASH_ACCESS_KEY`, `NPS_API_KEY`, `PEXELS_API_KEY`.
+Park Service requests go to `https://developer.nps.gov/api/v1/…` (e.g. `/parks?parkCode=pefo`, whose `images` carry
+title, credit and alt text) with the key in the `X-Api-Key` header, not the address. Its key comes from api.data.gov
+(the Park Service sign-up form failed on 2026-11-04; api.data.gov/signup issues the same kind of key).
 
 ## 5. Picking for cards
 
