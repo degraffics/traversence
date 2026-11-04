@@ -9,6 +9,15 @@ files the site reads. Nothing on the site reads WordNet itself.
 
 Each common noun's family (belongings, documents, pets, vehicles…) and irregular word forms, for the situation reasoner.
 
+## build_senses.py (decisions/0144)
+
+    python3 build_senses.py /path/to/wordnet31/dict /path/to/site/app/data/word-senses.php
+
+Each noun's commonest common senses (proper nouns left out) as letters: food, animal, plant, artifact, act, event,
+communication, place, person… `ItemKinds::fit()` reads it to tell which item kinds a name can be (tamales are food, so not
+a service). WordNet's files came from the MIT-licensed npm package `wordnet-db` 3.1.14. Our own words, grouped the same
+way, are hand-kept in `app/data/word-local.php` on the site.
+
 ## build_concepts.py (decisions/0067)
 
     python3 build_concepts.py /path/to/wordnet31 categories.json /path/to/site/app/data/concepts.php
