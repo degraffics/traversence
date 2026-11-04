@@ -207,3 +207,14 @@ An item's card in Catalog has **Photos**: its draft photos (the first its cover)
 so there's one set of photos, wherever they're added; a published item shows them after Publish changes. The admin kit
 draws a `photos` block for any record that carries one (`items`, `max`, `target`, `ctx`, `note`).
 
+## Publishing from the catalog card (Jason, 2026-11-04: "another place to finish my work for putting items online. Make this seamless."; built on the 14:45 UTC sync)
+
+An item's card in Catalog does everything to put it online: **Online** says where it stands (not online yet, online and
+up to date, online with changes not published, unpublished, waiting for our team, taken down) with the version and
+date; **Publish** (the card's primary button) asks the Marketplace category and what buyers can do right there, and is
+**Publish changes** after an edit; **Unpublish** takes it off. A licensed or conditional item asks its questions in place
+("Is the item itself alcohol?", then its conditions), the same path as the Marketplace page (`MarketBiz::publish`,
+`MarketRuleAsk`). The Marketplace page stays, for working through many items and for stock. The admin kit gained a
+question an action can ask first (`['ask' => [text, yes, no, yes_input, no_input]]`): answered, the action is sent again
+with the answer.
+
