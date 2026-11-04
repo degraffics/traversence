@@ -109,6 +109,12 @@ upload; the sync is then run and the live files checked byte for byte against th
 - **The image picker's Stock tab** (`js/tv-stock.js`, `/api/stock.php`): illustrative slots only; the endpoint refuses
   authentic ones. Wired now for a storefront's cover (Storefront & pages → "Choose a stock photo", "Let us pick"; never
   the logo) and the home page's doors. Busy spinners and the site's notices throughout.
+- **The Gallery is the one tool for art** (Jason, 2026-11-04: "the gallery is the tool, the artwork is theirs or stock
+  separated by tabs or clear sections"; managing stock and their own art apart would split the user into two paths). The
+  Gallery has a third tab, **Stock photos**, beside Photos & videos and Albums: search the library, each photo labelled
+  with its credit, and, for a business, **Use as storefront cover** and where it uses stock now (Let us pick). Stock is
+  never theirs: it never goes in their photos or albums. The picker has the same two tabs, **Your gallery** and
+  **Stock** (`TvStock.pick({mine})`, `/api/stock.php?mine=1&b=`); the storefront's cover opens it on Your gallery.
 - **Labels** (`app/ui/stock-ui.php`): "Stock photo" on the photo, the credit on hover and in its details (who took it,
   the licence, the source, "About stock photos"); "Representative" where it isn't the actual place (always, for a
   business). "Add your own photo" for the owner of a listing's hero.
@@ -126,9 +132,9 @@ upload; the sync is then run and the live files checked byte for byte against th
   register; their editors add the picker when they're built), and the directory's own result cards.
 - **No income, no expense**: free sources, small WebP copies in our storage; no paid source, no per-use charge.
 
-Files in the zip (21): `app/admin/manifests.php`, `app/admin/sections.php`, `app/admin/tools.php`,
+Files in the zip (22): `app/admin/manifests.php`, `app/admin/sections.php`, `app/admin/tools.php`,
 `app/business/storefront.php`, `app/lib/Store.php`, `app/lib/StockLibrary.php`, `app/lib/stock/StockSource.php`,
 `app/lib/stock/StockWikimedia.php`, `app/lib/stock/StockLoc.php`, `app/lib/stock/StockPixabay.php`,
 `app/migrations/2027-02-05_stock_library.sql`, `app/ui/explore-hero.php`, `app/ui/faq.md`, `app/ui/stock-ui.php`,
-`app/ui/storefront-view.php`, `website/admin/api.php`, `website/api/stock.php`, `website/hub/index.php`,
+`app/ui/storefront-view.php`, `website/admin/api.php`, `website/api/stock.php`, `website/gallery/index.php`, `website/hub/index.php`,
 `website/index.php`, `website/js/tv-stock.js`, `website/listing/view.php`. No dotfiles changed.
