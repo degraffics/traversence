@@ -175,3 +175,40 @@ Files in the zip (12): `app/business/storefront.php`, `app/lib/GalleryCatalogs.p
 `app/lib/Uploads.php`, `app/lib/upload-targets.php`, `app/ui/faq.md`, `website/api/stock.php`,
 `website/gallery/index.php`, `website/js/hero-media.js`, `website/js/tv-art.js`, `website/js/tv-stock.js`,
 `website/js/tv-upload.js`.
+
+## Built (2026-11-04, third zip): every file through the Gallery, which knows where each one went
+
+Jason, 2026-11-04, on the second zip's "order files never show the Gallery": "This is bad segmenting. The gallery
+should handle all access to files and have the intelligence to know how they are used. Choosing an existing document
+from the Gallery's Brand & documents albums: build this." **Built on the sync of 15:39 UTC**, which had the second zip
+live (all 12 files checked byte for byte).
+
+- **Every file input gets Your gallery**, orders, proofs, labels and quotes included: photos (by catalog) and documents,
+  as the input accepts them, each showing where it's been used. Stock stays only where a photo illustrates.
+- **New files go into the Gallery first:** a document uploaded at any input is kept in the owner's **Documents** album
+  (Brand & documents, private, made the first time: `GalleryCatalogs::documentsAlbum`), then handed to the page as a
+  Gallery item. Photos go straight to the page as before (where they're used already puts them in the Gallery).
+- **Nothing sent twice:** `tv-upload.js` sends a Gallery item as `{do: 'gallery', ctx: {_from_item}}`, no bytes;
+  `Uploads::gallery` checks it by the destination's own rules, then uses it where it is (a target's `pick`) or copies it
+  S3 to S3 into the destination's own place (an order still keeps its own copy: its record outlives an account). A
+  Gallery photo the page needs in hand (to crop, to show) comes from `/api/art-file.php`, on this site's address, never
+  through an S3 redirect.
+- **Where it's used** (`gallery_uses`, `app/lib/GalleryUses.php`; migration `2027-02-06_gallery_uses.sql`): each time a
+  Gallery item goes somewhere, a row with its label and link ("Order #9 · proof", "Storefront cover", "Journey"). Shown in
+  the panel's tiles, on the photo in the Gallery's viewer ("Used in …"), and beside each document.
+- **Documents tab** in the Gallery: every file, newest first, with size, version, albums and where it's been used;
+  search; download; **Add documents** (into the Documents album).
+- **FAQ:** the add-a-file entry now covers orders and documents; new: does the Gallery know where my files are used;
+  where are my documents.
+- **Checked:** an order-proof input shows Your gallery and Upload new; choosing a kept PDF sends one `gallery` request
+  (no bytes) naming it; uploading a new PDF there stores it once in Documents, then sends it to the order as a Gallery
+  item; the photo-input tests still pass; Documents tab and panel at 390 px, no sideways scroll. The server copy (S3 to
+  S3) and `gallery_uses` rows need the live site: after upload, add a proof from the Gallery to a test order.
+- **For Jason:** on admin pages (client orders) the Gallery used is the staff member's own, so a proof a staff member
+  uploads is kept in their Documents. If Traversence should have its own company Gallery for staff work, that's a
+  decision to make.
+
+Files in the zip (12): `app/lib/GalleryCatalogs.php`, `app/lib/GalleryUses.php`, `app/lib/Uploads.php`,
+`app/migrations/2027-02-06_gallery_uses.sql`, `app/ui/faq.md`, `website/api/art-file.php`, `website/api/stock.php`,
+`website/api/upload.php`, `website/gallery/index.php`, `website/js/gallery.js`, `website/js/tv-art.js`,
+`website/js/tv-upload.js`.
