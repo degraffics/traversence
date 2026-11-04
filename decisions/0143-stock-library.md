@@ -76,3 +76,59 @@ no per-use charge.
 5. Card and hero fallbacks (home page doors and events, place guides, listings without photos, storefront banners)
    reading `pick()`.
 6. FAQ entries.
+
+## Built (2026-11-04)
+
+One zip, **built on the sync of 14:06 UTC** (2026-11-04; first built on 12:55, and `tools.php`, `faq.md`,
+`storefront-view.php` and `admin/api.php` re-based onto 14:06 after another upload changed them). Waiting for Jason's
+upload; the sync is then run and the live files checked byte for byte against the zip.
+
+- **Migration** `app/migrations/2027-02-05_stock_library.sql`: `stock_images` (source, source id, title, licence and its
+  link, author, credit, source link, our WebP copy and card, or a source's link for a later source held that way;
+  subjects; place key and "this place" or "representative"; status; who added and retired it), `stock_slots` (the slot
+  register, seeded; the code's `StockLibrary::SLOTS` wins), `stock_uses` (the photo chosen for an illustrative slot) and
+  `stock_search_cache` (24 hours). Safe to run twice; runs by itself.
+- **`app/lib/StockLibrary.php`**: `search` (cached 24 hours; licences checked: commercial use and changes allowed, so
+  non-commercial, no-derivatives and unknown are left out automatically; the Library of Congress's own rights line read
+  for each photo; `Landmarks::SENSITIVE` keeps out what may show a sacred, burial or protected site), `add` (hand-picked,
+  at most 30 per person in 10 minutes; the photo re-read from its source, never trusted from the page; fetched only from
+  the source's own hosts; kept as WebP, 2000 px and a 640 px card, with nothing from the original file), `pick(subject,
+  place)` (this place, then the places it's in, then the subject; a photo of somewhere else never stands for this place;
+  no repeats on a page where another fits), `forSlot`, `setUse`, `find`, `credit` and `label`, retag, retire, restore.
+- **Sources**, one adapter each in `app/lib/stock/` behind `StockSource`: `StockWikimedia` (no key; User-Agent names
+  Traversence and support@traversence.com), `StockLoc` (no key; the loc.gov JSON API the crawler uses), `StockPixabay`
+  (`PIXABAY_KEY`; copies only, searches cached 24 hours). The Park Service, Unsplash and Pexels are listed in
+  `StockLibrary::LATER`; each is one more adapter and one line in `SOURCES`.
+- **Storage**: `Store::KINDS` gains `system`; copies live at `/uploads/system/<folder>/stock/…` and move to S3 like every
+  other photo (decisions/0127). No upload path was added; `$_FILES` is still only in `Uploads.php` and `api/upload.php`.
+- **System Configuration → Stock library** (`config/stock`): search a source, add with subjects, a place from the places
+  tree and "this place" or "representative"; choose the home page's doors (or leave them automatic); where stock may and
+  may never go; the later sources. The library is the `config/stock` tool under it: each photo opens to retag, retire
+  (off every card at once; choices fall back to automatic) or put back. Search needs the tool's view; adding, choosing
+  and retiring need `config/stock.edit` (Content, Operations, Engineering), greyed with the reason otherwise.
+- **The image picker's Stock tab** (`js/tv-stock.js`, `/api/stock.php`): illustrative slots only; the endpoint refuses
+  authentic ones. Wired now for a storefront's cover (Storefront & pages → "Choose a stock photo", "Let us pick"; never
+  the logo) and the home page's doors. Busy spinners and the site's notices throughout.
+- **Labels** (`app/ui/stock-ui.php`): "Stock photo" on the photo, the credit on hover and in its details (who took it,
+  the licence, the source, "About stock photos"); "Representative" where it isn't the actual place (always, for a
+  business). "Add your own photo" for the owner of a listing's hero.
+- **Fallbacks** reading `forSlot`/`pick`: the hero (`explore-hero.php` 'stock' option) on place guides (`hub/`) and
+  listings with no photos (`listing/view.php`); the home page's doors, event backdrops (real and sample) and feed cards
+  for events and businesses without photos; storefront banners on trvgo.us. A real photo takes over by itself: stock is
+  looked up only where nothing of its own exists.
+- **FAQ**: why some photos say Stock photo; what Representative means; where stock can and can't be used; replacing it
+  with your own; choosing one for a storefront; and a line on the place photos answer.
+- **Checked**: licence, rights-line, sensitivity, tagging, ranking, choosing, retiring and WebP tests (60 passing); the
+  hero, doors, event card, storefront banner and picker at 390 px and 1200 px (3 px edges, no sideways scroll). The
+  sources' live APIs couldn't be reached from the build session, so the adapters were tested against sample answers in
+  each API's documented shape: try one search per source after upload.
+- **Not now**: a Stock tab for guide and article illustrations, page banners and category tiles (the slots are in the
+  register; their editors add the picker when they're built), and the directory's own result cards.
+- **No income, no expense**: free sources, small WebP copies in our storage; no paid source, no per-use charge.
+
+Files in the zip (21): `app/admin/manifests.php`, `app/admin/sections.php`, `app/admin/tools.php`,
+`app/business/storefront.php`, `app/lib/Store.php`, `app/lib/StockLibrary.php`, `app/lib/stock/StockSource.php`,
+`app/lib/stock/StockWikimedia.php`, `app/lib/stock/StockLoc.php`, `app/lib/stock/StockPixabay.php`,
+`app/migrations/2027-02-05_stock_library.sql`, `app/ui/explore-hero.php`, `app/ui/faq.md`, `app/ui/stock-ui.php`,
+`app/ui/storefront-view.php`, `website/admin/api.php`, `website/api/stock.php`, `website/hub/index.php`,
+`website/index.php`, `website/js/tv-stock.js`, `website/listing/view.php`. No dotfiles changed.

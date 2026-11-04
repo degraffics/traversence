@@ -55,7 +55,7 @@ The big picture: the story of the continent and its regions, plus the newest jou
 Tap the pencil next to **Explore: <place>** at the top of Let's Explore or of any place page, and choose another place. On a place page, you go straight to the new place's page.
 
 ### Whose photos are at the top of a place?
-Photos from journeys people have shared about that place, or about places inside it. A region shows photos from all its towns. Share a journey with photos and yours can appear there.
+Photos from journeys people have shared about that place, or about places inside it. A region shows photos from all its towns. Share a journey with photos and yours can appear there. Until there are any, a labelled stock photo may show instead (see [Why do some photos say Stock photo?](/faq.php#why-do-some-photos-say-stock-photo)).
 
 ### What are Experiences?
 Things to do that are worth the trip: paddling a lake at sunrise, a rodeo weekend, a night under dark skies. You take part, it belongs to the place, and someone local can make it happen. Find them in **Let's Explore → Experiences**, in season first. Each one shows when to go, how long it takes, how hard it is, who can take you, and journeys from people who did it.
@@ -690,6 +690,21 @@ When you upload a photo, we remove everything hidden in the file, including GPS 
 
 ### What's "Was here", and will there be "Am here"?
 **Was here** marks a journey as a place you visited, with the month. **Am here**, live check-ins, is coming as a separate feature. You'll switch it on yourself after reading its rules and risks. Each time you check in, you'll choose to post now or later.
+
+### Why do some photos say Stock photo?
+Until a place, a business or a section has a photo of its own, we show a **stock photo** instead: a photo nobody on Traversence took, from Wikimedia Commons, the Library of Congress or Pixabay, chosen by our team one at a time. Each one is labelled **Stock photo** on the photo; hover over the label, or tap it, to see who took it, its licence and where it's from. We only use photos whose licences allow it, and never photos of sacred, burial or protected places. As soon as a real photo is added, it shows instead, by itself.
+
+### What does "Representative photo" mean?
+The stock photo shows the kind of place or thing, not this one itself: a desert road for a desert town, a shopfront for a shop. A business's stock photo is always marked Representative, because it never shows that business. When the photo really is of that place, the label says **Stock photo** alone.
+
+### Where can stock photos be used?
+Only where a photo illustrates: the photo at the top of a place's guide or of a listing with no photos yet, a card with no photo, a storefront's banner, the home page's sections and an event's backdrop. Never where a photo says "this is the real thing": a product or an item for sale, a journey, a story or a review, a gallery album, an event's own photos, a business's own photos (its premises, its people, its work, its logo), a profile picture, or a proof or an order. Those places don't offer stock photos at all, because authenticity matters.
+
+### How do I replace a stock photo with my own?
+Add your own photo where it shows: on your listing, tap **Add your own photo** (or **Photos & video** at the top); on your storefront, upload a **Cover** in **Storefront & pages**. Yours shows straight away and the stock photo goes. For a place, share a journey with photos of it: journeys' photos show at the top of its guide.
+
+### Can I choose a stock photo for my storefront?
+Yes. In **Storefront & pages**, under **Logo and cover**, tap **Choose a stock photo** for the cover, search the library and pick one. Visitors see it labelled as a stock photo until you upload your own cover, which takes over by itself. Your logo is always your own: stock photos can't be a logo.
 
 ## Posting guidelines and safety
 
