@@ -229,3 +229,15 @@ still signed in; **Switch** beside it. Never for just you or a staff login; one 
 dropped under 420px). Not on the home page, which starts no sign-in session (it shows no badge either), nor the old
 directory page (`directory/classic.php`), whose bar is fixed to the top of the screen.
 
+## The account bar for everyone signed in (Jason, 2026-11-04; built on the 15:46 UTC sync)
+
+"The end is like saying I am done working as this listing and should go back the users dashboard on exit", and "the bar
+at the top is good for all users and listings … switch between accounts easily and add a sign out to the bar too".
+`tv_acting_bar()` now draws the bar for everyone signed in: as yourself, "Signed in as **name**" in cream with
+**Switch** and **Sign out**; acting as a listing, Steward or Admin, as before in its colour with **End**, **Switch** and
+**Sign out**; a staff login, "Traversence staff · name" in sage with Switch and Sign out. **End** goes to your own
+dashboard as you (the business portal's own pages switch you back into the business as they load, so staying on the same
+page couldn't work) and says "Done as M2 ServCore: you're back to your own account" there. **Sign out** uses the header's
+own (`siteLogout()`). Where the menu bar shrinks to icons pinned to the top (the signed-in side on a phone, app-shell.php),
+the bar is pinned above them and the page starts below both.
+
