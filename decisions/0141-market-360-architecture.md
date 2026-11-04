@@ -218,3 +218,14 @@ date; **Publish** (the card's primary button) asks the Marketplace category and 
 question an action can ask first (`['ask' => [text, yes, no, yes_input, no_input]]`): answered, the action is sent again
 with the answer.
 
+## The Acting-as mode bar (market360-build-briefs.md zip 4; built on the 15:39 UTC sync)
+
+`tv_acting_bar()` (`app/ui/context-switcher.php`) replaces the band inside the page (`tv_acting_strip()`, removed from
+`app/ui/app-shell.php`): a slim full-width bar at the very top of the page, above the header, drawn by `page-shell.php`
+and the dashboard before their top bar, so it never sits between the bar and a hero. In the kind's colour (amber listing,
+blue Steward, sage Admin) with its icon glowing softly (none with reduced motion): "Acting as **M2 ServCore** · Owner".
+**End** (busy while it answers) posts `{context: "member"}` to `/user/api/context.php` and reloads the same page as you,
+still signed in; **Switch** beside it. Never for just you or a staff login; one line at 390px (the name ellipsed, the role
+dropped under 420px). Not on the home page, which starts no sign-in session (it shows no badge either), nor the old
+directory page (`directory/classic.php`), whose bar is fixed to the top of the screen.
+

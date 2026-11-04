@@ -113,7 +113,7 @@ Marketplace item page, `website/market/cart.php`, `app/lib/MarketCheckout.php`, 
 the order.
 
 **Also in zip 4: the "Acting as" band as a mode bar above the header** (Jason, 2026-11-04; replaces the earlier
-option A). Today `tv_acting_strip()` (`app/ui/context-switcher.php`, echoed in `app/ui/app-shell.php`) draws the band
+option A). **Built** (`acting-bar_20261104.zip`, on the 15:39 UTC sync; decisions/0141, "The Acting-as mode bar"). Today `tv_acting_strip()` (`app/ui/context-switcher.php`, echoed in `app/ui/app-shell.php`) draws the band
 inside the page, under the tool bar, so on pages with a hero flush under the bar (`tv_explore_hero()`, e.g.
 `/discovery/?view=experiences`) it collides with the hero. Instead:
 - **Where:** a slim full-width bar at the very top of the page, **above the header**, on every page while acting as a
