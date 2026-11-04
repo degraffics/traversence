@@ -40,19 +40,19 @@ only in illustrative slots.
 The licence decides the use (0133): only licences that allow commercial use; non-commercial, no-derivatives (where we'd
 crop) and unknown are left out automatically. Hand-picked only: no bulk downloading, which every source forbids.
 
+**Built now: three sources** (Jason, 2026-11-04: "use the first three and have the last three as a possible use for
+later on"):
+
 | Source | Held as | Credit | Key |
 |---|---|---|---|
 | Wikimedia Commons | A copy (WebP, our storage) | Author and licence, as the file states | None; requests carry a User-Agent with support@traversence.com |
-| US government (Library of Congress, Park Service) | A copy, after checking each photo's own rights line | Agency and photographer | Park Service: free key |
-| Pixabay | A copy (permanent links to Pixabay aren't allowed; search results cached 24 hours) | Photographer and Pixabay | Free key |
-| Unsplash | **A link, not a copy** (Unsplash requires its own URLs and a download ping when an image is chosen) | Photographer and Unsplash, linked | Free key (50 requests an hour is enough for hand-picking) |
-| Pexels | A copy, with a link back | Photographer and Pexels | When new keys reopen |
+| Library of Congress | A copy, after checking each photo's own rights line | The collection and photographer | None |
+| Pixabay | A copy (permanent links to Pixabay aren't allowed; search results cached 24 hours) | Photographer and Pixabay | `PIXABAY_KEY` (set, 2026-11-04) |
 
-Each source switches on when its key is in `.env` and shows "not set up" until then. Wikimedia works with none.
-The `.env` names: `PIXABAY_KEY` (set, 2026-11-04), `UNSPLASH_ACCESS_KEY`, `NPS_API_KEY`, `PEXELS_API_KEY`.
-Park Service requests go to `https://developer.nps.gov/api/v1/…` (e.g. `/parks?parkCode=pefo`, whose `images` carry
-title, credit and alt text) with the key in the `X-Api-Key` header, not the address. Its key comes from api.data.gov
-(the Park Service sign-up form failed on 2026-11-04; api.data.gov/signup issues the same kind of key).
+**Possible later, not built:** the National Park Service (key from api.data.gov as `NPS_API_KEY`; requests to
+`https://developer.nps.gov/api/v1/…` with the key in the `X-Api-Key` header; each photo's credit line checked),
+Unsplash (`UNSPLASH_ACCESS_KEY`; held as a link, not a copy, with its download ping) and Pexels (`PEXELS_API_KEY`, once
+new keys reopen; a copy with a link back). The library is built so each can be added as one more source.
 
 ## 5. Picking for cards
 
@@ -69,7 +69,7 @@ no per-use charge.
 1. Migration: `stock_images` (source, source id, licence, author, credit, source URL, our file or the source's URL,
    subjects, place id, this place or representative, status, added by, added at) and a slot register.
 2. `StockLibrary` (search per source, add, pick, credit text) and a source adapter each (Wikimedia, Library of
-   Congress, Park Service, Pixabay, Unsplash, Pexels), copies through the one uploader's storage (0127).
+   Congress, Pixabay; written so another source is one more adapter), copies through the one uploader's storage (0127).
 3. System Configuration → Stock library: search, add with tags, the library list, retire.
 4. The image picker's **Stock** tab in illustrative slots only; the "Stock photo" label and credit; the "Add your own"
    nudge; real photos replacing stock by themselves.
