@@ -189,3 +189,13 @@ that is half done is not a good practice." Zips 4, 5 and 6 became one: `item-kin
 - **Not yet:** Square subscriptions (greyed with the reason), a booking calendar view for the business, proofs sent from
   Made-to-order orders beyond Quotes & invoices as built.
 
+
+## Deleting a catalog item (Jason, 2026-11-04: "how do I remove or delete items"; built on the 14:00 UTC sync)
+
+An item's card in Catalog has **Delete** (business portal), confirmed with "Delete it for good" and what it does. The
+item comes off the Marketplace, the storefront and the Shop (`MarketBiz::forget`: its Marketplace record stays,
+unpublished, for the orders that name it), out of the catalog (`Products::delete`); quotes, invoices and orders keep their
+own copy of its lines. A Square-linked item's link is kept as `removed`, so the next import doesn't bring it back; a
+digital file no published item still sells is removed. **Hidden** (Details → Shown) stays for keeping an item without
+showing it. The admin kit gained an action that removes its record (`['gone' => true]`): the drawer closes and the list
+reloads.
