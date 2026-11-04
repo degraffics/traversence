@@ -212,3 +212,31 @@ Files in the zip (12): `app/lib/GalleryCatalogs.php`, `app/lib/GalleryUses.php`,
 `app/migrations/2027-02-06_gallery_uses.sql`, `app/ui/faq.md`, `website/api/art-file.php`, `website/api/stock.php`,
 `website/api/upload.php`, `website/gallery/index.php`, `website/js/gallery.js`, `website/js/tv-art.js`,
 `website/js/tv-upload.js`.
+
+## Built (2026-11-04, fourth zip): the Stock search finds photos at the sources
+
+Jason, 2026-11-04, searching "flowers in a field" on the Gallery's Stock tab: "search not working." It was searching only
+the library, which nobody had filled yet. **Built on the sync of 15:55 UTC**, which had the third zip live (its
+migration ran and was deleted; `faq.md` had been replaced again by an older copy, so this zip carries it rebuilt).
+
+- **Search reaches the sources** (`StockLibrary::discover`): wherever stock is chosen (the Gallery's Stock tab, the
+  picker's Stock tab, the admin's door picker), a search shows what's in the library, then free photos found at
+  Wikimedia Commons, the Library of Congress and Pixabay, interleaved, each naming its source with its credit and licence.
+  The same rules as the admin search: kept 24 hours; non-commercial, no-derivatives and unknown licences, unclear
+  Library of Congress rights lines and anything that may show a protected site are left out; photos already in the
+  library aren't repeated.
+- **Choosing one adds it to the library then** (`StockLibrary::adopt`, `/api/stock.php` action `adopt`): one at a time,
+  by the person who chose it, with its licence and place checked again, copied as WebP and tagged with what they
+  searched for, "representative". One already in the library is used as it is; one the team retired is refused. The
+  admin can retag or retire any of them in System Configuration → Stock library. This widens §3 (staff add from System
+  Configuration): anyone choosing stock for an illustrative spot now hand-picks it into the library too.
+- `tv-upload.js` loads the new `tv-art.js` (version bumped so browsers don't keep the old one).
+- **FAQ:** "Where do I find stock photos?" now says the search covers the sources.
+- **Checked:** with sample answers from each source, the filtering keeps one from each and leaves out a non-commercial
+  licence, a cemetery photo, an unclear rights line and one already in; adopting an existing photo returns it and a
+  retired one is refused; in the browser, choosing a found photo in the picker and on the Gallery's Stock tab adds it then
+  sets the storefront cover; 390 px, no sideways scroll. The live sources can't be reached from the build session: try a
+  search after upload (Pixabay needs `PIXABAY_KEY` in `.env`).
+
+Files in the zip (7): `app/lib/StockLibrary.php`, `app/ui/faq.md`, `app/ui/stock-ui.php`, `website/api/stock.php`,
+`website/js/tv-art.js`, `website/js/tv-stock.js`, `website/js/tv-upload.js`.
