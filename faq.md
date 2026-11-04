@@ -700,6 +700,17 @@ The stock photo shows the kind of place or thing, not this one itself: a desert 
 ### Where can stock photos be used?
 Only where a photo illustrates: the photo at the top of a place's guide or of a listing with no photos yet, a card with no photo, a storefront's banner, the home page's sections and an event's backdrop. Never where a photo says "this is the real thing": a product or an item for sale, a journey, a story or a review, a gallery album, an event's own photos, a business's own photos (its premises, its people, its work, its logo), a profile picture, or a proof or an order. Those places don't offer stock photos at all, because authenticity matters.
 
+### How do I add a photo or a file?
+Wherever you add one (a journey, your profile, a Marketplace post, a catalog item, a listing's photos, a storefront), tap the button and your **Gallery** opens on the page, not your computer's file window:
+- **Your gallery:** choose one of your photos (or several), sorted into catalogs. For the Marketplace, a catalog item or a storefront, the photo is used right where it is in your Gallery. A journey, your profile and a listing's photos keep a copy of their own, which then shows in that catalog too.
+- **Stock:** only where a photo illustrates, like a storefront's cover (see below).
+- **Upload new:** drag files in, paste a screenshot (Ctrl+V or ⌘V), or tap **Browse your device**, which opens your computer's or phone's own file window. What you upload is kept in your Gallery too, ready to use again.
+
+Files for an order (proofs, artwork, print-ready files, shipping labels) and documents open the **Upload new** part alone: they belong to that order or document, not to anyone's Gallery.
+
+### What are the Gallery's catalogs?
+Your Gallery sorts every photo by where it belongs, so it's easy to find: **Uploaded here**, **Journeys**, **Profile** (or **Listing photos** for a business), **Marketplace** and **Storefront**. Choose one from the **Catalog** button on **Photos & videos**, or from the list at the top of **Your gallery** when you're choosing a photo. Nothing needs filing by hand: a photo moves to its catalog as you use it. **Albums** are still yours to make, and **Stock photos** has a tab of its own, because they aren't yours.
+
 ### Where do I find stock photos?
 In your **Gallery**, on its own tab, **Stock photos**, next to **Photos & videos** and **Albums**. One place for all your art, kept apart: your photos and albums are yours; stock photos aren't, so they never go in your photos or albums. Search them, see each one's credit, and, for a business, use one as its storefront's cover. When you pick a photo anywhere it's allowed, the picker has the same two tabs: **Your gallery** and **Stock**.
 
@@ -707,7 +718,7 @@ In your **Gallery**, on its own tab, **Stock photos**, next to **Photos & videos
 Add your own photo where it shows: on your listing, tap **Add your own photo** (or **Photos & video** at the top); on your storefront, upload a **Cover** in **Storefront & pages**. Yours shows straight away and the stock photo goes. For a place, share a journey with photos of it: journeys' photos show at the top of its guide.
 
 ### Can I choose a stock photo for my storefront?
-Yes. In **Storefront & pages**, under **Logo and cover**, tap **Choose from your gallery or stock**: one of your own photos is on the **Your gallery** tab, stock photos on the **Stock** tab. Or open your business's **Gallery** → **Stock photos** and tap **Use as storefront cover**. Visitors see it labelled as a stock photo until you upload your own cover, which takes over by itself. Your logo is always your own: stock photos can't be a logo.
+Yes. In **Storefront & pages**, under **Logo and cover**, tap **Choose a photo** under the cover: your own photos are on the **Your gallery** tab, stock photos on the **Stock** tab. Or open your business's **Gallery** → **Stock photos** and tap **Use as storefront cover**. Visitors see it labelled as a stock photo until you upload your own cover, which takes over by itself. Your logo is always your own: stock photos can't be a logo.
 
 ## Posting guidelines and safety
 

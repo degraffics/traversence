@@ -138,3 +138,40 @@ Files in the zip (22): `app/admin/manifests.php`, `app/admin/sections.php`, `app
 `app/migrations/2027-02-05_stock_library.sql`, `app/ui/explore-hero.php`, `app/ui/faq.md`, `app/ui/stock-ui.php`,
 `app/ui/storefront-view.php`, `website/admin/api.php`, `website/api/stock.php`, `website/gallery/index.php`, `website/hub/index.php`,
 `website/index.php`, `website/js/tv-stock.js`, `website/listing/view.php`. No dotfiles changed.
+
+## Built (2026-11-04, second zip): the Gallery is where every file is chosen
+
+Jason, 2026-11-04: "where ever a photo upload or select option is … it routes through the gallery tool. … The gallery
+will be the tool for managing all artwork and documents so it must be easy to find and work with these files", "we
+could also approach the gallery with catalogs for each segment", and the computer's file pop-ups shouldn't come first.
+**Built on the sync of 14:45 UTC.** The first zip went live at 14:24/14:38, but a later upload replaced `app/ui/faq.md`
+without its stock entries; this zip's `faq.md` puts them back on the 14:45 copy.
+
+- **One panel for every file input** (`js/tv-art.js`, loaded by `tv-upload.js` on every page): any `<input type=file>`
+  opens it instead of the computer's dialog. **Your gallery** (by catalog; one or several) on inputs that take photos
+  alone; **Stock** only where the input illustrates (`data-art-slot`; the storefront cover now); **Upload new**: drag in,
+  paste a screenshot, or Browse your device (the computer's dialog, only when asked). Inputs for orders, proofs, labels
+  and documents (anything that takes more than photos) get Upload new alone: those files belong to their record, not to
+  anyone's Gallery. `data-art="off"` keeps the old dialog; `data-art-b` names a business's Gallery.
+- **Nothing kept twice:** a photo picked from the Gallery reaches the page as a file (so every page works as before) and is
+  marked; `Uploads::finish` sees `_from_item` and, for a destination that keeps its photos in the Gallery anyway (a
+  target's new `pick`: `gallery_photo` into an album, `market_photo`, `catalog_photo`, `storefront_photo`), uses the one
+  already there and lets the sent copy go. Journeys, profiles and a listing's top photos keep their own copy, as before.
+- **Catalogs** (`app/lib/GalleryCatalogs.php`): Uploaded here, Journeys, Profile (or Listing photos), Marketplace,
+  Storefront, worked out from what the Gallery already knows; one **Catalog** button on Photos & videos (`?cat=`) and a
+  catalog list in the panel. Albums stay the person's own; Stock photos keep their own tab.
+- **Storefront:** Logo and Cover each say **Choose a photo** and open the panel (the cover with Stock); the separate
+  "Choose from your gallery or stock" button and "Or choose one of your photos" list are gone, and `Storefront::photos()`,
+  which only that list used, is deleted.
+- **Order management:** its uploads (proofs, print-ready files, artwork, labels) already went through the one uploader;
+  they now open the panel's Upload new (drop, paste, Browse) and are otherwise unchanged.
+- Panels sit at z-index 1995, under the site's notices, so their messages show.
+- **FAQ:** how to add a photo or a file; the Gallery's catalogs; the storefront answer updated.
+- **Checked** at 390 px: a journey input opens Your gallery and Upload new with no system dialog; two Gallery photos
+  arrive marked with their ids; the cover adds Stock; a proof input opens Upload new alone and takes a dropped PDF;
+  Browse opens the system dialog; no sideways scroll. Catalog sorting tested.
+
+Files in the zip (12): `app/business/storefront.php`, `app/lib/GalleryCatalogs.php`, `app/lib/Storefront.php`,
+`app/lib/Uploads.php`, `app/lib/upload-targets.php`, `app/ui/faq.md`, `website/api/stock.php`,
+`website/gallery/index.php`, `website/js/hero-media.js`, `website/js/tv-art.js`, `website/js/tv-stock.js`,
+`website/js/tv-upload.js`.
