@@ -231,3 +231,6 @@ by contract, with the evidence chain to prove it.
 - **Also in this zip** (Jason, 2026-11-04: "the pop-up I have to scroll way down the page to find"): the admin's bridge
   frames (`tv_w_bridge`, e.g. System Configuration → Settings) carry `data-host`, so their pop-ups open centered on the
   screen through the admin page (as the dashboard's work frames do), not in the middle of a frame as tall as its page.
+- **Notices above the admin's boxes** (Jason, 2026-11-04, the "Add a product" box hiding its notice; built on the 12:55
+  UTC sync): the site's notices and pop-ups (`tv-ask.js`, z-index 2000 and 2010) sit above the admin's quick-task boxes
+  and drawers (1700 to 1800); a quick task's or a drawer action's error shows beside its own button (`admin-kit.js`).
