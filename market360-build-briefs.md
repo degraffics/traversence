@@ -112,6 +112,15 @@ Marketplace item page, `website/market/cart.php`, `app/lib/MarketCheckout.php`, 
 **Done when:** an item of each kind can be added, shown and bought (sandbox), with its fields on the item page and in
 the order.
 
+**Also in zip 4: the "Acting as" band only where it matters** (Jason, 2026-11-04, option A). Today
+`tv_acting_strip()` (`app/ui/context-switcher.php`) shows the full band on every page while acting as a listing,
+Steward or Admin; on pages with a hero flush under the bar (`tv_explore_hero()`, e.g. `/discovery/?view=experiences`)
+it collides with the hero. Show the full band only where acting changes what happens: the business portal
+(`/business/…`), the admin, and pages where the person posts, replies, comments or messages (composers, inboxes, the
+engage bar's comment form). Everywhere else, only the amber shop badge on the profile photo (already there). Nothing
+changes in who you act as. Update the FAQ entry "How do I know which account I'm acting as?" (keep its wording of the
+question). Check at 390px and on a hero page.
+
 ## Zip 5: Tickets, Digital, Perishables
 
 **Read:** 0141 §5, 0134, 0096 (GO Codes), 0127 (uploads). **Builds on** zip 4's `ItemKinds`.
