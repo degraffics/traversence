@@ -149,3 +149,43 @@ who opted in (plan allowance), then texts (explicit written consent; attorney-re
   FAQ's two storefront entries, lost to the Nov 2 01:36 UTC upload, re-applied from the 01:27 UTC sync onto the live
   copies (nothing newer undone).
 
+## Built: the nine item kinds, Phase C in one build (2026-11-04, built on the 12:55 UTC sync)
+
+Jason, 2026-11-04: "the 9 were decided, so they should be represented properly where ever they present, doing something
+that is half done is not a good practice." Zips 4, 5 and 6 became one: `item-kinds_20261104.zip`.
+
+- **One definition:** `app/lib/ItemKinds.php`: the nine kinds (name, help, what the price is per, how it's bought: cart,
+  quote, dates, subscribe), each kind's fields (§5's table), the notice or conditions it brings to the rulebook
+  (Made to order, Digital, Harvest → perishable, Bookings → lodging), the gateways that take it (Subscriptions: Stripe),
+  readiness (a ticket's date and seats, a digital file, a harvest window, house rules), and what buyers see (`facts()`).
+  Earlier kinds carry over: item and other → Physical goods, class → Event tickets.
+- **Catalog:** the Kind dropdown lists the nine; **Kind details** on an item's card asks its kind's fields
+  (`b_products.kind_data`, BusinessData version 8). The Marketplace page shows each item's kind and what it still needs,
+  and a Digital item's file (upload target `market_digital`: private in the business's folder, never public). Track stock
+  only for kinds counted in stock.
+- **Publishing** copies the kind and its details (`market_items.kind`, `kind_data`); a kind not ready doesn't publish,
+  with what's missing. A kind's own rule (lodging) asks for its conditions without the "is it?" question. Fixed in the
+  same build: notice flags weren't being set on publish since the recall check went in.
+- **Shown:** the item page (kind tag, price per night, day, month or hour, a section of the kind's details), Marketplace
+  cards, the storefront grid, the Marketplace's Kind filter (the nine), Get selling (published items by kind).
+- **Buying** (`app/lib/KindCheckout.php`, one checkout path): Service adds its travel fee; an hourly service is quoted.
+  Made to order asks its questions per line and takes its deposit (`market_orders.pay_now_cents`; Stripe and Square
+  charge only that; the rest is invoiced). Tickets hold seats from capacity. Harvest asks a pickup window. Bookings and
+  rentals are Buy now with dates (overlaps read from orders, no separate calendar), nights or days as the quantity,
+  lodging tax as its own line, house rules agreed (an Acceptance record, `house_rules`), a rental's waiver and deposit.
+  Subscriptions are card only, Stripe Checkout in subscription mode (trial days). "How you get it" shows only when
+  something ships.
+- **After payment:** a ticket code per seat (`market_tickets`; `/market/ticket.php` with its QR; the business's team checks
+  it in once); a download link per digital item (`market_downloads`; `/market/download.php`, uses and days counted);
+  a subscription's state and Cancel at period end on the order page; a rental's deposit **held** on the card (Stripe, 6
+  days or fewer, captured on return) or **charged and refunded**, settled by the team's **Mark returned** with any damage
+  kept. A physical item's stock alert tells the business when a sale reaches it.
+- **Orders:** the business's order list shows dates, guests, windows, answers, deposits and tickets checked in, with
+  Open (the order page). Square import maps product types (appointments → Service, events → Tickets, digital,
+  memberships → Subscriptions, room reservations → Bookings).
+- **Migration** `2027-02-05_item_kinds.sql` (main database): the item's kind as text with its details, orders' amount
+  due now, payment mode and subscription reference, and the tickets and downloads tables. Safe to run twice.
+- **Also in this zip:** the notice-layers fix (`js/tv-ask.js`, `js/admin-kit.js`), not uploaded yet on its own.
+- **Not yet:** Square subscriptions (greyed with the reason), a booking calendar view for the business, proofs sent from
+  Made-to-order orders beyond Quotes & invoices as built.
+

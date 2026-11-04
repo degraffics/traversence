@@ -96,6 +96,8 @@ downloads for the test order.
 
 ## Zip 4: Phase C framework, plus Physical, Service and Made to order
 
+**Built with zips 5 and 6 as one build** (Jason, 2026-11-04: "the 9 were decided, so they should be represented properly where ever they present"): `item-kinds_20261104.zip`. What was built is in decisions/0141, "Built: the nine item kinds".
+
 **Read:** 0141 §5, 0116, 0101 (proofs, deposits). **Files:** a migration (`kind` on catalog items / `market_items`,
 a JSON `kind_data`), a new `app/lib/ItemKinds.php` (each kind: fields, item-page block, checkout steps and
 disclosures, after-purchase, order handling, default policy text, gateway support), the catalog editor, the
