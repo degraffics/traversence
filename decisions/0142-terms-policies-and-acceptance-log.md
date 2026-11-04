@@ -234,3 +234,12 @@ by contract, with the evidence chain to prove it.
 - **Notices above the admin's boxes** (Jason, 2026-11-04, the "Add a product" box hiding its notice; built on the 12:55
   UTC sync): the site's notices and pop-ups (`tv-ask.js`, z-index 2000 and 2010) sit above the admin's quick-task boxes
   and drawers (1700 to 1800); a quick task's or a drawer action's error shows beside its own button (`admin-kit.js`).
+
+## The Marketplace's own word lists read names too (Jason, 2026-11-04: "Gun Holster" refused; built on the 13:48 UTC sync)
+
+The head-noun reading (a wine rack is a rack) covered the rulebook but not the admin's own lists (System Configuration →
+the Marketplace's "blocked" and "hold" words), which still matched bare words, so "gun" on the blocked list refused a gun
+holster. `MarketRules::listed()` now reads them the same way, for business items and people's posts alike: in the name a
+listed word counts only where it's the thing itself ("gun", "gun parts", "hunting knife"), not a word describing something
+else ("gun holster", "gun safe", "knife sharpener", "puppy collar"); in the description it sends the item to our team for
+a look, never refuses it. `Market::trips()` (the bare match) is removed.

@@ -165,6 +165,12 @@ Never `alert()`, `confirm()` or `prompt()`.
   (`TvAsk.say`: beside it, or the centered pop-up when there's no room, as in a Pulse case). Never a button that greys out
   and looks dead.
 
+## Words and lists (decisions/0144, Jason, 2026-11-04): every form
+
+Fields of words (names, descriptions, notes) get spell check and the site's suggestions: `data-spell` on an input (a
+textarea gets them unless `spellcheck="false"`); codes, amounts and dates don't. A list whose choices need explaining
+carries each choice's meaning (`[key, name, what it is]`), shown by the kit's ⓘ.
+
 ## Password boxes (`js/tv-password.js`, Jason, 2026-10-16): every page
 
 Every password box gets Show/Hide; new-password boxes (`autocomplete="new-password"`, `minlength`, optional
