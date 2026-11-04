@@ -950,7 +950,7 @@ Open it and tap **Report** under the title. Choose why. Our team looks at it, an
 
 
 ### Can my business sell on the Marketplace?
-Yes, on every plan. In your business portal, open **Marketplace**: each item in your Catalog is a draft there. Choose its Marketplace category and tap **Publish**, and its name, description, price and photos show on the Marketplace and in your listing's **Shop** (Shop from Basic Partner up). Your cost, markup and supplier stay private to your team. Publishing needs a role with **Publish**; drafts and photos need **Catalog & content**.
+Yes, on every plan. In **Catalog**, open the item and tap **Publish** in its card: choose its Marketplace category (and what buyers can do, if not your usual) and tap **Publish it**. The card says where it stands online, and has **Publish changes** after you edit it and **Unpublish**. The **Marketplace** page lists every item the same way, for working through several at once. Publishing puts its name, description, price and photos on the Marketplace and in your listing's **Shop** (Shop from Basic Partner up). Your cost, markup and supplier stay private to your team. Publishing needs a role with **Publish**; drafts and photos need **Catalog & content**.
 
 ### How many items can my business publish?
 Free 10, Basic Partner 25, Core Partner 100, Strategic Partner 250, Cornerstone 1,000 per listing. Only published items count: drafts, unpublished and expired ones don't. At your plan's number, Publish is greyed out with the plan that raises it, and nothing already up comes down. Every photo counts toward your plan's storage, so a bigger catalog grows into a storage pack or the next plan.
