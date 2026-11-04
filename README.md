@@ -44,7 +44,7 @@ The site's code isn't here. It runs on the server and in OneDrive, and its live 
 | `toolkit.md` | The Traversence toolkit |
 | `faq.md` | The site's FAQ, shipped as `app/ui/faq.md` |
 | `archive.md` | Register of archived and removed site pages |
-| `design/` | Reference mockups: `community-landing-mockup.png` (to build to); `marketplace-landing-mockup.png` (Jason, 2026-11-02: the Marketplace landing page to review for a cleaner, more functional design) |
+| `design/` | Reference mockups: `community-landing-mockup.png` (to build to); `marketplace-landing-mockup.png` (Jason, 2026-11-02: the Marketplace landing page to review for a cleaner, more functional design); `css-shells-brief.md` (2026-11-04: the page shells and class names for the CSS rework) |
 
 ## Process
 
