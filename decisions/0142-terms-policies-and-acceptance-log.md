@@ -228,3 +228,6 @@ by contract, with the evidence chain to prove it.
   recalled product's name, recalled in 10 years) holds the item for our team with the recall in its note; Approve clears
   it for that name.
 - **Trust score:** Agreements now ticks (Seller Agreement accepted and store policies set).
+- **Also in this zip** (Jason, 2026-11-04: "the pop-up I have to scroll way down the page to find"): the admin's bridge
+  frames (`tv_w_bridge`, e.g. System Configuration → Settings) carry `data-host`, so their pop-ups open centered on the
+  screen through the admin page (as the dashboard's work frames do), not in the middle of a frame as tall as its page.
