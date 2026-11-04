@@ -49,6 +49,7 @@ crop) and unknown are left out automatically. Hand-picked only: no bulk download
 | Pexels | A copy, with a link back | Photographer and Pexels | When new keys reopen |
 
 Each source switches on when its key is in `.env` and shows "not set up" until then. Wikimedia works with none.
+The `.env` names: `PIXABAY_KEY` (set, 2026-11-04), `UNSPLASH_ACCESS_KEY`, `NPS_API_KEY`, `PEXELS_API_KEY`.
 
 ## 5. Picking for cards
 
