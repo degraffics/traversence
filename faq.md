@@ -929,6 +929,9 @@ Free 10, Basic Partner 25, Core Partner 100, Strategic Partner 250, Cornerstone 
 ### What happens when I change an item that's already published?
 The Marketplace keeps showing the published version while you edit the draft in your Catalog. The item then says **Published, with unpublished changes**; tap **Publish changes** when you're ready, and that becomes the next version (every version is kept). **Unpublish** takes it off the Marketplace and your Shop; Publish brings it back.
 
+### How do I remove or delete an item from my catalog?
+Open **Catalog**, tap the item, and tap **Delete** in its card, then **Delete it for good**. It comes off the Marketplace, your storefront and your Shop, and out of your catalog. Quotes, invoices and orders that have it keep their own copy, so nothing earlier changes. An item brought in from Square isn't brought back by the next import. To keep an item but stop showing it, open **Details** and set **Shown** to **Hidden** instead; to take it off the Marketplace only, tap **Unpublish** on your Marketplace page.
+
 ### What can buyers do on my business's items?
 You choose, in Marketplace → **What buyers can do**, within what your plan opens: **Message** (to your inbox; your team answers), **Make an offer** (off until you switch it on; you accept, counter or decline in the portal, and Mark sold once it's paid), **Request a quote** (Basic Partner and up: the request comes to your inbox and you make the quote in Quotes & invoices), and **Buy now and Add to cart** (once your checkout is live: see How do I take payments on the Marketplace?). An item can have its own buttons. No payment ever passes through Traversence.
 
