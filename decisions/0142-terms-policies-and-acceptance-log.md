@@ -209,3 +209,22 @@ by contract, with the evidence chain to prove it.
   DMCA covers copyright only (trademark: "knew or had reason to know"); Section 230 doesn't cover IP; no contract shifts
   everything (consumer law); the entity's name is still to be set. Jason's: the attorney's review, registering a DMCA
   agent with the US Copyright Office, the legal entity's name.
+
+## INFORM Consumers Act and recalls (2026-11-04, built on the 23:03 UTC sync, one zip with the four tiers)
+
+- **INFORM** (`Inform`, table `inform_sellers`, migration `2027-02-04_inform_sellers.sql`): each business's paid Marketplace
+  orders in the last 12 months (tests and other environments left out), recounted by the daily Marketplace job, against
+  200 sales and $5,000 (high-volume) and $20,000 (shown to buyers). Crossing opens a 10-day request (its Trust page, an
+  email to its owners and managers); the business gives its legal name, address, phone, email and tax ID (sealed with
+  `MarketPay::seal`, only its last 4 ever shown); its bank account counts as verified by Stripe or Square with payouts on.
+  Each confirmation is an `inform_certified` record; re-asked yearly. Overdue: card checkout pauses (listing, pages and
+  pin stay) and Go live refuses until confirmed; confirming turns it back on. Past $20,000 the item page shows the
+  seller's name, address (a home: the state only), phone and email. Every item says how to report it: Report, and the
+  phone in System Configuration → Settings (`LEGAL_PHONE`, to set). Our team: Marketplace → Seller compliance, and one
+  Pulse case while anyone's overdue. Whether payments into a business's own processor account count as sales "through"
+  the marketplace is the attorney's question; counting costs nothing, so we count.
+- **Recalls** (`MarketRules::recall`): at publish, the item's name against the CPSC's recall database (saferproducts.gov,
+  free; 4-second limit; a failure never stops a publish). A strong match only (two or more of the name's words, all in a
+  recalled product's name, recalled in 10 years) holds the item for our team with the recall in its note; Approve clears
+  it for that name.
+- **Trust score:** Agreements now ticks (Seller Agreement accepted and store policies set).
