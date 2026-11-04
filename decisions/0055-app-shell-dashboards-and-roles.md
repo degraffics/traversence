@@ -321,3 +321,5 @@ place for notifications, the inbox, the system's status (with links) and the key
   The buttons open the right form already filled in: "Teach *fall* another sense", "Teach *x* as a word", ＋ to add the
   words to a situation, ✎ to edit one. The A–Z situation list is behind "Browse all situations". Meanings, its three
   forms, and the report cards are collapsed to a summary line. Step by step is a fold at the end.
+
+**Since 2026-11-04 (Jason, option A):** the "Acting as" band shows in full only where acting changes what happens (the business portal, the admin, and where you post, reply, comment or message); elsewhere only the badge on the profile photo shows it. Built in Market 360° zip 4 (market360-build-briefs.md).
