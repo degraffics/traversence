@@ -360,3 +360,5 @@ The dropdown loses its "Current Account" box (the bar already says who); in the 
 dashboard and ✎ beside it edits it (your profile, or the listing's page editor). The sign-in tabs fill the card's top edge
 to edge. Zip `bar-colours_20261105.zip`, built on the 13:53 UTC sync: `app/ui/context-switcher.php`, `app/ui/faq.md`,
 `website/login.php`.
+
+**Note (2026-11-05): signing out must really sign out.** The bar's sign-out icon could fail without a word: it sent the page's security token, which on some pages hadn't arrived, so the server refused and the page went home still signed in (Jason saw the menu with no Sign in, and his Listing bar on the Marketplace). Now it asks for a fresh token and tries again, goes home only once the server confirms, and otherwise says it couldn't sign you out, beside the icon.
