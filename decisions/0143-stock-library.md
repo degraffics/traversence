@@ -266,3 +266,31 @@ checked byte for byte.
 
 Files in the zip (6): `app/lib/RecordFiles.php`, `app/lib/Uploads.php`, `app/ui/faq.md`, `website/api/stock.php`,
 `website/js/tv-art.js`, `website/js/tv-upload.js`.
+
+## Built (2026-11-05, sixth zip, replaces the fifth): the Orders catalog in a client's Gallery
+
+Jason, 2026-11-05: "add the Orders catalog to the client's gallery… this was created already based on providing access
+to order file[s] that the client has access to. Check adrs." It was: decisions/0101's Collateral Center releases a
+client's artwork to them (only items released to them; the approved proof, print-ready files once that order is paid in
+full), shown under Your artwork on Your orders, a business's following its listing's roles. **Built on the sync of
+23:26 UTC (2026-11-04)**, with the fifth zip (staff files belong to records) folded in, since it wasn't uploaded yet:
+upload this one instead.
+
+- **Orders catalog** (`RecordFiles::clientArt`): the client's Gallery reads the same rule as Your artwork
+  (`Collateral::forClient`, `Collateral::files(…, true)`), so it never shows more. A member: their own, by their account
+  or their confirmed email; a business's Gallery: its listing's released pieces, for its team. On the Gallery's Catalog
+  button (`?cat=orders`): each file with its piece and kind, a download, and the way to Your artwork and reorders. In the
+  Gallery panel: an **Orders** catalog under Your gallery.
+- **Use one anywhere:** a client choosing an Orders file for a photo or file input sends it as `_from_record`; the server
+  copies it after `RecordFiles::mayUse` (our team, or the client it was released to, their own or their business's).
+  The files stay with their orders.
+- **FAQ:** the catalogs answer adds Orders; the order-files line says what's released also shows there.
+- **Checked:** with stand-ins for the order data, the catalog lists only released pieces, uses the email only once
+  confirmed, gives a business only its own; use is allowed for the client's own file and refused for others; in the
+  browser an Orders piece is sent as an order file; the Orders list at 390 px, no sideways scroll.
+- Not done: a photo from an order reaches a page as a reference, not bytes, so a page that edits the photo itself before
+  sending (the profile picture's crop) can't use one.
+
+Files in the zip (7): `app/lib/RecordFiles.php`, `app/lib/Uploads.php`, `app/ui/faq.md`, `website/api/stock.php`,
+`website/gallery/index.php`, `website/js/tv-art.js`, `website/js/tv-upload.js` (all but `gallery/index.php` also carry
+the fifth zip's changes).
