@@ -135,3 +135,9 @@ creating a new account.
 - App review also needs: privacy policy URL, data-deletion instructions URL (`https://traversence.com/privacy.php#delete`),
   app domain `traversence.com`, a 1024px icon, and the testing instructions.
 - Keeping these documents on hand: see "Business documents" in future-considerations.md.
+
+**Since 2026-11-05 (Jason: "Google notification needs to be clear"):** linking a sign-in now says how it went on the page
+you land on, in a strip under the account bar: green "Google is now linked to your account. Next time, Continue with Google
+signs you straight in", or red with the reason (most often: this account already has a different Google account linked,
+one per account) and a Ways to sign in link. Staff are told in their setup email and on the setup page that Google,
+Microsoft and Facebook never sign in to a staff login (not on the public sign-in page).

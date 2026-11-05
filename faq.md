@@ -483,7 +483,6 @@ The name on your sign works best. What you do ("Movies, Popcorn & Parties") is b
 A Traversence account (18 or older) with:
 - **a confirmed email**: the link we email you when you join (you can ask for it again from the page);
 - **a phone number**: it stays private, only our team sees it, so we can reach you about your listing;
-- **Verification switched on**: we check only the details you give us.
 
 To add a business, the form also asks for **the business's phone and email**. Your account email is filled in; change it if the business has its own. The business email isn't shown on your listing.
 
@@ -875,6 +874,14 @@ you tick it. Then sign in. Change any of them later in Privacy Settings.
 Check your spam folder first. Then go to **Sign in**, type your email and password, and tap **Send the link again**. Each
 link works for 24 hours; the newest one is the one to use.
 
+### Can I create an account from Europe?
+Traversence is a U.S. regional directory. If you're connecting from the EU, the EEA or the UK, **Create account** asks one
+more question, where you live. If you live there too, we can't create the account on the site; email
+support@traversence.com and, if you're planning a trip to the U.S., we can set one up for you. Living anywhere else, or
+living in Europe but connecting from somewhere else, sign-up goes ahead as usual. Browsing never needs an account and
+works everywhere. Where a connection comes from is looked up in [DB-IP](https://db-ip.com)'s free IP-to-country data
+(licensed CC BY 4.0); we keep only the European ranges, and nothing about your connection is stored with your account.
+
 ### How does the menu know I have a business or a staff account?
 It asks each time it opens. A business shows under you as soon as you've claimed it or someone on its team has added you, and it goes when you're removed. A Traversence staff account shows when your staff login is linked to your own account. Nothing else about you is used, and no one else sees the list.
 
@@ -1178,6 +1185,11 @@ Go to **Dashboard → Privacy → Delete my account** (or [Delete my account](/u
 
 ### I signed in with Microsoft (or Google, Apple, Facebook) and it asked me to sign up. I already have an account.
 That happens when the email on that account is different from the one on your Traversence account, so we can't tell they're the same person. On the page that asks you to finish signing up, choose **Sign in to link it** and sign in to the account you already have: the two are linked, and from then on either one signs you in. Already signed in? Go to **Dashboard → Privacy → Ways to sign in** and choose **Connect**. You can disconnect any of them there too.
+
+Right after you sign in, a strip under the bar at the top of the page tells you how it went: green, "Google is now linked
+to your account", or red, with the reason it couldn't be linked (most often, your account already has a different Google
+account linked: one of each per account) and a **Ways to sign in** link to fix it. A sign-in that isn't linked asks again
+next time.
 
 ### Does Traversence use Google's information about businesses?
 Only to check our listings. Our crawler asks Google whether it knows a listed place, and if Google's place has the same name and street address, we keep Google's ID for it, nothing else (Google's terms don't let us copy its hours, photos or reviews). When Google lists a place as permanently closed, a person on our team checks before anything changes; nothing is closed on Google's word alone. Places whose address is kept private, such as shelters, are never sent to Google.
