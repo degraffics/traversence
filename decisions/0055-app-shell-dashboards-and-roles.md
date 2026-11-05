@@ -362,3 +362,4 @@ to edge. Zip `bar-colours_20261105.zip`, built on the 13:53 UTC sync: `app/ui/co
 `website/login.php`.
 
 **Note (2026-11-05): signing out must really sign out.** The bar's sign-out icon could fail without a word: it sent the page's security token, which on some pages hadn't arrived, so the server refused and the page went home still signed in (Jason saw the menu with no Sign in, and his Listing bar on the Marketplace). Now it asks for a fresh token and tries again, goes home only once the server confirms, and otherwise says it couldn't sign you out, beside the icon.
+The home page now starts the sign-in session and draws the account bar like every other page; before, it had no bar (so no sign-out) and only a script hid Sign in from the menu (2026-11-05).
