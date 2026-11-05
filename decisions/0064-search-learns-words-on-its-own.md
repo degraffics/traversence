@@ -114,3 +114,5 @@ reads the words as typed (`Situations::read` and `suggest`; the `correct()` step
   and in what people remove, and is fixed by teaching the word or adding a correction to the generator.
 - **A wrong reading can show the 911 line, or lead away from it.** Either way it's only an offer. People can see why
   in Analyze, staff can undo it, and the person searching always decides what to do.
+
+**Note (2026-11-05): the dictionary feeds "Did you mean".** Search's own word list comes from what's on the site, so a common word nobody has listed yet got no help ("swiming test" offered nothing). Search now also takes candidates from the site's dictionary (`Spelling::near`, decisions/0144). It still only offers, never changes the words, and the rules above still apply: a real word is never "corrected", the word has to fit where it sits, and a removed suggestion stays removed. Also (0058): tapping back into the search's words box while the place picker is showing returns to the results.
