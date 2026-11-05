@@ -40,3 +40,12 @@ This applies only at registration (the point of identity/personal-data intake), 
 
 **Since 2026-11-05 (Jason):** the country (and ZIP in the US) is asked after the email link, as the first of the sign-up
 questions, and can be skipped. The IP check against the country is not built.
+
+**Built 2026-11-05 (Jason: "Build this so it is done").** `app/lib/RegionGate.php`. The connection's country comes from
+Cloudflare's `CF-IPCountry` when the site is behind Cloudflare, else from `ip_eu_ranges`: DB-IP's free IP-to-country file
+(CC BY 4.0, credited in the FAQ; no key, no cost), only its EU/EEA/UK ranges, refreshed monthly by `region_tick`
+(Scheduler::AUTO; daily it only checks). Every way of signing up runs it before an account is made (password, Google,
+Apple, Microsoft, Facebook). Connecting from the EU/EEA/UK, the form asks one more question, "Where do you live?" (US,
+Canada, Mexico, "A country in the EU or the UK", another); only both in Europe refuses, with the message of §4 and
+support@traversence.com. Everyone else answers "where are you from" after the email link, and a US ZIP now sets
+`home_cluster_id` (§1). Until the ranges load, nobody is stopped. Migration `2027-02-07_region_check.sql`.

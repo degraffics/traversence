@@ -473,3 +473,8 @@ check my details"). A phone code or a business claim is its own step, and starti
 roles that needed Verification now need a confirmed email. Still to tidy: the "Switch on Verification" boxes on the claim
 and contributor forms (they now show only to someone whose email isn't confirmed) and the Verification switch in Privacy
 Settings → Your tools.
+
+**Tidied 2026-11-05:** the "Switch on Verification" boxes on adding/claiming a business, becoming a contributor and
+starting a community are gone (they now say "Confirm your email" only to someone whose email isn't confirmed); the
+Pulse note, the staff-role rule and Admin → People say "confirmed email"; Privacy Settings → Your tools shows **Verified**
+as a status (its checks, ✓ or not yet), with nothing to switch.
