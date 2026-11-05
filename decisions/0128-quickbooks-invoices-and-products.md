@@ -228,3 +228,5 @@ pull box's "Merge instead" now links straight to it.
   one order line and their runs add up to its run, they all update that line. It takes their total and keeps its proofs,
   files and work order, and the versions are written in its note. Before, the preview dropped the line and added three new
   ones.
+
+**Note (2026-11-05): guides in Stories & guides.** Discovery's Stories & guides (`/discovery/?view=stories`) read only the older `place_stories`, so live guides (`place_guides`, on /hub/ pages) never showed there: St. Johns's guide looked missing. It now lists the live guides for the place and the towns and neighborhoods in it (`dv_guides()`), first, each linking to its guide page; the overview's tile counts them too.
