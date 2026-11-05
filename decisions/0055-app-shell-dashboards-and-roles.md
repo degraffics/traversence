@@ -337,3 +337,8 @@ Sign in at its top; the ☰ corner stays the page's tools list, without the you 
 **staff sign-in page** shows only its card, with no admin menu or counts, and the bar says "Staff sign-in needed below".
 Zip `account-bar_20261105.zip`, built on the 12:34 UTC sync: `app/ui/context-switcher.php`, `app/ui/header.php`,
 `app/ui/app-shell.php`, `app/ui/faq.md`, `website/admin/login.php`.
+
+**Later on 2026-11-05 (Jason):** Create account and Sign in live **only in the ☰ menu** (at its top), not as buttons
+beside it. The account-bar zip was live at the 13:25 UTC sync, all 5 files checked byte for byte. And when the header is
+collapsed, the bar keeps its dark brown instead of going clear. Zip `menu-only_20261105.zip`, built on the 13:25 UTC sync:
+`app/ui/header.php`, `app/ui/brand.php`, `app/ui/faq.md`.
