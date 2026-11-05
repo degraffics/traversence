@@ -36,3 +36,7 @@ Separately, ADR 0002 and ADR 0008 establish `actor_user_id` as a required, alway
 This decision does not authorize using guest correlation data for anything beyond the three stated purposes. A future feature that reuses `guest_session_id` or IP-clustering data for personalization or marketing would need its own decision record, not an extension of this one.
 
 `architecture.md` §27 (Communities & Groups) now points here for the guest-abuse-in-communities case the amendment above resolves.
+
+**Built 2026-11-05:** the guest identity is `app/lib/Guest.php` (cookie `tv_guest`, 30 days, HttpOnly; only its SHA-256
+stored; never set for bots). First use: likes (decisions/0058 §20 as changed), with a per-connection limit (hashed) and
+raw rows folded into counts after 30 days.
