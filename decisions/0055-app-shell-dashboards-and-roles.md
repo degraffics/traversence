@@ -354,7 +354,8 @@ profile, or the listing's page editor while you act as it. Zip `sign-in-tabs_202
 sync: `app/ui/context-switcher.php`, `app/ui/header.php`, `app/ui/faq.md`, `website/login.php`, `website/register.php`.
 
 **Later on 2026-11-05 (Jason): brand colours, the ✎ in the bar, tabs edge to edge.** The bar uses one brand colour per
-mode: User taupe #7A6A52 (espresso felt too dark), Listing orange #C85A17, Traversence sage #92BEA5, Steward rust #8C3A23.
+mode: User rust #8C3A23 (espresso felt too dark, taupe too hard against the header), Listing orange #C85A17, Traversence sage
+#92BEA5, Steward taupe #7A6A52.
 The dropdown loses its "Current Account" box (the bar already says who); in the bar, the name opens the current account's
 dashboard and ✎ beside it edits it (your profile, or the listing's page editor). The sign-in tabs fill the card's top edge
 to edge. Zip `bar-colours_20261105.zip`, built on the 13:53 UTC sync: `app/ui/context-switcher.php`, `app/ui/faq.md`,
