@@ -178,3 +178,5 @@ our areas still needs its state or "in/near/at/around".
 - A search never leaves a person at a dead end because their place has nothing: what's nearest beyond it shows.
 - Results cost one more indexed query when a place is set and there are words to match.
 - "Lyman" finds Lyman Lake State Park whether it falls inside St. Johns or just outside it.
+
+**Note (2026-11-05): the default place starts every page.** A signed-in person with no place yet this visit (just signed in, a new tab) now starts from their default saved place on every page, not only when searching the directory (`applyDefaultPlaceIfAny` on page load, once the session is known). A region they arrived through still wins, and choosing everywhere this visit keeps everywhere.
