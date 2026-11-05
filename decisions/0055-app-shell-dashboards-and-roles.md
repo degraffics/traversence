@@ -323,3 +323,17 @@ place for notifications, the inbox, the system's status (with links) and the key
   forms, and the report cards are collapsed to a summary line. Step by step is a fold at the end.
 
 **Since 2026-11-04 (Jason):** the "Acting as" band becomes a mode bar at the very top of the page, above the header, on every page while acting as a listing, Steward or Admin. It looks switched on (the kind's colour and icon) and carries **End** (back to your own account, on the same page; never a sign-out) beside Switch. Built in Market 360° zip 4 (market360-build-briefs.md).
+
+**Since 2026-11-05 (Jason): one place for who you are.** The person icon, the ☰ menu and the bar's Switch all did account
+things; now each has one job. The **account bar** (above the header, signed in only) is you: your photo at its left opens
+the switcher (Current Account opens that account's dashboard), then the mode and name, "User: Jason DeGraff", "Listing: M2
+ServCore", "Traversence: Jason DeGraff (TRV-0001)", "Steward: …", and a sign-out icon at its right. No End button: choosing
+Personal Account in the switcher is the same. A colour per mode: User espresso with gold lettering, Listing amber,
+Traversence deep sage, Steward blue. Display names needn't be unique: accounts are known by id; people have their
+@handle, staff their TRV number, listings their town. The **person icon is gone** from the header. The **☰ on wider
+screens is for visitors**: Create account (an orange button beside it) and Sign in (outlined), Set location, About, Plans,
+Help Center, Contact us, Make a suggestion; signed in, it isn't shown. On phones the compass's menu has Create account and
+Sign in at its top; the ☰ corner stays the page's tools list, without the you row and Sign out (the bar has both). The
+**staff sign-in page** shows only its card, with no admin menu or counts, and the bar says "Staff sign-in needed below".
+Zip `account-bar_20261105.zip`, built on the 12:34 UTC sync: `app/ui/context-switcher.php`, `app/ui/header.php`,
+`app/ui/app-shell.php`, `app/ui/faq.md`, `website/admin/login.php`.
