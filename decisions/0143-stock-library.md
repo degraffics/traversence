@@ -240,3 +240,29 @@ migration ran and was deleted; `faq.md` had been replaced again by an older copy
 
 Files in the zip (7): `app/lib/StockLibrary.php`, `app/ui/faq.md`, `app/ui/stock-ui.php`, `website/api/stock.php`,
 `website/js/tv-art.js`, `website/js/tv-stock.js`, `website/js/tv-upload.js`.
+
+## Built (2026-11-05, fifth zip): our team has no Gallery of its own; files belong to records
+
+Jason, 2026-11-05: "Trv staff don't need individual gallery, all photos, videos, and file[s] will be assigned to an
+order or something other than individual." This replaces the third zip's open question (a staff member's uploads kept
+in their own Documents). **Built on the sync of 23:26 UTC (2026-11-04)**; the fourth zip was live at 16:01, all 7 files
+checked byte for byte.
+
+- **On admin pages** (`/admin/…`) the Gallery panel never shows or fills a staff member's own Gallery. On an order
+  (`/admin/backoffice/orders/<id>` or `client-order.php?id=`, or an input's `data-art-record="order:<id>"`) its first tab
+  is **This order's files**: the order's proofs and files, then **This client's earlier orders** (up to 12, by the
+  client's account or email), to reuse approved art on a reorder (`app/lib/RecordFiles.php`, `/api/stock.php?record=`).
+  Elsewhere in the admin it's **Upload new** only.
+- A file chosen there travels as `ctx._from_record` (`order_proof:<id>`, `order_file:<id>`) and is copied server to server
+  into its new place (`Uploads::gallery` → `fromRecord`), under the order-files rule (`backoffice/orders.edit`). New
+  files on admin pages go straight to the record, never to a Documents album.
+- Members and businesses keep their Galleries as built: a person's own, a business's for its team.
+- **FAQ:** the add-a-file entry no longer says order files go through your Gallery; it says our team's files for your
+  order are kept with the order and reused when you reorder.
+- **CLAUDE.md** carries the rule: every file input opens the Gallery panel; staff have no personal Gallery.
+- **Checked** in the browser on an order page: the first tab is "This order's files"; choosing a client's earlier proof
+  sends only its reference; a new upload goes straight to the order with no Documents step; 390 px, no sideways scroll.
+- Any Documents album already made for a staff member during testing stays until someone removes it; nothing new goes in.
+
+Files in the zip (6): `app/lib/RecordFiles.php`, `app/lib/Uploads.php`, `app/ui/faq.md`, `website/api/stock.php`,
+`website/js/tv-art.js`, `website/js/tv-upload.js`.

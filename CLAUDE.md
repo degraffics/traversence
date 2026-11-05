@@ -184,6 +184,8 @@ Every upload goes `js/tv-upload.js` → `/api/upload.php` → `app/lib/Uploads.p
 `TvUpload.send(files, {target, ctx, el})` or `TvUpload.bind(input, …)`. Forms with other fields send the file first, then
 the form with its id. Before delivering, `grep -rn '\$_FILES\|is_uploaded_file\|move_uploaded_file' app website` may
 match only `app/lib/Uploads.php` and `website/api/upload.php`.
+Every file input opens the Gallery panel (`js/tv-art.js`, decisions/0143). Staff have no personal Gallery (Jason,
+2026-11-05): on admin pages files belong to the record (an order, a business), never to the staff member.
 
 ## Links past Bluehost's ModSecurity: every request
 
