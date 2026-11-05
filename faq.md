@@ -405,7 +405,7 @@ You choose for each album, under **Edit & who sees it**: **Public** (anyone, sho
 Open your listing (as its owner or manager) or your profile, and tap **Photos & video** on the picture at the top. Add up to 8 photos, or link a YouTube or Vimeo video, and choose which shows first. Use your own photos, or ones you have permission to use. We keep a resized copy and nothing else from the file, such as where it was taken. On a private profile, only your connections see them.
 
 ### What do the views and likes on a page mean?
-Views count visits that saw the page. Likes count people who liked it. We never show who viewed or liked anything. **Share** sends the page with your phone's share options, or copies its link.
+Views count visits that saw the page. Likes count people who liked it. We never show who viewed or liked anything. Likes are checked for automated activity, so a count means real people: likes that come at a machine's pace, or more likes than a page has views, are taken off the count, and anything unusual is looked at by our team. **Share** sends the page with your phone's share options, or copies its link.
 
 ### Does Traversence track when I call or visit a business's website?
 We count it for the business, never who did it. A tap on Call, Directions, Website or a contact page adds one to that business's count for the day. No name, account, device or address is stored with it. Businesses see the totals for the last 30 days.
@@ -873,14 +873,26 @@ link works for 24 hours; the newest one is the one to use.
 ### Can I use Traversence without an account?
 Yes. Browse, search, share and see a QR code without one, and like a few things: as a guest, a like counts right away,
 once per item. A guest is just this visit, so nothing about you is kept and it ends when you close the browser; we never
-link it to an account later. After three likes in a visit, or for anything that comes back to you (comments, so you can see
-replies, edit or remove them; linking a place to keep it; messages; joining a group; becoming a contributor), a small
+link it to an account later. After three likes in a visit, a small panel offers a free account, with **Keep going as a
+guest** if you'd rather carry on (up to 100 likes in a visit). For anything that comes back to you (comments, so you can
+see replies, edit or remove them; linking a place to keep it; messages; joining a group; becoming a contributor), the same
 panel offers a free account: Google, Microsoft or Facebook, or Create account and Sign in, then brings you back to the same
 page. **Not now** closes it.
 
-### Why does it say a like from this connection is already counted?
-To keep counts honest, each item counts one guest like per internet connection, so opening a new window doesn't add
-another. Your household or office may share a connection. Likes from an account always count, one per person.
+### Why does it say guests on this connection have liked it today already?
+To keep counts honest, each item counts up to three guest likes a day from one internet connection, so a household or an
+office sharing a connection can each like it, but opening new windows doesn't keep adding. Likes from an account always
+count, one per person.
+
+### Why did it ask me to confirm I'm a person when I liked something?
+Liking very quickly (many likes in a minute), or at a perfectly even pace, looks like a program rather than a person, so
+we ask once with the "verify you're human" check (Cloudflare Turnstile; it usually passes by itself in a second). Once it
+passes, you can keep liking. New accounts and guests are asked a little sooner than accounts that have been around a while.
+
+### Is there a limit on likes?
+An account can like 100 things a day. At 100, it says so and offers **Keep liking**: confirm you're a person and you get
+another 100 for the day, so going past it is always your choice. A guest can like up to 100 things in a visit (after the
+first three, choosing **Keep going as a guest**).
 
 ### Why did it ask "Help improve Traversence?" after I liked something?
 Once a visit, a guest is asked whether Traversence may learn from how the visit uses the site (AI & Learning,
