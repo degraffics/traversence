@@ -465,3 +465,11 @@ Jason: "Evidence wins. Unless claimed. Then it's offered as additional info, for
 - Run `api/migrations/2026-11-04_identity_applied.sql` once.
 
 **Since 2026-11-01** (decisions/0133, "The observations store is the identity record"): the identity is the one primary record of each business from the first sighting, not a copy rebuilt from our records. Every listing write records into it with its source and lasts through rebuilds; a value taken off the listing is kept as history and never written back; merges join the evidence. It lives in the main database. Links (Google, Facebook, Yelp) are where to look, never counted as agreeing sources; OpenStreetMap is a lead only. Where this record says the identity is built only from our records, can be rebuilt and pruned, or confirmed by counting sources, 0133 rules.
+
+**Since 2026-11-05 (Jason): no verification question.** "There is no verification statement, so the act of signing up
+requires an email to be confirmed which automatically satisfies the process." **Verified = email confirmed + 18 or
+older**; nothing to switch on (`MemberVerification::consented` reads the confirmed email; sign-up no longer asks "Yes,
+check my details"). A phone code or a business claim is its own step, and starting it is the person's go-ahead. The
+roles that needed Verification now need a confirmed email. Still to tidy: the "Switch on Verification" boxes on the claim
+and contributor forms (they now show only to someone whose email isn't confirmed) and the Verification switch in Privacy
+Settings → Your tools.

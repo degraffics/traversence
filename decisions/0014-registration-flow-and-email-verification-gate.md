@@ -42,3 +42,15 @@ The `users.role` default-to-`business_owner` gap that `Auth::register()`'s own c
 The registration page's Terms/consent copy — what the ToS/Privacy Policy actually say — is out of scope here. This ADR specifies only that acceptance is captured and required, not the legal content being accepted.
 
 The new `ai_personalization_opt_in`/`ai_personalization_opt_in_at` columns are a small, additive migration alongside the `role` default change above — both touch `Auth::register()`'s INSERT and can ship in the same deploy. The exact registration-form copy above is a first draft, same status as the ToS copy note: this ADR specifies the mechanism and the default, not final legal/marketing wording. Account Settings needs the matching toggle built at the same time the registration-form one is, not as separate follow-up work, since `decisions/0010` treats "accessible" as covering both.
+
+**Since 2026-11-05 (Jason): sign-up in three steps.** 1. **Create account:** email, password and again (the live checklist
+shows the real rule: 8+ with a capital, a small letter, a number and a symbol), "I am 18 or older", and "By creating an
+account you accept our Terms of Use and Privacy Policy" (recorded by `Acceptance::signup`, decisions/0142); or Google,
+Microsoft, Facebook. 2. **The email link**, good for 24 hours (it said "doesn't expire" but lasted an hour), and Send it
+again on the sign-in page (`/api/auth/resend-confirmation.php`). **No sign-in until the email is confirmed**, as this
+decision always said (`Auth::attemptLogin` now refuses with `unconfirmed`). 3. **Four questions after the link**, each
+Continue or Skip (skipped stays off): where you're from (decisions/0027: country, ZIP in the US; `users.home_country`,
+`home_zip`), then AI Assist & Learning (decisions/0051), Usage analytics and Videos (decisions/0077); then Sign in.
+`/api/auth/setup.php` takes the answers for the account whose link was opened in this browser (an hour) or the person
+signed in. The **AI personalisation opt-in above is replaced by decisions/0051's AI & Learning consent**, asked here.
+Zip `sign-up-steps_20261105.zip`, built on the 13:53 UTC sync (it also carries the bar-colours changes, unuploaded).

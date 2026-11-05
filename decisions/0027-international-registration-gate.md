@@ -37,3 +37,6 @@ This applies only at registration (the point of identity/personal-data intake), 
 ## Consequences
 
 `routes.md`'s `/register` row gains the home-location fields and the geoblock logic described above. `architecture.md` §24's data-collection inventory gains the new home-location field (country, and zip for U.S. registrants) with its stated purpose (regional search scoping). The alternative — serving EU/UK users properly with no manual exception — is recorded in `future-considerations.md` rather than built now, consistent with how `decisions/0025` keeps GDPR out of scope specifically by not deliberately targeting that population.
+
+**Since 2026-11-05 (Jason):** the country (and ZIP in the US) is asked after the email link, as the first of the sign-up
+questions, and can be skipped. The IP check against the country is not built.
