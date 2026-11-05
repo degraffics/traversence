@@ -342,3 +342,13 @@ Zip `account-bar_20261105.zip`, built on the 12:34 UTC sync: `app/ui/context-swi
 beside it. The account-bar zip was live at the 13:25 UTC sync, all 5 files checked byte for byte. And when the header is
 collapsed, the bar keeps its dark brown instead of going clear. Zip `menu-only_20261105.zip`, built on the 13:25 UTC sync:
 `app/ui/header.php`, `app/ui/brand.php`, `app/ui/faq.md`.
+
+**Later on 2026-11-05 (Jason): sign-in tabs and the switcher's order.** Sign in and Create account are **one page**
+(`/login.php`) with two tabs; `?tab=create` opens the second, the email you typed carries across, and a TRV staff ID in
+Sign in still goes on to the staff code step. `/register.php` forwards plain visits to the tab; finishing a sign-up that
+started with Google, Apple, Microsoft or Facebook stays there. The **switcher lists Traversence first, then you, then your
+listings under you** (each shown when five or fewer, else three and See all), then Steward. The list comes from
+`Roles::contexts()` (an admin grant; a listing you own or are on the team of; a community you steward) and
+`StaffLogin::otherAccount()` (a linked staff login), read each time it opens. **✎ edits the current account**: your
+profile, or the listing's page editor while you act as it. Zip `sign-in-tabs_20261105.zip`, built on the 13:40 UTC
+sync: `app/ui/context-switcher.php`, `app/ui/header.php`, `app/ui/faq.md`, `website/login.php`, `website/register.php`.
