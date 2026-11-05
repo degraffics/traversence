@@ -48,3 +48,5 @@ Reply-To, the GO Codes receipt, the FAQ), replacing privacy@ and hello@, which w
 
 Multi-factor authentication: **Yes** (staff, who are the only people who reach the QuickBooks connection). Captcha:
 **Yes** once the Turnstile keys are in `.env`.
+
+**Note (2026-11-05): the forms wait for the check.** The check often runs unseen and takes a few seconds; pressing Sign in before it finished failed at once with "Please wait…" (Jason). Sign in, Create account, finish sign-up and Forgot password now wait for it (`tvCaptchaWait()`, up to 12 s), reset it once if it stalls or errors and wait again (8 s); only then do they send, and the message then says what to do: reload, allow challenges.cloudflare.com past a blocker, or use Google, Microsoft or Facebook.
