@@ -1122,3 +1122,5 @@ count (`content_like_tally`), nothing per guest is kept. Once per item per visit
 connection that liked each item is kept 30 days (`guest_ip_likes`, `guest_tick` deletes them), so new sessions from one
 connection can't add more. **After 3 likes in a visit** the account panel asks them to join. Members: once per item, as
 always. This replaces the 30-day guest cookie and the 60-an-hour limit above.
+
+**Note (2026-11-05): the split search's Where.** On the home page's split search, the place belongs to the Where box: tapping it opens the place picker as a dropdown under that box (not a pop-up mid-page), with the **Distance** slider in it. The results under Discover more keep to what you're after and Search Directory, without repeating Location or Distance. Phones keep the full-screen picker and the panel's own Location line. Any pop-up of the place picker closes with a click outside it or Esc.
