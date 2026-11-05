@@ -863,6 +863,18 @@ Tap your photo at the left of the account bar and choose your **Personal Account
 ### Where do I sign in or create an account?
 Open the menu (☰) at the top right of any page and tap **Create account** or **Sign in**: both open the same page, with a tab for each, so you can switch between them without losing the email you typed. On a phone, tap the compass at the top left: both are at the top of its menu. Once you're signed in, the account bar at the very top of the page takes over, with your photo (to switch accounts) and the sign-out icon. On the Traversence team? Type your staff ID (TRV-0001) in **Sign in** and it takes you to the staff sign-in.
 
+### What happens when I create an account?
+Three short steps. **1.** On the **Create account** tab: your email, a password (twice), a tick that you're 18 or older,
+and you accept the Terms of Use and Privacy Policy (or use Google, Microsoft or Facebook instead). **2.** We email you a
+link; it works for 24 hours, and the sign-in page can send it again. Opening it confirms your email. You can't sign in
+until you do. **3.** Four quick questions, each with **Continue** or **Skip**: where you're from (country, and ZIP in
+the US), then three choices, **AI Assist & Learning**, **Usage analytics** and **Videos from YouTube**, each off unless
+you tick it. Then sign in. Change any of them later in Privacy Settings.
+
+### I didn't get the email to confirm my account.
+Check your spam folder first. Then go to **Sign in**, type your email and password, and tap **Send the link again**. Each
+link works for 24 hours; the newest one is the one to use.
+
 ### How does the menu know I have a business or a staff account?
 It asks each time it opens. A business shows under you as soon as you've claimed it or someone on its team has added you, and it goes when you're removed. A Traversence staff account shows when your staff login is linked to your own account. Nothing else about you is used, and no one else sees the list.
 
@@ -1218,18 +1230,16 @@ Any name from 2 to 40 characters, using letters, numbers, spaces and simple punc
 Either way, your email and your location are never shown.
 
 ### What does Verified mean?
-A **✓ Verified** mark on someone's profile means they agreed to have the details they gave us checked, and the
-checks are done: their email (with the link we sent them) and that they're 18 or older. We only check what a person
-gave us. We never search for anything more about them, and nothing else about them is shown. Checking a phone with a
-texted code is coming. A business owner's business is checked on its own, against its website and the public
-registries we list.
+A **✓ Verified** mark on someone's profile means their email is confirmed (with the link we sent them) and they told us
+they're 18 or older. That's all it takes, and it happens when you confirm your email at sign-up: there's no separate
+question. We never search for anything more about anyone. A business is checked on its own, against its website and
+public records, when its owner claims it; checking a phone with a texted code is coming, and starts only when you ask for
+the code.
 
 ### Do I have to be verified?
-No, not to use Traversence. Browsing, searching, saving, commenting and messaging never need it. When you create an
-account we ask once, as its own step, and you can answer **Not now**. You need Verification switched on only to write
-as a contributor, claim a business, start a community, or work on Traversence's staff. Each of those asks for it
-in place, with one tick. Switch it on or off any time in **Privacy Settings → Your tools**. Switching it off removes
-the Verified mark, not your account. We keep a record of when you said yes or no and the exact words you were shown.
+Everyone who confirms their email is. Browsing, searching, saving, commenting and messaging need nothing more. Writing
+as a contributor, claiming a business, starting a community and staff work need a confirmed email; claiming a business
+also checks the business itself, which starts when you tap to claim it.
 
 ### Who can see my email?
 No one on the site: your email is never shown on Traversence. Traversence staff can see it only to verify your
