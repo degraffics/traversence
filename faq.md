@@ -875,11 +875,16 @@ Check your spam folder first. Then go to **Sign in**, type your email and passwo
 link works for 24 hours; the newest one is the one to use.
 
 ### Can I use Traversence without an account?
-Yes. Browse, search, like, share and see a QR code without one: as a guest, your likes count right away (one per
-browser, through a small cookie that holds nothing about you; we never link it to an account later). Things that come
-back to you need a free account: comments (so you can see replies, edit or remove them), linking a place to keep it,
-messages, joining a group and becoming a contributor. Tap any of them and a small panel offers Google, Microsoft or
-Facebook, or Create account and Sign in, then brings you back to the same page. **Not now** closes it.
+Yes. Browse, search, share and see a QR code without one, and like a few things: as a guest, a like counts right away,
+once per item. A guest is just this visit, so nothing about you is kept and it ends when you close the browser; we never
+link it to an account later. After three likes in a visit, or for anything that comes back to you (comments, so you can see
+replies, edit or remove them; linking a place to keep it; messages; joining a group; becoming a contributor), a small
+panel offers a free account: Google, Microsoft or Facebook, or Create account and Sign in, then brings you back to the same
+page. **Not now** closes it.
+
+### Why does it say a like from this connection is already counted?
+To keep counts honest, each item counts one guest like per internet connection, so opening a new window doesn't add
+another. Your household or office may share a connection. Likes from an account always count, one per person.
 
 ### Why did it ask "Help improve Traversence?" after I liked something?
 Once a visit, a guest is asked whether Traversence may learn from how the visit uses the site (AI & Learning,
