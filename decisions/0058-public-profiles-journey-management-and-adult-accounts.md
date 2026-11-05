@@ -1104,3 +1104,13 @@ Facebook, trvgo.us for short links and QR codes, another site's name, or Direct)
 search. Insights shows: arrivals from search engines and from AI assistants, where visitors come from, where they land
 and from where, pages by address, and the routes between pages. Still counts only: no person, account or device. The
 "About pages" section is renamed "Help and other pages" (everything outside the main sections). Privacy updated.
+
+**Since 2026-11-05 (Jason: "having to sign in to do things is counter productive for guests"; "the guest should be an
+account that is just unregistered").** §20's Engage bar: **likes no longer need an account.** A guest's like counts at
+once, one per guest (decisions/0009's guest identity: a random token in the `tv_guest` cookie, kept only as its SHA-256),
+at most 60 an hour from one connection, never linked to an account later (decisions/0051). Raw guest likes fold into a
+per-item tally after 30 days (`guest_tick`), so 0009's 30 days hold and the likes still count. What comes back to a person
+(comments, linking a place, messages, joining a group, becoming a contributor) opens the **account panel**
+(`js/tv-join.js`): why it needs an account, Google/Microsoft/Facebook, Create account, Sign in, back to the same page,
+"Not now". No more "Sign in to like" or detours to the sign-in page. The ☰ no longer glows when a location is set.
+Zip `guests_20261105.zip`, built on the 14:51 UTC sync; migration `2027-02-08_guest_likes.sql`.

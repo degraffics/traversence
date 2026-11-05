@@ -99,3 +99,7 @@ stored in the shared corpus (`decisions/0011`); AI providers must not train on T
   before use, and reviewed legally before public launch.
 - The "chat-vectorization-queue" in `architecture.md` must follow this ADR and `decisions/0011` (consented authors
   only; abstractions, not raw embeddings of conversations) before it is built.
+
+**Built 2026-11-05 (guests):** a guest is asked once a visit, after their first like: "Help improve Traversence? Let it
+learn from how this visit uses the site… Nothing about you is kept, and it ends with your visit." Allow for this visit /
+Not now, kept in the session (`Guest::learning()`) for anything that learns from guest activity to check.

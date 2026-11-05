@@ -874,6 +874,18 @@ you tick it. Then sign in. Change any of them later in Privacy Settings.
 Check your spam folder first. Then go to **Sign in**, type your email and password, and tap **Send the link again**. Each
 link works for 24 hours; the newest one is the one to use.
 
+### Can I use Traversence without an account?
+Yes. Browse, search, like, share and see a QR code without one: as a guest, your likes count right away (one per
+browser, through a small cookie that holds nothing about you; we never link it to an account later). Things that come
+back to you need a free account: comments (so you can see replies, edit or remove them), linking a place to keep it,
+messages, joining a group and becoming a contributor. Tap any of them and a small panel offers Google, Microsoft or
+Facebook, or Create account and Sign in, then brings you back to the same page. **Not now** closes it.
+
+### Why did it ask "Help improve Traversence?" after I liked something?
+Once a visit, a guest is asked whether Traversence may learn from how the visit uses the site (AI & Learning,
+decisions/0051), to make guides and suggestions better for everyone. Nothing about you is kept, and it ends with your
+visit. **Not now** is fine: your like still counts.
+
 ### Can I create an account from Europe?
 Traversence is a U.S. regional directory. If you're connecting from the EU, the EEA or the UK, **Create account** asks one
 more question, where you live. If you live there too, we can't create the account on the site; email
