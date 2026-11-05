@@ -239,3 +239,5 @@ score credits the brief (Claude 30, dossier 15, brief 10, ground 10, sources 10,
 written again (`DRAFT_V` 3).
 
 **Since 2026-11-01** (decisions/0133, "The observations store is the identity record"): Find it's own score (with Claude's confidence and OpenStreetMap's 40) is replaced: a find becomes a candidate identity and the same listing confidence decides it (to build; see 0133, "Find it under the one record").
+
+**Note (2026-11-05): guides in Stories & guides.** Discovery's Stories & guides (`/discovery/?view=stories`) read only the older `place_stories`, so live guides (`place_guides`, on /hub/ pages) never showed there: St. Johns's guide looked missing. It now lists the live guides for the place and the towns and neighborhoods in it (`dv_guides()`), first, each linking to its guide page; the overview's tile counts them too.
