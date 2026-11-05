@@ -44,3 +44,11 @@ raw rows folded into counts after 30 days.
 **Refined 2026-11-05:** the guest identity is the browser session (destroyed when the browser closes), not a 30-day
 cookie; the only thing kept past a visit is the hashed connection behind a guest like, for 30 days, for the per-item
 connection check.
+
+**Note (2026-11-05): checks on likes (Jason).** Same limits for everyone; guests and accounts in their first 7 days get closer checks until proven (7+ days old, nothing reported in that time; a reported account stays watched until Safety clears it; guests are always watched). `app/lib/LikeGuard.php`:
+- **Speed:** 20 likes a minute per connection (10 watched). Past it, the "verify you're human" check (Turnstile, free) beside the heart; passing covers the visit for 10 minutes. Nobody is refused outright.
+- **Timing:** likes at a near-even pace under 4 s apart (from the 10th like; the 5th when watched): the same check.
+- **Daily:** 100 likes a day per account. At 100, "You've reached today's 100 likes. Keep liking?"; yes runs the check and allows another 100, so going past is a conscious choice.
+- **Guests:** after 3 likes the account panel offers **Keep going as a guest**, up to 100 in the visit. Up to 3 guest likes per item per connection per day (replaces one per connection), so a household or office can each like it.
+- **Hourly look** (`like_watch_tick`): perfectly timed likes, and likes past an item's views, come off the count at once and are reported; 3+ watched sources on one item in an hour, and a new account with guests on one connection, are reported only. Reports are one Safety case in Pulse (`likes:checks`), a step each: Looks fine, or Not genuine (removes them).
+- **Privacy:** like records (member id or a hashed visit, hashed connection) are deleted after 30 days and with the account; reports show counts and a shortened hashed connection, never who. The FAQ says likes are checked for automated activity, without the thresholds.
