@@ -159,3 +159,9 @@ the account menu drops its Business portal item; choosing a listing under Your l
 Overview (`/business/<listing>`), where all its tools are.
 
 **Since 2026-11-03 (decisions/0141):** 0140 and 0141: selling now sits under one **Market 360°** button in the business menu, its six modules (Business Identification, Money & Processing, Products & Inventory, E-commerce, Storefront, Marketing) in its dropdown.
+
+**Since 2026-11-05 (Jason: "the listing profile is not associated to the listing dashboard").** Editing a listing
+(`/listing/businessportal.php?id=`) is part of its portal: the portal's own menu with **Edit listing** lit, titled "Edit
+listing", without the "New: the business portal" card or the list of all your listings (that list stays on the page
+without `?id`). **The listing** in the portal's menu opens the public page as a preview over the portal (Peek), not a way
+out of it. Zip `edit-in-portal_20261105.zip`, built on the 15:05 UTC sync.
