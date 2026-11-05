@@ -41,7 +41,7 @@ Open the place picker at the top of the page (on the home page, **Change** under
 
 In **Destination** you can type a town, a town area, a local name, or a landmark like **Grand Canyon**, **Lyman Lake** or a museum. Towns come first. You can add the state after a comma ("St. Johns, AZ"); the list keeps up while you type it. Choosing a landmark takes you to the town area around it.
 
-Signed in, you can make a place your default (**My default**), so you start there next time.
+Signed in, you can make a place your default (**My default**), so you start there next time: whenever you're signed in and haven't chosen a place yet this visit, every page starts from it (shown as "your default"). A region you arrive through, or choosing everywhere, still wins for that visit.
 
 ### Does Auto-detect share where I am?
 No. Auto-detect only picks a starting place for you on this visit. Your location is never shown to anyone.
