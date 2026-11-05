@@ -40,3 +40,7 @@ This decision does not authorize using guest correlation data for anything beyon
 **Built 2026-11-05:** the guest identity is `app/lib/Guest.php` (cookie `tv_guest`, 30 days, HttpOnly; only its SHA-256
 stored; never set for bots). First use: likes (decisions/0058 §20 as changed), with a per-connection limit (hashed) and
 raw rows folded into counts after 30 days.
+
+**Refined 2026-11-05:** the guest identity is the browser session (destroyed when the browser closes), not a 30-day
+cookie; the only thing kept past a visit is the hashed connection behind a guest like, for 30 days, for the per-item
+connection check.

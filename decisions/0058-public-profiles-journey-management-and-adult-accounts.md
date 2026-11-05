@@ -1114,3 +1114,11 @@ per-item tally after 30 days (`guest_tick`), so 0009's 30 days hold and the like
 (`js/tv-join.js`): why it needs an account, Google/Microsoft/Facebook, Create account, Sign in, back to the same page,
 "Not now". No more "Sign in to like" or detours to the sign-in page. The ☰ no longer glows when a location is set.
 Zip `guests_20261105.zip`, built on the 14:51 UTC sync; migration `2027-02-08_guest_likes.sql`.
+
+**Refined the same day (Jason: "this should be instantly folded into the like count"; "destroy at session end"; "if a
+guest is liking multiple items in one session we should ask them to become account"; "once per item").** A guest is the
+browser session only (no cookie of its own; it ends when the browser closes). A guest's like adds straight to the item's
+count (`content_like_tally`), nothing per guest is kept. Once per item per visit and **per connection**: the hashed
+connection that liked each item is kept 30 days (`guest_ip_likes`, `guest_tick` deletes them), so new sessions from one
+connection can't add more. **After 3 likes in a visit** the account panel asks them to join. Members: once per item, as
+always. This replaces the 30-day guest cookie and the 60-an-hour limit above.
