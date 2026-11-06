@@ -454,6 +454,9 @@ What is public: established boundaries, key resources and services, public busin
 
 Events will work the same way when they're added. Marketplace posts come from the people who post them (see Buying and selling).
 
+### Why doesn't a landmark have a photo?
+A landmark's photo comes from Wikimedia Commons, a free library of photos, credited to the person who took it with its licence. If the landmark's own entry has none, we look on Commons for one taken there: free to use, named for the landmark, and taken nearby (or naming its state, county or town). We look every hour, a few landmarks at a time, and look again a month later for ones with nothing yet. You can also add yours with **Share a photo** on the landmark's page.
+
 ### Where do a listing's phone number and website come from?
 From the business's own website first, then official registries (like the NPI Registry for health care and the IRS
 list of nonprofits), then other public pages that show the business with its name and address. A number goes on a
