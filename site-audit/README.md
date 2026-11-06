@@ -1,0 +1,33 @@
+# Site audit and phased releases
+
+Decision 0145. One file per phase, each with what gets built, what Jason provides, when it's done and how it rolls
+back.
+
+| Phase | File | Changes the live site? |
+|---|---|---|
+| 1 | [Foundations: code checks, zip check, delivery log, scorecard](phase-1-foundations.md) | No |
+| 2 | [Feature switches, test accounts, rendered checks](phase-2-switches-and-accounts.md) | Yes: switches and the test-account flag |
+| 3 | [The staging copy of the site](phase-3-staging.md) | No (staging is separate) |
+| 4 | [Journeys and the review](phase-4-journeys-and-review.md) | Yes: the Pulse "Site health" case |
+| 5 | [Planned, phased releases](phase-5-releases.md) | Yes: the Releases page |
+| 6 | [Deploy from git (optional)](phase-6-deploy-from-git.md) | Changes how files reach the server |
+
+## What Jason provides, all phases
+
+| Phase | What you provide |
+|---|---|
+| 1 | Approval only |
+| 2 | Approval. The test accounts (table in the phase file). One GitHub secret, `CHECK_ACCOUNTS`. Confirmation that test payments run in sandbox. |
+| 3 | Approval. Confirmation that Bluehost allows another subdomain and database. Staging's database password and viewing password in its `.env`. Staging's address added in Cloudflare Turnstile. |
+| 4 | Approval. Your top 10 journeys. The measures (for example, steps too many). Decisions on the first proposals. |
+| 5 | Approval. Who may publish. Rollout defaults and timing. Release windows. |
+| 6 | The decision to switch and a date. Agreement that all file changes go through releases. |
+
+## Files these phases create
+
+- `rules.md`: the rule catalogue (Phase 1)
+- `scorecard.md`: each page's health, live and staging (Phases 1–4)
+- `journeys.md`: the journey catalogue (Phase 4)
+- `page-map.md`: each page and the decisions that govern it (Phase 4)
+- `proposals.md`: improvements awaiting approval (Phase 4)
+- `../deliveries/`: every zip and release, and whether its files went live (Phases 1, 5)
