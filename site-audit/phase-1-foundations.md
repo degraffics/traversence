@@ -34,8 +34,19 @@ failing.
    - each page's checks, pass or fail, with links;
    - the worst repeat failures first;
    - a trend from run to run.
-6. **A GitHub Action** in this repository. It runs the checks after each sync commit on the mirror, weekly in full, and
-   on demand (Run). It commits the scorecard and log.
+6. **The decision register** (`decisions/index.md`, decision 0145 §1a):
+   - every decision with its status, what replaced it or what it replaces, the pages and tools it governs, and its open
+     findings;
+   - flags stale decisions, conflicts, uncovered pages and tools, and later decisions that changed earlier ones without
+     a note.
+
+   Drafts for Jason only; nothing changes without his approval.
+7. **The site page tree** (`routes.md`, generated from the live mirror):
+   - every page with its address, status (live, archived, removed), who may see it, and its governing decisions;
+   - flags unlisted and missing pages, archived pages still in menus, removed pages still reachable, and dead menu
+     links.
+8. **A GitHub Action** in this repository. It runs the checks after each sync commit on the mirror, weekly in full, and
+   on demand (Run). It commits the scorecard, the log, the decision register and the page tree.
 
 ## What Jason provides
 
@@ -48,6 +59,9 @@ failing.
 - [ ] The code checks run on the full mirror, and the first scorecard is committed.
 - [ ] The zip check runs on a real zip, and its result is in the hand-off note.
 - [ ] The delivery log shows the last week's zips and which files matched.
+- [ ] The decision register lists all decisions (0001 onward) with status, and its first findings are listed.
+- [ ] The page tree lists every page on the live site, and `routes.md` is replaced by the generated tree once Jason
+      approves it.
 - [ ] Jason has seen the first scorecard and said which failures to fix first.
 
 ## Rollout and rollback

@@ -69,6 +69,41 @@ Four layers, run on every page, for every kind of account:
   - a review in Claude Code sessions (no cost to Traversence) reads the flagged pages, their screenshots and the
     decisions that govern them.
 
+## 1a. It keeps the decisions and the page tree (Jason, 2026-11-06)
+
+The audit doesn't only read the decisions and the pages. It keeps both up to date.
+
+- **The decision register** (`decisions/index.md`, generated and checked on every run). For each decision it records:
+  - its number, title and status (accepted, amended, replaced);
+  - what replaced it, or what it replaces;
+  - the pages and tools it governs;
+  - its open findings;
+  - when it was last checked against the site.
+
+  Every run flags:
+  - decisions no page follows any more (stale);
+  - decisions that contradict each other (conflict);
+  - pages and tools no decision covers (missing);
+  - a later decision that changed an earlier one without a note on the earlier one.
+
+  Drafted amendments and new decisions go to Jason (§2). Once he approves, the register, the README's decision count and
+  the checks are updated together.
+- **The site page tree** (`routes.md`, generated from the live mirror and checked on every run). Every page appears
+  with:
+  - its address and its status: live, archived, or removed (with `archive.md`);
+  - who may see it (which account types);
+  - its governing decisions;
+  - its tools and its journeys.
+
+  Every run flags:
+  - a page on the server that's not in the tree (unlisted);
+  - a page in the tree that's gone (missing);
+  - an archived page still in a menu;
+  - a removed page still reachable;
+  - menus and rails linking to pages that don't exist.
+
+  A release that adds, moves or removes a page updates the tree in the same release.
+
 ## 2. It improves the rules, not only checks them
 
 Every finding gets a verdict:
@@ -140,7 +175,7 @@ for Jason.
 - **Add-only database changes within a release.** New tables and columns only; never a drop or rename in the same
   release. Removals come in a later release once the first has proven itself. The previous version always runs on the
   new database, so a rollback never loses data.
-- **Staging is a full copy** with its own database:
+- **Staging is a full copy** at `staging.trvgo.us` (Jason, 2026-11-06), with its own database:
   - refreshed from live with personal details stripped;
   - email held back;
   - payments in sandbox;
@@ -156,9 +191,9 @@ for Jason.
 
 | Phase | What | File |
 |---|---|---|
-| 1 | Code checks, zip check, delivery and release log, scorecard | `site-audit/phase-1-foundations.md` |
+| 1 | Code checks, zip check, delivery and release log, scorecard, the decision register and the page tree | `site-audit/phase-1-foundations.md` |
 | 2 | Feature switches, test-account flag, test accounts for every role, rendered checks, UI and UX expectations on every page, the tool inventory, and checks of tools that only read | `site-audit/phase-2-switches-and-accounts.md` |
-| 3 | Staging copy of the site; the audit on staging and live; checks of every tool that changes something | `site-audit/phase-3-staging.md` |
+| 3 | Staging copy of the site at `staging.trvgo.us`; the audit on staging and live; checks of every tool that changes something | `site-audit/phase-3-staging.md` |
 | 4 | Journeys, the review, drafted amendments, the Pulse "Site health" case | `site-audit/phase-4-journeys-and-review.md` |
 | 5 | Planned releases: plan, publish or schedule, phased steps, pause, turn off, roll back | `site-audit/phase-5-releases.md` |
 | 6 | Deploy from git (optional; Jason decides when) | `site-audit/phase-6-deploy-from-git.md` |
