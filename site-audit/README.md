@@ -6,8 +6,8 @@ back.
 | Phase | File | Changes the live site? |
 |---|---|---|
 | 1 | [Foundations: code checks, zip check, delivery log, scorecard](phase-1-foundations.md) | No |
-| 2 | [Feature switches, test accounts, rendered checks](phase-2-switches-and-accounts.md) | Yes: switches and the test-account flag |
-| 3 | [The staging copy of the site](phase-3-staging.md) | No (staging is separate) |
+| 2 | [Feature switches, test accounts, rendered checks, UI and UX on every page, the tool inventory, read-only tool checks](phase-2-switches-and-accounts.md) | Yes: switches and the test-account flag |
+| 3 | [The staging copy of the site, and checks of every tool that changes something](phase-3-staging.md) | No (staging is separate) |
 | 4 | [Journeys and the review](phase-4-journeys-and-review.md) | Yes: the Pulse "Site health" case |
 | 5 | [Planned, phased releases](phase-5-releases.md) | Yes: the Releases page |
 | 6 | [Deploy from git (optional)](phase-6-deploy-from-git.md) | Changes how files reach the server |
@@ -26,6 +26,7 @@ back.
 ## Files these phases create
 
 - `rules.md`: the rule catalogue (Phase 1)
+- `tools.md`: the tool inventory: every function and tool, who may use it, what should happen (Phase 2)
 - `scorecard.md`: each page's health, live and staging (Phases 1–4)
 - `journeys.md`: the journey catalogue (Phase 4)
 - `page-map.md`: each page and the decisions that govern it (Phase 4)

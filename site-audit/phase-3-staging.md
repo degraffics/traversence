@@ -23,7 +23,15 @@ anyone.
    - behind a password;
    - the crawler and paid AI calls are off unless switched on for a test.
 4. **Release to staging:** a release's files go to staging first, and its migrations run there first.
-5. **The audit runs on both** staging and live. The scorecard shows them side by side, and what a release changes on
+5. **Function checks for every tool that changes something.** Run on staging, for each account type allowed and refused:
+   - save, edit, post, comment, like, upload, claim, invite, message, order, pay (sandbox), refund, delete and restore;
+   - each admin module tool and Pulse step, and each scheduled job run on demand;
+   - each migration run twice.
+
+   Each result is compared with the tool inventory: the response, the change in the data, what the person sees, and the
+   refusal for those not allowed. On live, a few of these run through the test accounts with their own test records,
+   cleaned up after.
+6. **The audit runs on both** staging and live. The scorecard shows them side by side, and what a release changes on
    staging.
 
 ## What Jason provides
@@ -45,6 +53,8 @@ anyone.
 - [ ] A refresh copies live to staging with no personal details left. Spot-checked.
 - [ ] Email and payments on staging go nowhere real.
 - [ ] A test release (a harmless change) goes to staging, is audited there, and the scorecard shows the difference.
+- [ ] Every tool in the inventory that changes something has been checked on staging, for each account type, and its
+      result is in the scorecard.
 
 ## Rollout and rollback
 
