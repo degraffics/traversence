@@ -9,8 +9,19 @@ anyone.
 
 ## What gets built
 
-1. **`staging.traversence.com`:** a subdomain on the existing Bluehost plan, with its own copy of the files and its own
-   database. Set up through the cPanel API we already use, as far as the API allows.
+1. **`staging.trvgo.us`** (Jason, 2026-11-06): a subdomain of trvgo.us on the existing Bluehost plan, with its own copy
+   of the files and its own database. Set up through the cPanel API we already use, as far as the API allows.
+   - **Why it works well:**
+     - trvgo.us is already on the account, so there's no new domain and no cost;
+     - a separate domain keeps staging's sign-in cookies apart from traversence.com, so a staging session can never
+       carry over to the live site, or the other way round.
+   - **What it must not disturb:**
+     - trvgo.us's short codes, GO Codes and storefronts live at `trvgo.us/<code>`, as paths, not subdomains, so
+       `staging` can't collide with a code;
+     - QR codes printed for customers never point at it;
+     - the word `staging` is reserved so no code or storefront can take it.
+   - **The trvgo.us router itself** is staged too: its copy answers at `staging.trvgo.us/go/…`, so changes to short codes
+     and storefronts are tested before they reach the real trvgo.us.
 2. **A refresh job.** It copies live to staging on demand and weekly:
    - files from the mirror;
    - the database with personal details stripped (names, emails, phone numbers, addresses, messages replaced with test
@@ -37,19 +48,20 @@ anyone.
 ## What Jason provides
 
 1. **Approval** of this phase.
-2. **Confirmation that your Bluehost plan allows another subdomain and database.** cPanel → Domains (subdomains) and
-   cPanel → MySQL Databases show what's free. Most plans allow both. If yours doesn't, staging can live in a folder on
-   the main domain instead, with the same protections.
+2. **Confirmation that your Bluehost plan allows a subdomain of trvgo.us and another database.** cPanel → Domains and
+   cPanel → MySQL Databases show what's free. Most plans allow both. Also tell me where trvgo.us's DNS is managed
+   (Bluehost or Cloudflare), so the `staging` record goes in the right place.
 3. **The staging database password in the staging `.env`.** This is the one step done by hand: cPanel File Manager,
    as with all secrets. I'll give you the exact lines.
 4. **The staging password.** Choose the password for viewing staging; it goes into `.env` too.
-5. **Cloudflare Turnstile:** add `staging.traversence.com` to the widget's allowed hostnames (Cloudflare → Turnstile →
-   the widget → Hostnames). Optional: Google, Microsoft and Facebook sign-in on staging need its address added in each
+5. **Cloudflare Turnstile:** add `staging.trvgo.us` to the widget's allowed hostnames (Cloudflare → Turnstile → the
+   widget → Hostnames). Optional: Google, Microsoft and Facebook sign-in on staging need its address added in each
    provider. Without them, staging uses email sign-in only.
 
 ## Done when
 
-- [ ] `staging.traversence.com` loads, asks for its password, and isn't indexed.
+- [ ] `staging.trvgo.us` loads, asks for its password, and isn't indexed. `trvgo.us` codes and storefronts still work
+      exactly as before.
 - [ ] A refresh copies live to staging with no personal details left. Spot-checked.
 - [ ] Email and payments on staging go nowhere real.
 - [ ] A test release (a harmless change) goes to staging, is audited there, and the scorecard shows the difference.
