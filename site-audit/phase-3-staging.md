@@ -42,7 +42,11 @@ anyone.
    Each result is compared with the tool inventory: the response, the change in the data, what the person sees, and the
    refusal for those not allowed. On live, a few of these run through the test accounts with their own test records,
    cleaned up after.
-6. **The audit runs on both** staging and live. The scorecard shows them side by side, and what a release changes on
+6. **Database speed on staging:**
+   - the queries each page and tool runs are timed, and their query plans read;
+   - full scans, missing indexes and one-query-per-row patterns are flagged, with a proposed fix;
+   - each release's queries are compared with the last.
+7. **The audit runs on both** staging and live. The scorecard shows them side by side, and what a release changes on
    staging.
 
 ## What Jason provides

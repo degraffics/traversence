@@ -50,7 +50,15 @@ phone and desktop size.
    - refused, greyed out with the reason, for each account type that may not.
 
    Tools that change something are checked in Phase 3, on staging.
-8. **Staff sign-in for the checks.** The Action generates each staff test login's two-step code from its secret key.
+8. **The health report:** a locked admin endpoint that returns only totals:
+   - table sizes and row counts;
+   - slow-query and error summaries;
+   - service usage and cache rates.
+
+   No personal data. The Action fetches it with the `HEALTH_TOKEN` secret.
+9. **Endpoint permission checks:** every endpoint called as every account type. One that answers someone it shouldn't,
+   or returns more than the page needs, fails.
+10. **Staff sign-in for the checks.** The Action generates each staff test login's two-step code from its secret key.
    Nobody types a code.
 
 ## What Jason provides

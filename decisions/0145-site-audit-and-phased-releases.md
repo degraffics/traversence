@@ -19,7 +19,7 @@ should be vetted on a copy of the site, rolled out in phases, and able to be rol
 
 ## 1. The audit
 
-Four layers, run on every page, for every kind of account:
+Five layers, run on every page, for every kind of account:
 
 - **Code checks**, on the live mirror (`degraffics/traverse-3way-sync`) after every sync, and on every zip before it
   is sent. Each check comes from a written rule and links back to it. Examples:
@@ -63,6 +63,28 @@ Four layers, run on every page, for every kind of account:
     elsewhere on the site.
 
   Most of these are rendered checks; the rest go to the review.
+- **Data and integrations** (Jason, 2026-11-06: "APIs and databases … used correctly and effectively").
+  - **Our database:**
+    - code against schema: every table and column used exists, in the right database (`Database::t`, decision 0110);
+      tables, columns and indexes nothing uses are listed for removal;
+    - speed: the queries pages run are timed on staging and their query plans read (`EXPLAIN`); full scans, missing
+      indexes and one-query-per-row patterns are flagged; the slowest queries and pages are listed;
+    - data health: orphans, duplicates, impossible values, empty required fields; retention rules actually running
+      (like records, guest connections); each table's size and growth;
+    - privacy: personal details only where the privacy decisions put them.
+  - **Our own APIs (endpoints):**
+    - the basics: method, security token, permissions and input checks, and one answer format;
+    - called as every account type; one that answers someone it shouldn't, or returns more than the page needs, fails;
+    - error rates and response times from the server's logs; endpoints nothing calls are listed for removal.
+  - **Outside services** (Claude, Tavily, Google Places, Wikimedia, QuickBooks, Stripe, Square, SES, Name.com, the
+    weather and road services, Cloudflare):
+    - calls, failures, throttling and cost per service, and cost per useful result (per listing found, per guide);
+    - caching hit rates, retries that back off, sandbox and live keys not mixed;
+    - licence and terms followed (decision 0133's source register), and "no income, no expense" for every paid call;
+    - spend against each cap, from the existing Services & usage job.
+  - **The health report:** a locked admin endpoint returns only totals: table sizes and row counts, slow-query and
+    error summaries, service usage and cache rates. No personal data. GitHub's check run fetches it with a token kept as
+    a secret. Speed and query-plan tests run on staging, never heavy on live.
 - **Journeys and review.** Journeys are what people come to do, run end to end:
   - each is measured for steps to the goal, dead ends, accuracy (what's shown is true and complete, what exists shows)
     and clarity;
@@ -186,8 +208,19 @@ for Jason.
   - Claude Code sessions for the review.
 
   If the run time ever exceeds the free allowance, the checks run less often rather than adding a cost.
+- **Building and reviewing happen in Claude Code sessions, not batches** (Jason, 2026-11-06).
+  - **Builds:** a build reads the live files, runs the checks, tests, fixes and re-checks; a batch can't. Independent
+    parts of a release can run as parallel agents inside one session.
+  - **Batch reviews:** Claude's Message Batches API (half price, paid per use) fits large, simple reviews, such as the
+    wording of every page or FAQ answer against the brand guide. It is off unless Jason approves a budget for it.
+  - **Claude inside GitHub's check runs** is also paid per use, and is left out until the free version has proven
+    itself.
 
 ## 7. Phases
+
+**One build** (Jason, 2026-11-06): all of it is built together, from one punch list (`site-audit/punch-list.md`). It is
+still rolled out in the phase order, each part behind its own switch, because each phase relies on the one before.
+Phase 6 is included only if Jason says yes.
 
 | Phase | What | File |
 |---|---|---|

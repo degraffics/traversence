@@ -35,9 +35,16 @@ findings improve the rules, not just check against them.
    - missing decision, or conflict between decisions.
 
    The findings are ranked by how many journeys they block.
-5. **The proposal list** (`site-audit/proposals.md`): improvements grouped from the findings, each with its evidence and
+5. **Cost and effectiveness in the review:**
+   - each outside service's calls, failures and cost per useful result;
+   - cache hit rates;
+   - data health and growth;
+   - the slowest pages and queries.
+
+   Each becomes a finding with a proposed fix (cache it, index it, call less, drop it).
+6. **The proposal list** (`site-audit/proposals.md`): improvements grouped from the findings, each with its evidence and
    the decisions it touches, ready for Jason to approve, reject or reword.
-6. **The Pulse "Site health" case** on the site: a step for each open finding, with links to the page, the screenshot
+7. **The Pulse "Site health" case** on the site: a step for each open finding, with links to the page, the screenshot
    and the proposal.
 
 ## What Jason provides
