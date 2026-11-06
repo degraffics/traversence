@@ -14,7 +14,7 @@ The site's code isn't here. It runs on the server and in OneDrive, and its live 
 | `prd.md` | Functional spec and feature roadmap |
 | `architecture.md` | System architecture and operational spec (living) |
 | `traversence-platform-spec.md` | The live master technical spec: an append-only phase log |
-| `decisions/` | Architecture Decision Records, numbered `0001`–`0144`. A newer decision can replace an older one. |
+| `decisions/` | Architecture Decision Records, numbered `0001`–`0145`. A newer decision can replace an older one. |
 
 ## Business and brand
 
@@ -51,6 +51,7 @@ The site's code isn't here. It runs on the server and in OneDrive, and its live 
 | File | What it is |
 |---|---|
 | `workflow.md` | How the documentation is governed and kept |
+| `site-audit/` | The site audit and phased releases (decisions/0145): one file per phase, and what Jason provides for each |
 | `CLAUDE.md` | Rules every Claude session follows (loaded automatically) |
 | `readme-history.md` | The original README's change log, Sept–Oct 2026 |
 
