@@ -19,7 +19,7 @@ should be vetted on a copy of the site, rolled out in phases, and able to be rol
 
 ## 1. The audit
 
-Three layers, run on every page, for every kind of account:
+Four layers, run on every page, for every kind of account:
 
 - **Code checks**, on the live mirror (`degraffics/traverse-3way-sync`) after every sync, and on every zip before it
   is sent. Each check comes from a written rule and links back to it. Examples:
@@ -37,6 +37,32 @@ Three layers, run on every page, for every kind of account:
   - console errors, failed requests and sideways scroll;
   - card edges, account bar, stacked dialogs and accessibility basics;
   - screenshots, kept with each run.
+- **Function and tool checks** (Jason, 2026-11-06: "determine if the functions and tools are working properly too").
+  Every function and tool is used on its own, not only where a journey passes through it, and its result is checked.
+  - **What counts as a tool:** every button, form, switcher, filter, upload, endpoint (`/api/`, `/admin/api/`), admin
+    module tool and section (`app/admin/manifests.php`, `tools.php`), Pulse step, scheduled job, and migration.
+  - **The tool inventory** (`site-audit/tools.md`) is built from the code. Each entry lists who may use it and what
+    should happen: the response, what changes in the data, what the person sees (busy, then the notice), and what a
+    refusal looks like for someone not allowed.
+  - **How each is checked:** used by each account type that may use it, and refused, greyed out with the reason, for
+    each that may not; with good input, bad input and empty input; and its result compared with what the inventory
+    says. A tool that does nothing visible, answers wrongly, changes the wrong thing, or lets in someone it shouldn't
+    fails.
+  - **Where:**
+    - tools that only read are checked on live;
+    - tools that change anything (save, post, pay, delete, send) on staging (Phase 3), and on live only through the
+      test accounts with their own test records, cleaned up after.
+- **UI and UX expectations on every page**, whether or not a journey passes through it. Each page and each part of it
+  is held to the standards in `CLAUDE.md`, `brand.md`, decision 0058 and `ux-review.md`:
+  - the shell, account bar, header, rail;
+  - card anatomy, icons, phone edges;
+  - search and filters;
+  - notices, busy states, dialogs and status lines;
+  - forms (spell check, password boxes, lists with ⓘ), the one uploader, the command strip on record pages;
+  - plain wording, one clear next action, empty states that say what to do next, consistency with the same thing
+    elsewhere on the site.
+
+  Most of these are rendered checks; the rest go to the review.
 - **Journeys and review.** Journeys are what people come to do, run end to end:
   - each is measured for steps to the goal, dead ends, accuracy (what's shown is true and complete, what exists shows)
     and clarity;
@@ -131,8 +157,8 @@ for Jason.
 | Phase | What | File |
 |---|---|---|
 | 1 | Code checks, zip check, delivery and release log, scorecard | `site-audit/phase-1-foundations.md` |
-| 2 | Feature switches, test-account flag, test accounts for every role, rendered checks | `site-audit/phase-2-switches-and-accounts.md` |
-| 3 | Staging copy of the site; the audit on staging and live | `site-audit/phase-3-staging.md` |
+| 2 | Feature switches, test-account flag, test accounts for every role, rendered checks, UI and UX expectations on every page, the tool inventory, and checks of tools that only read | `site-audit/phase-2-switches-and-accounts.md` |
+| 3 | Staging copy of the site; the audit on staging and live; checks of every tool that changes something | `site-audit/phase-3-staging.md` |
 | 4 | Journeys, the review, drafted amendments, the Pulse "Site health" case | `site-audit/phase-4-journeys-and-review.md` |
 | 5 | Planned releases: plan, publish or schedule, phased steps, pause, turn off, roll back | `site-audit/phase-5-releases.md` |
 | 6 | Deploy from git (optional; Jason decides when) | `site-audit/phase-6-deploy-from-git.md` |

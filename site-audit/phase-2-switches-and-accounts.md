@@ -26,7 +26,31 @@ phone and desktop size.
    - every page at 390px and desktop, signed out and as each test account;
    - console errors, failed requests, sideways scroll, card edges, account bar, stacked dialogs, accessibility basics;
    - screenshots kept with the run.
-5. **Staff sign-in for the checks.** The Action generates each staff test login's two-step code from its secret key.
+5. **UI and UX expectations on every page.** Not only the pages a journey passes through. Each page and each part of it
+   is held to the standards (decision 0145 §1):
+   - the shell, account bar, header, rail;
+   - card anatomy, icons, phone edges;
+   - search and filters;
+   - notices, busy states, dialogs and status lines;
+   - forms, uploads, the command strip on record pages;
+   - wording and empty states.
+
+   Each finding names the standard it misses.
+6. **The tool inventory** (`site-audit/tools.md`). Built from the code, it lists every tool:
+   - buttons, forms, switchers, filters, uploads;
+   - endpoints;
+   - admin modules' tools and sections;
+   - Pulse steps;
+   - scheduled jobs.
+
+   Each entry says who may use it and what should happen. It shows which tools are checked and which are not yet.
+7. **Function checks, for tools that only read** (search, filters, maps, peek, pages, exports to view):
+   - used by each account type that may use them, with good, bad and empty input;
+   - their answers compared with the inventory;
+   - refused, greyed out with the reason, for each account type that may not.
+
+   Tools that change something are checked in Phase 3, on staging.
+8. **Staff sign-in for the checks.** The Action generates each staff test login's two-step code from its secret key.
    Nobody types a code.
 
 ## What Jason provides
@@ -60,6 +84,8 @@ phone and desktop size.
 - [ ] Test accounts don't appear in any count, email, search or bill. Checked on the live site.
 - [ ] The rendered checks run for every account type and are in the scorecard with screenshots.
 - [ ] Staff test logins sign in through the Action using generated two-step codes.
+- [ ] Every page has its UI and UX expectations checked, with findings in the scorecard.
+- [ ] The tool inventory lists every tool, and every tool that only reads is checked for each account type.
 
 ## Rollout and rollback
 
