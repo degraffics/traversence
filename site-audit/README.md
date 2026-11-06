@@ -12,12 +12,15 @@ back.
 | 5 | [Planned, phased releases](phase-5-releases.md) | Yes: the Releases page |
 | 6 | [Deploy from git (optional)](phase-6-deploy-from-git.md) | Changes how files reach the server |
 
+**One build.** All of it is built together from one punch list, [punch-list.md](punch-list.md), then rolled out in the
+phase order.
+
 ## What Jason provides, all phases
 
 | Phase | What you provide |
 |---|---|
-| 1 | Approval only |
-| 2 | Approval. The test accounts (table in the phase file). One GitHub secret, `CHECK_ACCOUNTS`. Confirmation that test payments run in sandbox. |
+| 1 | Approval. `MIRROR_READ_TOKEN` (read-only access to the mirror). |
+| 2 | Approval. The test accounts (table in the phase file). GitHub secrets `CHECK_ACCOUNTS` and `HEALTH_TOKEN`, with `HEALTH_TOKEN` also in the live `.env`. Confirmation that test payments run in sandbox. |
 | 3 | Approval. Confirmation that Bluehost allows a subdomain of trvgo.us and another database, and where trvgo.us's DNS is managed. Staging's database password and viewing password in its `.env`. `staging.trvgo.us` added in Cloudflare Turnstile. |
 | 4 | Approval. Your top 10 journeys. The measures (for example, steps too many). Decisions on the first proposals. |
 | 5 | Approval. Who may publish. Rollout defaults and timing. Release windows. |
@@ -25,6 +28,7 @@ back.
 
 ## Files these phases create
 
+- `punch-list.md`: everything Jason provides for the one build, in order
 - `rules.md`: the rule catalogue (Phase 1)
 - `../decisions/index.md`: the decision register (Phase 1)
 - `../routes.md`: the site page tree, generated and checked (Phase 1)
