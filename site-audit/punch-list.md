@@ -24,7 +24,7 @@ Decision 0145 (§7: one build). Tick items here, or reply with the numbers.
 | # | What | Where to find it or do it |
 |---|---|---|
 | 9 | (nothing: the **Set up staging** button checks the plan's room itself) | |
-| 10 | Only if trvgo.us's DNS isn't on Bluehost: add the one DNS record **Set up staging** shows you | The button says which |
+| 10 | (nothing: trvgo.us's DNS is on Bluehost, confirmed 2026-11-08, so **Set up staging** adds the record) | |
 | 11 | Can test payments use QuickBooks sandbox (decision 0099)? | Yes/no. Sandbox is already set up for E-Commerce → Payments. |
 | 12 | Nothing needed for test-account email: the build creates the mailbox `check@traversence.com` (cPanel API, free) | (see `test-accounts.md`) |
 | 13 | **`MIRROR_READ_TOKEN`**, so the checks can read the mirror. | 1. GitHub → Settings → Developer settings → Fine-grained tokens → Generate. 2. Repository: `degraffics/traverse-3way-sync` only. 3. Permission: Contents, Read-only. 4. Paste it into `degraffics/traversence` → Settings → Secrets and variables → Actions → New secret, named `MIRROR_READ_TOKEN`. |
@@ -41,7 +41,7 @@ Decision 0145 (§7: one build). Tick items here, or reply with the numbers.
 | 19 | (nothing: passwords and two-step keys are generated in item 16, never typed or seen in chat) | |
 | 20 | **Set up staging**: press it (System Configuration). It writes staging's own `.env`, so you approve that one exception to ".env by hand" | One button, Founder only |
 | 21 | (nothing: staging uses Turnstile's test keys) | |
-| 22 | Optional: Google, Microsoft and Facebook sign-in on staging | Add staging's sign-in address in each provider's console (I give you the exact addresses). Skip this and staging uses email sign-in only. |
+| 22 | (not now, Jason 2026-11-08: staging uses email sign-in; social sign-in can be added later) | |
 | 23 | (nothing: staging's viewing password is in the `CHECK_ACCOUNTS` block) | |
 
 ## D. During the build
