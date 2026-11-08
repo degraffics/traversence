@@ -50,6 +50,8 @@ at 6:00 and 18:00 UTC or on demand (its workflow's Run button), committing the r
     (most often `faq.md`, `manifests.php`, `tools.php`, `Pulse.php`, `section-rails.php`, `portal.php`, the router).
   - The hand-off names the sync it's built on ("built on 17:44 UTC") and lists the zip's files. Never build on another
     session's zip that isn't live yet. One upload at a time, the sync run after each.
+  - **Before a zip goes out** (decisions/0145): `tools/page-audit/zipcheck.py <zip> --mirror <checkout>` must pass (no
+    new blocking failures), and `tools/page-audit/deliveries.py record` logs it, so a missed file shows as pending.
   - **Claude runs the sync** (Jason, 2026-11-01): when Jason says he's uploaded, run the workflow (`sync.yml` on `main`),
     wait for its "Sync: …" commit, and check the mirror matches the zip byte for byte.
 - **Deleting** on one side deletes on the other (OneDrive recycle bin; server copy in the sync repo's `deleted/`).

@@ -1,0 +1,774 @@
+{
+ "run": "2026-11-08 15:08 UTC",
+ "mirror": "08b8643",
+ "findings": [
+  {
+   "rule": "R02",
+   "file": "website/admin/chamber-builder.php",
+   "line": 432,
+   "msg": "alert() opens a browser dialog: use TvAsk.say / TvAsk.confirm / TvAsk.ask"
+  },
+  {
+   "rule": "R02",
+   "file": "website/admin/chamber-builder.php",
+   "line": 455,
+   "msg": "confirm() opens a browser dialog: use TvAsk.say / TvAsk.confirm / TvAsk.ask"
+  },
+  {
+   "rule": "R02",
+   "file": "website/admin/chamber-builder.php",
+   "line": 491,
+   "msg": "confirm() opens a browser dialog: use TvAsk.say / TvAsk.confirm / TvAsk.ask"
+  },
+  {
+   "rule": "R04",
+   "file": "website/listing/api/claim.php",
+   "line": 56,
+   "msg": "uses the 'never' return type (PHP 8.1); the server runs PHP 8.0"
+  },
+  {
+   "rule": "R04",
+   "file": "app/ui/not-found.php",
+   "line": 9,
+   "msg": "uses the 'never' return type (PHP 8.1); the server runs PHP 8.0"
+  },
+  {
+   "rule": "R04",
+   "file": "app/lib/Books.php",
+   "line": 218,
+   "msg": "uses the 'never' return type (PHP 8.1); the server runs PHP 8.0"
+  },
+  {
+   "rule": "R04",
+   "file": "app/lib/Response.php",
+   "line": 7,
+   "msg": "uses the 'never' return type (PHP 8.1); the server runs PHP 8.0"
+  },
+  {
+   "rule": "R04",
+   "file": "app/lib/Response.php",
+   "line": 14,
+   "msg": "uses the 'never' return type (PHP 8.1); the server runs PHP 8.0"
+  },
+  {
+   "rule": "R04",
+   "file": "app/lib/Response.php",
+   "line": 19,
+   "msg": "uses the 'never' return type (PHP 8.1); the server runs PHP 8.0"
+  },
+  {
+   "rule": "R04",
+   "file": "app/lib/Auth.php",
+   "line": 226,
+   "msg": "uses the 'never' return type (PHP 8.1); the server runs PHP 8.0"
+  },
+  {
+   "rule": "R04",
+   "file": "app/lib/SocialAuth.php",
+   "line": 90,
+   "msg": "uses the 'never' return type (PHP 8.1); the server runs PHP 8.0"
+  },
+  {
+   "rule": "R04",
+   "file": "app/lib/SocialAuth.php",
+   "line": 106,
+   "msg": "uses the 'never' return type (PHP 8.1); the server runs PHP 8.0"
+  },
+  {
+   "rule": "R04",
+   "file": "app/lib/Concepts.php",
+   "line": 72,
+   "msg": "uses array_is_list() (PHP 8.1); the server runs PHP 8.0"
+  },
+  {
+   "rule": "R04",
+   "file": "app/lib/Experiences.php",
+   "line": 414,
+   "msg": "uses the 'never' return type (PHP 8.1); the server runs PHP 8.0"
+  },
+  {
+   "rule": "R05",
+   "file": "website/register.php",
+   "line": 1,
+   "msg": "draws a page without the session (bootstrap.php or tv_page_start): signed-in people look signed out"
+  },
+  {
+   "rule": "R05",
+   "file": "website/verify-email.php",
+   "line": 1,
+   "msg": "draws a page without the session (bootstrap.php or tv_page_start): signed-in people look signed out"
+  },
+  {
+   "rule": "R05",
+   "file": "website/forgot-password.php",
+   "line": 1,
+   "msg": "draws a page without the account bar (tv_acting_bar or tv_page_start)"
+  },
+  {
+   "rule": "R05",
+   "file": "website/login.php",
+   "line": 1,
+   "msg": "draws a page without the session (bootstrap.php or tv_page_start): signed-in people look signed out"
+  },
+  {
+   "rule": "R05",
+   "file": "website/email-revert.php",
+   "line": 1,
+   "msg": "draws a page without the session (bootstrap.php or tv_page_start): signed-in people look signed out"
+  },
+  {
+   "rule": "R05",
+   "file": "website/reset-password.php",
+   "line": 1,
+   "msg": "draws a page without the account bar (tv_acting_bar or tv_page_start)"
+  },
+  {
+   "rule": "R05",
+   "file": "website/admin/chamber-builder.php",
+   "line": 1,
+   "msg": "draws a page without the session (bootstrap.php or tv_page_start): signed-in people look signed out"
+  },
+  {
+   "rule": "R07",
+   "file": "website/listing/api/referral/confirm.php",
+   "line": 14,
+   "msg": "accepts a POST without Response::requireCsrf() (or a signature check): say why, or add it"
+  },
+  {
+   "rule": "R07",
+   "file": "website/api/out.php",
+   "line": 11,
+   "msg": "accepts a POST without Response::requireCsrf() (or a signature check): say why, or add it"
+  },
+  {
+   "rule": "R07",
+   "file": "website/api/short.php",
+   "line": 10,
+   "msg": "accepts a POST without Response::requireCsrf() (or a signature check): say why, or add it"
+  },
+  {
+   "rule": "R07",
+   "file": "website/api/locate.php",
+   "line": 11,
+   "msg": "accepts a POST without Response::requireCsrf() (or a signature check): say why, or add it"
+  },
+  {
+   "rule": "R07",
+   "file": "website/api/qr.php",
+   "line": 19,
+   "msg": "accepts a POST without Response::requireCsrf() (or a signature check): say why, or add it"
+  },
+  {
+   "rule": "R07",
+   "file": "website/api/csp-report.php",
+   "line": 11,
+   "msg": "accepts a POST without Response::requireCsrf() (or a signature check): say why, or add it"
+  },
+  {
+   "rule": "R09",
+   "file": "website/admin/api.php",
+   "line": 1,
+   "msg": "/admin/api.php is on the server but in neither routes.md nor archive.md"
+  },
+  {
+   "rule": "R09",
+   "file": "website/admin/client-order.php",
+   "line": 1,
+   "msg": "/admin/client-order.php is on the server but in neither routes.md nor archive.md"
+  },
+  {
+   "rule": "R09",
+   "file": "website/admin/content-template.php",
+   "line": 1,
+   "msg": "/admin/content-template.php is on the server but in neither routes.md nor archive.md"
+  },
+  {
+   "rule": "R09",
+   "file": "website/admin/data.php",
+   "line": 1,
+   "msg": "/admin/data.php is on the server but in neither routes.md nor archive.md"
+  },
+  {
+   "rule": "R09",
+   "file": "website/admin/ecommerce.php",
+   "line": 1,
+   "msg": "/admin/ecommerce.php is on the server but in neither routes.md nor archive.md"
+  },
+  {
+   "rule": "R09",
+   "file": "website/admin/guide-edit.php",
+   "line": 1,
+   "msg": "/admin/guide-edit.php is on the server but in neither routes.md nor archive.md"
+  },
+  {
+   "rule": "R09",
+   "file": "website/admin/listing-add.php",
+   "line": 1,
+   "msg": "/admin/listing-add.php is on the server but in neither routes.md nor archive.md"
+  },
+  {
+   "rule": "R09",
+   "file": "website/admin/listing-new.php",
+   "line": 1,
+   "msg": "/admin/listing-new.php is on the server but in neither routes.md nor archive.md"
+  },
+  {
+   "rule": "R09",
+   "file": "website/admin/manifest.php",
+   "line": 1,
+   "msg": "/admin/manifest.php is on the server but in neither routes.md nor archive.md"
+  },
+  {
+   "rule": "R09",
+   "file": "website/admin/nexus.php",
+   "line": 1,
+   "msg": "/admin/nexus.php is on the server but in neither routes.md nor archive.md"
+  },
+  {
+   "rule": "R09",
+   "file": "website/admin/order.php",
+   "line": 1,
+   "msg": "/admin/order.php is on the server but in neither routes.md nor archive.md"
+  },
+  {
+   "rule": "R09",
+   "file": "website/admin/people.php",
+   "line": 1,
+   "msg": "/admin/people.php is on the server but in neither routes.md nor archive.md"
+  },
+  {
+   "rule": "R09",
+   "file": "website/admin/products.php",
+   "line": 1,
+   "msg": "/admin/products.php is on the server but in neither routes.md nor archive.md"
+  },
+  {
+   "rule": "R09",
+   "file": "website/admin/promotions.php",
+   "line": 1,
+   "msg": "/admin/promotions.php is on the server but in neither routes.md nor archive.md"
+  },
+  {
+   "rule": "R09",
+   "file": "website/admin/quickbooks.php",
+   "line": 1,
+   "msg": "/admin/quickbooks.php is on the server but in neither routes.md nor archive.md"
+  },
+  {
+   "rule": "R09",
+   "file": "website/admin/rebuild.php",
+   "line": 1,
+   "msg": "/admin/rebuild.php is on the server but in neither routes.md nor archive.md"
+  },
+  {
+   "rule": "R09",
+   "file": "website/admin/review-item.php",
+   "line": 1,
+   "msg": "/admin/review-item.php is on the server but in neither routes.md nor archive.md"
+  },
+  {
+   "rule": "R09",
+   "file": "website/admin/router.php",
+   "line": 1,
+   "msg": "/admin/router.php is on the server but in neither routes.md nor archive.md"
+  },
+  {
+   "rule": "R09",
+   "file": "website/admin/safety.php",
+   "line": 1,
+   "msg": "/admin/safety.php is on the server but in neither routes.md nor archive.md"
+  },
+  {
+   "rule": "R09",
+   "file": "website/admin/sales.php",
+   "line": 1,
+   "msg": "/admin/sales.php is on the server but in neither routes.md nor archive.md"
+  },
+  {
+   "rule": "R09",
+   "file": "website/admin/search.php",
+   "line": 1,
+   "msg": "/admin/search.php is on the server but in neither routes.md nor archive.md"
+  },
+  {
+   "rule": "R09",
+   "file": "website/admin/settings.php",
+   "line": 1,
+   "msg": "/admin/settings.php is on the server but in neither routes.md nor archive.md"
+  },
+  {
+   "rule": "R09",
+   "file": "website/admin/setup.php",
+   "line": 1,
+   "msg": "/admin/setup.php is on the server but in neither routes.md nor archive.md"
+  },
+  {
+   "rule": "R09",
+   "file": "website/admin/short-codes.php",
+   "line": 1,
+   "msg": "/admin/short-codes.php is on the server but in neither routes.md nor archive.md"
+  },
+  {
+   "rule": "R09",
+   "file": "website/admin/sitemap.php",
+   "line": 1,
+   "msg": "/admin/sitemap.php is on the server but in neither routes.md nor archive.md"
+  },
+  {
+   "rule": "R09",
+   "file": "website/admin/staff-levels.php",
+   "line": 1,
+   "msg": "/admin/staff-levels.php is on the server but in neither routes.md nor archive.md"
+  },
+  {
+   "rule": "R09",
+   "file": "website/admin/staff-profile.php",
+   "line": 1,
+   "msg": "/admin/staff-profile.php is on the server but in neither routes.md nor archive.md"
+  },
+  {
+   "rule": "R09",
+   "file": "website/admin/staff.php",
+   "line": 1,
+   "msg": "/admin/staff.php is on the server but in neither routes.md nor archive.md"
+  },
+  {
+   "rule": "R09",
+   "file": "website/admin/suggestion.php",
+   "line": 1,
+   "msg": "/admin/suggestion.php is on the server but in neither routes.md nor archive.md"
+  },
+  {
+   "rule": "R09",
+   "file": "website/admin/vendors.php",
+   "line": 1,
+   "msg": "/admin/vendors.php is on the server but in neither routes.md nor archive.md"
+  },
+  {
+   "rule": "R09",
+   "file": "website/ai/index.php",
+   "line": 1,
+   "msg": "/ai/ is on the server but in neither routes.md nor archive.md"
+  },
+  {
+   "rule": "R09",
+   "file": "website/business/api.php",
+   "line": 1,
+   "msg": "/business/api.php is on the server but in neither routes.md nor archive.md"
+  },
+  {
+   "rule": "R09",
+   "file": "website/business/files.php",
+   "line": 1,
+   "msg": "/business/files.php is on the server but in neither routes.md nor archive.md"
+  },
+  {
+   "rule": "R09",
+   "file": "website/business/index.php",
+   "line": 1,
+   "msg": "/business/ is on the server but in neither routes.md nor archive.md"
+  },
+  {
+   "rule": "R09",
+   "file": "website/business/pay-connect.php",
+   "line": 1,
+   "msg": "/business/pay-connect.php is on the server but in neither routes.md nor archive.md"
+  },
+  {
+   "rule": "R09",
+   "file": "website/business/router.php",
+   "line": 1,
+   "msg": "/business/router.php is on the server but in neither routes.md nor archive.md"
+  },
+  {
+   "rule": "R09",
+   "file": "website/data-deletion.php",
+   "line": 1,
+   "msg": "/data-deletion.php is on the server but in neither routes.md nor archive.md"
+  },
+  {
+   "rule": "R09",
+   "file": "website/email/unsubscribe.php",
+   "line": 1,
+   "msg": "/email/unsubscribe.php is on the server but in neither routes.md nor archive.md"
+  },
+  {
+   "rule": "R09",
+   "file": "website/gallery/album.php",
+   "line": 1,
+   "msg": "/gallery/album.php is on the server but in neither routes.md nor archive.md"
+  },
+  {
+   "rule": "R09",
+   "file": "website/gallery/api.php",
+   "line": 1,
+   "msg": "/gallery/api.php is on the server but in neither routes.md nor archive.md"
+  },
+  {
+   "rule": "R09",
+   "file": "website/gallery/drop.php",
+   "line": 1,
+   "msg": "/gallery/drop.php is on the server but in neither routes.md nor archive.md"
+  },
+  {
+   "rule": "R09",
+   "file": "website/gallery/index.php",
+   "line": 1,
+   "msg": "/gallery/ is on the server but in neither routes.md nor archive.md"
+  },
+  {
+   "rule": "R09",
+   "file": "website/gallery/join.php",
+   "line": 1,
+   "msg": "/gallery/join.php is on the server but in neither routes.md nor archive.md"
+  },
+  {
+   "rule": "R09",
+   "file": "website/gallery/m.php",
+   "line": 1,
+   "msg": "/gallery/m.php is on the server but in neither routes.md nor archive.md"
+  },
+  {
+   "rule": "R09",
+   "file": "website/market/cart.php",
+   "line": 1,
+   "msg": "/market/cart.php is on the server but in neither routes.md nor archive.md"
+  },
+  {
+   "rule": "R09",
+   "file": "website/market/download.php",
+   "line": 1,
+   "msg": "/market/download.php is on the server but in neither routes.md nor archive.md"
+  },
+  {
+   "rule": "R09",
+   "file": "website/market/item.php",
+   "line": 1,
+   "msg": "/market/item.php is on the server but in neither routes.md nor archive.md"
+  },
+  {
+   "rule": "R09",
+   "file": "website/market/order.php",
+   "line": 1,
+   "msg": "/market/order.php is on the server but in neither routes.md nor archive.md"
+  },
+  {
+   "rule": "R09",
+   "file": "website/market/rules.php",
+   "line": 1,
+   "msg": "/market/rules.php is on the server but in neither routes.md nor archive.md"
+  },
+  {
+   "rule": "R09",
+   "file": "website/market/ticket.php",
+   "line": 1,
+   "msg": "/market/ticket.php is on the server but in neither routes.md nor archive.md"
+  },
+  {
+   "rule": "R09",
+   "file": "website/market/view.php",
+   "line": 1,
+   "msg": "/market/view.php is on the server but in neither routes.md nor archive.md"
+  },
+  {
+   "rule": "R09",
+   "file": "website/pages/form.php",
+   "line": 1,
+   "msg": "/pages/form.php is on the server but in neither routes.md nor archive.md"
+  },
+  {
+   "rule": "R09",
+   "file": "website/pages/sitemap.php",
+   "line": 1,
+   "msg": "/pages/sitemap.php is on the server but in neither routes.md nor archive.md"
+  },
+  {
+   "rule": "R09",
+   "file": "website/pages/view.php",
+   "line": 1,
+   "msg": "/pages/view.php is on the server but in neither routes.md nor archive.md"
+  },
+  {
+   "rule": "R09",
+   "file": "website/plans.php",
+   "line": 1,
+   "msg": "/plans.php is on the server but in neither routes.md nor archive.md"
+  },
+  {
+   "rule": "R09",
+   "file": "website/promo.php",
+   "line": 1,
+   "msg": "/promo.php is on the server but in neither routes.md nor archive.md"
+  },
+  {
+   "rule": "R09",
+   "file": "website/q-file.php",
+   "line": 1,
+   "msg": "/q-file.php is on the server but in neither routes.md nor archive.md"
+  },
+  {
+   "rule": "R09",
+   "file": "website/qr/cart.php",
+   "line": 1,
+   "msg": "/qr/cart.php is on the server but in neither routes.md nor archive.md"
+  },
+  {
+   "rule": "R09",
+   "file": "website/qr/index.php",
+   "line": 1,
+   "msg": "/qr/ is on the server but in neither routes.md nor archive.md"
+  },
+  {
+   "rule": "R09",
+   "file": "website/qr/manage.php",
+   "line": 1,
+   "msg": "/qr/manage.php is on the server but in neither routes.md nor archive.md"
+  },
+  {
+   "rule": "R09",
+   "file": "website/takedown.php",
+   "line": 1,
+   "msg": "/takedown.php is on the server but in neither routes.md nor archive.md"
+  },
+  {
+   "rule": "R09",
+   "file": "website/two-step.php",
+   "line": 1,
+   "msg": "/two-step.php is on the server but in neither routes.md nor archive.md"
+  },
+  {
+   "rule": "R09",
+   "file": "website/user/accounts.php",
+   "line": 1,
+   "msg": "/user/accounts.php is on the server but in neither routes.md nor archive.md"
+  },
+  {
+   "rule": "R09",
+   "file": "website/user/delete-account.php",
+   "line": 1,
+   "msg": "/user/delete-account.php is on the server but in neither routes.md nor archive.md"
+  },
+  {
+   "rule": "R09",
+   "file": "website/user/market/index.php",
+   "line": 1,
+   "msg": "/user/market/ is on the server but in neither routes.md nor archive.md"
+  },
+  {
+   "rule": "R09",
+   "file": "website/user/notice.php",
+   "line": 1,
+   "msg": "/user/notice.php is on the server but in neither routes.md nor archive.md"
+  },
+  {
+   "rule": "R09",
+   "file": "website/user/orders.php",
+   "line": 1,
+   "msg": "/user/orders.php is on the server but in neither routes.md nor archive.md"
+  },
+  {
+   "rule": "R09",
+   "file": "website/user/restore-account.php",
+   "line": 1,
+   "msg": "/user/restore-account.php is on the server but in neither routes.md nor archive.md"
+  },
+  {
+   "rule": "R09",
+   "file": "website/user/staff-link.php",
+   "line": 1,
+   "msg": "/user/staff-link.php is on the server but in neither routes.md nor archive.md"
+  },
+  {
+   "rule": "R09",
+   "file": "website/user/transfer.php",
+   "line": 1,
+   "msg": "/user/transfer.php is on the server but in neither routes.md nor archive.md"
+  },
+  {
+   "rule": "R09",
+   "file": "website/verify-listing.php",
+   "line": 1,
+   "msg": "/verify-listing.php is on the server but in neither routes.md nor archive.md"
+  },
+  {
+   "rule": "R09",
+   "file": "website/wo.php",
+   "line": 1,
+   "msg": "/wo.php is on the server but in neither routes.md nor archive.md"
+  },
+  {
+   "rule": "R10",
+   "file": "website/order.php",
+   "line": 450,
+   "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
+  },
+  {
+   "rule": "R10",
+   "file": "website/claim.php",
+   "line": 146,
+   "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
+  },
+  {
+   "rule": "R10",
+   "file": "website/admin/listing-edit.php",
+   "line": 213,
+   "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
+  },
+  {
+   "rule": "R10",
+   "file": "website/admin/stories.php",
+   "line": 88,
+   "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
+  },
+  {
+   "rule": "R10",
+   "file": "website/admin/crawler-review.php",
+   "line": 467,
+   "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
+  },
+  {
+   "rule": "R10",
+   "file": "website/admin/journeys.php",
+   "line": 139,
+   "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
+  },
+  {
+   "rule": "R10",
+   "file": "website/user/journeys/index.php",
+   "line": 115,
+   "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
+  },
+  {
+   "rule": "R10",
+   "file": "website/user/journeys/compose.php",
+   "line": 164,
+   "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
+  },
+  {
+   "rule": "R10",
+   "file": "website/user/journeys/compose.php",
+   "line": 181,
+   "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
+  },
+  {
+   "rule": "R10",
+   "file": "website/user/journeys/compose.php",
+   "line": 337,
+   "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
+  },
+  {
+   "rule": "R10",
+   "file": "website/journeys/view.php",
+   "line": 95,
+   "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
+  },
+  {
+   "rule": "R10",
+   "file": "website/journeys/view.php",
+   "line": 103,
+   "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
+  },
+  {
+   "rule": "R10",
+   "file": "website/journeys/view.php",
+   "line": 116,
+   "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
+  },
+  {
+   "rule": "R10",
+   "file": "website/journeys/view.php",
+   "line": 138,
+   "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
+  },
+  {
+   "rule": "R10",
+   "file": "website/journeys/view.php",
+   "line": 139,
+   "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
+  },
+  {
+   "rule": "R10",
+   "file": "website/discovery/index.php",
+   "line": 280,
+   "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
+  },
+  {
+   "rule": "R10",
+   "file": "website/discovery/index.php",
+   "line": 281,
+   "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
+  },
+  {
+   "rule": "R10",
+   "file": "website/discovery/index.php",
+   "line": 407,
+   "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
+  },
+  {
+   "rule": "R10",
+   "file": "website/directory/index.php",
+   "line": 190,
+   "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
+  },
+  {
+   "rule": "R10",
+   "file": "website/directory/index.php",
+   "line": 191,
+   "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
+  },
+  {
+   "rule": "R10",
+   "file": "website/directory/index.php",
+   "line": 192,
+   "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
+  },
+  {
+   "rule": "R10",
+   "file": "website/directory/index.php",
+   "line": 331,
+   "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
+  },
+  {
+   "rule": "R10",
+   "file": "website/js/suggest.js",
+   "line": 152,
+   "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
+  },
+  {
+   "rule": "R10",
+   "file": "website/js/admin-builder.js",
+   "line": 55,
+   "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
+  },
+  {
+   "rule": "R10",
+   "file": "website/js/admin-builder.js",
+   "line": 67,
+   "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
+  },
+  {
+   "rule": "R10",
+   "file": "website/js/search-panel.js",
+   "line": 82,
+   "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
+  },
+  {
+   "rule": "R10",
+   "file": "website/js/search-panel.js",
+   "line": 84,
+   "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
+  },
+  {
+   "rule": "R10",
+   "file": "website/js/search-panel.js",
+   "line": 357,
+   "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
+  },
+  {
+   "rule": "R10",
+   "file": "website/js/search-panel.js",
+   "line": 569,
+   "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
+  }
+ ]
+}

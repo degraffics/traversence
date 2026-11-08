@@ -31,6 +31,7 @@ phase order.
 - `punch-list.md`: everything Jason provides for the one build, in order
 - `test-accounts.md`: the test accounts, their roles and what each covers (no passwords: those are only in the `CHECK_ACCOUNTS` secret)
 - `rules.md`: the rule catalogue (Phase 1)
+- `exceptions.json`: rule failures accepted on purpose, each with its reason (Jason approves)
 - `../decisions/index.md`: the decision register (Phase 1)
 - `../routes.md`: the site page tree, generated and checked (Phase 1)
 - `tools.md`: the tool inventory: every function and tool, who may use it, what should happen (Phase 2)
