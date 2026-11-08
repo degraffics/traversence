@@ -1,6 +1,6 @@
 # Decision register
 
-Decision 0145 §1a. Generated on 2026-11-08 15:08 UTC from `decisions/` and the live mirror (`08b8643`). Don't edit by hand:
+Decision 0145 §1a. Generated on 2026-11-08 15:09 UTC from `decisions/` and the live mirror (`08b8643`). Don't edit by hand:
 edit the decision, and this follows. "Missing files" are files a decision names that the site no longer has: the
 decision may be stale, or the file moved.
 
@@ -151,3 +151,4 @@ decision may be stale, or the file moved.
 | 0143 | [The Stock Library: a System Repository of Non-User Photos](0143-stock-library.md) | accepted |  | 1 | 35 |  |
 | 0144 | [Word Suggestions and the List ⓘ](0144-word-suggestions-and-list-help.md) | accepted |  |  | 3 |  |
 | 0145 | [The Site Audit and Phased Releases](0145-site-audit-and-phased-releases.md) | accepted |  |  | 1 |  |
+| 0146 | [Suggested Journeys from Guides](0146-suggested-journeys-from-guides.md) | proposed |  |  | 0 |  |
