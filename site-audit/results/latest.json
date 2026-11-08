@@ -1,6 +1,6 @@
 {
- "run": "2026-11-08 15:09 UTC",
- "mirror": "08b8643",
+ "run": "2026-11-08 16:14 UTC",
+ "mirror": "6b454dd",
  "findings": [
   {
    "rule": "R02",
@@ -34,8 +34,8 @@
   },
   {
    "rule": "R04",
-   "file": "app/lib/Books.php",
-   "line": 218,
+   "file": "app/lib/Experiences.php",
+   "line": 414,
    "msg": "uses the 'never' return type (PHP 8.1); the server runs PHP 8.0"
   },
   {
@@ -76,15 +76,21 @@
   },
   {
    "rule": "R04",
+   "file": "app/lib/Books.php",
+   "line": 218,
+   "msg": "uses the 'never' return type (PHP 8.1); the server runs PHP 8.0"
+  },
+  {
+   "rule": "R04",
    "file": "app/lib/Concepts.php",
    "line": 72,
    "msg": "uses array_is_list() (PHP 8.1); the server runs PHP 8.0"
   },
   {
-   "rule": "R04",
-   "file": "app/lib/Experiences.php",
-   "line": 414,
-   "msg": "uses the 'never' return type (PHP 8.1); the server runs PHP 8.0"
+   "rule": "R05",
+   "file": "website/login.php",
+   "line": 1,
+   "msg": "draws a page without the session (bootstrap.php or tv_page_start): signed-in people look signed out"
   },
   {
    "rule": "R05",
@@ -100,21 +106,15 @@
   },
   {
    "rule": "R05",
-   "file": "website/forgot-password.php",
-   "line": 1,
-   "msg": "draws a page without the account bar (tv_acting_bar or tv_page_start)"
-  },
-  {
-   "rule": "R05",
-   "file": "website/login.php",
-   "line": 1,
-   "msg": "draws a page without the session (bootstrap.php or tv_page_start): signed-in people look signed out"
-  },
-  {
-   "rule": "R05",
    "file": "website/email-revert.php",
    "line": 1,
    "msg": "draws a page without the session (bootstrap.php or tv_page_start): signed-in people look signed out"
+  },
+  {
+   "rule": "R05",
+   "file": "website/forgot-password.php",
+   "line": 1,
+   "msg": "draws a page without the account bar (tv_acting_bar or tv_page_start)"
   },
   {
    "rule": "R05",
@@ -142,13 +142,13 @@
   },
   {
    "rule": "R07",
-   "file": "website/api/short.php",
-   "line": 10,
+   "file": "website/api/locate.php",
+   "line": 11,
    "msg": "accepts a POST without Response::requireCsrf() (or a signature check): say why, or add it"
   },
   {
    "rule": "R07",
-   "file": "website/api/locate.php",
+   "file": "website/api/csp-report.php",
    "line": 11,
    "msg": "accepts a POST without Response::requireCsrf() (or a signature check): say why, or add it"
   },
@@ -160,8 +160,8 @@
   },
   {
    "rule": "R07",
-   "file": "website/api/csp-report.php",
-   "line": 11,
+   "file": "website/api/short.php",
+   "line": 10,
    "msg": "accepts a POST without Response::requireCsrf() (or a signature check): say why, or add it"
   },
   {
@@ -598,44 +598,14 @@
   },
   {
    "rule": "R10",
-   "file": "website/order.php",
-   "line": 450,
-   "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
-  },
-  {
-   "rule": "R10",
    "file": "website/claim.php",
    "line": 146,
    "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
   },
   {
    "rule": "R10",
-   "file": "website/admin/listing-edit.php",
-   "line": 213,
-   "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
-  },
-  {
-   "rule": "R10",
-   "file": "website/admin/stories.php",
-   "line": 88,
-   "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
-  },
-  {
-   "rule": "R10",
-   "file": "website/admin/crawler-review.php",
-   "line": 467,
-   "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
-  },
-  {
-   "rule": "R10",
-   "file": "website/admin/journeys.php",
-   "line": 139,
-   "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
-  },
-  {
-   "rule": "R10",
-   "file": "website/user/journeys/index.php",
-   "line": 115,
+   "file": "website/order.php",
+   "line": 450,
    "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
   },
   {
@@ -654,6 +624,78 @@
    "rule": "R10",
    "file": "website/user/journeys/compose.php",
    "line": 337,
+   "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
+  },
+  {
+   "rule": "R10",
+   "file": "website/user/journeys/index.php",
+   "line": 115,
+   "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
+  },
+  {
+   "rule": "R10",
+   "file": "website/directory/index.php",
+   "line": 190,
+   "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
+  },
+  {
+   "rule": "R10",
+   "file": "website/directory/index.php",
+   "line": 191,
+   "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
+  },
+  {
+   "rule": "R10",
+   "file": "website/directory/index.php",
+   "line": 192,
+   "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
+  },
+  {
+   "rule": "R10",
+   "file": "website/directory/index.php",
+   "line": 331,
+   "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
+  },
+  {
+   "rule": "R10",
+   "file": "website/js/search-panel.js",
+   "line": 82,
+   "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
+  },
+  {
+   "rule": "R10",
+   "file": "website/js/search-panel.js",
+   "line": 84,
+   "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
+  },
+  {
+   "rule": "R10",
+   "file": "website/js/search-panel.js",
+   "line": 357,
+   "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
+  },
+  {
+   "rule": "R10",
+   "file": "website/js/search-panel.js",
+   "line": 569,
+   "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
+  },
+  {
+   "rule": "R10",
+   "file": "website/js/admin-builder.js",
+   "line": 55,
+   "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
+  },
+  {
+   "rule": "R10",
+   "file": "website/js/admin-builder.js",
+   "line": 67,
+   "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
+  },
+  {
+   "rule": "R10",
+   "file": "website/js/suggest.js",
+   "line": 152,
    "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
   },
   {
@@ -688,6 +730,30 @@
   },
   {
    "rule": "R10",
+   "file": "website/admin/listing-edit.php",
+   "line": 213,
+   "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
+  },
+  {
+   "rule": "R10",
+   "file": "website/admin/stories.php",
+   "line": 88,
+   "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
+  },
+  {
+   "rule": "R10",
+   "file": "website/admin/journeys.php",
+   "line": 139,
+   "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
+  },
+  {
+   "rule": "R10",
+   "file": "website/admin/crawler-review.php",
+   "line": 467,
+   "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
+  },
+  {
+   "rule": "R10",
    "file": "website/discovery/index.php",
    "line": 280,
    "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
@@ -702,72 +768,6 @@
    "rule": "R10",
    "file": "website/discovery/index.php",
    "line": 407,
-   "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
-  },
-  {
-   "rule": "R10",
-   "file": "website/directory/index.php",
-   "line": 190,
-   "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
-  },
-  {
-   "rule": "R10",
-   "file": "website/directory/index.php",
-   "line": 191,
-   "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
-  },
-  {
-   "rule": "R10",
-   "file": "website/directory/index.php",
-   "line": 192,
-   "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
-  },
-  {
-   "rule": "R10",
-   "file": "website/directory/index.php",
-   "line": 331,
-   "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
-  },
-  {
-   "rule": "R10",
-   "file": "website/js/suggest.js",
-   "line": 152,
-   "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
-  },
-  {
-   "rule": "R10",
-   "file": "website/js/admin-builder.js",
-   "line": 55,
-   "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
-  },
-  {
-   "rule": "R10",
-   "file": "website/js/admin-builder.js",
-   "line": 67,
-   "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
-  },
-  {
-   "rule": "R10",
-   "file": "website/js/search-panel.js",
-   "line": 82,
-   "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
-  },
-  {
-   "rule": "R10",
-   "file": "website/js/search-panel.js",
-   "line": 84,
-   "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
-  },
-  {
-   "rule": "R10",
-   "file": "website/js/search-panel.js",
-   "line": 357,
-   "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
-  },
-  {
-   "rule": "R10",
-   "file": "website/js/search-panel.js",
-   "line": 569,
    "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
   }
  ]

@@ -1,6 +1,6 @@
 # Page tree
 
-Decision 0145 §1a. Generated from the live mirror on 2026-11-08 15:09 UTC (`08b8643`). Once Jason approves it, it replaces the
+Decision 0145 §1a. Generated from the live mirror on 2026-11-08 16:14 UTC (`6b454dd`). Once Jason approves it, it replaces the
 hand-kept `routes.md`. Columns: does the page load the session and the shell, does it draw the account bar, is it in
 `routes.md` / `archive.md`, and which decisions name its file.
 
