@@ -3,12 +3,12 @@
  "built_on": "e7406fc Sync: 2026-11-08 17:12 UTC",
  "recorded": "2026-11-08 17:15 UTC",
  "note": "Travel times use openrouteservice's new address (api.heigit.org)",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "1fe61e8 Sync: 2026-11-08 17:21 UTC",
  "files": {
   "app/lib/TravelLegs.php": {
    "sha256": "538a512aa4733f75cb4205d90f3b6a06e8d1e21833e64a6ce0a4f57e86fe513e",
-   "live": false
+   "live": true
   }
  }
 }
