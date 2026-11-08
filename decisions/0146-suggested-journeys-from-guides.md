@@ -161,8 +161,9 @@ Guides and journeys are also built where people search: decision 0147.
 ## Built (2026-11-08): `journeys-engine_20261108.zip`
 
 - `app/lib/TravelLegs.php` and the `travel_legs` table (migration `2027-02-11_suggested_journeys.sql`): our own travel
-  times. One openrouteservice matrix call per town (`ORS_API_KEY` in the live `.env`, punch list item 29; optional
-  `ORS_API_URL`), at most 400 a day, stopping for the day on a 403 or 429; straight-line estimates ("about") otherwise.
+  times. One openrouteservice matrix call per town (`ORS_API_KEY` in the live `.env`, punch list item 29; the
+  service's address is `api.heigit.org/openrouteservice` since 2026, the old `api.openrouteservice.org` retired;
+  `ORS_API_URL` overrides it), at most 400 a day, stopping for the day on a 403 or 429; straight-line estimates ("about") otherwise.
 - `app/lib/JourneyPlan.php` and `suggested_journeys`: candidates from the guide's picks (eat, do, shop), its landmarks
   (never a protected one) and outdoor places, the ones its text names first; no closed business, none placed only at
   its ZIP's middle, none with `no_suggested_journeys` set. Themes by strength; "A day in" plus up to four themed
