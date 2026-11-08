@@ -21,12 +21,17 @@ guide paths (decision 0145 §1), so what the system suggests is also what it tes
   - each stop is timed against its open hours and the time of day, so breakfast comes in the morning and a museum
     falls inside its hours;
   - each stop has directions (a map link, decision 0058 §8) and its own page.
-- **Shapes:** a few per guide where the places allow:
-  - "A day in Show Low";
-  - "A morning outdoors";
-  - "Heritage and history";
-  - "Where to eat";
-  - a drive between nearby guides.
+- **Shapes come from the guide** (Jason, 2026-11-08): the guide decides what kinds of journey it has, not a fixed list.
+  - **Read the guide's themes:** its places and text are counted by theme (outdoors, shopping, food, heritage, arts,
+    events, the drive itself). The themes that run most strongly through the guide become its journeys: an outdoors
+    town gets outdoor journeys, a shopping town gets shopping ones, a road-trip town gets a drive.
+  - **Only what's reachable:** a theme becomes a journey only when enough of its places are open, public and within
+    reach of each other to make one (§6, question 2). A strong theme with too few usable places waits.
+  - **Why follow it:** each journey opens with the reason to take it, drawn from the guide's own words about that theme
+    (no AI), so it connects with why someone came.
+  - **A day in [town]** mixes the guide's leading themes in their proportions, when there are places enough.
+  - Built by rules: the theme counts, thresholds and order are fixed rules, re-run when the guide is renewed, so the
+    journeys change when the guide does.
 
 ## 2. Where it comes from: data we already have
 
@@ -69,8 +74,7 @@ A failure reaches the guide's Pulse case as well as the scorecard.
 
 ## 6. Questions for Jason before it's built
 
-1. **Which shapes first:** "A day in [town]" only, or also themed ones (outdoors, heritage, food) and drives between
-   towns?
+1. **Which shapes first:** answered (Jason, 2026-11-08): the guide's dominant themes decide its journeys (§1, Shapes).
 2. **How many stops:** suggested 4–7 for a day, 3–4 for a morning.
 3. **Driving distances:** straight-line only (free), or a free routing service if one fits our no-cost rule. Straight
    line is suggested to start.
