@@ -133,3 +133,10 @@ The crawler, our own research and the routes are free. Claude's writing is not.
   *Guide drafts on their own*).
 - **Still to build:** Follow and "your guide is ready" notices, Claude's journey lines, and Insights → Guides (asked
   for, built, waiting, cost).
+
+**Fix (2026-11-08, `ondemand-fix_20261108.zip`):** the live `anchors.cluster_id` has a foreign key to `micro_clusters`,
+so a town outside our areas couldn't be made with community 0. Migration `2027-02-13_anchors_outside.sql` lets the
+column be empty (NULL; the key stays for every town that has a community; nothing removed), and such towns are made
+with NULL. Search also offers the guide when the words name a real town with no place set ("dana point", "things to do
+in dana point"): the most populous town of that name (`OnDemand::townInWords`). A database error is never shown to a
+visitor.
