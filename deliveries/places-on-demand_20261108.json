@@ -3,48 +3,48 @@
  "built_on": "ad382d9 Sync: 2026-11-08 18:07 UTC",
  "recorded": "2026-11-08 20:15 UTC",
  "note": "Places on demand: names in guides get pages and links; map and directions on name cards (decisions/0148)",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "7635b7a Sync: 2026-11-08 20:19 UTC",
  "files": {
   "app/lib/ContentTags.php": {
    "sha256": "1e3cd38b32864e86d12b8f550b572345126d363a1258594610f356cc9a36e46f",
-   "live": false
+   "live": true
   },
   "app/lib/Guides.php": {
    "sha256": "e4e7c9127edd7ff3c6d97fa60f921de182a46111eb9b1e28f0d5ca87a023d8b9",
-   "live": false
+   "live": true
   },
   "app/lib/JourneyPlan.php": {
    "sha256": "02569ff23ab0a5f300a6adfbb9eb3b29c156107e8447065db972ef3807851930",
-   "live": false
+   "live": true
   },
   "app/lib/Landmarks.php": {
    "sha256": "e1c63c5726631bf53f16947e2cd1f79dd87affc6c361b93d433f9852f41ac667",
-   "live": false
+   "live": true
   },
   "app/lib/OnDemand.php": {
    "sha256": "5662e04f388453443d3b9617707a6c5732e7a58ea0e9cc93fa369676ae6f5197",
-   "live": false
+   "live": true
   },
   "app/lib/PlaceFinder.php": {
    "sha256": "07b0fa0b9d92ba87aeb374e117145be2cda947d99e53479dcf59b1e1e7976d1b",
-   "live": false
+   "live": true
   },
   "app/scripts/guide_ondemand_tick.php": {
    "sha256": "7906d1afaeedb7ba97acbc489da2eb75d8ec067d74c01bffbd0e7a44f9dc16ee",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "fa789bae7e23d0c22a2972c044be43f26de96be2b1d6ee77e8fd47b5393b0b61",
-   "live": false
+   "live": true
   },
   "website/js/tv-tagcard.js": {
    "sha256": "f95cef69c4ef5dd0dab7ce111ed6689f02b281868188b6665c93541f88e18119",
-   "live": false
+   "live": true
   },
   "website/place/landmark.php": {
    "sha256": "57a1ca0b08423852e3c594d287e7e12c97762db95f335e33954cab240a4c2b1f",
-   "live": false
+   "live": true
   }
  }
 }
