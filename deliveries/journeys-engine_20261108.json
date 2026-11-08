@@ -1,0 +1,62 @@
+{
+ "zip": "journeys-engine_20261108.zip",
+ "built_on": "6b454dd Sync: 2026-11-08 15:27 UTC",
+ "recorded": "2026-11-08 16:53 UTC",
+ "note": "Journey engine: our own travel times, suggested journeys on each live guide and their own page (decisions/0146)",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/Engage.php": {
+   "sha256": "26f5aa3abc6ad2d671d747999d7fd275d350b65c80d06e1e596bb313062f6f5a",
+   "live": false
+  },
+  "app/lib/Guides.php": {
+   "sha256": "a6e9af76da0fcb5970383fb58f798e69ab82adcca50a88ab464033eedcc5354b",
+   "live": false
+  },
+  "app/lib/JourneyPlan.php": {
+   "sha256": "046b15bf615a569ed0b9e66c31c24d1e0de3ca87c8da7e123f5f010fe1a0629b",
+   "live": false
+  },
+  "app/lib/LikeGuard.php": {
+   "sha256": "d11fbb4d072727952ecb3dd8c42fb34b72224e3e478eab03ce1b0ca739e611d9",
+   "live": false
+  },
+  "app/lib/Reports.php": {
+   "sha256": "439e5a8c905c4afc65da77a92f341b8caab53ceffb6e3c51948207fc3d492fb0",
+   "live": false
+  },
+  "app/lib/Scheduler.php": {
+   "sha256": "a8c337893e35354e68fd37cf4760e7fcb1227f7c9d4f695a0016d9267257ecb8",
+   "live": false
+  },
+  "app/lib/TravelLegs.php": {
+   "sha256": "e76829d3144e35241404e5792d232916b82fc38be0e09ba24101691e775265bf",
+   "live": false
+  },
+  "app/migrations/2027-02-11_suggested_journeys.sql": {
+   "sha256": "08755995dce64325befe66550e93d0edb742da6fee5812131c72a13b82b49a21",
+   "live": false
+  },
+  "app/scripts/journeys_tick.php": {
+   "sha256": "0753503255fee8cf3fe159d9262d44734f336bb53260c09b2a529d736d4ef381",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "ecb5b4d8008d4ae4e4878b923f2bccca948cfa42a2ee41e659cbe434b6eb2288",
+   "live": false
+  },
+  "app/ui/suggested-journeys.php": {
+   "sha256": "4eb20fd92a1cce7f02c78d4516b63891d965f6b2c54137f38dbc006588b50abe",
+   "live": false
+  },
+  "website/hub/index.php": {
+   "sha256": "8ff685d2d60ee313bde3581e8050ea0f8aeed6843a6da761f424d07bf7704873",
+   "live": false
+  },
+  "website/journeys/suggested.php": {
+   "sha256": "85f1b1f2e051fb020b4db66cc03ee6e507b8293728860b755f4963dd75f46a25",
+   "live": false
+  }
+ }
+}
