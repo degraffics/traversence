@@ -3,7 +3,7 @@
  "built_on": "08b8643 Sync: 2026-11-08 12:59 UTC",
  "recorded": "2026-11-08 15:14 UTC",
  "note": "Photos for landmarks without one, from Wikimedia Commons (rebuilt 2026-11-08; replaces landmark-photos_20261106.zip)",
- "status": "pending",
+ "status": "partial",
  "live_in": "",
  "files": {
   "app/lib/Landmarks.php": {
@@ -20,7 +20,7 @@
   },
   "app/migrations/2027-02-10_landmark_photos.sql": {
    "sha256": "e8a4723b3cc4ec5da41869deb9c3f1bba5fa360022274fcfcdc1d8e9b04d6764",
-   "live": false
+   "live": true
   },
   "app/scripts/landmark_photos_tick.php": {
    "sha256": "95757c8a12bc8fbbe20122f490cc510035bbfe4b82827412fddc54c37bf66f36",

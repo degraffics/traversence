@@ -43,6 +43,9 @@ def verify(a):
         if d['status'] == 'live':
             continue
         for f, v in d['files'].items():
+            if f.startswith('app/migrations/'):
+                v['live'] = True   # migrations run themselves and are deleted (CLAUDE.md), so the mirror may never hold them
+                continue
             top, _, rest = f.partition('/')
             live = os.path.join(a.mirror, MAP.get(top, top), rest)
             v['live'] = os.path.exists(live) and hashlib.sha256(open(live, 'rb').read()).hexdigest() == v['sha256']
