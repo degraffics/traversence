@@ -1,0 +1,22 @@
+{
+ "zip": "support-inbox_20261108.zip",
+ "built_on": "b56fa9e Sync: 2026-11-08 17:03 UTC",
+ "recorded": "2026-11-08 17:10 UTC",
+ "note": "Pulse \u2192 Support inbox: support@'s webmail, signed in through cPanel",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/admin/manifests.php": {
+   "sha256": "7ba1bf69aa17176e1ccec7a1f18cf26ad9c829fe686ea958e0e24ca889a94920",
+   "live": false
+  },
+  "app/admin/sections.php": {
+   "sha256": "2c0d26276b450a19403f81152650804e917a89ff4d3bdb2086df3e52536a9971",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "bc1f914890f835df373fee9474e18a63c4a3d6e03faea843cd86128fc76873e2",
+   "live": false
+  }
+ }
+}
