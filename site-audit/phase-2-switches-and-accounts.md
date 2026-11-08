@@ -72,7 +72,7 @@ phone and desktop size.
    named `CHECK_ACCOUNTS`, pasted from the block the Test accounts page shows once. It holds each account's email or
    staff ID, its generated password, and for staff logins its two-step key. Nobody can read it back, and it never
    appears in code, chat or logs.
-4. **Confirmation** that payments can run in sandbox for the test client (QuickBooks sandbox, decision 0099).
+4. **Confirmed (Jason, 2026-11-08):** payments run in QuickBooks sandbox for the test client (decision 0099).
 
 ## Done when
 
