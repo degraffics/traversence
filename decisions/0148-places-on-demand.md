@@ -37,3 +37,11 @@ same in both.
 
 - GNIS (USGS) for states beyond the pilot, through the worker's monthly read, for the natural places Wikidata lacks.
 - California's state parks and other state lists, where their data is open.
+
+**Fix (2026-11-08, `places-fix_20261108.zip`):** looked up by the guide's own names first (Wikidata's labels and other
+names, within 25 km), then what's within 10 km for names written a little differently; the area search alone was cut
+off in busy places. A town is never a landmark ("Dana Point", the city, was added and is hidden again by migration
+`2027-02-14_places_on_demand_tidy.sql`); a business or school only when something about it is a place to visit (a
+museum run by a nonprofit stays). Historic houses, cinemas and chapels count. A place's town is the guide's own when
+it's within 4 miles, else the one Wikidata names, else the nearest by ZIP. Searched-for guides are looked up first,
+four guides a run.
