@@ -335,3 +335,16 @@ overview and the Marketplace's step 4 talk (`decisions/0135`):
 - **Accounting:** a business's own QuickBooks or Xero (see "Businesses selling through their own QuickBooks").
 - **Direct payments with no API:** Zelle, wire and check stay manual methods, marked paid by hand; Zelle's own
   business tools come through banks, not a platform API.
+
+## A support inbox inside the admin (noted 2026-11-08)
+
+Jason: "I need a way to check support@traversence.com within my admin." Built now: **Pulse → Support inbox** opens the
+mailbox's webmail already signed in through cPanel's API (`support-inbox_20261108.zip`). For later, the full inbox in
+the admin:
+- support@'s mail listed in the admin (read over IMAP, the mailbox password in `.env` by hand), threaded by sender and
+  subject;
+- each new email a Pulse case (one case per kind of chore, a step per email), assignable to a person, with its listing,
+  order or member matched by the sender's address where we have it;
+- answered from the admin through the site's mailer, from support@, with the thread kept; notices with `TvAsk`;
+- closed when answered, reopened by a reply; counts only in Insights (how many, how fast), never what was written;
+- no AI on a person's words unless a staff member asks (decision 0133); spam left in webmail.
