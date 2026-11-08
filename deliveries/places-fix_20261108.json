@@ -3,7 +3,7 @@
  "built_on": "7635b7a Sync: 2026-11-08 20:19 UTC",
  "recorded": "2026-11-08 20:26 UTC",
  "note": "Places on demand fix: by name, never a town, the right town, searched-for guides first",
- "status": "pending",
+ "status": "partial",
  "live_in": "",
  "files": {
   "app/lib/PlaceFinder.php": {
@@ -12,11 +12,11 @@
   },
   "app/migrations/2027-02-14_places_on_demand_tidy.sql": {
    "sha256": "ead054aa0fdb51a297e116bda08a608d6dd1432ce1b251929884802884d1ff9d",
-   "live": false
+   "live": true
   },
   "app/scripts/guide_ondemand_tick.php": {
    "sha256": "553dec4230820440c87e9b85d78212fa9c38535ebd05299e7c123b1c075dfa72",
-   "live": false
+   "live": true
   }
  }
 }
