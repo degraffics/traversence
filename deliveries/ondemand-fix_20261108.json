@@ -3,28 +3,28 @@
  "built_on": "de81f6b Sync: 2026-11-08 17:50 UTC",
  "recorded": "2026-11-08 17:56 UTC",
  "note": "Guides on demand fix: towns outside our areas, the offer without a set location",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "9f50f4b Sync: 2026-11-08 18:06 UTC",
  "files": {
   "app/lib/OnDemand.php": {
    "sha256": "a495158c0385bae4a834a06b74ed445b21bcd8a72bbdc5440ce67a2abb1bbd8f",
-   "live": false
+   "live": true
   },
   "app/lib/UniversalSearch.php": {
    "sha256": "c2a1866bbbe1861d328f7c46b68b8138269297ca8d72400559eeb767446821d6",
-   "live": false
+   "live": true
   },
   "app/migrations/2027-02-13_anchors_outside.sql": {
    "sha256": "bef015aa4ee2c5c7e9714fcbc47eab107af3ec209e45e5d959cf1526c1e2daa3",
-   "live": false
+   "live": true
   },
   "website/api/guide-build.php": {
    "sha256": "f7020f55e18f2d18d397304fa91132bbb35f28fe4b26f9ab4ebc49abac2e38a0",
-   "live": false
+   "live": true
   },
   "website/hub/build.php": {
    "sha256": "084d08fcab2478e82dc958255a0ae8e5303551256013c6f327938f6493aa3c58",
-   "live": false
+   "live": true
   }
  }
 }
