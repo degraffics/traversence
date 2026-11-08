@@ -196,8 +196,12 @@ for Jason.
    - **Roll back release** returns its files to the previous version.
 9. **Record:** each release is written into git: plan, files, checks, results, kept or rolled back.
 
-**Who may publish, schedule, turn off and roll back:** Jason only for now, as the only staff (2026-11-06). When staff
-are added, these permissions are asked for and granted in staff onboarding (adding a staff login), never assumed.
+**Who may publish, schedule, turn off and roll back is role-based** (Jason, 2026-11-08), like every admin action.
+- **The four permissions:** `releases.publish`, `releases.schedule`, `releases.turn_off` and `releases.rollback`. Each
+  is a rule in System Configuration → Permissions (the minimum level and departments, `Access::can`).
+- **Default:** Founder only.
+- **Granting:** once a role is given one, everyone with that role has it. Adding a staff member only assigns their
+  role; nobody is asked again per person.
 
 **Urgent fixes** can be published straight away with a reason, then recorded and checked like any release.
 

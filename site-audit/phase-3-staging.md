@@ -51,16 +51,24 @@ anyone.
 
 ## What Jason provides
 
+The build adds a **Set up staging** button in System Configuration (Founder only). Through the cPanel API the site
+already uses, it:
+- checks the plan has room for a subdomain and a database;
+- creates `staging.trvgo.us`, its database and database user, and copies the site;
+- writes staging's own `.env`, so the database password is made on the server and never leaves it;
+- sets the staging viewing password;
+- adds the DNS record when trvgo.us's DNS is on Bluehost.
+
+Staging uses Cloudflare Turnstile's official test keys, which always pass, so nothing changes in your Cloudflare
+account.
+
 1. **Approval** of this phase.
-2. **Confirmation that your Bluehost plan allows a subdomain of trvgo.us and another database.** cPanel → Domains and
-   cPanel → MySQL Databases show what's free. Most plans allow both. Also tell me where trvgo.us's DNS is managed
-   (Bluehost or Cloudflare), so the `staging` record goes in the right place.
-3. **The staging database password in the staging `.env`.** This is the one step done by hand: cPanel File Manager,
-   as with all secrets. I'll give you the exact lines.
-4. **The staging password.** Choose the password for viewing staging; it goes into `.env` too.
-5. **Cloudflare Turnstile:** add `staging.trvgo.us` to the widget's allowed hostnames (Cloudflare → Turnstile → the
-   widget → Hostnames). Optional: Google, Microsoft and Facebook sign-in on staging need its address added in each
-   provider. Without them, staging uses email sign-in only.
+2. **One exception to the ".env by hand" rule:** the setup button writes **staging's** `.env` itself. Live's `.env`
+   stays by hand, as always.
+3. **Only if trvgo.us's DNS isn't on Bluehost** (for example, Cloudflare): add the one DNS record the button shows you.
+4. **The staging viewing password goes in the same shown-once block as the test accounts**, which you paste into
+   `CHECK_ACCOUNTS`. There's no separate secret.
+5. **Optional:** Google, Microsoft and Facebook sign-in on staging. Skip it, and staging uses email sign-in.
 
 ## Done when
 
