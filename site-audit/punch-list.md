@@ -26,7 +26,7 @@ Decision 0145 (§7: one build). Tick items here, or reply with the numbers.
 | 9 | Does your Bluehost plan allow a subdomain of trvgo.us (`staging.trvgo.us`) and one more MySQL database? | cPanel → Domains, and cPanel → MySQL Databases, show what's used and what's free |
 | 10 | Where trvgo.us's DNS is managed: Bluehost or Cloudflare | The domain's settings in Bluehost; or, if trvgo.us is in your Cloudflare account, there |
 | 11 | Can test payments use QuickBooks sandbox (decision 0099)? | Yes/no. Sandbox is already set up for E-Commerce → Payments. |
-| 12 | Does your mailbox accept "+" addresses (`check+member@traversence.com`)? | Send one a test email. If not, give me 8 addresses you control for test accounts. |
+| 12 | Nothing needed for test-account email: the build creates the mailbox `check@traversence.com` (cPanel API, free) | (see `test-accounts.md`) |
 | 13 | **`MIRROR_READ_TOKEN`**, so the checks can read the mirror. | 1. GitHub → Settings → Developer settings → Fine-grained tokens → Generate. 2. Repository: `degraffics/traverse-3way-sync` only. 3. Permission: Contents, Read-only. 4. Paste it into `degraffics/traversence` → Settings → Secrets and variables → Actions → New secret, named `MIRROR_READ_TOKEN`. |
 | 14 | Confirm GitHub Actions is allowed in `degraffics/traversence` | Settings → Actions → General → "Allow all actions" (or allow GitHub's own and Playwright) |
 
@@ -35,10 +35,10 @@ Decision 0145 (§7: one build). Tick items here, or reply with the numbers.
 | # | What | How |
 |---|---|---|
 | 15 | **`HEALTH_TOKEN`**, for the locked health report | I give you a long random value. Put it in two places: the live `.env` as `HEALTH_TOKEN=…` (cPanel File Manager), and as a GitHub secret named `HEALTH_TOKEN` in `degraffics/traversence`. |
-| 16 | **Create the member test accounts** | Create account on traversence.com for each, confirming the email: new member, established member, business owner, business manager, contributor/steward. I mark them as test accounts and give them their roles and the test listing. |
-| 17 | **Create the staff test logins** | Staff admin → add a login for each level (staff, manager, director, executive) in a "Test" department. When each is set up, copy its two-step secret key (the "can't scan?" text) for item 19. |
-| 18 | **Test vendor and test client** | Vendors list → add "Test vendor". Clients → add "Test client" with a contact from item 12. (Or tell me to add them in the build.) |
-| 19 | **`CHECK_ACCOUNTS`**, all the test sign-ins in one secret | I give you the layout. You fill in each account's email or staff ID, password, and (staff) two-step key, then save it as a GitHub secret named `CHECK_ACCOUNTS`. Nobody can read it back. |
+| 16 | **Create the test accounts:** System Configuration → Test accounts → **Create test accounts**. This makes all 11 member and business accounts, 13 staff logins, and the test business, client and vendor (list in `test-accounts.md`). | One button, Founder only |
+| 17 | **`CHECK_ACCOUNTS`:** copy the block the page shows once into a GitHub secret named `CHECK_ACCOUNTS` in `degraffics/traversence` | Settings → Secrets and variables → Actions → New secret |
+| 18 | (nothing: the test business, client and vendor are made by item 16) | |
+| 19 | (nothing: passwords and two-step keys are generated in item 16, never typed or seen in chat) | |
 | 20 | **Staging's `.env`** | I give you the lines. You add the staging database password and a viewing password you choose, in the staging folder's `.env` (cPanel File Manager). |
 | 21 | **Turnstile for staging** | Cloudflare → Turnstile → your widget → Hostnames → add `staging.trvgo.us` |
 | 22 | Optional: Google, Microsoft and Facebook sign-in on staging | Add staging's sign-in address in each provider's console (I give you the exact addresses). Skip this and staging uses email sign-in only. |

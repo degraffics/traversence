@@ -29,6 +29,7 @@ phase order.
 ## Files these phases create
 
 - `punch-list.md`: everything Jason provides for the one build, in order
+- `test-accounts.md`: the test accounts, their roles and what each covers (no passwords: those are only in the `CHECK_ACCOUNTS` secret)
 - `rules.md`: the rule catalogue (Phase 1)
 - `../decisions/index.md`: the decision register (Phase 1)
 - `../routes.md`: the site page tree, generated and checked (Phase 1)

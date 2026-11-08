@@ -65,25 +65,13 @@ phone and desktop size.
 
 1. **Approval** of this phase. Its site changes (switches, the test-account flag) are released as the first phased
    release, to test accounts first.
-2. **The test accounts.** Create them after the site part is live. They should be addresses you control, for example
-   `check+member@traversence.com` if your mailbox accepts "+" addresses.
-
-   | Account | How |
-   |---|---|
-   | New member | Create account; leave it under 7 days old by recreating it monthly (the checks can do this) |
-   | Established member | Create account; it becomes established after 7 days |
-   | Business owner | Create account; I attach it to the test listing |
-   | Business manager | Create account; invited to the test listing |
-   | Contributor or steward | Create account; given the role in People & roles |
-   | Staff: staff, manager, director, executive | Staff logins made in the staff admin, one per level, in a test department |
-   | Vendor | A test vendor in the vendors list |
-   | Client | A test client with a sandbox order |
-
-   I mark each one as a test account once you tell me it exists.
+2. **The test accounts.** The full list is in [test-accounts.md](test-accounts.md): 11 member and business accounts,
+   13 staff logins, and a test business, client and vendor. You don't create them by hand. Once the site part is live,
+   press **Create test accounts** in System Configuration → Test accounts (Founder only).
 3. **The secrets.** In this repository: Settings → Secrets and variables → Actions → New repository secret, one secret
-   named `CHECK_ACCOUNTS`. It holds each account's email or staff ID, its password, and for staff logins the two-step
-   secret key, shown when the login is set up as "can't scan?". I'll give you the exact layout to paste. Nobody can read
-   it back, and it never appears in code or logs.
+   named `CHECK_ACCOUNTS`, pasted from the block the Test accounts page shows once. It holds each account's email or
+   staff ID, its generated password, and for staff logins its two-step key. Nobody can read it back, and it never
+   appears in code, chat or logs.
 4. **Confirmation** that payments can run in sandbox for the test client (QuickBooks sandbox, decision 0099).
 
 ## Done when
