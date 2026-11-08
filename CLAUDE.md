@@ -230,6 +230,8 @@ New cron jobs go in `Scheduler::JOBS` and `Scheduler::AUTO`; `Scheduler::sync()`
 
 Nothing we build spends Traversence money (a per-use API, email, text, push, ID check, AI call) unless revenue covers
 it: inside a paying plan's allowance, a paid top-up, or a fee charged first. Free tiers get only what costs us nothing.
+The one exception: Claude writing guides and journeys, inside the AI monthly cap (decisions/0131, 0147: on-demand
+builds up to 50% of the daily allowance, the rest queued).
 
 ## The live server runs PHP 8.0: every build
 

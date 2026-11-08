@@ -1,6 +1,6 @@
 # ADR 0147: Guides and Journeys on Demand
 
-**Status:** Accepted (Jason, 2026-11-08), with the AI spending question in §5 to confirm.
+**Status:** Accepted (Jason, 2026-11-08), spending decided in §5.
 
 ## Why
 
@@ -50,21 +50,28 @@ raises the place in the queue for its next check.
 ## 4. Limits, so a search can't run up work
 
 - One build per place at a time; a place searched again while building just waits.
-- A daily number of on-demand places (a tuned value in Thresholds & gates, `guides_on_demand_day`, default 10).
-  Beyond it, places queue for the next day, most-searched first (distinct visitors, not raw searches).
+- The daily money allowance in §5 is the limit. Beyond it, places queue for the next day, most-searched first
+  (distinct visitors, not raw searches). An optional count cap (`guides_on_demand_day` in Thresholds & gates) is off.
 - Searches from one connection count once per place per day (the same guard as likes, `LikeGuard`'s speed rules).
 - Nothing outside the United States until our sources cover it (the gazetteer says where).
 
-## 5. Cost (to confirm)
+## 5. Cost: half the daily AI allowance (Jason, 2026-11-08)
 
-The crawler, our own research and the routes are free. Claude's writing is not. Preview (decision 0133, Content templates)
-shows the cost per place before anything is spent, and Insights shows what each month really cost.
-- **Suggested:** on-demand guides and journeys spend from the same **AI monthly cap** guides already use
-  (`AI_MONTHLY_CAP_USD`, System Configuration → AI use, decision 0131), as two features: *Guides on demand* and
-  *Journey writing*, each with its own monthly budget. When a budget is spent, places still get a guide gathered and
-  journeys built by rules (no Claude), and Claude writes them when the next month's budget opens.
-- This is a stated exception to "no income, no expense" (CLAUDE.md), the same one guides already have, and only up to
-  the cap Jason sets. Setting the budgets to $0 keeps everything free (rules-only journeys, no new guides written).
+The crawler, our own research and the routes are free. Claude's writing is not.
+- **The daily allowance** is the AI monthly cap (`AI_MONTHLY_CAP_USD`, System Configuration → AI use) divided by the
+  days in the month.
+- **On-demand guides and journeys may spend up to 50% of it each day** ("so we can create guides fast and within budget
+  while traffic is low"), as two features in AI use: *Guides on demand* and *Journey writing*, sharing that half. The
+  share is a setting there (default 50%).
+- **Before a build starts**, its cost is estimated the way Preview does (decision 0133, Content templates). If it would
+  take today's on-demand spend past the half, it **queues** for the next day instead, most-searched first. A build
+  never stops part way.
+- Unspent allowance doesn't carry over. Everything else Claude does (guide renewals, AI Assist, events) keeps the other
+  half and its own budgets.
+- **While queued**, the place still gets its free work at once: the crawler gathers, and journeys are built by rules
+  from what's there, shown without Claude's words until they're written.
+- This is a stated exception to "no income, no expense" (CLAUDE.md), the same one guides already have, and never past
+  the cap Jason sets. Insights → Guides shows each day's on-demand spend against its half, and what's waiting.
 
 ## 6. Built as
 
