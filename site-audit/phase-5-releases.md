@@ -49,7 +49,9 @@ Every change goes out the same way:
 ## What Jason provides
 
 1. **Approval** of this phase.
-2. **Who may publish**: only you (the Founder), or also Executives and Directors. Suggested: you, plus anyone you name.
+2. **Nothing to decide per person.** Publish, schedule, turn off and roll back are four permissions in System
+   Configuration → Permissions, Founder only by default. Give them to a role whenever you want that role to have them.
+   Staff onboarding only assigns the role.
 3. **The rollout defaults**: the steps (staff and test, 25%, everyone), and the timing for "advance on schedule" (24 h,
    then 72 h). Change them if you like.
 4. **Release windows**: times releases may go live on schedule (suggested: weekdays, 6 am–6 pm Arizona). "On publish"
