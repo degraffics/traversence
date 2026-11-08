@@ -85,8 +85,16 @@ Five layers, run on every page, for every kind of account:
   - **The health report:** a locked admin endpoint returns only totals: table sizes and row counts, slow-query and
     error summaries, service usage and cache rates. No personal data. GitHub's check run fetches it with a token kept as
     a secret. Speed and query-plan tests run on staging, never heavy on live.
-- **Journeys and review.** Journeys are what people come to do, run end to end:
-  - each is measured for steps to the goal, dead ends, accuracy (what's shown is true and complete, what exists shows)
+- **Paths and review.** A path is what someone comes to do, run end to end in a browser. They're called paths so they
+  aren't confused with Journeys, the content people write about their trips.
+  - **Paths come from the system, not a hand-picked list** (Jason, 2026-11-06):
+    - **Guide paths:** for every system-written guide (a city such as Show Low, AZ), and for the suggested journey
+      built from it (decision 0146), a visitor follows the route. Each stop's page loads; its facts are accurate (open,
+      phone, distance); directions and links work; the route makes sense. The list grows as guides do.
+    - **Core paths:** a short fixed list for what every visitor or member does: sign up, sign in and out, search
+      (including a typo), like and comment, claim a business, edit a listing, post on the Marketplace, message a
+      business, and the staff tasks.
+  - Each is measured for steps to the goal, dead ends, accuracy (what's shown is true and complete, what exists shows)
     and clarity;
   - a review in Claude Code sessions (no cost to Traversence) reads the flagged pages, their screenshots and the
     decisions that govern them.
@@ -187,6 +195,9 @@ for Jason.
    - **Turn off** flips the feature's switch for everyone;
    - **Roll back release** returns its files to the previous version.
 9. **Record:** each release is written into git: plan, files, checks, results, kept or rolled back.
+
+**Who may publish, schedule, turn off and roll back:** Jason only for now, as the only staff (2026-11-06). When staff
+are added, these permissions are asked for and granted in staff onboarding (adding a staff login), never assumed.
 
 **Urgent fixes** can be published straight away with a reason, then recorded and checked like any release.
 
