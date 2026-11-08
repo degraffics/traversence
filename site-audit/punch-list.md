@@ -50,8 +50,9 @@ Decision 0145 (§7: one build). Tick items here, or reply with the numbers.
 |---|---|
 | 24 | Upload the build's zips when it says, and say "uploaded". I sync and check every file. The release log will show anything still pending. |
 | 25 | Look at the first scorecard and say which failures to fix first. |
-| 26 | Approve the generated page tree (it replaces `routes.md`) and the decision register (`decisions/index.md`). |
-| 27 | Decide the first proposals: approve, reject or reword. That's how the review learns what you want. |
+| 26 | **Decided (2026-11-08):** the page tree becomes the source of truth; `routes.md` is archived only once every route in it is confirmed in the tree (proposal P6). Still to approve: the list marking the 72 unlisted pages live, archived or to remove, and the decision register. |
+| 27 | **Done (2026-11-08):** P1–P6 decided (`proposals.md`). New proposals come with each audit. |
+| 29 | **openrouteservice key** for journey travel times (decision 0146 §7), when the journeys build asks: a free account at openrouteservice.org, its key into the live `.env` as `ORS_API_KEY` by hand. Free plan only; it stops at its limit and never bills. |
 | 28 | Watch the first real release go through: staging, then Publish or its schedule, then its steps. Try Turn off and Roll back once. |
 
 ## What's never needed
