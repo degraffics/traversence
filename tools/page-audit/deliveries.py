@@ -43,11 +43,15 @@ def verify(a):
         if d['status'] == 'live':
             continue
         for f, v in d['files'].items():
+            if f.startswith('app/migrations/'):
+                v['live'] = True   # migrations run themselves and are deleted (CLAUDE.md), so the mirror may never hold them
+                continue
             top, _, rest = f.partition('/')
             live = os.path.join(a.mirror, MAP.get(top, top), rest)
             v['live'] = os.path.exists(live) and hashlib.sha256(open(live, 'rb').read()).hexdigest() == v['sha256']
-        n = sum(v['live'] for v in d['files'].values())
-        d['status'] = 'live' if n == len(d['files']) else ('partial' if n else 'pending')
+        real = {f: v for f, v in d['files'].items() if not f.startswith('app/migrations/')}
+        n = sum(v['live'] for v in real.values())
+        d['status'] = 'live' if n == len(real) else ('partial' if n else 'pending')
         if d['status'] == 'live':
             d['live_in'] = s
         json.dump(d, open(p, 'w'), indent=1)

@@ -1,0 +1,34 @@
+{
+ "zip": "landmark-photos_20261108.zip",
+ "built_on": "08b8643 Sync: 2026-11-08 12:59 UTC",
+ "recorded": "2026-11-08 15:14 UTC",
+ "note": "Photos for landmarks without one, from Wikimedia Commons (rebuilt 2026-11-08; replaces landmark-photos_20261106.zip)",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/Landmarks.php": {
+   "sha256": "4120af8e0be931d03764856041a34ff7e348fb1d16239feffd9615fde4c9044c",
+   "live": false
+  },
+  "app/lib/Scheduler.php": {
+   "sha256": "34170f129d480a34451755f0108a066dec78f7637a57801bac408a7907f21b49",
+   "live": false
+  },
+  "app/lib/stock/StockWikimedia.php": {
+   "sha256": "33578237b4c216ab721be51e80f8610e6066a94c0b59d06aab714e58fc49cf2d",
+   "live": false
+  },
+  "app/migrations/2027-02-10_landmark_photos.sql": {
+   "sha256": "e8a4723b3cc4ec5da41869deb9c3f1bba5fa360022274fcfcdc1d8e9b04d6764",
+   "live": true
+  },
+  "app/scripts/landmark_photos_tick.php": {
+   "sha256": "95757c8a12bc8fbbe20122f490cc510035bbfe4b82827412fddc54c37bf66f36",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "eb52462f847c8990ca8f5c552e3b45fba0d5fb4b64c14a4e6dedcfaa480d5df4",
+   "live": false
+  }
+ }
+}
