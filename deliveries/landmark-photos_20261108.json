@@ -3,7 +3,7 @@
  "built_on": "08b8643 Sync: 2026-11-08 12:59 UTC",
  "recorded": "2026-11-08 15:14 UTC",
  "note": "Photos for landmarks without one, from Wikimedia Commons (rebuilt 2026-11-08; replaces landmark-photos_20261106.zip)",
- "status": "partial",
+ "status": "pending",
  "live_in": "",
  "files": {
   "app/lib/Landmarks.php": {
