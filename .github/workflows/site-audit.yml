@@ -1,0 +1,79 @@
+# The site audit (decisions/0145, Phase 1): the code checks on the live mirror, the delivery log, the decision register
+# and the page tree. Runs at :17 each hour when the mirror has a new sync, every Monday in full, and on Run workflow.
+# Needs one secret, MIRROR_READ_TOKEN: a fine-grained token with read-only Contents on degraffics/traverse-3way-sync
+# (site-audit/punch-list.md item 13). Commits only generated files: site-audit/scorecard.md, page-tree.md,
+# results/, decisions/index.md, deliveries/.
+name: Site audit
+
+on:
+  schedule:
+    - cron: '17 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: site-audit
+  cancel-in-progress: false
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Is the mirror token set?
+        env:
+          T: ${{ secrets.MIRROR_READ_TOKEN }}
+        run: |
+          if [ -z "$T" ]; then
+            echo "::warning::MIRROR_READ_TOKEN isn't set yet (site-audit/punch-list.md item 13). Nothing to check."
+            echo "SKIP=1" >> "$GITHUB_ENV"
+          fi
+
+      - name: Read the live mirror
+        if: env.SKIP != '1'
+        uses: actions/checkout@v4
+        with:
+          repository: degraffics/traverse-3way-sync
+          token: ${{ secrets.MIRROR_READ_TOKEN }}
+          path: mirror
+          fetch-depth: 1
+          sparse-checkout: |
+            sync-storage
+            sync-app
+            sync-trvgo
+
+      - name: Anything new since the last run?
+        if: env.SKIP != '1'
+        run: |
+          sha=$(git -C mirror rev-parse --short HEAD)
+          last=$(cat site-audit/results/mirror-sha.txt 2>/dev/null || true)
+          weekly=$([ "$(date -u +%u%H)" = "101" ] && echo 1 || echo 0)
+          if [ "${{ github.event_name }}" = "schedule" ] && [ "$sha" = "$last" ] && [ "$weekly" = "0" ]; then
+            echo "Mirror unchanged ($sha): nothing to do."
+            echo "SKIP=1" >> "$GITHUB_ENV"
+          else
+            mkdir -p site-audit/results && echo "$sha" > site-audit/results/mirror-sha.txt
+          fi
+
+      - name: Code checks, register and page tree
+        if: env.SKIP != '1'
+        run: python3 tools/page-audit/audit.py --mirror mirror --write
+
+      - name: Deliveries reached live?
+        if: env.SKIP != '1'
+        run: |
+          if ls deliveries/*.json >/dev/null 2>&1; then python3 tools/page-audit/deliveries.py verify --mirror mirror; fi
+
+      - name: Commit what changed
+        if: env.SKIP != '1'
+        run: |
+          git config user.name "site-audit"
+          git config user.email "site-audit@users.noreply.github.com"
+          git add site-audit/scorecard.md site-audit/page-tree.md site-audit/results decisions/index.md
+          [ -d deliveries ] && git add deliveries
+          if git diff --cached --quiet; then echo "No change."; exit 0; fi
+          git commit -m "Site audit: mirror $(cat site-audit/results/mirror-sha.txt)"
+          git push

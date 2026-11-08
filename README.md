@@ -51,7 +51,9 @@ The site's code isn't here. It runs on the server and in OneDrive, and its live 
 | File | What it is |
 |---|---|
 | `workflow.md` | How the documentation is governed and kept |
-| `site-audit/` | The site audit and phased releases (decisions/0145): one file per phase, and what Jason provides for each |
+| `site-audit/` | The site audit and phased releases (decisions/0145): phases, punch list, rules, scorecard, page tree, proposals |
+| `tools/page-audit/` | The audit's code checks, the zip check and the delivery log (run hourly by `.github/workflows/site-audit.yml`) |
+| `deliveries/` | Every zip and whether each file reached the live site (generated) |
 | `CLAUDE.md` | Rules every Claude session follows (loaded automatically) |
 | `readme-history.md` | The original README's change log, Sept–Oct 2026 |
 
