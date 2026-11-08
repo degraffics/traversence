@@ -15,9 +15,8 @@ research stays ours, so the next visitor gets it from our own record.
    landmarks, outdoor places, experiences, events, the weather (`Weather`), and the nearest guides. Never an empty page.
 2. **The place is named:** the search or the visitor's location is matched to a real place in our gazetteer
    (`app/data/US.txt`): a town, a city or a park. A guess never starts a build.
-3. **A guide is started:** if the place has no guide, the search says "We're building a guide to Dana Point. Come back
-   soon, or follow it" (Follow emails or notifies once it's live; members only, their choice). The place goes to the
-   front of the guide queue.
+3. **A guide is started at once** (§1a): the visitor watches a first look build in about two minutes, and can follow
+   the place to hear when the full guide is ready (members only, their choice).
 4. **The crawler gathers, free sources first** (decision 0131 step 3, `Guides::gather()`): the dossier, the place's
    official sites, OpenStreetMap, Wikidata, the National Register, the Library of Congress, and the businesses' own
    sites into listings.
@@ -29,6 +28,36 @@ research stays ours, so the next visitor gets it from our own record.
 7. **What the visitor asked for counts:** the words of the search (counts only, never who) are part of the guide's
    "visitors' intent" (decision 0131) and the themes its journeys favour. A search for "tide pools near Dana Point" makes
    tide pools a theme to look for.
+
+## 1a. How fast: a first look in about two minutes (Jason, 2026-11-08)
+
+"Can we create this instantly or within a reasonable please wait time frame." Yes, in two stages.
+
+**Stage 1, the first look (target: about two minutes, to be measured on the live site and shown in Insights):**
+
+| Time | What the visitor sees | What runs |
+|---|---|---|
+| At once | What we already hold near the place, the map, the weather, and "Building your guide to Dana Point", with its steps ticking off | The search starts the build in the background on our own server (as **Write a draft with Claude** does now, `Guides::compose`: up to 4 minutes, carries on if the visitor leaves) |
+| ~10–30 s | "Finding places" → "Reading its history" | The fast free sources, all at once: our listings and landmarks, OpenStreetMap's places, Wikidata and the encyclopedia summary, the town's official home page, the weather service |
+| ~30–90 s | Each section of the guide appears as Claude writes it | Claude writes from that record: the shorter first-look pass, with no more than one web search |
+| ~90–120 s | "Suggested journeys" appear | Journeys built by rules from the guide's themes, with travel times (one matrix call, then our own `travel_legs`); Claude writes their titles and lines |
+
+- The page checks for progress every few seconds; it never holds a request open. If the visitor leaves, the build
+  finishes anyway and is there next time.
+- The first look passes the same checks as any guide: the scrub, protected places (decision 0066), and every named
+  place matched to our record. A name we can't confirm isn't shown as a stop or link.
+- It's labelled **"First look: we're still researching Dana Point"**, and isn't offered to search engines until the full
+  guide passes its score (decision 0131). That's the St. Johns lesson: no thin guide presented as finished.
+
+**Stage 2, the full guide (within 24–48 hours, in the background):** the slow, deeper sources (the Library of Congress
+and its newspapers, the National Register, the crawler's visits to businesses' own sites, the research brief) are
+gathered as now (`Guides::gather()`, `gatherTick()`). Claude then rewrites only its own first-look sections from the
+richer record, the journeys are rebuilt, the "First look" label comes off when the guide passes its score, and
+followers are told.
+
+**When today's on-demand allowance is spent (§5):** the visitor still gets the instant part (what we hold, the map,
+the weather, places found, journeys built by rules) at once, with "Claude's write-up is queued for tomorrow". Nothing
+waits empty.
 
 ## 2. Built once, kept, reused
 
