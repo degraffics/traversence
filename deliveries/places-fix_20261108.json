@@ -1,13 +1,17 @@
 {
  "zip": "places-fix_20261108.zip",
  "built_on": "7635b7a Sync: 2026-11-08 20:19 UTC",
- "recorded": "2026-11-08 20:22 UTC",
- "note": "Places on demand: searched-for guides first, four a run; historic houses and cinemas",
+ "recorded": "2026-11-08 20:26 UTC",
+ "note": "Places on demand fix: by name, never a town, the right town, searched-for guides first",
  "status": "pending",
  "live_in": "",
  "files": {
   "app/lib/PlaceFinder.php": {
-   "sha256": "d4278bf2f63e96040ca44b99a8fcc4954deaebdcf72de27e1dcbe89ffcbf45b5",
+   "sha256": "26d20fb58f3539f8a91b8f72503aa69098f73ff713edb653beb3464b5068d098",
+   "live": false
+  },
+  "app/migrations/2027-02-14_places_on_demand_tidy.sql": {
+   "sha256": "ead054aa0fdb51a297e116bda08a608d6dd1432ce1b251929884802884d1ff9d",
    "live": false
   },
   "app/scripts/guide_ondemand_tick.php": {
