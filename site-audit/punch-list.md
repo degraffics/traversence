@@ -25,7 +25,7 @@ Decision 0145 (§7: one build). Tick items here, or reply with the numbers.
 |---|---|---|
 | 9 | (nothing: the **Set up staging** button checks the plan's room itself) | |
 | 10 | (nothing: trvgo.us's DNS is on Bluehost, confirmed 2026-11-08, so **Set up staging** adds the record) | |
-| 11 | Can test payments use QuickBooks sandbox (decision 0099)? | Yes/no. Sandbox is already set up for E-Commerce → Payments. |
+| 11 | Can test payments use QuickBooks sandbox (decision 0099)? | **Yes (Jason, 2026-11-08).** Test accounts pay in QuickBooks sandbox only. |
 | 12 | Nothing needed for test-account email: the build creates the mailbox `check@traversence.com` (cPanel API, free) | (see `test-accounts.md`) |
 | 13 | **`MIRROR_READ_TOKEN`**, so the checks can read the mirror. | 1. GitHub → Settings → Developer settings → Fine-grained tokens → Generate. 2. Repository: `degraffics/traverse-3way-sync` only. 3. Permission: Contents, Read-only. 4. Paste it into `degraffics/traversence` → Settings → Secrets and variables → Actions → New secret, named `MIRROR_READ_TOKEN`. |
 | 14 | Confirm GitHub Actions is allowed in `degraffics/traversence` | Settings → Actions → General → "Allow all actions" (or allow GitHub's own and Playwright) |
