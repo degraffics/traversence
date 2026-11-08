@@ -106,9 +106,28 @@ Planner. It answers: in what order, how long at each stop, how long between them
 | Need | From | Cost |
 |---|---|---|
 | Driving, walking or cycling time and distance | **openrouteservice** (OpenStreetMap data): free plan 2,000 routes and 500 matrices a day, a hard stop at the limit, never a bill | none |
-| Kept once found | each pair of places and each mode is stored, so a route is asked for once and reused for every journey | none |
+| Kept as our own record | every leg found goes into `travel_legs` (below) and is reused everywhere, never asked for twice | none |
 | When the service is down or the day's limit is reached | straight-line distance with a road factor (×1.3), marked "about" | none |
 | The visitor's turn-by-turn directions | a map link that opens their own maps app (0058 §8) | none |
+
+**Travel times are our own research (Jason, 2026-11-08).** We pull outside data once and keep it, so the site answers
+from its own record:
+- **`travel_legs`:** one row per pair of places and way of travel (drive, walk, cycle): minutes, distance, the road
+  class and climb where given, its source and the date found. Kept, not cached: it doesn't expire.
+- **Built ahead:** when a town gets a guide, the journey job asks once for the travel times among its places (the
+  service's matrix, up to 50 places at a time) and stores them all. Later journeys, people's trips and "how far" on cards
+  read the table and ask nothing.
+- **Asked for only when missing:** a person's own trip with a place we have no leg for asks once, stores it, and the
+  next person gets it free.
+- **Renewed only when something changes:** a place moves, a person reports a route wrong, or the leg is two years old.
+  Roads change slowly.
+- **Reused across the site:** journeys, the Trip Planner, a guide's "getting around", "12 min drive" on cards, Near me,
+  and the audit's checks that an order makes sense.
+- **Licence (decision 0133's source register):** the times come from OpenStreetMap data (ODbL). They are used on our
+  pages with the credit "© OpenStreetMap contributors"; if the table were ever shared outside the site, it would be
+  under the same licence.
+- Stay times per kind of place (above) are ours too, and learn from what people set in their own trips (counts only,
+  never who).
 
 **About the day**
 
@@ -134,3 +153,7 @@ person's own journey, suggestions to fill a gap or reorder to save time. People 
   paid is used (no income, no expense). Driving routes for paying plans' heavier use can be added later, inside their
   allowance.
 - Google Maps and Mapbox are not used for routing: both bill once past their free amounts.
+
+## 8. On demand
+
+Guides and journeys are also built where people search: decision 0147.
