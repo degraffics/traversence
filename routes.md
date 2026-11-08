@@ -19,6 +19,7 @@ new home); **Remove** (left over, should come off the server).*
 | `/directory/` | Get Local: businesses near you, list and map | 0044, 0053, 0058 | Live |
 | `/directory/classic.php` | The earlier directory page | 0053 | Live, superseded by `/directory/` |
 | `/hub/?hub=` `?geo=` `?cluster=` | One landing page for a hub, geo-hub or cluster | 0043, 0047, 0048, 0058 | Live, placeholder |
+| `/hub/build.php?city=&state=&q=` | A guide built while you wait, for a searched place with none (never indexed) | 0147 | Live once uploaded |
 | `/listing/view.php?id=` | A business's page (hero, engage bar, comments, the Link button) | 0044, 0047, 0052, 0053, 0058, 0062 | Live |
 | `/listing/location.php?id=` | Where a listing is: move the pin, "I'm here" | 0058 | Live |
 | `/place/landmark.php?id=` | A natural landmark (USGS names) | 0058 | Live |

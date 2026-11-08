@@ -1,0 +1,70 @@
+{
+ "zip": "guides-on-demand_20261108.zip",
+ "built_on": "1fe61e8 Sync: 2026-11-08 17:21 UTC",
+ "recorded": "2026-11-08 17:31 UTC",
+ "note": "Guides on demand: a searched place's first look in about two minutes, then the full guide (decisions/0147)",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/AiClient.php": {
+   "sha256": "11e4b17f1f894ca9c092c4e36e8a3def582d3c6a714752bf3007869b85f46aeb",
+   "live": false
+  },
+  "app/lib/Guides.php": {
+   "sha256": "cd42e888c45896083c4369197a0a23b53219cdfa7e2a1afa814ad75f4ffca4db",
+   "live": false
+  },
+  "app/lib/JourneyPlan.php": {
+   "sha256": "d868d3c8c630bca2174d1a4e1d7fd77d470edad5c147a7455789b95e9540733b",
+   "live": false
+  },
+  "app/lib/OnDemand.php": {
+   "sha256": "fe357bbae1e7c81e6bbd0534c0680dd64d41e33799ea5aa0da84dcf86244c473",
+   "live": false
+  },
+  "app/lib/Scheduler.php": {
+   "sha256": "196850bfa1048d7bfd9d367fab0455d95eee60319289f7432b527212dc1a28d1",
+   "live": false
+  },
+  "app/lib/Thresholds.php": {
+   "sha256": "3aaa6d8fafcd5c6d42e80913624a0f1cef2b656e3a5623d02f9072ea643730d8",
+   "live": false
+  },
+  "app/lib/UniversalSearch.php": {
+   "sha256": "a4d05a31d90ae01e519de55848f516630810ed1616f81146454b6651ddb0a8b2",
+   "live": false
+  },
+  "app/migrations/2027-02-12_guide_requests.sql": {
+   "sha256": "03b63d60fc496ac64eff1bb7b9b7879667e77314eecd6c048b6bb080440b4b7b",
+   "live": false
+  },
+  "app/scripts/guide_ondemand_tick.php": {
+   "sha256": "cfacaf499b822bb73ec2328671b84c3a951eeb0dc026430342e658949a28be4a",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "7b11869f1db26a8598e68b5b4e97ffde1a43f974652a24dbf5f7a98e86dedbab",
+   "live": false
+  },
+  "app/ui/suggested-journeys.php": {
+   "sha256": "78b2bad4cb2006c50a45cfc756d0ddc8da2208ae785fb5dab7ed436cf96b0a2b",
+   "live": false
+  },
+  "website/api/guide-build.php": {
+   "sha256": "533a02e3f2bde083f0d7955f4261caaffa2e37dc2b36fbf92cefaab8f66c6017",
+   "live": false
+  },
+  "website/hub/build.php": {
+   "sha256": "4bb34ed750e797cab005ba42b445fc7347cb61b62dd0a5942aacbd6af364a136",
+   "live": false
+  },
+  "website/hub/index.php": {
+   "sha256": "6a660e49acfab840784296ffe88abf01cb7cd5c8b55d2f6c408bcb2ed9ab0815",
+   "live": false
+  },
+  "website/js/search-panel.js": {
+   "sha256": "23e1e3b7c316da911c4ebc615279dce8cf17b3bc04db94f93ffd8ffbce4305cb",
+   "live": false
+  }
+ }
+}
