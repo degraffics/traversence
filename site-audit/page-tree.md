@@ -1,6 +1,6 @@
 # Page tree
 
-Decision 0145 §1a. Generated from the live mirror on 2026-11-08 16:14 UTC (`6b454dd`). Once Jason approves it, it replaces the
+Decision 0145 §1a. Generated from the live mirror on 2026-11-08 19:40 UTC (`ad382d9`). Once Jason approves it, it replaces the
 hand-kept `routes.md`. Columns: does the page load the session and the shell, does it draw the account bar, is it in
 `routes.md` / `archive.md`, and which decisions name its file.
 
@@ -97,11 +97,13 @@ hand-kept `routes.md`. Columns: does the page load the session and the shell, do
 | `/gallery/m.php` | `website/gallery/m.php` | redirect | yes | **no** |  |
 | `/guide/how.php` | `website/guide/how.php` | yes | yes | yes |  |
 | `/guide/resources.php` | `website/guide/resources.php` | yes | yes | yes |  |
+| `/hub/build.php` | `website/hub/build.php` | yes | yes | yes |  |
 | `/hub/` | `website/hub/index.php` | yes | yes | yes | 0136, 0143 |
 | `/` | `website/index.php` | yes | yes | yes | 0138, 0143 |
 | `/join.php` | `website/join.php` | yes | yes | yes |  |
 | `/journeys/compose.php` | `website/journeys/compose.php` | redirect | — | yes |  |
 | `/journeys/` | `website/journeys/index.php` | redirect | — | yes |  |
+| `/journeys/suggested.php` | `website/journeys/suggested.php` | yes | yes | yes |  |
 | `/journeys/view.php` | `website/journeys/view.php` | yes | yes | yes |  |
 | `/listing/businessportal.php` | `website/listing/businessportal.php` | yes | yes | yes |  |
 | `/listing/confirm-referral.php` | `website/listing/confirm-referral.php` | yes | yes | yes |  |
