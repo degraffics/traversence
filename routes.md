@@ -25,6 +25,7 @@ new home); **Remove** (left over, should come off the server).*
 | `/place/recreation.php?id=` | A public recreation place (Recreation.gov) | 0048, 0058 | Live |
 | `/experiences/view.php?id=` | One experience | 0058, 0059 | Live |
 | `/journeys/view.php?id=` | One journey | 0056, 0058 | Live |
+| `/journeys/suggested.php?id=` | One suggested journey, built by rules from a guide's places | 0146 | Live once uploaded |
 | `/journeys/`, `/journeys/compose.php` | Old addresses for managing journeys | 0058 | Moved to `/user/journeys/` |
 | `/community/` | Public community groups: find, join or start one | 0047 | Live |
 | `/community/group.php?id=` | One community group | 0047 | Live |

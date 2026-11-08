@@ -157,3 +157,18 @@ person's own journey, suggestions to fill a gap or reorder to save time. People 
 ## 8. On demand
 
 Guides and journeys are also built where people search: decision 0147.
+
+## Built (2026-11-08): `journeys-engine_20261108.zip`
+
+- `app/lib/TravelLegs.php` and the `travel_legs` table (migration `2027-02-11_suggested_journeys.sql`): our own travel
+  times. One openrouteservice matrix call per town (`ORS_API_KEY` in the live `.env`, punch list item 29; optional
+  `ORS_API_URL`), at most 400 a day, stopping for the day on a 403 or 429; straight-line estimates ("about") otherwise.
+- `app/lib/JourneyPlan.php` and `suggested_journeys`: candidates from the guide's picks (eat, do, shop), its landmarks
+  (never a protected one) and outdoor places, the ones its text names first; no closed business, none placed only at
+  its ZIP's middle, none with `no_suggested_journeys` set. Themes by strength; "A day in" plus up to four themed
+  journeys. Timed for the next Saturday in the place's time zone, with sunrise and sunset; meals at mealtimes.
+- Job `journeys_tick` (hourly, three live guides a run, weekly or when the guide changes).
+- Shown on the guide (a "Suggested journeys" section after Things to do) and on `/journeys/suggested.php?id=` with the
+  engage bar and comments (engage kind `sj`).
+- **Still to build:** the business portal switch for leaving journeys (the flag is read already), staff edit and pin
+  in the admin (the columns exist), saving to the Trip Planner, and Claude's lines (decision 0147).
