@@ -1,6 +1,6 @@
 # ADR 0146: Suggested Journeys from Guides
 
-**Status:** Proposed (Jason, 2026-11-06), with the questions in §6 to answer before it is built.
+**Status:** Accepted (Jason, 2026-11-08). §6's questions are answered; §7 is what every journey needs and how we get it.
 
 ## Why
 
@@ -37,7 +37,8 @@ guide paths (decision 0145 §1), so what the system suggests is also what it tes
 
 - **The places:** the guide's picks and mentions (decisions 0131, 0133), our listings, landmarks and outdoor places.
 - **The facts:** open hours, phone, website and photos (the landmark photo finder, decision 0143 note).
-- **Distances:** straight-line between stops at first; driving distances only if they can be got free.
+- **Distances and travel times:** real road, walking and cycling times from openrouteservice (§7), straight-line only as
+  the fallback.
 - **The checks:** the crawler confirms each place is still open and still there before it's used, and again when the
   guide is renewed.
 - **Writing:** the route and the stop order are built by rules, with no AI and no cost. A one-line introduction per
@@ -72,12 +73,64 @@ journey's page, then each stop. The audit checks:
 
 A failure reaches the guide's Pulse case as well as the scorecard.
 
-## 6. Questions for Jason before it's built
+## 6. Questions for Jason: answered 2026-11-08
 
-1. **Which shapes first:** answered (Jason, 2026-11-08): the guide's dominant themes decide its journeys (§1, Shapes).
-2. **How many stops:** suggested 4–7 for a day, 3–4 for a morning.
-3. **Driving distances:** straight-line only (free), or a free routing service if one fits our no-cost rule. Straight
-   line is suggested to start.
-4. **Where they appear:** on the guide's page ("Suggested journeys"), in Discovery and the Trip Planner, and in
-   search. Suggested: all of them.
-5. **Businesses:** may a business ask to be left out of suggested journeys? Suggested: yes, from its business portal.
+1. **Which shapes:** the guide's dominant themes decide its journeys (§1, Shapes).
+2. **How many stops:** the guide decides. As many good stops as fit the time, the hours and the distances; no fixed
+   range. A journey needs at least two usable stops to exist.
+3. **Distances:** journeys, the system's and people's own, get everything they need to make the best journey possible
+   (§7).
+4. **Where they appear:** everywhere: the guide's page ("Suggested journeys"), Discovery, the Trip Planner and search,
+   always labelled "Suggested by Traversence".
+5. **Businesses:** a business can leave suggested journeys from its business portal (it stays in guides and search).
+   Inclusion never depends on payment.
+
+## 7. What a journey needs, and where each piece comes from
+
+One journey engine (`app/lib/JourneyPlan.php`) serves both suggested journeys and the ones people make in the Trip
+Planner. It answers: in what order, how long at each stop, how long between them, will it be open, and is it a good time.
+
+**About each stop**
+
+| Need | From | Cost |
+|---|---|---|
+| Where it is, what kind, which theme | our listings, landmarks, outdoor places, experiences | none |
+| Open hours, closed days, seasons | listings; the crawler confirms them (§2) | none |
+| How long people stay | a rule per kind (a café 45 min, a museum 90 min, a short trail 2 hr), or the experience's own `duration` | none |
+| Effort and who it suits | the experience's `effort`; access notes on outdoor places | none |
+| Why go, photo, its page | the guide's own words, the photo finder (0143), the stop's page | none |
+| Still there, safe to show | the crawler's check; `Landmarks::visibleSql()` (0066) | none |
+
+**Between stops**
+
+| Need | From | Cost |
+|---|---|---|
+| Driving, walking or cycling time and distance | **openrouteservice** (OpenStreetMap data): free plan 2,000 routes and 500 matrices a day, a hard stop at the limit, never a bill | none |
+| Kept once found | each pair of places and each mode is stored, so a route is asked for once and reused for every journey | none |
+| When the service is down or the day's limit is reached | straight-line distance with a road factor (×1.3), marked "about" | none |
+| The visitor's turn-by-turn directions | a map link that opens their own maps app (0058 §8) | none |
+
+**About the day**
+
+| Need | From | Cost |
+|---|---|---|
+| Sunrise and sunset, daylight left | worked out on our server from the date and place | none |
+| Weather and alerts | `Weather` (National Weather Service), already used by guides | none |
+| Events on the day | our events and the guide's | none |
+| Park and road closures | the National Park Service's alerts, once its key is in Railway (0058) | none |
+
+**About the person** (Trip Planner, given by them, kept private): start point and time, time available, how they
+travel, pace, and anything to avoid (long walks, stairs, steep trails).
+
+**What the engine gives back:** the stops in order with arrive and leave times; each leg's time and distance; warnings
+("closes at 5", "after sunset", "heat advisory", "90 minutes' drive"); a swap for any stop that's closed; and, for a
+person's own journey, suggestions to fill a gap or reorder to save time. People can always override the order.
+
+**Rules:**
+- Only the server asks openrouteservice, from the job that builds journeys or when a person changes a trip, never
+  for every page view. Its key is a secret in the live `.env` (Jason adds it, by hand).
+- OpenStreetMap's credit ("© OpenStreetMap contributors") shows wherever its routes do.
+- When the free daily limit runs out, the engine uses straight-line times and finishes the rest the next day. Nothing
+  paid is used (no income, no expense). Driving routes for paying plans' heavier use can be added later, inside their
+  allowance.
+- Google Maps and Mapbox are not used for routing: both bill once past their free amounts.
