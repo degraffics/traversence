@@ -110,3 +110,26 @@ The crawler, our own research and the routes are free. Claude's writing is not.
 - The search's "building a guide" answer and Follow, in Quick Search and the place page.
 - Insights → Guides: places asked for, built, waiting, and the month's cost by feature.
 - The audit (decision 0145): every on-demand guide and journey becomes a guide path once live.
+
+## Built (2026-11-08): `guides-on-demand_20261108.zip`
+
+- **Search:** a place outside our areas with no guide gets a card, "Build the guide to Dana Point, CA" (or "See how
+  it's going", or "Open the first look"), from `OnDemand::offer` (`UniversalSearch`, `js/search-panel.js`).
+- **`/hub/build.php`:** the place becomes one of our towns (`anchors`, community 0: outside our areas), real places only
+  (`zip_coordinates`). The page's own script starts the build (`POST /api/guide-build.php`, with the security token)
+  and checks in every 1.5 seconds; each check runs the next step under a lease (`OnDemand::step`), never twice at once.
+  A step that outlasts the connection runs on (`ignore_user_abort`).
+- **Steps:** places (the dossier, OpenStreetMap's places to eat and stay, outdoor places, landmarks) → journeys (by rules;
+  outside our areas, OpenStreetMap's places to eat are stops, credited, never listings, decision 0065) → write (the
+  first look: `Guides::$firstLook`, no research brief bought, shorter, feature *Guides on demand*, at most one search)
+  → journeys again → deep (the guide job's gathering: Library of Congress, newspapers, research brief).
+- **Live as a first look** when it has sections and no name holds it back (decision 0066); labelled "First look" on the
+  guide. The job `guide_ondemand_tick` (every 5 minutes) carries on builds a visitor left, writes queued ones, and,
+  once the research is in (or 48 hours pass), has Claude rewrite its own sections; the label comes off when the score
+  reaches the publishing line.
+- **Allowance:** Thresholds & gates → *Guides on demand: share of the day's AI allowance* (`guide_ondemand_share`,
+  default 50%); today's spend is *Guides on demand*'s in `ai_jobs`; a first look's cost is estimated from the last ten
+  (40¢ until there are some). The full guide's research and rewrite spend from their own features (*Research briefs*,
+  *Guide drafts on their own*).
+- **Still to build:** Follow and "your guide is ready" notices, Claude's journey lines, and Insights → Guides (asked
+  for, built, waiting, cost).
