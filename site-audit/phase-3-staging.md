@@ -57,7 +57,7 @@ already uses, it:
 - creates `staging.trvgo.us`, its database and database user, and copies the site;
 - writes staging's own `.env`, so the database password is made on the server and never leaves it;
 - sets the staging viewing password;
-- adds the DNS record when trvgo.us's DNS is on Bluehost.
+- adds the DNS record (trvgo.us's DNS is on Bluehost, confirmed 2026-11-08).
 
 Staging uses Cloudflare Turnstile's official test keys, which always pass, so nothing changes in your Cloudflare
 account.
@@ -65,10 +65,11 @@ account.
 1. **Approval** of this phase.
 2. **One exception to the ".env by hand" rule:** the setup button writes **staging's** `.env` itself. Live's `.env`
    stays by hand, as always.
-3. **Only if trvgo.us's DNS isn't on Bluehost** (for example, Cloudflare): add the one DNS record the button shows you.
+3. **DNS:** nothing. trvgo.us's DNS is on Bluehost (Jason, 2026-11-08), so the button adds the record.
 4. **The staging viewing password goes in the same shown-once block as the test accounts**, which you paste into
    `CHECK_ACCOUNTS`. There's no separate secret.
-5. **Optional:** Google, Microsoft and Facebook sign-in on staging. Skip it, and staging uses email sign-in.
+5. **Social sign-in on staging:** not now (Jason, 2026-11-08). Staging uses email sign-in; Google, Microsoft and
+   Facebook can be added later.
 
 ## Done when
 
