@@ -1,0 +1,18 @@
+{
+ "zip": "places-fix_20261108.zip",
+ "built_on": "7635b7a Sync: 2026-11-08 20:19 UTC",
+ "recorded": "2026-11-08 20:22 UTC",
+ "note": "Places on demand: searched-for guides first, four a run; historic houses and cinemas",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/PlaceFinder.php": {
+   "sha256": "d4278bf2f63e96040ca44b99a8fcc4954deaebdcf72de27e1dcbe89ffcbf45b5",
+   "live": false
+  },
+  "app/scripts/guide_ondemand_tick.php": {
+   "sha256": "553dec4230820440c87e9b85d78212fa9c38535ebd05299e7c123b1c075dfa72",
+   "live": false
+  }
+ }
+}
