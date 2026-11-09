@@ -37,6 +37,8 @@ new home); **Remove** (left over, should come off the server).*
 | `/our-approach.php` | Our approach to linking, in plain words | 0050, 0051, 0052 | Live |
 | `/join.php?i=` | An invite link: remembers it and sends the person to sign up | 0047 | Live |
 | `/claim.php?listing=` | Claim a listing: email code (Managed by owner), text code to the Verify number (✓ Verified), other ways, other locations, plan. `&dispute=1` questions a listing's owner; `?new=1` adds a business (to Review); `&mode=contribute` suggests details | 0070, 0062 | Live |
+| `/vendor.php?v=` | A vendor's own page: all their work orders, each opening its full work order (`/wo.php?w=`); private links, 30 days, then Request a new link (emailed) | 0101, 0150 | Live |
+| `/wo.php?w=` | One work order for its vendor: items, specs, ship-to, files, their status buttons; 30 days, then Request a new link | 0101, 0150 | Live |
 | `/gbp-landing-traversence.html` | Google Business Profile audit landing page | — | Live |
 | `/terms.php`, `/privacy.php` | Terms and privacy | — | Live, placeholder: not real legal text, to replace before launch |
 

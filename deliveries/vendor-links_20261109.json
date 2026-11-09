@@ -1,0 +1,46 @@
+{
+ "zip": "vendor-links_20261109.zip",
+ "built_on": "71c45f7 Sync: 2026-11-09 15:41 UTC",
+ "recorded": "2026-11-09 16:06 UTC",
+ "note": "Vendor links (decisions/0150): one page of a vendor's work orders, 30-day links with Request a new link, staff Email their link, Vendor staff landing (built on 15:41 UTC)",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/admin/sections.php": {
+   "sha256": "1c47e0a6d69bd68fa9250339b7d4a5185f04c974e2e6aba26817d33d42293f6f",
+   "live": false
+  },
+  "app/bootstrap.php": {
+   "sha256": "61b2d432da650fc1e80f09ebb8043806665be554c6aa160cf7fccdd5f2e5e20f",
+   "live": false
+  },
+  "app/lib/Vendors.php": {
+   "sha256": "b5e941ab26ae0840098b67b66d74dfb55b4494ba073cf4aeb362185b43da82d6",
+   "live": false
+  },
+  "app/lib/WorkOrders.php": {
+   "sha256": "cb2662a2e2692e74589c2c5128d1a9772c12278029c85baa1475a046a76d05ee",
+   "live": false
+  },
+  "app/migrations/2027-02-17_vendor_links.sql": {
+   "sha256": "3404243a2edd88d3275953b859417c1e9eaee33ba5c2d9b39f82219436818369",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "55fa3f98f03336c6e97a2bbdb2daa39640c4b96b3d71d1d96769bb424e9c55e9",
+   "live": false
+  },
+  "website/admin/api/vendors.php": {
+   "sha256": "21f688f9da0afde2417f13800613403b1732db2f8a0d42caf70c7e08bc1d5b2a",
+   "live": false
+  },
+  "website/vendor.php": {
+   "sha256": "e4e73321ec87fb8cf8ebcda9e630b27f3700d0605711dcf107f3e2ab47c042fc",
+   "live": false
+  },
+  "website/wo.php": {
+   "sha256": "9204ee91b575fdb25b4ffbf3685dd1738b192851ddf61e3470065989e726e246",
+   "live": false
+  }
+ }
+}
