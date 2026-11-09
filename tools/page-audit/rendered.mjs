@@ -98,13 +98,14 @@ async function check(ctx, who, url, size, shots) {
     const r = await p.goto(SITE + url, { waitUntil: 'load', timeout: 45000 });
     f.status = r ? r.status() : 0; f.final = p.url().replace(SITE, '');
     await p.waitForTimeout(800);
+    if (!/html/i.test((r && r.headers()['content-type']) || 'text/html')) { await p.close(); return f; }   // an XML or JSON file (the sitemap): no page to lay out
     Object.assign(f, await p.evaluate((phone) => {
-      const vis = el => { const r = el.getBoundingClientRect(); const s = getComputedStyle(el); return r.width > 0 && r.height > 0 && s.visibility !== 'hidden' && s.display !== 'none'; };
+      const vis = el => { if (el.checkVisibility && !el.checkVisibility({ contentVisibilityAuto: true, opacityProperty: true, visibilityProperty: true })) return false; const r = el.getBoundingClientRect(); const s = getComputedStyle(el); return r.width > 0 && r.height > 0 && s.visibility !== 'hidden' && s.display !== 'none' && !el.closest('[hidden], details:not([open]) > :not(summary)'); };   // folded parts (closed answers, a folded menu) aren't on screen
       const out = { scroll: document.documentElement.scrollWidth > window.innerWidth + 1, edges: 0, alt: 0, names: 0, eg: {} };
-      const eg = (k, el) => { (out.eg[k] = out.eg[k] || []).length < 3 && out.eg[k].push(el.outerHTML.replace(/\s+/g, ' ').slice(0, 180)); };   // a sample of each, so it can be found
-      if (phone) for (const el of document.querySelectorAll('.tv-bleed')) { if (!vis(el)) continue; const r = el.getBoundingClientRect(); if (r.width > window.innerWidth * 0.8 && (r.left > 6 || window.innerWidth - r.right > 6)) { out.edges++; eg('edges', el.cloneNode(false)); } }
+      const eg = (k, el) => { (out.eg[k] = out.eg[k] || []).length < 3 && out.eg[k].push(el.outerHTML.replace(/\s+/g, ' ').slice(0, 320)); };   // a sample of each, so it can be found
+      if (phone) for (const el of document.querySelectorAll('.tv-bleed')) { if (!vis(el)) continue; const r = el.getBoundingClientRect(); if (r.width > window.innerWidth * 0.8 && (r.left > 6 || window.innerWidth - r.right > 6)) { out.edges++; let a = el.parentElement, pad = ''; while (a && !pad) { const cs = getComputedStyle(a); if (parseFloat(cs.paddingLeft) > 6 || parseFloat(cs.paddingRight) > 6) pad = (a.id ? '#' + a.id : a.tagName.toLowerCase() + '.' + [...a.classList].join('.')) + ' pads ' + cs.paddingLeft + '/' + cs.paddingRight; a = a.parentElement; } const c = el.cloneNode(false); c.setAttribute('data-gap', Math.round(r.left) + 'px left, ' + Math.round(window.innerWidth - r.right) + 'px right' + (pad ? '; ' + pad : '')); eg('edges', c); } }
       for (const im of document.querySelectorAll('img')) if (vis(im) && !im.hasAttribute('alt')) out.alt++;
-      for (const el of document.querySelectorAll('a[href], button')) if (vis(el) && !(el.innerText || '').trim() && !el.getAttribute('aria-label') && !el.getAttribute('title') && !el.querySelector('img[alt]:not([alt=""])')) { out.names++; eg('names', el); }
+      for (const el of document.querySelectorAll('a[href], button')) if (vis(el) && !(el.innerText || el.textContent || '').trim() && !el.getAttribute('aria-label') && !el.getAttribute('aria-labelledby') && !el.querySelector('svg title') && !el.getAttribute('title') && !el.querySelector('img[alt]:not([alt=""])')) { out.names++; eg('names', el); }
       return out;
     }, size === 'phone'));
     if (shots && size === 'phone') await p.screenshot({ path: `shots/${who}-${url.replace(/[^a-z0-9]+/gi, '_').slice(0, 80)}.png` }).catch(() => {});
