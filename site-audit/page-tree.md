@@ -1,6 +1,6 @@
 # Page tree
 
-Decision 0145 §1a. Generated from the live mirror on 2026-11-09 06:20 UTC (`c620651`). Once Jason approves it, it replaces the
+Decision 0145 §1a. Generated from the live mirror on 2026-11-09 17:27 UTC (`68cc098`). Once Jason approves it, it replaces the
 hand-kept `routes.md`. Columns: does the page load the session and the shell, does it draw the account bar, is it in
 `routes.md` / `archive.md`, and which decisions name its file.
 
@@ -86,6 +86,7 @@ hand-kept `routes.md`. Columns: does the page load the session and the shell, do
 | `/discovery/` | `website/discovery/index.php` | yes | yes | yes |  |
 | `/email-revert.php` | `website/email-revert.php` | **no** | **no** | yes |  |
 | `/email/unsubscribe.php` | `website/email/unsubscribe.php` | yes | yes | **no** |  |
+| `/experiences/` | `website/experiences/index.php` | redirect | — | yes |  |
 | `/experiences/view.php` | `website/experiences/view.php` | yes | yes | yes |  |
 | `/faq.php` | `website/faq.php` | yes | yes | yes |  |
 | `/forgot-password.php` | `website/forgot-password.php` | yes | **no** | yes |  |
@@ -153,6 +154,7 @@ hand-kept `routes.md`. Columns: does the page load the session and the shell, do
 | `/user/restore-account.php` | `website/user/restore-account.php` | yes | yes | **no** |  |
 | `/user/staff-link.php` | `website/user/staff-link.php` | yes | yes | **no** |  |
 | `/user/transfer.php` | `website/user/transfer.php` | yes | yes | **no** |  |
+| `/vendor.php` | `website/vendor.php` | yes | yes | yes | 0150 |
 | `/verify-email.php` | `website/verify-email.php` | **no** | **no** | yes |  |
 | `/verify-listing.php` | `website/verify-listing.php` | yes | yes | **no** |  |
-| `/wo.php` | `website/wo.php` | yes | yes | **no** |  |
+| `/wo.php` | `website/wo.php` | yes | yes | yes | 0150 |

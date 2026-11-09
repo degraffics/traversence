@@ -1,6 +1,6 @@
 {
- "run": "2026-11-09 06:20 UTC",
- "mirror": "c620651",
+ "run": "2026-11-09 17:27 UTC",
+ "mirror": "68cc098",
  "findings": [
   {
    "rule": "R02",
@@ -589,12 +589,6 @@
    "file": "website/verify-listing.php",
    "line": 1,
    "msg": "/verify-listing.php is on the server but in neither routes.md nor archive.md"
-  },
-  {
-   "rule": "R09",
-   "file": "website/wo.php",
-   "line": 1,
-   "msg": "/wo.php is on the server but in neither routes.md nor archive.md"
   },
   {
    "rule": "R10",

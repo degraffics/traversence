@@ -1,6 +1,6 @@
 # Decision register
 
-Decision 0145 §1a. Generated on 2026-11-09 06:20 UTC from `decisions/` and the live mirror (`c620651`). Don't edit by hand:
+Decision 0145 §1a. Generated on 2026-11-09 17:27 UTC from `decisions/` and the live mirror (`68cc098`). Don't edit by hand:
 edit the decision, and this follows. "Missing files" are files a decision names that the site no longer has: the
 decision may be stale, or the file moved.
 
@@ -155,4 +155,4 @@ decision may be stale, or the file moved.
 | 0147 | [Guides and Journeys on Demand](0147-guides-and-journeys-on-demand.md) | accepted |  |  | 0 |  |
 | 0148 | [Places on Demand](0148-places-on-demand.md) | accepted |  |  | 0 |  |
 | 0149 | [Listings on Demand](0149-listings-on-demand.md) | accepted |  |  | 0 |  |
-| 0150 | [Vendor Links](0150-vendor-links.md) | accepted |  |  | 0 |  |
+| 0150 | [Vendor links (one page of a vendor's work orders, 30 days)](0150-vendor-links.md) | accepted |  |  | 9 |  |
