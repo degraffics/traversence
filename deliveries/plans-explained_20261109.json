@@ -1,0 +1,22 @@
+{
+ "zip": "plans-explained_20261109.zip",
+ "built_on": "28536e0 Sync: 2026-11-09 12:42 UTC",
+ "recorded": "2026-11-09 12:44 UTC",
+ "note": "Plans page: each plan lists what it includes (built on 12:42 UTC)",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/ui/faq.md": {
+   "sha256": "c91cc0dcef7bc834b451f54a43c29eabf1c66046c5383562b82b51f55e8222db",
+   "live": false
+  },
+  "website/api/plans.php": {
+   "sha256": "14b9536edec0a57de2cae77c7306357a3235f65dddabb261e6812ac981cfe3bc",
+   "live": false
+  },
+  "website/plans.php": {
+   "sha256": "7729e1ef44db62ad63b648011e6b6b19c43754f32ac8195eb8ebf36ec56aedfd",
+   "live": false
+  }
+ }
+}
