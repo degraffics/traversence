@@ -1,13 +1,12 @@
 {
- "at": "2026-11-09T13:15:12.434Z",
+ "at": "2026-11-09T15:32:21.864Z",
  "site": "https://traversence.com",
  "full": false,
  "signed_in": true,
  "pages": 344,
  "by": {
-  "status": 6,
-  "edges": 3,
-  "console": 3
+  "console": 5,
+  "status": 1
  },
  "results": [
   {
@@ -151,7 +150,7 @@
    "url": "/experiences/",
    "size": "phone",
    "must": true,
-   "status": 403,
+   "status": 200,
    "console": [],
    "requests": [],
    "dialogs": [],
@@ -159,21 +158,16 @@
    "edges": 0,
    "alt": 0,
    "names": 0,
-   "final": "/experiences/",
+   "final": "/discovery/?view=experiences",
    "eg": {},
-   "why": [
-    [
-     "status",
-     "403"
-    ]
-   ]
+   "why": []
   },
   {
    "who": "guest",
    "url": "/experiences/",
    "size": "desktop",
    "must": true,
-   "status": 403,
+   "status": 200,
    "console": [],
    "requests": [],
    "dialogs": [],
@@ -181,116 +175,120 @@
    "edges": 0,
    "alt": 0,
    "names": 0,
-   "final": "/experiences/",
+   "final": "/discovery/?view=experiences",
+   "eg": {},
+   "why": []
+  },
+  {
+   "who": "guest",
+   "url": "/community/",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "final": "/community/",
+   "eg": {},
+   "why": []
+  },
+  {
+   "who": "guest",
+   "url": "/community/",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "final": "/community/",
+   "eg": {},
+   "why": []
+  },
+  {
+   "who": "guest",
+   "url": "/market/",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "final": "/market/",
+   "eg": {},
+   "why": []
+  },
+  {
+   "who": "guest",
+   "url": "/market/",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "final": "/market/",
+   "eg": {},
+   "why": []
+  },
+  {
+   "who": "guest",
+   "url": "/plans.php",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "final": "/login.php?next=%2Fplans.php",
+   "eg": {},
+   "why": []
+  },
+  {
+   "who": "guest",
+   "url": "/plans.php",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [
+    "Refused to connect to 'data:,' because it violates the following Content Security Policy directive: \"connect-src 'self' https://hagen.challenges.cloudflare.com https://brunhild.challenges.cloudflare.c",
+    "Refused to connect to 'data:,' because it violates the following Content Security Policy directive: \"connect-src 'self' https://hagen.challenges.cloudflare.com https://brunhild.challenges.cloudflare.c",
+    "Refused to connect to 'data:,' because it violates the document's Content Security Policy."
+   ],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "final": "/login.php?next=%2Fplans.php",
    "eg": {},
    "why": [
     [
-     "status",
-     "403"
+     "console",
+     "Refused to connect to 'data:,' because it violates the following Content Security Policy directive: \"connect-src 'self' https://hagen.challenges.cloudflare.com https://brunhild.challenges.cloudflare.c"
     ]
    ]
-  },
-  {
-   "who": "guest",
-   "url": "/community/",
-   "size": "phone",
-   "must": true,
-   "status": 200,
-   "console": [],
-   "requests": [],
-   "dialogs": [],
-   "scroll": false,
-   "edges": 0,
-   "alt": 0,
-   "names": 0,
-   "final": "/community/",
-   "eg": {},
-   "why": []
-  },
-  {
-   "who": "guest",
-   "url": "/community/",
-   "size": "desktop",
-   "must": true,
-   "status": 200,
-   "console": [],
-   "requests": [],
-   "dialogs": [],
-   "scroll": false,
-   "edges": 0,
-   "alt": 0,
-   "names": 0,
-   "final": "/community/",
-   "eg": {},
-   "why": []
-  },
-  {
-   "who": "guest",
-   "url": "/market/",
-   "size": "phone",
-   "must": true,
-   "status": 200,
-   "console": [],
-   "requests": [],
-   "dialogs": [],
-   "scroll": false,
-   "edges": 0,
-   "alt": 0,
-   "names": 0,
-   "final": "/market/",
-   "eg": {},
-   "why": []
-  },
-  {
-   "who": "guest",
-   "url": "/market/",
-   "size": "desktop",
-   "must": true,
-   "status": 200,
-   "console": [],
-   "requests": [],
-   "dialogs": [],
-   "scroll": false,
-   "edges": 0,
-   "alt": 0,
-   "names": 0,
-   "final": "/market/",
-   "eg": {},
-   "why": []
-  },
-  {
-   "who": "guest",
-   "url": "/plans.php",
-   "size": "phone",
-   "must": true,
-   "status": 200,
-   "console": [],
-   "requests": [],
-   "dialogs": [],
-   "scroll": false,
-   "edges": 0,
-   "alt": 0,
-   "names": 0,
-   "final": "/login.php?next=%2Fplans.php",
-   "eg": {},
-   "why": []
-  },
-  {
-   "who": "guest",
-   "url": "/plans.php",
-   "size": "desktop",
-   "must": true,
-   "status": 200,
-   "console": [],
-   "requests": [],
-   "dialogs": [],
-   "scroll": false,
-   "edges": 0,
-   "alt": 0,
-   "names": 0,
-   "final": "/login.php?next=%2Fplans.php",
-   "eg": {},
-   "why": []
   },
   {
    "who": "guest",
@@ -370,23 +368,12 @@
    "requests": [],
    "dialogs": [],
    "scroll": false,
-   "edges": 43,
+   "edges": 0,
    "alt": 0,
    "names": 0,
    "final": "/ai/",
-   "eg": {
-    "edges": [
-     "<a class=\"ai-topic tv-bleed\" href=\"/ai/?topic=holbrook\" data-gap=\"6px left, 6px right; section.ai-card.tv-bleed pads 12.8px/12.8px\"></a>",
-     "<a class=\"ai-topic tv-bleed\" href=\"/ai/?topic=whiteriver\" data-gap=\"6px left, 6px right; section.ai-card.tv-bleed pads 12.8px/12.8px\"></a>",
-     "<a class=\"ai-topic tv-bleed\" href=\"/ai/?topic=navajo-county\" data-gap=\"6px left, 6px right; section.ai-card.tv-bleed pads 12.8px/12.8px\"></a>"
-    ]
-   },
-   "why": [
-    [
-     "edges",
-     "43 card(s) e.g. <a class=\"ai-topic tv-bleed\" href=\"/ai/?topic=holbrook\" data-gap=\"6px left, 6px right; section.ai-card.tv-bleed pads 12.8px/12.8px\"></a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "guest",
@@ -679,6 +666,23 @@
    "who": "guest",
    "url": "/gallery/",
    "size": "phone",
+   "must": false,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "final": "/login.php?next=%2Fgallery%2F",
+   "eg": {},
+   "why": []
+  },
+  {
+   "who": "guest",
+   "url": "/gallery/",
+   "size": "desktop",
    "must": false,
    "status": 200,
    "console": [
@@ -703,23 +707,6 @@
   },
   {
    "who": "guest",
-   "url": "/gallery/",
-   "size": "desktop",
-   "must": false,
-   "status": 200,
-   "console": [],
-   "requests": [],
-   "dialogs": [],
-   "scroll": false,
-   "edges": 0,
-   "alt": 0,
-   "names": 0,
-   "final": "/login.php?next=%2Fgallery%2F",
-   "eg": {},
-   "why": []
-  },
-  {
-   "who": "guest",
    "url": "/gallery/join.php",
    "size": "phone",
    "must": false,
@@ -960,7 +947,11 @@
    "size": "phone",
    "must": false,
    "status": 200,
-   "console": [],
+   "console": [
+    "Refused to connect to 'data:,' because it violates the following Content Security Policy directive: \"connect-src 'self' https://hagen.challenges.cloudflare.com https://brunhild.challenges.cloudflare.c",
+    "Refused to connect to 'data:,' because it violates the following Content Security Policy directive: \"connect-src 'self' https://hagen.challenges.cloudflare.com https://brunhild.challenges.cloudflare.c",
+    "Refused to connect to 'data:,' because it violates the document's Content Security Policy."
+   ],
    "requests": [],
    "dialogs": [],
    "scroll": false,
@@ -969,7 +960,12 @@
    "names": 0,
    "final": "/login.php?next=%2Fuser%2Fjourneys%2Fcompose.php",
    "eg": {},
-   "why": []
+   "why": [
+    [
+     "console",
+     "Refused to connect to 'data:,' because it violates the following Content Security Policy directive: \"connect-src 'self' https://hagen.challenges.cloudflare.com https://brunhild.challenges.cloudflare.c"
+    ]
+   ]
   },
   {
    "who": "guest",
@@ -977,7 +973,11 @@
    "size": "desktop",
    "must": false,
    "status": 200,
-   "console": [],
+   "console": [
+    "Refused to connect to 'data:,' because it violates the following Content Security Policy directive: \"connect-src 'self' https://hagen.challenges.cloudflare.com https://brunhild.challenges.cloudflare.c",
+    "Refused to connect to 'data:,' because it violates the following Content Security Policy directive: \"connect-src 'self' https://hagen.challenges.cloudflare.com https://brunhild.challenges.cloudflare.c",
+    "Refused to connect to 'data:,' because it violates the document's Content Security Policy."
+   ],
    "requests": [],
    "dialogs": [],
    "scroll": false,
@@ -986,7 +986,12 @@
    "names": 0,
    "final": "/login.php?next=%2Fuser%2Fjourneys%2Fcompose.php",
    "eg": {},
-   "why": []
+   "why": [
+    [
+     "console",
+     "Refused to connect to 'data:,' because it violates the following Content Security Policy directive: \"connect-src 'self' https://hagen.challenges.cloudflare.com https://brunhild.challenges.cloudflare.c"
+    ]
+   ]
   },
   {
    "who": "guest",
@@ -1062,11 +1067,7 @@
    "size": "phone",
    "must": false,
    "status": 200,
-   "console": [
-    "Refused to connect to 'data:,' because it violates the following Content Security Policy directive: \"connect-src 'self' https://hagen.challenges.cloudflare.com https://brunhild.challenges.cloudflare.c",
-    "Refused to connect to 'data:,' because it violates the following Content Security Policy directive: \"connect-src 'self' https://hagen.challenges.cloudflare.com https://brunhild.challenges.cloudflare.c",
-    "Refused to connect to 'data:,' because it violates the document's Content Security Policy."
-   ],
+   "console": [],
    "requests": [],
    "dialogs": [],
    "scroll": false,
@@ -1075,12 +1076,7 @@
    "names": 0,
    "final": "/login.php?next=%2Flisting%2Fbusinessportal.php",
    "eg": {},
-   "why": [
-    [
-     "console",
-     "Refused to connect to 'data:,' because it violates the following Content Security Policy directive: \"connect-src 'self' https://hagen.challenges.cloudflare.com https://brunhild.challenges.cloudflare.c"
-    ]
-   ]
+   "why": []
   },
   {
    "who": "guest",
@@ -2907,7 +2903,7 @@
    "url": "/admin/local/pins",
    "size": "phone",
    "must": true,
-   "status": 0,
+   "status": 200,
    "console": [],
    "requests": [],
    "dialogs": [],
@@ -2915,20 +2911,16 @@
    "edges": 0,
    "alt": 0,
    "names": 0,
-   "error": "TimeoutError: page.goto: Timeout 45000ms exceeded.\nCall log:\n  - navigating to \"https://traversence.com/admin/local/pins\", waiting until \"load\"\n",
-   "why": [
-    [
-     "status",
-     "TimeoutError: page.goto: Timeout 45000ms exceeded.\nCall log:\n  - navigating to \"https://traversence.com/admin/local/pins\", waiting until \"load\"\n"
-    ]
-   ]
+   "final": "/admin/local/pins",
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
    "url": "/admin/local/pins",
    "size": "desktop",
    "must": true,
-   "status": 0,
+   "status": 200,
    "console": [],
    "requests": [],
    "dialogs": [],
@@ -2936,20 +2928,16 @@
    "edges": 0,
    "alt": 0,
    "names": 0,
-   "error": "TimeoutError: page.goto: Timeout 45000ms exceeded.\nCall log:\n  - navigating to \"https://traversence.com/admin/local/pins\", waiting until \"load\"\n",
-   "why": [
-    [
-     "status",
-     "TimeoutError: page.goto: Timeout 45000ms exceeded.\nCall log:\n  - navigating to \"https://traversence.com/admin/local/pins\", waiting until \"load\"\n"
-    ]
-   ]
+   "final": "/admin/local/pins",
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
    "url": "/admin/local/nations",
    "size": "phone",
    "must": true,
-   "status": 0,
+   "status": 200,
    "console": [],
    "requests": [],
    "dialogs": [],
@@ -2957,13 +2945,9 @@
    "edges": 0,
    "alt": 0,
    "names": 0,
-   "error": "TimeoutError: page.goto: Timeout 45000ms exceeded.\nCall log:\n  - navigating to \"https://traversence.com/admin/local/nations\", waiting until \"load\"\n",
-   "why": [
-    [
-     "status",
-     "TimeoutError: page.goto: Timeout 45000ms exceeded.\nCall log:\n  - navigating to \"https://traversence.com/admin/local/nations\", waiting until \"load\"\n"
-    ]
-   ]
+   "final": "/admin/local/nations",
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -5508,21 +5492,12 @@
    "requests": [],
    "dialogs": [],
    "scroll": false,
-   "edges": 1,
+   "edges": 0,
    "alt": 0,
    "names": 0,
    "final": "/admin/config/dbupdates",
-   "eg": {
-    "edges": [
-     "<div class=\"ak-fold tv-bleed\" data-gap=\"8px left, 8px right; div.ak-card.tv-bleed pads 14.4px/14.4px\"></div>"
-    ]
-   },
-   "why": [
-    [
-     "edges",
-     "1 card(s) e.g. <div class=\"ak-fold tv-bleed\" data-gap=\"8px left, 8px right; div.ak-card.tv-bleed pads 14.4px/14.4px\"></div>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -5908,23 +5883,15 @@
    "requests": [],
    "dialogs": [],
    "scroll": false,
-   "edges": 1,
+   "edges": 0,
    "alt": 0,
    "names": 0,
    "final": "/admin/",
-   "eg": {
-    "edges": [
-     "<div class=\"hb-card tv-bleed\" style=\"max-width:32rem;margin:1.5rem auto;background:#F7EFDC;border:1px solid #EADFC4;border-radius:.8rem;padding:1rem\" data-gap=\"14px left, 14px right; #ta-work pads 13.6px/13.6px\"></div>"
-    ]
-   },
+   "eg": {},
    "why": [
     [
      "status",
      "403"
-    ],
-    [
-     "edges",
-     "1 card(s) e.g. <div class=\"hb-card tv-bleed\" style=\"max-width:32rem;margin:1.5rem auto;background:#F7EFDC;border:1px solid #EADFC4;border-radius:.8rem;padding:1rem\" data-gap=\"14px left, 14px right; #ta-work pads 13.6px/13.6px\"></div>"
     ]
    ]
   }
