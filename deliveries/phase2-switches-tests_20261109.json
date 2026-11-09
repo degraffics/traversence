@@ -3,60 +3,60 @@
  "built_on": "c620651 Sync: 2026-11-09 00:42 UTC",
  "recorded": "2026-11-09 01:48 UTC",
  "note": "Phase 2: switches, test accounts, the health report, checks' sign-in (decisions/0145)",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "6d3ade3 Sync: 2026-11-09 12:13 UTC",
  "files": {
   "app/admin/manifests.php": {
    "sha256": "20e6395645fbb5b493459fcf30dec820311815672b8734e9d4051cbdd0f94460",
-   "live": false
+   "live": true
   },
   "app/admin/sections.php": {
    "sha256": "babb7973e43dd300045b2331bc367ef7b19f058e99b3a76f60ffcdfb648a411e",
-   "live": false
+   "live": true
   },
   "app/lib/Billing.php": {
    "sha256": "964cd10ff6afe4d9a38943b27b36760654a91065e93a18e4839b8e4029b71afa",
-   "live": false
+   "live": true
   },
   "app/lib/Engage.php": {
    "sha256": "e9633f473d330ff01ec455d88951808e79c66472a060c96601e03389d92fcd4f",
-   "live": false
+   "live": true
   },
   "app/lib/EnvSettings.php": {
    "sha256": "ca659114c37f9a42918e45e22b263db5bb97e98d9d8decc4401b88b6a0415f5a",
-   "live": false
+   "live": true
   },
   "app/lib/Mailer.php": {
    "sha256": "393e85a44f32865e8f4047f99bd52a43072935d6ea9f2225ef06a764ec4f740b",
-   "live": false
+   "live": true
   },
   "app/lib/Notices.php": {
    "sha256": "ea00e4c46791278ba903b8618f6891ae86dc71dddbcd7510f89b66fab37ea296",
-   "live": false
+   "live": true
   },
   "app/lib/People.php": {
    "sha256": "62a8eab33cf0269024bb066d326f40395216c3919b529936795c6b449c419f1f",
-   "live": false
+   "live": true
   },
   "app/lib/PlatformCounts.php": {
    "sha256": "e3d795f9a798439cced26a94102a68cd866f3132e4b7aa00a851a62ea0bfc801",
-   "live": false
+   "live": true
   },
   "app/lib/SesMail.php": {
    "sha256": "00101342b85c076d9c64d9257b18da98a284ba68d665a83da09cac18cbdac38f",
-   "live": false
+   "live": true
   },
   "app/lib/StaffLogin.php": {
    "sha256": "3c89f7f4ca761d82293e6322cbc17d5d1383ee05cb9ca3010949486f0636e7ad",
-   "live": false
+   "live": true
   },
   "app/lib/Switches.php": {
    "sha256": "5413530bf082b075a568609ed5c3f046623dcda669347b90c34ff51e1225c4bd",
-   "live": false
+   "live": true
   },
   "app/lib/TestAccounts.php": {
    "sha256": "e7b3456c20d8cfc52c04c008c3b0a3912436fef2320c06e83d5b0175b32d945a",
-   "live": false
+   "live": true
   },
   "app/migrations/2027-02-16_test_accounts_and_switches.sql": {
    "sha256": "4e8ce48e16958623620746d2a39b6abbb9b3c3793d21074ac482daca7a38068c",
@@ -64,23 +64,23 @@
   },
   "app/ui/admin-dashboard.php": {
    "sha256": "16c6686c34796815089903d8e82f709ba5031836e518ee6a4adc6672b1b3f0f1",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "f912843afe019f3f018b36c0c38766a66f07bf9de84a026dba79ed3f857e5107",
-   "live": false
+   "live": true
   },
   "website/api/auth/login.php": {
    "sha256": "b4967963f8641257c160c5b89f57e75a5582549b41ebad9f5500e0cbde892196",
-   "live": false
+   "live": true
   },
   "website/api/health.php": {
    "sha256": "d8568632e9a70f08ccb601335bf43989151efec6d9f678bbf6af9b0b4d32c0a0",
-   "live": false
+   "live": true
   },
   "website/faq.php": {
    "sha256": "95cea12d33164918a0851513a17c7d7a03fc4a52ece0945b9ab04ab2fe09c3c8",
-   "live": false
+   "live": true
   }
  }
 }
