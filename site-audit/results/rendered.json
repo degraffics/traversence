@@ -1,14 +1,13 @@
 {
- "at": "2026-11-09T13:00:25.186Z",
+ "at": "2026-11-09T13:15:12.434Z",
  "site": "https://traversence.com",
  "full": false,
  "signed_in": true,
  "pages": 344,
  "by": {
-  "names": 214,
   "status": 6,
-  "edges": 16,
-  "scroll": 1
+  "edges": 3,
+  "console": 3
  },
  "results": [
   {
@@ -57,19 +56,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 1,
+   "names": 0,
    "final": "/discovery/",
-   "eg": {
-    "names": [
-     "<button class=\"dv-btn\" type=\"submit\">Find trip ideas</button>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "1 control(s) e.g. <button class=\"dv-btn\" type=\"submit\">Find trip ideas</button>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "guest",
@@ -83,19 +73,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 1,
+   "names": 0,
    "final": "/discovery/",
-   "eg": {
-    "names": [
-     "<button class=\"dv-btn\" type=\"submit\">Find trip ideas</button>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "1 control(s) e.g. <button class=\"dv-btn\" type=\"submit\">Find trip ideas</button>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "guest",
@@ -143,21 +124,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 21,
+   "names": 0,
    "final": "/faq.php",
-   "eg": {
-    "names": [
-     "<a href=\"/faq.php#why-do-some-photos-say-stock-photo\" class=\"underline\">Why do some photos say Stock photo?</a>",
-     "<a href=\"/qr/\" class=\"underline\">GO Codes</a>",
-     "<a href=\"#what-if-something-s-wrong-with-my-order\" class=\"underline\">What if something's wrong with my order?</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "21 control(s) e.g. <a href=\"/faq.php#why-do-some-photos-say-stock-photo\" class=\"underline\">Why do some photos say Stock photo?</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "guest",
@@ -171,21 +141,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 21,
+   "names": 0,
    "final": "/faq.php",
-   "eg": {
-    "names": [
-     "<a href=\"/faq.php#why-do-some-photos-say-stock-photo\" class=\"underline\">Why do some photos say Stock photo?</a>",
-     "<a href=\"/qr/\" class=\"underline\">GO Codes</a>",
-     "<a href=\"#what-if-something-s-wrong-with-my-order\" class=\"underline\">What if something's wrong with my order?</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "21 control(s) e.g. <a href=\"/faq.php#why-do-some-photos-say-stock-photo\" class=\"underline\">Why do some photos say Stock photo?</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "guest",
@@ -277,19 +236,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 1,
+   "names": 0,
    "final": "/market/",
-   "eg": {
-    "names": [
-     "<button class=\"mk-b2 go\" type=\"submit\">Show</button>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "1 control(s) e.g. <button class=\"mk-b2 go\" type=\"submit\">Show</button>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "guest",
@@ -303,19 +253,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 1,
+   "names": 0,
    "final": "/market/",
-   "eg": {
-    "names": [
-     "<button class=\"mk-b2 go\" type=\"submit\">Show</button>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "1 control(s) e.g. <button class=\"mk-b2 go\" type=\"submit\">Show</button>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "guest",
@@ -435,15 +376,15 @@
    "final": "/ai/",
    "eg": {
     "edges": [
-     "<a class=\"ai-topic tv-bleed\" href=\"/ai/?topic=holbrook\"></a>",
-     "<a class=\"ai-topic tv-bleed\" href=\"/ai/?topic=whiteriver\"></a>",
-     "<a class=\"ai-topic tv-bleed\" href=\"/ai/?topic=navajo-county\"></a>"
+     "<a class=\"ai-topic tv-bleed\" href=\"/ai/?topic=holbrook\" data-gap=\"6px left, 6px right; section.ai-card.tv-bleed pads 12.8px/12.8px\"></a>",
+     "<a class=\"ai-topic tv-bleed\" href=\"/ai/?topic=whiteriver\" data-gap=\"6px left, 6px right; section.ai-card.tv-bleed pads 12.8px/12.8px\"></a>",
+     "<a class=\"ai-topic tv-bleed\" href=\"/ai/?topic=navajo-county\" data-gap=\"6px left, 6px right; section.ai-card.tv-bleed pads 12.8px/12.8px\"></a>"
     ]
    },
    "why": [
     [
      "edges",
-     "43 card(s) e.g. <a class=\"ai-topic tv-bleed\" href=\"/ai/?topic=holbrook\"></a>"
+     "43 card(s) e.g. <a class=\"ai-topic tv-bleed\" href=\"/ai/?topic=holbrook\" data-gap=\"6px left, 6px right; section.ai-card.tv-bleed pads 12.8px/12.8px\"></a>"
     ]
    ]
   },
@@ -476,19 +417,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 1,
+   "names": 0,
    "final": "/claim.php",
-   "eg": {
-    "names": [
-     "<button class=\"cl-b\" type=\"submit\">Send</button>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "1 control(s) e.g. <button class=\"cl-b\" type=\"submit\">Send</button>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "guest",
@@ -502,19 +434,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 1,
+   "names": 0,
    "final": "/claim.php",
-   "eg": {
-    "names": [
-     "<button class=\"cl-b\" type=\"submit\">Send</button>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "1 control(s) e.g. <button class=\"cl-b\" type=\"submit\">Send</button>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "guest",
@@ -700,7 +623,6 @@
    "alt": 0,
    "names": 0,
    "final": "/gallery/api.php",
-   "eg": {},
    "why": []
   },
   {
@@ -717,7 +639,6 @@
    "alt": 0,
    "names": 0,
    "final": "/gallery/api.php",
-   "eg": {},
    "why": []
   },
   {
@@ -760,7 +681,11 @@
    "size": "phone",
    "must": false,
    "status": 200,
-   "console": [],
+   "console": [
+    "Refused to connect to 'data:,' because it violates the following Content Security Policy directive: \"connect-src 'self' https://hagen.challenges.cloudflare.com https://brunhild.challenges.cloudflare.c",
+    "Refused to connect to 'data:,' because it violates the following Content Security Policy directive: \"connect-src 'self' https://hagen.challenges.cloudflare.com https://brunhild.challenges.cloudflare.c",
+    "Refused to connect to 'data:,' because it violates the document's Content Security Policy."
+   ],
    "requests": [],
    "dialogs": [],
    "scroll": false,
@@ -769,7 +694,12 @@
    "names": 0,
    "final": "/login.php?next=%2Fgallery%2F",
    "eg": {},
-   "why": []
+   "why": [
+    [
+     "console",
+     "Refused to connect to 'data:,' because it violates the following Content Security Policy directive: \"connect-src 'self' https://hagen.challenges.cloudflare.com https://brunhild.challenges.cloudflare.c"
+    ]
+   ]
   },
   {
    "who": "guest",
@@ -836,7 +766,6 @@
    "alt": 0,
    "names": 0,
    "final": "/gallery/m.php",
-   "eg": {},
    "why": []
   },
   {
@@ -853,7 +782,6 @@
    "alt": 0,
    "names": 0,
    "final": "/gallery/m.php",
-   "eg": {},
    "why": []
   },
   {
@@ -970,19 +898,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 1,
+   "names": 0,
    "final": "/discovery/",
-   "eg": {
-    "names": [
-     "<button class=\"dv-btn\" type=\"submit\">Find trip ideas</button>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "1 control(s) e.g. <button class=\"dv-btn\" type=\"submit\">Find trip ideas</button>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "guest",
@@ -996,19 +915,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 1,
+   "names": 0,
    "final": "/discovery/",
-   "eg": {
-    "names": [
-     "<button class=\"dv-btn\" type=\"submit\">Find trip ideas</button>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "1 control(s) e.g. <button class=\"dv-btn\" type=\"submit\">Find trip ideas</button>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "guest",
@@ -1152,7 +1062,11 @@
    "size": "phone",
    "must": false,
    "status": 200,
-   "console": [],
+   "console": [
+    "Refused to connect to 'data:,' because it violates the following Content Security Policy directive: \"connect-src 'self' https://hagen.challenges.cloudflare.com https://brunhild.challenges.cloudflare.c",
+    "Refused to connect to 'data:,' because it violates the following Content Security Policy directive: \"connect-src 'self' https://hagen.challenges.cloudflare.com https://brunhild.challenges.cloudflare.c",
+    "Refused to connect to 'data:,' because it violates the document's Content Security Policy."
+   ],
    "requests": [],
    "dialogs": [],
    "scroll": false,
@@ -1161,7 +1075,12 @@
    "names": 0,
    "final": "/login.php?next=%2Flisting%2Fbusinessportal.php",
    "eg": {},
-   "why": []
+   "why": [
+    [
+     "console",
+     "Refused to connect to 'data:,' because it violates the following Content Security Policy directive: \"connect-src 'self' https://hagen.challenges.cloudflare.com https://brunhild.challenges.cloudflare.c"
+    ]
+   ]
   },
   {
    "who": "guest",
@@ -1254,7 +1173,11 @@
    "size": "phone",
    "must": false,
    "status": 200,
-   "console": [],
+   "console": [
+    "Refused to connect to 'data:,' because it violates the following Content Security Policy directive: \"connect-src 'self' https://hagen.challenges.cloudflare.com https://brunhild.challenges.cloudflare.c",
+    "Refused to connect to 'data:,' because it violates the following Content Security Policy directive: \"connect-src 'self' https://hagen.challenges.cloudflare.com https://brunhild.challenges.cloudflare.c",
+    "Refused to connect to 'data:,' because it violates the document's Content Security Policy."
+   ],
    "requests": [],
    "dialogs": [],
    "scroll": false,
@@ -1263,7 +1186,12 @@
    "names": 0,
    "final": "/login.php?next=%2Fmarket%2Fcart.php",
    "eg": {},
-   "why": []
+   "why": [
+    [
+     "console",
+     "Refused to connect to 'data:,' because it violates the following Content Security Policy directive: \"connect-src 'self' https://hagen.challenges.cloudflare.com https://brunhild.challenges.cloudflare.c"
+    ]
+   ]
   },
   {
    "who": "guest",
@@ -1500,7 +1428,6 @@
    "alt": 0,
    "names": 0,
    "final": "/pages/form.php",
-   "eg": {},
    "why": []
   },
   {
@@ -1517,7 +1444,6 @@
    "alt": 0,
    "names": 0,
    "final": "/pages/form.php",
-   "eg": {},
    "why": []
   },
   {
@@ -1529,18 +1455,12 @@
    "console": [],
    "requests": [],
    "dialogs": [],
-   "scroll": true,
+   "scroll": false,
    "edges": 0,
    "alt": 0,
    "names": 0,
    "final": "/pages/sitemap.php",
-   "eg": {},
-   "why": [
-    [
-     "scroll",
-     ""
-    ]
-   ]
+   "why": []
   },
   {
    "who": "guest",
@@ -1556,7 +1476,6 @@
    "alt": 0,
    "names": 0,
    "final": "/pages/sitemap.php",
-   "eg": {},
    "why": []
   },
   {
@@ -1828,7 +1747,6 @@
    "alt": 0,
    "names": 0,
    "final": "/business/api.php",
-   "eg": {},
    "why": []
   },
   {
@@ -1845,7 +1763,6 @@
    "alt": 0,
    "names": 0,
    "final": "/business/files.php",
-   "eg": {},
    "why": []
   },
   {
@@ -2151,7 +2068,6 @@
    "alt": 0,
    "names": 0,
    "final": "/business/api.php",
-   "eg": {},
    "why": []
   },
   {
@@ -2168,7 +2084,6 @@
    "alt": 0,
    "names": 0,
    "final": "/business/files.php",
-   "eg": {},
    "why": []
   },
   {
@@ -2453,32 +2368,12 @@
    "requests": [],
    "dialogs": [],
    "scroll": false,
-   "edges": 4,
+   "edges": 0,
    "alt": 0,
-   "names": 54,
+   "names": 0,
    "final": "/admin/dashboard/today",
-   "eg": {
-    "edges": [
-     "<section class=\"ad-c tv-bleed\"></section>",
-     "<section class=\"ad-c tv-bleed\" id=\"ad-inbox\"></section>",
-     "<section class=\"ad-c tv-bleed\" style=\"margin-top:.8rem\"></section>"
-    ],
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "edges",
-     "4 card(s) e.g. <section class=\"ad-c tv-bleed\"></section>"
-    ],
-    [
-     "names",
-     "54 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -2492,21 +2387,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 54,
+   "names": 0,
    "final": "/admin/dashboard/today",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "54 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -2518,32 +2402,12 @@
    "requests": [],
    "dialogs": [],
    "scroll": false,
-   "edges": 4,
+   "edges": 0,
    "alt": 0,
-   "names": 54,
+   "names": 0,
    "final": "/admin/dashboard/today",
-   "eg": {
-    "edges": [
-     "<section class=\"ad-c tv-bleed\"></section>",
-     "<section class=\"ad-c tv-bleed\" id=\"ad-inbox\"></section>",
-     "<section class=\"ad-c tv-bleed\" style=\"margin-top:.8rem\"></section>"
-    ],
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "edges",
-     "4 card(s) e.g. <section class=\"ad-c tv-bleed\"></section>"
-    ],
-    [
-     "names",
-     "54 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -2557,21 +2421,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 54,
+   "names": 0,
    "final": "/admin/dashboard/today",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "54 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -2585,21 +2438,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 25,
+   "names": 0,
    "final": "/admin/dashboard/quick",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "25 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -2613,21 +2455,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 25,
+   "names": 0,
    "final": "/admin/dashboard/quick",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "25 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -2641,21 +2472,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 25,
+   "names": 0,
    "final": "/admin/dashboard/helper",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "25 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -2669,21 +2489,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 25,
+   "names": 0,
    "final": "/admin/dashboard/helper",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "25 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -2697,21 +2506,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 27,
+   "names": 0,
    "final": "/admin/pulse/stream",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "27 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -2725,21 +2523,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 27,
+   "names": 0,
    "final": "/admin/pulse/stream",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "27 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -2753,21 +2540,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 25,
+   "names": 0,
    "final": "/admin/pulse/settings",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "25 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -2781,21 +2557,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 25,
+   "names": 0,
    "final": "/admin/pulse/settings",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "25 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -2809,21 +2574,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 25,
+   "names": 0,
    "final": "/admin/pulse/mail",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "25 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -2837,21 +2591,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 25,
+   "names": 0,
    "final": "/admin/pulse/mail",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "25 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -2865,21 +2608,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 37,
+   "names": 0,
    "final": "/admin/local/listings",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "37 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -2893,21 +2625,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 37,
+   "names": 0,
    "final": "/admin/local/listings",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "37 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -2921,21 +2642,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 37,
+   "names": 0,
    "final": "/admin/local/bulk",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "37 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -2949,21 +2659,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 37,
+   "names": 0,
    "final": "/admin/local/bulk",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "37 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -2977,21 +2676,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 37,
+   "names": 0,
    "final": "/admin/local/intake",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "37 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -3005,21 +2693,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 37,
+   "names": 0,
    "final": "/admin/local/intake",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "37 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -3033,21 +2710,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 37,
+   "names": 0,
    "final": "/admin/local/review",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "37 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -3061,21 +2727,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 37,
+   "names": 0,
    "final": "/admin/local/review",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "37 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -3089,21 +2744,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 37,
+   "names": 0,
    "final": "/admin/local/claims",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "37 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -3117,21 +2761,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 37,
+   "names": 0,
    "final": "/admin/local/claims",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "37 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -3145,21 +2778,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 37,
+   "names": 0,
    "final": "/admin/local/nexus",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "37 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -3173,21 +2795,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 37,
+   "names": 0,
    "final": "/admin/local/nexus",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "37 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -3201,21 +2812,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 37,
+   "names": 0,
    "final": "/admin/local/identities",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "37 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -3229,21 +2829,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 37,
+   "names": 0,
    "final": "/admin/local/identities",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "37 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -3257,21 +2846,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 37,
+   "names": 0,
    "final": "/admin/local/places",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "37 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -3285,21 +2863,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 37,
+   "names": 0,
    "final": "/admin/local/places",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "37 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -3313,21 +2880,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 37,
+   "names": 0,
    "final": "/admin/local/recreation",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "37 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -3341,21 +2897,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 37,
+   "names": 0,
    "final": "/admin/local/recreation",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "37 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -3432,21 +2977,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 37,
+   "names": 0,
    "final": "/admin/local/nations",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "37 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -3460,21 +2994,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 37,
+   "names": 0,
    "final": "/admin/local/hidden",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "37 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -3488,21 +3011,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 37,
+   "names": 0,
    "final": "/admin/local/hidden",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "37 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -3516,21 +3028,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 37,
+   "names": 0,
    "final": "/admin/local/categories",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "37 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -3544,21 +3045,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 37,
+   "names": 0,
    "final": "/admin/local/categories",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "37 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -3572,21 +3062,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 37,
+   "names": 0,
    "final": "/admin/local/taxonomy",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "37 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -3600,21 +3079,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 37,
+   "names": 0,
    "final": "/admin/local/taxonomy",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "37 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -3628,21 +3096,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 30,
+   "names": 0,
    "final": "/admin/explore/journeys",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "30 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -3656,21 +3113,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 30,
+   "names": 0,
    "final": "/admin/explore/journeys",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "30 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -3684,21 +3130,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 30,
+   "names": 0,
    "final": "/admin/explore/experiences",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "30 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -3712,21 +3147,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 30,
+   "names": 0,
    "final": "/admin/explore/experiences",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "30 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -3740,21 +3164,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 30,
+   "names": 0,
    "final": "/admin/explore/stories",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "30 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -3768,21 +3181,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 30,
+   "names": 0,
    "final": "/admin/explore/stories",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "30 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -3796,21 +3198,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 30,
+   "names": 0,
    "final": "/admin/explore/place_guides",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "30 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -3824,21 +3215,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 30,
+   "names": 0,
    "final": "/admin/explore/place_guides",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "30 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -3852,21 +3232,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 30,
+   "names": 0,
    "final": "/admin/explore/events",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "30 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -3880,21 +3249,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 30,
+   "names": 0,
    "final": "/admin/explore/events",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "30 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -3908,21 +3266,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 30,
+   "names": 0,
    "final": "/admin/explore/guides",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "30 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -3936,21 +3283,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 30,
+   "names": 0,
    "final": "/admin/explore/guides",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "30 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -3964,21 +3300,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 30,
+   "names": 0,
    "final": "/admin/explore/howto",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "30 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -3992,21 +3317,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 30,
+   "names": 0,
    "final": "/admin/explore/howto",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "30 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -4020,21 +3334,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 34,
+   "names": 0,
    "final": "/admin/market/items",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "34 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -4048,21 +3351,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 34,
+   "names": 0,
    "final": "/admin/market/items",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "34 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -4076,21 +3368,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 34,
+   "names": 0,
    "final": "/admin/market/rules",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "34 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -4104,21 +3385,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 34,
+   "names": 0,
    "final": "/admin/market/rules",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "34 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -4132,21 +3402,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 34,
+   "names": 0,
    "final": "/admin/market/bizitems",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "34 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -4160,21 +3419,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 34,
+   "names": 0,
    "final": "/admin/market/bizitems",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "34 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -4188,21 +3436,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 34,
+   "names": 0,
    "final": "/admin/market/exchange",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "34 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -4216,21 +3453,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 34,
+   "names": 0,
    "final": "/admin/market/exchange",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "34 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -4244,21 +3470,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 34,
+   "names": 0,
    "final": "/admin/market/storefronts",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "34 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -4272,21 +3487,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 34,
+   "names": 0,
    "final": "/admin/market/storefronts",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "34 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -4300,21 +3504,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 34,
+   "names": 0,
    "final": "/admin/market/gateways",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "34 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -4328,21 +3521,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 34,
+   "names": 0,
    "final": "/admin/market/gateways",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "34 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -4356,21 +3538,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 34,
+   "names": 0,
    "final": "/admin/market/compliance",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "34 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -4384,21 +3555,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 34,
+   "names": 0,
    "final": "/admin/market/compliance",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "34 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -4412,21 +3572,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 34,
+   "names": 0,
    "final": "/admin/market/domains",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "34 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -4440,21 +3589,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 34,
+   "names": 0,
    "final": "/admin/market/domains",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "34 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -4468,21 +3606,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 34,
+   "names": 0,
    "final": "/admin/market/codes",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "34 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -4496,21 +3623,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 34,
+   "names": 0,
    "final": "/admin/market/codes",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "34 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -4524,21 +3640,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 34,
+   "names": 0,
    "final": "/admin/market/pages",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "34 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -4552,21 +3657,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 34,
+   "names": 0,
    "final": "/admin/market/pages",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "34 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -4580,21 +3674,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 34,
+   "names": 0,
    "final": "/admin/market/leads",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "34 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -4608,21 +3691,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 34,
+   "names": 0,
    "final": "/admin/market/leads",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "34 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -4636,21 +3708,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 29,
+   "names": 0,
    "final": "/admin/social/reports",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "29 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -4664,21 +3725,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 29,
+   "names": 0,
    "final": "/admin/social/reports",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "29 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -4692,21 +3742,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 29,
+   "names": 0,
    "final": "/admin/social/standing",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "29 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -4720,21 +3759,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 29,
+   "names": 0,
    "final": "/admin/social/standing",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "29 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -4748,21 +3776,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 29,
+   "names": 0,
    "final": "/admin/social/takedowns",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "29 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -4776,21 +3793,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 29,
+   "names": 0,
    "final": "/admin/social/takedowns",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "29 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -4804,21 +3810,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 29,
+   "names": 0,
    "final": "/admin/social/galleries",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "29 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -4832,21 +3827,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 29,
+   "names": 0,
    "final": "/admin/social/galleries",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "29 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -4860,21 +3844,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 29,
+   "names": 0,
    "final": "/admin/social/procedures",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "29 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -4888,21 +3861,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 29,
+   "names": 0,
    "final": "/admin/social/procedures",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "29 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -4916,21 +3878,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 29,
+   "names": 0,
    "final": "/admin/social/groups",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "29 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -4944,21 +3895,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 29,
+   "names": 0,
    "final": "/admin/social/groups",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "29 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -4972,21 +3912,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 31,
+   "names": 0,
    "final": "/admin/growth/calls",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "31 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -5000,21 +3929,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 31,
+   "names": 0,
    "final": "/admin/growth/calls",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "31 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -5028,21 +3946,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 31,
+   "names": 0,
    "final": "/admin/growth/prospects",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "31 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -5056,21 +3963,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 31,
+   "names": 0,
    "final": "/admin/growth/prospects",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "31 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -5084,21 +3980,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 31,
+   "names": 0,
    "final": "/admin/growth/customers",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "31 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -5112,21 +3997,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 31,
+   "names": 0,
    "final": "/admin/growth/customers",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "31 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -5140,21 +4014,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 31,
+   "names": 0,
    "final": "/admin/growth/cards",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "31 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -5168,21 +4031,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 31,
+   "names": 0,
    "final": "/admin/growth/cards",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "31 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -5196,21 +4048,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 31,
+   "names": 0,
    "final": "/admin/growth/field",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "31 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -5224,21 +4065,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 31,
+   "names": 0,
    "final": "/admin/growth/field",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "31 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -5252,21 +4082,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 32,
+   "names": 0,
    "final": "/admin/growth/promotions",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "32 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -5280,21 +4099,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 32,
+   "names": 0,
    "final": "/admin/growth/promotions",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "32 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -5308,21 +4116,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 31,
+   "names": 0,
    "final": "/admin/growth/territories",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "31 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -5336,21 +4133,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 31,
+   "names": 0,
    "final": "/admin/growth/territories",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "31 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -5364,21 +4150,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 31,
+   "names": 0,
    "final": "/admin/growth/funnel",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "31 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -5392,21 +4167,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 31,
+   "names": 0,
    "final": "/admin/growth/funnel",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "31 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -5420,21 +4184,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 27,
+   "names": 0,
    "final": "/admin/concierge/imports",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "27 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -5448,21 +4201,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 27,
+   "names": 0,
    "final": "/admin/concierge/imports",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "27 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -5476,21 +4218,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 56,
+   "names": 0,
    "final": "/admin/backoffice/orders",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "56 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -5504,21 +4235,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 56,
+   "names": 0,
    "final": "/admin/backoffice/orders",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "56 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -5532,21 +4252,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 55,
+   "names": 0,
    "final": "/admin/backoffice/products",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "55 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -5560,21 +4269,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 55,
+   "names": 0,
    "final": "/admin/backoffice/products",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "55 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -5588,21 +4286,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 46,
+   "names": 0,
    "final": "/admin/backoffice/production",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "46 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -5616,21 +4303,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 46,
+   "names": 0,
    "final": "/admin/backoffice/production",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "46 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -5644,21 +4320,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 46,
+   "names": 0,
    "final": "/admin/backoffice/work_orders",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "46 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -5672,21 +4337,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 46,
+   "names": 0,
    "final": "/admin/backoffice/work_orders",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "46 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -5700,21 +4354,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 46,
+   "names": 0,
    "final": "/admin/backoffice/clients",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "46 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -5728,21 +4371,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 46,
+   "names": 0,
    "final": "/admin/backoffice/clients",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "46 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -5756,21 +4388,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 46,
+   "names": 0,
    "final": "/admin/backoffice/qb_items",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "46 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -5784,21 +4405,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 46,
+   "names": 0,
    "final": "/admin/backoffice/qb_items",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "46 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -5812,21 +4422,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 46,
+   "names": 0,
    "final": "/admin/backoffice/collateral",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "46 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -5840,21 +4439,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 46,
+   "names": 0,
    "final": "/admin/backoffice/collateral",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "46 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -5868,21 +4456,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 50,
+   "names": 0,
    "final": "/admin/backoffice/vendor_list",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "50 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -5896,21 +4473,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 50,
+   "names": 0,
    "final": "/admin/backoffice/vendor_list",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "50 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -5924,21 +4490,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 55,
+   "names": 0,
    "final": "/admin/backoffice/cost_list",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "55 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -5952,21 +4507,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 55,
+   "names": 0,
    "final": "/admin/backoffice/cost_list",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "55 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -5980,21 +4524,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 46,
+   "names": 0,
    "final": "/admin/backoffice/vendors",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "46 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -6008,21 +4541,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 46,
+   "names": 0,
    "final": "/admin/backoffice/vendors",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "46 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -6036,21 +4558,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 46,
+   "names": 0,
    "final": "/admin/backoffice/pricelists",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "46 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -6064,21 +4575,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 46,
+   "names": 0,
    "final": "/admin/backoffice/pricelists",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "46 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -6092,21 +4592,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 46,
+   "names": 0,
    "final": "/admin/backoffice/taxes",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "46 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -6120,21 +4609,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 46,
+   "names": 0,
    "final": "/admin/backoffice/taxes",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "46 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -6148,21 +4626,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 46,
+   "names": 0,
    "final": "/admin/backoffice/plans",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "46 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -6176,21 +4643,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 46,
+   "names": 0,
    "final": "/admin/backoffice/plans",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "46 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -6204,21 +4660,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 46,
+   "names": 0,
    "final": "/admin/backoffice/payments",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "46 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -6232,21 +4677,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 46,
+   "names": 0,
    "final": "/admin/backoffice/payments",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "46 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -6260,21 +4694,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 46,
+   "names": 0,
    "final": "/admin/backoffice/money",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "46 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -6288,21 +4711,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 46,
+   "names": 0,
    "final": "/admin/backoffice/money",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "46 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -6316,21 +4728,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 46,
+   "names": 0,
    "final": "/admin/backoffice/people",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "46 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -6344,21 +4745,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 46,
+   "names": 0,
    "final": "/admin/backoffice/people",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "46 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -6372,21 +4762,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 46,
+   "names": 0,
    "final": "/admin/backoffice/logins",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "46 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -6400,21 +4779,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 46,
+   "names": 0,
    "final": "/admin/backoffice/logins",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "46 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -6428,21 +4796,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 46,
+   "names": 0,
    "final": "/admin/backoffice/levels",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "46 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -6456,21 +4813,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 46,
+   "names": 0,
    "final": "/admin/backoffice/levels",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "46 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -6484,21 +4830,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 46,
+   "names": 0,
    "final": "/admin/backoffice/imports",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "46 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -6512,21 +4847,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 46,
+   "names": 0,
    "final": "/admin/backoffice/imports",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "46 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -6540,21 +4864,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 34,
+   "names": 0,
    "final": "/admin/insights/numbers",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "34 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -6568,21 +4881,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 34,
+   "names": 0,
    "final": "/admin/insights/numbers",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "34 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -6596,21 +4898,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 34,
+   "names": 0,
    "final": "/admin/insights/search",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "34 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -6624,21 +4915,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 34,
+   "names": 0,
    "final": "/admin/insights/search",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "34 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -6652,21 +4932,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 34,
+   "names": 0,
    "final": "/admin/insights/crawler",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "34 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -6680,21 +4949,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 34,
+   "names": 0,
    "final": "/admin/insights/crawler",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "34 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -6708,21 +4966,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 34,
+   "names": 0,
    "final": "/admin/insights/sources",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "34 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -6736,21 +4983,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 34,
+   "names": 0,
    "final": "/admin/insights/sources",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "34 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -6764,21 +5000,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 34,
+   "names": 0,
    "final": "/admin/insights/seeker",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "34 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -6792,21 +5017,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 34,
+   "names": 0,
    "final": "/admin/insights/seeker",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "34 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -6820,21 +5034,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 34,
+   "names": 0,
    "final": "/admin/insights/topics",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "34 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -6848,21 +5051,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 34,
+   "names": 0,
    "final": "/admin/insights/topics",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "34 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -6876,21 +5068,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 34,
+   "names": 0,
    "final": "/admin/insights/audit",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "34 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -6904,21 +5085,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 34,
+   "names": 0,
    "final": "/admin/insights/audit",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "34 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -6932,21 +5102,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 34,
+   "names": 0,
    "final": "/admin/insights/aiassist",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "34 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -6960,21 +5119,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 34,
+   "names": 0,
    "final": "/admin/insights/aiassist",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "34 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -6988,21 +5136,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 34,
+   "names": 0,
    "final": "/admin/insights/data",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "34 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -7016,21 +5153,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 34,
+   "names": 0,
    "final": "/admin/insights/data",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "34 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -7044,21 +5170,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 42,
+   "names": 0,
    "final": "/admin/config/workflows",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "42 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -7072,21 +5187,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 42,
+   "names": 0,
    "final": "/admin/config/workflows",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "42 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -7100,21 +5204,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 42,
+   "names": 0,
    "final": "/admin/config/permissions",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "42 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -7128,21 +5221,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 42,
+   "names": 0,
    "final": "/admin/config/permissions",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "42 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -7156,21 +5238,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 42,
+   "names": 0,
    "final": "/admin/config/datacheck",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "42 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -7184,21 +5255,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 42,
+   "names": 0,
    "final": "/admin/config/datacheck",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "42 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -7212,21 +5272,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 42,
+   "names": 0,
    "final": "/admin/config/scheduler",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "42 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -7240,21 +5289,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 42,
+   "names": 0,
    "final": "/admin/config/scheduler",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "42 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -7268,21 +5306,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 42,
+   "names": 0,
    "final": "/admin/config/ai",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "42 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -7296,21 +5323,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 42,
+   "names": 0,
    "final": "/admin/config/ai",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "42 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -7324,21 +5340,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 42,
+   "names": 0,
    "final": "/admin/config/services",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "42 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -7352,21 +5357,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 42,
+   "names": 0,
    "final": "/admin/config/services",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "42 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -7380,21 +5374,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 42,
+   "names": 0,
    "final": "/admin/config/thresholds",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "42 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -7408,21 +5391,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 42,
+   "names": 0,
    "final": "/admin/config/thresholds",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "42 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -7436,21 +5408,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 42,
+   "names": 0,
    "final": "/admin/config/content",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "42 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -7464,21 +5425,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 42,
+   "names": 0,
    "final": "/admin/config/content",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "42 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -7492,21 +5442,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 42,
+   "names": 0,
    "final": "/admin/config/stock",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "42 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -7520,21 +5459,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 42,
+   "names": 0,
    "final": "/admin/config/stock",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "42 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -7548,21 +5476,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 42,
+   "names": 0,
    "final": "/admin/config/jurisdictions",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "42 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -7576,21 +5493,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 42,
+   "names": 0,
    "final": "/admin/config/jurisdictions",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "42 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -7604,26 +5510,17 @@
    "scroll": false,
    "edges": 1,
    "alt": 0,
-   "names": 42,
+   "names": 0,
    "final": "/admin/config/dbupdates",
    "eg": {
     "edges": [
-     "<div class=\"ak-fold tv-bleed\"></div>"
-    ],
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
+     "<div class=\"ak-fold tv-bleed\" data-gap=\"8px left, 8px right; div.ak-card.tv-bleed pads 14.4px/14.4px\"></div>"
     ]
    },
    "why": [
     [
      "edges",
-     "1 card(s) e.g. <div class=\"ak-fold tv-bleed\"></div>"
-    ],
-    [
-     "names",
-     "42 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
+     "1 card(s) e.g. <div class=\"ak-fold tv-bleed\" data-gap=\"8px left, 8px right; div.ak-card.tv-bleed pads 14.4px/14.4px\"></div>"
     ]
    ]
   },
@@ -7639,21 +5536,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 42,
+   "names": 0,
    "final": "/admin/config/dbupdates",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "42 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -7667,21 +5553,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 42,
+   "names": 0,
    "final": "/admin/config/switches",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "42 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -7695,21 +5570,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 42,
+   "names": 0,
    "final": "/admin/config/switches",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "42 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -7723,21 +5587,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 42,
+   "names": 0,
    "final": "/admin/config/testaccounts",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "42 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -7751,21 +5604,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 42,
+   "names": 0,
    "final": "/admin/config/testaccounts",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "42 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -7779,21 +5621,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 42,
+   "names": 0,
    "final": "/admin/config/settings",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "42 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -7807,21 +5638,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 42,
+   "names": 0,
    "final": "/admin/config/settings",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "42 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -7835,21 +5655,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 42,
+   "names": 0,
    "final": "/admin/config/logs",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "42 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -7863,21 +5672,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 42,
+   "names": 0,
    "final": "/admin/config/logs",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "42 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -7891,21 +5689,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 42,
+   "names": 0,
    "final": "/admin/config/sitemap",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "42 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
@@ -7919,21 +5706,10 @@
    "scroll": false,
    "edges": 0,
    "alt": 0,
-   "names": 42,
+   "names": 0,
    "final": "/admin/config/sitemap",
-   "eg": {
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "names",
-     "42 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-ops-director",
@@ -7945,32 +5721,12 @@
    "requests": [],
    "dialogs": [],
    "scroll": false,
-   "edges": 4,
+   "edges": 0,
    "alt": 0,
-   "names": 48,
+   "names": 0,
    "final": "/admin/dashboard/today",
-   "eg": {
-    "edges": [
-     "<section class=\"ad-c tv-bleed\"></section>",
-     "<section class=\"ad-c tv-bleed\" id=\"ad-inbox\"></section>",
-     "<section class=\"ad-c tv-bleed\" style=\"margin-top:.8rem\"></section>"
-    ],
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "edges",
-     "4 card(s) e.g. <section class=\"ad-c tv-bleed\"></section>"
-    ],
-    [
-     "names",
-     "48 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-ops-manager",
@@ -7982,32 +5738,12 @@
    "requests": [],
    "dialogs": [],
    "scroll": false,
-   "edges": 4,
+   "edges": 0,
    "alt": 0,
-   "names": 48,
+   "names": 0,
    "final": "/admin/dashboard/today",
-   "eg": {
-    "edges": [
-     "<section class=\"ad-c tv-bleed\"></section>",
-     "<section class=\"ad-c tv-bleed\" id=\"ad-inbox\"></section>",
-     "<section class=\"ad-c tv-bleed\" style=\"margin-top:.8rem\"></section>"
-    ],
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "edges",
-     "4 card(s) e.g. <section class=\"ad-c tv-bleed\"></section>"
-    ],
-    [
-     "names",
-     "48 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-ops-staff",
@@ -8019,32 +5755,12 @@
    "requests": [],
    "dialogs": [],
    "scroll": false,
-   "edges": 4,
+   "edges": 0,
    "alt": 0,
-   "names": 48,
+   "names": 0,
    "final": "/admin/dashboard/today",
-   "eg": {
-    "edges": [
-     "<section class=\"ad-c tv-bleed\"></section>",
-     "<section class=\"ad-c tv-bleed\" id=\"ad-inbox\"></section>",
-     "<section class=\"ad-c tv-bleed\" style=\"margin-top:.8rem\"></section>"
-    ],
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "edges",
-     "4 card(s) e.g. <section class=\"ad-c tv-bleed\"></section>"
-    ],
-    [
-     "names",
-     "48 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-fin-staff",
@@ -8056,32 +5772,12 @@
    "requests": [],
    "dialogs": [],
    "scroll": false,
-   "edges": 4,
+   "edges": 0,
    "alt": 0,
-   "names": 37,
+   "names": 0,
    "final": "/admin/dashboard/today",
-   "eg": {
-    "edges": [
-     "<section class=\"ad-c tv-bleed\"></section>",
-     "<section class=\"ad-c tv-bleed\" id=\"ad-inbox\"></section>",
-     "<section class=\"ad-c tv-bleed\" style=\"margin-top:.8rem\"></section>"
-    ],
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/backoffice\">9. Back-Office</a>"
-    ]
-   },
-   "why": [
-    [
-     "edges",
-     "4 card(s) e.g. <section class=\"ad-c tv-bleed\"></section>"
-    ],
-    [
-     "names",
-     "37 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-sal-staff",
@@ -8093,32 +5789,12 @@
    "requests": [],
    "dialogs": [],
    "scroll": false,
-   "edges": 4,
+   "edges": 0,
    "alt": 0,
-   "names": 37,
+   "names": 0,
    "final": "/admin/dashboard/today",
-   "eg": {
-    "edges": [
-     "<section class=\"ad-c tv-bleed\"></section>",
-     "<section class=\"ad-c tv-bleed\" id=\"ad-inbox\"></section>",
-     "<section class=\"ad-c tv-bleed\" style=\"margin-top:.8rem\"></section>"
-    ],
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/growth\">7. Sales &amp; Growth</a>"
-    ]
-   },
-   "why": [
-    [
-     "edges",
-     "4 card(s) e.g. <section class=\"ad-c tv-bleed\"></section>"
-    ],
-    [
-     "names",
-     "37 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-svc-staff",
@@ -8130,32 +5806,12 @@
    "requests": [],
    "dialogs": [],
    "scroll": false,
-   "edges": 4,
+   "edges": 0,
    "alt": 0,
-   "names": 38,
+   "names": 0,
    "final": "/admin/dashboard/today",
-   "eg": {
-    "edges": [
-     "<section class=\"ad-c tv-bleed\"></section>",
-     "<section class=\"ad-c tv-bleed\" id=\"ad-inbox\"></section>",
-     "<section class=\"ad-c tv-bleed\" style=\"margin-top:.8rem\"></section>"
-    ],
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/backoffice\">9. Back-Office</a>"
-    ]
-   },
-   "why": [
-    [
-     "edges",
-     "4 card(s) e.g. <section class=\"ad-c tv-bleed\"></section>"
-    ],
-    [
-     "names",
-     "38 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-con-staff",
@@ -8167,32 +5823,12 @@
    "requests": [],
    "dialogs": [],
    "scroll": false,
-   "edges": 4,
+   "edges": 0,
    "alt": 0,
-   "names": 42,
+   "names": 0,
    "final": "/admin/dashboard/today",
-   "eg": {
-    "edges": [
-     "<section class=\"ad-c tv-bleed\"></section>",
-     "<section class=\"ad-c tv-bleed\" id=\"ad-inbox\"></section>",
-     "<section class=\"ad-c tv-bleed\" style=\"margin-top:.8rem\"></section>"
-    ],
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "edges",
-     "4 card(s) e.g. <section class=\"ad-c tv-bleed\"></section>"
-    ],
-    [
-     "names",
-     "42 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-eng-staff",
@@ -8204,32 +5840,12 @@
    "requests": [],
    "dialogs": [],
    "scroll": false,
-   "edges": 4,
+   "edges": 0,
    "alt": 0,
-   "names": 39,
+   "names": 0,
    "final": "/admin/dashboard/today",
-   "eg": {
-    "edges": [
-     "<section class=\"ad-c tv-bleed\"></section>",
-     "<section class=\"ad-c tv-bleed\" id=\"ad-inbox\"></section>",
-     "<section class=\"ad-c tv-bleed\" style=\"margin-top:.8rem\"></section>"
-    ],
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "edges",
-     "4 card(s) e.g. <section class=\"ad-c tv-bleed\"></section>"
-    ],
-    [
-     "names",
-     "39 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-editor",
@@ -8241,32 +5857,12 @@
    "requests": [],
    "dialogs": [],
    "scroll": false,
-   "edges": 4,
+   "edges": 0,
    "alt": 0,
-   "names": 42,
+   "names": 0,
    "final": "/admin/dashboard/today",
-   "eg": {
-    "edges": [
-     "<section class=\"ad-c tv-bleed\"></section>",
-     "<section class=\"ad-c tv-bleed\" id=\"ad-inbox\"></section>",
-     "<section class=\"ad-c tv-bleed\" style=\"margin-top:.8rem\"></section>"
-    ],
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "edges",
-     "4 card(s) e.g. <section class=\"ad-c tv-bleed\"></section>"
-    ],
-    [
-     "names",
-     "42 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-creator",
@@ -8278,32 +5874,12 @@
    "requests": [],
    "dialogs": [],
    "scroll": false,
-   "edges": 4,
+   "edges": 0,
    "alt": 0,
-   "names": 42,
+   "names": 0,
    "final": "/admin/dashboard/today",
-   "eg": {
-    "edges": [
-     "<section class=\"ad-c tv-bleed\"></section>",
-     "<section class=\"ad-c tv-bleed\" id=\"ad-inbox\"></section>",
-     "<section class=\"ad-c tv-bleed\" style=\"margin-top:.8rem\"></section>"
-    ],
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "edges",
-     "4 card(s) e.g. <section class=\"ad-c tv-bleed\"></section>"
-    ],
-    [
-     "names",
-     "42 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-assistant",
@@ -8315,32 +5891,12 @@
    "requests": [],
    "dialogs": [],
    "scroll": false,
-   "edges": 4,
+   "edges": 0,
    "alt": 0,
-   "names": 54,
+   "names": 0,
    "final": "/admin/dashboard/today",
-   "eg": {
-    "edges": [
-     "<section class=\"ad-c tv-bleed\"></section>",
-     "<section class=\"ad-c tv-bleed\" id=\"ad-inbox\"></section>",
-     "<section class=\"ad-c tv-bleed\" style=\"margin-top:.8rem\"></section>"
-    ],
-    "names": [
-     "<a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>",
-     "<a href=\"/admin/pulse\">2. Pulse Stream</a>",
-     "<a href=\"/admin/insights\">10. Insights &amp; Research</a>"
-    ]
-   },
-   "why": [
-    [
-     "edges",
-     "4 card(s) e.g. <section class=\"ad-c tv-bleed\"></section>"
-    ],
-    [
-     "names",
-     "54 control(s) e.g. <a href=\"/admin/dashboard\">1. Dashboard &amp; Quick Actions</a>"
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-vendor",
@@ -8358,7 +5914,7 @@
    "final": "/admin/",
    "eg": {
     "edges": [
-     "<div class=\"hb-card tv-bleed\" style=\"max-width:32rem;margin:1.5rem auto;background:#F7EFDC;border:1px solid #EADFC4;border-radius:.8rem;padding:1rem\"></div>"
+     "<div class=\"hb-card tv-bleed\" style=\"max-width:32rem;margin:1.5rem auto;background:#F7EFDC;border:1px solid #EADFC4;border-radius:.8rem;padding:1rem\" data-gap=\"14px left, 14px right; #ta-work pads 13.6px/13.6px\"></div>"
     ]
    },
    "why": [
@@ -8368,7 +5924,7 @@
     ],
     [
      "edges",
-     "1 card(s) e.g. <div class=\"hb-card tv-bleed\" style=\"max-width:32rem;margin:1.5rem auto;background:#F7EFDC;border:1px solid #EADFC4;border-radius:.8rem;padding:1rem\"></div>"
+     "1 card(s) e.g. <div class=\"hb-card tv-bleed\" style=\"max-width:32rem;margin:1.5rem auto;background:#F7EFDC;border:1px solid #EADFC4;border-radius:.8rem;padding:1rem\" data-gap=\"14px left, 14px right; #ta-work pads 13.6px/13.6px\"></div>"
     ]
    ]
   }
