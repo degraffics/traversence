@@ -69,14 +69,15 @@ async function staffIn(ctx, a) {
   const p = await ctx.newPage();
   await p.goto(`${SITE}/admin/login.php`, { waitUntil: 'domcontentloaded' });
   await p.fill('#sid', a.staff_id); await p.fill('#pw', a.password);
-  await Promise.all([p.waitForLoadState('domcontentloaded'), p.click('button.b')]);
+  await Promise.all([p.waitForNavigation({ waitUntil: 'domcontentloaded', timeout: 30000 }), p.click('button.b')]);   // the password step reloads the page with the code box
   if (await p.$('#code')) {
-    // a fresh 30-second window, so the code isn't the one just used
-    await p.fill('#code', totp(a.totp)); await Promise.all([p.waitForLoadState('domcontentloaded'), p.press('#code', 'Enter')]);
+    await p.fill('#code', totp(a.totp));
+    await Promise.all([p.waitForNavigation({ waitUntil: 'domcontentloaded', timeout: 30000 }).catch(() => {}), p.click('button.b')]);
   }
   const ok = !/\/admin\/login\.php/.test(p.url());
+  const said = ok ? '' : ((await p.locator('p.no[role=alert], [data-tv-flash], [data-tv-status="bad"]').first().innerText().catch(() => '')) || '').slice(0, 160);
   await p.close();
-  if (!ok) throw new Error(`staff sign-in ${a.staff_id} didn't get past the sign-in page`);
+  if (!ok) throw new Error(`staff sign-in ${a.staff_id} didn't get past the sign-in page${said ? ': ' + said : ''}`);
 }
 
 // ---- one page -------------------------------------------------------------------------------------------------------
