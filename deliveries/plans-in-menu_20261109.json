@@ -1,0 +1,22 @@
+{
+ "zip": "plans-in-menu_20261109.zip",
+ "built_on": "0a190ab Sync: 2026-11-09 12:48 UTC",
+ "recorded": "2026-11-09 12:50 UTC",
+ "note": "Plans in the Dashboard menu; Pulse settings panel kept on screen on phones (built on 12:48 UTC)",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/ui/faq.md": {
+   "sha256": "e3fbfbadee858946382211bd3b53efa5736b93df9fb085f9ad7f0f0a8997c81b",
+   "live": false
+  },
+  "app/ui/section-rails.php": {
+   "sha256": "dcb9fac26f9e044d5a4679ea62e21f28ae618fe09e88e55b8d8a3e31f847fb9d",
+   "live": false
+  },
+  "website/user/dashboard.php": {
+   "sha256": "64bafeef2ef56bc3e7d5de87e0e0c584395b396068899a796f4596cbb8d3696a",
+   "live": false
+  }
+ }
+}
