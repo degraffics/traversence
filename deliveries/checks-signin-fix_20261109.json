@@ -3,12 +3,12 @@
  "built_on": "6d3ade3 Sync: 2026-11-09 12:13 UTC",
  "recorded": "2026-11-09 12:30 UTC",
  "note": "The checks' member sign-in: load .env before reading the token",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "28536e0 Sync: 2026-11-09 12:42 UTC",
  "files": {
   "app/lib/TestAccounts.php": {
    "sha256": "6d77d3e7aab3bf1b2dcd10fef969808369d2830a8e009df817f3b6d967f4ef6c",
-   "live": false
+   "live": true
   }
  }
 }
