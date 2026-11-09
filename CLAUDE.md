@@ -230,6 +230,7 @@ New cron jobs go in `Scheduler::JOBS` and `Scheduler::AUTO`; `Scheduler::sync()`
 
 Nothing we build spends Traversence money (a per-use API, email, text, push, ID check, AI call) unless revenue covers
 it: inside a paying plan's allowance, a paid top-up, or a fee charged first. Free tiers get only what costs us nothing.
+System emails the site sends itself (links, notices, work orders) cost nothing and aren't limited by this (Jason, 2026-11-09).
 The one exception: Claude writing guides and journeys, inside the AI monthly cap (decisions/0131, 0147: on-demand
 builds up to 50% of the daily allowance, the rest queued).
 
