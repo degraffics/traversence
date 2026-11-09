@@ -155,3 +155,4 @@ decision may be stale, or the file moved.
 | 0147 | [Guides and Journeys on Demand](0147-guides-and-journeys-on-demand.md) | accepted |  |  | 0 |  |
 | 0148 | [Places on Demand](0148-places-on-demand.md) | accepted |  |  | 0 |  |
 | 0149 | [Listings on Demand](0149-listings-on-demand.md) | accepted |  |  | 0 |  |
+| 0150 | [Vendor Links](0150-vendor-links.md) | accepted |  |  | 0 |  |
