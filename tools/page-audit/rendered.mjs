@@ -100,10 +100,11 @@ async function check(ctx, who, url, size, shots) {
     await p.waitForTimeout(800);
     Object.assign(f, await p.evaluate((phone) => {
       const vis = el => { const r = el.getBoundingClientRect(); const s = getComputedStyle(el); return r.width > 0 && r.height > 0 && s.visibility !== 'hidden' && s.display !== 'none'; };
-      const out = { scroll: document.documentElement.scrollWidth > window.innerWidth + 1, edges: 0, alt: 0, names: 0 };
-      if (phone) for (const el of document.querySelectorAll('.tv-bleed')) { if (!vis(el)) continue; const r = el.getBoundingClientRect(); if (r.width > window.innerWidth * 0.8 && (r.left > 6 || window.innerWidth - r.right > 6)) out.edges++; }
+      const out = { scroll: document.documentElement.scrollWidth > window.innerWidth + 1, edges: 0, alt: 0, names: 0, eg: {} };
+      const eg = (k, el) => { (out.eg[k] = out.eg[k] || []).length < 3 && out.eg[k].push(el.outerHTML.replace(/\s+/g, ' ').slice(0, 180)); };   // a sample of each, so it can be found
+      if (phone) for (const el of document.querySelectorAll('.tv-bleed')) { if (!vis(el)) continue; const r = el.getBoundingClientRect(); if (r.width > window.innerWidth * 0.8 && (r.left > 6 || window.innerWidth - r.right > 6)) { out.edges++; eg('edges', el.cloneNode(false)); } }
       for (const im of document.querySelectorAll('img')) if (vis(im) && !im.hasAttribute('alt')) out.alt++;
-      for (const el of document.querySelectorAll('a[href], button')) if (vis(el) && !(el.innerText || '').trim() && !el.getAttribute('aria-label') && !el.getAttribute('title') && !el.querySelector('img[alt]:not([alt=""])')) out.names++;
+      for (const el of document.querySelectorAll('a[href], button')) if (vis(el) && !(el.innerText || '').trim() && !el.getAttribute('aria-label') && !el.getAttribute('title') && !el.querySelector('img[alt]:not([alt=""])')) { out.names++; eg('names', el); }
       return out;
     }, size === 'phone'));
     if (shots && size === 'phone') await p.screenshot({ path: `shots/${who}-${url.replace(/[^a-z0-9]+/gi, '_').slice(0, 80)}.png` }).catch(() => {});
@@ -162,10 +163,10 @@ const fails = f => {
   if (f.console?.length) why.push(['console', f.console[0]]);
   if (f.requests?.length) why.push(['requests', f.requests[0]]);
   if (f.scroll && f.size === 'phone') why.push(['scroll', '']);
-  if (f.edges) why.push(['edges', f.edges + ' card(s)']);
+  if (f.edges) why.push(['edges', f.edges + ' card(s)' + (f.eg?.edges ? ' e.g. ' + f.eg.edges[0] : '')]);
   if (f.dialogs?.length) why.push(['dialogs', f.dialogs[0]]);
   if (f.alt) why.push(['alt', f.alt + ' image(s)']);
-  if (f.names) why.push(['names', f.names + ' control(s)']);
+  if (f.names) why.push(['names', f.names + ' control(s)' + (f.eg?.names ? ' e.g. ' + f.eg.names[0] : '')]);
   return why;
 };
 const rows = results.map(f => ({ ...f, why: fails(f) }));
