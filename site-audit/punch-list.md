@@ -34,8 +34,8 @@ Decision 0145 (§7: one build). Tick items here, or reply with the numbers.
 
 | # | What | How |
 |---|---|---|
-| 15 | **`HEALTH_TOKEN`**, for the locked health report | I give you a long random value. Put it in two places: the live `.env` as `HEALTH_TOKEN=…` (cPanel File Manager), and as a GitHub secret named `HEALTH_TOKEN` in `degraffics/traversence`. |
-| 16 | **Create the test accounts:** System Configuration → Test accounts → **Create test accounts**. This makes all 11 member and business accounts, 13 staff logins, and the test business, client and vendor (list in `test-accounts.md`). | One button, Founder only |
+| 15 | (nothing: **Create test accounts** makes the health report's token, writes it into the live `.env` itself, and puts it in the `CHECK_ACCOUNTS` block; no separate secret) | |
+| 16 | **Create the test accounts:** System Configuration → Test accounts → **Create test accounts** (built 2027-11-09, `phase2-switches-tests_20261109.zip`). It makes the members, the business team on the hidden test listing and 13 staff logins. The steward's group, the test client and vendor come with the next build. | One button, Founder only |
 | 17 | **`CHECK_ACCOUNTS`:** copy the block the page shows once into a GitHub secret named `CHECK_ACCOUNTS` in `degraffics/traversence` | Settings → Secrets and variables → Actions → New secret |
 | 18 | (nothing: the test business, client and vendor are made by item 16) | |
 | 19 | (nothing: passwords and two-step keys are generated in item 16, never typed or seen in chat) | |

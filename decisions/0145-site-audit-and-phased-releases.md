@@ -248,3 +248,21 @@ Phase 6 is included only if Jason says yes.
 
 What Jason provides for each phase is listed in its file and collected in `site-audit/README.md`. From Phase 2 on, each
 phase is itself released through the process above, as far as the earlier phases allow.
+
+## Built: Phase 2, the site part (2026-11-09, `phase2-switches-tests_20261109.zip`)
+
+- **Switches** (`Switches`, System Configuration → Switches, table `feature_switches`): off, staff and test accounts,
+  a share of members (the same members each time), or everyone; a kill switch per switch and for all. Permission
+  `config.switches` (executives by default). The first switch, `switch_test`, shows a line on the FAQ page.
+- **Test accounts** (`users.is_test`, `test_records`, `TestAccounts`, System Configuration → Test accounts, Founder
+  only): the members, the business team on the hidden "Traversence Test Listing", and 13 staff logins at each level
+  with two-step keys (`StaffLogin::makeTest`, `resetTest`). One block, shown once, for the GitHub secret
+  `CHECK_ACCOUNTS`, holding each sign-in and the health report's token. Test accounts are left out of the platform's
+  counts (`PlatformCounts::isTeam`), likes (`Engage::likes`), people search (`People::search`), digests and the
+  dashboard's new members; `Mailer` and `SesMail` send nothing to `check+…@traversence.com` on the live site
+  (`TEST_MAIL=on` on staging does); a test payer's charge runs in QuickBooks sandbox (`Billing::charge`).
+- **The health report** (`/api/health.php`, `HEALTH_TOKEN`): PHP and MySQL versions (proposal P1), table sizes, the
+  scheduled jobs' last runs and failures, the month's AI spend by feature, the page cache, the admin's status checks,
+  switches and the test-account count. Totals only. The token is made by Create test accounts and written into `.env`
+  (`EnvSettings::setSecret`, never shown on Settings).
+- **Still to build:** the steward's group, the test client and vendor; the browser checks in the GitHub Action.
