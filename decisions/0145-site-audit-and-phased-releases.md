@@ -265,4 +265,15 @@ phase is itself released through the process above, as far as the earlier phases
   scheduled jobs' last runs and failures, the month's AI spend by feature, the page cache, the admin's status checks,
   switches and the test-account count. Totals only. The token is made by Create test accounts and written into `.env`
   (`EnvSettings::setSecret`, never shown on Settings).
-- **Still to build:** the steward's group, the test client and vendor; the browser checks in the GitHub Action.
+- **Sign-in for the checks:** a test address with the checks' token (`X-Check-Token`, the health token) skips the
+  "verify you're human" check at member sign-in (`TestAccounts::checkRequest`, `api/auth/login.php`); staff logins sign
+  in with their password and a two-step code made from their key.
+- **The browser checks** (`tools/page-audit/rendered.mjs`, `.github/workflows/site-checks.yml`, daily at 09:43 UTC, in
+  full on Mondays): the front-end pages from the page tree and the guide paths found on Discovery (each guide, its first
+  suggested journey, its first named place), signed out at phone and desktop size; member and business pages as the
+  member and the owner; every admin section as the test Executive, and each other staff login's home. Each page is held
+  to: opens, no script errors, its own requests succeed, no sideways scroll at 390px, cards 3px from the edge, no
+  browser dialogs, images with alt text, buttons and links with a name. Results in `site-audit/rendered.md` and
+  `results/rendered.json`; screenshots with the run.
+- **Still to build:** the steward's group, the test client and vendor; read-only tool checks per account type and the
+  endpoint permission checks (Phase 2 items 7 and 9).
