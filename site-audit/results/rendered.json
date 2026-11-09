@@ -1,14 +1,13 @@
 {
- "at": "2026-11-09T12:29:35.240Z",
+ "at": "2026-11-09T12:42:59.547Z",
  "site": "https://traversence.com",
  "full": false,
  "signed_in": true,
- "pages": 113,
+ "pages": 344,
  "by": {
-  "names": 10,
-  "status": 17,
-  "console": 5,
-  "edges": 1,
+  "names": 214,
+  "status": 6,
+  "edges": 16,
   "scroll": 1
  },
  "results": [
@@ -298,11 +297,7 @@
    "size": "desktop",
    "must": true,
    "status": 200,
-   "console": [
-    "Refused to connect to 'data:,' because it violates the following Content Security Policy directive: \"connect-src 'self' https://hagen.challenges.cloudflare.com https://brunhild.challenges.cloudflare.c",
-    "Refused to connect to 'data:,' because it violates the following Content Security Policy directive: \"connect-src 'self' https://hagen.challenges.cloudflare.com https://brunhild.challenges.cloudflare.c",
-    "Refused to connect to 'data:,' because it violates the document's Content Security Policy."
-   ],
+   "console": [],
    "requests": [],
    "dialogs": [],
    "scroll": false,
@@ -310,12 +305,7 @@
    "alt": 0,
    "names": 0,
    "final": "/login.php?next=%2Fplans.php",
-   "why": [
-    [
-     "console",
-     "Refused to connect to 'data:,' because it violates the following Content Security Policy directive: \"connect-src 'self' https://hagen.challenges.cloudflare.com https://brunhild.challenges.cloudflare.c"
-    ]
-   ]
+   "why": []
   },
   {
    "who": "guest",
@@ -690,11 +680,7 @@
    "size": "phone",
    "must": false,
    "status": 200,
-   "console": [
-    "Refused to connect to 'data:,' because it violates the following Content Security Policy directive: \"connect-src 'self' https://hagen.challenges.cloudflare.com https://brunhild.challenges.cloudflare.c",
-    "Refused to connect to 'data:,' because it violates the following Content Security Policy directive: \"connect-src 'self' https://hagen.challenges.cloudflare.com https://brunhild.challenges.cloudflare.c",
-    "Refused to connect to 'data:,' because it violates the document's Content Security Policy."
-   ],
+   "console": [],
    "requests": [],
    "dialogs": [],
    "scroll": false,
@@ -702,12 +688,7 @@
    "alt": 0,
    "names": 0,
    "final": "/login.php?next=%2Fgallery%2F",
-   "why": [
-    [
-     "console",
-     "Refused to connect to 'data:,' because it violates the following Content Security Policy directive: \"connect-src 'self' https://hagen.challenges.cloudflare.com https://brunhild.challenges.cloudflare.c"
-    ]
-   ]
+   "why": []
   },
   {
    "who": "guest",
@@ -731,11 +712,7 @@
    "size": "phone",
    "must": false,
    "status": 200,
-   "console": [
-    "Refused to connect to 'data:,' because it violates the following Content Security Policy directive: \"connect-src 'self' https://hagen.challenges.cloudflare.com https://brunhild.challenges.cloudflare.c",
-    "Refused to connect to 'data:,' because it violates the following Content Security Policy directive: \"connect-src 'self' https://hagen.challenges.cloudflare.com https://brunhild.challenges.cloudflare.c",
-    "Refused to connect to 'data:,' because it violates the document's Content Security Policy."
-   ],
+   "console": [],
    "requests": [],
    "dialogs": [],
    "scroll": false,
@@ -743,12 +720,7 @@
    "alt": 0,
    "names": 0,
    "final": "/login.php?next=%2Fgallery%2Fjoin.php%3Ft%3D",
-   "why": [
-    [
-     "console",
-     "Refused to connect to 'data:,' because it violates the following Content Security Policy directive: \"connect-src 'self' https://hagen.challenges.cloudflare.com https://brunhild.challenges.cloudflare.c"
-    ]
-   ]
+   "why": []
   },
   {
    "who": "guest",
@@ -1022,11 +994,7 @@
    "size": "desktop",
    "must": false,
    "status": 200,
-   "console": [
-    "Refused to connect to 'data:,' because it violates the following Content Security Policy directive: \"connect-src 'self' https://hagen.challenges.cloudflare.com https://brunhild.challenges.cloudflare.c",
-    "Refused to connect to 'data:,' because it violates the following Content Security Policy directive: \"connect-src 'self' https://hagen.challenges.cloudflare.com https://brunhild.challenges.cloudflare.c",
-    "Refused to connect to 'data:,' because it violates the document's Content Security Policy."
-   ],
+   "console": [],
    "requests": [],
    "dialogs": [],
    "scroll": false,
@@ -1034,12 +1002,7 @@
    "alt": 0,
    "names": 0,
    "final": "/login.php?next=%2Fuser%2Fjourneys%2F",
-   "why": [
-    [
-     "console",
-     "Refused to connect to 'data:,' because it violates the following Content Security Policy directive: \"connect-src 'self' https://hagen.challenges.cloudflare.com https://brunhild.challenges.cloudflare.c"
-    ]
-   ]
+   "why": []
   },
   {
    "who": "guest",
@@ -1079,11 +1042,7 @@
    "size": "phone",
    "must": false,
    "status": 200,
-   "console": [
-    "Refused to connect to 'data:,' because it violates the following Content Security Policy directive: \"connect-src 'self' https://hagen.challenges.cloudflare.com https://brunhild.challenges.cloudflare.c",
-    "Refused to connect to 'data:,' because it violates the following Content Security Policy directive: \"connect-src 'self' https://hagen.challenges.cloudflare.com https://brunhild.challenges.cloudflare.c",
-    "Refused to connect to 'data:,' because it violates the document's Content Security Policy."
-   ],
+   "console": [],
    "requests": [],
    "dialogs": [],
    "scroll": false,
@@ -1091,12 +1050,7 @@
    "alt": 0,
    "names": 0,
    "final": "/login.php?next=%2Flisting%2Fbusinessportal.php",
-   "why": [
-    [
-     "console",
-     "Refused to connect to 'data:,' because it violates the following Content Security Policy directive: \"connect-src 'self' https://hagen.challenges.cloudflare.com https://brunhild.challenges.cloudflare.c"
-    ]
-   ]
+   "why": []
   },
   {
    "who": "guest",
@@ -1697,181 +1651,5037 @@
   },
   {
    "who": "member",
-   "url": "(sign-in)",
-   "size": "-",
-   "error": "Error: member sign-in check+member@traversence.com: 400 {\"ok\":false,\"error\":{\"code\":\"captcha\",\"message\":\"The \\\"verify you're human\\\" check didn't finish. Reload the page and try again; if it keeps hap",
-   "why": [
-    [
-     "status",
-     "Error: member sign-in check+member@traversence.com: 400 {\"ok\":false,\"error\":{\"code\":\"captcha\",\"message\":\"The \\\"verify you're human\\\" check didn't finish. Reload the page and try again; if it keeps hap"
-    ]
-   ]
+   "url": "/dashboard.php",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "final": "/listing/businessportal.php",
+   "why": []
+  },
+  {
+   "who": "member",
+   "url": "/business/api.php",
+   "size": "phone",
+   "must": false,
+   "status": 404,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "final": "/business/api.php",
+   "why": []
+  },
+  {
+   "who": "member",
+   "url": "/business/files.php",
+   "size": "phone",
+   "must": false,
+   "status": 403,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "final": "/business/files.php",
+   "why": []
+  },
+  {
+   "who": "member",
+   "url": "/business/",
+   "size": "phone",
+   "must": false,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "final": "/business/",
+   "why": []
+  },
+  {
+   "who": "member",
+   "url": "/business/pay-connect.php",
+   "size": "phone",
+   "must": false,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "final": "/business/",
+   "why": []
+  },
+  {
+   "who": "member",
+   "url": "/business/router.php",
+   "size": "phone",
+   "must": false,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "final": "/business/router.php",
+   "why": []
+  },
+  {
+   "who": "member",
+   "url": "/user/accounts.php",
+   "size": "phone",
+   "must": false,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "final": "/user/accounts.php",
+   "why": []
+  },
+  {
+   "who": "member",
+   "url": "/user/dashboard.php",
+   "size": "phone",
+   "must": false,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "final": "/user/dashboard.php",
+   "why": []
+  },
+  {
+   "who": "member",
+   "url": "/user/delete-account.php",
+   "size": "phone",
+   "must": false,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "final": "/user/delete-account.php",
+   "why": []
+  },
+  {
+   "who": "member",
+   "url": "/user/experiences/",
+   "size": "phone",
+   "must": false,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "final": "/user/experiences/",
+   "why": []
+  },
+  {
+   "who": "member",
+   "url": "/user/journeys/compose.php",
+   "size": "phone",
+   "must": false,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "final": "/user/journeys/",
+   "why": []
+  },
+  {
+   "who": "member",
+   "url": "/user/journeys/",
+   "size": "phone",
+   "must": false,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "final": "/user/journeys/",
+   "why": []
+  },
+  {
+   "who": "member",
+   "url": "/user/market/",
+   "size": "phone",
+   "must": false,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "final": "/user/market/",
+   "why": []
+  },
+  {
+   "who": "member",
+   "url": "/user/notice.php",
+   "size": "phone",
+   "must": false,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "final": "/user/notice.php",
+   "why": []
+  },
+  {
+   "who": "member",
+   "url": "/user/orders.php",
+   "size": "phone",
+   "must": false,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "final": "/user/orders.php",
+   "why": []
+  },
+  {
+   "who": "member",
+   "url": "/user/profile.php",
+   "size": "phone",
+   "must": false,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "final": "/user/profile.php",
+   "why": []
+  },
+  {
+   "who": "member",
+   "url": "/user/restore-account.php",
+   "size": "phone",
+   "must": false,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "final": "/user/restore-account.php",
+   "why": []
+  },
+  {
+   "who": "member",
+   "url": "/user/staff-link.php",
+   "size": "phone",
+   "must": false,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "final": "/user/staff-link.php",
+   "why": []
+  },
+  {
+   "who": "member",
+   "url": "/user/transfer.php",
+   "size": "phone",
+   "must": false,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "final": "/user/transfer.php",
+   "why": []
   },
   {
    "who": "owner",
-   "url": "(sign-in)",
-   "size": "-",
-   "error": "Error: member sign-in check+owner@traversence.com: 400 {\"ok\":false,\"error\":{\"code\":\"captcha\",\"message\":\"The \\\"verify you're human\\\" check didn't finish. Reload the page and try again; if it keeps happ",
+   "url": "/dashboard.php",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "final": "/listing/businessportal.php",
+   "why": []
+  },
+  {
+   "who": "owner",
+   "url": "/business/api.php",
+   "size": "phone",
+   "must": false,
+   "status": 404,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "final": "/business/api.php",
+   "why": []
+  },
+  {
+   "who": "owner",
+   "url": "/business/files.php",
+   "size": "phone",
+   "must": false,
+   "status": 403,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "final": "/business/files.php",
+   "why": []
+  },
+  {
+   "who": "owner",
+   "url": "/business/",
+   "size": "phone",
+   "must": false,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "final": "/business/9035",
+   "why": []
+  },
+  {
+   "who": "owner",
+   "url": "/business/pay-connect.php",
+   "size": "phone",
+   "must": false,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "final": "/business/9035",
+   "why": []
+  },
+  {
+   "who": "owner",
+   "url": "/business/router.php",
+   "size": "phone",
+   "must": false,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "final": "/business/9035",
+   "why": []
+  },
+  {
+   "who": "owner",
+   "url": "/user/accounts.php",
+   "size": "phone",
+   "must": false,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "final": "/user/accounts.php",
+   "why": []
+  },
+  {
+   "who": "owner",
+   "url": "/user/dashboard.php",
+   "size": "phone",
+   "must": false,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "final": "/business/9035",
+   "why": []
+  },
+  {
+   "who": "owner",
+   "url": "/user/delete-account.php",
+   "size": "phone",
+   "must": false,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "final": "/user/delete-account.php",
+   "why": []
+  },
+  {
+   "who": "owner",
+   "url": "/user/experiences/",
+   "size": "phone",
+   "must": false,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "final": "/user/experiences/",
+   "why": []
+  },
+  {
+   "who": "owner",
+   "url": "/user/journeys/compose.php",
+   "size": "phone",
+   "must": false,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "final": "/user/journeys/",
+   "why": []
+  },
+  {
+   "who": "owner",
+   "url": "/user/journeys/",
+   "size": "phone",
+   "must": false,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "final": "/user/journeys/",
+   "why": []
+  },
+  {
+   "who": "owner",
+   "url": "/user/market/",
+   "size": "phone",
+   "must": false,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "final": "/user/market/",
+   "why": []
+  },
+  {
+   "who": "owner",
+   "url": "/user/notice.php",
+   "size": "phone",
+   "must": false,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "final": "/user/notice.php",
+   "why": []
+  },
+  {
+   "who": "owner",
+   "url": "/user/orders.php",
+   "size": "phone",
+   "must": false,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "final": "/user/orders.php",
+   "why": []
+  },
+  {
+   "who": "owner",
+   "url": "/user/profile.php",
+   "size": "phone",
+   "must": false,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "final": "/user/profile.php",
+   "why": []
+  },
+  {
+   "who": "owner",
+   "url": "/user/restore-account.php",
+   "size": "phone",
+   "must": false,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "final": "/user/restore-account.php",
+   "why": []
+  },
+  {
+   "who": "owner",
+   "url": "/user/staff-link.php",
+   "size": "phone",
+   "must": false,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "final": "/user/staff-link.php",
+   "why": []
+  },
+  {
+   "who": "owner",
+   "url": "/user/transfer.php",
+   "size": "phone",
+   "must": false,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "final": "/user/transfer.php",
+   "why": []
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 4,
+   "alt": 0,
+   "names": 55,
+   "final": "/admin/dashboard/today",
    "why": [
     [
-     "status",
-     "Error: member sign-in check+owner@traversence.com: 400 {\"ok\":false,\"error\":{\"code\":\"captcha\",\"message\":\"The \\\"verify you're human\\\" check didn't finish. Reload the page and try again; if it keeps happ"
+     "edges",
+     "4 card(s)"
+    ],
+    [
+     "names",
+     "55 control(s)"
     ]
    ]
   },
   {
    "who": "staff-executive",
-   "url": "(sign-in)",
-   "size": "-",
-   "error": "Error: staff sign-in TRV-0002 didn't get past the sign-in page",
+   "url": "/admin/",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 55,
+   "final": "/admin/dashboard/today",
+   "why": [
+    [
+     "names",
+     "55 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/dashboard/today",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 4,
+   "alt": 0,
+   "names": 55,
+   "final": "/admin/dashboard/today",
+   "why": [
+    [
+     "edges",
+     "4 card(s)"
+    ],
+    [
+     "names",
+     "55 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/dashboard/today",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 55,
+   "final": "/admin/dashboard/today",
+   "why": [
+    [
+     "names",
+     "55 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/dashboard/quick",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 25,
+   "final": "/admin/dashboard/quick",
+   "why": [
+    [
+     "names",
+     "25 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/dashboard/quick",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 25,
+   "final": "/admin/dashboard/quick",
+   "why": [
+    [
+     "names",
+     "25 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/dashboard/helper",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 25,
+   "final": "/admin/dashboard/helper",
+   "why": [
+    [
+     "names",
+     "25 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/dashboard/helper",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 25,
+   "final": "/admin/dashboard/helper",
+   "why": [
+    [
+     "names",
+     "25 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/pulse/stream",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 27,
+   "final": "/admin/pulse/stream",
+   "why": [
+    [
+     "names",
+     "27 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/pulse/stream",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 27,
+   "final": "/admin/pulse/stream",
+   "why": [
+    [
+     "names",
+     "27 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/pulse/settings",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 25,
+   "final": "/admin/pulse/settings",
+   "why": [
+    [
+     "names",
+     "25 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/pulse/settings",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 25,
+   "final": "/admin/pulse/settings",
+   "why": [
+    [
+     "names",
+     "25 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/pulse/mail",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 25,
+   "final": "/admin/pulse/mail",
+   "why": [
+    [
+     "names",
+     "25 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/pulse/mail",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 25,
+   "final": "/admin/pulse/mail",
+   "why": [
+    [
+     "names",
+     "25 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/local/listings",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 37,
+   "final": "/admin/local/listings",
+   "why": [
+    [
+     "names",
+     "37 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/local/listings",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 37,
+   "final": "/admin/local/listings",
+   "why": [
+    [
+     "names",
+     "37 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/local/bulk",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 37,
+   "final": "/admin/local/bulk",
+   "why": [
+    [
+     "names",
+     "37 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/local/bulk",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 37,
+   "final": "/admin/local/bulk",
+   "why": [
+    [
+     "names",
+     "37 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/local/intake",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 37,
+   "final": "/admin/local/intake",
+   "why": [
+    [
+     "names",
+     "37 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/local/intake",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 37,
+   "final": "/admin/local/intake",
+   "why": [
+    [
+     "names",
+     "37 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/local/review",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 37,
+   "final": "/admin/local/review",
+   "why": [
+    [
+     "names",
+     "37 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/local/review",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 37,
+   "final": "/admin/local/review",
+   "why": [
+    [
+     "names",
+     "37 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/local/claims",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 37,
+   "final": "/admin/local/claims",
+   "why": [
+    [
+     "names",
+     "37 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/local/claims",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 37,
+   "final": "/admin/local/claims",
+   "why": [
+    [
+     "names",
+     "37 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/local/nexus",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 37,
+   "final": "/admin/local/nexus",
+   "why": [
+    [
+     "names",
+     "37 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/local/nexus",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 37,
+   "final": "/admin/local/nexus",
+   "why": [
+    [
+     "names",
+     "37 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/local/identities",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 37,
+   "final": "/admin/local/identities",
+   "why": [
+    [
+     "names",
+     "37 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/local/identities",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 37,
+   "final": "/admin/local/identities",
+   "why": [
+    [
+     "names",
+     "37 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/local/places",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 37,
+   "final": "/admin/local/places",
+   "why": [
+    [
+     "names",
+     "37 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/local/places",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 37,
+   "final": "/admin/local/places",
+   "why": [
+    [
+     "names",
+     "37 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/local/recreation",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 37,
+   "final": "/admin/local/recreation",
+   "why": [
+    [
+     "names",
+     "37 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/local/recreation",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 37,
+   "final": "/admin/local/recreation",
+   "why": [
+    [
+     "names",
+     "37 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/local/pins",
+   "size": "phone",
+   "must": true,
+   "status": 0,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "error": "TimeoutError: page.goto: Timeout 45000ms exceeded.\nCall log:\n  - navigating to \"https://traversence.com/admin/local/pins\", waiting until \"load\"\n",
    "why": [
     [
      "status",
-     "Error: staff sign-in TRV-0002 didn't get past the sign-in page"
+     "TimeoutError: page.goto: Timeout 45000ms exceeded.\nCall log:\n  - navigating to \"https://traversence.com/admin/local/pins\", waiting until \"load\"\n"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/local/pins",
+   "size": "desktop",
+   "must": true,
+   "status": 0,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "error": "TimeoutError: page.goto: Timeout 45000ms exceeded.\nCall log:\n  - navigating to \"https://traversence.com/admin/local/pins\", waiting until \"load\"\n",
+   "why": [
+    [
+     "status",
+     "TimeoutError: page.goto: Timeout 45000ms exceeded.\nCall log:\n  - navigating to \"https://traversence.com/admin/local/pins\", waiting until \"load\"\n"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/local/nations",
+   "size": "phone",
+   "must": true,
+   "status": 0,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "error": "TimeoutError: page.goto: Timeout 45000ms exceeded.\nCall log:\n  - navigating to \"https://traversence.com/admin/local/nations\", waiting until \"load\"\n",
+   "why": [
+    [
+     "status",
+     "TimeoutError: page.goto: Timeout 45000ms exceeded.\nCall log:\n  - navigating to \"https://traversence.com/admin/local/nations\", waiting until \"load\"\n"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/local/nations",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 37,
+   "final": "/admin/local/nations",
+   "why": [
+    [
+     "names",
+     "37 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/local/hidden",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 37,
+   "final": "/admin/local/hidden",
+   "why": [
+    [
+     "names",
+     "37 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/local/hidden",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 37,
+   "final": "/admin/local/hidden",
+   "why": [
+    [
+     "names",
+     "37 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/local/categories",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 37,
+   "final": "/admin/local/categories",
+   "why": [
+    [
+     "names",
+     "37 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/local/categories",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 37,
+   "final": "/admin/local/categories",
+   "why": [
+    [
+     "names",
+     "37 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/local/taxonomy",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 37,
+   "final": "/admin/local/taxonomy",
+   "why": [
+    [
+     "names",
+     "37 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/local/taxonomy",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 37,
+   "final": "/admin/local/taxonomy",
+   "why": [
+    [
+     "names",
+     "37 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/explore/journeys",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 30,
+   "final": "/admin/explore/journeys",
+   "why": [
+    [
+     "names",
+     "30 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/explore/journeys",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 30,
+   "final": "/admin/explore/journeys",
+   "why": [
+    [
+     "names",
+     "30 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/explore/experiences",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 30,
+   "final": "/admin/explore/experiences",
+   "why": [
+    [
+     "names",
+     "30 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/explore/experiences",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 30,
+   "final": "/admin/explore/experiences",
+   "why": [
+    [
+     "names",
+     "30 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/explore/stories",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 30,
+   "final": "/admin/explore/stories",
+   "why": [
+    [
+     "names",
+     "30 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/explore/stories",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 30,
+   "final": "/admin/explore/stories",
+   "why": [
+    [
+     "names",
+     "30 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/explore/place_guides",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 30,
+   "final": "/admin/explore/place_guides",
+   "why": [
+    [
+     "names",
+     "30 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/explore/place_guides",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 30,
+   "final": "/admin/explore/place_guides",
+   "why": [
+    [
+     "names",
+     "30 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/explore/events",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 30,
+   "final": "/admin/explore/events",
+   "why": [
+    [
+     "names",
+     "30 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/explore/events",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 30,
+   "final": "/admin/explore/events",
+   "why": [
+    [
+     "names",
+     "30 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/explore/guides",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 30,
+   "final": "/admin/explore/guides",
+   "why": [
+    [
+     "names",
+     "30 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/explore/guides",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 30,
+   "final": "/admin/explore/guides",
+   "why": [
+    [
+     "names",
+     "30 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/explore/howto",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 30,
+   "final": "/admin/explore/howto",
+   "why": [
+    [
+     "names",
+     "30 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/explore/howto",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 30,
+   "final": "/admin/explore/howto",
+   "why": [
+    [
+     "names",
+     "30 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/market/items",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 34,
+   "final": "/admin/market/items",
+   "why": [
+    [
+     "names",
+     "34 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/market/items",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 34,
+   "final": "/admin/market/items",
+   "why": [
+    [
+     "names",
+     "34 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/market/rules",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 34,
+   "final": "/admin/market/rules",
+   "why": [
+    [
+     "names",
+     "34 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/market/rules",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 34,
+   "final": "/admin/market/rules",
+   "why": [
+    [
+     "names",
+     "34 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/market/bizitems",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 34,
+   "final": "/admin/market/bizitems",
+   "why": [
+    [
+     "names",
+     "34 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/market/bizitems",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 34,
+   "final": "/admin/market/bizitems",
+   "why": [
+    [
+     "names",
+     "34 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/market/exchange",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 34,
+   "final": "/admin/market/exchange",
+   "why": [
+    [
+     "names",
+     "34 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/market/exchange",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 34,
+   "final": "/admin/market/exchange",
+   "why": [
+    [
+     "names",
+     "34 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/market/storefronts",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 34,
+   "final": "/admin/market/storefronts",
+   "why": [
+    [
+     "names",
+     "34 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/market/storefronts",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 34,
+   "final": "/admin/market/storefronts",
+   "why": [
+    [
+     "names",
+     "34 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/market/gateways",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 34,
+   "final": "/admin/market/gateways",
+   "why": [
+    [
+     "names",
+     "34 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/market/gateways",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 34,
+   "final": "/admin/market/gateways",
+   "why": [
+    [
+     "names",
+     "34 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/market/compliance",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 34,
+   "final": "/admin/market/compliance",
+   "why": [
+    [
+     "names",
+     "34 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/market/compliance",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 34,
+   "final": "/admin/market/compliance",
+   "why": [
+    [
+     "names",
+     "34 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/market/domains",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 34,
+   "final": "/admin/market/domains",
+   "why": [
+    [
+     "names",
+     "34 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/market/domains",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 34,
+   "final": "/admin/market/domains",
+   "why": [
+    [
+     "names",
+     "34 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/market/codes",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 34,
+   "final": "/admin/market/codes",
+   "why": [
+    [
+     "names",
+     "34 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/market/codes",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 34,
+   "final": "/admin/market/codes",
+   "why": [
+    [
+     "names",
+     "34 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/market/pages",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 34,
+   "final": "/admin/market/pages",
+   "why": [
+    [
+     "names",
+     "34 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/market/pages",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 34,
+   "final": "/admin/market/pages",
+   "why": [
+    [
+     "names",
+     "34 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/market/leads",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 34,
+   "final": "/admin/market/leads",
+   "why": [
+    [
+     "names",
+     "34 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/market/leads",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 34,
+   "final": "/admin/market/leads",
+   "why": [
+    [
+     "names",
+     "34 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/social/reports",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 29,
+   "final": "/admin/social/reports",
+   "why": [
+    [
+     "names",
+     "29 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/social/reports",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 29,
+   "final": "/admin/social/reports",
+   "why": [
+    [
+     "names",
+     "29 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/social/standing",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 29,
+   "final": "/admin/social/standing",
+   "why": [
+    [
+     "names",
+     "29 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/social/standing",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 29,
+   "final": "/admin/social/standing",
+   "why": [
+    [
+     "names",
+     "29 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/social/takedowns",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 29,
+   "final": "/admin/social/takedowns",
+   "why": [
+    [
+     "names",
+     "29 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/social/takedowns",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 29,
+   "final": "/admin/social/takedowns",
+   "why": [
+    [
+     "names",
+     "29 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/social/galleries",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 29,
+   "final": "/admin/social/galleries",
+   "why": [
+    [
+     "names",
+     "29 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/social/galleries",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 29,
+   "final": "/admin/social/galleries",
+   "why": [
+    [
+     "names",
+     "29 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/social/procedures",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 29,
+   "final": "/admin/social/procedures",
+   "why": [
+    [
+     "names",
+     "29 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/social/procedures",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 29,
+   "final": "/admin/social/procedures",
+   "why": [
+    [
+     "names",
+     "29 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/social/groups",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 29,
+   "final": "/admin/social/groups",
+   "why": [
+    [
+     "names",
+     "29 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/social/groups",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 29,
+   "final": "/admin/social/groups",
+   "why": [
+    [
+     "names",
+     "29 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/growth/calls",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 31,
+   "final": "/admin/growth/calls",
+   "why": [
+    [
+     "names",
+     "31 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/growth/calls",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 31,
+   "final": "/admin/growth/calls",
+   "why": [
+    [
+     "names",
+     "31 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/growth/prospects",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 31,
+   "final": "/admin/growth/prospects",
+   "why": [
+    [
+     "names",
+     "31 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/growth/prospects",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 31,
+   "final": "/admin/growth/prospects",
+   "why": [
+    [
+     "names",
+     "31 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/growth/customers",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 31,
+   "final": "/admin/growth/customers",
+   "why": [
+    [
+     "names",
+     "31 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/growth/customers",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 31,
+   "final": "/admin/growth/customers",
+   "why": [
+    [
+     "names",
+     "31 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/growth/cards",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 31,
+   "final": "/admin/growth/cards",
+   "why": [
+    [
+     "names",
+     "31 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/growth/cards",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 31,
+   "final": "/admin/growth/cards",
+   "why": [
+    [
+     "names",
+     "31 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/growth/field",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 31,
+   "final": "/admin/growth/field",
+   "why": [
+    [
+     "names",
+     "31 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/growth/field",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 31,
+   "final": "/admin/growth/field",
+   "why": [
+    [
+     "names",
+     "31 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/growth/promotions",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 32,
+   "final": "/admin/growth/promotions",
+   "why": [
+    [
+     "names",
+     "32 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/growth/promotions",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 32,
+   "final": "/admin/growth/promotions",
+   "why": [
+    [
+     "names",
+     "32 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/growth/territories",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 31,
+   "final": "/admin/growth/territories",
+   "why": [
+    [
+     "names",
+     "31 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/growth/territories",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 31,
+   "final": "/admin/growth/territories",
+   "why": [
+    [
+     "names",
+     "31 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/growth/funnel",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 31,
+   "final": "/admin/growth/funnel",
+   "why": [
+    [
+     "names",
+     "31 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/growth/funnel",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 31,
+   "final": "/admin/growth/funnel",
+   "why": [
+    [
+     "names",
+     "31 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/concierge/imports",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 27,
+   "final": "/admin/concierge/imports",
+   "why": [
+    [
+     "names",
+     "27 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/concierge/imports",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 27,
+   "final": "/admin/concierge/imports",
+   "why": [
+    [
+     "names",
+     "27 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/backoffice/orders",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 56,
+   "final": "/admin/backoffice/orders",
+   "why": [
+    [
+     "names",
+     "56 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/backoffice/orders",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 56,
+   "final": "/admin/backoffice/orders",
+   "why": [
+    [
+     "names",
+     "56 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/backoffice/products",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 55,
+   "final": "/admin/backoffice/products",
+   "why": [
+    [
+     "names",
+     "55 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/backoffice/products",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 55,
+   "final": "/admin/backoffice/products",
+   "why": [
+    [
+     "names",
+     "55 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/backoffice/production",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 46,
+   "final": "/admin/backoffice/production",
+   "why": [
+    [
+     "names",
+     "46 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/backoffice/production",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 46,
+   "final": "/admin/backoffice/production",
+   "why": [
+    [
+     "names",
+     "46 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/backoffice/work_orders",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 46,
+   "final": "/admin/backoffice/work_orders",
+   "why": [
+    [
+     "names",
+     "46 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/backoffice/work_orders",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 46,
+   "final": "/admin/backoffice/work_orders",
+   "why": [
+    [
+     "names",
+     "46 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/backoffice/clients",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 46,
+   "final": "/admin/backoffice/clients",
+   "why": [
+    [
+     "names",
+     "46 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/backoffice/clients",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 46,
+   "final": "/admin/backoffice/clients",
+   "why": [
+    [
+     "names",
+     "46 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/backoffice/qb_items",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 46,
+   "final": "/admin/backoffice/qb_items",
+   "why": [
+    [
+     "names",
+     "46 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/backoffice/qb_items",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 46,
+   "final": "/admin/backoffice/qb_items",
+   "why": [
+    [
+     "names",
+     "46 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/backoffice/collateral",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 46,
+   "final": "/admin/backoffice/collateral",
+   "why": [
+    [
+     "names",
+     "46 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/backoffice/collateral",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 46,
+   "final": "/admin/backoffice/collateral",
+   "why": [
+    [
+     "names",
+     "46 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/backoffice/vendor_list",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 50,
+   "final": "/admin/backoffice/vendor_list",
+   "why": [
+    [
+     "names",
+     "50 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/backoffice/vendor_list",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 50,
+   "final": "/admin/backoffice/vendor_list",
+   "why": [
+    [
+     "names",
+     "50 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/backoffice/cost_list",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 55,
+   "final": "/admin/backoffice/cost_list",
+   "why": [
+    [
+     "names",
+     "55 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/backoffice/cost_list",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 55,
+   "final": "/admin/backoffice/cost_list",
+   "why": [
+    [
+     "names",
+     "55 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/backoffice/vendors",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 46,
+   "final": "/admin/backoffice/vendors",
+   "why": [
+    [
+     "names",
+     "46 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/backoffice/vendors",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 46,
+   "final": "/admin/backoffice/vendors",
+   "why": [
+    [
+     "names",
+     "46 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/backoffice/pricelists",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 46,
+   "final": "/admin/backoffice/pricelists",
+   "why": [
+    [
+     "names",
+     "46 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/backoffice/pricelists",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 46,
+   "final": "/admin/backoffice/pricelists",
+   "why": [
+    [
+     "names",
+     "46 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/backoffice/taxes",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 46,
+   "final": "/admin/backoffice/taxes",
+   "why": [
+    [
+     "names",
+     "46 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/backoffice/taxes",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 46,
+   "final": "/admin/backoffice/taxes",
+   "why": [
+    [
+     "names",
+     "46 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/backoffice/plans",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 46,
+   "final": "/admin/backoffice/plans",
+   "why": [
+    [
+     "names",
+     "46 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/backoffice/plans",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 46,
+   "final": "/admin/backoffice/plans",
+   "why": [
+    [
+     "names",
+     "46 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/backoffice/payments",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 46,
+   "final": "/admin/backoffice/payments",
+   "why": [
+    [
+     "names",
+     "46 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/backoffice/payments",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 46,
+   "final": "/admin/backoffice/payments",
+   "why": [
+    [
+     "names",
+     "46 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/backoffice/money",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 46,
+   "final": "/admin/backoffice/money",
+   "why": [
+    [
+     "names",
+     "46 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/backoffice/money",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 46,
+   "final": "/admin/backoffice/money",
+   "why": [
+    [
+     "names",
+     "46 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/backoffice/people",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 46,
+   "final": "/admin/backoffice/people",
+   "why": [
+    [
+     "names",
+     "46 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/backoffice/people",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 46,
+   "final": "/admin/backoffice/people",
+   "why": [
+    [
+     "names",
+     "46 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/backoffice/logins",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 46,
+   "final": "/admin/backoffice/logins",
+   "why": [
+    [
+     "names",
+     "46 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/backoffice/logins",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 46,
+   "final": "/admin/backoffice/logins",
+   "why": [
+    [
+     "names",
+     "46 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/backoffice/levels",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 46,
+   "final": "/admin/backoffice/levels",
+   "why": [
+    [
+     "names",
+     "46 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/backoffice/levels",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 46,
+   "final": "/admin/backoffice/levels",
+   "why": [
+    [
+     "names",
+     "46 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/backoffice/imports",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 46,
+   "final": "/admin/backoffice/imports",
+   "why": [
+    [
+     "names",
+     "46 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/backoffice/imports",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 46,
+   "final": "/admin/backoffice/imports",
+   "why": [
+    [
+     "names",
+     "46 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/insights/numbers",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 34,
+   "final": "/admin/insights/numbers",
+   "why": [
+    [
+     "names",
+     "34 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/insights/numbers",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 34,
+   "final": "/admin/insights/numbers",
+   "why": [
+    [
+     "names",
+     "34 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/insights/search",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 34,
+   "final": "/admin/insights/search",
+   "why": [
+    [
+     "names",
+     "34 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/insights/search",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 34,
+   "final": "/admin/insights/search",
+   "why": [
+    [
+     "names",
+     "34 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/insights/crawler",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 34,
+   "final": "/admin/insights/crawler",
+   "why": [
+    [
+     "names",
+     "34 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/insights/crawler",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 34,
+   "final": "/admin/insights/crawler",
+   "why": [
+    [
+     "names",
+     "34 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/insights/sources",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 34,
+   "final": "/admin/insights/sources",
+   "why": [
+    [
+     "names",
+     "34 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/insights/sources",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 34,
+   "final": "/admin/insights/sources",
+   "why": [
+    [
+     "names",
+     "34 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/insights/seeker",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 34,
+   "final": "/admin/insights/seeker",
+   "why": [
+    [
+     "names",
+     "34 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/insights/seeker",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 34,
+   "final": "/admin/insights/seeker",
+   "why": [
+    [
+     "names",
+     "34 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/insights/topics",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 34,
+   "final": "/admin/insights/topics",
+   "why": [
+    [
+     "names",
+     "34 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/insights/topics",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 34,
+   "final": "/admin/insights/topics",
+   "why": [
+    [
+     "names",
+     "34 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/insights/audit",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 34,
+   "final": "/admin/insights/audit",
+   "why": [
+    [
+     "names",
+     "34 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/insights/audit",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 34,
+   "final": "/admin/insights/audit",
+   "why": [
+    [
+     "names",
+     "34 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/insights/aiassist",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 34,
+   "final": "/admin/insights/aiassist",
+   "why": [
+    [
+     "names",
+     "34 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/insights/aiassist",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 34,
+   "final": "/admin/insights/aiassist",
+   "why": [
+    [
+     "names",
+     "34 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/insights/data",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 34,
+   "final": "/admin/insights/data",
+   "why": [
+    [
+     "names",
+     "34 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/insights/data",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 34,
+   "final": "/admin/insights/data",
+   "why": [
+    [
+     "names",
+     "34 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/config/workflows",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 42,
+   "final": "/admin/config/workflows",
+   "why": [
+    [
+     "names",
+     "42 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/config/workflows",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 42,
+   "final": "/admin/config/workflows",
+   "why": [
+    [
+     "names",
+     "42 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/config/permissions",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 42,
+   "final": "/admin/config/permissions",
+   "why": [
+    [
+     "names",
+     "42 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/config/permissions",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 42,
+   "final": "/admin/config/permissions",
+   "why": [
+    [
+     "names",
+     "42 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/config/datacheck",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 42,
+   "final": "/admin/config/datacheck",
+   "why": [
+    [
+     "names",
+     "42 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/config/datacheck",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 42,
+   "final": "/admin/config/datacheck",
+   "why": [
+    [
+     "names",
+     "42 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/config/scheduler",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 42,
+   "final": "/admin/config/scheduler",
+   "why": [
+    [
+     "names",
+     "42 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/config/scheduler",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 42,
+   "final": "/admin/config/scheduler",
+   "why": [
+    [
+     "names",
+     "42 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/config/ai",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 42,
+   "final": "/admin/config/ai",
+   "why": [
+    [
+     "names",
+     "42 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/config/ai",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 42,
+   "final": "/admin/config/ai",
+   "why": [
+    [
+     "names",
+     "42 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/config/services",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 42,
+   "final": "/admin/config/services",
+   "why": [
+    [
+     "names",
+     "42 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/config/services",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 42,
+   "final": "/admin/config/services",
+   "why": [
+    [
+     "names",
+     "42 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/config/thresholds",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 42,
+   "final": "/admin/config/thresholds",
+   "why": [
+    [
+     "names",
+     "42 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/config/thresholds",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 42,
+   "final": "/admin/config/thresholds",
+   "why": [
+    [
+     "names",
+     "42 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/config/content",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 42,
+   "final": "/admin/config/content",
+   "why": [
+    [
+     "names",
+     "42 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/config/content",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 42,
+   "final": "/admin/config/content",
+   "why": [
+    [
+     "names",
+     "42 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/config/stock",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 42,
+   "final": "/admin/config/stock",
+   "why": [
+    [
+     "names",
+     "42 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/config/stock",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 42,
+   "final": "/admin/config/stock",
+   "why": [
+    [
+     "names",
+     "42 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/config/jurisdictions",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 42,
+   "final": "/admin/config/jurisdictions",
+   "why": [
+    [
+     "names",
+     "42 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/config/jurisdictions",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 42,
+   "final": "/admin/config/jurisdictions",
+   "why": [
+    [
+     "names",
+     "42 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/config/dbupdates",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 1,
+   "alt": 0,
+   "names": 42,
+   "final": "/admin/config/dbupdates",
+   "why": [
+    [
+     "edges",
+     "1 card(s)"
+    ],
+    [
+     "names",
+     "42 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/config/dbupdates",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 42,
+   "final": "/admin/config/dbupdates",
+   "why": [
+    [
+     "names",
+     "42 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/config/switches",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 42,
+   "final": "/admin/config/switches",
+   "why": [
+    [
+     "names",
+     "42 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/config/switches",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 42,
+   "final": "/admin/config/switches",
+   "why": [
+    [
+     "names",
+     "42 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/config/testaccounts",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 42,
+   "final": "/admin/config/testaccounts",
+   "why": [
+    [
+     "names",
+     "42 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/config/testaccounts",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 42,
+   "final": "/admin/config/testaccounts",
+   "why": [
+    [
+     "names",
+     "42 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/config/settings",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 42,
+   "final": "/admin/config/settings",
+   "why": [
+    [
+     "names",
+     "42 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/config/settings",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 42,
+   "final": "/admin/config/settings",
+   "why": [
+    [
+     "names",
+     "42 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/config/logs",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 42,
+   "final": "/admin/config/logs",
+   "why": [
+    [
+     "names",
+     "42 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/config/logs",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 42,
+   "final": "/admin/config/logs",
+   "why": [
+    [
+     "names",
+     "42 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/config/sitemap",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 42,
+   "final": "/admin/config/sitemap",
+   "why": [
+    [
+     "names",
+     "42 control(s)"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/config/sitemap",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 42,
+   "final": "/admin/config/sitemap",
+   "why": [
+    [
+     "names",
+     "42 control(s)"
     ]
    ]
   },
   {
    "who": "staff-ops-director",
-   "url": "(sign-in)",
-   "size": "-",
-   "error": "Error: staff sign-in TRV-0003 didn't get past the sign-in page",
+   "url": "/admin/",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 4,
+   "alt": 0,
+   "names": 48,
+   "final": "/admin/dashboard/today",
    "why": [
     [
-     "status",
-     "Error: staff sign-in TRV-0003 didn't get past the sign-in page"
+     "edges",
+     "4 card(s)"
+    ],
+    [
+     "names",
+     "48 control(s)"
     ]
    ]
   },
   {
    "who": "staff-ops-manager",
-   "url": "(sign-in)",
-   "size": "-",
-   "error": "Error: staff sign-in TRV-0004 didn't get past the sign-in page",
+   "url": "/admin/",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 4,
+   "alt": 0,
+   "names": 48,
+   "final": "/admin/dashboard/today",
    "why": [
     [
-     "status",
-     "Error: staff sign-in TRV-0004 didn't get past the sign-in page"
+     "edges",
+     "4 card(s)"
+    ],
+    [
+     "names",
+     "48 control(s)"
     ]
    ]
   },
   {
    "who": "staff-ops-staff",
-   "url": "(sign-in)",
-   "size": "-",
-   "error": "Error: staff sign-in TRV-0005 didn't get past the sign-in page",
+   "url": "/admin/",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 4,
+   "alt": 0,
+   "names": 48,
+   "final": "/admin/dashboard/today",
    "why": [
     [
-     "status",
-     "Error: staff sign-in TRV-0005 didn't get past the sign-in page"
+     "edges",
+     "4 card(s)"
+    ],
+    [
+     "names",
+     "48 control(s)"
     ]
    ]
   },
   {
    "who": "staff-fin-staff",
-   "url": "(sign-in)",
-   "size": "-",
-   "error": "Error: staff sign-in TRV-0006 didn't get past the sign-in page",
+   "url": "/admin/",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 4,
+   "alt": 0,
+   "names": 37,
+   "final": "/admin/dashboard/today",
    "why": [
     [
-     "status",
-     "Error: staff sign-in TRV-0006 didn't get past the sign-in page"
+     "edges",
+     "4 card(s)"
+    ],
+    [
+     "names",
+     "37 control(s)"
     ]
    ]
   },
   {
    "who": "staff-sal-staff",
-   "url": "(sign-in)",
-   "size": "-",
-   "error": "Error: staff sign-in TRV-0007 didn't get past the sign-in page",
+   "url": "/admin/",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 4,
+   "alt": 0,
+   "names": 37,
+   "final": "/admin/dashboard/today",
    "why": [
     [
-     "status",
-     "Error: staff sign-in TRV-0007 didn't get past the sign-in page"
+     "edges",
+     "4 card(s)"
+    ],
+    [
+     "names",
+     "37 control(s)"
     ]
    ]
   },
   {
    "who": "staff-svc-staff",
-   "url": "(sign-in)",
-   "size": "-",
-   "error": "Error: staff sign-in TRV-0008 didn't get past the sign-in page",
+   "url": "/admin/",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 4,
+   "alt": 0,
+   "names": 38,
+   "final": "/admin/dashboard/today",
    "why": [
     [
-     "status",
-     "Error: staff sign-in TRV-0008 didn't get past the sign-in page"
+     "edges",
+     "4 card(s)"
+    ],
+    [
+     "names",
+     "38 control(s)"
     ]
    ]
   },
   {
    "who": "staff-con-staff",
-   "url": "(sign-in)",
-   "size": "-",
-   "error": "Error: staff sign-in TRV-0009 didn't get past the sign-in page",
+   "url": "/admin/",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 4,
+   "alt": 0,
+   "names": 42,
+   "final": "/admin/dashboard/today",
    "why": [
     [
-     "status",
-     "Error: staff sign-in TRV-0009 didn't get past the sign-in page"
+     "edges",
+     "4 card(s)"
+    ],
+    [
+     "names",
+     "42 control(s)"
     ]
    ]
   },
   {
    "who": "staff-eng-staff",
-   "url": "(sign-in)",
-   "size": "-",
-   "error": "Error: staff sign-in TRV-0010 didn't get past the sign-in page",
+   "url": "/admin/",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 4,
+   "alt": 0,
+   "names": 39,
+   "final": "/admin/dashboard/today",
    "why": [
     [
-     "status",
-     "Error: staff sign-in TRV-0010 didn't get past the sign-in page"
+     "edges",
+     "4 card(s)"
+    ],
+    [
+     "names",
+     "39 control(s)"
     ]
    ]
   },
   {
    "who": "staff-editor",
-   "url": "(sign-in)",
-   "size": "-",
-   "error": "Error: staff sign-in TRV-0011 didn't get past the sign-in page",
+   "url": "/admin/",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 4,
+   "alt": 0,
+   "names": 42,
+   "final": "/admin/dashboard/today",
    "why": [
     [
-     "status",
-     "Error: staff sign-in TRV-0011 didn't get past the sign-in page"
+     "edges",
+     "4 card(s)"
+    ],
+    [
+     "names",
+     "42 control(s)"
     ]
    ]
   },
   {
    "who": "staff-creator",
-   "url": "(sign-in)",
-   "size": "-",
-   "error": "Error: staff sign-in TRV-0012 didn't get past the sign-in page",
+   "url": "/admin/",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 4,
+   "alt": 0,
+   "names": 42,
+   "final": "/admin/dashboard/today",
    "why": [
     [
-     "status",
-     "Error: staff sign-in TRV-0012 didn't get past the sign-in page"
+     "edges",
+     "4 card(s)"
+    ],
+    [
+     "names",
+     "42 control(s)"
     ]
    ]
   },
   {
    "who": "staff-assistant",
-   "url": "(sign-in)",
-   "size": "-",
-   "error": "Error: staff sign-in TRV-0013 didn't get past the sign-in page",
+   "url": "/admin/",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 4,
+   "alt": 0,
+   "names": 54,
+   "final": "/admin/dashboard/today",
    "why": [
     [
-     "status",
-     "Error: staff sign-in TRV-0013 didn't get past the sign-in page"
+     "edges",
+     "4 card(s)"
+    ],
+    [
+     "names",
+     "54 control(s)"
     ]
    ]
   },
   {
    "who": "staff-vendor",
-   "url": "(sign-in)",
-   "size": "-",
-   "error": "Error: staff sign-in TRV-0014 didn't get past the sign-in page",
+   "url": "/admin/",
+   "size": "phone",
+   "must": true,
+   "status": 403,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 1,
+   "alt": 0,
+   "names": 0,
+   "final": "/admin/",
    "why": [
     [
      "status",
-     "Error: staff sign-in TRV-0014 didn't get past the sign-in page"
+     "403"
+    ],
+    [
+     "edges",
+     "1 card(s)"
     ]
    ]
   }
