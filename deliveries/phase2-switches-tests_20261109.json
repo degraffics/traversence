@@ -60,7 +60,7 @@
   },
   "app/migrations/2027-02-16_test_accounts_and_switches.sql": {
    "sha256": "4e8ce48e16958623620746d2a39b6abbb9b3c3793d21074ac482daca7a38068c",
-   "live": false
+   "live": true
   },
   "app/ui/admin-dashboard.php": {
    "sha256": "16c6686c34796815089903d8e82f709ba5031836e518ee6a4adc6672b1b3f0f1",
