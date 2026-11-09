@@ -1,8 +1,8 @@
 {
  "zip": "vendor-links_20261109.zip",
  "built_on": "71c45f7 Sync: 2026-11-09 15:41 UTC",
- "recorded": "2026-11-09 16:06 UTC",
- "note": "Vendor links (decisions/0150): one page of a vendor's work orders, 30-day links with Request a new link, staff Email their link, Vendor staff landing (built on 15:41 UTC)",
+ "recorded": "2026-11-09 16:09 UTC",
+ "note": "Vendor links (decisions/0150): one page of a vendor's work orders, 30-day links with Request a new link, never a dead end (send me a link, ask our team), staff Email their link, Vendor staff landing (built on 15:41 UTC)",
  "status": "pending",
  "live_in": "",
  "files": {
@@ -15,7 +15,7 @@
    "live": false
   },
   "app/lib/Vendors.php": {
-   "sha256": "b5e941ab26ae0840098b67b66d74dfb55b4494ba073cf4aeb362185b43da82d6",
+   "sha256": "dc97d62a06d27a39a3f14f0610b2c2d261655229e2f083e5204b043b59058a55",
    "live": false
   },
   "app/lib/WorkOrders.php": {
@@ -27,7 +27,7 @@
    "live": false
   },
   "app/ui/faq.md": {
-   "sha256": "55fa3f98f03336c6e97a2bbdb2daa39640c4b96b3d71d1d96769bb424e9c55e9",
+   "sha256": "a3040dd4e24efd0c393317d6c18378cf173c4790d9b16dac8c4f11e0625f0c5a",
    "live": false
   },
   "website/admin/api/vendors.php": {
@@ -35,11 +35,11 @@
    "live": false
   },
   "website/vendor.php": {
-   "sha256": "e4e73321ec87fb8cf8ebcda9e630b27f3700d0605711dcf107f3e2ab47c042fc",
+   "sha256": "764eaf83a828718f575536395b68151bbadb86a0322a3f401e8bf1fc318247ff",
    "live": false
   },
   "website/wo.php": {
-   "sha256": "9204ee91b575fdb25b4ffbf3685dd1738b192851ddf61e3470065989e726e246",
+   "sha256": "ab4635b219cbc2fe7497651812650bda3beeb242c6b142f016c48e48aa503dcd",
    "live": false
   }
  }

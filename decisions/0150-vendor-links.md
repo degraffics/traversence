@@ -24,6 +24,13 @@ decisions/0101 addendum), so a vendor with several jobs juggled several emails a
    on the page, so an old or forwarded link can't reopen anything by itself. A link changes only once its email has gone;
    then the old one stops working. At most 3 requests a day for a vendor or a work order; each is logged
    (`vendor_link_requests`). Closed work orders (cancelled, declined, rejected) get no new link.
+   **Never a dead end** (Jason, 2026-11-09): "this should always have a back up where an ask for another send or ask for
+   support is present instead of lock outs." Every state where a link doesn't work (expired, replaced, unknown, a closed
+   work order, past the daily limit, an email that failed) shows **Didn't get it, or need a hand?**: *Send a new link to
+   my email* (sent when the address is the vendor's on file or on one of their open work orders; the answer is the same
+   either way, so the page never says whose address it is), *Ask our team* (their note to our support inbox), and our
+   email address. Past the daily limit, an ask goes to our team to send by hand instead of being refused. A guard of 40
+   help asks a day across all vendors keeps the inbox from a flood; past it, the page still gives our email address.
 4. **How vendors get it.** Every work order email carries "All your work orders from us, on one page" with the vendor's
    working link (a new one when there's none or it has expired). Back-Office → Vendors shows each vendor's link status
    and **Email their link** / **Email a new link** (the old one stops working), greyed out with the reason when there's
@@ -36,7 +43,8 @@ decisions/0101 addendum), so a vendor with several jobs juggled several emails a
 ## Built
 
 - `app/migrations/2027-02-17_vendor_links.sql`: `vendors.portal_token`, `portal_expires_at`; `vendor_link_requests`.
-- `app/lib/Vendors.php`: `link()`, `byLink()`, `emailLink()`, `mayRequest()`, `workOrders()`, `LINK_DAYS = 30`.
+- `app/lib/Vendors.php`: `link()`, `byLink()`, `emailLink()`, `mayRequest()`, `workOrders()`, `LINK_DAYS = 30`; the help
+  box (`helpBox()`, `handleHelp()`, `askByEmail()`, `askTeam()`).
 - `app/lib/WorkOrders.php`: `DAYS = 30`, `byTokenAny()`, `renewLink()`, `urlForVendor()`; links counted from sending;
   the vendor's link in the work order email.
 - `website/vendor.php` (new), `website/wo.php` (expired page with Request a new link).
