@@ -1,0 +1,38 @@
+{
+ "zip": "listings-on-demand_20261109.zip",
+ "built_on": "676e5b0 Sync: 2026-11-08 21:51 UTC",
+ "recorded": "2026-11-09 00:32 UTC",
+ "note": "Listings on demand: the crawler builds out searched-for towns; places fix v2 folded in (decisions/0148, 0149)",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/OnDemand.php": {
+   "sha256": "081c75229e7cf31fdfbdaa97d758758bbee9932613ee30b833c4a5c588ae379b",
+   "live": false
+  },
+  "app/lib/PlaceFinder.php": {
+   "sha256": "26d20fb58f3539f8a91b8f72503aa69098f73ff713edb653beb3464b5068d098",
+   "live": false
+  },
+  "app/lib/crawler/CrawlQueue.php": {
+   "sha256": "9b3d361444452541b90e463e37c879ba8bee3048d0b1fc3c89c90ca59131ddf2",
+   "live": false
+  },
+  "app/lib/crawler/TownCrawl.php": {
+   "sha256": "327e6e8e6f9650f4b6c7e6a55c0301f337d1e0821befa8d3bdedbb94ce3c0af3",
+   "live": false
+  },
+  "app/migrations/2027-02-14_places_on_demand_tidy.sql": {
+   "sha256": "ead054aa0fdb51a297e116bda08a608d6dd1432ce1b251929884802884d1ff9d",
+   "live": false
+  },
+  "app/migrations/2027-02-15_town_crawl_jobs.sql": {
+   "sha256": "8fb112340297c0801f44406562be1ee9842a985883ee4ac386aa808a39f27af7",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "bc3059d7cc25cfce21c51c806b3d9f9c1b2160c4a12e95e976e75b9277428b30",
+   "live": false
+  }
+ }
+}
