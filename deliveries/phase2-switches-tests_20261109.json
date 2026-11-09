@@ -1,8 +1,8 @@
 {
  "zip": "phase2-switches-tests_20261109.zip",
  "built_on": "c620651 Sync: 2026-11-09 00:42 UTC",
- "recorded": "2026-11-09 01:44 UTC",
- "note": "Phase 2: switches, test accounts, the health report (decisions/0145)",
+ "recorded": "2026-11-09 01:48 UTC",
+ "note": "Phase 2: switches, test accounts, the health report, checks' sign-in (decisions/0145)",
  "status": "pending",
  "live_in": "",
  "files": {
@@ -55,7 +55,7 @@
    "live": false
   },
   "app/lib/TestAccounts.php": {
-   "sha256": "ad6e2eec0c31bb99ff0dc7b7f7f3d27ea0f671dc0c17a34b334696391cbfbc8d",
+   "sha256": "e7b3456c20d8cfc52c04c008c3b0a3912436fef2320c06e83d5b0175b32d945a",
    "live": false
   },
   "app/migrations/2027-02-16_test_accounts_and_switches.sql": {
@@ -68,6 +68,10 @@
   },
   "app/ui/faq.md": {
    "sha256": "f912843afe019f3f018b36c0c38766a66f07bf9de84a026dba79ed3f857e5107",
+   "live": false
+  },
+  "website/api/auth/login.php": {
+   "sha256": "b4967963f8641257c160c5b89f57e75a5582549b41ebad9f5500e0cbde892196",
    "live": false
   },
   "website/api/health.php": {

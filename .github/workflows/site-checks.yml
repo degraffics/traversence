@@ -1,0 +1,83 @@
+# The rendered checks (decisions/0145, Phase 2): each page in a real browser at phone and desktop size, signed out and
+# as the test accounts, held to the build standards (tools/page-audit/rendered.mjs). Daily at 09:43 UTC (a short run:
+# signed out, a member, the business owner, every staff login's home, the executive everywhere), in full on Mondays
+# and on Run workflow with "full". Only reads the site; changes nothing.
+# Secrets: MIRROR_READ_TOKEN (the page list from the mirror) and CHECK_ACCOUNTS (the block System Configuration → Test
+# accounts shows once). Without CHECK_ACCOUNTS it checks signed out only. Commits site-audit/rendered.md and
+# site-audit/results/rendered.json; the screenshots stay with the run (Actions → the run → Artifacts), never in git.
+name: Site checks (browser)
+
+on:
+  schedule:
+    - cron: '43 9 * * *'
+  workflow_dispatch:
+    inputs:
+      full:
+        description: 'Every account on every page (slower)'
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: site-checks
+  cancel-in-progress: false
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Read the live mirror (the admin's sections)
+        uses: actions/checkout@v4
+        continue-on-error: true   # without MIRROR_READ_TOKEN, only the admin's home page is checked
+        with:
+          repository: degraffics/traverse-3way-sync
+          token: ${{ secrets.MIRROR_READ_TOKEN }}
+          path: mirror
+          fetch-depth: 1
+          sparse-checkout: |
+            sync-app/admin
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Playwright and Chromium
+        run: |
+          npm install --no-save --no-audit --no-fund playwright@1.48.2
+          npx playwright install --with-deps chromium
+
+      - name: Check the pages
+        env:
+          SITE: https://traversence.com
+          CHECK_ACCOUNTS: ${{ secrets.CHECK_ACCOUNTS }}
+          MANIFESTS: mirror/sync-app/admin/manifests.php
+          PAGE_TREE: site-audit/page-tree.md
+          FULL: ${{ inputs.full && '1' || '0' }}
+        run: |
+          if [ "$(date -u +%u)" = "1" ] && [ "${{ github.event_name }}" = "schedule" ]; then export FULL=1; fi
+          if [ -z "$CHECK_ACCOUNTS" ]; then echo "::warning::CHECK_ACCOUNTS isn't set yet (System Configuration → Test accounts): signed-out checks only."; fi
+          node tools/page-audit/rendered.mjs
+
+      - name: Keep the screenshots with the run
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: screenshots
+          path: shots/
+          retention-days: 14
+          if-no-files-found: ignore
+
+      - name: Commit the results
+        run: |
+          git config user.name "site-checks"
+          git config user.email "site-checks@users.noreply.github.com"
+          git add site-audit/rendered.md site-audit/results/rendered.json
+          if git diff --cached --quiet; then echo "No change."; exit 0; fi
+          git commit -m "Site checks: rendered pages"
+          git pull --rebase -q || true
+          git push

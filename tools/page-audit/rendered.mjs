@@ -1,0 +1,173 @@
+// tools/page-audit/rendered.mjs — the rendered checks (decisions/0145 §1, Phase 2): each page in a real browser
+// (Playwright, Chromium), at phone (390px) and desktop size, signed out and as the test accounts, held to the build
+// standards. Run by .github/workflows/site-checks.yml.
+//
+//   SITE=https://traversence.com CHECK_ACCOUNTS='{…}' MANIFESTS=mirror/sync-app/admin/manifests.php \
+//   PAGE_TREE=site-audit/page-tree.md FULL=0 node tools/page-audit/rendered.mjs
+//
+// CHECK_ACCOUNTS is the block System Configuration → Test accounts shows once (never in git). Without it, only the
+// signed-out checks run. Writes site-audit/results/rendered.json and site-audit/rendered.md; screenshots go to
+// shots/ (kept with the run as an artifact, never committed). Nothing here changes anything on the site: it only reads.
+import { chromium } from 'playwright';
+import { createHmac } from 'node:crypto';
+import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
+
+const SITE = (process.env.SITE || 'https://traversence.com').replace(/\/$/, '');
+const FULL = process.env.FULL === '1';
+const SIZES = { phone: { width: 390, height: 844 }, desktop: { width: 1280, height: 900 } };
+let ACC = null;
+try { ACC = process.env.CHECK_ACCOUNTS ? JSON.parse(process.env.CHECK_ACCOUNTS) : null; } catch { console.log('::warning::CHECK_ACCOUNTS isn\'t valid JSON: signed-out checks only.'); }
+const CHECK_TOKEN = ACC?.health_token || '';
+
+// ---- which pages ----------------------------------------------------------------------------------------------------
+// Public pages: the page tree's front-end pages that open without an id, plus the guide paths found on Discovery
+// (each system guide, its first suggested journey, its first named place). Member pages: /user/ and the dashboard.
+// Admin pages: every module section in the manifests.
+function treePages() {
+  const out = [];
+  try {
+    for (const line of readFileSync(process.env.PAGE_TREE || 'site-audit/page-tree.md', 'utf8').split('\n')) {
+      const m = line.match(/^\| `([^`]+)` \| `website\/[^`]+` \| (yes|redirect|—|\*\*no\*\*)/);
+      if (m) out.push(m[1]);
+    }
+  } catch {}
+  return out;
+}
+const tree = treePages();
+const NEEDS_ID = /\/(view|edit|order|item|manifest|suggestion|review-item|client-order|content-template|guide-edit|landmark|recreation|group|listing|wo|q|q-file|promo|takedown|verify|reset|two-step|email-revert|verify-email|setup|logout|login)\.php$|\/(api|crawl|auth)\//;
+const PUBLIC = [...new Set(['/', '/discovery/', '/directory/', '/faq.php', '/experiences/', '/community/', '/market/', '/plans.php', '/terms.php', '/privacy.php',
+  ...tree.filter(p => !p.startsWith('/admin') && !p.startsWith('/user') && !p.startsWith('/business') && !p.startsWith('/dashboard') && !NEEDS_ID.test(p))])];
+const MEMBER = [...new Set(['/dashboard.php', ...tree.filter(p => (p.startsWith('/user/') || p.startsWith('/business/')) && !NEEDS_ID.test(p))])];
+function adminSections() {
+  const out = ['/admin/'];
+  try {
+    const src = readFileSync(process.env.MANIFESTS || 'mirror/sync-app/admin/manifests.php', 'utf8');
+    let mod = '';
+    for (const line of src.split('\n')) {
+      const m = line.match(/^\s{4}'([a-z_]+)' => \['sections' => \[/); if (m) { mod = m[1]; continue; }
+      const s = line.match(/^\s{8}'([a-z_0-9]+)' => \$[WB]\(/); if (s && mod) out.push(`/admin/${mod}/${s[1]}`);
+    }
+  } catch {}
+  return out;
+}
+const ADMIN = adminSections();
+
+// ---- signing in -----------------------------------------------------------------------------------------------------
+function base32(s) { const a = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ234567'; let bits = ''; for (const c of s.toUpperCase().replace(/[^A-Z2-7]/g, '')) bits += a.indexOf(c).toString(2).padStart(5, '0'); const out = []; for (let i = 0; i + 8 <= bits.length; i += 8) out.push(parseInt(bits.slice(i, i + 8), 2)); return Buffer.from(out); }
+function totp(secret, step = Math.floor(Date.now() / 30000)) {
+  const b = Buffer.alloc(8); b.writeUInt32BE(Math.floor(step / 2 ** 32), 0); b.writeUInt32BE(step >>> 0, 4);
+  const h = createHmac('sha1', base32(secret)).update(b).digest(); const o = h[19] & 15;
+  return String((((h[o] & 127) << 24) | (h[o + 1] << 16) | (h[o + 2] << 8) | h[o + 3]) % 1e6).padStart(6, '0');
+}
+async function memberIn(ctx, a) {
+  const s = await ctx.request.get(`${SITE}/api/auth/session.php`); const csrf = (await s.json()).csrf_token || '';
+  const r = await ctx.request.post(`${SITE}/api/auth/login.php`, { headers: { 'X-CSRF-Token': csrf, 'X-Check-Token': CHECK_TOKEN, 'Content-Type': 'application/json' }, data: { email: a.email, password: a.password } });
+  if (!r.ok()) throw new Error(`member sign-in ${a.email}: ${r.status()} ${(await r.text()).slice(0, 160)}`);
+}
+async function staffIn(ctx, a) {
+  const p = await ctx.newPage();
+  await p.goto(`${SITE}/admin/login.php`, { waitUntil: 'domcontentloaded' });
+  await p.fill('#sid', a.staff_id); await p.fill('#pw', a.password);
+  await Promise.all([p.waitForLoadState('domcontentloaded'), p.click('button.b')]);
+  if (await p.$('#code')) {
+    // a fresh 30-second window, so the code isn't the one just used
+    await p.fill('#code', totp(a.totp)); await Promise.all([p.waitForLoadState('domcontentloaded'), p.press('#code', 'Enter')]);
+  }
+  const ok = !/\/admin\/login\.php/.test(p.url());
+  await p.close();
+  if (!ok) throw new Error(`staff sign-in ${a.staff_id} didn't get past the sign-in page`);
+}
+
+// ---- one page -------------------------------------------------------------------------------------------------------
+const STANDARDS = {
+  status: 'The page opens (no 4xx or 5xx)', console: 'No script errors', requests: 'Its own requests succeed', scroll: 'No sideways scroll at 390px (0058 §11)',
+  edges: 'Cards 3px from the screen edge at 390px (0058 §11)', dialogs: 'No browser dialogs (alert, confirm, prompt)', alt: 'Images have alt text', names: 'Buttons and links have a name',
+};
+async function check(ctx, who, url, size, shots) {
+  const p = await ctx.newPage(); await p.setViewportSize(SIZES[size]);
+  const f = { who, url, size, status: 0, console: [], requests: [], dialogs: [], scroll: false, edges: 0, alt: 0, names: 0 };
+  p.on('console', m => { if (m.type() === 'error' && !/^Failed to load resource/.test(m.text())) f.console.push(m.text().slice(0, 200)); });   // a failed load is counted under requests
+  p.on('pageerror', e => f.console.push(String(e).slice(0, 200)));
+  p.on('response', r => { const u = r.url(); if (u.startsWith(SITE) && r.status() >= 400 && !/\/api\/(count|out)\.php/.test(u)) f.requests.push(`${r.status()} ${u.replace(SITE, '')}`.slice(0, 160)); });
+  p.on('dialog', d => { f.dialogs.push(`${d.type()}: ${d.message().slice(0, 120)}`); d.dismiss().catch(() => {}); });
+  try {
+    const r = await p.goto(SITE + url, { waitUntil: 'load', timeout: 45000 });
+    f.status = r ? r.status() : 0; f.final = p.url().replace(SITE, '');
+    await p.waitForTimeout(800);
+    Object.assign(f, await p.evaluate((phone) => {
+      const vis = el => { const r = el.getBoundingClientRect(); const s = getComputedStyle(el); return r.width > 0 && r.height > 0 && s.visibility !== 'hidden' && s.display !== 'none'; };
+      const out = { scroll: document.documentElement.scrollWidth > window.innerWidth + 1, edges: 0, alt: 0, names: 0 };
+      if (phone) for (const el of document.querySelectorAll('.tv-bleed')) { if (!vis(el)) continue; const r = el.getBoundingClientRect(); if (r.width > window.innerWidth * 0.8 && (r.left > 6 || window.innerWidth - r.right > 6)) out.edges++; }
+      for (const im of document.querySelectorAll('img')) if (vis(im) && !im.hasAttribute('alt')) out.alt++;
+      for (const el of document.querySelectorAll('a[href], button')) if (vis(el) && !(el.innerText || '').trim() && !el.getAttribute('aria-label') && !el.getAttribute('title') && !el.querySelector('img[alt]:not([alt=""])')) out.names++;
+      return out;
+    }, size === 'phone'));
+    if (shots && size === 'phone') await p.screenshot({ path: `shots/${who}-${url.replace(/[^a-z0-9]+/gi, '_').slice(0, 80)}.png` }).catch(() => {});
+  } catch (e) { f.error = String(e).slice(0, 200); }
+  await p.close();
+  return f;
+}
+
+// ---- run ------------------------------------------------------------------------------------------------------------
+const browser = await chromium.launch();
+mkdirSync('shots', { recursive: true });
+const results = [];
+async function as(who, signIn, pages, sizes, opts = {}) {
+  const ctx = await browser.newContext({ userAgent: 'Traversence site checks (support@traversence.com)', extraHTTPHeaders: CHECK_TOKEN ? { 'X-Check-Token': CHECK_TOKEN } : {} });
+  await ctx.addCookies([{ name: 'tv_nocount', value: '1', url: SITE }]);   // the checks are never counted as visits
+  try { if (signIn) await signIn(ctx); } catch (e) { results.push({ who, url: '(sign-in)', size: '-', error: String(e).slice(0, 200) }); await ctx.close(); return; }
+  for (const url of pages) for (const size of sizes) results.push(await check(ctx, who, url, size, opts.shots !== false));
+  await ctx.close();
+}
+// guide paths: the system guides on Discovery, and from each the first journey and named place
+async function guidePaths() {
+  const ctx = await browser.newContext(); const p = await ctx.newPage(); const out = [];
+  try {
+    await p.goto(`${SITE}/discovery/`, { waitUntil: 'load', timeout: 45000 });
+    const guides = [...new Set(await p.$$eval('a[href*="/hub/?"]', as => as.map(a => a.getAttribute('href'))))].slice(0, FULL ? 40 : 8);
+    for (const g of guides) {
+      out.push(g);
+      await p.goto(SITE + g, { waitUntil: 'load', timeout: 45000 }).catch(() => {});
+      const j = await p.$eval('a[href*="/journeys/suggested.php"]', a => a.getAttribute('href')).catch(() => null); if (j) out.push(j);
+      const l = await p.$eval('a.gl[data-tag]', a => a.getAttribute('href')).catch(() => null); if (l && l.startsWith('/')) out.push(l);
+    }
+  } catch {}
+  await ctx.close();
+  return [...new Set(out)];
+}
+const paths = await guidePaths();
+await as('guest', null, [...PUBLIC, ...paths], ['phone', 'desktop']);
+if (ACC) {
+  for (const k of FULL ? Object.keys(ACC.members || {}) : ['member', 'owner']) { const a = ACC.members?.[k]; if (a) await as(k, ctx => memberIn(ctx, a), MEMBER, FULL ? ['phone', 'desktop'] : ['phone']); }
+  for (const k of Object.keys(ACC.staff || {})) {
+    const a = ACC.staff[k]; const all = k === 'executive' || FULL;
+    await as('staff-' + k, ctx => staffIn(ctx, a), all ? ADMIN : ['/admin/'], k === 'executive' ? ['phone', 'desktop'] : ['phone'], { shots: k === 'executive' });
+  }
+}
+await browser.close();
+
+// ---- report ---------------------------------------------------------------------------------------------------------
+const fails = f => {
+  const why = [];
+  if (f.error) why.push(['status', f.error]);
+  if (f.status >= 400) why.push(['status', String(f.status)]);
+  if (f.console?.length) why.push(['console', f.console[0]]);
+  if (f.requests?.length) why.push(['requests', f.requests[0]]);
+  if (f.scroll && f.size === 'phone') why.push(['scroll', '']);
+  if (f.edges) why.push(['edges', f.edges + ' card(s)']);
+  if (f.dialogs?.length) why.push(['dialogs', f.dialogs[0]]);
+  if (f.alt) why.push(['alt', f.alt + ' image(s)']);
+  if (f.names) why.push(['names', f.names + ' control(s)']);
+  return why;
+};
+const rows = results.map(f => ({ ...f, why: fails(f) }));
+const by = {}; for (const r of rows) for (const [k] of r.why) by[k] = (by[k] || 0) + 1;
+mkdirSync('site-audit/results', { recursive: true });
+writeFileSync('site-audit/results/rendered.json', JSON.stringify({ at: new Date().toISOString(), site: SITE, full: FULL, signed_in: !!ACC, pages: rows.length, by, results: rows }, null, 1));
+const L = ['# Rendered checks', '', `Decision 0145, Phase 2. Generated by \`tools/page-audit/rendered.mjs\` on ${new Date().toISOString().slice(0, 16).replace('T', ' ')} UTC against ${SITE}`
+  + (ACC ? ', signed out and as the test accounts' : ', signed out only (CHECK_ACCOUNTS isn\'t set yet)') + `. ${rows.length} page views. Screenshots are kept with the run. Don't edit by hand.`, '',
+  '| Standard | Pages that miss it |', '|---|---|', ...Object.entries(STANDARDS).map(([k, t]) => `| ${t} | ${by[k] || 0} |`), '', '## What to fix', '',
+  '| Who | Page | Size | What |', '|---|---|---|---|'];
+for (const r of rows.filter(r => r.why.length).slice(0, 300)) L.push(`| ${r.who} | \`${r.url}\` | ${r.size} | ${r.why.map(([k, d]) => STANDARDS[k] + (d ? ': ' + d.replace(/\|/g, '/') : '')).join('; ')} |`);
+writeFileSync('site-audit/rendered.md', L.join('\n') + '\n');
+console.log(`Checked ${rows.length} page views; ${rows.filter(r => r.why.length).length} miss a standard.`);
