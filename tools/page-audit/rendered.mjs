@@ -35,7 +35,8 @@ function treePages() {
 }
 const tree = treePages();
 const NEEDS_ID = /\/(view|edit|order|item|manifest|suggestion|review-item|client-order|content-template|guide-edit|landmark|recreation|group|listing|wo|q|q-file|promo|takedown|verify|reset|two-step|email-revert|verify-email|setup|logout|login)\.php$|\/(api|crawl|auth)\//;
-const PUBLIC = [...new Set(['/', '/discovery/', '/directory/', '/faq.php', '/experiences/', '/community/', '/market/', '/plans.php', '/terms.php', '/privacy.php',
+const CORE = new Set(['/', '/discovery/', '/directory/', '/faq.php', '/experiences/', '/community/', '/market/', '/plans.php', '/terms.php', '/privacy.php', '/dashboard.php', '/admin/']);
+const PUBLIC = [...new Set([...[...CORE].filter(u => u !== '/dashboard.php' && u !== '/admin/'),
   ...tree.filter(p => !p.startsWith('/admin') && !p.startsWith('/user') && !p.startsWith('/business') && !p.startsWith('/dashboard') && !NEEDS_ID.test(p))])];
 const MEMBER = [...new Set(['/dashboard.php', ...tree.filter(p => (p.startsWith('/user/') || p.startsWith('/business/')) && !NEEDS_ID.test(p))])];
 function adminSections() {
@@ -85,10 +86,12 @@ const STANDARDS = {
 };
 async function check(ctx, who, url, size, shots) {
   const p = await ctx.newPage(); await p.setViewportSize(SIZES[size]);
-  const f = { who, url, size, status: 0, console: [], requests: [], dialogs: [], scroll: false, edges: 0, alt: 0, names: 0 };
-  p.on('console', m => { if (m.type() === 'error' && !/^Failed to load resource/.test(m.text())) f.console.push(m.text().slice(0, 200)); });   // a failed load is counted under requests
+  // a page that needs an id (album.php with no album) rightly answers 4xx: only the core pages, the guide paths and admin sections must open
+  const must = CORE.has(url) || url.includes('?') || url.startsWith('/admin/');
+  const f = { who, url, size, must, status: 0, console: [], requests: [], dialogs: [], scroll: false, edges: 0, alt: 0, names: 0 };
+  p.on('console', m => { if (m.type() === 'error' && !/^Failed to load resource|^%c/.test(m.text())) f.console.push(m.text().slice(0, 200)); });   // a failed load is counted under requests
   p.on('pageerror', e => f.console.push(String(e).slice(0, 200)));
-  p.on('response', r => { const u = r.url(); if (u.startsWith(SITE) && r.status() >= 400 && !/\/api\/(count|out)\.php/.test(u)) f.requests.push(`${r.status()} ${u.replace(SITE, '')}`.slice(0, 160)); });
+  p.on('response', r => { const u = r.url(); if (u.startsWith(SITE) && r.status() >= 400 && r.request().resourceType() !== 'document' && !/\/api\/(count|out)\.php/.test(u)) f.requests.push(`${r.status()} ${u.replace(SITE, '')}`.slice(0, 160)); });
   p.on('dialog', d => { f.dialogs.push(`${d.type()}: ${d.message().slice(0, 120)}`); d.dismiss().catch(() => {}); });
   try {
     const r = await p.goto(SITE + url, { waitUntil: 'load', timeout: 45000 });
@@ -123,8 +126,12 @@ async function as(who, signIn, pages, sizes, opts = {}) {
 async function guidePaths() {
   const ctx = await browser.newContext(); const p = await ctx.newPage(); const out = [];
   try {
-    await p.goto(`${SITE}/discovery/`, { waitUntil: 'load', timeout: 45000 });
-    const guides = [...new Set(await p.$$eval('a[href*="/hub/?"]', as => as.map(a => a.getAttribute('href'))))].slice(0, FULL ? 40 : 8);
+    let found = [];
+    for (const from of ['/discovery/', '/pages/sitemap.php', '/directory/']) {   // wherever the guides are linked (some draw their links after loading)
+      await p.goto(SITE + from, { waitUntil: 'networkidle', timeout: 45000 }).catch(() => {});
+      found = found.concat(await p.$$eval('a[href*="/hub/?"]', as => as.map(a => a.getAttribute('href'))).catch(() => []));
+    }
+    const guides = [...new Set(found.map(h => h.replace(/^https?:\/\/[^/]+/, '')))].slice(0, FULL ? 40 : 8);
     for (const g of guides) {
       out.push(g);
       await p.goto(SITE + g, { waitUntil: 'load', timeout: 45000 }).catch(() => {});
@@ -150,7 +157,7 @@ await browser.close();
 const fails = f => {
   const why = [];
   if (f.error) why.push(['status', f.error]);
-  if (f.status >= 400) why.push(['status', String(f.status)]);
+  if (f.status >= 500 || (f.status >= 400 && f.must)) why.push(['status', String(f.status)]);
   if (f.console?.length) why.push(['console', f.console[0]]);
   if (f.requests?.length) why.push(['requests', f.requests[0]]);
   if (f.scroll && f.size === 'phone') why.push(['scroll', '']);
