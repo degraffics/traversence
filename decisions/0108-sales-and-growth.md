@@ -90,6 +90,9 @@ The consumer funnel (Post-and-Connect quotes, merchant gateways) stays in Wave 5
   stage **Met in person**.
 - Cards scanned without a signal are held on the phone and sent when it's back online.
 - Next steps from the result: send a claim invite, text a GO Code, or book a follow-up.
+- **Save as a listing** (Jason, 2026-11-09): beside **Save the lead**, for a receipt, a menu or a sign from a place
+  visited as a customer. It makes or joins the listing the same way (matching, duplicates, the crawler's look-up) but
+  makes no lead and logs no visit. The saved card says which it was. (`CardScan::save(..., $lead)`.)
 
 ### The Single Lead Workspace
 
