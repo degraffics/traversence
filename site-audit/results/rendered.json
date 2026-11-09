@@ -1,15 +1,14 @@
 {
- "at": "2026-11-09T01:51:10.772Z",
+ "at": "2026-11-09T01:54:47.486Z",
  "site": "https://traversence.com",
  "full": false,
  "signed_in": false,
  "pages": 98,
  "by": {
   "names": 10,
-  "status": 26,
-  "requests": 26,
+  "status": 2,
+  "console": 4,
   "edges": 1,
-  "console": 3,
   "scroll": 1
  },
  "results": [
@@ -17,6 +16,7 @@
    "who": "guest",
    "url": "/",
    "size": "phone",
+   "must": true,
    "status": 200,
    "console": [],
    "requests": [],
@@ -32,6 +32,7 @@
    "who": "guest",
    "url": "/",
    "size": "desktop",
+   "must": true,
    "status": 200,
    "console": [],
    "requests": [],
@@ -47,6 +48,7 @@
    "who": "guest",
    "url": "/discovery/",
    "size": "phone",
+   "must": true,
    "status": 200,
    "console": [],
    "requests": [],
@@ -67,6 +69,7 @@
    "who": "guest",
    "url": "/discovery/",
    "size": "desktop",
+   "must": true,
    "status": 200,
    "console": [],
    "requests": [],
@@ -87,6 +90,7 @@
    "who": "guest",
    "url": "/directory/",
    "size": "phone",
+   "must": true,
    "status": 200,
    "console": [],
    "requests": [],
@@ -102,6 +106,7 @@
    "who": "guest",
    "url": "/directory/",
    "size": "desktop",
+   "must": true,
    "status": 200,
    "console": [],
    "requests": [],
@@ -117,6 +122,7 @@
    "who": "guest",
    "url": "/faq.php",
    "size": "phone",
+   "must": true,
    "status": 200,
    "console": [],
    "requests": [],
@@ -137,6 +143,7 @@
    "who": "guest",
    "url": "/faq.php",
    "size": "desktop",
+   "must": true,
    "status": 200,
    "console": [],
    "requests": [],
@@ -157,11 +164,10 @@
    "who": "guest",
    "url": "/experiences/",
    "size": "phone",
+   "must": true,
    "status": 403,
    "console": [],
-   "requests": [
-    "403 /experiences/"
-   ],
+   "requests": [],
    "dialogs": [],
    "scroll": false,
    "edges": 0,
@@ -172,10 +178,6 @@
     [
      "status",
      "403"
-    ],
-    [
-     "requests",
-     "403 /experiences/"
     ]
    ]
   },
@@ -183,11 +185,10 @@
    "who": "guest",
    "url": "/experiences/",
    "size": "desktop",
+   "must": true,
    "status": 403,
    "console": [],
-   "requests": [
-    "403 /experiences/"
-   ],
+   "requests": [],
    "dialogs": [],
    "scroll": false,
    "edges": 0,
@@ -198,10 +199,6 @@
     [
      "status",
      "403"
-    ],
-    [
-     "requests",
-     "403 /experiences/"
     ]
    ]
   },
@@ -209,6 +206,7 @@
    "who": "guest",
    "url": "/community/",
    "size": "phone",
+   "must": true,
    "status": 200,
    "console": [],
    "requests": [],
@@ -224,6 +222,7 @@
    "who": "guest",
    "url": "/community/",
    "size": "desktop",
+   "must": true,
    "status": 200,
    "console": [],
    "requests": [],
@@ -239,6 +238,7 @@
    "who": "guest",
    "url": "/market/",
    "size": "phone",
+   "must": true,
    "status": 200,
    "console": [],
    "requests": [],
@@ -259,6 +259,7 @@
    "who": "guest",
    "url": "/market/",
    "size": "desktop",
+   "must": true,
    "status": 200,
    "console": [],
    "requests": [],
@@ -279,6 +280,7 @@
    "who": "guest",
    "url": "/plans.php",
    "size": "phone",
+   "must": true,
    "status": 200,
    "console": [],
    "requests": [],
@@ -294,8 +296,13 @@
    "who": "guest",
    "url": "/plans.php",
    "size": "desktop",
+   "must": true,
    "status": 200,
-   "console": [],
+   "console": [
+    "Refused to connect to 'data:,' because it violates the following Content Security Policy directive: \"connect-src 'self' https://hagen.challenges.cloudflare.com https://brunhild.challenges.cloudflare.c",
+    "Refused to connect to 'data:,' because it violates the following Content Security Policy directive: \"connect-src 'self' https://hagen.challenges.cloudflare.com https://brunhild.challenges.cloudflare.c",
+    "Refused to connect to 'data:,' because it violates the document's Content Security Policy."
+   ],
    "requests": [],
    "dialogs": [],
    "scroll": false,
@@ -303,12 +310,18 @@
    "alt": 0,
    "names": 0,
    "final": "/login.php?next=%2Fplans.php",
-   "why": []
+   "why": [
+    [
+     "console",
+     "Refused to connect to 'data:,' because it violates the following Content Security Policy directive: \"connect-src 'self' https://hagen.challenges.cloudflare.com https://brunhild.challenges.cloudflare.c"
+    ]
+   ]
   },
   {
    "who": "guest",
    "url": "/terms.php",
    "size": "phone",
+   "must": true,
    "status": 200,
    "console": [],
    "requests": [],
@@ -324,6 +337,7 @@
    "who": "guest",
    "url": "/terms.php",
    "size": "desktop",
+   "must": true,
    "status": 200,
    "console": [],
    "requests": [],
@@ -339,6 +353,7 @@
    "who": "guest",
    "url": "/privacy.php",
    "size": "phone",
+   "must": true,
    "status": 200,
    "console": [],
    "requests": [],
@@ -354,6 +369,7 @@
    "who": "guest",
    "url": "/privacy.php",
    "size": "desktop",
+   "must": true,
    "status": 200,
    "console": [],
    "requests": [],
@@ -369,6 +385,7 @@
    "who": "guest",
    "url": "/ai/",
    "size": "phone",
+   "must": false,
    "status": 200,
    "console": [],
    "requests": [],
@@ -389,6 +406,7 @@
    "who": "guest",
    "url": "/ai/",
    "size": "desktop",
+   "must": false,
    "status": 200,
    "console": [],
    "requests": [],
@@ -404,6 +422,7 @@
    "who": "guest",
    "url": "/claim.php",
    "size": "phone",
+   "must": false,
    "status": 200,
    "console": [],
    "requests": [],
@@ -424,6 +443,7 @@
    "who": "guest",
    "url": "/claim.php",
    "size": "desktop",
+   "must": false,
    "status": 200,
    "console": [],
    "requests": [],
@@ -444,6 +464,7 @@
    "who": "guest",
    "url": "/data-deletion.php",
    "size": "phone",
+   "must": false,
    "status": 200,
    "console": [],
    "requests": [],
@@ -459,6 +480,7 @@
    "who": "guest",
    "url": "/data-deletion.php",
    "size": "desktop",
+   "must": false,
    "status": 200,
    "console": [],
    "requests": [],
@@ -474,6 +496,7 @@
    "who": "guest",
    "url": "/directory/classic.php",
    "size": "phone",
+   "must": false,
    "status": 200,
    "console": [],
    "requests": [],
@@ -489,6 +512,7 @@
    "who": "guest",
    "url": "/directory/classic.php",
    "size": "desktop",
+   "must": false,
    "status": 200,
    "console": [],
    "requests": [],
@@ -504,6 +528,7 @@
    "who": "guest",
    "url": "/email/unsubscribe.php",
    "size": "phone",
+   "must": false,
    "status": 200,
    "console": [],
    "requests": [],
@@ -519,6 +544,7 @@
    "who": "guest",
    "url": "/email/unsubscribe.php",
    "size": "desktop",
+   "must": false,
    "status": 200,
    "console": [],
    "requests": [],
@@ -534,6 +560,7 @@
    "who": "guest",
    "url": "/forgot-password.php",
    "size": "phone",
+   "must": false,
    "status": 200,
    "console": [],
    "requests": [],
@@ -549,6 +576,7 @@
    "who": "guest",
    "url": "/forgot-password.php",
    "size": "desktop",
+   "must": false,
    "status": 200,
    "console": [],
    "requests": [],
@@ -564,163 +592,40 @@
    "who": "guest",
    "url": "/gallery/album.php",
    "size": "phone",
+   "must": false,
    "status": 404,
    "console": [],
-   "requests": [
-    "404 /gallery/album.php"
-   ],
+   "requests": [],
    "dialogs": [],
    "scroll": false,
    "edges": 0,
    "alt": 0,
    "names": 0,
    "final": "/gallery/album.php",
-   "why": [
-    [
-     "status",
-     "404"
-    ],
-    [
-     "requests",
-     "404 /gallery/album.php"
-    ]
-   ]
+   "why": []
   },
   {
    "who": "guest",
    "url": "/gallery/album.php",
    "size": "desktop",
+   "must": false,
    "status": 404,
    "console": [],
-   "requests": [
-    "404 /gallery/album.php"
-   ],
+   "requests": [],
    "dialogs": [],
    "scroll": false,
    "edges": 0,
    "alt": 0,
    "names": 0,
    "final": "/gallery/album.php",
-   "why": [
-    [
-     "status",
-     "404"
-    ],
-    [
-     "requests",
-     "404 /gallery/album.php"
-    ]
-   ]
+   "why": []
   },
   {
    "who": "guest",
    "url": "/gallery/api.php",
    "size": "phone",
+   "must": false,
    "status": 401,
-   "console": [],
-   "requests": [
-    "401 /gallery/api.php"
-   ],
-   "dialogs": [],
-   "scroll": false,
-   "edges": 0,
-   "alt": 0,
-   "names": 0,
-   "final": "/gallery/api.php",
-   "why": [
-    [
-     "status",
-     "401"
-    ],
-    [
-     "requests",
-     "401 /gallery/api.php"
-    ]
-   ]
-  },
-  {
-   "who": "guest",
-   "url": "/gallery/api.php",
-   "size": "desktop",
-   "status": 401,
-   "console": [],
-   "requests": [
-    "401 /gallery/api.php"
-   ],
-   "dialogs": [],
-   "scroll": false,
-   "edges": 0,
-   "alt": 0,
-   "names": 0,
-   "final": "/gallery/api.php",
-   "why": [
-    [
-     "status",
-     "401"
-    ],
-    [
-     "requests",
-     "401 /gallery/api.php"
-    ]
-   ]
-  },
-  {
-   "who": "guest",
-   "url": "/gallery/drop.php",
-   "size": "phone",
-   "status": 404,
-   "console": [],
-   "requests": [
-    "404 /gallery/drop.php"
-   ],
-   "dialogs": [],
-   "scroll": false,
-   "edges": 0,
-   "alt": 0,
-   "names": 0,
-   "final": "/gallery/drop.php",
-   "why": [
-    [
-     "status",
-     "404"
-    ],
-    [
-     "requests",
-     "404 /gallery/drop.php"
-    ]
-   ]
-  },
-  {
-   "who": "guest",
-   "url": "/gallery/drop.php",
-   "size": "desktop",
-   "status": 404,
-   "console": [],
-   "requests": [
-    "404 /gallery/drop.php"
-   ],
-   "dialogs": [],
-   "scroll": false,
-   "edges": 0,
-   "alt": 0,
-   "names": 0,
-   "final": "/gallery/drop.php",
-   "why": [
-    [
-     "status",
-     "404"
-    ],
-    [
-     "requests",
-     "404 /gallery/drop.php"
-    ]
-   ]
-  },
-  {
-   "who": "guest",
-   "url": "/gallery/",
-   "size": "phone",
-   "status": 200,
    "console": [],
    "requests": [],
    "dialogs": [],
@@ -728,13 +633,87 @@
    "edges": 0,
    "alt": 0,
    "names": 0,
-   "final": "/login.php?next=%2Fgallery%2F",
+   "final": "/gallery/api.php",
+   "why": []
+  },
+  {
+   "who": "guest",
+   "url": "/gallery/api.php",
+   "size": "desktop",
+   "must": false,
+   "status": 401,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "final": "/gallery/api.php",
+   "why": []
+  },
+  {
+   "who": "guest",
+   "url": "/gallery/drop.php",
+   "size": "phone",
+   "must": false,
+   "status": 404,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "final": "/gallery/drop.php",
+   "why": []
+  },
+  {
+   "who": "guest",
+   "url": "/gallery/drop.php",
+   "size": "desktop",
+   "must": false,
+   "status": 404,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "final": "/gallery/drop.php",
    "why": []
   },
   {
    "who": "guest",
    "url": "/gallery/",
+   "size": "phone",
+   "must": false,
+   "status": 200,
+   "console": [
+    "Refused to connect to 'data:,' because it violates the following Content Security Policy directive: \"connect-src 'self' https://hagen.challenges.cloudflare.com https://brunhild.challenges.cloudflare.c",
+    "Refused to connect to 'data:,' because it violates the following Content Security Policy directive: \"connect-src 'self' https://hagen.challenges.cloudflare.com https://brunhild.challenges.cloudflare.c",
+    "Refused to connect to 'data:,' because it violates the document's Content Security Policy."
+   ],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "final": "/login.php?next=%2Fgallery%2F",
+   "why": [
+    [
+     "console",
+     "Refused to connect to 'data:,' because it violates the following Content Security Policy directive: \"connect-src 'self' https://hagen.challenges.cloudflare.com https://brunhild.challenges.cloudflare.c"
+    ]
+   ]
+  },
+  {
+   "who": "guest",
+   "url": "/gallery/",
    "size": "desktop",
+   "must": false,
    "status": 200,
    "console": [],
    "requests": [],
@@ -750,6 +729,7 @@
    "who": "guest",
    "url": "/gallery/join.php",
    "size": "phone",
+   "must": false,
    "status": 200,
    "console": [],
    "requests": [],
@@ -765,6 +745,7 @@
    "who": "guest",
    "url": "/gallery/join.php",
    "size": "desktop",
+   "must": false,
    "status": 200,
    "console": [],
    "requests": [],
@@ -780,162 +761,103 @@
    "who": "guest",
    "url": "/gallery/m.php",
    "size": "phone",
+   "must": false,
    "status": 404,
    "console": [],
-   "requests": [
-    "404 /gallery/m.php"
-   ],
+   "requests": [],
    "dialogs": [],
    "scroll": false,
    "edges": 0,
    "alt": 0,
    "names": 0,
    "final": "/gallery/m.php",
-   "why": [
-    [
-     "status",
-     "404"
-    ],
-    [
-     "requests",
-     "404 /gallery/m.php"
-    ]
-   ]
+   "why": []
   },
   {
    "who": "guest",
    "url": "/gallery/m.php",
    "size": "desktop",
+   "must": false,
    "status": 404,
    "console": [],
-   "requests": [
-    "404 /gallery/m.php"
-   ],
+   "requests": [],
    "dialogs": [],
    "scroll": false,
    "edges": 0,
    "alt": 0,
    "names": 0,
    "final": "/gallery/m.php",
-   "why": [
-    [
-     "status",
-     "404"
-    ],
-    [
-     "requests",
-     "404 /gallery/m.php"
-    ]
-   ]
+   "why": []
   },
   {
    "who": "guest",
    "url": "/guide/how.php",
    "size": "phone",
+   "must": false,
    "status": 404,
    "console": [],
-   "requests": [
-    "404 /guide/how.php"
-   ],
+   "requests": [],
    "dialogs": [],
    "scroll": false,
    "edges": 0,
    "alt": 0,
    "names": 0,
    "final": "/guide/how.php",
-   "why": [
-    [
-     "status",
-     "404"
-    ],
-    [
-     "requests",
-     "404 /guide/how.php"
-    ]
-   ]
+   "why": []
   },
   {
    "who": "guest",
    "url": "/guide/how.php",
    "size": "desktop",
+   "must": false,
    "status": 404,
    "console": [],
-   "requests": [
-    "404 /guide/how.php"
-   ],
+   "requests": [],
    "dialogs": [],
    "scroll": false,
    "edges": 0,
    "alt": 0,
    "names": 0,
    "final": "/guide/how.php",
-   "why": [
-    [
-     "status",
-     "404"
-    ],
-    [
-     "requests",
-     "404 /guide/how.php"
-    ]
-   ]
+   "why": []
   },
   {
    "who": "guest",
    "url": "/guide/resources.php",
    "size": "phone",
+   "must": false,
    "status": 404,
    "console": [],
-   "requests": [
-    "404 /guide/resources.php"
-   ],
+   "requests": [],
    "dialogs": [],
    "scroll": false,
    "edges": 0,
    "alt": 0,
    "names": 0,
    "final": "/guide/resources.php",
-   "why": [
-    [
-     "status",
-     "404"
-    ],
-    [
-     "requests",
-     "404 /guide/resources.php"
-    ]
-   ]
+   "why": []
   },
   {
    "who": "guest",
    "url": "/guide/resources.php",
    "size": "desktop",
+   "must": false,
    "status": 404,
    "console": [],
-   "requests": [
-    "404 /guide/resources.php"
-   ],
+   "requests": [],
    "dialogs": [],
    "scroll": false,
    "edges": 0,
    "alt": 0,
    "names": 0,
    "final": "/guide/resources.php",
-   "why": [
-    [
-     "status",
-     "404"
-    ],
-    [
-     "requests",
-     "404 /guide/resources.php"
-    ]
-   ]
+   "why": []
   },
   {
    "who": "guest",
    "url": "/hub/build.php",
    "size": "phone",
+   "must": false,
    "status": 200,
    "console": [],
    "requests": [],
@@ -951,6 +873,7 @@
    "who": "guest",
    "url": "/hub/build.php",
    "size": "desktop",
+   "must": false,
    "status": 200,
    "console": [],
    "requests": [],
@@ -966,6 +889,7 @@
    "who": "guest",
    "url": "/hub/",
    "size": "phone",
+   "must": false,
    "status": 200,
    "console": [],
    "requests": [],
@@ -986,6 +910,7 @@
    "who": "guest",
    "url": "/hub/",
    "size": "desktop",
+   "must": false,
    "status": 200,
    "console": [],
    "requests": [],
@@ -1006,6 +931,7 @@
    "who": "guest",
    "url": "/join.php",
    "size": "phone",
+   "must": false,
    "status": 200,
    "console": [],
    "requests": [],
@@ -1021,6 +947,7 @@
    "who": "guest",
    "url": "/join.php",
    "size": "desktop",
+   "must": false,
    "status": 200,
    "console": [],
    "requests": [],
@@ -1036,6 +963,7 @@
    "who": "guest",
    "url": "/journeys/compose.php",
    "size": "phone",
+   "must": false,
    "status": 200,
    "console": [],
    "requests": [],
@@ -1051,13 +979,9 @@
    "who": "guest",
    "url": "/journeys/compose.php",
    "size": "desktop",
+   "must": false,
    "status": 200,
-   "console": [
-    "%c%d font-size:0;color:transparent NaN",
-    "%c%d font-size:0;color:transparent NaN",
-    "%c%o font-size:0;color:transparent {}",
-    "%c%o font-size:0;color:transparent {}"
-   ],
+   "console": [],
    "requests": [],
    "dialogs": [],
    "scroll": false,
@@ -1065,23 +989,178 @@
    "alt": 0,
    "names": 0,
    "final": "/login.php?next=%2Fuser%2Fjourneys%2Fcompose.php",
-   "why": [
-    [
-     "console",
-     "%c%d font-size:0;color:transparent NaN"
-    ]
-   ]
+   "why": []
   },
   {
    "who": "guest",
    "url": "/journeys/",
    "size": "phone",
+   "must": false,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "final": "/login.php?next=%2Fuser%2Fjourneys%2F",
+   "why": []
+  },
+  {
+   "who": "guest",
+   "url": "/journeys/",
+   "size": "desktop",
+   "must": false,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "final": "/login.php?next=%2Fuser%2Fjourneys%2F",
+   "why": []
+  },
+  {
+   "who": "guest",
+   "url": "/journeys/suggested.php",
+   "size": "phone",
+   "must": false,
+   "status": 404,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "final": "/journeys/suggested.php",
+   "why": []
+  },
+  {
+   "who": "guest",
+   "url": "/journeys/suggested.php",
+   "size": "desktop",
+   "must": false,
+   "status": 404,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "final": "/journeys/suggested.php",
+   "why": []
+  },
+  {
+   "who": "guest",
+   "url": "/listing/businessportal.php",
+   "size": "phone",
+   "must": false,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "final": "/login.php?next=%2Flisting%2Fbusinessportal.php",
+   "why": []
+  },
+  {
+   "who": "guest",
+   "url": "/listing/businessportal.php",
+   "size": "desktop",
+   "must": false,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "final": "/login.php?next=%2Flisting%2Fbusinessportal.php",
+   "why": []
+  },
+  {
+   "who": "guest",
+   "url": "/listing/confirm-referral.php",
+   "size": "phone",
+   "must": false,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "final": "/listing/confirm-referral.php",
+   "why": []
+  },
+  {
+   "who": "guest",
+   "url": "/listing/confirm-referral.php",
+   "size": "desktop",
+   "must": false,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "final": "/listing/confirm-referral.php",
+   "why": []
+  },
+  {
+   "who": "guest",
+   "url": "/listing/location.php",
+   "size": "phone",
+   "must": false,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "final": "/listing/location.php",
+   "why": []
+  },
+  {
+   "who": "guest",
+   "url": "/listing/location.php",
+   "size": "desktop",
+   "must": false,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "final": "/listing/location.php",
+   "why": []
+  },
+  {
+   "who": "guest",
+   "url": "/market/cart.php",
+   "size": "phone",
+   "must": false,
    "status": 200,
    "console": [
-    "%c%d font-size:0;color:transparent NaN",
-    "%c%d font-size:0;color:transparent NaN",
-    "%c%o font-size:0;color:transparent {}",
-    "%c%o font-size:0;color:transparent {}"
+    "Refused to connect to 'data:,' because it violates the following Content Security Policy directive: \"connect-src 'self' https://hagen.challenges.cloudflare.com https://brunhild.challenges.cloudflare.c",
+    "Refused to connect to 'data:,' because it violates the following Content Security Policy directive: \"connect-src 'self' https://hagen.challenges.cloudflare.com https://brunhild.challenges.cloudflare.c",
+    "Refused to connect to 'data:,' because it violates the document's Content Security Policy."
    ],
    "requests": [],
    "dialogs": [],
@@ -1089,190 +1168,19 @@
    "edges": 0,
    "alt": 0,
    "names": 0,
-   "final": "/login.php?next=%2Fuser%2Fjourneys%2F",
+   "final": "/login.php?next=%2Fmarket%2Fcart.php",
    "why": [
     [
      "console",
-     "%c%d font-size:0;color:transparent NaN"
+     "Refused to connect to 'data:,' because it violates the following Content Security Policy directive: \"connect-src 'self' https://hagen.challenges.cloudflare.com https://brunhild.challenges.cloudflare.c"
     ]
    ]
-  },
-  {
-   "who": "guest",
-   "url": "/journeys/",
-   "size": "desktop",
-   "status": 200,
-   "console": [],
-   "requests": [],
-   "dialogs": [],
-   "scroll": false,
-   "edges": 0,
-   "alt": 0,
-   "names": 0,
-   "final": "/login.php?next=%2Fuser%2Fjourneys%2F",
-   "why": []
-  },
-  {
-   "who": "guest",
-   "url": "/journeys/suggested.php",
-   "size": "phone",
-   "status": 404,
-   "console": [],
-   "requests": [
-    "404 /journeys/suggested.php"
-   ],
-   "dialogs": [],
-   "scroll": false,
-   "edges": 0,
-   "alt": 0,
-   "names": 0,
-   "final": "/journeys/suggested.php",
-   "why": [
-    [
-     "status",
-     "404"
-    ],
-    [
-     "requests",
-     "404 /journeys/suggested.php"
-    ]
-   ]
-  },
-  {
-   "who": "guest",
-   "url": "/journeys/suggested.php",
-   "size": "desktop",
-   "status": 404,
-   "console": [],
-   "requests": [
-    "404 /journeys/suggested.php"
-   ],
-   "dialogs": [],
-   "scroll": false,
-   "edges": 0,
-   "alt": 0,
-   "names": 0,
-   "final": "/journeys/suggested.php",
-   "why": [
-    [
-     "status",
-     "404"
-    ],
-    [
-     "requests",
-     "404 /journeys/suggested.php"
-    ]
-   ]
-  },
-  {
-   "who": "guest",
-   "url": "/listing/businessportal.php",
-   "size": "phone",
-   "status": 200,
-   "console": [],
-   "requests": [],
-   "dialogs": [],
-   "scroll": false,
-   "edges": 0,
-   "alt": 0,
-   "names": 0,
-   "final": "/login.php?next=%2Flisting%2Fbusinessportal.php",
-   "why": []
-  },
-  {
-   "who": "guest",
-   "url": "/listing/businessportal.php",
-   "size": "desktop",
-   "status": 200,
-   "console": [],
-   "requests": [],
-   "dialogs": [],
-   "scroll": false,
-   "edges": 0,
-   "alt": 0,
-   "names": 0,
-   "final": "/login.php?next=%2Flisting%2Fbusinessportal.php",
-   "why": []
-  },
-  {
-   "who": "guest",
-   "url": "/listing/confirm-referral.php",
-   "size": "phone",
-   "status": 200,
-   "console": [],
-   "requests": [],
-   "dialogs": [],
-   "scroll": false,
-   "edges": 0,
-   "alt": 0,
-   "names": 0,
-   "final": "/listing/confirm-referral.php",
-   "why": []
-  },
-  {
-   "who": "guest",
-   "url": "/listing/confirm-referral.php",
-   "size": "desktop",
-   "status": 200,
-   "console": [],
-   "requests": [],
-   "dialogs": [],
-   "scroll": false,
-   "edges": 0,
-   "alt": 0,
-   "names": 0,
-   "final": "/listing/confirm-referral.php",
-   "why": []
-  },
-  {
-   "who": "guest",
-   "url": "/listing/location.php",
-   "size": "phone",
-   "status": 200,
-   "console": [],
-   "requests": [],
-   "dialogs": [],
-   "scroll": false,
-   "edges": 0,
-   "alt": 0,
-   "names": 0,
-   "final": "/listing/location.php",
-   "why": []
-  },
-  {
-   "who": "guest",
-   "url": "/listing/location.php",
-   "size": "desktop",
-   "status": 200,
-   "console": [],
-   "requests": [],
-   "dialogs": [],
-   "scroll": false,
-   "edges": 0,
-   "alt": 0,
-   "names": 0,
-   "final": "/listing/location.php",
-   "why": []
-  },
-  {
-   "who": "guest",
-   "url": "/market/cart.php",
-   "size": "phone",
-   "status": 200,
-   "console": [],
-   "requests": [],
-   "dialogs": [],
-   "scroll": false,
-   "edges": 0,
-   "alt": 0,
-   "names": 0,
-   "final": "/login.php?next=%2Fmarket%2Fcart.php",
-   "why": []
   },
   {
    "who": "guest",
    "url": "/market/cart.php",
    "size": "desktop",
+   "must": false,
    "status": 200,
    "console": [],
    "requests": [],
@@ -1288,58 +1196,39 @@
    "who": "guest",
    "url": "/market/download.php",
    "size": "phone",
+   "must": false,
    "status": 404,
    "console": [],
-   "requests": [
-    "404 /market/download.php"
-   ],
+   "requests": [],
    "dialogs": [],
    "scroll": false,
    "edges": 0,
    "alt": 0,
    "names": 0,
    "final": "/market/download.php",
-   "why": [
-    [
-     "status",
-     "404"
-    ],
-    [
-     "requests",
-     "404 /market/download.php"
-    ]
-   ]
+   "why": []
   },
   {
    "who": "guest",
    "url": "/market/download.php",
    "size": "desktop",
+   "must": false,
    "status": 404,
    "console": [],
-   "requests": [
-    "404 /market/download.php"
-   ],
+   "requests": [],
    "dialogs": [],
    "scroll": false,
    "edges": 0,
    "alt": 0,
    "names": 0,
    "final": "/market/download.php",
-   "why": [
-    [
-     "status",
-     "404"
-    ],
-    [
-     "requests",
-     "404 /market/download.php"
-    ]
-   ]
+   "why": []
   },
   {
    "who": "guest",
    "url": "/market/rules.php",
    "size": "phone",
+   "must": false,
    "status": 200,
    "console": [],
    "requests": [],
@@ -1355,6 +1244,7 @@
    "who": "guest",
    "url": "/market/rules.php",
    "size": "desktop",
+   "must": false,
    "status": 200,
    "console": [],
    "requests": [],
@@ -1370,162 +1260,103 @@
    "who": "guest",
    "url": "/market/ticket.php",
    "size": "phone",
+   "must": false,
    "status": 404,
    "console": [],
-   "requests": [
-    "404 /market/ticket.php"
-   ],
+   "requests": [],
    "dialogs": [],
    "scroll": false,
    "edges": 0,
    "alt": 0,
    "names": 0,
    "final": "/market/ticket.php",
-   "why": [
-    [
-     "status",
-     "404"
-    ],
-    [
-     "requests",
-     "404 /market/ticket.php"
-    ]
-   ]
+   "why": []
   },
   {
    "who": "guest",
    "url": "/market/ticket.php",
    "size": "desktop",
+   "must": false,
    "status": 404,
    "console": [],
-   "requests": [
-    "404 /market/ticket.php"
-   ],
+   "requests": [],
    "dialogs": [],
    "scroll": false,
    "edges": 0,
    "alt": 0,
    "names": 0,
    "final": "/market/ticket.php",
-   "why": [
-    [
-     "status",
-     "404"
-    ],
-    [
-     "requests",
-     "404 /market/ticket.php"
-    ]
-   ]
+   "why": []
   },
   {
    "who": "guest",
    "url": "/media.php",
    "size": "phone",
+   "must": false,
    "status": 404,
    "console": [],
-   "requests": [
-    "404 /media.php"
-   ],
+   "requests": [],
    "dialogs": [],
    "scroll": false,
    "edges": 0,
    "alt": 0,
    "names": 0,
    "final": "/media.php",
-   "why": [
-    [
-     "status",
-     "404"
-    ],
-    [
-     "requests",
-     "404 /media.php"
-    ]
-   ]
+   "why": []
   },
   {
    "who": "guest",
    "url": "/media.php",
    "size": "desktop",
+   "must": false,
    "status": 404,
    "console": [],
-   "requests": [
-    "404 /media.php"
-   ],
+   "requests": [],
    "dialogs": [],
    "scroll": false,
    "edges": 0,
    "alt": 0,
    "names": 0,
    "final": "/media.php",
-   "why": [
-    [
-     "status",
-     "404"
-    ],
-    [
-     "requests",
-     "404 /media.php"
-    ]
-   ]
+   "why": []
   },
   {
    "who": "guest",
    "url": "/nexus.php",
    "size": "phone",
+   "must": false,
    "status": 404,
    "console": [],
-   "requests": [
-    "404 /nexus.php"
-   ],
+   "requests": [],
    "dialogs": [],
    "scroll": false,
    "edges": 0,
    "alt": 0,
    "names": 0,
    "final": "/nexus.php",
-   "why": [
-    [
-     "status",
-     "404"
-    ],
-    [
-     "requests",
-     "404 /nexus.php"
-    ]
-   ]
+   "why": []
   },
   {
    "who": "guest",
    "url": "/nexus.php",
    "size": "desktop",
+   "must": false,
    "status": 404,
    "console": [],
-   "requests": [
-    "404 /nexus.php"
-   ],
+   "requests": [],
    "dialogs": [],
    "scroll": false,
    "edges": 0,
    "alt": 0,
    "names": 0,
    "final": "/nexus.php",
-   "why": [
-    [
-     "status",
-     "404"
-    ],
-    [
-     "requests",
-     "404 /nexus.php"
-    ]
-   ]
+   "why": []
   },
   {
    "who": "guest",
    "url": "/our-approach.php",
    "size": "phone",
+   "must": false,
    "status": 200,
    "console": [],
    "requests": [],
@@ -1541,6 +1372,7 @@
    "who": "guest",
    "url": "/our-approach.php",
    "size": "desktop",
+   "must": false,
    "status": 200,
    "console": [],
    "requests": [],
@@ -1556,58 +1388,39 @@
    "who": "guest",
    "url": "/pages/form.php",
    "size": "phone",
+   "must": false,
    "status": 405,
    "console": [],
-   "requests": [
-    "405 /pages/form.php"
-   ],
+   "requests": [],
    "dialogs": [],
    "scroll": false,
    "edges": 0,
    "alt": 0,
    "names": 0,
    "final": "/pages/form.php",
-   "why": [
-    [
-     "status",
-     "405"
-    ],
-    [
-     "requests",
-     "405 /pages/form.php"
-    ]
-   ]
+   "why": []
   },
   {
    "who": "guest",
    "url": "/pages/form.php",
    "size": "desktop",
+   "must": false,
    "status": 405,
    "console": [],
-   "requests": [
-    "405 /pages/form.php"
-   ],
+   "requests": [],
    "dialogs": [],
    "scroll": false,
    "edges": 0,
    "alt": 0,
    "names": 0,
    "final": "/pages/form.php",
-   "why": [
-    [
-     "status",
-     "405"
-    ],
-    [
-     "requests",
-     "405 /pages/form.php"
-    ]
-   ]
+   "why": []
   },
   {
    "who": "guest",
    "url": "/pages/sitemap.php",
    "size": "phone",
+   "must": false,
    "status": 200,
    "console": [],
    "requests": [],
@@ -1628,6 +1441,7 @@
    "who": "guest",
    "url": "/pages/sitemap.php",
    "size": "desktop",
+   "must": false,
    "status": 200,
    "console": [],
    "requests": [],
@@ -1643,6 +1457,7 @@
    "who": "guest",
    "url": "/qr/cart.php",
    "size": "phone",
+   "must": false,
    "status": 200,
    "console": [],
    "requests": [],
@@ -1658,6 +1473,7 @@
    "who": "guest",
    "url": "/qr/cart.php",
    "size": "desktop",
+   "must": false,
    "status": 200,
    "console": [],
    "requests": [],
@@ -1673,6 +1489,7 @@
    "who": "guest",
    "url": "/qr/",
    "size": "phone",
+   "must": false,
    "status": 200,
    "console": [],
    "requests": [],
@@ -1688,6 +1505,7 @@
    "who": "guest",
    "url": "/qr/",
    "size": "desktop",
+   "must": false,
    "status": 200,
    "console": [],
    "requests": [],
@@ -1703,6 +1521,7 @@
    "who": "guest",
    "url": "/qr/manage.php",
    "size": "phone",
+   "must": false,
    "status": 200,
    "console": [],
    "requests": [],
@@ -1718,6 +1537,7 @@
    "who": "guest",
    "url": "/qr/manage.php",
    "size": "desktop",
+   "must": false,
    "status": 200,
    "console": [],
    "requests": [],
@@ -1733,12 +1553,12 @@
    "who": "guest",
    "url": "/register.php",
    "size": "phone",
+   "must": false,
    "status": 200,
    "console": [
-    "%c%d font-size:0;color:transparent NaN",
-    "%c%d font-size:0;color:transparent NaN",
-    "%c%o font-size:0;color:transparent {}",
-    "%c%o font-size:0;color:transparent {}"
+    "Refused to connect to 'data:,' because it violates the following Content Security Policy directive: \"connect-src 'self' https://hagen.challenges.cloudflare.com https://brunhild.challenges.cloudflare.c",
+    "Refused to connect to 'data:,' because it violates the following Content Security Policy directive: \"connect-src 'self' https://hagen.challenges.cloudflare.com https://brunhild.challenges.cloudflare.c",
+    "Refused to connect to 'data:,' because it violates the document's Content Security Policy."
    ],
    "requests": [],
    "dialogs": [],
@@ -1750,7 +1570,7 @@
    "why": [
     [
      "console",
-     "%c%d font-size:0;color:transparent NaN"
+     "Refused to connect to 'data:,' because it violates the following Content Security Policy directive: \"connect-src 'self' https://hagen.challenges.cloudflare.com https://brunhild.challenges.cloudflare.c"
     ]
    ]
   },
@@ -1758,6 +1578,7 @@
    "who": "guest",
    "url": "/register.php",
    "size": "desktop",
+   "must": false,
    "status": 200,
    "console": [],
    "requests": [],
@@ -1773,6 +1594,7 @@
    "who": "guest",
    "url": "/reset-password.php",
    "size": "phone",
+   "must": false,
    "status": 200,
    "console": [],
    "requests": [],
@@ -1788,6 +1610,7 @@
    "who": "guest",
    "url": "/reset-password.php",
    "size": "desktop",
+   "must": false,
    "status": 200,
    "console": [],
    "requests": [],
@@ -1803,6 +1626,7 @@
    "who": "guest",
    "url": "/verify-listing.php",
    "size": "phone",
+   "must": false,
    "status": 200,
    "console": [],
    "requests": [],
@@ -1818,6 +1642,7 @@
    "who": "guest",
    "url": "/verify-listing.php",
    "size": "desktop",
+   "must": false,
    "status": 200,
    "console": [],
    "requests": [],
@@ -1833,6 +1658,7 @@
    "who": "guest",
    "url": "/hub/?hub=ancient-america",
    "size": "phone",
+   "must": true,
    "status": 200,
    "console": [],
    "requests": [],
@@ -1848,6 +1674,7 @@
    "who": "guest",
    "url": "/hub/?hub=ancient-america",
    "size": "desktop",
+   "must": true,
    "status": 200,
    "console": [],
    "requests": [],
