@@ -173,6 +173,11 @@ Fields of words (names, descriptions, notes) get spell check and the site's sugg
 textarea gets them unless `spellcheck="false"`); codes, amounts and dates don't. A list whose choices need explaining
 carries each choice's meaning (`[key, name, what it is]`), shown by the kit's ⓘ.
 
+## Never a dead end (Jason, 2026-11-09): every page
+
+Wherever a link, code or step stops working (expired, replaced, over a limit, an email that failed), the page offers a
+way forward: send it again, and ask our team (a form to our inbox), with our email address. Never a lock-out.
+
 ## Password boxes (`js/tv-password.js`, Jason, 2026-10-16): every page
 
 Every password box gets Show/Hide; new-password boxes (`autocomplete="new-password"`, `minlength`, optional
