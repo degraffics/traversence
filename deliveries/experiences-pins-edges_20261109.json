@@ -3,32 +3,32 @@
  "built_on": "0c8f249 Sync: 2026-11-09 12:56 UTC",
  "recorded": "2026-11-09 13:17 UTC",
  "note": "Experiences link opens the list; Local \u2192 Pins counts indexed and cached; nested edge-to-edge cards keep their card's padding; AI Assist topics and the role notice on phones (built on 12:56 UTC)",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "730f720 Sync: 2026-11-09 15:23 UTC",
  "files": {
   "app/bootstrap.php": {
    "sha256": "a5df41c30f01ce6912867861c3d1b2fcedbbce038856d7c4fea8fa9567087a83",
-   "live": false
+   "live": true
   },
   "app/lib/Geocoder.php": {
    "sha256": "0ab00406dabe8511e966bfce8a94c871c703ac2b546efcc8fdf4e1d09a469212",
-   "live": false
+   "live": true
   },
   "app/ui/app-shell.php": {
    "sha256": "2fb8512e5d64aa3c004873f89114a60fd1a98d7b59ba8d847ce6d84a092e7e00",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "2dd481f05a0ce2a9c97cfcbc46c85677fa179ffad46e52cf5dd67e3a09b2d36f",
-   "live": false
+   "live": true
   },
   "website/ai/index.php": {
    "sha256": "2b42e5d091dc555748e234739281331e53c8f62b7d74541d4e1689548a25c006",
-   "live": false
+   "live": true
   },
   "website/experiences/index.php": {
    "sha256": "37905824a5e1cdf2f0afb6d3984a171a49ff10b613c4560f59be5be0cb275344",
-   "live": false
+   "live": true
   }
  }
 }
