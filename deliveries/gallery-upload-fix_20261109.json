@@ -1,0 +1,26 @@
+{
+ "zip": "gallery-upload-fix_20261109.zip",
+ "built_on": "c620651 Sync: 2026-11-09 00:42 UTC",
+ "recorded": "2026-11-09 12:05 UTC",
+ "note": "Gallery: a batch with one failure still shows what arrived; saving twice isn't an error; swipe over videos",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/Uploads.php": {
+   "sha256": "8603171308c7157ebfd5fa8e602aa7b8aae9c0a82f2940b3e99336dc72c0dcf5",
+   "live": false
+  },
+  "website/js/gallery.js": {
+   "sha256": "3715aad43fda19e8f9ac6fead24e9cfff8483b298b0f5ad9573ba41167d17d11",
+   "live": false
+  },
+  "website/js/photo-viewer.js": {
+   "sha256": "51aa3b310063089d26606529c992f89ea6b46787af334b9147debe2006ba0292",
+   "live": false
+  },
+  "website/js/tv-upload.js": {
+   "sha256": "f1a2b9a06f9fcdc88c13c9a492b0cbc0eb6baf7e9fc002a0e31c8477458f1dbe",
+   "live": false
+  }
+ }
+}
