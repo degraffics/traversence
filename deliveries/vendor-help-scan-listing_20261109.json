@@ -1,0 +1,38 @@
+{
+ "zip": "vendor-help-scan-listing_20261109.zip",
+ "built_on": "68cc098 Sync: 2026-11-09 16:25 UTC",
+ "recorded": "2026-11-09 18:05 UTC",
+ "note": "Vendor links help box (replaces vendor-links-help_20261109.zip, never uploaded) and Scan cards: Save as a listing (built on 16:25 UTC)",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/CardScan.php": {
+   "sha256": "ebad5ce10ea24d55bf76e222dd5665b5ccb86bc280eb644bc3e08b7c850ec5ff",
+   "live": false
+  },
+  "app/lib/Vendors.php": {
+   "sha256": "dc97d62a06d27a39a3f14f0610b2c2d261655229e2f083e5204b043b59058a55",
+   "live": false
+  },
+  "app/ui/card-scanner.php": {
+   "sha256": "35d0d730d751686e30b83e14594e475a1b583f82d15eeb2ee462b806fbe19ac8",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "72aeec3de3b51c8f38f8c9164fabbae08915ee116c93c825f71d6be146c84b47",
+   "live": false
+  },
+  "website/admin/api/cards.php": {
+   "sha256": "0399bf8255c43a471327e505808880650c2712b81f8db749e2342c426c287461",
+   "live": false
+  },
+  "website/vendor.php": {
+   "sha256": "764eaf83a828718f575536395b68151bbadb86a0322a3f401e8bf1fc318247ff",
+   "live": false
+  },
+  "website/wo.php": {
+   "sha256": "ab4635b219cbc2fe7497651812650bda3beeb242c6b142f016c48e48aa503dcd",
+   "live": false
+  }
+ }
+}
