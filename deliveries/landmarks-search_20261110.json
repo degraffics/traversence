@@ -1,0 +1,22 @@
+{
+ "zip": "landmarks-search_20261110.zip",
+ "built_on": "34f3236 Sync: 2026-11-10 03:41 UTC",
+ "recorded": "2026-11-10 03:44 UTC",
+ "note": "Landmarks added by hand or found for a guide are searchable (indexed on refresh and at once when found) (built on 03:41 UTC)",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/PlaceFinder.php": {
+   "sha256": "49816414354748ae2f9bb979202a6d64293d35db829497e14cb6082045068a7a",
+   "live": false
+  },
+  "app/lib/SearchIndex.php": {
+   "sha256": "4b76ff9a6e7cebe0bb3d3d36f14bf6e927fdd706d7c836b9f9e9f57d2171c620",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "0b0d1538209a4a4c9d6a3bedd5751375b91893f486ebdb65b63c35c8afbca885",
+   "live": false
+  }
+ }
+}

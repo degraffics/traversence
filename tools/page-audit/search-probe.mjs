@@ -25,6 +25,8 @@ const PROBES = [
   ['greer arizona', '', 'Greer, AZ (a pilot town)'],
   ['Four Corners', '', 'Four Corners Monument, not Four Corners, WY'],
   ['grand canyon', '', 'Grand Canyon National Park'],
+  ['four corners monument', '', 'Four Corners Monument (a landmark added by hand)'],
+  ['laguna art museum', '', 'Laguna Art Museum (found for the Laguna Beach guide)'],
   ['plumber in show low', '', 'plumbers in Show Low'],
 ];
 
@@ -54,7 +56,7 @@ async function probe([q, ctx, expect]) {
 }
 
 // as someone types (Jason, 2026-11-10: "we should be showing possible locations as someone types"): the first rows
-const TYPING = [['Dana p', ''], ['pho', ''], ['phoenix', ''], ['pizza in pho', ''], ['sedo', ''], ['glendale', 'city=Phoenix&state=AZ'], ['show l', '']];
+const TYPING = [['Dana p', ''], ['pho', ''], ['phoenix', ''], ['pizza in pho', ''], ['sedo', ''], ['glendale', 'city=Phoenix&state=AZ'], ['show l', ''], ['four corners mon', ''], ['dana point harb', ''], ['laguna art', '']];
 async function typed([q, ctx]) {
   const url = `${SITE}/api/search.php?suggest=1&q=${encodeURIComponent(q)}${ctx ? '&' + ctx : ''}`;
   try {
