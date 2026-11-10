@@ -1,6 +1,6 @@
 {
- "run": "2026-11-10 09:45 UTC",
- "mirror": "abcc802",
+ "run": "2026-11-10 17:48 UTC",
+ "mirror": "064d6d2",
  "findings": [
   {
    "rule": "R02",
@@ -629,49 +629,49 @@
   {
    "rule": "R10",
    "file": "website/directory/index.php",
-   "line": 190,
-   "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
-  },
-  {
-   "rule": "R10",
-   "file": "website/directory/index.php",
-   "line": 191,
-   "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
-  },
-  {
-   "rule": "R10",
-   "file": "website/directory/index.php",
    "line": 192,
    "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
   },
   {
    "rule": "R10",
    "file": "website/directory/index.php",
-   "line": 331,
+   "line": 193,
+   "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
+  },
+  {
+   "rule": "R10",
+   "file": "website/directory/index.php",
+   "line": 194,
+   "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
+  },
+  {
+   "rule": "R10",
+   "file": "website/directory/index.php",
+   "line": 334,
    "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
   },
   {
    "rule": "R10",
    "file": "website/js/search-panel.js",
-   "line": 82,
+   "line": 114,
    "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
   },
   {
    "rule": "R10",
    "file": "website/js/search-panel.js",
-   "line": 84,
+   "line": 116,
    "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
   },
   {
    "rule": "R10",
    "file": "website/js/search-panel.js",
-   "line": 359,
+   "line": 391,
    "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
   },
   {
    "rule": "R10",
    "file": "website/js/search-panel.js",
-   "line": 571,
+   "line": 605,
    "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
   },
   {
@@ -749,19 +749,19 @@
   {
    "rule": "R10",
    "file": "website/discovery/index.php",
-   "line": 280,
+   "line": 296,
    "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
   },
   {
    "rule": "R10",
    "file": "website/discovery/index.php",
-   "line": 281,
+   "line": 297,
    "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
   },
   {
    "rule": "R10",
    "file": "website/discovery/index.php",
-   "line": 407,
+   "line": 424,
    "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
   }
  ]
