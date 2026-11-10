@@ -3,16 +3,16 @@
  "built_on": "b0cdc04 Sync: 2026-11-10 04:01 UTC",
  "recorded": "2026-11-10 04:03 UTC",
  "note": "Town crawls: a job cut short by the worker's time goes back in the queue; health report: where each town's places are, and a lookup by name (built on 04:01 UTC)",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "2dfa397 Sync: 2026-11-10 04:06 UTC",
  "files": {
   "app/lib/crawler/TownCrawl.php": {
    "sha256": "c538501470bbdcaa9113d2ce131b290909eca88fa769347e7fa5ca2551fe3e32",
-   "live": false
+   "live": true
   },
   "website/api/health.php": {
    "sha256": "911d9cae370907b0c7722d324de507beec2090117ea2d65d4a7644cde6eca8ce",
-   "live": false
+   "live": true
   }
  }
 }
