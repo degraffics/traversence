@@ -40,7 +40,7 @@ async function probe([q, ctx, expect]) {
     const chips = (d.chips || []).map((c) => `${s(c.type)}: ${s(c.label)}`);
     out.place = s(d.place?.label || (d.chips || []).find((c) => c.type === 'place')?.label);
     out.chips = chips; out.text = s(d.text);
-    out.guide = d.guide ? s(d.guide.label || d.guide.title || JSON.stringify(d.guide).slice(0, 80)) : '';
+    out.guide = d.guide ? s(d.guide.label || d.guide.title || '') + (d.guide.state ? ` [${d.guide.state}]` : '') + (d.guide.text ? `: ${d.guide.text}` : '') : '';
     out.ask = d.ask ? s(d.ask.title || d.ask.q || d.ask.kind || 'yes') : '';
     const res = d.results || {};
     out.total = res.total ?? (res.items || []).length;
