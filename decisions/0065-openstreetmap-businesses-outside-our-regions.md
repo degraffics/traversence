@@ -117,3 +117,5 @@ data as long as we dont have to share back data"; `osm-leads_20261110.zip`).** R
   With no place set, opening the map asks the device where it is (the browser's one-time question), rather than only
   when the browser had already said yes (2026-11-10: the directory's map sat on its default view of eastern Arizona;
   `map-ask-where_20261110.zip`). Refused: the map says to allow location or choose a place.
+- Discovery's map opens on Everything, then narrowed (Jason, 2026-11-10: "Initial open as things to do is limiting
+  options"); closing it (Exit, or the phone's back) returns to the page before, never the bare map page.
