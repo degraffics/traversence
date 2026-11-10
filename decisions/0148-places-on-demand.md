@@ -56,3 +56,5 @@ after a year. Status still comes from `Landmarks::decide` (sacred or protected p
 doesn't put near any town are added once by hand (`PlaceFinder::HAND`): **Four Corners Monument** (36.9990,
 -109.0452, Apache County, AZ; Monument), on Navajo Nation land and approved as public because the nation runs it as a
 Tribal Park open to visitors (decisions/0066). Each is indexed for search when it's added.
+Fix (same day, `heritage-fix_20261110.zip`): the one-time hand-added places are marked done only once every one is in,
+so a failed add is tried again on the next run.

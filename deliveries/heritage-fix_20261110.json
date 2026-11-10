@@ -1,0 +1,18 @@
+{
+ "zip": "heritage-fix_20261110.zip",
+ "built_on": "36f0112 Sync: 2026-11-10 11:29 UTC",
+ "recorded": "2026-11-10 11:59 UTC",
+ "note": "",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/Heritage.php": {
+   "sha256": "616fb8116e097153fcc287aedeaf303976026f313968bab31a68244975a9f083",
+   "live": false
+  },
+  "app/lib/PlaceFinder.php": {
+   "sha256": "d44f07b4275aab7664da698f676b875e18d69c3ceb5cb6208dfa053fb5266eb2",
+   "live": false
+  }
+ }
+}
