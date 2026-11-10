@@ -1,0 +1,34 @@
+{
+ "zip": "guide-notify_20261110.zip",
+ "built_on": "d2af9d5 Sync: 2026-11-10 00:48 UTC",
+ "recorded": "2026-11-10 00:53 UTC",
+ "note": "Guide building: Notify me when it's ready (Pulse + email for members, one email signed out, browser notice) (built on 00:48 UTC)",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/Notices.php": {
+   "sha256": "0c2808bebef33384f7df6cbe567cb0321258c3eb869d650e58c4785caefe0a75",
+   "live": false
+  },
+  "app/lib/OnDemand.php": {
+   "sha256": "b91164f22dcb79daec76b00dbd85561df9a7e7843ad4c886922c19998b64dd6d",
+   "live": false
+  },
+  "app/migrations/2027-02-19_guide_watchers.sql": {
+   "sha256": "d7ceecc8dabd46971c45a57cbcae0d80dd3dbd1fe76176a7db67c20920a236a4",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "d5d7551e71b299c32d65b236dfb572f3f79b09da2dbf4c043cf694c9b1540297",
+   "live": false
+  },
+  "website/api/guide-build.php": {
+   "sha256": "99332ea45844396705b6559d8780db6c77479e9df4a66325c022eb28c0a6465a",
+   "live": false
+  },
+  "website/hub/build.php": {
+   "sha256": "dcc5750a9ebc9794ec929e4b1af9270be5592576d9479050d7435fe7c462a43b",
+   "live": false
+  }
+ }
+}
