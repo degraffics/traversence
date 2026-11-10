@@ -1,0 +1,26 @@
+{
+ "zip": "guide-build-unstick_20261110.zip",
+ "built_on": "064d6d2 Sync: 2026-11-10 16:05 UTC",
+ "recorded": "2026-11-10 19:18 UTC",
+ "note": "Guide build: Finding places bounded to 40 s of OpenStreetMap, longer lease, session released so Notify me answers",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/OnDemand.php": {
+   "sha256": "afd853ba85cb1d12995d93813586acb6eb3ff5e77d115e5a588972318be407f0",
+   "live": false
+  },
+  "app/lib/OpenPlaces.php": {
+   "sha256": "999769ef0f8966da133ea4ab0e1f8542cc19529d3c4b027c303d0d447336784d",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "55b89c85c883ba072f10bc5db97ffd48362d1a5a6d6f84a8b4aec84662ee75fb",
+   "live": false
+  },
+  "website/api/guide-build.php": {
+   "sha256": "eb661cf38114191815cfd1a7d59af3313c435e79f5cce4e614f4e488028e5293",
+   "live": false
+  }
+ }
+}
