@@ -277,3 +277,14 @@ phase is itself released through the process above, as far as the earlier phases
   `results/rendered.json`; screenshots with the run.
 - **Still to build:** the steward's group, the test client and vendor; read-only tool checks per account type and the
   endpoint permission checks (Phase 2 items 7 and 9).
+
+## No test makes a real transaction (Jason, 2026-11-10)
+
+"Ensure no test can create actual transactions outside the sandbox." `QuickBooksPay::testHere()`: with a test account
+signed in (a member's or a staff test login's, `users.is_test`), QuickBooks always runs in the sandbox, whatever the
+Payments switch says; Name.com runs in its sandbox with no card charged (`Domains::noRealMoney()`); a business checkout
+uses its gateway's test mode (`MarketPay::env()`). `QuickBooksPay::guardReal()`: a test order (made in the sandbox, a
+"TEST · …" copy even if made while payments were live, or a test account's) is refused before any live charge, invoice
+or payment is recorded; refunds and credits stay open, since they only send money back. "Test copy, billed to you" now
+always makes a sandbox order. A test account's plan receipt goes to the sandbox's books, not the live ones (it went to
+the live books before). Customers leaves test orders out of its numbers (`customers-no-tests_20261110.zip`).

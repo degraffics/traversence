@@ -190,6 +190,11 @@ A city named in a search is always found in the locations data (`zip_coordinates
 without our data or a hub there: every search is demand. Older rules that hid out-of-area towns ("strict", "names
 something here") no longer apply to cities; an unknown word is never dropped before the place is read.
 
+## No test moves real money (Jason, 2026-11-10): every build
+
+Test accounts, test orders ("TEST · …" copies, sandbox orders) and test posts never reach a live gateway: anything that
+charges, invoices or records a payment goes through `QuickBooksPay::guardReal()` / `testHere()` (decisions/0145).
+
 ## Password boxes (`js/tv-password.js`, Jason, 2026-10-16): every page
 
 Every password box gets Show/Hide; new-password boxes (`autocomplete="new-password"`, `minlength`, optional
