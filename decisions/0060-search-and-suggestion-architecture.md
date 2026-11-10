@@ -215,3 +215,8 @@ will look into developing better search results for this specific topic and area
   Auto-detect first and largest, then your town or ZIP, saved places and your default; no Trip Planner, Distance,
   Regions or Search everywhere. Opened any other way, the picker is as before. (decisions/0058 §8's "applied when
   tapped" still holds elsewhere: only "near me" asks for the device's place unprompted, since the words asked for it.)
+- **"Near me" alone** (2026-11-10, `near-me-alone_20261110.zip`): with no other words it asks **What near you?** (coffee,
+  places to eat, groceries, gas, pharmacy, things to do, where to stay, parks, health care; each searches "… near me"),
+  above what's around; never "Not sure what 'near me' means", the Address Book row, or a "lacking" report.
+- **The directory's place is clearable** (Jason, 2026-11-10: "The location should be clearable as well"): an × beside its
+  place pill clears it (everywhere), as the × on search's Location line does.
