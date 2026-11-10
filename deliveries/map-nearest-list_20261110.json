@@ -1,13 +1,17 @@
 {
  "zip": "map-nearest-list_20261110.zip",
  "built_on": "f62deb1 Sync: 2026-11-10 15:29 UTC",
- "recorded": "2026-11-10 15:32 UTC",
- "note": "Map: the places as a list, nearest first, ours and OpenStreetMap's",
+ "recorded": "2026-11-10 15:33 UTC",
+ "note": "Map: the places as a list, nearest first; Discovery: the place's guide linked at the top of Journeys & guides",
  "status": "pending",
  "live_in": "",
  "files": {
   "app/ui/faq.md": {
-   "sha256": "181696f31c9c269ad3b68e3928e972b8e4164c3577717aaa7528135149e6469e",
+   "sha256": "7ecf651566e10c39a32988022319f785311d2f0c97c08b863a4442ec0185f9a6",
+   "live": false
+  },
+  "website/discovery/index.php": {
+   "sha256": "5ae5fd42c5dcfe10506ad4616f426421ea87909195301d75415951f7b6cf5c9f",
    "live": false
   },
   "website/js/map-view.js": {
