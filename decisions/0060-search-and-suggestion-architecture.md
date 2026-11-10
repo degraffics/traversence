@@ -180,3 +180,19 @@ our areas still needs its state or "in/near/at/around".
 - "Lyman" finds Lyman Lake State Park whether it falls inside St. Johns or just outside it.
 
 **Note (2026-11-05): the default place starts every page.** A signed-in person with no place yet this visit (just signed in, a new tab) now starts from their default saved place on every page, not only when searching the directory (`applyDefaultPlaceIfAny` on page load, once the session is known). A region they arrived through still wins, and choosing everywhere this visit keeps everywhere.
+
+**"Near me" is 2 miles (Jason, 2026-11-10, `near-me-2mi_20261110.zip`):** "coffee near me: this is the most important
+search we can't fail to deliver on. If we have near me, then use a 2 mile radius cap for location specific topic
+search. If not location then prompt the user to set a location… If the results are insufficient allow the user to
+expand search to a 5 mile radius, but if that still is insufficient we say our results are found to be lacking and we
+will look into developing better search results for this specific topic and area."
+- A search that says "near me" (or nearby, closest…) with a place set searches 2 mi around it (`UniversalSearch`
+  caps the reach at 2, or 5 once widened); no place still asks for one first (unchanged).
+- Enough is `UniversalSearch::NEAR_ENOUGH` = 3 places, ours and OpenStreetMap's within the same miles together
+  (OpenStreetMap's leads are offered whenever ours are fewer than 3). Fewer within 2 mi: **Widen to 5 mi**, the only
+  step. Fewer within 5: "Our results for … near … are lacking. We'll look into building better results for it in this
+  area." No "beyond", "mentioning" or "no limit" results for a near-me search.
+- Lacking is recorded as search demand (`search_demand.dest = 'lacking'`, the words and the place, never who), listed
+  first on Admin → Search demand with **Develop with the crawler**, and the town goes to the crawler
+  (`TownCrawl::fromSearch`, decisions/0149).
+- The Distance slider gains a 2 mi step (stored as `tv_reach3`; the default stays 10 mi).
