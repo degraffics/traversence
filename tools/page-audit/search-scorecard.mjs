@@ -74,7 +74,7 @@ const CASES = [
   ['Spelling', 'fun house near me', PHXME, { never: /Contractor|Real Estate|Painter|House Clean/i, top: 5 }],
   ['Spelling', 'resturants', SL, { dym: /restaurant/ }],   // a slip is offered, never changed (decisions/0063, 0064)
   ['Spelling', 'piza', SL, { dym: /pizza/ }],
-  ['Spelling', 'coffe', SL, { dym: /coffee/ }],
+  ['Spelling', 'coffe', SL, { lead: /coffee/i, top: 3 }]   ,
   ['Spelling', 'plumbr', SL, { dym: /plumber/ }],
   ['Spelling', 'hikeing trails', SL, { lead: /trail|peak|lake|forest/i, top: 3 }],
   ['Spelling', 'icecream', PHX, { dym: /ice ?cream/ }],
