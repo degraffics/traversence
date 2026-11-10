@@ -132,8 +132,13 @@ function judge(rows, chips, place, total, c, ms, budget, dym = '') {
 }
 
 async function getJson(url) {
+  await new Promise((ok) => setTimeout(ok, 250));   // gentle on the host: a burst of requests can get the runner throttled
   const t0 = Date.now();
-  const r = await fetch(url, { headers: { 'User-Agent': 'traversence-search-scorecard' } });
+  let r;
+  for (let i = 0; ; i++) {   // a dropped connection is tried again twice, slower each time
+    try { r = await fetch(url, { headers: { 'User-Agent': 'traversence-search-scorecard' } }); break; }
+    catch (e) { if (i >= 2) throw e; await new Promise((ok) => setTimeout(ok, 2000 * (i + 1))); }
+  }
   const d = await r.json();
   return [d, Date.now() - t0, r.status];
 }
