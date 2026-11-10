@@ -1,0 +1,26 @@
+{
+ "zip": "near-me-where_20261110.zip",
+ "built_on": "698587e Sync: 2026-11-10 13:13 UTC",
+ "recorded": "2026-11-10 13:14 UTC",
+ "note": "",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/ui/faq.md": {
+   "sha256": "ad02c0da887b35f1815440c85809c6faab9096a684965baf221400bd8e020967",
+   "live": false
+  },
+  "app/ui/location-modal.php": {
+   "sha256": "7edd383b81aa7e51453d1d8a14010da5a13ac556a69880866009eaad25487db8",
+   "live": false
+  },
+  "website/js/location-scope.js": {
+   "sha256": "0af88bcc82fc8ddf2c2ec4d91608eee36a3ed8245ca76683749e3617353bbf4a",
+   "live": false
+  },
+  "website/js/search-panel.js": {
+   "sha256": "900b0c4201c56d02f1060af1d2fe3f853de613fa8a7b162dc426da8d29801534",
+   "live": false
+  }
+ }
+}
