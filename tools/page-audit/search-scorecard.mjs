@@ -72,7 +72,7 @@ const CASES = [
   // Words run together, spelled wrong, or said two ways
   ['Spelling', 'funhouse', PHX, { never: /Contractor|Real Estate|Painter|House Clean/i, top: 5 }],
   ['Spelling', 'fun house near me', PHXME, { never: /Contractor|Real Estate|Painter|House Clean/i, top: 5 }],
-  ['Spelling', 'resturants', SL, { dym: /restaurant/ }]   // a slip is offered, never changed (decisions/0063, 0064),
+  ['Spelling', 'resturants', SL, { dym: /restaurant/ }],   // a slip is offered, never changed (decisions/0063, 0064)
   ['Spelling', 'piza', SL, { dym: /pizza/ }],
   ['Spelling', 'coffe', SL, { dym: /coffee/ }],
   ['Spelling', 'plumbr', SL, { dym: /plumber/ }],
