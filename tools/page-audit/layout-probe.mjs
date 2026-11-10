@@ -51,13 +51,21 @@ for (const [label, url] of pages) {
           if (b.left < ib.right && b.right > ib.left && b.top < ib.bottom && b.bottom > ib.top && el.children.length === 0 && el.textContent.trim()) over.push(el.textContent.trim().slice(0, 30));
         }
       }
-      return { heroTop: hero ? Math.round(r(hero).top) : null, barBottom: Math.round(barBottom), firstKids: kids, over: [...new Set(over)].slice(0, 6),
+      // what stands between the bar and the hero: each container's top padding, margin and border, and its own top
+      const chain = [];
+      for (let el = hero; el && el !== document.body && chain.length < 8; el = el.parentElement) {
+        const cs = getComputedStyle(el), b = r(el);
+        chain.push(`${el.tagName.toLowerCase()}${typeof el.className === 'string' && el.className.trim() ? '.' + el.className.trim().split(/\s+/).slice(0, 2).join('.') : ''} top ${Math.round(b.top)} (pad ${cs.paddingTop}, margin ${cs.marginTop}, border ${cs.borderTopWidth})`);
+      }
+      const prev = hero && hero.previousElementSibling ? hero.previousElementSibling : null;
+      return { chain, prev: prev ? `${prev.tagName.toLowerCase()} ${Math.round(r(prev).height)}px tall` : '', heroTop: hero ? Math.round(r(hero).top) : null, barBottom: Math.round(barBottom), firstKids: kids, over: [...new Set(over)].slice(0, 6),
                pageStyle: page ? getComputedStyle(page).paddingTop + ' padding, ' + (hero ? getComputedStyle(hero).marginTop + ' hero margin' : '') : '' };
     });
     const gap = m.heroTop !== null ? m.heroTop - m.barBottom : null;
     md += `## ${label}\n\n- **Page:** ${url.replace(SITE, '')}\n`;
     md += `- **Gap above the hero:** ${gap === null ? 'no hero' : gap + 'px'} (bar bottom ${m.barBottom}px, hero top ${m.heroTop}px; ${m.pageStyle})\n`;
     md += `- **First things on the page:** ${m.firstKids.join(', ') || '—'}\n`;
+    if (m.chain && m.chain.length) md += `- **From the hero up:** ${m.chain.join(' › ')}${m.prev ? '; just before it: ' + m.prev : ''}\n`;
     if (m.over.length) md += `- **Drawn over the action icons:** ${m.over.join('; ')}\n`;
     md += '\n';
     await p.screenshot({ path: `shots/layout-${label.replace(/[^a-z0-9]+/gi, '-').toLowerCase()}.png` }).catch(() => {});
