@@ -59,3 +59,9 @@ Two of our rules shape this:
 - Run `api/migrations/2026-11-03_open_places.sql` once.
 - 2026-10-07: rows with the same name read apart. Distances under 10 miles show one decimal ("0.4 mi"), and the street
   shows when OSM has it. The same business mapped twice (a point and its building, under 0.1 mi apart) shows once.
+
+**A lead only (2026-11-10):** OpenStreetMap's data is share-alike (ODbL), so the panel shows only a business's name,
+what it is, how far, and directions; `/api/open-places.php` no longer sends its phone, hours, street or website (the
+**Call** button goes). It's offered wherever we have none of that kind within reach, not only outside our areas
+(decisions/0149, "From a search"). Still to bring in line: suggested journeys use its hours and address
+(`JourneyPlan`).

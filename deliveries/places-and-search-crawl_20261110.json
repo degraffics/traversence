@@ -1,13 +1,21 @@
 {
- "zip": "places-from-source_20261110.zip",
+ "zip": "places-and-search-crawl_20261110.zip",
  "built_on": "486a818 Sync: 2026-11-10 12:05 UTC",
- "recorded": "2026-11-10 12:20 UTC",
+ "recorded": "2026-11-10 12:34 UTC",
  "note": "",
  "status": "pending",
  "live_in": "",
  "files": {
   "app/lib/PlaceFinder.php": {
    "sha256": "6c0d58d0d74a778e894dabb777f3f74aada512ceead3ad16bb3daa55a8d1cd05",
+   "live": false
+  },
+  "app/lib/UniversalSearch.php": {
+   "sha256": "a6832cfab0ac0f736055932f3ac6e8d6180dc067cf86f845d9c9de2d8fb21c08",
+   "live": false
+  },
+  "app/lib/crawler/TownCrawl.php": {
+   "sha256": "22a3644e2d6184071a095429dd4f517ec858cff9ca683d6d937bed053246ac48",
    "live": false
   },
   "app/migrations/2027-02-21_landmarks_from_source.sql": {
@@ -19,7 +27,11 @@
    "live": false
   },
   "app/ui/faq.md": {
-   "sha256": "3b5b7be6cfbb4b8a83002d3abec52be50503e7aac6d6b0c953f6f97dca83e3fd",
+   "sha256": "33b97e7df8bacad24ccbb5514d4c2cdf648e0fdf18451f632f2346446a39b987",
+   "live": false
+  },
+  "website/api/open-places.php": {
+   "sha256": "143fa63dd16b3600c962316325fccddb29257b06dec3c753ea4c31ed005db2df",
    "live": false
   }
  }

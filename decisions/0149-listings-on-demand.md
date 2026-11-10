@@ -65,3 +65,12 @@ with the pilot crawler busy it re-read the same oldest 300 every time, so newer 
 now moves to the last listing taken (a second back, so others changed that second are read again), 600 at a time, and a
 town crawl indexes the listings it publishes at once. The towns report shows how far the index has caught up
 (`search-index-catchup_20261110.zip`).
+
+**From a search (2026-11-10, `places-and-search-crawl_20261110.zip`):** Jason, on "coffee near me" in Phoenix showing
+Show Low and Dana Point: "Why doesn't our search use our crawler instantly for inquiries like this." A search for a
+kind of business (`OpenPlaces::kindFor`) that finds nothing of ours within reach of the place, in our areas or not, now:
+- shows what OpenStreetMap has around the place at once (decisions/0065; before, only for places outside our areas with
+  nothing anywhere in reach), in place of loose "mentioning" matches far away;
+- sends the town to the crawler (`TownCrawl::fromSearch`): it's made our town if it's new (`OnDemand::townFor`) and its
+  five kinds are queued, as when a guide is asked for. Once a town every 30 days, at most 25 towns a day; never for the
+  search run while typing. Real listings follow when the worker has been through it, usually within an hour or two.
