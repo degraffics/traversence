@@ -58,3 +58,23 @@ doesn't put near any town are added once by hand (`PlaceFinder::HAND`): **Four C
 Tribal Park open to visitors (decisions/0066). Each is indexed for search when it's added.
 Fix (same day, `heritage-fix_20261110.zip`): the one-time hand-added places are marked done only once every one is in,
 so a failed add is tried again on the next run.
+
+**Places from the source, not by hand (2026-11-10, `places-from-source_20261110.zip`):** Jason, on the hand-added
+Four Corners Monument: "Fixing four corners monument manual defeats our purpose: how do we fix our system to pull the
+right data." It was missed because the landmark load keeps natural features only, the finder only looked near towns,
+a search that found nothing went nowhere, and a place's town came from the nearest ZIP. Now, in `PlaceFinder`:
+1. **Searched-for names** (`lookupTick`, six a run of `guide_ondemand_tick`): searches of two words or more already
+   counted in `search_terms` (never who; ones that found nothing first) that read like a name (`nameIn`: not only
+   generic words, never a number or an email) are asked of Wikidata by name (`wbsearchentities`), anywhere in the US.
+   A match that's a place to visit with a Wikipedia article or on the National Register becomes a landmark through the
+   same checks, searchable at once. Each name is asked once every 30 days.
+2. **Each pilot state, square by square** (`stateTick`, one 0.5° square a run): everything Wikidata places there with
+   an article or on the Register; a state rests 30 days once done, then starts again.
+3. **The National Register of Historic Places** (Wikidata P649, CC0): a Register place is kept as a historic place
+   even without an article, in the town sweep, the state squares and name lookups.
+4. **Where it is, from the source:** the town Wikidata says it's in (P131, a settlement) and its state (one of ours
+   first on a state line), then the nearest ZIP (one of our states when nearly as near), then the guide's place. A
+   Wikidata landmark of ours is placed again from the source once a month; GNIS's and a person's are never overwritten.
+
+The hand list (`PlaceFinder::HAND`) is gone. Migration `2027-02-21_landmarks_from_source.sql` makes the Four Corners
+record a Wikidata place, so the finder ties it to its item and places it in Teec Nos Pos, AZ; its public status stays.
