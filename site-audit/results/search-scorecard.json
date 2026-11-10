@@ -1,6 +1,6 @@
 {
- "at": "2026-11-10T22:59:43.527Z",
- "pass": 0,
+ "at": "2026-11-10T23:00:25.813Z",
+ "pass": 59,
  "of": 80,
  "cases": [
   {
@@ -8,58 +8,145 @@
    "q": "Phoenix",
    "ctx": "",
    "url": "/api/search.php?q=Phoenix",
-   "fails": [
-    "error: TypeError: fetch failed"
+   "read": [
+    "asks: place",
+    "what: "
    ],
-   "pass": false
+   "status": 200,
+   "ms": 72,
+   "place": "Phoenix",
+   "chips": [
+    "place: Phoenix"
+   ],
+   "total": 1,
+   "first": [
+    "Phoenix · place · Town"
+   ],
+   "note": "",
+   "fails": [],
+   "pass": true
   },
   {
    "group": "Places",
    "q": "Phoenix, az",
    "ctx": "",
    "url": "/api/search.php?q=Phoenix%2C%20az",
-   "fails": [
-    "error: TypeError: fetch failed"
+   "read": [
+    "asks: place",
+    "what: "
    ],
-   "pass": false
+   "status": 200,
+   "ms": 80,
+   "place": "Phoenix",
+   "chips": [
+    "place: Phoenix"
+   ],
+   "total": 1,
+   "first": [
+    "Phoenix · place · Town"
+   ],
+   "note": "",
+   "fails": [],
+   "pass": true
   },
   {
    "group": "Places",
    "q": "Dana point",
    "ctx": "",
    "url": "/api/search.php?q=Dana%20point",
-   "fails": [
-    "error: TypeError: fetch failed"
+   "read": [
+    "asks: place",
+    "what: "
    ],
-   "pass": false
+   "status": 200,
+   "ms": 79,
+   "place": "Dana Point, CA",
+   "chips": [
+    "place: Dana Point, CA"
+   ],
+   "total": 3,
+   "first": [
+    "Dana Point, CA · place · Town in Laguna Niguel",
+    "Ocean Institute · outdoors · Museums ·  County",
+    "Salt Creek Beach Park · outdoors · Parks ·  County"
+   ],
+   "note": "",
+   "fails": [],
+   "pass": true
   },
   {
    "group": "Places",
    "q": "show low",
    "ctx": "",
    "url": "/api/search.php?q=show%20low",
-   "fails": [
-    "error: TypeError: fetch failed"
+   "read": [
+    "asks: place",
+    "what: "
    ],
-   "pass": false
+   "status": 200,
+   "ms": 93,
+   "place": "Show Low, AZ",
+   "chips": [
+    "place: Show Low, AZ"
+   ],
+   "total": 3,
+   "first": [
+    "Show Low, AZ · place · Town in The Show Low District",
+    "Fool Hollow Lake · outdoors · Lake · near Show Low",
+    "Malpais Pit · outdoors · Basin · near Show Low"
+   ],
+   "note": "",
+   "fails": [],
+   "pass": true
   },
   {
    "group": "Places",
    "q": "Showlow",
    "ctx": "",
    "url": "/api/search.php?q=Showlow",
-   "fails": [
-    "error: TypeError: fetch failed"
+   "read": [
+    "asks: place",
+    "what: "
    ],
-   "pass": false
+   "status": 200,
+   "ms": 86,
+   "place": "Show Low, AZ",
+   "chips": [
+    "place: Show Low, AZ"
+   ],
+   "total": 3,
+   "first": [
+    "Show Low, AZ · place · Town in The Show Low District",
+    "Fool Hollow Lake · outdoors · Lake · near Show Low",
+    "Malpais Pit · outdoors · Basin · near Show Low"
+   ],
+   "note": "",
+   "fails": [],
+   "pass": true
   },
   {
    "group": "Places",
    "q": "flagstaf",
    "ctx": "",
    "url": "/api/search.php?q=flagstaf",
+   "read": [
+    "what: flagstaf"
+   ],
+   "status": 200,
+   "ms": 210,
+   "place": "",
+   "chips": [],
+   "total": 15,
+   "first": [
+    "Flagstaff Ranger District · outdoors · Swimming · USDA Forest Service",
+    "Meteor Crater · outdoors · Crater · near Winslow",
+    "Kendrick Peak · outdoors · Peak · near Bellemont",
+    "Around The Mountain Pediatric · listing · Doctors · Lakeside, AZ",
+    "Dogtown Lake Campground And Group · outdoors · Campground · USDA Forest Service"
+   ],
+   "note": "",
    "fails": [
-    "error: TypeError: fetch failed"
+    "place read as \"none\""
    ],
    "pass": false
   },
@@ -68,48 +155,125 @@
    "q": "sedona az",
    "ctx": "",
    "url": "/api/search.php?q=sedona%20az",
-   "fails": [
-    "error: TypeError: fetch failed"
+   "read": [
+    "asks: place",
+    "what: "
    ],
-   "pass": false
+   "status": 200,
+   "ms": 80,
+   "place": "Sedona",
+   "chips": [
+    "place: Sedona"
+   ],
+   "total": 6,
+   "first": [
+    "Sedona · place · Town",
+    "Courthouse Butte · outdoors · Peak · near Sedona",
+    "Cathedral Rock · outdoors · Peak · near Sedona",
+    "Cave Spring · outdoors · Campground · USDA Forest Service",
+    "Crescent Moon Ramada · outdoors · Campground · USDA Forest Service"
+   ],
+   "note": "",
+   "fails": [],
+   "pass": true
   },
   {
    "group": "Places",
    "q": "Glendale",
    "ctx": "city=Phoenix&state=AZ&reach=25",
    "url": "/api/search.php?q=Glendale&city=Phoenix&state=AZ&reach=25",
-   "fails": [
-    "error: TypeError: fetch failed"
+   "read": [
+    "asks: place",
+    "what: "
    ],
-   "pass": false
+   "status": 200,
+   "ms": 70,
+   "place": "Glendale",
+   "chips": [
+    "place: Glendale"
+   ],
+   "total": 52,
+   "first": [
+    "Glendale · place · Town",
+    "Brophy College Chapel · outdoors · Chapel · near Phoenix · 6 mi · 6.3 mi",
+    "First Presbyterian Church · outdoors · Church building · near Phoenix · 8 mi · 7.9 mi",
+    "Valley Metro · outdoors · Transit district · near Phoenix · 8 mi · 8.2 mi",
+    "Orpheum Theatre · outdoors · Theatre building · near Phoenix · 8 mi · 8.1 mi"
+   ],
+   "note": "",
+   "fails": [],
+   "pass": true
   },
   {
    "group": "Places",
    "q": "Four Corners",
    "ctx": "",
    "url": "/api/search.php?q=Four%20Corners",
-   "fails": [
-    "error: TypeError: fetch failed"
+   "read": [
+    "asks: place",
+    "what: "
    ],
-   "pass": false
+   "status": 200,
+   "ms": 101,
+   "place": "Four Corners, WY",
+   "chips": [
+    "place: Four Corners, WY"
+   ],
+   "total": 1,
+   "first": [
+    "Four Corners Monument · outdoors · Monuments · Navajo Nation land"
+   ],
+   "note": "We have no listings in Four Corners, WY yet.",
+   "fails": [],
+   "pass": true
   },
   {
    "group": "Places",
    "q": "grand canyon",
    "ctx": "",
    "url": "/api/search.php?q=grand%20canyon",
-   "fails": [
-    "error: TypeError: fetch failed"
+   "read": [
+    "asks: place",
+    "what: "
    ],
-   "pass": false
+   "status": 200,
+   "ms": 104,
+   "place": "Grand Canyon, AZ",
+   "chips": [
+    "place: Grand Canyon, AZ"
+   ],
+   "total": 13,
+   "first": [
+    "Grand Canyon - Parashant National Monument · outdoors · Recreation area · Bureau of Land Management",
+    "Red Butte · outdoors · Peak · near Grand Canyon",
+    "Mather Point · outdoors · Cliff · near Grand Canyon",
+    "Sinking Ship · outdoors · Peak · near Grand Canyon",
+    "Vesta Temple · outdoors · Peak · near Grand Canyon"
+   ],
+   "note": "",
+   "fails": [],
+   "pass": true
   },
   {
    "group": "Places",
    "q": "laguna art museum",
    "ctx": "",
    "url": "/api/search.php?q=laguna%20art%20museum",
+   "read": [
+    "what: art museum"
+   ],
+   "status": 200,
+   "ms": 137,
+   "place": "Laguna, NM",
+   "chips": [
+    "place: Laguna, NM"
+   ],
+   "total": 6,
+   "first": [],
+   "note": "",
    "fails": [
-    "error: TypeError: fetch failed"
+    "read a place: \"Laguna, NM\"",
+    "nothing like /Laguna Art Museum/ in the first 5"
    ],
    "pass": false
   },
@@ -118,8 +282,25 @@
    "q": "pizza in phoenix",
    "ctx": "",
    "url": "/api/search.php?q=pizza%20in%20phoenix",
+   "read": [
+    "OpenStreetMap: pizza",
+    "what: Pizza"
+   ],
+   "status": 200,
+   "ms": 107,
+   "place": "Phoenix",
+   "chips": [
+    "place: Phoenix",
+    "category: Pizza"
+   ],
+   "total": 1,
+   "first": [
+    "OpenStreetMap · pizza"
+   ],
+   "note": "",
    "fails": [
-    "error: TypeError: fetch failed"
+    "place read as \"Phoenix\"",
+    "1 results"
    ],
    "pass": false
   },
@@ -128,118 +309,311 @@
    "q": "plumber in show low",
    "ctx": "",
    "url": "/api/search.php?q=plumber%20in%20show%20low",
-   "fails": [
-    "error: TypeError: fetch failed"
+   "read": [
+    "what: Plumbers"
    ],
-   "pass": false
+   "status": 200,
+   "ms": 164,
+   "place": "Show Low, AZ",
+   "chips": [
+    "place: Show Low, AZ",
+    "category: Plumbers"
+   ],
+   "total": 6,
+   "first": [
+    "Action Plumbing Inc · listing · Plumbers · Show Low, AZ",
+    "All Mountain Plumbing LLC · listing · Plumbers · Show Low, AZ",
+    "Avery Plumbing Inc · listing · Plumbers · Show Low, AZ",
+    "Dennis Kotterman Plumbing Inc · listing · Plumbers · Show Low, AZ",
+    "Glenn's Plumbing · listing · Plumbers · Show Low, AZ"
+   ],
+   "note": "",
+   "fails": [],
+   "pass": true
   },
   {
    "group": "In a town",
    "q": "hotels in sedona",
    "ctx": "",
    "url": "/api/search.php?q=hotels%20in%20sedona",
-   "fails": [
-    "error: TypeError: fetch failed"
+   "read": [
+    "OpenStreetMap: lodging",
+    "what: hotels"
    ],
-   "pass": false
+   "status": 200,
+   "ms": 176,
+   "place": "Sedona",
+   "chips": [
+    "place: Sedona"
+   ],
+   "total": 14,
+   "first": [
+    "OpenStreetMap · lodging"
+   ],
+   "note": "",
+   "fails": [],
+   "pass": true
   },
   {
    "group": "In a town",
    "q": "restaurants",
    "ctx": "city=Phoenix&state=AZ&reach=25",
    "url": "/api/search.php?q=restaurants&city=Phoenix&state=AZ&reach=25",
-   "fails": [
-    "error: TypeError: fetch failed"
+   "read": [
+    "what: Restaurants"
    ],
-   "pass": false
+   "status": 200,
+   "ms": 73,
+   "place": "Phoenix, AZ",
+   "chips": [
+    "place: Phoenix, AZ",
+    "category: Restaurants"
+   ],
+   "total": 11,
+   "first": [
+    "Cartel Coffee Lab · listing · Restaurants · Phoenix, AZ · <1 mi · 0.1 mi",
+    "Centrico · listing · Restaurants · Phoenix, AZ · <1 mi · 0.1 mi",
+    "CiBO Pizzeria · listing · Restaurants · Phoenix, AZ · <1 mi · 0.6 mi",
+    "Majerle's Sports Grill · listing · Restaurants · Phoenix, AZ · <1 mi · 0.2 mi",
+    "Seamus McCaffrey's Irish Pub · listing · Restaurants · Phoenix, AZ · <1 mi · 0.1 mi"
+   ],
+   "note": "",
+   "fails": [],
+   "pass": true
   },
   {
    "group": "In a town",
    "q": "mexican food",
    "ctx": "city=Show Low&state=AZ&reach=25",
    "url": "/api/search.php?q=mexican%20food&city=Show Low&state=AZ&reach=25",
-   "fails": [
-    "error: TypeError: fetch failed"
+   "read": [
+    "what: mexican food"
    ],
-   "pass": false
+   "status": 200,
+   "ms": 126,
+   "place": "Show Low, AZ",
+   "chips": [
+    "place: Show Low, AZ"
+   ],
+   "total": 15,
+   "first": [
+    "Mexican Food Licano's Steak Hs · listing · Restaurants · Show Low, AZ · 5 mi · 4.6 mi",
+    "Aliberto's Mexican Food · listing · Restaurants · Show Low, AZ · 3 mi · 3.5 mi",
+    "Bandido's Express Mexican Food · listing · Restaurants · Show Low, AZ · 3 mi · 3.2 mi",
+    "Alibertos Mexican Foods · listing · Restaurants · Lakeside, AZ · 9 mi · 9.3 mi",
+    "Jack In The Box · listing · Restaurants · Show Low, AZ · 6 mi · 6.3 mi"
+   ],
+   "note": "",
+   "fails": [],
+   "pass": true
   },
   {
    "group": "In a town",
    "q": "car repair",
    "ctx": "city=Show Low&state=AZ&reach=25",
    "url": "/api/search.php?q=car%20repair&city=Show Low&state=AZ&reach=25",
-   "fails": [
-    "error: TypeError: fetch failed"
+   "read": [
+    "situation: Car repair",
+    "what: "
    ],
-   "pass": false
+   "status": 200,
+   "ms": 107,
+   "place": "Show Low, AZ",
+   "chips": [
+    "place: Show Low, AZ"
+   ],
+   "total": 23,
+   "first": [
+    "Jay's Auto Repair · listing · Auto Repair · Show Low, AZ · 3 mi",
+    "Pit Road Automotive · listing · Auto Repair · Show Low, AZ · 3 mi",
+    "Harris Automotive · listing · Auto Repair · Show Low, AZ · 4 mi",
+    "Mobile Medics Auto Repair LLC · listing · Auto Repair · Show Low, AZ · 4 mi",
+    "Speedy Automotive Repair Service · listing · Auto Repair · Show Low, AZ · 4 mi"
+   ],
+   "note": "",
+   "fails": [],
+   "pass": true
   },
   {
    "group": "In a town",
    "q": "tires",
    "ctx": "city=Show Low&state=AZ&reach=25",
    "url": "/api/search.php?q=tires&city=Show Low&state=AZ&reach=25",
-   "fails": [
-    "error: TypeError: fetch failed"
+   "read": [
+    "what: tires"
    ],
-   "pass": false
+   "status": 200,
+   "ms": 158,
+   "place": "Show Low, AZ",
+   "chips": [
+    "place: Show Low, AZ"
+   ],
+   "total": 11,
+   "first": [
+    "Discount Tire · listing · Tire Shops · Show Low, AZ · 4 mi · 3.6 mi",
+    "Future Tire · listing · Tire Shops · Show Low, AZ · 4 mi · 3.9 mi",
+    "Roberts Tire Sales Inc · listing · Tire Shops · Show Low, AZ · 3 mi · 3.3 mi",
+    "Future Tire · listing · Auto Repair · Lakeside, AZ · 9 mi · 9.3 mi",
+    "Youngs Future Tire · listing · Tire Shops · Lakeside, AZ · 9 mi · 9.3 mi"
+   ],
+   "note": "",
+   "fails": [],
+   "pass": true
   },
   {
    "group": "In a town",
    "q": "vet",
    "ctx": "city=Show Low&state=AZ&reach=25",
    "url": "/api/search.php?q=vet&city=Show Low&state=AZ&reach=25",
-   "fails": [
-    "error: TypeError: fetch failed"
+   "read": [
+    "situation: Pet is sick or hurt",
+    "what: "
    ],
-   "pass": false
+   "status": 200,
+   "ms": 111,
+   "place": "Show Low, AZ",
+   "chips": [
+    "place: Show Low, AZ"
+   ],
+   "total": 5,
+   "first": [
+    "Alta Sierra Veterinary Hospital · listing · Veterinarians · Show Low, AZ · 5 mi",
+    "Petvet Vaccination Clinic · listing · Veterinarians · Show Low, AZ · 6 mi",
+    "VIP Petcare Vaccination Clinic · listing · Veterinarians · Show Low, AZ · 6 mi",
+    "Aspen Ridge Animal Hospital · listing · Veterinarians · Lakeside, AZ · 8 mi",
+    "Veterinary Cedar Ridge · listing · Veterinarians · Taylor, AZ · 11 mi"
+   ],
+   "note": "",
+   "fails": [],
+   "pass": true
   },
   {
    "group": "In a town",
    "q": "dentist",
    "ctx": "city=Show Low&state=AZ&reach=25",
    "url": "/api/search.php?q=dentist&city=Show Low&state=AZ&reach=25",
-   "fails": [
-    "error: TypeError: fetch failed"
+   "read": [
+    "what: Dentists"
    ],
-   "pass": false
+   "status": 200,
+   "ms": 168,
+   "place": "Show Low, AZ",
+   "chips": [
+    "place: Show Low, AZ",
+    "category: Dentists"
+   ],
+   "total": 54,
+   "first": [
+    "Equihua, Rachel E Dmd · listing · Dentists · Show Low, AZ · <1 mi · 0 mi",
+    "White Mountain Endodontics · listing · Dentists · Show Low, AZ · <1 mi · 0 mi",
+    "AZ Max · listing · Dentists · Show Low, AZ · 4 mi · 3.9 mi",
+    "Advanced Dental Care Of Show Low, PLLC · listing · Dentists · Show Low, AZ · 4 mi · 4.1 mi",
+    "Aspen Dental · listing · Dentists · Show Low, AZ · 4 mi · 3.7 mi"
+   ],
+   "note": "",
+   "fails": [],
+   "pass": true
   },
   {
    "group": "In a town",
    "q": "groceries",
    "ctx": "city=Show Low&state=AZ&reach=25",
    "url": "/api/search.php?q=groceries&city=Show Low&state=AZ&reach=25",
-   "fails": [
-    "error: TypeError: fetch failed"
+   "read": [
+    "what: groceries"
    ],
-   "pass": false
+   "status": 200,
+   "ms": 150,
+   "place": "Show Low, AZ",
+   "chips": [
+    "place: Show Low, AZ"
+   ],
+   "total": 16,
+   "first": [
+    "Safeway · listing · Grocery Stores · Show Low, AZ · 5 mi · 4.8 mi",
+    "Walmart Deli · listing · Delis · Show Low, AZ · 7 mi · 6.9 mi",
+    "Vons Cabinets · listing · Grocery Stores · Lakeside, AZ · 8 mi · 7.8 mi",
+    "Family Dollar · listing · Variety Stores · Show Low, AZ · 4 mi · 4.1 mi",
+    "Family Dollar · listing · Variety Stores · Lakeside, AZ · 9 mi · 9.3 mi"
+   ],
+   "note": "",
+   "fails": [],
+   "pass": true
   },
   {
    "group": "In a town",
    "q": "gas station",
    "ctx": "city=Show Low&state=AZ&reach=25",
    "url": "/api/search.php?q=gas%20station&city=Show Low&state=AZ&reach=25",
-   "fails": [
-    "error: TypeError: fetch failed"
+   "read": [
+    "situation: Gas for the car",
+    "what: "
    ],
-   "pass": false
+   "status": 200,
+   "ms": 107,
+   "place": "Show Low, AZ",
+   "chips": [
+    "place: Show Low, AZ"
+   ],
+   "total": 10,
+   "first": [
+    "VTI Enterprises LLC · listing · Gas Stations · Show Low, AZ · 2 mi",
+    "Mustang/Conoco Gasoline · listing · Gas Stations · Show Low, AZ · 3 mi",
+    "Sinclair Gas Station · listing · Gas Stations · Show Low, AZ · 4 mi",
+    "Safeway Fuel Station · listing · Gas Stations · Show Low, AZ · 5 mi",
+    "Moose Henry's Grille · listing · Gas Stations · Lakeside, AZ · 11 mi"
+   ],
+   "note": "",
+   "fails": [],
+   "pass": true
   },
   {
    "group": "In a town",
    "q": "coffee",
    "ctx": "zip=85302&reach=25",
    "url": "/api/search.php?q=coffee&zip=85302&reach=25",
-   "fails": [
-    "error: TypeError: fetch failed"
+   "read": [
+    "what: coffee"
    ],
-   "pass": false
+   "status": 200,
+   "ms": 90,
+   "place": "Glendale, AZ",
+   "chips": [
+    "place: Glendale, AZ"
+   ],
+   "total": 5,
+   "first": [
+    "Cartel Coffee Lab · listing · Restaurants · Phoenix, AZ · 10 mi · 10.1 mi",
+    "GroundShaker Coffee Bar · listing · Bars · Surprise, AZ · 13 mi · 13.3 mi"
+   ],
+   "note": "",
+   "fails": [],
+   "pass": true
   },
   {
    "group": "Near me",
    "q": "coffee near me",
    "ctx": "city=Phoenix&state=AZ&reach=10",
    "url": "/api/search.php?q=coffee%20near%20me&city=Phoenix&state=AZ&reach=10",
+   "read": [
+    "OpenStreetMap: coffee",
+    "what: coffee"
+   ],
+   "status": 200,
+   "ms": 181,
+   "place": "Phoenix, AZ",
+   "chips": [
+    "place: Phoenix, AZ"
+   ],
+   "total": 25,
+   "first": [
+    "Cartel Coffee Lab · listing · Restaurants · Phoenix, AZ · <1 mi · 0.1 mi",
+    "GroundShaker Coffee Bar · listing · Bars · Surprise, AZ · 22 mi · 22.2 mi",
+    "OpenStreetMap · coffee"
+   ],
+   "note": "",
    "fails": [
-    "error: TypeError: fetch failed"
+    "GroundShaker Coffee Bar · listing · Bars · Surprise, AZ · 22 mi is 22 mi (over 10)"
    ],
    "pass": false
   },
@@ -248,78 +622,210 @@
    "q": "pizza near me",
    "ctx": "city=Phoenix&state=AZ&reach=10",
    "url": "/api/search.php?q=pizza%20near%20me&city=Phoenix&state=AZ&reach=10",
-   "fails": [
-    "error: TypeError: fetch failed"
+   "read": [
+    "OpenStreetMap: pizza",
+    "what: Pizza"
    ],
-   "pass": false
+   "status": 200,
+   "ms": 195,
+   "place": "Phoenix, AZ",
+   "chips": [
+    "place: Phoenix, AZ",
+    "category: Pizza"
+   ],
+   "total": 20,
+   "first": [
+    "CiBO Pizzeria · listing · Restaurants · Phoenix, AZ · <1 mi · 0.6 mi",
+    "OpenStreetMap · pizza"
+   ],
+   "note": "",
+   "fails": [],
+   "pass": true
   },
   {
    "group": "Near me",
    "q": "gas near me",
    "ctx": "city=Phoenix&state=AZ&reach=10",
    "url": "/api/search.php?q=gas%20near%20me&city=Phoenix&state=AZ&reach=10",
-   "fails": [
-    "error: TypeError: fetch failed"
+   "read": [
+    "asks: place",
+    "OpenStreetMap: fuel",
+    "what: gas"
    ],
-   "pass": false
+   "status": 200,
+   "ms": 161,
+   "place": "Phoenix, AZ",
+   "chips": [
+    "place: Phoenix, AZ"
+   ],
+   "total": 62,
+   "first": [
+    "OpenStreetMap · fuel"
+   ],
+   "note": "",
+   "fails": [],
+   "pass": true
   },
   {
    "group": "Near me",
    "q": "food near me",
    "ctx": "city=Phoenix&state=AZ&reach=10",
    "url": "/api/search.php?q=food%20near%20me&city=Phoenix&state=AZ&reach=10",
-   "fails": [
-    "error: TypeError: fetch failed"
+   "read": [
+    "what: Restaurants"
    ],
-   "pass": false
+   "status": 200,
+   "ms": 209,
+   "place": "Phoenix, AZ",
+   "chips": [
+    "place: Phoenix, AZ",
+    "category: Restaurants"
+   ],
+   "total": 158,
+   "first": [
+    "Cartel Coffee Lab · listing · Restaurants · Phoenix, AZ · <1 mi · 0.1 mi",
+    "Seamus McCaffrey's Irish Pub · listing · Restaurants · Phoenix, AZ · <1 mi · 0.1 mi",
+    "Centrico · listing · Restaurants · Phoenix, AZ · <1 mi · 0.1 mi",
+    "Majerle's Sports Grill · listing · Restaurants · Phoenix, AZ · <1 mi · 0.2 mi",
+    "CiBO Pizzeria · listing · Restaurants · Phoenix, AZ · <1 mi · 0.6 mi"
+   ],
+   "note": "",
+   "fails": [],
+   "pass": true
   },
   {
    "group": "Near me",
    "q": "hiking near me",
    "ctx": "city=Phoenix&state=AZ&reach=10",
    "url": "/api/search.php?q=hiking%20near%20me&city=Phoenix&state=AZ&reach=10",
-   "fails": [
-    "error: TypeError: fetch failed"
+   "read": [
+    "situation: Hiking",
+    "what: hiking"
    ],
-   "pass": false
+   "status": 200,
+   "ms": 245,
+   "place": "Phoenix, AZ",
+   "chips": [
+    "do: Hiking",
+    "place: Phoenix, AZ"
+   ],
+   "total": 358,
+   "first": [
+    "Piestewa Peak · outdoors · Peak · near Phoenix · 7 mi",
+    "Camelback Mountain · outdoors · Peak · near Phoenix · 8 mi",
+    "Phoenix Mountains · outdoors · Peak · near Phoenix · 8 mi",
+    "Camels Eye · outdoors · Natural arch · near Phoenix · 8 mi",
+    "North Mountain · outdoors · Peak · near Phoenix · 9 mi"
+   ],
+   "note": "",
+   "fails": [],
+   "pass": true
   },
   {
    "group": "Near me",
    "q": "parks near me",
    "ctx": "city=Phoenix&state=AZ&reach=10",
    "url": "/api/search.php?q=parks%20near%20me&city=Phoenix&state=AZ&reach=10",
-   "fails": [
-    "error: TypeError: fetch failed"
+   "read": [
+    "OpenStreetMap: park",
+    "what: Parks"
    ],
-   "pass": false
+   "status": 200,
+   "ms": 204,
+   "place": "Phoenix, AZ",
+   "chips": [
+    "place: Phoenix, AZ",
+    "category: Parks"
+   ],
+   "total": 15,
+   "first": [
+    "OpenStreetMap · park"
+   ],
+   "note": "",
+   "fails": [],
+   "pass": true
   },
   {
    "group": "Near me",
    "q": "things to do near me",
    "ctx": "zip=85302&reach=25",
    "url": "/api/search.php?q=things%20to%20do%20near%20me&zip=85302&reach=25",
-   "fails": [
-    "error: TypeError: fetch failed"
+   "read": [
+    "situation: Something to do",
+    "what: "
    ],
-   "pass": false
+   "status": 200,
+   "ms": 138,
+   "place": "Glendale, AZ",
+   "chips": [
+    "why: Things to do",
+    "place: Glendale, AZ"
+   ],
+   "total": 10,
+   "first": [
+    "North Mountain · outdoors · Peak · near Phoenix · 6 mi",
+    "Phoenix Mountains · outdoors · Peak · near Phoenix · 9 mi",
+    "Piestewa Peak · outdoors · Peak · near Phoenix · 9 mi",
+    "Camelback Mountain · outdoors · Peak · near Phoenix · 13 mi",
+    "Salt River Valley · outdoors · Canyon · near Cashion · 15 mi"
+   ],
+   "note": "",
+   "fails": [],
+   "pass": true
   },
   {
    "group": "Near me",
    "q": "near me",
    "ctx": "city=Phoenix&state=AZ&reach=10",
    "url": "/api/search.php?q=near%20me&city=Phoenix&state=AZ&reach=10",
-   "fails": [
-    "error: TypeError: fetch failed"
+   "read": [
+    "what: "
    ],
-   "pass": false
+   "status": 200,
+   "ms": 114,
+   "place": "Phoenix, AZ",
+   "chips": [
+    "place: Phoenix, AZ"
+   ],
+   "total": 373,
+   "first": [
+    "Valley Metro · outdoors · Transit district · near Phoenix · <1 mi · 0 mi",
+    "Heard Building · outdoors · Building · near Phoenix · <1 mi · 0.1 mi",
+    "Orpheum Theatre · outdoors · Theatre building · near Phoenix · <1 mi · 0.1 mi",
+    "Professional Building · outdoors · Office building · near Phoenix · <1 mi · 0.2 mi",
+    "Security Building · outdoors · Commercial building · near Phoenix · <1 mi · 0.2 mi"
+   ],
+   "note": "",
+   "fails": [],
+   "pass": true
   },
   {
    "group": "Near me",
    "q": "urgent care near me",
    "ctx": "city=Phoenix&state=AZ&reach=10",
    "url": "/api/search.php?q=urgent%20care%20near%20me&city=Phoenix&state=AZ&reach=10",
+   "read": [
+    "situation: Feeling sick",
+    "what: "
+   ],
+   "status": 200,
+   "ms": 157,
+   "place": "Phoenix, AZ",
+   "chips": [
+    "when: Emergency: open now first",
+    "place: Phoenix, AZ"
+   ],
+   "total": 15,
+   "first": [
+    "Living Hope Women's Center · listing · Clinics · Whiteriver, AZ · 122 mi",
+    "Division Of Health Programs · listing · Health Services · Whiteriver, AZ · 122 mi",
+    "White River Unified School District · listing · Health Services · Ft. Apache, AZ · 122 mi",
+    "White Mountain Apache Tribe Fire And Rescue · listing · Health Services · Whiteriver, AZ · 124 mi",
+    "Quick Med Center LLC · listing · Medical Centers · Show Low, AZ · 128 mi"
+   ],
+   "note": "",
    "fails": [
-    "error: TypeError: fetch failed"
+    "Living Hope Women's Center · listing · Clinics · Whiteriver, AZ is 122 mi (over 10)"
    ],
    "pass": false
   },
@@ -328,8 +834,26 @@
    "q": "place to take my kids",
    "ctx": "city=Phoenix&state=AZ&reach=10",
    "url": "/api/search.php?q=place%20to%20take%20my%20kids&city=Phoenix&state=AZ&reach=10",
+   "read": [
+    "OpenStreetMap: family",
+    "what: "
+   ],
+   "status": 200,
+   "ms": 79,
+   "place": "Phoenix, AZ",
+   "chips": [
+    "outing: With kids",
+    "why: Things to do",
+    "place: Phoenix, AZ"
+   ],
+   "total": 2,
+   "first": [
+    "Orpheum Theatre · outdoors · Theatre building · near Phoenix · <1 mi · 0.1 mi",
+    "OpenStreetMap · family"
+   ],
+   "note": "",
    "fails": [
-    "error: TypeError: fetch failed"
+    "2 results"
    ],
    "pass": false
   },
@@ -338,48 +862,139 @@
    "q": "things to do with kids",
    "ctx": "city=Phoenix&state=AZ&reach=25",
    "url": "/api/search.php?q=things%20to%20do%20with%20kids&city=Phoenix&state=AZ&reach=25",
-   "fails": [
-    "error: TypeError: fetch failed"
+   "read": [
+    "OpenStreetMap: family",
+    "what: "
    ],
-   "pass": false
+   "status": 200,
+   "ms": 84,
+   "place": "Phoenix, AZ",
+   "chips": [
+    "outing: With kids",
+    "why: Things to do",
+    "place: Phoenix, AZ"
+   ],
+   "total": 4,
+   "first": [
+    "Orpheum Theatre · outdoors · Theatre building · near Phoenix · <1 mi · 0.1 mi",
+    "Challenger Learning Center of Arizona · outdoors · Interpretive Programs · Smithsonian Institution Affiliations Program · 18 mi · 18.4 mi",
+    "Quartz Peak Trail · outdoors · Recreation area · Bureau of Land Management · 20 mi · 19.7 mi",
+    "OpenStreetMap · family"
+   ],
+   "note": "",
+   "fails": [],
+   "pass": true
   },
   {
    "group": "Context",
    "q": "kids activities",
    "ctx": "city=Phoenix&state=AZ&reach=25",
    "url": "/api/search.php?q=kids%20activities&city=Phoenix&state=AZ&reach=25",
-   "fails": [
-    "error: TypeError: fetch failed"
+   "read": [
+    "OpenStreetMap: family",
+    "what: "
    ],
-   "pass": false
+   "status": 200,
+   "ms": 78,
+   "place": "Phoenix, AZ",
+   "chips": [
+    "outing: With kids",
+    "why: Things to do",
+    "place: Phoenix, AZ"
+   ],
+   "total": 4,
+   "first": [
+    "Orpheum Theatre · outdoors · Theatre building · near Phoenix · <1 mi · 0.1 mi",
+    "Challenger Learning Center of Arizona · outdoors · Interpretive Programs · Smithsonian Institution Affiliations Program · 18 mi · 18.4 mi",
+    "Quartz Peak Trail · outdoors · Recreation area · Bureau of Land Management · 20 mi · 19.7 mi",
+    "OpenStreetMap · family"
+   ],
+   "note": "",
+   "fails": [],
+   "pass": true
   },
   {
    "group": "Context",
    "q": "family friendly restaurants",
    "ctx": "city=Phoenix&state=AZ&reach=25",
    "url": "/api/search.php?q=family%20friendly%20restaurants&city=Phoenix&state=AZ&reach=25",
-   "fails": [
-    "error: TypeError: fetch failed"
+   "read": [
+    "what: Restaurants"
    ],
-   "pass": false
+   "status": 200,
+   "ms": 84,
+   "place": "Phoenix, AZ",
+   "chips": [
+    "outing: With the family",
+    "place: Phoenix, AZ",
+    "category: Restaurants"
+   ],
+   "total": 11,
+   "first": [
+    "Centrico · listing · Restaurants · Phoenix, AZ · <1 mi · 0.1 mi",
+    "Cartel Coffee Lab · listing · Restaurants · Phoenix, AZ · <1 mi · 0.1 mi",
+    "CiBO Pizzeria · listing · Restaurants · Phoenix, AZ · <1 mi · 0.6 mi",
+    "Majerle's Sports Grill · listing · Restaurants · Phoenix, AZ · <1 mi · 0.2 mi",
+    "Seamus McCaffrey's Irish Pub · listing · Restaurants · Phoenix, AZ · <1 mi · 0.1 mi"
+   ],
+   "note": "",
+   "fails": [],
+   "pass": true
   },
   {
    "group": "Context",
    "q": "date night",
    "ctx": "city=Phoenix&state=AZ&reach=25",
    "url": "/api/search.php?q=date%20night&city=Phoenix&state=AZ&reach=25",
-   "fails": [
-    "error: TypeError: fetch failed"
+   "read": [
+    "OpenStreetMap: todo",
+    "what: "
    ],
-   "pass": false
+   "status": 200,
+   "ms": 85,
+   "place": "Phoenix, AZ",
+   "chips": [
+    "outing: Date night",
+    "why: Things to do",
+    "place: Phoenix, AZ"
+   ],
+   "total": 8,
+   "first": [
+    "Orpheum Theatre · outdoors · Theatre building · near Phoenix · <1 mi · 0.1 mi",
+    "North Mountain · outdoors · Peak · near Phoenix · 9 mi · 9.5 mi",
+    "Glendale Grammar School One-room Class Building · outdoors · School building · near Glendale · 9 mi · 9.1 mi",
+    "Hole in the Rock · outdoors · Natural arch · near Tempe · 7 mi · 7.4 mi",
+    "Camels Eye · outdoors · Natural arch · near Phoenix · 8 mi · 7.5 mi"
+   ],
+   "note": "",
+   "fails": [],
+   "pass": true
   },
   {
    "group": "Context",
    "q": "rainy day activities",
    "ctx": "city=Phoenix&state=AZ&reach=25",
    "url": "/api/search.php?q=rainy%20day%20activities&city=Phoenix&state=AZ&reach=25",
+   "read": [
+    "OpenStreetMap: todo",
+    "what: "
+   ],
+   "status": 200,
+   "ms": 89,
+   "place": "Phoenix, AZ",
+   "chips": [
+    "outing: Indoors",
+    "why: Things to do",
+    "place: Phoenix, AZ"
+   ],
+   "total": 2,
+   "first": [
+    "Orpheum Theatre · outdoors · Theatre building · near Phoenix · <1 mi · 0.1 mi",
+    "OpenStreetMap · todo"
+   ],
+   "note": "",
    "fails": [
-    "error: TypeError: fetch failed"
+    "2 results"
    ],
    "pass": false
   },
@@ -388,108 +1003,287 @@
    "q": "something fun to do",
    "ctx": "city=Phoenix&state=AZ&reach=25",
    "url": "/api/search.php?q=something%20fun%20to%20do&city=Phoenix&state=AZ&reach=25",
-   "fails": [
-    "error: TypeError: fetch failed"
+   "read": [
+    "situation: Something to do",
+    "what: fun"
    ],
-   "pass": false
+   "status": 200,
+   "ms": 114,
+   "place": "Phoenix, AZ",
+   "chips": [
+    "why: Things to do",
+    "place: Phoenix, AZ"
+   ],
+   "total": 5,
+   "first": [
+    "Piestewa Peak · outdoors · Peak · near Phoenix · 7 mi",
+    "Camelback Mountain · outdoors · Peak · near Phoenix · 8 mi",
+    "Phoenix Mountains · outdoors · Peak · near Phoenix · 8 mi",
+    "Camels Eye · outdoors · Natural arch · near Phoenix · 8 mi",
+    "North Mountain · outdoors · Peak · near Phoenix · 9 mi"
+   ],
+   "note": "",
+   "fails": [],
+   "pass": true
   },
   {
    "group": "Context",
    "q": "where to take my dog",
    "ctx": "city=Phoenix&state=AZ&reach=25",
    "url": "/api/search.php?q=where%20to%20take%20my%20dog&city=Phoenix&state=AZ&reach=25",
-   "fails": [
-    "error: TypeError: fetch failed"
+   "read": [
+    "OpenStreetMap: dog",
+    "what: "
    ],
-   "pass": false
+   "status": 200,
+   "ms": 78,
+   "place": "Phoenix, AZ",
+   "chips": [
+    "outing: With your dog",
+    "why: Things to do",
+    "place: Phoenix, AZ"
+   ],
+   "total": 18,
+   "first": [
+    "Camelback Mountain · outdoors · Peak · near Phoenix · 8 mi · 7.9 mi",
+    "North Mountain · outdoors · Peak · near Phoenix · 9 mi · 9.5 mi",
+    "Piestewa Peak · outdoors · Peak · near Phoenix · 7 mi · 7.5 mi",
+    "Phoenix Mountains · outdoors · Peak · near Phoenix · 8 mi · 7.5 mi",
+    "Hole in the Rock · outdoors · Natural arch · near Tempe · 7 mi · 7.4 mi"
+   ],
+   "note": "",
+   "fails": [],
+   "pass": true
   },
   {
    "group": "Context",
    "q": "cheap eats",
    "ctx": "city=Phoenix&state=AZ&reach=25",
    "url": "/api/search.php?q=cheap%20eats&city=Phoenix&state=AZ&reach=25",
-   "fails": [
-    "error: TypeError: fetch failed"
+   "read": [
+    "what: Restaurants"
    ],
-   "pass": false
+   "status": 200,
+   "ms": 82,
+   "place": "Phoenix, AZ",
+   "chips": [
+    "place: Phoenix, AZ",
+    "category: Restaurants"
+   ],
+   "total": 11,
+   "first": [
+    "Cartel Coffee Lab · listing · Restaurants · Phoenix, AZ · <1 mi · 0.1 mi",
+    "Centrico · listing · Restaurants · Phoenix, AZ · <1 mi · 0.1 mi",
+    "CiBO Pizzeria · listing · Restaurants · Phoenix, AZ · <1 mi · 0.6 mi",
+    "Majerle's Sports Grill · listing · Restaurants · Phoenix, AZ · <1 mi · 0.2 mi",
+    "Seamus McCaffrey's Irish Pub · listing · Restaurants · Phoenix, AZ · <1 mi · 0.1 mi"
+   ],
+   "note": "",
+   "fails": [],
+   "pass": true
   },
   {
    "group": "Context",
    "q": "romantic dinner",
    "ctx": "city=Phoenix&state=AZ&reach=25",
    "url": "/api/search.php?q=romantic%20dinner&city=Phoenix&state=AZ&reach=25",
-   "fails": [
-    "error: TypeError: fetch failed"
+   "read": [
+    "situation: A night out",
+    "what: "
    ],
-   "pass": false
+   "status": 200,
+   "ms": 101,
+   "place": "Phoenix, AZ",
+   "chips": [
+    "outing: Date night",
+    "why: Somewhere to eat",
+    "place: Phoenix, AZ"
+   ],
+   "total": 6,
+   "first": [
+    "Centrico · listing · Restaurants · Phoenix, AZ · 0 mi",
+    "Harvey's Wineburger · listing · Restaurants · Phoenix, AZ · 4 mi",
+    "Cheese 'N Stuff Deli · listing · Restaurants · Phoenix, AZ · 4 mi",
+    "Cornish Pasty Co. · listing · Restaurants · Tempe, AZ · 7 mi",
+    "Akaihana · listing · Restaurants · Phoenix, AZ · 8 mi"
+   ],
+   "note": "",
+   "fails": [],
+   "pass": true
   },
   {
    "group": "Context",
    "q": "I need a plumber",
    "ctx": "city=Show Low&state=AZ&reach=25",
    "url": "/api/search.php?q=I%20need%20a%20plumber&city=Show Low&state=AZ&reach=25",
-   "fails": [
-    "error: TypeError: fetch failed"
+   "read": [
+    "what: plumber"
    ],
-   "pass": false
+   "status": 200,
+   "ms": 153,
+   "place": "Show Low, AZ",
+   "chips": [
+    "place: Show Low, AZ"
+   ],
+   "total": 26,
+   "first": [
+    "Action Plumbing Inc · listing · Plumbers · Show Low, AZ · <1 mi · 0 mi",
+    "All Mountain Plumbing LLC · listing · Plumbers · Show Low, AZ · 4 mi · 4.2 mi",
+    "Avery Plumbing Inc · listing · Plumbers · Show Low, AZ · 4 mi · 3.6 mi",
+    "Dennis Kotterman Plumbing Inc · listing · Plumbers · Show Low, AZ · 4 mi · 4 mi",
+    "Roto-Rooter Plbg & Drain Service · listing · Plumbers · Show Low, AZ · 6 mi · 5.9 mi"
+   ],
+   "note": "",
+   "fails": [],
+   "pass": true
   },
   {
    "group": "Context",
    "q": "my car broke down",
    "ctx": "city=Show Low&state=AZ&reach=25",
    "url": "/api/search.php?q=my%20car%20broke%20down&city=Show Low&state=AZ&reach=25",
-   "fails": [
-    "error: TypeError: fetch failed"
+   "read": [
+    "situation: Stuck on the road",
+    "what: "
    ],
-   "pass": false
+   "status": 200,
+   "ms": 105,
+   "place": "Show Low, AZ",
+   "chips": [
+    "place: Show Low, AZ"
+   ],
+   "total": 13,
+   "first": [
+    "Navapache Towing & Transport · listing · Towing · Show Low, AZ · 3 mi",
+    "Jay's Auto Repair · listing · Auto Repair · Show Low, AZ · 3 mi",
+    "Pit Road Automotive · listing · Auto Repair · Show Low, AZ · 3 mi",
+    "Harris Automotive · listing · Auto Repair · Show Low, AZ · 4 mi",
+    "Mobile Medics Auto Repair LLC · listing · Auto Repair · Show Low, AZ · 4 mi"
+   ],
+   "note": "",
+   "fails": [],
+   "pass": true
   },
   {
    "group": "Context",
    "q": "where can I go fishing",
    "ctx": "city=Show Low&state=AZ&reach=25",
    "url": "/api/search.php?q=where%20can%20I%20go%20fishing&city=Show Low&state=AZ&reach=25",
-   "fails": [
-    "error: TypeError: fetch failed"
+   "read": [
+    "situation: Fishing",
+    "what: fishing"
    ],
-   "pass": false
+   "status": 200,
+   "ms": 261,
+   "place": "Show Low, AZ",
+   "chips": [
+    "do: Fishing",
+    "place: Show Low, AZ"
+   ],
+   "total": 26,
+   "first": [
+    "Fool Hollow Lake · outdoors · Lake · near Show Low · 4 mi",
+    "Pintail Lake Observation Site · outdoors · USDA Forest Service · 2 mi",
+    "Fool Hollow Lake Recreation Area Campground · outdoors · Campground · USDA Forest Service · 4 mi",
+    "Show Low Lake · outdoors · Lake · near Lakeside · 8 mi",
+    "Scott Reservoir · outdoors · Reservoir · near Lakeside · 9 mi"
+   ],
+   "note": "",
+   "fails": [],
+   "pass": true
   },
   {
    "group": "Context",
    "q": "scenic drive",
    "ctx": "city=Show Low&state=AZ&reach=25",
    "url": "/api/search.php?q=scenic%20drive&city=Show Low&state=AZ&reach=25",
-   "fails": [
-    "error: TypeError: fetch failed"
+   "read": [
+    "situation: A getaway or day trip",
+    "what: "
    ],
-   "pass": false
+   "status": 200,
+   "ms": 123,
+   "place": "Show Low, AZ",
+   "chips": [
+    "place: Show Low, AZ"
+   ],
+   "total": 4,
+   "first": [
+    "Show Low City Recreation · listing · Parks · Show Low, AZ · 4 mi",
+    "White Mountain Lake Recreation District · listing · Parks · Show Low, AZ · 4 mi",
+    "Show Low Lake Campgrounds · listing · Parks · Lakeside, AZ · 8 mi",
+    "Pinetop-Lakeside Parks & Recreation · listing · Parks · Lakeside, AZ · 12 mi"
+   ],
+   "note": "",
+   "fails": [],
+   "pass": true
   },
   {
    "group": "Spelling",
    "q": "funhouse",
    "ctx": "city=Phoenix&state=AZ&reach=25",
    "url": "/api/search.php?q=funhouse&city=Phoenix&state=AZ&reach=25",
-   "fails": [
-    "error: TypeError: fetch failed"
+   "read": [
+    "what: funhouse"
    ],
-   "pass": false
+   "status": 200,
+   "ms": 118,
+   "place": "Phoenix, AZ",
+   "chips": [
+    "place: Phoenix, AZ"
+   ],
+   "total": 0,
+   "first": [],
+   "note": "We have no listings in Phoenix, AZ yet.",
+   "fails": [],
+   "pass": true
   },
   {
    "group": "Spelling",
    "q": "fun house near me",
    "ctx": "city=Phoenix&state=AZ&reach=10",
    "url": "/api/search.php?q=fun%20house%20near%20me&city=Phoenix&state=AZ&reach=10",
-   "fails": [
-    "error: TypeError: fetch failed"
+   "read": [
+    "what: house"
    ],
-   "pass": false
+   "status": 200,
+   "ms": 159,
+   "place": "Phoenix, AZ",
+   "chips": [
+    "why: Things to do",
+    "place: Phoenix, AZ"
+   ],
+   "total": 112,
+   "first": [
+    "House · listing · Restaurants",
+    "Glendale Gardens Historic District · outdoors · Historic district · near Glendale · 9 mi · 8.6 mi",
+    "E.C. Bunch House · outdoors · House · near Glendale · 9 mi · 8.7 mi",
+    "C.H. Tinker House · outdoors · House · near Glendale · 9 mi · 9 mi",
+    "George O. Dowdy Rental Cottage · outdoors · House · near Glendale · 9 mi · 9.1 mi"
+   ],
+   "note": "",
+   "fails": [],
+   "pass": true
   },
   {
    "group": "Spelling",
    "q": "resturants",
    "ctx": "city=Show Low&state=AZ&reach=25",
    "url": "/api/search.php?q=resturants&city=Show Low&state=AZ&reach=25",
+   "read": [
+    "what: resturants"
+   ],
+   "status": 200,
+   "ms": 190,
+   "place": "Show Low, AZ",
+   "chips": [
+    "place: Show Low, AZ"
+   ],
+   "total": 0,
+   "first": [],
+   "note": "We have no listings in Show Low, AZ yet.",
    "fails": [
-    "error: TypeError: fetch failed"
+    "no \"Did you mean\" like /restaurant/"
    ],
    "pass": false
   },
@@ -498,18 +1292,47 @@
    "q": "piza",
    "ctx": "city=Show Low&state=AZ&reach=25",
    "url": "/api/search.php?q=piza&city=Show Low&state=AZ&reach=25",
-   "fails": [
-    "error: TypeError: fetch failed"
+   "read": [
+    "did you mean: pizza",
+    "what: piza"
    ],
-   "pass": false
+   "status": 200,
+   "ms": 212,
+   "place": "Show Low, AZ",
+   "chips": [
+    "place: Show Low, AZ"
+   ],
+   "total": 0,
+   "first": [],
+   "note": "We have no listings in Show Low, AZ yet.",
+   "fails": [],
+   "pass": true
   },
   {
    "group": "Spelling",
    "q": "coffe",
    "ctx": "city=Show Low&state=AZ&reach=25",
    "url": "/api/search.php?q=coffe&city=Show Low&state=AZ&reach=25",
+   "read": [
+    "what: coffe"
+   ],
+   "status": 200,
+   "ms": 162,
+   "place": "Show Low, AZ",
+   "chips": [
+    "place: Show Low, AZ"
+   ],
+   "total": 17,
+   "first": [
+    "Denny's · listing · Restaurants · Show Low, AZ · 6 mi · 6.3 mi",
+    "Einstein Bros Bagels · listing · Bagels · Show Low, AZ · 6 mi · 6.4 mi",
+    "Mudslingers · listing · Coffee Shops · Show Low, AZ · 6 mi · 6.3 mi",
+    "Pour Station · listing · Coffee & Tea Shops · Show Low, AZ · 4 mi · 4 mi",
+    "Safeway · listing · Grocery Stores · Show Low, AZ · 5 mi · 4.8 mi"
+   ],
+   "note": "",
    "fails": [
-    "error: TypeError: fetch failed"
+    "no \"Did you mean\" like /coffee/"
    ],
    "pass": false
   },
@@ -518,28 +1341,68 @@
    "q": "plumbr",
    "ctx": "city=Show Low&state=AZ&reach=25",
    "url": "/api/search.php?q=plumbr&city=Show Low&state=AZ&reach=25",
-   "fails": [
-    "error: TypeError: fetch failed"
+   "read": [
+    "did you mean: plumber",
+    "what: plumbr"
    ],
-   "pass": false
+   "status": 200,
+   "ms": 218,
+   "place": "Show Low, AZ",
+   "chips": [
+    "place: Show Low, AZ"
+   ],
+   "total": 0,
+   "first": [],
+   "note": "We have no listings in Show Low, AZ yet.",
+   "fails": [],
+   "pass": true
   },
   {
    "group": "Spelling",
    "q": "hikeing trails",
    "ctx": "city=Show Low&state=AZ&reach=25",
    "url": "/api/search.php?q=hikeing%20trails&city=Show Low&state=AZ&reach=25",
-   "fails": [
-    "error: TypeError: fetch failed"
+   "read": [
+    "situation: Hiking",
+    "what: "
    ],
-   "pass": false
+   "status": 200,
+   "ms": 172,
+   "place": "Show Low, AZ",
+   "chips": [
+    "place: Show Low, AZ"
+   ],
+   "total": 8,
+   "first": [
+    "White Mountain Open Trails · listing · Non-Profit Organizations · Show Low, AZ · 2 mi",
+    "Fool Hollow Lake Recreation Area Campground · outdoors · Campground · USDA Forest Service · 4 mi",
+    "Black Mesa · outdoors · Peak · near Taylor · 7 mi",
+    "Panorama Trailhead · outdoors · Hiking · USDA Forest Service · 8 mi",
+    "Lakeside Ranger District · outdoors · Biking · USDA Forest Service · 10 mi"
+   ],
+   "note": "",
+   "fails": [],
+   "pass": true
   },
   {
    "group": "Spelling",
    "q": "icecream",
    "ctx": "city=Phoenix&state=AZ&reach=25",
    "url": "/api/search.php?q=icecream&city=Phoenix&state=AZ&reach=25",
+   "read": [
+    "what: icecream"
+   ],
+   "status": 200,
+   "ms": 140,
+   "place": "Phoenix, AZ",
+   "chips": [
+    "place: Phoenix, AZ"
+   ],
+   "total": 0,
+   "first": [],
+   "note": "We have no listings in Phoenix, AZ yet.",
    "fails": [
-    "error: TypeError: fetch failed"
+    "no \"Did you mean\" like /ice ?cream/"
    ],
    "pass": false
   },
@@ -548,48 +1411,125 @@
    "q": "bbq",
    "ctx": "city=Show Low&state=AZ&reach=25",
    "url": "/api/search.php?q=bbq&city=Show Low&state=AZ&reach=25",
-   "fails": [
-    "error: TypeError: fetch failed"
+   "read": [
+    "what: bbq"
    ],
-   "pass": false
+   "status": 200,
+   "ms": 157,
+   "place": "Show Low, AZ",
+   "chips": [
+    "place: Show Low, AZ"
+   ],
+   "total": 6,
+   "first": [
+    "Grumpy Jakes BBQ & Catering · listing · Restaurants · Lakeside, AZ · 9 mi · 9.1 mi",
+    "Dickey's Barbecue Pit · listing · Restaurants · Lakeside, AZ · 9 mi · 9.4 mi",
+    "Snowflake Smokehouse BBQ · listing · Restaurants · Snowflake, AZ · 14 mi · 14.3 mi",
+    "Ray's BBQ Shack · listing · Restaurants · Concho, AZ · 24 mi · 23.7 mi",
+    "Snowflake Smokehouse Bar · listing · Restaurants · Snowflake, AZ · 14 mi · 14.3 mi"
+   ],
+   "note": "",
+   "fails": [],
+   "pass": true
   },
   {
    "group": "Spelling",
    "q": "hair cut",
    "ctx": "city=Show Low&state=AZ&reach=25",
    "url": "/api/search.php?q=hair%20cut&city=Show Low&state=AZ&reach=25",
-   "fails": [
-    "error: TypeError: fetch failed"
+   "read": [
+    "situation: A haircut",
+    "what: "
    ],
-   "pass": false
+   "status": 200,
+   "ms": 107,
+   "place": "Show Low, AZ",
+   "chips": [
+    "place: Show Low, AZ"
+   ],
+   "total": 5,
+   "first": [
+    "FS Cut & Color · listing · Beauty Salons · Show Low, AZ · 0 mi",
+    "Supercuts · listing · Beauty Salons · Show Low, AZ · 0 mi",
+    "Sassy Nail's & Spa · listing · Nail Salons · Show Low, AZ · 0 mi",
+    "Hats Off · listing · Barbers · Show Low, AZ · 4 mi",
+    "Ambitious Beauty Salon · listing · Beauty Salons · Show Low, AZ · 4 mi"
+   ],
+   "note": "",
+   "fails": [],
+   "pass": true
   },
   {
    "group": "Spelling",
    "q": "auto parts",
    "ctx": "city=Show Low&state=AZ&reach=25",
    "url": "/api/search.php?q=auto%20parts&city=Show Low&state=AZ&reach=25",
-   "fails": [
-    "error: TypeError: fetch failed"
+   "read": [
+    "what: auto parts"
    ],
-   "pass": false
+   "status": 200,
+   "ms": 158,
+   "place": "Show Low, AZ",
+   "chips": [
+    "place: Show Low, AZ"
+   ],
+   "total": 15,
+   "first": [
+    "O'Reilly Auto Parts · listing · Auto Parts Stores · Show Low, AZ · 4 mi · 4.1 mi",
+    "Showlow Auto Parts · listing · Auto Machine Shop Equipment (manufacturer) · Show Low, AZ · 8 mi · 8 mi",
+    "All Star Autobody · listing · Truck Parts & Equipment · Show Low, AZ · 4 mi · 3.9 mi",
+    "Autozone · listing · Auto Parts Stores · Show Low, AZ · 4 mi · 4 mi",
+    "Performance Auto & 4x4 Center · listing · Truck Parts & Equipment · Show Low, AZ · 4 mi · 3.8 mi"
+   ],
+   "note": "",
+   "fails": [],
+   "pass": true
   },
   {
    "group": "Names",
    "q": "Four Corners Monument",
    "ctx": "",
    "url": "/api/search.php?q=Four%20Corners%20Monument",
-   "fails": [
-    "error: TypeError: fetch failed"
+   "read": [
+    "what: four corners monument"
    ],
-   "pass": false
+   "status": 200,
+   "ms": 195,
+   "place": "",
+   "chips": [],
+   "total": 1,
+   "first": [
+    "Four Corners Monument · outdoors · Monuments · Navajo Nation land"
+   ],
+   "note": "",
+   "fails": [],
+   "pass": true
   },
   {
    "group": "Names",
    "q": "Fool Hollow Lake",
    "ctx": "",
    "url": "/api/search.php?q=Fool%20Hollow%20Lake",
+   "read": [
+    "what: lake"
+   ],
+   "status": 200,
+   "ms": 161,
+   "place": "Fool Hollow",
+   "chips": [
+    "place: Fool Hollow"
+   ],
+   "total": 13,
+   "first": [
+    "Snowflake · knowledge",
+    "Rainbow Lake · outdoors · Lake · near Lakeside",
+    "Show Low Lake · outdoors · Lake · near Lakeside",
+    "Fool Hollow Lake · outdoors · Lake · near Show Low",
+    "Fool Hollow Lake Recreation Area · listing · State Recreation Areas · Show Low, AZ"
+   ],
+   "note": "",
    "fails": [
-    "error: TypeError: fetch failed"
+    "nothing like /Fool Hollow/ in the first 1"
    ],
    "pass": false
   },
@@ -598,38 +1538,85 @@
    "q": "Camelback Mountain",
    "ctx": "",
    "url": "/api/search.php?q=Camelback%20Mountain",
-   "fails": [
-    "error: TypeError: fetch failed"
+   "read": [
+    "what: camelback mountain"
    ],
-   "pass": false
+   "status": 200,
+   "ms": 254,
+   "place": "",
+   "chips": [],
+   "total": 2,
+   "first": [
+    "Camelback Mountain · knowledge",
+    "Camelback Mountain · outdoors · Peak · near Phoenix"
+   ],
+   "note": "",
+   "fails": [],
+   "pass": true
   },
   {
    "group": "Names",
    "q": "Harbor Freight",
    "ctx": "city=Show Low&state=AZ&reach=25",
    "url": "/api/search.php?q=Harbor%20Freight&city=Show Low&state=AZ&reach=25",
-   "fails": [
-    "error: TypeError: fetch failed"
+   "read": [
+    "what: harbor freight"
    ],
-   "pass": false
+   "status": 200,
+   "ms": 155,
+   "place": "Show Low, AZ",
+   "chips": [
+    "place: Show Low, AZ"
+   ],
+   "total": 1,
+   "first": [
+    "Harbor Freight · listing · Tools-New & Used"
+   ],
+   "note": "We have no listings in Show Low, AZ yet.",
+   "fails": [],
+   "pass": true
   },
   {
    "group": "Names",
    "q": "walmart",
    "ctx": "city=Show Low&state=AZ&reach=25",
    "url": "/api/search.php?q=walmart&city=Show Low&state=AZ&reach=25",
-   "fails": [
-    "error: TypeError: fetch failed"
+   "read": [
+    "what: walmart"
    ],
-   "pass": false
+   "status": 200,
+   "ms": 126,
+   "place": "Show Low, AZ",
+   "chips": [
+    "place: Show Low, AZ"
+   ],
+   "total": 16,
+   "first": [
+    "Walmart Auto Care Center · listing · Auto Repair · Show Low, AZ · 7 mi · 6.9 mi",
+    "Walmart Bakery · listing · Bakeries · Show Low, AZ · 7 mi · 6.9 mi",
+    "Walmart Deli · listing · Delis · Show Low, AZ · 7 mi · 6.9 mi",
+    "Walmart Inc. · listing · Pharmacies · Show Low, AZ · 7 mi · 6.9 mi",
+    "Walmart Photo Center · listing · Photo Printing · Show Low, AZ · 7 mi · 6.9 mi"
+   ],
+   "note": "",
+   "fails": [],
+   "pass": true
   },
   {
    "group": "Typing",
    "q": "pho",
    "ctx": "",
    "url": "/api/search.php?suggest=1&q=pho",
+   "ms": 81,
+   "first": [
+    "Phoenix · place · Town",
+    "Phoenixville, PA · place · Town · see what's there",
+    "Phoenicia, NY · place · Town · see what's there",
+    "Phoenix Financial Center · knowledge · From our guides · Institution",
+    "Phoenix Union High School · knowledge · From our guides · Institution"
+   ],
    "fails": [
-    "error: TypeError: fetch failed"
+    "nothing like /Phoenix, AZ/ in the first 1"
    ],
    "pass": false
   },
@@ -638,8 +1625,17 @@
    "q": "phoenix",
    "ctx": "",
    "url": "/api/search.php?suggest=1&q=phoenix",
+   "ms": 93,
+   "first": [
+    "Phoenixville, PA · place · Town · see what's there",
+    "Phoenix Financial Center · knowledge · From our guides · Institution",
+    "Phoenix Union High School · knowledge · From our guides · Institution",
+    "Phoenix Mountains · outdoors · Phoenix › Peak · 6 mi",
+    "Hilton Garden Inn Phoenix Midtown · listing · Phoenix › Inns · 5 mi"
+   ],
    "fails": [
-    "error: TypeError: fetch failed"
+    "nothing like /Phoenix, AZ/ in the first 1",
+    "shouldn't lead: Phoenixville, PA · place · Town · see what's there"
    ],
    "pass": false
   },
@@ -648,28 +1644,44 @@
    "q": "Dana p",
    "ctx": "",
    "url": "/api/search.php?suggest=1&q=Dana%20p",
-   "fails": [
-    "error: TypeError: fetch failed"
+   "ms": 84,
+   "first": [
+    "Dana Point, CA · place · Town in Laguna Niguel",
+    "Counselors · category · What “dana” names are",
+    "Pipe · category · What “dana” names are",
+    "Dana Carly Anne · listing · Show Low › Counselors",
+    "Dana, Steven · listing · Eagar › Counselors"
    ],
-   "pass": false
+   "fails": [],
+   "pass": true
   },
   {
    "group": "Typing",
    "q": "sedo",
    "ctx": "",
    "url": "/api/search.php?suggest=1&q=sedo",
-   "fails": [
-    "error: TypeError: fetch failed"
+   "ms": 98,
+   "first": [
+    "Sedona · place · Town"
    ],
-   "pass": false
+   "fails": [],
+   "pass": true
   },
   {
    "group": "Typing",
    "q": "glendale",
    "ctx": "city=Phoenix&state=AZ&reach=25",
    "url": "/api/search.php?suggest=1&q=glendale&city=Phoenix&state=AZ&reach=25",
+   "ms": 79,
+   "first": [
+    "Glendale Heights, IL · place · Town · see what's there",
+    "Glendale Springs, NC · place · Town · see what's there",
+    "Glendale · knowledge · From our guides · Place",
+    "Glendale project · knowledge · From our guides · Place",
+    "Glendale Gardens Historic District · outdoors · Glendale › Historic district"
+   ],
    "fails": [
-    "error: TypeError: fetch failed"
+    "nothing like /Glendale, AZ/ in the first 1"
    ],
    "pass": false
   },
@@ -678,18 +1690,33 @@
    "q": "show l",
    "ctx": "",
    "url": "/api/search.php?suggest=1&q=show%20l",
-   "fails": [
-    "error: TypeError: fetch failed"
+   "ms": 76,
+   "first": [
+    "Show Low, AZ · place · Town in The Show Low District",
+    "Live Music & Entertainment · category · Maybe? 1 listed · for “show l”",
+    "Show Low Lake · outdoors · Lakeside › Lake",
+    "Show Low Regional Airport-Sow · listing · Show Low › Airports",
+    "Show Low Animal Control · listing · Show Low › Animal Shelters"
    ],
-   "pass": false
+   "fails": [],
+   "pass": true
   },
   {
    "group": "Typing",
    "q": "four cor",
    "ctx": "",
    "url": "/api/search.php?suggest=1&q=four%20cor",
+   "ms": 97,
+   "first": [
+    "Four Corners, WY · place · Town · see what's there",
+    "Lumber Yards · category · Maybe? 1 listed · for “four cor”",
+    "Beer Stores · category · Maybe? 1 listed · for “four cor”",
+    "Four Corners Monument · outdoors · Aneth › Monuments",
+    "Four Corners Behavioral Health · listing · Gallup › Mental Health Services"
+   ],
    "fails": [
-    "error: TypeError: fetch failed"
+    "nothing like /Four Corners Monument/ in the first 2",
+    "shouldn't lead: Lumber Yards · category · Maybe? 1 listed · for “four cor”"
    ],
    "pass": false
   },
@@ -698,8 +1725,15 @@
    "q": "four corners",
    "ctx": "",
    "url": "/api/search.php?suggest=1&q=four%20corners",
+   "ms": 99,
+   "first": [
+    "Four Corners, WY · place · Town · see what's there",
+    "Four Corners Monument · outdoors · Aneth › Monuments",
+    "Four Corners Behavioral Health · listing · Gallup › Mental Health Services",
+    "Four Corners Healthcare · listing · Grants › Home Health Care"
+   ],
    "fails": [
-    "error: TypeError: fetch failed"
+    "nothing like /Four Corners Monument/ in the first 1"
    ],
    "pass": false
   },
@@ -708,8 +1742,14 @@
    "q": "dana point harb",
    "ctx": "",
    "url": "/api/search.php?suggest=1&q=dana%20point%20harb",
+   "ms": 193,
+   "first": [
+    "Harbor Pump Co Inc · listing · Water Well Drilling · Show Low, AZ · 435 mi",
+    "Harbor Freight · listing · Tool Stores · Show Low, AZ · 443 mi"
+   ],
    "fails": [
-    "error: TypeError: fetch failed"
+    "nothing like /Dana Point Harbor/ in the first 3",
+    "shouldn't lead: Harbor Pump Co Inc · listing · Water Well Drilling · Show Low, AZ · 435 mi"
    ],
    "pass": false
   },
@@ -718,8 +1758,16 @@
    "q": "laguna art",
    "ctx": "",
    "url": "/api/search.php?suggest=1&q=laguna%20art",
+   "ms": 117,
+   "first": [
+    "El Morro Area Arts Council · listing · The Zuni-Ramah Corridor › Arts Organizations · Ramah, NM · 72 mi",
+    "Dia Art Foundation · listing · Pie Town, NM › Commercial Artists · Pie Town, NM · 78 mi",
+    "Ortega Indian City Arts · listing · The Sanders I-40 corridor › Gift Shops · Houck, AZ · 111 mi",
+    "Indian City Arts & Crafts Center · listing · The Sanders I-40 corridor › Gift Shops · Houck, AZ · 114 mi",
+    "KS Western Art Books & Gifts · listing · Round Valley (Springerville & Eagar) › Gift Shops · Springerville, AZ · 130 mi"
+   ],
    "fails": [
-    "error: TypeError: fetch failed"
+    "nothing like /Laguna Art Museum/ in the first 3"
    ],
    "pass": false
   },
@@ -728,28 +1776,48 @@
    "q": "coff",
    "ctx": "city=Show Low&state=AZ&reach=25",
    "url": "/api/search.php?suggest=1&q=coff&city=Show Low&state=AZ&reach=25",
-   "fails": [
-    "error: TypeError: fetch failed"
+   "ms": 108,
+   "first": [
+    "Coffeyville, KS · place · Town · see what's there",
+    "Coffeeville, MS · place · Town · see what's there",
+    "Coffee Springs, AL · place · Town · see what's there",
+    "Coffeen, IL · place · Town · see what's there",
+    "Coffee County, TN · place · County · 7 ZIP codes"
    ],
-   "pass": false
+   "fails": [],
+   "pass": true
   },
   {
    "group": "Typing",
    "q": "pizz",
    "ctx": "city=Show Low&state=AZ&reach=25",
    "url": "/api/search.php?suggest=1&q=pizz&city=Show Low&state=AZ&reach=25",
-   "fails": [
-    "error: TypeError: fetch failed"
+   "ms": 94,
+   "first": [
+    "Pizza · category · Show Low, AZ › 6 here",
+    "Pizza Factory · listing · Show Low, AZ › Pizza",
+    "Pizza Hut · listing · Show Low, AZ › Pizza",
+    "Pizza Hut · listing · Taylor › Pizza · 11 mi",
+    "Crunchy Frog Pizza · listing · Show Low, AZ › Pizza"
    ],
-   "pass": false
+   "fails": [],
+   "pass": true
   },
   {
    "group": "Typing",
    "q": "plum",
    "ctx": "city=Show Low&state=AZ&reach=25",
    "url": "/api/search.php?suggest=1&q=plum&city=Show Low&state=AZ&reach=25",
+   "ms": 79,
+   "first": [
+    "Plum, TX · place · Town · see what's there",
+    "Plum City, WI · place · Town · see what's there",
+    "Plum Branch, SC · place · Town · see what's there",
+    "Plumerville, AR · place · Town · see what's there",
+    "Plumas County, CA · place · County · 16 ZIP codes"
+   ],
    "fails": [
-    "error: TypeError: fetch failed"
+    "nothing like /plumb/i in the first 3"
    ],
    "pass": false
   },
@@ -758,18 +1826,29 @@
    "q": "hik",
    "ctx": "city=Show Low&state=AZ&reach=25",
    "url": "/api/search.php?suggest=1&q=hik&city=Show Low&state=AZ&reach=25",
-   "fails": [
-    "error: TypeError: fetch failed"
+   "ms": 94,
+   "first": [
+    "Hiko, NV · place · Town · see what's there",
+    "Hiking · situation · Trails · Gear · Hiking groups",
+    "State Forests · category · Show Low, AZ › none here yet · 1 listed in all · for “hiking”",
+    "State Parks · category · Show Low, AZ › none here yet · 1 listed in all · for “hiking”",
+    "National Parks & Preserves · category · Show Low, AZ › none here yet · 1 listed in all · for “hiking”"
    ],
-   "pass": false
+   "fails": [],
+   "pass": true
   },
   {
    "group": "Typing",
    "q": "place to take my k",
    "ctx": "city=Phoenix&state=AZ&reach=25",
    "url": "/api/search.php?suggest=1&q=place%20to%20take%20my%20k&city=Phoenix&state=AZ&reach=25",
+   "ms": 174,
+   "first": [
+    "Takeout & Fast Food · category · Phoenix, AZ › All of this kind",
+    "Financial Advisors · category · Maybe? Phoenix, AZ › none here yet · 6 listed in all · for “place to take my k”"
+   ],
    "fails": [
-    "error: TypeError: fetch failed"
+    "nothing like /kid|famil|child/i in the first 3"
    ],
    "pass": false
   },
@@ -778,18 +1857,32 @@
    "q": "things to do",
    "ctx": "city=Phoenix&state=AZ&reach=25",
    "url": "/api/search.php?suggest=1&q=things%20to%20do&city=Phoenix&state=AZ&reach=25",
-   "fails": [
-    "error: TypeError: fetch failed"
+   "ms": 167,
+   "first": [
+    "Something to do · situation · Worth the trip · Get outside · Indoors · What people did here",
+    "Something for the kids · situation · Parks and pools · Indoor fun · Outings",
+    "Doctors · category · Phoenix, AZ › none here yet · 231 listed in all · for “things to doctor”",
+    "Clinics · category · Phoenix, AZ › none here yet · 47 listed in all · for “things to doctor”",
+    "Medical Centers · category · Phoenix, AZ › none here yet · 10 listed in all · for “things to doctor”"
    ],
-   "pass": false
+   "fails": [],
+   "pass": true
   },
   {
    "group": "Typing",
    "q": "coffee near",
    "ctx": "city=Show Low&state=AZ&reach=25",
    "url": "/api/search.php?suggest=1&q=coffee%20near&city=Show Low&state=AZ&reach=25",
+   "ms": 85,
+   "first": [
+    "Coffee Springs, AL · place · Town · see what's there",
+    "Coffee Creek, MT · place · Town · see what's there",
+    "Coffee County, TN · place · County · 7 ZIP codes",
+    "Coffee County, GA · place · County · 7 ZIP codes",
+    "Coffee & Tea Shops · category · Show Low, AZ › 1 here"
+   ],
    "fails": [
-    "error: TypeError: fetch failed"
+    "nothing like /coffee near/i in the first 3"
    ],
    "pass": false
   },
@@ -798,10 +1891,13 @@
    "q": "resturant",
    "ctx": "city=Show Low&state=AZ&reach=25",
    "url": "/api/search.php?suggest=1&q=resturant&city=Show Low&state=AZ&reach=25",
-   "fails": [
-    "error: TypeError: fetch failed"
+   "ms": 81,
+   "first": [
+    "Restaurants · category · Maybe? Show Low, AZ › 30 here · for “resturant”",
+    "Rest Area · category · Maybe? Show Low, AZ › none here yet · 2 listed in all · for “resturant”"
    ],
-   "pass": false
+   "fails": [],
+   "pass": true
   }
  ]
 }
