@@ -90,7 +90,8 @@ OVERPASS_URLS = [u for u in [os.environ.get("OVERPASS_URL"),
                              "https://overpass-api.de/api/interpreter",
                              "https://overpass.private.coffee/api/interpreter",
                              "https://overpass.kumi.systems/api/interpreter",
-                             "https://maps.mail.ru/osm/tools/overpass/api/interpreter"] if u]
+                             "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+                             "https://overpass.openstreetmap.fr/api/interpreter"] if u]
 VERIFY_PER_RUN = int(os.environ.get("VERIFY_PER_RUN", "10"))
 VERIFY_TIME = int(os.environ.get("VERIFY_TIME", "100"))
 IDENTITY_PER_RUN = int(os.environ.get("IDENTITY_PER_RUN", "5"))   # listings looked up per run for a missing phone or website (decisions/0062); 0 turns it off
@@ -205,12 +206,7 @@ def overpass(job):
             return json.load(f).get("elements", [])
     pts = [p for p in job["place"].get("zip_points", []) if p.get("lat") is not None] or \
           [{"lat": job["place"]["center"]["lat"], "lon": job["place"]["center"]["lon"]}]
-    parts = []
-    # a situation gap's job brings its own filters (decisions/0061); the Support & wellness groups use ours
-    for q in job["looking_for"].get("osm") or GROUP_QUERIES.get(job["looking_for"]["group"], []):
-        for p in pts:
-            parts.append(f'{q}["name"](around:{ZIP_RADIUS_M},{p["lat"]},{p["lon"]});')
-    query = "[out:json][timeout:60];(" + "".join(parts) + ");out center tags 80;"
+    query = overpass_query(job, pts)
     body = urllib.parse.urlencode({"data": query}).encode()
     tried = []
     for url in OVERPASS_URLS:
@@ -218,13 +214,20 @@ def overpass(job):
             "User-Agent": UA, "Accept": "*/*",   # a strict "application/json" can earn a 406 Not Acceptable
             "Content-Type": "application/x-www-form-urlencoded"})
         try:
-            with urllib.request.urlopen(req, timeout=90) as r:
-                return json.loads(r.read().decode("utf-8")).get("elements", [])
+            with urllib.request.urlopen(req, timeout=125) as r:
+                d = json.loads(r.read().decode("utf-8"))
+            # Overpass answers 200 with no elements and a remark when it ran out of time or memory: that's a failure, not
+            # "nothing here" (2026-11-10: Dana Point's places to eat were recorded as done, 0 found)
+            rem = str(d.get("remark") or "")
+            if re.search(r"runtime (error|remark)|timed out|out of memory", rem, re.I):
+                tried.append(f"{urllib.parse.urlparse(url).netloc} remark {rem[:100]!r}")
+                continue
+            return d.get("elements", [])
         except urllib.error.HTTPError as e:
-            if e.code == 406:   # some servers refuse the form POST but take the same query as a GET (2026-10-14)
+            if e.code == 406 and len(query) < 1800:   # some servers refuse the form POST but take a short query as a GET (2026-10-14); a long one is 414
                 try:
                     g = urllib.request.Request(url + "?" + urllib.parse.urlencode({"data": query}), headers={"User-Agent": UA, "Accept": "*/*"})
-                    with urllib.request.urlopen(g, timeout=90) as r:
+                    with urllib.request.urlopen(g, timeout=125) as r:
                         return json.loads(r.read().decode("utf-8")).get("elements", [])
                 except Exception as e2:
                     tried.append(f"{urllib.parse.urlparse(url).netloc} GET {e2!r}"[:160])
@@ -232,6 +235,22 @@ def overpass(job):
         except (urllib.error.URLError, TimeoutError, ValueError) as e:
             tried.append(f"{urllib.parse.urlparse(url).netloc} {e!r}"[:160])
     raise RuntimeError("OpenStreetMap lookup failed: " + " | ".join(tried))
+
+
+def overpass_query(job, pts):
+    """The Overpass query for a job: a circle around each ZIP centre when there are few, else one box around them all
+    (2026-11-10: Phoenix's ~60 ZIPs made a query too large to send or run). Names only; 120 places at most."""
+    filters = job["looking_for"].get("osm") or GROUP_QUERIES.get(job["looking_for"]["group"], [])
+    if len(pts) * max(1, len(filters)) <= 12:
+        parts = [f'{q}["name"](around:{ZIP_RADIUS_M},{p["lat"]},{p["lon"]});' for q in filters for p in pts]
+        return "[out:json][timeout:110];(" + "".join(parts) + ");out center tags 120;"
+    pad_lat = min(ZIP_RADIUS_M, 8000) / 111000.0
+    mid = sum(p["lat"] for p in pts) / len(pts)
+    pad_lon = pad_lat / max(0.2, math.cos(math.radians(mid)))
+    s_, n_ = min(p["lat"] for p in pts) - pad_lat, max(p["lat"] for p in pts) + pad_lat
+    w_, e_ = min(p["lon"] for p in pts) - pad_lon, max(p["lon"] for p in pts) + pad_lon
+    parts = [f'{q}["name"];' for q in filters]
+    return f"[out:json][timeout:110][bbox:{s_:.4f},{w_:.4f},{n_:.4f},{e_:.4f}];(" + "".join(parts) + ");out center tags 120;"
 
 
 def wikidata(job):

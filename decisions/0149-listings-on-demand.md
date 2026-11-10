@@ -27,3 +27,13 @@ content. Even if it is outside our pilot zone, we don't want to miss the opportu
    places still show in search where we have no listings yet. Crawl targets (decision 0066, held for a person) stay
    for staff-queued places.
 7. **Free.** The worker already runs; no AI.
+
+## Fix (2026-11-10): the lookups were failing
+
+The towns report (`site-audit/towns.md`, from the health report) showed it: of 25 town jobs, 16 had failed and 4 were
+stuck. OpenStreetMap's main server answered 406, a mirror timed out, and Phoenix's query (a circle per ZIP for each kind
+of place) was too large to send. A lookup that ran out of time answered "OK" with nothing and a remark, recorded as
+"done, 0 found" (Dana Point's places to eat). The worker now sends one box around many ZIPs (circles for a few), always
+in the request body, treats a timed-out remark as a failure and tries the next server (one more added).
+`2027-02-20_town_crawl_retry.sql` queued every failed, stuck or empty town job again (`town-crawl-retry_20261110.zip`).
+The one run that worked (Laguna Niguel, places to eat) found 25: 5 published, 20 in Review.
