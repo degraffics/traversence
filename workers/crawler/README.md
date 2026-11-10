@@ -237,3 +237,10 @@ Google's place is the same one, keeps only Google's place ID, and puts any Googl
 for a person. The site paces it like web search: never past 90% of `GOOGLE_PLACES_MONTHLY` (default 3000) a month,
 spread over the days. Google's own daily limits on the key and a budget alert sit above that. `GOOGLE_PLACES=off` in
 the site's `.env` stops it.
+
+## Towns built on demand (decisions/0149)
+
+Jobs with ids from 800000000 build out a town someone searched for. A lead with no website in OpenStreetMap gets one
+web search for the business's own site (`find_own_site`), from the same monthly search allowance; it publishes only
+when that site names the place and shows its town, street or phone. One bounding box replaces the per-ZIP circles when a
+job has many ZIPs, and a lookup that timed out (Overpass's 200 with a runtime remark) counts as a failure.

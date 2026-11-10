@@ -465,6 +465,13 @@ def candidate(el, job):
         "corroboration": [],
     }
     score = 15 + (25 if street else 0) + 5 + (15 if phone else 0) + (10 if c["when"]["hours"] else 0)
+    # a town built on demand (decisions/0149): OpenStreetMap is a lead only (0133), so a place with no website there gets
+    # one search for its own site (Jason, 2026-11-10), confirmed below the same way as any website
+    if not website and str(job["looking_for"].get("group", "")).startswith("town:") and SEARCH_ON:
+        found = find_own_site(name, street, phone, c["where"]["city"], c["where"]["state"])
+        if found:
+            website = found
+            c["actions"]["website"] = found
     if website and website.startswith("http"):
         page = fetch_page(website)
         if page and names_place(page, name):
@@ -494,6 +501,25 @@ def candidate(el, job):
 # ---------------------------------------------------------------------------------------------------
 # Second look: more references for listings waiting for review
 # ---------------------------------------------------------------------------------------------------
+
+def find_own_site(name, street, phone, town, state):
+    """The business's own website, from one web search: a result whose domain is the business's (never a directory) and
+    whose page names the place and shows its town, street or phone, so a namesake elsewhere isn't taken. "" when none,
+    or when this run's share of the month's free searches is used (search() returns nothing then)."""
+    query = " ".join(x for x in (f'"{name}"', street, town, state) if x)
+    for r in search(query)[:6]:
+        url = r.get("url") or ""
+        if not url.startswith("http") or kind_of(url, r.get("title", ""), {"website": "", "name": name}) != "own_site":
+            continue
+        page = fetch_page(url)
+        if not page or not names_place(page, name):
+            continue
+        text = html.unescape(re.sub(r"<[^>]+>", " ", page)).lower()
+        if (town and town.lower() in text) or (street and address_on(page, street)) or (phone and digits(phone) in phones_on(page)):
+            log(f"  own site found for {name}: {url}"[:200])
+            return url
+    return ""
+
 
 def digits(s):
     return re.sub(r"\D", "", s or "")[-10:]
