@@ -3,36 +3,36 @@
  "built_on": "486a818 Sync: 2026-11-10 12:05 UTC",
  "recorded": "2026-11-10 12:34 UTC",
  "note": "",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "5599c1e Sync: 2026-11-10 12:41 UTC",
  "files": {
   "app/lib/PlaceFinder.php": {
    "sha256": "6c0d58d0d74a778e894dabb777f3f74aada512ceead3ad16bb3daa55a8d1cd05",
-   "live": false
+   "live": true
   },
   "app/lib/UniversalSearch.php": {
    "sha256": "a6832cfab0ac0f736055932f3ac6e8d6180dc067cf86f845d9c9de2d8fb21c08",
-   "live": false
+   "live": true
   },
   "app/lib/crawler/TownCrawl.php": {
    "sha256": "22a3644e2d6184071a095429dd4f517ec858cff9ca683d6d937bed053246ac48",
-   "live": false
+   "live": true
   },
   "app/migrations/2027-02-21_landmarks_from_source.sql": {
    "sha256": "4bc8214a77ff8f8bedc07eb925554f37eb436f6b4f2a00c89e077a077c637e12",
-   "live": false
+   "live": true
   },
   "app/scripts/guide_ondemand_tick.php": {
    "sha256": "b91856dc7ced50e6fe5403f6fc4f5f2531bdd2f0487289ee5158c5118f5b33b4",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "33b97e7df8bacad24ccbb5514d4c2cdf648e0fdf18451f632f2346446a39b987",
-   "live": false
+   "live": true
   },
   "website/api/open-places.php": {
    "sha256": "143fa63dd16b3600c962316325fccddb29257b06dec3c753ea4c31ed005db2df",
-   "live": false
+   "live": true
   }
  }
 }

@@ -18,6 +18,7 @@ const PROBES = [
   ['restaurants', 'city=Phoenix&state=AZ&reach=25', 'places to eat in Phoenix'],
   ['pizza in phoenix', '', 'pizza places in Phoenix'],
   ['coffee', 'zip=85302&reach=10', 'coffee near Glendale, AZ 85302'],
+  ['coffee near me', 'city=Phoenix&state=AZ&reach=10', 'coffee shops in Phoenix (OpenStreetMap at once, ours once crawled)'],
   ['Things to do near me', 'zip=85302&reach=25', 'things to do around 85302'],
   ['Glendale, AZ', '', 'Glendale, AZ: its guide (built on demand) and listings'],
   ['hotels in sedona', '', 'places to stay in Sedona'],
@@ -48,6 +49,8 @@ async function probe([q, ctx, expect]) {
     out.total = res.total ?? (res.items || []).length;
     out.kinds = res.kinds || null;
     out.note = s(res.note);
+    out.osm = res.osm ? `${s(res.osm.kind)} around ${s(res.osm.place)}` : '';
+    out.mentions = (res.mentions?.items || []).length;
     out.first = (res.items || []).slice(0, 6).map((i) => `${s(i.label)} (${s(i.kind)}${i.sub ? ' · ' + s(i.sub) : ''})`);
     out.groups = (d.groups || []).map((g) => `${s(g.title || g.kind)} ${(g.items || []).length}`);
     out.did_you_mean = s(d.did_you_mean?.q || d.did_you_mean);
@@ -80,6 +83,8 @@ for (const r of results) {
   if (r.guide) md += `- **Guide offered:** ${cell(r.guide)}\n`;
   if (r.ask) md += `- **Asks:** ${cell(r.ask)}\n`;
   md += `- **Results:** ${r.total ?? 0}${r.kinds ? ` (${cell(Object.entries(r.kinds).map(([k, v]) => `${k} ${typeof v === 'object' ? JSON.stringify(v) : v}`).join(', '))})` : ''}${r.note ? ` · ${cell(r.note)}` : ''} · ${r.ms} ms, HTTP ${r.status}\n`;
+  if (r.osm) md += `- **OpenStreetMap offered:** ${cell(r.osm)}\n`;
+  if (r.mentions) md += `- **Mentioning:** ${r.mentions}\n`;
   if (r.first.length) md += `- **First:** ${cell(r.first.join('; '))}\n`;
   if (r.groups.length) md += `- **Groups:** ${cell(r.groups.join('; '))}\n`;
   if (r.did_you_mean) md += `- **Did you mean:** ${cell(r.did_you_mean)}\n`;
