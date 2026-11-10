@@ -97,9 +97,23 @@ spot, and a match with a Wikipedia article or on the National Register is kept t
 Only the names go out; nothing of OpenStreetMap's is copied into the landmark.
 
 **What a place is, without an article (2026-11-10, Jason on a map card: "Why do I want to visit this place… what is the
-experience?"; `landmark-facts_20261110.zip`):** `PlaceFinder::factsTick` (fifty a run) reads what Wikidata records about
+experience?"; `place-experience_20261110.zip`):** `PlaceFinder::factsTick` (fifty a run) reads what Wikidata records about
 our places from it (heritage listing P1435, inception P571, style P149, architect P84; CC0) into `landmarks.wd_facts`
 (migration `2027-02-23_landmark_facts.sql`); `Landmarks::about()` says it after Wikidata's description when there's no
 Wikipedia article ("Listed on the National Register of Historic Places. Craftsman and bungalow architecture, from
 1910."). Facts, not the experience: a written "what you'll find there" would need Claude, which only guides and journeys
 may use today (CLAUDE.md, No income, no expense).
+
+**What you do there (Jason, 2026-11-10: "For discovery the experience or activity is critical. A drive, a walking exhibit,
+outdoor activities…"; then "only ai when no data exist and it must be stored as research for future reuse";
+`place-experience_20261110.zip`, which also carries the Wikidata facts above):**
+- **Activities, free, for every place** (`Landmarks::ACTIVITIES`, `activities()`): Walk, Drive, Hike, Exhibits, Historic
+  site, Views, On the water, Camp, Picnic & play, from what the place is (its source's class and our category), never its
+  name; each with a line on how to experience it. On the map card and the landmark's page, in search's words, and as
+  filters on Discovery's map (Hike, Walk, Drive, Exhibits, On the water). Every landmark re-indexed once (`landmark_kind_walk3`).
+- **Claude only when nothing is written:** the first time someone opens a place (its card or page) that has no Wikipedia
+  summary, it's queued (`PlaceFinder::wantAbout`); `aboutTick` (six a run) has Claude write 2 to 3 sentences on what it
+  is and what you do there, its activities and its sources, at most one web search, kept on the landmark as research
+  (`research`, `research_sources`, `research_acts`; migration `2027-02-24_landmark_research.sql`) and reused everywhere.
+  Feature `place_about` ("Place descriptions", Haiku, 60 a day by default) in System Configuration → AI use, inside the
+  month's AI cap; never for a place that may be sacred or protected. CLAUDE.md's AI exception widens to this.
