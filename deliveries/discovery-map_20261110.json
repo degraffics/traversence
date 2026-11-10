@@ -1,0 +1,38 @@
+{
+ "zip": "discovery-map_20261110.zip",
+ "built_on": "04a9109 Sync: 2026-11-10 14:08 UTC",
+ "recorded": "2026-11-10 14:11 UTC",
+ "note": "",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/OpenPlaces.php": {
+   "sha256": "271a5f4ad99fde72d25939946948d3b2ff453fc1f7ccbb8cf305f372ca506963",
+   "live": false
+  },
+  "app/lib/PlaceFinder.php": {
+   "sha256": "8a6aea905a03320c3314251e6a9687619aa2f29af26425db32c74a654fa6835e",
+   "live": false
+  },
+  "app/ui/explore-hero.php": {
+   "sha256": "0595ab5d3832834aabcf818dd82e7712a93c972a606181821c14a4e6723e5dee",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "4b471fffa9ebc816c70a657474d3d1e818b75f2cec089a1403ed7245bf6ef8e8",
+   "live": false
+  },
+  "website/api/health.php": {
+   "sha256": "90e678ac2ecc1f31c282b05ade5966654b118138d416ae90fc029ccf4af1d52a",
+   "live": false
+  },
+  "website/discovery/index.php": {
+   "sha256": "49c669d87a9c5d169be887a011a4a159ddc0393fb165b0b87067da9cf2341d9f",
+   "live": false
+  },
+  "website/js/map-view.js": {
+   "sha256": "d06b9f9fe85828a9410b9b9e02715de4fc261eb52894e9923f623d9d84fe53b2",
+   "live": false
+  }
+ }
+}
