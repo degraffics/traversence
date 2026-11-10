@@ -123,7 +123,7 @@ function judge(rows, chips, place, total, c, ms, budget) {
   if (c.lead && !head.some((r) => c.lead.test(r.text))) fails.push(`nothing like ${c.lead} in the first ${top}`);
   if (c.leadAll) { const bad = head.filter((r) => !c.leadAll.test(r.text)); if (bad.length || !head.length) fails.push(`not all of the first ${top} fit ${c.leadAll}${bad.length ? ': ' + bad[0].text : ''}`); }
   if (c.never) { const bad = rows.slice(0, c.neverTop || top).filter((r) => c.never.test(r.text)); if (bad.length) fails.push(`shouldn't lead: ${bad[0].text}`); }
-  if (c.within) { const far = head.filter((r) => r.mi != null && r.mi > c.within); if (far.length) fails.push(`${far[0].text} is ${far[0].mi} mi (over ${c.within})`); }
+  if (c.within) { const far = head.filter((r) => r.mi != null && r.mi > c.within); if (far.length) fails.push(`${far[0].text} is ${Math.round(far[0].mi)} mi (over ${c.within})`); }
   if (c.chip && !chips.some((x) => c.chip.test(x))) fails.push(`no chip like ${c.chip}`);
   if (c.noChip && chips.some((x) => c.noChip.test(x))) fails.push(`chip ${chips.find((x) => c.noChip.test(x))}`);
   if (ms > budget) fails.push(`slow: ${ms} ms`);
@@ -145,11 +145,17 @@ for (const [group, q, ctx, c] of CASES) {
     await getJson(url).catch(() => {});   // the first ask warms the server's caches; the second is the one timed
     const [d, ms, status] = await getJson(url);
     const res = d.results || {};
-    const rows = (res.items || []).map((i) => ({ text: rowOf(i), mi: typeof i.miles === 'number' ? i.miles : null }));
+    // what a person sees, in order: the exact business, a situation's answers (each need's places), the results, and
+    // OpenStreetMap's places when the panel is told to ask it (counted by its kind)
+    const mk = (i) => ({ text: rowOf(i), mi: typeof i.miles === 'number' ? i.miles : null });
+    const rows = [...(d.top && d.top.label ? [mk(d.top)] : []), ...((d.situation?.needs || []).flatMap((n) => (n.items || []).map(mk))), ...(res.items || []).map(mk),
+                  ...(res.osm ? [{ text: `OpenStreetMap · ${s(res.osm.kind)}`, mi: null }] : [])];
+    o.read = [d.situation ? 'situation: ' + s((d.situation.labels || []).join(' + ')) : '', d.unread ? 'unread' : '', d.did_you_mean ? 'did you mean: ' + s(d.did_you_mean.q || d.did_you_mean) : '',
+              d.ask ? 'asks: ' + s(d.ask.kind || d.ask.title || 'yes') : '', res.osm ? 'OpenStreetMap: ' + s(res.osm.kind) : '', d.parse ? 'what: ' + s(d.parse.what) : ''].filter(Boolean);
     const chips = (d.chips || []).map((x) => `${s(x.type)}: ${s(x.label)}`);
     const place = s(d.place?.label || (d.chips || []).find((x) => x.type === 'place')?.label);
-    const total = res.total ?? rows.length;
-    Object.assign(o, { status, ms, place, chips, total, first: rows.slice(0, 5).map((r) => r.text + (r.mi != null ? ` · ${r.mi} mi` : '')), note: s(res.note), fails: judge(rows, chips, place, total, c, ms, FAST) });
+    const total = Math.max(res.total ?? 0, rows.length);
+    Object.assign(o, { status, ms, place, chips, total, first: rows.slice(0, 5).map((r) => r.text + (r.mi != null ? ` · ${Math.round(r.mi * 10) / 10} mi` : '')), note: s(res.note), fails: judge(rows, chips, place, total, c, ms, FAST) });
   } catch (e) { o.fails = ['error: ' + String(e).slice(0, 120)]; }
   o.pass = !o.fails.length;
   out.push(o);
@@ -181,6 +187,7 @@ for (const g of groups) {
   for (const o of all.filter((x) => x.group === g)) {
     md += `- ${o.pass ? '✓' : '✗'} **${cell(o.q)}**${o.ctx ? ` (${cell(o.ctx)})` : ''} · ${o.ms ?? '?'} ms${o.place ? ` · place ${cell(o.place)}` : ''}${o.total != null && g !== 'Typing' ? ` · ${o.total} results` : ''}\n`;
     if (!o.pass) md += `  - ${cell(o.fails.join('; '))}\n  - First: ${cell((o.first || []).join('; ')) || 'nothing'}${o.chips && o.chips.length ? ` · chips: ${cell(o.chips.join('; '))}` : ''}\n`;
+    if (!o.pass && o.read && o.read.length) md += `  - Read: ${cell(o.read.join('; '))}\n`;
   }
   md += '\n';
 }
