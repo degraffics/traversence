@@ -1,0 +1,62 @@
+{
+ "zip": "discovery-immersion-a_20261110.zip",
+ "built_on": "905fb0d Sync: 2026-11-10 14:57 UTC",
+ "recorded": "2026-11-10 15:02 UTC",
+ "note": "",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/Guides.php": {
+   "sha256": "dba76253c6c24b32a2589faa3ebb4edd21ea2690338f90577a768e752fe873f5",
+   "live": false
+  },
+  "app/lib/Landmarks.php": {
+   "sha256": "13dff6ea3da3928c145f2346fbef380ab2575d54ae3f07dc50add25755e86cc3",
+   "live": false
+  },
+  "app/lib/OpenPlaces.php": {
+   "sha256": "81cdd2637396a40ea719b6281c6d8e12564970a0dceb77d74d9b96cfc63185ba",
+   "live": false
+  },
+  "app/lib/PlaceFinder.php": {
+   "sha256": "e7dd1f254e3164e952e9b248d3f12d77bcc7b2cbe1bd95c22cf7948a19f8fd7f",
+   "live": false
+  },
+  "app/lib/SearchIndex.php": {
+   "sha256": "84a6268274d4803018936435f1b6716830d60e538601cd0d598c7afb124e7939",
+   "live": false
+  },
+  "app/lib/UniversalSearch.php": {
+   "sha256": "c4bbb78ac5edbb3b38854e2a60942165d9c4c81129d2c6f1dcb6312dcacedbbd",
+   "live": false
+  },
+  "app/migrations/2027-02-25_landmark_interest.sql": {
+   "sha256": "6c7bc96fe0b475a1e04a9e56535ab8038f07bfda8bf50fa775896d078018b872",
+   "live": false
+  },
+  "app/scripts/guide_ondemand_tick.php": {
+   "sha256": "0c87d41d924a7f5016523d80abed67a125938269b366ec777d70bd9e0d6c40ea",
+   "live": false
+  },
+  "app/ui/explore-hero.php": {
+   "sha256": "a31aa135d7047a1b55c4d520524d61291b25f9c361a46667caa15217c49f1cf0",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "c9a73ef64f6f67b759909b818ef78eb693a755b45fc3d1984ec4b8f0c08e5729",
+   "live": false
+  },
+  "website/discovery/index.php": {
+   "sha256": "773849d5a74d2472f7e92c5336276d2cc514641059e01254ff6f8108f9b1e5b3",
+   "live": false
+  },
+  "website/js/map-view.js": {
+   "sha256": "e1bc8fbbebaeb4bd64534ea0e094abc02ea2213728f7ebb7550c0020de0d80f0",
+   "live": false
+  },
+  "website/place/landmark.php": {
+   "sha256": "d1bb179b92110c53411b7479ea5924089d6c2cce64343e3aefcaef8d7518b690",
+   "live": false
+  }
+ }
+}

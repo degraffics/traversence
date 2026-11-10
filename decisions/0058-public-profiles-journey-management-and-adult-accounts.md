@@ -1130,3 +1130,8 @@ always. This replaces the 30-day guest cookie and the 60-an-hour limit above.
 **Note (2026-11-05, later still): the place picker inside the search.** With the search open, its place button opens the place picker (Distance, your places, regions, destination, State · City · ZIP, Auto-detect) inside the same window, under the search's top line and in place of the results, so that line stays in view. Picking a place, the place button again, the picker's × or Esc returns to the results. Without the search open, the picker is its own pop-up.
 
 **Note (2026-11-05): the place is always inside the search.** The home page's Where box and the header's pin open the search's own window at its place picker (`TvSearch.where()`), never the picker as a pop-up on its own. Picking a place or tapping into the words box goes on to the results.
+
+**The hero flush on phones, really (2026-11-10, layout probe):** with the rail present, app-shell's
+`body:not(.tv-back):has(#ta-rail) .ta-body{margin-top:1.1rem}` outranked explore-hero's `.ta-body:has(.xh){margin-top:0}`,
+and the hero's −.8rem collapsed into that margin, leaving a 23px band above every hero. explore-hero now matches that
+selector for pages with a hero. `tools/page-audit/layout-probe.mjs` measures it daily (`site-audit/layout-probe.md`).
