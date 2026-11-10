@@ -3,48 +3,48 @@
  "built_on": "c402f49 Sync: 2026-11-10 15:09 UTC",
  "recorded": "2026-11-10 15:26 UTC",
  "note": "Replaces search-outings-a (never uploaded; both changed faq.md). Search outings, auto-correct, near-me cut, OSM family/dog; Pairs with, Make a day of it, write-ahead for each town's top 20",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "f62deb1 Sync: 2026-11-10 15:29 UTC",
  "files": {
   "app/lib/Landmarks.php": {
    "sha256": "80bf0f5e0afcbd765bd696d30e3e6cc434c10ad5c9f6065c81d7ff881ebb9c89",
-   "live": false
+   "live": true
   },
   "app/lib/OpenPlaces.php": {
    "sha256": "0c125d15a7c0215e30dfbe0e63a8f5736220fea36291edd8448cf7304b8ea4bf",
-   "live": false
+   "live": true
   },
   "app/lib/PlaceFinder.php": {
    "sha256": "2730bd5d9173aa8602a9a5b5421f46104ccb5bdac314f54676acdcc71423d39f",
-   "live": false
+   "live": true
   },
   "app/lib/SearchIndex.php": {
    "sha256": "bdedb2d6e2efa3ab0d35975eb4e373cad5da32f335dc20e52e0371b08d9adc02",
-   "live": false
+   "live": true
   },
   "app/lib/UniversalSearch.php": {
    "sha256": "9c4904b2e5d5b6a11dbcd1b6ebb3dd81411f517f7a49e53291770d8c17dcc566",
-   "live": false
+   "live": true
   },
   "app/scripts/guide_ondemand_tick.php": {
    "sha256": "44fa684afa9925d30083f6fb462d5c270a76d22c9fafc6010281dbecb794e12b",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "0e29980ac7d9ecc38cf39871498271ec3f1731c3d97566dea5eadaa54657bda6",
-   "live": false
+   "live": true
   },
   "website/api/search.php": {
    "sha256": "c9650f66d8df3b9127a24a8bc567aac705b540e2767b1d3c60a23a42a980e729",
-   "live": false
+   "live": true
   },
   "website/js/search-panel.js": {
    "sha256": "f8bf65298dbe676e5c0622ed2f2d0cfa6463f670059c2a911f7c1467fd562c75",
-   "live": false
+   "live": true
   },
   "website/place/landmark.php": {
    "sha256": "a697b69055cdc6173a64b3b315b088d4b95bb0221cd0edb04cd1db542a32cd62",
-   "live": false
+   "live": true
   }
  }
 }
