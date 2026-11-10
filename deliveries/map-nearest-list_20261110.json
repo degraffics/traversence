@@ -1,0 +1,18 @@
+{
+ "zip": "map-nearest-list_20261110.zip",
+ "built_on": "f62deb1 Sync: 2026-11-10 15:29 UTC",
+ "recorded": "2026-11-10 15:32 UTC",
+ "note": "Map: the places as a list, nearest first, ours and OpenStreetMap's",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/ui/faq.md": {
+   "sha256": "181696f31c9c269ad3b68e3928e972b8e4164c3577717aaa7528135149e6469e",
+   "live": false
+  },
+  "website/js/map-view.js": {
+   "sha256": "e48f1a8583715d8d5c96a4437bf314ac86ae687811e7909013da77fbe8d8375c",
+   "live": false
+  }
+ }
+}
