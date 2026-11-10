@@ -89,3 +89,9 @@ then its last word ("art museum": Museums). None fits: 0, shown as the source's 
 (`landmark_kinds_unfiled`, in `site-audit/towns.md`) for staff to give a category that term; asked again daily. The
 name is never read for it. Search indexes the category (`search_index.category_id`), so "museums near me" finds a museum
 landmark and the kind pill searches its category; every landmark is re-indexed once (`landmark_kind_walk`).
+
+**OpenStreetMap's outdoor places as leads (2026-11-10, `osm-leads_20261110.zip`):** each town's trailheads, parks and
+preserves, and viewpoints on OpenStreetMap (its own layer, decisions/0065) give names; `PlaceFinder::osmLeadTick` (one
+town a run, again after 30 days, while OpenStreetMap's hourly fair use has room) asks Wikidata for those names near the
+spot, and a match with a Wikipedia article or on the National Register is kept through `keep()`, built from Wikidata.
+Only the names go out; nothing of OpenStreetMap's is copied into the landmark.
