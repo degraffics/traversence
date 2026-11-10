@@ -3,20 +3,20 @@
  "built_on": "3d15c6d Sync: 2026-11-10 13:32 UTC",
  "recorded": "2026-11-10 13:35 UTC",
  "note": "",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "f8442b0 Sync: 2026-11-10 13:42 UTC",
  "files": {
   "app/ui/faq.md": {
    "sha256": "aed3d7927760f312f8fea08efb2dc793e6498ab31eadb56f59ed237c1c1549b9",
-   "live": false
+   "live": true
   },
   "website/api/open-places.php": {
    "sha256": "c6b86352146397b1f66c484e1a7e8bbf7c20810b3fe610c03396758e54f7d1f9",
-   "live": false
+   "live": true
   },
   "website/js/map-view.js": {
    "sha256": "40bdd20edd2ad41e7c138f6fe67f5a5a0c629a9576ea384e7dc30e0ccc47387d",
-   "live": false
+   "live": true
   }
  }
 }
