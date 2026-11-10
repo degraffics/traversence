@@ -21,6 +21,17 @@ else {
       if (crawler) md += `**Crawler:** ${s(crawler)}\n\n`;
       md += '| Town | Kind | Status | Tries | Found | Published | In Review | Already known | Error | Updated |\n|---|---|---|---|---|---|---|---|---|---|\n';
       for (const [, t] of Object.entries(d.towns)) for (const j of t.jobs) md += `| ${s(t.town)} | ${s(j.kind)} | ${s(j.status)} | ${j.attempts} | ${j.found} | ${j.published} | ${j.in_review} | ${j.known} | ${s(j.error)} | ${s(j.at)} |\n`;
+      const kv = (o) => (o && typeof o === 'object' ? Object.entries(o).map(([k, v]) => `${k} ${v}`).join(', ') : '') || 'none';
+      md += '\n## Where each town\'s places are\n\n| Town | Listings | Searchable | Landmarks |\n|---|---|---|---|\n';
+      for (const [, t] of Object.entries(d.towns)) md += `| ${s(t.town)} | ${s(kv(t.listings))} | ${s(kv(t.searchable))} | ${s(kv(t.landmarks))} |\n`;
+      md += '\n## Places looked up by name\n\n';
+      for (const name of ['Four Corners', 'Laguna Art', 'Dana Point Harbor']) {
+        try {
+          const f = (await (await fetch(`${SITE}/api/health.php?find=${encodeURIComponent(name)}`, { headers: { Authorization: `Bearer ${TOKEN}`, 'User-Agent': 'traversence-towns' } })).json()).find || {};
+          md += `**${name}**\n- Landmarks: ${(f.landmarks || []).map((x) => `${s(x.name)} (${s(x.status)}${x.nation ? ', ' + s(x.nation) + ' land' : ''}${x.why ? ': ' + s(x.why) : ''}, #${x.gnis_id})`).join('; ') || 'none'}\n`;
+          md += `- Searchable: ${(f.searchable || []).map((x) => `${s(x.label)} (${s(x.kind)})`).join('; ') || 'none'}\n- Listings: ${(f.listings || []).map((x) => `${s(x.name)}, ${s(x.city)} ${s(x.state)}${+x.is_suppressed ? ' (hidden)' : ''}`).join('; ') || 'none'}\n\n`;
+        } catch (e) { md += `**${name}**: couldn't look it up (${s(String(e))})\n\n`; }
+      }
     }
   } catch (e) { md += `Couldn't read the health report: ${s(String(e))}\n`; }
 }

@@ -2090,16 +2090,22 @@ def run():
             break
         try:
             elements = overpass(job) + wikidata(job)   # Tier 1: OpenStreetMap, and Wikidata for official places
-            seen, cands = set(), []
+            seen, cands, partial = set(), [], False
             for el in elements:
-                if len(cands) >= MAX_PER_JOB or out_of_time():
+                if len(cands) >= MAX_PER_JOB:
+                    break
+                if out_of_time():
+                    partial = True   # the run's time ran out mid-job (2026-11-10: Dana Point's hotels were reported done, 0 found)
                     break
                 c = candidate(el, job)
                 if c and (c["name"].lower(), c["where"]["zip"]) not in seen:
                     seen.add((c["name"].lower(), c["where"]["zip"]))
                     cands.append(c)
+            if partial and not cands:
+                log(f"job {jid}: out of time before any of its {len(elements)} places were read; left for its lease to return it")
+                break
             res = site_call("/api/crawl/results.php", {"job_id": jid, "candidates": cands, "pages": fetches,
-                                                       "log": [f"osm elements: {len(elements)}", f"candidates: {len(cands)}"]})
+                                                       "log": [f"osm elements: {len(elements)}", f"candidates: {len(cands)}"] + (["partial"] if partial else [])})
             log(f"job {jid} {job['looking_for']['group']} in {job['place']['name']}: {len(elements)} open-data, "
                 f"{len(cands)} sent -> {res.get('auto_imported', 0)} published, {res.get('staged', 0)} to review")
         except Exception as e:                     # report and let the queue retry it
