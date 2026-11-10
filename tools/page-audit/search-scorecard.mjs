@@ -72,12 +72,12 @@ const CASES = [
   // Words run together, spelled wrong, or said two ways
   ['Spelling', 'funhouse', PHX, { never: /Contractor|Real Estate|Painter|House Clean/i, top: 5 }],
   ['Spelling', 'fun house near me', PHXME, { never: /Contractor|Real Estate|Painter|House Clean/i, top: 5 }],
-  ['Spelling', 'resturants', SL, { leadAll: /listing/, top: 3, never: /topic/ }],
-  ['Spelling', 'piza', SL, { lead: /pizz/i, top: 3 }],
-  ['Spelling', 'coffe', SL, { lead: /coffee|cafe|espresso/i, top: 3 }],
-  ['Spelling', 'plumbr', SL, { lead: /plumb/i, top: 3 }],
+  ['Spelling', 'resturants', SL, { dym: /restaurant/ }],   // a slip is offered, never changed (decisions/0063, 0064)
+  ['Spelling', 'piza', SL, { dym: /pizza/ }],
+  ['Spelling', 'coffe', SL, { lead: /coffee/i, top: 3 }]   ,
+  ['Spelling', 'plumbr', SL, { dym: /plumber/ }],
   ['Spelling', 'hikeing trails', SL, { lead: /trail|peak|lake|forest/i, top: 3 }],
-  ['Spelling', 'icecream', PHX, { lead: /ice cream|creamery|gelato|frozen|baskin|cold stone|dairy queen/i, top: 3 }],
+  ['Spelling', 'icecream', PHX, { dym: /ice ?cream/ }],
   ['Spelling', 'bbq', SL, { lead: /bbq|barbecue|barbeque|smoke/i, top: 3 }],
   ['Spelling', 'hair cut', SL, { lead: /hair|barber|salon/i, top: 3 }],
   ['Spelling', 'auto parts', SL, { lead: /auto|parts|o'?reilly|napa|autozone/i, top: 3 }],
@@ -113,8 +113,9 @@ const TYPING = [
 
 const s = (v) => (v == null ? '' : String(v));
 const rowOf = (i) => [s(i.label), s(i.kind), s(i.category || i.cat || ''), s(i.sub || i.crumb || '')].filter(Boolean).join(' · ');
-function judge(rows, chips, place, total, c, ms, budget) {
+function judge(rows, chips, place, total, c, ms, budget, dym = '') {
   const fails = [];
+  if (c.dym && !c.dym.test(dym)) fails.push(`no "Did you mean" like ${c.dym}${dym ? ' (offered: ' + dym + ')' : ''}`);
   const top = c.top || 5;
   const head = rows.slice(0, top);
   if (c.place && !c.place.test(place)) fails.push(`place read as "${place || 'none'}"`);
@@ -131,8 +132,13 @@ function judge(rows, chips, place, total, c, ms, budget) {
 }
 
 async function getJson(url) {
+  await new Promise((ok) => setTimeout(ok, 250));   // gentle on the host: a burst of requests can get the runner throttled
   const t0 = Date.now();
-  const r = await fetch(url, { headers: { 'User-Agent': 'traversence-search-scorecard' } });
+  let r;
+  for (let i = 0; ; i++) {   // a dropped connection is tried again twice, slower each time
+    try { r = await fetch(url, { headers: { 'User-Agent': 'traversence-search-scorecard' } }); break; }
+    catch (e) { if (i >= 2) throw e; await new Promise((ok) => setTimeout(ok, 2000 * (i + 1))); }
+  }
   const d = await r.json();
   return [d, Date.now() - t0, r.status];
 }
@@ -156,7 +162,7 @@ for (const [group, q, ctx, c] of CASES) {
     const chips = (d.chips || []).map((x) => `${s(x.type)}: ${s(x.label)}`);
     const place = s(d.place?.label || (d.chips || []).find((x) => x.type === 'place')?.label);
     const total = Math.max(res.total ?? 0, rows.length);
-    Object.assign(o, { status, ms, place, chips, total, first: rows.slice(0, 5).map((r) => r.text + (r.mi != null ? ` · ${Math.round(r.mi * 10) / 10} mi` : '')), note: s(res.note), fails: judge(rows, chips, place, total, c, ms, FAST) });
+    Object.assign(o, { status, ms, place, chips, total, first: rows.slice(0, 5).map((r) => r.text + (r.mi != null ? ` · ${Math.round(r.mi * 10) / 10} mi` : '')), note: s(res.note), fails: judge(rows, chips, place, total, c, ms, FAST, [s(d.did_you_mean?.q || d.did_you_mean), ...(d.did_you_mean_all || []).map((x) => s(x.q || x))].filter(Boolean).join(' / ')) });
   } catch (e) { o.fails = ['error: ' + String(e).slice(0, 120)]; }
   o.pass = !o.fails.length;
   out.push(o);
