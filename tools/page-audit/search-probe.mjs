@@ -56,7 +56,7 @@ async function probe([q, ctx, expect]) {
 }
 
 // as someone types (Jason, 2026-11-10: "we should be showing possible locations as someone types"): the first rows
-const TYPING = [['Dana p', ''], ['pho', ''], ['phoenix', ''], ['pizza in pho', ''], ['sedo', ''], ['glendale', 'city=Phoenix&state=AZ'], ['show l', ''], ['four corners mon', ''], ['dana point harb', ''], ['laguna art', '']];
+const TYPING = [['Dana p', ''], ['pho', ''], ['phoenix', ''], ['pizza in pho', ''], ['sedo', ''], ['glendale', 'city=Phoenix&state=AZ'], ['show l', ''], ['four cor', ''], ['four corners', ''], ['four corners mon', ''], ['dana point harb', ''], ['laguna art', '']];
 async function typed([q, ctx]) {
   const url = `${SITE}/api/search.php?suggest=1&q=${encodeURIComponent(q)}${ctx ? '&' + ctx : ''}`;
   try {
