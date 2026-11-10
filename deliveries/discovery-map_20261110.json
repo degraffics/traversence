@@ -8,7 +8,7 @@
  "files": {
   "app/lib/OpenPlaces.php": {
    "sha256": "271a5f4ad99fde72d25939946948d3b2ff453fc1f7ccbb8cf305f372ca506963",
-   "live": true
+   "live": false
   },
   "app/lib/PlaceFinder.php": {
    "sha256": "8a6aea905a03320c3314251e6a9687619aa2f29af26425db32c74a654fa6835e",
@@ -16,7 +16,7 @@
   },
   "app/ui/explore-hero.php": {
    "sha256": "0595ab5d3832834aabcf818dd82e7712a93c972a606181821c14a4e6723e5dee",
-   "live": true
+   "live": false
   },
   "app/ui/faq.md": {
    "sha256": "3b4a2e4aabdc68e4ae1d921716d6025a1e02efb89878e16a8bbf24505b82d42e",
