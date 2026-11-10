@@ -6,7 +6,7 @@
    "expect": "Dana Point, CA and its guide (it has one), not Point, TX",
    "url": "/api/search.php?q=Dana%20point",
    "status": 200,
-   "ms": 456,
+   "ms": 479,
    "place": "Dana Point, CA",
    "chips": [
     "place: Dana Point, CA"
@@ -39,7 +39,7 @@
    "expect": "Dana Point, CA: its guide, places and listings",
    "url": "/api/search.php?q=Dana%20Point%2C%20CA",
    "status": 200,
-   "ms": 99,
+   "ms": 131,
    "place": "Dana Point, CA",
    "chips": [
     "place: Dana Point, CA"
@@ -72,7 +72,7 @@
    "expect": "Dana Point, CA",
    "url": "/api/search.php?q=dana%20point%20california",
    "status": 200,
-   "ms": 90,
+   "ms": 103,
    "place": "Dana Point, CA",
    "chips": [
     "place: Dana Point, CA"
@@ -105,7 +105,7 @@
    "expect": "places to eat in Dana Point",
    "url": "/api/search.php?q=restaurants%20in%20Dana%20Point%2C%20CA",
    "status": 200,
-   "ms": 123,
+   "ms": 141,
    "place": "Dana Point, CA",
    "chips": [
     "place: Dana Point, CA",
@@ -130,7 +130,7 @@
    "expect": "places to eat in Dana Point",
    "url": "/api/search.php?q=Places%20to%20eat%20around%20dana%20point%2C%20ca",
    "status": 200,
-   "ms": 99,
+   "ms": 107,
    "place": "Dana Point, CA",
    "chips": [
     "why: Somewhere to eat",
@@ -165,7 +165,7 @@
    "expect": "Phoenix, AZ: its guide, listings, places",
    "url": "/api/search.php?q=Phoenix%2C%20az",
    "status": 200,
-   "ms": 118,
+   "ms": 122,
    "place": "Phoenix, AZ",
    "chips": [
     "place: Phoenix, AZ"
@@ -200,7 +200,7 @@
    "expect": "Phoenix, AZ (the pilot state first)",
    "url": "/api/search.php?q=Phoenix",
    "status": 200,
-   "ms": 99,
+   "ms": 110,
    "place": "Phoenix, AZ",
    "chips": [
     "place: Phoenix, AZ"
@@ -235,7 +235,7 @@
    "expect": "places to eat in Phoenix",
    "url": "/api/search.php?q=restaurants&city=Phoenix&state=AZ&reach=25",
    "status": 200,
-   "ms": 91,
+   "ms": 99,
    "place": "Phoenix, AZ",
    "chips": [
     "place: Phoenix, AZ",
@@ -259,7 +259,7 @@
    "expect": "pizza places in Phoenix",
    "url": "/api/search.php?q=pizza%20in%20phoenix",
    "status": 200,
-   "ms": 105,
+   "ms": 115,
    "place": "Phoenix, AZ",
    "chips": [
     "place: Phoenix, AZ",
@@ -283,7 +283,7 @@
    "expect": "coffee near Glendale, AZ 85302",
    "url": "/api/search.php?q=coffee&zip=85302&reach=10",
    "status": 200,
-   "ms": 106,
+   "ms": 114,
    "place": "Glendale, AZ",
    "chips": [
     "place: Glendale, AZ"
@@ -315,7 +315,7 @@
    "expect": "things to do around 85302",
    "url": "/api/search.php?q=Things%20to%20do%20near%20me&zip=85302&reach=25",
    "status": 200,
-   "ms": 86,
+   "ms": 99,
    "place": "Glendale, AZ",
    "chips": [
     "why: Things to do",
@@ -337,7 +337,7 @@
    "expect": "Glendale, AZ: its guide (built on demand) and listings",
    "url": "/api/search.php?q=Glendale%2C%20AZ",
    "status": 200,
-   "ms": 105,
+   "ms": 113,
    "place": "Glendale, AZ",
    "chips": [
     "place: Glendale, AZ"
@@ -368,7 +368,7 @@
    "expect": "places to stay in Sedona",
    "url": "/api/search.php?q=hotels%20in%20sedona",
    "status": 200,
-   "ms": 169,
+   "ms": 183,
    "place": "Sedona, AZ",
    "chips": [
     "place: Sedona, AZ"
@@ -400,7 +400,7 @@
    "expect": "Show Low, AZ (a pilot town)",
    "url": "/api/search.php?q=show%20low",
    "status": 200,
-   "ms": 94,
+   "ms": 124,
    "place": "Show Low, AZ",
    "chips": [
     "place: Show Low, AZ"
@@ -432,7 +432,7 @@
    "expect": "Greer, AZ (a pilot town)",
    "url": "/api/search.php?q=greer%20arizona",
    "status": 200,
-   "ms": 91,
+   "ms": 103,
    "place": "Greer, AZ",
    "chips": [
     "place: Greer, AZ"
@@ -459,7 +459,7 @@
     "Bonito Rock (outdoors · Rock formation · White Mountain Apache Tribe land)"
    ],
    "groups": [
-    "Listings 0"
+    "Listings 1"
    ],
    "did_you_mean": ""
   },
@@ -469,7 +469,7 @@
    "expect": "Four Corners Monument, not Four Corners, WY",
    "url": "/api/search.php?q=Four%20Corners",
    "status": 200,
-   "ms": 102,
+   "ms": 118,
    "place": "Four Corners, WY",
    "chips": [
     "place: Four Corners, WY"
@@ -490,7 +490,7 @@
    "expect": "Grand Canyon National Park",
    "url": "/api/search.php?q=grand%20canyon",
    "status": 200,
-   "ms": 97,
+   "ms": 112,
    "place": "Grand Canyon, AZ",
    "chips": [
     "place: Grand Canyon, AZ"
@@ -525,7 +525,7 @@
    "expect": "Four Corners Monument (a landmark added by hand)",
    "url": "/api/search.php?q=four%20corners%20monument",
    "status": 200,
-   "ms": 90,
+   "ms": 101,
    "place": "Four Corners, WY",
    "chips": [
     "place: Four Corners, WY",
@@ -549,7 +549,7 @@
    "expect": "Laguna Art Museum (found for the Laguna Beach guide)",
    "url": "/api/search.php?q=laguna%20art%20museum",
    "status": 200,
-   "ms": 136,
+   "ms": 150,
    "place": "Laguna, NM",
    "chips": [
     "place: Laguna, NM"
@@ -583,7 +583,7 @@
    "expect": "plumbers in Show Low",
    "url": "/api/search.php?q=plumber%20in%20show%20low",
    "status": 200,
-   "ms": 154,
+   "ms": 168,
    "place": "Show Low, AZ",
    "chips": [
     "place: Show Low, AZ",
