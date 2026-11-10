@@ -1,7 +1,7 @@
 {
  "zip": "discovery-map_20261110.zip",
  "built_on": "04a9109 Sync: 2026-11-10 14:08 UTC",
- "recorded": "2026-11-10 14:11 UTC",
+ "recorded": "2026-11-10 14:13 UTC",
  "note": "",
  "status": "pending",
  "live_in": "",
@@ -19,7 +19,7 @@
    "live": false
   },
   "app/ui/faq.md": {
-   "sha256": "4b471fffa9ebc816c70a657474d3d1e818b75f2cec089a1403ed7245bf6ef8e8",
+   "sha256": "3b4a2e4aabdc68e4ae1d921716d6025a1e02efb89878e16a8bbf24505b82d42e",
    "live": false
   },
   "website/api/health.php": {
@@ -27,7 +27,7 @@
    "live": false
   },
   "website/discovery/index.php": {
-   "sha256": "49c669d87a9c5d169be887a011a4a159ddc0393fb165b0b87067da9cf2341d9f",
+   "sha256": "9cee149bc27f18e403aad868f345485b876fc8eeea134282f2e0be1c7a1be538",
    "live": false
   },
   "website/js/map-view.js": {
