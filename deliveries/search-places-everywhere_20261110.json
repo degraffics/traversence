@@ -1,0 +1,26 @@
+{
+ "zip": "search-places-everywhere_20261110.zip",
+ "built_on": "1d3d3c3 Sync: 2026-11-10 02:18 UTC",
+ "recorded": "2026-11-10 02:26 UTC",
+ "note": "Places lead the suggestions as you type; \u00d7 and Search everywhere to clear the place; every state in the picker. Replaces search-everywhere_20261110.zip (never uploaded). Built on 02:18 UTC",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/UniversalSearch.php": {
+   "sha256": "6044dda72364415b15ef4a25fc3fab3fedabdd13d285ca7fb5bdb7508eea5854",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "5c66da9418e8391b27f8d69cd52860dfe22821f7c1864634a9a61d597244fe48",
+   "live": false
+  },
+  "app/ui/location-modal.php": {
+   "sha256": "30153e8431da904f0e597d3e1db26ab82b63b59f12009d0eff987e6c08ee4ec5",
+   "live": false
+  },
+  "website/js/search-panel.js": {
+   "sha256": "567f540988865ee5977300a1d22fe9d072228c995ed56b17170c112576100289",
+   "live": false
+  }
+ }
+}
