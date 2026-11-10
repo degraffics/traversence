@@ -65,3 +65,10 @@ what it is, how far, and directions; `/api/open-places.php` no longer sends its 
 **Call** button goes). It's offered wherever we have none of that kind within reach, not only outside our areas
 (decisions/0149, "From a search"). Still to bring in line: suggested journeys use its hours and address
 (`JourneyPlan`).
+
+**On the map (Jason, 2026-11-10: "Why nothing and no search here options", the directory map over Tempe with "Nothing
+here"):** `js/map-view.js` shows **Search this area** in words at the top whenever the map has moved (it was only the ↻
+icon). With nothing of ours there, the panel offers Search this area, Widen to 25 mi, and OpenStreetMap's places (places
+to eat, coffee, groceries, gas, pharmacy, places to stay) as lighter pins: name, kind, distance, directions, credited, a
+lead only; when the words name a kind ("coffee shops"), its places show at once (`/api/open-places.php?words=`). Asked
+from the map (`crawl=1`), the nearest town goes to the crawler (`TownCrawl::fromSearch`, decisions/0149).
