@@ -95,3 +95,12 @@ data as long as we dont have to share back data"; `osm-leads_20261110.zip`).** R
   too"; `map-you-are-here_20261110.zip`):** the blue dot shows when the map opens, if the place came from this device
   (Auto-detect) or the browser already allows location for the site; it never prompts by itself (the My location button
   does) and doesn't move the map. The position stays in the browser.
+- **Why the map showed nothing (Jason, 2026-11-10: "why am I not seeing any listings from osm?"; `discovery-map_20261110.zip`):**
+  one Overpass server, a 12-second wait and the shared hourly limit, with a failed ask remembered for a day. Now
+  `OpenPlaces` tries a second server, waits up to 18 seconds, asks a failed spot again after 10 minutes, allows 60 asks
+  an hour with at most 15 for our own background jobs (`PlaceFinder::osmLeadTick` asks as one), and asks "everything"
+  around a spot about a mile and a half across. The health report shows the hour's asks and the last ten with what each
+  found (`site-audit/towns.md`). The map's locate button is the location arrow, "Go to my location".
+- **Discovery's Map tab** (Jason, 2026-11-10: "Discovery should also have the map as an option"): Map sits in the ribbon
+  with Regions, Experiences and Parks & Landmarks; outside our areas (no cluster), it opens 10 mi around the place set on
+  the site (its point, or its ZIP's), or asks where first and opens there.

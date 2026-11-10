@@ -20,6 +20,7 @@ else {
       const runs = (d.jobs || []).filter((j) => /guide_ondemand|landmark|listings_tick|guide_finds/.test(j.job));   // scheduled jobs that fill towns: when each last ran
       if (runs.length) md += `**Scheduled jobs (last run, site time):** ${runs.map((j) => `${j.job} ${s(j.last) || 'never'}${j.ok === 0 || j.ok === false ? ' (failed)' : ''}${j.fails_today ? `, ${j.fails_today} failed today` : ''}`).join('; ')}\n\n`;
       if (d.landmark_kinds_unfiled && d.landmark_kinds_unfiled.length) md += `**Landmark kinds with no category yet** (give a category this word as a term): ${d.landmark_kinds_unfiled.map((k) => `${s(k.fclass)} ${k.n}`).join('; ')}\n\n`;
+      if (d.osm_asks_hour != null) md += `**OpenStreetMap asks:** ${d.osm_asks_hour} this hour; last: ${(d.osm_asks_last || []).map((a) => `${s(a.qkey)} found ${a.found} (${s(a.asked_at)})`).join('; ') || 'none'}\n\n`;
       if (d.index_mark) md += `**Search has caught up with listing changes to:** ${s(d.index_mark)} (site time)\n\n`;
       const crawler = (d.status || []).filter((x) => /crawl|worker/i.test(x.name)).map((x) => `${x.name}: ${x.state}`).join('; ');
       if (crawler) md += `**Crawler:** ${s(crawler)}\n\n`;
