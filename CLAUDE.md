@@ -261,7 +261,8 @@ Nothing we build spends Traversence money (a per-use API, email, text, push, ID 
 it: inside a paying plan's allowance, a paid top-up, or a fee charged first. Free tiers get only what costs us nothing.
 System emails the site sends itself (links, notices, work orders) cost nothing and aren't limited by this (Jason, 2026-11-09).
 The one exception: Claude writing guides and journeys, inside the AI monthly cap (decisions/0131, 0147: on-demand
-builds up to 50% of the daily allowance, the rest queued).
+builds up to 50% of the daily allowance, the rest queued). Also a place's description, written once when someone opens a place with no
+Wikipedia summary, kept as research (decisions/0148, `place_about`).
 
 ## The live server runs PHP 8.0: every build
 
