@@ -224,3 +224,13 @@ will look into developing better search results for this specific topic and area
   `near-me-everything_20261110.zip`.)
 - **The directory's place is clearable** (Jason, 2026-11-10: "The location should be clearable as well"): an × beside its
   place pill clears it (everywhere), as the × on search's Location line does.
+- **The nearest, no cap** (Jason, 2026-11-10, after "hikes near me" found nothing within 2 mi of Phoenix: "Can't it find
+  the nearest locations without a distance cap", then "1, build it with the hiking fixes"; `near-me-nearest_20261110.zip`):
+  "near me" shows the nearest first, each with its miles (10; 25 for "near me" alone), as far as 250 mi; no widen step.
+  The 2 and 5 mi became the check, not a fence: fewer than `NEAR_ENOUGH` (3) of ours and OpenStreetMap's within
+  `NEAR_MILES` (5; `NEAR_MILES_OUTDOORS` 30 for hikes, camping, fishing, parks) says "Our results for … near … are
+  lacking: the nearest of ours is N mi away" and reports it (unchanged). The Distance line reads no limit for it.
+- **Hikes by kind, not only words:** a landmark's source class and category give what's done there
+  (`Landmarks::activityWords`: peaks, canyons, trails, preserves, parks → hiking; lakes, rivers → fishing; campgrounds →
+  camping), indexed with it (every landmark re-indexed once, `landmark_kind_walk2`), never read from the name. With
+  outdoor places among the results, **Let's Explore** opens Discovery's Outdoors view, not the overview.

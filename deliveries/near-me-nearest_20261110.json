@@ -1,0 +1,30 @@
+{
+ "zip": "near-me-nearest_20261110.zip",
+ "built_on": "2f21e06 Sync: 2026-11-10 13:52 UTC",
+ "recorded": "2026-11-10 13:56 UTC",
+ "note": "",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/Landmarks.php": {
+   "sha256": "1b4412d67305cc5150d1f9cc0108352b56a8cd96db202a9dbb12e4738b9ed720",
+   "live": false
+  },
+  "app/lib/SearchIndex.php": {
+   "sha256": "57a8b1df04f8729b8692645230f4408431bb02e42aa4d3dc86d0caa62054e440",
+   "live": false
+  },
+  "app/lib/UniversalSearch.php": {
+   "sha256": "5af79ca57bb17b6dfe2f789ebf0ddd9b9e8ea63ed5b7fce825681a9aa1bb5615",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "6cc4a394369be4c9dd64f9a1a4fc12cdb3beadfa163095d210fb5e791c6fe600",
+   "live": false
+  },
+  "website/js/search-panel.js": {
+   "sha256": "cfe2dd4f9f261d3d3cedbb3ce1dba7090d341147e2275f6aa986c01d5f80b1f1",
+   "live": false
+  }
+ }
+}
