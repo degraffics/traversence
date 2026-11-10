@@ -194,6 +194,7 @@ starts a name we have is suggested wherever it is, even when the words also read
 Places come from sources, never hand lists in code: a name searched and not found is looked up (decisions/0148).
 A kind of business with nothing of ours in reach: OpenStreetMap leads at once (name, kind, distance only, never its
 phone, hours or address) and the town goes to the crawler (decisions/0065, 0149).
+"Near me" is 2 mi (5 when widened, never more); fewer than 3 within 5 says results are lacking and tells the team (decisions/0060).
 
 ## No test moves real money (Jason, 2026-11-10): every build
 

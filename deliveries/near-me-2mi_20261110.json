@@ -1,0 +1,34 @@
+{
+ "zip": "near-me-2mi_20261110.zip",
+ "built_on": "5599c1e Sync: 2026-11-10 12:41 UTC",
+ "recorded": "2026-11-10 12:55 UTC",
+ "note": "",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/SearchDemand.php": {
+   "sha256": "01e7d53e3e565bc1787f90320c9d5bdaad5eea4fdb22da9f6d0961a44d6266df",
+   "live": false
+  },
+  "app/lib/UniversalSearch.php": {
+   "sha256": "88b6ac6a718ded2acb4849ba133fdbe685d0d972a01bfa663e7f25b76581f330",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "ca44a28f0877162a5503018155af9bc0105912255818e4a4cc8eea1c2f2ecaef",
+   "live": false
+  },
+  "website/admin/search-demand.php": {
+   "sha256": "5e4565519bbf93315ad94ec8a28509366a0f9974fe6f793965b69e9fc52d12c1",
+   "live": false
+  },
+  "website/api/search.php": {
+   "sha256": "4812210ce84985c2502fa22b434ac25df4bb1c61d3cc78f6940d9eb3a692cc14",
+   "live": false
+  },
+  "website/js/search-panel.js": {
+   "sha256": "a5f666223015a5eae66e739dcc801eeb092befd0416810f485b53f71ca02dec8",
+   "live": false
+  }
+ }
+}
