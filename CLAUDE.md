@@ -188,7 +188,8 @@ with no zone stored, in the viewer's. Rolling out page by page from Scan cards.
 
 A city named in a search is always found in the locations data (`zip_coordinates`) and becomes the place, with or
 without our data or a hub there: every search is demand. Older rules that hid out-of-area towns ("strict", "names
-something here") no longer apply to cities; an unknown word is never dropped before the place is read.
+something here") no longer apply to cities; an unknown word is never dropped before the place is read. One exception: the
+whole search is the exact name of something we have ("Four Corners Monument").
 
 ## No test moves real money (Jason, 2026-11-10): every build
 
