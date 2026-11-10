@@ -1,508 +1,589 @@
-[
- {
-  "q": "Dana point",
-  "ctx": "",
-  "expect": "Dana Point, CA and its guide (it has one), not Point, TX",
-  "url": "/api/search.php?q=Dana%20point",
-  "status": 200,
-  "ms": 473,
-  "place": "Dana Point, CA",
-  "chips": [
-   "place: Dana Point, CA"
-  ],
-  "text": "",
-  "guide": "Dana Point, CA [first]: A first look at Dana Point, CA is ready, and its full guide is on the way.",
-  "ask": "What would you like to know about Dana Point, CA?",
-  "total": 0,
-  "kinds": [],
-  "note": "We have no listings in Dana Point, CA yet.",
-  "first": [],
-  "groups": [
-   "Listings 0"
-  ],
-  "did_you_mean": ""
- },
- {
-  "q": "Dana Point, CA",
-  "ctx": "",
-  "expect": "Dana Point, CA: its guide, places and listings",
-  "url": "/api/search.php?q=Dana%20Point%2C%20CA",
-  "status": 200,
-  "ms": 107,
-  "place": "Dana Point, CA",
-  "chips": [
-   "place: Dana Point, CA"
-  ],
-  "text": "",
-  "guide": "Dana Point, CA [first]: A first look at Dana Point, CA is ready, and its full guide is on the way.",
-  "ask": "What would you like to know about Dana Point, CA?",
-  "total": 0,
-  "kinds": [],
-  "note": "We have no listings in Dana Point, CA yet.",
-  "first": [],
-  "groups": [
-   "Listings 0"
-  ],
-  "did_you_mean": ""
- },
- {
-  "q": "dana point california",
-  "ctx": "",
-  "expect": "Dana Point, CA",
-  "url": "/api/search.php?q=dana%20point%20california",
-  "status": 200,
-  "ms": 108,
-  "place": "Dana Point, CA",
-  "chips": [
-   "place: Dana Point, CA"
-  ],
-  "text": "",
-  "guide": "Dana Point, CA [first]: A first look at Dana Point, CA is ready, and its full guide is on the way.",
-  "ask": "What would you like to know about Dana Point, CA?",
-  "total": 0,
-  "kinds": [],
-  "note": "We have no listings in Dana Point, CA yet.",
-  "first": [],
-  "groups": [
-   "Listings 0"
-  ],
-  "did_you_mean": ""
- },
- {
-  "q": "restaurants in Dana Point, CA",
-  "ctx": "",
-  "expect": "places to eat in Dana Point",
-  "url": "/api/search.php?q=restaurants%20in%20Dana%20Point%2C%20CA",
-  "status": 200,
-  "ms": 124,
-  "place": "Dana Point, CA",
-  "chips": [
-   "place: Dana Point, CA",
-   "category: Restaurants"
-  ],
-  "text": "",
-  "guide": "Dana Point, CA [first]: A first look at Dana Point, CA is ready, and its full guide is on the way.",
-  "ask": "",
-  "total": 0,
-  "kinds": [],
-  "note": "",
-  "first": [],
-  "groups": [
-   "Listings 2"
-  ],
-  "did_you_mean": ""
- },
- {
-  "q": "Places to eat around dana point, ca",
-  "ctx": "",
-  "expect": "places to eat in Dana Point",
-  "url": "/api/search.php?q=Places%20to%20eat%20around%20dana%20point%2C%20ca",
-  "status": 200,
-  "ms": 111,
-  "place": "Dana Point, CA",
-  "chips": [
-   "why: Somewhere to eat",
-   "place: Dana Point, CA"
-  ],
-  "text": "",
-  "guide": "Dana Point, CA [first]: A first look at Dana Point, CA is ready, and its full guide is on the way.",
-  "ask": "What would you like to know about Dana Point, CA?",
-  "total": 0,
-  "kinds": [],
-  "note": "We have no listings in Dana Point, CA yet.",
-  "first": [],
-  "groups": [
-   "Listings 0"
-  ],
-  "did_you_mean": ""
- },
- {
-  "q": "Phoenix, az",
-  "ctx": "",
-  "expect": "Phoenix, AZ: its guide, listings, places",
-  "url": "/api/search.php?q=Phoenix%2C%20az",
-  "status": 200,
-  "ms": 105,
-  "place": "Phoenix, AZ",
-  "chips": [
-   "place: Phoenix, AZ"
-  ],
-  "text": "",
-  "guide": "",
-  "ask": "What would you like to know about Phoenix, AZ?",
-  "total": 41,
-  "kinds": [
-   {
-    "kind": "outdoors",
-    "label": "Outdoors",
-    "plural": "Outdoors",
-    "count": 41
-   }
-  ],
-  "note": "",
-  "first": [
-   "Camelback Mountain (outdoors · Peak · near Phoenix)",
-   "North Mountain (outdoors · Peak · near Phoenix)",
-   "Phoenix Mountains (outdoors · Peak · near Phoenix)",
-   "Piestewa Peak (outdoors · Peak · near Phoenix)",
-   "Sevenmile Mountain (outdoors · Peak · near Phoenix)",
-   "Big Bug Trailhead (outdoors · Hiking · Bureau of Land Management)"
-  ],
-  "groups": [],
-  "did_you_mean": ""
- },
- {
-  "q": "Phoenix",
-  "ctx": "",
-  "expect": "Phoenix, AZ (the pilot state first)",
-  "url": "/api/search.php?q=Phoenix",
-  "status": 200,
-  "ms": 104,
-  "place": "Phoenix, AZ",
-  "chips": [
-   "place: Phoenix, AZ"
-  ],
-  "text": "",
-  "guide": "",
-  "ask": "What would you like to know about Phoenix, AZ?",
-  "total": 41,
-  "kinds": [
-   {
-    "kind": "outdoors",
-    "label": "Outdoors",
-    "plural": "Outdoors",
-    "count": 41
-   }
-  ],
-  "note": "",
-  "first": [
-   "Camelback Mountain (outdoors · Peak · near Phoenix)",
-   "North Mountain (outdoors · Peak · near Phoenix)",
-   "Phoenix Mountains (outdoors · Peak · near Phoenix)",
-   "Piestewa Peak (outdoors · Peak · near Phoenix)",
-   "Sevenmile Mountain (outdoors · Peak · near Phoenix)",
-   "Big Bug Trailhead (outdoors · Hiking · Bureau of Land Management)"
-  ],
-  "groups": [],
-  "did_you_mean": ""
- },
- {
-  "q": "restaurants",
-  "ctx": "city=Phoenix&state=AZ&reach=25",
-  "expect": "places to eat in Phoenix",
-  "url": "/api/search.php?q=restaurants&city=Phoenix&state=AZ&reach=25",
-  "status": 200,
-  "ms": 91,
-  "place": "Phoenix, AZ",
-  "chips": [
-   "place: Phoenix, AZ",
-   "category: Restaurants"
-  ],
-  "text": "",
-  "guide": "",
-  "ask": "",
-  "total": 0,
-  "kinds": [],
-  "note": "We have no listings in Phoenix, AZ yet.",
-  "first": [],
-  "groups": [
-   "Listings 0"
-  ],
-  "did_you_mean": ""
- },
- {
-  "q": "pizza in phoenix",
-  "ctx": "",
-  "expect": "pizza places in Phoenix",
-  "url": "/api/search.php?q=pizza%20in%20phoenix",
-  "status": 200,
-  "ms": 110,
-  "place": "Phoenix, AZ",
-  "chips": [
-   "place: Phoenix, AZ",
-   "category: Pizza"
-  ],
-  "text": "",
-  "guide": "",
-  "ask": "",
-  "total": 0,
-  "kinds": [],
-  "note": "",
-  "first": [],
-  "groups": [
-   "Listings 0"
-  ],
-  "did_you_mean": ""
- },
- {
-  "q": "coffee",
-  "ctx": "zip=85302&reach=10",
-  "expect": "coffee near Glendale, AZ 85302",
-  "url": "/api/search.php?q=coffee&zip=85302&reach=10",
-  "status": 200,
-  "ms": 110,
-  "place": "Glendale, AZ",
-  "chips": [
-   "place: Glendale, AZ"
-  ],
-  "text": "coffee",
-  "guide": "Glendale, AZ [first]: A first look at Glendale, AZ is ready, and its full guide is on the way.",
-  "ask": "",
-  "total": 3,
-  "kinds": [
-   {
-    "kind": "topic",
-    "label": "Topic",
-    "plural": "Topics",
-    "count": 3
-   }
-  ],
-  "note": "We have no listings in Glendale, AZ yet.",
-  "first": [
-   "Coffee & Tea (manufacturer) (topic · Category in Food & Dining)",
-   "Coffee & Tea Shops (topic · Category in Food & Dining)",
-   "Coffee Shops (topic · Category in Food & Dining)"
-  ],
-  "groups": [],
-  "did_you_mean": ""
- },
- {
-  "q": "Things to do near me",
-  "ctx": "zip=85302&reach=25",
-  "expect": "things to do around 85302",
-  "url": "/api/search.php?q=Things%20to%20do%20near%20me&zip=85302&reach=25",
-  "status": 200,
-  "ms": 92,
-  "place": "Glendale, AZ",
-  "chips": [
-   "why: Things to do",
-   "place: Glendale, AZ"
-  ],
-  "text": "",
-  "guide": "Glendale, AZ [first]: A first look at Glendale, AZ is ready, and its full guide is on the way.",
-  "ask": "",
-  "total": 0,
-  "kinds": [],
-  "note": "",
-  "first": [],
-  "groups": [],
-  "did_you_mean": ""
- },
- {
-  "q": "Glendale, AZ",
-  "ctx": "",
-  "expect": "Glendale, AZ: its guide (built on demand) and listings",
-  "url": "/api/search.php?q=Glendale%2C%20AZ",
-  "status": 200,
-  "ms": 104,
-  "place": "Glendale, AZ",
-  "chips": [
-   "place: Glendale, AZ"
-  ],
-  "text": "",
-  "guide": "Glendale, AZ [first]: A first look at Glendale, AZ is ready, and its full guide is on the way.",
-  "ask": "What would you like to know about Glendale, AZ?",
-  "total": 0,
-  "kinds": [],
-  "note": "We have no listings in Glendale, AZ yet.",
-  "first": [],
-  "groups": [],
-  "did_you_mean": ""
- },
- {
-  "q": "hotels in sedona",
-  "ctx": "",
-  "expect": "places to stay in Sedona",
-  "url": "/api/search.php?q=hotels%20in%20sedona",
-  "status": 200,
-  "ms": 163,
-  "place": "Sedona, AZ",
-  "chips": [
-   "place: Sedona, AZ"
-  ],
-  "text": "hotels",
-  "guide": "Sedona, AZ [new]: We don't have a guide to Sedona, AZ yet. We can build one now: a first look in about two minutes.",
-  "ask": "",
-  "total": 14,
-  "kinds": [
-   {
-    "kind": "topic",
-    "label": "Topic",
-    "plural": "Topics",
-    "count": 14
-   }
-  ],
-  "note": "",
-  "first": [
-   "Hotels & Motels (topic · Category in Hospitality & Lodging)",
-   "Bed & Breakfasts (topic · Category in Hospitality & Lodging)",
-   "Cabin Rentals (topic · Category in Hospitality & Lodging)"
-  ],
-  "groups": [],
-  "did_you_mean": ""
- },
- {
-  "q": "show low",
-  "ctx": "",
-  "expect": "Show Low, AZ (a pilot town)",
-  "url": "/api/search.php?q=show%20low",
-  "status": 200,
-  "ms": 101,
-  "place": "Show Low, AZ",
-  "chips": [
-   "place: Show Low, AZ"
-  ],
-  "text": "",
-  "guide": "",
-  "ask": "What would you like to know about Show Low, AZ?",
-  "total": 1,
-  "kinds": [
-   {
-    "kind": "outdoors",
-    "label": "Outdoors",
-    "plural": "Outdoors",
-    "count": 1
-   }
-  ],
-  "note": "",
-  "first": [
-   "Malpais Pit (outdoors · Basin · near Show Low)"
-  ],
-  "groups": [
-   "Listings 0"
-  ],
-  "did_you_mean": ""
- },
- {
-  "q": "greer arizona",
-  "ctx": "",
-  "expect": "Greer, AZ (a pilot town)",
-  "url": "/api/search.php?q=greer%20arizona",
-  "status": 200,
-  "ms": 90,
-  "place": "Greer, AZ",
-  "chips": [
-   "place: Greer, AZ"
-  ],
-  "text": "",
-  "guide": "",
-  "ask": "What would you like to know about Greer, AZ?",
-  "total": 6,
-  "kinds": [
-   {
-    "kind": "outdoors",
-    "label": "Outdoors",
-    "plural": "Outdoors",
-    "count": 6
-   }
-  ],
-  "note": "",
-  "first": [
-   "Mount Baldy (outdoors · Peak · near Greer)",
-   "Carnero Lake (outdoors · Lake · near Greer)",
-   "Crescent Lake (outdoors · Lake · near Greer)",
-   "Mount Ord (outdoors · Peak · White Mountain Apache Tribe land)",
-   "White Mountains (outdoors · Mountain range · White Mountain Apache Tribe land)",
-   "Bonito Rock (outdoors · Rock formation · White Mountain Apache Tribe land)"
-  ],
-  "groups": [
-   "Listings 0"
-  ],
-  "did_you_mean": ""
- },
- {
-  "q": "Four Corners",
-  "ctx": "",
-  "expect": "Four Corners Monument, not Four Corners, WY",
-  "url": "/api/search.php?q=Four%20Corners",
-  "status": 200,
-  "ms": 98,
-  "place": "Four Corners, WY",
-  "chips": [
-   "place: Four Corners, WY"
-  ],
-  "text": "",
-  "guide": "Four Corners, WY [new]: We don't have a guide to Four Corners, WY yet. We can build one now: a first look in about two minutes.",
-  "ask": "What would you like to know about Four Corners, WY?",
-  "total": 0,
-  "kinds": [],
-  "note": "We have no listings in Four Corners, WY yet.",
-  "first": [],
-  "groups": [],
-  "did_you_mean": ""
- },
- {
-  "q": "grand canyon",
-  "ctx": "",
-  "expect": "Grand Canyon National Park",
-  "url": "/api/search.php?q=grand%20canyon",
-  "status": 200,
-  "ms": 95,
-  "place": "Grand Canyon, AZ",
-  "chips": [
-   "place: Grand Canyon, AZ"
-  ],
-  "text": "",
-  "guide": "Grand Canyon, AZ [new]: We don't have a guide to Grand Canyon, AZ yet. We can build one now: a first look in about two minutes.",
-  "ask": "What would you like to know about Grand Canyon, AZ?",
-  "total": 12,
-  "kinds": [
-   {
-    "kind": "outdoors",
-    "label": "Outdoors",
-    "plural": "Outdoors",
-    "count": 12
-   }
-  ],
-  "note": "",
-  "first": [
-   "Mather Point (outdoors · Cliff · near Grand Canyon)",
-   "Mescalero Point (outdoors · Cliff · near Grand Canyon)",
-   "O'Neill Butte (outdoors · Butte · near Grand Canyon)",
-   "Red Butte (outdoors · Butte · near Grand Canyon)",
-   "Sinking Ship (outdoors · Peak · near Grand Canyon)",
-   "The Battleship (outdoors · Peak · near Grand Canyon)"
-  ],
-  "groups": [],
-  "did_you_mean": ""
- },
- {
-  "q": "plumber in show low",
-  "ctx": "",
-  "expect": "plumbers in Show Low",
-  "url": "/api/search.php?q=plumber%20in%20show%20low",
-  "status": 200,
-  "ms": 159,
-  "place": "Show Low, AZ",
-  "chips": [
-   "place: Show Low, AZ",
-   "category: Plumbers"
-  ],
-  "text": "",
-  "guide": "",
-  "ask": "",
-  "total": 6,
-  "kinds": [
-   {
-    "kind": "listing",
-    "label": "Listing",
-    "plural": "Listings",
-    "count": 6
-   }
-  ],
-  "note": "",
-  "first": [
-   "Action Plumbing Inc (listing · Plumbers · Show Low, AZ)",
-   "All Mountain Plumbing LLC (listing · Plumbers · Show Low, AZ)",
-   "Avery Plumbing Inc (listing · Plumbers · Show Low, AZ)",
-   "Dennis Kotterman Plumbing Inc (listing · Plumbers · Show Low, AZ)",
-   "Glenn's Plumbing (listing · Plumbers · Show Low, AZ)",
-   "Roto-Rooter Plbg & Drain Service (listing · Plumbers · Show Low, AZ)"
-  ],
-  "groups": [
-   "Places 1",
-   "Listings 5"
-  ],
-  "did_you_mean": ""
- }
-]
+{
+ "results": [
+  {
+   "q": "Dana point",
+   "ctx": "",
+   "expect": "Dana Point, CA and its guide (it has one), not Point, TX",
+   "url": "/api/search.php?q=Dana%20point",
+   "status": 200,
+   "ms": 448,
+   "place": "Dana Point, CA",
+   "chips": [
+    "place: Dana Point, CA"
+   ],
+   "text": "",
+   "guide": "Dana Point, CA [first]: A first look at Dana Point, CA is ready, and its full guide is on the way.",
+   "ask": "What would you like to know about Dana Point, CA?",
+   "total": 0,
+   "kinds": [],
+   "note": "We have no listings in Dana Point, CA yet.",
+   "first": [],
+   "groups": [
+    "Listings 0"
+   ],
+   "did_you_mean": ""
+  },
+  {
+   "q": "Dana Point, CA",
+   "ctx": "",
+   "expect": "Dana Point, CA: its guide, places and listings",
+   "url": "/api/search.php?q=Dana%20Point%2C%20CA",
+   "status": 200,
+   "ms": 92,
+   "place": "Dana Point, CA",
+   "chips": [
+    "place: Dana Point, CA"
+   ],
+   "text": "",
+   "guide": "Dana Point, CA [first]: A first look at Dana Point, CA is ready, and its full guide is on the way.",
+   "ask": "What would you like to know about Dana Point, CA?",
+   "total": 0,
+   "kinds": [],
+   "note": "We have no listings in Dana Point, CA yet.",
+   "first": [],
+   "groups": [
+    "Listings 0"
+   ],
+   "did_you_mean": ""
+  },
+  {
+   "q": "dana point california",
+   "ctx": "",
+   "expect": "Dana Point, CA",
+   "url": "/api/search.php?q=dana%20point%20california",
+   "status": 200,
+   "ms": 90,
+   "place": "Dana Point, CA",
+   "chips": [
+    "place: Dana Point, CA"
+   ],
+   "text": "",
+   "guide": "Dana Point, CA [first]: A first look at Dana Point, CA is ready, and its full guide is on the way.",
+   "ask": "What would you like to know about Dana Point, CA?",
+   "total": 0,
+   "kinds": [],
+   "note": "We have no listings in Dana Point, CA yet.",
+   "first": [],
+   "groups": [
+    "Listings 0"
+   ],
+   "did_you_mean": ""
+  },
+  {
+   "q": "restaurants in Dana Point, CA",
+   "ctx": "",
+   "expect": "places to eat in Dana Point",
+   "url": "/api/search.php?q=restaurants%20in%20Dana%20Point%2C%20CA",
+   "status": 200,
+   "ms": 108,
+   "place": "Dana Point, CA",
+   "chips": [
+    "place: Dana Point, CA",
+    "category: Restaurants"
+   ],
+   "text": "",
+   "guide": "Dana Point, CA [first]: A first look at Dana Point, CA is ready, and its full guide is on the way.",
+   "ask": "",
+   "total": 0,
+   "kinds": [],
+   "note": "",
+   "first": [],
+   "groups": [
+    "Listings 2"
+   ],
+   "did_you_mean": ""
+  },
+  {
+   "q": "Places to eat around dana point, ca",
+   "ctx": "",
+   "expect": "places to eat in Dana Point",
+   "url": "/api/search.php?q=Places%20to%20eat%20around%20dana%20point%2C%20ca",
+   "status": 200,
+   "ms": 92,
+   "place": "Dana Point, CA",
+   "chips": [
+    "why: Somewhere to eat",
+    "place: Dana Point, CA"
+   ],
+   "text": "",
+   "guide": "Dana Point, CA [first]: A first look at Dana Point, CA is ready, and its full guide is on the way.",
+   "ask": "What would you like to know about Dana Point, CA?",
+   "total": 0,
+   "kinds": [],
+   "note": "We have no listings in Dana Point, CA yet.",
+   "first": [],
+   "groups": [
+    "Listings 0"
+   ],
+   "did_you_mean": ""
+  },
+  {
+   "q": "Phoenix, az",
+   "ctx": "",
+   "expect": "Phoenix, AZ: its guide, listings, places",
+   "url": "/api/search.php?q=Phoenix%2C%20az",
+   "status": 200,
+   "ms": 88,
+   "place": "Phoenix, AZ",
+   "chips": [
+    "place: Phoenix, AZ"
+   ],
+   "text": "",
+   "guide": "",
+   "ask": "What would you like to know about Phoenix, AZ?",
+   "total": 41,
+   "kinds": [
+    {
+     "kind": "outdoors",
+     "label": "Outdoors",
+     "plural": "Outdoors",
+     "count": 41
+    }
+   ],
+   "note": "",
+   "first": [
+    "Camelback Mountain (outdoors · Peak · near Phoenix)",
+    "North Mountain (outdoors · Peak · near Phoenix)",
+    "Phoenix Mountains (outdoors · Peak · near Phoenix)",
+    "Piestewa Peak (outdoors · Peak · near Phoenix)",
+    "Sevenmile Mountain (outdoors · Peak · near Phoenix)",
+    "Big Bug Trailhead (outdoors · Hiking · Bureau of Land Management)"
+   ],
+   "groups": [],
+   "did_you_mean": ""
+  },
+  {
+   "q": "Phoenix",
+   "ctx": "",
+   "expect": "Phoenix, AZ (the pilot state first)",
+   "url": "/api/search.php?q=Phoenix",
+   "status": 200,
+   "ms": 92,
+   "place": "Phoenix, AZ",
+   "chips": [
+    "place: Phoenix, AZ"
+   ],
+   "text": "",
+   "guide": "",
+   "ask": "What would you like to know about Phoenix, AZ?",
+   "total": 41,
+   "kinds": [
+    {
+     "kind": "outdoors",
+     "label": "Outdoors",
+     "plural": "Outdoors",
+     "count": 41
+    }
+   ],
+   "note": "",
+   "first": [
+    "Camelback Mountain (outdoors · Peak · near Phoenix)",
+    "North Mountain (outdoors · Peak · near Phoenix)",
+    "Phoenix Mountains (outdoors · Peak · near Phoenix)",
+    "Piestewa Peak (outdoors · Peak · near Phoenix)",
+    "Sevenmile Mountain (outdoors · Peak · near Phoenix)",
+    "Big Bug Trailhead (outdoors · Hiking · Bureau of Land Management)"
+   ],
+   "groups": [],
+   "did_you_mean": ""
+  },
+  {
+   "q": "restaurants",
+   "ctx": "city=Phoenix&state=AZ&reach=25",
+   "expect": "places to eat in Phoenix",
+   "url": "/api/search.php?q=restaurants&city=Phoenix&state=AZ&reach=25",
+   "status": 200,
+   "ms": 84,
+   "place": "Phoenix, AZ",
+   "chips": [
+    "place: Phoenix, AZ",
+    "category: Restaurants"
+   ],
+   "text": "",
+   "guide": "",
+   "ask": "",
+   "total": 0,
+   "kinds": [],
+   "note": "We have no listings in Phoenix, AZ yet.",
+   "first": [],
+   "groups": [
+    "Listings 0"
+   ],
+   "did_you_mean": ""
+  },
+  {
+   "q": "pizza in phoenix",
+   "ctx": "",
+   "expect": "pizza places in Phoenix",
+   "url": "/api/search.php?q=pizza%20in%20phoenix",
+   "status": 200,
+   "ms": 93,
+   "place": "Phoenix, AZ",
+   "chips": [
+    "place: Phoenix, AZ",
+    "category: Pizza"
+   ],
+   "text": "",
+   "guide": "",
+   "ask": "",
+   "total": 0,
+   "kinds": [],
+   "note": "",
+   "first": [],
+   "groups": [
+    "Listings 0"
+   ],
+   "did_you_mean": ""
+  },
+  {
+   "q": "coffee",
+   "ctx": "zip=85302&reach=10",
+   "expect": "coffee near Glendale, AZ 85302",
+   "url": "/api/search.php?q=coffee&zip=85302&reach=10",
+   "status": 200,
+   "ms": 98,
+   "place": "Glendale, AZ",
+   "chips": [
+    "place: Glendale, AZ"
+   ],
+   "text": "coffee",
+   "guide": "Glendale, AZ [first]: A first look at Glendale, AZ is ready, and its full guide is on the way.",
+   "ask": "",
+   "total": 3,
+   "kinds": [
+    {
+     "kind": "topic",
+     "label": "Topic",
+     "plural": "Topics",
+     "count": 3
+    }
+   ],
+   "note": "We have no listings in Glendale, AZ yet.",
+   "first": [
+    "Coffee & Tea (manufacturer) (topic · Category in Food & Dining)",
+    "Coffee & Tea Shops (topic · Category in Food & Dining)",
+    "Coffee Shops (topic · Category in Food & Dining)"
+   ],
+   "groups": [],
+   "did_you_mean": ""
+  },
+  {
+   "q": "Things to do near me",
+   "ctx": "zip=85302&reach=25",
+   "expect": "things to do around 85302",
+   "url": "/api/search.php?q=Things%20to%20do%20near%20me&zip=85302&reach=25",
+   "status": 200,
+   "ms": 75,
+   "place": "Glendale, AZ",
+   "chips": [
+    "why: Things to do",
+    "place: Glendale, AZ"
+   ],
+   "text": "",
+   "guide": "Glendale, AZ [first]: A first look at Glendale, AZ is ready, and its full guide is on the way.",
+   "ask": "",
+   "total": 0,
+   "kinds": [],
+   "note": "",
+   "first": [],
+   "groups": [],
+   "did_you_mean": ""
+  },
+  {
+   "q": "Glendale, AZ",
+   "ctx": "",
+   "expect": "Glendale, AZ: its guide (built on demand) and listings",
+   "url": "/api/search.php?q=Glendale%2C%20AZ",
+   "status": 200,
+   "ms": 92,
+   "place": "Glendale, AZ",
+   "chips": [
+    "place: Glendale, AZ"
+   ],
+   "text": "",
+   "guide": "Glendale, AZ [first]: A first look at Glendale, AZ is ready, and its full guide is on the way.",
+   "ask": "What would you like to know about Glendale, AZ?",
+   "total": 0,
+   "kinds": [],
+   "note": "We have no listings in Glendale, AZ yet.",
+   "first": [],
+   "groups": [],
+   "did_you_mean": ""
+  },
+  {
+   "q": "hotels in sedona",
+   "ctx": "",
+   "expect": "places to stay in Sedona",
+   "url": "/api/search.php?q=hotels%20in%20sedona",
+   "status": 200,
+   "ms": 154,
+   "place": "Sedona, AZ",
+   "chips": [
+    "place: Sedona, AZ"
+   ],
+   "text": "hotels",
+   "guide": "Sedona, AZ [new]: We don't have a guide to Sedona, AZ yet. We can build one now: a first look in about two minutes.",
+   "ask": "",
+   "total": 14,
+   "kinds": [
+    {
+     "kind": "topic",
+     "label": "Topic",
+     "plural": "Topics",
+     "count": 14
+    }
+   ],
+   "note": "",
+   "first": [
+    "Hotels & Motels (topic · Category in Hospitality & Lodging)",
+    "Bed & Breakfasts (topic · Category in Hospitality & Lodging)",
+    "Cabin Rentals (topic · Category in Hospitality & Lodging)"
+   ],
+   "groups": [],
+   "did_you_mean": ""
+  },
+  {
+   "q": "show low",
+   "ctx": "",
+   "expect": "Show Low, AZ (a pilot town)",
+   "url": "/api/search.php?q=show%20low",
+   "status": 200,
+   "ms": 87,
+   "place": "Show Low, AZ",
+   "chips": [
+    "place: Show Low, AZ"
+   ],
+   "text": "",
+   "guide": "",
+   "ask": "What would you like to know about Show Low, AZ?",
+   "total": 1,
+   "kinds": [
+    {
+     "kind": "outdoors",
+     "label": "Outdoors",
+     "plural": "Outdoors",
+     "count": 1
+    }
+   ],
+   "note": "",
+   "first": [
+    "Malpais Pit (outdoors · Basin · near Show Low)"
+   ],
+   "groups": [
+    "Listings 0"
+   ],
+   "did_you_mean": ""
+  },
+  {
+   "q": "greer arizona",
+   "ctx": "",
+   "expect": "Greer, AZ (a pilot town)",
+   "url": "/api/search.php?q=greer%20arizona",
+   "status": 200,
+   "ms": 74,
+   "place": "Greer, AZ",
+   "chips": [
+    "place: Greer, AZ"
+   ],
+   "text": "",
+   "guide": "",
+   "ask": "What would you like to know about Greer, AZ?",
+   "total": 6,
+   "kinds": [
+    {
+     "kind": "outdoors",
+     "label": "Outdoors",
+     "plural": "Outdoors",
+     "count": 6
+    }
+   ],
+   "note": "",
+   "first": [
+    "Mount Baldy (outdoors · Peak · near Greer)",
+    "Carnero Lake (outdoors · Lake · near Greer)",
+    "Crescent Lake (outdoors · Lake · near Greer)",
+    "Mount Ord (outdoors · Peak · White Mountain Apache Tribe land)",
+    "White Mountains (outdoors · Mountain range · White Mountain Apache Tribe land)",
+    "Bonito Rock (outdoors · Rock formation · White Mountain Apache Tribe land)"
+   ],
+   "groups": [
+    "Listings 0"
+   ],
+   "did_you_mean": ""
+  },
+  {
+   "q": "Four Corners",
+   "ctx": "",
+   "expect": "Four Corners Monument, not Four Corners, WY",
+   "url": "/api/search.php?q=Four%20Corners",
+   "status": 200,
+   "ms": 80,
+   "place": "Four Corners, WY",
+   "chips": [
+    "place: Four Corners, WY"
+   ],
+   "text": "",
+   "guide": "Four Corners, WY [new]: We don't have a guide to Four Corners, WY yet. We can build one now: a first look in about two minutes.",
+   "ask": "What would you like to know about Four Corners, WY?",
+   "total": 0,
+   "kinds": [],
+   "note": "We have no listings in Four Corners, WY yet.",
+   "first": [],
+   "groups": [],
+   "did_you_mean": ""
+  },
+  {
+   "q": "grand canyon",
+   "ctx": "",
+   "expect": "Grand Canyon National Park",
+   "url": "/api/search.php?q=grand%20canyon",
+   "status": 200,
+   "ms": 83,
+   "place": "Grand Canyon, AZ",
+   "chips": [
+    "place: Grand Canyon, AZ"
+   ],
+   "text": "",
+   "guide": "Grand Canyon, AZ [new]: We don't have a guide to Grand Canyon, AZ yet. We can build one now: a first look in about two minutes.",
+   "ask": "What would you like to know about Grand Canyon, AZ?",
+   "total": 12,
+   "kinds": [
+    {
+     "kind": "outdoors",
+     "label": "Outdoors",
+     "plural": "Outdoors",
+     "count": 12
+    }
+   ],
+   "note": "",
+   "first": [
+    "Mather Point (outdoors · Cliff · near Grand Canyon)",
+    "Mescalero Point (outdoors · Cliff · near Grand Canyon)",
+    "O'Neill Butte (outdoors · Butte · near Grand Canyon)",
+    "Red Butte (outdoors · Butte · near Grand Canyon)",
+    "Sinking Ship (outdoors · Peak · near Grand Canyon)",
+    "The Battleship (outdoors · Peak · near Grand Canyon)"
+   ],
+   "groups": [],
+   "did_you_mean": ""
+  },
+  {
+   "q": "plumber in show low",
+   "ctx": "",
+   "expect": "plumbers in Show Low",
+   "url": "/api/search.php?q=plumber%20in%20show%20low",
+   "status": 200,
+   "ms": 145,
+   "place": "Show Low, AZ",
+   "chips": [
+    "place: Show Low, AZ",
+    "category: Plumbers"
+   ],
+   "text": "",
+   "guide": "",
+   "ask": "",
+   "total": 6,
+   "kinds": [
+    {
+     "kind": "listing",
+     "label": "Listing",
+     "plural": "Listings",
+     "count": 6
+    }
+   ],
+   "note": "",
+   "first": [
+    "Action Plumbing Inc (listing · Plumbers · Show Low, AZ)",
+    "All Mountain Plumbing LLC (listing · Plumbers · Show Low, AZ)",
+    "Avery Plumbing Inc (listing · Plumbers · Show Low, AZ)",
+    "Dennis Kotterman Plumbing Inc (listing · Plumbers · Show Low, AZ)",
+    "Glenn's Plumbing (listing · Plumbers · Show Low, AZ)",
+    "Roto-Rooter Plbg & Drain Service (listing · Plumbers · Show Low, AZ)"
+   ],
+   "groups": [
+    "Places 1",
+    "Listings 5"
+   ],
+   "did_you_mean": ""
+  }
+ ],
+ "typing": [
+  {
+   "q": "Dana p",
+   "ctx": "",
+   "first": [
+    "Dana Point, CA (place · Town · see what's there)",
+    "Counselors (category · What “dana” names are)",
+    "Pipe (category · What “dana” names are)",
+    "Dana Carly Anne (listing · Show Low › Counselors)",
+    "Dana, Steven (listing · Eagar › Counselors)",
+    "Dana Kepner Co (listing · Show Low › Pipe)"
+   ]
+  },
+  {
+   "q": "pho",
+   "ctx": "",
+   "first": [
+    "Phoenix, AZ (place · Town · see what's there)",
+    "Phoenixville, PA (place · Town · see what's there)",
+    "Phoenix, MD (place · Town · see what's there)",
+    "Phoenix, NY (place · Town · see what's there)",
+    "Phoenix Financial Center (knowledge · From our guides · Institution)",
+    "Phoenix Union High School (knowledge · From our guides · Institution)"
+   ]
+  },
+  {
+   "q": "phoenix",
+   "ctx": "",
+   "first": [
+    "Phoenix, AZ (place · Town · see what's there)",
+    "Phoenix, MD (place · Town · see what's there)",
+    "Phoenix, NY (place · Town · see what's there)",
+    "Phoenix, OR (place · Town · see what's there)",
+    "Phoenix Financial Center (knowledge · From our guides · Institution)",
+    "Phoenix Union High School (knowledge · From our guides · Institution)"
+   ]
+  },
+  {
+   "q": "pizza in pho",
+   "ctx": "",
+   "first": [
+    "pizza in Phoenix, AZ (place · Search there · no listings yet)",
+    "pizza in Phoenixville, PA (place · Search there · no listings yet)",
+    "pizza in Phoenix, MD (place · Search there · no listings yet)",
+    "pizza in Phoenix, NY (place · Search there · no listings yet)",
+    "pizza in Phoenix, OR (place · Search there · no listings yet)",
+    "Pizza (category · 14 listed · for “pizza in photographic”)"
+   ]
+  },
+  {
+   "q": "sedo",
+   "ctx": "",
+   "first": [
+    "Sedona, AZ (place · Town · see what's there)"
+   ]
+  },
+  {
+   "q": "glendale",
+   "ctx": "city=Phoenix&state=AZ",
+   "first": [
+    "Glendale, AZ (place · Town · see what's there)",
+    "Glendale, CA (place · Town · see what's there)",
+    "Glendale Heights, IL (place · Town · see what's there)",
+    "Glendale, OR (place · Town · see what's there)"
+   ]
+  },
+  {
+   "q": "show l",
+   "ctx": "",
+   "first": [
+    "Show Low, AZ (place · Town in The Show Low District)",
+    "Live Music & Entertainment (category · Maybe? 1 listed · for “show l”)",
+    "Show Low Regional Airport-Sow (listing · Show Low › Airports)",
+    "Show Low Animal Control (listing · Show Low › Animal Shelters)",
+    "Show Low Apartments (listing · Show Low › Apartments)",
+    "Show Low Ford (listing · Show Low › New Car Dealers)"
+   ]
+  }
+ ]
+}
