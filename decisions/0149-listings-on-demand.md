@@ -47,3 +47,12 @@ place publishes only when its own website confirms it, and most leads have no we
 directory: Yelp, TripAdvisor…) and the page names the place and shows its town, street or phone, so a namesake
 elsewhere isn't taken. It's then confirmed like any website. The searches come from the free plan's monthly allowance
 the site hands the worker (stopped at 90%; nothing billed), towns most asked for first; past it, leads wait in Review.
+
+## Cut short, not done (2026-11-10)
+
+Dana Point's places to stay came back "done, 0 found" twice. The worker's run has a 4-minute budget; the places to eat
+before it (25, each with a website read and maybe a search) used it up, so the next job stopped before reading any of its
+places and reported done with none. Now a job the run's time cuts short isn't reported when nothing was read (its lease
+returns it), and is reported "partial" when some were; the site puts a partial town job back in the queue without
+spending one of its three tries. The health report also shows, for each town, its listings (shown, hidden), what search
+can find there and its landmarks by status, and `?find=` looks a place up by name (`towns-partial-diag_20261110.zip`).
