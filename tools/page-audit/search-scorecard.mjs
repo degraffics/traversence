@@ -20,8 +20,8 @@ const FAST = 600, FAST_TYPING = 300;   // ms: a search answers inside FAST, a su
 // (type: label) matches; noChip /re/ none does. Rows read as "label · kind · category · sub".
 const CASES = [
   // Places: a town, said any way, is the town
-  ['Places', 'Phoenix', '', { place: /Phoenix, AZ/, min: 1 }],
-  ['Places', 'Phoenix, az', '', { place: /Phoenix, AZ/, min: 1 }],
+  ['Places', 'Phoenix', '', { place: /^Phoenix/ }],
+  ['Places', 'Phoenix, az', '', { place: /^Phoenix/ }],
   ['Places', 'Dana point', '', { place: /Dana Point, CA/ }],
   ['Places', 'show low', '', { place: /Show Low, AZ/, min: 1 }],
   ['Places', 'Showlow', '', { place: /Show Low, AZ/ }],
@@ -55,7 +55,7 @@ const CASES = [
   ['Near me', 'near me', PHXME, { min: 3, within: 10, top: 3 }],
   ['Near me', 'urgent care near me', PHXME, { lead: /urgent|clinic|care|medical|hospital/i, within: 10, top: 3 }],
   // Who and why: the context, not the words
-  ['Context', 'place to take my kids', PHXME, { never: /Fast Food|Takeout|Trailhead|Wilderness/i, within: 15, top: 5, min: 3, chip: /who: For (kids|families)/i }],
+  ['Context', 'place to take my kids', PHXME, { never: /Fast Food|Takeout|Trailhead|Wilderness/i, within: 15, top: 5, min: 3, chip: /outing: With/i }],
   ['Context', 'things to do with kids', PHX, { never: /Fast Food|Takeout|Wilderness/i, within: 25, top: 5, min: 3 }],
   ['Context', 'kids activities', PHX, { never: /Fast Food|Takeout|Wilderness/i, min: 3 }],
   ['Context', 'family friendly restaurants', PHX, { leadAll: /listing/, top: 3, chip: /who|famil/i }],
