@@ -29,6 +29,10 @@ jobs:
         env:
           SITE: https://traversence.com
         run: node tools/page-audit/search-probe.mjs
+      - name: Score the search (real and hard searches, pass or fail, timed)
+        env:
+          SITE: https://traversence.com
+        run: node tools/page-audit/search-scorecard.mjs || echo "::warning::scorecard failed"
       - name: Check the mail DNS
         run: bash tools/page-audit/mail-dns.sh
       - name: Towns built on demand (from the health report)
@@ -55,7 +59,7 @@ jobs:
         run: |
           git config user.name "search-probe"
           git config user.email "search-probe@users.noreply.github.com"
-          git add site-audit/search-probe.md site-audit/results/search-probe.json site-audit/mail-dns.md site-audit/towns.md site-audit/layout-probe.md 2>/dev/null || true; git add site-audit/search-probe.md site-audit/results/search-probe.json site-audit/mail-dns.md site-audit/towns.md
+          git add site-audit/search-probe.md site-audit/results/search-probe.json site-audit/mail-dns.md site-audit/towns.md site-audit/layout-probe.md site-audit/search-scorecard.md site-audit/results/search-scorecard.json 2>/dev/null || true; git add site-audit/search-probe.md site-audit/results/search-probe.json site-audit/mail-dns.md site-audit/towns.md
           if git diff --cached --quiet; then echo "No change."; exit 0; fi
           git commit -m "Search probe: what the live search reads"
           git pull --rebase -q || true
