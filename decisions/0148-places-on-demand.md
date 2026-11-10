@@ -95,3 +95,11 @@ preserves, and viewpoints on OpenStreetMap (its own layer, decisions/0065) give 
 town a run, again after 30 days, while OpenStreetMap's hourly fair use has room) asks Wikidata for those names near the
 spot, and a match with a Wikipedia article or on the National Register is kept through `keep()`, built from Wikidata.
 Only the names go out; nothing of OpenStreetMap's is copied into the landmark.
+
+**What a place is, without an article (2026-11-10, Jason on a map card: "Why do I want to visit this place… what is the
+experience?"; `landmark-facts_20261110.zip`):** `PlaceFinder::factsTick` (fifty a run) reads what Wikidata records about
+our places from it (heritage listing P1435, inception P571, style P149, architect P84; CC0) into `landmarks.wd_facts`
+(migration `2027-02-23_landmark_facts.sql`); `Landmarks::about()` says it after Wikidata's description when there's no
+Wikipedia article ("Listed on the National Register of Historic Places. Craftsman and bungalow architecture, from
+1910."). Facts, not the experience: a written "what you'll find there" would need Claude, which only guides and journeys
+may use today (CLAUDE.md, No income, no expense).
