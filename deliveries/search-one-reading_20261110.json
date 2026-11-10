@@ -1,0 +1,22 @@
+{
+ "zip": "search-one-reading_20261110.zip",
+ "built_on": "a75741b Sync: 2026-11-10 19:28 UTC",
+ "recorded": "2026-11-10 19:29 UTC",
+ "note": "Search one reading A: spelling and run-together words read first, towns of one name by nearness, exact town first while typing, named place leads over an outside town, outing exclusions",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/SearchIndex.php": {
+   "sha256": "944e9397352546302ee56976126e276adae3c00a96b038b4d9e5693e86fa1f85",
+   "live": false
+  },
+  "app/lib/UniversalSearch.php": {
+   "sha256": "062a02ed35f92ba5cb7652f8476276da8ae20e25e27381198aa0e588edb4870a",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "554200de076fafc203e390f169f102f54470776beb6c1d5e8940cbb9dae70cdf",
+   "live": false
+  }
+ }
+}
