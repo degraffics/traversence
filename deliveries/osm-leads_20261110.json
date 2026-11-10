@@ -3,40 +3,40 @@
  "built_on": "f8442b0 Sync: 2026-11-10 13:42 UTC",
  "recorded": "2026-11-10 13:47 UTC",
  "note": "",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "2f21e06 Sync: 2026-11-10 13:52 UTC",
  "files": {
   "app/lib/OpenPlaces.php": {
    "sha256": "c31bb2381b613d63fb18f73cd24497d1a4d532ac7726fdccee5d9b109c71c07d",
-   "live": false
+   "live": true
   },
   "app/lib/PlaceFinder.php": {
    "sha256": "9b154b383120c3ff9be91993e2a32aa7a06639ced4dea3ac035580dbb32a17e1",
-   "live": false
+   "live": true
   },
   "app/lib/UniversalSearch.php": {
    "sha256": "9fa598c44d47f1b5be448887ed4042b3dbc24b4e095a7fcb2a446f6ed1612841",
-   "live": false
+   "live": true
   },
   "app/lib/crawler/TownCrawl.php": {
    "sha256": "abeb62ce61ceded44602cdb3376e2865f300d956519799511e2c5605c4d32eff",
-   "live": false
+   "live": true
   },
   "app/scripts/guide_ondemand_tick.php": {
    "sha256": "bcd41aba159057e9d28686760f6e2b3ebea3400f76f1ad573b364b5daaf8e937",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "add15fb9c9c304eaa984e5177ff1d74d2228199ec04f3b364654435d53968041",
-   "live": false
+   "live": true
   },
   "website/api/open-places.php": {
    "sha256": "f6443c557ec04de2ad4bf372be2559c4f9b7db0d066c49501ac20e00a95b4da3",
-   "live": false
+   "live": true
   },
   "website/js/map-view.js": {
    "sha256": "8f3aebee65983b8e7ba6f50030512651bae043779ce96a2ce33021bd1b881be9",
-   "live": false
+   "live": true
   }
  }
 }
