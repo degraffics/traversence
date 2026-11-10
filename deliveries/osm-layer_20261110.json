@@ -1,0 +1,30 @@
+{
+ "zip": "osm-layer_20261110.zip",
+ "built_on": "f8442b0 Sync: 2026-11-10 13:42 UTC",
+ "recorded": "2026-11-10 13:44 UTC",
+ "note": "",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/OpenPlaces.php": {
+   "sha256": "c31bb2381b613d63fb18f73cd24497d1a4d532ac7726fdccee5d9b109c71c07d",
+   "live": false
+  },
+  "app/lib/UniversalSearch.php": {
+   "sha256": "9fa598c44d47f1b5be448887ed4042b3dbc24b4e095a7fcb2a446f6ed1612841",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "c3957b1de7080312513a4fa917bf1a24eaa746655b97bbd0493870f8b4388692",
+   "live": false
+  },
+  "website/api/open-places.php": {
+   "sha256": "f6443c557ec04de2ad4bf372be2559c4f9b7db0d066c49501ac20e00a95b4da3",
+   "live": false
+  },
+  "website/js/map-view.js": {
+   "sha256": "8f3aebee65983b8e7ba6f50030512651bae043779ce96a2ce33021bd1b881be9",
+   "live": false
+  }
+ }
+}

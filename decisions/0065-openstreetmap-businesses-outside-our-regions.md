@@ -72,3 +72,22 @@ icon). With nothing of ours there, the panel offers Search this area, Widen to 2
 to eat, coffee, groceries, gas, pharmacy, places to stay) as lighter pins: name, kind, distance, directions, credited, a
 lead only; when the words name a kind ("coffee shops"), its places show at once (`/api/open-places.php?words=`). Asked
 from the map (`crawl=1`), the nearest town goes to the crawler (`TownCrawl::fromSearch`, decisions/0149).
+
+**Everything we can, as its own layer (Jason, 2026-11-10: "Use openstreetmap for everything we can get for sources and
+data as long as we dont have to share back data"; `osm-layer_20261110.zip`).** Replaces "a lead only" above.
+- **The layer rule (what keeps share-alike away from our data):** OpenStreetMap's data stays in its own tables
+  (`open_places`), always shown as OpenStreetMap's with "© OpenStreetMap contributors", and is never copied into our
+  listings, landmarks or other records. ODbL asks for sharing back only when a database mixing its data with ours is
+  used publicly; separate layers shown side by side don't (the OpenStreetMap Foundation's Collective Database and
+  Horizontal Map Layers guidelines). The crawler still uses it only as a lead to a business's own website; our
+  listing's facts come from there. (Our reading of the licence and guidance, not legal advice.)
+- **Within the layer, all it gives:** name, kind, address, phone, hours, website (`/api/open-places.php` sends them
+  again; the panel's Call and the map pin's Call, Website and hours show).
+- **The outdoors too:** trailheads and nature preserves (`trail`: "hiking near me"), campgrounds, parks, viewpoints.
+  Never anything tagged historic or an attraction, and never a name that may mark a sacred or protected place
+  (`Landmarks::isProtected`, decisions/0066).
+- **Everything at once (`all`):** the everyday kinds in one ask (places to eat, coffee, gas, pharmacies, groceries,
+  hotels), 1.5 mi then 5 mi out: the map with no words (2026-11-10: "Used search here button but results are
+  nonexistent") and "near me" alone with fewer than 3 of ours.
+- Still to bring in line with the layer rule: suggested journeys copy OpenStreetMap's hours and address into a journey's
+  stops (`JourneyPlan`); they should point to the layer instead.
