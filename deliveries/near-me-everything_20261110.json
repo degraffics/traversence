@@ -3,36 +3,36 @@
  "built_on": "74a5061 Sync: 2026-11-10 13:26 UTC",
  "recorded": "2026-11-10 13:28 UTC",
  "note": "",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "3d15c6d Sync: 2026-11-10 13:32 UTC",
  "files": {
   "app/lib/Landmarks.php": {
    "sha256": "75824f106977c571ef82e73db5cad642fabd538ec40d6a1761414106efa0fd10",
-   "live": false
+   "live": true
   },
   "app/lib/SearchIndex.php": {
    "sha256": "30e1231eea782fea9a6de1775be24b51f8d7a41fabd2a1e5f89285f2c7763d63",
-   "live": false
+   "live": true
   },
   "app/lib/UniversalSearch.php": {
    "sha256": "6293246ea23518341b32c99e0b4eb7c8bca312250543abb860b3e42cb52c2b54",
-   "live": false
+   "live": true
   },
   "app/migrations/2027-02-22_landmark_categories.sql": {
    "sha256": "fa855f145e1a7b76109ef86ba12ba01b9867f63214be5cb830dcb3efd6d8a0fe",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "b5b1bdb1f9783c100b3a739b5fc6891c84d71d511ad9d2821f8c4daf2fc6a480",
-   "live": false
+   "live": true
   },
   "website/api/health.php": {
    "sha256": "e4b8d022e78fde84931d61954091871f45fa54418c35e0cac0cdac573fedf676",
-   "live": false
+   "live": true
   },
   "website/js/search-panel.js": {
    "sha256": "db2f1192cf81d46278bb90dfd8fe3cf386b506086b82425cd35e1374f7ac259e",
-   "live": false
+   "live": true
   }
  }
 }
