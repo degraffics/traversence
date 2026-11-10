@@ -6,7 +6,7 @@
    "expect": "Dana Point, CA and its guide (it has one), not Point, TX",
    "url": "/api/search.php?q=Dana%20point",
    "status": 200,
-   "ms": 379,
+   "ms": 316,
    "place": "Dana Point, CA",
    "chips": [
     "place: Dana Point, CA"
@@ -27,12 +27,17 @@
    "osm": "",
    "mentions": 0,
    "first": [
-    "Ocean Institute (outdoors · Natural landmark ·  County)",
-    "Salt Creek Beach Park (outdoors · Park ·  County)"
+    "Ocean Institute (outdoors · Museums ·  County)",
+    "Salt Creek Beach Park (outdoors · Parks ·  County)"
    ],
    "groups": [
     "Listings 0"
    ],
+   "funnels": [
+    "Let's Explore 3 → /hub/?cluster=cluster-auto-laguna-niguel"
+   ],
+   "intent": "",
+   "near": "",
    "did_you_mean": ""
   },
   {
@@ -40,41 +45,6 @@
    "ctx": "",
    "expect": "Dana Point, CA: its guide, places and listings",
    "url": "/api/search.php?q=Dana%20Point%2C%20CA",
-   "status": 200,
-   "ms": 88,
-   "place": "Dana Point, CA",
-   "chips": [
-    "place: Dana Point, CA"
-   ],
-   "text": "",
-   "guide": "",
-   "ask": "What would you like to know about Dana Point, CA?",
-   "total": 2,
-   "kinds": [
-    {
-     "kind": "outdoors",
-     "label": "Outdoors",
-     "plural": "Outdoors",
-     "count": 2
-    }
-   ],
-   "note": "",
-   "osm": "",
-   "mentions": 0,
-   "first": [
-    "Ocean Institute (outdoors · Natural landmark ·  County)",
-    "Salt Creek Beach Park (outdoors · Park ·  County)"
-   ],
-   "groups": [
-    "Listings 0"
-   ],
-   "did_you_mean": ""
-  },
-  {
-   "q": "dana point california",
-   "ctx": "",
-   "expect": "Dana Point, CA",
-   "url": "/api/search.php?q=dana%20point%20california",
    "status": 200,
    "ms": 78,
    "place": "Dana Point, CA",
@@ -97,12 +67,57 @@
    "osm": "",
    "mentions": 0,
    "first": [
-    "Ocean Institute (outdoors · Natural landmark ·  County)",
-    "Salt Creek Beach Park (outdoors · Park ·  County)"
+    "Ocean Institute (outdoors · Museums ·  County)",
+    "Salt Creek Beach Park (outdoors · Parks ·  County)"
    ],
    "groups": [
     "Listings 0"
    ],
+   "funnels": [
+    "Let's Explore 3 → /hub/?cluster=cluster-auto-laguna-niguel"
+   ],
+   "intent": "",
+   "near": "",
+   "did_you_mean": ""
+  },
+  {
+   "q": "dana point california",
+   "ctx": "",
+   "expect": "Dana Point, CA",
+   "url": "/api/search.php?q=dana%20point%20california",
+   "status": 200,
+   "ms": 68,
+   "place": "Dana Point, CA",
+   "chips": [
+    "place: Dana Point, CA"
+   ],
+   "text": "",
+   "guide": "",
+   "ask": "What would you like to know about Dana Point, CA?",
+   "total": 2,
+   "kinds": [
+    {
+     "kind": "outdoors",
+     "label": "Outdoors",
+     "plural": "Outdoors",
+     "count": 2
+    }
+   ],
+   "note": "",
+   "osm": "",
+   "mentions": 0,
+   "first": [
+    "Ocean Institute (outdoors · Museums ·  County)",
+    "Salt Creek Beach Park (outdoors · Parks ·  County)"
+   ],
+   "groups": [
+    "Listings 0"
+   ],
+   "funnels": [
+    "Let's Explore 3 → /hub/?cluster=cluster-auto-laguna-niguel"
+   ],
+   "intent": "",
+   "near": "",
    "did_you_mean": ""
   },
   {
@@ -111,7 +126,7 @@
    "expect": "places to eat in Dana Point",
    "url": "/api/search.php?q=restaurants%20in%20Dana%20Point%2C%20CA",
    "status": 200,
-   "ms": 107,
+   "ms": 94,
    "place": "Dana Point, CA",
    "chips": [
     "place: Dana Point, CA",
@@ -144,6 +159,12 @@
     "Places 1",
     "Listings 5"
    ],
+   "funnels": [
+    "Let's Explore 1 → /hub/?cluster=cluster-auto-laguna-niguel",
+    "Get Local 6 → /directory/?cluster=cluster-auto-laguna-niguel&q=restaurants"
+   ],
+   "intent": "",
+   "near": "",
    "did_you_mean": ""
   },
   {
@@ -152,7 +173,7 @@
    "expect": "places to eat in Dana Point",
    "url": "/api/search.php?q=Places%20to%20eat%20around%20dana%20point%2C%20ca",
    "status": 200,
-   "ms": 85,
+   "ms": 75,
    "place": "Dana Point, CA",
    "chips": [
     "why: Somewhere to eat",
@@ -185,6 +206,12 @@
     "Places 1",
     "Listings 0"
    ],
+   "funnels": [
+    "Let's Explore 1 → /hub/?cluster=cluster-auto-laguna-niguel",
+    "Get Local 7 → /directory/"
+   ],
+   "intent": "",
+   "near": "",
    "did_you_mean": ""
   },
   {
@@ -193,7 +220,7 @@
    "expect": "Phoenix, AZ: its guide, listings, places",
    "url": "/api/search.php?q=Phoenix%2C%20az",
    "status": 200,
-   "ms": 70,
+   "ms": 62,
    "place": "Phoenix",
    "chips": [
     "place: Phoenix"
@@ -210,6 +237,11 @@
    "groups": [
     "Listings 0"
    ],
+   "funnels": [
+    "Let's Explore 1 → /hub/?cluster=cluster-auto-phoenix"
+   ],
+   "intent": "",
+   "near": "",
    "did_you_mean": ""
   },
   {
@@ -218,7 +250,7 @@
    "expect": "Phoenix, AZ (the pilot state first)",
    "url": "/api/search.php?q=Phoenix",
    "status": 200,
-   "ms": 63,
+   "ms": 56,
    "place": "Phoenix",
    "chips": [
     "place: Phoenix"
@@ -235,6 +267,11 @@
    "groups": [
     "Listings 0"
    ],
+   "funnels": [
+    "Let's Explore 1 → /hub/?cluster=cluster-auto-phoenix"
+   ],
+   "intent": "",
+   "near": "",
    "did_you_mean": ""
   },
   {
@@ -243,7 +280,7 @@
    "expect": "places to eat in Phoenix",
    "url": "/api/search.php?q=restaurants&city=Phoenix&state=AZ&reach=25",
    "status": 200,
-   "ms": 66,
+   "ms": 59,
    "place": "Phoenix, AZ",
    "chips": [
     "place: Phoenix, AZ",
@@ -252,28 +289,34 @@
    "text": "",
    "guide": "Phoenix, AZ [new]: We don't have a guide to Phoenix, AZ yet. We can build one now: a first look in about two minutes.",
    "ask": "",
-   "total": 5,
+   "total": 11,
    "kinds": [
     {
      "kind": "listing",
      "label": "Listing",
      "plural": "Listings",
-     "count": 5
+     "count": 11
     }
    ],
    "note": "",
    "osm": "",
    "mentions": 0,
    "first": [
+    "Cartel Coffee Lab (listing · Restaurants · Phoenix, AZ · <1 mi)",
     "Centrico (listing · Restaurants · Phoenix, AZ · <1 mi)",
-    "Cheese 'N Stuff Deli (listing · Restaurants · Phoenix, AZ · 4 mi)",
-    "Cornish Pasty Co. (listing · Restaurants · Tempe, AZ · 7 mi)",
-    "Harvey's Wineburger (listing · Restaurants · Phoenix, AZ · 4 mi)",
-    "Akaihana (listing · Restaurants · Phoenix, AZ · 8 mi)"
+    "CiBO Pizzeria (listing · Restaurants · Phoenix, AZ · <1 mi)",
+    "Majerle's Sports Grill (listing · Restaurants · Phoenix, AZ · <1 mi)",
+    "Seamus McCaffrey's Irish Pub (listing · Restaurants · Phoenix, AZ · <1 mi)",
+    "Cheese 'N Stuff Deli (listing · Restaurants · Phoenix, AZ · 4 mi)"
    ],
    "groups": [
     "Listings 5"
    ],
+   "funnels": [
+    "Get Local 11 → /directory/?lat=33.4484&lon=-112.074&radius=25&near=Phoenix%2C+AZ&q=restaurants"
+   ],
+   "intent": "",
+   "near": "",
    "did_you_mean": ""
   },
   {
@@ -282,7 +325,7 @@
    "expect": "pizza places in Phoenix",
    "url": "/api/search.php?q=pizza%20in%20phoenix",
    "status": 200,
-   "ms": 101,
+   "ms": 92,
    "place": "Phoenix",
    "chips": [
     "place: Phoenix",
@@ -301,6 +344,11 @@
     "Places 1",
     "Listings 0"
    ],
+   "funnels": [
+    "Let's Explore 1 → /hub/?cluster=cluster-auto-phoenix"
+   ],
+   "intent": "",
+   "near": "",
    "did_you_mean": ""
   },
   {
@@ -309,7 +357,7 @@
    "expect": "coffee near Glendale, AZ 85302",
    "url": "/api/search.php?q=coffee&zip=85302&reach=10",
    "status": 200,
-   "ms": 93,
+   "ms": 80,
    "place": "Glendale, AZ",
    "chips": [
     "place: Glendale, AZ"
@@ -335,6 +383,80 @@
     "Coffee Shops (topic · Category in Food & Dining)"
    ],
    "groups": [],
+   "funnels": [
+    "Get Local 3 → /directory/?q=coffee"
+   ],
+   "intent": "",
+   "near": "",
+   "did_you_mean": ""
+  },
+  {
+   "q": "hiking near me",
+   "ctx": "city=Phoenix&state=AZ&reach=2",
+   "expect": "trails and hikes within 2 mi of Phoenix, then 5",
+   "url": "/api/search.php?q=hiking%20near%20me&city=Phoenix&state=AZ&reach=2",
+   "status": 200,
+   "ms": 106,
+   "place": "Phoenix, AZ",
+   "chips": [
+    "do: Hiking",
+    "place: Phoenix, AZ"
+   ],
+   "text": "hiking trail trails trailhead",
+   "guide": "Phoenix, AZ [new]: We don't have a guide to Phoenix, AZ yet. We can build one now: a first look in about two minutes.",
+   "ask": "",
+   "total": 0,
+   "kinds": [],
+   "note": "Nothing listed for hiking within 2 mi of Phoenix, AZ yet. Know a spot? Tell us below.",
+   "osm": "",
+   "mentions": 0,
+   "first": [],
+   "groups": [],
+   "funnels": [],
+   "intent": "hiking near Phoenix, AZ",
+   "near": "0 within 2 mi",
+   "did_you_mean": ""
+  },
+  {
+   "q": "hiking",
+   "ctx": "city=Phoenix&state=AZ&reach=25",
+   "expect": "trails and hikes around Phoenix",
+   "url": "/api/search.php?q=hiking&city=Phoenix&state=AZ&reach=25",
+   "status": 200,
+   "ms": 105,
+   "place": "Phoenix, AZ",
+   "chips": [
+    "do: Hiking",
+    "place: Phoenix, AZ"
+   ],
+   "text": "hiking trail trails trailhead",
+   "guide": "Phoenix, AZ [new]: We don't have a guide to Phoenix, AZ yet. We can build one now: a first look in about two minutes.",
+   "ask": "",
+   "total": 3,
+   "kinds": [
+    {
+     "kind": "outdoors",
+     "label": "Outdoors",
+     "plural": "Outdoors",
+     "count": 3
+    }
+   ],
+   "note": "",
+   "osm": "",
+   "mentions": 0,
+   "first": [
+    "Quartz Peak Trail (outdoors · Recreation area · Bureau of Land Management · 20 mi)",
+    "WestWorld (outdoors · Recreation area · Bureau of Reclamation · 17 mi)",
+    "Sierra Estrella Wilderness (outdoors · Recreation area · Bureau of Land Management · 19 mi)"
+   ],
+   "groups": [
+    "From our guides 1"
+   ],
+   "funnels": [
+    "Let's Explore 3 → /discovery/"
+   ],
+   "intent": "hiking near Phoenix, AZ",
+   "near": "",
    "did_you_mean": ""
   },
   {
@@ -343,7 +465,7 @@
    "expect": "coffee shops in Phoenix (OpenStreetMap at once, ours once crawled)",
    "url": "/api/search.php?q=coffee%20near%20me&city=Phoenix&state=AZ&reach=10",
    "status": 200,
-   "ms": 93,
+   "ms": 66,
    "place": "Phoenix, AZ",
    "chips": [
     "place: Phoenix, AZ"
@@ -351,8 +473,14 @@
    "text": "coffee",
    "guide": "Phoenix, AZ [new]: We don't have a guide to Phoenix, AZ yet. We can build one now: a first look in about two minutes.",
    "ask": "",
-   "total": 3,
+   "total": 4,
    "kinds": [
+    {
+     "kind": "listing",
+     "label": "Listing",
+     "plural": "Listings",
+     "count": 1
+    },
     {
      "kind": "topic",
      "label": "Topic",
@@ -360,15 +488,23 @@
      "count": 3
     }
    ],
-   "note": "We have no listings in Phoenix, AZ yet.",
+   "note": "",
    "osm": "coffee around Phoenix, AZ",
    "mentions": 0,
    "first": [
+    "Cartel Coffee Lab (listing · Restaurants · Phoenix, AZ · <1 mi)",
     "Coffee & Tea (manufacturer) (topic · Category in Food & Dining)",
     "Coffee & Tea Shops (topic · Category in Food & Dining)",
     "Coffee Shops (topic · Category in Food & Dining)"
    ],
-   "groups": [],
+   "groups": [
+    "Listings 1"
+   ],
+   "funnels": [
+    "Get Local 4 → /directory/?q=coffee"
+   ],
+   "intent": "",
+   "near": "1 within 2 mi",
    "did_you_mean": ""
   },
   {
@@ -377,7 +513,7 @@
    "expect": "things to do around 85302",
    "url": "/api/search.php?q=Things%20to%20do%20near%20me&zip=85302&reach=25",
    "status": 200,
-   "ms": 81,
+   "ms": 62,
    "place": "Glendale, AZ",
    "chips": [
     "why: Things to do",
@@ -393,6 +529,9 @@
    "mentions": 0,
    "first": [],
    "groups": [],
+   "funnels": [],
+   "intent": "",
+   "near": "0 within 2 mi",
    "did_you_mean": ""
   },
   {
@@ -401,7 +540,7 @@
    "expect": "Glendale, AZ: its guide (built on demand) and listings",
    "url": "/api/search.php?q=Glendale%2C%20AZ",
    "status": 200,
-   "ms": 77,
+   "ms": 84,
    "place": "Glendale, AZ",
    "chips": [
     "place: Glendale, AZ"
@@ -422,12 +561,17 @@
    "osm": "",
    "mentions": 0,
    "first": [
-    "Glendale Gardens Historic District (outdoors · Natural landmark · near Glendale)",
-    "Glendale Tract Historic District (outdoors · Natural landmark · near Glendale)"
+    "Glendale Gardens Historic District (outdoors · Historic district · near Glendale)",
+    "Glendale Tract Historic District (outdoors · Historic district · near Glendale)"
    ],
    "groups": [
     "Listings 0"
    ],
+   "funnels": [
+    "Let's Explore 3 → /hub/?cluster=cluster-auto-phoenix-2"
+   ],
+   "intent": "",
+   "near": "",
    "did_you_mean": ""
   },
   {
@@ -436,7 +580,7 @@
    "expect": "places to stay in Sedona",
    "url": "/api/search.php?q=hotels%20in%20sedona",
    "status": 200,
-   "ms": 163,
+   "ms": 156,
    "place": "Sedona, AZ",
    "chips": [
     "place: Sedona, AZ"
@@ -462,6 +606,11 @@
     "Cabin Rentals (topic · Category in Hospitality & Lodging)"
    ],
    "groups": [],
+   "funnels": [
+    "Get Local 14 → /directory/?q=hotels"
+   ],
+   "intent": "",
+   "near": "",
    "did_you_mean": ""
   },
   {
@@ -470,7 +619,7 @@
    "expect": "Show Low, AZ (a pilot town)",
    "url": "/api/search.php?q=show%20low",
    "status": 200,
-   "ms": 98,
+   "ms": 75,
    "place": "Show Low, AZ",
    "chips": [
     "place: Show Low, AZ"
@@ -478,24 +627,30 @@
    "text": "",
    "guide": "",
    "ask": "What would you like to know about Show Low, AZ?",
-   "total": 1,
+   "total": 2,
    "kinds": [
     {
      "kind": "outdoors",
      "label": "Outdoors",
      "plural": "Outdoors",
-     "count": 1
+     "count": 2
     }
    ],
    "note": "",
    "osm": "",
    "mentions": 0,
    "first": [
+    "Fool Hollow Lake (outdoors · Lake · near Show Low)",
     "Malpais Pit (outdoors · Basin · near Show Low)"
    ],
    "groups": [
     "Listings 0"
    ],
+   "funnels": [
+    "Let's Explore 3 → /hub/?cluster=cluster-auto-show-low"
+   ],
+   "intent": "",
+   "near": "",
    "did_you_mean": ""
   },
   {
@@ -504,7 +659,7 @@
    "expect": "Greer, AZ (a pilot town)",
    "url": "/api/search.php?q=greer%20arizona",
    "status": 200,
-   "ms": 80,
+   "ms": 69,
    "place": "Greer, AZ",
    "chips": [
     "place: Greer, AZ"
@@ -512,13 +667,13 @@
    "text": "",
    "guide": "",
    "ask": "What would you like to know about Greer, AZ?",
-   "total": 6,
+   "total": 11,
    "kinds": [
     {
      "kind": "outdoors",
      "label": "Outdoors",
      "plural": "Outdoors",
-     "count": 6
+     "count": 11
     }
    ],
    "note": "",
@@ -526,15 +681,20 @@
    "mentions": 0,
    "first": [
     "Mount Baldy (outdoors · Peak · near Greer)",
-    "Carnero Lake (outdoors · Lake · near Greer)",
-    "Crescent Lake (outdoors · Lake · near Greer)",
     "Mount Ord (outdoors · Peak · White Mountain Apache Tribe land)",
-    "White Mountains (outdoors · Mountain range · White Mountain Apache Tribe land)",
-    "Bonito Rock (outdoors · Rock formation · White Mountain Apache Tribe land)"
+    "Bunch Reservoir (outdoors · Reservoir · near Apache County)",
+    "Butterfly Lodge (outdoors · Historic place · near Apache County)",
+    "Carnero Lake (outdoors · Lake · near Greer)",
+    "Crescent Lake (outdoors · Lake · near Greer)"
    ],
    "groups": [
     "Listings 1"
    ],
+   "funnels": [
+    "Let's Explore 12 → /hub/?cluster=cluster-1b-round-valley"
+   ],
+   "intent": "",
+   "near": "",
    "did_you_mean": ""
   },
   {
@@ -543,7 +703,7 @@
    "expect": "Four Corners Monument, not Four Corners, WY",
    "url": "/api/search.php?q=Four%20Corners",
    "status": 200,
-   "ms": 82,
+   "ms": 91,
    "place": "Four Corners, WY",
    "chips": [
     "place: Four Corners, WY"
@@ -558,6 +718,9 @@
    "mentions": 0,
    "first": [],
    "groups": [],
+   "funnels": [],
+   "intent": "",
+   "near": "",
    "did_you_mean": ""
   },
   {
@@ -566,7 +729,7 @@
    "expect": "Grand Canyon National Park",
    "url": "/api/search.php?q=grand%20canyon",
    "status": 200,
-   "ms": 80,
+   "ms": 74,
    "place": "Grand Canyon, AZ",
    "chips": [
     "place: Grand Canyon, AZ"
@@ -588,13 +751,18 @@
    "mentions": 0,
    "first": [
     "Mather Point (outdoors · Cliff · near Grand Canyon)",
+    "Red Butte (outdoors · Peak · near Grand Canyon)",
+    "Vesta Temple (outdoors · Peak · near Grand Canyon)",
     "Mescalero Point (outdoors · Cliff · near Grand Canyon)",
-    "O'Neill Butte (outdoors · Butte · near Grand Canyon)",
-    "Red Butte (outdoors · Butte · near Grand Canyon)",
-    "Sinking Ship (outdoors · Peak · near Grand Canyon)",
-    "The Battleship (outdoors · Peak · near Grand Canyon)"
+    "O'Neill Butte (outdoors · Peak · near Grand Canyon)",
+    "Sinking Ship (outdoors · Peak · near Grand Canyon)"
    ],
    "groups": [],
+   "funnels": [
+    "Let's Explore 12 → /discovery/"
+   ],
+   "intent": "",
+   "near": "",
    "did_you_mean": ""
   },
   {
@@ -603,7 +771,7 @@
    "expect": "Four Corners Monument (a landmark added by hand)",
    "url": "/api/search.php?q=four%20corners%20monument",
    "status": 200,
-   "ms": 199,
+   "ms": 197,
    "place": "",
    "chips": [],
    "text": "four corners monument",
@@ -622,9 +790,14 @@
    "osm": "",
    "mentions": 0,
    "first": [
-    "Four Corners Monument (outdoors · Monument · Navajo Nation land)"
+    "Four Corners Monument (outdoors · Monuments · Navajo Nation land)"
    ],
    "groups": [],
+   "funnels": [
+    "Let's Explore 1 → /discovery/"
+   ],
+   "intent": "",
+   "near": "",
    "did_you_mean": ""
   },
   {
@@ -633,7 +806,7 @@
    "expect": "Laguna Art Museum (found for the Laguna Beach guide)",
    "url": "/api/search.php?q=laguna%20art%20museum",
    "status": 200,
-   "ms": 125,
+   "ms": 119,
    "place": "Laguna, NM",
    "chips": [
     "place: Laguna, NM"
@@ -661,6 +834,13 @@
    "groups": [
     "Places 1"
    ],
+   "funnels": [
+    "Let's Explore 1 → /hub/?cluster=cluster-auto-grants",
+    "Get Local 5 → /directory/?q=art%20museum",
+    "Connect 1 → /community/?q=art%20museum"
+   ],
+   "intent": "",
+   "near": "",
    "did_you_mean": ""
   },
   {
@@ -669,7 +849,7 @@
    "expect": "plumbers in Show Low",
    "url": "/api/search.php?q=plumber%20in%20show%20low",
    "status": 200,
-   "ms": 144,
+   "ms": 151,
    "place": "Show Low, AZ",
    "chips": [
     "place: Show Low, AZ",
@@ -702,6 +882,12 @@
     "Places 1",
     "Listings 5"
    ],
+   "funnels": [
+    "Let's Explore 1 → /hub/?cluster=cluster-auto-show-low",
+    "Get Local 6 → /directory/?cluster=cluster-auto-show-low&q=plumber"
+   ],
+   "intent": "",
+   "near": "",
    "did_you_mean": ""
   }
  ],
@@ -738,8 +924,8 @@
     "Phoenix Financial Center (knowledge · From our guides · Institution)",
     "Phoenix Union High School (knowledge · From our guides · Institution)",
     "Phoenix Mountains (outdoors · Phoenix › Peak · 6 mi)",
-    "Hilton Phoenix Resort at the Peak (listing · Phoenix › Resorts · 6 mi)",
-    "Dhhs IHS Phoenix Area (listing · Whiteriver › Hospitals · 121 mi)"
+    "Hilton Garden Inn Phoenix Midtown (listing · Phoenix › Inns · 5 mi)",
+    "Hilton Phoenix Resort at the Peak (listing · Phoenix › Resorts · 6 mi)"
    ]
   },
   {
@@ -792,7 +978,7 @@
     "Four Corners, WY (place · Town · see what's there)",
     "Lumber Yards (category · Maybe? 1 listed · for “four cor”)",
     "Beer Stores (category · Maybe? 1 listed · for “four cor”)",
-    "Four Corners Monument (outdoors · Aneth › Monument)",
+    "Four Corners Monument (outdoors · Aneth › Monuments)",
     "Four Corners Behavioral Health (listing · Gallup › Mental Health Services)",
     "Four Corners Healthcare (listing · Grants › Home Health Care)"
    ]
@@ -802,7 +988,7 @@
    "ctx": "",
    "first": [
     "Four Corners, WY (place · Town · see what's there)",
-    "Four Corners Monument (outdoors · Aneth › Monument)",
+    "Four Corners Monument (outdoors · Aneth › Monuments)",
     "Four Corners Behavioral Health (listing · Gallup › Mental Health Services)",
     "Four Corners Healthcare (listing · Grants › Home Health Care)"
    ]
@@ -812,7 +998,7 @@
    "ctx": "",
    "first": [
     "Monuments (category · Maybe? 1 listed · for “four corners monument”)",
-    "Four Corners Monument (outdoors · Aneth › Monument)"
+    "Four Corners Monument (outdoors · Aneth › Monuments)"
    ]
   },
   {
