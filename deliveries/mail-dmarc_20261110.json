@@ -1,0 +1,18 @@
+{
+ "zip": "mail-dmarc_20261110.zip",
+ "built_on": "19d7d6d Sync: 2026-11-10 01:20 UTC",
+ "recorded": "2026-11-10 02:05 UTC",
+ "note": "Email: the second DMARC record taken out automatically (notices in Junk) (built on 01:20 UTC)",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/CPanel.php": {
+   "sha256": "15e54ae3636f93d5d91bd348268288d7fa50110f7c17ef717abb4537b99f1e86",
+   "live": false
+  },
+  "app/lib/SesMail.php": {
+   "sha256": "9986ef2ab868ac0323d8a273b06e3253571d9bceb917a29329502a734a554601",
+   "live": false
+  }
+ }
+}

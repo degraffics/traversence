@@ -570,3 +570,9 @@ each of send. and via.). The step counted cPanel answering as the records being 
   step 6 **Check now** while they're open (`ses_run` → `SesMail::autoSetup`, noted on the case; an error shows as the
   answer). Step 5 (bounce and complaint reports) is done only once AWS's SNS subscription is confirmed with the site
   (`/api/ses-events.php` records it), not when the topic is made; until then each run asks AWS again.
+- **One DMARC record per name (2026-11-10).** The first guide-ready notice reached Outlook's Junk marked Unverified. The
+  public DNS check (`tools/page-audit/mail-dns.sh`, with the daily search probe) found two DMARC records at
+  `_dmarc.send.traversence.com` (reports to support@ and an older one to dmarc@): with two, providers ignore both. The
+  update to support@ had added the new record but, finding it already there, left the old one. `CPanel::dnsEnsure` now
+  removes every other record of a `'one'` kind at that name, and the setup runs one more step (`dmarc_single`) until public
+  DNS shows a single record (`mail-dmarc_20261110.zip`).
