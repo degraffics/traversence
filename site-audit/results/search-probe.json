@@ -6,7 +6,7 @@
    "expect": "Dana Point, CA and its guide (it has one), not Point, TX",
    "url": "/api/search.php?q=Dana%20point",
    "status": 200,
-   "ms": 452,
+   "ms": 586,
    "place": "Dana Point, CA",
    "chips": [
     "place: Dana Point, CA"
@@ -39,7 +39,7 @@
    "expect": "Dana Point, CA: its guide, places and listings",
    "url": "/api/search.php?q=Dana%20Point%2C%20CA",
    "status": 200,
-   "ms": 94,
+   "ms": 121,
    "place": "Dana Point, CA",
    "chips": [
     "place: Dana Point, CA"
@@ -72,7 +72,7 @@
    "expect": "Dana Point, CA",
    "url": "/api/search.php?q=dana%20point%20california",
    "status": 200,
-   "ms": 97,
+   "ms": 83,
    "place": "Dana Point, CA",
    "chips": [
     "place: Dana Point, CA"
@@ -105,7 +105,7 @@
    "expect": "places to eat in Dana Point",
    "url": "/api/search.php?q=restaurants%20in%20Dana%20Point%2C%20CA",
    "status": 200,
-   "ms": 116,
+   "ms": 136,
    "place": "Dana Point, CA",
    "chips": [
     "place: Dana Point, CA",
@@ -114,10 +114,24 @@
    "text": "",
    "guide": "",
    "ask": "",
-   "total": 0,
-   "kinds": [],
+   "total": 6,
+   "kinds": [
+    {
+     "kind": "listing",
+     "label": "Listing",
+     "plural": "Listings",
+     "count": 6
+    }
+   ],
    "note": "",
-   "first": [],
+   "first": [
+    "Baskin-Robbins (listing · Restaurants · Ladera Ranch, CA)",
+    "Better Buzz Coffee (listing · Restaurants · Dana Point, CA)",
+    "Chick-fil-A (listing · Restaurants · Laguna Niguel, CA)",
+    "Domino's (listing · Restaurants · Laguna Niguel, CA)",
+    "Sourdough & Co (listing · Restaurants · Ladera Ranch, CA)",
+    "Wendy's (listing · Restaurants · Laguna Niguel, CA)"
+   ],
    "groups": [
     "Places 1",
     "Listings 5"
@@ -130,7 +144,7 @@
    "expect": "places to eat in Dana Point",
    "url": "/api/search.php?q=Places%20to%20eat%20around%20dana%20point%2C%20ca",
    "status": 200,
-   "ms": 102,
+   "ms": 96,
    "place": "Dana Point, CA",
    "chips": [
     "why: Somewhere to eat",
@@ -139,19 +153,23 @@
    "text": "",
    "guide": "",
    "ask": "What would you like to know about Dana Point, CA?",
-   "total": 2,
+   "total": 7,
    "kinds": [
     {
-     "kind": "outdoors",
-     "label": "Outdoors",
-     "plural": "Outdoors",
-     "count": 2
+     "kind": "listing",
+     "label": "Listing",
+     "plural": "Listings",
+     "count": 7
     }
    ],
    "note": "",
    "first": [
-    "Ocean Institute (outdoors · Natural landmark ·  County)",
-    "Salt Creek Beach Park (outdoors · Park ·  County)"
+    "Baskin-Robbins (listing · Restaurants · Ladera Ranch, CA)",
+    "Better Buzz Coffee (listing · Restaurants · Dana Point, CA)",
+    "Chick-fil-A (listing · Restaurants · Laguna Niguel, CA)",
+    "Domino's (listing · Restaurants · Laguna Niguel, CA)",
+    "Pizza Hut (listing · Pizza · Ladera Ranch, CA)",
+    "Sourdough & Co (listing · Restaurants · Ladera Ranch, CA)"
    ],
    "groups": [
     "Places 1",
@@ -165,33 +183,21 @@
    "expect": "Phoenix, AZ: its guide, listings, places",
    "url": "/api/search.php?q=Phoenix%2C%20az",
    "status": 200,
-   "ms": 109,
-   "place": "Phoenix, AZ",
+   "ms": 79,
+   "place": "Phoenix",
    "chips": [
-    "place: Phoenix, AZ"
+    "place: Phoenix"
    ],
    "text": "",
    "guide": "",
-   "ask": "What would you like to know about Phoenix, AZ?",
-   "total": 56,
-   "kinds": [
-    {
-     "kind": "outdoors",
-     "label": "Outdoors",
-     "plural": "Outdoors",
-     "count": 56
-    }
-   ],
+   "ask": "What would you like to know about Phoenix?",
+   "total": 0,
+   "kinds": [],
    "note": "",
-   "first": [
-    "Brophy College Chapel (outdoors · Natural landmark · near Phoenix)",
-    "First Presbyterian Church (outdoors · Natural landmark · near Phoenix)",
-    "Sun Mercantile Building (outdoors · Natural landmark · near Phoenix)",
-    "Camelback Mountain (outdoors · Peak · near Phoenix)",
-    "Carver High School (outdoors · Natural landmark · near Phoenix)",
-    "First Baptist Church (outdoors · Natural landmark · near Phoenix)"
+   "first": [],
+   "groups": [
+    "Listings 0"
    ],
-   "groups": [],
    "did_you_mean": ""
   },
   {
@@ -200,33 +206,21 @@
    "expect": "Phoenix, AZ (the pilot state first)",
    "url": "/api/search.php?q=Phoenix",
    "status": 200,
-   "ms": 100,
-   "place": "Phoenix, AZ",
+   "ms": 73,
+   "place": "Phoenix",
    "chips": [
-    "place: Phoenix, AZ"
+    "place: Phoenix"
    ],
    "text": "",
    "guide": "",
-   "ask": "What would you like to know about Phoenix, AZ?",
-   "total": 56,
-   "kinds": [
-    {
-     "kind": "outdoors",
-     "label": "Outdoors",
-     "plural": "Outdoors",
-     "count": 56
-    }
-   ],
+   "ask": "What would you like to know about Phoenix?",
+   "total": 0,
+   "kinds": [],
    "note": "",
-   "first": [
-    "Brophy College Chapel (outdoors · Natural landmark · near Phoenix)",
-    "First Presbyterian Church (outdoors · Natural landmark · near Phoenix)",
-    "Sun Mercantile Building (outdoors · Natural landmark · near Phoenix)",
-    "Camelback Mountain (outdoors · Peak · near Phoenix)",
-    "Carver High School (outdoors · Natural landmark · near Phoenix)",
-    "First Baptist Church (outdoors · Natural landmark · near Phoenix)"
+   "first": [],
+   "groups": [
+    "Listings 0"
    ],
-   "groups": [],
    "did_you_mean": ""
   },
   {
@@ -235,21 +229,34 @@
    "expect": "places to eat in Phoenix",
    "url": "/api/search.php?q=restaurants&city=Phoenix&state=AZ&reach=25",
    "status": 200,
-   "ms": 89,
+   "ms": 76,
    "place": "Phoenix, AZ",
    "chips": [
     "place: Phoenix, AZ",
     "category: Restaurants"
    ],
    "text": "",
-   "guide": "",
+   "guide": "Phoenix, AZ [new]: We don't have a guide to Phoenix, AZ yet. We can build one now: a first look in about two minutes.",
    "ask": "",
-   "total": 0,
-   "kinds": [],
-   "note": "We have no listings in Phoenix, AZ yet.",
-   "first": [],
+   "total": 5,
+   "kinds": [
+    {
+     "kind": "listing",
+     "label": "Listing",
+     "plural": "Listings",
+     "count": 5
+    }
+   ],
+   "note": "",
+   "first": [
+    "Centrico (listing · Restaurants · Phoenix, AZ · <1 mi)",
+    "Cheese 'N Stuff Deli (listing · Restaurants · Phoenix, AZ · 4 mi)",
+    "Cornish Pasty Co. (listing · Restaurants · Tempe, AZ · 7 mi)",
+    "Harvey's Wineburger (listing · Restaurants · Phoenix, AZ · 4 mi)",
+    "Akaihana (listing · Restaurants · Phoenix, AZ · 8 mi)"
+   ],
    "groups": [
-    "Listings 0"
+    "Listings 5"
    ],
    "did_you_mean": ""
   },
@@ -259,10 +266,10 @@
    "expect": "pizza places in Phoenix",
    "url": "/api/search.php?q=pizza%20in%20phoenix",
    "status": 200,
-   "ms": 110,
-   "place": "Phoenix, AZ",
+   "ms": 117,
+   "place": "Phoenix",
    "chips": [
-    "place: Phoenix, AZ",
+    "place: Phoenix",
     "category: Pizza"
    ],
    "text": "",
@@ -273,6 +280,7 @@
    "note": "",
    "first": [],
    "groups": [
+    "Places 1",
     "Listings 0"
    ],
    "did_you_mean": ""
@@ -283,13 +291,13 @@
    "expect": "coffee near Glendale, AZ 85302",
    "url": "/api/search.php?q=coffee&zip=85302&reach=10",
    "status": 200,
-   "ms": 103,
+   "ms": 98,
    "place": "Glendale, AZ",
    "chips": [
     "place: Glendale, AZ"
    ],
    "text": "coffee",
-   "guide": "",
+   "guide": "Glendale, AZ [new]: We don't have a guide to Glendale, AZ yet. We can build one now: a first look in about two minutes.",
    "ask": "",
    "total": 3,
    "kinds": [
@@ -315,14 +323,14 @@
    "expect": "things to do around 85302",
    "url": "/api/search.php?q=Things%20to%20do%20near%20me&zip=85302&reach=25",
    "status": 200,
-   "ms": 90,
+   "ms": 97,
    "place": "Glendale, AZ",
    "chips": [
     "why: Things to do",
     "place: Glendale, AZ"
    ],
    "text": "",
-   "guide": "",
+   "guide": "Glendale, AZ [new]: We don't have a guide to Glendale, AZ yet. We can build one now: a first look in about two minutes.",
    "ask": "",
    "total": 0,
    "kinds": [],
@@ -337,7 +345,7 @@
    "expect": "Glendale, AZ: its guide (built on demand) and listings",
    "url": "/api/search.php?q=Glendale%2C%20AZ",
    "status": 200,
-   "ms": 104,
+   "ms": 82,
    "place": "Glendale, AZ",
    "chips": [
     "place: Glendale, AZ"
@@ -359,7 +367,9 @@
     "Glendale Gardens Historic District (outdoors · Natural landmark · near Glendale)",
     "Glendale Tract Historic District (outdoors · Natural landmark · near Glendale)"
    ],
-   "groups": [],
+   "groups": [
+    "Listings 0"
+   ],
    "did_you_mean": ""
   },
   {
@@ -368,7 +378,7 @@
    "expect": "places to stay in Sedona",
    "url": "/api/search.php?q=hotels%20in%20sedona",
    "status": 200,
-   "ms": 167,
+   "ms": 166,
    "place": "Sedona, AZ",
    "chips": [
     "place: Sedona, AZ"
@@ -400,7 +410,7 @@
    "expect": "Show Low, AZ (a pilot town)",
    "url": "/api/search.php?q=show%20low",
    "status": 200,
-   "ms": 99,
+   "ms": 87,
    "place": "Show Low, AZ",
    "chips": [
     "place: Show Low, AZ"
@@ -432,7 +442,7 @@
    "expect": "Greer, AZ (a pilot town)",
    "url": "/api/search.php?q=greer%20arizona",
    "status": 200,
-   "ms": 83,
+   "ms": 87,
    "place": "Greer, AZ",
    "chips": [
     "place: Greer, AZ"
@@ -469,7 +479,7 @@
    "expect": "Four Corners Monument, not Four Corners, WY",
    "url": "/api/search.php?q=Four%20Corners",
    "status": 200,
-   "ms": 98,
+   "ms": 87,
    "place": "Four Corners, WY",
    "chips": [
     "place: Four Corners, WY"
@@ -490,7 +500,7 @@
    "expect": "Grand Canyon National Park",
    "url": "/api/search.php?q=grand%20canyon",
    "status": 200,
-   "ms": 99,
+   "ms": 86,
    "place": "Grand Canyon, AZ",
    "chips": [
     "place: Grand Canyon, AZ"
@@ -525,7 +535,7 @@
    "expect": "Four Corners Monument (a landmark added by hand)",
    "url": "/api/search.php?q=four%20corners%20monument",
    "status": 200,
-   "ms": 92,
+   "ms": 84,
    "place": "Four Corners, WY",
    "chips": [
     "place: Four Corners, WY",
@@ -549,7 +559,7 @@
    "expect": "Laguna Art Museum (found for the Laguna Beach guide)",
    "url": "/api/search.php?q=laguna%20art%20museum",
    "status": 200,
-   "ms": 144,
+   "ms": 129,
    "place": "Laguna, NM",
    "chips": [
     "place: Laguna, NM"
@@ -583,7 +593,7 @@
    "expect": "plumbers in Show Low",
    "url": "/api/search.php?q=plumber%20in%20show%20low",
    "status": 200,
-   "ms": 167,
+   "ms": 152,
    "place": "Show Low, AZ",
    "chips": [
     "place: Show Low, AZ",
@@ -634,36 +644,36 @@
    "q": "pho",
    "ctx": "",
    "first": [
-    "Phoenix, AZ (place · Town · see what's there)",
+    "Phoenix (place · Town)",
     "Phoenixville, PA (place · Town · see what's there)",
-    "Phoenix, MD (place · Town · see what's there)",
-    "Phoenix, NY (place · Town · see what's there)",
+    "Phoenicia, NY (place · Town · see what's there)",
     "Phoenix Financial Center (knowledge · From our guides · Institution)",
-    "Phoenix Union High School (knowledge · From our guides · Institution)"
+    "Phoenix Union High School (knowledge · From our guides · Institution)",
+    "Broken appliance (situation · Appliance and electronics repair · Used appliances)"
    ]
   },
   {
    "q": "phoenix",
    "ctx": "",
    "first": [
-    "Phoenix, AZ (place · Town · see what's there)",
-    "Phoenix, MD (place · Town · see what's there)",
-    "Phoenix, NY (place · Town · see what's there)",
-    "Phoenix, OR (place · Town · see what's there)",
+    "Phoenixville, PA (place · Town · see what's there)",
     "Phoenix Financial Center (knowledge · From our guides · Institution)",
-    "Phoenix Union High School (knowledge · From our guides · Institution)"
+    "Phoenix Union High School (knowledge · From our guides · Institution)",
+    "Phoenix Mountains (outdoors · Phoenix › Peak · 6 mi)",
+    "Hilton Phoenix Resort at the Peak (listing · Phoenix › Resorts · 6 mi)",
+    "Dhhs IHS Phoenix Area (listing · Whiteriver › Hospitals · 121 mi)"
    ]
   },
   {
    "q": "pizza in pho",
    "ctx": "",
    "first": [
-    "pizza in Phoenix, AZ (place · Search there · no listings yet)",
+    "pizza in Phoenix, AZ (place · Search there)",
     "pizza in Phoenixville, PA (place · Search there · no listings yet)",
-    "pizza in Phoenix, MD (place · Search there · no listings yet)",
-    "pizza in Phoenix, NY (place · Search there · no listings yet)",
-    "pizza in Phoenix, OR (place · Search there · no listings yet)",
-    "Pizza (category · 14 listed · for “pizza in photographic”)"
+    "pizza in Phoenix, MD (place · Search there)",
+    "pizza in Phoenix, NY (place · Search there)",
+    "pizza in Phoenix, OR (place · Search there)",
+    "Pizza (category · 16 listed · for “pizza in photographic”)"
    ]
   },
   {
@@ -677,12 +687,12 @@
    "q": "glendale",
    "ctx": "city=Phoenix&state=AZ",
    "first": [
-    "Glendale, AZ (place · Town · see what's there)",
     "Glendale, CA (place · Town · see what's there)",
     "Glendale Heights, IL (place · Town · see what's there)",
     "Glendale, OR (place · Town · see what's there)",
-    "Glendale project (knowledge · From our guides · Place)",
-    "Glendale (group · 4 places: Natural landmark · 9 mi)"
+    "Glendale, KY (place · Town · see what's there)",
+    "Glendale (knowledge · From our guides · Place)",
+    "Glendale project (knowledge · From our guides · Place)"
    ]
   },
   {
