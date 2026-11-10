@@ -28,11 +28,11 @@
   },
   "website/discovery/index.php": {
    "sha256": "9cee149bc27f18e403aad868f345485b876fc8eeea134282f2e0be1c7a1be538",
-   "live": false
+   "live": true
   },
   "website/js/map-view.js": {
    "sha256": "d06b9f9fe85828a9410b9b9e02715de4fc261eb52894e9923f623d9d84fe53b2",
-   "live": true
+   "live": false
   }
  }
 }
