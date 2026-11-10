@@ -74,7 +74,7 @@ lead only; when the words name a kind ("coffee shops"), its places show at once 
 from the map (`crawl=1`), the nearest town goes to the crawler (`TownCrawl::fromSearch`, decisions/0149).
 
 **Everything we can, as its own layer (Jason, 2026-11-10: "Use openstreetmap for everything we can get for sources and
-data as long as we dont have to share back data"; `osm-layer_20261110.zip`).** Replaces "a lead only" above.
+data as long as we dont have to share back data"; `osm-leads_20261110.zip`).** Replaces "a lead only" above.
 - **The layer rule (what keeps share-alike away from our data):** OpenStreetMap's data stays in its own tables
   (`open_places`), always shown as OpenStreetMap's with "© OpenStreetMap contributors", and is never copied into our
   listings, landmarks or other records. ODbL asks for sharing back only when a database mixing its data with ours is

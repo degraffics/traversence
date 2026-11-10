@@ -74,3 +74,12 @@ kind of business (`OpenPlaces::kindFor`) that finds nothing of ours within reach
 - sends the town to the crawler (`TownCrawl::fromSearch`): it's made our town if it's new (`OnDemand::townFor`) and its
   five kinds are queued, as when a guide is asked for. Once a town every 30 days, at most 25 towns a day; never for the
   search run while typing. Real listings follow when the worker has been through it, usually within an hour or two.
+
+**OpenStreetMap as the lead for everything it offers (Jason, 2026-11-10: "Crawler should use osm as lead source for
+anything it offers not just listings"; `osm-leads_20261110.zip`).** The town kinds grow (the worker takes each job's own
+filters, so it needs no change): groceries and gas, services (banks, post offices, salons, auto, fitness, vets, pets,
+hardware, laundry, phones, opticians, bikes), public services (library, town hall, community centre, police, fire
+station, courthouse), places of worship, campgrounds and RV parks; never shelters or safe houses
+(`amenity=social_facility`), which a person links. The same checks apply: the business's own website, two sources to
+publish, the rest to Review. Towns already built out get the new kinds once (`TownCrawl::addKinds`, `KINDS_VERSION`).
+For places that aren't businesses, see decisions/0148 (outdoor places, confirmed on Wikidata).
