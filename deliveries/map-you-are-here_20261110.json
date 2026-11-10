@@ -1,0 +1,18 @@
+{
+ "zip": "map-you-are-here_20261110.zip",
+ "built_on": "f68cf00 Sync: 2026-11-10 13:59 UTC",
+ "recorded": "2026-11-10 14:00 UTC",
+ "note": "",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/ui/faq.md": {
+   "sha256": "10a8d9963556b823f68607da67585c14c1884bec139fc6e75c75bd53a628fcb3",
+   "live": false
+  },
+  "website/js/map-view.js": {
+   "sha256": "93a23bdc378cee62aa8511a0d5b5845f544887217bee492a9f72bd94334dceaf",
+   "live": false
+  }
+ }
+}
