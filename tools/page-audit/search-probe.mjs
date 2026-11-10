@@ -18,6 +18,8 @@ const PROBES = [
   ['restaurants', 'city=Phoenix&state=AZ&reach=25', 'places to eat in Phoenix'],
   ['pizza in phoenix', '', 'pizza places in Phoenix'],
   ['coffee', 'zip=85302&reach=10', 'coffee near Glendale, AZ 85302'],
+  ['hiking near me', 'city=Phoenix&state=AZ&reach=2', 'trails and hikes within 2 mi of Phoenix, then 5'],
+  ['hiking', 'city=Phoenix&state=AZ&reach=25', 'trails and hikes around Phoenix'],
   ['coffee near me', 'city=Phoenix&state=AZ&reach=10', 'coffee shops in Phoenix (OpenStreetMap at once, ours once crawled)'],
   ['Things to do near me', 'zip=85302&reach=25', 'things to do around 85302'],
   ['Glendale, AZ', '', 'Glendale, AZ: its guide (built on demand) and listings'],
@@ -53,6 +55,9 @@ async function probe([q, ctx, expect]) {
     out.mentions = (res.mentions?.items || []).length;
     out.first = (res.items || []).slice(0, 6).map((i) => `${s(i.label)} (${s(i.kind)}${i.sub ? ' · ' + s(i.sub) : ''})`);
     out.groups = (d.groups || []).map((g) => `${s(g.title || g.kind)} ${(g.items || []).length}`);
+    out.funnels = (res.funnels || []).filter((f) => f.count).map((f) => `${s(f.label)} ${f.count} → ${s(f.url)}`);
+    out.intent = d.intent ? `${s(d.intent.do)} near ${s(d.intent.place)}` : '';
+    out.near = res.near ? `${res.near.ours} within ${res.near.radius} mi` : '';
     out.did_you_mean = s(d.did_you_mean?.q || d.did_you_mean);
   } catch (e) { out.error = String(e).slice(0, 200); out.ms = Date.now() - t0; }
   return out;
@@ -83,6 +88,9 @@ for (const r of results) {
   if (r.guide) md += `- **Guide offered:** ${cell(r.guide)}\n`;
   if (r.ask) md += `- **Asks:** ${cell(r.ask)}\n`;
   md += `- **Results:** ${r.total ?? 0}${r.kinds ? ` (${cell(Object.entries(r.kinds).map(([k, v]) => `${k} ${typeof v === 'object' ? JSON.stringify(v) : v}`).join(', '))})` : ''}${r.note ? ` · ${cell(r.note)}` : ''} · ${r.ms} ms, HTTP ${r.status}\n`;
+  if (r.funnels && r.funnels.length) md += `- **Sections:** ${cell(r.funnels.join('; '))}\n`;
+  if (r.intent) md += `- **Read as an activity:** ${cell(r.intent)}\n`;
+  if (r.near) md += `- **Near me:** ${cell(r.near)}\n`;
   if (r.osm) md += `- **OpenStreetMap offered:** ${cell(r.osm)}\n`;
   if (r.mentions) md += `- **Mentioning:** ${r.mentions}\n`;
   if (r.first.length) md += `- **First:** ${cell(r.first.join('; '))}\n`;
