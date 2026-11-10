@@ -91,3 +91,7 @@ data as long as we dont have to share back data"; `osm-leads_20261110.zip`).** R
   nonexistent") and "near me" alone with fewer than 3 of ours.
 - Still to bring in line with the layer rule: suggested journeys copy OpenStreetMap's hours and address into a journey's
   stops (`JourneyPlan`); they should point to the layer instead.
+- **Where you are, on the map (Jason, 2026-11-10: "A pin for where I am currently located physically would be helpful
+  too"; `map-you-are-here_20261110.zip`):** the blue dot shows when the map opens, if the place came from this device
+  (Auto-detect) or the browser already allows location for the site; it never prompts by itself (the My location button
+  does) and doesn't move the map. The position stays in the browser.
