@@ -1,0 +1,14 @@
+{
+ "zip": "towns-diag-fix_20261110.zip",
+ "built_on": "2dfa397 Sync: 2026-11-10 04:06 UTC",
+ "recorded": "2026-11-10 04:07 UTC",
+ "note": "Health report: listings counted by ZIP and status (the listings table has no city column) (built on 04:06 UTC)",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "website/api/health.php": {
+   "sha256": "ab3da492482037be9169aef51802755ed23fa1ecde472bf4cdb2220c2fffcaa7",
+   "live": false
+  }
+ }
+}
