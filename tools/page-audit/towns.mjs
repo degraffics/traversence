@@ -17,6 +17,8 @@ else {
     else if (!d.towns) md += 'The health report has no towns section yet (it comes with health.php from towns-health_20261110.zip).\n';
     else {
       md += `**Jobs:** ${Object.entries(d.town_jobs || {}).map(([k, v]) => `${k} ${v}`).join(', ') || 'none'}\n\n`;
+      const runs = (d.jobs || []).filter((j) => /guide_ondemand|landmark|listings_tick|guide_finds/.test(j.job));   // scheduled jobs that fill towns: when each last ran
+      if (runs.length) md += `**Scheduled jobs (last run, site time):** ${runs.map((j) => `${j.job} ${s(j.last) || 'never'}${j.ok === 0 || j.ok === false ? ' (failed)' : ''}${j.fails_today ? `, ${j.fails_today} failed today` : ''}`).join('; ')}\n\n`;
       if (d.index_mark) md += `**Search has caught up with listing changes to:** ${s(d.index_mark)} (site time)\n\n`;
       const crawler = (d.status || []).filter((x) => /crawl|worker/i.test(x.name)).map((x) => `${x.name}: ${x.state}`).join('; ');
       if (crawler) md += `**Crawler:** ${s(crawler)}\n\n`;
