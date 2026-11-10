@@ -59,6 +59,16 @@ followers are told.
 the weather, places found, journeys built by rules) at once, with "Claude's write-up is queued for tomorrow". Nothing
 waits empty.
 
+## 1b. Notify me when it's ready (Jason, 2026-11-10)
+
+The build page has **Notify me when it's ready**. Signed in: a notice in the person's Pulse (kind `guide_ready`, which
+they can switch off in App Settings) and an email to their account, or only the Pulse's email when that's how their
+notices already come. Signed out: an email to the address they type, once, and the address is cleared when it's used;
+five a day from one device, then the page asks them to sign in. If the page is still open in another tab and they allow
+it, the browser shows its own notice too. Whoever asked hears once, when the first look goes live, however it got there
+(the build steps and the 5-minute job both check). System emails, so no cost. Built: `guide_watchers`,
+`OnDemand::watch()` / `notifyReady()`, `{action: notify}` on `/api/guide-build.php` (`guide-notify_20261110.zip`).
+
 ## 2. Built once, kept, reused
 
 Everything gathered is ours to reuse (decision 0133: the licence decides each fact's use): the dossier and research
