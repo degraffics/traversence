@@ -35,6 +35,7 @@ jobs:
         env:
           SITE: https://traversence.com
           HEALTH_TOKEN: ${{ secrets.HEALTH_TOKEN }}
+          CHECK_ACCOUNTS: ${{ secrets.CHECK_ACCOUNTS }}
         run: node tools/page-audit/towns.mjs
       - name: Commit the results
         run: |
