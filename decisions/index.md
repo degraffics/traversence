@@ -1,6 +1,6 @@
 # Decision register
 
-Decision 0145 §1a. Generated on 2026-11-10 17:48 UTC from `decisions/` and the live mirror (`064d6d2`). Don't edit by hand:
+Decision 0145 §1a. Generated on 2026-11-10 23:16 UTC from `decisions/` and the live mirror (`99a8caa`). Don't edit by hand:
 edit the decision, and this follows. "Missing files" are files a decision names that the site no longer has: the
 decision may be stale, or the file moved.
 
@@ -69,7 +69,7 @@ decision may be stale, or the file moved.
 | 0061 | [0061: Situations: an intent map, the Chameleon Filter as router, and search that learns](0061-situations-intent-map-and-learning-search.md) | accepted | 0133 |  | 0 |  |
 | 0062 | [0062: Identities: one record per thing, every fact with its sources, verification by consent](0062-identities-sources-and-verification.md) | accepted | 0133 |  | 0 |  |
 | 0063 | [0063: Lexicon and syntax: how search reads each word, and how a person corrects it](0063-lexicon-syntax-and-the-workbench.md) | accepted |  |  | 0 |  |
-| 0064 | [0064: Search learns words on its own; people have access and control, not chores](0064-search-learns-words-on-its-own.md) | accepted |  | 1 | 0 |  |
+| 0064 | [0064: Search learns words on its own; people have access and control, not chores](0064-search-learns-words-on-its-own.md) | accepted |  | 2 | 0 |  |
 | 0065 | [0065. OpenStreetMap businesses where we have no listings yet](0065-openstreetmap-businesses-outside-our-regions.md) | accepted | 0133 |  | 0 |  |
 | 0066 | [0066. Public data, the Discovery funnel, and expansion that grows on its own](0066-public-data-funnel-and-organic-expansion.md) | accepted | 0133 |  | 0 |  |
 | 0067 | [0067. What words mean: from a word to the kinds of place that serve it](0067-what-words-mean-concepts.md) | accepted | 0133 |  | 0 |  |
