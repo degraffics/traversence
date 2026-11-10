@@ -3,16 +3,16 @@
  "built_on": "50c42b5 Sync: 2026-11-10 03:54 UTC",
  "recorded": "2026-11-10 03:56 UTC",
  "note": "Search: the exact name of a place we have beats a town in its first words (Four Corners Monument, Laguna Art Museum) (built on 03:54 UTC)",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "b0cdc04 Sync: 2026-11-10 04:01 UTC",
  "files": {
   "app/lib/UniversalSearch.php": {
    "sha256": "9270a05c68f13d4c37eabf02753376a0160b350f65d7bcb0e107b9bc5568033a",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "ae8ad2bd3f09a246f846f711bb31888a08cd43f9e11f79ae0bc1fcfbf980f62d",
-   "live": false
+   "live": true
   }
  }
 }
