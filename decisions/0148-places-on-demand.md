@@ -78,3 +78,8 @@ a search that found nothing went nowhere, and a place's town came from the neare
 
 The hand list (`PlaceFinder::HAND`) is gone. Migration `2027-02-21_landmarks_from_source.sql` makes the Four Corners
 record a Wikidata place, so the finder ties it to its item and places it in Teec Nos Pos, AZ; its public status stays.
+
+**Their kind, not "Natural landmark" (2026-11-10, `near-me-alone_20261110.zip`):** places from Wikidata or added by hand
+showed as "Natural landmark" in search (Brophy College Chapel, Woodlea Historic District, found by the state squares
+around Phoenix). `Landmarks::kindLabel()` now names them by their own kind (Chapel, Historic district, Art museum),
+never guessed from the name; the ones already in search are re-indexed once (`pf:relabel:1`).
