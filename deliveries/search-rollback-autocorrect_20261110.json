@@ -1,0 +1,22 @@
+{
+ "zip": "search-rollback-autocorrect_20261110.zip",
+ "built_on": "c2b0621 Sync: 2026-11-10 22:28 UTC",
+ "recorded": "2026-11-10 22:50 UTC",
+ "note": "Rollback (Jason, 2026-11-10): search never changes words on its own again (decisions/0063, 0064); removes normalize, answered, splitRunTogether and the conflicting FAQ entry with his OK; keeps towns by nearness (Glendale) and outings",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/UniversalSearch.php": {
+   "sha256": "3b09326af20cee5b0ca16c6a3c77510b034740c4c71e46384bb7dfe0fd992075",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "0033d194bcedd1be4b0ec03c1659ef28d7b8b591a1ddf536bc7e1f2d011cc548",
+   "live": false
+  },
+  "website/js/search-panel.js": {
+   "sha256": "ab99a8987272c1991645a804bfc32b0c6a485db809314875b2b4032d7197b515",
+   "live": false
+  }
+ }
+}

@@ -26,6 +26,12 @@ assume.
 - If the merge can't happen (blocked push, conflict, failed check), say what's still outside `main`. Never call work
   saved when it's only on a branch.
 
+## Build on what's there (Jason, 2026-11-10): every build
+
+Before changing an area, read its decisions and the live code. Earlier work is kept: a change extends or replaces it in
+place, never drops it. Going against an earlier decision needs Jason's OK first, and the decision gets a note. The zip
+check blocks a zip that removes a live function, constant or FAQ question; `--drops` names one only after he agrees.
+
 ## Keep this file lean
 
 It loads in full every session, and so does `README.md` (imported below). One short rule per point; the detail lives in

@@ -117,3 +117,10 @@ reads the words as typed (`Situations::read` and `suggest`; the `correct()` step
 
 **Note (2026-11-05): the dictionary feeds "Did you mean".** Search's own word list comes from what's on the site, so a common word nobody has listed yet got no help ("swiming test" offered nothing). Search now also takes candidates from the site's dictionary (`Spelling::near`, decisions/0144). It still only offers, never changes the words, and the rules above still apply: a real word is never "corrected", the word has to fit where it sits, and a removed suggestion stays removed. Also (0058): tapping back into the search's words box while the place picker is showing returns to the results.
 When a likely slip has a "Did you mean", that comes first in the results, and the "We don't recognize… Suggest it" line isn't shown for it (2026-11-05).
+
+**Note (2026-11-10): the rule stands; an auto-correct tried that day is rolled back.** A session added search that changed
+words on its own ("Showing results for pizza" when nothing matched, then fixing words as they were typed). Jason: that
+reworked what was already decided and verified. It's rolled back (`search-rollback-autocorrect`): search never changes a
+word; a slip gets "Did you mean…?". Kept from that day, since they change no words: towns of one name read by nearness
+("Glendale" in Phoenix is Glendale, AZ) and outings ("place to take my kids"). From then on the zip check blocks a zip
+that removes an earlier function, constant or FAQ question unless Jason has agreed (`zipcheck.py --drops`).
