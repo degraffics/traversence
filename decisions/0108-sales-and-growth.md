@@ -93,6 +93,10 @@ The consumer funnel (Post-and-Connect quotes, merchant gateways) stays in Wave 5
 - **Save as a listing** (Jason, 2026-11-09): beside **Save the lead**, for a receipt, a menu or a sign from a place
   visited as a customer. It makes or joins the listing the same way (matching, duplicates, the crawler's look-up) but
   makes no lead and logs no visit. The saved card says which it was. (`CardScan::save(..., $lead)`.)
+- **Times where they happened** (Jason, 2026-11-10): a card keeps the phone's time zone (`sales_cards.tz`) and shows
+  "Scanned Nov 9, 10:00 AM PST in Corona, CA", with the viewer's own time beside it when they're elsewhere. The phone
+  sends the moment marked as UTC; before, the server read it as its own time, so every scan took the moment it arrived
+  and one held offline would have had the wrong time.
 
 ### The Single Lead Workspace
 
