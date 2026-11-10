@@ -3,48 +3,48 @@
  "built_on": "68cc098 Sync: 2026-11-09 16:25 UTC",
  "recorded": "2026-11-10 00:23 UTC",
  "note": "Scan cards: times where they happened (tv-time.js) and Save as a listing; vendor links help box. Replaces vendor-help-scan-listing_20261109.zip (never uploaded). Built on 16:25 UTC",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "d2af9d5 Sync: 2026-11-10 00:48 UTC",
  "files": {
   "app/lib/CardScan.php": {
    "sha256": "64256ae2f7d90cd97f14726a28efeac5c7322b5f40b20add1286d005b8557039",
-   "live": false
+   "live": true
   },
   "app/lib/Vendors.php": {
    "sha256": "dc97d62a06d27a39a3f14f0610b2c2d261655229e2f083e5204b043b59058a55",
-   "live": false
+   "live": true
   },
   "app/lib/upload-targets.php": {
    "sha256": "13aad27c892b78773d2a03cb7ed5148a0bd5814f798fe30473e4fee71325269c",
-   "live": false
+   "live": true
   },
   "app/migrations/2027-02-18_card_scan_tz.sql": {
    "sha256": "cc4b007abf8dd56f6390b04739bc36dd90f6c36fdeb7ac5d0787a53e0fb37b2e",
-   "live": false
+   "live": true
   },
   "app/ui/card-scanner.php": {
    "sha256": "9464b9e1eabfb7583b4e7b1440b975219f75c08ee2ed028406d3b680cc3455f2",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "72aeec3de3b51c8f38f8c9164fabbae08915ee116c93c825f71d6be146c84b47",
-   "live": false
+   "live": true
   },
   "website/admin/api/cards.php": {
    "sha256": "0399bf8255c43a471327e505808880650c2712b81f8db749e2342c426c287461",
-   "live": false
+   "live": true
   },
   "website/js/tv-time.js": {
    "sha256": "ae94a252e31635d7775dd970ecfb81997375681665717610f5dfcc4c77f7f3ba",
-   "live": false
+   "live": true
   },
   "website/vendor.php": {
    "sha256": "764eaf83a828718f575536395b68151bbadb86a0322a3f401e8bf1fc318247ff",
-   "live": false
+   "live": true
   },
   "website/wo.php": {
    "sha256": "ab4635b219cbc2fe7497651812650bda3beeb242c6b142f016c48e48aa503dcd",
-   "live": false
+   "live": true
   }
  }
 }
