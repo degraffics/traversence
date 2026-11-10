@@ -3,16 +3,16 @@
  "built_on": "a63e458 Sync: 2026-11-10 02:11 UTC",
  "recorded": "2026-11-10 02:15 UTC",
  "note": "Search: a city in the words is always the place, read first from the locations data (Dana Point, Phoenix, Sedona) (built on 02:11 UTC)",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "1d3d3c3 Sync: 2026-11-10 02:18 UTC",
  "files": {
   "app/lib/UniversalSearch.php": {
    "sha256": "de56ccd65f1586981d82b276b1172c2bd2c28d814313a9f3e7969516a7374620",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "40ece7b4d02fff918266735102805ff9a89973f63f09bb493d9f4faa3134f167",
-   "live": false
+   "live": true
   }
  }
 }
