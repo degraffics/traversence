@@ -114,3 +114,6 @@ data as long as we dont have to share back data"; `osm-leads_20261110.zip`).** R
   shares it and no place is set; else as before. A pin's card shows its photo (credited), a few lines on what it is
   (Wikipedia's summary, else what we hold about it, else Wikidata's description; a listing's own description), then
   where, hours and the ways to reach it.
+  With no place set, opening the map asks the device where it is (the browser's one-time question), rather than only
+  when the browser had already said yes (2026-11-10: the directory's map sat on its default view of eastern Arizona;
+  `map-ask-where_20261110.zip`). Refused: the map says to allow location or choose a place.

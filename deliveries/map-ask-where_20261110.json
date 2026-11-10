@@ -1,0 +1,18 @@
+{
+ "zip": "map-ask-where_20261110.zip",
+ "built_on": "3cef07a Sync: 2026-11-10 14:19 UTC",
+ "recorded": "2026-11-10 14:20 UTC",
+ "note": "",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/ui/faq.md": {
+   "sha256": "913e472c77dbdc7e3e95b3b61414171b403310498c041addda3f0f0c9a9eae39",
+   "live": false
+  },
+  "website/js/map-view.js": {
+   "sha256": "9add19d25551304d2cd7b18a17a357ae3651318a7aef938c8ff3c6549d00fa05",
+   "live": false
+  }
+ }
+}
