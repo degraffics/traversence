@@ -3,16 +3,16 @@
  "built_on": "f62deb1 Sync: 2026-11-10 15:29 UTC",
  "recorded": "2026-11-10 15:39 UTC",
  "note": "Map: list nearest first; Discovery: the place's guide; guide cards show what the crawler read (description, street, open now)",
- "status": "partial",
- "live_in": "",
+ "status": "live",
+ "live_in": "064d6d2 Sync: 2026-11-10 16:05 UTC",
  "files": {
   "app/lib/Guides.php": {
    "sha256": "acb414f90f9274f078e8961692c15dde4a2611d6b5a65730eddd7f4ff208ac43",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "ddc7a96ad59e03d2a44e18cbc8365f15f603cbabb1e49c50980bb5cbc3c09c08",
-   "live": false
+   "live": true
   },
   "website/discovery/index.php": {
    "sha256": "5ae5fd42c5dcfe10506ad4616f426421ea87909195301d75415951f7b6cf5c9f",
