@@ -79,7 +79,13 @@ a search that found nothing went nowhere, and a place's town came from the neare
 The hand list (`PlaceFinder::HAND`) is gone. Migration `2027-02-21_landmarks_from_source.sql` makes the Four Corners
 record a Wikidata place, so the finder ties it to its item and places it in Teec Nos Pos, AZ; its public status stays.
 
-**Their kind, not "Natural landmark" (2026-11-10, `near-me-alone_20261110.zip`):** places from Wikidata or added by hand
-showed as "Natural landmark" in search (Brophy College Chapel, Woodlea Historic District, found by the state squares
-around Phoenix). `Landmarks::kindLabel()` now names them by their own kind (Chapel, Historic district, Art museum),
-never guessed from the name; the ones already in search are re-indexed once (`pf:relabel:1`).
+**Their kind from our categories, not guesses (2026-11-10, `landmark-categories_20261110.zip`):** places from Wikidata
+showed as "Natural landmark" (Brophy College Chapel, Woodlea Historic District), and GNIS ones took their kind from the
+last word of their name. Jason: "this should be from categories not guesses." Now each landmark is filed under one of
+our categories (`landmarks.category_id`, migration `2027-02-22_landmark_categories.sql`) by its source's class: GNIS's
+feature class, or Wikidata's "instance of" (`Landmarks::categorize`, run with the search index's refresh). A category
+named that (or its plural), else one staff gave that word (`category_terms`); a class of several words tries the whole,
+then its last word ("art museum": Museums). None fits: 0, shown as the source's own class, listed in the health report
+(`landmark_kinds_unfiled`, in `site-audit/towns.md`) for staff to give a category that term; asked again daily. The
+name is never read for it. Search indexes the category (`search_index.category_id`), so "museums near me" finds a museum
+landmark and the kind pill searches its category; every landmark is re-indexed once (`landmark_kind_walk`).
