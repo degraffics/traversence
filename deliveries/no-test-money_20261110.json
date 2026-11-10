@@ -3,32 +3,32 @@
  "built_on": "fd52bef Sync: 2026-11-10 03:25 UTC",
  "recorded": "2026-11-10 03:29 UTC",
  "note": "No test makes a real transaction: test accounts always in the sandbox (QuickBooks, Name.com, business checkouts), test orders refused in live QuickBooks, test copies always sandbox orders (built on 03:25 UTC)",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "34f3236 Sync: 2026-11-10 03:41 UTC",
  "files": {
   "app/lib/Billing.php": {
    "sha256": "698dde56d5a90afb833d2613ea466378cb44eb67987cc9c0f2a5856e228353d4",
-   "live": false
+   "live": true
   },
   "app/lib/ClientOrders.php": {
    "sha256": "7976faacaa1bd1a7ededc75d5da5fbe09c2845bd8e658f3e2fc13dd7948df492",
-   "live": false
+   "live": true
   },
   "app/lib/Domains.php": {
    "sha256": "0eff77824694f7a675aa9e7a196d604267ceadb517b8972b45932c20213e413d",
-   "live": false
+   "live": true
   },
   "app/lib/MarketPay.php": {
    "sha256": "5ee2c686771725a75494d8969b2bcdcfc44f27168dd5adfef4bc17bc3e37d350",
-   "live": false
+   "live": true
   },
   "app/lib/QuickBooksPay.php": {
    "sha256": "8c7214c4e0701d411ace3a48688760e8784ee061a043735f4232dcb3c09a2209",
-   "live": false
+   "live": true
   },
   "website/admin/client-order.php": {
    "sha256": "ee89c0034a987e3020b99a127cdbbf63cd3f8dec2242e424d2116ec4250caf46",
-   "live": false
+   "live": true
   }
  }
 }
