@@ -1,17 +1,21 @@
 {
  "zip": "search-split-fix_20261110.zip",
  "built_on": "c2b0621 Sync: 2026-11-10 22:28 UTC",
- "recorded": "2026-11-10 22:42 UTC",
- "note": "Words read as you type (no space or Enter needed) once they can't start anything we hold; run-together split; corrected reading kept when nothing matches",
+ "recorded": "2026-11-10 22:43 UTC",
+ "note": "Words read as you type; fixed or offered, never neither; 'Searching for' shown while typing; run-together split; corrected reading kept",
  "status": "pending",
  "live_in": "",
  "files": {
   "app/lib/UniversalSearch.php": {
-   "sha256": "a0d653a4107720af25bad0ce2bd48d0cc4b0edacf1423aa2f1dcc8d5f9172202",
+   "sha256": "6a59ca813b38f15805ad2cdd2c5c7bbfab52f9952a125d5c0d3c375083d2a0ee",
    "live": false
   },
   "app/ui/faq.md": {
-   "sha256": "9cddb692986e812ef34646e925c86c5c1af0793aa4ff37110e5853110a9c283b",
+   "sha256": "2b1c049ada57ca6415c487cee95c42b517f7eeddddcff9b8d3ed76e909b8fd19",
+   "live": false
+  },
+  "website/js/search-panel.js": {
+   "sha256": "af6fae988b26052ba433a01124a0f6c5ca2f8bae79dbe48bd1d78fe6691cf505",
    "live": false
   }
  }
