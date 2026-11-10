@@ -196,8 +196,16 @@ will look into developing better search results for this specific topic and area
   first on Admin → Search demand with **Develop with the crawler**, and the town goes to the crawler
   (`TownCrawl::fromSearch`, decisions/0149).
 - The Distance slider gains a 2 mi step (stored as `tv_reach3`; the default stays 10 mi).
-- **No place: a pop-up, not a card** (Jason, 2026-11-10, with a screenshot of "Flowers near me" listing florists from
-  everywhere under the prompt: "it is easily bypassed, so use a popup for please set locations"). A "near me" search
-  with no place shows only **Please set your location** in a pop-up when it's run (the town box, Use my location, More
-  choices); no results from everywhere behind it. While typing, only the Enter row and a **Set my location** button
-  show. Closing the pop-up leaves that button. Setting the place closes it and runs the search 2 mi around it.
+- **No place: the location pop-up, at every stage** (Jason, 2026-11-10: "it is easily bypassed, so use a popup for
+  please set locations"; then "If near me is typed it shows in drop down but doesn't have a location target icon for
+  auto detection and it is not a popup. Look at each stage of the search for how location is required"). A "near me"
+  search with no place opens the site's own location picker (the town box and **Auto-detect**, docked in the panel as
+  the Location line's pencil opens it), never a second pop-up of its own:
+  1. **Typing:** as soon as the words say "near me" (once for those words); the suggestions keep only the Enter row and
+     a card with **Set my location** and **Use my location** (the target icon).
+  2. **Enter, or a recent or suggested search:** the picker again, and no search is sent without a place.
+  3. **The directory page:** Enter used to hand the words to the directory list (`tvSearchHere`), which searched
+     everywhere; "near me" with no place now asks first there too, and the "Show … in the directory list" row isn't
+     offered for it.
+  4. **Closed without a place:** the card stays; nothing from everywhere.
+  5. **Place set** (picked, typed or detected): the search runs 2 mi around it.

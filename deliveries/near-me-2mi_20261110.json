@@ -3,32 +3,32 @@
  "built_on": "5599c1e Sync: 2026-11-10 12:41 UTC",
  "recorded": "2026-11-10 12:56 UTC",
  "note": "",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "510a52b Sync: 2026-11-10 13:03 UTC",
  "files": {
   "app/lib/SearchDemand.php": {
    "sha256": "01e7d53e3e565bc1787f90320c9d5bdaad5eea4fdb22da9f6d0961a44d6266df",
-   "live": false
+   "live": true
   },
   "app/lib/UniversalSearch.php": {
    "sha256": "88b6ac6a718ded2acb4849ba133fdbe685d0d972a01bfa663e7f25b76581f330",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "6b9c7376f8d082eb51120f3a0ce1a9814e73ceedbf7d9ff8c41e78ad0989c3d9",
-   "live": false
+   "live": true
   },
   "website/admin/search-demand.php": {
    "sha256": "5e4565519bbf93315ad94ec8a28509366a0f9974fe6f793965b69e9fc52d12c1",
-   "live": false
+   "live": true
   },
   "website/api/search.php": {
    "sha256": "4812210ce84985c2502fa22b434ac25df4bb1c61d3cc78f6940d9eb3a692cc14",
-   "live": false
+   "live": true
   },
   "website/js/search-panel.js": {
    "sha256": "902483c7354405755ff6b791c6251a4da97f0d58a96b1b8c57879dadb70cf465",
-   "live": false
+   "live": true
   }
  }
 }
