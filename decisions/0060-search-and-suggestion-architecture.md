@@ -196,3 +196,8 @@ will look into developing better search results for this specific topic and area
   first on Admin → Search demand with **Develop with the crawler**, and the town goes to the crawler
   (`TownCrawl::fromSearch`, decisions/0149).
 - The Distance slider gains a 2 mi step (stored as `tv_reach3`; the default stays 10 mi).
+- **No place: a pop-up, not a card** (Jason, 2026-11-10, with a screenshot of "Flowers near me" listing florists from
+  everywhere under the prompt: "it is easily bypassed, so use a popup for please set locations"). A "near me" search
+  with no place shows only **Please set your location** in a pop-up when it's run (the town box, Use my location, More
+  choices); no results from everywhere behind it. While typing, only the Enter row and a **Set my location** button
+  show. Closing the pop-up leaves that button. Setting the place closes it and runs the search 2 mi around it.
