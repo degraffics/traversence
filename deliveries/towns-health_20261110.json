@@ -1,13 +1,13 @@
 {
  "zip": "towns-health_20261110.zip",
  "built_on": "2342a8b Sync: 2026-11-10 02:33 UTC",
- "recorded": "2026-11-10 02:37 UTC",
- "note": "Health report: towns built on demand, their crawl jobs and results, for site-audit/towns.md (built on 02:33 UTC)",
+ "recorded": "2026-11-10 02:39 UTC",
+ "note": "Health report: switched on (it read HEALTH_TOKEN before .env loaded) and towns built on demand, for site-audit/towns.md (built on 02:33 UTC)",
  "status": "pending",
  "live_in": "",
  "files": {
   "website/api/health.php": {
-   "sha256": "9985602ab06ed5caa3adbb9697c4bb8548f0e7c0803157f2433185b587226c2d",
+   "sha256": "b75a79ab865c017224ea52ab2ddf4ba3055ce8a3b11bf5e0ad7f75154354eafe",
    "live": false
   }
  }
