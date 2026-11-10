@@ -117,3 +117,17 @@ outdoor activities…"; then "only ai when no data exist and it must be stored a
   (`research`, `research_sources`, `research_acts`; migration `2027-02-24_landmark_research.sql`) and reused everywhere.
   Feature `place_about` ("Place descriptions", Haiku, 60 a day by default) in System Configuration → AI use, inside the
   month's AI cap; never for a place that may be sacred or protected. CLAUDE.md's AI exception widens to this.
+
+**Immersion, not a listing (Jason, 2026-11-10, comparing our map with Google's "things to do": "The mission is immersion and
+connecting so how do we do better?"; then "All. And have a suggestion or review option inline with the experience. Also we
+need to fold the guide into the results where it raises the level of available experiences."; `discovery-immersion-a_20261110.zip`):**
+- **The places people go:** Discovery's map shows OpenStreetMap's museums, galleries, zoos, gardens, parks, theatres and
+  attractions beside ours (`OpenPlaces` kind `todo`, its own credited layer, decisions/0065), never the same place twice.
+- **Ranked by real interest:** `landmarks.interest` (migration `2027-02-25_landmark_interest.sql`; `PlaceFinder::interestTick`,
+  thirty a run, every 30 days): Wikipedia's 30-day views (Wikimedia's free counts), Wikidata sitelinks, the guides and
+  journeys naming it, a photo. Search's weight and the landmark lists (`Landmarks::near`) rank by it.
+- **The guide folded in:** `Guides::lineAbout()` gives the sentence a live guide says about a place (cards for landmarks
+  and listings, the landmark page), with a link to the guide.
+- **Tips and changes inline:** "Add a tip or review" (the place's comments) and "Suggest a change" sit with what it's like.
+- **The footer fits:** leave-no-trace and the land-manager line only for outdoor places.
+- Next (zip B): "why go" written ahead for each town's top 20, "Pairs with", and suggested short outings.
