@@ -1,17 +1,25 @@
 {
  "zip": "map-nearest-list_20261110.zip",
  "built_on": "f62deb1 Sync: 2026-11-10 15:29 UTC",
- "recorded": "2026-11-10 15:33 UTC",
- "note": "Map: the places as a list, nearest first; Discovery: the place's guide linked at the top of Journeys & guides",
+ "recorded": "2026-11-10 15:39 UTC",
+ "note": "Map: list nearest first; Discovery: the place's guide; guide cards show what the crawler read (description, street, open now)",
  "status": "pending",
  "live_in": "",
  "files": {
+  "app/lib/Guides.php": {
+   "sha256": "acb414f90f9274f078e8961692c15dde4a2611d6b5a65730eddd7f4ff208ac43",
+   "live": false
+  },
   "app/ui/faq.md": {
-   "sha256": "7ecf651566e10c39a32988022319f785311d2f0c97c08b863a4442ec0185f9a6",
+   "sha256": "ddc7a96ad59e03d2a44e18cbc8365f15f603cbabb1e49c50980bb5cbc3c09c08",
    "live": false
   },
   "website/discovery/index.php": {
    "sha256": "5ae5fd42c5dcfe10506ad4616f426421ea87909195301d75415951f7b6cf5c9f",
+   "live": false
+  },
+  "website/hub/index.php": {
+   "sha256": "b5f096ef953cf2e07093f3a00faf5c506d4bf3b7901d481af0a2ea5a47355d6d",
    "live": false
   },
   "website/js/map-view.js": {
