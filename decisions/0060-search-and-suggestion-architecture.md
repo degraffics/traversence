@@ -209,3 +209,9 @@ will look into developing better search results for this specific topic and area
      offered for it.
   4. **Closed without a place:** the card stays; nothing from everywhere.
   5. **Place set** (picked, typed or detected): the search runs 2 mi around it.
+  The picker opened this way is its "near me" version (`openLocationModal({near: true})`, Jason, 2026-11-10: "It should
+  try and set Auto-detect first? Maybe drop regions and trip planner since near me is already saying its local"):
+  titled **Where are you?**, it tries Auto-detect at once (unless the browser has blocked location, which it says), with
+  Auto-detect first and largest, then your town or ZIP, saved places and your default; no Trip Planner, Distance,
+  Regions or Search everywhere. Opened any other way, the picker is as before. (decisions/0058 §8's "applied when
+  tapped" still holds elsewhere: only "near me" asks for the device's place unprompted, since the words asked for it.)

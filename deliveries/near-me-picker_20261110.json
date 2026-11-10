@@ -3,16 +3,16 @@
  "built_on": "510a52b Sync: 2026-11-10 13:03 UTC",
  "recorded": "2026-11-10 13:05 UTC",
  "note": "",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "698587e Sync: 2026-11-10 13:13 UTC",
  "files": {
   "app/ui/faq.md": {
    "sha256": "eee9698435e49445b08ba96b5310c2cd78dad01ce85632f03b21928df34267c2",
-   "live": false
+   "live": true
   },
   "website/js/search-panel.js": {
    "sha256": "d305ab485f660bf281f892409490d2e8c00ec6f695bf4d8160d5ac0bf3efc493",
-   "live": false
+   "live": true
   }
  }
 }
