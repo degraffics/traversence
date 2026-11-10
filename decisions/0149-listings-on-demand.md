@@ -37,3 +37,13 @@ of place) was too large to send. A lookup that ran out of time answered "OK" wit
 in the request body, treats a timed-out remark as a failure and tries the next server (one more added).
 `2027-02-20_town_crawl_retry.sql` queued every failed, stuck or empty town job again (`town-crawl-retry_20261110.zip`).
 The one run that worked (Laguna Niguel, places to eat) found 25: 5 published, 20 in Review.
+
+## Their own websites (Jason, 2026-11-10)
+
+OpenStreetMap stays a lead only (decisions/0133; Jason: "OpenStreetMap requires shared data", ODbL share-alike), so a
+place publishes only when its own website confirms it, and most leads have no website in OpenStreetMap (Laguna Niguel:
+20 of 25 in Review). For a town built on demand, a lead with no website now gets one web search for its own site
+(`find_own_site`: the name, street, town and state). A result counts only if its domain is the business's own (never a
+directory: Yelp, TripAdvisor…) and the page names the place and shows its town, street or phone, so a namesake
+elsewhere isn't taken. It's then confirmed like any website. The searches come from the free plan's monthly allowance
+the site hands the worker (stopped at 90%; nothing billed), towns most asked for first; past it, leads wait in Review.
