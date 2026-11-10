@@ -178,6 +178,12 @@ carries each choice's meaning (`[key, name, what it is]`), shown by the kit's �
 Wherever a link, code or step stops working (expired, replaced, over a limit, an email that failed), the page offers a
 way forward: send it again, and ask our team (a form to our inbox), with our email address. Never a lock-out.
 
+## Times where they happened (Jason, 2026-11-10): every page that shows a time
+
+Store the moment and the device's time zone (`Intl…timeZone`, sent with the action). Show it in that zone, always labeled
+("Nov 9, 10:00 AM PST"), with `<time datetime="ISO" data-tv-time data-tz="…">` or `TvTime.fmt()` (`js/tv-time.js`);
+with no zone stored, in the viewer's. Rolling out page by page from Scan cards.
+
 ## Password boxes (`js/tv-password.js`, Jason, 2026-10-16): every page
 
 Every password box gets Show/Hide; new-password boxes (`autocomplete="new-password"`, `minlength`, optional
