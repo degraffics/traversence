@@ -1,6 +1,6 @@
 {
- "at": "2026-11-10T15:14:36.412Z",
- "pass": 36,
+ "at": "2026-11-10T15:18:00.399Z",
+ "pass": 47,
  "of": 80,
  "cases": [
   {
@@ -8,18 +8,23 @@
    "q": "Phoenix",
    "ctx": "",
    "url": "/api/search.php?q=Phoenix",
+   "read": [
+    "asks: place",
+    "what: "
+   ],
    "status": 200,
-   "ms": 89,
+   "ms": 86,
    "place": "Phoenix",
    "chips": [
     "place: Phoenix"
    ],
-   "total": 0,
-   "first": [],
+   "total": 1,
+   "first": [
+    "Phoenix · place · Town"
+   ],
    "note": "",
    "fails": [
-    "place read as \"Phoenix\"",
-    "0 results"
+    "place read as \"Phoenix\""
    ],
    "pass": false
   },
@@ -28,18 +33,23 @@
    "q": "Phoenix, az",
    "ctx": "",
    "url": "/api/search.php?q=Phoenix%2C%20az",
+   "read": [
+    "asks: place",
+    "what: "
+   ],
    "status": 200,
-   "ms": 94,
+   "ms": 92,
    "place": "Phoenix",
    "chips": [
     "place: Phoenix"
    ],
-   "total": 0,
-   "first": [],
+   "total": 1,
+   "first": [
+    "Phoenix · place · Town"
+   ],
    "note": "",
    "fails": [
-    "place read as \"Phoenix\"",
-    "0 results"
+    "place read as \"Phoenix\""
    ],
    "pass": false
   },
@@ -48,14 +58,19 @@
    "q": "Dana point",
    "ctx": "",
    "url": "/api/search.php?q=Dana%20point",
+   "read": [
+    "asks: place",
+    "what: "
+   ],
    "status": 200,
-   "ms": 97,
+   "ms": 100,
    "place": "Dana Point, CA",
    "chips": [
     "place: Dana Point, CA"
    ],
-   "total": 2,
+   "total": 3,
    "first": [
+    "Dana Point, CA · place · Town in Laguna Niguel",
     "Ocean Institute · outdoors · Museums ·  County",
     "Salt Creek Beach Park · outdoors · Parks ·  County"
    ],
@@ -68,14 +83,19 @@
    "q": "show low",
    "ctx": "",
    "url": "/api/search.php?q=show%20low",
+   "read": [
+    "asks: place",
+    "what: "
+   ],
    "status": 200,
-   "ms": 107,
+   "ms": 108,
    "place": "Show Low, AZ",
    "chips": [
     "place: Show Low, AZ"
    ],
-   "total": 2,
+   "total": 3,
    "first": [
+    "Show Low, AZ · place · Town in The Show Low District",
     "Fool Hollow Lake · outdoors · Lake · near Show Low",
     "Malpais Pit · outdoors · Basin · near Show Low"
    ],
@@ -88,14 +108,19 @@
    "q": "Showlow",
    "ctx": "",
    "url": "/api/search.php?q=Showlow",
+   "read": [
+    "asks: place",
+    "what: "
+   ],
    "status": 200,
-   "ms": 109,
+   "ms": 107,
    "place": "Show Low, AZ",
    "chips": [
     "place: Show Low, AZ"
    ],
-   "total": 2,
+   "total": 3,
    "first": [
+    "Show Low, AZ · place · Town in The Show Low District",
     "Fool Hollow Lake · outdoors · Lake · near Show Low",
     "Malpais Pit · outdoors · Basin · near Show Low"
    ],
@@ -108,8 +133,11 @@
    "q": "flagstaf",
    "ctx": "",
    "url": "/api/search.php?q=flagstaf",
+   "read": [
+    "what: flagstaf"
+   ],
    "status": 200,
-   "ms": 201,
+   "ms": 207,
    "place": "",
    "chips": [],
    "total": 13,
@@ -131,8 +159,12 @@
    "q": "sedona az",
    "ctx": "",
    "url": "/api/search.php?q=sedona%20az",
+   "read": [
+    "asks: place",
+    "what: "
+   ],
    "status": 200,
-   "ms": 122,
+   "ms": 119,
    "place": "Sedona, AZ",
    "chips": [
     "place: Sedona, AZ"
@@ -154,19 +186,23 @@
    "q": "Glendale",
    "ctx": "city=Phoenix&state=AZ&reach=25",
    "url": "/api/search.php?q=Glendale&city=Phoenix&state=AZ&reach=25",
+   "read": [
+    "asks: place",
+    "what: "
+   ],
    "status": 200,
-   "ms": 100,
+   "ms": 98,
    "place": "Glendale, AZ",
    "chips": [
     "place: Glendale, AZ"
    ],
    "total": 52,
    "first": [
-    "Brophy College Chapel · outdoors · Chapel · near Phoenix · 6 mi · 6.298123811411684 mi",
-    "First Presbyterian Church · outdoors · Church building · near Phoenix · 8 mi · 7.932043242128593 mi",
-    "Phoenix Mountains · outdoors · Peak · near Phoenix · 9 mi · 9.047682800466054 mi",
-    "Piestewa Peak · outdoors · Peak · near Phoenix · 9 mi · 9.042342052043875 mi",
-    "Sun Mercantile Building · outdoors · Building · near Phoenix · 9 mi · 8.541006741700086 mi"
+    "Glendale · knowledge",
+    "Brophy College Chapel · outdoors · Chapel · near Phoenix · 6 mi · 6.3 mi",
+    "First Presbyterian Church · outdoors · Church building · near Phoenix · 8 mi · 7.9 mi",
+    "Phoenix Mountains · outdoors · Peak · near Phoenix · 9 mi · 9 mi",
+    "Piestewa Peak · outdoors · Peak · near Phoenix · 9 mi · 9 mi"
    ],
    "note": "",
    "fails": [],
@@ -177,8 +213,12 @@
    "q": "Four Corners",
    "ctx": "",
    "url": "/api/search.php?q=Four%20Corners",
+   "read": [
+    "asks: place",
+    "what: "
+   ],
    "status": 200,
-   "ms": 106,
+   "ms": 115,
    "place": "Four Corners, WY",
    "chips": [
     "place: Four Corners, WY"
@@ -196,8 +236,12 @@
    "q": "grand canyon",
    "ctx": "",
    "url": "/api/search.php?q=grand%20canyon",
+   "read": [
+    "asks: place",
+    "what: "
+   ],
    "status": 200,
-   "ms": 107,
+   "ms": 105,
    "place": "Grand Canyon, AZ",
    "chips": [
     "place: Grand Canyon, AZ"
@@ -219,8 +263,11 @@
    "q": "laguna art museum",
    "ctx": "",
    "url": "/api/search.php?q=laguna%20art%20museum",
+   "read": [
+    "what: art museum"
+   ],
    "status": 200,
-   "ms": 149,
+   "ms": 152,
    "place": "Laguna, NM",
    "chips": [
     "place: Laguna, NM"
@@ -243,20 +290,25 @@
    "q": "pizza in phoenix",
    "ctx": "",
    "url": "/api/search.php?q=pizza%20in%20phoenix",
+   "read": [
+    "OpenStreetMap: pizza",
+    "what: Pizza"
+   ],
    "status": 200,
-   "ms": 126,
+   "ms": 127,
    "place": "Phoenix",
    "chips": [
     "place: Phoenix",
     "category: Pizza"
    ],
-   "total": 0,
-   "first": [],
+   "total": 1,
+   "first": [
+    "OpenStreetMap · pizza"
+   ],
    "note": "",
    "fails": [
     "place read as \"Phoenix\"",
-    "0 results",
-    "nothing like /pizz/i in the first 5"
+    "1 results"
    ],
    "pass": false
   },
@@ -265,8 +317,11 @@
    "q": "plumber in show low",
    "ctx": "",
    "url": "/api/search.php?q=plumber%20in%20show%20low",
+   "read": [
+    "what: Plumbers"
+   ],
    "status": 200,
-   "ms": 171,
+   "ms": 169,
    "place": "Show Low, AZ",
    "chips": [
     "place: Show Low, AZ",
@@ -289,8 +344,12 @@
    "q": "hotels in sedona",
    "ctx": "",
    "url": "/api/search.php?q=hotels%20in%20sedona",
+   "read": [
+    "OpenStreetMap: lodging",
+    "what: hotels"
+   ],
    "status": 200,
-   "ms": 181,
+   "ms": 172,
    "place": "Sedona, AZ",
    "chips": [
     "place: Sedona, AZ"
@@ -299,7 +358,8 @@
    "first": [
     "Hotels & Motels · topic · Category in Hospitality & Lodging",
     "Bed & Breakfasts · topic · Category in Hospitality & Lodging",
-    "Cabin Rentals · topic · Category in Hospitality & Lodging"
+    "Cabin Rentals · topic · Category in Hospitality & Lodging",
+    "OpenStreetMap · lodging"
    ],
    "note": "",
    "fails": [
@@ -312,8 +372,11 @@
    "q": "restaurants",
    "ctx": "city=Phoenix&state=AZ&reach=25",
    "url": "/api/search.php?q=restaurants&city=Phoenix&state=AZ&reach=25",
+   "read": [
+    "what: Restaurants"
+   ],
    "status": 200,
-   "ms": 92,
+   "ms": 88,
    "place": "Phoenix, AZ",
    "chips": [
     "place: Phoenix, AZ",
@@ -321,11 +384,11 @@
    ],
    "total": 11,
    "first": [
-    "Cartel Coffee Lab · listing · Restaurants · Phoenix, AZ · <1 mi · 0.08857380631542514 mi",
-    "Centrico · listing · Restaurants · Phoenix, AZ · <1 mi · 0.14077094843423185 mi",
-    "CiBO Pizzeria · listing · Restaurants · Phoenix, AZ · <1 mi · 0.5662470078822204 mi",
-    "Majerle's Sports Grill · listing · Restaurants · Phoenix, AZ · <1 mi · 0.1533683889611241 mi",
-    "Seamus McCaffrey's Irish Pub · listing · Restaurants · Phoenix, AZ · <1 mi · 0.1392953504179071 mi"
+    "Cartel Coffee Lab · listing · Restaurants · Phoenix, AZ · <1 mi · 0.1 mi",
+    "Centrico · listing · Restaurants · Phoenix, AZ · <1 mi · 0.1 mi",
+    "CiBO Pizzeria · listing · Restaurants · Phoenix, AZ · <1 mi · 0.6 mi",
+    "Majerle's Sports Grill · listing · Restaurants · Phoenix, AZ · <1 mi · 0.2 mi",
+    "Seamus McCaffrey's Irish Pub · listing · Restaurants · Phoenix, AZ · <1 mi · 0.1 mi"
    ],
    "note": "",
    "fails": [],
@@ -336,19 +399,22 @@
    "q": "mexican food",
    "ctx": "city=Show Low&state=AZ&reach=25",
    "url": "/api/search.php?q=mexican%20food&city=Show Low&state=AZ&reach=25",
+   "read": [
+    "what: mexican food"
+   ],
    "status": 200,
-   "ms": 147,
+   "ms": 149,
    "place": "Show Low, AZ",
    "chips": [
     "place: Show Low, AZ"
    ],
    "total": 15,
    "first": [
-    "Mexican Food Licano's Steak Hs · listing · Restaurants · Show Low, AZ · 5 mi · 4.58413291876456 mi",
-    "Aliberto's Mexican Food · listing · Restaurants · Show Low, AZ · 3 mi · 3.450245606115814 mi",
-    "Bandido's Express Mexican Food · listing · Restaurants · Show Low, AZ · 3 mi · 3.197080546298634 mi",
-    "Alibertos Mexican Foods · listing · Restaurants · Lakeside, AZ · 9 mi · 9.261253414053767 mi",
-    "Jack In The Box · listing · Restaurants · Show Low, AZ · 6 mi · 6.28272139531682 mi"
+    "Mexican Food Licano's Steak Hs · listing · Restaurants · Show Low, AZ · 5 mi · 4.6 mi",
+    "Aliberto's Mexican Food · listing · Restaurants · Show Low, AZ · 3 mi · 3.5 mi",
+    "Bandido's Express Mexican Food · listing · Restaurants · Show Low, AZ · 3 mi · 3.2 mi",
+    "Alibertos Mexican Foods · listing · Restaurants · Lakeside, AZ · 9 mi · 9.3 mi",
+    "Jack In The Box · listing · Restaurants · Show Low, AZ · 6 mi · 6.3 mi"
    ],
    "note": "",
    "fails": [],
@@ -359,38 +425,49 @@
    "q": "car repair",
    "ctx": "city=Show Low&state=AZ&reach=25",
    "url": "/api/search.php?q=car%20repair&city=Show Low&state=AZ&reach=25",
+   "read": [
+    "situation: Car repair",
+    "what: "
+   ],
    "status": 200,
-   "ms": 123,
+   "ms": 122,
    "place": "Show Low, AZ",
    "chips": [
     "place: Show Low, AZ"
    ],
-   "total": 0,
-   "first": [],
-   "note": "",
-   "fails": [
-    "not all of the first 3 fit /auto|car|repair|mechanic|tire/i"
+   "total": 23,
+   "first": [
+    "Jay's Auto Repair · listing · Auto Repair · Show Low, AZ · 3 mi",
+    "Pit Road Automotive · listing · Auto Repair · Show Low, AZ · 3 mi",
+    "Harris Automotive · listing · Auto Repair · Show Low, AZ · 4 mi",
+    "Mobile Medics Auto Repair LLC · listing · Auto Repair · Show Low, AZ · 4 mi",
+    "Speedy Automotive Repair Service · listing · Auto Repair · Show Low, AZ · 4 mi"
    ],
-   "pass": false
+   "note": "",
+   "fails": [],
+   "pass": true
   },
   {
    "group": "In a town",
    "q": "tires",
    "ctx": "city=Show Low&state=AZ&reach=25",
    "url": "/api/search.php?q=tires&city=Show Low&state=AZ&reach=25",
+   "read": [
+    "what: tires"
+   ],
    "status": 200,
-   "ms": 159,
+   "ms": 155,
    "place": "Show Low, AZ",
    "chips": [
     "place: Show Low, AZ"
    ],
    "total": 11,
    "first": [
-    "Discount Tire · listing · Tire Shops · Show Low, AZ · 4 mi · 3.6112929396713676 mi",
-    "Future Tire · listing · Tire Shops · Show Low, AZ · 4 mi · 3.9307998839503213 mi",
-    "Roberts Tire Sales Inc · listing · Tire Shops · Show Low, AZ · 3 mi · 3.253891243813682 mi",
-    "Future Tire · listing · Auto Repair · Lakeside, AZ · 9 mi · 9.261253414053767 mi",
-    "Youngs Future Tire · listing · Tire Shops · Lakeside, AZ · 9 mi · 9.261253414053767 mi"
+    "Discount Tire · listing · Tire Shops · Show Low, AZ · 4 mi · 3.6 mi",
+    "Future Tire · listing · Tire Shops · Show Low, AZ · 4 mi · 3.9 mi",
+    "Roberts Tire Sales Inc · listing · Tire Shops · Show Low, AZ · 3 mi · 3.3 mi",
+    "Future Tire · listing · Auto Repair · Lakeside, AZ · 9 mi · 9.3 mi",
+    "Youngs Future Tire · listing · Tire Shops · Lakeside, AZ · 9 mi · 9.3 mi"
    ],
    "note": "",
    "fails": [],
@@ -401,27 +478,38 @@
    "q": "vet",
    "ctx": "city=Show Low&state=AZ&reach=25",
    "url": "/api/search.php?q=vet&city=Show Low&state=AZ&reach=25",
+   "read": [
+    "situation: Pet is sick or hurt",
+    "what: "
+   ],
    "status": 200,
-   "ms": 117,
+   "ms": 113,
    "place": "Show Low, AZ",
    "chips": [
     "place: Show Low, AZ"
    ],
-   "total": 0,
-   "first": [],
-   "note": "",
-   "fails": [
-    "nothing like /veterin|animal|pet/i in the first 3"
+   "total": 5,
+   "first": [
+    "Alta Sierra Veterinary Hospital · listing · Veterinarians · Show Low, AZ · 5 mi",
+    "Petvet Vaccination Clinic · listing · Veterinarians · Show Low, AZ · 6 mi",
+    "VIP Petcare Vaccination Clinic · listing · Veterinarians · Show Low, AZ · 6 mi",
+    "Aspen Ridge Animal Hospital · listing · Veterinarians · Lakeside, AZ · 8 mi",
+    "Veterinary Cedar Ridge · listing · Veterinarians · Taylor, AZ · 11 mi"
    ],
-   "pass": false
+   "note": "",
+   "fails": [],
+   "pass": true
   },
   {
    "group": "In a town",
    "q": "dentist",
    "ctx": "city=Show Low&state=AZ&reach=25",
    "url": "/api/search.php?q=dentist&city=Show Low&state=AZ&reach=25",
+   "read": [
+    "what: Dentists"
+   ],
    "status": 200,
-   "ms": 175,
+   "ms": 174,
    "place": "Show Low, AZ",
    "chips": [
     "place: Show Low, AZ",
@@ -431,9 +519,9 @@
    "first": [
     "Equihua, Rachel E Dmd · listing · Dentists · Show Low, AZ · <1 mi · 0 mi",
     "White Mountain Endodontics · listing · Dentists · Show Low, AZ · <1 mi · 0 mi",
-    "AZ Max · listing · Dentists · Show Low, AZ · 4 mi · 3.8589471322250737 mi",
-    "Advanced Dental Care Of Show Low, PLLC · listing · Dentists · Show Low, AZ · 4 mi · 4.071302332591821 mi",
-    "Aspen Dental · listing · Dentists · Show Low, AZ · 4 mi · 3.657654198405516 mi"
+    "AZ Max · listing · Dentists · Show Low, AZ · 4 mi · 3.9 mi",
+    "Advanced Dental Care Of Show Low, PLLC · listing · Dentists · Show Low, AZ · 4 mi · 4.1 mi",
+    "Aspen Dental · listing · Dentists · Show Low, AZ · 4 mi · 3.7 mi"
    ],
    "note": "",
    "fails": [],
@@ -444,19 +532,22 @@
    "q": "groceries",
    "ctx": "city=Show Low&state=AZ&reach=25",
    "url": "/api/search.php?q=groceries&city=Show Low&state=AZ&reach=25",
+   "read": [
+    "what: groceries"
+   ],
    "status": 200,
-   "ms": 166,
+   "ms": 165,
    "place": "Show Low, AZ",
    "chips": [
     "place: Show Low, AZ"
    ],
    "total": 16,
    "first": [
-    "Safeway · listing · Grocery Stores · Show Low, AZ · 5 mi · 4.8266251887184985 mi",
-    "Walmart Deli · listing · Delis · Show Low, AZ · 7 mi · 6.912069366339147 mi",
-    "Vons Cabinets · listing · Grocery Stores · Lakeside, AZ · 8 mi · 7.828861108294831 mi",
-    "Family Dollar · listing · Variety Stores · Show Low, AZ · 4 mi · 4.077807727704882 mi",
-    "Family Dollar · listing · Variety Stores · Lakeside, AZ · 9 mi · 9.261253414053767 mi"
+    "Safeway · listing · Grocery Stores · Show Low, AZ · 5 mi · 4.8 mi",
+    "Walmart Deli · listing · Delis · Show Low, AZ · 7 mi · 6.9 mi",
+    "Vons Cabinets · listing · Grocery Stores · Lakeside, AZ · 8 mi · 7.8 mi",
+    "Family Dollar · listing · Variety Stores · Show Low, AZ · 4 mi · 4.1 mi",
+    "Family Dollar · listing · Variety Stores · Lakeside, AZ · 9 mi · 9.3 mi"
    ],
    "note": "",
    "fails": [],
@@ -467,27 +558,38 @@
    "q": "gas station",
    "ctx": "city=Show Low&state=AZ&reach=25",
    "url": "/api/search.php?q=gas%20station&city=Show Low&state=AZ&reach=25",
+   "read": [
+    "situation: Gas for the car",
+    "what: "
+   ],
    "status": 200,
    "ms": 123,
    "place": "Show Low, AZ",
    "chips": [
     "place: Show Low, AZ"
    ],
-   "total": 0,
-   "first": [],
-   "note": "",
-   "fails": [
-    "nothing like /gas|fuel|station|circle k|chevron|shell|maverik/i in the first 3"
+   "total": 10,
+   "first": [
+    "VTI Enterprises LLC · listing · Gas Stations · Show Low, AZ · 2 mi",
+    "Mustang/Conoco Gasoline · listing · Gas Stations · Show Low, AZ · 3 mi",
+    "Sinclair Gas Station · listing · Gas Stations · Show Low, AZ · 4 mi",
+    "Safeway Fuel Station · listing · Gas Stations · Show Low, AZ · 5 mi",
+    "Moose Henry's Grille · listing · Gas Stations · Lakeside, AZ · 11 mi"
    ],
-   "pass": false
+   "note": "",
+   "fails": [],
+   "pass": true
   },
   {
    "group": "In a town",
    "q": "coffee",
    "ctx": "zip=85302&reach=25",
    "url": "/api/search.php?q=coffee&zip=85302&reach=25",
+   "read": [
+    "what: coffee"
+   ],
    "status": 200,
-   "ms": 109,
+   "ms": 107,
    "place": "Glendale, AZ",
    "chips": [
     "place: Glendale, AZ"
@@ -497,8 +599,8 @@
     "Coffee & Tea (manufacturer) · topic · Category in Food & Dining",
     "Coffee & Tea Shops · topic · Category in Food & Dining",
     "Coffee Shops · topic · Category in Food & Dining",
-    "Cartel Coffee Lab · listing · Restaurants · Phoenix, AZ · 10 mi · 10.144590783531534 mi",
-    "GroundShaker Coffee Bar · listing · Bars · Surprise, AZ · 13 mi · 13.259306443762798 mi"
+    "Cartel Coffee Lab · listing · Restaurants · Phoenix, AZ · 10 mi · 10.1 mi",
+    "GroundShaker Coffee Bar · listing · Bars · Surprise, AZ · 13 mi · 13.3 mi"
    ],
    "note": "",
    "fails": [
@@ -511,24 +613,28 @@
    "q": "coffee near me",
    "ctx": "city=Phoenix&state=AZ&reach=10",
    "url": "/api/search.php?q=coffee%20near%20me&city=Phoenix&state=AZ&reach=10",
+   "read": [
+    "OpenStreetMap: coffee",
+    "what: coffee"
+   ],
    "status": 200,
-   "ms": 166,
+   "ms": 170,
    "place": "Phoenix, AZ",
    "chips": [
     "place: Phoenix, AZ"
    ],
    "total": 25,
    "first": [
-    "Cartel Coffee Lab · listing · Restaurants · Phoenix, AZ · <1 mi · 0.08857380631542514 mi",
-    "GroundShaker Coffee Bar · listing · Bars · Surprise, AZ · 22 mi · 22.21542357458475 mi",
-    "Coffeepot Rock · outdoors · Peak · near Sedona · 101 mi · 100.5257317769338 mi",
-    "Safeway · listing · Grocery Stores · Show Low, AZ · 128 mi · 128.39331419901893 mi",
-    "Starbucks · listing · Coffee Shops · Show Low, AZ · 128 mi · 128.39331419901893 mi"
+    "Cartel Coffee Lab · listing · Restaurants · Phoenix, AZ · <1 mi · 0.1 mi",
+    "GroundShaker Coffee Bar · listing · Bars · Surprise, AZ · 22 mi · 22.2 mi",
+    "Coffeepot Rock · outdoors · Peak · near Sedona · 101 mi · 100.5 mi",
+    "Safeway · listing · Grocery Stores · Show Low, AZ · 128 mi · 128.4 mi",
+    "Starbucks · listing · Coffee Shops · Show Low, AZ · 128 mi · 128.4 mi"
    ],
    "note": "",
    "fails": [
     "shouldn't lead: Coffeepot Rock · outdoors · Peak · near Sedona · 101 mi",
-    "GroundShaker Coffee Bar · listing · Bars · Surprise, AZ · 22 mi is 22.21542357458475 mi (over 10)"
+    "GroundShaker Coffee Bar · listing · Bars · Surprise, AZ · 22 mi is 22 mi (over 10)"
    ],
    "pass": false
   },
@@ -537,8 +643,12 @@
    "q": "pizza near me",
    "ctx": "city=Phoenix&state=AZ&reach=10",
    "url": "/api/search.php?q=pizza%20near%20me&city=Phoenix&state=AZ&reach=10",
+   "read": [
+    "OpenStreetMap: pizza",
+    "what: Pizza"
+   ],
    "status": 200,
-   "ms": 218,
+   "ms": 213,
    "place": "Phoenix, AZ",
    "chips": [
     "place: Phoenix, AZ",
@@ -546,15 +656,15 @@
    ],
    "total": 20,
    "first": [
-    "CiBO Pizzeria · listing · Restaurants · Phoenix, AZ · <1 mi · 0.5662470078822204 mi",
-    "Crunchy Frog Pizza · listing · Pizza · Show Low, AZ · 124 mi · 124.44278880862669 mi",
-    "Papa Murphy's Take 'N' Bake · listing · Pizza · Show Low, AZ · 129 mi · 128.81207973653312 mi",
-    "Pizza Hut · listing · Pizza · Show Low, AZ · 129 mi · 128.84694800163103 mi",
-    "Papa Johns · listing · Pizza · Lakeside, AZ · 130 mi · 129.67786065384928 mi"
+    "CiBO Pizzeria · listing · Restaurants · Phoenix, AZ · <1 mi · 0.6 mi",
+    "Crunchy Frog Pizza · listing · Pizza · Show Low, AZ · 124 mi · 124.4 mi",
+    "Papa Murphy's Take 'N' Bake · listing · Pizza · Show Low, AZ · 129 mi · 128.8 mi",
+    "Pizza Hut · listing · Pizza · Show Low, AZ · 129 mi · 128.8 mi",
+    "Papa Johns · listing · Pizza · Lakeside, AZ · 130 mi · 129.7 mi"
    ],
    "note": "",
    "fails": [
-    "Crunchy Frog Pizza · listing · Pizza · Show Low, AZ · 124 mi is 124.44278880862669 mi (over 10)"
+    "Crunchy Frog Pizza · listing · Pizza · Show Low, AZ · 124 mi is 124 mi (over 10)"
    ],
    "pass": false
   },
@@ -563,23 +673,27 @@
    "q": "gas near me",
    "ctx": "city=Phoenix&state=AZ&reach=10",
    "url": "/api/search.php?q=gas%20near%20me&city=Phoenix&state=AZ&reach=10",
+   "read": [
+    "OpenStreetMap: fuel",
+    "what: gas"
+   ],
    "status": 200,
-   "ms": 179,
+   "ms": 175,
    "place": "Phoenix, AZ",
    "chips": [
     "place: Phoenix, AZ"
    ],
    "total": 62,
    "first": [
-    "Apache Propane · listing · Propane & LP Gas · Whiteriver, AZ · 122 mi · 122.15323025210897 mi",
-    "Ferrellgas · listing · Propane · Show Low, AZ · 128 mi · 127.50561555416482 mi",
-    "Safeway Fuel Station · listing · Gas Stations · Show Low, AZ · 128 mi · 128.39331419901893 mi",
-    "Amerigas Cylinder Propane Rfll · listing · Propane Refills · Show Low, AZ · 129 mi · 128.80529812676863 mi",
-    "Moose Henri Grille Corks-Taps · listing · Gas Stations · Lakeside, AZ · 129 mi · 129.04637386289514 mi"
+    "Apache Propane · listing · Propane & LP Gas · Whiteriver, AZ · 122 mi · 122.2 mi",
+    "Ferrellgas · listing · Propane · Show Low, AZ · 128 mi · 127.5 mi",
+    "Safeway Fuel Station · listing · Gas Stations · Show Low, AZ · 128 mi · 128.4 mi",
+    "Amerigas Cylinder Propane Rfll · listing · Propane Refills · Show Low, AZ · 129 mi · 128.8 mi",
+    "Moose Henri Grille Corks-Taps · listing · Gas Stations · Lakeside, AZ · 129 mi · 129 mi"
    ],
    "note": "",
    "fails": [
-    "Apache Propane · listing · Propane & LP Gas · Whiteriver, AZ · 122 mi is 122.15323025210897 mi (over 10)"
+    "Apache Propane · listing · Propane & LP Gas · Whiteriver, AZ · 122 mi is 122 mi (over 10)"
    ],
    "pass": false
   },
@@ -588,8 +702,11 @@
    "q": "food near me",
    "ctx": "city=Phoenix&state=AZ&reach=10",
    "url": "/api/search.php?q=food%20near%20me&city=Phoenix&state=AZ&reach=10",
+   "read": [
+    "what: Restaurants"
+   ],
    "status": 200,
-   "ms": 243,
+   "ms": 217,
    "place": "Phoenix, AZ",
    "chips": [
     "place: Phoenix, AZ",
@@ -597,11 +714,11 @@
    ],
    "total": 158,
    "first": [
-    "Cartel Coffee Lab · listing · Restaurants · Phoenix, AZ · <1 mi · 0.08857380631542514 mi",
-    "Seamus McCaffrey's Irish Pub · listing · Restaurants · Phoenix, AZ · <1 mi · 0.1392953504179071 mi",
-    "Centrico · listing · Restaurants · Phoenix, AZ · <1 mi · 0.14077094843423185 mi",
-    "Majerle's Sports Grill · listing · Restaurants · Phoenix, AZ · <1 mi · 0.1533683889611241 mi",
-    "CiBO Pizzeria · listing · Restaurants · Phoenix, AZ · <1 mi · 0.5662470078822204 mi"
+    "Cartel Coffee Lab · listing · Restaurants · Phoenix, AZ · <1 mi · 0.1 mi",
+    "Seamus McCaffrey's Irish Pub · listing · Restaurants · Phoenix, AZ · <1 mi · 0.1 mi",
+    "Centrico · listing · Restaurants · Phoenix, AZ · <1 mi · 0.1 mi",
+    "Majerle's Sports Grill · listing · Restaurants · Phoenix, AZ · <1 mi · 0.2 mi",
+    "CiBO Pizzeria · listing · Restaurants · Phoenix, AZ · <1 mi · 0.6 mi"
    ],
    "note": "",
    "fails": [],
@@ -612,6 +729,10 @@
    "q": "hiking near me",
    "ctx": "city=Phoenix&state=AZ&reach=10",
    "url": "/api/search.php?q=hiking%20near%20me&city=Phoenix&state=AZ&reach=10",
+   "read": [
+    "situation: Hiking",
+    "what: hiking"
+   ],
    "status": 200,
    "ms": 276,
    "place": "Phoenix, AZ",
@@ -621,11 +742,11 @@
    ],
    "total": 354,
    "first": [
-    "Piestewa Peak · outdoors · Peak · near Phoenix · 7 mi · 7.488928552938695 mi",
-    "Phoenix Mountains · outdoors · Peak · near Phoenix · 8 mi · 7.5012491499055765 mi",
-    "Camelback Mountain · outdoors · Peak · near Phoenix · 8 mi · 7.915502929203906 mi",
-    "North Mountain · outdoors · Peak · near Phoenix · 9 mi · 9.477866382382963 mi",
-    "Salt River Valley · outdoors · Canyon · near Cashion · 14 mi · 14.441835452669995 mi"
+    "Piestewa Peak · outdoors · Peak · near Phoenix · 7 mi",
+    "Camelback Mountain · outdoors · Peak · near Phoenix · 8 mi",
+    "Phoenix Mountains · outdoors · Peak · near Phoenix · 8 mi",
+    "Camels Eye · outdoors · Natural arch · near Phoenix · 8 mi",
+    "North Mountain · outdoors · Peak · near Phoenix · 9 mi"
    ],
    "note": "",
    "fails": [],
@@ -636,8 +757,12 @@
    "q": "parks near me",
    "ctx": "city=Phoenix&state=AZ&reach=10",
    "url": "/api/search.php?q=parks%20near%20me&city=Phoenix&state=AZ&reach=10",
+   "read": [
+    "OpenStreetMap: park",
+    "what: Parks"
+   ],
    "status": 200,
-   "ms": 227,
+   "ms": 222,
    "place": "Phoenix, AZ",
    "chips": [
     "place: Phoenix, AZ",
@@ -645,15 +770,15 @@
    ],
    "total": 11,
    "first": [
-    "Fort Apache Historical Park · listing · Parks · Fort Apache, AZ · 122 mi · 122.28683852222274 mi",
-    "Show Low Lake Campgrounds · listing · Parks · Lakeside, AZ · 129 mi · 128.6177623636918 mi",
-    "Pinetop-Lakeside Parks & Recreation · listing · Parks · Lakeside, AZ · 130 mi · 129.59268489689535 mi",
-    "Show Low City Recreation · listing · Parks · Show Low, AZ · 130 mi · 129.6369624749851 mi",
-    "White Mountain Lake Recreation District · listing · Parks · Show Low, AZ · 135 mi · 134.53058516602266 mi"
+    "Fort Apache Historical Park · listing · Parks · Fort Apache, AZ · 122 mi · 122.3 mi",
+    "Show Low Lake Campgrounds · listing · Parks · Lakeside, AZ · 129 mi · 128.6 mi",
+    "Pinetop-Lakeside Parks & Recreation · listing · Parks · Lakeside, AZ · 130 mi · 129.6 mi",
+    "Show Low City Recreation · listing · Parks · Show Low, AZ · 130 mi · 129.6 mi",
+    "White Mountain Lake Recreation District · listing · Parks · Show Low, AZ · 135 mi · 134.5 mi"
    ],
    "note": "",
    "fails": [
-    "Fort Apache Historical Park · listing · Parks · Fort Apache, AZ · 122 mi is 122.28683852222274 mi (over 10)"
+    "Fort Apache Historical Park · listing · Parks · Fort Apache, AZ · 122 mi is 122 mi (over 10)"
    ],
    "pass": false
   },
@@ -662,39 +787,50 @@
    "q": "things to do near me",
    "ctx": "zip=85302&reach=25",
    "url": "/api/search.php?q=things%20to%20do%20near%20me&zip=85302&reach=25",
+   "read": [
+    "situation: Something to do",
+    "what: "
+   ],
    "status": 200,
-   "ms": 154,
+   "ms": 161,
    "place": "Glendale, AZ",
    "chips": [
     "why: Things to do",
     "place: Glendale, AZ"
    ],
-   "total": 0,
-   "first": [],
-   "note": "",
-   "fails": [
-    "0 results"
+   "total": 10,
+   "first": [
+    "North Mountain · outdoors · Peak · near Phoenix · 6 mi",
+    "Phoenix Mountains · outdoors · Peak · near Phoenix · 9 mi",
+    "Piestewa Peak · outdoors · Peak · near Phoenix · 9 mi",
+    "Camelback Mountain · outdoors · Peak · near Phoenix · 13 mi",
+    "Salt River Valley · outdoors · Canyon · near Cashion · 15 mi"
    ],
-   "pass": false
+   "note": "",
+   "fails": [],
+   "pass": true
   },
   {
    "group": "Near me",
    "q": "near me",
    "ctx": "city=Phoenix&state=AZ&reach=10",
    "url": "/api/search.php?q=near%20me&city=Phoenix&state=AZ&reach=10",
+   "read": [
+    "what: "
+   ],
    "status": 200,
-   "ms": 136,
+   "ms": 138,
    "place": "Phoenix, AZ",
    "chips": [
     "place: Phoenix, AZ"
    ],
    "total": 359,
    "first": [
-    "Heard Building · outdoors · Building · near Phoenix · <1 mi · 0.10673156474946423 mi",
-    "Orpheum Theatre · outdoors · Theatre building · near Phoenix · <1 mi · 0.12041576682114911 mi",
-    "Professional Building · outdoors · Office building · near Phoenix · <1 mi · 0.1550347205560178 mi",
-    "Security Building · outdoors · Commercial building · near Phoenix · <1 mi · 0.19122020607967796 mi",
-    "First Baptist Church · outdoors · Protestant church building · near Phoenix · <1 mi · 0.2508077891456862 mi"
+    "Heard Building · outdoors · Building · near Phoenix · <1 mi · 0.1 mi",
+    "Orpheum Theatre · outdoors · Theatre building · near Phoenix · <1 mi · 0.1 mi",
+    "Professional Building · outdoors · Office building · near Phoenix · <1 mi · 0.2 mi",
+    "Security Building · outdoors · Commercial building · near Phoenix · <1 mi · 0.2 mi",
+    "First Baptist Church · outdoors · Protestant church building · near Phoenix · <1 mi · 0.3 mi"
    ],
    "note": "",
    "fails": [],
@@ -705,18 +841,28 @@
    "q": "urgent care near me",
    "ctx": "city=Phoenix&state=AZ&reach=10",
    "url": "/api/search.php?q=urgent%20care%20near%20me&city=Phoenix&state=AZ&reach=10",
+   "read": [
+    "situation: Feeling sick",
+    "what: "
+   ],
    "status": 200,
-   "ms": 158,
+   "ms": 143,
    "place": "Phoenix, AZ",
    "chips": [
     "when: Emergency: open now first",
     "place: Phoenix, AZ"
    ],
-   "total": 0,
-   "first": [],
+   "total": 15,
+   "first": [
+    "Living Hope Women's Center · listing · Clinics · Whiteriver, AZ · 122 mi",
+    "Division Of Health Programs · listing · Health Services · Whiteriver, AZ · 122 mi",
+    "White River Unified School District · listing · Health Services · Ft. Apache, AZ · 122 mi",
+    "White Mountain Apache Tribe Fire And Rescue · listing · Health Services · Whiteriver, AZ · 124 mi",
+    "Quick Med Center LLC · listing · Medical Centers · Show Low, AZ · 128 mi"
+   ],
    "note": "",
    "fails": [
-    "nothing like /urgent|clinic|care|medical|hospital/i in the first 3"
+    "Living Hope Women's Center · listing · Clinics · Whiteriver, AZ is 122 mi (over 10)"
    ],
    "pass": false
   },
@@ -725,8 +871,11 @@
    "q": "place to take my kids",
    "ctx": "city=Phoenix&state=AZ&reach=10",
    "url": "/api/search.php?q=place%20to%20take%20my%20kids&city=Phoenix&state=AZ&reach=10",
+   "read": [
+    "what: take"
+   ],
    "status": 200,
-   "ms": 145,
+   "ms": 143,
    "place": "Phoenix, AZ",
    "chips": [
     "who: For kids and youth",
@@ -748,8 +897,12 @@
    "q": "things to do with kids",
    "ctx": "city=Phoenix&state=AZ&reach=25",
    "url": "/api/search.php?q=things%20to%20do%20with%20kids&city=Phoenix&state=AZ&reach=25",
+   "read": [
+    "situation: Something for the kids",
+    "what: "
+   ],
    "status": 200,
-   "ms": 112,
+   "ms": 133,
    "place": "Phoenix, AZ",
    "chips": [
     "who: For kids and youth",
@@ -769,8 +922,11 @@
    "q": "kids activities",
    "ctx": "city=Phoenix&state=AZ&reach=25",
    "url": "/api/search.php?q=kids%20activities&city=Phoenix&state=AZ&reach=25",
+   "read": [
+    "what: activities"
+   ],
    "status": 200,
-   "ms": 170,
+   "ms": 178,
    "place": "Phoenix, AZ",
    "chips": [
     "who: For kids and youth",
@@ -789,23 +945,26 @@
    "q": "family friendly restaurants",
    "ctx": "city=Phoenix&state=AZ&reach=25",
    "url": "/api/search.php?q=family%20friendly%20restaurants&city=Phoenix&state=AZ&reach=25",
+   "read": [
+    "what: restaurants"
+   ],
    "status": 200,
-   "ms": 138,
+   "ms": 128,
    "place": "Phoenix, AZ",
    "chips": [
     "place: Phoenix, AZ"
    ],
    "total": 16,
    "first": [
+    "Restaurants · knowledge",
     "Restaurants · topic · Category in Food & Dining",
-    "Centrico · listing · Restaurants · Phoenix, AZ · <1 mi · 0.14077094843423185 mi",
-    "Cartel Coffee Lab · listing · Restaurants · Phoenix, AZ · <1 mi · 0.08857380631542514 mi",
-    "CiBO Pizzeria · listing · Restaurants · Phoenix, AZ · <1 mi · 0.5662470078822204 mi",
-    "Majerle's Sports Grill · listing · Restaurants · Phoenix, AZ · <1 mi · 0.1533683889611241 mi"
+    "Centrico · listing · Restaurants · Phoenix, AZ · <1 mi · 0.1 mi",
+    "Cartel Coffee Lab · listing · Restaurants · Phoenix, AZ · <1 mi · 0.1 mi",
+    "CiBO Pizzeria · listing · Restaurants · Phoenix, AZ · <1 mi · 0.6 mi"
    ],
    "note": "",
    "fails": [
-    "not all of the first 3 fit /listing/: Restaurants · topic · Category in Food & Dining",
+    "not all of the first 3 fit /listing/: Restaurants · knowledge",
     "no chip like /who|famil/i"
    ],
    "pass": false
@@ -815,27 +974,39 @@
    "q": "date night",
    "ctx": "city=Phoenix&state=AZ&reach=25",
    "url": "/api/search.php?q=date%20night&city=Phoenix&state=AZ&reach=25",
+   "read": [
+    "situation: A night out",
+    "what: "
+   ],
    "status": 200,
-   "ms": 109,
+   "ms": 100,
    "place": "Phoenix, AZ",
    "chips": [
     "place: Phoenix, AZ"
    ],
-   "total": 0,
-   "first": [],
-   "note": "",
-   "fails": [
-    "0 results"
+   "total": 6,
+   "first": [
+    "Centrico · listing · Restaurants · Phoenix, AZ · 0 mi",
+    "Harvey's Wineburger · listing · Restaurants · Phoenix, AZ · 4 mi",
+    "Cheese 'N Stuff Deli · listing · Restaurants · Phoenix, AZ · 4 mi",
+    "Cornish Pasty Co. · listing · Restaurants · Tempe, AZ · 7 mi",
+    "Akaihana · listing · Restaurants · Phoenix, AZ · 8 mi"
    ],
-   "pass": false
+   "note": "",
+   "fails": [],
+   "pass": true
   },
   {
    "group": "Context",
    "q": "rainy day activities",
    "ctx": "city=Phoenix&state=AZ&reach=25",
    "url": "/api/search.php?q=rainy%20day%20activities&city=Phoenix&state=AZ&reach=25",
+   "read": [
+    "asks: place",
+    "what: day"
+   ],
    "status": 200,
-   "ms": 134,
+   "ms": 137,
    "place": "Phoenix, AZ",
    "chips": [
     "place: Phoenix, AZ"
@@ -856,30 +1027,39 @@
    "q": "something fun to do",
    "ctx": "city=Phoenix&state=AZ&reach=25",
    "url": "/api/search.php?q=something%20fun%20to%20do&city=Phoenix&state=AZ&reach=25",
+   "read": [
+    "situation: Something to do",
+    "what: fun"
+   ],
    "status": 200,
-   "ms": 143,
+   "ms": 132,
    "place": "Phoenix, AZ",
    "chips": [
     "why: Things to do",
     "place: Phoenix, AZ"
    ],
-   "total": 1,
+   "total": 6,
    "first": [
-    "Family Fun Centers · topic · Category in Entertainment & Recreation"
+    "Piestewa Peak · outdoors · Peak · near Phoenix · 7 mi",
+    "Camelback Mountain · outdoors · Peak · near Phoenix · 8 mi",
+    "Phoenix Mountains · outdoors · Peak · near Phoenix · 8 mi",
+    "Camels Eye · outdoors · Natural arch · near Phoenix · 8 mi",
+    "North Mountain · outdoors · Peak · near Phoenix · 9 mi"
    ],
    "note": "",
-   "fails": [
-    "1 results"
-   ],
-   "pass": false
+   "fails": [],
+   "pass": true
   },
   {
    "group": "Context",
    "q": "where to take my dog",
    "ctx": "city=Phoenix&state=AZ&reach=25",
    "url": "/api/search.php?q=where%20to%20take%20my%20dog&city=Phoenix&state=AZ&reach=25",
+   "read": [
+    "what: dog"
+   ],
    "status": 200,
-   "ms": 140,
+   "ms": 132,
    "place": "Phoenix, AZ",
    "chips": [
     "place: Phoenix, AZ"
@@ -898,8 +1078,11 @@
    "q": "cheap eats",
    "ctx": "city=Phoenix&state=AZ&reach=25",
    "url": "/api/search.php?q=cheap%20eats&city=Phoenix&state=AZ&reach=25",
+   "read": [
+    "what: Restaurants"
+   ],
    "status": 200,
-   "ms": 99,
+   "ms": 98,
    "place": "Phoenix, AZ",
    "chips": [
     "place: Phoenix, AZ",
@@ -907,11 +1090,11 @@
    ],
    "total": 11,
    "first": [
-    "Cartel Coffee Lab · listing · Restaurants · Phoenix, AZ · <1 mi · 0.08857380631542514 mi",
-    "Centrico · listing · Restaurants · Phoenix, AZ · <1 mi · 0.14077094843423185 mi",
-    "CiBO Pizzeria · listing · Restaurants · Phoenix, AZ · <1 mi · 0.5662470078822204 mi",
-    "Majerle's Sports Grill · listing · Restaurants · Phoenix, AZ · <1 mi · 0.1533683889611241 mi",
-    "Seamus McCaffrey's Irish Pub · listing · Restaurants · Phoenix, AZ · <1 mi · 0.1392953504179071 mi"
+    "Cartel Coffee Lab · listing · Restaurants · Phoenix, AZ · <1 mi · 0.1 mi",
+    "Centrico · listing · Restaurants · Phoenix, AZ · <1 mi · 0.1 mi",
+    "CiBO Pizzeria · listing · Restaurants · Phoenix, AZ · <1 mi · 0.6 mi",
+    "Majerle's Sports Grill · listing · Restaurants · Phoenix, AZ · <1 mi · 0.2 mi",
+    "Seamus McCaffrey's Irish Pub · listing · Restaurants · Phoenix, AZ · <1 mi · 0.1 mi"
    ],
    "note": "",
    "fails": [],
@@ -922,28 +1105,39 @@
    "q": "romantic dinner",
    "ctx": "city=Phoenix&state=AZ&reach=25",
    "url": "/api/search.php?q=romantic%20dinner&city=Phoenix&state=AZ&reach=25",
+   "read": [
+    "situation: A night out",
+    "what: "
+   ],
    "status": 200,
-   "ms": 95,
+   "ms": 101,
    "place": "Phoenix, AZ",
    "chips": [
     "why: Somewhere to eat",
     "place: Phoenix, AZ"
    ],
-   "total": 0,
-   "first": [],
-   "note": "",
-   "fails": [
-    "not all of the first 3 fit /listing/"
+   "total": 6,
+   "first": [
+    "Centrico · listing · Restaurants · Phoenix, AZ · 0 mi",
+    "Harvey's Wineburger · listing · Restaurants · Phoenix, AZ · 4 mi",
+    "Cheese 'N Stuff Deli · listing · Restaurants · Phoenix, AZ · 4 mi",
+    "Cornish Pasty Co. · listing · Restaurants · Tempe, AZ · 7 mi",
+    "Akaihana · listing · Restaurants · Phoenix, AZ · 8 mi"
    ],
-   "pass": false
+   "note": "",
+   "fails": [],
+   "pass": true
   },
   {
    "group": "Context",
    "q": "I need a plumber",
    "ctx": "city=Show Low&state=AZ&reach=25",
    "url": "/api/search.php?q=I%20need%20a%20plumber&city=Show Low&state=AZ&reach=25",
+   "read": [
+    "what: plumber"
+   ],
    "status": 200,
-   "ms": 166,
+   "ms": 170,
    "place": "Show Low, AZ",
    "chips": [
     "place: Show Low, AZ"
@@ -952,9 +1146,9 @@
    "first": [
     "Plumbers · topic · Category in Construction & Contracting",
     "Action Plumbing Inc · listing · Plumbers · Show Low, AZ · <1 mi · 0 mi",
-    "All Mountain Plumbing LLC · listing · Plumbers · Show Low, AZ · 4 mi · 4.230397547956518 mi",
-    "Avery Plumbing Inc · listing · Plumbers · Show Low, AZ · 4 mi · 3.592867968417844 mi",
-    "Dennis Kotterman Plumbing Inc · listing · Plumbers · Show Low, AZ · 4 mi · 3.9859610762467557 mi"
+    "All Mountain Plumbing LLC · listing · Plumbers · Show Low, AZ · 4 mi · 4.2 mi",
+    "Avery Plumbing Inc · listing · Plumbers · Show Low, AZ · 4 mi · 3.6 mi",
+    "Dennis Kotterman Plumbing Inc · listing · Plumbers · Show Low, AZ · 4 mi · 4 mi"
    ],
    "note": "",
    "fails": [],
@@ -965,27 +1159,39 @@
    "q": "my car broke down",
    "ctx": "city=Show Low&state=AZ&reach=25",
    "url": "/api/search.php?q=my%20car%20broke%20down&city=Show Low&state=AZ&reach=25",
+   "read": [
+    "situation: Stuck on the road",
+    "what: "
+   ],
    "status": 200,
-   "ms": 125,
+   "ms": 130,
    "place": "Show Low, AZ",
    "chips": [
     "place: Show Low, AZ"
    ],
-   "total": 0,
-   "first": [],
-   "note": "",
-   "fails": [
-    "nothing like /tow|auto|repair|mechanic/i in the first 3"
+   "total": 13,
+   "first": [
+    "Navapache Towing & Transport · listing · Towing · Show Low, AZ · 3 mi",
+    "Jay's Auto Repair · listing · Auto Repair · Show Low, AZ · 3 mi",
+    "Pit Road Automotive · listing · Auto Repair · Show Low, AZ · 3 mi",
+    "Harris Automotive · listing · Auto Repair · Show Low, AZ · 4 mi",
+    "Mobile Medics Auto Repair LLC · listing · Auto Repair · Show Low, AZ · 4 mi"
    ],
-   "pass": false
+   "note": "",
+   "fails": [],
+   "pass": true
   },
   {
    "group": "Context",
    "q": "where can I go fishing",
    "ctx": "city=Show Low&state=AZ&reach=25",
    "url": "/api/search.php?q=where%20can%20I%20go%20fishing&city=Show Low&state=AZ&reach=25",
+   "read": [
+    "situation: Fishing",
+    "what: fishing"
+   ],
    "status": 200,
-   "ms": 216,
+   "ms": 220,
    "place": "Show Low, AZ",
    "chips": [
     "do: Fishing",
@@ -993,11 +1199,11 @@
    ],
    "total": 26,
    "first": [
-    "Fool Hollow Lake · outdoors · Lake · near Show Low · 4 mi · 4.399920216272364 mi",
-    "Scott Reservoir · outdoors · Reservoir · near Lakeside · 9 mi · 9.002144289809099 mi",
-    "Show Low Lake · outdoors · Lake · near Lakeside · 8 mi · 7.929291264946303 mi",
-    "Fool Hollow Lake Recreation Area Campground · outdoors · Campground · USDA Forest Service · 4 mi · 3.9576386352202535 mi",
-    "Pintail Lake Observation Site · outdoors · USDA Forest Service · 2 mi · 1.5641164913662946 mi"
+    "Fool Hollow Lake · outdoors · Lake · near Show Low · 4 mi",
+    "Pintail Lake Observation Site · outdoors · USDA Forest Service · 2 mi",
+    "Fool Hollow Lake Recreation Area Campground · outdoors · Campground · USDA Forest Service · 4 mi",
+    "Show Low Lake · outdoors · Lake · near Lakeside · 8 mi",
+    "Scott Reservoir · outdoors · Reservoir · near Lakeside · 9 mi"
    ],
    "note": "",
    "fails": [],
@@ -1008,27 +1214,37 @@
    "q": "scenic drive",
    "ctx": "city=Show Low&state=AZ&reach=25",
    "url": "/api/search.php?q=scenic%20drive&city=Show Low&state=AZ&reach=25",
+   "read": [
+    "situation: A getaway or day trip",
+    "what: "
+   ],
    "status": 200,
-   "ms": 135,
+   "ms": 128,
    "place": "Show Low, AZ",
    "chips": [
     "place: Show Low, AZ"
    ],
-   "total": 0,
-   "first": [],
-   "note": "",
-   "fails": [
-    "0 results"
+   "total": 4,
+   "first": [
+    "Show Low City Recreation · listing · Parks · Show Low, AZ · 4 mi",
+    "White Mountain Lake Recreation District · listing · Parks · Show Low, AZ · 4 mi",
+    "Show Low Lake Campgrounds · listing · Parks · Lakeside, AZ · 8 mi",
+    "Pinetop-Lakeside Parks & Recreation · listing · Parks · Lakeside, AZ · 12 mi"
    ],
-   "pass": false
+   "note": "",
+   "fails": [],
+   "pass": true
   },
   {
    "group": "Spelling",
    "q": "funhouse",
    "ctx": "city=Phoenix&state=AZ&reach=25",
    "url": "/api/search.php?q=funhouse&city=Phoenix&state=AZ&reach=25",
+   "read": [
+    "what: funhouse"
+   ],
    "status": 200,
-   "ms": 124,
+   "ms": 125,
    "place": "Phoenix, AZ",
    "chips": [
     "place: Phoenix, AZ"
@@ -1044,8 +1260,11 @@
    "q": "fun house near me",
    "ctx": "city=Phoenix&state=AZ&reach=10",
    "url": "/api/search.php?q=fun%20house%20near%20me&city=Phoenix&state=AZ&reach=10",
+   "read": [
+    "what: house"
+   ],
    "status": 200,
-   "ms": 173,
+   "ms": 180,
    "place": "Phoenix, AZ",
    "chips": [
     "why: Things to do",
@@ -1053,11 +1272,11 @@
    ],
    "total": 85,
    "first": [
-    "E.C. Bunch House · outdoors · House · near Glendale · 9 mi · 8.658882630239427 mi",
-    "C.H. Tinker House · outdoors · House · near Glendale · 9 mi · 9.041078061310674 mi",
-    "George O. Dowdy Rental Cottage · outdoors · House · near Glendale · 9 mi · 9.072752971994237 mi",
-    "Jonas McNair House · outdoors · House · near Glendale · 9 mi · 9.181474733388706 mi",
-    "Tasty Asian Kitchen · listing · Kitchen Supplies · Litchfield Park, AZ · 16 mi · 15.958903101497851 mi"
+    "House · listing · Restaurants",
+    "E.C. Bunch House · outdoors · House · near Glendale · 9 mi · 8.7 mi",
+    "C.H. Tinker House · outdoors · House · near Glendale · 9 mi · 9 mi",
+    "George O. Dowdy Rental Cottage · outdoors · House · near Glendale · 9 mi · 9.1 mi",
+    "Jonas McNair House · outdoors · House · near Glendale · 9 mi · 9.2 mi"
    ],
    "note": "",
    "fails": [],
@@ -1068,8 +1287,11 @@
    "q": "resturants",
    "ctx": "city=Show Low&state=AZ&reach=25",
    "url": "/api/search.php?q=resturants&city=Show Low&state=AZ&reach=25",
+   "read": [
+    "what: resturants"
+   ],
    "status": 200,
-   "ms": 198,
+   "ms": 214,
    "place": "Show Low, AZ",
    "chips": [
     "place: Show Low, AZ"
@@ -1087,8 +1309,12 @@
    "q": "piza",
    "ctx": "city=Show Low&state=AZ&reach=25",
    "url": "/api/search.php?q=piza&city=Show Low&state=AZ&reach=25",
+   "read": [
+    "did you mean: pizza",
+    "what: piza"
+   ],
    "status": 200,
-   "ms": 212,
+   "ms": 211,
    "place": "Show Low, AZ",
    "chips": [
     "place: Show Low, AZ"
@@ -1106,6 +1332,9 @@
    "q": "coffe",
    "ctx": "city=Show Low&state=AZ&reach=25",
    "url": "/api/search.php?q=coffe&city=Show Low&state=AZ&reach=25",
+   "read": [
+    "what: coffe"
+   ],
    "status": 200,
    "ms": 150,
    "place": "Show Low, AZ",
@@ -1114,11 +1343,11 @@
    ],
    "total": 17,
    "first": [
-    "Denny's · listing · Restaurants · Show Low, AZ · 6 mi · 6.30080660604392 mi",
-    "Einstein Bros Bagels · listing · Bagels · Show Low, AZ · 6 mi · 6.381283698796582 mi",
-    "Mudslingers · listing · Coffee Shops · Show Low, AZ · 6 mi · 6.3453370302868075 mi",
-    "Pour Station · listing · Coffee & Tea Shops · Show Low, AZ · 4 mi · 3.9701839706997526 mi",
-    "Safeway · listing · Grocery Stores · Show Low, AZ · 5 mi · 4.8266251887184985 mi"
+    "Denny's · listing · Restaurants · Show Low, AZ · 6 mi · 6.3 mi",
+    "Einstein Bros Bagels · listing · Bagels · Show Low, AZ · 6 mi · 6.4 mi",
+    "Mudslingers · listing · Coffee Shops · Show Low, AZ · 6 mi · 6.3 mi",
+    "Pour Station · listing · Coffee & Tea Shops · Show Low, AZ · 4 mi · 4 mi",
+    "Safeway · listing · Grocery Stores · Show Low, AZ · 5 mi · 4.8 mi"
    ],
    "note": "",
    "fails": [],
@@ -1129,8 +1358,12 @@
    "q": "plumbr",
    "ctx": "city=Show Low&state=AZ&reach=25",
    "url": "/api/search.php?q=plumbr&city=Show Low&state=AZ&reach=25",
+   "read": [
+    "did you mean: plumber",
+    "what: plumbr"
+   ],
    "status": 200,
-   "ms": 243,
+   "ms": 235,
    "place": "Show Low, AZ",
    "chips": [
     "place: Show Low, AZ"
@@ -1148,27 +1381,38 @@
    "q": "hikeing trails",
    "ctx": "city=Show Low&state=AZ&reach=25",
    "url": "/api/search.php?q=hikeing%20trails&city=Show Low&state=AZ&reach=25",
+   "read": [
+    "situation: Hiking",
+    "what: "
+   ],
    "status": 200,
-   "ms": 184,
+   "ms": 180,
    "place": "Show Low, AZ",
    "chips": [
     "place: Show Low, AZ"
    ],
-   "total": 0,
-   "first": [],
-   "note": "",
-   "fails": [
-    "nothing like /trail|peak|lake|forest/i in the first 3"
+   "total": 8,
+   "first": [
+    "White Mountain Open Trails · listing · Non-Profit Organizations · Show Low, AZ · 2 mi",
+    "Fool Hollow Lake Recreation Area Campground · outdoors · Campground · USDA Forest Service · 4 mi",
+    "Black Mesa · outdoors · Peak · near Taylor · 7 mi",
+    "Panorama Trailhead · outdoors · Hiking · USDA Forest Service · 8 mi",
+    "Lakeside Ranger District · outdoors · Biking · USDA Forest Service · 10 mi"
    ],
-   "pass": false
+   "note": "",
+   "fails": [],
+   "pass": true
   },
   {
    "group": "Spelling",
    "q": "icecream",
    "ctx": "city=Phoenix&state=AZ&reach=25",
    "url": "/api/search.php?q=icecream&city=Phoenix&state=AZ&reach=25",
+   "read": [
+    "what: icecream"
+   ],
    "status": 200,
-   "ms": 122,
+   "ms": 140,
    "place": "Phoenix, AZ",
    "chips": [
     "place: Phoenix, AZ"
@@ -1186,19 +1430,22 @@
    "q": "bbq",
    "ctx": "city=Show Low&state=AZ&reach=25",
    "url": "/api/search.php?q=bbq&city=Show Low&state=AZ&reach=25",
+   "read": [
+    "what: bbq"
+   ],
    "status": 200,
-   "ms": 174,
+   "ms": 172,
    "place": "Show Low, AZ",
    "chips": [
     "place: Show Low, AZ"
    ],
    "total": 6,
    "first": [
-    "Grumpy Jakes BBQ & Catering · listing · Restaurants · Lakeside, AZ · 9 mi · 9.066745970984744 mi",
-    "Dickey's Barbecue Pit · listing · Restaurants · Lakeside, AZ · 9 mi · 9.435188164787155 mi",
-    "Snowflake Smokehouse BBQ · listing · Restaurants · Snowflake, AZ · 14 mi · 14.309186842902916 mi",
-    "Ray's BBQ Shack · listing · Restaurants · Concho, AZ · 24 mi · 23.69325589316246 mi",
-    "Snowflake Smokehouse Bar · listing · Restaurants · Snowflake, AZ · 14 mi · 14.309186842902916 mi"
+    "Grumpy Jakes BBQ & Catering · listing · Restaurants · Lakeside, AZ · 9 mi · 9.1 mi",
+    "Dickey's Barbecue Pit · listing · Restaurants · Lakeside, AZ · 9 mi · 9.4 mi",
+    "Snowflake Smokehouse BBQ · listing · Restaurants · Snowflake, AZ · 14 mi · 14.3 mi",
+    "Ray's BBQ Shack · listing · Restaurants · Concho, AZ · 24 mi · 23.7 mi",
+    "Snowflake Smokehouse Bar · listing · Restaurants · Snowflake, AZ · 14 mi · 14.3 mi"
    ],
    "note": "",
    "fails": [],
@@ -1209,27 +1456,38 @@
    "q": "hair cut",
    "ctx": "city=Show Low&state=AZ&reach=25",
    "url": "/api/search.php?q=hair%20cut&city=Show Low&state=AZ&reach=25",
+   "read": [
+    "situation: A haircut",
+    "what: "
+   ],
    "status": 200,
-   "ms": 121,
+   "ms": 127,
    "place": "Show Low, AZ",
    "chips": [
     "place: Show Low, AZ"
    ],
-   "total": 0,
-   "first": [],
-   "note": "",
-   "fails": [
-    "nothing like /hair|barber|salon/i in the first 3"
+   "total": 5,
+   "first": [
+    "FS Cut & Color · listing · Beauty Salons · Show Low, AZ · 0 mi",
+    "Supercuts · listing · Beauty Salons · Show Low, AZ · 0 mi",
+    "Sassy Nail's & Spa · listing · Nail Salons · Show Low, AZ · 0 mi",
+    "Hats Off · listing · Barbers · Show Low, AZ · 4 mi",
+    "Ambitious Beauty Salon · listing · Beauty Salons · Show Low, AZ · 4 mi"
    ],
-   "pass": false
+   "note": "",
+   "fails": [],
+   "pass": true
   },
   {
    "group": "Spelling",
    "q": "auto parts",
    "ctx": "city=Show Low&state=AZ&reach=25",
    "url": "/api/search.php?q=auto%20parts&city=Show Low&state=AZ&reach=25",
+   "read": [
+    "what: auto parts"
+   ],
    "status": 200,
-   "ms": 176,
+   "ms": 173,
    "place": "Show Low, AZ",
    "chips": [
     "place: Show Low, AZ"
@@ -1237,10 +1495,10 @@
    "total": 15,
    "first": [
     "Auto Parts Stores · topic · Category in Automotive & Repair",
-    "O'Reilly Auto Parts · listing · Auto Parts Stores · Show Low, AZ · 4 mi · 4.05348361648698 mi",
-    "Showlow Auto Parts · listing · Auto Machine Shop Equipment (manufacturer) · Show Low, AZ · 8 mi · 7.984488178184864 mi",
-    "All Star Autobody · listing · Truck Parts & Equipment · Show Low, AZ · 4 mi · 3.8813581483727186 mi",
-    "Autozone · listing · Auto Parts Stores · Show Low, AZ · 4 mi · 4.035628895367171 mi"
+    "O'Reilly Auto Parts · listing · Auto Parts Stores · Show Low, AZ · 4 mi · 4.1 mi",
+    "Showlow Auto Parts · listing · Auto Machine Shop Equipment (manufacturer) · Show Low, AZ · 8 mi · 8 mi",
+    "All Star Autobody · listing · Truck Parts & Equipment · Show Low, AZ · 4 mi · 3.9 mi",
+    "Autozone · listing · Auto Parts Stores · Show Low, AZ · 4 mi · 4 mi"
    ],
    "note": "",
    "fails": [],
@@ -1251,8 +1509,11 @@
    "q": "Four Corners Monument",
    "ctx": "",
    "url": "/api/search.php?q=Four%20Corners%20Monument",
+   "read": [
+    "what: four corners monument"
+   ],
    "status": 200,
-   "ms": 213,
+   "ms": 210,
    "place": "",
    "chips": [],
    "total": 1,
@@ -1268,35 +1529,44 @@
    "q": "Fool Hollow Lake",
    "ctx": "",
    "url": "/api/search.php?q=Fool%20Hollow%20Lake",
+   "read": [
+    "what: lake"
+   ],
    "status": 200,
-   "ms": 163,
+   "ms": 168,
    "place": "Fool Hollow",
    "chips": [
     "place: Fool Hollow"
    ],
-   "total": 13,
+   "total": 14,
    "first": [
+    "Snowflake · knowledge",
     "Fool Hollow Lake · outdoors · Lake · near Show Low",
     "Rainbow Lake · outdoors · Lake · near Lakeside",
     "Show Low Lake · outdoors · Lake · near Lakeside",
-    "Fool Hollow Lake Recreation Area · listing · State Recreation Areas · Show Low, AZ",
-    "Pinetop Lakes Golf Course · listing · Golf Courses · Pinetop, AZ"
+    "Fool Hollow Lake Recreation Area · listing · State Recreation Areas · Show Low, AZ"
    ],
    "note": "",
-   "fails": [],
-   "pass": true
+   "fails": [
+    "nothing like /Fool Hollow/ in the first 1"
+   ],
+   "pass": false
   },
   {
    "group": "Names",
    "q": "Camelback Mountain",
    "ctx": "",
    "url": "/api/search.php?q=Camelback%20Mountain",
+   "read": [
+    "what: camelback mountain"
+   ],
    "status": 200,
-   "ms": 210,
+   "ms": 216,
    "place": "",
    "chips": [],
-   "total": 1,
+   "total": 2,
    "first": [
+    "Camelback Mountain · knowledge",
     "Camelback Mountain · outdoors · Peak · near Phoenix"
    ],
    "note": "",
@@ -1308,38 +1578,44 @@
    "q": "Harbor Freight",
    "ctx": "city=Show Low&state=AZ&reach=25",
    "url": "/api/search.php?q=Harbor%20Freight&city=Show Low&state=AZ&reach=25",
+   "read": [
+    "what: harbor freight"
+   ],
    "status": 200,
-   "ms": 170,
+   "ms": 172,
    "place": "Show Low, AZ",
    "chips": [
     "place: Show Low, AZ"
    ],
    "total": 1,
-   "first": [],
-   "note": "We have no listings in Show Low, AZ yet.",
-   "fails": [
-    "nothing like /Harbor Freight/ in the first 1"
+   "first": [
+    "Harbor Freight · listing · Tools-New & Used"
    ],
-   "pass": false
+   "note": "We have no listings in Show Low, AZ yet.",
+   "fails": [],
+   "pass": true
   },
   {
    "group": "Names",
    "q": "walmart",
    "ctx": "city=Show Low&state=AZ&reach=25",
    "url": "/api/search.php?q=walmart&city=Show Low&state=AZ&reach=25",
+   "read": [
+    "what: walmart"
+   ],
    "status": 200,
-   "ms": 141,
+   "ms": 142,
    "place": "Show Low, AZ",
    "chips": [
     "place: Show Low, AZ"
    ],
    "total": 16,
    "first": [
-    "Walmart Auto Care Center · listing · Auto Repair · Show Low, AZ · 7 mi · 6.912069366339147 mi",
-    "Walmart Bakery · listing · Bakeries · Show Low, AZ · 7 mi · 6.912069366339147 mi",
-    "Walmart Deli · listing · Delis · Show Low, AZ · 7 mi · 6.912069366339147 mi",
-    "Walmart Inc. · listing · Pharmacies · Show Low, AZ · 7 mi · 6.912069366339147 mi",
-    "Walmart Photo Center · listing · Photo Printing · Show Low, AZ · 7 mi · 6.912069366339147 mi"
+    "Walmart Auto Care Center · listing · Auto Repair · Show Low, AZ · 7 mi · 6.9 mi",
+    "Walmart Bakery · listing · Bakeries · Show Low, AZ · 7 mi · 6.9 mi",
+    "Walmart Deli · listing · Delis · Show Low, AZ · 7 mi · 6.9 mi",
+    "Walmart Inc. · listing · Pharmacies · Show Low, AZ · 7 mi · 6.9 mi",
+    "Walmart Photo Center · listing · Photo Printing · Show Low, AZ · 7 mi · 6.9 mi"
    ],
    "note": "",
    "fails": [],
@@ -1368,7 +1644,7 @@
    "q": "phoenix",
    "ctx": "",
    "url": "/api/search.php?suggest=1&q=phoenix",
-   "ms": 91,
+   "ms": 95,
    "first": [
     "Phoenixville, PA · place · Town · see what's there",
     "Phoenix Financial Center · knowledge · From our guides · Institution",
@@ -1387,7 +1663,7 @@
    "q": "Dana p",
    "ctx": "",
    "url": "/api/search.php?suggest=1&q=Dana%20p",
-   "ms": 94,
+   "ms": 98,
    "first": [
     "Dana Point, CA · place · Town in Laguna Niguel",
     "Counselors · category · What “dana” names are",
@@ -1403,7 +1679,7 @@
    "q": "sedo",
    "ctx": "",
    "url": "/api/search.php?suggest=1&q=sedo",
-   "ms": 125,
+   "ms": 129,
    "first": [
     "Sedona, AZ · place · Town · see what's there"
    ],
@@ -1415,7 +1691,7 @@
    "q": "glendale",
    "ctx": "city=Phoenix&state=AZ&reach=25",
    "url": "/api/search.php?suggest=1&q=glendale&city=Phoenix&state=AZ&reach=25",
-   "ms": 103,
+   "ms": 102,
    "first": [
     "Glendale, CA · place · Town · see what's there",
     "Glendale Heights, IL · place · Town · see what's there",
@@ -1433,7 +1709,7 @@
    "q": "show l",
    "ctx": "",
    "url": "/api/search.php?suggest=1&q=show%20l",
-   "ms": 93,
+   "ms": 92,
    "first": [
     "Show Low, AZ · place · Town in The Show Low District",
     "Live Music & Entertainment · category · Maybe? 1 listed · for “show l”",
@@ -1449,7 +1725,7 @@
    "q": "four cor",
    "ctx": "",
    "url": "/api/search.php?suggest=1&q=four%20cor",
-   "ms": 102,
+   "ms": 103,
    "first": [
     "Four Corners, WY · place · Town · see what's there",
     "Lumber Yards · category · Maybe? 1 listed · for “four cor”",
@@ -1468,7 +1744,7 @@
    "q": "four corners",
    "ctx": "",
    "url": "/api/search.php?suggest=1&q=four%20corners",
-   "ms": 94,
+   "ms": 102,
    "first": [
     "Four Corners, WY · place · Town · see what's there",
     "Four Corners Monument · outdoors · Aneth › Monuments",
@@ -1485,7 +1761,7 @@
    "q": "dana point harb",
    "ctx": "",
    "url": "/api/search.php?suggest=1&q=dana%20point%20harb",
-   "ms": 213,
+   "ms": 217,
    "first": [
     "Harbor Pump Co Inc · listing · Water Well Drilling · Show Low, AZ · 435 mi",
     "Harbor Freight · listing · Tool Stores · Show Low, AZ · 443 mi"
@@ -1501,7 +1777,7 @@
    "q": "laguna art",
    "ctx": "",
    "url": "/api/search.php?suggest=1&q=laguna%20art",
-   "ms": 131,
+   "ms": 139,
    "first": [
     "El Morro Area Arts Council · listing · The Zuni-Ramah Corridor › Arts Organizations · Ramah, NM · 72 mi",
     "Dia Art Foundation · listing · Pie Town, NM › Commercial Artists · Pie Town, NM · 78 mi",
@@ -1519,7 +1795,7 @@
    "q": "coff",
    "ctx": "city=Show Low&state=AZ&reach=25",
    "url": "/api/search.php?suggest=1&q=coff&city=Show Low&state=AZ&reach=25",
-   "ms": 118,
+   "ms": 120,
    "first": [
     "Coffeyville, KS · place · Town · see what's there",
     "Coffeeville, MS · place · Town · see what's there",
@@ -1535,7 +1811,7 @@
    "q": "pizz",
    "ctx": "city=Show Low&state=AZ&reach=25",
    "url": "/api/search.php?suggest=1&q=pizz&city=Show Low&state=AZ&reach=25",
-   "ms": 114,
+   "ms": 111,
    "first": [
     "Pizza · category · Show Low, AZ › 6 here",
     "Pizza Factory · listing · Show Low, AZ › Pizza",
@@ -1551,7 +1827,7 @@
    "q": "plum",
    "ctx": "city=Show Low&state=AZ&reach=25",
    "url": "/api/search.php?suggest=1&q=plum&city=Show Low&state=AZ&reach=25",
-   "ms": 99,
+   "ms": 95,
    "first": [
     "Plum City, WI · place · Town · see what's there",
     "Plum Branch, SC · place · Town · see what's there",
@@ -1569,7 +1845,7 @@
    "q": "hik",
    "ctx": "city=Show Low&state=AZ&reach=25",
    "url": "/api/search.php?suggest=1&q=hik&city=Show Low&state=AZ&reach=25",
-   "ms": 116,
+   "ms": 111,
    "first": [
     "Hiko, NV · place · Town · see what's there",
     "Hiking · situation · Trails · Gear · Hiking groups",
@@ -1585,7 +1861,7 @@
    "q": "place to take my k",
    "ctx": "city=Phoenix&state=AZ&reach=25",
    "url": "/api/search.php?suggest=1&q=place%20to%20take%20my%20k&city=Phoenix&state=AZ&reach=25",
-   "ms": 160,
+   "ms": 161,
    "first": [
     "Takeout & Fast Food · category · Phoenix, AZ › All of this kind",
     "Financial Advisors · category · Maybe? Phoenix, AZ › none here yet · 6 listed in all · for “place to take my k”"
@@ -1600,7 +1876,7 @@
    "q": "things to do",
    "ctx": "city=Phoenix&state=AZ&reach=25",
    "url": "/api/search.php?suggest=1&q=things%20to%20do&city=Phoenix&state=AZ&reach=25",
-   "ms": 184,
+   "ms": 193,
    "first": [
     "Something to do · situation · Worth the trip · Get outside · Indoors · What people did here",
     "Something for the kids · situation · Parks and pools · Indoor fun · Outings",
@@ -1616,7 +1892,7 @@
    "q": "coffee near",
    "ctx": "city=Show Low&state=AZ&reach=25",
    "url": "/api/search.php?suggest=1&q=coffee%20near&city=Show Low&state=AZ&reach=25",
-   "ms": 100,
+   "ms": 97,
    "first": [
     "Coffee Springs, AL · place · Town · see what's there",
     "Coffee Creek, MT · place · Town · see what's there",
@@ -1634,7 +1910,7 @@
    "q": "resturant",
    "ctx": "city=Show Low&state=AZ&reach=25",
    "url": "/api/search.php?suggest=1&q=resturant&city=Show Low&state=AZ&reach=25",
-   "ms": 100,
+   "ms": 96,
    "first": [
     "Restaurants · category · Maybe? Show Low, AZ › 30 here · for “resturant”",
     "Rest Area · category · Maybe? Show Low, AZ › none here yet · 2 listed in all · for “resturant”"
