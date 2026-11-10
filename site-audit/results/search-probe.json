@@ -6,18 +6,28 @@
    "expect": "Dana Point, CA and its guide (it has one), not Point, TX",
    "url": "/api/search.php?q=Dana%20point",
    "status": 200,
-   "ms": 840,
+   "ms": 456,
    "place": "Dana Point, CA",
    "chips": [
     "place: Dana Point, CA"
    ],
    "text": "",
-   "guide": "Dana Point, CA [first]: A first look at Dana Point, CA is ready, and its full guide is on the way.",
+   "guide": "",
    "ask": "What would you like to know about Dana Point, CA?",
-   "total": 0,
-   "kinds": [],
-   "note": "We have no listings in Dana Point, CA yet.",
-   "first": [],
+   "total": 2,
+   "kinds": [
+    {
+     "kind": "outdoors",
+     "label": "Outdoors",
+     "plural": "Outdoors",
+     "count": 2
+    }
+   ],
+   "note": "",
+   "first": [
+    "Ocean Institute (outdoors · Natural landmark ·  County)",
+    "Salt Creek Beach Park (outdoors · Park ·  County)"
+   ],
    "groups": [
     "Listings 0"
    ],
@@ -29,18 +39,28 @@
    "expect": "Dana Point, CA: its guide, places and listings",
    "url": "/api/search.php?q=Dana%20Point%2C%20CA",
    "status": 200,
-   "ms": 108,
+   "ms": 99,
    "place": "Dana Point, CA",
    "chips": [
     "place: Dana Point, CA"
    ],
    "text": "",
-   "guide": "Dana Point, CA [first]: A first look at Dana Point, CA is ready, and its full guide is on the way.",
+   "guide": "",
    "ask": "What would you like to know about Dana Point, CA?",
-   "total": 0,
-   "kinds": [],
-   "note": "We have no listings in Dana Point, CA yet.",
-   "first": [],
+   "total": 2,
+   "kinds": [
+    {
+     "kind": "outdoors",
+     "label": "Outdoors",
+     "plural": "Outdoors",
+     "count": 2
+    }
+   ],
+   "note": "",
+   "first": [
+    "Ocean Institute (outdoors · Natural landmark ·  County)",
+    "Salt Creek Beach Park (outdoors · Park ·  County)"
+   ],
    "groups": [
     "Listings 0"
    ],
@@ -52,18 +72,28 @@
    "expect": "Dana Point, CA",
    "url": "/api/search.php?q=dana%20point%20california",
    "status": 200,
-   "ms": 109,
+   "ms": 90,
    "place": "Dana Point, CA",
    "chips": [
     "place: Dana Point, CA"
    ],
    "text": "",
-   "guide": "Dana Point, CA [first]: A first look at Dana Point, CA is ready, and its full guide is on the way.",
+   "guide": "",
    "ask": "What would you like to know about Dana Point, CA?",
-   "total": 0,
-   "kinds": [],
-   "note": "We have no listings in Dana Point, CA yet.",
-   "first": [],
+   "total": 2,
+   "kinds": [
+    {
+     "kind": "outdoors",
+     "label": "Outdoors",
+     "plural": "Outdoors",
+     "count": 2
+    }
+   ],
+   "note": "",
+   "first": [
+    "Ocean Institute (outdoors · Natural landmark ·  County)",
+    "Salt Creek Beach Park (outdoors · Park ·  County)"
+   ],
    "groups": [
     "Listings 0"
    ],
@@ -75,21 +105,22 @@
    "expect": "places to eat in Dana Point",
    "url": "/api/search.php?q=restaurants%20in%20Dana%20Point%2C%20CA",
    "status": 200,
-   "ms": 116,
+   "ms": 123,
    "place": "Dana Point, CA",
    "chips": [
     "place: Dana Point, CA",
     "category: Restaurants"
    ],
    "text": "",
-   "guide": "Dana Point, CA [first]: A first look at Dana Point, CA is ready, and its full guide is on the way.",
+   "guide": "",
    "ask": "",
    "total": 0,
    "kinds": [],
    "note": "",
    "first": [],
    "groups": [
-    "Listings 2"
+    "Places 1",
+    "Listings 5"
    ],
    "did_you_mean": ""
   },
@@ -99,20 +130,31 @@
    "expect": "places to eat in Dana Point",
    "url": "/api/search.php?q=Places%20to%20eat%20around%20dana%20point%2C%20ca",
    "status": 200,
-   "ms": 113,
+   "ms": 99,
    "place": "Dana Point, CA",
    "chips": [
     "why: Somewhere to eat",
     "place: Dana Point, CA"
    ],
    "text": "",
-   "guide": "Dana Point, CA [first]: A first look at Dana Point, CA is ready, and its full guide is on the way.",
+   "guide": "",
    "ask": "What would you like to know about Dana Point, CA?",
-   "total": 0,
-   "kinds": [],
-   "note": "We have no listings in Dana Point, CA yet.",
-   "first": [],
+   "total": 2,
+   "kinds": [
+    {
+     "kind": "outdoors",
+     "label": "Outdoors",
+     "plural": "Outdoors",
+     "count": 2
+    }
+   ],
+   "note": "",
+   "first": [
+    "Ocean Institute (outdoors · Natural landmark ·  County)",
+    "Salt Creek Beach Park (outdoors · Park ·  County)"
+   ],
    "groups": [
+    "Places 1",
     "Listings 0"
    ],
    "did_you_mean": ""
@@ -123,7 +165,7 @@
    "expect": "Phoenix, AZ: its guide, listings, places",
    "url": "/api/search.php?q=Phoenix%2C%20az",
    "status": 200,
-   "ms": 107,
+   "ms": 118,
    "place": "Phoenix, AZ",
    "chips": [
     "place: Phoenix, AZ"
@@ -131,23 +173,23 @@
    "text": "",
    "guide": "",
    "ask": "What would you like to know about Phoenix, AZ?",
-   "total": 41,
+   "total": 56,
    "kinds": [
     {
      "kind": "outdoors",
      "label": "Outdoors",
      "plural": "Outdoors",
-     "count": 41
+     "count": 56
     }
    ],
    "note": "",
    "first": [
+    "Brophy College Chapel (outdoors · Natural landmark · near Phoenix)",
+    "First Presbyterian Church (outdoors · Natural landmark · near Phoenix)",
+    "Sun Mercantile Building (outdoors · Natural landmark · near Phoenix)",
     "Camelback Mountain (outdoors · Peak · near Phoenix)",
-    "North Mountain (outdoors · Peak · near Phoenix)",
-    "Phoenix Mountains (outdoors · Peak · near Phoenix)",
-    "Piestewa Peak (outdoors · Peak · near Phoenix)",
-    "Sevenmile Mountain (outdoors · Peak · near Phoenix)",
-    "Big Bug Trailhead (outdoors · Hiking · Bureau of Land Management)"
+    "Carver High School (outdoors · Natural landmark · near Phoenix)",
+    "First Baptist Church (outdoors · Natural landmark · near Phoenix)"
    ],
    "groups": [],
    "did_you_mean": ""
@@ -158,7 +200,7 @@
    "expect": "Phoenix, AZ (the pilot state first)",
    "url": "/api/search.php?q=Phoenix",
    "status": 200,
-   "ms": 107,
+   "ms": 99,
    "place": "Phoenix, AZ",
    "chips": [
     "place: Phoenix, AZ"
@@ -166,23 +208,23 @@
    "text": "",
    "guide": "",
    "ask": "What would you like to know about Phoenix, AZ?",
-   "total": 41,
+   "total": 56,
    "kinds": [
     {
      "kind": "outdoors",
      "label": "Outdoors",
      "plural": "Outdoors",
-     "count": 41
+     "count": 56
     }
    ],
    "note": "",
    "first": [
+    "Brophy College Chapel (outdoors · Natural landmark · near Phoenix)",
+    "First Presbyterian Church (outdoors · Natural landmark · near Phoenix)",
+    "Sun Mercantile Building (outdoors · Natural landmark · near Phoenix)",
     "Camelback Mountain (outdoors · Peak · near Phoenix)",
-    "North Mountain (outdoors · Peak · near Phoenix)",
-    "Phoenix Mountains (outdoors · Peak · near Phoenix)",
-    "Piestewa Peak (outdoors · Peak · near Phoenix)",
-    "Sevenmile Mountain (outdoors · Peak · near Phoenix)",
-    "Big Bug Trailhead (outdoors · Hiking · Bureau of Land Management)"
+    "Carver High School (outdoors · Natural landmark · near Phoenix)",
+    "First Baptist Church (outdoors · Natural landmark · near Phoenix)"
    ],
    "groups": [],
    "did_you_mean": ""
@@ -193,7 +235,7 @@
    "expect": "places to eat in Phoenix",
    "url": "/api/search.php?q=restaurants&city=Phoenix&state=AZ&reach=25",
    "status": 200,
-   "ms": 99,
+   "ms": 91,
    "place": "Phoenix, AZ",
    "chips": [
     "place: Phoenix, AZ",
@@ -217,7 +259,7 @@
    "expect": "pizza places in Phoenix",
    "url": "/api/search.php?q=pizza%20in%20phoenix",
    "status": 200,
-   "ms": 110,
+   "ms": 105,
    "place": "Phoenix, AZ",
    "chips": [
     "place: Phoenix, AZ",
@@ -241,13 +283,13 @@
    "expect": "coffee near Glendale, AZ 85302",
    "url": "/api/search.php?q=coffee&zip=85302&reach=10",
    "status": 200,
-   "ms": 114,
+   "ms": 106,
    "place": "Glendale, AZ",
    "chips": [
     "place: Glendale, AZ"
    ],
    "text": "coffee",
-   "guide": "Glendale, AZ [first]: A first look at Glendale, AZ is ready, and its full guide is on the way.",
+   "guide": "",
    "ask": "",
    "total": 3,
    "kinds": [
@@ -273,14 +315,14 @@
    "expect": "things to do around 85302",
    "url": "/api/search.php?q=Things%20to%20do%20near%20me&zip=85302&reach=25",
    "status": 200,
-   "ms": 93,
+   "ms": 86,
    "place": "Glendale, AZ",
    "chips": [
     "why: Things to do",
     "place: Glendale, AZ"
    ],
    "text": "",
-   "guide": "Glendale, AZ [first]: A first look at Glendale, AZ is ready, and its full guide is on the way.",
+   "guide": "",
    "ask": "",
    "total": 0,
    "kinds": [],
@@ -295,18 +337,28 @@
    "expect": "Glendale, AZ: its guide (built on demand) and listings",
    "url": "/api/search.php?q=Glendale%2C%20AZ",
    "status": 200,
-   "ms": 111,
+   "ms": 105,
    "place": "Glendale, AZ",
    "chips": [
     "place: Glendale, AZ"
    ],
    "text": "",
-   "guide": "Glendale, AZ [first]: A first look at Glendale, AZ is ready, and its full guide is on the way.",
+   "guide": "",
    "ask": "What would you like to know about Glendale, AZ?",
-   "total": 0,
-   "kinds": [],
-   "note": "We have no listings in Glendale, AZ yet.",
-   "first": [],
+   "total": 2,
+   "kinds": [
+    {
+     "kind": "outdoors",
+     "label": "Outdoors",
+     "plural": "Outdoors",
+     "count": 2
+    }
+   ],
+   "note": "",
+   "first": [
+    "Glendale Gardens Historic District (outdoors · Natural landmark · near Glendale)",
+    "Glendale Tract Historic District (outdoors · Natural landmark · near Glendale)"
+   ],
    "groups": [],
    "did_you_mean": ""
   },
@@ -316,7 +368,7 @@
    "expect": "places to stay in Sedona",
    "url": "/api/search.php?q=hotels%20in%20sedona",
    "status": 200,
-   "ms": 170,
+   "ms": 169,
    "place": "Sedona, AZ",
    "chips": [
     "place: Sedona, AZ"
@@ -348,7 +400,7 @@
    "expect": "Show Low, AZ (a pilot town)",
    "url": "/api/search.php?q=show%20low",
    "status": 200,
-   "ms": 109,
+   "ms": 94,
    "place": "Show Low, AZ",
    "chips": [
     "place: Show Low, AZ"
@@ -380,7 +432,7 @@
    "expect": "Greer, AZ (a pilot town)",
    "url": "/api/search.php?q=greer%20arizona",
    "status": 200,
-   "ms": 110,
+   "ms": 91,
    "place": "Greer, AZ",
    "chips": [
     "place: Greer, AZ"
@@ -417,7 +469,7 @@
    "expect": "Four Corners Monument, not Four Corners, WY",
    "url": "/api/search.php?q=Four%20Corners",
    "status": 200,
-   "ms": 101,
+   "ms": 102,
    "place": "Four Corners, WY",
    "chips": [
     "place: Four Corners, WY"
@@ -438,7 +490,7 @@
    "expect": "Grand Canyon National Park",
    "url": "/api/search.php?q=grand%20canyon",
    "status": 200,
-   "ms": 101,
+   "ms": 97,
    "place": "Grand Canyon, AZ",
    "chips": [
     "place: Grand Canyon, AZ"
@@ -468,12 +520,70 @@
    "did_you_mean": ""
   },
   {
+   "q": "four corners monument",
+   "ctx": "",
+   "expect": "Four Corners Monument (a landmark added by hand)",
+   "url": "/api/search.php?q=four%20corners%20monument",
+   "status": 200,
+   "ms": 90,
+   "place": "Four Corners, WY",
+   "chips": [
+    "place: Four Corners, WY",
+    "category: Monuments"
+   ],
+   "text": "",
+   "guide": "Four Corners, WY [new]: We don't have a guide to Four Corners, WY yet. We can build one now: a first look in about two minutes.",
+   "ask": "",
+   "total": 0,
+   "kinds": [],
+   "note": "We have no listings in Four Corners, WY yet.",
+   "first": [],
+   "groups": [
+    "Listings 0"
+   ],
+   "did_you_mean": ""
+  },
+  {
+   "q": "laguna art museum",
+   "ctx": "",
+   "expect": "Laguna Art Museum (found for the Laguna Beach guide)",
+   "url": "/api/search.php?q=laguna%20art%20museum",
+   "status": 200,
+   "ms": 136,
+   "place": "Laguna, NM",
+   "chips": [
+    "place: Laguna, NM"
+   ],
+   "text": "art museum",
+   "guide": "",
+   "ask": "",
+   "total": 6,
+   "kinds": [
+    {
+     "kind": "topic",
+     "label": "Topic",
+     "plural": "Topics",
+     "count": 6
+    }
+   ],
+   "note": "",
+   "first": [
+    "Art Galleries (topic · Category in Entertainment & Recreation)",
+    "Museums (topic · Category in Entertainment & Recreation)",
+    "Arts & Culture (topic · Category in Entertainment & Recreation)"
+   ],
+   "groups": [
+    "Places 1"
+   ],
+   "did_you_mean": ""
+  },
+  {
    "q": "plumber in show low",
    "ctx": "",
    "expect": "plumbers in Show Low",
    "url": "/api/search.php?q=plumber%20in%20show%20low",
    "status": 200,
-   "ms": 166,
+   "ms": 154,
    "place": "Show Low, AZ",
    "chips": [
     "place: Show Low, AZ",
@@ -512,7 +622,7 @@
    "q": "Dana p",
    "ctx": "",
    "first": [
-    "Dana Point, CA (place · Town · see what's there)",
+    "Dana Point, CA (place · Town in Laguna Niguel)",
     "Counselors (category · What “dana” names are)",
     "Pipe (category · What “dana” names are)",
     "Dana Carly Anne (listing · Show Low › Counselors)",
@@ -570,7 +680,9 @@
     "Glendale, AZ (place · Town · see what's there)",
     "Glendale, CA (place · Town · see what's there)",
     "Glendale Heights, IL (place · Town · see what's there)",
-    "Glendale, OR (place · Town · see what's there)"
+    "Glendale, OR (place · Town · see what's there)",
+    "Glendale project (knowledge · From our guides · Place)",
+    "Glendale (group · 4 places: Natural landmark · 9 mi)"
    ]
   },
   {
@@ -583,6 +695,33 @@
     "Show Low Animal Control (listing · Show Low › Animal Shelters)",
     "Show Low Apartments (listing · Show Low › Apartments)",
     "Show Low Ford (listing · Show Low › New Car Dealers)"
+   ]
+  },
+  {
+   "q": "four corners mon",
+   "ctx": "",
+   "first": [
+    "Monuments (category · Maybe? 1 listed · for “four corners monument”)"
+   ]
+  },
+  {
+   "q": "dana point harb",
+   "ctx": "",
+   "first": [
+    "Harbor Pump Co Inc (listing · Water Well Drilling · Show Low, AZ · 435 mi)",
+    "Harbor Freight (listing · Tool Stores · Show Low, AZ · 443 mi)"
+   ]
+  },
+  {
+   "q": "laguna art",
+   "ctx": "",
+   "first": [
+    "El Morro Area Arts Council (listing · The Zuni-Ramah Corridor › Arts Organizations · Ramah, NM · 72 mi)",
+    "Dia Art Foundation (listing · Pie Town, NM › Commercial Artists · Pie Town, NM · 78 mi)",
+    "Ortega Indian City Arts (listing · The Sanders I-40 corridor › Gift Shops · Houck, AZ · 111 mi)",
+    "Indian City Arts & Crafts Center (listing · The Sanders I-40 corridor › Gift Shops · Houck, AZ · 114 mi)",
+    "KS Western Art Books & Gifts (listing · Round Valley (Springerville & Eagar) › Gift Shops · Springerville, AZ · 130 mi)",
+    "Art Galleries (category · Laguna, NM › All of this kind)"
    ]
   }
  ]
