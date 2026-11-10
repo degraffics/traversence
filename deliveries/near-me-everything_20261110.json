@@ -1,7 +1,7 @@
 {
- "zip": "landmark-categories_20261110.zip",
- "built_on": "9806356 Sync: 2026-11-10 13:19 UTC",
- "recorded": "2026-11-10 13:24 UTC",
+ "zip": "near-me-everything_20261110.zip",
+ "built_on": "74a5061 Sync: 2026-11-10 13:26 UTC",
+ "recorded": "2026-11-10 13:28 UTC",
  "note": "",
  "status": "pending",
  "live_in": "",
@@ -11,7 +11,11 @@
    "live": false
   },
   "app/lib/SearchIndex.php": {
-   "sha256": "481f83d326c1869203467e75675e4c558ab5fa6ababd991a4bff3bf04a3005f0",
+   "sha256": "30e1231eea782fea9a6de1775be24b51f8d7a41fabd2a1e5f89285f2c7763d63",
+   "live": false
+  },
+  "app/lib/UniversalSearch.php": {
+   "sha256": "6293246ea23518341b32c99e0b4eb7c8bca312250543abb860b3e42cb52c2b54",
    "live": false
   },
   "app/migrations/2027-02-22_landmark_categories.sql": {
@@ -19,19 +23,15 @@
    "live": false
   },
   "app/ui/faq.md": {
-   "sha256": "eb03b00ef367ed42727b7731fc8c7432703e091f3344655fc316de3db21c83cb",
+   "sha256": "b5b1bdb1f9783c100b3a739b5fc6891c84d71d511ad9d2821f8c4daf2fc6a480",
    "live": false
   },
   "website/api/health.php": {
    "sha256": "e4b8d022e78fde84931d61954091871f45fa54418c35e0cac0cdac573fedf676",
    "live": false
   },
-  "website/directory/index.php": {
-   "sha256": "7cac8bae6b67ab41988d82019a0c09fbae18aec5c38de477581c3245c9bc104e",
-   "live": false
-  },
   "website/js/search-panel.js": {
-   "sha256": "5c4ebf3263fc57b69a79f69ee9332e2ba37969b6a544523e44ff18ab07c8d211",
+   "sha256": "db2f1192cf81d46278bb90dfd8fe3cf386b506086b82425cd35e1374f7ac259e",
    "live": false
   }
  }

@@ -215,8 +215,12 @@ will look into developing better search results for this specific topic and area
   Auto-detect first and largest, then your town or ZIP, saved places and your default; no Trip Planner, Distance,
   Regions or Search everywhere. Opened any other way, the picker is as before. (decisions/0058 §8's "applied when
   tapped" still holds elsewhere: only "near me" asks for the device's place unprompted, since the words asked for it.)
-- **"Near me" alone** (2026-11-10, `landmark-categories_20261110.zip`): with no other words it asks **What near you?** (coffee,
-  places to eat, groceries, gas, pharmacy, things to do, where to stay, parks, health care; each searches "… near me"),
-  above what's around; never "Not sure what 'near me' means", the Address Book row, or a "lacking" report.
+- **"Near me" alone** (Jason, 2026-11-10: "it should assume everything near me and limit query to 25 items with a 'is
+  there something specific you would like to search for?'"): with no other words it shows everything within the 2 mi
+  (or 5), nearest first, up to 25 (`SearchIndex::find` `nearest`), then **Is there something specific you'd like to
+  search for?** with the everyday kinds (coffee, places to eat, groceries, gas, pharmacy, things to do, where to stay,
+  parks, health care; each searches "… near me"). Never "Not sure what 'near me' means", the Address Book row, or a
+  "lacking" report. (Delivered first as a chooser above the results, `near-me-alone_20261110.zip`; replaced by
+  `near-me-everything_20261110.zip`.)
 - **The directory's place is clearable** (Jason, 2026-11-10: "The location should be clearable as well"): an × beside its
   place pill clears it (everywhere), as the × on search's Location line does.
