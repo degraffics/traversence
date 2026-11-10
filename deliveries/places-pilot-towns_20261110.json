@@ -1,0 +1,22 @@
+{
+ "zip": "places-pilot-towns_20261110.zip",
+ "built_on": "7d112ad Sync: 2026-11-10 04:17 UTC",
+ "recorded": "2026-11-10 04:23 UTC",
+ "note": "",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/PlaceFinder.php": {
+   "sha256": "dd99cec2ae6bd8a4e7da4ffa75610813c3b7efb555703b18e16a97198384860a",
+   "live": false
+  },
+  "app/scripts/guide_ondemand_tick.php": {
+   "sha256": "7b059d1bf5139da0d9fed1e6d714250b9c1b71519b2ab241096a492677c17647",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "7a5cb187eabdb55ab0d50e07b00c1d0eccf01db282c8d0e5ec129b69706ff9e8",
+   "live": false
+  }
+ }
+}
