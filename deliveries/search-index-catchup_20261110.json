@@ -1,0 +1,22 @@
+{
+ "zip": "search-index-catchup_20261110.zip",
+ "built_on": "2fabe86 Sync: 2026-11-10 04:12 UTC",
+ "recorded": "2026-11-10 04:14 UTC",
+ "note": "Search index catches up with listing changes (its mark was stuck while 300+ changed); town crawl listings indexed at once (built on 04:12 UTC)",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/SearchIndex.php": {
+   "sha256": "25df79ddc054c58393a25c53f926d0cce1b95b4f84de552cc3c22a590e46dc4f",
+   "live": false
+  },
+  "app/lib/crawler/TownCrawl.php": {
+   "sha256": "d76aa9864078e13ba85a0d5a233a070f70c506f782623268771bbb259188beae",
+   "live": false
+  },
+  "website/api/health.php": {
+   "sha256": "b2f226a707be531cccd9890c1d4d539b1b2388c2068083e3c9671aa418010ae2",
+   "live": false
+  }
+ }
+}
