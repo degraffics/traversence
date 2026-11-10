@@ -79,7 +79,7 @@ a search that found nothing went nowhere, and a place's town came from the neare
 The hand list (`PlaceFinder::HAND`) is gone. Migration `2027-02-21_landmarks_from_source.sql` makes the Four Corners
 record a Wikidata place, so the finder ties it to its item and places it in Teec Nos Pos, AZ; its public status stays.
 
-**Their kind from our categories, not guesses (2026-11-10, `landmark-categories_20261110.zip`):** places from Wikidata
+**Their kind from our categories, not guesses (2026-11-10, `near-me-everything_20261110.zip`):** places from Wikidata
 showed as "Natural landmark" (Brophy College Chapel, Woodlea Historic District), and GNIS ones took their kind from the
 last word of their name. Jason: "this should be from categories not guesses." Now each landmark is filed under one of
 our categories (`landmarks.category_id`, migration `2027-02-22_landmark_categories.sql`) by its source's class: GNIS's
