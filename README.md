@@ -52,7 +52,7 @@ The site's code isn't here. It runs on the server and in OneDrive, and its live 
 |---|---|
 | `workflow.md` | How the documentation is governed and kept |
 | `site-audit/` | The site audit and phased releases (decisions/0145): phases, punch list, rules, scorecard, page tree, proposals |
-| `tools/page-audit/` | The audit's code checks, the zip check and the delivery log (hourly, `.github/workflows/site-audit.yml`), the browser checks (`rendered.mjs`, daily, `site-checks.yml`), and the search probe and the phone layout probe (`search-probe.mjs`, `layout-probe.mjs`, daily, `search-probe.yml`) |
+| `tools/page-audit/` | The audit's code checks, the zip check (it also blocks a zip that drops earlier work) and the delivery log (hourly, `.github/workflows/site-audit.yml`), the browser checks (`rendered.mjs`, daily, `site-checks.yml`), and the search probe and the phone layout probe (`search-probe.mjs`, `layout-probe.mjs`, daily, `search-probe.yml`) |
 | `deliveries/` | Every zip and whether each file reached the live site (generated) |
 | `CLAUDE.md` | Rules every Claude session follows (loaded automatically) |
 | `readme-history.md` | The original README's change log, Sept–Oct 2026 |
