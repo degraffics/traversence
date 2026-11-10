@@ -184,6 +184,12 @@ Store the moment and the device's time zone (`Intl…timeZone`, sent with the ac
 ("Nov 9, 10:00 AM PST"), with `<time datetime="ISO" data-tv-time data-tz="…">` or `TvTime.fmt()` (`js/tv-time.js`);
 with no zone stored, in the viewer's. Rolling out page by page from Scan cards.
 
+## Places in search (Jason, 2026-11-10): every build
+
+A city named in a search is always found in the locations data (`zip_coordinates`) and becomes the place, with or
+without our data or a hub there: every search is demand. Older rules that hid out-of-area towns ("strict", "names
+something here") no longer apply to cities; an unknown word is never dropped before the place is read.
+
 ## Password boxes (`js/tv-password.js`, Jason, 2026-10-16): every page
 
 Every password box gets Show/Hide; new-password boxes (`autocomplete="new-password"`, `minlength`, optional
