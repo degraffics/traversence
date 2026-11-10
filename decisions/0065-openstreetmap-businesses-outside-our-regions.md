@@ -104,6 +104,13 @@ data as long as we dont have to share back data"; `osm-leads_20261110.zip`).** R
 - **Discovery's Map tab** (Jason, 2026-11-10: "Discovery should also have the map as an option"): Map sits in the ribbon
   with Regions, Experiences and Parks & Landmarks; outside our areas (no cluster), it opens 10 mi around the place set on
   the site (its point, or its ZIP's), or asks where first and opens there.
-- **Parks & Landmarks outside our areas** (Jason, 2026-11-10: "Or at least parks and landmarks?"): with no area of ours
+- **Parks & Landmarks outside our areas** (Jason, 2026-11-10: "Or at least parks and landmarks?"; delivered in `map-near-cards_20261110.zip`): with no area of ours
   for the site's place, the page sends its point (`?near=lat,lon&near_label=`) and shows the landmarks near it and the
   National Park Service places nearest first, each with its miles. The rest of Discovery still follows our areas only.
+- **The map opens near you, and its cards say what a place is** (Jason, 2026-11-10: "Map should open zoomed to current
+  location + 5 mile radius so it doesn't see entire western states. Also… a name only isn't enough to make a qualified
+  decision to visit"; `map-near-cards_20261110.zip`): opened without a pin to show, `js/map-view.js` starts 5 mi around
+  the site's place when it has a point (Auto-detect, a ZIP's middle), or around the device when the browser already
+  shares it and no place is set; else as before. A pin's card shows its photo (credited), a few lines on what it is
+  (Wikipedia's summary, else what we hold about it, else Wikidata's description; a listing's own description), then
+  where, hours and the ways to reach it.
