@@ -192,6 +192,8 @@ something here") no longer apply to cities; an unknown word is never dropped bef
 whole search is the exact name of something we have ("Four Corners Monument"). While typing, a name of two words or more that
 starts a name we have is suggested wherever it is, even when the words also read as a town.
 Places come from sources, never hand lists in code: a name searched and not found is looked up (decisions/0148).
+A kind of business with nothing of ours in reach: OpenStreetMap leads at once (name, kind, distance only, never its
+phone, hours or address) and the town goes to the crawler (decisions/0065, 0149).
 
 ## No test moves real money (Jason, 2026-11-10): every build
 
