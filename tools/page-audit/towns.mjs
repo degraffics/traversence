@@ -17,6 +17,7 @@ else {
     else if (!d.towns) md += 'The health report has no towns section yet (it comes with health.php from towns-health_20261110.zip).\n';
     else {
       md += `**Jobs:** ${Object.entries(d.town_jobs || {}).map(([k, v]) => `${k} ${v}`).join(', ') || 'none'}\n\n`;
+      if (d.index_mark) md += `**Search has caught up with listing changes to:** ${s(d.index_mark)} (site time)\n\n`;
       const crawler = (d.status || []).filter((x) => /crawl|worker/i.test(x.name)).map((x) => `${x.name}: ${x.state}`).join('; ');
       if (crawler) md += `**Crawler:** ${s(crawler)}\n\n`;
       md += '| Town | Kind | Status | Tries | Found | Published | In Review | Already known | Error | Updated |\n|---|---|---|---|---|---|---|---|---|---|\n';

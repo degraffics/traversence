@@ -56,3 +56,12 @@ places and reported done with none. Now a job the run's time cuts short isn't re
 returns it), and is reported "partial" when some were; the site puts a partial town job back in the queue without
 spending one of its three tries. The health report also shows, for each town, its listings (shown, hidden), what search
 can find there and its landmarks by status, and `?find=` looks a place up by name (`towns-partial-diag_20261110.zip`).
+
+## Search couldn't see them (2026-11-10)
+
+Dana Point had 6 listings and Laguna Niguel 10, all published, and search found none. The search index's 15-minute
+refresh takes listings changed since its mark, 300 at a time, and moved the mark only when fewer than 300 had changed;
+with the pilot crawler busy it re-read the same oldest 300 every time, so newer listings never reached search. The mark
+now moves to the last listing taken (a second back, so others changed that second are read again), 600 at a time, and a
+town crawl indexes the listings it publishes at once. The towns report shows how far the index has caught up
+(`search-index-catchup_20261110.zip`).
