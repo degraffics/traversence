@@ -3,12 +3,12 @@
  "built_on": "d5db9ab Sync: 2026-11-10 02:46 UTC",
  "recorded": "2026-11-10 02:48 UTC",
  "note": "Town crawls queued again (failed, stuck or empty), with the worker's OpenStreetMap fix (built on 02:46 UTC)",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "fd52bef Sync: 2026-11-10 03:25 UTC",
  "files": {
   "app/migrations/2027-02-20_town_crawl_retry.sql": {
    "sha256": "decfb273952c7428fa1b66469f1f2a6c1311fc456e91847e351d14355a372300",
-   "live": false
+   "live": true
   }
  }
 }

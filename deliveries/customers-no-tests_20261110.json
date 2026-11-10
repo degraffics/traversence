@@ -3,12 +3,12 @@
  "built_on": "d5db9ab Sync: 2026-11-10 02:46 UTC",
  "recorded": "2026-11-10 03:20 UTC",
  "note": "Customers: test orders (sandbox, or a Test copy named TEST \u00b7 \u2026) no longer count as sales (built on 02:46 UTC)",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "fd52bef Sync: 2026-11-10 03:25 UTC",
  "files": {
   "app/lib/Customers.php": {
    "sha256": "a371adff08218f90064d23a2fb9c7625a831f2b704e14df8e2543df587c1d1de",
-   "live": false
+   "live": true
   }
  }
 }
