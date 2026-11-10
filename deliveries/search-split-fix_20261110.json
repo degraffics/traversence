@@ -1,17 +1,17 @@
 {
  "zip": "search-split-fix_20261110.zip",
  "built_on": "c2b0621 Sync: 2026-11-10 22:28 UTC",
- "recorded": "2026-11-10 22:41 UTC",
- "note": "Words run together split while typing; the corrected reading kept when nothing matches either way",
+ "recorded": "2026-11-10 22:42 UTC",
+ "note": "Words read as you type (no space or Enter needed) once they can't start anything we hold; run-together split; corrected reading kept when nothing matches",
  "status": "pending",
  "live_in": "",
  "files": {
   "app/lib/UniversalSearch.php": {
-   "sha256": "dd5779847e820f3afa265131fa0f117680ac7bf912cffd3e723a42fa5f55e030",
+   "sha256": "a0d653a4107720af25bad0ce2bd48d0cc4b0edacf1423aa2f1dcc8d5f9172202",
    "live": false
   },
   "app/ui/faq.md": {
-   "sha256": "2b7821d76a9f9e3e3eb13b8b010d0fe973ba4a41719fc566b4c02a3217820ba1",
+   "sha256": "9cddb692986e812ef34646e925c86c5c1af0793aa4ff37110e5853110a9c283b",
    "live": false
   }
  }
