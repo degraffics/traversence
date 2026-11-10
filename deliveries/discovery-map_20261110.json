@@ -3,20 +3,20 @@
  "built_on": "04a9109 Sync: 2026-11-10 14:08 UTC",
  "recorded": "2026-11-10 14:13 UTC",
  "note": "",
- "status": "pending",
+ "status": "partial",
  "live_in": "",
  "files": {
   "app/lib/OpenPlaces.php": {
    "sha256": "271a5f4ad99fde72d25939946948d3b2ff453fc1f7ccbb8cf305f372ca506963",
-   "live": false
+   "live": true
   },
   "app/lib/PlaceFinder.php": {
    "sha256": "8a6aea905a03320c3314251e6a9687619aa2f29af26425db32c74a654fa6835e",
-   "live": false
+   "live": true
   },
   "app/ui/explore-hero.php": {
    "sha256": "0595ab5d3832834aabcf818dd82e7712a93c972a606181821c14a4e6723e5dee",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "3b4a2e4aabdc68e4ae1d921716d6025a1e02efb89878e16a8bbf24505b82d42e",
@@ -24,7 +24,7 @@
   },
   "website/api/health.php": {
    "sha256": "90e678ac2ecc1f31c282b05ade5966654b118138d416ae90fc029ccf4af1d52a",
-   "live": false
+   "live": true
   },
   "website/discovery/index.php": {
    "sha256": "9cee149bc27f18e403aad868f345485b876fc8eeea134282f2e0be1c7a1be538",
@@ -32,7 +32,7 @@
   },
   "website/js/map-view.js": {
    "sha256": "d06b9f9fe85828a9410b9b9e02715de4fc261eb52894e9923f623d9d84fe53b2",
-   "live": false
+   "live": true
   }
  }
 }
