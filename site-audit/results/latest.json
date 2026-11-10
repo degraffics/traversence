@@ -1,6 +1,6 @@
 {
- "run": "2026-11-10 01:29 UTC",
- "mirror": "19d7d6d",
+ "run": "2026-11-10 09:45 UTC",
+ "mirror": "abcc802",
  "findings": [
   {
    "rule": "R02",
@@ -665,13 +665,13 @@
   {
    "rule": "R10",
    "file": "website/js/search-panel.js",
-   "line": 357,
+   "line": 359,
    "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
   },
   {
    "rule": "R10",
    "file": "website/js/search-panel.js",
-   "line": 569,
+   "line": 571,
    "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
   },
   {
