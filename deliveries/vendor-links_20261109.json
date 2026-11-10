@@ -16,7 +16,7 @@
   },
   "app/lib/Vendors.php": {
    "sha256": "dc97d62a06d27a39a3f14f0610b2c2d261655229e2f083e5204b043b59058a55",
-   "live": false
+   "live": true
   },
   "app/lib/WorkOrders.php": {
    "sha256": "cb2662a2e2692e74589c2c5128d1a9772c12278029c85baa1475a046a76d05ee",
@@ -36,11 +36,11 @@
   },
   "website/vendor.php": {
    "sha256": "764eaf83a828718f575536395b68151bbadb86a0322a3f401e8bf1fc318247ff",
-   "live": false
+   "live": true
   },
   "website/wo.php": {
    "sha256": "ab4635b219cbc2fe7497651812650bda3beeb242c6b142f016c48e48aa503dcd",
-   "live": false
+   "live": true
   }
  }
 }
