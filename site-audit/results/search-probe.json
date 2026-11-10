@@ -6,7 +6,7 @@
    "expect": "Dana Point, CA and its guide (it has one), not Point, TX",
    "url": "/api/search.php?q=Dana%20point",
    "status": 200,
-   "ms": 692,
+   "ms": 379,
    "place": "Dana Point, CA",
    "chips": [
     "place: Dana Point, CA"
@@ -24,6 +24,8 @@
     }
    ],
    "note": "",
+   "osm": "",
+   "mentions": 0,
    "first": [
     "Ocean Institute (outdoors · Natural landmark ·  County)",
     "Salt Creek Beach Park (outdoors · Park ·  County)"
@@ -39,7 +41,7 @@
    "expect": "Dana Point, CA: its guide, places and listings",
    "url": "/api/search.php?q=Dana%20Point%2C%20CA",
    "status": 200,
-   "ms": 105,
+   "ms": 88,
    "place": "Dana Point, CA",
    "chips": [
     "place: Dana Point, CA"
@@ -57,6 +59,8 @@
     }
    ],
    "note": "",
+   "osm": "",
+   "mentions": 0,
    "first": [
     "Ocean Institute (outdoors · Natural landmark ·  County)",
     "Salt Creek Beach Park (outdoors · Park ·  County)"
@@ -72,7 +76,7 @@
    "expect": "Dana Point, CA",
    "url": "/api/search.php?q=dana%20point%20california",
    "status": 200,
-   "ms": 87,
+   "ms": 78,
    "place": "Dana Point, CA",
    "chips": [
     "place: Dana Point, CA"
@@ -90,6 +94,8 @@
     }
    ],
    "note": "",
+   "osm": "",
+   "mentions": 0,
    "first": [
     "Ocean Institute (outdoors · Natural landmark ·  County)",
     "Salt Creek Beach Park (outdoors · Park ·  County)"
@@ -105,7 +111,7 @@
    "expect": "places to eat in Dana Point",
    "url": "/api/search.php?q=restaurants%20in%20Dana%20Point%2C%20CA",
    "status": 200,
-   "ms": 101,
+   "ms": 107,
    "place": "Dana Point, CA",
    "chips": [
     "place: Dana Point, CA",
@@ -124,6 +130,8 @@
     }
    ],
    "note": "",
+   "osm": "",
+   "mentions": 0,
    "first": [
     "Baskin-Robbins (listing · Restaurants · Ladera Ranch, CA)",
     "Better Buzz Coffee (listing · Restaurants · Dana Point, CA)",
@@ -144,7 +152,7 @@
    "expect": "places to eat in Dana Point",
    "url": "/api/search.php?q=Places%20to%20eat%20around%20dana%20point%2C%20ca",
    "status": 200,
-   "ms": 95,
+   "ms": 85,
    "place": "Dana Point, CA",
    "chips": [
     "why: Somewhere to eat",
@@ -163,6 +171,8 @@
     }
    ],
    "note": "",
+   "osm": "",
+   "mentions": 0,
    "first": [
     "Baskin-Robbins (listing · Restaurants · Ladera Ranch, CA)",
     "Better Buzz Coffee (listing · Restaurants · Dana Point, CA)",
@@ -183,7 +193,7 @@
    "expect": "Phoenix, AZ: its guide, listings, places",
    "url": "/api/search.php?q=Phoenix%2C%20az",
    "status": 200,
-   "ms": 77,
+   "ms": 70,
    "place": "Phoenix",
    "chips": [
     "place: Phoenix"
@@ -194,6 +204,8 @@
    "total": 0,
    "kinds": [],
    "note": "",
+   "osm": "",
+   "mentions": 0,
    "first": [],
    "groups": [
     "Listings 0"
@@ -206,7 +218,7 @@
    "expect": "Phoenix, AZ (the pilot state first)",
    "url": "/api/search.php?q=Phoenix",
    "status": 200,
-   "ms": 90,
+   "ms": 63,
    "place": "Phoenix",
    "chips": [
     "place: Phoenix"
@@ -217,6 +229,8 @@
    "total": 0,
    "kinds": [],
    "note": "",
+   "osm": "",
+   "mentions": 0,
    "first": [],
    "groups": [
     "Listings 0"
@@ -229,7 +243,7 @@
    "expect": "places to eat in Phoenix",
    "url": "/api/search.php?q=restaurants&city=Phoenix&state=AZ&reach=25",
    "status": 200,
-   "ms": 77,
+   "ms": 66,
    "place": "Phoenix, AZ",
    "chips": [
     "place: Phoenix, AZ",
@@ -248,6 +262,8 @@
     }
    ],
    "note": "",
+   "osm": "",
+   "mentions": 0,
    "first": [
     "Centrico (listing · Restaurants · Phoenix, AZ · <1 mi)",
     "Cheese 'N Stuff Deli (listing · Restaurants · Phoenix, AZ · 4 mi)",
@@ -266,7 +282,7 @@
    "expect": "pizza places in Phoenix",
    "url": "/api/search.php?q=pizza%20in%20phoenix",
    "status": 200,
-   "ms": 108,
+   "ms": 101,
    "place": "Phoenix",
    "chips": [
     "place: Phoenix",
@@ -278,6 +294,8 @@
    "total": 0,
    "kinds": [],
    "note": "",
+   "osm": "pizza around Phoenix",
+   "mentions": 0,
    "first": [],
    "groups": [
     "Places 1",
@@ -291,7 +309,7 @@
    "expect": "coffee near Glendale, AZ 85302",
    "url": "/api/search.php?q=coffee&zip=85302&reach=10",
    "status": 200,
-   "ms": 97,
+   "ms": 93,
    "place": "Glendale, AZ",
    "chips": [
     "place: Glendale, AZ"
@@ -309,6 +327,42 @@
     }
    ],
    "note": "We have no listings in Glendale, AZ yet.",
+   "osm": "coffee around Glendale, AZ",
+   "mentions": 0,
+   "first": [
+    "Coffee & Tea (manufacturer) (topic · Category in Food & Dining)",
+    "Coffee & Tea Shops (topic · Category in Food & Dining)",
+    "Coffee Shops (topic · Category in Food & Dining)"
+   ],
+   "groups": [],
+   "did_you_mean": ""
+  },
+  {
+   "q": "coffee near me",
+   "ctx": "city=Phoenix&state=AZ&reach=10",
+   "expect": "coffee shops in Phoenix (OpenStreetMap at once, ours once crawled)",
+   "url": "/api/search.php?q=coffee%20near%20me&city=Phoenix&state=AZ&reach=10",
+   "status": 200,
+   "ms": 93,
+   "place": "Phoenix, AZ",
+   "chips": [
+    "place: Phoenix, AZ"
+   ],
+   "text": "coffee",
+   "guide": "Phoenix, AZ [new]: We don't have a guide to Phoenix, AZ yet. We can build one now: a first look in about two minutes.",
+   "ask": "",
+   "total": 3,
+   "kinds": [
+    {
+     "kind": "topic",
+     "label": "Topic",
+     "plural": "Topics",
+     "count": 3
+    }
+   ],
+   "note": "We have no listings in Phoenix, AZ yet.",
+   "osm": "coffee around Phoenix, AZ",
+   "mentions": 0,
    "first": [
     "Coffee & Tea (manufacturer) (topic · Category in Food & Dining)",
     "Coffee & Tea Shops (topic · Category in Food & Dining)",
@@ -323,7 +377,7 @@
    "expect": "things to do around 85302",
    "url": "/api/search.php?q=Things%20to%20do%20near%20me&zip=85302&reach=25",
    "status": 200,
-   "ms": 84,
+   "ms": 81,
    "place": "Glendale, AZ",
    "chips": [
     "why: Things to do",
@@ -335,6 +389,8 @@
    "total": 0,
    "kinds": [],
    "note": "",
+   "osm": "",
+   "mentions": 0,
    "first": [],
    "groups": [],
    "did_you_mean": ""
@@ -345,7 +401,7 @@
    "expect": "Glendale, AZ: its guide (built on demand) and listings",
    "url": "/api/search.php?q=Glendale%2C%20AZ",
    "status": 200,
-   "ms": 81,
+   "ms": 77,
    "place": "Glendale, AZ",
    "chips": [
     "place: Glendale, AZ"
@@ -363,6 +419,8 @@
     }
    ],
    "note": "",
+   "osm": "",
+   "mentions": 0,
    "first": [
     "Glendale Gardens Historic District (outdoors · Natural landmark · near Glendale)",
     "Glendale Tract Historic District (outdoors · Natural landmark · near Glendale)"
@@ -378,7 +436,7 @@
    "expect": "places to stay in Sedona",
    "url": "/api/search.php?q=hotels%20in%20sedona",
    "status": 200,
-   "ms": 166,
+   "ms": 163,
    "place": "Sedona, AZ",
    "chips": [
     "place: Sedona, AZ"
@@ -396,6 +454,8 @@
     }
    ],
    "note": "",
+   "osm": "lodging around Sedona, AZ",
+   "mentions": 0,
    "first": [
     "Hotels & Motels (topic · Category in Hospitality & Lodging)",
     "Bed & Breakfasts (topic · Category in Hospitality & Lodging)",
@@ -410,7 +470,7 @@
    "expect": "Show Low, AZ (a pilot town)",
    "url": "/api/search.php?q=show%20low",
    "status": 200,
-   "ms": 91,
+   "ms": 98,
    "place": "Show Low, AZ",
    "chips": [
     "place: Show Low, AZ"
@@ -428,6 +488,8 @@
     }
    ],
    "note": "",
+   "osm": "",
+   "mentions": 0,
    "first": [
     "Malpais Pit (outdoors · Basin · near Show Low)"
    ],
@@ -442,7 +504,7 @@
    "expect": "Greer, AZ (a pilot town)",
    "url": "/api/search.php?q=greer%20arizona",
    "status": 200,
-   "ms": 77,
+   "ms": 80,
    "place": "Greer, AZ",
    "chips": [
     "place: Greer, AZ"
@@ -460,6 +522,8 @@
     }
    ],
    "note": "",
+   "osm": "",
+   "mentions": 0,
    "first": [
     "Mount Baldy (outdoors · Peak · near Greer)",
     "Carnero Lake (outdoors · Lake · near Greer)",
@@ -479,7 +543,7 @@
    "expect": "Four Corners Monument, not Four Corners, WY",
    "url": "/api/search.php?q=Four%20Corners",
    "status": 200,
-   "ms": 89,
+   "ms": 82,
    "place": "Four Corners, WY",
    "chips": [
     "place: Four Corners, WY"
@@ -490,6 +554,8 @@
    "total": 0,
    "kinds": [],
    "note": "We have no listings in Four Corners, WY yet.",
+   "osm": "",
+   "mentions": 0,
    "first": [],
    "groups": [],
    "did_you_mean": ""
@@ -500,7 +566,7 @@
    "expect": "Grand Canyon National Park",
    "url": "/api/search.php?q=grand%20canyon",
    "status": 200,
-   "ms": 87,
+   "ms": 80,
    "place": "Grand Canyon, AZ",
    "chips": [
     "place: Grand Canyon, AZ"
@@ -518,6 +584,8 @@
     }
    ],
    "note": "",
+   "osm": "",
+   "mentions": 0,
    "first": [
     "Mather Point (outdoors · Cliff · near Grand Canyon)",
     "Mescalero Point (outdoors · Cliff · near Grand Canyon)",
@@ -535,7 +603,7 @@
    "expect": "Four Corners Monument (a landmark added by hand)",
    "url": "/api/search.php?q=four%20corners%20monument",
    "status": 200,
-   "ms": 194,
+   "ms": 199,
    "place": "",
    "chips": [],
    "text": "four corners monument",
@@ -551,6 +619,8 @@
     }
    ],
    "note": "",
+   "osm": "",
+   "mentions": 0,
    "first": [
     "Four Corners Monument (outdoors · Monument · Navajo Nation land)"
    ],
@@ -563,7 +633,7 @@
    "expect": "Laguna Art Museum (found for the Laguna Beach guide)",
    "url": "/api/search.php?q=laguna%20art%20museum",
    "status": 200,
-   "ms": 131,
+   "ms": 125,
    "place": "Laguna, NM",
    "chips": [
     "place: Laguna, NM"
@@ -581,6 +651,8 @@
     }
    ],
    "note": "",
+   "osm": "",
+   "mentions": 5,
    "first": [
     "Art Galleries (topic · Category in Entertainment & Recreation)",
     "Museums (topic · Category in Entertainment & Recreation)",
@@ -597,7 +669,7 @@
    "expect": "plumbers in Show Low",
    "url": "/api/search.php?q=plumber%20in%20show%20low",
    "status": 200,
-   "ms": 151,
+   "ms": 144,
    "place": "Show Low, AZ",
    "chips": [
     "place: Show Low, AZ",
@@ -616,6 +688,8 @@
     }
    ],
    "note": "",
+   "osm": "",
+   "mentions": 0,
    "first": [
     "Action Plumbing Inc (listing · Plumbers · Show Low, AZ)",
     "All Mountain Plumbing LLC (listing · Plumbers · Show Low, AZ)",
