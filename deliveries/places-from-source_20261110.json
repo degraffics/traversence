@@ -1,0 +1,26 @@
+{
+ "zip": "places-from-source_20261110.zip",
+ "built_on": "486a818 Sync: 2026-11-10 12:05 UTC",
+ "recorded": "2026-11-10 12:20 UTC",
+ "note": "",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/PlaceFinder.php": {
+   "sha256": "6c0d58d0d74a778e894dabb777f3f74aada512ceead3ad16bb3daa55a8d1cd05",
+   "live": false
+  },
+  "app/migrations/2027-02-21_landmarks_from_source.sql": {
+   "sha256": "4bc8214a77ff8f8bedc07eb925554f37eb436f6b4f2a00c89e077a077c637e12",
+   "live": false
+  },
+  "app/scripts/guide_ondemand_tick.php": {
+   "sha256": "b91856dc7ced50e6fe5403f6fc4f5f2531bdd2f0487289ee5158c5118f5b33b4",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "3b5b7be6cfbb4b8a83002d3abec52be50503e7aac6d6b0c953f6f97dca83e3fd",
+   "live": false
+  }
+ }
+}

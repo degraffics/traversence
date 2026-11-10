@@ -191,6 +191,7 @@ without our data or a hub there: every search is demand. Older rules that hid ou
 something here") no longer apply to cities; an unknown word is never dropped before the place is read. One exception: the
 whole search is the exact name of something we have ("Four Corners Monument"). While typing, a name of two words or more that
 starts a name we have is suggested wherever it is, even when the words also read as a town.
+Places come from sources, never hand lists in code: a name searched and not found is looked up (decisions/0148).
 
 ## No test moves real money (Jason, 2026-11-10): every build
 
