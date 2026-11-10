@@ -1,6 +1,7 @@
 # The search probe (Jason, 2026-11-10): runs a set of real searches against the live search API, signed out, and records
 # what each was read as (place, words, guide offered, first results): tools/page-audit/search-probe.mjs. On Run
-# workflow and daily at 10:17 UTC. Only reads the site. Commits site-audit/search-probe.md and its JSON.
+# workflow and daily at 10:17 UTC. Also the mail DNS (tools/page-audit/mail-dns.sh). Only reads. Commits
+# site-audit/search-probe.md, its JSON and site-audit/mail-dns.md.
 name: Search probe
 
 on:
@@ -28,11 +29,13 @@ jobs:
         env:
           SITE: https://traversence.com
         run: node tools/page-audit/search-probe.mjs
+      - name: Check the mail DNS
+        run: bash tools/page-audit/mail-dns.sh
       - name: Commit the results
         run: |
           git config user.name "search-probe"
           git config user.email "search-probe@users.noreply.github.com"
-          git add site-audit/search-probe.md site-audit/results/search-probe.json
+          git add site-audit/search-probe.md site-audit/results/search-probe.json site-audit/mail-dns.md
           if git diff --cached --quiet; then echo "No change."; exit 0; fi
           git commit -m "Search probe: what the live search reads"
           git pull --rebase -q || true
