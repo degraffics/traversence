@@ -3,16 +3,16 @@
  "built_on": "7e247ad Sync: 2026-11-10 22:56 UTC",
  "recorded": "2026-11-10 23:02 UTC",
  "note": "Did you mean never empty for a slip (decisions/0064): closest words our listings use, run-together words offered apart; offered only, never changed; adds offers(), removes nothing",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "8c47c4b Sync: 2026-11-10 23:24 UTC",
  "files": {
   "app/lib/UniversalSearch.php": {
    "sha256": "407e8470972f5aa140fb8a40bd71d4ce6524bcff9825286c793f61f103767f0b",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "6d2dedcc63e423b61b61a89923a67123869ec821db7d64590ffa170cf1f06dfa",
-   "live": false
+   "live": true
   }
  }
 }
