@@ -3,56 +3,56 @@
  "built_on": "0b9ee26 Sync: 2026-11-10 14:27 UTC",
  "recorded": "2026-11-10 14:35 UTC",
  "note": "",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "d31d0bd Sync: 2026-11-10 14:56 UTC",
  "files": {
   "app/lib/AiClient.php": {
    "sha256": "6de9f46d22655092bebdf5578f3bc3cb62739a6730558f68979880369564829d",
-   "live": false
+   "live": true
   },
   "app/lib/Landmarks.php": {
    "sha256": "718c2118c2a535c8dbd923c5221c7f726226f4fbf71b6c3eb5d27f3cc5e8b2bf",
-   "live": false
+   "live": true
   },
   "app/lib/PlaceFinder.php": {
    "sha256": "5afe7b94fbbf3ed756e92dd4b3da46c3a94750e92f5d77348e2c78394281d4e2",
-   "live": false
+   "live": true
   },
   "app/lib/SearchIndex.php": {
    "sha256": "27eefc51516cbf67c99eb8f9427581f693bed964b714bc84cd1fb4f090cd45aa",
-   "live": false
+   "live": true
   },
   "app/lib/UniversalSearch.php": {
    "sha256": "2e6ce928eb3b4e3b2ab009f625a639e24ca6f6344783c6cdd7cdc9fd018961f4",
-   "live": false
+   "live": true
   },
   "app/migrations/2027-02-23_landmark_facts.sql": {
    "sha256": "1d225bd430f29265a04fe8ed285409fbefeabdf06b7e60ca8fb60382eec84464",
-   "live": false
+   "live": true
   },
   "app/migrations/2027-02-24_landmark_research.sql": {
    "sha256": "6a28724b801087a189fa526bd5cdf2cbd99fe3f35d21e37887fb383dc3f48bc5",
-   "live": false
+   "live": true
   },
   "app/scripts/guide_ondemand_tick.php": {
    "sha256": "37e64983b44b774e1c6e934605b1b4dca1d86fa99acd86f6d759f0597995c143",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "8aa6a625c50d9252860fe145ebadc62353c6efb810fd6e3a536ae9c4b6204056",
-   "live": false
+   "live": true
   },
   "website/discovery/index.php": {
    "sha256": "1b0a600f4e957d72a7709bae05981829516b0e91ed635eb1b7bfc67e84a19002",
-   "live": false
+   "live": true
   },
   "website/js/map-view.js": {
    "sha256": "7327575ce332b4dfa18e31d2068f54f0c7f323da9d44fe47ed9ddc78db583990",
-   "live": false
+   "live": true
   },
   "website/place/landmark.php": {
    "sha256": "189000aed2deb319c72e83f20b21bd4492c7ccc2581d472f4ffcd69db86db2b7",
-   "live": false
+   "live": true
   }
  }
 }
