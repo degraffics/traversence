@@ -6,7 +6,7 @@
    "expect": "Dana Point, CA and its guide (it has one), not Point, TX",
    "url": "/api/search.php?q=Dana%20point",
    "status": 200,
-   "ms": 316,
+   "ms": 559,
    "place": "Dana Point, CA",
    "chips": [
     "place: Dana Point, CA"
@@ -34,7 +34,7 @@
     "Listings 0"
    ],
    "funnels": [
-    "Let's Explore 3 → /hub/?cluster=cluster-auto-laguna-niguel"
+    "Let's Explore 3 → /hub/?cluster=cluster-auto-laguna-niguel&view=outdoors"
    ],
    "intent": "",
    "near": "",
@@ -46,7 +46,7 @@
    "expect": "Dana Point, CA: its guide, places and listings",
    "url": "/api/search.php?q=Dana%20Point%2C%20CA",
    "status": 200,
-   "ms": 78,
+   "ms": 124,
    "place": "Dana Point, CA",
    "chips": [
     "place: Dana Point, CA"
@@ -74,7 +74,7 @@
     "Listings 0"
    ],
    "funnels": [
-    "Let's Explore 3 → /hub/?cluster=cluster-auto-laguna-niguel"
+    "Let's Explore 3 → /hub/?cluster=cluster-auto-laguna-niguel&view=outdoors"
    ],
    "intent": "",
    "near": "",
@@ -86,7 +86,7 @@
    "expect": "Dana Point, CA",
    "url": "/api/search.php?q=dana%20point%20california",
    "status": 200,
-   "ms": 68,
+   "ms": 85,
    "place": "Dana Point, CA",
    "chips": [
     "place: Dana Point, CA"
@@ -114,7 +114,7 @@
     "Listings 0"
    ],
    "funnels": [
-    "Let's Explore 3 → /hub/?cluster=cluster-auto-laguna-niguel"
+    "Let's Explore 3 → /hub/?cluster=cluster-auto-laguna-niguel&view=outdoors"
    ],
    "intent": "",
    "near": "",
@@ -126,7 +126,7 @@
    "expect": "places to eat in Dana Point",
    "url": "/api/search.php?q=restaurants%20in%20Dana%20Point%2C%20CA",
    "status": 200,
-   "ms": 94,
+   "ms": 114,
    "place": "Dana Point, CA",
    "chips": [
     "place: Dana Point, CA",
@@ -173,7 +173,7 @@
    "expect": "places to eat in Dana Point",
    "url": "/api/search.php?q=Places%20to%20eat%20around%20dana%20point%2C%20ca",
    "status": 200,
-   "ms": 75,
+   "ms": 94,
    "place": "Dana Point, CA",
    "chips": [
     "why: Somewhere to eat",
@@ -220,7 +220,7 @@
    "expect": "Phoenix, AZ: its guide, listings, places",
    "url": "/api/search.php?q=Phoenix%2C%20az",
    "status": 200,
-   "ms": 62,
+   "ms": 77,
    "place": "Phoenix",
    "chips": [
     "place: Phoenix"
@@ -250,7 +250,7 @@
    "expect": "Phoenix, AZ (the pilot state first)",
    "url": "/api/search.php?q=Phoenix",
    "status": 200,
-   "ms": 56,
+   "ms": 70,
    "place": "Phoenix",
    "chips": [
     "place: Phoenix"
@@ -280,7 +280,7 @@
    "expect": "places to eat in Phoenix",
    "url": "/api/search.php?q=restaurants&city=Phoenix&state=AZ&reach=25",
    "status": 200,
-   "ms": 59,
+   "ms": 74,
    "place": "Phoenix, AZ",
    "chips": [
     "place: Phoenix, AZ",
@@ -325,7 +325,7 @@
    "expect": "pizza places in Phoenix",
    "url": "/api/search.php?q=pizza%20in%20phoenix",
    "status": 200,
-   "ms": 92,
+   "ms": 109,
    "place": "Phoenix",
    "chips": [
     "place: Phoenix",
@@ -357,7 +357,7 @@
    "expect": "coffee near Glendale, AZ 85302",
    "url": "/api/search.php?q=coffee&zip=85302&reach=10",
    "status": 200,
-   "ms": 80,
+   "ms": 101,
    "place": "Glendale, AZ",
    "chips": [
     "place: Glendale, AZ"
@@ -396,7 +396,7 @@
    "expect": "trails and hikes within 2 mi of Phoenix, then 5",
    "url": "/api/search.php?q=hiking%20near%20me&city=Phoenix&state=AZ&reach=2",
    "status": 200,
-   "ms": 106,
+   "ms": 273,
    "place": "Phoenix, AZ",
    "chips": [
     "do: Hiking",
@@ -405,16 +405,32 @@
    "text": "hiking trail trails trailhead",
    "guide": "Phoenix, AZ [new]: We don't have a guide to Phoenix, AZ yet. We can build one now: a first look in about two minutes.",
    "ask": "",
-   "total": 0,
-   "kinds": [],
-   "note": "Nothing listed for hiking within 2 mi of Phoenix, AZ yet. Know a spot? Tell us below.",
+   "total": 357,
+   "kinds": [
+    {
+     "kind": "outdoors",
+     "label": "Outdoors",
+     "plural": "Outdoors",
+     "count": 357
+    }
+   ],
+   "note": "",
    "osm": "",
    "mentions": 0,
-   "first": [],
+   "first": [
+    "Piestewa Peak (outdoors · Peak · near Phoenix · 7 mi)",
+    "Phoenix Mountains (outdoors · Peak · near Phoenix · 8 mi)",
+    "Camelback Mountain (outdoors · Peak · near Phoenix · 8 mi)",
+    "North Mountain (outdoors · Peak · near Phoenix · 9 mi)",
+    "Salt River Valley (outdoors · Canyon · near Cashion · 14 mi)",
+    "Sierra Estrella (outdoors · Mountain range · Gila River Indian Community land · 17 mi)"
+   ],
    "groups": [],
-   "funnels": [],
+   "funnels": [
+    "Let's Explore 357 → /discovery/?view=outdoors"
+   ],
    "intent": "hiking near Phoenix, AZ",
-   "near": "0 within 2 mi",
+   "near": "10 within undefined mi",
    "did_you_mean": ""
   },
   {
@@ -423,7 +439,7 @@
    "expect": "trails and hikes around Phoenix",
    "url": "/api/search.php?q=hiking&city=Phoenix&state=AZ&reach=25",
    "status": 200,
-   "ms": 105,
+   "ms": 111,
    "place": "Phoenix, AZ",
    "chips": [
     "do: Hiking",
@@ -432,28 +448,31 @@
    "text": "hiking trail trails trailhead",
    "guide": "Phoenix, AZ [new]: We don't have a guide to Phoenix, AZ yet. We can build one now: a first look in about two minutes.",
    "ask": "",
-   "total": 3,
+   "total": 19,
    "kinds": [
     {
      "kind": "outdoors",
      "label": "Outdoors",
      "plural": "Outdoors",
-     "count": 3
+     "count": 19
     }
    ],
    "note": "",
    "osm": "",
    "mentions": 0,
    "first": [
-    "Quartz Peak Trail (outdoors · Recreation area · Bureau of Land Management · 20 mi)",
-    "WestWorld (outdoors · Recreation area · Bureau of Reclamation · 17 mi)",
-    "Sierra Estrella Wilderness (outdoors · Recreation area · Bureau of Land Management · 19 mi)"
+    "Piestewa Peak (outdoors · Peak · near Phoenix · 7 mi)",
+    "Camelback Mountain (outdoors · Peak · near Phoenix · 8 mi)",
+    "Phoenix Mountains (outdoors · Peak · near Phoenix · 8 mi)",
+    "North Mountain (outdoors · Peak · near Phoenix · 9 mi)",
+    "Hole in the Rock (outdoors · Natural arch · near Tempe · 7 mi)",
+    "Salt River Valley (outdoors · Canyon · near Cashion · 14 mi)"
    ],
    "groups": [
     "From our guides 1"
    ],
    "funnels": [
-    "Let's Explore 3 → /discovery/"
+    "Let's Explore 19 → /discovery/?view=outdoors"
    ],
    "intent": "hiking near Phoenix, AZ",
    "near": "",
@@ -465,7 +484,7 @@
    "expect": "coffee shops in Phoenix (OpenStreetMap at once, ours once crawled)",
    "url": "/api/search.php?q=coffee%20near%20me&city=Phoenix&state=AZ&reach=10",
    "status": 200,
-   "ms": 66,
+   "ms": 149,
    "place": "Phoenix, AZ",
    "chips": [
     "place: Phoenix, AZ"
@@ -473,12 +492,18 @@
    "text": "coffee",
    "guide": "Phoenix, AZ [new]: We don't have a guide to Phoenix, AZ yet. We can build one now: a first look in about two minutes.",
    "ask": "",
-   "total": 4,
+   "total": 25,
    "kinds": [
     {
      "kind": "listing",
      "label": "Listing",
      "plural": "Listings",
+     "count": 21
+    },
+    {
+     "kind": "outdoors",
+     "label": "Outdoors",
+     "plural": "Outdoors",
      "count": 1
     },
     {
@@ -493,18 +518,21 @@
    "mentions": 0,
    "first": [
     "Cartel Coffee Lab (listing · Restaurants · Phoenix, AZ · <1 mi)",
-    "Coffee & Tea (manufacturer) (topic · Category in Food & Dining)",
-    "Coffee & Tea Shops (topic · Category in Food & Dining)",
-    "Coffee Shops (topic · Category in Food & Dining)"
+    "GroundShaker Coffee Bar (listing · Bars · Surprise, AZ · 22 mi)",
+    "Coffeepot Rock (outdoors · Peak · near Sedona · 101 mi)",
+    "Safeway (listing · Grocery Stores · Show Low, AZ · 128 mi)",
+    "Starbucks (listing · Coffee Shops · Show Low, AZ · 128 mi)",
+    "Denny's (listing · Restaurants · Show Low, AZ · 129 mi)"
    ],
    "groups": [
-    "Listings 1"
+    "Listings 5"
    ],
    "funnels": [
-    "Get Local 4 → /directory/?q=coffee"
+    "Let's Explore 1 → /discovery/?view=outdoors",
+    "Get Local 24 → /directory/?lat=33.4484&lon=-112.074&radius=250&near=Phoenix%2C+AZ&q=coffee"
    ],
    "intent": "",
-   "near": "1 within 2 mi",
+   "near": "1 within undefined mi",
    "did_you_mean": ""
   },
   {
@@ -513,7 +541,7 @@
    "expect": "things to do around 85302",
    "url": "/api/search.php?q=Things%20to%20do%20near%20me&zip=85302&reach=25",
    "status": 200,
-   "ms": 62,
+   "ms": 148,
    "place": "Glendale, AZ",
    "chips": [
     "why: Things to do",
@@ -531,7 +559,7 @@
    "groups": [],
    "funnels": [],
    "intent": "",
-   "near": "0 within 2 mi",
+   "near": "0 within undefined mi",
    "did_you_mean": ""
   },
   {
@@ -540,7 +568,7 @@
    "expect": "Glendale, AZ: its guide (built on demand) and listings",
    "url": "/api/search.php?q=Glendale%2C%20AZ",
    "status": 200,
-   "ms": 84,
+   "ms": 91,
    "place": "Glendale, AZ",
    "chips": [
     "place: Glendale, AZ"
@@ -568,7 +596,7 @@
     "Listings 0"
    ],
    "funnels": [
-    "Let's Explore 3 → /hub/?cluster=cluster-auto-phoenix-2"
+    "Let's Explore 3 → /hub/?cluster=cluster-auto-phoenix-2&view=outdoors"
    ],
    "intent": "",
    "near": "",
@@ -580,7 +608,7 @@
    "expect": "places to stay in Sedona",
    "url": "/api/search.php?q=hotels%20in%20sedona",
    "status": 200,
-   "ms": 156,
+   "ms": 187,
    "place": "Sedona, AZ",
    "chips": [
     "place: Sedona, AZ"
@@ -619,7 +647,7 @@
    "expect": "Show Low, AZ (a pilot town)",
    "url": "/api/search.php?q=show%20low",
    "status": 200,
-   "ms": 75,
+   "ms": 104,
    "place": "Show Low, AZ",
    "chips": [
     "place: Show Low, AZ"
@@ -647,7 +675,7 @@
     "Listings 0"
    ],
    "funnels": [
-    "Let's Explore 3 → /hub/?cluster=cluster-auto-show-low"
+    "Let's Explore 3 → /hub/?cluster=cluster-auto-show-low&view=outdoors"
    ],
    "intent": "",
    "near": "",
@@ -659,7 +687,7 @@
    "expect": "Greer, AZ (a pilot town)",
    "url": "/api/search.php?q=greer%20arizona",
    "status": 200,
-   "ms": 69,
+   "ms": 90,
    "place": "Greer, AZ",
    "chips": [
     "place: Greer, AZ"
@@ -691,7 +719,7 @@
     "Listings 1"
    ],
    "funnels": [
-    "Let's Explore 12 → /hub/?cluster=cluster-1b-round-valley"
+    "Let's Explore 12 → /hub/?cluster=cluster-1b-round-valley&view=outdoors"
    ],
    "intent": "",
    "near": "",
@@ -703,7 +731,7 @@
    "expect": "Four Corners Monument, not Four Corners, WY",
    "url": "/api/search.php?q=Four%20Corners",
    "status": 200,
-   "ms": 91,
+   "ms": 94,
    "place": "Four Corners, WY",
    "chips": [
     "place: Four Corners, WY"
@@ -729,7 +757,7 @@
    "expect": "Grand Canyon National Park",
    "url": "/api/search.php?q=grand%20canyon",
    "status": 200,
-   "ms": 74,
+   "ms": 94,
    "place": "Grand Canyon, AZ",
    "chips": [
     "place: Grand Canyon, AZ"
@@ -759,7 +787,7 @@
    ],
    "groups": [],
    "funnels": [
-    "Let's Explore 12 → /discovery/"
+    "Let's Explore 12 → /discovery/?view=outdoors"
    ],
    "intent": "",
    "near": "",
@@ -771,7 +799,7 @@
    "expect": "Four Corners Monument (a landmark added by hand)",
    "url": "/api/search.php?q=four%20corners%20monument",
    "status": 200,
-   "ms": 197,
+   "ms": 265,
    "place": "",
    "chips": [],
    "text": "four corners monument",
@@ -794,7 +822,7 @@
    ],
    "groups": [],
    "funnels": [
-    "Let's Explore 1 → /discovery/"
+    "Let's Explore 1 → /discovery/?view=outdoors"
    ],
    "intent": "",
    "near": "",
@@ -806,7 +834,7 @@
    "expect": "Laguna Art Museum (found for the Laguna Beach guide)",
    "url": "/api/search.php?q=laguna%20art%20museum",
    "status": 200,
-   "ms": 119,
+   "ms": 135,
    "place": "Laguna, NM",
    "chips": [
     "place: Laguna, NM"
@@ -965,10 +993,10 @@
    "first": [
     "Show Low, AZ (place · Town in The Show Low District)",
     "Live Music & Entertainment (category · Maybe? 1 listed · for “show l”)",
+    "Show Low Lake (outdoors · Lakeside › Lake)",
     "Show Low Regional Airport-Sow (listing · Show Low › Airports)",
     "Show Low Animal Control (listing · Show Low › Animal Shelters)",
-    "Show Low Apartments (listing · Show Low › Apartments)",
-    "Show Low Ford (listing · Show Low › New Car Dealers)"
+    "Show Low Apartments (listing · Show Low › Apartments)"
    ]
   },
   {
