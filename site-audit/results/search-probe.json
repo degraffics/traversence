@@ -6,7 +6,7 @@
    "expect": "Dana Point, CA and its guide (it has one), not Point, TX",
    "url": "/api/search.php?q=Dana%20point",
    "status": 200,
-   "ms": 539,
+   "ms": 543,
    "place": "Dana Point, CA",
    "chips": [
     "place: Dana Point, CA"
@@ -46,7 +46,7 @@
    "expect": "Dana Point, CA: its guide, places and listings",
    "url": "/api/search.php?q=Dana%20Point%2C%20CA",
    "status": 200,
-   "ms": 157,
+   "ms": 94,
    "place": "Dana Point, CA",
    "chips": [
     "place: Dana Point, CA"
@@ -86,7 +86,7 @@
    "expect": "Dana Point, CA",
    "url": "/api/search.php?q=dana%20point%20california",
    "status": 200,
-   "ms": 102,
+   "ms": 83,
    "place": "Dana Point, CA",
    "chips": [
     "place: Dana Point, CA"
@@ -126,7 +126,7 @@
    "expect": "places to eat in Dana Point",
    "url": "/api/search.php?q=restaurants%20in%20Dana%20Point%2C%20CA",
    "status": 200,
-   "ms": 137,
+   "ms": 113,
    "place": "Dana Point, CA",
    "chips": [
     "place: Dana Point, CA",
@@ -173,7 +173,7 @@
    "expect": "places to eat in Dana Point",
    "url": "/api/search.php?q=Places%20to%20eat%20around%20dana%20point%2C%20ca",
    "status": 200,
-   "ms": 108,
+   "ms": 98,
    "place": "Dana Point, CA",
    "chips": [
     "why: Somewhere to eat",
@@ -220,7 +220,7 @@
    "expect": "Phoenix, AZ: its guide, listings, places",
    "url": "/api/search.php?q=Phoenix%2C%20az",
    "status": 200,
-   "ms": 93,
+   "ms": 78,
    "place": "Phoenix",
    "chips": [
     "place: Phoenix"
@@ -250,7 +250,7 @@
    "expect": "Phoenix, AZ (the pilot state first)",
    "url": "/api/search.php?q=Phoenix",
    "status": 200,
-   "ms": 90,
+   "ms": 82,
    "place": "Phoenix",
    "chips": [
     "place: Phoenix"
@@ -280,7 +280,7 @@
    "expect": "places to eat in Phoenix",
    "url": "/api/search.php?q=restaurants&city=Phoenix&state=AZ&reach=25",
    "status": 200,
-   "ms": 90,
+   "ms": 75,
    "place": "Phoenix, AZ",
    "chips": [
     "place: Phoenix, AZ",
@@ -325,7 +325,7 @@
    "expect": "pizza places in Phoenix",
    "url": "/api/search.php?q=pizza%20in%20phoenix",
    "status": 200,
-   "ms": 132,
+   "ms": 117,
    "place": "Phoenix",
    "chips": [
     "place: Phoenix",
@@ -357,7 +357,7 @@
    "expect": "coffee near Glendale, AZ 85302",
    "url": "/api/search.php?q=coffee&zip=85302&reach=10",
    "status": 200,
-   "ms": 109,
+   "ms": 100,
    "place": "Glendale, AZ",
    "chips": [
     "place: Glendale, AZ"
@@ -396,7 +396,7 @@
    "expect": "trails and hikes within 2 mi of Phoenix, then 5",
    "url": "/api/search.php?q=hiking%20near%20me&city=Phoenix&state=AZ&reach=2",
    "status": 200,
-   "ms": 281,
+   "ms": 256,
    "place": "Phoenix, AZ",
    "chips": [
     "do: Hiking",
@@ -405,13 +405,13 @@
    "text": "hiking trail trails trailhead",
    "guide": "Phoenix, AZ [new]: We don't have a guide to Phoenix, AZ yet. We can build one now: a first look in about two minutes.",
    "ask": "",
-   "total": 356,
+   "total": 357,
    "kinds": [
     {
      "kind": "outdoors",
      "label": "Outdoors",
      "plural": "Outdoors",
-     "count": 356
+     "count": 357
     }
    ],
    "note": "",
@@ -427,7 +427,7 @@
    ],
    "groups": [],
    "funnels": [
-    "Let's Explore 356 → /discovery/?view=outdoors"
+    "Let's Explore 357 → /discovery/?view=outdoors"
    ],
    "intent": "hiking near Phoenix, AZ",
    "near": "10 within undefined mi",
@@ -439,7 +439,7 @@
    "expect": "trails and hikes around Phoenix",
    "url": "/api/search.php?q=hiking&city=Phoenix&state=AZ&reach=25",
    "status": 200,
-   "ms": 131,
+   "ms": 140,
    "place": "Phoenix, AZ",
    "chips": [
     "do: Hiking",
@@ -461,10 +461,10 @@
    "osm": "",
    "mentions": 0,
    "first": [
-    "Piestewa Peak (outdoors · Peak · near Phoenix · 7 mi)",
     "Camelback Mountain (outdoors · Peak · near Phoenix · 8 mi)",
-    "Phoenix Mountains (outdoors · Peak · near Phoenix · 8 mi)",
     "North Mountain (outdoors · Peak · near Phoenix · 9 mi)",
+    "Piestewa Peak (outdoors · Peak · near Phoenix · 7 mi)",
+    "Phoenix Mountains (outdoors · Peak · near Phoenix · 8 mi)",
     "Hole in the Rock (outdoors · Natural arch · near Tempe · 7 mi)",
     "Camels Eye (outdoors · Natural arch · near Phoenix · 8 mi)"
    ],
@@ -484,7 +484,7 @@
    "expect": "coffee shops in Phoenix (OpenStreetMap at once, ours once crawled)",
    "url": "/api/search.php?q=coffee%20near%20me&city=Phoenix&state=AZ&reach=10",
    "status": 200,
-   "ms": 168,
+   "ms": 154,
    "place": "Phoenix, AZ",
    "chips": [
     "place: Phoenix, AZ"
@@ -540,7 +540,7 @@
    "expect": "things to do around 85302",
    "url": "/api/search.php?q=Things%20to%20do%20near%20me&zip=85302&reach=25",
    "status": 200,
-   "ms": 158,
+   "ms": 149,
    "place": "Glendale, AZ",
    "chips": [
     "why: Things to do",
@@ -567,35 +567,34 @@
    "expect": "Glendale, AZ: its guide (built on demand) and listings",
    "url": "/api/search.php?q=Glendale%2C%20AZ",
    "status": 200,
-   "ms": 103,
-   "place": "Glendale, AZ",
+   "ms": 78,
+   "place": "Glendale",
    "chips": [
-    "place: Glendale, AZ"
+    "place: Glendale"
    ],
    "text": "",
    "guide": "",
-   "ask": "What would you like to know about Glendale, AZ?",
-   "total": 2,
+   "ask": "What would you like to know about Glendale?",
+   "total": 1,
    "kinds": [
     {
      "kind": "outdoors",
      "label": "Outdoors",
      "plural": "Outdoors",
-     "count": 2
+     "count": 1
     }
    ],
    "note": "",
    "osm": "",
    "mentions": 0,
    "first": [
-    "Glendale Gardens Historic District (outdoors · Historic district · near Glendale)",
-    "Glendale Tract Historic District (outdoors · Historic district · near Glendale)"
+    "Glendale Gardens Historic District (outdoors · Historic district · near Glendale)"
    ],
    "groups": [
     "Listings 0"
    ],
    "funnels": [
-    "Let's Explore 3 → /hub/?cluster=cluster-auto-phoenix-2&view=outdoors"
+    "Let's Explore 2 → /hub/?cluster=cluster-auto-glendale&view=outdoors"
    ],
    "intent": "",
    "near": "",
@@ -607,13 +606,13 @@
    "expect": "places to stay in Sedona",
    "url": "/api/search.php?q=hotels%20in%20sedona",
    "status": 200,
-   "ms": 196,
-   "place": "Sedona, AZ",
+   "ms": 195,
+   "place": "Sedona",
    "chips": [
-    "place: Sedona, AZ"
+    "place: Sedona"
    ],
    "text": "hotels",
-   "guide": "Sedona, AZ [new]: We don't have a guide to Sedona, AZ yet. We can build one now: a first look in about two minutes.",
+   "guide": "",
    "ask": "",
    "total": 14,
    "kinds": [
@@ -625,15 +624,18 @@
     }
    ],
    "note": "",
-   "osm": "lodging around Sedona, AZ",
+   "osm": "lodging around Sedona",
    "mentions": 0,
    "first": [
     "Hotels & Motels (topic · Category in Hospitality & Lodging)",
     "Bed & Breakfasts (topic · Category in Hospitality & Lodging)",
     "Cabin Rentals (topic · Category in Hospitality & Lodging)"
    ],
-   "groups": [],
+   "groups": [
+    "Places 1"
+   ],
    "funnels": [
+    "Let's Explore 1 → /hub/?cluster=cluster-auto-sedona",
     "Get Local 14 → /directory/?q=hotels"
    ],
    "intent": "",
@@ -646,7 +648,7 @@
    "expect": "Show Low, AZ (a pilot town)",
    "url": "/api/search.php?q=show%20low",
    "status": 200,
-   "ms": 116,
+   "ms": 88,
    "place": "Show Low, AZ",
    "chips": [
     "place: Show Low, AZ"
@@ -686,7 +688,7 @@
    "expect": "Greer, AZ (a pilot town)",
    "url": "/api/search.php?q=greer%20arizona",
    "status": 200,
-   "ms": 97,
+   "ms": 106,
    "place": "Greer, AZ",
    "chips": [
     "place: Greer, AZ"
@@ -707,12 +709,12 @@
    "osm": "",
    "mentions": 0,
    "first": [
+    "Mount Baldy (outdoors · Peak · near Greer)",
     "Mount Ord (outdoors · Peak · White Mountain Apache Tribe land)",
     "Crescent Lake (outdoors · Lake · near Greer)",
-    "Mount Baldy (outdoors · Peak · near Greer)",
-    "Bunch Reservoir (outdoors · Reservoir · near Apache County)",
+    "Lee Valley Lake (outdoors · Lake · near Greer)",
     "Butterfly Lodge (outdoors · Historic place · near Apache County)",
-    "Carnero Lake (outdoors · Lake · near Greer)"
+    "River Reservoir (outdoors · Reservoir · near Apache County)"
    ],
    "groups": [
     "Listings 1"
@@ -730,7 +732,7 @@
    "expect": "Four Corners Monument, not Four Corners, WY",
    "url": "/api/search.php?q=Four%20Corners",
    "status": 200,
-   "ms": 104,
+   "ms": 108,
    "place": "Four Corners, WY",
    "chips": [
     "place: Four Corners, WY"
@@ -738,12 +740,14 @@
    "text": "",
    "guide": "Four Corners, WY [new]: We don't have a guide to Four Corners, WY yet. We can build one now: a first look in about two minutes.",
    "ask": "What would you like to know about Four Corners, WY?",
-   "total": 0,
+   "total": 1,
    "kinds": [],
    "note": "We have no listings in Four Corners, WY yet.",
    "osm": "",
    "mentions": 0,
-   "first": [],
+   "first": [
+    "Four Corners Monument (outdoors · Monuments · Navajo Nation land)"
+   ],
    "groups": [],
    "funnels": [],
    "intent": "",
@@ -756,7 +760,7 @@
    "expect": "Grand Canyon National Park",
    "url": "/api/search.php?q=grand%20canyon",
    "status": 200,
-   "ms": 103,
+   "ms": 100,
    "place": "Grand Canyon, AZ",
    "chips": [
     "place: Grand Canyon, AZ"
@@ -764,7 +768,7 @@
    "text": "",
    "guide": "Grand Canyon, AZ [new]: We don't have a guide to Grand Canyon, AZ yet. We can build one now: a first look in about two minutes.",
    "ask": "What would you like to know about Grand Canyon, AZ?",
-   "total": 12,
+   "total": 13,
    "kinds": [
     {
      "kind": "outdoors",
@@ -777,12 +781,12 @@
    "osm": "",
    "mentions": 0,
    "first": [
+    "Grand Canyon - Parashant National Monument (outdoors · Recreation area · Bureau of Land Management)",
     "Red Butte (outdoors · Peak · near Grand Canyon)",
     "Mather Point (outdoors · Cliff · near Grand Canyon)",
+    "Sinking Ship (outdoors · Peak · near Grand Canyon)",
     "Vesta Temple (outdoors · Peak · near Grand Canyon)",
-    "Mescalero Point (outdoors · Cliff · near Grand Canyon)",
-    "O'Neill Butte (outdoors · Peak · near Grand Canyon)",
-    "Sinking Ship (outdoors · Peak · near Grand Canyon)"
+    "Mescalero Point (outdoors · Cliff · near Grand Canyon)"
    ],
    "groups": [],
    "funnels": [
@@ -798,7 +802,7 @@
    "expect": "Four Corners Monument (a landmark added by hand)",
    "url": "/api/search.php?q=four%20corners%20monument",
    "status": 200,
-   "ms": 240,
+   "ms": 234,
    "place": "",
    "chips": [],
    "text": "four corners monument",
@@ -833,7 +837,7 @@
    "expect": "Laguna Art Museum (found for the Laguna Beach guide)",
    "url": "/api/search.php?q=laguna%20art%20museum",
    "status": 200,
-   "ms": 151,
+   "ms": 137,
    "place": "Laguna, NM",
    "chips": [
     "place: Laguna, NM"
@@ -876,7 +880,7 @@
    "expect": "plumbers in Show Low",
    "url": "/api/search.php?q=plumber%20in%20show%20low",
    "status": 200,
-   "ms": 166,
+   "ms": 153,
    "place": "Show Low, AZ",
    "chips": [
     "place: Show Low, AZ",
@@ -971,19 +975,19 @@
    "q": "sedo",
    "ctx": "",
    "first": [
-    "Sedona, AZ (place · Town · see what's there)"
+    "Sedona (place · Town)"
    ]
   },
   {
    "q": "glendale",
    "ctx": "city=Phoenix&state=AZ",
    "first": [
-    "Glendale, CA (place · Town · see what's there)",
     "Glendale Heights, IL (place · Town · see what's there)",
-    "Glendale, OR (place · Town · see what's there)",
-    "Glendale, KY (place · Town · see what's there)",
+    "Glendale Springs, NC (place · Town · see what's there)",
     "Glendale (knowledge · From our guides · Place)",
-    "Glendale project (knowledge · From our guides · Place)"
+    "Glendale project (knowledge · From our guides · Place)",
+    "Glendale Gardens Historic District (outdoors · Glendale › Historic district)",
+    "Glendale City Hall (listing · Glendale › City Hall)"
    ]
   },
   {
@@ -1032,8 +1036,12 @@
    "q": "dana point harb",
    "ctx": "",
    "first": [
-    "Harbor Pump Co Inc (listing · Water Well Drilling · Show Low, AZ · 435 mi)",
-    "Harbor Freight (listing · Tool Stores · Show Low, AZ · 443 mi)"
+    "North Mountain (outdoors · Peak · near Phoenix · 324 mi)",
+    "Bell Rock Pathway / Vista (outdoors · Biking · USDA Forest Service · 351 mi)",
+    "Independent Energy Homes LLC (listing · Home Improvements · Holbrook, AZ · 435 mi)",
+    "Walt's Hardware (listing · Hardware Stores · Holbrook, AZ · 442 mi)",
+    "Triggledigger Enterprises LLC (listing · Hardware Stores · Holbrook, AZ · 442 mi)",
+    "Hardware Stores (category · Dana Point, CA › All of this kind)"
    ]
   },
   {
