@@ -136,3 +136,6 @@ worker), not in Settings.
   days start counting from this upload, so the first followers and friends qualify 3 days in. Not yet: taking back space
   earned from an account later removed as fake (suspended accounts already don't count), and checking the sign-up
   check per person (every sign-up passes it when it's on).
+- **Fixed the same day (`shop-cart-tabs` zip):** the Shop said "2 items" with an empty cart (it counted the cart record's
+  two fields); it now counts the items, as the header's cart does. And rows that fold into **More ▾** (`js/tv-ask.js`)
+  leave children marked `data-keep` in place: the profile tab row's + and layout switch never fold (Jason).
