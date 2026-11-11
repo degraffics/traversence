@@ -7,7 +7,7 @@ name: Site audit
 
 on:
   schedule:
-    - cron: '17 * * * *'
+    - cron: '17 7,19 * * *'   # twice a day, an hour after the scheduled syncs (Jason, 2026-11-11: "12 hour audit is fine"; was hourly)
   workflow_dispatch:
 
 permissions:

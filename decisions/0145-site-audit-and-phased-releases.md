@@ -288,3 +288,8 @@ uses its gateway's test mode (`MarketPay::env()`). `QuickBooksPay::guardReal()`:
 or payment is recorded; refunds and credits stay open, since they only send money back. "Test copy, billed to you" now
 always makes a sandbox order. A test account's plan receipt goes to the sandbox's books, not the live ones (it went to
 the live books before). Customers leaves test orders out of its numbers (`customers-no-tests_20261110.zip`).
+
+**Note (2026-11-11, Jason: "12 hour audit is fine"):** the scheduled site audit (`.github/workflows/site-audit.yml`) runs
+twice a day, at 07:17 and 19:17 UTC (an hour after the scheduled syncs), instead of hourly. GitHub Actions' included
+minutes ran out on Nov 11 and the account's $0 Actions budget blocked every run (syncs included) until Jason set it to
+$10 a month; the zip check still runs the code checks before every delivery, and Run workflow runs the audit on demand.
