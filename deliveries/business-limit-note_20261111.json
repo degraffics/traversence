@@ -1,0 +1,14 @@
+{
+ "zip": "business-limit-note_20261111.zip",
+ "built_on": "a051c0c Sync: 2026-11-11 19:00 UTC",
+ "recorded": "2026-11-11 19:09 UTC",
+ "note": "The post box's note when posting as a business (no daily limit; its Gallery and plan's storage). Uploaded by Jason (it was withdrawn here in favour of dashboard-feed, which didn't reach the server); recorded from the live copy.",
+ "status": "live",
+ "live_in": "a051c0c Sync: 2026-11-11 19:00 UTC",
+ "files": {
+  "website/js/tv-moments.js": {
+   "sha256": "0a6fcc8580f7b5b9a90a1a6cbd55e316eade5805569a2c4e23e8bfd2d3f56194",
+   "live": true
+  }
+ }
+}
