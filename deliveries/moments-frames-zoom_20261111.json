@@ -1,8 +1,8 @@
 {
  "zip": "moments-frames-zoom_20261111.zip",
  "built_on": "445a68f Sync: 2026-11-11 17:17 UTC",
- "recorded": "2026-11-11 17:24 UTC",
- "note": "Replaces moments-frames (never uploaded). The recorder's frame: Portrait 9:16, Square or Landscape 16:9, recorded at that size (a canvas cut from the camera's picture, at most 1280 px long), so review matches the live view. Zoom: pinch or tap 1x for 2x and 3x, before or while recording; the camera's own zoom where offered, else digital up to 3x. Upload notice 'Your video is ready to post'. A post made on the Dashboard shows under the box there (no jump to Posts), and the Posts tab has its own 'What's on your mind?' box. FAQ updated. Built on 17:17 UTC sync.",
+ "recorded": "2026-11-11 17:26 UTC",
+ "note": "Replaces moments-frames (never uploaded). Recorder frame (Portrait 9:16, Square, Landscape 16:9) recorded at that size; zoom (pinch, or 1x/2x/3x; the camera's own where offered); upload notice 'Your video is ready to post'; a Dashboard post shows under the box there and the Posts tab has its own box; the post's menu and reaction picker drawn solid above videos (they were see-through), opening upward when there's no room below, closing with Esc. FAQ updated. Built on 17:17 UTC sync.",
  "status": "pending",
  "live_in": "",
  "files": {
@@ -15,7 +15,7 @@
    "live": false
   },
   "website/js/tv-moments.js": {
-   "sha256": "722554c4f0c8d982f2bfdb9c898a4fdb0ecda21539b9014221b3c353925d206b",
+   "sha256": "5e5a29acc4637745555896639e615c47361c479bb09c7020ca4e298ca366446b",
    "live": false
   },
   "website/user/dashboard.php": {
