@@ -29,10 +29,6 @@
   "website/user/dashboard.php": {
    "sha256": "e585b1ddc37c2156e0c83d29606487560e12aca10e14f77b9c798680ed5315e6",
    "live": false
-  },
-  "website/user/pulse-feed.png": {
-   "sha256": "d936ebe42694cfe64bf5825b903ff69ab5cf41b0d4957eb63e7d52419af38061",
-   "live": false
   }
  }
 }
