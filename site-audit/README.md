@@ -29,6 +29,7 @@ phase order.
 ## Files these phases create
 
 - `punch-list.md`: everything Jason provides for the one build, in order
+- `payments-checklist.md`: the hands-on run of the 2026-11-11 payments and video builds (the one cart, the free week, Keep in 4K, a month of Pro, the video worker), not run yet
 - `test-accounts.md`: the test accounts, their roles and what each covers (no passwords: those are only in the `CHECK_ACCOUNTS` secret)
 - `rules.md`: the rule catalogue (Phase 1)
 - `exceptions.json`: rule failures accepted on purpose, each with its reason (Jason approves)
