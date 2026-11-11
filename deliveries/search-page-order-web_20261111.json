@@ -3,20 +3,20 @@
  "built_on": "d4f6768 Sync: 2026-11-11 01:57 UTC",
  "recorded": "2026-11-11 02:00 UTC",
  "note": "Completes search-page-order (its app/ files went live at 01:57 UTC; this carries its website/ files): the page sets the order while typing; the panel in order: what it means (situations, full words) before Search for, completions after unless the word isn't finished",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "4eb758e Sync: 2026-11-11 02:05 UTC",
  "files": {
   "app/ui/faq.md": {
    "sha256": "d8c4fce3a9867a50e6fa29233ec61aa562b3d794e55f92928ecb306e8afc4f71",
-   "live": false
+   "live": true
   },
   "website/api/search.php": {
    "sha256": "74cd95f11d7680b9d915de5d999dc1a4012297503ae881514004d4c766cba33f",
-   "live": false
+   "live": true
   },
   "website/js/search-panel.js": {
    "sha256": "a16b5b178aab3f1982b184523a7de00f260e1c388cfb7c8cbdc74631e7a577e6",
-   "live": false
+   "live": true
   }
  }
 }
