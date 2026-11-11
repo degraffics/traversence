@@ -3,16 +3,16 @@
  "built_on": "64afa90 Sync: 2026-11-11 21:08 UTC",
  "recorded": "2026-11-11 21:11 UTC",
  "note": "Vault: Import from a Google Password Manager or 1Password export (CSV), read and sealed in the browser; the file is never uploaded",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "1b92be6 Sync: 2026-11-11 21:21 UTC",
  "files": {
   "app/ui/vault.php": {
    "sha256": "f92a274c2c1d7d16f3e42c484f5d8cb4de75bd590c402473a61cba086c3120d9",
-   "live": false
+   "live": true
   },
   "website/js/tv-vault.js": {
    "sha256": "ec8a2cf2d381fff2f0d02485f97dd4605fc7d086280693713e029a0e001c165e",
-   "live": false
+   "live": true
   }
  }
 }
