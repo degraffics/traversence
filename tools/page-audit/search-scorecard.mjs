@@ -186,6 +186,7 @@ for (const [q, ctx, c] of TYPING) {
     const [d, ms] = await getJson(url);
     // a place typed alone shows as a card above the list ("What would you like to know about Phoenix, AZ?"): it leads
     const rows = [...(d.ask && d.ask.kind === 'place' && d.ask.place ? [{ text: `${s(d.ask.place)} · place card`, mi: null }] : []),
+                  ...(d.intents || []).map((i) => ({ text: `${s(i.label)} · ${s(i.means)}`, mi: null })),   // full words with their intent, above the list
                   ...(d.items || []).map((i) => ({ text: rowOf(i), mi: typeof i.miles === 'number' ? i.miles : null }))];
     Object.assign(o, { ms, first: rows.slice(0, 5).map((r) => r.text), fails: judge(rows, [], '', rows.length, c, ms, FAST_TYPING) });
   } catch (e) { o.fails = ['error: ' + String(e).slice(0, 120)]; }

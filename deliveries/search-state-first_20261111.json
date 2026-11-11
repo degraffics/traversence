@@ -1,0 +1,18 @@
+{
+ "zip": "search-state-first_20261111.zip",
+ "built_on": "9c4a780 Sync: 2026-11-11 01:27 UTC",
+ "recorded": "2026-11-11 01:32 UTC",
+ "note": "A state's full name at the start of the words is the place (arizona food); adds only",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/UniversalSearch.php": {
+   "sha256": "b252687692fa3ec291ccd4795bde348b958536dd958768e6f73a23dbf0cfdcae",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "a2fda0bf37571bf6226dc3b645e16180b3d1a244b837299de41572bc0b466369",
+   "live": false
+  }
+ }
+}
