@@ -1,0 +1,18 @@
+{
+ "zip": "moments-recorder_20261111.zip",
+ "built_on": "e023f32 Sync: 2026-11-11 17:06 UTC",
+ "recorded": "2026-11-11 17:15 UTC",
+ "note": "The recorder made full screen (Jason, 2026-11-11): the camera fills the screen, time top left, \u00d7 top right, the red button to start and again to stop with the ring around it, switch camera beside it; then a review screen that plays it back with Retake and Use video. \u00d7 asks first when a recording would be lost. FAQ updated. Built on 17:06 UTC sync.",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/ui/faq.md": {
+   "sha256": "0c19bbd816e51681e4b473ef2d40524d91e359f945508c1ad019a70984af6214",
+   "live": false
+  },
+  "website/js/tv-moments.js": {
+   "sha256": "48e191db24e26d4795522bc2685117111ff8b249af19d48df9846622692d3ec5",
+   "live": false
+  }
+ }
+}
