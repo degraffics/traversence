@@ -59,7 +59,7 @@ applied to the `traversence-files` bucket only. It shows an **Access Key ID**, a
 **S3 endpoint** (`https://<account id>.r2.cloudflarestorage.com`). The secret is shown once.
 
 **3. Copy the files over.** R2 → **Data Migration** → **Migrate files** (Cloudflare's own copier, "Super Slurper"; if the dashboard has moved it, a Claude session can script the copy instead): source Amazon S3,
-bucket `traversence-files`, its region (`AWS_REGION` in `.env`), with a read-only AWS key made for this (IAM → the traversence-site user is
+the Amazon bucket's name (`S3_BUCKET` in `.env` before the switch) and its region (`AWS_REGION`), with a read-only AWS key made for this (IAM → the traversence-site user is
 fine if it can list and read; or a new key with `s3:ListBucket` and `s3:GetObject`); destination the new R2 bucket.
 Amazon charges its $0.09 a GB once for this copy: small at today's sizes, which is why the move is now.
 
@@ -70,11 +70,11 @@ S3_ACCESS_KEY_ID=…
 S3_SECRET_ACCESS_KEY=…
 S3_REGION=auto
 ```
-Keep `S3_BUCKET=traversence-files` and the `AWS_…` lines (email uses them). **Admin → System Configuration → Settings**
+Set `S3_BUCKET` to the **R2** bucket's name (`traversence-files`): the site uses that one setting for whichever store it's on, and the Amazon bucket's name differs (found during the move, 2026-11-11). Note the old value to switch back. Keep the `AWS_…` lines (email uses them). **Admin → System Configuration → Settings**
 then says "File storage (S3-compatible): Connected: traversence-files (Cloudflare R2) · uploads ready".
 
 **5. Check, then clean up.** Open a few photos and a video on the site; upload one photo. Run the migration once more to
 catch anything added in between. After a week with nothing missing, empty the Amazon bucket (Amazon still charges for
 storing it) and narrow the AWS key to email only.
 
-To go back: remove the four lines from `.env`; the site uses Amazon again.
+To go back: remove the four lines from `.env` and put `S3_BUCKET` back to the Amazon bucket's name; the site uses Amazon again.
