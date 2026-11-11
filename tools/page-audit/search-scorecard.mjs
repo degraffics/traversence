@@ -91,8 +91,8 @@ const CASES = [
 
 // as someone types: the first rows of the suggestions
 const TYPING = [
-  ['pho', '', { lead: /Phoenix, AZ/, top: 1 }],
-  ['phoenix', '', { lead: /Phoenix, AZ/, top: 1, never: /Phoenixville/, neverTop: 1 }],
+  ['pho', '', { lead: /^Phoenix(, AZ| ·)/, top: 1 }],
+  ['phoenix', '', { lead: /^Phoenix(, AZ| ·)/, top: 1, never: /Phoenixville/, neverTop: 1 }],
   ['Dana p', '', { lead: /Dana Point/, top: 1, never: /Counselor|Pipe/ }],
   ['sedo', '', { lead: /Sedona/, top: 1 }],
   ['glendale', PHX, { lead: /Glendale, AZ/, top: 1 }],
@@ -174,7 +174,9 @@ for (const [q, ctx, c] of TYPING) {
   try {
     await getJson(url).catch(() => {});
     const [d, ms] = await getJson(url);
-    const rows = (d.items || []).map((i) => ({ text: rowOf(i), mi: typeof i.miles === 'number' ? i.miles : null }));
+    // a place typed alone shows as a card above the list ("What would you like to know about Phoenix, AZ?"): it leads
+    const rows = [...(d.ask && d.ask.kind === 'place' && d.ask.place ? [{ text: `${s(d.ask.place)} · place card`, mi: null }] : []),
+                  ...(d.items || []).map((i) => ({ text: rowOf(i), mi: typeof i.miles === 'number' ? i.miles : null }))];
     Object.assign(o, { ms, first: rows.slice(0, 5).map((r) => r.text), fails: judge(rows, [], '', rows.length, c, ms, FAST_TYPING) });
   } catch (e) { o.fails = ['error: ' + String(e).slice(0, 120)]; }
   o.pass = !o.fails.length;
