@@ -1,6 +1,6 @@
 # ADR 0154: Free, Creator and Business: Who Pays for What, and How Upgrades Are Offered
 
-**Status:** Accepted (Jason, 2026-11-11, in conversation), with earned storage open (§7). Not built. Builds on
+**Status:** Accepted (Jason, 2026-11-11, in conversation), earned storage included (§7, confirmed the same day). Not built. Builds on
 `decisions/0007` (plans sell tools, never placement), `0098` (the order system and products), `0108` (plans),
 `0153` (Moments, Snaps and Keep), `commercial.md` §1.2 and master-aos §5. Updates `commercial.md` §1.2.
 
