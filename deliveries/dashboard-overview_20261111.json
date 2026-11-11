@@ -1,0 +1,18 @@
+{
+ "zip": "dashboard-overview_20261111.zip",
+ "built_on": "3ffc5f3 Sync: 2026-11-11 15:30 UTC",
+ "recorded": "2026-11-11 15:31 UTC",
+ "note": "The bar's dashboard button opens a business's Overview (/business/<id>), not its Edit listing. Built on 15:30 UTC sync.",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/ui/context-switcher.php": {
+   "sha256": "7b3e3ab4a73281861d530ded832c04a793ce46822997e063f262ccda83ff0cf8",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "1947dacbdd9d94c20a3822b341e1845b7878a98d4b359a4a9137348c94b3f965",
+   "live": false
+  }
+ }
+}
