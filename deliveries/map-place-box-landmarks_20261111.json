@@ -1,13 +1,13 @@
 {
- "zip": "map-place-ask-landmarks_20261111.zip",
+ "zip": "map-place-box-landmarks_20261111.zip",
  "built_on": "435ac60 Sync: 2026-11-11 13:22 UTC",
- "recorded": "2026-11-11 13:29 UTC",
- "note": "Supersedes map-place-ask (same files plus): Show more landmarks on Parks & Landmarks, 24 at a time. Map asks before using the device's location; method under the panel title; Discovery map like the Directory's; Distance after a place; signed-in picker. Built on 13:22 UTC sync.",
+ "recorded": "2026-11-11 13:32 UTC",
+ "note": "Supersedes map-place-ask-landmarks: the map panel uses the site's Town or ZIP box + target under its title (no new layout); the map follows any place set; nothing loads without a place or a tap; 'always' tick for future use. Plus Show more landmarks, Discovery map like the Directory's, Distance after a place, signed-in picker. Built on 13:22 UTC sync.",
  "status": "pending",
  "live_in": "",
  "files": {
   "app/ui/faq.md": {
-   "sha256": "e956f2ccf98d87d922a10aef89206ef9df0e3a89e352547ce0eca660cd3ca1b7",
+   "sha256": "c1649cea8bcbef259a2456cac86f0c67cb9360e3de6b724076bdd1676fdb2917",
    "live": false
   },
   "app/ui/location-modal.php": {
@@ -27,7 +27,7 @@
    "live": false
   },
   "website/js/map-view.js": {
-   "sha256": "98a8a79a0e024ef0e24e20f4238d609f1f979bc934b74275cd16bb70b4c7854b",
+   "sha256": "1029a139416e1b6b41e63f48946258fe604aeea5fa60ce34995b9e5f5777888a",
    "live": false
   }
  }
