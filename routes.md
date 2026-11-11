@@ -111,6 +111,7 @@ All admin pages sit in the admin shell (left rail by job, no breadcrumbs, decisi
 
 | Route | Purpose | ADR | Status |
 |---|---|---|---|
+| `/api/video/jobs.php`, `/api/video/results.php` | The video worker's queue and reports (Bearer `VIDEO_WORKER_TOKEN`; `workers/video`) | 0153 §8 | Built (video-cart-trial zip) |
 | `/api/upgrade.php?feature=` | The upgrade sheet's choices (`js/tv-upgrade.js`): storage, longer recording, plans; reads only | 0154 §5 | Built (channel-shop-earned zip) |
 | `/api/search.php` | Universal search, typing and Enter | 0053, 0060, 0061, 0063, 0066, 0067 | Live |
 | `/api/search_listings.php` | Directory search | 0044, 0053, 0058, 0068 | Live |

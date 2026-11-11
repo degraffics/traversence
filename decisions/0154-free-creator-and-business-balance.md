@@ -139,3 +139,24 @@ worker), not in Settings.
 - **Fixed the same day (`shop-cart-tabs` zip):** the Shop said "2 items" with an empty cart (it counted the cart record's
   two fields); it now counts the items, as the header's cart does. And rows that fold into **More ▾** (`js/tv-ask.js`)
   leave children marked `data-keep` in place: the profile tab row's + and layout switch never fold (Jason).
+
+## Built: one cart, the free week of Pro, and video quality by plan (`video-cart-trial_20261111.zip`, 2026-11-11)
+
+- **One cart (§6):** plans and storage packs go in the GO Codes cart (`cart_plans`, `app/lib/CartPlans.php`, actions
+  `plan_add` / `plan_remove` / `plans_pay` in `/api/go-codes.php`), from the Shop's **Add to cart**, for the member or a
+  business they handle billing for. One card entry pays everything: the card form makes one token per need
+  (`js/go-codes.js` `tokens`), a plan that starts takes one (`Billing::start`, the card kept on file), the GO Codes
+  another (`QrIssue::payCard`, as before). A change of plan or packs on a paid plan go on the card on file
+  (`changePlan`, `addAddon`). Plans are paid before GO Codes; a failure stops there and says what was done. The header's
+  cart counts plans and packs too. Packs on a trial or on Free wait for a plan (said in the cart).
+- **Try Pro free for 7 days (§5):** `Billing::selfTrial` (`SELF_TRIAL_DAYS = 7`), the Plans page's **Start my free week**
+  (`#try`, action `try`), offered by the upgrade sheet and the Shop. Once an account (never a Pro plan or a trial
+  before), Verified members only, no card; ends on Free unless kept. No AI credits during it (`subscriptions.self_trial`):
+  AI calls cost us (No income, no expense).
+- **Video quality by plan (§2, 0153 §8):** the video worker (`workers/video`, Railway) makes 720p copies of posted videos
+  bigger than that, and 1080p for Plus, Pro and businesses (`app/lib/VideoJobs.php`, `/api/video/*`, Bearer
+  `VIDEO_WORKER_TOKEN`). Feeds play the 720p copy; Pro's and businesses' originals play with **Watch in 4K** (or HD).
+  Keep copies the plan's size into the Gallery: 720p Personal, 1080p Plus, the original on Pro (`MemberPosts::bestPart`).
+  Videos already in Galleries are untouched.
+- **Not yet:** keeping a single video in 4K ($0.99) needs one-off lines on the GO Codes order and its invoice; its own
+  build, so the money path changes on its own (the `keep_hd` column is ready). A single month of Pro likewise.

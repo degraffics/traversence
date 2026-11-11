@@ -1,0 +1,82 @@
+{
+ "zip": "video-cart-trial_20261111.zip",
+ "built_on": "1b92be6 Sync: 2026-11-11 21:21 UTC",
+ "recorded": "2026-11-11 21:31 UTC",
+ "note": "One zip, three parts: the video worker's site side (queue, /api/video/*, 720p/1080p copies, Watch in 4K, Keep at the plan's size), plans and packs in the one cart (one card entry), Try Pro free for 7 days. Migration 2027-03-01_video_cart_trial.sql. Worker in workers/video (Railway). Built on 21:21 UTC.",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/Billing.php": {
+   "sha256": "ef2afe673745d8b7ed12aec0ab1dd2aad4d43defe36c44271456f25a8fc306ee",
+   "live": false
+  },
+  "app/lib/CartPlans.php": {
+   "sha256": "714cf2782fd7bafd4df443bc11f24525cb052e45ceb5f6ea89fc0db7617c6f90",
+   "live": false
+  },
+  "app/lib/MemberPosts.php": {
+   "sha256": "f5f78cec10fc60d948a142e0d4ff7302355a3129d5a65b3a4710213488acc178",
+   "live": false
+  },
+  "app/lib/Upgrades.php": {
+   "sha256": "dcf4635fe7d50b42d44bf0e1dd31aab2e40dd22d71ba84c10c6a077fd95b703c",
+   "live": false
+  },
+  "app/lib/VideoJobs.php": {
+   "sha256": "3bffa72ca64af0a3187d089db8b1a24216079246e948ebc9fd2554a457c791bb",
+   "live": false
+  },
+  "app/migrations/2027-03-01_video_cart_trial.sql": {
+   "sha256": "8da12ad950826608a498abddfef9fd4367b99cdfb1a35a6542eaec2bb49e691a",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "33abb74b07269deb35bd30d332138b5893938e6c9fa6ffec44554312efdd83ea",
+   "live": false
+  },
+  "app/ui/section-rails.php": {
+   "sha256": "9384467162ef09cfab5aa684c46f3d254925cb114d466fed54883fc8683ffc24",
+   "live": false
+  },
+  "website/api/go-codes.php": {
+   "sha256": "fafca8e6be60e83396840d2a4546618a33fd8518de679e16c65301d33a91e77a",
+   "live": false
+  },
+  "website/api/plans.php": {
+   "sha256": "790fd7b0d832c0885cff09dc21d09a4278195becf8008cc8ff866159b63741e6",
+   "live": false
+  },
+  "website/api/video/_auth.php": {
+   "sha256": "8ef03cd9d472a101ccbc4f817774b39e0693a51aead3953faded2a50652e52f2",
+   "live": false
+  },
+  "website/api/video/jobs.php": {
+   "sha256": "cc964517396f48fa2d32cf44b93fbd839c1913386f32a57af1db259e71baeaf6",
+   "live": false
+  },
+  "website/api/video/results.php": {
+   "sha256": "65d05c66c2f13fa9f2e4dc2fdfd91f1765e50e7de6d2485b4f2fd87eb65ed8d9",
+   "live": false
+  },
+  "website/js/go-codes.js": {
+   "sha256": "3fb21af3e770e4f7629ff2f56d2f4d30c6355f8a6ad8fe7891ca18b797e16997",
+   "live": false
+  },
+  "website/js/tv-moments.js": {
+   "sha256": "707a1e2ad1da7553c615d2ef85dac2128734d9fc4e83c9c3ad9ef82c5d0407ae",
+   "live": false
+  },
+  "website/plans.php": {
+   "sha256": "ec4a77dd1fe8224fc6f8ab103639c1a46febf1fe9781b729feadb8eb4cf06333",
+   "live": false
+  },
+  "website/qr/cart.php": {
+   "sha256": "bc690e30ca1b2c0762cd46f743e084a1c2d6db2d8fd0a8068980aa8442c3040d",
+   "live": false
+  },
+  "website/shop/index.php": {
+   "sha256": "fafc672c0096d8c2d1c02de22b64ac75ca0b05693f8df486345c6094798c6b38",
+   "live": false
+  }
+ }
+}

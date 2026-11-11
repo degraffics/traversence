@@ -220,3 +220,8 @@ when the owner opens their Videos tab (`MemberPosts::fillChannel`). The profile'
 section (`tv_videos_section()` in `app/ui/gallery-ui.php`) show the Channel newest first and playlists (other albums with
 videos; public ones for visitors), with the tab's short link and QR code. Not yet: a pinned video, a short link per
 video, and Watch in 4K (the video worker, §8).
+
+**Build note (2026-11-11, `video-cart-trial` zip): the video worker (§8).** Built as described there, with one change:
+the worker gets short signed links for the original and each copy, so it holds no file-store keys. Copies are parts
+`v720` / `v1080` beside the Moment's video (`member_post_media.v720_bytes`, `v1080_bytes`), deleted with it. Not yet:
+copies for videos uploaded straight into the Gallery, and the poster frame (still made in the browser).
