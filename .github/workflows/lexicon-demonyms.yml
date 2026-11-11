@@ -1,0 +1,28 @@
+# Builds the demonyms word file from Wikidata (workers/lexicon/build_demonyms.py): peoples and their countries and states,
+# for search's suggestions (2026-11-11). On Run workflow only. Commits workers/lexicon/out/demonyms.php, which ships as
+# app/data/demonyms.php in a zip.
+name: Lexicon demonyms
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 workers/lexicon/build_demonyms.py workers/lexicon/out/demonyms.php
+      - run: php -l workers/lexicon/out/demonyms.php || true
+      - name: Commit the file
+        run: |
+          git config user.name "lexicon"
+          git config user.email "lexicon@users.noreply.github.com"
+          git add workers/lexicon/out/demonyms.php
+          if git diff --cached --quiet; then echo "No change."; exit 0; fi
+          git commit -m "Lexicon: demonyms from Wikidata"
+          git pull --rebase -q || true
+          git push
