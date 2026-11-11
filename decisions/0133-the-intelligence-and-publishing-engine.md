@@ -824,3 +824,6 @@ its brand's locator and every rural place without a website of its own waited fo
 score (high 75, medium 65) and the facts carry it: a phone, an address and two or more sources reach 80, no website
 needed. The listing still passes the readiness rules and starts orange (machine-confirmed), so the Call list confirms it.
 Finds already waiting in Review are looked at again by the Find it job (`GuideLinks::recheckWaiting`).
+
+**Note (2026-11-11, decisions/0152):** Services & usage became System Configuration → Outside services, one card per company,
+with each company's use, cost, fees, settings and links; everything this page showed is kept there.

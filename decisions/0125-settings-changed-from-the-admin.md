@@ -33,3 +33,7 @@ in .env, is coming."
 - `http://…` for the public photo address was refused ("Write the full address, starting https://") and nothing was
   written.
 - Checked at 390 px wide: no sideways scroll.
+
+**Note (2026-11-11, decisions/0152):** Settings is rebuilt in the new admin. A setting that belongs to an outside company
+(the AWS sign-in link and region, the storage bucket, plan prices, the AI cap, the domain switches) is changed on that
+company's card in Outside services; the rest stay in Settings, in groups.

@@ -1,0 +1,42 @@
+{
+ "zip": "outside-services_20261111.zip",
+ "built_on": "cf22b8b Sync: 2026-11-11 14:51 UTC",
+ "recorded": "2026-11-11 15:21 UTC",
+ "note": "decisions/0152: System Configuration \u2192 Outside services, one card per company (what for, each part checked, use and cost, pricing and fees, its settings, links), the month's total on top; Settings rebuilt in the new admin (the site's own settings, in groups); admin/settings.php archived. Built on 14:51 UTC sync.",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/admin/manifests.php": {
+   "sha256": "d1160047e0629d5ae91d439b4db57c96ea68bae1394a538359452ee6928c7590",
+   "live": false
+  },
+  "app/admin/sections.php": {
+   "sha256": "07d5e562591893e644f40043d5bb8b3b865766a0d2f5e36bc5ccd7ad9ba9cb69",
+   "live": false
+  },
+  "app/lib/EnvSettings.php": {
+   "sha256": "565c9dda23b10a820c5b501ceed46df6308dbee8f67d552467081d5bbf6198e5",
+   "live": false
+  },
+  "app/lib/OutsideServices.php": {
+   "sha256": "12dacc533ff6da8649dc47f952d4b6baf8eb45494f0889824a5bfb625e60120a",
+   "live": false
+  },
+  "app/lib/Pulse.php": {
+   "sha256": "31427f4f52b873b0a46a5598985d29ad1b9f2015ce3beea7cfc850f1d32b7f94",
+   "live": false
+  },
+  "app/ui/admin-dashboard.php": {
+   "sha256": "62a0a94f0f03ae705bb87bceb4ec94d8eb309b2a8f1ab07cd893ac8df1593969",
+   "live": false
+  },
+  "app/ui/outside-services.php": {
+   "sha256": "b557ba373b11824b7063969e855dd441b11b30435c6b253c3291fcfc325a6690",
+   "live": false
+  },
+  "app/ui/pulse-ui.php": {
+   "sha256": "aa19a1d549ec25f22808d22a5c7bad9ec21468bfde4b1e00452e916dc266073e",
+   "live": false
+  }
+ }
+}
