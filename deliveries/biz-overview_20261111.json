@@ -3,36 +3,36 @@
  "built_on": "6f280a4 Sync: 2026-11-11 19:36 UTC",
  "recorded": "2026-11-11 19:37 UTC",
  "note": "The business Overview: post as the business, its Pulse (shared panel moved out of the dashboard), Messages & offers, 30-day counts, more tool tiles; team Owner counts as owner on the listing page. faq.md also carries the Pulse line from faq-pulse (overwritten by another upload). Built on 19:36 UTC.",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "9585813 Sync: 2026-11-11 20:09 UTC",
  "files": {
   "app/business/portal.php": {
    "sha256": "cb3882410831e17fb86f8a76d14d449e6c68cf424ab693d6612340cb9c47f8f6",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "2dccd3cfc2374b0b30ca5a39d8d7d0c3a644cadd680609587246741240649972",
-   "live": false
+   "live": true
   },
   "app/ui/pulse-panel.php": {
    "sha256": "cdd7ce0fff45e94fb14d732496d8bfc6750b09ac7113cc30f84ce3dcbf77ef03",
-   "live": false
+   "live": true
   },
   "website/business/router.php": {
    "sha256": "8869d72e666583ff8cb48b378a3187f95cf0f8dd19524096ee5af1aba020d153",
-   "live": false
+   "live": true
   },
   "website/js/tv-pulse.js": {
    "sha256": "06831ae5c14a8f8dde77eb453e387fcad64e38de6a2cb5b6095751e40a85deaf",
-   "live": false
+   "live": true
   },
   "website/listing/view.php": {
    "sha256": "7ec1a770a1e43d9da74ba61b93bf73b092b38f88780fbf60bc532ddb7c3e14a0",
-   "live": false
+   "live": true
   },
   "website/user/dashboard.php": {
    "sha256": "892df937d76fc74cb6bf8aefed2a4c3960911b9a1b49b5dd675b53552182fdb4",
-   "live": false
+   "live": true
   }
  }
 }

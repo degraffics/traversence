@@ -20,7 +20,7 @@
   var until = new Date(s.until);
   status('Connected as ' + s.email + ' until ' + until.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', timeZoneName: 'short' }) + '.', 'ok');
   var tab = (await chrome.tabs.query({ active: true, currentWindow: true }))[0];
-  var r = tab ? await ask({ t: 'tablist', tabId: tab.id }) : {};
+  var r = tab ? await ask({ t: 'tablist', tabId: tab.id, url: tab.url }) : {};
   var box = $('#list');
   if (r.origin && r.list && r.list.length) {
     r.list.forEach(function (it) {
@@ -30,15 +30,25 @@
       d.appendChild(t);
       d.appendChild(button('Fill', async function (e) {
         var b = e.target; b.disabled = true; b.textContent = '…';
-        var x = await ask({ t: 'fillTab', id: it.id, tabId: tab.id });
+        var x = await ask({ t: 'fillTab', id: it.id, tabId: tab.id, url: tab.url });
         if (x.ok) window.close(); else { b.disabled = false; b.textContent = 'Fill'; status(x.error || 'That didn\'t work.', 'bad'); }
       }, true));
       box.appendChild(d);
     });
   } else {
     var p = document.createElement('p'); p.className = 's';
-    p.textContent = r.origin ? 'No saved logins for ' + new URL(r.origin).hostname + '. Sign in there and the vault offers to save it.' : 'Logins fill only on secure (https) sites.';
+    p.textContent = r.origin ? 'No saved logins for ' + new URL(r.origin).hostname + ' yet.' : 'Logins fill only on secure (https) sites.';
     box.appendChild(p);
+  }
+  if (r.origin) {
+    var sv = button('Save this site\'s login', async function () {
+      sv.disabled = true; sv.textContent = 'Saving…';
+      var x = await ask({ t: 'grabTab', tabId: tab.id, url: tab.url });
+      sv.disabled = false; sv.textContent = 'Save this site\'s login';
+      status(x.ok ? x.message : (x.error || 'That didn\'t work.'), x.ok ? 'ok' : 'bad');
+    });
+    var tip = document.createElement('small'); tip.textContent = 'Fill in the user name and password on the page (or let your browser fill them), then press Save. Or just sign in: the vault offers to save it on the next page.';
+    box.appendChild(sv); box.appendChild(tip);
   }
   acts.appendChild(link('Open the Vault page', VAULT));
   acts.appendChild(button('Disconnect', async function () { await ask({ t: 'lock' }); status('Disconnected. The vault key is gone from this browser.', ''); box.innerHTML = ''; acts.innerHTML = ''; acts.appendChild(link('Open the Vault page', VAULT, true)); }));

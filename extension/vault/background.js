@@ -120,11 +120,13 @@ chrome.runtime.onMessageExternal.addListener((m, sender, reply) => {
 
 chrome.runtime.onMessage.addListener((m, sender, reply) => {
   (async () => {
-    const fromPopup = !sender.tab && sender.url && sender.url.startsWith(chrome.runtime.getURL(''));
+    const fromPopup = sender.id === chrome.runtime.id && !!sender.url && sender.url.startsWith(chrome.runtime.getURL(''));   // our own pages (the pop-up), never a web page
     if (fromPopup) {
       if (m.t === 'status') { const s = await vault(); return s ? { connected: true, email: s.email, until: s.until, base: s.base } : { connected: false }; }
       if (m.t === 'lock') { const s = (await chrome.storage.session.get('v')).v; if (s) { try { await api(s, { do: 'bye' }); } catch (e) {} } await forget(); return { ok: true }; }
-      const tab = m.tabId ? await chrome.tabs.get(m.tabId) : null, origin = tab && originOf(tab.url);
+      // the tab's address: Chrome gives it here only while the pop-up's click allows (activeTab), so the pop-up, a page of
+      // ours, passes the one it was given too
+      const tab = m.tabId ? await chrome.tabs.get(m.tabId).catch(() => null) : null, origin = tab ? originOf(tab.url || m.url) : null;
       const s = await vault(); if (!s) return { connected: false };
       if (m.t === 'tablist') return { connected: true, origin, list: origin ? (await forOrigin(s, origin)).map(x => ({ id: x.id, name: x.name, user: x.user })) : [] };
       if (m.t === 'fillTab' && origin) {
@@ -132,6 +134,16 @@ chrome.runtime.onMessage.addListener((m, sender, reply) => {
         const sec = await reveal(s, it, 'Password filled');
         await chrome.tabs.sendMessage(tab.id, { t: 'doFill', origin, user: sec.user || it.user, pass: sec.pass || '' }, { frameId: 0 });
         return { ok: true };
+      }
+      if (m.t === 'grabTab' && origin) {
+        // saves what's filled in on the page now (typed, or filled by the browser), without signing in first
+        const g = await chrome.tabs.sendMessage(tab.id, { t: 'grab' }, { frameId: 0 }).catch(() => null);
+        if (!g || !g.pass) return { ok: false, error: 'Nothing to save: fill in the user name and password on the page first (or let your browser fill them), then press this again.' };
+        if (originOf(g.url) !== origin) return { ok: false, error: 'That page changed. Try again.' };
+        const mine = await forOrigin(s, origin), same = mine.find(x => x.user === g.user);
+        if (same && same.ph === await passMark(g.pass)) return { ok: true, message: 'Already in your vault as ' + same.name + '.' };
+        const name = await save(s, { origin, url: String(g.url).split(/[?#]/)[0], user: String(g.user || '').slice(0, 200), pass: String(g.pass).slice(0, 500), id: same ? same.id : 0 });
+        return { ok: true, message: (same ? 'Updated ' : 'Saved ') + name + ' in your vault.' };
       }
       return { ok: false };
     }
