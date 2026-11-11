@@ -1,17 +1,21 @@
 {
  "zip": "search-intents-a_20261111.zip",
  "built_on": "b3244c3 Sync: 2026-11-11 00:44 UTC",
- "recorded": "2026-11-11 01:05 UTC",
- "note": "Replaces map-list-from-you (not uploaded; both change faq.md). Intents A: a word being typed offered as full words with their intent (places, food, culture); map list measured from you, approximate ones marked",
+ "recorded": "2026-11-11 01:16 UTC",
+ "note": "Intents from sources, not what we hold: a typed word offered as countries and states (Wikidata demonyms, new app/data/demonyms.php), tribal nations (public side, 0066), U.S. towns and counties; a country's or nation's people brings its food and culture; includes map-list-from-you",
  "status": "pending",
  "live_in": "",
  "files": {
+  "app/data/demonyms.php": {
+   "sha256": "94ca69dd4b6d150683c5e1bc5b801d77b6ef06c90ef7ad3d413dbd677206b45b",
+   "live": false
+  },
   "app/lib/UniversalSearch.php": {
-   "sha256": "1d079e2a9c84092b25290d498af5002a2d7e5fdb230c063b7410001650ec8002",
+   "sha256": "5c3be858c1ddcae6ab97f7b3b35d4cf86a35a2f0d935636d7dbc56d5b3252fc8",
    "live": false
   },
   "app/ui/faq.md": {
-   "sha256": "60a99c38553f44e328df178fe8def2535fe99048a00775d269fbc51e5fbd491f",
+   "sha256": "bfd29f6ec82ca0afdd7543ad0b43f2a6f13c3b74038b4cc175b81c6bcc51d472",
    "live": false
   },
   "website/js/map-view.js": {
@@ -19,7 +23,7 @@
    "live": false
   },
   "website/js/search-panel.js": {
-   "sha256": "5792e486ff225b3a5d705ed1a865103a5d4b6bd49cc815332b3e357c30a45dca",
+   "sha256": "3d657cfdf3a4e24084e51ba8189ef07a0425e1b7bb918bd230a439d830970ab4",
    "live": false
   }
  }
