@@ -1,0 +1,22 @@
+{
+ "zip": "search-directory-once_20261111.zip",
+ "built_on": "77a5d64 Sync: 2026-11-11 02:09 UTC",
+ "recorded": "2026-11-11 02:10 UTC",
+ "note": "Directory: one line at the foot sends the words to its list (the top 'Show \u2026 in the directory list' row removed); a single word that starts a situation is offered in the results (found)",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/UniversalSearch.php": {
+   "sha256": "1de4b7efc05dcb46d19bbfaf4469d1b5ea9c45f53f37d2a41eee51b1d1be20c6",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "54e860a214853ac6718bfbaa88e3090f06a38342ad42f6ce6214847baf2b831f",
+   "live": false
+  },
+  "website/js/search-panel.js": {
+   "sha256": "47f2d7aa515168ac4fa602d3ca02c87a0c96613c2e85af53107cb1c91f5fe7ff",
+   "live": false
+  }
+ }
+}
