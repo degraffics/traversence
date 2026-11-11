@@ -3,7 +3,7 @@
  "built_on": "9585813 Sync: 2026-11-11 20:09 UTC",
  "recorded": "2026-11-11 20:10 UTC",
  "note": "Vault: passphrase boxes the browser won't offer to save, and the device list's passkey-secret flag kept true to the key",
- "status": "pending",
+ "status": "replaced",
  "live_in": "",
  "files": {
   "app/lib/Vault.php": {
@@ -18,5 +18,6 @@
    "sha256": "1e5bc780d56cba0de534da556c5363e17fd45ea69206ac0885e450b19f64a8a3",
    "live": false
   }
- }
+ },
+ "replaced_by": "vault-connect_20261111"
 }

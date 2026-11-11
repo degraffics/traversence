@@ -1,0 +1,26 @@
+{
+ "zip": "vault-connect_20261111.zip",
+ "built_on": "9585813 Sync: 2026-11-11 20:09 UTC",
+ "recorded": "2026-11-11 20:18 UTC",
+ "note": "Vault: replaces vault-mask (passphrase boxes the browser won't offer to save; the device list's passkey flag) and adds: connecting the extension again replaces that browser's old connection, rows say which browser and computer, and Disconnect on another browser's row leaves this one connected",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/Vault.php": {
+   "sha256": "99cfca2b3861c50222bd647e809804d36998805dbacb66b1b7255f1ab4201de1",
+   "live": false
+  },
+  "app/ui/vault.php": {
+   "sha256": "76a6bd6061be5b5a640cddd9dc6c324235fa69b06c79c363a29bd6fd9013a45b",
+   "live": false
+  },
+  "website/admin/api/vault.php": {
+   "sha256": "05b6e1184cfc8abdd1c30dc1412895cedb927b10e8c09a147f1f269bcb725f3e",
+   "live": false
+  },
+  "website/js/tv-vault.js": {
+   "sha256": "f55360ce3ef313f9a814b0611779a1c458b74c72b6e6bd1939bfae732e9ef247",
+   "live": false
+  }
+ }
+}

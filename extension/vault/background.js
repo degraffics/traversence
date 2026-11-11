@@ -105,7 +105,12 @@ chrome.runtime.onMessageExternal.addListener((m, sender, reply) => {
   (async () => {
     const from = originOf(sender.url || sender.origin);   // only traversence.com can reach here (manifest)
     if (!from) return { ok: false };
-    if (m.t === 'hello') { const s = await vault(); return { ok: true, version: chrome.runtime.getManifest().version, connected: !!s, email: s ? s.email : '' }; }
+    if (m.t === 'hello') {
+      // a random name for this browser's copy of the extension (not secret), so connecting again replaces its old connection
+      let install = (await chrome.storage.local.get('install')).install;
+      if (!install) { install = b64u(rnd(16)); await chrome.storage.local.set({ install }); }
+      const s = await vault(); return { ok: true, version: chrome.runtime.getManifest().version, connected: !!s, email: s ? s.email : '', install };
+    }
     if (m.t === 'pair') {
       if (!/^[a-f0-9]{64}$/.test(m.token || '') || !m.vk || !/^\/admin\/api\/vault-ext\.php$/.test(m.api || '')) return { ok: false, error: 'That connection wasn\'t complete.' };
       await chrome.storage.session.set({ v: { vk: m.vk, token: m.token, until: m.until, email: m.email || '', base: from, api: m.api, last: Date.now() } });
