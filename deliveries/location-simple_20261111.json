@@ -1,0 +1,30 @@
+{
+ "zip": "location-simple_20261111.zip",
+ "built_on": "d8efc9c Sync: 2026-11-11 03:33 UTC",
+ "recorded": "2026-11-11 13:01 UTC",
+ "note": "Replaces search-desktop-place-x (not uploaded; same files). The place picker everywhere: one Town or ZIP box and the target icon, the rest under More choices; Distance only for a town, ZIP or your location; a situation with a state code asks 'In California? Where are you?'; desktop \u00d7 beside the place; never a blank panel",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/UniversalSearch.php": {
+   "sha256": "13084b45977f75060ebaef11e9e0e5463db246fce1ea53fe2990b9e2acb84094",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "f079751b5a539f1c016b01a6299cb72d97ff77a021f2b9fc54bc95f8db729e56",
+   "live": false
+  },
+  "app/ui/location-modal.php": {
+   "sha256": "b88c17a333e142a3e7312019b0416e59234d48ccf9c4ba7474a691d8b1b9a1e2",
+   "live": false
+  },
+  "website/js/location-scope.js": {
+   "sha256": "ab461b85ff6885655119da48445195f87c702b54cdfe64b6168a962a0db98fcf",
+   "live": false
+  },
+  "website/js/search-panel.js": {
+   "sha256": "79702a75c4d83cf6ee2f9ac1376b2a8df68a8a0933e96876ab788e7e4ee22493",
+   "live": false
+  }
+ }
+}
