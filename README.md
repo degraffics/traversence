@@ -64,3 +64,4 @@ The site's code isn't here. It runs on the server and in OneDrive, and its live 
 | `workers/crawler/` | The guide-crawl worker (Railway) |
 | `workers/storefront-edge/` | The edge for businesses' own domains on their storefronts (Fly.io, decisions/0139) |
 | `workers/lexicon/` | Builders for the site's word data (from WordNet) |
+| `extension/vault/` | The Traversence Vault browser extension (Chrome and Edge, staff, decisions/0156) |

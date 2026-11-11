@@ -157,3 +157,15 @@ three of them are typed back from the saved copy (the same for new words later);
 skippable: the vault's own **authenticator app** entry ("Traversence Vault", separate from the staff sign-in's), whose
 code is then needed to add a device or use the recovery words (§5: a check, never a key; its secret sealed with the
 site's secret), and a **spare passkey** or security key; 5 the vault. Nothing is saved until the words are checked.
+
+**Note (2026-11-11, `vault-extension_20261111.zip` and `extension/vault/` 0.1.0):** the browser extension (§8, stage 1).
+The Vault page, open after a passkey check, connects it: it gives the extension the vault key (kept in
+`chrome.storage.session`, memory only) and a token for `/admin/api/vault-ext.php` (we keep its hash; `vault_ext`), for
+12 hours, 30 minutes unused, until the browser closes, or until **Lock** (which ends every connection). That endpoint takes
+calls only from the extension's own origin (`chrome-extension://<id>`), and hands over a sealed login only when the blind
+index of the site asking matches the login's. The extension lists logins only for the exact origin the browser reports,
+fills the one picked, and after a sign-in offers to save it or update the password (compared by a keyed mark sealed in the
+login's name, so nothing is opened to compare). Every fill and save is logged and emailed. Also in this zip: alerts go to
+a staff login's real work email (its user record's address is a placeholder), and the passkey is named with it; the
+passkey prompt hints at this device (Windows Hello, Touch ID) for the first passkey and a security key or phone for a
+spare; passkey requests last 5 minutes; and Unlock, which read the wrong box after the setup rework, is fixed.
