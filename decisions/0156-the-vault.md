@@ -169,3 +169,5 @@ login's name, so nothing is opened to compare). Every fill and save is logged an
 a staff login's real work email (its user record's address is a placeholder), and the passkey is named with it; the
 passkey prompt hints at this device (Windows Hello, Touch ID) for the first passkey and a security key or phone for a
 spare; passkey requests last 5 minutes; and Unlock, which read the wrong box after the setup rework, is fixed.
+
+**Note (2026-11-11, Jason: "table the remaining vault builds"):** tabled after stage 1's zip 1, the extension (0.1.6), import and clean-up. Zip 2 (one-time page and code seal, location signals, rate limits, the yearly reminder), linking the vault to Outside services' sign-in line, the Edge check and the Web Store listing wait until Jason picks them up again.
