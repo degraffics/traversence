@@ -69,13 +69,24 @@ def main():
                         wt, nt = was.decode('utf-8', 'replace'), data.decode('utf-8', 'replace')
                         for nm in sorted(named(n, wt) - named(n, nt)):
                             if nm not in allowed:
-                                dropped.append((n, nm))
+                                dropped.append((n, nm))   # unless another file in this zip now has it (a move, kept: below)
                         d = [l for l in difflib.ndiff(wt.splitlines(), nt.splitlines()) if l[:2] in ('- ', '+ ')]
                         churn.append((n, sum(1 for l in d if l.startswith('- ')), sum(1 for l in d if l.startswith('+ '))))
                 dst = os.path.join(over, BACK[top], rest)
                 os.makedirs(os.path.dirname(dst), exist_ok=True)
                 open(dst, 'wb').write(data)
                 rows.append((state, n))
+        # a name that leaves one file for another file in this same zip is moved, not removed (Jason, 2026-11-10: kept work)
+        moved = []
+        if dropped:
+            with zipfile.ZipFile(a.zip) as z:
+                have = {}
+                for n in z.namelist():
+                    if not n.endswith('/'):
+                        for nm in named(n, z.read(n).decode('utf-8', 'replace')):
+                            have.setdefault(nm, []).append(n)
+            moved = [(n, nm, have[nm]) for n, nm in dropped if any(o != n for o in have.get(nm, []))]
+            dropped = [(n, nm) for n, nm in dropped if not any(o != n for o in have.get(nm, []))]
         _, before, _ = audit.run(a.mirror, docs)
         _, after, _ = audit.run(over, docs)
         old = {key(f) for f in before}
@@ -90,6 +101,10 @@ def main():
             print('\nAgainst the live copy (lines replaced or removed / lines added):')
             for n, rm, ad in sorted(churn):
                 print(f'  {n}: -{rm} +{ad}')
+        if moved:
+            print(f'\nMoved, kept ({len(moved)}): each is now in another file of this zip')
+            for n, nm, to in moved:
+                print(f'  {n}: {nm} -> {", ".join(o for o in to if o != n)}')
         if dropped:
             print(f'\nBLOCK earlier work this zip would remove ({len(dropped)}): keep it, or name it with --drops once Jason agrees')
             for n, nm in dropped:
