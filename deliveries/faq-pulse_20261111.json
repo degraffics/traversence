@@ -1,0 +1,14 @@
+{
+ "zip": "faq-pulse_20261111.zip",
+ "built_on": "e8cf86e Sync: 2026-11-11 19:13 UTC",
+ "recorded": "2026-11-11 19:15 UTC",
+ "note": "faq.md only: the Pulse paragraph from pulse-posts, re-applied on the live FAQ (another session's Vault entry kept). Built on 19:13 UTC.",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/ui/faq.md": {
+   "sha256": "a7a7897a9ac76ae84c65d8052e15e6c78080085bbd4e7980f89734572b60031d",
+   "live": false
+  }
+ }
+}
