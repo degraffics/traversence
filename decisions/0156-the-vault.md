@@ -132,3 +132,17 @@ Android's autofill service and an iPhone password provider. Passkey sign-in to T
 
 - Running cost: almost nothing (small storage, free passkeys, free system emails). The audit and insurance are stage 2's
   real costs, quoted before it starts.
+
+**Note (2026-11-11, built: `vault_20261111.zip`, stage 1 zip 1):** System Configuration → **Vault** (`/admin/config/vault`,
+owners and executives; `Access` 'config.vault'). `app/lib/WebAuthn.php` checks passkeys (ES256 and RS256, user
+verification required, the sign counter); `app/lib/Vault.php` keeps the sealed data in `vault_meta`, `vault_creds`,
+`vault_items` and `vault_log` (made on first use, in the main database); `/admin/api/vault.php` is its one endpoint;
+`js/tv-vault.js` does all the sealing (AES-GCM; the passphrase through PBKDF2, 600,000 rounds, joined with the passkey's PRF
+secret; each login sealed to its exact sign-in address; the site index an HMAC of the address, so the server can't read
+which sites). Built as decided: a fresh passkey within 5 minutes and a single-use 60-second token for each password, one
+at a time; every one emailed with a lock link (no sign-in needed); 40 an hour locks the vault; it closes after 10 minutes
+unused; Copy clears the clipboard after 30 seconds, Show lasts 10. A new computer is added with an emailed code and its
+own passkey, and opens nothing until a device that has the vault gives it the key (sealed by the passphrase alone until
+that device's first use, when it's tied to its passkey too) or the recovery words are used. Asking for the words' sealed
+key counts as using them: new words must be saved before the vault opens again. Zip 2 (the one-time page, code seal,
+location signals, age reminders) and the extension follow.
