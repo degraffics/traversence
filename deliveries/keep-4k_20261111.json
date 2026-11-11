@@ -3,40 +3,40 @@
  "built_on": "7d9f49c Sync: 2026-11-11 22:11 UTC",
  "recorded": "2026-11-11 22:16 UTC",
  "note": "Keep a video in 4K ($0.99): post menu, one cart, its own order and sales receipt (OneOffs), keep_hd and Keep. Built on 22:11 UTC.",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "12c89bb Sync: 2026-11-11 22:28 UTC",
  "files": {
   "app/lib/CartPlans.php": {
    "sha256": "514414f1b1d0cbb9fc3d892306146f9cb8f28b5af850533310c3dfb28a44dda0",
-   "live": false
+   "live": true
   },
   "app/lib/MemberPosts.php": {
    "sha256": "f3a73f0c98474e27a43e4aa5be035f92895200cbe4e5a5b3f098a8c2447de3f6",
-   "live": false
+   "live": true
   },
   "app/lib/OneOffs.php": {
    "sha256": "e62402caa48b32ab5bab4398d87263627bee3c0478ae2b8e9e104a598831bc74",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "f5f7a887db4e201638b34ee05ad9877fb933daa60486d564bc5c962f6c7bcc4c",
-   "live": false
+   "live": true
   },
   "website/api/go-codes.php": {
    "sha256": "d002eeb82f1714d1a89889a71a8a69f7623d6d99f2e0326463daf934b732b75f",
-   "live": false
+   "live": true
   },
   "website/js/tv-moments.js": {
    "sha256": "65348d22547df7304c43e2f0c8538875c3094ab8e9a9e866dcb5ba5561a3ee7d",
-   "live": false
+   "live": true
   },
   "website/qr/cart.php": {
    "sha256": "cc255b12b1d7e914d81711de92225de78aec06c0f3dfc204d8e56c610ed175b7",
-   "live": false
+   "live": true
   },
   "website/shop/index.php": {
    "sha256": "3ce384bd800b4fdce185a05db2ed9b317243c036b61dfe381c3dcd0825e0f149",
-   "live": false
+   "live": true
   }
  }
 }
