@@ -3,7 +3,7 @@
  "built_on": "9585813 Sync: 2026-11-11 20:09 UTC",
  "recorded": "2026-11-11 20:18 UTC",
  "note": "Vault: replaces vault-mask (passphrase boxes the browser won't offer to save; the device list's passkey flag) and adds: connecting the extension again replaces that browser's old connection, rows say which browser and computer, and Disconnect on another browser's row leaves this one connected",
- "status": "partial",
+ "status": "replaced",
  "live_in": "",
  "files": {
   "app/lib/Vault.php": {
@@ -22,5 +22,6 @@
    "sha256": "f55360ce3ef313f9a814b0611779a1c458b74c72b6e6bd1939bfae732e9ef247",
    "live": true
   }
- }
+ },
+ "replaced_by": "vault-ext-path_20261111"
 }
