@@ -90,7 +90,10 @@ async function check(ctx, who, url, size, shots) {
   // a page that needs an id (album.php with no album) rightly answers 4xx: only the core pages, the guide paths and admin sections must open
   const must = CORE.has(url) || url.includes('?') || url.startsWith('/admin/');
   const f = { who, url, size, must, status: 0, console: [], requests: [], dialogs: [], scroll: false, edges: 0, alt: 0, names: 0 };
-  p.on('console', m => { if (m.type() === 'error' && !/^Failed to load resource|^%c/.test(m.text())) f.console.push(m.text().slice(0, 200)); });   // a failed load is counted under requests
+  // a failed load is counted under requests; an error from another company's frame on the page (Cloudflare's Turnstile box,
+  // a payment gateway's card fields) is theirs, not the page's, so only our own site's errors count
+  const ours = (m) => { const u = (m.location && m.location().url) || ''; return !u || u.startsWith(SITE) || u.startsWith('about:') || u.startsWith('blob:' + SITE); };
+  p.on('console', m => { if (m.type() === 'error' && ours(m) && !/^Failed to load resource|^%c/.test(m.text())) f.console.push(m.text().slice(0, 200)); });
   p.on('pageerror', e => f.console.push(String(e).slice(0, 200)));
   p.on('response', r => { const u = r.url(); if (u.startsWith(SITE) && r.status() >= 400 && r.request().resourceType() !== 'document' && !/\/api\/(count|out)\.php/.test(u)) f.requests.push(`${r.status()} ${u.replace(SITE, '')}`.slice(0, 160)); });
   p.on('dialog', d => { f.dialogs.push(`${d.type()}: ${d.message().slice(0, 120)}`); d.dismiss().catch(() => {}); });
