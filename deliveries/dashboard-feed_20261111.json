@@ -1,0 +1,30 @@
+{
+ "zip": "dashboard-feed_20261111.zip",
+ "built_on": "d996dde Sync: 2026-11-11 18:54 UTC",
+ "recorded": "2026-11-11 18:58 UTC",
+ "note": "Replaces business-limit-note (never uploaded). Your feed on the Dashboard under the post box (Jason, 2026-11-11): your posts and those of people you follow or are connected with, businesses you linked and businesses you post for, newest first (MemberPosts::home, GET ?home=1); the Pulse below keeps messages and notices. The post box's note when posting as a business (no daily limit; its Gallery and plan's storage). FAQ updated. Built on 18:54 UTC sync.",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/MemberPosts.php": {
+   "sha256": "ca4b2cbae96a5bbc81552c9e1bc2e44bc620b0c51011e76069b9c53d091d6c75",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "0b68b86954c584a6792ae0bc65fa9c2c23d03249a87289fed07fbb59bbb747a5",
+   "live": false
+  },
+  "website/js/tv-moments.js": {
+   "sha256": "30d62e6a47a7e564095ae5d8e6def0386ae1442e2bebf10ba882644667e93eb9",
+   "live": false
+  },
+  "website/user/api/posts.php": {
+   "sha256": "2cd17197b643370b3ac73967d7fdfb27ca148547eb52c4e61b6ace45f2846c16",
+   "live": false
+  },
+  "website/user/dashboard.php": {
+   "sha256": "78664a137191b05f7776c0bc7e52ff8006767c23a33ff8b99d31ee5bca31c851",
+   "live": false
+  }
+ }
+}
