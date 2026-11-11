@@ -1,0 +1,34 @@
+{
+ "zip": "map-place-ask_20261111.zip",
+ "built_on": "435ac60 Sync: 2026-11-11 13:22 UTC",
+ "recorded": "2026-11-11 13:28 UTC",
+ "note": "Map never uses the device's location without a yes (asked each time, or 'always' on this device); how the place was chosen shown under the panel title with Change; Discovery's map opens and asks like the Directory's; Distance only after a place is set and placed after the place fields; signed-in picker redrawn once sign-in is known. Built on 13:22 UTC sync.",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/ui/faq.md": {
+   "sha256": "de2072a273430fa5b56391f3396f602a8394fc41202e29e61cf44af5c22abe80",
+   "live": false
+  },
+  "app/ui/location-modal.php": {
+   "sha256": "7530ddf11328cd00a4af31ac7d8384cdb7dfb2302011d5f45240f1254555e0d6",
+   "live": false
+  },
+  "website/directory/index.php": {
+   "sha256": "84ba8d4f59623bb074827675b60eda2858deeb1d009beb00ecd3ca314726f671",
+   "live": false
+  },
+  "website/discovery/index.php": {
+   "sha256": "35c9255d0a188dac52d6ca85fa61f64f3f6422efe5fef9ca83956ada182187b2",
+   "live": false
+  },
+  "website/js/location-scope.js": {
+   "sha256": "7ce7422964ce58ab6d48a175398d4e5488e95ba9351d68e1f8b6299c3da93839",
+   "live": false
+  },
+  "website/js/map-view.js": {
+   "sha256": "98a8a79a0e024ef0e24e20f4238d609f1f979bc934b74275cd16bb70b4c7854b",
+   "live": false
+  }
+ }
+}
