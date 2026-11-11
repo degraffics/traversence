@@ -8,7 +8,7 @@
  "files": {
   "app/lib/MemberPosts.php": {
    "sha256": "ef70f84f5cfa6c90f69ed91a717f65a69ddd51ae03be670f8bef73b62883a843",
-   "live": true
+   "live": false
   },
   "app/lib/MemberPulse.php": {
    "sha256": "e59b4828fa915b8f0163d9829d071a23aa8ecd61fd1a44af7f03ebe4d1366f83",
@@ -20,7 +20,7 @@
   },
   "website/js/tv-moments.js": {
    "sha256": "d6f01a743fe0f877f2fc6b52c3a58fb5aaf72e276812f0c137783b3febe4b402",
-   "live": true
+   "live": false
   },
   "website/user/api/posts.php": {
    "sha256": "c60bdd7bcbebd96b1a11862d49b4d814d07af9ca0a223aa64a7b532beffce596",
