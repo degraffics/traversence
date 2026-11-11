@@ -3,12 +3,12 @@
  "built_on": "2cd9d65 Sync: 2026-11-11 16:16 UTC",
  "recorded": "2026-11-11 16:18 UTC",
  "note": "Code email's Sign in button drawn properly in Outlook (padding on the cell, colour on the text). Built on 16:16 UTC sync.",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "43995cd Sync: 2026-11-11 16:26 UTC",
  "files": {
   "app/lib/Mailer.php": {
    "sha256": "ae22c7970bd3159dc417ceeb0ddaa71b3807cb8b4b75152193328e77a18423aa",
-   "live": false
+   "live": true
   }
  }
 }
