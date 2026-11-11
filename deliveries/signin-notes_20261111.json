@@ -3,16 +3,16 @@
  "built_on": "e023f32 Sync: 2026-11-11 17:06 UTC",
  "recorded": "2026-11-11 17:09 UTC",
  "note": "Outside services: 'How to sign in' on each card (account, how, second step, who holds it), owners and executives only, kept in staff_settings; refuses anything that looks like a password or key. Built on 17:06 UTC sync.",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "dee5af5 Sync: 2026-11-11 17:15 UTC",
  "files": {
   "app/lib/OutsideServices.php": {
    "sha256": "beaea03fd03f511aa6d25938f77a02395fa523777b83db0a8a8de6b5513e4e2d",
-   "live": false
+   "live": true
   },
   "app/ui/outside-services.php": {
    "sha256": "3c9bd20fd21e7092b79e9529f0df6dba48a4adfbe26bac0f50849eecaba89b00",
-   "live": false
+   "live": true
   }
  }
 }
