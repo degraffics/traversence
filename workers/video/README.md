@@ -25,7 +25,7 @@ What the site does with them: feeds play the 720p copy; Personal Pro's and busin
    Optional: `RUN_SECONDS` (240), `JOBS_PER_ASK` (2).
 3. **R2 CORS isn't needed:** the worker's signed links are server-to-server.
 
-**Where it runs (2026-11-11):** Railway project **gracious-sparkle**, service **agile-growth** (Root Directory
+**Where it runs (2026-11-11):** Railway project **gracious-sparkle**, service **video-worker** (Root Directory
 `/workers/video`, variables `VIDEO_WORKER_TOKEN` and `TRAVERSENCE_SITE`); the crawler is the service **traversence** in
 the same project. First run: `Done: 0 video(s) in 0 s.` (it reached the site and the token matched).
 
