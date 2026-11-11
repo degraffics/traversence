@@ -86,17 +86,19 @@ our server.
 **A. Restoring the way in:** for critical accounts that have lost every way to reach their vault: the account's sign-in
 given back, lost or stolen devices and old sessions cleared, a new device and passkey registered. It never reads a vault:
 the owner then opens it with their own passphrase or words, so an impostor who fooled the process reaches a vault they
-can't open. The process:
-1. A ticket with the reason and proof: an ID check, and for a business its documents (registration, court order, death
-   certificate). The checks' cost is paid by the requester.
-2. **14 days' notice** to the account's email, devices and listed contacts; any of them stops it.
-3. **Two-person approval:** two super admins, each with their passkey; one can never act alone. Until there is a second
-   super admin, the second approval is held outside, as a sealed approval key, by a person Jason names (§10).
-4. A permanent, unchangeable record of who asked, who approved and what changed; a notice to the account afterwards.
+can't open. The process (Jason, 2026-11-11: "No second approval"):
+1. **A documented request:** the reason, with ID and proof of standing (the account's credentials or, for a business, its
+   documents: registration, court order, death certificate). The checks' cost is paid by the requester.
+2. **Review by the super admin,** who confirms the request and whether the emergency still qualifies.
+3. **Temporary access under explicit terms:** if it qualifies, the super admin issues time-limited access (enough to
+   register a new device and passkey, then it ends), on terms the requester accepts first.
+Kept beside it, adding no approver: a **notice** to the account's email and devices when a takeover is requested (a real
+owner learns of a false request and can answer it), and a **permanent, unchangeable record** of the request, the review,
+the decision and what changed, with a notice to the account afterwards.
 
 **B. Assisted recovery (opt-in at setup only):** the recovery key split into three pieces, any two opening it, none on the
-server: one with the owner (on the Emergency Kit), two held offline by two Traversence officers (printed or on a security
-key). Used only through A's full process. Without this opt-in, a takeover restores the account and the vault stays locked.
+server: one with the owner (on the Emergency Kit), two kept offline by Traversence in two separate places (e.g. a safe and a
+bank deposit box; printed or on a security key), so one place lost or broken into isn't enough. Used only through A's full process. Without this opt-in, a takeover restores the account and the vault stays locked.
 
 ### 7. Terms (before any customer, reviewed by counsel)
 
@@ -120,8 +122,7 @@ Android's autofill service and an iPhone password provider. Passkey sign-in to T
 3. The browser extension.
 4. Phone apps with autofill, and passkey sign-in to Traversence.
 
-### 10. Open
+### 10. Costs
 
-- Who holds the second approval for takeovers until Traversence has a second super admin (an attorney suggested).
 - Running cost: almost nothing (small storage, free passkeys, free system emails). The audit and insurance are stage 2's
   real costs, quoted before it starts.
