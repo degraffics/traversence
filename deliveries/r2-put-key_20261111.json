@@ -1,0 +1,14 @@
+{
+ "zip": "r2-put-key_20261111.zip",
+ "built_on": "cf64ec2 Sync: 2026-11-11 16:56 UTC",
+ "recorded": "2026-11-11 17:01 UTC",
+ "note": "Fix for decisions/0151: S3::put (the server storing a file it made: re-encoded photos, posters, profile and gallery photos, scans) still signed with the AWS key and region, so R2 refused it ('The file store didn't take the file'). Now signs with the store's own key and region like every other call. Built on 16:56 UTC sync.",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/S3.php": {
+   "sha256": "5d908c37d1d33c31ebb6167d55cfa5fee9dd259c2cb75ad9886af2f8281c22f6",
+   "live": false
+  }
+ }
+}
