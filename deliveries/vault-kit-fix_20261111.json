@@ -1,0 +1,18 @@
+{
+ "zip": "vault-kit-fix_20261111.zip",
+ "built_on": "6f280a4 Sync: 2026-11-11 19:36 UTC",
+ "recorded": "2026-11-11 19:44 UTC",
+ "note": "Vault: the Emergency Kit download works (a date format Chrome refused), and the spare passkey explained (phone or security key, not a phone number)",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/ui/vault.php": {
+   "sha256": "622d894ee2c36a5b91d1f3390a3eb8ce9294f4526e46afb7582b3ba802ac2a9c",
+   "live": false
+  },
+  "website/js/tv-vault.js": {
+   "sha256": "7e5ec52857812e166e698f61d3c354cc70bf24e75052b9409ec6212909dfcbb0",
+   "live": false
+  }
+ }
+}
