@@ -113,7 +113,7 @@ chrome.runtime.onMessageExternal.addListener((m, sender, reply) => {
       const s = await vault(); return { ok: true, version: chrome.runtime.getManifest().version, connected: !!s, email: s ? s.email : '', install };
     }
     if (m.t === 'pair') {
-      if (!/^[a-f0-9]{64}$/.test(m.token || '') || !m.vk || !/^\/admin\/api\/vault-ext\.php$/.test(m.api || '')) return { ok: false, error: 'That connection wasn\'t complete.' };
+      if (!/^[a-f0-9]{64}$/.test(m.token || '') || !m.vk || !/^\/api\/vault-ext\.php$/.test(m.api || '')) return { ok: false, error: 'That connection wasn\'t complete.' };
       await chrome.storage.session.set({ v: { vk: m.vk, token: m.token, until: m.until, email: m.email || '', base: from, api: m.api, last: Date.now() } });
       keys = null; await vault(); chrome.action.setBadgeText({ text: '' });
       return { ok: true };
