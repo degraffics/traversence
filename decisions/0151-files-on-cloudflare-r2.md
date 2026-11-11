@@ -78,3 +78,11 @@ catch anything added in between. After a week with nothing missing, empty the Am
 storing it) and narrow the AWS key to email only.
 
 To go back: remove the four lines from `.env` and put `S3_BUCKET` back to the Amazon bucket's name; the site uses Amazon again.
+
+## Fix, 2026-11-11 (`r2-put-key_20261111.zip`)
+
+`S3::put()` (the server storing a file it made itself: re-encoded photos, video posters, profile and Gallery photos,
+scanned cards) still signed with `AWS_ACCESS_KEY_ID` and `AWS_REGION` after the switch, so R2 refused it with "The file
+store didn't take the file" (found by Jason posting a photo Moment). It now signs with `S3::creds()`, the store's own key
+and region, like every other call. Uploads straight from the browser (in parts) were never affected. Files the site
+tried to keep in that window stayed on the server, where they still work, and `Store::keep()` moves them on its next try.
