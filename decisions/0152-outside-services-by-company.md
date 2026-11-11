@@ -44,3 +44,8 @@ and fees/costings".
 5. **Not yet:** each company's own bill read through its billing API (Cloudflare, Anthropic, Railway, Stripe, Square;
    Amazon at about a cent a lookup, once a day at most) beside the site's own count; card fees per payment recorded from
    QuickBooks; views and plays of stored files counted (Cloudflare's bucket Metrics has them meanwhile).
+
+**Note (2026-11-11):** each card also links to where the company is set up or used in our own admin ("In our admin":
+QuickBooks → Payments and QuickBooks items, Stripe and Square → Gateways, Name.com and Fly.io → Custom domains, Tavily,
+Google and Railway → the Crawler, Bluehost → Scheduled tasks, Staff logins, the Support inbox…), from
+`OutsideServices::ADMIN`; Jason: "can the configuration page for each service be accessed here as well?"
