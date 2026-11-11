@@ -21,7 +21,8 @@ let keys = null;   // { vk, siteKey } made from the stored key, kept while this 
 async function vault(touch = true) {
   const s = (await chrome.storage.session.get('v')).v;
   if (!s) return null;
-  if (Date.parse(s.until) < Date.now() || Date.now() - (s.last || 0) > IDLE_MS) { await forget(); return null; }
+  if (Date.parse(s.until) < Date.now()) { await forget('Its 12 hours were up.'); return null; }
+  if (Date.now() - (s.last || 0) > IDLE_MS) { await forget('It wasn\'t used for 30 minutes.'); return null; }
   if (!keys || keys.token !== s.token) {
     const raw = unb64u(s.vk), hk = await crypto.subtle.importKey('raw', raw, 'HKDF', false, ['deriveKey']);
     keys = { token: s.token, vk: await aes(raw), siteKey: await crypto.subtle.deriveKey({ name: 'HKDF', hash: 'SHA-256', salt: new Uint8Array(32), info: te.encode('tv-vault-site-v1') }, hk, { name: 'HMAC', hash: 'SHA-256', length: 256 }, false, ['sign']), items: null };
@@ -30,7 +31,7 @@ async function vault(touch = true) {
   if (touch) { s.last = Date.now(); await chrome.storage.session.set({ v: s }); }
   return s;
 }
-async function forget() { keys = null; await chrome.storage.session.clear(); chrome.action.setBadgeText({ text: '' }); }
+async function forget(why) { keys = null; await chrome.storage.session.clear(); if (why) await chrome.storage.session.set({ ended: { why, at: Date.now() } }); chrome.action.setBadgeText({ text: '' }); }
 const siteOf = async origin => hex(await crypto.subtle.sign('HMAC', keys.siteKey, te.encode(origin.toLowerCase())));
 const passMark = async pass => hex(await crypto.subtle.sign('HMAC', keys.siteKey, te.encode('pw:' + pass))).slice(0, 32);
 
@@ -40,7 +41,7 @@ async function api(s, body) {
   body.device = (navigator.userAgent.includes('Edg/') ? 'Edge' : 'Chrome');
   const r = await fetch(s.base + s.api, { method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Vault-Token': s.token }, body: JSON.stringify(body), credentials: 'omit', cache: 'no-store' });
   let j; try { j = await r.json(); } catch (e) { throw new Error('The vault didn\'t answer.'); }
-  if (!j.ok) { if (r.status === 401) await forget(); throw new Error((j.error && j.error.message) || 'That didn\'t work.'); }
+  if (!j.ok) { const msg = (j.error && j.error.message) || 'That didn\'t work.'; if (r.status === 401) await forget('The vault ended the connection: ' + msg); throw new Error(msg); }
   return j;
 }
 
@@ -117,7 +118,7 @@ chrome.runtime.onMessageExternal.addListener((m, sender, reply) => {
       keys = null; await vault(); chrome.action.setBadgeText({ text: '' });
       return { ok: true };
     }
-    if (m.t === 'unpair') { await forget(); return { ok: true }; }
+    if (m.t === 'unpair') { await forget('It was disconnected on the Vault page.'); return { ok: true }; }
     return { ok: false };
   })().then(reply, e => reply({ ok: false, error: e.message }));
   return true;
@@ -127,11 +128,13 @@ chrome.runtime.onMessage.addListener((m, sender, reply) => {
   (async () => {
     const fromPopup = sender.id === chrome.runtime.id && !!sender.url && sender.url.startsWith(chrome.runtime.getURL(''));   // our own pages (the pop-up), never a web page
     if (fromPopup) {
-      if (m.t === 'status') { const s = await vault(); return s ? { connected: true, email: s.email, until: s.until, base: s.base } : { connected: false }; }
-      if (m.t === 'lock') { const s = (await chrome.storage.session.get('v')).v; if (s) { try { await api(s, { do: 'bye' }); } catch (e) {} } await forget(); return { ok: true }; }
+      if (m.t === 'status') { const s = await vault(); if (s) return { connected: true, email: s.email, until: s.until, base: s.base }; const e = (await chrome.storage.session.get('ended')).ended; return { connected: false, ended: e ? e.why : '' }; }
+      if (m.t === 'lock') { const s = (await chrome.storage.session.get('v')).v; if (s) { try { await api(s, { do: 'bye' }); } catch (e) {} } await forget('You disconnected it.'); return { ok: true }; }
       // the tab's address: Chrome gives it here only while the pop-up's click allows (activeTab), so the pop-up, a page of
       // ours, passes the one it was given too
-      const tab = m.tabId ? await chrome.tabs.get(m.tabId).catch(() => null) : null, origin = tab ? originOf(tab.url || m.url) : null;
+      const tab = m.tabId ? await chrome.tabs.get(m.tabId).catch(() => null) : null;
+      let origin = tab ? originOf(tab.url || m.url) : null;
+      if (tab && !origin) { const w = await chrome.tabs.sendMessage(tab.id, { t: 'where' }, { frameId: 0 }).catch(() => null); origin = w ? originOf(w.href) : null; }   // our script in the page says where it is
       const s = await vault(); if (!s) return { connected: false };
       if (m.t === 'tablist') return { connected: true, origin, list: origin ? (await forOrigin(s, origin)).map(x => ({ id: x.id, name: x.name, user: x.user })) : [] };
       if (m.t === 'fillTab' && origin) {

@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Traversence Vault",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Fills your Traversence Vault logins on their own sites, and offers to save new ones. For Traversence staff (stage 1).",
   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvgUJxqMBTHEmT4SVYesJLxS1Ps2tYogns8+7jw1qNOBcNgFftqYyHQjQYOkcvLWsDCP8jTte8Nc/MsqkqT1u0Q+IE73Jrfrg8J95i8J+BHGd+KqVstEDRGe/GcVSC6dbXKIVQ/I+S4DONTopDDI5f2onrTSw0thOaoB9tDOiLnBVAaSnQDzlqAz6wnoj72WxY2mTeZIyywDtmjFItLuSoIkKAPe69+ti9LdjKWfesEjx6/u9MTffzSA6hJywCgmMtO2FsYaAbpjTIRaPMX7IDD1MpWCu/dMfe0w/tj4Eyn2GMaEfAQqjitr22GCoVmOz30ydjmq63EKTxYr7XjLhMQIDAQAB",
   "minimum_chrome_version": "116",
