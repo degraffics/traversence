@@ -1,6 +1,6 @@
 # ADR 0154: Free, Creator and Business: Who Pays for What, and How Upgrades Are Offered
 
-**Status:** Accepted (Jason, 2026-11-11, in conversation), with two numbers open (§7). Not built. Builds on
+**Status:** Accepted (Jason, 2026-11-11, in conversation), with earned storage open (§7). Not built. Builds on
 `decisions/0007` (plans sell tools, never placement), `0098` (the order system and products), `0108` (plans),
 `0153` (Moments, Snaps and Keep), `commercial.md` §1.2 and master-aos §5. Updates `commercial.md` §1.2.
 
@@ -33,8 +33,10 @@ The existing personal plans carry it; no new tier:
 | **Personal Pro (Creator)** | $9.95/mo | 50 GB, the AI tools, video at **4K** (originals kept, a 720p copy for feeds), recordings up to 10 minutes, uploads to 1 GB, detailed insights (where viewers came from, what kept them watching), scheduled posts, Channel layout and pinned playlists, a link-in-bio page, and the income tools below |
 
 **Income tools (Pro):** fan memberships (members-only posts and Snaps, paid monthly to the creator), tips on posts and
-videos, paid guides and journeys sold through the marketplace, and business collaborations and licensing (§3). Whether
-Traversence takes a fee on memberships and tips is open (§7). Nothing in any plan buys reach (0007): feeds run newest
+videos, paid guides and journeys sold through the marketplace, and business collaborations and licensing (§3).
+**Creators keep 100%** (Jason, 2026-11-11): no transaction or commission fee from Traversence on memberships, tips,
+collaborations or licensing; only the card processor's own fee applies. We earn from the plan, matching the "zero
+extraction" promise to businesses (commercial.md §0). Nothing in any plan buys reach (0007): feeds run newest
 first for everyone.
 
 ### 3. Businesses: most of the revenue, and members' posts are their audience
@@ -91,8 +93,13 @@ Marketplace or Market 360°.
   is about $1.50 a month per 500 followers and $15 a month per free account at the limit (5,000 such accounts: about
   $75,000 a month), more than a Pro plan earns and twice Pro's storage. Recommended instead: **+1 GB per 500 followers
   and per friend who joins, up to 25 GB** (at most about $0.38 a month an account). Until decided, nothing is earned.
-- **A fee on memberships and tips:** creators keep 100% (we earn from Pro, matching the "zero extraction" promise to
-  businesses), or a small fee (say 5%).
+- **Earned storage, how it's counted (proposed, to confirm):** no cap on followers; the storage earned stops at 25 GB
+  (12,500 qualifying followers, fewer with friends who joined). A follower or friend counts only once they're a real,
+  settled member: email confirmed and 18+ (Verified), the account at least 30 days old, active on at least 3 separate
+  days, not blocked by the earner, not removed or suspended, and passed the sign-up check (Cloudflare Turnstile). A
+  friend counts only through the earner's own invite link and only once. At most 5 GB earned a month. An account later
+  removed as fake takes its earned space back: nothing is deleted, but new Keeps wait until the owner is under their
+  space again. Earned space stays when followers leave.
 
 ## Consequences
 
