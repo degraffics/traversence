@@ -111,6 +111,8 @@ const TYPING = [
   ['mexi', '', { lead: /New Mexico|Mexico/, top: 2, never: /Mexia/, neverTop: 2 }],
   ['ital', '', { lead: /Italy|Italian/, top: 3 }],
   ['nava', '', { lead: /Navajo/, top: 3 }],
+  ['dog park', '', { lead: /Dog parks/, top: 1, never: /sleep in my car|parkway/i }],
+  ['playg', '', { lead: /Playground/, top: 2 }],
   // the page sets the order (the Chameleon Filter while typing, 2026-11-11): Let's Explore, then the Directory
   ['mexi', 'track=explore', { lead: /New Mexico|Mexico/, top: 1 }],
   ['mexi', 'track=local', { lead: /Mexican food/, top: 1 }],
