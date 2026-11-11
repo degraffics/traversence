@@ -1,6 +1,6 @@
 {
- "run": "2026-11-11 10:52 UTC",
- "mirror": "d8efc9c",
+ "run": "2026-11-11 18:40 UTC",
+ "mirror": "526a164",
  "findings": [
   {
    "rule": "R02",
@@ -289,12 +289,6 @@
    "file": "website/admin/search.php",
    "line": 1,
    "msg": "/admin/search.php is on the server but in neither routes.md nor archive.md"
-  },
-  {
-   "rule": "R09",
-   "file": "website/admin/settings.php",
-   "line": 1,
-   "msg": "/admin/settings.php is on the server but in neither routes.md nor archive.md"
   },
   {
    "rule": "R09",
@@ -646,12 +640,6 @@
   },
   {
    "rule": "R10",
-   "file": "website/directory/index.php",
-   "line": 334,
-   "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
-  },
-  {
-   "rule": "R10",
    "file": "website/js/search-panel.js",
    "line": 121,
    "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
@@ -665,13 +653,13 @@
   {
    "rule": "R10",
    "file": "website/js/search-panel.js",
-   "line": 406,
+   "line": 413,
    "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
   },
   {
    "rule": "R10",
    "file": "website/js/search-panel.js",
-   "line": 647,
+   "line": 658,
    "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
   },
   {

@@ -1,6 +1,6 @@
 # Decision register
 
-Decision 0145 §1a. Generated on 2026-11-11 10:52 UTC from `decisions/` and the live mirror (`d8efc9c`). Don't edit by hand:
+Decision 0145 §1a. Generated on 2026-11-11 18:40 UTC from `decisions/` and the live mirror (`526a164`). Don't edit by hand:
 edit the decision, and this follows. "Missing files" are files a decision names that the site no longer has: the
 decision may be stale, or the file moved.
 
@@ -69,7 +69,7 @@ decision may be stale, or the file moved.
 | 0061 | [0061: Situations: an intent map, the Chameleon Filter as router, and search that learns](0061-situations-intent-map-and-learning-search.md) | accepted | 0133 |  | 0 |  |
 | 0062 | [0062: Identities: one record per thing, every fact with its sources, verification by consent](0062-identities-sources-and-verification.md) | accepted | 0133 |  | 0 |  |
 | 0063 | [0063: Lexicon and syntax: how search reads each word, and how a person corrects it](0063-lexicon-syntax-and-the-workbench.md) | accepted |  |  | 0 |  |
-| 0064 | [0064: Search learns words on its own; people have access and control, not chores](0064-search-learns-words-on-its-own.md) | accepted |  | 2 | 0 |  |
+| 0064 | [0064: Search learns words on its own; people have access and control, not chores](0064-search-learns-words-on-its-own.md) | accepted |  | 3 | 0 |  |
 | 0065 | [0065. OpenStreetMap businesses where we have no listings yet](0065-openstreetmap-businesses-outside-our-regions.md) | accepted | 0133 |  | 0 |  |
 | 0066 | [0066. Public data, the Discovery funnel, and expansion that grows on its own](0066-public-data-funnel-and-organic-expansion.md) | accepted | 0133 |  | 0 |  |
 | 0067 | [0067. What words mean: from a word to the kinds of place that serve it](0067-what-words-mean-concepts.md) | accepted | 0133 | 1 | 0 |  |
@@ -127,10 +127,10 @@ decision may be stale, or the file moved.
 | 0119 | [0119: The business portal: Sales tax, Shipping & pickup, and a business's usual quote terms](0119-portal-taxes-shipping-quote-terms.md) | accepted |  |  | 0 |  |
 | 0120 | [0120: Handing over a business; proofs and files on quotes, counting against storage](0120-handover-and-quote-files.md) | accepted | 0122 |  | 1 |  |
 | 0121 | [0121: A business's own discount codes](0121-business-discount-codes.md) | accepted |  |  | 2 |  |
-| 0122 | [0122: Business files go straight to S3](0122-business-files-straight-to-s3.md) | accepted |  |  | 0 |  |
+| 0122 | [0122: Business files go straight to S3](0122-business-files-straight-to-s3.md) | accepted |  | 1 | 0 |  |
 | 0123 | [0123: Every file the site keeps lives in S3](0123-all-files-on-s3.md) | accepted |  |  | 3 |  |
 | 0124 | [0124: Every owner's files in one folder; moving them on a schedule](0124-owner-folders-and-files-schedule.md) | accepted |  |  | 3 |  |
-| 0125 | [0125: Plain settings changed from the admin, not File Manager](0125-settings-changed-from-the-admin.md) | accepted |  |  | 0 |  |
+| 0125 | [0125: Plain settings changed from the admin, not File Manager](0125-settings-changed-from-the-admin.md) | accepted |  | 1 | 0 |  |
 | 0126 | [0126: The gallery, one module for every photo and video](0126-gallery.md) | accepted |  |  | 4 |  |
 | 0127 | [0127: One uploader for every file](0127-one-uploader.md) | accepted |  |  | 4 |  |
 | 0128 | [0128: QuickBooks invoices into Traversence orders, and one product list across both](0128-quickbooks-invoices-and-products.md) | accepted |  |  | 4 |  |
@@ -138,7 +138,7 @@ decision may be stale, or the file moved.
 | 0130 | [0130: The catalog model, and how it maps to the books](0130-catalog-model-and-books-mapping.md) | accepted |  |  | 0 |  |
 | 0131 | [Place Guides on the Six-Tier Funnel](0131-place-guides.md) | accepted | 0133 | 1 | 5 |  |
 | 0132 | [Tags and Links — What Content Is About, and Who It Reaches](0132-tags-and-links.md) | accepted |  |  | 3 |  |
-| 0133 | [The Intelligence & Publishing Engine (the crawler's one rule book)](0133-the-intelligence-and-publishing-engine.md) | accepted |  |  | 0 |  |
+| 0133 | [The Intelligence & Publishing Engine (the crawler's one rule book)](0133-the-intelligence-and-publishing-engine.md) | accepted |  | 1 | 0 |  |
 | 0134 | [Events, One Tool for the Whole Site](0134-events.md) | accepted |  |  | 0 |  |
 | 0135 | [The Marketplace and Storefronts (the one record)](0135-marketplace-and-storefronts.md) | accepted |  |  | 11 |  |
 | 0136 | [Topic Groups, Chapters, and the Places a Group Is About](0136-topic-groups-and-chapters.md) | accepted |  |  | 7 |  |
@@ -156,3 +156,9 @@ decision may be stale, or the file moved.
 | 0148 | [Places on Demand](0148-places-on-demand.md) | accepted |  |  | 0 |  |
 | 0149 | [Listings on Demand](0149-listings-on-demand.md) | accepted |  |  | 0 |  |
 | 0150 | [Vendor links (one page of a vendor's work orders, 30 days)](0150-vendor-links.md) | accepted |  |  | 9 |  |
+| 0151 | [Files on Cloudflare R2 (no charge when people view or play them)](0151-files-on-cloudflare-r2.md) | accepted |  |  | 1 |  |
+| 0152 | [Outside services, one card per company; Settings rebuilt in the new admin](0152-outside-services-by-company.md) | accepted |  | 3 | 1 |  |
+| 0153 | [Moments, Snaps and Keep (the personal feed)](0153-moments-snaps-and-keep.md) | accepted |  |  | 6 |  |
+| 0154 | [Free, Creator and Business: Who Pays for What, and How Upgrades Are Offered](0154-free-creator-and-business-balance.md) | accepted |  | 1 | 0 |  |
+| 0155 | [Add-ons (plug-in modules) and 1Password, resold and managed from our site](0155-add-ons-and-1password.md) | proposed |  | 1 | 0 |  |
+| 0156 | [The Vault: passwords only their owner can open](0156-the-vault.md) | accepted |  |  | 0 |  |

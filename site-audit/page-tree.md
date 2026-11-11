@@ -1,6 +1,6 @@
 # Page tree
 
-Decision 0145 §1a. Generated from the live mirror on 2026-11-11 10:52 UTC (`d8efc9c`). Once Jason approves it, it replaces the
+Decision 0145 §1a. Generated from the live mirror on 2026-11-11 18:40 UTC (`526a164`). Once Jason approves it, it replaces the
 hand-kept `routes.md`. Columns: does the page load the session and the shell, does it draw the account bar, is it in
 `routes.md` / `archive.md`, and which decisions name its file.
 
@@ -58,7 +58,7 @@ hand-kept `routes.md`. Columns: does the page load the session and the shell, do
 | `/admin/search-misses.php` | `website/admin/search-misses.php` | yes | yes | yes |  |
 | `/admin/search-oversight.php` | `website/admin/search-oversight.php` | yes | yes | yes |  |
 | `/admin/search.php` | `website/admin/search.php` | yes | yes | **no** |  |
-| `/admin/settings.php` | `website/admin/settings.php` | yes | yes | **no** | 0105 |
+| `/admin/settings.php` | `website/admin/settings.php` | yes | yes | yes | 0105 |
 | `/admin/setup.php` | `website/admin/setup.php` | yes | yes | **no** |  |
 | `/admin/short-codes.php` | `website/admin/short-codes.php` | yes | yes | **no** |  |
 | `/admin/sitemap.php` | `website/admin/sitemap.php` | yes | yes | **no** |  |
@@ -150,6 +150,7 @@ hand-kept `routes.md`. Columns: does the page load the session and the shell, do
 | `/user/market/` | `website/user/market/index.php` | yes | yes | **no** |  |
 | `/user/notice.php` | `website/user/notice.php` | yes | yes | **no** |  |
 | `/user/orders.php` | `website/user/orders.php` | yes | yes | **no** |  |
+| `/user/post.php` | `website/user/post.php` | yes | yes | yes | 0153 |
 | `/user/profile.php` | `website/user/profile.php` | yes | yes | yes |  |
 | `/user/restore-account.php` | `website/user/restore-account.php` | yes | yes | **no** |  |
 | `/user/staff-link.php` | `website/user/staff-link.php` | yes | yes | **no** |  |

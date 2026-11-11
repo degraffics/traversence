@@ -16,7 +16,7 @@
   },
   "app/migrations/2027-02-27_snaps.sql": {
    "sha256": "1e3943eee95ab70f7bdb6326ab465211a13dc4b1f1390f82628b68f4c65d0c7a",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "0e3c8b9291a648cb65f6ee5931416e92501bc9727eabf7da2f9466320718ee79",
