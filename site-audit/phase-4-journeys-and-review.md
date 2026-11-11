@@ -24,7 +24,9 @@ findings improve the rules, not just check against them.
      - staff: decide a report, a like check, a held Marketplace post; send an order.
 2. **The measures**, kept per run so trends show:
    - **Steps:** taps and pages to the goal.
-   - **Dead ends:** empty pages with no next step, and actions with no visible result.
+   - **Dead ends:** empty pages with no next step, actions with no visible result, and features offered to an account that
+     can't use them, or should use them elsewhere (rule T06: staff sent to the admin's version, a member to the plan that
+     unlocks it, a guest to sign in).
    - **Surprises:** stacked dialogs, a lost header, a page that flashes.
    - **Accuracy:** what's shown matches the data (counts, hours, phone, distance); what exists is reachable (a published
      guide shows where it should); links work.

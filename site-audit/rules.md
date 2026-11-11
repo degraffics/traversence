@@ -59,6 +59,7 @@ change.
 | T03 | Admin tools only from the manifests; other modules' tools in a drawer | `CLAUDE.md` The admin; decisions/0109 |
 | T04 | Pulse steps a person can do from the case are buttons; outside services carry their link | `CLAUDE.md` Pulse |
 | T05 | Links travel wrapped past ModSecurity | `CLAUDE.md` Links past Bluehost's ModSecurity |
+| T06 | No one is offered what their account can't use, or should use elsewhere: each account type (guest, member, member on a paid plan, business owner, staff) sees the version for them, or a link straight to where theirs is. Checked page by page, signed in as each test account. Known: `/ai/` shows staff "Comes with a paid plan" though staff have AI Assist in the admin (Insights & Research → AI Assist) | `CLAUDE.md` Never a dead end (Jason, 2026-11-11: "the system should know better than to offer a staff member something they cant do or should do elsewhere. that goes for all users") |
 | D01 | Every table and column used exists, in the right database | decisions/0110; decisions/0145 §1 |
 | D02 | Query speed and plans (no full scans on pages, no query per row) | decisions/0145 §1 |
 | D03 | Data health and retention rules running | decisions/0009, 0145 §1 |

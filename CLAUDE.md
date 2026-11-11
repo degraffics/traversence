@@ -183,6 +183,8 @@ carries each choice's meaning (`[key, name, what it is]`), shown by the kit's â“
 
 Wherever a link, code or step stops working (expired, replaced, over a limit, an email that failed), the page offers a
 way forward: send it again, and ask our team (a form to our inbox), with our email address. Never a lock-out.
+Never offer someone what their account can't use, or should use elsewhere (Jason, 2026-11-11): show the version for
+who they are (staff, a business, a member, a guest), or point straight to where theirs is.
 
 ## Times where they happened (Jason, 2026-11-10): every page that shows a time
 
