@@ -1,0 +1,14 @@
+{
+ "zip": "market-test-keys_20261111.zip",
+ "built_on": "af03f51 Sync: 2026-11-11 23:50 UTC",
+ "recorded": "2026-11-11 23:50 UTC",
+ "note": "Payments: test mode never uses a live Stripe or Square key; a test account on the live site pays a business only with STRIPE_TEST_\u2026 / SQUARE_SANDBOX_\u2026 keys, else card payment is off for test accounts (No test moves real money)",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/MarketPay.php": {
+   "sha256": "bfaeeb54eeb684c5fd36248359c05b7fd556a05a7be2c4ee153fb8e74062e0c8",
+   "live": false
+  }
+ }
+}
