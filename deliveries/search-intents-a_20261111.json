@@ -1,0 +1,26 @@
+{
+ "zip": "search-intents-a_20261111.zip",
+ "built_on": "b3244c3 Sync: 2026-11-11 00:44 UTC",
+ "recorded": "2026-11-11 01:05 UTC",
+ "note": "Replaces map-list-from-you (not uploaded; both change faq.md). Intents A: a word being typed offered as full words with their intent (places, food, culture); map list measured from you, approximate ones marked",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/UniversalSearch.php": {
+   "sha256": "1d079e2a9c84092b25290d498af5002a2d7e5fdb230c063b7410001650ec8002",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "60a99c38553f44e328df178fe8def2535fe99048a00775d269fbc51e5fbd491f",
+   "live": false
+  },
+  "website/js/map-view.js": {
+   "sha256": "138ccc6e98d847ef650b7bfaddb018d9305dcea120fee6b82ec1efb2c7e540d8",
+   "live": false
+  },
+  "website/js/search-panel.js": {
+   "sha256": "5792e486ff225b3a5d705ed1a865103a5d4b6bd49cc815332b3e357c30a45dca",
+   "live": false
+  }
+ }
+}
