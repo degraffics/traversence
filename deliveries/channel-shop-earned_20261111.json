@@ -44,7 +44,7 @@
   },
   "app/ui/faq.md": {
    "sha256": "06939e9c5ac0366174a1edbd01b4982da6b00433467263c05f8fc96de9216052",
-   "live": true
+   "live": false
   },
   "app/ui/gallery-ui.php": {
    "sha256": "e3ff05ac54aab156b56e53faf92df7a802664423cb77676e0a54c4f99dc6a50d",
