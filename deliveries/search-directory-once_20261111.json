@@ -3,20 +3,20 @@
  "built_on": "77a5d64 Sync: 2026-11-11 02:09 UTC",
  "recorded": "2026-11-11 02:30 UTC",
  "note": "Directory: one line at the foot; results open like typing; the search opens empty there (the words stay on the list as its filter)",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "4349370 Sync: 2026-11-11 02:33 UTC",
  "files": {
   "app/lib/UniversalSearch.php": {
    "sha256": "1de4b7efc05dcb46d19bbfaf4469d1b5ea9c45f53f37d2a41eee51b1d1be20c6",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "3d7023ee98058f6bf4b536b4717681e308822a13f9e6fd20def2aa81c78f96bb",
-   "live": false
+   "live": true
   },
   "website/js/search-panel.js": {
    "sha256": "befb8823af8704fde446b497abb43e0c2f2eb937e731513f8889f7285db0a7a2",
-   "live": false
+   "live": true
   }
  }
 }
