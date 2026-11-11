@@ -29,6 +29,7 @@ The site map (System Configuration → Site map) shows each archived page and th
 |---|---|---|---|
 | `/admin/logs.php` | Pulse's failed-sign-in case (`app/lib/Pulse.php`, 3 links) | System Configuration → Logs (its "Staff sign-ins" filter) | Point Pulse to `/admin/config/logs` |
 | `/admin/data-crawler.php` | Safety's weekly checklist (coverage, stories) | Insights & Research → Crawler | Point the two links to the Crawler section |
+| `/admin/settings.php` | The old workspace map (`app/lib/Workspaces.php`, the Settings link that `/admin/w.php` sends on) | System Configuration → Settings (the site) and Outside services (each company), decisions/0152 | Goes with `/admin/w.php`'s mapping |
 | `/admin/w.php` | Old workspace links (`app/ui/admin-hub.php` maps them; `StaffLogin.php` lets them through) | The 11 modules (`/admin/<module>`) | Keep the mapping as a redirect for a while, then remove |
 
 ## Working tools (kept until their section is rebuilt as widgets)
@@ -54,7 +55,6 @@ Shown inside a section (bridge):
 - `crawler.php`
 - `sources.php`
 - `data.php`
-- `settings.php`
 - `sitemap.php`
 
 Opened from a working tool (pop-up, detail, action or print page):
