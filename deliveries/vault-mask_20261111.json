@@ -1,8 +1,8 @@
 {
  "zip": "vault-mask_20261111.zip",
- "built_on": "6f280a4 Sync: 2026-11-11 19:36 UTC",
- "recorded": "2026-11-11 19:47 UTC",
- "note": "Vault: replaces vault-kit-fix (Emergency Kit download, spare passkey wording) and adds passphrase boxes the browser won't offer to save, and the device list's passkey-secret flag kept true to the key",
+ "built_on": "9585813 Sync: 2026-11-11 20:09 UTC",
+ "recorded": "2026-11-11 20:10 UTC",
+ "note": "Vault: passphrase boxes the browser won't offer to save, and the device list's passkey-secret flag kept true to the key",
  "status": "pending",
  "live_in": "",
  "files": {
