@@ -1,0 +1,18 @@
+{
+ "zip": "moments-flip_20261111.zip",
+ "built_on": "35f8fb7 Sync: 2026-11-11 17:36 UTC",
+ "recorded": "2026-11-11 17:37 UTC",
+ "note": "Replaces moments-menu-steady (its upload didn't reach the server). The post menu and reaction picker pinned beside their button so opening one never moves the page; and switching cameras while recording (only the picture changes; the microphone and the recording carry on as one clip, the frame worked out afresh for the new camera's size). FAQ updated. Built on 17:36 UTC sync.",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/ui/faq.md": {
+   "sha256": "ffa222c708b91949b43af684a890225becc91d0d731761fb8505884059fd4c24",
+   "live": false
+  },
+  "website/js/tv-moments.js": {
+   "sha256": "1a4de86a582a6e0e494a31e29b383cf6e00d33c26fc4cf63c1c91376aefb14e2",
+   "live": false
+  }
+ }
+}
