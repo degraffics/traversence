@@ -1,17 +1,21 @@
 {
  "zip": "dashboard-feed_20261111.zip",
  "built_on": "d996dde Sync: 2026-11-11 18:54 UTC",
- "recorded": "2026-11-11 18:58 UTC",
- "note": "Replaces business-limit-note (never uploaded). Your feed on the Dashboard under the post box (Jason, 2026-11-11): your posts and those of people you follow or are connected with, businesses you linked and businesses you post for, newest first (MemberPosts::home, GET ?home=1); the Pulse below keeps messages and notices. The post box's note when posting as a business (no daily limit; its Gallery and plan's storage). FAQ updated. Built on 18:54 UTC sync.",
+ "recorded": "2026-11-11 19:00 UTC",
+ "note": "Replaces business-limit-note (never uploaded). The Pulse is the feed (Jason, 2026-11-11): its Posts source (was People you follow) holds your own posts and those of people you follow or are connected with, businesses you linked and businesses you post for, newest first (MemberPosts::home), drawn in the Pulse as full post cards (photos, video, reactions, comments); the Pulse reloads after you post. The post box's note when posting as a business (no daily limit; its Gallery and plan's storage). FAQ updated. Built on 18:54 UTC sync.",
  "status": "pending",
  "live_in": "",
  "files": {
   "app/lib/MemberPosts.php": {
-   "sha256": "ca4b2cbae96a5bbc81552c9e1bc2e44bc620b0c51011e76069b9c53d091d6c75",
+   "sha256": "172f3835157d2b79703a3a4c5cf9658cb9af9bc2b1f5ab357faf02f3de660e97",
+   "live": false
+  },
+  "app/lib/MemberPulse.php": {
+   "sha256": "17861044906460a422a12d96081c4f92be77de500361c97ba62f0d4ef8281a67",
    "live": false
   },
   "app/ui/faq.md": {
-   "sha256": "0b68b86954c584a6792ae0bc65fa9c2c23d03249a87289fed07fbb59bbb747a5",
+   "sha256": "7c527fbb2023df4a7c13dde7b000cac88280921b420ae9fa04f708fd5aea4989",
    "live": false
   },
   "website/js/tv-moments.js": {
@@ -23,7 +27,11 @@
    "live": false
   },
   "website/user/dashboard.php": {
-   "sha256": "78664a137191b05f7776c0bc7e52ff8006767c23a33ff8b99d31ee5bca31c851",
+   "sha256": "e585b1ddc37c2156e0c83d29606487560e12aca10e14f77b9c798680ed5315e6",
+   "live": false
+  },
+  "website/user/pulse-feed.png": {
+   "sha256": "d936ebe42694cfe64bf5825b903ff69ab5cf41b0d4957eb63e7d52419af38061",
    "live": false
   }
  }
