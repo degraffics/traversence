@@ -3,20 +3,20 @@
  "built_on": "9585813 Sync: 2026-11-11 20:09 UTC",
  "recorded": "2026-11-11 21:02 UTC",
  "note": "Fixes on top of channel-shop-earned (uploaded, sync held by GitHub): the Shop's cart count (it counted the cart's two fields, not its items); data-keep in tv-ask.js's More folding, so the profile's + and layout switch never fold under More.",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "64afa90 Sync: 2026-11-11 21:08 UTC",
  "files": {
   "app/ui/profile-header.php": {
    "sha256": "3b322000e1f3de3b74ab6c7e05f13ee8aed8a1af2f0430e09e13bc81710c348a",
-   "live": false
+   "live": true
   },
   "website/js/tv-ask.js": {
    "sha256": "7b0a259088f314ae97dc94b9415824cca272fd496b28a76b3fdc97cc7705defb",
-   "live": false
+   "live": true
   },
   "website/shop/index.php": {
    "sha256": "b9ffa511d68caf641152a4b2c2a2655843d42e8f01fe38a3e287c9d9e8ddf7e1",
-   "live": false
+   "live": true
   }
  }
 }
