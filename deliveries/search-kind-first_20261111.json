@@ -3,20 +3,20 @@
  "built_on": "db18176 Sync: 2026-11-11 02:52 UTC",
  "recorded": "2026-11-11 02:53 UTC",
  "note": "Words naming a kind of place (OpenStreetMap's own tags: dog park, playground, water park) lead while typing; carry-ons that read a word another way drop; dog park asks OpenStreetMap for dog parks",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "7d379b7 Sync: 2026-11-11 02:58 UTC",
  "files": {
   "app/lib/OpenPlaces.php": {
    "sha256": "333a22e58ee84a7c1b76330d43785fb22373d52f08bd758205044d2f285dbbbc",
-   "live": false
+   "live": true
   },
   "app/lib/UniversalSearch.php": {
    "sha256": "b38e4d410eb0aa102e8b1f870893a4e2b26f31373a807c38ba2ac7e123fb2a0e",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "a7737989bfbb293008985f8f07e6b555c9149128c40b41c84bf76d8566e499d5",
-   "live": false
+   "live": true
   }
  }
 }
