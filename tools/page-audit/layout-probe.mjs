@@ -80,8 +80,12 @@ for (const typed of ['jalapen', 'coffee near me']) {
   const p = await ctx.newPage();
   try {
     await p.goto(SITE + '/discovery/', { waitUntil: 'networkidle', timeout: 30000 });
-    await p.click('#tv-search .tvs-in');
-    await p.type('#tv-search .tvs-in', typed, { delay: 60 });
+    // on a phone the bar is a button that opens the search; the box is then the one to type in
+    const opener = p.locator('#tv-search .tvs-open');
+    if (await opener.isVisible().catch(() => false)) await opener.click();
+    const box = p.locator('.tvs-in:visible').first();
+    await box.click();
+    await box.type(typed, { delay: 60 });
     await p.waitForTimeout(2500);
     const seen = await p.evaluate(() => {
       const panel = document.querySelector('.tvs-panel'); if (!panel) return ['(no panel)'];
