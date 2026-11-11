@@ -169,3 +169,8 @@ English, and its families served the situation reasoner, not categories.
   (Use my location · Choose a place · Search everywhere) while typing and over the results, and on Enter opens the
   place picker once a visit, saying why ("Please set your location to search for “pizza”."). Everywhere chosen on
   purpose (Search everywhere, or Anywhere in the picker) stands for kinds of place for the visit; "near me" still asks.
+
+**Note (2026-11-11): "Where should we look?" only for words that need a place.** Jason: "Location and where should we
+look is redundant." The search panel's Location line already shows where search looks and changes it, so the separate box
+now appears only when the words need a place ("near me", "nearby", "closest") and none is set; a kind of place with no
+place set (pizza, a plumber) searches everywhere, narrowed from the Location line (`wantsPlace()` in `js/search-panel.js`).
