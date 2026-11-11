@@ -146,3 +146,14 @@ own passkey, and opens nothing until a device that has the vault gives it the ke
 that device's first use, when it's tied to its passkey too) or the recovery words are used. Asking for the words' sealed
 key counts as using them: new words must be saved before the vault opens again. Zip 2 (the one-time page, code seal,
 location signals, age reminders) and the extension follow.
+
+**Note (2026-11-11, `vault-setup_20261111.zip`, Jason: "The pass phrase seems like a password. It should its own requirements
+and input verifications. What about the use of the authenticator app or other onboarding steps?"):** setup is five steps
+with a step bar: 1 this device's passkey; 2 the **vault passphrase**, with its own box and rules (four or more words or 20
+characters; hard to guess, about 60 bits by a careful estimate, with a meter; not the person's name, email or
+"Traversence"; no long repeats, runs or common phrases; a tick that it isn't the sign-in password or used elsewhere; the
+page can suggest six list words), kept out of the browser's own password saving; 3 the **recovery words**, saved only after
+three of them are typed back from the saved copy (the same for new words later); 4 **extra checks**, both recommended and
+skippable: the vault's own **authenticator app** entry ("Traversence Vault", separate from the staff sign-in's), whose
+code is then needed to add a device or use the recovery words (§5: a check, never a key; its secret sealed with the
+site's secret), and a **spare passkey** or security key; 5 the vault. Nothing is saved until the words are checked.
