@@ -1,0 +1,14 @@
+{
+ "zip": "search-town-zips_20261111.zip",
+ "built_on": "2b478af Sync: 2026-11-11 22:56 UTC",
+ "recorded": "2026-11-11 22:56 UTC",
+ "note": "Search: a town matches all its ZIPs and listings giving it as their city, not only its first 60 ZIPs (pizza in phoenix)",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/SearchIndex.php": {
+   "sha256": "9c96e74d50e7cf1d16987b724e8b8e6de51b9869b072ad771ed3b604064f454f",
+   "live": false
+  }
+ }
+}
