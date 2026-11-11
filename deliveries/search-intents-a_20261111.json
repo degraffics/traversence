@@ -3,28 +3,28 @@
  "built_on": "b3244c3 Sync: 2026-11-11 00:44 UTC",
  "recorded": "2026-11-11 01:16 UTC",
  "note": "Intents from sources, not what we hold: a typed word offered as countries and states (Wikidata demonyms, new app/data/demonyms.php), tribal nations (public side, 0066), U.S. towns and counties; a country's or nation's people brings its food and culture; includes map-list-from-you",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "9c4a780 Sync: 2026-11-11 01:27 UTC",
  "files": {
   "app/data/demonyms.php": {
    "sha256": "94ca69dd4b6d150683c5e1bc5b801d77b6ef06c90ef7ad3d413dbd677206b45b",
-   "live": false
+   "live": true
   },
   "app/lib/UniversalSearch.php": {
    "sha256": "5c3be858c1ddcae6ab97f7b3b35d4cf86a35a2f0d935636d7dbc56d5b3252fc8",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "bfd29f6ec82ca0afdd7543ad0b43f2a6f13c3b74038b4cc175b81c6bcc51d472",
-   "live": false
+   "live": true
   },
   "website/js/map-view.js": {
    "sha256": "138ccc6e98d847ef650b7bfaddb018d9305dcea120fee6b82ec1efb2c7e540d8",
-   "live": false
+   "live": true
   },
   "website/js/search-panel.js": {
    "sha256": "3d657cfdf3a4e24084e51ba8189ef07a0425e1b7bb918bd230a439d830970ab4",
-   "live": false
+   "live": true
   }
  }
 }
