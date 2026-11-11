@@ -1,0 +1,34 @@
+{
+ "zip": "pulse-posts_20261111.zip",
+ "built_on": "04c6881 Sync: 2026-11-11 19:07 UTC",
+ "recorded": "2026-11-11 19:09 UTC",
+ "note": "Replaces dashboard-feed (live 19:07 UTC). The Pulse as Jason defined it (decisions/0055 \u00a75; FAQ 2026-10-09): one inbox-style list, Messages, Community, Discovery, Listings, Marketplace, no extra source; posts are Pulse items, people's (yours included) under Community and businesses' under Listings; opening one (\u25be) shows the real post in place (photos or video, reactions, comments) instead of the placeholder; Reply goes to its comments, Report to its own report; the Pulse reloads after posting. Phone invites: our own panel (Copy; Text it on a phone) instead of the computer's share sheet; the To line clears. Removes the unused home-feed endpoint. FAQ updated. Built on 19:07 UTC sync.",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/MemberPosts.php": {
+   "sha256": "ef70f84f5cfa6c90f69ed91a717f65a69ddd51ae03be670f8bef73b62883a843",
+   "live": false
+  },
+  "app/lib/MemberPulse.php": {
+   "sha256": "e59b4828fa915b8f0163d9829d071a23aa8ecd61fd1a44af7f03ebe4d1366f83",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "13803892e646ce016c9ce294007fff0048ba7e24872ef84dc6f7196e3f909bb1",
+   "live": false
+  },
+  "website/js/tv-moments.js": {
+   "sha256": "d6f01a743fe0f877f2fc6b52c3a58fb5aaf72e276812f0c137783b3febe4b402",
+   "live": false
+  },
+  "website/user/api/posts.php": {
+   "sha256": "c60bdd7bcbebd96b1a11862d49b4d814d07af9ca0a223aa64a7b532beffce596",
+   "live": false
+  },
+  "website/user/dashboard.php": {
+   "sha256": "be6aa34b443108880643327c742155b62d48e9c4f7d9a70496a6bae16caeda7c",
+   "live": false
+  }
+ }
+}
