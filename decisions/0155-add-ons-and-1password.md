@@ -93,3 +93,5 @@ Contact: 1Password's partner programme, and mspprogram@1password.com for the MSP
 **Note (2026-11-11, decisions/0156):** "never built or hosted by us" now reads **never without explicit consent**: our own
 vault (0156) is Traversence's first, and is offered to members and businesses only with their explicit consent and through
 0156's gates. 1Password stays the paid path, and people may bring their own manager (links only).
+
+**Note (2026-11-11, Jason: "table 1password resale"):** tabled. Nothing is built or requested from 1Password until Jason reopens it.
