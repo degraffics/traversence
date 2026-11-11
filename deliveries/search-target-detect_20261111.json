@@ -3,16 +3,16 @@
  "built_on": "4eb758e Sync: 2026-11-11 02:05 UTC",
  "recorded": "2026-11-11 02:07 UTC",
  "note": "One tap on the target icon finds you; 'Search for' removed (Enter searches), on a phone a plain 'See all results for \u2026' line at the foot",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "77a5d64 Sync: 2026-11-11 02:09 UTC",
  "files": {
   "app/ui/faq.md": {
    "sha256": "75dd739aab3e2e1f42e7e0d260be98b2b797bc4d66c17bb07bfedcecc37d9d85",
-   "live": false
+   "live": true
   },
   "website/js/search-panel.js": {
    "sha256": "b232d92df5010c317a1b1490cb56db2bc6790fc1a03679d0db3eaf0c1494f2c5",
-   "live": false
+   "live": true
   }
  }
 }
