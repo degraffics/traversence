@@ -1,0 +1,26 @@
+{
+ "zip": "vault-ext-path_20261111.zip",
+ "built_on": "9585813 Sync: 2026-11-11 20:09 UTC",
+ "recorded": "2026-11-11 20:38 UTC",
+ "note": "Vault: the extension's endpoint and the emailed lock link moved out of /admin/ (which only opens for a signed-in staff login): /api/vault-ext.php, /api/vault-lock.php; a connection keeps its owner's email for alerts. Built on vault-connect (uploaded, sync pending)",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/Vault.php": {
+   "sha256": "c783ab46fc005dc2da7ca6dab45c1c3c07a6b71ed4d67bcb054d25f434954b4b",
+   "live": false
+  },
+  "website/admin/api/vault.php": {
+   "sha256": "9a64031155914f5a8347f6321ca4ff5d9fe9d637c56b4538457a3323e92b8f3f",
+   "live": false
+  },
+  "website/api/vault-ext.php": {
+   "sha256": "3dd14ffad1a4a543e7f6f0cc49c8841d06247a67b90a87d7866c60f6b67f49bf",
+   "live": false
+  },
+  "website/api/vault-lock.php": {
+   "sha256": "65d863fce22ea3529ef178e4e41cb3a6dde214dfcd4ba6a4f87277fab1403e9f",
+   "live": false
+  }
+ }
+}
