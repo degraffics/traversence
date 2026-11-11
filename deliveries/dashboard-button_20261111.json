@@ -1,0 +1,18 @@
+{
+ "zip": "dashboard-button_20261111.zip",
+ "built_on": "4e63a40 Sync: 2026-11-11 15:24 UTC",
+ "recorded": "2026-11-11 15:27 UTC",
+ "note": "A dashboard (house) button in the signed-in bar, beside sign-out: the dashboard of whoever you're acting as (your own, a business's portal, the admin). Built on 15:24 UTC sync.",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/ui/context-switcher.php": {
+   "sha256": "2173274b2f9f1edd3f82826578915fb5cbfdbd2aac3abbcde42cd3b0501b1399",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "d54c4604ed6d78016a572eca7ab2525ae66d1e067997eb98a4b30eb2b50f216c",
+   "live": false
+  }
+ }
+}
