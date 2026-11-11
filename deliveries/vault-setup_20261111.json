@@ -1,0 +1,30 @@
+{
+ "zip": "vault-setup_20261111.zip",
+ "built_on": "04c6881 Sync: 2026-11-11 19:07 UTC",
+ "recorded": "2026-11-11 19:10 UTC",
+ "note": "Vault setup in five steps: its own passphrase rules and strength meter, recovery words checked, authenticator app as an extra check, spare passkey; FAQ entry restored after the 19:07 upload dropped it",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/Vault.php": {
+   "sha256": "0068ea297492607395f18f65577bee720dbcc8f411dc3cb9510cb1a320d1fe5e",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "9bfa5005a4b4f2e532c81ce61b934a0f0330f108cdb56cf4f877dad01d657dce",
+   "live": false
+  },
+  "app/ui/vault.php": {
+   "sha256": "5af8b0a80fa17caedcf8b0065e59128e33233708d5d60444cf764133f7b9e980",
+   "live": false
+  },
+  "website/admin/api/vault.php": {
+   "sha256": "450401f99e6624b1d1d9d50db04e2a2b9330e40d9af6a3be8a7ade2db0aa4e72",
+   "live": false
+  },
+  "website/js/tv-vault.js": {
+   "sha256": "46e3eb5660e6c3c1e141b22ba1671da43c5dae9acae09b243b67a1f1bde69a64",
+   "live": false
+  }
+ }
+}
