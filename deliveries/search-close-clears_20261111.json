@@ -1,0 +1,18 @@
+{
+ "zip": "search-close-clears_20261111.zip",
+ "built_on": "4349370 Sync: 2026-11-11 02:33 UTC",
+ "recorded": "2026-11-11 02:46 UTC",
+ "note": "Directory: closing the search (\u00d7, Escape, outside) clears the list's search filter; Enter or See them all keeps the words on the list",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/ui/faq.md": {
+   "sha256": "f5b45614356ff556d84bee5e5fa1b0ba12ae6a3b5769494ed3e63cdfb61392e7",
+   "live": false
+  },
+  "website/js/search-panel.js": {
+   "sha256": "a6b5df43b82517ba977bde85dc1eb045971e4fe9166fab917d5967ea25ac56d7",
+   "live": false
+  }
+ }
+}
