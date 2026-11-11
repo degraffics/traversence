@@ -201,3 +201,14 @@ zone), `member_post_media` (storage key, kind, poster, length, bytes, temporary 
 - **The visitor view:** "See it as others do" opens `?as=visitor`, choosing Anyone, A follower or A connection
   (`MemberPosts::forOwnerAs`); none of the owner's tools; visitors' buttons shown as a preview. The time left and Kept are
   shown to a post's owner only.
+
+**Build note (2026-11-11, `biz-overview` zip): the business Overview.** Jason: "The dashboard here needs the pulse and the
+whats on your mind, and any other tools scattered around the business backend." A business's Overview
+(`/business/<id>`, `website/business/router.php`) now holds, under the listing at a glance: **What's on your mind?** as
+the business with its posts (`TvMoments.composer` with `as`); its **Pulse**, the same list as the Dashboard's, from one
+shared panel (`app/ui/pulse-panel.php`, `js/tv-pulse.js`, moved out of `user/dashboard.php`, which uses them too);
+**Messages & offers** (`js/business-inbox.js`); the listing's 30-day visits and taps beside its numbers; and tiles for
+Edit listing, Gallery and Team & roles beside the tools. Outside the dashboard, the business menu's Pulse and Messages
+open those Overview sections. On the listing page, the team's Owner (`Team::roleOf`) counts as its owner, so they see
+Manage, not "Ask to claim it". The zip check now reports a name moved to another file of the same zip as moved, kept,
+not removed.
