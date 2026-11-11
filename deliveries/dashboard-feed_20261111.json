@@ -1,0 +1,34 @@
+{
+ "zip": "dashboard-feed_20261111.zip",
+ "built_on": "04c6881 Sync: 2026-11-11 19:07 UTC",
+ "recorded": "2026-11-11 19:09 UTC",
+ "note": "The Pulse with posts as full cards (a Posts source), and the business limit note. Uploaded by Jason and live at 19:07 UTC; replaced by pulse-posts (the Pulse as defined in decisions/0055 \u00a75).",
+ "status": "live",
+ "live_in": "04c6881 Sync: 2026-11-11 19:07 UTC",
+ "files": {
+  "app/lib/MemberPosts.php": {
+   "sha256": "172f3835157d2b79703a3a4c5cf9658cb9af9bc2b1f5ab357faf02f3de660e97",
+   "live": true
+  },
+  "app/lib/MemberPulse.php": {
+   "sha256": "17861044906460a422a12d96081c4f92be77de500361c97ba62f0d4ef8281a67",
+   "live": true
+  },
+  "app/ui/faq.md": {
+   "sha256": "7c527fbb2023df4a7c13dde7b000cac88280921b420ae9fa04f708fd5aea4989",
+   "live": true
+  },
+  "website/js/tv-moments.js": {
+   "sha256": "30d62e6a47a7e564095ae5d8e6def0386ae1442e2bebf10ba882644667e93eb9",
+   "live": true
+  },
+  "website/user/api/posts.php": {
+   "sha256": "2cd17197b643370b3ac73967d7fdfb27ca148547eb52c4e61b6ace45f2846c16",
+   "live": true
+  },
+  "website/user/dashboard.php": {
+   "sha256": "e585b1ddc37c2156e0c83d29606487560e12aca10e14f77b9c798680ed5315e6",
+   "live": true
+  }
+ }
+}
