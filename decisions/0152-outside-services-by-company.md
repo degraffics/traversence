@@ -54,3 +54,8 @@ Google and Railway → the Crawler, Bluehost → Scheduled tasks, Staff logins, 
 login can be easier"): which account, which sign-in, where the second step goes, who holds it. Owners and executives
 only; kept in `staff_settings`; a value that looks like a password, key or token is refused. Passwords and keys live in
 the password manager (decisions/0155), never in the admin.
+
+**Note (2026-11-11, later):** the sign-in note is one line at the top of each card, its fields behind ✎ (Jason: "I dont like
+how much space the how to sign in is taking up"), with **Sign in ↗** to the company's own login page (`OutsideServices::LOGIN`;
+Amazon's account link when set) and **1Password ↗**, the saved login's private link ("I really need login and passwords"):
+the link opens the login in the person's own 1Password, where the password stays; the admin never holds it (0155).
