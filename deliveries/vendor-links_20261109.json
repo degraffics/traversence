@@ -8,7 +8,7 @@
  "files": {
   "app/admin/sections.php": {
    "sha256": "1c47e0a6d69bd68fa9250339b7d4a5185f04c974e2e6aba26817d33d42293f6f",
-   "live": true
+   "live": false
   },
   "app/bootstrap.php": {
    "sha256": "61b2d432da650fc1e80f09ebb8043806665be554c6aa160cf7fccdd5f2e5e20f",
