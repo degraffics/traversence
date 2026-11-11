@@ -348,3 +348,11 @@ the admin:
 - answered from the admin through the site's mailer, from support@, with the thread kept; notices with `TvAsk`;
 - closed when answered, reopened by a reply; counts only in Insights (how many, how fast), never what was written;
 - no AI on a person's words unless a staff member asks (decision 0133); spam left in webmail.
+
+## Creator earnings beyond the Pro tools (noted 2026-11-11)
+
+decisions/0154 gives creators memberships, tips, paid guides and journeys, collaborations and licensing, and keeps ads
+and boosted posts out (0007). Later, possibly: sharing revenue with creators on views (only from revenue that isn't
+advertising), a sponsorship marketplace between businesses and creators, and Moments served through Cloudflare's cache
+on a custom domain once reads near R2's free amount (0153 §10). Views and follows are already counted per post, so
+none of these needs data we don't keep.

@@ -87,6 +87,14 @@ build (still showing $19 / $79 / $249 on 2026-10-15).
 | Personal Plus | $4.95/mo | 25 GB + the AI photo and text tools. |
 | Personal Pro | $9.95/mo | 50 GB + the AI photo and text tools. |
 
+**Video and creators (decisions/0153, 0154, 2026-11-11).** Video quality by plan: **720p** Base, **1080p** Plus, **4K**
+Pro (originals kept, a 720p copy for feeds from the video worker). **Personal Pro is the Creator plan**: recordings up
+to 10 minutes, uploads to 1 GB, detailed insights, scheduled posts, Channel layout, a link-in-bio page, and the income
+tools (fan memberships, tips, paid guides and journeys, business collaborations and licensing). One-off purchases: keep
+one video in 4K ($0.99), a single month of Pro, a storage pack. Free members' posting is covered by the community
+budget: 3% of all revenue the month before, never under $25 a month (0154 §4). Open: earned storage, and whether we
+take a fee on memberships and tips (0154 §7).
+
 **Storage can't live on Bluehost at these sizes** (its file-count ceiling, §1 Free Tier below): these plans need
 object storage (S3, Cloudflare R2 or Bunny) before they open.
 
@@ -189,6 +197,10 @@ Structured agency and print-on-demand services bridging the profile and the phys
   dynamic QR code (`trvgo.us/{code}`).
 - **Marketing print:** business cards, table tents, menu cards, mailers, packaging inserts.
 - **Branded merchandise:** screen-printed or embroidered uniforms, swag, hats, retail merchandise.
+- **Creator add-ons for businesses** (decisions/0154 §3, 2026-11-11; priced in the configurator): **Creator
+  collaborations** (find local creators, ask for a post or video, pay them through our checkout; labelled "Paid
+  partnership"; the creator keeps the fee) and **Licensing** (use a member's kept photo or video on the listing, with
+  their yes and an optional fee).
 
 **Prices (Jason's FRD §6, 2026-10-16).** These are Traversence's own products ("O2O": online-to-offline print and
 agency work bridging the profile and the storefront), sold and fulfilled through Traversence's order system
