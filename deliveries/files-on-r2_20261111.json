@@ -3,24 +3,24 @@
  "built_on": "993ede0 Sync: 2026-11-11 13:54 UTC",
  "recorded": "2026-11-11 14:38 UTC",
  "note": "decisions/0151: storage signs with its own key and region (S3_ACCESS_KEY_ID, S3_SECRET_ACCESS_KEY, S3_REGION=auto) when S3_ENDPOINT points at Cloudflare R2; the AWS key stays for email; Settings card checks R2. No change until .env is set. Built on 13:54 UTC sync.",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "cf22b8b Sync: 2026-11-11 14:51 UTC",
  "files": {
   "app/lib/Aws.php": {
    "sha256": "271bc9fbc22ff692a030a84ac8719d27d4fbf7c3aab4ffe0bd4cf2fac43bd233",
-   "live": false
+   "live": true
   },
   "app/lib/S3.php": {
    "sha256": "2c715cd23f94d56eb81a1870db2df27750c1e60013811bb96dde70a99d946ed5",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "9553b6d217cebfe319ebaa86c75e8f80a10ea564ba060a7c1c8b7eb253353ea8",
-   "live": false
+   "live": true
   },
   "website/admin/settings.php": {
    "sha256": "8847fcc875fc18d9ee82123648620fd9226516054979179e722f2b903ca0a142",
-   "live": false
+   "live": true
   }
  }
 }
