@@ -79,7 +79,8 @@ our server.
 - **Emergency access** (optional, off unless turned on): a named person may request access; the owner is alerted and only if
   they don't decline within a set time (7 days) is the person given the items chosen. Removable at any time. Accounts stay
   single-owner.
-- Lost everything: the vault can't be opened; each service's own "forgot password" is the way back (or §6 B, if chosen).
+- Lost everything: the vault can't be opened, as with every strong vault; each service's own "forgot password" is the
+  way back.
 
 ### 6. Super Admin Takeover (Jason: "the most strict process")
 
@@ -96,14 +97,16 @@ Kept beside it, adding no approver: a **notice** to the account's email and devi
 owner learns of a false request and can answer it), and a **permanent, unchangeable record** of the request, the review,
 the decision and what changed, with a notice to the account afterwards.
 
-**B. Assisted recovery (opt-in at setup only):** the recovery key split into three pieces, any two opening it, none on the
-server: one with the owner (on the Emergency Kit), two kept offline by Traversence in two separate places (e.g. a safe and a
-bank deposit box; printed or on a security key), so one place lost or broken into isn't enough. Used only through A's full process. Without this opt-in, a takeover restores the account and the vault stays locked.
+**B. No assisted recovery (Jason, 2026-11-11: "we dont want to keep anything in case of this event, so we follow the same
+existing rules standard to the industry"):** Traversence keeps nothing that could open a vault, on the server or off it. An
+owner who has lost every key (passphrase, recovery words, devices and spare passkeys) has lost the vault; a takeover gives
+back the account and the vault starts empty. The way back is planned ahead by the owner: the recovery words, a spare
+passkey or security key, or Emergency access (§5).
 
 ### 7. Terms (before any customer, reviewed by counsel)
 
-Traversence can't open or reset a vault; a lost passphrase and lost words mean lost data, unless assisted recovery was
-chosen; what's kept (sealed items, the record of reveals) and for how long; the consent and how to withdraw it; the takeover
+Traversence can't open or reset a vault, and keeps nothing that could; a lost passphrase and lost words (with no spare
+key or Emergency access) mean lost data; what's kept (sealed items, the record of reveals) and for how long; the consent and how to withdraw it; the takeover
 process. The FAQ says the same in plain words.
 
 ### 8. The browser extension and phone apps (later)
