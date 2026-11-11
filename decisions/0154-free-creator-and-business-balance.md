@@ -158,5 +158,10 @@ worker), not in Settings.
   `VIDEO_WORKER_TOKEN`). Feeds play the 720p copy; Pro's and businesses' originals play with **Watch in 4K** (or HD).
   Keep copies the plan's size into the Gallery: 720p Personal, 1080p Plus, the original on Pro (`MemberPosts::bestPart`).
   Videos already in Galleries are untouched.
-- **Not yet:** keeping a single video in 4K ($0.99) needs one-off lines on the GO Codes order and its invoice; its own
-  build, so the money path changes on its own (the `keep_hd` column is ready). A single month of Pro likewise.
+- **Keep a video in 4K ($0.99), built the same day (`keep-4k` zip):** **Keep in 4K · $0.99** in a video post's ⋯ menu
+  (the poster's own post, a video bigger than 720p, on Personal or Plus, before it's kept) puts it in the one cart
+  (`cart_plans`, owner_type `media`). It's paid with one more token from the cart's card entry as an order of its own
+  (`app/lib/OneOffs.php`: `orders` + `order_lines` product `keep_4k`, `QuickBooksPay::chargeCard` with its test guard, a
+  Sales Receipt like a plan's; a test account pays in the sandbox), not a line on the GO Codes order, so GO Codes'
+  invoices and issuing are untouched. Then `member_post_media.keep_hd = 1` and the post is kept with its original
+  (`MemberPosts::bestPart`). A decline voids its order and leaves it in the cart. Not yet: a single month of Pro.
