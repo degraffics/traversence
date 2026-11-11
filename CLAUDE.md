@@ -61,6 +61,12 @@ at 6:00 and 18:00 UTC or on demand (its workflow's Run button), committing the r
     also blocks a mirror behind its `main` and a file another session's pending zip carries (Jason, 2026-11-11).
   - **Claude runs the sync** (Jason, 2026-11-01): when Jason says he's uploaded, run the workflow (`sync.yml` on `main`),
     wait for its "Sync: …" commit, and check the mirror matches the zip byte for byte.
+  - **One sync at a time, never a pile-up** (Jason, 2026-11-11, after a 35-minute stall): GitHub keeps one waiting run
+    per group, and each new request cancels the one already waiting, so sessions requesting at once cancel each other.
+    Only the session whose zip was uploaded starts the sync. First list the runs: one queued or running already covers
+    the upload (wait for its commit; never start another). One running over 15 minutes with its job finished is stuck:
+    cancel it; if it still shows running, rename `concurrency.group` in `sync.yml` (PR, merge) and start one run. No
+    commit after 10 minutes: list the runs again before anything else.
 - **Deleting** on one side deletes on the other (OneDrive recycle bin; server copy in the sync repo's `deleted/`).
   Claude can delete in OneDrive via the Microsoft 365 connector. Never re-send a deleted file. More than max(10, 5%)
   deletions in a run wait for `allow_mass_delete`.

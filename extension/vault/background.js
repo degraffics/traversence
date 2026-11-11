@@ -120,7 +120,7 @@ chrome.runtime.onMessageExternal.addListener((m, sender, reply) => {
 
 chrome.runtime.onMessage.addListener((m, sender, reply) => {
   (async () => {
-    const fromPopup = !sender.tab && sender.url && sender.url.startsWith(chrome.runtime.getURL(''));
+    const fromPopup = sender.id === chrome.runtime.id && !!sender.url && sender.url.startsWith(chrome.runtime.getURL(''));   // our own pages (the pop-up), never a web page
     if (fromPopup) {
       if (m.t === 'status') { const s = await vault(); return s ? { connected: true, email: s.email, until: s.until, base: s.base } : { connected: false }; }
       if (m.t === 'lock') { const s = (await chrome.storage.session.get('v')).v; if (s) { try { await api(s, { do: 'bye' }); } catch (e) {} } await forget(); return { ok: true }; }
