@@ -93,7 +93,7 @@ to 10 minutes, uploads to 1 GB, detailed insights, scheduled posts, Channel layo
 tools (fan memberships, tips, paid guides and journeys, business collaborations and licensing). One-off purchases: keep
 one video in 4K ($0.99), a single month of Pro, a storage pack. Free members' posting is covered by the community
 budget: 3% of all revenue the month before, never under $25 a month (0154 §4). Creators keep 100%: no transaction or commission fee from
-us. Open: earned storage (0154 §7).
+us. Earned storage: +1 GB per 500 followers and per friend who joins, up to 25 GB (0154 §7).
 
 **Storage can't live on Bluehost at these sizes** (its file-count ceiling, §1 Free Tier below): these plans need
 object storage (S3, Cloudflare R2 or Bunny) before they open.
