@@ -35,7 +35,7 @@ A company we resell gets a card in Outside services (0152) with its seats, accou
 | Who | 1Password plan | Programme and API | Managed from |
 |---|---|---|---|
 | A member, for themselves | Individual or Families | Partner programme, **Partnership API** (individual and family accounts only) | Their dashboard |
-| A business and its team | Teams Starter Pack (up to 10, 5 guests) or Business (per user, 20 guests) | MSP / channel programme, **Accounts API for Partners** (provision, update, cancel and link entitlements; usage by billing cycle) | The business portal's Team page |
+| A business and its team | Teams Starter Pack (10 users minimum, up to 20; 5 guests) or Business (1 user minimum; 20 guests) | MSP / channel programme, **Accounts API for Partners** (provision, update, cancel and link entitlements; usage by billing cycle) | The business portal's Team page |
 
 - **Seats:** a business buys a number of seats; its owner gives one to a team member on the Team page, and takes it back
   there. Each person signs in to the business's 1Password with their own account. Seats used, free, who and the monthly
@@ -66,8 +66,11 @@ directly. The vault's contents are never ours to hold back.
 ### 5. Price
 
 What we charge comes from the partner agreement: 1Password sets minimum pricing floors, and its wholesale rates and
-margins are given privately once we're accepted. Published list prices (2026, from third parties; 1password.com is the
-source): Business about $8 to $9 a user a month billed yearly; Teams Starter Pack about $20 to $25 a month for up to 10.
+margins are given privately once we're accepted. 1Password's list prices (1password.com, 2026-11-11): **Business $8.99 a
+user a month**, billed yearly, 1 user minimum (adds Okta, Entra ID, OneLogin and Duo sign-in, Watchtower alerts, role-based
+vault sharing); **Teams Starter Pack $2.49 a user a month**, billed yearly, 10 users minimum (so $24.90 a month at least),
+up to 20 (sharing, security alerts, role-based permissions, developer tools). Both have a 14-day free trial. A business of
+fewer than 10 people is usually better on Business ($8.99 × its people) than the Starter Pack's 10-seat minimum.
 The Shop's price covers 1Password's rate, the card fee and our margin; nothing is sold at a loss.
 
 ### 6. To confirm with 1Password (Jason)
