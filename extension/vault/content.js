@@ -110,7 +110,12 @@
   }
   offerBar(); setTimeout(offerBar, 1500);   // after the page loads, and after a sign-in that doesn't load a new page
 
-  chrome.runtime.onMessage.addListener(function (m, sender, reply) {   // a fill from the popup, for this exact site only
-    if (m && m.t === 'doFill' && m.origin === location.origin && window.top === window) reply({ ok: fill(m.user, m.pass) });
+  chrome.runtime.onMessage.addListener(function (m, sender, reply) {   // from the pop-up, for this exact site only
+    if (window.top !== window || !m) return;
+    if (m.t === 'doFill' && m.origin === location.origin) reply({ ok: fill(m.user, m.pass) });
+    if (m.t === 'grab') {   // what's filled in now, for "Save this site's login"
+      var pw = passFields().filter(function (p) { return p.value; })[0], u = pw ? userField(pw) : null;
+      reply(pw ? { user: u ? u.value : '', pass: pw.value, url: location.href } : null);
+    }
   });
 })();
