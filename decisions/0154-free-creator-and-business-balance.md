@@ -99,3 +99,8 @@ Marketplace or Market 360°.
 - `commercial.md` §1.2 updated with the video quality and Pro's creator tools, and §2 with the two add-ons.
 - `future-considerations.md`: creator earnings beyond §2's tools (revenue sharing on views, sponsorship marketplaces).
 - The Shop and the one cart are a build of their own, after 0153's first zip.
+
+**Note (2026-11-11, decisions/0152):** outside services' settings now live on their company's card in Outside services,
+and caps and gates in System Configuration → Thresholds & gates. So the community budget's 3% and $25 floor (§4) are set in
+Thresholds & gates (beside the AI free asks), and its spending shows on Cloudflare's card (and Railway's, for the video
+worker), not in Settings.
