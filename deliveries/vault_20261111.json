@@ -3,44 +3,44 @@
  "built_on": "d996dde Sync: 2026-11-11 18:54 UTC",
  "recorded": "2026-11-11 18:57 UTC",
  "note": "The Vault, stage 1 zip 1 (decisions/0156): passkeys, browser encryption, logins, reveal alerts, lock, Emergency Kit and recovery",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "a051c0c Sync: 2026-11-11 19:00 UTC",
  "files": {
   "app/admin/manifests.php": {
    "sha256": "5b1892adf96e3ae652ba8584cdeda25e41753163ff01f8413573c5abd9176c72",
-   "live": false
+   "live": true
   },
   "app/admin/sections.php": {
    "sha256": "0c9356b1b06d4f2269916ee02c797655fc3432f9c08934368d8c9804f0705890",
-   "live": false
+   "live": true
   },
   "app/lib/Vault.php": {
    "sha256": "f5cb2b8fb56842c539f6fc1dea8de5037000927d8e89f589c7d0c892de239ace",
-   "live": false
+   "live": true
   },
   "app/lib/WebAuthn.php": {
    "sha256": "85d6b7e12c5e008ae5960b5f8a0bb0fa3e97b2eaaaa2d2a7e115eb23517299a0",
-   "live": false
+   "live": true
   },
   "app/ui/app-shell.php": {
    "sha256": "4d37ff6210ae1b1cc0294f921f6a7434316124cc92b1200fe85db5cb25bfe6b3",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "850677c5c0e993429e27b6a6a7b1b1165f4ebda84a6a790c659314a9660a2401",
-   "live": false
+   "live": true
   },
   "app/ui/vault.php": {
    "sha256": "497a190ca7e8f9164ad1381b0c04af598556bdf58193850c9f44eca3e769dcd7",
-   "live": false
+   "live": true
   },
   "website/admin/api/vault.php": {
    "sha256": "143f2b2feabe6170b37f1c6d7f2741a232f80d6ccbc04ca9964263ac70a87a91",
-   "live": false
+   "live": true
   },
   "website/js/tv-vault.js": {
    "sha256": "1061cb628ccadf722efd57446f972b160c1a22c4e0beb2ce563e2d9bc497cd2e",
-   "live": false
+   "live": true
   }
  }
 }
