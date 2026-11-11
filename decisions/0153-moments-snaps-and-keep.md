@@ -212,3 +212,11 @@ Edit listing, Gallery and Team & roles beside the tools. Outside the dashboard, 
 open those Overview sections. On the listing page, the team's Owner (`Team::roleOf`) counts as its owner, so they see
 Manage, not "Ask to claim it". The zip check now reports a name moved to another file of the same zip as moved, kept,
 not removed.
+
+**Build note (2026-11-11, `channel-shop-earned` zip): the Channel and Videos (§7).** The Gallery gains the album mode
+`channel`: one per member or business (`Gallery::channel`), public, made by the first Keep. The owner's kept video from a
+post shared with **Public** goes there; anything else stays in the private Kept Moments album; earlier kept videos move
+when the owner opens their Videos tab (`MemberPosts::fillChannel`). The profile's **Videos** tab and a listing's **Videos**
+section (`tv_videos_section()` in `app/ui/gallery-ui.php`) show the Channel newest first and playlists (other albums with
+videos; public ones for visitors), with the tab's short link and QR code. Not yet: a pinned video, a short link per
+video, and Watch in 4K (the video worker, §8).
