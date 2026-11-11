@@ -1,0 +1,22 @@
+{
+ "zip": "search-panel-order_20261111.zip",
+ "built_on": "6fe5d09 Sync: 2026-11-11 00:15 UTC",
+ "recorded": "2026-11-11 00:36 UTC",
+ "note": "Replaces search-finish-before-guess (not uploaded; same files). Panel in Jason's order: one Location line (asks there when the words need a place), what the words may mean on one line, then where to go; no Search Results / Go straight to headings; finishing a word before guessing",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/UniversalSearch.php": {
+   "sha256": "612a2480c148c8b1862af1fb29cc33f3f68a35e8829dec049c39a05c7fd6d362",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "54d0441d6b14bc386a0273ac8ec36d1f8ccdd65e14679656960cd328854ad40e",
+   "live": false
+  },
+  "website/js/search-panel.js": {
+   "sha256": "ebc515f658a2baabd543f845162035165422886c6181fd0945b06be18ffbe448",
+   "live": false
+  }
+ }
+}
