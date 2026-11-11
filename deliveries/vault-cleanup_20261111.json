@@ -3,24 +3,24 @@
  "built_on": "1b92be6 Sync: 2026-11-11 21:21 UTC",
  "recorded": "2026-11-11 21:23 UTC",
  "note": "Vault: clean-up (Show filter, account search, how many at a time with Show more, tick boxes, Select all matching, Delete selected with one summary email) and folding sections",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "1d21ec2 Sync: 2026-11-11 21:49 UTC",
  "files": {
   "app/lib/Vault.php": {
    "sha256": "eb72f9de8b56e84f3c568078a5e59f8d5495b157a08eff86710b138ae4cfb8d6",
-   "live": false
+   "live": true
   },
   "app/ui/vault.php": {
    "sha256": "001e4b25d0a78d665121da51a43c8fc3ba6abe8017444c98b1c7fa4c7b5007ab",
-   "live": false
+   "live": true
   },
   "website/admin/api/vault.php": {
    "sha256": "873b608bdf9edeb3631b9929afaa19e773f6f72dc9086c091092551f74d66127",
-   "live": false
+   "live": true
   },
   "website/js/tv-vault.js": {
    "sha256": "d0eff4269ee116098da21312d2e55fbaa676a95042d5fdbceede021ef5f0e6b6",
-   "live": false
+   "live": true
   }
  }
 }
