@@ -1,0 +1,50 @@
+{
+ "zip": "search-things-place-box_20261111.zip",
+ "built_on": "06490d1 Sync: 2026-11-11 13:06 UTC",
+ "recorded": "2026-11-11 13:16 UTC",
+ "note": "Things in search (see/help/learn, seal lions offer, compound words matched whole), may-mean chips styled, location picker restored with only the town row simplified, Town or ZIP box + target replacing Choose a place (directory, discovery, search window), map list says where its place came from. Built on 13:06 UTC sync.",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/SearchIndex.php": {
+   "sha256": "cef88b0a80cf19f1dace2b7540805f8a648afc1386223d79d85a295aed0f0463",
+   "live": false
+  },
+  "app/lib/SearchText.php": {
+   "sha256": "c86f425fef91ace35612b8e82df9e5f1b5ca8d584fb58f044d298f0bf180d252",
+   "live": false
+  },
+  "app/lib/UniversalSearch.php": {
+   "sha256": "6c8a57c9c69955e291c9b675a83871ce93374c24dd636349cb1d6726f7e73f38",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "a5f33fc9a38aed278dc4a6aa03ad3b92a572fdde325610f7369d886d1c7b9cf8",
+   "live": false
+  },
+  "app/ui/location-modal.php": {
+   "sha256": "8edf9f3357d793b2d5e26e24c30780d7964066b88cd4d056834657adc03f5b65",
+   "live": false
+  },
+  "website/directory/index.php": {
+   "sha256": "7f381d442ce181a74dacea04de37f3b4eea9e48519c33b1b806b361712c9f239",
+   "live": false
+  },
+  "website/discovery/index.php": {
+   "sha256": "9e84a28ee870c04d39800576b241e31ec62c1fefd6e6c2696f42b7e6094fbeac",
+   "live": false
+  },
+  "website/js/location-scope.js": {
+   "sha256": "80d318e272e54d22f83878e7debee6ac3655afdeeb9f155268c696b4a7347d70",
+   "live": false
+  },
+  "website/js/map-view.js": {
+   "sha256": "ecd0b2ab2b9a67cd6c9fbd905823fa34fc8a6cbbad314e1018c2452adb01ee9c",
+   "live": false
+  },
+  "website/js/search-panel.js": {
+   "sha256": "c5034783713e95a618bbee04df11b11ec5bc532514eeee010c9be42cf2eb2654",
+   "live": false
+  }
+ }
+}

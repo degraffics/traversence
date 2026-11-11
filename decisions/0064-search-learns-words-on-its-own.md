@@ -124,3 +124,13 @@ reworked what was already decided and verified. It's rolled back (`search-rollba
 word; a slip gets "Did you mean…?". Kept from that day, since they change no words: towns of one name read by nearness
 ("Glendale" in Phoenix is Glendale, AZ) and outings ("place to take my kids"). From then on the zip check blocks a zip
 that removes an earlier function, constant or FAQ question unless Jason has agreed (`zipcheck.py --drops`).
+
+**Note (2026-11-11, `search-things-place-box`): two real words a letter from a thing.** "seal lions" is two real words, so
+the word-by-word rule ("a real word is never corrected") offered nothing and the search came up blank. A pair of words one
+letter off a two-word thing in WordNet ("sea lion") now gets "Did you mean sea lions?": offered, never changed, so this
+rule stands. Only the first word of the pair is read as the slip, so the thing named stays the person's ("red car" is
+never "red cap"). In the same build, words that name one thing together are matched together (`SearchText::joinThings`:
+"sea lions" no longer finds "by-the-Sea" or "All Seasons"), and a thing the words name gets what a person may want with
+it, by what it is (`UniversalSearch::THING_WAYS`: an animal's places to see it, sanctuaries, rescue, museums; a pet's
+adoption, care, supplies; a food's places to eat and buy it; a plant's gardens). Jason: "are you patching AZ a through
+code or are you fixing the logic". These read from WordNet, not lists of our own, so they hold for any animal, plant or food.
