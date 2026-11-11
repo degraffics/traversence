@@ -6,7 +6,7 @@
    "expect": "Dana Point, CA and its guide (it has one), not Point, TX",
    "url": "/api/search.php?q=Dana%20point",
    "status": 200,
-   "ms": 394,
+   "ms": 385,
    "place": "Dana Point, CA",
    "chips": [
     "place: Dana Point, CA"
@@ -48,7 +48,7 @@
    "expect": "Dana Point, CA: its guide, places and listings",
    "url": "/api/search.php?q=Dana%20Point%2C%20CA",
    "status": 200,
-   "ms": 97,
+   "ms": 85,
    "place": "Dana Point, CA",
    "chips": [
     "place: Dana Point, CA"
@@ -90,7 +90,7 @@
    "expect": "Dana Point, CA",
    "url": "/api/search.php?q=dana%20point%20california",
    "status": 200,
-   "ms": 94,
+   "ms": 88,
    "place": "Dana Point, CA",
    "chips": [
     "place: Dana Point, CA"
@@ -132,7 +132,7 @@
    "expect": "places to eat in Dana Point",
    "url": "/api/search.php?q=restaurants%20in%20Dana%20Point%2C%20CA",
    "status": 200,
-   "ms": 123,
+   "ms": 101,
    "place": "Dana Point, CA",
    "chips": [
     "place: Dana Point, CA",
@@ -179,7 +179,7 @@
    "expect": "places to eat in Dana Point",
    "url": "/api/search.php?q=Places%20to%20eat%20around%20dana%20point%2C%20ca",
    "status": 200,
-   "ms": 120,
+   "ms": 87,
    "place": "Dana Point, CA",
    "chips": [
     "why: Somewhere to eat",
@@ -234,13 +234,13 @@
    "text": "",
    "guide": "",
    "ask": "What would you like to know about Phoenix, AZ?",
-   "total": 309,
+   "total": 315,
    "kinds": [
     {
      "kind": "outdoors",
      "label": "Outdoors",
      "plural": "Outdoors",
-     "count": 309
+     "count": 315
     }
    ],
    "note": "",
@@ -252,13 +252,13 @@
     "Phoenix Mountains (outdoors · Peak · near Phoenix)",
     "Arizona House of Representatives (outdoors · House of representatives · near Phoenix)",
     "Arizona Senate (outdoors · Upper house of u.s. state legislature · near Phoenix)",
-    "Chase Field (outdoors · Building · near Phoenix)"
+    "Arizona's 9th congressional district (outdoors · United states congressional district · near Phoenix)"
    ],
    "groups": [
     "Listings 0"
    ],
    "funnels": [
-    "Let's Explore 310 → /hub/?cluster=cluster-auto-phoenix&view=outdoors"
+    "Let's Explore 316 → /hub/?cluster=cluster-auto-phoenix&view=outdoors"
    ],
    "intent": "",
    "near": "",
@@ -270,7 +270,7 @@
    "expect": "Phoenix, AZ (the pilot state first)",
    "url": "/api/search.php?q=Phoenix",
    "status": 200,
-   "ms": 79,
+   "ms": 93,
    "place": "Phoenix, AZ",
    "chips": [
     "place: Phoenix, AZ"
@@ -278,13 +278,13 @@
    "text": "",
    "guide": "",
    "ask": "What would you like to know about Phoenix, AZ?",
-   "total": 309,
+   "total": 315,
    "kinds": [
     {
      "kind": "outdoors",
      "label": "Outdoors",
      "plural": "Outdoors",
-     "count": 309
+     "count": 315
     }
    ],
    "note": "",
@@ -296,14 +296,14 @@
     "Phoenix Mountains (outdoors · Peak · near Phoenix)",
     "Arizona House of Representatives (outdoors · House of representatives · near Phoenix)",
     "Arizona Senate (outdoors · Upper house of u.s. state legislature · near Phoenix)",
-    "Chase Field (outdoors · Building · near Phoenix)"
+    "Arizona's 9th congressional district (outdoors · United states congressional district · near Phoenix)"
    ],
    "groups": [
     "Places 1",
     "Listings 0"
    ],
    "funnels": [
-    "Let's Explore 310 → /hub/?cluster=cluster-auto-phoenix&view=outdoors"
+    "Let's Explore 316 → /hub/?cluster=cluster-auto-phoenix&view=outdoors"
    ],
    "intent": "",
    "near": "",
@@ -315,7 +315,7 @@
    "expect": "places to eat in Phoenix",
    "url": "/api/search.php?q=restaurants&city=Phoenix&state=AZ&reach=25",
    "status": 200,
-   "ms": 75,
+   "ms": 74,
    "place": "Phoenix, AZ",
    "chips": [
     "place: Phoenix, AZ",
@@ -360,7 +360,7 @@
    "expect": "pizza places in Phoenix",
    "url": "/api/search.php?q=pizza%20in%20phoenix",
    "status": 200,
-   "ms": 115,
+   "ms": 110,
    "place": "Phoenix, AZ",
    "chips": [
     "place: Phoenix, AZ",
@@ -369,18 +369,28 @@
    "text": "",
    "guide": "",
    "ask": "",
-   "total": 0,
-   "kinds": [],
+   "total": 1,
+   "kinds": [
+    {
+     "kind": "listing",
+     "label": "Listing",
+     "plural": "Listings",
+     "count": 1
+    }
+   ],
    "note": "",
    "osm": "pizza around Phoenix, AZ",
    "mentions": 0,
-   "first": [],
+   "first": [
+    "CiBO Pizzeria (listing · Restaurants · Phoenix, AZ)"
+   ],
    "groups": [
     "Places 1",
     "Listings 0"
    ],
    "funnels": [
-    "Let's Explore 1 → /hub/?cluster=cluster-auto-phoenix"
+    "Let's Explore 1 → /hub/?cluster=cluster-auto-phoenix",
+    "Get Local 1 → /directory/"
    ],
    "intent": "",
    "near": "",
@@ -392,7 +402,7 @@
    "expect": "coffee near Glendale, AZ 85302",
    "url": "/api/search.php?q=coffee&zip=85302&reach=10",
    "status": 200,
-   "ms": 117,
+   "ms": 101,
    "place": "Glendale, AZ",
    "chips": [
     "place: Glendale, AZ"
@@ -431,7 +441,7 @@
    "expect": "trails and hikes within 2 mi of Phoenix, then 5",
    "url": "/api/search.php?q=hiking%20near%20me&city=Phoenix&state=AZ&reach=2",
    "status": 200,
-   "ms": 267,
+   "ms": 260,
    "place": "Phoenix, AZ",
    "chips": [
     "do: Hiking",
@@ -474,7 +484,7 @@
    "expect": "trails and hikes around Phoenix",
    "url": "/api/search.php?q=hiking&city=Phoenix&state=AZ&reach=25",
    "status": 200,
-   "ms": 127,
+   "ms": 129,
    "place": "Phoenix, AZ",
    "chips": [
     "do: Hiking",
@@ -574,7 +584,7 @@
    "expect": "things to do around 85302",
    "url": "/api/search.php?q=Things%20to%20do%20near%20me&zip=85302&reach=25",
    "status": 200,
-   "ms": 152,
+   "ms": 153,
    "place": "Glendale, AZ",
    "chips": [
     "why: Things to do",
@@ -601,7 +611,7 @@
    "expect": "Glendale, AZ: its guide (built on demand) and listings",
    "url": "/api/search.php?q=Glendale%2C%20AZ",
    "status": 200,
-   "ms": 77,
+   "ms": 88,
    "place": "Glendale, AZ",
    "chips": [
     "place: Glendale, AZ"
@@ -609,13 +619,13 @@
    "text": "",
    "guide": "",
    "ask": "What would you like to know about Glendale, AZ?",
-   "total": 14,
+   "total": 32,
    "kinds": [
     {
      "kind": "outdoors",
      "label": "Outdoors",
      "plural": "Outdoors",
-     "count": 14
+     "count": 32
     }
    ],
    "note": "",
@@ -626,14 +636,14 @@
     "Mattel Adventure Park (outdoors · Parks · near Glendale)",
     "Peoria Unified School District (outdoors · School district in the united states · near Glendale)",
     "Six Flags Hurricane Harbor Phoenix (outdoors · Parks · near Maricopa County)",
-    "Manistee Ranch (outdoors · Historic place · near Glendale)",
-    "Glendale beet sugar factory (outdoors · Historic place · near Glendale)"
+    "First Methodist Episcopal Church of Glendale (outdoors · Church building · near Glendale)",
+    "Floralcroft Historic District (outdoors · Historic district · near Glendale)"
    ],
    "groups": [
     "Listings 0"
    ],
    "funnels": [
-    "Let's Explore 15 → /hub/?cluster=cluster-auto-glendale&view=outdoors"
+    "Let's Explore 33 → /hub/?cluster=cluster-auto-glendale&view=outdoors"
    ],
    "intent": "",
    "near": "",
@@ -645,7 +655,7 @@
    "expect": "places to stay in Sedona",
    "url": "/api/search.php?q=hotels%20in%20sedona",
    "status": 200,
-   "ms": 201,
+   "ms": 186,
    "place": "Sedona, AZ",
    "chips": [
     "place: Sedona, AZ"
@@ -687,7 +697,7 @@
    "expect": "Show Low, AZ (a pilot town)",
    "url": "/api/search.php?q=show%20low",
    "status": 200,
-   "ms": 91,
+   "ms": 89,
    "place": "Show Low, AZ",
    "chips": [
     "place: Show Low, AZ"
@@ -728,7 +738,7 @@
    "expect": "Greer, AZ (a pilot town)",
    "url": "/api/search.php?q=greer%20arizona",
    "status": 200,
-   "ms": 87,
+   "ms": 78,
    "place": "Greer, AZ",
    "chips": [
     "place: Greer, AZ"
@@ -772,7 +782,7 @@
    "expect": "Four Corners Monument, not Four Corners, WY",
    "url": "/api/search.php?q=Four%20Corners",
    "status": 200,
-   "ms": 114,
+   "ms": 108,
    "place": "Four Corners, WY",
    "chips": [
     "place: Four Corners, WY"
@@ -800,7 +810,7 @@
    "expect": "Grand Canyon National Park",
    "url": "/api/search.php?q=grand%20canyon",
    "status": 200,
-   "ms": 108,
+   "ms": 102,
    "place": "Grand Canyon, AZ",
    "chips": [
     "place: Grand Canyon, AZ"
@@ -842,7 +852,7 @@
    "expect": "Four Corners Monument (a landmark added by hand)",
    "url": "/api/search.php?q=four%20corners%20monument",
    "status": 200,
-   "ms": 226,
+   "ms": 197,
    "place": "",
    "chips": [],
    "text": "four corners monument",
@@ -877,7 +887,7 @@
    "expect": "Laguna Art Museum (found for the Laguna Beach guide)",
    "url": "/api/search.php?q=laguna%20art%20museum",
    "status": 200,
-   "ms": 218,
+   "ms": 199,
    "place": "",
    "chips": [],
    "text": "laguna art museum",
@@ -912,7 +922,7 @@
    "expect": "plumbers in Show Low",
    "url": "/api/search.php?q=plumber%20in%20show%20low",
    "status": 200,
-   "ms": 155,
+   "ms": 157,
    "place": "Show Low, AZ",
    "chips": [
     "place: Show Low, AZ",

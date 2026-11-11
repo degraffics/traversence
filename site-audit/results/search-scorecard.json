@@ -1,5 +1,5 @@
 {
- "at": "2026-11-11T22:53:32.450Z",
+ "at": "2026-11-11T23:04:11.437Z",
  "pass": 94,
  "of": 96,
  "cases": [
@@ -13,12 +13,12 @@
     "what: "
    ],
    "status": 200,
-   "ms": 80,
+   "ms": 78,
    "place": "Phoenix, AZ",
    "chips": [
     "place: Phoenix, AZ"
    ],
-   "total": 309,
+   "total": 315,
    "first": [
     "Phoenix · knowledge",
     "Piestewa Peak · outdoors · Peak · near Phoenix",
@@ -45,7 +45,7 @@
    "chips": [
     "place: Phoenix, AZ"
    ],
-   "total": 309,
+   "total": 315,
    "first": [
     "Phoenix, AZ · place · Town",
     "Piestewa Peak · outdoors · Peak · near Phoenix",
@@ -67,7 +67,7 @@
     "what: "
    ],
    "status": 200,
-   "ms": 81,
+   "ms": 86,
    "place": "Dana Point, CA",
    "chips": [
     "place: Dana Point, CA"
@@ -94,7 +94,7 @@
     "what: "
    ],
    "status": 200,
-   "ms": 95,
+   "ms": 100,
    "place": "Show Low, AZ",
    "chips": [
     "place: Show Low, AZ"
@@ -119,7 +119,7 @@
     "what: "
    ],
    "status": 200,
-   "ms": 94,
+   "ms": 89,
    "place": "Show Low, AZ",
    "chips": [
     "place: Show Low, AZ"
@@ -144,7 +144,7 @@
     "what: flagstaf"
    ],
    "status": 200,
-   "ms": 238,
+   "ms": 288,
    "place": "",
    "chips": [],
    "total": 15,
@@ -169,7 +169,7 @@
     "what: "
    ],
    "status": 200,
-   "ms": 84,
+   "ms": 81,
    "place": "Sedona, AZ",
    "chips": [
     "place: Sedona, AZ"
@@ -196,7 +196,7 @@
     "what: "
    ],
    "status": 200,
-   "ms": 79,
+   "ms": 77,
    "place": "Glendale, AZ",
    "chips": [
     "place: Glendale, AZ"
@@ -223,7 +223,7 @@
     "what: "
    ],
    "status": 200,
-   "ms": 106,
+   "ms": 119,
    "place": "Four Corners, WY",
    "chips": [
     "place: Four Corners, WY"
@@ -246,7 +246,7 @@
     "what: "
    ],
    "status": 200,
-   "ms": 107,
+   "ms": 103,
    "place": "Grand Canyon, AZ",
    "chips": [
     "place: Grand Canyon, AZ"
@@ -272,7 +272,7 @@
     "what: laguna art museum"
    ],
    "status": 200,
-   "ms": 206,
+   "ms": 199,
    "place": "",
    "chips": [],
    "total": 1,
@@ -293,19 +293,20 @@
     "what: Pizza"
    ],
    "status": 200,
-   "ms": 115,
+   "ms": 118,
    "place": "Phoenix, AZ",
    "chips": [
     "place: Phoenix, AZ",
     "category: Pizza"
    ],
-   "total": 1,
+   "total": 2,
    "first": [
+    "CiBO Pizzeria · listing · Restaurants · Phoenix, AZ",
     "OpenStreetMap · pizza"
    ],
    "note": "",
    "fails": [
-    "1 results"
+    "2 results"
    ],
    "pass": false
   },
@@ -318,7 +319,7 @@
     "what: Plumbers"
    ],
    "status": 200,
-   "ms": 156,
+   "ms": 162,
    "place": "Show Low, AZ",
    "chips": [
     "place: Show Low, AZ",
@@ -346,7 +347,7 @@
     "what: hotels"
    ],
    "status": 200,
-   "ms": 184,
+   "ms": 182,
    "place": "Sedona, AZ",
    "chips": [
     "place: Sedona, AZ"
@@ -368,7 +369,7 @@
     "what: Restaurants"
    ],
    "status": 200,
-   "ms": 76,
+   "ms": 73,
    "place": "Phoenix, AZ",
    "chips": [
     "place: Phoenix, AZ",
@@ -395,7 +396,7 @@
     "what: mexican food"
    ],
    "status": 200,
-   "ms": 137,
+   "ms": 131,
    "place": "Show Low, AZ",
    "chips": [
     "place: Show Low, AZ"
@@ -422,7 +423,7 @@
     "what: "
    ],
    "status": 200,
-   "ms": 108,
+   "ms": 105,
    "place": "Show Low, AZ",
    "chips": [
     "place: Show Low, AZ"
@@ -448,7 +449,7 @@
     "what: tires"
    ],
    "status": 200,
-   "ms": 151,
+   "ms": 189,
    "place": "Show Low, AZ",
    "chips": [
     "place: Show Low, AZ"
@@ -475,7 +476,7 @@
     "what: "
    ],
    "status": 200,
-   "ms": 99,
+   "ms": 110,
    "place": "Show Low, AZ",
    "chips": [
     "place: Show Low, AZ"
@@ -501,7 +502,7 @@
     "what: Dentists"
    ],
    "status": 200,
-   "ms": 157,
+   "ms": 158,
    "place": "Show Low, AZ",
    "chips": [
     "place: Show Low, AZ",
@@ -528,7 +529,7 @@
     "what: groceries"
    ],
    "status": 200,
-   "ms": 153,
+   "ms": 173,
    "place": "Show Low, AZ",
    "chips": [
     "place: Show Low, AZ"
@@ -555,7 +556,7 @@
     "what: "
    ],
    "status": 200,
-   "ms": 113,
+   "ms": 109,
    "place": "Show Low, AZ",
    "chips": [
     "place: Show Low, AZ"
@@ -582,7 +583,7 @@
     "what: coffee"
    ],
    "status": 200,
-   "ms": 109,
+   "ms": 108,
    "place": "Glendale, AZ",
    "chips": [
     "place: Glendale, AZ"
@@ -631,7 +632,7 @@
     "what: Pizza"
    ],
    "status": 200,
-   "ms": 199,
+   "ms": 201,
    "place": "Phoenix, AZ",
    "chips": [
     "place: Phoenix, AZ",
@@ -657,7 +658,7 @@
     "what: gas"
    ],
    "status": 200,
-   "ms": 165,
+   "ms": 177,
    "place": "Phoenix, AZ",
    "chips": [
     "place: Phoenix, AZ"
@@ -679,7 +680,7 @@
     "what: Restaurants"
    ],
    "status": 200,
-   "ms": 208,
+   "ms": 204,
    "place": "Phoenix, AZ",
    "chips": [
     "place: Phoenix, AZ",
@@ -707,7 +708,7 @@
     "what: hiking"
    ],
    "status": 200,
-   "ms": 260,
+   "ms": 277,
    "place": "Phoenix, AZ",
    "chips": [
     "do: Hiking",
@@ -734,7 +735,7 @@
     "what: Parks"
    ],
    "status": 200,
-   "ms": 211,
+   "ms": 205,
    "place": "Phoenix, AZ",
    "chips": [
     "place: Phoenix, AZ",
@@ -762,7 +763,7 @@
     "what: "
    ],
    "status": 200,
-   "ms": 145,
+   "ms": 146,
    "place": "Glendale, AZ",
    "chips": [
     "why: Things to do",
@@ -770,11 +771,11 @@
    ],
    "total": 10,
    "first": [
-    "Castles N' Coasters · outdoors · Parks · near Maricopa County · 3 mi",
+    "Cortez Lake · outdoors · Lake · near Glendale · 3 mi",
+    "Rio Vista Pond · outdoors · Lake · near Glendale · 5 mi",
     "Mattel Adventure Park · outdoors · Parks · near Glendale · 6 mi",
-    "North Mountain · outdoors · Peak · near Phoenix · 6 mi",
-    "Sunnyslope Mountain · outdoors · Mountain · near Arizona · 6 mi",
-    "Encanto Park · outdoors · Parks · near Phoenix · 8 mi"
+    "Six Flags Hurricane Harbor Phoenix · outdoors · Parks · near Maricopa County · 9 mi",
+    "Adobe Mountain Desert Park · outdoors · Parks · near Phoenix · 9 mi"
    ],
    "note": "",
    "fails": [],
@@ -789,7 +790,7 @@
     "what: "
    ],
    "status": 200,
-   "ms": 117,
+   "ms": 113,
    "place": "Phoenix, AZ",
    "chips": [
     "place: Phoenix, AZ"
@@ -868,7 +869,7 @@
     "what: "
    ],
    "status": 200,
-   "ms": 124,
+   "ms": 118,
    "place": "Phoenix, AZ",
    "chips": [
     "outing: With kids",
@@ -896,7 +897,7 @@
     "what: "
    ],
    "status": 200,
-   "ms": 132,
+   "ms": 119,
    "place": "Phoenix, AZ",
    "chips": [
     "outing: With kids",
@@ -924,7 +925,7 @@
     "what: Restaurants"
    ],
    "status": 200,
-   "ms": 84,
+   "ms": 80,
    "place": "Phoenix, AZ",
    "chips": [
     "outing: With the family",
@@ -952,7 +953,7 @@
     "what: "
    ],
    "status": 200,
-   "ms": 104,
+   "ms": 103,
    "place": "Phoenix, AZ",
    "chips": [
     "outing: Date night",
@@ -980,7 +981,7 @@
     "what: "
    ],
    "status": 200,
-   "ms": 108,
+   "ms": 111,
    "place": "Phoenix, AZ",
    "chips": [
     "outing: Indoors",
@@ -1009,7 +1010,7 @@
     "what: fun"
    ],
    "status": 200,
-   "ms": 126,
+   "ms": 136,
    "place": "Phoenix, AZ",
    "chips": [
     "why: Things to do",
@@ -1021,7 +1022,7 @@
     "Patriots Square Park · outdoors · Parks · near Phoenix · 0 mi",
     "Phoenix Civic Space Park · outdoors · Parks · near Phoenix · 0 mi",
     "Wesley Bolin Memorial Plaza · outdoors · Parks · near Phoenix · 1 mi",
-    "Pioneer and Military Memorial Park · outdoors · Historic place · near Phoenix · 1 mi"
+    "Heritage and Science Park · outdoors · Landmark · near Phoenix · 1 mi"
    ],
    "note": "",
    "fails": [],
@@ -1036,7 +1037,7 @@
     "what: "
    ],
    "status": 200,
-   "ms": 100,
+   "ms": 95,
    "place": "Phoenix, AZ",
    "chips": [
     "outing: With your dog",
@@ -1092,7 +1093,7 @@
     "what: "
    ],
    "status": 200,
-   "ms": 83,
+   "ms": 87,
    "place": "Phoenix, AZ",
    "chips": [
     "outing: Date night",
@@ -1102,10 +1103,10 @@
    "total": 6,
    "first": [
     "Centrico · listing · Restaurants · Phoenix, AZ · 0 mi",
-    "Harvey's Wineburger · listing · Restaurants · Phoenix, AZ · 4 mi",
-    "Cheese 'N Stuff Deli · listing · Restaurants · Phoenix, AZ · 4 mi",
-    "Cornish Pasty Co. · listing · Restaurants · Tempe, AZ · 7 mi",
-    "Akaihana · listing · Restaurants · Phoenix, AZ · 8 mi"
+    "Seamus McCaffrey's Irish Pub · listing · Restaurants · Phoenix, AZ · 0 mi",
+    "Majerle's Sports Grill · listing · Restaurants · Phoenix, AZ · 0 mi",
+    "Cartel Coffee Lab · listing · Restaurants · Phoenix, AZ · 0 mi",
+    "CiBO Pizzeria · listing · Restaurants · Phoenix, AZ · 1 mi"
    ],
    "note": "",
    "fails": [],
@@ -1120,7 +1121,7 @@
     "what: plumber"
    ],
    "status": 200,
-   "ms": 152,
+   "ms": 154,
    "place": "Show Low, AZ",
    "chips": [
     "place: Show Low, AZ"
@@ -1147,7 +1148,7 @@
     "what: "
    ],
    "status": 200,
-   "ms": 111,
+   "ms": 114,
    "place": "Show Low, AZ",
    "chips": [
     "place: Show Low, AZ"
@@ -1174,7 +1175,7 @@
     "what: fishing"
    ],
    "status": 200,
-   "ms": 223,
+   "ms": 227,
    "place": "Show Low, AZ",
    "chips": [
     "do: Fishing",
@@ -1202,7 +1203,7 @@
     "what: "
    ],
    "status": 200,
-   "ms": 115,
+   "ms": 118,
    "place": "Show Low, AZ",
    "chips": [
     "place: Show Low, AZ"
@@ -1227,7 +1228,7 @@
     "what: Restaurants"
    ],
    "status": 200,
-   "ms": 211,
+   "ms": 215,
    "place": "Arizona",
    "chips": [
     "place: Arizona",
@@ -1254,7 +1255,7 @@
     "what: mexican food"
    ],
    "status": 200,
-   "ms": 153,
+   "ms": 149,
    "place": "",
    "chips": [],
    "total": 23,
@@ -1279,7 +1280,7 @@
     "what: mexican food"
    ],
    "status": 200,
-   "ms": 103,
+   "ms": 113,
    "place": "Phoenix, AZ",
    "chips": [
     "place: Phoenix, AZ"
@@ -1302,7 +1303,7 @@
     "what: food"
    ],
    "status": 200,
-   "ms": 110,
+   "ms": 128,
    "place": "Phoenix, AZ",
    "chips": [
     "place: Phoenix, AZ"
@@ -1328,7 +1329,7 @@
     "what: culture"
    ],
    "status": 200,
-   "ms": 134,
+   "ms": 155,
    "place": "Navajo, NM",
    "chips": [
     "place: Navajo, NM"
@@ -1350,7 +1351,7 @@
     "what: funhouse"
    ],
    "status": 200,
-   "ms": 154,
+   "ms": 151,
    "place": "Phoenix, AZ",
    "chips": [
     "place: Phoenix, AZ"
@@ -1370,7 +1371,7 @@
     "what: house"
    ],
    "status": 200,
-   "ms": 150,
+   "ms": 151,
    "place": "Phoenix, AZ",
    "chips": [
     "why: Things to do",
@@ -1398,7 +1399,7 @@
     "what: resturants"
    ],
    "status": 200,
-   "ms": 223,
+   "ms": 225,
    "place": "Show Low, AZ",
    "chips": [
     "place: Show Low, AZ"
@@ -1419,7 +1420,7 @@
     "what: piza"
    ],
    "status": 200,
-   "ms": 207,
+   "ms": 220,
    "place": "Show Low, AZ",
    "chips": [
     "place: Show Low, AZ"
@@ -1440,7 +1441,7 @@
     "what: coffe"
    ],
    "status": 200,
-   "ms": 174,
+   "ms": 163,
    "place": "Show Low, AZ",
    "chips": [
     "place: Show Low, AZ"
@@ -1467,7 +1468,7 @@
     "what: plumbr"
    ],
    "status": 200,
-   "ms": 238,
+   "ms": 218,
    "place": "Show Low, AZ",
    "chips": [
     "place: Show Low, AZ"
@@ -1488,7 +1489,7 @@
     "what: "
    ],
    "status": 200,
-   "ms": 180,
+   "ms": 181,
    "place": "Show Low, AZ",
    "chips": [
     "place: Show Low, AZ"
@@ -1515,7 +1516,7 @@
     "what: icecream"
    ],
    "status": 200,
-   "ms": 129,
+   "ms": 124,
    "place": "Phoenix, AZ",
    "chips": [
     "place: Phoenix, AZ"
@@ -1535,7 +1536,7 @@
     "what: bbq"
    ],
    "status": 200,
-   "ms": 149,
+   "ms": 151,
    "place": "Show Low, AZ",
    "chips": [
     "place: Show Low, AZ"
@@ -1614,7 +1615,7 @@
     "what: four corners monument"
    ],
    "status": 200,
-   "ms": 202,
+   "ms": 203,
    "place": "",
    "chips": [],
    "total": 1,
@@ -1634,7 +1635,7 @@
     "what: fool hollow lake"
    ],
    "status": 200,
-   "ms": 211,
+   "ms": 199,
    "place": "",
    "chips": [],
    "total": 3,
@@ -1656,7 +1657,7 @@
     "what: camelback mountain"
    ],
    "status": 200,
-   "ms": 199,
+   "ms": 200,
    "place": "",
    "chips": [],
    "total": 2,
@@ -1677,7 +1678,7 @@
     "what: harbor freight"
    ],
    "status": 200,
-   "ms": 161,
+   "ms": 157,
    "place": "Show Low, AZ",
    "chips": [
     "place: Show Low, AZ"
@@ -1699,7 +1700,7 @@
     "what: walmart"
    ],
    "status": 200,
-   "ms": 125,
+   "ms": 123,
    "place": "Show Low, AZ",
    "chips": [
     "place: Show Low, AZ"
@@ -1721,7 +1722,7 @@
    "q": "pho",
    "ctx": "",
    "url": "/api/search.php?suggest=1&q=pho",
-   "ms": 85,
+   "ms": 81,
    "first": [
     "Phoenix, AZ · place · Town",
     "Phoenix, MD · place · Town · see what's there",
@@ -1737,7 +1738,7 @@
    "q": "phoenix",
    "ctx": "",
    "url": "/api/search.php?suggest=1&q=phoenix",
-   "ms": 87,
+   "ms": 82,
    "first": [
     "Phoenix, AZ · place card",
     "Phoenix, AZ · a town in Arizona",
@@ -1753,7 +1754,7 @@
    "q": "Dana p",
    "ctx": "",
    "url": "/api/search.php?suggest=1&q=Dana%20p",
-   "ms": 89,
+   "ms": 88,
    "first": [
     "Dana Point, CA · place · Town in Laguna Niguel",
     "Counselors · category · What “dana” names are",
@@ -1769,7 +1770,7 @@
    "q": "sedo",
    "ctx": "",
    "url": "/api/search.php?suggest=1&q=sedo",
-   "ms": 125,
+   "ms": 110,
    "first": [
     "Sedona, AZ · place · Town",
     "Sedona Ranger Station · outdoors · Sedona › Building of public administration",
@@ -1783,7 +1784,7 @@
    "q": "glendale",
    "ctx": "city=Phoenix&state=AZ&reach=25",
    "url": "/api/search.php?suggest=1&q=glendale&city=Phoenix&state=AZ&reach=25",
-   "ms": 82,
+   "ms": 89,
    "first": [
     "Glendale, AZ · place card",
     "Glendale, AZ · a town in Arizona",
@@ -1799,7 +1800,7 @@
    "q": "show l",
    "ctx": "",
    "url": "/api/search.php?suggest=1&q=show%20l",
-   "ms": 83,
+   "ms": 82,
    "first": [
     "Show Low, AZ · place · Town in The Show Low District",
     "Show Low · knowledge · From our guides · Place",
@@ -1815,7 +1816,7 @@
    "q": "four cor",
    "ctx": "",
    "url": "/api/search.php?suggest=1&q=four%20cor",
-   "ms": 99,
+   "ms": 98,
    "first": [
     "Four Corners, WY · place · Town · see what's there",
     "Four Corners Monument · outdoors · Aneth › Monuments",
@@ -1831,7 +1832,7 @@
    "q": "four corners",
    "ctx": "",
    "url": "/api/search.php?suggest=1&q=four%20corners",
-   "ms": 131,
+   "ms": 94,
    "first": [
     "Four Corners Monument · outdoors · Aneth › Monuments",
     "Four Corners, WY · place · Town · see what's there",
@@ -1846,7 +1847,7 @@
    "q": "dana point harb",
    "ctx": "",
    "url": "/api/search.php?suggest=1&q=dana%20point%20harb",
-   "ms": 222,
+   "ms": 198,
    "first": [],
    "fails": [
     "nothing like /Dana Point Harbor/ in the first 3"
@@ -1858,7 +1859,7 @@
    "q": "laguna art",
    "ctx": "",
    "url": "/api/search.php?suggest=1&q=laguna%20art",
-   "ms": 97,
+   "ms": 84,
    "first": [
     "Laguna Art Museum · outdoors · Laguna Beach › Museums · 610 mi"
    ],
@@ -1870,7 +1871,7 @@
    "q": "mexi",
    "ctx": "",
    "url": "/api/search.php?suggest=1&q=mexi",
-   "ms": 116,
+   "ms": 110,
    "first": [
     "New Mexico · a state to explore",
     "Mexico · a country",
@@ -1886,7 +1887,7 @@
    "q": "ital",
    "ctx": "",
    "url": "/api/search.php?suggest=1&q=ital",
-   "ms": 96,
+   "ms": 97,
    "first": [
     "Italy · a country",
     "Italian food · restaurants and Italian cuisine",
@@ -1918,7 +1919,7 @@
    "q": "dog park",
    "ctx": "",
    "url": "/api/search.php?suggest=1&q=dog%20park",
-   "ms": 183,
+   "ms": 162,
    "first": [
     "Dog parks · places for dogs, nearest first",
     "Parker Canyon Lake · outdoors · Reservoir · near Cochise County",
@@ -1934,7 +1935,7 @@
    "q": "playg",
    "ctx": "",
    "url": "/api/search.php?suggest=1&q=playg",
-   "ms": 114,
+   "ms": 108,
    "first": [
     "Playgrounds · places for kids, nearest first",
     "Playground Group · outdoors · Camp Verde › Campground",
@@ -1950,7 +1951,7 @@
    "q": "AZ a",
    "ctx": "city=Saint Johns&state=AZ",
    "url": "/api/search.php?suggest=1&q=AZ%20a&city=Saint Johns&state=AZ",
-   "ms": 192,
+   "ms": 127,
    "first": [
     "Arizona · a state to explore"
    ],
@@ -1962,7 +1963,7 @@
    "q": "az am",
    "ctx": "city=Saint Johns&state=AZ",
    "url": "/api/search.php?suggest=1&q=az%20am&city=Saint Johns&state=AZ",
-   "ms": 169,
+   "ms": 187,
    "first": [
     "Arizona · a state to explore",
     "Ambulances · category · Saint Johns, AZ › 1 here · for “az ambulance”",
@@ -1978,7 +1979,7 @@
    "q": "mexi",
    "ctx": "track=explore",
    "url": "/api/search.php?suggest=1&q=mexi&track=explore",
-   "ms": 114,
+   "ms": 111,
    "first": [
     "New Mexico · a state to explore",
     "Mexico · a country",
@@ -1994,7 +1995,7 @@
    "q": "mexi",
    "ctx": "track=local",
    "url": "/api/search.php?suggest=1&q=mexi&track=local",
-   "ms": 112,
+   "ms": 110,
    "first": [
     "Mexican food · restaurants and Mexican cuisine",
     "New Mexico · a state to explore",
@@ -2010,7 +2011,7 @@
    "q": "trail",
    "ctx": "city=Show Low&state=AZ&reach=25&track=explore",
    "url": "/api/search.php?suggest=1&q=trail&city=Show Low&state=AZ&reach=25&track=explore",
-   "ms": 100,
+   "ms": 104,
    "first": [
     "Trail, OR · a town in Oregon",
     "Traill County, ND · a county",
@@ -2026,7 +2027,7 @@
    "q": "pizz",
    "ctx": "city=Show Low&state=AZ&reach=25&track=local",
    "url": "/api/search.php?suggest=1&q=pizz&city=Show Low&state=AZ&reach=25&track=local",
-   "ms": 117,
+   "ms": 118,
    "first": [
     "Pizza · 6 here in Show Low, AZ",
     "Pizza Hut · listing · Show Low, AZ › Pizza",
@@ -2042,7 +2043,7 @@
    "q": "coff",
    "ctx": "city=Show Low&state=AZ&reach=25",
    "url": "/api/search.php?suggest=1&q=coff&city=Show Low&state=AZ&reach=25",
-   "ms": 132,
+   "ms": 121,
    "first": [
     "Coffee Shops · 3 here in Show Low, AZ",
     "Coffee County, TN · a county",
@@ -2058,7 +2059,7 @@
    "q": "pizz",
    "ctx": "city=Show Low&state=AZ&reach=25",
    "url": "/api/search.php?suggest=1&q=pizz&city=Show Low&state=AZ&reach=25",
-   "ms": 125,
+   "ms": 112,
    "first": [
     "Pizza · 6 here in Show Low, AZ",
     "Pizza Hut · listing · Show Low, AZ › Pizza",
@@ -2074,7 +2075,7 @@
    "q": "plum",
    "ctx": "city=Show Low&state=AZ&reach=25",
    "url": "/api/search.php?suggest=1&q=plum&city=Show Low&state=AZ&reach=25",
-   "ms": 85,
+   "ms": 84,
    "first": [
     "Plumbers · 6 here in Show Low, AZ",
     "Plum, TX · a town in Texas",
@@ -2090,7 +2091,7 @@
    "q": "hik",
    "ctx": "city=Show Low&state=AZ&reach=25",
    "url": "/api/search.php?suggest=1&q=hik&city=Show Low&state=AZ&reach=25",
-   "ms": 97,
+   "ms": 94,
    "first": [
     "Hiking · situation · Trails · Gear · Hiking groups",
     "Hiking · tag · Show Low, AZ › Things to do",
@@ -2106,7 +2107,7 @@
    "q": "place to take my k",
    "ctx": "city=Phoenix&state=AZ&reach=25",
    "url": "/api/search.php?suggest=1&q=place%20to%20take%20my%20k&city=Phoenix&state=AZ&reach=25",
-   "ms": 175,
+   "ms": 152,
    "first": [
     "Place to take my kids · With kids: places that suit them, nearest first"
    ],
@@ -2118,7 +2119,7 @@
    "q": "things to do",
    "ctx": "city=Phoenix&state=AZ&reach=25",
    "url": "/api/search.php?suggest=1&q=things%20to%20do&city=Phoenix&state=AZ&reach=25",
-   "ms": 194,
+   "ms": 195,
    "first": [
     "Something to do · situation · Worth the trip · Get outside · Indoors · What people did here",
     "Something for the kids · situation · Parks and pools · Indoor fun · Outings",
@@ -2134,7 +2135,7 @@
    "q": "coffee near",
    "ctx": "city=Show Low&state=AZ&reach=25",
    "url": "/api/search.php?suggest=1&q=coffee%20near&city=Show Low&state=AZ&reach=25",
-   "ms": 79,
+   "ms": 76,
    "first": [
     "Coffee near me · the nearest first, with how far",
     "Coffee near Show Low, AZ · around your place",
@@ -2150,7 +2151,7 @@
    "q": "resturant",
    "ctx": "city=Show Low&state=AZ&reach=25",
    "url": "/api/search.php?suggest=1&q=resturant&city=Show Low&state=AZ&reach=25",
-   "ms": 106,
+   "ms": 122,
    "first": [
     "Restaurants · category · Maybe? Show Low, AZ › 30 here · for “resturant”",
     "Rest Area · category · Maybe? Show Low, AZ › none here yet · 2 listed in all · for “resturant”"
