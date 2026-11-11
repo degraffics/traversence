@@ -72,6 +72,32 @@ for (const [label, url] of pages) {
   } catch (e) { md += `## ${label}\n\n- **Error:** ${String(e).slice(0, 160)}\n\n`; }
   await p.close();
 }
+// the search panel as someone types on a phone (Jason, 2026-11-11: "Location, results, location, results, maybe?"): the
+// order it shows things in, top to bottom: the Location line, any question about where, then what the words mean, then
+// where to go. Signed out, no place set.
+md += `## The search panel while typing\n\n`;
+for (const typed of ['jalapen', 'coffee near me']) {
+  const p = await ctx.newPage();
+  try {
+    await p.goto(SITE + '/discovery/', { waitUntil: 'networkidle', timeout: 30000 });
+    await p.click('#tv-search .tvs-in');
+    await p.type('#tv-search .tvs-in', typed, { delay: 60 });
+    await p.waitForTimeout(2500);
+    const seen = await p.evaluate(() => {
+      const panel = document.querySelector('.tvs-panel'); if (!panel) return ['(no panel)'];
+      const out = [];
+      for (const el of panel.querySelectorAll('.tvs-tsum, .tvs-loc, .tvs-locask .tvs-intent, h3.tvs-h, .tvs-t1 > *, .tvs-t1 .tvs-chipr button')) {
+        const r = el.getBoundingClientRect(); if (!r.height || getComputedStyle(el).display === 'none') continue;
+        const txt = (el.innerText || '').replace(/\s+/g, ' ').trim().slice(0, 70); if (txt) out.push(txt);
+      }
+      return [...new Set(out)].slice(0, 14);
+    });
+    md += `- **${typed}:** ${seen.map((x) => x.replace(/\|/g, '/')).join(' › ')}\n`;
+    await p.screenshot({ path: `shots/panel-${typed.replace(/[^a-z0-9]+/gi, '-')}.png` }).catch(() => {});
+  } catch (e) { md += `- **${typed}:** error ${String(e).slice(0, 120)}\n`; }
+  await p.close();
+}
+md += '\n';
 await browser.close();
 writeFileSync('site-audit/layout-probe.md', md);
 console.log(`${pages.length} pages measured`);
