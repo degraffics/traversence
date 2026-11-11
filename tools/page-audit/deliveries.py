@@ -42,6 +42,10 @@ def verify(a):
         d = json.load(open(p))
         if d['status'] == 'live':
             continue
+        if d.get('replaced_by'):   # a zip rebuilt as another (its files came in on a newer live copy): never pending again
+            d['status'] = 'replaced'
+            json.dump(d, open(p, 'w'), indent=1)
+            continue
         for f, v in d['files'].items():
             if f.startswith('app/migrations/'):
                 v['live'] = True   # migrations run themselves and are deleted (CLAUDE.md), so the mirror may never hold them
