@@ -1,8 +1,8 @@
 {
  "zip": "moments-frames-zoom_20261111.zip",
  "built_on": "445a68f Sync: 2026-11-11 17:17 UTC",
- "recorded": "2026-11-11 17:22 UTC",
- "note": "Replaces moments-frames (never uploaded; same files plus one). The recorder's frame: Portrait 9:16, Square or Landscape 16:9, recorded at that size (a canvas cut from the camera's picture, at most 1280 px long), so review matches the live view; remembered on the device. Zoom: pinch the picture or tap 1\u00d7 for 2\u00d7 and 3\u00d7, before or while recording; the camera's own zoom where the browser offers it (sharp, up to 8\u00d7), else digital up to 3\u00d7. The upload notice says 'Your video is ready to post' instead of the file name. FAQ updated. Built on 17:17 UTC sync.",
+ "recorded": "2026-11-11 17:24 UTC",
+ "note": "Replaces moments-frames (never uploaded). The recorder's frame: Portrait 9:16, Square or Landscape 16:9, recorded at that size (a canvas cut from the camera's picture, at most 1280 px long), so review matches the live view. Zoom: pinch or tap 1x for 2x and 3x, before or while recording; the camera's own zoom where offered, else digital up to 3x. Upload notice 'Your video is ready to post'. A post made on the Dashboard shows under the box there (no jump to Posts), and the Posts tab has its own 'What's on your mind?' box. FAQ updated. Built on 17:17 UTC sync.",
  "status": "pending",
  "live_in": "",
  "files": {
@@ -15,7 +15,11 @@
    "live": false
   },
   "website/js/tv-moments.js": {
-   "sha256": "9b44ce0e23f3692bc82ab6a22c48f0068538ba08d9b95daa16b566437c868919",
+   "sha256": "722554c4f0c8d982f2bfdb9c898a4fdb0ecda21539b9014221b3c353925d206b",
+   "live": false
+  },
+  "website/user/dashboard.php": {
+   "sha256": "1a6ec0fbbd4f71cac113c2c82ff11ecf005f64d09c0e63a8513900f11fb1e075",
    "live": false
   }
  }
