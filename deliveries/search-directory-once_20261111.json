@@ -1,8 +1,8 @@
 {
  "zip": "search-directory-once_20261111.zip",
  "built_on": "77a5d64 Sync: 2026-11-11 02:09 UTC",
- "recorded": "2026-11-11 02:11 UTC",
- "note": "Directory: one line at the foot; the results open like typing (a word that starts a situation leads, no 'not sure' then)",
+ "recorded": "2026-11-11 02:30 UTC",
+ "note": "Directory: one line at the foot; results open like typing; the search opens empty there (the words stay on the list as its filter)",
  "status": "pending",
  "live_in": "",
  "files": {
@@ -11,11 +11,11 @@
    "live": false
   },
   "app/ui/faq.md": {
-   "sha256": "1af1cd30f8b6fda5f63a5317b1ad9688cbf77b39d0c184c4e28bcddeff4c8de4",
+   "sha256": "3d7023ee98058f6bf4b536b4717681e308822a13f9e6fd20def2aa81c78f96bb",
    "live": false
   },
   "website/js/search-panel.js": {
-   "sha256": "c60f124d9cff838550a5b36f6aa80144dd8b997be631447dd5837ebaf1a421e1",
+   "sha256": "befb8823af8704fde446b497abb43e0c2f2eb937e731513f8889f7285db0a7a2",
    "live": false
   }
  }
