@@ -1,13 +1,13 @@
 {
- "zip": "map-place-ask_20261111.zip",
+ "zip": "map-place-ask-landmarks_20261111.zip",
  "built_on": "435ac60 Sync: 2026-11-11 13:22 UTC",
- "recorded": "2026-11-11 13:28 UTC",
- "note": "Map never uses the device's location without a yes (asked each time, or 'always' on this device); how the place was chosen shown under the panel title with Change; Discovery's map opens and asks like the Directory's; Distance only after a place is set and placed after the place fields; signed-in picker redrawn once sign-in is known. Built on 13:22 UTC sync.",
+ "recorded": "2026-11-11 13:29 UTC",
+ "note": "Supersedes map-place-ask (same files plus): Show more landmarks on Parks & Landmarks, 24 at a time. Map asks before using the device's location; method under the panel title; Discovery map like the Directory's; Distance after a place; signed-in picker. Built on 13:22 UTC sync.",
  "status": "pending",
  "live_in": "",
  "files": {
   "app/ui/faq.md": {
-   "sha256": "de2072a273430fa5b56391f3396f602a8394fc41202e29e61cf44af5c22abe80",
+   "sha256": "e956f2ccf98d87d922a10aef89206ef9df0e3a89e352547ce0eca660cd3ca1b7",
    "live": false
   },
   "app/ui/location-modal.php": {
@@ -19,7 +19,7 @@
    "live": false
   },
   "website/discovery/index.php": {
-   "sha256": "35c9255d0a188dac52d6ca85fa61f64f3f6422efe5fef9ca83956ada182187b2",
+   "sha256": "2677de5222d1528eabadf645fb80cf69621e84f386240d425ba3f07180ada66a",
    "live": false
   },
   "website/js/location-scope.js": {
