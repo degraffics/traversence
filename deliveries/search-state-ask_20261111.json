@@ -1,17 +1,21 @@
 {
  "zip": "search-state-ask_20261111.zip",
  "built_on": "7d379b7 Sync: 2026-11-11 02:58 UTC",
- "recorded": "2026-11-11 03:20 UTC",
- "note": "While typing, a two-letter state code isn't assumed: 'dog pa' offers Dog parks and asks '\u201cdog\u201d in Pennsylvania?'; 'pa' alone offers the state",
+ "recorded": "2026-11-11 03:22 UTC",
+ "note": "Suggestions wait for three letters; while typing a possible state code is asked, not assumed ('dog pa': Dog parks, then \u201cdog\u201d in Pennsylvania?)",
  "status": "pending",
  "live_in": "",
  "files": {
   "app/lib/UniversalSearch.php": {
-   "sha256": "847ce21df0bfa83ea8cd9e8d77b05e79ed4e4569b91451abd31539f27dc1c617",
+   "sha256": "d0844a4a09e47bde1fa9fef51ef3ca5e8f996cbc15e3255f6e43932d896ce269",
    "live": false
   },
   "app/ui/faq.md": {
-   "sha256": "e8fe4bd1f326cf221b5261ec0c1aef0040b66268371856e6a39f28de1f882b76",
+   "sha256": "36511c63624b3c43612e916c55e3f36eb9c29648fbfaeeeb2b0e43ec33906ae6",
+   "live": false
+  },
+  "website/js/search-panel.js": {
+   "sha256": "3a83cb4d5ce41fd96e5e00d983cbceabbfa54b55b01f8ac56b838158bbe1af72",
    "live": false
   }
  }
