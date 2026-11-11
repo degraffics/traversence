@@ -1,6 +1,6 @@
 # ADR 0153: Moments, Snaps and Keep (the personal feed)
 
-**Status:** Accepted (Jason, 2026-11-11, in conversation). Not built: four zips, in the order in §11. Builds on
+**Status:** Accepted (Jason, 2026-11-11, in conversation). Zip 1 built (`moments-keep_20261111.zip`, below); zips 2–4 to come, in the order in §11. Builds on
 `decisions/0047` (links and the feeds), `0050` (data use), `0052` (one messaging system), `0058` (the public profile),
 `0126` (the Gallery), `0127` (one uploader), `0132` (tags and links) and `0151` (files on Cloudflare R2). Amends 0050
 (§6 below: viewers named on your own Moments and Snaps) and 0151 §3 (§8 below: the video worker).
@@ -143,3 +143,28 @@ zone), `member_post_media` (storage key, kind, poster, length, bytes, temporary 
 - The FAQ gains entries for Moments, Keep, Snaps, who sees your name, the limits and what's kept after deletion, each
   saying "coming" until its zip is live.
 - 0058 §1's "Activity stream: opt-in, off by default" still holds: Moments are what someone chose to post, not activity.
+
+## Built: zip 1, Moments and Keep (`moments-keep_20261111.zip`, built on the 16:26 UTC sync, 2026-11-11)
+
+- **Posting:** `app/lib/MemberPosts.php`, `website/user/api/posts.php`, the upload target `moment`, migration
+  `2027-02-26_member_posts.sql` (posts, media, views, edits, holds, the one-line log, spend, default audience; a
+  `reaction` column on `content_likes`). Members only for now; posting as a business comes with zip 2.
+- **Pages:** "What's on your mind?" at the top of the Dashboard and on the profile's new **Posts** tab (public profiles
+  open on it; owner and public views); `website/user/post.php` for one post; `website/js/tv-moments.js` (composer, the
+  2-minute recorder at about 1.2 Mbps, the feed with List / Grid, the seven reactions, comments, Share, Seen by, the ⋯
+  menu). Media served by `website/user/api/post-media.php` (signed R2 links, or the server without S3).
+- **Keep:** photos and videos go into the Gallery's private **Kept Moments** album for now; the Channel album kind and
+  the Videos tab come with zip 3, which moves kept videos into the Channel.
+- **The end:** `app/scripts/moments_tick.php` (hourly, `Scheduler::AUTO`): the day-before notice (`moment_ending`),
+  deletion, unposted uploads after 24 hours, held copies released 90 days after the decision. Comment notices
+  (`post_comment`).
+- **Reports:** kind `member_post` in `Reports` (filed from the ⋯ menu): held copy at the first report, hidden at the third
+  or at once for private information, a sacred site or danger; decided on the Reports page.
+- **Budget:** `COMMUNITY_BUDGET_PCT` (3) and `COMMUNITY_BUDGET_FLOOR_USD` (25) in Settings; a Pulse case at 80% (key
+  `moments:<month>`, with Cloudflare's link); free accounts' video waits at 100%.
+- **The Pulse:** a **People you follow** source with photo thumbnails.
+- **Fixed on the way:** `Engage::comment()` returned id 0 (the insert id was read after another query).
+- **Not yet:** single-request uploads for small files (uploads still go in parts; a change to the one uploader, its own
+  build); higher quality by plan (needs the video worker, zip 3); the Moments ring on the profile photo and Highlights.
+- **Cloudflare, once (Jason):** R2 → the bucket → Settings → Object lifecycle rules → Add rule: prefix `temporary/`,
+  delete objects after **9 days**. Billing → notifications: a usage alert for R2.

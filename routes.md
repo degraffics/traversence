@@ -56,7 +56,8 @@ new home); **Remove** (left over, should come off the server).*
 | Route | Purpose | ADR | Status |
 |---|---|---|---|
 | `/user/dashboard.php` | The member Dashboard: Pulse, Address Book, links, saved searches, roles | 0047, 0049, 0052, 0054, 0055, 0056 | Live |
-| `/user/profile.php?id=` | A person's public profile (only what anyone may see) | 0047, 0058 | Live |
+| `/user/profile.php?id=` | A person's public profile (only what anyone may see); opens on its Posts tab | 0047, 0058, 0153 | Live |
+| `/user/post.php?id=` | One post on its own page, for whoever it's shared with (what the Pulse, notices and shared links open) | 0153 | Built (moments-keep zip) |
 | `/user/journeys/`, `/user/journeys/compose.php` | Your journeys; write or edit one (contributors) | 0056, 0058 | Live |
 | `/user/experiences/` | Your experiences | 0059 | Live |
 | `/dashboard.php` | Old address of the business portal | — | Moved to `/listing/businessportal.php` |

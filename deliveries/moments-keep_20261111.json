@@ -1,0 +1,90 @@
+{
+ "zip": "moments-keep_20261111.zip",
+ "built_on": "43995cd Sync: 2026-11-11 16:26 UTC",
+ "recorded": "2026-11-11 16:46 UTC",
+ "note": "decisions/0153 zip 1, Moments and Keep: every post lasts 3 days (or 7) then is deleted with its photos and videos unless kept (kept ones go to the Gallery's Kept Moments album); composer on the Dashboard and the profile's new Posts tab (public profiles open on it); 2-minute recorder compressed in the browser; Public/Followers/Connections/Only me; seven reactions; comments; Seen by (named when linked); reports hold a compressed copy 90 days after the decision; limits 5 a day (2 in the first week), 25 active; community budget (3% of revenue, $25 floor) with a Pulse case at 80%; People you follow in the Pulse; hourly moments_tick. Fixes Engage::comment returning id 0. Built on 16:26 UTC sync.",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/AccountDeletion.php": {
+   "sha256": "6f77b6fa7134461c8512cce3f00da2867c1573ffdf2ad475c66f37e6e2f2af2e",
+   "live": false
+  },
+  "app/lib/Engage.php": {
+   "sha256": "b8ff5d3305aef65846027a511aba56274923272def8e0a1c3590e02bbed34eee",
+   "live": false
+  },
+  "app/lib/EnvSettings.php": {
+   "sha256": "eaf1378e7ab6abf44a3e713dd6df1bc60726b8626aca5d74cd2f8997448d7dd2",
+   "live": false
+  },
+  "app/lib/MemberPosts.php": {
+   "sha256": "d89b2ff7dc5389ac282fd42e93f5efc3a4d90ecd441c39ccbcd4a4e52a682648",
+   "live": false
+  },
+  "app/lib/MemberProfile.php": {
+   "sha256": "01b9c3da1e7b93fb8698392aa2d75a74c3ca0e600508b674cf7b25b6d3209eff",
+   "live": false
+  },
+  "app/lib/MemberPulse.php": {
+   "sha256": "6969ccb9c1b26d84e792c64bf9162c1a9c3da1a930a6236517d5e977544b201f",
+   "live": false
+  },
+  "app/lib/Notices.php": {
+   "sha256": "09495385d98aeefbd08e0b38e887b0ce6a5cfe31e478392be423e721b2bfeb2c",
+   "live": false
+  },
+  "app/lib/Pulse.php": {
+   "sha256": "a50a16046fc75204f4dedc5e2dad78ece047a2af463bcd5ed1c271bb350ea08c",
+   "live": false
+  },
+  "app/lib/Reports.php": {
+   "sha256": "ee4210c6fde7d9c577c6503c0cecdfef92a2814929a3fbe3c4e06a802005173a",
+   "live": false
+  },
+  "app/lib/Scheduler.php": {
+   "sha256": "b3b262373cc11ad503da4a5e231e51f912bf773e30ec68d50696af56cdeba4a8",
+   "live": false
+  },
+  "app/lib/upload-targets.php": {
+   "sha256": "4f638f6b5165d0c4f0429a9ce41e29b377819951dd17776fe2b068ebcb1af291",
+   "live": false
+  },
+  "app/migrations/2027-02-26_member_posts.sql": {
+   "sha256": "deaad3e97da4bf80342b47243f884ba4276a7070b88ef39ee6ec7a9097b2f3d3",
+   "live": false
+  },
+  "app/scripts/moments_tick.php": {
+   "sha256": "cd4d02ed5f2df7b5edfac16bbb9b25e2cc989a94ee270f2dd29abe5d2a6862b6",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "99c78b236d485cd606d7f78971d59930febb45d0837d8d08e581716b78c6b75d",
+   "live": false
+  },
+  "website/js/tv-moments.js": {
+   "sha256": "aac16606c68a63de09cb1349255f0621d51e91740a8a9983c7daea7d69b2d7d9",
+   "live": false
+  },
+  "website/user/api/post-media.php": {
+   "sha256": "81c08d05781112ecfef53880b786b7a9ef69ae5f540a531733a5a1acb09fa0a2",
+   "live": false
+  },
+  "website/user/api/posts.php": {
+   "sha256": "767a7cbd9c6b8b082aadfa875c62639818363db2841e9d14e4ac356cd262db9e",
+   "live": false
+  },
+  "website/user/dashboard.php": {
+   "sha256": "b31a269e759de5ef5ec0aafaa446884f4dd8e7e0a394b4aea9e5b8f8a7045a38",
+   "live": false
+  },
+  "website/user/post.php": {
+   "sha256": "7b4a40151d121f51c759b045579568480d6b50f41712b3e92f0b8fc8bbdb0a3d",
+   "live": false
+  },
+  "website/user/profile.php": {
+   "sha256": "67781ae9d60130e93bf0728f9862532a42bedc92aceebe9084b3bfabd284def4",
+   "live": false
+  }
+ }
+}
