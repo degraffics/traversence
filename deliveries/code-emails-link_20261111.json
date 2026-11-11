@@ -1,0 +1,38 @@
+{
+ "zip": "code-emails-link_20261111.zip",
+ "built_on": "c9fc367 Sync: 2026-11-11 15:40 UTC",
+ "recorded": "2026-11-11 15:47 UTC",
+ "note": "Code emails as one clean card (Outlook-safe tables): the code once, large, one click selects it; sign-in codes add 'Sign in with this code' to the page with the code filled in (#code, js/code-link.js; never signs in by itself). Built on 15:40 UTC sync.",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/Mailer.php": {
+   "sha256": "91012b524e55c5c35800fd9e6c7861ab367210b6f4d7510400d7cc31f7818ff9",
+   "live": false
+  },
+  "app/lib/StaffLogin.php": {
+   "sha256": "3718ba943e66f06999021785890819ee2250e6426404a8eed7859e7fdcfea354",
+   "live": false
+  },
+  "app/lib/TwoStep.php": {
+   "sha256": "3eccf802f7019adf229b96f7a8dc7e7c3a1fe9b6627901ed769e85a148949ed0",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "6c3bf6482913069aee267bf69a77c2ab1868bb3dfbb3d00cef13c02dd651d202",
+   "live": false
+  },
+  "website/admin/login.php": {
+   "sha256": "13ac2499a0112ac66451189fa63caaa61b63ae620a171ff5db82eae5c94c671c",
+   "live": false
+  },
+  "website/js/code-link.js": {
+   "sha256": "c4628470a65d70e6b4cc55a60f790c48985aeff2a7812ab432405206d1ddac02",
+   "live": false
+  },
+  "website/two-step.php": {
+   "sha256": "135e38c039a8487d38231c1dd4f3270e92f53a193fa4212ba58b1e228457ebb8",
+   "live": false
+  }
+ }
+}
