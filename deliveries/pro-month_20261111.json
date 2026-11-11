@@ -1,0 +1,42 @@
+{
+ "zip": "pro-month_20261111.zip",
+ "built_on": "12c89bb Sync: 2026-11-11 22:28 UTC",
+ "recorded": "2026-11-11 22:32 UTC",
+ "note": "A single month of Personal Pro ($9.95, paid once): Shop, one cart, OneOffs, Billing::oneMonth; migration 2027-03-02_month_only.sql. Built on 22:28 UTC.",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/Billing.php": {
+   "sha256": "39fbfd47349113989e1d16c5d80649d39037718f33375051f4f14b3f5c46fc9b",
+   "live": false
+  },
+  "app/lib/CartPlans.php": {
+   "sha256": "650193349930500e8252597240dec3ec6ca3855be93c2101a6609985ec322e2f",
+   "live": false
+  },
+  "app/lib/OneOffs.php": {
+   "sha256": "db6ec1b5d430273dab08d44cbbe45d76f36682b2493b1fac7583cab0c9a8820a",
+   "live": false
+  },
+  "app/migrations/2027-03-02_month_only.sql": {
+   "sha256": "7a66b414f22a4fab148fa94fe06e4eba633a935108f33d0fa81ee8abf0d08a4d",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "3a9a9e13026333a47782904d2652443ce2fe52c899381e8faba170562c6d2298",
+   "live": false
+  },
+  "website/api/go-codes.php": {
+   "sha256": "350a145842e1951cc17ee2f061958a81e3415da594a89565308e296416a8d8ac",
+   "live": false
+  },
+  "website/qr/cart.php": {
+   "sha256": "e57c00000d45d8a10f79cdf8e9abf2209f6695b53acb018f42abc5fb2f89d292",
+   "live": false
+  },
+  "website/shop/index.php": {
+   "sha256": "40ce4d5a07179ad21089fed2e3145404f3efdf1cb4d6e786bfe0c07af84959e5",
+   "live": false
+  }
+ }
+}

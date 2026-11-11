@@ -164,4 +164,10 @@ worker), not in Settings.
   (`app/lib/OneOffs.php`: `orders` + `order_lines` product `keep_4k`, `QuickBooksPay::chargeCard` with its test guard, a
   Sales Receipt like a plan's; a test account pays in the sandbox), not a line on the GO Codes order, so GO Codes'
   invoices and issuing are untouched. Then `member_post_media.keep_hd = 1` and the post is kept with its original
-  (`MemberPosts::bestPart`). A decline voids its order and leaves it in the cart. Not yet: a single month of Pro.
+  (`MemberPosts::bestPart`). A decline voids its order and leaves it in the cart.
+- **A single month of Pro ($9.95), built the same day (`pro-month` zip):** in the Shop, **Add to cart**, paid once like
+  Keep in 4K (`OneOffs` kind `pro_month`). After the charge, `Billing::oneMonth` gives Personal Pro for a month:
+  `status = 'active'`, `cancel_at_end = 1`, no card kept, `subscriptions.month_only = 1`, so it ends on Free at its
+  renewal date (the usual "has ended" email). Another month bought before it ends adds a month. It replaces a free trial;
+  it's refused while a renewing plan is on. Turning a single month back on to renew needs a card first
+  (`Billing::cancelAtEnd`). AI credits come with it: it's paid.
