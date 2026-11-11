@@ -3,24 +3,24 @@
  "built_on": "445a68f Sync: 2026-11-11 17:17 UTC",
  "recorded": "2026-11-11 17:26 UTC",
  "note": "Replaces moments-frames (never uploaded). Recorder frame (Portrait 9:16, Square, Landscape 16:9) recorded at that size; zoom (pinch, or 1x/2x/3x; the camera's own where offered); upload notice 'Your video is ready to post'; a Dashboard post shows under the box there and the Posts tab has its own box; the post's menu and reaction picker drawn solid above videos (they were see-through), opening upward when there's no room below, closing with Esc. FAQ updated. Built on 17:17 UTC sync.",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "9d0f442 Sync: 2026-11-11 17:31 UTC",
  "files": {
   "app/lib/upload-targets.php": {
    "sha256": "e333f60a52f5e10ed150d5859b44cd458eaf02a26fcbc666172cfa88dfec1963",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "3a74825a91858ca7869fa50789e0b264e6d42d2aa9001fb80a00634269f5e036",
-   "live": false
+   "live": true
   },
   "website/js/tv-moments.js": {
    "sha256": "5e5a29acc4637745555896639e615c47361c479bb09c7020ca4e298ca366446b",
-   "live": false
+   "live": true
   },
   "website/user/dashboard.php": {
    "sha256": "1a6ec0fbbd4f71cac113c2c82ff11ecf005f64d09c0e63a8513900f11fb1e075",
-   "live": false
+   "live": true
   }
  }
 }
