@@ -6,7 +6,7 @@
    "expect": "Dana Point, CA and its guide (it has one), not Point, TX",
    "url": "/api/search.php?q=Dana%20point",
    "status": 200,
-   "ms": 531,
+   "ms": 357,
    "place": "Dana Point, CA",
    "chips": [
     "place: Dana Point, CA"
@@ -14,27 +14,29 @@
    "text": "",
    "guide": "",
    "ask": "What would you like to know about Dana Point, CA?",
-   "total": 2,
+   "total": 4,
    "kinds": [
     {
      "kind": "outdoors",
      "label": "Outdoors",
      "plural": "Outdoors",
-     "count": 2
+     "count": 4
     }
    ],
    "note": "",
    "osm": "",
    "mentions": 0,
    "first": [
-    "Ocean Institute (outdoors · Museums ·  County)",
-    "Salt Creek Beach Park (outdoors · Parks ·  County)"
+    "Ocean Institute (outdoors · Museums · near Dana Point)",
+    "Salt Creek Beach Park (outdoors · Parks · near Dana Point)",
+    "Orange County Blues Festival (outdoors · Music festival · near Dana Point)",
+    "San Juan Creek (outdoors · River · near Riverside County)"
    ],
    "groups": [
     "Listings 0"
    ],
    "funnels": [
-    "Let's Explore 3 → /hub/?cluster=cluster-auto-laguna-niguel&view=outdoors"
+    "Let's Explore 5 → /hub/?cluster=cluster-auto-laguna-niguel&view=outdoors"
    ],
    "intent": "",
    "near": "",
@@ -46,7 +48,7 @@
    "expect": "Dana Point, CA: its guide, places and listings",
    "url": "/api/search.php?q=Dana%20Point%2C%20CA",
    "status": 200,
-   "ms": 114,
+   "ms": 87,
    "place": "Dana Point, CA",
    "chips": [
     "place: Dana Point, CA"
@@ -54,27 +56,29 @@
    "text": "",
    "guide": "",
    "ask": "What would you like to know about Dana Point, CA?",
-   "total": 2,
+   "total": 4,
    "kinds": [
     {
      "kind": "outdoors",
      "label": "Outdoors",
      "plural": "Outdoors",
-     "count": 2
+     "count": 4
     }
    ],
    "note": "",
    "osm": "",
    "mentions": 0,
    "first": [
-    "Ocean Institute (outdoors · Museums ·  County)",
-    "Salt Creek Beach Park (outdoors · Parks ·  County)"
+    "Ocean Institute (outdoors · Museums · near Dana Point)",
+    "Salt Creek Beach Park (outdoors · Parks · near Dana Point)",
+    "Orange County Blues Festival (outdoors · Music festival · near Dana Point)",
+    "San Juan Creek (outdoors · River · near Riverside County)"
    ],
    "groups": [
     "Listings 0"
    ],
    "funnels": [
-    "Let's Explore 3 → /hub/?cluster=cluster-auto-laguna-niguel&view=outdoors"
+    "Let's Explore 5 → /hub/?cluster=cluster-auto-laguna-niguel&view=outdoors"
    ],
    "intent": "",
    "near": "",
@@ -86,7 +90,7 @@
    "expect": "Dana Point, CA",
    "url": "/api/search.php?q=dana%20point%20california",
    "status": 200,
-   "ms": 109,
+   "ms": 93,
    "place": "Dana Point, CA",
    "chips": [
     "place: Dana Point, CA"
@@ -94,27 +98,29 @@
    "text": "",
    "guide": "",
    "ask": "What would you like to know about Dana Point, CA?",
-   "total": 2,
+   "total": 4,
    "kinds": [
     {
      "kind": "outdoors",
      "label": "Outdoors",
      "plural": "Outdoors",
-     "count": 2
+     "count": 4
     }
    ],
    "note": "",
    "osm": "",
    "mentions": 0,
    "first": [
-    "Ocean Institute (outdoors · Museums ·  County)",
-    "Salt Creek Beach Park (outdoors · Parks ·  County)"
+    "Ocean Institute (outdoors · Museums · near Dana Point)",
+    "Salt Creek Beach Park (outdoors · Parks · near Dana Point)",
+    "Orange County Blues Festival (outdoors · Music festival · near Dana Point)",
+    "San Juan Creek (outdoors · River · near Riverside County)"
    ],
    "groups": [
     "Listings 0"
    ],
    "funnels": [
-    "Let's Explore 3 → /hub/?cluster=cluster-auto-laguna-niguel&view=outdoors"
+    "Let's Explore 5 → /hub/?cluster=cluster-auto-laguna-niguel&view=outdoors"
    ],
    "intent": "",
    "near": "",
@@ -126,7 +132,7 @@
    "expect": "places to eat in Dana Point",
    "url": "/api/search.php?q=restaurants%20in%20Dana%20Point%2C%20CA",
    "status": 200,
-   "ms": 135,
+   "ms": 106,
    "place": "Dana Point, CA",
    "chips": [
     "place: Dana Point, CA",
@@ -173,7 +179,7 @@
    "expect": "places to eat in Dana Point",
    "url": "/api/search.php?q=Places%20to%20eat%20around%20dana%20point%2C%20ca",
    "status": 200,
-   "ms": 113,
+   "ms": 117,
    "place": "Dana Point, CA",
    "chips": [
     "why: Somewhere to eat",
@@ -220,7 +226,7 @@
    "expect": "Phoenix, AZ: its guide, listings, places",
    "url": "/api/search.php?q=Phoenix%2C%20az",
    "status": 200,
-   "ms": 97,
+   "ms": 74,
    "place": "Phoenix",
    "chips": [
     "place: Phoenix"
@@ -250,7 +256,7 @@
    "expect": "Phoenix, AZ (the pilot state first)",
    "url": "/api/search.php?q=Phoenix",
    "status": 200,
-   "ms": 91,
+   "ms": 76,
    "place": "Phoenix",
    "chips": [
     "place: Phoenix"
@@ -280,7 +286,7 @@
    "expect": "places to eat in Phoenix",
    "url": "/api/search.php?q=restaurants&city=Phoenix&state=AZ&reach=25",
    "status": 200,
-   "ms": 93,
+   "ms": 76,
    "place": "Phoenix, AZ",
    "chips": [
     "place: Phoenix, AZ",
@@ -325,7 +331,7 @@
    "expect": "pizza places in Phoenix",
    "url": "/api/search.php?q=pizza%20in%20phoenix",
    "status": 200,
-   "ms": 133,
+   "ms": 116,
    "place": "Phoenix",
    "chips": [
     "place: Phoenix",
@@ -357,7 +363,7 @@
    "expect": "coffee near Glendale, AZ 85302",
    "url": "/api/search.php?q=coffee&zip=85302&reach=10",
    "status": 200,
-   "ms": 113,
+   "ms": 98,
    "place": "Glendale, AZ",
    "chips": [
     "place: Glendale, AZ"
@@ -396,7 +402,7 @@
    "expect": "trails and hikes within 2 mi of Phoenix, then 5",
    "url": "/api/search.php?q=hiking%20near%20me&city=Phoenix&state=AZ&reach=2",
    "status": 200,
-   "ms": 269,
+   "ms": 261,
    "place": "Phoenix, AZ",
    "chips": [
     "do: Hiking",
@@ -405,29 +411,29 @@
    "text": "hiking trail trails trailhead",
    "guide": "Phoenix, AZ [new]: We don't have a guide to Phoenix, AZ yet. We can build one now: a first look in about two minutes.",
    "ask": "",
-   "total": 360,
+   "total": 366,
    "kinds": [
     {
      "kind": "outdoors",
      "label": "Outdoors",
      "plural": "Outdoors",
-     "count": 360
+     "count": 366
     }
    ],
    "note": "",
    "osm": "",
    "mentions": 0,
    "first": [
+    "Phoenix Carnegie Library and Library Park (outdoors · Parks · near Phoenix · <1 mi)",
+    "Wesley Bolin Memorial Plaza (outdoors · Parks · near Phoenix · 1 mi)",
     "Piestewa Peak (outdoors · Peak · near Phoenix · 7 mi)",
     "Phoenix Mountains (outdoors · Peak · near Phoenix · 8 mi)",
     "Camelback Mountain (outdoors · Peak · near Phoenix · 8 mi)",
-    "North Mountain (outdoors · Peak · near Phoenix · 9 mi)",
-    "Salt River Valley (outdoors · Canyon · near Cashion · 14 mi)",
-    "Sierra Estrella (outdoors · Mountain range · Gila River Indian Community land · 17 mi)"
+    "Castles N' Coasters (outdoors · Parks · near Maricopa County · 9 mi)"
    ],
    "groups": [],
    "funnels": [
-    "Let's Explore 360 → /discovery/?view=outdoors"
+    "Let's Explore 366 → /discovery/?view=outdoors"
    ],
    "intent": "hiking near Phoenix, AZ",
    "near": "10 within undefined mi",
@@ -439,7 +445,7 @@
    "expect": "trails and hikes around Phoenix",
    "url": "/api/search.php?q=hiking&city=Phoenix&state=AZ&reach=25",
    "status": 200,
-   "ms": 135,
+   "ms": 118,
    "place": "Phoenix, AZ",
    "chips": [
     "do: Hiking",
@@ -448,31 +454,31 @@
    "text": "hiking trail trails trailhead",
    "guide": "Phoenix, AZ [new]: We don't have a guide to Phoenix, AZ yet. We can build one now: a first look in about two minutes.",
    "ask": "",
-   "total": 20,
+   "total": 24,
    "kinds": [
     {
      "kind": "outdoors",
      "label": "Outdoors",
      "plural": "Outdoors",
-     "count": 20
+     "count": 24
     }
    ],
    "note": "",
    "osm": "",
    "mentions": 0,
    "first": [
-    "Camelback Mountain (outdoors · Peak · near Phoenix · 8 mi)",
-    "North Mountain (outdoors · Peak · near Phoenix · 9 mi)",
     "Piestewa Peak (outdoors · Peak · near Phoenix · 7 mi)",
+    "Camelback Mountain (outdoors · Peak · near Phoenix · 8 mi)",
     "Phoenix Mountains (outdoors · Peak · near Phoenix · 8 mi)",
-    "Hole in the Rock (outdoors · Natural arch · near Tempe · 7 mi)",
-    "Camels Eye (outdoors · Natural arch · near Phoenix · 8 mi)"
+    "Castles N' Coasters (outdoors · Parks · near Maricopa County · 9 mi)",
+    "Wesley Bolin Memorial Plaza (outdoors · Parks · near Phoenix · 1 mi)",
+    "North Mountain (outdoors · Peak · near Phoenix · 9 mi)"
    ],
    "groups": [
     "From our guides 1"
    ],
    "funnels": [
-    "Let's Explore 20 → /discovery/?view=outdoors"
+    "Let's Explore 24 → /discovery/?view=outdoors"
    ],
    "intent": "hiking near Phoenix, AZ",
    "near": "",
@@ -484,7 +490,7 @@
    "expect": "coffee shops in Phoenix (OpenStreetMap at once, ours once crawled)",
    "url": "/api/search.php?q=coffee%20near%20me&city=Phoenix&state=AZ&reach=10",
    "status": 200,
-   "ms": 175,
+   "ms": 162,
    "place": "Phoenix, AZ",
    "chips": [
     "place: Phoenix, AZ"
@@ -540,7 +546,7 @@
    "expect": "things to do around 85302",
    "url": "/api/search.php?q=Things%20to%20do%20near%20me&zip=85302&reach=25",
    "status": 200,
-   "ms": 166,
+   "ms": 167,
    "place": "Glendale, AZ",
    "chips": [
     "why: Things to do",
@@ -567,7 +573,7 @@
    "expect": "Glendale, AZ: its guide (built on demand) and listings",
    "url": "/api/search.php?q=Glendale%2C%20AZ",
    "status": 200,
-   "ms": 110,
+   "ms": 82,
    "place": "Glendale",
    "chips": [
     "place: Glendale"
@@ -575,26 +581,28 @@
    "text": "",
    "guide": "",
    "ask": "What would you like to know about Glendale?",
-   "total": 1,
+   "total": 3,
    "kinds": [
     {
      "kind": "outdoors",
      "label": "Outdoors",
      "plural": "Outdoors",
-     "count": 1
+     "count": 3
     }
    ],
    "note": "",
    "osm": "",
    "mentions": 0,
    "first": [
-    "Glendale Gardens Historic District (outdoors · Historic district · near Glendale)"
+    "Glendale beet sugar factory (outdoors · Historic place · near Glendale)",
+    "Glendale Gardens Historic District (outdoors · Historic district · near Glendale)",
+    "Sage Acres Historic District (outdoors · Historic district · near Glendale)"
    ],
    "groups": [
     "Listings 0"
    ],
    "funnels": [
-    "Let's Explore 2 → /hub/?cluster=cluster-auto-glendale&view=outdoors"
+    "Let's Explore 4 → /hub/?cluster=cluster-auto-glendale&view=outdoors"
    ],
    "intent": "",
    "near": "",
@@ -606,7 +614,7 @@
    "expect": "places to stay in Sedona",
    "url": "/api/search.php?q=hotels%20in%20sedona",
    "status": 200,
-   "ms": 226,
+   "ms": 241,
    "place": "Sedona",
    "chips": [
     "place: Sedona"
@@ -648,7 +656,7 @@
    "expect": "Show Low, AZ (a pilot town)",
    "url": "/api/search.php?q=show%20low",
    "status": 200,
-   "ms": 107,
+   "ms": 90,
    "place": "Show Low, AZ",
    "chips": [
     "place: Show Low, AZ"
@@ -673,6 +681,7 @@
     "Fool Hollow Lake (outdoors · Lake · near Show Low)"
    ],
    "groups": [
+    "Places 1",
     "Listings 0"
    ],
    "funnels": [
@@ -688,7 +697,7 @@
    "expect": "Greer, AZ (a pilot town)",
    "url": "/api/search.php?q=greer%20arizona",
    "status": 200,
-   "ms": 100,
+   "ms": 90,
    "place": "Greer, AZ",
    "chips": [
     "place: Greer, AZ"
@@ -711,10 +720,10 @@
    "first": [
     "Mount Baldy (outdoors · Peak · near Greer)",
     "Mount Ord (outdoors · Peak · White Mountain Apache Tribe land)",
+    "Carnero Lake (outdoors · Lake · near Greer)",
     "Crescent Lake (outdoors · Lake · near Greer)",
     "Lee Valley Lake (outdoors · Lake · near Greer)",
-    "Butterfly Lodge (outdoors · Historic place · near Apache County)",
-    "River Reservoir (outdoors · Reservoir · near Apache County)"
+    "Butterfly Lodge (outdoors · Historic place · near Apache County)"
    ],
    "groups": [
     "Listings 1"
@@ -732,7 +741,7 @@
    "expect": "Four Corners Monument, not Four Corners, WY",
    "url": "/api/search.php?q=Four%20Corners",
    "status": 200,
-   "ms": 123,
+   "ms": 121,
    "place": "Four Corners, WY",
    "chips": [
     "place: Four Corners, WY"
@@ -760,7 +769,7 @@
    "expect": "Grand Canyon National Park",
    "url": "/api/search.php?q=grand%20canyon",
    "status": 200,
-   "ms": 118,
+   "ms": 106,
    "place": "Grand Canyon, AZ",
    "chips": [
     "place: Grand Canyon, AZ"
@@ -784,9 +793,9 @@
     "Grand Canyon - Parashant National Monument (outdoors · Recreation area · Bureau of Land Management)",
     "Red Butte (outdoors · Peak · near Grand Canyon)",
     "Mather Point (outdoors · Cliff · near Grand Canyon)",
+    "Vesta Temple (outdoors · Peak · near Grand Canyon)",
     "O'Neill Butte (outdoors · Peak · near Grand Canyon)",
-    "Sinking Ship (outdoors · Peak · near Grand Canyon)",
-    "Vesta Temple (outdoors · Peak · near Grand Canyon)"
+    "Sinking Ship (outdoors · Peak · near Grand Canyon)"
    ],
    "groups": [],
    "funnels": [
@@ -837,7 +846,7 @@
    "expect": "Laguna Art Museum (found for the Laguna Beach guide)",
    "url": "/api/search.php?q=laguna%20art%20museum",
    "status": 200,
-   "ms": 145,
+   "ms": 134,
    "place": "Laguna, NM",
    "chips": [
     "place: Laguna, NM"
@@ -880,7 +889,7 @@
    "expect": "plumbers in Show Low",
    "url": "/api/search.php?q=plumber%20in%20show%20low",
    "status": 200,
-   "ms": 172,
+   "ms": 153,
    "place": "Show Low, AZ",
    "chips": [
     "place: Show Low, AZ",
@@ -953,10 +962,10 @@
    "first": [
     "Phoenix Financial Center (knowledge · From our guides · Institution)",
     "Phoenix Union High School (knowledge · From our guides · Institution)",
+    "Phoenix Carnegie Library and Library Park (outdoors · Phoenix › Parks · 5 mi)",
     "Phoenix Mountains (outdoors · Phoenix › Peak · 6 mi)",
     "Phoenixville, PA (place · Town · see what's there)",
-    "Hilton Garden Inn Phoenix Midtown (listing · Phoenix › Inns · 5 mi)",
-    "Hilton Phoenix Resort at the Peak (listing · Phoenix › Resorts · 6 mi)"
+    "Hilton Garden Inn Phoenix Midtown (listing · Phoenix › Inns · 5 mi)"
    ]
   },
   {
@@ -983,11 +992,11 @@
    "ctx": "city=Phoenix&state=AZ",
    "first": [
     "Glendale (knowledge · From our guides · Place)",
+    "Glendale beet sugar factory (outdoors · Glendale › Historic place)",
     "Glendale Gardens Historic District (outdoors · Glendale › Historic district)",
     "Glendale City Hall (listing · Glendale › City Hall)",
     "Glendale Heights, IL (place · Town · see what's there)",
-    "Glendale Springs, NC (place · Town · see what's there)",
-    "Glendale project (knowledge · From our guides · Place)"
+    "Glendale Springs, NC (place · Town · see what's there)"
    ]
   },
   {
@@ -995,11 +1004,11 @@
    "ctx": "",
    "first": [
     "Show Low, AZ (place · Town in The Show Low District)",
+    "Show Low (knowledge · From our guides · Place)",
     "Show Low Lake (outdoors · Lakeside › Lake)",
     "Show Low Ford (listing · Show Low › New Car Dealers)",
     "Show Low Apartments (listing · Show Low › Apartments)",
-    "Show Low Animal Control (listing · Show Low › Animal Shelters)",
-    "Show Low Schools Trnsprtn (listing · Show Low › School Buses)"
+    "Show Low Animal Control (listing · Show Low › Animal Shelters)"
    ]
   },
   {
@@ -1044,12 +1053,7 @@
    "q": "laguna art",
    "ctx": "",
    "first": [
-    "University of Arizona Museum of Art (outdoors · Museums · near Tucson · 285 mi)",
-    "Skrappys (outdoors · Perelman performing arts center · near Tucson · 286 mi)",
-    "Dinnerware Artspace (outdoors · Art Galleries · near Tucson · 287 mi)",
-    "Tucson Museum of Art (outdoors · Museums · near Tucson · 287 mi)",
-    "Museum of Contemporary Art, Tucson (outdoors · Museums · near Tucson · 287 mi)",
-    "Art Galleries (category · Laguna, NM › All of this kind)"
+    "Laguna Art Museum (outdoors · Laguna Beach › Museums · 610 mi)"
    ]
   }
  ]
