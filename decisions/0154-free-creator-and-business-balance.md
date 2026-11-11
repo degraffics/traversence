@@ -87,13 +87,14 @@ Items come from the order system's products (0098), so a new tool or service is 
 sheet (§5) adds to the same cart or pays in place. Named **Shop**, not Market, so it isn't confused with the members'
 Marketplace or Market 360°.
 
-### 7. Open (Jason to decide)
+### 7. Decided (Jason, 2026-11-11: "use the recommended earned storage, creators keep 100%")
 
 - **Earned storage.** Jason proposed +100 GB per 500 followers and per friend who joins, up to 1 TB. At R2's price that
   is about $1.50 a month per 500 followers and $15 a month per free account at the limit (5,000 such accounts: about
   $75,000 a month), more than a Pro plan earns and twice Pro's storage. Recommended instead: **+1 GB per 500 followers
-  and per friend who joins, up to 25 GB** (at most about $0.38 a month an account). Until decided, nothing is earned.
-- **Earned storage, how it's counted (proposed, to confirm):** no cap on followers; the storage earned stops at 25 GB
+  and per friend who joins, up to 25 GB** (at most about $0.38 a month an account). **Decided: the recommended +1 GB,
+  up to 25 GB.**
+- **Earned storage, how it's counted (decided, as recommended):** no cap on followers; the storage earned stops at 25 GB
   (12,500 qualifying followers, fewer with friends who joined). A follower or friend counts only once they're a real,
   settled member: email confirmed and 18+ (Verified), the account at least 30 days old, active on at least 3 separate
   days, not blocked by the earner, not removed or suspended, and passed the sign-up check (Cloudflare Turnstile). A
