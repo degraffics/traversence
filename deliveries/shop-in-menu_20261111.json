@@ -3,16 +3,16 @@
  "built_on": "64afa90 Sync: 2026-11-11 21:08 UTC",
  "recorded": "2026-11-11 21:09 UTC",
  "note": "Shop in the GO Codes side menu under Cart (lit on the Shop); FAQ. Built on 21:08 UTC.",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "59b2019 Sync: 2026-11-11 21:11 UTC",
  "files": {
   "app/ui/faq.md": {
    "sha256": "03fb80c6e5636b10583a592d451dc6f51857fa81dcb819f49ad48e9e10be2a02",
-   "live": false
+   "live": true
   },
   "app/ui/section-rails.php": {
    "sha256": "1d296fd7cb3dba1e6d93eaf22dfde1b98233b3f0983b05691ae4255ea65961eb",
-   "live": false
+   "live": true
   }
  }
 }
