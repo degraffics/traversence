@@ -1,0 +1,106 @@
+{
+ "zip": "channel-shop-earned_20261111.zip",
+ "built_on": "9585813 Sync: 2026-11-11 20:09 UTC",
+ "recorded": "2026-11-11 20:39 UTC",
+ "note": "One zip, four parts (decisions/0153 \u00a77, 0154 \u00a75-7): the Channel and Videos tab, the upgrade sheet, the Shop at /shop/, earned storage (with member storage now counted). Migration 2027-02-28_earned_storage.sql. Built on 20:09 UTC.",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/EarnedStorage.php": {
+   "sha256": "6204b2f47c0b86cea22558eeb481034fafdbd517ffb7f7319c20f96f604adbfd",
+   "live": false
+  },
+  "app/lib/Gallery.php": {
+   "sha256": "2e5f257f82f555d36acd4e645fe95970e052c627875147271863c48456057d9b",
+   "live": false
+  },
+  "app/lib/MemberPosts.php": {
+   "sha256": "84bb38409fbc829d59bf09a4d1136135011a8fc58ea05918bfbe4cae0d670eb0",
+   "live": false
+  },
+  "app/lib/MemberProfile.php": {
+   "sha256": "d4c745d040ccade5949e11d27e8297170574447f0188fd1e7476e7e5be6fbae0",
+   "live": false
+  },
+  "app/lib/Scheduler.php": {
+   "sha256": "4ad3309a03affaf766e08a2ed4709bdafeb7d6558035bebf25d091f424cc14d0",
+   "live": false
+  },
+  "app/lib/Upgrades.php": {
+   "sha256": "63f42c575f884b12f742d99c86b55fdd218bcea8ebb6ec682f7f15de3f41b4e6",
+   "live": false
+  },
+  "app/lib/upload-targets.php": {
+   "sha256": "1ec41a99dec472a73297994f4e4580d4656d0f7a085d707cdad122fa1f533b72",
+   "live": false
+  },
+  "app/migrations/2027-02-28_earned_storage.sql": {
+   "sha256": "b65222aa718a7224df69b4b2873e885d3472351680a14afd8189601248ba8172",
+   "live": false
+  },
+  "app/scripts/earned_storage_tick.php": {
+   "sha256": "941d50dc6d2662108fa354ca89df19e2e70fb4d62c41ee76f9ef207d42c5b372",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "06939e9c5ac0366174a1edbd01b4982da6b00433467263c05f8fc96de9216052",
+   "live": false
+  },
+  "app/ui/gallery-ui.php": {
+   "sha256": "e3ff05ac54aab156b56e53faf92df7a802664423cb77676e0a54c4f99dc6a50d",
+   "live": false
+  },
+  "app/ui/header.php": {
+   "sha256": "45c8e77f45c71557e3dfea5a71d87e9371799f4caa208fedbba3cb6e3a8b19b6",
+   "live": false
+  },
+  "app/ui/profile-header.php": {
+   "sha256": "cd43007e904658c68bf66c37338b83fbd66dae1a9a2487561214ad85ed057422",
+   "live": false
+  },
+  "website/api/upgrade.php": {
+   "sha256": "ad51ed69c4cbdb1212c5e0b3c4d2f944e2219bce13cb343501d09cb3e0e9aa6a",
+   "live": false
+  },
+  "website/api/upload.php": {
+   "sha256": "95592d73871b41c99dc59e8f7086a19fab64956c2193e0e0702689bf965a77ca",
+   "live": false
+  },
+  "website/js/gallery.js": {
+   "sha256": "8beee9487b30f813251475f317af2c81d587c701dc6ec28c7fb99b4cc98e9a53",
+   "live": false
+  },
+  "website/js/tv-moments.js": {
+   "sha256": "e9d9e8d3be44ff261d054a1769ce84b024460953bfa1e000512319599eb0fc0a",
+   "live": false
+  },
+  "website/js/tv-upgrade.js": {
+   "sha256": "652e27e7f0edc5402fcbdb2a85ea85bdee7aef8a329f3bf24800306b760fafa2",
+   "live": false
+  },
+  "website/js/tv-upload.js": {
+   "sha256": "63f97f717023ab502961c5f73ed327416304d89083a7af5c2ee5de76193349fb",
+   "live": false
+  },
+  "website/listing/view.php": {
+   "sha256": "d53f666dfce80bc120a93af0668536a449d1e07d853f62b2ca900149457c9803",
+   "live": false
+  },
+  "website/plans.php": {
+   "sha256": "8e1cebc042594815a3810a0b1635a09532d9a3c1388674ef401b03483ba4173f",
+   "live": false
+  },
+  "website/qr/cart.php": {
+   "sha256": "2ac0589afd19c87fe6947e6611a0380bb3e99ae1cfe71babdab364f785b98761",
+   "live": false
+  },
+  "website/shop/index.php": {
+   "sha256": "64cdfd02f4c52575e3a4521af5e3728c932bdf74e622ca7e5e45c9e730437502",
+   "live": false
+  },
+  "website/user/profile.php": {
+   "sha256": "ed99e447634ae4a099c5cd6d84376bd25308631c049e3ec6de7cfa0e0edde15b",
+   "live": false
+  }
+ }
+}

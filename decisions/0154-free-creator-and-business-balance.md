@@ -1,6 +1,6 @@
 # ADR 0154: Free, Creator and Business: Who Pays for What, and How Upgrades Are Offered
 
-**Status:** Accepted (Jason, 2026-11-11, in conversation), earned storage included (§7, confirmed the same day). Not built. Builds on
+**Status:** Accepted (Jason, 2026-11-11, in conversation), earned storage included (§7, confirmed the same day). Built 2026-11-11 (see Built, below), except the video worker and the coming items it lists. Builds on
 `decisions/0007` (plans sell tools, never placement), `0098` (the order system and products), `0108` (plans),
 `0153` (Moments, Snaps and Keep), `commercial.md` §1.2 and master-aos §5. Updates `commercial.md` §1.2.
 
@@ -112,3 +112,27 @@ Marketplace or Market 360°.
 and caps and gates in System Configuration → Thresholds & gates. So the community budget's 3% and $25 floor (§4) are set in
 Thresholds & gates (beside the AI free asks), and its spending shows on Cloudflare's card (and Railway's, for the video
 worker), not in Settings.
+
+## Built (`channel-shop-earned_20261111.zip`, built on the 20:09 UTC sync, 2026-11-11)
+
+- **Member storage now counts** (§1): `Gallery::roomFor` checks a member's Gallery against their plan (2 / 25 / 50 GB),
+  its packs and what they've earned (`Gallery::memberCap`), and throws `MemberStorageFull`, which the upload shows as the
+  upgrade sheet. Nothing already stored is removed. Members' kept posts now count too (`MemberPosts::keepMedia`).
+- **Personal Pro** (§2): videos up to 10 minutes and uploads to 1 GB (`MemberPosts::secsMax`, `fileMax`; businesses post at
+  Pro's). 1080p and 4K wait for the video worker (0153 §8).
+- **The upgrade sheet** (§5): `js/tv-upgrade.js` (`TvUpgrade.offer(feature, {anchor, listing})`), choices from
+  `app/lib/Upgrades.php` through `/api/upgrade.php`. Shown when the Gallery is full (packs only on a paid plan, then
+  Plus, Pro, and "Choose what to clear") and when a recording reaches 2:00 (Pro, beside "Keep my 2 minutes"). Once a
+  visit per feature; never for what the account has. Choices open the Plans page in a new tab (with `?pick=` choosing
+  the plan), so the draft and recording stay. Not yet: "Try Pro free for 7 days" (trials are staff or promo codes only
+  today), the quality label on the control (with the video worker).
+- **The Shop** (§6): `/shop/`, for a member, the business being acted as, or a guest, from `Billing::PLANS`, `ADDONS` and
+  GO Codes; linked from the cart. Plans and packs pay in place on the Plans page; GO Codes stay in the cart, so the cart
+  is not yet one cart for subscriptions. Listed as coming: the two business add-ons, email/text/push packs, a single
+  video in 4K and a single month of Pro. Design, video, print and signs: a quote by email for now.
+- **Earned storage** (§7): `app/lib/EarnedStorage.php`, migration `2027-02-28_earned_storage.sql`
+  (`member_active_days`, `member_storage_earned`), the daily job `earned_storage_tick`, and the day each signed-in
+  person uses the site (`app/ui/header.php`). Shown on the Plans page (`#earned`), counted again when it opens. Active
+  days start counting from this upload, so the first followers and friends qualify 3 days in. Not yet: taking back space
+  earned from an account later removed as fake (suspended accounts already don't count), and checking the sign-up
+  check per person (every sign-up passes it when it's on).
