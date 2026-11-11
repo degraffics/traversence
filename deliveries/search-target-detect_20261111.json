@@ -1,17 +1,17 @@
 {
  "zip": "search-target-detect_20261111.zip",
  "built_on": "4eb758e Sync: 2026-11-11 02:05 UTC",
- "recorded": "2026-11-11 02:06 UTC",
- "note": "One tap on the target icon finds you (situations that need a place, the near-me ask); a town is a link beside it",
+ "recorded": "2026-11-11 02:07 UTC",
+ "note": "One tap on the target icon finds you; 'Search for' removed (Enter searches), on a phone a plain 'See all results for \u2026' line at the foot",
  "status": "pending",
  "live_in": "",
  "files": {
   "app/ui/faq.md": {
-   "sha256": "7f55cee2c85ea12f00cc387c9c4b48650a5b26f80134558413a9c8a7d49da748",
+   "sha256": "75dd739aab3e2e1f42e7e0d260be98b2b797bc4d66c17bb07bfedcecc37d9d85",
    "live": false
   },
   "website/js/search-panel.js": {
-   "sha256": "11dfd6cd2b599d34aace6db1e6a1226ea28a7272874fe938f930b3e07c8d0699",
+   "sha256": "b232d92df5010c317a1b1490cb56db2bc6790fc1a03679d0db3eaf0c1494f2c5",
    "live": false
   }
  }
