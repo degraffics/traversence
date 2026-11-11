@@ -46,6 +46,7 @@
       var x = await ask({ t: 'grabTab', tabId: tab.id, url: tab.url });
       sv.disabled = false; sv.textContent = 'Save this site\'s login';
       status(x.ok ? x.message : (x.error || 'That didn\'t work.'), x.ok ? 'ok' : 'bad');
+      if (x.ok) setTimeout(function () { location.reload(); }, 1500);   // the list then shows what was just saved
     });
     var tip = document.createElement('small'); tip.textContent = 'Fill in the user name and password on the page (or let your browser fill them), then press Save. Or just sign in: the vault offers to save it on the next page.';
     box.appendChild(sv); box.appendChild(tip);
