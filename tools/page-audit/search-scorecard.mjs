@@ -69,6 +69,13 @@ const CASES = [
   ['Context', 'my car broke down', SL, { lead: /tow|auto|repair|mechanic/i, top: 3 }],
   ['Context', 'where can I go fishing', SL, { lead: /lake|reservoir|river|creek|fish/i, top: 3 }],
   ['Context', 'scenic drive', SL, { never: /Plumb|Driving School|Fast Food/i, min: 1, top: 3 }],
+  // The words as typed are the query (Jason, 2026-11-11: "If someone types arizona food that is their desired search
+  // criteria … There is a line between suggestions and query"): answered as written, the place and the thing
+  ['As typed', 'arizona food', '', { place: /Arizona/i, lead: /listing|OpenStreetMap/i, top: 3, never: /topic/ }],
+  ['As typed', 'new mexican food', '', { lead: /listing|OpenStreetMap/i, top: 3 }],
+  ['As typed', 'mexican food', PHX, { lead: /mexic|listing|OpenStreetMap/i, top: 3 }],
+  ['As typed', 'italian food', PHX, { lead: /ital|pizz|listing|OpenStreetMap/i, top: 3 }],
+  ['As typed', 'navajo culture', '', { min: 1 }],
   // Words run together, spelled wrong, or said two ways
   ['Spelling', 'funhouse', PHX, { never: /Contractor|Real Estate|Painter|House Clean/i, top: 5 }],
   ['Spelling', 'fun house near me', PHXME, { never: /Contractor|Real Estate|Painter|House Clean/i, top: 5 }],
@@ -101,6 +108,9 @@ const TYPING = [
   ['four corners', '', { lead: /Four Corners Monument/, top: 1 }],
   ['dana point harb', '', { lead: /Dana Point Harbor/, top: 3, never: /Harbor Freight|Harbor Pump/ }],
   ['laguna art', '', { lead: /Laguna Art Museum/, top: 3 }],
+  ['mexi', '', { lead: /New Mexico|Mexico/, top: 2, never: /Mexia/, neverTop: 2 }],
+  ['ital', '', { lead: /Italy|Italian/, top: 3 }],
+  ['nava', '', { lead: /Navajo/, top: 3 }],
   ['coff', SL, { lead: /coffee/i, top: 3 }],
   ['pizz', SL, { lead: /pizz/i, top: 3 }],
   ['plum', SL, { lead: /plumb/i, top: 3 }],
