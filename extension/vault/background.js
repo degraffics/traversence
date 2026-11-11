@@ -145,9 +145,9 @@ chrome.runtime.onMessage.addListener((m, sender, reply) => {
       }
       if (m.t === 'grabTab' && origin) {
         // saves what's filled in on the page now (typed, or filled by the browser), without signing in first
-        const g = await chrome.tabs.sendMessage(tab.id, { t: 'grab' }, { frameId: 0 }).catch(() => null);
-        if (!g || !g.pass) return { ok: false, error: 'Nothing to save: fill in the user name and password on the page first (or let your browser fill them), then press this again.' };
-        if (originOf(g.url) !== origin) return { ok: false, error: 'That page changed. Try again.' };
+        const g = await chrome.tabs.sendMessage(tab.id, { t: 'grab' }).catch(() => null);   // every frame asked; the one holding a password answers
+        if (!g || !g.pass) return { ok: false, error: 'Nothing to save yet. Click once inside the page\'s password box (Chrome hides a password it filled until you do), then press this again.' };
+        if (originOf(g.url) !== origin) return { ok: false, error: 'The sign-in box is in a frame from ' + (originOf(g.url) || 'another site') + ', not ' + origin + ', so it wasn\'t saved here.' };
         const mine = await forOrigin(s, origin), same = mine.find(x => x.user === g.user);
         if (same && same.ph === await passMark(g.pass)) return { ok: true, message: 'Already in your vault as ' + same.name + '.' };
         const name = await save(s, { origin, url: String(g.url).split(/[?#]/)[0], user: String(g.user || '').slice(0, 200), pass: String(g.pass).slice(0, 500), id: same ? same.id : 0 });

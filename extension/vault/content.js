@@ -8,7 +8,20 @@
   var ask = function (m) { return new Promise(function (res) { try { chrome.runtime.sendMessage(m, function (r) { void chrome.runtime.lastError; res(r || null); }); } catch (e) { res(null); } }); };
 
   function visible(el) { var r = el.getBoundingClientRect(); return r.width > 30 && r.height > 10 && getComputedStyle(el).visibility !== 'hidden'; }
-  function passFields() { return Array.prototype.filter.call(document.querySelectorAll('input[type=password]'), function (i) { return !i.disabled && !i.readOnly && visible(i); }); }
+  // password boxes, including ones a site's eye icon has turned into text boxes (remembered, never marked in the page)
+  var wasPw = new WeakSet();
+  function markPw() { Array.prototype.forEach.call(document.querySelectorAll('input[type=password]'), function (i) { wasPw.add(i); }); }
+  markPw();
+  try {
+    new MutationObserver(function (ms) {
+      ms.forEach(function (m) { if (m.type === 'attributes' && m.oldValue === 'password' && m.target instanceof HTMLInputElement) wasPw.add(m.target); });
+      markPw();
+    }).observe(document.documentElement, { subtree: true, childList: true, attributes: true, attributeFilter: ['type'], attributeOldValue: true });
+  } catch (e) {}
+  function passFields() {
+    markPw();
+    return Array.prototype.filter.call(document.querySelectorAll('input'), function (i) { return wasPw.has(i) && !i.disabled && !i.readOnly && visible(i); });
+  }
   /** The user-name field for a password field: the closest text or email box before it in the same form (or page). */
   function userField(pw) {
     var scope = pw.form || document, all = Array.prototype.slice.call(scope.querySelectorAll('input')), i = all.indexOf(pw), best = null;
@@ -110,13 +123,16 @@
   }
   offerBar(); setTimeout(offerBar, 1500);   // after the page loads, and after a sign-in that doesn't load a new page
 
+  /** What's filled in now, for "Save this site's login": any frame of the page may answer; only one with a password does. */
+  function grab(m, reply) {
+    var pw = passFields().filter(function (p) { return p.value; })[0], u = pw ? userField(pw) : null;
+    if (pw) reply({ user: u ? u.value : '', pass: pw.value, url: location.href });
+  }
   chrome.runtime.onMessage.addListener(function (m, sender, reply) {   // from the pop-up, for this exact site only
-    if (window.top !== window || !m) return;
+    if (!m) return;
+    if (m.t === 'grab') return grab(m, reply);
+    if (window.top !== window) return;
     if (m.t === 'doFill' && m.origin === location.origin) reply({ ok: fill(m.user, m.pass) });
     if (m.t === 'where') reply({ href: location.href });
-    if (m.t === 'grab') {   // what's filled in now, for "Save this site's login"
-      var pw = passFields().filter(function (p) { return p.value; })[0], u = pw ? userField(pw) : null;
-      reply(pw ? { user: u ? u.value : '', pass: pw.value, url: location.href } : null);
-    }
   });
 })();
