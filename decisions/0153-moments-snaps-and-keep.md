@@ -186,3 +186,18 @@ zone), `member_post_media` (storage key, kind, poster, length, bytes, temporary 
 - **From a profile:** a **Snap** button beside Message opens the composer addressed to them (greyed out with the reason
   when they don't take messages from you).
 - **Next:** posting as a business (its own zip, as it touches the business side).
+
+## Built: zip 3, posting as a business, inviting from the To line, and the visitor view (`business-posts_20261111.zip`)
+
+- **As a business:** "Post as" in the composer for anyone on a business's team with Catalog & content to edit
+  (`MemberPosts::businessesOf`, `canPostAs`). The post's owner is `businesses:<id>` (the person who posted is kept on the
+  post); uploads go to the business's Temporary bin. Audience Public or People who linked it. No posting caps (decisions/0141
+  §2.4) and no community budget (its plan pays); Keep goes into the business's Gallery, checked against its plan's storage.
+  Shown on the listing page (a Posts section; the composer there for the team) and in the Pulse of people who linked it.
+  No Snaps as a business (it reaches people through its Messages, by their choice, decisions/0052). Views and reactions
+  are counts only for a business (decisions/0050).
+- **Invite on the To line:** when no one by that name is here, "Invite … to Traversence" uses the Address Book's invite
+  (`People::invite`: an email with a link; for a phone, a message and link the member sends).
+- **The visitor view:** "See it as others do" opens `?as=visitor`, choosing Anyone, A follower or A connection
+  (`MemberPosts::forOwnerAs`); none of the owner's tools; visitors' buttons shown as a preview. The time left and Kept are
+  shown to a post's owner only.
