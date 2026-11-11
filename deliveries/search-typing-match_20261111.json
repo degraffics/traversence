@@ -3,16 +3,16 @@
  "built_on": "8c47c4b Sync: 2026-11-10 23:24 UTC",
  "recorded": "2026-11-11 00:10 UTC",
  "note": "Typing: suggestions ordered by how their name matches (whole name, whole words, share of a name typed; the place set adds one); adds matchScore and byMatch, removes nothing",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "6fe5d09 Sync: 2026-11-11 00:15 UTC",
  "files": {
   "app/lib/UniversalSearch.php": {
    "sha256": "28926efac5438b7f3b9db56b7c6eff3b1e6dd0598eb9afdf6fd593fb0e1e38b9",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "d87fe3efc0cf1b8f2fea2c05b6274b2d569daf68f2b3504d4b0d3b10cc9381d1",
-   "live": false
+   "live": true
   }
  }
 }
