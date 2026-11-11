@@ -49,3 +49,8 @@ and fees/costings".
 QuickBooks → Payments and QuickBooks items, Stripe and Square → Gateways, Name.com and Fly.io → Custom domains, Tavily,
 Google and Railway → the Crawler, Bluehost → Scheduled tasks, Staff logins, the Support inbox…), from
 `OutsideServices::ADMIN`; Jason: "can the configuration page for each service be accessed here as well?"
+
+**Note (2026-11-11):** each card has **How to sign in** (Jason: "need a way to see credentials for outside services so
+login can be easier"): which account, which sign-in, where the second step goes, who holds it. Owners and executives
+only; kept in `staff_settings`; a value that looks like a password, key or token is refused. Passwords and keys live in
+the password manager (decisions/0155), never in the admin.
