@@ -15,7 +15,7 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
-      - run: python3 workers/lexicon/build_demonyms.py workers/lexicon/out/demonyms.php
+      - run: mkdir -p workers/lexicon/out && python3 workers/lexicon/build_demonyms.py workers/lexicon/out/demonyms.php
       - run: php -l workers/lexicon/out/demonyms.php || true
       - name: Commit the file
         run: |
