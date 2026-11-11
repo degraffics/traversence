@@ -49,6 +49,51 @@ anyone.
 7. **The audit runs on both** staging and live. The scorecard shows them side by side, and what a release changes on
    staging.
 
+## Built so far
+
+### Stage 1 (`staging-setup_20261111.zip`): the copy and its safety
+
+Built on the live mirror 9075a70 (Sync: 2026-11-11 23:02 UTC). Items 1 to 3 above are built; items 4 to 7 come in later zips.
+
+- **System Configuration → Staging** (Founder only; others see it greyed out with the reason). It shows where staging
+  stands (not set up, ready, refreshing, or closed after a refresh that stopped), its address, folder and databases,
+  the last refresh (tables, rows, files, and which columns were replaced, by table) and the next weekly one.
+- **Set up staging**: one button, safe to press again. Through cPanel's API it checks the plan's room, makes
+  `staging.trvgo.us` (folder `staging.trvgo.us/public_html/traversence` in the hosting account's home, or inside
+  public_html if cPanel requires it), one database for each of live's (main, admin, listings) with its own login,
+  the privileges, the DNS record (only if cPanel didn't add it) and asks for the certificate (AutoSSL). It writes
+  staging's own `.env` (its database passwords made on the server, never shown or logged; Turnstile's test keys;
+  mail held; payments in sandbox; crawler and paid AI off; STAGING=1), its `.htaccess` (viewing password, no indexing,
+  /go/ to the router's copy) and robots.txt. It then gives the test accounts new sign-ins and shows them once, with
+  staging's address and viewing password, as one block for CHECK_ACCOUNTS, and starts the first refresh.
+- **Refresh staging**: on demand and weekly (Scheduled tasks → Staging refresh, Sundays). Live's website/, app/ and
+  trvgo/ files (not app/storage, website/uploads, notes folders or dotfiles but .htaccess), then each table copied on
+  the server by the live login that owns it, then names, emails, phone numbers, street addresses, IP addresses and
+  private messages replaced with test values (the same value for the same person; test accounts keep theirs), sign-in
+  secrets and the vault copied empty, live payment connections removed. Staging is closed while it's copied, and stays
+  closed if a refresh stops part way.
+- **Safe by default on staging**: email held and readable on staging's own Staging page; QuickBooks, Stripe and Square
+  in sandbox for everyone; SES records only; Claude, Document AI, Textract and the crawler off unless their switch is on
+  (Switches → Staging: paid AI, Staging: the crawler; each refresh turns them off again); X-Robots-Tag noindex and
+  robots.txt Disallow; the viewing password checked by Apache and again by PHP; a "Staging" mark on every page; files it
+  stores kept under staging/ in the file store, and no live file ever deleted from there.
+- **`staging` is reserved** on trvgo.us: no GO Code, short code or shop name can take it, and trvgo.us/staging is "not found".
+
+### Next (stages 2 to 4)
+
+- Release to staging: a release's files go to staging first and its migrations run there first (item 4).
+- Function checks for every tool that changes something, on staging, for each account type (item 5); the held email
+  is where the checks read sign-in codes (Staging::heldMail()).
+- Database speed on staging (item 6) and the audit on both, side by side in the scorecard (item 7).
+
+### Done when (stage 1)
+
+- [ ] Set up staging pressed; the block pasted into CHECK_ACCOUNTS.
+- [ ] staging.trvgo.us asks for its password, shows the "Staging" mark, and sends `X-Robots-Tag: noindex`.
+- [ ] trvgo.us codes and storefronts work as before; trvgo.us/staging is "not found".
+- [ ] A refresh's "What was replaced" list spot-checked against a few staging records.
+- [ ] An email sent on staging (for example a sign-in code) shows in staging's Staging page and arrives nowhere.
+
 ## What Jason provides
 
 The build adds a **Set up staging** button in System Configuration (Founder only). Through the cPanel API the site
