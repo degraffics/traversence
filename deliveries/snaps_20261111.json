@@ -1,0 +1,42 @@
+{
+ "zip": "snaps_20261111.zip",
+ "built_on": "526a164 Sync: 2026-11-11 17:41 UTC",
+ "recorded": "2026-11-11 17:48 UTC",
+ "note": "decisions/0153 zip 2, Snaps: the composer's To line (people, your groups; Post / Send / Post & send), delivered as a message in each conversation with a tile that opens it; only the sender and recipients can open a Snap (no Share, no feed); Opened / Opened by 2 of 3 for the sender; either side can Keep (own Gallery copy, a note in the conversation); a Snap button on profiles. Migration 2027-02-27_snaps.sql. FAQ updated. Built on 17:41 UTC sync.",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/MemberPosts.php": {
+   "sha256": "0645dab466bb9ded10487baca74e7c88544560fad06ab1187249e2a6efdad201",
+   "live": false
+  },
+  "app/lib/People.php": {
+   "sha256": "5274b401c428663fab4f42d5481ab351268681269d00dbc34cd9fb7813c43a29",
+   "live": false
+  },
+  "app/migrations/2027-02-27_snaps.sql": {
+   "sha256": "1e3943eee95ab70f7bdb6326ab465211a13dc4b1f1390f82628b68f4c65d0c7a",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "0e3c8b9291a648cb65f6ee5931416e92501bc9727eabf7da2f9466320718ee79",
+   "live": false
+  },
+  "website/js/address-book.js": {
+   "sha256": "0fcc83a53aa0e9c502f74b8a6549ee6b92b48183b064f37612f26e0d69f6abeb",
+   "live": false
+  },
+  "website/js/tv-moments.js": {
+   "sha256": "087939ca88af2c8aa11207813a21160c08217f95f4955b45e61013e7c6947df8",
+   "live": false
+  },
+  "website/user/api/posts.php": {
+   "sha256": "5e3aa8cb012bd5522f7b86110be6f13c268d3227fabdb7e3149df0a84b319ed2",
+   "live": false
+  },
+  "website/user/profile.php": {
+   "sha256": "435a327a1e7ddfe720b5623b9329eed2e267b6b26c2515d10ed07f718d1c22ef",
+   "live": false
+  }
+ }
+}

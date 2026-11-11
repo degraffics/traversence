@@ -168,3 +168,21 @@ zone), `member_post_media` (storage key, kind, poster, length, bytes, temporary 
   build); higher quality by plan (needs the video worker, zip 3); the Moments ring on the profile photo and Highlights.
 - **Cloudflare, once (Jason):** R2 → the bucket → Settings → Object lifecycle rules → Add rule: prefix `temporary/`,
   delete objects after **9 days**. Billing → notifications: a usage alert for R2.
+
+## Built: zip 2, Snaps (`snaps_20261111.zip`)
+
+- **Sending:** the composer's **To** line (people, your groups; empty means your feed). The button reads **Post**, **Send**
+  or **Post & send** ("Also post to my feed"). `sent_to` is `feed`, `direct` or `both`; recipients are in
+  `member_post_to` (migration `2027-02-27_snaps.sql`, which also adds `messages.post_id` and `member_posts.kept_by`).
+- **Delivery:** a message in each conversation (one-to-one through `People::send`, a group's through `Groups::thread`),
+  carrying the post; the conversation shows it as a tile that opens the post (`People::thread` adds `snap` per message).
+  Who can be sent to follows message settings (`People::messageMode`): a request where that applies, never to someone
+  who only takes messages from people they know (greyed out in the To list, with the reason).
+- **Between you (Jason, 2026-11-11: "Keep it between us"):** only the sender and the people it was sent to can open a
+  Snap; it has no Share or link, and isn't in any feed (a Post & send's feed copy follows its audience as usual).
+- **Opened:** the sender sees "Opened", "Not opened yet", or "Opened by 2 of 3" in a group (from `member_post_views`).
+- **Keep:** the sender or anyone it was sent to; each keeper gets their own copy in their Gallery; the post stays; the
+  conversation gets a note ("Kept …").
+- **From a profile:** a **Snap** button beside Message opens the composer addressed to them (greyed out with the reason
+  when they don't take messages from you).
+- **Next:** posting as a business (its own zip, as it touches the business side).
