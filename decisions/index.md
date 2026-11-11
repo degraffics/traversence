@@ -1,6 +1,6 @@
 # Decision register
 
-Decision 0145 §1a. Generated on 2026-11-10 23:16 UTC from `decisions/` and the live mirror (`99a8caa`). Don't edit by hand:
+Decision 0145 §1a. Generated on 2026-11-11 02:50 UTC from `decisions/` and the live mirror (`4349370`). Don't edit by hand:
 edit the decision, and this follows. "Missing files" are files a decision names that the site no longer has: the
 decision may be stale, or the file moved.
 
@@ -72,7 +72,7 @@ decision may be stale, or the file moved.
 | 0064 | [0064: Search learns words on its own; people have access and control, not chores](0064-search-learns-words-on-its-own.md) | accepted |  | 2 | 0 |  |
 | 0065 | [0065. OpenStreetMap businesses where we have no listings yet](0065-openstreetmap-businesses-outside-our-regions.md) | accepted | 0133 |  | 0 |  |
 | 0066 | [0066. Public data, the Discovery funnel, and expansion that grows on its own](0066-public-data-funnel-and-organic-expansion.md) | accepted | 0133 |  | 0 |  |
-| 0067 | [0067. What words mean: from a word to the kinds of place that serve it](0067-what-words-mean-concepts.md) | accepted | 0133 |  | 0 |  |
+| 0067 | [0067. What words mean: from a word to the kinds of place that serve it](0067-what-words-mean-concepts.md) | accepted | 0133 | 1 | 0 |  |
 | 0068 | [0068. Plain names for categories](0068-plain-names-for-categories.md) | accepted |  |  | 0 |  |
 | 0069 | [0069. Frontend and backend folders: website/ and app/](0069-frontend-and-backend-folders.md) | accepted |  |  | 4 |  |
 | 0070 | [0070. Claiming a listing: a quick way in, a text to finish, an admin when needed](0070-claiming-a-listing.md) | accepted |  |  | 0 |  |

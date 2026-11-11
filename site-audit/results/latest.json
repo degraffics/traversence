@@ -1,6 +1,6 @@
 {
- "run": "2026-11-10 23:16 UTC",
- "mirror": "99a8caa",
+ "run": "2026-11-11 02:50 UTC",
+ "mirror": "4349370",
  "findings": [
   {
    "rule": "R02",
@@ -653,25 +653,25 @@
   {
    "rule": "R10",
    "file": "website/js/search-panel.js",
-   "line": 114,
+   "line": 120,
    "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
   },
   {
    "rule": "R10",
    "file": "website/js/search-panel.js",
-   "line": 116,
+   "line": 122,
    "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
   },
   {
    "rule": "R10",
    "file": "website/js/search-panel.js",
-   "line": 391,
+   "line": 402,
    "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
   },
   {
    "rule": "R10",
    "file": "website/js/search-panel.js",
-   "line": 605,
+   "line": 641,
    "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
   },
   {
