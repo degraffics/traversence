@@ -89,3 +89,7 @@ Contact: 1Password's partner programme, and mspprogram@1password.com for the MSP
 3. Businesses: seats and the Team page (Accounts API), the hand-off, usage on the Outside services card.
 4. "Password manager setup" as a White Glove service: moving a business's logins in, staff and two-step sign-in set up,
    training; billable work in the order system.
+
+**Note (2026-11-11, decisions/0156):** "never built or hosted by us" now reads **never without explicit consent**: our own
+vault (0156) is Traversence's first, and is offered to members and businesses only with their explicit consent and through
+0156's gates. 1Password stays the paid path, and people may bring their own manager (links only).
