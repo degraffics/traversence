@@ -85,4 +85,4 @@ To go back: remove the four lines from `.env` and put `S3_BUCKET` back to the Am
 scanned cards) still signed with `AWS_ACCESS_KEY_ID` and `AWS_REGION` after the switch, so R2 refused it with "The file
 store didn't take the file" (found by Jason posting a photo Moment). It now signs with `S3::creds()`, the store's own key
 and region, like every other call. Uploads straight from the browser (in parts) were never affected. Files the site
-tried to keep in that window stayed on the server, where they still work, and `Store::keep()` moves them on its next try.
+tried to keep in that window stayed on the server, where they still work; `Store::moveOld()` (Settings, or the `files_tick` job if it's still scheduled) moves them to R2.
