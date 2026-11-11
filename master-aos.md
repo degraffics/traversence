@@ -157,6 +157,8 @@ Commercial features scale cumulatively and additively. Paid commercial tiers sel
 ### D. Storage Add-on Packs (personal accounts and listings alike)
 One set of packs for everyone; they stack. Priced at the 65% profit floor on a cost basis of **$0.04 per GB-month**
 (S3 storage $0.023 plus download traffic, allowing about 20% of the pack viewed each month).
+With files on Cloudflare R2 (decisions/0151, 2026-11-11), downloads cost nothing and storage about $0.015, so the
+$0.04 basis now leaves room; video watched many times no longer costs per play.
 
 | Pack | Price / mo | Our cost / mo | Margin |
 | :--- | :--- | :--- | :--- |

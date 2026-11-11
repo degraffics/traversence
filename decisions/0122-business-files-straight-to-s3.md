@@ -89,3 +89,7 @@ Keep the bucket private (Block all public access on), because every link is sign
 - Refused on Done, with the object thrown away: a program named `.pdf` (by its first bytes) and a wrong size.
 - An upload key the page didn't start was refused.
 - Over 1 GB and past the storage were refused at Start, with Add storage.
+
+**Note (2026-11-11, decisions/0151):** files move to Cloudflare R2, which charges nothing when files are viewed or played.
+The same code serves both; with `S3_ENDPOINT` set, storage signs with its own key (`S3_ACCESS_KEY_ID`, `S3_SECRET_ACCESS_KEY`,
+`S3_REGION=auto`) and the AWS key stays for email.
