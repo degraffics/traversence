@@ -1,0 +1,42 @@
+{
+ "zip": "business-posts_20261111.zip",
+ "built_on": "ddbb838 Sync: 2026-11-11 18:41 UTC",
+ "recorded": "2026-11-11 18:52 UTC",
+ "note": "decisions/0153 zip 3: posting as a business (Post as, for a team with Catalog & content; the listing page's Posts section; the Pulse of people who linked it; no caps; Keep into the business's Gallery; counts only); Invite on the To line when no one is found; 'See it as others do' as a true visitor view (Anyone / A follower / A connection, no owner tools, visitors' buttons as a preview); time left and Kept shown to the owner only. FAQ updated. Built on 18:41 UTC sync.",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/MemberPosts.php": {
+   "sha256": "543f4319e1804345859f6d386b892c4589e0bd9dedb7dcbb29af97e6440ddf07",
+   "live": false
+  },
+  "app/lib/upload-targets.php": {
+   "sha256": "18a7335d1136a4838a190d6f9938c3e3dab081d7d371defb7ebe6d5007fac9c7",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "165f3eb89ea0dd18d4c5209d14e9ca84df281f51dd10c0dd5928a733a4497b5b",
+   "live": false
+  },
+  "app/ui/profile-header.php": {
+   "sha256": "734e1d36522bb5a7fbf553eb81809c58bbe7a38900754e2ba40343458e216f94",
+   "live": false
+  },
+  "website/js/tv-moments.js": {
+   "sha256": "831d3ec3931b068a1c57d228e2f7e622134fcb24fefbee4955d8b7b6a2e2ad52",
+   "live": false
+  },
+  "website/listing/view.php": {
+   "sha256": "d25950ea586a2d29bb65ee4b69fdcd16bf7368c80c73f503dd04af3db5693b4c",
+   "live": false
+  },
+  "website/user/api/posts.php": {
+   "sha256": "c60bdd7bcbebd96b1a11862d49b4d814d07af9ca0a223aa64a7b532beffce596",
+   "live": false
+  },
+  "website/user/profile.php": {
+   "sha256": "4268e91865a227b4af5bf9f8a209f02cbc0e7be87457f8f15706f017ad8b0115",
+   "live": false
+  }
+ }
+}
