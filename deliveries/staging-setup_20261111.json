@@ -3,100 +3,100 @@
  "built_on": "9075a70 Sync: 2026-11-11 23:02 UTC",
  "recorded": "2026-11-11 23:44 UTC",
  "note": "Audit phase 3 stage 1: System Configuration \u2192 Staging (Set up staging, Refresh, weekly refresh), staging safe by default (mail held, sandbox payments, AI and crawler off, noindex, viewing password), trvgo.us reserves 'staging'; FAQ: staging, and the held search entry",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "af03f51 Sync: 2026-11-11 23:50 UTC",
  "files": {
   "app/admin/manifests.php": {
    "sha256": "21e46b6d615e0fd39d37e71de296f388637ebaaa5ff70a0e858979b91d3b5bdd",
-   "live": false
+   "live": true
   },
   "app/admin/sections.php": {
    "sha256": "90342aa4cc37a79e4de6f677377d41d0dc6259781c70b6de192c8b47e2d579ae",
-   "live": false
+   "live": true
   },
   "app/lib/AiClient.php": {
    "sha256": "870aaf5642c6c61b5ea363658dcf00caba73c6cb484c1835c8fc5b295b15efbb",
-   "live": false
+   "live": true
   },
   "app/lib/CPanel.php": {
    "sha256": "056b91be027dc621f85390c3b952cd3d206b781f5d2ce241c3cc85c34852d0ab",
-   "live": false
+   "live": true
   },
   "app/lib/Mailer.php": {
    "sha256": "3a80ebbad330a4ab7e051dd85091094594362b39430b42f13bb8bd0dc732e3fa",
-   "live": false
+   "live": true
   },
   "app/lib/QuickBooksPay.php": {
    "sha256": "77de442ebf0d033c5cfde1002ea43862ce62d35d598eb39b2c556a6b13e341ff",
-   "live": false
+   "live": true
   },
   "app/lib/S3.php": {
    "sha256": "963708ff028ea186f1d48abd30533e756276b617a60241ae1b21119f8a15f453",
-   "live": false
+   "live": true
   },
   "app/lib/Scheduler.php": {
    "sha256": "93e14495a1bf885c338678a766b5c681371f65889719dc389be915a6d004d1b4",
-   "live": false
+   "live": true
   },
   "app/lib/SesMail.php": {
    "sha256": "68b416f22c8b2384ddce4361b7b581923a1563de4bd910c1c437b37e0f0686b1",
-   "live": false
+   "live": true
   },
   "app/lib/ShortCodes.php": {
    "sha256": "bc095497b751150f95d653732508a2c9db3dcd706d1057de5551ee057a6232ee",
-   "live": false
+   "live": true
   },
   "app/lib/StaffLogin.php": {
    "sha256": "75ae6ef84a1b9aa61bfe6f1340388353f5f20f3983f6e78523c31e7e6fa9b44c",
-   "live": false
+   "live": true
   },
   "app/lib/Staging.php": {
    "sha256": "61681883f8d5f6ea36e3968df49bfd9364f673dd89d3ba3b0076eca7685c012f",
-   "live": false
+   "live": true
   },
   "app/lib/StagingSite.php": {
    "sha256": "bbc93f1f0549d7c06487155e11dd9348c92f213465bdba92b66b973749d9119c",
-   "live": false
+   "live": true
   },
   "app/lib/Storefront.php": {
    "sha256": "c77ae22ae983fd2d9e3a4083070c19abb9be67680a92fc51c4d081715230b232",
-   "live": false
+   "live": true
   },
   "app/lib/Switches.php": {
    "sha256": "c2e360e8c7a4325c5846b54b8b5c19508bc9168bcf929628128de0e1b771ce8f",
-   "live": false
+   "live": true
   },
   "app/lib/TestAccounts.php": {
    "sha256": "c26957486cebeeddede5d1d9cff92ced292c56b0eb36112b698c9a986e6124f4",
-   "live": false
+   "live": true
   },
   "app/lib/crawler/CrawlQueue.php": {
    "sha256": "af07d430cd67423d2fc313ba9e44cfb445e86d50b6ca2d08adaeb4908d6de55d",
-   "live": false
+   "live": true
   },
   "app/scripts/staging_tick.php": {
    "sha256": "f92fdc8b10fd1891d5f81c5af00b9d5ecf1fc1f779725c73a5dcf17cebaba75b",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "8d34cd778e5f6b16aeab5dc594eeaf6e95ae06d2e95cf63446f0c7107406ba72",
-   "live": false
+   "live": true
   },
   "app/ui/security-headers.php": {
    "sha256": "dff9211340d8354ee449a457ac4fb1ff728502c85473dc70cb11e427f8409208",
-   "live": false
+   "live": true
   },
   "trvgo/index.php": {
    "sha256": "42f9e3988b5c403ef3ec45d9153203cae33e79658462812bb55ff2a070206a2e",
-   "live": false
+   "live": true
   },
   "website/admin/api.php": {
    "sha256": "3c00e0bef823733ffbd6058bdfa53935975bfe97cdfd5a4f569b80f569cc148d",
-   "live": false
+   "live": true
   },
   "website/js/admin-staging.js": {
    "sha256": "9962572ca83022da03e886c62de210194f7f1740814f0bf8dde46e0bcdfbe6ac",
-   "live": false
+   "live": true
   }
  }
 }

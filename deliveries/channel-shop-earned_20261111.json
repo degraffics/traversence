@@ -24,7 +24,7 @@
   },
   "app/lib/Scheduler.php": {
    "sha256": "4ad3309a03affaf766e08a2ed4709bdafeb7d6558035bebf25d091f424cc14d0",
-   "live": true
+   "live": false
   },
   "app/lib/Upgrades.php": {
    "sha256": "63f42c575f884b12f742d99c86b55fdd218bcea8ebb6ec682f7f15de3f41b4e6",
