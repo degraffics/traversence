@@ -1,8 +1,8 @@
 {
  "zip": "biz-overview_20261111.zip",
- "built_on": "e8cf86e Sync: 2026-11-11 19:13 UTC",
- "recorded": "2026-11-11 19:35 UTC",
- "note": "The business Overview: post as the business, its Pulse (shared panel moved out of the dashboard), Messages & offers, 30-day counts, more tool tiles; team Owner counts as owner on the listing page. Built on 19:13 UTC plus faq-pulse (uploaded, not yet synced: GitHub held the run).",
+ "built_on": "6f280a4 Sync: 2026-11-11 19:36 UTC",
+ "recorded": "2026-11-11 19:37 UTC",
+ "note": "The business Overview: post as the business, its Pulse (shared panel moved out of the dashboard), Messages & offers, 30-day counts, more tool tiles; team Owner counts as owner on the listing page. faq.md also carries the Pulse line from faq-pulse (overwritten by another upload). Built on 19:36 UTC.",
  "status": "pending",
  "live_in": "",
  "files": {
@@ -11,7 +11,7 @@
    "live": false
   },
   "app/ui/faq.md": {
-   "sha256": "1f10de9cded07b5cd4ccfe813e9fc63656639339d6d6756b62f009051f106462",
+   "sha256": "2dccd3cfc2374b0b30ca5a39d8d7d0c3a644cadd680609587246741240649972",
    "live": false
   },
   "app/ui/pulse-panel.php": {
