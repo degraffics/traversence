@@ -1,0 +1,30 @@
+{
+ "zip": "map-place-how_20261111.zip",
+ "built_on": "01da631 Sync: 2026-11-11 13:40 UTC",
+ "recorded": "2026-11-11 13:41 UTC",
+ "note": "How the place was chosen said first (Auto-detect: found by your device), never only 'earlier in this visit', on the map and the search's Location line; a page about one area says so; the map's count stays and OpenStreetMap's places are added to it, never 'has none either'. Built on 13:40 UTC sync.",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/ui/faq.md": {
+   "sha256": "f502c7e94b7d72eba1b71886cebabd99b352efbb79a13636304bdf66cc3f5981",
+   "live": false
+  },
+  "website/discovery/index.php": {
+   "sha256": "c53cac384662c5ce4761119f8ad31de34c7d8fa28e199cd3a82c60fef2ca79ef",
+   "live": false
+  },
+  "website/js/location-scope.js": {
+   "sha256": "0ad6a569532c3d2ed20f0a113da8f2c6571c170f63c9d3c8fb34ee02c246b79d",
+   "live": false
+  },
+  "website/js/map-view.js": {
+   "sha256": "e95dba5b96318bdf7c62cf54bfa2df686363ab97eb54b4e054aed3e84873f270",
+   "live": false
+  },
+  "website/js/search-panel.js": {
+   "sha256": "8c091dccfcd77262c184b83f7230a19a5efc4aec44bd396adb15cb5e4f9cdc37",
+   "live": false
+  }
+ }
+}

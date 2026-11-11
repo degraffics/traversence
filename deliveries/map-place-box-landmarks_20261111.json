@@ -3,32 +3,32 @@
  "built_on": "435ac60 Sync: 2026-11-11 13:22 UTC",
  "recorded": "2026-11-11 13:32 UTC",
  "note": "Supersedes map-place-ask-landmarks: the map panel uses the site's Town or ZIP box + target under its title (no new layout); the map follows any place set; nothing loads without a place or a tap; 'always' tick for future use. Plus Show more landmarks, Discovery map like the Directory's, Distance after a place, signed-in picker. Built on 13:22 UTC sync.",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "01da631 Sync: 2026-11-11 13:40 UTC",
  "files": {
   "app/ui/faq.md": {
    "sha256": "c1649cea8bcbef259a2456cac86f0c67cb9360e3de6b724076bdd1676fdb2917",
-   "live": false
+   "live": true
   },
   "app/ui/location-modal.php": {
    "sha256": "7530ddf11328cd00a4af31ac7d8384cdb7dfb2302011d5f45240f1254555e0d6",
-   "live": false
+   "live": true
   },
   "website/directory/index.php": {
    "sha256": "84ba8d4f59623bb074827675b60eda2858deeb1d009beb00ecd3ca314726f671",
-   "live": false
+   "live": true
   },
   "website/discovery/index.php": {
    "sha256": "2677de5222d1528eabadf645fb80cf69621e84f386240d425ba3f07180ada66a",
-   "live": false
+   "live": true
   },
   "website/js/location-scope.js": {
    "sha256": "7ce7422964ce58ab6d48a175398d4e5488e95ba9351d68e1f8b6299c3da93839",
-   "live": false
+   "live": true
   },
   "website/js/map-view.js": {
    "sha256": "1029a139416e1b6b41e63f48946258fe604aeea5fa60ce34995b9e5f5777888a",
-   "live": false
+   "live": true
   }
  }
 }
