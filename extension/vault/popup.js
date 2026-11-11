@@ -11,7 +11,7 @@
 
   var s = await ask({ t: 'status' }), acts = $('#acts');
   if (!s.connected) {
-    status('Not connected. Open the Vault page, unlock it, and press Connect this browser\'s extension.', '');
+    status((s.ended ? 'Disconnected: ' + s.ended + ' ' : 'Not connected. ') + 'Open the Vault page, unlock it, and press Connect this browser\'s extension.', s.ended ? 'bad' : '');
     acts.appendChild(link('Open the Vault page', VAULT, true));
     $('#foot').textContent = 'The connection lasts 12 hours, until the browser closes, or 30 minutes unused, whichever comes first.';
     return;

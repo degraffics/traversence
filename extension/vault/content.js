@@ -113,6 +113,7 @@
   chrome.runtime.onMessage.addListener(function (m, sender, reply) {   // from the pop-up, for this exact site only
     if (window.top !== window || !m) return;
     if (m.t === 'doFill' && m.origin === location.origin) reply({ ok: fill(m.user, m.pass) });
+    if (m.t === 'where') reply({ href: location.href });
     if (m.t === 'grab') {   // what's filled in now, for "Save this site's login"
       var pw = passFields().filter(function (p) { return p.value; })[0], u = pw ? userField(pw) : null;
       reply(pw ? { user: u ? u.value : '', pass: pw.value, url: location.href } : null);
