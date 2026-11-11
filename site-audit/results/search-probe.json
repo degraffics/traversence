@@ -6,7 +6,7 @@
    "expect": "Dana Point, CA and its guide (it has one), not Point, TX",
    "url": "/api/search.php?q=Dana%20point",
    "status": 200,
-   "ms": 515,
+   "ms": 487,
    "place": "Dana Point, CA",
    "chips": [
     "place: Dana Point, CA"
@@ -46,7 +46,7 @@
    "expect": "Dana Point, CA: its guide, places and listings",
    "url": "/api/search.php?q=Dana%20Point%2C%20CA",
    "status": 200,
-   "ms": 95,
+   "ms": 109,
    "place": "Dana Point, CA",
    "chips": [
     "place: Dana Point, CA"
@@ -86,7 +86,7 @@
    "expect": "Dana Point, CA",
    "url": "/api/search.php?q=dana%20point%20california",
    "status": 200,
-   "ms": 75,
+   "ms": 77,
    "place": "Dana Point, CA",
    "chips": [
     "place: Dana Point, CA"
@@ -126,7 +126,7 @@
    "expect": "places to eat in Dana Point",
    "url": "/api/search.php?q=restaurants%20in%20Dana%20Point%2C%20CA",
    "status": 200,
-   "ms": 90,
+   "ms": 103,
    "place": "Dana Point, CA",
    "chips": [
     "place: Dana Point, CA",
@@ -173,7 +173,7 @@
    "expect": "places to eat in Dana Point",
    "url": "/api/search.php?q=Places%20to%20eat%20around%20dana%20point%2C%20ca",
    "status": 200,
-   "ms": 70,
+   "ms": 83,
    "place": "Dana Point, CA",
    "chips": [
     "why: Somewhere to eat",
@@ -220,7 +220,7 @@
    "expect": "Phoenix, AZ: its guide, listings, places",
    "url": "/api/search.php?q=Phoenix%2C%20az",
    "status": 200,
-   "ms": 55,
+   "ms": 73,
    "place": "Phoenix",
    "chips": [
     "place: Phoenix"
@@ -250,7 +250,7 @@
    "expect": "Phoenix, AZ (the pilot state first)",
    "url": "/api/search.php?q=Phoenix",
    "status": 200,
-   "ms": 56,
+   "ms": 62,
    "place": "Phoenix",
    "chips": [
     "place: Phoenix"
@@ -280,7 +280,7 @@
    "expect": "places to eat in Phoenix",
    "url": "/api/search.php?q=restaurants&city=Phoenix&state=AZ&reach=25",
    "status": 200,
-   "ms": 56,
+   "ms": 62,
    "place": "Phoenix, AZ",
    "chips": [
     "place: Phoenix, AZ",
@@ -325,7 +325,7 @@
    "expect": "pizza places in Phoenix",
    "url": "/api/search.php?q=pizza%20in%20phoenix",
    "status": 200,
-   "ms": 93,
+   "ms": 99,
    "place": "Phoenix",
    "chips": [
     "place: Phoenix",
@@ -357,7 +357,7 @@
    "expect": "coffee near Glendale, AZ 85302",
    "url": "/api/search.php?q=coffee&zip=85302&reach=10",
    "status": 200,
-   "ms": 76,
+   "ms": 96,
    "place": "Glendale, AZ",
    "chips": [
     "place: Glendale, AZ"
@@ -396,7 +396,7 @@
    "expect": "trails and hikes within 2 mi of Phoenix, then 5",
    "url": "/api/search.php?q=hiking%20near%20me&city=Phoenix&state=AZ&reach=2",
    "status": 200,
-   "ms": 246,
+   "ms": 232,
    "place": "Phoenix, AZ",
    "chips": [
     "do: Hiking",
@@ -439,7 +439,7 @@
    "expect": "trails and hikes around Phoenix",
    "url": "/api/search.php?q=hiking&city=Phoenix&state=AZ&reach=25",
    "status": 200,
-   "ms": 107,
+   "ms": 120,
    "place": "Phoenix, AZ",
    "chips": [
     "do: Hiking",
@@ -484,7 +484,7 @@
    "expect": "coffee shops in Phoenix (OpenStreetMap at once, ours once crawled)",
    "url": "/api/search.php?q=coffee%20near%20me&city=Phoenix&state=AZ&reach=10",
    "status": 200,
-   "ms": 144,
+   "ms": 139,
    "place": "Phoenix, AZ",
    "chips": [
     "place: Phoenix, AZ"
@@ -540,7 +540,7 @@
    "expect": "things to do around 85302",
    "url": "/api/search.php?q=Things%20to%20do%20near%20me&zip=85302&reach=25",
    "status": 200,
-   "ms": 141,
+   "ms": 151,
    "place": "Glendale, AZ",
    "chips": [
     "why: Things to do",
@@ -567,7 +567,7 @@
    "expect": "Glendale, AZ: its guide (built on demand) and listings",
    "url": "/api/search.php?q=Glendale%2C%20AZ",
    "status": 200,
-   "ms": 64,
+   "ms": 74,
    "place": "Glendale",
    "chips": [
     "place: Glendale"
@@ -606,7 +606,7 @@
    "expect": "places to stay in Sedona",
    "url": "/api/search.php?q=hotels%20in%20sedona",
    "status": 200,
-   "ms": 229,
+   "ms": 228,
    "place": "Sedona",
    "chips": [
     "place: Sedona"
@@ -648,7 +648,7 @@
    "expect": "Show Low, AZ (a pilot town)",
    "url": "/api/search.php?q=show%20low",
    "status": 200,
-   "ms": 73,
+   "ms": 77,
    "place": "Show Low, AZ",
    "chips": [
     "place: Show Low, AZ"
@@ -669,8 +669,8 @@
    "osm": "",
    "mentions": 0,
    "first": [
-    "Fool Hollow Lake (outdoors · Lake · near Show Low)",
-    "Malpais Pit (outdoors · Basin · near Show Low)"
+    "Malpais Pit (outdoors · Basin · near Show Low)",
+    "Fool Hollow Lake (outdoors · Lake · near Show Low)"
    ],
    "groups": [
     "Listings 0"
@@ -688,7 +688,7 @@
    "expect": "Greer, AZ (a pilot town)",
    "url": "/api/search.php?q=greer%20arizona",
    "status": 200,
-   "ms": 63,
+   "ms": 69,
    "place": "Greer, AZ",
    "chips": [
     "place: Greer, AZ"
@@ -732,7 +732,7 @@
    "expect": "Four Corners Monument, not Four Corners, WY",
    "url": "/api/search.php?q=Four%20Corners",
    "status": 200,
-   "ms": 86,
+   "ms": 90,
    "place": "Four Corners, WY",
    "chips": [
     "place: Four Corners, WY"
@@ -760,7 +760,7 @@
    "expect": "Grand Canyon National Park",
    "url": "/api/search.php?q=grand%20canyon",
    "status": 200,
-   "ms": 80,
+   "ms": 89,
    "place": "Grand Canyon, AZ",
    "chips": [
     "place: Grand Canyon, AZ"
@@ -802,7 +802,7 @@
    "expect": "Four Corners Monument (a landmark added by hand)",
    "url": "/api/search.php?q=four%20corners%20monument",
    "status": 200,
-   "ms": 201,
+   "ms": 207,
    "place": "",
    "chips": [],
    "text": "four corners monument",
@@ -837,7 +837,7 @@
    "expect": "Laguna Art Museum (found for the Laguna Beach guide)",
    "url": "/api/search.php?q=laguna%20art%20museum",
    "status": 200,
-   "ms": 121,
+   "ms": 127,
    "place": "Laguna, NM",
    "chips": [
     "place: Laguna, NM"
@@ -880,7 +880,7 @@
    "expect": "plumbers in Show Low",
    "url": "/api/search.php?q=plumber%20in%20show%20low",
    "status": 200,
-   "ms": 132,
+   "ms": 137,
    "place": "Show Low, AZ",
    "chips": [
     "place: Show Low, AZ",
@@ -939,22 +939,22 @@
    "q": "pho",
    "ctx": "",
    "first": [
+    "Photographers (category · All of this kind)",
+    "Photo Printing (category · All of this kind)",
+    "Phone Companies (category · All of this kind)",
     "Phoenix (place · Town)",
-    "Phoenixville, PA (place · Town · see what's there)",
     "Phoenicia, NY (place · Town · see what's there)",
-    "Phoenix Financial Center (knowledge · From our guides · Institution)",
-    "Phoenix Union High School (knowledge · From our guides · Institution)",
-    "Broken appliance (situation · Appliance and electronics repair · Used appliances)"
+    "Phoenixville, PA (place · Town · see what's there)"
    ]
   },
   {
    "q": "phoenix",
    "ctx": "",
    "first": [
-    "Phoenixville, PA (place · Town · see what's there)",
     "Phoenix Financial Center (knowledge · From our guides · Institution)",
     "Phoenix Union High School (knowledge · From our guides · Institution)",
     "Phoenix Mountains (outdoors · Phoenix › Peak · 6 mi)",
+    "Phoenixville, PA (place · Town · see what's there)",
     "Hilton Garden Inn Phoenix Midtown (listing · Phoenix › Inns · 5 mi)",
     "Hilton Phoenix Resort at the Peak (listing · Phoenix › Resorts · 6 mi)"
    ]
@@ -964,10 +964,10 @@
    "ctx": "",
    "first": [
     "pizza in Phoenix, AZ (place · Search there)",
-    "pizza in Phoenixville, PA (place · Search there · no listings yet)",
     "pizza in Phoenix, MD (place · Search there)",
     "pizza in Phoenix, NY (place · Search there)",
     "pizza in Phoenix, OR (place · Search there)",
+    "pizza in Phoenixville, PA (place · Search there · no listings yet)",
     "Pizza (category · 16 listed · for “pizza in photographic”)"
    ]
   },
@@ -982,12 +982,12 @@
    "q": "glendale",
    "ctx": "city=Phoenix&state=AZ",
    "first": [
+    "Glendale (knowledge · From our guides · Place)",
+    "Glendale Gardens Historic District (outdoors · Glendale › Historic district)",
+    "Glendale City Hall (listing · Glendale › City Hall)",
     "Glendale Heights, IL (place · Town · see what's there)",
     "Glendale Springs, NC (place · Town · see what's there)",
-    "Glendale (knowledge · From our guides · Place)",
-    "Glendale project (knowledge · From our guides · Place)",
-    "Glendale Gardens Historic District (outdoors · Glendale › Historic district)",
-    "Glendale City Hall (listing · Glendale › City Hall)"
+    "Glendale project (knowledge · From our guides · Place)"
    ]
   },
   {
@@ -995,11 +995,11 @@
    "ctx": "",
    "first": [
     "Show Low, AZ (place · Town in The Show Low District)",
-    "Live Music & Entertainment (category · Maybe? 1 listed · for “show l”)",
     "Show Low Lake (outdoors · Lakeside › Lake)",
-    "Show Low Regional Airport-Sow (listing · Show Low › Airports)",
+    "Show Low Ford (listing · Show Low › New Car Dealers)",
+    "Show Low Apartments (listing · Show Low › Apartments)",
     "Show Low Animal Control (listing · Show Low › Animal Shelters)",
-    "Show Low Apartments (listing · Show Low › Apartments)"
+    "Show Low Schools Trnsprtn (listing · Show Low › School Buses)"
    ]
   },
   {
@@ -1007,11 +1007,11 @@
    "ctx": "",
    "first": [
     "Four Corners, WY (place · Town · see what's there)",
-    "Lumber Yards (category · Maybe? 1 listed · for “four cor”)",
-    "Beer Stores (category · Maybe? 1 listed · for “four cor”)",
     "Four Corners Monument (outdoors · Aneth › Monuments)",
+    "Four Corners Healthcare (listing · Grants › Home Health Care)",
     "Four Corners Behavioral Health (listing · Gallup › Mental Health Services)",
-    "Four Corners Healthcare (listing · Grants › Home Health Care)"
+    "Lumber Yards (category · Maybe? 1 listed · for “four cor”)",
+    "Beer Stores (category · Maybe? 1 listed · for “four cor”)"
    ]
   },
   {
@@ -1028,8 +1028,8 @@
    "q": "four corners mon",
    "ctx": "",
    "first": [
-    "Monuments (category · Maybe? 1 listed · for “four corners monument”)",
-    "Four Corners Monument (outdoors · Aneth › Monuments)"
+    "Four Corners Monument (outdoors · Aneth › Monuments)",
+    "Monuments (category · Maybe? 1 listed · for “four corners monument”)"
    ]
   },
   {
