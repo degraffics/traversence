@@ -117,12 +117,15 @@ Android's autofill service and an iPhone password provider. Passkey sign-in to T
 
 ### 9. Stages and their gates
 
-1. **Traversence's own vault** (staff): build it and use it for months.
+1. **Traversence's own vault** (staff), **with the browser extension for staff** (Jason, 2026-11-11: "I also want the browser
+   extension so I can start using it with my own vault"): zip 1 the vault, then the extension (Chrome and Edge; loaded in
+   developer mode first, then an Unlisted Chrome Web Store item), then zip 2 (the one-time page and code seal, signals,
+   limits, age reminders). Use it for months.
 2. **For customers, opt-in with consent,** only after: an outside security audit and penetration test passed; cyber-liability
    insurance; the terms reviewed by counsel; the vault page on its own hardened host (not shared Bluehost); the code seal
    checked every few minutes; an incident plan. Then an invite-only beta for a few business owners, then everyone (free at
    a basic level; business features such as team sharing in paid plans).
-3. The browser extension.
+3. The browser extension for customers (a public store listing), after stage 2's gates.
 4. Phone apps with autofill, and passkey sign-in to Traversence.
 
 ### 10. Costs
