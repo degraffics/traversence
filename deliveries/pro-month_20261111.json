@@ -20,7 +20,7 @@
   },
   "app/migrations/2027-03-02_month_only.sql": {
    "sha256": "7a66b414f22a4fab148fa94fe06e4eba633a935108f33d0fa81ee8abf0d08a4d",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "3a9a9e13026333a47782904d2652443ce2fe52c899381e8faba170562c6d2298",
