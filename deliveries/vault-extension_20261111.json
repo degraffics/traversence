@@ -3,36 +3,36 @@
  "built_on": "f0476c3 Sync: 2026-11-11 19:13 UTC",
  "recorded": "2026-11-11 19:32 UTC",
  "note": "Vault browser extension (site side), real work email for alerts, passkey hints, 5-minute passkey requests, Unlock fix",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "6f280a4 Sync: 2026-11-11 19:36 UTC",
  "files": {
   "app/lib/Vault.php": {
    "sha256": "a6550e8138e7582535f3ebb1675c1483a20883bf426845ab405913d995db0a11",
-   "live": false
+   "live": true
   },
   "app/lib/WebAuthn.php": {
    "sha256": "0b2f5321638f671e86bd02d96717fffb4564b9cac150c6f557a30661d3d96d15",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "ab58c598b0aa53b9f433f280bed724aff6596b7610dfda06c38bba5746df1ef6",
-   "live": false
+   "live": true
   },
   "app/ui/vault.php": {
    "sha256": "12dcb5f7a9f10142fba65c739d566940d527d7b4e22151f3e17f2a1de5bf6f02",
-   "live": false
+   "live": true
   },
   "website/admin/api/vault-ext.php": {
    "sha256": "70c5a82fe0d9a68da9a0bdd7b3c433589e1bd358ed024e9232b5fd52f3e84fba",
-   "live": false
+   "live": true
   },
   "website/admin/api/vault.php": {
    "sha256": "03fc38cc0dbb96067c545cdcb0731ba1d8d1de843761c4b76bb3eab5d5150a1e",
-   "live": false
+   "live": true
   },
   "website/js/tv-vault.js": {
    "sha256": "fed4db05eb79e8d7da7adad0045596199c0aff9419b862a7746ea99dd6fd94a1",
-   "live": false
+   "live": true
   }
  }
 }
