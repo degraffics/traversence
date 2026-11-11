@@ -1,0 +1,18 @@
+{
+ "zip": "signin-line_20261111.zip",
+ "built_on": "35f8fb7 Sync: 2026-11-11 17:36 UTC",
+ "recorded": "2026-11-11 17:39 UTC",
+ "note": "Outside services: sign-in on one line at the top of each card (Sign in to the company's login page, 1Password private link to the saved login, who and how; edit behind \u270e). Built on 17:36 UTC sync.",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/OutsideServices.php": {
+   "sha256": "81c34d798c716797ce84274bbb44cf4b8d73a7f966d13fbb57dc2430935a726f",
+   "live": false
+  },
+  "app/ui/outside-services.php": {
+   "sha256": "50d4b50e797d41a79c210fede087d4588c0e2099d0aced472389528b9c6af913",
+   "live": false
+  }
+ }
+}
