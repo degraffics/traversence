@@ -52,7 +52,7 @@
   },
   "app/migrations/2027-02-26_member_posts.sql": {
    "sha256": "deaad3e97da4bf80342b47243f884ba4276a7070b88ef39ee6ec7a9097b2f3d3",
-   "live": false
+   "live": true
   },
   "app/scripts/moments_tick.php": {
    "sha256": "cd4d02ed5f2df7b5edfac16bbb9b25e2cc989a94ee270f2dd29abe5d2a6862b6",

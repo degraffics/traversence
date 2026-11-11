@@ -3,16 +3,16 @@
  "built_on": "43995cd Sync: 2026-11-11 16:26 UTC",
  "recorded": "2026-11-11 16:29 UTC",
  "note": "Outside services: each card links to where the company is set up or used in our admin (In our admin), then its own pages. Built on 16:26 UTC sync.",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "bcb6bf9 Sync: 2026-11-11 16:54 UTC",
  "files": {
   "app/lib/OutsideServices.php": {
    "sha256": "164d568ca044f337409e8f9b7e17d1d3807a49153b6ef3cfc09f162c08f1a48b",
-   "live": false
+   "live": true
   },
   "app/ui/outside-services.php": {
    "sha256": "ae7f99fa78977c756ea78068cef2044b50c8f99d48737cf1ca941ceff5000da8",
-   "live": false
+   "live": true
   }
  }
 }
