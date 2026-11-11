@@ -1,8 +1,8 @@
 {
  "zip": "search-finish-before-guess_20261111.zip",
  "built_on": "6fe5d09 Sync: 2026-11-11 00:15 UTC",
- "recorded": "2026-11-11 00:16 UTC",
- "note": "Typing: finishing a word comes before guessing at it (jala: jalapeno, not java) and before Search for the partial word; removes nothing",
+ "recorded": "2026-11-11 00:18 UTC",
+ "note": "Typing: finishing a word before guessing (jala: jalapeno), the finished word above Search for; Where should we look? only for near-me words (the Location line does the rest, decisions/0067 note); removes nothing",
  "status": "pending",
  "live_in": "",
  "files": {
@@ -11,11 +11,11 @@
    "live": false
   },
   "app/ui/faq.md": {
-   "sha256": "b95e8b2e1419ba4ef0c6f0f9661c1e16359f60b44f25adc949efb03da2c280ce",
+   "sha256": "71871874cce66f1f67815011c8948e2a7bb13ddd92a44e978e15064f55b762d6",
    "live": false
   },
   "website/js/search-panel.js": {
-   "sha256": "d21258dee996e8b4540d652439ada5d70bd03d147e76b3ba24c7d87e1dfa30ab",
+   "sha256": "511ca7e7881ea8bcc08632b03e86cb6a43fd3dff6264c7d2f5686a89459f9023",
    "live": false
   }
  }
