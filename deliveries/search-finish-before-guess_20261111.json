@@ -2,7 +2,7 @@
  "zip": "search-finish-before-guess_20261111.zip",
  "built_on": "6fe5d09 Sync: 2026-11-11 00:15 UTC",
  "recorded": "2026-11-11 00:16 UTC",
- "note": "Typing: finishing a word comes before guessing at it (jala: jalapeno, not java); extends the 'compo waits' rule to Did you mean; removes nothing",
+ "note": "Typing: finishing a word comes before guessing at it (jala: jalapeno, not java) and before Search for the partial word; removes nothing",
  "status": "pending",
  "live_in": "",
  "files": {
@@ -11,7 +11,11 @@
    "live": false
   },
   "app/ui/faq.md": {
-   "sha256": "21114c639a5a19c4b670b695aae10858ffe842d080f6b350cab3317341e20ef0",
+   "sha256": "b95e8b2e1419ba4ef0c6f0f9661c1e16359f60b44f25adc949efb03da2c280ce",
+   "live": false
+  },
+  "website/js/search-panel.js": {
+   "sha256": "d21258dee996e8b4540d652439ada5d70bd03d147e76b3ba24c7d87e1dfa30ab",
    "live": false
   }
  }
