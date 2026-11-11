@@ -20,7 +20,8 @@ What the site does with them: feeds play the 720p copy; Personal Pro's and busin
 1. **The token:** make a long random value (for example `openssl rand -hex 32`). Put it in the site's `.env` as
    `VIDEO_WORKER_TOKEN=…` (cPanel File Manager), and in Railway as the variable `VIDEO_WORKER_TOKEN`.
 2. **Railway:** New service → from this repo, root directory `workers/video` (it builds from the Dockerfile; the cron
-   schedule is in `railway.json`). Variables: `VIDEO_WORKER_TOKEN`, `TRAVERSENCE_SITE=https://traversence.com`.
+   schedule, every 5 minutes, and the watch path, so it rebuilds only when this folder changes, are in `railway.json`;
+   if Settings doesn't show them, set **Config File** to `/workers/video/railway.json`). Variables: `VIDEO_WORKER_TOKEN`, `TRAVERSENCE_SITE=https://traversence.com`.
    Optional: `RUN_SECONDS` (240), `JOBS_PER_ASK` (2).
 3. **R2 CORS isn't needed:** the worker's signed links are server-to-server.
 
