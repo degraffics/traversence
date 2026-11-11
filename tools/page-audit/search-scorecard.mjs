@@ -113,6 +113,8 @@ const TYPING = [
   ['nava', '', { lead: /Navajo/, top: 3 }],
   ['dog park', '', { lead: /Dog parks/, top: 1, never: /sleep in my car|parkway/i }],
   ['playg', '', { lead: /Playground/, top: 2 }],
+  ['AZ a', 'city=Saint Johns&state=AZ', { min: 1 }],   // 2026-11-11: an empty panel on a computer
+  ['az am', 'city=Saint Johns&state=AZ', { min: 1 }],
   // the page sets the order (the Chameleon Filter while typing, 2026-11-11): Let's Explore, then the Directory
   ['mexi', 'track=explore', { lead: /New Mexico|Mexico/, top: 1 }],
   ['mexi', 'track=local', { lead: /Mexican food/, top: 1 }],
@@ -156,7 +158,8 @@ async function getJson(url) {
     try { r = await fetch(url, { headers: { 'User-Agent': 'traversence-search-scorecard' } }); break; }
     catch (e) { if (i >= 2) throw e; await new Promise((ok) => setTimeout(ok, 2000 * (i + 1))); }
   }
-  const d = await r.json();
+  const raw = await r.text();   // an error page instead of JSON says what broke
+  let d; try { d = JSON.parse(raw); } catch (e) { throw new Error(`HTTP ${r.status}: ${raw.replace(/\s+/g, ' ').slice(0, 220)}`); }
   return [d, Date.now() - t0, r.status];
 }
 
