@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Traversence Vault</title>
+<style>
+body{margin:0;width:320px;font:14px/1.4 system-ui,sans-serif;color:#1F2937;background:#FFFBF2}
+header{display:flex;align-items:center;gap:8px;padding:10px 12px;background:#3B2416;color:#FFFBF2}header img{width:24px;height:24px}header b{flex:1}
+main{padding:10px 12px}
+.s{font-size:13px;color:#57534E;margin:0 0 8px}.s.ok{color:#1F5C43}.s.bad{color:#991B1B}
+.it{display:flex;align-items:center;gap:8px;background:#fff;border:1px solid #E7D9C4;border-radius:8px;padding:8px 10px;margin:6px 0}
+.it div{flex:1;min-width:0}.n{font-weight:600;color:#92400E;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.u{font-size:12px;color:#78716C;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+button,a.btn{font:inherit;border-radius:6px;padding:5px 10px;cursor:pointer;border:1.5px solid #92400E;background:#FFFBF2;color:#92400E;text-decoration:none;display:inline-block}
+button.go,a.go{background:#92400E;color:#fff}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+small{display:block;color:#78716C;font-size:12px;margin-top:8px}
+</style></head>
+<body>
+<header><img src="icons/icon32.png" alt=""><b>Traversence Vault</b></header>
+<main>
+  <p class="s" id="st">Checking…</p>
+  <div id="list"></div>
+  <div class="row" id="acts"></div>
+  <small id="foot"></small>
+</main>
+<script src="popup.js"></script>
+</body></html>
