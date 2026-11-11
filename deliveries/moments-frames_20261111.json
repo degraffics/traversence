@@ -1,0 +1,18 @@
+{
+ "zip": "moments-frames_20261111.zip",
+ "built_on": "445a68f Sync: 2026-11-11 17:17 UTC",
+ "recorded": "2026-11-11 17:20 UTC",
+ "note": "The recorder's frame (Jason, 2026-11-11: a landscape camera filled a portrait screen live, then played back letterboxed): choose Portrait 9:16, Square or Landscape 16:9; the recording is made at that size (a canvas cut from the camera's picture, at most 1280 px long), never a full frame with parts hidden, so review matches what was seen. The choice is remembered on the device. FAQ updated. Built on 17:17 UTC sync.",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/ui/faq.md": {
+   "sha256": "3fe811d94b559b06bca870e37e925ab2a2451c972aa7ed766291d9b846a015cf",
+   "live": false
+  },
+  "website/js/tv-moments.js": {
+   "sha256": "9129aa48fa601325ed441496756e3ece90f832649676a81910e5fc046484d601",
+   "live": false
+  }
+ }
+}
