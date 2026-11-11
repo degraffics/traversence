@@ -1,0 +1,14 @@
+{
+ "zip": "search-scorecard-fixes_20261111.zip",
+ "built_on": "12c89bb Sync: 2026-11-11 22:28 UTC",
+ "recorded": "2026-11-11 22:48 UTC",
+ "note": "Search: fixes for 10 scorecard failures (exact names win over a town in them, areas named for a town read as that town, near-me errands within the Distance with OpenStreetMap filling in, typing: towns, Plumbers here, near me, who's coming); a misspelled town is offered. FAQ entry follows once pro-month is live",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/UniversalSearch.php": {
+   "sha256": "c7464c6820529ffc39c2b2fa05ad36fb980a3e8ebc5bf6cc654ba1834dc47fdd",
+   "live": false
+  }
+ }
+}

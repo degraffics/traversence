@@ -25,7 +25,7 @@ const CASES = [
   ['Places', 'Dana point', '', { place: /Dana Point, CA/ }],
   ['Places', 'show low', '', { place: /Show Low, AZ/, min: 1 }],
   ['Places', 'Showlow', '', { place: /Show Low, AZ/ }],
-  ['Places', 'flagstaf', '', { place: /Flagstaff, AZ/ }],
+  ['Places', 'flagstaf', '', { dym: /flagstaff/i }],   // a misspelled town is offered, never read (decisions/0063, 0064)
   ['Places', 'sedona az', '', { place: /^Sedona/ }],
   ['Places', 'Glendale', PHX, { place: /^Glendale/ }],
   ['Places', 'Four Corners', '', { lead: /Four Corners Monument/, top: 3 }],
