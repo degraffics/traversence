@@ -16,7 +16,7 @@
   },
   "app/lib/MemberPosts.php": {
    "sha256": "84bb38409fbc829d59bf09a4d1136135011a8fc58ea05918bfbe4cae0d670eb0",
-   "live": true
+   "live": false
   },
   "app/lib/MemberProfile.php": {
    "sha256": "d4c745d040ccade5949e11d27e8297170574447f0188fd1e7476e7e5be6fbae0",
@@ -28,7 +28,7 @@
   },
   "app/lib/Upgrades.php": {
    "sha256": "63f42c575f884b12f742d99c86b55fdd218bcea8ebb6ec682f7f15de3f41b4e6",
-   "live": true
+   "live": false
   },
   "app/lib/upload-targets.php": {
    "sha256": "1ec41a99dec472a73297994f4e4580d4656d0f7a085d707cdad122fa1f533b72",
@@ -72,7 +72,7 @@
   },
   "website/js/tv-moments.js": {
    "sha256": "e9d9e8d3be44ff261d054a1769ce84b024460953bfa1e000512319599eb0fc0a",
-   "live": true
+   "live": false
   },
   "website/js/tv-upgrade.js": {
    "sha256": "652e27e7f0edc5402fcbdb2a85ea85bdee7aef8a329f3bf24800306b760fafa2",
@@ -88,11 +88,11 @@
   },
   "website/plans.php": {
    "sha256": "8e1cebc042594815a3810a0b1635a09532d9a3c1388674ef401b03483ba4173f",
-   "live": true
+   "live": false
   },
   "website/qr/cart.php": {
    "sha256": "2ac0589afd19c87fe6947e6611a0380bb3e99ae1cfe71babdab364f785b98761",
-   "live": true
+   "live": false
   },
   "website/shop/index.php": {
    "sha256": "64cdfd02f4c52575e3a4521af5e3728c932bdf74e622ca7e5e45c9e730437502",

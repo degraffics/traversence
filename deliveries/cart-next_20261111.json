@@ -1,0 +1,18 @@
+{
+ "zip": "cart-next_20261111.zip",
+ "built_on": "afb7b7c Sync: 2026-11-11 21:42 UTC",
+ "recorded": "2026-11-11 21:43 UTC",
+ "note": "Cart: the header's badge counts plans and packs (go-codes.js reset it to GO Codes only); Continue shopping and Checkout; no empty-GO-Codes line over plans. Built on 21:42 UTC.",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "website/js/go-codes.js": {
+   "sha256": "42499b6601d415d427f272173d2ee1882df3461be83557b743356db0cd0c4d1f",
+   "live": false
+  },
+  "website/qr/cart.php": {
+   "sha256": "a2f7a88142dd5b1a939a5c483c16ea4a5542444b6f1f66957492a886b299cd1e",
+   "live": false
+  }
+ }
+}
