@@ -1,0 +1,38 @@
+{
+ "zip": "hero5_20261112.zip",
+ "built_on": "8a28e86 Sync: 2026-11-12 19:41 UTC",
+ "recorded": "2026-11-12 19:53 UTC",
+ "note": "hero4 plus (Jason, 2026-11-12): the member dashboard's Your businesses is a list of the businesses you run, each opening its own pages; the Business Listing Portal banner and the duplicate insights are gone (they stay acting as the business). Replaces hero4.",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/ui/explore-hero.php": {
+   "sha256": "353d5ef425c9bef543fc8b0d40b099a9a31701d4808e417a5876616a231cfa01",
+   "live": false
+  },
+  "app/ui/header.php": {
+   "sha256": "8fca7b564bfc6dba77e84eacb0cde1e917fd2a8fac4e7226135310154448b195",
+   "live": false
+  },
+  "app/ui/page-shell.php": {
+   "sha256": "3df38769becc93c585979549e9e788957e519037a328dde30f89e99d6f0794d3",
+   "live": false
+  },
+  "website/directory/index.php": {
+   "sha256": "ea26eb614dff2d343fc9eb3c5e56060edc06c6320816fbc86aa131fb3a5bbf3a",
+   "live": false
+  },
+  "website/discovery/index.php": {
+   "sha256": "ab6a1d4c8dc548af59d5f7fa7f970f6d4179e586e66a4e54411bca8a8b394360",
+   "live": false
+  },
+  "website/js/tv-pager.js": {
+   "sha256": "1f54f7d61edcffe7fcb66ab042d3d29e5fe286a4a1af68f1ec60f4799f178b58",
+   "live": false
+  },
+  "website/user/dashboard.php": {
+   "sha256": "686655edbc94dea8f1e84a4cf97dcdc4aa78053c93cd36174f1395676041c535",
+   "live": false
+  }
+ }
+}
