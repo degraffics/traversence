@@ -247,7 +247,8 @@ wraps, `app/bootstrap.php` unwraps). JSON `fetch`: `JSON.stringify(window.tvSafe
   the nation's name (`Nations::label()`) and visitor rules (`Nations::rules()`).
 - **Held, never shown:** names that may mark sacred, burial or protected sites (`Landmarks::SENSITIVE`) and what's
   specific to the nation (`Landmarks::NATION_SENSITIVE_CLASSES`), until the nation's own tools exist
-  (`Landmarks::NATION_TOOLS`) and it says. "Closed by the nation" reopens only at its request. Never delete the data.
+  (`Landmarks::NATION_TOOLS`) and it says. A place held only by a word, off a nation's land, that is plainly public (its own
+  article, open to visitors) shows, unless it speaks of the sacred or burials (`Landmarks::publiclyKnown()`, 2026-11-12). "Closed by the nation" reopens only at its request. Never delete the data.
 - Anything about a user or owner is private unless they say otherwise.
 - All landmark reads go through `Landmarks::visibleSql()` / `visible()`; pins on nation land (`Nations::pin()`) move to a
   public place.

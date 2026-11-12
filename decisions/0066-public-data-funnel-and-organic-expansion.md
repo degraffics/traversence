@@ -38,6 +38,8 @@ how tribal land is presented, and how new areas open.
    words answers for that place without changing the set location. Search predicts what the person likely wants
    there and lets them choose, change or try again. The set location changes only when they choose to get local.
 
+
+**Note (2026-11-12, Jason, on Besh-Ba-Gowah: "Explain the sensitivity and how you leaned on not showing when it is obviously a place shown publicly"; then "yes build it"):** a word alone no longer holds a place the public plainly knows. Besh-Ba-Gowah, a city-run archaeological park and museum promoted by the City of Globe and the state, was held because its description says "archaeological". Now a place held by the word list (`Landmarks::PROTECTED`) is shown when it has its own Wikipedia article or is described as open to visitors (a museum, a park, a monument, a historic site, a visitor center): `Landmarks::publiclyKnown()`. Never when it is on a nation's land (held until the nation says, as before), never when a person decided otherwise, and never when its name or description speaks of the sacred or of burials (`Landmarks::SACRED`: sacred, shrine, burial, grave, ossuary, ceremonial, medicine wheel), which stay held whatever else is known. A guide names it and links it; a migration releases the ones already held (`known_20261112.zip`).
 ## Consequences
 
 - **The cleaned list** (`Western-States-Places-clean.xlsx`) is a reference for anchors by county, with ZIPs and a

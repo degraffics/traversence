@@ -1,0 +1,30 @@
+{
+ "zip": "known_20261112.zip",
+ "built_on": "521c77f Sync: 2026-11-12 21:57 UTC",
+ "recorded": "2026-11-12 22:00 UTC",
+ "note": "Publicly known places (Jason, 2026-11-12, Besh-Ba-Gowah): a landmark held only by a word, off a nation's land, shows when it has its own article or is open to visitors, unless it speaks of the sacred or burials (Landmarks::publiclyKnown); guides link it; a migration releases those already held; guide names held listed once; 'Archaeological Park' and the like match the shorter name.",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/GuideLinks.php": {
+   "sha256": "e3563dde50004faf44a878ca6ba8e9b9abc1ff9a54fe6d54787689ce248f7787",
+   "live": false
+  },
+  "app/lib/Landmarks.php": {
+   "sha256": "c716233a7ea9eb59522e2c3bac865d640c5b6356d6bb94d5e702174f82db9920",
+   "live": false
+  },
+  "app/lib/PlaceFinder.php": {
+   "sha256": "1a94119f6849bb215e65bfd0e52f2de6c059e0095635e1f2bae4f1a127f09f53",
+   "live": false
+  },
+  "app/migrations/2026-11-12_landmarks_publicly_known.sql": {
+   "sha256": "cc5e32b1a63abbf767de0f961fa62cf65765941b97820de245b9f60340b77ae7",
+   "live": false
+  },
+  "website/admin/guide-edit.php": {
+   "sha256": "8d356bfe29fa4010d62ef75fd3b079dca8515168050144c84c87a4af8b329aa6",
+   "live": false
+  }
+ }
+}
