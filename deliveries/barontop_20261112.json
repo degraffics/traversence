@@ -3,20 +3,20 @@
  "built_on": "feb18da Sync: 2026-11-12 20:43 UTC",
  "recorded": "2026-11-12 20:46 UTC",
  "note": "Jason, 2026-11-12: the account bar above the header again, both pinned as the page scrolls; the map below both; the way-back route only in the Let's Explore funnel (and what's reached from it).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "2762c73 Sync: 2026-11-12 21:48 UTC",
  "files": {
   "app/ui/context-switcher.php": {
    "sha256": "e6744b0d76b86d6044a47d0c4eca0f5a592a960979f7bef43b6cc2aa2f907202",
-   "live": false
+   "live": true
   },
   "website/js/map-view.js": {
    "sha256": "f63ca2ee3f0d14a9004286ffba4addcefc04bea30608749293a124fc9430e498",
-   "live": false
+   "live": true
   },
   "website/js/tv-trail.js": {
    "sha256": "87c8a2c278c78208845a350d13205c3c726c293b942d7b91213de8f178a45ede",
-   "live": false
+   "live": true
   }
  }
 }
