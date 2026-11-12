@@ -1,0 +1,18 @@
+{
+ "zip": "placepop3_20261112.zip",
+ "built_on": "1e91cc2 Sync: 2026-11-12 20:25 UTC",
+ "recorded": "2026-11-12 20:28 UTC",
+ "note": "Jason, 2026-11-12: the map opens under the account bar (it hid it); the place pop-up's saved places are one dropdown, not pills.",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "website/js/location-scope.js": {
+   "sha256": "62a68f85863e0285052673f5a819169d1e710ea61d8970720135ce068a9976f3",
+   "live": false
+  },
+  "website/js/map-view.js": {
+   "sha256": "eeb5adf7dbcd1b241485a6ea3dc49fc4f6193723b18124b0be1096c5e1514911",
+   "live": false
+  }
+ }
+}
