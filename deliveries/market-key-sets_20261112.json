@@ -3,20 +3,20 @@
  "built_on": "42f47c3 Sync: 2026-11-12 12:47 UTC",
  "recorded": "2026-11-12 13:01 UTC",
  "note": "Payments: Stripe and Square keys as two sets side by side (STRIPE_TEST_/STRIPE_LIVE_, SQUARE_SANDBOX_/SQUARE_LIVE_), MARKET_PAY_ENV picks; old single names still work in test mode only; Outside services cards and staging setup follow",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "a88c81e Sync: 2026-11-12 13:04 UTC",
  "files": {
   "app/lib/MarketPay.php": {
    "sha256": "dad846de087a559331f9323f5f8dc88000e54cc7963a2dec01fa981500300ac2",
-   "live": false
+   "live": true
   },
   "app/lib/OutsideServices.php": {
    "sha256": "b5d593640abbaa9a90aecac3c7f19847838e604c4acc74f36dd5b6e85afdbc44",
-   "live": false
+   "live": true
   },
   "app/lib/StagingSite.php": {
    "sha256": "80ec7a4394e4bda231bd5dd807eb1d0dbaf6abc3c3bd9052aa0769d54637f9fb",
-   "live": false
+   "live": true
   }
  }
 }
