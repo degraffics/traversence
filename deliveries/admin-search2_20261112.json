@@ -3,7 +3,7 @@
  "built_on": "8497de4 Sync: 2026-11-12 16:55 UTC",
  "recorded": "2026-11-12 16:56 UTC",
  "note": "Admin search: a line on what each section is for (and only sections whose own name or line match), typos forgiven, the decisions in Help (linked to GitHub)",
- "status": "pending",
+ "status": "replaced",
  "live_in": "",
  "files": {
   "app/admin/section-about.php": {
@@ -22,5 +22,6 @@
    "sha256": "19af0f2cf6cb51424cd9a88e577612385bac8031925f71b636775a33e16ff56a",
    "live": false
   }
- }
+ },
+ "replaced_by": "batch_20261112.zip"
 }
