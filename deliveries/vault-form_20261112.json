@@ -1,19 +1,19 @@
 {
-  "zip": "vault-form_20261112.zip",
-  "built_on": "6dbeeea Sync: 2026-11-12 14:03 UTC",
-  "recorded": "2026-11-12 14:05 UTC",
-  "note": "Vault: Add/change a login opens as a side panel; the bar's lock shows open (shut only when locked); Keep Vault Open; Select is now Delete several",
-  "status": "pending",
-  "live_in": "",
-  "files": {
-    "app/ui/vault.php": {
-      "sha256": "a0fd85865ef383e95b135720bee011236b6469a6326f17f7d076d79ac163d74e",
-      "live": false
-    },
-    "website/js/tv-vault.js": {
-      "sha256": "cc24d9ce999645ec6080f23cea93564173df1e0d94cb08a400fec0e396b4abdf",
-      "live": false
-    }
+ "zip": "vault-form_20261112.zip",
+ "built_on": "6dbeeea Sync: 2026-11-12 14:03 UTC",
+ "recorded": "2026-11-12 14:05 UTC",
+ "note": "Vault: Add/change a login opens as a side panel; the bar's lock shows open (shut only when locked); Keep Vault Open; Select is now Delete several",
+ "status": "replaced",
+ "live_in": "",
+ "files": {
+  "app/ui/vault.php": {
+   "sha256": "a0fd85865ef383e95b135720bee011236b6469a6326f17f7d076d79ac163d74e",
+   "live": false
   },
-  "replaced_by": "vault-pages_20261112"
+  "website/js/tv-vault.js": {
+   "sha256": "cc24d9ce999645ec6080f23cea93564173df1e0d94cb08a400fec0e396b4abdf",
+   "live": false
+  }
+ },
+ "replaced_by": "vault-pages_20261112"
 }
