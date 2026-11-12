@@ -1,23 +1,23 @@
 {
-  "zip": "vault-bar_20261112.zip",
-  "built_on": "3e98079 Sync: 2026-11-12 13:35 UTC",
-  "recorded": "2026-11-12 13:40 UTC",
-  "note": "Vault: bar across the top (time left, tools, Close and Lock); stays open on reload in that tab; Still there? with one full-width Keep it open; extension rows show time left; wider layout",
-  "status": "pending",
-  "live_in": "",
-  "files": {
-    "app/ui/faq.md": {
-      "sha256": "48465afff74faa31409438019c53fa4a5c7648b05eb4a990410108b24b3ee7c8",
-      "live": false
-    },
-    "app/ui/vault.php": {
-      "sha256": "1aff5c3a29ff8bdc66fe24517f70255b866bae925a683e4aca8e4d0e5b0c6a99",
-      "live": false
-    },
-    "website/js/tv-vault.js": {
-      "sha256": "4b48b638b59188a3a935642d98990401163d6e4be50eaf9fabe74ab9218d5fac",
-      "live": false
-    }
+ "zip": "vault-bar_20261112.zip",
+ "built_on": "3e98079 Sync: 2026-11-12 13:35 UTC",
+ "recorded": "2026-11-12 13:40 UTC",
+ "note": "Vault: bar across the top (time left, tools, Close and Lock); stays open on reload in that tab; Still there? with one full-width Keep it open; extension rows show time left; wider layout",
+ "status": "replaced",
+ "live_in": "",
+ "files": {
+  "app/ui/faq.md": {
+   "sha256": "48465afff74faa31409438019c53fa4a5c7648b05eb4a990410108b24b3ee7c8",
+   "live": false
   },
-  "replaced_by": "vault-bar2_20261112"
+  "app/ui/vault.php": {
+   "sha256": "1aff5c3a29ff8bdc66fe24517f70255b866bae925a683e4aca8e4d0e5b0c6a99",
+   "live": false
+  },
+  "website/js/tv-vault.js": {
+   "sha256": "4b48b638b59188a3a935642d98990401163d6e4be50eaf9fabe74ab9218d5fac",
+   "live": false
+  }
+ },
+ "replaced_by": "vault-bar2_20261112"
 }
