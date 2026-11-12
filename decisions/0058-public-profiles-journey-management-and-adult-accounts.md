@@ -957,6 +957,8 @@ Now:
 
 
 **Note (2026-11-12, Jason: "the listings need to show the tool kit horizontally vs stacked because they are taking up valuable real estate"; "Lists should be able to count per row and show the correct amount of cards before the more"):** §11's card anatomy changes: the action icons (Call, Directions, Website, Peek…) sit in a row on the name's line, left of the Link button (under the name on phones), not stacked down the right edge, and the details use the card's whole width. First on the directory (`rows_20261112.zip`); other card kinds follow as they're touched. Lists page 10 at a time (`js/tv-pager.js`), and a grid of cards rounds a page up to whole rows (four across: 12).
+
+**Note (2026-11-12, Jason: "The listing/directory feels lackluster. Need to present a reliable, easy to use tool to find the business you want or need"; "the search bar at the top seems to far away to be used for searching listings"; shown: Dun & Bradstreet's business directory search and the U.S. Chamber's chamber finder):** Get Local's directory gets its own finder at the top of the page, an exception to §39's "filters live in the search": one box for a business's name, its kind or the need, the place beside it, and **Search**; under it **Refine**: Kind and Town (each listing what's in the results with its count, from `api/search_listings.php`'s facets and its new `in_town`), Within, Sort, and Open now, Has a phone, Has a website, Favorites as toggles lit sage when on. New words start Refine over. The header's search still searches everything and still fills this list on this page (`finder_20261112.zip`).
 ## Consequences
 
 - New columns: `journeys.entity_id` and `journeys.submitted_at`, and `age_confirmations.min_age`. Two new staff roles

@@ -143,7 +143,8 @@ check `grep -rn "faq.php#"` before rewording one.
   with a brown ring.
 - **No breadcrumbs** on content pages; kind, category, agency, name and activity pills search for more
   (`TvSearch.open('<words> near <place>')`).
-- **Filters** live in the search (foot of Quick Search, §39), showing only active ones with ×. Filters on a list or queue
+- **Filters** live in the search (foot of Quick Search, §39), showing only active ones with ×. Get Local's directory is the
+  exception: its own **Find a business** box and Refine row (2026-11-12, decisions/0058 note). Filters on a list or queue
   are one dropdown button like Shortcuts (icon, current choice, count, ▾), not rows of pills.
 - **Phone menus:** ☰ tools drop-down left, profile and role right.
 - **Count outbound taps:** `data-out="call|directions|website|contact" data-e="<listing id>"` (counts only, never who).
