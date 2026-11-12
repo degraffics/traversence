@@ -114,7 +114,7 @@ None. GitHub's free run time; the review runs in Claude Code sessions, not throu
   safe in a public repository: no money, nothing about a person.
 - **The page map** (`tools/page-audit/page-map.py` → `page-map.md`, `results/page-map.json`): every page in
   `routes.md` and the page tree, the decisions and docs that name it (with the section), the standards for its kind,
-  and the paths through it. 191 pages; 20 named by no decision (listed at its end, for the review).
+  and the paths through it. 192 pages; 20 named by no decision (listed at its end, for the review).
 - **The review** (`.claude/skills/page-review/SKILL.md`, inputs from `tools/page-audit/review.py`): for flagged pages
   and pages changed on the mirror since the last review, a verdict per finding (fix, amend, missing, conflict), ranked
   by paths blocked, appended to `proposals.md` with the finding ids, so each proposal shows in Site health.
