@@ -78,3 +78,67 @@ findings improve the rules, not just check against them.
 ## Cost
 
 None. GitHub's free run time; the review runs in Claude Code sessions, not through the site's paid AI.
+
+## Built so far (2026-11-12, not delivered or run on live yet)
+
+### In this repository (the checks and the review: they change nothing on the site)
+
+- **The paths** (`tools/page-audit/paths.mjs`, sharing sign-in, accounts and the browser context with `rendered.mjs`
+  through `check-kit.mjs`). Phone size, as each account that applies. Writes `paths.md`, `results/paths.json` and
+  `results/paths-history.json` (the last 60 runs, so each path shows its last 7: P passed, i issues, F failed, ? stuck).
+  - **Guide paths** come from the site: `/api/guide-paths.php` (below) lists every live guide, its suggested journeys
+    and each stop with what our data says about it now. Until that's live, Discovery's guide links are used, without the
+    data to compare. Four guides a run, rotating (`rotation.next` in `paths.json`), so every guide is walked in turn.
+    Each: the guide opens and shows its journey; the journey shows its stops, times and distances, and its route; each
+    stop's page opens and agrees with our data (phone, open now, still public), has directions, and its links work; the
+    route makes sense (times go forward, no stop twice, no leg over 50 mi).
+  - **Core paths on live, read only:** find a place to eat near me, open now (guest, member; the browser's location is
+    Show Low); read a town's guide (guest, from the home page); search with a typo, "swiming" (guest); set my place and
+    distance (guest; a member's place is saved to the account, so that waits for staging); sign in with the human check
+    (member, from signed out); sign out (member); see my listing as visitors do (owner).
+  - **The human check on live:** Turnstile can't pass in a headless browser on GitHub's runners. The path still taps
+    Sign in as a person would; the checks' token lets the test address through (`TestAccounts::checkRequest`), and the
+    path says so in its notes.
+  - **Waiting for staging** (they change something): sign up, like as a guest, like as a member, comment, claim, edit
+    my listing, post on the Marketplace, message a business, join a group, and the staff decisions (a report, a like
+    check, a held post) and sending an order. Each has its steps written; the guest like and the comment have runners
+    already. They start once staging's address is in `CHECK_ACCOUNTS` (Set up staging gives the new block).
+  - **The measures:** taps to the goal against the decided limits (3 for eating and a town's guide, 5 for the rest);
+    dead ends (a page that doesn't open, a tap that shows nothing, an empty page with no next step, T06: Sign in offered
+    to someone signed in, a paid plan offered to staff); surprises (stacked dialogs, the header missing, a tap that loads
+    pages one after another, a layout shift over 0.25, browser dialogs, script errors); accuracy (above); clarity
+    (no page title, results that don't say open now); slow pages (over 4 s).
+- **The findings** (`tools/page-audit/findings.py` → `results/findings.json`): the paths', the browser checks' and
+  the code checks' failures, and the cost signals, as one list with stable ids, ranked by how many paths each blocks.
+  Each carries its page, who saw it, its run (the screenshots) and its proposal once the review writes one. Only what's
+  safe in a public repository: no money, nothing about a person.
+- **The page map** (`tools/page-audit/page-map.py` → `page-map.md`, `results/page-map.json`): every page in
+  `routes.md` and the page tree, the decisions and docs that name it (with the section), the standards for its kind,
+  and the paths through it. 191 pages; 20 named by no decision (listed at its end, for the review).
+- **The review** (`.claude/skills/page-review/SKILL.md`, inputs from `tools/page-audit/review.py`): for flagged pages
+  and pages changed on the mirror since the last review, a verdict per finding (fix, amend, missing, conflict), ranked
+  by paths blocked, appended to `proposals.md` with the finding ids, so each proposal shows in Site health.
+- **Cost and effectiveness:** from the health report, only totals safe to publish: scheduled jobs failing or not run
+  in two days, the page cache's expired share, AI over or under 80% of its cap (never the money), the largest tables and
+  admin status checks not OK; and the slowest pages on the paths. Not measured yet (the review says so as "missing"):
+  outside services' calls and cost per useful result besides AI, cache hit rates, query timings (staging).
+- **When it runs:** inside the daily Site checks job (09:43 UTC), after the page checks: no new workflow, no push
+  triggers. A time budget of 7 minutes (15 on full runs); Run workflow with **paths only** walks just the paths.
+
+### On the site (built at real paths in the session's scratchpad `P4/`, on the mirror's sync of 2026-11-12 12:47 UTC)
+
+- `app/lib/SiteHealth.php` (new): the Pulse **Site health** case, behind the switch **`site_health`** (off until set;
+  "Staff and test accounts" shows it to staff first). It reads `results/findings.json` from this public repository's
+  raw file (no key, no cost; kept an hour, the last good copy kept a month), one step per open finding (the 14 most in
+  the way), each with the page, the run with its screenshots and its proposal as links, and **Fixed or fine** as the
+  step's button (said fixed: off until the next audit finds it again; fine as it is: set aside with why, back if the
+  evidence changes); then **Check again** (reads the newest now), the paths page, Run the checks (GitHub) and the review.
+- `app/lib/Pulse.php`: the case in the System source (Engineering), its steps, and its two actions
+  (`Access::can('insights/site_health.decide')`, staff in Engineering or Operations by default).
+- `app/ui/pulse-ui.php`: a step can carry several links (`exts`): the page, the screenshot, the proposal.
+- `app/lib/Switches.php`: the `site_health` switch.
+- `app/migrations/2027-03-03_site_health.sql`: `site_health_marks` (what a person recorded about a finding). Safe twice.
+- `website/api/guide-paths.php` (new): the guide paths for the audit, locked with the checks' token like the health
+  report.
+
+Rollback: turn off `site_health`; the paths are one step in `site-checks.yml` (remove it, or set `PATHS_BUDGET_S` to 0).

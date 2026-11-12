@@ -27,6 +27,10 @@ STANDARD = {   # rendered.mjs's standards: [rule, what it says]
 KIND_WORD = {'dead_end': 'Dead end', 'steps': 'Too many steps', 'accuracy': 'Not accurate', 'surprise': 'A surprise', 'clarity': 'Not clear', 'slow': 'Slow'}
 BLOCKING = {'dead_end', 'steps', 'stuck'}
 CODE_BLOCKING = {'R01', 'R02', 'R03', 'R04', 'R06', 'R08'}   # the zip check blocks these (rules.md)
+CODE_WORD = {'R01': 'calls to functions that no longer exist', 'R02': 'browser dialogs (alert, confirm, prompt)', 'R03': 'uploads outside the one uploader',
+             'R04': 'PHP the server can\'t run', 'R05': 'pages without the session or account bar', 'R06': 'FAQ links to questions that don\'t exist',
+             'R07': 'endpoints that change things without the security token', 'R08': 'migrations not safe to run twice', 'R09': 'pages in neither routes.md nor archive.md',
+             'R10': 'emoji where the brand\'s icons belong', 'R11': 'breadcrumbs on content pages'}
 
 
 def load(name, default):
@@ -137,7 +141,7 @@ def build(run_url=''):
     for rule, fs in by_rule.items():
         eg = '; '.join(f'{f["file"]}:{f["line"]} {f["msg"]}' for f in fs[:3])
         files = sorted({f['file'] for f in fs})
-        add('f-' + h('code', rule), kind='code', rule=rule, title=f'{len(fs)} place{"s" if len(fs) != 1 else ""} in the code break {rule}'[:160],
+        add('f-' + h('code', rule), kind='code', rule=rule, title=f'{CODE_WORD.get(rule, "the code breaks " + rule)}: {len(fs)} place{"s" if len(fs) != 1 else ""}'[:160],
             detail=f'In {len(files)} file{"s" if len(files) != 1 else ""}. For example: {eg}'[:600], severity='alert' if rule in CODE_BLOCKING else 'update',
             _ev=[f'{f["file"]}:{f["msg"]}' for f in fs])
 
