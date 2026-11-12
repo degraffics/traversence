@@ -1,0 +1,18 @@
+{
+ "zip": "placetgt_20261112.zip",
+ "built_on": "987e84e Sync: 2026-11-12 22:05 UTC",
+ "recorded": "2026-11-12 22:06 UTC",
+ "note": "The place button (Jason, 2026-11-12: 'the location should just have the autodetect or activate when clicked on'): its name opens the place pop-up, the target beside it finds where you are; no \u25be or pencil (directory, map panel). Replaces pen.",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "website/directory/index.php": {
+   "sha256": "20aa3eabe5fc9aaa106cecc34b0303dae48fc1a4b3b3fbfef7490f47f49550dc",
+   "live": false
+  },
+  "website/js/map-view.js": {
+   "sha256": "3830c9373e1c3ce91269f106bc3c5218e5f03d4e908d15c8343568972e98ea2a",
+   "live": false
+  }
+ }
+}
