@@ -3,7 +3,7 @@
  "built_on": "987e84e Sync: 2026-11-12 22:05 UTC",
  "recorded": "2026-11-12 22:07 UTC",
  "note": "The place button (Jason, 2026-11-12): its name opens the place pop-up, the target finds where you are (directory, map panel); and the directory's search treats a listing marked closed as decisions/0072 says (El Camino): shown as Closed, last, never open now. Replaces pen.",
- "status": "pending",
+ "status": "partial",
  "live_in": "",
  "files": {
   "website/api/search_listings.php": {
@@ -16,7 +16,7 @@
   },
   "website/js/map-view.js": {
    "sha256": "3830c9373e1c3ce91269f106bc3c5218e5f03d4e908d15c8343568972e98ea2a",
-   "live": false
+   "live": true
   }
  }
 }
