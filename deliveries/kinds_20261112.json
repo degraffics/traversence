@@ -3,12 +3,12 @@
  "built_on": "de6641f Sync: 2026-11-12 20:33 UTC",
  "recorded": "2026-11-12 20:35 UTC",
  "note": "Directory's Kind list A to Z and complete (Jason, 2026-11-12: 'is there not a hotel catagory?'): it was by count and cut at 80.",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "9537d76 Sync: 2026-11-12 20:39 UTC",
  "files": {
   "website/api/search_listings.php": {
    "sha256": "efc7f7b0d5272b85405b73a0b9c003b246ecc1f8b7f225f0214fcb9dd53142f9",
-   "live": false
+   "live": true
   }
  }
 }
