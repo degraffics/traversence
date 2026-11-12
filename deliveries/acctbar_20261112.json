@@ -3,24 +3,24 @@
  "built_on": "9d85fe2 Sync: 2026-11-12 15:59 UTC",
  "recorded": "2026-11-12 16:08 UTC",
  "note": "The account bar stays under the header as the page scrolls; the admin's command bar (and the vault's table headers) stick below it",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "10c64e1 Sync: 2026-11-12 16:13 UTC",
  "files": {
   "app/admin/kit-css.php": {
    "sha256": "3759d48bb81899d365c38d39a98fc9bdacb137496e481ce967163bbe16acd98e",
-   "live": false
+   "live": true
   },
   "app/ui/app-shell.php": {
    "sha256": "be5646aa18209f470e5450bafeb23ad04d3335e2d7f742937b3cbbbdd43f79e7",
-   "live": false
+   "live": true
   },
   "app/ui/context-switcher.php": {
    "sha256": "20cc5f0cf4395404683ff3b426315fc5f8895acb310e73df77008de5694969e3",
-   "live": false
+   "live": true
   },
   "app/ui/vault.php": {
    "sha256": "8a5f554c8a3d93e7f8c002b335f8f1eb0890e3a64ee4fc721ce7f6aedca593bf",
-   "live": false
+   "live": true
   }
  }
 }
