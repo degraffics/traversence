@@ -1,0 +1,46 @@
+{
+ "zip": "admin-merge_20261112.zip",
+ "built_on": "9d85fe2 Sync: 2026-11-12 15:59 UTC",
+ "recorded": "2026-11-12 16:01 UTC",
+ "note": "Admin: Pulse merged into 1. Dashboard & Pulse (old addresses redirect), modules renumbered 2-10; Insights shows what its menu number counts; the Helper's 'Sent in by visitors' split into visitors' and the crawler's suggestions",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/admin/manifests.php": {
+   "sha256": "a96ae8d48fabd4050c3f74ef8e0f8158ea8e6b58b704d35addc46942143420f8",
+   "live": false
+  },
+  "app/lib/Helper.php": {
+   "sha256": "bb8d43240344be2d90416f83285992b91a27bfa38dbe24f1bfd02c4738a60916",
+   "live": false
+  },
+  "app/lib/Workspaces.php": {
+   "sha256": "f9cf2e2391a3eaf67e0d94acd3910beb6e737f5d53216b9c44180b18df8d9dc3",
+   "live": false
+  },
+  "app/ui/admin-dashboard.php": {
+   "sha256": "b12d6c62875b4f9e3126d6bf4b879252c5aadf62e7b0118ade3a17a20aa6561b",
+   "live": false
+  },
+  "app/ui/admin-hub.php": {
+   "sha256": "10613ec5680791d65648f1f9ab8533c99cf52d809a93daa7eecd3e48e76fced8",
+   "live": false
+  },
+  "app/ui/section-rails.php": {
+   "sha256": "39860f2c224601232edc36030b9560537372cd87e100155990fb28235a358dc5",
+   "live": false
+  },
+  "website/admin/insights.php": {
+   "sha256": "82ff39211449fbd4a1ba6b2ff35151e39e61adac9705a629de7d871fa24eb119",
+   "live": false
+  },
+  "website/admin/router.php": {
+   "sha256": "2894d208e0e78df5af3365de46ed6ca025c960354768bba03df8fbd4b1257b02",
+   "live": false
+  },
+  "website/admin/sitemap.php": {
+   "sha256": "23437f540bbfb509d07907939d92a4e56da639c5bd1c1b7b6db9ea3df748a8d3",
+   "live": false
+  }
+ }
+}

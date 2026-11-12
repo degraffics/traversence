@@ -105,7 +105,7 @@ the licence decides the use. Where older crawler records disagree, 0133 wins.
 
 ## The admin (decisions/0109): every build
 
-11 modules at `/admin/<module>/<section>[/<id>]`, drawn by `website/admin/router.php` from `app/admin/manifests.php`, one
+10 modules (Pulse is part of the Dashboard since 2026-11-12) at `/admin/<module>/<section>[/<id>]`, drawn by `website/admin/router.php` from `app/admin/manifests.php`, one
 endpoint `/admin/api/<module>/<tool>`.
 - No admin page outside the manifests: a new tool is a section there (a list also a tool in `app/admin/tools.php`),
   built from widgets (table, pipeline, metrics, detail drawer, quick task).
