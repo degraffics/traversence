@@ -1,6 +1,6 @@
 # Decision register
 
-Decision 0145 §1a. Generated on 2026-11-11 18:40 UTC from `decisions/` and the live mirror (`526a164`). Don't edit by hand:
+Decision 0145 §1a. Generated on 2026-11-12 15:59 UTC from `decisions/` and the live mirror (`d3e8f77`). Don't edit by hand:
 edit the decision, and this follows. "Missing files" are files a decision names that the site no longer has: the
 decision may be stale, or the file moved.
 
@@ -150,7 +150,7 @@ decision may be stale, or the file moved.
 | 0142 | [Terms, Store Policies and the Acceptance Log](0142-terms-policies-and-acceptance-log.md) | proposed |  |  | 3 |  |
 | 0143 | [The Stock Library: a System Repository of Non-User Photos](0143-stock-library.md) | accepted |  | 1 | 35 |  |
 | 0144 | [Word Suggestions and the List ⓘ](0144-word-suggestions-and-list-help.md) | accepted |  |  | 3 |  |
-| 0145 | [The Site Audit and Phased Releases](0145-site-audit-and-phased-releases.md) | accepted |  |  | 1 |  |
+| 0145 | [The Site Audit and Phased Releases](0145-site-audit-and-phased-releases.md) | accepted |  | 1 | 1 |  |
 | 0146 | [Suggested Journeys from Guides](0146-suggested-journeys-from-guides.md) | accepted |  |  | 2 |  |
 | 0147 | [Guides and Journeys on Demand](0147-guides-and-journeys-on-demand.md) | accepted |  |  | 0 |  |
 | 0148 | [Places on Demand](0148-places-on-demand.md) | accepted |  |  | 0 |  |
@@ -158,7 +158,7 @@ decision may be stale, or the file moved.
 | 0150 | [Vendor links (one page of a vendor's work orders, 30 days)](0150-vendor-links.md) | accepted |  |  | 9 |  |
 | 0151 | [Files on Cloudflare R2 (no charge when people view or play them)](0151-files-on-cloudflare-r2.md) | accepted |  |  | 1 |  |
 | 0152 | [Outside services, one card per company; Settings rebuilt in the new admin](0152-outside-services-by-company.md) | accepted |  | 3 | 1 |  |
-| 0153 | [Moments, Snaps and Keep (the personal feed)](0153-moments-snaps-and-keep.md) | accepted |  |  | 6 |  |
-| 0154 | [Free, Creator and Business: Who Pays for What, and How Upgrades Are Offered](0154-free-creator-and-business-balance.md) | accepted |  | 1 | 0 |  |
-| 0155 | [Add-ons (plug-in modules) and 1Password, resold and managed from our site](0155-add-ons-and-1password.md) | proposed |  | 1 | 0 |  |
-| 0156 | [The Vault: passwords only their owner can open](0156-the-vault.md) | accepted |  |  | 0 |  |
+| 0153 | [Moments, Snaps and Keep (the personal feed)](0153-moments-snaps-and-keep.md) | accepted |  |  | 9 |  |
+| 0154 | [Free, Creator and Business: Who Pays for What, and How Upgrades Are Offered](0154-free-creator-and-business-balance.md) | accepted |  | 1 | 6 |  |
+| 0155 | [Add-ons (plug-in modules) and 1Password, resold and managed from our site](0155-add-ons-and-1password.md) | proposed |  | 2 | 0 |  |
+| 0156 | [The Vault: passwords only their owner can open](0156-the-vault.md) | accepted |  | 6 | 2 |  |
