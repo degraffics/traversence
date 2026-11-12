@@ -3,12 +3,12 @@
  "built_on": "2762c73 Sync: 2026-11-12 21:48 UTC",
  "recorded": "2026-11-12 21:49 UTC",
  "note": "Payments (Jason, 2026-11-12: 'cant tell what mode it is by the buttons?'): Now in Production/Sandbox said as a status line; the mode that's on is a lit \u2713 button, the other 'Switch to \u2026'.",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "521c77f Sync: 2026-11-12 21:57 UTC",
  "files": {
   "website/admin/quickbooks.php": {
    "sha256": "760e31b3c566b8f36aab77c3d43d01387e0693564a66799bc13054415bc0f1d9",
-   "live": false
+   "live": true
   }
  }
 }
