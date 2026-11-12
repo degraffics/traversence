@@ -3,20 +3,20 @@
  "built_on": "c9a58a3 Sync: 2026-11-12 14:53 UTC",
  "recorded": "2026-11-12 14:57 UTC",
  "note": "Vault: times kept by the clock (a background tab no longer runs late), Keep Vault Open re-checks the passkey if the server closed its side; extension 0.1.8 checks with the vault every 30 minutes instead of dropping after 30 minutes unused, and its Connect opens the Vault page and brings you back",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "f070a26 Sync: 2026-11-12 15:01 UTC",
  "files": {
   "app/data/vault-extension.zip": {
    "sha256": "4bb4ba663de4d45ef2eace5d04b6474dce5662d1d2c8878a0e9322557da9baf9",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "e8bfaa83a735aab3de89d3b3bdf5dcedf76f3b16fe65ca75766185d5971ec073",
-   "live": false
+   "live": true
   },
   "website/js/tv-vault.js": {
    "sha256": "176aed1b68de25de63f6aae3d184f1ba5fbbb7a39cf34b45cea891556ee2070c",
-   "live": false
+   "live": true
   }
  }
 }
