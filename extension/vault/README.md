@@ -2,7 +2,7 @@
 
 Stage 1 of decisions/0156 §9: for staff, loaded in developer mode. It fills Vault logins only on their exact site
 (scheme, host and port), offers to save or update a login after signing in, and holds the vault key in the browser's
-memory only (`chrome.storage.session`) for up to 12 hours, 30 minutes unused, until the browser closes, or until the
+memory only (`chrome.storage.session`) for up to 12 hours (it checks with the vault every 30 minutes and lets go if the vault says no), until the browser closes, or until the
 vault is locked.
 
 - **Install:** unzip, open `chrome://extensions` (Edge: `edge://extensions`), turn on Developer mode, Load unpacked, pick
