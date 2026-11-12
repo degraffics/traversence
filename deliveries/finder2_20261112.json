@@ -1,0 +1,18 @@
+{
+ "zip": "finder2_20261112.zip",
+ "built_on": "d8e30bf Sync: 2026-11-12 19:15 UTC",
+ "recorded": "2026-11-12 19:17 UTC",
+ "note": "Get Local (Jason, 2026-11-12): a compact finder with the title, count and filters on one line, one column across the width (two columns tried and taken back); the map opens at the list's distance and drops the Town choice for another area (it showed no pins).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "website/directory/index.php": {
+   "sha256": "3e0e7d7e9ef8992602e33e223762a7fc1d66ba405b9811536ffe7c2523c91dcc",
+   "live": false
+  },
+  "website/js/map-view.js": {
+   "sha256": "7d918c985d792db90d2e9d4e43435e16d495b1c4518a36d56c80702d932740d7",
+   "live": false
+  }
+ }
+}
