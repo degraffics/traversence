@@ -3,16 +3,16 @@
  "built_on": "d8e30bf Sync: 2026-11-12 19:15 UTC",
  "recorded": "2026-11-12 19:25 UTC",
  "note": "finder3 plus (Jason, 2026-11-12: 'something to lead action to setting location'): with no place, the directory asks Where are you looking? (Use my location, Type a town or ZIP, Search everywhere) and drops the last search's pages; the map asks the same over the map. Replaces finder3.",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "f6e4229 Sync: 2026-11-12 19:35 UTC",
  "files": {
   "website/directory/index.php": {
    "sha256": "839ab927368e3da4f9dca5e954fc845caac60d828f579f8f1bece2a807559da5",
-   "live": false
+   "live": true
   },
   "website/js/map-view.js": {
    "sha256": "e65a1fd031df210d7d0e490226b3ec0ec5ce32d55e5fa76690ee6b599df4e849",
-   "live": false
+   "live": true
   }
  }
 }

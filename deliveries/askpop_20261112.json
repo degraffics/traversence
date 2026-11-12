@@ -1,0 +1,22 @@
+{
+ "zip": "askpop_20261112.zip",
+ "built_on": "f6e4229 Sync: 2026-11-12 19:35 UTC",
+ "recorded": "2026-11-12 19:37 UTC",
+ "note": "Jason, 2026-11-12: Let's Explore 4/5 main and 1/5 tools, the hero no longer cut off; the map's place question greys the map behind it; the directory asks the same in a pop-up over the greyed page (once a visit).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "website/directory/index.php": {
+   "sha256": "3ce3213a72ddc2a8af2504fecf9d46cf248c75db970e6f592ab10f2bf46ae088",
+   "live": false
+  },
+  "website/discovery/index.php": {
+   "sha256": "6e49cbb4b48bea2bc84d1c14e8a2e2efdfa527243a144b91934282132e26d56e",
+   "live": false
+  },
+  "website/js/map-view.js": {
+   "sha256": "ed699c43b8c5074dc164e715b5dae9c3b3131b7f79bbadd2453e5b8107676bee",
+   "live": false
+  }
+ }
+}

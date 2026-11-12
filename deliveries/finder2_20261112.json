@@ -3,7 +3,7 @@
  "built_on": "d8e30bf Sync: 2026-11-12 19:15 UTC",
  "recorded": "2026-11-12 19:17 UTC",
  "note": "Get Local (Jason, 2026-11-12): a compact finder with the title, count and filters on one line, one column across the width (two columns tried and taken back); the map opens at the list's distance and drops the Town choice for another area (it showed no pins).",
- "status": "pending",
+ "status": "replaced",
  "live_in": "",
  "files": {
   "website/directory/index.php": {
