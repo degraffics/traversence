@@ -3,24 +3,24 @@
  "built_on": "b102257 Sync: 2026-11-12 19:55 UTC",
  "recorded": "2026-11-12 20:13 UTC",
  "note": "Jason's drawing (2026-11-12): one place pop-up for the site, 'We need a location to search' (js/location-scope.js tvPlacePop: the Town or ZIP box with the target and GO; Log in or My places | Not sure?), used by the directory and the map; fixes the directory's map pin pop-ups (a class name clash); plus heropics (each Explore page's own hero photos). Replaces heropics.",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "dfc4950 Sync: 2026-11-12 20:17 UTC",
  "files": {
   "website/directory/index.php": {
    "sha256": "e5985a249361041217f73475567557300765d1e7df53cbcb38d3a8fd15330e34",
-   "live": false
+   "live": true
   },
   "website/discovery/index.php": {
    "sha256": "9aab2511ef0691e64f6a67e9c4159f3c9c26caea7bd16e0c176912189456459e",
-   "live": false
+   "live": true
   },
   "website/js/location-scope.js": {
    "sha256": "fa7283c52b195a93a07f2cc1c7ada6bf96007749a50f0dfcce2f4321c5ca6200",
-   "live": false
+   "live": true
   },
   "website/js/map-view.js": {
    "sha256": "2a326a770b6c76a8dbd52f45742c9122e0c0eed1baa544f7d3e020c72a1e31bb",
-   "live": false
+   "live": true
   }
  }
 }
