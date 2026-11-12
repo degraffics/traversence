@@ -1,8 +1,8 @@
 {
  "zip": "trail_20261112.zip",
- "built_on": "1e91cc2 Sync: 2026-11-12 20:25 UTC",
- "recorded": "2026-11-12 20:32 UTC",
- "note": "The way back up (Jason, 2026-11-12): js/tv-trail.js (header, page shell): Back to the page before, with the route this visit took, in the account bar for signed-in members only; not a breadcrumb.",
+ "built_on": "de6641f Sync: 2026-11-12 20:33 UTC",
+ "recorded": "2026-11-12 20:34 UTC",
+ "note": "The way back up (Jason, 2026-11-12): js/tv-trail.js (header, page shell): Back to the page before, with the route this visit took; for everyone (the account bar when signed in, a slim line for a guest); not a breadcrumb.",
  "status": "pending",
  "live_in": "",
  "files": {
@@ -15,7 +15,7 @@
    "live": false
   },
   "website/js/tv-trail.js": {
-   "sha256": "4d2a09042db147cdb656f75a9dfd31a4f2479aedd1350fdbb015244445d03d10",
+   "sha256": "4e86ade4115d46a5b1528d43beecd1924b259d38ae4a7c6b55055fd6fd1a6e48",
    "live": false
   }
  }
