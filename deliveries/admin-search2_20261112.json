@@ -1,0 +1,26 @@
+{
+ "zip": "admin-search2_20261112.zip",
+ "built_on": "8497de4 Sync: 2026-11-12 16:55 UTC",
+ "recorded": "2026-11-12 16:56 UTC",
+ "note": "Admin search: a line on what each section is for (and only sections whose own name or line match), typos forgiven, the decisions in Help (linked to GitHub)",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/admin/section-about.php": {
+   "sha256": "383919168b6b5fb9933d55a8ac46c6195ffb8b40347a14a3f75e966cd5e26ae6",
+   "live": false
+  },
+  "app/data/decisions-index.php": {
+   "sha256": "babc674f77399b80cbbae6fdc7b0ff8277d1dbf379f1579054834067013518d0",
+   "live": false
+  },
+  "website/admin/api/find.php": {
+   "sha256": "16aa1a8b8be74f090214042cd02af466ca48362bc97f810ca9ad331659a744e6",
+   "live": false
+  },
+  "website/js/admin-search.js": {
+   "sha256": "19af0f2cf6cb51424cd9a88e577612385bac8031925f71b636775a33e16ff56a",
+   "live": false
+  }
+ }
+}
