@@ -3,44 +3,44 @@
  "built_on": "8497de4 Sync: 2026-11-12 16:55 UTC",
  "recorded": "2026-11-12 17:23 UTC",
  "note": "One batch (Jason, 2026-11-12): admin search 2 (section lines, typo tolerance, decisions and their notes in Help); System Configuration \u2192 Decisions (read, edit with preview, notes, status, new; saved straight to main with GITHUB_DOCS_TOKEN); the lists' standard on the public lists (js/tv-pager.js: directory, Let's Explore feed/experiences/landmarks/stories, Marketplace by page number, Find groups; business portal API per/sort); Let's Explore asks before using the default place, 2/3 + 1/3 layout, a way back from the map; Auto-detect names the town; 'shoot' means shooting ranges; the vault-opened email says who.",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "0995678 Sync: 2026-11-12 18:02 UTC",
  "files": {
   "app/admin/manifests.php": {
    "sha256": "1135bbd079d4d13d38be5b953fa13ec8547dae8518b39ae6186e1423a90878b9",
-   "live": false
+   "live": true
   },
   "app/admin/section-about.php": {
    "sha256": "ce1754132a7b625a576603414666b05d19a0633c54d9085145126160c37e776e",
-   "live": false
+   "live": true
   },
   "app/admin/sections.php": {
    "sha256": "719482da95c8a56cbc3df388bf4cef6e7f3bbec83e7120f7a8b55b2b00ad0776",
-   "live": false
+   "live": true
   },
   "app/admin/tools.php": {
    "sha256": "0db6e1b16d3bfa7a68dae2eb15c51fd13c7629e71af64f8338e28a5d79f24dd5",
-   "live": false
+   "live": true
   },
   "app/data/decisions-index.php": {
    "sha256": "811d4284b7868c3c1a042a19f1eedb322be174e8be6bc4db003ab95d9e852fca",
-   "live": false
+   "live": true
   },
   "app/lib/DocsRepo.php": {
    "sha256": "e14d3dc6a6e3f71a7b232cd282e6911be99a98549fbcbbde65bc89b11aac4b4e",
-   "live": false
+   "live": true
   },
   "app/lib/Journeys.php": {
    "sha256": "db91681f1b9ec07088850b10b83b46166dda60a1489e1e439c06db06121c642a",
-   "live": false
+   "live": true
   },
   "app/lib/Vault.php": {
    "sha256": "d6229c00bbfd417af614fd4c21e21f79754624e10298297748c313c03cb16dbd",
-   "live": false
+   "live": true
   },
   "app/lib/synonyms.php": {
    "sha256": "d0adaf3a9a863d9e0225e908e4c3157730966c4da0743b7cfad723d8e1736b51",
-   "live": false
+   "live": true
   },
   "app/migrations/2026-11-12_shoot_terms.sql": {
    "sha256": "9bdf0d77256898ea28c8b399835ed0aae3d4a319d405b98af93cd735653fa515",
@@ -48,59 +48,59 @@
   },
   "app/ui/faq.md": {
    "sha256": "f0d87b70849e9c0e6c0d3a0bab27c5ce5d9aa4f055deef19b4e1ba979185c626",
-   "live": false
+   "live": true
   },
   "website/admin/api/find.php": {
    "sha256": "479a7fbeb5b1011439748913db6eba57c54de2d9b9ee32b050636c3d038573b6",
-   "live": false
+   "live": true
   },
   "website/api/journeys.php": {
    "sha256": "eb19938fbed568ce844a7482b3d2605d09c62cb492163fc5a2cc699f41afa73a",
-   "live": false
+   "live": true
   },
   "website/api/place.php": {
    "sha256": "61b34ae1b0daf9d34c12d8e454b8f6837585b1919405faa0c0b48945fd111685",
-   "live": false
+   "live": true
   },
   "website/api/search_listings.php": {
    "sha256": "3b853ee9e535a759587c2199fa0f293073ec050ed2379862750b26fb71b64c45",
-   "live": false
+   "live": true
   },
   "website/business/api.php": {
    "sha256": "21f9ec1997bccce70ee76936807b3e5a79a138cd146f3a615bd23dc25e89e577",
-   "live": false
+   "live": true
   },
   "website/community/index.php": {
    "sha256": "ef0db255c450e37c7f6a4520e8fdfe617f6fd3b2e2348853fed9cab1353cb67a",
-   "live": false
+   "live": true
   },
   "website/directory/index.php": {
    "sha256": "8d09b43f7019ca91658cc6bd5b102954fb00c9e221f77f28d4811e282fc5d75a",
-   "live": false
+   "live": true
   },
   "website/discovery/index.php": {
    "sha256": "75a1942b5f26711da6dab607c72ca6f4bc50b0ff10160ae0f7aef8af500e9e8f",
-   "live": false
+   "live": true
   },
   "website/js/admin-search.js": {
    "sha256": "19af0f2cf6cb51424cd9a88e577612385bac8031925f71b636775a33e16ff56a",
-   "live": false
+   "live": true
   },
   "website/js/location-scope.js": {
    "sha256": "e391a9f15d10f172a057beed69189fa5fe6b6be2f9b39631348bfa00ad1774f6",
-   "live": false
+   "live": true
   },
   "website/js/tv-pager.js": {
    "sha256": "1af6fc77d64bbe294170006ff31348c14919b9f18e46a9eeb218aa7596b94c1c",
-   "live": false
+   "live": true
   },
   "website/market/index.php": {
    "sha256": "5750f59568fb18553d116291b12dea777b71efa8cfebeca71b3bfd8d6819c52d",
-   "live": false
+   "live": true
   },
   "website/user/api/community.php": {
    "sha256": "8fb25be1ef651633efcab22a46112085ab32a7aa9d64732b5c435f17f666fe1a",
-   "live": false
+   "live": true
   }
  }
 }
