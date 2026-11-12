@@ -1,0 +1,38 @@
+{
+ "zip": "vault-emails_20261112.zip",
+ "built_on": "58e487b Sync: 2026-11-12 14:14 UTC",
+ "recorded": "2026-11-12 14:19 UTC",
+ "note": "Vault: Emails panel (each time / hourly / daily / don't email per kind; security alerts always at once), hourly summaries job, the bar dark like the command strip and under menus, Devices and history in one column",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/Scheduler.php": {
+   "sha256": "44cbf94bc89e32710b73fdd0007c69c493363709b5371e0e5f1dcc2e5d3f9cf9",
+   "live": false
+  },
+  "app/lib/Vault.php": {
+   "sha256": "cb590fc193bf1bbba569fce80999a2e8a1e1eef308aa49a5b0ad88690c2b1db7",
+   "live": false
+  },
+  "app/scripts/vault_digest_tick.php": {
+   "sha256": "103d268dcc5db96f428e277d2001ce867749d7a0d6ea1fa2d3a14d5c7cdc201e",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "bff6d5e77c932e0c2a0062806411502c31b20f29c4a9034bf4799e37a1571097",
+   "live": false
+  },
+  "app/ui/vault.php": {
+   "sha256": "4e91c57e1ce4fa8bf95fa4758958eabfc412ad734843c1cd4ab1f3984ce4ceac",
+   "live": false
+  },
+  "website/admin/api/vault.php": {
+   "sha256": "4858fc693ef25e86f32b6fb1b4c699bd579f7e346379593f51a827a9d27ec261",
+   "live": false
+  },
+  "website/js/tv-vault.js": {
+   "sha256": "8fa700a94b26ed07c0a3f502d87b76879a0b66cd7d2ff80ea5b7532f841789cf",
+   "live": false
+  }
+ }
+}
