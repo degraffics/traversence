@@ -1,0 +1,26 @@
+{
+ "zip": "vault-log_20261112.zip",
+ "built_on": "f4f829c Sync: 2026-11-12 14:34 UTC",
+ "recorded": "2026-11-12 14:35 UTC",
+ "note": "Vault: What's been done shows 10 with Show 10 more (no scroll box); its line says emails follow the Emails choices",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/Vault.php": {
+   "sha256": "a91519f6d8f26b5beaab68c8e464ebfa790640b6b239f6393ae8a9200be4dd29",
+   "live": false
+  },
+  "app/ui/vault.php": {
+   "sha256": "1c8b0d13faa02a8b5189aff5c3b1de2162fdedfe9e67ea61923d8a5992f07e5c",
+   "live": false
+  },
+  "website/admin/api/vault.php": {
+   "sha256": "b9697e596819c3ed483d86375d82b647edfe68fedc192eca23873cd5c2719b85",
+   "live": false
+  },
+  "website/js/tv-vault.js": {
+   "sha256": "b0322f4eac2fed0078e054ccecfc1ae7b9fc21dc24554dd57a070db337990bd6",
+   "live": false
+  }
+ }
+}

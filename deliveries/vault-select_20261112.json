@@ -3,16 +3,16 @@
  "built_on": "3c34fe6 Sync: 2026-11-12 14:29 UTC",
  "recorded": "2026-11-12 14:31 UTC",
  "note": "Vault: tick boxes always on each login, a page box over them (none, some, all), and a selection bar while any are ticked: N selected, Select all, Clear, Delete (N) in red",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "f4f829c Sync: 2026-11-12 14:34 UTC",
  "files": {
   "app/ui/vault.php": {
    "sha256": "9fd41251a7d72ff9e119ef6b356ac193efdf04c683c10338f835f705a662e6e6",
-   "live": false
+   "live": true
   },
   "website/js/tv-vault.js": {
    "sha256": "6307a3f4aea428d75a60acad6375678e7cbf65779062d12310e249212c4a703c",
-   "live": false
+   "live": true
   }
  }
 }
