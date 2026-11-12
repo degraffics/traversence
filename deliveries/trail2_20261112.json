@@ -3,16 +3,16 @@
  "built_on": "9537d76 Sync: 2026-11-12 20:39 UTC",
  "recorded": "2026-11-12 20:40 UTC",
  "note": "Jason, 2026-11-12: the route doesn't list the same page twice in a row (Parks & Landmarks, then with a state or place added); the account bar is pinned under the header while the map is open.",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "feb18da Sync: 2026-11-12 20:43 UTC",
  "files": {
   "website/js/map-view.js": {
    "sha256": "00287796da0471a706f1ff58ec8693ebbfafb44cd721ac1452956f3168e68ec3",
-   "live": false
+   "live": true
   },
   "website/js/tv-trail.js": {
    "sha256": "6db97d022dc1024ac312881b2be431be321a16d478f1c2d66b383e4ab9c2df30",
-   "live": false
+   "live": true
   }
  }
 }
