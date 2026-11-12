@@ -324,8 +324,8 @@ const CORE = [
     }
   } },
   // ---- these change something: staging only ----
-  { id: 'sign-up', title: 'Sign up (all steps)', who: ['guest'], limit: 5, changes: true, run: null },
-  { id: 'like-guest', title: 'Like as a guest (3, then Keep going as a guest)', who: ['guest'], limit: 5, changes: true, run: async (w, page) => {
+  { id: 'sign-up', steps: "Home → menu → Create account → email, password, 18+ → the link in staging's held mail → the two questions → signed in on the dashboard", title: 'Sign up (all steps)', who: ['guest'], limit: 5, changes: true, run: null },
+  { id: 'like-guest', steps: 'Like on a journey, then another, then a third → the account panel → Keep going as a guest → the like counts', title: 'Like as a guest (3, then Keep going as a guest)', who: ['guest'], limit: 5, changes: true, run: async (w, page) => {
     const pages = (GUIDE_LIST.flatMap(g => g.journeys.map(j => j.url))).slice(0, 4);
     if (pages.length < 4) { w.stuck = 'not enough pages with a Like to try (suggested journeys)'; return; }
     for (const u of pages) {
@@ -338,8 +338,8 @@ const CORE = [
     }
     if (!w.goal) w.add('accuracy', 'J02', w.here(), 'after several likes, the account panel with Keep going as a guest didn\'t come, or the like didn\'t take');
   } },
-  { id: 'like-member', title: 'Like as a member (past 100)', who: ['member'], limit: 5, changes: true, run: null },
-  { id: 'comment', title: 'Comment', who: ['member'], limit: 5, changes: true, run: async (w, page) => {
+  { id: 'like-member', steps: 'Like as the member until the 100th of the day → Keep liking → the 101st counts', title: 'Like as a member (past 100)', who: ['member'], limit: 5, changes: true, run: null },
+  { id: 'comment', steps: 'A journey → Add a comment → Post comment → it shows → Remove it', title: 'Comment', who: ['member'], limit: 5, changes: true, run: async (w, page) => {
     const u = GUIDE_LIST[0]?.journeys?.[0]?.url; if (!u) { w.stuck = 'no suggested journey to comment on'; return; }
     await w.goto(u);
     if (!(await w.type('[data-eg-form] textarea', 'TEST · path check, removed at once'))) return;
@@ -349,15 +349,15 @@ const CORE = [
     if (!w.goal) { w.add('dead_end', 'J01', w.here(), 'the comment didn\'t show after Post comment'); return; }
     const del = mine.locator('[data-eg-del]'); if (await del.count()) { await del.click().catch(() => {}); const y = await firstVisible(page, ['.tva-yes', 'button:has-text("Remove")']); if (y) await y.click().catch(() => {}); }
   } },
-  { id: 'claim', title: 'Claim my business', who: ['member'], limit: 5, changes: true, run: null },
-  { id: 'edit-listing', title: 'Edit my listing', who: ['owner'], limit: 5, changes: true, run: null },
-  { id: 'market-post', title: 'Post on the Marketplace', who: ['member'], limit: 5, changes: true, run: null },
-  { id: 'message-business', title: 'Message a business', who: ['member'], limit: 5, changes: true, run: null },
-  { id: 'join-group', title: 'Join a group', who: ['member'], limit: 5, changes: true, run: null },
-  { id: 'staff-report', title: 'Staff: decide a report', who: ['staff-ops-staff'], limit: 5, changes: true, run: null },
-  { id: 'staff-like-check', title: 'Staff: decide a like check', who: ['staff-ops-staff'], limit: 5, changes: true, run: null },
-  { id: 'staff-held-post', title: 'Staff: decide a held Marketplace post', who: ['staff-ops-staff'], limit: 5, changes: true, run: null },
-  { id: 'send-order', title: 'Staff: send an order', who: ['staff-sal-staff'], limit: 5, changes: true, run: null },
+  { id: 'claim', steps: 'A listing → Claim → the email or text code (held mail) → where the claim stands', title: 'Claim my business', who: ['member'], limit: 5, changes: true, run: null },
+  { id: 'edit-listing', steps: 'Your business → Edit listing → change the hours → Save → See it as visitors do shows them', title: 'Edit my listing', who: ['owner'], limit: 5, changes: true, run: null },
+  { id: 'market-post', steps: 'Market → Post → the form → Post → it shows (or waits for a look)', title: 'Post on the Marketplace', who: ['member'], limit: 5, changes: true, run: null },
+  { id: 'message-business', steps: "A listing → Contact → the message → sent → the owner's inbox has it", title: 'Message a business', who: ['member'], limit: 5, changes: true, run: null },
+  { id: 'join-group', steps: "Community → a group → Join → it's in your groups", title: 'Join a group', who: ['member'], limit: 5, changes: true, run: null },
+  { id: 'staff-report', steps: "Pulse → the report's case → decide it from the case → the case closes", title: 'Staff: decide a report', who: ['staff-ops-staff'], limit: 5, changes: true, run: null },
+  { id: 'staff-like-check', steps: 'Pulse → Like checks → Decide → the case updates', title: 'Staff: decide a like check', who: ['staff-ops-staff'], limit: 5, changes: true, run: null },
+  { id: 'staff-held-post', steps: 'Pulse → held Marketplace posts → Let it show → the post shows', title: 'Staff: decide a held Marketplace post', who: ['staff-ops-staff'], limit: 5, changes: true, run: null },
+  { id: 'send-order', steps: "Back-Office → a test order → Send → the client's held mail has it (sandbox payment only)", title: 'Staff: send an order', who: ['staff-sal-staff'], limit: 5, changes: true, run: null },
 ];
 
 // ---- the guide paths --------------------------------------------------------------------------------------------------
@@ -540,8 +540,8 @@ const L = ['# Paths', '', `Decision 0145, Phase 4. Generated by \`tools/page-aud
   '## Core paths', '', '| Path | Who | Status | Steps | Dead ends | Surprises | Accuracy | Clarity | Last 7 runs |', '|---|---|---|---|---|---|---|---|---|'];
 for (const r of results.filter(r => r.kind === 'core' && r.status !== 'waits')) L.push(`| ${esc(r.title)} | ${r.who} | ${r.status} | ${stepTxt(r)} | ${c(r, 'dead_ends')} | ${c(r, 'surprises')} | ${c(r, 'accuracy')} | ${c(r, 'clarity')} | ${trend(r.id, r.who)} |`);
 const waits = results.filter(r => r.status === 'waits');
-if (waits.length) { L.push('', '### Waiting for staging', '', 'These change something (an account, a like, a post, a decision), so they run on the staging copy only, as the test accounts, never on live.' + (STAGING ? '' : ' Staging isn\'t in CHECK_ACCOUNTS yet: they start once Jason presses **Set up staging** (System Configuration → Staging) and the new block replaces the secret.'), '', '| Path | Who | Runner |', '|---|---|---|');
-  for (const r of waits) { const d = CORE.find(x => x.id === r.id); L.push(`| ${esc(r.title)} | ${r.who} | ${d && d.run ? 'written' : 'to write once staging can be looked at'} |`); } }
+if (waits.length) { L.push('', '### Waiting for staging', '', 'These change something (an account, a like, a post, a decision), so they run on the staging copy only, as the test accounts, never on live.' + (STAGING ? '' : ' Staging isn\'t in CHECK_ACCOUNTS yet: they start once Jason presses **Set up staging** (System Configuration → Staging) and the new block replaces the secret.'), '', '| Path | Who | Its steps | Runner |', '|---|---|---|---|');
+  for (const r of waits) { const d = CORE.find(x => x.id === r.id); L.push(`| ${esc(r.title)} | ${r.who} | ${esc(d?.steps || '')} | ${d && d.run ? 'written' : 'to write once staging can be looked at'} |`); } }
 L.push('', '## Guide paths', '', `${GUIDE_TOTAL} live guide${GUIDE_TOTAL === 1 ? '' : 's'} (from ${GUIDE_SOURCE === 'endpoint' ? '`/api/guide-paths.php`, with what our data says about each stop' : 'Discovery\'s links, until `/api/guide-paths.php` is live: stops as their pages show them, without our data to compare'}). ${walked} walked this run, from number ${ROT + 1}; the next run starts at ${next + 1}, so every guide is walked in turn. Each: the guide opens and shows its suggested journey; the journey shows its stops, their times and the distance between; each stop's page opens and says what our data says (open now, its phone), with directions; its links work.`, '',
   '| Guide | Status | Journeys | Stops opened | Dead ends | Surprises | Accuracy | Clarity | Last 7 runs |', '|---|---|---|---|---|---|---|---|---|');
 for (const r of results.filter(r => r.kind === 'guide')) L.push(`| [${esc(r.guide?.name || r.title)}](${SITE}${r.guide?.url || ''}) | ${r.status} | ${r.guide?.journeys ?? '—'} | ${r.guide ? r.guide.stops.filter(s => s.opened).length + ' of ' + r.guide.stops.length : '—'} | ${c(r, 'dead_ends')} | ${c(r, 'surprises')} | ${c(r, 'accuracy')} | ${c(r, 'clarity')} | ${trend(r.id, 'guest')} |`);

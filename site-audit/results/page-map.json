@@ -1,0 +1,8763 @@
+{
+ "at": "2026-11-12 13:15 UTC",
+ "pages": [
+  {
+   "page": "/",
+   "file": "website/index.php",
+   "in": [
+    "routes",
+    "tree"
+   ],
+   "purpose": "Home: the two ways in, Let's Explore and Get Local",
+   "status": "Live",
+   "kinds": [],
+   "decisions": [
+    "0020",
+    "0058",
+    "0138",
+    "0143"
+   ],
+   "named_in": [
+    {
+     "doc": "0020",
+     "file": "0020-tier2-dependency-mapping-and-sequencing.md",
+     "sections": [
+      "Decision",
+      "Milestone tagging — the firm seq…"
+     ],
+     "mentions": 2,
+     "replaced": false
+    },
+    {
+     "doc": "0138",
+     "file": "0138-home-page.md",
+     "sections": [
+      "Step 1 built (2026-11-01): the s…",
+      "The full layout built (2026-11-0…",
+      "Jason's changes to the full layo…"
+     ],
+     "mentions": 5,
+     "replaced": false
+    },
+    {
+     "doc": "0143",
+     "file": "0143-stock-library.md",
+     "sections": [
+      "Built (2026-11-04)"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "toolkit.md",
+     "file": "toolkit.md",
+     "sections": [
+      "§1"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/admin/",
+   "file": "website/admin/index.php",
+   "in": [
+    "tree"
+   ],
+   "purpose": "",
+   "status": "",
+   "kinds": [
+    "admin"
+   ],
+   "decisions": [
+    "0078",
+    "0097",
+    "0104",
+    "0109",
+    "0110",
+    "0143",
+    "0150"
+   ],
+   "named_in": [
+    {
+     "doc": "0078",
+     "file": "0078-admin-dashboard.md",
+     "sections": [
+      "Decision"
+     ],
+     "mentions": 5,
+     "replaced": false
+    },
+    {
+     "doc": "0097",
+     "file": "0097-two-step-sign-in-for-staff-and-captcha.md",
+     "sections": [
+      "Decision"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "0104",
+     "file": "0104-admin-workspaces-wave-0.md",
+     "sections": [
+      "What changed"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "0109",
+     "file": "0109-admin-engine.md",
+     "sections": [
+      "Decided"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "0110",
+     "file": "0110-data-separation.md",
+     "sections": [
+      "§1",
+      "Phase A: admin pages sign in as …"
+     ],
+     "mentions": 2,
+     "replaced": false
+    },
+    {
+     "doc": "0143",
+     "file": "0143-stock-library.md",
+     "sections": [
+      "Built (2026-11-05, fifth zip): o…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "0150",
+     "file": "0150-vendor-links.md",
+     "sections": [
+      "Why",
+      "Decision"
+     ],
+     "mentions": 2,
+     "replaced": false
+    },
+    {
+     "doc": "CLAUDE.md",
+     "file": "CLAUDE.md",
+     "sections": [
+      "The admin (decisions/0109): ever…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "admin-architecture.md",
+     "file": "admin-architecture.md",
+     "sections": [
+      "A2. Modules (code)",
+      "A9. The archive (old pages)",
+      "Part D. Building it (full scope)"
+     ],
+     "mentions": 5,
+     "replaced": false
+    },
+    {
+     "doc": "architecture.md",
+     "file": "architecture.md",
+     "sections": [
+      "§5",
+      "§6"
+     ],
+     "mentions": 2,
+     "replaced": false
+    },
+    {
+     "doc": "archive.md",
+     "file": "archive.md",
+     "sections": [
+      "Ready to clear",
+      "Re-point first",
+      "Working tools (kept until their …"
+     ],
+     "mentions": 3,
+     "replaced": false
+    },
+    {
+     "doc": "toolkit.md",
+     "file": "toolkit.md",
+     "sections": [],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "ux-review.md",
+     "file": "ux-review.md",
+     "sections": [
+      "The path, stage by stage"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "0109: The admin (manifests, widgets, Access)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/admin/adminportal.php",
+   "file": "website/admin/adminportal.php",
+   "in": [
+    "routes",
+    "tree"
+   ],
+   "purpose": "Admin home: tiles for each admin area",
+   "status": "Live, placeholder: its header says the page's own check \"is ",
+   "kinds": [
+    "admin"
+   ],
+   "decisions": [
+    "0016",
+    "0019",
+    "0022",
+    "0029",
+    "0047",
+    "0078"
+   ],
+   "named_in": [
+    {
+     "doc": "0016",
+     "file": "0016-verification-review-queue-admin-claims.md",
+     "sections": [
+      "Context",
+      "Consequences"
+     ],
+     "mentions": 3,
+     "replaced": false
+    },
+    {
+     "doc": "0019",
+     "file": "0019-dmca-notice-and-takedown.md",
+     "sections": [
+      "§5",
+      "Consequences"
+     ],
+     "mentions": 2,
+     "replaced": false
+    },
+    {
+     "doc": "0022",
+     "file": "0022-admin-subtools-rollout-strategy.md",
+     "sections": [
+      "§1",
+      "Consequences"
+     ],
+     "mentions": 2,
+     "replaced": false
+    },
+    {
+     "doc": "0029",
+     "file": "0029-admin-auth-shared-session.md",
+     "sections": [
+      "Context",
+      "§2"
+     ],
+     "mentions": 2,
+     "replaced": false
+    },
+    {
+     "doc": "0047",
+     "file": "0047-connection-points-and-address-book.md",
+     "sections": [
+      "Consequences"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "0078",
+     "file": "0078-admin-dashboard.md",
+     "sections": [
+      "Context",
+      "Decision"
+     ],
+     "mentions": 2,
+     "replaced": false
+    },
+    {
+     "doc": "architecture.md",
+     "file": "architecture.md",
+     "sections": [
+      "§2",
+      "§9",
+      "§29"
+     ],
+     "mentions": 3,
+     "replaced": false
+    },
+    {
+     "doc": "archive.md",
+     "file": "archive.md",
+     "sections": [
+      "Ready to clear"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "prd.md",
+     "file": "prd.md",
+     "sections": [
+      "Tier 2 — Active Development"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "0109: The admin (manifests, widgets, Access)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/admin/api.php",
+   "file": "website/admin/api.php",
+   "in": [
+    "tree"
+   ],
+   "purpose": "",
+   "status": "",
+   "kinds": [],
+   "decisions": [
+    "0109",
+    "0143"
+   ],
+   "named_in": [
+    {
+     "doc": "0109",
+     "file": "0109-admin-engine.md",
+     "sections": [
+      "Zip 1 (this build)"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "0143",
+     "file": "0143-stock-library.md",
+     "sections": [
+      "Built (2026-11-04)"
+     ],
+     "mentions": 2,
+     "replaced": false
+    },
+    {
+     "doc": "toolkit.md",
+     "file": "toolkit.md",
+     "sections": [
+      "§4"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/admin/auto-imports.php",
+   "file": "website/admin/auto-imports.php",
+   "in": [
+    "routes",
+    "tree"
+   ],
+   "purpose": "Listings the crawler published on its own (confidence-gated)",
+   "status": "Live",
+   "kinds": [
+    "admin"
+   ],
+   "decisions": [
+    "0044",
+    "0046"
+   ],
+   "named_in": [
+    {
+     "doc": "0046",
+     "file": "0046-admin-crawler-workspace-and-icon-rail.md",
+     "sections": [
+      "Decision"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "toolkit.md",
+     "file": "toolkit.md",
+     "sections": [
+      "Concierge (`/admin/concierge/…`)"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "0109: The admin (manifests, widgets, Access)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/admin/chamber-builder.php",
+   "file": "website/admin/chamber-builder.php",
+   "in": [
+    "tree"
+   ],
+   "purpose": "",
+   "status": "",
+   "kinds": [
+    "admin"
+   ],
+   "decisions": [],
+   "named_in": [
+    {
+     "doc": "archive.md",
+     "file": "archive.md",
+     "sections": [
+      "Waiting on Jason (not ours to re…"
+     ],
+     "mentions": 2,
+     "replaced": false
+    },
+    {
+     "doc": "ux-review.md",
+     "file": "ux-review.md",
+     "sections": [
+      "§8"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "0109: The admin (manifests, widgets, Access)"
+   ],
+   "paths": [],
+   "governed": false
+  },
+  {
+   "page": "/admin/claims.php",
+   "file": "website/admin/claims.php",
+   "in": [
+    "routes",
+    "tree"
+   ],
+   "purpose": "Claims: to confirm (overdue first), requests on hold, owner changes waiting, disputes. `?doc=` opens a claim's document (stored outside the ",
+   "status": "Live",
+   "kinds": [
+    "admin"
+   ],
+   "decisions": [
+    "0016",
+    "0017",
+    "0019",
+    "0020",
+    "0070"
+   ],
+   "named_in": [
+    {
+     "doc": "0015",
+     "file": "0015-claim-verification-flow-and-dispute-resolution.md",
+     "sections": [
+      "§5"
+     ],
+     "mentions": 1,
+     "replaced": true
+    },
+    {
+     "doc": "0016",
+     "file": "0016-verification-review-queue-admin-claims.md",
+     "sections": [
+      "Decision",
+      "Consequences"
+     ],
+     "mentions": 3,
+     "replaced": false
+    },
+    {
+     "doc": "0017",
+     "file": "0017-document-upload-verification-and-dispute-evidence.md",
+     "sections": [
+      "Context",
+      "Decision"
+     ],
+     "mentions": 3,
+     "replaced": false
+    },
+    {
+     "doc": "0019",
+     "file": "0019-dmca-notice-and-takedown.md",
+     "sections": [
+      "§5",
+      "Consequences"
+     ],
+     "mentions": 2,
+     "replaced": false
+    },
+    {
+     "doc": "0020",
+     "file": "0020-tier2-dependency-mapping-and-sequencing.md",
+     "sections": [
+      "Context"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "0070",
+     "file": "0070-claiming-a-listing.md",
+     "sections": [
+      "Build"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "architecture.md",
+     "file": "architecture.md",
+     "sections": [
+      "§9"
+     ],
+     "mentions": 4,
+     "replaced": false
+    },
+    {
+     "doc": "prd.md",
+     "file": "prd.md",
+     "sections": [
+      "Tier 1 — Live Today"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "ux-review.md",
+     "file": "ux-review.md",
+     "sections": [
+      "§7"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "0109: The admin (manifests, widgets, Access)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/admin/client-order.php",
+   "file": "website/admin/client-order.php",
+   "in": [
+    "tree"
+   ],
+   "purpose": "",
+   "status": "",
+   "kinds": [
+    "admin",
+    "record"
+   ],
+   "decisions": [
+    "0101",
+    "0107",
+    "0127"
+   ],
+   "named_in": [
+    {
+     "doc": "0101",
+     "file": "0101-client-orders-and-catalog.md",
+     "sections": [
+      "How it works",
+      "Addendum 2026-10-27 (later): one…"
+     ],
+     "mentions": 2,
+     "replaced": false
+    },
+    {
+     "doc": "0107",
+     "file": "0107-item-panel.md",
+     "sections": [
+      "The order page ("
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "0127",
+     "file": "0127-one-uploader.md",
+     "sections": [
+      "What went"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "toolkit.md",
+     "file": "toolkit.md",
+     "sections": [
+      "Back-Office (`/admin/backoffice/…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "ux-review.md",
+     "file": "ux-review.md",
+     "sections": [
+      "§3",
+      "§7"
+     ],
+     "mentions": 2,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "0109: The admin (manifests, widgets, Access)",
+    "0129: Record pages: the command strip"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/admin/cluster-tools.php",
+   "file": "website/admin/cluster-tools.php",
+   "in": [
+    "routes",
+    "tree"
+   ],
+   "purpose": "ZIP population import, micro-cluster merge, cluster management",
+   "status": "Live",
+   "kinds": [
+    "admin"
+   ],
+   "decisions": [
+    "0042",
+    "0046",
+    "0127"
+   ],
+   "named_in": [
+    {
+     "doc": "0127",
+     "file": "0127-one-uploader.md",
+     "sections": [
+      "What went"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "toolkit.md",
+     "file": "toolkit.md",
+     "sections": [
+      "Local (`/admin/local/…`)"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "0109: The admin (manifests, widgets, Access)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/admin/content-template.php",
+   "file": "website/admin/content-template.php",
+   "in": [
+    "tree"
+   ],
+   "purpose": "",
+   "status": "",
+   "kinds": [
+    "admin",
+    "record"
+   ],
+   "decisions": [
+    "0133"
+   ],
+   "named_in": [
+    {
+     "doc": "0133",
+     "file": "0133-the-intelligence-and-publishing-engine.md",
+     "sections": [
+      "What changes in the code (to bui…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "ux-review.md",
+     "file": "ux-review.md",
+     "sections": [
+      "§7"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "0109: The admin (manifests, widgets, Access)",
+    "0129: Record pages: the command strip"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/admin/crawler-review.php",
+   "file": "website/admin/crawler-review.php",
+   "in": [
+    "routes",
+    "tree"
+   ],
+   "purpose": "Crawler review: listings to approve, possible duplicates",
+   "status": "Live",
+   "kinds": [
+    "admin"
+   ],
+   "decisions": [
+    "0046",
+    "0051",
+    "0053",
+    "0072",
+    "0074"
+   ],
+   "named_in": [
+    {
+     "doc": "0046",
+     "file": "0046-admin-crawler-workspace-and-icon-rail.md",
+     "sections": [
+      "Decision"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "0072",
+     "file": "0072-acting-on-suggestions.md",
+     "sections": [
+      "Consequences"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "0074",
+     "file": "0074-review-in-pop-ups.md",
+     "sections": [
+      "Consequences"
+     ],
+     "mentions": 2,
+     "replaced": false
+    },
+    {
+     "doc": "toolkit.md",
+     "file": "toolkit.md",
+     "sections": [
+      "Local (`/admin/local/…`)"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "ux-review.md",
+     "file": "ux-review.md",
+     "sections": [
+      "§3"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "0109: The admin (manifests, widgets, Access)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/admin/crawler.php",
+   "file": "website/admin/crawler.php",
+   "in": [
+    "routes",
+    "tree"
+   ],
+   "purpose": "Crawler overview: worker, queue, what went live",
+   "status": "Live",
+   "kinds": [
+    "admin"
+   ],
+   "decisions": [
+    "0046",
+    "0048",
+    "0061"
+   ],
+   "named_in": [
+    {
+     "doc": "0046",
+     "file": "0046-admin-crawler-workspace-and-icon-rail.md",
+     "sections": [
+      "Decision"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "0048",
+     "file": "0048-continental-data-plan.md",
+     "sections": [
+      "Progress (2026-09-30): Recreatio…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "0109: The admin (manifests, widgets, Access)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/admin/data-crawler.php",
+   "file": "website/admin/data-crawler.php",
+   "in": [
+    "tree"
+   ],
+   "purpose": "",
+   "status": "",
+   "kinds": [
+    "admin"
+   ],
+   "decisions": [
+    "0078"
+   ],
+   "named_in": [
+    {
+     "doc": "0078",
+     "file": "0078-admin-dashboard.md",
+     "sections": [
+      "Decision"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "archive.md",
+     "file": "archive.md",
+     "sections": [
+      "Re-point first"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "0109: The admin (manifests, widgets, Access)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/admin/data.php",
+   "file": "website/admin/data.php",
+   "in": [
+    "tree"
+   ],
+   "purpose": "",
+   "status": "",
+   "kinds": [
+    "admin"
+   ],
+   "decisions": [],
+   "named_in": [
+    {
+     "doc": "toolkit.md",
+     "file": "toolkit.md",
+     "sections": [
+      "Insights (`/admin/insights/…`)"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "0109: The admin (manifests, widgets, Access)"
+   ],
+   "paths": [],
+   "governed": false
+  },
+  {
+   "page": "/admin/ecommerce.php",
+   "file": "website/admin/ecommerce.php",
+   "in": [
+    "tree"
+   ],
+   "purpose": "",
+   "status": "",
+   "kinds": [
+    "admin"
+   ],
+   "decisions": [
+    "0098"
+   ],
+   "named_in": [
+    {
+     "doc": "0098",
+     "file": "0098-order-system.md",
+     "sections": [
+      "Built (2026-10-16): step 1"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "toolkit.md",
+     "file": "toolkit.md",
+     "sections": [
+      "Back-Office (`/admin/backoffice/…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "0109: The admin (manifests, widgets, Access)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/admin/experiences.php",
+   "file": "website/admin/experiences.php",
+   "in": [
+    "routes",
+    "tree"
+   ],
+   "purpose": "Experiences review",
+   "status": "Live",
+   "kinds": [
+    "admin"
+   ],
+   "decisions": [
+    "0059"
+   ],
+   "named_in": [
+    {
+     "doc": "0059",
+     "file": "0059-experiences.md",
+     "sections": [
+      "Consequences"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "0109: The admin (manifests, widgets, Access)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/admin/geocode.php",
+   "file": "website/admin/geocode.php",
+   "in": [
+    "routes",
+    "tree"
+   ],
+   "purpose": "Turn street addresses into map points (Census geocoder)",
+   "status": "Live",
+   "kinds": [
+    "admin"
+   ],
+   "decisions": [
+    "0053"
+   ],
+   "named_in": [
+    {
+     "doc": "toolkit.md",
+     "file": "toolkit.md",
+     "sections": [
+      "Local (`/admin/local/…`)"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "0109: The admin (manifests, widgets, Access)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/admin/guide-edit.php",
+   "file": "website/admin/guide-edit.php",
+   "in": [
+    "tree"
+   ],
+   "purpose": "",
+   "status": "",
+   "kinds": [
+    "admin",
+    "record"
+   ],
+   "decisions": [
+    "0131"
+   ],
+   "named_in": [
+    {
+     "doc": "0131",
+     "file": "0131-place-guides.md",
+     "sections": [
+      "Built (2026-10-30)"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "ux-review.md",
+     "file": "ux-review.md",
+     "sections": [
+      "§7"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "0109: The admin (manifests, widgets, Access)",
+    "0129: Record pages: the command strip"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/admin/helper.php",
+   "file": "website/admin/helper.php",
+   "in": [
+    "routes",
+    "tree"
+   ],
+   "purpose": "The helper: what needs a person, one item at a time",
+   "status": "Live",
+   "kinds": [
+    "admin"
+   ],
+   "decisions": [
+    "0062"
+   ],
+   "named_in": [
+    {
+     "doc": "0062",
+     "file": "0062-identities-sources-and-verification.md",
+     "sections": [
+      "Progress, 2026-10-03: Step 3, th…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "toolkit.md",
+     "file": "toolkit.md",
+     "sections": [
+      "Dashboard (`/admin/dashboard/…`)"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "0109: The admin (manifests, widgets, Access)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/admin/how-guides.php",
+   "file": "website/admin/how-guides.php",
+   "in": [
+    "routes",
+    "tree"
+   ],
+   "purpose": "How-to guides: asked for, found, published",
+   "status": "Live",
+   "kinds": [
+    "admin"
+   ],
+   "decisions": [
+    "0063"
+   ],
+   "named_in": [
+    {
+     "doc": "0063",
+     "file": "0063-lexicon-syntax-and-the-workbench.md",
+     "sections": [
+      "Progress, 2026-10-04: How-to gui…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "0109: The admin (manifests, widgets, Access)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/admin/identities.php",
+   "file": "website/admin/identities.php",
+   "in": [
+    "routes",
+    "tree"
+   ],
+   "purpose": "Each listing's facts by the 5 W's, with their sources",
+   "status": "Live",
+   "kinds": [
+    "admin"
+   ],
+   "decisions": [
+    "0062"
+   ],
+   "named_in": [
+    {
+     "doc": "0062",
+     "file": "0062-identities-sources-and-verification.md",
+     "sections": [
+      "Progress, 2026-10-03: Step 2, fa…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "toolkit.md",
+     "file": "toolkit.md",
+     "sections": [
+      "Local (`/admin/local/…`)"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "0109: The admin (manifests, widgets, Access)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/admin/insights.php",
+   "file": "website/admin/insights.php",
+   "in": [
+    "routes",
+    "tree"
+   ],
+   "purpose": "How the platform is used: sections, routes between them, searches (counts only)",
+   "status": "Live",
+   "kinds": [
+    "admin"
+   ],
+   "decisions": [
+    "0058",
+    "0078"
+   ],
+   "named_in": [
+    {
+     "doc": "0058",
+     "file": "0058-public-profiles-journey-management-and-adult-accounts.md",
+     "sections": [
+      "§13"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "0078",
+     "file": "0078-admin-dashboard.md",
+     "sections": [
+      "Decision"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "toolkit.md",
+     "file": "toolkit.md",
+     "sections": [
+      "Insights (`/admin/insights/…`)"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "0109: The admin (manifests, widgets, Access)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/admin/journeys.php",
+   "file": "website/admin/journeys.php",
+   "in": [
+    "routes",
+    "tree"
+   ],
+   "purpose": "Journey management (editor queue)",
+   "status": "Live",
+   "kinds": [
+    "admin"
+   ],
+   "decisions": [
+    "0058"
+   ],
+   "named_in": [
+    {
+     "doc": "ux-review.md",
+     "file": "ux-review.md",
+     "sections": [
+      "§3"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "0109: The admin (manifests, widgets, Access)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/admin/landmarks.php",
+   "file": "website/admin/landmarks.php",
+   "in": [
+    "routes",
+    "tree"
+   ],
+   "purpose": "Natural landmarks review (held, sensitive)",
+   "status": "Live",
+   "kinds": [
+    "admin"
+   ],
+   "decisions": [
+    "0058",
+    "0066"
+   ],
+   "named_in": [
+    {
+     "doc": "0058",
+     "file": "0058-public-profiles-journey-management-and-adult-accounts.md",
+     "sections": [
+      "§24"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "ux-review.md",
+     "file": "ux-review.md",
+     "sections": [
+      "§7"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "0109: The admin (manifests, widgets, Access)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/admin/listing-add.php",
+   "file": "website/admin/listing-add.php",
+   "in": [
+    "tree"
+   ],
+   "purpose": "",
+   "status": "",
+   "kinds": [
+    "admin"
+   ],
+   "decisions": [
+    "0073"
+   ],
+   "named_in": [
+    {
+     "doc": "0073",
+     "file": "0073-listing-categories.md",
+     "sections": [
+      "§6",
+      "Consequences"
+     ],
+     "mentions": 2,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "0109: The admin (manifests, widgets, Access)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/admin/listing-edit.php",
+   "file": "website/admin/listing-edit.php",
+   "in": [
+    "routes",
+    "tree"
+   ],
+   "purpose": "Edit a live listing",
+   "status": "Live",
+   "kinds": [
+    "admin",
+    "record"
+   ],
+   "decisions": [
+    "0046",
+    "0053"
+   ],
+   "named_in": [
+    {
+     "doc": "0046",
+     "file": "0046-admin-crawler-workspace-and-icon-rail.md",
+     "sections": [
+      "Progress (2026-09-29)"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "ux-review.md",
+     "file": "ux-review.md",
+     "sections": [
+      "§3",
+      "§7"
+     ],
+     "mentions": 2,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "0109: The admin (manifests, widgets, Access)",
+    "0129: Record pages: the command strip"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/admin/listing-intake.php",
+   "file": "website/admin/listing-intake.php",
+   "in": [
+    "routes",
+    "tree"
+   ],
+   "purpose": "Point the crawler at a website; review what it proposes",
+   "status": "Live",
+   "kinds": [
+    "admin"
+   ],
+   "decisions": [
+    "0022",
+    "0029",
+    "0046"
+   ],
+   "named_in": [
+    {
+     "doc": "0046",
+     "file": "0046-admin-crawler-workspace-and-icon-rail.md",
+     "sections": [
+      "Decision"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "toolkit.md",
+     "file": "toolkit.md",
+     "sections": [
+      "Local (`/admin/local/…`)"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "ux-review.md",
+     "file": "ux-review.md",
+     "sections": [
+      "§7"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "0109: The admin (manifests, widgets, Access)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/admin/listing-new.php",
+   "file": "website/admin/listing-new.php",
+   "in": [
+    "tree"
+   ],
+   "purpose": "",
+   "status": "",
+   "kinds": [
+    "admin"
+   ],
+   "decisions": [],
+   "named_in": [],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "0109: The admin (manifests, widgets, Access)"
+   ],
+   "paths": [],
+   "governed": false
+  },
+  {
+   "page": "/admin/listings.php",
+   "file": "website/admin/listings.php",
+   "in": [
+    "tree"
+   ],
+   "purpose": "",
+   "status": "",
+   "kinds": [
+    "admin"
+   ],
+   "decisions": [
+    "0016",
+    "0021",
+    "0022",
+    "0024",
+    "0074",
+    "0078"
+   ],
+   "named_in": [
+    {
+     "doc": "0016",
+     "file": "0016-verification-review-queue-admin-claims.md",
+     "sections": [
+      "Consequences"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "0021",
+     "file": "0021-mvp-launch-line.md",
+     "sections": [
+      "§3"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "0022",
+     "file": "0022-admin-subtools-rollout-strategy.md",
+     "sections": [
+      "§1",
+      "§3"
+     ],
+     "mentions": 2,
+     "replaced": false
+    },
+    {
+     "doc": "0024",
+     "file": "0024-automated-keyword-category-classification.md",
+     "sections": [
+      "§3",
+      "Consequences"
+     ],
+     "mentions": 2,
+     "replaced": false
+    },
+    {
+     "doc": "0074",
+     "file": "0074-review-in-pop-ups.md",
+     "sections": [
+      "Consequences"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "0078",
+     "file": "0078-admin-dashboard.md",
+     "sections": [
+      "Decision"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "prd.md",
+     "file": "prd.md",
+     "sections": [
+      "Tier 2 — Active Development"
+     ],
+     "mentions": 2,
+     "replaced": false
+    },
+    {
+     "doc": "toolkit.md",
+     "file": "toolkit.md",
+     "sections": [
+      "Local (`/admin/local/…`)"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "0109: The admin (manifests, widgets, Access)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/admin/login.php",
+   "file": "website/admin/login.php",
+   "in": [
+    "tree"
+   ],
+   "purpose": "",
+   "status": "",
+   "kinds": [
+    "admin",
+    "sign-in"
+   ],
+   "decisions": [
+    "0029",
+    "0055",
+    "0100"
+   ],
+   "named_in": [
+    {
+     "doc": "0029",
+     "file": "0029-admin-auth-shared-session.md",
+     "sections": [
+      "Context",
+      "§2",
+      "§3"
+     ],
+     "mentions": 6,
+     "replaced": false
+    },
+    {
+     "doc": "0055",
+     "file": "0055-app-shell-dashboards-and-roles.md",
+     "sections": [
+      "Progress, 2026-10-03: The admin …"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "0100",
+     "file": "0100-staff-logins.md",
+     "sections": [
+      "How it works"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "architecture.md",
+     "file": "architecture.md",
+     "sections": [
+      "§11"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "toolkit.md",
+     "file": "toolkit.md",
+     "sections": [
+      "§4"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "0109: The admin (manifests, widgets, Access)",
+    "CLAUDE.md: Password boxes (js/tv-password.js)",
+    "0014: Registration flow"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/admin/logs.php",
+   "file": "website/admin/logs.php",
+   "in": [
+    "tree"
+   ],
+   "purpose": "",
+   "status": "",
+   "kinds": [
+    "admin"
+   ],
+   "decisions": [
+    "0105"
+   ],
+   "named_in": [
+    {
+     "doc": "0105",
+     "file": "0105-dashboard-and-pulse.md",
+     "sections": [
+      "Addendum (2026-10-21, later): Pu…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "archive.md",
+     "file": "archive.md",
+     "sections": [
+      "Re-point first"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "0109: The admin (manifests, widgets, Access)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/admin/manifest.php",
+   "file": "website/admin/manifest.php",
+   "in": [
+    "tree"
+   ],
+   "purpose": "",
+   "status": "",
+   "kinds": [
+    "admin"
+   ],
+   "decisions": [
+    "0101"
+   ],
+   "named_in": [
+    {
+     "doc": "0101",
+     "file": "0101-client-orders-and-catalog.md",
+     "sections": [
+      "Addendum, 2026-10-21: shipping a…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "0109: The admin (manifests, widgets, Access)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/admin/nations.php",
+   "file": "website/admin/nations.php",
+   "in": [
+    "routes",
+    "tree"
+   ],
+   "purpose": "Tribal nations and their visitor rules",
+   "status": "Live",
+   "kinds": [
+    "admin"
+   ],
+   "decisions": [
+    "0058",
+    "0066"
+   ],
+   "named_in": [
+    {
+     "doc": "0058",
+     "file": "0058-public-profiles-journey-management-and-adult-accounts.md",
+     "sections": [
+      "§26"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "0109: The admin (manifests, widgets, Access)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/admin/nexus.php",
+   "file": "website/admin/nexus.php",
+   "in": [
+    "tree"
+   ],
+   "purpose": "",
+   "status": "",
+   "kinds": [
+    "admin"
+   ],
+   "decisions": [
+    "0054"
+   ],
+   "named_in": [
+    {
+     "doc": "0054",
+     "file": "0054-nexus-organizations-with-many-locations.md",
+     "sections": [
+      "Progress"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "0109: The admin (manifests, widgets, Access)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/admin/order.php",
+   "file": "website/admin/order.php",
+   "in": [
+    "tree"
+   ],
+   "purpose": "",
+   "status": "",
+   "kinds": [
+    "admin",
+    "record"
+   ],
+   "decisions": [
+    "0098",
+    "0101"
+   ],
+   "named_in": [
+    {
+     "doc": "0098",
+     "file": "0098-order-system.md",
+     "sections": [
+      "Built (2026-10-16): step 1"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "0101",
+     "file": "0101-client-orders-and-catalog.md",
+     "sections": [
+      "How it works"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "toolkit.md",
+     "file": "toolkit.md",
+     "sections": [
+      "Back-Office (`/admin/backoffice/…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "ux-review.md",
+     "file": "ux-review.md",
+     "sections": [
+      "§7"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "0109: The admin (manifests, widgets, Access)",
+    "0129: Record pages: the command strip"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/admin/people.php",
+   "file": "website/admin/people.php",
+   "in": [
+    "tree"
+   ],
+   "purpose": "",
+   "status": "",
+   "kinds": [
+    "admin"
+   ],
+   "decisions": [
+    "0078"
+   ],
+   "named_in": [
+    {
+     "doc": "0078",
+     "file": "0078-admin-dashboard.md",
+     "sections": [
+      "Decision"
+     ],
+     "mentions": 2,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "0109: The admin (manifests, widgets, Access)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/admin/products.php",
+   "file": "website/admin/products.php",
+   "in": [
+    "tree"
+   ],
+   "purpose": "",
+   "status": "",
+   "kinds": [
+    "admin"
+   ],
+   "decisions": [
+    "0116"
+   ],
+   "named_in": [
+    {
+     "doc": "0116",
+     "file": "0116-catalog-in-the-business-portal.md",
+     "sections": [
+      "What changed"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "ux-review.md",
+     "file": "ux-review.md",
+     "sections": [
+      "§7"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "0109: The admin (manifests, widgets, Access)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/admin/promotions.php",
+   "file": "website/admin/promotions.php",
+   "in": [
+    "tree"
+   ],
+   "purpose": "",
+   "status": "",
+   "kinds": [
+    "admin"
+   ],
+   "decisions": [],
+   "named_in": [
+    {
+     "doc": "ux-review.md",
+     "file": "ux-review.md",
+     "sections": [
+      "§7"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "0109: The admin (manifests, widgets, Access)"
+   ],
+   "paths": [],
+   "governed": false
+  },
+  {
+   "page": "/admin/quickbooks.php",
+   "file": "website/admin/quickbooks.php",
+   "in": [
+    "tree"
+   ],
+   "purpose": "",
+   "status": "",
+   "kinds": [
+    "admin"
+   ],
+   "decisions": [
+    "0095",
+    "0096"
+   ],
+   "named_in": [
+    {
+     "doc": "0095",
+     "file": "0095-qr-codes-as-a-paid-service-quickbooks-checkout.md",
+     "sections": [
+      "Checkout through QuickBooks (`ap…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "0096",
+     "file": "0096-go-codes-guest-checkout-and-manage.md",
+     "sections": [
+      "Addendum (2026-10-16): Intuit's …"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "toolkit.md",
+     "file": "toolkit.md",
+     "sections": [
+      "Back-Office (`/admin/backoffice/…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "0109: The admin (manifests, widgets, Access)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/admin/rebuild.php",
+   "file": "website/admin/rebuild.php",
+   "in": [
+    "tree"
+   ],
+   "purpose": "",
+   "status": "",
+   "kinds": [
+    "admin"
+   ],
+   "decisions": [
+    "0083"
+   ],
+   "named_in": [
+    {
+     "doc": "0083",
+     "file": "0083-nexus-website-identity-merge-several-rebuild.md",
+     "sections": [
+      "§3"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "0109: The admin (manifests, widgets, Access)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/admin/recreation.php",
+   "file": "website/admin/recreation.php",
+   "in": [
+    "routes",
+    "tree"
+   ],
+   "purpose": "Recreation.gov places: hide any that shouldn't show",
+   "status": "Live",
+   "kinds": [
+    "admin"
+   ],
+   "decisions": [
+    "0048"
+   ],
+   "named_in": [
+    {
+     "doc": "0048",
+     "file": "0048-continental-data-plan.md",
+     "sections": [
+      "Progress (2026-09-30): Recreatio…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "toolkit.md",
+     "file": "toolkit.md",
+     "sections": [
+      "Local (`/admin/local/…`)"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "0109: The admin (manifests, widgets, Access)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/admin/reports.php",
+   "file": "website/admin/reports.php",
+   "in": [
+    "routes",
+    "tree"
+   ],
+   "purpose": "Reports of community posts and groups",
+   "status": "Live",
+   "kinds": [
+    "admin"
+   ],
+   "decisions": [
+    "0047"
+   ],
+   "named_in": [
+    {
+     "doc": "0047",
+     "file": "0047-connection-points-and-address-book.md",
+     "sections": [
+      "Progress"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "0109: The admin (manifests, widgets, Access)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/admin/resource-guides.php",
+   "file": "website/admin/resource-guides.php",
+   "in": [
+    "routes",
+    "tree"
+   ],
+   "purpose": "Phone lines and services that answer a situation",
+   "status": "Live",
+   "kinds": [
+    "admin"
+   ],
+   "decisions": [
+    "0061"
+   ],
+   "named_in": [
+    {
+     "doc": "0061",
+     "file": "0061-situations-intent-map-and-learning-search.md",
+     "sections": [
+      "Progress, 2026-10-02: Resource g…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "0109: The admin (manifests, widgets, Access)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/admin/review-item.php",
+   "file": "website/admin/review-item.php",
+   "in": [
+    "tree"
+   ],
+   "purpose": "",
+   "status": "",
+   "kinds": [
+    "admin",
+    "record"
+   ],
+   "decisions": [
+    "0074"
+   ],
+   "named_in": [
+    {
+     "doc": "0074",
+     "file": "0074-review-in-pop-ups.md",
+     "sections": [
+      "Decision",
+      "Consequences"
+     ],
+     "mentions": 3,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "0109: The admin (manifests, widgets, Access)",
+    "0129: Record pages: the command strip"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/admin/router.php",
+   "file": "website/admin/router.php",
+   "in": [
+    "tree"
+   ],
+   "purpose": "",
+   "status": "",
+   "kinds": [
+    "admin"
+   ],
+   "decisions": [
+    "0109"
+   ],
+   "named_in": [
+    {
+     "doc": "0109",
+     "file": "0109-admin-engine.md",
+     "sections": [
+      "Zip 1 (this build)"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "CLAUDE.md",
+     "file": "CLAUDE.md",
+     "sections": [
+      "The admin (decisions/0109): ever…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "toolkit.md",
+     "file": "toolkit.md",
+     "sections": [
+      "§4"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "ux-review.md",
+     "file": "ux-review.md",
+     "sections": [
+      "The path, stage by stage"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "0109: The admin (manifests, widgets, Access)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/admin/safety.php",
+   "file": "website/admin/safety.php",
+   "in": [
+    "tree"
+   ],
+   "purpose": "",
+   "status": "",
+   "kinds": [
+    "admin"
+   ],
+   "decisions": [
+    "0078"
+   ],
+   "named_in": [
+    {
+     "doc": "0078",
+     "file": "0078-admin-dashboard.md",
+     "sections": [
+      "Decision"
+     ],
+     "mentions": 2,
+     "replaced": false
+    },
+    {
+     "doc": "toolkit.md",
+     "file": "toolkit.md",
+     "sections": [
+      "Local (`/admin/local/…`)",
+      "Social (`/admin/social/…`)"
+     ],
+     "mentions": 2,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "0109: The admin (manifests, widgets, Access)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/admin/sales.php",
+   "file": "website/admin/sales.php",
+   "in": [
+    "tree"
+   ],
+   "purpose": "",
+   "status": "",
+   "kinds": [
+    "admin"
+   ],
+   "decisions": [
+    "0081",
+    "0108"
+   ],
+   "named_in": [
+    {
+     "doc": "0081",
+     "file": "0081-sales-funnel-and-admin-day.md",
+     "sections": [
+      "Decision"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "0108",
+     "file": "0108-sales-and-growth.md",
+     "sections": [
+      "Built: step 2, the lead workspac…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "toolkit.md",
+     "file": "toolkit.md",
+     "sections": [
+      "Growth (`/admin/growth/…`)"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "0109: The admin (manifests, widgets, Access)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/admin/search-demand.php",
+   "file": "website/admin/search-demand.php",
+   "in": [
+    "routes",
+    "tree"
+   ],
+   "purpose": "Where people look and what for (state → county → town)",
+   "status": "Live",
+   "kinds": [
+    "admin"
+   ],
+   "decisions": [
+    "0066"
+   ],
+   "named_in": [],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "0109: The admin (manifests, widgets, Access)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/admin/search-index.php",
+   "file": "website/admin/search-index.php",
+   "in": [
+    "routes",
+    "tree"
+   ],
+   "purpose": "Build the 5 W search index",
+   "status": "Live",
+   "kinds": [
+    "admin"
+   ],
+   "decisions": [
+    "0053"
+   ],
+   "named_in": [],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "0109: The admin (manifests, widgets, Access)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/admin/search-learning.php",
+   "file": "website/admin/search-learning.php",
+   "in": [
+    "routes",
+    "tree"
+   ],
+   "purpose": "What search learned from what people open",
+   "status": "Live",
+   "kinds": [
+    "admin"
+   ],
+   "decisions": [
+    "0061"
+   ],
+   "named_in": [
+    {
+     "doc": "0061",
+     "file": "0061-situations-intent-map-and-learning-search.md",
+     "sections": [
+      "Progress, 2026-10-02: Batch 3, s…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "0109: The admin (manifests, widgets, Access)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/admin/search-misses.php",
+   "file": "website/admin/search-misses.php",
+   "in": [
+    "routes",
+    "tree"
+   ],
+   "purpose": "Missed searches, drafts, words for each kind",
+   "status": "Live",
+   "kinds": [
+    "admin"
+   ],
+   "decisions": [
+    "0061",
+    "0063",
+    "0064",
+    "0067"
+   ],
+   "named_in": [
+    {
+     "doc": "0061",
+     "file": "0061-situations-intent-map-and-learning-search.md",
+     "sections": [
+      "Progress, 2026-10-02: Missed sea…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "0063",
+     "file": "0063-lexicon-syntax-and-the-workbench.md",
+     "sections": [
+      "Progress, 2026-10-04: Piece 4, d…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "0109: The admin (manifests, widgets, Access)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/admin/search-oversight.php",
+   "file": "website/admin/search-oversight.php",
+   "in": [
+    "routes",
+    "tree"
+   ],
+   "purpose": "What changed in how search understands people",
+   "status": "Live",
+   "kinds": [
+    "admin"
+   ],
+   "decisions": [
+    "0061"
+   ],
+   "named_in": [
+    {
+     "doc": "0061",
+     "file": "0061-situations-intent-map-and-learning-search.md",
+     "sections": [
+      "Progress, 2026-10-02: Resource g…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "0109: The admin (manifests, widgets, Access)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/admin/search.php",
+   "file": "website/admin/search.php",
+   "in": [
+    "tree"
+   ],
+   "purpose": "",
+   "status": "",
+   "kinds": [
+    "admin"
+   ],
+   "decisions": [
+    "0078"
+   ],
+   "named_in": [
+    {
+     "doc": "0078",
+     "file": "0078-admin-dashboard.md",
+     "sections": [
+      "Decision"
+     ],
+     "mentions": 2,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "0109: The admin (manifests, widgets, Access)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/admin/settings.php",
+   "file": "website/admin/settings.php",
+   "in": [
+    "tree"
+   ],
+   "purpose": "",
+   "status": "",
+   "kinds": [
+    "admin"
+   ],
+   "decisions": [
+    "0078",
+    "0105",
+    "0152"
+   ],
+   "named_in": [
+    {
+     "doc": "0078",
+     "file": "0078-admin-dashboard.md",
+     "sections": [
+      "Decision"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "0105",
+     "file": "0105-dashboard-and-pulse.md",
+     "sections": [
+      "Files"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "0152",
+     "file": "0152-outside-services-by-company.md",
+     "sections": [
+      "Why",
+      "Decision"
+     ],
+     "mentions": 2,
+     "replaced": false
+    },
+    {
+     "doc": "archive.md",
+     "file": "archive.md",
+     "sections": [
+      "Re-point first"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "toolkit.md",
+     "file": "toolkit.md",
+     "sections": [
+      "System Configuration (`/admin/co…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "0109: The admin (manifests, widgets, Access)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/admin/setup.php",
+   "file": "website/admin/setup.php",
+   "in": [
+    "tree"
+   ],
+   "purpose": "",
+   "status": "",
+   "kinds": [
+    "admin"
+   ],
+   "decisions": [],
+   "named_in": [],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "0109: The admin (manifests, widgets, Access)"
+   ],
+   "paths": [],
+   "governed": false
+  },
+  {
+   "page": "/admin/short-codes.php",
+   "file": "website/admin/short-codes.php",
+   "in": [
+    "tree"
+   ],
+   "purpose": "",
+   "status": "",
+   "kinds": [
+    "admin"
+   ],
+   "decisions": [
+    "0094"
+   ],
+   "named_in": [
+    {
+     "doc": "0094",
+     "file": "0094-trvgo-short-links-and-qr-codes.md",
+     "sections": [
+      "Misuse"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "0109: The admin (manifests, widgets, Access)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/admin/sitemap.php",
+   "file": "website/admin/sitemap.php",
+   "in": [
+    "tree"
+   ],
+   "purpose": "",
+   "status": "",
+   "kinds": [
+    "admin"
+   ],
+   "decisions": [],
+   "named_in": [
+    {
+     "doc": "toolkit.md",
+     "file": "toolkit.md",
+     "sections": [
+      "System Configuration (`/admin/co…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "0109: The admin (manifests, widgets, Access)"
+   ],
+   "paths": [],
+   "governed": false
+  },
+  {
+   "page": "/admin/sources.php",
+   "file": "website/admin/sources.php",
+   "in": [
+    "routes",
+    "tree"
+   ],
+   "purpose": "Websites that confirm places for the directory",
+   "status": "Live",
+   "kinds": [
+    "admin"
+   ],
+   "decisions": [
+    "0045",
+    "0046"
+   ],
+   "named_in": [
+    {
+     "doc": "0045",
+     "file": "0045-own-reference-index-and-source-first-crawling.md",
+     "sections": [
+      "Progress (2026-09-29)"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "0046",
+     "file": "0046-admin-crawler-workspace-and-icon-rail.md",
+     "sections": [
+      "Decision"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "0109: The admin (manifests, widgets, Access)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/admin/staff-levels.php",
+   "file": "website/admin/staff-levels.php",
+   "in": [
+    "tree"
+   ],
+   "purpose": "",
+   "status": "",
+   "kinds": [
+    "admin"
+   ],
+   "decisions": [
+    "0104"
+   ],
+   "named_in": [
+    {
+     "doc": "0104",
+     "file": "0104-admin-workspaces-wave-0.md",
+     "sections": [
+      "What changed"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "0109: The admin (manifests, widgets, Access)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/admin/staff-profile.php",
+   "file": "website/admin/staff-profile.php",
+   "in": [
+    "tree"
+   ],
+   "purpose": "",
+   "status": "",
+   "kinds": [
+    "admin"
+   ],
+   "decisions": [
+    "0105"
+   ],
+   "named_in": [
+    {
+     "doc": "0105",
+     "file": "0105-dashboard-and-pulse.md",
+     "sections": [
+      "Addendum (2026-10-21, later): Pu…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "ux-review.md",
+     "file": "ux-review.md",
+     "sections": [
+      "§7"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "0109: The admin (manifests, widgets, Access)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/admin/staff.php",
+   "file": "website/admin/staff.php",
+   "in": [
+    "tree"
+   ],
+   "purpose": "",
+   "status": "",
+   "kinds": [
+    "admin"
+   ],
+   "decisions": [
+    "0118"
+   ],
+   "named_in": [
+    {
+     "doc": "0118",
+     "file": "0118-portal-quotes-orders-team.md",
+     "sections": [
+      "Cleanups"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "0109: The admin (manifests, widgets, Access)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/admin/stories.php",
+   "file": "website/admin/stories.php",
+   "in": [
+    "routes",
+    "tree"
+   ],
+   "purpose": "Guide stories for place pages",
+   "status": "Live",
+   "kinds": [
+    "admin"
+   ],
+   "decisions": [
+    "0043"
+   ],
+   "named_in": [
+    {
+     "doc": "0043",
+     "file": "0043-discovery-guides-at-every-taxonomy-level.md",
+     "sections": [
+      "Progress (2026-09-30): guide sto…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "ux-review.md",
+     "file": "ux-review.md",
+     "sections": [
+      "§3"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "0109: The admin (manifests, widgets, Access)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/admin/suggestion.php",
+   "file": "website/admin/suggestion.php",
+   "in": [
+    "tree"
+   ],
+   "purpose": "",
+   "status": "",
+   "kinds": [
+    "admin"
+   ],
+   "decisions": [
+    "0072"
+   ],
+   "named_in": [
+    {
+     "doc": "0072",
+     "file": "0072-acting-on-suggestions.md",
+     "sections": [
+      "Decision",
+      "Consequences"
+     ],
+     "mentions": 2,
+     "replaced": false
+    },
+    {
+     "doc": "ux-review.md",
+     "file": "ux-review.md",
+     "sections": [
+      "§7"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "0109: The admin (manifests, widgets, Access)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/admin/vendors.php",
+   "file": "website/admin/vendors.php",
+   "in": [
+    "tree"
+   ],
+   "purpose": "",
+   "status": "",
+   "kinds": [
+    "admin"
+   ],
+   "decisions": [
+    "0106"
+   ],
+   "named_in": [
+    {
+     "doc": "0106",
+     "file": "0106-vendor-orders.md",
+     "sections": [
+      "Where it's used"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "0109: The admin (manifests, widgets, Access)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/admin/w.php",
+   "file": "website/admin/w.php",
+   "in": [
+    "tree"
+   ],
+   "purpose": "",
+   "status": "",
+   "kinds": [
+    "admin"
+   ],
+   "decisions": [
+    "0104",
+    "0105",
+    "0109"
+   ],
+   "named_in": [
+    {
+     "doc": "0104",
+     "file": "0104-admin-workspaces-wave-0.md",
+     "sections": [
+      "What changed"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "0105",
+     "file": "0105-dashboard-and-pulse.md",
+     "sections": [
+      "Files"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "0109",
+     "file": "0109-admin-engine.md",
+     "sections": [],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "archive.md",
+     "file": "archive.md",
+     "sections": [
+      "Re-point first"
+     ],
+     "mentions": 3,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "0109: The admin (manifests, widgets, Access)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/ai/",
+   "file": "website/ai/index.php",
+   "in": [
+    "tree"
+   ],
+   "purpose": "",
+   "status": "",
+   "kinds": [],
+   "decisions": [
+    "0133"
+   ],
+   "named_in": [
+    {
+     "doc": "0133",
+     "file": "0133-the-intelligence-and-publishing-engine.md",
+     "sections": [
+      "What changes in the code (to bui…"
+     ],
+     "mentions": 2,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/api/admin/intake/*",
+   "file": "",
+   "in": [
+    "routes"
+   ],
+   "purpose": "`candidates`, `review`, `existing`, `crawl`, `clusters` (admin only)",
+   "status": "Live",
+   "kinds": [
+    "endpoint"
+   ],
+   "decisions": [],
+   "named_in": [],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "CLAUDE.md: Links past Bluehost's ModSecurity",
+    "rule R07: the security token"
+   ],
+   "paths": [],
+   "governed": false
+  },
+  {
+   "page": "/api/auth/*",
+   "file": "",
+   "in": [
+    "routes"
+   ],
+   "purpose": "`session`, `login`, `logout`, `register`, `verify-email`, `change-password`, `password/request-reset`, `password/reset`, `email/request-chan",
+   "status": "Live",
+   "kinds": [
+    "endpoint"
+   ],
+   "decisions": [
+    "0014",
+    "0029",
+    "0047",
+    "0058",
+    "0062",
+    "0085",
+    "0090",
+    "0097"
+   ],
+   "named_in": [
+    {
+     "doc": "0014",
+     "file": "0014-registration-flow-and-email-verification-gate.md",
+     "sections": [
+      "Context",
+      "Decision",
+      "Consequences"
+     ],
+     "mentions": 5,
+     "replaced": false
+    },
+    {
+     "doc": "0029",
+     "file": "0029-admin-auth-shared-session.md",
+     "sections": [
+      "Context",
+      "§1",
+      "§2"
+     ],
+     "mentions": 3,
+     "replaced": false
+    },
+    {
+     "doc": "0085",
+     "file": "0085-google-sign-in-and-places-check.md",
+     "sections": [
+      "§1",
+      "Fix, 2026-10-14: Bluehost's fire…"
+     ],
+     "mentions": 2,
+     "replaced": false
+    },
+    {
+     "doc": "0090",
+     "file": "0090-sign-in-with-apple-microsoft-facebook.md",
+     "sections": [
+      "Apple, Microsoft and Facebook (`…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "0097",
+     "file": "0097-two-step-sign-in-for-staff-and-captcha.md",
+     "sections": [
+      "Decision"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "architecture.md",
+     "file": "architecture.md",
+     "sections": [
+      "§11"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "CLAUDE.md: Links past Bluehost's ModSecurity",
+    "rule R07: the security token"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/api/categories.php",
+   "file": "",
+   "in": [
+    "routes"
+   ],
+   "purpose": "Category tree (plain names)",
+   "status": "Live",
+   "kinds": [
+    "endpoint"
+   ],
+   "decisions": [
+    "0068"
+   ],
+   "named_in": [
+    {
+     "doc": "architecture.md",
+     "file": "architecture.md",
+     "sections": [
+      "§18"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "CLAUDE.md: Links past Bluehost's ModSecurity",
+    "rule R07: the security token"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/api/count.php",
+   "file": "",
+   "in": [
+    "routes"
+   ],
+   "purpose": "Counts only: page views and flow; calls, directions, website, contact",
+   "status": "Live",
+   "kinds": [
+    "endpoint"
+   ],
+   "decisions": [
+    "0058",
+    "0066",
+    "0087"
+   ],
+   "named_in": [
+    {
+     "doc": "0058",
+     "file": "0058-public-profiles-journey-management-and-adult-accounts.md",
+     "sections": [
+      "§13"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "0087",
+     "file": "0087-counts-leave-out-the-team-and-crawler-check-in.md",
+     "sections": [
+      "Decision"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "CLAUDE.md: Links past Bluehost's ModSecurity",
+    "rule R07: the security token"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/api/crawl/geocode.php",
+   "file": "",
+   "in": [
+    "routes"
+   ],
+   "purpose": "Map points on a schedule",
+   "status": "Live",
+   "kinds": [
+    "endpoint"
+   ],
+   "decisions": [
+    "0053"
+   ],
+   "named_in": [
+    {
+     "doc": "0053",
+     "file": "0053-universal-search-in-place.md",
+     "sections": [
+      "Progress, 2026-10-04: map points…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "CLAUDE.md: Links past Bluehost's ModSecurity",
+    "rule R07: the security token"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/api/crawl/guides.php",
+   "file": "",
+   "in": [
+    "routes"
+   ],
+   "purpose": "How-to guides",
+   "status": "Live",
+   "kinds": [
+    "endpoint"
+   ],
+   "decisions": [
+    "0063"
+   ],
+   "named_in": [
+    {
+     "doc": "0063",
+     "file": "0063-lexicon-syntax-and-the-workbench.md",
+     "sections": [
+      "Progress, 2026-10-04: How-to gui…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "CLAUDE.md: Links past Bluehost's ModSecurity",
+    "rule R07: the security token"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/api/crawl/identity.php",
+   "file": "",
+   "in": [
+    "routes"
+   ],
+   "purpose": "Build a listing's identity; web search usage",
+   "status": "Live",
+   "kinds": [
+    "endpoint"
+   ],
+   "decisions": [
+    "0062"
+   ],
+   "named_in": [],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "CLAUDE.md: Links past Bluehost's ModSecurity",
+    "rule R07: the security token"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/api/crawl/jobs.php",
+   "file": "",
+   "in": [
+    "routes"
+   ],
+   "purpose": "Crawl jobs, findings, second look",
+   "status": "Live",
+   "kinds": [
+    "endpoint"
+   ],
+   "decisions": [
+    "0044"
+   ],
+   "named_in": [
+    {
+     "doc": "0044",
+     "file": "0044-confidence-gated-auto-import-of-directory-listings.md",
+     "sections": [
+      "Running it in increments, off Bl…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "architecture.md",
+     "file": "architecture.md",
+     "sections": [
+      "§12"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "CLAUDE.md: Links past Bluehost's ModSecurity",
+    "rule R07: the security token"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/api/crawl/landmarks.php",
+   "file": "",
+   "in": [
+    "routes"
+   ],
+   "purpose": "Monthly natural landmarks load",
+   "status": "Live",
+   "kinds": [
+    "endpoint"
+   ],
+   "decisions": [
+    "0058"
+   ],
+   "named_in": [],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "CLAUDE.md: Links past Bluehost's ModSecurity",
+    "rule R07: the security token"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/api/crawl/learn.php",
+   "file": "",
+   "in": [
+    "routes"
+   ],
+   "purpose": "Search learning pass",
+   "status": "Live",
+   "kinds": [
+    "endpoint"
+   ],
+   "decisions": [
+    "0061"
+   ],
+   "named_in": [
+    {
+     "doc": "0061",
+     "file": "0061-situations-intent-map-and-learning-search.md",
+     "sections": [
+      "Progress, 2026-10-02: Batch 3, s…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "CLAUDE.md: Links past Bluehost's ModSecurity",
+    "rule R07: the security token"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/api/crawl/npi.php",
+   "file": "",
+   "in": [
+    "routes"
+   ],
+   "purpose": "Monthly NPI, IRS exempt-organization and Recreation.gov loads",
+   "status": "Live",
+   "kinds": [
+    "endpoint"
+   ],
+   "decisions": [
+    "0048"
+   ],
+   "named_in": [
+    {
+     "doc": "0048",
+     "file": "0048-continental-data-plan.md",
+     "sections": [
+      "Progress (2026-09-30): the NPI R…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "CLAUDE.md: Links past Bluehost's ModSecurity",
+    "rule R07: the security token"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/api/crawl/refresh.php",
+   "file": "",
+   "in": [
+    "routes"
+   ],
+   "purpose": "Refresh live listings; read regular sources",
+   "status": "Live",
+   "kinds": [
+    "endpoint"
+   ],
+   "decisions": [
+    "0045"
+   ],
+   "named_in": [
+    {
+     "doc": "0045",
+     "file": "0045-own-reference-index-and-source-first-crawling.md",
+     "sections": [
+      "Progress (2026-09-29)"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "CLAUDE.md: Links past Bluehost's ModSecurity",
+    "rule R07: the security token"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/api/crawl/targets.php",
+   "file": "",
+   "in": [
+    "routes"
+   ],
+   "purpose": "Targets from search demand and new kinds",
+   "status": "Live",
+   "kinds": [
+    "endpoint"
+   ],
+   "decisions": [
+    "0066",
+    "0067"
+   ],
+   "named_in": [],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "CLAUDE.md: Links past Bluehost's ModSecurity",
+    "rule R07: the security token"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/api/engage.php",
+   "file": "",
+   "in": [
+    "routes"
+   ],
+   "purpose": "Likes, comments, reports on content pages",
+   "status": "Live",
+   "kinds": [
+    "endpoint"
+   ],
+   "decisions": [
+    "0058",
+    "0126"
+   ],
+   "named_in": [
+    {
+     "doc": "0058",
+     "file": "0058-public-profiles-journey-management-and-adult-accounts.md",
+     "sections": [
+      "§20"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "0126",
+     "file": "0126-gallery.md",
+     "sections": [
+      "Phase 2 built (2026-10-24): soci…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "ux-review.md",
+     "file": "ux-review.md",
+     "sections": [
+      "Needs fixing"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "CLAUDE.md: Links past Bluehost's ModSecurity",
+    "rule R07: the security token"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/api/guest-inquiry.php",
+   "file": "",
+   "in": [
+    "routes"
+   ],
+   "purpose": "A guest asks a listing a question",
+   "status": "Live",
+   "kinds": [
+    "endpoint"
+   ],
+   "decisions": [
+    "0052"
+   ],
+   "named_in": [
+    {
+     "doc": "0052",
+     "file": "0052-one-messaging-system-open-links-private-address-book.md",
+     "sections": [
+      "Progress (2026-09-30): step 6, g…"
+     ],
+     "mentions": 1,
+     "replaced": true
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "CLAUDE.md: Links past Bluehost's ModSecurity",
+    "rule R07: the security token"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/api/hero-media.php",
+   "file": "",
+   "in": [
+    "routes"
+   ],
+   "purpose": "A listing's or profile's hero photos and videos",
+   "status": "Live",
+   "kinds": [
+    "endpoint"
+   ],
+   "decisions": [
+    "0058",
+    "0127"
+   ],
+   "named_in": [
+    {
+     "doc": "0058",
+     "file": "0058-public-profiles-journey-management-and-adult-accounts.md",
+     "sections": [
+      "§21"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "0127",
+     "file": "0127-one-uploader.md",
+     "sections": [
+      "What went"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "CLAUDE.md: Links past Bluehost's ModSecurity",
+    "rule R07: the security token"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/api/ingest.php",
+   "file": "",
+   "in": [
+    "routes"
+   ],
+   "purpose": "Older ingestion endpoint",
+   "status": "Live",
+   "kinds": [
+    "endpoint"
+   ],
+   "decisions": [
+    "0044",
+    "0126",
+    "0133"
+   ],
+   "named_in": [
+    {
+     "doc": "0044",
+     "file": "0044-confidence-gated-auto-import-of-directory-listings.md",
+     "sections": [
+      "Running it in increments, off Bl…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "0126",
+     "file": "0126-gallery.md",
+     "sections": [
+      "Fix (2026-10-24, afternoon): pho…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "0133",
+     "file": "0133-the-intelligence-and-publishing-engine.md",
+     "sections": [
+      "Records this replaces (for the c…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "architecture.md",
+     "file": "architecture.md",
+     "sections": [
+      "§2",
+      "§12"
+     ],
+     "mentions": 2,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "CLAUDE.md: Links past Bluehost's ModSecurity",
+    "rule R07: the security token"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/api/journeys.php",
+   "file": "",
+   "in": [
+    "routes"
+   ],
+   "purpose": "Journeys: read, write",
+   "status": "Live",
+   "kinds": [
+    "endpoint"
+   ],
+   "decisions": [
+    "0056"
+   ],
+   "named_in": [],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "CLAUDE.md: Links past Bluehost's ModSecurity",
+    "rule R07: the security token"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/api/locate.php",
+   "file": "",
+   "in": [
+    "routes"
+   ],
+   "purpose": "Place an approximate listing at its street address",
+   "status": "Live",
+   "kinds": [
+    "endpoint"
+   ],
+   "decisions": [
+    "0053",
+    "0058"
+   ],
+   "named_in": [
+    {
+     "doc": "0053",
+     "file": "0053-universal-search-in-place.md",
+     "sections": [
+      "Progress, 2026-10-04: map points…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "0058",
+     "file": "0058-public-profiles-journey-management-and-adult-accounts.md",
+     "sections": [
+      "§14"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "CLAUDE.md: Links past Bluehost's ModSecurity",
+    "rule R07: the security token"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/api/nearby_hubs.php",
+   "file": "",
+   "in": [
+    "routes"
+   ],
+   "purpose": "Hubs near a point",
+   "status": "Live",
+   "kinds": [
+    "endpoint"
+   ],
+   "decisions": [],
+   "named_in": [],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "CLAUDE.md: Links past Bluehost's ModSecurity",
+    "rule R07: the security token"
+   ],
+   "paths": [],
+   "governed": false
+  },
+  {
+   "page": "/api/open-places.php",
+   "file": "",
+   "in": [
+    "routes"
+   ],
+   "purpose": "OpenStreetMap businesses where we have no listings yet",
+   "status": "Live",
+   "kinds": [
+    "endpoint"
+   ],
+   "decisions": [
+    "0065"
+   ],
+   "named_in": [
+    {
+     "doc": "0065",
+     "file": "0065-openstreetmap-businesses-outside-our-regions.md",
+     "sections": [
+      "Decision",
+      "Consequences"
+     ],
+     "mentions": 4,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "CLAUDE.md: Links past Bluehost's ModSecurity",
+    "rule R07: the security token"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/api/out.php",
+   "file": "",
+   "in": [
+    "routes"
+   ],
+   "purpose": "Counts only: page views and flow; calls, directions, website, contact",
+   "status": "Live",
+   "kinds": [
+    "endpoint"
+   ],
+   "decisions": [
+    "0066",
+    "0087"
+   ],
+   "named_in": [
+    {
+     "doc": "0087",
+     "file": "0087-counts-leave-out-the-team-and-crawler-check-in.md",
+     "sections": [
+      "Decision"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "CLAUDE.md: Links past Bluehost's ModSecurity",
+    "rule R07: the security token"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/api/pin.php",
+   "file": "",
+   "in": [
+    "routes"
+   ],
+   "purpose": "Where a listing is: read, move the pin",
+   "status": "Live",
+   "kinds": [
+    "endpoint"
+   ],
+   "decisions": [
+    "0058"
+   ],
+   "named_in": [
+    {
+     "doc": "0058",
+     "file": "0058-public-profiles-journey-management-and-adult-accounts.md",
+     "sections": [
+      "§15"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "CLAUDE.md: Links past Bluehost's ModSecurity",
+    "rule R07: the security token"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/api/place.php",
+   "file": "",
+   "in": [
+    "routes"
+   ],
+   "purpose": "\"Where is this?\" resolver; Auto-detect lookup",
+   "status": "Live",
+   "kinds": [
+    "endpoint"
+   ],
+   "decisions": [
+    "0058"
+   ],
+   "named_in": [
+    {
+     "doc": "0058",
+     "file": "0058-public-profiles-journey-management-and-adult-accounts.md",
+     "sections": [
+      "§8",
+      "§17",
+      "Progress"
+     ],
+     "mentions": 3,
+     "replaced": false
+    },
+    {
+     "doc": "architecture.md",
+     "file": "architecture.md",
+     "sections": [
+      "§23"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "CLAUDE.md: Links past Bluehost's ModSecurity",
+    "rule R07: the security token"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/api/places.php",
+   "file": "",
+   "in": [
+    "routes"
+   ],
+   "purpose": "Your saved places",
+   "status": "Live",
+   "kinds": [
+    "endpoint"
+   ],
+   "decisions": [],
+   "named_in": [],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "CLAUDE.md: Links past Bluehost's ModSecurity",
+    "rule R07: the security token"
+   ],
+   "paths": [],
+   "governed": false
+  },
+  {
+   "page": "/api/search.php",
+   "file": "",
+   "in": [
+    "routes"
+   ],
+   "purpose": "Universal search, typing and Enter",
+   "status": "Live",
+   "kinds": [
+    "endpoint"
+   ],
+   "decisions": [
+    "0053",
+    "0058",
+    "0060",
+    "0061",
+    "0063",
+    "0066",
+    "0067"
+   ],
+   "named_in": [
+    {
+     "doc": "0053",
+     "file": "0053-universal-search-in-place.md",
+     "sections": [
+      "Consequences",
+      "Progress (2026-09-30): steps 1–3",
+      "Progress: step 4b, the full-scre…"
+     ],
+     "mentions": 3,
+     "replaced": false
+    },
+    {
+     "doc": "0058",
+     "file": "0058-public-profiles-journey-management-and-adult-accounts.md",
+     "sections": [
+      "§12"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "0060",
+     "file": "0060-search-and-suggestion-architecture.md",
+     "sections": [
+      "Phase B (built 2026-10-02)"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "CLAUDE.md: Links past Bluehost's ModSecurity",
+    "rule R07: the security token"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/api/search_listings.php",
+   "file": "",
+   "in": [
+    "routes"
+   ],
+   "purpose": "Directory search",
+   "status": "Live",
+   "kinds": [
+    "endpoint"
+   ],
+   "decisions": [
+    "0044",
+    "0053",
+    "0058",
+    "0068",
+    "0075"
+   ],
+   "named_in": [
+    {
+     "doc": "0015",
+     "file": "0015-claim-verification-flow-and-dispute-resolution.md",
+     "sections": [
+      "Context"
+     ],
+     "mentions": 1,
+     "replaced": true
+    },
+    {
+     "doc": "0053",
+     "file": "0053-universal-search-in-place.md",
+     "sections": [
+      "Progress (2026-09-30): step 4, t…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "0075",
+     "file": "0075-search-words-for-kinds-and-asking-where.md",
+     "sections": [
+      "Decision"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "architecture.md",
+     "file": "architecture.md",
+     "sections": [
+      "§9",
+      "§13"
+     ],
+     "mentions": 2,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "CLAUDE.md: Links past Bluehost's ModSecurity",
+    "rule R07: the security token"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/api/set-home-location.php",
+   "file": "",
+   "in": [
+    "routes"
+   ],
+   "purpose": "Set your home place",
+   "status": "Live",
+   "kinds": [
+    "endpoint"
+   ],
+   "decisions": [],
+   "named_in": [],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "CLAUDE.md: Links past Bluehost's ModSecurity",
+    "rule R07: the security token"
+   ],
+   "paths": [],
+   "governed": false
+  },
+  {
+   "page": "/api/suggest.php",
+   "file": "",
+   "in": [
+    "routes"
+   ],
+   "purpose": "Older type-ahead for the directory box",
+   "status": "Live",
+   "kinds": [
+    "endpoint"
+   ],
+   "decisions": [
+    "0053"
+   ],
+   "named_in": [
+    {
+     "doc": "0053",
+     "file": "0053-universal-search-in-place.md",
+     "sections": [
+      "Progress: the search panel's hom…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "CLAUDE.md: Links past Bluehost's ModSecurity",
+    "rule R07: the security token"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/api/suggestion.php",
+   "file": "",
+   "in": [
+    "routes"
+   ],
+   "purpose": "A visitor tells us something (missing place, fix, closed)",
+   "status": "Live",
+   "kinds": [
+    "endpoint"
+   ],
+   "decisions": [
+    "0053"
+   ],
+   "named_in": [
+    {
+     "doc": "0053",
+     "file": "0053-universal-search-in-place.md",
+     "sections": [
+      "Progress: the search panel's hom…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "CLAUDE.md: Links past Bluehost's ModSecurity",
+    "rule R07: the security token"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/api/tags.php",
+   "file": "",
+   "in": [
+    "routes"
+   ],
+   "purpose": "The @ picker",
+   "status": "Live",
+   "kinds": [
+    "endpoint"
+   ],
+   "decisions": [
+    "0051"
+   ],
+   "named_in": [
+    {
+     "doc": "0052",
+     "file": "0052-one-messaging-system-open-links-private-address-book.md",
+     "sections": [
+      "Progress (2026-09-30): step 7, p…"
+     ],
+     "mentions": 1,
+     "replaced": true
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "CLAUDE.md: Links past Bluehost's ModSecurity",
+    "rule R07: the security token"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/api/upgrade.php",
+   "file": "",
+   "in": [
+    "routes"
+   ],
+   "purpose": "The upgrade sheet's choices (`js/tv-upgrade.js`): storage, longer recording, plans; reads only",
+   "status": "Built (channel-shop-earned zip)",
+   "kinds": [
+    "endpoint"
+   ],
+   "decisions": [
+    "0154"
+   ],
+   "named_in": [
+    {
+     "doc": "0154",
+     "file": "0154-free-creator-and-business-balance.md",
+     "sections": [
+      "Built (`channel-shop-earned_2026…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "CLAUDE.md: Links past Bluehost's ModSecurity",
+    "rule R07: the security token"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/api/video/jobs.php",
+   "file": "",
+   "in": [
+    "routes"
+   ],
+   "purpose": "The video worker's queue and reports (Bearer `VIDEO_WORKER_TOKEN`; `workers/video`)",
+   "status": "Built (video-cart-trial zip)",
+   "kinds": [
+    "endpoint"
+   ],
+   "decisions": [
+    "0153"
+   ],
+   "named_in": [],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "CLAUDE.md: Links past Bluehost's ModSecurity",
+    "rule R07: the security token"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/api/video/results.php",
+   "file": "",
+   "in": [
+    "routes"
+   ],
+   "purpose": "The video worker's queue and reports (Bearer `VIDEO_WORKER_TOKEN`; `workers/video`)",
+   "status": "Built (video-cart-trial zip)",
+   "kinds": [
+    "endpoint"
+   ],
+   "decisions": [
+    "0153"
+   ],
+   "named_in": [],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "CLAUDE.md: Links past Bluehost's ModSecurity",
+    "rule R07: the security token"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/business/",
+   "file": "website/business/index.php",
+   "in": [
+    "tree"
+   ],
+   "purpose": "",
+   "status": "",
+   "kinds": [],
+   "decisions": [
+    "0110",
+    "0114",
+    "0115",
+    "0117",
+    "0120",
+    "0140",
+    "0141",
+    "0153"
+   ],
+   "named_in": [
+    {
+     "doc": "0110",
+     "file": "0110-data-separation.md",
+     "sections": [
+      "§1"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "0114",
+     "file": "0114-navigation-where-and-what.md",
+     "sections": [
+      "Addendum (2026-10-23): you at th…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "0115",
+     "file": "0115-business-portal-foundation.md",
+     "sections": [
+      "What a business sees",
+      "Addendum (2026-10-23): your busi…",
+      "Addendum (2026-10-23): one menu …"
+     ],
+     "mentions": 7,
+     "replaced": false
+    },
+    {
+     "doc": "0117",
+     "file": "0117-white-glove-access.md",
+     "sections": [
+      "Seen and logged"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "0120",
+     "file": "0120-handover-and-quote-files.md",
+     "sections": [
+      "Proofs and files on quotes"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "0140",
+     "file": "0140-market-360-for-a-business.md",
+     "sections": [
+      "Stage 1 built (2026-11-02): the …"
+     ],
+     "mentions": 3,
+     "replaced": false
+    },
+    {
+     "doc": "0141",
+     "file": "0141-market-360-architecture.md",
+     "sections": [
+      "Built: zip 1, Phase A (2026-11-0…"
+     ],
+     "mentions": 2,
+     "replaced": false
+    },
+    {
+     "doc": "0153",
+     "file": "0153-moments-snaps-and-keep.md",
+     "sections": [
+      "Built: zip 3, posting as a busin…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "business-portal-architecture.md",
+     "file": "business-portal-architecture.md",
+     "sections": [
+      "§1",
+      "§5"
+     ],
+     "mentions": 3,
+     "replaced": false
+    },
+    {
+     "doc": "toolkit.md",
+     "file": "toolkit.md",
+     "sections": [
+      "§3"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/business/api.php",
+   "file": "website/business/api.php",
+   "in": [
+    "tree"
+   ],
+   "purpose": "",
+   "status": "",
+   "kinds": [],
+   "decisions": [
+    "0115"
+   ],
+   "named_in": [
+    {
+     "doc": "0115",
+     "file": "0115-business-portal-foundation.md",
+     "sections": [
+      "The walls (decisions/0110), as b…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "ux-review.md",
+     "file": "ux-review.md",
+     "sections": [
+      "First: the 18:30 sync took part …"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/business/files.php",
+   "file": "website/business/files.php",
+   "in": [
+    "tree"
+   ],
+   "purpose": "",
+   "status": "",
+   "kinds": [],
+   "decisions": [
+    "0120",
+    "0122",
+    "0127"
+   ],
+   "named_in": [
+    {
+     "doc": "0120",
+     "file": "0120-handover-and-quote-files.md",
+     "sections": [
+      "Proofs and files on quotes",
+      "Addendum (same day): big files, …"
+     ],
+     "mentions": 2,
+     "replaced": false
+    },
+    {
+     "doc": "0122",
+     "file": "0122-business-files-straight-to-s3.md",
+     "sections": [
+      "How an upload goes",
+      "Seeing and removing"
+     ],
+     "mentions": 2,
+     "replaced": false
+    },
+    {
+     "doc": "0127",
+     "file": "0127-one-uploader.md",
+     "sections": [
+      "What went"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "toolkit.md",
+     "file": "toolkit.md",
+     "sections": [
+      "§3"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/business/pay-connect.php",
+   "file": "website/business/pay-connect.php",
+   "in": [
+    "tree"
+   ],
+   "purpose": "",
+   "status": "",
+   "kinds": [],
+   "decisions": [
+    "0135"
+   ],
+   "named_in": [
+    {
+     "doc": "0135",
+     "file": "0135-marketplace-and-storefronts.md",
+     "sections": [
+      "Step 4a built (2026-11-01): chec…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "ux-review.md",
+     "file": "ux-review.md",
+     "sections": [
+      "First: the 18:30 sync took part …"
+     ],
+     "mentions": 2,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/business/router.php",
+   "file": "website/business/router.php",
+   "in": [
+    "tree"
+   ],
+   "purpose": "",
+   "status": "",
+   "kinds": [],
+   "decisions": [
+    "0115",
+    "0117",
+    "0140",
+    "0153"
+   ],
+   "named_in": [
+    {
+     "doc": "0115",
+     "file": "0115-business-portal-foundation.md",
+     "sections": [
+      "The walls (decisions/0110), as b…",
+      "Files"
+     ],
+     "mentions": 2,
+     "replaced": false
+    },
+    {
+     "doc": "0117",
+     "file": "0117-white-glove-access.md",
+     "sections": [
+      "Data and files"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "0140",
+     "file": "0140-market-360-for-a-business.md",
+     "sections": [
+      "Stage 1 built (2026-11-02): the …"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "0153",
+     "file": "0153-moments-snaps-and-keep.md",
+     "sections": [
+      "Built: zip 3, posting as a busin…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "toolkit.md",
+     "file": "toolkit.md",
+     "sections": [
+      "§3"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "ux-review.md",
+     "file": "ux-review.md",
+     "sections": [
+      "First: the 18:30 sync took part …"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/claim.php",
+   "file": "website/claim.php",
+   "in": [
+    "routes",
+    "tree"
+   ],
+   "purpose": "Claim a listing: email code (Managed by owner), text code to the Verify number (✓ Verified), other ways, other locations, plan. `&dispute=1`",
+   "status": "Live",
+   "kinds": [],
+   "decisions": [
+    "0062",
+    "0070",
+    "0101"
+   ],
+   "named_in": [
+    {
+     "doc": "0101",
+     "file": "0101-client-orders-and-catalog.md",
+     "sections": [
+      "Addendum 2026-10-28 (late): than…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "toolkit.md",
+     "file": "toolkit.md",
+     "sections": [
+      "§1"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/community/",
+   "file": "website/community/index.php",
+   "in": [
+    "routes",
+    "tree"
+   ],
+   "purpose": "Public community groups: find, join or start one",
+   "status": "Live",
+   "kinds": [],
+   "decisions": [
+    "0047",
+    "0137",
+    "0138"
+   ],
+   "named_in": [
+    {
+     "doc": "0047",
+     "file": "0047-connection-points-and-address-book.md",
+     "sections": [
+      "Progress"
+     ],
+     "mentions": 2,
+     "replaced": false
+    },
+    {
+     "doc": "0137",
+     "file": "0137-group-charters-page-moderation.md",
+     "sections": [
+      "§4",
+      "Build order",
+      "Step 2 built (2026-11-01): the g…"
+     ],
+     "mentions": 5,
+     "replaced": false
+    },
+    {
+     "doc": "0138",
+     "file": "0138-home-page.md",
+     "sections": [
+      "§3",
+      "Jason's changes to the full layo…"
+     ],
+     "mentions": 2,
+     "replaced": false
+    },
+    {
+     "doc": "community-scope.md",
+     "file": "community-scope.md",
+     "sections": [
+      "Live",
+      "Out of step",
+      "D. Fixes to what's live"
+     ],
+     "mentions": 4,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/community/group.php",
+   "file": "website/community/group.php",
+   "in": [
+    "routes",
+    "tree"
+   ],
+   "purpose": "One community group",
+   "status": "Live",
+   "kinds": [
+    "content"
+   ],
+   "decisions": [
+    "0047",
+    "0136",
+    "0137"
+   ],
+   "named_in": [
+    {
+     "doc": "0047",
+     "file": "0047-connection-points-and-address-book.md",
+     "sections": [
+      "Progress"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "0136",
+     "file": "0136-topic-groups-and-chapters.md",
+     "sections": [
+      "Built (2026-11-01, built on the …"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "0137",
+     "file": "0137-group-charters-page-moderation.md",
+     "sections": [
+      "Step 2 built (2026-11-01): the g…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "community-scope.md",
+     "file": "community-scope.md",
+     "sections": [
+      "Live"
+     ],
+     "mentions": 3,
+     "replaced": false
+    },
+    {
+     "doc": "ux-review.md",
+     "file": "ux-review.md",
+     "sections": [
+      "The path, stage by stage",
+      "§4"
+     ],
+     "mentions": 2,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "0058 §20, §21: Content pages (hero, header, engage bar, comments)",
+    "CLAUDE.md: Times where they happened"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/dashboard.php",
+   "file": "website/dashboard.php",
+   "in": [
+    "routes",
+    "tree"
+   ],
+   "purpose": "Old address of the business portal",
+   "status": "Moved to `/listing/businessportal.php`",
+   "kinds": [],
+   "decisions": [],
+   "named_in": [],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)"
+   ],
+   "paths": [],
+   "governed": false
+  },
+  {
+   "page": "/data-deletion.php",
+   "file": "website/data-deletion.php",
+   "in": [
+    "tree"
+   ],
+   "purpose": "",
+   "status": "",
+   "kinds": [],
+   "decisions": [
+    "0090",
+    "0091"
+   ],
+   "named_in": [
+    {
+     "doc": "0090",
+     "file": "0090-sign-in-with-apple-microsoft-facebook.md",
+     "sections": [
+      "Apple, Microsoft and Facebook (`…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "0091",
+     "file": "0091-delete-my-account.md",
+     "sections": [
+      "Context",
+      "Decision"
+     ],
+     "mentions": 4,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/directory/",
+   "file": "website/directory/index.php",
+   "in": [
+    "routes",
+    "tree"
+   ],
+   "purpose": "Get Local: businesses near you, list and map",
+   "status": "Live",
+   "kinds": [],
+   "decisions": [
+    "0003",
+    "0013",
+    "0044",
+    "0053",
+    "0058",
+    "0138"
+   ],
+   "named_in": [
+    {
+     "doc": "0003",
+     "file": "0003-chameleon-filter-routing.md",
+     "sections": [
+      "Decision"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "0013",
+     "file": "0013-consolidated-routing-directory-discovery-entry-points.md",
+     "sections": [
+      "Context",
+      "Decision"
+     ],
+     "mentions": 3,
+     "replaced": false
+    },
+    {
+     "doc": "0053",
+     "file": "0053-universal-search-in-place.md",
+     "sections": [
+      "Progress: the search panel's hom…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "0138",
+     "file": "0138-home-page.md",
+     "sections": [
+      "§3"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "architecture.md",
+     "file": "architecture.md",
+     "sections": [
+      "§4",
+      "§19"
+     ],
+     "mentions": 4,
+     "replaced": false
+    },
+    {
+     "doc": "brand.md",
+     "file": "brand.md",
+     "sections": [
+      "§5"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "prd.md",
+     "file": "prd.md",
+     "sections": [
+      "Tier 2 — Active Development"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/directory/classic.php",
+   "file": "website/directory/classic.php",
+   "in": [
+    "routes",
+    "tree"
+   ],
+   "purpose": "The earlier directory page",
+   "status": "Live, superseded by `/directory/`",
+   "kinds": [],
+   "decisions": [
+    "0053",
+    "0141"
+   ],
+   "named_in": [
+    {
+     "doc": "0053",
+     "file": "0053-universal-search-in-place.md",
+     "sections": [
+      "Progress: the search panel's hom…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "0141",
+     "file": "0141-market-360-architecture.md",
+     "sections": [
+      "The Acting-as mode bar (market36…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "ux-review.md",
+     "file": "ux-review.md",
+     "sections": [
+      "§6",
+      "Order to fix"
+     ],
+     "mentions": 2,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/discovery/",
+   "file": "website/discovery/index.php",
+   "in": [
+    "routes",
+    "tree"
+   ],
+   "purpose": "Let's Explore: overview, map, regions, outdoors, things to do, journeys, the Trip Planner (`?view=plan`)",
+   "status": "Live",
+   "kinds": [],
+   "decisions": [
+    "0003",
+    "0005",
+    "0013",
+    "0053",
+    "0055",
+    "0056",
+    "0058",
+    "0059",
+    "0064",
+    "0131",
+    "0138"
+   ],
+   "named_in": [
+    {
+     "doc": "0003",
+     "file": "0003-chameleon-filter-routing.md",
+     "sections": [
+      "Decision"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "0005",
+     "file": "0005-hitl-ai-guardrails.md",
+     "sections": [
+      "Amendment (2026-09-24): System-C…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "0013",
+     "file": "0013-consolidated-routing-directory-discovery-entry-points.md",
+     "sections": [
+      "Context",
+      "Decision"
+     ],
+     "mentions": 3,
+     "replaced": false
+    },
+    {
+     "doc": "0058",
+     "file": "0058-public-profiles-journey-management-and-adult-accounts.md",
+     "sections": [
+      "§37"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "0064",
+     "file": "0064-search-learns-words-on-its-own.md",
+     "sections": [
+      "Progress, 2026-10-04: words that…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "0131",
+     "file": "0131-place-guides.md",
+     "sections": [
+      "§1",
+      "Built (2026-10-30)"
+     ],
+     "mentions": 2,
+     "replaced": false
+    },
+    {
+     "doc": "0138",
+     "file": "0138-home-page.md",
+     "sections": [
+      "§3"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "architecture.md",
+     "file": "architecture.md",
+     "sections": [
+      "§4",
+      "§19",
+      "§25"
+     ],
+     "mentions": 6,
+     "replaced": false
+    },
+    {
+     "doc": "brand.md",
+     "file": "brand.md",
+     "sections": [
+      "§5"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "prd.md",
+     "file": "prd.md",
+     "sections": [
+      "Tier 2 — Active Development"
+     ],
+     "mentions": 2,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/email-revert.php",
+   "file": "website/email-revert.php",
+   "in": [
+    "routes",
+    "tree"
+   ],
+   "purpose": "Undo an email change (type the original address)",
+   "status": "Live",
+   "kinds": [],
+   "decisions": [],
+   "named_in": [],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)"
+   ],
+   "paths": [],
+   "governed": false
+  },
+  {
+   "page": "/email/unsubscribe.php",
+   "file": "website/email/unsubscribe.php",
+   "in": [
+    "tree"
+   ],
+   "purpose": "",
+   "status": "",
+   "kinds": [],
+   "decisions": [
+    "0137"
+   ],
+   "named_in": [
+    {
+     "doc": "0137",
+     "file": "0137-group-charters-page-moderation.md",
+     "sections": [
+      "Step 5 built (2026-11-01): email…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/experiences/",
+   "file": "website/experiences/index.php",
+   "in": [
+    "tree"
+   ],
+   "purpose": "",
+   "status": "",
+   "kinds": [],
+   "decisions": [],
+   "named_in": [],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)"
+   ],
+   "paths": [],
+   "governed": false
+  },
+  {
+   "page": "/experiences/view.php",
+   "file": "website/experiences/view.php",
+   "in": [
+    "routes",
+    "tree"
+   ],
+   "purpose": "One experience",
+   "status": "Live",
+   "kinds": [
+    "content"
+   ],
+   "decisions": [
+    "0058",
+    "0059"
+   ],
+   "named_in": [
+    {
+     "doc": "0059",
+     "file": "0059-experiences.md",
+     "sections": [
+      "§3",
+      "Consequences"
+     ],
+     "mentions": 2,
+     "replaced": false
+    },
+    {
+     "doc": "ux-review.md",
+     "file": "ux-review.md",
+     "sections": [
+      "The path, stage by stage",
+      "§5"
+     ],
+     "mentions": 2,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "0058 §20, §21: Content pages (hero, header, engage bar, comments)",
+    "CLAUDE.md: Times where they happened"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/faq.php",
+   "file": "website/faq.php",
+   "in": [
+    "routes",
+    "tree"
+   ],
+   "purpose": "The FAQ (`includes/faq.md`, grown with every build)",
+   "status": "Live",
+   "kinds": [],
+   "decisions": [
+    "0057",
+    "0114"
+   ],
+   "named_in": [
+    {
+     "doc": "0057",
+     "file": "0057-faq-grows-with-every-build.md",
+     "sections": [
+      "Decision"
+     ],
+     "mentions": 2,
+     "replaced": false
+    },
+    {
+     "doc": "0114",
+     "file": "0114-navigation-where-and-what.md",
+     "sections": [
+      "The rule"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "CLAUDE.md",
+     "file": "CLAUDE.md",
+     "sections": [
+      "Keep the FAQ current (decisions/…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "toolkit.md",
+     "file": "toolkit.md",
+     "sections": [
+      "§1"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/forgot-password.php",
+   "file": "website/forgot-password.php",
+   "in": [
+    "routes",
+    "tree"
+   ],
+   "purpose": "Password reset",
+   "status": "Live",
+   "kinds": [
+    "sign-in"
+   ],
+   "decisions": [],
+   "named_in": [],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "CLAUDE.md: Password boxes (js/tv-password.js)",
+    "0014: Registration flow"
+   ],
+   "paths": [],
+   "governed": false
+  },
+  {
+   "page": "/gallery/",
+   "file": "website/gallery/index.php",
+   "in": [
+    "tree"
+   ],
+   "purpose": "",
+   "status": "",
+   "kinds": [],
+   "decisions": [
+    "0143"
+   ],
+   "named_in": [
+    {
+     "doc": "0143",
+     "file": "0143-stock-library.md",
+     "sections": [
+      "Built (2026-11-04)",
+      "Built (2026-11-04, second zip): …",
+      "Built (2026-11-04, third zip): e…"
+     ],
+     "mentions": 4,
+     "replaced": false
+    },
+    {
+     "doc": "toolkit.md",
+     "file": "toolkit.md",
+     "sections": [
+      "§3"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/gallery/album.php",
+   "file": "website/gallery/album.php",
+   "in": [
+    "tree"
+   ],
+   "purpose": "",
+   "status": "",
+   "kinds": [],
+   "decisions": [
+    "0126"
+   ],
+   "named_in": [
+    {
+     "doc": "0126",
+     "file": "0126-gallery.md",
+     "sections": [
+      "Built in phase 1"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "toolkit.md",
+     "file": "toolkit.md",
+     "sections": [
+      "§1"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/gallery/api.php",
+   "file": "website/gallery/api.php",
+   "in": [
+    "tree"
+   ],
+   "purpose": "",
+   "status": "",
+   "kinds": [],
+   "decisions": [
+    "0126",
+    "0127"
+   ],
+   "named_in": [
+    {
+     "doc": "0126",
+     "file": "0126-gallery.md",
+     "sections": [
+      "Phase 2 built (2026-10-24): soci…",
+      "Fix (2026-10-24, afternoon): pho…"
+     ],
+     "mentions": 2,
+     "replaced": false
+    },
+    {
+     "doc": "0127",
+     "file": "0127-one-uploader.md",
+     "sections": [
+      "What went"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/gallery/drop.php",
+   "file": "website/gallery/drop.php",
+   "in": [
+    "tree"
+   ],
+   "purpose": "",
+   "status": "",
+   "kinds": [],
+   "decisions": [
+    "0126",
+    "0127"
+   ],
+   "named_in": [
+    {
+     "doc": "0126",
+     "file": "0126-gallery.md",
+     "sections": [
+      "Phase 2 built (2026-10-24): soci…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "0127",
+     "file": "0127-one-uploader.md",
+     "sections": [
+      "What went"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "toolkit.md",
+     "file": "toolkit.md",
+     "sections": [
+      "§1"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/gallery/join.php",
+   "file": "website/gallery/join.php",
+   "in": [
+    "tree"
+   ],
+   "purpose": "",
+   "status": "",
+   "kinds": [],
+   "decisions": [
+    "0126"
+   ],
+   "named_in": [
+    {
+     "doc": "0126",
+     "file": "0126-gallery.md",
+     "sections": [
+      "Phase 2 built (2026-10-24): soci…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/gallery/m.php",
+   "file": "website/gallery/m.php",
+   "in": [
+    "tree"
+   ],
+   "purpose": "",
+   "status": "",
+   "kinds": [],
+   "decisions": [
+    "0126",
+    "0151"
+   ],
+   "named_in": [
+    {
+     "doc": "0126",
+     "file": "0126-gallery.md",
+     "sections": [
+      "Privacy and sharing",
+      "Phase 3 built (2026-10-24): edit…"
+     ],
+     "mentions": 2,
+     "replaced": false
+    },
+    {
+     "doc": "0151",
+     "file": "0151-files-on-cloudflare-r2.md",
+     "sections": [
+      "Why"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "toolkit.md",
+     "file": "toolkit.md",
+     "sections": [
+      "§1"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/gbp-landing-traversence.html",
+   "file": "",
+   "in": [
+    "routes"
+   ],
+   "purpose": "Google Business Profile audit landing page",
+   "status": "Live",
+   "kinds": [],
+   "decisions": [],
+   "named_in": [],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)"
+   ],
+   "paths": [],
+   "governed": false
+  },
+  {
+   "page": "/guide/how.php",
+   "file": "website/guide/how.php",
+   "in": [
+    "routes",
+    "tree"
+   ],
+   "purpose": "A how-to guide the crawler gathered from official pages",
+   "status": "Live",
+   "kinds": [],
+   "decisions": [
+    "0058",
+    "0063"
+   ],
+   "named_in": [
+    {
+     "doc": "0063",
+     "file": "0063-lexicon-syntax-and-the-workbench.md",
+     "sections": [
+      "Progress, 2026-10-04: How-to gui…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/guide/resources.php",
+   "file": "website/guide/resources.php",
+   "in": [
+    "routes",
+    "tree"
+   ],
+   "purpose": "A resource guide: who to call in an area for what isn't a business",
+   "status": "Live",
+   "kinds": [],
+   "decisions": [
+    "0058",
+    "0061"
+   ],
+   "named_in": [
+    {
+     "doc": "0061",
+     "file": "0061-situations-intent-map-and-learning-search.md",
+     "sections": [
+      "Progress, 2026-10-02: Resource g…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "ux-review.md",
+     "file": "ux-review.md",
+     "sections": [
+      "§6"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/hub/",
+   "file": "website/hub/index.php",
+   "in": [
+    "routes",
+    "tree"
+   ],
+   "purpose": "One landing page for a hub, geo-hub or cluster",
+   "status": "Live, placeholder",
+   "kinds": [
+    "content"
+   ],
+   "decisions": [
+    "0013",
+    "0043",
+    "0047",
+    "0048",
+    "0058",
+    "0131",
+    "0136",
+    "0143"
+   ],
+   "named_in": [
+    {
+     "doc": "0013",
+     "file": "0013-consolidated-routing-directory-discovery-entry-points.md",
+     "sections": [
+      "Context"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "0058",
+     "file": "0058-public-profiles-journey-management-and-adult-accounts.md",
+     "sections": [
+      "§18"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "0131",
+     "file": "0131-place-guides.md",
+     "sections": [
+      "Context",
+      "§1",
+      "Built (2026-10-30)"
+     ],
+     "mentions": 8,
+     "replaced": false
+    },
+    {
+     "doc": "0136",
+     "file": "0136-topic-groups-and-chapters.md",
+     "sections": [
+      "Built (2026-11-01, built on the …"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "0143",
+     "file": "0143-stock-library.md",
+     "sections": [
+      "Built (2026-11-04)"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "architecture.md",
+     "file": "architecture.md",
+     "sections": [
+      "§6"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "0058 §20, §21: Content pages (hero, header, engage bar, comments)",
+    "CLAUDE.md: Times where they happened"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/hub/build.php",
+   "file": "website/hub/build.php",
+   "in": [
+    "routes",
+    "tree"
+   ],
+   "purpose": "A guide built while you wait, for a searched place with none (never indexed)",
+   "status": "Live once uploaded",
+   "kinds": [
+    "content"
+   ],
+   "decisions": [
+    "0147"
+   ],
+   "named_in": [
+    {
+     "doc": "0147",
+     "file": "0147-guides-and-journeys-on-demand.md",
+     "sections": [
+      "Built (2026-11-08): `guides-on-d…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "0058 §20, §21: Content pages (hero, header, engage bar, comments)",
+    "CLAUDE.md: Times where they happened"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/join.php",
+   "file": "website/join.php",
+   "in": [
+    "routes",
+    "tree"
+   ],
+   "purpose": "An invite link: remembers it and sends the person to sign up",
+   "status": "Live",
+   "kinds": [],
+   "decisions": [
+    "0047",
+    "0101"
+   ],
+   "named_in": [
+    {
+     "doc": "0101",
+     "file": "0101-client-orders-and-catalog.md",
+     "sections": [
+      "Addendum 2026-10-28 (late): than…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/journeys/",
+   "file": "website/journeys/index.php",
+   "in": [
+    "routes",
+    "tree"
+   ],
+   "purpose": "Old addresses for managing journeys",
+   "status": "Moved to `/user/journeys/`",
+   "kinds": [],
+   "decisions": [
+    "0058"
+   ],
+   "named_in": [
+    {
+     "doc": "0058",
+     "file": "0058-public-profiles-journey-management-and-adult-accounts.md",
+     "sections": [
+      "§6"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/journeys/compose.php",
+   "file": "website/journeys/compose.php",
+   "in": [
+    "routes",
+    "tree"
+   ],
+   "purpose": "Old addresses for managing journeys",
+   "status": "Moved to `/user/journeys/`",
+   "kinds": [],
+   "decisions": [
+    "0058"
+   ],
+   "named_in": [
+    {
+     "doc": "0058",
+     "file": "0058-public-profiles-journey-management-and-adult-accounts.md",
+     "sections": [
+      "§6"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/journeys/suggested.php",
+   "file": "website/journeys/suggested.php",
+   "in": [
+    "routes",
+    "tree"
+   ],
+   "purpose": "One suggested journey, built by rules from a guide's places",
+   "status": "Live once uploaded",
+   "kinds": [
+    "content"
+   ],
+   "decisions": [
+    "0146"
+   ],
+   "named_in": [
+    {
+     "doc": "0146",
+     "file": "0146-suggested-journeys-from-guides.md",
+     "sections": [
+      "Built (2026-11-08): `journeys-en…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "0058 §20, §21: Content pages (hero, header, engage bar, comments)",
+    "CLAUDE.md: Times where they happened"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/journeys/view.php",
+   "file": "website/journeys/view.php",
+   "in": [
+    "routes",
+    "tree"
+   ],
+   "purpose": "One journey",
+   "status": "Live",
+   "kinds": [
+    "content"
+   ],
+   "decisions": [
+    "0056",
+    "0058"
+   ],
+   "named_in": [
+    {
+     "doc": "0058",
+     "file": "0058-public-profiles-journey-management-and-adult-accounts.md",
+     "sections": [
+      "§6"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "ux-review.md",
+     "file": "ux-review.md",
+     "sections": [
+      "The path, stage by stage",
+      "§3",
+      "§5"
+     ],
+     "mentions": 4,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "0058 §20, §21: Content pages (hero, header, engage bar, comments)",
+    "CLAUDE.md: Times where they happened"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/listing/api/*",
+   "file": "",
+   "in": [
+    "routes"
+   ],
+   "purpose": "`claim` (every claim action, disputes and the owner's answer), `evidence`, `update-metadata` (owner edits; name, phone, address and website ",
+   "status": "Live",
+   "kinds": [
+    "endpoint"
+   ],
+   "decisions": [
+    "0018",
+    "0038",
+    "0062",
+    "0070"
+   ],
+   "named_in": [
+    {
+     "doc": "0015",
+     "file": "0015-claim-verification-flow-and-dispute-resolution.md",
+     "sections": [
+      "Context",
+      "§2"
+     ],
+     "mentions": 3,
+     "replaced": true
+    },
+    {
+     "doc": "0018",
+     "file": "0018-multi-user-listing-access-manager-invites.md",
+     "sections": [
+      "Decision"
+     ],
+     "mentions": 2,
+     "replaced": false
+    },
+    {
+     "doc": "0038",
+     "file": "0038-ownership-transfer-and-financial-responsibility.md",
+     "sections": [
+      "Consequences"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "admin-architecture.md",
+     "file": "admin-architecture.md",
+     "sections": [
+      "A5. Endpoints (one contract)"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "architecture.md",
+     "file": "architecture.md",
+     "sections": [
+      "§6",
+      "§9",
+      "§13"
+     ],
+     "mentions": 3,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "CLAUDE.md: Links past Bluehost's ModSecurity",
+    "rule R07: the security token"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/listing/businessportal.php",
+   "file": "website/listing/businessportal.php",
+   "in": [
+    "routes",
+    "tree"
+   ],
+   "purpose": "Your business: claims and where each stands, plan, a question about your listing, and the listing editor (`?id=`)",
+   "status": "Live",
+   "kinds": [],
+   "decisions": [
+    "0070",
+    "0115"
+   ],
+   "named_in": [
+    {
+     "doc": "0015",
+     "file": "0015-claim-verification-flow-and-dispute-resolution.md",
+     "sections": [
+      "Consequences"
+     ],
+     "mentions": 2,
+     "replaced": true
+    },
+    {
+     "doc": "0115",
+     "file": "0115-business-portal-foundation.md",
+     "sections": [
+      "What a business sees",
+      "Files",
+      "Addendum (2026-10-23): one menu …"
+     ],
+     "mentions": 3,
+     "replaced": false
+    },
+    {
+     "doc": "architecture.md",
+     "file": "architecture.md",
+     "sections": [
+      "§2"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "toolkit.md",
+     "file": "toolkit.md",
+     "sections": [
+      "§3"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "ux-review.md",
+     "file": "ux-review.md",
+     "sections": [
+      "The path, stage by stage"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/listing/confirm-referral.php",
+   "file": "website/listing/confirm-referral.php",
+   "in": [
+    "routes",
+    "tree"
+   ],
+   "purpose": "Confirm a Tier 2 referral (token link)",
+   "status": "Live",
+   "kinds": [],
+   "decisions": [],
+   "named_in": [
+    {
+     "doc": "0015",
+     "file": "0015-claim-verification-flow-and-dispute-resolution.md",
+     "sections": [
+      "Context",
+      "§2"
+     ],
+     "mentions": 3,
+     "replaced": true
+    },
+    {
+     "doc": "architecture.md",
+     "file": "architecture.md",
+     "sections": [
+      "§9"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "ux-review.md",
+     "file": "ux-review.md",
+     "sections": [
+      "§2"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)"
+   ],
+   "paths": [],
+   "governed": false
+  },
+  {
+   "page": "/listing/location.php",
+   "file": "website/listing/location.php",
+   "in": [
+    "routes",
+    "tree"
+   ],
+   "purpose": "Where a listing is: move the pin, \"I'm here\"",
+   "status": "Live",
+   "kinds": [],
+   "decisions": [
+    "0058"
+   ],
+   "named_in": [
+    {
+     "doc": "0058",
+     "file": "0058-public-profiles-journey-management-and-adult-accounts.md",
+     "sections": [
+      "§15"
+     ],
+     "mentions": 2,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/listing/view.php",
+   "file": "website/listing/view.php",
+   "in": [
+    "routes",
+    "tree"
+   ],
+   "purpose": "A business's page (hero, engage bar, comments, the Link button)",
+   "status": "Live",
+   "kinds": [
+    "content"
+   ],
+   "decisions": [
+    "0044",
+    "0047",
+    "0052",
+    "0053",
+    "0058",
+    "0062",
+    "0072",
+    "0143"
+   ],
+   "named_in": [
+    {
+     "doc": "0072",
+     "file": "0072-acting-on-suggestions.md",
+     "sections": [
+      "Consequences"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "0143",
+     "file": "0143-stock-library.md",
+     "sections": [
+      "Built (2026-11-04)"
+     ],
+     "mentions": 2,
+     "replaced": false
+    },
+    {
+     "doc": "toolkit.md",
+     "file": "toolkit.md",
+     "sections": [
+      "§1"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "ux-review.md",
+     "file": "ux-review.md",
+     "sections": [
+      "The path, stage by stage",
+      "§4",
+      "§5"
+     ],
+     "mentions": 3,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "0058 §20, §21: Content pages (hero, header, engage bar, comments)",
+    "CLAUDE.md: Times where they happened"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/login.php",
+   "file": "website/login.php",
+   "in": [
+    "routes",
+    "tree"
+   ],
+   "purpose": "Sign in; create an account (18+, consent)",
+   "status": "Live",
+   "kinds": [
+    "sign-in"
+   ],
+   "decisions": [
+    "0014",
+    "0047",
+    "0055",
+    "0058",
+    "0062",
+    "0089",
+    "0090"
+   ],
+   "named_in": [
+    {
+     "doc": "0055",
+     "file": "0055-app-shell-dashboards-and-roles.md",
+     "sections": [
+      "Progress, 2026-10-03: The admin …"
+     ],
+     "mentions": 3,
+     "replaced": false
+    },
+    {
+     "doc": "0089",
+     "file": "0089-no-session-files-for-machines.md",
+     "sections": [
+      "Decision (`app/bootstrap.php`)"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "0090",
+     "file": "0090-sign-in-with-apple-microsoft-facebook.md",
+     "sections": [
+      "The sign-in card (`",
+      "Amendment, 2026-10-15: linking a…"
+     ],
+     "mentions": 2,
+     "replaced": false
+    },
+    {
+     "doc": "toolkit.md",
+     "file": "toolkit.md",
+     "sections": [
+      "§1"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "CLAUDE.md: Password boxes (js/tv-password.js)",
+    "0014: Registration flow"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/market/",
+   "file": "website/market/index.php",
+   "in": [
+    "routes",
+    "tree"
+   ],
+   "purpose": "Market, the fourth construct (post and connect)",
+   "status": "Live, placeholder",
+   "kinds": [
+    "market"
+   ],
+   "decisions": [
+    "0007",
+    "0030",
+    "0055",
+    "0135",
+    "0138"
+   ],
+   "named_in": [
+    {
+     "doc": "0055",
+     "file": "0055-app-shell-dashboards-and-roles.md",
+     "sections": [
+      "Follow-up (2026-09-30): the layo…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "0135",
+     "file": "0135-marketplace-and-storefronts.md",
+     "sections": [
+      "What's live (the `traverse-3way-…",
+      "§1",
+      "Step 1 built (2026-11-01): peopl…"
+     ],
+     "mentions": 4,
+     "replaced": false
+    },
+    {
+     "doc": "0138",
+     "file": "0138-home-page.md",
+     "sections": [
+      "§3"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "marketplace-architecture.md",
+     "file": "marketplace-architecture.md",
+     "sections": [
+      "§0",
+      "§1",
+      "§7"
+     ],
+     "mentions": 3,
+     "replaced": false
+    },
+    {
+     "doc": "ux-review.md",
+     "file": "ux-review.md",
+     "sections": [
+      "The Marketplace, for members (ch…",
+      "Needs fixing"
+     ],
+     "mentions": 4,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "CLAUDE.md: No test moves real money (0145)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/market/cart.php",
+   "file": "website/market/cart.php",
+   "in": [
+    "tree"
+   ],
+   "purpose": "",
+   "status": "",
+   "kinds": [
+    "market"
+   ],
+   "decisions": [
+    "0135"
+   ],
+   "named_in": [
+    {
+     "doc": "0135",
+     "file": "0135-marketplace-and-storefronts.md",
+     "sections": [
+      "Step 4a built (2026-11-01): chec…",
+      "Step 4b built (2026-11-01): Squa…"
+     ],
+     "mentions": 3,
+     "replaced": false
+    },
+    {
+     "doc": "ux-review.md",
+     "file": "ux-review.md",
+     "sections": [
+      "The Marketplace, for members (ch…",
+      "First: the 18:30 sync took part …"
+     ],
+     "mentions": 3,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "CLAUDE.md: No test moves real money (0145)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/market/download.php",
+   "file": "website/market/download.php",
+   "in": [
+    "tree"
+   ],
+   "purpose": "",
+   "status": "",
+   "kinds": [
+    "market"
+   ],
+   "decisions": [
+    "0141"
+   ],
+   "named_in": [
+    {
+     "doc": "0141",
+     "file": "0141-market-360-architecture.md",
+     "sections": [
+      "Built: the nine item kinds, Phas…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "CLAUDE.md: No test moves real money (0145)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/market/item.php",
+   "file": "website/market/item.php",
+   "in": [
+    "tree"
+   ],
+   "purpose": "",
+   "status": "",
+   "kinds": [
+    "market"
+   ],
+   "decisions": [
+    "0135",
+    "0136"
+   ],
+   "named_in": [
+    {
+     "doc": "0135",
+     "file": "0135-marketplace-and-storefronts.md",
+     "sections": [
+      "Step 3 built (2026-11-01): busin…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "0136",
+     "file": "0136-topic-groups-and-chapters.md",
+     "sections": [
+      "Selling in groups"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "ux-review.md",
+     "file": "ux-review.md",
+     "sections": [
+      "The Marketplace, for members (ch…",
+      "First: the 18:30 sync took part …"
+     ],
+     "mentions": 2,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "CLAUDE.md: No test moves real money (0145)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/market/order.php",
+   "file": "website/market/order.php",
+   "in": [
+    "tree"
+   ],
+   "purpose": "",
+   "status": "",
+   "kinds": [
+    "market"
+   ],
+   "decisions": [
+    "0135"
+   ],
+   "named_in": [
+    {
+     "doc": "0135",
+     "file": "0135-marketplace-and-storefronts.md",
+     "sections": [
+      "Step 4a built (2026-11-01): chec…"
+     ],
+     "mentions": 2,
+     "replaced": false
+    },
+    {
+     "doc": "ux-review.md",
+     "file": "ux-review.md",
+     "sections": [
+      "The Marketplace, for members (ch…",
+      "First: the 18:30 sync took part …"
+     ],
+     "mentions": 3,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "CLAUDE.md: No test moves real money (0145)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/market/rules.php",
+   "file": "website/market/rules.php",
+   "in": [
+    "tree"
+   ],
+   "purpose": "",
+   "status": "",
+   "kinds": [
+    "market"
+   ],
+   "decisions": [
+    "0142"
+   ],
+   "named_in": [
+    {
+     "doc": "0142",
+     "file": "0142-terms-policies-and-acceptance-log.md",
+     "sections": [
+      "The rules where the work happens…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "CLAUDE.md: No test moves real money (0145)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/market/ticket.php",
+   "file": "website/market/ticket.php",
+   "in": [
+    "tree"
+   ],
+   "purpose": "",
+   "status": "",
+   "kinds": [
+    "market"
+   ],
+   "decisions": [
+    "0141"
+   ],
+   "named_in": [
+    {
+     "doc": "0141",
+     "file": "0141-market-360-architecture.md",
+     "sections": [
+      "Built: the nine item kinds, Phas…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "CLAUDE.md: No test moves real money (0145)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/market/view.php",
+   "file": "website/market/view.php",
+   "in": [
+    "tree"
+   ],
+   "purpose": "",
+   "status": "",
+   "kinds": [
+    "market"
+   ],
+   "decisions": [
+    "0135"
+   ],
+   "named_in": [
+    {
+     "doc": "0135",
+     "file": "0135-marketplace-and-storefronts.md",
+     "sections": [
+      "Step 1 built (2026-11-01): peopl…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "ux-review.md",
+     "file": "ux-review.md",
+     "sections": [
+      "The path, stage by stage",
+      "§5",
+      "The Marketplace, for members (ch…"
+     ],
+     "mentions": 4,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "CLAUDE.md: No test moves real money (0145)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/media.php",
+   "file": "website/media.php",
+   "in": [
+    "tree"
+   ],
+   "purpose": "",
+   "status": "",
+   "kinds": [],
+   "decisions": [
+    "0123"
+   ],
+   "named_in": [
+    {
+     "doc": "0123",
+     "file": "0123-all-files-on-s3.md",
+     "sections": [
+      "How (one place: `app/lib/Store.p…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "toolkit.md",
+     "file": "toolkit.md",
+     "sections": [
+      "§6"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/nexus.php",
+   "file": "website/nexus.php",
+   "in": [
+    "tree"
+   ],
+   "purpose": "",
+   "status": "",
+   "kinds": [],
+   "decisions": [
+    "0054"
+   ],
+   "named_in": [
+    {
+     "doc": "0054",
+     "file": "0054-nexus-organizations-with-many-locations.md",
+     "sections": [
+      "Progress"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "toolkit.md",
+     "file": "toolkit.md",
+     "sections": [
+      "§1"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/order.php",
+   "file": "website/order.php",
+   "in": [
+    "tree"
+   ],
+   "purpose": "",
+   "status": "",
+   "kinds": [],
+   "decisions": [
+    "0098",
+    "0101",
+    "0135"
+   ],
+   "named_in": [
+    {
+     "doc": "0098",
+     "file": "0098-order-system.md",
+     "sections": [
+      "Addendum 2026-11-01: the card pa…"
+     ],
+     "mentions": 2,
+     "replaced": false
+    },
+    {
+     "doc": "0101",
+     "file": "0101-client-orders-and-catalog.md",
+     "sections": [
+      "How it works",
+      "Addendum 2026-10-28 (late): than…"
+     ],
+     "mentions": 2,
+     "replaced": false
+    },
+    {
+     "doc": "0135",
+     "file": "0135-marketplace-and-storefronts.md",
+     "sections": [
+      "Step 4b built (2026-11-01): Squa…"
+     ],
+     "mentions": 2,
+     "replaced": false
+    },
+    {
+     "doc": "toolkit.md",
+     "file": "toolkit.md",
+     "sections": [
+      "§1"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/our-approach.php",
+   "file": "website/our-approach.php",
+   "in": [
+    "routes",
+    "tree"
+   ],
+   "purpose": "Our approach to linking, in plain words",
+   "status": "Live",
+   "kinds": [],
+   "decisions": [
+    "0050",
+    "0051",
+    "0052"
+   ],
+   "named_in": [],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/pages/form.php",
+   "file": "website/pages/form.php",
+   "in": [
+    "tree"
+   ],
+   "purpose": "",
+   "status": "",
+   "kinds": [],
+   "decisions": [],
+   "named_in": [],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)"
+   ],
+   "paths": [],
+   "governed": false
+  },
+  {
+   "page": "/pages/sitemap.php",
+   "file": "website/pages/sitemap.php",
+   "in": [
+    "tree"
+   ],
+   "purpose": "",
+   "status": "",
+   "kinds": [],
+   "decisions": [
+    "0112"
+   ],
+   "named_in": [
+    {
+     "doc": "0112",
+     "file": "0112-taxes-shipping-pricelists-pages.md",
+     "sections": [
+      "§3"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/pages/view.php",
+   "file": "website/pages/view.php",
+   "in": [
+    "tree"
+   ],
+   "purpose": "",
+   "status": "",
+   "kinds": [],
+   "decisions": [
+    "0112"
+   ],
+   "named_in": [
+    {
+     "doc": "0112",
+     "file": "0112-taxes-shipping-pricelists-pages.md",
+     "sections": [
+      "§3"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/place/landmark.php",
+   "file": "website/place/landmark.php",
+   "in": [
+    "routes",
+    "tree"
+   ],
+   "purpose": "A natural landmark (USGS names)",
+   "status": "Live",
+   "kinds": [
+    "content"
+   ],
+   "decisions": [
+    "0058",
+    "0148"
+   ],
+   "named_in": [
+    {
+     "doc": "0058",
+     "file": "0058-public-profiles-journey-management-and-adult-accounts.md",
+     "sections": [
+      "§24",
+      "§32"
+     ],
+     "mentions": 2,
+     "replaced": false
+    },
+    {
+     "doc": "0148",
+     "file": "0148-places-on-demand.md",
+     "sections": [
+      "Decision"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "ux-review.md",
+     "file": "ux-review.md",
+     "sections": [
+      "The path, stage by stage",
+      "§5"
+     ],
+     "mentions": 2,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "0058 §20, §21: Content pages (hero, header, engage bar, comments)",
+    "CLAUDE.md: Times where they happened"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/place/recreation.php",
+   "file": "website/place/recreation.php",
+   "in": [
+    "routes",
+    "tree"
+   ],
+   "purpose": "A public recreation place (Recreation.gov)",
+   "status": "Live",
+   "kinds": [
+    "content"
+   ],
+   "decisions": [
+    "0048",
+    "0058"
+   ],
+   "named_in": [
+    {
+     "doc": "0048",
+     "file": "0048-continental-data-plan.md",
+     "sections": [
+      "Progress (2026-09-30): Recreatio…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "0058",
+     "file": "0058-public-profiles-journey-management-and-adult-accounts.md",
+     "sections": [
+      "§10",
+      "§23"
+     ],
+     "mentions": 2,
+     "replaced": false
+    },
+    {
+     "doc": "ux-review.md",
+     "file": "ux-review.md",
+     "sections": [
+      "The path, stage by stage",
+      "§5",
+      "§6"
+     ],
+     "mentions": 3,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "0058 §20, §21: Content pages (hero, header, engage bar, comments)",
+    "CLAUDE.md: Times where they happened"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/plans.php",
+   "file": "website/plans.php",
+   "in": [
+    "tree"
+   ],
+   "purpose": "",
+   "status": "",
+   "kinds": [],
+   "decisions": [
+    "0098",
+    "0108",
+    "0115",
+    "0126"
+   ],
+   "named_in": [
+    {
+     "doc": "0098",
+     "file": "0098-order-system.md",
+     "sections": [
+      "Addendum 2026-11-01: the card pa…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "0108",
+     "file": "0108-sales-and-growth.md",
+     "sections": [
+      "Built: step 3, plans and renewal…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "0115",
+     "file": "0115-business-portal-foundation.md",
+     "sections": [
+      "What a business sees"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "0126",
+     "file": "0126-gallery.md",
+     "sections": [
+      "Fix (2026-10-24): the business's…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "toolkit.md",
+     "file": "toolkit.md",
+     "sections": [
+      "§1",
+      "§3"
+     ],
+     "mentions": 2,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/privacy.php",
+   "file": "website/privacy.php",
+   "in": [
+    "routes",
+    "tree"
+   ],
+   "purpose": "Terms and privacy",
+   "status": "Live, placeholder: not real legal text, to replace before la",
+   "kinds": [],
+   "decisions": [
+    "0077",
+    "0142"
+   ],
+   "named_in": [
+    {
+     "doc": "0077",
+     "file": "0077-privacy-choices-analytics-and-videos.md",
+     "sections": [
+      "Decision"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "0142",
+     "file": "0142-terms-policies-and-acceptance-log.md",
+     "sections": [
+      "§1",
+      "Built: zip 2, Phase B core (2026…"
+     ],
+     "mentions": 2,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/promo.php",
+   "file": "website/promo.php",
+   "in": [
+    "tree"
+   ],
+   "purpose": "",
+   "status": "",
+   "kinds": [],
+   "decisions": [
+    "0108"
+   ],
+   "named_in": [
+    {
+     "doc": "0108",
+     "file": "0108-sales-and-growth.md",
+     "sections": [
+      "Built: step 4, promotions and co…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "toolkit.md",
+     "file": "toolkit.md",
+     "sections": [
+      "§1"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/q-file.php",
+   "file": "website/q-file.php",
+   "in": [
+    "tree"
+   ],
+   "purpose": "",
+   "status": "",
+   "kinds": [],
+   "decisions": [],
+   "named_in": [
+    {
+     "doc": "toolkit.md",
+     "file": "toolkit.md",
+     "sections": [
+      "§1"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)"
+   ],
+   "paths": [],
+   "governed": false
+  },
+  {
+   "page": "/q.php",
+   "file": "website/q.php",
+   "in": [
+    "tree"
+   ],
+   "purpose": "",
+   "status": "",
+   "kinds": [],
+   "decisions": [
+    "0118",
+    "0120"
+   ],
+   "named_in": [
+    {
+     "doc": "0118",
+     "file": "0118-portal-quotes-orders-team.md",
+     "sections": [
+      "Quotes & invoices (Basic Partner…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "0120",
+     "file": "0120-handover-and-quote-files.md",
+     "sections": [
+      "Proofs and files on quotes"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "toolkit.md",
+     "file": "toolkit.md",
+     "sections": [
+      "§1"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/qr/",
+   "file": "website/qr/index.php",
+   "in": [
+    "tree"
+   ],
+   "purpose": "",
+   "status": "",
+   "kinds": [],
+   "decisions": [
+    "0094",
+    "0095",
+    "0096"
+   ],
+   "named_in": [
+    {
+     "doc": "0094",
+     "file": "0094-trvgo-short-links-and-qr-codes.md",
+     "sections": [
+      "Static is free for anyone; saved…",
+      "Checked on a copy of the site"
+     ],
+     "mentions": 3,
+     "replaced": false
+    },
+    {
+     "doc": "0095",
+     "file": "0095-qr-codes-as-a-paid-service-quickbooks-checkout.md",
+     "sections": [
+      "Who gets what (`app/lib/QrIssue.…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "0096",
+     "file": "0096-go-codes-guest-checkout-and-manage.md",
+     "sections": [
+      "Decision"
+     ],
+     "mentions": 2,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/qr/cart.php",
+   "file": "website/qr/cart.php",
+   "in": [
+    "tree"
+   ],
+   "purpose": "",
+   "status": "",
+   "kinds": [],
+   "decisions": [
+    "0096",
+    "0098",
+    "0154"
+   ],
+   "named_in": [
+    {
+     "doc": "0096",
+     "file": "0096-go-codes-guest-checkout-and-manage.md",
+     "sections": [
+      "Decision"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "0098",
+     "file": "0098-order-system.md",
+     "sections": [
+      "Addendum 2026-11-01: the card pa…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "0154",
+     "file": "0154-free-creator-and-business-balance.md",
+     "sections": [
+      "§6"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/qr/manage.php",
+   "file": "website/qr/manage.php",
+   "in": [
+    "tree"
+   ],
+   "purpose": "",
+   "status": "",
+   "kinds": [],
+   "decisions": [
+    "0096"
+   ],
+   "named_in": [
+    {
+     "doc": "0096",
+     "file": "0096-go-codes-guest-checkout-and-manage.md",
+     "sections": [
+      "Decision"
+     ],
+     "mentions": 2,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/register.php",
+   "file": "website/register.php",
+   "in": [
+    "routes",
+    "tree"
+   ],
+   "purpose": "Sign in; create an account (18+, consent)",
+   "status": "Live",
+   "kinds": [
+    "sign-in"
+   ],
+   "decisions": [
+    "0014",
+    "0047",
+    "0055",
+    "0058",
+    "0062",
+    "0085",
+    "0090"
+   ],
+   "named_in": [
+    {
+     "doc": "0055",
+     "file": "0055-app-shell-dashboards-and-roles.md",
+     "sections": [
+      "Progress, 2026-10-03: The admin …"
+     ],
+     "mentions": 2,
+     "replaced": false
+    },
+    {
+     "doc": "0085",
+     "file": "0085-google-sign-in-and-places-check.md",
+     "sections": [
+      "§1"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "0090",
+     "file": "0090-sign-in-with-apple-microsoft-facebook.md",
+     "sections": [
+      "The sign-in card (`website/login…"
+     ],
+     "mentions": 2,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "CLAUDE.md: Password boxes (js/tv-password.js)",
+    "0014: Registration flow"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/reset-password.php",
+   "file": "website/reset-password.php",
+   "in": [
+    "routes",
+    "tree"
+   ],
+   "purpose": "Password reset",
+   "status": "Live",
+   "kinds": [
+    "sign-in"
+   ],
+   "decisions": [],
+   "named_in": [],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "CLAUDE.md: Password boxes (js/tv-password.js)",
+    "0014: Registration flow"
+   ],
+   "paths": [],
+   "governed": false
+  },
+  {
+   "page": "/shop/",
+   "file": "",
+   "in": [
+    "routes"
+   ],
+   "purpose": "The Traversence Shop: what we sell, shown for who's looking (a member, the business you're acting as, a guest); plans and packs pay on the P",
+   "status": "Built (channel-shop-earned zip)",
+   "kinds": [
+    "market"
+   ],
+   "decisions": [
+    "0154"
+   ],
+   "named_in": [
+    {
+     "doc": "0154",
+     "file": "0154-free-creator-and-business-balance.md",
+     "sections": [
+      "§6",
+      "Built (`channel-shop-earned_2026…"
+     ],
+     "mentions": 2,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "CLAUDE.md: No test moves real money (0145)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/takedown.php",
+   "file": "website/takedown.php",
+   "in": [
+    "tree"
+   ],
+   "purpose": "",
+   "status": "",
+   "kinds": [],
+   "decisions": [
+    "0133"
+   ],
+   "named_in": [
+    {
+     "doc": "0133",
+     "file": "0133-the-intelligence-and-publishing-engine.md",
+     "sections": [
+      "What changes in the code (to bui…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/terms.php",
+   "file": "website/terms.php",
+   "in": [
+    "routes",
+    "tree"
+   ],
+   "purpose": "Terms and privacy",
+   "status": "Live, placeholder: not real legal text, to replace before la",
+   "kinds": [],
+   "decisions": [
+    "0096",
+    "0117",
+    "0142"
+   ],
+   "named_in": [
+    {
+     "doc": "0096",
+     "file": "0096-go-codes-guest-checkout-and-manage.md",
+     "sections": [
+      "Addendum (2026-10-15): the Intui…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "0117",
+     "file": "0117-white-glove-access.md",
+     "sections": [
+      "Scoped by the Terms"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "0142",
+     "file": "0142-terms-policies-and-acceptance-log.md",
+     "sections": [
+      "§1",
+      "Built: zip 2, Phase B core (2026…"
+     ],
+     "mentions": 2,
+     "replaced": false
+    },
+    {
+     "doc": "toolkit.md",
+     "file": "toolkit.md",
+     "sections": [
+      "§1"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/two-step.php",
+   "file": "website/two-step.php",
+   "in": [
+    "tree"
+   ],
+   "purpose": "",
+   "status": "",
+   "kinds": [
+    "sign-in"
+   ],
+   "decisions": [
+    "0097"
+   ],
+   "named_in": [
+    {
+     "doc": "0097",
+     "file": "0097-two-step-sign-in-for-staff-and-captcha.md",
+     "sections": [
+      "Decision"
+     ],
+     "mentions": 2,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "CLAUDE.md: Password boxes (js/tv-password.js)",
+    "0014: Registration flow"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/user/accounts.php",
+   "file": "website/user/accounts.php",
+   "in": [
+    "tree"
+   ],
+   "purpose": "",
+   "status": "",
+   "kinds": [],
+   "decisions": [
+    "0100",
+    "0114"
+   ],
+   "named_in": [
+    {
+     "doc": "0100",
+     "file": "0100-staff-logins.md",
+     "sections": [
+      "Addendum (2026-10-16): rewritten…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "0114",
+     "file": "0114-navigation-where-and-what.md",
+     "sections": [
+      "Addendum (2026-10-23): you at th…",
+      "Addendum (2026-10-23): your list…"
+     ],
+     "mentions": 2,
+     "replaced": false
+    },
+    {
+     "doc": "toolkit.md",
+     "file": "toolkit.md",
+     "sections": [
+      "§2"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/user/api/*",
+   "file": "",
+   "in": [
+    "routes"
+   ],
+   "purpose": "`profile`, `people` (Address Book), `links`, `consent`, `context`, `pulse`, `marketing`, `business-messages`, `community`, `referrals`, `sav",
+   "status": "Live",
+   "kinds": [
+    "endpoint"
+   ],
+   "decisions": [
+    "0047",
+    "0049",
+    "0052",
+    "0053",
+    "0055",
+    "0078",
+    "0091",
+    "0096",
+    "0100",
+    "0110",
+    "0137",
+    "0141"
+   ],
+   "named_in": [
+    {
+     "doc": "0055",
+     "file": "0055-app-shell-dashboards-and-roles.md",
+     "sections": [
+      "Progress (2026-09-30): the page …"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "0078",
+     "file": "0078-admin-dashboard.md",
+     "sections": [
+      "Decision"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "0091",
+     "file": "0091-delete-my-account.md",
+     "sections": [
+      "Decision"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "0096",
+     "file": "0096-go-codes-guest-checkout-and-manage.md",
+     "sections": [
+      "Decision"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "0100",
+     "file": "0100-staff-logins.md",
+     "sections": [
+      "Addendum (2026-10-23): an owner …",
+      "Addendum (Jason, 2026-11-02): th…"
+     ],
+     "mentions": 2,
+     "replaced": false
+    },
+    {
+     "doc": "0110",
+     "file": "0110-data-separation.md",
+     "sections": [
+      "§1"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "0137",
+     "file": "0137-group-charters-page-moderation.md",
+     "sections": [
+      "Step 4 built (2026-11-01): notic…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "0141",
+     "file": "0141-market-360-architecture.md",
+     "sections": [
+      "The Acting-as mode bar (market36…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "admin-architecture.md",
+     "file": "admin-architecture.md",
+     "sections": [
+      "A5. Endpoints (one contract)"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "architecture.md",
+     "file": "architecture.md",
+     "sections": [
+      "§6"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "CLAUDE.md: Links past Bluehost's ModSecurity",
+    "rule R07: the security token"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/user/dashboard.php",
+   "file": "website/user/dashboard.php",
+   "in": [
+    "routes",
+    "tree"
+   ],
+   "purpose": "The member Dashboard: Pulse, Address Book, links, saved searches, roles",
+   "status": "Live",
+   "kinds": [],
+   "decisions": [
+    "0047",
+    "0049",
+    "0052",
+    "0054",
+    "0055",
+    "0056",
+    "0115",
+    "0153"
+   ],
+   "named_in": [
+    {
+     "doc": "0047",
+     "file": "0047-connection-points-and-address-book.md",
+     "sections": [
+      "§1",
+      "Progress"
+     ],
+     "mentions": 3,
+     "replaced": false
+    },
+    {
+     "doc": "0055",
+     "file": "0055-app-shell-dashboards-and-roles.md",
+     "sections": [
+      "Progress, 2026-10-03: The admin …"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "0115",
+     "file": "0115-business-portal-foundation.md",
+     "sections": [
+      "Addendum (2026-10-23): one menu …"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "0153",
+     "file": "0153-moments-snaps-and-keep.md",
+     "sections": [
+      "Built: zip 3, posting as a busin…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "architecture.md",
+     "file": "architecture.md",
+     "sections": [
+      "§2"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "community-scope.md",
+     "file": "community-scope.md",
+     "sections": [
+      "Live"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "toolkit.md",
+     "file": "toolkit.md",
+     "sections": [
+      "§2"
+     ],
+     "mentions": 6,
+     "replaced": false
+    },
+    {
+     "doc": "ux-review.md",
+     "file": "ux-review.md",
+     "sections": [
+      "The path, stage by stage",
+      "What already meets the standard"
+     ],
+     "mentions": 2,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/user/delete-account.php",
+   "file": "website/user/delete-account.php",
+   "in": [
+    "tree"
+   ],
+   "purpose": "",
+   "status": "",
+   "kinds": [],
+   "decisions": [
+    "0091"
+   ],
+   "named_in": [
+    {
+     "doc": "0091",
+     "file": "0091-delete-my-account.md",
+     "sections": [
+      "Decision"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "toolkit.md",
+     "file": "toolkit.md",
+     "sections": [
+      "§2"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/user/experiences/",
+   "file": "website/user/experiences/index.php",
+   "in": [
+    "routes",
+    "tree"
+   ],
+   "purpose": "Your experiences",
+   "status": "Live",
+   "kinds": [],
+   "decisions": [
+    "0059"
+   ],
+   "named_in": [],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/user/journeys/",
+   "file": "website/user/journeys/index.php",
+   "in": [
+    "routes",
+    "tree"
+   ],
+   "purpose": "Your journeys; write or edit one (contributors)",
+   "status": "Live",
+   "kinds": [],
+   "decisions": [
+    "0056",
+    "0058"
+   ],
+   "named_in": [
+    {
+     "doc": "0058",
+     "file": "0058-public-profiles-journey-management-and-adult-accounts.md",
+     "sections": [
+      "§6",
+      "Progress"
+     ],
+     "mentions": 2,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/user/journeys/compose.php",
+   "file": "website/user/journeys/compose.php",
+   "in": [
+    "routes",
+    "tree"
+   ],
+   "purpose": "Your journeys; write or edit one (contributors)",
+   "status": "Live",
+   "kinds": [],
+   "decisions": [
+    "0056",
+    "0058"
+   ],
+   "named_in": [
+    {
+     "doc": "ux-review.md",
+     "file": "ux-review.md",
+     "sections": [
+      "§3"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/user/market/",
+   "file": "website/user/market/index.php",
+   "in": [
+    "tree"
+   ],
+   "purpose": "",
+   "status": "",
+   "kinds": [],
+   "decisions": [
+    "0135"
+   ],
+   "named_in": [
+    {
+     "doc": "0135",
+     "file": "0135-marketplace-and-storefronts.md",
+     "sections": [
+      "What's live (the `traverse-3way-…",
+      "Step 1 built (2026-11-01): peopl…"
+     ],
+     "mentions": 2,
+     "replaced": false
+    },
+    {
+     "doc": "ux-review.md",
+     "file": "ux-review.md",
+     "sections": [
+      "The Marketplace, for members (ch…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/user/notice.php",
+   "file": "website/user/notice.php",
+   "in": [
+    "tree"
+   ],
+   "purpose": "",
+   "status": "",
+   "kinds": [],
+   "decisions": [
+    "0079"
+   ],
+   "named_in": [
+    {
+     "doc": "0079",
+     "file": "0079-member-standing-notices-and-reviews.md",
+     "sections": [
+      "Decision"
+     ],
+     "mentions": 2,
+     "replaced": false
+    },
+    {
+     "doc": "toolkit.md",
+     "file": "toolkit.md",
+     "sections": [
+      "§2"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/user/orders.php",
+   "file": "website/user/orders.php",
+   "in": [
+    "tree"
+   ],
+   "purpose": "",
+   "status": "",
+   "kinds": [],
+   "decisions": [
+    "0101"
+   ],
+   "named_in": [
+    {
+     "doc": "0101",
+     "file": "0101-client-orders-and-catalog.md",
+     "sections": [
+      "Addendum 2026-10-28 (late): than…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/user/post.php",
+   "file": "website/user/post.php",
+   "in": [
+    "routes",
+    "tree"
+   ],
+   "purpose": "One post on its own page, for whoever it's shared with (what the Pulse, notices and shared links open)",
+   "status": "Built (moments-keep zip)",
+   "kinds": [
+    "content"
+   ],
+   "decisions": [
+    "0153"
+   ],
+   "named_in": [
+    {
+     "doc": "0153",
+     "file": "0153-moments-snaps-and-keep.md",
+     "sections": [
+      "Built: zip 1, Moments and Keep (…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "0058 §20, §21: Content pages (hero, header, engage bar, comments)",
+    "CLAUDE.md: Times where they happened"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/user/profile.php",
+   "file": "website/user/profile.php",
+   "in": [
+    "routes",
+    "tree"
+   ],
+   "purpose": "A person's public profile (only what anyone may see); opens on its Posts tab",
+   "status": "Live",
+   "kinds": [
+    "content"
+   ],
+   "decisions": [
+    "0047",
+    "0058",
+    "0153"
+   ],
+   "named_in": [
+    {
+     "doc": "0047",
+     "file": "0047-connection-points-and-address-book.md",
+     "sections": [
+      "Progress"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "toolkit.md",
+     "file": "toolkit.md",
+     "sections": [
+      "§2"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)",
+    "0058 §20, §21: Content pages (hero, header, engage bar, comments)",
+    "CLAUDE.md: Times where they happened"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/user/restore-account.php",
+   "file": "website/user/restore-account.php",
+   "in": [
+    "tree"
+   ],
+   "purpose": "",
+   "status": "",
+   "kinds": [],
+   "decisions": [
+    "0091"
+   ],
+   "named_in": [
+    {
+     "doc": "0091",
+     "file": "0091-delete-my-account.md",
+     "sections": [
+      "Amendment, 2026-10-15: 30 days t…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/user/staff-link.php",
+   "file": "website/user/staff-link.php",
+   "in": [
+    "tree"
+   ],
+   "purpose": "",
+   "status": "",
+   "kinds": [],
+   "decisions": [
+    "0100"
+   ],
+   "named_in": [
+    {
+     "doc": "0100",
+     "file": "0100-staff-logins.md",
+     "sections": [
+      "Addendum (2026-10-23): an owner …"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/user/transfer.php",
+   "file": "website/user/transfer.php",
+   "in": [
+    "tree"
+   ],
+   "purpose": "",
+   "status": "",
+   "kinds": [],
+   "decisions": [
+    "0103",
+    "0120"
+   ],
+   "named_in": [
+    {
+     "doc": "0103",
+     "file": "0103-ending-transfer-and-inactivity.md",
+     "sections": [
+      "Addendum (2026-10-24)"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "0120",
+     "file": "0120-handover-and-quote-files.md",
+     "sections": [
+      "Handing over (0103 §2, \"By hand\"…"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "community-scope.md",
+     "file": "community-scope.md",
+     "sections": [
+      "Out of step"
+     ],
+     "mentions": 1,
+     "replaced": false
+    },
+    {
+     "doc": "toolkit.md",
+     "file": "toolkit.md",
+     "sections": [
+      "§2"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/vendor.php",
+   "file": "website/vendor.php",
+   "in": [
+    "routes",
+    "tree"
+   ],
+   "purpose": "A vendor's own page: all their work orders, each opening its full work order (`/wo.php?w=`); private links, 30 days, then Request a new link",
+   "status": "Live",
+   "kinds": [],
+   "decisions": [
+    "0101",
+    "0150"
+   ],
+   "named_in": [
+    {
+     "doc": "0150",
+     "file": "0150-vendor-links.md",
+     "sections": [
+      "Decision",
+      "Built"
+     ],
+     "mentions": 2,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/verify-email.php",
+   "file": "website/verify-email.php",
+   "in": [
+    "routes",
+    "tree"
+   ],
+   "purpose": "Email confirmation landing page",
+   "status": "Live",
+   "kinds": [],
+   "decisions": [
+    "0014"
+   ],
+   "named_in": [
+    {
+     "doc": "0014",
+     "file": "0014-registration-flow-and-email-verification-gate.md",
+     "sections": [
+      "Decision"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)"
+   ],
+   "paths": [],
+   "governed": true
+  },
+  {
+   "page": "/verify-listing.php",
+   "file": "website/verify-listing.php",
+   "in": [
+    "tree"
+   ],
+   "purpose": "",
+   "status": "",
+   "kinds": [],
+   "decisions": [],
+   "named_in": [
+    {
+     "doc": "toolkit.md",
+     "file": "toolkit.md",
+     "sections": [
+      "§1"
+     ],
+     "mentions": 1,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)"
+   ],
+   "paths": [],
+   "governed": false
+  },
+  {
+   "page": "/wo.php",
+   "file": "website/wo.php",
+   "in": [
+    "routes",
+    "tree"
+   ],
+   "purpose": "One work order for its vendor: items, specs, ship-to, files, their status buttons; 30 days, then Request a new link",
+   "status": "Live",
+   "kinds": [],
+   "decisions": [
+    "0101",
+    "0150"
+   ],
+   "named_in": [
+    {
+     "doc": "0101",
+     "file": "0101-client-orders-and-catalog.md",
+     "sections": [
+      "Addendum 2026-10-28 (late): than…"
+     ],
+     "mentions": 2,
+     "replaced": false
+    },
+    {
+     "doc": "0150",
+     "file": "0150-vendor-links.md",
+     "sections": [
+      "Why",
+      "Decision",
+      "Built"
+     ],
+     "mentions": 3,
+     "replaced": false
+    }
+   ],
+   "standards": [
+    "CLAUDE.md: Phone layout and visual standard (0058 §11)",
+    "CLAUDE.md: No browser dialogs; one look for notices",
+    "CLAUDE.md: Never a dead end (rule T06)"
+   ],
+   "paths": [],
+   "governed": true
+  }
+ ]
+}
