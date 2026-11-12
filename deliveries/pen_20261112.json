@@ -1,0 +1,18 @@
+{
+ "zip": "pen_20261112.zip",
+ "built_on": "521c77f Sync: 2026-11-12 21:57 UTC",
+ "recorded": "2026-11-12 22:03 UTC",
+ "note": "The place button (Jason, 2026-11-12: 'why a dropdown?'): a pencil, not a \u25be (directory, map panel).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "website/directory/index.php": {
+   "sha256": "eb565ec804e6fd4c3ddc454cee35f9638212de1dffcf80f526cdaf66e4a81b18",
+   "live": false
+  },
+  "website/js/map-view.js": {
+   "sha256": "95a90bd1196f3e4edbd9b158febd5df104d546b9d2a4fdafcb1de0a1e53f49ad",
+   "live": false
+  }
+ }
+}
