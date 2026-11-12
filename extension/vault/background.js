@@ -89,9 +89,19 @@ async function save(s, p) {
 
 // ---- save offers: kept for 3 minutes per tab, in memory, until the page that follows the sign-in asks ---------------------
 const offerKey = tab => 'offer:' + tab;
+const stepKey = tab => 'stepuser:' + tab, nextKey = tab => 'next:' + tab;
 async function offer(tab, origin, p) {
   const s = await vault(); if (!s) return;
+  if (!p.user) {   // a two-step sign-in: the email given on the step before
+    const su = (await chrome.storage.session.get(stepKey(tab)))[stepKey(tab)];
+    if (su && su.origin === origin && Date.now() - su.at < 600000) p.user = su.user;
+  }
   const mine = await forOrigin(s, origin), mark = await passMark(p.pass);
+  if (!p.user) {   // no user name anywhere (a change-password page): ask which login it's for, never guess
+    if (mine.some(x => x.ph === mark)) return;
+    await chrome.storage.session.set({ [offerKey(tab)]: { origin, url: p.url, user: '', pass: p.pass, id: 0, name: '', choose: mine.map(x => ({ id: x.id, user: x.user })), at: Date.now() } });
+    return;
+  }
   const same = mine.find(x => x.user === p.user);
   if (same && same.ph === mark) return;                       // already saved as it is
   if (!same && mine.some(x => x.ph === mark)) return;          // the same password under another name: leave it
@@ -184,11 +194,20 @@ chrome.runtime.onMessage.addListener((m, sender, reply) => {
       return { ok: true, user: sec.user || it.user, pass: sec.pass || '' };
     }
     if (m.t === 'offer' && m.pass) { await offer(tab, origin, { user: String(m.user || '').slice(0, 200), pass: String(m.pass).slice(0, 500), url: originOf(m.url) === origin ? String(m.url).split(/[?#]/)[0] : origin + '/' }); return { ok: true }; }
-    if (m.t === 'pending') { const o = await pendingFor(tab, origin); return o ? { user: o.user, update: !!o.id, name: o.name } : null; }
+    if (m.t === 'pending') { const o = await pendingFor(tab, origin); return o ? { user: o.user, update: !!o.id, name: o.name, choose: o.choose || null } : null; }
+    if (m.t === 'stepuser' && m.user) { await chrome.storage.session.set({ [stepKey(tab)]: { origin, user: String(m.user).slice(0, 200), at: Date.now() } }); return { ok: true }; }
+    if (m.t === 'nextpass') {   // a two-step sign-in's password, for this tab and site, 3 minutes, used once
+      if (m.clear) { await chrome.storage.session.remove(nextKey(tab)); return { ok: true }; }
+      if (m.set) { await chrome.storage.session.set({ [nextKey(tab)]: { origin, pass: String(m.set).slice(0, 500), at: Date.now() } }); return { ok: true }; }
+      const n = (await chrome.storage.session.get(nextKey(tab)))[nextKey(tab)];
+      await chrome.storage.session.remove(nextKey(tab));
+      return n && n.origin === origin && Date.now() - n.at < 180000 ? { pass: n.pass } : {};
+    }
     if (m.t === 'save') {
       const o = await pendingFor(tab, origin); if (!o) return { ok: false, error: 'That ran out. Sign in again to save it.' };
       const s = await vault(); if (!s) return { ok: false, error: 'The vault isn\'t connected.' };
       await chrome.storage.session.remove(offerKey(tab));
+      if (o.choose) { const c = o.choose.find(x => x.id === Number(m.id)); o.id = c ? c.id : 0; if (c) o.user = c.user; }   // the login picked
       const name = await save(s, o); return { ok: true, message: (o.id ? 'Updated ' : 'Saved ') + name + ' in your vault.' };
     }
     if (m.t === 'dismiss') { await chrome.storage.session.remove(offerKey(tab)); return { ok: true }; }
@@ -208,4 +227,4 @@ chrome.alarms.onAlarm.addListener(async a => {
   if (Date.parse(s.until) < Date.now()) { await forget('Its 12 hours were up.', s); return; }
   try { await api(s, { do: 'ping' }); } catch (e) {}
 });
-chrome.tabs.onRemoved.addListener(tab => chrome.storage.session.remove(offerKey(tab)));
+chrome.tabs.onRemoved.addListener(tab => chrome.storage.session.remove([offerKey(tab), stepKey(tab), nextKey(tab)]));

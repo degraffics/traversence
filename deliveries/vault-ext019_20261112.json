@@ -1,0 +1,18 @@
+{
+ "zip": "vault-ext019_20261112.zip",
+ "built_on": "90a6614 Sync: 2026-11-12 15:33 UTC",
+ "recorded": "2026-11-12 15:43 UTC",
+ "note": "Vault extension 0.1.9: two-step sign-ins (email now, password on the next screen), a strong-password suggestion in new-password boxes, after a change with no user name it asks which login, the save bar's buttons clear after saving",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/data/vault-extension.zip": {
+   "sha256": "a2f08335f0aae0eb8d44cf92e09b14f9d5b71fe1cd09c763d1916f257580b5e8",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "70ccaba6ac442a880e8de1ca189249271e3b2e8bcfcf3f454fc69c115dd7db04",
+   "live": false
+  }
+ }
+}
