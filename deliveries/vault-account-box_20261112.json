@@ -1,0 +1,18 @@
+{
+ "zip": "vault-account-box_20261112.zip",
+ "built_on": "42f47c3 Sync: 2026-11-12 12:47 UTC",
+ "recorded": "2026-11-12 12:55 UTC",
+ "note": "Vault: the Account box also finds a site (\"stripe\"), as Find does",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/ui/vault.php": {
+   "sha256": "34b05b8e1149be878e1317f43e129b7e2263bb4874a6b92abcf2d20ab17123a5",
+   "live": false
+  },
+  "website/js/tv-vault.js": {
+   "sha256": "56ec2e0233dffe7b64a5eedf8ee3063e1501156a5aa5e873a3ff5f499c05e91f",
+   "live": false
+  }
+ }
+}
