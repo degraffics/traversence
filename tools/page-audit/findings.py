@@ -68,7 +68,7 @@ def proposals():
         v = re.search(r'\(verdict:\s*([a-z ,/]+)', head) or re.search(r'\*\*Verdict:?\*\*:?\s*([a-z]+)', body)
         out.append({'id': m.group(1), 'title': m.group(2).strip(), 'anchor': gh_anchor(head), 'verdict': (v.group(1).strip() if v else ''),
                     'decided': bool(re.search(r'\*\*Decided', body)), 'rules': set(re.findall(r'\b([RVTDJG]\d\d)\b', head + body)),
-                    'findings': set(re.findall(r'\b(f-[0-9a-f]{10})\b', body))})
+                    'findings': set(re.findall(r'\b(f-[0-9a-f]{10})\b', body)), 'body': body})
     return out
 
 
