@@ -3,7 +3,7 @@
  "built_on": "8a28e86 Sync: 2026-11-12 19:41 UTC",
  "recorded": "2026-11-12 19:52 UTC",
  "note": "hero3 plus: the directory's place pop-up every time it opens with no place (not once a visit). Replaces hero3.",
- "status": "pending",
+ "status": "replaced",
  "live_in": "",
  "files": {
   "app/ui/explore-hero.php": {

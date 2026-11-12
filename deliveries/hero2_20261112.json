@@ -3,7 +3,7 @@
  "built_on": "8a28e86 Sync: 2026-11-12 19:41 UTC",
  "recorded": "2026-11-12 19:49 UTC",
  "note": "hero plus (Jason, 2026-11-12): heroes with no journey or stock photo show the landmarks' own Commons photos around the place (credited), no manual work; pages of cards count only cards (a style sheet in the grid made 12 show as 11). Replaces hero.",
- "status": "pending",
+ "status": "replaced",
  "live_in": "",
  "files": {
   "app/ui/explore-hero.php": {

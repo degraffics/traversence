@@ -3,7 +3,7 @@
  "built_on": "8a28e86 Sync: 2026-11-12 19:41 UTC",
  "recorded": "2026-11-12 19:51 UTC",
  "note": "hero2 plus (Jason, 2026-11-12): every grid of cards on the site pages by itself in whole rows (js/tv-pager.js, loaded by the header and the page shell); the directory's place card under the pop-up is now one line that brings the pop-up back. Replaces hero2.",
- "status": "pending",
+ "status": "replaced",
  "live_in": "",
  "files": {
   "app/ui/explore-hero.php": {
