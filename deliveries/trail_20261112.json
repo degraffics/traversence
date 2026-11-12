@@ -3,20 +3,20 @@
  "built_on": "de6641f Sync: 2026-11-12 20:33 UTC",
  "recorded": "2026-11-12 20:34 UTC",
  "note": "The way back up (Jason, 2026-11-12): js/tv-trail.js (header, page shell): Back to the page before, with the route this visit took; for everyone (the account bar when signed in, a slim line for a guest); not a breadcrumb.",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "9537d76 Sync: 2026-11-12 20:39 UTC",
  "files": {
   "app/ui/header.php": {
    "sha256": "3c7edfce03f7c461b117dc8449f884455594cfb5c44af59f436b155f9b1390e8",
-   "live": false
+   "live": true
   },
   "app/ui/page-shell.php": {
    "sha256": "bd6187776c48e316414a2bbaeaafa0db0909071fc4f31171396222417de9a23d",
-   "live": false
+   "live": true
   },
   "website/js/tv-trail.js": {
    "sha256": "4e86ade4115d46a5b1528d43beecd1924b259d38ae4a7c6b55055fd6fd1a6e48",
-   "live": false
+   "live": true
   }
  }
 }
