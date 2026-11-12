@@ -3,24 +3,24 @@
  "built_on": "a4ce36b Sync: 2026-11-12 16:43 UTC",
  "recorded": "2026-11-12 16:49 UTC",
  "note": "Admin search: the header's box on admin pages (Ctrl K / \u2318K anywhere): Go to (modules, sections), the records themselves through each admin list's search, Actions, Help; Site switches to the public search",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "8497de4 Sync: 2026-11-12 16:55 UTC",
  "files": {
   "app/ui/header.php": {
    "sha256": "389f36a4be95658cf3f0620fdbb5a43b1d528494bd89808c451ba80b29646593",
-   "live": false
+   "live": true
   },
   "website/admin/api/find.php": {
    "sha256": "74557bb17f23cad87f39d4ac8a6c12fbb9b4cf5e7c388e4ed21a989b758dcd24",
-   "live": false
+   "live": true
   },
   "website/js/admin-kit.js": {
    "sha256": "dc6774a4f8ccf9524c3550309f524a17923f59fc7ca78caa87724b697f974f85",
-   "live": false
+   "live": true
   },
   "website/js/admin-search.js": {
    "sha256": "c5303a801187ae7c32b1596c7b0f27cc8d8d93ed45b88a737e1a1689269523c3",
-   "live": false
+   "live": true
   }
  }
 }

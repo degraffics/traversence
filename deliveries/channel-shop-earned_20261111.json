@@ -52,7 +52,7 @@
   },
   "app/ui/header.php": {
    "sha256": "45c8e77f45c71557e3dfea5a71d87e9371799f4caa208fedbba3cb6e3a8b19b6",
-   "live": true
+   "live": false
   },
   "app/ui/profile-header.php": {
    "sha256": "cd43007e904658c68bf66c37338b83fbd66dae1a9a2487561214ad85ed057422",
