@@ -117,12 +117,12 @@ endpoint `/admin/api/<module>/<tool>`.
 ## Record pages: the command strip (decisions/0129): every admin record page
 
 `tv_command_strip()` (`app/ui/command-strip.php`, `js/tv-strip.js`) replaces the title and breadcrumbs: one slim line
-that hides on scroll down, returns on scroll up, and stays while anything is unsaved.
+in the admin command bar's look that stays at the top as you scroll (Jason, 2026-11-12).
 - Left: Back and the short name ("Order #9"), no pills. Right: **Save** (with a count) when changed, else **Close**, ▾
   for Save and close, Send, Close; **☰** for other actions and Shortcuts (they trigger the page's own buttons).
 - Where the record stands is a notices box under the strip (`news`), closed with ×, back only when it changes. Nothing
   shown there is repeated below.
-- Each `h2.hb-h` section gets a bar (unsaved dot, fold). Section buttons name the section ("Save work order"); never a
+- Each `h2.hb-h` section folds with a ▾ on its heading (the heading toggles it; remembered), and shows an unsaved dot. Section buttons name the section ("Save work order"); never a
   bare "Save and close" inside one. `'new'` forms and `data-confirm` buttons wait for their own button; searches `'skip'`.
 
 ## Keep the FAQ current (decisions/0057): every build

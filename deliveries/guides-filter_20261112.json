@@ -3,12 +3,12 @@
  "built_on": "13cf540 Sync: 2026-11-12 16:30 UTC",
  "recorded": "2026-11-12 16:36 UTC",
  "note": "Admin Guides list opens on written guides; places with no guide yet are their own choice (Not written, Every place), each with its count",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "522ff22 Sync: 2026-11-12 16:40 UTC",
  "files": {
   "app/admin/tools.php": {
    "sha256": "6791a86d5950d4f6a44b80d281ee6cb96549c505d45569316a5ba0152796139f",
-   "live": false
+   "live": true
   }
  }
 }
