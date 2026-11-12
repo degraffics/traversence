@@ -1,0 +1,18 @@
+{
+ "zip": "finder3_20261112.zip",
+ "built_on": "d8e30bf Sync: 2026-11-12 19:15 UTC",
+ "recorded": "2026-11-12 19:23 UTC",
+ "note": "finder2 plus: a click anywhere on a directory card opens its pop-up card, as Peek (Jason, 2026-11-12). Replaces finder2.",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "website/directory/index.php": {
+   "sha256": "d33289488171292a5b223184951577a0421fcf8ba35e795fe9ecfaddd186d962",
+   "live": false
+  },
+  "website/js/map-view.js": {
+   "sha256": "7d918c985d792db90d2e9d4e43435e16d495b1c4518a36d56c80702d932740d7",
+   "live": false
+  }
+ }
+}
