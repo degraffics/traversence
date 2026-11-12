@@ -1,0 +1,22 @@
+{
+ "zip": "smart_20261112.zip",
+ "built_on": "0d835f8 Sync: 2026-11-12 22:09 UTC",
+ "recorded": "2026-11-12 22:12 UTC",
+ "note": "Directory search (Jason, 2026-11-12: 'directory search needs to be as smart as main search just focused on listing data'): what the words mean (Concepts: 'trash collection' is Garbage Collection, said as 'includes \u2026'), the site search's spelling offers as Did you mean buttons (offered, never changed, decisions/0064); listings marked closed shown as Closed and last (0072); the place button with the target. Replaces placetgt's two files that didn't land.",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/UniversalSearch.php": {
+   "sha256": "77bfc6c67733cbd0f19df22bc5b983fee9256712c27581dfd4b615a01a370582",
+   "live": false
+  },
+  "website/api/search_listings.php": {
+   "sha256": "a15d2e36a647e8771b5ecd231ee5d33a7d75fbe2f7a7f62a61afd05086a1f215",
+   "live": false
+  },
+  "website/directory/index.php": {
+   "sha256": "770da1db2e93dbffc8ab7dbe7ae237d5ef0418d3f3d5d7f880115eacc55283d1",
+   "live": false
+  }
+ }
+}
