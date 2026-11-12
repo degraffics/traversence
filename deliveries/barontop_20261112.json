@@ -2,7 +2,7 @@
  "zip": "barontop_20261112.zip",
  "built_on": "feb18da Sync: 2026-11-12 20:43 UTC",
  "recorded": "2026-11-12 20:46 UTC",
- "note": "Jason, 2026-11-12: the account bar above the header again, both pinned as the page scrolls; the map below both; the way-back route by section (another section starts a new route; Get Local no longer says Back to North America).",
+ "note": "Jason, 2026-11-12: the account bar above the header again, both pinned as the page scrolls; the map below both; the way-back route only in the Let's Explore funnel (and what's reached from it).",
  "status": "pending",
  "live_in": "",
  "files": {
@@ -15,7 +15,7 @@
    "live": false
   },
   "website/js/tv-trail.js": {
-   "sha256": "fa9787ef93e8fac0a537e7834291942ac00ae044097a577c8f427c554276b46d",
+   "sha256": "87c8a2c278c78208845a350d13205c3c726c293b942d7b91213de8f178a45ede",
    "live": false
   }
  }
