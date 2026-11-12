@@ -66,3 +66,8 @@ and the business name repeated the header. Now:
   as if the client owed a reply when the vendor had the job.
 
 **Since 2026-11-03 (decisions/0141):** 0141 §1: the same action bar (Add, Edit, Download, Duplicate, Delete, Archive, Lock) comes to Market 360°'s pages in the business portal.
+
+**Note (2026-11-12, Jason: "the page command bar disappears here", "open and close vs toggled sections?"):** the strip
+no longer slides away as you scroll down; it stays at the top, under the header and the account bar, in the admin command
+bar's look (sage, the orange Back arrow, the record's name, its commands in a peach tab). A section folds with a ▾ on its
+heading (the heading itself toggles it, and each page remembers what was folded) instead of Open / Close buttons.
