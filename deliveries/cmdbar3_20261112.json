@@ -1,13 +1,13 @@
 {
  "zip": "cmdbar3_20261112.zip",
  "built_on": "2f30e09 Sync: 2026-11-12 15:46 UTC",
- "recorded": "2026-11-12 15:47 UTC",
- "note": "Admin command bar: no gap above it (the page body's own top margin removed on pages with the bar)",
+ "recorded": "2026-11-12 15:49 UTC",
+ "note": "Admin command bar: no gap above it (the page body's own top margin removed on pages with the bar); Workflows cards' stage pills no longer stretch tall",
  "status": "pending",
  "live_in": "",
  "files": {
   "app/admin/kit-css.php": {
-   "sha256": "aa9179a09d1d56a59f570d3306a66904a876ac0deb7a2300e99fbfe040f93251",
+   "sha256": "d8b16df5850c35d7fb67e838fb9ada3790a406d692db879cc2574eb776610cf3",
    "live": false
   }
  }
