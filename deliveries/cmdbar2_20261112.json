@@ -1,0 +1,26 @@
+{
+ "zip": "cmdbar2_20261112.zip",
+ "built_on": "90a6614 Sync: 2026-11-12 15:33 UTC",
+ "recorded": "2026-11-12 15:37 UTC",
+ "note": "Admin command bar to Jason's mock-up: full width under the header, sage, orange Back, module, sections and Shortcuts boxes, a peach tab on the right for the page's tools (At hand; the vault's time left, keep open, close, lock and its tools menu)",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/admin/kit-css.php": {
+   "sha256": "2be1d308d8fd0836f7b3cb01c57fb0762f1b9c49e0d811b326ce8b2155327c2e",
+   "live": false
+  },
+  "app/ui/vault.php": {
+   "sha256": "929b6fd1031e59b1bb6aa63d770646b2f4a4885658bbce7f58fd81b45535bf3e",
+   "live": false
+  },
+  "website/admin/router.php": {
+   "sha256": "86d7e5c5deabea4870548aaf5dc3bbed3b47dbe748a68899377ad37e722d51c7",
+   "live": false
+  },
+  "website/js/tv-vault.js": {
+   "sha256": "2835611aeae7b1772cc8266ce20a278a0f1dbd7a0b51c1aee44b1c8fde50694d",
+   "live": false
+  }
+ }
+}
