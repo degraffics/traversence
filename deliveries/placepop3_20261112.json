@@ -2,12 +2,12 @@
  "zip": "placepop3_20261112.zip",
  "built_on": "1e91cc2 Sync: 2026-11-12 20:25 UTC",
  "recorded": "2026-11-12 20:29 UTC",
- "note": "Jason, 2026-11-12: the map opens under the account bar (it hid it); the place pop-up's saved places are one dropdown; the pop-up is the one place chooser: the directory's and the map panel's Town or ZIP boxes are now a place button that opens it.",
+ "note": "Jason, 2026-11-12: the map opens under the account bar; the pop-up's saved places are one dropdown; the pop-up is the one place chooser (the directory's and the map panel's boxes are a place button); the directory's Not sure? goes to browsing by region (it showed a notice as an Error).",
  "status": "pending",
  "live_in": "",
  "files": {
   "website/directory/index.php": {
-   "sha256": "281eaca153f8e81e1ed9c28f85e1421cd613def0453e14a5b0116b8753c84d9a",
+   "sha256": "fcefa3259284f0df65845778bd463a833b6c95ece999a418ccc26b0f16ca3578",
    "live": false
   },
   "website/js/location-scope.js": {
