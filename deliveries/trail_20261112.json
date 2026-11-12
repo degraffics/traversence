@@ -2,7 +2,7 @@
  "zip": "trail_20261112.zip",
  "built_on": "1e91cc2 Sync: 2026-11-12 20:25 UTC",
  "recorded": "2026-11-12 20:32 UTC",
- "note": "The way back up (Jason, 2026-11-12): js/tv-trail.js on every public page (header, page shell): Back to the page before, with the route this visit took; not a breadcrumb.",
+ "note": "The way back up (Jason, 2026-11-12): js/tv-trail.js (header, page shell): Back to the page before, with the route this visit took, in the account bar for signed-in members only; not a breadcrumb.",
  "status": "pending",
  "live_in": "",
  "files": {
