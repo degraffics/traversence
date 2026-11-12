@@ -4,7 +4,10 @@
 // for. The server sees only sealed data; each password filled is logged and emailed to the owner.
 'use strict';
 
-const IDLE_MS = 30 * 60 * 1000;   // forgets the key after 30 minutes unused
+// 0.1.8 (Jason, 2026-11-12): no "30 minutes unused" any more. Every 30 minutes it asks the vault whether its connection
+// still stands, and keeps the key until the vault says no (locked, disconnected, its 12 hours up) or the browser closes.
+// Every password it fills is still checked with the vault at that moment, so a lock stops it at once.
+const CHECK_MIN = 30;
 const te = new TextEncoder(), td = new TextDecoder();
 chrome.storage.session.setAccessLevel && chrome.storage.session.setAccessLevel({ accessLevel: 'TRUSTED_CONTEXTS' }).catch(() => {});
 
@@ -22,7 +25,6 @@ async function vault(touch = true) {
   const s = (await chrome.storage.session.get('v')).v;
   if (!s) return null;
   if (Date.parse(s.until) < Date.now()) { await forget('Its 12 hours were up.', s); return null; }
-  if (Date.now() - (s.last || 0) > IDLE_MS) { await forget('It wasn\'t used for 30 minutes.', s); return null; }
   if (!keys || keys.token !== s.token) {
     const raw = unb64u(s.vk), hk = await crypto.subtle.importKey('raw', raw, 'HKDF', false, ['deriveKey']);
     keys = { token: s.token, vk: await aes(raw), siteKey: await crypto.subtle.deriveKey({ name: 'HKDF', hash: 'SHA-256', salt: new Uint8Array(32), info: te.encode('tv-vault-site-v1') }, hk, { name: 'HMAC', hash: 'SHA-256', length: 256 }, false, ['sign']), items: null };
@@ -119,10 +121,17 @@ chrome.runtime.onMessageExternal.addListener((m, sender, reply) => {
     if (m.t === 'pair') {
       if (!/^[a-f0-9]{64}$/.test(m.token || '') || !m.vk || !/^\/api\/vault-ext\.php$/.test(m.api || '')) return { ok: false, error: 'That connection wasn\'t complete.' };
       await chrome.storage.session.set({ v: { vk: m.vk, token: m.token, until: m.until, email: m.email || '', base: from, api: m.api, last: Date.now() } });
+      await chrome.storage.local.set({ base: from });   // where the Vault page is, for Connect when not connected (not secret)
       keys = null; await vault(); chrome.action.setBadgeText({ text: '' });
       return { ok: true };
     }
     if (m.t === 'unpair') { await forget('It was disconnected on the Vault page.'); return { ok: true }; }
+    // the Vault page, after Connect from the pop-up: back to the tab you were on, and the Vault page's tab closes
+    if (m.t === 'connected') {
+      const back = Number(m.back) || 0, t = back ? await chrome.tabs.get(back).catch(() => null) : null;
+      if (t) { await chrome.tabs.update(t.id, { active: true }).catch(() => {}); await chrome.windows.update(t.windowId, { focused: true }).catch(() => {}); if (sender.tab) chrome.tabs.remove(sender.tab.id).catch(() => {}); }
+      return { ok: !!t };
+    }
     return { ok: false };
   })().then(reply, e => reply({ ok: false, error: e.message }));
   return true;
@@ -133,6 +142,11 @@ chrome.runtime.onMessage.addListener((m, sender, reply) => {
     const fromPopup = sender.id === chrome.runtime.id && !!sender.url && sender.url.startsWith(chrome.runtime.getURL(''));   // our own pages (the pop-up), never a web page
     if (fromPopup) {
       if (m.t === 'status') { const s = await vault(); if (s) return { connected: true, email: s.email, until: s.until, base: s.base }; const e = (await chrome.storage.session.get('ended')).ended; return { connected: false, ended: e ? e.why : '' }; }
+      if (m.t === 'connect') {   // not connected: the Vault page opens; unlocking it connects this browser and brings you back
+        const base = (await chrome.storage.local.get('base')).base || 'https://traversence.com';
+        await chrome.tabs.create({ url: base + '/admin/config/vault#connect=' + (Number(m.tabId) || 0) });
+        return { ok: true };
+      }
       if (m.t === 'lock') { const s = (await chrome.storage.session.get('v')).v; if (s) { try { await api(s, { do: 'bye' }); } catch (e) {} } await forget('You disconnected it.'); return { ok: true }; }
       // the tab's address: Chrome gives it here only while the pop-up's click allows (activeTab), so the pop-up, a page of
       // ours, passes the one it was given too
@@ -183,11 +197,15 @@ chrome.runtime.onMessage.addListener((m, sender, reply) => {
   return true;
 });
 
-// forget the key when its time is up, or after 30 minutes unused
-chrome.alarms.create('tvv-idle', { periodInMinutes: 1 });
+// every 30 minutes: is the connection still good? The vault answering no (locked, disconnected, ended) forgets the key
+// (api() does that on its 401); its 12 hours up forgets it here. No answer (offline) keeps it until the next check.
+chrome.alarms.clear('tvv-idle');
+chrome.alarms.create('tvv-check', { periodInMinutes: CHECK_MIN });
 chrome.alarms.onAlarm.addListener(async a => {
-  if (a.name !== 'tvv-idle') return;
+  if (a.name !== 'tvv-check') return;
   const s = (await chrome.storage.session.get('v')).v;
-  if (s && (Date.parse(s.until) < Date.now() || Date.now() - (s.last || 0) > IDLE_MS)) await forget(Date.parse(s.until) < Date.now() ? 'Its 12 hours were up.' : 'It wasn\'t used for 30 minutes.', s);
+  if (!s) return;
+  if (Date.parse(s.until) < Date.now()) { await forget('Its 12 hours were up.', s); return; }
+  try { await api(s, { do: 'ping' }); } catch (e) {}
 });
 chrome.tabs.onRemoved.addListener(tab => chrome.storage.session.remove(offerKey(tab)));

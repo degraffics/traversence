@@ -11,9 +11,10 @@
 
   var s = await ask({ t: 'status' }), acts = $('#acts');
   if (!s.connected) {
-    status((s.ended ? 'Disconnected: ' + s.ended + ' ' : 'Not connected. ') + 'Open the Vault page, unlock it, and press Connect this browser\'s extension.', s.ended ? 'bad' : '');
-    acts.appendChild(link('Open the Vault page', VAULT, true));
-    $('#foot').textContent = 'The connection lasts 12 hours, until the browser closes, or 30 minutes unused, whichever comes first.';
+    status((s.ended ? 'Disconnected: ' + s.ended + ' ' : 'Not connected. ') + 'Press Connect: the Vault page opens, you unlock it, and you\'re brought back here.', s.ended ? 'bad' : '');
+    var here = (await chrome.tabs.query({ active: true, currentWindow: true }))[0];
+    acts.appendChild(button('Connect', async function () { await ask({ t: 'connect', tabId: here ? here.id : 0 }); window.close(); }, true));
+    $('#foot').textContent = 'A connection lasts 12 hours or until the browser closes, in every tab. It ends at once if the vault is locked or you disconnect it.';
     return;
   }
   VAULT = s.base + '/admin/config/vault';
