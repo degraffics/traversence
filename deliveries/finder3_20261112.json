@@ -3,7 +3,7 @@
  "built_on": "d8e30bf Sync: 2026-11-12 19:15 UTC",
  "recorded": "2026-11-12 19:23 UTC",
  "note": "finder2 plus: a click anywhere on a directory card opens its pop-up card, as Peek (Jason, 2026-11-12). Replaces finder2.",
- "status": "pending",
+ "status": "replaced",
  "live_in": "",
  "files": {
   "website/directory/index.php": {
