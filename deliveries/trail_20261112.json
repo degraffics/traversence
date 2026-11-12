@@ -1,0 +1,22 @@
+{
+ "zip": "trail_20261112.zip",
+ "built_on": "1e91cc2 Sync: 2026-11-12 20:25 UTC",
+ "recorded": "2026-11-12 20:32 UTC",
+ "note": "The way back up (Jason, 2026-11-12): js/tv-trail.js (header, page shell): Back to the page before, with the route this visit took, in the account bar for signed-in members only; not a breadcrumb.",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/ui/header.php": {
+   "sha256": "3c7edfce03f7c461b117dc8449f884455594cfb5c44af59f436b155f9b1390e8",
+   "live": false
+  },
+  "app/ui/page-shell.php": {
+   "sha256": "bd6187776c48e316414a2bbaeaafa0db0909071fc4f31171396222417de9a23d",
+   "live": false
+  },
+  "website/js/tv-trail.js": {
+   "sha256": "4d2a09042db147cdb656f75a9dfd31a4f2479aedd1350fdbb015244445d03d10",
+   "live": false
+  }
+ }
+}
