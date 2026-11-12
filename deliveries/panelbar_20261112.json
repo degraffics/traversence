@@ -3,12 +3,12 @@
  "built_on": "10c64e1 Sync: 2026-11-12 16:13 UTC",
  "recorded": "2026-11-12 16:13 UTC",
  "note": "Admin pages opened inside a panel or drawer (a Pulse case, At hand) no longer draw the command bar",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "9319549 Sync: 2026-11-12 16:16 UTC",
  "files": {
   "app/admin/kit-css.php": {
    "sha256": "275bb7287aa0128ba442e54c3247136b3b9971a780dd20ec006c51f656b22214",
-   "live": false
+   "live": true
   }
  }
 }
