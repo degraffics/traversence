@@ -71,8 +71,8 @@ change.
 
 | # | Rule | Source |
 |---|---|---|
-| J01 | The top journeys reach their goal within the agreed steps, with no dead ends | decisions/0145 §1 |
-| J02 | What's shown is true and complete; what exists is reachable | decisions/0145 §1 |
+| J01 | The paths reach their goal within the agreed steps (3 taps or fewer from the home page to a place to eat and to a town's guide, 5 or fewer for the rest; punch-list item 6), with no dead ends. Checked by `tools/page-audit/paths.mjs` (`paths.md`) | decisions/0145 §1 |
+| J02 | What's shown is true and complete; what exists is reachable. The guide paths compare each stop's page with our data (open now, phone, directions) | decisions/0145 §1 |
 | J03 | Plain wording, one clear next action, empty states that say what to do | decisions/0145 §1; `brand.md` |
 | G01 | Crawler and guides: curators not controllers; tell the story, never the way in; licence decides the use | `CLAUDE.md`; decisions/0133 |
 | G02 | Every page and tool is governed by a decision; no two decisions conflict | decisions/0145 §1a |
