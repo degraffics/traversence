@@ -1,8 +1,8 @@
 {
  "zip": "askpop_20261112.zip",
  "built_on": "f6e4229 Sync: 2026-11-12 19:35 UTC",
- "recorded": "2026-11-12 19:37 UTC",
- "note": "Jason, 2026-11-12: Let's Explore 4/5 main and 1/5 tools, the hero no longer cut off; the map's place question greys the map behind it; the directory asks the same in a pop-up over the greyed page (once a visit).",
+ "recorded": "2026-11-12 19:39 UTC",
+ "note": "Jason, 2026-11-12: Let's Explore 4/5 main and 1/5 tools, the hero no longer cut off; Parks & Landmarks by state with no place set (?state=AZ: that state's parks and landmarks); the map's place question greys the map behind it; the directory asks the same in a pop-up over the greyed page (once a visit).",
  "status": "pending",
  "live_in": "",
  "files": {
@@ -11,7 +11,7 @@
    "live": false
   },
   "website/discovery/index.php": {
-   "sha256": "6e49cbb4b48bea2bc84d1c14e8a2e2efdfa527243a144b91934282132e26d56e",
+   "sha256": "b1269dd3f476bf60e9e9e4fd963eaf7627b757e90e3ae5a4e8b01a3b5366d1dd",
    "live": false
   },
   "website/js/map-view.js": {
