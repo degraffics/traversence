@@ -2,9 +2,13 @@
 # as the test accounts, held to the build standards (tools/page-audit/rendered.mjs). Daily at 09:43 UTC (a short run:
 # signed out, a member, the business owner, every staff login's home, the executive everywhere), in full on Mondays
 # and on Run workflow with "full". Only reads the site; changes nothing.
+# Then the paths (decisions/0145 Phase 4, tools/page-audit/paths.mjs): the core paths that only read, as the test
+# accounts, and a few guide paths a day in turn (GUIDES_PER_RUN), inside a time budget (PATHS_BUDGET_S), so the job
+# stays short; then the findings for the Pulse "Site health" case (findings.py) and the page map (page-map.py).
+# Run workflow with "paths only" walks just the paths (a few minutes). No push triggers: GitHub Actions minutes count.
 # Secrets: MIRROR_READ_TOKEN (the page list from the mirror) and CHECK_ACCOUNTS (the block System Configuration → Test
-# accounts shows once). Without CHECK_ACCOUNTS it checks signed out only. Commits site-audit/rendered.md and
-# site-audit/results/rendered.json; the screenshots stay with the run (Actions → the run → Artifacts), never in git.
+# accounts shows once). Without CHECK_ACCOUNTS it checks signed out only. Commits site-audit/rendered.md, paths.md,
+# page-map.md and their results/*.json; the screenshots stay with the run (Actions → the run → Artifacts), never in git.
 name: Site checks (browser)
 
 on:
@@ -14,6 +18,10 @@ on:
     inputs:
       full:
         description: 'Every account on every page (slower)'
+        type: boolean
+        default: false
+      paths_only:
+        description: 'Only the paths (skip the page checks)'
         type: boolean
         default: false
 
@@ -52,6 +60,7 @@ jobs:
           npx playwright install --with-deps chromium
 
       - name: Check the pages
+        if: ${{ !inputs.paths_only }}
         env:
           SITE: https://traversence.com
           CHECK_ACCOUNTS: ${{ secrets.CHECK_ACCOUNTS }}
@@ -62,6 +71,21 @@ jobs:
           if [ "$(date -u +%u)" = "1" ] && [ "${{ github.event_name }}" = "schedule" ]; then export FULL=1; fi
           if [ -z "$CHECK_ACCOUNTS" ]; then echo "::warning::CHECK_ACCOUNTS isn't set yet (System Configuration → Test accounts): signed-out checks only."; fi
           node tools/page-audit/rendered.mjs
+
+      - name: Walk the paths
+        continue-on-error: true   # the page checks' results are committed even if a path run fails
+        env:
+          SITE: https://traversence.com
+          CHECK_ACCOUNTS: ${{ secrets.CHECK_ACCOUNTS }}
+          FULL: ${{ inputs.full && '1' || '0' }}
+          GUIDES_PER_RUN: '4'
+          PATHS_BUDGET_S: '420'
+        run: node tools/page-audit/paths.mjs
+
+      - name: Findings (for Site health) and the page map
+        run: |
+          python3 tools/page-audit/findings.py --run-url "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          python3 tools/page-audit/page-map.py
 
       - name: Keep the screenshots with the run
         if: always()
@@ -76,8 +100,9 @@ jobs:
         run: |
           git config user.name "site-checks"
           git config user.email "site-checks@users.noreply.github.com"
-          git add site-audit/rendered.md site-audit/results/rendered.json
+          git add site-audit/rendered.md site-audit/results/rendered.json site-audit/page-map.md site-audit/results/page-map.json site-audit/results/findings.json
+          git add site-audit/paths.md site-audit/results/paths.json site-audit/results/paths-history.json 2>/dev/null || true
           if git diff --cached --quiet; then echo "No change."; exit 0; fi
-          git commit -m "Site checks: rendered pages"
+          git commit -m "Site checks: rendered pages and paths"
           git pull --rebase -q || true
           git push

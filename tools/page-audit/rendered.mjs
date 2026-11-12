@@ -9,15 +9,11 @@
 // signed-out checks run. Writes site-audit/results/rendered.json and site-audit/rendered.md; screenshots go to
 // shots/ (kept with the run as an artifact, never committed). Nothing here changes anything on the site: it only reads.
 import { chromium } from 'playwright';
-import { createHmac } from 'node:crypto';
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
+import { SITE, ACC, memberIn, staffIn, checkContext } from './check-kit.mjs';   // the site, the accounts and signing in, shared with paths.mjs
 
-const SITE = (process.env.SITE || 'https://traversence.com').replace(/\/$/, '');
 const FULL = process.env.FULL === '1';
 const SIZES = { phone: { width: 390, height: 844 }, desktop: { width: 1280, height: 900 } };
-let ACC = null;
-try { ACC = process.env.CHECK_ACCOUNTS ? JSON.parse(process.env.CHECK_ACCOUNTS) : null; } catch { console.log('::warning::CHECK_ACCOUNTS isn\'t valid JSON: signed-out checks only.'); }
-const CHECK_TOKEN = ACC?.health_token || '';
 
 // ---- which pages ----------------------------------------------------------------------------------------------------
 // Public pages: the page tree's front-end pages that open without an id, plus the guide paths found on Discovery
@@ -53,32 +49,7 @@ function adminSections() {
 }
 const ADMIN = adminSections();
 
-// ---- signing in -----------------------------------------------------------------------------------------------------
-function base32(s) { const a = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ234567'; let bits = ''; for (const c of s.toUpperCase().replace(/[^A-Z2-7]/g, '')) bits += a.indexOf(c).toString(2).padStart(5, '0'); const out = []; for (let i = 0; i + 8 <= bits.length; i += 8) out.push(parseInt(bits.slice(i, i + 8), 2)); return Buffer.from(out); }
-function totp(secret, step = Math.floor(Date.now() / 30000)) {
-  const b = Buffer.alloc(8); b.writeUInt32BE(Math.floor(step / 2 ** 32), 0); b.writeUInt32BE(step >>> 0, 4);
-  const h = createHmac('sha1', base32(secret)).update(b).digest(); const o = h[19] & 15;
-  return String((((h[o] & 127) << 24) | (h[o + 1] << 16) | (h[o + 2] << 8) | h[o + 3]) % 1e6).padStart(6, '0');
-}
-async function memberIn(ctx, a) {
-  const s = await ctx.request.get(`${SITE}/api/auth/session.php`); const csrf = (await s.json()).csrf_token || '';
-  const r = await ctx.request.post(`${SITE}/api/auth/login.php`, { headers: { 'X-CSRF-Token': csrf, 'X-Check-Token': CHECK_TOKEN, 'Content-Type': 'application/json' }, data: { email: a.email, password: a.password } });
-  if (!r.ok()) throw new Error(`member sign-in ${a.email}: ${r.status()} ${(await r.text()).slice(0, 160)}`);
-}
-async function staffIn(ctx, a) {
-  const p = await ctx.newPage();
-  await p.goto(`${SITE}/admin/login.php`, { waitUntil: 'domcontentloaded' });
-  await p.fill('#sid', a.staff_id); await p.fill('#pw', a.password);
-  await Promise.all([p.waitForNavigation({ waitUntil: 'domcontentloaded', timeout: 30000 }), p.click('button.b')]);   // the password step reloads the page with the code box
-  if (await p.$('#code')) {
-    await p.fill('#code', totp(a.totp));
-    await Promise.all([p.waitForNavigation({ waitUntil: 'domcontentloaded', timeout: 30000 }).catch(() => {}), p.click('button.b')]);
-  }
-  const ok = !/\/admin\/login\.php/.test(p.url());
-  const said = ok ? '' : ((await p.locator('p.no[role=alert], [data-tv-flash], [data-tv-status="bad"]').first().innerText().catch(() => '')) || '').slice(0, 160);
-  await p.close();
-  if (!ok) throw new Error(`staff sign-in ${a.staff_id} didn't get past the sign-in page${said ? ': ' + said : ''}`);
-}
+// ---- signing in: memberIn() and staffIn() are in check-kit.mjs -------------------------------------------------------
 
 // ---- one page -------------------------------------------------------------------------------------------------------
 const STANDARDS = {
@@ -123,8 +94,7 @@ const browser = await chromium.launch();
 mkdirSync('shots', { recursive: true });
 const results = [];
 async function as(who, signIn, pages, sizes, opts = {}) {
-  const ctx = await browser.newContext({ userAgent: 'Traversence site checks (support@traversence.com)', extraHTTPHeaders: CHECK_TOKEN ? { 'X-Check-Token': CHECK_TOKEN } : {} });
-  await ctx.addCookies([{ name: 'tv_nocount', value: '1', url: SITE }]);   // the checks are never counted as visits
+  const ctx = await checkContext(browser);   // never counted as a visit; carries the checks' token
   try { if (signIn) await signIn(ctx); } catch (e) { results.push({ who, url: '(sign-in)', size: '-', error: String(e).slice(0, 200) }); await ctx.close(); return; }
   for (const url of pages) for (const size of sizes) results.push(await check(ctx, who, url, size, opts.shots !== false));
   await ctx.close();
@@ -177,7 +147,8 @@ const fails = f => {
 const rows = results.map(f => ({ ...f, why: fails(f) }));
 const by = {}; for (const r of rows) for (const [k] of r.why) by[k] = (by[k] || 0) + 1;
 mkdirSync('site-audit/results', { recursive: true });
-writeFileSync('site-audit/results/rendered.json', JSON.stringify({ at: new Date().toISOString(), site: SITE, full: FULL, signed_in: !!ACC, pages: rows.length, by, results: rows }, null, 1));
+const RUN_URL = process.env.GITHUB_RUN_ID ? `${process.env.GITHUB_SERVER_URL || 'https://github.com'}/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID}` : '';   // where the screenshots are (findings.py links them)
+writeFileSync('site-audit/results/rendered.json', JSON.stringify({ at: new Date().toISOString(), site: SITE, run_url: RUN_URL, full: FULL, signed_in: !!ACC, pages: rows.length, by, results: rows }, null, 1));
 const L = ['# Rendered checks', '', `Decision 0145, Phase 2. Generated by \`tools/page-audit/rendered.mjs\` on ${new Date().toISOString().slice(0, 16).replace('T', ' ')} UTC against ${SITE}`
   + (ACC ? ', signed out and as the test accounts' : ', signed out only (CHECK_ACCOUNTS isn\'t set yet)') + `. ${rows.length} page views. Screenshots are kept with the run. Don't edit by hand.`, '',
   '| Standard | Pages that miss it |', '|---|---|', ...Object.entries(STANDARDS).map(([k, t]) => `| ${t} | ${by[k] || 0} |`), '', '## What to fix', '',

@@ -1,0 +1,34 @@
+{
+ "zip": "site-health_20261112.zip",
+ "built_on": "f070a26 Sync: 2026-11-12 15:01 UTC",
+ "recorded": "2026-11-12 15:06 UTC",
+ "note": "Audit phase 4: Pulse's Site health case (one step per open audit finding, ranked by paths blocked, Fixed or fine), on for staff and test accounts; /api/guide-paths.php for the paths check (token locked); site_health_marks migration",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/Pulse.php": {
+   "sha256": "8efe586a09ca5c885903f24ab7ccd19cf00a2e96797ad2c985cb1b90eb534929",
+   "live": false
+  },
+  "app/lib/SiteHealth.php": {
+   "sha256": "18c1f1c1e17dd080ed6931f15a26577a5c2170fc396c011acb7877758c3129c6",
+   "live": false
+  },
+  "app/lib/Switches.php": {
+   "sha256": "8d42815879a193c1bc350cdc2ec379e0982ded0617dd166001cc50bffa315878",
+   "live": false
+  },
+  "app/migrations/2027-03-03_site_health.sql": {
+   "sha256": "f28aab3934dfb2ee2600e665996bf0c3a9808ac01b2da0f649db267c1d0269de",
+   "live": false
+  },
+  "app/ui/pulse-ui.php": {
+   "sha256": "814673385a7f3e4651125db2987bb97e518bd1ebc65a3e54cd8e74c91c5abf0d",
+   "live": false
+  },
+  "website/api/guide-paths.php": {
+   "sha256": "ee6a40ffc1d18980aac2b2be69a4b37b683a33aabe8a8a76d110e5a74e243ff9",
+   "live": false
+  }
+ }
+}
