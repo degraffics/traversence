@@ -136,8 +136,9 @@ check `grep -rn "faq.php#"` before rewording one.
 - **Edge to edge below 768px:** cards and panels 3px from each side and each other, `.5rem` corners; text keeps a small
   margin. `app/ui/app-shell.php` handles known card classes; others add `class="tv-bleed"`. No per-page negative margins.
 - **Card anatomy:** the name is the link, top left, brand brown `#92400E` underlined; Link button top right; actions
-  (Call, Directions, See on map, Website, Contact, Peek) as 30px round icon buttons down the right edge under it, with
-  `title`/`aria-label`, no text, icons `#B45309`; details on the left.
+  (Call, Directions, See on map, Website, Contact, Peek) as 30px round icon buttons in a row on the name's line, left of
+  Link (under the name on phones), with `title`/`aria-label`, no text, icons `#B45309`; details across the card below.
+  Card grids page by whole rows (`js/tv-pager.js`).
 - **Icons** are the brand's flat SVGs (`tv_icon()`), never emoji. Active: sage `#8FBCA8` with a soft glow; rest: cream
   with a brown ring.
 - **No breadcrumbs** on content pages; kind, category, agency, name and activity pills search for more
