@@ -1,0 +1,22 @@
+{
+ "zip": "vault-still-there_20261112.zip",
+ "built_on": "a88c81e Sync: 2026-11-12 13:04 UTC",
+ "recorded": "2026-11-12 13:08 UTC",
+ "note": "Vault: after 5 minutes unused, Still there? with a 2-minute countdown, then it closes; using the page keeps it open (Jason, like a bank sign-in)",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/ui/vault.php": {
+   "sha256": "a97c90a1114745743b2d4a39c1fc18faaf236301e9f19549b8d4d2e445cc91f1",
+   "live": false
+  },
+  "website/admin/api/vault.php": {
+   "sha256": "4e7a28740271f1f3880889d1fb0938a13036409615c031878df1e4250dae2dca",
+   "live": false
+  },
+  "website/js/tv-vault.js": {
+   "sha256": "fe1dc6abab035ce99a964308319782e46dd927b3a5817c068f8c32ae05bc72ef",
+   "live": false
+  }
+ }
+}
