@@ -3,20 +3,20 @@
  "built_on": "16cbc12 Sync: 2026-11-12 14:39 UTC",
  "recorded": "2026-11-12 14:41 UTC",
  "note": "Vault: logins as a table (page tick box in the header, sortable columns, Columns to choose Account, Last changed, Added, Sign-in address, Watch for; the selection takes the header's place); the leave question as a pop-up; the extra checks (authenticator app, spare passkey) under Devices and checks",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "fe71dcf Sync: 2026-11-12 14:43 UTC",
  "files": {
   "app/lib/Vault.php": {
    "sha256": "93a1da08f87e15dbdddde49c1da8b1415c9c74a30022f2a08483d5d88375e8f2",
-   "live": false
+   "live": true
   },
   "app/ui/vault.php": {
    "sha256": "a604edea78ea7ebd9ba79602b4da46c50d4d3ee6fd87d60854340464aedfc3b6",
-   "live": false
+   "live": true
   },
   "website/js/tv-vault.js": {
    "sha256": "d789170848109e5b5d7692176f2dda523e44343de9637ffd87d2e1ff5d2d6948",
-   "live": false
+   "live": true
   }
  }
 }
