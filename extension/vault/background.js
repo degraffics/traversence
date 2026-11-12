@@ -21,8 +21,8 @@ let keys = null;   // { vk, siteKey } made from the stored key, kept while this 
 async function vault(touch = true) {
   const s = (await chrome.storage.session.get('v')).v;
   if (!s) return null;
-  if (Date.parse(s.until) < Date.now()) { await forget('Its 12 hours were up.'); return null; }
-  if (Date.now() - (s.last || 0) > IDLE_MS) { await forget('It wasn\'t used for 30 minutes.'); return null; }
+  if (Date.parse(s.until) < Date.now()) { await forget('Its 12 hours were up.', s); return null; }
+  if (Date.now() - (s.last || 0) > IDLE_MS) { await forget('It wasn\'t used for 30 minutes.', s); return null; }
   if (!keys || keys.token !== s.token) {
     const raw = unb64u(s.vk), hk = await crypto.subtle.importKey('raw', raw, 'HKDF', false, ['deriveKey']);
     keys = { token: s.token, vk: await aes(raw), siteKey: await crypto.subtle.deriveKey({ name: 'HKDF', hash: 'SHA-256', salt: new Uint8Array(32), info: te.encode('tv-vault-site-v1') }, hk, { name: 'HMAC', hash: 'SHA-256', length: 256 }, false, ['sign']), items: null };
@@ -31,7 +31,10 @@ async function vault(touch = true) {
   if (touch) { s.last = Date.now(); await chrome.storage.session.set({ v: s }); }
   return s;
 }
-async function forget(why) { keys = null; await chrome.storage.session.clear(); if (why) await chrome.storage.session.set({ ended: { why, at: Date.now() } }); chrome.action.setBadgeText({ text: '' }); }
+/** Forgets the key. With the connection (s), tells the vault first, so the Vault page shows it ended (0.1.7). */
+async function forget(why, s) {
+  if (s && s.token) { try { await fetch(s.base + s.api, { method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Vault-Token': s.token }, body: JSON.stringify({ do: 'bye' }), credentials: 'omit', cache: 'no-store' }); } catch (e) {} }
+  keys = null; await chrome.storage.session.clear(); if (why) await chrome.storage.session.set({ ended: { why, at: Date.now() } }); chrome.action.setBadgeText({ text: '' }); }
 const siteOf = async origin => hex(await crypto.subtle.sign('HMAC', keys.siteKey, te.encode(origin.toLowerCase())));
 const passMark = async pass => hex(await crypto.subtle.sign('HMAC', keys.siteKey, te.encode('pw:' + pass))).slice(0, 32);
 
@@ -110,7 +113,8 @@ chrome.runtime.onMessageExternal.addListener((m, sender, reply) => {
       // a random name for this browser's copy of the extension (not secret), so connecting again replaces its old connection
       let install = (await chrome.storage.local.get('install')).install;
       if (!install) { install = b64u(rnd(16)); await chrome.storage.local.set({ install }); }
-      const s = await vault(); return { ok: true, version: chrome.runtime.getManifest().version, connected: !!s, email: s ? s.email : '', install };
+      const s = await vault(false), e = s ? null : (await chrome.storage.session.get('ended')).ended;   // the Vault page asking doesn't count as use
+      return { ok: true, version: chrome.runtime.getManifest().version, connected: !!s, email: s ? s.email : '', ended: e ? e.why : '', install };
     }
     if (m.t === 'pair') {
       if (!/^[a-f0-9]{64}$/.test(m.token || '') || !m.vk || !/^\/api\/vault-ext\.php$/.test(m.api || '')) return { ok: false, error: 'That connection wasn\'t complete.' };
@@ -184,6 +188,6 @@ chrome.alarms.create('tvv-idle', { periodInMinutes: 1 });
 chrome.alarms.onAlarm.addListener(async a => {
   if (a.name !== 'tvv-idle') return;
   const s = (await chrome.storage.session.get('v')).v;
-  if (s && (Date.parse(s.until) < Date.now() || Date.now() - (s.last || 0) > IDLE_MS)) await forget();
+  if (s && (Date.parse(s.until) < Date.now() || Date.now() - (s.last || 0) > IDLE_MS)) await forget(Date.parse(s.until) < Date.now() ? 'Its 12 hours were up.' : 'It wasn\'t used for 30 minutes.', s);
 });
 chrome.tabs.onRemoved.addListener(tab => chrome.storage.session.remove(offerKey(tab)));
