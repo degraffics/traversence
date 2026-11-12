@@ -1,0 +1,14 @@
+{
+ "zip": "finder2_20261112.zip",
+ "built_on": "d8e30bf Sync: 2026-11-12 19:15 UTC",
+ "recorded": "2026-11-12 19:16 UTC",
+ "note": "Get Local's space used (Jason, 2026-11-12: 'a lot of wasted space'): a compact finder, the title, count and filters on one line, two columns of cards on wide screens.",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "website/directory/index.php": {
+   "sha256": "bb30db73cf9427356ce5adc80b7dc2d1de0a9aeedf8cb2aa7a6a05ba602b36b8",
+   "live": false
+  }
+ }
+}

@@ -3,20 +3,20 @@
  "built_on": "381d4e7 Sync: 2026-11-12 19:03 UTC",
  "recorded": "2026-11-12 19:08 UTC",
  "note": "Get Local's finder (Jason, 2026-11-12): Find a business at the top of the directory, the words, the place and Search, with Refine (Kind and Town with counts, Within, Sort, Open now, phone, website, Favorites); the API's facets list kinds and towns and take in_town; the place box names Auto-detect's town.",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "d8e30bf Sync: 2026-11-12 19:15 UTC",
  "files": {
   "app/ui/faq.md": {
    "sha256": "447ef65c64bb5c47cdd3ce7b6834082509309f38b3fec8a5e3cc90ee300a037c",
-   "live": false
+   "live": true
   },
   "website/api/search_listings.php": {
    "sha256": "62bd73615f792e6f6bbd1f08228a3b53335aa32f99fe2a51cf95b79b68eec8f2",
-   "live": false
+   "live": true
   },
   "website/directory/index.php": {
    "sha256": "6db65e27bda1690e95b9e577be2ea26f6f504fdbf96ae40644d81df0793f09bc",
-   "live": false
+   "live": true
   }
  }
 }
