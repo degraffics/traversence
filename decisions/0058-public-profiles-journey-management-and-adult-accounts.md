@@ -955,6 +955,8 @@ Now:
 - **Recent Searches** keeps a search when someone means it: Enter, a tapped suggestion, a result they open, or
   closing the panel on its results. It used to keep only searches that left the page.
 
+
+**Note (2026-11-12, Jason: "the listings need to show the tool kit horizontally vs stacked because they are taking up valuable real estate"; "Lists should be able to count per row and show the correct amount of cards before the more"):** §11's card anatomy changes: the action icons (Call, Directions, Website, Peek…) sit in a row on the name's line, left of the Link button (under the name on phones), not stacked down the right edge, and the details use the card's whole width. First on the directory (`rows_20261112.zip`); other card kinds follow as they're touched. Lists page 10 at a time (`js/tv-pager.js`), and a grid of cards rounds a page up to whole rows (four across: 12).
 ## Consequences
 
 - New columns: `journeys.entity_id` and `journeys.submitted_at`, and `age_confirmations.min_age`. Two new staff roles
