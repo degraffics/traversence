@@ -127,7 +127,7 @@ None. GitHub's free run time; the review runs in Claude Code sessions, not throu
 
 ### On the site (built at real paths in the session's scratchpad `P4/`, on the mirror's sync of 2026-11-12 12:47 UTC)
 
-- `app/lib/SiteHealth.php` (new): the Pulse **Site health** case, behind the switch **`site_health`** (off until set;
+- `app/lib/SiteHealth.php` (new): the Pulse **Site health** case, behind the switch **`site_health`** (on for staff and test accounts from the start, Jason 2026-11-12: "go with your defaults"; the findings file is public, by the same answer;
   "Staff and test accounts" shows it to staff first). It reads `results/findings.json` from this public repository's
   raw file (no key, no cost; kept an hour, the last good copy kept a month), one step per open finding (the 14 most in
   the way), each with the page, the run with its screenshots and its proposal as links, and **Fixed or fine** as the
