@@ -3,12 +3,12 @@
  "built_on": "dfc4950 Sync: 2026-11-12 20:17 UTC",
  "recorded": "2026-11-12 20:19 UTC",
  "note": "The place pop-up (Jason, 2026-11-12: 'the login was showing' after setting places): it follows the sign-in check when it finishes (My places, not Log in) and shows your saved places, the default starred, each one tap away.",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "1e91cc2 Sync: 2026-11-12 20:25 UTC",
  "files": {
   "website/js/location-scope.js": {
    "sha256": "07452a30bb76c8436500c162adf456bc06d3e445cdfb88ed37f1db6697b8e179",
-   "live": false
+   "live": true
   }
  }
 }
