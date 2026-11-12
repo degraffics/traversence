@@ -1,0 +1,22 @@
+{
+ "zip": "hero2_20261112.zip",
+ "built_on": "8a28e86 Sync: 2026-11-12 19:41 UTC",
+ "recorded": "2026-11-12 19:49 UTC",
+ "note": "hero plus (Jason, 2026-11-12): heroes with no journey or stock photo show the landmarks' own Commons photos around the place (credited), no manual work; pages of cards count only cards (a style sheet in the grid made 12 show as 11). Replaces hero.",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/ui/explore-hero.php": {
+   "sha256": "353d5ef425c9bef543fc8b0d40b099a9a31701d4808e417a5876616a231cfa01",
+   "live": false
+  },
+  "website/discovery/index.php": {
+   "sha256": "ab6a1d4c8dc548af59d5f7fa7f970f6d4179e586e66a4e54411bca8a8b394360",
+   "live": false
+  },
+  "website/js/tv-pager.js": {
+   "sha256": "c77425d151600ff173992572ad6952f9da41423937ebb145b933a7674132b300",
+   "live": false
+  }
+ }
+}
