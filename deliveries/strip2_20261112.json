@@ -3,16 +3,16 @@
  "built_on": "522ff22 Sync: 2026-11-12 16:40 UTC",
  "recorded": "2026-11-12 16:41 UTC",
  "note": "Record pages' strip: stays at the top as you scroll, the orange Back arrow, sections fold with a \u25be on their heading (remembered)",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "a4ce36b Sync: 2026-11-12 16:43 UTC",
  "files": {
   "app/ui/command-strip.php": {
    "sha256": "afcf52ea3a773a7c08356a6db12adf4decba11a513c1f93a0d198a3093b02b39",
-   "live": false
+   "live": true
   },
   "website/js/tv-strip.js": {
    "sha256": "e54f573d78b4cfd4af0a283305283cb1ba13f93b23ab8ccece5245dd29f752ce",
-   "live": false
+   "live": true
   }
  }
 }
