@@ -54,8 +54,8 @@
    "session": "session_01CXLi5h4DFhWFmsTWMLZkAU",
    "why": "Pulse flood: the crawler's own Review items out of Support and Needs you; one case when they back up",
    "since": "2026-11-13T21:07:52Z",
-   "expires": "2026-11-14T01:07:52Z",
-   "release": "pulseflood_20261113",
+   "expires": "2026-11-14T01:08:57Z",
+   "release": "pulseflood_20261113.zip",
    "callers": {
     "items": [
      "app/lib/DailyReport.php",
@@ -72,8 +72,8 @@
    "session": "session_01CXLi5h4DFhWFmsTWMLZkAU",
    "why": "Pulse flood: Needs you counts people's suggestions only",
    "since": "2026-11-13T21:07:52Z",
-   "expires": "2026-11-14T01:08:48Z",
-   "release": "pulseflood_20261113",
+   "expires": "2026-11-14T01:08:57Z",
+   "release": "pulseflood_20261113.zip",
    "callers": {}
   },
   {
@@ -85,6 +85,17 @@
    "since": "2026-11-13T21:07:52Z",
    "expires": "2026-11-14T01:07:52Z",
    "release": "pulseflood_20261113",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Suggestions.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5h4DFhWFmsTWMLZkAU",
+   "why": "release pulseflood_20261113.zip",
+   "since": "2026-11-13T21:08:57Z",
+   "expires": "2026-11-14T01:08:57Z",
+   "release": "pulseflood_20261113.zip",
    "callers": {}
   }
  ],
