@@ -358,6 +358,31 @@
    "expires": "2026-11-14T00:22:16Z",
    "release": "editor4d_20261113",
    "callers": {}
+  },
+  {
+   "path": "app/lib/Engage.php",
+   "functions": [
+    "COUNT_KEY",
+    "KINDS"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5heQJQxTX8ubPs7Jfs",
+   "why": "0159 step 4d: the 'page' kind (engage, reports)",
+   "since": "2026-11-13T20:22:18Z",
+   "expires": "2026-11-14T00:22:18Z",
+   "release": "editor4d_20261113",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Reports.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5heQJQxTX8ubPs7Jfs",
+   "why": "0159 step 4d: the 'page' kind (engage, reports)",
+   "since": "2026-11-13T20:22:18Z",
+   "expires": "2026-11-14T00:22:18Z",
+   "release": "editor4d_20261113",
+   "callers": {}
   }
  ],
  "lapsed": []
