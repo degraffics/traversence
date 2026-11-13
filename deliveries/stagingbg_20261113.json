@@ -3,7 +3,7 @@
  "built_on": "70f8575 Sync: 2026-11-13 03:58 UTC",
  "recorded": "2026-11-13 04:06 UTC",
  "note": "Staging refresh carries on by itself on the server: new every-minute job staging_carry_tick (Scheduler::AUTO, also added at once through the cPanel API when a refresh starts or stalls, and started right away where the server allows); the page only shows progress and can be closed. Built on Sync: 2026-11-13 03:58 UTC.",
- "status": "pending",
+ "status": "replaced",
  "live_in": "",
  "files": {
   "app/admin/sections.php": {
@@ -34,5 +34,6 @@
    "sha256": "43817b6e1720e5d9f20afc08d9ea9ffbcd999e5e69efc357a1116cdf359fdf8d",
    "live": false
   }
- }
+ },
+ "replaced_by": "stagingbg2_20261113"
 }
