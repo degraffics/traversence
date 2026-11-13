@@ -126,6 +126,11 @@ not the line the job left (`job_runs.note`, e.g. "Stopped: …").
   person), so the audit names the cause; (2) a build fixes the cause it shows. Until then, its last line is on System
   Configuration → Scheduled tasks → Guide weather and roads.
 
+**Decided (Jason, 2026-11-13): fix it.** His screenshot of the job's last line gave the cause: `Uncaught TypeError: Unsupported
+operand types: string * float` at `Roads511.php:168` (AZ 511 sends the reduced speed limit as text at times). Release
+`roads511fix_20261113`: read only when it's a number, and a road feed that fails never stops the weather. Part (1), the
+health report carrying a failing job's last line, is still to build.
+
 ### P8. R04 calls `never` a PHP 8.1 feature the server can't run (verdict: amend)
 
 The health report says the server runs PHP 8.0, and R04 flags 11 places that declare a function's return type `never`
@@ -139,6 +144,10 @@ and nothing breaks. It only matters in a function that can return.
 - **Proposal:** R04 passes `: never` on a function whose every path ends in `exit`, `die` or `throw`, and flags it
   otherwise; CLAUDE.md's list is unchanged (`never` was never in it). With server.json recording 8.0 (the search probe's
   next run), CLAUDE.md's "until it's recorded" line names 8.0 as recorded.
+
+**Decided (Jason, 2026-11-13): change the check, not the site.** Done the same day: R04 passes `: never` on a function whose
+body exits, throws or calls another `never` function, and flags one that can return; a match in a trailing `//` comment
+isn't flagged. R04 on the live mirror: 11 → 0.
 
 ### P9. Choosing one of our towns in Get Local loses "Within" (verdict: conflict)
 
@@ -155,6 +164,11 @@ placeOptions: "a town the search already placed in its area isn't listed twice")
   Within for an area too, measured from its town's center; (c) list the town both ways in the pop-up ("Show Low, AZ ·
   town" and "Show Low area").
 
+**Decided (Jason, 2026-11-13): it's already set in the decisions.** decisions/0053 ("Town names on a place page open Get
+Local"): a town opens centred on it, nearest first, within 10 miles by default, the distance changeable; only a local
+name with no point of its own uses its area. So the verdict is **fix**: choosing one of our towns in Get Local sets the
+town (Within 10 mi), and its area stays a separate choice. To build, for his OK.
+
 ### P10. "Open now" searches mark nothing open (verdict: fix, to check in the build)
 
 "Places to eat open now near me" (Show Low) gave 5 results, none marked "Open now", as a guest and as a member, on every
@@ -164,6 +178,9 @@ run since Nov 12 (morning and afternoon, Arizona time). The search panel draws "
 - **Findings:** f-fa035ddd5a
 - **Decisions it touches:** 0060 (near me); 0058 §39 (filters in the search)
 - **Proposal:** the build checks which, and fixes it: an "open now" search shows only places open now, each marked.
+
+**Decided (Jason, 2026-11-13): wait for the crawler revamp.** He thinks the crawler has been wiping hours data
+(handoffs/crawler-revamp.md). Looked at again once its fixes are live.
 
 ### P11. Things the staging paths will check, found in their code (verdict: fix)
 
@@ -188,6 +205,9 @@ Read while writing the staging paths (2026-11-13); each is confirmed or cleared 
 - **Decisions it touches:** CLAUDE.md "No browser dialogs; one look for notices", "Never a dead end", "Pulse"; 0145 §3
 - **Proposal:** one small build for 1, 2, 4, 5 and 6 once the paths confirm them; 3 and 7 with their own decisions' notes.
 
+**Decided (Jason, 2026-11-13): all seven,** with (2) signing the person in right after they confirm their email. One
+build, checked against the staging paths, for his OK.
+
 ### P12. Sideways scroll on Market 360° → Gateways at phone size (verdict: fix)
 
 The executive's check of `/admin/market/gateways` at 390px scrolls sideways. The page is the standard table and metrics
@@ -197,6 +217,8 @@ be opened here.
 - **Findings:** f-3ff207d9d1
 - **Decisions it touches:** 0058 §11; 0109 (widgets)
 - **Proposal:** the build looks at the screenshot (the run's `staff-executive-_admin_market_gateways.png`) and fixes what's wide.
+
+**Decided (Jason, 2026-11-13): fix it** in the same build as P11.
 
 ### Not proposed
 
