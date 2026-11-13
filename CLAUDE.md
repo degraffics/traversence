@@ -14,6 +14,10 @@ locally anyway, and tell Jason his options: add `degraffics/traversence` to the 
 access token with push rights, or push from his own computer. Authorization is per session, so try the push rather than
 assume.
 
+**Both repos, without asking (Jason, 2026-11-13):** a session that needs `degraffics/traversence` or
+`degraffics/traverse-3way-sync` (the live mirror) and doesn't have it adds it with `add_repo`, no question to Jason; he
+has approved this for every session. Clone the mirror shallow and sparse. If it's still refused, say so in one line.
+
 ## One copy: all work ends up in `main` (Jason, 2026-11-01): every session
 
 `main` is the single source of truth; split branches leave information out of step and behavior inconsistent.
