@@ -1,16 +1,19 @@
 # The search probe (Jason, 2026-11-10): runs a set of real searches against the live search API, signed out, and records
 # what each was read as (place, words, guide offered, first results): tools/page-audit/search-probe.mjs. On Run
-# workflow and daily at 10:17 UTC. Also the mail DNS (tools/page-audit/mail-dns.sh). Only reads. Commits
+# workflow and daily at 10:17 UTC, asked for by the site's clock (GitHub's schedule at 12:47 is the fallback). Also the mail DNS (tools/page-audit/mail-dns.sh). Only reads. Commits
 # site-audit/search-probe.md, its JSON and site-audit/mail-dns.md.
 name: Search probe
 
 on:
+  repository_dispatch:
+    types: [search-probe]  # the site's clock asks at 10:17 UTC (AuditClock, decisions/0145)
   schedule:
-    - cron: '17 10 * * *'
+    - cron: '47 12 * * *'  # the fallback, if the site didn't ask
   workflow_dispatch:
 
 permissions:
   contents: write
+  actions: read
 
 concurrency:
   group: search-probe
@@ -21,27 +24,42 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 25
     steps:
+      - name: Already run in this window? (the site's clock asks first; GitHub's schedule is the fallback)
+        if: github.event_name == 'schedule'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          since=$(date -u -d '-20 hours' +%Y-%m-%dT%H:%M:%SZ)
+          n=$(gh api "repos/${{ github.repository }}/actions/workflows/search-probe.yml/runs?created=%3E%3D$since&per_page=20" --jq '[.workflow_runs[] | select(.id != ${{ github.run_id }})] | length' || echo 0)
+          if [ "${n:-0}" -gt 0 ]; then echo "Run $n time(s) in the last 20 hours already: nothing to do."; echo "SKIP=1" >> "$GITHUB_ENV"; fi
       - uses: actions/checkout@v4
+        if: env.SKIP != '1'
       - uses: actions/setup-node@v4
+        if: env.SKIP != '1'
         with:
           node-version: '20'
       - name: Probe the searches
+        if: env.SKIP != '1'
         env:
           SITE: https://traversence.com
         run: node tools/page-audit/search-probe.mjs
       - name: Score the search (real and hard searches, pass or fail, timed)
+        if: env.SKIP != '1'
         env:
           SITE: https://traversence.com
         run: node tools/page-audit/search-scorecard.mjs || echo "::warning::scorecard failed"
       - name: Check the mail DNS
+        if: env.SKIP != '1'
         run: bash tools/page-audit/mail-dns.sh
       - name: Towns built on demand (from the health report)
+        if: env.SKIP != '1'
         env:
           SITE: https://traversence.com
           HEALTH_TOKEN: ${{ secrets.HEALTH_TOKEN }}
           CHECK_ACCOUNTS: ${{ secrets.CHECK_ACCOUNTS }}
         run: node tools/page-audit/towns.mjs
       - name: Layout on a phone (the gap above the hero, anything over the action icons)
+        if: env.SKIP != '1'
         env:
           SITE: https://traversence.com
         run: |
@@ -49,13 +67,14 @@ jobs:
           npx playwright install --with-deps chromium
           node tools/page-audit/layout-probe.mjs || echo "::warning::layout probe failed"
       - name: Keep the screenshots with the run
-        if: always()
+        if: always() && env.SKIP != '1'
         uses: actions/upload-artifact@v4
         with:
           name: layout-shots
           path: shots/
           if-no-files-found: ignore
       - name: Commit the results
+        if: env.SKIP != '1'
         run: |
           git config user.name "search-probe"
           git config user.email "search-probe@users.noreply.github.com"
