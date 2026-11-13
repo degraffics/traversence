@@ -3,28 +3,28 @@
  "built_on": "b96c657 Sync: 2026-11-13 18:39 UTC",
  "recorded": "2026-11-13 18:41 UTC",
  "note": "decisions/0159 step 4b, the full editor part 2: live components (search box, businesses, map button, guide, GO Code) and a page's search settings; built on Sync: 2026-11-13 18:39 UTC Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "9f50a3f Sync: 2026-11-13 18:59 UTC",
  "files": {
   "app/lib/Blocks.php": {
    "sha256": "b7650dc3194a6461fc5af7ac3e20f7b927a353d3347a089654c7c25d9884f480",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "993c02fdc6a10a1fa930f1ee14d417c41b07316988711457ac496b94330b2ae0",
-   "live": false
+   "live": true
   },
   "website/api/blocks.php": {
    "sha256": "436ca49c835ef1e03b0dc2b7fbf5a5063217a1b21c316bd0ea1b681387125588",
-   "live": false
+   "live": true
   },
   "website/js/tv-blocks.js": {
    "sha256": "5a9897bf828a69cbf7b296a2e8ab2ef65a970ef531a5561cfdf15f7f5c36e1f4",
-   "live": false
+   "live": true
   },
   "website/js/tv-editor.js": {
    "sha256": "d486efba7b6896e4fe0690e8bd2b2b8a2258eca9c2366c70389f949104bca907",
-   "live": false
+   "live": true
   }
  }
 }

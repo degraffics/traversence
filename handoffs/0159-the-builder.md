@@ -37,11 +37,19 @@ Files: `app/lib/Blocks.php`, `website/api/blocks.php` (action `preview`; GET als
 **Next, in order:**
 1. ~~The admin search release~~ **live** as release #24 (`adminfind_20261113`), verified at Sync 17:39 UTC: Ctrl K finds
    scheduled tasks and switches by name, key and description, opening `#job-<key>` / `#sw-<key>` on their pages.
-2. **Step 4b:** live components (a registry in code: name, settings, where it may go; search box, listings grid, map,
-   guide, engage bar, form, GO Code) as block kinds, drawn server-side by their own code; SEO fields (title, description,
-   share picture) for block pages.
-3. **Step 4c:** global components (header, footer, shared sections: edited once, versioned like a zone) and Publish on a
-   schedule.
+2. ~~Step 4b~~ **live** as release #27 (`editor4b_20261113`, built on Sync 18:39 UTC, published 18:57, all 5 files verified
+   at Sync 18:59 UTC). `Blocks::LIVE` (the registry: where it may go, settings `[label, text|select, max|choices, hint]`;
+   `clean()` keeps only those). Kinds: `search` (form to /directory/?q=, TvSearch.open where the page has it), `listings`
+   (cards from /api/search_listings.php by city/state/q, card standard, `.tvb-acts` under the name on phones), `map`
+   (TvMap, map-view.js loaded on first use), `guide` (`Guides::fromQuery` by town slug; only with published sections),
+   `gocode` (`ShortCodes::forPage` of the page, `Blocks::$here`; QR from /api/qr.php?page=). Database parts get it from
+   `Blocks::useDb()` (zone() and the API). Browser half: new `website/js/tv-blocks.js` (`TvBlocks.scan`), loaded once by
+   `liveJs()`; the editor loads and runs it after each preview. Editor: Add → Parts of the site; Page tab on `page.<id>`
+   zones (`Blocks::pageOf`, API action `page` → `SitePages::save`, Pages: publish, saved at once). Not tried live yet:
+   the guide and GO Code (they need the live database) and the map's pins (no map library offline here).
+3. **Step 4c:** the engage bar (needs a `page` kind in `Engage::KINDS` + `COUNT_KEY`) and a form (a target per zone;
+   `SitePages::submit` is tied to a page id) as live parts; global components (header, footer, shared sections: edited
+   once, versioned like a zone); Publish on a schedule.
 4. Step 5 Storefront Studio (SitePages to blocks: each Markdown page as one text block; themes; the portal; team
    Publish), step 6 AI writing.
 Done earlier today: step 2's last part, `SYNC_HOME=git` (traverse-3way-sync PR #10; first real run 17:20 passed release

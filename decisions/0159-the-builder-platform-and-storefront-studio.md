@@ -191,6 +191,12 @@ Progress (2026-11-13):
   lining up and order). The breakpoints answer the zone's own width (container queries), so the editor's tablet and phone
   views are exact. Every change is drawn by the server as it's made. New blocks: divider, spacer. Next: 4b live components
   and SEO fields; 4c global components and scheduled publishing.
+- **Step 4b built** (release #27, `editor4b_20261113`): live components from a registry in code (`Blocks::LIVE`): a search
+  box, businesses (cards from the directory's own API, to the card standard), a map button (the site's map), a guide card
+  (published guides only) and a GO Code (the page's QR code and trvgo.us address); each draws itself from our data, works
+  as a plain link without its script, and is only placed and set up in the editor. On our own pages, a Page tab sets the
+  title, search description and share picture. Next, 4c: the engage bar and a form as live parts, global components
+  (header, footer), and publishing on a schedule.
 3. **The editor's core:** blocks, Edit, Save draft, Publish, Roll back, on block pages and the home page's first zone.
 4. **The full editor:** the widget panel, drag and drop, columns, the design panel, breakpoints, global components,
    live components, SEO fields.
