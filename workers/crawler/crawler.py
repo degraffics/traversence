@@ -618,6 +618,29 @@ def candidate(el, job):
                 c["when"]["hours"] = hrs
                 c["sources"]["hours"] = [website]
             c["lead"] = osm_url
+    # OpenStreetMap is a lead and a link, never copied (decisions/0065; review C11): its phone, hours and street stay only
+    # where the business's own website shows them; without its website, a find is a lead (a name, a ZIP, the map link)
+    src = c["sources"]
+    if "openstreetmap.org" not in osm_url:
+        pass                                   # a Wikidata item (CC0): its facts may be kept, as before
+    elif not c["corroboration"]:
+        c["actions"]["phone"], c["when"]["hours"], c["where"]["address"] = "", [], ""
+        c["sources"] = {"name": [osm_url]}
+        c["lead"] = osm_url
+        score = 15 + 5
+    else:
+        own = [website]
+        if src.get("phone") != own:
+            c["actions"]["phone"] = ""
+            src.pop("phone", None)
+        if src.get("hours") != own:
+            c["when"]["hours"] = []
+            src.pop("hours", None)
+        if src.get("address") != own:
+            c["where"]["address"] = ""
+            src.pop("address", None)
+        score = 15 + 5 + 20 + (10 if c["what"]["description"] else 0) + (25 if c["where"]["address"] else 0) \
+            + (15 if c["actions"]["phone"] else 0) + (10 if c["when"]["hours"] else 0)
     c["confidence"] = min(100, score)
     return c
 
@@ -2959,6 +2982,9 @@ def do_requests(reqs):
     """The one queue's requests leased to this run (decisions/0160 §2): done while there's time, the rest given back unchanged."""
     out = []
     for q in reqs:
+        if q.get("kind") == "find_name" and time.monotonic() < (RUN_END or 0) - MIN_TASK:
+            out.append(find_name(q))
+            continue
         if q.get("kind") != "read_page" or time.monotonic() > (RUN_END or 0) - MIN_TASK:
             out.append({"id": q["id"], "outcome": "back", "why": "not done this run"})
             continue
@@ -2973,6 +2999,37 @@ def do_requests(reqs):
         except Exception as e:
             out.append({"id": q["id"], "outcome": "failed", "why": repr(e)[:300]})
     return out
+
+
+def find_name(q):
+    """A business looked up by its name in a town (Send the crawler, review E22): its own website by one web search (from the
+    month's paced allowance), then what that site says about it. The site stages what comes back like any find."""
+    p = q.get("payload") or {}
+    name, town, state = str(p.get("name") or ""), str(p.get("city") or ""), str(p.get("state") or "")
+    try:
+        site = find_own_site(name, "", "", town, state)
+        if not site:
+            return {"id": q["id"], "outcome": "done", "result": {"found": False}, "why": "no website of its own found" + ("" if SEARCH_ON else " (no search key)")}
+        page = fetch_page(site)
+        if not page or not names_place(page, name):
+            return {"id": q["id"], "outcome": "done", "result": {"found": False, "site": site}, "why": "its website didn't load or doesn't name it"}
+        facts, _, title = read_page(page, site)
+        f = next((x for x in facts if names_place(x.get("name", ""), name) or names_place(name, x.get("name", ""))), None) or {}
+        street, city, st, zp = split_city(f.get("address", "")) if f.get("address") else ("", town, state, "")
+        phones = phones_on(page)
+        phone = f.get("phone") or (fmt_phone(next(iter(phones))) if len(phones) == 1 else "")
+        c = {"name": f.get("name") or name,
+             "source": {"start_url": site, "site": host_of(site), "crawled_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())},
+             "where": {"address": street, "city": city or town, "state": st or state, "zip": zp, "location_page": site},
+             "what": {"offerings": [], "description": meta_description(page)},
+             "when": {"hours": hours_from(page) or []},
+             "actions": {"phone": phone, "website": site},
+             "sources": {k: [site] for k, v in (("name", 1), ("address", street), ("phone", phone)) if v},
+             "corroboration": [{"url": site, "kind": "own_site"}],
+             "confidence": 15 + 20 + (25 if street else 0) + (15 if phone else 0) + 5}
+        return {"id": q["id"], "outcome": "done", "result": tv_safe({"found": True, "site": site, "candidate": c})}
+    except Exception as e:
+        return {"id": q["id"], "outcome": "failed", "why": repr(e)[:300]}
 
 
 def run_service():
