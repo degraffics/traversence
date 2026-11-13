@@ -3,40 +3,40 @@
  "built_on": "f9ef9e3 Sync: 2026-11-13 13:34 UTC",
  "recorded": "2026-11-13 13:44 UTC",
  "note": "Release #4 (decisions/0159 step 1, part 1): Check the way in on System Configuration \u2192 Staging, which says which layer asks for the password on Open staging (X-Tv-Stg-Gate marks on the guard file and the page; /api/stg-probe.php on staging). Built on Sync: 2026-11-13 13:34 UTC.",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "fdf5070 Sync: 2026-11-13 13:54 UTC",
  "files": {
   "app/admin/sections.php": {
    "sha256": "db08e9199ac79aa57747a17abdc7362a59e2ac13a222756a3f05e2d21eedf3fb",
-   "live": false
+   "live": true
   },
   "app/lib/Releases.php": {
    "sha256": "affd6cbeb5c9ef68b429b73155890e5281f821d8ffaea0cab3c997fe480fbc5e",
-   "live": false
+   "live": true
   },
   "app/lib/Staging.php": {
    "sha256": "98e628db9b27621535245b00cdca25902341ec1ca4b0b8160ed2cd2ad7a41ebb",
-   "live": false
+   "live": true
   },
   "app/lib/StagingSite.php": {
    "sha256": "6400c48dd9ca987d7c4f87be27029682b968030d00f2fd42f100bf9a2cc66763",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "2e6dc2db884874dd875bf2479e33f5f8bc9dcfa6b50591c17ba0920b6eef5a87",
-   "live": false
+   "live": true
   },
   "website/admin/api.php": {
    "sha256": "abce251b19574ff67ee16133992190c69406df13bace39ea5447342c8fd2877e",
-   "live": false
+   "live": true
   },
   "website/api/stg-probe.php": {
    "sha256": "0918733fddc195d4f3cd181a18912f4c709c07b32b8dc7c7226060928721227f",
-   "live": false
+   "live": true
   },
   "website/js/admin-staging.js": {
    "sha256": "790ef4bc27d52e02feb4ecd23c59b1fcea45d44ed4ea5cad093c6da5cbdd6b6c",
-   "live": false
+   "live": true
   }
  }
 }
