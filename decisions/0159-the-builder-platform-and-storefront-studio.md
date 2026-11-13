@@ -161,6 +161,11 @@ Progress (2026-11-13):
 - **Step 2, part 1 built** (release #7): builds sent through git (`releases/inbox/`, `tools/page-audit/send.py`) are
   taken onto staging by the live site. Release #8 was the first to come that way. Jason agreed the switch the same day
   ("good to go on git zip syncing over manual uploads"): CLAUDE.md's delivery rules now send every build through git.
+- **Claude's builds publish themselves** (Jason, 2026-11-13: "this feels redundant, since I would have already approved
+  it in claude before it got pushed… publish is for the staging area development process"). This replaces §5's "your
+  look before publishing stays" for builds sent through git: once its checks on staging pass, it goes live by itself
+  (`Releases::autoPublish`). Failed checks stop it there; `"hold": true` in its release.json waits for his look and
+  Publish. Uploads on staging and the editor keep Publish (release #9).
 - **Step 2, still to do:** the sync's direction (`SYNC_HOME` to git) and drift reports, so edits made straight on the
   server or in OneDrive show as drift instead of going live without a release. Its timing is agreed with Jason first,
   since it changes how OneDrive edits behave.
