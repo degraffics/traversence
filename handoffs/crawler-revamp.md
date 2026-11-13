@@ -282,17 +282,29 @@ CLAUDE.md, in full. For this work above all:
   sweep (`CrawlQueue::lease`), towns' searches count for their cluster (`Learning::gaps`). W4 and W8 need nothing more
   (starvation gone with Phase 2's shares; Find it shares W1's gate). Progress of each: the commits "Release crawler-w…".
 
-## 7. Open (questions for Jason)
+## 7. Open (questions for Jason; his answers 2026-11-13 evening in each)
 
-1. **Coverage finds nothing on Railway.** overpass-api.de answers 406 to every request from the worker (POST and GET),
-   and the mirrors (private.coffee, kumi.systems, mail.ru) time out; openstreetmap.fr serves white-listed users only.
-   Since worker 2.1 a slow lookup is handed back inside its share (nothing else starves), but no town is being built
-   out. Options: find why overpass-api.de refuses Railway (its usage policy, our request), run our own Overpass
-   instance or use a paid one (needs his OK: "no income, no expense"), or give coverage a longer share (the console).
-2. **Listings without a website** are checked only by Google (no `GOOGLE_PLACES_KEY` on Railway, so not at all) and by
-   the identity jobs. Whether to add the Google key (paid, capped) or another free check.
-3. **Junk names in listings** from page reads ("Contact Us:", "An agency within the U.S. Department of Labor", "CDPF
-   Informational Webinar Slideshow", "PO Box 190"): for Phase 4's listings pass, and the page readers' name check.
+1. **Coverage finds nothing on Railway: why.** overpass-api.de answers 406 to every request, POST and GET. Its
+   maintainers say a 406 there is a ban they set by hand on a user agent or referrer (an IP ban follows if the 406s are
+   ignored), and only they can lift it: so our agent (`TraversenceCrawler/1.0 (+https://traversence.com; …)`) has
+   been banned, most likely after the old fixed-order runs retried it run after run. Never get round it by changing the
+   agent. Ask the Overpass maintainers (the OSM community forum, Overpass category) why and how to be unbanned, giving our
+   contact, the agent, our rate (a few queries an hour now). Meanwhile Railway's `OVERPASS_URL` is
+   overpass.private.coffee, which times out on our larger box queries (a town's every kind in one query, `[timeout:110]`):
+   split queries per kind, or smaller boxes. openstreetmap.fr is for white-listed users only (dropped in 2.1). Since 2.1
+   a slow lookup is handed back inside its share, so nothing else starves.
+2. **Google Places is on Railway** (`GOOGLE_PLACES_KEY`, `GOOGLE_PLACES_MONTHLY` 1000; my earlier note was wrong). Every
+   run's Google check says "nothing to do": the site paces it (`api/crawl/usage.php`: 90% of the month, at most the
+   month's share of a day, about 30), and the worker logs nothing when it's allowed 0. Web search shows the same ("this
+   run may make 0", 213 of 1000 used). To do: the worker logs the site's reason (`stop`, `pace`, `daily`, `day_used`);
+   check Thresholds & gates `places_monthly` isn't 0.
+3. **Page reads shouldn't create listings** (Jason: "I thought reading should be indexing page content?"). Today they
+   do: decisions/0157 §3 (delivery 2) stages up to 40 places a read through the intake (`SourceIndex::stageNew`), and
+   W1's gate (Jason, 2026-11-13: a government page alone can establish a listing) publishes them: that's how "Contact
+   Us:", "An agency within the U.S. Department of Labor" and "CDPF Informational Webinar Slideshow" became listings.
+   Proposed: a page read only indexes (the place store, search's "Named on pages we read"); a listing comes only when the
+   business's own site, a registry or a person confirms it. Needs his OK (it changes 0157 §3 and W1's gate; note both
+   decisions). Phase 4: listings made from page reads alone go back to the store, quarantined with the reason.
 
 ## 8. For the next session (W6 on)
 
