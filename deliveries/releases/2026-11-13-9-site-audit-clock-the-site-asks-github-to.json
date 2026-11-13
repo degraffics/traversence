@@ -6,52 +6,62 @@
     "zip": "audit-clock_20261113.zip",
     "switch": "audit_clock",
     "advance": "schedule",
-    "state": "staged",
-    "step": 0,
+    "state": "live",
+    "step": 1,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
     "plan_at": "2026-11-13 15:13:24",
     "staged_at": "2026-11-13 15:13:26",
-    "vetted_at": null,
-    "live_at": null,
+    "vetted_at": "2026-11-13 15:20:10",
+    "live_at": "2026-11-13 15:20:10",
     "files": {
         "app/scripts/audit_clock_tick.php": {
             "sha": "907c53e23606d7f163213d43f347da195721962126cff3d722ef869c18825c81",
             "size": 799,
-            "live_was": null
+            "live_was": null,
+            "existed": false
         },
         "app/lib/Scheduler.php": {
             "sha": "079ab6ced3598a2dc3de6e4c69fcd06f148a6796fb66ae04b2fbee10a987c4cd",
             "size": 20458,
-            "live_was": "2dcba9e80d02eaf3cc71a4c0f887dfad155ebe734524e60b7c3105d4aa7dd93b"
+            "live_was": "2dcba9e80d02eaf3cc71a4c0f887dfad155ebe734524e60b7c3105d4aa7dd93b",
+            "existed": true,
+            "old_sha": "2dcba9e80d02eaf3cc71a4c0f887dfad155ebe734524e60b7c3105d4aa7dd93b"
         },
         "app/lib/Switches.php": {
             "sha": "acb520c7d806b4e404a828ec8a8145c1c69bd2e8d1fd71261f2bc3edc170fa16",
             "size": 5796,
-            "live_was": "5f34f1343f1c08b0d7b0f8851585f3ab1bea4d133cd34fefb6e3356ceca4850b"
+            "live_was": "5f34f1343f1c08b0d7b0f8851585f3ab1bea4d133cd34fefb6e3356ceca4850b",
+            "existed": true,
+            "old_sha": "5f34f1343f1c08b0d7b0f8851585f3ab1bea4d133cd34fefb6e3356ceca4850b"
         },
         "app/lib/SiteHealth.php": {
             "sha": "74cd05017f59c3d659e97908008d511567a5997864ab1915fb7ba098b7dfb9fc",
             "size": 16479,
-            "live_was": "18c1f1c1e17dd080ed6931f15a26577a5c2170fc396c011acb7877758c3129c6"
+            "live_was": "18c1f1c1e17dd080ed6931f15a26577a5c2170fc396c011acb7877758c3129c6",
+            "existed": true,
+            "old_sha": "18c1f1c1e17dd080ed6931f15a26577a5c2170fc396c011acb7877758c3129c6"
         },
         "app/lib/Pulse.php": {
             "sha": "c31b70e4c4bfb156c08f5addc3df05555c948562b6e05412ca01991785b6a14c",
             "size": 120869,
-            "live_was": "49ed6e4f35904372f6de8fd218db3d3c5f61e156b460456c484ecfc8a40c9fa3"
+            "live_was": "49ed6e4f35904372f6de8fd218db3d3c5f61e156b460456c484ecfc8a40c9fa3",
+            "existed": true,
+            "old_sha": "49ed6e4f35904372f6de8fd218db3d3c5f61e156b460456c484ecfc8a40c9fa3"
         },
         "app/lib/AuditClock.php": {
             "sha": "b5516bc0c9a307e1a04eb16d0535078d8a978fbe6c6d36e0d0898cbc287adc9e",
             "size": 9020,
-            "live_was": null
+            "live_was": null,
+            "existed": false
         }
     },
     "migrations": [],
     "checks": {
         "ok": true,
-        "where": "staging",
-        "at": "2026-11-13T15:13:27+00:00",
+        "where": "live",
+        "at": "2026-11-13T15:20:10+00:00",
         "items": [
             [
                 "PHP files parse",
@@ -61,7 +71,7 @@
             [
                 "Pages answer",
                 true,
-                "2 pages answered on staging.trvgo.us"
+                "2 pages answered on traversence.com"
             ],
             [
                 "No new fatal errors in the logs",
@@ -91,6 +101,21 @@
             "at": "2026-11-13T15:13:27+00:00",
             "by": 2,
             "msg": "Put on staging (6 files); its checks passed."
+        },
+        {
+            "at": "2026-11-13T15:19:57+00:00",
+            "by": 2,
+            "msg": "Opened on staging by Jason DeGraff (the staging bar)."
+        },
+        {
+            "at": "2026-11-13T15:20:10+00:00",
+            "by": 2,
+            "msg": "Signed off by Publish, after a look on staging."
+        },
+        {
+            "at": "2026-11-13T15:20:10+00:00",
+            "by": 2,
+            "msg": "Published: 6 files; step 1, staff and test accounts."
         }
     ]
 }
