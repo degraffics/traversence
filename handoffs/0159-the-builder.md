@@ -1,62 +1,63 @@
 # Hand-off: build decisions/0159, the builder
 
-## 0. Where the build stands (2026-11-13, written by the session that built steps 1–3's core; start here)
+## 0. Where the build stands (2026-11-13 19:30 UTC, written by the session that built step 2's switch and steps 4a–4b; start here)
 
 **Done and live** (each verified byte for byte against the mirror, recorded in `deliveries/`):
-- **Step 1:** the way into staging (releases #4 Check the way in, #5 the fix: staging's private folder rule had shut its
-  pages) and the **site manager** at the top of staging (#6, #8, #11, #15): Releases ▾ (Check for builds first, and when
-  the site last looked by itself), Upload, Review, Changes, Note, Publish ▾. It refreshes itself every minute.
-- **Step 2, builds through git** (#7, #10, #11): `tools/page-audit/send.py` → `releases/inbox/` on main → the live site
-  takes it (`releases_tick` every 10 min, or Check for builds) → staging, checks → **publishes itself** when they pass
-  (Jason: no second Publish). `"review": true` in release.json → email + Pulse case → UI/UX/Functional on staging → Publish.
-  CLAUDE.md's delivery rules say all this. Other sessions use it (#9, #12–#14, #16, #17 were theirs).
-- **Drift report** (this repo, no site code): `tools/page-audit/drift.py` in `site-audit.yml` after each sync; base
-  recorded at Sync 15:41 UTC; open drift → Pulse Site health, rule D06 (`findings.py`). Reports only.
+- **Steps 1–3** (releases #4–#18): the way into staging, the site manager, builds through git that publish themselves, the
+  drift report, and the editor's core (`Blocks`, `/api/blocks.php`, `js/tv-editor.js`; zones `home.after-doors`, `page.<id>`).
+- **Step 2's last part:** `SYNC_HOME=git` since 2026-11-13 (traverse-3way-sync PR #10). Server or OneDrive edits not
+  from a release are put back (the edit kept in that repo's `conflicts/`); release files pass on ("from a release"). Undo:
+  `SYNC_HOME: ftp` in its `sync.yml`. A OneDrive read timeout can fail one pair's half of a run: just run it again.
+- **Step 4a** = release #23 (`editor4a_20261113`, verified Sync 17:22): widget panel, drag and drop, toolbar, design per
+  breakpoint (container queries), live preview, divider and spacer.
+- **Admin search** = release #24 (`adminfind_20261113`, verified Sync 17:39): Ctrl K finds scheduled tasks and switches.
+- **Step 4b** = release #27 (`editor4b_20261113`, verified Sync 18:59): live components (`Blocks::LIVE`: search box,
+  businesses, map button, guide, GO Code; `js/tv-blocks.js`) and the Page tab (title, search description, share picture).
+  Not yet tried live: the guide card and GO Code (they need the live database) and the map's pins.
 
-**Just landed:** `editor4a_20261113` = **release #23** (step 4a, the full editor part 1), built on Sync 16:59 UTC, published
-itself 17:19 UTC; all 4 files verified live at Sync 17:22 UTC (the 17:20 run's website half hit a OneDrive timeout; re-run).
-Files: `app/lib/Blocks.php`, `website/api/blocks.php` (action `preview`; GET also returns `bps`, `design`),
-`website/js/tv-editor.js` (rewritten on the step 3 copy, every function kept), `app/ui/faq.md`. What it does:
-- **Tree additions** (`Blocks::clean()` still the one gate): `design` on sections and blocks, `{d|t|p: {key: value}}`, only
-  `SEC_DESIGN` / `BLOCK_DESIGN` keys and values; blocks `divider`, `spacer` (size). Breakpoints `BPS`: desktop ≥900px, tablet
-  560–899, phone <560, **of the zone's own width** (`.tvb-zone{container:tvb/inline-size}`, `@container` rules in
-  `designCss()`), so the editor's Tablet/Phone views (zone narrowed to 820/390px) are exact. Tablet inherits desktop, phone
-  tablet (`resolve()`); classes `tvb-<bp>-<key>-<value>` only for non-defaults. Phone always one column.
-- `render($tree, $paths)`: each block wrapped in `div.tvb-b` (design classes); for editors `data-tvb-s` / `data-tvb-b="s.c.b"`
-  / empty columns `data-tvb-c`, blank blocks shown as placeholders, hidden-at-breakpoint shown faded.
-- **Editor:** tabs Add (widget panel: tap adds after the picked block, drag drops on the page or Layout), Layout (outline,
-  ⠿ drag by pointer events, so touch works), Manage / Design (per view) for a block, Section N for a section. Every change
-  → `preview` (server draws, debounced) → zone redrawn. Toolbar over the picked block on computers (top right); on a phone
-  its buttons sit in the panel row (a floating bar covered the block above). ✕ has its own corner; ▾ holds Versions and
-  Throw the draft away; the zone tag moved left. Body makes room for the panel at ≥1340px; phone gets 64vh of bottom room.
-- A live version with nothing in it says so and points to Roll back. Publishing an empty tree asks first.
-- Tested in a local harness (PHP built-in server, the real Blocks and SitePages, a stub API with a JSON file;
-  Playwright at 1400px and iPhone 13): add, drag from the panel to the page, drag in Layout, 2 columns, a phone-only design,
-  Save draft, Publish, no sideways scroll. Not yet tried by Jason live.
+**Prepared, not sent** (built on Sync 18:59 UTC; in `handoffs/0159-prepared/`, both patches checked to apply cleanly to
+that live copy and to rebuild exactly what was tested). Send them **in this order, one release at a time**:
+1. **`barfix.patch`** (Jason, 19:15 UTC: the site manager on staging still said #18 when Releases ▾ listed #27). Cause: the
+   bar stored the first release it showed in localStorage and asked for it forever. Fix: `Releases::barState` falls back to
+   the newest release when none is on staging; `js/stg-bar.js` keeps a pick from Releases ▾ in sessionStorage only. Files:
+   `app/lib/Releases.php`, `website/js/stg-bar.js`, plus `app/ui/faq.md` (run `barfix-faqedit.py` on the live copy).
+   Release text: `barfix-release.json`.
+2. **`editor4c.patch`** = step 4c, Jason said go: **Publish later** (▾ in the editor; `site_block_schedule`, made by
+   `Blocks::ensure`; due schedules publish at the first look at that zone, once, inside the version's transaction, keeping
+   a newer draft) and **zones on every page** (`Blocks::SITE`: `site.top` from `header.php`'s end, `site.bottom` in
+   `tv_footer()`; browsing pages only, never admin/sign-in/payment; outlined for editors on the home page or where they
+   have content). `Blocks::ensure` now does one cheap SELECT before any CREATE (every page reads these zones). Files:
+   `app/lib/Blocks.php`, `app/ui/header.php`, `app/ui/footer.php`, `website/api/blocks.php`, `website/js/tv-editor.js`,
+   plus `app/ui/faq.md` (`editor4c-faqedit.py`). Release text: `editor4c-release.json`. Tested: MariaDB
+   (`editor4c-dbtest.php`, all ok: past time refused, one version when two look at once, newer draft kept, call off, where
+   the zones show) and the browser (Publish later in the panel, the status line in the device's zone).
+   **`header.php` and `footer.php` are shared by every page and often changed:** before zipping, fetch the mirror; if
+   either changed since 18:59, re-apply only this patch's hunks to the live copy.
+- How to send each: copy the live files from the mirror, `patch -p1 < …`, run its faqedit script on the live `faq.md`,
+  add its `release.json`, zip (`app/…`, `website/…`), `tools/page-audit/send.py <zip> --mirror <checkout> --note "… built on
+  Sync: <time>"`, PR and merge, wait for "Release #N: Live", run the sync, check byte for byte, `deliveries.py verify`.
+- At 19:20 UTC `crawler-w2b_20261113.zip` (another session's) was pending in the inbox with `app/ui/faq.md`: the zip check
+  blocks ours until it's live (then re-run the faqedit on the new live copy; no need to ask Jason).
+- Delete `handoffs/0159-prepared/` once both are live (git history keeps them).
 
 **Next, in order:**
-1. ~~The admin search release~~ **live** as release #24 (`adminfind_20261113`), verified at Sync 17:39 UTC: Ctrl K finds
-   scheduled tasks and switches by name, key and description, opening `#job-<key>` / `#sw-<key>` on their pages.
-2. ~~Step 4b~~ **live** as release #27 (`editor4b_20261113`, built on Sync 18:39 UTC, published 18:57, all 5 files verified
-   at Sync 18:59 UTC). `Blocks::LIVE` (the registry: where it may go, settings `[label, text|select, max|choices, hint]`;
-   `clean()` keeps only those). Kinds: `search` (form to /directory/?q=, TvSearch.open where the page has it), `listings`
-   (cards from /api/search_listings.php by city/state/q, card standard, `.tvb-acts` under the name on phones), `map`
-   (TvMap, map-view.js loaded on first use), `guide` (`Guides::fromQuery` by town slug; only with published sections),
-   `gocode` (`ShortCodes::forPage` of the page, `Blocks::$here`; QR from /api/qr.php?page=). Database parts get it from
-   `Blocks::useDb()` (zone() and the API). Browser half: new `website/js/tv-blocks.js` (`TvBlocks.scan`), loaded once by
-   `liveJs()`; the editor loads and runs it after each preview. Editor: Add → Parts of the site; Page tab on `page.<id>`
-   zones (`Blocks::pageOf`, API action `page` → `SitePages::save`, Pages: publish, saved at once). Not tried live yet:
-   the guide and GO Code (they need the live database) and the map's pins (no map library offline here).
-3. **Step 4c:** the engage bar (needs a `page` kind in `Engage::KINDS` + `COUNT_KEY`) and a form (a target per zone;
-   `SitePages::submit` is tied to a page id) as live parts; global components (header, footer, shared sections: edited
-   once, versioned like a zone); Publish on a schedule.
-4. Step 5 Storefront Studio (SitePages to blocks: each Markdown page as one text block; themes; the portal; team
+1. Send the bar fix, then 4c (above).
+2. **Step 4d** (Jason said go after 4c): the engage bar and a form as live parts, **only in our pages' zones**
+   (`page.<id>`; LIVE's first field is "where it may go": use `'page.'`, and filter `types` by zone in the API's GET).
+   - Engage bar: add a `page` kind: `Engage::KINDS`, `COUNT_KEY` (`'page' => 'page:'`, matching view.php's
+     `tv_count_item('page:ID')`), `target()` (`ctype_digit`), `exists()` (`site_pages` live, owner 0), `LikeGuard.php`'s names
+     (about line 260), `Reports.php`'s kind → link (about line 249; view.php takes `?s=slug`, so look up the slug). Draw it
+     with `tv_engage_bar($pdo, 'page', (string) $id, ['title' => …])` (`app/ui/engage-ui.php`; needs bootstrap and
+     page-shell, which view.php has); comments with `tv_engage_comments`.
+   - Form: a block with `kind` contact|quote posting to `/pages/form.php`; let `SitePages::submit` accept a page whose
+     live block tree has a form block of that kind, not only `site_pages.form`. Entries keep going to Marketplace &
+     Storefronts → Form entries.
+3. Step 5 Storefront Studio (SitePages to blocks: each Markdown page as one text block; themes; the portal; team
    Publish), step 6 AI writing.
-Done earlier today: step 2's last part, `SYNC_HOME=git` (traverse-3way-sync PR #10; first real run 17:20 passed release
-files on as "from a release"). Undo: `SYNC_HOME: ftp` in its `sync.yml`.
 
-**Open, for Jason:** which coded pages get zones next (he chose the home page first); scheduling
-for shops (0158 §6).
+**Open, for Jason:** which coded pages get zones next (he chose the home page first); scheduling for shops (0158 §6); whether
+`page-shell.php`'s always-on `noindex` should lift for our pages now that they have search settings (it hides every page
+drawn by `tv_page_start` from search engines; not touched).
 
 **Known issues:**
 - The 10-minute pickup is irregular (pickups seen at :28, :38, :57; some runs seem skipped). The site manager shows
