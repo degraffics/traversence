@@ -78,8 +78,16 @@ FAQ question) keep guarding this.
 - **What it is:** `SitePages` upgraded from Markdown to blocks, with the storefront's own themes (Canyon, Sage, Paper,
   Night, 0139) as starting styles. Edited in the portal's Storefront & pages on traversence.com; shown at
   `trvgo.us/<shop>` and on the business's own domain.
-- **Its blocks:** text, headings, image and gallery, columns, contact and quote forms (leads, 0112), map and hours,
-  catalog items and collections, locations, buttons and links. No HTML block and no code.
+- **Commerce first** (§7): a storefront is built to sell, not as a brochure with a shop added.
+- **Its blocks:**
+  - **Selling:** a product grid with filters (kind, price, in stock); collections; a featured item; related items and
+    add-ons on an item; Buy now and Add to cart; a menu with collections as its sections.
+  - **The business:** hours, map and directions; its locations; a booking or quote form (leads, 0112); reviews.
+  - **The page:** text, headings, image and gallery, columns, buttons and links.
+  - No HTML block and no code.
+- **The commerce under it stays the platform's:** the catalog and its variants, price lists (0112), stock, taxes and
+  shipping, the cart and checkout on traversence.com through the business's own gateway (0139, 0135), and Square sync
+  for shops that also sell in person (0135 step 4b). Blocks show these; they never rebuild them.
 - **Who publishes:** the team role's Publish permission, no approval step (0158 §3).
 - **Its pages stay script-free** (0139): blocks render to plain HTML on the server. The editor and its bar run only on
   traversence.com and in the team's preview.
@@ -108,7 +116,11 @@ back the previous ones. No zips.
 ### 6. The shared core
 
 - **Blocks:** a page's content is a tree: sections, then columns, then blocks. Each block type has its settings and,
-  where needed, settings per breakpoint. It is rendered on the server to HTML that follows the visual standard (0058:
+  where needed, settings per breakpoint.
+- **Structured, not freeform** (§7): blocks sit in sections and columns laid out with grid and flex, never at fixed
+  positions on a canvas. So every page reflows on a phone, as the visual standard requires (no sideways scroll), and a
+  layout made on a desktop can't break on a phone. The design panel sets alignment, spacing, size, columns and order,
+  per breakpoint. It is rendered on the server to HTML that follows the visual standard (0058:
   phone edges, card anatomy, `tv_icon()`, the brand's colours).
 - **Versions:** each publish keeps the version before, numbered, with who and when (in the zone where it happened, as
   every time on the site). Drafts are kept per page.
@@ -118,6 +130,23 @@ back the previous ones. No zips.
   role), and `Team` permissions for businesses.
 - **AI writing:** "write this for me" on a text block, inside the AI monthly cap for our pages, and by plan for
   businesses (no income, no expense).
+
+## 7. What we take from the builders people know
+
+Jason, 2026-11-13, a comparison of Snapps, Wix, Squarespace, Shopify, Webflow, Framer, BigCommerce, Square Online and
+WooCommerce. What 0159 takes from it:
+
+| Builder | Known for | What we take |
+|---|---|---|
+| Shopify | sections built around conversion: filtering, upsells, menus, a fast mobile checkout; large catalogs | the storefront's section and block model, and its selling blocks (§4); a short, mobile-first path to buy (the cart and checkout stay on traversence.com) |
+| Webflow, Framer | true grid and flex control, clean code, bespoke design | the platform builder's layout control and clean server-rendered HTML (§6) |
+| Wix, Snapps | drag-anywhere ease | the ease (a widget panel, drag in, a toolbar on the block), not the free positioning, which breaks on phones |
+| BigCommerce | variants, B2B price tiers and faceted search without add-ons | already the platform's: variants, price lists (0112), search; storefront blocks show them |
+| Square Online | in-store and online in step, pickup and delivery | Square sync (0135 4b), pickup and local delivery on items |
+| WooCommerce | owning the code and data | already ours: our own code and database, with no third-party plugins to keep up |
+
+Where Traversence goes further than any of them: the storefront sits inside a regional directory, the Marketplace, guides
+and GO Codes, so it's found without paying for ads (commercial.md).
 
 ## Build order
 
