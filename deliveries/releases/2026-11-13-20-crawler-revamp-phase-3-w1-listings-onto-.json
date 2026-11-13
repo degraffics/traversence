@@ -1,0 +1,89 @@
+{
+    "id": 20,
+    "title": "Crawler revamp, Phase 3, W1: listings onto the service",
+    "why": "decisions/0160 W1 with its review fixes. The gate as Jason decided: a government page we read establishes a listing by itself; one other source does when the find scores past a line (Thresholds & gates, 'One source establishes a listing at', 50), shown as unconfirmed and checked continuously. OpenStreetMap is a lead, never a source (C11): it no longer counts toward the sources. A find the publish step would refuse (no street, town, state or ZIP) is no longer 'ready' and stuck in no list: it takes the second look, then reaches Review with what's missing (E23). Town jobs (E21): a lease that ran out isn't a try; failed jobs come back after 6 h, 1 day, 3 days; a partial job goes round at most 4 times; a town searched again after 30 days is looked at again, and for the kind searched when it isn't one of the town kinds; the coverage queue's own lease resets and retries run even when towns fill the hand-out; a coverage job cut short is no longer marked done. The place store (E23, C12): each read offers places never offered first (not the same first 40); a place with no kind is offered when its page gives a phone and a street; garbage, sanitation, refuse and the like are kinds' words; each source's use rule decides what shows and what becomes a find. Send the crawler uses its words (E22): a kind gets its own job in the town; a name is looked up by the crawler (a find_name request: one search from the month's paced allowance, then its own site). Search (E26): a business's name no longer teaches the site what kind its words mean ('blue hills' isn't propane), a name is read first in the directory, and the ?debug switch is gone. The worker's half (OpenStreetMap's phone, hours and street never copied without the business's own site; the find_name handler) deploys after this is live.",
+    "proposals": "handoffs/crawler-revamp.md Phase 3 W1, decisions/0160 W1, research/crawler-review-2026-11-13.md C11, C12, E21, E22, E23, E26",
+    "zip": "crawler-w1_20261113.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/ui/faq.md": {
+            "sha": "f5074043d1c4a805a17355b19debbec5e10bb1e1ae2f77ea4bd1604137cebdc3",
+            "size": 272406,
+            "live_was": "972593e5658948f7638dc6f577525e0a331bf62fc30e9d0dd0ef60f387e9915a"
+        },
+        "app/lib/CategoryClassifier.php": {
+            "sha": "af64dc694cb9853410057c46d8a28a9354aedb25267fa3d1604b6e1e56cdbe68",
+            "size": 29161,
+            "live_was": "221ce73c362997ce7ee4754a70c19cc2639f09b5475785145c4f7f1184da2616"
+        },
+        "app/lib/Thresholds.php": {
+            "sha": "0918a947c274297578090f19c2cd5f5b6800990e66a8ee5eea12608b1c436ea1",
+            "size": 8632,
+            "live_was": "3aaa6d8fafcd5c6d42e80913624a0f1cef2b656e3a5623d02f9072ea643730d8"
+        },
+        "app/lib/crawler/CrawlService.php": {
+            "sha": "1b828337aa486759c1bf93d10a5f32a4df7ba88c736d5fbbf83f0b02ce94b159",
+            "size": 28626,
+            "live_was": "5862e6e3add8c212b0ae237bd70334bac1ddb7c9f0cb944d2819b3b4ce65cff9"
+        },
+        "app/lib/crawler/TownCrawl.php": {
+            "sha": "70830da38b1ca053ad0f1cfd8de2ba7787c042b864928f8b0a7ed7bfa161b3a6",
+            "size": 18864,
+            "live_was": "abeb62ce61ceded44602cdb3376e2865f300d956519799511e2c5605c4d32eff"
+        },
+        "app/lib/crawler/SourceIndex.php": {
+            "sha": "4073546813d7bf4f3a71b58e6453431e4040ba03397ccb4331a3e33f85e9b02d",
+            "size": 62627,
+            "live_was": "411fb384fbed76699f0cd87f67176430ded9675066f071a966dc65ecbda65bde"
+        },
+        "app/lib/crawler/AutoImport.php": {
+            "sha": "873dc34faba053e6c9f96f410d3f4595bd8941a68a9ab802615cc2e4e050c7cc",
+            "size": 52577,
+            "live_was": "d95cdd6626c5dff1e56b7261b025b20cf5fae7bb0ed4175e62b0202c3eebfca6"
+        },
+        "app/lib/crawler/CrawlQueue.php": {
+            "sha": "f0d354cddff31dd73da578b8852b516f03a1b471adf21a56309784369ab10a3b",
+            "size": 19239,
+            "live_was": "af07d430cd67423d2fc313ba9e44cfb445e86d50b6ca2d08adaeb4908d6de55d"
+        },
+        "app/lib/UniversalSearch.php": {
+            "sha": "4f3c1ac852d7a664a522b9d74e167da41ca459cc3a1a50b6d74dd5cf30689de6",
+            "size": 282267,
+            "live_was": "a42c2065219fccc92219578af0537659d3942e7e12e140a6561dd74b2d930fd5"
+        },
+        "app/lib/LocalWords.php": {
+            "sha": "74100d39c1ac114136b023870a98570c290db9b6c849a92bc112edb0ce89f03e",
+            "size": 13389,
+            "live_was": "57f6900022cfdbf784ff6603113086c50948704da695967793f8243747ca9302"
+        },
+        "website/api/search_listings.php": {
+            "sha": "04940ab8aa4398bb38284a3af796effa4867e6d91c1962062e875de215eb3f50",
+            "size": 35250,
+            "live_was": "2b5f33473d03afba61e7bffa4da6cc3fb4a41245941d328d8972c029995adfe9"
+        },
+        "website/api/send-crawler.php": {
+            "sha": "a7017d728934a299dbd1e20f4f4b59a9e2b5f90ce64e0f8973dcaaf79d723bd7",
+            "size": 4117,
+            "live_was": "110dde7112f7f10af3e6d231e73c4babbb4a3a404dafdc56c221c996f4febeca"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-13T16:38:16+00:00",
+            "by": 0,
+            "msg": "Uploaded crawler-w1_20261113.zip: 12 files."
+        }
+    ]
+}
