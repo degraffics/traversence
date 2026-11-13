@@ -1,0 +1,39 @@
+{
+    "id": 17,
+    "title": "Guide weather and roads runs again",
+    "why": "Proposal P7 (site audit review, 2026-11-13): the job Guide weather and roads stopped on 94 runs a day with 'Unsupported operand types: string * float' (Roads511.php:168): AZ 511 sometimes sends the reduced speed limit as text. It's read only when it's a number now, and a road feed that can't be read no longer stops the weather from renewing.",
+    "proposals": "P7",
+    "zip": "roads511fix_20261113.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/scripts/guide_live_tick.php": {
+            "sha": "f1b3e1b722d68520b0fb032dcd553ee54b5a80eecfdd41d054e3a4443e5ada36",
+            "size": 1603,
+            "live_was": "f8a15d513d53ee69b67e02323777743f060c277b496c9fab9d98d2ebe85433f6"
+        },
+        "app/lib/Roads511.php": {
+            "sha": "922048c8ec80be7150ce58ecd45060f74f361df315264befab6ddde95de7a126",
+            "size": 16743,
+            "live_was": "cdb185bf4659fbd03580d6c30778c86f0f350e6db5de7323521945f0e4f3309e"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-13T15:57:15+00:00",
+            "by": 0,
+            "msg": "Uploaded roads511fix_20261113.zip: 2 files."
+        }
+    ]
+}
