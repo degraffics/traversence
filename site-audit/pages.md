@@ -261,6 +261,17 @@ So the designs aren't lost. None of these files exist on the site. Those Jason a
 | `/dmca-notice.php`, `/api/dmca/counter-notice.php`, `/admin/dmca.php`, `/admin/dmca-settings.php`, `/admin/api/dmca/agent-info.php` | DMCA notices, counter-notices, review, agent registration | 0019 (Proposed) | Coming: a "later wave" in the manifests; takedowns today go through `/takedown.php` (0133) |
 | `/admin/listings.php` | Pending-listing review | 0022 | Covered today by `/admin/crawler-review.php` and `/admin/listing-intake.php` |
 
+## Editor zones
+
+*Decisions/0161 §9: pages whose content the page builder writes to the database (`Blocks`, decisions/0159). Check-out
+(`tools/page-audit/checkout.py`) maps a page to its files from the routes above (`claim --page /directory/`), and a claim
+on a file here says so, so a code change is checked against what's been built in its zones. Add a row when a zone is added.*
+
+| Zone | Files |
+|---|---|
+| `home.after-doors` | `website/index.php` |
+| `page.<id>` | `website/pages/view.php` |
+
 ## Notes
 
 **Reserved paths win over hub slugs** (confirmed 2026-09-23): a real top-level folder (`directory`, `discovery`,
