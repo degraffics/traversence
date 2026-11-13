@@ -1,0 +1,59 @@
+{
+    "id": 33,
+    "title": "The full editor, part 3: Publish later, and places on every page",
+    "why": "decisions/0159 step 4c. Publish later (▾ in the editor): a day and time (in the device's time zone, labeled); at that time what was in the panel becomes the next version by itself, at the first look at that zone after it (any visitor or the editor), once however many look at that moment (the schedule row is taken inside the version's transaction), leaving a newer draft alone; Call it off. Kept in site_block_schedule (made by Blocks::ensure). Global components: two zones on every browsing page, site.top under the header (header.php) and site.bottom above the footer (footer.php, through Blocks::site()), edited once and versioned like any zone; not on the admin, sign-in or payment pages; outlined for editors on the home page, or where they have something, so other pages don't fill with empty outlines; any trouble draws nothing. Blocks::ensure now makes one cheap check before creating tables, since every page reads these zones. The coded header and footer (menus, links) stay code. Tested on MariaDB (schedule, two looks at once, draft kept, call off, where the zones show) and in the browser (Publish later). The engage bar and a form as live parts are 4d. FAQ updated.",
+    "proposals": "decisions/0159 step 4",
+    "zip": "editor4c_20261113.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/ui/footer.php": {
+            "sha": "9251c66a85e1d4d0023ebb2db553f89f694bcbb32b7da9e2653970e837a0aecc",
+            "size": 7013,
+            "live_was": "0b2c11bb3199d03091a163c88137a11512598cfb54c49d79baff1d53b3d2df20"
+        },
+        "app/ui/faq.md": {
+            "sha": "181db5c56edb03cb28e8942cdb65ebb69eb503033301bd1cc737b3d39b01064a",
+            "size": 277704,
+            "live_was": "6878bf590e780a1354bc2b0f90c789474293b6408562659210a75c6e412add0b"
+        },
+        "app/ui/header.php": {
+            "sha": "f0390eb4ac87a3da673cd9e2ca2841445bc32e3c6b69a4b8617f6034d2cd2f2a",
+            "size": 57931,
+            "live_was": "3c7edfce03f7c461b117dc8449f884455594cfb5c44af59f436b155f9b1390e8"
+        },
+        "app/lib/Blocks.php": {
+            "sha": "867227f3102c1b1aef5b4b76d17c5ff4f05e6f45c7978038ee1231a450bda463",
+            "size": 47911,
+            "live_was": "b7650dc3194a6461fc5af7ac3e20f7b927a353d3347a089654c7c25d9884f480"
+        },
+        "website/api/blocks.php": {
+            "sha": "a21dccaa7b54b3c55ca84746da6c5f4f5b4f04c3695f442ea4b3f971eae336f6",
+            "size": 4244,
+            "live_was": "436ca49c835ef1e03b0dc2b7fbf5a5063217a1b21c316bd0ea1b681387125588"
+        },
+        "website/js/tv-editor.js": {
+            "sha": "442589827cfeded1b20e10029a14204f7cf468b28f161ca31fac84b67def3912",
+            "size": 51090,
+            "live_was": "d486efba7b6896e4fe0690e8bd2b2b8a2258eca9c2366c70389f949104bca907"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-13T20:38:02+00:00",
+            "by": 0,
+            "msg": "Uploaded editor4c_20261113.zip: 6 files."
+        }
+    ]
+}
