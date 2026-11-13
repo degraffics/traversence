@@ -1,0 +1,75 @@
+{
+    "id": 3,
+    "title": "Staging: the pass is made of letters and digits, so Open staging gets in",
+    "why": "Open staging kept meeting the password prompt: staging's password maker adds a mark (-) for cPanel, and every check of the pass takes letters and digits only, so the pass was never set. The pass and the bar's key are now made of letters and digits; the old ones are replaced the next time staging is opened.",
+    "proposals": "Phase 5",
+    "zip": "stagingkey_20261113.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "live",
+    "step": 3,
+    "paused": false,
+    "urgent": "Urgent Push",
+    "schedule_at": null,
+    "plan_at": "2026-11-13 13:01:41",
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": "2026-11-13 13:02:02",
+    "files": {
+        "app/ui/faq.md": {
+            "sha": "190d1218faa55392d81796e8d17df236cfb7258aa6970f2f82d1470ceac1b916",
+            "size": 264616,
+            "live_was": "2d4f89edd93f0fbcf2fce4caa4727b03f725e9bca30f665c7830669f8f844f95",
+            "existed": true,
+            "old_sha": "2d4f89edd93f0fbcf2fce4caa4727b03f725e9bca30f665c7830669f8f844f95"
+        },
+        "app/lib/StagingSite.php": {
+            "sha": "04dacfffb07ca85479ce0d17e5865383b2a1f8713c86ef19ba4d43f58913ebc7",
+            "size": 81308,
+            "live_was": "04e8daf212909d24ca30636a5b07660747f0871c769008cd90751653d3bee211",
+            "existed": true,
+            "old_sha": "04e8daf212909d24ca30636a5b07660747f0871c769008cd90751653d3bee211"
+        }
+    },
+    "migrations": [],
+    "checks": {
+        "ok": true,
+        "where": "live",
+        "at": "2026-11-13T13:02:02+00:00",
+        "items": [
+            [
+                "PHP files parse",
+                true,
+                "1 checked"
+            ],
+            [
+                "Pages answer",
+                true,
+                "2 pages answered on traversence.com"
+            ],
+            [
+                "No new fatal errors in the logs",
+                true,
+                "3 logs read"
+            ]
+        ],
+        "first_fail": ""
+    },
+    "log": [
+        {
+            "at": "2026-11-13T13:01:03+00:00",
+            "by": 2,
+            "msg": "Uploaded stagingkey_20261113.zip: 2 files."
+        },
+        {
+            "at": "2026-11-13T13:01:41+00:00",
+            "by": 2,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
+        },
+        {
+            "at": "2026-11-13T13:02:02+00:00",
+            "by": 2,
+            "msg": "Published at once (urgent: Urgent Push): 2 files; everyone at once (no switch)."
+        }
+    ]
+}
