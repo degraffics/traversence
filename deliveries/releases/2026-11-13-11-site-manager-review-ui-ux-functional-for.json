@@ -1,0 +1,49 @@
+{
+    "id": 11,
+    "title": "Site manager: Review (UI, UX, Functional) for builds sent for review, and it keeps itself current",
+    "why": "Jason, 2026-11-13: a build he wants to see is a push for review. A release.json with \"review\": true now waits on staging, emails the Founder and opens a Pulse case with the way onto staging; the site manager's Review takes UI, UX and Functional, each Approve or Needs changes with a note kept with the release; Publish opens when all three are approved. The site manager keeps itself current (every minute, and on coming back to the tab), Check for builds is first in Releases ▾ and switches to the new build, and it shows when the site last looked for builds by itself (the 10-minute job).",
+    "proposals": "decisions/0159 step 2",
+    "zip": "review_20261113.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/lib/Releases.php": {
+            "sha": "5f4f59d4af654bdfbedc8bd9fe7b0124d462425db5f983e55b7f4de1870f1c49",
+            "size": 85870,
+            "live_was": "bc18f7a0e3c8e5b7d79b6829a34c1115ba2d9776a2f0f9cf0b5049f6076db4bd"
+        },
+        "app/ui/faq.md": {
+            "sha": "a3946248cb422892172c5f3afcd40003857a792bfa1f855961e4e95fc74e2b08",
+            "size": 266602,
+            "live_was": "7a5ac489e0646b0b74594e50bf9248e5d50924b1f32a41266ff801aecf914a42"
+        },
+        "website/js/stg-bar.js": {
+            "sha": "6a0b4953f6c0b23ab21f2a6729afa0cf318f00f4d0698a89786e5c4cfe45109a",
+            "size": 24591,
+            "live_was": "c1b11a88368cac08a867d9d7da6c242b758e47491accd0a686a64c7a66c75221"
+        },
+        "website/api/release-bar.php": {
+            "sha": "d215c1fe118c214a353535c3d7e17f7e2742581391e384d72a505baa6893b195",
+            "size": 3335,
+            "live_was": "ea714ecf6487cea0f692376f4eda80ade12120a94a8899b65b7ee1bec4da002a"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-13T15:24:49+00:00",
+            "by": 2,
+            "msg": "Uploaded review_20261113.zip: 4 files."
+        }
+    ]
+}
