@@ -1,13 +1,13 @@
 {
  "zip": "stagingfiles_20261113.zip",
  "built_on": "ef68278 Sync: 2026-11-13 05:02 UTC",
- "recorded": "2026-11-13 05:18 UTC",
- "note": "The first release through the Releases page: Open staging copies the bar's own files (stg-enter.php, stg-bar, staging-updates, Staging, Releases, TestAccounts) to staging when they differ from live. Built on Sync: 2026-11-13 05:02 UTC.",
+ "recorded": "2026-11-13 06:45 UTC",
+ "note": "The first release through the Releases page: Open staging copies the bar's own files (stg-enter.php, stg-bar, staging-updates, Staging, Releases, TestAccounts) to staging when they differ from live, and re-tests the pass rule until it's taken or refused. Built on Sync: 2026-11-13 05:02 UTC.",
  "status": "pending",
  "live_in": "",
  "files": {
   "app/lib/StagingSite.php": {
-   "sha256": "19c5ea8faf83be93b304603141f500417e23145d9d63ca6763ac0072be4d0f87",
+   "sha256": "72813570dabd4a9b4c62fe4f7f476e42e6f7bc36e78b48f2c2f576505dfc4a2f",
    "live": false
   },
   "app/ui/faq.md": {
