@@ -3,12 +3,12 @@
  "built_on": "70f8575 Sync: 2026-11-13 03:58 UTC",
  "recorded": "2026-11-13 04:07 UTC",
  "note": "stagingbg_20261113 plus a progress bar on System Configuration \u2192 Staging and an email to whoever started the refresh when it's done or stops. Replaces stagingbg_20261113 (never uploaded). Built on Sync: 2026-11-13 03:58 UTC.",
- "status": "partial",
- "live_in": "",
+ "status": "live",
+ "live_in": "95ec00d Sync: 2026-11-13 04:13 UTC",
  "files": {
   "app/admin/sections.php": {
    "sha256": "326bf847214c64e79ce97c639330720f0a4d74009603e579a9b215fbf3274008",
-   "live": false
+   "live": true
   },
   "app/lib/Scheduler.php": {
    "sha256": "e30d1d9d393e80166eaf3e4995d12b03efba51adafa7081781a9cf5cb48cd1a1",
@@ -16,7 +16,7 @@
   },
   "app/lib/StagingSite.php": {
    "sha256": "809a6d809cdb578afc7bb4c8a9723f5b766763602f03c47204465e077ccd8555",
-   "live": false
+   "live": true
   },
   "app/scripts/staging_carry_tick.php": {
    "sha256": "54ef6d7f0933d291829280a1eb512154294dfe1f7696805b8a86f0940dbb59b7",
@@ -24,7 +24,7 @@
   },
   "app/ui/faq.md": {
    "sha256": "42667e5384a2002e69dfd9262de055758396aa7f8b9eede8342f31c500d96496",
-   "live": false
+   "live": true
   },
   "website/admin/api.php": {
    "sha256": "2ad9dfd0bfefffbaad485b5d0507440b4829be947d3acd133c74f94e76af0a21",
@@ -32,7 +32,7 @@
   },
   "website/js/admin-staging.js": {
    "sha256": "d53e556ada81d69c524ce6633bde14a1ce5b68cfb194219786dbf7bf19542723",
-   "live": false
+   "live": true
   }
  }
 }
