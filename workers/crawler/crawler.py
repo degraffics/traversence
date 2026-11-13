@@ -382,7 +382,7 @@ def fetch_page(url):
     return fetch_page_meta(url)["body"]
 
 
-def fetch_page_meta(url, etag="", modified="", pdf=False):
+def fetch_page_meta(url, etag="", modified="", pdf=False, xml=False):
     """fetch_page with what the page log keeps (decisions/0157 §1): {body, status, type, bytes, etag, modified}. With the
     entity tag or last-changed date the server gave last time, it asks first whether the page changed: an unchanged page
     answers 304 with no body, and costs nothing to download. status 0: not fetched (a budget, robots.txt, an error)."""
@@ -428,12 +428,12 @@ def fetch_page_meta(url, etag="", modified="", pdf=False):
                 if len(data) <= PDF_BYTES:
                     out["body"], out["scan"] = pdf_page(data, url)
                 return out
-            if "html" not in ctype:
+            if "html" not in ctype and not (xml and "xml" in ctype.lower()):
                 return out
-            body = r.read(400_000)
+            body = r.read(2_000_000 if xml else 400_000)
             out.update(bytes=len(body), body=body.decode("utf-8", "replace"))
             # a page that shows nothing without a browser (its text drawn by scripts): "empty"
-            if len(re.sub(r"\s+", " ", " ".join(page_lines(out["body"])))) < 150 and len(re.findall(r"(?i)<script", out["body"])) >= 3:
+            if not xml and len(re.sub(r"\s+", " ", " ".join(page_lines(out["body"])))) < 150 and len(re.findall(r"(?i)<script", out["body"])) >= 3:
                 out["why"] = "empty"
             return out
     except urllib.error.HTTPError as e:
@@ -1111,6 +1111,67 @@ def tv_safe(v):
     return v
 
 
+def sitemap_urls(start, host, limit=500):
+    """The pages a site lists in its sitemap (decisions/0157 §8): from robots.txt's Sitemap lines, else /sitemap.xml; a
+    sitemap index is followed to three of its sitemaps. Only the site's own pages, at most `limit`."""
+    p = urllib.parse.urlsplit(start)
+    base = f"{p.scheme}://{p.netloc}"
+    allowed(base + "/")                                  # reads robots.txt into the cache
+    rp = robots_cache.get(base)
+    maps = []
+    try:
+        maps = list(rp.site_maps() or []) if rp else []
+    except Exception:
+        maps = []
+    maps = maps[:3] or [base + "/sitemap.xml"]
+    out, seen_maps = [], set()
+    while maps and len(out) < limit and len(seen_maps) < 4 and not out_of_time():
+        m = maps.pop(0)
+        if m in seen_maps or m.endswith(".gz"):
+            continue
+        seen_maps.add(m)
+        r = fetch_page_meta(m, xml=True)
+        body = r.get("body") or ""
+        locs = re.findall(r"<loc>\s*([^<\s]+)\s*</loc>", body)
+        if "<sitemapindex" in body:
+            maps += [html.unescape(x) for x in locs[:3]]
+            continue
+        for u in locs:
+            u = html.unescape(u)
+            if host_of(u) == host and not re.search(r"\.(jpe?g|png|gif|zip|docx?|mp4|mp3)$", u, re.I):
+                out.append(u)
+                if len(out) >= limit:
+                    break
+    return out
+
+
+def own_site_links(page, url, host, here):
+    """Links on a page to other sites (decisions/0157 §8). One whose words name a place on the page is that place's own
+    website (filled in on it); the rest go to the register as sites we may read. [{url, text, from}]"""
+    out, hosts = [], set()
+    for href, label in re.findall(r'(?is)<a\b[^>]*href=["\']([^"\'#]+)["\'][^>]*>(.*?)</a>', page):
+        full = urllib.parse.urljoin(url, href.strip())
+        h = host_of(full)
+        if not full.startswith("http") or not h or h == host or base_domain(h) == base_domain(host) or not public_host(full):
+            continue
+        text = re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", label))).strip()[:120]
+        mine = None
+        for f in here:
+            a, b = words(f["name"]), words(text)
+            if a and b and len(a & b) / len(a) >= 0.6 and len(a & b) / len(b) >= 0.6:
+                mine = f; break
+        if mine is not None:
+            mine.setdefault("website", "")
+            if not mine["website"]:
+                mine["website"] = full[:500]
+            continue
+        if h in hosts:
+            continue
+        hosts.add(h)
+        out.append({"url": full[:500], "text": text, "from": url})
+    return out
+
+
 def read_source(deadline):
     """One of our "Read regularly" sources, read politely (decisions/0045, 0157 §1-§2). The site sends what the page log
     knows of its pages (entity tag, last-changed date, links); a page that hasn't changed answers 304 and keeps its facts,
@@ -1133,13 +1194,23 @@ def read_source(deadline):
     known = src.get("pages") or {}                       # url -> {etag, modified, links}
     extract_left = int(d.get("extract") or 0)            # the second tier's pages this run (decisions/0157 §1), from the site's allowance
     extracted = 0
-    queue, seen, facts, pages, log_rows, unchanged, pdfs = [start], set(), [], 0, [], [], 0
+    queue, seen, facts, pages, log_rows, unchanged, pdfs, outlinks = [start], set(), [], 0, [], [], 0, []
+    # its sitemap too, and pages not read yet before ones read already (decisions/0157 §8): each read covers more of the site
+    try:
+        queue += [u for u in sitemap_urls(start, host) if u not in known]
+    except Exception as e:
+        log(f"sitemap {host}: {e!r}"[:200])
+    queue = [start] + sorted(dict.fromkeys(queue[1:]), key=lambda u: 0 if any(h in u.lower() for h in LINK_HINTS) else 1)
     while queue and pages < SOURCE_PAGES and time.monotonic() < deadline and not out_of_time():
         url = queue.pop(0)
         if url in seen:
             continue
         seen.add(url)
         k = known.get(url) or {}
+        if k and url != start and k.get("due") is False:   # read lately and not due: its places kept, its links still lead on
+            unchanged.append(url)
+            queue += [l for l in (k.get("links") or []) if l not in seen]
+            continue
         is_pdf = bool(re.search(r"\.pdf($|\?)", url, re.I))
         if is_pdf and pdfs >= SOURCE_PDFS:
             continue
@@ -1175,6 +1246,7 @@ def read_source(deadline):
                 if pt[0]:
                     f.setdefault("page_town", pt[0]); f.setdefault("page_state", pt[1])
             facts += here
+            outlinks += own_site_links(page, url, host, here)
             links = []
             for href in re.findall(r'(?i)href=["\']([^"\'#]+)', page):
                 full = urllib.parse.urljoin(url, href)
@@ -1190,13 +1262,16 @@ def read_source(deadline):
             if r.get("scan"):
                 row["page_kind"] = "scan"                 # a PDF of pictures: the second tier reads it (decisions/0157 §7)
         log_rows.append(row)
-        queue += [l for l in links if l not in seen]
+        new = [l for l in links if l not in seen]
+        queue += [l for l in new if l not in known] + [l for l in new if l in known]   # pages not read yet first
     uniq = {}
     for f in facts:
         uniq.setdefault((f["name"].lower(), re.sub(r"\D", "", f["phone"])[-10:], f["address"][:20].lower()), f)
     res = site_call("/api/crawl/sources.php", tv_safe({"host": host, "pages": pages, "facts": list(uniq.values()),
-                                                      "log": log_rows, "unchanged": unchanged, "extracted": extracted}))
-    log(f"read source {host}: {pages} page(s), {pdfs} PDF(s), {extracted} extracted, {len(unchanged)} unchanged, {len(uniq)} place(s) found, {res.get('kept', 0)} kept")
+                                                      "log": log_rows, "unchanged": unchanged, "extracted": extracted,
+                                                      "outlinks": list({o["url"]: o for o in outlinks}.values())[:40]}))
+    log(f"read source {host}: {pages} page(s), {pdfs} PDF(s), {extracted} extracted, {len(unchanged)} unchanged, {len(uniq)} place(s) found, "
+        f"{res.get('kept', 0)} kept, {len(outlinks)} link(s) to other sites, {res.get('new_sites', 0)} new")
 
 
 def read_scan(sc):

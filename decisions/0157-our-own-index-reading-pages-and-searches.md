@@ -218,6 +218,28 @@ scan for now; the worker reads its text into places for that page alone, kept th
 days). Both off until switched on with budgets in AI use. Still to build: multi-page scans (Textract's S3 jobs), and
 guides and journeys drawing on the record.
 
+### 8. Reaching further (Jason, 2026-11-13)
+
+Jason: "If the web is billions of pages and we are only searching 30 a day that seems askew." The 30 is only the paid
+fallback (Tavily) for pages our crawler fails on; the free crawler has room for thousands of pages a day. What held it back
+was how few sites it knew: it read only the register, which grew only when a site confirmed a listing or a person added
+one, and it dropped every link to another site. All free, in this order:
+
+1. **Links to other sites join the register.** A link on a page we read to another site goes on the register, judged like
+   any site the crawler meets (§7); a link whose words name a place on the page is that place's own website, filled in on it
+   (and into its record, §6), not a site to read.
+2. **Sitemaps, and pages not read yet first.** Each read takes the site's sitemap (robots.txt's Sitemap lines, else
+   /sitemap.xml) and reads pages it hasn't read before the ones it has; a page read lately and not yet due is skipped (its
+   places kept, its saved links still leading on), so successive reads cover the whole site, not its first 25 pages again.
+3. **Common Crawl** (to build): the public archive of billions of pages, a new crawl each month. Its index lists every
+   page it holds for our states' public sites (.gov, state and local .us) and those naming our towns; a monthly job reads
+   them like any page, through the page log and the register's rules. The nearest we come to a search engine's reach
+   without crawling the whole web ourselves.
+4. **More each run** (to build): pages a source and sources a run, set on the worker (Railway time, cents a month).
+
+**Built (2026-11-13):** 1 and 2 (`Sources::addLinked`, the worker's `sitemap_urls()` and `own_site_links()`, the page
+log's `due`).
+
 ### The second tier: when it runs and what it costs
 
 Only where the first tier fell short, for that one page, search or find; never as a routine. Demand leads: what someone
