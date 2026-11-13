@@ -6,12 +6,12 @@
     "zip": "audit-clock_20261113.zip",
     "switch": "audit_clock",
     "advance": "schedule",
-    "state": "planned",
+    "state": "approved",
     "step": 0,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
-    "plan_at": null,
+    "plan_at": "2026-11-13 15:13:24",
     "staged_at": null,
     "vetted_at": null,
     "live_at": null,
@@ -54,6 +54,16 @@
             "at": "2026-11-13T15:13:23+00:00",
             "by": 2,
             "msg": "Uploaded audit-clock_20261113.zip: 6 files."
+        },
+        {
+            "at": "2026-11-13T15:13:24+00:00",
+            "by": 2,
+            "msg": "Came from git: releases/inbox/audit-clock_20261113.zip (git ebee5fc6aa)."
+        },
+        {
+            "at": "2026-11-13T15:13:24+00:00",
+            "by": 2,
+            "msg": "Plan approved (switch audit_clock), advancing on schedule."
         }
     ]
 }
