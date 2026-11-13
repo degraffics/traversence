@@ -3,32 +3,32 @@
  "built_on": "3c3943d Sync: 2026-11-13 16:41 UTC",
  "recorded": "2026-11-13 16:42 UTC",
  "note": "Crawler revamp Phase 3, W2 and W3 (handoffs/crawler-revamp.md): B10 possibly closed, refresh and map-point stalls, the register's waiting sites; Jason approved it in chat. Built on Sync: 2026-11-13 16:41 UTC. Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "33b24b1 Sync: 2026-11-13 16:59 UTC",
  "files": {
   "app/lib/Geocoder.php": {
    "sha256": "1756e60c6afb1a84d583687a93ecd590bbb9b858952f981e3f08b2be50a662b3",
-   "live": false
+   "live": true
   },
   "app/lib/ListingConfidence.php": {
    "sha256": "4345e4e9dcb98a22fd3e7e1416c250d9d9cfcfe20d34254843f6f161749a2b91",
-   "live": false
+   "live": true
   },
   "app/lib/crawler/Refresh.php": {
    "sha256": "bf36a542dae21fe27f8e664e62e693adfbe83ce7c6bc97e18214589c79819430",
-   "live": false
+   "live": true
   },
   "app/lib/crawler/Sources.php": {
    "sha256": "8a540bba7a6705e4bfa791cfc8ac5920abff586a41f8589e61a85567523cb723",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "601bdf7d4f2ea43c4db9a81d60fbc651ed78cf38343451a083e76c36e293e572",
-   "live": false
+   "live": true
   },
   "website/listing/view.php": {
    "sha256": "f5f788e3eaeb09767fe676ec6aae847ba48abbcf14c6c9d9ab5351a17a7598c6",
-   "live": false
+   "live": true
   }
  }
 }

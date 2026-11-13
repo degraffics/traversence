@@ -231,8 +231,54 @@ CLAUDE.md, in full. For this work above all:
   they skip (`Refresh::lease`, `Geocoder::candidates`); the register describes waiting sites again (`Sources::toDescribe`:
   14 days after an empty describe, 60 for any undecided). Worker half: a "Visit website" link fills in the place named
   before it (`own_site_links`); merged after the site part is live.
+  Live as Release #22 (16:57 UTC); verified on Sync 16:59 UTC; its worker half merged then.
 
 ## 7. Open
 
 - Nothing waiting on Jason.
 
+## 8. For the next session (from W4 on)
+
+The session that did Phases 0 to 2, W1, W2 and W3 handed off here (CLAUDE.md: a long build moves to a fresh session per
+phase). Start from this file, `decisions/0160` and the review; everything below is in `main` and on the live site unless
+it says otherwise.
+
+**Left in Phase 3, in order:**
+1. **W2, the rest:** a changed phone or hours on a listing's own website is never caught (the refresh only fills empty
+   fields: compare and send a change to Review, or to the identity record as a newer source); live duplicates (0133's
+   "same place ID + same phone" merge, offered in Review); listings without a website are only checked through Google.
+2. **W3, the rest:** Listing Intake's two page readers (`SiteFetcher`, `ListingExtractor`) don't use the page log, the
+   place store or the register's rules: move them onto `read_page` requests (`CrawlService::request`, the worker's
+   `do_requests`).
+3. **W4, W5, W8 (guides):** heritage and how-to now get their share of each run (the plan), so the starvation is gone;
+   still to do: failed on-demand guides are never retried though the visitor is told they will be (`OnDemand`); Find it.
+   "First look" labels now survive a rewrite (Phase 0, `Guides::compose`).
+4. **W6:** a Library of Congress search with nothing isn't asked again for 365 days; one newspaper page counts as an
+   independent source (count each paper once); the heritage extraction queue can stall on rows it skips.
+5. **W9:** C13, `PlaceFinder::summary` stores Wikipedia extracts without `wikiAllowed` (cite only).
+6. **W10, W11:** C14, how-to steps copied word for word from .edu and state pages with no check against the register.
+7. **W12:** demand that reaches the kind searched (TownCrawl `want:` jobs exist now: wire situation gaps to them), and
+   situation gaps starving behind coverage jobs.
+Each move also: its capture tasks in `crawl_capture_tasks` (a migration, INSERT IGNORE), its view in the console
+(`app/admin/crawler-console.php` draws every workflow with tasks, spend or requests), and its old stage switched off.
+
+**Phase 4 (the old data), notes for its passes:**
+- Listings closed by their own website alone before W2 (the `closed` meta with `by` 0 and a note starting "Its own
+  website says") become `closed_signal` ("Possibly closed") unless a person confirmed them.
+- `website_dead` since 2026-10 (B5's damage): re-check each and put back those that load.
+- Sources wiped by an empty read (B6): `site-audit/crawler-snapshot.md` → place store → `sources_read_empty`.
+- Heritage facts: `Heritage::retier()` is already re-tiering them, a batch an hour.
+- Identity jobs set aside after starved runs: `CrawlService::retry($pdo, 'identity')`, or the console's Retry failed.
+- The numbers for every pass are in `site-audit/crawler-snapshot.md` (daily, with change since the first day).
+
+**How the work went (useful):**
+- A build is a zip sent with `tools/page-audit/send.py`, merged, and it publishes itself once staging's checks pass
+  (Release #9). Ask Jason in chat before merging each one.
+- `deliveries/README.md` conflicts on almost every PR: take `main`'s copy and run `deliveries.py verify --mirror …`.
+- The zip check blocks a file another pending zip carries (`faq.md` mostly): wait for it to go live and its sync.
+- The zip check's PHP 8.1 test reads ": never" in a string as the `never` type: word messages differently.
+- The worker deploys on merge; its changes go after the site part they need is live. Contract 2 falls back to the
+  fixed order when `service.php` is missing or not ready.
+- Testing: `apt-get install mariadb-server` works here; run the migration twice, and drive the real classes with a
+  stand-in `Database.php` (see the PRs for Phases 1, 2 and W1). The worker imports cleanly for unit tests
+  (`python3 -I`, `WEB_FIXTURE`; stub `public_host`, the sandbox has no DNS).
