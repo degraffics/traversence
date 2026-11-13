@@ -81,6 +81,12 @@ jobs:
         run: |
           if ls deliveries/*.json >/dev/null 2>&1; then python3 tools/page-audit/deliveries.py verify --mirror mirror; fi
 
+      - name: Drift (live files changed without a release) and the findings for Site health
+        if: env.SKIP != '1'
+        run: |
+          python3 tools/page-audit/drift.py --mirror mirror --write
+          python3 tools/page-audit/findings.py
+
       - name: Commit what changed
         if: env.SKIP != '1'
         run: |

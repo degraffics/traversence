@@ -1,0 +1,42 @@
+{
+ "zip": "editor_20261113.zip",
+ "built_on": "a6f5b30 Sync: 2026-11-13 15:59 UTC",
+ "recorded": "2026-11-13 16:00 UTC",
+ "note": "decisions/0159 step 3, the editor's core (Blocks, /api/blocks.php, js/tv-editor.js; zones home.after-doors and page.<id>; pages.edit, pages.publish; block_image upload target), with the drift report's FAQ line. Built on Sync: 2026-11-13 15:59 UTC. Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/admin/sections.php": {
+   "sha256": "3bc3efc2a83a250e077c05173eac2d8d05bc45125f83f501326bb6316b5f09ef",
+   "live": false
+  },
+  "app/lib/Blocks.php": {
+   "sha256": "af44c40efb018dd13c77be8c08c47cc808c81e21435a8e2b255a617bf9a9247c",
+   "live": false
+  },
+  "app/lib/upload-targets.php": {
+   "sha256": "48c57b003cf87515e2f47bf3cf96eeaca0f305dc4f1d5c7e3007a324e3aa5304",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "972593e5658948f7638dc6f577525e0a331bf62fc30e9d0dd0ef60f387e9915a",
+   "live": false
+  },
+  "website/api/blocks.php": {
+   "sha256": "a52c33f844ec9a866a60a1f0dfe48233070d99d0cc830b316e052b35eab7bdfb",
+   "live": false
+  },
+  "website/index.php": {
+   "sha256": "77c396c843046d68909211eff032baf6d7edc7e75eb7fc99e41da2d6e8d171ee",
+   "live": false
+  },
+  "website/js/tv-editor.js": {
+   "sha256": "27cd4f1392f5e30085878ae8c274490c7e9d0e644cd37e7be15f3ea9af696a21",
+   "live": false
+  },
+  "website/pages/view.php": {
+   "sha256": "0480c34a121fe2cf910ae2af4f06abff510be863528be6ac2024848109d39162",
+   "live": false
+  }
+ }
+}

@@ -3,7 +3,7 @@
 
     python3 tools/page-audit/findings.py [--run-url URL]
 
-Reads what the checks wrote (results/paths.json, results/rendered.json, results/latest.json), the accepted exceptions
+Reads what the checks wrote (results/paths.json, results/rendered.json, results/latest.json, results/drift.json), the accepted exceptions
 (exceptions.json) and the proposals (proposals.md), and writes site-audit/results/findings.json: one finding per thing
 to fix, each with a stable id, the rule it breaks, the page, who saw it, the paths it gets in the way of, its screenshot
 (the run that has it) and its proposal once the review has written one. Ranked by how many paths it blocks.
@@ -160,6 +160,16 @@ def build(run_url=''):
         add('f-' + h('status', s['name']), kind='cost', rule='D03', title=f'An admin status check isn\'t OK: {s["name"]}', detail=f'It says: {s["state"]}.', severity='update', _ev=[s['state']])
     if (hl.get('ai') or {}).get('over_80_pct_of_cap'):
         add('f-' + h('ai', 'cap'), kind='cost', rule='D05', title='AI this month is over 80% of its cap', detail='See Services & usage in the admin for which feature spends it.', severity='update', _ev=['ai'])
+
+    # drift (drift.py, decisions/0159 step 2): live files changed without a release, one finding listing them
+    dr = load('drift.json', {}).get('open', [])
+    if dr:
+        names = ', '.join(f'{e["path"]} ({e["what"]})' for e in dr[:12]) + (f' and {len(dr) - 12} more' if len(dr) > 12 else '')
+        add('f-' + h('drift', 'open'), kind='code', rule='D06', title=f'Changed on the live site without a release: {len(dr)} file{"s" if len(dr) != 1 else ""}'[:160],
+            detail=(f'Edited straight on the server or in OneDrive, not through a release: {names}. Bring each change into a release (a Claude '
+                    'session can, from the live copy), or put the released copy back; each clears by itself once it matches a release. '
+                    'site-audit/results/drift.json has when each was seen.')[:600],
+            severity='alert', _ev=[e['path'] + ':' + e.get('sha256', '') for e in dr])
 
     # the proposals the review wrote, by the finding or (for the code checks) the rule
     props = proposals()
