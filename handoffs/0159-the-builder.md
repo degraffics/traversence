@@ -41,6 +41,9 @@ for shops (0158 §6).
   `releases_tick` cron line (`Scheduler::AUTO`, System Configuration → Scheduled tasks).
 - After Check for builds, the first line still says "Look at it on staging, then Publish" (from `straightOn`) even when
   the next line says it published itself. Cosmetic.
+- The editor panel's header wraps on a computer (Jason's screenshot, 2026-11-13, first live use): at 27rem, Save draft,
+  Publish and Versions fill the row and ✕ drops to a second line over the status text. Give ✕ its own corner (or put
+  Versions in a ▾) when step 4 reworks the panel. The zone's state pill also sits under the panel while it's open.
 - Testing here: MariaDB isn't preinstalled (`apt-get install -y mariadb-server`); its socket path is too long in the
   scratchpad, so run `mariadbd --skip-grant-tables --port=3399 --bind-address=127.0.0.1 --pid-file=… --socket=…`.
 
