@@ -3,52 +3,52 @@
  "built_on": "53bee27 Merge pull request #10 from degraffics/claude/sync-home-git",
  "recorded": "2026-11-13 16:32 UTC",
  "note": "P9 (a town centres on the town, Within 10 mi) and P11 (seven fixes), approved by Jason; FAQ entries follow after crawler-w1. Built on Sync: 2026-11-13 16:18 UTC (the 11 files unchanged since 15:41). Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "3c3943d Sync: 2026-11-13 16:41 UTC",
  "files": {
   "app/lib/Engage.php": {
    "sha256": "7e80477c5878138458fb62108fb517a3c450c649025b5c2a4a08937e3e8842db",
-   "live": false
+   "live": true
   },
   "app/ui/pulse-ui.php": {
    "sha256": "a8d6645073fa5da2d1cdb9886a89bb986059560567b3b3bf02164bb67bde985a",
-   "live": false
+   "live": true
   },
   "website/admin/api/pulse.php": {
    "sha256": "d51e419aed8520159fd3c057c52f29e5062d5a4f4119ab04ec8448f0797f9b32",
-   "live": false
+   "live": true
   },
   "website/admin/reports.php": {
    "sha256": "33b220aba8c1faf84fde0f1faf2f2d249499aa39b67fd852399003ac421ee5db",
-   "live": false
+   "live": true
   },
   "website/api/auth/register.php": {
    "sha256": "3085ca8321ae4ed0437ee295937f0198567d00395c23c8ca421d36a56becd7ff",
-   "live": false
+   "live": true
   },
   "website/api/auth/verify-email.php": {
    "sha256": "1bf761bc706ff2d952aac14cac8e3d43869f2c81e4bdf80be76b9f6433f1e1e1",
-   "live": false
+   "live": true
   },
   "website/api/place.php": {
    "sha256": "da7f8e074a8c6687dda0c2975418094e1f5c139b259fbb5bbdc3ccf010d2bd8b",
-   "live": false
+   "live": true
   },
   "website/js/location-scope.js": {
    "sha256": "533e53f80ef60de052c3885ce6dd7ea85c8ef9448b0273693d457f48c7e6d43f",
-   "live": false
+   "live": true
   },
   "website/listing/view.php": {
    "sha256": "73ab4ec43c05b3509ecfa1bf9a55978d3c02c6534c0f965f65bc4d621290649f",
-   "live": false
+   "live": true
   },
   "website/login.php": {
    "sha256": "2d0ff7cf1ae9fd02632f4d0d00f56d032ab0cccfb9e9ad39bf27719257eceb82",
-   "live": false
+   "live": true
   },
   "website/verify-email.php": {
    "sha256": "e6522bff316f2e35590e89ad2c87576e979d84586d8a6a10125f0c8d1e7cb089",
-   "live": false
+   "live": true
   }
  }
 }

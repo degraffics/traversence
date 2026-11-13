@@ -224,6 +224,13 @@ CLAUDE.md, in full. For this work above all:
   words (`find_name` requests), search (`LocalWords`: names aren't kind clues; a name first in `search_listings.php`).
   The worker half (C11 in `candidate()`, the `find_name` handler) is on `wip/w1-worker`; merge it once W1 is live.
   Left on purpose: `SourceIndex::listed()` still counts hidden listings (showing a page's copy would undo a hide).
+  Live as Release #20 (16:38 UTC); verified on Sync 16:41 UTC. Its worker half went to `main` after.
+- **Phase 3, W2 and W3** (approved by Jason in chat): `crawler-w2w3_20261113.zip`, built on Sync 16:41 UTC. B10: one
+  website's "closed" is `closed_signal` ("Possibly closed" on the listing, score -10, a Review item), never a closing
+  (`Refresh::siteResult`, `ListingConfidence`, `listing/view.php`); refresh and map-point queues no longer stall on rows
+  they skip (`Refresh::lease`, `Geocoder::candidates`); the register describes waiting sites again (`Sources::toDescribe`:
+  14 days after an empty describe, 60 for any undecided). Worker half: a "Visit website" link fills in the place named
+  before it (`own_site_links`); merged after the site part is live.
 
 ## 7. Open
 
