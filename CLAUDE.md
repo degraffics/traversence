@@ -70,6 +70,8 @@ at 6:00 and 18:00 UTC or on demand (its workflow's Run button), committing the r
     held earlier in the session. If a release was published since the newest sync, run the sync first.
   - **Just before zipping**, fetch once more. A file changed there since gets only this build's change re-applied
     (most often `faq.md`, `manifests.php`, `tools.php`, `Pulse.php`, `section-rails.php`, `portal.php`, the router).
+  - **A zip blocked only by `faq.md`** in another session's pending zip (Jason, 2026-11-13): wait for that release to go
+    live, re-apply only your own entries on the live copy, and send. FAQ edits only add, so don't ask Jason.
   - The hand-off names the sync it's built on ("built on 17:44 UTC") and lists the zip's files. Never build on another
     session's zip that isn't live yet. One release at a time, the sync run after each publish.
   - **Before a zip goes out** (decisions/0145): `tools/page-audit/zipcheck.py <zip> --mirror <checkout>` must pass (no
