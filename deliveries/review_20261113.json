@@ -3,24 +3,24 @@
  "built_on": "0727d95 Sync: 2026-11-13 15:22 UTC",
  "recorded": "2026-11-13 15:23 UTC",
  "note": "Release #11 (decisions/0159 step 2): review on staging (UI, UX, Functional) for builds sent with review; the site manager keeps itself current; Check for builds first and switches to the new build; when the site last looked for builds. Built on Sync: 2026-11-13 15:22 UTC. Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "a811468 Sync: 2026-11-13 15:26 UTC",
  "files": {
   "app/lib/Releases.php": {
    "sha256": "5f4f59d4af654bdfbedc8bd9fe7b0124d462425db5f983e55b7f4de1870f1c49",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "a3946248cb422892172c5f3afcd40003857a792bfa1f855961e4e95fc74e2b08",
-   "live": false
+   "live": true
   },
   "website/api/release-bar.php": {
    "sha256": "d215c1fe118c214a353535c3d7e17f7e2742581391e384d72a505baa6893b195",
-   "live": false
+   "live": true
   },
   "website/js/stg-bar.js": {
    "sha256": "6a0b4953f6c0b23ab21f2a6729afa0cf318f00f4d0698a89786e5c4cfe45109a",
-   "live": false
+   "live": true
   }
  }
 }
