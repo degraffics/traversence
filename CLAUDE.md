@@ -48,9 +48,11 @@ at 6:00 and 18:00 UTC or on demand (its workflow's Run button), committing the r
 - **What's live** is those folders on that repo's `main`, not a copy from an earlier session. Compare before building.
 - **Every build is a release, sent through git** (Jason, 2026-11-13; decisions/0159 §5): its zip (with a `release.json`:
   title, why, proposals, switch) goes in with `tools/page-audit/send.py <zip> --mirror <checkout> --note …` (zip check,
-  delivery log, `releases/inbox/`); merge it into `main`. The live site takes it onto staging within 10 minutes (or
-  Releases ▾ → Check for builds on the site manager); Jason looks there and publishes. No zips to upload: Upload on the
-  site manager or Releases page is the fallback. **Publish now (urgent)** only for a system issue that can't wait.
+  delivery log, `releases/inbox/`); merge it into `main` once Jason has approved it in chat. The live site takes it onto
+  staging within 10 minutes, runs its checks, and publishes it by itself when they pass (Jason, 2026-11-13: no second
+  Publish). `"hold": true` in `release.json` keeps it on staging for his look, only when he asked. Watch for its
+  "Release #N: Live" record commit, then run the sync. Upload on the site manager is the fallback; Publish is for work
+  done on staging.
 - **Delivering:** the release's publish writes to the server; the sync updates OneDrive. The server wins a two-sided change
   (`SYNC_HOME=ftp`). A zip holds **only files that differ byte for byte from the live mirror**, never a blanket upload.
   Dotfiles (`.htaccess`) aren't mirrored, so name them separately when they change.
