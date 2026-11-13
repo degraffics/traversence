@@ -3,40 +3,40 @@
  "built_on": "a811468 Sync: 2026-11-13 15:26 UTC",
  "recorded": "2026-11-13 15:29 UTC",
  "note": "Crawler revamp Phase 0 (handoffs/crawler-revamp.md): guards for review B5-B9 and the health report's crawler snapshot; Jason approved it as urgent in chat. Built on Sync: 2026-11-13 15:26 UTC. Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "e4a8a63 Sync: 2026-11-13 15:31 UTC",
  "files": {
   "app/lib/Guides.php": {
    "sha256": "03925502944cf2bda9c913ec027235dc240b17ad7207b44765cc54c8b09d0ed7",
-   "live": false
+   "live": true
   },
   "app/lib/IdentityJobs.php": {
    "sha256": "3571c8503641b88cc85cecf09abe9765a14690bd7579729587cb27cd2a0bfb6d",
-   "live": false
+   "live": true
   },
   "app/lib/Landmarks.php": {
    "sha256": "8bcf95c0f602f5f1403520a1445e6c3e7d1b3b5c944f3ac545477b1a2725783e",
-   "live": false
+   "live": true
   },
   "app/lib/crawler/Refresh.php": {
    "sha256": "658342e08f2518965640bf979a98bdd28fa3b26ffdb10e7e2391a0a79ed9edc1",
-   "live": false
+   "live": true
   },
   "app/lib/crawler/SourceIndex.php": {
    "sha256": "efa43e5cf770f9863b144d906ee3f3960358efa7a435ffe7ed1ecae84ca03b08",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "ef48509c3421fa261d10f945d69aef03e3d0ed827caca596cb7355e8e4d1fc1c",
-   "live": false
+   "live": true
   },
   "website/api/crawl/sources.php": {
    "sha256": "02a18a79a8fc13a3dc385a3e4524a43881ace9a646ac9c596507bfb5e6da63d1",
-   "live": false
+   "live": true
   },
   "website/api/health.php": {
    "sha256": "9b0a01b73ee023c8c746e6677d56f1c35890e0e44de4d7bc79a605a120f27db4",
-   "live": false
+   "live": true
   }
  }
 }
