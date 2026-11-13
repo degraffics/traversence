@@ -1,0 +1,46 @@
+{
+ "zip": "reading_20261113.zip",
+ "built_on": "2e57313 Sync: 2026-11-13 01:31 UTC",
+ "recorded": "2026-11-13 01:52 UTC",
+ "note": "0157 delivery 3b+4: the register judges sites itself (address and own description; tribal nations' a person's), PDFs read (worker), phrases, how a search was read with other readings, fact questions answered, From pages we read. Built on the 01:31 UTC sync. The worker half ships via main (Railway).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/LocalWords.php": {
+   "sha256": "57f6900022cfdbf784ff6603113086c50948704da695967793f8243747ca9302",
+   "live": false
+  },
+  "app/lib/SearchReading.php": {
+   "sha256": "9fd4c1f37088fe60eb5b0839d99d23d1fc1a579638b0f92865448af480049fa9",
+   "live": false
+  },
+  "app/lib/UniversalSearch.php": {
+   "sha256": "a42c2065219fccc92219578af0537659d3942e7e12e140a6561dd74b2d930fd5",
+   "live": false
+  },
+  "app/lib/crawler/SourceIndex.php": {
+   "sha256": "da49c7f6bc9f40d29094ca50b040f1f00fff915208d975ec2d5516aa6ab39bff",
+   "live": false
+  },
+  "app/lib/crawler/Sources.php": {
+   "sha256": "73e44cb3441abd6e935ba1ff1b1ade3b858232b41ec0e8894531e5a1115ca268",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "fb42a653c7cc34bff1b46377a22892c0fe72d80704b0c1552e4ea052809452aa",
+   "live": false
+  },
+  "website/admin/sources.php": {
+   "sha256": "4970c685102f32304f771067cf7bc0c2133bb630daacb5b20ece5d1388477110",
+   "live": false
+  },
+  "website/api/crawl/sources.php": {
+   "sha256": "b8015aa40020a117656a1466bd86970e472fe4620a3d5c35cafdad7ec3f1d331",
+   "live": false
+  },
+  "website/js/search-panel.js": {
+   "sha256": "0b29d947a02dc6535714aa970a2bd9a2002944dca3e0b6403e2686108246185c",
+   "live": false
+  }
+ }
+}

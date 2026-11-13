@@ -1,6 +1,6 @@
 # ADR 0157: Our own index: reading pages and reading searches
 
-**Status:** Accepted (Jason, 2026-11-13: "yes approved, start delivery 1"; the second tier added the same day at his ask). Deliveries 1 to 3 built 2026-11-13. It extends `decisions/0045` (our own
+**Status:** Accepted (Jason, 2026-11-13: "yes approved, start delivery 1"; the second tier added the same day at his ask). Deliveries 1 to 4 built 2026-11-13 (3b folded into 4, Jason: "build 3b and 4 as one"). It extends `decisions/0045` (our own
 reference index, source-first crawling), `0044` (confidence-gated import), `0133` (the observations store and identity
 record), `0060`/`0061`/`0063`/`0064`/`0067` (search, situations, the lexicon, words search learns, what words mean) and keeps
 `0065` (OpenStreetMap is its own layer), `0066` (tribal nations' land), `0093` (what people open is a hint, never a
@@ -169,6 +169,32 @@ For any place, listing or topic: every fact we hold, each with its source page, 
 ones that disagree marked. Guides, listings, journeys and AI writing draw from it, and an editor can see why the site says
 what it says. Each fact also says which tier found it (our reading, Tavily, Claude).
 
+### 7. The register decides, and nothing found is wasted (Jason, 2026-11-13)
+
+Jason: "I really want the automation to eliminate as much human responsibility as possible"; "Most sites have a subject or
+main description so it could be used as what shapes its reason for use"; "We also have the aws text scanner too"; "When
+second tier look for content or sources they follow the steps 1,2,3,4,5 as well right. I dont want paid services to leave
+out any info that could be reused"; "Similar to Google search the information we find can be re-served as data found by a
+search query; not just results shaped by our platform mission". This amends 0045, where a person made every call.
+
+1. **The register judges a site itself**, from its address and what it says it is (its title, its description line, its
+   schema.org Organization record): government (.gov, .mil, state and local .us), schools (.edu) and official registries
+   are read regularly at once; commercial directories and social media are cited only, as before; chambers, tourism sites,
+   community directories and organizations wait for the second tier (Claude reads the site's terms and a sample page and
+   decides read or cite only, quoting the terms), and until the caps are set they wait for a person. Each call shows
+   "set by the crawler" and why; a person's call always stands and is never changed by the crawler. Tribal nations' sites
+   (by their address or what they say they are) are always a person's call (0066).
+2. **PDFs** are read like pages: their text, free (first tier). A scanned PDF (pictures of pages, no text) is logged as one
+   and goes to the second tier: AWS Textract (already connected, per page read), then Claude only if Textract can't read it.
+3. **What a paid step fetches goes through every step a free read does**: the page log (§1), reading the whole page (§2,
+   every place on a list, not only the one sought), the store and its search (§3), the dictionary (§4), the source's
+   record (§5) and "what we know" (§6). Paid once, kept for reuse. One exception, the licence: a site whose terms forbid
+   copying (a commercial directory) is kept as a link and as confirmation, never as copied facts.
+4. **Our index answers any search**, as a search engine's does, not only with listings: the places and pages we hold that
+   match, each with its source ("From pages we read"). Our mission shapes the order and how it's shown, not what can be
+   found (0133: curators, not controllers). Three limits stay: the licence (a cite-only page is a title and a link), tribal
+   nations' sacred and sensitive places (0066), and private details about people.
+
 ### The second tier: when it runs and what it costs
 
 Only where the first tier fell short, for that one page, search or find; never as a routine. Demand leads: what someone
@@ -204,8 +230,9 @@ the park and museum), and each new slip as it's found. A change ships only when 
 1. Page log; structured data first; list pages split into items; kinds and towns on place facts; the test set.
 2. Searching the place store (Get Local, site search, admin search) and "Send the crawler" (Jason only).
 3. Our index as the dictionary; senses from context.
-4. Intents and phrases; "how your search was read".
-5. Trust and licence per source.
+4. Intents and phrases; "how your search was read"; facts answered directly; "From pages we read" for any search; the
+   register judging sites itself; PDFs read (with 3b, as one delivery).
+5. Trust and licence per source (the second tier's reading of a site's terms comes with the caps).
 6. "What we know and where from".
 
 Each delivery brings its part's second tier, switched on once Jason sets the caps.
