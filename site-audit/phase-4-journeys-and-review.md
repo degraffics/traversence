@@ -65,9 +65,10 @@ findings improve the rules, not just check against them.
 
 - [ ] The top journeys run for every account type that applies, with their measures in the scorecard.
 - [x] The page map covers every page in `site-audit/pages.md` (194 pages, 2026-11-13).
-- [ ] The first review has produced a ranked list with verdicts, including at least one drafted amendment and any
-      conflicts found.
-- [ ] Site health shows in Pulse.
+- [x] The first review has produced a ranked list with verdicts, including at least one drafted amendment and any
+      conflicts found (2026-11-13: P7–P12 in `proposals.md`; amendment P8, conflict P9).
+- [x] Site health shows in Pulse (switch `site_health`, staff first; since 2026-11-13 it also says when a check stopped
+      running, with Run it now).
 
 ## Rollout and rollback
 
