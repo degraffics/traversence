@@ -3,7 +3,7 @@
  "built_on": "04c6881 Sync: 2026-11-11 19:07 UTC",
  "recorded": "2026-11-11 19:09 UTC",
  "note": "Replaces dashboard-feed (live 19:07 UTC). The Pulse as Jason defined it (decisions/0055 \u00a75; FAQ 2026-10-09): one inbox-style list, Messages, Community, Discovery, Listings, Marketplace, no extra source; posts are Pulse items, people's (yours included) under Community and businesses' under Listings; opening one (\u25be) shows the real post in place (photos or video, reactions, comments) instead of the placeholder; Reply goes to its comments, Report to its own report; the Pulse reloads after posting. Phone invites: our own panel (Copy; Text it on a phone) instead of the computer's share sheet; the To line clears. Removes the unused home-feed endpoint. FAQ updated. Built on 19:07 UTC sync.",
- "status": "partial",
+ "status": "replaced",
  "live_in": "",
  "files": {
   "app/lib/MemberPosts.php": {
@@ -30,5 +30,6 @@
    "sha256": "be6aa34b443108880643327c742155b62d48e9c4f7d9a70496a6bae16caeda7c",
    "live": false
   }
- }
+ },
+ "replaced_by": "superseded: each file not live here was delivered again later (hero5_20261112, keep-4k_20261111, pro-month_20261111)"
 }
