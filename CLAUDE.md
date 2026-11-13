@@ -46,28 +46,30 @@ files are added, moved or removed.
 at 6:00 and 18:00 UTC or on demand (its workflow's Run button), committing the result to `sync-storage/` (website),
 `sync-app/` (app) and `sync-trvgo/` (trvgo.us, since 2026-11-01).
 - **What's live** is those folders on that repo's `main`, not a copy from an earlier session. Compare before building.
-- **Every build is a release** (Jason, 2026-11-13; decisions/0145 note): its zip (with a `release.json`: title, why,
-  proposals, switch) is uploaded on System Configuration → Releases, tried on staging, looked at by Jason, then published.
-  FTP or **Publish now (urgent)** only for a system issue that can't wait. After a publish, run the sync as for an upload.
-- **Delivering:** the release's publish (or Jason's upload) writes to the server; the sync updates OneDrive. The server wins a two-sided change
+- **Every build is a release, sent through git** (Jason, 2026-11-13; decisions/0159 §5): its zip (with a `release.json`:
+  title, why, proposals, switch) goes in with `tools/page-audit/send.py <zip> --mirror <checkout> --note …` (zip check,
+  delivery log, `releases/inbox/`); merge it into `main`. The live site takes it onto staging within 10 minutes (or
+  Releases ▾ → Check for builds on the site manager); Jason looks there and publishes. No zips to upload: Upload on the
+  site manager or Releases page is the fallback. **Publish now (urgent)** only for a system issue that can't wait.
+- **Delivering:** the release's publish writes to the server; the sync updates OneDrive. The server wins a two-sided change
   (`SYNC_HOME=ftp`). A zip holds **only files that differ byte for byte from the live mirror**, never a blanket upload.
   Dotfiles (`.htaccess`) aren't mirrored, so name them separately when they change.
 - **Several sessions at once** (Jason, 2026-11-01): current first, so nothing is rebuilt.
   - **Before writing any file for a zip**, fetch the mirror and start every file from its live copy, never from a copy
-    held earlier in the session. If Jason uploaded anything since the newest sync, run the sync first.
+    held earlier in the session. If a release was published since the newest sync, run the sync first.
   - **Just before zipping**, fetch once more. A file changed there since gets only this build's change re-applied
     (most often `faq.md`, `manifests.php`, `tools.php`, `Pulse.php`, `section-rails.php`, `portal.php`, the router).
   - The hand-off names the sync it's built on ("built on 17:44 UTC") and lists the zip's files. Never build on another
-    session's zip that isn't live yet. One upload at a time, the sync run after each.
+    session's zip that isn't live yet. One release at a time, the sync run after each publish.
   - **Before a zip goes out** (decisions/0145): `tools/page-audit/zipcheck.py <zip> --mirror <checkout>` must pass (no
     new blocking failures), and `tools/page-audit/deliveries.py record` logs it, so a missed file shows as pending. It
     also blocks a mirror behind its `main` and a file another session's pending zip carries (Jason, 2026-11-11).
-  - **Claude runs the sync** (Jason, 2026-11-01): when Jason says he's uploaded, run the workflow (`sync.yml` on `main`),
+  - **Claude runs the sync** (Jason, 2026-11-01): when Jason says he's published, run the workflow (`sync.yml` on `main`),
     wait for its "Sync: …" commit, and check the mirror matches the zip byte for byte.
   - **One sync at a time, never a pile-up** (Jason, 2026-11-11, after a 35-minute stall): GitHub keeps one waiting run
     per group, and each new request cancels the one already waiting, so sessions requesting at once cancel each other.
-    Only the session whose zip was uploaded starts the sync. First list the runs: one queued or running already covers
-    the upload (wait for its commit; never start another). One running over 15 minutes with its job finished is stuck:
+    Only the session whose release was published starts the sync. First list the runs: one queued or running already covers
+    the publish (wait for its commit; never start another). One running over 15 minutes with its job finished is stuck:
     cancel it; if it still shows running, rename `concurrency.group` in `sync.yml` (PR, merge) and start one run. No
     commit after 10 minutes: list the runs again before anything else.
 - **Deleting** on one side deletes on the other (OneDrive recycle bin; server copy in the sync repo's `deleted/`).
@@ -79,7 +81,7 @@ at 6:00 and 18:00 UTC or on demand (its workflow's Run button), committing the r
 
 ## Files used once, and the archive (Jason, 2026-10-28): every build
 
-- **Migrations run themselves** (2026-10-30): upload the file; the site runs new ones oldest first within the hour, or
+- **Migrations run themselves** (2026-10-30): ship the file in a release; the site runs new ones oldest first within the hour, or
   when System Configuration → Database updates opens, logs them (`db_updates_log`) and deletes them. A failed one holds
   the rest until replaced. So each must be safe to run twice and need no person; zips carry only new ones; no phpMyAdmin
   steps in delivery notes.
