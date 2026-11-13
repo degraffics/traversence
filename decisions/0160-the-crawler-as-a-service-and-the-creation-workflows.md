@@ -39,6 +39,15 @@ It also keeps two shared memories, used by every workflow: the **source register
 their terms and trust; 0045, 0157 §7) and the **place store** (every place named on a page we read, with its page;
 0157 §2).
 
+**One service, configured by the workflows** (Jason, 2026-11-13: "Crawler is one service where it can be configured by
+workflows to achieve certain data capture tasks"). A workflow sets up its **capture tasks**:
+- what to capture (places of a kind, a named place, a site's pages, records, events, terms);
+- from where (open data, a site, the place store, the web);
+- how often, and how fresh it must be;
+- its share and its limits (time, fetches, paid calls).
+
+The crawler runs them; the workflow decides what the results become.
+
 **How the service runs:**
 - Workflows put **requests** on one queue: "read this site", "find this kind of place in this town", "look up this
   name here", "read this page", "geocode these".
@@ -318,6 +327,4 @@ In releases, after the review's release 1 (public exposure) and release 2 (stop 
 
 ## Open
 
-- Whether the crawler stays one Railway service with a fair queue, or becomes several (one per heavy workflow). One
-  service is cheaper and simpler; several isolate better.
 - §5: Jason's confirmation of the always-on features.
