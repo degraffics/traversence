@@ -1,15 +1,15 @@
 {
  "version": 1,
- "generated_at": "2026-11-13T15:47:24Z",
+ "generated_at": "2026-11-13T17:17:22Z",
  "run_url": "https://github.com/degraffics/traversence/actions/runs/43455294331",
  "site": "https://traversence.com",
  "counts": {
-  "open": 17,
+  "open": 16,
   "blocking": 5,
   "by_kind": {
    "path": 11,
    "page": 2,
-   "code": 1,
+   "code": 0,
    "cost": 3
   }
  },
@@ -37,7 +37,7 @@
    "verdict": "",
    "decided": false,
    "first_seen": "2026-11-13T15:47:24Z",
-   "last_seen": "2026-11-13T15:47:24Z"
+   "last_seen": "2026-11-13T17:17:22Z"
   },
   {
    "id": "f-8c78367ed0",
@@ -61,7 +61,7 @@
    "verdict": "",
    "decided": false,
    "first_seen": "2026-11-13T15:47:24Z",
-   "last_seen": "2026-11-13T15:47:24Z"
+   "last_seen": "2026-11-13T17:17:22Z"
   },
   {
    "id": "f-dcca1db312",
@@ -85,7 +85,7 @@
    "verdict": "",
    "decided": false,
    "first_seen": "2026-11-13T15:47:24Z",
-   "last_seen": "2026-11-13T15:47:24Z"
+   "last_seen": "2026-11-13T17:17:22Z"
   },
   {
    "id": "f-ddc7f7cad7",
@@ -109,7 +109,7 @@
    "verdict": "",
    "decided": false,
    "first_seen": "2026-11-13T15:47:24Z",
-   "last_seen": "2026-11-13T15:47:24Z"
+   "last_seen": "2026-11-13T17:17:22Z"
   },
   {
    "id": "f-e25885c436",
@@ -133,27 +133,7 @@
    "verdict": "",
    "decided": false,
    "first_seen": "2026-11-13T15:47:24Z",
-   "last_seen": "2026-11-13T15:47:24Z"
-  },
-  {
-   "id": "f-6ee204bc89",
-   "who": [],
-   "paths": [],
-   "page": "",
-   "shot_url": "",
-   "kind": "code",
-   "rule": "R04",
-   "title": "PHP the server can't run: 11 places",
-   "detail": "In 8 files. For example: website/listing/api/claim.php:56 uses the 'never' return type (PHP 8.1); the server runs PHP 8.0; app/ui/not-found.php:9 uses the 'never' return type (PHP 8.1); the server runs PHP 8.0; app/lib/Experiences.php:414 uses the 'never' return type (PHP 8.1); the server runs PHP 8.0",
-   "severity": "alert",
-   "sig": "fd92e3d3aac4df4b",
-   "blocks": 0,
-   "proposal": "P8",
-   "proposal_url": "https://github.com/degraffics/traversence/blob/main/site-audit/proposals.md#p8-r04-calls-never-a-php-81-feature-the-server-cant-run-verdict-amend",
-   "verdict": "amend",
-   "decided": true,
-   "first_seen": "2026-11-12T13:20:23Z",
-   "last_seen": "2026-11-13T15:47:24Z"
+   "last_seen": "2026-11-13T17:17:22Z"
   },
   {
    "id": "f-fa035ddd5a",
@@ -178,7 +158,7 @@
    "verdict": "fix, to check in the build",
    "decided": true,
    "first_seen": "2026-11-12T17:55:55Z",
-   "last_seen": "2026-11-13T15:47:24Z"
+   "last_seen": "2026-11-13T17:17:22Z"
   },
   {
    "id": "f-05f90419c6",
@@ -202,7 +182,7 @@
    "verdict": "",
    "decided": false,
    "first_seen": "2026-11-13T15:47:24Z",
-   "last_seen": "2026-11-13T15:47:24Z"
+   "last_seen": "2026-11-13T17:17:22Z"
   },
   {
    "id": "f-403de6bd59",
@@ -226,7 +206,7 @@
    "verdict": "",
    "decided": false,
    "first_seen": "2026-11-13T15:47:24Z",
-   "last_seen": "2026-11-13T15:47:24Z"
+   "last_seen": "2026-11-13T17:17:22Z"
   },
   {
    "id": "f-49acfda115",
@@ -250,7 +230,7 @@
    "verdict": "",
    "decided": false,
    "first_seen": "2026-11-13T15:47:24Z",
-   "last_seen": "2026-11-13T15:47:24Z"
+   "last_seen": "2026-11-13T17:17:22Z"
   },
   {
    "id": "f-b40e626692",
@@ -274,7 +254,7 @@
    "verdict": "",
    "decided": false,
    "first_seen": "2026-11-13T15:47:24Z",
-   "last_seen": "2026-11-13T15:47:24Z"
+   "last_seen": "2026-11-13T17:17:22Z"
   },
   {
    "id": "f-c97bb36996",
@@ -298,7 +278,7 @@
    "verdict": "",
    "decided": false,
    "first_seen": "2026-11-13T15:47:24Z",
-   "last_seen": "2026-11-13T15:47:24Z"
+   "last_seen": "2026-11-13T17:17:22Z"
   },
   {
    "id": "f-1c27e3f60f",
@@ -318,7 +298,7 @@
    "verdict": "fix, and missing",
    "decided": true,
    "first_seen": "2026-11-12T17:55:55Z",
-   "last_seen": "2026-11-13T15:47:24Z"
+   "last_seen": "2026-11-13T17:17:22Z"
   },
   {
    "id": "f-2fa09a34a9",
@@ -341,7 +321,7 @@
    "verdict": "",
    "decided": false,
    "first_seen": "2026-11-12T17:55:55Z",
-   "last_seen": "2026-11-13T15:47:24Z"
+   "last_seen": "2026-11-13T17:17:22Z"
   },
   {
    "id": "f-be75f4f580",
@@ -361,7 +341,7 @@
    "verdict": "fix, and missing",
    "decided": true,
    "first_seen": "2026-11-12T17:55:55Z",
-   "last_seen": "2026-11-13T15:47:24Z"
+   "last_seen": "2026-11-13T17:17:22Z"
   },
   {
    "id": "f-fc2b825837",
@@ -381,7 +361,7 @@
    "verdict": "",
    "decided": false,
    "first_seen": "2026-11-12T17:55:55Z",
-   "last_seen": "2026-11-13T15:47:24Z"
+   "last_seen": "2026-11-13T17:17:22Z"
   },
   {
    "id": "f-3ff207d9d1",
@@ -403,7 +383,7 @@
    "verdict": "fix",
    "decided": true,
    "first_seen": "2026-11-13T15:09:52Z",
-   "last_seen": "2026-11-13T15:47:24Z"
+   "last_seen": "2026-11-13T17:17:22Z"
   }
  ]
 }
