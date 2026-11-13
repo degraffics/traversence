@@ -66,6 +66,7 @@ GNIS_FIXTURE_DIR=dir (DomesticNames_AZ_Text.zip…), AIANNH_FIXTURE=file.zip, WI
 Standard library only.
 """
 import csv
+import gzip
 import hashlib
 try:
     import pypdf                                   # PDFs' text (decisions/0157 §7); without it PDFs are skipped
@@ -133,6 +134,11 @@ GEOCODE_TIME = int(os.environ.get("GEOCODE_TIME", "420"))
 WIKIDATA_SPARQL = "https://query.wikidata.org/sparql"
 SOURCE_TIME = int(os.environ.get("SOURCE_TIME", "60"))            # seconds per run for reading one of our sources
 SOURCE_PAGES = int(os.environ.get("SOURCE_PAGES", "25"))          # pages read per source
+CC_TIME = int(os.environ.get("CC_TIME", "60"))                    # seconds a run for Common Crawl (decisions/0157 §8.3); 0 turns it off
+CC_PAGES = int(os.environ.get("CC_PAGES", "40"))                  # pages read from its archive a run, at most
+CC_PER_SITE = int(os.environ.get("CC_PER_SITE", "50"))            # pages a site, at most, each new crawl
+CC_INDEX = "https://index.commoncrawl.org"
+CC_DATA = "https://data.commoncrawl.org/"
 SOURCE_PDFS = int(os.environ.get("SOURCE_PDFS", "5"))             # of them PDFs, at most (decisions/0157 §7)
 PDF_BYTES = 6_000_000                                               # a PDF larger than this is left for later
 REFRESH_PER_RUN = int(os.environ.get("REFRESH_PER_RUN", "3"))     # live listings refreshed from their own website per run
@@ -1111,6 +1117,141 @@ def tv_safe(v):
     return v
 
 
+def read_page(page, url):
+    """One page read (decisions/0157 §2): its structured data first, then its text; the kind of page; each place with the
+    page's kind, title and town. ([facts], kind, title)"""
+    title = page_title(page)
+    here = jsonld_facts(page, url)
+    if not here:                                         # its own structured data first; the text only when there's none
+        here = text_facts(page, url)
+    else:
+        have = {re.sub(r"\W+", "", f["name"].lower()) for f in here}
+        here += [f for f in text_facts(page, url) if re.sub(r"\W+", "", f["name"].lower()) not in have]
+    kind = page_kind(page, url, here, title)
+    pt = page_town(page)
+    for f in here:
+        f["page_kind"], f["title"] = kind, title
+        if pt[0]:
+            f.setdefault("page_town", pt[0]); f.setdefault("page_state", pt[1])
+    return here, kind, title
+
+
+# ---------------------------------------------------------------------------------------------------
+# Common Crawl (decisions/0157 §8.3): the public archive of billions of pages, a new crawl each month. Its index lists the
+# pages it captured on a site; each page is read from the archive by its byte range (free, and no load on the site). Our
+# states' local public sites (az.us, nm.us) are found from its index and go on the register; each source we read regularly
+# is read from the newest crawl once, up to CC_PER_SITE pages, through the same reading and page log. Never a page today's
+# robots.txt refuses. Pages naming our towns would need a full-text search of the archive (AWS Athena, paid): not done.
+# ---------------------------------------------------------------------------------------------------
+
+last_cc = 0.0
+
+
+def cc_get(url, headers=None, timeout=40):
+    """One polite request to Common Crawl (a second apart, as it asks)."""
+    global last_cc
+    wait = 1.0 - (time.monotonic() - last_cc)
+    if wait > 0:
+        time.sleep(wait)
+    last_cc = time.monotonic()
+    req = urllib.request.Request(url, headers={"User-Agent": UA, **(headers or {})})
+    with urllib.request.urlopen(req, timeout=timeout) as r:
+        return r.read()
+
+
+def cc_latest():
+    """The newest crawl: (its id, its index's address)."""
+    info = json.loads(cc_get(CC_INDEX + "/collinfo.json").decode("utf-8"))
+    return info[0]["id"], info[0]["cdx-api"]
+
+
+def cc_list(api, params, limit=1000):
+    """Records from a crawl's index: [{url, filename, offset, length, ...}]."""
+    q = urllib.parse.urlencode(params, doseq=True)
+    try:
+        raw = cc_get(api + "?" + q + "&output=json&limit=" + str(limit)).decode("utf-8", "replace")
+    except urllib.error.HTTPError as e:
+        if e.code == 404:                               # nothing captured for it
+            return []
+        raise
+    out = []
+    for line in raw.splitlines():
+        try:
+            out.append(json.loads(line))
+        except Exception:
+            pass
+    return out
+
+
+def cc_page(rec):
+    """A captured page's HTML, from the archive by its byte range, or None."""
+    off, ln = int(rec["offset"]), int(rec["length"])
+    data = cc_get(CC_DATA + rec["filename"], {"Range": f"bytes={off}-{off + ln - 1}"})
+    raw = gzip.decompress(data)
+    parts = raw.split(b"\r\n\r\n", 2)                  # the archive's record header, the site's answer's header, the page
+    if len(parts) < 3 or b"html" not in parts[1].lower():
+        return None
+    m = re.search(rb"charset=([\w-]+)", parts[1], re.I)
+    try:
+        return parts[2][:400_000].decode((m.group(1).decode() if m else "utf-8"), "replace")
+    except LookupError:
+        return parts[2][:400_000].decode("utf-8", "replace")
+
+
+def common_crawl(deadline):
+    crawl, api = cc_latest()
+    d = site_call("/api/crawl/commoncrawl.php?crawl=" + urllib.parse.quote(crawl))
+    # our states' local public sites: every site under az.us, nm.us … that the crawl captured, onto the register
+    for st in (d.get("discover") or [])[:1]:
+        if time.monotonic() > deadline or out_of_time():
+            return
+        recs = cc_list(api, {"url": st.lower() + ".us", "matchType": "domain", "fl": "url", "filter": ["status:200", "mime:text/html"]}, 5000)
+        hosts = sorted({host_of(r.get("url", "")) for r in recs if r.get("url")})
+        res = site_call("/api/crawl/commoncrawl.php", {"state": st, "crawl": crawl,
+                                                      "discovered": [{"url": "https://" + h + "/", "text": ""} for h in hosts if h][:400]})
+        log(f"Common Crawl {crawl}: {len(hosts)} site(s) under {st.lower()}.us, {res.get('new_sites', 0)} new on the register")
+    left = CC_PAGES
+    for h in (d.get("hosts") or [])[:3]:
+        if left <= 0 or time.monotonic() > deadline or out_of_time():
+            break
+        host = h.get("host") or ""
+        recs = cc_list(api, {"url": host, "matchType": "domain", "fl": "url,filename,offset,length", "filter": ["status:200", "mime:text/html"],
+                             "collapse": "urlkey"}, 2000)
+        already = set(h.get("read") or [])                # read from this crawl on an earlier run: not again
+        recs = [r for r in recs if host_of(r.get("url", "")) == host and r.get("url") not in already]
+        recs.sort(key=lambda r: 0 if any(k in r["url"].lower() for k in LINK_HINTS) else 1)   # directory-like pages first
+        facts, rows, outlinks, n, tried = [], [], [], 0, 0
+        todo = recs[:max(0, min(CC_PER_SITE - len(already), left))]
+        for r in todo:
+            if time.monotonic() > deadline or out_of_time():
+                break
+            tried += 1
+            url = r["url"]
+            if not public_host(url) or not allowed(url):    # today's robots.txt decides, not the crawl's
+                continue
+            try:
+                page = cc_page(r)
+            except Exception:
+                page = None
+            if not page:
+                continue
+            n += 1
+            here, kind, title = read_page(page, url)
+            facts += here
+            outlinks += own_site_links(page, url, host, here)
+            text = re.sub(r"\s+", " ", " ".join(page_lines(page)))
+            rows.append({"url": url, "status": 200, "type": "text/html", "bytes": len(page), "etag": "", "modified": "", "via": "commoncrawl",
+                         "fingerprint": hashlib.sha1(text.encode("utf-8", "replace")).hexdigest(), "page_kind": kind, "named": len(here), "title": title})
+        left -= n
+        finished = tried >= len(todo) and (len(todo) >= len(recs) or len(already) + len(todo) >= CC_PER_SITE)   # every page tried (read or not)
+        uniq = {}
+        for f in facts:
+            uniq.setdefault((f["name"].lower(), re.sub(r"\D", "", f["phone"])[-10:], f["address"][:20].lower()), f)
+        res = site_call("/api/crawl/commoncrawl.php", tv_safe({"host": host, "crawl": crawl, "done": finished, "facts": list(uniq.values()), "log": rows,
+                                                               "outlinks": list({o["url"]: o for o in outlinks}.values())[:40]}))
+        log(f"Common Crawl {crawl}: {host}, {n} of {len(recs)} page(s) read, {len(uniq)} place(s), {res.get('kept', 0)} kept")
+
+
 def sitemap_urls(start, host, limit=500):
     """The pages a site lists in its sitemap (decisions/0157 §8): from robots.txt's Sitemap lines, else /sitemap.xml; a
     sitemap index is followed to three of its sitemaps. Only the site's own pages, at most `limit`."""
@@ -1232,19 +1373,7 @@ def read_source(deadline):
             row["links"] = links
         elif r["body"]:
             page = r["body"]
-            title = page_title(page)
-            here = jsonld_facts(page, url)
-            if not here:                                 # its own structured data first; the text only when there's none
-                here = text_facts(page, url)
-            else:
-                have = {re.sub(r"\W+", "", f["name"].lower()) for f in here}
-                here += [f for f in text_facts(page, url) if re.sub(r"\W+", "", f["name"].lower()) not in have]
-            kind = page_kind(page, url, here, title)
-            pt = page_town(page)
-            for f in here:
-                f["page_kind"], f["title"] = kind, title
-                if pt[0]:
-                    f.setdefault("page_town", pt[0]); f.setdefault("page_state", pt[1])
+            here, kind, title = read_page(page, url)
             facts += here
             outlinks += own_site_links(page, url, host, here)
             links = []
@@ -2582,6 +2711,11 @@ def run():
             guides(time.monotonic() + GUIDES_TIME)
         except Exception as e:                     # building guides never stops the crawl jobs
             log(f"guides stopped: {e!r}"[:300])
+    if CC_TIME > 0:
+        try:
+            common_crawl(time.monotonic() + CC_TIME)
+        except Exception as e:                     # Common Crawl never stops the rest
+            log(f"Common Crawl stopped: {e!r}"[:300])
     if SOURCE_TIME > 0:
         try:
             read_source(time.monotonic() + SOURCE_TIME)
