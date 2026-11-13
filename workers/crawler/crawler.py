@@ -1168,10 +1168,27 @@ def describe_sites(todo, deadline):
             for d in (data if isinstance(data, list) else data.get("@graph", [data]) if isinstance(data, dict) else []):
                 if isinstance(d, dict):
                     types.append(ld_type(d))
-        about.append({"host": t.get("host"), "title": page_title(page), "site_name": html.unescape(meta("og:site_name"))[:190],
-                      "description": html.unescape(meta("description") or meta("og:description"))[:400], "types": [x for x in types if x][:5]})
+        entry = {"host": t.get("host"), "title": page_title(page), "site_name": html.unescape(meta("og:site_name"))[:190],
+                 "description": html.unescape(meta("description") or meta("og:description"))[:400], "types": [x for x in types if x][:5]}
+        # its terms page, when the home page links one: the second tier reads it (decisions/0157 §7.1)
+        terms = None
+        for href, label in re.findall(r'(?is)<a[^>]+href=["\']([^"\'#]+)["\'][^>]*>(.*?)</a>', page):
+            text = re.sub(r"<[^>]+>", " ", label).strip().lower()
+            if re.search(r"\b(terms( of (use|service))?|terms and conditions|legal|copyright|disclaimer|site policies|website policies)\b", text) \
+                    or re.search(r"(terms|legal|copyright|disclaimer|policies)", href.lower()):
+                full = urllib.parse.urljoin(t.get("home_url") or "", href)
+                if host_of(full) == host_of(t.get("home_url") or ""):
+                    terms = full
+                    break
+        if terms and time.monotonic() < deadline and not out_of_time():
+            tp = fetch_page(terms)
+            if tp:
+                entry["terms_url"] = terms
+                # wrapped whole: legal text can look like code to Bluehost's firewall (Response::unwrap() reads it)
+                entry["terms"] = "tvb64:" + __import__("base64").b64encode(re.sub(r"\s+", " ", " ".join(page_lines(tp)))[:12000].encode()).decode()
+        about.append(entry)
     if about:
-        res = site_call("/api/crawl/sources.php", {"about": about})
+        res = site_call("/api/crawl/sources.php", tv_safe({"about": about}))
         log(f"described {len(about)} site(s) waiting for a call; {res.get('judged', 0)} judged")
 
 
