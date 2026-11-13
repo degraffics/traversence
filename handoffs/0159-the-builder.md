@@ -1,6 +1,17 @@
 # Hand-off: build decisions/0159, the builder
 
-## 0. Where the build stands (2026-11-13 19:30 UTC, written by the session that built step 2's switch and steps 4a–4b; start here)
+## 0. Where the build stands (2026-11-13 20:05 UTC; start here)
+
+**Update 20:05 UTC (the session after):** the bar fix is **release #31** (`barfix_20261113`, verified Sync 20:02). **4c**
+(`editor4c.patch`) is claimed (decisions/0161: Blocks.php, api/blocks.php, tv-editor.js change; header.php, footer.php
+add) and waits only for `crawler-w5_20261113` (pending, carries `faq.md`) to go live and sync; then build it on the live
+copies as below. **4d is built and tested**, unsent: `editor4d.patch` applies on top of 4c's files (Blocks.php,
+api/blocks.php, tv-editor.js) and the live Engage.php, LikeGuard.php, Reports.php, SitePages.php, tv-blocks.js (built on
+Sync 20:02). Run `editor4c-faqedit.py` then `editor4d-faqedit.py` on the live `faq.md`; release text
+`editor4d-release.json`; `editor4d-dbtest.php <tree>` (MariaDB on 127.0.0.1:3399, db `t`): 17 checks, all ok. Ask Jason
+before sending 4d? He already said go for 4d (§0 below), so no.
+
+### Written 19:30 UTC by the session that built step 2's switch and steps 4a–4b
 
 **Done and live** (each verified byte for byte against the mirror, recorded in `deliveries/`):
 - **Steps 1–3** (releases #4–#18): the way into staging, the site manager, builds through git that publish themselves, the
