@@ -1,0 +1,90 @@
+{
+    "id": 1,
+    "title": "Open staging on the Staging page",
+    "why": "Open staging was only on the Releases page. The Staging page now has it beside Refresh staging: it opens staging.trvgo.us past its viewing password, signed in as you, with the staging bar. The first release to go through the Releases page.",
+    "proposals": "Phase 5",
+    "zip": "stagingopen_20261113.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "live",
+    "step": 3,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": "2026-11-13 12:49:23",
+    "staged_at": "2026-11-13 12:49:43",
+    "vetted_at": "2026-11-13 12:53:29",
+    "live_at": "2026-11-13 12:53:40",
+    "files": {
+        "app/admin/sections.php": {
+            "sha": "c2b38b095880bf1bbbe6d587f9999f58a4fbc2ad2f1f89c4bcd12fde1681d969",
+            "size": 205506,
+            "live_was": "21aa1816feb3a87897eaf00b1ae6c0158085787eabdbfd2ccebf0f84689f1876",
+            "existed": true,
+            "old_sha": "21aa1816feb3a87897eaf00b1ae6c0158085787eabdbfd2ccebf0f84689f1876"
+        },
+        "app/ui/faq.md": {
+            "sha": "2d4f89edd93f0fbcf2fce4caa4727b03f725e9bca30f665c7830669f8f844f95",
+            "size": 264544,
+            "live_was": "ba778bb1500d985781da74a4a688481b1d7e497593dfe5dd0880de9868cb832d",
+            "existed": true,
+            "old_sha": "ba778bb1500d985781da74a4a688481b1d7e497593dfe5dd0880de9868cb832d"
+        }
+    },
+    "migrations": [],
+    "checks": {
+        "ok": true,
+        "where": "live",
+        "at": "2026-11-13T12:53:40+00:00",
+        "items": [
+            [
+                "PHP files parse",
+                true,
+                "1 checked"
+            ],
+            [
+                "Pages answer",
+                true,
+                "2 pages answered on traversence.com"
+            ],
+            [
+                "No new fatal errors in the logs",
+                true,
+                "3 logs read"
+            ]
+        ],
+        "first_fail": ""
+    },
+    "log": [
+        {
+            "at": "2026-11-13T12:48:47+00:00",
+            "by": 2,
+            "msg": "Uploaded stagingopen_20261113.zip: 2 files."
+        },
+        {
+            "at": "2026-11-13T12:49:23+00:00",
+            "by": 2,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
+        },
+        {
+            "at": "2026-11-13T12:49:44+00:00",
+            "by": 2,
+            "msg": "Put on staging (2 files); its checks passed."
+        },
+        {
+            "at": "2026-11-13T12:50:01+00:00",
+            "by": 2,
+            "msg": "Opened on staging by Jason DeGraff."
+        },
+        {
+            "at": "2026-11-13T12:53:29+00:00",
+            "by": 2,
+            "msg": "Signed off after staging."
+        },
+        {
+            "at": "2026-11-13T12:53:40+00:00",
+            "by": 2,
+            "msg": "Published: 2 files; everyone at once (no switch)."
+        }
+    ]
+}
