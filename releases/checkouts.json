@@ -255,6 +255,109 @@
    "expires": "2026-11-14T00:21:36Z",
    "release": "editor4c_20261113.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/SitePages.php",
+   "functions": [
+    "submit"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5heQJQxTX8ubPs7Jfs",
+   "why": "0159 step 4d: likes, comments and a form on our pages",
+   "since": "2026-11-13T20:22:16Z",
+   "expires": "2026-11-14T00:22:16Z",
+   "release": "editor4d_20261113",
+   "callers": {
+    "submit": [
+     "app/lib/SocialAuth.php",
+     "website/api/auth/google.php",
+     "website/js/tv-ask.js",
+     "website/login.php",
+     "website/order.php",
+     "website/pages/form.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/Engage.php",
+   "functions": [
+    "exists",
+    "target"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5heQJQxTX8ubPs7Jfs",
+   "why": "0159 step 4d: likes, comments and a form on our pages",
+   "since": "2026-11-13T20:22:16Z",
+   "expires": "2026-11-14T00:22:16Z",
+   "release": "editor4d_20261113",
+   "callers": {
+    "target": [
+     "app/lib/Engage.php",
+     "app/lib/Links.php",
+     "app/lib/Qr.php",
+     "app/lib/ShortCodes.php",
+     "app/lib/upload-targets.php",
+     "website/js/tv-upload.js"
+    ],
+    "exists": [
+     "app/lib/Engage.php",
+     "app/lib/SearchIndex.php",
+     "app/lib/TestAccounts.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/LikeGuard.php",
+   "functions": [
+    "item"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5heQJQxTX8ubPs7Jfs",
+   "why": "0159 step 4d: likes, comments and a form on our pages",
+   "since": "2026-11-13T20:22:16Z",
+   "expires": "2026-11-14T00:22:16Z",
+   "release": "editor4d_20261113",
+   "callers": {
+    "item": [
+     "app/lib/Books.php",
+     "app/lib/ClientOrders.php",
+     "app/lib/Gallery.php",
+     "app/lib/GalleryModes.php",
+     "app/lib/LikeGuard.php",
+     "app/lib/MarketBiz.php",
+     "app/lib/MarketCheckout.php",
+     "app/lib/MarketOffers.php",
+     "app/lib/MarketSquare.php",
+     "app/lib/MemberPosts.php",
+     "app/lib/PlatformCounts.php",
+     "app/lib/Pulse.php",
+     "app/lib/QuickBooksPay.php",
+     "app/lib/Reports.php",
+     "app/lib/StockLibrary.php",
+     "app/lib/SystemTags.php",
+     "app/lib/Uploads.php",
+     "app/lib/Vault.php",
+     "app/lib/WebAuthn.php",
+     "app/ui/pulse-ui.php",
+     "app/ui/section-rails.php",
+     "website/api/admin/client-order.php",
+     "website/api/art-file.php",
+     "website/js/admin-search.js",
+     "website/js/out-count.js",
+     "website/js/search-panel.js"
+    ]
+   }
+  },
+  {
+   "path": "website/js/tv-blocks.js",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5heQJQxTX8ubPs7Jfs",
+   "why": "0159 step 4d: likes, comments and a form on our pages",
+   "since": "2026-11-13T20:22:16Z",
+   "expires": "2026-11-14T00:22:16Z",
+   "release": "editor4d_20261113",
+   "callers": {}
   }
  ],
  "lapsed": []
