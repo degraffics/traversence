@@ -1,12 +1,13 @@
 {
- "at": "2026-11-12T17:53:52.633Z",
+ "at": "2026-11-13T15:06:45.778Z",
  "site": "https://traversence.com",
- "run_url": "https://github.com/degraffics/traversence/actions/runs/43272598422",
+ "run_url": "https://github.com/degraffics/traversence/actions/runs/43447700229",
  "full": false,
  "signed_in": true,
- "pages": 360,
+ "pages": 364,
  "by": {
-  "requests": 2
+  "requests": 2,
+  "scroll": 1
  },
  "results": [
   {
@@ -3658,13 +3659,18 @@
    "console": [],
    "requests": [],
    "dialogs": [],
-   "scroll": false,
+   "scroll": true,
    "edges": 0,
    "alt": 0,
    "names": 0,
    "final": "/admin/market/gateways",
    "eg": {},
-   "why": []
+   "why": [
+    [
+     "scroll",
+     ""
+    ]
+   ]
   },
   {
    "who": "staff-executive",
@@ -5827,6 +5833,40 @@
   },
   {
    "who": "staff-executive",
+   "url": "/admin/config/releases",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "final": "/admin/config/releases",
+   "eg": {},
+   "why": []
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/config/releases",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "final": "/admin/config/releases",
+   "eg": {},
+   "why": []
+  },
+  {
+   "who": "staff-executive",
    "url": "/admin/config/settings",
    "size": "phone",
    "must": true,
@@ -5924,6 +5964,40 @@
    "alt": 0,
    "names": 0,
    "final": "/admin/config/sitemap",
+   "eg": {},
+   "why": []
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/config/decisions",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "final": "/admin/config/decisions",
+   "eg": {},
+   "why": []
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/config/decisions",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "final": "/admin/config/decisions",
    "eg": {},
    "why": []
   },
