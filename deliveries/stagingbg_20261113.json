@@ -3,37 +3,36 @@
  "built_on": "70f8575 Sync: 2026-11-13 03:58 UTC",
  "recorded": "2026-11-13 04:06 UTC",
  "note": "Staging refresh carries on by itself on the server: new every-minute job staging_carry_tick (Scheduler::AUTO, also added at once through the cPanel API when a refresh starts or stalls, and started right away where the server allows); the page only shows progress and can be closed. Built on Sync: 2026-11-13 03:58 UTC.",
- "status": "replaced",
- "live_in": "",
+ "status": "live",
+ "live_in": "4b50e3a Sync: 2026-11-13 04:10 UTC",
  "files": {
   "app/admin/sections.php": {
    "sha256": "64bdbe960e42150c26a59e811c0448cd1e170050512e9cf33925a1bff7fc9128",
-   "live": false
+   "live": true
   },
   "app/lib/Scheduler.php": {
    "sha256": "e30d1d9d393e80166eaf3e4995d12b03efba51adafa7081781a9cf5cb48cd1a1",
-   "live": false
+   "live": true
   },
   "app/lib/StagingSite.php": {
    "sha256": "00920674c2397d8745679d1d4b25e9b297001fb412ac4c411dfb221e6b5685b1",
-   "live": false
+   "live": true
   },
   "app/scripts/staging_carry_tick.php": {
    "sha256": "54ef6d7f0933d291829280a1eb512154294dfe1f7696805b8a86f0940dbb59b7",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "9e158354cda6cc191b97bd833eb7ec8c7b6e51bea4002995bcae3b870c3f1172",
-   "live": false
+   "live": true
   },
   "website/admin/api.php": {
    "sha256": "2ad9dfd0bfefffbaad485b5d0507440b4829be947d3acd133c74f94e76af0a21",
-   "live": false
+   "live": true
   },
   "website/js/admin-staging.js": {
    "sha256": "43817b6e1720e5d9f20afc08d9ea9ffbcd999e5e69efc357a1116cdf359fdf8d",
-   "live": false
+   "live": true
   }
- },
- "replaced_by": "stagingbg2_20261113"
+ }
 }
