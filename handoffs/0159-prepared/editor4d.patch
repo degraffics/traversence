@@ -1,0 +1,347 @@
+diff -ruN a/app/lib/Blocks.php b/app/lib/Blocks.php
+--- a/app/lib/Blocks.php	2026-11-13 20:03:16.615863698 +0000
++++ b/app/lib/Blocks.php	2026-11-13 20:03:16.614608192 +0000
+@@ -27,7 +27,9 @@
+ //             (menus, links) stay code. Not on the admin, sign-in or payment pages.
+ //   schedule  (step 4c) Publish later: a tree and a moment kept per zone (site_block_schedule); at its time it becomes the
+ //             next version at the first look at that zone (any visitor, or the editor), leaving a newer draft alone.
+-// The engage bar and a form as live blocks are step 4d.
++//   page      (step 4d) the engage bar and a form, only in our own pages' zones (LIVE's 'page.'; liveFor() and typesFor():
++//             the editor offers each zone only what may go there). A form block's messages are taken by pages/form.php
++//             because the page's live blocks hold it (hasForm), and go to Form entries like the page's own form.
+ declare(strict_types=1);
+ 
+ require_once __DIR__ . '/Database.php';
+@@ -46,7 +48,10 @@
+         'listings' => ['Businesses', 'Business cards from our directory for a town and a kind of business'],
+         'map' => ['Map button', 'Opens the site\'s map of businesses for a town and a kind of business'],
+         'guide' => ['Guide', 'A card for a town\'s or area\'s guide, linking to it'],
+-        'gocode' => ['GO Code', 'The QR code and short trvgo.us address for this page, or another of ours']];
++        'gocode' => ['GO Code', 'The QR code and short trvgo.us address for this page, or another of ours'],
++        // on our own pages only (step 4d)
++        'engage' => ['Likes and comments', 'The page\'s views, likes, Share and QR code, and its public comments'],
++        'form' => ['Form', 'A contact form or a quote request; messages come to Form entries']];
+     /**
+      * The live components (0159 §3.3): key => [where it may go (zone starts, '' for anywhere), settings]. Each setting is
+      * [label, kind (text|select), choices or max length, hint]. The first choice of a select is its default.
+@@ -64,9 +69,15 @@
+         'guide'    => ['', ['town' => ['Town or area', 'text', 60, 'The guide\'s town, like Cortez']]],
+         'gocode'   => ['', ['path' => ['Which page (optional)', 'text', 200, 'Leave empty for this page, or a page of ours like /directory/'],
+                             'caption' => ['Words under it (optional)', 'text', 120, 'For example: Scan to open this page on your phone']]],
++        // step 4d: only in our own pages' zones ("page.<id>"), where there's a page to like and a page for the messages
++        'engage'   => ['page.', ['comments' => ['What it shows', 'select', ['1' => 'The bar and the comments', '0' => 'The bar only']]]],
++        'form'     => ['page.', ['kind' => ['Kind of form', 'select', ['contact' => 'Contact form', 'quote' => 'Ask for a quote']],
++                                 'heading' => ['Heading (optional)', 'text', 80, 'Leave empty for "Send us a message" or "Ask for a quote"']]],
+     ];
+     private static ?PDO $db = null;
+     private static string $here = '/';
++    /** The zone being drawn (zone() and the API's preview say), for the parts that belong to a page of ours. */
++    private static string $zoneNow = '';
+     /** The breakpoints (decisions/0159 §6): key => [name, the zone's width it starts at]. */
+     public const BPS = ['d' => ['Desktop', 900], 't' => ['Tablet', 560], 'p' => ['Phone', 0]];
+     /** What a section's design may set, per breakpoint: key => [label, [value => name, …]] (the first value is the default). */
+@@ -128,6 +139,41 @@
+         if (!$ok) throw new RuntimeException($why);
+     }
+ 
++    /** The live components that may go in this zone (LIVE's first field: '' anywhere, else the zone's start). */
++    public static function liveFor(string $zone): array
++    {
++        return array_filter(self::LIVE, fn ($x) => $x[0] === '' || str_starts_with($zone, $x[0]));
++    }
++
++    /** The kinds of block the editor offers in this zone. */
++    public static function typesFor(string $zone): array
++    {
++        return array_filter(self::TYPES, fn ($t) => !isset(self::LIVE[$t]) || isset(self::liveFor($zone)[$t]), ARRAY_FILTER_USE_KEY);
++    }
++
++    /** The zone being drawn (the API's preview). */
++    public static function inZone(string $zone): void { self::$zoneNow = self::zoneOk($zone) ? $zone : ''; }
++
++    /** The page of ours whose zone is being drawn, when the live component may go here; 0 otherwise. */
++    private static function pageHere(string $t): int
++    {
++        if (!isset(self::liveFor(self::$zoneNow)[$t])) return 0;
++        return preg_match('/^page\.(\d+)$/', self::$zoneNow, $m) ? (int) $m[1] : 0;
++    }
++
++    /** Whether a page of ours has a form of this kind in its live blocks (pages/form.php takes its messages then). */
++    public static function hasForm(PDO $pdo, int $pageId, string $kind): bool
++    {
++        try {
++            self::ensure($pdo);
++            $st = $pdo->prepare('SELECT v.tree FROM site_block_zones z JOIN site_block_versions v ON v.zone = z.zone AND v.version = z.live_version WHERE z.zone = ?');
++            $st->execute(['page.' . $pageId]);
++            $t = json_decode((string) $st->fetchColumn(), true);
++            foreach ((self::clean(is_array($t) ? $t : [])['sections']) as $s) foreach ($s['cols'] as $c) foreach ($c as $b) if ($b['t'] === 'form' && $b['kind'] === $kind) return true;
++        } catch (Throwable $e) { error_log('blocks hasForm: ' . $e->getMessage()); }
++        return false;
++    }
++
+     public static function zoneOk(string $zone): bool { return (bool) preg_match('/^[a-z0-9][a-z0-9._-]{1,79}$/', $zone); }
+ 
+     // ---- the tree: kept clean whatever is sent --------------------------------------------------------------------------
+@@ -266,6 +312,7 @@
+         if ($b['t'] === 'guide') return trim($b['town']) === '' ? 'name its town' : 'no published guide found for "' . $b['town'] . '" (visitors see nothing here)';
+         if (in_array($b['t'], ['listings', 'map'], true) && $b['town'] === '') return 'name its town';
+         if ($b['t'] === 'gocode') return 'no short address could be made for that page yet';
++        if (in_array($b['t'], ['engage', 'form'], true)) return 'only on our own pages (visitors see nothing here)';
+         return 'not filled in yet';
+     }
+ 
+@@ -332,6 +379,32 @@
+                 if ($short === '') return '';
+                 return '<figure class="tvb-go"><img src="/api/qr.php?page=' . $e(rawurlencode($path)) . '&amp;format=svg" alt="QR code for ' . $e($short) . '" width="180" height="180" loading="lazy">'
+                     . '<figcaption><a href="' . $e($short) . '">' . $e(preg_replace('#^https?://#', '', $short)) . '</a>' . ($b['caption'] !== '' ? '<span>' . $e($b['caption']) . '</span>' : '') . '</figcaption></figure>';
++            case 'engage':   // the standard engage bar for this page (decisions/0058 §20): kind "page", counted as "page:<id>" by view.php
++                if (!($pid = self::pageHere('engage'))) return '';
++                $all = $b['comments'] === '1';
++                if (!self::$db || !function_exists('tv_e')) return '<p class="tvb-blank">Likes and comments: views, likes, Share and the QR code' . ($all ? ', then the comments' : '') . ' (drawn on the page itself)</p>';
++                try {
++                    require_once __DIR__ . '/../ui/engage-ui.php';
++                    $pg = SitePages::get(self::$db, $pid);
++                    return tv_engage_bar(self::$db, 'page', (string) $pid, ['title' => (string) ($pg['title'] ?? ''), 'comments' => $all])
++                        . ($all ? tv_engage_comments(self::$db, 'page', (string) $pid) : '');
++                } catch (Throwable $x) { error_log('blocks engage: ' . $x->getMessage()); return ''; }
++            case 'form':     // a contact or quote form; pages/form.php takes it because the page's live blocks hold it (hasForm)
++                if (!($pid = self::pageHere('form'))) return '';
++                $q = $b['kind'] === 'quote';
++                static $captcha = false;
++                $cw = '';
++                if (!$captcha) { $captcha = true; try { require_once __DIR__ . '/Captcha.php'; $cw = Captcha::widget(); } catch (Throwable $x) { error_log('blocks form captcha: ' . $x->getMessage()); } }
++                return self::liveJs() . '<form class="tvb-form" data-tvb-form data-page="' . $pid . '" data-kind="' . $e($b['kind']) . '" novalidate>'
++                    . '<h2 class="tvb-h3">' . $e($b['heading'] !== '' ? $b['heading'] : ($q ? 'Ask for a quote' : 'Send us a message')) . '</h2>'
++                    . '<label>Your name<input name="name" autocomplete="name" required maxlength="120" data-spell></label>'
++                    . '<label>Email<input name="email" type="email" autocomplete="email" required maxlength="190"></label>'
++                    . '<label>Phone (optional)<input name="phone" type="tel" autocomplete="tel" maxlength="40"></label>'
++                    . '<label>' . ($q ? 'What do you need? Quantities, sizes, when you need it' : 'Your message') . '<textarea name="message" rows="5" required maxlength="5000"></textarea></label>'
++                    . '<div class="tvb-hp" aria-hidden="true"><label>Leave this empty<input name="website" tabindex="-1" autocomplete="off"></label></div>' . $cw
++                    . '<p data-tvb-out data-tv-status="info" data-tv-label="Note:" hidden></p>'
++                    . '<p class="tvb-btnrow"><button type="submit" class="tvb-btn">' . ($q ? 'Ask for a quote' : 'Send') . '</button></p>'
++                    . '<p class="tvb-fine">We use your details only to answer you. See our <a href="/privacy.php">Privacy Policy</a>.</p></form>';
+         }
+         return '';
+     }
+@@ -429,6 +502,9 @@
+             . '.tvb-guide{display:block;max-width:34rem;background:#F7EFDC;border:1px solid #D9C9A3;border-radius:.9rem;padding:.9rem 1.1rem;color:#3E2B1F;text-decoration:none}.tvb-guide small{display:block;font:700 .72rem system-ui;letter-spacing:.05em;text-transform:uppercase;color:#B45309}'
+             . '.tvb-guide b{display:block;font:700 1.25rem Georgia,serif;color:#92400E;text-decoration:underline;margin:.15rem 0 .3rem}.tvb-guide span{display:block;font-size:.92rem;line-height:1.5}.tvb-guide em{display:block;margin-top:.4rem;font-style:normal;font-weight:700;color:#92400E}'
+             . '.tvb-go{margin:.5rem 0;display:inline-block;text-align:center}.tvb-go img{display:block;width:180px;height:180px;background:#fff;border-radius:.5rem;padding:.4rem}.tvb-go figcaption a{color:#92400E;font-weight:700}.tvb-go figcaption span{display:block;font-size:.85rem;color:#8A7355}'
++            . '.tvb-form{display:grid;gap:.6rem;max-width:40rem}.tvb-form label{display:grid;gap:.2rem;font-size:.88rem;font-weight:700;color:#5C4632}'
++            . '.tvb-form input,.tvb-form textarea{border:1px solid #CBB98D;border-radius:.6rem;background:#FFFBF2;padding:.55rem .7rem;font:16px system-ui,sans-serif;color:#3E2B1F}'
++            . '.tvb-form button{border:0;cursor:pointer}.tvb-hp{position:absolute;left:-5000px;width:1px;height:1px;overflow:hidden}.tvb-fine{font-size:.78rem;color:#8A7355;margin:0}.tvb-fine a{color:#92400E;text-decoration:underline}'
+             . '.tvb-acts{display:flex;gap:.3rem;order:1}.tvb-lk{order:2}@media (max-width:767px){.tvb-card{border-radius:.5rem}.tvb-card-h{flex-wrap:wrap}.tvb-card-h a.n{flex-basis:calc(100% - 40px)}.tvb-acts{order:3;flex-basis:100%}}'
+             . self::designCss() . '</style>';
+     }
+@@ -469,6 +545,7 @@
+         if (!self::zoneOk($zone)) return $fallback;
+         try { $s = self::state($pdo, $zone); } catch (Throwable $e) { error_log('blocks ' . $zone . ': ' . $e->getMessage()); return $fallback; }
+         if (!self::$db) self::useDb($pdo);
++        self::$zoneNow = $zone;
+         [$edit] = self::can('pages.edit');
+         $tree = $edit && $s['draft'] !== null ? $s['draft'] : $s['live'];
+         $html = $tree !== null ? self::render($tree, $edit) : $fallback;
+diff -ruN a/app/lib/Engage.php b/app/lib/Engage.php
+--- a/app/lib/Engage.php	2026-11-13 20:03:16.623149653 +0000
++++ b/app/lib/Engage.php	2026-11-13 20:03:16.621324594 +0000
+@@ -9,9 +9,9 @@
+ 
+ final class Engage
+ {
+-    public const KINDS = ['listing', 'rec', 'exp', 'place', 'lm', 'guide', 'how', 'sj'];   // sj: a suggested journey (decisions/0146); 'mkt' (a Marketplace post) has views, Share and Report only; 'group' (a community group, decisions/0137 §4) views, Share and QR
++    public const KINDS = ['listing', 'rec', 'exp', 'place', 'lm', 'guide', 'how', 'sj', 'page'];   // page: one of our own pages (SitePages), through its blocks (decisions/0159 step 4d)   // sj: a suggested journey (decisions/0146); 'mkt' (a Marketplace post) has views, Share and Report only; 'group' (a community group, decisions/0137 §4) views, Share and QR
+     /** the platform's view-count key for each (decisions/0058 §13) */
+-    public const COUNT_KEY = ['listing' => 'listing:', 'rec' => 'rec:', 'exp' => 'experience:', 'place' => 'place:', 'lm' => 'landmark:', 'guide' => 'guide:', 'how' => 'how:', 'sj' => 'suggested:', 'mkt' => 'market:', 'group' => 'group:'];
++    public const COUNT_KEY = ['listing' => 'listing:', 'rec' => 'rec:', 'exp' => 'experience:', 'place' => 'place:', 'lm' => 'landmark:', 'guide' => 'guide:', 'how' => 'how:', 'sj' => 'suggested:', 'mkt' => 'market:', 'group' => 'group:', 'page' => 'page:'];
+ 
+     public static function ready(PDO $pdo): bool
+     {
+@@ -26,7 +26,7 @@
+     public static function target(string $kind, string $ref): array
+     {
+         $ok = match ($kind) {
+-            'listing', 'exp', 'lm', 'guide', 'how', 'sj', 'photo' => ctype_digit($ref),   // photo: a gallery item, only through Gallery (decisions/0126), which checks who may see it
++            'listing', 'exp', 'lm', 'guide', 'how', 'sj', 'page', 'photo' => ctype_digit($ref),   // photo: a gallery item, only through Gallery (decisions/0126), which checks who may see it
+             'mp' => ctype_digit($ref),   // a member's post, only through MemberPosts (decisions/0153), which checks who may see it
+             'rec' => (bool) preg_match('/^[A-Za-z0-9_-]{1,40}$/', $ref),
+             'place' => (bool) preg_match('/^(hub|geo_hub|cluster|town|sub):\d{1,9}$/', $ref),   // town, sub: city and neighborhood guides (decisions/0131)
+@@ -83,6 +83,7 @@
+                 case 'exp': $sql = "SELECT 1 FROM experiences WHERE id = ? AND status = 'published'"; break;
+                 case 'how': $sql = 'SELECT 1 FROM how_guides WHERE id = ?'; break;
+                 case 'listing': $sql = 'SELECT 1 FROM entities WHERE id = ? AND is_suppressed = 0'; break;
++                case 'page': $sql = "SELECT 1 FROM site_pages WHERE id = ? AND owner_id = 0 AND status = 'live'"; break;   // ours, and live
+                 default: return true;
+             }
+             $st = $pdo->prepare($sql); $st->execute([(int) $ref]);
+diff -ruN a/app/lib/LikeGuard.php b/app/lib/LikeGuard.php
+--- a/app/lib/LikeGuard.php	2026-11-13 20:03:16.630211107 +0000
++++ b/app/lib/LikeGuard.php	2026-11-13 20:03:16.628417556 +0000
+@@ -257,7 +257,10 @@
+             try { $st = $pdo->prepare('SELECT name FROM entities WHERE id = ?'); $st->execute([(int) $ref]); $n = (string) $st->fetchColumn(); if ($n !== '') return [$n, '/listing/view.php?id=' . (int) $ref]; } catch (Throwable) {}
+             return ['Listing #' . $ref, '/listing/view.php?id=' . (int) $ref];
+         }
+-        $names = ['rec' => 'Outdoor place', 'exp' => 'Experience', 'place' => 'Place', 'lm' => 'Landmark', 'guide' => 'Guide', 'how' => 'How-to', 'sj' => 'Suggested journey'];
++        if ($kind === 'page' && ctype_digit($ref)) {   // one of our own pages (0159 step 4d)
++            try { require_once __DIR__ . '/SitePages.php'; $p = SitePages::get($pdo, (int) $ref); if ($p) return [(string) $p['title'], SitePages::url($p)]; } catch (Throwable) {}
++        }
++        $names = ['rec' => 'Outdoor place', 'exp' => 'Experience', 'place' => 'Place', 'lm' => 'Landmark', 'guide' => 'Guide', 'how' => 'How-to', 'sj' => 'Suggested journey', 'page' => 'Page'];
+         return [($names[$kind] ?? ucfirst($kind)) . ' ' . $ref, ''];
+     }
+ 
+diff -ruN a/app/lib/Reports.php b/app/lib/Reports.php
+--- a/app/lib/Reports.php	2026-11-13 20:03:16.637680563 +0000
++++ b/app/lib/Reports.php	2026-11-13 20:03:16.635870483 +0000
+@@ -245,8 +245,9 @@
+                 $u = $c['uid'] ? People::user($pdo, (int) $c['uid']) : null;
+                 $url = $kind === 'experience' ? '/experiences/view.php?id=' . (int) $c['id']
+                     : ($c['kind'] === 'place' ? (function () use ($pdo, $c) { try { require_once __DIR__ . '/Links.php'; return Links::resolve($pdo, 'place', (string) $c['ref'])[1]; } catch (Throwable) { return ''; } })()
++                    : ($c['kind'] === 'page' ? (function () use ($pdo, $c) { try { require_once __DIR__ . '/SitePages.php'; $p = SitePages::get($pdo, (int) $c['ref']); return $p ? SitePages::url($p) : ''; } catch (Throwable) { return ''; } })()
+                        : (['listing' => '/listing/view.php?id=', 'rec' => '/place/recreation.php?id=', 'exp' => '/experiences/view.php?id=', 'lm' => '/place/landmark.php?id=',
+-                           'guide' => '/guide/resources.php?id=', 'how' => '/guide/how.php?id=', 'sj' => '/journeys/suggested.php?id='][$c['kind']] ?? '/?') . rawurlencode((string) $c['ref']));
++                           'guide' => '/guide/resources.php?id=', 'how' => '/guide/how.php?id=', 'sj' => '/journeys/suggested.php?id='][$c['kind']] ?? '/?') . rawurlencode((string) $c['ref'])));
+                 $item += ['text' => ($kind === 'experience' ? $c['t'] . ': ' : '') . mb_strimwidth(strip_tags((string) $c['body']), 0, 600, '…'), 'author' => $u ? People::name($u) : 'Traversence',
+                           'author_id' => (int) $c['uid'], 'where' => $kind === 'experience' ? 'Experience' : 'Comment on a page', 'group_id' => 0,
+                           'hidden' => $c['status'] === 'hidden', 'url' => $url];
+diff -ruN a/app/lib/SitePages.php b/app/lib/SitePages.php
+--- a/app/lib/SitePages.php	2026-11-13 20:03:16.644804465 +0000
++++ b/app/lib/SitePages.php	2026-11-13 20:03:16.643514282 +0000
+@@ -147,7 +147,13 @@
+     public static function submit(PDO $pdo, array $page, array $in, string $ip): int
+     {
+         self::ensure($pdo);
+-        if ($page['status'] !== 'live' || $page['form'] === 'none') throw new InvalidArgumentException('This form isn\'t taking messages.');
++        $kind = (string) $page['form'];
++        $want = (string) ($in['kind'] ?? '');   // a form block on the page (decisions/0159 step 4d): taken while the page's live blocks hold one of that kind
++        if ($want !== '' && $want !== $kind && $want !== 'none' && isset(self::FORMS[$want])) {
++            require_once __DIR__ . '/Blocks.php';
++            if (Blocks::hasForm($pdo, (int) $page['id'], $want)) $kind = $want;
++        }
++        if ($page['status'] !== 'live' || $kind === 'none') throw new InvalidArgumentException('This form isn\'t taking messages.');
+         if (trim((string) ($in['website'] ?? '')) !== '') return 0;   // the hidden box only robots fill in
+         $name = trim((string) ($in['name'] ?? '')); $email = strtolower(trim((string) ($in['email'] ?? ''))); $msg = trim((string) ($in['message'] ?? ''));
+         if ($name === '') throw new InvalidArgumentException('Please give your name.');
+@@ -157,7 +163,7 @@
+         $st = $pdo->prepare('SELECT COUNT(*) FROM site_form_entries WHERE ip_hash = ? AND created_at > NOW() - INTERVAL 1 HOUR'); $st->execute([$iph]);
+         if ((int) $st->fetchColumn() >= self::PER_HOUR) throw new RuntimeException('That\'s a lot of messages in an hour. Please try again later.');
+         $pdo->prepare('INSERT INTO site_form_entries (owner_id, page_id, kind, name, email, phone, message, ip_hash, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, NOW())')
+-            ->execute([(int) $page['owner_id'], (int) $page['id'], (string) $page['form'], mb_substr($name, 0, 120), mb_substr($email, 0, 190), mb_substr(trim((string) ($in['phone'] ?? '')), 0, 40), mb_substr($msg, 0, 5000), $iph]);
++            ->execute([(int) $page['owner_id'], (int) $page['id'], $kind, mb_substr($name, 0, 120), mb_substr($email, 0, 190), mb_substr(trim((string) ($in['phone'] ?? '')), 0, 40), mb_substr($msg, 0, 5000), $iph]);
+         return (int) $pdo->lastInsertId();
+     }
+ 
+diff -ruN a/website/api/blocks.php b/website/api/blocks.php
+--- a/website/api/blocks.php	2026-11-13 20:03:16.664987510 +0000
++++ b/website/api/blocks.php	2026-11-13 20:03:16.663827526 +0000
+@@ -2,6 +2,7 @@
+ // /api/blocks.php — the editor's core (decisions/0159 §3, step 3; app/lib/Blocks.php, js/tv-editor.js). Staff with
+ // pages.edit and pages.publish (Founder only until given to a role), signed in with their staff login.
+ //   GET  ?zone=<key>                                   -> {ok, state, versions, can: {edit, publish}, types, bgs}
++//        (types and live: only what may go in that zone; the engage bar and a form only in our pages' zones, 4d)
+ //   POST {action: save|publish|rollback|discard, zone, tree?, version?, tz}, X-CSRF-Token -> {ok, message, state, versions}
+ //   POST {action: preview, zone, tree, here}  -> {ok, html}: the tree drawn as the page will draw it (nothing kept; step 4a;
+ //        here: the page's own address, for a GO Code of "this page")
+@@ -23,9 +24,9 @@
+ $out = function (string $msg = '') use ($pdo, $zone): void {
+     [$pub] = Blocks::can('pages.publish');
+     Response::json(['ok' => true, 'message' => $msg, 'state' => Blocks::state($pdo, $zone), 'versions' => Blocks::versions($pdo, $zone),
+-        'can' => ['edit' => true, 'publish' => $pub], 'types' => Blocks::TYPES, 'bgs' => Blocks::BGS,
++        'can' => ['edit' => true, 'publish' => $pub], 'types' => Blocks::typesFor($zone), 'bgs' => Blocks::BGS,
+         'bps' => Blocks::BPS, 'design' => ['section' => Blocks::SEC_DESIGN, 'block' => Blocks::BLOCK_DESIGN],
+-        'live' => Blocks::LIVE, 'page' => Blocks::pageOf($pdo, $zone)]);
++        'live' => Blocks::liveFor($zone), 'page' => Blocks::pageOf($pdo, $zone)]);
+ };
+ if (!$post) $out();
+ if (!hash_equals((string) ($_SESSION['csrf_token'] ?? ''), (string) ($_SERVER['HTTP_X_CSRF_TOKEN'] ?? ''))) Response::error('This page had been open a long time: reload it and try again.', 403, 'csrf');
+@@ -37,6 +38,7 @@
+ $tz = preg_match('#^[A-Za-z_]+(/[A-Za-z0-9_+-]+)*$#', (string) ($in['tz'] ?? '')) ? (string) $in['tz'] : '';
+ $here = (string) ($in['here'] ?? '');
+ Blocks::useDb($pdo, preg_match('#^/(?!/)[^\s<>"]{0,300}$#', $here) ? $here : '');
++Blocks::inZone($zone);   // the parts that belong to a page of ours draw only in its zone (4d)
+ if (($in['action'] ?? '') === 'preview') Response::json(['ok' => true, 'html' => Blocks::render(Blocks::clean($in['tree'] ?? null), true)]);
+ try {
+     switch ((string) ($in['action'] ?? '')) {
+diff -ruN a/website/js/tv-blocks.js b/website/js/tv-blocks.js
+--- a/website/js/tv-blocks.js	2026-11-13 20:03:16.671881325 +0000
++++ b/website/js/tv-blocks.js	2026-11-13 20:03:16.670476041 +0000
+@@ -4,7 +4,8 @@
+  *  - businesses ([data-tvb-listings]): cards from the directory's own API (/api/search_listings.php, so its public
+  *    rules apply), drawn to the card standard (0058 §11: the name the link, Link top right, Call, Directions and Website as
+  *    round icon buttons, counted with data-out); the plain "See … in …" link stays as the way to all of them;
+- *  - a map button ([data-tvb-map]): the site's map (TvMap, js/map-view.js, loaded when first needed) of those businesses.
++ *  - a map button ([data-tvb-map]): the site's map (TvMap, js/map-view.js, loaded when first needed) of those businesses;
++ *  - a form ([data-tvb-form], step 4d, our own pages only): a contact or quote form sent to /pages/form.php.
+  * TvBlocks.scan(root) wires what's new (the editor calls it after each preview). Every part works as a plain link
+  * when this file can't run. */
+ (function () {
+@@ -88,6 +89,38 @@
+       });
+     });
+   }
+-  window.TvBlocks = { scan: scan };
+-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () { scan(); }); else scan();
++  // a form on one of our pages ([data-tvb-form], step 4d): sent to /pages/form.php like the page's own form, so its entries
++  // reach Form entries; the human check (Captcha::widget) is waited for, and the answer shown as the site's notice
++  function forms(root) {
++    root.querySelectorAll('[data-tvb-form]:not([data-tvb-on])').forEach(function (f) {
++      f.setAttribute('data-tvb-on', '');
++      var out = f.querySelector('[data-tvb-out]');
++      function say(m, ok, b) {
++        if (out) { out.hidden = false; out.setAttribute('data-tv-status', ok ? 'ok' : 'bad'); out.setAttribute('data-tv-label', ok ? 'Sent:' : 'Not sent:'); out.textContent = m; }
++        if (window.TvAsk && TvAsk.say) TvAsk.say(m, { anchor: b, bad: !ok });
++      }
++      f.addEventListener('submit', function (e) {
++        e.preventDefault();
++        var b = f.querySelector('button[type=submit]');
++        var d = { page: +f.dataset.page, kind: f.dataset.kind };
++        ['name', 'email', 'phone', 'message', 'website'].forEach(function (k) { d[k] = (f.elements[k].value || '').trim(); });
++        if (!d.name) return say('Please give your name.', false, b);
++        if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(d.email)) return say('Please check your email address.', false, b);
++        if (d.message.length < 5) return say('Please write your message.', false, b);
++        if (window.TvAsk && TvAsk.busy) TvAsk.busy(b, true);
++        (window.tvCaptchaWait ? tvCaptchaWait() : Promise.resolve(window.tvCaptcha ? tvCaptcha() : '')).then(function (c) {
++          d.captcha = c || '';
++          return fetch('/pages/form.php', { method: 'POST', credentials: 'include', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(window.tvSafe ? tvSafe(d) : d) })
++            .then(function (r) { return r.json(); });
++        }).then(function (j) {
++          if (window.TvAsk && TvAsk.busy) TvAsk.busy(b, false);
++          if (j.ok || j.success) { f.reset(); say('Thank you. We\'ve got your message and will answer by email.', true, b); }
++          else say(((j.error && j.error.message) || j.error || 'That didn\'t send. Try again.') + ' Still stuck? Write to support@traversence.com.', false, b);
++          if (window.tvCaptchaReset) tvCaptchaReset();
++        }).catch(function () { if (window.TvAsk && TvAsk.busy) TvAsk.busy(b, false); say('That didn\'t send. Check your connection and try again, or write to support@traversence.com.', false, b); });
++      });
++    });
++  }
++  window.TvBlocks = { scan: function (root) { scan(root); forms(root || document); } };
++  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () { TvBlocks.scan(); }); else TvBlocks.scan();
+ })();
+diff -ruN a/website/js/tv-editor.js b/website/js/tv-editor.js
+--- a/website/js/tv-editor.js	2026-11-13 20:03:16.678817877 +0000
++++ b/website/js/tv-editor.js	2026-11-13 20:03:16.677542674 +0000
+@@ -25,7 +25,7 @@
+     t: '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M11 18h2"/></svg>',
+     p: '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="7" y="3" width="10" height="18" rx="2"/><path d="M11 18h2"/></svg>'
+   };
+-  var ICON = { heading: 'H', text: '¶', image: '▣', button: '⬭', divider: '—', spacer: '↕', search: '⌕', listings: '▦', map: '⌖', guide: '❖', gocode: '▩' };
++  var ICON = { heading: 'H', text: '¶', image: '▣', button: '⬭', divider: '—', spacer: '↕', search: '⌕', listings: '▦', map: '⌖', guide: '❖', gocode: '▩', engage: '♥', form: '✉' };
+   var css = document.createElement('style');
+   css.textContent = '.tve{position:fixed;z-index:1360;background:#FFFBF2;color:#3E2B1F;box-shadow:0 -10px 30px -10px rgba(0,0,0,.45);display:flex;flex-direction:column;font:15px/1.4 system-ui,sans-serif;left:0;right:0;bottom:0;max-height:62vh;border-radius:1rem 1rem 0 0}'
+     + '@media (min-width:900px){.tve{left:auto;top:0;width:27rem;max-height:none;border-radius:0;box-shadow:-10px 0 30px -10px rgba(0,0,0,.45)}}@media (min-width:1340px){body.tve-open{margin-right:27rem}}@media (max-width:899.98px){body.tve-open{padding-bottom:64vh}}'
+@@ -89,7 +89,8 @@
+   function typeName(t) { return ((cur.data.types || {})[t] || [t])[0]; }
+   function summary(b) {
+     var w = b.t === 'heading' ? b.text : b.t === 'text' ? b.md : b.t === 'image' ? (b.alt || b.src) : b.t === 'button' ? b.label : b.t === 'spacer' ? ({ s: 'small', m: 'medium', l: 'large', xl: 'extra large' })[b.size] : '';
+-    if (live(b.t)) w = b.t === 'search' ? (b.words || 'empty box') : b.t === 'gocode' ? (b.path || 'this page') : [b.cat, b.town].filter(Boolean).join(' in ');
++    if (live(b.t)) w = b.t === 'search' ? (b.words || 'empty box') : b.t === 'gocode' ? (b.path || 'this page') : b.t === 'engage' ? (b.comments === '0' ? 'the bar only' : 'the bar and the comments')
++      : b.t === 'form' ? (b.heading || (b.kind === 'quote' ? 'Ask for a quote' : 'Contact form')) : [b.cat, b.town].filter(Boolean).join(' in ');
+     w = String(w || '').replace(/\s+/g, ' ').trim();
+     return typeName(b.t) + (w ? ': ' + w : b.t === 'divider' ? '' : ' (not filled in)');
+   }
+@@ -126,7 +127,7 @@
+   }
+   // the live parts' browser half (js/tv-blocks.js): a script put in by innerHTML doesn't run, so it's loaded and run here
+   function liveParts(root) {
+-    if (!root.querySelector('[data-tvb-listings],[data-tvb-map],[data-tvb-search]')) return;
++    if (!root.querySelector('[data-tvb-listings],[data-tvb-map],[data-tvb-search],[data-tvb-form]')) return;
+     if (window.TvBlocks) { TvBlocks.scan(root); return; }
+     var s = document.querySelector('script[data-tvb-js]') || (function () { var x = document.createElement('script'); x.src = '/js/tv-blocks.js'; x.setAttribute('data-tvb-js', ''); document.head.appendChild(x); return x; })();
+     s.addEventListener('load', function () { if (window.TvBlocks) TvBlocks.scan(root); });
