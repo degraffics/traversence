@@ -3,36 +3,36 @@
  "built_on": "d639fa3 Sync: 2026-11-13 02:10 UTC",
  "recorded": "2026-11-13 02:16 UTC",
  "note": "0157 delivery 6 with the second tier's reads: listed places' facts join their identity record with the page as source; each source's how, when and licence on the record; Tavily Extract (page_extract) and AWS Textract (scan_read), off until switched on with budgets in AI use. Built on the 02:10 UTC sync. The worker half ships via main.",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "e2b5484 Sync: 2026-11-13 02:21 UTC",
  "files": {
   "app/lib/AiClient.php": {
    "sha256": "35629f4b02b203f4bec65698730cd31d28a902d1eaf320e04bb5c697709bef3c",
-   "live": false
+   "live": true
   },
   "app/lib/crawler/SecondTier.php": {
    "sha256": "210fac9da573d73e01b0773d3be0c1d90edb19d6f3477ccdb31e310b3c993639",
-   "live": false
+   "live": true
   },
   "app/lib/crawler/SourceIndex.php": {
    "sha256": "01dac377792a88b759a0c0a571a929e5e29e4da8f968d072ed59b017d85a283e",
-   "live": false
+   "live": true
   },
   "app/scripts/listings_tick.php": {
    "sha256": "21def60c6c12a0afc86ce4b2e232d397e8dc98313a0fb2c8fc76260dd5cb8d8f",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "eb4f1b0ee7b77b74a195425113ac10ca3991583caccd6457466c30e2af811019",
-   "live": false
+   "live": true
   },
   "website/admin/identities.php": {
    "sha256": "32972d7c3c267380ba3adb96726022c95d78174533b54874fe85e8a33eb2953d",
-   "live": false
+   "live": true
   },
   "website/api/crawl/sources.php": {
    "sha256": "57700a1edbf977164bcdd6672053318346127f3db61beed6445b546d2b27bafd",
-   "live": false
+   "live": true
   }
  }
 }
