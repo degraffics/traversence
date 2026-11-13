@@ -1,0 +1,296 @@
+--- a/app/lib/Blocks.php
++++ b/app/lib/Blocks.php
+@@ -22,7 +22,12 @@
+ //             only places and sets them up (0159 §3.3). Those that need the database get it from useDb() (zone() and
+ //             /api/blocks.php call it); those that run in the browser draw from the site's public APIs (js/tv-blocks.js),
+ //             so they keep the same rules as the pages they come from.
+-// The engage bar and a form as live blocks, global components (header, footer) and scheduled publishing are step 4c.
++//   site      (step 4c) zones on every public page: "site.top" under the header, "site.bottom" above the footer (header.php,
++//             footer.php through Blocks::site()); edited once, versioned like any zone. The coded header and footer
++//             (menus, links) stay code. Not on the admin, sign-in or payment pages.
++//   schedule  (step 4c) Publish later: a tree and a moment kept per zone (site_block_schedule); at its time it becomes the
++//             next version at the first look at that zone (any visitor, or the editor), leaving a newer draft alone.
++// The engage bar and a form as live blocks are step 4d.
+ declare(strict_types=1);
+ 
+ require_once __DIR__ . '/Database.php';
+@@ -90,12 +95,16 @@
+     public static function ensure(PDO $pdo): void
+     {
+         if (self::$ready) return;
++        // every public page reads the site's zones (step 4c): one cheap look first, the tables made only when missing
++        try { $pdo->query('SELECT 1 FROM site_block_schedule LIMIT 0'); $pdo->query('SELECT 1 FROM site_block_versions LIMIT 0'); self::$ready = true; return; } catch (Throwable $e) {}
+         $tail = ' ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci';
+         $pdo->exec('CREATE TABLE IF NOT EXISTS site_block_zones (zone VARCHAR(80) NOT NULL PRIMARY KEY, draft MEDIUMTEXT NULL, draft_by INT UNSIGNED NULL,
+             draft_name VARCHAR(100) NOT NULL DEFAULT \'\', draft_at DATETIME NULL, draft_tz VARCHAR(64) NOT NULL DEFAULT \'\', live_version INT UNSIGNED NOT NULL DEFAULT 0, updated_at DATETIME NOT NULL)' . $tail);
+         $pdo->exec('CREATE TABLE IF NOT EXISTS site_block_versions (id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY, zone VARCHAR(80) NOT NULL, version INT UNSIGNED NOT NULL,
+             tree MEDIUMTEXT NOT NULL, by_user INT UNSIGNED NULL, by_name VARCHAR(100) NOT NULL DEFAULT \'\', at DATETIME NOT NULL, tz VARCHAR(64) NOT NULL DEFAULT \'\',
+             note VARCHAR(200) NOT NULL DEFAULT \'\', UNIQUE KEY uq_block_version (zone, version))' . $tail);
++        $pdo->exec('CREATE TABLE IF NOT EXISTS site_block_schedule (zone VARCHAR(80) NOT NULL PRIMARY KEY, tree MEDIUMTEXT NOT NULL, at DATETIME NOT NULL,
++            tz VARCHAR(64) NOT NULL DEFAULT \'\', by_user INT UNSIGNED NULL, by_name VARCHAR(100) NOT NULL DEFAULT \'\', made_at DATETIME NOT NULL)' . $tail);
+         self::$ready = true;
+     }
+ 
+@@ -429,13 +438,17 @@
+     public static function state(PDO $pdo, string $zone): array
+     {
+         self::ensure($pdo);
++        $st = $pdo->prepare('SELECT at, tz, by_name, at <= UTC_TIMESTAMP() AS due FROM site_block_schedule WHERE zone = ?'); $st->execute([$zone]);
++        $sch = $st->fetch(PDO::FETCH_ASSOC) ?: null;
++        if ($sch && (int) $sch['due']) { try { self::publishDue($pdo, $zone); } catch (Throwable $x) { error_log('blocks scheduled ' . $zone . ': ' . $x->getMessage()); } $sch = null; }
+         $st = $pdo->prepare('SELECT * FROM site_block_zones WHERE zone = ?'); $st->execute([$zone]);
+         $z = $st->fetch(PDO::FETCH_ASSOC) ?: null;
+         $live = null; $v = (int) ($z['live_version'] ?? 0);
+         if ($v) { $st = $pdo->prepare('SELECT tree FROM site_block_versions WHERE zone = ? AND version = ?'); $st->execute([$zone, $v]); $live = json_decode((string) $st->fetchColumn(), true); }
+         $draft = $z && $z['draft'] !== null ? json_decode((string) $z['draft'], true) : null;
+         return ['zone' => $zone, 'live' => is_array($live) ? self::clean($live) : null, 'live_version' => $v,
+-                'draft' => is_array($draft) ? self::clean($draft) : null, 'draft_by' => (string) ($z['draft_name'] ?? ''), 'draft_at' => $z['draft_at'] ?? null, 'draft_tz' => (string) ($z['draft_tz'] ?? '')];
++                'draft' => is_array($draft) ? self::clean($draft) : null, 'draft_by' => (string) ($z['draft_name'] ?? ''), 'draft_at' => $z['draft_at'] ?? null, 'draft_tz' => (string) ($z['draft_tz'] ?? ''),
++                'scheduled' => $sch ? ['at' => gmdate('c', (int) strtotime($sch['at'] . ' UTC')), 'tz' => (string) $sch['tz'], 'by' => (string) $sch['by_name']] : null];
+     }
+ 
+     public static function versions(PDO $pdo, string $zone, int $limit = 30): array
+@@ -461,7 +474,8 @@
+         $html = $tree !== null ? self::render($tree, $edit) : $fallback;
+         if (!$edit) return $html === '' ? '' : self::kit() . '<div class="tvb-zone" data-tvb="' . htmlspecialchars($zone) . '">' . $html . '</div>';
+         $e = fn ($x) => htmlspecialchars((string) $x, ENT_QUOTES, 'UTF-8');
+-        $tag = $s['draft'] !== null ? 'Draft: only our team sees this' : ($s['live_version'] ? 'Live, version ' . $s['live_version'] : 'Not published yet');
++        $tag = ($s['draft'] !== null ? 'Draft: only our team sees this' : ($s['live_version'] ? 'Live, version ' . $s['live_version'] : 'Not published yet'))
++            . ($s['scheduled'] ? ' · goes live ' . self::when($s['scheduled']['at'], $s['scheduled']['tz']) : '');
+         $js = '';
+         static $once = false;
+         if (!$once) { $once = true; $js = '<script src="/js/tv-editor.js?v=' . (int) @filemtime(dirname(__DIR__, 2) . '/website/js/tv-editor.js') . '" defer></script>'; }
+@@ -503,21 +517,100 @@
+         return 'Published: version ' . self::newVersion($pdo, $zone, $t, $uid, $name, $tz, $note) . ' is live.';
+     }
+ 
+-    private static function newVersion(PDO $pdo, string $zone, array $tree, int $uid, string $name, string $tz, string $note): int
++    private static function newVersion(PDO $pdo, string $zone, array $tree, int $uid, string $name, string $tz, string $note, bool $scheduled = false): int
+     {
+         self::touch($pdo, $zone);
+         $pdo->beginTransaction();
+         try {
++            if ($scheduled) {   // the schedule is taken by one look only: two visitors at its moment make one version
++                $d = $pdo->prepare('DELETE FROM site_block_schedule WHERE zone = ? AND at <= UTC_TIMESTAMP()'); $d->execute([$zone]);
++                if (!$d->rowCount()) { $pdo->rollBack(); return 0; }
++            }
+             $st = $pdo->prepare('SELECT COALESCE(MAX(version), 0) + 1 FROM site_block_versions WHERE zone = ? FOR UPDATE'); $st->execute([$zone]);
+             $v = (int) $st->fetchColumn();
+             $pdo->prepare('INSERT INTO site_block_versions (zone, version, tree, by_user, by_name, at, tz, note) VALUES (?, ?, ?, ?, ?, UTC_TIMESTAMP(), ?, ?)')
+                 ->execute([$zone, $v, json_encode($tree, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES), $uid ?: null, mb_substr($name, 0, 100), mb_substr($tz, 0, 64), mb_substr($note, 0, 200)]);
+-            $pdo->prepare('UPDATE site_block_zones SET live_version = ?, draft = NULL, draft_by = NULL, draft_name = \'\', draft_at = NULL, updated_at = UTC_TIMESTAMP() WHERE zone = ?')->execute([$v, $zone]);
++            if ($scheduled) $pdo->prepare('UPDATE site_block_zones SET live_version = ?, updated_at = UTC_TIMESTAMP() WHERE zone = ?')->execute([$v, $zone]);   // a newer draft stays
++            else $pdo->prepare('UPDATE site_block_zones SET live_version = ?, draft = NULL, draft_by = NULL, draft_name = \'\', draft_at = NULL, updated_at = UTC_TIMESTAMP() WHERE zone = ?')->execute([$v, $zone]);
+             $pdo->commit();
+         } catch (Throwable $e) { $pdo->rollBack(); throw $e; }
+         return $v;
+     }
+ 
++    /** Publish later: the tree sent (or the draft) goes live at $atIso (UTC), as the next version. One schedule per zone. */
++    public static function schedule(PDO $pdo, string $zone, $tree, string $atIso, int $uid, string $name, string $tz): string
++    {
++        self::need('pages.publish');
++        if (!self::zoneOk($zone)) throw new RuntimeException('That isn\'t a place for blocks.');
++        self::ensure($pdo);
++        $t = strtotime($atIso);
++        if ($t === false) throw new RuntimeException('Choose a day and time.');
++        if ($t < time() + 60) throw new RuntimeException('Choose a time at least a minute from now (or Publish now).');
++        if ($t > time() + 366 * 86400) throw new RuntimeException('Choose a time within a year.');
++        $s = self::state($pdo, $zone);
++        $tr = $tree !== null ? self::clean($tree) : $s['draft'];
++        if ($tr === null) throw new RuntimeException('Nothing to publish: make a change first.');
++        $pdo->prepare('REPLACE INTO site_block_schedule (zone, tree, at, tz, by_user, by_name, made_at) VALUES (?, ?, ?, ?, ?, ?, UTC_TIMESTAMP())')
++            ->execute([$zone, json_encode($tr, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES), gmdate('Y-m-d H:i:s', $t), mb_substr($tz, 0, 64), $uid ?: null, mb_substr($name, 0, 100)]);
++        return 'Scheduled: it goes live ' . self::when(gmdate('c', $t), $tz) . ', as the next version. Your draft stays yours to keep working on.';
++    }
++
++    /** Call off a Publish later. */
++    public static function unschedule(PDO $pdo, string $zone): string
++    {
++        self::need('pages.publish');
++        self::ensure($pdo);
++        $pdo->prepare('DELETE FROM site_block_schedule WHERE zone = ?')->execute([$zone]);
++        return 'Called off: nothing goes live by itself now.';
++    }
++
++    /** A schedule whose time has come: its tree becomes the next version (once, however many look at that moment). */
++    private static function publishDue(PDO $pdo, string $zone): void
++    {
++        $st = $pdo->prepare('SELECT * FROM site_block_schedule WHERE zone = ? AND at <= UTC_TIMESTAMP()'); $st->execute([$zone]);
++        $r = $st->fetch(PDO::FETCH_ASSOC);
++        if (!$r) return;
++        $t = json_decode((string) $r['tree'], true);
++        self::newVersion($pdo, $zone, self::clean(is_array($t) ? $t : []), (int) $r['by_user'], (string) $r['by_name'], (string) $r['tz'],
++            'Scheduled for ' . self::when(gmdate('c', (int) strtotime($r['at'] . ' UTC')), (string) $r['tz']), true);
++    }
++
++    /** A moment in the zone it was chosen in, labeled ("Nov 14, 9:00 AM MST"); UTC when the zone isn't known. */
++    public static function when(string $iso, string $tz): string
++    {
++        try { $d = new DateTime($iso); $d->setTimezone(new DateTimeZone($tz !== '' ? $tz : 'UTC')); return $d->format('M j, g:i A T'); }
++        catch (Throwable $e) { return gmdate('M j, g:i A', (int) strtotime($iso)) . ' UTC'; }
++    }
++
++    // ---- the zones on every page (step 4c) ----------------------------------------------------------------------------
++
++    public const SITE = ['site.top' => 'Every page, under the header', 'site.bottom' => 'Every page, above the footer'];
++    private static ?bool $siteHere = null;
++    private static bool $siteHome = false;
++
++    /**
++     * A zone on every public page (header.php draws "site.top", footer.php "site.bottom"). $here: whether this page takes
++     * them (header.php says, from its own rules: the browsing pages, never the admin, sign-in or payment pages); the footer
++     * follows the header's answer. Visitors see what's published; editors see the zone outlined on the home page, or where
++     * it has something, so other pages don't fill with empty outlines. Never stops a page: any trouble draws nothing.
++     */
++    public static function site(string $slot, ?bool $here = null, bool $home = false): string
++    {
++        if ($here !== null) { self::$siteHere = $here; self::$siteHome = $home; }
++        if (!self::$siteHere || !isset(self::SITE[$slot])) return '';
++        try {
++            $pdo = Database::connection();
++            if (!self::$siteHome) {
++                [$edit] = self::can('pages.edit');
++                $s = self::state($pdo, $slot);
++                $t = $edit && $s['draft'] !== null ? $s['draft'] : $s['live'];
++                if ($t === null || self::render($t) === '') return '';
++            }
++            $z = self::zone($pdo, $slot, '', self::SITE[$slot]);
++            return $z === '' ? '' : '<div class="tvb-site" style="max-width:72rem;margin:0 auto;padding:.4rem 1rem">' . $z . '</div>';
++        } catch (Throwable $e) { error_log('blocks site ' . $slot . ': ' . $e->getMessage()); return ''; }
++    }
++
+     /** Roll back: an earlier version published again, as the next version (the history only grows). */
+     public static function rollBack(PDO $pdo, string $zone, int $version, int $uid, string $name, string $tz): string
+     {
+--- a/app/ui/header.php
++++ b/app/ui/header.php
+@@ -473,3 +473,12 @@
+ <script<?= tv_nonce() ?>>(function () { var n = document.getElementById('tv-notice'), t = document.getElementById('top-bar'); if (n && t && t.parentNode) t.parentNode.insertBefore(n, t.nextSibling); })();</script>
+ <?php endif;
+ }
++// The zone on every page under the header (decisions/0159 step 4c, Blocks::site): what staff publish there shows on the
++// browsing pages, never on the admin, sign-in or payment pages. The footer's zone follows this page's answer.
++if (is_file(__DIR__ . '/../lib/Blocks.php')) {
++    try {
++        require_once __DIR__ . '/../lib/Blocks.php';
++        $tv_site_here = ($tv_search || $tv_home) && !tv_is_card_page() && !preg_match('#^/(admin|staging|user/|qr/(cart|order)|market/(cart|order))#', $tv_path);
++        echo Blocks::site('site.top', $tv_site_here, $tv_home);
++    } catch (Throwable $e) { error_log('site zone: ' . $e->getMessage()); }
++}
+--- a/app/ui/footer.php
++++ b/app/ui/footer.php
+@@ -37,6 +37,8 @@
+             $runs = (bool) Roles::staffLogin($fpdo, (int) $fme['id']) || (bool) Team::listingsOf($fpdo, (int) $fme['id']);
+         }
+     } catch (Throwable) {}
++    // the zone on every page above the footer (decisions/0159 step 4c): drawn where the header's zone may be
++    if (class_exists('Blocks')) { try { echo Blocks::site('site.bottom'); } catch (Throwable $e) { error_log('site zone: ' . $e->getMessage()); } }
+     ?>
+ <footer class="border-t border-[#CBB98D] bg-[#EFE3C8] px-4 sm:px-8 pt-8 pb-6 text-xs text-[#5C4632]">
+   <div class="max-w-5xl mx-auto space-y-6">
+--- a/website/api/blocks.php
++++ b/website/api/blocks.php
+@@ -5,6 +5,7 @@
+ //   POST {action: save|publish|rollback|discard, zone, tree?, version?, tz}, X-CSRF-Token -> {ok, message, state, versions}
+ //   POST {action: preview, zone, tree, here}  -> {ok, html}: the tree drawn as the page will draw it (nothing kept; step 4a;
+ //        here: the page's own address, for a GO Code of "this page")
++//   POST {action: schedule, zone, tree, at (ISO), tz} | {action: unschedule, zone} -> Publish later, or call it off (4c)
+ //   POST {action: page, zone, title, summary, share_image} -> a page of ours' settings, saved at once (pages.publish; 4b)
+ declare(strict_types=1);
+ 
+@@ -43,6 +44,8 @@
+         case 'publish': $out(Blocks::publish($pdo, $zone, $in['tree'] ?? null, $uid, $name, $tz));
+         case 'rollback': $out(Blocks::rollBack($pdo, $zone, (int) ($in['version'] ?? 0), $uid, $name, $tz));
+         case 'discard': $out(Blocks::discard($pdo, $zone));
++        case 'schedule': $out(Blocks::schedule($pdo, $zone, $in['tree'] ?? null, (string) ($in['at'] ?? ''), $uid, $name, $tz));
++        case 'unschedule': $out(Blocks::unschedule($pdo, $zone));
+         case 'page':   // a page of ours: its title, search description and share picture, live when saved
+             [$pub, $whyNot] = Blocks::can('pages.publish');
+             if (!$pub) throw new RuntimeException($whyNot);
+--- a/website/js/tv-editor.js
++++ b/website/js/tv-editor.js
+@@ -13,7 +13,8 @@
+  *    Throw the draft away. Every action shows its spinner, then the site's notice (TvAsk).
+  * Step 4a; 4b added the live components (Add → Parts of the site: search box, businesses, map button, guide, GO Code, each
+  * with its own settings from Blocks::LIVE) and, on a page of ours, the Page tab (title, search description, share picture,
+- * live when saved). The engage bar and a form, global header and footer, and scheduled publishing are 4c. */
++ * live when saved). 4c: ▾ → Publish later (a day and time; Call it off), and the zones on every page (Blocks::SITE). The
++ * engage bar and a form are 4d. */
+ (function () {
+   var zones = document.querySelectorAll('[data-tvb-zone]');
+   if (!zones.length) return;
+@@ -257,7 +258,7 @@
+ 
+   // ---- the panel ------------------------------------------------------------------------------------------------------
+   function open(zoneEl, view) {
+-    cur = { zone: zoneEl.getAttribute('data-tvb-zone'), label: zoneEl.getAttribute('data-tvb-label') || '', el: zoneEl, dirty: false, view: view === 'versions' ? 'versions' : 'edit', tab: 'add', sel: null, bp: 'd' };
++    cur = { zone: zoneEl.getAttribute('data-tvb-zone'), label: zoneEl.getAttribute('data-tvb-label') || '', el: zoneEl, dirty: false, view: view === 'versions' || view === 'later' ? view : 'edit', tab: 'add', sel: null, bp: 'd' };
+     var b = zoneEl.querySelector('[data-tvb-edit]'); busy(b, true);
+     api().then(function (j) {
+       busy(b, false); cur.data = j; cur.tree = clone(j.state.draft || j.state.live || { sections: [] });
+@@ -429,6 +430,28 @@
+     return bd;
+   }
+ 
++  /** Publish later: this (as it is in the panel now) goes live at a day and time, as the next version. */
++  function laterBox() {
++    var st = cur.data.state, box = el('div');
++    if (st.scheduled) {
++      box.appendChild(el('p', { 'data-tv-status': 'info', 'data-tv-label': 'Set:', text: 'It goes live by itself ' + when(st.scheduled.at, st.scheduled.tz) + (st.scheduled.by ? ' (set by ' + st.scheduled.by + ')' : '') + '. Setting a new time replaces it.' }));
++      box.appendChild(btn('Call it off', function (e) { var b = e.currentTarget; ask('Call off the scheduled publish? Nothing goes live by itself then.', b, 'Call it off', true).then(function (y) { if (y) act(b, 'unschedule', {}, 'later'); }); }, 'no'));
++    }
++    var pad = function (n) { return (n < 10 ? '0' : '') + n; }, d = new Date(Date.now() + 3600e3);
++    d.setMinutes(0, 0, 0);
++    var local = function (x) { return x.getFullYear() + '-' + pad(x.getMonth() + 1) + '-' + pad(x.getDate()) + 'T' + pad(x.getHours()) + ':' + pad(x.getMinutes()); };
++    var input = el('input', { type: 'datetime-local', min: local(new Date(Date.now() + 120e3)), value: local(d) });
++    box.appendChild(el('p', { class: 'tve-note', text: 'What\'s in the panel now goes live at the time you choose, as the next version, without anyone pressing Publish. It happens at the first visit to the page after that time. Your draft stays yours to keep working on.' }));
++    box.appendChild(field('Day and time (' + (tz || 'your time') + ')', input));
++    box.appendChild(el('p', { style: 'margin-top:.6rem' }, [btn('Publish then', function (e) {
++      var b = e.currentTarget, t = input.value ? new Date(input.value) : null;
++      if (!t || isNaN(t)) { say('Choose a day and time.', b, true); return; }
++      ask('Publish this ' + t.toLocaleString([], { weekday: 'short', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit', timeZoneName: 'short' }) + '?', b, 'Schedule it')
++        .then(function (y) { if (y) act(b, 'schedule', { tree: cur.tree, at: t.toISOString() }, 'later'); });
++    }, 'go')]));
++    return box;
++  }
++
+   /** A page of ours: how it shows in search engines and when shared. Saved at once (not part of the draft). */
+   function pageBox() {
+     var pg = cur.data.page, can = cur.data.can || {}, f = { title: pg.title, summary: pg.summary, share_image: pg.share_image };
+@@ -492,7 +515,7 @@
+     if (cur.sel && !cur.tree.sections[cur.sel.s]) cur.sel = null;
+     if (!cur.sel && (cur.tab === 'manage' || cur.tab === 'design' || cur.tab === 'section')) cur.tab = 'layout';
+     if (cur.tab === 'page' && (!cur.data.page || cur.sel)) cur.tab = 'layout';
+-    var line = st.draft ? 'Draft saved' + (st.draft_by ? ' by ' + st.draft_by : '') + (st.draft_at ? ', ' + when(st.draft_at.replace(' ', 'T') + 'Z', st.draft_tz) : '') + ': only our team sees it.' : st.live_version ? 'Live: version ' + st.live_version + '.' : 'Not published yet: visitors see the page as it was.';
++    var line = (st.scheduled ? 'Goes live by itself ' + when(st.scheduled.at, st.scheduled.tz) + '. ' : '') + (st.draft ? 'Draft saved' + (st.draft_by ? ' by ' + st.draft_by : '') + (st.draft_at ? ', ' + when(st.draft_at.replace(' ', 'T') + 'Z', st.draft_tz) : '') + ': only our team sees it.' : st.live_version ? 'Live: version ' + st.live_version + '.' : 'Not published yet: visitors see the page as it was.');
+     panel = el('div', { class: 'tve', role: 'dialog', 'aria-label': 'Edit ' + cur.label, 'data-tab': cur.tab + cur.view });
+     var hd = el('div', { class: 'tve-hd' }, [el('b', { text: cur.label }), el('button', { type: 'button', class: 'tve-x', title: 'Close', 'aria-label': 'Close', text: '✕', on: close })]);
+     var row = el('div', { class: 'tve-row' });
+@@ -508,6 +531,7 @@
+       var more = btn('▾', function () {
+         if (list) { list.remove(); list = null; return; }
+         list = el('div', { role: 'menu' }, [btn('Versions and roll back', function () { cur.view = 'versions'; draw(); })]);
++        if (can.publish) list.appendChild(btn(st.scheduled ? 'Publish later (set)…' : 'Publish later…', function () { cur.view = 'later'; draw(); }));
+         if (st.draft) list.appendChild(btn('Throw the draft away', function (e) {
+           var b = e.currentTarget; ask('Throw the draft away? The page goes back to what\'s live.', b, 'Throw it away', true).then(function (y) { if (y) act(b, 'discard'); });
+         }, 'no'));
+@@ -517,7 +541,7 @@
+       var bps = el('span', { class: 'tve-bps', role: 'group', 'aria-label': 'View as' });
+       ['d', 't', 'p'].forEach(function (k) { var n = ((cur.data.bps || {})[k] || [k])[0]; bps.appendChild(el('button', { type: 'button', html: SVG[k], title: n, 'aria-label': 'View as ' + n, 'aria-pressed': String(cur.bp === k), on: function () { setView(k); } })); });
+       row.appendChild(bps);
+-    } else row.appendChild(btn('← Back to editing', function () { cur.view = 'edit'; draw(); }));
++    } else row.appendChild(btn('← Back to editing', function () { cur.view = 'edit'; draw(); }));   // from Versions or Publish later
+     hd.appendChild(row);
+     hd.appendChild(el('small', { text: line }));
+     panel.appendChild(hd);
+@@ -543,7 +567,8 @@
+           btn('Done', function () { cur.sel = null; cur.tab = 'layout'; draw(); mark(); }, 'sm')]));
+         bd.appendChild(cur.tab === 'design' ? designBox(b, cur.data.design.block) : blockBox(b));
+       }
+-    } else {
++    } else if (cur.view === 'later') bd.appendChild(laterBox());
++    else {
+       var vs = cur.data.versions || [];
+       if (!vs.length) bd.appendChild(el('p', { text: 'Nothing published here yet.' }));
+       vs.forEach(function (v) {
