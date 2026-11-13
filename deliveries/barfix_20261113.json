@@ -1,0 +1,22 @@
+{
+ "zip": "barfix_20261113.zip",
+ "built_on": "98803d1 Sync: 2026-11-13 19:58 UTC",
+ "recorded": "2026-11-13 19:59 UTC",
+ "note": "Site manager bar shows the newest release (0159 bar fix), built on Sync: 2026-11-13 19:58 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/Releases.php": {
+   "sha256": "57ea7d48a104d36913c21dbccd4402a5d089b8d8f80dfe82d6a6a84687f0f1ce",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "a18569feffd23e05cb9749efc5457ad4d9be78e6493482b4d1602885f8e761ae",
+   "live": false
+  },
+  "website/js/stg-bar.js": {
+   "sha256": "fc69ae22db845a413ebac42c6049c87fceb766498a2fcce668b698ac11007d82",
+   "live": false
+  }
+ }
+}
