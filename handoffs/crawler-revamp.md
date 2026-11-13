@@ -250,7 +250,8 @@ CLAUDE.md, in full. For this work above all:
 
 ## 7. Open
 
-- Merging the worker fix (deploys it on Railway) waits for Jason's OK.
+- Nothing waiting on Jason. Worker 2.1 merged with his OK (2026-11-13), and Railway's watch paths set to
+  `/workers/crawler/**` (he asked), so a release commit no longer redeploys the worker.
 
 ## 8. For the next session (from W4 on)
 
