@@ -35,6 +35,20 @@ different network with our exact User-Agent tells: 406 there too means the agent
 (its network doesn't reach overpass-api.de; allowing it needs Jason's OK in the session's network settings). Never get
 round a ban by changing the agent: that's what turns it into an IP ban.
 
+**The test, 2026-11-13 23:12 UTC (Jason: "allow the OSM test"):** from a Claude cloud session (a cloud provider's
+network), one small query with each of our two User-Agents. Both connections were reset by overpass-api.de during the TLS
+handshake, before any request was sent (the session proxy: "tunnel closed after 2s; 517 B sent, 39 B received"), so the
+server refused that network, not our name. That fits the maintainers' blocks of whole cloud networks, and it can't tell
+whether our User-Agent is banned. Railway is different: it gets through the handshake and is refused with 406 after the
+request, which is where a User-Agent or Referer ban acts.
+
+**Two ways to settle it:**
+- From a home or office connection (not a cloud), one request with the crawler's exact User-Agent:
+  `curl -s -o /dev/null -w "%{http_code}\n" -A "TraversenceCrawler/1.0 (+https://traversence.com; local directory of community resources)" "https://overpass-api.de/api/status"`.
+  406 means the name is banned; 200 means it's Railway's address.
+- Or the crawler asks `https://overpass-api.de/api/status` once from Railway and logs the answer (the status page names
+  the caller's address and its rate-limit slots). That's a small worker change for the next session.
+
 ## 2. The statement (to send as it is, or adapt)
 
 > **Subject: Traversence: our Overpass requests get 406, can we fix how we use it?**
