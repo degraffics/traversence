@@ -76,3 +76,49 @@ The Releases page is itself released this way: to you first, then the staff who 
 ## Cost
 
 None.
+
+## Built (releases_20261113, 2026-11-13)
+
+**How a release travels** (Jason, 2026-11-13: "Upload on the page", in place of FTP uploads until Phase 6).
+- **Upload:** the release zip goes up on System Configuration → Releases, through the one uploader (target `release_zip`).
+  - It holds files at their real paths, plus an optional `release.json` (title, why, proposals, switch).
+  - Dotfiles, notes folders, `app/storage` and `bootstrap-super-admin.php` are refused.
+- **Staging:** the server copies the release to staging.trvgo.us, where it runs its migrations
+  (`website/api/staging-updates.php`, staging only, locked by staging's HEALTH_TOKEN) and its checks.
+- **Publish:** keeps the previous copy of every live file in `app/storage/releases/<id>/old/`, then writes the new ones.
+- **Roll back:** puts those copies back and removes the files the release added.
+- **FTP:** once the plan is approved, **Download the zip** and **Download the rollback zip** offer the same by FTP. The
+  rollback zip includes a list of the files to delete.
+
+**Pieces**
+- **Library:** `app/lib/Releases.php`.
+- **The page:** `tv_admin_mod_releases` (System Configuration → Releases), with `js/admin-releases.js`. It sits behind the
+  switch `releases` (staff and test accounts first).
+- **The schedule:** the job `releases_tick` (every 10 minutes; Scheduler::AUTO).
+- **Permissions:** `releases.publish`, `.schedule`, `.turn_off` and `.rollback` in System Configuration → Permissions,
+  Founder only by default (`Access::can`, so Executives pass as with every rule).
+- **Pulse:** a case for each release waiting on someone or paused, with its next move as a button. It reaches the
+  morning report through Pulse.
+- **Git records:** `deliveries/releases/<date>-<id>-<slug>.json`, written by the server through
+  `DocsRepo::saveRecord` (GITHUB_DOCS_TOKEN).
+
+**Checks** (`Releases::checks`), on staging before sign-off and on live after publishing and before each step:
+- every PHP file parses;
+- migrations only add (no DROP, RENAME, TRUNCATE, MODIFY, CHANGE or DELIMITER);
+- the migrations ran on staging;
+- the pages it touches, plus the home and FAQ pages, answer without a server error. A server that can't reach itself
+  only notes it.
+- no new PHP fatal or parse errors in the error logs while those pages were asked.
+
+A failed check on live pauses the release and emails whoever approved the plan. Undoing it stays a person's call.
+
+**Defaults** (System Configuration → Releases → Rollout defaults):
+- 25% of members at step 2;
+- 24 h clean before members, then 72 h before everyone;
+- weekdays, 6 am to 6 pm Arizona time.
+
+**Not yet:**
+- The browser checks (`site-checks.yml`) don't run per release. They run daily, on staging for the paths that change
+  something; Site health shows their findings.
+- The "Done when" walkthroughs below: the first real release, the deliberate rollback test and an urgent fix. They're
+  done on the live page, with Jason.

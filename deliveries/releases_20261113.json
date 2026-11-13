@@ -1,0 +1,62 @@
+{
+ "zip": "releases_20261113.zip",
+ "built_on": "95ec00d Sync: 2026-11-13 04:13 UTC",
+ "recorded": "2026-11-13 04:36 UTC",
+ "note": "Phase 5, the Releases page (decisions/0145 \u00a75): upload a release on System Configuration \u2192 Releases; staging first with its migrations and checks; sign-off; publish or schedule; steps (staff and test, 25%, everyone) on schedule or by hand; Turn off, Roll back (previous copies kept on the server); urgent publish with a reason; zips for FTP; Pulse cases; git records via DocsRepo::saveRecord; four permissions, Founder only. Built on Sync: 2026-11-13 04:13 UTC.",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/admin/manifests.php": {
+   "sha256": "a9710e3adf0ad6002f5b13d765ce80b2fb72b4aea53ad3b5e64ad8a4ea1c6d8d",
+   "live": false
+  },
+  "app/admin/sections.php": {
+   "sha256": "97337ae723d825e4d325ecda3f0b3272ccf04c6641c4150aa3652257a88886e9",
+   "live": false
+  },
+  "app/lib/DocsRepo.php": {
+   "sha256": "fa8657f6afb884c6657a65b0503ce35961b7906e44fc0b43af41ad5bea0e868d",
+   "live": false
+  },
+  "app/lib/Pulse.php": {
+   "sha256": "49ed6e4f35904372f6de8fd218db3d3c5f61e156b460456c484ecfc8a40c9fa3",
+   "live": false
+  },
+  "app/lib/Releases.php": {
+   "sha256": "bf4ddd52663ab67927b9131984673d4384263c26d07e972d570702d63ce7d9ed",
+   "live": false
+  },
+  "app/lib/Scheduler.php": {
+   "sha256": "2dcba9e80d02eaf3cc71a4c0f887dfad155ebe734524e60b7c3105d4aa7dd93b",
+   "live": false
+  },
+  "app/lib/Switches.php": {
+   "sha256": "5f34f1343f1c08b0d7b0f8851585f3ab1bea4d133cd34fefb6e3356ceca4850b",
+   "live": false
+  },
+  "app/lib/upload-targets.php": {
+   "sha256": "24c13915ce830ac227b343f14a56798a4aee6dc57511e4c97d196a6ca00b7c53",
+   "live": false
+  },
+  "app/scripts/releases_tick.php": {
+   "sha256": "2e6e60e32f49552d91a5af5bbd5aedb3d3b85c4635ad43ec33791fbcbd9fec78",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "7dc7b717c78025a310e7061a48b76487a6bb9b482e8bf03b9e1b5e46148630f8",
+   "live": false
+  },
+  "website/admin/api.php": {
+   "sha256": "c6a30dca3cc968fdaee06717991605b098e31ae928ad69104f277a63c51dc9f9",
+   "live": false
+  },
+  "website/api/staging-updates.php": {
+   "sha256": "64a3845cab2e06cd047058efb9ed841d374617c8b72e80b10bdf7198a97370e2",
+   "live": false
+  },
+  "website/js/admin-releases.js": {
+   "sha256": "0241eceede72763721f9f61926e656c904a6796711c0de6eae04aca5829e35a7",
+   "live": false
+  }
+ }
+}

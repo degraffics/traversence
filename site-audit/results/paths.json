@@ -1,26 +1,24 @@
 {
- "at": "2026-11-12T17:55:55.671Z",
+ "at": "2026-11-13T04:29:27.081Z",
  "site": "https://traversence.com",
- "run_url": "https://github.com/degraffics/traversence/actions/runs/43272598422",
- "staging": null,
+ "run_url": "https://github.com/degraffics/traversence/actions/runs/43365562755",
+ "staging": "https://staging.trvgo.us",
  "signed_in": true,
  "full": false,
  "budget_s": 420,
- "took_s": 123,
+ "took_s": 135,
  "guides": {
   "source": "endpoint",
   "total": 6,
   "this_run": [
-   "town:66",
-   "town:67",
-   "town:68",
-   "town:72"
+   "town:73",
+   "town:84"
   ],
   "per_run": 4
  },
  "rotation": {
-  "from": 0,
-  "next": 4
+  "from": 4,
+  "next": 0
  },
  "measures": {
   "eat-near-me": 3,
@@ -62,21 +60,21 @@
    ],
    "pages": [
     "/",
-    "/listing/view.php?id=7959"
+    "/listing/view.php?id=7523"
    ],
    "shots": [],
    "timings": [
     {
      "page": "/",
-     "ms": 1333
+     "ms": 1393
     },
     {
-     "page": "/listing/view.php?id=7959",
-     "ms": 1991
+     "page": "/listing/view.php?id=7523",
+     "ms": 1943
     }
    ],
    "where": "live",
-   "ms": 8563
+   "ms": 8546
   },
   {
    "id": "eat-near-me",
@@ -112,21 +110,21 @@
    ],
    "pages": [
     "/",
-    "/listing/view.php?id=7959"
+    "/listing/view.php?id=7523"
    ],
    "shots": [],
    "timings": [
     {
      "page": "/",
-     "ms": 1370
+     "ms": 1382
     },
     {
-     "page": "/listing/view.php?id=7959",
-     "ms": 2070
+     "page": "/listing/view.php?id=7523",
+     "ms": 2007
     }
    ],
    "where": "live",
-   "ms": 8668
+   "ms": 8587
   },
   {
    "id": "town-guide",
@@ -151,25 +149,25 @@
    },
    "problems": [],
    "notes": [
-    "the town: Dana Point, CA"
+    "the town: Phoenix, AZ"
    ],
    "pages": [
     "/",
-    "/hub/?cluster=cluster-auto-laguna-niguel"
+    "/hub/?town=phoenix-az-2"
    ],
    "shots": [],
    "timings": [
     {
      "page": "/",
-     "ms": 1198
+     "ms": 1295
     },
     {
-     "page": "/hub/?cluster=cluster-auto-laguna-niguel",
-     "ms": 2202
+     "page": "/hub/?town=phoenix-az-2",
+     "ms": 2347
     }
    ],
    "where": "live",
-   "ms": 9948
+   "ms": 10030
   },
   {
    "id": "search-typo",
@@ -202,38 +200,45 @@
    "timings": [
     {
      "page": "/",
-     "ms": 1087
+     "ms": 1117
     },
     {
      "page": "/hub/?cluster=cluster-auto-show-low",
-     "ms": 2797
+     "ms": 2774
     }
    ],
    "where": "live",
-   "ms": 10708
+   "ms": 10706
   },
   {
    "id": "set-place",
    "kind": "core",
    "title": "Set my place and distance",
    "who": "guest",
-   "status": "stuck",
-   "goal": false,
-   "stuck": "no \"Choose where to search\" pin in the header",
+   "status": "failed",
+   "goal": true,
+   "stuck": "",
    "steps": {
-    "taps": 0,
+    "taps": 1,
     "pages": 1,
     "limit": 5,
     "over": false
    },
    "counts": {
-    "dead_ends": 0,
+    "dead_ends": 1,
     "surprises": 0,
     "accuracy": 0,
     "clarity": 0,
     "slow": 0
    },
-   "problems": [],
+   "problems": [
+    {
+     "kind": "dead_end",
+     "rule": "J01",
+     "page": "/directory/",
+     "what": "no distance to set once the place is chosen"
+    }
+   ],
    "notes": [],
    "pages": [
     "/directory/"
@@ -242,11 +247,11 @@
    "timings": [
     {
      "page": "/directory/",
-     "ms": 1084
+     "ms": 1057
     }
    ],
    "where": "live",
-   "ms": 1108
+   "ms": 7264
   },
   {
    "id": "sign-in",
@@ -282,22 +287,22 @@
    "timings": [
     {
      "page": "/",
-     "ms": 1371
+     "ms": 1381
     },
     {
      "page": "/login.php",
-     "ms": 1947
+     "ms": 1902
     }
    ],
    "where": "live",
-   "ms": 15280
+   "ms": 15408
   },
   {
    "id": "sign-out",
    "kind": "core",
    "title": "Sign out",
    "who": "member",
-   "status": "issues",
+   "status": "passed",
    "goal": true,
    "stuck": "",
    "steps": {
@@ -309,18 +314,11 @@
    "counts": {
     "dead_ends": 0,
     "surprises": 0,
-    "accuracy": 1,
+    "accuracy": 0,
     "clarity": 0,
     "slow": 0
    },
-   "problems": [
-    {
-     "kind": "accuracy",
-     "rule": "J02",
-     "page": "/",
-     "what": "signed out, but the menu doesn't offer Sign in"
-    }
-   ],
+   "problems": [],
    "notes": [],
    "pages": [
     "/user/dashboard.php",
@@ -330,15 +328,15 @@
    "timings": [
     {
      "page": "/user/dashboard.php",
-     "ms": 1463
+     "ms": 1398
     },
     {
      "page": "/",
-     "ms": 1562
+     "ms": 1530
     }
    ],
    "where": "live",
-   "ms": 4967
+   "ms": 5583
   },
   {
    "id": "my-listing",
@@ -371,15 +369,15 @@
    "timings": [
     {
      "page": "/",
-     "ms": 1355
+     "ms": 1313
     },
     {
      "page": "/listing/view.php?id=8916",
-     "ms": 1998
+     "ms": 2010
     }
    ],
    "where": "live",
-   "ms": 3901
+   "ms": 3859
   },
   {
    "id": "sign-up",
@@ -388,7 +386,7 @@
    "who": "guest",
    "status": "waits",
    "notes": [
-    "Waits for staging: it changes something, so it runs on staging.trvgo.us only (System Configuration → Staging → Set up staging, then the new CHECK_ACCOUNTS block)."
+    "Staging is set up; this path's runner is still to write (its steps are listed in paths.md)."
    ],
    "problems": [],
    "steps": {
@@ -405,19 +403,51 @@
    "kind": "core",
    "title": "Like as a guest (3, then Keep going as a guest)",
    "who": "guest",
-   "status": "waits",
-   "notes": [
-    "Waits for staging: it changes something, so it runs on staging.trvgo.us only (System Configuration → Staging → Set up staging, then the new CHECK_ACCOUNTS block)."
-   ],
-   "problems": [],
+   "status": "passed",
+   "goal": true,
+   "stuck": "",
    "steps": {
-    "taps": 0,
-    "pages": 0,
+    "taps": 5,
+    "pages": 4,
     "limit": 5,
     "over": false
    },
-   "counts": {},
-   "changes": true
+   "counts": {
+    "dead_ends": 0,
+    "surprises": 0,
+    "accuracy": 0,
+    "clarity": 0,
+    "slow": 0
+   },
+   "problems": [],
+   "notes": [],
+   "pages": [
+    "/journeys/suggested.php?id=8",
+    "/journeys/suggested.php?id=10",
+    "/journeys/suggested.php?id=9",
+    "/journeys/suggested.php?id=32"
+   ],
+   "shots": [],
+   "timings": [
+    {
+     "page": "/journeys/suggested.php?id=8",
+     "ms": 2571
+    },
+    {
+     "page": "/journeys/suggested.php?id=10",
+     "ms": 1526
+    },
+    {
+     "page": "/journeys/suggested.php?id=9",
+     "ms": 1518
+    },
+    {
+     "page": "/journeys/suggested.php?id=32",
+     "ms": 1498
+    }
+   ],
+   "where": "staging",
+   "ms": 14853
   },
   {
    "id": "like-member",
@@ -426,7 +456,7 @@
    "who": "member",
    "status": "waits",
    "notes": [
-    "Waits for staging: it changes something, so it runs on staging.trvgo.us only (System Configuration → Staging → Set up staging, then the new CHECK_ACCOUNTS block)."
+    "Staging is set up; this path's runner is still to write (its steps are listed in paths.md)."
    ],
    "problems": [],
    "steps": {
@@ -443,9 +473,9 @@
    "kind": "core",
    "title": "Comment",
    "who": "member",
-   "status": "waits",
+   "status": "skipped",
    "notes": [
-    "Waits for staging: it changes something, so it runs on staging.trvgo.us only (System Configuration → Staging → Set up staging, then the new CHECK_ACCOUNTS block)."
+    "Error: member sign-in check+member@traversence.com: 401 {\"ok\":false,\"error\":{\"code\":\"invalid_credentials\",\"message\":\"Invalid email or password.\"}}"
    ],
    "problems": [],
    "steps": {
@@ -454,8 +484,7 @@
     "limit": 5,
     "over": false
    },
-   "counts": {},
-   "changes": true
+   "counts": {}
   },
   {
    "id": "claim",
@@ -464,7 +493,7 @@
    "who": "member",
    "status": "waits",
    "notes": [
-    "Waits for staging: it changes something, so it runs on staging.trvgo.us only (System Configuration → Staging → Set up staging, then the new CHECK_ACCOUNTS block)."
+    "Staging is set up; this path's runner is still to write (its steps are listed in paths.md)."
    ],
    "problems": [],
    "steps": {
@@ -483,7 +512,7 @@
    "who": "owner",
    "status": "waits",
    "notes": [
-    "Waits for staging: it changes something, so it runs on staging.trvgo.us only (System Configuration → Staging → Set up staging, then the new CHECK_ACCOUNTS block)."
+    "Staging is set up; this path's runner is still to write (its steps are listed in paths.md)."
    ],
    "problems": [],
    "steps": {
@@ -502,7 +531,7 @@
    "who": "member",
    "status": "waits",
    "notes": [
-    "Waits for staging: it changes something, so it runs on staging.trvgo.us only (System Configuration → Staging → Set up staging, then the new CHECK_ACCOUNTS block)."
+    "Staging is set up; this path's runner is still to write (its steps are listed in paths.md)."
    ],
    "problems": [],
    "steps": {
@@ -521,7 +550,7 @@
    "who": "member",
    "status": "waits",
    "notes": [
-    "Waits for staging: it changes something, so it runs on staging.trvgo.us only (System Configuration → Staging → Set up staging, then the new CHECK_ACCOUNTS block)."
+    "Staging is set up; this path's runner is still to write (its steps are listed in paths.md)."
    ],
    "problems": [],
    "steps": {
@@ -540,7 +569,7 @@
    "who": "member",
    "status": "waits",
    "notes": [
-    "Waits for staging: it changes something, so it runs on staging.trvgo.us only (System Configuration → Staging → Set up staging, then the new CHECK_ACCOUNTS block)."
+    "Staging is set up; this path's runner is still to write (its steps are listed in paths.md)."
    ],
    "problems": [],
    "steps": {
@@ -559,7 +588,7 @@
    "who": "staff-ops-staff",
    "status": "waits",
    "notes": [
-    "Waits for staging: it changes something, so it runs on staging.trvgo.us only (System Configuration → Staging → Set up staging, then the new CHECK_ACCOUNTS block)."
+    "Staging is set up; this path's runner is still to write (its steps are listed in paths.md)."
    ],
    "problems": [],
    "steps": {
@@ -578,7 +607,7 @@
    "who": "staff-ops-staff",
    "status": "waits",
    "notes": [
-    "Waits for staging: it changes something, so it runs on staging.trvgo.us only (System Configuration → Staging → Set up staging, then the new CHECK_ACCOUNTS block)."
+    "Staging is set up; this path's runner is still to write (its steps are listed in paths.md)."
    ],
    "problems": [],
    "steps": {
@@ -597,7 +626,7 @@
    "who": "staff-ops-staff",
    "status": "waits",
    "notes": [
-    "Waits for staging: it changes something, so it runs on staging.trvgo.us only (System Configuration → Staging → Set up staging, then the new CHECK_ACCOUNTS block)."
+    "Staging is set up; this path's runner is still to write (its steps are listed in paths.md)."
    ],
    "problems": [],
    "steps": {
@@ -616,7 +645,7 @@
    "who": "staff-sal-staff",
    "status": "waits",
    "notes": [
-    "Waits for staging: it changes something, so it runs on staging.trvgo.us only (System Configuration → Staging → Set up staging, then the new CHECK_ACCOUNTS block)."
+    "Staging is set up; this path's runner is still to write (its steps are listed in paths.md)."
    ],
    "problems": [],
    "steps": {
@@ -629,709 +658,125 @@
    "changes": true
   },
   {
-   "id": "guide:town:66",
+   "id": "guide:town:73",
    "kind": "guide",
-   "title": "Follow the Dana Point, CA guide",
+   "title": "Follow the Phoenix, AZ guide",
    "who": "guest",
-   "status": "issues",
+   "status": "failed",
    "goal": true,
    "stuck": "",
    "steps": {
-    "taps": 1,
+    "taps": 2,
     "pages": 14,
     "limit": 3,
     "over": false
    },
    "counts": {
     "dead_ends": 0,
-    "surprises": 1,
-    "accuracy": 8,
-    "clarity": 1,
+    "surprises": 0,
+    "accuracy": 1,
+    "clarity": 0,
     "slow": 0
    },
    "problems": [
     {
-     "kind": "surprise",
-     "rule": "V04",
-     "page": "/journeys/suggested.php?id=14",
-     "what": "the site's header is missing on this page"
-    },
-    {
-     "kind": "clarity",
-     "rule": "J02",
-     "page": "/journeys/suggested.php?id=14",
-     "what": "no time or distance between the stops"
-    },
-    {
      "kind": "accuracy",
      "rule": "J02",
-     "page": "/journeys/suggested.php?id=14",
-     "what": "no directions for the route"
+     "page": "/journeys/suggested.php?id=8",
+     "what": "the link /faq.php doesn't answer"
     },
     {
-     "kind": "accuracy",
-     "rule": "J02",
-     "page": "/journeys/suggested.php?id=14",
-     "what": "Salt Creek Beach Park is in the journey but not shown on its page"
-    },
-    {
-     "kind": "accuracy",
-     "rule": "J02",
-     "page": "/journeys/suggested.php?id=14",
-     "what": "Ocean Institute is in the journey but not shown on its page"
-    },
-    {
-     "kind": "accuracy",
-     "rule": "J02",
-     "page": "/journeys/suggested.php?id=14",
-     "what": "Starbucks is in the journey but not shown on its page"
-    },
-    {
-     "kind": "accuracy",
-     "rule": "J02",
-     "page": "/journeys/suggested.php?id=14",
-     "what": "Doheny State Beach is in the journey but not shown on its page"
-    },
-    {
-     "kind": "accuracy",
-     "rule": "J02",
-     "page": "/journeys/suggested.php?id=14",
-     "what": "Mission San Juan Capistrano is in the journey but not shown on its page"
-    },
-    {
-     "kind": "accuracy",
-     "rule": "J02",
-     "page": "/journeys/suggested.php?id=14",
-     "what": "Laguna Niguel Regional Park is in the journey but not shown on its page"
-    },
-    {
-     "kind": "accuracy",
-     "rule": "J02",
-     "page": "/journeys/suggested.php?id=14",
-     "what": "Ramos House Café is in the journey but not shown on its page"
+     "kind": "steps",
+     "rule": "J01",
+     "page": "/journeys/suggested.php?id=8",
+     "what": "7 taps to the goal (the measure is 3 or fewer)"
     }
    ],
    "notes": [],
    "pages": [
-    "/hub/?town=dana-point-ca",
-    "/journeys/suggested.php?id=14",
-    "/place/landmark.php?id=900000005",
-    "/journeys/suggested.php?id=14",
-    "/place/landmark.php?id=900000004",
-    "/journeys/suggested.php?id=14",
-    "/listing/view.php?id=9033",
-    "/journeys/suggested.php?id=14",
-    "/place/landmark.php?id=900000001",
-    "/journeys/suggested.php?id=14",
-    "/place/landmark.php?id=900000003",
-    "/journeys/suggested.php?id=14",
-    "/place/landmark.php?id=900000007",
-    "/journeys/suggested.php?id=14"
-   ],
-   "shots": [],
-   "timings": [
-    {
-     "page": "/hub/?town=dana-point-ca",
-     "ms": 1484
-    },
-    {
-     "page": "/journeys/suggested.php?id=14",
-     "ms": 1592
-    },
-    {
-     "page": "/place/landmark.php?id=900000005",
-     "ms": 1041
-    },
-    {
-     "page": "/place/landmark.php?id=900000004",
-     "ms": 1025
-    },
-    {
-     "page": "/listing/view.php?id=9033",
-     "ms": 1079
-    },
-    {
-     "page": "/place/landmark.php?id=900000001",
-     "ms": 1013
-    },
-    {
-     "page": "/place/landmark.php?id=900000003",
-     "ms": 1015
-    },
-    {
-     "page": "/place/landmark.php?id=900000007",
-     "ms": 1011
-    }
-   ],
-   "where": "live",
-   "ms": 15625,
-   "guide": {
-    "key": "town:66",
-    "name": "Dana Point",
-    "url": "/hub/?town=dana-point-ca",
-    "journeys": 4,
-    "stops": [
-     {
-      "name": "Salt Creek Beach Park",
-      "url": "/place/landmark.php?id=900000005",
-      "opened": true
-     },
-     {
-      "name": "Ocean Institute",
-      "url": "/place/landmark.php?id=900000004",
-      "opened": true
-     },
-     {
-      "name": "Starbucks",
-      "url": "/listing/view.php?id=9033",
-      "opened": true,
-      "phone": true,
-      "open_shown": true
-     },
-     {
-      "name": "Doheny State Beach",
-      "url": "/place/landmark.php?id=900000001",
-      "opened": true
-     },
-     {
-      "name": "Mission San Juan Capistrano",
-      "url": "/place/landmark.php?id=900000003",
-      "opened": true
-     },
-     {
-      "name": "Laguna Niguel Regional Park",
-      "url": "/place/landmark.php?id=900000007",
-      "opened": true
-     }
-    ]
-   }
-  },
-  {
-   "id": "guide:town:67",
-   "kind": "guide",
-   "title": "Follow the Laguna Niguel, CA guide",
-   "who": "guest",
-   "status": "issues",
-   "goal": true,
-   "stuck": "",
-   "steps": {
-    "taps": 1,
-    "pages": 14,
-    "limit": 3,
-    "over": false
-   },
-   "counts": {
-    "dead_ends": 0,
-    "surprises": 1,
-    "accuracy": 7,
-    "clarity": 1,
-    "slow": 0
-   },
-   "problems": [
-    {
-     "kind": "surprise",
-     "rule": "V04",
-     "page": "/journeys/suggested.php?id=1",
-     "what": "the site's header is missing on this page"
-    },
-    {
-     "kind": "clarity",
-     "rule": "J02",
-     "page": "/journeys/suggested.php?id=1",
-     "what": "no time or distance between the stops"
-    },
-    {
-     "kind": "accuracy",
-     "rule": "J02",
-     "page": "/journeys/suggested.php?id=1",
-     "what": "no directions for the route"
-    },
-    {
-     "kind": "accuracy",
-     "rule": "J02",
-     "page": "/journeys/suggested.php?id=1",
-     "what": "Laguna Niguel Regional Park is in the journey but not shown on its page"
-    },
-    {
-     "kind": "accuracy",
-     "rule": "J02",
-     "page": "/journeys/suggested.php?id=1",
-     "what": "Mission San Juan Capistrano is in the journey but not shown on its page"
-    },
-    {
-     "kind": "accuracy",
-     "rule": "J02",
-     "page": "/journeys/suggested.php?id=1",
-     "what": "Esslinger Building is in the journey but not shown on its page"
-    },
-    {
-     "kind": "accuracy",
-     "rule": "J02",
-     "page": "/journeys/suggested.php?id=1",
-     "what": "Doheny State Beach is in the journey but not shown on its page"
-    },
-    {
-     "kind": "accuracy",
-     "rule": "J02",
-     "page": "/journeys/suggested.php?id=1",
-     "what": "Ocean Institute is in the journey but not shown on its page"
-    },
-    {
-     "kind": "accuracy",
-     "rule": "J02",
-     "page": "/journeys/suggested.php?id=1",
-     "what": "Salt Creek Beach Park is in the journey but not shown on its page"
-    }
-   ],
-   "notes": [],
-   "pages": [
-    "/hub/?town=laguna-niguel-ca",
-    "/journeys/suggested.php?id=1",
-    "/place/landmark.php?id=900000007",
-    "/journeys/suggested.php?id=1",
-    "/place/landmark.php?id=900000003",
-    "/journeys/suggested.php?id=1",
-    "/place/landmark.php?id=900000006",
-    "/journeys/suggested.php?id=1",
-    "/place/landmark.php?id=900000001",
-    "/journeys/suggested.php?id=1",
-    "/place/landmark.php?id=900000004",
-    "/journeys/suggested.php?id=1",
-    "/place/landmark.php?id=900000005",
-    "/journeys/suggested.php?id=1"
-   ],
-   "shots": [],
-   "timings": [
-    {
-     "page": "/hub/?town=laguna-niguel-ca",
-     "ms": 1375
-    },
-    {
-     "page": "/journeys/suggested.php?id=1",
-     "ms": 1591
-    },
-    {
-     "page": "/place/landmark.php?id=900000007",
-     "ms": 1043
-    },
-    {
-     "page": "/place/landmark.php?id=900000003",
-     "ms": 1022
-    },
-    {
-     "page": "/place/landmark.php?id=900000006",
-     "ms": 1028
-    },
-    {
-     "page": "/place/landmark.php?id=900000001",
-     "ms": 1017
-    },
-    {
-     "page": "/place/landmark.php?id=900000004",
-     "ms": 1019
-    },
-    {
-     "page": "/place/landmark.php?id=900000005",
-     "ms": 1017
-    }
-   ],
-   "where": "live",
-   "ms": 15892,
-   "guide": {
-    "key": "town:67",
-    "name": "Laguna Niguel",
-    "url": "/hub/?town=laguna-niguel-ca",
-    "journeys": 3,
-    "stops": [
-     {
-      "name": "Laguna Niguel Regional Park",
-      "url": "/place/landmark.php?id=900000007",
-      "opened": true
-     },
-     {
-      "name": "Mission San Juan Capistrano",
-      "url": "/place/landmark.php?id=900000003",
-      "opened": true
-     },
-     {
-      "name": "Esslinger Building",
-      "url": "/place/landmark.php?id=900000006",
-      "opened": true
-     },
-     {
-      "name": "Doheny State Beach",
-      "url": "/place/landmark.php?id=900000001",
-      "opened": true
-     },
-     {
-      "name": "Ocean Institute",
-      "url": "/place/landmark.php?id=900000004",
-      "opened": true
-     },
-     {
-      "name": "Salt Creek Beach Park",
-      "url": "/place/landmark.php?id=900000005",
-      "opened": true
-     }
-    ]
-   }
-  },
-  {
-   "id": "guide:town:68",
-   "kind": "guide",
-   "title": "Follow the Laguna Beach, CA guide",
-   "who": "guest",
-   "status": "issues",
-   "goal": true,
-   "stuck": "",
-   "steps": {
-    "taps": 1,
-    "pages": 14,
-    "limit": 3,
-    "over": false
-   },
-   "counts": {
-    "dead_ends": 0,
-    "surprises": 1,
-    "accuracy": 10,
-    "clarity": 1,
-    "slow": 0
-   },
-   "problems": [
-    {
-     "kind": "surprise",
-     "rule": "V04",
-     "page": "/journeys/suggested.php?id=18",
-     "what": "the site's header is missing on this page"
-    },
-    {
-     "kind": "clarity",
-     "rule": "J02",
-     "page": "/journeys/suggested.php?id=18",
-     "what": "no time or distance between the stops"
-    },
-    {
-     "kind": "accuracy",
-     "rule": "J02",
-     "page": "/journeys/suggested.php?id=18",
-     "what": "no directions for the route"
-    },
-    {
-     "kind": "accuracy",
-     "rule": "J02",
-     "page": "/journeys/suggested.php?id=18",
-     "what": "Subway is in the journey but not shown on its page"
-    },
-    {
-     "kind": "accuracy",
-     "rule": "J02",
-     "page": "/journeys/suggested.php?id=18",
-     "what": "St. Francis by-the-Sea American Catholic Church is in the journey but not shown on its page"
-    },
-    {
-     "kind": "accuracy",
-     "rule": "J02",
-     "page": "/journeys/suggested.php?id=18",
-     "what": "Laguna Niguel Regional Park is in the journey but not shown on its page"
-    },
-    {
-     "kind": "accuracy",
-     "rule": "J02",
-     "page": "/journeys/suggested.php?id=18",
-     "what": "Wendy's is in the journey but not shown on its page"
-    },
-    {
-     "kind": "accuracy",
-     "rule": "J02",
-     "page": "/journeys/suggested.php?id=18",
-     "what": "Mission San Juan Capistrano is in the journey but not shown on its page"
-    },
-    {
-     "kind": "accuracy",
-     "rule": "J02",
-     "page": "/journeys/suggested.php?id=18",
-     "what": "Doheny State Beach is in the journey but not shown on its page"
-    },
-    {
-     "kind": "accuracy",
-     "rule": "J02",
-     "page": "/journeys/suggested.php?id=18",
-     "what": "Ocean Institute is in the journey but not shown on its page"
-    },
-    {
-     "kind": "accuracy",
-     "rule": "J02",
-     "page": "/journeys/suggested.php?id=18",
-     "what": "Starbucks is in the journey but not shown on its page"
-    },
-    {
-     "kind": "accuracy",
-     "rule": "J02",
-     "page": "/listing/view.php?id=9026",
-     "what": "Subway's page says closed; our data says Open · Closes 8:30 PM"
-    }
-   ],
-   "notes": [],
-   "pages": [
-    "/hub/?town=laguna-beach-ca",
-    "/journeys/suggested.php?id=18",
-    "/listing/view.php?id=9026",
-    "/journeys/suggested.php?id=18",
-    "/place/landmark.php?id=900000008",
-    "/journeys/suggested.php?id=18",
-    "/place/landmark.php?id=900000007",
-    "/journeys/suggested.php?id=18",
-    "/listing/view.php?id=9038",
-    "/journeys/suggested.php?id=18",
-    "/place/landmark.php?id=900000003",
-    "/journeys/suggested.php?id=18",
-    "/place/landmark.php?id=900000001",
-    "/journeys/suggested.php?id=18"
-   ],
-   "shots": [],
-   "timings": [
-    {
-     "page": "/hub/?town=laguna-beach-ca",
-     "ms": 1381
-    },
-    {
-     "page": "/journeys/suggested.php?id=18",
-     "ms": 1593
-    },
-    {
-     "page": "/listing/view.php?id=9026",
-     "ms": 1110
-    },
-    {
-     "page": "/place/landmark.php?id=900000008",
-     "ms": 1008
-    },
-    {
-     "page": "/place/landmark.php?id=900000007",
-     "ms": 1016
-    },
-    {
-     "page": "/listing/view.php?id=9038",
-     "ms": 1064
-    },
-    {
-     "page": "/place/landmark.php?id=900000003",
-     "ms": 1027
-    },
-    {
-     "page": "/place/landmark.php?id=900000001",
-     "ms": 1011
-    }
-   ],
-   "where": "live",
-   "ms": 13059,
-   "guide": {
-    "key": "town:68",
-    "name": "Laguna Beach",
-    "url": "/hub/?town=laguna-beach-ca",
-    "journeys": 4,
-    "stops": [
-     {
-      "name": "Subway",
-      "url": "/listing/view.php?id=9026",
-      "opened": true,
-      "phone": true,
-      "open_shown": true
-     },
-     {
-      "name": "St. Francis by-the-Sea American Catholic Church",
-      "url": "/place/landmark.php?id=900000008",
-      "opened": true
-     },
-     {
-      "name": "Laguna Niguel Regional Park",
-      "url": "/place/landmark.php?id=900000007",
-      "opened": true
-     },
-     {
-      "name": "Wendy's",
-      "url": "/listing/view.php?id=9038",
-      "opened": true,
-      "phone": true,
-      "open_shown": true
-     },
-     {
-      "name": "Mission San Juan Capistrano",
-      "url": "/place/landmark.php?id=900000003",
-      "opened": true
-     },
-     {
-      "name": "Doheny State Beach",
-      "url": "/place/landmark.php?id=900000001",
-      "opened": true
-     }
-    ]
-   }
-  },
-  {
-   "id": "guide:town:72",
-   "kind": "guide",
-   "title": "Follow the Glendale, AZ guide",
-   "who": "guest",
-   "status": "issues",
-   "goal": true,
-   "stuck": "",
-   "steps": {
-    "taps": 1,
-    "pages": 14,
-    "limit": 3,
-    "over": false
-   },
-   "counts": {
-    "dead_ends": 0,
-    "surprises": 1,
-    "accuracy": 11,
-    "clarity": 1,
-    "slow": 0
-   },
-   "problems": [
-    {
-     "kind": "surprise",
-     "rule": "V04",
-     "page": "/journeys/suggested.php?id=5",
-     "what": "the site's header is missing on this page"
-    },
-    {
-     "kind": "clarity",
-     "rule": "J02",
-     "page": "/journeys/suggested.php?id=5",
-     "what": "no time or distance between the stops"
-    },
-    {
-     "kind": "accuracy",
-     "rule": "J02",
-     "page": "/journeys/suggested.php?id=5",
-     "what": "no directions for the route"
-    },
-    {
-     "kind": "accuracy",
-     "rule": "J02",
-     "page": "/journeys/suggested.php?id=5",
-     "what": "Harvey's Wineburger is in the journey but not shown on its page"
-    },
-    {
-     "kind": "accuracy",
-     "rule": "J02",
-     "page": "/journeys/suggested.php?id=5",
-     "what": "Hotel San Carlos is in the journey but not shown on its page"
-    },
-    {
-     "kind": "accuracy",
-     "rule": "J02",
-     "page": "/journeys/suggested.php?id=5",
-     "what": "Akaihana is in the journey but not shown on its page"
-    },
-    {
-     "kind": "accuracy",
-     "rule": "J02",
-     "page": "/journeys/suggested.php?id=5",
-     "what": "North Mountain is in the journey but not shown on its page"
-    },
-    {
-     "kind": "accuracy",
-     "rule": "J02",
-     "page": "/journeys/suggested.php?id=5",
-     "what": "Glendale Grammar School One-room Class Building is in the journey but not shown on its page"
-    },
-    {
-     "kind": "accuracy",
-     "rule": "J02",
-     "page": "/journeys/suggested.php?id=5",
-     "what": "Glendale High School Auditorium is in the journey but not shown on its page"
-    },
-    {
-     "kind": "accuracy",
-     "rule": "J02",
-     "page": "/journeys/suggested.php?id=5",
-     "what": "First National Bank of Glendale Building is in the journey but not shown on its page"
-    },
-    {
-     "kind": "accuracy",
-     "rule": "J02",
-     "page": "/journeys/suggested.php?id=5",
-     "what": "First Methodist Episcopal Church of Glendale is in the journey but not shown on its page"
-    },
-    {
-     "kind": "accuracy",
-     "rule": "J02",
-     "page": "/journeys/suggested.php?id=5",
-     "what": "First Presbyterian Church is in the journey but not shown on its page"
-    },
-    {
-     "kind": "accuracy",
-     "rule": "J02",
-     "page": "/journeys/suggested.php?id=5",
-     "what": "Centrico is in the journey but not shown on its page"
-    }
-   ],
-   "notes": [],
-   "pages": [
-    "/hub/?town=glendale-az",
-    "/journeys/suggested.php?id=5",
-    "/listing/view.php?id=9046",
-    "/journeys/suggested.php?id=5",
+    "/hub/?town=phoenix-az",
+    "/journeys/suggested.php?id=8",
+    "/listing/view.php?id=9051",
+    "/journeys/suggested.php?id=8",
+    "/place/landmark.php?id=900000029",
+    "/journeys/suggested.php?id=8",
+    "/place/landmark.php?id=900000023",
+    "/journeys/suggested.php?id=8",
+    "/place/landmark.php?id=900000030",
+    "/journeys/suggested.php?id=8",
+    "/listing/view.php?id=9048",
+    "/journeys/suggested.php?id=8",
     "/place/recreation.php?id=f247732",
-    "/journeys/suggested.php?id=5",
-    "/listing/view.php?id=9047",
-    "/journeys/suggested.php?id=5",
-    "/place/landmark.php?id=8747",
-    "/journeys/suggested.php?id=5",
-    "/place/landmark.php?id=900000012",
-    "/journeys/suggested.php?id=5",
-    "/place/landmark.php?id=900000011",
-    "/journeys/suggested.php?id=5"
+    "/journeys/suggested.php?id=8"
    ],
    "shots": [],
    "timings": [
     {
-     "page": "/hub/?town=glendale-az",
-     "ms": 1538
+     "page": "/hub/?town=phoenix-az",
+     "ms": 1536
     },
     {
-     "page": "/journeys/suggested.php?id=5",
-     "ms": 1598
+     "page": "/journeys/suggested.php?id=8",
+     "ms": 1807
     },
     {
-     "page": "/listing/view.php?id=9046",
-     "ms": 1085
+     "page": "/listing/view.php?id=9051",
+     "ms": 1916
+    },
+    {
+     "page": "/place/landmark.php?id=900000029",
+     "ms": 2012
+    },
+    {
+     "page": "/place/landmark.php?id=900000023",
+     "ms": 1826
+    },
+    {
+     "page": "/place/landmark.php?id=900000030",
+     "ms": 1916
+    },
+    {
+     "page": "/listing/view.php?id=9048",
+     "ms": 1843
     },
     {
      "page": "/place/recreation.php?id=f247732",
-     "ms": 1001
-    },
-    {
-     "page": "/listing/view.php?id=9047",
-     "ms": 1044
-    },
-    {
-     "page": "/place/landmark.php?id=8747",
-     "ms": 1030
-    },
-    {
-     "page": "/place/landmark.php?id=900000012",
-     "ms": 1012
-    },
-    {
-     "page": "/place/landmark.php?id=900000011",
-     "ms": 1031
+     "ms": 1814
     }
    ],
    "where": "live",
-   "ms": 13063,
+   "ms": 24717,
    "guide": {
-    "key": "town:72",
-    "name": "Glendale",
-    "url": "/hub/?town=glendale-az",
+    "key": "town:73",
+    "name": "Phoenix",
+    "url": "/hub/?town=phoenix-az",
     "journeys": 4,
     "stops": [
      {
-      "name": "Harvey's Wineburger",
-      "url": "/listing/view.php?id=9046",
+      "name": "Cheese 'N Stuff Deli",
+      "url": "/listing/view.php?id=9051",
+      "opened": true,
+      "phone": true,
+      "open_shown": true
+     },
+     {
+      "name": "Executive Towers",
+      "url": "/place/landmark.php?id=900000029",
+      "opened": true
+     },
+     {
+      "name": "Orpheum Theatre",
+      "url": "/place/landmark.php?id=900000023",
+      "opened": true
+     },
+     {
+      "name": "Bragg's Pies Building",
+      "url": "/place/landmark.php?id=900000030",
+      "opened": true
+     },
+     {
+      "name": "Centrico",
+      "url": "/listing/view.php?id=9048",
       "opened": true,
       "phone": true,
       "open_shown": true
@@ -1340,27 +785,127 @@
       "name": "Hotel San Carlos",
       "url": "/place/recreation.php?id=f247732",
       "opened": true
-     },
+     }
+    ]
+   }
+  },
+  {
+   "id": "guide:town:84",
+   "kind": "guide",
+   "title": "Follow the Globe, AZ guide",
+   "who": "guest",
+   "status": "failed",
+   "goal": true,
+   "stuck": "",
+   "steps": {
+    "taps": 2,
+    "pages": 14,
+    "limit": 3,
+    "over": false
+   },
+   "counts": {
+    "dead_ends": 0,
+    "surprises": 0,
+    "accuracy": 0,
+    "clarity": 0,
+    "slow": 0
+   },
+   "problems": [
+    {
+     "kind": "steps",
+     "rule": "J01",
+     "page": "/journeys/suggested.php?id=40",
+     "what": "7 taps to the goal (the measure is 3 or fewer)"
+    }
+   ],
+   "notes": [],
+   "pages": [
+    "/hub/?town=globe-az",
+    "/journeys/suggested.php?id=40",
+    "/place/landmark.php?id=900000193",
+    "/journeys/suggested.php?id=40",
+    "/place/landmark.php?id=900000191",
+    "/journeys/suggested.php?id=40",
+    "/place/landmark.php?id=900000190",
+    "/journeys/suggested.php?id=40",
+    "/place/landmark.php?id=900000192",
+    "/journeys/suggested.php?id=40",
+    "/place/landmark.php?id=900000198",
+    "/journeys/suggested.php?id=40",
+    "/place/landmark.php?id=900000202",
+    "/journeys/suggested.php?id=40"
+   ],
+   "shots": [],
+   "timings": [
+    {
+     "page": "/hub/?town=globe-az",
+     "ms": 1196
+    },
+    {
+     "page": "/journeys/suggested.php?id=40",
+     "ms": 1802
+    },
+    {
+     "page": "/place/landmark.php?id=900000193",
+     "ms": 1803
+    },
+    {
+     "page": "/place/landmark.php?id=900000191",
+     "ms": 1814
+    },
+    {
+     "page": "/place/landmark.php?id=900000190",
+     "ms": 1827
+    },
+    {
+     "page": "/place/landmark.php?id=900000192",
+     "ms": 1817
+    },
+    {
+     "page": "/place/landmark.php?id=900000198",
+     "ms": 1818
+    },
+    {
+     "page": "/place/landmark.php?id=900000202",
+     "ms": 1823
+    }
+   ],
+   "where": "live",
+   "ms": 22482,
+   "guide": {
+    "key": "town:84",
+    "name": "Globe",
+    "url": "/hub/?town=globe-az",
+    "journeys": 3,
+    "stops": [
      {
-      "name": "Akaihana",
-      "url": "/listing/view.php?id=9047",
-      "opened": true,
-      "phone": true,
-      "open_shown": true
-     },
-     {
-      "name": "North Mountain",
-      "url": "/place/landmark.php?id=8747",
+      "name": "Globe Mine Rescue Station",
+      "url": "/place/landmark.php?id=900000193",
       "opened": true
      },
      {
-      "name": "Glendale Grammar School One-room Class Building",
-      "url": "/place/landmark.php?id=900000012",
+      "name": "Elks Building",
+      "url": "/place/landmark.php?id=900000191",
       "opened": true
      },
      {
-      "name": "Glendale High School Auditorium",
-      "url": "/place/landmark.php?id=900000011",
+      "name": "Gila Valley Bank and Trust Building",
+      "url": "/place/landmark.php?id=900000190",
+      "opened": true
+     },
+     {
+      "name": "International House",
+      "url": "/place/landmark.php?id=900000192",
+      "opened": true
+     },
+     {
+      "name": "Miami Avenue Bridge",
+      "url": "/place/landmark.php?id=900000198",
+      "opened": true
+     },
+     {
+      "name": "Miami Community Church",
+      "url": "/place/landmark.php?id=900000202",
       "opened": true
      }
     ]
@@ -1372,14 +917,14 @@
   "jobs": [
    {
     "job": "guide_live_tick",
-    "fails_today": 95,
-    "last": "2026-11-12 10:45:02",
+    "fails_today": 94,
+    "last": "2026-11-12 21:15:02",
     "ok": 0
    }
   ],
   "cache": {
-   "entries": 2774,
-   "expired": 0,
+   "entries": 3119,
+   "expired": 2,
    "expired_share": 0
   },
   "ai": {
@@ -1427,7 +972,7 @@
    },
    {
     "name": "search_index",
-    "mb": 7.02
+    "mb": 7.27
    }
   ],
   "status": [
