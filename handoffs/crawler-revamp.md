@@ -216,6 +216,15 @@ CLAUDE.md, in full. For this work above all:
   went to `main` (Railway redeploys from it) once the site part was live: Release #16 (15:57 UTC), verified on Sync
   15:59 UTC. Watch the first runs in Insights → Crawler.
 
+- **Phase 3, W1** (approved by Jason in chat): `crawler-w1_20261113.zip`, built on Sync 16:18 UTC. The gate
+  (`AutoImport::evaluate`: a government page alone; one source at `listing_one_source`, 50, in Thresholds & gates;
+  OpenStreetMap never a source; a find publishing would refuse isn't "ready"), town jobs (`TownCrawl`: tries counted on
+  failure, failed rounds, partial cap, rebuild after 30 days, `want:<kind>` jobs), the coverage queue's upkeep and partial
+  jobs (`CrawlQueue`), the place store (`staged_at`, no-kind finds with phone and street, use rules), Send the crawler's
+  words (`find_name` requests), search (`LocalWords`: names aren't kind clues; a name first in `search_listings.php`).
+  The worker half (C11 in `candidate()`, the `find_name` handler) is on `wip/w1-worker`; merge it once W1 is live.
+  Left on purpose: `SourceIndex::listed()` still counts hidden listings (showing a page's copy would undo a hide).
+
 ## 7. Open
 
 - Nothing waiting on Jason.
