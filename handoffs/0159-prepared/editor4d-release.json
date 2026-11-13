@@ -1,6 +1,0 @@
-{
-  "title": "The full editor, part 4: likes, comments and a form on our pages",
-  "why": "decisions/0159 step 4d. Two live parts, only in our own pages' zones (page.<id>; Blocks::LIVE's 'page.', and the editor offers each zone only what may go there: Blocks::typesFor/liveFor, used by /api/blocks.php). Likes and comments: the standard engage bar (decisions/0058 §20) for the page, kind 'page' in Engage (KINDS, COUNT_KEY 'page:' matching view.php's count, target, exists: our page and live), with its comments or the bar alone; LikeGuard and Reports name and link the page. Form: a contact or quote form sent to /pages/form.php like the page's own form (js/tv-blocks.js, the human check waited for, the site's notices); SitePages::submit takes it while the page's live blocks hold a form of that kind (Blocks::hasForm), so entries reach Form entries with that kind. Outside a page zone they draw nothing for visitors, and the editor says why. Tested on MariaDB (offered per zone, refused before publishing, taken after, wrong kind refused, drawn only in its zone, the engage bar and comments drawn with the page's title, Engage's page kind). FAQ updated.",
-  "proposals": "decisions/0159 step 4",
-  "switch": ""
-}

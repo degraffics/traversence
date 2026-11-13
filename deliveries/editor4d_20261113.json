@@ -3,44 +3,44 @@
  "built_on": "c4dc0c5 Sync: 2026-11-13 20:40 UTC",
  "recorded": "2026-11-13 20:40 UTC",
  "note": "0159 step 4d: likes, comments and a form on our pages, built on Sync: 2026-11-13 20:40 UTC Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "0fa3f25 Sync: 2026-11-13 20:59 UTC",
  "files": {
   "app/lib/Blocks.php": {
    "sha256": "3afc63e844f3e41f8e2ddd2dfe5d19032d75645cd3058699cc38d26ca383c7d9",
-   "live": false
+   "live": true
   },
   "app/lib/Engage.php": {
    "sha256": "15dde3ceba0cd8b768b8cd93606edb844b523d1f813983c9ad3a6603f468d8cd",
-   "live": false
+   "live": true
   },
   "app/lib/LikeGuard.php": {
    "sha256": "18db245574a298cd9d89c503664658393f25f36441ec76ffaf912d714be5a4d2",
-   "live": false
+   "live": true
   },
   "app/lib/Reports.php": {
    "sha256": "7996b52efd46fba730c664d2691bcb8438a87aa9bbc9cc77eaeadb0075857584",
-   "live": false
+   "live": true
   },
   "app/lib/SitePages.php": {
    "sha256": "c3821d8ad36ed49ae991fdb1e43c08a3ac1b2b4ca13c95a1da341177a5d06c38",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "0b21c495c6676a1dd0dfcff2c4a524d89141da015200b6d5ae63909987f29b7c",
-   "live": false
+   "live": true
   },
   "website/api/blocks.php": {
    "sha256": "4ff18ae62b76b21e3e2a011f2634168a94abfdcc2ad35f2dcb9e9534cee60143",
-   "live": false
+   "live": true
   },
   "website/js/tv-blocks.js": {
    "sha256": "ad20faf5f3e5a959c67982889cd6152358a83d9cebe73b5127c15128606e480a",
-   "live": false
+   "live": true
   },
   "website/js/tv-editor.js": {
    "sha256": "a5f5064cd79ae9d59d05ed6e3491f0be724980672dc504114bde1cd460e089de",
-   "live": false
+   "live": true
   }
  }
 }
