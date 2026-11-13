@@ -3,7 +3,7 @@
  "built_on": "8cdbf8b Sync: 2026-11-12 23:22 UTC",
  "recorded": "2026-11-13 00:57 UTC",
  "note": "0157 delivery 1: the page log, structured data first, list pages split into items, kinds and towns on the place store, the test set. Built on the 23:22 UTC sync. The worker half ships via main (Railway).",
- "status": "pending",
+ "status": "replaced",
  "live_in": "",
  "files": {
   "app/data/decisions-index.php": {
