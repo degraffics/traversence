@@ -67,14 +67,12 @@
   },
   {
    "path": "app/lib/MemberPulse.php",
-   "functions": [
-    "needs"
-   ],
+   "functions": [],
    "kind": "change",
    "session": "session_01CXLi5h4DFhWFmsTWMLZkAU",
-   "why": "Pulse flood: the crawler's own Review items out of Support and Needs you; one case when they back up",
+   "why": "Pulse flood: Needs you counts people's suggestions only",
    "since": "2026-11-13T21:07:52Z",
-   "expires": "2026-11-14T01:07:52Z",
+   "expires": "2026-11-14T01:08:48Z",
    "release": "pulseflood_20261113",
    "callers": {}
   },
