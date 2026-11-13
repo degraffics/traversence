@@ -1,0 +1,34 @@
+{
+    "id": 25,
+    "title": "FAQ follow-ups: town area, account sign-in, hidden listings, vault emails",
+    "why": "FAQ entries Jason approved: the site audit's P9/P11 entries (handoffs/site-audit.md §5), held until adminfind_20261113 (Release #24) went live, and one line for Release #12 (vaultwho_20261113). Adds \"When I choose a town, why can I set how far to look, and what is its Town area?\" after \"What does clicking a town name do?\"; account creation now says opening the link signs you in; adds \"My business's listing is hidden. Can I still see it?\"; the vault answer says each email names who did each thing. No question reworded, so no anchors change.",
+    "proposals": "",
+    "zip": "faqfollowups_20261113.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/ui/faq.md": {
+            "sha": "551153b8c218a42d3b797d001a555e37156edd34408133d7d02261406a0f4e78",
+            "size": 274963,
+            "live_was": "bdc44f7bc9d951603cf958340249c5de08101e11a4ae2e049fae14272571e0cc"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-13T17:57:02+00:00",
+            "by": 0,
+            "msg": "Uploaded faqfollowups_20261113.zip: 1 files."
+        }
+    ]
+}
