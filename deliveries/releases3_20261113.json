@@ -1,0 +1,86 @@
+{
+ "zip": "releases3_20261113.zip",
+ "built_on": "95ec00d Sync: 2026-11-13 04:13 UTC",
+ "recorded": "2026-11-13 04:47 UTC",
+ "note": "releases2 plus: Open on staging signs you in as yourself by default (staging's copy of your account and staff login); the audit's test accounts stay a choice. Replaces releases2_20261113 (never uploaded). Built on Sync: 2026-11-13 04:13 UTC.",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/admin/manifests.php": {
+   "sha256": "a9710e3adf0ad6002f5b13d765ce80b2fb72b4aea53ad3b5e64ad8a4ea1c6d8d",
+   "live": false
+  },
+  "app/admin/sections.php": {
+   "sha256": "e9ce590c33bcff1b7c8d0e61657fb7fb06e2f3f30cd7e0e3c6f5ad8223564c84",
+   "live": false
+  },
+  "app/lib/DocsRepo.php": {
+   "sha256": "fa8657f6afb884c6657a65b0503ce35961b7906e44fc0b43af41ad5bea0e868d",
+   "live": false
+  },
+  "app/lib/Pulse.php": {
+   "sha256": "49ed6e4f35904372f6de8fd218db3d3c5f61e156b460456c484ecfc8a40c9fa3",
+   "live": false
+  },
+  "app/lib/Releases.php": {
+   "sha256": "01ca3e4dfb1a22ab6c1afec68239f50ae23877e3397d4cddf215c9f8488036ac",
+   "live": false
+  },
+  "app/lib/Scheduler.php": {
+   "sha256": "2dcba9e80d02eaf3cc71a4c0f887dfad155ebe734524e60b7c3105d4aa7dd93b",
+   "live": false
+  },
+  "app/lib/Staging.php": {
+   "sha256": "5bac88fae2acb4d0d00e90e9afc3f32b2b4bd585b9b373b8e86e2f7948006509",
+   "live": false
+  },
+  "app/lib/StagingSite.php": {
+   "sha256": "ea479502c71027bc464b2a0852fc951c37a199888b9c3eef676ae95239457759",
+   "live": false
+  },
+  "app/lib/Switches.php": {
+   "sha256": "5f34f1343f1c08b0d7b0f8851585f3ab1bea4d133cd34fefb6e3356ceca4850b",
+   "live": false
+  },
+  "app/lib/upload-targets.php": {
+   "sha256": "24c13915ce830ac227b343f14a56798a4aee6dc57511e4c97d196a6ca00b7c53",
+   "live": false
+  },
+  "app/scripts/releases_tick.php": {
+   "sha256": "2e6e60e32f49552d91a5af5bbd5aedb3d3b85c4635ad43ec33791fbcbd9fec78",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "ebfb18e1a294d0b18089ab1265eca3b15402aa8a4c9fcb4292a07be1ee753de6",
+   "live": false
+  },
+  "website/admin/api.php": {
+   "sha256": "b71adcd1268d1154cb92b612a49cdc2d5ccf7419ab9730bee167503e31c21c60",
+   "live": false
+  },
+  "website/api/release-bar.php": {
+   "sha256": "6c5d892f5b048ef338f2e6fbb7615f7367f7756692d7df3c53cf4ccd950c6940",
+   "live": false
+  },
+  "website/api/staging-updates.php": {
+   "sha256": "64a3845cab2e06cd047058efb9ed841d374617c8b72e80b10bdf7198a97370e2",
+   "live": false
+  },
+  "website/api/stg-bar.php": {
+   "sha256": "d6341d62e9e1280057faf4a5797d793136f76df7dd5db5872e00a085334629e5",
+   "live": false
+  },
+  "website/js/admin-releases.js": {
+   "sha256": "6054c8e681de9eabd0d00d446d2bcb4026d946f39d8b912799b23b5197b95246",
+   "live": false
+  },
+  "website/js/stg-bar.js": {
+   "sha256": "fb3ddb7d46256f45395bd38626c9b1d0bb4685ddfe5c7bd298c9a744dd11b958",
+   "live": false
+  },
+  "website/stg-enter.php": {
+   "sha256": "9a2129082fb1da087c833b254166d45d0fa33a355243e07673138dbaabf5feff",
+   "live": false
+  }
+ }
+}
