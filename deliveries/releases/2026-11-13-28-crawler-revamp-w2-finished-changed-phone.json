@@ -6,52 +6,63 @@
     "zip": "crawler-w2b_20261113.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "staged",
-    "step": 0,
+    "state": "live",
+    "step": 3,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
     "plan_at": "2026-11-13 19:19:04",
     "staged_at": "2026-11-13 19:19:05",
-    "vetted_at": null,
-    "live_at": null,
+    "vetted_at": "2026-11-13 19:19:08",
+    "live_at": "2026-11-13 19:19:08",
     "files": {
         "app/admin/crawler-console.php": {
             "sha": "2da1115838b24a4e092b7f97f9298cbb1419fc76e11be9d8606d8e5d95f74531",
             "size": 14408,
-            "live_was": "1517b48875c3b2ea47c8def9bb4f3c01b18d212c0626276da97de3bcb94ed425"
+            "live_was": "1517b48875c3b2ea47c8def9bb4f3c01b18d212c0626276da97de3bcb94ed425",
+            "existed": true,
+            "old_sha": "1517b48875c3b2ea47c8def9bb4f3c01b18d212c0626276da97de3bcb94ed425"
         },
         "app/ui/faq.md": {
             "sha": "c9e3eb6598edab10d785795841ebf0a5452e52419b2efb17ff24c7389f299fed",
             "size": 276432,
-            "live_was": "993c02fdc6a10a1fa930f1ee14d417c41b07316988711457ac496b94330b2ae0"
+            "live_was": "993c02fdc6a10a1fa930f1ee14d417c41b07316988711457ac496b94330b2ae0",
+            "existed": true,
+            "old_sha": "993c02fdc6a10a1fa930f1ee14d417c41b07316988711457ac496b94330b2ae0"
         },
         "app/scripts/listings_tick.php": {
             "sha": "eb3c86ea2808695e10aac93e88818af9caaca6a91ddfdf8da2b0742fb9425402",
             "size": 2443,
-            "live_was": "21def60c6c12a0afc86ce4b2e232d397e8dc98313a0fb2c8fc76260dd5cb8d8f"
+            "live_was": "21def60c6c12a0afc86ce4b2e232d397e8dc98313a0fb2c8fc76260dd5cb8d8f",
+            "existed": true,
+            "old_sha": "21def60c6c12a0afc86ce4b2e232d397e8dc98313a0fb2c8fc76260dd5cb8d8f"
         },
         "app/lib/Suggestions.php": {
             "sha": "684d7d270fa3a513f73ef59e54f9544bd948c62cb2240ebe80a10b1277b7bb64",
             "size": 11307,
-            "live_was": "f5fb408d37c908649ee5afbfc3ad7c1842b4464fa98568fee818950e7c213305"
+            "live_was": "f5fb408d37c908649ee5afbfc3ad7c1842b4464fa98568fee818950e7c213305",
+            "existed": true,
+            "old_sha": "f5fb408d37c908649ee5afbfc3ad7c1842b4464fa98568fee818950e7c213305"
         },
         "app/lib/crawler/LiveDupes.php": {
             "sha": "7be5060c07e353aa5b6e061bd19c80bdd21bdfe2b4c9b55420454030630ad87e",
             "size": 6825,
-            "live_was": null
+            "live_was": null,
+            "existed": false
         },
         "app/lib/crawler/Refresh.php": {
             "sha": "826aeeedc7d1d84342f0705d35416abf800d839f929f2a8ff3cf002ffe3eb656",
             "size": 26725,
-            "live_was": "bf36a542dae21fe27f8e664e62e693adfbe83ce7c6bc97e18214589c79819430"
+            "live_was": "bf36a542dae21fe27f8e664e62e693adfbe83ce7c6bc97e18214589c79819430",
+            "existed": true,
+            "old_sha": "bf36a542dae21fe27f8e664e62e693adfbe83ce7c6bc97e18214589c79819430"
         }
     },
     "migrations": [],
     "checks": {
         "ok": true,
-        "where": "staging",
-        "at": "2026-11-13T19:19:06+00:00",
+        "where": "live",
+        "at": "2026-11-13T19:19:08+00:00",
         "items": [
             [
                 "PHP files parse",
@@ -61,7 +72,7 @@
             [
                 "Pages answer",
                 true,
-                "2 pages answered on staging.trvgo.us"
+                "2 pages answered on traversence.com"
             ],
             [
                 "No new fatal errors in the logs",
@@ -91,6 +102,16 @@
             "at": "2026-11-13T19:19:06+00:00",
             "by": 0,
             "msg": "Put on staging (6 files); its checks passed."
+        },
+        {
+            "at": "2026-11-13T19:19:08+00:00",
+            "by": 0,
+            "msg": "Approved in chat before it was sent through git, and its checks on staging passed: publishing by itself."
+        },
+        {
+            "at": "2026-11-13T19:19:08+00:00",
+            "by": 0,
+            "msg": "Published: 6 files; everyone at once (no switch)."
         }
     ]
 }
