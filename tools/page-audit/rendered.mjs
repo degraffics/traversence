@@ -30,7 +30,7 @@ function treePages() {
   return out;
 }
 const tree = treePages();
-const NEEDS_ID = /\/(view|edit|order|item|manifest|suggestion|review-item|client-order|content-template|guide-edit|landmark|recreation|group|listing|wo|q|q-file|promo|takedown|verify|reset|two-step|email-revert|verify-email|setup|logout|login)\.php$|\/(api|crawl|auth)\//;
+const NEEDS_ID = /\/(view|post|edit|order|item|manifest|suggestion|review-item|client-order|content-template|guide-edit|landmark|recreation|group|listing|wo|q|q-file|promo|takedown|verify|reset|two-step|email-revert|verify-email|setup|logout|login)\.php$|\/(api|crawl|auth)\//;
 const CORE = new Set(['/', '/discovery/', '/directory/', '/faq.php', '/experiences/', '/community/', '/market/', '/plans.php', '/terms.php', '/privacy.php', '/dashboard.php', '/admin/']);
 const PUBLIC = [...new Set([...[...CORE].filter(u => u !== '/dashboard.php' && u !== '/admin/'),
   ...tree.filter(p => !p.startsWith('/admin') && !p.startsWith('/user') && !p.startsWith('/business') && !p.startsWith('/dashboard') && !NEEDS_ID.test(p))])];
