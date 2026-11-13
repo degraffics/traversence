@@ -1,6 +1,6 @@
 # ADR 0157: Our own index: reading pages and reading searches
 
-**Status:** Proposed (Jason, 2026-11-13: "yes write 0157"; the second tier added the same day at his ask), for his OK before building. It extends `decisions/0045` (our own
+**Status:** Accepted (Jason, 2026-11-13: "yes approved, start delivery 1"; the second tier added the same day at his ask). Delivery 1 built 2026-11-13. It extends `decisions/0045` (our own
 reference index, source-first crawling), `0044` (confidence-gated import), `0133` (the observations store and identity
 record), `0060`/`0061`/`0063`/`0064`/`0067` (search, situations, the lexicon, words search learns, what words mean) and keeps
 `0065` (OpenStreetMap is its own layer), `0066` (tribal nations' land), `0093` (what people open is a hint, never a
@@ -164,8 +164,8 @@ are his to set, and each part's second tier is switched on only with them.
 
 ### The test set (from the first delivery)
 
-A list of real searches and what each should find, run daily by the search probe (`tools/page-audit/search-probe.mjs`)
-and shown in Site health: today's ("garbage" and "trash collection" near St. Johns: Blue Hills Environmental and the
+A list of real searches and what each should find, run daily with the search probe (the "Our index" cases in
+`tools/page-audit/search-scorecard.mjs`) and shown in Site health: today's ("garbage" and "trash collection" near St. Johns: Blue Hills Environmental and the
 landfill once held; "garabe"; "places to shoot": ranges; "places to stay": lodging; "lunch": restaurants; "Besh-Ba-Gowah":
 the park and museum), and each new slip as it's found. A change ships only when the set holds.
 

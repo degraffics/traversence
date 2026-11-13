@@ -47,6 +47,23 @@ fill come back as **Tier 2** tasks: one web search each (Tavily, at most once a 
 towns ("Saint Johns" and "St. Johns" both count). They go back with `POST /api/crawl/learn.php`: each page becomes a
 source on the site, and one that lists 3 or more phone numbers is read regularly from then on.
 
+**Our own index (decisions/0045, 0157).** Each run also reads one source marked "Read regularly" (`GET/POST
+/api/crawl/sources.php`, up to `SOURCE_PAGES` pages, 25, in `SOURCE_TIME` seconds, 60), following its own links,
+directory-like pages first.
+- **The page log:** the site sends what it knows of the source's pages (each one's entity tag, last-changed date and
+  links), and the worker asks each page whether it changed (`If-None-Match` / `If-Modified-Since`). An unchanged page
+  answers 304: nothing is downloaded, its places are kept, and its saved links still lead on. Every page fetched goes
+  back with its answer, size, a fingerprint of its text, its kind and how many places it named; never its body. The
+  site reads a page again sooner when it changed and later when it didn't (a week to three months), and the source as
+  often as its busiest page.
+- **Reading a page, surest first:** its schema.org structured data (JSON-LD and microdata: name, address, phone,
+  website, hours, map point, what it calls itself), then its text. A page naming three or more places is a list page,
+  and each place on it is an item with its own words (what it does) and the heading it sits under.
+- **What kind of page:** one place's own site, a list, an events calendar, a government notice, an article, or other.
+The site gives each place its kind of business (from those words) and its town (its ZIP, its address, the page, or the
+source's), and keeps them in the place store (`source_facts`). Links in what's sent travel wrapped
+(`tvb64:`, as the site's forms send them) past Bluehost's firewall.
+
 Budgets per run: 5 jobs, 60 website fetches, 240 seconds (under the 5-minute interval, so runs never overlap), whichever comes first. A job that isn't
 finished returns to the queue by itself when its 20-minute lease runs out.
 
