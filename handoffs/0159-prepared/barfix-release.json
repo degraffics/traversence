@@ -1,0 +1,6 @@
+{
+  "title": "Site manager: shows the newest release, not the first one it showed",
+  "why": "Jason, 2026-11-13: the site manager's line on staging still said #18 while Releases ▾ listed #27 as the newest. The bar kept whatever release it had shown first (in the browser's storage) and asked for it every time. Now it shows what's on staging now, or else the newest release; a release picked from Releases ▾ (or just acted on) is kept for that browser tab only. Releases::barState falls back to the newest of all; js/stg-bar.js keeps the pick in sessionStorage. FAQ line updated.",
+  "proposals": "",
+  "switch": ""
+}
