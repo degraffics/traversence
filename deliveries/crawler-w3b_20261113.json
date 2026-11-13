@@ -1,0 +1,26 @@
+{
+ "zip": "crawler-w3b_20261113.zip",
+ "built_on": "d3cbbcd Sync: 2026-11-13 19:39 UTC",
+ "recorded": "2026-11-13 19:40 UTC",
+ "note": "Crawler revamp W3 finished: Listing Intake's site reads join the page log, the source register and the place store (by the register's use rule). Built on Sync: 19:39 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/crawler/SourceIndex.php": {
+   "sha256": "613ed7efea4f08e67c36ba886879640fb9ff0c61e6cc82490bb536e09eb7dd5c",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "f136692f0c0c9e7423f43a54eed063862412f17aadc168ef8826b7ed67ed1ba0",
+   "live": false
+  },
+  "website/admin/listing-intake.php": {
+   "sha256": "727295a94b79bc1dd76778a7aaf64c1d1b18e1fa1be43a3f478c3d3cb1948140",
+   "live": false
+  },
+  "website/api/admin/intake/crawl.php": {
+   "sha256": "8d1629a6bd0cc917c1c6f146e5543b1fd920626e60e858232caa7c2a1fd2cd93",
+   "live": false
+  }
+ }
+}

@@ -261,6 +261,13 @@ CLAUDE.md, in full. For this work above all:
   Open: why the main Overpass server refuses Railway (its policy, or the request), and whether coverage needs its own
   longer share.
 
+- **Phase 3, W3 finished** (sent, waiting for Jason's OK): `crawler-w3b_20261113.zip`, built on Sync 19:39 UTC. Listing
+  Intake's crawl (`api/admin/intake/crawl.php`) now hands what it read to `SourceIndex::keepRead`: its pages in the page
+  log, the site on the register (`Sources::note`, judged like any), and its places in the place store where the use rule
+  allows facts and the site isn't marked Ignore (`storeMore(..., 'intake', false)`: Listing Intake stages its own finds).
+  Kept synchronous on purpose (the person sees the result at once), rather than `read_page` requests. Left: the other
+  SiteFetcher callers (DeepLook, Dossier, GuideLinks, Rebuild) read businesses' own sites and don't log their pages yet.
+
 ## 7. Open
 
 - Nothing waiting on Jason. Worker 2.1 merged with his OK (2026-11-13), and Railway's watch paths set to
