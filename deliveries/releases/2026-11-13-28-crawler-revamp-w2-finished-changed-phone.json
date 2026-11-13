@@ -1,0 +1,59 @@
+{
+    "id": 28,
+    "title": "Crawler revamp, W2 finished: changed phones and hours, and live duplicates",
+    "why": "decisions/0160 W2, review E24. (1) A listing's own website that now shows a different phone or different hours was never noticed (the refresh only filled empty fields). The worker now sends what the site plainly says (one phone, its hours); a difference goes to Review as a fix with the new values filled in, never written by itself, and the same value is asked about once (site_said). (2) Two live listings that are one business were found only when a visitor said so. The listings tick now finds them (the same phone, with the same Google place, or the same ZIP with the same name or street address; a number shared by more than 4 listings proves nothing) and offers each pair in Review as Same business, at most 40 waiting, a pair never asked twice. (3) The crawler's own Review items were capped like a visitor's (12 a day), so the 13th was lost: the site's own checks are no longer counted against that limit. Insights -> Crawler shows what W2 has waiting in Review. No database update. The worker half (2.2: it sends what the site says) merges to main after this is live; until then nothing changes for refreshes.",
+    "proposals": "handoffs/crawler-revamp.md Phase 3 (W2), decisions/0160 W2, research/crawler-review-2026-11-13.md E24",
+    "zip": "crawler-w2b_20261113.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/admin/crawler-console.php": {
+            "sha": "2da1115838b24a4e092b7f97f9298cbb1419fc76e11be9d8606d8e5d95f74531",
+            "size": 14408,
+            "live_was": "1517b48875c3b2ea47c8def9bb4f3c01b18d212c0626276da97de3bcb94ed425"
+        },
+        "app/ui/faq.md": {
+            "sha": "c9e3eb6598edab10d785795841ebf0a5452e52419b2efb17ff24c7389f299fed",
+            "size": 276432,
+            "live_was": "993c02fdc6a10a1fa930f1ee14d417c41b07316988711457ac496b94330b2ae0"
+        },
+        "app/scripts/listings_tick.php": {
+            "sha": "eb3c86ea2808695e10aac93e88818af9caaca6a91ddfdf8da2b0742fb9425402",
+            "size": 2443,
+            "live_was": "21def60c6c12a0afc86ce4b2e232d397e8dc98313a0fb2c8fc76260dd5cb8d8f"
+        },
+        "app/lib/Suggestions.php": {
+            "sha": "684d7d270fa3a513f73ef59e54f9544bd948c62cb2240ebe80a10b1277b7bb64",
+            "size": 11307,
+            "live_was": "f5fb408d37c908649ee5afbfc3ad7c1842b4464fa98568fee818950e7c213305"
+        },
+        "app/lib/crawler/LiveDupes.php": {
+            "sha": "7be5060c07e353aa5b6e061bd19c80bdd21bdfe2b4c9b55420454030630ad87e",
+            "size": 6825,
+            "live_was": null
+        },
+        "app/lib/crawler/Refresh.php": {
+            "sha": "826aeeedc7d1d84342f0705d35416abf800d839f929f2a8ff3cf002ffe3eb656",
+            "size": 26725,
+            "live_was": "bf36a542dae21fe27f8e664e62e693adfbe83ce7c6bc97e18214589c79819430"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-13T19:19:02+00:00",
+            "by": 0,
+            "msg": "Uploaded crawler-w2b_20261113.zip: 6 files."
+        }
+    ]
+}
