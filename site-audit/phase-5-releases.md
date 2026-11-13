@@ -77,7 +77,7 @@ The Releases page is itself released this way: to you first, then the staff who 
 
 None.
 
-## Built (releases_20261113, 2026-11-13)
+## Built (releases2_20261113, 2026-11-13)
 
 **How a release travels** (Jason, 2026-11-13: "Upload on the page", in place of FTP uploads until Phase 6).
 - **Upload:** the release zip goes up on System Configuration → Releases, through the one uploader (target `release_zip`).
@@ -89,6 +89,28 @@ None.
 - **Roll back:** puts those copies back and removes the files the release added.
 - **FTP:** once the plan is approved, **Download the zip** and **Download the rollback zip** offer the same by FTP. The
   rollback zip includes a list of the files to delete.
+
+**The staging bar** (Jason, 2026-11-13: "go from admin to the staging site, a staging command bar used to track changes,
+save, schedule, publish").
+- **Getting there:** **Open staging** (top of Releases) and **Open on staging** (each staged release) open
+  staging.trvgo.us past its viewing password, signed in as the test account chosen (a test member, a test staff login,
+  or signed out).
+  - The live site signs a link that works for 10 minutes, once (`Releases::enterUrl`, key RELEASE_BAR_KEY in staging's
+    .env).
+  - `/stg-enter.php` on staging checks it, then gives the browser staging's pass (a cookie that staging's rules and
+    `Staging::guard()` accept) and the bar (a cookie good for 12 hours).
+  - If staging's server refuses the cookie rule, the rules are written again without it, and the viewing password is
+    asked as before (`StagingSite::barKeys`).
+- **The bar** (`js/stg-bar.js`) sits at the foot of every staging page:
+  - which release you're trying, with a chooser when several are on staging;
+  - **Changes:** what it changes, its pages as links on staging, its files, its checks;
+  - **Note:** what you see on this page, kept in the release's record;
+  - **Sign it off**, **Schedule** and **Publish**;
+  - **Live admin**, to go back.
+- **How it acts:** through `/api/stg-bar.php` (staging) to `/api/release-bar.php` (live), signed both ways. It acts as
+  you, with the release permissions you had when you opened staging.
+- **Publish:** copies exactly the files tried on staging. It stops if one of them changed on the live site since the
+  release was built.
 
 **Pieces**
 - **Library:** `app/lib/Releases.php`.
