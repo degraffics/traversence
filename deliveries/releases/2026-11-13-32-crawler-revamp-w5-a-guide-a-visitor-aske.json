@@ -1,0 +1,61 @@
+{
+    "id": 32,
+    "title": "Crawler revamp, W5: a guide a visitor asked for is built again by itself when it fails",
+    "why": "decisions/0160 W4, W5, W8; review E25. A guide on demand that failed (a busy service, a step that threw) stayed failed, though the visitor was told 'we'll try again': only another visitor asking restarted it. Now a failed build is tried again by itself after 30 minutes, 2 hours and 8 hours, from the step it stopped at (the guide job's 5-minute tick); after three tries it waits for our team, and Pulse opens one case naming the places, with Retry them all (three more tries each). The visitor's page says it carries on by itself and gives our email. Builds that failed before this are tried again once at once. Insights -> Crawler shows W5's requests by where they stand. The database update adds two columns to guide_requests (tries, failed_at; safe to run twice). W4's starvation is gone with the service's shares (Phase 2), first-look labels survive a rewrite (Phase 0), and W8 (Find it) has no gap of its own beyond W1's gate, now live.",
+    "proposals": "handoffs/crawler-revamp.md Phase 3 (W4, W5, W8), decisions/0160 W5, research/crawler-review-2026-11-13.md E25",
+    "zip": "crawler-w5_20261113.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/admin/crawler-console.php": {
+            "sha": "59ca75179d8e7a860c69ad1bc7e027eb38b274aeb43fb7a5be733cb1f5401833",
+            "size": 15092,
+            "live_was": "2da1115838b24a4e092b7f97f9298cbb1419fc76e11be9d8606d8e5d95f74531"
+        },
+        "app/ui/faq.md": {
+            "sha": "6878bf590e780a1354bc2b0f90c789474293b6408562659210a75c6e412add0b",
+            "size": 277165,
+            "live_was": "a18569feffd23e05cb9749efc5457ad4d9be78e6493482b4d1602885f8e761ae"
+        },
+        "app/migrations/2026-11-13_guide_requests_retry.sql": {
+            "sha": "73b16b167d7e93a13e350a533bfcbe07f954b8942181cf9338f5378b80b6f8ca",
+            "size": 932,
+            "live_was": null
+        },
+        "app/lib/OnDemand.php": {
+            "sha": "07a21d29816e2afd19d25098b0209c3f09ed23a2a021022d09f1caa77ef63ab0",
+            "size": 34456,
+            "live_was": "afd853ba85cb1d12995d93813586acb6eb3ff5e77d115e5a588972318be407f0"
+        },
+        "app/lib/Pulse.php": {
+            "sha": "62ff420fc68a3320d634ec254d27a8c2fa41df9c23bc9771201ad0c77f86d81b",
+            "size": 124368,
+            "live_was": "fecf44541e64f29069d972c0a9ab30a73fa92d470dbfd1de87ba5acba1d676bc"
+        },
+        "website/hub/build.php": {
+            "sha": "2bb3afe6756e69f5e817231d4d885aca82a2bc354d52b9f229d202424f11e105",
+            "size": 12551,
+            "live_was": "dcc5750a9ebc9794ec929e4b1af9270be5592576d9479050d7435fe7c462a43b"
+        }
+    },
+    "migrations": [
+        "app/migrations/2026-11-13_guide_requests_retry.sql"
+    ],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-13T20:19:02+00:00",
+            "by": 0,
+            "msg": "Uploaded crawler-w5_20261113.zip: 6 files."
+        }
+    ]
+}
