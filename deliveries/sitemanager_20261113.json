@@ -1,0 +1,34 @@
+{
+ "zip": "sitemanager_20261113.zip",
+ "built_on": "82a92cd Sync: 2026-11-13 14:02 UTC",
+ "recorded": "2026-11-13 14:10 UTC",
+ "note": "Release #6 (decisions/0159 \u00a75, step 1): the site manager at the top of staging (Releases \u25be, Upload straight onto staging via target release_zip_bar, Changes, Note, Publish \u25be with the next step, Turn off and Roll back); Publish or Schedule is the sign-off after a look (Sign it off goes); an upload on the Releases page also goes straight onto staging. Built on Sync: 2026-11-13 14:02 UTC.",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/admin/sections.php": {
+   "sha256": "561cd7cfab6d7afdd395d9547f74c119b31de69090754f4afe440f02ccb9901f",
+   "live": false
+  },
+  "app/lib/Releases.php": {
+   "sha256": "a8b246733fce36c54879163e205580969ac466222cf091f54ca51b81bdacbd6e",
+   "live": false
+  },
+  "app/lib/upload-targets.php": {
+   "sha256": "c1c4f4b0a8dc403de41ca0b13a77b877ae730e53bce2a85cdd7911025ed864a5",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "79850e9eff23307f33162ef910f3ddf3f728442ec2b58c4199355b224da2e237",
+   "live": false
+  },
+  "website/api/release-bar.php": {
+   "sha256": "10028240f44fd6b7c3d8e7e21ae3506ce080294b128ac9323eefa15a82a0ef2a",
+   "live": false
+  },
+  "website/js/stg-bar.js": {
+   "sha256": "631841ebc468ae53f6919a51676bb56a452179fc2b44c93e96c96a3c20124972",
+   "live": false
+  }
+ }
+}
