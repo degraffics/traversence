@@ -24,6 +24,12 @@ Search that learns (decisions/0061): GET /api/crawl/learn.php runs the site's le
 out a few Tier 2 web searches for situation gaps open data couldn't fill; pages on .gov, .edu, state and local .us
 sites or sources we read go back with POST /api/crawl/learn.php. Situation gaps open data covers arrive as ordinary
 jobs ("sit:..."), bringing their own OpenStreetMap filters and Wikidata classes (Tier 1).
+Since contract 2 (decisions/0160, 2026-11-13) the site plans each run: POST /api/crawl/service.php {start} gives the capture
+tasks due, each with its share of the run's time, fetches and paid calls (finding businesses first, then whoever waited
+longest); the worker works each inside its share, gives tasks that took a full batch a second turn with the time left, and
+reports each task (done, idle, not reached, failed, off) with {report}. A run that couldn't work (the site unreachable, no
+token, everything starved) exits 1, so Railway shows it failed. The bulk loads run only at night, after the run's work.
+Against a site without the service, the fixed order below runs as before.
 Our own index (decisions/0045, 0157): each run reads one "Read regularly" source (GET/POST /api/crawl/sources.php),
 asking each page whether it changed since the page log last saw it, reading its structured data first, then its text,
 and splitting a list page into its places; every page fetched goes back to the page log.
@@ -188,6 +194,12 @@ SKIP_HOSTS = {"openstreetmap.org", "npino.com", "npiprofile.com", "npidb.org", "
               "npi.report", "npiregistry.cms.hhs.gov", "google.com", "bing.com", "duckduckgo.com", "search.brave.com"}
 
 started = time.monotonic()
+WORKER_V = "2.0"           # the service's contract 2 (decisions/0160 §2): the site plans each run, the worker reports it
+RUN_END = None             # when this run's own work must stop (started + TIME_BUDGET, or a bulk load's end)
+TASK_END = None            # when the capture task being worked must stop (its share of the run)
+FETCH_CAP = MAX_FETCHES    # fetches this run may have made by the end of the task being worked
+SEARCH_CAP = None          # searches this run may have made by the end of the task being worked (None: the run's own cap)
+task_got = 0               # items the site handed out to the task being worked (counted in site_call)
 searches = 0
 last_search = 0.0
 fetches = 0
@@ -200,7 +212,13 @@ def log(*a):
 
 
 def out_of_time():
-    return time.monotonic() - started > TIME_BUDGET
+    now = time.monotonic()
+    if TASK_END is not None and now > TASK_END:
+        return True                        # the task's share is used: the rest go back untouched
+    return now > (RUN_END if RUN_END is not None else started + TIME_BUDGET)
+
+
+GOT_KEYS = ("listings", "targets", "tasks", "places", "guides", "jobs", "hosts", "discover", "describe", "scans")
 
 
 def site_call(path, payload=None, timeout=60):
@@ -209,9 +227,13 @@ def site_call(path, payload=None, timeout=60):
     req = urllib.request.Request(SITE + path, data=data, method="POST" if data else "GET", headers={
         "X-Crawler-Token": TOKEN, "Authorization": "Bearer " + TOKEN,
         "Content-Type": "application/json", "User-Agent": UA, "Accept": "application/json"})
+    global task_got
     try:
         with urllib.request.urlopen(req, timeout=timeout) as r:
-            return json.loads(r.read().decode("utf-8"))
+            d = json.loads(r.read().decode("utf-8"))
+            if payload is None and isinstance(d, dict):   # work the site handed out: how the run knows a task had work
+                task_got += sum(len(d[k]) for k in GOT_KEYS if isinstance(d.get(k), list)) + (1 if d.get("source") else 0)
+            return d
     except urllib.error.HTTPError as e:
         # Say which call failed and what the site said (Bluehost's firewall answers 406 with an HTML page).
         raise RuntimeError(f"site {path} said {e.code}: {e.read()[:200]!r}") from None
@@ -357,19 +379,55 @@ def allowed(url):
     host = urllib.parse.urlsplit(url)
     base = f"{host.scheme}://{host.netloc}"
     if base not in robots_cache:
-        rp = urllib.robotparser.RobotFileParser(base + "/robots.txt")
-        try:
-            if public_host(base + "/robots.txt"):
-                rp.read()
-            else:
-                rp = None
-        except Exception:
-            rp = None                      # no robots.txt reachable: treat as allowed
-        robots_cache[base] = rp
+        robots_cache[base] = read_robots(base)
     rp = robots_cache[base]
     if crawl_delay(url) > MAX_CRAWL_DELAY:
         return False                       # it asks us to crawl slower than we can: we don't
     return rp is None or rp.can_fetch(UA, url)
+
+
+class PublicRedirect(urllib.request.HTTPRedirectHandler):
+    """robots.txt's own redirects: each hop to the open web only (review C15)."""
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        if not public_host(newurl):
+            raise urllib.error.URLError("redirect to a private address")
+        return super().redirect_request(req, fp, code, msg, headers, newurl)
+
+
+ROBOTS_OPENER = urllib.request.build_opener(PublicRedirect)
+
+
+class _DenyAll:
+    """A robots.txt we couldn't read (a server error, no answer, 401/403): nothing is fetched from that site this run."""
+    def can_fetch(self, *_):
+        return False
+
+    def crawl_delay(self, *_):
+        return None
+
+
+def read_robots(base):
+    """A site's robots.txt, read as ourselves (our user agent, review C15), its redirects checked hop by hop. None when the
+    site has none (404/410: everything allowed, as the standard says); _DenyAll when it couldn't be read (a server error,
+    a timeout, 401/403), so an unreachable robots.txt is never taken as permission (RFC 9309 §2.3.1)."""
+    url = base + "/robots.txt"
+    if not public_host(url):
+        return _DenyAll()
+    req = urllib.request.Request(url, headers={"User-Agent": UA, "Accept": "text/plain,*/*;q=0.5"})
+    try:
+        with ROBOTS_OPENER.open(req, timeout=15) as r:
+            body = r.read(500_000).decode("utf-8", "replace")
+    except urllib.error.HTTPError as e:
+        if e.code in (401, 403):
+            return _DenyAll()
+        if 400 <= e.code < 500:
+            return None                    # no robots.txt: allowed
+        return _DenyAll()                  # 5xx: unreachable, so not allowed this run
+    except Exception:
+        return _DenyAll()
+    rp = urllib.robotparser.RobotFileParser(url)
+    rp.parse(body.splitlines())
+    return rp
 
 
 class SafeRedirect(urllib.request.HTTPRedirectHandler):
@@ -405,7 +463,7 @@ def fetch_page_meta(url, etag="", modified="", pdf=False, xml=False):
         if fx is not None:
             out.update(body=fx, status=200, type="text/html", bytes=len(fx))
         return out
-    if fetches >= MAX_FETCHES or out_of_time():
+    if fetches >= min(MAX_FETCHES, FETCH_CAP) or out_of_time():
         out["why"] = "budget"
         return out
     if not public_host(url) or not allowed(url):
@@ -699,7 +757,7 @@ def search(query):
         items = (data.get(query) or data.get("*", {})).get("results", [])
         searches += 1                                 # counted the same as a real search
     else:
-        if not (TAVILY_API_KEY or BRAVE_API_KEY) or searches >= min(MAX_SEARCHES, search_allow):
+        if not (TAVILY_API_KEY or BRAVE_API_KEY) or searches >= min(MAX_SEARCHES, search_allow, SEARCH_CAP if SEARCH_CAP is not None else MAX_SEARCHES):
             return []                                 # the run's share of the month is used up (or the site didn't say)
         wait = 1.1 - (time.monotonic() - last_search)        # free plans allow about one query a second
         if wait > 0:
@@ -1652,10 +1710,12 @@ def geocode(deadline):
     """Map points: the site sends a batch of street addresses to the U.S. Census geocoder and places what it finds
     (api/crawl/geocode.php, api/lib/Geocoder.php), so listings don't stack on their ZIP's middle waiting for someone to
     press Find points. Only missing or ZIP-middle points change; confidential listings are never geocoded."""
+    global task_got
     for _ in range(GEOCODE_PER_RUN):
         if time.monotonic() > deadline or out_of_time():
             break
         r = site_call("/api/crawl/geocode.php", {}, timeout=250)    # a batch of 500 can take a few minutes at the Census
+        task_got += int(r.get("sent", 0) or 0)
         if r.get("paused"):
             log("map points: queue paused on the site")
             break
@@ -1820,8 +1880,8 @@ def refresh_listings(deadline):
         if time.monotonic() > deadline or out_of_time():
             break
         site, host = lst["website"], host_of(lst["website"])
-        if not os.environ.get("WEB_FIXTURE") and (fetches >= MAX_FETCHES or out_of_time() or not allowed(site)):
-            how = "skipped" if fetches >= MAX_FETCHES or out_of_time() else "blocked"   # this run's budget / its robots.txt
+        if not os.environ.get("WEB_FIXTURE") and (fetches >= min(MAX_FETCHES, FETCH_CAP) or out_of_time() or not allowed(site)):
+            how = "skipped" if fetches >= min(MAX_FETCHES, FETCH_CAP) or out_of_time() else "blocked"   # this run's budget / its robots.txt
             site_call("/api/crawl/refresh.php", {"entity_id": lst["entity_id"], "website": site, "found": {}, "locations": [], "site": {"status": how}})
             continue                               # not read: never counts against the site
         home = fetch_page(site)
@@ -2721,15 +2781,22 @@ def run():
             read_source(time.monotonic() + SOURCE_TIME)
         except Exception as e:                     # reading a source never stops the crawl jobs
             log(f"reading a source stopped: {e!r}"[:300])
+    if coverage(None) == "paused":
+        log("Queue paused on the site (CRAWL_QUEUE=off).")
+    return 0
+
+
+def coverage(deadline):
+    """The crawl jobs (W1: places of a kind in a town or cluster, decisions/0044, 0149): OpenStreetMap and Wikidata, then each
+    place's own website; what's found goes to the intake. Returns "paused" when the site's queue is paused."""
     d = site_call(f"/api/crawl/jobs.php?limit={JOBS_PER_RUN}")
     if d.get("paused"):
-        log("Queue paused on the site (CRAWL_QUEUE=off).")
-        return 0
+        return "paused"
     jobs = d.get("jobs", [])
     log(f"{len(jobs)} job(s)")
     for job in jobs:
         jid = job["job_id"]
-        if out_of_time():
+        if out_of_time() or (deadline is not None and time.monotonic() > deadline):
             log(f"job {jid}: out of time, left for its lease to return it")
             break
         try:
@@ -2759,7 +2826,7 @@ def run():
             except Exception:
                 pass
         time.sleep(3)                              # be gentle with Overpass between jobs
-    return 0
+    return ""
 
 
 def places_check(deadline):
@@ -2820,6 +2887,162 @@ def places_check(deadline):
         log(f"Google check: {len(results)} listing(s): {r.get('matched', 0)} found, {r.get('closed', 0)} Google lists as closed")
 
 
+# ---------------------------------------------------------------------------------------------------
+# The crawler as one service (decisions/0160 §2, contract 2): the site plans the run, the worker works each capture
+# task inside its share and reports what each did. The fixed order above (run()) is kept only for a site without it.
+# ---------------------------------------------------------------------------------------------------
+
+# task -> (what does it, the per-run setting it's limited by (None: none), why it's off here ("" when it's on))
+HANDLERS = {
+    "coverage": (coverage, "JOBS_PER_RUN", lambda: "" if JOBS_PER_RUN > 0 else "JOBS_PER_RUN is 0"),
+    "second_look": (second_look, "VERIFY_PER_RUN", lambda: "" if VERIFY_PER_RUN > 0 else "VERIFY_PER_RUN is 0"),
+    "targets": (targets, "TARGETS_PER_RUN", lambda: "" if TARGETS_PER_RUN > 0 else "TARGETS_PER_RUN is 0"),
+    "refresh": (refresh_listings, "REFRESH_PER_RUN", lambda: "" if REFRESH_PER_RUN > 0 else "REFRESH_PER_RUN is 0"),
+    "identity": (identity_jobs, "IDENTITY_PER_RUN", lambda: "" if IDENTITY_PER_RUN > 0 else "IDENTITY_PER_RUN is 0"),
+    "geocode": (geocode, "GEOCODE_PER_RUN", lambda: "" if GEOCODE_PER_RUN > 0 else "GEOCODE_PER_RUN is 0"),
+    "places": (places_check, "PLACES_PER_RUN", lambda: "" if (GOOGLE_PLACES_KEY or os.environ.get("PLACES_FIXTURE")) and PLACES_PER_RUN > 0 else "no Google Places key on Railway (GOOGLE_PLACES_KEY)"),
+    "source": (read_source, None, lambda: "" if SOURCE_TIME > 0 else "SOURCE_TIME is 0"),
+    "commoncrawl": (common_crawl, None, lambda: "" if CC_TIME > 0 else "CC_TIME is 0"),
+    "heritage": (heritage, "HERITAGE_PER_RUN", lambda: "" if HERITAGE_PER_RUN > 0 else "HERITAGE_PER_RUN is 0"),
+    # without a search key a how-to guide would be marked "no official page found": off, not a false answer
+    "howto": (guides, "GUIDES_PER_RUN", lambda: "" if GUIDES_PER_RUN > 0 and SEARCH_ON else "no web search key on Railway (TAVILY_API_KEY or BRAVE_API_KEY)"),
+    "learn": (learn, "LEARN_PER_RUN", lambda: "" if LEARN_PER_RUN > 0 else "LEARN_PER_RUN is 0"),
+    "npi_bulk": (lambda _d: npi_bulk(), None, lambda: "" if NPI_BULK else "NPI_BULK is off"),
+    "irs_bulk": (lambda _d: irs_bulk(), None, lambda: "" if IRS_BULK else "IRS_BULK is off"),
+    "rec_bulk": (lambda _d: rec_bulk(), None, lambda: "" if RIDB_API_KEY or os.environ.get("RIDB_FIXTURE") else "no Recreation.gov key on Railway (RIDB_API_KEY)"),
+    "landmarks_bulk": (lambda _d: landmarks_bulk(), None, lambda: "" if LANDMARKS else "LANDMARKS is off"),
+}
+MIN_TASK = 15          # seconds: a task with less than this left isn't started (it's "not reached", never a failure)
+
+
+def work_task(p, item, seconds):
+    """Works one capture task for up to `seconds`, inside its fetch and paid-call share; adds to `item` what it did."""
+    global TASK_END, FETCH_CAP, SEARCH_CAP, task_got
+    fn, setting, off = HANDLERS[p["task"]]
+    why_off = off()
+    if why_off:
+        item.update(outcome="off", why=why_off)
+        return
+    t0, f0, s0, pl0, task_got = time.monotonic(), fetches, searches, places_used, 0
+    TASK_END = t0 + seconds
+    FETCH_CAP = fetches + max(0, int(p.get("fetches", 0))) + item.pop("_carry_f", 0)
+    SEARCH_CAP = searches + max(0, int(p.get("paid", 0)))
+    saved = None
+    if setting:                                    # the setting on Railway is the most it may do; the plan may ask for fewer
+        saved = globals()[setting]
+        globals()[setting] = max(1, min(saved, int(p.get("per_run", saved))))
+    try:
+        r = fn(TASK_END)
+        got = task_got + (1 if r is True else 0)
+        if r == "paused":
+            item.update(outcome="idle", why="the site's queue is paused")
+        elif got > 0 or item.get("outcome") == "done":
+            item["outcome"] = "done"
+        else:
+            item.setdefault("outcome", "idle")
+        item["counts"]["items"] = item["counts"].get("items", 0) + got
+        item["_more"] = bool(setting) and got >= globals()[setting]    # took a full batch: there's likely more
+    except Exception as e:
+        log(f"{p['task']} stopped: {e!r}"[:300])
+        item.update(outcome="failed", why=repr(e)[:400], _more=False)
+    finally:
+        if setting:
+            globals()[setting] = saved
+        TASK_END, SEARCH_CAP = None, None
+        item["seconds"] = item.get("seconds", 0) + int(time.monotonic() - t0)
+        item["fetches"] = item.get("fetches", 0) + (fetches - f0)
+        item["searches"] = item.get("searches", 0) + (searches - s0)
+        item["places"] = item.get("places", 0) + (places_used - pl0)
+
+
+def do_requests(reqs):
+    """The one queue's requests leased to this run (decisions/0160 §2): done while there's time, the rest given back unchanged."""
+    out = []
+    for q in reqs:
+        if q.get("kind") != "read_page" or time.monotonic() > (RUN_END or 0) - MIN_TASK:
+            out.append({"id": q["id"], "outcome": "back", "why": "not done this run"})
+            continue
+        url = str((q.get("payload") or {}).get("url") or q.get("ref") or "")
+        try:
+            r = fetch_page_meta(url, pdf=True)
+            if not r["status"]:
+                out.append({"id": q["id"], "outcome": "back", "why": r.get("why") or "not fetched (robots.txt or the run's budget)"})
+                continue
+            facts, kind, title = read_page(r["body"], url) if r["body"] else ([], "", "")
+            out.append({"id": q["id"], "outcome": "done", "result": tv_safe({"status": r["status"], "page_kind": kind, "title": title, "facts": facts[:200]})})
+        except Exception as e:
+            out.append({"id": q["id"], "outcome": "failed", "why": repr(e)[:300]})
+    return out
+
+
+def run_service():
+    """One run through the service. Returns the exit code, or None when the site has no service yet (the fixed order runs)."""
+    global RUN_END, FETCH_CAP
+    run_key = hashlib.sha1(f"{time.time()}-{os.getpid()}".encode()).hexdigest()[:16]
+    try:
+        st = site_call("/api/crawl/service.php", {"start": {"run_key": run_key, "worker_v": WORKER_V, "budget": TIME_BUDGET,
+                                                           "fetches": MAX_FETCHES, "have": list(HANDLERS)}}, timeout=30)
+    except RuntimeError as e:
+        if " said 404" in str(e):
+            return None                              # an older site: the fixed order, as before
+        raise
+    if not st.get("ready", True) or "plan" not in st:
+        return None
+    if st.get("paused"):
+        log(f"paused: {st.get('why', '')}")
+        site_call("/api/crawl/service.php", {"report": {"run_key": run_key, "status": "ok", "why": st.get("why", "paused"), "items": []}})
+        return 0
+    RUN_END = started + TIME_BUDGET
+    plan = st.get("plan") or []
+    items, by_task = [], {}
+    log(f"run {run_key}: {len(plan)} task(s): " + ", ".join(f"{p['task']} {p['seconds']}s" for p in plan))
+    carry_f = 0
+    for p in plan:
+        if p["task"] not in HANDLERS or p.get("mode") == "bulk":
+            continue
+        item = {"task": p["task"], "allotted": p["seconds"], "counts": {}, "_carry_f": carry_f}
+        left = RUN_END - time.monotonic()
+        if left < MIN_TASK:
+            item.update(outcome="not_reached", why=f"{int(max(0, left))}s left of the run")
+            item.pop("_carry_f", None)
+        else:
+            work_task(p, item, min(p["seconds"], left))
+            carry_f = max(0, FETCH_CAP - fetches)    # fetches a task didn't use go to the next
+        items.append(item); by_task[p["task"]] = (p, item)
+    # time left over: a second turn for tasks that took a full batch, in the plan's order (finding businesses first)
+    for task, (p, item) in by_task.items():
+        left = RUN_END - time.monotonic()
+        if left < MIN_TASK + 15:
+            break
+        if item.get("_more") and item.get("outcome") == "done":
+            log(f"{task}: a second turn with {int(left)}s left")
+            work_task(p, item, left - 5)
+    reqs = do_requests(st.get("requests") or [])
+    # one bulk load a night run, after the rest (never in place of it)
+    for p in plan:
+        if p.get("mode") != "bulk" or p["task"] not in HANDLERS:
+            continue
+        item = {"task": p["task"], "allotted": p["seconds"], "counts": {}}
+        room = int(os.environ.get("RUN_LIMIT", "1800")) - int(time.monotonic() - started) - 120
+        if room < 300:
+            item.update(outcome="not_reached", why="too little of the run's limit left for a bulk load")
+        else:
+            RUN_END = time.monotonic() + min(p["seconds"], room)
+            work_task(p, item, min(p["seconds"], room))
+        items.append(item)
+    for it in items:
+        for k in [k for k in it if k.startswith("_")]:
+            it.pop(k)
+    engine = "tavily" if TAVILY_API_KEY else ("brave" if BRAVE_API_KEY else "")
+    res = site_call("/api/crawl/service.php", {"report": {"run_key": run_key, "status": "ok", "seconds": int(time.monotonic() - started),
+                                                         "fetches": fetches, "searches": searches, "engine": engine,
+                                                         "items": items, "requests": reqs}})
+    status = res.get("status", "")
+    log(f"run {run_key}: {status}: " + ", ".join(f"{i['task']} {i.get('outcome')}" for i in items))
+    # a run that couldn't do its work is a failed run on Railway, not "succeeded" (the review's F27)
+    return 1 if status in ("failed", "starved") else 0
+
+
 def ask_search_allowance():
     """How many web searches this run may make (decisions/0084). The site keeps the month's count and paces it: never
     past 90% of SEARCH_MONTHLY, and spread over the days left, so a plan's allowance can't run out early and nothing
@@ -2857,26 +3080,32 @@ if __name__ == "__main__":
     # whatever it's doing: past any step's own budget (the monthly NPI load allows 25), never days.
     socket.setdefaulttimeout(60)
     def _stop(*_):
-        log("run stopped: over its time limit; the next scheduled run carries on")
+        log("run stopped: over its time limit; the next scheduled run carries on (the site marks this run abandoned)")
         socket.setdefaulttimeout(10)
         report_usage()                             # the searches it made still count toward the month
         sys.stdout.flush()
-        os._exit(0)
+        os._exit(1)                                # a failed run on Railway, never "succeeded" (the review's F27)
     if hasattr(signal, "SIGALRM"):
         signal.signal(signal.SIGALRM, _stop)
         signal.alarm(int(os.environ.get("RUN_LIMIT", "1800")))
+    if not SITE or not TOKEN:
+        log("TRAVERSENCE_URL and CRAWLER_API_TOKEN must be set.")
+        sys.exit(2)                                # a run that can't work is a failed run on Railway
     try:
         ask_search_allowance()
-        code = run()
+        code = run_service()                       # the site plans the run (decisions/0160)
+        if code is None:
+            log("the site has no crawler service yet: the fixed order")
+            code = run()
         report_usage()
         sys.exit(code)
     except urllib.error.HTTPError as e:
-        # Exit cleanly: the next scheduled run tries again. A failing exit makes Railway restart the
-        # container at once, which would hammer the site every second.
+        # A failed run on Railway (the review's F27): it shows as failed, never "succeeded". Railway doesn't restart a
+        # failed cron run (railway.json: restartPolicyType NEVER); the next scheduled run tries again.
         log(f"site said {e.code}: {e.read()[:300]!r}")
         report_usage()                             # searches already made still count toward the month
-        sys.exit(0)
-    except Exception as e:                         # site unreachable etc.: same, wait for the next run
+        sys.exit(1)
+    except Exception as e:                         # the site unreachable, or the service refused the run
         log(f"run stopped: {e!r}")
         report_usage()
-        sys.exit(0)
+        sys.exit(1)
