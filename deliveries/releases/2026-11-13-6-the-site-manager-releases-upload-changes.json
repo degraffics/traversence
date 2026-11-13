@@ -6,49 +6,83 @@
     "zip": "sitemanager_20261113.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "approved",
-    "step": 0,
+    "state": "live",
+    "step": 3,
     "paused": false,
-    "urgent": null,
+    "urgent": "see pushed results",
     "schedule_at": null,
     "plan_at": "2026-11-13 14:27:33",
     "staged_at": null,
     "vetted_at": null,
-    "live_at": null,
+    "live_at": "2026-11-13 14:27:50",
     "files": {
         "app/lib/Releases.php": {
             "sha": "a8b246733fce36c54879163e205580969ac466222cf091f54ca51b81bdacbd6e",
             "size": 72180,
-            "live_was": "affd6cbeb5c9ef68b429b73155890e5281f821d8ffaea0cab3c997fe480fbc5e"
+            "live_was": "affd6cbeb5c9ef68b429b73155890e5281f821d8ffaea0cab3c997fe480fbc5e",
+            "existed": true,
+            "old_sha": "affd6cbeb5c9ef68b429b73155890e5281f821d8ffaea0cab3c997fe480fbc5e"
         },
         "app/lib/upload-targets.php": {
             "sha": "c1c4f4b0a8dc403de41ca0b13a77b877ae730e53bce2a85cdd7911025ed864a5",
             "size": 37195,
-            "live_was": "24c13915ce830ac227b343f14a56798a4aee6dc57511e4c97d196a6ca00b7c53"
+            "live_was": "24c13915ce830ac227b343f14a56798a4aee6dc57511e4c97d196a6ca00b7c53",
+            "existed": true,
+            "old_sha": "24c13915ce830ac227b343f14a56798a4aee6dc57511e4c97d196a6ca00b7c53"
         },
         "app/admin/sections.php": {
             "sha": "561cd7cfab6d7afdd395d9547f74c119b31de69090754f4afe440f02ccb9901f",
             "size": 206357,
-            "live_was": "db08e9199ac79aa57747a17abdc7362a59e2ac13a222756a3f05e2d21eedf3fb"
+            "live_was": "db08e9199ac79aa57747a17abdc7362a59e2ac13a222756a3f05e2d21eedf3fb",
+            "existed": true,
+            "old_sha": "db08e9199ac79aa57747a17abdc7362a59e2ac13a222756a3f05e2d21eedf3fb"
         },
         "app/ui/faq.md": {
             "sha": "79850e9eff23307f33162ef910f3ddf3f728442ec2b58c4199355b224da2e237",
             "size": 265603,
-            "live_was": "7f202b76606b0e65c258bed176bf7c10a01bfb151968952b74ead5c8b723aa67"
+            "live_was": "7f202b76606b0e65c258bed176bf7c10a01bfb151968952b74ead5c8b723aa67",
+            "existed": true,
+            "old_sha": "7f202b76606b0e65c258bed176bf7c10a01bfb151968952b74ead5c8b723aa67"
         },
         "website/js/stg-bar.js": {
             "sha": "631841ebc468ae53f6919a51676bb56a452179fc2b44c93e96c96a3c20124972",
             "size": 19823,
-            "live_was": "fb3ddb7d46256f45395bd38626c9b1d0bb4685ddfe5c7bd298c9a744dd11b958"
+            "live_was": "fb3ddb7d46256f45395bd38626c9b1d0bb4685ddfe5c7bd298c9a744dd11b958",
+            "existed": true,
+            "old_sha": "fb3ddb7d46256f45395bd38626c9b1d0bb4685ddfe5c7bd298c9a744dd11b958"
         },
         "website/api/release-bar.php": {
             "sha": "10028240f44fd6b7c3d8e7e21ae3506ce080294b128ac9323eefa15a82a0ef2a",
             "size": 2891,
-            "live_was": "ed97b1e16f82f3df69bf8b6aee3720f1dc744eac1705a3d4e0263cd83ef0ca6c"
+            "live_was": "ed97b1e16f82f3df69bf8b6aee3720f1dc744eac1705a3d4e0263cd83ef0ca6c",
+            "existed": true,
+            "old_sha": "ed97b1e16f82f3df69bf8b6aee3720f1dc744eac1705a3d4e0263cd83ef0ca6c"
         }
     },
     "migrations": [],
-    "checks": [],
+    "checks": {
+        "ok": true,
+        "where": "live",
+        "at": "2026-11-13T14:27:50+00:00",
+        "items": [
+            [
+                "PHP files parse",
+                true,
+                "4 checked"
+            ],
+            [
+                "Pages answer",
+                true,
+                "2 pages answered on traversence.com"
+            ],
+            [
+                "No new fatal errors in the logs",
+                true,
+                "4 logs read"
+            ]
+        ],
+        "first_fail": ""
+    },
     "log": [
         {
             "at": "2026-11-13T14:26:33+00:00",
@@ -59,6 +93,11 @@
             "at": "2026-11-13T14:27:33+00:00",
             "by": 2,
             "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
+        },
+        {
+            "at": "2026-11-13T14:27:50+00:00",
+            "by": 2,
+            "msg": "Published at once (urgent: see pushed results): 6 files; everyone at once (no switch)."
         }
     ]
 }
