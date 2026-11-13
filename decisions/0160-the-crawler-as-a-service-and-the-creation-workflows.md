@@ -305,8 +305,12 @@ These run by themselves on a schedule, switched on by default, under the $25 mon
 - live events (W10);
 - Find it (W8).
 
-Each serves guides and journeys, which CLAUDE.md's AI exception covers, once its cost is counted honestly (the review's
-D16). **For Jason to confirm.**
+**Decided (Jason, 2026-11-13):** "These are system dependent tools for research and development of content and UI/UX,
+so yes they are exception based on us have a capped usage budget and we must accurately account for their costings so
+the cap is enforced."
+- They're within CLAUDE.md's AI exception.
+- **On one condition:** every call's cost is counted, a failed call after a paid answer included (the review's D16), so
+  the cap really holds. Fixing D16 is part of the crawler service's release.
 
 ## How it's built
 
@@ -327,4 +331,3 @@ In releases, after the review's release 1 (public exposure) and release 2 (stop 
 
 ## Open
 
-- §5: Jason's confirmation of the always-on features.
