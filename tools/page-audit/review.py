@@ -74,9 +74,9 @@ def inputs(a):
         m = pm.get(p, {})
         L += [f'## `{p}`' + (' (changed since the last review)' if p in changed else ''), '']
         if m:
-            L.append(f'- **Kind:** {", ".join(m.get("kinds") or ["page"])}; **file:** `{m.get("file") or "?"}`' + (f'; **routes.md:** {m["purpose"]} ({m["status"]})' if m.get('purpose') else ''))
+            L.append(f'- **Kind:** {", ".join(m.get("kinds") or ["page"])}; **file:** `{m.get("file") or "?"}`' + (f'; **pages.md:** {m["purpose"]} ({m["status"]})' if m.get('purpose') else ''))
             gov = [f'{n["doc"]} ({", ".join(n["sections"]) or "named"})' + (' [replaced]' if n['replaced'] else '') for n in m.get('named_in', [])]
-            L.append(f'- **Governed by:** {"; ".join(gov) or "no decision names it (G02)"}' + (f'; routes.md gives {", ".join(m["decisions"])}' if m.get('decisions') else ''))
+            L.append(f'- **Governed by:** {"; ".join(gov) or "no decision names it (G02)"}' + (f'; pages.md gives {", ".join(m["decisions"])}' if m.get('decisions') else ''))
             L.append(f'- **Standards for its kind:** {"; ".join(m.get("standards", []))}')
         for f in fs:
             L.append(f'- **Finding {f["id"]}** ({f["kind"]}, {f["rule"]}, {f["severity"]}, blocks {f["blocks"]} path(s){", seen as " + ", ".join(f["who"]) if f["who"] else ""}): {f["title"]}. {f.get("detail", "")}'

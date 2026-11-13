@@ -90,6 +90,12 @@ Opened from a working tool (pop-up, detail, action or print page):
 
 `/admin/index.php` is the Dashboard module's own entry (6 lines), not an archived page.
 
+## Archived pages outside the admin
+
+| Page | What it is | Its work is now in |
+|---|---|---|
+| `/gallery/join.php` | Only forwards (site audit P6, Jason 2026-11-13) | The Gallery (`/gallery/`) |
+
 ## Waiting on Jason (not ours to remove)
 
 | File | Note |
@@ -102,6 +108,14 @@ Opened from a working tool (pop-up, detail, action or print page):
 
 | Date | File | Why |
 |---|---|---|
+| 2026-11-13 (P6) | `/eng/directoryengine.php` | Gone from the server; nothing refers to it |
+| 2026-11-13 (P6) | `/map` (designed) | Replaced by Explore's map (`/discovery/`, `TvMap`) |
+| 2026-11-13 (P6) | `/api/documents/upload.php`, `/admin/api/documents/view.php` (designed) | Replaced by the one uploader (decisions/0127) |
+| 2026-11-13 (P6) | `/listing/api/managers/invite.php`, `remove.php` (designed) | Replaced by the business portal's Team |
+| 2026-11-13 (P6) | `/listing/api/referral/create.php` (designed) | Never built; only `referral/confirm.php` exists (0015) and nothing calls a create |
+| 2026-11-13 (P6) | `/admin/review-queue.php` (designed) | Replaced by Listings → Review |
+| 2026-11-13 (P6) | `/admin/hubs.php`, `/admin/clusters.php` (designed) | Replaced by Cluster tools |
+| 2026-11-13 (P6) | `/admin/users.php` (designed) | Replaced by People |
 | 2026-10-28 | `website/listing/api/my-listings.php` | Nothing called it |
 | 2026-10-28 | `website/listing/api/referral/request.php` | Nothing called it |
 | 2026-10-28 | `website/api/set-home-location.php` | Nothing called it |

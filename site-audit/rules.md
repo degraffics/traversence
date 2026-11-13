@@ -26,7 +26,7 @@ change.
 | R06 | FAQ links point at questions that exist | `CLAUDE.md` Keep the FAQ current; decisions/0057 | yes |
 | R07 | Endpoints that change things check the security token (or a signature) | `app/lib/Response.php`; security | no |
 | R08 | Migrations: add-only, safe twice, no `IF NOT EXISTS` in `ALTER`, no routines | `CLAUDE.md` Migrations; decisions/0145 §6 | yes |
-| R09 | Every page is in `routes.md` or `archive.md` | `CLAUDE.md` Files used once, and the archive; decisions/0145 §1a | no |
+| R09 | Every page is in `site-audit/pages.md` or `archive.md` | `CLAUDE.md` Files used once, and the archive; decisions/0145 §1a | no |
 | R10 | The brand's icons, not emoji | `CLAUDE.md` Phone layout and visual standard (Icons) | no |
 | R11 | No breadcrumbs on content pages | `CLAUDE.md` Phone layout (No breadcrumbs); decisions/0058 | no |
 
