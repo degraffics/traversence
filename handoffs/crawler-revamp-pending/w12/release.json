@@ -1,0 +1,6 @@
+{
+  "title": "Crawler revamp, W12: what people search for reaches the crawler first",
+  "why": "decisions/0160 W12, review E22. Search learning's gaps (a need people searched for that we can't answer within 25 miles) were queued as coverage jobs at their search count (3 to 50), behind the general sweep's jobs weighted by population, so they waited for good; and only searches set to a whole cluster counted, never searches set to a town in it. Now a searched gap is leased before the sweep (towns someone searched still come first of all), and a town's searches count toward its cluster's gaps. Towns outside our clusters are built out by the town crawl, as now. No database update.",
+  "proposals": ["handoffs/crawler-revamp.md Phase 3 (W12)", "decisions/0160 W12", "research/crawler-review-2026-11-13.md E22"],
+  "switch": ""
+}

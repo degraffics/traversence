@@ -1,0 +1,6 @@
+{
+  "title": "Crawler revamp, W10 and W11: how-to steps in our own words, checked",
+  "why": "decisions/0160 W10, W11, review C14. How-to guide steps came word for word from .edu and state pages, with no check against the source register, and could be published as they were (only a tick box said they were in our own words). Now a page the register sets to cite only, evidence, a pointer or Ignore is never drafted from; the page's own wording is kept beside each draft; and Publish refuses a step that still reads as its source wrote it (most of its words the same) unless that source's licence is open (public domain, CC0, CC BY, CC BY-SA), naming the step to reword. Drafts made before keep working as before. Live events (W10) have no gap of their own beyond the register, already applied. No database update.",
+  "proposals": ["handoffs/crawler-revamp.md Phase 3 (W10, W11)", "decisions/0160 W10, W11", "research/crawler-review-2026-11-13.md C14"],
+  "switch": ""
+}

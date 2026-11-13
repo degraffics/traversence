@@ -1,0 +1,12 @@
+--- a/app/lib/PlaceFinder.php
++++ b/app/lib/PlaceFinder.php
+@@ -597,6 +597,9 @@
+     /** Wikipedia's summary of the article (CC BY-SA; shown with its credit on the landmark page, as for every landmark). */
+     private static function summary(PDO $pdo, string $title): string
+     {
++        // Wikipedia's words are kept only where its use rule lets us keep them (review C13, decisions/0133 "the licence decides
++        // the use"); cite only: the article's title and link are kept, never its text
++        if (!Landmarks::wikiAllowed($pdo)) return '';
+         $j = self::get('https://en.wikipedia.org/api/rest_v1/page/summary/' . rawurlencode(str_replace(' ', '_', $title)));
+         return trim((string) ($j['extract'] ?? ''));
+     }

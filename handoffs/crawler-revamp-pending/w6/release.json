@@ -1,0 +1,6 @@
+{
+  "title": "Crawler revamp, W6: the heritage catalog's searches, sources and queue",
+  "why": "decisions/0160 W6, review E25 and Part 1. (1) A Library of Congress search that found nothing waited a year before it was asked again: now 30 days. (2) Each page of a historic newspaper counted as its own independent source, so two pages of one paper could vet a fact by themselves: now a paper's pages are one source (its LCCN), and a fact needs a primary record or two different sources as before. (3) The extraction queue took the same first 40 places every hour when it had nothing new to read for them (or their region was closed, or the read failed), so places behind them were never read: each now goes to the back of the queue. No database update. Facts already counted the old way are re-checked in Phase 4.",
+  "proposals": ["handoffs/crawler-revamp.md Phase 3 (W6)", "decisions/0160 W6", "research/crawler-review-2026-11-13.md E25"],
+  "switch": ""
+}

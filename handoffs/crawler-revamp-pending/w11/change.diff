@@ -1,0 +1,67 @@
+--- a/app/lib/HowGuides.php
++++ b/app/lib/HowGuides.php
+@@ -139,9 +139,11 @@
+             if (!is_array($p)) continue;
+             $url = (string) ($p['url'] ?? '');
+             if (!preg_match('#^https?://#i', $url) || !self::official($url)) continue;   // never anything but official pages
++            if (!self::mayUse($pdo, $url)) continue;   // the source register says not to use it (review C14)
+             $steps = array_values(array_filter(array_map(fn ($x) => self::clean((string) $x, 300), (array) ($p['steps'] ?? [])), fn ($x) => mb_strlen($x) >= 8));
+             $steps = array_slice($steps, 0, self::MAX_STEPS);
+-            $sources[] = ['url' => mb_substr($url, 0, 500), 'title' => self::clean((string) ($p['title'] ?? ''), 160), 'host' => preg_replace('/^www\./', '', strtolower((string) parse_url($url, PHP_URL_HOST))), 'n' => count($steps)];
++            $sources[] = ['url' => mb_substr($url, 0, 500), 'title' => self::clean((string) ($p['title'] ?? ''), 160), 'host' => preg_replace('/^www\./', '', strtolower((string) parse_url($url, PHP_URL_HOST))), 'n' => count($steps),
++                          'said' => $steps];   // the page's own words, kept to check a published step isn't copied from them
+             if (count($steps) >= 3 && ($best === null || count($steps) > count($best[1]))) $best = [count($sources) - 1, $steps];
+         }
+         if ($best === null) {
+@@ -213,6 +215,7 @@
+             if (count($steps) < 3) $err = 'A guide needs at least 3 steps.';
+             elseif (array_filter($steps, fn ($s) => !$s['src'])) $err = 'Each step needs its source: end it with [1], [2]… for the source it comes from.';
+             elseif (empty($in['own_words'])) $err = 'Confirm the steps are in our own words and checked against their sources.';
++            elseif (($copied = self::copied($pdo, $steps, $g['sources'])) !== '') $err = $copied;
+             if ($err !== '' && $g['status'] === 'published') throw new InvalidArgumentException($err);   // a live guide is never changed to something that can't be published
+             if ($err !== '') $publish = false;   // not published, but the edit is kept as the draft, so nothing typed is lost
+         }
+@@ -224,6 +227,43 @@
+         return ['status' => $status, 'steps' => count($steps)];
+     }
+ 
++    /** May a page's steps be drafted from (the source register: not cite-only, evidence or a pointer, not set to Ignore)? */
++    private static function mayUse(PDO $pdo, string $url): bool
++    {
++        try {
++            require_once __DIR__ . '/crawler/Sources.php';
++            $host = Sources::host($url);
++            if (!Sources::mayStore($pdo, $host)) return false;
++            $st = $pdo->prepare('SELECT status FROM ' . Database::t('reference_sources') . ' WHERE host = ?'); $st->execute([$host]);
++            return $st->fetchColumn() !== 'ignore';
++        } catch (Throwable $e) { return true; }   // before the register: official pages, as before
++    }
++
++    /**
++     * A step that still reads as its source wrote it, from a source whose licence isn't open (review C14: steps went out
++     * word for word from .edu and state pages): the message naming the first, or ''. Open licences (public domain, CC0,
++     * CC BY, CC BY-SA) may be quoted, with the source shown as now.
++     */
++    public static function copied(PDO $pdo, array $steps, array $sources): string
++    {
++        $words = fn (string $t) => array_values(array_filter(explode(' ', (string) preg_replace('/[^a-z0-9 ]+/', ' ', mb_strtolower($t)))));
++        foreach ($steps as $i => $st) {
++            $src = $sources[(int) $st['src'] - 1] ?? null;
++            if (!$src || empty($src['said'])) continue;   // drafted before its words were kept: the person's word stands
++            $licence = 'unknown';
++            try { require_once __DIR__ . '/crawler/Sources.php'; $licence = (string) (Sources::rules($pdo, (string) $src['host'])['licence'] ?? 'unknown'); } catch (Throwable $e) {}
++            if (in_array($licence, ['public_domain', 'cc0', 'cc_by', 'cc_by_sa'], true)) continue;
++            $a = $words((string) $st['text']);
++            if (count($a) < 4) continue;   // "Rake the leaves." can only be said one way
++            foreach ((array) $src['said'] as $said) {
++                $b = $words((string) $said);
++                $same = count(array_intersect(array_unique($a), array_unique($b))) / max(1, count(array_unique(array_merge($a, $b))));
++                if ($same >= 0.8) return 'Step ' . ($i + 1) . ' reads as ' . $src['host'] . ' wrote it, and its terms don\'t let us copy it: put it in our own words.';
++            }
++        }
++        return '';
++    }
++
+     /** Other decisions: unpublish (back to draft), reject (not a guide), look again (back to the crawler), restore. */
+     public static function decide(PDO $pdo, int $id, string $do, int $uid): string
+     {

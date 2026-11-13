@@ -1,0 +1,6 @@
+{
+  "title": "Crawler revamp, W9: Wikipedia's words kept only where its rule allows",
+  "why": "decisions/0160 W9, review C13, decisions/0133 (the licence decides the use). A place looked up on demand (PlaceFinder) kept its Wikipedia summary whatever the source register said about Wikipedia; the page showing it already checked, but the text was stored. Now the summary is kept only when the register lets us keep Wikipedia's facts (Landmarks::wikiAllowed); otherwise the article's title and link are kept, as for landmarks. No database update. Summaries stored before are looked at in Phase 4.",
+  "proposals": ["handoffs/crawler-revamp.md Phase 3 (W9)", "decisions/0160 W9", "research/crawler-review-2026-11-13.md C13"],
+  "switch": ""
+}

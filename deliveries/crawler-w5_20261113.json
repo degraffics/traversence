@@ -3,12 +3,12 @@
  "built_on": "98803d1 Sync: 2026-11-13 19:58 UTC",
  "recorded": "2026-11-13 19:59 UTC",
  "note": "Crawler revamp W5: failed guides on demand retried by themselves, then a Pulse case. Built on Sync: 19:58 UTC Sent through git (releases/inbox).",
- "status": "partial",
- "live_in": "",
+ "status": "live",
+ "live_in": "89b4107 Sync: 2026-11-13 20:21 UTC",
  "files": {
   "app/admin/crawler-console.php": {
    "sha256": "59ca75179d8e7a860c69ad1bc7e027eb38b274aeb43fb7a5be733cb1f5401833",
-   "live": false
+   "live": true
   },
   "app/lib/OnDemand.php": {
    "sha256": "07a21d29816e2afd19d25098b0209c3f09ed23a2a021022d09f1caa77ef63ab0",
@@ -28,7 +28,7 @@
   },
   "website/hub/build.php": {
    "sha256": "2bb3afe6756e69f5e817231d4d885aca82a2bc354d52b9f229d202424f11e105",
-   "live": false
+   "live": true
   }
  }
 }
