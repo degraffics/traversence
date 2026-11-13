@@ -3,12 +3,12 @@
  "built_on": "2a93cfd Sync: 2026-11-13 12:36 UTC",
  "recorded": "2026-11-13 12:54 UTC",
  "note": "Release #2 (urgent: the release system): staging's PHP is the gate (a self-contained guard file before every script, by .user.ini), the web server's password rule left out while the pass is on; a self-test of both sides puts the web server's password back if a page opens without it. Built on Sync: 2026-11-13 12:36 UTC.",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "664878b Sync: 2026-11-13 12:58 UTC",
  "files": {
   "app/lib/StagingSite.php": {
    "sha256": "04e8daf212909d24ca30636a5b07660747f0871c769008cd90751653d3bee211",
-   "live": false
+   "live": true
   }
  }
 }

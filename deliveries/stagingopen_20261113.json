@@ -3,16 +3,16 @@
  "built_on": "2a93cfd Sync: 2026-11-13 12:36 UTC",
  "recorded": "2026-11-13 12:46 UTC",
  "note": "The first release through the Releases page: Open staging on the Staging page too. Built on Sync: 2026-11-13 12:36 UTC.",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "664878b Sync: 2026-11-13 12:58 UTC",
  "files": {
   "app/admin/sections.php": {
    "sha256": "c2b38b095880bf1bbbe6d587f9999f58a4fbc2ad2f1f89c4bcd12fde1681d969",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "2d4f89edd93f0fbcf2fce4caa4727b03f725e9bca30f665c7830669f8f844f95",
-   "live": false
+   "live": true
   }
  }
 }
