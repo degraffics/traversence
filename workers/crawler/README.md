@@ -68,6 +68,11 @@ directory-like pages first.
 - **Reaching further** (decisions/0157 §8): each read takes the site's sitemap and reads pages not read yet first; a
   page read lately and not due is skipped (its places kept, its saved links followed). Links to other sites are sent back
   (`outlinks`, at most 40) and join the register; a link whose words name a place on the page is that place's website.
+- **Common Crawl** (decisions/0157 §8.3, free): each run, within `CC_TIME` (60 s, 0 turns it off), the worker asks the site
+  (`/api/crawl/commoncrawl.php?crawl=…`) what to do with the newest crawl: list every site under our states' locality domains
+  (`az.us`, `nm.us`) from its index, once a crawl, for the register; and read up to `CC_PER_SITE` (50) pages of a source we
+  read regularly from the archive (byte ranges of data.commoncrawl.org), `CC_PAGES` (40) a run, a second between requests.
+  Today's robots.txt still decides.
 - **PDFs** are read too (up to `SOURCE_PDFS`, 5, a read; with `pypdf`, installed by the Dockerfile): their text, as a page. A PDF
   with no text (pictures of pages) is logged as a scan, for the second tier (AWS Textract) once its caps are set.
 - **Sites waiting for a call:** with each read the site names up to 3 of them; the worker reads each home page's title,

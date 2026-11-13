@@ -238,7 +238,12 @@ one, and it dropped every link to another site. All free, in this order:
 4. **More each run** (to build): pages a source and sources a run, set on the worker (Railway time, cents a month).
 
 **Built (2026-11-13):** 1 and 2 (`Sources::addLinked`, the worker's `sitemap_urls()` and `own_site_links()`, the page
-log's `due`).
+log's `due`). 3 the same day: the worker's `common_crawl()` (each run, `CC_TIME` 60 s, `CC_PAGES` 40, `CC_PER_SITE` 50) and
+`api/crawl/commoncrawl.php`: the newest crawl's index lists every site under our states' locality domains (`az.us`, `nm.us`,
+`NpiBulk::STATES`), once a crawl, onto the register (public bodies read); each source we read regularly is read from the
+archive by byte range once a crawl (`cc_crawl` on the register), through `read_page()`, the page log (`via` commoncrawl) and
+the licence rules, never a page today's robots.txt refuses; its places are kept through live reads until the next crawl.
+Pages naming our towns would need a full-text query of the archive (AWS Athena, paid): not done.
 
 ### The second tier: when it runs and what it costs
 
