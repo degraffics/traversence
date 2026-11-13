@@ -192,7 +192,16 @@ CLAUDE.md, in full. For this work above all:
     ahead of it;
   - the site and the worker keep one contract (the API), versioned, so either can go first safely.
 
-## 6. Open
+## 6. Progress
 
-- **Phase 0 first:** confirm with Jason it ships as an urgent release (it stops ongoing damage).
+- **Phase 0** (2026-11-13): built as `crawler-phase0_20261113.zip` on Sync 14:41 UTC; Jason confirmed it ships as
+  **Publish now (urgent)**. Site guards only (no worker change, no migration): `Refresh::lease` (abandoned leases not
+  tried, `crawler_refresh_abandoned` counted), `IdentityJobs::lease` (expired leases keep their tries),
+  `SourceIndex::store` (each page read replaces only its own places; a read of nothing hands the source back),
+  `Guides` (`draftFailed`, `keepNewer`), `Landmarks::finish` (never `waiting`, only states loaded). The snapshot is the
+  health report's `crawler` section, written daily to `site-audit/crawler-snapshot.md` (history in
+  `site-audit/results/crawler-snapshot.json`) by `tools/page-audit/towns.mjs`.
+
+## 7. Open
+
 - The Crawler console's place in the admin (Insights, or System Configuration).
