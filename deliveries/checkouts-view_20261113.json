@@ -1,0 +1,30 @@
+{
+ "zip": "checkouts-view_20261113.zip",
+ "built_on": "f8a8654 Sync: 2026-11-13 23:24 UTC",
+ "recorded": "2026-11-13 23:41 UTC",
+ "note": "What's checked out (decisions/0161 \u00a710): Releases \u25be and Site health, with its FAQ entry. Built on Sync: 2026-11-13 23:24 UTC. Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/Checkouts.php": {
+   "sha256": "3b8fad7993ea6759fa0cde966af55be37ddc19f96cfda52a34abee0d830882a9",
+   "live": false
+  },
+  "app/lib/Releases.php": {
+   "sha256": "65a60d1b683284aa16eac09eca87c7d79aac55dd0aae3e4e3316f96e7cd6a272",
+   "live": false
+  },
+  "app/lib/SiteHealth.php": {
+   "sha256": "d32c85af07d9a48d3860badf2c2074d3c63fb2b182511ec9a9d4dd73c5228dc7",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "015ecd549c5061d8865ec3fcf2df10a95eae0833db09cc28d40a26b7aa5d3766",
+   "live": false
+  },
+  "website/js/stg-bar.js": {
+   "sha256": "9288a5eae5ffd9cbe55aab100705e3dd41242b3da99f11f6e91c2e34379199f1",
+   "live": false
+  }
+ }
+}
