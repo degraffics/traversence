@@ -198,7 +198,7 @@ SKIP_HOSTS = {"openstreetmap.org", "npino.com", "npiprofile.com", "npidb.org", "
               "npi.report", "npiregistry.cms.hhs.gov", "google.com", "bing.com", "duckduckgo.com", "search.brave.com"}
 
 started = time.monotonic()
-WORKER_V = "2.1"           # the service's contract 2 (decisions/0160 §2): the site plans each run, the worker reports it
+WORKER_V = "2.2"           # the service's contract 2 (decisions/0160 §2): the site plans each run, the worker reports it
 RUN_END = None             # when this run's own work must stop (started + TIME_BUDGET, or a bulk load's end)
 TASK_END = None            # when the capture task being worked must stop (its share of the run)
 FETCH_CAP = MAX_FETCHES    # fetches this run may have made by the end of the task being worked
@@ -1982,6 +1982,19 @@ def refresh_listings(deadline):
             m = PHONE_RE.search(" ".join(page_lines(home)))
             if m:
                 found["phone"] = m.group(0)
+        # what the site plainly says now (review E24): its one phone and its hours, for the site to compare with the
+        # listing (a difference goes to Review; nothing is written by itself). A page with several numbers says none.
+        seen = {}
+        ph = phones_on(home)
+        if len(ph) == 1:
+            seen["phone"] = fmt_phone(next(iter(ph)))
+        for pg in pages.values():
+            h = hours_from(pg)
+            if h:
+                seen["hours"] = h
+                break
+        if seen:
+            found["seen"] = seen
         # Other places this organization lists, each with a full address: staged as new finds.
         own_num = (re.match(r"\s*(\d+)", lst.get("address") or "") or [None, None])[1]
         locations, seen = [], set()
