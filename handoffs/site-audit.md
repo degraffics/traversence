@@ -122,3 +122,27 @@ Coordinate with the builder session: it may already own these.
 - **The workflows:** `.github/workflows/` (`site-audit.yml`, `site-checks.yml`, `search-probe.yml`).
 - **The live site's code:** the mirror `degraffics/traverse-3way-sync`. Add it with `add_repo` and clone it shallow.
 - **Secrets on GitHub:** `CHECK_ACCOUNTS`, `MIRROR_READ_TOKEN`, `HEALTH_TOKEN`.
+
+## 5. Where it stands (2026-11-13, 16:00 UTC, the session that took this over)
+
+1. **Scheduled checks: done.** The site starts them (`AuditClock`, job `audit_clock_tick` hourly at :17,
+   `repository_dispatch` with `GITHUB_DOCS_TOKEN`; release #9, live). The workflows answer `repository_dispatch`; their own
+   schedule moved later as a fallback that skips itself when a run was already made. Site health says when one hasn't run in
+   26 hours, with **Run it now**. First clock tick: 16:17 UTC (check `event=repository_dispatch` runs). Workflows' commits
+   now keep their own generated files on a collision (`git pull --rebase -X theirs`).
+2. **Staging paths: written** (`tools/page-audit/paths-staging.mjs`), Mondays and Thursdays, in a full run, or Run
+   workflow → "staging paths". First run 15:47 UTC: claim, Marketplace post, message a business, staff held post passed;
+   four runners fixed after it (PR #569). Like past 100 runs in full runs only (7 minutes).
+3. **Live path failures: fixed in the tool** (guide steps counted to the journey; links tried twice; a town set as its area
+   is a clarity finding).
+4. **Review: done**, P7–P12 in `site-audit/proposals.md`, all decided by Jason. P7 (`roads511fix`, waiting in the inbox),
+   P8 (R04, done), P10 (waits for the crawler revamp). P9 + P11 built together as `audit-p9p11_20261113` in
+   `/home/user/build` of this session, **approved by Jason**; blocked by `crawler-phase2_20261113` carrying `app/ui/faq.md`:
+   once that's live and synced, rebuild `faq.md` on the live copy (two new entries: "When I choose a town…", "My business's
+   listing is hidden…", and the sign-up answer's last lines), zip-check, send. P12 needs the next rendered run (it now
+   records what's past the edge).
+5. **P6: done** (`site-audit/pages.md`; `routes.md` archived).
+6. **Phase 5:** "Releases show in Pulse and the morning report" is met by the code (`DailyReport::build` reads every open
+   Pulse case). The turn-off/roll-back test and a release through its steps are walkthroughs with Jason; the builder owns
+   the Releases page.
+
