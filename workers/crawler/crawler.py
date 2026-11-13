@@ -1367,11 +1367,16 @@ def sitemap_urls(start, host, limit=500):
     return out
 
 
+GENERIC_LINK_RE = re.compile(r"(?i)\s*(visit\s+(our\s+|their\s+|the\s+)?(web\s?site|site|page|homepage)|(view\s+)?web\s?site|homepage|home\s+page|more\s+info(rmation)?|learn\s+more|www\.\S+|https?://\S+|link)\s*[›»>→]?\s*")
+
+
 def own_site_links(page, url, host, here):
     """Links on a page to other sites (decisions/0157 §8). One whose words name a place on the page is that place's own
     website (filled in on it); the rest go to the register as sites we may read. [{url, text, from}]"""
     out, hosts = [], set()
-    for href, label in re.findall(r'(?is)<a\b[^>]*href=["\']([^"\'#]+)["\'][^>]*>(.*?)</a>', page):
+    low = page.lower()
+    for m in re.finditer(r'(?is)<a\b[^>]*href=["\']([^"\'#]+)["\'][^>]*>(.*?)</a>', page):
+        href, label = m.group(1), m.group(2)
         full = urllib.parse.urljoin(url, href.strip())
         h = host_of(full)
         if not full.startswith("http") or not h or h == host or base_domain(h) == base_domain(host) or not public_host(full):
@@ -1382,6 +1387,15 @@ def own_site_links(page, url, host, here):
             a, b = words(f["name"]), words(text)
             if a and b and len(a & b) / len(a) >= 0.6 and len(a & b) / len(b) >= 0.6:
                 mine = f; break
+        # "Visit website", "Website", or the address itself: the link belongs to the place named just before it on the page
+        # (review §2: these landed on the register as sites to read, and the business never got its website)
+        if mine is None and (GENERIC_LINK_RE.fullmatch(text) or text.lower().rstrip("/") in (full.lower().rstrip("/"), h)):
+            best = None
+            for f in here:
+                at = low.rfind((f.get("name") or "").lower()[:60], 0, m.start()) if f.get("name") else -1
+                if at >= 0 and m.start() - at <= 3000 and (best is None or at > best[0]):
+                    best = (at, f)
+            mine = best[1] if best else None
         if mine is not None:
             mine.setdefault("website", "")
             if not mine["website"]:
