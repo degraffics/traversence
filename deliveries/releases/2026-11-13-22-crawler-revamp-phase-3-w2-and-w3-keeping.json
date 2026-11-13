@@ -1,0 +1,59 @@
+{
+    "id": 22,
+    "title": "Crawler revamp, Phase 3, W2 and W3: keeping listings current, and the source register",
+    "why": "decisions/0160 W2 and W3 with their review fixes. B10 (Jason, 2026-11-13: one site's 'closed' is a signal on the score): a business's own website saying it closed now records closed_signal: the listing shows 'Possibly closed' (amber, the sentence quoted, Still open? Tell us), its score drops 10, and Review gets a 'Closed?' item; it closes only when a person or the owner confirms, and the notice goes when the site stops saying so. Queues that stalled on rows skipped without a mark: refresh (a website without https:// is read as one; anything else waits its turn) and map points (a listing with no address is marked). The register: a site whose describe said nothing is described again after 14 days, and any still undecided after 60 (one failed describe, or one while the terms feature was off, left sites waiting for good). The worker's half: a 'Visit website' link next to a business fills in its website instead of going to the register (deploys after this is live).",
+    "proposals": "handoffs/crawler-revamp.md Phase 3 W2, W3, decisions/0160 W2, W3, research/crawler-review-2026-11-13.md B10, §2, §3, E24",
+    "zip": "crawler-w2w3_20261113.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/ui/faq.md": {
+            "sha": "601bdf7d4f2ea43c4db9a81d60fbc651ed78cf38343451a083e76c36e293e572",
+            "size": 272827,
+            "live_was": "f5074043d1c4a805a17355b19debbec5e10bb1e1ae2f77ea4bd1604137cebdc3"
+        },
+        "app/lib/ListingConfidence.php": {
+            "sha": "4345e4e9dcb98a22fd3e7e1416c250d9d9cfcfe20d34254843f6f161749a2b91",
+            "size": 14702,
+            "live_was": "b098fc12d59b159c8ef58053b5494090cea2145ea9b036412a62551dc7c0a5be"
+        },
+        "app/lib/Geocoder.php": {
+            "sha": "1756e60c6afb1a84d583687a93ecd590bbb9b858952f981e3f08b2be50a662b3",
+            "size": 19049,
+            "live_was": "0ab00406dabe8511e966bfce8a94c871c703ac2b546efcc8fdf4e1d09a469212"
+        },
+        "app/lib/crawler/Sources.php": {
+            "sha": "8a540bba7a6705e4bfa791cfc8ac5920abff586a41f8589e61a85567523cb723",
+            "size": 37412,
+            "live_was": "f76e91c5087fccddda6554676446c584dcd7ad4741335263659515cb8c1792a5"
+        },
+        "app/lib/crawler/Refresh.php": {
+            "sha": "bf36a542dae21fe27f8e664e62e693adfbe83ce7c6bc97e18214589c79819430",
+            "size": 22745,
+            "live_was": "658342e08f2518965640bf979a98bdd28fa3b26ffdb10e7e2391a0a79ed9edc1"
+        },
+        "website/listing/view.php": {
+            "sha": "f5f788e3eaeb09767fe676ec6aae847ba48abbcf14c6c9d9ab5351a17a7598c6",
+            "size": 52623,
+            "live_was": "73ab4ec43c05b3509ecfa1bf9a55978d3c02c6534c0f965f65bc4d621290649f"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-13T16:57:12+00:00",
+            "by": 0,
+            "msg": "Uploaded crawler-w2w3_20261113.zip: 6 files."
+        }
+    ]
+}
