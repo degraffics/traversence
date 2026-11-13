@@ -1,0 +1,42 @@
+{
+ "zip": "crawler-phase1_20261113.zip",
+ "built_on": "e4a8a63 Sync: 2026-11-13 15:31 UTC",
+ "recorded": "2026-11-13 15:34 UTC",
+ "note": "Crawler revamp Phase 1 (handoffs/crawler-revamp.md): close the exposure, review A1-A4; Jason approved it in chat. Built on Sync: 2026-11-13 15:31 UTC. Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/GuideLinks.php": {
+   "sha256": "b4a3c883398cee4358498f505f2af57cdf8e3c4d405f43ddc04a4d5c609019a2",
+   "live": false
+  },
+  "app/lib/Heritage.php": {
+   "sha256": "d36e1aa3f39f92287b8c68a6332511df45ad38fe5529ef7c45c674061e4fc6d9",
+   "live": false
+  },
+  "app/lib/Landmarks.php": {
+   "sha256": "9ed7d109969ca75713140583bde35a291d5584b70be174544331c514d931827a",
+   "live": false
+  },
+  "app/lib/OpenPlaces.php": {
+   "sha256": "cd03ac20f1fffaa4dcae01a50e65d243af5be235b3aab196c73d9ee96e124f87",
+   "live": false
+  },
+  "app/lib/crawler/SourceIndex.php": {
+   "sha256": "411fb384fbed76699f0cd87f67176430ded9675066f071a966dc65ecbda65bde",
+   "live": false
+  },
+  "app/scripts/heritage_tick.php": {
+   "sha256": "85285fbcef519dc42a5e59263bb09eef30f1be9214cd22f646ead24f70239d42",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "073886f773ac7cf07fe8f660ec86973db03ec6039ed5c3bd3762b6f4b0ebd08b",
+   "live": false
+  },
+  "website/js/search-panel.js": {
+   "sha256": "6dc87de4451a619252aa5493a85ac832939e9a8611ff111d27dda19d2216e220",
+   "live": false
+  }
+ }
+}
