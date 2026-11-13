@@ -23,12 +23,14 @@
 import { chromium } from 'playwright';
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import { SITE, ACC, CHECK_TOKEN, STAGING, memberIn, staffIn, checkContext } from './check-kit.mjs';
+import { stagingRunners } from './paths-staging.mjs';
 
 const FULL = process.env.FULL === '1';
 const GUIDES_PER_RUN = +(process.env.GUIDES_PER_RUN || (FULL ? 12 : 4));
 const STOPS_PER_JOURNEY = +(process.env.STOPS_PER_JOURNEY || 6);
 const JOURNEYS_PER_GUIDE = +(process.env.JOURNEYS_PER_GUIDE || (FULL ? 3 : 1));
 const BUDGET_MS = 1000 * +(process.env.PATHS_BUDGET_S || (FULL ? 900 : 420));
+const STAGING_DAY = FULL || [1, 4].includes(new Date().getUTCDay()) || process.env.STAGING_PATHS === '1';
 const ONLY = (process.env.PATHS_ONLY || '').split(',').map(s => s.trim()).filter(Boolean);   // e.g. PATHS_ONLY=eat-near-me,guides
 const OUT = process.env.PATHS_OUT || 'site-audit/results/paths.json';
 const HIST = process.env.PATHS_HISTORY || 'site-audit/results/paths-history.json';
@@ -167,7 +169,7 @@ async function as(who, where = 'live') {
   const ctx = await checkContext(browser, { site, token, staging: st, context: { viewport: PHONE, isMobile: true, hasTouch: true, geolocation: HERE, permissions: ['geolocation'],
     userAgent: 'Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130 Mobile Safari/537.36 Traversence site checks (support@traversence.com)' } });
   await ctx.addInitScript(INIT);
-  if (who !== 'guest') {
+  if (!who.startsWith('guest')) {   // guest-…: another guest's own visit (a runner's setup)
     const staff = who.startsWith('staff-') ? ACC?.staff?.[who.slice(6)] : null;
     const member = !staff ? ACC?.members?.[who] : null;
     if (!staff && !member) { await ctx.close(); return contexts[k] = { error: `no ${who} account in CHECK_ACCOUNTS` }; }
@@ -184,6 +186,7 @@ async function walk(def, who, where = 'live') {
   if (def.signedOut) w.signedIn = false;   // it starts signed out (sign in)
   const t = Date.now();
   try { await def.run(w, page, who); } catch (e) { w.stuck = w.stuck || `the runner stopped: ${String(e).slice(0, 160)}`; await w.shot('error'); }
+  if (w.skip) { await page.close().catch(() => {}); return { id: def.id, kind: def.kind || 'core', title: def.title, who, status: 'skipped', notes: [w.skip, ...w.notes], problems: [], steps: { taps: 0, pages: 0, limit: def.limit || null, over: false }, counts: {}, where }; }
   const r = w.result(def, { where, ms: Date.now() - t });
   await page.close().catch(() => {});
   return r;
@@ -393,6 +396,12 @@ const CORE = [
   { id: 'send-order', steps: "Back-Office → a test order → Send → the client's held mail has it (sandbox payment only)", title: 'Staff: send an order', who: ['staff-sal-staff'], limit: 5, changes: true, run: null },
 ];
 
+// the staging runners (paths-staging.mjs): each path that changes something and had no runner takes its own
+{
+  const SR = stagingRunners({ as, ACC, firstVisible, textOf, guides: () => GUIDE_LIST, FULL });
+  for (const d of CORE) if (d.changes && !d.run && SR[d.id]) d.run = SR[d.id];
+}
+
 // ---- the guide paths --------------------------------------------------------------------------------------------------
 let GUIDE_LIST = [], GUIDE_TOWN = '', GUIDE_SOURCE = '', GUIDE_TOTAL = 0, ROT = 0;
 async function guides() {
@@ -529,6 +538,9 @@ for (const def of CORE) {
   for (const who of def.who) {
     if (!want(def.id)) continue;
     if (def.changes && !STAGING) { results.push({ id: def.id, kind: 'core', title: def.title, who, status: 'waits', notes: ['Waits for staging: it changes something, so it runs on staging.trvgo.us only (System Configuration → Staging → Set up staging, then the new CHECK_ACCOUNTS block).'], problems: [], steps: { taps: 0, pages: 0, limit: def.limit, over: false }, counts: {}, changes: true }); continue; }
+    // the staging paths take minutes (GitHub Actions minutes count, decisions/0145 §6: run less often rather than cost
+    // more): Mondays and Thursdays, a full run, or when named in PATHS_ONLY; the guest like and the comment run daily
+    if (def.changes && def.run && !STAGING_DAY && !ONLY.includes(def.id) && !['like-guest', 'comment'].includes(def.id)) { results.push({ id: def.id, kind: 'core', title: def.title, who, status: 'skipped', notes: ['Runs on staging on Mondays and Thursdays (and in a full run, or Run workflow naming it in PATHS_ONLY), to keep GitHub\'s run minutes down.'], problems: [], steps: { taps: 0, pages: 0, limit: def.limit, over: false }, counts: {}, changes: true }); continue; }
     if (def.changes && !def.run) { results.push({ id: def.id, kind: 'core', title: def.title, who, status: 'waits', notes: ['Staging is set up; this path\'s runner is still to write (its steps are listed in paths.md).'], problems: [], steps: { taps: 0, pages: 0, limit: def.limit, over: false }, counts: {}, changes: true }); continue; }
     if (who !== 'guest' && !ACC) { results.push({ id: def.id, kind: 'core', title: def.title, who, status: 'skipped', notes: ['CHECK_ACCOUNTS isn\'t set: signed-out paths only.'], problems: [], steps: { taps: 0, pages: 0, limit: def.limit, over: false }, counts: {} }); continue; }
     if (left() < 60000) { results.push({ id: def.id, kind: 'core', title: def.title, who, status: 'skipped', notes: ['The run\'s time budget ran out before this path: it runs first next time.'], problems: [], steps: { taps: 0, pages: 0, limit: def.limit, over: false }, counts: {} }); continue; }
