@@ -1,0 +1,54 @@
+{
+    "id": 36,
+    "title": "What's checked out: in the site manager and Site health",
+    "why": "Decisions/0161 §10: Jason sees which files Claude sessions are writing a release for (file, who, why, since when, near expiry) in Releases ▾ and Pulse → Site health.",
+    "proposals": "",
+    "zip": "checkouts-view_20261113.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/ui/faq.md": {
+            "sha": "015ecd549c5061d8865ec3fcf2df10a95eae0833db09cc28d40a26b7aa5d3766",
+            "size": 279365,
+            "live_was": "d94be61e23a46e944b4be93f92945f497b6916c205914291d514d9f7703d3f7c"
+        },
+        "app/lib/SiteHealth.php": {
+            "sha": "d32c85af07d9a48d3860badf2c2074d3c63fb2b182511ec9a9d4dd73c5228dc7",
+            "size": 16770,
+            "live_was": "74cd05017f59c3d659e97908008d511567a5997864ab1915fb7ba098b7dfb9fc"
+        },
+        "app/lib/Releases.php": {
+            "sha": "65a60d1b683284aa16eac09eca87c7d79aac55dd0aae3e4e3316f96e7cd6a272",
+            "size": 86311,
+            "live_was": "57ea7d48a104d36913c21dbccd4402a5d089b8d8f80dfe82d6a6a84687f0f1ce"
+        },
+        "app/lib/Checkouts.php": {
+            "sha": "3b8fad7993ea6759fa0cde966af55be37ddc19f96cfda52a34abee0d830882a9",
+            "size": 5705,
+            "live_was": null
+        },
+        "website/js/stg-bar.js": {
+            "sha": "9288a5eae5ffd9cbe55aab100705e3dd41242b3da99f11f6e91c2e34379199f1",
+            "size": 26137,
+            "live_was": "fc69ae22db845a413ebac42c6049c87fceb766498a2fcce668b698ac11007d82"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-13T23:57:02+00:00",
+            "by": 0,
+            "msg": "Uploaded checkouts-view_20261113.zip: 5 files."
+        }
+    ]
+}
