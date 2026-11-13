@@ -150,3 +150,5 @@ when they're missing); a refusal is remembered, businesses see "Buying a domain 
 (and can still connect one they own), and our team gets one Pulse case (`namecom:down`) with the error, the Name.com
 link and **Check again**; the 15-minute domains job re-checks, so buying reopens by itself. `DOMAINS_MODE=live` with
 the sandbox refuses to sell, so no real charge is ever made for a sandbox domain.
+
+**Note (2026-11-13, decisions/0158):** storefront changes become drafts until Publish, with versions and Roll back, and the staging bar on the team's preview. Publish is the team role's `publish` permission. Scheduling waits for Jason.
