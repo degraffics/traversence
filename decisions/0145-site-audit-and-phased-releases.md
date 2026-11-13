@@ -236,6 +236,16 @@ puts them on staging first, publishes them, and keeps the previous copy of every
 also offers the release's zip and its rollback zip, for an upload by FTP instead. Built in releases_20261113
 (site-audit/phase-5-releases.md, "Built").
 
+**Note (Jason, 2026-11-13): how releases are run.**
+1. **Every push is a release**, small fixes included, unless a system issue needs immediate attention: then **Publish
+   now (urgent)** with its reason, checked straight after.
+2. **Jason looks before sign-off**, for now: Sign it off needs the release opened on staging since it was last put there
+   (Open on staging, or the staging bar on it).
+3. **What else pauses a rollout** (member reports and support emails about its pages): to answer once explained.
+4. **The share at step 2** waits until there are members. Until then a release goes from staff and test accounts to
+   everyone in effect.
+Open on staging signs Jason in as himself; the test accounts stay the audit's.
+
 ## 7. Phases
 
 **One build** (Jason, 2026-11-06): all of it is built together, from one punch list (`site-audit/punch-list.md`). It is
