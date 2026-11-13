@@ -185,6 +185,12 @@ Progress (2026-11-13):
   put back to the mirror's copy, the edit kept in `conflicts/`; OneDrive edits and deletions never reach the server (OneDrive
   gets the server's copy back); new server files and the drift-ignore paths pass on. No docs checkout, or more put-backs
   than the mass-delete limit: the server's copy is kept. Undo: `SYNC_HOME: ftp`.
+- **Step 4a built** (release #23, `editor4a_20261113`): the widget panel (tap or drag a block onto the page), Layout with drag
+  and drop (mouse and touch), the picked block's toolbar, and the design panel per breakpoint (desktop, tablet following
+  desktop, phone following tablet; alignment, width, spacing, shown or hidden; a section's inner space, column widths,
+  lining up and order). The breakpoints answer the zone's own width (container queries), so the editor's tablet and phone
+  views are exact. Every change is drawn by the server as it's made. New blocks: divider, spacer. Next: 4b live components
+  and SEO fields; 4c global components and scheduled publishing.
 3. **The editor's core:** blocks, Edit, Save draft, Publish, Roll back, on block pages and the home page's first zone.
 4. **The full editor:** the widget panel, drag and drop, columns, the design panel, breakpoints, global components,
    live components, SEO fields.

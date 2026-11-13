@@ -13,27 +13,41 @@
 - **Drift report** (this repo, no site code): `tools/page-audit/drift.py` in `site-audit.yml` after each sync; base
   recorded at Sync 15:41 UTC; open drift → Pulse Site health, rule D06 (`findings.py`). Reports only.
 
-**Just landed:** `editor_20261113` = **release #18** (step 3, the editor's core), built on Sync 15:59 UTC, taken from git
-and published itself at 16:16 UTC; all 8 files verified live at Sync 16:18 UTC (no drift). Nothing of this build is in flight.
-Its files: `app/lib/Blocks.php` (new), `website/api/blocks.php` (new), `website/js/tv-editor.js` (new),
-`app/lib/upload-targets.php` (target `block_image`), `app/admin/sections.php` (Permissions rows `pages.edit`,
-`pages.publish`), `website/index.php` (zone `home.after-doors` under the four doors, empty until published),
-`website/pages/view.php` (zone `page.<id>` under each page's text), `app/ui/faq.md` ("How do I change what a page says?",
-drift line). Not yet tried by Jason: he (Founder, signed in with his staff login) should see the outlined zone and **Edit** on the home
-page under the four doors (live site, or staging); ask him first to add a heading, Save draft, Publish, then Versions → Roll back once.
+**Just landed:** `editor4a_20261113` = **release #23** (step 4a, the full editor part 1), built on Sync 16:59 UTC, published
+itself 17:19 UTC; all 4 files verified live at Sync 17:22 UTC (the 17:20 run's website half hit a OneDrive timeout; re-run).
+Files: `app/lib/Blocks.php`, `website/api/blocks.php` (action `preview`; GET also returns `bps`, `design`),
+`website/js/tv-editor.js` (rewritten on the step 3 copy, every function kept), `app/ui/faq.md`. What it does:
+- **Tree additions** (`Blocks::clean()` still the one gate): `design` on sections and blocks, `{d|t|p: {key: value}}`, only
+  `SEC_DESIGN` / `BLOCK_DESIGN` keys and values; blocks `divider`, `spacer` (size). Breakpoints `BPS`: desktop ≥900px, tablet
+  560–899, phone <560, **of the zone's own width** (`.tvb-zone{container:tvb/inline-size}`, `@container` rules in
+  `designCss()`), so the editor's Tablet/Phone views (zone narrowed to 820/390px) are exact. Tablet inherits desktop, phone
+  tablet (`resolve()`); classes `tvb-<bp>-<key>-<value>` only for non-defaults. Phone always one column.
+- `render($tree, $paths)`: each block wrapped in `div.tvb-b` (design classes); for editors `data-tvb-s` / `data-tvb-b="s.c.b"`
+  / empty columns `data-tvb-c`, blank blocks shown as placeholders, hidden-at-breakpoint shown faded.
+- **Editor:** tabs Add (widget panel: tap adds after the picked block, drag drops on the page or Layout), Layout (outline,
+  ⠿ drag by pointer events, so touch works), Manage / Design (per view) for a block, Section N for a section. Every change
+  → `preview` (server draws, debounced) → zone redrawn. Toolbar over the picked block on computers (top right); on a phone
+  its buttons sit in the panel row (a floating bar covered the block above). ✕ has its own corner; ▾ holds Versions and
+  Throw the draft away; the zone tag moved left. Body makes room for the panel at ≥1340px; phone gets 64vh of bottom room.
+- A live version with nothing in it says so and points to Roll back. Publishing an empty tree asks first.
+- Tested in a local harness (PHP built-in server, the real Blocks and SitePages, a stub API with a JSON file;
+  Playwright at 1400px and iPhone 13): add, drag from the panel to the page, drag in Layout, 2 columns, a phone-only design,
+  Save draft, Publish, no sideways scroll. Not yet tried by Jason live.
 
 **Next, in order:**
-1. ~~Step 2's last part~~ **done 2026-11-13** (Jason chose "today"): `SYNC_HOME=git` (traverse-3way-sync PR #10). Edits
-   not from a release are put back, kept in that repo's `conflicts/`. Undo: `SYNC_HOME: ftp` in its `sync.yml`.
-   Jason tried the editor (added, published, emptied, published: version 2 is empty, so the zone shows its "empty" note).
-   Small fix for step 4's first release: when the live version has nothing in it, say "Version N is live and empty" and
-   point to Versions → Roll back.
-2. Step 4, the full editor (0159 §3–§6): widget panel and drag and drop, the block toolbar, the design panel (alignment,
-   spacing, size per breakpoint), three breakpoints, global components (header, footer), the live components registry
-   (search box, listings grid, map, guide, engage bar, form, GO Code), SEO fields. Build on `Blocks` (tree:
-   sections → cols → blocks; `clean()` is the one gate for what's kept; `render()` server-side).
-3. Step 5 Storefront Studio (SitePages to blocks: each Markdown page as one text block; themes; the portal; team
+1. **The admin search release** (session manager, Jason approved 16:42 UTC): Ctrl K finds scheduled tasks and switches by
+   name and description ("audit clock"), each opening its own card (`#job-<key>` in Scheduled tasks, `#sw-<key>` in
+   Switches; the card opens and is ringed). Prepared on the 16:41 live copies of `website/admin/api/find.php` and
+   `app/admin/sections.php` (re-check both before zipping); needs its FAQ entry. Its own release.
+2. **Step 4b:** live components (a registry in code: name, settings, where it may go; search box, listings grid, map,
+   guide, engage bar, form, GO Code) as block kinds, drawn server-side by their own code; SEO fields (title, description,
+   share picture) for block pages.
+3. **Step 4c:** global components (header, footer, shared sections: edited once, versioned like a zone) and Publish on a
+   schedule.
+4. Step 5 Storefront Studio (SitePages to blocks: each Markdown page as one text block; themes; the portal; team
    Publish), step 6 AI writing.
+Done earlier today: step 2's last part, `SYNC_HOME=git` (traverse-3way-sync PR #10; first real run 17:20 passed release
+files on as "from a release"). Undo: `SYNC_HOME: ftp` in its `sync.yml`.
 
 **Open, for Jason:** which coded pages get zones next (he chose the home page first); scheduling
 for shops (0158 §6).
@@ -44,9 +58,6 @@ for shops (0158 §6).
   `releases_tick` cron line (`Scheduler::AUTO`, System Configuration → Scheduled tasks).
 - After Check for builds, the first line still says "Look at it on staging, then Publish" (from `straightOn`) even when
   the next line says it published itself. Cosmetic.
-- The editor panel's header wraps on a computer (Jason's screenshot, 2026-11-13, first live use): at 27rem, Save draft,
-  Publish and Versions fill the row and ✕ drops to a second line over the status text. Give ✕ its own corner (or put
-  Versions in a ▾) when step 4 reworks the panel. The zone's state pill also sits under the panel while it's open.
 - Testing here: MariaDB isn't preinstalled (`apt-get install -y mariadb-server`); its socket path is too long in the
   scratchpad, so run `mariadbd --skip-grant-tables --port=3399 --bind-address=127.0.0.1 --pid-file=… --socket=…`.
 
