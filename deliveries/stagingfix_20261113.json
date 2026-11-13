@@ -1,0 +1,22 @@
+{
+ "zip": "stagingfix_20261113.zip",
+ "built_on": "5b129ff Sync: 2026-11-13 03:53 UTC",
+ "recorded": "2026-11-13 03:55 UTC",
+ "note": "Staging refresh: the strip goes a table at a time (the main database's whole strip ran past the web server's limit: Failed to fetch at step 379); a refresh already in progress is split the same way; the strip leaves values already replaced; the page waits and asks again when it loses an answer. Built on Sync: 2026-11-13 03:53 UTC.",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/StagingSite.php": {
+   "sha256": "fd549c3abab4862a391f800ba62ff59fdc056d632ca05f2fbb675fdc0c9cca2c",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "2406ef9260e7817fd0e20a37d6bdf868885257671e3f4194f4e8773fd99d4d3c",
+   "live": false
+  },
+  "website/js/admin-staging.js": {
+   "sha256": "8280bfd4f511ec66a6c33d350fc19c47e3514ae8514ad197ddd6894021a8bc94",
+   "live": false
+  }
+ }
+}
