@@ -57,6 +57,7 @@ The site's code isn't here. It runs on the server and in OneDrive, and its live 
 | `.claude/skills/page-review/` | The page review (Phase 4): findings to verdicts and proposals in `site-audit/proposals.md` |
 | `handoffs/` | Hand-offs from one Claude session to the next: `0159-the-builder.md` (build decisions/0159, starting with the way into staging) |
 | `deliveries/` | Every zip and whether each file reached the live site (generated); `deliveries/releases/`: each release's record, written by the site's Releases page |
+| `releases/inbox/` | Claude's finished builds as release zips (put there by `tools/page-audit/send.py`); the live site takes each onto staging (decisions/0159 §5, Phase 6) |
 | `CLAUDE.md` | Rules every Claude session follows (loaded automatically) |
 | `readme-history.md` | The original README's change log, Sept–Oct 2026 |
 
