@@ -233,9 +233,25 @@ CLAUDE.md, in full. For this work above all:
   before it (`own_site_links`); merged after the site part is live.
   Live as Release #22 (16:57 UTC); verified on Sync 16:59 UTC; its worker half merged then.
 
+- **The first runs through the service, checked** (2026-11-13, 17:45 UTC, from Railway's logs; the console has the same
+  runs): every run since 16:15 plans, works and reports through `service.php` (no more fixed order). Two faults:
+  - **Coverage overran its share:** one OpenStreetMap job took 6–7 minutes (five mirrors at 125 s each; overpass-api.de
+    answers 406, the others time out, openstreetmap.fr is for white-listed users only), so in 5 of 13 runs every other
+    task was "not reached" and the next 5-minute slot was skipped.
+  - **Common Crawl failed every run** on one malformed address in its index ("Invalid IPv6 URL" in `host_of`).
+
+  Fixed in the worker (2.1, no site part): `overpass()` and `wikidata()` work inside the task's time left; a lookup that
+  runs out of time hands the job back with its tries as they were (`OutOfTime`), only real refusals are failures;
+  openstreetmap.fr dropped; `host_of` never throws.
+  Also seen, for later: every release commit to `main` redeploys the worker (the service's watch paths are empty on
+  Railway, though `railway.json` names `/workers/crawler/**`), and a redeploy stops a run mid-way (16:01, 17:00, 17:38);
+  junk names reach listings from page reads ("Contact Us:", "An agency within the U.S. Department of Labor", "CDPF
+  Informational Webinar Slideshow"): Phase 4's listings pass and W3's page readers.
+
 ## 7. Open
 
-- Nothing waiting on Jason.
+- Nothing waiting on Jason. Worker 2.1 merged with his OK (2026-11-13), and Railway's watch paths set to
+  `/workers/crawler/**` (he asked), so a release commit no longer redeploys the worker.
 
 ## 8. For the next session (from W4 on)
 
