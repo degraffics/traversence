@@ -1,0 +1,49 @@
+{
+    "id": 23,
+    "title": "The full editor, part 1: widget panel, drag and drop, block toolbar, design per desktop, tablet and phone",
+    "why": "decisions/0159 step 4a. The editor's panel reworked: Add (the widget panel: tap a block to add it, or drag it onto the page), Layout (sections, columns and blocks; drag the handle to move a block between columns and sections, or a whole section), the picked block's toolbar (Manage, Design, up, down, copy, remove; on a phone in the panel), and a design panel for blocks (alignment, width, space above and below, shown or hidden) and sections (inner space, column widths, lining up, order, shown or hidden) per breakpoint: desktop, tablet (follows desktop unless set) and phone (follows tablet). The view buttons narrow the zone in place, and the design answers the zone's own width (container queries), so the tablet and phone views show what those screens get. Every change is drawn by the server as you go (a preview, nothing kept until Save draft). New blocks: divider and spacer. Fixes from Jason's first use: the panel's close button has its own corner, the zone's tag moved left (out from under the panel), and a published version with nothing in it now says so and points to Roll back. Blocks::clean() stays the one gate: only known design keys and values are kept. The FAQ entry is updated.",
+    "proposals": "decisions/0159 step 4",
+    "zip": "editor4a_20261113.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/ui/faq.md": {
+            "sha": "26b3f1024d1421bc0922f76da362361c5ab2e65890880366eb30140836d46147",
+            "size": 273635,
+            "live_was": "601bdf7d4f2ea43c4db9a81d60fbc651ed78cf38343451a083e76c36e293e572"
+        },
+        "app/lib/Blocks.php": {
+            "sha": "1feb4dcce90872efc7ca9e5b89b2fd544cfb01df8c15359ffcf051a872e474cd",
+            "size": 28441,
+            "live_was": "af44c40efb018dd13c77be8c08c47cc808c81e21435a8e2b255a617bf9a9247c"
+        },
+        "website/api/blocks.php": {
+            "sha": "e6e305ba5dab0f647e1bb5d3f2b27ba64b874bdbb5be43842b3aff4a49d452d7",
+            "size": 2774,
+            "live_was": "a52c33f844ec9a866a60a1f0dfe48233070d99d0cc830b316e052b35eab7bdfb"
+        },
+        "website/js/tv-editor.js": {
+            "sha": "cae4be0e82e7721e5a78fde409f8668a5f09bbf7498792d6d1947c38c3bcafa7",
+            "size": 42337,
+            "live_was": "27cd4f1392f5e30085878ae8c274490c7e9d0e644cd37e7be15f3ea9af696a21"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-13T17:19:03+00:00",
+            "by": 0,
+            "msg": "Uploaded editor4a_20261113.zip: 4 files."
+        }
+    ]
+}
