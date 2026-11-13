@@ -1,0 +1,2 @@
+# Folders the site writes to itself, never drift (tools/page-audit/drift.py). One path start per line, as the site has it
+# (website/…, app/…, trvgo/…). website/uploads/ (people's uploads) is always ignored.

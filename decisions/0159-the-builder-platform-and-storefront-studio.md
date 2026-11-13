@@ -171,8 +171,17 @@ Progress (2026-11-13):
   `"review": true` (or `"hold"`) waits on staging, emails the Founder and opens a Pulse case with the way onto staging;
   the site manager's Review takes UI, UX and Functional, each Approve or Needs changes with a note (kept with the
   release); Publish opens when all three are approved (release #11).
-- **Step 2, still to do:** the sync's direction (`SYNC_HOME` to git) and drift reports, so edits made straight on the
-  server or in OneDrive show as drift instead of going live without a release. Its timing is agreed with Jason first,
+- **Drift report built** (Jason, 2026-11-13: "build the drift report and page editor so one build"):
+  `tools/page-audit/drift.py` runs after each sync in the site audit. A live file whose bytes match no release or logged
+  delivery is drift (edited on the server or in OneDrive); it shows in Pulse's Site health (rule D06) and clears once a
+  release carries it. It reports only: the sync's direction is unchanged.
+- **Step 3, the editor's core, built** (`editor_20261113`): `app/lib/Blocks.php`, `/api/blocks.php`, `js/tv-editor.js`.
+  Zones `home.after-doors` (empty until published) and `page.<id>` on each of our pages; sections of 1 to 3 columns, blocks
+  heading, text, picture, button; Save draft (the team sees it on the page), Publish (a version), Versions, Roll back;
+  `pages.edit` and `pages.publish`, Founder until given to a role. Step 4 adds drag and drop, the design panel,
+  breakpoints, global and live components.
+- **Step 2, still to do:** the sync's direction (`SYNC_HOME` to git), so edits made straight on the server or in
+  OneDrive no longer go live without a release (the drift report shows them now). Its timing is agreed with Jason first,
   since it changes how OneDrive edits behave.
 3. **The editor's core:** blocks, Edit, Save draft, Publish, Roll back, on block pages and the home page's first zone.
 4. **The full editor:** the widget panel, drag and drop, columns, the design panel, breakpoints, global components,
