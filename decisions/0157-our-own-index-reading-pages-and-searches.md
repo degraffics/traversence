@@ -1,6 +1,6 @@
 # ADR 0157: Our own index: reading pages and reading searches
 
-**Status:** Proposed (Jason, 2026-11-13: "yes write 0157"), for his OK before building. It extends `decisions/0045` (our own
+**Status:** Proposed (Jason, 2026-11-13: "yes write 0157"; part 7 added the same day at his ask), for his OK before building. It extends `decisions/0045` (our own
 reference index, source-first crawling), `0044` (confidence-gated import), `0133` (the observations store and identity
 record), `0060`/`0061`/`0063`/`0064`/`0067` (search, situations, the lexicon, words search learns, what words mean) and keeps
 `0065` (OpenStreetMap is its own layer), `0066` (tribal nations' land), `0093` (what people open is a hint, never a
@@ -121,6 +121,39 @@ For any place, listing or topic: every fact we hold, each with its source page, 
 ones that disagree marked. Guides, listings, journeys and AI writing draw from it, and an editor can see why the site says
 what it says.
 
+### 7. When the free steps fail: Tavily, then Claude
+
+Jason, 2026-11-13: "I really want the automation to eliminate as much human responsibility as possible"; "We need tavily
+and Claude used better to fix issues where our free services fail." Today Tavily is used only for the crawler's second look
+(one search per single-source listing; gap searches keep .gov/.edu pages only), and Claude searches the web only for names
+in guides ("Find it", "Finds become listings by themselves"). One ladder now serves every find the free steps can't settle,
+whatever raised it: a crawl find below the publishing score, a gap OpenStreetMap left empty, a search that found nothing
+("garbage" near St. Johns), a guide's name, a closure report, two sources that disagree.
+
+1. **Free first**: our own index (§3), OpenStreetMap, the open place datasets (Overture Maps places, CDLA-Permissive;
+   Foursquare Open Source Places, Apache 2.0: loaded for our regions as sources of their own, licences to confirm before
+   loading), the state's business registry (Arizona Corporation Commission: active or dissolved) and the USPS address
+   check. Each confirmation adds to the score (0044); most finds should publish here.
+2. **Tavily**, for what's still short: a search for the business by name and town (its own site, the county's and the
+   chamber's pages, news), then Tavily Extract for the pages' text. Commercial directories found this way count as
+   references only (Cite only, 0045), never copied. Its results go into the page log and the place store like any page we
+   read, so a search is paid for once.
+3. **Claude reads what Tavily found** (the light model): the facts as structured data (name, kind, address, phone, hours,
+   website, open or closed), each with the exact words it came from on which page. A fact whose quoted words aren't on
+   that page is thrown away: nothing Claude says counts unless a source says it. Same place or not, against what we hold.
+4. **Claude researches what's still unsettled** (the stronger model, with its web search, as "Find it" does now): two
+   sources that disagree, a closure, a possible duplicate. It decides with its reasons and its sources, and those decide:
+   publish, turn down (contradicted: a dissolved registration, a disconnected phone, a page saying it closed), or merge
+   (the same place, sure). Its reasons and sources stay on the record (§6).
+5. **What's left for a person**: tribal nations' land and sensitive sites (0066: never decided by a machine), an owner's
+   dispute, and what step 4 couldn't settle. Everything else is decided by the ladder and shown in the record, undoable.
+
+Costs and order: demand leads (a find someone searched for, then a guide's name, then the rest). Per find, at most a set
+spend (about two cents: one or two Tavily searches, one light read, a stronger research only when needed); a monthly cap for
+Tavily and the AI cap (0131) for Claude, each shown in System Configuration → AI use; past a cap, finds wait for next
+month, most asked-for first. Spending needs Jason's OK under CLAUDE.md "No income, no expense": this part is his ask, and the
+caps are his to set.
+
 ### The test set (from the first delivery)
 
 A list of real searches and what each should find, run daily by the search probe (`tools/page-audit/search-probe.mjs`)
@@ -149,3 +182,4 @@ the park and museum), and each new slip as it's found. A change ships only when 
 4. Intents and phrases; "how your search was read".
 5. Trust and licence per source.
 6. "What we know and where from".
+7. The ladder for finds the free steps can't settle: the open datasets and checks, then Tavily, then Claude.
