@@ -1,0 +1,54 @@
+{
+    "id": 27,
+    "title": "The full editor, part 2: parts of the site to place on a page, and a page's search settings",
+    "why": "decisions/0159 step 4b. Live components (0159 §3.3): a registry in code (Blocks::LIVE: name, what it is, settings, where it may go), placed and set up in the editor, drawn by the site's own code and data: a search box (the site's search, or the directory without it), businesses (cards from /api/search_listings.php, so the directory's public rules apply, drawn to the card standard: the name the link, Link top right, Call, Directions and Website as round icon buttons counted with data-out, under the name on phones; a plain link to all of them), a map button (the site's own map, js/map-view.js, loaded when first used), a guide (a town's guide card, only when it has published sections) and a GO Code (the page's QR code and trvgo.us address from ShortCodes::forPage). Each works as a plain link without its script (js/tv-blocks.js, loaded only on a page that has one). In the editor: Add → Parts of the site, each with its settings; the preview starts them. On a page of ours, the Page tab sets its title, search description and share picture (SitePages::save, Pages: publish, saved at once). The engage bar and a form as parts of the site, the header and footer, and scheduled publishing are 4c. FAQ updated.",
+    "proposals": "decisions/0159 step 4",
+    "zip": "editor4b_20261113.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/ui/faq.md": {
+            "sha": "993c02fdc6a10a1fa930f1ee14d417c41b07316988711457ac496b94330b2ae0",
+            "size": 275949,
+            "live_was": "4f37f45c44adbf0640aa853f37b823ec6c3e365e50f31f4396974c8fdbc7344a"
+        },
+        "app/lib/Blocks.php": {
+            "sha": "b7650dc3194a6461fc5af7ac3e20f7b927a353d3347a089654c7c25d9884f480",
+            "size": 40885,
+            "live_was": "1feb4dcce90872efc7ca9e5b89b2fd544cfb01df8c15359ffcf051a872e474cd"
+        },
+        "website/api/blocks.php": {
+            "sha": "436ca49c835ef1e03b0dc2b7fbf5a5063217a1b21c316bd0ea1b681387125588",
+            "size": 3927,
+            "live_was": "e6e305ba5dab0f647e1bb5d3f2b27ba64b874bdbb5be43842b3aff4a49d452d7"
+        },
+        "website/js/tv-blocks.js": {
+            "sha": "5a9897bf828a69cbf7b296a2e8ab2ef65a970ef531a5561cfdf15f7f5c36e1f4",
+            "size": 7472,
+            "live_was": null
+        },
+        "website/js/tv-editor.js": {
+            "sha": "d486efba7b6896e4fe0690e8bd2b2b8a2258eca9c2366c70389f949104bca907",
+            "size": 48595,
+            "live_was": "cae4be0e82e7721e5a78fde409f8668a5f09bbf7498792d6d1947c38c3bcafa7"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-13T18:57:03+00:00",
+            "by": 0,
+            "msg": "Uploaded editor4b_20261113.zip: 5 files."
+        }
+    ]
+}
