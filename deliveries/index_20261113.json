@@ -1,0 +1,26 @@
+{
+ "zip": "index_20261113.zip",
+ "built_on": "8cdbf8b Sync: 2026-11-12 23:22 UTC",
+ "recorded": "2026-11-13 00:57 UTC",
+ "note": "0157 delivery 1: the page log, structured data first, list pages split into items, kinds and towns on the place store, the test set. Built on the 23:22 UTC sync. The worker half ships via main (Railway).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/data/decisions-index.php": {
+   "sha256": "cc9ffaf4b6788892a0a92368091b461db0c68e135b0c6e9c8e7c1308d65ea6a7",
+   "live": false
+  },
+  "app/lib/crawler/SourceIndex.php": {
+   "sha256": "a018730a9670c31cd04dff7375885ff201e2ec806660550566c5428970d4757e",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "359374ea7d7ae85b313305d91977949a7dbea825f397e7e5acad4e3efd3ad3cc",
+   "live": false
+  },
+  "website/api/crawl/sources.php": {
+   "sha256": "80d06188aab871a82d97621bf9ec153eec7ba1533bd251c52eefb26fd71dfcca",
+   "live": false
+  }
+ }
+}

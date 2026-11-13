@@ -24,6 +24,9 @@ Search that learns (decisions/0061): GET /api/crawl/learn.php runs the site's le
 out a few Tier 2 web searches for situation gaps open data couldn't fill; pages on .gov, .edu, state and local .us
 sites or sources we read go back with POST /api/crawl/learn.php. Situation gaps open data covers arrive as ordinary
 jobs ("sit:..."), bringing their own OpenStreetMap filters and Wikidata classes (Tier 1).
+Our own index (decisions/0045, 0157): each run reads one "Read regularly" source (GET/POST /api/crawl/sources.php),
+asking each page whether it changed since the page log last saw it, reading its structured data first, then its text,
+and splitting a list page into its places; every page fetched goes back to the page log.
 The run stops at whichever budget comes first: JOBS_PER_RUN jobs, MAX_FETCHES website fetches, or
 TIME_BUDGET seconds. Unfinished jobs simply go back to the queue when their lease expires.
 
@@ -63,7 +66,9 @@ GNIS_FIXTURE_DIR=dir (DomesticNames_AZ_Text.zip…), AIANNH_FIXTURE=file.zip, WI
 Standard library only.
 """
 import csv
+import hashlib
 import html
+from html.parser import HTMLParser
 import io
 import ipaddress
 import json
@@ -368,26 +373,57 @@ SAFE_OPENER = urllib.request.build_opener(SafeRedirect)
 
 def fetch_page(url):
     """One polite GET of a homepage: robots.txt, a delay, a size and time cap. None on any failure."""
+    return fetch_page_meta(url)["body"]
+
+
+def fetch_page_meta(url, etag="", modified=""):
+    """fetch_page with what the page log keeps (decisions/0157 §1): {body, status, type, bytes, etag, modified}. With the
+    entity tag or last-changed date the server gave last time, it asks first whether the page changed: an unchanged page
+    answers 304 with no body, and costs nothing to download. status 0: not fetched (a budget, robots.txt, an error)."""
     global fetches, last_fetch
+    out = {"body": None, "status": 0, "type": "", "bytes": 0, "etag": "", "modified": ""}
     if os.environ.get("WEB_FIXTURE"):
         with open(os.environ["WEB_FIXTURE"]) as f:
-            return json.load(f).get(url)
+            fx = json.load(f).get(url)
+        if isinstance(fx, dict):                       # {"status": 304} or {"body": ..., "etag": ...}
+            out.update(fx); out["bytes"] = len(out.get("body") or "")
+            if out["status"] == 304:
+                out.update(etag=etag, modified=modified)
+            return out
+        if fx is not None:
+            out.update(body=fx, status=200, type="text/html", bytes=len(fx))
+        return out
     if fetches >= MAX_FETCHES or out_of_time() or not public_host(url) or not allowed(url):
-        return None
+        return out
     host = urllib.parse.urlsplit(url).netloc.lower()
     wait = max(FETCH_DELAY - (time.monotonic() - last_fetch), crawl_delay(url) - (time.monotonic() - host_last.get(host, -1e9)))
     if wait > 0:
         time.sleep(wait)
     fetches += 1
     last_fetch = host_last[host] = time.monotonic()
+    head = {"User-Agent": UA, "Accept": "text/html"}
+    if etag:
+        head["If-None-Match"] = etag
+    if modified:
+        head["If-Modified-Since"] = modified
     try:
-        req = urllib.request.Request(url, headers={"User-Agent": UA, "Accept": "text/html"})
+        req = urllib.request.Request(url, headers=head)
         with SAFE_OPENER.open(req, timeout=12) as r:
-            if "html" not in (r.headers.get("Content-Type") or ""):
-                return None
-            return r.read(400_000).decode("utf-8", "replace")
+            ctype = (r.headers.get("Content-Type") or "")[:80]
+            out.update(status=r.status, type=ctype, etag=(r.headers.get("ETag") or "")[:190],
+                       modified=(r.headers.get("Last-Modified") or "")[:60])
+            if "html" not in ctype:
+                return out
+            body = r.read(400_000)
+            out.update(bytes=len(body), body=body.decode("utf-8", "replace"))
+            return out
+    except urllib.error.HTTPError as e:
+        out["status"] = e.code                         # 304: unchanged since last time; 404, 410: gone
+        if e.code == 304:
+            out.update(etag=etag, modified=modified)
+        return out
     except Exception:
-        return None
+        return out
 
 
 def words(s):
@@ -735,12 +771,70 @@ CITY_ZIP_RE = re.compile(r"[A-Za-z .'-]+,\s*[A-Z]{2}\s+\d{5}")
 LINK_HINTS = ("list", "member", "director", "clinic", "location", "service", "resource", "business", "provider", "partner", "program")
 
 
-def page_lines(page):
-    """The page's text, one block per line (headings, list items, paragraphs, cells)."""
-    t = re.sub(r"(?is)<(script|style|noscript)[^>]*>.*?</\1>", " ", page)
-    t = re.sub(r"(?i)<br\s*/?>|</(p|div|li|h[1-6]|tr|td|th|address|section|article|dt|dd)>", "\n", t)
-    t = html.unescape(re.sub(r"<[^>]+>", " ", t))
-    return [re.sub(r"\s+", " ", l).strip() for l in t.split("\n") if l.strip()]
+# Reading a page (decisions/0157 §2), cheapest and surest first: the page's own structured data (schema.org JSON-LD
+# and microdata), then its text. Each fact says how it was read ("structured", "list", "text"), what kind of page it was
+# on, and the item's own words (what it does, the heading it sits under), so the site can tell what kind of place it is.
+PLACE_TYPES = re.compile(r"(LocalBusiness|Organization|Place|Store|Restaurant|Service|Office|Center|Clinic|Hospital|Dentist|"
+                         r"Physician|Pharmacy|Agency|Library|School|Museum|Park|Lodging|Hotel|Motel|Campground|Church|"
+                         r"Government|Attorney|Contractor|Plumber|Electrician|Repair|Dealer|Shop|Salon|Bakery|Cafe|Bar)", re.I)
+DAYS = {"mo": "Mon", "tu": "Tue", "we": "Wed", "th": "Thu", "fr": "Fri", "sa": "Sat", "su": "Sun"}
+
+
+def ld_type(d):
+    t = d.get("@type") or d.get("type") or ""
+    if isinstance(t, list):
+        t = next((x for x in t if isinstance(x, str) and x not in ("Thing",)), "")
+    return str(t).rsplit("/", 1)[-1][:80]
+
+
+def ld_hours(d):
+    """openingHours ("Mo-Fr 08:00-17:00") or OpeningHoursSpecification, as one short line."""
+    oh = d.get("openingHours")
+    if isinstance(oh, list):
+        return "; ".join(str(x) for x in oh)[:500]
+    if isinstance(oh, str):
+        return oh[:500]
+    out = []
+    for spec in d.get("openingHoursSpecification") or []:
+        if not isinstance(spec, dict):
+            continue
+        days = spec.get("dayOfWeek") or []
+        days = days if isinstance(days, list) else [days]
+        names = [DAYS.get(str(x).rsplit("/", 1)[-1][:2].lower(), "") for x in days]
+        o, c = str(spec.get("opens", ""))[:5], str(spec.get("closes", ""))[:5]
+        if o or c:
+            out.append(",".join(n for n in names if n) + f" {o}-{c}")
+    return "; ".join(out)[:500]
+
+
+def ld_fact(d, url, how="structured"):
+    """One schema.org thing as a fact, or None when it isn't a place we can find (no name, or no address or phone)."""
+    name, addr, phone = d.get("name"), d.get("address"), d.get("telephone")
+    if isinstance(phone, list):
+        phone = phone[0] if phone else ""
+    if not isinstance(name, str) or not name.strip() or not (addr or phone):
+        return None
+    street, zp, town, state = "", "", "", ""
+    if isinstance(addr, list):
+        addr = addr[0] if addr else ""
+    if isinstance(addr, dict):
+        street = " ".join(str(addr.get(k, "")) for k in ("streetAddress", "addressLocality", "addressRegion", "postalCode")).strip()
+        street = re.sub(r"\s+", " ", street)
+        zp = str(addr.get("postalCode", ""))[:5]
+        town, state = str(addr.get("addressLocality", ""))[:120], str(addr.get("addressRegion", ""))[:2].upper()
+    elif isinstance(addr, str):
+        street = addr
+    geo = d.get("geo") if isinstance(d.get("geo"), dict) else {}
+    same = d.get("sameAs") or []
+    site = d.get("url") if isinstance(d.get("url"), str) else ""
+    desc = d.get("description") if isinstance(d.get("description"), str) else ""
+    kinds = [ld_type(d)] + [str(x) for x in (d.get("additionalType") or [])][:2] if isinstance(d.get("additionalType"), list) else [ld_type(d)]
+    return {"url": url, "name": html.unescape(name.strip())[:255], "address": street[:255], "phone": str(phone or ""), "zip": zp,
+            "town": town, "state": state, "website": site[:500], "hours": ld_hours(d),
+            "lat": geo.get("latitude"), "lng": geo.get("longitude"),
+            "schema_type": ld_type(d), "words": re.sub(r"\s+", " ", html.unescape(desc))[:255],
+            "kinds": [re.sub(r"(?<=[a-z])(?=[A-Z])", " ", k) for k in kinds if k][:3],
+            "same_as": [x for x in (same if isinstance(same, list) else [same]) if isinstance(x, str)][:5], "how": how}
 
 
 def jsonld_facts(page, url):
@@ -758,22 +852,108 @@ def jsonld_facts(page, url):
             if not isinstance(d, dict):
                 continue
             stack.extend(v for v in d.values() if isinstance(v, (dict, list)))
-            name, addr, phone = d.get("name"), d.get("address"), d.get("telephone")
-            if not isinstance(name, str) or not (addr or phone):
-                continue
-            street, zp = "", ""
-            if isinstance(addr, dict):
-                street = " ".join(str(addr.get(k, "")) for k in ("streetAddress", "addressLocality", "addressRegion", "postalCode")).strip()
-                zp = str(addr.get("postalCode", ""))[:5]
-            elif isinstance(addr, str):
-                street = addr
-            out.append({"url": url, "name": name[:255], "address": street[:255], "phone": str(phone or ""), "zip": zp})
+            f = ld_fact(d, url)
+            if f:
+                out.append(f)
+    return out + microdata_facts(page, url)
+
+
+class _Microdata(HTMLParser):
+    """schema.org microdata (itemscope / itemtype / itemprop): each item as a dict like JSON-LD's."""
+    VOID = {"meta", "link", "img", "br", "hr", "input", "source", "area", "base", "col", "embed", "param", "track", "wbr"}
+
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.items, self.stack, self.text = [], [], []          # stack: [tag, item or None, prop or None]
+
+    def _item(self):
+        return next((x[1] for x in reversed(self.stack) if x[1] is not None), None)
+
+    def handle_starttag(self, tag, attrs):
+        a = dict(attrs)
+        prop = (a.get("itemprop") or "").split()[0] if a.get("itemprop") else None
+        item = None
+        if "itemscope" in a:
+            item = {"@type": (a.get("itemtype") or "").split()[0] if a.get("itemtype") else ""}
+            parent = self._item()
+            if parent is not None and prop:
+                parent[prop] = item
+            else:
+                self.items.append(item)
+        elif prop:
+            val = a.get("content") or a.get("href") or a.get("src") or a.get("datetime")
+            owner = self._item()
+            if owner is not None and val:
+                owner.setdefault(prop, val)
+                prop = None if tag in self.VOID else prop
+        if tag in self.VOID:
+            return
+        self.stack.append([tag, item, prop if item is None else None, len(self.text)])
+
+    def handle_endtag(self, tag):
+        while self.stack:
+            t, item, prop, at = self.stack.pop()
+            if prop:
+                owner = self._item()
+                val = re.sub(r"\s+", " ", " ".join(self.text[at:])).strip()
+                if owner is not None and val:
+                    owner.setdefault(prop, val[:300])
+            if t == tag:
+                break
+
+    def handle_data(self, data):
+        self.text.append(data)
+
+
+def microdata_facts(page, url):
+    if "itemscope" not in page:
+        return []
+    p = _Microdata()
+    try:
+        p.feed(re.sub(r"(?is)<(script|style)[^>]*>.*?</\1>", " ", page)); p.close()
+    except Exception:
+        return []
+    out = []
+    for it in p.items:
+        if not PLACE_TYPES.search(ld_type(it)) and not isinstance(it.get("address"), dict):
+            continue
+        f = ld_fact(it, url)
+        if f:
+            out.append(f)
     return out
 
 
+def page_lines(page):
+    """The page's text, one block per line (headings, list items, paragraphs, cells)."""
+    return [l for l, _ in page_blocks(page)]
+
+
+def page_blocks(page):
+    """page_lines with each line marked as a heading (h1-h6, a table or list caption) or not."""
+    t = re.sub(r"(?is)<(script|style|noscript)[^>]*>.*?</\1>", " ", page)
+    t = re.sub(r"(?i)<(h[1-6]|caption|legend|dt)\b[^>]*>", "\n\x01", t)
+    t = re.sub(r"(?i)<br\s*/?>|</(p|div|li|h[1-6]|tr|td|th|address|section|article|dt|dd|caption|legend)>", "\n", t)
+    t = html.unescape(re.sub(r"<[^>]+>", " ", t))
+    out = []
+    for l in t.split("\n"):
+        head = "\x01" in l
+        l = re.sub(r"\s+", " ", l.replace("\x01", " ")).strip()
+        if l:
+            out.append((l, head))
+    return out
+
+
+def _is_detail(line):
+    return bool(PHONE_RE.search(line) or ADDR_RE.match(line) or CITY_ZIP_RE.search(line)
+                or re.match(r"(?i)^(phone|tel|fax|email|e-mail|web(site)?|hours|address)\b", line))
+
+
 def text_facts(page, url):
-    """A name line followed closely by a street address and/or phone number."""
-    lines, out = page_lines(page), []
+    """A name line followed closely by a street address and/or phone number. On a list page each one is an item, with
+    its own words (the short lines that follow it: what it does) and the heading it sits under ("Solid waste")."""
+    blocks = page_blocks(page)
+    lines = [l for l, _ in blocks]
+    out, used = [], set()
     for i, line in enumerate(lines):
         phone = PHONE_RE.search(line)
         is_addr = bool(ADDR_RE.match(line))
@@ -783,48 +963,139 @@ def text_facts(page, url):
         for j in range(i - 1, max(-1, i - 4), -1):              # the nearest short, word-like line above
             cand = lines[j]
             if 3 <= len(cand) <= 80 and re.search(r"[A-Za-z]{3}", cand) and not PHONE_RE.search(cand) and not ADDR_RE.match(cand) \
-                    and not CITY_ZIP_RE.search(cand):
+                    and not CITY_ZIP_RE.search(cand) and not re.match(r"(?i)^(phone|tel|fax|email|hours|address)\b", cand):
                 name, jname = cand, j; break
-        if not name:
+        if not name or jname in used:
             continue
+        used.add(jname)
         near = lines[jname + 1:i + 3]                           # this entry only: from its name down
         addr = next((l for l in near if ADDR_RE.match(l)), "")
         cz = next((CITY_ZIP_RE.search(l).group(0) for l in near if CITY_ZIP_RE.search(l)), "")
         ph = phone.group(0) if phone else next((PHONE_RE.search(l).group(0) for l in near if PHONE_RE.search(l)), "")
+        # the heading above it
+        section = next((blocks[k][0] for k in range(jname - 1, max(-1, jname - 40), -1) if blocks[k][1] and blocks[k][0] != name), "")
+        tz = re.match(r"\s*([A-Za-z .'-]+),\s*([A-Z]{2})", cz) if cz else None
         out.append({"url": url, "name": name, "address": (addr + (", " + cz if cz else "")).strip(", "), "phone": ph,
-                    "zip": (re.search(r"\d{5}", cz) or [""])[0] if cz else ""})
+                    "zip": (re.search(r"\d{5}", cz) or [""])[0] if cz else "",
+                    "town": tz.group(1).strip()[:120] if tz else "", "state": tz.group(2) if tz else "",
+                    "section": section[:120], "how": "text", "_at": jname})
+    # its own words: up to two short lines between its name and the next item's that aren't details (what it does)
+    for n, f in enumerate(out):
+        stop = out[n + 1]["_at"] if n + 1 < len(out) else min(len(lines), f["_at"] + 8)
+        words = [l for l, head in blocks[f.pop("_at") + 1:stop] if not head and not _is_detail(l) and 6 <= len(l) <= 160 and re.search(r"[a-z]{3}", l)]
+        f["words"] = " · ".join(words[:2])[:255]
+    # the items of a list page: three or more in one page
+    if len(out) >= 3:
+        for f in out:
+            f["how"] = "list"
     return out
 
 
+def page_town(page):
+    """The town a page names most ("Saint Johns, AZ 85936"): the place for items with no address of their own."""
+    seen = {}
+    for m in re.finditer(r"([A-Z][A-Za-z .'-]{2,30}),\s*(AZ|NM|UT|CO|NV|CA|TX)\b", page):
+        k = (m.group(1).strip(), m.group(2))
+        seen[k] = seen.get(k, 0) + 1
+    return max(seen, key=seen.get) if seen else ("", "")
+
+
+def page_kind(page, url, facts, title):
+    """What kind of page it is (decisions/0157 §2): own_site, list, events, notice, article or other."""
+    low = (title + " " + url).lower()
+    if re.search(r'"@type"\s*:\s*"(Event|EventSeries)"', page) or re.search(r"\b(events?|calendar)\b", low) and \
+            len(re.findall(r"\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\.? \d{1,2}\b", page)) >= 4:
+        return "events"
+    names = {re.sub(r"\W+", "", f["name"].lower()) for f in facts}
+    if len(names) >= 3:
+        return "list"
+    if re.search(r"\.(gov|us)$", host_of(url)) and re.search(r"\b(notice|hearing|closure|closed|alert|advisory|ordinance)\b", low):
+        return "notice"
+    if re.search(r'og:type"?\s+content="article"|<article\b', page, re.I) and not facts:
+        return "article"
+    if len(names) == 1:
+        return "own_site"
+    return "other"
+
+
+def page_title(page):
+    m = re.search(r"(?is)<title[^>]*>(.*?)</title>", page)
+    return re.sub(r"\s+", " ", html.unescape(m.group(1))).strip()[:200] if m else ""
+
+
+def tv_safe(v):
+    """Links travel wrapped past Bluehost's ModSecurity, as the site's own forms do (Response::unwrap() reads them)."""
+    if isinstance(v, dict):
+        return {k: tv_safe(x) for k, x in v.items()}
+    if isinstance(v, list):
+        return [tv_safe(x) for x in v]
+    if isinstance(v, str) and re.match(r"(?i)^https?://", v) and re.search(r"[?=&]", v):
+        return "tvb64:" + __import__("base64").b64encode(v.encode()).decode()
+    return v
+
+
 def read_source(deadline):
+    """One of our "Read regularly" sources, read politely (decisions/0045, 0157 §1-§2). The site sends what the page log
+    knows of its pages (entity tag, last-changed date, links); a page that hasn't changed answers 304 and keeps its facts,
+    and its links (kept in the log) still lead on. Every page fetched goes back to the log, whatever it named."""
     d = site_call("/api/crawl/sources.php")
     src = d.get("source")
     if not src:
         return
     start, host = src["home_url"], host_of(src["home_url"])
-    queue, seen, facts, pages = [start], set(), [], 0
+    known = src.get("pages") or {}                       # url -> {etag, modified, links}
+    queue, seen, facts, pages, log_rows, unchanged = [start], set(), [], 0, [], []
     while queue and pages < SOURCE_PAGES and time.monotonic() < deadline and not out_of_time():
         url = queue.pop(0)
         if url in seen:
             continue
         seen.add(url)
-        page = fetch_page(url)
-        if not page:
-            continue
+        k = known.get(url) or {}
+        r = fetch_page_meta(url, k.get("etag", ""), k.get("modified", ""))
+        if not r["status"]:
+            continue                                    # not fetched (a budget, robots.txt): nothing to log
         pages += 1
-        facts += jsonld_facts(page, url) + text_facts(page, url)
-        links = []
-        for href in re.findall(r'(?i)href=["\']([^"\'#]+)', page):
-            full = urllib.parse.urljoin(url, href)
-            if host_of(full) == host and full.startswith("http") and not re.search(r"\.(pdf|jpe?g|png|gif|zip|docx?)$", full, re.I):
-                links.append(full)
-        links.sort(key=lambda u: 0 if any(h in u.lower() for h in LINK_HINTS) else 1)   # directory-like pages first
-        queue += [l for l in links if l not in seen][:60]
+        row = {"url": url, "status": r["status"], "type": r["type"], "bytes": r["bytes"], "etag": r["etag"], "modified": r["modified"]}
+        if r["status"] == 304:
+            unchanged.append(url)
+            links = list(k.get("links") or [])
+            row["links"] = links
+        elif r["body"]:
+            page = r["body"]
+            title = page_title(page)
+            here = jsonld_facts(page, url)
+            if not here:                                 # its own structured data first; the text only when there's none
+                here = text_facts(page, url)
+            else:
+                have = {re.sub(r"\W+", "", f["name"].lower()) for f in here}
+                here += [f for f in text_facts(page, url) if re.sub(r"\W+", "", f["name"].lower()) not in have]
+            kind = page_kind(page, url, here, title)
+            pt = page_town(page)
+            for f in here:
+                f["page_kind"], f["title"] = kind, title
+                if pt[0]:
+                    f.setdefault("page_town", pt[0]); f.setdefault("page_state", pt[1])
+            facts += here
+            links = []
+            for href in re.findall(r'(?i)href=["\']([^"\'#]+)', page):
+                full = urllib.parse.urljoin(url, href)
+                if host_of(full) == host and full.startswith("http") and not re.search(r"\.(pdf|jpe?g|png|gif|zip|docx?)$", full, re.I):
+                    links.append(full)
+            links.sort(key=lambda u: 0 if any(h in u.lower() for h in LINK_HINTS) else 1)   # directory-like pages first
+            links = list(dict.fromkeys(links))[:60]
+            text = re.sub(r"\s+", " ", " ".join(page_lines(page)))
+            row.update(fingerprint=hashlib.sha1(text.encode("utf-8", "replace")).hexdigest(), page_kind=kind, named=len(here),
+                       links=links, title=title)
+        else:
+            links = []
+        log_rows.append(row)
+        queue += [l for l in links if l not in seen]
     uniq = {}
     for f in facts:
         uniq.setdefault((f["name"].lower(), re.sub(r"\D", "", f["phone"])[-10:], f["address"][:20].lower()), f)
-    res = site_call("/api/crawl/sources.php", {"host": host, "pages": pages, "facts": list(uniq.values())})
-    log(f"read source {host}: {pages} page(s), {len(uniq)} place(s) found, {res.get('kept', 0)} kept")
+    res = site_call("/api/crawl/sources.php", tv_safe({"host": host, "pages": pages, "facts": list(uniq.values()),
+                                                      "log": log_rows, "unchanged": unchanged}))
+    log(f"read source {host}: {pages} page(s), {len(unchanged)} unchanged, {len(uniq)} place(s) found, {res.get('kept', 0)} kept")
 
 
 # ---------------------------------------------------------------------------------------------------
