@@ -1,0 +1,59 @@
+{
+    "id": 9,
+    "title": "Site audit clock: the site asks GitHub to run the audit's checks on time",
+    "why": "handoffs/site-audit.md item 1 (decisions/0145): GitHub skips or delays scheduled runs when busy (the 09:43 browser checks ran at 17:44, then stopped), so Site health, the paths and the audit went stale. A new hourly job (Site audit clock, audit_clock_tick) asks GitHub through repository_dispatch with the existing GITHUB_DOCS_TOKEN: the code checks at 7:00 and 19:00 UTC, the browser checks and paths at 9:00, the search probe at 10:00. Site health in Pulse now says when a check hasn't run in 26 hours, with Run it now; its Run the checks now step is a button too. Staff-only; nothing visitors see, so no FAQ change. Never runs on staging.",
+    "proposals": "handoffs/site-audit.md §3 item 1",
+    "zip": "audit-clock_20261113.zip",
+    "switch": "audit_clock",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/scripts/audit_clock_tick.php": {
+            "sha": "907c53e23606d7f163213d43f347da195721962126cff3d722ef869c18825c81",
+            "size": 799,
+            "live_was": null
+        },
+        "app/lib/Scheduler.php": {
+            "sha": "079ab6ced3598a2dc3de6e4c69fcd06f148a6796fb66ae04b2fbee10a987c4cd",
+            "size": 20458,
+            "live_was": "2dcba9e80d02eaf3cc71a4c0f887dfad155ebe734524e60b7c3105d4aa7dd93b"
+        },
+        "app/lib/Switches.php": {
+            "sha": "acb520c7d806b4e404a828ec8a8145c1c69bd2e8d1fd71261f2bc3edc170fa16",
+            "size": 5796,
+            "live_was": "5f34f1343f1c08b0d7b0f8851585f3ab1bea4d133cd34fefb6e3356ceca4850b"
+        },
+        "app/lib/SiteHealth.php": {
+            "sha": "74cd05017f59c3d659e97908008d511567a5997864ab1915fb7ba098b7dfb9fc",
+            "size": 16479,
+            "live_was": "18c1f1c1e17dd080ed6931f15a26577a5c2170fc396c011acb7877758c3129c6"
+        },
+        "app/lib/Pulse.php": {
+            "sha": "c31b70e4c4bfb156c08f5addc3df05555c948562b6e05412ca01991785b6a14c",
+            "size": 120869,
+            "live_was": "49ed6e4f35904372f6de8fd218db3d3c5f61e156b460456c484ecfc8a40c9fa3"
+        },
+        "app/lib/AuditClock.php": {
+            "sha": "b5516bc0c9a307e1a04eb16d0535078d8a978fbe6c6d36e0d0898cbc287adc9e",
+            "size": 9020,
+            "live_was": null
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-13T15:13:23+00:00",
+            "by": 2,
+            "msg": "Uploaded audit-clock_20261113.zip: 6 files."
+        }
+    ]
+}
