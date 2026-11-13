@@ -544,3 +544,14 @@ landing only; Newest, Nearest and Price sorts; the title "Marketplace" with a lo
   each card, runs edge to edge (the cards had overlapped by 18px).
 - **The rail:** Browse all, Near me (`/market/?sort=near`, live), Post something, Your posts (with a count), Saved &
   messages, Cart & checkout.
+
+## Exceptions to the build standards, recorded (2026-11-13, from the UI/UX review of 2026-11-01)
+So a later build doesn't "fix" them:
+- **The item pages' gallery.** `market/view.php` and `market/item.php` use §1's Facebook-style gallery (photos with a
+  thumbnail strip), not `tv_explore_hero()`. The content-page rule (decisions/0058 §20) doesn't apply to them.
+- **The card's price above the name.** Marketplace cards put the price first, then the name, per §1, unlike the general
+  card anatomy (0058 §11). The name is still the brown underlined link.
+- **Paging.** "Newest pages by time" above was replaced on 2026-11-12 by the lists' standard: every sort pages by number
+  (10 a page, or 25, 50, 100), so "More" no longer skips posts listed in the same second.
+- **At the cap (§7)**, Post it on Your Marketplace and Post something on `/market/` are greyed out with the reason; a
+  team member's test post doesn't count, so ticking Test post frees it.

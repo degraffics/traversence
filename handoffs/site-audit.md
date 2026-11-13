@@ -143,20 +143,7 @@ next browser run names what's wide, and the Phase 5 walkthroughs with Jason.
 - **Review:** P7–P12 decided. Live: P7 (`roads511fix`, verified at Sync 15:59 UTC), P9 + P11 (`audit-p9p11`, release #19), P8 (R04 tool).
 
 ### In flight
-- **P9/P11's FAQ entries** (Jason: FAQ clashes resolve themselves, CLAUDE.md). Blocked by `adminfind_20261113`
-  carrying `app/ui/faq.md`. Once that's live and synced, apply these to the live `app/ui/faq.md` and send a one-file release
-  (no need to ask Jason):
-  1. After the entry "### What does clicking a town name do?" add:
-     `### When I choose a town, why can I set how far to look, and what is its "Town area"?` — "Choosing a town (like
-     Show Low, AZ) centres the search on the town itself, within 10 miles to start; **Within** lets you look closer or
-     farther. Many of our towns also have a **Town area**, the town with the towns around it (The Show Low District, for
-     one): choose that when you want the whole area, with no distance."
-  2. In "### What happens when I create an account?", replace "you tick it. Then sign in." with "you tick it. Opening the
-     link signs you in, so after the questions you're on your dashboard."
-  3. Before "### I didn't get the email to confirm my account." add: `### My business's listing is hidden. Can I still
-     see it?` — "Yes. When a listing is hidden from the public (while it's checked, or at our team's request), you and
-     your business's team still see its page, with a line saying it's hidden. **See it as visitors do** opens it for you.
-     To ask why, or to make it public, write to support@traversence.com."
+- None. P9/P11's FAQ entries went live in Release #25 (`faqfollowups_20261113`), verified at Sync 18:30 UTC.
 
 ### Next (small)
 - **P12** (Gateways sideways scroll at 390px): the browser checks now record the elements past the right edge

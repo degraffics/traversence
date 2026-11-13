@@ -1,0 +1,30 @@
+{
+ "zip": "marketfixes_20261113.zip",
+ "built_on": "22ce86c Sync: 2026-11-13 18:30 UTC",
+ "recorded": "2026-11-13 18:31 UTC",
+ "note": "Marketplace small fixes (post cap, payment wording, Orders photos to the cropper), built on Sync: 18:30 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/ui/faq.md": {
+   "sha256": "4f37f45c44adbf0640aa853f37b823ec6c3e365e50f31f4396974c8fdbc7344a",
+   "live": false
+  },
+  "website/js/tv-art.js": {
+   "sha256": "0fc38db9d9c728e1f9d06d3bd99dd9d840ffada347b2cf02038b3797c84eb511",
+   "live": false
+  },
+  "website/market/index.php": {
+   "sha256": "1dd3cacf889019c512a13376c979e4c6fed7a2bcca00fc5934b74ad89a057ca4",
+   "live": false
+  },
+  "website/market/item.php": {
+   "sha256": "82217817a4dcff63d30e9f980e92c184a37ca757a01757caa8ae9abaf9378bf1",
+   "live": false
+  },
+  "website/user/market/index.php": {
+   "sha256": "85e147fba2dca1ab53eee874d63596d97fb45c7e6aaf47abaad618410deaa2e9",
+   "live": false
+  }
+ }
+}
