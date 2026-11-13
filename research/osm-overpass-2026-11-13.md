@@ -74,4 +74,4 @@ round a ban by changing the agent: that's what turns it into an IP ban.
 
 The four promises above, built before any request goes back to overpass-api.de: per-kind queries, one at a time, a month's
 cache per town and kind (`town_crawl_jobs` / `crawl_jobs` already record when a kind was done), and a contact in both
-User-Agents. Until the maintainers answer, the crawler doesn't send to overpass-api.de.
+User-Agents. Until the maintainers answer, take overpass-api.de off the crawler's list (one line in `OVERPASS_URLS`; not done yet).
