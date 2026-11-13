@@ -1,0 +1,59 @@
+{
+    "id": 7,
+    "title": "Builds from git: Claude's releases arrive on staging by themselves",
+    "why": "decisions/0159 step 2 (Phase 6), part 1. Claude's finished build is a release zip merged into releases/inbox on degraffics/traversence's main. Every 10 minutes (the releases job), or at once with Releases ▾ → Check for builds in the site manager, the live site fetches each new zip through its GitHub key, checks its bytes against git's id, makes it a release and puts it straight onto staging, then takes it out of the inbox (git keeps its history). It shows in the site manager as on staging: look, then Publish. A zip is never made into a release twice. Uploading a zip still works.",
+    "proposals": "decisions/0159 step 2",
+    "zip": "fromgit_20261113.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/lib/DocsRepo.php": {
+            "sha": "e19aa2b5fccf664263a57546903e04be940666f9b1c58042f1bc548f947d550f",
+            "size": 18626,
+            "live_was": "fa8657f6afb884c6657a65b0503ce35961b7906e44fc0b43af41ad5bea0e868d"
+        },
+        "app/lib/Releases.php": {
+            "sha": "7a7f456aaa9b2e6324a559cb655d544b6b75e6f9d61f93f44aeeddc2774b4248",
+            "size": 75762,
+            "live_was": "a8b246733fce36c54879163e205580969ac466222cf091f54ca51b81bdacbd6e"
+        },
+        "app/scripts/releases_tick.php": {
+            "sha": "5b94dcb3624eb97dfb7bb76d877f8469757cbda9900033b6bfb13b9c8f1f9f0f",
+            "size": 1625,
+            "live_was": "2e6e60e32f49552d91a5af5bbd5aedb3d3b85c4635ad43ec33791fbcbd9fec78"
+        },
+        "app/ui/faq.md": {
+            "sha": "ce8de1661a9c2e1aa35daea3f564f15f806e10e6e2f9031a6eebdb1e5cd4f84b",
+            "size": 265778,
+            "live_was": "79850e9eff23307f33162ef910f3ddf3f728442ec2b58c4199355b224da2e237"
+        },
+        "website/js/stg-bar.js": {
+            "sha": "869c2bb93d4fb638a2bd20a957698eebe49df7f65baeb23071f12ac07d14f2fc",
+            "size": 20286,
+            "live_was": "631841ebc468ae53f6919a51676bb56a452179fc2b44c93e96c96a3c20124972"
+        },
+        "website/api/release-bar.php": {
+            "sha": "ea714ecf6487cea0f692376f4eda80ade12120a94a8899b65b7ee1bec4da002a",
+            "size": 3048,
+            "live_was": "10028240f44fd6b7c3d8e7e21ae3506ce080294b128ac9323eefa15a82a0ef2a"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-13T14:37:09+00:00",
+            "by": 2,
+            "msg": "Uploaded fromgit_20261113.zip: 6 files."
+        }
+    ]
+}
