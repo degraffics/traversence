@@ -1,5 +1,39 @@
 {
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
- "claims": [],
+ "claims": [
+  {
+   "path": "app/lib/Blocks.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5heQJQxTX8ubPs7Jfs",
+   "why": "0159 step 4c: Publish later and the zones on every page (the builder's own files)",
+   "since": "2026-11-13T20:02:34Z",
+   "expires": "2026-11-14T00:02:34Z",
+   "release": "editor4c_20261113",
+   "callers": {}
+  },
+  {
+   "path": "website/api/blocks.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5heQJQxTX8ubPs7Jfs",
+   "why": "0159 step 4c: Publish later and the zones on every page (the builder's own files)",
+   "since": "2026-11-13T20:02:34Z",
+   "expires": "2026-11-14T00:02:34Z",
+   "release": "editor4c_20261113",
+   "callers": {}
+  },
+  {
+   "path": "website/js/tv-editor.js",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5heQJQxTX8ubPs7Jfs",
+   "why": "0159 step 4c: Publish later and the zones on every page (the builder's own files)",
+   "since": "2026-11-13T20:02:34Z",
+   "expires": "2026-11-14T00:02:34Z",
+   "release": "editor4c_20261113",
+   "callers": {}
+  }
+ ],
  "lapsed": []
 }
