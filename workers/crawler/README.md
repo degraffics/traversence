@@ -92,8 +92,7 @@ finished returns to the queue by itself when its 20-minute lease runs out.
 1. **New Project → Deploy from GitHub repo → `degraffics/traversence`.**
 2. In the service's **Settings**:
    - **Root Directory:** `workers/crawler` (Railway then finds the `Dockerfile` here).
-   - **Branch:** the branch holding the latest worker. Today that's `claude/optimistic-cannon-9ifg1c`, which has the
-     never-hang fix below (or `main`, once that branch is merged).
+   - **Branch:** `main` (as set on 2026-11-13: project gracious-sparkle, service **traversence**, auto-deploy on push).
    - **Deploy → Cron Schedule:** `*/5 * * * *`, and **Restart Policy:** Never. Set these in the page:
      Railway is retiring config files (`railway.json` is kept only as a record of these settings) and
      new services can't opt in to them.
