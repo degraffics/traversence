@@ -1,12 +1,11 @@
 {
- "at": "2026-11-13T15:06:45.778Z",
+ "at": "2026-11-13T17:26:35.823Z",
  "site": "https://traversence.com",
- "run_url": "https://github.com/degraffics/traversence/actions/runs/43447700229",
+ "run_url": "https://github.com/degraffics/traversence/actions/runs/43471260516",
  "full": false,
  "signed_in": true,
  "pages": 364,
  "by": {
-  "requests": 2,
   "scroll": 1
  },
  "results": [
@@ -1636,6 +1635,38 @@
   },
   {
    "who": "guest",
+   "url": "/stg-enter.php",
+   "size": "phone",
+   "must": false,
+   "status": 404,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "final": "/stg-enter.php",
+   "why": []
+  },
+  {
+   "who": "guest",
+   "url": "/stg-enter.php",
+   "size": "desktop",
+   "must": false,
+   "status": 404,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "final": "/stg-enter.php",
+   "why": []
+  },
+  {
+   "who": "guest",
    "url": "/vendor.php",
    "size": "phone",
    "must": false,
@@ -1991,30 +2022,6 @@
   },
   {
    "who": "member",
-   "url": "/user/post.php",
-   "size": "phone",
-   "must": false,
-   "status": 200,
-   "console": [],
-   "requests": [
-    "404 /user/api/posts.php?id=0"
-   ],
-   "dialogs": [],
-   "scroll": false,
-   "edges": 0,
-   "alt": 0,
-   "names": 0,
-   "final": "/user/post.php",
-   "eg": {},
-   "why": [
-    [
-     "requests",
-     "404 /user/api/posts.php?id=0"
-    ]
-   ]
-  },
-  {
-   "who": "member",
    "url": "/user/profile.php",
    "size": "phone",
    "must": false,
@@ -2333,30 +2340,6 @@
    "final": "/user/orders.php",
    "eg": {},
    "why": []
-  },
-  {
-   "who": "owner",
-   "url": "/user/post.php",
-   "size": "phone",
-   "must": false,
-   "status": 200,
-   "console": [],
-   "requests": [
-    "404 /user/api/posts.php?id=0"
-   ],
-   "dialogs": [],
-   "scroll": false,
-   "edges": 0,
-   "alt": 0,
-   "names": 0,
-   "final": "/user/post.php",
-   "eg": {},
-   "why": [
-    [
-     "requests",
-     "404 /user/api/posts.php?id=0"
-    ]
-   ]
   },
   {
    "who": "owner",
@@ -3664,7 +3647,13 @@
    "alt": 0,
    "names": 0,
    "final": "/admin/market/gateways",
-   "eg": {},
+   "eg": {
+    "scroll": [
+     "501px: <b style=\"display:block;font-size:.66rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#8A7355;padding:.55rem .7rem .2rem\">Marketplace</b>",
+     "501px: <a href=\"/admin/market/items\"><svg class=\"ak-svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M3 9 4.5 4h15L21 9\"></path><path d=\"M4 9v11h16V9\"></path><path d",
+     "395px: <span>Marketplace rules</span>"
+    ]
+   },
    "why": [
     [
      "scroll",
