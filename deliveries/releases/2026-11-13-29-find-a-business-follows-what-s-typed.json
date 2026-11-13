@@ -1,0 +1,39 @@
+{
+    "id": 29,
+    "title": "Find a business follows what's typed",
+    "why": "Jason, 2026-11-13: typing \"blue hills\" in Get Local's Find a business with St. Johns set left the plain 184 businesses, unfiltered. The box only searched on Search or Enter, and any redraw (choosing a place, Refine) put the old words back, so typed words were lost. Now, from 3 letters, the list updates by itself once typing pauses (Search or Enter at once), emptying the box shows everything again, and words typed but not yet searched are the ones the next search uses. decisions/0058 note of 2026-11-13. The server already applied the words; only website/directory/index.php changes, plus the FAQ. No database update.",
+    "proposals": "decisions/0058 note 2026-11-13 (Find a business follows what's typed)",
+    "zip": "typeahead_20261113.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "website/directory/index.php": {
+            "sha": "fe64c6637556c8ecdd158edb5b3e10658deca8bca77424e12ade124891431c28",
+            "size": 61477,
+            "live_was": "aef166d7f2ad8446d565d45113982fbda3c1055e128650507a17041f2d333ef9"
+        },
+        "app/ui/faq.md": {
+            "sha": "3f5543c5aab215075c9682eb73f24502a1662cc660b9961daa3fbf1249af7add",
+            "size": 276704,
+            "live_was": "c9e3eb6598edab10d785795841ebf0a5452e52419b2efb17ff24c7389f299fed"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-13T19:38:02+00:00",
+            "by": 0,
+            "msg": "Uploaded typeahead_20261113.zip: 2 files."
+        }
+    ]
+}
