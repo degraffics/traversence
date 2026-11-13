@@ -1,0 +1,49 @@
+{
+    "id": 35,
+    "title": "Pulse flood stopped: the crawler's own findings leave Support and Needs you",
+    "why": "Jason, 2026-11-13: 'NEEDS YOU 1232'. The crawler's own Review items (crawler-w2b's changed phones and hours, closings, live duplicates) showed in Pulse as 'From a visitor' Support items and counted in Needs you. They're the review checkers' work, not his.",
+    "proposals": "",
+    "zip": "pulseflood_20261113.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/ui/faq.md": {
+            "sha": "d94be61e23a46e944b4be93f92945f497b6916c205914291d514d9f7703d3f7c",
+            "size": 278605,
+            "live_was": "0b21c495c6676a1dd0dfcff2c4a524d89141da015200b6d5ae63909987f29b7c"
+        },
+        "app/lib/MemberPulse.php": {
+            "sha": "626f6d0d976b3a31194e182889485f08f9feb02d35603c5ea5e945e33c3f22e1",
+            "size": 19622,
+            "live_was": "e59b4828fa915b8f0163d9829d071a23aa8ecd61fd1a44af7f03ebe4d1366f83"
+        },
+        "app/lib/Suggestions.php": {
+            "sha": "eedc33cf2a26ba99379a72f6495cbe77548502f247ce9e052311d17d57f13d8b",
+            "size": 12552,
+            "live_was": "684d7d270fa3a513f73ef59e54f9544bd948c62cb2240ebe80a10b1277b7bb64"
+        },
+        "app/lib/Pulse.php": {
+            "sha": "915156703b60a8e871d53da59128dc8f243569f74a1d844f9f23eab9a7c3d4f2",
+            "size": 125583,
+            "live_was": "62ff420fc68a3320d634ec254d27a8c2fa41df9c23bc9771201ad0c77f86d81b"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-13T22:19:02+00:00",
+            "by": 0,
+            "msg": "Uploaded pulseflood_20261113.zip: 4 files."
+        }
+    ]
+}
