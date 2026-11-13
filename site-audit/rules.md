@@ -21,7 +21,7 @@ change.
 | R01 | Every method a file calls exists (a zip can't drop one still in use) | `CLAUDE.md` One copy; the 2026-11-05 `Engage::liked()` outage | yes |
 | R02 | No `alert()`, `confirm()`, `prompt()`; use `TvAsk` | `CLAUDE.md` No browser dialogs | yes |
 | R03 | Uploads only through `Uploads.php` and `/api/upload.php` | `CLAUDE.md` One uploader; decisions/0127 | yes |
-| R04 | No PHP the server can't run (`readonly`, `enum`, `never`, first-class callables, `array_is_list`, `json_validate`, typed constants, `new` in defaults) | `CLAUDE.md` The live server runs PHP 8.0 | yes |
+| R04 | No PHP the server can't run (`readonly`, `enum`, `never` on a function that can return (P8), first-class callables, `array_is_list`, `json_validate`, typed constants, `new` in defaults) | `CLAUDE.md` The live server runs PHP 8.0 | yes |
 | R05 | Pages load the session and draw the account bar | decisions/0055; the 2026-11-05 home page bug | no |
 | R06 | FAQ links point at questions that exist | `CLAUDE.md` Keep the FAQ current; decisions/0057 | yes |
 | R07 | Endpoints that change things check the security token (or a signature) | `app/lib/Response.php`; security | no |

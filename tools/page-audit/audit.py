@@ -154,7 +154,8 @@ PHP81 = [
     (r'^\s*enum\s+\w+', 'enum', (8, 1)),
     (r'\barray_is_list\s*\(', 'array_is_list()', (8, 1)),
     (r'\bjson_validate\s*\(', 'json_validate()', (8, 3)),
-    (r'\)\s*:\s*never\b', "the 'never' return type", (8, 1)),
+    # 'never' is checked on its own (never_returns): on 8.0 it's read as a class name, harmless on a function that always
+    # exits or throws (P8, Jason 2026-11-13)
     (r'(?<![\w$])\w+\(\.\.\.\)', 'first-class callable syntax', (8, 1)),
     (r'\bconst\s+(?:int|string|bool|float|array)\s+[A-Z_]+\s*=', 'typed class constants', (8, 3)),
     (r'function\s+\w+\s*\([^)]*=\s*new\s+\w+', "'new' in a parameter default", (8, 1)),
@@ -168,6 +169,11 @@ def server_php(docs):
     except Exception:
         return 8, 0
 def check_php80(files, findings, server=(8, 0)):
+    nevers = set()   # every function declared ': never': calling one ends a function as surely as exit
+    for path, src in files.items():
+        if path.endswith('.php'):
+            nevers |= set(re.findall(r'function\s+(\w+)\s*\([^)]*\)\s*:\s*never\b', src))
+    ends = r'\b(exit|die)\b|\bthrow\b' + (r'|\b(' + '|'.join(sorted(nevers)) + r')\s*\(' if nevers else '')
     for path, src in files.items():
         if not path.endswith('.php'):
             continue
@@ -176,7 +182,27 @@ def check_php80(files, findings, server=(8, 0)):
             if need <= server:
                 continue
             for m in re.finditer(pat, code, re.M):
+                if '//' in code[code.rfind('\n', 0, m.start()) + 1:m.start()]:
+                    continue   # in a line's trailing comment
                 find(findings, 'R04', path, line_of(code, m.start()), f'uses {what} (PHP {need[0]}.{need[1]}); the server runs PHP {server[0]}.{server[1]}')
+        if server < (8, 1):
+            for m in re.finditer(r'\)\s*:\s*never\s*\{', code):
+                body = block_after(code, m.end() - 1)
+                if not re.search(ends, body) or re.search(r'\breturn\s*[^;\s]', body):
+                    find(findings, 'R04', path, line_of(code, m.start()), "uses the 'never' return type on a function that can return (PHP 8.1); the server runs PHP 8.0")
+
+
+def block_after(code, i):
+    """The text of the { … } block starting at code[i] == '{' (strings aren't parsed: enough for a function body)."""
+    depth = 0
+    for j in range(i, len(code)):
+        if code[j] == '{':
+            depth += 1
+        elif code[j] == '}':
+            depth -= 1
+            if depth == 0:
+                return code[i:j + 1]
+    return code[i:]
 
 # ---- R05: pages load the session and the shell -------------------------------------------------------------------
 def is_page(path):
