@@ -308,3 +308,5 @@ the live books before). Customers leaves test orders out of its numbers (`custom
 twice a day, at 07:17 and 19:17 UTC (an hour after the scheduled syncs), instead of hourly. GitHub Actions' included
 minutes ran out on Nov 11 and the account's $0 Actions budget blocked every run (syncs included) until Jason set it to
 $10 a month; the zip check still runs the code checks before every delivery, and Run workflow runs the audit on demand.
+
+**Note (2026-11-13, decisions/0159):** the bar on staging becomes the site manager, where Upload puts a release straight on staging and Publish is the sign-off after a look. Phase 6 (deploy from git) is brought forward so that builds land on staging without uploads.

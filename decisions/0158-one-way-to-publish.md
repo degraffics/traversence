@@ -74,3 +74,5 @@ Each is a release (0145 note, 2026-11-13), tried on staging first.
 - A business never shows half-finished work, and can always go back.
 - Who may publish is set once per role, by the owner; there's no queue of approvals.
 - One bar to learn, for our team and for businesses.
+
+**Note (2026-11-13, decisions/0159):** the shared core (blocks, versions, the bar) and Storefront Studio as the listings level of one builder.

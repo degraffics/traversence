@@ -152,3 +152,5 @@ link and **Check again**; the 15-minute domains job re-checks, so buying reopens
 the sandbox refuses to sell, so no real charge is ever made for a sandbox domain.
 
 **Note (2026-11-13, decisions/0158):** storefront changes become drafts until Publish, with versions and Roll back, and the staging bar on the team's preview. Publish is the team role's `publish` permission. Scheduling waits for Jason.
+
+**Note (2026-11-13, decisions/0159):** storefront pages are built in Storefront Studio (blocks, themes, the team's Publish) and stay script-free on trvgo.us.

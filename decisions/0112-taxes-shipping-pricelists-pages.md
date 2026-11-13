@@ -98,3 +98,5 @@ list. Each tool is ours today (owner 0) and is scoped to a business by the busin
   `ErrorDocument 404 /website/_errors/404.php`, next to the 403 page's. Added 2026-10-23 to Jason's live file.
 - **Other pages:** pages that say "not found" themselves (listings, journeys, guides) can switch to `tv_not_found()`
   as they're next changed.
+
+**Note (2026-11-13, decisions/0159):** `SitePages` becomes block-based for our pages and businesses' storefronts (Storefront Studio). Each existing page keeps its Markdown as a text block.
