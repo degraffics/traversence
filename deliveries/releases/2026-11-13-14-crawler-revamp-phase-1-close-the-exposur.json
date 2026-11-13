@@ -1,0 +1,69 @@
+{
+    "id": 14,
+    "title": "Crawler revamp, Phase 1: close the exposure",
+    "why": "Some public results skipped the rules on protected places, tribal nations' land and confidential addresses (review A1-A4). 'Named on pages we read' now gets the listings' guards: a sacred, burial or archaeological place shows only when it's plainly open to visitors; on a nation's land only businesses show, with the nation's name; a shelter's address is never shown; a name that reads as a person's is held. Held places are kept and marked (source_facts.held), never deleted, and never staged as finds. The protected-place check always knows the nations' peoples, and heritage facts tiered before that are re-tiered by the heritage tick. The OpenStreetMap layer gets the nations check (a trailhead or viewpoint on a nation's land waits for the nation; a business there shows with its rules). Guides follow decisions/0133's levels: a place a nation closed, our team hid, or a person held is never named; a place only a public source names is named as plain text, never the way in.",
+    "proposals": "handoffs/crawler-revamp.md Phase 1, research/crawler-review-2026-11-13.md A1, A2, A3, A4",
+    "zip": "crawler-phase1_20261113.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/ui/faq.md": {
+            "sha": "073886f773ac7cf07fe8f660ec86973db03ec6039ed5c3bd3762b6f4b0ebd08b",
+            "size": 268917,
+            "live_was": "ef48509c3421fa261d10f945d69aef03e3d0ed827caca596cb7355e8e4d1fc1c"
+        },
+        "app/scripts/heritage_tick.php": {
+            "sha": "85285fbcef519dc42a5e59263bb09eef30f1be9214cd22f646ead24f70239d42",
+            "size": 1755,
+            "live_was": "2bdcd93766204beea6ed3a1ed3b1e15d2269cbeab96cc0dafa7933762463a52e"
+        },
+        "app/lib/GuideLinks.php": {
+            "sha": "b4a3c883398cee4358498f505f2af57cdf8e3c4d405f43ddc04a4d5c609019a2",
+            "size": 53946,
+            "live_was": "e3563dde50004faf44a878ca6ba8e9b9abc1ff9a54fe6d54787689ce248f7787"
+        },
+        "app/lib/Heritage.php": {
+            "sha": "d36e1aa3f39f92287b8c68a6332511df45ad38fe5529ef7c45c674061e4fc6d9",
+            "size": 35546,
+            "live_was": "616fb8116e097153fcc287aedeaf303976026f313968bab31a68244975a9f083"
+        },
+        "app/lib/crawler/SourceIndex.php": {
+            "sha": "411fb384fbed76699f0cd87f67176430ded9675066f071a966dc65ecbda65bde",
+            "size": 58686,
+            "live_was": "efa43e5cf770f9863b144d906ee3f3960358efa7a435ffe7ed1ecae84ca03b08"
+        },
+        "app/lib/OpenPlaces.php": {
+            "sha": "cd03ac20f1fffaa4dcae01a50e65d243af5be235b3aab196c73d9ee96e124f87",
+            "size": 20820,
+            "live_was": "333a22e58ee84a7c1b76330d43785fb22373d52f08bd758205044d2f285dbbbc"
+        },
+        "app/lib/Landmarks.php": {
+            "sha": "9ed7d109969ca75713140583bde35a291d5584b70be174544331c514d931827a",
+            "size": 55007,
+            "live_was": "8bcf95c0f602f5f1403520a1445e6c3e7d1b3b5c944f3ac545477b1a2725783e"
+        },
+        "website/js/search-panel.js": {
+            "sha": "6dc87de4451a619252aa5493a85ac832939e9a8611ff111d27dda19d2216e220",
+            "size": 133229,
+            "live_was": "ec76bb5399dbc728e3d497bba3e826fd9323eaef10ee5b68a2d00973c515820c"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-13T15:38:02+00:00",
+            "by": 0,
+            "msg": "Uploaded crawler-phase1_20261113.zip: 8 files."
+        }
+    ]
+}
