@@ -1,0 +1,34 @@
+{
+    "id": 2,
+    "title": "Staging: the site checks the viewing password itself, so Open staging needs no prompt",
+    "why": "Open on staging still met the password prompt: staging's web server took neither rule for the pass (Require expr, then SetEnvIf). Staging's PHP now runs its guard before every script (.user.ini auto_prepend_file) and is the gate: the same password prompt for anyone else, the pass for those who come in from the live admin. A self-test checks both sides and puts the web server's password back if a page opens without it.",
+    "proposals": "Phase 5",
+    "zip": "stagingguard_20261113.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/lib/StagingSite.php": {
+            "sha": "04e8daf212909d24ca30636a5b07660747f0871c769008cd90751653d3bee211",
+            "size": 81058,
+            "live_was": "72813570dabd4a9b4c62fe4f7f476e42e6f7bc36e78b48f2c2f576505dfc4a2f"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-13T12:55:42+00:00",
+            "by": 2,
+            "msg": "Uploaded stagingguard_20261113.zip: 1 files."
+        }
+    ]
+}
