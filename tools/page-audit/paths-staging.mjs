@@ -127,12 +127,12 @@ export function stagingRunners(k) {
       const sj = (guides()[0]?.journeys || [])[0];
       if (!sj) { w.stuck = 'no suggested journey to tap the 101st like on'; return; }
       const site = w.site; const made = [];
-      // likes don't check that the item exists (Engage::target only checks the id's shape): landmarks from a high
-      // range nobody has, so nothing real is liked, and each is unliked after
+      // public recreation places (kind rec, by Recreation.gov's id): their ids are taken by shape, so test ids touch
+      // nothing real (since P11 a landmark, journey or guide must exist to be liked); each is unliked after
       let n = 0;
       for (let i = 0; n < 100 && i < 130; i++) {
-        const ref = String(990000000 + i);
-        const r = await api(page, site, '/api/engage.php', { action: 'like', kind: 'lm', ref });
+        const ref = 'pathcheck-' + i;
+        const r = await api(page, site, '/api/engage.php', { action: 'like', kind: 'rec', ref });
         if (r.ok && r.liked) { made.push(ref); n++; }
         else if (r.status === 429) break;   // today's 100 reached already
         else if (r.status === 428) { w.note(`the human check stopped the likes at ${n} (the pace checks, LikeGuard)`); break; }
@@ -148,7 +148,7 @@ export function stagingRunners(k) {
       else { await w.tap(more, 'Keep liking', { wait: 15000 }); await page.waitForTimeout(4000); w.goal = (await like.getAttribute('aria-pressed')) === 'true'; if (!w.goal) w.add('dead_end', 'J01', w.here(), 'after Keep liking, the 101st like didn\'t take'); }
       // clean up: every like unliked (they don't count for a test account either way)
       if (w.goal) await like.click().catch(() => {});
-      for (const ref of made) await api(page, site, '/api/engage.php', { action: 'like', kind: 'lm', ref }).catch(() => {});
+      for (const ref of made) await api(page, site, '/api/engage.php', { action: 'like', kind: 'rec', ref }).catch(() => {});
     },
 
     // ---- Claim my business: a listing → Claim → the emailed code (held mail) → where the claim stands → withdrawn after
@@ -292,7 +292,7 @@ export function stagingRunners(k) {
         const said = ((await f.locator('body').innerText().catch(() => '')) || '');
         w.goal = /\bDone\./.test(said);
         if (!w.goal) w.add('dead_end', 'J01', w.here(), 'Dismiss didn\'t say done');
-        if (w.goal && !/data-tv-flash/.test(await f.locator('body').innerHTML().catch(() => ''))) w.add('surprise', 'R03', '/admin/reports.php', 'the decision\'s answer is plain colored text, not the site\'s notice (data-tv-flash)');
+        if (w.goal && !/data-tv-flash|tv-note/.test(await f.locator('body').innerHTML().catch(() => ''))) w.add('surprise', 'R03', '/admin/reports.php', 'the decision\'s answer is plain colored text, not the site\'s notice (data-tv-flash)');
         await page.goto(w.site + '/admin/dashboard/stream', { waitUntil: 'load' }).catch(() => {});
         if (await page.locator('.ps-row[data-key^="report:"]', { hasText: /market/i }).first().isVisible().catch(() => false)) w.note('a report case for a Marketplace post is still listed after the decision (it may be another report)');
       } finally { await takeDown(cp, w.site, id); await cp.close().catch(() => {}); await mp.close().catch(() => {}); }
@@ -309,7 +309,7 @@ export function stagingRunners(k) {
           const a = await as('guest-seed-' + i, 'staging');
           if (a.error) break;
           const gp = await a.ctx.newPage();
-          await api(gp, w.site, '/api/engage.php', { action: 'like', kind: 'lm', ref: '990009999' }).catch(() => {});
+          await api(gp, w.site, '/api/engage.php', { action: 'like', kind: 'rec', ref: 'pathcheck-seed' }).catch(() => {});
           await gp.close().catch(() => {});
         }
         w.skip = 'no like check waiting: three guest likes on a test item were made, so the hourly Like checks job opens one for the next run';
