@@ -51,7 +51,7 @@ The site's code isn't here. It runs on the server and in OneDrive, and its live 
 | File | What it is |
 |---|---|
 | `workflow.md` | How the documentation is governed and kept |
-| `research/` | Research notes: `state-tourism-apis.md` (2026-11-12): each state tourism office's listings and events data, any API or feed, and its terms |
+| `research/` | Research notes: `state-tourism-apis.md` (2026-11-12): each state tourism office's listings and events data, any API or feed, and its terms; `crawler-review-2026-11-13.md`: the crawler start to finish, why it misses, the fixes in order |
 | `site-audit/` | The site audit and phased releases (decisions/0145): phases, punch list, rules, scorecard, page tree, paths, page map, proposals |
 | `tools/page-audit/` | The audit's code checks, the zip check (it also blocks a zip that drops earlier work) and the delivery log (twice a day, `.github/workflows/site-audit.yml`), the browser checks and the paths (`rendered.mjs`, `paths.mjs`, sharing `check-kit.mjs`; daily, `site-checks.yml`), the findings for Pulse's Site health and the page map (`findings.py`, `page-map.py`), routes against the page tree (`routes-check.py`), the decisions for the admin's search and its Decisions page (`decisions-index.py`), the review's inputs (`review.py`), and the search probe and the phone layout probe (`search-probe.mjs`, `layout-probe.mjs`, daily, `search-probe.yml`) |
 | `.claude/skills/page-review/` | The page review (Phase 4): findings to verdicts and proposals in `site-audit/proposals.md` |
