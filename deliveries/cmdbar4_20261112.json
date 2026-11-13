@@ -1,0 +1,19 @@
+{
+ "zip": "cmdbar4_20261112.zip",
+ "built_on": "d3e8f77 Sync: 2026-11-12 15:52 UTC",
+ "recorded": "2026-11-12 15:53 UTC",
+ "note": "Admin: the command bar measures and closes any gap above it once the page is drawn; the admin opens with the left rail collapsed (\u00bb opens it)",
+ "status": "replaced",
+ "live_in": "",
+ "files": {
+  "app/ui/app-shell.php": {
+   "sha256": "31d99da5ca3a3f3b23855559f0c41b959e063a7317db07e077a6798092c4208a",
+   "live": false
+  },
+  "website/admin/router.php": {
+   "sha256": "4827ac2e239ac32c2143757fd7d4f9ea2b0918b85ea1e4155cb876f2e0381f5b",
+   "live": false
+  }
+ },
+ "replaced_by": "cmdbar5_20261112"
+}

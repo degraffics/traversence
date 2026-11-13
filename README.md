@@ -14,7 +14,7 @@ The site's code isn't here. It runs on the server and in OneDrive, and its live 
 | `prd.md` | Functional spec and feature roadmap |
 | `architecture.md` | System architecture and operational spec (living) |
 | `traversence-platform-spec.md` | The live master technical spec: an append-only phase log |
-| `decisions/` | Architecture Decision Records, numbered `0001`–`0156`. A newer decision can replace an older one. |
+| `decisions/` | Architecture Decision Records, numbered `0001`–`0157`. A newer decision can replace an older one. |
 
 ## Business and brand
 
@@ -51,8 +51,9 @@ The site's code isn't here. It runs on the server and in OneDrive, and its live 
 | File | What it is |
 |---|---|
 | `workflow.md` | How the documentation is governed and kept |
+| `research/` | Research notes: `state-tourism-apis.md` (2026-11-12): each state tourism office's listings and events data, any API or feed, and its terms |
 | `site-audit/` | The site audit and phased releases (decisions/0145): phases, punch list, rules, scorecard, page tree, paths, page map, proposals |
-| `tools/page-audit/` | The audit's code checks, the zip check (it also blocks a zip that drops earlier work) and the delivery log (twice a day, `.github/workflows/site-audit.yml`), the browser checks and the paths (`rendered.mjs`, `paths.mjs`, sharing `check-kit.mjs`; daily, `site-checks.yml`), the findings for Pulse's Site health and the page map (`findings.py`, `page-map.py`), the review's inputs (`review.py`), and the search probe and the phone layout probe (`search-probe.mjs`, `layout-probe.mjs`, daily, `search-probe.yml`) |
+| `tools/page-audit/` | The audit's code checks, the zip check (it also blocks a zip that drops earlier work) and the delivery log (twice a day, `.github/workflows/site-audit.yml`), the browser checks and the paths (`rendered.mjs`, `paths.mjs`, sharing `check-kit.mjs`; daily, `site-checks.yml`), the findings for Pulse's Site health and the page map (`findings.py`, `page-map.py`), the decisions for the admin's search and its Decisions page (`decisions-index.py`), the review's inputs (`review.py`), and the search probe and the phone layout probe (`search-probe.mjs`, `layout-probe.mjs`, daily, `search-probe.yml`) |
 | `.claude/skills/page-review/` | The page review (Phase 4): findings to verdicts and proposals in `site-audit/proposals.md` |
 | `deliveries/` | Every zip and whether each file reached the live site (generated) |
 | `CLAUDE.md` | Rules every Claude session follows (loaded automatically) |

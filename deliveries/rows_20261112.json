@@ -1,0 +1,42 @@
+{
+ "zip": "rows_20261112.zip",
+ "built_on": "0995678 Sync: 2026-11-12 18:02 UTC",
+ "recorded": "2026-11-12 18:40 UTC",
+ "note": "Jason's review of the batch (2026-11-12): pages of cards round up to whole rows; Let's Explore's main column stays in its 2/3 (it ran under the Trip Planner); map Exit no longer lands on the bare map page; Auto-detect's town shown by name in the place label and Let's Explore (?town=); directory tools in a row; the forecast has its own Close.",
+ "status": "live",
+ "live_in": "381d4e7 Sync: 2026-11-12 19:03 UTC",
+ "files": {
+  "app/ui/faq.md": {
+   "sha256": "db514352649cdb97cb98f93e6be3bdeb86e5da90aa59da66533cdb6e6c96622f",
+   "live": true
+  },
+  "website/api/journeys.php": {
+   "sha256": "2b72b4ced4d9682801882e4b6e040ff8393abd95a82afdb8f3b8e584d61e913e",
+   "live": true
+  },
+  "website/directory/index.php": {
+   "sha256": "265939d5e04846d39ef9deb0f94d5ea96670b1e9786f99144e5ffde46845d10c",
+   "live": true
+  },
+  "website/discovery/index.php": {
+   "sha256": "0a9389602eacf62396d5b48603c072c21080dd2921749e7832ce58b6f737ed89",
+   "live": true
+  },
+  "website/hub/index.php": {
+   "sha256": "45441c34290c5a063d3b77de694cb99f7678b621417772b6ea305faa59a39988",
+   "live": true
+  },
+  "website/js/location-scope.js": {
+   "sha256": "3af2c79cb37410cb1cd6ac2abf66dc32656a84281a5c3cb13458858819d39b2a",
+   "live": true
+  },
+  "website/js/tv-pager.js": {
+   "sha256": "8559d1a12cdd7823aca17ecb188cfbeed3e43975b6380f72f53528aca6f99526",
+   "live": true
+  },
+  "website/market/index.php": {
+   "sha256": "d544e51f44c73da8556c997a3c004787095245e3e0d2504b5bce857d1448c400",
+   "live": true
+  }
+ }
+}

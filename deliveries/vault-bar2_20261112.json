@@ -1,0 +1,22 @@
+{
+ "zip": "vault-bar2_20261112.zip",
+ "built_on": "3e98079 Sync: 2026-11-12 13:35 UTC",
+ "recorded": "2026-11-12 13:47 UTC",
+ "note": "Replaces vault-bar (not uploaded): the same, plus logins in one column, red hover on Close and Lock, an open padlock that shows shut on hover, a clearer Lock question",
+ "status": "live",
+ "live_in": "6dbeeea Sync: 2026-11-12 14:03 UTC",
+ "files": {
+  "app/ui/faq.md": {
+   "sha256": "48465afff74faa31409438019c53fa4a5c7648b05eb4a990410108b24b3ee7c8",
+   "live": true
+  },
+  "app/ui/vault.php": {
+   "sha256": "cedf074d943b86e070afef6924b2be368f8dfda8767b87ebf637df7e6c05046a",
+   "live": true
+  },
+  "website/js/tv-vault.js": {
+   "sha256": "df7bae650d1d5d0a770a87217f9e168b946ca65da7e0eb3049b67a98808a704e",
+   "live": true
+  }
+ }
+}

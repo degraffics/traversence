@@ -171,3 +171,20 @@ passkey prompt hints at this device (Windows Hello, Touch ID) for the first pass
 spare; passkey requests last 5 minutes; and Unlock, which read the wrong box after the setup rework, is fixed.
 
 **Note (2026-11-11, Jason: "table the remaining vault builds"):** tabled after stage 1's zip 1, the extension (0.1.6), import and clean-up. Zip 2 (one-time page and code seal, location signals, rate limits, the yearly reminder), linking the vault to Outside services' sign-in line, the Edge check and the Web Store listing wait until Jason picks them up again.
+
+**Note (2026-11-12, Jason: "control what gets emailed and how often"):** every reveal is no longer always emailed at
+once. The vault's **Emails** panel sets, for passwords opened, logins the extension saved, the extension connected and
+an unlock after a lock: each time (the default, as before), an hourly or daily summary (`vault_digest_tick`, only when
+something happened, never naming a login: the server can't read names), or not emailed (still in the record). Devices,
+recovery words, the authenticator app, a lock, many deletes and changes to these settings are always emailed at once,
+and can't be turned down. Same day: the page is kept open across a reload of the same tab, within its open time (the
+key sealed in that tab's sessionStorage under a non-extractable IndexedDB key, dropped on Close, Lock and the idle close).
+
+**Note (2026-11-12, Jason: "three buttons, log in with 1, 2 or 3"):** the vault opens three ways. **1** the passphrase
+(and the passkey, as before). **2** the authenticator app's code, then this device's passkey. **3** a code emailed to
+the email on the account (never shown), then this device's passkey. For 2 and 3 the key comes from a copy sealed by the
+passkey's own secret (PRF, HKDF info `tv-vault-pin-v1`, `vault_creds.pin_slot`), which the server hands over only after
+the code checks out in the last 10 minutes, once. The codes are ours, so they only gate; the passkey's secret, which we
+never see, is what opens. A device gets its PIN copy the first time the vault opens there with the passphrase (announced
+by email, turned off under Devices); adding devices, giving a device the key and recovery still need the passphrase or
+the recovery words. Each opening is logged and emailed as the owner chooses ("Vault opened" in Emails).

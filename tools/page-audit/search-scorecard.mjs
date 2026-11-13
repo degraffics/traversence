@@ -12,6 +12,7 @@ const PHX = 'city=Phoenix&state=AZ&reach=25';
 const PHXME = 'city=Phoenix&state=AZ&reach=10';
 const SL = 'city=Show Low&state=AZ&reach=25';
 const GLN = 'zip=85302&reach=25';
+const SJ = 'city=Saint Johns&state=AZ&reach=25';
 const FAST = 600, FAST_TYPING = 300;   // ms: a search answers inside FAST, a suggestion inside FAST_TYPING
 
 // Checks (all optional): place /re/ the place read; noPlace true: none read; lead /re/ one of the first `top` (default 5)
@@ -94,6 +95,16 @@ const CASES = [
   ['Names', 'Camelback Mountain', '', { lead: /Camelback/, top: 1 }],
   ['Names', 'Harbor Freight', SL, { lead: /Harbor Freight/, top: 1 }],
   ['Names', 'walmart', SL, { lead: /walmart/i, top: 3 }],
+  // Our own index: decisions/0157's test set (Jason, 2026-11-12/13: "garbage" near St. Johns found nothing though Blue
+  // Hills Environmental and the county landfill are blocks away). A change to reading pages or searches ships only when
+  // these hold; each new slip found is added here.
+  ['Our index', 'garbage', SJ, { lead: /Blue Hills|landfill|garbage|trash|waste|refuse/i, top: 5 }],
+  ['Our index', 'trash collection', SJ, { lead: /Blue Hills|landfill|garbage|trash|waste|refuse/i, top: 5 }],
+  ['Our index', 'garabe', SJ, { dym: /garbage/ }],
+  ['Our index', 'places to shoot', SJ, { lead: /range|shoot|gun|rifle|firearm/i, never: /vaccin|immuniz|photo/i, top: 3 }],
+  ['Our index', 'places to stay', SJ, { lead: /lodg|hotel|motel|inn|rv|camp|cabin/i, never: /topic/, top: 3 }],
+  ['Our index', 'lunch', SJ, { lead: /restaurant|food|cafe|diner|grill|pizza|burger|mexican/i, top: 3 }],
+  ['Our index', 'Besh-Ba-Gowah', '', { lead: /Besh-?Ba-?Gowah/i, top: 2 }],
 ];
 
 // as someone types: the first rows of the suggestions

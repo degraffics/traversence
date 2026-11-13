@@ -1,0 +1,30 @@
+{
+ "zip": "lists_20261112.zip",
+ "built_on": "9319549 Sync: 2026-11-12 16:16 UTC",
+ "recorded": "2026-11-12 16:23 UTC",
+ "note": "Admin lists to the standard: + beside the search, sortable column names, Columns to show or hide them, so many a page (10/25/50/100), Show more and a page bar; record pages' command strip in the command bar's look (sage, orange Back, peach tab), under the header and account bar",
+ "status": "live",
+ "live_in": "13cf540 Sync: 2026-11-12 16:30 UTC",
+ "files": {
+  "app/admin/kit-css.php": {
+   "sha256": "d6ab1c4da53d79ebb40134ff15b90b02d86b7baf6dbb7ccfa5c0ca87c4e15629",
+   "live": true
+  },
+  "app/admin/tools.php": {
+   "sha256": "ab9c66214d065e4a4e68891a07ebc83c717cde6d47f017045627393ac82643ee",
+   "live": true
+  },
+  "app/ui/command-strip.php": {
+   "sha256": "ac804431c7ed6ca57a3f588558bec3ce06c35604415f21fe37cb8069028f81ca",
+   "live": true
+  },
+  "website/admin/api.php": {
+   "sha256": "0e02ce81a94d4b8abf6d280b00c28220afcf230a649bcd33d20f52d6b6311881",
+   "live": true
+  },
+  "website/js/admin-kit.js": {
+   "sha256": "cbbcd8873489dbd8a900911f088df4202b132e900805cd5369e00ad85156f387",
+   "live": true
+  }
+ }
+}

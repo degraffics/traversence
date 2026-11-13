@@ -1,6 +1,6 @@
 # Decision register
 
-Decision 0145 §1a. Generated on 2026-11-11 18:40 UTC from `decisions/` and the live mirror (`526a164`). Don't edit by hand:
+Decision 0145 §1a. Generated on 2026-11-13 00:25 UTC from `decisions/` and the live mirror (`8cdbf8b`). Don't edit by hand:
 edit the decision, and this follows. "Missing files" are files a decision names that the site no longer has: the
 decision may be stale, or the file moved.
 
@@ -50,7 +50,7 @@ decision may be stale, or the file moved.
 | 0042 | [Five-Tier Geographic Taxonomy, Anchor Resolution, and Density-Based Auto-Seeding](0042-five-tier-taxonomy-anchor-resolution-and-density-clustering.md) | accepted |  |  | 0 |  |
 | 0043 | [A Discovery Guide at Every Level of the Place Taxonomy](0043-discovery-guides-at-every-taxonomy-level.md) | accepted | 0133 |  | 0 |  |
 | 0044 | [Confidence-Gated Auto-Import of Directory Listings](0044-confidence-gated-auto-import-of-directory-listings.md) | accepted | 0133 |  | 0 |  |
-| 0045 | [Our Own Reference Index and Source-First Crawling](0045-own-reference-index-and-source-first-crawling.md) | accepted | 0133 |  | 0 |  |
+| 0045 | [Our Own Reference Index and Source-First Crawling](0045-own-reference-index-and-source-first-crawling.md) | accepted | 0133 | 1 | 0 |  |
 | 0046 | [Admin → Crawler Workspace and Icon-Rail Navigation](0046-admin-crawler-workspace-and-icon-rail.md) | accepted |  |  | 0 |  |
 | 0047 | [Connection Points, the Address Book, and the Account Hub](0047-connection-points-and-address-book.md) | accepted | 0052 |  | 0 |  |
 | 0048 | [Continental Data Plan](0048-continental-data-plan.md) | proposed | 0133 |  | 2 |  |
@@ -60,10 +60,10 @@ decision may be stale, or the file moved.
 | 0052 | [One Messaging System, Open Links, and the Private Address Book](0052-one-messaging-system-open-links-private-address-book.md) | replaced |  |  | 0 |  |
 | 0053 | [Universal Search, In Place](0053-universal-search-in-place.md) | accepted |  |  | 0 |  |
 | 0054 | [The Nexus — Organizations With Many Locations](0054-nexus-organizations-with-many-locations.md) | accepted | 0133 |  | 3 |  |
-| 0055 | [App Shell, Dashboards and Roles](0055-app-shell-dashboards-and-roles.md) | accepted |  | 1 | 8 |  |
+| 0055 | [App Shell, Dashboards and Roles](0055-app-shell-dashboards-and-roles.md) | accepted |  | 2 | 8 |  |
 | 0056 | [Journeys, Contributors and the Six-Tier Discovery Funnel](0056-journeys-contributors-and-the-six-tier-funnel.md) | accepted |  |  | 0 |  |
 | 0057 | [The FAQ Grows With Every Build](0057-faq-grows-with-every-build.md) | accepted |  |  | 1 | `website/includes/faq.md` |
-| 0058 | [Public Profiles, Journey Management, and Adult Accounts](0058-public-profiles-journey-management-and-adult-accounts.md) | accepted |  | 4 | 0 |  |
+| 0058 | [Public Profiles, Journey Management, and Adult Accounts](0058-public-profiles-journey-management-and-adult-accounts.md) | accepted |  | 7 | 0 |  |
 | 0059 | [Experiences](0059-experiences.md) | accepted |  |  | 0 |  |
 | 0060 | [0060: Search & Suggestion Architecture](0060-search-and-suggestion-architecture.md) | accepted |  | 1 | 0 |  |
 | 0061 | [0061: Situations: an intent map, the Chameleon Filter as router, and search that learns](0061-situations-intent-map-and-learning-search.md) | accepted | 0133 |  | 0 |  |
@@ -71,7 +71,7 @@ decision may be stale, or the file moved.
 | 0063 | [0063: Lexicon and syntax: how search reads each word, and how a person corrects it](0063-lexicon-syntax-and-the-workbench.md) | accepted |  |  | 0 |  |
 | 0064 | [0064: Search learns words on its own; people have access and control, not chores](0064-search-learns-words-on-its-own.md) | accepted |  | 3 | 0 |  |
 | 0065 | [0065. OpenStreetMap businesses where we have no listings yet](0065-openstreetmap-businesses-outside-our-regions.md) | accepted | 0133 |  | 0 |  |
-| 0066 | [0066. Public data, the Discovery funnel, and expansion that grows on its own](0066-public-data-funnel-and-organic-expansion.md) | accepted | 0133 |  | 0 |  |
+| 0066 | [0066. Public data, the Discovery funnel, and expansion that grows on its own](0066-public-data-funnel-and-organic-expansion.md) | accepted | 0133 | 1 | 0 |  |
 | 0067 | [0067. What words mean: from a word to the kinds of place that serve it](0067-what-words-mean-concepts.md) | accepted | 0133 | 1 | 0 |  |
 | 0068 | [0068. Plain names for categories](0068-plain-names-for-categories.md) | accepted |  |  | 0 |  |
 | 0069 | [0069. Frontend and backend folders: website/ and app/](0069-frontend-and-backend-folders.md) | accepted |  |  | 4 |  |
@@ -114,7 +114,7 @@ decision may be stale, or the file moved.
 | 0106 | [0106: Vendor orders and jobs, margin](0106-vendor-orders.md) | accepted |  |  | 1 |  |
 | 0107 | [0107: The item panel, proof versions with several files, and item statuses from the vendor](0107-item-panel.md) | accepted |  |  | 1 |  |
 | 0108 | [0108: Sales & Growth: the merchant funnel, AI Assist credits, OCR, promotions, plans and onboarding](0108-sales-and-growth.md) | accepted |  |  | 5 |  |
-| 0109 | [0109: The admin rebuilt: modules, sections, widgets and workflows](0109-admin-engine.md) | accepted |  |  | 4 |  |
+| 0109 | [0109: The admin rebuilt: modules, sections, widgets and workflows](0109-admin-engine.md) | accepted |  | 1 | 4 |  |
 | 0110 | [0110: Data separation: three realms (member, business, admin), walls in the database, not only in the code](0110-data-separation.md) | accepted |  |  | 0 |  |
 | 0111 | [0111: Customers (CRM), built in our admin first](0111-customers-crm.md) | accepted |  |  | 0 |  |
 | 0112 | [0112: Taxes and shipping, price lists, and Storefront & pages, built in our admin first](0112-taxes-shipping-pricelists-pages.md) | accepted |  |  | 2 | `website/_errors/404.php` |
@@ -134,11 +134,11 @@ decision may be stale, or the file moved.
 | 0126 | [0126: The gallery, one module for every photo and video](0126-gallery.md) | accepted |  |  | 4 |  |
 | 0127 | [0127: One uploader for every file](0127-one-uploader.md) | accepted |  |  | 4 |  |
 | 0128 | [0128: QuickBooks invoices into Traversence orders, and one product list across both](0128-quickbooks-invoices-and-products.md) | accepted |  |  | 4 |  |
-| 0129 | [0129: The command strip on record pages, and section controls](0129-command-strip.md) | accepted |  |  | 1 |  |
+| 0129 | [0129: The command strip on record pages, and section controls](0129-command-strip.md) | accepted |  | 1 | 1 |  |
 | 0130 | [0130: The catalog model, and how it maps to the books](0130-catalog-model-and-books-mapping.md) | accepted |  |  | 0 |  |
 | 0131 | [Place Guides on the Six-Tier Funnel](0131-place-guides.md) | accepted | 0133 | 1 | 5 |  |
 | 0132 | [Tags and Links — What Content Is About, and Who It Reaches](0132-tags-and-links.md) | accepted |  |  | 3 |  |
-| 0133 | [The Intelligence & Publishing Engine (the crawler's one rule book)](0133-the-intelligence-and-publishing-engine.md) | accepted |  | 1 | 0 |  |
+| 0133 | [The Intelligence & Publishing Engine (the crawler's one rule book)](0133-the-intelligence-and-publishing-engine.md) | accepted |  | 2 | 0 |  |
 | 0134 | [Events, One Tool for the Whole Site](0134-events.md) | accepted |  |  | 0 |  |
 | 0135 | [The Marketplace and Storefronts (the one record)](0135-marketplace-and-storefronts.md) | accepted |  |  | 11 |  |
 | 0136 | [Topic Groups, Chapters, and the Places a Group Is About](0136-topic-groups-and-chapters.md) | accepted |  |  | 7 |  |
@@ -150,7 +150,7 @@ decision may be stale, or the file moved.
 | 0142 | [Terms, Store Policies and the Acceptance Log](0142-terms-policies-and-acceptance-log.md) | proposed |  |  | 3 |  |
 | 0143 | [The Stock Library: a System Repository of Non-User Photos](0143-stock-library.md) | accepted |  | 1 | 35 |  |
 | 0144 | [Word Suggestions and the List ⓘ](0144-word-suggestions-and-list-help.md) | accepted |  |  | 3 |  |
-| 0145 | [The Site Audit and Phased Releases](0145-site-audit-and-phased-releases.md) | accepted |  |  | 1 |  |
+| 0145 | [The Site Audit and Phased Releases](0145-site-audit-and-phased-releases.md) | accepted |  | 1 | 1 |  |
 | 0146 | [Suggested Journeys from Guides](0146-suggested-journeys-from-guides.md) | accepted |  |  | 2 |  |
 | 0147 | [Guides and Journeys on Demand](0147-guides-and-journeys-on-demand.md) | accepted |  |  | 0 |  |
 | 0148 | [Places on Demand](0148-places-on-demand.md) | accepted |  |  | 0 |  |
@@ -158,7 +158,8 @@ decision may be stale, or the file moved.
 | 0150 | [Vendor links (one page of a vendor's work orders, 30 days)](0150-vendor-links.md) | accepted |  |  | 9 |  |
 | 0151 | [Files on Cloudflare R2 (no charge when people view or play them)](0151-files-on-cloudflare-r2.md) | accepted |  |  | 1 |  |
 | 0152 | [Outside services, one card per company; Settings rebuilt in the new admin](0152-outside-services-by-company.md) | accepted |  | 3 | 1 |  |
-| 0153 | [Moments, Snaps and Keep (the personal feed)](0153-moments-snaps-and-keep.md) | accepted |  |  | 6 |  |
-| 0154 | [Free, Creator and Business: Who Pays for What, and How Upgrades Are Offered](0154-free-creator-and-business-balance.md) | accepted |  | 1 | 0 |  |
-| 0155 | [Add-ons (plug-in modules) and 1Password, resold and managed from our site](0155-add-ons-and-1password.md) | proposed |  | 1 | 0 |  |
-| 0156 | [The Vault: passwords only their owner can open](0156-the-vault.md) | accepted |  |  | 0 |  |
+| 0153 | [Moments, Snaps and Keep (the personal feed)](0153-moments-snaps-and-keep.md) | accepted |  |  | 9 |  |
+| 0154 | [Free, Creator and Business: Who Pays for What, and How Upgrades Are Offered](0154-free-creator-and-business-balance.md) | accepted |  | 1 | 6 |  |
+| 0155 | [Add-ons (plug-in modules) and 1Password, resold and managed from our site](0155-add-ons-and-1password.md) | proposed |  | 2 | 0 |  |
+| 0156 | [The Vault: passwords only their owner can open](0156-the-vault.md) | accepted |  | 6 | 2 |  |
+| 0157 | [Our own index: reading pages and reading searches](0157-our-own-index-reading-pages-and-searches.md) | proposed |  |  | 0 |  |

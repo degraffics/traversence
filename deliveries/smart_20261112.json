@@ -1,0 +1,30 @@
+{
+ "zip": "smart_20261112.zip",
+ "built_on": "0d835f8 Sync: 2026-11-12 22:09 UTC",
+ "recorded": "2026-11-12 22:12 UTC",
+ "note": "Directory search reads as the site's (meaning, spelling offers; decisions/0064), closed listings as 0072, the place button with the target; the admin search and Crawler sources take a web address or 'www.' domain as its bare domain (Jason: www.visitarizona.com found nothing). Replaces placetgt's two files that didn't land.",
+ "status": "live",
+ "live_in": "76c96e7 Sync: 2026-11-12 22:15 UTC",
+ "files": {
+  "app/admin/tools.php": {
+   "sha256": "20b2f4f8e96e614efc88388064e4c09517c552f13d94c37890354b3f36a0eaef",
+   "live": true
+  },
+  "app/lib/UniversalSearch.php": {
+   "sha256": "77bfc6c67733cbd0f19df22bc5b983fee9256712c27581dfd4b615a01a370582",
+   "live": true
+  },
+  "website/admin/api/find.php": {
+   "sha256": "28ba8f3bc5dc3b762cd594fb68317fbf8878b709e72317e18e1a3a957ba55ddd",
+   "live": true
+  },
+  "website/api/search_listings.php": {
+   "sha256": "a15d2e36a647e8771b5ecd231ee5d33a7d75fbe2f7a7f62a61afd05086a1f215",
+   "live": true
+  },
+  "website/directory/index.php": {
+   "sha256": "770da1db2e93dbffc8ab7dbe7ae237d5ef0418d3f3d5d7f880115eacc55283d1",
+   "live": true
+  }
+ }
+}

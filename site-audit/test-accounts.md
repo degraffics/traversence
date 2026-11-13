@@ -24,9 +24,9 @@ The build adds a **Test accounts** page in System Configuration. Only the Founde
 **Test accounts are**:
 - left out of counts, likes, views, emails, digests and billing;
 - hidden from search and people lists;
-- able to pay in sandbox only (QuickBooks sandbox for our own orders; for a business's Stripe or Square, test mode with
-  its own keys, `STRIPE_TEST_…` and `SQUARE_SANDBOX_…` in `.env`: test mode never uses a live key, and until those are set
-  test accounts can't pay a business by card on the live site; 2026-11-11, `MarketPay::key()`);
+- able to pay in sandbox only (QuickBooks sandbox for our own orders; for a business's Stripe or Square, the test set,
+  `STRIPE_TEST_…` and `SQUARE_SANDBOX_…` in `.env`, beside the live set `STRIPE_LIVE_…` / `SQUARE_LIVE_…`, with
+  `MARKET_PAY_ENV` picking (Jason, 2026-11-12); test mode never uses a live key, `MarketPay::key()`);
 - marked "Test" for staff.
 
 **Addresses:** `check+<name>@traversence.com`. The build creates the mailbox `check@traversence.com` through the cPanel

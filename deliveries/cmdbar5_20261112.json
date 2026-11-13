@@ -1,0 +1,22 @@
+{
+ "zip": "cmdbar5_20261112.zip",
+ "built_on": "d3e8f77 Sync: 2026-11-12 15:52 UTC",
+ "recorded": "2026-11-12 15:54 UTC",
+ "note": "Replaces cmdbar4 (not uploaded): the account bar under the site header on every page (the left rail and the command bar start below it); the command bar closes any gap above it; the admin opens with the rail collapsed",
+ "status": "live",
+ "live_in": "9d85fe2 Sync: 2026-11-12 15:59 UTC",
+ "files": {
+  "app/ui/app-shell.php": {
+   "sha256": "2a8c79e581f58a8ce3a5ad2c80ca207ed89f93b775ad5db2b61bb426c7d71719",
+   "live": true
+  },
+  "app/ui/context-switcher.php": {
+   "sha256": "caee42fd2076e4ce8da3b8c01aaa40a79b0614305f23f3318d31fc70fa334834",
+   "live": true
+  },
+  "website/admin/router.php": {
+   "sha256": "72fd9b6e2e620123367eaf292d27c6b9f12838ec4a0c8c2454b352b5f5912787",
+   "live": true
+  }
+ }
+}

@@ -1,0 +1,35 @@
+{
+ "zip": "hero3_20261112.zip",
+ "built_on": "8a28e86 Sync: 2026-11-12 19:41 UTC",
+ "recorded": "2026-11-12 19:51 UTC",
+ "note": "hero2 plus (Jason, 2026-11-12): every grid of cards on the site pages by itself in whole rows (js/tv-pager.js, loaded by the header and the page shell); the directory's place card under the pop-up is now one line that brings the pop-up back. Replaces hero2.",
+ "status": "replaced",
+ "live_in": "",
+ "files": {
+  "app/ui/explore-hero.php": {
+   "sha256": "353d5ef425c9bef543fc8b0d40b099a9a31701d4808e417a5876616a231cfa01",
+   "live": false
+  },
+  "app/ui/header.php": {
+   "sha256": "8fca7b564bfc6dba77e84eacb0cde1e917fd2a8fac4e7226135310154448b195",
+   "live": false
+  },
+  "app/ui/page-shell.php": {
+   "sha256": "3df38769becc93c585979549e9e788957e519037a328dde30f89e99d6f0794d3",
+   "live": false
+  },
+  "website/directory/index.php": {
+   "sha256": "5dc687d20dc9120b1fa2c13969324305354bc6f7be9744fd958cb0f2850672d7",
+   "live": false
+  },
+  "website/discovery/index.php": {
+   "sha256": "ab6a1d4c8dc548af59d5f7fa7f970f6d4179e586e66a4e54411bca8a8b394360",
+   "live": false
+  },
+  "website/js/tv-pager.js": {
+   "sha256": "1f54f7d61edcffe7fcb66ab042d3d29e5fe286a4a1af68f1ec60f4799f178b58",
+   "live": false
+  }
+ },
+ "replaced_by": "hero4_20261112.zip"
+}

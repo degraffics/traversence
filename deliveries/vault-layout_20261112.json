@@ -1,0 +1,22 @@
+{
+ "zip": "vault-layout_20261112.zip",
+ "built_on": "a88c81e Sync: 2026-11-12 13:04 UTC",
+ "recorded": "2026-11-12 13:14 UTC",
+ "note": "Vault: replaces vault-still-there (Still there? after 5 minutes) and lays the page out: Browser extension first, Manage logins with one search (sites, names, accounts) and a Reused passwords filter; Import and Recovery words open only when asked for",
+ "status": "live",
+ "live_in": "e1897f4 Sync: 2026-11-12 13:16 UTC",
+ "files": {
+  "app/ui/vault.php": {
+   "sha256": "901c3eb78a0bde171c4f98114228f360e3a0053fec1664b6f952f6282d8ee69f",
+   "live": true
+  },
+  "website/admin/api/vault.php": {
+   "sha256": "4e7a28740271f1f3880889d1fb0938a13036409615c031878df1e4250dae2dca",
+   "live": true
+  },
+  "website/js/tv-vault.js": {
+   "sha256": "a2b8258dd31f38b3e0e6f685573704f0ff8652fa156c16540357ad32670647eb",
+   "live": true
+  }
+ }
+}

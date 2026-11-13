@@ -1,0 +1,30 @@
+{
+ "zip": "vault-panels_20261112.zip",
+ "built_on": "e1897f4 Sync: 2026-11-12 13:16 UTC",
+ "recorded": "2026-11-12 13:27 UTC",
+ "note": "Vault: Import, Recovery words, Extra checks and the extension's install steps open as a side panel; corner countdown with Close and Lock; leaving asks first; extension download; + icon; no search toggle on computers",
+ "status": "live",
+ "live_in": "3e98079 Sync: 2026-11-12 13:35 UTC",
+ "files": {
+  "app/data/vault-extension.zip": {
+   "sha256": "cc61e0c99cbf0fb935f12a3b0ae541ba4d373164913a6a51ade57b8332c91620",
+   "live": true
+  },
+  "app/ui/faq.md": {
+   "sha256": "ebbb2f959e8e99ee5e71b73ef6516adc584c8441d2ae97f8437304d6de26aa22",
+   "live": true
+  },
+  "app/ui/vault.php": {
+   "sha256": "788f80a5a4a8dd64d88c837672983fbc8efc800a3e829c8f5b6e17f2d0163035",
+   "live": true
+  },
+  "website/admin/api/vault.php": {
+   "sha256": "df562a0c4add312980e567f6a8f84c7833ad127886b98e6193d70d56385e0f44",
+   "live": true
+  },
+  "website/js/tv-vault.js": {
+   "sha256": "bd2955cca6bcb32ffacd2c968660fa652428413005dc1c7c20984dd8fc878667",
+   "live": true
+  }
+ }
+}

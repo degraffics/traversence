@@ -90,3 +90,5 @@ Step 1 built: `api/migrations/2026-09-29_reference_sources.sql`, `api/lib/crawle
   `api/lib/crawler/Refresh.php`; worker `REFRESH_PER_RUN` (3), `REFRESH_TIME` (40 s).
 
 **Since 2026-11-01** (decisions/0133, "The observations store is the identity record"): the reference index (`source_facts`) stays; a match becomes an identity source when it's found. Rechecks follow 0133's cadence (never more than 90 days).
+
+**Note (2026-11-13):** extended by `decisions/0157` (our own index: the page log, reading pages with structured data first, the place store searched to find places, reading searches from our own words, trust and licence per source, and "what we know and where from"). Proposed, for Jason's OK.

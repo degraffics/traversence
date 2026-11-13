@@ -1,0 +1,30 @@
+{
+ "zip": "vault-unlock2_20261112.zip",
+ "built_on": "4434217 Sync: 2026-11-12 14:22 UTC",
+ "recorded": "2026-11-12 14:25 UTC",
+ "note": "Replaces vault-unlock (not uploaded): the three-way unlock, plus Emails as one dropdown per kind and a First time each day choice",
+ "status": "live",
+ "live_in": "3c34fe6 Sync: 2026-11-12 14:29 UTC",
+ "files": {
+  "app/lib/Vault.php": {
+   "sha256": "8638616dff8745e641d354dda0017ccef3378950e42cdd15af10b088bab7ff54",
+   "live": true
+  },
+  "app/ui/faq.md": {
+   "sha256": "a87f07f21aee5ded6d6f6620260cf00d07f76c4899f7e1152314f089083c6815",
+   "live": true
+  },
+  "app/ui/vault.php": {
+   "sha256": "2178dc4b172360173009df628e4214d7f3f879163e94ee1be23fda78997731c8",
+   "live": true
+  },
+  "website/admin/api/vault.php": {
+   "sha256": "cfd34256052ac2abe7e347b55cdc03281333e6ebeb7a386e41f4f2af8bb47778",
+   "live": true
+  },
+  "website/js/tv-vault.js": {
+   "sha256": "2d643171cd0d3d9656d396a624cfa2533f6e5e91710ec9b6796e429bc9515a09",
+   "live": true
+  }
+ }
+}

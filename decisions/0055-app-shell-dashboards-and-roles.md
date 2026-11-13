@@ -112,6 +112,8 @@ are a per-community grant stacked on a member account (`architecture.md` §11/§
 - Delegated and elevated actions are logged: who, on whose behalf, when.
 - Money roles exist in the model now; their screens come with billing (`commercial.md`).
 
+
+**Note (2026-11-12, Jason: "above header please"):** the account bar is back above the header, after a morning below it ("move the user top bar below the header", same day). Both stay as the page scrolls: the bar pinned at the very top, the header pinned under it; the admin's command bar and the map sit below both (`barontop_20261112.zip`).
 ## Consequences
 
 - Build order, each shipped and tested before the next:

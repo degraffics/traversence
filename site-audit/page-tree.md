@@ -1,6 +1,6 @@
 # Page tree
 
-Decision 0145 §1a. Generated from the live mirror on 2026-11-11 18:40 UTC (`526a164`). Once Jason approves it, it replaces the
+Decision 0145 §1a. Generated from the live mirror on 2026-11-13 00:25 UTC (`8cdbf8b`). Once Jason approves it, it replaces the
 hand-kept `routes.md`. Columns: does the page load the session and the shell, does it draw the account bar, is it in
 `routes.md` / `archive.md`, and which decisions name its file.
 
@@ -75,7 +75,7 @@ hand-kept `routes.md`. Columns: does the page load the session and the shell, do
 | `/business/files.php` | `website/business/files.php` | yes | yes | **no** |  |
 | `/business/` | `website/business/index.php` | — | — | **no** |  |
 | `/business/pay-connect.php` | `website/business/pay-connect.php` | redirect | yes | **no** |  |
-| `/business/router.php` | `website/business/router.php` | yes | yes | **no** | 0115, 0140 |
+| `/business/router.php` | `website/business/router.php` | yes | yes | **no** | 0115, 0140, 0153 |
 | `/claim.php` | `website/claim.php` | yes | yes | yes |  |
 | `/community/group.php` | `website/community/group.php` | yes | yes | yes | 0136, 0137 |
 | `/community/` | `website/community/index.php` | yes | yes | yes | 0137 |
@@ -138,6 +138,7 @@ hand-kept `routes.md`. Columns: does the page load the session and the shell, do
 | `/qr/manage.php` | `website/qr/manage.php` | yes | yes | **no** |  |
 | `/register.php` | `website/register.php` | **no** | **no** | yes | 0055, 0090 |
 | `/reset-password.php` | `website/reset-password.php` | yes | **no** | yes |  |
+| `/shop/` | `website/shop/index.php` | yes | yes | yes |  |
 | `/takedown.php` | `website/takedown.php` | yes | yes | **no** |  |
 | `/terms.php` | `website/terms.php` | yes | yes | yes |  |
 | `/two-step.php` | `website/two-step.php` | yes | yes | **no** |  |

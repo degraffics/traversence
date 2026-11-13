@@ -1,6 +1,6 @@
 {
- "run": "2026-11-11 18:40 UTC",
- "mirror": "526a164",
+ "run": "2026-11-13 00:25 UTC",
+ "mirror": "8cdbf8b",
  "findings": [
   {
    "rule": "R02",
@@ -622,24 +622,6 @@
   },
   {
    "rule": "R10",
-   "file": "website/directory/index.php",
-   "line": 192,
-   "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
-  },
-  {
-   "rule": "R10",
-   "file": "website/directory/index.php",
-   "line": 193,
-   "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
-  },
-  {
-   "rule": "R10",
-   "file": "website/directory/index.php",
-   "line": 194,
-   "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
-  },
-  {
-   "rule": "R10",
    "file": "website/js/search-panel.js",
    "line": 121,
    "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
@@ -737,19 +719,19 @@
   {
    "rule": "R10",
    "file": "website/discovery/index.php",
-   "line": 296,
+   "line": 347,
    "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
   },
   {
    "rule": "R10",
    "file": "website/discovery/index.php",
-   "line": 297,
+   "line": 348,
    "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
   },
   {
    "rule": "R10",
    "file": "website/discovery/index.php",
-   "line": 424,
+   "line": 492,
    "msg": "emoji in what the page shows: use tv_icon() (the brand's icons)"
   }
  ]

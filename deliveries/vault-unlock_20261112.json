@@ -1,0 +1,31 @@
+{
+ "zip": "vault-unlock_20261112.zip",
+ "built_on": "4434217 Sync: 2026-11-12 14:22 UTC",
+ "recorded": "2026-11-12 14:23 UTC",
+ "note": "Vault: three ways to unlock (passphrase; app code + PIN; emailed code + PIN), PIN unlock per device, Vault opened emails, codes never show the address, smaller history",
+ "status": "replaced",
+ "live_in": "",
+ "files": {
+  "app/lib/Vault.php": {
+   "sha256": "e4906003628fcec968c43cb714c53e108135f0c4e38b90fd55e901509868f265",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "960a75d358fd8d215568b484e20721f69798d7eaa28969b8dcf43f3be4da7488",
+   "live": false
+  },
+  "app/ui/vault.php": {
+   "sha256": "a7a0e2e1638a80be2985fcee96235434f4209536eeadbd3799affb5098b936ab",
+   "live": false
+  },
+  "website/admin/api/vault.php": {
+   "sha256": "cfd34256052ac2abe7e347b55cdc03281333e6ebeb7a386e41f4f2af8bb47778",
+   "live": false
+  },
+  "website/js/tv-vault.js": {
+   "sha256": "e0170832256792c4e754c95a03aeccad3df329d096446a03716304376e054ff5",
+   "live": false
+  }
+ },
+ "replaced_by": "vault-unlock2_20261112"
+}

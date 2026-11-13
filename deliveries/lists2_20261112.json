@@ -1,0 +1,22 @@
+{
+ "zip": "lists2_20261112.zip",
+ "built_on": "13cf540 Sync: 2026-11-12 16:30 UTC",
+ "recorded": "2026-11-12 16:31 UTC",
+ "note": "Lists: 10 a page unless chosen; no Show more or page bar at 10 or fewer (the Show 0 more fix); the vault's list the same",
+ "status": "live",
+ "live_in": "522ff22 Sync: 2026-11-12 16:40 UTC",
+ "files": {
+  "app/admin/kit-css.php": {
+   "sha256": "909bca2b468acce527733994ad8d2fcf5a0869b90f776faabb85fe192b0e744b",
+   "live": true
+  },
+  "website/js/admin-kit.js": {
+   "sha256": "9716fc93bff3ee4deca89f50a6aa572f7f1d17460e269a7ee3f948cd09fab817",
+   "live": true
+  },
+  "website/js/tv-vault.js": {
+   "sha256": "f80831ffe2acca96b75c4578136ce40f84232ac878b4619503a7ee48867538d1",
+   "live": true
+  }
+ }
+}

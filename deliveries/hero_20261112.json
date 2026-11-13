@@ -1,0 +1,15 @@
+{
+ "zip": "hero_20261112.zip",
+ "built_on": "8a28e86 Sync: 2026-11-12 19:41 UTC",
+ "recorded": "2026-11-12 19:43 UTC",
+ "note": "Let's Explore (Jason, 2026-11-12): the hero across the whole page, square, taller on desktop, the two columns under it; with no journey photos its heroes take the stock library's (labelled, decisions/0143).",
+ "status": "replaced",
+ "live_in": "",
+ "files": {
+  "website/discovery/index.php": {
+   "sha256": "2ae20e641223f6afa88b68e3a4d09fc634889d400799b329bad663527f07c7f2",
+   "live": false
+  }
+ },
+ "replaced_by": "hero2_20261112.zip"
+}

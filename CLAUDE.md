@@ -105,7 +105,7 @@ the licence decides the use. Where older crawler records disagree, 0133 wins.
 
 ## The admin (decisions/0109): every build
 
-11 modules at `/admin/<module>/<section>[/<id>]`, drawn by `website/admin/router.php` from `app/admin/manifests.php`, one
+10 modules (Pulse is part of the Dashboard since 2026-11-12) at `/admin/<module>/<section>[/<id>]`, drawn by `website/admin/router.php` from `app/admin/manifests.php`, one
 endpoint `/admin/api/<module>/<tool>`.
 - No admin page outside the manifests: a new tool is a section there (a list also a tool in `app/admin/tools.php`),
   built from widgets (table, pipeline, metrics, detail drawer, quick task).
@@ -117,12 +117,12 @@ endpoint `/admin/api/<module>/<tool>`.
 ## Record pages: the command strip (decisions/0129): every admin record page
 
 `tv_command_strip()` (`app/ui/command-strip.php`, `js/tv-strip.js`) replaces the title and breadcrumbs: one slim line
-that hides on scroll down, returns on scroll up, and stays while anything is unsaved.
+in the admin command bar's look that stays at the top as you scroll (Jason, 2026-11-12).
 - Left: Back and the short name ("Order #9"), no pills. Right: **Save** (with a count) when changed, else **Close**, ▾
   for Save and close, Send, Close; **☰** for other actions and Shortcuts (they trigger the page's own buttons).
 - Where the record stands is a notices box under the strip (`news`), closed with ×, back only when it changes. Nothing
   shown there is repeated below.
-- Each `h2.hb-h` section gets a bar (unsaved dot, fold). Section buttons name the section ("Save work order"); never a
+- Each `h2.hb-h` section folds with a ▾ on its heading (the heading toggles it; remembered), and shows an unsaved dot. Section buttons name the section ("Save work order"); never a
   bare "Save and close" inside one. `'new'` forms and `data-confirm` buttons wait for their own button; searches `'skip'`.
 
 ## Keep the FAQ current (decisions/0057): every build
@@ -136,13 +136,15 @@ check `grep -rn "faq.php#"` before rewording one.
 - **Edge to edge below 768px:** cards and panels 3px from each side and each other, `.5rem` corners; text keeps a small
   margin. `app/ui/app-shell.php` handles known card classes; others add `class="tv-bleed"`. No per-page negative margins.
 - **Card anatomy:** the name is the link, top left, brand brown `#92400E` underlined; Link button top right; actions
-  (Call, Directions, See on map, Website, Contact, Peek) as 30px round icon buttons down the right edge under it, with
-  `title`/`aria-label`, no text, icons `#B45309`; details on the left.
+  (Call, Directions, See on map, Website, Contact, Peek) as 30px round icon buttons in a row on the name's line, left of
+  Link (under the name on phones), with `title`/`aria-label`, no text, icons `#B45309`; details across the card below.
+  Card grids page by whole rows (`js/tv-pager.js`).
 - **Icons** are the brand's flat SVGs (`tv_icon()`), never emoji. Active: sage `#8FBCA8` with a soft glow; rest: cream
   with a brown ring.
-- **No breadcrumbs** on content pages; kind, category, agency, name and activity pills search for more
+- **No breadcrumbs** on content pages (the way back up is `js/tv-trail.js`'s route, 2026-11-12); kind, category, agency, name and activity pills search for more
   (`TvSearch.open('<words> near <place>')`).
-- **Filters** live in the search (foot of Quick Search, §39), showing only active ones with ×. Filters on a list or queue
+- **Filters** live in the search (foot of Quick Search, §39), showing only active ones with ×. Get Local's directory is the
+  exception: its own **Find a business** box and Refine row (2026-11-12, decisions/0058 note). Filters on a list or queue
   are one dropdown button like Shortcuts (icon, current choice, count, ▾), not rows of pills.
 - **Phone menus:** ☰ tools drop-down left, profile and role right.
 - **Count outbound taps:** `data-out="call|directions|website|contact" data-e="<listing id>"` (counts only, never who).
@@ -245,7 +247,8 @@ wraps, `app/bootstrap.php` unwraps). JSON `fetch`: `JSON.stringify(window.tvSafe
   the nation's name (`Nations::label()`) and visitor rules (`Nations::rules()`).
 - **Held, never shown:** names that may mark sacred, burial or protected sites (`Landmarks::SENSITIVE`) and what's
   specific to the nation (`Landmarks::NATION_SENSITIVE_CLASSES`), until the nation's own tools exist
-  (`Landmarks::NATION_TOOLS`) and it says. "Closed by the nation" reopens only at its request. Never delete the data.
+  (`Landmarks::NATION_TOOLS`) and it says. A place held only by a word, off a nation's land, that is plainly public (its own
+  article, open to visitors) shows, unless it speaks of the sacred or burials (`Landmarks::publiclyKnown()`, 2026-11-12). "Closed by the nation" reopens only at its request. Never delete the data.
 - Anything about a user or owner is private unless they say otherwise.
 - All landmark reads go through `Landmarks::visibleSql()` / `visible()`; pins on nation land (`Nations::pin()`) move to a
   public place.

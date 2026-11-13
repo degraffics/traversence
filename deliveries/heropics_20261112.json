@@ -1,0 +1,15 @@
+{
+ "zip": "heropics_20261112.zip",
+ "built_on": "b102257 Sync: 2026-11-12 19:55 UTC",
+ "recorded": "2026-11-12 19:56 UTC",
+ "note": "Let's Explore (Jason, 2026-11-12: 'the hero for both pages had the same photos'): each page's hero picks its own landmark photos (overview, experiences, parks, regions).",
+ "status": "replaced",
+ "live_in": "",
+ "files": {
+  "website/discovery/index.php": {
+   "sha256": "9aab2511ef0691e64f6a67e9c4159f3c9c26caea7bd16e0c176912189456459e",
+   "live": false
+  }
+ },
+ "replaced_by": "placepop_20261112.zip"
+}

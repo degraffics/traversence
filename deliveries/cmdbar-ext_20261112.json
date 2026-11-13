@@ -1,0 +1,30 @@
+{
+ "zip": "cmdbar-ext_20261112.zip",
+ "built_on": "fe71dcf Sync: 2026-11-12 14:43 UTC",
+ "recorded": "2026-11-12 14:47 UTC",
+ "note": "Admin pages: one full-width command bar (Back, module and title, sections, At hand, Shortcuts). Vault: this browser's extension shows Not connected when it has let go of the key, and opening the vault reconnects it; extension 0.1.7 tells the vault when it lets go",
+ "status": "live",
+ "live_in": "c9a58a3 Sync: 2026-11-12 14:53 UTC",
+ "files": {
+  "app/admin/kit-css.php": {
+   "sha256": "94216ad885db457d222325c6f0a497bd33af20125f1bcd0c40a19ab9f6c135dc",
+   "live": true
+  },
+  "app/data/vault-extension.zip": {
+   "sha256": "e495a3cb53963c5ab3ec5048e1eb549186ec84124b1a0406b2c22486b4a3decb",
+   "live": true
+  },
+  "app/ui/faq.md": {
+   "sha256": "ad2dec5dc446cda68be8af2392f2136ab2d0b39c0b738ac9629131b88f551163",
+   "live": true
+  },
+  "website/admin/router.php": {
+   "sha256": "cc167f70442dab0b0f20c27be8926bd8296ef62fd1f3e5eb5d730a73fb85423a",
+   "live": true
+  },
+  "website/js/tv-vault.js": {
+   "sha256": "66808da7e2db9bb92a483ef10e0a2cfda8c0e3d12c33e208a38b36944dde5137",
+   "live": true
+  }
+ }
+}
