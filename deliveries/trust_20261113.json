@@ -1,0 +1,42 @@
+{
+ "zip": "trust_20261113.zip",
+ "built_on": "6a5aa06 Sync: 2026-11-13 01:58 UTC",
+ "recorded": "2026-11-13 02:05 UTC",
+ "note": "0157 delivery 5: each source's record and its weight in the second look; the second tier's Claude steps (Source terms, Settle a find), off until switched on with budgets in AI use. Built on the 01:58 UTC sync. The worker half (terms pages) ships via main.",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/AiClient.php": {
+   "sha256": "fac18f613e5d1349209f243695b7c204a6ffbd91106846f0b57d0188e807ce3c",
+   "live": false
+  },
+  "app/lib/crawler/SecondTier.php": {
+   "sha256": "4187b1f67403f95807932ad5e979380e60511c1e866b4eb6ee42bc6ee73e8d4d",
+   "live": false
+  },
+  "app/lib/crawler/Sources.php": {
+   "sha256": "ca5d41782da8cd12f3495e86e25ad56298d25bca5cd6b44c7dd55a71f96dbb23",
+   "live": false
+  },
+  "app/lib/crawler/Verify.php": {
+   "sha256": "9335f7d581f72539c3edb9eb61375e1e5e97d745c93ad5a1e8a5854802cd1114",
+   "live": false
+  },
+  "app/scripts/listings_tick.php": {
+   "sha256": "71a0b6dcc29d69dce046e66160e68d94c1957a016ac837b2d5e0c17a531a8313",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "749e743848f402128ca75c5c1611d6e323cadc3f1a08de62ee16422c4e78127f",
+   "live": false
+  },
+  "website/admin/sources.php": {
+   "sha256": "6dd60761117612745bf91371d10ee5842b3a969791dff15bbd6031a3e65763b4",
+   "live": false
+  },
+  "website/api/crawl/sources.php": {
+   "sha256": "9b3236fcaad313e441cd19f1dea043f9c2577e6786782425995966e7c41d2431",
+   "live": false
+  }
+ }
+}
