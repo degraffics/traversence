@@ -61,10 +61,10 @@
    "functions": [],
    "kind": "add",
    "session": "session_01CXLi5jfpSTzxwivH3pRFJu",
-   "why": "0161 \u00a710: what's checked out, in the site manager and Site health",
+   "why": "release checkouts-view_20261113.zip",
    "since": "2026-11-13T20:04:59Z",
-   "expires": "2026-11-14T00:04:59Z",
-   "release": "",
+   "expires": "2026-11-14T00:06:05Z",
+   "release": "checkouts-view_20261113.zip",
    "callers": {}
   },
   {
@@ -72,10 +72,10 @@
    "functions": [],
    "kind": "add",
    "session": "session_01CXLi5jfpSTzxwivH3pRFJu",
-   "why": "0161 \u00a710: what's checked out, in the site manager and Site health",
+   "why": "release checkouts-view_20261113.zip",
    "since": "2026-11-13T20:04:59Z",
-   "expires": "2026-11-14T00:04:59Z",
-   "release": "",
+   "expires": "2026-11-14T00:06:05Z",
+   "release": "checkouts-view_20261113.zip",
    "callers": {}
   },
   {
@@ -83,10 +83,10 @@
    "functions": [],
    "kind": "add",
    "session": "session_01CXLi5jfpSTzxwivH3pRFJu",
-   "why": "0161 \u00a710: what's checked out, in the site manager and Site health",
+   "why": "release checkouts-view_20261113.zip",
    "since": "2026-11-13T20:04:59Z",
-   "expires": "2026-11-14T00:04:59Z",
-   "release": "",
+   "expires": "2026-11-14T00:06:05Z",
+   "release": "checkouts-view_20261113.zip",
    "callers": {}
   },
   {
@@ -94,10 +94,10 @@
    "functions": [],
    "kind": "add",
    "session": "session_01CXLi5jfpSTzxwivH3pRFJu",
-   "why": "0161 \u00a710: what's checked out, in the site manager and Site health",
+   "why": "release checkouts-view_20261113.zip",
    "since": "2026-11-13T20:04:59Z",
-   "expires": "2026-11-14T00:04:59Z",
-   "release": "",
+   "expires": "2026-11-14T00:06:05Z",
+   "release": "checkouts-view_20261113.zip",
    "callers": {}
   }
  ],
