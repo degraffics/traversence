@@ -7,7 +7,9 @@
 record: writes deliveries/<zip name>.json with each file's SHA-256 and the sync it was built on, status "pending".
 verify: for every pending delivery, compares each file with the live mirror. All match: "live", with the sync that
         brought it. Some match: "partial", listing the files still missing (a missed upload). Then rewrites
-        deliveries/README.md, newest first.
+        deliveries/README.md, newest first. Then releases the check-out claims (decisions/0161 §6) of every release now
+        live and reports lapsed ones (`checkout.py release-live`), unless --keep-claims (the scheduled audit does that
+        step itself, after its commit, so a claim made meanwhile is never overwritten).
 """
 import argparse, datetime, glob, hashlib, json, os, sys, zipfile
 
@@ -60,6 +62,17 @@ def verify(a):
             d['live_in'] = s
         json.dump(d, open(p, 'w'), indent=1)
     write_readme()
+    if not getattr(a, 'keep_claims', False):
+        sys.path.insert(0, HERE)
+        import checkout
+        try:
+            gone, late = checkout.save(lambda d: checkout.release_live(d, DOCS), 'Check-in: claims of releases now live')
+            for c in gone:
+                print('Released (live): ' + checkout.describe(c))
+            for c in late:
+                print('Lapsed: ' + checkout.describe(c))
+        except SystemExit as e:
+            print('Check-out claims not released (%s): run checkout.py release-live later.' % e)
 
 def write_readme():
     rows = []
@@ -79,7 +92,7 @@ def main():
     ap = argparse.ArgumentParser()
     sp = ap.add_subparsers(dest='cmd', required=True)
     r = sp.add_parser('record'); r.add_argument('zip'); r.add_argument('--mirror', required=True); r.add_argument('--note')
-    v = sp.add_parser('verify'); v.add_argument('--mirror', required=True)
+    v = sp.add_parser('verify'); v.add_argument('--mirror', required=True); v.add_argument('--keep-claims', action='store_true')
     a = ap.parse_args()
     record(a) if a.cmd == 'record' else verify(a)
 
