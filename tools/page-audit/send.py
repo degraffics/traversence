@@ -32,7 +32,7 @@ def take_claims(a, name):
     items = [(p, names, kind) for p, kind, names in checkout.zip_changes(a.zip, a.mirror)]
     if not items:
         return
-    why = 'release ' + name
+    why = ''   # a claim taken earlier keeps its own why; a new one says 'release <zip>'
     try:
         res = checkout.save(lambda d: checkout.take(d, session, items, why, name, a.mirror),
                             'Check-out: %s claims the files of %s' % (session, name))
