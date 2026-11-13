@@ -1,0 +1,34 @@
+{
+    "id": 21,
+    "title": "The site audit clock runs during its rollout steps",
+    "why": "Release #9's clock ran at 16:17 UTC and said 'Off': the release set its switch to step 1 (staff and test accounts), and a scheduled job has no one signed in, so that read as off. A background job's switch now counts as on unless it's turned off or killed. One file.",
+    "proposals": "handoffs/site-audit.md item 1",
+    "zip": "clockfix_20261113.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/lib/AuditClock.php": {
+            "sha": "65a5597777efc4c0d4074028ea03b203e485fde20b35237734c65b9702e08291",
+            "size": 9357,
+            "live_was": "b5516bc0c9a307e1a04eb16d0535078d8a978fbe6c6d36e0d0898cbc287adc9e"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-13T16:57:02+00:00",
+            "by": 0,
+            "msg": "Uploaded clockfix_20261113.zip: 1 files."
+        }
+    ]
+}
