@@ -1,9 +1,13 @@
 # ADR 0160: The crawler as one service, and each creation workflow start to finish
 
-**Status:** Proposed (Jason, 2026-11-13: "There are processes for each one of the outlined creation tools. They all use
-the crawler, so we need to separate the process from the crawler and how each workflow works from start to finish.").
-It follows the full vetting (`research/crawler-review-2026-11-13.md`; "the review" below, with its fix numbers A1–F27).
-It extends `decisions/0133` (the one rule book for the crawler and what it feeds) and keeps every rule in it.
+**Status:** Accepted (Jason, 2026-11-13: "We need to initialize a revamp of the entire crawler management system. This
+revamp will fix the issue by deploying the crawler by workflow and properly addressing each concern, conforming to our new
+standards, and assimilating old data into current fresh and accurate data."). The revamp's plan is
+`handoffs/crawler-revamp.md`. First proposed the same day ("There are processes for each one of the outlined creation
+tools. They all use the crawler, so we need to separate the process from the crawler and how each workflow works from
+start to finish."), after the full vetting (`research/crawler-review-2026-11-13.md`; "the review" below, with its fix
+numbers A1–F27). It extends `decisions/0133` (the one rule book for the crawler and what it feeds) and keeps every rule
+in it.
 
 ## Context
 
