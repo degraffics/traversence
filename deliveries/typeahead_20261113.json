@@ -3,16 +3,16 @@
  "built_on": "bc5bc65 Sync: 2026-11-13 19:20 UTC",
  "recorded": "2026-11-13 19:22 UTC",
  "note": "Find a business follows what's typed: from 3 letters on a pause, Search/Enter at once, typed words never wiped by a redraw (decisions/0058 note 2026-11-13); the FAQ's Get Local entry. Built on Sync: 2026-11-13 19:20 UTC Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "d3cbbcd Sync: 2026-11-13 19:39 UTC",
  "files": {
   "app/ui/faq.md": {
    "sha256": "3f5543c5aab215075c9682eb73f24502a1662cc660b9961daa3fbf1249af7add",
-   "live": false
+   "live": true
   },
   "website/directory/index.php": {
    "sha256": "fe64c6637556c8ecdd158edb5b3e10658deca8bca77424e12ade124891431c28",
-   "live": false
+   "live": true
   }
  }
 }
