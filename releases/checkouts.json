@@ -55,6 +55,50 @@
    "expires": "2026-11-14T00:02:37Z",
    "release": "editor4c_20261113",
    "callers": {}
+  },
+  {
+   "path": "app/lib/Checkouts.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jfpSTzxwivH3pRFJu",
+   "why": "0161 \u00a710: what's checked out, in the site manager and Site health",
+   "since": "2026-11-13T20:04:59Z",
+   "expires": "2026-11-14T00:04:59Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Releases.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jfpSTzxwivH3pRFJu",
+   "why": "0161 \u00a710: what's checked out, in the site manager and Site health",
+   "since": "2026-11-13T20:04:59Z",
+   "expires": "2026-11-14T00:04:59Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/SiteHealth.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jfpSTzxwivH3pRFJu",
+   "why": "0161 \u00a710: what's checked out, in the site manager and Site health",
+   "since": "2026-11-13T20:04:59Z",
+   "expires": "2026-11-14T00:04:59Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "website/js/stg-bar.js",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jfpSTzxwivH3pRFJu",
+   "why": "0161 \u00a710: what's checked out, in the site manager and Site health",
+   "since": "2026-11-13T20:04:59Z",
+   "expires": "2026-11-14T00:04:59Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": []
