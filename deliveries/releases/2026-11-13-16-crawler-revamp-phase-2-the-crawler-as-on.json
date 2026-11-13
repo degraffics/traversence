@@ -1,0 +1,81 @@
+{
+    "id": 16,
+    "title": "Crawler revamp, Phase 2: the crawler as one service, and its console",
+    "why": "decisions/0160 §2: one 5-minute run did every workflow's work in a fixed order and starved the later ones, and every run showed 'succeeded' on Railway. Now the site plans each run: each workflow (W1 listings, W2 upkeep, W3 sources, W6 heritage, W9 landmarks, W11 how-to guides, W12 search learning) has its share; finding businesses goes first, then whoever waited longest; a task not reached is never a failure and goes first next time; the bulk loads run only at night after the run's own work. Each run reports task by task (crawl_runs, crawl_run_items); a run that can't work is a failed run on Railway, and Pulse opens a case when no run has started for 30 minutes or six runs fail (replacing the false 'crawler has stopped' alert). One queue of requests (crawl_requests) for the workflows that move onto it next. The cost ledger (crawl_costs) counts the worker's paid calls, failed ones included; Claude's paid answers that then fail are now counted (D16), and Tavily page reads count fully and against the search plan (D17). Insights -> Crawler is the console (Jason chose Insights): each workflow's tasks, queue, last runs, spend; Pause, Resume, share, Run first, Switch off, Retry failed, greyed out with the reason for those who can't. The worker change (contract 2) deploys from main after this is live; until then the worker runs as before. The database update only adds tables.",
+    "proposals": "handoffs/crawler-revamp.md Phase 2, decisions/0160, research/crawler-review-2026-11-13.md D16, D17, E19, F27",
+    "zip": "crawler-phase2_20261113.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/admin/sections.php": {
+            "sha": "5ef3b2a18250aa8e248d8593918f23944ed89f74f3984b866b10a98be759be1f",
+            "size": 206472,
+            "live_was": "561cd7cfab6d7afdd395d9547f74c119b31de69090754f4afe440f02ccb9901f"
+        },
+        "app/admin/manifests.php": {
+            "sha": "122ed4bbb5a6568d230a3331b033c73a7ccd1939b576efb635b8c1d9ef979fd5",
+            "size": 20320,
+            "live_was": "a9710e3adf0ad6002f5b13d765ce80b2fb72b4aea53ad3b5e64ad8a4ea1c6d8d"
+        },
+        "app/admin/crawler-console.php": {
+            "sha": "1517b48875c3b2ea47c8def9bb4f3c01b18d212c0626276da97de3bcb94ed425",
+            "size": 13608,
+            "live_was": null
+        },
+        "app/ui/faq.md": {
+            "sha": "ea1f3d88b232ec58115b3a0df37785937b3bdb317adeb2abbf4dc62afedb4778",
+            "size": 270228,
+            "live_was": "073886f773ac7cf07fe8f660ec86973db03ec6039ed5c3bd3762b6f4b0ebd08b"
+        },
+        "app/migrations/2026-11-13_crawler_service.sql": {
+            "sha": "8b2e66aa59b18fcb935bf0efb9622f072c0537804e68248b50a66a85beea285c",
+            "size": 7797,
+            "live_was": null
+        },
+        "app/lib/crawler/SecondTier.php": {
+            "sha": "2ab9b1395364d415b59190ddcb094cceca0b10b40d5add08e1e0513f58ecaeb8",
+            "size": 24712,
+            "live_was": "38ec17c5fdee94e3be09f3dece4e03fc04e8286001d67011b9855be11a84e26b"
+        },
+        "app/lib/crawler/CrawlService.php": {
+            "sha": "5862e6e3add8c212b0ae237bd70334bac1ddb7c9f0cb944d2819b3b4ce65cff9",
+            "size": 26504,
+            "live_was": null
+        },
+        "app/lib/Pulse.php": {
+            "sha": "fecf44541e64f29069d972c0a9ab30a73fa92d470dbfd1de87ba5acba1d676bc",
+            "size": 122205,
+            "live_was": "c31b70e4c4bfb156c08f5addc3df05555c948562b6e05412ca01991785b6a14c"
+        },
+        "app/lib/AiClient.php": {
+            "sha": "7b46827e662561af661a9761cf71f2f6a32c0e7f2a5e42e2a275f72ab282daa1",
+            "size": 29921,
+            "live_was": "3393a46270234005c0935a2c16ac021a4424ddaeb8b5ad80ed5e4cb1b4c2478c"
+        },
+        "website/api/crawl/service.php": {
+            "sha": "ff42a131fcfbaea4fb7edb08de9193b81d489fe7bab529c7fb8c0e78e6a6f851",
+            "size": 2093,
+            "live_was": null
+        }
+    },
+    "migrations": [
+        "app/migrations/2026-11-13_crawler_service.sql"
+    ],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-13T15:57:03+00:00",
+            "by": 0,
+            "msg": "Uploaded crawler-phase2_20261113.zip: 10 files."
+        }
+    ]
+}
