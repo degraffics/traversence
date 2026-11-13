@@ -139,19 +139,15 @@ acts, and its gaps today (by the review's fix numbers).
   6. **Score:** it publishes itself when its confidence clears the line, else it waits as a draft.
   7. **Upkeep:** checked every 30 days: passed dates, closed businesses, dead links; triage proposes fixes; renewal.
 - **Crawler:** ask open data (Library of Congress, Wikidata), search the web (Claude's own searches are its own).
-- **Gate:** the confidence score, and the held-places rule below.
-- **Held and protected places** (Jason, 2026-11-13): "we curate, so we document everything, but … where sensitive or
-  caution is required we limit … what is published", and "we can name a place, but we can not show data that would
-  allow unauthorized access or direction to said place".
-  - A guide may **name** a held place and tell its story.
-  - It never shows **the way in**: no map point or pin, address, directions, route, trailhead or access details, and no
-    link to a page that gives them (0133: "tell the story, never the way in").
-  - The data is kept and managed, never ignored or deleted. Its owner (the nation) gets access and control over
-    publishing once its tools exist (0066).
+- **Gate:** the confidence score, and the protected-place levels below.
+- **Protected places:** the three levels of decision 0133 (2026-10-30), as built:
+  - **public:** told with directions like any place;
+  - **known publicly, not open to visit:** named and told, never the way in, with the authorization line;
+  - **held:** never named or located, only a general acknowledgement.
 - **Makes:** a public guide; its suggested journeys follow (W7).
 - **A person:** the guide editor (edit, take down, Write a draft, Check my facts), takedowns, the quarterly audit.
 - **Gaps:**
-  - A4: a held landmark is named with its link, which can lead to its way in;
+  - A4: held landmarks can be named through the `dismissed` path, against 0133's levels;
   - B7: a failed draft loses "kept down";
   - B8: an edit can be overwritten;
   - E25: heritage starves, so drafts lean on the paid brief.
