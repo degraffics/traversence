@@ -3,24 +3,24 @@
  "built_on": "e2b5484 Sync: 2026-11-13 02:21 UTC",
  "recorded": "2026-11-13 02:45 UTC",
  "note": "0157 \u00a78 reaching further: links to other sites join the register, sitemaps, pages not read yet first. Built on the 02:21 UTC sync. The worker half ships via main.",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "c5d187a Sync: 2026-11-13 02:49 UTC",
  "files": {
   "app/lib/crawler/SourceIndex.php": {
    "sha256": "e715ccee12f947c9a727918f2391b7a9334eea6b80ddf459df32753014afa723",
-   "live": false
+   "live": true
   },
   "app/lib/crawler/Sources.php": {
    "sha256": "8753995be26772435359c063fdb28ba915f4e4ba63305a857e5fa416151fa650",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "c351e66216d14beaa005d04fbc25089c1dfa60c0e4cbe47393d96b805a623f6e",
-   "live": false
+   "live": true
   },
   "website/api/crawl/sources.php": {
    "sha256": "9b8f0a1d2cc3b24c4fff70680e439d1232900be2affa91fddc0eaf6a5a33f804",
-   "live": false
+   "live": true
   }
  }
 }
