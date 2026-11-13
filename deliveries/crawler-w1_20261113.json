@@ -3,56 +3,56 @@
  "built_on": "6cade64 Sync: 2026-11-13 16:18 UTC",
  "recorded": "2026-11-13 16:19 UTC",
  "note": "Crawler revamp Phase 3, W1 (handoffs/crawler-revamp.md): listings onto the service, review C11 C12 E21 E22 E23 E26; Jason approved it in chat. Built on Sync: 2026-11-13 16:18 UTC. Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "3c3943d Sync: 2026-11-13 16:41 UTC",
  "files": {
   "app/lib/CategoryClassifier.php": {
    "sha256": "af64dc694cb9853410057c46d8a28a9354aedb25267fa3d1604b6e1e56cdbe68",
-   "live": false
+   "live": true
   },
   "app/lib/LocalWords.php": {
    "sha256": "74100d39c1ac114136b023870a98570c290db9b6c849a92bc112edb0ce89f03e",
-   "live": false
+   "live": true
   },
   "app/lib/Thresholds.php": {
    "sha256": "0918a947c274297578090f19c2cd5f5b6800990e66a8ee5eea12608b1c436ea1",
-   "live": false
+   "live": true
   },
   "app/lib/UniversalSearch.php": {
    "sha256": "4f3c1ac852d7a664a522b9d74e167da41ca459cc3a1a50b6d74dd5cf30689de6",
-   "live": false
+   "live": true
   },
   "app/lib/crawler/AutoImport.php": {
    "sha256": "873dc34faba053e6c9f96f410d3f4595bd8941a68a9ab802615cc2e4e050c7cc",
-   "live": false
+   "live": true
   },
   "app/lib/crawler/CrawlQueue.php": {
    "sha256": "f0d354cddff31dd73da578b8852b516f03a1b471adf21a56309784369ab10a3b",
-   "live": false
+   "live": true
   },
   "app/lib/crawler/CrawlService.php": {
    "sha256": "1b828337aa486759c1bf93d10a5f32a4df7ba88c736d5fbbf83f0b02ce94b159",
-   "live": false
+   "live": true
   },
   "app/lib/crawler/SourceIndex.php": {
    "sha256": "4073546813d7bf4f3a71b58e6453431e4040ba03397ccb4331a3e33f85e9b02d",
-   "live": false
+   "live": true
   },
   "app/lib/crawler/TownCrawl.php": {
    "sha256": "70830da38b1ca053ad0f1cfd8de2ba7787c042b864928f8b0a7ed7bfa161b3a6",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "f5074043d1c4a805a17355b19debbec5e10bb1e1ae2f77ea4bd1604137cebdc3",
-   "live": false
+   "live": true
   },
   "website/api/search_listings.php": {
    "sha256": "04940ab8aa4398bb38284a3af796effa4867e6d91c1962062e875de215eb3f50",
-   "live": false
+   "live": true
   },
   "website/api/send-crawler.php": {
    "sha256": "a7017d728934a299dbd1e20f4f4b59a9e2b5f90ce64e0f8973dcaaf79d723bd7",
-   "live": false
+   "live": true
   }
  }
 }
