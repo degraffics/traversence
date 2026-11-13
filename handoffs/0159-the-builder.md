@@ -1,9 +1,54 @@
 # Hand-off: build decisions/0159, the builder
 
-> **Progress, 2026-11-13 (the session that built steps 1 and 2.1):** step 1 is done (releases #4–#6, #8) and step 2 part
-> 1 is done (#7): builds now go through git (`tools/page-audit/send.py` → `releases/inbox/` → the site takes them onto
-> staging; CLAUDE.md's delivery rules). §3 and §5 below are history. Next: step 2's sync direction and drift (agree the
-> timing with Jason first), then step 3, the editor's core. The details are in decisions/0159's Progress note.
+## 0. Where the build stands (2026-11-13, written by the session that built steps 1–3's core; start here)
+
+**Done and live** (each verified byte for byte against the mirror, recorded in `deliveries/`):
+- **Step 1:** the way into staging (releases #4 Check the way in, #5 the fix: staging's private folder rule had shut its
+  pages) and the **site manager** at the top of staging (#6, #8, #11, #15): Releases ▾ (Check for builds first, and when
+  the site last looked by itself), Upload, Review, Changes, Note, Publish ▾. It refreshes itself every minute.
+- **Step 2, builds through git** (#7, #10, #11): `tools/page-audit/send.py` → `releases/inbox/` on main → the live site
+  takes it (`releases_tick` every 10 min, or Check for builds) → staging, checks → **publishes itself** when they pass
+  (Jason: no second Publish). `"review": true` in release.json → email + Pulse case → UI/UX/Functional on staging → Publish.
+  CLAUDE.md's delivery rules say all this. Other sessions use it (#9, #12–#14, #16, #17 were theirs).
+- **Drift report** (this repo, no site code): `tools/page-audit/drift.py` in `site-audit.yml` after each sync; base
+  recorded at Sync 15:41 UTC; open drift → Pulse Site health, rule D06 (`findings.py`). Reports only.
+
+**Just landed:** `editor_20261113` = **release #18** (step 3, the editor's core), built on Sync 15:59 UTC, taken from git
+and published itself at 16:16 UTC; all 8 files verified live at Sync 16:18 UTC (no drift). Nothing of this build is in flight.
+Its files: `app/lib/Blocks.php` (new), `website/api/blocks.php` (new), `website/js/tv-editor.js` (new),
+`app/lib/upload-targets.php` (target `block_image`), `app/admin/sections.php` (Permissions rows `pages.edit`,
+`pages.publish`), `website/index.php` (zone `home.after-doors` under the four doors, empty until published),
+`website/pages/view.php` (zone `page.<id>` under each page's text), `app/ui/faq.md` ("How do I change what a page says?",
+drift line). Not yet tried by Jason: he (Founder, signed in with his staff login) should see the outlined zone and **Edit** on the home
+page under the four doors (live site, or staging); ask him first to add a heading, Save draft, Publish, then Versions → Roll back once.
+
+**Next, in order:**
+1. Step 2's last part: the sync's direction (`SYNC_HOME` to git, in traverse-3way-sync's `sync.py`), so OneDrive or
+   server edits stop going live without a release. **Agree the date with Jason first**; the drift report shows them now.
+2. Step 4, the full editor (0159 §3–§6): widget panel and drag and drop, the block toolbar, the design panel (alignment,
+   spacing, size per breakpoint), three breakpoints, global components (header, footer), the live components registry
+   (search box, listings grid, map, guide, engage bar, form, GO Code), SEO fields. Build on `Blocks` (tree:
+   sections → cols → blocks; `clean()` is the one gate for what's kept; `render()` server-side).
+3. Step 5 Storefront Studio (SitePages to blocks: each Markdown page as one text block; themes; the portal; team
+   Publish), step 6 AI writing.
+
+**Open, for Jason:** the `SYNC_HOME` date; which coded pages get zones next (he chose the home page first); scheduling
+for shops (0158 §6).
+
+**Known issues:**
+- The 10-minute pickup is irregular (pickups seen at :28, :38, :57; some runs seem skipped). The site manager shows
+  "The site last looked by itself …" under Check for builds; a ⚠ past 25 min. If it keeps skipping, look at the
+  `releases_tick` cron line (`Scheduler::AUTO`, System Configuration → Scheduled tasks).
+- After Check for builds, the first line still says "Look at it on staging, then Publish" (from `straightOn`) even when
+  the next line says it published itself. Cosmetic.
+- Testing here: MariaDB isn't preinstalled (`apt-get install -y mariadb-server`); its socket path is too long in the
+  scratchpad, so run `mariadbd --skip-grant-tables --port=3399 --bind-address=127.0.0.1 --pid-file=… --socket=…`.
+
+**Where the code is:** `Releases::fromGit / autoPublish / sendForReview / reviewPart / straightOn / signedByPublish /
+pullFromBar / barState`; `DocsRepo::inbox / blob / takeFromInbox`; `website/api/release-bar.php` (state, upload, pull,
+review and the release actions); `website/js/stg-bar.js`; `StagingSite::checkWayIn` and `website/api/stg-probe.php`.
+
+The sections below are the original hand-off (history).
 
 For the Claude session that builds `decisions/0159` (Traversence's platform builder and Storefront Studio). Written
 2026-11-13 by the session that built Phase 5 (the Releases page and the staging bar). Read this, then 0159, then begin
