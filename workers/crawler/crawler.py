@@ -106,8 +106,12 @@ OVERPASS_URLS = [u for u in [os.environ.get("OVERPASS_URL"),
                              "https://overpass-api.de/api/interpreter",
                              "https://overpass.private.coffee/api/interpreter",
                              "https://overpass.kumi.systems/api/interpreter",
-                             "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
-                             "https://overpass.openstreetmap.fr/api/interpreter"] if u]
+                             "https://maps.mail.ru/osm/tools/overpass/api/interpreter"] if u]
+# overpass.openstreetmap.fr is left out: it answers 403 "only available to white-listed usages" (2026-11-13's runs)
+
+
+class OutOfTime(Exception):
+    """The task's share ran out before an outside service answered: the work goes back untouched, never a failure."""
 VERIFY_PER_RUN = int(os.environ.get("VERIFY_PER_RUN", "10"))
 VERIFY_TIME = int(os.environ.get("VERIFY_TIME", "100"))
 IDENTITY_PER_RUN = int(os.environ.get("IDENTITY_PER_RUN", "5"))   # listings looked up per run for a missing phone or website (decisions/0062); 0 turns it off
@@ -194,7 +198,7 @@ SKIP_HOSTS = {"openstreetmap.org", "npino.com", "npiprofile.com", "npidb.org", "
               "npi.report", "npiregistry.cms.hhs.gov", "google.com", "bing.com", "duckduckgo.com", "search.brave.com"}
 
 started = time.monotonic()
-WORKER_V = "2.0"           # the service's contract 2 (decisions/0160 §2): the site plans each run, the worker reports it
+WORKER_V = "2.1"           # the service's contract 2 (decisions/0160 §2): the site plans each run, the worker reports it
 RUN_END = None             # when this run's own work must stop (started + TIME_BUDGET, or a bulk load's end)
 TASK_END = None            # when the capture task being worked must stop (its share of the run)
 FETCH_CAP = MAX_FETCHES    # fetches this run may have made by the end of the task being worked
@@ -239,21 +243,37 @@ def site_call(path, payload=None, timeout=60):
         raise RuntimeError(f"site {path} said {e.code}: {e.read()[:200]!r}") from None
 
 
-def overpass(job):
+def time_left(deadline=None):
+    """Seconds left for the task being worked: its share, the run's end and `deadline`, whichever comes first."""
+    ends = [x for x in (TASK_END, RUN_END if RUN_END is not None else started + TIME_BUDGET, deadline) if x is not None]
+    return min(ends) - time.monotonic()
+
+
+OVERPASS_MIN = 20     # seconds: a lookup with less than this left isn't sent (the job goes back for a later run)
+
+
+def overpass(job, deadline=None):
+    """The job's places from OpenStreetMap, inside the task's time (2026-11-13: five mirrors at 125 seconds each held a
+    run for seven minutes, and every other task went unreached). Each try gets only the time left; when the time runs out
+    before any server has answered, OutOfTime hands the job back untried."""
     if os.environ.get("OVERPASS_FIXTURE"):
         with open(os.environ["OVERPASS_FIXTURE"]) as f:
             return json.load(f).get("elements", [])
     pts = [p for p in job["place"].get("zip_points", []) if p.get("lat") is not None] or \
           [{"lat": job["place"]["center"]["lat"], "lon": job["place"]["center"]["lon"]}]
-    query = overpass_query(job, pts)
-    body = urllib.parse.urlencode({"data": query}).encode()
-    tried = []
+    tried, timed_out = [], False
     for url in OVERPASS_URLS:
+        left = time_left(deadline)
+        if left < OVERPASS_MIN:
+            raise OutOfTime(f"{int(max(0, left))}s left for OpenStreetMap" + (": " + " | ".join(tried) if tried else ""))
+        # the server stops its own work a little before we stop waiting
+        query = overpass_query(job, pts, max(15, min(110, int(left) - 8)))
+        body = urllib.parse.urlencode({"data": query}).encode()
         req = urllib.request.Request(url, data=body, headers={
             "User-Agent": UA, "Accept": "*/*",   # a strict "application/json" can earn a 406 Not Acceptable
             "Content-Type": "application/x-www-form-urlencoded"})
         try:
-            with urllib.request.urlopen(req, timeout=125) as r:
+            with urllib.request.urlopen(req, timeout=max(5, min(125, left - 3))) as r:
                 d = json.loads(r.read().decode("utf-8"))
             # Overpass answers 200 with no elements and a remark when it ran out of time or memory: that's a failure, not
             # "nothing here" (2026-11-10: Dana Point's places to eat were recorded as done, 0 found)
@@ -263,36 +283,39 @@ def overpass(job):
                 continue
             return d.get("elements", [])
         except urllib.error.HTTPError as e:
-            if e.code == 406 and len(query) < 1800:   # some servers refuse the form POST but take a short query as a GET (2026-10-14); a long one is 414
+            if e.code == 406 and len(query) < 1800 and time_left(deadline) >= OVERPASS_MIN:   # some servers refuse the form POST but take a short query as a GET (2026-10-14); a long one is 414
                 try:
                     g = urllib.request.Request(url + "?" + urllib.parse.urlencode({"data": query}), headers={"User-Agent": UA, "Accept": "*/*"})
-                    with urllib.request.urlopen(g, timeout=125) as r:
+                    with urllib.request.urlopen(g, timeout=max(5, min(125, time_left(deadline) - 3))) as r:
                         return json.loads(r.read().decode("utf-8")).get("elements", [])
                 except Exception as e2:
                     tried.append(f"{urllib.parse.urlparse(url).netloc} GET {e2!r}"[:160])
             tried.append(f"{urllib.parse.urlparse(url).netloc} {e.code} {e.read()[:120]!r}")
-        except (urllib.error.URLError, TimeoutError, ValueError) as e:
+        except (urllib.error.URLError, TimeoutError, ValueError, OSError) as e:
             tried.append(f"{urllib.parse.urlparse(url).netloc} {e!r}"[:160])
+            timed_out = timed_out or "timed out" in repr(e).lower()
+    if timed_out and time_left(deadline) < OVERPASS_MIN:
+        raise OutOfTime("OpenStreetMap didn't answer in the time left: " + " | ".join(tried))   # slow, not refused
     raise RuntimeError("OpenStreetMap lookup failed: " + " | ".join(tried))
 
 
-def overpass_query(job, pts):
+def overpass_query(job, pts, timeout=110):
     """The Overpass query for a job: a circle around each ZIP centre when there are few, else one box around them all
     (2026-11-10: Phoenix's ~60 ZIPs made a query too large to send or run). Names only; 120 places at most."""
     filters = job["looking_for"].get("osm") or GROUP_QUERIES.get(job["looking_for"]["group"], [])
     if len(pts) * max(1, len(filters)) <= 12:
         parts = [f'{q}["name"](around:{ZIP_RADIUS_M},{p["lat"]},{p["lon"]});' for q in filters for p in pts]
-        return "[out:json][timeout:110];(" + "".join(parts) + ");out center tags 120;"
+        return f"[out:json][timeout:{int(timeout)}];(" + "".join(parts) + ");out center tags 120;"
     pad_lat = min(ZIP_RADIUS_M, 8000) / 111000.0
     mid = sum(p["lat"] for p in pts) / len(pts)
     pad_lon = pad_lat / max(0.2, math.cos(math.radians(mid)))
     s_, n_ = min(p["lat"] for p in pts) - pad_lat, max(p["lat"] for p in pts) + pad_lat
     w_, e_ = min(p["lon"] for p in pts) - pad_lon, max(p["lon"] for p in pts) + pad_lon
     parts = [f'{q}["name"];' for q in filters]
-    return f"[out:json][timeout:110][bbox:{s_:.4f},{w_:.4f},{n_:.4f},{e_:.4f}];(" + "".join(parts) + ");out center tags 120;"
+    return f"[out:json][timeout:{int(timeout)}][bbox:{s_:.4f},{w_:.4f},{n_:.4f},{e_:.4f}];(" + "".join(parts) + ");out center tags 120;"
 
 
-def wikidata(job):
+def wikidata(job, deadline=None):
     """Tier 1 open data (decisions/0061): Wikidata items of the job's classes (a hospital, a post office...) within
     40 km of the area, as OpenStreetMap-like elements so candidate() reads them the same way."""
     classes = job["looking_for"].get("wikidata") or []
@@ -318,7 +341,9 @@ def wikidata(job):
         req = urllib.request.Request(WIKIDATA_SPARQL + "?" + urllib.parse.urlencode({"query": query, "format": "json"}),
                                      headers={"User-Agent": UA, "Accept": "application/sparql-results+json"})
         try:
-            with urllib.request.urlopen(req, timeout=60) as r:
+            if time_left(deadline) < 10:
+                return []                          # no time for it this turn: OpenStreetMap's answer still counts
+            with urllib.request.urlopen(req, timeout=max(5, min(60, time_left(deadline) - 5))) as r:
                 rows = json.loads(r.read().decode("utf-8")).get("results", {}).get("bindings", [])
         except Exception as e:                     # Wikidata busy: OpenStreetMap's answer still counts
             log(f"  wikidata: {e!r}"[:200])
@@ -813,7 +838,10 @@ def search(query):
 
 
 def host_of(url):
-    return re.sub(r"^www\.", "", urllib.parse.urlsplit(url).netloc.lower())
+    try:
+        return re.sub(r"^www\.", "", urllib.parse.urlsplit(url).netloc.lower())
+    except ValueError:                     # a malformed address ("http://[bad/…", 2026-11-13): no host, skipped by the callers
+        return ""
 
 
 def base_domain(host):
@@ -1659,8 +1687,11 @@ def targets(deadline):
             log("targets: out of time, the rest go back when their lease ends")
             break
         tid = job["target_id"]
+        if time_left(deadline) < OVERPASS_MIN + 10:
+            log("targets: out of time, the rest go back when their lease ends")
+            break
         try:
-            elements = overpass(job)
+            elements = overpass(job, deadline)
             seen, cands = set(), []
             for el in elements:
                 if len(cands) >= MAX_PER_JOB or out_of_time():
@@ -1674,6 +1705,9 @@ def targets(deadline):
             res = site_call("/api/crawl/targets.php", {"target_id": tid, "candidates": cands, "pages": fetches,
                                                        "log": [f"osm elements: {len(elements)}", f"web: {len(web)}", f"candidates: {len(cands)}"]})
             log(f"target {tid} {job['looking_for']['group']} in {job['place']['name']}: {len(elements)} open-data, {len(cands)} sent -> {res.get('staged', 0)} to review")
+        except OutOfTime as e:                     # slow servers: back with its lease, not reported as an error
+            log(f"target {tid}: handed back, {e}"[:300])
+            break
         except Exception as e:
             log(f"target {tid}: {e!r}"[:300])
             try:
@@ -2833,11 +2867,11 @@ def coverage(deadline):
     log(f"{len(jobs)} job(s)")
     for job in jobs:
         jid = job["job_id"]
-        if out_of_time() or (deadline is not None and time.monotonic() > deadline):
+        if out_of_time() or time_left(deadline) < OVERPASS_MIN + 10:
             log(f"job {jid}: out of time, left for its lease to return it")
             break
         try:
-            elements = overpass(job) + wikidata(job)   # Tier 1: OpenStreetMap, and Wikidata for official places
+            elements = overpass(job, deadline) + wikidata(job, deadline)   # Tier 1: OpenStreetMap, and Wikidata for official places
             seen, cands, partial = set(), [], False
             for el in elements:
                 if len(cands) >= MAX_PER_JOB:
@@ -2856,6 +2890,9 @@ def coverage(deadline):
                                                        "log": [f"osm elements: {len(elements)}", f"candidates: {len(cands)}"] + (["partial"] if partial else [])})
             log(f"job {jid} {job['looking_for']['group']} in {job['place']['name']}: {len(elements)} open-data, "
                 f"{len(cands)} sent -> {res.get('auto_imported', 0)} published, {res.get('staged', 0)} to review")
+        except OutOfTime as e:                     # slow servers, not a failure: the job goes back with its tries as they were
+            log(f"job {jid}: handed back, {e}"[:400])
+            break
         except Exception as e:                     # report and let the queue retry it
             log(f"job {jid}: {e!r}")
             try:
