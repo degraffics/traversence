@@ -1,6 +1,6 @@
 # Decision register
 
-Decision 0145 §1a. Generated on 2026-11-13 17:17 UTC from `decisions/` and the live mirror (`33b24b1`). Don't edit by hand:
+Decision 0145 §1a. Generated on 2026-11-13 19:17 UTC from `decisions/` and the live mirror (`9f50a3f`). Don't edit by hand:
 edit the decision, and this follows. "Missing files" are files a decision names that the site no longer has: the
 decision may be stale, or the file moved.
 
