@@ -1,0 +1,105 @@
+{
+ "2026-11-13": {
+  "at": "2026-11-13T10:18:45-07:00",
+  "finds": {
+   "staged": 645,
+   "published": 318,
+   "merged": 162,
+   "rejected": 183
+  },
+  "staged": {
+   "checked": 645,
+   "ready_stuck": 5,
+   "review": 587,
+   "looking": 53,
+   "no_kind": 160,
+   "one_source": 527,
+   "by_reason": {
+    "incomplete": 202,
+    "category": 61,
+    "dupe": 6,
+    "one": 31,
+    "npi": 287
+   },
+   "auto_import_on": true,
+   "of": 645
+  },
+  "place_store": {
+   "places": 939,
+   "hosts": 70,
+   "sources_read": 316,
+   "sources_read_empty": 121
+  },
+  "websites_taken_off": {
+   "2026-11": 10
+  },
+  "refresh": {
+   "abandoned_listings": 0,
+   "failed_once": 9
+  },
+  "map_points": {
+   "public": 4695,
+   "no_point": 0,
+   "approximate": 1680
+  },
+  "town_jobs": {
+   "done": 8,
+   "done (3+ tries)": 6,
+   "leased": 7,
+   "queued": 99
+  },
+  "coverage_jobs": {
+   "done": 43,
+   "done (3+ tries)": 21,
+   "failed (3+ tries)": 8
+  },
+  "identity_jobs": {
+   "done": 82,
+   "leased (set aside)": 2,
+   "nothing": 4504,
+   "nothing (set aside)": 13
+  },
+  "register": {
+   "by_status": {
+    "suggested": 463,
+    "read": 316,
+    "cite_only": 189
+   },
+   "waiting_after_describe": 406
+  },
+  "osm_in_listings": {
+   "by_fact": {
+    "address": 55,
+    "city": 56,
+    "description": 19,
+    "hours": 26,
+    "name": 55,
+    "offerings": 55,
+    "phone": 41,
+    "state": 56,
+    "website": 46,
+    "zip": 56
+   },
+   "only_source": {
+    "address": 1,
+    "offerings": 1,
+    "zip": 32
+   }
+  },
+  "heritage": {
+   "public / cataloged": 186,
+   "public / pending": 5,
+   "restricted / cataloged": 5
+  },
+  "landmarks": {
+   "approved": 1,
+   "hidden": 1,
+   "shown": 3720,
+   "waiting": 27
+  },
+  "guides": {
+   "draft / done": 58,
+   "live / done": 6
+  }
+ }
+}
