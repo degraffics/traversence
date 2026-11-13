@@ -123,26 +123,54 @@ Coordinate with the builder session: it may already own these.
 - **The live site's code:** the mirror `degraffics/traverse-3way-sync`. Add it with `add_repo` and clone it shallow.
 - **Secrets on GitHub:** `CHECK_ACCOUNTS`, `MIRROR_READ_TOKEN`, `HEALTH_TOKEN`.
 
-## 5. Where it stands (2026-11-13, 16:00 UTC, the session that took this over)
+## 5. Where it stands: handoff ready (2026-11-13, 17:30 UTC)
 
-1. **Scheduled checks: done.** The site starts them (`AuditClock`, job `audit_clock_tick` hourly at :17,
-   `repository_dispatch` with `GITHUB_DOCS_TOKEN`; release #9, live). The workflows answer `repository_dispatch`; their own
-   schedule moved later as a fallback that skips itself when a run was already made. Site health says when one hasn't run in
-   26 hours, with **Run it now**. First clock tick: 16:17 UTC (check `event=repository_dispatch` runs). Workflows' commits
-   now keep their own generated files on a collision (`git pull --rebase -X theirs`).
-2. **Staging paths: written** (`tools/page-audit/paths-staging.mjs`), Mondays and Thursdays, in a full run, or Run
-   workflow → "staging paths". First run 15:47 UTC: claim, Marketplace post, message a business, staff held post passed;
-   four runners fixed after it (PR #569). Like past 100 runs in full runs only (7 minutes).
-3. **Live path failures: fixed in the tool** (guide steps counted to the journey; links tried twice; a town set as its area
-   is a clarity finding).
-4. **Review: done**, P7–P12 in `site-audit/proposals.md`, all decided by Jason. P7 (`roads511fix`, waiting in the inbox),
-   P8 (R04, done), P10 (waits for the crawler revamp). P9 + P11 built together as `audit-p9p11_20261113` in
-   `/home/user/build` of this session, **approved by Jason**; blocked by `crawler-phase2_20261113` carrying `app/ui/faq.md`:
-   once that's live and synced, rebuild `faq.md` on the live copy (two new entries: "When I choose a town…", "My business's
-   listing is hidden…", and the sign-up answer's last lines), zip-check, send. P12 needs the next rendered run (it now
-   records what's past the edge).
-5. **P6: done** (`site-audit/pages.md`; `routes.md` archived).
-6. **Phase 5:** "Releases show in Pulse and the morning report" is met by the code (`DailyReport::build` reads every open
-   Pulse case). The turn-off/roll-back test and a release through its steps are walkthroughs with Jason; the builder owns
-   the Releases page.
+**The audit now runs on its own.** What remains is follow-up, not build-out: one FAQ release in flight, P12 once the
+next browser run names what's wide, and the Phase 5 walkthroughs with Jason.
 
+### Live and running by itself
+- **The audit clock** (release #9, fixed in #21): the site's job `audit_clock_tick` (hourly at :17) sends
+  `repository_dispatch` with `GITHUB_DOCS_TOKEN`; first real tick 17:17 UTC, all three workflows started. Code checks
+  07:00/19:00 UTC, browser checks and paths 09:00, search probe 10:00. GitHub's own schedule is a later fallback that
+  skips itself. Site health (Pulse) says when a workflow hasn't run in 26 hours, with **Run it now**. A background job's
+  switch counts as on unless off or killed (a release's step 1, "staff and test accounts", had read as off).
+- **Workflow commits** keep their own generated files on a collision (`git pull --rebase -X theirs`).
+- **Paths:** core paths daily; **staging paths** (`tools/page-audit/paths-staging.mjs`, 11 runners) Mondays and
+  Thursdays, in a full run, or Run workflow → "staging paths"; like past 100 only in full runs. The log says why a path
+  didn't pass. First runs: claim, Marketplace post, message a business, staff held post, comment, guest like pass; four
+  runners fixed after (#569), not yet re-run (next Monday, or Run workflow).
+- **P6:** `site-audit/pages.md` is the page register; `routes.md` archived; R09 0.
+- **Review:** P7–P12 decided. Live: P7 (`roads511fix`, verified at Sync 15:59 UTC), P9 + P11 (`audit-p9p11`, release #19), P8 (R04 tool).
+
+### In flight
+- **P9/P11's FAQ entries** (Jason: FAQ clashes resolve themselves, CLAUDE.md). Blocked by `adminfind_20261113`
+  carrying `app/ui/faq.md`. Once that's live and synced, apply these to the live `app/ui/faq.md` and send a one-file release
+  (no need to ask Jason):
+  1. After the entry "### What does clicking a town name do?" add:
+     `### When I choose a town, why can I set how far to look, and what is its "Town area"?` — "Choosing a town (like
+     Show Low, AZ) centres the search on the town itself, within 10 miles to start; **Within** lets you look closer or
+     farther. Many of our towns also have a **Town area**, the town with the towns around it (The Show Low District, for
+     one): choose that when you want the whole area, with no distance."
+  2. In "### What happens when I create an account?", replace "you tick it. Then sign in." with "you tick it. Opening the
+     link signs you in, so after the questions you're on your dashboard."
+  3. Before "### I didn't get the email to confirm my account." add: `### My business's listing is hidden. Can I still
+     see it?` — "Yes. When a listing is hidden from the public (while it's checked, or at our team's request), you and
+     your business's team still see its page, with a line saying it's hidden. **See it as visitors do** opens it for you.
+     To ask why, or to make it public, write to support@traversence.com."
+
+### Next (small)
+- **P12** (Gateways sideways scroll at 390px): the browser checks now record the elements past the right edge
+  (`results/rendered.json` → the page's `eg.scroll`). Read them from the next run (the 17:17 one, or tomorrow 09:17),
+  build the fix, ask Jason.
+- **P10** ("open now" marks nothing): Jason thinks the crawler wiped hours; look again once the crawler revamp is done.
+- **P7 part 1:** the health report could carry a failing job's last line (its message only), so the audit names causes
+  without Jason's screenshot. Propose when next useful.
+- **For the next review:** the order page (`/admin/backoffice/orders/<id>`) threw `TypeError: Cannot read properties of
+  null (reading 'hasAttribute')` on staging (send-order path, 15:47 UTC); a layout jump (shift 0.40) on
+  `verify-email.php`. Re-run the review (`.claude/skills/page-review/`) after the next full staging run.
+- **Phase 5:** "Releases in Pulse and the morning report" is met by the code. A deliberate turn-off/roll-back test and a
+  release taken through its steps are walkthroughs with Jason on the Releases page.
+
+### Open questions for Jason
+- None blocking. The admin search not finding "audit clock" (scheduled tasks and switches aren't indexed) went to the
+  session manager; `adminfind_20261113` looks like its fix.
