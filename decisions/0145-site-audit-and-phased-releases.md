@@ -231,6 +231,11 @@ for Jason.
   - **Claude inside GitHub's check runs** is also paid per use, and is left out until the free version has proven
     itself.
 
+**Note (Jason, 2026-11-13):** a release's files go up on System Configuration → Releases, not by FTP. The server
+puts them on staging first, publishes them, and keeps the previous copy of every file, so Roll back is one tap. The page
+also offers the release's zip and its rollback zip, for an upload by FTP instead. Built in releases_20261113
+(site-audit/phase-5-releases.md, "Built").
+
 ## 7. Phases
 
 **One build** (Jason, 2026-11-06): all of it is built together, from one punch list (`site-audit/punch-list.md`). It is
