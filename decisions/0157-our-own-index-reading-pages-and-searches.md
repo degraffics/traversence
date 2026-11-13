@@ -1,6 +1,6 @@
 # ADR 0157: Our own index: reading pages and reading searches
 
-**Status:** Accepted (Jason, 2026-11-13: "yes approved, start delivery 1"; the second tier added the same day at his ask). Deliveries 1 and 2 built 2026-11-13. It extends `decisions/0045` (our own
+**Status:** Accepted (Jason, 2026-11-13: "yes approved, start delivery 1"; the second tier added the same day at his ask). Deliveries 1 to 3 built 2026-11-13. It extends `decisions/0045` (our own
 reference index, source-first crawling), `0044` (confidence-gated import), `0133` (the observations store and identity
 record), `0060`/`0061`/`0063`/`0064`/`0067` (search, situations, the lexicon, words search learns, what words mean) and keeps
 `0065` (OpenStreetMap is its own layer), `0066` (tribal nations' land), `0093` (what people open is a hint, never a
@@ -139,6 +139,15 @@ OpenStreetMap jobs (all its kinds) and lists the sources waiting there by name.
 6. *Second tier:* a search the rules can't read (no intent found, nothing found) is read by Claude (the light model): the
    intent, the kind and the place, offered the same way ("Showing … for …", never changed, 0064). Kept, so the same words
    aren't paid for twice, and shown to staff in the learning pass as a hint for our own words.
+
+**Built (delivery 3, 2026-11-13):** `LocalWords` (app/lib/LocalWords.php), rebuilt daily from the crawler's report: every word
+of our public listings' names, kinds and offerings, the place store's names and words, our states' towns and the landmarks
+we show, with how often each is used, and for each word's root the kinds of business it sits with. Spelling: a town's or
+landmark's name word, or a word used three times or more, is never offered a fix (nor a real word's plural, "hills"); the
+words used here are offered before a general dictionary's, lifted by how often; two swapped letters are one slip. Sense:
+`Concepts::kinds` lifts the kinds the words sit with here and lowers the rest; a kind they plainly mean here is added only
+when none of the dictionary's sits with them. Staff's words are never moved. Known gap: the WordNet data lists
+"resturants" as a word form, so it isn't offered a fix (to clear in the lexicon builder).
 
 ### 5. Trust and licence per source
 

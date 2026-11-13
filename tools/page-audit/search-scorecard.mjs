@@ -17,7 +17,8 @@ const FAST = 600, FAST_TYPING = 300;   // ms: a search answers inside FAST, a su
 
 // Checks (all optional): place /re/ the place read; noPlace true: none read; lead /re/ one of the first `top` (default 5)
 // rows matches; leadAll /re/ each of the first `top` rows matches; never /re/ none of the first `top` rows matches;
-// within N: each of the first `top` rows with a distance is within N mi; min N: at least N results; chip /re/ a chip
+// within N: each of the first `top` rows with a distance is within N mi; min N: at least N results; noDym true: no "Did you
+// mean" at all (a name or a word used here); chip /re/ a chip
 // (type: label) matches; noChip /re/ none does. Rows read as "label · kind · category · sub".
 const CASES = [
   // Places: a town, said any way, is the town
@@ -105,6 +106,9 @@ const CASES = [
   ['Our index', 'places to stay', SJ, { lead: /lodg|hotel|motel|inn|rv|camp|cabin/i, never: /topic/, top: 3 }],
   ['Our index', 'lunch', SJ, { lead: /restaurant|food|cafe|diner|grill|pizza|burger|mexican/i, top: 3 }],
   ['Our index', 'Besh-Ba-Gowah', '', { lead: /Besh-?Ba-?Gowah/i, top: 2 }],
+  ['Our index', 'blue hills', SJ, { noDym: true }],   // 2026-11-13: "Did you mean blue halls?"
+  ['Our index', 'motle', SJ, { dym: /motel/ }],   // two letters swapped: one slip
+  ['Our index', 'photo shoot', SJ, { never: /gun|range|shoot(ing)? range|vaccin/i, top: 3 }],   // the sense from the words around it
 ];
 
 // as someone types: the first rows of the suggestions
@@ -146,6 +150,7 @@ const rowOf = (i) => [s(i.label), s(i.kind), s(i.category || i.cat || ''), s(i.s
 function judge(rows, chips, place, total, c, ms, budget, dym = '') {
   const fails = [];
   if (c.dym && !c.dym.test(dym)) fails.push(`no "Did you mean" like ${c.dym}${dym ? ' (offered: ' + dym + ')' : ''}`);
+  if (c.noDym && dym) fails.push(`offered "${dym}" for a word used here`);   // a name or a word used here is never "corrected" (decisions/0157 §4.1)
   const top = c.top || 5;
   const head = rows.slice(0, top);
   if (c.place && !c.place.test(place)) fails.push(`place read as "${place || 'none'}"`);
