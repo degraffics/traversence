@@ -97,6 +97,105 @@
    "expires": "2026-11-14T01:08:57Z",
    "release": "pulseflood_20261113.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/Blocks.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5gpdwLLGTQ51Ls56yQ",
+   "why": "0159 step 5a: a business's pages as blocks (shop.<id> zones, Team perms)",
+   "since": "2026-11-13T23:45:34Z",
+   "expires": "2026-11-14T03:45:34Z",
+   "release": "studio5a_20261113.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/SitePages.php",
+   "functions": [
+    "save"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5gpdwLLGTQ51Ls56yQ",
+   "why": "0159 step 5a: a business's pages as blocks (shop.<id> zones, Team perms)",
+   "since": "2026-11-13T23:45:34Z",
+   "expires": "2026-11-14T03:45:34Z",
+   "release": "studio5a_20261113.zip",
+   "callers": {
+    "save": [
+     "app/admin/tools.php",
+     "app/business/storefront.php",
+     "website/api/blocks.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/Storefront.php",
+   "functions": [
+    "syncAlbum"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5gpdwLLGTQ51Ls56yQ",
+   "why": "0159 step 5a: a business's pages as blocks (shop.<id> zones, Team perms)",
+   "since": "2026-11-13T23:45:34Z",
+   "expires": "2026-11-14T03:45:34Z",
+   "release": "studio5a_20261113.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/api/blocks.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5gpdwLLGTQ51Ls56yQ",
+   "why": "0159 step 5a: a business's pages as blocks (shop.<id> zones, Team perms)",
+   "since": "2026-11-13T23:45:34Z",
+   "expires": "2026-11-14T03:45:34Z",
+   "release": "studio5a_20261113.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/js/tv-editor.js",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5gpdwLLGTQ51Ls56yQ",
+   "why": "0159 step 5a: a business's pages as blocks (shop.<id> zones, Team perms)",
+   "since": "2026-11-13T23:45:34Z",
+   "expires": "2026-11-14T03:45:34Z",
+   "release": "studio5a_20261113.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/ui/storefront-view.php",
+   "functions": [
+    "tv_storefront_serve"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5gpdwLLGTQ51Ls56yQ",
+   "why": "0159 step 5a: a business's pages as blocks (shop.<id> zones, Team perms)",
+   "since": "2026-11-13T23:45:34Z",
+   "expires": "2026-11-14T03:45:34Z",
+   "release": "studio5a_20261113.zip",
+   "callers": {
+    "tv_storefront_serve": [
+     "trvgo/index.php"
+    ]
+   }
+  },
+  {
+   "path": "app/business/storefront.php",
+   "functions": [
+    "tv_biz_storefront"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5gpdwLLGTQ51Ls56yQ",
+   "why": "0159 step 5a: a business's pages as blocks (shop.<id> zones, Team perms)",
+   "since": "2026-11-13T23:45:34Z",
+   "expires": "2026-11-14T03:45:34Z",
+   "release": "studio5a_20261113.zip",
+   "callers": {
+    "tv_biz_storefront": [
+     "website/business/router.php"
+    ]
+   }
   }
  ],
  "lapsed": []
