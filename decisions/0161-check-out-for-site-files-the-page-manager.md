@@ -1,9 +1,10 @@
 # ADR 0161: Check-out for site files: the page manager
 
-**Status:** Proposed (Jason, 2026-11-13: "I think we need a check in check out system for file management, so we have
+**Status:** Accepted (Jason, 2026-11-13: "accept 0161", after asking for §2–§5 so check-out never becomes a
+bottleneck). First proposed the same day (Jason: "I think we need a check in check out system for file management, so we have
 sessions, the site builder, and the crawler all doing things now. Would you say the audit system, which is responsible
 for the page tree, be the page manager as well. That way we have one tool that allows access to files for
-development."). Drafted by the session-manager session for Jason's review. It extends `decisions/0145` (the audit, the
+development."). Drafted by the session-manager session. It extends `decisions/0145` (the audit, the
 zip check and the delivery log) and `decisions/0159` §5 (every build is a release through git), and keeps every rule in
 them.
 
