@@ -212,8 +212,8 @@ source, under the site's licence (`Sources::mayStore`); its other values show as
 Identities) each source page says when it was read, how (structured data, a list, its text, a scan read by Textract,
 through Tavily), on what kind of page, and what its licence lets us do (`SourceIndex::about`). The second tier's reads:
 **Read a page through Tavily** (`page_extract`: the worker asks Tavily Extract for a source's page it couldn't fetch, an
-error or a page drawn by scripts; never one robots.txt or the site refuses, 401/403/451; at most 3 a run within the
-feature's pages a day) and **Read a scanned PDF** (`scan_read`: AWS Textract on the site, where the keys are, one page a
+error or a page drawn by scripts; never one robots.txt or the site refuses, 401/403/451; "Pages a crawler run" (1 to
+20, Jason 2026-11-13: "make it a setting") within the feature's pages a day) and **Read a scanned PDF** (`scan_read`: AWS Textract on the site, where the keys are, one page a
 scan for now; the worker reads its text into places for that page alone, kept through later reads and read again after 90
 days). Both off until switched on with budgets in AI use. Still to build: multi-page scans (Textract's S3 jobs), and
 guides and journeys drawing on the record.
