@@ -94,6 +94,12 @@ class Claims(Base):
         self.assertIn('refused', r)
         self.assertEqual([c['session'] for c in d['claims']], ['A'])
 
+    def test_release_keeps_the_why(self):
+        d = checkout.empty()
+        checkout.take(d, 'A', [('website/a.php', [], 'add')], 'the real why')
+        checkout.take(d, 'A', [('website/a.php', [], 'add'), ('website/b.php', [], 'add')], '', release='x.zip')
+        self.assertEqual([(c['why'], c['release']) for c in d['claims']], [('the real why', 'x.zip'), ('release x.zip', 'x.zip')])
+
     def test_own_claims_merge_and_never_block(self):
         d = checkout.empty()
         checkout.take(d, 'A', [('app/lib/LocalWords.php', ['match'], 'change')], 'fix')

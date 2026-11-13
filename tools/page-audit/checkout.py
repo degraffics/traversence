@@ -245,7 +245,7 @@ def take(d, session, items, why, release='', mirror=None, at=None):
                 c['release'] = release
             c.setdefault('callers', {}).update(callers)
         else:
-            c = {'path': path, 'functions': fns, 'kind': kind, 'session': session, 'why': why, 'since': iso(at),
+            c = {'path': path, 'functions': fns, 'kind': kind, 'session': session, 'why': why or ('release ' + release if release else ''), 'since': iso(at),
                  'expires': exp, 'release': release, 'callers': callers}
             z = zones_for(path)
             if z:
