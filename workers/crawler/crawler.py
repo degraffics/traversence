@@ -67,6 +67,10 @@ Standard library only.
 """
 import csv
 import hashlib
+try:
+    import pypdf                                   # PDFs' text (decisions/0157 §7); without it PDFs are skipped
+except Exception:
+    pypdf = None
 import html
 from html.parser import HTMLParser
 import io
@@ -129,6 +133,8 @@ GEOCODE_TIME = int(os.environ.get("GEOCODE_TIME", "420"))
 WIKIDATA_SPARQL = "https://query.wikidata.org/sparql"
 SOURCE_TIME = int(os.environ.get("SOURCE_TIME", "60"))            # seconds per run for reading one of our sources
 SOURCE_PAGES = int(os.environ.get("SOURCE_PAGES", "25"))          # pages read per source
+SOURCE_PDFS = int(os.environ.get("SOURCE_PDFS", "5"))             # of them PDFs, at most (decisions/0157 §7)
+PDF_BYTES = 6_000_000                                               # a PDF larger than this is left for later
 REFRESH_PER_RUN = int(os.environ.get("REFRESH_PER_RUN", "3"))     # live listings refreshed from their own website per run
 REFRESH_TIME = int(os.environ.get("REFRESH_TIME", "40"))
 NPI_BULK = os.environ.get("NPI_BULK", "on").lower() != "off"      # monthly NPI Registry file (decisions/0048)
@@ -376,7 +382,7 @@ def fetch_page(url):
     return fetch_page_meta(url)["body"]
 
 
-def fetch_page_meta(url, etag="", modified=""):
+def fetch_page_meta(url, etag="", modified="", pdf=False):
     """fetch_page with what the page log keeps (decisions/0157 §1): {body, status, type, bytes, etag, modified}. With the
     entity tag or last-changed date the server gave last time, it asks first whether the page changed: an unchanged page
     answers 304 with no body, and costs nothing to download. status 0: not fetched (a budget, robots.txt, an error)."""
@@ -412,6 +418,12 @@ def fetch_page_meta(url, etag="", modified=""):
             ctype = (r.headers.get("Content-Type") or "")[:80]
             out.update(status=r.status, type=ctype, etag=(r.headers.get("ETag") or "")[:190],
                        modified=(r.headers.get("Last-Modified") or "")[:60])
+            if pdf and "pdf" in ctype.lower():
+                data = r.read(PDF_BYTES + 1)
+                out["bytes"] = len(data)
+                if len(data) <= PDF_BYTES:
+                    out["body"], out["scan"] = pdf_page(data, url)
+                return out
             if "html" not in ctype:
                 return out
             body = r.read(400_000)
@@ -923,6 +935,30 @@ def microdata_facts(page, url):
     return out
 
 
+def pdf_page(data, url):
+    """A PDF's text as a plain page (one paragraph a line), so it's read like any page (decisions/0157 §7). Free. A PDF with
+    no text (pictures of pages) is a scan: (None, True), logged for the second tier (AWS Textract, with the caps)."""
+    if pypdf is None:
+        return None, False
+    try:
+        doc = pypdf.PdfReader(io.BytesIO(data))
+        title = ((doc.metadata or {}).get("/Title") or "") if hasattr(doc, "metadata") else ""
+        lines = []
+        for pg in doc.pages[:40]:
+            for l in (pg.extract_text() or "").splitlines():
+                l = l.strip()
+                if l:
+                    lines.append(l)
+        if sum(len(l) for l in lines) < 40:
+            return None, True
+        if str(title).strip().lower() in ("", "untitled", "microsoft word", "none"):
+            title = ""
+        title = str(title or urllib.parse.unquote(url.rsplit("/", 1)[-1]).rsplit(".", 1)[0].replace("-", " ").replace("_", " "))[:200]
+        return "<html><head><title>" + html.escape(title) + "</title></head><body>" + "".join("<p>" + html.escape(l) + "</p>" for l in lines) + "</body></html>", False
+    except Exception:
+        return None, False
+
+
 def page_lines(page):
     """The page's text, one block per line (headings, list items, paragraphs, cells)."""
     return [l for l, _ in page_blocks(page)]
@@ -963,7 +999,8 @@ def text_facts(page, url):
         for j in range(i - 1, max(-1, i - 4), -1):              # the nearest short, word-like line above
             cand = lines[j]
             if 3 <= len(cand) <= 80 and re.search(r"[A-Za-z]{3}", cand) and not PHONE_RE.search(cand) and not ADDR_RE.match(cand) \
-                    and not CITY_ZIP_RE.search(cand) and not re.match(r"(?i)^(phone|tel|fax|email|hours|address)\b", cand):
+                    and not CITY_ZIP_RE.search(cand) and not re.match(r"(?i)^(phone|tel|fax|email|hours|address|open|closed)\b", cand) \
+                    and not re.match(r"\d", cand):                # "3 mi North of St. Johns": directions, not a name
                 name, jname = cand, j; break
         if not name or jname in used:
             continue
@@ -1039,19 +1076,29 @@ def read_source(deadline):
     knows of its pages (entity tag, last-changed date, links); a page that hasn't changed answers 304 and keeps its facts,
     and its links (kept in the log) still lead on. Every page fetched goes back to the log, whatever it named."""
     d = site_call("/api/crawl/sources.php")
+    if d.get("describe"):
+        try:
+            describe_sites(d["describe"], min(deadline, time.monotonic() + 20))
+        except Exception as e:
+            log(f"describe sites: {e!r}")
     src = d.get("source")
     if not src:
         return
     start, host = src["home_url"], host_of(src["home_url"])
     known = src.get("pages") or {}                       # url -> {etag, modified, links}
-    queue, seen, facts, pages, log_rows, unchanged = [start], set(), [], 0, [], []
+    queue, seen, facts, pages, log_rows, unchanged, pdfs = [start], set(), [], 0, [], [], 0
     while queue and pages < SOURCE_PAGES and time.monotonic() < deadline and not out_of_time():
         url = queue.pop(0)
         if url in seen:
             continue
         seen.add(url)
         k = known.get(url) or {}
-        r = fetch_page_meta(url, k.get("etag", ""), k.get("modified", ""))
+        is_pdf = bool(re.search(r"\.pdf($|\?)", url, re.I))
+        if is_pdf and pdfs >= SOURCE_PDFS:
+            continue
+        r = fetch_page_meta(url, k.get("etag", ""), k.get("modified", ""), pdf=True)
+        if is_pdf or "pdf" in (r.get("type") or "").lower():
+            pdfs += 1
         if not r["status"]:
             continue                                    # not fetched (a budget, robots.txt): nothing to log
         pages += 1
@@ -1079,7 +1126,7 @@ def read_source(deadline):
             links = []
             for href in re.findall(r'(?i)href=["\']([^"\'#]+)', page):
                 full = urllib.parse.urljoin(url, href)
-                if host_of(full) == host and full.startswith("http") and not re.search(r"\.(pdf|jpe?g|png|gif|zip|docx?)$", full, re.I):
+                if host_of(full) == host and full.startswith("http") and not re.search(r"\.(jpe?g|png|gif|zip|docx?)$", full, re.I):
                     links.append(full)
             links.sort(key=lambda u: 0 if any(h in u.lower() for h in LINK_HINTS) else 1)   # directory-like pages first
             links = list(dict.fromkeys(links))[:60]
@@ -1088,6 +1135,8 @@ def read_source(deadline):
                        links=links, title=title)
         else:
             links = []
+            if r.get("scan"):
+                row["page_kind"] = "scan"                 # a PDF of pictures: the second tier reads it (decisions/0157 §7)
         log_rows.append(row)
         queue += [l for l in links if l not in seen]
     uniq = {}
@@ -1095,7 +1144,35 @@ def read_source(deadline):
         uniq.setdefault((f["name"].lower(), re.sub(r"\D", "", f["phone"])[-10:], f["address"][:20].lower()), f)
     res = site_call("/api/crawl/sources.php", tv_safe({"host": host, "pages": pages, "facts": list(uniq.values()),
                                                       "log": log_rows, "unchanged": unchanged}))
-    log(f"read source {host}: {pages} page(s), {len(unchanged)} unchanged, {len(uniq)} place(s) found, {res.get('kept', 0)} kept")
+    log(f"read source {host}: {pages} page(s), {pdfs} PDF(s), {len(unchanged)} unchanged, {len(uniq)} place(s) found, {res.get('kept', 0)} kept")
+
+
+def describe_sites(todo, deadline):
+    """What sites waiting for a call say they are (decisions/0157 §7): each home page's title, its description line, its
+    name and its schema.org types, so the register can decide on its own. One polite fetch each."""
+    about = []
+    for t in todo[:3]:
+        if time.monotonic() > deadline or out_of_time():
+            break
+        page = fetch_page(t.get("home_url") or "")
+        if not page:
+            about.append({"host": t.get("host"), "title": "", "description": ""})   # tried: not asked again
+            continue
+        meta = lambda key: (re.search(r'(?is)<meta[^>]+(?:name|property)=["\']' + key + r'["\'][^>]*content=["\']([^"\']*)', page) or [None, ""])[1]
+        types = []
+        for block in re.findall(r'(?is)<script[^>]+application/ld\+json[^>]*>(.*?)</script>', page):
+            try:
+                data = json.loads(block.strip())
+            except Exception:
+                continue
+            for d in (data if isinstance(data, list) else data.get("@graph", [data]) if isinstance(data, dict) else []):
+                if isinstance(d, dict):
+                    types.append(ld_type(d))
+        about.append({"host": t.get("host"), "title": page_title(page), "site_name": html.unescape(meta("og:site_name"))[:190],
+                      "description": html.unescape(meta("description") or meta("og:description"))[:400], "types": [x for x in types if x][:5]})
+    if about:
+        res = site_call("/api/crawl/sources.php", {"about": about})
+        log(f"described {len(about)} site(s) waiting for a call; {res.get('judged', 0)} judged")
 
 
 # ---------------------------------------------------------------------------------------------------

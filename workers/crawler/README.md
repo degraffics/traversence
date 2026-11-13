@@ -60,6 +60,11 @@ directory-like pages first.
   website, hours, map point, what it calls itself), then its text. A page naming three or more places is a list page,
   and each place on it is an item with its own words (what it does) and the heading it sits under.
 - **What kind of page:** one place's own site, a list, an events calendar, a government notice, an article, or other.
+- **PDFs** are read too (up to `SOURCE_PDFS`, 5, a read; with `pypdf`, installed by the Dockerfile): their text, as a page. A PDF
+  with no text (pictures of pages) is logged as a scan, for the second tier (AWS Textract) once its caps are set.
+- **Sites waiting for a call:** with each read the site names up to 3 of them; the worker reads each home page's title,
+  description line, name and schema.org types and sends them back (`POST {about: […]}`), and the register decides what it
+  can: public bodies read regularly, the rest waiting (decisions/0157 §7). Tribal nations' sites stay a person's call.
 The site gives each place its kind of business (from those words) and its town (its ZIP, its address, the page, or the
 source's), and keeps them in the place store (`source_facts`). Links in what's sent travel wrapped
 (`tvb64:`, as the site's forms send them) past Bluehost's firewall.
