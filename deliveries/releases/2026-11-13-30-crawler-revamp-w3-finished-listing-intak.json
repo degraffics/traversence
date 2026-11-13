@@ -1,0 +1,49 @@
+{
+    "id": 30,
+    "title": "Crawler revamp, W3 finished: Listing Intake's site reads join the page log, the register and the place store",
+    "why": "decisions/0160 W3, review E23: Listing Intake reads a site on the site itself (SiteFetcher, ListingExtractor), and what it read was lost to the crawler: no page log, the site never on the source register, its places never in the place store. Now each crawl from Listing Intake logs its pages like the worker's (so the next read knows what changed), puts the site on the register (where it's judged like any site), and keeps the places it names in the place store, each page's replacing that page's alone, only where the register's use rule lets us keep facts and the site isn't marked Ignore (never for cite-only sites like directories). Listing Intake still stages its own finds as before, and shows what it left for the crawler under the result. No database update.",
+    "proposals": "handoffs/crawler-revamp.md Phase 3 (W3), decisions/0160 W3, research/crawler-review-2026-11-13.md E23",
+    "zip": "crawler-w3b_20261113.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/ui/faq.md": {
+            "sha": "f136692f0c0c9e7423f43a54eed063862412f17aadc168ef8826b7ed67ed1ba0",
+            "size": 276985,
+            "live_was": "3f5543c5aab215075c9682eb73f24502a1662cc660b9961daa3fbf1249af7add"
+        },
+        "app/lib/crawler/SourceIndex.php": {
+            "sha": "613ed7efea4f08e67c36ba886879640fb9ff0c61e6cc82490bb536e09eb7dd5c",
+            "size": 66628,
+            "live_was": "4073546813d7bf4f3a71b58e6453431e4040ba03397ccb4331a3e33f85e9b02d"
+        },
+        "website/admin/listing-intake.php": {
+            "sha": "727295a94b79bc1dd76778a7aaf64c1d1b18e1fa1be43a3f478c3d3cb1948140",
+            "size": 57688,
+            "live_was": "a8f254be4289b08de74280a1984450248993d10a995a2bbfcabb3752c4d8edc6"
+        },
+        "website/api/admin/intake/crawl.php": {
+            "sha": "8d1629a6bd0cc917c1c6f146e5543b1fd920626e60e858232caa7c2a1fd2cd93",
+            "size": 4874,
+            "live_was": "0808c58f3a97e19ec4bf2e57a02f5d60ed45ad41cbe5525576f127b7cf00d558"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-13T19:57:02+00:00",
+            "by": 0,
+            "msg": "Uploaded crawler-w3b_20261113.zip: 4 files."
+        }
+    ]
+}
