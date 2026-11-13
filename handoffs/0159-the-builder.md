@@ -23,8 +23,11 @@ drift line). Not yet tried by Jason: he (Founder, signed in with his staff login
 page under the four doors (live site, or staging); ask him first to add a heading, Save draft, Publish, then Versions → Roll back once.
 
 **Next, in order:**
-1. Step 2's last part: the sync's direction (`SYNC_HOME` to git, in traverse-3way-sync's `sync.py`), so OneDrive or
-   server edits stop going live without a release. **Agree the date with Jason first**; the drift report shows them now.
+1. ~~Step 2's last part~~ **done 2026-11-13** (Jason chose "today"): `SYNC_HOME=git` (traverse-3way-sync PR #10). Edits
+   not from a release are put back, kept in that repo's `conflicts/`. Undo: `SYNC_HOME: ftp` in its `sync.yml`.
+   Jason tried the editor (added, published, emptied, published: version 2 is empty, so the zone shows its "empty" note).
+   Small fix for step 4's first release: when the live version has nothing in it, say "Version N is live and empty" and
+   point to Versions → Roll back.
 2. Step 4, the full editor (0159 §3–§6): widget panel and drag and drop, the block toolbar, the design panel (alignment,
    spacing, size per breakpoint), three breakpoints, global components (header, footer), the live components registry
    (search box, listings grid, map, guide, engage bar, form, GO Code), SEO fields. Build on `Blocks` (tree:
@@ -32,7 +35,7 @@ page under the four doors (live site, or staging); ask him first to add a headin
 3. Step 5 Storefront Studio (SitePages to blocks: each Markdown page as one text block; themes; the portal; team
    Publish), step 6 AI writing.
 
-**Open, for Jason:** the `SYNC_HOME` date; which coded pages get zones next (he chose the home page first); scheduling
+**Open, for Jason:** which coded pages get zones next (he chose the home page first); scheduling
 for shops (0158 §6).
 
 **Known issues:**

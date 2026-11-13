@@ -180,9 +180,11 @@ Progress (2026-11-13):
   heading, text, picture, button; Save draft (the team sees it on the page), Publish (a version), Versions, Roll back;
   `pages.edit` and `pages.publish`, Founder until given to a role. Step 4 adds drag and drop, the design panel,
   breakpoints, global and live components.
-- **Step 2, still to do:** the sync's direction (`SYNC_HOME` to git), so edits made straight on the server or in
-  OneDrive no longer go live without a release (the drift report shows them now). Its timing is agreed with Jason first,
-  since it changes how OneDrive edits behave.
+- **Step 2 done: the sync's direction** (Jason, 2026-11-13: "today"). `SYNC_HOME=git` in traverse-3way-sync's
+  `sync.yml`: a server change whose bytes match a release or logged delivery (`deliveries/`) passes on; any other edit is
+  put back to the mirror's copy, the edit kept in `conflicts/`; OneDrive edits and deletions never reach the server (OneDrive
+  gets the server's copy back); new server files and the drift-ignore paths pass on. No docs checkout, or more put-backs
+  than the mass-delete limit: the server's copy is kept. Undo: `SYNC_HOME: ftp`.
 3. **The editor's core:** blocks, Edit, Save draft, Publish, Roll back, on block pages and the home page's first zone.
 4. **The full editor:** the widget panel, drag and drop, columns, the design panel, breakpoints, global components,
    live components, SEO fields.
