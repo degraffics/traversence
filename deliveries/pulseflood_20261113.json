@@ -3,24 +3,24 @@
  "built_on": "0fa3f25 Sync: 2026-11-13 20:59 UTC",
  "recorded": "2026-11-13 21:09 UTC",
  "note": "Pulse flood stopped: the crawler's own Review items out of Support and Needs you, one System case if they back up; built on Sync: 2026-11-13 20:59 UTC Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "f8a8654 Sync: 2026-11-13 23:24 UTC",
  "files": {
   "app/lib/MemberPulse.php": {
    "sha256": "626f6d0d976b3a31194e182889485f08f9feb02d35603c5ea5e945e33c3f22e1",
-   "live": false
+   "live": true
   },
   "app/lib/Pulse.php": {
    "sha256": "915156703b60a8e871d53da59128dc8f243569f74a1d844f9f23eab9a7c3d4f2",
-   "live": false
+   "live": true
   },
   "app/lib/Suggestions.php": {
    "sha256": "eedc33cf2a26ba99379a72f6495cbe77548502f247ce9e052311d17d57f13d8b",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "d94be61e23a46e944b4be93f92945f497b6916c205914291d514d9f7703d3f7c",
-   "live": false
+   "live": true
   }
  }
 }
