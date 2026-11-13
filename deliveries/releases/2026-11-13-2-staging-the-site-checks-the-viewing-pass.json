@@ -6,12 +6,12 @@
     "zip": "stagingguard_20261113.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "planned",
+    "state": "approved",
     "step": 0,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
-    "plan_at": null,
+    "plan_at": "2026-11-13 12:55:53",
     "staged_at": null,
     "vetted_at": null,
     "live_at": null,
@@ -29,6 +29,11 @@
             "at": "2026-11-13T12:55:42+00:00",
             "by": 2,
             "msg": "Uploaded stagingguard_20261113.zip: 1 files."
+        },
+        {
+            "at": "2026-11-13T12:55:53+00:00",
+            "by": 2,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
         }
     ]
 }
