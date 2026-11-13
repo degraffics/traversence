@@ -1,0 +1,86 @@
+{
+ "zip": "releases2_20261113.zip",
+ "built_on": "95ec00d Sync: 2026-11-13 04:13 UTC",
+ "recorded": "2026-11-13 04:46 UTC",
+ "note": "Phase 5, the Releases page, with the staging bar: Open on staging (past the viewing password, as a test account), the bar on every staging page (changes, notes, sign off, schedule, publish, back to the live admin), Publish stops if a live file changed since the build. Replaces releases_20261113 (never uploaded). Built on Sync: 2026-11-13 04:13 UTC.",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/admin/manifests.php": {
+   "sha256": "a9710e3adf0ad6002f5b13d765ce80b2fb72b4aea53ad3b5e64ad8a4ea1c6d8d",
+   "live": false
+  },
+  "app/admin/sections.php": {
+   "sha256": "33a16ab9cf3abd62b2e3bd64c9f34fad7e60cd2ca0e67a704da7158d173d9458",
+   "live": false
+  },
+  "app/lib/DocsRepo.php": {
+   "sha256": "fa8657f6afb884c6657a65b0503ce35961b7906e44fc0b43af41ad5bea0e868d",
+   "live": false
+  },
+  "app/lib/Pulse.php": {
+   "sha256": "49ed6e4f35904372f6de8fd218db3d3c5f61e156b460456c484ecfc8a40c9fa3",
+   "live": false
+  },
+  "app/lib/Releases.php": {
+   "sha256": "7e01358fb3722a36acc630cc187737fc92950d05603631d35f7df47972dfe96d",
+   "live": false
+  },
+  "app/lib/Scheduler.php": {
+   "sha256": "2dcba9e80d02eaf3cc71a4c0f887dfad155ebe734524e60b7c3105d4aa7dd93b",
+   "live": false
+  },
+  "app/lib/Staging.php": {
+   "sha256": "5bac88fae2acb4d0d00e90e9afc3f32b2b4bd585b9b373b8e86e2f7948006509",
+   "live": false
+  },
+  "app/lib/StagingSite.php": {
+   "sha256": "ea479502c71027bc464b2a0852fc951c37a199888b9c3eef676ae95239457759",
+   "live": false
+  },
+  "app/lib/Switches.php": {
+   "sha256": "5f34f1343f1c08b0d7b0f8851585f3ab1bea4d133cd34fefb6e3356ceca4850b",
+   "live": false
+  },
+  "app/lib/upload-targets.php": {
+   "sha256": "24c13915ce830ac227b343f14a56798a4aee6dc57511e4c97d196a6ca00b7c53",
+   "live": false
+  },
+  "app/scripts/releases_tick.php": {
+   "sha256": "2e6e60e32f49552d91a5af5bbd5aedb3d3b85c4635ad43ec33791fbcbd9fec78",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "8d1dba6ad73af152350830c4b3f136907747588f342e6686a0032dfb9f722641",
+   "live": false
+  },
+  "website/admin/api.php": {
+   "sha256": "9c00876ad3e8f5ad5d5b3e45f24c6190c7ac592bf1e9bc323a736c03c6a30cbf",
+   "live": false
+  },
+  "website/api/release-bar.php": {
+   "sha256": "6c5d892f5b048ef338f2e6fbb7615f7367f7756692d7df3c53cf4ccd950c6940",
+   "live": false
+  },
+  "website/api/staging-updates.php": {
+   "sha256": "64a3845cab2e06cd047058efb9ed841d374617c8b72e80b10bdf7198a97370e2",
+   "live": false
+  },
+  "website/api/stg-bar.php": {
+   "sha256": "d6341d62e9e1280057faf4a5797d793136f76df7dd5db5872e00a085334629e5",
+   "live": false
+  },
+  "website/js/admin-releases.js": {
+   "sha256": "6054c8e681de9eabd0d00d446d2bcb4026d946f39d8b912799b23b5197b95246",
+   "live": false
+  },
+  "website/js/stg-bar.js": {
+   "sha256": "fb3ddb7d46256f45395bd38626c9b1d0bb4685ddfe5c7bd298c9a744dd11b958",
+   "live": false
+  },
+  "website/stg-enter.php": {
+   "sha256": "4b3a253a90d68dd7700a187528f304e44677dc7234699224d23104b13b5beaa4",
+   "live": false
+  }
+ }
+}

@@ -114,6 +114,10 @@ All admin pages sit in the admin shell (left rail by job, no breadcrumbs, decisi
 | `/api/video/jobs.php`, `/api/video/results.php` | The video worker's queue and reports (Bearer `VIDEO_WORKER_TOKEN`; `workers/video`) | 0153 §8 | Built (video-cart-trial zip) |
 | `/api/upgrade.php?feature=` | The upgrade sheet's choices (`js/tv-upgrade.js`): storage, longer recording, plans; reads only | 0154 §5 | Built (channel-shop-earned zip) |
 | `/api/guide-paths.php` | The site audit's guide paths: every live guide, its suggested journeys and each stop with what our data says about it now (the checks' token only, `HEALTH_TOKEN`; read only) | 0145, 0146 | Built (Phase 4, not delivered yet) |
+| `/stg-enter.php` | Staging only: the way in from the live admin's Open on staging (a link the live site signs, good for 10 minutes, once): staging's pass, the staging bar, a test account | 0145 Phase 5 | Built (releases2 zip) |
+| `/api/stg-bar.php` | Staging only: the staging bar's line to the live site (its signed cookie and own header) | 0145 Phase 5 | Built (releases2 zip) |
+| `/api/release-bar.php` | Live only: answers the staging bar, signed with RELEASE_BAR_KEY; acts with the permissions the bar carries | 0145 Phase 5 | Built (releases2 zip) |
+| `/api/staging-updates.php` | Staging only: runs staging's waiting migrations when a release goes there (staging's HEALTH_TOKEN) | 0145 Phase 5 | Built (releases2 zip) |
 | `/api/search.php` | Universal search, typing and Enter | 0053, 0060, 0061, 0063, 0066, 0067 | Live |
 | `/api/search_listings.php` | Directory search | 0044, 0053, 0058, 0068 | Live |
 | `/api/suggest.php` | Older type-ahead for the directory box | — | Live |
