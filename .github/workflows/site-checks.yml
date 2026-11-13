@@ -26,6 +26,10 @@ on:
         description: 'Only the paths (skip the page checks)'
         type: boolean
         default: false
+      staging_paths:
+        description: 'Also the staging paths that change something (they run Mondays and Thursdays on their own)'
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -97,7 +101,11 @@ jobs:
           FULL: ${{ inputs.full && '1' || '0' }}
           GUIDES_PER_RUN: '4'
           PATHS_BUDGET_S: '420'
-        run: node tools/page-audit/paths.mjs
+          STAGING_PATHS: ${{ inputs.staging_paths && '1' || '0' }}
+        run: |
+          # the staging paths (Mondays, Thursdays, or asked for) need more time
+          if [ "$STAGING_PATHS" = "1" ] || [ "$(date -u +%u)" = "1" ] || [ "$(date -u +%u)" = "4" ]; then export PATHS_BUDGET_S=1100; fi
+          node tools/page-audit/paths.mjs
 
       - name: Findings (for Site health) and the page map
         if: env.SKIP != '1'
