@@ -3,32 +3,32 @@
  "built_on": "9f50a3f Sync: 2026-11-13 18:59 UTC",
  "recorded": "2026-11-13 19:07 UTC",
  "note": "Crawler revamp W2 finished: changed phones and hours to Review, live duplicates offered in Review, the crawler's Review items no longer capped like a visitor's. Built on Sync: 18:59 UTC Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "bc5bc65 Sync: 2026-11-13 19:20 UTC",
  "files": {
   "app/admin/crawler-console.php": {
    "sha256": "2da1115838b24a4e092b7f97f9298cbb1419fc76e11be9d8606d8e5d95f74531",
-   "live": false
+   "live": true
   },
   "app/lib/Suggestions.php": {
    "sha256": "684d7d270fa3a513f73ef59e54f9544bd948c62cb2240ebe80a10b1277b7bb64",
-   "live": false
+   "live": true
   },
   "app/lib/crawler/LiveDupes.php": {
    "sha256": "7be5060c07e353aa5b6e061bd19c80bdd21bdfe2b4c9b55420454030630ad87e",
-   "live": false
+   "live": true
   },
   "app/lib/crawler/Refresh.php": {
    "sha256": "826aeeedc7d1d84342f0705d35416abf800d839f929f2a8ff3cf002ffe3eb656",
-   "live": false
+   "live": true
   },
   "app/scripts/listings_tick.php": {
    "sha256": "eb3c86ea2808695e10aac93e88818af9caaca6a91ddfdf8da2b0742fb9425402",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "c9e3eb6598edab10d785795841ebf0a5452e52419b2efb17ff24c7389f299fed",
-   "live": false
+   "live": true
   }
  }
 }

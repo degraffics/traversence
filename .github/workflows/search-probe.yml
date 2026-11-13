@@ -38,6 +38,11 @@ jobs:
         if: env.SKIP != '1'
         with:
           node-version: '20'
+      - name: A browser for the checks that type (Find a business, the phone layout)
+        if: env.SKIP != '1'
+        run: |
+          npm install --no-save --no-audit --no-fund playwright@1.48.2
+          npx playwright install --with-deps chromium
       - name: Probe the searches
         if: env.SKIP != '1'
         env:
@@ -62,10 +67,7 @@ jobs:
         if: env.SKIP != '1'
         env:
           SITE: https://traversence.com
-        run: |
-          npm install --no-save --no-audit --no-fund playwright@1.48.2
-          npx playwright install --with-deps chromium
-          node tools/page-audit/layout-probe.mjs || echo "::warning::layout probe failed"
+        run: node tools/page-audit/layout-probe.mjs || echo "::warning::layout probe failed"
       - name: Keep the screenshots with the run
         if: always() && env.SKIP != '1'
         uses: actions/upload-artifact@v4
