@@ -3,20 +3,20 @@
  "built_on": "045728e Sync: 2026-11-13 17:22 UTC",
  "recorded": "2026-11-13 17:24 UTC",
  "note": "Admin search finds scheduled tasks and switches (session manager, Jason approved 16:42 UTC); built on Sync: 2026-11-13 17:22 UTC Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "edaa831 Sync: 2026-11-13 17:39 UTC",
  "files": {
   "app/admin/sections.php": {
    "sha256": "94f95645b72f8cdba4e1845a7dc24d93b75f0849506b55308a7c4ec88c3d0413",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "bdc44f7bc9d951603cf958340249c5de08101e11a4ae2e049fae14272571e0cc",
-   "live": false
+   "live": true
   },
   "website/admin/api/find.php": {
    "sha256": "bb7f6f33eab39aed32287376be89e8a960a563cc96c427dc36169d874cf54e30",
-   "live": false
+   "live": true
   }
  }
 }

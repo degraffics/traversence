@@ -35,10 +35,8 @@ Files: `app/lib/Blocks.php`, `website/api/blocks.php` (action `preview`; GET als
   Save draft, Publish, no sideways scroll. Not yet tried by Jason live.
 
 **Next, in order:**
-1. **The admin search release** (session manager, Jason approved 16:42 UTC): Ctrl K finds scheduled tasks and switches by
-   name and description ("audit clock"), each opening its own card (`#job-<key>` in Scheduled tasks, `#sw-<key>` in
-   Switches; the card opens and is ringed). Prepared on the 16:41 live copies of `website/admin/api/find.php` and
-   `app/admin/sections.php` (re-check both before zipping); needs its FAQ entry. Its own release.
+1. ~~The admin search release~~ **live** as release #24 (`adminfind_20261113`), verified at Sync 17:39 UTC: Ctrl K finds
+   scheduled tasks and switches by name, key and description, opening `#job-<key>` / `#sw-<key>` on their pages.
 2. **Step 4b:** live components (a registry in code: name, settings, where it may go; search box, listings grid, map,
    guide, engage bar, form, GO Code) as block kinds, drawn server-side by their own code; SEO fields (title, description,
    share picture) for block pages.
