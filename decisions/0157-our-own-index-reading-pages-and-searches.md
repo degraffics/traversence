@@ -1,6 +1,6 @@
 # ADR 0157: Our own index: reading pages and reading searches
 
-**Status:** Accepted (Jason, 2026-11-13: "yes approved, start delivery 1"; the second tier added the same day at his ask). Deliveries 1 to 4 built 2026-11-13 (3b folded into 4, Jason: "build 3b and 4 as one"). It extends `decisions/0045` (our own
+**Status:** Accepted (Jason, 2026-11-13: "yes approved, start delivery 1"; the second tier added the same day at his ask). Deliveries 1 to 5 built 2026-11-13 (3b folded into 4, Jason: "build 3b and 4 as one"). It extends `decisions/0045` (our own
 reference index, source-first crawling), `0044` (confidence-gated import), `0133` (the observations store and identity
 record), `0060`/`0061`/`0063`/`0064`/`0067` (search, situations, the lexicon, words search learns, what words mean) and keeps
 `0065` (OpenStreetMap is its own layer), `0066` (tribal nations' land), `0093` (what people open is a hint, never a
@@ -162,6 +162,18 @@ model with its web search, as "Find it" does now). That decides: publish, turn d
 registration, a disconnected phone, a page saying it closed) or merge (the same place, sure), with its reasons and sources
 on the record (§6), undoable. Left for a person: tribal nations' land and sensitive sites (0066, never decided by a
 machine), an owner's dispute, and what the research couldn't settle.
+
+**Built (delivery 5, 2026-11-13):** each site's record in the register (`borne_out`, `shown_wrong`, counted once per
+decided find by the listings pipeline; a find turned down as a duplicate or out of scope doesn't count against it), and its
+weight in the second look: +15 for a site borne out nine times in ten, +10 as usual, +5 or nothing for one often wrong
+(three outcomes before it counts). The second tier's Claude steps, each an AI feature in System Configuration → AI use, off
+until Jason switches it on and sets its budget: **Source terms** (Claude reads a waiting site's terms, sent by the worker,
+and decides read or cite only; counted only with a sentence found in the terms; sets its rules unless a person did) and
+**Settle a find** (Claude looks up a find still waiting after the second look; each source counts only when its words are
+on its page, fetched by the site from public addresses only; open with the phone or house number: through the second look's
+guardrails; closed with words that say so: turned down with the page, undoable in Review; the rest for a person; never on a
+nation's land or for a place kept private). Still to build in the second tier: Tavily Extract for pages the worker can't
+fetch (§1) and AWS Textract for scanned PDFs (§7.2), both needing their own allowance.
 
 ### 6. "What we know and where from"
 
