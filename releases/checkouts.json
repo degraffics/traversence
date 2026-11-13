@@ -54,15 +54,10 @@
    "session": "session_01CXLi5heQJQxTX8ubPs7Jfs",
    "why": "0159 step 4d: likes, comments and a form on our pages",
    "since": "2026-11-13T20:22:16Z",
-   "expires": "2026-11-14T00:22:16Z",
-   "release": "editor4d_20261113",
+   "expires": "2026-11-14T00:40:27Z",
+   "release": "editor4d_20261113.zip",
    "callers": {
     "submit": [
-     "app/lib/SocialAuth.php",
-     "website/api/auth/google.php",
-     "website/js/tv-ask.js",
-     "website/login.php",
-     "website/order.php",
      "website/pages/form.php"
     ]
    }
@@ -70,6 +65,7 @@
   {
    "path": "app/lib/Engage.php",
    "functions": [
+    "(top)",
     "exists",
     "target"
    ],
@@ -77,8 +73,8 @@
    "session": "session_01CXLi5heQJQxTX8ubPs7Jfs",
    "why": "0159 step 4d: likes, comments and a form on our pages",
    "since": "2026-11-13T20:22:16Z",
-   "expires": "2026-11-14T00:22:16Z",
-   "release": "editor4d_20261113",
+   "expires": "2026-11-14T00:40:27Z",
+   "release": "editor4d_20261113.zip",
    "callers": {
     "target": [
      "app/lib/Engage.php",
@@ -104,8 +100,8 @@
    "session": "session_01CXLi5heQJQxTX8ubPs7Jfs",
    "why": "0159 step 4d: likes, comments and a form on our pages",
    "since": "2026-11-13T20:22:16Z",
-   "expires": "2026-11-14T00:22:16Z",
-   "release": "editor4d_20261113",
+   "expires": "2026-11-14T00:40:27Z",
+   "release": "editor4d_20261113.zip",
    "callers": {
     "item": [
      "app/lib/Books.php",
@@ -144,9 +140,13 @@
    "session": "session_01CXLi5heQJQxTX8ubPs7Jfs",
    "why": "0159 step 4d: likes, comments and a form on our pages",
    "since": "2026-11-13T20:22:16Z",
-   "expires": "2026-11-14T00:22:16Z",
-   "release": "editor4d_20261113",
-   "callers": {}
+   "expires": "2026-11-14T00:40:27Z",
+   "release": "editor4d_20261113.zip",
+   "callers": {
+    "scan": [
+     "website/js/tv-editor.js"
+    ]
+   }
   },
   {
    "path": "app/lib/Engage.php",
@@ -171,6 +171,64 @@
    "since": "2026-11-13T20:22:18Z",
    "expires": "2026-11-14T00:22:18Z",
    "release": "editor4d_20261113",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Reports.php",
+   "functions": [
+    "open"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5heQJQxTX8ubPs7Jfs",
+   "why": "release editor4d_20261113.zip",
+   "since": "2026-11-13T20:40:27Z",
+   "expires": "2026-11-14T00:40:27Z",
+   "release": "editor4d_20261113.zip",
+   "callers": {
+    "open": [
+     "app/lib/Helper.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/Blocks.php",
+   "functions": [
+    "(top)"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5heQJQxTX8ubPs7Jfs",
+   "why": "release editor4d_20261113.zip",
+   "since": "2026-11-13T20:40:27Z",
+   "expires": "2026-11-14T00:40:27Z",
+   "release": "editor4d_20261113.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/api/blocks.php",
+   "functions": [
+    "(top)"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5heQJQxTX8ubPs7Jfs",
+   "why": "release editor4d_20261113.zip",
+   "since": "2026-11-13T20:40:27Z",
+   "expires": "2026-11-14T00:40:27Z",
+   "release": "editor4d_20261113.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/js/tv-editor.js",
+   "functions": [
+    "(top)",
+    "liveParts",
+    "summary"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5heQJQxTX8ubPs7Jfs",
+   "why": "release editor4d_20261113.zip",
+   "since": "2026-11-13T20:40:27Z",
+   "expires": "2026-11-14T00:40:27Z",
+   "release": "editor4d_20261113.zip",
    "callers": {}
   }
  ],
