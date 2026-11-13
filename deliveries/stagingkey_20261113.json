@@ -3,16 +3,16 @@
  "built_on": "664878b Sync: 2026-11-13 12:58 UTC",
  "recorded": "2026-11-13 13:00 UTC",
  "note": "Release #3 (urgent: the release system): the staging pass and the bar's key are made of letters and digits (password() adds a dash for cPanel, which every check refused, so the pass was never set). Built on Sync: 2026-11-13 12:58 UTC.",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "f9ef9e3 Sync: 2026-11-13 13:34 UTC",
  "files": {
   "app/lib/StagingSite.php": {
    "sha256": "04dacfffb07ca85479ce0d17e5865383b2a1f8713c86ef19ba4d43f58913ebc7",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "190d1218faa55392d81796e8d17df236cfb7258aa6970f2f82d1470ceac1b916",
-   "live": false
+   "live": true
   }
  }
 }

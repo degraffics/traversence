@@ -1,0 +1,126 @@
+{
+    "id": 4,
+    "title": "Staging: Check the way in, to find what asks for the password",
+    "why": "Open staging still meets the browser's password prompt after release #3. Rather than guess again, the Staging page gets Check the way in: it asks staging for a page with nothing, with the pass, with the checks' sign-in and along the whole Open staging path, and says which layer answered each (the web server, staging's guard file or the page, now marked with X-Tv-Stg-Gate). It also shows staging's rules on the way down, .user.ini, the guard file, the pass's shape and what staging's own PHP sees (/api/stg-probe.php), never a secret. decisions/0159 step 1, part 1: the fix follows from what it finds.",
+    "proposals": "decisions/0159 step 1",
+    "zip": "stagingway_20261113.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "live",
+    "step": 3,
+    "paused": false,
+    "urgent": "Release system fix: finds what asks for the staging password",
+    "schedule_at": null,
+    "plan_at": "2026-11-13 13:47:59",
+    "staged_at": "2026-11-13 13:48:07",
+    "vetted_at": null,
+    "live_at": "2026-11-13 13:52:24",
+    "files": {
+        "app/lib/Staging.php": {
+            "sha": "98e628db9b27621535245b00cdca25902341ec1ca4b0b8160ed2cd2ad7a41ebb",
+            "size": 13326,
+            "live_was": "5bac88fae2acb4d0d00e90e9afc3f32b2b4bd585b9b373b8e86e2f7948006509",
+            "existed": true,
+            "old_sha": "5bac88fae2acb4d0d00e90e9afc3f32b2b4bd585b9b373b8e86e2f7948006509"
+        },
+        "app/lib/StagingSite.php": {
+            "sha": "6400c48dd9ca987d7c4f87be27029682b968030d00f2fd42f100bf9a2cc66763",
+            "size": 93452,
+            "live_was": "04dacfffb07ca85479ce0d17e5865383b2a1f8713c86ef19ba4d43f58913ebc7",
+            "existed": true,
+            "old_sha": "04dacfffb07ca85479ce0d17e5865383b2a1f8713c86ef19ba4d43f58913ebc7"
+        },
+        "app/lib/Releases.php": {
+            "sha": "affd6cbeb5c9ef68b429b73155890e5281f821d8ffaea0cab3c997fe480fbc5e",
+            "size": 66408,
+            "live_was": "a0287d834e28884dfbba2ed8377fd3976cd59fd52b7c9e3a441723060bcbcdfc",
+            "existed": true,
+            "old_sha": "a0287d834e28884dfbba2ed8377fd3976cd59fd52b7c9e3a441723060bcbcdfc"
+        },
+        "app/admin/sections.php": {
+            "sha": "db08e9199ac79aa57747a17abdc7362a59e2ac13a222756a3f05e2d21eedf3fb",
+            "size": 205995,
+            "live_was": "c2b38b095880bf1bbbe6d587f9999f58a4fbc2ad2f1f89c4bcd12fde1681d969",
+            "existed": true,
+            "old_sha": "c2b38b095880bf1bbbe6d587f9999f58a4fbc2ad2f1f89c4bcd12fde1681d969"
+        },
+        "app/ui/faq.md": {
+            "sha": "2e6dc2db884874dd875bf2479e33f5f8bc9dcfa6b50591c17ba0920b6eef5a87",
+            "size": 265120,
+            "live_was": "190d1218faa55392d81796e8d17df236cfb7258aa6970f2f82d1470ceac1b916",
+            "existed": true,
+            "old_sha": "190d1218faa55392d81796e8d17df236cfb7258aa6970f2f82d1470ceac1b916"
+        },
+        "website/js/admin-staging.js": {
+            "sha": "790ef4bc27d52e02feb4ecd23c59b1fcea45d44ed4ea5cad093c6da5cbdd6b6c",
+            "size": 8741,
+            "live_was": "d53e556ada81d69c524ce6633bde14a1ce5b68cfb194219786dbf7bf19542723",
+            "existed": true,
+            "old_sha": "d53e556ada81d69c524ce6633bde14a1ce5b68cfb194219786dbf7bf19542723"
+        },
+        "website/admin/api.php": {
+            "sha": "abce251b19574ff67ee16133992190c69406df13bace39ea5447342c8fd2877e",
+            "size": 20110,
+            "live_was": "b71adcd1268d1154cb92b612a49cdc2d5ccf7419ab9730bee167503e31c21c60",
+            "existed": true,
+            "old_sha": "b71adcd1268d1154cb92b612a49cdc2d5ccf7419ab9730bee167503e31c21c60"
+        },
+        "website/api/stg-probe.php": {
+            "sha": "0918733fddc195d4f3cd181a18912f4c709c07b32b8dc7c7226060928721227f",
+            "size": 3378,
+            "live_was": null,
+            "existed": false
+        }
+    },
+    "migrations": [],
+    "checks": {
+        "ok": true,
+        "where": "live",
+        "at": "2026-11-13T13:52:24+00:00",
+        "items": [
+            [
+                "PHP files parse",
+                true,
+                "6 checked"
+            ],
+            [
+                "Pages answer",
+                true,
+                "3 pages answered on traversence.com"
+            ],
+            [
+                "No new fatal errors in the logs",
+                true,
+                "4 logs read"
+            ]
+        ],
+        "first_fail": ""
+    },
+    "log": [
+        {
+            "at": "2026-11-13T13:47:35+00:00",
+            "by": 2,
+            "msg": "Uploaded stagingway_20261113.zip: 8 files."
+        },
+        {
+            "at": "2026-11-13T13:47:59+00:00",
+            "by": 2,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
+        },
+        {
+            "at": "2026-11-13T13:48:09+00:00",
+            "by": 2,
+            "msg": "Put on staging (8 files); its checks passed."
+        },
+        {
+            "at": "2026-11-13T13:48:15+00:00",
+            "by": 2,
+            "msg": "Opened on staging by Jason DeGraff."
+        },
+        {
+            "at": "2026-11-13T13:52:24+00:00",
+            "by": 2,
+            "msg": "Published at once (urgent: Release system fix: finds what asks for the staging password): 8 files; everyone at once (no switch)."
+        }
+    ]
+}

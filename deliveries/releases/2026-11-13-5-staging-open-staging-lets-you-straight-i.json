@@ -1,0 +1,70 @@
+{
+    "id": 5,
+    "title": "Staging: Open staging lets you straight in (the site's folder grants itself)",
+    "why": "Check the way in found it: with the pass on, the web server's password rule is left out and PHP is the gate, but staging's private top folder (Require all denied, keeping its .env private) also covered the site's folder, so every page answered 403. The self-test read that 403 as a page open to anyone and put the web server's password back (STAGING_PASS_RULES off). Now the site's folder says Require all granted itself while the pass is on, a 403 counts as shut (not open), and the rules are written again once (form 4), with the guard file's mark. decisions/0159 step 1, part 2.",
+    "proposals": "decisions/0159 step 1",
+    "zip": "stagingin_20261113.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "live",
+    "step": 3,
+    "paused": false,
+    "urgent": "Release system fix: Open staging gets in.",
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": "2026-11-13 14:00:32",
+    "files": {
+        "app/lib/StagingSite.php": {
+            "sha": "41628d5fce2a2c63de9cb3d9b34595b438ff81d91949cc30fa32a653df350bc2",
+            "size": 93892,
+            "live_was": "6400c48dd9ca987d7c4f87be27029682b968030d00f2fd42f100bf9a2cc66763",
+            "existed": true,
+            "old_sha": "6400c48dd9ca987d7c4f87be27029682b968030d00f2fd42f100bf9a2cc66763"
+        },
+        "app/ui/faq.md": {
+            "sha": "7f202b76606b0e65c258bed176bf7c10a01bfb151968952b74ead5c8b723aa67",
+            "size": 265351,
+            "live_was": "2e6dc2db884874dd875bf2479e33f5f8bc9dcfa6b50591c17ba0920b6eef5a87",
+            "existed": true,
+            "old_sha": "2e6dc2db884874dd875bf2479e33f5f8bc9dcfa6b50591c17ba0920b6eef5a87"
+        }
+    },
+    "migrations": [],
+    "checks": {
+        "ok": true,
+        "where": "live",
+        "at": "2026-11-13T14:00:32+00:00",
+        "items": [
+            [
+                "PHP files parse",
+                true,
+                "1 checked"
+            ],
+            [
+                "Pages answer",
+                true,
+                "2 pages answered on traversence.com"
+            ],
+            [
+                "No new fatal errors in the logs",
+                true,
+                "3 logs read"
+            ]
+        ],
+        "first_fail": ""
+    },
+    "log": [
+        {
+            "at": "2026-11-13T14:00:11+00:00",
+            "by": 2,
+            "msg": "Uploaded stagingin_20261113.zip: 2 files."
+        },
+        {
+            "at": "2026-11-13T14:00:32+00:00",
+            "by": 2,
+            "msg": "Published at once (urgent: Release system fix: Open staging gets in.): 2 files; everyone at once (no switch)."
+        }
+    ]
+}

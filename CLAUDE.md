@@ -283,7 +283,9 @@ it: inside a paying plan's allowance, a paid top-up, or a fee charged first. Fre
 except free members' Moments, Snaps and Keeps, paid from the community budget (3% of revenue, $25 floor; decisions/0154).
 System emails the site sends itself (links, notices, work orders) cost nothing and aren't limited by this (Jason, 2026-11-09).
 The one exception: Claude writing guides and journeys, inside the AI monthly cap (decisions/0131, 0147: on-demand
-builds up to 50% of the daily allowance, the rest queued). Also a place's description, written once when someone opens a place with no
+builds up to 50% of the daily allowance, the rest queued), and the research and development tools that feed them (research
+briefs, topic research, Find it, live events, heritage, names, fixes; decisions/0160 §5). Every call's cost is counted,
+failed calls included, so the cap holds. Also a place's description, written once when someone opens a place with no
 Wikipedia summary, kept as research (decisions/0148, `place_about`).
 
 ## The live server's PHP version: every build

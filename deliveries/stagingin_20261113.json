@@ -1,0 +1,18 @@
+{
+ "zip": "stagingin_20261113.zip",
+ "built_on": "fdf5070 Sync: 2026-11-13 13:54 UTC",
+ "recorded": "2026-11-13 13:56 UTC",
+ "note": "Release #5 (decisions/0159 step 1, part 2): with the pass on, staging's site folder says Require all granted (its private top folder's Require all denied had shut every page, 403, and the self-test read that as open and put the web server's password back); a 403 counts as shut; rules rewritten once (form 4). Found by Check the way in, 13:53 UTC. Built on Sync: 2026-11-13 13:54 UTC.",
+ "status": "live",
+ "live_in": "82a92cd Sync: 2026-11-13 14:02 UTC",
+ "files": {
+  "app/lib/StagingSite.php": {
+   "sha256": "41628d5fce2a2c63de9cb3d9b34595b438ff81d91949cc30fa32a653df350bc2",
+   "live": true
+  },
+  "app/ui/faq.md": {
+   "sha256": "7f202b76606b0e65c258bed176bf7c10a01bfb151968952b74ead5c8b723aa67",
+   "live": true
+  }
+ }
+}

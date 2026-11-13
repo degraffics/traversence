@@ -3,7 +3,7 @@
  "built_on": "71c45f7 Sync: 2026-11-09 15:41 UTC",
  "recorded": "2026-11-09 16:09 UTC",
  "note": "Vendor links (decisions/0150): one page of a vendor's work orders, 30-day links with Request a new link, never a dead end (send me a link, ask our team), staff Email their link, Vendor staff landing (built on 15:41 UTC)",
- "status": "partial",
+ "status": "replaced",
  "live_in": "",
  "files": {
   "app/admin/sections.php": {
@@ -42,5 +42,6 @@
    "sha256": "ab4635b219cbc2fe7497651812650bda3beeb242c6b142f016c48e48aa503dcd",
    "live": true
   }
- }
+ },
+ "replaced_by": "superseded: each file not live here was delivered again later (pro-month_20261111, releases3_20261113)"
 }
