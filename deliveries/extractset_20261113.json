@@ -1,0 +1,22 @@
+{
+ "zip": "extractset_20261113.zip",
+ "built_on": "e2b5484 Sync: 2026-11-13 02:21 UTC",
+ "recorded": "2026-11-13 02:25 UTC",
+ "note": "Pages a crawler run for Tavily Extract, a setting in AI use (Jason: make it a setting); Tavily and Textract features show no model. Built on the 02:21 UTC sync.",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/admin/sections.php": {
+   "sha256": "f318c1e41396d3048e3fc893643b4e0a1f660768f709faa5a8799ba08c414117",
+   "live": false
+  },
+  "app/lib/AiClient.php": {
+   "sha256": "3393a46270234005c0935a2c16ac021a4424ddaeb8b5ad80ed5e4cb1b4c2478c",
+   "live": false
+  },
+  "app/lib/crawler/SecondTier.php": {
+   "sha256": "38ec17c5fdee94e3be09f3dece4e03fc04e8286001d67011b9855be11a84e26b",
+   "live": false
+  }
+ }
+}
