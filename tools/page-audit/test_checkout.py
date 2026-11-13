@@ -159,6 +159,17 @@ class Diffs(Base):
         new = MANIFEST.replace("'title' => 'Crawler'", "'title' => 'The crawler'")
         self.assertEqual(checkout.changed_names('app/admin/manifests.php', MANIFEST, new), ('change', ["'crawler'"]))
 
+    def test_callers_only_where_they_reach(self):
+        files = {'app/lib/LocalWords.php': WORDS, 'website/a.php': CALLER,
+                 'website/b.php': '<?php function match($x) {} echo match(1); $o->match(2);\n',
+                 'website/c.php': '<?php $w = new LocalWords(); echo $w->match(2);\n',
+                 'website/js/tv-editor.js': '(function(){ function open(a){} window.TvEditor = { open: open }; open(1); })();\n',
+                 'website/js/stg-bar.js': '(function(){ function open(){} open(); })();\n',
+                 'website/js/page.js': 'TvEditor.open(3);\n'}
+        self.assertEqual(checkout.find_callers(None, 'app/lib/LocalWords.php', ['match'], files), {'match': ['website/a.php', 'website/c.php']})
+        self.assertEqual(checkout.find_callers(None, 'website/js/tv-editor.js', ['open'], files), {'open': ['website/js/page.js']})
+        self.assertEqual(checkout.find_callers(None, 'website/js/stg-bar.js', ['open'], files), {})
+
     def test_signatures_and_calls(self):
         self.assertEqual(checkout.signatures(WORDS), {'match': (1, 1), 'other': (1, 2)})
         self.assertEqual(checkout.call_counts(CALLER, 'other'), [1])

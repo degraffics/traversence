@@ -292,14 +292,49 @@ def call_rx(name):
         return re.compile(r'(?<![\w$])' + re.escape(name) + r'(?![\w$])')
     return re.compile(r'(?<![\w$])' + re.escape(name) + r'\s*\(')
 
+def reach(path, text):
+    """How other files reach what `path` defines: ('php', class name or None) or ('js', global names it exports)."""
+    if path.endswith('.php'):
+        m = re.search(r'^\s*(?:final\s+|abstract\s+)?class\s+([A-Za-z_]\w*)', text or '', re.M)
+        return 'php', m.group(1) if m else None
+    if path.endswith('.js'):
+        g = set(re.findall(r'\bwindow\.([A-Za-z_$][\w$]*)\s*=', text or ''))
+        g |= set(re.findall(r'^(?:var|let|const)\s+([A-Za-z_$][\w$]*)\s*=', text or '', re.M))
+        return 'js', sorted(g)
+    return '', None
+
+def caller_rx(path, text, name):
+    """The calls of `name` that can reach the copy `path` defines (a class's method through its class; a script's
+    function through the global it exports). Returns (regex, class an instance call (->) must name in the same file);
+    regex None: only the file itself can call it."""
+    if re.fullmatch(r'[A-Z_][A-Z0-9_]*', name):   # a constant
+        lang, owner = reach(path, text)
+        if lang == 'php' and owner:
+            return re.compile(r'(?<![\w$])' + re.escape(owner) + r'::' + re.escape(name) + r'(?![\w$])'), None
+        return re.compile(r'(?<![\w$:>.])' + re.escape(name) + r'(?![\w$])'), None
+    lang, owner = reach(path, text)
+    if lang == 'php':
+        if owner:   # static calls name the class; an instance call (->name) counts in a file that names the class
+            return re.compile(r'(?<![\w$])' + re.escape(owner) + r'::' + re.escape(name) + r'\s*\(|(?P<inst>->)' + re.escape(name) + r'\s*\('), owner
+        return re.compile(r'(?<![\w$:>.])' + re.escape(name) + r'\s*\('), None
+    if lang == 'js':
+        if not owner:
+            return None, None
+        return re.compile(r'(?<![\w$])(?:window\.)?(?:' + '|'.join(map(re.escape, owner)) + r')\.' + re.escape(name) + r'\s*\('), None
+    return re.compile(r'(?<![\w$])' + re.escape(name) + r'\s*\('), None
+
 def find_callers(mirror, path, fns, files=None):
-    """{fn: [files on the live site that call it]}, from the mirror, or from `files` ({path: text}) when given. A
-    function's own definition isn't a call."""
+    """{fn: [other files on the live site that call it]}, from the mirror, or from `files` ({path: text}) when given.
+    Only calls that can reach this file's copy count (see caller_rx); the file itself is left out (its own claim covers it)."""
     names = {fn: bare(fn) for fn in fns}
     names = {k: v for k, v in names.items() if v}
     if not names or (files is None and not mirror):
         return {}
     if files is None:
+        try:
+            own = open(mirror_path(mirror, path), encoding='utf-8', errors='replace').read()
+        except Exception:
+            own = ''
         def texts():
             for p, full in site_files(mirror):
                 try:
@@ -308,11 +343,19 @@ def find_callers(mirror, path, fns, files=None):
                     continue
         it = texts()
     else:
+        own = files.get(path, '')
         it = files.items()
+    rxs = {fn: caller_rx(path, own, nm) for fn, nm in names.items()}
     out = {}
     for p, body in it:
-        for fn, nm in names.items():
-            for m in call_rx(nm).finditer(body):
+        if p == path:
+            continue
+        for fn, (rx, cls) in rxs.items():
+            if rx is None:
+                continue
+            for m in rx.finditer(body):
+                if m.groupdict().get('inst') and not re.search(r'\b' + re.escape(cls) + r'\b', body):
+                    continue   # ->name( in a file that never names the class: some other class's method
                 before = body[body.rfind('\n', 0, m.start()) + 1:m.start()]
                 if re.search(r'\b(function\s+&?|const\s+)$', before):
                     continue
@@ -565,8 +608,9 @@ def broken_callers(zpath, mirror, overlay):
                 if fn not in new or new[fn] == sig:
                     continue
                 bad = []
+                reached = set(find_callers(overlay, n, [fn]).get(fn, []))   # only calls that can reach this copy
                 for p, full in site_files(overlay):
-                    if not full.endswith(os.path.splitext(n)[1]):
+                    if p not in reached and p != n:
                         continue
                     text = open(full, encoding='utf-8', errors='replace').read()
                     if any(fits(sig, k) and not fits(new[fn], k) for k in call_counts(text, fn)):
