@@ -3,7 +3,7 @@
  "built_on": "95ec00d Sync: 2026-11-13 04:13 UTC",
  "recorded": "2026-11-13 04:36 UTC",
  "note": "Phase 5, the Releases page (decisions/0145 \u00a75): upload a release on System Configuration \u2192 Releases; staging first with its migrations and checks; sign-off; publish or schedule; steps (staff and test, 25%, everyone) on schedule or by hand; Turn off, Roll back (previous copies kept on the server); urgent publish with a reason; zips for FTP; Pulse cases; git records via DocsRepo::saveRecord; four permissions, Founder only. Built on Sync: 2026-11-13 04:13 UTC.",
- "status": "pending",
+ "status": "replaced",
  "live_in": "",
  "files": {
   "app/admin/manifests.php": {
@@ -58,5 +58,6 @@
    "sha256": "0241eceede72763721f9f61926e656c904a6796711c0de6eae04aca5829e35a7",
    "live": false
   }
- }
+ },
+ "replaced_by": "releases2_20261113"
 }
