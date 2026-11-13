@@ -33,6 +33,28 @@
    "expires": "2026-11-14T00:02:34Z",
    "release": "editor4c_20261113",
    "callers": {}
+  },
+  {
+   "path": "app/ui/header.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5heQJQxTX8ubPs7Jfs",
+   "why": "0159 step 4c: the site zones' calls at the header's end and in the footer; FAQ lines",
+   "since": "2026-11-13T20:02:37Z",
+   "expires": "2026-11-14T00:02:37Z",
+   "release": "editor4c_20261113",
+   "callers": {}
+  },
+  {
+   "path": "app/ui/footer.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5heQJQxTX8ubPs7Jfs",
+   "why": "0159 step 4c: the site zones' calls at the header's end and in the footer; FAQ lines",
+   "since": "2026-11-13T20:02:37Z",
+   "expires": "2026-11-14T00:02:37Z",
+   "release": "editor4c_20261113",
+   "callers": {}
   }
  ],
  "lapsed": []
