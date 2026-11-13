@@ -3,7 +3,7 @@
  "built_on": "95ec00d Sync: 2026-11-13 04:13 UTC",
  "recorded": "2026-11-13 04:46 UTC",
  "note": "Phase 5, the Releases page, with the staging bar: Open on staging (past the viewing password, as a test account), the bar on every staging page (changes, notes, sign off, schedule, publish, back to the live admin), Publish stops if a live file changed since the build. Replaces releases_20261113 (never uploaded). Built on Sync: 2026-11-13 04:13 UTC.",
- "status": "pending",
+ "status": "replaced",
  "live_in": "",
  "files": {
   "app/admin/manifests.php": {
@@ -82,5 +82,6 @@
    "sha256": "4b3a253a90d68dd7700a187528f304e44677dc7234699224d23104b13b5beaa4",
    "live": false
   }
- }
+ },
+ "replaced_by": "releases3_20261113"
 }
