@@ -14,7 +14,7 @@ not only the record of them.
 2. **After:** a vetted release becomes a tagged version in git. Publishing it (Phase 5) has the sync workflow upload
    exactly its files to staging, then to live, by FTP. It then checks every file byte for byte and records the result.
    Rolling back uploads the previous tag's files. No zips, no missed files.
-3. **The sync's direction changes:** `SYNC_HOME` becomes git. Edits made directly on the server (cPanel) or in OneDrive
+3. **The sync's direction changes** (done 2026-11-13, decisions/0159 step 2): `SYNC_HOME` becomes git. Edits made directly on the server (cPanel) or in OneDrive
    are reported as drift and brought into a release, or put back. They are never silently kept or lost.
 4. **The rules that stay:**
    - dotfiles (`.env`, `.htaccess`) and `app/storage/` are never deployed from git;

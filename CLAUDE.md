@@ -62,8 +62,8 @@ at 6:00 and 18:00 UTC or on demand (its workflow's Run button), committing the r
   notes come back in its record (`deliveries/releases/`). Watch for its
   "Release #N: Live" record commit, then run the sync. Upload on the site manager is the fallback; Publish is for work
   done on staging.
-- **Delivering:** the release's publish writes to the server; the sync updates OneDrive. The server wins a two-sided change
-  (`SYNC_HOME=ftp`). A zip holds **only files that differ byte for byte from the live mirror**, never a blanket upload.
+- **Delivering:** the release's publish writes to the server; the sync updates OneDrive. Since 2026-11-13 only releases change the
+  site (`SYNC_HOME=git`): a server or OneDrive edit not from a release is put back, the edit kept in the sync's `conflicts/`. A zip holds **only files that differ byte for byte from the live mirror**, never a blanket upload.
   Dotfiles (`.htaccess`) aren't mirrored, so name them separately when they change.
 - **Several sessions at once** (Jason, 2026-11-01): current first, so nothing is rebuilt.
   - **Before writing any file for a zip**, fetch the mirror and start every file from its live copy, never from a copy
