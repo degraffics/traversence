@@ -62,8 +62,11 @@ Each is a release. Highest risk first: public exposure, then damage to good data
    - **Then:** re-tier the heritage facts already made.
 3. **The OpenStreetMap layer has no nations check** (`OpenPlaces.php` 205). Trailheads, reserves and viewpoints on a
    nation's land show with no check.
-4. **Held landmarks can be named in guides** through the `dismissed` path (`GuideLinks.php` 205–207). Decide against
-   0066's "until the nation says": it should hold.
+4. **Held landmarks in guides** (`GuideLinks.php` 205–207). Decided (Jason, 2026-11-13): "we can name a place, but we
+   can not show data that would allow unauthorized access or direction to said place". So a guide may name a held place
+   and tell its story; the fix is to make sure nothing about it shows the way in (map point or pin, address,
+   directions, route, trailhead, access details, or a link to a page with them). The same rule applies to the place
+   store's results (A1) and the OpenStreetMap layer (A3).
 
 ### B. Damage to good data
 
