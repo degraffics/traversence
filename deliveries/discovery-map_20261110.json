@@ -3,7 +3,7 @@
  "built_on": "04a9109 Sync: 2026-11-10 14:08 UTC",
  "recorded": "2026-11-10 14:13 UTC",
  "note": "",
- "status": "partial",
+ "status": "replaced",
  "live_in": "",
  "files": {
   "app/lib/OpenPlaces.php": {
@@ -34,5 +34,6 @@
    "sha256": "d06b9f9fe85828a9410b9b9e02715de4fc261eb52894e9923f623d9d84fe53b2",
    "live": false
   }
- }
+ },
+ "replaced_by": "superseded: each file not live here was delivered again later (discovery-immersion-a_20261110, pro-month_20261111, rows_20261112, search-intents-a_20261111, search-outings-and-pairs_20261110)"
 }
