@@ -387,7 +387,7 @@ def fetch_page_meta(url, etag="", modified="", pdf=False):
     entity tag or last-changed date the server gave last time, it asks first whether the page changed: an unchanged page
     answers 304 with no body, and costs nothing to download. status 0: not fetched (a budget, robots.txt, an error)."""
     global fetches, last_fetch
-    out = {"body": None, "status": 0, "type": "", "bytes": 0, "etag": "", "modified": ""}
+    out = {"body": None, "status": 0, "type": "", "bytes": 0, "etag": "", "modified": "", "why": ""}
     if os.environ.get("WEB_FIXTURE"):
         with open(os.environ["WEB_FIXTURE"]) as f:
             fx = json.load(f).get(url)
@@ -399,7 +399,11 @@ def fetch_page_meta(url, etag="", modified="", pdf=False):
         if fx is not None:
             out.update(body=fx, status=200, type="text/html", bytes=len(fx))
         return out
-    if fetches >= MAX_FETCHES or out_of_time() or not public_host(url) or not allowed(url):
+    if fetches >= MAX_FETCHES or out_of_time():
+        out["why"] = "budget"
+        return out
+    if not public_host(url) or not allowed(url):
+        out["why"] = "robots"                          # robots.txt or a private address: never read another way
         return out
     host = urllib.parse.urlsplit(url).netloc.lower()
     wait = max(FETCH_DELAY - (time.monotonic() - last_fetch), crawl_delay(url) - (time.monotonic() - host_last.get(host, -1e9)))
@@ -428,13 +432,21 @@ def fetch_page_meta(url, etag="", modified="", pdf=False):
                 return out
             body = r.read(400_000)
             out.update(bytes=len(body), body=body.decode("utf-8", "replace"))
+            # a page that shows nothing without a browser (its text drawn by scripts): "empty"
+            if len(re.sub(r"\s+", " ", " ".join(page_lines(out["body"])))) < 150 and len(re.findall(r"(?i)<script", out["body"])) >= 3:
+                out["why"] = "empty"
             return out
     except urllib.error.HTTPError as e:
         out["status"] = e.code                         # 304: unchanged since last time; 404, 410: gone
         if e.code == 304:
             out.update(etag=etag, modified=modified)
+        elif e.code in (401, 403, 451):
+            out["why"] = "refused"                     # the site said no: never read another way
+        elif e.code >= 500 or e.code in (408, 429):
+            out["why"] = "error"
         return out
     except Exception:
+        out["why"] = "error"                           # a timeout, a broken certificate, a dropped connection
         return out
 
 
@@ -935,6 +947,34 @@ def microdata_facts(page, url):
     return out
 
 
+def lines_page(lines, title):
+    """Text lines as a plain page (one paragraph a line), so they're read like any page."""
+    return "<html><head><title>" + html.escape(title[:200]) + "</title></head><body>" + "".join("<p>" + html.escape(l) + "</p>" for l in lines if l.strip()) + "</body></html>"
+
+
+def tavily_extract(url):
+    """The second tier for a page our fetch couldn't get or that shows nothing without a browser (decisions/0157 §1):
+    Tavily Extract's text of it, as a page. Only within the allowance the site gives, never for a page robots.txt or the
+    site itself refuses. None when it can't."""
+    if not TAVILY_API_KEY or os.environ.get("WEB_FIXTURE"):
+        return None
+    try:
+        req = urllib.request.Request("https://api.tavily.com/extract", method="POST",
+                                     data=json.dumps({"urls": [url], "extract_depth": "basic", "format": "text"}).encode(),
+                                     headers={"Authorization": "Bearer " + TAVILY_API_KEY, "Content-Type": "application/json",
+                                              "Accept": "application/json", "User-Agent": UA})
+        with urllib.request.urlopen(req, timeout=40) as r:
+            res = json.loads(r.read().decode("utf-8")).get("results") or []
+        text = (res[0].get("raw_content") or "") if res else ""
+        if len(text.strip()) < 80:
+            return None
+        title = urllib.parse.unquote(url.rstrip("/").rsplit("/", 1)[-1]).replace("-", " ").replace("_", " ") or host_of(url)
+        return lines_page([l.strip() for l in text.splitlines()], title)
+    except Exception as e:
+        log(f"extract {url[:80]}: {e!r}"[:200])
+        return None
+
+
 def pdf_page(data, url):
     """A PDF's text as a plain page (one paragraph a line), so it's read like any page (decisions/0157 §7). Free. A PDF with
     no text (pictures of pages) is a scan: (None, True), logged for the second tier (AWS Textract, with the caps)."""
@@ -954,7 +994,7 @@ def pdf_page(data, url):
         if str(title).strip().lower() in ("", "untitled", "microsoft word", "none"):
             title = ""
         title = str(title or urllib.parse.unquote(url.rsplit("/", 1)[-1]).rsplit(".", 1)[0].replace("-", " ").replace("_", " "))[:200]
-        return "<html><head><title>" + html.escape(title) + "</title></head><body>" + "".join("<p>" + html.escape(l) + "</p>" for l in lines) + "</body></html>", False
+        return lines_page(lines, title), False
     except Exception:
         return None, False
 
@@ -1081,11 +1121,18 @@ def read_source(deadline):
             describe_sites(d["describe"], min(deadline, time.monotonic() + 20))
         except Exception as e:
             log(f"describe sites: {e!r}")
+    for sc in (d.get("scans") or [])[:3]:              # scanned PDFs AWS Textract read on the site (decisions/0157 §7.2)
+        try:
+            read_scan(sc)
+        except Exception as e:
+            log(f"scan {str(sc.get('url'))[:80]}: {e!r}"[:200])
     src = d.get("source")
     if not src:
         return
     start, host = src["home_url"], host_of(src["home_url"])
     known = src.get("pages") or {}                       # url -> {etag, modified, links}
+    extract_left = int(d.get("extract") or 0)            # the second tier's pages this run (decisions/0157 §1), from the site's allowance
+    extracted = 0
     queue, seen, facts, pages, log_rows, unchanged, pdfs = [start], set(), [], 0, [], [], 0
     while queue and pages < SOURCE_PAGES and time.monotonic() < deadline and not out_of_time():
         url = queue.pop(0)
@@ -1099,10 +1146,15 @@ def read_source(deadline):
         r = fetch_page_meta(url, k.get("etag", ""), k.get("modified", ""), pdf=True)
         if is_pdf or "pdf" in (r.get("type") or "").lower():
             pdfs += 1
+        elif r.get("why") in ("error", "empty") and extracted < extract_left:
+            body = tavily_extract(url)
+            if body:
+                extracted += 1
+                r = {"body": body, "status": 200, "type": "text/html", "bytes": len(body), "etag": "", "modified": "", "why": "", "via": "tavily"}
         if not r["status"]:
             continue                                    # not fetched (a budget, robots.txt): nothing to log
         pages += 1
-        row = {"url": url, "status": r["status"], "type": r["type"], "bytes": r["bytes"], "etag": r["etag"], "modified": r["modified"]}
+        row = {"url": url, "status": r["status"], "type": r["type"], "bytes": r["bytes"], "etag": r["etag"], "modified": r["modified"], "via": r.get("via", "")}
         if r["status"] == 304:
             unchanged.append(url)
             links = list(k.get("links") or [])
@@ -1143,8 +1195,26 @@ def read_source(deadline):
     for f in facts:
         uniq.setdefault((f["name"].lower(), re.sub(r"\D", "", f["phone"])[-10:], f["address"][:20].lower()), f)
     res = site_call("/api/crawl/sources.php", tv_safe({"host": host, "pages": pages, "facts": list(uniq.values()),
-                                                      "log": log_rows, "unchanged": unchanged}))
-    log(f"read source {host}: {pages} page(s), {pdfs} PDF(s), {len(unchanged)} unchanged, {len(uniq)} place(s) found, {res.get('kept', 0)} kept")
+                                                      "log": log_rows, "unchanged": unchanged, "extracted": extracted}))
+    log(f"read source {host}: {pages} page(s), {pdfs} PDF(s), {extracted} extracted, {len(unchanged)} unchanged, {len(uniq)} place(s) found, {res.get('kept', 0)} kept")
+
+
+def read_scan(sc):
+    """A scanned PDF's text, as Textract read it on the site: read like any page, its places sent back for that page only."""
+    url, text = sc.get("url") or "", sc.get("text") or ""
+    lines = [l.strip() for l in text.splitlines() if l.strip()]
+    if not url or not lines:
+        return
+    page = lines_page(lines, urllib.parse.unquote(url.rsplit("/", 1)[-1]).rsplit(".", 1)[0].replace("-", " ").replace("_", " "))
+    facts = text_facts(page, url)
+    kind = page_kind(page, url, facts, page_title(page))
+    pt = page_town(page)
+    for f in facts:
+        f["page_kind"], f["title"] = kind, page_title(page)
+        if pt[0]:
+            f.setdefault("page_town", pt[0]); f.setdefault("page_state", pt[1])
+    res = site_call("/api/crawl/sources.php", tv_safe({"scan_page": url, "host": sc.get("host") or host_of(url), "facts": facts}))
+    log(f"scan {host_of(url)}: {len(facts)} place(s) read, {res.get('kept', 0)} kept")
 
 
 def describe_sites(todo, deadline):

@@ -60,6 +60,11 @@ directory-like pages first.
   website, hours, map point, what it calls itself), then its text. A page naming three or more places is a list page,
   and each place on it is an item with its own words (what it does) and the heading it sits under.
 - **What kind of page:** one place's own site, a list, an events calendar, a government notice, an article, or other.
+- **The second tier's reads** (decisions/0157, each within a budget in the site's AI use, off until switched on): a source's
+  page the worker couldn't fetch (an error) or that shows nothing without a browser goes to **Tavily Extract**
+  (`TAVILY_API_KEY`), at most the number the site allows this run (`extract`, up to 3); never a page robots.txt or the site
+  refuses (401, 403, 451). **Scanned PDFs** are read by AWS Textract on the site; their text comes back with the next read
+  (`scans`), and the worker reads it into places for that page alone (`POST {scan_page, host, facts}`).
 - **PDFs** are read too (up to `SOURCE_PDFS`, 5, a read; with `pypdf`, installed by the Dockerfile): their text, as a page. A PDF
   with no text (pictures of pages) is logged as a scan, for the second tier (AWS Textract) once its caps are set.
 - **Sites waiting for a call:** with each read the site names up to 3 of them; the worker reads each home page's title,
