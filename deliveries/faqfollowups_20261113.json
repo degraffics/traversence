@@ -3,12 +3,12 @@
  "built_on": "edaa831 Sync: 2026-11-13 17:39 UTC",
  "recorded": "2026-11-13 17:53 UTC",
  "note": "FAQ follow-ups (P9/P11 entries, vault emails line), built on Sync: 17:39 UTC Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "22ce86c Sync: 2026-11-13 18:30 UTC",
  "files": {
   "app/ui/faq.md": {
    "sha256": "551153b8c218a42d3b797d001a555e37156edd34408133d7d02261406a0f4e78",
-   "live": false
+   "live": true
   }
  }
 }
