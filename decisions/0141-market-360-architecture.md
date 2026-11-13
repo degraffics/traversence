@@ -264,3 +264,4 @@ the bar is pinned above them and the page starts below both.
   business's pot first; `item_write` counted with `topic_assist`), switched and capped in System Configuration → AI use
   (`item_write`); needs AI Assist & Learning on; greyed with why on Free.
 
+**Note (2026-11-13, decisions/0158):** one way to publish across the site and storefronts. Catalog items keep their own draft and Publish, and later join the version list and Roll back.
