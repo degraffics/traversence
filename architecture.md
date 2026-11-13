@@ -10,7 +10,7 @@ This document is the bridge between the Charter's philosophy and technical execu
 
 > **Read §30 first for anything built after 2026-09-29.** Sections 3–7, 11, 12, 15 and 23 below describe the
 > platform as it was on 2026-09-22; §30 says what changed and which decision records changed it. The routes
-> themselves are in `routes.md`.
+> themselves are in `site-audit/pages.md`.
 
 ## 1. Platform Architecture State Model
 
@@ -37,7 +37,7 @@ Three strict operational tiers separate server reality from active work from fut
 
 ## 3. Public Entrypoints & Auth Views
 
-Root entrypoints, auth views, and every route's live/scoped/planned status are maintained in `routes.md` — that file is the single source of truth for URLs and page status; it isn't duplicated here.
+Root entrypoints, auth views, and every route's live/scoped/planned status are maintained in `site-audit/pages.md` — that file is the single source of truth for URLs and page status; it isn't duplicated here.
 
 ## 4. Dual Search Engines & CMS Modules — Tier 2
 
@@ -566,7 +566,7 @@ Governs what actually gets written to the stored corpus (§25 step 1) that AI sy
 
 ## 30. As Built, 2026-10-08: What Decisions 0043–0068 Put in Place
 
-*This section restates current state only; the reasons live in each decision record. Routes are in `routes.md`.*
+*This section restates current state only; the reasons live in each decision record. Routes are in `site-audit/pages.md`.*
 
 **Updates these sections:** §3 (public entry points), §4 (search), §5 (communications and social), §6 (portals), §7 (accounts), §11 (identity), §15 (observability),
 §12 (the off-site worker is built), §23 (shared place context). Where they disagree with this section, this section
@@ -616,7 +616,7 @@ many locations (the Nexus) are designed (0054); the dashboard reads them.
 ### Identities and verification (updates §11)
 One record per thing, every fact with its sources (0062). Consent to verification is a step at sign-up, required only
 for roles that need it. Claiming a business needs verification on; the claim page itself is still a placeholder
-(see `routes.md`).
+(see `site-audit/pages.md`).
 
 ### Counting (updates §15)
 Views, routes between sections, searches and outbound actions (call, directions, website, contact) are counted.
@@ -624,9 +624,9 @@ Counts never record who: no user id, device, IP or session (0058 §13, 0066).
 
 ### Known gaps, 2026-10-08
 - `claim.php`, `terms.php`, `privacy.php`, `hub/`, `market/` and the admin home are placeholders.
-- The designs in `routes.md` → *Designed, not built* (disputes, DSAR, documents, co-managers, DMCA, admin claims,
+- The designs in `site-audit/pages.md` → *Coming* (disputes, DSAR, documents, co-managers, DMCA, admin claims,
   hubs, clusters, users) have no code.
-- Left-over files on the server to delete (`routes.md` §7). `scripts/reconcile_clusters.php`, which used to run from a
+- Left-over files on the server to delete (`site-audit/pages.md` §7). `scripts/reconcile_clusters.php`, which used to run from a
   browser without a sign-in check, is gone.
 
 ### Folders (decisions/0069, 2026-10-09)

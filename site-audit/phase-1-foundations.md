@@ -21,7 +21,7 @@ failing.
    - every button's request shows busy and an answer;
    - uploads only through `Uploads.php` and `/api/upload.php`;
    - no PHP newer than 8.0;
-   - FAQ links point at entries that exist, and every page is in `routes.md` or `archive.md`;
+   - FAQ links point at entries that exist, and every page is in `site-audit/pages.md` or `archive.md`;
    - migrations are safe to run twice and add-only (§6);
    - the brand's icons, not emoji; no breadcrumbs on content pages; spell check on word fields; Show/Hide on password
      boxes.
@@ -67,8 +67,8 @@ failing.
 - [ ] The zip check runs on a real zip, and its result is in the hand-off note.
 - [ ] The delivery log shows the last week's zips and which files matched.
 - [ ] The decision register lists all decisions (0001 onward) with status, and its first findings are listed.
-- [ ] The page tree lists every page on the live site, and `routes.md` is replaced by the generated tree once Jason
-      approves it.
+- [x] The page tree lists every page on the live site, and `routes.md` is replaced by the generated tree once Jason
+      approves it. Done 2026-11-13 (P6): `site-audit/pages.md` is the register; `routes.md` archived.
 - [ ] Jason has seen the first scorecard and said which failures to fix first.
 
 ## Rollout and rollback

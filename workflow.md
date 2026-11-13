@@ -1,7 +1,7 @@
 # Traversence: Documentation Governance & Operating Protocol
 
 *Version: 2026-09-22*
-*Governance tier: Meta — this document governs how the other governance documents get written and maintained. It doesn't describe the product; it describes the process. Adapted from the Traversence Master Workflow doc to reflect the file split now in use: `charter.md`, `prd.md`, `architecture.md`, `brand.md`, `commercial.md`, `routes.md`, this file, `apdex.md`, and the append-only `decisions/` log.*
+*Governance tier: Meta — this document governs how the other governance documents get written and maintained. It doesn't describe the product; it describes the process. Adapted from the Traversence Master Workflow doc to reflect the file split now in use: `charter.md`, `prd.md`, `architecture.md`, `brand.md`, `commercial.md`, `site-audit/pages.md`, this file, `apdex.md`, and the append-only `decisions/` log.*
 
 ## 1. Core Philosophy & Division of Labor
 
@@ -22,12 +22,12 @@ Traversence is built on a high-efficiency, low-token-usage workflow that priorit
 
 ## 3. Documentation Management & Maintenance Protocol
 
-The governance-tier documents (`charter.md`, `prd.md`, `architecture.md`, `brand.md`, `commercial.md`, `routes.md`, this file, `decisions/*.md`) and `apdex.md` are maintained under strict lifecycle rules to prevent structural drift and documentation bloat.
+The governance-tier documents (`charter.md`, `prd.md`, `architecture.md`, `brand.md`, `commercial.md`, `site-audit/pages.md`, this file, `decisions/*.md`) and `apdex.md` are maintained under strict lifecycle rules to prevent structural drift and documentation bloat.
 
 - **Explicit-Request Only:** governance documents are never modified as a silent side-effect of code changes or architecture discussions; they require an explicit instruction naming the target document and scope.
 - **Snippet-First Delivery:** substantive edits are first drafted and displayed inline as text diffs for review.
 - **Gated Approval Gate:** no substantive change to governance rules, pricing tiers, or routing master maps is written to disk without an explicit affirmative response (`GOVERNANCE APPROVED`) from the project owner.
-- **No-Duplication Rule:** information is owned by exactly one file (pricing lives only in `commercial.md`, routes live only in `routes.md`, brand tokens live only in `brand.md`), using cross-references instead of restating facts. This is the rule the old single-file model was breaking, and the reason for this split.
+- **No-Duplication Rule:** information is owned by exactly one file (pricing lives only in `commercial.md`, routes live only in `site-audit/pages.md`, brand tokens live only in `brand.md`), using cross-references instead of restating facts. This is the rule the old single-file model was breaking, and the reason for this split.
 - **Version Stamps, Not Changelogs:** each document carries a single top-level version stamp (`*Version: YYYY-MM-DD-HHMM*`), overwritten in place.
 - **Author/Contributor Tagging:** each governance document also carries an explicit `Author / Contributor` tag (e.g. Claude or Gemini), overwritten in place alongside the version stamp, so provenance stays clear across a multi-model workflow. Added per `GEMINI-PROTOCOLS.md`, Gemini's own operating rules for this project — its content-governance rules are the same ones in this file (explicit-request only, gated approval, no-duplication, plain-text standard), restated there for Gemini sessions specifically. A parallel `claude.md` is referenced elsewhere as Claude's equivalent kernel but hasn't been shared into this restructuring — if it adds rules beyond what's here, it stays the real authority for Claude sessions once available.
 - **The ~150k Character Split Threshold:** any file approaching ~150,000 characters gets a structured split, moving older historical/narrative content into dated `daily-logs/` files, leaving clean pointers behind.

@@ -137,8 +137,10 @@ class Walk {
     const hrefs = await this.page.$$eval('main a[href^="/"], .sj-list a[href^="/"]', as => [...new Set(as.map(a => a.getAttribute('href')))].filter(h => !/^\/(api|admin|login|logout)|#$/.test(h))).catch(() => []);
     for (const h of hrefs.filter(h => !checked.has(h)).slice(0, max)) {
       checked.add(h);
-      const r = await this.page.request.get(this.site + h, { maxRedirects: 3, timeout: 20000 }).catch(() => null);
-      if (!r || r.status() >= 400) this.add('accuracy', 'J02', this.here(), `the link ${h} ${r ? 'answers ' + r.status() : 'doesn\'t answer'}`);
+      // tried twice before it's called dead (2026-11-13: /faq.php "didn't answer" once and opened fine in the page checks)
+      let r = await this.page.request.get(this.site + h, { maxRedirects: 3, timeout: 20000 }).catch(() => null);
+      if (!r || r.status() >= 500) { await this.page.waitForTimeout(2000); r = await this.page.request.get(this.site + h, { maxRedirects: 3, timeout: 40000 }).catch(() => null) || r; }
+      if (!r || r.status() >= 400) this.add('accuracy', 'J02', this.here(), `the link ${h} ${r ? 'answers ' + r.status() : 'doesn\'t answer (tried twice)'}`);
     }
   }
   result(def, extra = {}) {
@@ -290,7 +292,14 @@ const CORE = [
       const rng = await firstVisible(page, ['.tvs-panel .tvs-rng:not([disabled])', '#location-modal input[type=range]']);
       if (rng) { w.taps++; await rng.focus().catch(() => {}); await page.keyboard.press('ArrowRight').catch(() => {}); await page.waitForTimeout(800);
         const v = (await page.locator('.tvs-rngv').first().textContent().catch(() => '')) || ''; w.note(`distance now ${v.trim() || '(not shown)'}`); if (!v.trim()) w.add('clarity', 'J03', w.here(), 'the distance slider doesn\'t say how far'); }
-      else w.add('dead_end', 'J01', w.here(), 'no distance to set once the place is chosen');
+      else {
+        // Get Local offers Within only for a point (a town, a ZIP, my location). One of our towns is listed in the place
+        // pop-up as its area (location-scope.js placeOptions doesn't list it twice), and an area has no distance: the list
+        // covers the area. Said as what it is, not a dead end (2026-11-13; proposal in site-audit/proposals.md).
+        const area = await page.evaluate(() => { try { const l = (typeof currentLocation !== 'undefined' && currentLocation) || JSON.parse(sessionStorage.getItem('traversence_location') || 'null'); return l && l.scope ? String(l.scope.label || l.scope.slug) : ''; } catch (e) { return ''; } }).catch(() => '');
+        if (area || /area|region/i.test(label + ' ' + head)) w.add('clarity', 'J03', w.here(), `Show Low was set as its area${area ? ' ("' + area + '")' : ''}, which has no distance: Get Local offers "Within" only for a town as a point, a ZIP or my location`);
+        else w.add('dead_end', 'J01', w.here(), 'no distance to set once the place is chosen');
+      }
     }
   } },
   { id: 'sign-in', title: 'Sign in, including the human check', who: ['member'], limit: 5, signedOut: true, run: async (w, page) => {
@@ -438,6 +447,7 @@ async function guidePath(g) {
       } else await w.tap(link, j.title, { nav: true });
       if (!/\/journeys\/suggested\.php/.test(w.here())) continue;
       w.goal = true;
+      if (w.goalTaps == null) w.goalTaps = w.taps;   // the measure: taps from the guide to its journey; the stops walked after are checks, not steps
       const shown = await page.$$eval('.sj-stop a.sj-n', as => as.map(a => ({ href: a.getAttribute('href'), name: a.textContent.trim() }))).catch(() => []);
       const legs = await page.$$eval('.sj-leg', ls => ls.map(l => l.textContent.trim())).catch(() => []);
       const stops = j.stops || shown.map(s => ({ name: s.name, url: s.href }));
@@ -487,8 +497,9 @@ async function guidePath(g) {
     }
   } catch (e) { w.stuck = w.stuck || `the runner stopped: ${String(e).slice(0, 160)}`; await w.shot('error'); }
   // steps: the taps from the guide to its first stop (a guide is read from the guide; "read a town's guide" counts from home)
+  // (2026-11-13: the walk along the stops was counted, so every guide read "7 taps, the measure is 3")
+  w.taps = w.goalTaps ?? w.taps;
   const r = w.result(def, { where: 'live', ms: Date.now() - t, guide: { key: g.key, name: g.name, url: g.url, journeys: (g.journeys || []).length, stops: stopsOut } });
-  r.steps.taps = Math.min(w.taps, 2); r.steps.over = false;
   await page.close().catch(() => {});
   return r;
 }
