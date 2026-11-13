@@ -94,7 +94,7 @@ Opened from a working tool (pop-up, detail, action or print page):
 
 | File | Note |
 |---|---|
-| `website/admin/chamber-builder.php` | Jason's work in progress (2026-10-28). Stays. When it's ready it becomes a section in the manifests. |
+| `website/admin/chamber-builder.php` | **Archived** (site audit P2/P3, Jason 2026-11-08): out of the menus, still reachable. Jason's work in progress (2026-10-28); when it's ready it becomes a section in the manifests. Its browser dialogs were replaced by a message on the page and a second press to confirm (2026-11-13). |
 | `website/admin/chamber-builder.php.php` | An older copy of the same builder (8.6 KB, Oct 26; the current one is 33 KB, Oct 27). Jason: delete if not needed. To remove: delete it on the server, and the sync takes it off OneDrive. |
 | `website/user/api/bootstrap-super-admin.php` (on the server) | The sync never touches this name, so it didn't come back from the sync. It came back in full delivery zips (Oct 23 and 24) that still carried the retired stub. It's gone from the working copy now and won't be in another zip. Delete it once more in cPanel → File Manager. |
 

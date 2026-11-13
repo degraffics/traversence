@@ -1,1 +1,80 @@
-[]
+[
+ {
+  "rule": "R05",
+  "file": "website/login.php",
+  "reason": "A sign-in page: it draws no account bar by design; someone signed in is sent on to their dashboard or where they were going.",
+  "by": "Jason, 2026-11-08 (proposals P2, P5)"
+ },
+ {
+  "rule": "R05",
+  "file": "website/register.php",
+  "reason": "Sends every visit to the sign-in page (Create account); finishing a social sign-up has no account yet.",
+  "by": "Jason, 2026-11-08 (proposals P2, P5)"
+ },
+ {
+  "rule": "R05",
+  "file": "website/forgot-password.php",
+  "reason": "A sign-in page: no account bar by design; someone signed in is sent to their dashboard.",
+  "by": "Jason, 2026-11-08 (proposals P2, P5)"
+ },
+ {
+  "rule": "R05",
+  "file": "website/reset-password.php",
+  "reason": "A sign-in page reached by an emailed link: no account bar by design; signed in without a link, to the dashboard.",
+  "by": "Jason, 2026-11-08 (proposals P2, P5)"
+ },
+ {
+  "rule": "R05",
+  "file": "website/verify-email.php",
+  "reason": "Acts on an emailed link, which must work signed in or out: no account bar by design.",
+  "by": "Jason, 2026-11-08 (proposals P2, P5)"
+ },
+ {
+  "rule": "R05",
+  "file": "website/email-revert.php",
+  "reason": "Acts on an emailed link, which must work signed in or out: no account bar by design.",
+  "by": "Jason, 2026-11-08 (proposals P2, P5)"
+ },
+ {
+  "rule": "R05",
+  "file": "website/admin/chamber-builder.php",
+  "reason": "Archived (P2/P3): Jason's work in progress, out of the menus, kept reachable until it becomes a section in the manifests.",
+  "by": "Jason, 2026-11-08 (proposals P2, P5)"
+ },
+ {
+  "rule": "R07",
+  "file": "website/api/out.php",
+  "reason": "Counts outbound taps (call, directions, website): public, no account, nothing about who; a token would stop the count from cached pages.",
+  "by": "Jason, 2026-11-08 (proposals P2, P5)"
+ },
+ {
+  "rule": "R07",
+  "file": "website/api/short.php",
+  "reason": "Makes a short link for a page anyone can see: public by design, rate-limited.",
+  "by": "Jason, 2026-11-08 (proposals P2, P5)"
+ },
+ {
+  "rule": "R07",
+  "file": "website/api/locate.php",
+  "reason": "Turns a device's location into a town for a visitor: public by design, nothing stored.",
+  "by": "Jason, 2026-11-08 (proposals P2, P5)"
+ },
+ {
+  "rule": "R07",
+  "file": "website/api/qr.php",
+  "reason": "Draws a QR image for a link: public by design, nothing stored.",
+  "by": "Jason, 2026-11-08 (proposals P2, P5)"
+ },
+ {
+  "rule": "R07",
+  "file": "website/api/csp-report.php",
+  "reason": "Browsers send security reports here on their own, with no session or token: it can't require one.",
+  "by": "Jason, 2026-11-08 (proposals P2, P5)"
+ },
+ {
+  "rule": "R07",
+  "file": "website/listing/api/referral/confirm.php",
+  "reason": "Signs no one in: possession of the confirmation token emailed to the referrer is the proof, as with email confirmation.",
+  "by": "Jason, 2026-11-08 (proposals P2, P5)"
+ }
+]

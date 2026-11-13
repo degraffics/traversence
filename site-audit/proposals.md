@@ -21,6 +21,9 @@ server must run 8.1 or newer.
 
 **Decided (Jason, 2026-11-08): approved.** The health report reads the real version; `CLAUDE.md` and R04 then name it.
 
+**Done (2026-11-13, `auditfix_20261113`):** the daily search-probe job saves the health report's versions to
+`results/server.json`; R04 flags only features newer than that PHP. `CLAUDE.md` names the version once the first run records it.
+
 ### P2. Pages without the session or account bar (verdict: fix, or accept with a reason)
 
 Seven pages draw without the session or the account bar (R05):
@@ -35,12 +38,18 @@ chamber builder is archived (it also has the only remaining browser dialogs, P3)
 **Decided (Jason, 2026-11-08): approved.** Sign-in pages send signed-in visitors to their dashboard and are listed as
 accepted exceptions; the chamber builder is archived.
 
+**Done (2026-11-13):** `login.php` and `forgot-password.php` send someone signed in on (to `?next=` or the dashboard);
+`reset-password.php` does when there's no reset link; `register.php` already forwards to `login.php`; `verify-email.php` and
+`email-revert.php` act on emailed links that must work signed in, so they stay. All seven are accepted exceptions.
+
 ### P3. The last browser dialogs (verdict: fix)
 
 Three `alert()`/`confirm()` calls remain, all in `admin/chamber-builder.php` (R02). Archive the page, or move them to
 `TvAsk`.
 
 **Decided (Jason, 2026-11-08): approved.** `admin/chamber-builder.php` is archived (with P2).
+
+**Done (2026-11-13):** archived in `archive.md`, and its three dialogs replaced (a message on the page, a second press to confirm).
 
 ### P4. Emoji in what pages show (verdict: fix)
 
@@ -50,6 +59,9 @@ order sign-off.
 **Proposal:** swap them for `tv_icon()` in one tidy-up release.
 
 **Decided (Jason, 2026-11-08): approved.** All 29 swapped for `tv_icon()` in one tidy-up release.
+
+**Done (2026-11-13):** the 25 left, swapped for the brand's icons (`tv_icon()` gained pin, clock, phone, comment, play, car
+and heart; an icon inside a line of text is `tv-ei`, sized to its letters).
 
 ### P5. Endpoints without the security token (verdict: accept with reasons, or fix)
 
@@ -66,6 +78,9 @@ exceptions, each with its reason:
 **Decided (Jason, 2026-11-08): approved.** The five are accepted exceptions with their reasons;
 `listing/api/referral/confirm.php` gets the token unless the review finds a reason it can't.
 
+**Done (2026-11-13):** the five are accepted exceptions. The review found the reason for `referral/confirm.php`: it signs no
+one in, and the emailed confirmation token is the proof (as with email confirmation), so it is one too.
+
 ### P6. The page tree (verdict: missing)
 
 72 pages are on the server but in neither `routes.md` nor `archive.md` (R09).
@@ -78,4 +93,8 @@ unlisted page live, archived, or to remove.
 2. Each of those is settled: it's a real page the tree missed (the tree is fixed), or it's gone (noted in `archive.md`).
 3. Only when every route in `routes.md` is confirmed in the tree is `routes.md` archived.
 4. The 72 unlisted pages are then marked live, archived or to remove, in one list for Jason to approve.
+
+**Started (2026-11-13):** `tools/page-audit/routes-check.py` writes [routes-check.md](routes-check.md): the 20 routes in
+`routes.md` that aren't on the server (step 1; 4 already in `archive.md`), and the 70 unlisted pages with the evidence for
+each and a suggested call (step 4), for Jason to approve.
 

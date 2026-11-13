@@ -1,7 +1,7 @@
 // tools/page-audit/towns.mjs — towns built on demand (decisions/0147, 0149), from the health report: each town's crawl
 // jobs (eat, stay, do, shops, care), what they found, published and left in Review, and any error. Totals only.
 // Needs HEALTH_TOKEN (the GitHub secret). Writes site-audit/towns.md. Run by .github/workflows/search-probe.yml.
-import { writeFileSync } from 'node:fs';
+import { writeFileSync, mkdirSync } from 'node:fs';
 const SITE = process.env.SITE || 'https://traversence.com';
 // the token: HEALTH_TOKEN, else the health_token inside CHECK_ACCOUNTS (System Configuration → Test accounts puts it there)
 let TOKEN = process.env.HEALTH_TOKEN || '';
@@ -13,6 +13,8 @@ else {
   try {
     const r = await fetch(`${SITE}/api/health.php`, { headers: { Authorization: `Bearer ${TOKEN}`, 'User-Agent': 'traversence-towns' } });
     const d = await r.json();
+    // the server's versions (site audit P1, Jason 2026-11-08): the code check (R04) judges code against the real PHP
+    if (r.ok && d.php) { mkdirSync('site-audit/results', { recursive: true }); writeFileSync('site-audit/results/server.json', JSON.stringify({ at: new Date().toISOString(), php: d.php, php_major_minor: d.php_major_minor || '', mysql: d.mysql || '' }, null, 1) + '\n'); }
     if (!r.ok || d.ok === false) md += `The health report answered ${r.status}: ${s(d.error?.message || '')}\n`;
     else if (!d.towns) md += 'The health report has no towns section yet (it comes with health.php from towns-health_20261110.zip).\n';
     else {
