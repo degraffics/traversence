@@ -7,7 +7,30 @@ traversence.com, where they are published or queued for review under the ADR 004
 It runs **off Bluehost** so the shared host only does two small requests per run: hand out jobs, and
 check results. All fetching happens here.
 
-## How it works
+## The crawler as one service (decisions/0160, since 2026-11-13)
+
+Every 5 minutes Railway starts the container, and the **site plans the run** (`POST /api/crawl/service.php {start}`):
+the capture tasks due now, each with its share of the run's time (`TIME_BUDGET`), fetches (`MAX_FETCHES`) and paid
+calls, and how many items fit. Each workflow (W1 listings, W2 upkeep, W3 sources, W6 heritage, W9 landmarks, W11 how-to
+guides, W12 search learning) has its share, set in the admin (**Insights → Crawler**). Finding businesses goes first,
+then whoever waited longest. The worker:
+
+1. works each task inside its share: a task takes work only when it has time for it, and stops cleanly at its end;
+2. gives a task that took a full batch a second turn with the time left over;
+3. runs the monthly bulk loads (NPI, IRS, Recreation.gov, landmarks) only at night (1 to 5 am Arizona time), after the
+   run's own work, never in place of it;
+4. reports each task (`{report}`): done, nothing to do, not reached (no time left: never a failure, and first next
+   time), failed (with why), or off (a key or a setting missing here, named);
+5. exits 1 when the run couldn't work (the site unreachable, no token, everything starved, over `RUN_LIMIT`), so
+   Railway shows it **failed**, never "succeeded". Pulse opens a case when no run has started for 30 minutes or six
+   runs in a row failed.
+
+Against a site without `service.php` (contract 2) it runs the fixed order described below, as before. The per-run
+settings below (`VERIFY_PER_RUN`, `REFRESH_PER_RUN`…) are now the most a task may take; the plan may ask for fewer.
+robots.txt is read as `TraversenceCrawler`, its redirects checked; one that can't be read (a server error, a timeout,
+401/403) means nothing is fetched from that site that run (it used to mean "allowed").
+
+## How it works (the fixed order, for a site without the service)
 
 Every 5 minutes Railway starts the container; it does one small, budgeted run and exits:
 
@@ -199,6 +222,7 @@ listing.
 
 ## Pausing
 
+- One workflow: **Insights → Crawler → Pause** on the workflow. Its tasks are left alone until it's resumed.
 - On the site: `CRAWL_QUEUE=off` in `.env`. The worker sees "paused" and exits without doing anything.
 - Auto-publishing only: `AUTO_IMPORT=off` in `.env`. Findings still arrive, but all wait for review.
 - On Railway: remove the cron schedule or pause the service.
@@ -254,8 +278,9 @@ pins off a nation's land except at its public places (decisions/0058 §26).
 
 Railway skips every scheduled run while the previous one is still going, so one stuck network read froze the worker
 for days (last heard Oct 9). Now every network wait gives up after 60 seconds (`socket.setdefaulttimeout`), and the
-whole run ends after 30 minutes whatever it's doing (`RUN_LIMIT`, in seconds), then exits cleanly so the next run
-starts on time. A stuck run is logged as "run stopped: over its time limit".
+whole run ends after 30 minutes whatever it's doing (`RUN_LIMIT`, in seconds) so the next run starts on time. A stuck
+run is logged as "run stopped: over its time limit" and exits 1 (failed on Railway; Restart Policy is Never, so a failed
+run is never restarted at once).
 
 ## Web search can't run past its allowance (decisions/0084)
 
