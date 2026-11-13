@@ -268,8 +268,10 @@ CLAUDE.md, in full. For this work above all:
   Kept synchronous on purpose (the person sees the result at once), rather than `read_page` requests. Left: the other
   SiteFetcher callers (DeepLook, Dossier, GuideLinks, Rebuild) read businesses' own sites and don't log their pages yet.
 
-- **Phase 3, W5, W6, W9, W10/W11, W12** (Jason, "merge all": sent one at a time, each after the one before is live and
-  verified). W5 `crawler-w5`: a failed guide on demand is tried again by itself (30 min, 2 h, 8 h, from the step it
+- **Phase 3, W5** live as Release #32 (20:19 UTC), verified byte for byte on Sync 20:21 UTC; its database update
+  (`2026-11-13_guide_requests_retry.sql`) was still waiting to run then (the site runs new ones within the hour: check
+  `db_updates_log`, or that the file is gone from the next sync). W6, W9, W10/W11 and W12 are built, tested and
+  approved (Jason, "merge all"), not sent: §8. W5 `crawler-w5`: a failed guide on demand is tried again by itself (30 min, 2 h, 8 h, from the step it
   stopped at; `OnDemand::failed`, `retryDue`; migration `guide_requests_retry`: `tries`, `failed_at`), then one Pulse
   case `guidefail:<time>` with Retry them all; the visitor's page gives our email; W5's requests in the console. W6
   `crawler-w6`: an empty Library of Congress search asked again in 30 days, a newspaper's pages one source (its LCCN,
@@ -280,53 +282,84 @@ CLAUDE.md, in full. For this work above all:
   sweep (`CrawlQueue::lease`), towns' searches count for their cluster (`Learning::gaps`). W4 and W8 need nothing more
   (starvation gone with Phase 2's shares; Find it shares W1's gate). Progress of each: the commits "Release crawler-w…".
 
-## 7. Open
+## 7. Open (questions for Jason)
 
-- Nothing waiting on Jason. Worker 2.1 merged with his OK (2026-11-13), and Railway's watch paths set to
-  `/workers/crawler/**` (he asked), so a release commit no longer redeploys the worker.
+1. **Coverage finds nothing on Railway.** overpass-api.de answers 406 to every request from the worker (POST and GET),
+   and the mirrors (private.coffee, kumi.systems, mail.ru) time out; openstreetmap.fr serves white-listed users only.
+   Since worker 2.1 a slow lookup is handed back inside its share (nothing else starves), but no town is being built
+   out. Options: find why overpass-api.de refuses Railway (its usage policy, our request), run our own Overpass
+   instance or use a paid one (needs his OK: "no income, no expense"), or give coverage a longer share (the console).
+2. **Listings without a website** are checked only by Google (no `GOOGLE_PLACES_KEY` on Railway, so not at all) and by
+   the identity jobs. Whether to add the Google key (paid, capped) or another free check.
+3. **Junk names in listings** from page reads ("Contact Us:", "An agency within the U.S. Department of Labor", "CDPF
+   Informational Webinar Slideshow", "PO Box 190"): for Phase 4's listings pass, and the page readers' name check.
 
-## 8. For the next session (from W4 on)
+## 8. For the next session (W6 on)
 
-The session that did Phases 0 to 2, W1, W2 and W3 handed off here (CLAUDE.md: a long build moves to a fresh session per
-phase). Start from this file, `decisions/0160` and the review; everything below is in `main` and on the live site unless
-it says otherwise.
+The session that did Phases 0–2 and W1–W5 handed off here at about 435K context (the session manager, Jason's OK,
+20:02 UTC). Everything below is in `main` and on the live site unless it says otherwise.
 
-**Left in Phase 3, in order:**
-1. **W2, the rest:** a changed phone or hours on a listing's own website is never caught (the refresh only fills empty
-   fields: compare and send a change to Review, or to the identity record as a newer source); live duplicates (0133's
-   "same place ID + same phone" merge, offered in Review); listings without a website are only checked through Google.
-2. **W3, the rest:** Listing Intake's two page readers (`SiteFetcher`, `ListingExtractor`) don't use the page log, the
-   place store or the register's rules: move them onto `read_page` requests (`CrawlService::request`, the worker's
-   `do_requests`).
-3. **W4, W5, W8 (guides):** heritage and how-to now get their share of each run (the plan), so the starvation is gone;
-   still to do: failed on-demand guides are never retried though the visitor is told they will be (`OnDemand`); Find it.
-   "First look" labels now survive a rewrite (Phase 0, `Guides::compose`).
-4. **W6:** a Library of Congress search with nothing isn't asked again for 365 days; one newspaper page counts as an
-   independent source (count each paper once); the heritage extraction queue can stall on rows it skips.
-5. **W9:** C13, `PlaceFinder::summary` stores Wikipedia extracts without `wikiAllowed` (cite only).
-6. **W10, W11:** C14, how-to steps copied word for word from .edu and state pages with no check against the register.
-7. **W12:** demand that reaches the kind searched (TownCrawl `want:` jobs exist now: wire situation gaps to them), and
-   situation gaps starving behind coverage jobs.
-Each move also: its capture tasks in `crawl_capture_tasks` (a migration, INSERT IGNORE), its view in the console
-(`app/admin/crawler-console.php` draws every workflow with tasks, spend or requests), and its old stage switched off.
+**Live and verified byte for byte** (each a release, approved by Jason in chat):
+- Phases 0, 1, 2; W1 (#20); W2+W3 first parts (#22); W2 finished (#28, worker 2.2); W3 finished (#30);
+  W5 (crawler-w5, see §6). Worker 2.1 and 2.2 on Railway; Railway's watch paths are `/workers/crawler/**`.
+
+**In flight when this session stopped:** nothing. W5 is live and verified; the next release is W6 (below).
+
+**Next, in order. W6, W9, W10/W11 and W12 are built and tested; Jason approved them in chat ("merge all", 2026-11-13),
+to send one at a time, each after the one before is live and verified.** They're saved as patches against the live copy
+of Sync 19:58 UTC (all four still apply to Sync 20:02) in `handoffs/crawler-revamp-pending/<w>/` (`change.diff`, `release.json`); each release's FAQ line is
+in `faq-lines.py` (`python3 faq-lines.py <w> app/ui/faq.md`). For each: claim its files (below), start every file from
+the live mirror, apply `change.diff` (`patch -p1`; re-apply by hand where a file moved), add its FAQ line, zip with its
+`release.json`, `zipcheck.py`, `send.py`, PR, merge, wait for "Release #N: Live", run the sync, verify, next.
+1. **W6** (`Heritage.php`): an empty Library of Congress search asked again in 30 days; a newspaper's pages are one
+   source (its LCCN, `Heritage::paper`); the extraction queue moves past places it skips or fails.
+2. **W9** (`PlaceFinder.php`): Wikipedia's summary kept only when `Landmarks::wikiAllowed`.
+3. **W10/W11** (`HowGuides.php`): never drafted from a cite-only or Ignore source; Publish refuses a step that reads as
+   its source wrote it unless the source's licence is open (`HowGuides::copied`; the page's words kept as
+   `sources[].said`).
+4. **W12** (`crawler/CrawlQueue.php`, `Learning.php`): searched gaps (`sit:…`) leased before the sweep; a town's
+   searches count for its cluster's gaps.
+5. **W4, W8:** nothing more (W4's starvation went with Phase 2's shares; Find it shares W1's gate). W13 (stories) has no
+   crawler work yet.
+6. Then **Phase 4** (the old data; notes below) and **Phase 5** (proof: §3).
+
+**Check-out (decisions/0161, live in `main` since 20:02 UTC):** pull `main`, then claim each release's files when you
+start writing them: `python3 tools/page-audit/checkout.py claim <path>[::<function>] --add|--change --why "…"` (add
+claims are shared; change claims are exclusive per function; a claim lasts one release; `send.py` claims what you
+missed). The zip check now also blocks another session's change claim and a broken live caller. See CLAUDE.md, "Several
+sessions at once".
 
 **Phase 4 (the old data), notes for its passes:**
 - Listings closed by their own website alone before W2 (the `closed` meta with `by` 0 and a note starting "Its own
   website says") become `closed_signal` ("Possibly closed") unless a person confirmed them.
 - `website_dead` since 2026-10 (B5's damage): re-check each and put back those that load.
 - Sources wiped by an empty read (B6): `site-audit/crawler-snapshot.md` → place store → `sources_read_empty`.
-- Heritage facts: `Heritage::retier()` is already re-tiering them, a batch an hour.
+- Heritage facts: `Heritage::retier()` re-tiers them, a batch an hour; facts vetted by two pages of one newspaper
+  (before W6) are re-checked with `Heritage::paper`.
+- Landmarks and places stored with a Wikipedia extract while Wikipedia's rule is cite only (before W9): clear the text,
+  keep the title and link.
 - Identity jobs set aside after starved runs: `CrawlService::retry($pdo, 'identity')`, or the console's Retry failed.
+- Junk listing names (§7.3).
 - The numbers for every pass are in `site-audit/crawler-snapshot.md` (daily, with change since the first day).
 
+**Known issues:**
+- Coverage (§7.1).
+- "described 3 site(s) waiting for a call; 0 judged" every run: 406 sites wait after describe, and the terms judging
+  feature is off, so few are decided.
+- A coverage turn that only handed jobs back still counts as "done" in the run report (it got work).
+
 **How the work went (useful):**
-- A build is a zip sent with `tools/page-audit/send.py`, merged, and it publishes itself once staging's checks pass
-  (Release #9). Ask Jason in chat before merging each one.
-- `deliveries/README.md` conflicts on almost every PR: take `main`'s copy and run `deliveries.py verify --mirror …`.
-- The zip check blocks a file another pending zip carries (`faq.md` mostly): wait for it to go live and its sync.
+- A build is a zip sent with `tools/page-audit/send.py`, merged, and it publishes itself once staging's checks pass.
+  The site takes zips about every 20 minutes (:17, :38, :57). Ask Jason in chat before merging each one.
+- The delivery log (`deliveries/README.md`, sometimes a `deliveries/*.json`) conflicts on almost every PR: take
+  `main`'s copy of each conflicted `deliveries/` file, run `deliveries.py verify --mirror …`, and check every
+  `deliveries/*.json` still parses before pushing (a conflict marker got pushed once, 2026-11-13).
+- Just before merging, fetch the mirror again: a release that went live meanwhile can have changed `faq.md`; rebuild it.
+- Only the session whose release went live starts the sync; list the runs first.
+- Railway logs: the proxy-injected credential reaches `backboard.railway.com` (GraphQL: `deployments`,
+  `deploymentLogs`, project gracious-sparkle `a445f0be…`, service traversence `8d254c0d…`).
 - The zip check's PHP 8.1 test reads ": never" in a string as the `never` type: word messages differently.
-- The worker deploys on merge; its changes go after the site part they need is live. Contract 2 falls back to the
-  fixed order when `service.php` is missing or not ready.
-- Testing: `apt-get install mariadb-server` works here; run the migration twice, and drive the real classes with a
-  stand-in `Database.php` (see the PRs for Phases 1, 2 and W1). The worker imports cleanly for unit tests
-  (`python3 -I`, `WEB_FIXTURE`; stub `public_host`, the sandbox has no DNS).
+- The worker deploys on merge; its changes go after the site part they need is live.
+- Testing: `apt-get install mariadb-server` (after `apt-get update`); start `mariadbd --user=mysql` in the background;
+  drive the real classes with a stand-in `Database.php`; run migrations twice. The worker imports cleanly for unit
+  tests (`python3 -I`).

@@ -1,0 +1,91 @@
+--- a/app/lib/Heritage.php
++++ b/app/lib/Heritage.php
+@@ -30,13 +30,16 @@
+ 
+     // ---- Phase 1: the worker reads the Library of Congress -----------------------------------------------------------
+ 
+-    /** Places with a guide whose Library of Congress search is due (never, or a year ago): [{key, name, state, query}]. */
++    /**
++     * Places with a guide whose Library of Congress search is due: never asked, a year ago, or 30 days ago when it found
++     * nothing (review W6: a search with nothing waited a year): [{key, name, state, query}].
++     */
+     public static function leaseLoc(PDO $pdo, int $limit): array
+     {
+         if (!self::ready($pdo)) return [];
+         require_once __DIR__ . '/Guides.php';
+         $rows = $pdo->query("SELECT g.place_key FROM place_guides g LEFT JOIN heritage_places h ON h.place_key = g.place_key
+-                              WHERE g.place_key NOT LIKE 'hub:%' AND (h.loc_at IS NULL OR h.loc_at < NOW() - INTERVAL 365 DAY) AND (h.loc_leased IS NULL OR h.loc_leased < NOW() - INTERVAL 2 HOUR)
++                              WHERE g.place_key NOT LIKE 'hub:%' AND (h.loc_at IS NULL OR h.loc_at < NOW() - INTERVAL IF(COALESCE(h.loc_items, 0) = 0, 30, 365) DAY) AND (h.loc_leased IS NULL OR h.loc_leased < NOW() - INTERVAL 2 HOUR)
+                               ORDER BY h.loc_at IS NOT NULL, g.draft_status <> 'gathering', h.loc_at LIMIT " . max(1, min(5, $limit)))->fetchAll(PDO::FETCH_COLUMN);
+         $out = [];
+         foreach ($rows as $key) {
+@@ -95,13 +98,16 @@
+             if (!$ok) return $done ? implode('; ', $done) : 'waiting: ' . $why;
+             $p = Guides::place($pdo, (string) $key); if (!$p) continue;
+             if (!Jurisdictions::regionOpen($pdo, (string) ($p['state'] ?? ''))) {   // a closed region's history waits until it opens: asked again in a week
+-                $pdo->prepare('INSERT INTO heritage_places (place_key, loc_leased) VALUES (?, NOW() + INTERVAL 7 DAY) ON DUPLICATE KEY UPDATE loc_leased = NOW() + INTERVAL 7 DAY')->execute([$key]);
+-                continue;
++                $pdo->prepare('INSERT INTO heritage_places (place_key, loc_leased, extracted_at) VALUES (?, NOW() + INTERVAL 7 DAY, NOW()) ON DUPLICATE KEY UPDATE loc_leased = NOW() + INTERVAL 7 DAY, extracted_at = NOW()')->execute([$key]);
++                continue;   // to the back of the queue (review W6: places skipped without a mark took the first 40 places for good)
+             }
+             [$passages, $groups] = self::passages($pdo, (string) $key);
+             $hash = md5(json_encode($passages));
+             $st = $pdo->prepare('SELECT extract_hash FROM heritage_places WHERE place_key = ?'); $st->execute([$key]);
+-            if (!$passages || $st->fetchColumn() === $hash) continue;   // nothing new to read
++            if (!$passages || $st->fetchColumn() === $hash) {   // nothing new to read: to the back of the queue
++                $pdo->prepare('INSERT INTO heritage_places (place_key, extracted_at) VALUES (?, NOW()) ON DUPLICATE KEY UPDATE extracted_at = NOW()')->execute([$key]);
++                continue;
++            }
+             $done[] = $p['name'] . ': ' . self::extract($pdo, $p, $passages, $groups, $hash);
+         }
+         return $done ? implode('; ', $done) : 'nothing new';
+@@ -159,16 +165,22 @@
+         if ($d && trim((string) ($d['research'] ?? '')) !== '') {
+             $t = $win((string) $d['research'], 9000); if ($t !== '') { $texts['R'] = $t; $groups['R'] = ['', 'research brief', false]; }
+         }
+-        $st = $pdo->prepare("SELECT url, title, date_text, about, primary_record FROM heritage_sources WHERE place_key = ? ORDER BY primary_record DESC, id LIMIT 25"); $st->execute([$key]);
++        $st = $pdo->prepare("SELECT url, title, date_text, about, primary_record, kind FROM heritage_sources WHERE place_key = ? ORDER BY primary_record DESC, id LIMIT 25"); $st->execute([$key]);
+         $i = 0;
+         foreach ($st->fetchAll(PDO::FETCH_ASSOC) as $s) {
+             $i++; $label = 'L' . $i;
+             $texts[$label] = trim($s['title'] . ($s['date_text'] !== '' ? ' (' . $s['date_text'] . ')' : '') . '. ' . $s['about']);
+-            $groups[$label] = [(string) $s['url'], 'loc.gov', (bool) $s['primary_record']];
++            $groups[$label] = [(string) $s['url'], 'loc.gov', (bool) $s['primary_record'], (string) $s['kind']];
+         }
+         return [$texts, $groups];
+     }
+ 
++    /** The newspaper a Chronicling America page is from: its LCCN ("sn84020558") from the page's address, else the address. */
++    public static function paper(string $url): string
++    {
++        return preg_match('#/(sn\d{8,10}|[a-z]{1,3}\d{8,10})(/|$)#i', (string) parse_url($url, PHP_URL_PATH), $m) ? strtolower($m[1]) : $url;
++    }
++
+     /** One place read into facts, vetted and tiered. */
+     public static function extract(PDO $pdo, array $p, array $passages, array $groups, string $hash): string
+     {
+@@ -190,7 +202,12 @@
+         try {
+             $r = AiClient::claudeAsk(mb_substr($prompt, 0, 40000), $schema, $fc['model'], 0, 8000, 'low');
+             AiClient::record($pdo, 'heritage_extract', 0, 'done', $r);
+-        } catch (Throwable $x) { error_log('heritage ' . $p['key'] . ': ' . $x->getMessage()); return 'not read (' . $x->getMessage() . ')'; }
++        } catch (Throwable $x) {
++            error_log('heritage ' . $p['key'] . ': ' . $x->getMessage());
++            // to the back of the queue, its hash as it was, so it's read again when it comes round (not every tick at the front)
++            $pdo->prepare('INSERT INTO heritage_places (place_key, extracted_at) VALUES (?, NOW()) ON DUPLICATE KEY UPDATE extracted_at = NOW()')->execute([$p['key']]);
++            return 'not read (' . $x->getMessage() . ')';
++        }
+         $nation = null;
+         $made = 0; $vetted = 0;
+         foreach (array_slice((array) ($r['data']['facts'] ?? []), 0, 60) as $f) {
+@@ -202,7 +219,9 @@
+             $src = []; $hosts = []; $primary = false;
+             foreach ($labels as $l) {
+                 [$url, $host, $pr] = $groups[$l]; $src[] = ['url' => $url, 'host' => $host, 'primary' => $pr]; $primary = $primary || $pr;
+-                if ($l !== 'R') $hosts[$l[0] === 'L' ? 'loc:' . $url : $host] = true;   // the research brief is our own synthesis: it never counts as a source
++                // the research brief is our own synthesis: it never counts as a source. A Library of Congress record is its own;
++                // a newspaper's pages are one source, its paper (review W6: two pages of one paper were two "independent" sources)
++                if ($l !== 'R') $hosts[$l[0] === 'L' ? (($groups[$l][3] ?? '') === 'news' ? 'paper:' . self::paper($url) : 'loc:' . $url) : $host] = true;
+             }
+             $src = self::stamp($pdo, $src);   // each source carries its rules (the source register)
+             $foot = mb_substr(trim((string) ($f['footprint'] ?? '')), 0, 190);

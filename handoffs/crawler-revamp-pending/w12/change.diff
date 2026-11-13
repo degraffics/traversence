@@ -1,0 +1,29 @@
+--- a/app/lib/crawler/CrawlQueue.php
++++ b/app/lib/crawler/CrawlQueue.php
+@@ -117,7 +117,9 @@
+         $limit -= count($towns);
+         $pdo->beginTransaction();
+         try {
+-            $rows = $pdo->query("SELECT id, cluster_id, group_label FROM " . Database::t('crawl_jobs') . " WHERE status = 'queued' ORDER BY priority DESC, id LIMIT $limit")
++            // a need people searched for (a situation gap, "sit:…") before the general sweep (review E22, decisions/0160 W12: gaps
++            // were queued at their search count, 3 to 50, behind sweep jobs weighted by population, and waited for good)
++            $rows = $pdo->query("SELECT id, cluster_id, group_label FROM " . Database::t('crawl_jobs') . " WHERE status = 'queued' ORDER BY group_label LIKE 'sit:%' DESC, priority DESC, id LIMIT $limit")
+                         ->fetchAll(PDO::FETCH_ASSOC);
+             $until = date('Y-m-d H:i:s', time() + self::LEASE_MINUTES * 60);
+             $mark = $pdo->prepare("UPDATE " . Database::t('crawl_jobs') . " SET status = 'leased', lease_until = ?, updated_at = NOW() WHERE id = ? AND status = 'queued'");   // a try is counted when it fails (fail()), not when it's taken
+--- a/app/lib/Learning.php
++++ b/app/lib/Learning.php
+@@ -461,7 +461,12 @@
+     public static function gaps(PDO $pdo): array
+     {
+         $out = ['areas' => 0, 'gaps' => 0, 'tier1' => 0, 'tier2' => 0, 'filled' => 0];
+-        $st = $pdo->prepare("SELECT place_key, q, SUM(n) AS n FROM search_outcomes WHERE outcome = 'search' AND day >= ? AND place_key LIKE 'cluster:%' GROUP BY place_key, q");
++        // searches set to a cluster, and to a town in one (review E22, decisions/0160 W12: only cluster-scoped searches counted,
++        // so a need searched town by town never added up); towns outside our clusters are built out by TownCrawl instead
++        $st = $pdo->prepare("SELECT CASE WHEN o.place_key LIKE 'town:%' THEN CONCAT('cluster:', a.cluster_id) ELSE o.place_key END AS place_key, o.q, SUM(o.n) AS n
++                               FROM search_outcomes o LEFT JOIN anchors a ON o.place_key LIKE 'town:%' AND a.id = CAST(SUBSTRING(o.place_key, 6) AS UNSIGNED)
++                              WHERE o.outcome = 'search' AND o.day >= ? AND (o.place_key LIKE 'cluster:%' OR (o.place_key LIKE 'town:%' AND a.cluster_id IS NOT NULL))
++                              GROUP BY 1, o.q");
+         $st->execute([date('Y-m-d', strtotime('-30 days'))]);
+         $demand = []; $sits = []; $read = [];
+         foreach ($st->fetchAll(PDO::FETCH_ASSOC) as $r) {
