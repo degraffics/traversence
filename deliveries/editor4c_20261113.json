@@ -1,0 +1,34 @@
+{
+ "zip": "editor4c_20261113.zip",
+ "built_on": "89b4107 Sync: 2026-11-13 20:21 UTC",
+ "recorded": "2026-11-13 20:21 UTC",
+ "note": "0159 step 4c: Publish later and the zones on every page, built on Sync: 2026-11-13 20:21 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/Blocks.php": {
+   "sha256": "867227f3102c1b1aef5b4b76d17c5ff4f05e6f45c7978038ee1231a450bda463",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "181db5c56edb03cb28e8942cdb65ebb69eb503033301bd1cc737b3d39b01064a",
+   "live": false
+  },
+  "app/ui/footer.php": {
+   "sha256": "9251c66a85e1d4d0023ebb2db553f89f694bcbb32b7da9e2653970e837a0aecc",
+   "live": false
+  },
+  "app/ui/header.php": {
+   "sha256": "f0390eb4ac87a3da673cd9e2ca2841445bc32e3c6b69a4b8617f6034d2cd2f2a",
+   "live": false
+  },
+  "website/api/blocks.php": {
+   "sha256": "a21dccaa7b54b3c55ca84746da6c5f4f5b4f04c3695f442ea4b3f971eae336f6",
+   "live": false
+  },
+  "website/js/tv-editor.js": {
+   "sha256": "442589827cfeded1b20e10029a14204f7cf468b28f161ca31fac84b67def3912",
+   "live": false
+  }
+ }
+}
