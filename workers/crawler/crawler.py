@@ -198,7 +198,7 @@ SKIP_HOSTS = {"openstreetmap.org", "npino.com", "npiprofile.com", "npidb.org", "
               "npi.report", "npiregistry.cms.hhs.gov", "google.com", "bing.com", "duckduckgo.com", "search.brave.com"}
 
 started = time.monotonic()
-WORKER_V = "2.2"           # the service's contract 2 (decisions/0160 §2): the site plans each run, the worker reports it
+WORKER_V = "2.3"           # the service's contract 2 (decisions/0160 §2): the site plans each run, the worker reports it
 RUN_END = None             # when this run's own work must stop (started + TIME_BUDGET, or a bulk load's end)
 TASK_END = None            # when the capture task being worked must stop (its share of the run)
 FETCH_CAP = MAX_FETCHES    # fetches this run may have made by the end of the task being worked
@@ -376,8 +376,11 @@ host_last = {}                      # when we last fetched from each host, for i
 def public_host(url):
     """Only the open web: http(s) to a name whose every address is public. Checked before each fetch and each
     redirect, so no page can send us to a private, loopback, link-local or cloud-metadata address (decisions/0133)."""
-    p = urllib.parse.urlsplit(url)
-    if p.scheme not in ("http", "https") or not p.hostname:
+    try:
+        p = urllib.parse.urlsplit(url)
+        if p.scheme not in ("http", "https") or not p.hostname:
+            return False
+    except ValueError:                     # a malformed address: not one we fetch
         return False
     try:
         infos = socket.getaddrinfo(p.hostname, p.port or (443 if p.scheme == "https" else 80), proto=socket.IPPROTO_TCP)
@@ -835,6 +838,15 @@ def search(query):
         snippet = " ".join([r.get("title", ""), r.get("description", "")] + list(r.get("extra_snippets") or []))
         out.append({"url": r.get("url", ""), "title": r.get("title", ""), "snippet": html.unescape(re.sub(r"<[^>]+>", " ", snippet))})
     return out
+
+
+def join_url(base, href):
+    """urljoin that never throws: a malformed link on a page ("http://[bad/…", 2026-11-13: it stopped Common Crawl and
+    the source reads every run) is an empty address, which every caller skips."""
+    try:
+        return urllib.parse.urljoin(base, href)
+    except ValueError:
+        return ""
 
 
 def host_of(url):
@@ -1405,7 +1417,7 @@ def own_site_links(page, url, host, here):
     low = page.lower()
     for m in re.finditer(r'(?is)<a\b[^>]*href=["\']([^"\'#]+)["\'][^>]*>(.*?)</a>', page):
         href, label = m.group(1), m.group(2)
-        full = urllib.parse.urljoin(url, href.strip())
+        full = join_url(url, href.strip())
         h = host_of(full)
         if not full.startswith("http") or not h or h == host or base_domain(h) == base_domain(host) or not public_host(full):
             continue
@@ -1501,7 +1513,7 @@ def read_source(deadline):
             outlinks += own_site_links(page, url, host, here)
             links = []
             for href in re.findall(r'(?i)href=["\']([^"\'#]+)', page):
-                full = urllib.parse.urljoin(url, href)
+                full = join_url(url, href)
                 if host_of(full) == host and full.startswith("http") and not re.search(r"\.(jpe?g|png|gif|zip|docx?)$", full, re.I):
                     links.append(full)
             links.sort(key=lambda u: 0 if any(h in u.lower() for h in LINK_HINTS) else 1)   # directory-like pages first
@@ -1573,7 +1585,7 @@ def describe_sites(todo, deadline):
             text = re.sub(r"<[^>]+>", " ", label).strip().lower()
             if re.search(r"\b(terms( of (use|service))?|terms and conditions|legal|copyright|disclaimer|site policies|website policies)\b", text) \
                     or re.search(r"(terms|legal|copyright|disclaimer|policies)", href.lower()):
-                full = urllib.parse.urljoin(t.get("home_url") or "", href)
+                full = join_url(t.get("home_url") or "", href)
                 if host_of(full) == host_of(t.get("home_url") or ""):
                     terms = full
                     break
@@ -1962,7 +1974,7 @@ def refresh_listings(deadline):
             log(f"refresh {lst['name']}: website {'shows a parked or suspended page' if home else 'did not load'}: {res.get('site', '')}")
             continue
         pages = {site: home}
-        links = [urllib.parse.urljoin(site, h) for h in re.findall(r'(?i)href=["\']([^"\'#]+)', home)]
+        links = [join_url(site, h) for h in re.findall(r'(?i)href=["\']([^"\'#]+)', home)]
         links = [u for u in dict.fromkeys(links) if host_of(u) == host and any(k in u.lower() for k in REFRESH_HINTS)][:4]
         for u in links:
             if time.monotonic() > deadline:
@@ -2094,7 +2106,7 @@ def own_site_facts(site, lst, rejected, deadline):
         return []
     host = host_of(site)
     pages = {site: home}
-    links = [urllib.parse.urljoin(site, h) for h in re.findall(r"(?i)href=[\"']([^\"'#]+)", home)]
+    links = [join_url(site, h) for h in re.findall(r"(?i)href=[\"']([^\"'#]+)", home)]
     for u in [u for u in dict.fromkeys(links) if host_of(u) == host and any(k in u.lower() for k in CONTACT_HINTS)][:3]:
         if time.monotonic() > deadline:
             break
@@ -2236,7 +2248,7 @@ def npi_file_url():
     if not names:
         raise RuntimeError("no monthly file found on the NPI download page")
     names.sort(key=lambda n: bool(re.search(r"_V\.?2", n, re.I)), reverse=True)     # the current format first, when both are offered
-    return urllib.parse.urljoin(NPI_FILES_PAGE, names[0])
+    return join_url(NPI_FILES_PAGE, names[0])
 
 
 def npi_bulk():
