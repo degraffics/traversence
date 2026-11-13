@@ -3,24 +3,24 @@
  "built_on": "c5d187a Sync: 2026-11-13 02:49 UTC",
  "recorded": "2026-11-13 02:58 UTC",
  "note": "0157 \u00a78.3 Common Crawl: our states' local public sites from its index onto the register; sources read from the archive once a crawl. Built on the 02:49 UTC sync. The worker half ships via main.",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "866c4db Sync: 2026-11-13 03:03 UTC",
  "files": {
   "app/lib/crawler/SourceIndex.php": {
    "sha256": "3cd6e26c16a582a8f8ef31528ba608cef4f9bc9fa9711733475d532cd3e7c593",
-   "live": false
+   "live": true
   },
   "app/lib/crawler/Sources.php": {
    "sha256": "f76e91c5087fccddda6554676446c584dcd7ad4741335263659515cb8c1792a5",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "9f6ed5c64184a0b42d9f8f5bd0e5eabae92e49b3d9d8fea56166c13a8498ea1d",
-   "live": false
+   "live": true
   },
   "website/api/crawl/commoncrawl.php": {
    "sha256": "5a69265099f4fb424d347df601c1b8640087641af23decfdaa687416bc6ba7fa",
-   "live": false
+   "live": true
   }
  }
 }
