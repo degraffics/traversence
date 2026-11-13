@@ -46,7 +46,10 @@ files are added, moved or removed.
 at 6:00 and 18:00 UTC or on demand (its workflow's Run button), committing the result to `sync-storage/` (website),
 `sync-app/` (app) and `sync-trvgo/` (trvgo.us, since 2026-11-01).
 - **What's live** is those folders on that repo's `main`, not a copy from an earlier session. Compare before building.
-- **Delivering:** Jason uploads to the server; the sync updates OneDrive. The server wins a two-sided change
+- **Every build is a release** (Jason, 2026-11-13; decisions/0145 note): its zip (with a `release.json`: title, why,
+  proposals, switch) is uploaded on System Configuration → Releases, tried on staging, looked at by Jason, then published.
+  FTP or **Publish now (urgent)** only for a system issue that can't wait. After a publish, run the sync as for an upload.
+- **Delivering:** the release's publish (or Jason's upload) writes to the server; the sync updates OneDrive. The server wins a two-sided change
   (`SYNC_HOME=ftp`). A zip holds **only files that differ byte for byte from the live mirror**, never a blanket upload.
   Dotfiles (`.htaccess`) aren't mirrored, so name them separately when they change.
 - **Several sessions at once** (Jason, 2026-11-01): current first, so nothing is rebuilt.
