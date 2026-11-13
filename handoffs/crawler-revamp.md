@@ -297,7 +297,7 @@ CLAUDE.md, in full. For this work above all:
    run's Google check says "nothing to do": the site paces it (`api/crawl/usage.php`: 90% of the month, at most the
    month's share of a day, about 30), and the worker logs nothing when it's allowed 0. Web search shows the same ("this
    run may make 0", 213 of 1000 used). To do: the worker logs the site's reason (`stop`, `pace`, `daily`, `day_used`);
-   check Thresholds & gates `places_monthly` isn't 0.
+   checked: Thresholds & gates `places_monthly` is 1000 (Jason's screenshot, 2026-11-13), so about 30 a day are allowed. Left to find: the site's `.env` `GOOGLE_PLACES=off` (or `WEBSEARCH=off`), the day's share already spent, or `places.php` handing out no listings; the worker's new log line will say which.
 3. **Page reads shouldn't create listings** (Jason: "I thought reading should be indexing page content?"). Today they
    do: decisions/0157 §3 (delivery 2) stages up to 40 places a read through the intake (`SourceIndex::stageNew`), and
    W1's gate (Jason, 2026-11-13: a government page alone can establish a listing) publishes them: that's how "Contact
