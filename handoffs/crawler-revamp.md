@@ -213,7 +213,8 @@ CLAUDE.md, in full. For this work above all:
   service (`app/lib/crawler/CrawlService.php`, `website/api/crawl/service.php`, migration
   `2026-11-13_crawler_service.sql`), D16 in `AiClient`, D17 in `SecondTier::recordExtracts`, `CrawlService::stalled()`
   in Pulse, the console **Insights → Crawler** (`app/admin/crawler-console.php`; Jason chose Insights). The worker change
-  is on the branch `wip/phase2-worker` (contract 2, falls back to the fixed order); merge it once the site part is live.
+  went to `main` (Railway redeploys from it) once the site part was live: Release #16 (15:57 UTC), verified on Sync
+  15:59 UTC. Watch the first runs in Insights → Crawler.
 
 ## 7. Open
 
