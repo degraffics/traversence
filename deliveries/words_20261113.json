@@ -3,32 +3,32 @@
  "built_on": "2e3bee8 Sync: 2026-11-13 01:19 UTC",
  "recorded": "2026-11-13 01:28 UTC",
  "note": "0157 delivery 3: our index as the dictionary (LocalWords: names and words used here never corrected, offered first; swapped letters one slip) and the sense from context in Concepts::kinds. Built on the 01:19 UTC sync.",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "2e57313 Sync: 2026-11-13 01:31 UTC",
  "files": {
   "app/lib/Concepts.php": {
    "sha256": "40ad1b53e810e2f03708c3bdfcf39b8ad38b28ec910f87be4082e85a0df540c8",
-   "live": false
+   "live": true
   },
   "app/lib/LocalWords.php": {
    "sha256": "e5a184beccef1028a9849b2f652660c857ed83e131dacaa46002fff068e35e33",
-   "live": false
+   "live": true
   },
   "app/lib/SearchText.php": {
    "sha256": "7ac9674ba661e3e5af9ab0f33ad3da0216729a018491a39b8140c107319d9a08",
-   "live": false
+   "live": true
   },
   "app/lib/UniversalSearch.php": {
    "sha256": "7ec7438547cba96178cd54a5897d218416913f6137e357c5ea921272d52a99fd",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "cc3f64385da3c0e34972bb639bf8dc3df8623959a7e27b7f08f92b2d8d5a5e31",
-   "live": false
+   "live": true
   },
   "website/api/crawl/sources.php": {
    "sha256": "2eb238565c7f6679e1567c353943042c9bf7ecb2c8cf081d6b4378f6a2679d53",
-   "live": false
+   "live": true
   }
  }
 }
