@@ -1,0 +1,50 @@
+{
+ "zip": "crawler-phase2_20261113.zip",
+ "built_on": "769ee53 Sync: 2026-11-13 15:41 UTC",
+ "recorded": "2026-11-13 15:43 UTC",
+ "note": "Crawler revamp Phase 2, the site's part (handoffs/crawler-revamp.md): the crawler service (plan, report, requests, ledger), D16, D17, the stalled check in Pulse, the Insights -> Crawler console; Jason approved it in chat. The worker change follows once it's live. Built on Sync: 2026-11-13 15:41 UTC. Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/admin/crawler-console.php": {
+   "sha256": "1517b48875c3b2ea47c8def9bb4f3c01b18d212c0626276da97de3bcb94ed425",
+   "live": false
+  },
+  "app/admin/manifests.php": {
+   "sha256": "122ed4bbb5a6568d230a3331b033c73a7ccd1939b576efb635b8c1d9ef979fd5",
+   "live": false
+  },
+  "app/admin/sections.php": {
+   "sha256": "5ef3b2a18250aa8e248d8593918f23944ed89f74f3984b866b10a98be759be1f",
+   "live": false
+  },
+  "app/lib/AiClient.php": {
+   "sha256": "7b46827e662561af661a9761cf71f2f6a32c0e7f2a5e42e2a275f72ab282daa1",
+   "live": false
+  },
+  "app/lib/Pulse.php": {
+   "sha256": "fecf44541e64f29069d972c0a9ab30a73fa92d470dbfd1de87ba5acba1d676bc",
+   "live": false
+  },
+  "app/lib/crawler/CrawlService.php": {
+   "sha256": "5862e6e3add8c212b0ae237bd70334bac1ddb7c9f0cb944d2819b3b4ce65cff9",
+   "live": false
+  },
+  "app/lib/crawler/SecondTier.php": {
+   "sha256": "2ab9b1395364d415b59190ddcb094cceca0b10b40d5add08e1e0513f58ecaeb8",
+   "live": false
+  },
+  "app/migrations/2026-11-13_crawler_service.sql": {
+   "sha256": "8b2e66aa59b18fcb935bf0efb9622f072c0537804e68248b50a66a85beea285c",
+   "live": true
+  },
+  "app/ui/faq.md": {
+   "sha256": "ea1f3d88b232ec58115b3a0df37785937b3bdb317adeb2abbf4dc62afedb4778",
+   "live": false
+  },
+  "website/api/crawl/service.php": {
+   "sha256": "ff42a131fcfbaea4fb7edb08de9193b81d489fe7bab529c7fb8c0e78e6a6f851",
+   "live": false
+  }
+ }
+}

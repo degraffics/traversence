@@ -1,0 +1,18 @@
+{
+ "zip": "pullshow_20261113.zip",
+ "built_on": "a811468 Sync: 2026-11-13 15:26 UTC",
+ "recorded": "2026-11-13 15:31 UTC",
+ "note": "Release (decisions/0159 step 2): Check for builds shows the build that came in, even when it published itself. Built on Sync: 2026-11-13 15:26 UTC. Sent through git (releases/inbox).",
+ "status": "live",
+ "live_in": "769ee53 Sync: 2026-11-13 15:41 UTC",
+ "files": {
+  "website/api/release-bar.php": {
+   "sha256": "760447493d8b8dedf6757f4bf2589a289bd5d5a91c8d329247d586fbbcceeb00",
+   "live": true
+  },
+  "website/js/stg-bar.js": {
+   "sha256": "ede2e95aceb8fdcbedeec79f0b061b5a0eaf61b384e571359fc699544d698119",
+   "live": true
+  }
+ }
+}

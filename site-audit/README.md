@@ -34,7 +34,7 @@ phase order.
 - `rules.md`: the rule catalogue (Phase 1)
 - `exceptions.json`: rule failures accepted on purpose, each with its reason (Jason approves)
 - `../decisions/index.md`: the decision register (Phase 1)
-- `../routes.md`: the site page tree, generated and checked (Phase 1)
+- `pages.md`: the page tree's register (it replaced `routes.md`, P6, 2026-11-13); `page-tree.md` is generated from the mirror and checked against it (Phase 1)
 - `tools.md`: the tool inventory: every function and tool, who may use it, what should happen (Phase 2)
 - `scorecard.md`: each page's health, live and staging (Phases 1–4)
 - `paths.md`: the paths (once called journeys) and their measures, run by run (Phase 4; `results/paths.json`, `results/paths-history.json`)

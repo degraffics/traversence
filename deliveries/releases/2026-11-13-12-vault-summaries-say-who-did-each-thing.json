@@ -1,0 +1,104 @@
+{
+    "id": 12,
+    "title": "Vault summaries say who did each thing",
+    "why": "The hourly and daily vault summaries listed only the device and address, though the instant alerts already named who acted (Jason asked on 2026-11-12). The vault's log now keeps who did each thing when it happens (the person and staff login on the Vault page; the extension and who connected it), and every summary line says it. Entries from before this release don't have it.",
+    "proposals": "decisions/0156",
+    "zip": "vaultwho_20261113.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "live",
+    "step": 3,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": "2026-11-13 15:28:36",
+    "staged_at": "2026-11-13 15:28:38",
+    "vetted_at": "2026-11-13 15:28:40",
+    "live_at": "2026-11-13 15:28:40",
+    "files": {
+        "app/lib/Vault.php": {
+            "sha": "9d8478c573f7e607be6064b9138c0a9450133dcd26c06134eca5d0fa82ddec50",
+            "size": 60336,
+            "live_was": "d6229c00bbfd417af614fd4c21e21f79754624e10298297748c313c03cb16dbd",
+            "existed": true,
+            "old_sha": "d6229c00bbfd417af614fd4c21e21f79754624e10298297748c313c03cb16dbd"
+        },
+        "website/admin/api/vault.php": {
+            "sha": "1ca09e8ace67729c77b0bf5f20f2023deb9c1a9e4742c8a03d960bcecae016dd",
+            "size": 13186,
+            "live_was": "b9697e596819c3ed483d86375d82b647edfe68fedc192eca23873cd5c2719b85",
+            "existed": true,
+            "old_sha": "b9697e596819c3ed483d86375d82b647edfe68fedc192eca23873cd5c2719b85"
+        },
+        "website/admin/api/vault-ext.php": {
+            "sha": "fd97004159f97f6ffe7362b6d3a4d88fb43a3aefc5ec5a1a0eabfc23a48c9d33",
+            "size": 2777,
+            "live_was": "70c5a82fe0d9a68da9a0bdd7b3c433589e1bd358ed024e9232b5fd52f3e84fba",
+            "existed": true,
+            "old_sha": "70c5a82fe0d9a68da9a0bdd7b3c433589e1bd358ed024e9232b5fd52f3e84fba"
+        },
+        "website/api/vault-ext.php": {
+            "sha": "e822900858f4aca3dac0096a0166f92bc51146e9e29323deca23417182aeb827",
+            "size": 2906,
+            "live_was": "3dd14ffad1a4a543e7f6f0cc49c8841d06247a67b90a87d7866c60f6b67f49bf",
+            "existed": true,
+            "old_sha": "3dd14ffad1a4a543e7f6f0cc49c8841d06247a67b90a87d7866c60f6b67f49bf"
+        }
+    },
+    "migrations": [],
+    "checks": {
+        "ok": true,
+        "where": "live",
+        "at": "2026-11-13T15:28:40+00:00",
+        "items": [
+            [
+                "PHP files parse",
+                true,
+                "4 checked"
+            ],
+            [
+                "Pages answer",
+                true,
+                "2 pages answered on traversence.com"
+            ],
+            [
+                "No new fatal errors in the logs",
+                true,
+                "4 logs read"
+            ]
+        ],
+        "first_fail": ""
+    },
+    "log": [
+        {
+            "at": "2026-11-13T15:28:34+00:00",
+            "by": 2,
+            "msg": "Uploaded vaultwho_20261113.zip: 4 files."
+        },
+        {
+            "at": "2026-11-13T15:28:36+00:00",
+            "by": 2,
+            "msg": "Came from git: releases/inbox/vaultwho_20261113.zip (git 814a9c7dfb)."
+        },
+        {
+            "at": "2026-11-13T15:28:36+00:00",
+            "by": 2,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
+        },
+        {
+            "at": "2026-11-13T15:28:38+00:00",
+            "by": 2,
+            "msg": "Put on staging (4 files); its checks passed."
+        },
+        {
+            "at": "2026-11-13T15:28:40+00:00",
+            "by": 2,
+            "msg": "Approved in chat before it was sent through git, and its checks on staging passed: publishing by itself."
+        },
+        {
+            "at": "2026-11-13T15:28:40+00:00",
+            "by": 2,
+            "msg": "Published: 4 files; everyone at once (no switch)."
+        }
+    ]
+}

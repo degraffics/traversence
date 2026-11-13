@@ -310,3 +310,16 @@ minutes ran out on Nov 11 and the account's $0 Actions budget blocked every run 
 $10 a month; the zip check still runs the code checks before every delivery, and Run workflow runs the audit on demand.
 
 **Note (2026-11-13, decisions/0159):** the bar on staging becomes the site manager, where Upload puts a release straight on staging and Publish is the sign-off after a look. Phase 6 (deploy from git) is brought forward so that builds land on staging without uploads.
+
+**Note (Jason, 2026-11-13, P6 settled):** the page tree's register is `site-audit/pages.md` (it replaced `routes.md`,
+kept as `site-audit/archive/routes-2026-11-13.md`). Every page on the server is in it or in `archive.md`; routes designed
+and not built are under its **Coming**. The audit checks the live mirror against it (R09) and `routes-check.py` lists
+what's out of step, knowing the pages reached by rewrite (routers, `api.php` endpoints, sitemaps). Jason's calls:
+9 designed routes archived (replaced), the data export and the DMCA queue coming, `gallery/join.php` archived, the
+other 69 pages live.
+
+**Note (2026-11-13, the audit's clock):** GitHub skips or delays scheduled runs when busy, so the site starts the
+audit's workflows itself (`AuditClock`, job `audit_clock_tick`, `repository_dispatch` with `GITHUB_DOCS_TOKEN`); each
+workflow's own schedule is a later fallback that does nothing when a run was already made. Site health in Pulse says
+when one hasn't run in 26 hours, with Run it now. Switch `audit_clock`.
+

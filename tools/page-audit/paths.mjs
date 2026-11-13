@@ -23,12 +23,14 @@
 import { chromium } from 'playwright';
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import { SITE, ACC, CHECK_TOKEN, STAGING, memberIn, staffIn, checkContext } from './check-kit.mjs';
+import { stagingRunners } from './paths-staging.mjs';
 
 const FULL = process.env.FULL === '1';
 const GUIDES_PER_RUN = +(process.env.GUIDES_PER_RUN || (FULL ? 12 : 4));
 const STOPS_PER_JOURNEY = +(process.env.STOPS_PER_JOURNEY || 6);
 const JOURNEYS_PER_GUIDE = +(process.env.JOURNEYS_PER_GUIDE || (FULL ? 3 : 1));
 const BUDGET_MS = 1000 * +(process.env.PATHS_BUDGET_S || (FULL ? 900 : 420));
+const STAGING_DAY = FULL || [1, 4].includes(new Date().getUTCDay()) || process.env.STAGING_PATHS === '1';
 const ONLY = (process.env.PATHS_ONLY || '').split(',').map(s => s.trim()).filter(Boolean);   // e.g. PATHS_ONLY=eat-near-me,guides
 const OUT = process.env.PATHS_OUT || 'site-audit/results/paths.json';
 const HIST = process.env.PATHS_HISTORY || 'site-audit/results/paths-history.json';
@@ -137,8 +139,10 @@ class Walk {
     const hrefs = await this.page.$$eval('main a[href^="/"], .sj-list a[href^="/"]', as => [...new Set(as.map(a => a.getAttribute('href')))].filter(h => !/^\/(api|admin|login|logout)|#$/.test(h))).catch(() => []);
     for (const h of hrefs.filter(h => !checked.has(h)).slice(0, max)) {
       checked.add(h);
-      const r = await this.page.request.get(this.site + h, { maxRedirects: 3, timeout: 20000 }).catch(() => null);
-      if (!r || r.status() >= 400) this.add('accuracy', 'J02', this.here(), `the link ${h} ${r ? 'answers ' + r.status() : 'doesn\'t answer'}`);
+      // tried twice before it's called dead (2026-11-13: /faq.php "didn't answer" once and opened fine in the page checks)
+      let r = await this.page.request.get(this.site + h, { maxRedirects: 3, timeout: 20000 }).catch(() => null);
+      if (!r || r.status() >= 500) { await this.page.waitForTimeout(2000); r = await this.page.request.get(this.site + h, { maxRedirects: 3, timeout: 40000 }).catch(() => null) || r; }
+      if (!r || r.status() >= 400) this.add('accuracy', 'J02', this.here(), `the link ${h} ${r ? 'answers ' + r.status() : 'doesn\'t answer (tried twice)'}`);
     }
   }
   result(def, extra = {}) {
@@ -165,7 +169,7 @@ async function as(who, where = 'live') {
   const ctx = await checkContext(browser, { site, token, staging: st, context: { viewport: PHONE, isMobile: true, hasTouch: true, geolocation: HERE, permissions: ['geolocation'],
     userAgent: 'Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130 Mobile Safari/537.36 Traversence site checks (support@traversence.com)' } });
   await ctx.addInitScript(INIT);
-  if (who !== 'guest') {
+  if (!who.startsWith('guest')) {   // guest-…: another guest's own visit (a runner's setup)
     const staff = who.startsWith('staff-') ? ACC?.staff?.[who.slice(6)] : null;
     const member = !staff ? ACC?.members?.[who] : null;
     if (!staff && !member) { await ctx.close(); return contexts[k] = { error: `no ${who} account in CHECK_ACCOUNTS` }; }
@@ -182,6 +186,7 @@ async function walk(def, who, where = 'live') {
   if (def.signedOut) w.signedIn = false;   // it starts signed out (sign in)
   const t = Date.now();
   try { await def.run(w, page, who); } catch (e) { w.stuck = w.stuck || `the runner stopped: ${String(e).slice(0, 160)}`; await w.shot('error'); }
+  if (w.skip) { await page.close().catch(() => {}); return { id: def.id, kind: def.kind || 'core', title: def.title, who, status: 'skipped', notes: [w.skip, ...w.notes], problems: [], steps: { taps: 0, pages: 0, limit: def.limit || null, over: false }, counts: {}, where }; }
   const r = w.result(def, { where, ms: Date.now() - t });
   await page.close().catch(() => {});
   return r;
@@ -290,7 +295,14 @@ const CORE = [
       const rng = await firstVisible(page, ['.tvs-panel .tvs-rng:not([disabled])', '#location-modal input[type=range]']);
       if (rng) { w.taps++; await rng.focus().catch(() => {}); await page.keyboard.press('ArrowRight').catch(() => {}); await page.waitForTimeout(800);
         const v = (await page.locator('.tvs-rngv').first().textContent().catch(() => '')) || ''; w.note(`distance now ${v.trim() || '(not shown)'}`); if (!v.trim()) w.add('clarity', 'J03', w.here(), 'the distance slider doesn\'t say how far'); }
-      else w.add('dead_end', 'J01', w.here(), 'no distance to set once the place is chosen');
+      else {
+        // Get Local offers Within only for a point (a town, a ZIP, my location). One of our towns is listed in the place
+        // pop-up as its area (location-scope.js placeOptions doesn't list it twice), and an area has no distance: the list
+        // covers the area. Said as what it is, not a dead end (2026-11-13; proposal in site-audit/proposals.md).
+        const area = await page.evaluate(() => { try { const l = (typeof currentLocation !== 'undefined' && currentLocation) || JSON.parse(sessionStorage.getItem('traversence_location') || 'null'); return l && l.scope ? String(l.scope.label || l.scope.slug) : ''; } catch (e) { return ''; } }).catch(() => '');
+        if (area || /area|region/i.test(label + ' ' + head)) w.add('clarity', 'J03', w.here(), `Show Low was set as its area${area ? ' ("' + area + '")' : ''}, which has no distance: Get Local offers "Within" only for a town as a point, a ZIP or my location`);
+        else w.add('dead_end', 'J01', w.here(), 'no distance to set once the place is chosen');
+      }
     }
   } },
   { id: 'sign-in', title: 'Sign in, including the human check', who: ['member'], limit: 5, signedOut: true, run: async (w, page) => {
@@ -384,6 +396,12 @@ const CORE = [
   { id: 'send-order', steps: "Back-Office → a test order → Send → the client's held mail has it (sandbox payment only)", title: 'Staff: send an order', who: ['staff-sal-staff'], limit: 5, changes: true, run: null },
 ];
 
+// the staging runners (paths-staging.mjs): each path that changes something and had no runner takes its own
+{
+  const SR = stagingRunners({ as, ACC, firstVisible, textOf, guides: () => GUIDE_LIST, FULL });
+  for (const d of CORE) if (d.changes && !d.run && SR[d.id]) d.run = SR[d.id];
+}
+
 // ---- the guide paths --------------------------------------------------------------------------------------------------
 let GUIDE_LIST = [], GUIDE_TOWN = '', GUIDE_SOURCE = '', GUIDE_TOTAL = 0, ROT = 0;
 async function guides() {
@@ -438,6 +456,7 @@ async function guidePath(g) {
       } else await w.tap(link, j.title, { nav: true });
       if (!/\/journeys\/suggested\.php/.test(w.here())) continue;
       w.goal = true;
+      if (w.goalTaps == null) w.goalTaps = w.taps;   // the measure: taps from the guide to its journey; the stops walked after are checks, not steps
       const shown = await page.$$eval('.sj-stop a.sj-n', as => as.map(a => ({ href: a.getAttribute('href'), name: a.textContent.trim() }))).catch(() => []);
       const legs = await page.$$eval('.sj-leg', ls => ls.map(l => l.textContent.trim())).catch(() => []);
       const stops = j.stops || shown.map(s => ({ name: s.name, url: s.href }));
@@ -487,8 +506,9 @@ async function guidePath(g) {
     }
   } catch (e) { w.stuck = w.stuck || `the runner stopped: ${String(e).slice(0, 160)}`; await w.shot('error'); }
   // steps: the taps from the guide to its first stop (a guide is read from the guide; "read a town's guide" counts from home)
+  // (2026-11-13: the walk along the stops was counted, so every guide read "7 taps, the measure is 3")
+  w.taps = w.goalTaps ?? w.taps;
   const r = w.result(def, { where: 'live', ms: Date.now() - t, guide: { key: g.key, name: g.name, url: g.url, journeys: (g.journeys || []).length, stops: stopsOut } });
-  r.steps.taps = Math.min(w.taps, 2); r.steps.over = false;
   await page.close().catch(() => {});
   return r;
 }
@@ -518,6 +538,9 @@ for (const def of CORE) {
   for (const who of def.who) {
     if (!want(def.id)) continue;
     if (def.changes && !STAGING) { results.push({ id: def.id, kind: 'core', title: def.title, who, status: 'waits', notes: ['Waits for staging: it changes something, so it runs on staging.trvgo.us only (System Configuration → Staging → Set up staging, then the new CHECK_ACCOUNTS block).'], problems: [], steps: { taps: 0, pages: 0, limit: def.limit, over: false }, counts: {}, changes: true }); continue; }
+    // the staging paths take minutes (GitHub Actions minutes count, decisions/0145 §6: run less often rather than cost
+    // more): Mondays and Thursdays, a full run, or when named in PATHS_ONLY; the guest like and the comment run daily
+    if (def.changes && def.run && !STAGING_DAY && !ONLY.includes(def.id) && !['like-guest', 'comment'].includes(def.id)) { results.push({ id: def.id, kind: 'core', title: def.title, who, status: 'skipped', notes: ['Runs on staging on Mondays and Thursdays (and in a full run, or Run workflow naming it in PATHS_ONLY), to keep GitHub\'s run minutes down.'], problems: [], steps: { taps: 0, pages: 0, limit: def.limit, over: false }, counts: {}, changes: true }); continue; }
     if (def.changes && !def.run) { results.push({ id: def.id, kind: 'core', title: def.title, who, status: 'waits', notes: ['Staging is set up; this path\'s runner is still to write (its steps are listed in paths.md).'], problems: [], steps: { taps: 0, pages: 0, limit: def.limit, over: false }, counts: {}, changes: true }); continue; }
     if (who !== 'guest' && !ACC) { results.push({ id: def.id, kind: 'core', title: def.title, who, status: 'skipped', notes: ['CHECK_ACCOUNTS isn\'t set: signed-out paths only.'], problems: [], steps: { taps: 0, pages: 0, limit: def.limit, over: false }, counts: {} }); continue; }
     if (left() < 60000) { results.push({ id: def.id, kind: 'core', title: def.title, who, status: 'skipped', notes: ['The run\'s time budget ran out before this path: it runs first next time.'], problems: [], steps: { taps: 0, pages: 0, limit: def.limit, over: false }, counts: {} }); continue; }
@@ -527,7 +550,7 @@ for (const def of CORE) {
       const r = await walk(def, 'tmp'); r.who = who; results.push(r); await ctx.close(); delete contexts['tmp@live']; continue;
     }
     results.push(await walk(def, who, def.changes ? 'staging' : 'live'));
-    console.log(`${def.id} as ${who}: ${results[results.length - 1].status}`);
+    { const r = results[results.length - 1]; const why = r.stuck || (r.problems || [])[0]?.what || ''; console.log(`${def.id} as ${who}: ${r.status}${why && r.status !== 'passed' ? ' (' + why.slice(0, 200) + ')' : ''}`); }
   }
 }
 let walked = 0;

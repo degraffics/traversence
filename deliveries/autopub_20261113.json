@@ -1,0 +1,18 @@
+{
+ "zip": "autopub_20261113.zip",
+ "built_on": "67039f0 Sync: 2026-11-13 15:00 UTC",
+ "recorded": "2026-11-13 15:10 UTC",
+ "note": "Release #10 (decisions/0159 step 2): Claude's builds from git publish themselves once their staging checks pass (Jason, 2026-11-13); hold in release.json waits. Built on Sync: 2026-11-13 15:00 UTC. Sent through git (releases/inbox).",
+ "status": "live",
+ "live_in": "0727d95 Sync: 2026-11-13 15:22 UTC",
+ "files": {
+  "app/lib/Releases.php": {
+   "sha256": "bc18f7a0e3c8e5b7d79b6829a34c1115ba2d9776a2f0f9cf0b5049f6076db4bd",
+   "live": true
+  },
+  "app/ui/faq.md": {
+   "sha256": "7a5ac489e0646b0b74594e50bf9248e5d50924b1f32a41266ff801aecf914a42",
+   "live": true
+  }
+ }
+}

@@ -32,7 +32,7 @@ findings improve the rules, not just check against them.
      guide shows where it should); links work.
    - **Clarity:** plain wording, one obvious next action, the site's patterns and brand standard.
 3. **The page-to-decision map** (`site-audit/page-map.md`): each page and the decisions and docs that govern it, built
-   from the paths named in them and `routes.md`.
+   from the paths named in them and `site-audit/pages.md`.
 4. **The review**, a Claude Code skill in this repository (`.claude/skills/page-review/`). For flagged or changed pages
    it reads the page, its screenshots, its journeys and its governing decisions. Every finding gets a verdict:
    - fix the page;
@@ -64,10 +64,11 @@ findings improve the rules, not just check against them.
 ## Done when
 
 - [ ] The top journeys run for every account type that applies, with their measures in the scorecard.
-- [ ] The page map covers every page in `routes.md`.
-- [ ] The first review has produced a ranked list with verdicts, including at least one drafted amendment and any
-      conflicts found.
-- [ ] Site health shows in Pulse.
+- [x] The page map covers every page in `site-audit/pages.md` (194 pages, 2026-11-13).
+- [x] The first review has produced a ranked list with verdicts, including at least one drafted amendment and any
+      conflicts found (2026-11-13: P7–P12 in `proposals.md`; amendment P8, conflict P9).
+- [x] Site health shows in Pulse (switch `site_health`, staff first; since 2026-11-13 it also says when a check stopped
+      running, with Run it now).
 
 ## Rollout and rollback
 
@@ -113,7 +114,7 @@ None. GitHub's free run time; the review runs in Claude Code sessions, not throu
   Each carries its page, who saw it, its run (the screenshots) and its proposal once the review writes one. Only what's
   safe in a public repository: no money, nothing about a person.
 - **The page map** (`tools/page-audit/page-map.py` → `page-map.md`, `results/page-map.json`): every page in
-  `routes.md` and the page tree, the decisions and docs that name it (with the section), the standards for its kind,
+  `site-audit/pages.md` and the page tree, the decisions and docs that name it (with the section), the standards for its kind,
   and the paths through it. 192 pages; 20 named by no decision (listed at its end, for the review).
 - **The review** (`.claude/skills/page-review/SKILL.md`, inputs from `tools/page-audit/review.py`): for flagged pages
   and pages changed on the mirror since the last review, a verdict per finding (fix, amend, missing, conflict), ranked

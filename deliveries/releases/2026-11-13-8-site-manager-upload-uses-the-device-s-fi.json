@@ -1,0 +1,95 @@
+{
+    "id": 8,
+    "title": "Site manager: Upload uses the device's file picker, and the site's pop-ups show in front",
+    "why": "decisions/0159 step 2: the first build sent through git (releases/inbox). Jason found Upload opening the Gallery panel (a release zip isn't a Gallery item), with the site manager's Changes panel still open on top of it. Upload now closes any open view and opens the device's own file picker (data-art off), and the bar sits under the site's own pop-ups (z-index 1000; the Gallery, search and peek are 1370 and up).",
+    "proposals": "decisions/0159 step 2",
+    "zip": "smfix_20261113.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "live",
+    "step": 3,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": "2026-11-13 14:57:04",
+    "staged_at": "2026-11-13 14:57:06",
+    "vetted_at": "2026-11-13 14:59:07",
+    "live_at": "2026-11-13 14:59:07",
+    "files": {
+        "website/js/stg-bar.js": {
+            "sha": "c1b11a88368cac08a867d9d7da6c242b758e47491accd0a686a64c7a66c75221",
+            "size": 20650,
+            "live_was": "869c2bb93d4fb638a2bd20a957698eebe49df7f65baeb23071f12ac07d14f2fc",
+            "existed": true,
+            "old_sha": "869c2bb93d4fb638a2bd20a957698eebe49df7f65baeb23071f12ac07d14f2fc"
+        },
+        "app/ui/faq.md": {
+            "sha": "b692ed2425759fa865f43e6154fbf1bb77c30f8a52a4ffa27acdae4358ed5dee",
+            "size": 265851,
+            "live_was": "ce8de1661a9c2e1aa35daea3f564f15f806e10e6e2f9031a6eebdb1e5cd4f84b",
+            "existed": true,
+            "old_sha": "ce8de1661a9c2e1aa35daea3f564f15f806e10e6e2f9031a6eebdb1e5cd4f84b"
+        }
+    },
+    "migrations": [],
+    "checks": {
+        "ok": true,
+        "where": "live",
+        "at": "2026-11-13T14:59:07+00:00",
+        "items": [
+            [
+                "PHP files parse",
+                true,
+                "0 checked"
+            ],
+            [
+                "Pages answer",
+                true,
+                "2 pages answered on traversence.com"
+            ],
+            [
+                "No new fatal errors in the logs",
+                true,
+                "4 logs read"
+            ]
+        ],
+        "first_fail": ""
+    },
+    "log": [
+        {
+            "at": "2026-11-13T14:57:02+00:00",
+            "by": 0,
+            "msg": "Uploaded smfix_20261113.zip: 2 files."
+        },
+        {
+            "at": "2026-11-13T14:57:04+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/smfix_20261113.zip (git a39631cd7d)."
+        },
+        {
+            "at": "2026-11-13T14:57:04+00:00",
+            "by": 0,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
+        },
+        {
+            "at": "2026-11-13T14:57:07+00:00",
+            "by": 0,
+            "msg": "Put on staging (2 files); its checks passed."
+        },
+        {
+            "at": "2026-11-13T14:58:57+00:00",
+            "by": 2,
+            "msg": "Opened on staging by Jason DeGraff."
+        },
+        {
+            "at": "2026-11-13T14:59:07+00:00",
+            "by": 2,
+            "msg": "Signed off by Publish, after a look on staging."
+        },
+        {
+            "at": "2026-11-13T14:59:07+00:00",
+            "by": 2,
+            "msg": "Published: 2 files; everyone at once (no switch)."
+        }
+    ]
+}

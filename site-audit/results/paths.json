@@ -1,12 +1,12 @@
 {
- "at": "2026-11-13T04:29:27.081Z",
+ "at": "2026-11-13T15:47:23.984Z",
  "site": "https://traversence.com",
- "run_url": "https://github.com/degraffics/traversence/actions/runs/43365562755",
+ "run_url": "https://github.com/degraffics/traversence/actions/runs/43455294331",
  "staging": "https://staging.trvgo.us",
  "signed_in": true,
  "full": false,
- "budget_s": 420,
- "took_s": 135,
+ "budget_s": 1100,
+ "took_s": 264,
  "guides": {
   "source": "endpoint",
   "total": 6,
@@ -66,11 +66,11 @@
    "timings": [
     {
      "page": "/",
-     "ms": 1393
+     "ms": 1372
     },
     {
      "page": "/listing/view.php?id=7523",
-     "ms": 1943
+     "ms": 1950
     }
    ],
    "where": "live",
@@ -116,15 +116,15 @@
    "timings": [
     {
      "page": "/",
-     "ms": 1382
+     "ms": 1350
     },
     {
      "page": "/listing/view.php?id=7523",
-     "ms": 2007
+     "ms": 1950
     }
    ],
    "where": "live",
-   "ms": 8587
+   "ms": 8520
   },
   {
    "id": "town-guide",
@@ -159,15 +159,15 @@
    "timings": [
     {
      "page": "/",
-     "ms": 1295
+     "ms": 1205
     },
     {
      "page": "/hub/?town=phoenix-az-2",
-     "ms": 2347
+     "ms": 2217
     }
    ],
    "where": "live",
-   "ms": 10030
+   "ms": 9822
   },
   {
    "id": "search-typo",
@@ -200,22 +200,22 @@
    "timings": [
     {
      "page": "/",
-     "ms": 1117
+     "ms": 1342
     },
     {
      "page": "/hub/?cluster=cluster-auto-show-low",
-     "ms": 2774
+     "ms": 2762
     }
    ],
    "where": "live",
-   "ms": 10706
+   "ms": 10919
   },
   {
    "id": "set-place",
    "kind": "core",
    "title": "Set my place and distance",
    "who": "guest",
-   "status": "failed",
+   "status": "passed",
    "goal": true,
    "stuck": "",
    "steps": {
@@ -225,18 +225,18 @@
     "over": false
    },
    "counts": {
-    "dead_ends": 1,
+    "dead_ends": 0,
     "surprises": 0,
     "accuracy": 0,
-    "clarity": 0,
+    "clarity": 1,
     "slow": 0
    },
    "problems": [
     {
-     "kind": "dead_end",
-     "rule": "J01",
+     "kind": "clarity",
+     "rule": "J03",
      "page": "/directory/",
-     "what": "no distance to set once the place is chosen"
+     "what": "Show Low was set as its area (\"Show Low, AZ\"), which has no distance: Get Local offers \"Within\" only for a town as a point, a ZIP or my location"
     }
    ],
    "notes": [],
@@ -247,11 +247,11 @@
    "timings": [
     {
      "page": "/directory/",
-     "ms": 1057
+     "ms": 1507
     }
    ],
    "where": "live",
-   "ms": 7264
+   "ms": 7727
   },
   {
    "id": "sign-in",
@@ -287,15 +287,15 @@
    "timings": [
     {
      "page": "/",
-     "ms": 1381
+     "ms": 1327
     },
     {
      "page": "/login.php",
-     "ms": 1902
+     "ms": 1881
     }
    ],
    "where": "live",
-   "ms": 15408
+   "ms": 15150
   },
   {
    "id": "sign-out",
@@ -328,15 +328,15 @@
    "timings": [
     {
      "page": "/user/dashboard.php",
-     "ms": 1398
+     "ms": 1440
     },
     {
      "page": "/",
-     "ms": 1530
+     "ms": 1558
     }
    ],
    "where": "live",
-   "ms": 5583
+   "ms": 5699
   },
   {
    "id": "my-listing",
@@ -369,34 +369,82 @@
    "timings": [
     {
      "page": "/",
-     "ms": 1313
+     "ms": 1319
     },
     {
      "page": "/listing/view.php?id=8916",
-     "ms": 2010
+     "ms": 1969
     }
    ],
    "where": "live",
-   "ms": 3859
+   "ms": 3831
   },
   {
    "id": "sign-up",
    "kind": "core",
    "title": "Sign up (all steps)",
    "who": "guest",
-   "status": "waits",
-   "notes": [
-    "Staging is set up; this path's runner is still to write (its steps are listed in paths.md)."
-   ],
-   "problems": [],
+   "status": "failed",
+   "goal": false,
+   "stuck": "",
    "steps": {
-    "taps": 0,
-    "pages": 0,
+    "taps": 6,
+    "pages": 3,
     "limit": 5,
-    "over": false
+    "over": true
    },
-   "counts": {},
-   "changes": true
+   "counts": {
+    "dead_ends": 1,
+    "surprises": 1,
+    "accuracy": 0,
+    "clarity": 0,
+    "slow": 0
+   },
+   "problems": [
+    {
+     "kind": "surprise",
+     "rule": "V06",
+     "page": "/login.php?tab=create",
+     "what": "the page jumps as it loads (layout shift 0.40)"
+    },
+    {
+     "kind": "dead_end",
+     "rule": "J01",
+     "page": "/verify-email.php?token=3cf62168b288d70e5c014e5d15666ef6e17493b902db3546a4596f4ee67a68d5",
+     "what": "after the questions, no way on (\"You're all set\" and its link didn't show)"
+    },
+    {
+     "kind": "steps",
+     "rule": "J01",
+     "page": "/verify-email.php?token=3cf62168b288d70e5c014e5d15666ef6e17493b902db3546a4596f4ee67a68d5",
+     "what": "6 taps to the goal (the measure is 5 or fewer)"
+    }
+   ],
+   "notes": [],
+   "pages": [
+    "/",
+    "/login.php?tab=create",
+    "/verify-email.php?token=3cf62168b288d70e5c014e5d15666ef6e17493b902db3546a4596f4ee67a68d5"
+   ],
+   "shots": [
+    "path-sign-up-guest-1-noend.png"
+   ],
+   "timings": [
+    {
+     "page": "/",
+     "ms": 2111
+    },
+    {
+     "page": "/login.php?tab=create",
+     "ms": 2054
+    },
+    {
+     "page": "/verify-email.php?token=3cf62168b288d70e5c014e5d15666ef6e17493b902db3546a4596f4ee67a68d5",
+     "ms": 1191
+    }
+   ],
+   "where": "staging",
+   "ms": 23581
   },
   {
    "id": "like-guest",
@@ -431,32 +479,32 @@
    "timings": [
     {
      "page": "/journeys/suggested.php?id=8",
-     "ms": 2571
+     "ms": 1240
     },
     {
      "page": "/journeys/suggested.php?id=10",
-     "ms": 1526
+     "ms": 1161
     },
     {
      "page": "/journeys/suggested.php?id=9",
-     "ms": 1518
+     "ms": 1129
     },
     {
      "page": "/journeys/suggested.php?id=32",
-     "ms": 1498
+     "ms": 1128
     }
    ],
    "where": "staging",
-   "ms": 14853
+   "ms": 12415
   },
   {
    "id": "like-member",
    "kind": "core",
    "title": "Like as a member (past 100)",
    "who": "member",
-   "status": "waits",
+   "status": "skipped",
    "notes": [
-    "Staging is set up; this path's runner is still to write (its steps are listed in paths.md)."
+    "runs in the full run only (Mondays, or Run workflow with \"full\"): 100 likes at a person's pace take about 7 minutes"
    ],
    "problems": [],
    "steps": {
@@ -466,148 +514,300 @@
     "over": false
    },
    "counts": {},
-   "changes": true
+   "where": "staging"
   },
   {
    "id": "comment",
    "kind": "core",
    "title": "Comment",
    "who": "member",
-   "status": "skipped",
-   "notes": [
-    "Error: member sign-in check+member@traversence.com: 401 {\"ok\":false,\"error\":{\"code\":\"invalid_credentials\",\"message\":\"Invalid email or password.\"}}"
-   ],
-   "problems": [],
+   "status": "passed",
+   "goal": true,
+   "stuck": "",
    "steps": {
-    "taps": 0,
-    "pages": 0,
+    "taps": 1,
+    "pages": 1,
     "limit": 5,
     "over": false
    },
-   "counts": {}
+   "counts": {
+    "dead_ends": 0,
+    "surprises": 0,
+    "accuracy": 0,
+    "clarity": 0,
+    "slow": 0
+   },
+   "problems": [],
+   "notes": [],
+   "pages": [
+    "/journeys/suggested.php?id=8"
+   ],
+   "shots": [],
+   "timings": [
+    {
+     "page": "/journeys/suggested.php?id=8",
+     "ms": 1458
+    }
+   ],
+   "where": "staging",
+   "ms": 7143
   },
   {
    "id": "claim",
    "kind": "core",
    "title": "Claim my business",
    "who": "member",
-   "status": "waits",
-   "notes": [
-    "Staging is set up; this path's runner is still to write (its steps are listed in paths.md)."
-   ],
-   "problems": [],
+   "status": "passed",
+   "goal": true,
+   "stuck": "",
    "steps": {
-    "taps": 0,
-    "pages": 0,
+    "taps": 3,
+    "pages": 2,
     "limit": 5,
     "over": false
    },
-   "counts": {},
-   "changes": true
+   "counts": {
+    "dead_ends": 0,
+    "surprises": 0,
+    "accuracy": 0,
+    "clarity": 0,
+    "slow": 0
+   },
+   "problems": [],
+   "notes": [
+    "the claim stands at: Managed by owner"
+   ],
+   "pages": [
+    "/listing/view.php?id=9051",
+    "/claim.php?listing=9051"
+   ],
+   "shots": [],
+   "timings": [
+    {
+     "page": "/listing/view.php?id=9051",
+     "ms": 1361
+    },
+    {
+     "page": "/claim.php?listing=9051",
+     "ms": 2032
+    }
+   ],
+   "where": "staging",
+   "ms": 12931
   },
   {
    "id": "edit-listing",
    "kind": "core",
    "title": "Edit my listing",
    "who": "owner",
-   "status": "waits",
-   "notes": [
-    "Staging is set up; this path's runner is still to write (its steps are listed in paths.md)."
-   ],
-   "problems": [],
+   "status": "stuck",
+   "goal": false,
+   "stuck": "no hours box on Edit listing",
    "steps": {
-    "taps": 0,
-    "pages": 0,
+    "taps": 1,
+    "pages": 2,
     "limit": 5,
     "over": false
    },
-   "counts": {},
-   "changes": true
+   "counts": {
+    "dead_ends": 0,
+    "surprises": 0,
+    "accuracy": 0,
+    "clarity": 0,
+    "slow": 0
+   },
+   "problems": [],
+   "notes": [],
+   "pages": [
+    "/business/9035",
+    "/listing/businessportal.php?id=9035"
+   ],
+   "shots": [],
+   "timings": [
+    {
+     "page": "/business/9035",
+     "ms": 1659
+    },
+    {
+     "page": "/listing/businessportal.php?id=9035",
+     "ms": 1998
+    }
+   ],
+   "where": "staging",
+   "ms": 4193
   },
   {
    "id": "market-post",
    "kind": "core",
    "title": "Post on the Marketplace",
    "who": "member",
-   "status": "waits",
-   "notes": [
-    "Staging is set up; this path's runner is still to write (its steps are listed in paths.md)."
-   ],
-   "problems": [],
+   "status": "passed",
+   "goal": true,
+   "stuck": "",
    "steps": {
-    "taps": 0,
-    "pages": 0,
+    "taps": 5,
+    "pages": 3,
     "limit": 5,
     "over": false
    },
-   "counts": {},
-   "changes": true
+   "counts": {
+    "dead_ends": 0,
+    "surprises": 0,
+    "accuracy": 0,
+    "clarity": 0,
+    "slow": 0
+   },
+   "problems": [],
+   "notes": [
+    "the post's status: SHOWING"
+   ],
+   "pages": [
+    "/market/",
+    "/user/market/?new=1",
+    "/user/market/?x=1794584726668#p4"
+   ],
+   "shots": [],
+   "timings": [
+    {
+     "page": "/market/",
+     "ms": 1421
+    },
+    {
+     "page": "/user/market/?new=1",
+     "ms": 1979
+    }
+   ],
+   "where": "staging",
+   "ms": 13988
   },
   {
    "id": "message-business",
    "kind": "core",
    "title": "Message a business",
    "who": "member",
-   "status": "waits",
-   "notes": [
-    "Staging is set up; this path's runner is still to write (its steps are listed in paths.md)."
-   ],
-   "problems": [],
+   "status": "passed",
+   "goal": true,
+   "stuck": "",
    "steps": {
-    "taps": 0,
-    "pages": 0,
+    "taps": 1,
+    "pages": 1,
     "limit": 5,
     "over": false
    },
-   "counts": {},
-   "changes": true
+   "counts": {
+    "dead_ends": 0,
+    "surprises": 0,
+    "accuracy": 0,
+    "clarity": 0,
+    "slow": 0
+   },
+   "problems": [],
+   "notes": [
+    "starts at the conversation: the test listing's own page is hidden from members, so its Message button can't be tapped",
+    "messages can't be deleted (BizMessages has no remove): the test message stays until staging's refresh"
+   ],
+   "pages": [
+    "/user/dashboard.php#addressbook:biz=9035"
+   ],
+   "shots": [],
+   "timings": [
+    {
+     "page": "/user/dashboard.php#addressbook:biz=9035",
+     "ms": 1582
+    }
+   ],
+   "where": "staging",
+   "ms": 16196
   },
   {
    "id": "join-group",
    "kind": "core",
    "title": "Join a group",
    "who": "member",
-   "status": "waits",
-   "notes": [
-    "Staging is set up; this path's runner is still to write (its steps are listed in paths.md)."
-   ],
-   "problems": [],
+   "status": "stuck",
+   "goal": false,
+   "stuck": "no groups listed on Community",
    "steps": {
     "taps": 0,
-    "pages": 0,
+    "pages": 1,
     "limit": 5,
     "over": false
    },
-   "counts": {},
-   "changes": true
+   "counts": {
+    "dead_ends": 0,
+    "surprises": 0,
+    "accuracy": 0,
+    "clarity": 0,
+    "slow": 0
+   },
+   "problems": [],
+   "notes": [],
+   "pages": [
+    "/community/"
+   ],
+   "shots": [
+    "path-join-group-member-1-nogroups.png"
+   ],
+   "timings": [
+    {
+     "page": "/community/",
+     "ms": 1542
+    }
+   ],
+   "where": "staging",
+   "ms": 1615
   },
   {
    "id": "staff-report",
    "kind": "core",
    "title": "Staff: decide a report",
    "who": "staff-ops-staff",
-   "status": "waits",
-   "notes": [
-    "Staging is set up; this path's runner is still to write (its steps are listed in paths.md)."
-   ],
-   "problems": [],
+   "status": "issues",
+   "goal": true,
+   "stuck": "",
    "steps": {
-    "taps": 0,
-    "pages": 0,
+    "taps": 3,
+    "pages": 1,
     "limit": 5,
     "over": false
    },
-   "counts": {},
-   "changes": true
+   "counts": {
+    "dead_ends": 0,
+    "surprises": 1,
+    "accuracy": 0,
+    "clarity": 0,
+    "slow": 0
+   },
+   "problems": [
+    {
+     "kind": "surprise",
+     "rule": "R03",
+     "page": "/admin/reports.php",
+     "what": "the decision's answer is plain colored text, not the site's notice (data-tv-flash)"
+    }
+   ],
+   "notes": [],
+   "pages": [
+    "/admin/dashboard/stream"
+   ],
+   "shots": [],
+   "timings": [
+    {
+     "page": "/admin/dashboard/stream",
+     "ms": 1583
+    }
+   ],
+   "where": "staging",
+   "ms": 18916
   },
   {
    "id": "staff-like-check",
    "kind": "core",
    "title": "Staff: decide a like check",
    "who": "staff-ops-staff",
-   "status": "waits",
+   "status": "skipped",
    "notes": [
-    "Staging is set up; this path's runner is still to write (its steps are listed in paths.md)."
+    "no like check waiting: three guest likes on a test item were made, so the hourly Like checks job opens one for the next run"
    ],
    "problems": [],
    "steps": {
@@ -617,56 +817,110 @@
     "over": false
    },
    "counts": {},
-   "changes": true
+   "where": "staging"
   },
   {
    "id": "staff-held-post",
    "kind": "core",
    "title": "Staff: decide a held Marketplace post",
    "who": "staff-ops-staff",
-   "status": "waits",
-   "notes": [
-    "Staging is set up; this path's runner is still to write (its steps are listed in paths.md)."
-   ],
-   "problems": [],
+   "status": "passed",
+   "goal": true,
+   "stuck": "",
    "steps": {
-    "taps": 0,
-    "pages": 0,
+    "taps": 1,
+    "pages": 1,
     "limit": 5,
     "over": false
    },
-   "counts": {},
-   "changes": true
+   "counts": {
+    "dead_ends": 0,
+    "surprises": 0,
+    "accuracy": 0,
+    "clarity": 0,
+    "slow": 0
+   },
+   "problems": [],
+   "notes": [],
+   "pages": [
+    "/admin/dashboard/stream#case=mkt%3Aheld"
+   ],
+   "shots": [],
+   "timings": [
+    {
+     "page": "/admin/dashboard/stream#case=mkt%3Aheld",
+     "ms": 1728
+    }
+   ],
+   "where": "staging",
+   "ms": 13526
   },
   {
    "id": "send-order",
    "kind": "core",
    "title": "Staff: send an order",
    "who": "staff-sal-staff",
-   "status": "waits",
-   "notes": [
-    "Staging is set up; this path's runner is still to write (its steps are listed in paths.md)."
-   ],
-   "problems": [],
+   "status": "stuck",
+   "goal": false,
+   "stuck": "no \"Test copy, billed to you\"",
    "steps": {
-    "taps": 0,
-    "pages": 0,
+    "taps": 2,
+    "pages": 2,
     "limit": 5,
     "over": false
    },
-   "counts": {},
-   "changes": true
+   "counts": {
+    "dead_ends": 0,
+    "surprises": 2,
+    "accuracy": 0,
+    "clarity": 0,
+    "slow": 0
+   },
+   "problems": [
+    {
+     "kind": "surprise",
+     "rule": "V14",
+     "page": "/admin/backoffice/orders/10",
+     "what": "a script error: TypeError: Cannot read properties of null (reading 'hasAttribute')"
+    },
+    {
+     "kind": "surprise",
+     "rule": "V06",
+     "page": "/admin/backoffice/orders/10",
+     "what": "the page jumps as it loads (layout shift 0.32)"
+    }
+   ],
+   "notes": [],
+   "pages": [
+    "/admin/backoffice/orders",
+    "/admin/backoffice/orders/10"
+   ],
+   "shots": [
+    "path-send-order-staff-sal-staff-1-stuck.png"
+   ],
+   "timings": [
+    {
+     "page": "/admin/backoffice/orders",
+     "ms": 1330
+    },
+    {
+     "page": "/admin/backoffice/orders/10",
+     "ms": 2938
+    }
+   ],
+   "where": "staging",
+   "ms": 6428
   },
   {
    "id": "guide:town:73",
    "kind": "guide",
    "title": "Follow the Phoenix, AZ guide",
    "who": "guest",
-   "status": "failed",
+   "status": "passed",
    "goal": true,
    "stuck": "",
    "steps": {
-    "taps": 2,
+    "taps": 1,
     "pages": 14,
     "limit": 3,
     "over": false
@@ -674,24 +928,11 @@
    "counts": {
     "dead_ends": 0,
     "surprises": 0,
-    "accuracy": 1,
+    "accuracy": 0,
     "clarity": 0,
     "slow": 0
    },
-   "problems": [
-    {
-     "kind": "accuracy",
-     "rule": "J02",
-     "page": "/journeys/suggested.php?id=8",
-     "what": "the link /faq.php doesn't answer"
-    },
-    {
-     "kind": "steps",
-     "rule": "J01",
-     "page": "/journeys/suggested.php?id=8",
-     "what": "7 taps to the goal (the measure is 3 or fewer)"
-    }
-   ],
+   "problems": [],
    "notes": [],
    "pages": [
     "/hub/?town=phoenix-az",
@@ -713,39 +954,39 @@
    "timings": [
     {
      "page": "/hub/?town=phoenix-az",
-     "ms": 1536
+     "ms": 1508
     },
     {
      "page": "/journeys/suggested.php?id=8",
-     "ms": 1807
+     "ms": 1798
     },
     {
      "page": "/listing/view.php?id=9051",
-     "ms": 1916
+     "ms": 1848
     },
     {
      "page": "/place/landmark.php?id=900000029",
-     "ms": 2012
+     "ms": 1953
     },
     {
      "page": "/place/landmark.php?id=900000023",
-     "ms": 1826
+     "ms": 1841
     },
     {
      "page": "/place/landmark.php?id=900000030",
-     "ms": 1916
+     "ms": 1847
     },
     {
      "page": "/listing/view.php?id=9048",
-     "ms": 1843
+     "ms": 1873
     },
     {
      "page": "/place/recreation.php?id=f247732",
-     "ms": 1814
+     "ms": 1830
     }
    ],
    "where": "live",
-   "ms": 24717,
+   "ms": 24258,
    "guide": {
     "key": "town:73",
     "name": "Phoenix",
@@ -794,11 +1035,11 @@
    "kind": "guide",
    "title": "Follow the Globe, AZ guide",
    "who": "guest",
-   "status": "failed",
+   "status": "passed",
    "goal": true,
    "stuck": "",
    "steps": {
-    "taps": 2,
+    "taps": 1,
     "pages": 14,
     "limit": 3,
     "over": false
@@ -810,14 +1051,7 @@
     "clarity": 0,
     "slow": 0
    },
-   "problems": [
-    {
-     "kind": "steps",
-     "rule": "J01",
-     "page": "/journeys/suggested.php?id=40",
-     "what": "7 taps to the goal (the measure is 3 or fewer)"
-    }
-   ],
+   "problems": [],
    "notes": [],
    "pages": [
     "/hub/?town=globe-az",
@@ -839,39 +1073,39 @@
    "timings": [
     {
      "page": "/hub/?town=globe-az",
-     "ms": 1196
+     "ms": 1163
     },
     {
      "page": "/journeys/suggested.php?id=40",
-     "ms": 1802
+     "ms": 1780
     },
     {
      "page": "/place/landmark.php?id=900000193",
-     "ms": 1803
+     "ms": 1813
     },
     {
      "page": "/place/landmark.php?id=900000191",
-     "ms": 1814
+     "ms": 1829
     },
     {
      "page": "/place/landmark.php?id=900000190",
-     "ms": 1827
+     "ms": 1879
     },
     {
      "page": "/place/landmark.php?id=900000192",
-     "ms": 1817
+     "ms": 1829
     },
     {
      "page": "/place/landmark.php?id=900000198",
-     "ms": 1818
+     "ms": 1826
     },
     {
      "page": "/place/landmark.php?id=900000202",
-     "ms": 1823
+     "ms": 1832
     }
    ],
    "where": "live",
-   "ms": 22482,
+   "ms": 23763,
    "guide": {
     "key": "town:84",
     "name": "Globe",
@@ -918,14 +1152,14 @@
    {
     "job": "guide_live_tick",
     "fails_today": 94,
-    "last": "2026-11-12 21:15:02",
+    "last": "2026-11-13 08:45:03",
     "ok": 0
    }
   ],
   "cache": {
-   "entries": 3119,
-   "expired": 2,
-   "expired_share": 0
+   "entries": 3636,
+   "expired": 137,
+   "expired_share": 4
   },
   "ai": {
    "over_80_pct_of_cap": false,
@@ -972,7 +1206,7 @@
    },
    {
     "name": "search_index",
-    "mb": 7.27
+    "mb": 7.38
    }
   ],
   "status": [

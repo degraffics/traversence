@@ -192,7 +192,30 @@ CLAUDE.md, in full. For this work above all:
     ahead of it;
   - the site and the worker keep one contract (the API), versioned, so either can go first safely.
 
-## 6. Open
+## 6. Progress
 
-- **Phase 0 first:** confirm with Jason it ships as an urgent release (it stops ongoing damage).
-- The Crawler console's place in the admin (Insights, or System Configuration).
+- **Phase 0** (2026-11-13): `crawler-phase0_20261113.zip`, built on Sync 15:26 UTC, sent through git; Jason approved it as
+  urgent (under release #9 it publishes itself once staging passes). Site guards only (no worker change, no migration): `Refresh::lease` (abandoned leases not
+  tried, `crawler_refresh_abandoned` counted), `IdentityJobs::lease` (expired leases keep their tries),
+  `SourceIndex::store` (each page read replaces only its own places; a read of nothing hands the source back),
+  `Guides` (`draftFailed`, `keepNewer`), `Landmarks::finish` (never `waiting`, only states loaded). The snapshot is the
+  health report's `crawler` section, written daily to `site-audit/crawler-snapshot.md` (history in
+  `site-audit/results/crawler-snapshot.json`) by `tools/page-audit/towns.mjs`.
+
+  Live as Release #13 (15:29 UTC); verified byte for byte on Sync 15:31 UTC.
+- **Phase 1** (2026-11-13): `crawler-phase1_20261113.zip`, built on Sync 15:31 UTC, approved by Jason in chat.
+  `SourceIndex::guard()` (the listings' guards on "Named on pages we read" and on staging finds; held rows marked
+  `source_facts.held`, never deleted), `Landmarks::isProtected` loads the peoples itself, `Heritage::retier()` (run by
+  the heritage tick, a batch each hour, from `heritage_retier_at`), `OpenPlaces::near` (nations' land), `GuideLinks`
+  (0133's levels; a matcher's set-aside is matched again each scan).
+  Live as Release #14 (15:38 UTC); verified on Sync 15:41 UTC.
+- **Phase 2** (approved by Jason in chat): `crawler-phase2_20261113.zip`, built on Sync 15:41 UTC. The site's
+  service (`app/lib/crawler/CrawlService.php`, `website/api/crawl/service.php`, migration
+  `2026-11-13_crawler_service.sql`), D16 in `AiClient`, D17 in `SecondTier::recordExtracts`, `CrawlService::stalled()`
+  in Pulse, the console **Insights → Crawler** (`app/admin/crawler-console.php`; Jason chose Insights). The worker change
+  is on the branch `wip/phase2-worker` (contract 2, falls back to the fixed order); merge it once the site part is live.
+
+## 7. Open
+
+- Nothing waiting on Jason.
+

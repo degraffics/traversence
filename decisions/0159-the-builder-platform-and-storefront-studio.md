@@ -153,6 +153,27 @@ and GO Codes, so it's found without paying for ads (commercial.md).
 Each step is a release.
 1. **Into staging and the site manager:** fix the way in (the pass), then the site manager bar with the merged steps (§5).
 2. **Phase 6:** builds land on staging from git; uploads end.
+
+Progress (2026-11-13):
+- **Step 1 built** (releases #4–#6, #8): the way into staging fixed (staging's private folder rule had shut its pages,
+  found by Check the way in), and the site manager at the top of staging. Publish or Schedule is the sign-off after a
+  look; Upload goes straight onto staging.
+- **Step 2, part 1 built** (release #7): builds sent through git (`releases/inbox/`, `tools/page-audit/send.py`) are
+  taken onto staging by the live site. Release #8 was the first to come that way. Jason agreed the switch the same day
+  ("good to go on git zip syncing over manual uploads"): CLAUDE.md's delivery rules now send every build through git.
+- **Claude's builds publish themselves** (Jason, 2026-11-13: "this feels redundant, since I would have already approved
+  it in claude before it got pushed… publish is for the staging area development process"). This replaces §5's "your
+  look before publishing stays" for builds sent through git: once its checks on staging pass, it goes live by itself
+  (`Releases::autoPublish`). Failed checks stop it there; `"hold": true` in its release.json waits for his look and
+  Publish. Uploads on staging and the editor keep Publish (release #10).
+- **A push for review** (Jason, 2026-11-13: "this should be a push for review process so it can be something that triggers
+  me having to go to the stage to interact with the site and then approve it as UI/UX/Functional and then publish it"):
+  `"review": true` (or `"hold"`) waits on staging, emails the Founder and opens a Pulse case with the way onto staging;
+  the site manager's Review takes UI, UX and Functional, each Approve or Needs changes with a note (kept with the
+  release); Publish opens when all three are approved (release #11).
+- **Step 2, still to do:** the sync's direction (`SYNC_HOME` to git) and drift reports, so edits made straight on the
+  server or in OneDrive show as drift instead of going live without a release. Its timing is agreed with Jason first,
+  since it changes how OneDrive edits behave.
 3. **The editor's core:** blocks, Edit, Save draft, Publish, Roll back, on block pages and the home page's first zone.
 4. **The full editor:** the widget panel, drag and drop, columns, the design panel, breakpoints, global components,
    live components, SEO fields.

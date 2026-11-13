@@ -6,12 +6,15 @@
 name: Site audit
 
 on:
+  repository_dispatch:
+    types: [site-audit]    # the site's clock asks at 7:17 and 19:17 UTC (AuditClock, decisions/0145): GitHub's schedule skips runs when it's busy
   schedule:
-    - cron: '17 7,19 * * *'   # twice a day, an hour after the scheduled syncs (Jason, 2026-11-11: "12 hour audit is fine"; was hourly)
+    - cron: '47 8,20 * * *'   # the fallback, if the site didn't ask   # twice a day, an hour after the scheduled syncs (Jason, 2026-11-11: "12 hour audit is fine"; was hourly)
   workflow_dispatch:
 
 permissions:
   contents: write
+  actions: read
 
 concurrency:
   group: site-audit
@@ -21,9 +24,20 @@ jobs:
   audit:
     runs-on: ubuntu-latest
     steps:
+      - name: Already run in this window? (the site's clock asks first; GitHub's schedule is the fallback)
+        if: github.event_name == 'schedule'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          since=$(date -u -d '-10 hours' +%Y-%m-%dT%H:%M:%SZ)
+          n=$(gh api "repos/${{ github.repository }}/actions/workflows/site-audit.yml/runs?created=%3E%3D$since&per_page=20" --jq '[.workflow_runs[] | select(.id != ${{ github.run_id }})] | length' || echo 0)
+          if [ "${n:-0}" -gt 0 ]; then echo "Run $n time(s) in the last 10 hours already: nothing to do."; echo "SKIP=1" >> "$GITHUB_ENV"; fi
+
       - uses: actions/checkout@v4
+        if: env.SKIP != '1'
 
       - name: Is the mirror token set?
+        if: env.SKIP != '1'
         env:
           T: ${{ secrets.MIRROR_READ_TOKEN }}
         run: |
@@ -51,7 +65,7 @@ jobs:
           sha=$(git -C mirror rev-parse --short HEAD)
           last=$(cat site-audit/results/mirror-sha.txt 2>/dev/null || true)
           weekly=$([ "$(date -u +%u%H)" = "101" ] && echo 1 || echo 0)
-          if [ "${{ github.event_name }}" = "schedule" ] && [ "$sha" = "$last" ] && [ "$weekly" = "0" ]; then
+          if [ "${{ github.event_name }}" != "workflow_dispatch" ] && [ "$sha" = "$last" ] && [ "$weekly" = "0" ]; then
             echo "Mirror unchanged ($sha): nothing to do."
             echo "SKIP=1" >> "$GITHUB_ENV"
           else
@@ -76,4 +90,5 @@ jobs:
           [ -d deliveries ] && git add deliveries
           if git diff --cached --quiet; then echo "No change."; exit 0; fi
           git commit -m "Site audit: mirror $(cat site-audit/results/mirror-sha.txt)"
+          git pull --rebase -X theirs -q   # the run's own generated files win a collision
           git push

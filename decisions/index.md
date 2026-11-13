@@ -1,6 +1,6 @@
 # Decision register
 
-Decision 0145 §1a. Generated on 2026-11-13 00:25 UTC from `decisions/` and the live mirror (`8cdbf8b`). Don't edit by hand:
+Decision 0145 §1a. Generated on 2026-11-13 15:05 UTC from `decisions/` and the live mirror (`67039f0`). Don't edit by hand:
 edit the decision, and this follows. "Missing files" are files a decision names that the site no longer has: the
 decision may be stale, or the file moved.
 
@@ -117,7 +117,7 @@ decision may be stale, or the file moved.
 | 0109 | [0109: The admin rebuilt: modules, sections, widgets and workflows](0109-admin-engine.md) | accepted |  | 1 | 4 |  |
 | 0110 | [0110: Data separation: three realms (member, business, admin), walls in the database, not only in the code](0110-data-separation.md) | accepted |  |  | 0 |  |
 | 0111 | [0111: Customers (CRM), built in our admin first](0111-customers-crm.md) | accepted |  |  | 0 |  |
-| 0112 | [0112: Taxes and shipping, price lists, and Storefront & pages, built in our admin first](0112-taxes-shipping-pricelists-pages.md) | accepted |  |  | 2 | `website/_errors/404.php` |
+| 0112 | [0112: Taxes and shipping, price lists, and Storefront & pages, built in our admin first](0112-taxes-shipping-pricelists-pages.md) | accepted |  | 1 | 2 | `website/_errors/404.php` |
 | 0113 | [0113: Scheduled tasks, set from the admin through the cPanel API](0113-scheduled-tasks.md) | accepted |  |  | 7 |  |
 | 0114 | [0114: Navigation: one place for where, one for what](0114-navigation-where-and-what.md) | accepted |  |  | 4 |  |
 | 0115 | [0115: The business portal's foundation: one engine, scoped to a business, walled in the database](0115-business-portal-foundation.md) | accepted |  |  | 5 |  |
@@ -138,19 +138,19 @@ decision may be stale, or the file moved.
 | 0130 | [0130: The catalog model, and how it maps to the books](0130-catalog-model-and-books-mapping.md) | accepted |  |  | 0 |  |
 | 0131 | [Place Guides on the Six-Tier Funnel](0131-place-guides.md) | accepted | 0133 | 1 | 5 |  |
 | 0132 | [Tags and Links — What Content Is About, and Who It Reaches](0132-tags-and-links.md) | accepted |  |  | 3 |  |
-| 0133 | [The Intelligence & Publishing Engine (the crawler's one rule book)](0133-the-intelligence-and-publishing-engine.md) | accepted |  | 2 | 0 |  |
+| 0133 | [The Intelligence & Publishing Engine (the crawler's one rule book)](0133-the-intelligence-and-publishing-engine.md) | accepted |  | 3 | 0 |  |
 | 0134 | [Events, One Tool for the Whole Site](0134-events.md) | accepted |  |  | 0 |  |
 | 0135 | [The Marketplace and Storefronts (the one record)](0135-marketplace-and-storefronts.md) | accepted |  |  | 11 |  |
 | 0136 | [Topic Groups, Chapters, and the Places a Group Is About](0136-topic-groups-and-chapters.md) | accepted |  |  | 7 |  |
 | 0137 | [Group Charters, the Group Page, Group-Led Moderation, and Notices](0137-group-charters-page-moderation.md) | accepted |  |  | 20 |  |
 | 0138 | [The Home Page: Search First, Four Doors, Five Tabs, Honest When Thin](0138-home-page.md) | accepted |  |  | 4 |  |
-| 0139 | [Storefronts on trvgo.us and Businesses' Own Domains](0139-storefronts-and-domains.md) | accepted |  |  | 7 |  |
+| 0139 | [Storefronts on trvgo.us and Businesses' Own Domains](0139-storefronts-and-domains.md) | accepted |  | 2 | 7 |  |
 | 0140 | [Market 360 for a Business: One Module, Guided Segments](0140-market-360-for-a-business.md) | accepted |  |  | 4 |  |
-| 0141 | [Market 360° Architecture: Four Levels, Six Modules, Nine Item Kinds](0141-market-360-architecture.md) | accepted |  |  | 5 |  |
+| 0141 | [Market 360° Architecture: Four Levels, Six Modules, Nine Item Kinds](0141-market-360-architecture.md) | accepted |  | 1 | 5 |  |
 | 0142 | [Terms, Store Policies and the Acceptance Log](0142-terms-policies-and-acceptance-log.md) | proposed |  |  | 3 |  |
 | 0143 | [The Stock Library: a System Repository of Non-User Photos](0143-stock-library.md) | accepted |  | 1 | 35 |  |
 | 0144 | [Word Suggestions and the List ⓘ](0144-word-suggestions-and-list-help.md) | accepted |  |  | 3 |  |
-| 0145 | [The Site Audit and Phased Releases](0145-site-audit-and-phased-releases.md) | accepted |  | 1 | 1 |  |
+| 0145 | [The Site Audit and Phased Releases](0145-site-audit-and-phased-releases.md) | accepted |  | 6 | 1 |  |
 | 0146 | [Suggested Journeys from Guides](0146-suggested-journeys-from-guides.md) | accepted |  |  | 2 |  |
 | 0147 | [Guides and Journeys on Demand](0147-guides-and-journeys-on-demand.md) | accepted |  |  | 0 |  |
 | 0148 | [Places on Demand](0148-places-on-demand.md) | accepted |  |  | 0 |  |
@@ -162,4 +162,7 @@ decision may be stale, or the file moved.
 | 0154 | [Free, Creator and Business: Who Pays for What, and How Upgrades Are Offered](0154-free-creator-and-business-balance.md) | accepted |  | 1 | 6 |  |
 | 0155 | [Add-ons (plug-in modules) and 1Password, resold and managed from our site](0155-add-ons-and-1password.md) | proposed |  | 2 | 0 |  |
 | 0156 | [The Vault: passwords only their owner can open](0156-the-vault.md) | accepted |  | 6 | 2 |  |
-| 0157 | [Our own index: reading pages and reading searches](0157-our-own-index-reading-pages-and-searches.md) | proposed |  |  | 0 |  |
+| 0157 | [Our own index: reading pages and reading searches](0157-our-own-index-reading-pages-and-searches.md) | accepted |  |  | 1 |  |
+| 0158 | [One way to publish: our site's releases and businesses' storefronts](0158-one-way-to-publish.md) | accepted |  | 1 | 0 |  |
+| 0159 | [The builder: Traversence's platform builder and Storefront Studio](0159-the-builder-platform-and-storefront-studio.md) | accepted |  |  | 0 |  |
+| 0160 | [The crawler as one service, and each creation workflow start to finish](0160-the-crawler-as-a-service-and-the-creation-workflows.md) | accepted |  |  | 0 |  |

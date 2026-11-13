@@ -1,0 +1,26 @@
+{
+ "zip": "vaultwho_20261113.zip",
+ "built_on": "0727d95 Sync: 2026-11-13 15:22 UTC",
+ "recorded": "2026-11-13 15:24 UTC",
+ "note": "Vault summaries say who did each thing (Jason, 2026-11-12/13): vault_log keeps who (the person and staff login, or the extension and who connected it); every summary line says it. The FAQ line waits for review_20261113 (it carries faq.md). Built on Sync: 2026-11-13 15:22 UTC. Sent through git (releases/inbox).",
+ "status": "live",
+ "live_in": "e4a8a63 Sync: 2026-11-13 15:31 UTC",
+ "files": {
+  "app/lib/Vault.php": {
+   "sha256": "9d8478c573f7e607be6064b9138c0a9450133dcd26c06134eca5d0fa82ddec50",
+   "live": true
+  },
+  "website/admin/api/vault-ext.php": {
+   "sha256": "fd97004159f97f6ffe7362b6d3a4d88fb43a3aefc5ec5a1a0eabfc23a48c9d33",
+   "live": true
+  },
+  "website/admin/api/vault.php": {
+   "sha256": "1ca09e8ace67729c77b0bf5f20f2023deb9c1a9e4742c8a03d960bcecae016dd",
+   "live": true
+  },
+  "website/api/vault-ext.php": {
+   "sha256": "e822900858f4aca3dac0096a0166f92bc51146e9e29323deca23417182aeb827",
+   "live": true
+  }
+ }
+}
