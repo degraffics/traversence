@@ -1,0 +1,50 @@
+{
+ "zip": "ourindex_20261113.zip",
+ "built_on": "10e1d9d Sync: 2026-11-13 01:04 UTC",
+ "recorded": "2026-11-13 01:15 UTC",
+ "note": "0157 delivery 2: searching the place store (site search, Get Local, admin search), staging what each read names, Send the crawler (Founder only). Carries delivery 1's files (index_20261113, whose upload landed only faq.md). Built on the 01:04 UTC sync.",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/data/decisions-index.php": {
+   "sha256": "cc9ffaf4b6788892a0a92368091b461db0c68e135b0c6e9c8e7c1308d65ea6a7",
+   "live": false
+  },
+  "app/lib/UniversalSearch.php": {
+   "sha256": "12d75294185092b57aa5a159938981f28f4256d18ae945babdea0481815578ed",
+   "live": false
+  },
+  "app/lib/crawler/SourceIndex.php": {
+   "sha256": "ed5d43a1f15a417a56ff6ec15e718a41586a509ea4ef08fd4fcfcee65f8fad71",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "ef9259bf0bb407a0ca44982b313f144bcec033214d61e8e2ebfe344eddf9fffb",
+   "live": false
+  },
+  "website/admin/api/find.php": {
+   "sha256": "796d2224831758aa77c6efcdade354776b7f562f19c6a9b602a4c4249b7d569a",
+   "live": false
+  },
+  "website/api/crawl/sources.php": {
+   "sha256": "80d06188aab871a82d97621bf9ec153eec7ba1533bd251c52eefb26fd71dfcca",
+   "live": false
+  },
+  "website/api/search_listings.php": {
+   "sha256": "2b5f33473d03afba61e7bffa4da6cc3fb4a41245941d328d8972c029995adfe9",
+   "live": false
+  },
+  "website/api/send-crawler.php": {
+   "sha256": "110dde7112f7f10af3e6d231e73c4babbb4a3a404dafdc56c221c996f4febeca",
+   "live": false
+  },
+  "website/directory/index.php": {
+   "sha256": "aef166d7f2ad8446d565d45113982fbda3c1055e128650507a17041f2d333ef9",
+   "live": false
+  },
+  "website/js/search-panel.js": {
+   "sha256": "235d6c7d804627c9e34bb83eda40fd8a0fb128e36fcfa347b0be5fd73d3b9232",
+   "live": false
+  }
+ }
+}

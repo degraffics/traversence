@@ -1,6 +1,6 @@
 # ADR 0157: Our own index: reading pages and reading searches
 
-**Status:** Accepted (Jason, 2026-11-13: "yes approved, start delivery 1"; the second tier added the same day at his ask). Delivery 1 built 2026-11-13. It extends `decisions/0045` (our own
+**Status:** Accepted (Jason, 2026-11-13: "yes approved, start delivery 1"; the second tier added the same day at his ask). Deliveries 1 and 2 built 2026-11-13. It extends `decisions/0045` (our own
 reference index, source-first crawling), `0044` (confidence-gated import), `0133` (the observations store and identity
 record), `0060`/`0061`/`0063`/`0064`/`0067` (search, situations, the lexicon, words search learns, what words mean) and keeps
 `0065` (OpenStreetMap is its own layer), `0066` (tribal nations' land), `0093` (what people open is a hint, never a
@@ -114,6 +114,13 @@ check. Each counts toward the two sources (0044).
 *Second tier:* a search, a gap or a town where all of that found nothing ("garbage" near St. Johns) gets a Tavily search
 for the kind and town, with no .gov-only filter (a business's own site counts; commercial directories it turns up are Cite
 only, 0045, never copied). The pages go through §1 and §2 like any other, and a search is paid for once.
+
+**Built (delivery 2, 2026-11-13):** the site's search, Get Local and the admin's search show "Named on pages we read"
+when ours are few: places in the store we don't list (same phone, or most of the name within about a mile, means we do),
+by the kinds the words mean or their own words, within reach of the place, each opening the page it's named on. Every
+read stages what it names that we don't list (up to 40 a read, those with a kind and a ZIP) through the intake (0044).
+"Send the crawler" is for the Founder signed in to the admin; it marks the town's read sources due, re-runs the town's
+OpenStreetMap jobs (all its kinds) and lists the sources waiting there by name.
 
 ### 4. Reading a search
 

@@ -182,11 +182,12 @@ for (const [group, q, ctx, c] of CASES) {
     await getJson(url).catch(() => {});   // the first ask warms the server's caches; the second is the one timed
     const [d, ms, status] = await getJson(url);
     const res = d.results || {};
-    // what a person sees, in order: the exact business, a situation's answers (each need's places), the results, and
-    // OpenStreetMap's places when the panel is told to ask it (counted by its kind)
+    // what a person sees, in order: the exact business, a situation's answers (each need's places), the results, the places
+    // named on pages we read (decisions/0157), and OpenStreetMap's places when the panel is told to ask it (counted by its kind)
     const mk = (i) => ({ text: rowOf(i), mi: typeof i.miles === 'number' ? i.miles : null });
     const rows = [...(d.top && d.top.label ? [mk(d.top)] : []), ...((d.situation?.needs || []).flatMap((n) => (n.items || []).map(mk))), ...(res.items || []).filter((i) => i.kind !== 'topic').map(mk),   // the panel puts categories with Suggestions, not results
                  
+                  ...((res.read?.items || []).map((i) => ({ text: `${s(i.label)} · ${s(i.kind)} · named on a page we read`, mi: typeof i.miles === 'number' ? i.miles : null }))),   // our own index (decisions/0157)
                   ...(res.osm ? [{ text: `OpenStreetMap · ${s(res.osm.kind)}`, mi: null }] : [])];
     o.read = [d.situation ? 'situation: ' + s((d.situation.labels || []).join(' + ')) : '', d.unread ? 'unread' : '', d.did_you_mean ? 'did you mean: ' + s(d.did_you_mean.q || d.did_you_mean) : '',
               d.ask ? 'asks: ' + s(d.ask.kind || d.ask.title || 'yes') : '', res.osm ? 'OpenStreetMap: ' + s(res.osm.kind) : '', d.parse ? 'what: ' + s(d.parse.what) : ''].filter(Boolean);
