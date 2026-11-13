@@ -6,13 +6,13 @@
     "zip": "stagingopen_20261113.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "approved",
+    "state": "staged",
     "step": 0,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
     "plan_at": "2026-11-13 12:49:23",
-    "staged_at": null,
+    "staged_at": "2026-11-13 12:49:43",
     "vetted_at": null,
     "live_at": null,
     "files": {
@@ -28,7 +28,29 @@
         }
     },
     "migrations": [],
-    "checks": [],
+    "checks": {
+        "ok": true,
+        "where": "staging",
+        "at": "2026-11-13T12:49:44+00:00",
+        "items": [
+            [
+                "PHP files parse",
+                true,
+                "1 checked"
+            ],
+            [
+                "Pages answer",
+                true,
+                "2 pages answered on staging.trvgo.us"
+            ],
+            [
+                "No new fatal errors in the logs",
+                true,
+                "3 logs read"
+            ]
+        ],
+        "first_fail": ""
+    },
     "log": [
         {
             "at": "2026-11-13T12:48:47+00:00",
@@ -39,6 +61,11 @@
             "at": "2026-11-13T12:49:23+00:00",
             "by": 2,
             "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
+        },
+        {
+            "at": "2026-11-13T12:49:44+00:00",
+            "by": 2,
+            "msg": "Put on staging (2 files); its checks passed."
         }
     ]
 }
