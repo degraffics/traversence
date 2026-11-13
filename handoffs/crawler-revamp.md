@@ -194,8 +194,8 @@ CLAUDE.md, in full. For this work above all:
 
 ## 6. Progress
 
-- **Phase 0** (2026-11-13): built as `crawler-phase0_20261113.zip` on Sync 14:41 UTC; Jason confirmed it ships as
-  **Publish now (urgent)**. Site guards only (no worker change, no migration): `Refresh::lease` (abandoned leases not
+- **Phase 0** (2026-11-13): `crawler-phase0_20261113.zip`, built on Sync 15:26 UTC, sent through git; Jason approved it as
+  urgent (under release #9 it publishes itself once staging passes). Site guards only (no worker change, no migration): `Refresh::lease` (abandoned leases not
   tried, `crawler_refresh_abandoned` counted), `IdentityJobs::lease` (expired leases keep their tries),
   `SourceIndex::store` (each page read replaces only its own places; a read of nothing hands the source back),
   `Guides` (`draftFailed`, `keepNewer`), `Landmarks::finish` (never `waiting`, only states loaded). The snapshot is the
