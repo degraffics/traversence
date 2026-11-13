@@ -1,5 +1,17 @@
 {
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
- "claims": [],
+ "claims": [
+  {
+   "path": "website/admin/releases-checkouts-test.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jfpSTzxwivH3pRFJu",
+   "why": "check-out live test (released at once)",
+   "since": "2026-11-13T20:01:48Z",
+   "expires": "2026-11-14T00:01:48Z",
+   "release": "",
+   "callers": {}
+  }
+ ],
  "lapsed": []
 }
