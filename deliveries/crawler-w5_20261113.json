@@ -1,0 +1,34 @@
+{
+ "zip": "crawler-w5_20261113.zip",
+ "built_on": "98803d1 Sync: 2026-11-13 19:58 UTC",
+ "recorded": "2026-11-13 19:59 UTC",
+ "note": "Crawler revamp W5: failed guides on demand retried by themselves, then a Pulse case. Built on Sync: 19:58 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/admin/crawler-console.php": {
+   "sha256": "59ca75179d8e7a860c69ad1bc7e027eb38b274aeb43fb7a5be733cb1f5401833",
+   "live": false
+  },
+  "app/lib/OnDemand.php": {
+   "sha256": "07a21d29816e2afd19d25098b0209c3f09ed23a2a021022d09f1caa77ef63ab0",
+   "live": false
+  },
+  "app/lib/Pulse.php": {
+   "sha256": "62ff420fc68a3320d634ec254d27a8c2fa41df9c23bc9771201ad0c77f86d81b",
+   "live": false
+  },
+  "app/migrations/2026-11-13_guide_requests_retry.sql": {
+   "sha256": "73b16b167d7e93a13e350a533bfcbe07f954b8942181cf9338f5378b80b6f8ca",
+   "live": true
+  },
+  "app/ui/faq.md": {
+   "sha256": "6878bf590e780a1354bc2b0f90c789474293b6408562659210a75c6e412add0b",
+   "live": false
+  },
+  "website/hub/build.php": {
+   "sha256": "2bb3afe6756e69f5e817231d4d885aca82a2bc354d52b9f229d202424f11e105",
+   "live": false
+  }
+ }
+}

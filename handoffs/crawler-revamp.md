@@ -261,12 +261,24 @@ CLAUDE.md, in full. For this work above all:
   Open: why the main Overpass server refuses Railway (its policy, or the request), and whether coverage needs its own
   longer share.
 
-- **Phase 3, W3 finished** (sent, waiting for Jason's OK): `crawler-w3b_20261113.zip`, built on Sync 19:39 UTC. Listing
+- **Phase 3, W3 finished** (approved by Jason in chat; live as Release #30, 19:57 UTC; verified on Sync 19:58 UTC): `crawler-w3b_20261113.zip`, built on Sync 19:39 UTC. Listing
   Intake's crawl (`api/admin/intake/crawl.php`) now hands what it read to `SourceIndex::keepRead`: its pages in the page
   log, the site on the register (`Sources::note`, judged like any), and its places in the place store where the use rule
   allows facts and the site isn't marked Ignore (`storeMore(..., 'intake', false)`: Listing Intake stages its own finds).
   Kept synchronous on purpose (the person sees the result at once), rather than `read_page` requests. Left: the other
   SiteFetcher callers (DeepLook, Dossier, GuideLinks, Rebuild) read businesses' own sites and don't log their pages yet.
+
+- **Phase 3, W5, W6, W9, W10/W11, W12** (Jason, "merge all": sent one at a time, each after the one before is live and
+  verified). W5 `crawler-w5`: a failed guide on demand is tried again by itself (30 min, 2 h, 8 h, from the step it
+  stopped at; `OnDemand::failed`, `retryDue`; migration `guide_requests_retry`: `tries`, `failed_at`), then one Pulse
+  case `guidefail:<time>` with Retry them all; the visitor's page gives our email; W5's requests in the console. W6
+  `crawler-w6`: an empty Library of Congress search asked again in 30 days, a newspaper's pages one source (its LCCN,
+  `Heritage::paper`), the extraction queue moves past places it skips. W9 `crawler-w9`: `PlaceFinder::summary` keeps
+  Wikipedia's text only when `Landmarks::wikiAllowed`. W10/W11 `crawler-w11`: how-to steps never drafted from a
+  cite-only or Ignore source; Publish refuses a step that reads as its source wrote it unless its licence is open
+  (`HowGuides::copied`, the page's words kept as `sources[].said`). W12 `crawler-w12`: searched gaps leased before the
+  sweep (`CrawlQueue::lease`), towns' searches count for their cluster (`Learning::gaps`). W4 and W8 need nothing more
+  (starvation gone with Phase 2's shares; Find it shares W1's gate). Progress of each: the commits "Release crawler-w…".
 
 ## 7. Open
 
