@@ -306,6 +306,30 @@ CLAUDE.md, in full. For this work above all:
    business's own site, a registry or a person confirms it. Needs his OK (it changes 0157 §3 and W1's gate; note both
    decisions). Phase 4: listings made from page reads alone go back to the store, quarantined with the reason.
 
+**Jason's answers (21:20 UTC, through the session manager):**
+- On 1: "Need a written statement and how to reach OpenStreetMap community so I can address, also need to verify this is
+  actually blocked and why." Done: `research/osm-overpass-2026-11-13.md` (the evidence, the statement, the channel, the
+  one test still to make). Until the maintainers answer, the crawler shouldn't send to overpass-api.de.
+- On 3: "we need listings and our process should already address when a listing is created and how along with scoring."
+  So **not** "indexing only": listings keep being made by the process as it is. Where it decides: decisions/0044 (the
+  confidence-gated import), 0133 (scoring, the observations store), 0160 W1 (Jason: one source can establish a listing, a
+  government page by itself, vetted continuously); code `app/lib/crawler/AutoImport.php` (`evaluate`: the gate, the
+  name check) and `app/lib/ListingConfidence.php` (the score). The pending releases (W6, W9, W10/W11, W12) don't change it.
+  The junk names come from a gap in that gate: its name check refuses only exact labels ("Contact Us", not "Contact Us:"),
+  and nothing catches "PO Box 190", "Contact: Box 6022", "Contact Greg Trapp", "An agency within the U.S. Department of
+  Labor", "CDPF Informational Webinar Slideshow", "USPS Collection Box". **First thing next:** widen `evaluate`'s name
+  check (trailing punctuation; names starting "Contact", "PO Box", "Box", "An/A …"; words like webinar, slideshow,
+  newsletter, form, application, PDF; drop and collection boxes) so such a find goes to Review, not live, and in Phase 4
+  send the live ones already made to Review.
+
+**Also from the 22:10 UTC logs:**
+- **Common Crawl still failed** ("Invalid IPv6 URL"), now from `urljoin` on a page's link (`own_site_links`), and the run
+  was "failed", so Railway showed the deploy CRASHED. Fixed in worker 2.3 on branch `claude/crawler-cc-fix` (one safe
+  `join_url` for every page link; `public_host` refuses a malformed address); tested; **not merged: merging deploys it,
+  so it waits for Jason's OK.**
+- **Web search "this run may make 0"** every run (213 of 1000 used this month), the same pacing as Google's (§7.2): log
+  the site's reason, check its daily share.
+
 ## 8. For the next session (W6 on)
 
 The session that did Phases 0–2 and W1–W5 handed off here at about 435K context (the session manager, Jason's OK,
