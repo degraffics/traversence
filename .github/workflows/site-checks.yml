@@ -131,5 +131,5 @@ jobs:
           git add site-audit/paths.md site-audit/results/paths.json site-audit/results/paths-history.json 2>/dev/null || true
           if git diff --cached --quiet; then echo "No change."; exit 0; fi
           git commit -m "Site checks: rendered pages and paths"
-          git pull --rebase -q || true
+          git pull --rebase -X theirs -q   # the run's own generated files win a collision
           git push

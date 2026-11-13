@@ -90,4 +90,5 @@ jobs:
           [ -d deliveries ] && git add deliveries
           if git diff --cached --quiet; then echo "No change."; exit 0; fi
           git commit -m "Site audit: mirror $(cat site-audit/results/mirror-sha.txt)"
+          git pull --rebase -X theirs -q   # the run's own generated files win a collision
           git push

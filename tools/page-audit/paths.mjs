@@ -550,7 +550,7 @@ for (const def of CORE) {
       const r = await walk(def, 'tmp'); r.who = who; results.push(r); await ctx.close(); delete contexts['tmp@live']; continue;
     }
     results.push(await walk(def, who, def.changes ? 'staging' : 'live'));
-    console.log(`${def.id} as ${who}: ${results[results.length - 1].status}`);
+    { const r = results[results.length - 1]; const why = r.stuck || (r.problems || [])[0]?.what || ''; console.log(`${def.id} as ${who}: ${r.status}${why && r.status !== 'passed' ? ' (' + why.slice(0, 200) + ')' : ''}`); }
   }
 }
 let walked = 0;

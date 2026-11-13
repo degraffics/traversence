@@ -81,5 +81,5 @@ jobs:
           git add site-audit/search-probe.md site-audit/results/search-probe.json site-audit/mail-dns.md site-audit/towns.md site-audit/layout-probe.md site-audit/search-scorecard.md site-audit/results/search-scorecard.json site-audit/results/server.json site-audit/crawler-snapshot.md site-audit/results/crawler-snapshot.json 2>/dev/null || true; git add site-audit/search-probe.md site-audit/results/search-probe.json site-audit/mail-dns.md site-audit/towns.md
           if git diff --cached --quiet; then echo "No change."; exit 0; fi
           git commit -m "Search probe: what the live search reads"
-          git pull --rebase -q || true
+          git pull --rebase -X theirs -q   # the run's own generated files win a collision
           git push
