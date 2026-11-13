@@ -1,6 +1,6 @@
 # ADR 0159: The builder: Traversence's platform builder and Storefront Studio
 
-**Status:** Proposed (Jason, 2026-11-13: "yes write 0159"). For Jason to read before any code. It extends `decisions/0145`
+**Status:** Accepted (Jason, 2026-11-13: "accepted, but I want this built in a new session"; the hand-off is `handoffs/0159-the-builder.md`). Not built yet.
 (the release process, Phases 5 and 6), `0158` (one way to publish), `0112` §3 (`SitePages`), `0139` (storefronts on
 trvgo.us) and `0135` (the Marketplace and Storefronts), and keeps `0109` (the admin), `0129` (the command strip), `0058`
 (the visual standard) and commercial.md's plans.
