@@ -1,6 +1,6 @@
 # ADR 0157: Our own index: reading pages and reading searches
 
-**Status:** Proposed (Jason, 2026-11-13: "yes write 0157"; part 7 added the same day at his ask), for his OK before building. It extends `decisions/0045` (our own
+**Status:** Proposed (Jason, 2026-11-13: "yes write 0157"; the second tier added the same day at his ask), for his OK before building. It extends `decisions/0045` (our own
 reference index, source-first crawling), `0044` (confidence-gated import), `0133` (the observations store and identity
 record), `0060`/`0061`/`0063`/`0064`/`0067` (search, situations, the lexicon, words search learns, what words mean) and keeps
 `0065` (OpenStreetMap is its own layer), `0066` (tribal nations' land), `0093` (what people open is a hint, never a
@@ -52,6 +52,13 @@ honoured, which Google doesn't do.
 Our own index is the crawler's first job: what it reads is kept, understood and searchable, and every fact keeps its
 source. Six parts, built in this order, each its own delivery.
 
+**Two tiers in every part** (Jason, 2026-11-13: "I really want the automation to eliminate as much human responsibility
+as possible"; "These should be second tier services when first tier fall short"). The first tier is free: our own index,
+the rules below, OpenStreetMap, open data. The second tier is paid, Tavily (search and page reading) and Claude, and runs
+only where the first tier fell short, for that one page, search or find; its rules and costs are under "The second tier"
+below. Today Tavily runs only for the second look at a single-source listing (gap searches keep .gov/.edu pages), and Claude
+searches only for guides' names ("Find it"); both move into the parts below.
+
 ### 1. The page log
 
 Every page the worker fetches is recorded: its address, the site, when, the answer (status, type, size), a fingerprint of
@@ -60,6 +67,9 @@ the worker asks whether it changed (If-Modified-Since / If-None-Match); an uncha
 follows how often the page changes: an events calendar weekly, a county page monthly, a static site quarterly, never
 sooner than the site's robots.txt allows. Pages that named nothing are logged too, so we know what we have read. Kept on
 the site's database as small rows (no page bodies); what a page said is kept as facts (§2), not copies.
+
+*Second tier:* a page that matters (a read source, a job's target) and that our fetch can't get or shows nothing without a
+browser goes to Tavily Extract; it's logged like any page, so it isn't fetched that way twice.
 
 ### 2. Reading a page
 
@@ -78,8 +88,10 @@ In this order, cheapest and surest first:
    sighting adds to a record instead of making a second one.
 7. **Every fact keeps its page and date**; where sources disagree (a phone, hours, open or closed) the record says so and
    the disagreement goes on the call list.
-8. **AI only last**, for a page the rules can't read and that matters (a "Read regularly" source, a job's target), within
-   the monthly AI cap (0131); never for routine reading.
+8. *Second tier:* **Claude reads what the rules couldn't** (the light model), for a page that matters (a "Read regularly"
+   source, a job's target, a page the second tier fetched) and that steps 1–7 left short: no kind, no address, an item
+   they couldn't split. It gives the facts as structured data, each with the exact words it came from; a fact whose words
+   aren't on the page is thrown away, so nothing counts unless the page says it. Never for routine reading.
 
 The place store (`source_facts`) gains the kind of business, the town, the website, hours, coordinates, the kind of page
 and how it was read (structured data, list item, text, AI). Events read from pages go to the events store with their page.
@@ -92,7 +104,16 @@ Get Local, the site's search, the admin search and "Send the crawler" look in th
 that we don't list yet is staged (0044) with its sources, so it goes through the usual checks: two independent sources
 publish it, the rest wait in Listing Review. Results show their sources one tap away. "Send the crawler" (Jason only, on
 Find a business) then re-reads the town's registered sites, suggests new ones for his OK, and queues OpenStreetMap for the
-kinds the words mean; a web search step comes only with his OK and a key (CLAUDE.md "No income, no expense").
+kinds the words mean.
+
+The first tier also holds the open place data, loaded for our regions as sources of their own: Overture Maps places
+(CDLA-Permissive) and Foursquare Open Source Places (Apache 2.0), licences confirmed before loading; and the checks that
+confirm a find: the state's business registry (Arizona Corporation Commission: active or dissolved) and the USPS address
+check. Each counts toward the two sources (0044).
+
+*Second tier:* a search, a gap or a town where all of that found nothing ("garbage" near St. Johns) gets a Tavily search
+for the kind and town, with no .gov-only filter (a business's own site counts; commercial directories it turns up are Cite
+only, 0045, never copied). The pages go through §1 and §2 like any other, and a search is paid for once.
 
 ### 4. Reading a search
 
@@ -108,6 +129,9 @@ kinds the words mean; a web search step comes only with his OK and a key (CLAUDE
 4. **Phrases are one unit** ("oil change", "trash collection", "places to stay"), learned from our index and from what
    people type, so a phrase's meaning isn't the average of its words.
 5. **What people open** labels and prompts staff (the learning pass), never ranks (0093).
+6. *Second tier:* a search the rules can't read (no intent found, nothing found) is read by Claude (the light model): the
+   intent, the kind and the place, offered the same way ("Showing … for …", never changed, 0064). Kept, so the same words
+   aren't paid for twice, and shown to staff in the learning pass as a hint for our own words.
 
 ### 5. Trust and licence per source
 
@@ -115,44 +139,28 @@ The register keeps, per site, how often its facts were later confirmed (by a pho
 contradicted, and its licence (what we may do with what it says). Well-confirmed sites weigh more in the two-source rule;
 often-wrong ones less; a person's call on a site always stands.
 
+*Second tier, settling a find:* what the first tier leaves unsettled (a find below the publishing score, two sources that
+disagree, a closure report, a possible duplicate, a guide's name) gets, in order: a Tavily search for that business by name
+and town, Claude's quoted reading of what it finds (§2), then, only if still unsettled, Claude's research (the stronger
+model with its web search, as "Find it" does now). That decides: publish, turn down (contradicted: a dissolved
+registration, a disconnected phone, a page saying it closed) or merge (the same place, sure), with its reasons and sources
+on the record (§6), undoable. Left for a person: tribal nations' land and sensitive sites (0066, never decided by a
+machine), an owner's dispute, and what the research couldn't settle.
+
 ### 6. "What we know and where from"
 
 For any place, listing or topic: every fact we hold, each with its source page, date, how it was read and its licence, the
 ones that disagree marked. Guides, listings, journeys and AI writing draw from it, and an editor can see why the site says
-what it says.
+what it says. Each fact also says which tier found it (our reading, Tavily, Claude).
 
-### 7. When the free steps fail: Tavily, then Claude
+### The second tier: when it runs and what it costs
 
-Jason, 2026-11-13: "I really want the automation to eliminate as much human responsibility as possible"; "We need tavily
-and Claude used better to fix issues where our free services fail." Today Tavily is used only for the crawler's second look
-(one search per single-source listing; gap searches keep .gov/.edu pages only), and Claude searches the web only for names
-in guides ("Find it", "Finds become listings by themselves"). One ladder now serves every find the free steps can't settle,
-whatever raised it: a crawl find below the publishing score, a gap OpenStreetMap left empty, a search that found nothing
-("garbage" near St. Johns), a guide's name, a closure report, two sources that disagree.
-
-1. **Free first**: our own index (§3), OpenStreetMap, the open place datasets (Overture Maps places, CDLA-Permissive;
-   Foursquare Open Source Places, Apache 2.0: loaded for our regions as sources of their own, licences to confirm before
-   loading), the state's business registry (Arizona Corporation Commission: active or dissolved) and the USPS address
-   check. Each confirmation adds to the score (0044); most finds should publish here.
-2. **Tavily**, for what's still short: a search for the business by name and town (its own site, the county's and the
-   chamber's pages, news), then Tavily Extract for the pages' text. Commercial directories found this way count as
-   references only (Cite only, 0045), never copied. Its results go into the page log and the place store like any page we
-   read, so a search is paid for once.
-3. **Claude reads what Tavily found** (the light model): the facts as structured data (name, kind, address, phone, hours,
-   website, open or closed), each with the exact words it came from on which page. A fact whose quoted words aren't on
-   that page is thrown away: nothing Claude says counts unless a source says it. Same place or not, against what we hold.
-4. **Claude researches what's still unsettled** (the stronger model, with its web search, as "Find it" does now): two
-   sources that disagree, a closure, a possible duplicate. It decides with its reasons and its sources, and those decide:
-   publish, turn down (contradicted: a dissolved registration, a disconnected phone, a page saying it closed), or merge
-   (the same place, sure). Its reasons and sources stay on the record (§6).
-5. **What's left for a person**: tribal nations' land and sensitive sites (0066: never decided by a machine), an owner's
-   dispute, and what step 4 couldn't settle. Everything else is decided by the ladder and shown in the record, undoable.
-
-Costs and order: demand leads (a find someone searched for, then a guide's name, then the rest). Per find, at most a set
-spend (about two cents: one or two Tavily searches, one light read, a stronger research only when needed); a monthly cap for
-Tavily and the AI cap (0131) for Claude, each shown in System Configuration → AI use; past a cap, finds wait for next
-month, most asked-for first. Spending needs Jason's OK under CLAUDE.md "No income, no expense": this part is his ask, and the
-caps are his to set.
+Only where the first tier fell short, for that one page, search or find; never as a routine. Demand leads: what someone
+searched for first, then guides' names, then the rest. Per find, at most a set spend (about two cents: one or two Tavily
+calls, one light read, the stronger research only when needed); a monthly cap for Tavily and the AI cap (0131) for Claude,
+both shown in System Configuration → AI use. Past a cap, the rest wait for next month, most asked-for first, and the first
+tier carries on. Spending needs Jason's OK under CLAUDE.md "No income, no expense": the second tier is his ask, the caps
+are his to set, and each part's second tier is switched on only with them.
 
 ### The test set (from the first delivery)
 
@@ -167,12 +175,13 @@ the park and museum), and each new slip as it's found. A change ships only when 
   understood and searchable, with its source.
 - Search answers from our index first; a business named on a county page we read (Blue Hills) is found though nothing
   lists it yet, and goes through the usual checks.
-- Reading pages and searches gets better without paid services: structured data and our own words do most of it; AI only
-  for the pages that need it, within the cap.
+- Reading pages and searches gets better without paid services: structured data and our own words do most of it. The
+  second tier (Tavily, Claude) takes only what the first leaves short, within Jason's caps, so most finds settle without a
+  person.
 - Costs: the worker runs longer (Railway, a few dollars a month at most, within the current plan); the site's database
-  gains small rows (pages, facts), no page copies; no per-use cost unless Jason turns on a web-search key.
+  gains small rows (pages, facts), no page copies; no per-use cost beyond the second tier's caps.
 - Limits, said plainly: a business that no page we read names, and no listing or owner gives us, stays unfound until
-  someone links it (or a paid search finds it); pages that need a browser to show anything are read only when they matter.
+  someone links it or the second tier finds it; pages that need a browser to show anything are read only when they matter.
 
 ## Deliveries (each its own zip, in order)
 
@@ -182,4 +191,5 @@ the park and museum), and each new slip as it's found. A change ships only when 
 4. Intents and phrases; "how your search was read".
 5. Trust and licence per source.
 6. "What we know and where from".
-7. The ladder for finds the free steps can't settle: the open datasets and checks, then Tavily, then Claude.
+
+Each delivery brings its part's second tier, switched on once Jason sets the caps.
