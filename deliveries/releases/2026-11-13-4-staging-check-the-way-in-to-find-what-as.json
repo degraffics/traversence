@@ -6,12 +6,12 @@
     "zip": "stagingway_20261113.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "planned",
+    "state": "approved",
     "step": 0,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
-    "plan_at": null,
+    "plan_at": "2026-11-13 13:47:59",
     "staged_at": null,
     "vetted_at": null,
     "live_at": null,
@@ -64,6 +64,11 @@
             "at": "2026-11-13T13:47:35+00:00",
             "by": 2,
             "msg": "Uploaded stagingway_20261113.zip: 8 files."
+        },
+        {
+            "at": "2026-11-13T13:47:59+00:00",
+            "by": 2,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
         }
     ]
 }
