@@ -32,6 +32,13 @@ Before changing an area, read its decisions and the live code. Earlier work is k
 place, never drops it. Going against an earlier decision needs Jason's OK first, and the decision gets a note. The zip
 check blocks a zip that removes a live function, constant or FAQ question; `--drops` names one only after he agrees.
 
+## The session manager (Jason, 2026-11-13): every session
+
+A standing session watches the others (hourly while Jason is checked in): context size, restarts, cost, release clashes,
+stuck syncs and Railway deploys. It proposes archiving, splitting or a fresh start; Jason approves. When it asks a session
+to hand off, finish the release in hand, update its `handoffs/` file and stop. One session per area, at most about three
+at once; a long build moves to a fresh session per phase, from its handoff.
+
 ## Keep this file lean
 
 It loads in full every session, and so does `README.md` (imported below). One short rule per point; the detail lives in
