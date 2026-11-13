@@ -1,0 +1,39 @@
+{
+    "id": 10,
+    "title": "Claude's builds go live by themselves once their staging checks pass",
+    "why": "Jason, 2026-11-13: a second Publish on staging is redundant for a build he already approved in the chat before it was sent; Publish is for work done on staging itself. A release that comes from git now goes onto staging, its checks run, and when they pass it publishes itself. Failed checks stop it on staging (Pulse shows it); a release.json with \"hold\": true waits for his look and Publish. Uploads on staging keep Publish. Turn off and Roll back as before.",
+    "proposals": "decisions/0159 step 2",
+    "zip": "autopub_20261113.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/lib/Releases.php": {
+            "sha": "bc18f7a0e3c8e5b7d79b6829a34c1115ba2d9776a2f0f9cf0b5049f6076db4bd",
+            "size": 78401,
+            "live_was": "7a7f456aaa9b2e6324a559cb655d544b6b75e6f9d61f93f44aeeddc2774b4248"
+        },
+        "app/ui/faq.md": {
+            "sha": "7a5ac489e0646b0b74594e50bf9248e5d50924b1f32a41266ff801aecf914a42",
+            "size": 266144,
+            "live_was": "b692ed2425759fa865f43e6154fbf1bb77c30f8a52a4ffa27acdae4358ed5dee"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-13T15:13:30+00:00",
+            "by": 2,
+            "msg": "Uploaded autopub_20261113.zip: 2 files."
+        }
+    ]
+}
