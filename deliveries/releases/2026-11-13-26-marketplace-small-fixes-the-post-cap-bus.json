@@ -1,0 +1,54 @@
+{
+    "id": 26,
+    "title": "Marketplace small fixes: the post cap, business payment wording, Orders photos for the profile picture",
+    "why": "Follow-ups from the Nov 1 UI/UX review (ux-review.md) still open in the live code, approved by Jason in chat. (1) At the 5-post cap (0135 §7), Post it on Your Marketplace and Post something on /market/ are greyed out with the reason (a team member's test post doesn't count, so ticking Test post frees it). (2) A business item with Buy now no longer says no payment passes through the site; Your Marketplace's intro and the FAQ say a person's posts are paid between you, a business's items to the business itself. (5) A photo chosen from the Gallery's Orders catalog reached the profile picture's cropper as an empty file; it now carries the photo, and the server still copies the order's own file. The 'More skips posts' finding was already fixed by paging by number (2026-11-12). FAQ: the cap, paying, and the Orders catalog.",
+    "proposals": "",
+    "zip": "marketfixes_20261113.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/ui/faq.md": {
+            "sha": "4f37f45c44adbf0640aa853f37b823ec6c3e365e50f31f4396974c8fdbc7344a",
+            "size": 275263,
+            "live_was": "551153b8c218a42d3b797d001a555e37156edd34408133d7d02261406a0f4e78"
+        },
+        "website/user/market/index.php": {
+            "sha": "85e147fba2dca1ab53eee874d63596d97fb45c7e6aaf47abaad618410deaa2e9",
+            "size": 30831,
+            "live_was": "8d73debe1c8ba38eb2fc979d9cabcbb2365ad9219d4fc3232f31a9b178376180"
+        },
+        "website/js/tv-art.js": {
+            "sha": "0fc38db9d9c728e1f9d06d3bd99dd9d840ffada347b2cf02038b3797c84eb511",
+            "size": 27902,
+            "live_was": "ab7456162cba39ab031271b7df714a437da625b22b5825a43632fe8851af9f1c"
+        },
+        "website/market/index.php": {
+            "sha": "1dd3cacf889019c512a13376c979e4c6fed7a2bcca00fc5934b74ad89a057ca4",
+            "size": 26100,
+            "live_was": "d544e51f44c73da8556c997a3c004787095245e3e0d2504b5bce857d1448c400"
+        },
+        "website/market/item.php": {
+            "sha": "82217817a4dcff63d30e9f980e92c184a37ca757a01757caa8ae9abaf9378bf1",
+            "size": 21355,
+            "live_was": "e1cd0cb4311dd9541ee7ef0f09d069a6f29dce444a4a3bef9fa267ee771a82c6"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-13T18:38:02+00:00",
+            "by": 0,
+            "msg": "Uploaded marketfixes_20261113.zip: 5 files."
+        }
+    ]
+}
