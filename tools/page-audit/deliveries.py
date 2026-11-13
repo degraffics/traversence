@@ -24,7 +24,7 @@ def record(a):
     files = {}
     with zipfile.ZipFile(a.zip) as z:
         for n in z.namelist():
-            if not n.endswith('/'):
+            if not n.endswith('/') and n != 'release.json':   # a release's description (decisions/0145 Phase 5), never a site file
                 files[n] = hashlib.sha256(z.read(n)).hexdigest()
     name = os.path.splitext(os.path.basename(a.zip))[0]
     d = {'zip': os.path.basename(a.zip), 'built_on': sync_of(a.mirror), 'recorded': now(), 'note': a.note or '',
