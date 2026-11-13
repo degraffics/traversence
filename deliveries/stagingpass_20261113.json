@@ -3,32 +3,28 @@
  "built_on": "f450443 Sync: 2026-11-13 04:53 UTC",
  "recorded": "2026-11-13 04:59 UTC",
  "note": "The first release by the Releases page (urgent: the release system itself). The staging pass rule's second form (SetEnvIf + Require env), /stg-enter.php always open, the rule's test shown on the Staging page; sign-off after a look on staging. Built on Sync: 2026-11-13 04:53 UTC.",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "ef68278 Sync: 2026-11-13 05:02 UTC",
  "files": {
   "app/admin/sections.php": {
    "sha256": "21aa1816feb3a87897eaf00b1ae6c0158085787eabdbfd2ccebf0f84689f1876",
-   "live": false
+   "live": true
   },
   "app/lib/Releases.php": {
    "sha256": "a0287d834e28884dfbba2ed8377fd3976cd59fd52b7c9e3a441723060bcbcdfc",
-   "live": false
+   "live": true
   },
   "app/lib/StagingSite.php": {
    "sha256": "38d1a9ee16624d62147d31c937c960df0e651f0758d29c567b987fda4a60f239",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "a161b5fef1a26a0e1a7f1f5956de2fb00bd85ea7bd38b6f646cf995aac56acb6",
-   "live": false
-  },
-  "release.json": {
-   "sha256": "c85f8e6c47f22436ef13a02c17493ce4683d39ac789ea08672ddc73499d85a4c",
-   "live": false
+   "live": true
   },
   "website/api/release-bar.php": {
    "sha256": "ed97b1e16f82f3df69bf8b6aee3720f1dc744eac1705a3d4e0263cd83ef0ca6c",
-   "live": false
+   "live": true
   }
  }
 }
