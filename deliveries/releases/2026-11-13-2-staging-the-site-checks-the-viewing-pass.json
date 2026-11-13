@@ -1,0 +1,78 @@
+{
+    "id": 2,
+    "title": "Staging: the site checks the viewing password itself, so Open staging needs no prompt",
+    "why": "Open on staging still met the password prompt: staging's web server took neither rule for the pass (Require expr, then SetEnvIf). Staging's PHP now runs its guard before every script (.user.ini auto_prepend_file) and is the gate: the same password prompt for anyone else, the pass for those who come in from the live admin. A self-test checks both sides and puts the web server's password back if a page opens without it.",
+    "proposals": "Phase 5",
+    "zip": "stagingguard_20261113.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "live",
+    "step": 3,
+    "paused": false,
+    "urgent": "Urgent Push",
+    "schedule_at": null,
+    "plan_at": "2026-11-13 12:55:53",
+    "staged_at": "2026-11-13 12:56:20",
+    "vetted_at": null,
+    "live_at": "2026-11-13 12:57:29",
+    "files": {
+        "app/lib/StagingSite.php": {
+            "sha": "04e8daf212909d24ca30636a5b07660747f0871c769008cd90751653d3bee211",
+            "size": 81058,
+            "live_was": "72813570dabd4a9b4c62fe4f7f476e42e6f7bc36e78b48f2c2f576505dfc4a2f",
+            "existed": true,
+            "old_sha": "72813570dabd4a9b4c62fe4f7f476e42e6f7bc36e78b48f2c2f576505dfc4a2f"
+        }
+    },
+    "migrations": [],
+    "checks": {
+        "ok": true,
+        "where": "live",
+        "at": "2026-11-13T12:57:29+00:00",
+        "items": [
+            [
+                "PHP files parse",
+                true,
+                "1 checked"
+            ],
+            [
+                "Pages answer",
+                true,
+                "2 pages answered on traversence.com"
+            ],
+            [
+                "No new fatal errors in the logs",
+                true,
+                "3 logs read"
+            ]
+        ],
+        "first_fail": ""
+    },
+    "log": [
+        {
+            "at": "2026-11-13T12:55:42+00:00",
+            "by": 2,
+            "msg": "Uploaded stagingguard_20261113.zip: 1 files."
+        },
+        {
+            "at": "2026-11-13T12:55:53+00:00",
+            "by": 2,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
+        },
+        {
+            "at": "2026-11-13T12:56:20+00:00",
+            "by": 2,
+            "msg": "Put on staging (1 files); its checks passed."
+        },
+        {
+            "at": "2026-11-13T12:56:33+00:00",
+            "by": 2,
+            "msg": "Opened on staging by Jason DeGraff."
+        },
+        {
+            "at": "2026-11-13T12:57:29+00:00",
+            "by": 2,
+            "msg": "Published at once (urgent: Urgent Push): 1 files; everyone at once (no switch)."
+        }
+    ]
+}
