@@ -208,11 +208,14 @@ CLAUDE.md, in full. For this work above all:
   `source_facts.held`, never deleted), `Landmarks::isProtected` loads the peoples itself, `Heritage::retier()` (run by
   the heritage tick, a batch each hour, from `heritage_retier_at`), `OpenPlaces::near` (nations' land), `GuideLinks`
   (0133's levels; a matcher's set-aside is matched again each scan).
-- **Phase 2** (built, approved by Jason in chat, waiting on Phase 1 and `audit-clock`'s Pulse.php to be live): the site's
+  Live as Release #14 (15:38 UTC); verified on Sync 15:41 UTC.
+- **Phase 2** (approved by Jason in chat): `crawler-phase2_20261113.zip`, built on Sync 15:41 UTC. The site's
   service (`app/lib/crawler/CrawlService.php`, `website/api/crawl/service.php`, migration
   `2026-11-13_crawler_service.sql`), D16 in `AiClient`, D17 in `SecondTier::recordExtracts`, `CrawlService::stalled()`
   in Pulse, the console **Insights → Crawler** (`app/admin/crawler-console.php`; Jason chose Insights). The worker change
   is on the branch `wip/phase2-worker` (contract 2, falls back to the fixed order); merge it once the site part is live.
 
 ## 7. Open
+
+- Nothing waiting on Jason.
 
