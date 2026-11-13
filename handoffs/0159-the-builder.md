@@ -10,8 +10,20 @@
   while the page's live blocks hold it (`Blocks::hasForm`). Not yet tried live: the form send (captcha) and a like on a page.
 - `handoffs/0159-prepared/` is gone (git history keeps the patches and their DB tests).
 
-**Next:** step 5, Storefront Studio (SitePages to blocks: each Markdown page as one text block; themes; the portal; team
-Publish), then step 6, AI writing. Claim files first (decisions/0161, `checkout.py claim`).
+**Next: step 5, Storefront Studio** (Jason, 2026-11-13 21:10 UTC: "go ahead with step 5"; started in a fresh session per
+CLAUDE.md, a phase per session). Proposed slices, one release each. Check each against the live code first (`SitePages`,
+`Storefront`, `app/ui/storefront-view.php`, `trvgo/index.php`, the portal's Storefront & pages, `Team` perms), and adjust:
+- **5a, a business's pages as blocks:** `page.<id>` zones work for a business's own `site_pages` rows (owner = its
+  entity), edited in the portal's Storefront & pages on traversence.com with `Team` perms (`publish` publishes, no
+  approval, 0158 §3) instead of `pages.edit`/`pages.publish`; its Markdown shown as one text block until edited (nothing
+  rewritten, §2); `storefront-view.php` draws the live tree on trvgo.us **script-free** (no live JS parts there: the
+  browser-only LIVE parts are not offered in shop zones). `Blocks::liveFor` already filters by zone start.
+- **5b, the four themes** (Canyon, Sage, Paper, Night, 0139) as the blocks' starting styles on a storefront.
+- **5c, commerce-first blocks** (§4): product grid with filters, collection, featured item, related items, Buy now / Add
+  to cart (the platform's cart and checkout), menu, hours, map and directions, locations, booking or quote form (leads,
+  0112), reviews. They show the catalog, never rebuild it.
+- **5d, the studio bar** on the team's preview (the site manager's bar in its studio mode, §6).
+Then step 6, AI writing. Claim files first (decisions/0161, `checkout.py claim`).
 
 **Open, for Jason:** which coded pages get zones next; scheduling for shops (0158 §6). On 20:48 UTC he reported something
 changed in the phone ☰ tools drop-down (/user/dashboard); the panel's place and width are right. 4c/4d add nothing on
