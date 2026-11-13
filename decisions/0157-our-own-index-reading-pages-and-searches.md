@@ -1,6 +1,6 @@
 # ADR 0157: Our own index: reading pages and reading searches
 
-**Status:** Accepted (Jason, 2026-11-13: "yes approved, start delivery 1"; the second tier added the same day at his ask). Deliveries 1 to 5 built 2026-11-13 (3b folded into 4, Jason: "build 3b and 4 as one"). It extends `decisions/0045` (our own
+**Status:** Accepted (Jason, 2026-11-13: "yes approved, start delivery 1"; the second tier added the same day at his ask). Deliveries 1 to 6 built 2026-11-13 (3b folded into 4, Jason: "build 3b and 4 as one"). It extends `decisions/0045` (our own
 reference index, source-first crawling), `0044` (confidence-gated import), `0133` (the observations store and identity
 record), `0060`/`0061`/`0063`/`0064`/`0067` (search, situations, the lexicon, words search learns, what words mean) and keeps
 `0065` (OpenStreetMap is its own layer), `0066` (tribal nations' land), `0093` (what people open is a hint, never a
@@ -172,8 +172,7 @@ and decides read or cite only; counted only with a sentence found in the terms; 
 **Settle a find** (Claude looks up a find still waiting after the second look; each source counts only when its words are
 on its page, fetched by the site from public addresses only; open with the phone or house number: through the second look's
 guardrails; closed with words that say so: turned down with the page, undoable in Review; the rest for a person; never on a
-nation's land or for a place kept private). Still to build in the second tier: Tavily Extract for pages the worker can't
-fetch (§1) and AWS Textract for scanned PDFs (§7.2), both needing their own allowance.
+nation's land or for a place kept private). Tavily Extract and AWS Textract came with delivery 6.
 
 ### 6. "What we know and where from"
 
@@ -206,6 +205,18 @@ search query; not just results shaped by our platform mission". This amends 0045
    match, each with its source ("From pages we read"). Our mission shapes the order and how it's shown, not what can be
    found (0133: curators, not controllers). Three limits stay: the licence (a cite-only page is a title and a link), tribal
    nations' sacred and sensitive places (0066), and private details about people.
+
+**Built (delivery 6, 2026-11-13):** a place on a page we read that we already list joins the listing's identity record
+(0133): its phone, street address (never directions, never a confidential place's) and hours, each with the page as its
+source, under the site's licence (`Sources::mayStore`); its other values show as disagreements. On the record (Admin →
+Identities) each source page says when it was read, how (structured data, a list, its text, a scan read by Textract,
+through Tavily), on what kind of page, and what its licence lets us do (`SourceIndex::about`). The second tier's reads:
+**Read a page through Tavily** (`page_extract`: the worker asks Tavily Extract for a source's page it couldn't fetch, an
+error or a page drawn by scripts; never one robots.txt or the site refuses, 401/403/451; at most 3 a run within the
+feature's pages a day) and **Read a scanned PDF** (`scan_read`: AWS Textract on the site, where the keys are, one page a
+scan for now; the worker reads its text into places for that page alone, kept through later reads and read again after 90
+days). Both off until switched on with budgets in AI use. Still to build: multi-page scans (Textract's S3 jobs), and
+guides and journeys drawing on the record.
 
 ### The second tier: when it runs and what it costs
 
