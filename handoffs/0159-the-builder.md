@@ -55,9 +55,10 @@ that live copy and to rebuild exactly what was tested). Send them **in this orde
 3. Step 5 Storefront Studio (SitePages to blocks: each Markdown page as one text block; themes; the portal; team
    Publish), step 6 AI writing.
 
-**Open, for Jason:** which coded pages get zones next (he chose the home page first); scheduling for shops (0158 §6); whether
-`page-shell.php`'s always-on `noindex` should lift for our pages now that they have search settings (it hides every page
-drawn by `tv_page_start` from search engines; not touched).
+**Open, for Jason:** which coded pages get zones next (he chose the home page first); scheduling for shops (0158 §6).
+**Answered (Jason, 2026-11-13):** `page-shell.php`'s always-on `noindex` stays for every page, ours included, until he says the
+site is complete and ready ("I want a complete ready site before I lift the indexing"). Don't lift it or ask again; the Page
+tab's search settings are ready for that day.
 
 **Known issues:**
 - The 10-minute pickup is irregular (pickups seen at :28, :38, :57; some runs seem skipped). The site manager shows
