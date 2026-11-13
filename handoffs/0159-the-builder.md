@@ -1,15 +1,22 @@
 # Hand-off: build decisions/0159, the builder
 
-## 0. Where the build stands (2026-11-13 20:05 UTC; start here)
+## 0. Where the build stands (2026-11-13 21:00 UTC; start here)
 
-**Update 20:05 UTC (the session after):** the bar fix is **release #31** (`barfix_20261113`, verified Sync 20:02). **4c**
-(`editor4c.patch`) is claimed (decisions/0161: Blocks.php, api/blocks.php, tv-editor.js change; header.php, footer.php
-add) and waits only for `crawler-w5_20261113` (pending, carries `faq.md`) to go live and sync; then build it on the live
-copies as below. **4d is built and tested**, unsent: `editor4d.patch` applies on top of 4c's files (Blocks.php,
-api/blocks.php, tv-editor.js) and the live Engage.php, LikeGuard.php, Reports.php, SitePages.php, tv-blocks.js (built on
-Sync 20:02). Run `editor4c-faqedit.py` then `editor4d-faqedit.py` on the live `faq.md`; release text
-`editor4d-release.json`; `editor4d-dbtest.php <tree>` (MariaDB on 127.0.0.1:3399, db `t`): 17 checks, all ok. Ask Jason
-before sending 4d? He already said go for 4d (§0 below), so no.
+**Step 4 is done and live**, each verified byte for byte against the mirror:
+- bar fix = **#31** (`barfix_20261113`, Sync 20:02): the site manager shows what's on staging, or else the newest release.
+- **4c** = **#33** (`editor4c_20261113`, Sync 20:40): Publish later; zones on every page (`site.top`, `site.bottom`).
+- **4d** = **#34** (`editor4d_20261113`, Sync 20:59): Likes and comments and a Form as live parts, only in our pages'
+  zones (`Blocks::LIVE` 'page.', `typesFor`/`liveFor`); Engage kind `page`; `SitePages::submit` takes a form block's kind
+  while the page's live blocks hold it (`Blocks::hasForm`). Not yet tried live: the form send (captcha) and a like on a page.
+- `handoffs/0159-prepared/` is gone (git history keeps the patches and their DB tests).
+
+**Next:** step 5, Storefront Studio (SitePages to blocks: each Markdown page as one text block; themes; the portal; team
+Publish), then step 6, AI writing. Claim files first (decisions/0161, `checkout.py claim`).
+
+**Open, for Jason:** which coded pages get zones next; scheduling for shops (0158 §6). On 20:48 UTC he reported something
+changed in the phone ☰ tools drop-down (/user/dashboard); the panel's place and width are right. 4c/4d add nothing on
+that page; the last change to the menu's placement is context-switcher.php at Sync 2026-11-12 21:48 (list starts 34px down
+under the account bar). Waiting on what exactly differs; change nothing until he says.
 
 ### Written 19:30 UTC by the session that built step 2's switch and steps 4a–4b
 
