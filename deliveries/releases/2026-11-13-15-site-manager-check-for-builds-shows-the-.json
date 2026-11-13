@@ -1,0 +1,39 @@
+{
+    "id": 15,
+    "title": "Site manager: Check for builds shows the build that came in, even when it already published itself",
+    "why": "Jason, 2026-11-13: after Check for builds the bar jumped back to #8. It switched to the newest build on staging, and #13 had already published itself, so it fell back to the release staging was opened from. Now it shows the build that came in, on staging or live; when nothing new came, it stays where it was. (The FAQ already says it switches to the new build.)",
+    "proposals": "decisions/0159 step 2",
+    "zip": "pullshow_20261113.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "website/js/stg-bar.js": {
+            "sha": "ede2e95aceb8fdcbedeec79f0b061b5a0eaf61b384e571359fc699544d698119",
+            "size": 24633,
+            "live_was": "6a0b4953f6c0b23ab21f2a6729afa0cf318f00f4d0698a89786e5c4cfe45109a"
+        },
+        "website/api/release-bar.php": {
+            "sha": "760447493d8b8dedf6757f4bf2589a289bd5d5a91c8d329247d586fbbcceeb00",
+            "size": 3549,
+            "live_was": "d215c1fe118c214a353535c3d7e17f7e2742581391e384d72a505baa6893b195"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-13T15:38:12+00:00",
+            "by": 0,
+            "msg": "Uploaded pullshow_20261113.zip: 2 files."
+        }
+    ]
+}
