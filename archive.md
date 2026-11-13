@@ -52,12 +52,12 @@ Shown inside a section (bridge):
 - `staff-levels.php`
 - `insights.php`
 - `search.php`
-- `crawler.php`
 - `sources.php`
 - `data.php`
 - `sitemap.php`
 
 Opened from a working tool (pop-up, detail, action or print page):
+- `crawler.php` (the earlier Crawler overview: opened from Insights → Crawler, the console, for queueing coverage gaps by hand and the coverage map until their workflow moves there, handoffs/crawler-revamp.md Phase 3)
 - `listing-edit.php`
 - `listing-add.php`
 - `review-item.php`
