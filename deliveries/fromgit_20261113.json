@@ -1,0 +1,34 @@
+{
+ "zip": "fromgit_20261113.zip",
+ "built_on": "8938805 Sync: 2026-11-13 14:30 UTC",
+ "recorded": "2026-11-13 14:35 UTC",
+ "note": "Release #7 (decisions/0159 step 2, Phase 6 part 1): builds from git. The live site takes release zips from releases/inbox on main onto staging (releases_tick every 10 min; Releases \u25be \u2192 Check for builds), bytes checked against git's blob id, taken out of the inbox after. Built on Sync: 2026-11-13 14:30 UTC.",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/DocsRepo.php": {
+   "sha256": "e19aa2b5fccf664263a57546903e04be940666f9b1c58042f1bc548f947d550f",
+   "live": false
+  },
+  "app/lib/Releases.php": {
+   "sha256": "7a7f456aaa9b2e6324a559cb655d544b6b75e6f9d61f93f44aeeddc2774b4248",
+   "live": false
+  },
+  "app/scripts/releases_tick.php": {
+   "sha256": "5b94dcb3624eb97dfb7bb76d877f8469757cbda9900033b6bfb13b9c8f1f9f0f",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "ce8de1661a9c2e1aa35daea3f564f15f806e10e6e2f9031a6eebdb1e5cd4f84b",
+   "live": false
+  },
+  "website/api/release-bar.php": {
+   "sha256": "ea714ecf6487cea0f692376f4eda80ade12120a94a8899b65b7ee1bec4da002a",
+   "live": false
+  },
+  "website/js/stg-bar.js": {
+   "sha256": "869c2bb93d4fb638a2bd20a957698eebe49df7f65baeb23071f12ac07d14f2fc",
+   "live": false
+  }
+ }
+}
