@@ -96,11 +96,12 @@ export function stagingRunners(k) {
       if (!link) { w.add('dead_end', 'J01', w.here(), 'the confirmation email has no link to follow'); return; }
       w.taps++;   // the link in the email
       await w.goto(w.site + link.replace(/^https?:\/\/[^/]+/, ''), 'the email\'s link');
+      await page.waitForSelector('button.vs-s[data-skip]:visible, #s0 [data-tv-status="bad"]', { timeout: 20000 }).catch(() => {});   // the link is checked first
       let asked = 0;
       for (let i = 0; i < 6; i++) {   // the questions after the link: each skipped, as a visitor in a hurry would
         const skip = await firstVisible(page, ['button.vs-s[data-skip]']);
         if (!skip) break;
-        asked++; await w.tap(skip, 'Skip');
+        asked++; await w.tap(skip, 'Skip'); await page.waitForTimeout(600);
       }
       const words = { one: 1, two: 2, three: 3, four: 4, five: 5 };
       if (promised && words[promised.toLowerCase()] && asked > words[promised.toLowerCase()]) w.add('clarity', 'J03', w.here(), `the sign-up said "${promised} quick questions"; the page asked ${asked}`);
@@ -186,8 +187,14 @@ export function stagingRunners(k) {
       const ed = await firstVisible(page, ['a.ak-b:has-text("Edit listing")', 'a[href^="/listing/businessportal.php?id="]']);
       if (!ed) { w.stuck = 'no Edit listing in the business portal'; await w.shot('noedit'); return; }
       await w.tap(ed, 'Edit listing', { nav: true });
-      const box = page.locator('#bp-edit #f-hours');
-      if (!(await box.isVisible().catch(() => false))) { w.stuck = 'no hours box on Edit listing'; return; }
+      let box = page.locator('#bp-edit #f-hours');
+      if (!(await box.isVisible().catch(() => false)) && ACC?.listing?.id) {   // the portal's Edit listing opened another business, or a list: the test listing's own editor
+        const mine = page.locator(`a[href*="businessportal.php?id=${ACC.listing.id}"]`).first();
+        if (await mine.isVisible().catch(() => false)) await w.tap(mine, 'the test listing', { nav: true });
+        else { w.note(`Edit listing opened ${w.here()}, not the test listing's editor`); await w.goto('/listing/businessportal.php?id=' + ACC.listing.id, 'the test listing\'s editor'); }
+        box = page.locator('#bp-edit #f-hours');
+      }
+      if (!(await box.isVisible().catch(() => false))) { w.stuck = `no hours box on Edit listing (${w.here()})`; await w.shot('nohours'); return; }
       const old = await box.inputValue().catch(() => '');
       const hours = `Mon–Fri 9am–5pm (${TAG})`;
       await w.type('#bp-edit #f-hours', hours);
@@ -245,8 +252,9 @@ export function stagingRunners(k) {
     // ---- Join a group: Community → a group → Join (and Agree, with a charter) → Joined; left after
     'join-group': async (w, page) => {
       await w.goto('/community/', 'Community');
+      await page.waitForSelector('a.cg-g', { timeout: 15000 }).catch(() => {});   // drawn by the page's script after it loads
       const cards = await page.$$eval('a.cg-g[href*="/community/group.php?id="]', as => as.map(a => a.getAttribute('href'))).catch(() => []);
-      if (!cards.length) { w.stuck = 'no groups listed on Community'; await w.shot('nogroups'); return; }
+      if (!cards.length) { w.stuck = `no groups listed on Community: "${(await textOf(page)).slice(0, 140)}"`; await w.shot('nogroups'); return; }
       let joined = false;
       for (const href of cards.slice(0, 5)) {
         const card = page.locator(`a.cg-g[href="${href}"]`).first();
@@ -354,6 +362,8 @@ export function stagingRunners(k) {
       const o = await firstVisible(page, ['details#sandbox a.hb-nm']);
       if (!o) { w.stuck = 'no sandbox order to copy on Orders'; await w.shot('noorder'); return; }
       await w.tap(o, 'a sandbox order', { nav: true });
+      const ham = await firstVisible(page, ['details.cs-ham > summary']);   // the command strip's ☰ holds the page's Duplicate list (decisions/0129)
+      if (ham) await w.tap(ham, '☰');
       await w.tap('details#co-dup > summary', 'Duplicate');
       const copy = await firstVisible(page, ['details#co-dup button.hb-b.go']);
       if (!copy) { w.stuck = 'no "Test copy, billed to you"'; return; }
