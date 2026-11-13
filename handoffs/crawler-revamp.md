@@ -248,13 +248,13 @@ CLAUDE.md, in full. For this work above all:
   junk names reach listings from page reads ("Contact Us:", "An agency within the U.S. Department of Labor", "CDPF
   Informational Webinar Slideshow"): Phase 4's listings pass and W3's page readers.
 
-- **Phase 3, W2 finished** (sent, waiting for Jason's OK): `crawler-w2b_20261113.zip`, built on Sync 18:59 UTC. A changed
+- **Phase 3, W2 finished** (approved by Jason in chat): `crawler-w2b_20261113.zip`, built on Sync 18:59 UTC. Live as Release #28
+  (19:19 UTC); verified byte for byte on Sync 19:20 UTC; its worker half (2.2) merged then. A changed
   phone or hours on a listing's own site goes to Review as a fix with the new values (`Refresh::changed`, `site_said`, asked
   once); live duplicates (`LiveDupes`, in `listings_tick`: the same phone plus the same Google place, or the same ZIP
   with the same name or street address; at most 4 listings to a number) offered in Review as Same business, a pair never
   asked twice; the crawler's own Review items no longer hit the visitors' 12-a-day cap (`Suggestions::create`); W2's
-  Review waiting shown in the console. Worker half (2.2, the refresh sends `seen`: one phone, the hours) is on
-  `wip/w2b-worker`; merge it once this is live. Left: listings without a website are still checked only by Google
+  Review waiting shown in the console. Worker half: 2.2, the refresh sends `seen` (one phone, the hours). Left: listings without a website are still checked only by Google
   (no key on Railway) and the identity jobs.
 - **Worker 2.1 on Railway** (18:29 UTC): runs now keep their shares (18:36's run reached every task). Coverage still finds
   nothing: overpass-api.de answers 406 to the worker every time and the mirrors time out, so each job is handed back.
