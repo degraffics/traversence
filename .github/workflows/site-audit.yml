@@ -79,7 +79,7 @@ jobs:
       - name: Deliveries reached live?
         if: env.SKIP != '1'
         run: |
-          if ls deliveries/*.json >/dev/null 2>&1; then python3 tools/page-audit/deliveries.py verify --mirror mirror; fi
+          if ls deliveries/*.json >/dev/null 2>&1; then python3 tools/page-audit/deliveries.py verify --mirror mirror --keep-claims; fi
 
       - name: Drift (live files changed without a release) and the findings for Site health
         if: env.SKIP != '1'
@@ -98,3 +98,9 @@ jobs:
           git commit -m "Site audit: mirror $(cat site-audit/results/mirror-sha.txt)"
           git pull --rebase -X theirs -q   # the run's own generated files win a collision
           git push
+
+      - name: Check-in (decisions/0161) - release the claims of releases now live, report lapsed ones
+        if: env.SKIP != '1'
+        run: |
+          # its own commit on main's newest copy (never rebased over a claim made meanwhile)
+          python3 tools/page-audit/checkout.py release-live

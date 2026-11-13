@@ -66,6 +66,10 @@ at 6:00 and 18:00 UTC or on demand (its workflow's Run button), committing the r
   site (`SYNC_HOME=git`): a server or OneDrive edit not from a release is put back, the edit kept in the sync's `conflicts/`. A zip holds **only files that differ byte for byte from the live mirror**, never a blanket upload.
   Dotfiles (`.htaccess`) aren't mirrored, so name them separately when they change.
 - **Several sessions at once** (Jason, 2026-11-01): current first, so nothing is rebuilt.
+  - **Claim when you start writing a release** (decisions/0161): `tools/page-audit/checkout.py claim <path>[::<fn>] --add|--change
+    --why "…"` (`--page <route>` for a page's files). Add is shared; change is exclusive per function or entry, for that
+    one release. Refused: build the new version beside the old, or work on something else. `send.py` claims what you
+    forgot, the zip check blocks a clash or a broken live caller, and the claim ends when the release is verified live.
   - **Before writing any file for a zip**, fetch the mirror and start every file from its live copy, never from a copy
     held earlier in the session. If a release was published since the newest sync, run the sync first.
   - **Just before zipping**, fetch once more. A file changed there since gets only this build's change re-applied

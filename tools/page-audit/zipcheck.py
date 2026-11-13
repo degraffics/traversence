@@ -17,11 +17,17 @@ Current first (Jason, 2026-11-11: "be sure you are checking main and faq before 
 overwriting other sessions"): it fetches the mirror and blocks when the checkout is behind its main (a newer sync is
 there: rebuild on it), and blocks when another session's zip that isn't live yet carries one of this zip's files (most
 often faq.md): wait for its upload and sync, then rebuild on the live copy. --allow-pending names such zips once checked.
+
+Check-out (decisions/0161 §4, §8): it blocks a zip that changes a function or entry another session holds a change claim on
+(`checkout.py`, `releases/checkouts.json`), and one that changes a function's arguments so that a call on the live site
+(with this zip laid over it) no longer fits; --callers-checked names such functions once each call is checked. A change
+no claim of this session covers is a warning until checkout.UNCLAIMED_BLOCKS_FROM, then it blocks. Adding never blocks.
 """
 import argparse, difflib, hashlib, os, re, shutil, sys, tempfile, zipfile
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import audit  # noqa: E402
+import checkout  # noqa: E402
 
 BACK = {v: k for k, v in audit.MAP.items()}
 
@@ -79,6 +85,8 @@ def main():
     ap.add_argument('--docs', default=os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
     ap.add_argument('--drops', default='', help='names this zip may remove, comma-separated (only with Jason\'s OK)')
     ap.add_argument('--allow-pending', default='', help='other pending zips (by name) already built on, comma-separated')
+    ap.add_argument('--session', default='', help='the sending session (default: this one); its own claims never block it')
+    ap.add_argument('--callers-checked', default='', help='functions whose changed arguments were checked against every live caller')
     a = ap.parse_args()
     docs = os.path.abspath(a.docs)
     work = tempfile.mkdtemp(prefix='zipcheck-')
@@ -127,6 +135,15 @@ def main():
                             have.setdefault(nm, []).append(n)
             moved = [(n, nm, have[nm]) for n, nm in dropped if any(o != n for o in have.get(nm, []))]
             dropped = [(n, nm) for n, nm in dropped if not any(o != n for o in have.get(nm, []))]
+        session = checkout.my_session(a.session)
+        try:
+            claimed, unclaimed = checkout.zip_review(a.zip, a.mirror, session, docs)
+        except Exception as e:   # the claims can't be read: say so, never stop a zip for it
+            claimed, unclaimed = [], ['check-out not read (%s)' % e]
+        ok_callers = {x.strip() for x in a.callers_checked.split(',') if x.strip()}
+        broken = [b for b in checkout.broken_callers(a.zip, a.mirror, over) if b[1] not in ok_callers]
+        strict = checkout.iso(checkout.now())[:10] >= checkout.UNCLAIMED_BLOCKS_FROM
+        unclaimed_block = strict and any('no change claim' in u for u in unclaimed)
         _, before, _ = audit.run(a.mirror, docs)
         _, after, _ = audit.run(over, docs)
         old = {key(f) for f in before}
@@ -147,6 +164,20 @@ def main():
             print(f'\nBLOCK another session\'s zip, not live yet, has the same files: wait for its upload and the sync, then rebuild on the live copy')
             for z, fs in pending:
                 print(f'  {z}: {", ".join(fs)}')
+        if claimed:
+            print('\nBLOCK checked out by another session (decisions/0161): build new beside old, or wait for its release')
+            for c in claimed:
+                print('  ' + c)
+        if broken:
+            print('\nBLOCK a live caller would break: these functions now take different arguments, and files still call them the old way')
+            for n, fn, files in broken:
+                print(f'  {n}: {fn}() called by {", ".join(files[:6])}' + (' …' if len(files) > 6 else ''))
+            print('  Keep the old arguments working (a new optional parameter at the end, or a new function beside the old), '
+                  'or move the callers in this zip; --callers-checked names one once every call is checked.')
+        if unclaimed:
+            print(('\nBLOCK' if unclaimed_block else '\nWarning') + ' check-out (decisions/0161):')
+            for u in unclaimed:
+                print('  ' + u)
         if moved:
             print(f'\nMoved, kept ({len(moved)}): each is now in another file of this zip')
             for n, nm, to in moved:
@@ -165,7 +196,7 @@ def main():
             print(f'It fixes {fixed} failure(s) that are on the live site now.')
         if any(s.startswith('unchanged') for s, _ in rows):
             print('Some files are identical to live: leave them out (a zip holds only files that differ).')
-        sys.exit(1 if blocking or dropped or stale or pending else 0)
+        sys.exit(1 if blocking or dropped or stale or pending or claimed or broken or unclaimed_block else 0)
     finally:
         shutil.rmtree(work, ignore_errors=True)
 
