@@ -50,7 +50,9 @@ at 6:00 and 18:00 UTC or on demand (its workflow's Run button), committing the r
   title, why, proposals, switch) goes in with `tools/page-audit/send.py <zip> --mirror <checkout> --note …` (zip check,
   delivery log, `releases/inbox/`); merge it into `main` once Jason has approved it in chat. The live site takes it onto
   staging within 10 minutes, runs its checks, and publishes it by itself when they pass (Jason, 2026-11-13: no second
-  Publish). `"hold": true` in `release.json` keeps it on staging for his look, only when he asked. Watch for its
+  Publish). `"review": true` in `release.json`, only when he asked to see it, sends it for review: an email and a
+  Pulse case take him to staging, where UI, UX and Functional each need Approve before Publish opens; his "needs changes"
+  notes come back in its record (`deliveries/releases/`). Watch for its
   "Release #N: Live" record commit, then run the sync. Upload on the site manager is the fallback; Publish is for work
   done on staging.
 - **Delivering:** the release's publish writes to the server; the sync updates OneDrive. The server wins a two-sided change

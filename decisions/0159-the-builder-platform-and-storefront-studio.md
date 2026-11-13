@@ -165,7 +165,12 @@ Progress (2026-11-13):
   it in claude before it got pushed… publish is for the staging area development process"). This replaces §5's "your
   look before publishing stays" for builds sent through git: once its checks on staging pass, it goes live by itself
   (`Releases::autoPublish`). Failed checks stop it there; `"hold": true` in its release.json waits for his look and
-  Publish. Uploads on staging and the editor keep Publish (release #9).
+  Publish. Uploads on staging and the editor keep Publish (release #10).
+- **A push for review** (Jason, 2026-11-13: "this should be a push for review process so it can be something that triggers
+  me having to go to the stage to interact with the site and then approve it as UI/UX/Functional and then publish it"):
+  `"review": true` (or `"hold"`) waits on staging, emails the Founder and opens a Pulse case with the way onto staging;
+  the site manager's Review takes UI, UX and Functional, each Approve or Needs changes with a note (kept with the
+  release); Publish opens when all three are approved (release #11).
 - **Step 2, still to do:** the sync's direction (`SYNC_HOME` to git) and drift reports, so edits made straight on the
   server or in OneDrive show as drift instead of going live without a release. Its timing is agreed with Jason first,
   since it changes how OneDrive edits behave.
