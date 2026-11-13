@@ -1,0 +1,74 @@
+{
+    "id": 34,
+    "title": "The full editor, part 4: likes, comments and a form on our pages",
+    "why": "decisions/0159 step 4d. Two live parts, only in our own pages' zones (page.<id>; Blocks::LIVE's 'page.', and the editor offers each zone only what may go there: Blocks::typesFor/liveFor, used by /api/blocks.php). Likes and comments: the standard engage bar (decisions/0058 §20) for the page, kind 'page' in Engage (KINDS, COUNT_KEY 'page:' matching view.php's count, target, exists: our page and live), with its comments or the bar alone; LikeGuard and Reports name and link the page. Form: a contact or quote form sent to /pages/form.php like the page's own form (js/tv-blocks.js, the human check waited for, the site's notices); SitePages::submit takes it while the page's live blocks hold a form of that kind (Blocks::hasForm), so entries reach Form entries with that kind. Outside a page zone they draw nothing for visitors, and the editor says why. Tested on MariaDB (offered per zone, refused before publishing, taken after, wrong kind refused, drawn only in its zone, the engage bar and comments drawn with the page's title, Engage's page kind). FAQ updated.",
+    "proposals": "decisions/0159 step 4",
+    "zip": "editor4d_20261113.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/ui/faq.md": {
+            "sha": "0b21c495c6676a1dd0dfcff2c4a524d89141da015200b6d5ae63909987f29b7c",
+            "size": 278040,
+            "live_was": "181db5c56edb03cb28e8942cdb65ebb69eb503033301bd1cc737b3d39b01064a"
+        },
+        "app/lib/Engage.php": {
+            "sha": "15dde3ceba0cd8b768b8cd93606edb844b523d1f813983c9ad3a6603f468d8cd",
+            "size": 13956,
+            "live_was": "7e80477c5878138458fb62108fb517a3c450c649025b5c2a4a08937e3e8842db"
+        },
+        "app/lib/LikeGuard.php": {
+            "sha": "18db245574a298cd9d89c503664658393f25f36441ec76ffaf912d714be5a4d2",
+            "size": 18673,
+            "live_was": "d11fbb4d072727952ecb3dd8c42fb34b72224e3e478eab03ce1b0ca739e611d9"
+        },
+        "app/lib/Reports.php": {
+            "sha": "7996b52efd46fba730c664d2691bcb8438a87aa9bbc9cc77eaeadb0075857584",
+            "size": 31546,
+            "live_was": "ee4210c6fde7d9c577c6503c0cecdfef92a2814929a3fbe3c4e06a802005173a"
+        },
+        "app/lib/Blocks.php": {
+            "sha": "3afc63e844f3e41f8e2ddd2dfe5d19032d75645cd3058699cc38d26ca383c7d9",
+            "size": 54613,
+            "live_was": "867227f3102c1b1aef5b4b76d17c5ff4f05e6f45c7978038ee1231a450bda463"
+        },
+        "app/lib/SitePages.php": {
+            "sha": "c3821d8ad36ed49ae991fdb1e43c08a3ac1b2b4ca13c95a1da341177a5d06c38",
+            "size": 13396,
+            "live_was": "058d6bcaa5551beb7e251edf24a7ca5e5dd3ebe186ec53de0dafcbb361e8fe30"
+        },
+        "website/api/blocks.php": {
+            "sha": "4ff18ae62b76b21e3e2a011f2634168a94abfdcc2ad35f2dcb9e9534cee60143",
+            "size": 4473,
+            "live_was": "a21dccaa7b54b3c55ca84746da6c5f4f5b4f04c3695f442ea4b3f971eae336f6"
+        },
+        "website/js/tv-blocks.js": {
+            "sha": "ad20faf5f3e5a959c67982889cd6152358a83d9cebe73b5127c15128606e480a",
+            "size": 10106,
+            "live_was": "5a9897bf828a69cbf7b296a2e8ab2ef65a970ef531a5561cfdf15f7f5c36e1f4"
+        },
+        "website/js/tv-editor.js": {
+            "sha": "a5f5064cd79ae9d59d05ed6e3491f0be724980672dc504114bde1cd460e089de",
+            "size": 51320,
+            "live_was": "442589827cfeded1b20e10029a14204f7cf468b28f161ca31fac84b67def3912"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-13T20:57:02+00:00",
+            "by": 0,
+            "msg": "Uploaded editor4d_20261113.zip: 9 files."
+        }
+    ]
+}
