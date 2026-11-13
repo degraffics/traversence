@@ -32,7 +32,7 @@
   },
   "app/lib/upload-targets.php": {
    "sha256": "1ec41a99dec472a73297994f4e4580d4656d0f7a085d707cdad122fa1f533b72",
-   "live": true
+   "live": false
   },
   "app/migrations/2027-02-28_earned_storage.sql": {
    "sha256": "b65222aa718a7224df69b4b2873e885d3472351680a14afd8189601248ba8172",
