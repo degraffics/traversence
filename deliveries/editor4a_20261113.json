@@ -1,0 +1,26 @@
+{
+ "zip": "editor4a_20261113.zip",
+ "built_on": "33b24b1 Sync: 2026-11-13 16:59 UTC",
+ "recorded": "2026-11-13 17:00 UTC",
+ "note": "decisions/0159 step 4a, the full editor part 1: widget panel, drag and drop, toolbar, design per breakpoint; built on Sync: 2026-11-13 16:59 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/Blocks.php": {
+   "sha256": "1feb4dcce90872efc7ca9e5b89b2fd544cfb01df8c15359ffcf051a872e474cd",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "26b3f1024d1421bc0922f76da362361c5ab2e65890880366eb30140836d46147",
+   "live": false
+  },
+  "website/api/blocks.php": {
+   "sha256": "e6e305ba5dab0f647e1bb5d3f2b27ba64b874bdbb5be43842b3aff4a49d452d7",
+   "live": false
+  },
+  "website/js/tv-editor.js": {
+   "sha256": "cae4be0e82e7721e5a78fde409f8668a5f09bbf7498792d6d1947c38c3bcafa7",
+   "live": false
+  }
+ }
+}
