@@ -20,7 +20,7 @@ RULES = {
     'R01': ('Every method a file calls exists', True),
     'R02': ('No browser dialogs (alert, confirm, prompt)', True),
     'R03': ('Uploads only through Uploads.php and /api/upload.php', True),
-    'R04': ('No PHP newer than the server runs (8.0)', True),
+    'R04': ('No PHP newer than the server runs (site-audit/results/server.json; 8.0 until it is known)', True),
     'R05': ('Pages load the session and the shared shell', False),
     'R06': ('FAQ links point at questions that exist', True),
     'R07': ('Endpoints that change things check the security token', False),
@@ -121,25 +121,62 @@ def check_uploads(files, findings):
         for m in re.finditer(r'\$_FILES|is_uploaded_file\s*\(|move_uploaded_file\s*\(', code):
             find(findings, 'R03', path, line_of(code, m.start()), 'handles an upload itself: send it through TvUpload and an upload target')
 
-# ---- R04: PHP 8.0 --------------------------------------------------------------------------------------------------
+# ---- R01 too: a helper from app-shell.php called before the page start loads it -------------------------------------
+# app/ui/app-shell.php (tv_icon, tv_count_item…) is loaded by tv_page_start(), not by page-shell.php itself: a page that
+# calls one first stops with a fatal error (journeys/suggested.php did, 2026-11-13).
+def check_shell_order(files, findings):
+    shell = files.get('app/ui/app-shell.php', '')
+    fns = re.findall(r'^function (\w+)', shell, re.M)
+    if not fns:
+        return
+    pat = re.compile(r'\b(' + '|'.join(fns) + r')\s*\(')
+    for path, src in files.items():
+        if not (path.startswith('website/') and path.endswith('.php')) or re.search(r'app-shell\.php|context-switcher\.php|admin-hub\.php', src):
+            continue
+        lines = src.split('\n')
+        starts = [i for i, l in enumerate(lines) if re.search(r'\btv_(page|app)_start\s*\(', l)]
+        if not starts:
+            continue
+        for i, l in enumerate(lines[:starts[-1]]):
+            m = pat.search(l)
+            if not m or re.search(r'^\s*(//|\*|#)', l) or 'function_exists' in l:
+                continue
+            before = [st for st in starts if st < i]
+            if before and 'exit' not in '\n'.join(lines[max(before):i]):
+                continue   # after a start in the same branch
+            find(findings, 'R01', path, i + 1, f'calls {m.group(1)}() before tv_page_start() loads app-shell.php, where it lives: call it after the page start')
+
+# ---- R04: PHP newer than the server runs ---------------------------------------------------------------------------
+# Each feature with the PHP version it needs. The server's version comes from the health report, saved daily by
+# tools/page-audit/towns.mjs into site-audit/results/server.json (site audit P1, Jason 2026-11-08); 8.0 until it is known.
 PHP81 = [
-    (r'\breadonly\s+(?:public|protected|private|\$|\w+\s+\$)', 'readonly properties (PHP 8.1)'),
-    (r'^\s*enum\s+\w+', 'enum (PHP 8.1)'),
-    (r'\barray_is_list\s*\(', 'array_is_list() (PHP 8.1)'),
-    (r'\bjson_validate\s*\(', 'json_validate() (PHP 8.3)'),
-    (r'\)\s*:\s*never\b', "the 'never' return type (PHP 8.1)"),
-    (r'(?<![\w$])\w+\(\.\.\.\)', 'first-class callable syntax (PHP 8.1)'),
-    (r'\bconst\s+(?:int|string|bool|float|array)\s+[A-Z_]+\s*=', 'typed class constants (PHP 8.3)'),
-    (r'function\s+\w+\s*\([^)]*=\s*new\s+\w+', "'new' in a parameter default (PHP 8.1)"),
+    (r'\breadonly\s+(?:public|protected|private|\$|\w+\s+\$)', 'readonly properties', (8, 1)),
+    (r'^\s*enum\s+\w+', 'enum', (8, 1)),
+    (r'\barray_is_list\s*\(', 'array_is_list()', (8, 1)),
+    (r'\bjson_validate\s*\(', 'json_validate()', (8, 3)),
+    (r'\)\s*:\s*never\b', "the 'never' return type", (8, 1)),
+    (r'(?<![\w$])\w+\(\.\.\.\)', 'first-class callable syntax', (8, 1)),
+    (r'\bconst\s+(?:int|string|bool|float|array)\s+[A-Z_]+\s*=', 'typed class constants', (8, 3)),
+    (r'function\s+\w+\s*\([^)]*=\s*new\s+\w+', "'new' in a parameter default", (8, 1)),
 ]
-def check_php80(files, findings):
+def server_php(docs):
+    """The server's PHP (major, minor) from the health report, else (8, 0)."""
+    try:
+        v = json.load(open(os.path.join(docs, 'site-audit', 'results', 'server.json'), encoding='utf-8')).get('php_major_minor') or ''
+        a, b = v.split('.')[:2]
+        return int(a), int(b)
+    except Exception:
+        return 8, 0
+def check_php80(files, findings, server=(8, 0)):
     for path, src in files.items():
         if not path.endswith('.php'):
             continue
         code = strip_php_comments(src)
-        for pat, what in PHP81:
+        for pat, what, need in PHP81:
+            if need <= server:
+                continue
             for m in re.finditer(pat, code, re.M):
-                find(findings, 'R04', path, line_of(code, m.start()), f'uses {what}; the server runs PHP 8.0')
+                find(findings, 'R04', path, line_of(code, m.start()), f'uses {what} (PHP {need[0]}.{need[1]}); the server runs PHP {server[0]}.{server[1]}')
 
 # ---- R05: pages load the session and the shell -------------------------------------------------------------------
 def is_page(path):
@@ -355,7 +392,7 @@ def exceptions(docs):
 def run(mirror, docs, keep_exceptions=False):
     files = load(mirror)
     findings, tree = [], []
-    check_calls(files, findings); check_dialogs(files, findings); check_uploads(files, findings); check_php80(files, findings)
+    check_calls(files, findings); check_shell_order(files, findings); check_dialogs(files, findings); check_uploads(files, findings); check_php80(files, findings, server_php(docs))
     check_shell(files, findings); check_faq(files, findings); check_csrf(files, findings); check_migrations(files, findings)
     check_listed(files, docs, findings, tree); check_emoji_crumbs(files, findings)
     ex = {(e['rule'], e['file']): e for e in exceptions(docs) if e.get('reason')}

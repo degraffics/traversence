@@ -283,8 +283,9 @@ The one exception: Claude writing guides and journeys, inside the AI monthly cap
 builds up to 50% of the daily allowance, the rest queued). Also a place's description, written once when someone opens a place with no
 Wikipedia summary, kept as research (decisions/0148, `place_about`).
 
-## The live server runs PHP 8.0: every build
+## The live server's PHP version: every build
 
-Local tests run 8.3. Don't use `readonly`, `enum`, first-class callables (`strlen(...)`), `new` in parameter defaults,
-`array_is_list()`, `json_validate()`, typed class constants, or standalone `true`/`false`/`null` types. Grep changed files
-before delivering.
+The real version is in `site-audit/results/server.json` (from the health report, daily; site audit P1); the code check (R04)
+flags anything newer. Until it's recorded, write to PHP 8.0: no `readonly`, `enum`, first-class callables (`strlen(...)`),
+`new` in parameter defaults, `array_is_list()`, `json_validate()`, typed class constants, or standalone `true`/`false`/`null`
+types. A helper from `app/ui/app-shell.php` (`tv_icon`, `tv_count_item`…) is called only after `tv_page_start()`.

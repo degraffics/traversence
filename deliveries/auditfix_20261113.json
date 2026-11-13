@@ -1,0 +1,90 @@
+{
+ "zip": "auditfix_20261113.zip",
+ "built_on": "866c4db Sync: 2026-11-13 03:03 UTC",
+ "recorded": "2026-11-13 03:32 UTC",
+ "note": "Site audit fixes: suggested journey pages (a fatal error before the page start), P2 sign-in pages, P3 chamber builder's dialogs, P4 emoji to the brand's icons. Built on the 03:03 UTC sync.",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/ui/app-shell.php": {
+   "sha256": "631cac263780f6e5dac27e254e46309dfe10f06ab6f34b547e648684c01c3840",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "2ca79e6501750aca9c086453c0bf2579960c6d1a9111ff1404dc2db661e8a4a6",
+   "live": false
+  },
+  "website/admin/chamber-builder.php": {
+   "sha256": "d28924ca00dfc834be09884796db1995ed462da07bfb8bd8bcdeaebcf99fc2d1",
+   "live": false
+  },
+  "website/admin/crawler-review.php": {
+   "sha256": "48782b136f184442f668cea1abde77d965ef5355f60c110528f3fe7dbe69997f",
+   "live": false
+  },
+  "website/admin/journeys.php": {
+   "sha256": "617be5536deb38a51b5eb211aee9a704db2a01d32da1f7ee25e096e3c2df99a9",
+   "live": false
+  },
+  "website/admin/listing-edit.php": {
+   "sha256": "1c7bcc1e4d9e88326f0769f012e2c3f57ebd39e31624726f645eefa3836c6a93",
+   "live": false
+  },
+  "website/admin/stories.php": {
+   "sha256": "476f7d76a2fe7766779cf67745511b774ee62b4fab48dc5bf05953f4c89fb37d",
+   "live": false
+  },
+  "website/claim.php": {
+   "sha256": "df7bd8e072ab9c82ec9c62cd0aa3aef1f13274945ea0adeb6006bf3f1409ac01",
+   "live": false
+  },
+  "website/discovery/index.php": {
+   "sha256": "132f4bc3f34f47cedaa2d593759ce9aa434b2254617043cf470ce701d957863e",
+   "live": false
+  },
+  "website/forgot-password.php": {
+   "sha256": "e9dff2a38d2a400b21acc6aad5735c907aefc0f79be61e0698784cff461f5796",
+   "live": false
+  },
+  "website/journeys/suggested.php": {
+   "sha256": "83cbc08863a2852d069d5983561d36ba8bda065599e612d12c287b38f77af7aa",
+   "live": false
+  },
+  "website/journeys/view.php": {
+   "sha256": "b77e62b599d3c198a932faffd7d922867ba8df9a51d4c0beee6991e6054ad5af",
+   "live": false
+  },
+  "website/js/admin-builder.js": {
+   "sha256": "e34515c1edd358ab8d383799654a0492e93d728f4e243fac24d891b3a4f7446b",
+   "live": false
+  },
+  "website/js/search-panel.js": {
+   "sha256": "ec76bb5399dbc728e3d497bba3e826fd9323eaef10ee5b68a2d00973c515820c",
+   "live": false
+  },
+  "website/js/suggest.js": {
+   "sha256": "1de155387fbe0306d30424823695bcaec5b5f85027db88ce717905acf3081142",
+   "live": false
+  },
+  "website/login.php": {
+   "sha256": "d6d115a05fc23a401f80dcdf84dabdb2caa099e8421f003e3ab9599ddf24b9f7",
+   "live": false
+  },
+  "website/order.php": {
+   "sha256": "0bdbc63903cfe438155b05aac33fadd8f184a649f1e5f610ab59d9783d03a4f0",
+   "live": false
+  },
+  "website/reset-password.php": {
+   "sha256": "f4360f60b4cb870bae109a02202790ce2f826e929937893d4e0ecd035af814aa",
+   "live": false
+  },
+  "website/user/journeys/compose.php": {
+   "sha256": "84033c2aafe079d55a3d74e382b6b4c9e1a5ddbfac3f1352b84f9a490d615933",
+   "live": false
+  },
+  "website/user/journeys/index.php": {
+   "sha256": "c13ac0ac67a34c1f9612d839e6ea9b2c252cd410c8dac4d450135a3e34f8921b",
+   "live": false
+  }
+ }
+}

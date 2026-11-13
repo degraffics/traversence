@@ -255,24 +255,43 @@ const CORE = [
     w.goal = fixed && w.here() !== '/';
   } },
   { id: 'set-place', title: 'Set my place and distance', who: ['guest'], limit: 5, run: async (w, page) => {
+    // Get Local's own way (2026-11-12): with no place it asks in the place pop-up (location-scope.js tvPlacePop); else its
+    // "Choose a place" button opens it. The search panel's pin, the older way, is the fallback.
     await w.goto('/directory/', 'Get Local');
-    const pin = await firstVisible(page, ['#tv-search .tvs-pin', '[data-tv-click="tvSearchWhere"]']);
-    if (!pin) { w.stuck = 'no "Choose where to search" pin in the header'; return; }
-    await w.tap(pin, 'Choose where to search');
-    const box = await firstVisible(page, ['#location-modal input[type=search]:visible', '#location-modal input[type=text]:visible', '.tvs-panel .tv-pbox input:visible', '.tvs-panel .tvs-nearin:visible']);
-    if (!box) { w.stuck = 'the place picker has no Town or ZIP box'; await w.shot('nobox'); return; }
+    await page.waitForTimeout(1200);
+    let box = await firstVisible(page, ['.tvpp .tv-pbox-in']);
+    if (!box) {
+      const btn = await firstVisible(page, ['#dr-where', '#tv-search .tvs-pin', '[data-tv-click="tvSearchWhere"]']);
+      if (!btn) { w.stuck = 'no "Choose a place" on Get Local'; await w.shot('nowhere'); return; }
+      await w.tap(btn, 'Choose a place');
+      box = await firstVisible(page, ['.tvpp .tv-pbox-in', '#location-modal input[type=search]:visible', '#location-modal input[type=text]:visible', '.tvs-panel .tv-pbox input:visible', '.tvs-panel .tvs-nearin:visible']);
+    }
+    if (!box) { w.stuck = 'the place pop-up has no Town or ZIP box'; await w.shot('nobox'); return; }
     await box.fill(''); await box.type('Show Low', { delay: 50 }); await page.waitForTimeout(1800);
     const opt = await firstVisible(page, ['[role=option]:visible >> text=/Show Low/i', 'button:visible >> text=/Show Low/i', '[role=option]:visible']);
-    if (!opt) { w.add('dead_end', 'J01', w.here(), 'typing "Show Low" in the place picker offered no town'); await w.shot('notown'); return; }
+    if (!opt) { w.add('dead_end', 'J01', w.here(), 'typing "Show Low" in the place pop-up offered no town'); await w.shot('notown'); return; }
     await w.tap(opt, 'Show Low');
-    const label = (await page.locator('#menu-location-label').first().textContent().catch(() => '')) || '';
-    const panel = (await page.locator('.tvs-panel, #location-modal').first().innerText().catch(() => '')) || '';
-    w.goal = /Show Low/i.test(label + ' ' + panel);
+    await page.waitForTimeout(1200);
+    const label = (await page.locator('#dr-where-l, #menu-location-label').first().textContent().catch(() => '')) || '';
+    const head = (await page.locator('#dr-title, .tvs-panel, #location-modal').first().innerText().catch(() => '')) || '';
+    w.goal = /Show Low/i.test(label + ' ' + head);
     if (!w.goal) { w.add('accuracy', 'J02', w.here(), 'after choosing Show Low, the page doesn\'t show it as the place'); await w.shot('noplace'); }
-    const rng = await firstVisible(page, ['.tvs-panel .tvs-rng:not([disabled])', '#location-modal input[type=range]']);
-    if (rng) { w.taps++; await rng.focus().catch(() => {}); await page.keyboard.press('ArrowRight').catch(() => {}); await page.waitForTimeout(800);
-      const v = (await page.locator('.tvs-rngv').first().textContent().catch(() => '')) || ''; w.note(`distance now ${v.trim() || '(not shown)'}`); if (!v.trim()) w.add('clarity', 'J03', w.here(), 'the distance slider doesn\'t say how far'); }
-    else w.add('dead_end', 'J01', w.here(), 'no distance to set once the place is chosen');
+    // the distance: Get Local's "Within" list, else the search panel's slider
+    const dist = await firstVisible(page, ['#dr-dist']);
+    if (dist) {
+      w.taps++;
+      const vals = await dist.evaluate((el) => [...el.options].map((o) => o.value)).catch(() => []);
+      const cur = await dist.inputValue().catch(() => '');
+      const next = vals[Math.min(vals.length - 1, Math.max(0, vals.indexOf(cur) + 1))] || cur;
+      await dist.selectOption(next).catch(() => {}); await page.waitForTimeout(1200);
+      const t = (await page.locator('#dr-sum, #dr-title').first().textContent().catch(() => '')) || '';
+      w.note(`within ${next} mi: ${t.trim().slice(0, 80) || '(no summary)'}`);
+    } else {
+      const rng = await firstVisible(page, ['.tvs-panel .tvs-rng:not([disabled])', '#location-modal input[type=range]']);
+      if (rng) { w.taps++; await rng.focus().catch(() => {}); await page.keyboard.press('ArrowRight').catch(() => {}); await page.waitForTimeout(800);
+        const v = (await page.locator('.tvs-rngv').first().textContent().catch(() => '')) || ''; w.note(`distance now ${v.trim() || '(not shown)'}`); if (!v.trim()) w.add('clarity', 'J03', w.here(), 'the distance slider doesn\'t say how far'); }
+      else w.add('dead_end', 'J01', w.here(), 'no distance to set once the place is chosen');
+    }
   } },
   { id: 'sign-in', title: 'Sign in, including the human check', who: ['member'], limit: 5, signedOut: true, run: async (w, page) => {
     const a = ACC?.members?.member; if (!a) { w.stuck = 'no member account in CHECK_ACCOUNTS'; return; }
@@ -301,8 +320,13 @@ const CORE = [
     const s = await page.request.get(w.site + '/api/auth/session.php').then(r => r.json()).catch(() => ({}));
     w.goal = !s.user && !s.authenticated && !s.user_id;
     if (!w.goal) w.add('dead_end', 'J01', w.here(), 'Sign out was tapped and the session is still signed in');
-    const shown = await page.locator('[data-auth="out"]:visible').count();
-    if (w.goal && !shown) w.add('accuracy', 'J02', w.here(), 'signed out, but the menu doesn\'t offer Sign in');
+    // on a phone, Sign in is inside the ☰ menu: open it first, as the sign-in path does, before saying it's missing
+    let shown = await page.locator('[data-auth="out"]:visible, a.tvpm-in:visible').count();
+    if (w.goal && !shown) {
+      const menu = await firstVisible(page, ['#tv-main-nav [aria-haspopup]', '#tv-main-nav button[aria-controls]', '#tv-main-nav .tvn-burger', '#tv-main-nav button']);
+      if (menu) { await menu.click().catch(() => {}); await page.waitForTimeout(600); shown = await page.locator('[data-auth="out"]:visible, a.tvpm-in:visible, a[href="/login.php"]:visible').count(); }
+    }
+    if (w.goal && !shown) { w.add('accuracy', 'J02', w.here(), 'signed out, but the menu doesn\'t offer Sign in'); await w.shot('nosignin'); }
   } },
   { id: 'my-listing', title: 'See my listing as visitors do', who: ['owner'], limit: 5, run: async (w, page) => {
     await w.goto('/', 'the home page');
