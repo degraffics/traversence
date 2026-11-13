@@ -829,3 +829,5 @@ Finds already waiting in Review are looked at again by the Find it job (`GuideLi
 with each company's use, cost, fees, settings and links; everything this page showed is kept there.
 
 **Note (2026-11-13):** extended by `decisions/0157` (our own index: the page log, reading pages with structured data first, the place store searched to find places, reading searches from our own words, trust and licence per source, and "what we know and where from"). Proposed, for Jason's OK.
+
+**Note (2026-11-13, decisions/0160):** the crawler becomes one service (fetch, read, open data, search) that serves each creation workflow from its own queue and share. Each workflow is defined start to finish in 0160, and every rule here still applies.
