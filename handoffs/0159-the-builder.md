@@ -1,5 +1,10 @@
 # Hand-off: build decisions/0159, the builder
 
+> **Progress, 2026-11-13 (the session that built steps 1 and 2.1):** step 1 is done (releases #4–#6, #8) and step 2 part
+> 1 is done (#7): builds now go through git (`tools/page-audit/send.py` → `releases/inbox/` → the site takes them onto
+> staging; CLAUDE.md's delivery rules). §3 and §5 below are history. Next: step 2's sync direction and drift (agree the
+> timing with Jason first), then step 3, the editor's core. The details are in decisions/0159's Progress note.
+
 For the Claude session that builds `decisions/0159` (Traversence's platform builder and Storefront Studio). Written
 2026-11-13 by the session that built Phase 5 (the Releases page and the staging bar). Read this, then 0159, then begin
 at step 1. **Jason works mostly from his phone.** Keep his steps short, and give him each zip as a file.
