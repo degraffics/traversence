@@ -1,0 +1,44 @@
+{
+    "id": 24,
+    "title": "Admin search finds scheduled tasks and switches",
+    "why": "Jason searched \"audit clock\" in the admin search (Ctrl K) and got nothing, though it exists as the scheduled task Site audit clock and the switch audit_clock (session manager, Jason approved 16:42 UTC). The search now also matches each scheduled task (Scheduler::JOBS) and switch (Switches::DEFS) by its name, key and what it does, listed with the pages; each opens its own card: Scheduled tasks gets #job-<key> (the card unfolds and is ringed), Switches #sw-<key>. Only the item's own words count, so \"cron\" still finds the Scheduled tasks page first rather than every task. The FAQ's \"Where is everything in the admin?\" now describes the search.",
+    "proposals": "",
+    "zip": "adminfind_20261113.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/admin/sections.php": {
+            "sha": "94f95645b72f8cdba4e1845a7dc24d93b75f0849506b55308a7c4ec88c3d0413",
+            "size": 207549,
+            "live_was": "3bc3efc2a83a250e077c05173eac2d8d05bc45125f83f501326bb6316b5f09ef"
+        },
+        "app/ui/faq.md": {
+            "sha": "bdc44f7bc9d951603cf958340249c5de08101e11a4ae2e049fae14272571e0cc",
+            "size": 274019,
+            "live_was": "26b3f1024d1421bc0922f76da362361c5ab2e65890880366eb30140836d46147"
+        },
+        "website/admin/api/find.php": {
+            "sha": "bb7f6f33eab39aed32287376be89e8a960a563cc96c427dc36169d874cf54e30",
+            "size": 12708,
+            "live_was": "796d2224831758aa77c6efcdade354776b7f562f19c6a9b602a4c4249b7d569a"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-13T17:38:02+00:00",
+            "by": 0,
+            "msg": "Uploaded adminfind_20261113.zip: 3 files."
+        }
+    ]
+}
