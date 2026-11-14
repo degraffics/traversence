@@ -6,16 +6,18 @@
    "functions": [
     "(top)",
     "failed",
+    "holdUntil",
     "holding",
     "holds",
     "osmBudget",
+    "osmUse",
     "probed"
    ],
    "kind": "change",
    "session": "session_01CXLi5keAVqjso7NMLv8GiQ",
-   "why": "Servers as settings, automatic return, pacing (Jason 2026-11-14: go, automatic)",
+   "why": "Retry-After exact, pace (Jason 2026-11-14)",
    "since": "2026-11-14T14:56:22Z",
-   "expires": "2026-11-14T18:56:22Z",
+   "expires": "2026-11-14T19:02:33Z",
    "release": "service-health3_20261114.zip",
    "callers": {
     "holding": [
@@ -28,6 +30,10 @@
      "app/lib/crawler/CrawlService.php"
     ],
     "osmBudget": [
+     "app/lib/OpenPlaces.php",
+     "app/lib/crawler/CrawlService.php"
+    ],
+    "osmUse": [
      "app/lib/OpenPlaces.php",
      "app/lib/crawler/CrawlService.php"
     ]
