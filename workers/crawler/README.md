@@ -21,7 +21,9 @@ then whoever waited longest. The worker:
    run's own work, never in place of it;
 4. reports each task (`{report}`): done, nothing to do, not reached (no time left: never a failure, and first next
    time), failed (with why), or off (a key or a setting missing here, named);
-5. exits 1 when the run couldn't work (the site unreachable, no token, everything starved, over `RUN_LIMIT`), so
+5. counts every request it sends, by host and task (calls, failures, the last error; worker 2.4), and sends them with the
+   report, so each outside service's card (System Configuration → Outside services) shows the crawler's calls to it;
+6. exits 1 when the run couldn't work (the site unreachable, no token, everything starved, over `RUN_LIMIT`), so
    Railway shows it **failed**, never "succeeded". Pulse opens a case when no run has started for 30 minutes or six
    runs in a row failed.
 
