@@ -1,0 +1,38 @@
+{
+ "zip": "migration-safety_20261114.zip",
+ "built_on": "bd09bca Sync: 2026-11-14 13:59 UTC",
+ "recorded": "2026-11-14 14:01 UTC",
+ "note": "Migrations at publish, copied first; data_reason; rollback leftovers (decisions/0162). Built on Sync: 2026-11-14 13:59 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/admin/sections.php": {
+   "sha256": "c31f13bb5b29fb412eb55a4f4419cc9edaba3ae16282c05b04530e6d9e8dec38",
+   "live": false
+  },
+  "app/data/decisions-index.php": {
+   "sha256": "96841993d62c211585e5330add7c93cef5acb0d906f639c32d2fa605ab0ba125",
+   "live": false
+  },
+  "app/lib/DbCopies.php": {
+   "sha256": "956479fe55f1ed91a36a590bbf8b63d859ac22f48af1a26bc42f6e452f5e6265",
+   "live": false
+  },
+  "app/lib/DbUpdates.php": {
+   "sha256": "6eeeea11e1821d1948640aecaff490712abd1672b6688f763174e7a5e9726b2a",
+   "live": false
+  },
+  "app/lib/Releases.php": {
+   "sha256": "233b15138c514a3f452c4ee176d3024ef87e3fecb7614a1fe0cf0ff3cb4cc6f1",
+   "live": false
+  },
+  "app/lib/SchemaUpkeep.php": {
+   "sha256": "fc37b044858796203a75c428703160accd285ff1d8e9a5b5ed19b7d3ca86f2dd",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "6044845ad5710c5506fa82a24b4712244d5e51d5eb95c03776a9071295780068",
+   "live": false
+  }
+ }
+}

@@ -27,8 +27,7 @@ release goes out?"), `app/data/decisions-index.php` (regenerated, adds 0162 and 
   `keep()`, `removable()`, `drops()`; `app/storage/schema/leftovers.json`. Listed on Database updates with Keep it.
 - Permission: `config.dbupdates.restore` (Executives by default).
 
-State: waiting for `service-health_20261114.zip` (crawler session, also carries `faq.md`) to go live; then re-apply the
-FAQ entry on the live copy, fetch, zip, `send.py`, ask Jason to approve the merge.
+State: sent 2026-11-14 on Sync 13:59 UTC (`releases/inbox/migration-safety_20261114.zip`); waiting for Jason to approve the merge, then for "Release #N: Live" and the sync.
 
 ## Release 2 (to build after release 1 is live and `Pulse.php`'s claim ends)
 
