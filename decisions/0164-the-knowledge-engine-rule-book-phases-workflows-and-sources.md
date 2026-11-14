@@ -11,7 +11,9 @@ separate record underneath it** (§10). Where an older record disagrees with thi
 found while writing it are listed in §12, settled by Jason (2026-11-14). **One home per fact** (Jason, 2026-11-14):
 numbers and operating settings (caps, budgets, paces, warning levels, the AI cap, Anthropic's and Gemini's settings, the
 switches, the switch-on check, the collaborative score's weights) live only in `decisions/0163`; this record holds the rules about data, sources, truth,
-phases, workflows, establishing listings, privacy and protected places, and points to 0163 wherever a number is needed.
+phases, workflows, establishing listings, privacy and protected places, and points to 0163 wherever a number is needed. **Amended the same day** by Jason's
+decisions on the gaps review (`research/knowledge-engine-gap-review-2026-11-14.md`) and the rural test's Run 2
+(`research/rural-test-2026-11-14.md` §8), applied in place and listed in §15.
 
 **How to read it.** The rule book (R1–R19) holds every rule 0133 set, kept in substance. §0 to §8 follow the draft's
 numbering: the foundations (§0), the six phases (§1 to §6, with the draft's subsections: lead sources are §1.5,
@@ -33,11 +35,11 @@ rules are here; the numbers are in 0163 (and the data gates in R10).
 2. **Read** (§1.2, §1.3). Switches, the restricted registry, robots.txt and non-public paths are checked first; the page
    is fetched politely (R18); we keep its fingerprint and the facts with their quoted snippets, never the page.
 3. **Classified** (§1.4). A tier (1–5) and a dossier; a person's call on the site and its licence override the machine.
-4. **Extracted** (Phase 2). The pre-scan, code first (§2.2), AI only for prose still needed (§2.3: public pages to
-   Gemini's free tier, a person's words only to Claude, R5); every fact stamped with its source, licence and exposure
+4. **Extracted** (Phase 2). The pre-scan, code first (§2.2), AI only for prose still needed (§2.3: public pages, private
+   details removed first, to Gemini's free tier to read, never to find; a person's words only to Claude, R5; §0.8); every fact stamped with its source, licence and exposure
    (§2.4).
 5. **Resolved and vetted** (Phase 3). Matched against what we hold (§3.1, §3.2; the grey zone tries our free anchors,
-   then Gemini, then Google Places); conflicts settled by the truth hierarchy, a person first (§3.3, R4); privacy, tier
+   then Google Places); conflicts settled by the truth hierarchy, a person first (§3.3, R4); privacy, tier
    and disposition set (§3.4, R6–R8); a business **established** once it passes the "real business" floor, with the
    confidence its sources give it (§3.5, R12).
 6. **Catalogued** (Phase 4). One identity record per thing (R11), on the map, linked into the Topic index (R15); gaps
@@ -46,6 +48,8 @@ rules are here; the numbers are in 0163 (and the data gates in R10).
    they have; guides and Find it by
    their scores (R10); the scrub (R6, R7); sources and freshness shown (§5.3).
 8. **Kept fresh** (Phase 6). Clocks and events send it back through steps 1–5 (§6.1): Refresh, Renew or Review.
+   **Nothing waits in Review alone:** every item for a person is a step in a Pulse case, and the engine keeps retrying on
+   the retry ladder meanwhile (§6.1); only a site that blocks us waits for a person's **Reactivate** (§1.2, 5).
 
 The same path for six cases:
 - **A business with a website:** W1 finds it (a lead or a link) → its site reads as Tier 2 → code takes the name,
@@ -56,8 +60,8 @@ The same path for six cases:
   establishes it alone (§3.5; §12, C2–C4) → it shows the licence's facts with the source and "Not yet confirmed by the
   business" → a lapsed licence is recorded and lowers its confidence, and "Still open?" asks (R12); it is never labelled
   Closed on the licence's word.
-- **A business found by open data and witnesses:** a lead from an open place dataset, Google Places, a Facebook page, a
-  chamber listing, OpenStreetMap or a page a Gemini lead cited and our crawler read (§1.5) → it passes the floor when it
+- **A business found by open data and witnesses:** a lead from an open place dataset (Overture first), Google Places' check, a Facebook
+  page, a chamber listing or OpenStreetMap (§1.5; Gemini is never a finder, §0.8) → it passes the floor when it
   has a real business name and an address or phone we may keep (§3.5) → it is public at once, at the confidence its
   independent sources give it through the collaborative score (weights: 0163 §12) → "Not yet confirmed by the
   business", with an invitation to claim; claiming and more agreeing sources raise it (§12, C1).
@@ -136,7 +140,9 @@ addiction, land and water disputes, a nation's history). What we manage is **exp
 Every fact and field records its source and who set it (crawler, staff, owner, member). The crawler writes only to its
 own fields, and only empty or crawler-owned ones; **a field a person entered or locked is never overwritten**; a claimed
 listing is only offered a change (evidence wins, unless claimed: 0062). A crawl that disagrees with a person raises a
-"check this?" (a tip or a Review item), never an edit.
+"check this?" (a tip or a Review item), never an edit. The item is a step in the engine's Pulse case (§6.1); on a
+claimed listing it also goes **to the owner**: the business portal's **Check these** (each offered change with its
+source: Accept / Keep mine) and a system email the day it's raised; the owner's answer settles the step (P3-5).
 
 ### R5. AI acts on a person's words only when called
 
@@ -181,6 +187,12 @@ Every catalog fact carries a tier set in Phase 3 and enforced in Phase 5:
 
 - A sacred, burial or protected place is **held** by default; it moves to story only when a public source presents it
   to visitors and our crawler confirms that, and never when a nation has closed or restricted it.
+- **Landmarks have the story-only level too** (Jason, 2026-11-14, P5-3): a landmark is shown, story only, waiting,
+  closed or hidden. **A Wikipedia article alone moves a held place only to story only** (named and told; no pin, no
+  coordinates in any public endpoint, the courtesy line); it is **fully public only when the managing authority's own
+  page says it's open to visitors**. Archaeological words (ruin, rock art, petroglyph, pictograph, cliff dwelling,
+  archaeological site) are held like the sacred and burials. A guide naming a held landmark (Find it) moves it no
+  further than this.
 - Story-only places carry a fixed courtesy line (look, don't touch, follow the nation's rules) and no pin.
 - Each record's fields split into **public-story-safe** and the **restricted internal vault** (access coordinates,
   gates, easements); the vault is never sent to a public endpoint or a writing prompt.
@@ -190,7 +202,8 @@ Every catalog fact carries a tier set in Phase 3 and enforced in Phase 5:
   data is never deleted. A nation's sites are always a person's call in the source register (0157 §7). Decisions about
   nations' land and sensitive sites are never made by a machine.
 - **Confidential listings** are never sent to outside services in verification, and Find it never looks up a
-  confidential name.
+  confidential name. The guard sits once in the Gemini client and every outside lookup, not in each workflow: a
+  protected, confidential or nation-sensitive name never leaves in a prompt (T1, §0.8).
 - **Limiting exposure:** every published fact keeps its source; anyone can ask for a takedown, and the item is hidden at
   once for a protected reason (a way in to a sacred, burial or archaeological place; a nation asking; someone's private
   information; a safety risk), otherwise when R10's takedown time passes without a decision; a quarterly sample audit of
@@ -241,7 +254,7 @@ tells the crawler where to look; the business's own site, a registry or a public
 |---|---|
 | OpenStreetMap (ODbL, share-alike) | its own layer (0065): a lead and a map link, credited, never a stored value we show in our records; within its layer, show all it gives |
 | Google | its place ID, check date and match only, as a link; its hours and status prompt a check; "Google verifies and links; it doesn't fill in listings" |
-| Facebook, Instagram, Yelp, MapQuest, BBB, Yellow Pages, Healthgrades and other commercial directories | links and citations; nothing read from them stored as our value |
+| Facebook, Instagram, Yelp, MapQuest, BBB, Yellow Pages, Healthgrades and other commercial directories | links and citations; nothing our crawler reads from them is stored as our value; a NAP item from a business's Facebook page may be used through Overture's Meta record or a person's entry citing the page (R14) |
 | Wikipedia (CC BY-SA) | cite only: linked, never copied or read in bulk |
 | Wikidata (CC0); Commons photos (CC0, public domain, CC BY, CC BY-SA, with credit) | owned facts; photos with credit |
 | The business's own site; government registries (NPI, IRS, state and county); the Census | owned: stored with the source (the IRS file: see §12, C2) |
@@ -258,6 +271,10 @@ tells the crawler where to look; the business's own site, a registry or a public
   show.
 - A fact is cataloged only when a source whose rule lets us keep and show it backs it: cite-only, evidence-only and
   pointer-only sources may confirm, never supply.
+- **A licence change follows the facts already stored** (P4-2): when a source's terms change (or an upstream's licence,
+  per record, at each load), its stored facts are re-sorted; those no longer keepable become evidence only; a listing
+  field resting only on them is taken off (R11: kept as taken off), else kept from its other sources; one Pulse step per
+  source shows the count.
 - **The register judges a site itself** (0157 §7): government, schools and official registries read regularly at once;
   commercial directories and social media cite only; chambers, tourism sites and organizations by their terms (the
   second tier, quoting the terms); a person's call always stands.
@@ -276,7 +293,7 @@ change there (kept with who and when, and a Reset); standards change only by a d
 | Listing publishes | readiness rules (no score; §5) | standard |
 | Listing established | the "real business" floor (§3.5): a real business name and an address or phone we may keep; then public at its confidence (R12) | standard |
 | Collaborative source score | feeds confidence, no threshold; its weights are settings in 0163 §12 | standard (weights tuned in 0163) |
-| Closed shown | the owner says so, the public confirms it (visitors' "Closed" answers on 3 devices, none "Still open" since), or the business's own site or sign says so (R12) | standard (the count tuned) |
+| Closed shown | the owner says so; our team confirms it (a call to a disconnected line, a visit, a photo of the sign, a visitor's photo our team confirms); the public confirms it (visitors' "It's closed" on 3 devices on at least 2 different days within 60 days, none "Still open" since the first; where no machine closure signal came first, our team's call confirms it before it shows); or the business's own site says so (R12) | standard (the count tuned) |
 | Guide publishes itself | score 70 | tuned |
 | Find it adds a listing | the floor (§3.5) + readiness; its score only orders the work (Claude: high 75 / medium 65, +5 each phone, address, website, 2+ sources; 80 first) | tuned |
 | Category set without a person / a person picks | 80% / under 50% (0024); "Other" never set by itself | tuned |
@@ -330,9 +347,12 @@ what it saw once, and every part of the system reads that record before it spend
 - **State business and licence registries only add:** a record found raises the score; not found never lowers it (many
   rural sole proprietors are never registered, and a business on a nation's land is licensed by the nation, whose
   register comes first); lapsed, dissolved or revoked is recorded and lowers it (more for dissolved or revoked), with
-  "Still open?" asked; never a Closed label on its own.
+  "Still open?" asked; never a Closed label on its own. A dissolved company is not a closed business (sole proprietors
+  often carry on), which is why it asks rather than closes (F1).
 - **Green means a person stands behind it:** machine evidence alone tops out at 75; our team's check or the owner's
-  claim lifts it (80 to 90, a verified claim 90 to 100), unless evidence turns against it.
+  claim lifts it (80 to 89; a verified claim 90 to 99). **A claim keeps its band** (P3-4): evidence against it shows as
+  a caution line and lowers it within the band; only a claim found false, or Closed, leaves the band. Each item against
+  is labelled with its true source ("Its own website says it closed", "A visitor reported …").
 - **A claim is a claim:** any claim puts a listing in the top band, Claimed by owner; the ✓ follows once the owner's link
   is proved; a claim found false drops it back to what its evidence earns.
 - **On the card:** the ring and **How we know** (each piece of evidence and its date, Is this right? Yes / No per
@@ -343,9 +363,19 @@ what it saw once, and every part of the system reads that record before it spend
   reporting it closed, or one site saying "closed" **never labels a listing Closed**: the fact is recorded and shown with
   its source where it helps ("Arizona's sales-tax licence lapsed, Oct 2026"), confidence drops (more for dissolved or
   revoked; 0163 §12), and a **"Still open?"** prompt asks visitors (and the owner, if claimed). **Closed** shows only when
-  the owner says so, the public confirms it (R10), or the business's own site or sign says so; it is still found by name,
+  the owner says so, our team confirms it (a call, a visit, a photo of the sign), the public confirms it (R10), or the
+  business's own site says so; it is still found by name,
   out of browse lists. **Moved** shows with the new address when known, never applied on its own. Listings with
   closure signals sort by their lower confidence, never hidden.
+- **Three states on the card, no others** (F3): **Open**; **Caution**, "Still open?" with the signal's own line and
+  source ("Arizona's sales-tax licence lapsed, Oct 2026"; "Its own website says it closed"); **Closed**, found by name,
+  out of browse lists, not scored down (it's Closed). "Reported closed" and "Possibly closed" are retired as labels.
+- **"Still open?"** (P5-2, built with W2): "Yes / It's closed" on a listing with a signal, counted per device a day,
+  never who. Two closure signals from different origins, or 30 days with a signal and fewer answers than R10's count,
+  put a step on the Call list (or in the engine's Pulse case when it has no phone), so a listing few people open never
+  sits in caution for good. A claimed listing's owner is told of a Closed and can undo it.
+- **Signals against** (F1; their values in 0163 §12) count once per origin, age like other evidence, and clear when
+  their source reverses (a licence renewed, the record back in the dataset) or the owner or the public says still open.
 - **Upkeep:** automatic checks monthly below 51, quarterly at 51 and above, **never more than 90 days apart**; anything
   that changes starts a check at once; the owner's "Still right?" email twice a year; full re-verification (registries,
   licences) yearly.
@@ -360,8 +390,9 @@ what it saw once, and every part of the system reads that record before it spend
 ### R13. AI's role: reader, researcher, writer, helper; never the source
 
 - **Reader:** turns what the crawler fetches into structured lines for the record; a page is read once and stored.
-  Public pages go to Gemini's free tier first; anything from a person or private goes only to Claude (§2.3, Decision 7).
-- **Researcher (Claude with web search; Gemini grounded search for leads):** fills gaps only, after the record and the
+  Public pages, with R6's private details removed first, go to Gemini's free tier first; anything from a person or
+  private goes only to Claude (§0.8, §2.3, Decision 7).
+- **Researcher (Claude with web search; Gemini never, unless Jason funds grounded search, §0.8):** fills gaps only, after the record and the
   free sources come up short; what it finds goes into the record.
 - **Writer (Claude):** guides, summaries, AI Assist answers and event descriptions, **only from the record**, through the
   same scrub and gates as everything else.
@@ -372,15 +403,19 @@ what it saw once, and every part of the system reads that record before it spend
 - Cheapest model first, prompts shaped in Content templates with a free Preview. **Gemini follows Claude's and the paid
   APIs' standards:** each feature's switch, model and provider, runs a day and budget on AI use; a director changes a
   feature's provider after the sample comparison (§2.3); Gemini's allowance is monitored and paced so it never becomes
-  unexpectedly unusable (0163 §7, §11).
+  unexpectedly unusable (0163 §7, §11). **Each feature declares what it carries** (public, a person's words, private);
+  Gemini is refused in code for anything but public, and AI use greys that choice out with the reason (P2-3).
 
 ### R14. Social pages: links, not sources we crawl
 
 Facebook and Instagram pages are **never crawled or scraped** (Meta's terms and its login wall), by the crawler or by an
 AI. A page is kept as the listing's social link and shown on the card; its existence is **weak evidence the business
-exists**, never of its phone, address or hours, and it never counts as a website (0086). A web search's title and
-snippet showing it count as one ordinary web source. Our team can read it and confirm details ("seen on its Facebook
-page"). Later, an owner may connect their own Page with Facebook Login, the one way a Page feeds the record directly.
+exists**, never of its hours, and it never counts as a website (0086). A web search's title and snippet showing it count
+as one ordinary web source. **A NAP item from its page** (name, address, phone; Jason, 2026-11-14) **may be used** when
+it comes (a) through **Overture's Meta record** (licensed, CDLA-Permissive-2.0, credited), or (b) from **a person** (the
+owner, our team or a visitor) who enters it with the page's public Facebook URL as its citation ("seen on its Facebook
+page"); it fills or verifies that field at that source's confidence. Our crawler still never reads facebook.com (Meta's
+terms forbid automated collection). Later, an owner may connect their own Page with Facebook Login, the one way a Page feeds the record directly.
 
 ### R15. The Topic index and AI Assist
 
@@ -416,12 +451,16 @@ a person.
   nothing publishes unless ready) → Opening budget (a one-time allowance, separate from upkeep, highest value first) →
   Soft open (readiness targets met; marked as a new area) → Open. A thin record starts gathering, never a failure; each
   hub makes the next cheaper; a hub readiness meter shows the targets, the budget and W14's staged sources. **A director
-  moves each stage** on the meter; **a state's first hub stays Planned until that state's R8 record is signed.** The
+  moves each stage** on the meter; **a state's first hub stays Planned until that state's R8 record is signed.** Each step that needs a person in a
+  hub's life (review its law, move it on when its targets are met, decide on a nation's sources) is a step, as a button,
+  in one Pulse case, **Hubs** (H4). The
   targets are gates in R10; the opening budget is set in 0163 §2 and shown in the register.
 - **Authority sources staged ahead of every hub** (Jason, 2026-11-14): W14 finds and stages each state's licence and
   registry sources in the source register before any hub there is planned, so **Planned** starts with them already
   known, their terms read and their readers tested. Opening a hub switches that state's staged sources on (after the
-  switch-on check, 0163 §10); nothing is bulk-loaded before its hub opens (0048 stands).
+  switch-on check, 0163 §10); nothing is bulk-loaded before its hub opens (0048 stands). **For a hub already open**
+  (Arizona's and New Mexico's), a newly staged source switches on by itself from its card once the switch-on check's hub
+  line passes for it (H3).
 
 ### R18. Fetching guardrails (fixed, not configured)
 
@@ -460,11 +499,27 @@ switches are the operations layer (0163, §10).
    our towns have only a licence, a Google or Facebook presence, a sign. A listing is established by **authority** (a
    government licence or registry), by **corroboration** (independent sources that agree), or by its owner, never only
    by having a website (§1.5, §3.5; Decision 8).
-8. **Two AI providers, each for what it's best at** (Decision 7): Gemini's free tier (Google AI Studio, no billing
-   linked) for bulk work on public pages and for finding leads with grounded search; Claude for writing in our voice and
-   for anything holding a person's own words or private data. The free tier lets Google use what we send, so **nothing
-   private ever goes to it**. It is run to the same standards as Claude and the paid APIs (R13). When its daily allowance
-runs out, the work **waits** (Decision 7; run as 0163 §11, which keeps a reserve so it doesn't run out unexpectedly).
+8. **Two AI providers, each for what it's best at** (Decision 7, as revised by the rural test's Run 2, §15): Gemini's
+   free tier (Google AI Studio, no billing linked) **reads public pages only** (extraction); **it is never a finder**.
+   The free tier has no Google grounding (Run 2: 429 on every current Flash model; 2.5-flash closed to new users), and
+   ungrounded Gemini was unreliable (55% of the businesses it named confirmed, about 15% of its phones right, numbers
+   made up), so its word is never a lead and weighs 0. **Grounded search only if Jason funds it**, as a paid feature
+   under "no income, no expense" (R19). Claude writes in our voice and handles anything holding a person's own words or
+   private data. The free tier lets Google use what we send, so **nothing private ever goes to it**, enforced once, in
+   the Gemini client (not per workflow):
+   - **"public" means a public page with R6's private details removed first** (§3.4's list, plus the people rule: names
+     beside birth, death, court or address words), so that removal runs at the start of Phase 2 as well as in Phase 3
+     (P2-1). Until W6's sources have that pass, W6 and every archive, newspaper and registry feature stay on Claude;
+   - **what goes to it is built by the system from our own vocabulary** (a kind from `OpenPlaces::KINDS`, a town from
+     `zip_coordinates`, a name from a guide the system wrote), never a person's words: a visitor's search words and the
+     names in a member's story go only to Claude, with consent (P2-2, R5);
+   - **a protected, confidential or nation-sensitive name** (`Landmarks::isProtected`, `ListingSafety::isConfidential`,
+     `Landmarks::NATION_SENSITIVE_CLASSES`) never leaves in a prompt (T1, R7);
+   - each AI feature declares what it carries, and Gemini is refused for anything but public (P2-3, R13).
+
+   It is run to the same standards as Claude and the paid APIs (R13). When its daily allowance runs out, the work
+   **waits** (Decision 7; run as 0163 §11, which keeps a reserve so it doesn't run out unexpectedly), as a page "waiting
+   to be read" (§1.1), never lost.
 
 ---
 
@@ -487,7 +542,10 @@ later phases, is normalized before queueing:
   `gclid`, `ref`); resolve relative paths; sort remaining query keys; strip trailing slashes except on the root.
 - **Deduplication and priority:** `url_hash = SHA256(normalized_url)`, checked against the frontier and the restricted
   registry before insert. Inserts from a Phase 3 recheck or a parser-drift flag get high priority.
-- **States:** `PENDING → IN_FLIGHT → FETCHED | RESTRICTED | FAILED_TRANSIENT | GONE`.
+- **States:** `PENDING → IN_FLIGHT → FETCHED | PENDING_EXTRACT | RESTRICTED | HELD_BLOCKED | FAILED_TRANSIENT | GONE`.
+- **Waiting to be read** (`PENDING_EXTRACT`, P1-1): set when Phase 2 stops short (Gemini's allowance, or the second
+  tier's budget, used). A page in it is re-fetched without `If-None-Match`/`If-Modified-Since`, and its fingerprint is
+  saved only once its facts are, so a 304 never hides a page we haven't read. Decision 1 stands (no page bodies kept).
 - **Per-host and per-workflow shares:** the frontier hands out work inside each workflow's share of a run
   (`CrawlService::plan`, 0160 §2), so one site or workflow can't starve the others; work not done goes back unchanged,
   never counted as a failure or a result.
@@ -504,9 +562,13 @@ In strict order, before any GET:
    the host's pace (the larger of it and our 1.5 s default).
 4. **Non-public paths** (`/wp-admin`, `/login`, `/signin`, `/account`, `/cart`, `/checkout`, `/auth`, `/dashboard`):
    recorded `ADMIN_PATH` and stopped.
-5. **Negative caching:** robots.txt exclusions are re-evaluated whenever the cached robots.txt changes (not kept
-   forever); paywalls (`PAYWALL`) and sign-in walls (`AUTH_WALL`) stay excluded, re-checked once a year; transient
-   failures back off exponentially (§1.3).
+5. **Negative caching and blocks** (Jason, 2026-11-14, P1-2): **a site that blocks us is never retried by itself.** A
+   block (`AUTH_WALL`, a robots.txt exclusion, a Cloudflare challenge, a 403 or 406 ban) records its reason, **holds the
+   site** (`HELD_BLOCKED`) and opens a step in a Pulse case for a person, with the evidence and a **Reactivate** button.
+   It is re-read only after a person reactivates it (one polite try under R18; still blocked, it is held again with its
+   step back). Records resting on it refresh from their other sources meanwhile (the identity record, open data, the
+   Call list) and show "last checked" (Decision 3). Paywalls (`PAYWALL`) stay excluded, re-checked once a year;
+   transient failures back off exponentially (§1.3).
 
 ### 1.3 HTTP fetch and post-fetch restriction capture
 
@@ -518,7 +580,7 @@ In strict order, before any GET:
   - **301/302/307/308:** a redirect to a sign-in page records the original as `AUTH_WALL`; otherwise the target is
     queued (at most 3 hops, each hop checked against private addresses).
   - **401/403/451:** `AUTH_WALL` (451: refused); never retried another way (no new agent, no other route, no paid
-    reader).
+    reader); held for a person's Reactivate (§1.2, 5).
   - **402, or a hard paywall signature** (`isAccessibleForFree: false` with a cut-off body): `PAYWALL`.
   - **404/410:** `GONE`. **Two clocks** (§14 point 11): the **page record** is re-checked once after 30 days, then
     archived; the **listing's website field** comes off the listing when the site fails twice, 3+ days apart, and the
@@ -526,7 +588,8 @@ In strict order, before any GET:
     never closes it (Jason, 2026-11-13; R12); robots.txt blocks and spent budgets never count.
   - **429/5xx:** back off `2^attempt` minutes, at most 5 tries, following the server's `Retry-After` exactly.
   - **406/418 from an API** (a ban): the service check holds the service and opens one Pulse case; never retried until
-    resolved (live 2026-11-14).
+    a person reactivates it (§1.2, 5; the hold and its case live 2026-11-14). Holds for quota and back-off (429, 5xx, a
+    spent budget) still return by themselves (§6.1).
 - **Second tier** (0157): a page that matters and that our fetch can't get may go to Tavily Extract, a scanned PDF to
   Textract, within their budgets; never a page robots.txt or the site refuses.
 
@@ -557,22 +620,39 @@ Finding businesses that have no website, and proving they're real, from four kin
 
 | Kind | Sources | What we may do with it | Cost |
 |---|---|---|---|
-| **Authority: licences and registries** | Arizona Corporation Commission and New Mexico Secretary of State (companies); Arizona TPT (sales tax) licence lookup; liquor licences (Arizona DLLC, New Mexico ABD); Arizona Registrar of Contractors; county health permits and inspections; state licensing boards (cosmetology, auto, medical); NPI; the IRS nonprofit list; Recreation.gov | public records: store and show the facts they state, with the source; a match **establishes** a listing (§3.5; see §12, C2–C4 for NPI, IRS and bulk files) | free (bulk files where offered, else paced lookups, 0163 §1); each source's terms checked first |
+| **Authority: licences and registries** | Arizona Corporation Commission and New Mexico Secretary of State (companies); Arizona TPT (sales tax) licence lookup; liquor licences (Arizona DLLC, New Mexico ABD); Arizona Registrar of Contractors; county health permits and inspections; state licensing boards (cosmetology, auto, medical); NPI; the IRS nonprofit list; Recreation.gov | public records: store and show the facts they state, with the source; a match **establishes** a listing (§3.5; see §12, C2–C4 for NPI, IRS and bulk files); each source's **real use** recorded by W14 (§7.1, 3) | free (bulk files where offered, else paced lookups, 0163 §1); each source's terms checked first |
 | **Open place datasets** | Overture Maps Places; Foursquare's open places data | **once their licences are confirmed** (Decision 9): name, address, phone, website, social pages, category, confidence, stored and shown with credit | free bulk downloads, refreshed with each release (monthly for Overture) |
-| **Witnesses** (confirm, never copied) | Google Places (keep the place ID only); Gemini grounded search and Maps grounding (results only point; Google's display and storage rules followed) | weight in the collaborative score, which feeds confidence ("confirmed open on Google"); a lead and its links to read | Places paid per call, within its paced budget (0163 §1); grounding free, within Gemini's allowance (0163 §11) |
+| **Witnesses** (confirm, never copied) | Google Places (keep the place ID only), checked in the order set in 0163 §12; Gemini grounded search and Maps grounding **only if Jason funds them** (§0.8; results only point; Google's display and storage rules followed) | weight in the collaborative score, which feeds confidence ("confirmed open on Google") | Places paid per call, within its paced budget (0163 §1, §12); no grounding on Gemini's free tier (Run 2) |
 | **Pointers** | OpenStreetMap (0065); a business's Facebook page (R14); chamber and tourism directories (cite only unless their terms allow) | a lead to read, and weight in the collaborative score when it agrees (§3.5) | free |
 
 - **Every state's authority sources are found and staged by W14** (§7.1), off until that state's hub opens (R17).
 - **OpenCorporates is not used** (Decision 6): the state registries and our free anchors instead.
-- **Gemini grounded search** asks "what [kind] is in [town]?" and returns leads with the pages it used. A lead is kept
-  only with a cited link, and nothing it says becomes a fact until a licence, an open dataset or the business's own page
-  confirms it (it can be confidently wrong). Only public words go to it.
+- **Lead order** (Run 2; the order and its values are settings in 0163 §12): **Overture** as the base layer and **NPI**
+  by town for health care first (free, no key), then **Google Places' check** for finds without a website that have a
+  phone. Our own older listings are a lead source only (weight 0): 21 businesses in the two Apache County towns are only
+  there.
+- **NPI's two guards** (Run 2): departments fold into their parent (same address or building); non-public kinds (air
+  ambulance, home care, residential treatment, VA registrations) are kept as records but not shown as places to visit,
+  with a Review step to list one anyway if it serves visitors. Otherwise NPI alone establishes (§12, C3).
+- **Gemini is never a finder** (§0.8): ungrounded, it named businesses from memory with made-up phones (Run 2). Grounded
+  search, if Jason funds it, asks "what [kind] is in [town]?" built from our vocabulary only (§0.8); a lead is kept only
+  with a cited link, and nothing it says becomes a fact until a licence, an open dataset or the business's own page
+  confirms it.
+- **A lead's states** (P1-4): **new → read** (its cited page read by our crawler) **→ witness only** (its cited pages are
+  cite-only or social: counted in the collaborative score, then closed) **→ expired** (90 days with nothing readable).
+  Each lead counts once in the register's "what it produced" (0163 §1).
+- **Arizona's licence sources as found** (Run 2; each one's real use recorded by W14, §7.1): the liquor (DLLC),
+  contractors (ROC) and county sites (Apache, Navajo) block automated reading behind Cloudflare: **blocked**, so a person
+  or a public-records request for their lists as files; the TPT lookup takes only a licence number behind a CAPTCHA: a
+  **claim-time check** of the number the owner gives; the Corporation Commission moved to
+  `arizonabusinesscenter.azcc.gov` (its terms read before use). Kayenta: the Navajo Nation's own sources under 0066.
 - **The rural research test first** (Decision 10, accepted to run now): Kayenta, St. Johns and Springerville, a few
   kinds of business, comparing what OpenStreetMap, Overture, Foursquare's open data, the state licence lookups, Gemini
   grounded search (only with a Gemini key, within the free allowance) and our current listings find; confirming each
   source's licence terms; reporting how many real businesses each mix would establish without a website. Free; nothing
   on the live site changes. **Run 2026-11-14:** `research/rural-test-2026-11-14.md`. Its proposed weights are the
-  collaborative score's starting settings (0163 §12), tuned by its Run 2; its threshold is not used (§3.5).
+  collaborative score's starting settings (0163 §12), tuned by its Run 2 (its §8; applied 2026-11-14, §15); its
+  threshold is not used (§3.5).
 
 ---
 
@@ -615,8 +695,9 @@ Only when required fields are still empty after Step 1 and the body has prose (4
   windows on people, trades, water, materials, land and hardship.
 - **Tier B, local NER:** a small entity tagger on the worker (a bigger Railway worker; its cost goes in the register).
 - **Tier C, the AI reader** (Decision 7):
-  - **public pages go to Gemini's free tier** (Flash or Flash-Lite), within its allowance; when that is used up **the
-    work waits** (its limits and how the service check holds it: 0163 §11);
+  - **public pages, with R6's private details removed first (§0.8), go to Gemini's free tier** (Flash or Flash-Lite)
+    to be read, within its allowance; when that is used up **the work waits** as a page waiting to be read (§1.1; its
+    limits and how the service check holds it: 0163 §11);
   - **pages from a person** (a member's post, a scanned card, anything private) **go only to Claude** (Haiku), within
     the AI cap and the workflow's budget (0163 §7), counted per call;
   - a sample read by both is compared, and **a director** then changes the feature's provider on AI use (0163 §11);
@@ -661,13 +742,13 @@ priority by search demand and residents affected; how deep research goes; the th
   goes to the verification worker before any person:
   1. **Our own free anchors first:** the identity record, the place store, NPI, the IRS list, Recreation.gov, the Census
      geocoder, the licence registries and the open place datasets (§1.5).
-  2. **Gemini grounded search** within its free allowance (0163 §11): is it real and open, with links to read (the links are read
-     by our crawler; Gemini's words aren't evidence, R13).
-  3. **Google Places** (paid per call, inside its paced budget, 0163 §1): to confirm the place exists and is open and to keep
-     its place ID only (never Google's coordinates or address).
-  4. **Company registries:** the state registries where they can be read for free. **OpenCorporates is not used**
+  2. **Google Places** (paid per call, inside its paced budget and check order, 0163 §1, §12): to confirm the place
+     exists and is open and to keep its place ID only (never Google's coordinates or address). (Gemini grounded search
+     stood here; it isn't used, §0.8.)
+  3. **Company registries:** the state registries where they can be read for free. **OpenCorporates is not used**
      (Decision 6).
-  5. Re-score: ≥ 0.95 merges with the receipt attached; still grey goes to Review with a 30-day quarantine.
+  4. Re-score: ≥ 0.95 merges with the receipt attached; still grey goes to Review as a step in the engine's Pulse case
+     (§6.1) and is **re-checked on the retry ladder** (§6.1; P3-3), never left; a person's answer ends it at once.
 - **Cross-checks for heritage facts:** a primary record or two independent sources; **two secondary sources resting on
   the same primary count once, unless we read the primary** (as copies count once, R11); a research brief never counts
   as a source.
@@ -700,7 +781,8 @@ crawl that disagrees raises a "check this?" instead. Then, by field:
     vetted continuously.
   - **ACTIVE_RESEARCH_ONLY:** context and background, held for research briefs.
   - **UNIVERSAL_RESEARCH_ARCHIVE:** every valid fact (never page bodies), kept; nothing valid is discarded.
-  - **HOLD_NEEDS_RECHECK:** past its freshness or flagged for parser drift; queued back at high priority. **It stays
+  - **HOLD_NEEDS_RECHECK:** past its freshness or flagged for parser drift; queued back at high priority (a source that
+    blocks us excepted: it waits for a person's Reactivate while the record refreshes from its other sources, §1.2, 5). **It stays
     public with "last checked" shown, out of browse lists only when Closed under R12** (Decision 3), so a paused crawler or a
     source that blocks us never empties the site. (The draft's 90-day Tier 1 / 30-day Tier 2 clocks: §12, C6.)
 
@@ -716,16 +798,29 @@ business" floor**:
 It is then public, through readiness (§5.4), **at whatever confidence it has** (R12); nothing is held back for low
 confidence. Without a keepable address or phone it **stays a sighting** until a keepable source supplies one.
 
+**Verified NAP is the goal, not the start** (Jason, 2026-11-14: "NAP is what we ultimately want verified, but listings
+starting as just one or even no NAP can be refined over time or by real people"). A verified Name, Address and Phone is
+what every listing works toward; a listing may start with part of it and is refined by sources, the owner and people.
+**Each NAP field shows how it's known** (its source and date: a licence, an open dataset, the owner, our team, a
+visitor, "seen on its Facebook page", R14). The floor above stays the line for going public. **A sighting** (P3-2)
+joins §4.5's gaps as a discovery target, retried on the retry ladder (§6.1); one with a Facebook link is a step in a
+Pulse case, **Confirm from its page** (the link and the fields to type, R14); its town page asks visitors "Know its phone
+or address?" as a suggestion.
+
+**Pending Jason's choice** (the session manager's proposal): a find with only a name and a town either gets a public
+**"Help us find this business"** card asking people for its address or phone, or stays a sighting until a source or a
+person supplies one. Until he chooses, it stays a sighting.
+
 What raises its confidence, strongest first:
 1. **The owner** claiming it (a claim, a GO Code at the counter, a staff visit): the strongest, always above the rest.
 2. **Its own website** naming it.
 3. **A government licence or registry match** on name and address, alone (as NPI and the IRS file: §12, C2–C4).
 4. **The collaborative source score** (Jason, 2026-11-14): independent sources agreeing on the name plus the phone or the
    address each add their weight (an open place dataset, Google Places confirming it open, a Facebook page, a chamber or
-   tourism listing, OpenStreetMap, a page cited by a Gemini lead and read by our crawler). **It is not a gate and has no
+   tourism listing, OpenStreetMap, a directory page our crawler read; never Gemini's own word, which weighs 0). **It is not a gate and has no
    threshold: it feeds the confidence shown** (R12). Sources count as independent only when one isn't copied from
    another (two directories fed by the same dataset count once). Its weights are settings in 0163 §12, starting from
-   the rural test's proposal (§1.5) and tuned by its Run 2.
+   the rural test's proposal (§1.5), as tuned by its Run 2 (§15).
 
 What it shows comes from what we may keep (the licence, the open datasets with credit, a readable page, the owner), never
 copied from Google, OpenStreetMap or Facebook (R9). Until the owner confirms, it shows **"Not yet confirmed by the
@@ -733,8 +828,8 @@ business"** with an invitation to claim it. Machine evidence alone stays below g
 
 **Closure in reverse, as curators, not regulators** (R12): a licence lapsing (or dissolved, revoked), Google reporting it
 closed, an open dataset dropping it, or one site saying "closed" is recorded with its source and lowers confidence, and
-"Still open?" asks visitors and the owner; it is labelled **Closed** only when the owner says so, the public confirms it,
-or its own site or sign says so (W2).
+"Still open?" asks visitors and the owner; it is labelled **Closed** only when the owner says so, our team confirms it, the public
+confirms it, or its own site says so (R10, R12, W2).
 
 ---
 
@@ -773,9 +868,14 @@ search. 5.7 has no CTEs or window functions, so graph walks stay small, bounded 
 
 ### 4.5 Gap analysis and the feed-forward loop
 
-Completeness queries flag records missing key fields; each becomes a discovery target in Phase 1's frontier at high
-priority. Gaps also come from searches (W12, "every search is demand") and from topics and guides with thin coverage
-(R15), ordered by how often they're asked for.
+Completeness queries flag records missing key fields, sightings included (§3.5); each becomes a discovery target in
+Phase 1's frontier. A gap records **"looked, none found"** with the date and is retried on the retry ladder (§6.1), not
+every run, and never dropped (P4-1); "no website" stops being a gap once two looks found none (R12: it never counts
+against a listing). Gaps also come from searches (W12, "every search is demand") and from topics and guides with thin
+coverage (R15), ordered by how often they're asked for. **A search that found nothing** records demand (P1-3): the
+place, and the kind or topic from our own vocabulary, never the words (§0.8); a kind becomes a town crawl want
+(`TownCrawl::want`), a topic a topic gap for W6 (R15), ordered by how often asked. Search targets inside an open hub
+aren't held for a person.
 
 ---
 
@@ -812,15 +912,18 @@ credited; a cite-only source shown as a citation, never as our words.
   today**, and people and land are told together. Guides, journeys, live events, how-tos and stories (W4, W5, W7, W10,
   W11, W13) are written only from `PUBLIC_STORY_SAFE` facts and vetted research.
 - **Gates (rule-based, R10):**
-  - **Listings** publish when **ready** (0076): **real** (past the "real business" floor, §3.5), **complete** (name, phone or website, a
-    street number or point in an area we cover), **appropriate** (a category fits, no spam or adult content), **unique**
+  - **Listings** publish when **ready** (0076): **real** (past the "real business" floor, §3.5), **complete** (one rule, P3-1:
+    the floor's name and keepable phone or street address, a website adding to it, and **a point in an area we cover**,
+    from the address, the dataset's own point, or the town's middle marked approximate; a listing with only an address
+    shows Directions and "No phone yet: know it?"), **appropriate** (a category fits, no spam or adult content), **unique**
     (no unresolved duplicate). No confidence threshold; everything after publishing is handled by rule in Phase 6.
   - **Guides** publish themselves at R10's guide score.
   - **Find it** results must pass the "real business" floor (§3.5) and readiness, and get confidence like any listing;
     R10's Find it score only orders the work (an AI's word is never evidence, R13). This replaces "a medium find with a
     phone, an address and two or more sources is enough" (2026-11-01).
   - **A person** only for exceptions: a pipeline exhausted, a protected item, a conflict with a person's own content,
-    nations' land.
+    nations' land. Every exception is a step in a Pulse case (§6.1, X3); the engine keeps retrying in the background
+    meanwhile (the retry ladder).
 - **The check before saving** (the scrub) enforces R6 and R7 and removes any talk of our research ("according to our
   sources", dead websites).
 - **Bridges to the real place:** GO Codes at markers, trailheads, theaters and storefronts (later).
@@ -834,7 +937,10 @@ A loop back through Phases 1 to 3 that keeps what's published true.
 ### 6.1 Background workers and clocks
 
 - **Clocks:** listings by band (R12); source pages and their facts by tier (§12, C6); guides every 30
-  days; dossiers every 6 months; research briefs every year; events every month.
+  days; dossiers every 6 months; research briefs every year; events every month. **Every clock counts only time its
+  workflow was switched on** (X1): paused time is stored per workflow (from `automation_log`), or due dates move on by it
+  at switch-on, so a pause never makes finds "run out" (`AutoImport::exhausted`) or every listing fall due at once; the
+  switch-on check shows each workflow's backlog and its order (0163 §10).
 - **Events that start a check:** a source we read changes; a listing closes or moves; a name in a guide goes closed; a
   visitor reports something; a date in the text passes; search demand spikes; the season turns. Opening a guide raises
   its place in the queue; it never runs a check on the spot.
@@ -843,21 +949,34 @@ A loop back through Phases 1 to 3 that keeps what's published true.
 - **Outcomes:** **Refresh** (crawler-owned facts updated automatically); **Renew** (content the system wrote is
   re-researched, rewritten and re-scored under the same gates); **Review** (a person, only when their own content or a
   protected item is involved).
+- **The engine needs a person: one Pulse case** (X3). Every item the crawler or the system raises for a person ("Possibly
+  closed" on a claimed listing, R4's "check this?", "Moved or wrong address?", Listing Intake's out-of-options finds and
+  search targets, the grey zone, a held email, the place store's sites waiting for a call, a nation's sites, a blocked
+  site's Reactivate) is a step, each a button that does it (Confirm closed, Keep open, Merge, List anyway, Choose
+  category, Clear email, Reactivate), grouped as `AutoImport::reason()` groups them and ordered by value; claimed
+  listings' items first, and to the owner too (R4).
+- **The retry ladder: never purgatory** (Jason, 2026-11-14: "waiting for review is purgatory, so we keep trying"; P3-3,
+  P4-1). Whatever the engine retries for itself (the grey zone, gaps, sightings, out-of-options finds) is retried on its
+  normal cadence, then waits longer after repeated fails, and keeps trying for good; **any new evidence resets it**. Its
+  steps are settings in 0163 §12. Review still shows the item with its step; the system keeps trying in the background.
+  The one exception is a site that blocks us: it waits for a person's Reactivate (§1.2, 5).
 - **Topics:** a topic's summary and state of knowledge are refreshed when its facts change; topics asked for often
   first.
 - **Freshness sweeper:** stale records to `HOLD_NEEDS_RECHECK` (still shown with "last checked", §3.4) and their URLs to
-  the frontier at high priority.
-- **Quarantine worker:** re-checks grey-zone records when their 30 days end (free anchors first, then paid within
-  budget).
+  the frontier at high priority (a blocked source excepted, §1.2, 5).
+- **Quarantine worker:** re-checks grey-zone records on the retry ladder (free anchors first, then paid within budget);
+  a person's answer ends it at once.
 - **Canary for parser drift:** a site paused for drift is dry-run after 7 days and unpaused only if the new rules work;
-  feeds the **"returns empty"** Pulse case (0163 §4).
+  feeds the **"returns empty"** Pulse case (0163 §4). After two failed dry runs the case gets a step **Needs a reader
+  fix**, naming the site and the empty fields, picked up by the crawler session's handoff; the site's facts keep showing
+  with "last checked" (P6-1).
 - **Credibility balancer:** a site's credibility falls on failures and contradictions and climbs back after clean batches
   (0157 §5's borne out and shown wrong).
 - **Rural sources refreshed:** open place datasets reloaded with each release (monthly for Overture); licence registries
   re-read on their own cycle; a lapsed licence (or a dataset dropping a place) lowers confidence and asks "Still open?",
   never closes it (R12).
 - **Service return:** a held service returns by itself when its status check answers normally, on 0163's ramp (§10, 2;
-  live).
+  live), for quota, back-off and budget holds; a ban or a block waits for a person's Reactivate (§1.2, 5).
 
 ### 6.2 Splitting and the audit trail
 
@@ -877,25 +996,25 @@ needs; each has its own queue, share, report and costs (0160 §4) and its switch
 
 | Workflow | Phases | Under this record |
 |---|---|---|
-| W1 Listings | 1–4, 5.4 | leads from licences, open place datasets, Gemini grounded search and OpenStreetMap (§1.5); public once past the "real business" floor, at its confidence (website, licence, collaborative score, owner: §3.5); published when ready (§5.4) |
-| W2 Keeping listings current | 6 (via 1–3) | cadence by band (R12); closure signals (lapsed licences, dataset drops, Google, one site) lower confidence and ask "Still open?"; Closed only from the owner, the public or the business's own site or sign (R12) |
+| W1 Listings | 1–4, 5.4 | leads in Run 2's order: Overture and NPI, then Google Places' check, with licences and OpenStreetMap (§1.5; Gemini never a finder, §0.8); public once past the "real business" floor, at its confidence (website, licence, collaborative score, owner: §3.5); published when ready (§5.4) |
+| W2 Keeping listings current | 6 (via 1–3) | cadence by band (R12); closure signals (lapsed licences, dataset drops, Google, one site) lower confidence and ask "Still open?"; Closed only from the owner, our team, the public or the business's own site; "Still open?" built here (R12) |
 | W3 Source register and place store | 1, 2 | the dossier engine (§1.4); the person's call on each site; each licence registry and open dataset is a source with its licence (R9) |
 | W4 Place guides | 4, 5.4 | written from public-safe facts and research; publishes at R10's guide score; the three protected levels (R7) |
 | W5 Guides on demand | 4, 5.4 | a first look from what we hold; within its share of the daily AI allowance (0147; 0163 §7) |
 | W6 Heritage and topics | 1–4, 6 | Library of Congress; vetting (§3.2); the Topic index (R15) |
 | W7 Journeys | 5.4 | from a guide's places, by rules; openrouteservice; OpenStreetMap's details never copied into stops |
-| W8 Find it | 3, 4 | names in guides and stories resolved against the catalog; Gemini grounded search before paid web search; Find it's gate (§5.4) |
+| W8 Find it | 3, 4 | names in guides and stories resolved against the catalog; Claude's web search for what's left (Gemini grounded search only if funded, from our vocabulary, never a member's names: §0.8); Find it's gate (§5.4) |
 | W9 Landmarks and places on demand | 1–4 | the three protected levels; nations' land (0066); Wikipedia cite only |
 | W10 Live events, W11 How-tos | 1–5 | official pages first; how-tos from official pages only, under their terms |
-| W12 Search learning | 4.5 | searches feed the frontier; grounded search for gaps open data couldn't fill |
-| W13 Stories | 5.4 | person-written only (R5); named places to Find it |
+| W12 Search learning | 4.5 | searches feed the frontier; a search that found nothing records demand by place, kind or topic, never the words (§4.5); no grounded search unless funded (§0.8) |
+| W13 Stories | 5.4 | person-written only (R5); named places to Find it, on Claude only (§0.8) |
 | **W14 Authority sources** (new, Jason, 2026-11-14) | 1, 2, 6 | finds and stages each state's licence and registry sources in the source register ahead of its hubs (§7.1) |
 
 **The new parts and where they fit** (Jason, 2026-11-14; built in the order of 0163 §8, stages 7–11):
 
 | Part | What it is | Phases | Used by | Managed by |
 |---|---|---|---|---|
-| Gemini | a service (Google AI Studio's free tier) | 1, 2, 4 | W1, W8, W12, W14, and extraction (§2.3) | AI use (per feature) and the register (0163 §1, §11) |
+| Gemini | a service (Google AI Studio's free tier): reads public pages only, never a finder (§0.8) | 2, 4 | extraction (§2.3) wherever public pages are read (W1, W3, W14 among them); grounded search only if funded | AI use (per feature) and the register (0163 §1, §11) |
 | Open data loads: Overture, Foursquare's open data | sources | 1, 2, 3, 6 | W1, W2 | W3 (the source register) |
 | Licence sources | authority (Tier 1) | 1, 2, 3, 6 | W1, W2 | W14 (§7.1) |
 | The collaborative score | a Phase 3 rule feeding confidence (§3.5, R12) | 3 | W1, W8, W2 | its weights in 0163 §12 |
@@ -907,17 +1026,23 @@ needs; each has its own queue, share, report and costs (0160 §4) and its switch
 each state publishes them differently. Researching them by hand when a hub opens is slow; W14 makes it part of the
 phases, so opening a hub starts with its sources ready.
 
-- **Started by:** a state named in `regions.md` as planned or next; a schedule working through all states in waves
+- **Started by:** a hub marked **Planned** on the readiness meter by a director (H1: `regions.md` is the plan, but the
+  site can't read it); a schedule working through all states in waves
   (Arizona and New Mexico first; then Utah, Colorado, Nevada, California, Texas; then the rest); a person asking for a
   state; a source's yearly re-check.
 - **Steps, through the phases:**
   1. **Find** (Phase 1): for each state and kind (company registry; sales tax or business licences; liquor; contractors;
      health permits, often by county; professional and trade boards; nonprofits federally), start from official
-     directories of state agencies and national associations of those agencies, then Gemini grounded search ("[state]
-     liquor licence lookup") for the official page. Only government domains (or a nation's own, below) are kept.
+     directories of state agencies and national associations of those agencies (read by our crawler, Gemini reading
+     the public pages; no grounded search unless funded, §0.8). Government domains (or a nation's own, below) are kept,
+     and **a vendor-hosted page the agency's own government page links to** (the link kept as its provenance, Tier 1;
+     H2); a person's call when no government page links to it.
   2. **Read its terms** (Phase 1): robots.txt, the site's terms of use and any data licence; whether automated reading
      is allowed; rate limits.
-  3. **Classify** (§1.4): Tier 1 authority; how it can be read (bulk file, API, lookup page); what it proves (exists,
+  3. **Classify** (§1.4): Tier 1 authority; how it can be read (bulk file, API, lookup page) and **its real use** (Run 2): **bulk data**;
+     **lookup only** (paced); **blocked** (a Cloudflare challenge or a ban: a person, or a public-records request for the
+     list as a file; held under §1.2, 5); or **claim-time check** (a lookup by a number the owner gives, as Arizona's
+     TPT); what it proves (exists,
      open, kind of business, location); how often it changes; the fields it gives.
   4. **Test the reader** (Phase 2): read a handful of records (a few, politely) to confirm the fields come out; nothing is
      kept beyond the test.
@@ -928,7 +1053,8 @@ phases, so opening a hub starts with its sources ready.
 - **Tribal nations:** each nation's own business, licensing or enterprise sources are found and staged the same way, but
   read only after a person's call and under the nation's rules (0066, R7, §12 C12). State records rarely reach nations'
   land (the rural test, Kayenta).
-- **Gate:** government (or a nation's own) sources only; terms read; a person's call where unclear.
+- **Gate:** government (or a nation's own) sources, or a vendor page one of them links to (H2); terms read; a person's
+  call where unclear.
 - **Makes:** staged rows in the source register, ready for a hub; the state's readiness line in the hub meter (R17).
 - **Cost:** free sources and Gemini's free tier only; its switch is off until Jason turns it on (0163 §9).
 
@@ -960,8 +1086,10 @@ phases, so opening a hub starts with its sources ready.
 5. **Where this lives:** this record, with 0133's rule book brought in; 0133 closed and pointed here; older records that
    align pointed here (§11); 0163 stays as operations underneath. *Decided.*
 6. **OpenCorporates:** not used (§1.5, §3.2). *Accepted.*
-7. **Gemini:** free tier only, no billing linked; public pages and grounded leads; Claude for writing and anything
-   private; when the allowance runs out the work waits (§0.8, §2.3; run as 0163 §11). *Accepted.*
+7. **Gemini:** free tier only, no billing linked; **reads public pages only, never a finder** (revised 2026-11-14 by
+   the rural test's Run 2: the free tier has no grounding; grounded search only if Jason funds it, §15); Claude for
+   writing and anything private; when the allowance runs out the work waits (§0.8, §2.3; run as 0163 §11). *Accepted;
+   revised.*
 8. **Businesses without a website or licence:** a find is public once it passes the "real business" floor; the
    collaborative source score feeds its confidence, with no threshold; "Not yet confirmed by the business" until the
    owner claims it (§3.5). *Decided; revised 2026-11-14 ("we dont restrict listings we add confidence to them").*
@@ -1000,7 +1128,8 @@ disagrees, this section governs; the older text stays as history.
   charities) and its stated facts (name, address) are stored and shown with the source. 0133's "confirms, never shown,
   never creates a listing" is replaced.
 - **C3. NPI** is a government source: **alone it establishes** a listing (0160 W1, Jason 2026-11-13). 0133's "needs one
-  more" is replaced.
+  more" is replaced. Run 2's two guards apply (§1.5): departments fold into their parent; non-public kinds aren't shown
+  as places to visit.
 - **C4. Bulk loads:** a licence or registry match **establishes a listing alone**, as NPI and the IRS file do (§14 point
   2); an open dataset's record is public once it passes the "real business" floor (§3.5); both publish through readiness
   (§5.4) at their confidence, shown "Not yet confirmed by the business" until the owner claims it. 0133's "a bulk dataset
@@ -1011,7 +1140,7 @@ disagrees, this section governs; the older text stays as history.
   days Tier 1, 30 days Tier 2) apply to **source pages and their facts**, beside it.
 - **C7. Closure signals** (one site's "closed", a lapsed, dissolved or revoked licence, a dataset dropping a place,
   Google closed) are recorded and lower confidence, with "Still open?" asked; **Closed** is shown only from the owner,
-  the public or the business's own site or sign (R12; Jason, 2026-11-14). 0072's and 0133's closing rules, and 0160 W2's
+  our team, the public or the business's own site (§15) (R12; Jason, 2026-11-14). 0072's and 0133's closing rules, and 0160 W2's
   "scoring decides closure", are replaced.
 - **C8. The AI monthly cap** is the one set 2026-11-14 in 0163 §7 (`AI_MONTHLY_CAP_USD`); older records' figures are
   replaced.
@@ -1029,7 +1158,7 @@ disagrees, this section governs; the older text stays as history.
 Jason approved this record and 0163 on 2026-11-14 ("all approved"). The build follows 0163 §8 (the operations stages,
 then stages 7–11 for this record's new parts), each a release he approves. **The crawler and the automation stay paused**
 until those stages and the switch-on check (0163 §10) are done and Jason switches them on. The rural research test
-(§1.5) ran 2026-11-14 (`research/rural-test-2026-11-14.md`); its Run 2 tunes the collaborative score's weights.
+(§1.5) ran 2026-11-14 (`research/rural-test-2026-11-14.md`); its Run 2 ran the same day and tuned the weights; Jason's decisions on it and on the gaps review are §15.
 
 ## 14. Found in the start-to-finish check: settled (Jason, 2026-11-14, "all approved")
 
@@ -1041,7 +1170,8 @@ conflicts in understanding how the knowledge engine works start to finish"). **S
 2. **A licence match** establishes alone, like NPI and the IRS file (§3.5, C4). *Accepted.*
 3. **Seeding** (R17): leads checked at the business's own site, a registry, or established by the floor and its sources.
    *Accepted.*
-4. **A listing without a keepable address or phone** stays a sighting (§3.5). *Decided.*
+4. **A listing without a keepable address or phone** stays a sighting (§3.5). *Decided.* (Refined in §15: verified
+   NAP is the goal; the name-and-town card is pending Jason's choice.)
 5. **The collaborative score** is no longer a gate with a threshold: it feeds confidence; its weights are settings in
    0163 §12, from the rural test, tuned by its Run 2 (§3.5, R10, C4). *Decided (Jason: "we dont restrict listings we add
    confidence to them").*
@@ -1060,7 +1190,52 @@ conflicts in understanding how the knowledge engine works start to finish"). **S
 14. **One build order** in 0163 §8, this record's new parts as stages 7–11 (§7's table). *Accepted.*
 15. **Gemini follows Claude's and the paid APIs' standards:** per-feature switch, model and provider, runs a day and
     budget on AI use; a director changes a feature's provider after the sample comparison; its allowance monitored,
-    paced, warned at 50/75/95%, with about 20% a day held for on-demand work (0163 §7, §11; R13). *Decided.*
+    paced, warned (revised in §15, F4: on what's unexpected, not on use), with about 20% a day held for on-demand work (0163 §7, §11; R13). *Decided.*
 16. **W6's phases** are 1–4 and 6 (§7). *Accepted.*
 
 **No shadow mode** anywhere (Jason, 2026-11-14).
+
+## 15. The gaps review and the rural test's Run 2: settled (Jason, 2026-11-14, via the session manager)
+
+Jason decided on `research/knowledge-engine-gap-review-2026-11-14.md` (29 findings and §F's five items) and on the rural
+test's Run 2 (`research/rural-test-2026-11-14.md` §8). **Every finding and §F item is accepted as the review suggests,
+except the ones he changed** (marked ✎). Applied in place above; numbers and settings in 0163 (§7, §10, §11, §12); the
+code fixes are in 0163 §8's build stages. Documentation only: no site code, no release.
+
+| Item | Decision | Here | 0163 / stage |
+|---|---|---|---|
+| X1 clocks while paused | count only switched-on time; backlog shown at switch-on | §6.1 | §10; before switch-on |
+| X2 W1 runs 0133's gate | switch-on check line; `evaluate()` and the old gates retired as gates | §5.4 | §10; stage 8 |
+| X3 Review items with no prompt | one Pulse case, "The engine needs a person" | §6.1, R4, §5.4 | before switch-on |
+| X4 AI cap shares | shares per workflow, unused share passes on | — | §7; stage 3 |
+| X5 AI Assist's two homes | Thresholds rows read from AI use | — | §7; stage 2 |
+| P1-1 page never read | `PENDING_EXTRACT` | §1.1, §0.8, §2.3 | stage 9 |
+| ✎ P1-2 a site that blocks us | **no automatic retry**: held, a Pulse step with **Reactivate**; re-read only after a person reactivates | §1.2, §1.3, §3.4, §6.1 | before switch-on |
+| P1-3 zero-result searches | demand by place, kind or topic, never the words | §4.5, W12 | stage 8 |
+| P1-4 leads that never resolve | new → read → witness only → expired | §1.5 | stage 8 |
+| P2-1, P2-2, P2-3, T1 Gemini and private data | one guard in the Gemini client: private details removed first, our vocabulary only, protected names never sent, input class per feature | §0.8, R5, R7, R13, §2.3 | stage 7, **before Gemini's stage 9** |
+| P3-1 floor vs readiness | one rule: "complete" = the floor + a point (the town's middle, marked approximate) | §5.4 | stage 8 |
+| ✎ P3-2 sightings / NAP | **verified NAP is the goal**; listings start with part of it and are refined by sources, the owner and people; each NAP field shows how it's known; the floor stays; sightings on the retry ladder; **pending Jason's choice:** a "Help us find this business" card for a name-and-town find, or it stays a sighting | §3.5, R14 | stage 8 |
+| ✎ P3-3, P4-1 no purgatory | **the retry ladder**, never stopping; new evidence resets it; Review still shows the step | §3.2, §4.5, §6.1 | §12 (ladder values); stage 8 |
+| P3-4 claim band | a claim keeps its band; against lowers within it | R12 | stage 8 |
+| P3-5 owner not told | portal "Check these" + system email | R4 | stage 8 |
+| P4-2 licence changes | stored facts re-sorted | R9 | stage 8 |
+| P5-1 our team may close | a call, a visit, a photo of the sign | R10, R12 | stage 8 |
+| P5-2 "Still open?" | built with W2; Call-list step after 30 days or two signals | R12, W2 | stage 8 |
+| P5-3 story-only landmarks | a Wikipedia article alone → story only; fully public only when the managing authority's page says open to visitors; archaeological words held; CLAUDE.md's 2026-11-12 line updated | R7 | before switch-on (live today) |
+| P6-1 parser drift | "Needs a reader fix" step after two failed dry runs | §6.1 | stage 8 |
+| H1–H5 hubs | Planned on the meter starts W14; vendor pages linked from a government page kept; open hubs' new sources switch on from their card; a "Hubs" Pulse case; the opening budget line | §7.1, R17 | §10; stage 10 |
+| F1 −40 / −60 | moved to "Signals against" | R12 | §12; stage 8 |
+| F2 the public's Closed | 3 devices, 2 days, 60 days; our team's call first when no machine signal came first; kept in R10 | R10 | header; stage 8 |
+| F3 card labels | three states only | R12 | stage 8 |
+| F4 Gemini warnings | warn on the unexpected, not on use | §14 point 15 | §11; stage 9 |
+| F5 Google's check from 35 | a setting, with Run 2's order before it (below) | §1.5 | §12; stage 8 |
+| ✎ Facebook as a NAP source | R14 stands (our crawler never reads facebook.com); a NAP item may come (a) through Overture's Meta record or (b) from a person citing the public Facebook URL; it fills or verifies at that source's confidence | R14, R9 | stage 8 |
+| Run 2: Gemini | **reads public pages only, never a finder**; weight 0; grounded search only if Jason funds it | §0.8, §1.5, §2.3, §3.2, §7, Decision 7, W1/W8/W12/W14 | §11, §12; stage 9 |
+| Run 2: lead order | Overture and NPI first, then Google Places' check (40 on a phone match, 30 on the address only); NPI's two guards | §1.5, C3 | §12; stage 8 |
+| Run 2: Arizona's licence sources | each source's real use: bulk data, lookup only, blocked, claim-time check; ACC's new host | §1.5, §7.1 | stage 10 |
+| Run 2: our coverage gap | Kayenta 0 listings; St. Johns 13 of 45; Springerville/Eagar 29 of 94 | — | stage 8's goals |
+
+**F5 and Run 2 together:** Run 2's lead order sends Google's check to finds without a website that have a phone, which
+mostly start at one witness (20–25, below 35). So the check order in 0163 §12 runs Run 2's group first, then F5's
+"from 35", with F5's two exceptions; both are settings a director tunes.

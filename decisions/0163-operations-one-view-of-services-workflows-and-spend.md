@@ -2,8 +2,13 @@
 
 **Note (2026-11-14, decisions/0164):** Works under `decisions/0164` §10 (the Knowledge Engine: rule book, phases, workflows and sources), which took in 0133's rule book. This record stays separate: this record is the operations layer under 0164. **One home per fact** (Jason, 2026-11-14): the numbers and
 operating settings (caps, budgets, paces, warning levels, the AI cap, Anthropic's and Gemini's settings, the switches, the
-switch-on check, the collaborative score's weights, a hub's opening budget, AI Assist's allowances) live only here; the rules about data, sources, truth, phases, workflows, establishing listings, privacy
-and protected places live only in 0164, which points here for a number.
+switch-on check, the collaborative score's weights, a hub's opening budget, AI Assist's allowances, the AI cap's shares,
+the retry ladder, the lead and Google check order, the signals against) live only here; the rules about data, sources,
+truth, phases, workflows, establishing listings, privacy and protected places live only in 0164, which points here for
+a number. **The data gates stay in 0164's R10** (the guide score, the entity match, the public's Closed count): they're
+rules about the data, so both records say "the numbers are in 0163, and the data gates in R10" (gap review F2).
+**Amended 2026-11-14** by Jason's decisions on the gaps review and the rural test's Run 2 (0164 §15): §7, §8, §10,
+§11 and §12 below.
 
 **Status:** Accepted (Jason, 2026-11-14: "all approved"; written that day by the session manager from his answers in
 chat). **No shadow mode** (Jason, 2026-11-14): each part is built switched off and goes live when it's switched on, after
@@ -115,6 +120,13 @@ only.
   who and when, and a Reset); the member sees them as their allowance (0164 R15).
 - **Each AI feature** (Claude's and Gemini's alike, §11) has its switch, its model and provider, its runs a day and its
   budget, all on AI use (`AiClient::ROUTES`), and is counted per call, failed calls included.
+- **The AI cap's shares** (gap review X4): the monthly cap is split into a share per workflow (W4's renewals, W5, W6's
+  readings, W8's Find it, Phase 2's reads of a person's pages, AI Assist's follow-up research), set here like the
+  crawler's shares in `CrawlService::plan`; a share unused at month's end passes on to the next month's pool. The
+  50/75/95% warnings (§4) apply per share, so a busy workflow can't silently starve the others. The share sizes are
+  set on AI use when stage 3 is built; until then W5's half of the daily allowance is the only share.
+- **AI Assist's allowances have one home** (X5): `ai_free_asks` and `ai_cover` in `Thresholds` read from AI use until
+  stage 2 moves them into the register.
 - Anthropic's monthly spend limit: **$50**; Console email alerts at **$20 and $35**.
 - No Admin API key: the Console is an individual account, which can't create one (future-considerations: "The Claude
   Console as an organization"). Claude's row shows "our count only" until then.
@@ -127,23 +139,51 @@ Each stage a release Jason approves; one session per stage, from its handoff.
    as settings, pacing per service (releases #43, #44, #46; worker 2.6).
 2. **The service register:** one row per service; caps and paces moved into it from Railway and `.env` with today's
    values; status with reasons; the website's other outside callers onto `ServiceHealth` (handoffs/crawler-revamp.md
-   §7.1 item 3).
-3. **Costs together,** against revenue and the community budget.
+   §7.1 item 3); AI Assist's allowances moved in (X5).
+3. **Costs together,** against revenue and the community budget; the AI cap's shares per workflow (§7, X4).
 4. **The workflow board and the task schedule.**
 5. **Warnings (50/75/95%) and "returns empty".**
 6. **Watching built into the site** (Railway, the sync).
 
+**Before any switch-on** (the gaps review, 0164 §15; each in the stage that touches it, at the latest stage 8, and
+checked by the switch-on check, §10): clocks that count only switched-on time (X1); W1 and W8 gating on 0164's floor and
+readiness (X2); the engine's one Pulse case, "The engine needs a person" (X3); a site that blocks us held with a Pulse
+step and **Reactivate**, never retried by itself (P1-2); landmarks' story-only level, with `Landmarks::publiclyKnown()`
+moving a held place only to story only and `GuideLinks::find()` no further (P5-3; this one is live behaviour today, so it
+goes first).
+
 Then the Knowledge Engine's new parts (0164; Jason, 2026-11-14, §14 point 14: one build order, here):
 
-7. **The cards first, all off:** Gemini, Overture, Foursquare's open data, each licence source (from W14's staging, or
-   by hand for Arizona and New Mexico), Supabase: each a row in the register (§1) with key, terms, cap, pace and status
-   "off" (§10, 3).
-8. **The data loads for Arizona and New Mexico** (Overture, Foursquare's open data, the licence sources), with the
-   "real business" floor and confidence (0164 §3.5), and the collaborative score's weights (§12). No shadow mode: what
-   passes the floor goes public at its confidence once the load is switched on.
-9. **Gemini for extraction** (0164 §2.3), after the sample comparison (§11), then **grounded search** in W1, W8, W12 and
-   W14.
-10. **W14 running** (0164 §7.1): staging every state's authority sources, switched off until each hub.
+7. **The cards first, all off:** Gemini, Overture, Foursquare's open data, NPI's town load, each licence source (from
+   W14's staging, or by hand for Arizona and New Mexico), Supabase: each a row in the register (§1) with key, terms,
+   cap, pace and status "off" (§10, 3). **And the Gemini privacy guards, in the Gemini client, before any feature can be
+   routed to Gemini** (0164 §0.8): R6's private details removed from a page before it's sent (P2-1); what's sent built
+   from our own vocabulary, never a person's words (P2-2); each feature's input class in `AiClient::ROUTES`, with
+   `providerFor()` refusing Gemini for anything but public and AI use greying the choice out with the reason (P2-3);
+   protected, confidential and nation-sensitive names never sent (T1). Until W6's sources pass the removal, W6 and every
+   archive, newspaper and registry feature stay on Claude.
+8. **The data loads for Arizona and New Mexico** (Overture, NPI by town with its two guards, Foursquare's open data
+   once a Hugging Face account accepts its terms, the licence sources that offer bulk data), with the "real business"
+   floor and confidence (0164 §3.5), the collaborative score's weights and the lead and Google check order (§12). No
+   shadow mode: what passes the floor goes public at its confidence once the load is switched on. **Its goals start from
+   our coverage gap** (Run 2, 2026-11-14): we list **0** businesses in Kayenta (Overture has 33, NPI 11, under 0066's
+   rules), **13 of 45** of Overture's in St. Johns and **29 of 94** in Springerville/Eagar. **With it, from the gaps
+   review:** one rule for "complete" in `AutoImport::evaluate()` (the floor plus a point, the town's middle marked
+   approximate; P3-1) and `listing_one_source` and `guide_find_add` retired as gates (X2); NAP fields each showing how
+   they're known, the Facebook citation entry (a person entering a NAP item with the page's URL) and Overture's Meta
+   record as a NAP source (0164 R14); sightings as gaps, "Confirm from its page" and the town page's ask (P3-2); the
+   retry ladder (§12; P3-3, P4-1); a claim keeping its band and true source labels (P3-4); the owner's "Check these" and
+   its email (P3-5); licence changes re-sorting stored facts (P4-2); our team as a closer (P5-1); "Still open?" with W2
+   (P5-2) and the public's Closed count (F2); the three card states (F3); the signals against (§12, F1); zero-result
+   searches as demand (P1-3); a lead's states (P1-4); "Needs a reader fix" (P6-1).
+9. **Gemini for extraction** (0164 §2.3), after the sample comparison (§11), with "waiting to be read"
+   (`PENDING_EXTRACT`, P1-1) and Gemini's warnings on the unexpected (§11, F4). **Grounded search is not built** unless
+   Jason funds it (§11): the free tier has none (Run 2).
+10. **W14 running** (0164 §7.1): staging every state's authority sources, switched off until each hub, each with its
+   real use (bulk data, lookup only, blocked, claim-time check; Arizona's as found in Run 2, with
+   `arizonabusinesscenter.azcc.gov` allowed and its terms read). **With it** (H1–H5): Planned on the hub meter starts W14;
+   vendor pages linked from a government page kept; a newly staged source for an open hub switches on from its card; the
+   "Hubs" Pulse case; the opening budget line in the switch-on check.
 11. **Vectors** (0164 §5.2) on Supabase's free tier.
 
 Each stage is a release Jason approves. The crawler revamp's own open items (the four approved releases W6, W9, W10/W11,
@@ -202,8 +242,15 @@ anything run:
    - the crawler's open fixes that must come first live (the junk listing names; the four approved releases W6, W9,
      W10/W11, W12), so resuming doesn't restart old faults;
    - OpenStreetMap: at least one server not held (else its tasks resume "held", not failing).
+   - **W1 and W8 gate on 0164's floor and readiness** (§3.5, §5.4), not 0133's (gap review X2);
+   - **the clocks:** each workflow's backlog from its paused time and its order (most viewed or asked first), drained at
+     the ramp's half budget (X1);
+   - **the engine's Pulse case** is built, so nothing lands in Review without a prompt (X3); held-blocked sites listed
+     with their Reactivate steps (P1-2);
    - **opening a geo-hub:** the hub's readiness meter line for its authority sources (staged by W14, 0164 §7.1): their
-     terms still valid and readers passing, before they switch on with the hub.
+     terms still valid and readers passing, before they switch on with the hub; **"opening budget not set"** named with a
+     button to set it (H5). For a hub already open (Arizona, New Mexico), the same line runs when a newly staged source's
+     card is switched on (H3).
    Anything red keeps that part paused with the reason; the rest can start.
 2. **Resume in steps, not all at once:** one workflow at a time (W1 first), each new or returning service at half
    budget for its first 14 days (the ramp already live), with the "returns empty" and 50/75/95% warnings watching.
@@ -223,37 +270,80 @@ and ensure we dont cause it to become unexpectedly unusable."
 - **Its allowance:** about 15 requests a minute and 1,000 a day (Flash or Flash-Lite). **Monitored and paced through the
   day** (the day's allowance spread over the hours, not spent at the start), with **about 20% of each day held back for
   on-demand work** (a visitor waiting: W5, Find it, a search); background work stops at 80%.
-- **Warnings at 50%, 75% and 95%** of the day's allowance, as for any cap (§4): one Pulse case, updated as it climbs, with
-  the step that fixes it (slow a feature, pause it, move a feature back to Claude inside the AI cap) as a button.
+- **What it's used for** (Run 2, Jason 2026-11-14; 0164 §0.8): **reading public pages only** (extraction). It is
+  never a finder; its weight in the collaborative score is 0 (§12). Each feature's input class is declared in
+  `AiClient::ROUTES` and Gemini is refused for anything but public (P2-3), greyed with the reason on AI use.
+- **Warnings on what's unexpected, not on use** (gap review F4; the allowance resets daily and is paced to be used, so
+  50/75/95% would warn every day with nothing to do): one Pulse case, updated, as §4, when background work reached its
+  80% stop before 18:00 UTC three days running (more work than allowance: slow a feature, or move one back to Claude
+  inside the AI cap, as buttons); when the 20% on-demand reserve fell below 5% on any day (a visitor may wait); and a
+  refusal or ban, "held", as today. 50/75/95% stay for monthly caps.
 - **When the day's allowance is used:** the service check holds Gemini until the next day and the work **waits**; no
   fallback to Claude (0164 §12, C11). A refused key or a ban is "held", with its case (§1).
-- **Grounded search** (leads, W1, W8, W12, W14) draws on the same free allowance and the same pacing.
+- **Grounded search: none on the free tier** (Run 2, 2026-11-14): `google_search` answered 429 "quota exceeded" on
+  every current Flash model, and `gemini-2.5-flash`, which had a free grounding allowance, is closed to new users.
+  Ungrounded "from what you know" answers were unreliable (55% of the businesses named confirmed, about 15% of phones
+  right, numbers made up), so they are never used. **Grounded search runs only if Jason funds it**: a paid feature
+  under "no income, no expense", with its own card, cap and budget here; until then W1, W8, W12 and W14 don't use it.
 
 ### 12. The collaborative score's weights (0164 §3.5, R12; Jason, 2026-11-14)
 
 The collaborative source score **feeds a listing's confidence; it is not a gate and has no threshold** (0164 §3.5). Its
 weights are settings here, tuned by a director (kept with who and when, and a Reset), starting from the rural test's
-proposal (`research/rural-test-2026-11-14.md` §7) and retuned by its Run 2. Each counts once per origin (independent
-sources only, 0164 R11), for a source agreeing on the name plus the phone or the address:
+proposal (`research/rural-test-2026-11-14.md` §7) and **retuned by its Run 2** (§8.9 there; Jason, 2026-11-14). Each
+counts once per origin (independent sources only, 0164 R11), for a source agreeing on the name plus the phone or the
+address:
 
 | Source | Weight to start |
 |---|---|
-| Google Places confirms it open (place ID kept) | 30 |
+| Google Places confirms it open (place ID kept), **agreeing on the phone** | 40 |
+| Google Places confirms it open, agreeing on the address only | 30 |
 | Chamber of commerce or tourism office listing | 25 |
 | Business-managed listing (Uberall, DAC) or filings-built (BrightQuery) | 25 |
 | An open-dataset record from another origin (Microsoft, Foursquare) | 20 |
 | Its Facebook page (or Overture's Meta record, once) | 20 |
-| A directory page found by grounded search (at most two count) | 15 |
+| A directory page our crawler read (at most two count; found by grounded search only if that is funded) | 15 |
 | OpenStreetMap | 15 |
 | A news story naming it in that town (name and town only) | 10 |
-| A Gemini lead itself | 0 (the page it cites scores by its own class) |
+| Gemini's own word, grounded or not | 0 (never a finder; a page it cites scores by its own class) |
+| Our own older listings (bulk imports) | 0 (a lead source only) |
+| An NPI organisation record | establishes alone (0164 §12, C3), with its two guards |
 | A record under 0.5 Overture confidence | half its weight |
+The sum adds to the listing's confidence under 0164 R12 (machine evidence alone tops out at 75). The rural test's
+"threshold 60" is not used: nothing waits on a number; read 60 as the band where machine evidence counts as strong
+(Facebook 20 + Google on the phone 40).
+
+**Signals against (0164 R12)** (gap review F1: moved out of the score's table, since the score is sources agreeing).
+Each counts once per origin (a monthly Overture reload doesn't count "dropped" again), ages like other evidence, and
+clears when its source reverses (a licence renewed, the record back in the dataset) or the owner or the public says
+still open. A claimed listing stays in its band (0164 R12).
+
+| Signal | Weight to start |
+|---|---|
 | A closure signal (a lapsed licence, a dataset dropping it, Overture "permanently closed", Google closed, one site saying closed) | −40 |
 | A dissolved or revoked licence | −60 |
 
-The sum adds to the listing's confidence under 0164 R12 (machine evidence alone tops out at 75). The rural test's
-"threshold 60" is not used: nothing waits on a number. The −60 for dissolved or revoked is a starting value (the test
-proposed one closure weight); Run 2 tunes both.
+**The lead order and Google's check** (Run 2; F5): free first, then Google where it lifts a find most.
+1. Overture as the base layer; NPI by town for health care (free, no key).
+2. **Google Places' check, first for finds without a website that have a phone** (Facebook-only, ours-only: about 100
+   calls, ~$3, for the three test towns, inside Google's paced budget, §1).
+3. Then **any find from a collaborative score of 35 before Google** (F5), with two exceptions inside the paced budget: a
+   listing a visitor opened or searched for this month, and a Review item Google would settle (the grey zone).
+Order only (0164 R10's spirit), director-tuned like the weights.
+
+**The retry ladder** (Jason, 2026-11-14: "waiting for review is purgatory, so we keep trying"; 0164 §6.1). For whatever
+the engine retries for itself (the grey zone, gaps, sightings, out-of-options finds); never for a site that blocks us
+(that waits for a person's Reactivate, 0164 §1.2):
+
+| Fails in a row | Next try |
+|---|---|
+| 1–2 | its normal cadence |
+| after 3 | 7 days |
+| after 6 | 30 days |
+| after 10 | 180 days, then every 180 days, for good |
+| any new evidence | back to the start |
+
+Each step is a setting, tuned by a director (kept with who and when, and a Reset).
 
 ## Consequences
 
