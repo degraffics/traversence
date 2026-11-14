@@ -180,6 +180,17 @@
    "expires": "2026-11-14T03:58:31Z",
    "release": "outside-services-all_20261114.zip",
    "callers": {}
+  },
+  {
+   "path": "app/ui/header.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5gpdwLLGTQ51Ls56yQ",
+   "why": "fix: the site.top zone was drawn inside the header bar's flex row; move it under the bar",
+   "since": "2026-11-14T00:09:31Z",
+   "expires": "2026-11-14T04:09:31Z",
+   "release": "sitetopfix_20261114.zip",
+   "callers": {}
   }
  ],
  "lapsed": []
