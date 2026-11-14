@@ -132,20 +132,24 @@
    "path": "app/lib/ServiceHealth.php",
    "functions": [
     "(top)",
+    "dueProbes",
     "osmAsked",
     "osmRecent"
    ],
    "kind": "change",
    "session": "session_01CXLi5keAVqjso7NMLv8GiQ",
-   "why": "OpenStreetMap daily budget and 3-month cache (Jason 2026-11-14)",
+   "why": "OpenStreetMap budget (Jason 2026-11-14)",
    "since": "2026-11-14T14:01:30Z",
-   "expires": "2026-11-14T18:01:30Z",
+   "expires": "2026-11-14T18:01:51Z",
    "release": "service-health2_20261114.zip",
    "callers": {
     "osmRecent": [
      "app/lib/crawler/CrawlService.php"
     ],
     "osmAsked": [
+     "app/lib/crawler/CrawlService.php"
+    ],
+    "dueProbes": [
      "app/lib/crawler/CrawlService.php"
     ]
    }
