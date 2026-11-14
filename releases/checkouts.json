@@ -1,5 +1,50 @@
 {
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
- "claims": [],
+ "claims": [
+  {
+   "path": "app/lib/DataCleanup.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ikaAYTSrHS6AnPpWB",
+   "why": "Data cleanup, release 1: find and preview (decisions/0163 \u00a78 stage 1b)",
+   "since": "2026-11-14T22:55:12Z",
+   "expires": "2026-11-15T02:55:12Z",
+   "release": "data-cleanup-preview",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/cleanup-console.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ikaAYTSrHS6AnPpWB",
+   "why": "Data cleanup, release 1: find and preview (decisions/0163 \u00a78 stage 1b)",
+   "since": "2026-11-14T22:55:12Z",
+   "expires": "2026-11-15T02:55:12Z",
+   "release": "data-cleanup-preview",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/manifests.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ikaAYTSrHS6AnPpWB",
+   "why": "Data cleanup, release 1: find and preview (decisions/0163 \u00a78 stage 1b)",
+   "since": "2026-11-14T22:55:12Z",
+   "expires": "2026-11-15T02:55:12Z",
+   "release": "data-cleanup-preview",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/sections.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ikaAYTSrHS6AnPpWB",
+   "why": "Data cleanup, release 1: find and preview (decisions/0163 \u00a78 stage 1b)",
+   "since": "2026-11-14T22:55:12Z",
+   "expires": "2026-11-15T02:55:12Z",
+   "release": "data-cleanup-preview",
+   "callers": {}
+  }
+ ],
  "lapsed": []
 }
