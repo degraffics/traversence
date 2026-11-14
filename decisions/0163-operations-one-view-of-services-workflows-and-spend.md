@@ -166,6 +166,8 @@ anything run:
    - the crawler's open fixes that must come first live (the junk listing names; the four approved releases W6, W9,
      W10/W11, W12), so resuming doesn't restart old faults;
    - OpenStreetMap: at least one server not held (else its tasks resume "held", not failing).
+   - **opening a geo-hub:** that state's authority sources staged by W14 (0164 §7.1), their terms still valid and readers
+     passing, before they switch on with the hub.
    Anything red keeps that part paused with the reason; the rest can start.
 2. **Resume in steps, not all at once:** one workflow at a time (W1 first), each new or returning service at half
    budget for its first 14 days (the ramp already live), with the "returns empty" and 50/75/95% warnings watching.
