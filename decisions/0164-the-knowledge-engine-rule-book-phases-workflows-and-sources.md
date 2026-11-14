@@ -980,9 +980,12 @@ A loop back through Phases 1 to 3 that keeps what's published true.
   is never retried by itself** (Jason, 2026-11-14: "blocked or banned should proceed with caution because we dont want to
   do more harm by trying again and again"; this replaces his earlier "go, automatic" for banned services). **A light
   status check is allowed, but never endlessly** (Jason: "ok with a status check on banned or blocked just not a retry
-  endlessly"): only the provider's status page or one small request, never the real work, on a slowing ladder (after 7
-  days, then 30, then every 180; values in 0163 §12). When a check answers normally, the hold isn't lifted by itself: the
-  Pulse step says "looks lifted" with **Reactivate**, and a person decides (§1.2, 5); then the ramp.
+  endlessly"): only the provider's status page or one small request, never the real work, **once a day** (Jason,
+  2026-11-14: "the daily status check is fine; if not lifted or active after 3 days a person is notified to evaluate").
+  **After 3 days still blocked, a person is notified** (a Pulse step with the evidence) **to evaluate**: Reactivate, keep
+  checking (daily or weekly), or stop checking. The daily checks pause until that person decides, so nothing repeats
+  endlessly. When a check answers normally, the hold isn't lifted by itself either: the step says "looks lifted" with
+  **Reactivate**, and a person decides (§1.2, 5); then the ramp. Values in 0163 §12.
 
 ### 6.2 Splitting and the audit trail
 

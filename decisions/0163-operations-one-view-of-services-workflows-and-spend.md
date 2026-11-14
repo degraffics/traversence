@@ -137,9 +137,10 @@ Each stage a release Jason approves; one session per stage, from its handoff.
 
 1. **Already live (2026-11-14):** the service check, holds and automatic return (half budget for 14 days), server lists
    as settings, pacing per service (releases #43, #44, #46; worker 2.6). ✎ The live daily probe of a **banned** service
-   (e.g. overpass-api.de's `/api/status`) moves from daily to the slowing ladder (7 days, 30, then every 180), and its
-   automatic return is **removed before any switch-on**: a passing check raises "looks lifted" with Reactivate for a
-   person (Jason, 2026-11-14; 0164 §6.1).
+   (e.g. overpass-api.de's `/api/status`) stays **daily for at most 3 days**; still blocked after 3 days, a person is
+   notified to evaluate (Reactivate, keep checking daily or weekly, or stop), and the checks pause until they decide.
+   Its automatic return is **removed before any switch-on**: a passing check raises "looks lifted" with Reactivate for
+   a person (Jason, 2026-11-14; 0164 §6.1).
 2. **The service register:** one row per service; caps and paces moved into it from Railway and `.env` with today's
    values; status with reasons; the website's other outside callers onto `ServiceHealth` (handoffs/crawler-revamp.md
    §7.1 item 3); AI Assist's allowances moved in (X5).
@@ -151,8 +152,8 @@ Each stage a release Jason approves; one session per stage, from its handoff.
 **Before any switch-on** (the gaps review, 0164 §15; each in the stage that touches it, at the latest stage 8, and
 checked by the switch-on check, §10): clocks that count only switched-on time (X1); W1 and W8 gating on 0164's floor and
 readiness (X2); the engine's one Pulse case, "The engine needs a person" (X3); a site that blocks us held with a Pulse
-step and **Reactivate**, never retried by itself (P1-2), and the same for a banned outside service: a status check
-only on the slowing ladder, no automatic return (0164 §6.1); landmarks' story-only level, with `Landmarks::publiclyKnown()`
+step and **Reactivate**, never retried by itself (P1-2), and the same for a banned outside service: a daily status check for 3 days,
+then a person evaluates; no automatic return (0164 §6.1); landmarks' story-only level, with `Landmarks::publiclyKnown()`
 moving a held place only to story only and `GuideLinks::find()` no further (P5-3; this one is live behaviour today, so it
 goes first).
 
@@ -180,6 +181,10 @@ Then the Knowledge Engine's new parts (0164; Jason, 2026-11-14, §14 point 14: o
    its email (P3-5); licence changes re-sorting stored facts (P4-2); our team as a closer (P5-1); "Still open?" with W2
    (P5-2) and the public's Closed count (F2); the three card states (F3); the signals against (§12, F1); zero-result
    searches as demand (P1-3); a lead's states (P1-4); "Needs a reader fix" (P6-1).
+   OpenStreetMap for stage 8 comes from **Geofabrik's state extracts** (Arizona, New Mexico; weekly), downloaded by the
+   **Railway worker**, not Overpass (Overpass only for one place on demand). Geofabrik resets connections from Claude's
+   cloud network (2026-11-14: TLS reset by peer; not our proxy, not a ban on us), so the stage's first step is one test
+   download from Railway; if Railway is refused too, another free OSM mirror, never repeated tries.
 9. **Gemini for extraction** (0164 §2.3), after the sample comparison (§11), with "waiting to be read"
    (`PENDING_EXTRACT`, P1-1) and Gemini's warnings on the unexpected (§11, F4). **Grounded search is not built** unless
    Jason funds it (§11): the free tier has none (Run 2).
