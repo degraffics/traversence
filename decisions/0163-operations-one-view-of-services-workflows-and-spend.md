@@ -81,6 +81,13 @@ revenue and the community budget (3% of revenue, $25 floor, 0154), so "no income
   and the phase (0164 §1–§6) where work waits.
 - **The task schedule:** each task's frequency, share of a run, limits, last run and outcome; the settings the planner
   (`CrawlService::plan`) already uses, shown and editable in the admin.
+- **Jason can modify the workflows** (Jason, 2026-11-14: "confirm that the build regarding the knowledge engine will
+  allow me to modify the workflows if I choose to"). Every workflow's settings are edited in the admin, never only in
+  code: its switch; what starts it (schedule, triggers); its tasks, their order and share; the sources and services each
+  task may use (routes); its budgets and paces; its gates' thresholds and the score's weights; its retry ladder; and
+  which steps need a person. Each save is a version (who, when, what changed) with "go back to it", as content
+  templates already are (0164 R16), and passes the switch-on check before it runs. A new kind of step or a rule in the
+  rule book is a release; a new workflow made from existing steps is a setting. Built with the board (stage 4).
 
 ### 4. Warnings before limits, and "returns empty"
 
