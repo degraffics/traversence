@@ -6,12 +6,12 @@
     "zip": "automation-switches_20261114.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "planned",
+    "state": "approved",
     "step": 0,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
-    "plan_at": null,
+    "plan_at": "2026-11-14 17:57:04",
     "staged_at": null,
     "vetted_at": null,
     "live_at": null,
@@ -126,6 +126,16 @@
             "at": "2026-11-14T17:57:02+00:00",
             "by": 0,
             "msg": "Uploaded automation-switches_20261114.zip: 20 files."
+        },
+        {
+            "at": "2026-11-14T17:57:04+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/automation-switches_20261114.zip (git a17a177b75)."
+        },
+        {
+            "at": "2026-11-14T17:57:04+00:00",
+            "by": 0,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
         }
     ]
 }
