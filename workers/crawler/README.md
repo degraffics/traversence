@@ -27,6 +27,19 @@ then whoever waited longest. The worker:
    Railway shows it **failed**, never "succeeded". Pulse opens a case when no run has started for 30 minutes or six
    runs in a row failed.
 
+**Outside services' issues (worker 2.5, Jason 2026-11-14; the site's `app/lib/ServiceHealth.php`).** Every API the
+worker calls (`API_HOSTS`: Overpass, Wikidata, Wikipedia, Commons, Tavily, Brave, Google Places, the NPI Registry, CMS,
+the IRS, Recreation.gov, the Library of Congress, Common Crawl, the Census, USGS) has a breaker, not businesses' own
+websites. A failure is classified (refused us 403/406, key refused 401, quota, slow down 429, no answer, 5xx,
+unreadable) and reported with its evidence; a ban, a refused key or a used-up quota stops every call to that server for
+the rest of the run, and the site holds it in later runs (the plan's `holds`) until a person marks it resolved in Pulse
+or its probe (the plan's `probes`, e.g. Overpass `/api/status` once a day, with exactly the agent that was refused)
+answers 200. A task whose service is held reports **held**, never failed, and the rest of the run goes on. Never get
+round a ban by changing the User-Agent. OpenStreetMap: overpass-api.de is off (`OVERPASS_MAIN=on` puts it back once its
+maintainers answer, research/osm-overpass-2026-11-13.md); the mirrors get one small query per kind (`[timeout:25]`),
+one at a time, and a town and kind asked in the last 30 days isn't asked again (the plan's `osm_recent`, the report's
+`osm_asked`). `CRAWLER_CONTACT` adds a contact to the User-Agent.
+
 Against a site without `service.php` (contract 2) it runs the fixed order described below, as before. The per-run
 settings below (`VERIFY_PER_RUN`, `REFRESH_PER_RUN`…) are now the most a task may take; the plan may ask for fewer.
 robots.txt is read as `TraversenceCrawler`, its redirects checked; one that can't be read (a server error, a timeout,
