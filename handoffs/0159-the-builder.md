@@ -1,6 +1,12 @@
 # Hand-off: build decisions/0159, the builder
 
-## 0. Where the build stands (2026-11-14 00:30 UTC; start here)
+## 0. Where the build stands (2026-11-14 01:00 UTC; start here)
+
+**All three below are live and verified byte for byte:** #38 `sitetopfix` (Sync 00:20), #40 `stgstaff` (Sync 00:40;
+staging needs a refresh before Jason's staff entry and M2 ServCore show there), **#41 `studio5a` = step 5a** (Sync 00:58).
+**Next: 5b** (the four themes as the blocks' starting styles), after Jason's look at 5a. Not yet tried live: a picture
+upload into a business's Gallery from the builder.
+
 
 **Step 5 started** (the session that took over at 21:10 UTC; built on Sync 2026-11-13 23:59 UTC). Three releases, sent one
 at a time in this order (Jason, 2026-11-14 00:20 UTC: "go"):
