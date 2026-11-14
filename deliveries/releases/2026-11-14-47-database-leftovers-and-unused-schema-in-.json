@@ -6,12 +6,12 @@
     "zip": "migration-safety2_20261114.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "planned",
+    "state": "approved",
     "step": 0,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
-    "plan_at": null,
+    "plan_at": "2026-11-14 15:38:04",
     "staged_at": null,
     "vetted_at": null,
     "live_at": null,
@@ -44,6 +44,16 @@
             "at": "2026-11-14T15:38:02+00:00",
             "by": 0,
             "msg": "Uploaded migration-safety2_20261114.zip: 4 files."
+        },
+        {
+            "at": "2026-11-14T15:38:04+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/migration-safety2_20261114.zip (git 3b8235658a)."
+        },
+        {
+            "at": "2026-11-14T15:38:04+00:00",
+            "by": 0,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
         }
     ]
 }
