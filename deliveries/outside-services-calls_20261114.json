@@ -3,16 +3,16 @@
  "built_on": "f34cf01 Sync: 2026-11-14 00:20 UTC",
  "recorded": "2026-11-14 00:24 UTC",
  "note": "Crawler reports by service (decisions/0160 note); built on Sync: 2026-11-14 00:20 UTC Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "be81b24 Sync: 2026-11-14 00:40 UTC",
  "files": {
   "app/lib/OutsideServices.php": {
    "sha256": "4ba3272c64dfb2cbddc7a151574a837d20043f2c99c901b518f04ac13edf0656",
-   "live": false
+   "live": true
   },
   "app/lib/crawler/CrawlService.php": {
    "sha256": "ad0dc1415f94b15f27ca3dfd6871e80293b632f4083a2f58c0a013c069e9cf2c",
-   "live": false
+   "live": true
   },
   "app/migrations/2026-11-14_crawl_service_calls.sql": {
    "sha256": "c2b33bb19d78b53ea929bc8cda928821fe36e1b678a997d1ebf5298b052fee1b",
@@ -20,7 +20,7 @@
   },
   "app/ui/faq.md": {
    "sha256": "b20a97dbff48b8936d34c87090551168fd13188f6fb0c07a647cd60ebcc32d91",
-   "live": false
+   "live": true
   }
  }
 }
