@@ -343,6 +343,10 @@ a person.
   one-time allowance, separate from upkeep, highest value first) → Soft open (readiness targets met; marked as a new
   area) → Open. A thin record starts gathering, never a failure; each hub makes the next cheaper; a hub readiness meter
   shows the targets and budget. The targets and budget are settings in Thresholds & gates.
+- **Authority sources staged ahead of every hub** (Jason, 2026-11-14): W14 finds and stages each state's licence and
+  registry sources in the source register before any hub there is planned, so **Planned** starts with them already
+  known, their terms read and their readers tested. Opening a hub switches that state's staged sources on (after the
+  readiness check, 0163 §10); nothing is bulk-loaded before its hub opens (0048 stands).
 
 ### R18. Fetching guardrails (fixed, not configured)
 
@@ -482,6 +486,7 @@ Finding businesses that have no website, and proving they're real, from four kin
 | **Witnesses** (confirm, never copied) | Google Places (keep the place ID only); Gemini grounded search and Maps grounding (results only point; Google's display and storage rules followed) | a signal on the score ("confirmed open on Google"); a lead and its links to read | Places about 3¢ a call within its paced budget; grounding within Gemini's free daily allowance only (it waits when that runs out) |
 | **Pointers** | OpenStreetMap (0065); a business's Facebook page (R14); chamber and tourism directories (cite only unless their terms allow) | a lead to read, and corroboration when it agrees (§3.5) | free |
 
+- **Every state's authority sources are found and staged by W14** (§7.1), off until that state's hub opens (R17).
 - **OpenCorporates is not used** (Decision 6): the state registries and our free anchors instead.
 - **Gemini grounded search** asks "what [kind] is in [town]?" and returns leads with the pages it used. A lead is kept
   only with a cited link, and nothing it says becomes a fact until a licence, an open dataset or the business's own page
@@ -794,6 +799,38 @@ needs; each has its own queue, share, report and costs (0160 §4) and its switch
 | W10 Live events, W11 How-tos | 1–5 | official pages first; how-tos from official pages only, under their terms |
 | W12 Search learning | 4.5 | searches feed the frontier; grounded search for gaps open data couldn't fill |
 | W13 Stories | 5.4 | person-written only (R5); named places to Find it |
+| **W14 Authority sources** (new, Jason, 2026-11-14) | 1, 2, 6 | finds and stages each state's licence and registry sources in the source register ahead of its hubs (§7.1) |
+
+### 7.1 W14: Authority sources, found and staged ahead of every hub (Jason, 2026-11-14)
+
+**Why:** the rural test showed licences and registries are how real businesses without websites are proven (§3.5), and
+each state publishes them differently. Researching them by hand when a hub opens is slow; W14 makes it part of the
+phases, so opening a hub starts with its sources ready.
+
+- **Started by:** a state named in `regions.md` as planned or next; a schedule working through all states in waves
+  (Arizona and New Mexico first; then Utah, Colorado, Nevada, California, Texas; then the rest); a person asking for a
+  state; a source's yearly re-check.
+- **Steps, through the phases:**
+  1. **Find** (Phase 1): for each state and kind (company registry; sales tax or business licences; liquor; contractors;
+     health permits, often by county; professional and trade boards; nonprofits federally), start from official
+     directories of state agencies and national associations of those agencies, then Gemini grounded search ("[state]
+     liquor licence lookup") for the official page. Only government domains (or a nation's own, below) are kept.
+  2. **Read its terms** (Phase 1): robots.txt, the site's terms of use and any data licence; whether automated reading
+     is allowed; rate limits.
+  3. **Classify** (§1.4): Tier 1 authority; how it can be read (bulk file, API, lookup page); what it proves (exists,
+     open, kind of business, location); how often it changes; the fields it gives.
+  4. **Test the reader** (Phase 2): read a handful of records (a few, politely) to confirm the fields come out; nothing is
+     kept beyond the test.
+  5. **Stage** (source register): a row per source, **status staged, switched off**, with everything above; terms that
+     are unclear or forbid automated reading go to a person (one Pulse case per state, a step per source).
+  6. **Keep fresh** (Phase 6): re-checked yearly, and again when the state's hub is planned; a source that moved or
+     changed its terms is flagged.
+- **Tribal nations:** each nation's own business, licensing or enterprise sources are found and staged the same way, but
+  read only after a person's call and under the nation's rules (0066, R7, §12 C12). State records rarely reach nations'
+  land (the rural test, Kayenta).
+- **Gate:** government (or a nation's own) sources only; terms read; a person's call where unclear.
+- **Makes:** staged rows in the source register, ready for a hub; the state's readiness line in the hub meter (R17).
+- **Cost:** free sources and Gemini's free tier only; its switch is off until Jason turns it on (0163 §9).
 
 ## 8. Mapping onto what exists
 
