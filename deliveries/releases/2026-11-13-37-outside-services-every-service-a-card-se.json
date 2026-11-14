@@ -1,0 +1,111 @@
+{
+    "id": 37,
+    "title": "Outside services: every service a card, searchable, linked to what controls it",
+    "why": "Jason, 2026-11-13: 'the cards under outside services will include everything pertaining to that service, linked [where it] is controlled by another section. Also each service will be searchable so I can easily find their cards or sections.' 36 cards (the free and open-data ones added), each with whether it's working, cost ($0 with usage rules), what's set on Sources, the crawler, scheduled tasks and switches (linked), terms and who to ask; Ctrl K finds each by name, company or address. decisions/0152 note 2026-11-13.",
+    "proposals": "",
+    "zip": "outside-services-all_20261114.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "live",
+    "step": 3,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": "2026-11-14 00:17:42",
+    "staged_at": "2026-11-14 00:17:44",
+    "vetted_at": "2026-11-14 00:17:46",
+    "live_at": "2026-11-14 00:17:46",
+    "files": {
+        "app/lib/OutsideServices.php": {
+            "sha": "e3a8808c0f4047aca3711aeba9c0c254007b902480d0a0043d25be0eeca3396d",
+            "size": 66691,
+            "live_was": "b5d593640abbaa9a90aecac3c7f19847838e604c4acc74f36dd5b6e85afdbc44",
+            "existed": true,
+            "old_sha": "b5d593640abbaa9a90aecac3c7f19847838e604c4acc74f36dd5b6e85afdbc44"
+        },
+        "app/ui/outside-services.php": {
+            "sha": "510984a7f4ed0916b121d73346b3b44776d88b8a52cd621d0326afa6e088d5fe",
+            "size": 28597,
+            "live_was": "50d4b50e797d41a79c210fede087d4588c0e2099d0aced472389528b9c6af913",
+            "existed": true,
+            "old_sha": "50d4b50e797d41a79c210fede087d4588c0e2099d0aced472389528b9c6af913"
+        },
+        "app/ui/faq.md": {
+            "sha": "99877e9c49e42b675f818e214828e97f22a11d0d62b0f0044f94677d8b36d258",
+            "size": 280559,
+            "live_was": "015ecd549c5061d8865ec3fcf2df10a95eae0833db09cc28d40a26b7aa5d3766",
+            "existed": true,
+            "old_sha": "015ecd549c5061d8865ec3fcf2df10a95eae0833db09cc28d40a26b7aa5d3766"
+        },
+        "website/admin/api/find.php": {
+            "sha": "8a956ff404b10da9cfd56aac70f5b55ecf49294a078540869a118405f01f395b",
+            "size": 14595,
+            "live_was": "bb7f6f33eab39aed32287376be89e8a960a563cc96c427dc36169d874cf54e30",
+            "existed": true,
+            "old_sha": "bb7f6f33eab39aed32287376be89e8a960a563cc96c427dc36169d874cf54e30"
+        },
+        "website/admin/sources.php": {
+            "sha": "37436f8c07356bdd9875630658de58470730f2b7eaf9f97ed1f158a46fd1cf93",
+            "size": 17299,
+            "live_was": "6dd60761117612745bf91371d10ee5842b3a969791dff15bbd6031a3e65763b4",
+            "existed": true,
+            "old_sha": "6dd60761117612745bf91371d10ee5842b3a969791dff15bbd6031a3e65763b4"
+        }
+    },
+    "migrations": [],
+    "checks": {
+        "ok": true,
+        "where": "live",
+        "at": "2026-11-14T00:17:46+00:00",
+        "items": [
+            [
+                "PHP files parse",
+                true,
+                "4 checked"
+            ],
+            [
+                "Pages answer",
+                true,
+                "3 pages answered on traversence.com"
+            ],
+            [
+                "No new fatal errors in the logs",
+                true,
+                "4 logs read"
+            ]
+        ],
+        "first_fail": ""
+    },
+    "log": [
+        {
+            "at": "2026-11-14T00:17:41+00:00",
+            "by": 2,
+            "msg": "Uploaded outside-services-all_20261114.zip: 5 files."
+        },
+        {
+            "at": "2026-11-14T00:17:42+00:00",
+            "by": 2,
+            "msg": "Came from git: releases/inbox/outside-services-all_20261114.zip (git 702991b934)."
+        },
+        {
+            "at": "2026-11-14T00:17:42+00:00",
+            "by": 2,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
+        },
+        {
+            "at": "2026-11-14T00:17:44+00:00",
+            "by": 2,
+            "msg": "Put on staging (5 files); its checks passed."
+        },
+        {
+            "at": "2026-11-14T00:17:46+00:00",
+            "by": 2,
+            "msg": "Approved in chat before it was sent through git, and its checks on staging passed: publishing by itself."
+        },
+        {
+            "at": "2026-11-14T00:17:46+00:00",
+            "by": 2,
+            "msg": "Published: 5 files; everyone at once (no switch)."
+        }
+    ]
+}
