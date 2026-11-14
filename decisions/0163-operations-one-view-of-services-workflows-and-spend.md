@@ -152,6 +152,27 @@ and off as well." **System Configuration → Automation** (`app/lib/Automation.p
   the switch makes any run that starts end at once. The register (§1) will hold the switches' state with each service's
   caps and status.
 
+### 10. Switching back on without breaking (Jason, 2026-11-14: "make sure everything gets set up so when I flip the switch back on it doesn't break")
+
+Every stage of the build leaves the automation **ready to resume**, and the master switch checks before it lets
+anything run:
+1. **A readiness check on the Automation page** ("Check before switching on"), run when the master switch (or a
+   workflow's) is turned on, and on demand. Each line is green or names exactly what's missing, with its fix as a button
+   or link:
+   - every service the workflow uses: its key present (`.env`, e.g. `GEMINI_API_KEY`; Railway's settings), reachable,
+     not held, its terms checked, its budget and pace set;
+   - the Railway crawler's schedule back on (its cron was removed 2026-11-14) and its latest deploy healthy;
+   - no database update waiting or failed;
+   - the crawler's open fixes that must come first live (the junk listing names; the four approved releases W6, W9,
+     W10/W11, W12), so resuming doesn't restart old faults;
+   - OpenStreetMap: at least one server not held (else its tasks resume "held", not failing).
+   Anything red keeps that part paused with the reason; the rest can start.
+2. **Resume in steps, not all at once:** one workflow at a time (W1 first), each new or returning service at half
+   budget for its first 14 days (the ramp already live), with the "returns empty" and 50/75/95% warnings watching.
+3. **New services are added switched off** (Gemini, Overture, Foursquare's open data, each licence source) with their
+   cards complete, so switching them on is the only step left.
+4. **The one step for Jason** at resume: any key the site needs in `.env` (File Manager), named by the check.
+
 ## Consequences
 
 - One place answers "what is each service costing, how close to its cap, is it working, and why not".
