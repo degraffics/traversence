@@ -490,7 +490,8 @@ Finding businesses that have no website, and proving they're real, from four kin
   kinds of business, comparing what OpenStreetMap, Overture, Foursquare's open data, the state licence lookups, Gemini
   grounded search (only with a Gemini key, within the free allowance) and our current listings find; confirming each
   source's licence terms; reporting how many real businesses each mix would establish without a website. Free; nothing
-  on the live site changes. Its results tune §3.5's weights and threshold.
+  on the live site changes. Its results tune §3.5's weights and threshold. **Run 2026-11-14:**
+  `research/rural-test-2026-11-14.md` (its proposed weights and threshold are for Jason's approval; not adopted here).
 
 ---
 
