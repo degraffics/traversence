@@ -355,6 +355,26 @@ The system must ask for help regarding the exact issue it is facing while still 
   day (`ServiceHealth::osmRun`), `paid_spread` (Google and web search even through the day, `api/crawl/usage.php`);
   Retry-After obeyed exactly, and on an Overpass 429 its status page's slot time. Worker 2.6: servers from the plan,
   the gap between queries, a job whose kinds don't all fit goes round as partial.
+- **Open items, in order, for the next crawler session** (Jason, 2026-11-14 15:40 UTC: "fix the web search may make 0 next
+  and other open items too"):
+  1. **Web search and the Google check allowing 0: answered** (worker 2.6.1, main 3cd1082, first run 15:40 UTC):
+     `web search: … today 30 of 30; at today's share` and `Google check: … used 420 of stop 900, pace 420, today 30 of
+     30`. Both work: each spent its day's 30 early (the month went 213 → 243 since 2026-11-13), and every later run got 0.
+     Release #44's `paid_spread` (live 14:21 UTC) spreads the day's share evenly from now on. Check tomorrow that the
+     log shows a few allowed through the day; if it still reads "today 30 of 30" by morning, see what spends it
+     (SecondTier's extract credits count against the same day).
+  2. **Send the four approved releases W6, W9, W10/W11, W12** (§8; `handoffs/crawler-revamp-pending/`): they were never
+     sent. Re-apply each `change.diff` on the live copy (the files may have moved since Sync 2026-11-13 19:58), claim,
+     zip, send, one at a time.
+  3. **Junk listing names** (§7.3, "first thing next" since 2026-11-13): widen `AutoImport::evaluate`'s name check, and
+     send the live ones to Review (Phase 4).
+  4. **The site's other outside callers onto `ServiceHealth::allowed()` / `siteFailed()`**: Weather, Roads511,
+     PlaceFinder, Geocoder, SecondTier, AiClient, TravelLegs; payments last.
+  5. **Maps against the tile usage policy**: attribution, a real Referer, no bulk download.
+  6. Small: a single 5xx marks a task failed (held only after a second; Common Crawl 504 at 14:26); a coverage turn that
+     only handed jobs back counts as "done"; "described 3 site(s) … 0 judged" (the terms-judging feature is off).
+  State at 15:40 UTC: every Overpass server held (overpass-api.de by its ban, issue #1, probed daily; the mirrors backing
+  off after timeouts and 504s), so coverage finds nothing until one answers; runs report ok.
 - Next: the site's other outside callers onto `ServiceHealth::allowed()` / `siteFailed()` (Weather, Roads511,
   PlaceFinder, Geocoder, SecondTier, AiClient, TravelLegs; payments last), and post the OSM statement (research §2/§3).
 
