@@ -8,8 +8,8 @@
    "session": "session_01CXLi5kK8GzhmtW4etwGUwx",
    "why": "Automation switches (Jason 2026-11-14): master, workflow, task and service switches; shipped off",
    "since": "2026-11-14T16:03:33Z",
-   "expires": "2026-11-14T20:03:33Z",
-   "release": "",
+   "expires": "2026-11-14T20:13:42Z",
+   "release": "automation-switches_20261114.zip",
    "callers": {}
   },
   {
@@ -19,8 +19,8 @@
    "session": "session_01CXLi5kK8GzhmtW4etwGUwx",
    "why": "Automation switches (Jason 2026-11-14): master, workflow, task and service switches; shipped off",
    "since": "2026-11-14T16:03:33Z",
-   "expires": "2026-11-14T20:03:33Z",
-   "release": "",
+   "expires": "2026-11-14T20:13:42Z",
+   "release": "automation-switches_20261114.zip",
    "callers": {}
   },
   {
@@ -30,8 +30,8 @@
    "session": "session_01CXLi5kK8GzhmtW4etwGUwx",
    "why": "Automation switches (Jason 2026-11-14): master, workflow, task and service switches; shipped off",
    "since": "2026-11-14T16:03:33Z",
-   "expires": "2026-11-14T20:03:33Z",
-   "release": "",
+   "expires": "2026-11-14T20:13:42Z",
+   "release": "automation-switches_20261114.zip",
    "callers": {}
   },
   {
@@ -41,8 +41,8 @@
    "session": "session_01CXLi5kK8GzhmtW4etwGUwx",
    "why": "Automation switches (Jason 2026-11-14): master, workflow, task and service switches; shipped off",
    "since": "2026-11-14T16:03:33Z",
-   "expires": "2026-11-14T20:03:33Z",
-   "release": "",
+   "expires": "2026-11-14T20:13:42Z",
+   "release": "automation-switches_20261114.zip",
    "callers": {}
   },
   {
@@ -102,8 +102,8 @@
    "session": "session_01CXLi5kK8GzhmtW4etwGUwx",
    "why": "Automation switches (Jason 2026-11-14): master, workflow, task and service switches; shipped off",
    "since": "2026-11-14T16:03:36Z",
-   "expires": "2026-11-14T20:03:36Z",
-   "release": "",
+   "expires": "2026-11-14T20:13:42Z",
+   "release": "automation-switches_20261114.zip",
    "callers": {
     "paused": [
      "app/lib/crawler/CrawlService.php",
@@ -133,8 +133,8 @@
    "session": "session_01CXLi5kK8GzhmtW4etwGUwx",
    "why": "Automation switches (Jason 2026-11-14): master, workflow, task and service switches; shipped off",
    "since": "2026-11-14T16:03:36Z",
-   "expires": "2026-11-14T20:03:36Z",
-   "release": "",
+   "expires": "2026-11-14T20:13:42Z",
+   "release": "automation-switches_20261114.zip",
    "callers": {
     "plan": [
      "website/api/crawl/service.php"
@@ -177,8 +177,8 @@
    "session": "session_01CXLi5kK8GzhmtW4etwGUwx",
    "why": "Automation switches (Jason 2026-11-14): master, workflow, task and service switches; shipped off",
    "since": "2026-11-14T16:03:36Z",
-   "expires": "2026-11-14T20:03:36Z",
-   "release": "",
+   "expires": "2026-11-14T20:13:42Z",
+   "release": "automation-switches_20261114.zip",
    "callers": {
     "allow": [
      "app/admin/sections.php",
@@ -232,8 +232,8 @@
    "session": "session_01CXLi5kK8GzhmtW4etwGUwx",
    "why": "Automation switches (Jason 2026-11-14): master, workflow, task and service switches; shipped off",
    "since": "2026-11-14T16:03:36Z",
-   "expires": "2026-11-14T20:03:36Z",
-   "release": "",
+   "expires": "2026-11-14T20:13:42Z",
+   "release": "automation-switches_20261114.zip",
    "callers": {
     "start": [
      "website/api/guide-build.php"
@@ -326,9 +326,42 @@
    "session": "session_01CXLi5kK8GzhmtW4etwGUwx",
    "why": "Automation switches (Jason 2026-11-14): master, workflow, task and service switches; shipped off",
    "since": "2026-11-14T16:03:57Z",
-   "expires": "2026-11-14T20:03:57Z",
-   "release": "",
-   "callers": {}
+   "expires": "2026-11-14T20:13:42Z",
+   "release": "automation-switches_20261114.zip",
+   "callers": {
+    "show": [
+     "app/lib/ContentTags.php",
+     "app/lib/Gallery.php",
+     "app/lib/LocalWords.php",
+     "app/lib/Market.php",
+     "app/lib/PlaceScope.php",
+     "app/lib/Pulse.php",
+     "app/lib/Storefront.php",
+     "app/lib/SupportGroups.php",
+     "app/ui/admin-hub.php",
+     "app/ui/card-scanner.php",
+     "app/ui/confidence-ui.php",
+     "app/ui/explore-hero.php",
+     "app/ui/lead-panel.php",
+     "website/admin/client-order.php",
+     "website/admin/listings.php",
+     "website/admin/people.php",
+     "website/hub/index.php",
+     "website/index.php",
+     "website/js/address-book.js",
+     "website/js/cat-more.js",
+     "website/js/guest-inquiry.js",
+     "website/js/location-scope.js",
+     "website/js/photo-viewer.js",
+     "website/js/search-panel.js",
+     "website/js/tv-pager.js",
+     "website/js/tv-upload.js",
+     "website/js/tv-vault.js",
+     "website/user/dashboard.php",
+     "website/user/experiences/index.php",
+     "website/verify-email.php"
+    ]
+   }
   },
   {
    "path": "website/hub/build.php",
@@ -361,8 +394,8 @@
    "session": "session_01CXLi5kK8GzhmtW4etwGUwx",
    "why": "Automation switches: AI use shows a paused feature as paused",
    "since": "2026-11-14T16:10:20Z",
-   "expires": "2026-11-14T20:10:20Z",
-   "release": "",
+   "expires": "2026-11-14T20:13:42Z",
+   "release": "automation-switches_20261114.zip",
    "callers": {}
   },
   {
@@ -381,6 +414,105 @@
      "app/admin/sections.php"
     ]
    }
+  },
+  {
+   "path": "app/ui/outside-services.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kK8GzhmtW4etwGUwx",
+   "why": "release automation-switches_20261114.zip",
+   "since": "2026-11-14T16:13:42Z",
+   "expires": "2026-11-14T20:13:42Z",
+   "release": "automation-switches_20261114.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/ServiceHealth.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kK8GzhmtW4etwGUwx",
+   "why": "release automation-switches_20261114.zip",
+   "since": "2026-11-14T16:13:42Z",
+   "expires": "2026-11-14T20:13:42Z",
+   "release": "automation-switches_20261114.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Scheduler.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kK8GzhmtW4etwGUwx",
+   "why": "release automation-switches_20261114.zip",
+   "since": "2026-11-14T16:13:42Z",
+   "expires": "2026-11-14T20:13:42Z",
+   "release": "automation-switches_20261114.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Dossier.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kK8GzhmtW4etwGUwx",
+   "why": "release automation-switches_20261114.zip",
+   "since": "2026-11-14T16:13:42Z",
+   "expires": "2026-11-14T20:13:42Z",
+   "release": "automation-switches_20261114.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/PlaceFinder.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kK8GzhmtW4etwGUwx",
+   "why": "release automation-switches_20261114.zip",
+   "since": "2026-11-14T16:13:42Z",
+   "expires": "2026-11-14T20:13:42Z",
+   "release": "automation-switches_20261114.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/crawler/SecondTier.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kK8GzhmtW4etwGUwx",
+   "why": "release automation-switches_20261114.zip",
+   "since": "2026-11-14T16:13:42Z",
+   "expires": "2026-11-14T20:13:42Z",
+   "release": "automation-switches_20261114.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/TravelLegs.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kK8GzhmtW4etwGUwx",
+   "why": "release automation-switches_20261114.zip",
+   "since": "2026-11-14T16:13:42Z",
+   "expires": "2026-11-14T20:13:42Z",
+   "release": "automation-switches_20261114.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/OpenPlaces.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kK8GzhmtW4etwGUwx",
+   "why": "release automation-switches_20261114.zip",
+   "since": "2026-11-14T16:13:42Z",
+   "expires": "2026-11-14T20:13:42Z",
+   "release": "automation-switches_20261114.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Landmarks.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kK8GzhmtW4etwGUwx",
+   "why": "release automation-switches_20261114.zip",
+   "since": "2026-11-14T16:13:42Z",
+   "expires": "2026-11-14T20:13:42Z",
+   "release": "automation-switches_20261114.zip",
+   "callers": {}
   }
  ],
  "lapsed": []
