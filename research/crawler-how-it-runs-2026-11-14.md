@@ -1,20 +1,114 @@
-# The crawler: phases, workflows, services (2026-11-14)
+# Crawler operations: what we have, and what the new version does for us (2026-11-14)
 
-For Jason's review. Three layers, from why to how:
+For Jason's review, before any build. The aim (Jason, 2026-11-14): bring usage, expense, service caps and what's active
+or inactive together in one place, **without creating new gaps or more manual work**. The current crawler is described in
+three layers at the end (phases, workflows, services); this part says what changes.
 
-- **Phases** (decisions/0133): the stages every piece of knowledge goes through, from finding a source to keeping what's
-  published true. The rule book.
-- **Workflows** (decisions/0160 §3, W1–W13): each thing we make (listings, guides, heritage, events…). A workflow is
-  started by something, moves its work through the phases, asks the crawler for what it needs, and has its own gate and
-  report.
-- **Services** (decisions/0160 §2): what the crawler can do for any workflow, the tasks the Railway worker runs, and the
-  outside services they call, with their limits.
+## 1. Where we are today
 
-Taken from the live code (`workers/crawler/crawler.py`, worker 2.5 on Railway; `app/lib/crawler/CrawlService.php`, the
-site's planner) and the decisions. Each task's schedule (how often, its share, its limits) is a setting in the site's
-database (`crawl_capture_tasks`, `crawl_workflows`), not in code, so it isn't listed here.
+Each piece works on its own; nothing brings them together.
 
-## 1. Phases (decisions/0133)
+| Gap | What it costs us today |
+|---|---|
+| **Caps live in three places** (Railway settings, the site's `.env`, Thresholds & gates) and count only our own use | A cap is changed in one place and missed in another; the provider can stop us before our counter says so (the Anthropic "almost out" warning) |
+| **Costs sit in separate ledgers** (crawler calls, Claude, email) | No total per service, workflow or month; nothing checks spend against revenue or the community budget ("no income, no expense") |
+| **A service can be off or paced to nothing silently** | Google Places and web search sat at 0 a run with no reason logged; someone had to dig through logs |
+| **A run can be "ok" and produce nothing** | OpenStreetMap has found nothing since 2026-11-13 while every run reported ok; only a person reading logs noticed |
+| **The schedule and five of the workflows are invisible** | How often each task runs, its share and last outcome are only in the database; guides, journeys, Find it and live events run on the website outside the crawler's plan and report |
+| **Warnings come after the failure** | A Pulse case opens when a service breaks, never before a cap is reached |
+| **Watching depends on a Claude session** | Railway deploys, stuck syncs and sessions are checked only because the session manager does it hourly |
+
+## 2. What the new version does for us
+
+One operations view built on the three layers, where **the system does the counting, checking and switching**, and a person
+only decides what the system can't.
+
+**One register of outside services.** Every service we call (OpenStreetMap, Google Places, Tavily, Claude, email, the
+free registries…) is one row:
+- which workflows use it, and where its key lives;
+- its cap and its pace, in one place (the one setting the code reads; the old places are read from it, not kept beside it);
+- this month's use and cost, by our count and, where the provider offers a usage feed, by theirs, side by side, with the
+  difference flagged;
+- its status, always with the reason: **active**, **paced** (and to what), **held** (and why), **off** (no key, switched
+  off), **out of budget** (until when);
+- what it produced (finds, listings, facts, pages) and the cost per result.
+
+**One board of workflows (W1–W13), the website's own included.** Each shows its queue, last run, outcome, output, cost,
+and the phase where work is waiting, so a stalled phase is seen, not discovered.
+
+**The task schedule, visible.** How often each task runs, its share of a run, its last run and result; the same settings
+the planner already uses, shown where they can be read.
+
+**Warnings before the limit, not after.** Set levels (for example 80% and 95% of any cap, the provider's balance running
+low) open one Pulse case per service with the step that fixes it (raise the cap, top up, or pause the work), and **"ran
+but found nothing"** becomes its own warning after a set number of empty runs.
+
+**Watching built into the site.** The site checks Railway's deploys and the sync itself and raises a Pulse case when one
+fails, so it no longer depends on a Claude session being open.
+
+## 3. Less manual work, not more
+
+| Today, a person… | With the new version… |
+|---|---|
+| reads logs to learn why a service made 0 calls | the register shows the reason on the service's row |
+| compares the Console with the admin to check the AI spend | the register reads both and flags a gap (where the provider has a usage feed) |
+| edits a cap in Railway, `.env` or Thresholds and hopes the others match | one setting; the old places follow it |
+| notices that a service found nothing | a warning after a set number of empty runs, with the step to take |
+| re-adds a server after a ban lifts | it returns by itself when its status check answers normally, at half budget for two weeks |
+| learns a cap was hit when work stops | a warning before it, with the fix as a button |
+| relies on a Claude session to watch deploys and syncs | the site watches them |
+
+What a person still does: approve releases; decide on a cap, a top-up or a pause when warned; contact a provider about a
+ban (Pulse gives the exact issue and evidence); answer questions only a person can.
+
+## 4. How we avoid new gaps
+
+- **Replace, never add beside.** Each cap, count and status moves into the register and the old place reads from it, so
+  there's never a second copy to drift. No settings are retyped: the register starts from today's values, found
+  automatically.
+- **Built from what exists.** The service check (`ServiceHealth`), the cost ledger (`crawl_costs`), Claude's record
+  (`ai_jobs`), the planner (`CrawlService`) and Outside services already hold most of this; the new version joins them
+  rather than building new ledgers.
+- **Every path through the check.** The website's own calls (OpenStreetMap, Claude, journeys) go through the same check
+  and budgets as the crawler's, so nothing is counted in one place and spent in another.
+- **Silence is a status.** A service with no key, no pace or no output says so on its row; nothing can be quietly off.
+- **Honest where the provider can't be read.** Where a provider has no usage feed, the row says "our count only".
+  Reading Anthropic's own usage needs an admin key saved once on the environment: the one setup step, asked for when that
+  stage is built.
+- **No new spend.** Reading usage feeds and checking status is free; the "no income, no expense" rule is checked on the
+  register, not left to memory.
+- **One warning per service, with its fix.** Pulse cases follow the existing rule (one case per kind of chore, a step per
+  item, steps as buttons), so warnings don't become a new pile to sort.
+
+## 5. How it would be built
+
+Each stage is a release Jason approves, written up first as a decision (0163) for review.
+
+1. **Finish what's in hand** (the crawler session): `overpass-api.de` back on the lists behind the check, automatic return,
+   a pace per service. Already approved.
+2. **The service register:** one row per service from what exists today; caps and paces moved into it with today's values;
+   the old places read from it; status with reasons.
+3. **Costs together:** the crawler's ledger, Claude and email per service, workflow and month; provider usage feeds where
+   offered; set against revenue and the community budget.
+4. **The workflow board and the task schedule,** the website's workflows included.
+5. **Warnings before limits and "ran but found nothing".**
+6. **Watching built into the site** (Railway deploys, the sync); the session manager's hourly check then only covers
+   sessions.
+
+## 6. Questions for Jason
+
+- Is anything here something you'd rather keep doing by hand?
+- Warning levels: 80% and 95% of a cap to start, and how many empty runs before "found nothing" (proposed: a day's worth)?
+- Reading Anthropic's own usage needs an admin key saved once: yes to asking for it at stage 3?
+
+---
+
+## Reference: the crawler today, in three layers
+
+From the live code (`workers/crawler/crawler.py`, worker 2.5 on Railway; `app/lib/crawler/CrawlService.php`) and the
+decisions. Each task's schedule is a setting in the site's database (`crawl_capture_tasks`, `crawl_workflows`).
+
+### A. Phases (decisions/0133)
 
 Phases 1 and 2 are always-on automation within fixed guardrails; configuration starts at Phase 3.
 
@@ -27,7 +121,7 @@ Phases 1 and 2 are always-on automation within fixed guardrails; configuration s
 | 5. Publishing | Writing from the catalog (guides, journeys, stories, events), behind rule-based gates and the protected-information standard ("tell the story, never the way in"); freshness shown |
 | 6. Content maintenance | A loop back through Phases 1–3 that keeps what's published true: clocks (listings monthly to quarterly, never over 90 days; guides 30 days; dossiers 6 months; research briefs a year), events that start a check (a source changes, a listing closes); outcomes Refresh, Renew or Review |
 
-## 2. Workflows (decisions/0160 §3)
+### B. Workflows (decisions/0160 §3)
 
 Each workflow has its own queue and status, its own share of the crawler, its own report (in the admin, and Pulse when it
 stalls), its own costs, and its decision named.
@@ -48,9 +142,9 @@ stalls), its own costs, and its decision named.
 | W12 Search learning | what people search and open after | 1, 4 | search the web (Tier 2); queues W1 | `learn` | 3 or more searches in 30 days | learned words, situation gaps, new sources |
 | W13 Stories | a person writing (0043) | 5 | none; named places go to Find it (W8) | none | person-written only | stories |
 
-## 3. Services
+### C. Services
 
-### 3.1 What the crawler can do (decisions/0160 §2)
+#### C.1 What the crawler can do (decisions/0160 §2)
 
 The crawler is one service: it fetches and reads, politely and within budgets, for whichever workflow asks. It makes
 nothing on its own and decides nothing about what's published.
@@ -67,7 +161,7 @@ nothing on its own and decides nothing about what's published.
 It keeps two shared memories every workflow uses: the **source register** (which sites, read or cite only, their terms and
 trust) and the **place store** (every place named on a page we read, with its page).
 
-### 3.2 One run, every 5 minutes
+#### C.2 One run, every 5 minutes
 
 Railway starts the worker every 5 minutes. A run lasts at most about 4 minutes (`TIME_BUDGET` 240 s) and 60 page reads
 (`MAX_FETCHES`).
@@ -83,7 +177,7 @@ Railway starts the worker every 5 minutes. A run lasts at most about 4 minutes (
 4. **Report** each task: done, nothing to do, not reached, failed, off (no key or switch), or held. Paid calls go in the
    cost ledger, failed ones included.
 
-### 3.3 The worker's tasks
+#### C.3 The worker's tasks
 
 | Task | Workflow | What it does | Outside services it calls |
 |---|---|---|---|
@@ -108,7 +202,7 @@ The website (Bluehost) runs W4, W5, W7, W8 and W10 itself, and calls some servic
 search finds little nearby and for the deep look on one business, openrouteservice for journeys, and Claude for guides
 and research (inside the monthly AI cap).
 
-### 3.4 Outside services and their limits
+#### C.4 Outside services and their limits
 
 | Service | Who calls it | Limit |
 |---|---|---|
@@ -124,7 +218,7 @@ and research (inside the monthly AI cap).
 
 At 5 queries a run × 288 runs a day, OpenStreetMap stays near one query a minute, inside the crawler's 1,500.
 
-### 3.5 The check before every call (live 2026-11-14)
+#### C.5 The check before every call (live 2026-11-14)
 
 Every call to an outside service passes `ServiceHealth` first:
 - **A ban, a refused key or a used-up quota** holds that server; nothing is sent to it. A Pulse case names the exact issue
@@ -133,15 +227,3 @@ Every call to an outside service passes `ServiceHealth` first:
 - **The hold lifts** when a person marks it resolved, or (being built) when its status check answers normally: it then
   returns by itself at half budget for two weeks.
 
-## 4. Coming (approved 2026-11-14, being built)
-
-- `overpass-api.de` back on both lists, held by its open ban; the check before use is the only gate, and it returns by
-  itself when its daily status check answers 200.
-- Each service's servers as settings in its Outside services card (add, pause, see why it's held).
-- A pace per service inside the check: OpenStreetMap at most one query a minute; Google Places and web search spread
-  evenly through the day.
-
-## Questions for Jason
-
-- Where this doesn't match what you expected: which phase, workflow or service?
-- Should each task's live schedule (how often, its share, its last run and outcome) be shown in the admin next to this?
