@@ -975,8 +975,12 @@ A loop back through Phases 1 to 3 that keeps what's published true.
 - **Rural sources refreshed:** open place datasets reloaded with each release (monthly for Overture); licence registries
   re-read on their own cycle; a lapsed licence (or a dataset dropping a place) lowers confidence and asks "Still open?",
   never closes it (R12).
-- **Service return:** a held service returns by itself when its status check answers normally, on 0163's ramp (§10, 2;
-  live), for quota, back-off and budget holds; a ban or a block waits for a person's Reactivate (§1.2, 5).
+- **Service return:** a held service returns by itself, on 0163's ramp (§10, 2; live), **only for quota, back-off and
+  budget holds**. **A ban or a block (a site or an outside service: 401/403/406/418, `AUTH_WALL`, robots, a challenge)
+  is never retried by itself, not even by a status probe** (Jason, 2026-11-14: "blocked or banned should proceed with
+  caution because we dont want to do more harm by trying again and again"; this replaces his earlier "go, automatic" for
+  banned services). It waits for a person's **Reactivate** (§1.2, 5), given once the provider has answered or lifted it;
+  then one polite check, and the ramp.
 
 ### 6.2 Splitting and the audit trail
 
