@@ -335,3 +335,12 @@ In releases, after the review's release 1 (public exposure) and release 2 (stop 
 
 ## Open
 
+
+**Note (2026-11-13, Jason approved): the crawler reports by service.** With every outside service on a card (decisions/0152
+note, same day; Jason: "the cards under outside services will include everything pertaining to that service"), each run's
+report also counts, per outside service, the calls the worker made and how many failed, with the last error (e.g.
+overpass-api.de 406). The worker counts every request it sends by host; the site files each host under its service
+(`OutsideServices::serviceOfHost`, the cards' `HOSTS`) and keeps the counts per run and task, so a service's card shows
+its calls and failures for the last 24 hours and the month, and its last error, from the crawler's own log. Businesses'
+and sources' own websites are counted together as "websites we read", never one by one. Until that release is live, a
+card shows the tasks that call it (their last outcome) and the ledger's paid calls.
