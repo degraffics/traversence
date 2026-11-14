@@ -2,50 +2,6 @@
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
  "claims": [
   {
-   "path": "app/lib/Checkouts.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5jfpSTzxwivH3pRFJu",
-   "why": "release checkouts-view_20261113.zip",
-   "since": "2026-11-13T20:04:59Z",
-   "expires": "2026-11-14T03:41:28Z",
-   "release": "checkouts-view_20261113.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/Releases.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5jfpSTzxwivH3pRFJu",
-   "why": "release checkouts-view_20261113.zip",
-   "since": "2026-11-13T20:04:59Z",
-   "expires": "2026-11-14T03:41:28Z",
-   "release": "checkouts-view_20261113.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/SiteHealth.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5jfpSTzxwivH3pRFJu",
-   "why": "release checkouts-view_20261113.zip",
-   "since": "2026-11-13T20:04:59Z",
-   "expires": "2026-11-14T03:41:28Z",
-   "release": "checkouts-view_20261113.zip",
-   "callers": {}
-  },
-  {
-   "path": "website/js/stg-bar.js",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5jfpSTzxwivH3pRFJu",
-   "why": "release checkouts-view_20261113.zip",
-   "since": "2026-11-13T20:04:59Z",
-   "expires": "2026-11-14T03:41:28Z",
-   "release": "checkouts-view_20261113.zip",
-   "callers": {}
-  },
-  {
    "path": "app/lib/Pulse.php",
    "functions": [
     "items"
