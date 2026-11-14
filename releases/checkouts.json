@@ -8,7 +8,7 @@
    "session": "session_01CXLi5gpdwLLGTQ51Ls56yQ",
    "why": "0159 step 5a: a business's pages as blocks (shop.<id> zones, Team perms)",
    "since": "2026-11-13T23:45:34Z",
-   "expires": "2026-11-14T04:21:33Z",
+   "expires": "2026-11-14T04:40:29Z",
    "release": "studio5a_20261113.zip",
    "callers": {
     "zone": [
@@ -51,7 +51,7 @@
    "session": "session_01CXLi5gpdwLLGTQ51Ls56yQ",
    "why": "0159 step 5a: a business's pages as blocks (shop.<id> zones, Team perms)",
    "since": "2026-11-13T23:45:34Z",
-   "expires": "2026-11-14T04:21:33Z",
+   "expires": "2026-11-14T04:40:29Z",
    "release": "studio5a_20261113.zip",
    "callers": {
     "save": [
@@ -68,7 +68,7 @@
    "session": "session_01CXLi5gpdwLLGTQ51Ls56yQ",
    "why": "0159 step 5a: header notes for the shop zones",
    "since": "2026-11-13T23:45:34Z",
-   "expires": "2026-11-14T04:21:33Z",
+   "expires": "2026-11-14T04:40:29Z",
    "release": "studio5a_20261113.zip",
    "callers": {}
   },
@@ -79,7 +79,7 @@
    "session": "session_01CXLi5gpdwLLGTQ51Ls56yQ",
    "why": "0159 step 5a: a business's pages as blocks (shop.<id> zones, Team perms)",
    "since": "2026-11-13T23:45:34Z",
-   "expires": "2026-11-14T04:21:33Z",
+   "expires": "2026-11-14T04:40:29Z",
    "release": "studio5a_20261113.zip",
    "callers": {}
   },
@@ -90,7 +90,7 @@
    "session": "session_01CXLi5gpdwLLGTQ51Ls56yQ",
    "why": "0159 step 5a: a business's pages as blocks (shop.<id> zones, Team perms)",
    "since": "2026-11-13T23:45:34Z",
-   "expires": "2026-11-14T04:21:33Z",
+   "expires": "2026-11-14T04:40:29Z",
    "release": "studio5a_20261113.zip",
    "callers": {}
   },
@@ -101,7 +101,7 @@
    "session": "session_01CXLi5gpdwLLGTQ51Ls56yQ",
    "why": "0159 step 5a: header notes for the shop zones",
    "since": "2026-11-13T23:45:34Z",
-   "expires": "2026-11-14T04:21:33Z",
+   "expires": "2026-11-14T04:40:29Z",
    "release": "studio5a_20261113.zip",
    "callers": {
     "tv_storefront_serve": [
@@ -118,7 +118,7 @@
    "session": "session_01CXLi5gpdwLLGTQ51Ls56yQ",
    "why": "0159 step 5a: a business's pages as blocks (shop.<id> zones, Team perms)",
    "since": "2026-11-13T23:45:34Z",
-   "expires": "2026-11-14T04:21:33Z",
+   "expires": "2026-11-14T04:40:29Z",
    "release": "studio5a_20261113.zip",
    "callers": {
     "tv_biz_storefront": [
@@ -133,7 +133,7 @@
    "session": "session_01CXLi5gpdwLLGTQ51Ls56yQ",
    "why": "0159 step 5a",
    "since": "2026-11-13T23:45:37Z",
-   "expires": "2026-11-14T04:21:33Z",
+   "expires": "2026-11-14T04:40:29Z",
    "release": "studio5a_20261113.zip",
    "callers": {}
   }
