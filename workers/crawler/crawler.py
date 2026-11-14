@@ -42,7 +42,9 @@ Settings (environment variables):
   JOBS_PER_RUN         default 5 (the site hands out at most 10)
   MAX_FETCHES          website fetches per run, default 60
   TIME_BUDGET          seconds per run, default 240
-  OVERPASS_URL         optional first Overpass server; the public server and two mirrors follow
+  OVERPASS_URL         optional first Overpass server; the mirrors follow (overpass-api.de only with OVERPASS_MAIN=on,
+                       once its maintainers have answered: research/osm-overpass-2026-11-13.md)
+  CRAWLER_CONTACT      a contact address added to the User-Agent (the OSM statement's fourth promise)
   VERIFY_PER_RUN       listings given a second look per run, default 10 (0 turns it off)
   VERIFY_TIME          seconds of each run for the second look, default 100
   TAVILY_API_KEY       Tavily search key (free plan: 1,000 searches a month); without a search key the
@@ -101,17 +103,27 @@ TOKEN = os.environ.get("CRAWLER_API_TOKEN", "")
 JOBS_PER_RUN = int(os.environ.get("JOBS_PER_RUN", "5"))
 MAX_FETCHES = int(os.environ.get("MAX_FETCHES", "60"))
 TIME_BUDGET = int(os.environ.get("TIME_BUDGET", "240"))
-# Public Overpass servers, tried in order: the main one sometimes refuses (406/429/504), so fall back to mirrors.
-OVERPASS_URLS = [u for u in [os.environ.get("OVERPASS_URL"),
-                             "https://overpass-api.de/api/interpreter",
+# Public Overpass servers, tried in order, each skipped while it's held (an issue on the site, ServiceHealth).
+# overpass-api.de is off the list (Jason, 2026-11-14) until its maintainers answer about their ban on us (406 since
+# 2026-11-13, research/osm-overpass-2026-11-13.md): asking again while banned is what turns it into an address ban.
+# OVERPASS_MAIN=on puts it back, only once they've said so. A daily probe of its /api/status (from the site's plan) says
+# whether we're still refused. overpass.openstreetmap.fr is left out: 403 "only available to white-listed usages".
+OVERPASS_MAIN = "https://overpass-api.de/api/interpreter"
+OVERPASS_URLS = list(dict.fromkeys(u for u in [os.environ.get("OVERPASS_URL"),
+                             OVERPASS_MAIN if os.environ.get("OVERPASS_MAIN", "").lower() == "on" else "",
                              "https://overpass.private.coffee/api/interpreter",
                              "https://overpass.kumi.systems/api/interpreter",
-                             "https://maps.mail.ru/osm/tools/overpass/api/interpreter"] if u]
-# overpass.openstreetmap.fr is left out: it answers 403 "only available to white-listed usages" (2026-11-13's runs)
+                             "https://maps.mail.ru/osm/tools/overpass/api/interpreter"] if u))
 
 
 class OutOfTime(Exception):
     """The task's share ran out before an outside service answered: the work goes back untouched, never a failure."""
+
+
+class ServiceHeld(OutOfTime):
+    """An outside service the work needs is held (Jason, 2026-11-14: "the system must stop trying with an API [that] has an
+    issue until it is resolved"): the work goes back untouched, the task reports "held" (never failed), and the rest of
+    the run carries on."""
 VERIFY_PER_RUN = int(os.environ.get("VERIFY_PER_RUN", "10"))
 VERIFY_TIME = int(os.environ.get("VERIFY_TIME", "100"))
 IDENTITY_PER_RUN = int(os.environ.get("IDENTITY_PER_RUN", "5"))   # listings looked up per run for a missing phone or website (decisions/0062); 0 turns it off
@@ -161,7 +173,12 @@ IRS_FILE = "https://www.irs.gov/pub/irs-soi/eo_{state}.csv"
 RIDB_API_KEY = os.environ.get("RIDB_API_KEY", "")                 # Recreation.gov RIDB key (decisions/0048)
 RIDB_API = "https://ridb.recreation.gov/api/v1"
 NPI_API = "https://npiregistry.cms.hhs.gov/api/"
-UA = "TraversenceCrawler/1.0 (+https://traversence.com; local directory of community resources)"
+# Our name, and a contact for the services we call (the OSM statement's fourth promise): CRAWLER_CONTACT on Railway.
+# UA_AS_REFUSED is the agent overpass-api.de refused: its probe sends exactly that, never a changed agent (changing the
+# agent to get round a ban is what earns an address ban).
+UA_AS_REFUSED = "TraversenceCrawler/1.0 (+https://traversence.com; local directory of community resources)"
+CRAWLER_CONTACT = re.sub(r"[^A-Za-z0-9@._+-]", "", os.environ.get("CRAWLER_CONTACT", ""))[:80]
+UA = UA_AS_REFUSED[:-1] + (f"; {CRAWLER_CONTACT}" if CRAWLER_CONTACT else "") + ")"
 ZIP_RADIUS_M = 19000          # ~12 miles around each ZIP centre of the cluster
 MAX_PER_JOB = 25
 FETCH_DELAY = 1.5             # seconds between website fetches
@@ -198,7 +215,7 @@ SKIP_HOSTS = {"openstreetmap.org", "npino.com", "npiprofile.com", "npidb.org", "
               "npi.report", "npiregistry.cms.hhs.gov", "google.com", "bing.com", "duckduckgo.com", "search.brave.com"}
 
 started = time.monotonic()
-WORKER_V = "2.4"           # the service's contract 2 (decisions/0160 §2): the site plans each run, the worker reports it; 2.4: calls by host
+WORKER_V = "2.5"           # the service's contract 2 (decisions/0160 §2): the site plans each run, the worker reports it; 2.4: calls by host; 2.5: issues, holds, probes, per-kind Overpass
 RUN_END = None             # when this run's own work must stop (started + TIME_BUDGET, or a bulk load's end)
 TASK_END = None            # when the capture task being worked must stop (its share of the run)
 FETCH_CAP = MAX_FETCHES    # fetches this run may have made by the end of the task being worked
@@ -233,23 +250,133 @@ _urlopen = urllib.request.urlopen
 _SITE_HOST = (urllib.parse.urlsplit(SITE).hostname or "").lower() if SITE else ""
 
 
+# ---- outside services' issues: identify, stop, ask for help (Jason, 2026-11-14; the site's ServiceHealth) ----
+# The APIs the worker calls (not businesses' and sources' own websites, where a 403 or a timeout is that one site's).
+# A failure from one of them is classified (KINDS) with its evidence and reported; a ban, a refused key or a used-up
+# quota stops every call to that server for the rest of the run, and the site holds it in later runs until a person
+# marks it resolved (or its light probe says it's lifted); a slow-down, timeouts and server errors back off.
+API_HOSTS = {"overpass-api.de", "overpass.private.coffee", "overpass.kumi.systems", "maps.mail.ru", "overpass.openstreetmap.fr",
+             "query.wikidata.org", "www.wikidata.org", "commons.wikimedia.org", "en.wikipedia.org", "api.tavily.com",
+             "api.search.brave.com", "places.googleapis.com", "npiregistry.cms.hhs.gov", "download.cms.gov", "www.irs.gov",
+             "ridb.recreation.gov", "www.loc.gov", "index.commoncrawl.org", "data.commoncrawl.org", "www2.census.gov",
+             "prd-tnm.s3.amazonaws.com"}
+STOP_KINDS = ("ban", "auth", "quota")         # held until resolved
+HELD = {}                  # host -> why: the site's holds at the start of the run, and what tripped during it
+ISSUES = {}                # host -> the first evidence of this run's issue there, and how many times
+PROBES = []                # the site's light probes this run made, with what each server answered
+_strikes = {}              # host -> back-off failures this run (two trip it for the rest of the run)
+
+
+def classify(status, body="", err=""):
+    """What kind of issue a failed call is ('' when it's not the service's: a 404 is a missing page, not an issue)."""
+    b = (body or "").lower()
+    if status == 401:
+        return "auth"
+    if status == 402:
+        return "quota"
+    if status == 429:
+        return "quota" if re.search(r"quota|credit|exceeded your|monthly|plan limit|usage limit|billing", b) else "rate"
+    if status in (403, 406, 418, 451):
+        if re.search(r"quota|credits?\b|exceeded|billing", b):
+            return "quota"
+        if re.search(r"api[ _-]?key|invalid key|unauthori[sz]ed|invalid token|subscription token", b):
+            return "auth"
+        return "ban"
+    if 500 <= (status or 0) <= 599:
+        return "server"
+    if status:
+        return ""
+    return "timeout" if err else ""
+
+
+def note_issue(host, kind, status=0, body="", err="", what="", retry_after=""):
+    """Records an issue at a host for the report, and trips the run's own breaker on it."""
+    if not kind or host not in API_HOSTS:
+        return
+    i = ISSUES.get(host)
+    if i is None or (kind in STOP_KINDS and i["kind"] not in STOP_KINDS):
+        ISSUES[host] = i = {"host": host, "kind": kind, "status": int(status or 0), "n": (i or {}).get("n", 0),
+                            "body": re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", body or "")))[:300].strip(),
+                            "error": (err or "")[:200], "what": what[:120], "task": CUR_TASK,
+                            "at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()), "retry_after": str(retry_after)[:20]}
+    i["n"] += 1
+    if kind in STOP_KINDS or kind == "rate":
+        HELD[host] = f"{kind}: {status or err}"[:200]
+    else:
+        _strikes[host] = _strikes.get(host, 0) + 1
+        if _strikes[host] >= 2:
+            HELD[host] = f"{kind}: {status or err} twice this run"[:200]
+    if host in HELD:
+        log(f"  {host} held for the rest of the run: {HELD[host]}")
+
+
+def held(host):
+    return HELD.get((host or "").lower())
+
+
 def _counted_urlopen(req, *a, **kw):
     url = req.full_url if isinstance(req, urllib.request.Request) else str(req)
     host = (urllib.parse.urlsplit(url).hostname or "").lower()
     if not host or host == _SITE_HOST:
         return _urlopen(req, *a, **kw)
+    if host in HELD:                               # never a call to a held service (its issue is open on the site)
+        raise ServiceHeld(f"{host} is held ({HELD[host]})")
     c = CALLS.setdefault(CUR_TASK, {}).setdefault(host, [0, 0, ""])
     c[0] += 1
+    what = urllib.parse.urlsplit(url).path
     try:
         return _urlopen(req, *a, **kw)
     except urllib.error.HTTPError as e:
         c[1] += 1
         c[2] = f"{e.code} {e.reason}"[:200]
+        if host in API_HOSTS:
+            try:
+                body = e.read(2000)
+            except Exception:
+                body = b""
+            e.read = lambda *_a, _b=body: _b       # the caller can still read what the server said
+            note_issue(host, classify(e.code, body.decode("utf-8", "replace")), e.code, body.decode("utf-8", "replace"),
+                       what=what, retry_after=(e.headers.get("Retry-After", "") if e.headers else ""))
         raise
     except Exception as e:
         c[1] += 1
         c[2] = repr(e)[:200]
+        note_issue(host, "timeout", err=repr(e), what=what)   # no answer: timed out, reset or unreachable
         raise
+
+
+def malformed(url, why):
+    """An answer we couldn't read (not JSON, or a server's own error remark): an issue that backs off."""
+    host = (urllib.parse.urlsplit(url).hostname or "").lower()
+    note_issue(host, "timeout" if re.search(r"timed out|runtime error", why, re.I) else "malformed", 200, why, what=urllib.parse.urlsplit(url).path)
+
+
+def run_probes(probes):
+    """The site's light probes (one GET each, at the slow interval the provider's rules allow, e.g. Overpass /api/status
+    once a day): what the server answers from here, for the site to read. Each sends the agent the site asks for
+    ("as_refused": exactly the agent that was refused), never a changed one to get round a ban."""
+    for p in probes or []:
+        url = str(p.get("url") or "")
+        if not url.startswith("https://"):
+            continue
+        agent = UA_AS_REFUSED if p.get("agent") == "as_refused" else UA
+        r = {"id": p.get("id"), "host": (urllib.parse.urlsplit(url).hostname or "").lower(), "status": 0, "body": "",
+             "at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())}
+        try:
+            with _urlopen(urllib.request.Request(url, headers={"User-Agent": agent, "Accept": "*/*"}), timeout=20) as resp:
+                r["status"] = resp.status
+                r["body"] = resp.read(1500).decode("utf-8", "replace")
+        except urllib.error.HTTPError as e:
+            r["status"] = e.code
+            try:
+                r["body"] = e.read(1500).decode("utf-8", "replace")
+            except Exception:
+                pass
+        except Exception as e:
+            r["body"] = repr(e)[:300]
+        r["body"] = re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", r["body"])))[:600].strip()
+        log(f"probe {r['host']}: {r['status'] or 'no answer'} {r['body'][:300]!r}")
+        PROBES.append(r)
 
 
 urllib.request.urlopen = _counted_urlopen
@@ -294,60 +421,116 @@ def time_left(deadline=None):
 
 
 OVERPASS_MIN = 20     # seconds: a lookup with less than this left isn't sent (the job goes back for a later run)
+OVERPASS_SERVER_TIMEOUT = 25   # the server's own limit for one query: small queries, so the mirrors answer (OSM promise 1)
+# The public instances' published limits (wiki.openstreetmap.org/wiki/Overpass_API, "Public Overpass API instances";
+# FOSSGIS's terms for overpass-api.de): under about 10,000 queries and 1 GB of downloads a day per user, a few slots per
+# address (its /api/status). A 429 means no slot free: wait (our back-off), never ask again at once. A 406 is a ban set by
+# hand: stop entirely (a held issue), never change the agent. Our own budget is a quarter of that (Jason, 2026-11-14:
+# 2,500 queries and 250 MB a day, the crawler up to 1,500 of them, half while a server bans us or for two weeks after),
+# set in Thresholds & gates on the site and sent with each plan (osm_budget); without one, OSM_PER_RUN a run.
+OVERPASS_PUBLIC_DAILY_QUERIES = 10000
+OVERPASS_PUBLIC_DAILY_BYTES = 1_000_000_000
+OSM_PER_RUN = int(os.environ.get("OSM_PER_RUN", "5"))   # 1,500 a day over 288 runs
+OSM_BUDGET = {"queries": OSM_PER_RUN, "bytes": 3_000_000}   # what this run may still use (the plan's osm_budget replaces it)
+OSM_USED = {"queries": 0, "bytes": 0}
+OSM_RECENT = set()    # the site's town-and-kind queries already asked (3 months, Jason 2026-11-14): not asked again
+OSM_ASKED = []        # this run's, once their places reached the site: [{key, n}]
+OSM_PENDING = {}      # the keys of the job being worked, sent with its results
+
+
+def osm_key(job, flt):
+    """One town (or cluster) and one kind: what the month's cache is kept by."""
+    pl = job.get("place") or {}
+    zs = sorted(str(p.get("zip") or f"{p.get('lat')},{p.get('lon')}") for p in pl.get("zip_points", []))
+    return hashlib.sha1(json.dumps([pl.get("key") or pl.get("name"), pl.get("state"), zs, flt]).encode()).hexdigest()[:16]
 
 
 def overpass(job, deadline=None):
-    """The job's places from OpenStreetMap, inside the task's time (2026-11-13: five mirrors at 125 seconds each held a
-    run for seven minutes, and every other task went unreached). Each try gets only the time left; when the time runs out
-    before any server has answered, OutOfTime hands the job back untried."""
+    """The job's places from OpenStreetMap (the statement's promises, research/osm-overpass-2026-11-13.md §2): one small
+    query per kind, one at a time, a short server timeout, never a kind asked for this town in the last month, and never
+    a held server (an open issue on the site). A server that refuses is never asked again in another way (the old GET
+    after a 406 was exactly "keeps asking"). Inside the task's time: when it runs out before an answer, OutOfTime hands
+    the job back untried; when every server is held, ServiceHeld does."""
     if os.environ.get("OVERPASS_FIXTURE"):
         with open(os.environ["OVERPASS_FIXTURE"]) as f:
             return json.load(f).get("elements", [])
     pts = [p for p in job["place"].get("zip_points", []) if p.get("lat") is not None] or \
           [{"lat": job["place"]["center"]["lat"], "lon": job["place"]["center"]["lon"]}]
+    filters = job["looking_for"].get("osm") or GROUP_QUERIES.get(job["looking_for"].get("group"), [])
+    out, keys, cached = [], {}, 0
+    for i, flt in enumerate(filters):
+        k = osm_key(job, flt)
+        if k in OSM_RECENT:
+            cached += 1
+            continue
+        if keys:
+            time.sleep(2)                           # one at a time, with a breath between (OSM promise 2)
+        els = overpass_one(job, pts, flt, deadline)
+        keys[k] = len(els)
+        out += els
+    if cached:
+        log(f"  OpenStreetMap: {cached} of {len(filters)} kind(s) asked for this place in the last month, not asked again")
+    OSM_PENDING[job.get("job_id") or job.get("target_id")] = keys
+    return out
+
+
+def overpass_one(job, pts, flt, deadline):
+    """One kind's query, to the first server not held that answers."""
     tried, timed_out = [], False
     for url in OVERPASS_URLS:
+        host = (urllib.parse.urlparse(url).hostname or "").lower()
+        if held(host):
+            tried.append(f"{host} held")
+            continue
         left = time_left(deadline)
         if left < OVERPASS_MIN:
             raise OutOfTime(f"{int(max(0, left))}s left for OpenStreetMap" + (": " + " | ".join(tried) if tried else ""))
-        # the server stops its own work a little before we stop waiting
-        query = overpass_query(job, pts, max(15, min(110, int(left) - 8)))
-        body = urllib.parse.urlencode({"data": query}).encode()
-        req = urllib.request.Request(url, data=body, headers={
+        if OSM_USED["queries"] >= OSM_BUDGET["queries"] or OSM_USED["bytes"] >= OSM_BUDGET["bytes"]:
+            raise ServiceHeld(f"the OpenStreetMap budget for now is used ({OSM_USED['queries']} queries, "
+                              f"{OSM_USED['bytes'] // 1000} kB this run; the site's daily share)")
+        query = overpass_query(job, pts, [flt], OVERPASS_SERVER_TIMEOUT)
+        OSM_USED["queries"] += 1
+        req = urllib.request.Request(url, data=urllib.parse.urlencode({"data": query}).encode(), headers={
             "User-Agent": UA, "Accept": "*/*",   # a strict "application/json" can earn a 406 Not Acceptable
             "Content-Type": "application/x-www-form-urlencoded"})
         try:
-            with urllib.request.urlopen(req, timeout=max(5, min(125, left - 3))) as r:
-                d = json.loads(r.read().decode("utf-8"))
+            with urllib.request.urlopen(req, timeout=max(5, min(OVERPASS_SERVER_TIMEOUT + 10, left - 3))) as r:
+                raw = r.read()
+            OSM_USED["bytes"] += len(raw)
+            try:
+                d = json.loads(raw.decode("utf-8"))
+            except ValueError:
+                malformed(url, "not JSON: " + raw[:200].decode("utf-8", "replace"))
+                tried.append(f"{host} answered something that isn't JSON")
+                continue
             # Overpass answers 200 with no elements and a remark when it ran out of time or memory: that's a failure, not
             # "nothing here" (2026-11-10: Dana Point's places to eat were recorded as done, 0 found)
             rem = str(d.get("remark") or "")
             if re.search(r"runtime (error|remark)|timed out|out of memory", rem, re.I):
-                tried.append(f"{urllib.parse.urlparse(url).netloc} remark {rem[:100]!r}")
+                malformed(url, rem[:200])
+                tried.append(f"{host} remark {rem[:100]!r}")
                 continue
             return d.get("elements", [])
+        except ServiceHeld as e:                    # tripped by an earlier kind this run
+            tried.append(str(e)[:120])
         except urllib.error.HTTPError as e:
-            if e.code == 406 and len(query) < 1800 and time_left(deadline) >= OVERPASS_MIN:   # some servers refuse the form POST but take a short query as a GET (2026-10-14); a long one is 414
-                try:
-                    g = urllib.request.Request(url + "?" + urllib.parse.urlencode({"data": query}), headers={"User-Agent": UA, "Accept": "*/*"})
-                    with urllib.request.urlopen(g, timeout=max(5, min(125, time_left(deadline) - 3))) as r:
-                        return json.loads(r.read().decode("utf-8")).get("elements", [])
-                except Exception as e2:
-                    tried.append(f"{urllib.parse.urlparse(url).netloc} GET {e2!r}"[:160])
-            tried.append(f"{urllib.parse.urlparse(url).netloc} {e.code} {e.read()[:120]!r}")
-        except (urllib.error.URLError, TimeoutError, ValueError, OSError) as e:
-            tried.append(f"{urllib.parse.urlparse(url).netloc} {e!r}"[:160])
+            tried.append(f"{host} {e.code} {e.read()[:120]!r}")
+        except (urllib.error.URLError, TimeoutError, OSError) as e:
+            tried.append(f"{host} {e!r}"[:160])
             timed_out = timed_out or "timed out" in repr(e).lower()
+    if osm_all_held():
+        raise ServiceHeld("every OpenStreetMap server is held: " + " | ".join(tried))
     if timed_out and time_left(deadline) < OVERPASS_MIN:
         raise OutOfTime("OpenStreetMap didn't answer in the time left: " + " | ".join(tried))   # slow, not refused
     raise RuntimeError("OpenStreetMap lookup failed: " + " | ".join(tried))
 
 
-def overpass_query(job, pts, timeout=110):
-    """The Overpass query for a job: a circle around each ZIP centre when there are few, else one box around them all
-    (2026-11-10: Phoenix's ~60 ZIPs made a query too large to send or run). Names only; 120 places at most."""
-    filters = job["looking_for"].get("osm") or GROUP_QUERIES.get(job["looking_for"]["group"], [])
-    if len(pts) * max(1, len(filters)) <= 12:
+def overpass_query(job, pts, filters=None, timeout=OVERPASS_SERVER_TIMEOUT):
+    """The Overpass query for one kind (OSM promise 1: small queries): a circle around each ZIP centre when there are a
+    few, else one box around them all, kept to the cluster (2026-11-10: Phoenix's ~60 ZIPs made a query too large to send
+    or run). Names only; 120 places at most."""
+    filters = filters if filters is not None else (job["looking_for"].get("osm") or GROUP_QUERIES.get(job["looking_for"].get("group"), []))
+    if len(pts) * max(1, len(filters)) <= 6:
         parts = [f'{q}["name"](around:{ZIP_RADIUS_M},{p["lat"]},{p["lon"]});' for q in filters for p in pts]
         return f"[out:json][timeout:{int(timeout)}];(" + "".join(parts) + ");out center tags 120;"
     pad_lat = min(ZIP_RADIUS_M, 8000) / 111000.0
@@ -357,6 +540,21 @@ def overpass_query(job, pts, timeout=110):
     w_, e_ = min(p["lon"] for p in pts) - pad_lon, max(p["lon"] for p in pts) + pad_lon
     parts = [f'{q}["name"];' for q in filters]
     return f"[out:json][timeout:{int(timeout)}][bbox:{s_:.4f},{w_:.4f},{n_:.4f},{e_:.4f}];(" + "".join(parts) + ");out center tags 120;"
+
+
+def osm_hosts():
+    return [(urllib.parse.urlparse(u).hostname or "").lower() for u in OVERPASS_URLS]
+
+
+def osm_all_held():
+    return not os.environ.get("OVERPASS_FIXTURE") and all(held(h) for h in osm_hosts())
+
+
+def osm_sent(ref):
+    """The job's places reached the site: its kinds count as asked for the month."""
+    for k, n in (OSM_PENDING.pop(ref, None) or {}).items():
+        OSM_ASKED.append({"key": k, "n": n})
+        OSM_RECENT.add(k)
 
 
 def wikidata(job, deadline=None):
@@ -1737,6 +1935,8 @@ def targets(deadline):
     what's found goes to Listing Intake, held for a person (the place may be outside our areas). A new kind of place
     search added (decisions/0067) is looked for in every town we cover by its own words: OpenStreetMap names, and a web
     search when there's a key; those are our towns, so Listing Intake's usual checks decide."""
+    if osm_all_held():
+        raise ServiceHeld("every OpenStreetMap server is held: " + "; ".join(f"{h} ({held(h)})" for h in osm_hosts()))
     d = site_call(f"/api/crawl/targets.php?limit={TARGETS_PER_RUN}")
     for job in d.get("targets", []):
         if time.monotonic() > deadline or out_of_time():
@@ -1760,7 +1960,10 @@ def targets(deadline):
             cands += web
             res = site_call("/api/crawl/targets.php", {"target_id": tid, "candidates": cands, "pages": fetches,
                                                        "log": [f"osm elements: {len(elements)}", f"web: {len(web)}", f"candidates: {len(cands)}"]})
+            osm_sent(tid)
             log(f"target {tid} {job['looking_for']['group']} in {job['place']['name']}: {len(elements)} open-data, {len(cands)} sent -> {res.get('staged', 0)} to review")
+        except ServiceHeld:                        # the service it needs has an open issue: back untried, the task "held"
+            raise
         except OutOfTime as e:                     # slow servers: back with its lease, not reported as an error
             log(f"target {tid}: handed back, {e}"[:300])
             break
@@ -2921,14 +3124,19 @@ def run():
             read_source(time.monotonic() + SOURCE_TIME)
         except Exception as e:                     # reading a source never stops the crawl jobs
             log(f"reading a source stopped: {e!r}"[:300])
-    if coverage(None) == "paused":
-        log("Queue paused on the site (CRAWL_QUEUE=off).")
+    try:
+        if coverage(None) == "paused":
+            log("Queue paused on the site (CRAWL_QUEUE=off).")
+    except ServiceHeld as e:                       # OpenStreetMap held: the jobs wait, the run isn't a failure
+        log(f"coverage held: {e}"[:300])
     return 0
 
 
 def coverage(deadline):
     """The crawl jobs (W1: places of a kind in a town or cluster, decisions/0044, 0149): OpenStreetMap and Wikidata, then each
     place's own website; what's found goes to the intake. Returns "paused" when the site's queue is paused."""
+    if osm_all_held():
+        raise ServiceHeld("every OpenStreetMap server is held: " + "; ".join(f"{h} ({held(h)})" for h in osm_hosts()))
     d = site_call(f"/api/crawl/jobs.php?limit={JOBS_PER_RUN}")
     if d.get("paused"):
         return "paused"
@@ -2957,8 +3165,11 @@ def coverage(deadline):
                 break
             res = site_call("/api/crawl/results.php", {"job_id": jid, "candidates": cands, "pages": fetches,
                                                        "log": [f"osm elements: {len(elements)}", f"candidates: {len(cands)}"] + (["partial"] if partial else [])})
+            osm_sent(jid)
             log(f"job {jid} {job['looking_for']['group']} in {job['place']['name']}: {len(elements)} open-data, "
                 f"{len(cands)} sent -> {res.get('auto_imported', 0)} published, {res.get('staged', 0)} to review")
+        except ServiceHeld:                        # the service it needs has an open issue: back untried, the task "held"
+            raise
         except OutOfTime as e:                     # slow servers, not a failure: the job goes back with its tries as they were
             log(f"job {jid}: handed back, {e}"[:400])
             break
@@ -3086,6 +3297,9 @@ def work_task(p, item, seconds):
             item.setdefault("outcome", "idle")
         item["counts"]["items"] = item["counts"].get("items", 0) + got
         item["_more"] = bool(setting) and got >= globals()[setting]    # took a full batch: there's likely more
+    except ServiceHeld as e:                       # an outside service it needs has an open issue: not a failure
+        log(f"{p['task']} held: {e}"[:300])
+        item.update(outcome="held" if task_got == 0 else "done", why=str(e)[:400], _more=False)
     except Exception as e:
         log(f"{p['task']} stopped: {e!r}"[:300])
         item.update(outcome="failed", why=repr(e)[:400], _more=False)
@@ -3171,6 +3385,16 @@ def run_service():
         site_call("/api/crawl/service.php", {"report": {"run_key": run_key, "status": "ok", "why": st.get("why", "paused"), "items": []}})
         return 0
     RUN_END = started + TIME_BUDGET
+    # the site's holds (outside services with an open issue), the month's OpenStreetMap asks, and its light probes
+    for h, why in (st.get("holds") or {}).items():
+        HELD[str(h).lower()] = str(why)[:200]
+    OSM_RECENT.update(str(k) for k in (st.get("osm_recent") or []))
+    if isinstance(st.get("osm_budget"), dict):         # today's share left, from Thresholds & gates
+        OSM_BUDGET.update({k: max(0, int(st["osm_budget"].get(k, 0))) for k in ("queries", "bytes")})
+        log(f"OpenStreetMap: {OSM_BUDGET['queries']} queries, {OSM_BUDGET['bytes'] // 1_000_000} MB left today")
+    if HELD:
+        log("held: " + "; ".join(f"{h} ({w})" for h, w in sorted(HELD.items()))[:600])
+    run_probes(st.get("probes"))
     plan = st.get("plan") or []
     items, by_task = [], {}
     log(f"run {run_key}: {len(plan)} task(s): " + ", ".join(f"{p['task']} {p['seconds']}s" for p in plan))
@@ -3216,7 +3440,9 @@ def run_service():
     engine = "tavily" if TAVILY_API_KEY else ("brave" if BRAVE_API_KEY else "")
     res = site_call("/api/crawl/service.php", {"report": {"run_key": run_key, "status": "ok", "seconds": int(time.monotonic() - started),
                                                          "fetches": fetches, "searches": searches, "engine": engine,
-                                                         "items": items, "requests": reqs, "calls": calls_of("")}})
+                                                         "items": items, "requests": reqs, "calls": calls_of(""),
+                                                         "issues": list(ISSUES.values()), "probes": PROBES, "osm_asked": OSM_ASKED,
+                                                         "osm_used": OSM_USED}})
     status = res.get("status", "")
     log(f"run {run_key}: {status}: " + ", ".join(f"{i['task']} {i.get('outcome')}" for i in items))
     # a run that couldn't do its work is a failed run on Railway, not "succeeded" (the review's F27)

@@ -42,6 +42,10 @@ server refused that network, not our name. That fits the maintainers' blocks of 
 whether our User-Agent is banned. Railway is different: it gets through the handshake and is refused with 406 after the
 request, which is where a User-Agent or Referer ban acts.
 
+**From Railway, 2026-11-14 14:30 UTC** (the crawler's daily probe, worker 2.5): `GET https://overpass-api.de/api/status`
+with exactly the refused agent answered **406 Not Acceptable** (nginx). The refusal reaches even the status page, so that
+agent is still refused from Railway's address; the home-connection test below would still tell whether it's the name alone.
+
 **Two ways to settle it:**
 - From a home or office connection (not a cloud), one request with the crawler's exact User-Agent:
   `curl -s -o /dev/null -w "%{http_code}\n" -A "TraversenceCrawler/1.0 (+https://traversence.com; local directory of community resources)" "https://overpass-api.de/api/status"`.
@@ -95,18 +99,18 @@ promises only what's built (the table under it says where each stands).
 >
 > Jason, Traversence, support@traversence.com
 
-**Where each fix stands** (the statement is sent once every line is live):
+**Where each fix stands** (all live 2026-11-14 14:21 UTC; the statement can be sent):
 
 | Fix | Status |
 |---|---|
-| overpass-api.de off the site's lists (OpenPlaces, DeepLook) | release `service-health_20261114` (merged, PR #637); live: see its record |
-| A breaker per server; stop on 406/403/401/quota, back off on 429/timeouts/5xx; a Pulse case naming the issue | site: `service-health_20261114`; crawler: worker 2.5 (`claude/crawler-api-health`), merged once the site part is live |
-| No GET retry after a 406; overpass-api.de off the crawler's list (`OVERPASS_MAIN=on` only after you answer) | worker 2.5 |
-| One small query per kind, `[timeout:25]`, one at a time | worker 2.5; the site already asked one kind at a time, now one ask at a time (a lock) |
-| `/api/status` once a day with the refused agent | site `service-health_20261114` (the plan's probes) + worker 2.5 |
-| support@traversence.com in both User-Agents | site `service-health_20261114`; crawler: worker 2.5 with `CRAWLER_CONTACT` set on Railway |
-| A town and kind not asked again for 3 months | the next site release (`service-health2`): the first carries 30 days |
-| The daily budget (2,500 queries / 250 MB, crawler 1,500, site 1,000; half during a ban and two weeks after), set in Thresholds & gates | the next site release (`service-health2`); worker 2.5 already keeps to 5 queries a run until the site sends its share |
+| overpass-api.de off the site's lists (OpenPlaces, DeepLook) | live: Release #43 (`service-health_20261114`), verified Sync 13:59 UTC |
+| A breaker per server; stop on 406/403/401/quota, back off on 429/timeouts/5xx; a Pulse case naming the issue | live: site Release #43; crawler worker 2.5 on Railway since 14:01 UTC (main 84ceba9). Holds across runs and the Pulse cases start once the site has run its database update (`service_issues`) |
+| No GET retry after a 406; overpass-api.de off the crawler's list | live: worker 2.5 |
+| One small query per kind, `[timeout:25]`, one at a time | live: worker 2.5; the site, one ask at a time (Release #43) |
+| `/api/status` once a day with the refused agent | live; the first probe goes out with the first run after the database update |
+| support@traversence.com in both User-Agents | live: site Release #43; crawler worker 2.5 with `CRAWLER_CONTACT` on Railway |
+| A town and kind not asked again for 3 months | live: Release #44 (`service-health2_20261114`), verified Sync 14:21 UTC |
+| The daily budget (2,500 queries / 250 MB, crawler 1,500, site 1,000; half during a ban and two weeks after), in Thresholds & gates | live: Release #44 (counted once its database update `osm_usage` runs); the worker keeps to 5 queries a run meanwhile |
 
 **The published limits we build to** (verify against the OSM wiki's "Overpass API" page and FOSSGIS's terms before
 relying on them): overpass-api.de, under about 10,000 queries and 1 GB of downloads a day per user, a few slots per

@@ -322,10 +322,31 @@ The system must ask for help regarding the exact issue it is facing while still 
   `2026-11-14_service_issues.sql` seeds the known overpass-api.de ban, so the first run probes its status once: that
   answer (Pulse case, or Railway's log line "probe overpass-api.de: …") says whether it's the agent or Railway's address.
   Contact in both agents: support@traversence.com (Jason, 2026-11-14; `ServiceHealth::CONTACT`, Railway `CRAWLER_CONTACT`).
-- Worker 2.5 on branch `claude/crawler-api-health` (Jason approved merging it once the site part is live): the same
+- **Live as Release #43** (verified byte for byte on Sync 13:59 UTC). Worker 2.5 merged to `main` then (Railway redeploys; `CRAWLER_CONTACT` set on Railway). Worker 2.5: the same
   classification and holds for every API it calls (`API_HOSTS`; businesses' own websites aren't), the GET-after-406
   retry gone, overpass-api.de off (`OVERPASS_MAIN=on` only once its maintainers answer), one small query per kind
   (`[timeout:25]`), one at a time, 30-day cache per town and kind, `held` tasks. Set `CRAWLER_CONTACT` on Railway.
+- Jason's later numbers (via the session manager, 13:20 UTC): a 3-month cache; a daily Overpass budget of a quarter of the
+  public guidance (2,500 queries and 250 MB, crawler 1,500, site 1,000), halved while a server bans us and 14 days after.
+  Built and tested as `service-health2` (Thresholds gates `osm_daily_crawler`, `osm_daily_site`, `osm_daily_mb`,
+  `osm_cache_days`, `osm_ramp_days`; `ServiceHealth::osmBudget`/`osmUse`, migration `2026-11-14_osm_usage`); the worker
+  already reads `osm_budget` (5 queries a run until the site sends one). **Live as Release #44** (verified on Sync 14:21
+  UTC).
+- **State at 14:25 UTC:** worker 2.5 on Railway since 14:01 (deployment `a18ef0bd`), runs ok (no crash). The mirrors
+  still don't answer the small per-kind queries (private.coffee and kumi time out, maps.mail.ru 504): each is held for the
+  rest of a run after two, and coverage stops at its budget as "held". Both database updates
+  (`2026-11-14_service_issues`, `2026-11-14_osm_usage`) were still waiting to run at Sync 14:21; until they do, the site
+  sends no holds, probes or budget (the worker keeps its own). Once they run, the next run's log has
+  `probe overpass-api.de: …` (406: our agent is still refused; 200 with "Connected as": lifted for that address), and the
+  Pulse case `svc:1` shows it. If the mirrors keep timing out, each opens a case after 6 back-offs or 6 hours: then
+  consider another instance or our own (the statement's last line).
+- **14:30 UTC: the database updates ran.** The plan now sends the holds (`held: overpass-api.de (Refused us (issue #1))`),
+  and the first probe answered **406 Not Acceptable (nginx)** to `/api/status` with exactly the refused agent: that agent
+  is still refused, even on the status page (the next probe is in a day; a 200 resolves issue #1 by itself, and the
+  crawler still stays off it until `OVERPASS_MAIN=on`). To tell a name ban from an address ban for certain, one request
+  with that agent from a home or office connection (research §1) is still the test.
+- Seen 14:26: Common Crawl's index answered 504 once; the task reported failed and the run partial (not a crash). One
+  server error marks that task failed; held only after a second. Fine as is; revisit if it repeats.
 - Next: the site's other outside callers onto `ServiceHealth::allowed()` / `siteFailed()` (Weather, Roads511,
   PlaceFinder, Geocoder, SecondTier, AiClient, TravelLegs; payments last), and post the OSM statement (research §2/§3).
 
