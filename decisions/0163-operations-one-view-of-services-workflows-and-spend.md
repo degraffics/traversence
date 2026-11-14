@@ -115,9 +115,46 @@ The crawler revamp's own open items (the four approved releases W6, W9, W10/W11,
 policy check) go first or alongside, from `handoffs/crawler-revamp.md` §7.1, in one crawler session, so nothing is built
 twice.
 
+### 9. The switches (Jason, 2026-11-14; built as release automation-switches_20261114, still Proposed with the rest)
+
+Jason, 2026-11-14: "Please update the site settings to be off until switched back on, also give me a master switch to
+turn on and off. Also I see the services as routed services connected to a task so we should be able to turn those on
+and off as well." **System Configuration → Automation** (`app/lib/Automation.php`, `app/admin/automation-console.php`):
+
+- **Four layers, one rule:** workflow → task → route → service. A call happens only when the master switch, its
+  workflow, its task and its service are all on. A route is a task's use of a service (as `AiClient::ROUTES` maps an AI
+  feature to its providers); pausing a service closes every route to it.
+- **The master switch** (`automation_switches`, master/all) stops everything that gathers or creates content: the
+  crawler's plan and every crawler endpoint answer paused (`CrawlQueue::pausedWhy()`), so a Railway run ends at once even
+  if its cron returns; the site's workflow jobs skip (`Automation::JOBS`, checked in `Scheduler::run`); the AI features
+  that serve workflows wait (`CrawlService::FEATURE_WF`, in `AiClient::allow`); and their outside calls aren't made
+  (OpenStreetMap from the site, Dossier, PlaceFinder, openrouteservice, the second tier's page reads, landmark photos).
+  **It never stops business operations:** orders, billing, payments, email, releases, staging, Moments, members' and
+  businesses' own actions, a staff member's press for one thing (Write a draft, Check my facts:
+  `Automation::PERSON_FEATURES`), guides' weather and roads, the admin.
+- **Workflows W1–W13** are each a row of `crawl_workflows`, the website's own included; pausing one stops its crawler
+  tasks, its site jobs (a job of several workflows skips only when all are paused), its AI features and its on-demand
+  paths. W5 paused: a visitor's ask is kept (queued, most asked first when it's back), with Notify me and a link to what we
+  list near the place; never a dead end.
+- **Tasks:** `crawl_capture_tasks.enabled`, with who and why (`off_why`, `off_by`, `off_at`).
+- **Services:** a person pauses an outside service; it's a status in `ServiceHealth` (`allowed()`), its hosts go to the
+  crawler as holds (the task reports "held"), AI routes to it close (`providerFor`, and before each Claude request), and
+  its Outside services card says so. Services that business operations depend on (`Automation::NOT_PAUSABLE`: billing,
+  payments, email and files, sign-in, the site itself, guides' weather and roads…) aren't paused from here, greyed with
+  the reason.
+- **Each switch shows its reason, who set it and when;** pausing asks why; every change is logged (`automation_log`). A
+  paused thing is "paused", never a failure, and raises no Pulse warning.
+- **Shipped OFF:** the migration seeds the master paused, "Paused by Jason, 2026-11-14, until the crawler review", so
+  everything stays off until he switches it on. Before the switches' database update has run, the master reads as off.
+- **What it doesn't do yet:** Railway's cron itself is set on Railway (removed 2026-11-14, `handoffs/crawler-revamp.md`);
+  the switch makes any run that starts end at once. The register (§1) will hold the switches' state with each service's
+  caps and status.
+
 ## Consequences
 
 - One place answers "what is each service costing, how close to its cap, is it working, and why not".
 - Railway's limit settings and `.env`'s caps stop being the source; changing a limit is one setting in the admin.
 - The session manager's hourly check shrinks to sessions.
 - Providers without a usage feed (and Claude, without an admin key) are shown as "our count only".
+- Everything that gathers or creates content can be paused in one place, by workflow, task or service, and was shipped
+  paused (§9).
