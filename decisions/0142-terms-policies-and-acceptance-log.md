@@ -1,5 +1,7 @@
 # ADR 0142: Terms, Store Policies and the Acceptance Log
 
+**Note (2026-11-14, decisions/0164):** Amended by `decisions/0164` R2, R7, R16 (templates and the takedown path). 0133, named below, is closed and its rules are in 0164. The rest of this record stands; where it and 0164 disagree, 0164 rules.
+
 **Status:** Accepted (Jason, 2026-11-03). Phase B of 0141. The wording below is a first draft, to be shaped as
 templates and reviewed by Traversence's attorney before it publishes; the structure is decided.
 

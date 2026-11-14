@@ -1,5 +1,7 @@
 # ADR 0163: Operations: one view of outside services, workflows and spend
 
+**Note (2026-11-14, decisions/0164):** Works under `decisions/0164` §10 (the Knowledge Engine: rule book, phases, workflows and sources), which took in 0133's rule book. This record stays separate: this record is the operations layer under 0164; its references to 0133's phases mean 0164's §1–§6.
+
 **Status:** Proposed (written 2026-11-14 by the session manager from Jason's answers in chat; for his review). It builds on
 `decisions/0160` (the crawler as one service, the workflows), `0133` (the six phases), `0152` (Outside services, one card
 per company), `0161` (check-out), `0162` (migrations), and the service check built 2026-11-14 (`ServiceHealth`,

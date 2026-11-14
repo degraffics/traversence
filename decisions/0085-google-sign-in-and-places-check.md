@@ -1,5 +1,7 @@
 # 0085. Continue with Google; the crawler checks listings against Google, paced and capped
 
+**Note (2026-11-14, decisions/0164):** Amended by `decisions/0164` R9, §3.2, R12 (Google: its place ID only, the grey-zone check, its answers used in full). 0133, named below, is closed and its rules are in 0164. The rest of this record stands; where it and 0164 disagree, 0164 rules.
+
 > **Crawler rules: superseded by `decisions/0133` (2026-10-30), the crawler's one rule book.** This record stays as history; where it and 0133 disagree, 0133 rules.
 
 - **Status:** Accepted

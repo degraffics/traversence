@@ -1,5 +1,7 @@
 # 0110: Data separation: three realms (member, business, admin), walls in the database, not only in the code
 
+**Note (2026-11-14, decisions/0164):** Amended by `decisions/0164` R11 (the identity tables stay in the main database). 0133, named below, is closed and its rules are in 0164. The rest of this record stands; where it and 0164 disagree, 0164 rules.
+
 Status: Accepted and set up (2026-10-22). Proposed by Jason, 2026-10-22: "a clear line of separation for data. USER/LISTING/ADMIN router to specific
 datasets. Even if the tools are shared we need 100% data security no matter what comes at us.")
 

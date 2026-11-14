@@ -1,5 +1,7 @@
 # 0066. Public data, the Discovery funnel, and expansion that grows on its own
 
+**Note (2026-11-14, decisions/0164):** Amended by `decisions/0164` R7, §0.6, R17 (protected places, tribal nations' land and where crawl targets come from). 0133, named below, is closed and its rules are in 0164. The rest of this record stands; where it and 0164 disagree, 0164 rules.
+
 > **Crawler rules: superseded by `decisions/0133` (2026-10-30), the crawler's one rule book.** This record stays as history; where it and 0133 disagree, 0133 rules.
 
 Date: 2026-10-07

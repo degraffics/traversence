@@ -1,5 +1,7 @@
 # ADR 0044: Confidence-Gated Auto-Import of Directory Listings
 
+**Note (2026-11-14, decisions/0164):** Amended by `decisions/0164` §3.4, §3.5, §5.4, R12 (how a listing is established and published, and its confidence). 0133, named below, is closed and its rules are in 0164. The rest of this record stands; where it and 0164 disagree, 0164 rules.
+
 > **Crawler rules: superseded by `decisions/0133` (2026-10-30), the crawler's one rule book.** This record stays as history; where it and 0133 disagree, 0133 rules.
 
 **Status:** Accepted (2026-09-29). Amends `decisions/0005` for crawled **directory listings** only.

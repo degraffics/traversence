@@ -1,5 +1,7 @@
 # 0070. Claiming a listing: a quick way in, a text to finish, an admin when needed
 
+**Note (2026-11-14, decisions/0164):** Amended by `decisions/0164` R12 (a claim is a claim). 0133, named below, is closed and its rules are in 0164. The rest of this record stands; where it and 0164 disagree, 0164 rules.
+
 Date: 2026-10-09
 Status: Accepted (Jason, 2026-10-09: "approved")
 

@@ -114,12 +114,13 @@ at 6:00 and 18:00 UTC or on demand (its workflow's Run button), committing the r
   when Jason clears it, then move it to the register's "Removed" in the same build.
 - **Dead code** (nothing calls it, checked against the live mirror) is deleted; the sync history keeps old versions.
 
-## The crawler, research and guides: decisions/0133 rules: every build
+## The crawler, research and guides: decisions/0164 rules: every build
 
-`decisions/0133` is the one rule book for the crawler and what it feeds (listings, landmarks, dossiers, research, guides,
-stories): curators, not controllers (no topic left out for being sensitive; only exposure and representation managed);
-"tell the story, never the way in"; never overwrite what a person entered; AI acts on a person's words only when called;
-the licence decides the use. Where older crawler records disagree, 0133 wins.
+`decisions/0164` (the Knowledge Engine; it took in 0133's rule book, R1–R19) is the one rule book for the crawler and what
+it feeds (listings, landmarks, dossiers, research, guides, stories): curators, not controllers (no topic left out for
+being sensitive; only exposure and representation managed); "tell the story, never the way in"; never overwrite what a
+person entered; AI acts on a person's words only when called; the licence decides the use; nothing private to Gemini's
+free tier. Its phases run on `decisions/0163` (operations). Where older crawler records disagree, 0164 wins.
 
 ## Folders: website/, app/, trvgo/ (decisions/0069, 0094)
 

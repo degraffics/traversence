@@ -1,5 +1,7 @@
 # ADR 0149: Listings on Demand
 
+**Note (2026-11-14, decisions/0164):** Amended by `decisions/0164` R9, §1.5, §7 (W1) (OpenStreetMap as a lead only, the lead sources and listings on demand). 0133, named below, is closed and its rules are in 0164. The rest of this record stands; where it and 0164 disagree, 0164 rules.
+
 **Status:** Accepted (Jason, 2026-11-09). Built: `listings-on-demand_20261109.zip`.
 
 ## Why

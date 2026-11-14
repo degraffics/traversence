@@ -1,5 +1,7 @@
 # ADR 0147: Guides and Journeys on Demand
 
+**Note (2026-11-14, decisions/0164):** Amended by `decisions/0164` R1, R9, R19, §7 (W5) (reuse of what's gathered, the research exception and guides on demand). 0133, named below, is closed and its rules are in 0164. The rest of this record stands; where it and 0164 disagree, 0164 rules.
+
 **Status:** Accepted (Jason, 2026-11-08), spending decided in §5.
 
 ## Why

@@ -1,6 +1,11 @@
 # ADR 0133: The Intelligence & Publishing Engine (the crawler's one rule book)
 
-**Status:** Accepted (2026-10-30) by Jason. **This is the master record for the crawler and everything it feeds**
+> **Closed (2026-11-14): superseded by `decisions/0164`** (the Knowledge Engine: rule book, phases, workflows and
+> sources). Its rule book is 0164 R1–R19 and its six phases 0164 §1–§6; operations stay in 0163 underneath. This text is
+> kept as history (with how each rule was built); where it and 0164 disagree, 0164 rules (0164 §12 lists the
+> disagreements for Jason).
+
+**Status:** Superseded by 0164 (2026-11-14, Jason's Decision 5; 0164 is Proposed for his approval). Was Accepted (2026-10-30) by Jason. **This was the master record for the crawler and everything it feeds**
 (listings, landmarks, outdoor places, dossiers, research, guides and stories). Where an older record says otherwise, this
 one rules. Older records keep their history; each carries a line at its top pointing here (list at the end).
 

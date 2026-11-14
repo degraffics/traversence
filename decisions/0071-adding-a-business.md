@@ -1,5 +1,7 @@
 # 0071. Adding a business: live in minutes, verified with one tap
 
+**Note (2026-11-14, decisions/0164):** Amended by `decisions/0164` R11 (what a person adds goes into the identity record with them as its source). 0133, named below, is closed and its rules are in 0164. The rest of this record stands; where it and 0164 disagree, 0164 rules.
+
 Date: 2026-10-10
 Status: Accepted (Jason, 2026-10-10: "approved, keep text as fallback"; earlier: "1. live 2. email enough 3. short list yes"; the verification request
 and the account rule as he described them)

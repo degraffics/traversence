@@ -1,5 +1,7 @@
 # 0081. Sales: unclaimed listings become active ones; the admin dashboard is a day's work in steps
 
+**Note (2026-11-14, decisions/0164):** Amended by `decisions/0164` R12 (listing confidence and the Call list). 0133, named below, is closed and its rules are in 0164. The rest of this record stands; where it and 0164 disagree, 0164 rules.
+
 - **Status:** Accepted
 - **Date:** 2026-10-14
 - **Builds on:** 0076 (listings build themselves), 0078 (admin dashboard), 0070 (claims)

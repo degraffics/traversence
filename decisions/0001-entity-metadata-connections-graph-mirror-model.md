@@ -1,5 +1,7 @@
 # ADR 0001: Entity-Metadata-Connections Graph-Mirror Model
 
+**Note (2026-11-14, decisions/0164):** Amended by `decisions/0164` R11 (the listing's fields as the shown copy of the identity record). 0133, named below, is closed and its rules are in 0164. The rest of this record stands; where it and 0164 disagree, 0164 rules.
+
 **Status:** Accepted
 
 ## Context

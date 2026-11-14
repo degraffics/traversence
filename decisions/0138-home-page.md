@@ -1,5 +1,7 @@
 # ADR 0138: The Home Page: Search First, Four Doors, Five Tabs, Honest When Thin
 
+**Note (2026-11-14, decisions/0164):** Amended by `decisions/0164` R9 (the licence decides the use). 0133, named below, is closed and its rules are in 0164. The rest of this record stands; where it and 0164 disagree, 0164 rules.
+
 **Status:** Accepted (Jason, 2026-11-01), from his prototype ("Immersion & Connection Engine", Gemini) and his answers
 the same day. Design; not built. Fills 0055's "not yet on the layout: the home page". The prototype is a layout sketch:
 its wording, colors, icons and sample data are not carried over.
