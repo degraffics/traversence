@@ -11,13 +11,15 @@ current fresh and accurate data."
 > still says `*/5 * * * *`, so **any deploy of the worker restores the schedule**: don't merge a change under
 > `workers/crawler/` until Jason says resume. To resume: set the cron back (API `serviceInstanceUpdate`, or Railway →
 > traversence → Settings → Cron Schedule) or deploy the worker. The website's own workflows (W4, W5, W7, W8, W10) and
-> its OpenStreetMap calls are not paused.
+> its OpenStreetMap calls are not paused. **Since release #48 (2026-11-14 17:57 UTC) they are:** the automation switches
+> shipped with the master paused (`decisions/0163` §9), and nothing resumes before 0163 §10's readiness check.
 
 For the Claude session that carries the revamp. It was written by the session that vetted the crawler. Read this, then:
 - `decisions/0160` (the design: one crawler service, configured by each workflow's capture tasks; the 13 workflows
   W1–W13 start to finish);
 - `research/crawler-review-2026-11-13.md` (every defect, with file and line, and fix numbers A1–F27);
-- `decisions/0133` (the rule book: curators, not controllers; protected places' three levels; licence decides the use).
+- `decisions/0164` (the Knowledge Engine: the rule book R1–R19 it took over from `decisions/0133`, the phases, the
+  workflows W1–W14), with `decisions/0163` (operations: switches, budgets, caps, the readiness check) underneath.
 
 **Jason works mostly from his phone.** Keep his steps short, send each zip as a file, and check the decisions before
 asking him anything (he has answered a lot already: see "Decided" below).

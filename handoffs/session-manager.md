@@ -43,7 +43,7 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
 ## Paused (2026-11-14)
 
 - **The Railway crawler is paused** (Jason, ~15:55 UTC) until he has reviewed `research/crawler-how-it-runs-2026-11-14.md`
-  and `decisions/0163` (proposed) and says resume: cron removed through the API; `railway.json` still says every 5
+  and `decisions/0163` and `decisions/0164` (both proposed) and says resume: cron removed through the API; `railway.json` still says every 5
   minutes, so a worker deploy restarts it (details at the top of `handoffs/crawler-revamp.md`). No crawler or operations
   session starts before his "approved". The hourly check expects no crawler runs meanwhile.
 

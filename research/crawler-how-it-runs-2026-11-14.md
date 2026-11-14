@@ -1,5 +1,9 @@
 # Automation operations: the crawler, the website's workflows and the services they use (2026-11-14)
 
+> **History: a review that led to `decisions/0163` (operations) and `decisions/0164` (the Knowledge Engine), 2026-11-14.**
+> The ADRs govern: numbers and operating settings are in 0163, the rules about data, sources and workflows in 0164. This
+> review is kept as the record of how they were reached; where it differs, they rule.
+
 For Jason's review, before any build. Scope (Jason, 2026-11-14): oversee **all of our automation**, not just the Railway
 crawler: every workflow that gathers or creates content (the crawler's and the website's own), every task in them, every
 outside service they call, and the spend, caps and on/off state of each. The aim: bring usage, expense, caps and what's

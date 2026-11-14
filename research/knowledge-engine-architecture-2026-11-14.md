@@ -1,7 +1,8 @@
 # The Knowledge Engine: crawler architecture, Phases 1–6 (draft, 2026-11-14)
 
-> **Became `decisions/0164` (2026-11-14)**, with Jason's decisions (§9) applied and 0133's rule book brought in. This draft
-> is kept as the record of how it was reached; 0164 rules.
+> **History: a review that led to `decisions/0164` (the Knowledge Engine) and `decisions/0163` (operations), 2026-11-14**,
+> with Jason's decisions (§9) applied and 0133's rule book brought in. The ADRs govern: numbers and operating settings are
+> in 0163, the rules in 0164. This draft is kept as the record of how they were reached; where it differs, they rule.
 
 **For Jason's review.** His reworked phases ("PHASE 1 – 6: Knowledge Engine Crawler Architecture", 2026-11-14), kept in his
 structure, with the session manager's improvements and concerns written in. Nothing here is built or decided yet: once

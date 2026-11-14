@@ -120,7 +120,8 @@ at 6:00 and 18:00 UTC or on demand (its workflow's Run button), committing the r
 it feeds (listings, landmarks, dossiers, research, guides, stories): curators, not controllers (no topic left out for
 being sensitive; only exposure and representation managed); "tell the story, never the way in"; never overwrite what a
 person entered; AI acts on a person's words only when called; the licence decides the use; nothing private to Gemini's
-free tier. Its phases run on `decisions/0163` (operations). Where older crawler records disagree, 0164 wins.
+free tier. Its phases run on `decisions/0163` (operations), the one home of its numbers and settings. Where older crawler records
+disagree, 0164 wins.
 
 ## Folders: website/, app/, trvgo/ (decisions/0069, 0094)
 
