@@ -7,7 +7,7 @@ Session `session_01CXLi5ikaAYTSrHS6AnPpWB`, 2026-11-14, from Jason's "start" thr
 2. **Act, ledger and Undo** (next): the actions by rule, the ledger, Undo per item and per run, the Pulse case, the pass
    report, the schedule hook (off).
 
-**State:** step 1 sent to the inbox and in a PR into `main`, **waiting for Jason's OK to merge**. Claims held by this
+**State:** step 1 live as release #49 (2026-11-14), merged on Jason's "merge it" (PR #679); Sync 23:28 UTC: all 5 files match the live mirror byte for byte, delivery verified, claims released. First live preview (Jason, 16:24 his time): 4,395 records fail today's rules (listings 4,730 read, staged 970, place store 2,376, landmarks 5,312); "Not a business name" 48. Next: step 2 once Jason sends the per-rule counts; make the result table fit a phone (it runs off the edge at 390px). Claims held by this
 session until it's verified live: `app/lib/DataCleanup.php`, `app/admin/cleanup-console.php`, `app/admin/manifests.php`,
 `app/admin/sections.php` (all add). `faq.md` is shared add-only (not claimed).
 
