@@ -357,11 +357,12 @@ The system must ask for help regarding the exact issue it is facing while still 
   the gap between queries, a job whose kinds don't all fit goes round as partial.
 - **Open items, in order, for the next crawler session** (Jason, 2026-11-14 15:40 UTC: "fix the web search may make 0 next
   and other open items too"):
-  1. **Web search and the Google check allow 0 every run** (§7.2). Worker 2.6.1 (main 3cd1082, 15:4x UTC) logs the site's
-     numbers and which limit is at zero (`web search: … (the site's numbers: …)`, `Google check: none this run …`). Read
-     the first such line on Railway: "at today's share" means something else spends the day (SecondTier's extract
-     credits count against it); "every limit has room" means `.env` `WEBSEARCH=off` / `GOOGLE_PLACES=off` on the site
-     (only Jason, in File Manager) or the day's spread. Fix there.
+  1. **Web search and the Google check allowing 0: answered** (worker 2.6.1, main 3cd1082, first run 15:40 UTC):
+     `web search: … today 30 of 30; at today's share` and `Google check: … used 420 of stop 900, pace 420, today 30 of
+     30`. Both work: each spent its day's 30 early (the month went 213 → 243 since 2026-11-13), and every later run got 0.
+     Release #44's `paid_spread` (live 14:21 UTC) spreads the day's share evenly from now on. Check tomorrow that the
+     log shows a few allowed through the day; if it still reads "today 30 of 30" by morning, see what spends it
+     (SecondTier's extract credits count against the same day).
   2. **Send the four approved releases W6, W9, W10/W11, W12** (§8; `handoffs/crawler-revamp-pending/`): they were never
      sent. Re-apply each `change.diff` on the live copy (the files may have moved since Sync 2026-11-13 19:58), claim,
      zip, send, one at a time.
