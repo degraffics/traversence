@@ -1,0 +1,81 @@
+{
+    "id": 46,
+    "title": "Outside services: servers as settings, automatic return after a block, pacing",
+    "why": "Jason, 2026-11-14 (\"go, automatic\", through the session manager). (1) overpass-api.de is back on the site's server list, held by its open ban: the pre-use check (ServiceHealth: no open issue, not backing off, inside the budget and pace) is the only gate, never list edits. (2) Automatic return: when its daily probe answers 200 the issue resolves itself, Pulse opens an update (svcback:<id>) saying so, and OpenStreetMap runs at half the budget for the ramp days; refused again, it's held at once. (3) Server lists are settings: service_servers (migration 2026-11-14_service_servers, seeding OpenStreetMap's four Overpass servers), shown on the service's card in Outside services with each server's state (in use, held and why with its case, backing off, paused by whom and why), Add a server, Pause and Resume (owners and executives; greyed with the reason otherwise). A server added gets the same probe. The crawler's plan sends the list; the site's OpenPlaces reads it. (4) Pacing, settings next to the budgets in Thresholds & gates: OpenStreetMap at most 1 query a minute for the crawler and for the site (osm_per_minute_crawler, osm_per_minute_site), the crawler's run share spread over the day's remaining runs; Google checks and web searches spread evenly through the day (paid_spread, api/crawl/usage.php); a server's Retry-After (seconds or a date) is obeyed exactly. FAQ updated. Worker 2.6 (servers from the plan, the gap between queries, the Overpass status page's slot time on a 429; merged after this is live).",
+    "proposals": "handoffs/crawler-revamp.md §7.1, research/osm-overpass-2026-11-13.md §2",
+    "zip": "service-health3_20261114.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/ui/outside-services.php": {
+            "sha": "a944c726a8f3da6f680a350302a4147cbad9dbe4dced3cda9c9818526e4d7ca8",
+            "size": 32729,
+            "live_was": "510984a7f4ed0916b121d73346b3b44776d88b8a52cd621d0326afa6e088d5fe"
+        },
+        "app/ui/faq.md": {
+            "sha": "2f3f1cb26934d6ba223852961662881a254e31766495d7bc4cf9c12483919e85",
+            "size": 287363,
+            "live_was": "91e5e720fcea7ecf6615303d01255a6d84e9fd7a61ce9d07b2eea998a8c7afe1"
+        },
+        "app/migrations/2026-11-14_service_servers.sql": {
+            "sha": "9c6b4d9f8bcd169cc4466b66880d4b1272cc0ca43ad2bbb0ef3660afe26eb053",
+            "size": 1962,
+            "live_was": null
+        },
+        "app/lib/ServiceHealth.php": {
+            "sha": "65567da9e7b2c2e3c97f007de175c4f9c80e0de1808de7c1ebfea4babe00176f",
+            "size": 39946,
+            "live_was": "2cf5d6511d6b5629c41401e9c6c426f4fc1fcf88c005df578bb5fdddd715118b"
+        },
+        "app/lib/Thresholds.php": {
+            "sha": "b83c14b386524b07c4159266cb2ce75c9bb8833c8ca5f26e28954d32a90a6406",
+            "size": 11086,
+            "live_was": "f5924fec7fbb2671893f37ad5df8b157be58ea54e4fc8e9e5b7806e5bd303ee9"
+        },
+        "app/lib/crawler/CrawlService.php": {
+            "sha": "6baf8da30f3ef4ea80d73ab2556539163bb35d70fb1166d273accacd191baed1",
+            "size": 32336,
+            "live_was": "57171d40f3894f1374066bac58d597b685c0002427197e93634cca5878578eb1"
+        },
+        "app/lib/OutsideServices.php": {
+            "sha": "df06dc32494a5f7674f3acceca0593664ccbf26d09b8e3aa7ec895e897607ea4",
+            "size": 69323,
+            "live_was": "6e5e7d646802e7efa81beaddbfdfd8a6dbf66edbf6d217388b22b669f4bb9ab3"
+        },
+        "app/lib/Pulse.php": {
+            "sha": "e35344811d9b8891aa5030f0b6c5f60fa2327b41ca116c740fa63853f382318e",
+            "size": 128909,
+            "live_was": "8a0453ead0fc39e910c5218ad42a5ccdc62690635f9d2ba2861496b60c8bc53b"
+        },
+        "app/lib/OpenPlaces.php": {
+            "sha": "05d4e94325a39cbac7ad5c5b478b340561342ebf0f60413e9a207c9505b0c859",
+            "size": 23613,
+            "live_was": "3af97b65dbdca65a28550c726d11b5fc51f01f54d07ad9f81f9c8f4102fbac52"
+        },
+        "website/api/crawl/usage.php": {
+            "sha": "882088637de6104cb502cc91f5b497085543a66f547fbd61a7d524c3750b1573",
+            "size": 4841,
+            "live_was": "2770af1925f30cf5690b5b0631d4cc7c15bd0c63493ae350bc0eb12c802e84a4"
+        }
+    },
+    "migrations": [
+        "app/migrations/2026-11-14_service_servers.sql"
+    ],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-14T15:19:02+00:00",
+            "by": 0,
+            "msg": "Uploaded service-health3_20261114.zip: 10 files."
+        }
+    ]
+}
