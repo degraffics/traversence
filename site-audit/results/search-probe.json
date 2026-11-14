@@ -6,7 +6,7 @@
    "expect": "Dana Point, CA and its guide (it has one), not Point, TX",
    "url": "/api/search.php?q=Dana%20point",
    "status": 200,
-   "ms": 475,
+   "ms": 1388,
    "place": "Dana Point, CA",
    "chips": [
     "place: Dana Point, CA"
@@ -48,7 +48,7 @@
    "expect": "Dana Point, CA: its guide, places and listings",
    "url": "/api/search.php?q=Dana%20Point%2C%20CA",
    "status": 200,
-   "ms": 84,
+   "ms": 98,
    "place": "Dana Point, CA",
    "chips": [
     "place: Dana Point, CA"
@@ -90,7 +90,7 @@
    "expect": "Dana Point, CA",
    "url": "/api/search.php?q=dana%20point%20california",
    "status": 200,
-   "ms": 93,
+   "ms": 85,
    "place": "Dana Point, CA",
    "chips": [
     "place: Dana Point, CA"
@@ -132,7 +132,7 @@
    "expect": "places to eat in Dana Point",
    "url": "/api/search.php?q=restaurants%20in%20Dana%20Point%2C%20CA",
    "status": 200,
-   "ms": 105,
+   "ms": 112,
    "place": "Dana Point, CA",
    "chips": [
     "place: Dana Point, CA",
@@ -179,7 +179,7 @@
    "expect": "places to eat in Dana Point",
    "url": "/api/search.php?q=Places%20to%20eat%20around%20dana%20point%2C%20ca",
    "status": 200,
-   "ms": 108,
+   "ms": 136,
    "place": "Dana Point, CA",
    "chips": [
     "why: Somewhere to eat",
@@ -226,7 +226,7 @@
    "expect": "Phoenix, AZ: its guide, listings, places",
    "url": "/api/search.php?q=Phoenix%2C%20az",
    "status": 200,
-   "ms": 82,
+   "ms": 96,
    "place": "Phoenix, AZ",
    "chips": [
     "place: Phoenix, AZ"
@@ -270,7 +270,7 @@
    "expect": "Phoenix, AZ (the pilot state first)",
    "url": "/api/search.php?q=Phoenix",
    "status": 200,
-   "ms": 84,
+   "ms": 94,
    "place": "Phoenix, AZ",
    "chips": [
     "place: Phoenix, AZ"
@@ -315,7 +315,7 @@
    "expect": "places to eat in Phoenix",
    "url": "/api/search.php?q=restaurants&city=Phoenix&state=AZ&reach=25",
    "status": 200,
-   "ms": 75,
+   "ms": 78,
    "place": "Phoenix, AZ",
    "chips": [
     "place: Phoenix, AZ",
@@ -360,7 +360,7 @@
    "expect": "pizza places in Phoenix",
    "url": "/api/search.php?q=pizza%20in%20phoenix",
    "status": 200,
-   "ms": 120,
+   "ms": 144,
    "place": "Phoenix, AZ",
    "chips": [
     "place: Phoenix, AZ",
@@ -402,7 +402,7 @@
    "expect": "coffee near Glendale, AZ 85302",
    "url": "/api/search.php?q=coffee&zip=85302&reach=10",
    "status": 200,
-   "ms": 109,
+   "ms": 112,
    "place": "Glendale, AZ",
    "chips": [
     "place: Glendale, AZ"
@@ -441,7 +441,7 @@
    "expect": "trails and hikes within 2 mi of Phoenix, then 5",
    "url": "/api/search.php?q=hiking%20near%20me&city=Phoenix&state=AZ&reach=2",
    "status": 200,
-   "ms": 284,
+   "ms": 293,
    "place": "Phoenix, AZ",
    "chips": [
     "do: Hiking",
@@ -484,7 +484,7 @@
    "expect": "trails and hikes around Phoenix",
    "url": "/api/search.php?q=hiking&city=Phoenix&state=AZ&reach=25",
    "status": 200,
-   "ms": 136,
+   "ms": 178,
    "place": "Phoenix, AZ",
    "chips": [
     "do: Hiking",
@@ -529,7 +529,7 @@
    "expect": "coffee shops in Phoenix (OpenStreetMap at once, ours once crawled)",
    "url": "/api/search.php?q=coffee%20near%20me&city=Phoenix&state=AZ&reach=10",
    "status": 200,
-   "ms": 158,
+   "ms": 185,
    "place": "Phoenix, AZ",
    "chips": [
     "place: Phoenix, AZ"
@@ -584,7 +584,7 @@
    "expect": "things to do around 85302",
    "url": "/api/search.php?q=Things%20to%20do%20near%20me&zip=85302&reach=25",
    "status": 200,
-   "ms": 152,
+   "ms": 163,
    "place": "Glendale, AZ",
    "chips": [
     "why: Things to do",
@@ -611,7 +611,7 @@
    "expect": "Glendale, AZ: its guide (built on demand) and listings",
    "url": "/api/search.php?q=Glendale%2C%20AZ",
    "status": 200,
-   "ms": 80,
+   "ms": 85,
    "place": "Glendale, AZ",
    "chips": [
     "place: Glendale, AZ"
@@ -655,7 +655,7 @@
    "expect": "places to stay in Sedona",
    "url": "/api/search.php?q=hotels%20in%20sedona",
    "status": 200,
-   "ms": 214,
+   "ms": 226,
    "place": "Sedona, AZ",
    "chips": [
     "place: Sedona, AZ"
@@ -697,7 +697,7 @@
    "expect": "Show Low, AZ (a pilot town)",
    "url": "/api/search.php?q=show%20low",
    "status": 200,
-   "ms": 89,
+   "ms": 97,
    "place": "Show Low, AZ",
    "chips": [
     "place: Show Low, AZ"
@@ -738,7 +738,7 @@
    "expect": "Greer, AZ (a pilot town)",
    "url": "/api/search.php?q=greer%20arizona",
    "status": 200,
-   "ms": 77,
+   "ms": 73,
    "place": "Greer, AZ",
    "chips": [
     "place: Greer, AZ"
@@ -782,7 +782,7 @@
    "expect": "Four Corners Monument, not Four Corners, WY",
    "url": "/api/search.php?q=Four%20Corners",
    "status": 200,
-   "ms": 113,
+   "ms": 157,
    "place": "Four Corners, WY",
    "chips": [
     "place: Four Corners, WY"
@@ -810,19 +810,19 @@
    "expect": "Grand Canyon National Park",
    "url": "/api/search.php?q=grand%20canyon",
    "status": 200,
-   "ms": 204,
+   "ms": 231,
    "place": "",
    "chips": [],
    "text": "grand canyon",
    "guide": "Grand Canyon, AZ [new]: Looking for Grand Canyon, AZ? We don't have a guide to it yet. We can build one now: a first look in about two minutes.",
    "ask": "",
-   "total": 146,
+   "total": 149,
    "kinds": [
     {
      "kind": "outdoors",
      "label": "Outdoors",
      "plural": "Outdoors",
-     "count": 145
+     "count": 148
     },
     {
      "kind": "listing",
@@ -846,7 +846,7 @@
     "Listings 1"
    ],
    "funnels": [
-    "Let's Explore 145 → /discovery/?view=outdoors",
+    "Let's Explore 148 → /discovery/?view=outdoors",
     "Get Local 1 → /directory/?q=grand%20canyon"
    ],
    "intent": "",
@@ -859,7 +859,7 @@
    "expect": "Four Corners Monument (a landmark added by hand)",
    "url": "/api/search.php?q=four%20corners%20monument",
    "status": 200,
-   "ms": 209,
+   "ms": 216,
    "place": "",
    "chips": [],
    "text": "four corners monument",
@@ -894,18 +894,24 @@
    "expect": "Laguna Art Museum (found for the Laguna Beach guide)",
    "url": "/api/search.php?q=laguna%20art%20museum",
    "status": 200,
-   "ms": 225,
+   "ms": 209,
    "place": "",
    "chips": [],
    "text": "laguna art museum",
    "guide": "",
    "ask": "",
-   "total": 1,
+   "total": 2,
    "kinds": [
     {
      "kind": "outdoors",
      "label": "Outdoors",
      "plural": "Outdoors",
+     "count": 1
+    },
+    {
+     "kind": "listing",
+     "label": "Listing",
+     "plural": "Listings",
      "count": 1
     }
    ],
@@ -915,9 +921,12 @@
    "first": [
     "Laguna Art Museum (outdoors · Museums · near Laguna Beach)"
    ],
-   "groups": [],
+   "groups": [
+    "Listings 1"
+   ],
    "funnels": [
-    "Let's Explore 1 → /discovery/?view=outdoors"
+    "Let's Explore 1 → /discovery/?view=outdoors",
+    "Get Local 1 → /directory/?q=laguna%20art%20museum"
    ],
    "intent": "",
    "near": "",
@@ -929,7 +938,7 @@
    "expect": "plumbers in Show Low",
    "url": "/api/search.php?q=plumber%20in%20show%20low",
    "status": 200,
-   "ms": 159,
+   "ms": 162,
    "place": "Show Low, AZ",
    "chips": [
     "place: Show Low, AZ",
@@ -977,11 +986,11 @@
    "ctx": "",
    "first": [
     "Dana Point, CA (place · Town in Laguna Niguel)",
-    "Counselors (category · 31 listed · for “dana p”)",
-    "Bach, Dorothy (listing · Show Low › Counselors)",
-    "Dalmolin Carly Anne (listing · Show Low › Counselors)",
+    "Counselors (category · What “dana” names are)",
+    "Pipe (category · What “dana” names are)",
     "Dana Carly Anne (listing · Show Low › Counselors)",
-    "Dana, Steven (listing · Counselors · Eagar, AZ)"
+    "Dana, Steven (listing · Eagar › Counselors)",
+    "Dana Kepner Co (listing · Show Low › Pipe)"
    ]
   },
   {
@@ -1017,7 +1026,7 @@
     "pizza in Phoenix, NY (place · Search there · no listings yet)",
     "pizza in Phoenix, OR (place · Search there · no listings yet)",
     "pizza in Phoenixville, PA (place · Search there · no listings yet)",
-    "Pizza (category · 16 listed · for “pizza in phone”)"
+    "Pizza (category · 16 listed · for “pizza in photographer”)"
    ]
   },
   {
@@ -1048,10 +1057,10 @@
    "first": [
     "Show Low, AZ (place · Town in The Show Low District)",
     "Show Low (knowledge · From our guides · Place)",
-    "Show Low Lake (outdoors · Lakeside › Lake)",
-    "Show Low Ford (listing · Show Low › New Car Dealers)",
-    "Show Low Apartments (listing · Show Low › Apartments)",
-    "Show Low Animal Control (listing · Show Low › Animal Shelters)"
+    "Community & Technical Colleges (category · 5 listed · for “show l”)",
+    "Private Investigators (category · 2 listed · for “show l”)",
+    "Northland Pioneer Clg St Johns (listing · Saint Johns › Community & Technical Colleges)",
+    "Northland Pioneer Clg (listing · Snowflake › Community & Technical Colleges)"
    ]
   },
   {
@@ -1080,8 +1089,10 @@
    "q": "four corners mon",
    "ctx": "",
    "first": [
-    "Four Corners Monument (outdoors · Aneth › Monuments)",
-    "Monuments (category · Maybe? 1 listed · for “four corners monument”)"
+    "Money Transfers (category · 8 listed · for “four corners money”)",
+    "Western Union Agent Location (listing · Show Low › Money Transfers)",
+    "Western Union Agent Location (listing · Show Low › Money Transfers)",
+    "Western Union Agent Location (listing · Springerville › Money Transfers)"
    ]
   },
   {
@@ -1093,8 +1104,22 @@
    "q": "laguna art",
    "ctx": "",
    "first": [
-    "Laguna Art Museum (outdoors · Laguna Beach › Museums · 610 mi)"
+    "Laguna Art Museum (outdoors · Laguna Beach › Museums · 610 mi)",
+    "Laguna Art Museum (listing · Laguna Beach › Museums · 610 mi)"
    ]
   }
- ]
+ ],
+ "directory": {
+  "ok": false,
+  "place": "St. Johns, AZ",
+  "all": 3985,
+  "name": "1st Assembly Of God",
+  "api": 1,
+  "api_has": true,
+  "before": "3,985 businesses near St. Johns · showing 1–10",
+  "title": "“1st Assembly Of God” near St. Johns",
+  "after": "3,985 businesses near St. Johns · showing 1–10",
+  "names": [],
+  "error": "typing \"1st Assembly Of God\" didn't narrow the list: \"3,985 businesses near St. Johns · showing 1–10\" became \"3,985 businesses near St. Johns · showing 1–10\""
+ }
 }
