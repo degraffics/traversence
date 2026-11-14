@@ -107,7 +107,8 @@ at 6:00 and 18:00 UTC or on demand (its workflow's Run button), committing the r
 - **Migrations run themselves** (2026-10-30): ship the file in a release; the site runs new ones oldest first within the hour, or
   when System Configuration → Database updates opens, logs them (`db_updates_log`) and deletes them. A failed one holds
   the rest until replaced. So each must be safe to run twice and need no person; zips carry only new ones; no phpMyAdmin
-  steps in delivery notes.
+  steps in delivery notes. A release's migrations run first at its Publish, each copied first (decisions/0162); one with
+  `UPDATE`/`DELETE` needs `"data_reason"` in `release.json`; a drop only of a rollback's leftover, named under `"removes"`.
 - Test files, dumps and one-off scripts never go in `website/` or `app/`; delete them once used.
 - **Archived pages** (out of menus, still reachable) are listed in `archive.md` with what replaced them. Remove one only
   when Jason clears it, then move it to the register's "Removed" in the same build.
