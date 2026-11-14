@@ -42,10 +42,13 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
 
 ## Paused (2026-11-14)
 
-- **The Railway crawler is paused** (Jason, ~15:55 UTC) until he has reviewed `research/crawler-how-it-runs-2026-11-14.md`
-  and `decisions/0163` (proposed) and says resume: cron removed through the API; `railway.json` still says every 5
-  minutes, so a worker deploy restarts it (details at the top of `handoffs/crawler-revamp.md`). No crawler or operations
-  session starts before his "approved". The hourly check expects no crawler runs meanwhile.
+- **`decisions/0163` and `decisions/0164` are accepted** (Jason, 2026-11-14: "all approved"; no shadow mode; 0164 §14
+  settled). **The crawler and the automation stay paused** until the build stages (0163 §8: operations stages 2–6, then
+  7–11 for the Knowledge Engine's new parts) and the switch-on check (0163 §10) are done and Jason switches them on.
+  Each stage is a release he approves, one session per stage from its handoff (`handoffs/crawler-revamp.md`).
+- **The Railway crawler's cron** was removed through the API (~15:55 UTC); `railway.json` still says every 5 minutes, so
+  a worker deploy restarts it (details at the top of `handoffs/crawler-revamp.md`); the automation master switch (release
+  #48) makes any run that starts end at once. The hourly check expects no crawler runs meanwhile.
 
 ## Where things stand (2026-11-14, 12:45 UTC)
 
