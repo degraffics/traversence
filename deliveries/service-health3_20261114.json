@@ -1,0 +1,50 @@
+{
+ "zip": "service-health3_20261114.zip",
+ "built_on": "601eb9f Sync: 2026-11-14 14:59 UTC",
+ "recorded": "2026-11-14 15:03 UTC",
+ "note": "Outside services: servers as settings, automatic return, pacing (Jason 2026-11-14, go automatic); built on Sync: 2026-11-14 14:59 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/OpenPlaces.php": {
+   "sha256": "05d4e94325a39cbac7ad5c5b478b340561342ebf0f60413e9a207c9505b0c859",
+   "live": false
+  },
+  "app/lib/OutsideServices.php": {
+   "sha256": "df06dc32494a5f7674f3acceca0593664ccbf26d09b8e3aa7ec895e897607ea4",
+   "live": false
+  },
+  "app/lib/Pulse.php": {
+   "sha256": "e35344811d9b8891aa5030f0b6c5f60fa2327b41ca116c740fa63853f382318e",
+   "live": false
+  },
+  "app/lib/ServiceHealth.php": {
+   "sha256": "65567da9e7b2c2e3c97f007de175c4f9c80e0de1808de7c1ebfea4babe00176f",
+   "live": false
+  },
+  "app/lib/Thresholds.php": {
+   "sha256": "b83c14b386524b07c4159266cb2ce75c9bb8833c8ca5f26e28954d32a90a6406",
+   "live": false
+  },
+  "app/lib/crawler/CrawlService.php": {
+   "sha256": "6baf8da30f3ef4ea80d73ab2556539163bb35d70fb1166d273accacd191baed1",
+   "live": false
+  },
+  "app/migrations/2026-11-14_service_servers.sql": {
+   "sha256": "9c6b4d9f8bcd169cc4466b66880d4b1272cc0ca43ad2bbb0ef3660afe26eb053",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "2f3f1cb26934d6ba223852961662881a254e31766495d7bc4cf9c12483919e85",
+   "live": false
+  },
+  "app/ui/outside-services.php": {
+   "sha256": "a944c726a8f3da6f680a350302a4147cbad9dbe4dced3cda9c9818526e4d7ca8",
+   "live": false
+  },
+  "website/api/crawl/usage.php": {
+   "sha256": "882088637de6104cb502cc91f5b497085543a66f547fbd61a7d524c3750b1573",
+   "live": false
+  }
+ }
+}
