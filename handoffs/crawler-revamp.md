@@ -322,10 +322,15 @@ The system must ask for help regarding the exact issue it is facing while still 
   `2026-11-14_service_issues.sql` seeds the known overpass-api.de ban, so the first run probes its status once: that
   answer (Pulse case, or Railway's log line "probe overpass-api.de: …") says whether it's the agent or Railway's address.
   Contact in both agents: support@traversence.com (Jason, 2026-11-14; `ServiceHealth::CONTACT`, Railway `CRAWLER_CONTACT`).
-- Worker 2.5 on branch `claude/crawler-api-health` (Jason approved merging it once the site part is live): the same
+- **Live as Release #43** (verified byte for byte on Sync 13:59 UTC). Worker 2.5 merged to `main` then (Railway redeploys; `CRAWLER_CONTACT` set on Railway). Worker 2.5: the same
   classification and holds for every API it calls (`API_HOSTS`; businesses' own websites aren't), the GET-after-406
   retry gone, overpass-api.de off (`OVERPASS_MAIN=on` only once its maintainers answer), one small query per kind
   (`[timeout:25]`), one at a time, 30-day cache per town and kind, `held` tasks. Set `CRAWLER_CONTACT` on Railway.
+- Jason's later numbers (via the session manager, 13:20 UTC): a 3-month cache; a daily Overpass budget of a quarter of the
+  public guidance (2,500 queries and 250 MB, crawler 1,500, site 1,000), halved while a server bans us and 14 days after.
+  Built and tested as `service-health2` (Thresholds gates `osm_daily_crawler`, `osm_daily_site`, `osm_daily_mb`,
+  `osm_cache_days`, `osm_ramp_days`; `ServiceHealth::osmBudget`/`osmUse`, migration `2026-11-14_osm_usage`); the worker
+  already reads `osm_budget` (5 queries a run until the site sends one). Next to send.
 - Next: the site's other outside callers onto `ServiceHealth::allowed()` / `siteFailed()` (Weather, Roads511,
   PlaceFinder, Geocoder, SecondTier, AiClient, TravelLegs; payments last), and post the OSM statement (research §2/§3).
 
