@@ -4,10 +4,11 @@ Session `session_01CXLi5kK8GzhmtW4etwGUwx`, 2026-11-14, from Jason's ask through
 site settings to be off until switched back on, also give me a master switch to turn on and off. Also I see the services
 as routed services connected to a task so we should be able to turn those on and off as well."
 
-**State:** release `automation-switches_20261114.zip` built on **Sync 2026-11-14 15:39 UTC**, zip check clean, in
-`releases/inbox/` on branch `claude/automation-switches`. **Waiting for Jason's OK in chat to merge** (then the site takes
-it onto staging within 10 minutes and publishes it when its checks pass). After it's live: run the sync (one at a time,
-CLAUDE.md), `deliveries.py verify`, and check System Configuration → Automation shows the master **paused**.
+**State: finished.** Release #48 (`automation-switches_20261114.zip`, built on Sync 2026-11-14 15:39 UTC), merged on
+Jason's "merge it" (PR #658), live 2026-11-14 17:57 UTC: its migration ran first, staging and live checks passed. Sync
+17:59 UTC: all 19 files match the live mirror byte for byte (the migration ran and was deleted); `deliveries.py verify`
+recorded, claims released. Still to see with a sign-in: System Configuration → Automation showing the master paused,
+and a first Save there (MySQL at run time). Nothing else waits on Jason.
 
 ## What it does
 
