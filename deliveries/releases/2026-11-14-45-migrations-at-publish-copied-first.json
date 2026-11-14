@@ -1,0 +1,64 @@
+{
+    "id": 45,
+    "title": "Migrations at publish, copied first",
+    "why": "Jason, 2026-11-14 (decisions/0162, amending 0145 §6): a release's migrations run as Publish's first step, before its files go live, and a failure stops the publish with the error in its record. A compressed copy of the tables each migration touches is kept 14 days, listed on System Configuration → Database updates with Restore. A migration that changes rows needs a data_reason and never runs without its copy. Roll back records what a release's migrations made as its leftovers, listed on Database updates (Pulse case and the monthly unused-schema check come in release 2).",
+    "proposals": "decisions/0162",
+    "zip": "migration-safety_20261114.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/lib/Releases.php": {
+            "sha": "233b15138c514a3f452c4ee176d3024ef87e3fecb7614a1fe0cf0ff3cb4cc6f1",
+            "size": 94950,
+            "live_was": "65a60d1b683284aa16eac09eca87c7d79aac55dd0aae3e4e3316f96e7cd6a272"
+        },
+        "app/lib/DbUpdates.php": {
+            "sha": "6eeeea11e1821d1948640aecaff490712abd1672b6688f763174e7a5e9726b2a",
+            "size": 13801,
+            "live_was": "661f68968a79b6909ef1dfa7876bcdb89891c76ed7fc670222b77aa4b184ddad"
+        },
+        "app/lib/DbCopies.php": {
+            "sha": "956479fe55f1ed91a36a590bbf8b63d859ac22f48af1a26bc42f6e452f5e6265",
+            "size": 16941,
+            "live_was": null
+        },
+        "app/lib/SchemaUpkeep.php": {
+            "sha": "fc37b044858796203a75c428703160accd285ff1d8e9a5b5ed19b7d3ca86f2dd",
+            "size": 6767,
+            "live_was": null
+        },
+        "app/admin/sections.php": {
+            "sha": "c31f13bb5b29fb412eb55a4f4419cc9edaba3ae16282c05b04530e6d9e8dec38",
+            "size": 213650,
+            "live_was": "94f95645b72f8cdba4e1845a7dc24d93b75f0849506b55308a7c4ec88c3d0413"
+        },
+        "app/ui/faq.md": {
+            "sha": "91e5e720fcea7ecf6615303d01255a6d84e9fd7a61ce9d07b2eea998a8c7afe1",
+            "size": 286944,
+            "live_was": "841d3586f5fb6e1ccb444b1ded75e559556d4dc938cf7c246a8dd3ec3507935d"
+        },
+        "app/data/decisions-index.php": {
+            "sha": "96841993d62c211585e5330add7c93cef5acb0d906f639c32d2fa605ab0ba125",
+            "size": 52406,
+            "live_was": "cc9ffaf4b6788892a0a92368091b461db0c68e135b0c6e9c8e7c1308d65ea6a7"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-14T14:57:02+00:00",
+            "by": 0,
+            "msg": "Uploaded migration-safety_20261114.zip: 7 files."
+        }
+    ]
+}
