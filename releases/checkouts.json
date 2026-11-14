@@ -33,14 +33,12 @@
   },
   {
    "path": "app/lib/Storefront.php",
-   "functions": [
-    "syncAlbum"
-   ],
+   "functions": [],
    "kind": "change",
    "session": "session_01CXLi5gpdwLLGTQ51Ls56yQ",
-   "why": "0159 step 5a: a business's pages as blocks (shop.<id> zones, Team perms)",
+   "why": "0159 step 5a: header notes for the shop zones",
    "since": "2026-11-13T23:45:34Z",
-   "expires": "2026-11-14T03:45:34Z",
+   "expires": "2026-11-14T04:06:08Z",
    "release": "studio5a_20261113.zip",
    "callers": {}
   },
@@ -68,14 +66,12 @@
   },
   {
    "path": "app/ui/storefront-view.php",
-   "functions": [
-    "tv_storefront_serve"
-   ],
+   "functions": [],
    "kind": "change",
    "session": "session_01CXLi5gpdwLLGTQ51Ls56yQ",
-   "why": "0159 step 5a: a business's pages as blocks (shop.<id> zones, Team perms)",
+   "why": "0159 step 5a: header notes for the shop zones",
    "since": "2026-11-13T23:45:34Z",
-   "expires": "2026-11-14T03:45:34Z",
+   "expires": "2026-11-14T04:06:08Z",
    "release": "studio5a_20261113.zip",
    "callers": {
     "tv_storefront_serve": [
