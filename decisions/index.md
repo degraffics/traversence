@@ -1,6 +1,6 @@
 # Decision register
 
-Decision 0145 §1a. Generated on 2026-11-13 19:17 UTC from `decisions/` and the live mirror (`9f50a3f`). Don't edit by hand:
+Decision 0145 §1a. Generated on 2026-11-14 07:17 UTC from `decisions/` and the live mirror (`7c3909e`). Don't edit by hand:
 edit the decision, and this follows. "Missing files" are files a decision names that the site no longer has: the
 decision may be stale, or the file moved.
 
@@ -63,7 +63,7 @@ decision may be stale, or the file moved.
 | 0055 | [App Shell, Dashboards and Roles](0055-app-shell-dashboards-and-roles.md) | accepted |  | 2 | 8 |  |
 | 0056 | [Journeys, Contributors and the Six-Tier Discovery Funnel](0056-journeys-contributors-and-the-six-tier-funnel.md) | accepted |  |  | 0 |  |
 | 0057 | [The FAQ Grows With Every Build](0057-faq-grows-with-every-build.md) | accepted |  |  | 1 | `website/includes/faq.md` |
-| 0058 | [Public Profiles, Journey Management, and Adult Accounts](0058-public-profiles-journey-management-and-adult-accounts.md) | accepted |  | 7 | 0 |  |
+| 0058 | [Public Profiles, Journey Management, and Adult Accounts](0058-public-profiles-journey-management-and-adult-accounts.md) | accepted |  | 8 | 0 |  |
 | 0059 | [Experiences](0059-experiences.md) | accepted |  |  | 0 |  |
 | 0060 | [0060: Search & Suggestion Architecture](0060-search-and-suggestion-architecture.md) | accepted |  | 1 | 0 |  |
 | 0061 | [0061: Situations: an intent map, the Chameleon Filter as router, and search that learns](0061-situations-intent-map-and-learning-search.md) | accepted | 0133 |  | 0 |  |
@@ -157,7 +157,7 @@ decision may be stale, or the file moved.
 | 0149 | [Listings on Demand](0149-listings-on-demand.md) | accepted |  |  | 0 |  |
 | 0150 | [Vendor links (one page of a vendor's work orders, 30 days)](0150-vendor-links.md) | accepted |  |  | 9 |  |
 | 0151 | [Files on Cloudflare R2 (no charge when people view or play them)](0151-files-on-cloudflare-r2.md) | accepted |  |  | 1 |  |
-| 0152 | [Outside services, one card per company; Settings rebuilt in the new admin](0152-outside-services-by-company.md) | accepted |  | 3 | 1 |  |
+| 0152 | [Outside services, one card per company; Settings rebuilt in the new admin](0152-outside-services-by-company.md) | accepted |  | 4 | 1 |  |
 | 0153 | [Moments, Snaps and Keep (the personal feed)](0153-moments-snaps-and-keep.md) | accepted |  |  | 9 |  |
 | 0154 | [Free, Creator and Business: Who Pays for What, and How Upgrades Are Offered](0154-free-creator-and-business-balance.md) | accepted |  | 1 | 6 |  |
 | 0155 | [Add-ons (plug-in modules) and 1Password, resold and managed from our site](0155-add-ons-and-1password.md) | proposed |  | 2 | 0 |  |
@@ -165,4 +165,5 @@ decision may be stale, or the file moved.
 | 0157 | [Our own index: reading pages and reading searches](0157-our-own-index-reading-pages-and-searches.md) | accepted |  |  | 1 |  |
 | 0158 | [One way to publish: our site's releases and businesses' storefronts](0158-one-way-to-publish.md) | accepted |  | 1 | 0 |  |
 | 0159 | [The builder: Traversence's platform builder and Storefront Studio](0159-the-builder-platform-and-storefront-studio.md) | accepted |  |  | 1 |  |
-| 0160 | [The crawler as one service, and each creation workflow start to finish](0160-the-crawler-as-a-service-and-the-creation-workflows.md) | accepted |  |  | 0 |  |
+| 0160 | [The crawler as one service, and each creation workflow start to finish](0160-the-crawler-as-a-service-and-the-creation-workflows.md) | accepted |  | 1 | 0 |  |
+| 0161 | [Check-out for site files: the page manager](0161-check-out-for-site-files-the-page-manager.md) | accepted |  |  | 5 |  |
