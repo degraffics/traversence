@@ -147,6 +147,34 @@
    "expires": "2026-11-14T04:15:50Z",
    "release": "stgstaff_20261114.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/crawler/CrawlService.php",
+   "functions": [
+    "report"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kDaPxCn3ENUXa7SqF",
+   "why": "Crawler reports by service: calls and failures per outside service on its card (decisions/0160 note)",
+   "since": "2026-11-14T00:22:47Z",
+   "expires": "2026-11-14T04:22:47Z",
+   "release": "outside-services-calls_20261114.zip",
+   "callers": {
+    "report": [
+     "website/api/crawl/service.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/OutsideServices.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5kDaPxCn3ENUXa7SqF",
+   "why": "Crawler reports by service: calls and failures per outside service on its card (decisions/0160 note)",
+   "since": "2026-11-14T00:22:47Z",
+   "expires": "2026-11-14T04:22:47Z",
+   "release": "outside-services-calls_20261114.zip",
+   "callers": {}
   }
  ],
  "lapsed": []
