@@ -347,6 +347,14 @@ The system must ask for help regarding the exact issue it is facing while still 
   with that agent from a home or office connection (research §1) is still the test.
 - Seen 14:26: Common Crawl's index answered 504 once; the task reported failed and the run partial (not a crash). One
   server error marks that task failed; held only after a second. Fine as is; revisit if it repeats.
+- **"Go, automatic"** (Jason, 14:53 UTC via the session manager): **live as Release #46** `service-health3_20261114`
+  (verified Sync 15:21 UTC) and **worker 2.6** (merged then). Servers are settings (`service_servers`, OpenStreetMap's
+  card in Outside services: add, pause, resume, each server's state); overpass-api.de is back on both lists, held by issue
+  #1 until its daily probe answers 200, then it returns by itself (Pulse `svcback:<id>`, half budget for
+  `osm_ramp_days`); pacing in Thresholds & gates: `osm_per_minute_crawler` / `_site` (1), the run's share spread over the
+  day (`ServiceHealth::osmRun`), `paid_spread` (Google and web search even through the day, `api/crawl/usage.php`);
+  Retry-After obeyed exactly, and on an Overpass 429 its status page's slot time. Worker 2.6: servers from the plan,
+  the gap between queries, a job whose kinds don't all fit goes round as partial.
 - Next: the site's other outside callers onto `ServiceHealth::allowed()` / `siteFailed()` (Weather, Roads511,
   PlaceFinder, Geocoder, SecondTier, AiClient, TravelLegs; payments last), and post the OSM statement (research §2/§3).
 
