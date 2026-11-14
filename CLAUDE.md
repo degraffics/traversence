@@ -41,7 +41,9 @@ check blocks a zip that removes a live function, constant or FAQ question; `--dr
 A standing session watches the others (hourly while Jason is checked in): context size, restarts, cost, release clashes,
 stuck syncs and Railway deploys. It proposes archiving, splitting or a fresh start; Jason approves. When it asks a session
 to hand off, finish the release in hand, update its `handoffs/` file and stop. One session per area, at most about three
-at once; a long build moves to a fresh session per phase, from its handoff.
+at once; a long build moves to a fresh session per phase, from its handoff. **Finished sessions are archived on the check
+without asking** (Jason, 2026-11-14): one that has said it's done or handed off, with its work in `main` and nothing
+waiting on Jason, is archived and named in the report. A session waiting on him is never archived.
 
 ## Keep this file lean
 
