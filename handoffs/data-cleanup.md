@@ -4,8 +4,7 @@ Session `session_01CXLi5ikaAYTSrHS6AnPpWB`, 2026-11-14, from Jason's "start" thr
 "a tool clean up all the bad data recently added". Built as releases Jason approves in chat, one at a time:
 
 1. **Find and preview** (`data-cleanup_20261114.zip`, built on Sync 2026-11-14 22:08 UTC). Nothing is written.
-2. **Act, ledger and Undo** (next): the actions by rule, the ledger, Undo per item and per run, the Pulse case, the pass
-   report, the schedule hook (off).
+2. **Act, ledger and Undo** (`data-cleanup-act_20261114.zip`): below.
 
 **State:** step 1 live as release #49 (2026-11-14), merged on Jason's "merge it" (PR #679); Sync 23:28 UTC: all 5 files match the live mirror byte for byte, delivery verified, claims released. First live preview (Jason, 16:24 his time): 4,395 records fail today's rules (listings 4,730 read, staged 970, place store 2,376, landmarks 5,312); "Not a business name" 48. Next: step 2 once Jason sends the per-rule counts; make the result table fit a phone (it runs off the edge at 390px).
 
@@ -51,40 +50,39 @@ no sideways scroll at 390px. The junk-name check against the 2026-11-13 junk nam
 Contact Lens Center, Box Canyon Outfitters, Call Ahead Pizza, Drop Zone…: none caught). Not tested: the live data's
 size and time (reads up to 6,000 per store; Preview one rule at a time if every rule is slow).
 
-## Step 2: act, ledger, Undo (the design to build next)
+## Step 2: act, ledger, Undo (`data-cleanup-act_20261114.zip`, built on Sync 2026-11-14 23:28 UTC)
 
-- **Migration** `app/migrations/2026-11-1x_data_cleanup.sql` (CREATE TABLE IF NOT EXISTS, safe twice; tables in the main
-  database beside `entities`): `cleanup_runs` (id, rule or 'all', by, by_name, started_at, finished_at, tz, counts_json,
-  report_json, undone_at, undone_by) and `cleanup_ledger` (id, run_id, store, ref, field, old_value, new_value, rule,
-  action, target, by, at, tz, undone_at, undone_by). No `UPDATE`/`DELETE` in the migration (no `data_reason` needed).
-- **Actions, never delete**, each writing a ledger row with the old value first:
-  - listing quarantine / sighting / help_find: `IntakeStager::setSuppressed` + `removed` meta `{at, by, reason, cleanup:
-    run, target}` (the editor's Put back already reads it) + `SearchIndex::indexListings`. Undo: unsuppress, restore the
-    old `removed` meta (or delete it), reindex. When the "Help us find" card is built, those with target `help_find`
-    move to it.
-  - unconfirm (OSM only): a metadata key `unconfirmed` `{field: why}` and the listing's confidence refreshed; the listing
-    page's "How we know" shows "Not yet confirmed" for those fields (a small change to the card; claim it then).
-    Re-source first: if another keepable source holds the same value, add it and nothing is marked.
-  - caution: `closed` → `closed_signal` `{line, url, at, from: 'cleanup'}` (Refresh already scores it −10 and shows
-    "Possibly closed"); the `closed` meta's old JSON in the ledger; `SuggestionActions::reindex`. "Still open?" itself is
-    W2's (P5-2); until then the signal shows.
-  - merge: `Suggestions::create(['kind' => 'same', …], null, 'cleanup-dupes')` as LiveDupes does; Undo withdraws a
-    suggestion still `new`.
-  - staged: status `quarantined`, `review_note` prefixed "Data cleanup: …"; Undo back to `staged`.
-  - place store: `held` set; Undo back to null.
-  - landmarks: status `hidden`, `review_note` "Data cleanup: story only planned (R7)" (hidden survives the monthly
-    reload; `waiting` doesn't), `reviewed_by` the person who ran it; nation's land written to the nations' log as
-    `Landmarks::review` does. `wiki_text`: `extract` cleared, old text in the ledger.
-- **Undo** per ledger row and per run (`insights.cleanup_undo`): refused, with the reason, when the record changed since
-  (its current value isn't the ledger's new value): a person's later edit wins.
-- **Pulse:** one case, "Data cleanup needs a person", a step per kind (Check these by rule; duplicates to Review), each
-  a `['do', …]` button (open the record in a drawer, Mark looked at, Undo); the pass report as the case's note:
-  restored, re-sourced, quarantined, left. Read `Pulse.php` (`manage`, how a case's steps are built) before writing.
-- **Runs:** a pass per rule or all, by button (`TvAsk.busy` while it works), batched (500 a request, the page continues
-  the run until done). The schedule hook: a `Scheduler::JOBS` entry `data_cleanup_tick` listed in `Automation::JOBS`
-  under the master switch, and shipped off (a `cleanup_auto` switch, default off, on the section).
-- **Before step 2:** read `Pulse.php`, `Scheduler.php` (`JOBS`, `AUTO`), `Automation.php` (`JOBS`), `SuggestionActions`
-  (`put`, `reindex`), `Suggestions::create`; start every file from the live mirror again.
+**State:** sent to the inbox, PR open, **waiting for Jason's OK to merge**. Claims held by this session: `DataCleanup.php`,
+`cleanup-console.php`, `ListingConfidence.php::compute`, `UniversalSearch.php::peekOutdoors`, `ContentTags.php::card`
+(change); `Pulse.php`, `Scheduler.php`, `Automation.php`, the migration and the script (add). After it's live: run the
+sync, `deliveries.py verify`, and ask Jason to run a pass one rule at a time (the junk names first).
+
+| File | What |
+|---|---|
+| `app/lib/DataCleanup.php` | `collect()` (full lists), `run()` (a press: up to `BATCH` 600, Continue resumes the open run), `act()` per rule, `get()`/`put()` (the one place that reads and writes each stored value), `undo()` (per record or run; a value changed since is left, "Changed since"), `wikiCounts()`/`canWrite()`/`writeNow()`, `pulseItems()`/`pulseSteps()`/`pulseDo()`, the `auto` setting |
+| `app/admin/cleanup-console.php` | a card per rule; Preview / Run a pass / Run this rule / Continue; Check these (`?checks=<rule>`); Wikipedia replacements with Write 10 now; Passes with Undo; the daily pass switch |
+| `app/migrations/2026-11-14_data_cleanup.sql` | `cleanup_runs`, `cleanup_ledger`, `cleanup_checks`, `cleanup_settings` (create only) |
+| `app/scripts/data_cleanup_tick.php` | the daily pass: in `Scheduler::JOBS` (not `AUTO`) and `Automation::JOBS` (W1), and the page's switch, shipped off |
+| `app/lib/Pulse.php` | the `cleanup:checks` case: items, steps (`case 'cleanup'`), manage (`cleanup_seen:<rule>`, needs `insights.cleanup`) |
+| `app/lib/ListingConfidence.php` | `compute`: the `unconfirmed` note lowers it and says which values; a cleanup `closed_signal` reads "Still open? One site said it closed (…)" |
+| `UniversalSearch::peekOutdoors`, `ContentTags::card` | Wikipedia's words never shown while its rule is cite only (`Landmarks::about`) |
+
+What each action writes (all logged with the old value): listings `meta:removed` {at, by, reason, cleanup, target} then
+`is_suppressed` 1; `meta:unconfirmed` {fields}; `meta:closed_signal` {line, at, from: cleanup} and `meta:closed` removed;
+duplicates a `same` suggestion (device `crawler-cleanup`, the crawler's own checks), Undo dismisses it while still new;
+staged `review_note` then `status` quarantined; place store `held` (junk, cite, protected, nation, person); landmarks
+`review_note`, `reviewed_by`, `status` hidden (+ the nations' log on a nation's land); Wikipedia `about_queued_at` (first
+pass) then `extract` '' (a later pass, once `research` is written).
+
+Duplicates changed from step 1: only pairs `AutoImport::relationTo` calls `same`, `covered` or `maybe` (the 420 of the
+first preview were mostly providers at one clinic, decisions/0074).
+
+Tested here (MariaDB 10.11, the live libraries): the migration twice; a pass for every rule on a fixture of each case,
+then the second preview finds only what's left; Undo per record and per run, a field a person changed after the pass
+left as it is; the merge offer made and withdrawn; the Pulse case's item, steps and Looked at them; the page in every
+state (preview, pass, write gated by AI use, daily pass on, denied with the reason), no sideways scroll at 390px. Not
+tested: the live data's size (600 a press), `SearchIndex` and `ListingConfidence` refresh against the live tables (both
+wrapped so a failure only logs).
 
 ## Not done, on purpose
 
