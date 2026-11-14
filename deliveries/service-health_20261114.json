@@ -1,0 +1,42 @@
+{
+ "zip": "service-health_20261114.zip",
+ "built_on": "21f999c Sync: 2026-11-14 13:21 UTC",
+ "recorded": "2026-11-14 13:40 UTC",
+ "note": "Outside services' issues: identify, hold, ask for help (Jason 2026-11-14); overpass-api.de off both lists; built on Sync: 2026-11-14 13:21 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/OpenPlaces.php": {
+   "sha256": "effe61ac27e107380ca9c0f187dac022c3f267a1403f8576a7649560632d7aeb",
+   "live": false
+  },
+  "app/lib/OutsideServices.php": {
+   "sha256": "6e5e7d646802e7efa81beaddbfdfd8a6dbf66edbf6d217388b22b669f4bb9ab3",
+   "live": false
+  },
+  "app/lib/Pulse.php": {
+   "sha256": "8a0453ead0fc39e910c5218ad42a5ccdc62690635f9d2ba2861496b60c8bc53b",
+   "live": false
+  },
+  "app/lib/ServiceHealth.php": {
+   "sha256": "749880319ba8b4ad5c57253ed7c374f73347ca52f687f4eaf0836b1ee7e5c058",
+   "live": false
+  },
+  "app/lib/crawler/CrawlService.php": {
+   "sha256": "ab8192328e9e47baf07ae40d57d090ab999dd7d8d47daae004dfba8d8a6cae74",
+   "live": false
+  },
+  "app/lib/crawler/DeepLook.php": {
+   "sha256": "3112ae2fcde998d7d5d22b44bb8df98e446acd9d28a1435a49100a9a758c42ba",
+   "live": false
+  },
+  "app/migrations/2026-11-14_service_issues.sql": {
+   "sha256": "2b60cea277f93d8f843ff5c281a048aa8469b554896d52755a06dc29a082912e",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "89c804cf53c350d850f1a764adf6fc4172e4ef6bdc0b4bf09e50a971351d93d6",
+   "live": false
+  }
+ }
+}
