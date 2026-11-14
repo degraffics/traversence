@@ -44,6 +44,280 @@
    "expires": "2026-11-14T20:03:33Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/lib/Scheduler.php",
+   "functions": [
+    "run"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kK8GzhmtW4etwGUwx",
+   "why": "Automation switches (Jason 2026-11-14): master, workflow, task and service switches; shipped off",
+   "since": "2026-11-14T16:03:36Z",
+   "expires": "2026-11-14T20:03:36Z",
+   "release": "",
+   "callers": {
+    "run": [
+     "app/scripts/ai_worker.php",
+     "app/scripts/audit_clock_tick.php",
+     "app/scripts/billing_tick.php",
+     "app/scripts/daily_report.php",
+     "app/scripts/domains_tick.php",
+     "app/scripts/earned_storage_tick.php",
+     "app/scripts/files_tick.php",
+     "app/scripts/got_it_tick.php",
+     "app/scripts/guest_tick.php",
+     "app/scripts/guide_finds_tick.php",
+     "app/scripts/guide_live_tick.php",
+     "app/scripts/guide_ondemand_tick.php",
+     "app/scripts/heritage_tick.php",
+     "app/scripts/journeys_tick.php",
+     "app/scripts/landmark_photos_tick.php",
+     "app/scripts/like_watch_tick.php",
+     "app/scripts/listings_tick.php",
+     "app/scripts/market_tick.php",
+     "app/scripts/moments_tick.php",
+     "app/scripts/notice_digest.php",
+     "app/scripts/pay_wait_tick.php",
+     "app/scripts/region_tick.php",
+     "app/scripts/releases_tick.php",
+     "app/scripts/sales_tick.php",
+     "app/scripts/services_tick.php",
+     "app/scripts/ses_setup_tick.php",
+     "app/scripts/staging_carry_tick.php",
+     "app/scripts/staging_tick.php",
+     "app/scripts/standing_tick.php",
+     "app/scripts/takedowns_tick.php",
+     "app/scripts/vault_digest_tick.php",
+     "app/scripts/work_orders_tick.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/crawler/CrawlQueue.php",
+   "functions": [
+    "paused"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kK8GzhmtW4etwGUwx",
+   "why": "Automation switches (Jason 2026-11-14): master, workflow, task and service switches; shipped off",
+   "since": "2026-11-14T16:03:36Z",
+   "expires": "2026-11-14T20:03:36Z",
+   "release": "",
+   "callers": {
+    "paused": [
+     "app/lib/crawler/CrawlService.php",
+     "app/lib/crawler/CrawlTargets.php",
+     "website/admin/cluster-tools.php",
+     "website/admin/crawler.php",
+     "website/api/crawl/commoncrawl.php",
+     "website/api/crawl/geocode.php",
+     "website/api/crawl/guides.php",
+     "website/api/crawl/heritage.php",
+     "website/api/crawl/identity.php",
+     "website/api/crawl/jobs.php",
+     "website/api/crawl/learn.php",
+     "website/api/crawl/refresh.php",
+     "website/api/crawl/sources.php",
+     "website/api/crawl/verify.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/crawler/CrawlService.php",
+   "functions": [
+    "plan",
+    "setTask"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kK8GzhmtW4etwGUwx",
+   "why": "Automation switches (Jason 2026-11-14): master, workflow, task and service switches; shipped off",
+   "since": "2026-11-14T16:03:36Z",
+   "expires": "2026-11-14T20:03:36Z",
+   "release": "",
+   "callers": {
+    "plan": [
+     "website/api/crawl/service.php"
+    ],
+    "setTask": [
+     "app/admin/crawler-console.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/ServiceHealth.php",
+   "functions": [
+    "allowed",
+    "holds"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kK8GzhmtW4etwGUwx",
+   "why": "Automation switches (Jason 2026-11-14): master, workflow, task and service switches; shipped off",
+   "since": "2026-11-14T16:03:36Z",
+   "expires": "2026-11-14T20:03:36Z",
+   "release": "",
+   "callers": {
+    "allowed": [
+     "app/lib/OpenPlaces.php"
+    ],
+    "holds": [
+     "app/lib/crawler/CrawlService.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/AiClient.php",
+   "functions": [
+    "allow",
+    "claudeRead",
+    "post",
+    "providerFor"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kK8GzhmtW4etwGUwx",
+   "why": "Automation switches (Jason 2026-11-14): master, workflow, task and service switches; shipped off",
+   "since": "2026-11-14T16:03:36Z",
+   "expires": "2026-11-14T20:03:36Z",
+   "release": "",
+   "callers": {
+    "allow": [
+     "app/admin/sections.php",
+     "app/lib/AiAssist.php",
+     "app/lib/Dossier.php",
+     "app/lib/GuideLinks.php",
+     "app/lib/Guides.php",
+     "app/lib/Heritage.php",
+     "app/lib/ItemWriter.php",
+     "app/lib/LiveEvents.php",
+     "app/lib/OnDemand.php",
+     "app/lib/PlaceFinder.php",
+     "app/lib/Topics.php",
+     "app/lib/crawler/SecondTier.php",
+     "website/admin/guide-edit.php"
+    ],
+    "providerFor": [
+     "app/lib/CardScan.php",
+     "app/ui/card-scanner.php"
+    ],
+    "claudeRead": [
+     "app/lib/CardScan.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/OpenPlaces.php",
+   "functions": [
+    "overpass"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kK8GzhmtW4etwGUwx",
+   "why": "Automation switches (Jason 2026-11-14): master, workflow, task and service switches; shipped off",
+   "since": "2026-11-14T16:03:36Z",
+   "expires": "2026-11-14T20:03:36Z",
+   "release": "",
+   "callers": {
+    "overpass": [
+     "app/lib/crawler/DeepLook.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/OnDemand.php",
+   "functions": [
+    "offer",
+    "start",
+    "step"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kK8GzhmtW4etwGUwx",
+   "why": "Automation switches (Jason 2026-11-14): master, workflow, task and service switches; shipped off",
+   "since": "2026-11-14T16:03:36Z",
+   "expires": "2026-11-14T20:03:36Z",
+   "release": "",
+   "callers": {
+    "start": [
+     "website/api/guide-build.php"
+    ],
+    "step": [
+     "website/api/guide-build.php"
+    ],
+    "offer": [
+     "app/lib/UniversalSearch.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/Dossier.php",
+   "functions": [
+    "get"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kK8GzhmtW4etwGUwx",
+   "why": "Automation switches (Jason 2026-11-14): master, workflow, task and service switches; shipped off",
+   "since": "2026-11-14T16:03:36Z",
+   "expires": "2026-11-14T20:03:36Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/PlaceFinder.php",
+   "functions": [
+    "get"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kK8GzhmtW4etwGUwx",
+   "why": "Automation switches (Jason 2026-11-14): master, workflow, task and service switches; shipped off",
+   "since": "2026-11-14T16:03:36Z",
+   "expires": "2026-11-14T20:03:36Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/TravelLegs.php",
+   "functions": [
+    "post"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kK8GzhmtW4etwGUwx",
+   "why": "Automation switches (Jason 2026-11-14): master, workflow, task and service switches; shipped off",
+   "since": "2026-11-14T16:03:36Z",
+   "expires": "2026-11-14T20:03:36Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/crawler/SecondTier.php",
+   "functions": [
+    "fetch"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kK8GzhmtW4etwGUwx",
+   "why": "Automation switches (Jason 2026-11-14): master, workflow, task and service switches; shipped off",
+   "since": "2026-11-14T16:03:36Z",
+   "expires": "2026-11-14T20:03:36Z",
+   "release": "",
+   "callers": {
+    "fetch": [
+     "app/lib/crawler/CrawlService.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/Landmarks.php",
+   "functions": [
+    "findPhotos"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kK8GzhmtW4etwGUwx",
+   "why": "Automation switches (Jason 2026-11-14): master, workflow, task and service switches; shipped off",
+   "since": "2026-11-14T16:03:36Z",
+   "expires": "2026-11-14T20:03:36Z",
+   "release": "",
+   "callers": {
+    "findPhotos": [
+     "app/scripts/landmark_photos_tick.php"
+    ]
+   }
   }
  ],
  "lapsed": []
