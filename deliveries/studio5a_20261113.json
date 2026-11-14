@@ -1,8 +1,8 @@
 {
  "zip": "studio5a_20261113.zip",
- "built_on": "f34cf01 Sync: 2026-11-14 00:20 UTC",
- "recorded": "2026-11-14 00:21 UTC",
- "note": "Storefront Studio 5a (decisions/0159 step 5): a business's pages as blocks in the portal's builder, Team perms, drawn script-free on trvgo.us; its FAQ entry. Built on Sync: 2026-11-14 00:20 UTC. Sent through git (releases/inbox).",
+ "built_on": "be81b24 Sync: 2026-11-14 00:40 UTC",
+ "recorded": "2026-11-14 00:40 UTC",
+ "note": "Storefront Studio 5a (decisions/0159 step 5): a business's pages as blocks in the portal's builder, Team perms, drawn script-free on trvgo.us; its FAQ entry. Built on Sync: 2026-11-14 00:40 UTC. Sent through git (releases/inbox).",
  "status": "pending",
  "live_in": "",
  "files": {
@@ -27,7 +27,7 @@
    "live": false
   },
   "app/ui/faq.md": {
-   "sha256": "21649c4c1a97d475f70de2c723f655444a897b9650ca1c24c72e462ffca7e86b",
+   "sha256": "6b8eb2644ce9e2582205cf922c918eb0216d5fdab34fc26c059d03bf700df70b",
    "live": false
   },
   "app/ui/storefront-view.php": {

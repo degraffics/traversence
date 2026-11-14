@@ -198,7 +198,7 @@ SKIP_HOSTS = {"openstreetmap.org", "npino.com", "npiprofile.com", "npidb.org", "
               "npi.report", "npiregistry.cms.hhs.gov", "google.com", "bing.com", "duckduckgo.com", "search.brave.com"}
 
 started = time.monotonic()
-WORKER_V = "2.3"           # the service's contract 2 (decisions/0160 §2): the site plans each run, the worker reports it
+WORKER_V = "2.4"           # the service's contract 2 (decisions/0160 §2): the site plans each run, the worker reports it; 2.4: calls by host
 RUN_END = None             # when this run's own work must stop (started + TIME_BUDGET, or a bulk load's end)
 TASK_END = None            # when the capture task being worked must stop (its share of the run)
 FETCH_CAP = MAX_FETCHES    # fetches this run may have made by the end of the task being worked
@@ -220,6 +220,50 @@ def out_of_time():
     if TASK_END is not None and now > TASK_END:
         return True                        # the task's share is used: the rest go back untouched
     return now > (RUN_END if RUN_END is not None else started + TIME_BUDGET)
+
+
+# ---- every outside call counted, by host and task (decisions/0160 note 2026-11-13: "the crawler reports by service") ----
+# Each request the worker sends (urllib.request.urlopen, robots.txt included) is counted here: calls, failures and the
+# last error, by the capture task being worked ("" for the run's own). The report sends them; the site files each host
+# under its outside service (OutsideServices::serviceOfHost) for the service's card. The site's own calls aren't counted.
+CALLS = {}                 # task -> host -> [calls, failures, last error]
+CUR_TASK = ""
+CALL_HOSTS = 40            # hosts sent per task; the rest are summed under "*" (businesses' and sources' own websites)
+_urlopen = urllib.request.urlopen
+_SITE_HOST = (urllib.parse.urlsplit(SITE).hostname or "").lower() if SITE else ""
+
+
+def _counted_urlopen(req, *a, **kw):
+    url = req.full_url if isinstance(req, urllib.request.Request) else str(req)
+    host = (urllib.parse.urlsplit(url).hostname or "").lower()
+    if not host or host == _SITE_HOST:
+        return _urlopen(req, *a, **kw)
+    c = CALLS.setdefault(CUR_TASK, {}).setdefault(host, [0, 0, ""])
+    c[0] += 1
+    try:
+        return _urlopen(req, *a, **kw)
+    except urllib.error.HTTPError as e:
+        c[1] += 1
+        c[2] = f"{e.code} {e.reason}"[:200]
+        raise
+    except Exception as e:
+        c[1] += 1
+        c[2] = repr(e)[:200]
+        raise
+
+
+urllib.request.urlopen = _counted_urlopen
+
+
+def calls_of(task):
+    """A task's calls for the report: {host: [calls, failures, last error]}, every failing host and the busiest first."""
+    hs = CALLS.get(task, {})
+    order = sorted(hs, key=lambda h: (-hs[h][1], -hs[h][0], h))
+    out = {h: hs[h] for h in order[:CALL_HOSTS]}
+    rest = order[CALL_HOSTS:]
+    if rest:
+        out["*"] = [sum(hs[h][0] for h in rest), sum(hs[h][1] for h in rest), ""]
+    return out
 
 
 GOT_KEYS = ("listings", "targets", "tasks", "places", "guides", "jobs", "hosts", "discover", "describe", "scans")
@@ -3016,13 +3060,14 @@ MIN_TASK = 15          # seconds: a task with less than this left isn't started 
 
 def work_task(p, item, seconds):
     """Works one capture task for up to `seconds`, inside its fetch and paid-call share; adds to `item` what it did."""
-    global TASK_END, FETCH_CAP, SEARCH_CAP, task_got
+    global TASK_END, FETCH_CAP, SEARCH_CAP, task_got, CUR_TASK
     fn, setting, off = HANDLERS[p["task"]]
     why_off = off()
     if why_off:
         item.update(outcome="off", why=why_off)
         return
     t0, f0, s0, pl0, task_got = time.monotonic(), fetches, searches, places_used, 0
+    CUR_TASK = p["task"]
     TASK_END = t0 + seconds
     FETCH_CAP = fetches + max(0, int(p.get("fetches", 0))) + item.pop("_carry_f", 0)
     SEARCH_CAP = searches + max(0, int(p.get("paid", 0)))
@@ -3047,7 +3092,7 @@ def work_task(p, item, seconds):
     finally:
         if setting:
             globals()[setting] = saved
-        TASK_END, SEARCH_CAP = None, None
+        TASK_END, SEARCH_CAP, CUR_TASK = None, None, ""
         item["seconds"] = item.get("seconds", 0) + int(time.monotonic() - t0)
         item["fetches"] = item.get("fetches", 0) + (fetches - f0)
         item["searches"] = item.get("searches", 0) + (searches - s0)
@@ -3166,10 +3211,12 @@ def run_service():
     for it in items:
         for k in [k for k in it if k.startswith("_")]:
             it.pop(k)
+        if CALLS.get(it["task"]):
+            it["calls"] = calls_of(it["task"])
     engine = "tavily" if TAVILY_API_KEY else ("brave" if BRAVE_API_KEY else "")
     res = site_call("/api/crawl/service.php", {"report": {"run_key": run_key, "status": "ok", "seconds": int(time.monotonic() - started),
                                                          "fetches": fetches, "searches": searches, "engine": engine,
-                                                         "items": items, "requests": reqs}})
+                                                         "items": items, "requests": reqs, "calls": calls_of("")}})
     status = res.get("status", "")
     log(f"run {run_key}: {status}: " + ", ".join(f"{i['task']} {i.get('outcome')}" for i in items))
     # a run that couldn't do its work is a failed run on Railway, not "succeeded" (the review's F27)

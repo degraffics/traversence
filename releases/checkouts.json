@@ -8,7 +8,7 @@
    "session": "session_01CXLi5gpdwLLGTQ51Ls56yQ",
    "why": "0159 step 5a: a business's pages as blocks (shop.<id> zones, Team perms)",
    "since": "2026-11-13T23:45:34Z",
-   "expires": "2026-11-14T04:06:28Z",
+   "expires": "2026-11-14T04:21:33Z",
    "release": "studio5a_20261113.zip",
    "callers": {
     "zone": [
@@ -51,7 +51,7 @@
    "session": "session_01CXLi5gpdwLLGTQ51Ls56yQ",
    "why": "0159 step 5a: a business's pages as blocks (shop.<id> zones, Team perms)",
    "since": "2026-11-13T23:45:34Z",
-   "expires": "2026-11-14T04:06:28Z",
+   "expires": "2026-11-14T04:21:33Z",
    "release": "studio5a_20261113.zip",
    "callers": {
     "save": [
@@ -68,7 +68,7 @@
    "session": "session_01CXLi5gpdwLLGTQ51Ls56yQ",
    "why": "0159 step 5a: header notes for the shop zones",
    "since": "2026-11-13T23:45:34Z",
-   "expires": "2026-11-14T04:06:28Z",
+   "expires": "2026-11-14T04:21:33Z",
    "release": "studio5a_20261113.zip",
    "callers": {}
   },
@@ -79,7 +79,7 @@
    "session": "session_01CXLi5gpdwLLGTQ51Ls56yQ",
    "why": "0159 step 5a: a business's pages as blocks (shop.<id> zones, Team perms)",
    "since": "2026-11-13T23:45:34Z",
-   "expires": "2026-11-14T04:06:28Z",
+   "expires": "2026-11-14T04:21:33Z",
    "release": "studio5a_20261113.zip",
    "callers": {}
   },
@@ -90,7 +90,7 @@
    "session": "session_01CXLi5gpdwLLGTQ51Ls56yQ",
    "why": "0159 step 5a: a business's pages as blocks (shop.<id> zones, Team perms)",
    "since": "2026-11-13T23:45:34Z",
-   "expires": "2026-11-14T04:06:28Z",
+   "expires": "2026-11-14T04:21:33Z",
    "release": "studio5a_20261113.zip",
    "callers": {}
   },
@@ -101,7 +101,7 @@
    "session": "session_01CXLi5gpdwLLGTQ51Ls56yQ",
    "why": "0159 step 5a: header notes for the shop zones",
    "since": "2026-11-13T23:45:34Z",
-   "expires": "2026-11-14T04:06:28Z",
+   "expires": "2026-11-14T04:21:33Z",
    "release": "studio5a_20261113.zip",
    "callers": {
     "tv_storefront_serve": [
@@ -118,7 +118,7 @@
    "session": "session_01CXLi5gpdwLLGTQ51Ls56yQ",
    "why": "0159 step 5a: a business's pages as blocks (shop.<id> zones, Team perms)",
    "since": "2026-11-13T23:45:34Z",
-   "expires": "2026-11-14T04:06:28Z",
+   "expires": "2026-11-14T04:21:33Z",
    "release": "studio5a_20261113.zip",
    "callers": {
     "tv_biz_storefront": [
@@ -133,7 +133,7 @@
    "session": "session_01CXLi5gpdwLLGTQ51Ls56yQ",
    "why": "0159 step 5a",
    "since": "2026-11-13T23:45:37Z",
-   "expires": "2026-11-14T04:06:28Z",
+   "expires": "2026-11-14T04:21:33Z",
    "release": "studio5a_20261113.zip",
    "callers": {}
   },
@@ -146,6 +146,67 @@
    "since": "2026-11-14T00:13:37Z",
    "expires": "2026-11-14T04:15:50Z",
    "release": "stgstaff_20261114.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/crawler/CrawlService.php",
+   "functions": [
+    "report"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kDaPxCn3ENUXa7SqF",
+   "why": "Crawler reports by service: calls and failures per outside service on its card (decisions/0160 note)",
+   "since": "2026-11-14T00:22:47Z",
+   "expires": "2026-11-14T04:22:47Z",
+   "release": "outside-services-calls_20261114.zip",
+   "callers": {
+    "report": [
+     "website/api/crawl/service.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/OutsideServices.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5kDaPxCn3ENUXa7SqF",
+   "why": "Crawler reports by service: calls and failures per outside service on its card (decisions/0160 note)",
+   "since": "2026-11-14T00:22:47Z",
+   "expires": "2026-11-14T04:22:47Z",
+   "release": "outside-services-calls_20261114.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/crawler/CrawlService.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kDaPxCn3ENUXa7SqF",
+   "why": "release outside-services-calls_20261114.zip",
+   "since": "2026-11-14T00:23:53Z",
+   "expires": "2026-11-14T04:23:53Z",
+   "release": "outside-services-calls_20261114.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/OutsideServices.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kDaPxCn3ENUXa7SqF",
+   "why": "release outside-services-calls_20261114.zip",
+   "since": "2026-11-14T00:23:53Z",
+   "expires": "2026-11-14T04:23:53Z",
+   "release": "outside-services-calls_20261114.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/migrations/2026-11-14_crawl_service_calls.sql",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kDaPxCn3ENUXa7SqF",
+   "why": "release outside-services-calls_20261114.zip",
+   "since": "2026-11-14T00:23:53Z",
+   "expires": "2026-11-14T04:23:53Z",
+   "release": "outside-services-calls_20261114.zip",
    "callers": {}
   }
  ],

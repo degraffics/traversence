@@ -1,0 +1,110 @@
+{
+    "id": 39,
+    "title": "Outside services: the crawler's calls and failures on each service's card",
+    "why": "Jason, 2026-11-13: the crawler reports by service (decisions/0160 note). Worker 2.4 counts every request by host and task; the site files each under its service, so a card shows the last 24 hours and the month, how many failed, and the last error (e.g. overpass-api.de 406). Needs the database update in this release (it runs itself).",
+    "proposals": "",
+    "zip": "outside-services-calls_20261114.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "live",
+    "step": 3,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": "2026-11-14 00:38:05",
+    "staged_at": "2026-11-14 00:38:06",
+    "vetted_at": "2026-11-14 00:38:09",
+    "live_at": "2026-11-14 00:38:09",
+    "files": {
+        "app/lib/crawler/CrawlService.php": {
+            "sha": "ad0dc1415f94b15f27ca3dfd6871e80293b632f4083a2f58c0a013c069e9cf2c",
+            "size": 30601,
+            "live_was": "1b828337aa486759c1bf93d10a5f32a4df7ba88c736d5fbbf83f0b02ce94b159",
+            "existed": true,
+            "old_sha": "1b828337aa486759c1bf93d10a5f32a4df7ba88c736d5fbbf83f0b02ce94b159"
+        },
+        "app/lib/OutsideServices.php": {
+            "sha": "4ba3272c64dfb2cbddc7a151574a837d20043f2c99c901b518f04ac13edf0656",
+            "size": 68392,
+            "live_was": "e3a8808c0f4047aca3711aeba9c0c254007b902480d0a0043d25be0eeca3396d",
+            "existed": true,
+            "old_sha": "e3a8808c0f4047aca3711aeba9c0c254007b902480d0a0043d25be0eeca3396d"
+        },
+        "app/ui/faq.md": {
+            "sha": "b20a97dbff48b8936d34c87090551168fd13188f6fb0c07a647cd60ebcc32d91",
+            "size": 280724,
+            "live_was": "99877e9c49e42b675f818e214828e97f22a11d0d62b0f0044f94677d8b36d258",
+            "existed": true,
+            "old_sha": "99877e9c49e42b675f818e214828e97f22a11d0d62b0f0044f94677d8b36d258"
+        },
+        "app/migrations/2026-11-14_crawl_service_calls.sql": {
+            "sha": "c2b33bb19d78b53ea929bc8cda928821fe36e1b678a997d1ebf5298b052fee1b",
+            "size": 743,
+            "live_was": null,
+            "existed": false
+        }
+    },
+    "migrations": [
+        "app/migrations/2026-11-14_crawl_service_calls.sql"
+    ],
+    "checks": {
+        "ok": true,
+        "where": "live",
+        "at": "2026-11-14T00:38:09+00:00",
+        "items": [
+            [
+                "PHP files parse",
+                true,
+                "2 checked"
+            ],
+            [
+                "Migrations only add",
+                true,
+                "1 checked"
+            ],
+            [
+                "Pages answer",
+                true,
+                "2 pages answered on traversence.com"
+            ],
+            [
+                "No new fatal errors in the logs",
+                true,
+                "3 logs read"
+            ]
+        ],
+        "first_fail": ""
+    },
+    "log": [
+        {
+            "at": "2026-11-14T00:38:03+00:00",
+            "by": 0,
+            "msg": "Uploaded outside-services-calls_20261114.zip: 4 files."
+        },
+        {
+            "at": "2026-11-14T00:38:05+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/outside-services-calls_20261114.zip (git 6019993f45)."
+        },
+        {
+            "at": "2026-11-14T00:38:05+00:00",
+            "by": 0,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
+        },
+        {
+            "at": "2026-11-14T00:38:07+00:00",
+            "by": 0,
+            "msg": "Put on staging (4 files); its checks passed."
+        },
+        {
+            "at": "2026-11-14T00:38:09+00:00",
+            "by": 0,
+            "msg": "Approved in chat before it was sent through git, and its checks on staging passed: publishing by itself."
+        },
+        {
+            "at": "2026-11-14T00:38:09+00:00",
+            "by": 0,
+            "msg": "Published: 4 files, 1 migration (they run themselves within the hour); everyone at once (no switch)."
+        }
+    ]
+}
