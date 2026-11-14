@@ -807,9 +807,12 @@ joins §4.5's gaps as a discovery target, retried on the retry ladder (§6.1); o
 Pulse case, **Confirm from its page** (the link and the fields to type, R14); its town page asks visitors "Know its phone
 or address?" as a suggestion.
 
-**Pending Jason's choice** (the session manager's proposal): a find with only a name and a town either gets a public
-**"Help us find this business"** card asking people for its address or phone, or stays a sighting until a source or a
-person supplies one. Until he chooses, it stays a sighting.
+**A find with only a name and a town gets a public "Help us find this business" card** (Jason, 2026-11-14: "b is a great
+public request"): shown on its town page and in search as a request, never as a listing (no pin, no Call or Directions,
+no confidence badge), asking visitors for its address or phone (and the owner to claim it). Answers come in as a
+person's suggestion with its source (R4), and once a keepable address or phone arrives and passes the floor, it becomes a
+listing. The card keeps to the rules for names: the "real business" check, the people rules (R6) and protected places
+(R7, held names never shown); it retires on the retry ladder's long wait if nothing ever comes.
 
 What raises its confidence, strongest first:
 1. **The owner** claiming it (a claim, a GO Code at the counter, a staff visit): the strongest, always above the rest.
@@ -1224,7 +1227,7 @@ code fixes are in 0163 §8's build stages. Documentation only: no site code, no 
 | P1-4 leads that never resolve | new → read → witness only → expired | §1.5 | stage 8 |
 | P2-1, P2-2, P2-3, T1 Gemini and private data | one guard in the Gemini client: private details removed first, our vocabulary only, protected names never sent, input class per feature | §0.8, R5, R7, R13, §2.3 | stage 7, **before Gemini's stage 9** |
 | P3-1 floor vs readiness | one rule: "complete" = the floor + a point (the town's middle, marked approximate) | §5.4 | stage 8 |
-| ✎ P3-2 sightings / NAP | **verified NAP is the goal**; listings start with part of it and are refined by sources, the owner and people; each NAP field shows how it's known; the floor stays; sightings on the retry ladder; **pending Jason's choice:** a "Help us find this business" card for a name-and-town find, or it stays a sighting | §3.5, R14 | stage 8 |
+| ✎ P3-2 sightings / NAP | **verified NAP is the goal**; listings start with part of it and are refined by sources, the owner and people; each NAP field shows how it's known; the floor stays; sightings on the retry ladder; a name-and-town find gets a public **"Help us find this business"** card (Jason, 2026-11-14) | §3.5, R14 | stage 8 |
 | ✎ P3-3, P4-1 no purgatory | **the retry ladder**, never stopping; new evidence resets it; Review still shows the step | §3.2, §4.5, §6.1 | §12 (ladder values); stage 8 |
 | P3-4 claim band | a claim keeps its band; against lowers within it | R12 | stage 8 |
 | P3-5 owner not told | portal "Check these" + system email | R4 | stage 8 |
