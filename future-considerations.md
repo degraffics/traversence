@@ -356,3 +356,14 @@ and boosted posts out (0007). Later, possibly: sharing revenue with creators on 
 advertising), a sponsorship marketplace between businesses and creators, and Moments served through Cloudflare's cache
 on a custom domain once reads near R2's free amount (0153 §10). Views and follows are already counted per post, so
 none of these needs data we don't keep.
+
+## The Claude Console as an organization (noted 2026-11-14)
+
+Our Claude Console is an individual account. Converting it to a team organization (Console → Settings → Convert to team)
+would let us invite staff or a developer, and create an Admin API key (`platform.claude.com/settings/admin-keys`, admin
+role only) so the operations register (decisions/0163, stage 3) shows Anthropic's own usage and cost beside the site's
+count. Not done now (Jason, 2026-11-14): the site's own count, its AI cap ($40), auto-reload ($5 → $20), Anthropic's
+monthly limit ($50) and the Console's email alerts ($20, $35) cover the spend. Before converting, check on the
+confirmation screen whether it can be undone and what happens to billing and existing keys. A Console admin key can't be
+scoped: it can manage members and keys, so it lives only in a password manager and the site's `.env`
+(`ANTHROPIC_ADMIN_KEY`), read only for usage and cost.
