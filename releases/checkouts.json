@@ -195,6 +195,17 @@
    "expires": "2026-11-14T04:10:42Z",
    "release": "sitetopfix_20261114.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/StagingSite.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5gpdwLLGTQ51Ls56yQ",
+   "why": "staging strip keeps staff logins' marker addresses (Jason: accounts missing on staging)",
+   "since": "2026-11-14T00:13:37Z",
+   "expires": "2026-11-14T04:13:37Z",
+   "release": "stgstaff_20261114.zip",
+   "callers": {}
   }
  ],
  "lapsed": []
