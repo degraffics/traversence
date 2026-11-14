@@ -977,10 +977,12 @@ A loop back through Phases 1 to 3 that keeps what's published true.
   never closes it (R12).
 - **Service return:** a held service returns by itself, on 0163's ramp (§10, 2; live), **only for quota, back-off and
   budget holds**. **A ban or a block (a site or an outside service: 401/403/406/418, `AUTH_WALL`, robots, a challenge)
-  is never retried by itself, not even by a status probe** (Jason, 2026-11-14: "blocked or banned should proceed with
-  caution because we dont want to do more harm by trying again and again"; this replaces his earlier "go, automatic" for
-  banned services). It waits for a person's **Reactivate** (§1.2, 5), given once the provider has answered or lifted it;
-  then one polite check, and the ramp.
+  is never retried by itself** (Jason, 2026-11-14: "blocked or banned should proceed with caution because we dont want to
+  do more harm by trying again and again"; this replaces his earlier "go, automatic" for banned services). **A light
+  status check is allowed, but never endlessly** (Jason: "ok with a status check on banned or blocked just not a retry
+  endlessly"): only the provider's status page or one small request, never the real work, on a slowing ladder (after 7
+  days, then 30, then every 180; values in 0163 §12). When a check answers normally, the hold isn't lifted by itself: the
+  Pulse step says "looks lifted" with **Reactivate**, and a person decides (§1.2, 5); then the ramp.
 
 ### 6.2 Splitting and the audit trail
 
