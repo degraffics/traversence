@@ -1,0 +1,131 @@
+{
+    "id": 48,
+    "title": "Automation switches: a master switch, each workflow, task and service, shipped paused",
+    "why": "Jason, 2026-11-14 (through the session manager): \"Please update the site settings to be off until switched back on, also give me a master switch to turn on and off. Also I see the services as routed services connected to a task so we should be able to turn those on and off as well.\" New section System Configuration → Automation (Owners and Executives switch; ⓘ explains workflow → task → route → service). (1) The master switch (automation_switches), shipped OFF by its migration: \"Paused by Jason, 2026-11-14, until the crawler review\". Off stops everything that gathers or creates content: CrawlQueue::paused() says why, so every crawler endpoint and CrawlService::plan answer paused and a Railway run ends at once even if its cron returns; the site's workflow jobs skip in Scheduler::run (guide_finds_tick, guide_ondemand_tick, journeys_tick, heritage_tick, listings_tick, landmark_photos_tick), recorded as a run that worked with \"Paused: …\"; the AI features that serve workflows (CrawlService::FEATURE_WF) wait in AiClient::allow; the site's gathering calls (OpenPlaces' Overpass, Dossier, PlaceFinder, TravelLegs, the second tier's page reads, landmark photos) aren't made. It never stops business operations: orders, billing, payments, email, releases, staging, Moments, members' and businesses' own actions (card scans, Write it for me), staff presses (Write a draft, Check my facts), guides' weather and roads, the admin. (2) Workflows W1–W13: every one a row of crawl_workflows (the website's own seeded), paused with why and who; site jobs, AI features and on-demand paths honour it (W5: a visitor's ask is kept, queued, with a note and Notify me, and a link to what we list near the place: no dead end; search's offer says guides are paused). (3) Tasks: crawl_capture_tasks.enabled, now with who and why (off_why, off_by, off_at). (4) Services: each outside service can be paused by a person, a status in ServiceHealth (allowed() says \"… is paused: why (set by …)\"), its hosts sent to the crawler as holds (the task reports held), AI routes to a paused provider closed (providerFor, and before each Claude request); shown on its Outside services card. Services business operations depend on aren't pausable, greyed with the reason. A paused thing is paused, never a failure, never a Pulse warning (CrawlService::stalled is quiet while paused; AI use shows a paused feature as paused). Every change is logged (automation_log) and listed on the page. FAQ: two staff entries, one visitor entry. decisions/0163 §9 (still proposed).",
+    "proposals": "decisions/0163 §9, handoffs/automation-switches.md",
+    "zip": "automation-switches_20261114.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/admin/sections.php": {
+            "sha": "ba70a58d63e1c95c73a3a8c246fd51b111be3adb51ed07909e6f5083777ed3f0",
+            "size": 214200,
+            "live_was": "c31f13bb5b29fb412eb55a4f4419cc9edaba3ae16282c05b04530e6d9e8dec38"
+        },
+        "app/admin/automation-console.php": {
+            "sha": "ef5503d5b935363dffea32edb11779f56fbdbdf601be96b11727e834b691376d",
+            "size": 17736,
+            "live_was": null
+        },
+        "app/admin/manifests.php": {
+            "sha": "420addddcb667a84fdf35dac1d4b37acaa58fbd51349740bf1e0388f321e5073",
+            "size": 20507,
+            "live_was": "122ed4bbb5a6568d230a3331b033c73a7ccd1939b576efb635b8c1d9ef979fd5"
+        },
+        "app/ui/outside-services.php": {
+            "sha": "2c60f3bd8006d84435c360b8517c85f50650811b52411e3cb1d1f0b3053ecc10",
+            "size": 33214,
+            "live_was": "a944c726a8f3da6f680a350302a4147cbad9dbe4dced3cda9c9818526e4d7ca8"
+        },
+        "app/ui/faq.md": {
+            "sha": "828f13e1f6cc8712eb7160d7d11e6b89bb539849ae64411ac1c2f0c01d4458bc",
+            "size": 290579,
+            "live_was": "ae62739f5d6c87510b42c79f9aebcce216e08716d0cb40df81d26a64f801065e"
+        },
+        "app/migrations/2026-11-14_automation_switches.sql": {
+            "sha": "a16bcc57341999eeaf9d8e92667a2713510591021443f121b8a3183f52e9ff8d",
+            "size": 3284,
+            "live_was": null
+        },
+        "app/lib/ServiceHealth.php": {
+            "sha": "9b0822fed614eb7bf717675886add7152694363ba524b136eec224f416bcbb34",
+            "size": 40541,
+            "live_was": "65567da9e7b2c2e3c97f007de175c4f9c80e0de1808de7c1ebfea4babe00176f"
+        },
+        "app/lib/OnDemand.php": {
+            "sha": "0e9997bdb2e9d8ba3ca6c3e6373bed9f35840fa90c174747284f5329e571913e",
+            "size": 35802,
+            "live_was": "07a21d29816e2afd19d25098b0209c3f09ed23a2a021022d09f1caa77ef63ab0"
+        },
+        "app/lib/Scheduler.php": {
+            "sha": "380d38914752eeb29e08b5c4bcdab2663cc24a5c85f92dddf73b8ba70ae6d372",
+            "size": 21228,
+            "live_was": "02dbf467d331f6dec296df78c93a59d3a5ae20438f372e76c5368c2f6edf176e"
+        },
+        "app/lib/Dossier.php": {
+            "sha": "7c5f7b75ff0d5f1eab4efa82abff7b97be6eabb4898d4f4311a74e15b546368b",
+            "size": 30902,
+            "live_was": "596c676718904bd4ab16d21809ca9203ea28b9da79f18fcecb3914e4352863f2"
+        },
+        "app/lib/PlaceFinder.php": {
+            "sha": "b76654e6ecf75f718f5d13ff3c3f3d8215d1102ccb6a24e2f146b0896643a3d7",
+            "size": 48586,
+            "live_was": "1a94119f6849bb215e65bfd0e52f2de6c059e0095635e1f2bae4f1a127f09f53"
+        },
+        "app/lib/crawler/SecondTier.php": {
+            "sha": "640c3670da31521d91b556bff6996631f5071007eb0eb6e14a49885d7b1c812c",
+            "size": 24900,
+            "live_was": "2ab9b1395364d415b59190ddcb094cceca0b10b40d5add08e1e0513f58ecaeb8"
+        },
+        "app/lib/crawler/CrawlService.php": {
+            "sha": "df2d0ddf9157a1ab2c6ae53145af70c80f92149e1dcd0898a7fa9f742d169b27",
+            "size": 33052,
+            "live_was": "6baf8da30f3ef4ea80d73ab2556539163bb35d70fb1166d273accacd191baed1"
+        },
+        "app/lib/crawler/CrawlQueue.php": {
+            "sha": "8af0c213f4d5ce380b7fdf78263df9362a7893141600ebc216b15e16c09a6ca0",
+            "size": 19953,
+            "live_was": "f0d354cddff31dd73da578b8852b516f03a1b471adf21a56309784369ab10a3b"
+        },
+        "app/lib/TravelLegs.php": {
+            "sha": "de25c7018db9b439d4e2b7fa6450f05300d1a63f0c4a59c5f903c0cfb4e1a26f",
+            "size": 9909,
+            "live_was": "538a512aa4733f75cb4205d90f3b6a06e8d1e21833e64a6ce0a4f57e86fe513e"
+        },
+        "app/lib/OpenPlaces.php": {
+            "sha": "90b37a7a667f0d262daed171969342ff1f464315ea5669c28a615be9751a7774",
+            "size": 23835,
+            "live_was": "05d4e94325a39cbac7ad5c5b478b340561342ebf0f60413e9a207c9505b0c859"
+        },
+        "app/lib/Automation.php": {
+            "sha": "4883069b1ae57c665edafadc5e3e7624d4310b550a167f1fb85261fda99fa07e",
+            "size": 20355,
+            "live_was": null
+        },
+        "app/lib/Landmarks.php": {
+            "sha": "5b125f6461a8cbb08892cb33df651777373b7ac3132a8d9a4d3b2db534872d38",
+            "size": 55208,
+            "live_was": "9ed7d109969ca75713140583bde35a291d5584b70be174544331c514d931827a"
+        },
+        "app/lib/AiClient.php": {
+            "sha": "46fcb80db6481a1f23f721cbc963bf1214e19accd0426516cf413f20be0928e4",
+            "size": 30794,
+            "live_was": "7b46827e662561af661a9761cf71f2f6a32c0e7f2a5e42e2a275f72ab282daa1"
+        },
+        "website/hub/build.php": {
+            "sha": "8800486547c8da51f4de0535f51c350a55a7c13d9984babea6fa8c76f038e460",
+            "size": 13775,
+            "live_was": "2bb3afe6756e69f5e817231d4d885aca82a2bc354d52b9f229d202424f11e105"
+        }
+    },
+    "migrations": [
+        "app/migrations/2026-11-14_automation_switches.sql"
+    ],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-14T17:57:02+00:00",
+            "by": 0,
+            "msg": "Uploaded automation-switches_20261114.zip: 20 files."
+        }
+    ]
+}
