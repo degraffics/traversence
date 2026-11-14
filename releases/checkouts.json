@@ -148,6 +148,64 @@
    "expires": "2026-11-14T17:40:25Z",
    "release": "service-health_20261114.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/Releases.php",
+   "functions": [
+    "(top)",
+    "checks",
+    "fromUpload",
+    "publish",
+    "rollBack",
+    "standing"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5jMUt9pWN6nUfCFGaz",
+   "why": "Migrations at publish, copies first, leftovers after rollback (Jason 2026-11-14)",
+   "since": "2026-11-14T13:41:09Z",
+   "expires": "2026-11-14T17:41:09Z",
+   "release": "migration-safety_20261114.zip",
+   "callers": {
+    "standing": [
+     "app/admin/sections.php"
+    ],
+    "fromUpload": [
+     "app/lib/upload-targets.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/DbUpdates.php",
+   "functions": [
+    "(top)",
+    "autoRun"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5jMUt9pWN6nUfCFGaz",
+   "why": "Migrations at publish, copies first, leftovers after rollback (Jason 2026-11-14)",
+   "since": "2026-11-14T13:41:09Z",
+   "expires": "2026-11-14T17:41:09Z",
+   "release": "migration-safety_20261114.zip",
+   "callers": {
+    "autoRun": [
+     "app/admin/sections.php",
+     "app/lib/Scheduler.php",
+     "website/api/staging-updates.php"
+    ]
+   }
+  },
+  {
+   "path": "app/admin/sections.php",
+   "functions": [
+    "tv_admin_mod_dbupdates"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5jMUt9pWN6nUfCFGaz",
+   "why": "Migrations at publish, copies first, leftovers after rollback (Jason 2026-11-14)",
+   "since": "2026-11-14T13:41:09Z",
+   "expires": "2026-11-14T17:41:09Z",
+   "release": "migration-safety_20261114.zip",
+   "callers": {}
   }
  ],
  "lapsed": []
