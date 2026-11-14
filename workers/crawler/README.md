@@ -35,10 +35,13 @@ unreadable) and reported with its evidence; a ban, a refused key or a used-up qu
 the rest of the run, and the site holds it in later runs (the plan's `holds`) until a person marks it resolved in Pulse
 or its probe (the plan's `probes`, e.g. Overpass `/api/status` once a day, with exactly the agent that was refused)
 answers 200. A task whose service is held reports **held**, never failed, and the rest of the run goes on. Never get
-round a ban by changing the User-Agent. OpenStreetMap: overpass-api.de is off (`OVERPASS_MAIN=on` puts it back once its
-maintainers answer, research/osm-overpass-2026-11-13.md); the mirrors get one small query per kind (`[timeout:25]`),
-one at a time, and a town and kind asked in the last 30 days isn't asked again (the plan's `osm_recent`, the report's
-`osm_asked`). `CRAWLER_CONTACT` adds a contact to the User-Agent.
+round a ban by changing the User-Agent. OpenStreetMap (worker 2.6): the servers list is a setting on the site
+(OpenStreetMap's card in Outside services), sent with each plan; overpass-api.de is on it, held by its ban until its daily
+probe answers 200, then it comes back by itself at half the budget. One small query per kind (`[timeout:25]`), one at a
+time, at most one a minute (the plan's `osm_gap`), inside the run's share of the day's budget (`osm_budget`); a job
+whose kinds didn't all fit goes round again (partial). A town and kind asked in the last 3 months isn't asked again (the
+plan's `osm_recent`, the report's `osm_asked`). On a 429 the server's Retry-After, or Overpass's status page slot time,
+is obeyed exactly. `CRAWLER_CONTACT` adds a contact to the User-Agent.
 
 Against a site without `service.php` (contract 2) it runs the fixed order described below, as before. The per-run
 settings below (`VERIFY_PER_RUN`, `REFRESH_PER_RUN`…) are now the most a task may take; the plan may ask for fewer.

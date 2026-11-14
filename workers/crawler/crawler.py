@@ -42,8 +42,7 @@ Settings (environment variables):
   JOBS_PER_RUN         default 5 (the site hands out at most 10)
   MAX_FETCHES          website fetches per run, default 60
   TIME_BUDGET          seconds per run, default 240
-  OVERPASS_URL         optional first Overpass server; the mirrors follow (overpass-api.de only with OVERPASS_MAIN=on,
-                       once its maintainers have answered: research/osm-overpass-2026-11-13.md)
+  OVERPASS_URL         first Overpass server only when the site sends no servers list (the list is a setting on the site)
   CRAWLER_CONTACT      a contact address added to the User-Agent (the OSM statement's fourth promise)
   VERIFY_PER_RUN       listings given a second look per run, default 10 (0 turns it off)
   VERIFY_TIME          seconds of each run for the second look, default 100
@@ -103,14 +102,13 @@ TOKEN = os.environ.get("CRAWLER_API_TOKEN", "")
 JOBS_PER_RUN = int(os.environ.get("JOBS_PER_RUN", "5"))
 MAX_FETCHES = int(os.environ.get("MAX_FETCHES", "60"))
 TIME_BUDGET = int(os.environ.get("TIME_BUDGET", "240"))
-# Public Overpass servers, tried in order, each skipped while it's held (an issue on the site, ServiceHealth).
-# overpass-api.de is off the list (Jason, 2026-11-14) until its maintainers answer about their ban on us (406 since
-# 2026-11-13, research/osm-overpass-2026-11-13.md): asking again while banned is what turns it into an address ban.
-# OVERPASS_MAIN=on puts it back, only once they've said so. A daily probe of its /api/status (from the site's plan) says
-# whether we're still refused. overpass.openstreetmap.fr is left out: 403 "only available to white-listed usages".
-OVERPASS_MAIN = "https://overpass-api.de/api/interpreter"
+# Overpass servers, tried in order. The list is a setting on the site (OpenStreetMap's card in Outside services, Jason
+# 2026-11-14: "server lists become settings, not code"), sent with each plan (servers.overpass); the pre-use check is the
+# only gate: a server with an open issue is in the plan's holds and skipped, and comes back by itself when it's resolved
+# (overpass-api.de: when its daily probe answers 200). Only when the site sends no list (an older site, which can't hold a
+# server either) does this fallback apply, and it leaves out overpass-api.de, whose ban (406 since 2026-11-13,
+# research/osm-overpass-2026-11-13.md) nothing would then hold. overpass.openstreetmap.fr: 403 "white-listed usages".
 OVERPASS_URLS = list(dict.fromkeys(u for u in [os.environ.get("OVERPASS_URL"),
-                             OVERPASS_MAIN if os.environ.get("OVERPASS_MAIN", "").lower() == "on" else "",
                              "https://overpass.private.coffee/api/interpreter",
                              "https://overpass.kumi.systems/api/interpreter",
                              "https://maps.mail.ru/osm/tools/overpass/api/interpreter"] if u))
@@ -215,7 +213,7 @@ SKIP_HOSTS = {"openstreetmap.org", "npino.com", "npiprofile.com", "npidb.org", "
               "npi.report", "npiregistry.cms.hhs.gov", "google.com", "bing.com", "duckduckgo.com", "search.brave.com"}
 
 started = time.monotonic()
-WORKER_V = "2.5"           # the service's contract 2 (decisions/0160 §2): the site plans each run, the worker reports it; 2.4: calls by host; 2.5: issues, holds, probes, per-kind Overpass
+WORKER_V = "2.6"           # the service's contract 2 (decisions/0160 §2): the site plans each run, the worker reports it; 2.4: calls by host; 2.5: issues, holds, probes, per-kind Overpass; 2.6: servers from the plan, the pace
 RUN_END = None             # when this run's own work must stop (started + TIME_BUDGET, or a bulk load's end)
 TASK_END = None            # when the capture task being worked must stop (its share of the run)
 FETCH_CAP = MAX_FETCHES    # fetches this run may have made by the end of the task being worked
@@ -335,14 +333,33 @@ def _counted_urlopen(req, *a, **kw):
             except Exception:
                 body = b""
             e.read = lambda *_a, _b=body: _b       # the caller can still read what the server said
+            ra = (e.headers.get("Retry-After", "") if e.headers else "") or ""
+            if e.code == 429 and not ra and what.endswith("/interpreter"):
+                ra = overpass_slot(url)            # Overpass: its status page says when a slot is free
             note_issue(host, classify(e.code, body.decode("utf-8", "replace")), e.code, body.decode("utf-8", "replace"),
-                       what=what, retry_after=(e.headers.get("Retry-After", "") if e.headers else ""))
+                       what=what, retry_after=ra)
         raise
     except Exception as e:
         c[1] += 1
         c[2] = repr(e)[:200]
         note_issue(host, "timeout", err=repr(e), what=what)   # no answer: timed out, reset or unreachable
         raise
+
+
+def overpass_slot(url):
+    """When an Overpass server says it has no slot free (429): one look at its /api/status for "in N seconds" (Jason,
+    2026-11-14: obey the status page's slot time exactly). Seconds as text, or ''."""
+    try:
+        with _urlopen(urllib.request.Request(url[: -len("/interpreter")] + "/status", headers={"User-Agent": UA, "Accept": "*/*"}), timeout=10) as r:
+            t = r.read(2000).decode("utf-8", "replace")
+        secs = [int(x) for x in re.findall(r"in (\d+) seconds", t)]
+        if secs:
+            return str(min(secs))
+        if re.search(r"\d+ slots? available now", t):
+            return "60"
+    except Exception:
+        pass
+    return ""
 
 
 def malformed(url, why):
@@ -433,6 +450,9 @@ OVERPASS_PUBLIC_DAILY_BYTES = 1_000_000_000
 OSM_PER_RUN = int(os.environ.get("OSM_PER_RUN", "5"))   # 1,500 a day over 288 runs
 OSM_BUDGET = {"queries": OSM_PER_RUN, "bytes": 3_000_000}   # what this run may still use (the plan's osm_budget replaces it)
 OSM_USED = {"queries": 0, "bytes": 0}
+OSM_GAP = 60          # seconds between queries (the plan's osm_gap: Thresholds osm_per_minute_crawler, at most 1 a minute)
+_osm_last = 0.0
+OSM_INCOMPLETE = set()   # jobs whose kinds weren't all asked this run (the gap or the time): sent as partial
 OSM_RECENT = set()    # the site's town-and-kind queries already asked (3 months, Jason 2026-11-14): not asked again
 OSM_ASKED = []        # this run's, once their places reached the site: [{key, n}]
 OSM_PENDING = {}      # the keys of the job being worked, sent with its results
@@ -463,9 +483,13 @@ def overpass(job, deadline=None):
         if k in OSM_RECENT:
             cached += 1
             continue
-        if keys:
-            time.sleep(2)                           # one at a time, with a breath between (OSM promise 2)
-        els = overpass_one(job, pts, flt, deadline)
+        try:
+            els = overpass_one(job, pts, flt, deadline)
+        except OutOfTime:
+            if not keys:
+                raise                               # nothing asked yet: the job goes back untried
+            OSM_INCOMPLETE.add(job.get("job_id") or job.get("target_id"))   # the kinds answered count; the rest next time
+            break
         keys[k] = len(els)
         out += els
     if cached:
@@ -488,8 +512,16 @@ def overpass_one(job, pts, flt, deadline):
         if OSM_USED["queries"] >= OSM_BUDGET["queries"] or OSM_USED["bytes"] >= OSM_BUDGET["bytes"]:
             raise ServiceHeld(f"the OpenStreetMap budget for now is used ({OSM_USED['queries']} queries, "
                               f"{OSM_USED['bytes'] // 1000} kB this run; the site's daily share)")
+        global _osm_last
+        wait = _osm_last + OSM_GAP - time.monotonic()   # the pace: one query a gap, one at a time (OSM promise 2)
+        if wait > 0:
+            if time_left(deadline) - wait < OVERPASS_MIN:
+                raise OutOfTime(f"the next OpenStreetMap query waits {int(wait)}s for its pace")
+            time.sleep(wait)
+            left = time_left(deadline)
         query = overpass_query(job, pts, [flt], OVERPASS_SERVER_TIMEOUT)
         OSM_USED["queries"] += 1
+        _osm_last = time.monotonic()
         req = urllib.request.Request(url, data=urllib.parse.urlencode({"data": query}).encode(), headers={
             "User-Agent": UA, "Accept": "*/*",   # a strict "application/json" can earn a 406 Not Acceptable
             "Content-Type": "application/x-www-form-urlencoded"})
@@ -3160,7 +3192,9 @@ def coverage(deadline):
                 if c and (c["name"].lower(), c["where"]["zip"]) not in seen:
                     seen.add((c["name"].lower(), c["where"]["zip"]))
                     cands.append(c)
-            if partial and not cands:
+            partial = partial or jid in OSM_INCOMPLETE   # some of its kinds wait for the pace or the time: it goes round again
+            OSM_INCOMPLETE.discard(jid)
+            if partial and not cands and not OSM_PENDING.get(jid):
                 log(f"job {jid}: out of time before any of its {len(elements)} places were read; left for its lease to return it")
                 break
             res = site_call("/api/crawl/results.php", {"job_id": jid, "candidates": cands, "pages": fetches,
@@ -3389,6 +3423,13 @@ def run_service():
     for h, why in (st.get("holds") or {}).items():
         HELD[str(h).lower()] = str(why)[:200]
     OSM_RECENT.update(str(k) for k in (st.get("osm_recent") or []))
+    srv = [u for u in ((st.get("servers") or {}).get("overpass") or []) if isinstance(u, str) and u.startswith("https://")]
+    if srv:                                             # the servers list, a setting on the site
+        OVERPASS_URLS[:] = list(dict.fromkeys(srv))
+        API_HOSTS.update((urllib.parse.urlparse(u).hostname or "").lower() for u in srv)
+    global OSM_GAP
+    if st.get("osm_gap") is not None:
+        OSM_GAP = max(0, min(3600, int(st["osm_gap"])))
     if isinstance(st.get("osm_budget"), dict):         # today's share left, from Thresholds & gates
         OSM_BUDGET.update({k: max(0, int(st["osm_budget"].get(k, 0))) for k in ("queries", "bytes")})
         log(f"OpenStreetMap: {OSM_BUDGET['queries']} queries, {OSM_BUDGET['bytes'] // 1_000_000} MB left today")
