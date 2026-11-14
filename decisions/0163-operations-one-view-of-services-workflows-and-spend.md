@@ -136,7 +136,9 @@ only.
 Each stage a release Jason approves; one session per stage, from its handoff.
 
 1. **Already live (2026-11-14):** the service check, holds and automatic return (half budget for 14 days), server lists
-   as settings, pacing per service (releases #43, #44, #46; worker 2.6).
+   as settings, pacing per service (releases #43, #44, #46; worker 2.6). ✎ The live daily probe of a **banned** service
+   (e.g. overpass-api.de's `/api/status`) and its automatic return are to be **removed before any switch-on**: bans wait
+   for a person's Reactivate (Jason, 2026-11-14; 0164 §6.1).
 2. **The service register:** one row per service; caps and paces moved into it from Railway and `.env` with today's
    values; status with reasons; the website's other outside callers onto `ServiceHealth` (handoffs/crawler-revamp.md
    §7.1 item 3); AI Assist's allowances moved in (X5).
@@ -148,7 +150,8 @@ Each stage a release Jason approves; one session per stage, from its handoff.
 **Before any switch-on** (the gaps review, 0164 §15; each in the stage that touches it, at the latest stage 8, and
 checked by the switch-on check, §10): clocks that count only switched-on time (X1); W1 and W8 gating on 0164's floor and
 readiness (X2); the engine's one Pulse case, "The engine needs a person" (X3); a site that blocks us held with a Pulse
-step and **Reactivate**, never retried by itself (P1-2); landmarks' story-only level, with `Landmarks::publiclyKnown()`
+step and **Reactivate**, never retried by itself (P1-2), and the same for a banned outside service: no daily probe,
+no automatic return (0164 §6.1); landmarks' story-only level, with `Landmarks::publiclyKnown()`
 moving a held place only to story only and `GuideLinks::find()` no further (P5-3; this one is live behaviour today, so it
 goes first).
 
