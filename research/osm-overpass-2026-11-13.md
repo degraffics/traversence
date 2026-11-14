@@ -51,29 +51,70 @@ request, which is where a User-Agent or Referer ban acts.
 
 ## 2. The statement (to send as it is, or adapt)
 
-> **Subject: Traversence: our Overpass requests get 406, can we fix how we use it?**
+Updated 2026-11-14 (Jason: "address how we recognize our failures and outline the specific fixes we are implementing to
+ensure this wont happen again"; contact support@traversence.com; a quarter of the public limits; a 3-month cache). It
+promises only what's built (the table under it says where each stands).
+
+> **Subject: Traversence: our Overpass requests get 406. What we did wrong, what we've changed, and a question**
 >
 > Hello. I run Traversence (traversence.com), a local directory and travel guide for rural towns in Arizona and New
 > Mexico. Our crawler uses the Overpass API to find the places in a town (cafés, garages, clinics, campgrounds) so we can
-> check each one on its own website. Since today our requests to overpass-api.de get 406 Not Acceptable. Our User-Agents
-> are `TraversenceCrawler/1.0 (+https://traversence.com; local directory of community resources)` (the crawler) and
-> `Traversence/1.0 (+https://traversence.com)` (our site, when a visitor's search finds little nearby).
+> check each one on its own website. Since 2026-11-13 our requests to overpass-api.de get 406 Not Acceptable. Our
+> User-Agents were `TraversenceCrawler/1.0 (+https://traversence.com; local directory of community resources)` (the
+> crawler, on Railway) and `Traversence/1.0 (+https://traversence.com)` (our site, when a visitor's search finds little
+> nearby); both now end with our contact, `support@traversence.com`.
 >
-> How we use OpenStreetMap: it's a layer of its own on our site, always credited "© OpenStreetMap contributors" with a
-> link to the copyright page. We don't copy its data into our own listings: a place OpenStreetMap shows tells us where to
+> **How we use OpenStreetMap.** It's a layer of its own on our site, always credited "© OpenStreetMap contributors" with
+> a link to the copyright page. We don't copy its data into our listings: a place OpenStreetMap shows tells us where to
 > look, and what we list comes from the business's own website or official records.
 >
-> Until today our crawler sent large queries (all of a town's kinds at once) and retried failures too often. We've
-> changed it so a slow query is put back for later instead of retried. We'll also:
-> - split our queries by kind and keep each to a small area, with a short server timeout;
-> - send at most one query at a time, and stay well under the published limits for the public instance;
-> - cache what a query returns and not ask again for the same town and kind for a month;
-> - add a contact address to our User-Agent.
+> **How we recognized our failures.** Our crawler's logs show every request to overpass-api.de answered 406 from
+> 16:51 UTC on 2026-11-13, and again at 12:54 UTC on 2026-11-14. Reading your guidance, we saw that the fault was ours:
+> - our queries were large: every kind of place in a town in one query, over a box around all its ZIP codes, with
+>   `[timeout:110]`;
+> - our crawler ran every 5 minutes and retried failed towns run after run, with no back-off;
+> - when your server answered 406, our code asked again at once with the same query as a GET;
+> - our site also asked overpass-api.de first, before any other instance;
+> - nothing told us a server had refused us: the 406s were logged as ordinary failures, and nothing stopped.
 >
-> Could you tell us whether we're banned and why, and what you'd like us to change to be allowed back? If our use is
-> more than the public instance should carry, we'll move to another instance or run our own.
+> **What we've changed so it won't happen again.**
+> - We've stopped asking overpass-api.de, from the crawler and from our site, until we hear from you. We won't change
+>   our User-Agent or address to get round the block.
+> - Each server has a circuit breaker. A 406, 403 or 401 stops every request to that server until a person on our team
+>   marks it resolved. A 429, a timeout or a server error backs off (10 minutes, doubling to 6 hours) before trying again.
+> - Each refusal opens a case for our team naming the server, the status and what it said.
+> - While blocked, we check `/api/status` at most once a day, with the same User-Agent that was refused.
+> - Our queries are split by kind (one kind of place per query), kept to a small area, with `[timeout:25]`, and sent
+>   one at a time.
+> - A town and kind that has been answered isn't asked again for 3 months.
+> - Our own daily budget is a quarter of the published guidance for the public instances (2,500 queries and 250 MB a day,
+>   crawler and site together), and half that while any server blocks us and for two weeks after.
 >
-> Jason, Traversence, [contact email]
+> Could you tell us whether we're banned, and why, and what you'd like us to change to be allowed back? If our use is
+> more than the public instance should carry, we'll stay on another instance or run our own.
+>
+> Jason, Traversence, support@traversence.com
+
+**Where each fix stands** (the statement is sent once every line is live):
+
+| Fix | Status |
+|---|---|
+| overpass-api.de off the site's lists (OpenPlaces, DeepLook) | release `service-health_20261114` (merged, PR #637); live: see its record |
+| A breaker per server; stop on 406/403/401/quota, back off on 429/timeouts/5xx; a Pulse case naming the issue | site: `service-health_20261114`; crawler: worker 2.5 (`claude/crawler-api-health`), merged once the site part is live |
+| No GET retry after a 406; overpass-api.de off the crawler's list (`OVERPASS_MAIN=on` only after you answer) | worker 2.5 |
+| One small query per kind, `[timeout:25]`, one at a time | worker 2.5; the site already asked one kind at a time, now one ask at a time (a lock) |
+| `/api/status` once a day with the refused agent | site `service-health_20261114` (the plan's probes) + worker 2.5 |
+| support@traversence.com in both User-Agents | site `service-health_20261114`; crawler: worker 2.5 with `CRAWLER_CONTACT` set on Railway |
+| A town and kind not asked again for 3 months | the next site release (`service-health2`): the first carries 30 days |
+| The daily budget (2,500 queries / 250 MB, crawler 1,500, site 1,000; half during a ban and two weeks after), set in Thresholds & gates | the next site release (`service-health2`); worker 2.5 already keeps to 5 queries a run until the site sends its share |
+
+**The published limits we build to** (verify against the OSM wiki's "Overpass API" page and FOSSGIS's terms before
+relying on them): overpass-api.de, under about 10,000 queries and 1 GB of downloads a day per user, a few slots per
+address (`/api/status`); 429 means no free slot (wait the time `/api/status` gives, never retry at once); 406 is a ban set
+by hand on a User-Agent or Referer (stop, never change the agent; ignoring it leads to an IP ban); defaults
+`[timeout:180]`, `[maxsize]` 512 MiB. Nominatim (we don't use it): at most 1 request a second, a real agent, cached, no
+bulk geocoding. tile.openstreetmap.org (visitors' maps): attribution, a real Referer, no bulk or offline download (our map
+code to check, below).
 
 ## 3. How to reach them
 
@@ -86,6 +127,6 @@ request, which is where a User-Agent or Referer ban acts.
 
 ## 4. What we change either way (for the crawler session)
 
-The four promises above, built before any request goes back to overpass-api.de: per-kind queries, one at a time, a month's
-cache per town and kind (`town_crawl_jobs` / `crawl_jobs` already record when a kind was done), and a contact in both
-User-Agents. Until the maintainers answer, take overpass-api.de off the crawler's list (one line in `OVERPASS_URLS`; not done yet).
+Built 2026-11-14 (the table in §2 says where each stands): per-kind queries one at a time, the breaker per server,
+overpass-api.de off both lists, the daily probe, the contact in both User-Agents; next, the 3-month cache and the daily
+budget. Still to check: our map code against the tile usage policy (attribution, a real Referer, no bulk download).
