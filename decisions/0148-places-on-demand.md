@@ -1,5 +1,7 @@
 # ADR 0148: Places on Demand
 
+**Note (2026-11-14, decisions/0164):** Amended by `decisions/0164` §7 (W9), R7 (places on demand and the protected levels). The rest of this record stands; where it and 0164 disagree, 0164 rules.
+
 **Status:** Accepted (Jason, 2026-11-08). Built: `places-on-demand_20261108.zip`.
 
 ## Why

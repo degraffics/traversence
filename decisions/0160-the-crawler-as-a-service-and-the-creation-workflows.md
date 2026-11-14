@@ -1,5 +1,7 @@
 # ADR 0160: The crawler as one service, and each creation workflow start to finish
 
+**Note (2026-11-14, decisions/0164):** Amended by `decisions/0164` §7, §3.5 (the workflows through the phases; W1's gate now also takes the collaborative source score and the owner). 0133, named below, is closed and its rules are in 0164. The rest of this record stands; where it and 0164 disagree, 0164 rules.
+
 **Status:** Accepted (Jason, 2026-11-13: "We need to initialize a revamp of the entire crawler management system. This
 revamp will fix the issue by deploying the crawler by workflow and properly addressing each concern, conforming to our new
 standards, and assimilating old data into current fresh and accurate data."). The revamp's plan is

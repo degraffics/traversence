@@ -1,5 +1,7 @@
 # ADR 0143: The Stock Library: a System Repository of Non-User Photos
 
+**Note (2026-11-14, decisions/0164):** Amended by `decisions/0164` R9 (the licence decides the use). 0133, named below, is closed and its rules are in 0164. The rest of this record stands; where it and 0164 disagree, 0164 rules.
+
 **Status:** Accepted (Jason, 2026-11-04). Replaces 0138 §6's plan of a curated Galleries collection: the library is a
 **system repository** in System Configuration, and anyone publishing on the site can pick from it, within the rules
 below. Builds on 0133 (the licence decides the use), 0066 (nations' land), 0127 (one uploader), 0138 §5 (honest when

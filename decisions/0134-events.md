@@ -1,5 +1,7 @@
 # ADR 0134: Events, One Tool for the Whole Site
 
+**Note (2026-11-14, decisions/0164):** Amended by `decisions/0164` §7 (W10), R16 (Live events found by the crawler). 0133, named below, is closed and its rules are in 0164. The rest of this record stands; where it and 0164 disagree, 0164 rules.
+
 **Status:** Accepted (Jason, 2026-11-01), from his direction: "Event creation is a site-wide tool, not just
 community." Design; not built.
 Builds on `decisions/0133` (Live events), and fills the "events, when they exist" gaps left in

@@ -1,5 +1,7 @@
 # ADR 0146: Suggested Journeys from Guides
 
+**Note (2026-11-14, decisions/0164):** Amended by `decisions/0164` R7, R9, §7 (W7) (protected places, OpenStreetMap's licence and suggested journeys). 0133, named below, is closed and its rules are in 0164. The rest of this record stands; where it and 0164 disagree, 0164 rules.
+
 **Status:** Accepted (Jason, 2026-11-08). §6's questions are answered; §7 is what every journey needs and how we get it.
 
 ## Why

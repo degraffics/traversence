@@ -1,5 +1,7 @@
 # 0086. The crawler finds the websites listings are missing; Sales shows each prospect's web presence
 
+**Note (2026-11-14, decisions/0164):** Amended by `decisions/0164` R14, §3.5 (social pages as links, never a website; establishing a business without one). 0133, named below, is closed and its rules are in 0164. The rest of this record stands; where it and 0164 disagree, 0164 rules.
+
 > **Crawler rules: superseded by `decisions/0133` (2026-10-30), the crawler's one rule book.** This record stays as history; where it and 0133 disagree, 0133 rules.
 
 - **Status:** Accepted

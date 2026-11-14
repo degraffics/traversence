@@ -1,5 +1,7 @@
 # ADR 0137: Group Charters, the Group Page, Group-Led Moderation, and Notices
 
+**Note (2026-11-14, decisions/0164):** Amended by `decisions/0164` R19, §10 (Services & usage, now Outside services (0152) and 0163's register). 0133, named below, is closed and its rules are in 0164. The rest of this record stands; where it and 0164 disagree, 0164 rules.
+
 **Status:** Accepted (Jason, 2026-11-01), from Jason's answers on `community-scope.md` → "Missing before the
 build". Design; not built. Settles B1–B5 and C5 there, and A1 and A3–A6. Changes 0102 §4b–4c (who handles reports, business group
 allowance, post caps), 0134 §7 (events per day) and 0136 §2 (chapters by place or topic). His answers are listed at the

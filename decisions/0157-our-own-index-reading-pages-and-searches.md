@@ -1,5 +1,7 @@
 # ADR 0157: Our own index: reading pages and reading searches
 
+**Note (2026-11-14, decisions/0164):** Amended by `decisions/0164` §1.1, §1.3, §1.4, §2, §3.4, R9 (the page log (fingerprint and snippet only, no page bodies), reading pages, the source register's trust and licence). 0133, named below, is closed and its rules are in 0164. The rest of this record stands; where it and 0164 disagree, 0164 rules.
+
 **Status:** Accepted (Jason, 2026-11-13: "yes approved, start delivery 1"; the second tier added the same day at his ask). Deliveries 1 to 6 built 2026-11-13 (3b folded into 4, Jason: "build 3b and 4 as one"). It extends `decisions/0045` (our own
 reference index, source-first crawling), `0044` (confidence-gated import), `0133` (the observations store and identity
 record), `0060`/`0061`/`0063`/`0064`/`0067` (search, situations, the lexicon, words search learns, what words mean) and keeps

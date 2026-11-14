@@ -1,5 +1,7 @@
 # 0073. Listing categories: one main, up to four more, and offerings
 
+**Note (2026-11-14, decisions/0164):** Amended by `decisions/0164` R11 (secondary categories as kind facts in the identity record). 0133, named below, is closed and its rules are in 0164. The rest of this record stands; where it and 0164 disagree, 0164 rules.
+
 - **Status:** Accepted (§§1–6 built); §7 (conversion by group) is a draft for review
 - **Date:** 2026-10-10
 - **Builds on:** 0068 (plain category names), 0062 (identity: the crawler finds a listing's details), 0070/0071 (claims, adding a business)

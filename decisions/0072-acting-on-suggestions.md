@@ -1,5 +1,7 @@
 # 0072. Acting on visitors' suggestions in one step
 
+**Note (2026-11-14, decisions/0164):** Amended by `decisions/0164` R12 (closed or moved, notified and never hidden; one site's "closed" is a signal on the score (0164 §12, C7)). 0133, named below, is closed and its rules are in 0164. The rest of this record stands; where it and 0164 disagree, 0164 rules.
+
 - **Status:** Accepted
 - **Date:** 2026-10-10
 - **Builds on:** 0053 (suggestions), 0058 §24–25 (landmarks), 0066 (tribal nations' land), 0071 (adding a business)

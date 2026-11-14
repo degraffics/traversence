@@ -1,5 +1,7 @@
 # ADR 0012: Unified `entities` Schema — the Hybrid Graph-Mirror Model
 
+**Note (2026-11-14, decisions/0164):** Amended by `decisions/0164` R11 (the listing's fields as the shown copy of the identity record). 0133, named below, is closed and its rules are in 0164. The rest of this record stands; where it and 0164 disagree, 0164 rules.
+
 **Status:** Accepted, then substantially revised (2026-09-23) against the real, live codebase and the master platform spec (`traversence-platform-spec.md`, Sections 12, 15, 20, 27) uploaded directly from the working site export. The shared-primary-key decision below (originally accepted from document-only reconciliation of three conflicting drafts) did not survive contact with the real schema and is replaced in this revision. Everything else in this ADR that the real system confirms is left in place, marked as confirmed rather than decided.
 
 ## Context
