@@ -27,7 +27,7 @@ reference at the end.
 | Workflow (0160, W1–W13) | A thing we make, start to finish | W1 listings, W4 place guides, W6 heritage, W10 live events |
 | Task | One job inside a workflow | `coverage` (find businesses in a town), `refresh`, the guide job, journeys |
 | Route | A task's use of a service | `coverage` → OpenStreetMap; `places` → Google Places; menus → Google Document AI, then AWS, then Claude (`AiClient::ROUTES`) |
-| Service | The outside provider at the end of a route | OpenStreetMap (each server), Google Places, Tavily, Claude, SES, Census, Library of Congress |
+| Service | The outside provider at the end of a route | OpenStreetMap (each server), Google Places, Tavily, Claude, SES, Census, Library of Congress; proposed 2026-11-14: Gemini (free tier), Overture and Foursquare's open places data, state licence registries (`knowledge-engine-architecture-2026-11-14.md` §1.5) |
 
 Where they run: the **Railway crawler** runs the crawler's tasks every 5 minutes (when on); the **website** runs its own
 workflow jobs on its schedule (Find it and guide drafts, guides on demand, journeys, heritage, the listings pipeline,
