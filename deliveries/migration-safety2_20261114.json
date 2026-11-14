@@ -3,24 +3,24 @@
  "built_on": "700cbeb Sync: 2026-11-14 15:21 UTC",
  "recorded": "2026-11-14 15:24 UTC",
  "note": "Release 2 of decisions/0162: Pulse cases for leftovers and unused schema, monthly check. Built on Sync: 2026-11-14 15:21 UTC Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "7b21371 Sync: 2026-11-14 15:39 UTC",
  "files": {
   "app/lib/Pulse.php": {
    "sha256": "4fef2248426f9caa1fef20257dce4395ff66c562397f5ee16e10dca525b2387e",
-   "live": false
+   "live": true
   },
   "app/lib/Scheduler.php": {
    "sha256": "02dbf467d331f6dec296df78c93a59d3a5ae20438f372e76c5368c2f6edf176e",
-   "live": false
+   "live": true
   },
   "app/lib/SchemaUpkeep.php": {
    "sha256": "1891499fe0ee7ae136e1bb2533448ab69a8f06dc8a647236054d2ac4c4e50cd9",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "ae62739f5d6c87510b42c79f9aebcce216e08716d0cb40df81d26a64f801065e",
-   "live": false
+   "live": true
   }
  }
 }

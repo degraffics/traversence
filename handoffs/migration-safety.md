@@ -1,5 +1,7 @@
 # Hand-off: migrations at publish, copied first, leftovers tracked (decisions/0162)
 
+**Build finished 2026-11-14:** both releases live (#45, #47), everything in `main`. Nothing waits on Jason.
+
 Session `session_01CXLi5jMUt9pWN6nUfCFGaz`, started 2026-11-14 (Jason's "go", via the session manager). Builds
 decisions/0162, which amends 0145 §6.
 
@@ -29,14 +31,13 @@ release goes out?"), `app/data/decisions-index.php` (regenerated, adds 0162 and 
 
 State: **live** as release #45 (2026-11-14 14:57 UTC), mirror verified byte for byte at Sync 14:59 UTC; delivery log live, claims released.
 
-## Release 2: `migration-safety2_20261114.zip` (built on Sync 15:21 UTC, sent; waiting for Jason's OK to merge)
+## Release 2: `migration-safety2_20261114.zip` (**live** as release #47, verified byte for byte at Sync 15:39 UTC)
 
 Files: `app/lib/SchemaUpkeep.php` (`scanUnused()`, `scanDue()`, `unused()`, `pulseItems()`, `pulseSteps()`, `pulseKeep()`,
 `kept_unused`; `removable()` includes the scan's items), `app/lib/Pulse.php` (`items`: the `schema:leftovers` and
 `schema:unused` cases; `playbook`: `case 'schema'`; `manage`: `schema_keep:<hex key>` → Keep it), `app/lib/Scheduler.php`
 (`sync`: the scan when the last is over 30 days old), `app/ui/faq.md` (the entry's "coming" made current). Tested on
-MariaDB (built names like `crawl_` + $x count as used). After it's live: run the sync, check byte for byte, release the
-claims, and the build is done.
+MariaDB (built names like `crawl_` + $x count as used). Done: delivery log live, claims released.
 
 ## Notes
 
