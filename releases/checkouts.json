@@ -193,6 +193,28 @@
    "expires": "2026-11-14T17:15:49Z",
    "release": "service-health_20261114.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/ServiceHealth.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5keAVqjso7NMLv8GiQ",
+   "why": "ServiceHealth, its tables, FAQ",
+   "since": "2026-11-14T13:15:56Z",
+   "expires": "2026-11-14T17:15:56Z",
+   "release": "service-health_20261114.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/migrations/2026-11-14_service_issues.sql",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5keAVqjso7NMLv8GiQ",
+   "why": "ServiceHealth, its tables, FAQ",
+   "since": "2026-11-14T13:15:56Z",
+   "expires": "2026-11-14T17:15:56Z",
+   "release": "service-health_20261114.zip",
+   "callers": {}
   }
  ],
  "lapsed": []
