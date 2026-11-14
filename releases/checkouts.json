@@ -91,14 +91,15 @@
   {
    "path": "app/lib/crawler/CrawlService.php",
    "functions": [
+    "(top)",
     "plan",
     "report"
    ],
    "kind": "change",
    "session": "session_01CXLi5keAVqjso7NMLv8GiQ",
-   "why": "Outside services' issues: identify, hold, ask for help (Jason 2026-11-14); overpass-api.de off",
+   "why": "Outside services' issues (ServiceHealth); overpass-api.de off (Jason 2026-11-14)",
    "since": "2026-11-14T13:15:49Z",
-   "expires": "2026-11-14T17:15:49Z",
+   "expires": "2026-11-14T17:16:28Z",
    "release": "service-health_20261114.zip",
    "callers": {
     "plan": [
@@ -141,16 +142,21 @@
   {
    "path": "app/lib/OutsideServices.php",
    "functions": [
+    "(top)",
+    "parts",
     "working"
    ],
    "kind": "change",
    "session": "session_01CXLi5keAVqjso7NMLv8GiQ",
-   "why": "Outside services' issues: identify, hold, ask for help (Jason 2026-11-14); overpass-api.de off",
+   "why": "Outside services' issues (ServiceHealth); overpass-api.de off (Jason 2026-11-14)",
    "since": "2026-11-14T13:15:49Z",
-   "expires": "2026-11-14T17:15:49Z",
+   "expires": "2026-11-14T17:16:28Z",
    "release": "service-health_20261114.zip",
    "callers": {
     "working": [
+     "app/ui/outside-services.php"
+    ],
+    "parts": [
      "app/ui/outside-services.php"
     ]
    }
@@ -158,13 +164,15 @@
   {
    "path": "app/lib/OpenPlaces.php",
    "functions": [
+    "(top)",
+    "ask",
     "fetch"
    ],
    "kind": "change",
    "session": "session_01CXLi5keAVqjso7NMLv8GiQ",
-   "why": "Outside services' issues: identify, hold, ask for help (Jason 2026-11-14); overpass-api.de off",
+   "why": "Outside services' issues (ServiceHealth); overpass-api.de off (Jason 2026-11-14)",
    "since": "2026-11-14T13:15:49Z",
-   "expires": "2026-11-14T17:15:49Z",
+   "expires": "2026-11-14T17:16:28Z",
    "release": "service-health_20261114.zip",
    "callers": {
     "fetch": [
@@ -184,13 +192,14 @@
   {
    "path": "app/lib/crawler/DeepLook.php",
    "functions": [
+    "(top)",
     "overpass"
    ],
    "kind": "change",
    "session": "session_01CXLi5keAVqjso7NMLv8GiQ",
-   "why": "Outside services' issues: identify, hold, ask for help (Jason 2026-11-14); overpass-api.de off",
+   "why": "Outside services' issues (ServiceHealth); overpass-api.de off (Jason 2026-11-14)",
    "since": "2026-11-14T13:15:49Z",
-   "expires": "2026-11-14T17:15:49Z",
+   "expires": "2026-11-14T17:16:28Z",
    "release": "service-health_20261114.zip",
    "callers": {}
   },
