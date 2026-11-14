@@ -178,13 +178,14 @@
    "path": "app/lib/DbUpdates.php",
    "functions": [
     "(top)",
-    "autoRun"
+    "autoRun",
+    "checks"
    ],
    "kind": "change",
    "session": "session_01CXLi5jMUt9pWN6nUfCFGaz",
-   "why": "Migrations at publish, copies first, leftovers after rollback (Jason 2026-11-14)",
+   "why": "Migrations at publish, copies first (Jason 2026-11-14)",
    "since": "2026-11-14T13:41:09Z",
-   "expires": "2026-11-14T17:41:09Z",
+   "expires": "2026-11-14T17:49:50Z",
    "release": "migration-safety_20261114.zip",
    "callers": {
     "autoRun": [
