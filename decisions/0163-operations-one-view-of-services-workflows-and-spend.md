@@ -2,10 +2,12 @@
 
 **Note (2026-11-14, decisions/0164):** Works under `decisions/0164` §10 (the Knowledge Engine: rule book, phases, workflows and sources), which took in 0133's rule book. This record stays separate: this record is the operations layer under 0164. **One home per fact** (Jason, 2026-11-14): the numbers and
 operating settings (caps, budgets, paces, warning levels, the AI cap, Anthropic's and Gemini's settings, the switches, the
-readiness check) live only here; the rules about data, sources, truth, phases, workflows, establishing listings, privacy
+switch-on check, the collaborative score's weights, a hub's opening budget, AI Assist's allowances) live only here; the rules about data, sources, truth, phases, workflows, establishing listings, privacy
 and protected places live only in 0164, which points here for a number.
 
-**Status:** Proposed (written 2026-11-14 by the session manager from Jason's answers in chat; for his review). It builds on
+**Status:** Accepted (Jason, 2026-11-14: "all approved"; written that day by the session manager from his answers in
+chat). **No shadow mode** (Jason, 2026-11-14): each part is built switched off and goes live when it's switched on, after
+the switch-on check (§10); nothing runs alongside "to compare" before that. It builds on
 `decisions/0160` (the crawler as one service, the workflows), `0164` (the Knowledge Engine's rules, six phases and
 workflows; it took in 0133's), `0152` (Outside services, one card
 per company), `0161` (check-out), `0162` (migrations), and the service check built 2026-11-14 (`ServiceHealth`,
@@ -50,7 +52,7 @@ openrouteservice…) is one row, extending the Outside services cards (0152) and
 - this month's use and cost by our count, and by the provider's where it has a usage feed (side by side, the difference
   flagged); otherwise labelled "our count only";
 - **known prices** (2026-11-14): Google Places about 3¢ a call; the free registries, open datasets and Gemini's free
-  tier nothing (§11);
+  tier nothing (§11); Supabase's free tier nothing (the vector index, 0164 §5.2; its upkeep task sits under its card);
 - its status, always with the reason: **active**, **paced** (to what), **held** (why: ban, key, quota, backing off),
   **off** (no key, switched off), **out of budget** (until when);
 - what it produced (finds, listings, facts, pages) and the cost per result.
@@ -62,6 +64,11 @@ check and budgets as the crawler's.
 
 The crawler's ledger, Claude's (`ai_jobs`) and email's, per service, per workflow and per month, in one place; set against
 revenue and the community budget (3% of revenue, $25 floor, 0154), so "no income, no expense" is checked by the system.
+
+- **A hub's opening budget** (0164 R17; Jason, 2026-11-14, §14 point 8): a one-time allowance per hub, separate from
+  upkeep, set here and shown as a line in the register for the services it draws on and on the hub's readiness meter;
+  spent highest value first. Its amount is set when the hub is Planned; none is set yet. The hub's readiness targets stay
+  gates in 0164 R10.
 
 ### 3. The workflow board and the task schedule
 
@@ -103,6 +110,11 @@ only.
 - Auto-reload in the Console: back up to $20 when the balance reaches $5 (about $30 a month at today's pace).
 - The site's AI cap (`AI_MONTHLY_CAP_USD`): **$40** a month, moving into the register. On-demand guide builds (W5) use up
   to half of the daily allowance, the rest queued (0131, 0147).
+- **AI Assist for members** (moved here from 0164 R10, Jason 2026-11-14, §14 point 10): free asks a day on paid plans
+  **3**; a member's AI cost in a month at most **0.5** of what their plans pay. Tuned by a director in AI use (kept with
+  who and when, and a Reset); the member sees them as their allowance (0164 R15).
+- **Each AI feature** (Claude's and Gemini's alike, §11) has its switch, its model and provider, its runs a day and its
+  budget, all on AI use (`AiClient::ROUTES`), and is counted per call, failed calls included.
 - Anthropic's monthly spend limit: **$50**; Console email alerts at **$20 and $35**.
 - No Admin API key: the Console is an individual account, which can't create one (future-considerations: "The Claude
   Console as an organization"). Claude's row shows "our count only" until then.
@@ -121,11 +133,24 @@ Each stage a release Jason approves; one session per stage, from its handoff.
 5. **Warnings (50/75/95%) and "returns empty".**
 6. **Watching built into the site** (Railway, the sync).
 
-The crawler revamp's own open items (the four approved releases W6, W9, W10/W11, W12; junk listing names; the map-tile
-policy check) go first or alongside, from `handoffs/crawler-revamp.md` §7.1, in one crawler session, so nothing is built
-twice.
+Then the Knowledge Engine's new parts (0164; Jason, 2026-11-14, §14 point 14: one build order, here):
 
-### 9. The switches (Jason, 2026-11-14; built as release #48, automation-switches_20261114, live 2026-11-14 17:57 UTC; this record stays Proposed with the rest)
+7. **The cards first, all off:** Gemini, Overture, Foursquare's open data, each licence source (from W14's staging, or
+   by hand for Arizona and New Mexico), Supabase: each a row in the register (§1) with key, terms, cap, pace and status
+   "off" (§10, 3).
+8. **The data loads for Arizona and New Mexico** (Overture, Foursquare's open data, the licence sources), with the
+   "real business" floor and confidence (0164 §3.5), and the collaborative score's weights (§12). No shadow mode: what
+   passes the floor goes public at its confidence once the load is switched on.
+9. **Gemini for extraction** (0164 §2.3), after the sample comparison (§11), then **grounded search** in W1, W8, W12 and
+   W14.
+10. **W14 running** (0164 §7.1): staging every state's authority sources, switched off until each hub.
+11. **Vectors** (0164 §5.2) on Supabase's free tier.
+
+Each stage is a release Jason approves. The crawler revamp's own open items (the four approved releases W6, W9, W10/W11,
+W12; junk listing names; the map-tile policy check) go first or alongside, from `handoffs/crawler-revamp.md` §7.1, in one
+crawler session, so nothing is built twice.
+
+### 9. The switches (Jason, 2026-11-14; built as release #48, automation-switches_20261114, live 2026-11-14 17:57 UTC)
 
 Jason, 2026-11-14: "Please update the site settings to be off until switched back on, also give me a master switch to
 turn on and off. Also I see the services as routed services connected to a task so we should be able to turn those on
@@ -165,8 +190,10 @@ and off as well." **System Configuration → Automation** (`app/lib/Automation.p
 
 Every stage of the build leaves the automation **ready to resume**, and the master switch checks before it lets
 anything run:
-1. **A readiness check on the Automation page** ("Check before switching on"), run when the master switch (or a
-   workflow's) is turned on, when a hub's sources are switched on (0164 R17), and on demand. Each line is green or names exactly what's missing, with its fix as a button
+1. **The switch-on check on the Automation page** ("Check before switching on"; renamed from "the readiness check",
+   Jason 2026-11-14, so it isn't confused with a listing's readiness or a hub's readiness meter), run when the master
+   switch (or a workflow's, a service's or a load's) is turned on, when a hub's sources are switched on (0164 R17), and
+   on demand. Each line is green or names exactly what's missing, with its fix as a button
    or link:
    - every service the workflow uses: its key present (`.env`, e.g. `GEMINI_API_KEY`; Railway's settings), reachable,
      not held, its terms checked, its budget and pace set;
@@ -175,8 +202,8 @@ anything run:
    - the crawler's open fixes that must come first live (the junk listing names; the four approved releases W6, W9,
      W10/W11, W12), so resuming doesn't restart old faults;
    - OpenStreetMap: at least one server not held (else its tasks resume "held", not failing).
-   - **opening a geo-hub:** that state's authority sources staged by W14 (0164 §7.1), their terms still valid and readers
-     passing, before they switch on with the hub.
+   - **opening a geo-hub:** the hub's readiness meter line for its authority sources (staged by W14, 0164 §7.1): their
+     terms still valid and readers passing, before they switch on with the hub.
    Anything red keeps that part paused with the reason; the rest can start.
 2. **Resume in steps, not all at once:** one workflow at a time (W1 first), each new or returning service at half
    budget for its first 14 days (the ramp already live), with the "returns empty" and 50/75/95% warnings watching.
@@ -186,11 +213,47 @@ anything run:
 
 ### 11. Gemini (Google AI Studio) as run (Jason's Decision 7, 2026-11-14; the rules on what may go to it: 0164 §0.8, R5)
 
+**Gemini follows Claude's and the paid APIs' standards** (Jason, 2026-11-14, 0164 §14 point 15): "we monitor it for usage
+and ensure we dont cause it to become unexpectedly unusable."
 - **Free tier only, no billing linked;** a row in the register (§1), added switched off (§10, 3).
-- **Its allowance:** about 15 requests a minute and 1,000 a day (Flash or Flash-Lite), paced inside that.
+- **Run like every AI feature (§7):** each feature using it has its switch, its model and provider, its runs a day and its
+  budget on AI use, counted per call, failed calls included.
+- **Changing a feature's provider** (Claude to Gemini or back) is a director's call on AI use, made after the sample
+  comparison (0164 §2.3: a sample read by both, side by side); kept with who and when.
+- **Its allowance:** about 15 requests a minute and 1,000 a day (Flash or Flash-Lite). **Monitored and paced through the
+  day** (the day's allowance spread over the hours, not spent at the start), with **about 20% of each day held back for
+  on-demand work** (a visitor waiting: W5, Find it, a search); background work stops at 80%.
+- **Warnings at 50%, 75% and 95%** of the day's allowance, as for any cap (§4): one Pulse case, updated as it climbs, with
+  the step that fixes it (slow a feature, pause it, move a feature back to Claude inside the AI cap) as a button.
 - **When the day's allowance is used:** the service check holds Gemini until the next day and the work **waits**; no
-  fallback to Claude (0164 §12, C11).
-- **Grounded search** (leads, W1, W8, W12, W14) draws on the same free allowance.
+  fallback to Claude (0164 §12, C11). A refused key or a ban is "held", with its case (§1).
+- **Grounded search** (leads, W1, W8, W12, W14) draws on the same free allowance and the same pacing.
+
+### 12. The collaborative score's weights (0164 §3.5, R12; Jason, 2026-11-14)
+
+The collaborative source score **feeds a listing's confidence; it is not a gate and has no threshold** (0164 §3.5). Its
+weights are settings here, tuned by a director (kept with who and when, and a Reset), starting from the rural test's
+proposal (`research/rural-test-2026-11-14.md` §7) and retuned by its Run 2. Each counts once per origin (independent
+sources only, 0164 R11), for a source agreeing on the name plus the phone or the address:
+
+| Source | Weight to start |
+|---|---|
+| Google Places confirms it open (place ID kept) | 30 |
+| Chamber of commerce or tourism office listing | 25 |
+| Business-managed listing (Uberall, DAC) or filings-built (BrightQuery) | 25 |
+| An open-dataset record from another origin (Microsoft, Foursquare) | 20 |
+| Its Facebook page (or Overture's Meta record, once) | 20 |
+| A directory page found by grounded search (at most two count) | 15 |
+| OpenStreetMap | 15 |
+| A news story naming it in that town (name and town only) | 10 |
+| A Gemini lead itself | 0 (the page it cites scores by its own class) |
+| A record under 0.5 Overture confidence | half its weight |
+| A closure signal (a lapsed licence, a dataset dropping it, Overture "permanently closed", Google closed, one site saying closed) | −40 |
+| A dissolved or revoked licence | −60 |
+
+The sum adds to the listing's confidence under 0164 R12 (machine evidence alone tops out at 75). The rural test's
+"threshold 60" is not used: nothing waits on a number. The −60 for dissolved or revoked is a starting value (the test
+proposed one closure weight); Run 2 tunes both.
 
 ## Consequences
 
