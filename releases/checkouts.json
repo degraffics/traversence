@@ -351,6 +351,19 @@
    "expires": "2026-11-14T20:03:59Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/admin/sections.php",
+   "functions": [
+    "tv_admin_mod_ai"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kK8GzhmtW4etwGUwx",
+   "why": "Automation switches: AI use shows a paused feature as paused",
+   "since": "2026-11-14T16:10:20Z",
+   "expires": "2026-11-14T20:10:20Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": []
