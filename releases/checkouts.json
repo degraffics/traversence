@@ -340,6 +340,17 @@
    "expires": "2026-11-14T20:03:57Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/admin/sections.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kK8GzhmtW4etwGUwx",
+   "why": "Automation switches (Jason 2026-11-14): master, workflow, task and service switches; shipped off",
+   "since": "2026-11-14T16:03:59Z",
+   "expires": "2026-11-14T20:03:59Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": []
