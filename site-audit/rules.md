@@ -29,6 +29,7 @@ change.
 | R09 | Every page is in `site-audit/pages.md` or `archive.md` | `CLAUDE.md` Files used once, and the archive; decisions/0145 §1a | no |
 | R10 | The brand's icons, not emoji | `CLAUDE.md` Phone layout and visual standard (Icons) | no |
 | R11 | No breadcrumbs on content pages | `CLAUDE.md` Phone layout (No breadcrumbs); decisions/0058 | no |
+| R12 | Every outside service the code calls has its card in Outside services: a host the site, its pages or the workers call that's on no card (`OutsideServices::HOSTS` or a card's links), or a standing source on Sources with no card (ignored hosts: `site-audit/services-ignore.txt`) | decisions/0152 note 2026-11-13 | no |
 
 ## Rendered checks (Phase 2)
 

@@ -144,7 +144,7 @@
    "session": "session_01CXLi5kDaPxCn3ENUXa7SqF",
    "why": "Outside services: every service a card, linked sections, searchable (Jason approved 2026-11-13)",
    "since": "2026-11-13T23:58:31Z",
-   "expires": "2026-11-14T03:58:31Z",
+   "expires": "2026-11-14T04:09:35Z",
    "release": "outside-services-all_20261114.zip",
    "callers": {}
   },
@@ -155,9 +155,13 @@
    "session": "session_01CXLi5kDaPxCn3ENUXa7SqF",
    "why": "Outside services: every service a card, linked sections, searchable (Jason approved 2026-11-13)",
    "since": "2026-11-13T23:58:31Z",
-   "expires": "2026-11-14T03:58:31Z",
+   "expires": "2026-11-14T04:09:35Z",
    "release": "outside-services-all_20261114.zip",
-   "callers": {}
+   "callers": {
+    "tv_outside_services": [
+     "app/admin/sections.php"
+    ]
+   }
   },
   {
    "path": "website/admin/api/find.php",
@@ -166,7 +170,7 @@
    "session": "session_01CXLi5kDaPxCn3ENUXa7SqF",
    "why": "Outside services: every service a card, linked sections, searchable (Jason approved 2026-11-13)",
    "since": "2026-11-13T23:58:31Z",
-   "expires": "2026-11-14T03:58:31Z",
+   "expires": "2026-11-14T04:09:35Z",
    "release": "outside-services-all_20261114.zip",
    "callers": {}
   },
@@ -177,7 +181,7 @@
    "session": "session_01CXLi5kDaPxCn3ENUXa7SqF",
    "why": "Outside services: every service a card, linked sections, searchable (Jason approved 2026-11-13)",
    "since": "2026-11-13T23:58:31Z",
-   "expires": "2026-11-14T03:58:31Z",
+   "expires": "2026-11-14T04:09:35Z",
    "release": "outside-services-all_20261114.zip",
    "callers": {}
   },
@@ -188,8 +192,19 @@
    "session": "session_01CXLi5gpdwLLGTQ51Ls56yQ",
    "why": "fix: the site.top zone was drawn inside the header bar's flex row; move it under the bar",
    "since": "2026-11-14T00:09:31Z",
-   "expires": "2026-11-14T04:09:31Z",
+   "expires": "2026-11-14T04:10:42Z",
    "release": "sitetopfix_20261114.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/StagingSite.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5gpdwLLGTQ51Ls56yQ",
+   "why": "staging strip keeps staff logins' marker addresses (Jason: accounts missing on staging)",
+   "since": "2026-11-14T00:13:37Z",
+   "expires": "2026-11-14T04:13:37Z",
+   "release": "stgstaff_20261114.zip",
    "callers": {}
   }
  ],

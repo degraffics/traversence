@@ -28,6 +28,7 @@ RULES = {
     'R09': ('Every page is in site-audit/pages.md or archive.md', False),
     'R10': ("The brand's icons, not emoji", False),
     'R11': ('No breadcrumbs on content pages', False),
+    'R12': ('Every outside service the code calls has its card in Outside services', False),
 }
 
 def load(mirror):
@@ -333,6 +334,62 @@ def check_emoji_crumbs(files, findings):
             if is_page(path) and re.search(r'class=["\'][^"\']*breadcrumb', line, re.I):
                 find(findings, 'R11', path, i, 'breadcrumbs on a page: content pages have none (decisions/0058)')
 
+# ---- R12: every outside service on a card (decisions/0152 note 2026-11-13) -----------------------------------------------
+URL_HOST = re.compile(r'https?://([a-z0-9-]+(?:\.[a-z0-9-]+)+)', re.I)
+def services_ignore(docs):
+    """site-audit/services-ignore.txt: hosts in the code that aren't outside services (our own, examples, standards, a
+    sample source in a placeholder), one a line, with why after a #."""
+    out = set()
+    try:
+        for line in open(os.path.join(docs, 'site-audit', 'services-ignore.txt'), encoding='utf-8'):
+            h = line.split('#', 1)[0].strip().lower()
+            if h:
+                out.add(h)
+    except OSError:
+        pass
+    return out
+
+def check_services(files, docs, findings):
+    """An outside host the site, its pages or the crawler calls that's on no card in app/lib/OutsideServices.php (its
+    HOSTS, or a link on a card), and a standing source on Sources (Sources::STANDING) with no card: each shows in Site
+    health, so the cards stay complete (Jason, 2026-11-13: "each service will be searchable")."""
+    src = files.get('app/lib/OutsideServices.php', '')
+    m = re.search(r'public const HOSTS = \[(.*?)\n    \];', src, re.S)
+    if not m:
+        find(findings, 'R12', 'app/lib/OutsideServices.php', 1, 'no HOSTS list: the outside services\' addresses aren\'t recorded, so none can be checked')
+        return
+    known = set(re.findall(r"'([a-z0-9.-]+\.[a-z]{2,})'", m.group(1))) | {h.lower() for h in URL_HOST.findall(src)}
+    ignore = services_ignore(docs)
+    def covered(h):
+        return any(h == k or h.endswith('.' + k) for k in known | ignore)
+    seen = {}
+    code = [(p, s) for p, s in files.items() if p.endswith(('.php', '.js')) and not p.startswith(('app/vendor/', 'app/data/'))]
+    for root in ('workers',):   # the crawler and the other workers, from this repo
+        base = os.path.join(docs, root)
+        for r, ds, ns in os.walk(base):
+            for n in ns:
+                if n.endswith(('.py', '.js', '.mjs')):
+                    try:
+                        code.append((os.path.relpath(os.path.join(r, n), docs).replace(os.sep, '/'), open(os.path.join(r, n), encoding='utf-8', errors='replace').read()))
+                    except OSError:
+                        pass
+    for path, s in code:
+        for i, line in enumerate(s.split('\n'), 1):
+            t = line.strip()
+            if t.startswith(('//', '*', '#', '/*')):
+                continue
+            for h in URL_HOST.findall(line):
+                h = h.lower()
+                if h not in seen and not covered(h):
+                    seen[h] = (path, i)
+    for h, (path, i) in sorted(seen.items()):
+        find(findings, 'R12', path, i, f'calls {h}, which is on no card in Outside services: add it to its company in OutsideServices::HOSTS (or a new card), or to site-audit/services-ignore.txt if it isn\'t a service')
+    std = files.get('app/lib/crawler/Sources.php', '')
+    sm = re.search(r'public const STANDING = \[(.*?)\n    \];', std, re.S)
+    for host in (re.findall(r"^\s*'([a-z0-9.-]+)' => \[", sm.group(1), re.M) if sm else []):
+        if not any(host == k or host.endswith('.' + k) for k in known):
+            find(findings, 'R12', 'app/lib/crawler/Sources.php', line_of(std, std.find("'" + host + "'")), f'the source {host} on Sources has no card in Outside services')
+
 # ---- the decision register -----------------------------------------------------------------------------------------
 def register(docs, files):
     out = []
@@ -420,7 +477,7 @@ def run(mirror, docs, keep_exceptions=False):
     findings, tree = [], []
     check_calls(files, findings); check_shell_order(files, findings); check_dialogs(files, findings); check_uploads(files, findings); check_php80(files, findings, server_php(docs))
     check_shell(files, findings); check_faq(files, findings); check_csrf(files, findings); check_migrations(files, findings)
-    check_listed(files, docs, findings, tree); check_emoji_crumbs(files, findings)
+    check_listed(files, docs, findings, tree); check_emoji_crumbs(files, findings); check_services(files, docs, findings)
     ex = {(e['rule'], e['file']): e for e in exceptions(docs) if e.get('reason')}
     kept = []
     for f in findings:

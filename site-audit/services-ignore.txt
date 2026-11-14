@@ -1,0 +1,21 @@
+# Hosts in the code that aren't outside services, so the site audit's R12 (decisions/0152 note 2026-11-13) skips them.
+# One a line; why after the #. An outside service we call goes on its card instead (app/lib/OutsideServices.php HOSTS).
+traversence.com          # our own site
+trvgo.us                 # our own short links and storefronts (and staging.trvgo.us)
+trvgo.com                # our staff mailboxes' domain
+worker.traversence       # the crawler's own jobs' name on Sources, not an address
+127.0.0.1                # the server itself
+localhost                # the server itself
+example.com              # an example in a placeholder
+www.wmrmc.example        # an example in a code comment's data
+schema.org               # the structured-data vocabulary (a name, not a call)
+www.w3.org               # SVG and XML namespaces (names, not calls)
+www.sitemaps.org         # the sitemap namespace
+leafletjs.com            # the map library's credit link (the library itself loads from cdnjs: Cloudflare's card)
+www.cityof               # a pattern for a town's website, not a host
+www.townof               # a pattern for a town's website, not a host
+business.thegallupchamber.com   # a sample source in the Add a source placeholder
+showlowchamber.com       # a sample chamber site in the chamber builder
+mychangepoint.org        # a sample organization's website in Nexus
+www.navopache.org        # a local co-op's website, cited in a resource guide
+www.holbrook.k12.az.us   # a school district's website, cited when rebuilding a listing
