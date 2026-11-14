@@ -1,0 +1,34 @@
+{
+    "id": 40,
+    "title": "Staging: staff stay staff after the privacy strip",
+    "why": "Jason, 2026-11-14: on staging his account menu showed only his personal account (live shows Traversence staff TRV-0001, his personal account and M2 ServCore). Opening staging from the live admin signs in as the staff login's own record, and the strip rewrote its marker address (@staff.traversence.invalid), so the site no longer knew it as a staff login or found its linked member account. The marker isn't anyone's personal address, so the strip keeps it. Takes effect at staging's next refresh.",
+    "proposals": "",
+    "zip": "stgstaff_20261114.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/lib/StagingSite.php": {
+            "sha": "628b5677d6097626cc5753d152abac595593e0b9b5a6f7b7eb9f1b74fc558796",
+            "size": 94074,
+            "live_was": "41628d5fce2a2c63de9cb3d9b34595b438ff81d91949cc30fa32a653df350bc2"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-14T00:38:13+00:00",
+            "by": 0,
+            "msg": "Uploaded stgstaff_20261114.zip: 1 files."
+        }
+    ]
+}
