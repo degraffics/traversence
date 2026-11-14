@@ -1,5 +1,50 @@
 {
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
- "claims": [],
+ "claims": [
+  {
+   "path": "app/lib/Automation.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kK8GzhmtW4etwGUwx",
+   "why": "Automation switches (Jason 2026-11-14): master, workflow, task and service switches; shipped off",
+   "since": "2026-11-14T16:03:33Z",
+   "expires": "2026-11-14T20:03:33Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/automation-console.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kK8GzhmtW4etwGUwx",
+   "why": "Automation switches (Jason 2026-11-14): master, workflow, task and service switches; shipped off",
+   "since": "2026-11-14T16:03:33Z",
+   "expires": "2026-11-14T20:03:33Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "app/migrations/2026-11-14_automation_switches.sql",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kK8GzhmtW4etwGUwx",
+   "why": "Automation switches (Jason 2026-11-14): master, workflow, task and service switches; shipped off",
+   "since": "2026-11-14T16:03:33Z",
+   "expires": "2026-11-14T20:03:33Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/manifests.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kK8GzhmtW4etwGUwx",
+   "why": "Automation switches (Jason 2026-11-14): master, workflow, task and service switches; shipped off",
+   "since": "2026-11-14T16:03:33Z",
+   "expires": "2026-11-14T20:03:33Z",
+   "release": "",
+   "callers": {}
+  }
+ ],
  "lapsed": []
 }
