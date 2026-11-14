@@ -1,9 +1,13 @@
 # ADR 0163: Operations: one view of outside services, workflows and spend
 
-**Note (2026-11-14, decisions/0164):** Works under `decisions/0164` §10 (the Knowledge Engine: rule book, phases, workflows and sources), which took in 0133's rule book. This record stays separate: this record is the operations layer under 0164; its references to 0133's phases mean 0164's §1–§6.
+**Note (2026-11-14, decisions/0164):** Works under `decisions/0164` §10 (the Knowledge Engine: rule book, phases, workflows and sources), which took in 0133's rule book. This record stays separate: this record is the operations layer under 0164. **One home per fact** (Jason, 2026-11-14): the numbers and
+operating settings (caps, budgets, paces, warning levels, the AI cap, Anthropic's and Gemini's settings, the switches, the
+readiness check) live only here; the rules about data, sources, truth, phases, workflows, establishing listings, privacy
+and protected places live only in 0164, which points here for a number.
 
 **Status:** Proposed (written 2026-11-14 by the session manager from Jason's answers in chat; for his review). It builds on
-`decisions/0160` (the crawler as one service, the workflows), `0133` (the six phases), `0152` (Outside services, one card
+`decisions/0160` (the crawler as one service, the workflows), `0164` (the Knowledge Engine's rules, six phases and
+workflows; it took in 0133's), `0152` (Outside services, one card
 per company), `0161` (check-out), `0162` (migrations), and the service check built 2026-11-14 (`ServiceHealth`,
 releases #43, #44, #46). It keeps the "no income, no expense" rule (CLAUDE.md) and Pulse's rules (one case per kind of
 chore, a step per item, steps as buttons). The review that led here: `research/crawler-how-it-runs-2026-11-14.md`.
@@ -45,6 +49,8 @@ openrouteservice…) is one row, extending the Outside services cards (0152) and
   values, found automatically; nothing is retyped;
 - this month's use and cost by our count, and by the provider's where it has a usage feed (side by side, the difference
   flagged); otherwise labelled "our count only";
+- **known prices** (2026-11-14): Google Places about 3¢ a call; the free registries, open datasets and Gemini's free
+  tier nothing (§11);
 - its status, always with the reason: **active**, **paced** (to what), **held** (why: ban, key, quota, backing off),
   **off** (no key, switched off), **out of budget** (until when);
 - what it produced (finds, listings, facts, pages) and the cost per result.
@@ -59,7 +65,8 @@ revenue and the community budget (3% of revenue, $25 floor, 0154), so "no income
 
 ### 3. The workflow board and the task schedule
 
-- **W1–W13**, the website's own included: queue, last run, outcome, output, cost, and the phase (0133) where work waits.
+- **W1–W14**, the website's own included (W14 from when it's built, 0164 §7.1): queue, last run, outcome, output, cost,
+  and the phase (0164 §1–§6) where work waits.
 - **The task schedule:** each task's frequency, share of a run, limits, last run and outcome; the settings the planner
   (`CrawlService::plan`) already uses, shown and editable in the admin.
 
@@ -94,7 +101,8 @@ only.
 ### 7. Anthropic (Claude) settings, as set 2026-11-14
 
 - Auto-reload in the Console: back up to $20 when the balance reaches $5 (about $30 a month at today's pace).
-- The site's AI cap (`AI_MONTHLY_CAP_USD`): **$40** a month, moving into the register.
+- The site's AI cap (`AI_MONTHLY_CAP_USD`): **$40** a month, moving into the register. On-demand guide builds (W5) use up
+  to half of the daily allowance, the rest queued (0131, 0147).
 - Anthropic's monthly spend limit: **$50**; Console email alerts at **$20 and $35**.
 - No Admin API key: the Console is an individual account, which can't create one (future-considerations: "The Claude
   Console as an organization"). Claude's row shows "our count only" until then.
@@ -117,7 +125,7 @@ The crawler revamp's own open items (the four approved releases W6, W9, W10/W11,
 policy check) go first or alongside, from `handoffs/crawler-revamp.md` §7.1, in one crawler session, so nothing is built
 twice.
 
-### 9. The switches (Jason, 2026-11-14; built as release automation-switches_20261114, still Proposed with the rest)
+### 9. The switches (Jason, 2026-11-14; built as release #48, automation-switches_20261114, live 2026-11-14 17:57 UTC; this record stays Proposed with the rest)
 
 Jason, 2026-11-14: "Please update the site settings to be off until switched back on, also give me a master switch to
 turn on and off. Also I see the services as routed services connected to a task so we should be able to turn those on
@@ -134,7 +142,8 @@ and off as well." **System Configuration → Automation** (`app/lib/Automation.p
   **It never stops business operations:** orders, billing, payments, email, releases, staging, Moments, members' and
   businesses' own actions, a staff member's press for one thing (Write a draft, Check my facts:
   `Automation::PERSON_FEATURES`), guides' weather and roads, the admin.
-- **Workflows W1–W13** are each a row of `crawl_workflows`, the website's own included; pausing one stops its crawler
+- **Workflows W1–W13** are each a row of `crawl_workflows`, the website's own included (W14 gets its row, paused, when
+  it's built); pausing one stops its crawler
   tasks, its site jobs (a job of several workflows skips only when all are paused), its AI features and its on-demand
   paths. W5 paused: a visitor's ask is kept (queued, most asked first when it's back), with Notify me and a link to what we
   list near the place; never a dead end.
@@ -157,7 +166,7 @@ and off as well." **System Configuration → Automation** (`app/lib/Automation.p
 Every stage of the build leaves the automation **ready to resume**, and the master switch checks before it lets
 anything run:
 1. **A readiness check on the Automation page** ("Check before switching on"), run when the master switch (or a
-   workflow's) is turned on, and on demand. Each line is green or names exactly what's missing, with its fix as a button
+   workflow's) is turned on, when a hub's sources are switched on (0164 R17), and on demand. Each line is green or names exactly what's missing, with its fix as a button
    or link:
    - every service the workflow uses: its key present (`.env`, e.g. `GEMINI_API_KEY`; Railway's settings), reachable,
      not held, its terms checked, its budget and pace set;
@@ -174,6 +183,14 @@ anything run:
 3. **New services are added switched off** (Gemini, Overture, Foursquare's open data, each licence source) with their
    cards complete, so switching them on is the only step left.
 4. **The one step for Jason** at resume: any key the site needs in `.env` (File Manager), named by the check.
+
+### 11. Gemini (Google AI Studio) as run (Jason's Decision 7, 2026-11-14; the rules on what may go to it: 0164 §0.8, R5)
+
+- **Free tier only, no billing linked;** a row in the register (§1), added switched off (§10, 3).
+- **Its allowance:** about 15 requests a minute and 1,000 a day (Flash or Flash-Lite), paced inside that.
+- **When the day's allowance is used:** the service check holds Gemini until the next day and the work **waits**; no
+  fallback to Claude (0164 §12, C11).
+- **Grounded search** (leads, W1, W8, W12, W14) draws on the same free allowance.
 
 ## Consequences
 
