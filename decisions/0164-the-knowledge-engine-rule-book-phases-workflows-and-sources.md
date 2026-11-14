@@ -698,9 +698,9 @@ priority. Gaps also come from searches (W12, "every search is demand") and from 
 ### 5.2 Queries and spatial filtering
 
 - Spatial endpoints on bounding box plus `ST_Distance_Sphere`.
-- **Semantic search** (Decision 4, **proposed, awaiting Jason's confirm**): a **sidecar vector index** beside MySQL,
+- **Semantic search** (Decision 4, **confirmed by Jason 2026-11-14**, §12 C10): a **sidecar vector index** beside MySQL,
   which stays the record: Postgres with `pgvector`, on **Supabase's free tier** to start (no cost; a small database, and
-  free projects pause when idle) or on **Railway** (a few dollars a month; §12, C10). Embeddings from Gemini's free
+  free projects pause when idle); **Railway** (a few dollars a month) only once revenue covers it (§12, C10). Embeddings from Gemini's free
   embedding model (public text only) or a small model on the Railway worker. Built in a later stage under its own
   budget. Until then, search keeps improving what it does (our index as the dictionary, senses from context, phrases;
   0157 §4).
@@ -851,49 +851,40 @@ the open datasets, Gemini, the vector index) each become a row in 0163's registe
 - **Works under it:** 0163 (§10).
 - In the platform spec, the sections 0133 withdrew (§11, §15, §21, §30) stay withdrawn.
 
-## 12. Conflicts with older records, for Jason
+## 12. Conflicts with older records: settled (Jason, 2026-11-14, "accept your suggestions")
 
-Found while writing this record. None is settled silently: where this record follows one side, it says which, and Jason
-decides.
+Found while writing this record and settled by Jason on the session manager's suggestions. Where an older record
+disagrees, this section governs; the older text stays as history.
 
-- **C1. Witnesses counted in the score.** 0133 (R9's source table, "Owning our data", build step 2): a link (`evidence`)
-  is never counted as a source agreeing; Google, Yelp, Facebook and Instagram are evidence only; OpenStreetMap is a
-  link, not a counted source; "other links nothing" in the confidence weights. Decision 8 (§3.5) lets Google confirming
-  open, a Facebook page and OpenStreetMap add weight toward establishing a listing. This record limits that to §3.5's
-  establishing score (never stored facts, never the truth hierarchy, never green). To confirm: should the same
-  witnesses also count in listing confidence (R12)?
-- **C2. The IRS file.** 0133: "confirms, never shown, never creates a listing." §1.5 lists the IRS nonprofit list among
-  the authority sources whose facts are stored and shown and whose match establishes a listing. Which stands?
-- **C3. The NPI file.** 0133 Phase 5: "the NPI file alone needs one more" source. 0160 W1 and §1.5: a government source
-  alone establishes a listing. Is NPI a government source for this rule?
-- **C4. Bulk datasets.** 0133: "a bulk dataset is never an automatic publish." Licence registries arrive as bulk loads
-  (§1.5) and establish a listing on a match; open datasets add weight. This record still requires readiness (§5.4) for
-  every listing; to confirm that a bulk licence match may establish one without a further source.
-- **C5. The Nexus by name.** 0133 / 0054 / 0083: never on a similar name alone; made when locations share a website or
-  main phone. The draft (§3.1): a name shared with records over 250 m apart becomes a Nexus parent. This record keeps
-  0133's rule; the draft's version waits for Jason.
-- **C6. Freshness clocks.** The draft: `HOLD_NEEDS_RECHECK` past 90 days for Tier 1 and 30 days for Tier 2 sources. 0133
-  (R12): listing checks by band, 30 days below 51 and 90 at 51 and above, never over 90. This record uses R12's cadence
-  for listings; are the draft's source-tier clocks for sources and facts, beside it?
-- **C7. One site's "closed".** 0133 build step 5 and 0072: a business's own site saying it closed for good marks it
-  Closed (unclaimed, not a chain). 0160 W2 (Jason, 2026-11-13): one site's "closed" is a signal on the score. This
-  record follows 0160 (the later decision); 0072's and 0133's text stays as history.
-- **C8. The AI monthly cap.** 0160 §5: "$25 monthly AI cap"; 0163 §7: `AI_MONTHLY_CAP_USD` $40. This record names no
-  figure (the register's value). Which is current?
-- **C9. Warning levels.** 0133 (Services & usage): alerts at 80% and 100%; 0163 §4 (proposed): 50%, 75% and 95%. This
-  record defers to 0163 once approved.
-- **C10. The vector index on Railway** (Decision 4) costs a few dollars a month with no revenue named against it ("no
-  income, no expense"); Supabase's free tier first avoids it. To confirm with Decision 4.
-- **C11. Gemini's fallback.** The draft (§2.3): when Gemini's allowance is used, fall back to Claude Haiku within its
-  budget (a setting). Decision 7: the work waits. This record follows Decision 7 (no fallback).
-- **C12. Tribal nations' sites as Tier 1** (the draft's §1.4) beside 0157 §7 (a nation's site is always a person's call).
-  This record keeps both: Tier 1 for what such a site states, read only after a person's call.
-- **C13. Business emails at personal providers** (Decision 2) beside R6 (living people's details): a sole proprietor's
-  personal address is posted only with a business contact present on the page, in their business role. To confirm that
-  reading.
+- **C1. Witnesses.** Google confirming open, a Facebook page and OpenStreetMap count **only in §3.5's establishing
+  score**: never as stored facts, never in the truth hierarchy, never in a listing's confidence (R12) afterwards.
+- **C2. The IRS file** is a government record: a match **establishes** a nonprofit's listing (rural churches and
+  charities) and its stated facts (name, address) are stored and shown with the source. 0133's "confirms, never shown,
+  never creates a listing" is replaced.
+- **C3. NPI** is a government source: **alone it establishes** a listing (0160 W1, Jason 2026-11-13). 0133's "needs one
+  more" is replaced.
+- **C4. Bulk licence loads:** a licence match **may establish** a listing through the score and readiness (§5.4), shown
+  "Not yet confirmed by the business" until the owner claims it. 0133's "a bulk dataset is never an automatic publish" is
+  replaced for licence and registry matches only; open datasets only add weight.
+- **C5. The Nexus:** **0133's rule stands**: never on a similar name alone; a Nexus is made only when locations share a
+  website, main phone or brand record. The draft's "name shared over 250 m" is not adopted.
+- **C6. Freshness:** listings keep R12's cadence (monthly to quarterly by band, never over 90 days); the tier clocks (90
+  days Tier 1, 30 days Tier 2) apply to **source pages and their facts**, beside it.
+- **C7. One site's "closed"** is a **signal on the score**, not a closure (0160 W2). 0072's and 0133's closing rule is
+  replaced.
+- **C8. The AI monthly cap** is **$40** (`AI_MONTHLY_CAP_USD`, set 2026-11-14; 0163 §7).
+- **C9. Warning levels:** **50%, 75% and 95%** (0163 §4).
+- **C10. Semantic search:** a sidecar `pgvector` index on **Supabase's free tier first** (Decision 4 confirmed); Railway
+  only if revenue covers it. Built in a later stage.
+- **C11. Gemini's allowance used:** the work **waits** (Decision 7); no fallback to Claude.
+- **C12. Tribal nations' sites:** Tier 1 for what they state, **read only after a person's call** (0157 §7). Both kept.
+- **C13. Business emails:** a sole proprietor's personal-provider email is posted **only when the business published it
+  in its own contact section** beside a business contact, in their business role (Decision 2); the owner can remove it
+  at any time. Otherwise kept for Review and restricted.
 
 ## 13. Next
 
 Jason approves this record (and 0163). Then the build is planned in stages, each a release he approves, starting with
 what the switches and the service check already give us; the crawler stays paused until then. The rural research test
-(§1.5) can run before the build, on his go: a small session, no change to the live site, nothing paid.
+(§1.5) ran 2026-11-14 (`research/rural-test-2026-11-14.md`); finishing it needs the licence, OpenStreetMap and Hugging
+Face hosts allowed, and the Gemini key for grounded search.
