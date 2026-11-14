@@ -2,120 +2,6 @@
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
  "claims": [
   {
-   "path": "app/lib/Releases.php",
-   "functions": [
-    "(top)",
-    "checks",
-    "fromUpload",
-    "publish",
-    "rollBack",
-    "standing"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5jMUt9pWN6nUfCFGaz",
-   "why": "Migrations at publish, copies first, leftovers after rollback (Jason 2026-11-14)",
-   "since": "2026-11-14T13:41:09Z",
-   "expires": "2026-11-14T18:55:32Z",
-   "release": "migration-safety_20261114.zip",
-   "callers": {
-    "standing": [
-     "app/admin/sections.php"
-    ],
-    "fromUpload": [
-     "app/lib/upload-targets.php"
-    ]
-   }
-  },
-  {
-   "path": "app/lib/DbUpdates.php",
-   "functions": [
-    "(top)",
-    "autoRun",
-    "checks"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5jMUt9pWN6nUfCFGaz",
-   "why": "Migrations at publish, copies first (Jason 2026-11-14)",
-   "since": "2026-11-14T13:41:09Z",
-   "expires": "2026-11-14T18:55:32Z",
-   "release": "migration-safety_20261114.zip",
-   "callers": {
-    "autoRun": [
-     "app/admin/sections.php",
-     "app/lib/Scheduler.php",
-     "website/api/staging-updates.php"
-    ]
-   }
-  },
-  {
-   "path": "app/admin/sections.php",
-   "functions": [
-    "tv_admin_mod_dbupdates"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5jMUt9pWN6nUfCFGaz",
-   "why": "Migrations at publish, copies first, leftovers after rollback (Jason 2026-11-14)",
-   "since": "2026-11-14T13:41:09Z",
-   "expires": "2026-11-14T18:55:32Z",
-   "release": "migration-safety_20261114.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/DbCopies.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5jMUt9pWN6nUfCFGaz",
-   "why": "Migrations at publish, copies first, leftovers after rollback (Jason 2026-11-14)",
-   "since": "2026-11-14T13:41:14Z",
-   "expires": "2026-11-14T18:55:32Z",
-   "release": "migration-safety_20261114.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/SchemaUpkeep.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5jMUt9pWN6nUfCFGaz",
-   "why": "Migrations at publish, copies first, leftovers after rollback (Jason 2026-11-14)",
-   "since": "2026-11-14T13:41:14Z",
-   "expires": "2026-11-14T18:55:32Z",
-   "release": "migration-safety_20261114.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/Releases.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5jMUt9pWN6nUfCFGaz",
-   "why": "Migrations at publish, copies first, leftovers after rollback (Jason 2026-11-14)",
-   "since": "2026-11-14T13:41:14Z",
-   "expires": "2026-11-14T17:41:14Z",
-   "release": "migration-safety_20261114.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/DbUpdates.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5jMUt9pWN6nUfCFGaz",
-   "why": "Migrations at publish, copies first, leftovers after rollback (Jason 2026-11-14)",
-   "since": "2026-11-14T13:41:14Z",
-   "expires": "2026-11-14T17:41:14Z",
-   "release": "migration-safety_20261114.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/data/decisions-index.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5jMUt9pWN6nUfCFGaz",
-   "why": "Decisions index: 0162",
-   "since": "2026-11-14T13:49:30Z",
-   "expires": "2026-11-14T18:55:32Z",
-   "release": "migration-safety_20261114.zip",
-   "callers": {}
-  },
-  {
    "path": "app/lib/ServiceHealth.php",
    "functions": [
     "(top)",
@@ -275,6 +161,51 @@
    "since": "2026-11-14T14:56:30Z",
    "expires": "2026-11-14T18:56:30Z",
    "release": "service-health3_20261114.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Pulse.php",
+   "functions": [
+    "manage"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5jMUt9pWN6nUfCFGaz",
+   "why": "Release 2 of decisions/0162: Pulse cases for leftovers and unused schema, monthly check",
+   "since": "2026-11-14T15:00:10Z",
+   "expires": "2026-11-14T19:00:10Z",
+   "release": "migration-safety2_20261114.zip",
+   "callers": {
+    "manage": [
+     "website/admin/api/pulse.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/Scheduler.php",
+   "functions": [
+    "sync"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5jMUt9pWN6nUfCFGaz",
+   "why": "Release 2 of decisions/0162: Pulse cases for leftovers and unused schema, monthly check",
+   "since": "2026-11-14T15:00:10Z",
+   "expires": "2026-11-14T19:00:10Z",
+   "release": "migration-safety2_20261114.zip",
+   "callers": {
+    "sync": [
+     "app/admin/sections.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/SchemaUpkeep.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jMUt9pWN6nUfCFGaz",
+   "why": "Release 2 of decisions/0162: Pulse cases for leftovers and unused schema, monthly check",
+   "since": "2026-11-14T15:00:13Z",
+   "expires": "2026-11-14T19:00:13Z",
+   "release": "migration-safety2_20261114.zip",
    "callers": {}
   }
  ],
