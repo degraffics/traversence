@@ -1,109 +1,145 @@
-# Crawler operations: what we have, and what the new version does for us (2026-11-14)
+# Automation operations: the crawler, the website's workflows and the services they use (2026-11-14)
 
-For Jason's review, before any build. The aim (Jason, 2026-11-14): bring usage, expense, service caps and what's active
-or inactive together in one place, **without creating new gaps or more manual work**. The current crawler is described in
-three layers at the end (phases, workflows, services); this part says what changes.
+For Jason's review, before any build. Scope (Jason, 2026-11-14): oversee **all of our automation**, not just the Railway
+crawler: every workflow that gathers or creates content (the crawler's and the website's own), every task in them, every
+outside service they call, and the spend, caps and on/off state of each. The aim: bring usage, expense, caps and what's
+active or inactive together in one place, **without new gaps or more manual work**. How it runs today is in the
+reference at the end.
 
-## 1. Where we are today
+## 1. Where we stand (2026-11-14, ~16:00 UTC)
 
-Each piece works on its own; nothing brings them together.
+- **Everything is being paused for this review** (Jason). The Railway crawler is off (its schedule removed;
+  `handoffs/crawler-revamp.md`, top). The website's workflows are paused by the switches release now being built
+  (§4), which ships with the master switch off.
+- **Live today, kept:** the check before every outside call (`ServiceHealth`): a ban, a refused key or a used-up quota
+  holds that server, a busy one backs off, a held one returns by itself when its status check answers normally (half
+  budget for 14 days); server lists as settings; a pace per service; OpenStreetMap's daily budget (2,500 queries /
+  250 MB, crawler 1,500, site 1,000) and 3-month cache (releases #43, #44, #46; worker 2.6).
+- **Anthropic (Claude), set today:** auto-reload back to $20 at $5; the site's AI cap $40 a month; Anthropic's monthly limit
+  $50; Console email alerts at $20 and $35. No Admin API key (an individual Console account can't make one;
+  `future-considerations.md`, "The Claude Console as an organization").
 
-| Gap | What it costs us today |
+## 2. The layers
+
+| Layer | What it is | Examples |
+|---|---|---|
+| Phase (decisions/0133) | The stage knowledge goes through | 1 sources, 2 extraction, 3 vetting, 4 catalog, 5 publishing, 6 maintenance |
+| Workflow (0160, W1–W13) | A thing we make, start to finish | W1 listings, W4 place guides, W6 heritage, W10 live events |
+| Task | One job inside a workflow | `coverage` (find businesses in a town), `refresh`, the guide job, journeys |
+| Route | A task's use of a service | `coverage` → OpenStreetMap; `places` → Google Places; menus → Google Document AI, then AWS, then Claude (`AiClient::ROUTES`) |
+| Service | The outside provider at the end of a route | OpenStreetMap (each server), Google Places, Tavily, Claude, SES, Census, Library of Congress |
+
+Where they run: the **Railway crawler** runs the crawler's tasks every 5 minutes (when on); the **website** runs its own
+workflow jobs on its schedule (Find it and guide drafts, guides on demand, journeys, heritage, the listings pipeline,
+landmark photos) and some on demand when a visitor asks (a first-look guide, a place description, OpenStreetMap near a
+search).
+
+## 3. Gaps today
+
+| Gap | What it costs us |
 |---|---|
-| **Caps live in three places** (Railway settings, the site's `.env`, Thresholds & gates) and count only our own use | A cap is changed in one place and missed in another; the provider can stop us before our counter says so (the Anthropic "almost out" warning) |
+| **No way to stop or start the automation as a whole** | Pausing took removing Railway's schedule by hand and a list of admin steps; nothing says "paused, by whom, why" |
+| **Caps live in three places** (Railway settings, the site's `.env`, Thresholds & gates) and count only our own use | A cap changed in one place and missed in another; the provider can stop us before our counter says so (the Anthropic "almost out" warning: $3.47 left) |
 | **Costs sit in separate ledgers** (crawler calls, Claude, email) | No total per service, workflow or month; nothing checks spend against revenue or the community budget ("no income, no expense") |
-| **A service can be off or paced to nothing silently** | Google Places and web search sat at 0 a run with no reason logged; someone had to dig through logs |
-| **A run can be "ok" and produce nothing** | OpenStreetMap has found nothing since 2026-11-13 while every run reported ok; only a person reading logs noticed |
-| **The schedule and five of the workflows are invisible** | How often each task runs, its share and last outcome are only in the database; guides, journeys, Find it and live events run on the website outside the crawler's plan and report |
-| **Warnings come after the failure** | A Pulse case opens when a service breaks, never before a cap is reached |
+| **A service can be off or paced to nothing silently** | Web search and Google Places sat at 0 a run with no reason logged (the day's share spent early) |
+| **A run can be "ok" and produce nothing** | OpenStreetMap found nothing from 2026-11-13 while every run reported ok |
+| **The schedule and the website's workflows are invisible** | Each task's frequency, share and last outcome are only in the database; the website's workflows run outside the crawler's plan and report |
+| **Warnings come after the failure** | A Pulse case opens when a service breaks, never before a cap |
 | **Watching depends on a Claude session** | Railway deploys, stuck syncs and sessions are checked only because the session manager does it hourly |
 
-## 2. What the new version does for us
+## 4. What the new version does for us
 
-One operations view built on the three layers, where **the system does the counting, checking and switching**, and a person
-only decides what the system can't.
+One operations view on the layers, where **the system counts, checks and switches**, and a person only decides what the
+system can't.
 
-**One register of outside services.** Every service we call (OpenStreetMap, Google Places, Tavily, Claude, email, the
-free registries…) is one row:
-- which workflows use it, and where its key lives;
-- its cap and its pace, in one place (the one setting the code reads; the old places are read from it, not kept beside it);
-- this month's use and cost, by our count and, where the provider offers a usage feed, by theirs, side by side, with the
-  difference flagged;
-- its status, always with the reason: **active**, **paced** (and to what), **held** (and why), **off** (no key, switched
-  off), **out of budget** (until when);
-- what it produced (finds, listings, facts, pages) and the cost per result.
+**Switches at every layer (being built now).**
+- **A master switch** (System Configuration): off stops everything that gathers or creates content, the Railway crawler's
+  runs included (its plan says "paused", so a run does nothing even if its schedule returns), the website's workflow jobs,
+  the AI features serving them, and their outside calls. It never stops orders, billing, payments, email, releases,
+  staging, Moments, members' own actions, guide weather and roads, or the admin.
+- **A switch per workflow** (W1–W13, the website's included), **per task**, and **per service** (each OpenStreetMap
+  server too).
+- **The rule:** a call happens only when the master, its workflow, its task and its service are all on. Each switch shows
+  who set it, when and why. Paused is "paused", never a failure and never a warning. Visitors get our own listings, never
+  a dead end.
 
-**One board of workflows (W1–W13), the website's own included.** Each shows its queue, last run, outcome, output, cost,
-and the phase where work is waiting, so a stalled phase is seen, not discovered.
+**One register of services.** Every outside service is one row:
+- the workflows, tasks and routes that use it, and where its key lives;
+- its cap and its pace, in one place (the one setting the code reads; Railway's and `.env`'s copies retired, nothing
+  retyped);
+- this month's use and cost by our count, and by the provider's where it has a usage feed (else "our count only");
+- its status with the reason: **active**, **paced**, **held**, **paused** (by whom), **off** (no key), **out of budget**;
+- what it produced and the cost per result.
 
-**The task schedule, visible.** How often each task runs, its share of a run, its last run and result; the same settings
-the planner already uses, shown where they can be read.
+**One board of workflows (W1–W13), the website's own included:** state (on, paused), queue, last run, outcome, output,
+cost, and the phase where work waits.
 
-**Warnings before the limit, not after.** Set levels (for example 80% and 95% of any cap, the provider's balance running
-low) open one Pulse case per service with the step that fixes it (raise the cap, top up, or pause the work), and **"ran
-but found nothing"** becomes its own warning after a set number of empty runs.
+**The task schedule, visible and editable:** each task's frequency, share of a run, limits, last run and result.
 
-**Watching built into the site.** The site checks Railway's deploys and the sync itself and raises a Pulse case when one
-fails, so it no longer depends on a Claude session being open.
+**Costs together:** the crawler's ledger, Claude's and email's, per service, workflow and month, set against revenue and
+the community budget.
 
-## 3. Less manual work, not more
+**Warnings before limits:** at **50%, 75% and 95%** of any cap (Jason), one Pulse case per service with the fix as a
+button (raise the cap, top up, pause).
+
+**"Returns empty":** a task that had work and got answers but nothing came back (not "nothing to do", not "held"). A
+frequent task after 12 empty runs in 24 hours, a monthly load on its first. **One Pulse case, updated every hour**,
+listing every service and task that returned empty, a step each (Check it now, Pause the task); a step clears itself when
+the task finds something again.
+
+**Watching built into the site:** the site checks Railway's deploys and the sync itself and raises a Pulse case when one
+fails; the session manager's hourly check then covers sessions only.
+
+## 5. Less manual work, not more
 
 | Today, a person… | With the new version… |
 |---|---|
+| removes Railway's schedule and works through admin pages to pause | one master switch, or one per workflow, task or service |
 | reads logs to learn why a service made 0 calls | the register shows the reason on the service's row |
-| compares the Console with the admin to check the AI spend | the register reads both and flags a gap (where the provider has a usage feed) |
+| compares the Console with the admin to check the AI spend | the register shows both where the provider has a usage feed |
 | edits a cap in Railway, `.env` or Thresholds and hopes the others match | one setting; the old places follow it |
-| notices that a service found nothing | a warning after a set number of empty runs, with the step to take |
-| re-adds a server after a ban lifts | it returns by itself when its status check answers normally, at half budget for two weeks |
-| learns a cap was hit when work stops | a warning before it, with the fix as a button |
+| notices that a task found nothing | the "returns empty" case, hourly, with the step to take |
+| re-adds a server after a ban lifts | it returns by itself (live since 2026-11-14) |
+| learns a cap was hit when work stops | warnings at 50, 75 and 95%, with the fix as a button |
 | relies on a Claude session to watch deploys and syncs | the site watches them |
 
-What a person still does: approve releases; decide on a cap, a top-up or a pause when warned; contact a provider about a
-ban (Pulse gives the exact issue and evidence); answer questions only a person can.
+What a person still does (Jason, 2026-11-14: nothing else by hand): approve releases; switch things on or off; decide on a
+cap, a top-up or a pause when warned; contact a provider about a ban (Pulse gives the issue and evidence).
 
-## 4. How we avoid new gaps
+## 6. How we avoid new gaps
 
-- **Replace, never add beside.** Each cap, count and status moves into the register and the old place reads from it, so
-  there's never a second copy to drift. No settings are retyped: the register starts from today's values, found
-  automatically.
-- **Built from what exists.** The service check (`ServiceHealth`), the cost ledger (`crawl_costs`), Claude's record
-  (`ai_jobs`), the planner (`CrawlService`) and Outside services already hold most of this; the new version joins them
-  rather than building new ledgers.
-- **Every path through the check.** The website's own calls (OpenStreetMap, Claude, journeys) go through the same check
-  and budgets as the crawler's, so nothing is counted in one place and spent in another.
-- **Silence is a status.** A service with no key, no pace or no output says so on its row; nothing can be quietly off.
-- **Honest where the provider can't be read.** Where a provider has no usage feed, the row says "our count only".
-  Reading Anthropic's own usage needs an admin key saved once on the environment: the one setup step, asked for when that
-  stage is built.
-- **No new spend.** Reading usage feeds and checking status is free; the "no income, no expense" rule is checked on the
-  register, not left to memory.
-- **One warning per service, with its fix.** Pulse cases follow the existing rule (one case per kind of chore, a step per
-  item, steps as buttons), so warnings don't become a new pile to sort.
+- **Replace, never add beside:** each cap, count, status and switch lives in one place and the old places read from it.
+- **Built from what exists:** `ServiceHealth`, `crawl_costs`, `ai_jobs`, `CrawlService` (its workflow and task switches),
+  `AiClient` (its features and routes), `Scheduler`, Outside services, Thresholds & gates. No new ledgers.
+- **Every path through the same check:** the website's own calls pass the same switches, budgets and holds as the
+  crawler's.
+- **Silence is a status:** nothing can be quietly off; paused says who paused it.
+- **No new spend:** usage feeds and status checks are free.
+- **One case per kind of chore,** steps as buttons (Pulse's rules), so warnings don't become a pile.
 
-## 5. How it would be built
+## 7. How it will be built
 
-Each stage is a release Jason approves, written up first as a decision (0163) for review.
+Each stage a release Jason approves; one session per stage, from its handoff (`decisions/0163`, proposed).
 
-1. **Finish what's in hand** (the crawler session): `overpass-api.de` back on the lists behind the check, automatic return,
-   a pace per service. Already approved.
-2. **The service register:** one row per service from what exists today; caps and paces moved into it with today's values;
-   the old places read from it; status with reasons.
-3. **Costs together:** the crawler's ledger, Claude and email per service, workflow and month; provider usage feeds where
-   offered; set against revenue and the community budget.
-4. **The workflow board and the task schedule,** the website's workflows included.
-5. **Warnings before limits and "ran but found nothing".**
-6. **Watching built into the site** (Railway deploys, the sync); the session manager's hourly check then only covers
-   sessions.
+1. **Live:** the check before every call, holds and automatic return, server lists as settings, pacing (2026-11-14).
+2. **Being built:** the switches (master, workflow, task, service), shipped with the master off
+   (`handoffs/automation-switches.md`).
+3. **After Jason's review of this document and 0163:**
+   1. the crawler's open items (the four approved releases W6, W9, W10/W11, W12; junk listing names; the map-tile check);
+   2. the service register (caps and paces into one place; the website's other callers onto the check);
+   3. costs together;
+   4. the workflow board and the task schedule;
+   5. warnings (50/75/95%) and "returns empty";
+   6. watching built into the site.
+4. **Resume:** Jason turns the master switch on (or one workflow at a time); the Railway crawler's schedule goes back on.
 
-## 6. Questions for Jason
+## 8. For Jason
 
-- Is anything here something you'd rather keep doing by hand?
-- Warning levels: 80% and 95% of a cap to start, and how many empty runs before "found nothing" (proposed: a day's worth)?
-- Reading Anthropic's own usage needs an admin key saved once: yes to asking for it at stage 3?
+- Mark anything wrong or missing here or in `decisions/0163`; both are updated before anything in §7.3 is built.
 
 ---
 
-## Reference: the crawler today, in three layers
+## Reference: how the crawler runs today, in three layers
 
 From the live code (`workers/crawler/crawler.py`, worker 2.5 on Railway; `app/lib/crawler/CrawlService.php`) and the
 decisions. Each task's schedule is a setting in the site's database (`crawl_capture_tasks`, `crawl_workflows`).
