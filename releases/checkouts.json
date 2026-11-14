@@ -1,5 +1,75 @@
 {
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
- "claims": [],
+ "claims": [
+  {
+   "path": "app/lib/DataCleanup.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5ikaAYTSrHS6AnPpWB",
+   "why": "Data cleanup, step 2: act by rule, ledger and Undo, Pulse case (decisions/0163 \u00a78 stage 1b)",
+   "since": "2026-11-14T23:43:54Z",
+   "expires": "2026-11-15T03:43:54Z",
+   "release": "data-cleanup-act",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/cleanup-console.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5ikaAYTSrHS6AnPpWB",
+   "why": "Data cleanup, step 2: act by rule, ledger and Undo, Pulse case (decisions/0163 \u00a78 stage 1b)",
+   "since": "2026-11-14T23:43:54Z",
+   "expires": "2026-11-15T03:43:54Z",
+   "release": "data-cleanup-act",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/ListingConfidence.php",
+   "functions": [
+    "compute"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ikaAYTSrHS6AnPpWB",
+   "why": "Data cleanup, step 2: act by rule, ledger and Undo, Pulse case (decisions/0163 \u00a78 stage 1b)",
+   "since": "2026-11-14T23:43:54Z",
+   "expires": "2026-11-15T03:43:54Z",
+   "release": "data-cleanup-act",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/UniversalSearch.php",
+   "functions": [
+    "peekOutdoors"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ikaAYTSrHS6AnPpWB",
+   "why": "Data cleanup, step 2: act by rule, ledger and Undo, Pulse case (decisions/0163 \u00a78 stage 1b)",
+   "since": "2026-11-14T23:43:54Z",
+   "expires": "2026-11-15T03:43:54Z",
+   "release": "data-cleanup-act",
+   "callers": {
+    "peekOutdoors": [
+     "website/api/search.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/ContentTags.php",
+   "functions": [
+    "card"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ikaAYTSrHS6AnPpWB",
+   "why": "Data cleanup, step 2: act by rule, ledger and Undo, Pulse case (decisions/0163 \u00a78 stage 1b)",
+   "since": "2026-11-14T23:43:54Z",
+   "expires": "2026-11-15T03:43:54Z",
+   "release": "data-cleanup-act",
+   "callers": {
+    "card": [
+     "website/api/tag-card.php"
+    ]
+   }
+  }
+ ],
  "lapsed": []
 }
