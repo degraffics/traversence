@@ -1,0 +1,74 @@
+{
+    "id": 41,
+    "title": "Storefront Studio 5a: a business's pages as blocks",
+    "why": "decisions/0159 step 5 (Jason, 2026-11-13: \"go ahead with step 5\"). A business's storefront pages open in the same builder as our own pages, in the portal's Storefront & pages: sections, columns, headings, words, pictures, buttons; a draft only its team sees (in the builder and through the preview link); Publish by the team's Publish permission with no approval (0158 §3), versions and Roll back. trvgo.us draws the published blocks as plain HTML with no script (0139). A page's Markdown is where the builder starts and is kept as it was (0159 §2).",
+    "proposals": "",
+    "zip": "studio5a_20261113.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/lib/Blocks.php": {
+            "sha": "c7d91154f2b8ace581a502aa39b9b1dbf13c47b2e54e8f87d1326bbfa82bc2c6",
+            "size": 61657,
+            "live_was": "3afc63e844f3e41f8e2ddd2dfe5d19032d75645cd3058699cc38d26ca383c7d9"
+        },
+        "app/lib/SitePages.php": {
+            "sha": "afcb3670fd450f782ffecea0e18a75e29e1fc15463f67d90e1acc601f5a68782",
+            "size": 13768,
+            "live_was": "c3821d8ad36ed49ae991fdb1e43c08a3ac1b2b4ca13c95a1da341177a5d06c38"
+        },
+        "app/lib/Storefront.php": {
+            "sha": "46d9843323f39b1e204b3e9e4b5fbdb4136d906ecbb5ebcf387844f39d03f36a",
+            "size": 19550,
+            "live_was": "c77ae22ae983fd2d9e3a4083070c19abb9be67680a92fc51c4d081715230b232"
+        },
+        "app/lib/upload-targets.php": {
+            "sha": "150723811d7a8e279bb6247368f85c91c64b4301f7c3d35204f1d15a916c90d4",
+            "size": 39934,
+            "live_was": "48c57b003cf87515e2f47bf3cf96eeaca0f305dc4f1d5c7e3007a324e3aa5304"
+        },
+        "app/ui/storefront-view.php": {
+            "sha": "1c79c7f890f8d02480a399db70e5885631ff576e1a0c812dff0641264ea53c46",
+            "size": 19130,
+            "live_was": "536d378d12219f77ccd03ab61a0e0e42c9e1c746f6bcee27e40737f97c022564"
+        },
+        "app/business/storefront.php": {
+            "sha": "168434594cee9972a966f36d51743f02824e535f341c352ef1a261d72fe425ad",
+            "size": 41269,
+            "live_was": "77920de6eb6ac51cbe47d7b2c33a60f8b1691c1b703c062b710e073700049044"
+        },
+        "app/ui/faq.md": {
+            "sha": "6b8eb2644ce9e2582205cf922c918eb0216d5fdab34fc26c059d03bf700df70b",
+            "size": 282613,
+            "live_was": "b20a97dbff48b8936d34c87090551168fd13188f6fb0c07a647cd60ebcc32d91"
+        },
+        "website/api/blocks.php": {
+            "sha": "2b2b149e54beabf334ade44a2102cb9e2081c847c5b82fac4e46af8667b58411",
+            "size": 4916,
+            "live_was": "4ff18ae62b76b21e3e2a011f2634168a94abfdcc2ad35f2dcb9e9534cee60143"
+        },
+        "website/js/tv-editor.js": {
+            "sha": "6727e969fa54dd5f37e6082f3de54d343b7f5f9d7e6c7dcdd6329ae5d1099d52",
+            "size": 51933,
+            "live_was": "a5f5064cd79ae9d59d05ed6e3491f0be724980672dc504114bde1cd460e089de"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-14T00:57:02+00:00",
+            "by": 0,
+            "msg": "Uploaded studio5a_20261113.zip: 9 files."
+        }
+    ]
+}
