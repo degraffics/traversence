@@ -6,25 +6,29 @@
     "zip": "data-cleanup-act_20261114.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "staged",
-    "step": 0,
+    "state": "live",
+    "step": 3,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
     "plan_at": "2026-11-14 23:57:04",
     "staged_at": "2026-11-14 23:57:06",
-    "vetted_at": null,
-    "live_at": null,
+    "vetted_at": "2026-11-14 23:57:09",
+    "live_at": "2026-11-14 23:57:09",
     "files": {
         "app/admin/cleanup-console.php": {
             "sha": "9f743ad7dccece019b021be0191e1028913c38143e8cdbf64bd12ffd9b7d406d",
             "size": 20296,
-            "live_was": "18dfd370ee5f96f4ec1f30c737ee538089149319cff87d9c4dd23f574c21d1ce"
+            "live_was": "18dfd370ee5f96f4ec1f30c737ee538089149319cff87d9c4dd23f574c21d1ce",
+            "existed": true,
+            "old_sha": "18dfd370ee5f96f4ec1f30c737ee538089149319cff87d9c4dd23f574c21d1ce"
         },
         "app/ui/faq.md": {
             "sha": "8ce8be9a0f8ce72afd72042ebcc934dfd62c806f74b3ab193e3ae71bec69b13b",
             "size": 292967,
-            "live_was": "cb9bed2b5038642f16a2f29ff4da660c6d448b44285636e49b90f4cd0e4665df"
+            "live_was": "cb9bed2b5038642f16a2f29ff4da660c6d448b44285636e49b90f4cd0e4665df",
+            "existed": true,
+            "old_sha": "cb9bed2b5038642f16a2f29ff4da660c6d448b44285636e49b90f4cd0e4665df"
         },
         "app/migrations/2026-11-14_data_cleanup.sql": {
             "sha": "16a868050225e05d2a62b47f815626c7507062671edbaefbe3f87837ad249025",
@@ -34,42 +38,57 @@
         "app/scripts/data_cleanup_tick.php": {
             "sha": "478fbf099c9ab3e1c87ff4db5b57606bf0e48c590404eb2c3daa31164cdc9155",
             "size": 1648,
-            "live_was": null
+            "live_was": null,
+            "existed": false
         },
         "app/lib/Scheduler.php": {
             "sha": "e2a03e9fda9fa2439e9c013fd7f481da3ac000d1aac397b55a966bc949125e38",
             "size": 21586,
-            "live_was": "380d38914752eeb29e08b5c4bcdab2663cc24a5c85f92dddf73b8ba70ae6d372"
+            "live_was": "380d38914752eeb29e08b5c4bcdab2663cc24a5c85f92dddf73b8ba70ae6d372",
+            "existed": true,
+            "old_sha": "380d38914752eeb29e08b5c4bcdab2663cc24a5c85f92dddf73b8ba70ae6d372"
         },
         "app/lib/ListingConfidence.php": {
             "sha": "15566fa29c818c2667d77dffc07bd3ee235c2381654fdd917ee2673858aa56c6",
             "size": 15499,
-            "live_was": "4345e4e9dcb98a22fd3e7e1416c250d9d9cfcfe20d34254843f6f161749a2b91"
+            "live_was": "4345e4e9dcb98a22fd3e7e1416c250d9d9cfcfe20d34254843f6f161749a2b91",
+            "existed": true,
+            "old_sha": "4345e4e9dcb98a22fd3e7e1416c250d9d9cfcfe20d34254843f6f161749a2b91"
         },
         "app/lib/DataCleanup.php": {
             "sha": "74cba34bb00a4877f3752511e711cd88ca0265012de6a4267a52fb5670bce50d",
             "size": 62703,
-            "live_was": "6c05bee6832727a7d3b1e8839c7918cd3eba082fa64e8fd984ff92c88a87d85d"
+            "live_was": "6c05bee6832727a7d3b1e8839c7918cd3eba082fa64e8fd984ff92c88a87d85d",
+            "existed": true,
+            "old_sha": "6c05bee6832727a7d3b1e8839c7918cd3eba082fa64e8fd984ff92c88a87d85d"
         },
         "app/lib/UniversalSearch.php": {
             "sha": "1115fc32d1bf2b513dec89e695e1a8933e444dd4b7ea471b4fa984989974427a",
             "size": 282326,
-            "live_was": "4f3c1ac852d7a664a522b9d74e167da41ca459cc3a1a50b6d74dd5cf30689de6"
+            "live_was": "4f3c1ac852d7a664a522b9d74e167da41ca459cc3a1a50b6d74dd5cf30689de6",
+            "existed": true,
+            "old_sha": "4f3c1ac852d7a664a522b9d74e167da41ca459cc3a1a50b6d74dd5cf30689de6"
         },
         "app/lib/Pulse.php": {
             "sha": "2f77e4d7422dc2e8302992f82bcf54f00d4ac45198bac8d792d6d10eb2795fdf",
             "size": 131746,
-            "live_was": "4fef2248426f9caa1fef20257dce4395ff66c562397f5ee16e10dca525b2387e"
+            "live_was": "4fef2248426f9caa1fef20257dce4395ff66c562397f5ee16e10dca525b2387e",
+            "existed": true,
+            "old_sha": "4fef2248426f9caa1fef20257dce4395ff66c562397f5ee16e10dca525b2387e"
         },
         "app/lib/Automation.php": {
             "sha": "64647883bc6e83e5961075306745344169f39dbf8093a77e313bc691097a02db",
             "size": 20497,
-            "live_was": "4883069b1ae57c665edafadc5e3e7624d4310b550a167f1fb85261fda99fa07e"
+            "live_was": "4883069b1ae57c665edafadc5e3e7624d4310b550a167f1fb85261fda99fa07e",
+            "existed": true,
+            "old_sha": "4883069b1ae57c665edafadc5e3e7624d4310b550a167f1fb85261fda99fa07e"
         },
         "app/lib/ContentTags.php": {
             "sha": "25fc44b51cf9c38f952fa5025b5d466651928f12e6222b5b73b2950763bccf38",
             "size": 23077,
-            "live_was": "1e3cd38b32864e86d12b8f550b572345126d363a1258594610f356cc9a36e46f"
+            "live_was": "1e3cd38b32864e86d12b8f550b572345126d363a1258594610f356cc9a36e46f",
+            "existed": true,
+            "old_sha": "1e3cd38b32864e86d12b8f550b572345126d363a1258594610f356cc9a36e46f"
         }
     },
     "migrations": [
@@ -77,8 +96,8 @@
     ],
     "checks": {
         "ok": true,
-        "where": "staging",
-        "at": "2026-11-14T23:57:07+00:00",
+        "where": "live",
+        "at": "2026-11-14T23:57:09+00:00",
         "items": [
             [
                 "PHP files parse",
@@ -86,19 +105,9 @@
                 "9 checked"
             ],
             [
-                "Migrations only add",
-                true,
-                "1 checked"
-            ],
-            [
-                "Migrations ran on staging",
-                true,
-                "Ran 2026-11-14_data_cleanup.sql"
-            ],
-            [
                 "Pages answer",
                 true,
-                "2 pages answered on staging.trvgo.us"
+                "2 pages answered on traversence.com"
             ],
             [
                 "No new fatal errors in the logs",
@@ -128,6 +137,16 @@
             "at": "2026-11-14T23:57:07+00:00",
             "by": 0,
             "msg": "Put on staging (11 files); its checks passed."
+        },
+        {
+            "at": "2026-11-14T23:57:09+00:00",
+            "by": 0,
+            "msg": "Approved in chat before it was sent through git, and its checks on staging passed: publishing by itself."
+        },
+        {
+            "at": "2026-11-14T23:57:09+00:00",
+            "by": 0,
+            "msg": "Published: 10 files, after its 1 migration ran first (2026-11-14_data_cleanup.sql; a copy of what each touched is kept 14 days); everyone at once (no switch)."
         }
     ]
 }
