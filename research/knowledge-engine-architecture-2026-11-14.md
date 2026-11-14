@@ -33,6 +33,14 @@ How changes are marked:
 6. **Protected places and tribal nations:** 0133's three levels (public; known publicly but not open to visit; held) and
    decisions/0066 (what's specific to a nation is held until the nation's own tools exist and it says so; pins on a
    nation's land move to a public place) apply in every phase.
+7. ✚ **Rural reality: a business doesn't need its own website to be real** (Jason, 2026-11-14). In the towns we serve, many
+   real businesses (the café, the tire shop, the outfitter) have no site: only a licence, a Google or Facebook presence,
+   a sign. A listing is established by **authority** (a government licence or registry) or by **corroboration**
+   (independent sources that agree), never only by having a website (§1.5, §3.5). ? Decision 8.
+8. ✚ **Two AI providers, each for what it's best at** (? Decision 7): Gemini's free tier (Google AI Studio) for bulk work
+   on public pages and for finding leads with grounded search; Claude for writing in our voice and for anything holding a
+   person's own words or private data. The free tier lets Google use what we send, so **nothing private ever goes to
+   it**.
 
 ---
 
@@ -96,6 +104,10 @@ Each 200 gets a `source_tier` (1–5) and its dossier:
   records are redacted.
 - **Tier 3, regional context and aggregators:** local news, chambers, tourism boards, regional directories.
 - **Tier 4, community and long-tail:** forums, personal blogs, crowdsourced reviews.
+- ✚ **Licences and registries** (the authority sources of §1.5) are Tier 1 for what they state: legal name, address,
+  licence type and status.
+- ✚ **Open place datasets** (Overture, Foursquare's open data, §1.5) are their own class, **corroboration**: storable
+  and shown with credit under their licences, ranked below a business's own site and below Tier 1 records.
 - **Tier 5, noise:** parked domains, link farms, thin pages (under 100 words with a high outbound-link ratio): dropped
   before Phase 2, ✚ but logged in the page log.
 - **Dossier** (`source_dossiers`, ✎ extending the **source register**, decisions/0045, 0157 §7): domain, tier, coverage,
@@ -103,6 +115,25 @@ Each 200 gets a `source_tier` (1–5) and its dossier:
   Cite only, Ignore) and its licence override the classifier**: a cite-only source's facts can be cited, never published
   as ours.
 - **Audit log** (`crawl_audit_log`, append-only): every decision with its reason code and the rule it applied.
+
+### 1.5 Lead sources for rural businesses (✚ added, Jason, 2026-11-14)
+
+Finding businesses that have no website, and proving they're real, from four kinds of source. Each is a service under
+0163 (switch, budget, service check) and a bulk load or task on the crawler.
+
+| Kind | Sources | What we may do with it | Cost |
+|---|---|---|---|
+| **Authority: licences and registries** | Arizona Corporation Commission and New Mexico Secretary of State (companies); Arizona TPT (sales tax) licence lookup; liquor licences (Arizona DLLC, New Mexico ABD); Arizona Registrar of Contractors; county health permits and inspections; state licensing boards (cosmetology, auto, medical); NPI; the IRS nonprofit list; Recreation.gov | public records: store and show the facts they state, with the source; a match **establishes** a listing on its own (W1's rule for government sources) | free (bulk files where offered, else paced lookups); each source's terms checked first |
+| **Open place datasets** | Overture Maps Places (backed by Meta, Microsoft, Amazon and others); Foursquare's open places data | as their licences allow (understood to allow storing and showing with credit; to be confirmed): name, address, phone, website, social pages, category, confidence | free bulk downloads, refreshed with each release (monthly for Overture) |
+| **Witnesses** (confirm, never copied) | Google Places (keep the place ID only); Gemini grounded search and Maps grounding (results only point; Google's display and storage rules followed) | a signal on the score ("confirmed open on Google"); a lead and its links to read | Places about 3¢ a call within its paced budget; grounding within the free daily allowance first, then paid only within a budget |
+| **Pointers** | OpenStreetMap (decisions/0065); a business's Facebook page; chamber and tourism directories (cite only unless their terms allow) | a lead to read, and corroboration when it agrees | free |
+
+- **Gemini grounded search** asks "what [kind] is in [town]?" and returns leads with the pages it used. A lead is kept only
+  with a cited link, and nothing it says becomes a fact until a licence, an open dataset or the business's own page
+  confirms it (it can be confidently wrong).
+- **A research test first** (§10): two or three rural towns (for example Kayenta, St. Johns, Springerville), a few kinds of
+  business, comparing what each source finds and how many real businesses each lets us establish without a website, and
+  confirming each source's licence terms. Free; nothing on the live site changes.
 
 ---
 
@@ -138,6 +169,10 @@ A structural pre-scan in milliseconds before any deep extraction or token spend:
 Only when required fields are still empty after Step 1 and the body has prose (40+ words):
 - **Tier A, keyword windows:** only the paragraphs near hours, address, admission or contact words.
 - **Tier B, local NER:** a small entity tagger on the worker (✚ a bigger Railway worker; its cost goes in the register).
+- ✚ **Tier C provider routing** (? Decision 7): public pages go to **Gemini's free tier** first (Flash or Flash-Lite,
+  within 15 requests a minute and 1,000 a day); when its daily allowance is used, the service check holds it until the
+  next day and the work waits, or falls back to Claude Haiku within its budget (a setting). Pages from a person (a
+  member's post, a scanned card, anything private) go only to Claude. A sample read by both is compared before switching.
 - **Tier C, Claude Haiku:**
   - under 4,000 tokens: the stripped text, strict JSON schema;
   - over 4,000: 3,000-token pieces with 500 overlapping, merged after;
@@ -152,7 +187,7 @@ Only when required fields are still empty after Step 1 and the body has prose (4
   an item with its own page queues that page at high priority.
 - **Provenance on every fact:** `fact_id`, `entity_candidate_id`, `field_name`, `field_value`, `source_url`, `url_hash`,
   `dossier_id`, `source_tier`, `extracted_at`, `extraction_method` (`DETERMINISTIC_PARSER | REGEX_HEURISTIC | LOCAL_NER |
-  LLM_HAIKU`), `raw_snippet`. ✚ Plus `licence` (from the register) and `exposure` (§3.4).
+  LLM_HAIKU | LLM_GEMINI`), `raw_snippet`. ✚ Plus `licence` (from the register) and `exposure` (§3.4).
 
 ---
 
@@ -174,7 +209,8 @@ Only when required fields are still empty after Step 1 and the body has prose (4
   - < 0.60: a new record.
   - 0.60–0.95 (grey zone): the verification worker, before any person:
     1. ✎ **Our own free anchors first:** the identity record, the place store, NPI, the IRS list, Recreation.gov, the
-       Census geocoder.
+       Census geocoder, ✚ the licence registries and the open place datasets (§1.5).
+    1b. ✚ **Gemini grounded search** within its free allowance: is it real and open, with links to read.
     2. **Google Places** (paid, about 3¢ a call, inside its paced budget): ✎ **to confirm the place exists and is open
        and to keep its place ID only**. The draft took Google's rooftop coordinates into our record, which Google's terms
        don't allow.
@@ -190,8 +226,10 @@ Only when required fields are still empty after Step 1 and the body has prose (4
 Then, by field:
 - **Legal name, parcel, coordinates, regulatory status:** Tier 1 > Tier 2 > Tier 3.
 - **Hours, menu and services, prices, event dates, direct contact:** Tier 2 (first-party) > Tier 1 > Tier 3.
-- **Same tier:** `DETERMINISTIC_PARSER > REGEX_HEURISTIC > LOCAL_NER > LLM_HAIKU`; then the most recent.
-- ✚ OpenStreetMap and Google never enter the hierarchy (§0.5).
+- **Same tier:** `DETERMINISTIC_PARSER > REGEX_HEURISTIC > LOCAL_NER > LLM_HAIKU = LLM_GEMINI`; then the most recent.
+- ✚ **Open place datasets** sit below Tier 1 and a business's own site, above Tier 3 aggregators, for name, address,
+  phone and category.
+- ✚ OpenStreetMap, Google and Gemini's grounded answers never enter the hierarchy (§0.5): they point and witness only.
 
 ### 3.4 Curation, disposition and visibility (decisions/0157 §3)
 
@@ -218,6 +256,21 @@ Then, by field:
     back at high priority. ✎ **Stays public with "last checked" shown, withheld only on a real sign of closure** (? Decision
     3). The draft withheld every stale record, which would empty the site whenever the crawler is paused or a source
     blocks us.
+
+### 3.5 Establishing a business that has no website (✚ added; amends W1's gate, ? Decision 8)
+
+A listing is established (published through the score) by any one of:
+1. **Its own website** naming it (as now).
+2. **A government licence or registry match** on name and address (as now: a government source alone).
+3. ✚ **Corroboration:** two independent sources that agree on the name plus the phone or the address, at least one of
+   them an open place dataset or a licence, the other any of: Google Places confirming it open, a Facebook page, a chamber
+   or tourism listing, OpenStreetMap, a Gemini lead with a cited page.
+4. **The owner** claiming it (a claim, a GO Code at the counter, a staff visit): the strongest proof, always above the rest.
+
+What it shows comes from the licence, the open datasets (credited) and the owner, never copied from Google. Until the
+owner confirms, it shows **"Not yet confirmed by the business"** with an invitation to claim it. Closure works the same
+way in reverse: a licence lapsing, Google reporting it closed, or an open dataset dropping it are signals on the score,
+and two together send it to Review (W2).
 
 ---
 
@@ -298,6 +351,8 @@ facts and vetted research, behind the rule-based gates and the protected-informa
 - **Canary for parser drift:** a site paused for drift is dry-run after 7 days and unpaused only if the new rules work.
   ✚ Feeds the **"returns empty"** Pulse case (0163: one case updated hourly, a step per task or service).
 - **Credibility balancer:** a site's credibility falls on failures and climbs back after clean batches.
+- ✚ **Rural sources refreshed:** open place datasets reloaded with each release (monthly for Overture); licence registries
+  re-read on their own cycle; a lapsed licence is a closure signal (§3.5).
 - ✚ **Service return:** a held service returns by itself when its status check answers normally, at half budget for 14
   days (live).
 
@@ -318,16 +373,16 @@ Railway and the sync.
 
 | Workflow | Phases | Notes |
 |---|---|---|
-| W1 Listings | 1–4, 5.1 | the frontier and registry finds; the listing gate |
-| W2 Keeping listings current | 6 (via 1–3) | freshness sweeper; score decides closure |
-| W3 Source register and place store | 1, 2 | the dossier engine; the person's call on each site |
+| W1 Listings | 1–4, 5.1 | ✎ leads from licences, open place datasets, Gemini grounded search and OpenStreetMap (§1.5); established by a website, a licence, corroboration or the owner (§3.5) |
+| W2 Keeping listings current | 6 (via 1–3) | freshness sweeper; score decides closure; ✚ lapsed licences and dataset drops as closure signals |
+| W3 Source register and place store | 1, 2 | the dossier engine; the person's call on each site; ✚ each licence registry and open dataset is a source with its licence |
 | W4 Place guides, W5 Guides on demand | 4, 5.4 | written from public-safe facts and research |
 | W6 Heritage and topics | 2–4 | Library of Congress; the topic index |
 | W7 Journeys | 5.4 | from a guide's places; openrouteservice |
-| W8 Find it | 3, 4 | names in guides resolved against the catalog |
+| W8 Find it | 3, 4 | names in guides resolved against the catalog; ✚ Gemini grounded search before paid web search |
 | W9 Landmarks and places on demand | 1–4 | the three protected levels; nations' land |
 | W10 Live events, W11 How-tos | 1–5 | official pages first |
-| W12 Search learning | 4.5 | searches feed the frontier |
+| W12 Search learning | 4.5 | searches feed the frontier; ✚ grounded search for gaps open data couldn't fill |
 | W13 Stories | 5.4 | person-written; names to Find it |
 
 ## 8. Mapping onto what exists (✚ added)
@@ -342,6 +397,8 @@ Railway and the sync.
 | `entities` and the identity database | listings, landmarks, outdoor places, topics, linked by identity records (0133) |
 | the manual review queue | Review and Listing Intake |
 | the API verification worker | the second look (`second_look`, `identity`, `places` tasks) |
+| ✚ open place datasets and licence registries | new bulk loads beside `npi_bulk`, `irs_bulk`, `rec_bulk` (e.g. an Overture load, a Foursquare load, a licence load per registry) |
+| ✚ Gemini | a new provider in `AiClient` (beside Claude, Google Document AI and AWS) and a service in the register |
 
 ## 9. Decisions for Jason
 
@@ -355,9 +412,24 @@ Railway and the sync.
    underneath (suggested)?
 6. **OpenCorporates:** accept its terms (paid, or free with share-alike), or use only the state registries and our free
    anchors (suggested)?
+7. ✚ **Gemini (Google AI Studio):** free tier only at first, no billing linked (suggested), for bulk extraction of public
+   pages and grounded search for leads; Claude kept for writing and anything private. When its daily allowance runs out:
+   wait (suggested) or fall back to Claude Haiku?
+8. ✚ **Establishing businesses without a website** (§3.5, amends W1's gate): a licence alone, or two agreeing independent
+   sources with at least one an open dataset or licence (suggested), with "Not yet confirmed by the business" shown until
+   the owner claims it?
+9. ✚ **Open place datasets:** adopt Overture and Foursquare's open data as corroboration, once their licences are
+   confirmed (suggested)?
+10. ✚ **The rural research test** (§10): run it now, and which towns (suggested: Kayenta, St. Johns, Springerville)?
 
 ## 10. Next
 
 Once §9 is settled: this becomes the amendment to 0133; 0163 is updated to match; Jason approves both; then the build is
 planned in stages (each a release he approves), starting with what the switches and the service check already give us.
 The crawler stays paused until then.
+
+✚ **Can run before the build, on Jason's go (Decision 10):** the rural research test (§1.5): a small session, no change to
+the live site, nothing paid. It compares, for the chosen towns and a few kinds of business, what OpenStreetMap, Overture,
+Foursquare's open data, the state licence lookups, Gemini grounded search (only if a Gemini key exists, within the free
+allowance) and our current listings find; confirms each source's licence terms; and reports how many real businesses each
+mix would establish without a website.
