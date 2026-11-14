@@ -64,7 +64,21 @@ what's published.
 It keeps two shared memories every workflow uses: the **source register** (which sites, read or cite only, their terms and
 trust) and the **place store** (every place named on a page we read, with its page).
 
-## 4. From a find to a listing: the six steps (W1)
+## 4. The six phases (decisions/0133, the rule book for the crawler and what it feeds)
+
+Every task above serves one of these phases. Phases 1 and 2 are always-on automation within the guardrails; configuration
+starts at Phase 3.
+
+| Phase | What it does | The tasks and parts that do it |
+|---|---|---|
+| 1. Source building (index) | Find and catalog every repository of real information in our areas (places' own sites; city, county, state, tribal and federal sites; registries), each with a dossier entry: what it covers, who made it, how credible, its terms. Public pages only, robots.txt obeyed | `source`, `commoncrawl`, the source register; the page log (every page read, decisions/0157 §1) |
+| 2. Extraction (page) | Turn pages and files into facts: code first (structured data, registries, tables, about 80%, free), boilerplate stripped, AI (Haiku) only for the narrative remainder | reading a page (decisions/0157 §2), the place store, `heritage`, the bulk loads |
+| 3. Vetting and configuration | Cross-check against official registries and our own index; identity and duplicates; privacy and the protected-information tiers; which areas and themes come first | `second_look`, `identity`, `places`, `geocode`, the W1 gate and Review |
+| 4. The catalog (research) | Every vetted fact in our own record, with its source: listings, landmarks, outdoor places, the Human Record, the Living Landscape, dossiers and research briefs, the Topic index. Gaps in the catalog drive the crawler | `coverage`, `targets`, `learn` (gaps), dossiers and research briefs |
+| 5. Publishing | Writing from the catalog (guides, journeys, stories), behind the rule-based gates and the protected-information standard; freshness shown | guides on the site (Claude), `howto` |
+| 6. Content maintenance | A loop back through Phases 1–3 that keeps what's published true: clocks (listings monthly to quarterly, guides 30 days…), events that start a check; Refresh, Renew or Review | `refresh`, the page log's revisits, guide checks |
+
+## 5. From a find to a listing (W1, inside those phases)
 
 1. **Find leads:** open data by kind and town (OpenStreetMap, Wikidata, NPI…), or a place named on a page we read.
 2. **Check each lead's own website.**
@@ -75,7 +89,7 @@ trust) and the **place store** (every place named on a page we read, with its pa
 6. **Publish, or send to Review.** One source can establish a listing, and a government page by itself; the listing is
    then vetted continuously (Jason, 2026-11-13).
 
-## 5. How often each outside service is called
+## 6. How often each outside service is called
 
 | Service | Who calls it | Limit |
 |---|---|---|
@@ -93,7 +107,7 @@ to every service passes the same check first: a server that has banned us, refus
 until its status check answers normally or a person marks it resolved (then it returns by itself at half budget for two
 weeks); a busy or slow one is skipped until its wait is over.
 
-## 6. Coming (approved 2026-11-14, being built)
+## 7. Coming (approved 2026-11-14, being built)
 
 - `overpass-api.de` back on both lists, held by its open ban; the check before use is the only gate, and it returns by
   itself when its daily status check answers 200.
