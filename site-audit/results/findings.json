@@ -1,14 +1,14 @@
 {
  "version": 1,
- "generated_at": "2026-11-14T07:17:18Z",
- "run_url": "https://github.com/degraffics/traversence/actions/runs/43471260516",
+ "generated_at": "2026-11-14T10:29:30Z",
+ "run_url": "https://github.com/degraffics/traversence/actions/runs/43584534958",
  "site": "https://traversence.com",
  "counts": {
-  "open": 7,
+  "open": 8,
   "blocking": 0,
   "by_kind": {
    "path": 3,
-   "page": 1,
+   "page": 2,
    "code": 0,
    "cost": 3
   }
@@ -38,31 +38,7 @@
    "verdict": "fix, to check in the build",
    "decided": true,
    "first_seen": "2026-11-12T17:55:55Z",
-   "last_seen": "2026-11-14T07:17:18Z"
-  },
-  {
-   "id": "f-94096ee17b",
-   "who": [
-    "guest"
-   ],
-   "paths": [
-    "guide:town:68"
-   ],
-   "page": "/listing/view.php?id=9026",
-   "shot_url": "",
-   "kind": "path",
-   "rule": "J02",
-   "title": "Not accurate: Subway's page says closed; our data says Open · Closes 8:30 PM",
-   "detail": "On the path \"Follow the Laguna Beach, CA guide\".",
-   "severity": "update",
-   "sig": "1ea7e0d5b377cb50",
-   "blocks": 0,
-   "proposal": "",
-   "proposal_url": "",
-   "verdict": "",
-   "decided": false,
-   "first_seen": "2026-11-13T17:29:44Z",
-   "last_seen": "2026-11-14T07:17:18Z"
+   "last_seen": "2026-11-14T10:29:30Z"
   },
   {
    "id": "f-c9499ea13e",
@@ -76,17 +52,41 @@
    "shot_url": "",
    "kind": "path",
    "rule": "V06",
-   "title": "A surprise: the page jumps as it loads (layout shift 0.54)",
+   "title": "A surprise: the page jumps as it loads (layout shift 0.51)",
    "detail": "On the path \"Search with a typo (\"swiming\")\".",
    "severity": "update",
-   "sig": "e639f30abcebfc28",
+   "sig": "aed3121fb69765d4",
    "blocks": 0,
    "proposal": "",
    "proposal_url": "",
    "verdict": "",
    "decided": false,
    "first_seen": "2026-11-13T17:29:44Z",
-   "last_seen": "2026-11-14T07:17:18Z"
+   "last_seen": "2026-11-14T10:29:30Z"
+  },
+  {
+   "id": "f-e156f08ca2",
+   "who": [
+    "guest"
+   ],
+   "paths": [
+    "town-guide"
+   ],
+   "page": "/hub/?town=phoenix-az-2",
+   "shot_url": "",
+   "kind": "path",
+   "rule": "V06",
+   "title": "A surprise: the page jumps as it loads (layout shift 0.53)",
+   "detail": "On the path \"Read a town's guide\".",
+   "severity": "update",
+   "sig": "ad2acc524a166801",
+   "blocks": 0,
+   "proposal": "",
+   "proposal_url": "",
+   "verdict": "",
+   "decided": false,
+   "first_seen": "2026-11-14T10:29:30Z",
+   "last_seen": "2026-11-14T10:29:30Z"
   },
   {
    "id": "f-1c27e3f60f",
@@ -97,16 +97,16 @@
    "kind": "cost",
    "rule": "D03",
    "title": "A scheduled job isn't running cleanly: guide_live_tick",
-   "detail": "89 failed today. Last ran 2026-11-13 10:15:02 (site time).",
+   "detail": "22 failed today. Last ran 2026-11-14 03:15:02 (site time).",
    "severity": "update",
-   "sig": "5aa25aac0a55d73e",
+   "sig": "e462942e06054e4f",
    "blocks": 0,
    "proposal": "P7",
    "proposal_url": "https://github.com/degraffics/traversence/blob/main/site-audit/proposals.md#p7-guide-weather-and-roads-fails-nearly-every-run-verdict-fix-and-missing",
    "verdict": "fix, and missing",
    "decided": true,
    "first_seen": "2026-11-12T17:55:55Z",
-   "last_seen": "2026-11-14T07:17:18Z"
+   "last_seen": "2026-11-14T10:29:30Z"
   },
   {
    "id": "f-be75f4f580",
@@ -126,7 +126,7 @@
    "verdict": "fix, and missing",
    "decided": true,
    "first_seen": "2026-11-12T17:55:55Z",
-   "last_seen": "2026-11-14T07:17:18Z"
+   "last_seen": "2026-11-14T10:29:30Z"
   },
   {
    "id": "f-fc2b825837",
@@ -146,7 +146,7 @@
    "verdict": "",
    "decided": false,
    "first_seen": "2026-11-12T17:55:55Z",
-   "last_seen": "2026-11-14T07:17:18Z"
+   "last_seen": "2026-11-14T10:29:30Z"
   },
   {
    "id": "f-3ff207d9d1",
@@ -155,7 +155,7 @@
    ],
    "paths": [],
    "page": "/admin/market/gateways",
-   "shot_url": "https://github.com/degraffics/traversence/actions/runs/43471260516#artifacts",
+   "shot_url": "https://github.com/degraffics/traversence/actions/runs/43584534958#artifacts",
    "kind": "page",
    "rule": "V01",
    "title": "Sideways scroll at 390px: /admin/market/gateways",
@@ -168,7 +168,29 @@
    "verdict": "fix",
    "decided": true,
    "first_seen": "2026-11-13T15:09:52Z",
-   "last_seen": "2026-11-14T07:17:18Z"
+   "last_seen": "2026-11-14T10:29:30Z"
+  },
+  {
+   "id": "f-67aa8e62f6",
+   "who": [
+    "staff-executive"
+   ],
+   "paths": [],
+   "page": "/admin/config/services",
+   "shot_url": "https://github.com/degraffics/traversence/actions/runs/43584534958#artifacts",
+   "kind": "page",
+   "rule": "V01",
+   "title": "Sideways scroll at 390px: /admin/config/services",
+   "detail": "",
+   "severity": "update",
+   "sig": "029e15d72da15f89",
+   "blocks": 0,
+   "proposal": "",
+   "proposal_url": "",
+   "verdict": "",
+   "decided": false,
+   "first_seen": "2026-11-14T10:29:30Z",
+   "last_seen": "2026-11-14T10:29:30Z"
   }
  ]
 }

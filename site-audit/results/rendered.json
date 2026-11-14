@@ -1,12 +1,12 @@
 {
- "at": "2026-11-13T17:26:35.823Z",
+ "at": "2026-11-14T10:27:04.790Z",
  "site": "https://traversence.com",
- "run_url": "https://github.com/degraffics/traversence/actions/runs/43471260516",
+ "run_url": "https://github.com/degraffics/traversence/actions/runs/43584534958",
  "full": false,
  "signed_in": true,
  "pages": 364,
  "by": {
-  "scroll": 1
+  "scroll": 2
  },
  "results": [
   {
@@ -5489,13 +5489,24 @@
    "console": [],
    "requests": [],
    "dialogs": [],
-   "scroll": false,
+   "scroll": true,
    "edges": 0,
    "alt": 0,
    "names": 0,
    "final": "/admin/config/services",
-   "eg": {},
-   "why": []
+   "eg": {
+    "scroll": [
+     "528px: <a href=\"/admin/config/workflows\"><svg class=\"ak-svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"3\"></circle><path d=\"M19.4 15a1.65 1.65 0 ",
+     "528px: <a href=\"/admin/config/permissions\"><svg class=\"ak-svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z\"></path></svg>",
+     "405px: <span>Data separation</span>"
+    ]
+   },
+   "why": [
+    [
+     "scroll",
+     ""
+    ]
+   ]
   },
   {
    "who": "staff-executive",
