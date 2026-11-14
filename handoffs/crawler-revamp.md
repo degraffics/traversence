@@ -5,6 +5,14 @@ We need to initialize a revamp of the entire crawler management system. This rev
 crawler by workflow and properly addressing each concern, conforming to our new standards, and assimilating old data into
 current fresh and accurate data."
 
+> **PAUSED (Jason, 2026-11-14 ~15:55 UTC): the Railway crawler is off until he has reviewed
+> `research/crawler-how-it-runs-2026-11-14.md` and `decisions/0163` and says to resume.** The `traversence` service's
+> cron was removed through Railway's API (instance `cronSchedule` null, was `*/5 * * * *`). `workers/crawler/railway.json`
+> still says `*/5 * * * *`, so **any deploy of the worker restores the schedule**: don't merge a change under
+> `workers/crawler/` until Jason says resume. To resume: set the cron back (API `serviceInstanceUpdate`, or Railway →
+> traversence → Settings → Cron Schedule) or deploy the worker. The website's own workflows (W4, W5, W7, W8, W10) and
+> its OpenStreetMap calls are not paused.
+
 For the Claude session that carries the revamp. It was written by the session that vetted the crawler. Read this, then:
 - `decisions/0160` (the design: one crawler service, configured by each workflow's capture tasks; the 13 workflows
   W1–W13 start to finish);
