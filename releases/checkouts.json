@@ -206,6 +206,50 @@
    "expires": "2026-11-14T17:41:09Z",
    "release": "migration-safety_20261114.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/DbCopies.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jMUt9pWN6nUfCFGaz",
+   "why": "Migrations at publish, copies first, leftovers after rollback (Jason 2026-11-14)",
+   "since": "2026-11-14T13:41:14Z",
+   "expires": "2026-11-14T17:41:14Z",
+   "release": "migration-safety_20261114.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/SchemaUpkeep.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jMUt9pWN6nUfCFGaz",
+   "why": "Migrations at publish, copies first, leftovers after rollback (Jason 2026-11-14)",
+   "since": "2026-11-14T13:41:14Z",
+   "expires": "2026-11-14T17:41:14Z",
+   "release": "migration-safety_20261114.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Releases.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jMUt9pWN6nUfCFGaz",
+   "why": "Migrations at publish, copies first, leftovers after rollback (Jason 2026-11-14)",
+   "since": "2026-11-14T13:41:14Z",
+   "expires": "2026-11-14T17:41:14Z",
+   "release": "migration-safety_20261114.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/DbUpdates.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jMUt9pWN6nUfCFGaz",
+   "why": "Migrations at publish, copies first, leftovers after rollback (Jason 2026-11-14)",
+   "since": "2026-11-14T13:41:14Z",
+   "expires": "2026-11-14T17:41:14Z",
+   "release": "migration-safety_20261114.zip",
+   "callers": {}
   }
  ],
  "lapsed": []
