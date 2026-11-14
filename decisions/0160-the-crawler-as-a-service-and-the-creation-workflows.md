@@ -343,4 +343,6 @@ overpass-api.de 406). The worker counts every request it sends by host; the site
 (`OutsideServices::serviceOfHost`, the cards' `HOSTS`) and keeps the counts per run and task, so a service's card shows
 its calls and failures for the last 24 hours and the month, and its last error, from the crawler's own log. Businesses'
 and sources' own websites are counted together as "websites we read", never one by one. Until that release is live, a
-card shows the tasks that call it (their last outcome) and the ledger's paid calls.
+card shows the tasks that call it (their last outcome) and the ledger's paid calls. Built: worker 2.4 (`calls_of`, every `urlopen` counted by host and task, sent as each item's `calls` and the run's
+own) and `outside-services-calls_20261114.zip` (`crawl_service_calls`, kept 90 days; `CrawlService::calls`; the cards'
+"The crawler → <host>" lines). The site's own calls to a service aren't counted yet.
