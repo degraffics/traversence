@@ -12,14 +12,20 @@ current fresh and accurate data."
 > `workers/crawler/` until Jason says resume. To resume: set the cron back (API `serviceInstanceUpdate`, or Railway →
 > traversence → Settings → Cron Schedule) or deploy the worker. The website's own workflows (W4, W5, W7, W8, W10) and
 > its OpenStreetMap calls are not paused. **Since release #48 (2026-11-14 17:57 UTC) they are:** the automation switches
-> shipped with the master paused (`decisions/0163` §9), and nothing resumes before 0163 §10's readiness check.
+> shipped with the master paused (`decisions/0163` §9), and nothing resumes before 0163 §10's switch-on check.
+>
+> **ACCEPTED (Jason, 2026-11-14: "all approved"): `decisions/0163` and `decisions/0164`**, with 0164 §14 settled and no
+> shadow mode. Listings are public once past the "real business" floor, at their confidence (0164 §3.5; the
+> collaborative score feeds confidence, weights in 0163 §12); closure signals lower confidence and ask "Still open?",
+> never label Closed (0164 R12). **The crawler and the automation stay paused** until the build stages (0163 §8, stages
+> 2–11) and the switch-on check are done and Jason switches them on. Build from 0163 §8, one stage per release.
 
 For the Claude session that carries the revamp. It was written by the session that vetted the crawler. Read this, then:
 - `decisions/0160` (the design: one crawler service, configured by each workflow's capture tasks; the 13 workflows
   W1–W13 start to finish);
 - `research/crawler-review-2026-11-13.md` (every defect, with file and line, and fix numbers A1–F27);
 - `decisions/0164` (the Knowledge Engine: the rule book R1–R19 it took over from `decisions/0133`, the phases, the
-  workflows W1–W14), with `decisions/0163` (operations: switches, budgets, caps, the readiness check) underneath.
+  workflows W1–W14), with `decisions/0163` (operations: switches, budgets, caps, the switch-on check) underneath; both accepted 2026-11-14.
 
 **Jason works mostly from his phone.** Keep his steps short, send each zip as a file, and check the decisions before
 asking him anything (he has answered a lot already: see "Decided" below).
