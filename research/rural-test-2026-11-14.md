@@ -11,10 +11,10 @@ licence route couldn't be tested here (the network blocks it) and doesn't reach 
 
 **Run 2, in one line** (§8 below, same day, with the access set up): of 264 businesses in the six kinds, 130 have a
 website (route 1) and **NPI alone establishes 34** of the 134 without one, all health care (§12 C3; about half of
-Kayenta's are back offices or departments, not places to visit). **The collaborative score establishes none**: not one
-no-website business is in two independent free sources, so the best score is 25. The Arizona licence sites can't be
-used (Cloudflare challenges; TPT checks only a licence number, behind a CAPTCHA). Gemini's free key has **no grounding
-allowance**. From memory it gets 55% of businesses right but only 30% of phones, so it **can't be a finder**. OSM's
+Kayenta's are back offices or departments, not places to visit). **The collaborative score (run 1's 60) establishes
+none**: not one no-website business is in two independent free sources, so the best score is 25. Under 0164's revised
+floor, 75 go public at one witness's confidence. The Arizona licence sites can't be used (Cloudflare challenges; TPT checks only a licence number, behind a CAPTCHA). Gemini's free key has **no grounding
+allowance**. From memory it gets 55% of businesses right but only 15% of phones, so it **can't be a finder**. OSM's
 mirrors were too busy to answer. **Our site lists nothing in Kayenta.**
 
 ---
@@ -369,6 +369,13 @@ towns, 21 are in no open source. Our listings are older bulk imports: their cate
   page, which run 1 showed includes wrong towns and non-businesses. **The free sources can't reach 60 for these
   businesses. Only witnesses we couldn't run here can: Google Places, grounded directory pages, a chamber.**
 - **Gemini's role as a finder: none established.** Its leads score 0 by design, and ungrounded it has no page to cite.
+- **Under 0164 as revised the same day** (§3.5: "confidence, not restriction", no threshold; the score feeds the
+  confidence shown, and a find is public once it has a real name and a keepable address or phone): **75 of the 134 pass
+  the floor** from Overture or NPI (Kayenta 16, St. Johns 25, Springerville/Eagar 34; 5 of them under 0.5 Overture
+  confidence). 19 are already ours only (St. Johns 8, Springerville/Eagar 11). **36 are known only to Gemini** and stay
+  unlisted (nothing keepable; R13). 4 have no address or phone and stay sightings. On the confidence scale, all 75 sit
+  at one witness (20–25), below what two agreeing sources give. The table's "score ≥ 60" column reads as "how many reach
+  the confidence of three agreeing sources": none.
 
 ### 8.8 Gemini's accuracy (ungrounded, from memory)
 
@@ -392,12 +399,14 @@ towns, 21 are in no open source. Our listings are older bulk imports: their cate
 
 ### 8.9 Revised recommendation for §3.5 (for Jason's approval)
 
-**Keep threshold 60 and run 1's weights, with three changes:**
+0164 as revised (§3.5, 0163 §12) makes the score feed confidence, not a gate, and starts its weights from run 1's
+proposal "tuned by its Run 2". So these are the **weights** to set. Read 60 as the confidence band where machine
+evidence counts as strong (still below green, R12). **Run 1's weights, with three changes:**
 
 | Change | Why (this run) |
 |---|---|
-| **Google Places: 40 when it agrees on the phone, 30 on the address only** (was 30) | No no-website business has a second free source, so the realistic proof is its Facebook page plus Google. Facebook (20) + Google on the phone (40) = 60 establishes; a looser address-only match (50) still waits for a third source |
-| **NPI keeps "alone establishes" (§12 C3), with two guards:** departments fold into their parent, and non-public kinds (air ambulance, home care, residential treatment, VA registrations) go to Review | 34 established, but about half of Kayenta's aren't places to visit |
+| **Google Places: 40 when it agrees on the phone, 30 on the address only** (was 30) | No no-website business has a second free source, so the realistic proof is its Facebook page plus Google. Facebook (20) + Google on the phone (40) = 60, the strong band; a looser address-only match (50) sits below it |
+| **NPI keeps "alone establishes" (§12 C3), with two guards:** departments fold into their parent, and non-public kinds (air ambulance, home care, residential treatment, VA registrations) are kept as records but not shown as places to visit | 34 established, but about half of Kayenta's aren't places to visit |
 | **Gemini ungrounded: 0, and never run as a finder**; grounded leads stay 0 themselves (their cited page scores by its class) | 55% of businesses right, 15% of phones; repeated invented numbers |
 
 **Unchanged:** Facebook 20; another open-dataset origin 20; business-managed or filings-built 25; directory found by
@@ -409,8 +418,8 @@ businesses in the Apache County towns are only there, worth Google's check.
 1. Overture as the base layer (unchanged).
 2. **NPI by town** for health care, with the two guards (free, no key, already reachable).
 3. **Google Places' check** for no-website businesses that have a phone (Facebook-only, ours-only): about 100 calls for
-   these three towns (~$3 within the paced budget), which run 1 and this run show is the one witness that can complete
-   their score.
+   these three towns (~$3 within the paced budget), which run 1 and this run show is the one witness that can lift
+   them from one witness's confidence to the strong band.
 4. **Grounded search** only once a grounding allowance exists. This key's free tier has none on any current model, and
    paying for it is a spending decision (R19, "no income, no expense") for Jason.
 5. **Licences:** allow `arizonabusinesscenter.azcc.gov` and read its terms. Ask DLLC, ROC and Apache County for their
