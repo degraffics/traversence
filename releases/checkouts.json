@@ -8,8 +8,8 @@
    "session": "session_01CXLi5ikaAYTSrHS6AnPpWB",
    "why": "Data cleanup, step 2: act by rule, ledger and Undo, Pulse case (decisions/0163 \u00a78 stage 1b)",
    "since": "2026-11-14T23:43:54Z",
-   "expires": "2026-11-15T03:43:54Z",
-   "release": "data-cleanup-act",
+   "expires": "2026-11-15T03:44:25Z",
+   "release": "data-cleanup-act_20261114.zip",
    "callers": {}
   },
   {
@@ -19,8 +19,8 @@
    "session": "session_01CXLi5ikaAYTSrHS6AnPpWB",
    "why": "Data cleanup, step 2: act by rule, ledger and Undo, Pulse case (decisions/0163 \u00a78 stage 1b)",
    "since": "2026-11-14T23:43:54Z",
-   "expires": "2026-11-15T03:43:54Z",
-   "release": "data-cleanup-act",
+   "expires": "2026-11-15T03:44:25Z",
+   "release": "data-cleanup-act_20261114.zip",
    "callers": {}
   },
   {
@@ -32,8 +32,8 @@
    "session": "session_01CXLi5ikaAYTSrHS6AnPpWB",
    "why": "Data cleanup, step 2: act by rule, ledger and Undo, Pulse case (decisions/0163 \u00a78 stage 1b)",
    "since": "2026-11-14T23:43:54Z",
-   "expires": "2026-11-15T03:43:54Z",
-   "release": "data-cleanup-act",
+   "expires": "2026-11-15T03:44:25Z",
+   "release": "data-cleanup-act_20261114.zip",
    "callers": {}
   },
   {
@@ -45,8 +45,8 @@
    "session": "session_01CXLi5ikaAYTSrHS6AnPpWB",
    "why": "Data cleanup, step 2: act by rule, ledger and Undo, Pulse case (decisions/0163 \u00a78 stage 1b)",
    "since": "2026-11-14T23:43:54Z",
-   "expires": "2026-11-15T03:43:54Z",
-   "release": "data-cleanup-act",
+   "expires": "2026-11-15T03:44:25Z",
+   "release": "data-cleanup-act_20261114.zip",
    "callers": {
     "peekOutdoors": [
      "website/api/search.php"
@@ -62,8 +62,8 @@
    "session": "session_01CXLi5ikaAYTSrHS6AnPpWB",
    "why": "Data cleanup, step 2: act by rule, ledger and Undo, Pulse case (decisions/0163 \u00a78 stage 1b)",
    "since": "2026-11-14T23:43:54Z",
-   "expires": "2026-11-15T03:43:54Z",
-   "release": "data-cleanup-act",
+   "expires": "2026-11-15T03:44:25Z",
+   "release": "data-cleanup-act_20261114.zip",
    "callers": {
     "card": [
      "website/api/tag-card.php"
@@ -77,8 +77,8 @@
    "session": "session_01CXLi5ikaAYTSrHS6AnPpWB",
    "why": "Data cleanup, step 2: act by rule, ledger and Undo, Pulse case (decisions/0163 \u00a78 stage 1b)",
    "since": "2026-11-14T23:43:58Z",
-   "expires": "2026-11-15T03:43:58Z",
-   "release": "data-cleanup-act",
+   "expires": "2026-11-15T03:44:25Z",
+   "release": "data-cleanup-act_20261114.zip",
    "callers": {}
   },
   {
@@ -88,8 +88,8 @@
    "session": "session_01CXLi5ikaAYTSrHS6AnPpWB",
    "why": "Data cleanup, step 2: act by rule, ledger and Undo, Pulse case (decisions/0163 \u00a78 stage 1b)",
    "since": "2026-11-14T23:43:58Z",
-   "expires": "2026-11-15T03:43:58Z",
-   "release": "data-cleanup-act",
+   "expires": "2026-11-15T03:44:25Z",
+   "release": "data-cleanup-act_20261114.zip",
    "callers": {}
   },
   {
@@ -99,8 +99,8 @@
    "session": "session_01CXLi5ikaAYTSrHS6AnPpWB",
    "why": "Data cleanup, step 2: act by rule, ledger and Undo, Pulse case (decisions/0163 \u00a78 stage 1b)",
    "since": "2026-11-14T23:43:58Z",
-   "expires": "2026-11-15T03:43:58Z",
-   "release": "data-cleanup-act",
+   "expires": "2026-11-15T03:44:25Z",
+   "release": "data-cleanup-act_20261114.zip",
    "callers": {}
   },
   {
@@ -110,8 +110,8 @@
    "session": "session_01CXLi5ikaAYTSrHS6AnPpWB",
    "why": "Data cleanup, step 2: act by rule, ledger and Undo, Pulse case (decisions/0163 \u00a78 stage 1b)",
    "since": "2026-11-14T23:43:58Z",
-   "expires": "2026-11-15T03:43:58Z",
-   "release": "data-cleanup-act",
+   "expires": "2026-11-15T03:44:25Z",
+   "release": "data-cleanup-act_20261114.zip",
    "callers": {}
   },
   {
@@ -121,8 +121,8 @@
    "session": "session_01CXLi5ikaAYTSrHS6AnPpWB",
    "why": "Data cleanup, step 2: act by rule, ledger and Undo, Pulse case (decisions/0163 \u00a78 stage 1b)",
    "since": "2026-11-14T23:43:58Z",
-   "expires": "2026-11-15T03:43:58Z",
-   "release": "data-cleanup-act",
+   "expires": "2026-11-15T03:44:25Z",
+   "release": "data-cleanup-act_20261114.zip",
    "callers": {}
   }
  ],
