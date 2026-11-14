@@ -1,9 +1,11 @@
 # Hand-off: build decisions/0159, the builder
 
-## 0. Where the build stands (2026-11-14 13:05 UTC; start here)
+## 0. Where the build stands (2026-11-14 13:25 UTC; start here)
 
-**5b built and sent, waiting for Jason's OK to merge** (the session that started 5b at 12:50 UTC; built on Sync 2026-11-14
-00:58 UTC): `themes5b_20261114.zip` in `releases/inbox/` (branch `claude/storefront-5b`). Files: `app/lib/Storefront.php`
+**5b is live and verified byte for byte: release #42 `themes5b_20261114` (Sync 2026-11-14 13:21 UTC).** Next: **5c**,
+commerce blocks (they'll read the same `--tvb-*` variables, so they take the theme). Not yet tried live: a picture
+upload into a business's Gallery from the builder; the themed builder in the real portal (tested locally only).
+5b (built on Sync 00:58 UTC, PR #635): Files: `app/lib/Storefront.php`
 (`THEME_STYLE`: each theme's heading font, button and section corners, two named panels; `style()`, `blockVars()`),
 `app/lib/Blocks.php` (the kit reads `--tvb-*` CSS variables with the brand's look as defaults, so our pages don't change;
 shop zones set them: `zone()` adds `tvb-themed` and the theme's page color in the portal, `shop()` on trvgo.us;
@@ -13,8 +15,7 @@ shop zones set them: `zone()` adds `tvb-themed` and the theme's page color in th
 `app/ui/faq.md` ("Do my storefront's pages follow my theme?" before "Can I put my storefront on my own domain?", and 5a's
 "Coming next" now starts at blocks for selling). Tested: 33 DB checks (MariaDB; panels, accent, our pages untouched,
 contrast of every panel), each theme's page rendered by the real `tv_storefront_serve` at 390px and 1100px (no sideways
-scroll), the portal's themed zone. After Jason's OK: merge, wait for "Release #N: Live", run the sync, check byte for
-byte, `deliveries.py verify`. **Next: 5c**, commerce blocks (they'll read the same variables, so they take the theme).
+scroll), the portal's themed zone. 
 
 ### Written 01:00 UTC
 
