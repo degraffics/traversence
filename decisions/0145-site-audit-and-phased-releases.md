@@ -212,6 +212,12 @@ for Jason.
 - **Add-only database changes within a release.** New tables and columns only; never a drop or rename in the same
   release. Removals come in a later release once the first has proven itself. The previous version always runs on the
   new database, so a rollback never loses data.
+
+  **Amendment (Jason, 2026-11-14, decisions/0162):** migrations run as Publish's first step, before the files go live, and
+  a failure stops the publish; every migration's tables are copied first (14 days, Restore on Database updates); one that
+  changes rows needs a `data_reason`; what a rolled-back release's migrations made is tracked as its leftovers and removed
+  by a later release that names them under `removes`, once Jason approves. "Never undone" becomes: add-only, copied first,
+  leftovers tracked and removed by release.
 - **Staging is a full copy** at `staging.trvgo.us` (Jason, 2026-11-06), with its own database:
   - refreshed from live with personal details stripped;
   - email held back;
