@@ -30,7 +30,7 @@ CODE_BLOCKING = {'R01', 'R02', 'R03', 'R04', 'R06', 'R08'}   # the zip check blo
 CODE_WORD = {'R01': 'calls to functions that no longer exist', 'R02': 'browser dialogs (alert, confirm, prompt)', 'R03': 'uploads outside the one uploader',
              'R04': 'PHP the server can\'t run', 'R05': 'pages without the session or account bar', 'R06': 'FAQ links to questions that don\'t exist',
              'R07': 'endpoints that change things without the security token', 'R08': 'migrations not safe to run twice', 'R09': 'pages in neither site-audit/pages.md nor archive.md',
-             'R10': 'emoji where the brand\'s icons belong', 'R11': 'breadcrumbs on content pages'}
+             'R10': 'emoji where the brand\'s icons belong', 'R11': 'breadcrumbs on content pages', 'R12': 'outside services the code calls with no card in Outside services'}
 
 
 def load(name, default):
