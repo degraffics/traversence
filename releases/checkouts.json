@@ -162,6 +162,40 @@
    "expires": "2026-11-14T18:56:30Z",
    "release": "service-health3_20261114.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/Pulse.php",
+   "functions": [
+    "manage"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5jMUt9pWN6nUfCFGaz",
+   "why": "Release 2 of decisions/0162: Pulse cases for leftovers and unused schema, monthly check",
+   "since": "2026-11-14T15:00:10Z",
+   "expires": "2026-11-14T19:00:10Z",
+   "release": "migration-safety2_20261114.zip",
+   "callers": {
+    "manage": [
+     "website/admin/api/pulse.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/Scheduler.php",
+   "functions": [
+    "sync"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5jMUt9pWN6nUfCFGaz",
+   "why": "Release 2 of decisions/0162: Pulse cases for leftovers and unused schema, monthly check",
+   "since": "2026-11-14T15:00:10Z",
+   "expires": "2026-11-14T19:00:10Z",
+   "release": "migration-safety2_20261114.zip",
+   "callers": {
+    "sync": [
+     "app/admin/sections.php"
+    ]
+   }
   }
  ],
  "lapsed": []
