@@ -1,0 +1,34 @@
+{
+ "zip": "service-health2_20261114.zip",
+ "built_on": "bd09bca Sync: 2026-11-14 13:59 UTC",
+ "recorded": "2026-11-14 14:02 UTC",
+ "note": "OpenStreetMap: daily budget (a quarter of the public limits) and a 3-month cache in Thresholds & gates (Jason 2026-11-14); built on Sync: 2026-11-14 13:59 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/OpenPlaces.php": {
+   "sha256": "3af97b65dbdca65a28550c726d11b5fc51f01f54d07ad9f81f9c8f4102fbac52",
+   "live": false
+  },
+  "app/lib/ServiceHealth.php": {
+   "sha256": "2cf5d6511d6b5629c41401e9c6c426f4fc1fcf88c005df578bb5fdddd715118b",
+   "live": false
+  },
+  "app/lib/Thresholds.php": {
+   "sha256": "f5924fec7fbb2671893f37ad5df8b157be58ea54e4fc8e9e5b7806e5bd303ee9",
+   "live": false
+  },
+  "app/lib/crawler/CrawlService.php": {
+   "sha256": "57171d40f3894f1374066bac58d597b685c0002427197e93634cca5878578eb1",
+   "live": false
+  },
+  "app/migrations/2026-11-14_osm_usage.sql": {
+   "sha256": "e1aace0c90fc3071303421e5c1eefcf301bc9337bc52642f932f87187857e7e4",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "841d3586f5fb6e1ccb444b1ded75e559556d4dc938cf7c246a8dd3ec3507935d",
+   "live": false
+  }
+ }
+}
