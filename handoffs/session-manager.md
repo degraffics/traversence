@@ -40,6 +40,13 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
 - Cost: on Max 5x ($100/month); `cost_usd` on sessions is API-rate equivalent, not a bill. Watch the 5-hour window.
   The archived "Get" session is 903K context (~$2,700 equivalent): read its record, don't wake it.
 
+## Paused (2026-11-14)
+
+- **The Railway crawler is paused** (Jason, ~15:55 UTC) until he has reviewed `research/crawler-how-it-runs-2026-11-14.md`
+  and `decisions/0163` (proposed) and says resume: cron removed through the API; `railway.json` still says every 5
+  minutes, so a worker deploy restarts it (details at the top of `handoffs/crawler-revamp.md`). No crawler or operations
+  session starts before his "approved". The hourly check expects no crawler runs meanwhile.
+
 ## Where things stand (2026-11-14, 12:45 UTC)
 
 - **Running:** nothing. Open: only the session manager and "Community Build".
