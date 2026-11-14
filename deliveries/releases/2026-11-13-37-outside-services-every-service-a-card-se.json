@@ -6,12 +6,12 @@
     "zip": "outside-services-all_20261114.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "planned",
+    "state": "approved",
     "step": 0,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
-    "plan_at": null,
+    "plan_at": "2026-11-14 00:17:42",
     "staged_at": null,
     "vetted_at": null,
     "live_at": null,
@@ -49,6 +49,16 @@
             "at": "2026-11-14T00:17:41+00:00",
             "by": 2,
             "msg": "Uploaded outside-services-all_20261114.zip: 5 files."
+        },
+        {
+            "at": "2026-11-14T00:17:42+00:00",
+            "by": 2,
+            "msg": "Came from git: releases/inbox/outside-services-all_20261114.zip (git 702991b934)."
+        },
+        {
+            "at": "2026-11-14T00:17:42+00:00",
+            "by": 2,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
         }
     ]
 }
