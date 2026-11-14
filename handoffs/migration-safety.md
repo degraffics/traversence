@@ -29,21 +29,14 @@ release goes out?"), `app/data/decisions-index.php` (regenerated, adds 0162 and 
 
 State: **live** as release #45 (2026-11-14 14:57 UTC), mirror verified byte for byte at Sync 14:59 UTC; delivery log live, claims released.
 
-## Release 2: `migration-safety2_20261114.zip` (code written, waiting on `Pulse.php`)
+## Release 2: `migration-safety2_20261114.zip` (built on Sync 15:21 UTC, sent; waiting for Jason's OK to merge)
 
-Written and tested (MariaDB); the draft is `handoffs/migration-safety-pending/SchemaUpkeep.php.txt` (start from the live copy and re-apply): `SchemaUpkeep` gains `scanUnused()`, `scanDue()`, `unused()`,
-`pulseItems()`, `pulseSteps()`, `pulseKeep()` (hex-encoded key in the `do` action), `kept_unused`. Claimed:
-`Pulse.php::manage`, `Scheduler.php::sync`. Waiting: `Pulse::items` and `playbook` are claimed by the crawler session for
-`service-health3_20261114.zip`; once that's live and synced, rebuild on the live `Pulse.php` and send. If this session
-has stopped, a fresh one re-applies the list below on the live files.
-
-- Pulse: one case `schema:leftovers` (due leftovers, a step each: **Keep it** as a `do` button; removal is a release
-  Claude builds, so its step says so and gives the drop) and one `schema:unused` (monthly scan). Wire into
-  `Pulse::items`, `playbook`, `manage` (all three were claimed by the crawler session).
-- Monthly unused-schema scan: `SchemaUpkeep::scanUnused()` from `Scheduler::sync` when the last scan is over 30 days old:
-  identifiers in the live `app/`, `website/`, `trvgo/` code vs. the schema of main and the realms; result in
-  `app/storage/schema/unused.json`; `removable()` then includes it.
-- FAQ: drop "(a Pulse case for it is coming)".
+Files: `app/lib/SchemaUpkeep.php` (`scanUnused()`, `scanDue()`, `unused()`, `pulseItems()`, `pulseSteps()`, `pulseKeep()`,
+`kept_unused`; `removable()` includes the scan's items), `app/lib/Pulse.php` (`items`: the `schema:leftovers` and
+`schema:unused` cases; `playbook`: `case 'schema'`; `manage`: `schema_keep:<hex key>` → Keep it), `app/lib/Scheduler.php`
+(`sync`: the scan when the last is over 30 days old), `app/ui/faq.md` (the entry's "coming" made current). Tested on
+MariaDB (built names like `crawl_` + $x count as used). After it's live: run the sync, check byte for byte, release the
+claims, and the build is done.
 
 ## Notes
 
