@@ -161,8 +161,8 @@ A structural pre-scan in milliseconds before any deep extraction or token spend:
 - **Tables and registries:** `<table>`, `<dl>`, CSV and JSON endpoints into key-value rows.
 - **Patterns:** US phones (E.164), street addresses (USPS form), ISO dates, opening hours.
 - **Business emails:** valid addresses in business contexts (contact pages, footers, headers, schema), including small
-  businesses using personal providers. ✎ **Kept as facts; whether one shows on a public listing is ? Decision 2** (our
-  rule: anything about a person is private unless they say otherwise).
+  businesses using personal providers. ✎ **Decision 2:** an email with a business contact present is kept and posted as
+  the listing's contact; a random email not tied to a contact is kept for Review and restricted.
 
 ### 2.3 Step 2: the narrative waterfall and long documents
 
@@ -236,7 +236,7 @@ Then, by field:
 - **Privacy:**
   - **Removed before storage:** Social Security numbers, financial accounts, private non-business home addresses
     (`[REDACTED_PII]`).
-  - **Business contacts:** kept as `PUBLIC_CONTACT` (personal emails per ? Decision 2).
+  - **Business contacts:** kept as `PUBLIC_CONTACT`; an email without a business contact beside it is restricted until reviewed (Decision 2).
   - **People named in news or history:** `CONTEXTUAL_ATTRIBUTION`, kept for research briefs, never in a listing's contact
     fields.
 - ✎ **Protected places, three levels, not two** (0133, 0066):
@@ -262,9 +262,12 @@ Then, by field:
 A listing is established (published through the score) by any one of:
 1. **Its own website** naming it (as now).
 2. **A government licence or registry match** on name and address (as now: a government source alone).
-3. ✚ **Corroboration:** two independent sources that agree on the name plus the phone or the address, at least one of
-   them an open place dataset or a licence, the other any of: Google Places confirming it open, a Facebook page, a chamber
-   or tourism listing, OpenStreetMap, a Gemini lead with a cited page.
+3. ✚ **A collaborative source score** (Jason, 2026-11-14, Decision 8): independent sources that agree on the name plus
+   the phone or the address each add weight by their class (an open place dataset, Google Places confirming it open, a
+   Facebook page, a chamber or tourism listing, OpenStreetMap, a Gemini lead with a cited page); when their combined score
+   reaches the threshold, the listing is established **without a licence or website**. Sources count as independent only
+   when one isn't copied from another (two directories fed by the same dataset count once). The weights and threshold
+   are settings, tuned from the rural research test.
 4. **The owner** claiming it (a claim, a GO Code at the counter, a staff visit): the strongest proof, always above the rest.
 
 What it shows comes from the licence, the open datasets (credited) and the owner, never copied from Google. Until the
@@ -400,27 +403,32 @@ Railway and the sync.
 | ✚ open place datasets and licence registries | new bulk loads beside `npi_bulk`, `irs_bulk`, `rec_bulk` (e.g. an Overture load, a Foursquare load, a licence load per registry) |
 | ✚ Gemini | a new provider in `AiClient` (beside Claude, Google Document AI and AWS) and a service in the register |
 
-## 9. Decisions for Jason
+## 9. Decisions (Jason, 2026-11-14)
 
-1. **Page copies:** keep a fingerprint and the quoted snippet only (suggested), or store whole pages (where, at what
-   cost, and how cite-only sources' terms are kept)?
-2. **Personal emails** found on business contact pages: show them on listings, keep them internal, or show only once the
-   owner confirms (suggested)?
-3. **Stale records:** stay public with "last checked" (suggested), or are withheld?
-4. **Semantic search:** later, under its own budget (suggested), or now?
-5. **Where this lives:** an amendment replacing 0133's six phases (0133 stays the rule book), with 0163 as operations
-   underneath (suggested)?
-6. **OpenCorporates:** accept its terms (paid, or free with share-alike), or use only the state registries and our free
-   anchors (suggested)?
-7. ✚ **Gemini (Google AI Studio):** free tier only at first, no billing linked (suggested), for bulk extraction of public
-   pages and grounded search for leads; Claude kept for writing and anything private. When its daily allowance runs out:
-   wait (suggested) or fall back to Claude Haiku?
-8. ✚ **Establishing businesses without a website** (§3.5, amends W1's gate): a licence alone, or two agreeing independent
-   sources with at least one an open dataset or licence (suggested), with "Not yet confirmed by the business" shown until
-   the owner claims it?
-9. ✚ **Open place datasets:** adopt Overture and Foursquare's open data as corroboration, once their licences are
-   confirmed (suggested)?
-10. ✚ **The rural research test** (§10): run it now, and which towns (suggested: Kayenta, St. Johns, Springerville)?
+1. **Page copies:** a fingerprint and the quoted snippet only; no whole pages. *Accepted.*
+2. **Emails found on business pages** (Jason's rule): an email **with a business contact present** (a named contact
+   person, a contact section, schema `ContactPoint`, beside the business's phone or address) is kept **and posted** as the
+   listing's contact. A **random email not tied to a contact** is kept for Review and restricted (never shown) until a
+   person or the owner clears it. *Decided.*
+3. **Stale records** stay public with "last checked", withheld only on a real sign of closure. *Accepted.*
+4. **Semantic search:** Jason asked whether Railway, Git or Supabase can help. Answer: yes, as a **sidecar vector index**
+   beside MySQL (which stays the record): Postgres with `pgvector`, on **Supabase's free tier** to start (no cost; limits:
+   a small database, and free projects pause when idle) or on **Railway** (our existing platform, a few dollars a month).
+   Git can't host it. Embeddings from Gemini's free embedding model (public text only) or a small model on the Railway
+   worker (free). Built in a later stage, under its own budget. *Proposed, awaiting Jason's confirm.*
+5. **Where this lives:** a new ADR that **brings 0133's rule book into it**, with these phases; 0133 is closed and
+   pointed to it, and every older ADR whose content aligns gets a pointer to the new one. 0163 stays as operations
+   underneath. *Decided.*
+6. **OpenCorporates:** not used; the state registries and our free anchors instead. *Accepted.*
+7. **Gemini:** free tier only, no billing linked; bulk extraction of public pages and grounded search for leads; Claude for
+   writing and anything private; when the daily allowance runs out, the work **waits**. *Accepted.*
+8. **Businesses without a website or licence** (Jason): **a collaborative source score can also create a listing**: when
+   enough different, independent sources piece it together (an open dataset, Google confirming it open, a Facebook page, a
+   chamber or tourism listing, OpenStreetMap, a Gemini lead with a cited page), their combined score can establish it
+   without a licence or website. "Not yet confirmed by the business" shows until the owner claims it. *Decided* (§3.5).
+9. **Open place datasets:** Overture and Foursquare's open data adopted as corroboration, once their licences are
+   confirmed. *Accepted.*
+10. **The rural research test:** run now; Kayenta, St. Johns, Springerville. *Accepted.*
 
 ## 10. Next
 
