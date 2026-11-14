@@ -1,0 +1,14 @@
+{
+ "zip": "sitetopfix_20261114.zip",
+ "built_on": "166cff4 Sync: 2026-11-13 23:59 UTC",
+ "recorded": "2026-11-14 00:10 UTC",
+ "note": "Fix: the zone under the header sat inside the header bar (Jason's home-page screenshot on staging). Built on Sync: 2026-11-13 23:59 UTC. Sent through git (releases/inbox).",
+ "status": "live",
+ "live_in": "f34cf01 Sync: 2026-11-14 00:20 UTC",
+ "files": {
+  "app/ui/header.php": {
+   "sha256": "1239f78e3f59c2bb19c6e2981c73b0d6fd04629283220a8dcc1ac1a58fd41b00",
+   "live": true
+  }
+ }
+}

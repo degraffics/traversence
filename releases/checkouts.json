@@ -8,9 +8,39 @@
    "session": "session_01CXLi5gpdwLLGTQ51Ls56yQ",
    "why": "0159 step 5a: a business's pages as blocks (shop.<id> zones, Team perms)",
    "since": "2026-11-13T23:45:34Z",
-   "expires": "2026-11-14T03:45:34Z",
+   "expires": "2026-11-14T04:06:28Z",
    "release": "studio5a_20261113.zip",
-   "callers": {}
+   "callers": {
+    "zone": [
+     "website/index.php",
+     "website/pages/view.php"
+    ],
+    "can": [
+     "app/lib/upload-targets.php",
+     "website/api/blocks.php"
+    ],
+    "discard": [
+     "website/api/blocks.php"
+    ],
+    "publish": [
+     "website/api/blocks.php"
+    ],
+    "rollBack": [
+     "website/api/blocks.php"
+    ],
+    "saveDraft": [
+     "website/api/blocks.php"
+    ],
+    "schedule": [
+     "website/api/blocks.php"
+    ],
+    "state": [
+     "website/api/blocks.php"
+    ],
+    "unschedule": [
+     "website/api/blocks.php"
+    ]
+   }
   },
   {
    "path": "app/lib/SitePages.php",
@@ -21,7 +51,7 @@
    "session": "session_01CXLi5gpdwLLGTQ51Ls56yQ",
    "why": "0159 step 5a: a business's pages as blocks (shop.<id> zones, Team perms)",
    "since": "2026-11-13T23:45:34Z",
-   "expires": "2026-11-14T03:45:34Z",
+   "expires": "2026-11-14T04:06:28Z",
    "release": "studio5a_20261113.zip",
    "callers": {
     "save": [
@@ -38,7 +68,7 @@
    "session": "session_01CXLi5gpdwLLGTQ51Ls56yQ",
    "why": "0159 step 5a: header notes for the shop zones",
    "since": "2026-11-13T23:45:34Z",
-   "expires": "2026-11-14T04:06:08Z",
+   "expires": "2026-11-14T04:06:28Z",
    "release": "studio5a_20261113.zip",
    "callers": {}
   },
@@ -49,7 +79,7 @@
    "session": "session_01CXLi5gpdwLLGTQ51Ls56yQ",
    "why": "0159 step 5a: a business's pages as blocks (shop.<id> zones, Team perms)",
    "since": "2026-11-13T23:45:34Z",
-   "expires": "2026-11-14T03:45:34Z",
+   "expires": "2026-11-14T04:06:28Z",
    "release": "studio5a_20261113.zip",
    "callers": {}
   },
@@ -60,7 +90,7 @@
    "session": "session_01CXLi5gpdwLLGTQ51Ls56yQ",
    "why": "0159 step 5a: a business's pages as blocks (shop.<id> zones, Team perms)",
    "since": "2026-11-13T23:45:34Z",
-   "expires": "2026-11-14T03:45:34Z",
+   "expires": "2026-11-14T04:06:28Z",
    "release": "studio5a_20261113.zip",
    "callers": {}
   },
@@ -71,7 +101,7 @@
    "session": "session_01CXLi5gpdwLLGTQ51Ls56yQ",
    "why": "0159 step 5a: header notes for the shop zones",
    "since": "2026-11-13T23:45:34Z",
-   "expires": "2026-11-14T04:06:08Z",
+   "expires": "2026-11-14T04:06:28Z",
    "release": "studio5a_20261113.zip",
    "callers": {
     "tv_storefront_serve": [
@@ -88,7 +118,7 @@
    "session": "session_01CXLi5gpdwLLGTQ51Ls56yQ",
    "why": "0159 step 5a: a business's pages as blocks (shop.<id> zones, Team perms)",
    "since": "2026-11-13T23:45:34Z",
-   "expires": "2026-11-14T03:45:34Z",
+   "expires": "2026-11-14T04:06:28Z",
    "release": "studio5a_20261113.zip",
    "callers": {
     "tv_biz_storefront": [
@@ -103,52 +133,19 @@
    "session": "session_01CXLi5gpdwLLGTQ51Ls56yQ",
    "why": "0159 step 5a",
    "since": "2026-11-13T23:45:37Z",
-   "expires": "2026-11-14T03:45:37Z",
+   "expires": "2026-11-14T04:06:28Z",
    "release": "studio5a_20261113.zip",
    "callers": {}
   },
   {
-   "path": "app/lib/OutsideServices.php",
+   "path": "app/lib/StagingSite.php",
    "functions": [],
    "kind": "change",
-   "session": "session_01CXLi5kDaPxCn3ENUXa7SqF",
-   "why": "Outside services: every service a card, linked sections, searchable (Jason approved 2026-11-13)",
-   "since": "2026-11-13T23:58:31Z",
-   "expires": "2026-11-14T03:58:31Z",
-   "release": "outside-services-all_20261114.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/ui/outside-services.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5kDaPxCn3ENUXa7SqF",
-   "why": "Outside services: every service a card, linked sections, searchable (Jason approved 2026-11-13)",
-   "since": "2026-11-13T23:58:31Z",
-   "expires": "2026-11-14T03:58:31Z",
-   "release": "outside-services-all_20261114.zip",
-   "callers": {}
-  },
-  {
-   "path": "website/admin/api/find.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5kDaPxCn3ENUXa7SqF",
-   "why": "Outside services: every service a card, linked sections, searchable (Jason approved 2026-11-13)",
-   "since": "2026-11-13T23:58:31Z",
-   "expires": "2026-11-14T03:58:31Z",
-   "release": "outside-services-all_20261114.zip",
-   "callers": {}
-  },
-  {
-   "path": "website/admin/sources.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5kDaPxCn3ENUXa7SqF",
-   "why": "Outside services: every service a card, linked sections, searchable (Jason approved 2026-11-13)",
-   "since": "2026-11-13T23:58:31Z",
-   "expires": "2026-11-14T03:58:31Z",
-   "release": "outside-services-all_20261114.zip",
+   "session": "session_01CXLi5gpdwLLGTQ51Ls56yQ",
+   "why": "staging strip keeps staff logins' marker addresses (Jason: accounts missing on staging)",
+   "since": "2026-11-14T00:13:37Z",
+   "expires": "2026-11-14T04:15:50Z",
+   "release": "stgstaff_20261114.zip",
    "callers": {}
   }
  ],

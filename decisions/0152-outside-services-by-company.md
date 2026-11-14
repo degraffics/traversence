@@ -59,3 +59,30 @@ the password manager (decisions/0155), never in the admin.
 how much space the how to sign in is taking up"), with **Sign in ↗** to the company's own login page (`OutsideServices::LOGIN`;
 Amazon's account link when set) and **1Password ↗**, the saved login's private link ("I really need login and passwords"):
 the link opens the login in the person's own 1Password, where the password stays; the admin never holds it (0155).
+
+**Note (2026-11-13, Jason approved; built `outside-services-all_20261114.zip`):** **every outside service gets a card**, keyed
+or not. Jason: "the cards under outside services will include everything pertaining to that service, linked [where it] is
+controlled by another section. Also each service will be searchable so I can easily find their cards or sections."
+- **The cards** (`OutsideServices::COMPANIES`, 17 → 36): besides the keyed companies, every open-data and free service the
+  site, its pages or the crawler call: OpenStreetMap (Overpass and its mirrors, the map tiles), Wikimedia (Wikipedia,
+  Wikidata, Commons), openrouteservice (HeiGIT), the National Weather Service, AZ 511, Recreation.gov (RIDB), the National
+  Park Service (linked only), USGS (The National Map's Terrain and Satellite layers, GNIS), the NPI Registry (CMS), the
+  IRS, CPSC (SaferProducts.gov), the Library of Congress, Common Crawl, Brave Search, DB-IP, Pixabay, the Tailwind CDN,
+  Vimeo and 1Password; the Census card gained the geocoder and TIGER, Cloudflare's cdnjs, Google's Maps links and YouTube.
+  A free one's cost is **$0**, with its usage rules in plain words.
+- **Everything about it on its card:** what we use it for; **Is it working**, from the site's and the crawler's own logs
+  (the crawler's tasks that call it: their last outcome and the last 24 hours; its paid calls in the crawler's ledger this
+  month, failed ones included; its scheduled tasks' last runs) and what's known that the logs don't show yet
+  (`NOTICES`: overpass-api.de's 406 since 2026-11-13 16:51 UTC, with research/osm-overpass-2026-11-13.md); **Set in other
+  sections** (`CONTROLS`): its rows on Sources (licence, use, limits, credit, whether its terms were read) and its
+  switches, shown as they stand and linked there, never a second copy of the control; the addresses it's **called at**
+  (`HOSTS`); cost; settings; **In our admin** (each linked section: Sources rows `#src-…`, the Crawler, scheduled tasks
+  `#job-…`, switches `#sw-…`); and **Terms and who to ask** (`CONTACT`: its support, or its community, e.g. the OSM
+  Community Forum's Help and support, tag overpass). Each standing source on Sources links back to its card.
+- **Searchable:** the admin search (Ctrl K) finds each card by its name, company or any of its hosts (`#svc-<key>` opens
+  it); one clear match also lists the sections linked from it, just under it.
+- **Kept in step:** the site audit's code check **R12** (`tools/page-audit/audit.py`, non-blocking, into Site health
+  through `findings.json`) flags a host the site, its pages or the workers call that's on no card, and a standing source
+  on Sources with no card. Hosts that aren't services (our own, examples, namespaces, sample sources) are in
+  `site-audit/services-ignore.txt`, each with why.
+- **Next** (decisions/0160 note, same day): each crawler run's calls and failures counted by service, on its card.

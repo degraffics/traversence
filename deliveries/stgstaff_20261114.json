@@ -1,0 +1,14 @@
+{
+ "zip": "stgstaff_20261114.zip",
+ "built_on": "166cff4 Sync: 2026-11-13 23:59 UTC",
+ "recorded": "2026-11-14 00:16 UTC",
+ "note": "Staging: staff stay staff after the privacy strip (Jason: his accounts missing on staging). Built on Sync: 2026-11-13 23:59 UTC. Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/StagingSite.php": {
+   "sha256": "628b5677d6097626cc5753d152abac595593e0b9b5a6f7b7eb9f1b74fc558796",
+   "live": false
+  }
+ }
+}

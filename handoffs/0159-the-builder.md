@@ -1,6 +1,44 @@
 # Hand-off: build decisions/0159, the builder
 
-## 0. Where the build stands (2026-11-13 21:00 UTC; start here)
+## 0. Where the build stands (2026-11-14 00:30 UTC; start here)
+
+**Step 5 started** (the session that took over at 21:10 UTC; built on Sync 2026-11-13 23:59 UTC). Three releases, sent one
+at a time in this order (Jason, 2026-11-14 00:20 UTC: "go"):
+1. **`sitetopfix_20261114`** (PR #628, merged): `app/ui/header.php`. The "Every page, under the header" zone (4c) was drawn
+   inside the top bar's flex row (Jason's home-page screenshot on staging: the outline squeezed at the bar's right edge,
+   the bar stretched). Now drawn hidden and moved at once to just under `#top-bar` (after `#tv-notice`), like the account
+   notice; hidden where there's no bar or the bar is fixed (directory/classic.php).
+2. **`stgstaff_20261114`** (branch `claude/stgstaff`): `app/lib/StagingSite.php`. Jason's account menu on staging showed
+   only his personal account. Opening staging from the live admin signs in as the staff login's own user row, and the
+   strip rewrote its marker address (`@staff.traversence.invalid`, `StaffLogin::DOMAIN`), so `Roles::staffLogin` and
+   `StaffLogin::otherAccount` no longer saw a staff login (no staff entry, no linked member account, no M2 ServCore).
+   The strip keeps those addresses now. **Takes effect at staging's next refresh** (tell Jason to refresh staging).
+3. **`studio5a_20261113`** = **5a, a business's pages as blocks** (branch `claude/storefront-studio-5a`, PR #626 closed
+   for now so only one PR is open; reopen or open a new one from that branch after merging main into it):
+   - `Blocks`: zone `shop.<page id>` for a business's `site_pages` row (`isShop`, `shopOwner`); `can($perm, $zone)` asks
+     `Team` for shop zones (`canShop`: on the team, the storefront set up, its plan; Storefront & theme edit = pages.edit,
+     Publish edit = pages.publish); no live parts there (`liveFor` returns none, `blockHtml` never draws one);
+     `state()['seed']` = the page's Markdown as one text block while nothing is saved; `shop()` draws it for trvgo.us;
+     `hasLive()`; Publish later refused for shops (0158 §6); `afterShop()` syncs the storefront's public album.
+   - `SitePages::hasBlocks` (a built page may go live with no Markdown); `Storefront::syncAlbum` + `blockPhotos` (the
+     business's own photos in its pages' live and draft blocks join its public "Storefront" album, never another's);
+     `block_image` upload target: shop zones go to the business's Gallery (`/gallery/m.php?i=…&s=full`, allowed by
+     `Blocks::safeUrl`); `/api/blocks.php` asks per zone (`can.why`, `can.later`, `team`); `tv-editor.js` starts from
+     the seed, greys Publish with the reason, hides Publish later where not offered.
+   - Portal: `tv_biz_storefront_page()` (`/business/<id>/storefront?edit=<page id>`), Edit the page and Preview on each
+     page; a built page's Markdown box becomes a note. `storefront-view.php`: draws `Blocks::shop()`, the preview link
+     shows drafts and Draft pages on a live storefront too (noindex, no-store, no redirect to the domain).
+   - FAQ: "How do I build my storefront's pages?" (`studio5a-faqedit.py` logic: insert before "Can I put my storefront on
+     my own domain?"; re-apply on the live copy if faq.md changed).
+   - Tested: 29 DB checks (MariaDB), step 4's 4c/4d DB tests still pass, browser at 390px (owner draft and publish,
+     Creator's greyed Publish, Viewer look only, storefront script-free, draft preview). **Not tried live:** a picture
+     upload into the business's Gallery.
+- Next after 5a: **5b** themes as starting styles, **5c** commerce blocks, **5d** the studio bar (proposals below).
+- Testing here: MariaDB on port 3399 (below); the portal runs under `php -S` with a router sending `/business/*` to
+  `business/router.php`; Playwright needs a non-headless user agent (bootstrap gives "headless" visitors no session).
+
+### Written 21:00 UTC (step 4 done)
+
 
 **Step 4 is done and live**, each verified byte for byte against the mirror:
 - bar fix = **#31** (`barfix_20261113`, Sync 20:02): the site manager shows what's on staging, or else the newest release.
