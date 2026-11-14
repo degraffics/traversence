@@ -422,7 +422,18 @@ def time_left(deadline=None):
 
 OVERPASS_MIN = 20     # seconds: a lookup with less than this left isn't sent (the job goes back for a later run)
 OVERPASS_SERVER_TIMEOUT = 25   # the server's own limit for one query: small queries, so the mirrors answer (OSM promise 1)
-OSM_RECENT = set()    # the site's month of town-and-kind queries already asked (OSM promise 3): not asked again
+# The public instances' published limits (wiki.openstreetmap.org/wiki/Overpass_API, "Public Overpass API instances";
+# FOSSGIS's terms for overpass-api.de): under about 10,000 queries and 1 GB of downloads a day per user, a few slots per
+# address (its /api/status). A 429 means no slot free: wait (our back-off), never ask again at once. A 406 is a ban set by
+# hand: stop entirely (a held issue), never change the agent. Our own budget is a quarter of that (Jason, 2026-11-14:
+# 2,500 queries and 250 MB a day, the crawler up to 1,500 of them, half while a server bans us or for two weeks after),
+# set in Thresholds & gates on the site and sent with each plan (osm_budget); without one, OSM_PER_RUN a run.
+OVERPASS_PUBLIC_DAILY_QUERIES = 10000
+OVERPASS_PUBLIC_DAILY_BYTES = 1_000_000_000
+OSM_PER_RUN = int(os.environ.get("OSM_PER_RUN", "5"))   # 1,500 a day over 288 runs
+OSM_BUDGET = {"queries": OSM_PER_RUN, "bytes": 3_000_000}   # what this run may still use (the plan's osm_budget replaces it)
+OSM_USED = {"queries": 0, "bytes": 0}
+OSM_RECENT = set()    # the site's town-and-kind queries already asked (3 months, Jason 2026-11-14): not asked again
 OSM_ASKED = []        # this run's, once their places reached the site: [{key, n}]
 OSM_PENDING = {}      # the keys of the job being worked, sent with its results
 
@@ -474,13 +485,18 @@ def overpass_one(job, pts, flt, deadline):
         left = time_left(deadline)
         if left < OVERPASS_MIN:
             raise OutOfTime(f"{int(max(0, left))}s left for OpenStreetMap" + (": " + " | ".join(tried) if tried else ""))
+        if OSM_USED["queries"] >= OSM_BUDGET["queries"] or OSM_USED["bytes"] >= OSM_BUDGET["bytes"]:
+            raise ServiceHeld(f"the OpenStreetMap budget for now is used ({OSM_USED['queries']} queries, "
+                              f"{OSM_USED['bytes'] // 1000} kB this run; the site's daily share)")
         query = overpass_query(job, pts, [flt], OVERPASS_SERVER_TIMEOUT)
+        OSM_USED["queries"] += 1
         req = urllib.request.Request(url, data=urllib.parse.urlencode({"data": query}).encode(), headers={
             "User-Agent": UA, "Accept": "*/*",   # a strict "application/json" can earn a 406 Not Acceptable
             "Content-Type": "application/x-www-form-urlencoded"})
         try:
             with urllib.request.urlopen(req, timeout=max(5, min(OVERPASS_SERVER_TIMEOUT + 10, left - 3))) as r:
                 raw = r.read()
+            OSM_USED["bytes"] += len(raw)
             try:
                 d = json.loads(raw.decode("utf-8"))
             except ValueError:
@@ -3373,6 +3389,9 @@ def run_service():
     for h, why in (st.get("holds") or {}).items():
         HELD[str(h).lower()] = str(why)[:200]
     OSM_RECENT.update(str(k) for k in (st.get("osm_recent") or []))
+    if isinstance(st.get("osm_budget"), dict):         # today's share left, from Thresholds & gates
+        OSM_BUDGET.update({k: max(0, int(st["osm_budget"].get(k, 0))) for k in ("queries", "bytes")})
+        log(f"OpenStreetMap: {OSM_BUDGET['queries']} queries, {OSM_BUDGET['bytes'] // 1_000_000} MB left today")
     if HELD:
         log("held: " + "; ".join(f"{h} ({w})" for h, w in sorted(HELD.items()))[:600])
     run_probes(st.get("probes"))
@@ -3422,7 +3441,8 @@ def run_service():
     res = site_call("/api/crawl/service.php", {"report": {"run_key": run_key, "status": "ok", "seconds": int(time.monotonic() - started),
                                                          "fetches": fetches, "searches": searches, "engine": engine,
                                                          "items": items, "requests": reqs, "calls": calls_of(""),
-                                                         "issues": list(ISSUES.values()), "probes": PROBES, "osm_asked": OSM_ASKED}})
+                                                         "issues": list(ISSUES.values()), "probes": PROBES, "osm_asked": OSM_ASKED,
+                                                         "osm_used": OSM_USED}})
     status = res.get("status", "")
     log(f"run {run_key}: {status}: " + ", ".join(f"{i['task']} {i.get('outcome')}" for i in items))
     # a run that couldn't do its work is a failed run on Railway, not "succeeded" (the review's F27)
