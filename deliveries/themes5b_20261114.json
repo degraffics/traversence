@@ -1,0 +1,34 @@
+{
+ "zip": "themes5b_20261114.zip",
+ "built_on": "7c3909e Sync: 2026-11-14 00:58 UTC",
+ "recorded": "2026-11-14 12:59 UTC",
+ "note": "Storefront Studio 5b: the four themes as the pages' starting styles; built on Sync: 2026-11-14 00:58 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/business/storefront.php": {
+   "sha256": "0e07eea3f48062c7a11a2a3124b5682dc45e51f6a834313022e6ee5442d2d669",
+   "live": false
+  },
+  "app/lib/Blocks.php": {
+   "sha256": "0bcecd6947cec054239f2cb4f4e190798b88bcec5d749e52447e95ce1f00ad9d",
+   "live": false
+  },
+  "app/lib/Storefront.php": {
+   "sha256": "a79bd8861025d29a2bf6840316cb9246e3b17cbec422e7ad9be85d8bf50de00f",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "c9fcbdbe8168a24642eeb51a19abeaeb9dee649b9635327ce01578dec51b9c26",
+   "live": false
+  },
+  "app/ui/storefront-view.php": {
+   "sha256": "c34231be1f46617c0387cbeff607e7f0273734c4df395a42c646a547bc657ca2",
+   "live": false
+  },
+  "website/api/blocks.php": {
+   "sha256": "0c1dd5fde4bb7e10960b3570430704ebce3cd59a62253b6086dca0daa1d0b150",
+   "live": false
+  }
+ }
+}
