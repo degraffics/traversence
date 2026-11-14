@@ -213,7 +213,7 @@ SKIP_HOSTS = {"openstreetmap.org", "npino.com", "npiprofile.com", "npidb.org", "
               "npi.report", "npiregistry.cms.hhs.gov", "google.com", "bing.com", "duckduckgo.com", "search.brave.com"}
 
 started = time.monotonic()
-WORKER_V = "2.6"           # the service's contract 2 (decisions/0160 §2): the site plans each run, the worker reports it; 2.4: calls by host; 2.5: issues, holds, probes, per-kind Overpass; 2.6: servers from the plan, the pace
+WORKER_V = "2.6.1"           # the service's contract 2 (decisions/0160 §2): the site plans each run, the worker reports it; 2.4: calls by host; 2.5: issues, holds, probes, per-kind Overpass; 2.6: servers from the plan, the pace
 RUN_END = None             # when this run's own work must stop (started + TIME_BUDGET, or a bulk load's end)
 TASK_END = None            # when the capture task being worked must stop (its share of the run)
 FETCH_CAP = MAX_FETCHES    # fetches this run may have made by the end of the task being worked
@@ -3233,6 +3233,7 @@ def places_check(deadline):
         return
     allow = min(PLACES_PER_RUN, max(0, int(a.get("allow", 0))))
     if allow <= 0:
+        log(f"Google check: none this run (the site's numbers: {allowance_why(a)})")   # never silent (§7.2)
         return
     batch = site_call(f"/api/crawl/places.php?limit={allow}").get("listings", [])
     if not batch:
@@ -3490,6 +3491,20 @@ def run_service():
     return 1 if status in ("failed", "starved") else 0
 
 
+def allowance_why(r):
+    """Why the site allowed none (handoffs/crawler-revamp.md §7.2: "this run may make 0" with no reason): its numbers, and
+    which one is at zero. Off or no engine on the site shows as every number left over with nothing allowed."""
+    used, stop, pace, daily, day = (r.get(k) for k in ("month_used", "stop", "pace", "daily", "day_used"))
+    try:
+        left = {"the month's stop": int(stop) - int(used), "the month's pace so far": int(pace) - int(used),
+                "today's share": int(daily) - int(day)}
+        zero = [k for k, v in left.items() if v <= 0]
+        why = ("at " + ", ".join(zero)) if zero else "every limit has room: off on the site (.env WEBSEARCH/GOOGLE_PLACES=off), no engine, or the day's spread"
+    except (TypeError, ValueError):
+        why = "the site sent no numbers"
+    return f"used {used} of stop {stop}, pace {pace}, today {day} of {daily}; {why}"
+
+
 def ask_search_allowance():
     """How many web searches this run may make (decisions/0084). The site keeps the month's count and paces it: never
     past 90% of SEARCH_MONTHLY, and spread over the days left, so a plan's allowance can't run out early and nothing
@@ -3502,7 +3517,8 @@ def ask_search_allowance():
     try:
         r = site_call("/api/crawl/usage.php", {"ask": 1, "engine": engine, "monthly": SEARCH_MONTHLY}, timeout=20)
         search_allow = max(0, int(r.get("allow", 0)))
-        log(f"web search: {r.get('month_used', '?')} of {SEARCH_MONTHLY} used this month; this run may make {min(search_allow, MAX_SEARCHES)}")
+        log(f"web search: {r.get('month_used', '?')} of {SEARCH_MONTHLY} used this month; this run may make {min(search_allow, MAX_SEARCHES)}"
+            + ("" if search_allow else f" (the site's numbers: {allowance_why(r)})"))
     except Exception as e:
         log(f"web search off this run: the site couldn't say how many are left ({e!r})"[:200])
 
