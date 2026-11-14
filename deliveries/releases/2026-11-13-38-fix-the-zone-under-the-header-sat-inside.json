@@ -1,0 +1,34 @@
+{
+    "id": 38,
+    "title": "Fix: the zone under the header sat inside the header bar",
+    "why": "Jason, 2026-11-14 (a screenshot of the home page on staging): the \"Every page, under the header\" zone (decisions/0159 step 4c) was drawn inside the top bar's own row, so for staff its outline sat squeezed at the bar's right edge and stretched the bar; anything published there would have done the same for visitors. It now sits just under the bar (and under an account notice), hidden wherever there's no bar to put it under.",
+    "proposals": "",
+    "zip": "sitetopfix_20261114.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/ui/header.php": {
+            "sha": "1239f78e3f59c2bb19c6e2981c73b0d6fd04629283220a8dcc1ac1a58fd41b00",
+            "size": 58937,
+            "live_was": "f0390eb4ac87a3da673cd9e2ca2841445bc32e3c6b69a4b8617f6034d2cd2f2a"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-14T00:17:49+00:00",
+            "by": 2,
+            "msg": "Uploaded sitetopfix_20261114.zip: 1 files."
+        }
+    ]
+}
