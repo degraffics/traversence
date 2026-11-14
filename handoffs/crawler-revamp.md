@@ -306,6 +306,29 @@ CLAUDE.md, in full. For this work above all:
    business's own site, a registry or a person confirms it. Needs his OK (it changes 0157 §3 and W1's gate; note both
    decisions). Phase 4: listings made from page reads alone go back to the store, quarantined with the reason.
 
+**2026-11-14: outside services' issues (Jason, through the session manager: "1. if an api we use has an issue we need to
+identify and address said issue. 2. the system must stop trying with an API [that] has an issue until it is resolved. 3.
+The system must ask for help regarding the exact issue it is facing while still [performing] duties that have no issues").**
+- Site: release `service-health_20261114` (built on Sync 13:21 UTC; Jason approved in chat). `app/lib/ServiceHealth.php`:
+  each failure classified (ban 403/406/418, auth 401, quota 402/quota text, rate 429, timeout/no answer, 5xx, malformed)
+  with its evidence, one open issue per host and caller (`crawler` on Railway, `site` on Bluehost) in `service_issues`.
+  Stop kinds (ban, auth, quota) hold until a person marks resolved or the probe (`PROBES`: Overpass `/api/status`,
+  overpass-api.de daily with exactly the refused agent) answers 200; back kinds back off 10 min doubling to 6 h and clear
+  on the next answer. Pulse case `svc:<id>` (stop kinds, or a back-off 6 times / 6 h): evidence, the service's links
+  (OSM: the statement, forum, FOSSGIS), Check it now (`svc_probe`), Mark resolved (`svc_resolve`); the card shows it.
+  `CrawlService::plan` sends `holds`, `probes`, `osm_recent`; `report` files `issues`, `probes`, `osm_asked` and the
+  `held` outcome (never a failure). `OpenPlaces::overpass` (DeepLook goes through it): overpass-api.de off, held servers
+  skipped, one at a time (`GET_LOCK`), failures recorded, a spot and kind kept 30 days (was 7). Migration
+  `2026-11-14_service_issues.sql` seeds the known overpass-api.de ban, so the first run probes its status once: that
+  answer (Pulse case, or Railway's log line "probe overpass-api.de: …") says whether it's the agent or Railway's address.
+  Contact in both agents: support@traversence.com (Jason, 2026-11-14; `ServiceHealth::CONTACT`, Railway `CRAWLER_CONTACT`).
+- Worker 2.5 on branch `claude/crawler-api-health` (Jason approved merging it once the site part is live): the same
+  classification and holds for every API it calls (`API_HOSTS`; businesses' own websites aren't), the GET-after-406
+  retry gone, overpass-api.de off (`OVERPASS_MAIN=on` only once its maintainers answer), one small query per kind
+  (`[timeout:25]`), one at a time, 30-day cache per town and kind, `held` tasks. Set `CRAWLER_CONTACT` on Railway.
+- Next: the site's other outside callers onto `ServiceHealth::allowed()` / `siteFailed()` (Weather, Roads511,
+  PlaceFinder, Geocoder, SecondTier, AiClient, TravelLegs; payments last), and post the OSM statement (research §2/§3).
+
 **Jason's answers (21:20 UTC, through the session manager):**
 - On 1: "Need a written statement and how to reach OpenStreetMap community so I can address, also need to verify this is
   actually blocked and why." Done: `research/osm-overpass-2026-11-13.md` (the evidence, the statement, the channel, the
