@@ -1,0 +1,46 @@
+{
+ "zip": "studio5a_20261113.zip",
+ "built_on": "be81b24 Sync: 2026-11-14 00:40 UTC",
+ "recorded": "2026-11-14 00:40 UTC",
+ "note": "Storefront Studio 5a (decisions/0159 step 5): a business's pages as blocks in the portal's builder, Team perms, drawn script-free on trvgo.us; its FAQ entry. Built on Sync: 2026-11-14 00:40 UTC. Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/business/storefront.php": {
+   "sha256": "168434594cee9972a966f36d51743f02824e535f341c352ef1a261d72fe425ad",
+   "live": false
+  },
+  "app/lib/Blocks.php": {
+   "sha256": "c7d91154f2b8ace581a502aa39b9b1dbf13c47b2e54e8f87d1326bbfa82bc2c6",
+   "live": false
+  },
+  "app/lib/SitePages.php": {
+   "sha256": "afcb3670fd450f782ffecea0e18a75e29e1fc15463f67d90e1acc601f5a68782",
+   "live": false
+  },
+  "app/lib/Storefront.php": {
+   "sha256": "46d9843323f39b1e204b3e9e4b5fbdb4136d906ecbb5ebcf387844f39d03f36a",
+   "live": false
+  },
+  "app/lib/upload-targets.php": {
+   "sha256": "150723811d7a8e279bb6247368f85c91c64b4301f7c3d35204f1d15a916c90d4",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "6b8eb2644ce9e2582205cf922c918eb0216d5fdab34fc26c059d03bf700df70b",
+   "live": false
+  },
+  "app/ui/storefront-view.php": {
+   "sha256": "1c79c7f890f8d02480a399db70e5885631ff576e1a0c812dff0641264ea53c46",
+   "live": false
+  },
+  "website/api/blocks.php": {
+   "sha256": "2b2b149e54beabf334ade44a2102cb9e2081c847c5b82fac4e46af8667b58411",
+   "live": false
+  },
+  "website/js/tv-editor.js": {
+   "sha256": "6727e969fa54dd5f37e6082f3de54d343b7f5f9d7e6c7dcdd6329ae5d1099d52",
+   "live": false
+  }
+ }
+}
