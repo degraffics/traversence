@@ -52,6 +52,39 @@
    "expires": "2026-11-14T16:54:06Z",
    "release": "themes5b_20261114",
    "callers": {}
+  },
+  {
+   "path": "app/lib/Storefront.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kqj2iE1fTfHyQWXfj",
+   "why": "5b: theme styles",
+   "since": "2026-11-14T12:54:12Z",
+   "expires": "2026-11-14T16:54:12Z",
+   "release": "themes5b_20261114",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Blocks.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kqj2iE1fTfHyQWXfj",
+   "why": "5b: theme styles",
+   "since": "2026-11-14T12:54:12Z",
+   "expires": "2026-11-14T16:54:12Z",
+   "release": "themes5b_20261114",
+   "callers": {}
+  },
+  {
+   "path": "app/business/storefront.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kqj2iE1fTfHyQWXfj",
+   "why": "5b: theme styles",
+   "since": "2026-11-14T12:54:12Z",
+   "expires": "2026-11-14T16:54:12Z",
+   "release": "themes5b_20261114",
+   "callers": {}
   }
  ],
  "lapsed": []
