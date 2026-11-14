@@ -1,0 +1,54 @@
+{
+    "id": 49,
+    "title": "Data cleanup, step 1: find and preview what the old crawler made that fails today's rules",
+    "why": "Jason, 2026-11-14 (through the session manager): \"start\" the build, stage 1b first, the data cleanup tool (decisions/0163 §8 stage 1b, 0164 §6.1b). This first release finds and previews only: nothing is written. New section Insights → Data cleanup (app/admin/cleanup-console.php, the library app/lib/DataCleanup.php). Press Preview for one rule or every rule: per rule, how many would change, how many are Check these (a person entered or decided something: never changed, R4) and how many are left, with examples linked to each record. Rules: listings (crawler-made, public) whose name is page text (\"Contact Us:\", \"PO Box 190\", webinar and form titles: a new junk-name check, DataCleanup::junkName); no address and no phone (to a sighting or the \"Help us find this business\" card, not built yet, so quarantine with that target); address and phone only from cite-only pages (to a sighting); values from OpenStreetMap only (re-source or unconfirmed); \"Closed\" set by the crawler on one site's word (caution with Still open?; its own website saying so is left, R12); likely duplicates (LiveDupes' test, merge offers). Staged finds with page-text names (quarantined status). The place store: page-text names, places SourceIndex::guard would hold but aren't marked, facts from cite-only sources. Landmarks: protected names shown on a machine's word (story only, P5-3), nation-sensitive kinds shown, Wikipedia text kept while its rule is cite only. Reads up to 6,000 of each store, newest first. Permissions insights.cleanup and insights.cleanup_undo (Executives by default) in System Configuration → Permissions. FAQ: two staff entries. No migration. The actions, ledger, Undo, Pulse case and the schedule hook (off) come in step 2, after Jason sees the preview counts.",
+    "proposals": "decisions/0163 §8 stage 1b, decisions/0164 §6.1b, handoffs/data-cleanup.md",
+    "zip": "data-cleanup_20261114.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/admin/cleanup-console.php": {
+            "sha": "18dfd370ee5f96f4ec1f30c737ee538089149319cff87d9c4dd23f574c21d1ce",
+            "size": 9628,
+            "live_was": null
+        },
+        "app/admin/sections.php": {
+            "sha": "d59fe8f9dd7ec63f10fd408966aaa4cee481e64eb3af619ae9e4509d10732936",
+            "size": 214559,
+            "live_was": "ba70a58d63e1c95c73a3a8c246fd51b111be3adb51ed07909e6f5083777ed3f0"
+        },
+        "app/admin/manifests.php": {
+            "sha": "a5925ea3fb4a33c084b2e57ce431f198182b304aa5fcfcedfbe050e83d440239",
+            "size": 20735,
+            "live_was": "420addddcb667a84fdf35dac1d4b37acaa58fbd51349740bf1e0388f321e5073"
+        },
+        "app/ui/faq.md": {
+            "sha": "cb9bed2b5038642f16a2f29ff4da660c6d448b44285636e49b90f4cd0e4665df",
+            "size": 292291,
+            "live_was": "828f13e1f6cc8712eb7160d7d11e6b89bb539849ae64411ac1c2f0c01d4458bc"
+        },
+        "app/lib/DataCleanup.php": {
+            "sha": "6c05bee6832727a7d3b1e8839c7918cd3eba082fa64e8fd984ff92c88a87d85d",
+            "size": 32179,
+            "live_was": null
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-14T23:19:02+00:00",
+            "by": 0,
+            "msg": "Uploaded data-cleanup_20261114.zip: 5 files."
+        }
+    ]
+}
