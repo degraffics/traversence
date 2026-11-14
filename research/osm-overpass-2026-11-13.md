@@ -42,6 +42,10 @@ server refused that network, not our name. That fits the maintainers' blocks of 
 whether our User-Agent is banned. Railway is different: it gets through the handshake and is refused with 406 after the
 request, which is where a User-Agent or Referer ban acts.
 
+**From Railway, 2026-11-14 14:30 UTC** (the crawler's daily probe, worker 2.5): `GET https://overpass-api.de/api/status`
+with exactly the refused agent answered **406 Not Acceptable** (nginx). The refusal reaches even the status page, so that
+agent is still refused from Railway's address; the home-connection test below would still tell whether it's the name alone.
+
 **Two ways to settle it:**
 - From a home or office connection (not a cloud), one request with the crawler's exact User-Agent:
   `curl -s -o /dev/null -w "%{http_code}\n" -A "TraversenceCrawler/1.0 (+https://traversence.com; local directory of community resources)" "https://overpass-api.de/api/status"`.

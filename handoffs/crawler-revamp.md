@@ -340,6 +340,13 @@ The system must ask for help regarding the exact issue it is facing while still 
   `probe overpass-api.de: …` (406: our agent is still refused; 200 with "Connected as": lifted for that address), and the
   Pulse case `svc:1` shows it. If the mirrors keep timing out, each opens a case after 6 back-offs or 6 hours: then
   consider another instance or our own (the statement's last line).
+- **14:30 UTC: the database updates ran.** The plan now sends the holds (`held: overpass-api.de (Refused us (issue #1))`),
+  and the first probe answered **406 Not Acceptable (nginx)** to `/api/status` with exactly the refused agent: that agent
+  is still refused, even on the status page (the next probe is in a day; a 200 resolves issue #1 by itself, and the
+  crawler still stays off it until `OVERPASS_MAIN=on`). To tell a name ban from an address ban for certain, one request
+  with that agent from a home or office connection (research §1) is still the test.
+- Seen 14:26: Common Crawl's index answered 504 once; the task reported failed and the run partial (not a crash). One
+  server error marks that task failed; held only after a second. Fine as is; revisit if it repeats.
 - Next: the site's other outside callers onto `ServiceHealth::allowed()` / `siteFailed()` (Weather, Roads511,
   PlaceFinder, Geocoder, SecondTier, AiClient, TravelLegs; payments last), and post the OSM statement (research §2/§3).
 
