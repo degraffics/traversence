@@ -990,6 +990,12 @@ A loop back through Phases 1 to 3 that keeps what's published true.
   endlessly. When a check answers normally, the hold isn't lifted by itself either: the step says "looks lifted" with
   **Reactivate**, and a person decides (§1.2, 5); then the ramp. Values in 0163 §12.
 
+### 6.1b Old data brought into line (Jason, 2026-11-14)
+
+What the crawler made before these rules is checked against them by the **data cleanup tool** (0163 §8, stage 1b):
+records that fail are quarantined, re-sourced or turned into sightings or "Help us find" cards by rule, never deleted;
+what a person entered or decided is never changed by it (R4); every change is logged with an undo.
+
 ### 6.2 Splitting and the audit trail
 
 `SPLIT_CANONICAL`, triggered by an operator, separates a wrong merge into distinct records, keeping all history, and

@@ -148,6 +148,24 @@ Each stage a release Jason approves; one session per stage, from its handoff.
    notified to evaluate (Reactivate, keep checking daily or weekly, or stop), and the checks pause until they decide.
    Its automatic return is **removed before any switch-on**: a passing check raises "looks lifted" with Reactivate for
    a person (Jason, 2026-11-14; 0164 §6.1).
+1b. **The data cleanup tool** (Jason, 2026-11-14: "in this build we also need a tool clean up all the bad data recently
+   added"). Built first, since the bad data is live now and the tool works while the automation is paused. A section in
+   the admin (Insights → Data cleanup) that brings what the old crawler made into line with 0164's rules, from
+   `handoffs/crawler-revamp.md` Phase 4's assimilation passes:
+   - **Find:** every listing, staged find, place-store fact and landmark the crawler made, newest first, checked against
+     today's rules: the "real business" floor and the junk-name check ("Contact Us:", "PO Box 190", webinar and form
+     titles), listings made from a page read alone, values copied from OpenStreetMap only, "Closed" set by one site,
+     duplicates, protected names shown too openly (story-only), nation-sensitive names.
+   - **Preview before acting:** counts by reason, with examples, so Jason sees what would change.
+   - **Act, reversibly:** never delete. A record that fails is **quarantined** (off the public site, kept, with its
+     reason), turned into a sighting or a "Help us find this business" card, re-sourced, marked caution instead of
+     Closed, or offered for a merge, by rule.
+   - **Never touches** what a person entered, a claimed listing's owner's fields, or anything a person already decided
+     (0164 R4); those get a "Check these" step instead.
+   - **A ledger and undo:** every change logged (what, why, which rule, when) with Undo per item and per run.
+   - **A Pulse case** for what needs a person (one case, a step per kind), and a report when a pass ends: restored,
+     re-sourced, quarantined, left.
+   It runs by Jason's button (a pass per reason or all), and later on the schedule so the record stays clean.
 2. **The service register:** one row per service; caps and paces moved into it from Railway and `.env` with today's
    values; status with reasons; the website's other outside callers onto `ServiceHealth` (handoffs/crawler-revamp.md
    §7.1 item 3); AI Assist's allowances moved in (X5).
