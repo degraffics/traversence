@@ -48,11 +48,12 @@
    "session": "session_01CXLi5ku2xkVJ8wnDFvC1KM",
    "why": "decisions/0165: staging is live in safe mode; Publish merges it",
    "since": "2026-11-15T14:28:41Z",
-   "expires": "2026-11-15T18:53:13Z",
-   "release": "release-0165-staging-safe-mode.zip",
+   "expires": "2026-11-15T19:20:16Z",
+   "release": "release-0165b-approved-builds-live.zip",
    "callers": {
     "act": [
      "app/lib/Pulse.php",
+     "app/lib/StagingPublish.php",
      "website/admin/api.php"
     ],
     "barState": [
@@ -60,6 +61,14 @@
     ],
     "pulseSteps": [
      "app/lib/Pulse.php"
+    ],
+    "onStaging": [
+     "app/lib/StagingApi.php",
+     "app/lib/StagingPublish.php",
+     "app/lib/StagingSite.php"
+    ],
+    "replacedIn": [
+     "app/lib/StagingApi.php"
     ]
    }
   },
@@ -229,8 +238,8 @@
    "session": "session_01CXLi5ku2xkVJ8wnDFvC1KM",
    "why": "decisions/0165: staging is live in safe mode; Publish merges it",
    "since": "2026-11-15T14:28:41Z",
-   "expires": "2026-11-15T18:53:13Z",
-   "release": "release-0165-staging-safe-mode.zip",
+   "expires": "2026-11-15T19:20:16Z",
+   "release": "release-0165b-approved-builds-live.zip",
    "callers": {}
   },
   {
@@ -259,14 +268,15 @@
    "path": "app/admin/sections.php",
    "functions": [
     "tv_admin_mod_releases",
-    "tv_admin_mod_staging"
+    "tv_admin_mod_staging",
+    "tv_admin_staging_mirror"
    ],
    "kind": "change",
    "session": "session_01CXLi5ku2xkVJ8wnDFvC1KM",
    "why": "decisions/0165: staging is live in safe mode; Publish merges it",
    "since": "2026-11-15T14:28:41Z",
-   "expires": "2026-11-15T18:53:13Z",
-   "release": "release-0165-staging-safe-mode.zip",
+   "expires": "2026-11-15T19:20:16Z",
+   "release": "release-0165b-approved-builds-live.zip",
    "callers": {}
   },
   {
@@ -509,6 +519,29 @@
    "expires": "2026-11-15T18:53:13Z",
    "release": "release-0165-staging-safe-mode.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/StagingApi.php",
+   "functions": [
+    "act",
+    "line"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ku2xkVJ8wnDFvC1KM",
+   "why": "release release-0165b-approved-builds-live.zip",
+   "since": "2026-11-15T15:20:16Z",
+   "expires": "2026-11-15T19:20:16Z",
+   "release": "release-0165b-approved-builds-live.zip",
+   "callers": {
+    "act": [
+     "website/admin/api.php",
+     "website/api/release-bar.php"
+    ],
+    "line": [
+     "app/admin/sections.php",
+     "website/api/release-bar.php"
+    ]
+   }
   }
  ],
  "lapsed": []
