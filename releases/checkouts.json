@@ -8,8 +8,8 @@
    "session": "session_01CXLi5hvWvRSedDtk54gNDP",
    "why": "Release B1: new files",
    "since": "2026-11-15T16:40:31Z",
-   "expires": "2026-11-15T20:40:31Z",
-   "release": "release-b1",
+   "expires": "2026-11-15T20:50:47Z",
+   "release": "release-b1.zip",
    "callers": {}
   },
   {
@@ -19,8 +19,8 @@
    "session": "session_01CXLi5hvWvRSedDtk54gNDP",
    "why": "Release B1: new files",
    "since": "2026-11-15T16:40:31Z",
-   "expires": "2026-11-15T20:40:31Z",
-   "release": "release-b1",
+   "expires": "2026-11-15T20:50:47Z",
+   "release": "release-b1.zip",
    "callers": {}
   },
   {
@@ -30,8 +30,8 @@
    "session": "session_01CXLi5hvWvRSedDtk54gNDP",
    "why": "Release B1: new files",
    "since": "2026-11-15T16:40:31Z",
-   "expires": "2026-11-15T20:40:31Z",
-   "release": "release-b1",
+   "expires": "2026-11-15T20:50:47Z",
+   "release": "release-b1.zip",
    "callers": {}
   },
   {
@@ -41,8 +41,8 @@
    "session": "session_01CXLi5hvWvRSedDtk54gNDP",
    "why": "Release B1: new files",
    "since": "2026-11-15T16:40:31Z",
-   "expires": "2026-11-15T20:40:31Z",
-   "release": "release-b1",
+   "expires": "2026-11-15T20:50:47Z",
+   "release": "release-b1.zip",
    "callers": {}
   },
   {
@@ -52,8 +52,8 @@
    "session": "session_01CXLi5hvWvRSedDtk54gNDP",
    "why": "Release B1: new files",
    "since": "2026-11-15T16:40:31Z",
-   "expires": "2026-11-15T20:40:31Z",
-   "release": "release-b1",
+   "expires": "2026-11-15T20:50:47Z",
+   "release": "release-b1.zip",
    "callers": {}
   },
   {
@@ -63,8 +63,8 @@
    "session": "session_01CXLi5hvWvRSedDtk54gNDP",
    "why": "Release B1: new files",
    "since": "2026-11-15T16:40:31Z",
-   "expires": "2026-11-15T20:40:31Z",
-   "release": "release-b1",
+   "expires": "2026-11-15T20:50:47Z",
+   "release": "release-b1.zip",
    "callers": {}
   },
   {
@@ -74,8 +74,8 @@
    "session": "session_01CXLi5hvWvRSedDtk54gNDP",
    "why": "Release B1: new files",
    "since": "2026-11-15T16:40:31Z",
-   "expires": "2026-11-15T20:40:31Z",
-   "release": "release-b1",
+   "expires": "2026-11-15T20:50:47Z",
+   "release": "release-b1.zip",
    "callers": {}
   },
   {
@@ -96,9 +96,28 @@
    "session": "session_01CXLi5hvWvRSedDtk54gNDP",
    "why": "Release B1: one identity check, the engine's Pulse case, clocks, the floor gate, held sites, Gemini guards, cards (decisions/0163 \u00a78 stages 7-8a)",
    "since": "2026-11-15T16:40:40Z",
-   "expires": "2026-11-15T20:40:40Z",
-   "release": "release-b1",
-   "callers": {}
+   "expires": "2026-11-15T20:50:47Z",
+   "release": "release-b1.zip",
+   "callers": {
+    "confirm": [
+     "website/listing/api/claim.php"
+    ],
+    "start": [
+     "website/listing/api/claim.php"
+    ],
+    "create": [
+     "app/lib/CardScan.php",
+     "app/lib/Clients.php",
+     "app/lib/Rebuild.php",
+     "app/lib/Sales.php",
+     "app/lib/TestAccounts.php",
+     "website/admin/listing-add.php"
+    ],
+    "fromSuggestion": [
+     "app/lib/Pulse.php",
+     "website/admin/listing-new.php"
+    ]
+   }
   },
   {
    "path": "app/lib/AiClient.php",
@@ -107,9 +126,30 @@
    "session": "session_01CXLi5hvWvRSedDtk54gNDP",
    "why": "Release B1: one identity check, the engine's Pulse case, clocks, the floor gate, held sites, Gemini guards, cards (decisions/0163 \u00a78 stages 7-8a)",
    "since": "2026-11-15T16:40:40Z",
-   "expires": "2026-11-15T20:40:40Z",
-   "release": "release-b1",
-   "callers": {}
+   "expires": "2026-11-15T20:50:47Z",
+   "release": "release-b1.zip",
+   "callers": {
+    "feature": [
+     "app/admin/sections.php",
+     "app/lib/AiAssist.php",
+     "app/lib/Dossier.php",
+     "app/lib/GuideLinks.php",
+     "app/lib/Guides.php",
+     "app/lib/Heritage.php",
+     "app/lib/ItemWriter.php",
+     "app/lib/LiveEvents.php",
+     "app/lib/OnDemand.php",
+     "app/lib/PlaceFinder.php",
+     "app/lib/Thresholds.php",
+     "app/lib/Topics.php",
+     "app/lib/crawler/SecondTier.php",
+     "website/admin/guide-edit.php"
+    ],
+    "providerFor": [
+     "app/lib/CardScan.php",
+     "app/ui/card-scanner.php"
+    ]
+   }
   },
   {
    "path": "app/lib/Automation.php",
@@ -118,8 +158,8 @@
    "session": "session_01CXLi5hvWvRSedDtk54gNDP",
    "why": "Release B1: one identity check, the engine's Pulse case, clocks, the floor gate, held sites, Gemini guards, cards (decisions/0163 \u00a78 stages 7-8a)",
    "since": "2026-11-15T16:40:40Z",
-   "expires": "2026-11-15T20:40:40Z",
-   "release": "release-b1",
+   "expires": "2026-11-15T20:50:47Z",
+   "release": "release-b1.zip",
    "callers": {}
   },
   {
@@ -129,9 +169,13 @@
    "session": "session_01CXLi5hvWvRSedDtk54gNDP",
    "why": "Release B1: one identity check, the engine's Pulse case, clocks, the floor gate, held sites, Gemini guards, cards (decisions/0163 \u00a78 stages 7-8a)",
    "since": "2026-11-15T16:40:40Z",
-   "expires": "2026-11-15T20:40:40Z",
-   "release": "release-b1",
-   "callers": {}
+   "expires": "2026-11-15T20:50:47Z",
+   "release": "release-b1.zip",
+   "callers": {
+    "save": [
+     "website/admin/api/cards.php"
+    ]
+   }
   },
   {
    "path": "app/lib/CrawlerIngest.php",
@@ -140,9 +184,15 @@
    "session": "session_01CXLi5hvWvRSedDtk54gNDP",
    "why": "Release B1: one identity check, the engine's Pulse case, clocks, the floor gate, held sites, Gemini guards, cards (decisions/0163 \u00a78 stages 7-8a)",
    "since": "2026-11-15T16:40:40Z",
-   "expires": "2026-11-15T20:40:40Z",
-   "release": "release-b1",
-   "callers": {}
+   "expires": "2026-11-15T20:50:47Z",
+   "release": "release-b1.zip",
+   "callers": {
+    "upsertEntity": [
+     "app/lib/TrustScore.php",
+     "app/lib/crawler/IntakeStager.php",
+     "website/api/ingest.php"
+    ]
+   }
   },
   {
    "path": "app/lib/DataCleanup.php",
@@ -162,9 +212,14 @@
    "session": "session_01CXLi5hvWvRSedDtk54gNDP",
    "why": "Release B1: one identity check, the engine's Pulse case, clocks, the floor gate, held sites, Gemini guards, cards (decisions/0163 \u00a78 stages 7-8a)",
    "since": "2026-11-15T16:40:40Z",
-   "expires": "2026-11-15T20:40:40Z",
-   "release": "release-b1",
-   "callers": {}
+   "expires": "2026-11-15T20:50:47Z",
+   "release": "release-b1.zip",
+   "callers": {
+    "forPlace": [
+     "app/lib/Guides.php",
+     "app/lib/OnDemand.php"
+    ]
+   }
   },
   {
    "path": "app/lib/GuideLinks.php",
@@ -173,8 +228,8 @@
    "session": "session_01CXLi5hvWvRSedDtk54gNDP",
    "why": "Release B1: one identity check, the engine's Pulse case, clocks, the floor gate, held sites, Gemini guards, cards (decisions/0163 \u00a78 stages 7-8a)",
    "since": "2026-11-15T16:40:40Z",
-   "expires": "2026-11-15T20:40:40Z",
-   "release": "release-b1",
+   "expires": "2026-11-15T20:50:47Z",
+   "release": "release-b1.zip",
    "callers": {}
   },
   {
@@ -184,9 +239,16 @@
    "session": "session_01CXLi5hvWvRSedDtk54gNDP",
    "why": "Release B1: one identity check, the engine's Pulse case, clocks, the floor gate, held sites, Gemini guards, cards (decisions/0163 \u00a78 stages 7-8a)",
    "since": "2026-11-15T16:40:40Z",
-   "expires": "2026-11-15T20:40:40Z",
-   "release": "release-b1",
-   "callers": {}
+   "expires": "2026-11-15T20:50:47Z",
+   "release": "release-b1.zip",
+   "callers": {
+    "children": [
+     "app/lib/Dossier.php",
+     "app/lib/LiveEvents.php",
+     "website/discovery/index.php",
+     "website/hub/index.php"
+    ]
+   }
   },
   {
    "path": "app/lib/HelpFind.php",
@@ -206,9 +268,19 @@
    "session": "session_01CXLi5hvWvRSedDtk54gNDP",
    "why": "Release B1: one identity check, the engine's Pulse case, clocks, the floor gate, held sites, Gemini guards, cards (decisions/0163 \u00a78 stages 7-8a)",
    "since": "2026-11-15T16:40:40Z",
-   "expires": "2026-11-15T20:40:40Z",
-   "release": "release-b1",
-   "callers": {}
+   "expires": "2026-11-15T20:50:47Z",
+   "release": "release-b1.zip",
+   "callers": {
+    "leaseLoc": [
+     "website/api/crawl/heritage.php"
+    ],
+    "extractTick": [
+     "app/scripts/heritage_tick.php"
+    ],
+    "extract": [
+     "app/lib/Thresholds.php"
+    ]
+   }
   },
   {
    "path": "app/lib/HowGuides.php",
@@ -217,9 +289,13 @@
    "session": "session_01CXLi5hvWvRSedDtk54gNDP",
    "why": "Release B1: one identity check, the engine's Pulse case, clocks, the floor gate, held sites, Gemini guards, cards (decisions/0163 \u00a78 stages 7-8a)",
    "since": "2026-11-15T16:40:40Z",
-   "expires": "2026-11-15T20:40:40Z",
-   "release": "release-b1",
-   "callers": {}
+   "expires": "2026-11-15T20:50:47Z",
+   "release": "release-b1.zip",
+   "callers": {
+    "complete": [
+     "website/api/crawl/guides.php"
+    ]
+   }
   },
   {
    "path": "app/lib/Identity.php",
@@ -228,9 +304,21 @@
    "session": "session_01CXLi5hvWvRSedDtk54gNDP",
    "why": "Release B1: one identity check, the engine's Pulse case, clocks, the floor gate, held sites, Gemini guards, cards (decisions/0163 \u00a78 stages 7-8a)",
    "since": "2026-11-15T16:40:40Z",
-   "expires": "2026-11-15T20:40:40Z",
-   "release": "release-b1",
-   "callers": {}
+   "expires": "2026-11-15T20:50:47Z",
+   "release": "release-b1.zip",
+   "callers": {
+    "addr": [
+     "app/lib/Rebuild.php",
+     "app/lib/crawler/AutoImport.php"
+    ],
+    "digits": [
+     "app/lib/Rebuild.php",
+     "app/lib/crawler/AutoImport.php"
+    ],
+    "nameKey": [
+     "app/lib/crawler/AutoImport.php"
+    ]
+   }
   },
   {
    "path": "app/lib/IdentityJobs.php",
@@ -239,8 +327,8 @@
    "session": "session_01CXLi5hvWvRSedDtk54gNDP",
    "why": "Release B1: one identity check, the engine's Pulse case, clocks, the floor gate, held sites, Gemini guards, cards (decisions/0163 \u00a78 stages 7-8a)",
    "since": "2026-11-15T16:40:40Z",
-   "expires": "2026-11-15T20:40:40Z",
-   "release": "release-b1",
+   "expires": "2026-11-15T20:50:47Z",
+   "release": "release-b1.zip",
    "callers": {}
   },
   {
@@ -250,9 +338,13 @@
    "session": "session_01CXLi5hvWvRSedDtk54gNDP",
    "why": "Release B1: one identity check, the engine's Pulse case, clocks, the floor gate, held sites, Gemini guards, cards (decisions/0163 \u00a78 stages 7-8a)",
    "since": "2026-11-15T16:40:40Z",
-   "expires": "2026-11-15T20:40:40Z",
-   "release": "release-b1",
-   "callers": {}
+   "expires": "2026-11-15T20:50:47Z",
+   "release": "release-b1.zip",
+   "callers": {
+    "findPhotos": [
+     "app/scripts/landmark_photos_tick.php"
+    ]
+   }
   },
   {
    "path": "app/lib/Learning.php",
@@ -261,8 +353,8 @@
    "session": "session_01CXLi5hvWvRSedDtk54gNDP",
    "why": "Release B1: one identity check, the engine's Pulse case, clocks, the floor gate, held sites, Gemini guards, cards (decisions/0163 \u00a78 stages 7-8a)",
    "since": "2026-11-15T16:40:40Z",
-   "expires": "2026-11-15T20:40:40Z",
-   "release": "release-b1",
+   "expires": "2026-11-15T20:50:47Z",
+   "release": "release-b1.zip",
    "callers": {}
   },
   {
@@ -283,9 +375,13 @@
    "session": "session_01CXLi5hvWvRSedDtk54gNDP",
    "why": "Release B1: one identity check, the engine's Pulse case, clocks, the floor gate, held sites, Gemini guards, cards (decisions/0163 \u00a78 stages 7-8a)",
    "since": "2026-11-15T16:40:40Z",
-   "expires": "2026-11-15T20:40:40Z",
-   "release": "release-b1",
-   "callers": {}
+   "expires": "2026-11-15T20:50:47Z",
+   "release": "release-b1.zip",
+   "callers": {
+    "tick": [
+     "app/scripts/guide_finds_tick.php"
+    ]
+   }
   },
   {
    "path": "app/lib/Operations.php",
@@ -294,9 +390,14 @@
    "session": "session_01CXLi5hvWvRSedDtk54gNDP",
    "why": "Release B1: one identity check, the engine's Pulse case, clocks, the floor gate, held sites, Gemini guards, cards (decisions/0163 \u00a78 stages 7-8a)",
    "since": "2026-11-15T16:40:40Z",
-   "expires": "2026-11-15T20:40:40Z",
-   "release": "release-b1",
-   "callers": {}
+   "expires": "2026-11-15T20:50:47Z",
+   "release": "release-b1.zip",
+   "callers": {
+    "switchOnCheck": [
+     "app/admin/automation-console.php",
+     "app/admin/operations-console.php"
+    ]
+   }
   },
   {
    "path": "app/lib/OutsideServices.php",
@@ -305,8 +406,8 @@
    "session": "session_01CXLi5hvWvRSedDtk54gNDP",
    "why": "Release B1: one identity check, the engine's Pulse case, clocks, the floor gate, held sites, Gemini guards, cards (decisions/0163 \u00a78 stages 7-8a)",
    "since": "2026-11-15T16:40:40Z",
-   "expires": "2026-11-15T20:40:40Z",
-   "release": "release-b1",
+   "expires": "2026-11-15T20:50:47Z",
+   "release": "release-b1.zip",
    "callers": {}
   },
   {
@@ -327,9 +428,13 @@
    "session": "session_01CXLi5hvWvRSedDtk54gNDP",
    "why": "Release B1: one identity check, the engine's Pulse case, clocks, the floor gate, held sites, Gemini guards, cards (decisions/0163 \u00a78 stages 7-8a)",
    "since": "2026-11-15T16:40:40Z",
-   "expires": "2026-11-15T20:40:40Z",
-   "release": "release-b1",
-   "callers": {}
+   "expires": "2026-11-15T20:50:47Z",
+   "release": "release-b1.zip",
+   "callers": {
+    "apply": [
+     "website/admin/api/rebuild.php"
+    ]
+   }
   },
   {
    "path": "app/lib/Sales.php",
@@ -338,9 +443,13 @@
    "session": "session_01CXLi5hvWvRSedDtk54gNDP",
    "why": "Release B1: one identity check, the engine's Pulse case, clocks, the floor gate, held sites, Gemini guards, cards (decisions/0163 \u00a78 stages 7-8a)",
    "since": "2026-11-15T16:40:40Z",
-   "expires": "2026-11-15T20:40:40Z",
-   "release": "release-b1",
-   "callers": {}
+   "expires": "2026-11-15T20:50:47Z",
+   "release": "release-b1.zip",
+   "callers": {
+    "addFromField": [
+     "website/admin/api/sales.php"
+    ]
+   }
   },
   {
    "path": "app/lib/Scheduler.php",
@@ -360,9 +469,14 @@
    "session": "session_01CXLi5hvWvRSedDtk54gNDP",
    "why": "Release B1: one identity check, the engine's Pulse case, clocks, the floor gate, held sites, Gemini guards, cards (decisions/0163 \u00a78 stages 7-8a)",
    "since": "2026-11-15T16:40:40Z",
-   "expires": "2026-11-15T20:40:40Z",
-   "release": "release-b1",
-   "callers": {}
+   "expires": "2026-11-15T20:50:47Z",
+   "release": "release-b1.zip",
+   "callers": {
+    "allowed": [
+     "app/lib/OpenPlaces.php",
+     "app/lib/StagingGate.php"
+    ]
+   }
   },
   {
    "path": "app/lib/TestAccounts.php",
@@ -371,8 +485,8 @@
    "session": "session_01CXLi5hvWvRSedDtk54gNDP",
    "why": "Release B1: one identity check, the engine's Pulse case, clocks, the floor gate, held sites, Gemini guards, cards (decisions/0163 \u00a78 stages 7-8a)",
    "since": "2026-11-15T16:40:40Z",
-   "expires": "2026-11-15T20:40:40Z",
-   "release": "release-b1",
+   "expires": "2026-11-15T20:50:47Z",
+   "release": "release-b1.zip",
    "callers": {}
   },
   {
@@ -382,8 +496,8 @@
    "session": "session_01CXLi5hvWvRSedDtk54gNDP",
    "why": "Release B1: one identity check, the engine's Pulse case, clocks, the floor gate, held sites, Gemini guards, cards (decisions/0163 \u00a78 stages 7-8a)",
    "since": "2026-11-15T16:40:40Z",
-   "expires": "2026-11-15T20:40:40Z",
-   "release": "release-b1",
+   "expires": "2026-11-15T20:50:47Z",
+   "release": "release-b1.zip",
    "callers": {}
   },
   {
@@ -393,8 +507,8 @@
    "session": "session_01CXLi5hvWvRSedDtk54gNDP",
    "why": "Release B1: one identity check, the engine's Pulse case, clocks, the floor gate, held sites, Gemini guards, cards (decisions/0163 \u00a78 stages 7-8a)",
    "since": "2026-11-15T16:40:40Z",
-   "expires": "2026-11-15T20:40:40Z",
-   "release": "release-b1",
+   "expires": "2026-11-15T20:50:47Z",
+   "release": "release-b1.zip",
    "callers": {}
   },
   {
@@ -404,9 +518,20 @@
    "session": "session_01CXLi5hvWvRSedDtk54gNDP",
    "why": "Release B1: one identity check, the engine's Pulse case, clocks, the floor gate, held sites, Gemini guards, cards (decisions/0163 \u00a78 stages 7-8a)",
    "since": "2026-11-15T16:40:40Z",
-   "expires": "2026-11-15T20:40:40Z",
-   "release": "release-b1",
-   "callers": {}
+   "expires": "2026-11-15T20:50:47Z",
+   "release": "release-b1.zip",
+   "callers": {
+    "exhausted": [
+     "app/lib/Helper.php",
+     "app/ui/admin-crawler.php",
+     "website/admin/crawler-review.php",
+     "website/admin/listings.php",
+     "website/api/health.php"
+    ],
+    "relationTo": [
+     "app/lib/DataCleanup.php"
+    ]
+   }
   },
   {
    "path": "app/lib/crawler/CrawlQueue.php",
@@ -415,9 +540,13 @@
    "session": "session_01CXLi5hvWvRSedDtk54gNDP",
    "why": "Release B1: one identity check, the engine's Pulse case, clocks, the floor gate, held sites, Gemini guards, cards (decisions/0163 \u00a78 stages 7-8a)",
    "since": "2026-11-15T16:40:40Z",
-   "expires": "2026-11-15T20:40:40Z",
-   "release": "release-b1",
-   "callers": {}
+   "expires": "2026-11-15T20:50:47Z",
+   "release": "release-b1.zip",
+   "callers": {
+    "lease": [
+     "website/api/crawl/jobs.php"
+    ]
+   }
   },
   {
    "path": "app/lib/crawler/CrawlService.php",
@@ -426,9 +555,17 @@
    "session": "session_01CXLi5hvWvRSedDtk54gNDP",
    "why": "Release B1: one identity check, the engine's Pulse case, clocks, the floor gate, held sites, Gemini guards, cards (decisions/0163 \u00a78 stages 7-8a)",
    "since": "2026-11-15T16:40:40Z",
-   "expires": "2026-11-15T20:40:40Z",
-   "release": "release-b1",
-   "callers": {}
+   "expires": "2026-11-15T20:50:47Z",
+   "release": "release-b1.zip",
+   "callers": {
+    "plan": [
+     "website/api/crawl/service.php"
+    ],
+    "setTask": [
+     "app/admin/crawler-console.php",
+     "app/lib/Automation.php"
+    ]
+   }
   },
   {
    "path": "app/lib/crawler/IntakeStager.php",
@@ -437,9 +574,16 @@
    "session": "session_01CXLi5hvWvRSedDtk54gNDP",
    "why": "Release B1: one identity check, the engine's Pulse case, clocks, the floor gate, held sites, Gemini guards, cards (decisions/0163 \u00a78 stages 7-8a)",
    "since": "2026-11-15T16:40:40Z",
-   "expires": "2026-11-15T20:40:40Z",
-   "release": "release-b1",
-   "callers": {}
+   "expires": "2026-11-15T20:50:47Z",
+   "release": "release-b1.zip",
+   "callers": {
+    "approve": [
+     "app/lib/Helper.php",
+     "app/lib/crawler/AutoImport.php",
+     "website/admin/review-item.php",
+     "website/api/admin/intake/review.php"
+    ]
+   }
   },
   {
    "path": "app/lib/crawler/LiveDupes.php",
@@ -459,9 +603,16 @@
    "session": "session_01CXLi5hvWvRSedDtk54gNDP",
    "why": "Release B1: one identity check, the engine's Pulse case, clocks, the floor gate, held sites, Gemini guards, cards (decisions/0163 \u00a78 stages 7-8a)",
    "since": "2026-11-15T16:40:40Z",
-   "expires": "2026-11-15T20:40:40Z",
-   "release": "release-b1",
-   "callers": {}
+   "expires": "2026-11-15T20:50:47Z",
+   "release": "release-b1.zip",
+   "callers": {
+    "complete": [
+     "website/api/crawl/refresh.php"
+    ],
+    "lease": [
+     "website/api/crawl/refresh.php"
+    ]
+   }
   },
   {
    "path": "app/lib/crawler/SecondTier.php",
@@ -470,9 +621,13 @@
    "session": "session_01CXLi5hvWvRSedDtk54gNDP",
    "why": "Release B1: one identity check, the engine's Pulse case, clocks, the floor gate, held sites, Gemini guards, cards (decisions/0163 \u00a78 stages 7-8a)",
    "since": "2026-11-15T16:40:40Z",
-   "expires": "2026-11-15T20:40:40Z",
-   "release": "release-b1",
-   "callers": {}
+   "expires": "2026-11-15T20:50:47Z",
+   "release": "release-b1.zip",
+   "callers": {
+    "scanTick": [
+     "app/scripts/listings_tick.php"
+    ]
+   }
   },
   {
    "path": "app/lib/crawler/SiteFetcher.php",
@@ -492,9 +647,16 @@
    "session": "session_01CXLi5hvWvRSedDtk54gNDP",
    "why": "Release B1: one identity check, the engine's Pulse case, clocks, the floor gate, held sites, Gemini guards, cards (decisions/0163 \u00a78 stages 7-8a)",
    "since": "2026-11-15T16:40:40Z",
-   "expires": "2026-11-15T20:40:40Z",
-   "release": "release-b1",
-   "callers": {}
+   "expires": "2026-11-15T20:50:47Z",
+   "release": "release-b1.zip",
+   "callers": {
+    "next": [
+     "website/api/crawl/sources.php"
+    ],
+    "store": [
+     "website/api/crawl/sources.php"
+    ]
+   }
   },
   {
    "path": "app/lib/crawler/TownCrawl.php",
@@ -503,9 +665,18 @@
    "session": "session_01CXLi5hvWvRSedDtk54gNDP",
    "why": "Release B1: one identity check, the engine's Pulse case, clocks, the floor gate, held sites, Gemini guards, cards (decisions/0163 \u00a78 stages 7-8a)",
    "since": "2026-11-15T16:40:40Z",
-   "expires": "2026-11-15T20:40:40Z",
-   "release": "release-b1",
-   "callers": {}
+   "expires": "2026-11-15T20:50:47Z",
+   "release": "release-b1.zip",
+   "callers": {
+    "fromSearch": [
+     "app/lib/UniversalSearch.php",
+     "website/api/open-places.php",
+     "website/api/search.php"
+    ],
+    "want": [
+     "app/lib/crawler/SourceIndex.php"
+    ]
+   }
   },
   {
    "path": "app/lib/staging-tables.php",
@@ -514,8 +685,8 @@
    "session": "session_01CXLi5hvWvRSedDtk54gNDP",
    "why": "Release B1: one identity check, the engine's Pulse case, clocks, the floor gate, held sites, Gemini guards, cards (decisions/0163 \u00a78 stages 7-8a)",
    "since": "2026-11-15T16:40:40Z",
-   "expires": "2026-11-15T20:40:40Z",
-   "release": "release-b1",
+   "expires": "2026-11-15T20:50:47Z",
+   "release": "release-b1.zip",
    "callers": {}
   },
   {
@@ -525,8 +696,8 @@
    "session": "session_01CXLi5hvWvRSedDtk54gNDP",
    "why": "Release B1: one identity check, the engine's Pulse case, clocks, the floor gate, held sites, Gemini guards, cards (decisions/0163 \u00a78 stages 7-8a)",
    "since": "2026-11-15T16:40:40Z",
-   "expires": "2026-11-15T20:40:40Z",
-   "release": "release-b1",
+   "expires": "2026-11-15T20:50:47Z",
+   "release": "release-b1.zip",
    "callers": {}
   },
   {
@@ -536,8 +707,8 @@
    "session": "session_01CXLi5hvWvRSedDtk54gNDP",
    "why": "Release B1: one identity check, the engine's Pulse case, clocks, the floor gate, held sites, Gemini guards, cards (decisions/0163 \u00a78 stages 7-8a)",
    "since": "2026-11-15T16:40:40Z",
-   "expires": "2026-11-15T20:40:40Z",
-   "release": "release-b1",
+   "expires": "2026-11-15T20:50:47Z",
+   "release": "release-b1.zip",
    "callers": {}
   },
   {
@@ -547,9 +718,72 @@
    "session": "session_01CXLi5hvWvRSedDtk54gNDP",
    "why": "Release B1: one identity check, the engine's Pulse case, clocks, the floor gate, held sites, Gemini guards, cards (decisions/0163 \u00a78 stages 7-8a)",
    "since": "2026-11-15T16:40:40Z",
-   "expires": "2026-11-15T20:40:40Z",
-   "release": "release-b1",
-   "callers": {}
+   "expires": "2026-11-15T20:50:47Z",
+   "release": "release-b1.zip",
+   "callers": {
+    "esc": [
+     "app/lib/Pulse.php",
+     "app/ui/admin-dashboard.php",
+     "app/ui/card-scanner.php",
+     "app/ui/lead-panel.php",
+     "website/admin/client-order.php",
+     "website/admin/crawler-review.php",
+     "website/admin/listing-intake.php",
+     "website/admin/listings.php",
+     "website/admin/nexus.php",
+     "website/admin/people.php",
+     "website/admin/rebuild.php",
+     "website/admin/sales.php",
+     "website/admin/search-misses.php",
+     "website/community/group.php",
+     "website/community/index.php",
+     "website/directory/index.php",
+     "website/discovery/index.php",
+     "website/hub/index.php",
+     "website/journeys/view.php",
+     "website/js/address-book.js",
+     "website/js/admin-builder.js",
+     "website/js/admin-kit.js",
+     "website/js/admin-search.js",
+     "website/js/at-tags.js",
+     "website/js/business-inbox.js",
+     "website/js/cat-more.js",
+     "website/js/claim.js",
+     "website/js/collection.js",
+     "website/js/consent.js",
+     "website/js/engage.js",
+     "website/js/evidence-offers.js",
+     "website/js/gallery.js",
+     "website/js/go-codes.js",
+     "website/js/guest-inquiry.js",
+     "website/js/hero-media.js",
+     "website/js/link-button.js",
+     "website/js/map-view.js",
+     "website/js/photo-viewer.js",
+     "website/js/profile.js",
+     "website/js/search-panel.js",
+     "website/js/section-edit.js",
+     "website/js/suggest.js",
+     "website/js/tv-ai-assist.js",
+     "website/js/tv-art.js",
+     "website/js/tv-blocks.js",
+     "website/js/tv-cost.js",
+     "website/js/tv-join.js",
+     "website/js/tv-moments.js",
+     "website/js/tv-pulse.js",
+     "website/js/tv-stock.js",
+     "website/js/tv-tagcard.js",
+     "website/js/tv-trail.js",
+     "website/js/tv-upgrade.js",
+     "website/js/tv-vault.js",
+     "website/market/index.php",
+     "website/plans.php",
+     "website/user/dashboard.php",
+     "website/user/experiences/index.php",
+     "website/user/journeys/compose.php",
+     "website/user/market/index.php"
+    ]
+   }
   },
   {
    "path": "website/admin/review-item.php",
@@ -558,8 +792,8 @@
    "session": "session_01CXLi5hvWvRSedDtk54gNDP",
    "why": "Release B1: one identity check, the engine's Pulse case, clocks, the floor gate, held sites, Gemini guards, cards (decisions/0163 \u00a78 stages 7-8a)",
    "since": "2026-11-15T16:40:40Z",
-   "expires": "2026-11-15T20:40:40Z",
-   "release": "release-b1",
+   "expires": "2026-11-15T20:50:47Z",
+   "release": "release-b1.zip",
    "callers": {}
   },
   {
@@ -569,8 +803,8 @@
    "session": "session_01CXLi5hvWvRSedDtk54gNDP",
    "why": "Release B1: one identity check, the engine's Pulse case, clocks, the floor gate, held sites, Gemini guards, cards (decisions/0163 \u00a78 stages 7-8a)",
    "since": "2026-11-15T16:40:40Z",
-   "expires": "2026-11-15T20:40:40Z",
-   "release": "release-b1",
+   "expires": "2026-11-15T20:50:47Z",
+   "release": "release-b1.zip",
    "callers": {}
   },
   {
@@ -580,8 +814,8 @@
    "session": "session_01CXLi5hvWvRSedDtk54gNDP",
    "why": "Release B1: one identity check, the engine's Pulse case, clocks, the floor gate, held sites, Gemini guards, cards (decisions/0163 \u00a78 stages 7-8a)",
    "since": "2026-11-15T16:40:40Z",
-   "expires": "2026-11-15T20:40:40Z",
-   "release": "release-b1",
+   "expires": "2026-11-15T20:50:47Z",
+   "release": "release-b1.zip",
    "callers": {}
   },
   {
@@ -591,9 +825,17 @@
    "session": "session_01CXLi5hvWvRSedDtk54gNDP",
    "why": "Release B1: one identity check, the engine's Pulse case, clocks, the floor gate, held sites, Gemini guards, cards (decisions/0163 \u00a78 stages 7-8a)",
    "since": "2026-11-15T16:40:40Z",
-   "expires": "2026-11-15T20:40:40Z",
-   "release": "release-b1",
-   "callers": {}
+   "expires": "2026-11-15T20:50:47Z",
+   "release": "release-b1.zip",
+   "callers": {
+    "pins": [
+     "app/lib/Community.php",
+     "app/lib/DataCleanup.php",
+     "app/lib/Guides.php",
+     "website/api/search.php",
+     "website/discovery/index.php"
+    ]
+   }
   },
   {
    "path": "website/js/map-view.js",
@@ -602,8 +844,8 @@
    "session": "session_01CXLi5hvWvRSedDtk54gNDP",
    "why": "Release B1: one identity check, the engine's Pulse case, clocks, the floor gate, held sites, Gemini guards, cards (decisions/0163 \u00a78 stages 7-8a)",
    "since": "2026-11-15T16:40:40Z",
-   "expires": "2026-11-15T20:40:40Z",
-   "release": "release-b1",
+   "expires": "2026-11-15T20:50:47Z",
+   "release": "release-b1.zip",
    "callers": {}
   },
   {
@@ -613,8 +855,8 @@
    "session": "session_01CXLi5hvWvRSedDtk54gNDP",
    "why": "Release B1: one identity check, the engine's Pulse case, clocks, the floor gate, held sites, Gemini guards, cards (decisions/0163 \u00a78 stages 7-8a)",
    "since": "2026-11-15T16:40:40Z",
-   "expires": "2026-11-15T20:40:40Z",
-   "release": "release-b1",
+   "expires": "2026-11-15T20:50:47Z",
+   "release": "release-b1.zip",
    "callers": {}
   },
   {
@@ -624,8 +866,8 @@
    "session": "session_01CXLi5hvWvRSedDtk54gNDP",
    "why": "Release B1: one identity check, the engine's Pulse case, clocks, the floor gate, held sites, Gemini guards, cards (decisions/0163 \u00a78 stages 7-8a)",
    "since": "2026-11-15T16:40:40Z",
-   "expires": "2026-11-15T20:40:40Z",
-   "release": "release-b1",
+   "expires": "2026-11-15T20:50:47Z",
+   "release": "release-b1.zip",
    "callers": {}
   },
   {
@@ -635,8 +877,8 @@
    "session": "session_01CXLi5hvWvRSedDtk54gNDP",
    "why": "Release B1: one identity check, the engine's Pulse case, clocks, the floor gate, held sites, Gemini guards, cards (decisions/0163 \u00a78 stages 7-8a)",
    "since": "2026-11-15T16:40:40Z",
-   "expires": "2026-11-15T20:40:40Z",
-   "release": "release-b1",
+   "expires": "2026-11-15T20:50:47Z",
+   "release": "release-b1.zip",
    "callers": {}
   },
   {
@@ -646,8 +888,8 @@
    "session": "session_01CXLi5hvWvRSedDtk54gNDP",
    "why": "Release B1: the engine's case in Pulse; FAQ entries",
    "since": "2026-11-15T16:40:42Z",
-   "expires": "2026-11-15T20:40:42Z",
-   "release": "release-b1",
+   "expires": "2026-11-15T20:50:47Z",
+   "release": "release-b1.zip",
    "callers": {}
   },
   {
@@ -657,8 +899,8 @@
    "session": "session_01CXLi5hvWvRSedDtk54gNDP",
    "why": "Release B1: register of record numbers (0165's open item), staging answers for the new cards, the NPI load's batch fold",
    "since": "2026-11-15T16:46:07Z",
-   "expires": "2026-11-15T20:46:07Z",
-   "release": "release-b1",
+   "expires": "2026-11-15T20:50:47Z",
+   "release": "release-b1.zip",
    "callers": {}
   },
   {
@@ -668,8 +910,8 @@
    "session": "session_01CXLi5hvWvRSedDtk54gNDP",
    "why": "Release B1: register of record numbers (0165's open item), staging answers for the new cards, the NPI load's batch fold",
    "since": "2026-11-15T16:46:07Z",
-   "expires": "2026-11-15T20:46:07Z",
-   "release": "release-b1",
+   "expires": "2026-11-15T20:50:47Z",
+   "release": "release-b1.zip",
    "callers": {}
   },
   {
@@ -681,6 +923,105 @@
    "since": "2026-11-15T16:46:07Z",
    "expires": "2026-11-15T20:46:07Z",
    "release": "release-b1",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/sections.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "release release-b1.zip",
+   "since": "2026-11-15T16:50:47Z",
+   "expires": "2026-11-15T20:50:47Z",
+   "release": "release-b1.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Scheduler.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "release release-b1.zip",
+   "since": "2026-11-15T16:50:47Z",
+   "expires": "2026-11-15T20:50:47Z",
+   "release": "release-b1.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/ListingBulk.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "release release-b1.zip",
+   "since": "2026-11-15T16:50:47Z",
+   "expires": "2026-11-15T20:50:47Z",
+   "release": "release-b1.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/DataCleanup.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "release release-b1.zip",
+   "since": "2026-11-15T16:50:47Z",
+   "expires": "2026-11-15T20:50:47Z",
+   "release": "release-b1.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/PlaceFinder.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "release release-b1.zip",
+   "since": "2026-11-15T16:50:47Z",
+   "expires": "2026-11-15T20:50:47Z",
+   "release": "release-b1.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/HelpFind.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "release release-b1.zip",
+   "since": "2026-11-15T16:50:47Z",
+   "expires": "2026-11-15T20:50:47Z",
+   "release": "release-b1.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/crawler/LiveDupes.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "release release-b1.zip",
+   "since": "2026-11-15T16:50:47Z",
+   "expires": "2026-11-15T20:50:47Z",
+   "release": "release-b1.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/crawler/NpiBulk.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "release release-b1.zip",
+   "since": "2026-11-15T16:50:47Z",
+   "expires": "2026-11-15T20:50:47Z",
+   "release": "release-b1.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/crawler/SiteFetcher.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "release release-b1.zip",
+   "since": "2026-11-15T16:50:47Z",
+   "expires": "2026-11-15T20:50:47Z",
+   "release": "release-b1.zip",
    "callers": {}
   }
  ],
