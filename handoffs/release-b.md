@@ -312,3 +312,13 @@ review's three parts on the live Releases page (`sections.php` release card, `ad
 `Releases::reviewPart` fills the staff name), a fix to B1 (`ListingIdentity::settleOffers`: a merged pair's offer had both
 ids on the keep and was never marked used), `tv_vectors` classed never, FAQ entries (open datasets, search engines).
 Tests on Sync 18:22 + B2: staging unit 49, identity 36, Gemini 21; both migrations run twice clean.
+
+**19:15 UTC: B2 (#60), the bar fix (#61) and the fast path (#62) live**, Sync 19:02 and 19:12 UTC, every file byte for
+byte, B2's two migrations run and removed, all claims released. Found on the way: the Releases job ran on `*/19` (minutes
+0, 19, 38, 57), not every 10 minutes; Jason set it to every 5 (Scheduled tasks). The bar never drew on staging: a `var
+when` in its Schedule panel hid the `when()` date helper for all of `draw()` (fixed, #61). Publish refused #60 because the
+bar, opened with no release named, showed it without recording the look (fixed in #62: `release-bar.php` records the look
+for the release it shows). #62 also brought **Check for builds** on the live Releases page (with when the site last
+looked), `/api/releases-pull.php` called by `.github/workflows/release-ping.yml` when a zip lands in the inbox (no secret:
+it only makes the site look sooner, once a minute at most; a lock in `Releases::fromGit` keeps one taker), and approved
+review parts folded to one line with Edit. Jason ran Data cleanup's pass: nothing to change, 45 to check.
