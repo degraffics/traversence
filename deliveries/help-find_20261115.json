@@ -1,0 +1,46 @@
+{
+ "zip": "help-find_20261115.zip",
+ "built_on": "a4f7499 Sync: 2026-11-14 23:59 UTC",
+ "recorded": "2026-11-15 00:08 UTC",
+ "note": "Help us find this business (decisions/0164 \u00a73.5), with Undo by reason. Built on Sync: 2026-11-14 23:59 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/admin/cleanup-console.php": {
+   "sha256": "cffa49f418c3d4ac3843713aa31c2304a1f120d845b4222168f00371f0ce3cfa",
+   "live": false
+  },
+  "app/lib/Claims.php": {
+   "sha256": "71211f91b2942ee22011b537f76d948716787de996155503b8f931754e365947",
+   "live": false
+  },
+  "app/lib/DataCleanup.php": {
+   "sha256": "830bdc9c91e42fec87075fb7bc19f7f6e7a5ecb497dd3757a3c2b9f606bd6736",
+   "live": false
+  },
+  "app/lib/HelpFind.php": {
+   "sha256": "0af13a1cbf936a23737cadde14a45e6cbdb42924e6e22bab327df8f2c3e61904",
+   "live": false
+  },
+  "app/lib/UniversalSearch.php": {
+   "sha256": "849ba804e8bca418147d604c430a999fe06ffdf69197d37e5eca5a12a0ef4a79",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "4fedd33d889affcbc4fecd987ec0378ba10f2b939389d02327612fc0a6dbe330",
+   "live": false
+  },
+  "website/hub/index.php": {
+   "sha256": "e191483e8b92520ff26e8a8105ce2812b73fbea88825ffe74386596000d7bb99",
+   "live": false
+  },
+  "website/js/search-panel.js": {
+   "sha256": "f7b56bdd178ac8db152c853e0ad413b02151d612f35dc4399531c0166eb1d323",
+   "live": false
+  },
+  "website/js/suggest.js": {
+   "sha256": "ce39696e88ebc73bc54f8483e88329381cfd3ee76fdc731bb40ae47ae32e10c9",
+   "live": false
+  }
+ }
+}
