@@ -17,17 +17,6 @@
    }
   },
   {
-   "path": "app/lib/Gemini.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
-   "why": "Release B part 5",
-   "since": "2026-11-15T20:12:22Z",
-   "expires": "2026-11-16T00:12:22Z",
-   "release": "release-b5",
-   "callers": {}
-  },
-  {
    "path": "app/lib/ListingConfidence.php",
    "functions": [],
    "kind": "change",
@@ -62,28 +51,6 @@
    "since": "2026-11-15T20:12:22Z",
    "expires": "2026-11-16T00:13:05Z",
    "release": "release-b5.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/crawler/SourceIndex.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
-   "why": "Release B part 5",
-   "since": "2026-11-15T20:12:22Z",
-   "expires": "2026-11-16T00:12:22Z",
-   "release": "release-b5",
-   "callers": {}
-  },
-  {
-   "path": "website/api/search.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
-   "why": "Release B part 5",
-   "since": "2026-11-15T20:12:22Z",
-   "expires": "2026-11-16T00:12:22Z",
-   "release": "release-b5",
    "callers": {}
   },
   {
