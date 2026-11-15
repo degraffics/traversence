@@ -1,0 +1,14 @@
+{
+ "zip": "review-link-login.zip",
+ "built_on": "60e8abe Sync: 2026-11-15 22:13 UTC",
+ "recorded": "2026-11-15 22:14 UTC",
+ "note": "Admin API links opened in a browser with no staff sign-in go to /admin/login.php?next=\u2026 instead of raw JSON. Review: true. built on Sync: 2026-11-15 22:13 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/bootstrap.php": {
+   "sha256": "e67b32af283616177dd9667aff12a8e62cb4bf938ab164d29f966daeb06d11c4",
+   "live": false
+  }
+ }
+}
