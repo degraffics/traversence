@@ -1,11 +1,11 @@
 # ADR 0165: Staging is the live site in safe mode; Publish merges it into live
 
-**Status:** Proposed (written 2026-11-15 for Jason's approval, through the session manager). Nothing here is built.
+**Status:** Accepted (Jason, 2026-11-15, through the session manager; his answers to the five choices are under "Choices for Jason"). Nothing here is built yet.
 Once accepted it **replaces** `decisions/0159`'s 2026-11-13 progress note that builds sent through git go live by
 themselves (`Releases::autoPublish`), and `decisions/0145`'s "refreshed from live" (the weekly copy over staging,
 `staging_tick`). It keeps `0145`'s staging rules (held email, sandbox payments, not indexed, behind a password), `0159` §5
 (the site manager), `0162` (migrations first, copied first) and `0110` (the walls between the databases).
-Release B waits for Jason's answer on this.
+Built next, before Release B, so B is published this way.
 Checked the same day against an outside spec Jason shared ("Two-Tier Platform & Content Release System"): what it adds
 is folded in, and §8 says where this decision differs from it and why.
 
@@ -105,6 +105,15 @@ the switch on, else "Held on staging: ask our team (support@traversence.com)". N
 ### 3. Keeping staging a mirror: catch-up from live, staging's work kept
 
 Live keeps changing (visitors, owners, orders). Instead of the weekly copy over staging, staging **catches up**:
+
+> **Amended 2026-11-15 (Jason: "the live site should push updated data to staging at the time of an action"):** the
+> 15-minute quick pass is replaced by a **push at the moment of each change on live**. Each live write is noted in a
+> small outbox on live (in the database that owns the table, 0110), and a job sends it to staging within a minute. It
+> could instead be sent at once by a trigger, if Bluehost allows triggers that write across databases. Either way,
+> staging applies the change as below. The **nightly full pass stays as the safety net**: it compares fingerprints and
+> catches a failed push, a cascaded delete, or a change made outside the code. Ids are still needed (choice 3): both
+> sides create rows, so instant push makes a clash sooner, not impossible.
+
 
 - **When, in two speeds** (Bluehost throttles CPU and IO per account, and live and staging share it):
   - **every 15 minutes, the quick pass:** tables that keep an `updated_at` (set by the database on every change) are
@@ -336,6 +345,14 @@ to code being tried.
 4. **Catch-up:** the quick pass every 15 minutes and the full pass nightly (recommended), or nightly only (lighter on
    Bluehost, staging up to a day behind).
 5. **Staging's own views, taps and counts are never carried** (test traffic). Confirm.
+
+**Jason's answers (2026-11-15):**
+1. All of staging at once, with the urgent single-release path kept.
+2. Live stays open during Publish; late conflicts are listed after.
+3. Odd and even ids. He asked whether pushing live's changes at once would make this unnecessary. It doesn't: staging
+   also creates rows, so the two sides still need numbers that can't meet.
+4. Changed: push at the time of the action, plus the nightly full pass (the amendment in §3).
+5. Confirmed: staging's own views, taps and counts are never carried.
 
 ## Consequences
 
