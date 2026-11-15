@@ -2,46 +2,6 @@
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
  "claims": [
   {
-   "path": "app/lib/StagingSite.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5ku2xkVJ8wnDFvC1KM",
-   "why": "decisions/0165: staging is live in safe mode; Publish merges it",
-   "since": "2026-11-15T14:28:41Z",
-   "expires": "2026-11-15T18:53:13Z",
-   "release": "release-0165-staging-safe-mode.zip",
-   "callers": {
-    "status": [
-     "app/admin/sections.php"
-    ],
-    "due": [
-     "app/scripts/staging_tick.php"
-    ],
-    "refreshAll": [
-     "app/scripts/staging_tick.php"
-    ]
-   }
-  },
-  {
-   "path": "app/lib/Staging.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5ku2xkVJ8wnDFvC1KM",
-   "why": "decisions/0165: staging is live in safe mode; Publish merges it",
-   "since": "2026-11-15T14:28:41Z",
-   "expires": "2026-11-15T18:53:13Z",
-   "release": "release-0165-staging-safe-mode.zip",
-   "callers": {
-    "heldMail": [
-     "app/admin/sections.php"
-    ],
-    "holdMail": [
-     "app/lib/Mailer.php",
-     "app/lib/SesMail.php"
-    ]
-   }
-  },
-  {
    "path": "app/lib/Releases.php",
    "functions": [],
    "kind": "change",
@@ -73,22 +33,6 @@
    }
   },
   {
-   "path": "app/lib/Scheduler.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5ku2xkVJ8wnDFvC1KM",
-   "why": "decisions/0165: staging is live in safe mode; Publish merges it",
-   "since": "2026-11-15T14:28:41Z",
-   "expires": "2026-11-15T18:53:13Z",
-   "release": "release-0165-staging-safe-mode.zip",
-   "callers": {
-    "lineFor": [
-     "app/admin/sections.php",
-     "app/lib/StagingSite.php"
-    ]
-   }
-  },
-  {
    "path": "app/lib/QuickBooksPay.php",
    "functions": [],
    "kind": "change",
@@ -111,28 +55,6 @@
    "callers": {}
   },
   {
-   "path": "app/lib/AiClient.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5ku2xkVJ8wnDFvC1KM",
-   "why": "decisions/0165: staging is live in safe mode; Publish merges it",
-   "since": "2026-11-15T14:28:41Z",
-   "expires": "2026-11-15T18:53:13Z",
-   "release": "release-0165-staging-safe-mode.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/Database.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5ku2xkVJ8wnDFvC1KM",
-   "why": "decisions/0165: staging is live in safe mode; Publish merges it",
-   "since": "2026-11-15T14:28:41Z",
-   "expires": "2026-11-15T18:53:13Z",
-   "release": "release-0165-staging-safe-mode.zip",
-   "callers": {}
-  },
-  {
    "path": "app/ui/security-headers.php",
    "functions": [],
    "kind": "change",
@@ -141,17 +63,6 @@
    "since": "2026-11-15T14:28:41Z",
    "expires": "2026-11-15T18:52:59Z",
    "release": "",
-   "callers": {}
-  },
-  {
-   "path": "app/scripts/staging_tick.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5ku2xkVJ8wnDFvC1KM",
-   "why": "decisions/0165: staging is live in safe mode; Publish merges it",
-   "since": "2026-11-15T14:28:41Z",
-   "expires": "2026-11-15T18:53:13Z",
-   "release": "release-0165-staging-safe-mode.zip",
    "callers": {}
   },
   {
@@ -221,17 +132,6 @@
    "callers": {}
   },
   {
-   "path": "website/js/admin-staging.js",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5ku2xkVJ8wnDFvC1KM",
-   "why": "decisions/0165: staging is live in safe mode; Publish merges it",
-   "since": "2026-11-15T14:28:41Z",
-   "expires": "2026-11-15T18:53:13Z",
-   "release": "release-0165-staging-safe-mode.zip",
-   "callers": {}
-  },
-  {
    "path": "website/js/stg-bar.js",
    "functions": [],
    "kind": "change",
@@ -240,17 +140,6 @@
    "since": "2026-11-15T14:28:41Z",
    "expires": "2026-11-15T19:20:49Z",
    "release": "release-0165b-approved-builds-live.zip",
-   "callers": {}
-  },
-  {
-   "path": "website/api/release-bar.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5ku2xkVJ8wnDFvC1KM",
-   "why": "decisions/0165: staging is live in safe mode; Publish merges it",
-   "since": "2026-11-15T14:28:41Z",
-   "expires": "2026-11-15T18:53:13Z",
-   "release": "release-0165-staging-safe-mode.zip",
    "callers": {}
   },
   {
@@ -280,105 +169,6 @@
    "callers": {}
   },
   {
-   "path": "app/lib/StagingGate.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5ku2xkVJ8wnDFvC1KM",
-   "why": "decisions/0165 build",
-   "since": "2026-11-15T14:28:45Z",
-   "expires": "2026-11-15T18:53:13Z",
-   "release": "release-0165-staging-safe-mode.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/StagingSync.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5ku2xkVJ8wnDFvC1KM",
-   "why": "decisions/0165 build",
-   "since": "2026-11-15T14:28:45Z",
-   "expires": "2026-11-15T18:53:13Z",
-   "release": "release-0165-staging-safe-mode.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/StagingPublish.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5ku2xkVJ8wnDFvC1KM",
-   "why": "decisions/0165 build",
-   "since": "2026-11-15T14:28:45Z",
-   "expires": "2026-11-15T18:53:13Z",
-   "release": "release-0165-staging-safe-mode.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/StagingMerge.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5ku2xkVJ8wnDFvC1KM",
-   "why": "decisions/0165 build",
-   "since": "2026-11-15T14:28:45Z",
-   "expires": "2026-11-15T18:53:13Z",
-   "release": "release-0165-staging-safe-mode.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/StagingIds.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5ku2xkVJ8wnDFvC1KM",
-   "why": "decisions/0165 build",
-   "since": "2026-11-15T14:28:45Z",
-   "expires": "2026-11-15T18:53:13Z",
-   "release": "release-0165-staging-safe-mode.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/staging-tables.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5ku2xkVJ8wnDFvC1KM",
-   "why": "decisions/0165 build",
-   "since": "2026-11-15T14:28:45Z",
-   "expires": "2026-11-15T18:53:13Z",
-   "release": "release-0165-staging-safe-mode.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/scripts/staging_push_tick.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5ku2xkVJ8wnDFvC1KM",
-   "why": "decisions/0165 build",
-   "since": "2026-11-15T14:28:45Z",
-   "expires": "2026-11-15T18:53:13Z",
-   "release": "release-0165-staging-safe-mode.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/scripts/staging_night_tick.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5ku2xkVJ8wnDFvC1KM",
-   "why": "decisions/0165 build",
-   "since": "2026-11-15T14:28:45Z",
-   "expires": "2026-11-15T18:53:13Z",
-   "release": "release-0165-staging-safe-mode.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/scripts/staging_publish_tick.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5ku2xkVJ8wnDFvC1KM",
-   "why": "decisions/0165 build",
-   "since": "2026-11-15T14:28:45Z",
-   "expires": "2026-11-15T18:53:13Z",
-   "release": "release-0165-staging-safe-mode.zip",
-   "callers": {}
-  },
-  {
    "path": "app/lib/Operations.php",
    "functions": [
     "register"
@@ -394,131 +184,6 @@
      "app/admin/operations-console.php"
     ]
    }
-  },
-  {
-   "path": "website/api/stg-csp.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5ku2xkVJ8wnDFvC1KM",
-   "why": "decisions/0165 build",
-   "since": "2026-11-15T14:35:35Z",
-   "expires": "2026-11-15T18:53:13Z",
-   "release": "release-0165-staging-safe-mode.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/ServiceHealth.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5ku2xkVJ8wnDFvC1KM",
-   "why": "release release-0165-staging-safe-mode.zip",
-   "since": "2026-11-15T14:50:10Z",
-   "expires": "2026-11-15T18:53:13Z",
-   "release": "release-0165-staging-safe-mode.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/Operations.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5ku2xkVJ8wnDFvC1KM",
-   "why": "release release-0165-staging-safe-mode.zip",
-   "since": "2026-11-15T14:50:10Z",
-   "expires": "2026-11-15T18:53:13Z",
-   "release": "release-0165-staging-safe-mode.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/Geocoder.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5ku2xkVJ8wnDFvC1KM",
-   "why": "release release-0165-staging-safe-mode.zip",
-   "since": "2026-11-15T14:50:10Z",
-   "expires": "2026-11-15T18:53:13Z",
-   "release": "release-0165-staging-safe-mode.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/StagingApi.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5ku2xkVJ8wnDFvC1KM",
-   "why": "release release-0165-staging-safe-mode.zip",
-   "since": "2026-11-15T14:50:10Z",
-   "expires": "2026-11-15T18:53:13Z",
-   "release": "release-0165-staging-safe-mode.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/PlaceFinder.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5ku2xkVJ8wnDFvC1KM",
-   "why": "release release-0165-staging-safe-mode.zip",
-   "since": "2026-11-15T14:50:10Z",
-   "expires": "2026-11-15T18:53:13Z",
-   "release": "release-0165-staging-safe-mode.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/TravelLegs.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5ku2xkVJ8wnDFvC1KM",
-   "why": "release release-0165-staging-safe-mode.zip",
-   "since": "2026-11-15T14:50:10Z",
-   "expires": "2026-11-15T18:53:13Z",
-   "release": "release-0165-staging-safe-mode.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/QuickBooksPay.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5ku2xkVJ8wnDFvC1KM",
-   "why": "release release-0165-staging-safe-mode.zip",
-   "since": "2026-11-15T14:50:10Z",
-   "expires": "2026-11-15T18:53:13Z",
-   "release": "release-0165-staging-safe-mode.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/stock/StockSource.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5ku2xkVJ8wnDFvC1KM",
-   "why": "release release-0165-staging-safe-mode.zip",
-   "since": "2026-11-15T14:50:10Z",
-   "expires": "2026-11-15T18:53:13Z",
-   "release": "release-0165-staging-safe-mode.zip",
-   "callers": {}
-  },
-  {
-   "path": "website/admin/api.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5ku2xkVJ8wnDFvC1KM",
-   "why": "release release-0165-staging-safe-mode.zip",
-   "since": "2026-11-15T14:50:10Z",
-   "expires": "2026-11-15T18:53:13Z",
-   "release": "release-0165-staging-safe-mode.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/DailyReport.php",
-   "functions": [
-    "box",
-    "button",
-    "frame"
-   ],
-   "kind": "add",
-   "session": "session_01CXLi5ku2xkVJ8wnDFvC1KM",
-   "why": "decisions/0165 release: system emails share the daily report's look",
-   "since": "2026-11-15T14:52:56Z",
-   "expires": "2026-11-15T18:53:13Z",
-   "release": "release-0165-staging-safe-mode.zip",
-   "callers": {}
   },
   {
    "path": "app/lib/StagingApi.php",
