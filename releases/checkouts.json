@@ -253,28 +253,6 @@
    "expires": "2026-11-15T16:20:23Z",
    "release": "operations-release-a_20261115.zip",
    "callers": {}
-  },
-  {
-   "path": "app/lib/ServiceRegister.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5h9itnngLeRubRrLfm",
-   "why": "Service register (0163 stage 2): new library and table",
-   "since": "2026-11-15T12:21:26Z",
-   "expires": "2026-11-15T16:21:26Z",
-   "release": "",
-   "callers": {}
-  },
-  {
-   "path": "app/migrations/2026-11-15_service_register.sql",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5h9itnngLeRubRrLfm",
-   "why": "Service register (0163 stage 2): new library and table",
-   "since": "2026-11-15T12:21:26Z",
-   "expires": "2026-11-15T16:21:26Z",
-   "release": "",
-   "callers": {}
   }
  ],
  "lapsed": []
