@@ -8,7 +8,7 @@
    "session": "session_01CXLi5iFQyKrm52ppEnEUqw",
    "why": "Release A: the service register, costs, workflow board, warnings, watching (0163 \u00a78 stages 2-6)",
    "since": "2026-11-15T12:20:08Z",
-   "expires": "2026-11-15T16:20:08Z",
+   "expires": "2026-11-15T16:43:08Z",
    "release": "operations-release-a_20261115.zip",
    "callers": {}
   },
@@ -19,7 +19,7 @@
    "session": "session_01CXLi5iFQyKrm52ppEnEUqw",
    "why": "Release A: the service register, costs, workflow board, warnings, watching (0163 \u00a78 stages 2-6)",
    "since": "2026-11-15T12:20:08Z",
-   "expires": "2026-11-15T16:20:08Z",
+   "expires": "2026-11-15T16:43:08Z",
    "release": "operations-release-a_20261115.zip",
    "callers": {}
   },
@@ -30,7 +30,7 @@
    "session": "session_01CXLi5iFQyKrm52ppEnEUqw",
    "why": "Release A: the service register, costs, workflow board, warnings, watching (0163 \u00a78 stages 2-6)",
    "since": "2026-11-15T12:20:08Z",
-   "expires": "2026-11-15T16:20:08Z",
+   "expires": "2026-11-15T16:43:08Z",
    "release": "operations-release-a_20261115.zip",
    "callers": {}
   },
@@ -41,9 +41,17 @@
    "session": "session_01CXLi5iFQyKrm52ppEnEUqw",
    "why": "Release A: caps into the register, warnings into Pulse, the switch-on check, story-only landmarks, place counts without drop-offs",
    "since": "2026-11-15T12:20:20Z",
-   "expires": "2026-11-15T16:20:20Z",
+   "expires": "2026-11-15T16:43:08Z",
    "release": "operations-release-a_20261115.zip",
-   "callers": {}
+   "callers": {
+    "stored": [
+     "app/admin/sections.php",
+     "website/api/crawl/usage.php"
+    ],
+    "reset": [
+     "app/admin/sections.php"
+    ]
+   }
   },
   {
    "path": "app/lib/AiClient.php",
@@ -52,9 +60,17 @@
    "session": "session_01CXLi5iFQyKrm52ppEnEUqw",
    "why": "Release A: caps into the register, warnings into Pulse, the switch-on check, story-only landmarks, place counts without drop-offs",
    "since": "2026-11-15T12:20:20Z",
-   "expires": "2026-11-15T16:20:20Z",
+   "expires": "2026-11-15T16:43:08Z",
    "release": "operations-release-a_20261115.zip",
-   "callers": {}
+   "callers": {
+    "capUsd": [
+     "app/admin/sections.php",
+     "app/lib/OnDemand.php",
+     "app/lib/Services.php",
+     "website/admin/settings.php",
+     "website/api/health.php"
+    ]
+   }
   },
   {
    "path": "app/lib/SesMail.php",
@@ -63,9 +79,14 @@
    "session": "session_01CXLi5iFQyKrm52ppEnEUqw",
    "why": "Release A: caps into the register, warnings into Pulse, the switch-on check, story-only landmarks, place counts without drop-offs",
    "since": "2026-11-15T12:20:20Z",
-   "expires": "2026-11-15T16:20:20Z",
+   "expires": "2026-11-15T16:43:08Z",
    "release": "operations-release-a_20261115.zip",
-   "callers": {}
+   "callers": {
+    "send": [
+     "app/lib/Notices.php",
+     "app/lib/OnDemand.php"
+    ]
+   }
   },
   {
    "path": "app/lib/Services.php",
@@ -74,9 +95,13 @@
    "session": "session_01CXLi5iFQyKrm52ppEnEUqw",
    "why": "Release A: caps into the register, warnings into Pulse, the switch-on check, story-only landmarks, place counts without drop-offs",
    "since": "2026-11-15T12:20:20Z",
-   "expires": "2026-11-15T16:20:20Z",
+   "expires": "2026-11-15T16:43:08Z",
    "release": "operations-release-a_20261115.zip",
-   "callers": {}
+   "callers": {
+    "tick": [
+     "app/scripts/services_tick.php"
+    ]
+   }
   },
   {
    "path": "app/lib/Scheduler.php",
@@ -85,7 +110,7 @@
    "session": "session_01CXLi5iFQyKrm52ppEnEUqw",
    "why": "Release A: caps into the register, warnings into Pulse, the switch-on check, story-only landmarks, place counts without drop-offs",
    "since": "2026-11-15T12:20:20Z",
-   "expires": "2026-11-15T16:20:20Z",
+   "expires": "2026-11-15T16:43:08Z",
    "release": "operations-release-a_20261115.zip",
    "callers": {}
   },
@@ -96,9 +121,29 @@
    "session": "session_01CXLi5iFQyKrm52ppEnEUqw",
    "why": "Release A: caps into the register, warnings into Pulse, the switch-on check, story-only landmarks, place counts without drop-offs",
    "since": "2026-11-15T12:20:20Z",
-   "expires": "2026-11-15T16:20:20Z",
+   "expires": "2026-11-15T16:43:08Z",
    "release": "operations-release-a_20261115.zip",
-   "callers": {}
+   "callers": {
+    "views": [
+     "website/admin/landmarks.php"
+    ],
+    "isProtected": [
+     "app/lib/DataCleanup.php",
+     "app/lib/GuideAudits.php",
+     "app/lib/GuideLinks.php",
+     "app/lib/Guides.php",
+     "app/lib/HelpFind.php",
+     "app/lib/Heritage.php",
+     "app/lib/JourneyPlan.php",
+     "app/lib/LiveEvents.php",
+     "app/lib/OpenPlaces.php",
+     "app/lib/PlaceFinder.php",
+     "app/lib/crawler/SourceIndex.php"
+    ],
+    "decide": [
+     "app/lib/PlaceFinder.php"
+    ]
+   }
   },
   {
    "path": "app/lib/GuideLinks.php",
@@ -107,7 +152,7 @@
    "session": "session_01CXLi5iFQyKrm52ppEnEUqw",
    "why": "Release A: caps into the register, warnings into Pulse, the switch-on check, story-only landmarks, place counts without drop-offs",
    "since": "2026-11-15T12:20:20Z",
-   "expires": "2026-11-15T16:20:20Z",
+   "expires": "2026-11-15T16:43:08Z",
    "release": "operations-release-a_20261115.zip",
    "callers": {}
   },
@@ -118,9 +163,16 @@
    "session": "session_01CXLi5iFQyKrm52ppEnEUqw",
    "why": "Release A: caps into the register, warnings into Pulse, the switch-on check, story-only landmarks, place counts without drop-offs",
    "since": "2026-11-15T12:20:20Z",
-   "expires": "2026-11-15T16:20:20Z",
+   "expires": "2026-11-15T16:43:08Z",
    "release": "operations-release-a_20261115.zip",
-   "callers": {}
+   "callers": {
+    "describe": [
+     "website/takedown.php"
+    ],
+    "hide": [
+     "app/admin/sections.php"
+    ]
+   }
   },
   {
    "path": "app/lib/DataCleanup.php",
@@ -129,7 +181,7 @@
    "session": "session_01CXLi5iFQyKrm52ppEnEUqw",
    "why": "Release A: caps into the register, warnings into Pulse, the switch-on check, story-only landmarks, place counts without drop-offs",
    "since": "2026-11-15T12:20:20Z",
-   "expires": "2026-11-15T16:20:20Z",
+   "expires": "2026-11-15T16:43:08Z",
    "release": "operations-release-a_20261115.zip",
    "callers": {}
   },
@@ -140,9 +192,16 @@
    "session": "session_01CXLi5iFQyKrm52ppEnEUqw",
    "why": "Release A: caps into the register, warnings into Pulse, the switch-on check, story-only landmarks, place counts without drop-offs",
    "since": "2026-11-15T12:20:20Z",
-   "expires": "2026-11-15T16:20:20Z",
+   "expires": "2026-11-15T16:43:08Z",
    "release": "operations-release-a_20261115.zip",
-   "callers": {}
+   "callers": {
+    "children": [
+     "app/lib/Dossier.php",
+     "app/lib/LiveEvents.php",
+     "website/discovery/index.php",
+     "website/hub/index.php"
+    ]
+   }
   },
   {
    "path": "app/admin/sections.php",
@@ -151,7 +210,7 @@
    "session": "session_01CXLi5iFQyKrm52ppEnEUqw",
    "why": "Release A: caps into the register, warnings into Pulse, the switch-on check, story-only landmarks, place counts without drop-offs",
    "since": "2026-11-15T12:20:20Z",
-   "expires": "2026-11-15T16:20:20Z",
+   "expires": "2026-11-15T16:43:08Z",
    "release": "operations-release-a_20261115.zip",
    "callers": {}
   },
@@ -162,7 +221,7 @@
    "session": "session_01CXLi5iFQyKrm52ppEnEUqw",
    "why": "Release A: caps into the register, warnings into Pulse, the switch-on check, story-only landmarks, place counts without drop-offs",
    "since": "2026-11-15T12:20:20Z",
-   "expires": "2026-11-15T16:20:20Z",
+   "expires": "2026-11-15T16:43:08Z",
    "release": "operations-release-a_20261115.zip",
    "callers": {}
   },
@@ -173,7 +232,7 @@
    "session": "session_01CXLi5iFQyKrm52ppEnEUqw",
    "why": "Release A: caps into the register, warnings into Pulse, the switch-on check, story-only landmarks, place counts without drop-offs",
    "since": "2026-11-15T12:20:20Z",
-   "expires": "2026-11-15T16:20:20Z",
+   "expires": "2026-11-15T16:43:08Z",
    "release": "operations-release-a_20261115.zip",
    "callers": {}
   },
@@ -184,7 +243,7 @@
    "session": "session_01CXLi5iFQyKrm52ppEnEUqw",
    "why": "Release A: caps into the register, warnings into Pulse, the switch-on check, story-only landmarks, place counts without drop-offs",
    "since": "2026-11-15T12:20:20Z",
-   "expires": "2026-11-15T16:20:20Z",
+   "expires": "2026-11-15T16:43:08Z",
    "release": "operations-release-a_20261115.zip",
    "callers": {}
   },
@@ -206,7 +265,7 @@
    "session": "session_01CXLi5iFQyKrm52ppEnEUqw",
    "why": "Release A: caps into the register, warnings into Pulse, the switch-on check, story-only landmarks, place counts without drop-offs",
    "since": "2026-11-15T12:20:20Z",
-   "expires": "2026-11-15T16:20:20Z",
+   "expires": "2026-11-15T16:43:08Z",
    "release": "operations-release-a_20261115.zip",
    "callers": {}
   },
@@ -217,7 +276,7 @@
    "session": "session_01CXLi5iFQyKrm52ppEnEUqw",
    "why": "Release A: caps into the register, warnings into Pulse, the switch-on check, story-only landmarks, place counts without drop-offs",
    "since": "2026-11-15T12:20:20Z",
-   "expires": "2026-11-15T16:20:20Z",
+   "expires": "2026-11-15T16:43:08Z",
    "release": "operations-release-a_20261115.zip",
    "callers": {}
   },
@@ -228,7 +287,7 @@
    "session": "session_01CXLi5iFQyKrm52ppEnEUqw",
    "why": "Release A: Pulse cases ops:* (caps, returns empty, watching); config sections register, costs, board",
    "since": "2026-11-15T12:20:23Z",
-   "expires": "2026-11-15T16:20:23Z",
+   "expires": "2026-11-15T16:43:08Z",
    "release": "operations-release-a_20261115.zip",
    "callers": {}
   },
@@ -239,7 +298,18 @@
    "session": "session_01CXLi5iFQyKrm52ppEnEUqw",
    "why": "Release A: Pulse cases ops:* (caps, returns empty, watching); config sections register, costs, board",
    "since": "2026-11-15T12:20:23Z",
-   "expires": "2026-11-15T16:20:23Z",
+   "expires": "2026-11-15T16:43:08Z",
+   "release": "operations-release-a_20261115.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/place/landmark.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5iFQyKrm52ppEnEUqw",
+   "why": "release operations-release-a_20261115.zip",
+   "since": "2026-11-15T12:43:08Z",
+   "expires": "2026-11-15T16:43:08Z",
    "release": "operations-release-a_20261115.zip",
    "callers": {}
   }
