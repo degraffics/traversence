@@ -382,6 +382,14 @@ one-statement triggers on live's tables, in the database that owns each table (t
 change), added only when Keep staging caught up is switched on and taken off when it's switched off. That is the one
 exception to §3's "triggers on staging only".
 
+**Correction (Jason, 2026-11-15, after the build):** "I expected claude built and approved here builds to still go live.
+The publish feature is for me to push the changes I make from within staging." So §2's "nothing goes live by itself" is
+narrowed: Claude's builds from git, approved in chat, still go live by themselves once their checks on staging pass
+(`Releases::autoPublish`, 0159's 2026-11-13 note, kept); one sent for review waits for the review and its own Publish.
+**Publish staging** (§4, §5) carries what's made on staging: its data, merged, and any zip uploaded there (the site
+manager's Upload). Everything else here stands. The first release (#702's zip) shipped the narrower §2; the next
+release puts this right (`handoffs/0165-staging.md`).
+
 ## Consequences
 
 - Staging becomes where the work happens; Publish is the one door into live, for code and data together.

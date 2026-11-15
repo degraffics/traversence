@@ -1,6 +1,6 @@
 # ADR 0159: The builder: Traversence's platform builder and Storefront Studio
 
-**Note (2026-11-15, decisions/0165, accepted and built):** 0165 replaces the 2026-11-13 progress note that builds sent through git go live by themselves (`Releases::autoPublish`): every build waits on staging, releases stack there, and Publish (Jason's, on the site manager) merges staging's code and data into live. §5's site manager stays. Built as one release (`handoffs/0165-staging.md`): `autoPublish` is gone from `Releases.php`.
+**Note (2026-11-15, decisions/0165, accepted and built; corrected the same day):** builds approved in chat still go live by themselves (Jason: "The publish feature is for me to push the changes I make from within staging"). As first built, 0165 replaced the 2026-11-13 progress note that builds sent through git go live by themselves (`Releases::autoPublish`): every build waits on staging, releases stack there, and Publish (Jason's, on the site manager) merges staging's code and data into live. §5's site manager stays. Built as one release (`handoffs/0165-staging.md`): `autoPublish` is gone from `Releases.php`.
 
 **Status:** Accepted (Jason, 2026-11-13: "accepted, but I want this built in a new session"; the hand-off is `handoffs/0159-the-builder.md`). Not built yet.
 (the release process, Phases 5 and 6), `0158` (one way to publish), `0112` §3 (`SitePages`), `0139` (storefronts on

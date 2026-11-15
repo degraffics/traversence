@@ -62,9 +62,9 @@ at 6:00 and 18:00 UTC or on demand (its workflow's Run button), committing the r
 - **Every build is a release, sent through git** (Jason, 2026-11-13; decisions/0159 §5): its zip (with a `release.json`:
   title, why, proposals, switch) goes in with `tools/page-audit/send.py <zip> --mirror <checkout> --note …` (zip check,
   delivery log, `releases/inbox/`); merge it into `main` once Jason has approved it in chat. The live site takes it onto
-  staging within 10 minutes and runs its checks; since decisions/0165 it waits there, stacked with the others, and
-  **Publish** (Jason's, on the site manager) takes all of staging at once: code, migrations and staging's data, merged
-  into live. `"review": true` in `release.json`, only when he asked to see it, sends it for review: an email and a
+  staging within 10 minutes, runs its checks, and publishes it by itself when they pass (Jason, 2026-11-13; kept by
+  decisions/0165's correction, 2026-11-15). The site manager's **Publish** is for what Jason makes on staging: its data
+  and zips he uploads there, merged into live. `"review": true` in `release.json`, only when he asked to see it, sends it for review: an email and a
   Pulse case take him to staging, where UI, UX and Functional each need Approve before Publish opens; his "needs changes"
   notes come back in its record (`deliveries/releases/`). Watch for its
   "Release #N: Live" record commit, then run the sync. Upload on the site manager is the fallback.

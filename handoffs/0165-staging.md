@@ -81,6 +81,20 @@ These existing files changed:
   - texts and push: nothing sends them yet; any sender built later goes through the gate.
 - **If triggers are refused** (no TRIGGER right): `canTrigger()` probes each side. On staging without triggers, a row both sides changed is a conflict on every differing field (the §3 fallback). On live without triggers there's no outbox, so the nightly pass carries catch-up alone.
 
+## The correction (Jason, 2026-11-15): release 2
+
+The first release removed `autoPublish`; Jason expected Claude's approved builds to keep going live by themselves, with
+Publish staging only for his own work on staging. He reviews and publishes the first release as it is. The second
+release (built in `/home/user/rev0165` on top of the first; sent once the first is live and synced, rebuilt from the
+live copy) puts `autoPublish` back for builds from git:
+- `Releases::fromGitRelease()` (the "Came from git" note);
+- `onStaging($pdo, $forPublish = true)` lists only uploads for Publish staging;
+- a git release's own Publish and Schedule are back, in the bar, the Releases page and Pulse;
+- the staging line says "N uploads waiting";
+- the review email's step 3 is "Publish now".
+
+The FAQ, CLAUDE.md and the 0165 and 0159 notes are updated.
+
 ## Next
 
 Once Jason approves the release on staging and publishes, run the sync and check the files byte for byte. Then release this
