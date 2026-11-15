@@ -1030,7 +1030,7 @@ A loop back through Phases 1 to 3 that keeps what's published true.
 - **"Vet this place": one entry point for checking one place's details** (2026-11-15). The tools exist, split across
   tasks: W1's `second_look` (a find with one source), W2's `identity` (who a listing is: its own site, NPI, Census, web
   search; `IdentityJobs`, a person's **Look now**), W2's `places` (Google, within its paced budget) and `geocode`.
-  **W2's `identity` task becomes the one entry point** for a live listing, called by the recheck, the grey zone (§3.2)
+  **W2's `identity` task becomes the one entry point** (confirmed by Jason, 2026-11-15: "W2's identity task is the entry point: this works") for a live listing, called by the recheck, the grey zone (§3.2)
   once a find is listed, and staff (Look now); `second_look` stays W1's look at a find before it's
   listed and settles fields the same way. A call names the place (or the pair) and the details in doubt; the task
   checks each one (name, address, phone, website, hours, open or closed): our anchors first (the identity record, the
@@ -1040,7 +1040,7 @@ A loop back through Phases 1 to 3 that keeps what's published true.
   source used as its licence allows (keep or cite only, R9), nothing private to Gemini's free tier (§0.8). What it
   can't settle now waits on the retry ladder; what it can't settle at all goes to the identity queue. Toward verified
   NAP (§3.5).
-- **The identity queue** (2026-11-15): what the vetting can't settle, and any match where a listing is claimed or a
+- **The identity queue** (2026-11-15; a step kind in X3, not a new case, confirmed by Jason the same day): what the vetting can't settle, and any match where a listing is claimed or a
   person entered or decided something, as **steps of "The engine needs a person"** (X3, above; one kind, a step per
   pair), each with its reason and each side's evidence, and buttons that do it: **Merge** (choose which stays),
   **Keep apart**, **Make a sales lead**, **Make an admin task**.
