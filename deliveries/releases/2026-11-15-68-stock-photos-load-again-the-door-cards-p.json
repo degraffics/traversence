@@ -96,6 +96,16 @@
             "at": "2026-11-15T22:11:08+00:00",
             "by": 2,
             "msg": "Review UX: approved (Jason DeGraff) [on /]."
+        },
+        {
+            "at": "2026-11-15T22:11:42+00:00",
+            "by": 2,
+            "msg": "Opened on staging by Jason DeGraff."
+        },
+        {
+            "at": "2026-11-15T22:11:45+00:00",
+            "by": 2,
+            "msg": "Review Functional: approved (Jason DeGraff) [on /]."
         }
     ]
 }
