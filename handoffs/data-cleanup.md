@@ -87,7 +87,7 @@ wrapped so a failure only logs).
 
 ## "Help us find this business" (`help-find_20261115.zip`, built on Sync 2026-11-14 23:59 UTC)
 
-**State:** sent to the inbox, PR open, **waiting for Jason's OK to merge**. Claims held: `HelpFind.php`, `hub/index.php` (add);
+**State:** sent to the inbox, PR #683 open (with Undo all by reason), **waiting for Jason's OK to merge**. Claims held: `HelpFind.php`, `hub/index.php` (add);
 `UniversalSearch.php::searchAs`, `Claims.php::listing`, `DataCleanup.php::junkName`, `cleanup-console.php`,
 `search-panel.js::helpHtml`, `suggest.js::open` (change).
 
@@ -106,6 +106,28 @@ wrapped so a failure only logs).
 Tested here (MariaDB, the live libraries): a card shown on its town and found by its kind in search, not for other words;
 a person's name, a protected name and a 180-day-old card held back; a phone accepted makes it a listing again and it
 leaves the cards; the card at 390px. Not tested: the town page and search panel live (the zip check's code checks only).
+
+## Next: reused or restricted, never a dead end (Jason, 2026-11-15; proposed, waiting for his OK on the table)
+
+Jason: "They still exist, just hidden: this is a dead end. Either they are reused or moved into restricted." And on drop
+boxes: "Yes their own listing and map pin." Proposed mapping (asked in chat; build once he confirms):
+
+| Taken off by a pass | Goes to |
+|---|---|
+| no address or phone, with a town | reused: the "Help us find" card (help-find_20261115) |
+| a name only, no town | reused: a sighting (back to the intake, `crawler_raw_index` staged), retried on the retry ladder (0163 §12) |
+| resting only on cite-only pages | reused: a sighting, retried for a keepable source |
+| page-text name WITH a phone or street address | reused: a sighting "name unknown", its source re-read for the real name |
+| page-text name with nothing else | restricted |
+| staged junk; place-store junk; cite-only facts | restricted (the link kept as a citation) |
+| protected landmarks | restricted until landmarks' story-only level (P5-3), then reused as story only |
+| nation-sensitive landmarks | restricted (the nation decides, R7) |
+| drop and collection boxes | their own listings with a pin, category "Mail & package drop-off" (a new leaf: find its group in `categories`; an INSERT IGNORE migration, the category set by a `data_reason` UPDATE or by a pass) |
+
+Plus a **Restricted** list in Data cleanup: every record held, its reason, Put back / Make it a request (no hidden
+limbo). "Restricted" = 0164 R7's tier (kept for our records only). Build it as one release from the live mirror (claims:
+`DataCleanup.php` act/collect, `cleanup-console.php`; `IntakeStager` for sightings); state each stored marker (a
+`restricted` value in the `removed` note's target, or its own meta) and keep Undo working through the ledger.
 
 ## Not done, on purpose
 
