@@ -213,7 +213,7 @@ SKIP_HOSTS = {"openstreetmap.org", "npino.com", "npiprofile.com", "npidb.org", "
               "npi.report", "npiregistry.cms.hhs.gov", "google.com", "bing.com", "duckduckgo.com", "search.brave.com"}
 
 started = time.monotonic()
-WORKER_V = "2.7.1"           # 2.7: the open-dataset loads and Geofabrik's test (Release B); the service's contract 2 (decisions/0160 §2): the site plans each run, the worker reports it; 2.4: calls by host; 2.5: issues, holds, probes, per-kind Overpass; 2.6: servers from the plan, the pace
+WORKER_V = "2.7.2"           # 2.7: the open-dataset loads and Geofabrik's test (Release B); the service's contract 2 (decisions/0160 §2): the site plans each run, the worker reports it; 2.4: calls by host; 2.5: issues, holds, probes, per-kind Overpass; 2.6: servers from the plan, the pace
 RUN_END = None             # when this run's own work must stop (started + TIME_BUDGET, or a bulk load's end)
 TASK_END = None            # when the capture task being worked must stop (its share of the run)
 FETCH_CAP = MAX_FETCHES    # fetches this run may have made by the end of the task being worked
@@ -413,22 +413,59 @@ def calls_of(task):
 GOT_KEYS = ("listings", "targets", "tasks", "places", "guides", "jobs", "hosts", "discover", "describe", "scans")
 
 
-def site_call(path, payload=None, timeout=60):
-    """GET or POST JSON to the Traversence site with the worker token."""
-    data = json.dumps(payload).encode() if payload is not None else None
+# The host's bot check (Bluehost, 2026-11-15; the stopgap until Bluehost exempts /api/): an Apache-level challenge answers
+# some requests 409 with `document.cookie = "humans_21909=1"; document.location.reload(true)`, about one in three even at
+# an ordinary pace. The worker always sends the cookie, reads a new name from the challenge if it changes, retries once,
+# paces its calls to the site, and reports a refusal as the host's bot check: held, never a job failure.
+SITE_COOKIES = {"humans_21909": "1"}
+SITE_GAP = float(os.environ.get("SITE_GAP", "0.6"))   # seconds between calls to the site, so it never bursts
+SITE_BLOCKED = 0                                       # calls the bot check still refused after its retry, this run
+_site_last = 0.0
+HUMANS_RE = re.compile(r"document\.cookie\s*=\s*[\"'](humans_\d+)=([^;\"']*)")
+
+
+class SiteBotCheck(ServiceHeld):
+    """The host's bot check refused the worker even with its cookie: the work goes back untouched, the task reports held."""
+
+
+def _site_request(path, data, timeout):
+    global _site_last
+    wait = SITE_GAP - (time.monotonic() - _site_last)
+    if wait > 0:
+        time.sleep(wait)
+    _site_last = time.monotonic()
     req = urllib.request.Request(SITE + path, data=data, method="POST" if data else "GET", headers={
-        "X-Crawler-Token": TOKEN, "Authorization": "Bearer " + TOKEN,
+        "X-Crawler-Token": TOKEN, "Authorization": "Bearer " + TOKEN, "Cookie": "; ".join(f"{k}={v}" for k, v in SITE_COOKIES.items()),
         "Content-Type": "application/json", "User-Agent": UA, "Accept": "application/json"})
-    global task_got
-    try:
-        with urllib.request.urlopen(req, timeout=timeout) as r:
-            d = json.loads(r.read().decode("utf-8"))
-            if payload is None and isinstance(d, dict):   # work the site handed out: how the run knows a task had work
-                task_got += sum(len(d[k]) for k in GOT_KEYS if isinstance(d.get(k), list)) + (1 if d.get("source") else 0)
-            return d
-    except urllib.error.HTTPError as e:
-        # Say which call failed and what the site said (Bluehost's firewall answers 406 with an HTML page).
-        raise RuntimeError(f"site {path} said {e.code}: {e.read()[:200]!r}") from None
+    with urllib.request.urlopen(req, timeout=timeout) as r:
+        return r.read()
+
+
+def site_call(path, payload=None, timeout=60):
+    """GET or POST JSON to the Traversence site with the worker token (and the host's bot-check cookie)."""
+    global task_got, SITE_BLOCKED
+    data = json.dumps(payload).encode() if payload is not None else None
+    for attempt in (1, 2):
+        try:
+            body = _site_request(path, data, timeout)
+            break
+        except urllib.error.HTTPError as e:
+            raw = e.read()[:2000]
+            m = HUMANS_RE.search(raw.decode("utf-8", "replace")) if e.code == 409 else None
+            if m and attempt == 1:                   # the bot check: its cookie (its name can change), then once more
+                SITE_COOKIES.clear()
+                SITE_COOKIES[m.group(1)] = m.group(2) or "1"
+                continue
+            if m:
+                SITE_BLOCKED += 1
+                log(f"site {path}: the host's bot check refused the worker even with its cookie ({m.group(1)})")
+                raise SiteBotCheck("the host's bot check refused the worker (Bluehost, 409 humans challenge)") from None
+            # Say which call failed and what the site said (Bluehost's firewall answers 406 with an HTML page).
+            raise RuntimeError(f"site {path} said {e.code}: {raw[:200]!r}") from None
+    d = json.loads(body.decode("utf-8"))
+    if payload is None and isinstance(d, dict):   # work the site handed out: how the run knows a task had work
+        task_got += sum(len(d[k]) for k in GOT_KEYS if isinstance(d.get(k), list)) + (1 if d.get("source") else 0)
+    return d
 
 
 def time_left(deadline=None):
@@ -3578,7 +3615,7 @@ def run_service():
     res = site_call("/api/crawl/service.php", {"report": {"run_key": run_key, "status": "ok", "seconds": int(time.monotonic() - started),
                                                          "fetches": fetches, "searches": searches, "engine": engine,
                                                          "items": items, "requests": reqs, "calls": calls_of(""),
-                                                         "issues": list(ISSUES.values()), "probes": PROBES, "osm_asked": OSM_ASKED,
+                                                         "issues": list(ISSUES.values()), "site_blocked": SITE_BLOCKED, "probes": PROBES, "osm_asked": OSM_ASKED,
                                                          "osm_used": OSM_USED}})
     status = res.get("status", "")
     log(f"run {run_key}: {status}: " + ", ".join(f"{i['task']} {i.get('outcome')}" for i in items))
