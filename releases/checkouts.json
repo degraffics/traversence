@@ -22,7 +22,7 @@
    "session": "session_01CXLi5kLQB5BQnw5aZGu158",
    "why": "Admin API links opened in a browser without a staff sign-in go to the login page, not raw JSON",
    "since": "2026-11-15T21:58:47Z",
-   "expires": "2026-11-16T02:14:21Z",
+   "expires": "2026-11-16T02:14:43Z",
    "release": "review-link-login.zip",
    "callers": {}
   },
