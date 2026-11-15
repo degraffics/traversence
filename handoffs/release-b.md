@@ -380,3 +380,18 @@ switched on.
   pages), H3 (a staged source in an open hub switches on with its check), F1–F4 (§12's closure numbers, Gemini's
   warnings), §12's lead order and Google check order, stage 9's `page_read` queue (call `SourceIndex::waitToRead()` when
   Gemini's allowance stops a read).
+
+**20:25 UTC: B3 (#63) and B4 (#64) on staging, waiting for Jason's review.** B5 is built in `/home/user/relb` (commits
+after "FAQ: Possibly closed"), waiting for B3 and B4 to go live: it shares Operations, SourceIndex, EngineCase,
+ListingConfidence and the listing page with them, so it's zipped from the live copy after their sync.
+- **B5 so far:** P6-1 (a read that finds nothing on pages that had facts keeps them; after two, EngineCase kind
+  `reader` "Needs a reader fix"; `SourceIndex::store` used to delete them), P1-3 (`search.php ?count&r=0` → dest
+  `empty`, a kind → `TownCrawl::fromSearch(…, kind)`, topics in `SearchDemand::emptyTopics()` for W6; migration
+  `2026-11-17_search_demand_empty.sql` turns an ENUM `dest` into text), F2 (3 answers on 2+ days in 60, none open since),
+  F3 (three states: the card says "Still open?" with the source's words; "Reported closed" no longer scores a Closed
+  listing down), F4 (`Gemini::unexpected()`: no use-based warnings for Gemini).
+- **Not built, and why:** P1-4 (leads come from Gemini's grounded search, built only if funded), H2 and H3 (W14's own
+  finding of official sources isn't built; Arizona and New Mexico's were staged by hand). **Still to build:** P3-5 (the
+  owner's "Check these" and email), P4-2 (licence change re-sorts facts), P3-2's Facebook-link case and the town page's
+  ask, §12's lead order and Google check order, stage 9's `page_read` queue (call `SourceIndex::waitToRead()` when
+  Gemini's allowance stops a read).
