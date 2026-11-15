@@ -389,6 +389,11 @@
             "at": "2026-11-15T17:19:11+00:00",
             "by": 0,
             "msg": "Put on staging (63 files); its checks passed."
+        },
+        {
+            "at": "2026-11-15T17:19:13+00:00",
+            "by": 0,
+            "msg": "Sent for review on staging: UI, UX and Functional, then Publish."
         }
     ]
 }
