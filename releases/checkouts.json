@@ -2,61 +2,6 @@
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
  "claims": [
   {
-   "path": "app/admin/sections.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
-   "why": "Release B part 2",
-   "since": "2026-11-15T18:27:59Z",
-   "expires": "2026-11-15T22:27:59Z",
-   "release": "release-b2",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/Gemini.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
-   "why": "Release B part 2",
-   "since": "2026-11-15T18:27:59Z",
-   "expires": "2026-11-15T22:27:59Z",
-   "release": "release-b2",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/Releases.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
-   "why": "Release B part 2",
-   "since": "2026-11-15T18:27:59Z",
-   "expires": "2026-11-15T22:27:59Z",
-   "release": "release-b2",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/Scheduler.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
-   "why": "Release B part 2",
-   "since": "2026-11-15T18:27:59Z",
-   "expires": "2026-11-15T22:27:59Z",
-   "release": "release-b2",
-   "callers": {}
-  },
-  {
-   "path": "website/js/admin-releases.js",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
-   "why": "Release B part 2",
-   "since": "2026-11-15T18:27:59Z",
-   "expires": "2026-11-15T22:27:59Z",
-   "release": "release-b2",
-   "callers": {}
-  },
-  {
    "path": "website/js/stg-bar.js",
    "functions": [],
    "kind": "change",
