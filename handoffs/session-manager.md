@@ -60,6 +60,16 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
   case #31, "Database tables and columns no code uses". It checks each one against the live mirror, including names
   built in code. It sends one release that drops the confirmed leftovers (copied first, decisions/0162, listed under
   `"removes"`). Anything doubtful goes to Jason to keep. It must not overlap Release B's files.
+  The same session also clears Pulse case #22, Site health (Jason, 2026-11-15: "add them to the cleanup session"):
+  - **D06 drift false alarm:** the check counts a migration that ran and deleted itself as a file removed without a
+    release (`2026-11-14_crawl_service_calls.sql`). Teach it to ignore that (`tools/page-audit/drift.py`, `db_updates_log`).
+  - **J03, "open now":** none of the results says it's open (proposal P10, approved).
+  - **V06, layout shift 0.54:** on `/hub/?cluster=…` after the "swiming" typo search.
+  - **D03, Scheduled tasks bad:** guide weather and roads fails nearly every run (proposal P7, approved).
+  - **V01, sideways scroll at 390px:** on `/admin/market/gateways` (P12, approved). Check `/admin/config/services` after
+    Release A, which rebuilds it.
+  - **`staging_carry_tick`:** hasn't run since 2026-11-12; find out why.
+  - **Left alone:** Crawler bad, NPI Registry warn and Search learning warn come from the pause and clear at switch-on.
 - **Waiting on Jason:** Release A's question on the master switch. It stays refused until Release B's checks exist
   (0163 §10); the session builds it that way unless he says otherwise.
 - **Jason's own, any time:** post the OSM forum statement (`research/osm-overpass-2026-11-13.md` §2). Mark the Overpass
