@@ -126,3 +126,6 @@ appeared twice in the list).
 - **staging.trvgo.us `/api/` is still blocked**, at the same rate as before. Ask Bluehost again for staging.trvgo.us.
   Staging is a separate cPanel domain, so the change on traversence.com may not have carried over to it.
 - `/robots.txt` still answers 404 (there isn't one), so it can't show whether bots reach it.
+- **Staging rechecked at ~18:38–18:40 UTC**, after Bluehost applied the same whitelist to staging.trvgo.us: 0 of 30 blocked
+  (`/api/staging-updates.php`, `/api/stg-probe.php` and `/` each answered 401, the viewing password). All three hosts
+  are now clear. Bluehost described the fix as a ModSecurity whitelist for the rule; the rule ID wasn't recorded.
