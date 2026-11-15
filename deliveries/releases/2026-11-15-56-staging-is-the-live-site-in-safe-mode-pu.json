@@ -6,182 +6,235 @@
     "zip": "release-0165-staging-safe-mode.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "staged",
-    "step": 0,
+    "state": "live",
+    "step": 3,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
     "plan_at": "2026-11-15 15:16:18",
     "staged_at": "2026-11-15 15:16:20",
-    "vetted_at": null,
-    "live_at": null,
+    "vetted_at": "2026-11-15 15:17:17",
+    "live_at": "2026-11-15 15:17:17",
     "files": {
         "app/admin/sections.php": {
             "sha": "87a4af47d7502299dd5cd6cd3becdb275f7da4a382aab924df07673fcab8c738",
             "size": 230244,
-            "live_was": "939b5b999cf7754f030c673e951f7448fad45534a9fe25ae30b73026c06123ed"
+            "live_was": "939b5b999cf7754f030c673e951f7448fad45534a9fe25ae30b73026c06123ed",
+            "existed": true,
+            "old_sha": "939b5b999cf7754f030c673e951f7448fad45534a9fe25ae30b73026c06123ed"
         },
         "app/ui/faq.md": {
             "sha": "eafbf7aa0736f760ad6217e2cc7ba4f2d5a082cf9063ac40e6a7d9d383bb59e3",
             "size": 304449,
-            "live_was": "1a934ef70d9b54f6160e97710b414d58aa00cd8c7d7c9047f39e6493f5ce91cd"
+            "live_was": "1a934ef70d9b54f6160e97710b414d58aa00cd8c7d7c9047f39e6493f5ce91cd",
+            "existed": true,
+            "old_sha": "1a934ef70d9b54f6160e97710b414d58aa00cd8c7d7c9047f39e6493f5ce91cd"
         },
         "app/scripts/staging_tick.php": {
             "sha": "2422dd81830217d2bf36b1b41220275a63c2bfb1a4eb2c2a73e4d63066968864",
             "size": 741,
-            "live_was": "f92fdc8b10fd1891d5f81c5af00b9d5ecf1fc1f779725c73a5dcf17cebaba75b"
+            "live_was": "f92fdc8b10fd1891d5f81c5af00b9d5ecf1fc1f779725c73a5dcf17cebaba75b",
+            "existed": true,
+            "old_sha": "f92fdc8b10fd1891d5f81c5af00b9d5ecf1fc1f779725c73a5dcf17cebaba75b"
         },
         "app/scripts/staging_publish_tick.php": {
             "sha": "5a692a8099ca12c97761808803f9d19aa776dcfaacf48c6b153d22c6ded889ae",
             "size": 1874,
-            "live_was": null
+            "live_was": null,
+            "existed": false
         },
         "app/scripts/staging_push_tick.php": {
             "sha": "69447163b1735c7bf5dc23796600498d2e831b6c44cfdd3a83ff09dcc79e8721",
             "size": 1464,
-            "live_was": null
+            "live_was": null,
+            "existed": false
         },
         "app/scripts/staging_night_tick.php": {
             "sha": "6484a1742a1dab7686080bacbdbdc2e5aa5f167c0545c394f1149e3e15f1f83f",
             "size": 2621,
-            "live_was": null
+            "live_was": null,
+            "existed": false
         },
         "app/lib/ServiceHealth.php": {
             "sha": "82c2a3bf12583a484b23437a8ca90464fcb0f3f394f70e5857b483da899f73ba",
             "size": 40763,
-            "live_was": "9b0822fed614eb7bf717675886add7152694363ba524b136eec224f416bcbb34"
+            "live_was": "9b0822fed614eb7bf717675886add7152694363ba524b136eec224f416bcbb34",
+            "existed": true,
+            "old_sha": "9b0822fed614eb7bf717675886add7152694363ba524b136eec224f416bcbb34"
         },
         "app/lib/Scheduler.php": {
             "sha": "46b15a5bb7884e47cca1f8ad108e5eba66e1ef8ba53e767faebaade934430436",
             "size": 25373,
-            "live_was": "4fd97784c71ea70d98bbca586d6a80af6de06d3fef9efd716c2e29a9a91108f3"
+            "live_was": "4fd97784c71ea70d98bbca586d6a80af6de06d3fef9efd716c2e29a9a91108f3",
+            "existed": true,
+            "old_sha": "4fd97784c71ea70d98bbca586d6a80af6de06d3fef9efd716c2e29a9a91108f3"
         },
         "app/lib/Operations.php": {
             "sha": "6e18edf122e9d41df995e2d87863feb1e3e444f0a2852d7cbb7e7ab5e2949019",
             "size": 44418,
-            "live_was": "f3bc2759f965a03e16cf153ba483015c974eace3031b8b6811f3c7ce6201096e"
+            "live_was": "f3bc2759f965a03e16cf153ba483015c974eace3031b8b6811f3c7ce6201096e",
+            "existed": true,
+            "old_sha": "f3bc2759f965a03e16cf153ba483015c974eace3031b8b6811f3c7ce6201096e"
         },
         "app/lib/DailyReport.php": {
             "sha": "fdda4aa416dbf11f13026847f34ca276573761a1d9b86585f542132989a3cac1",
             "size": 23846,
-            "live_was": "44332f1a0eda92247bfcaa635c2bfa09091600b1c156f98cae34da201b9f1294"
+            "live_was": "44332f1a0eda92247bfcaa635c2bfa09091600b1c156f98cae34da201b9f1294",
+            "existed": true,
+            "old_sha": "44332f1a0eda92247bfcaa635c2bfa09091600b1c156f98cae34da201b9f1294"
         },
         "app/lib/Staging.php": {
             "sha": "a668cc898d9073e68dc4b15ddee95c59abe40542c6be23da456f958d0f5dc352",
             "size": 15002,
-            "live_was": "98e628db9b27621535245b00cdca25902341ec1ca4b0b8160ed2cd2ad7a41ebb"
+            "live_was": "98e628db9b27621535245b00cdca25902341ec1ca4b0b8160ed2cd2ad7a41ebb",
+            "existed": true,
+            "old_sha": "98e628db9b27621535245b00cdca25902341ec1ca4b0b8160ed2cd2ad7a41ebb"
         },
         "app/lib/StagingMerge.php": {
             "sha": "3430e0589692c13b225c92539f550cf42b857265bdaedd44894ac366aa735f75",
             "size": 7698,
-            "live_was": null
+            "live_was": null,
+            "existed": false
         },
         "app/lib/StagingSite.php": {
             "sha": "5d45a3c5011c0a0c3fc94cdf90b066ea3723ce1198d6397b3f91e533a1ea6753",
             "size": 102700,
-            "live_was": "628b5677d6097626cc5753d152abac595593e0b9b5a6f7b7eb9f1b74fc558796"
+            "live_was": "628b5677d6097626cc5753d152abac595593e0b9b5a6f7b7eb9f1b74fc558796",
+            "existed": true,
+            "old_sha": "628b5677d6097626cc5753d152abac595593e0b9b5a6f7b7eb9f1b74fc558796"
         },
         "app/lib/Geocoder.php": {
             "sha": "f16e3ff2ff28db59c8481631b920013fb2f44160b3534399b8838fbaad724ef3",
             "size": 19546,
-            "live_was": "1756e60c6afb1a84d583687a93ecd590bbb9b858952f981e3f08b2be50a662b3"
+            "live_was": "1756e60c6afb1a84d583687a93ecd590bbb9b858952f981e3f08b2be50a662b3",
+            "existed": true,
+            "old_sha": "1756e60c6afb1a84d583687a93ecd590bbb9b858952f981e3f08b2be50a662b3"
         },
         "app/lib/StagingGate.php": {
             "sha": "e6a74e8073a8a7d4dc3c4eb361342c907eaf3bf5387493597d8823164f841a58",
             "size": 21522,
-            "live_was": null
+            "live_was": null,
+            "existed": false
         },
         "app/lib/StagingApi.php": {
             "sha": "8c61f02645ee63453bcc4bbdf4aeb4c7cf481d3b51b0f82352ea1e48827eac13",
             "size": 14608,
-            "live_was": null
+            "live_was": null,
+            "existed": false
         },
         "app/lib/PlaceFinder.php": {
             "sha": "f32a2a7bc60cadcbaafbef8e069c795bb022d2023a4c492b8fb7ce384c4fe4c9",
             "size": 48793,
-            "live_was": "b76654e6ecf75f718f5d13ff3c3f3d8215d1102ccb6a24e2f146b0896643a3d7"
+            "live_was": "b76654e6ecf75f718f5d13ff3c3f3d8215d1102ccb6a24e2f146b0896643a3d7",
+            "existed": true,
+            "old_sha": "b76654e6ecf75f718f5d13ff3c3f3d8215d1102ccb6a24e2f146b0896643a3d7"
         },
         "app/lib/StagingSync.php": {
             "sha": "d64d6cc5d2473c7f134015791a58e8b45c2f9f5df28741625e70a874203778be",
             "size": 43472,
-            "live_was": null
+            "live_was": null,
+            "existed": false
         },
         "app/lib/TravelLegs.php": {
             "sha": "fc0f44ddff54da6e9d68eea94180529ba8fdbd22ef875dd97a47d8a65c6d7989",
             "size": 10322,
-            "live_was": "de25c7018db9b439d4e2b7fa6450f05300d1a63f0c4a59c5f903c0cfb4e1a26f"
+            "live_was": "de25c7018db9b439d4e2b7fa6450f05300d1a63f0c4a59c5f903c0cfb4e1a26f",
+            "existed": true,
+            "old_sha": "de25c7018db9b439d4e2b7fa6450f05300d1a63f0c4a59c5f903c0cfb4e1a26f"
         },
         "app/lib/QuickBooksPay.php": {
             "sha": "0fa03bd74df7b1560ef64d7e5c827426682eed38b8eeedebb0bf0c1968ca762a",
             "size": 76785,
-            "live_was": "77de442ebf0d033c5cfde1002ea43862ce62d35d598eb39b2c556a6b13e341ff"
+            "live_was": "77de442ebf0d033c5cfde1002ea43862ce62d35d598eb39b2c556a6b13e341ff",
+            "existed": true,
+            "old_sha": "77de442ebf0d033c5cfde1002ea43862ce62d35d598eb39b2c556a6b13e341ff"
         },
         "app/lib/staging-tables.php": {
             "sha": "9de0e7df1a46744f524b7c0d637ea118e8afd342d4ec8971fbc66f9e416b5555",
             "size": 16134,
-            "live_was": null
+            "live_was": null,
+            "existed": false
         },
         "app/lib/StagingPublish.php": {
             "sha": "11c952c4d76ba423b85029beacd7f228fe67cef3b0bd5b6f278e1c644e64b32b",
             "size": 49688,
-            "live_was": null
+            "live_was": null,
+            "existed": false
         },
         "app/lib/Releases.php": {
             "sha": "4049a54cfd85b89bd19924acf1baf083a36cdca4778962b6bb6fe2901aab68f7",
             "size": 104315,
-            "live_was": "233b15138c514a3f452c4ee176d3024ef87e3fecb7614a1fe0cf0ff3cb4cc6f1"
+            "live_was": "233b15138c514a3f452c4ee176d3024ef87e3fecb7614a1fe0cf0ff3cb4cc6f1",
+            "existed": true,
+            "old_sha": "233b15138c514a3f452c4ee176d3024ef87e3fecb7614a1fe0cf0ff3cb4cc6f1"
         },
         "app/lib/StagingIds.php": {
             "sha": "5ebf7f264eceeecc4fc6e76a4e348a1670be4e480c9d1044d04509fc27e93aac",
             "size": 8119,
-            "live_was": null
+            "live_was": null,
+            "existed": false
         },
         "app/lib/Database.php": {
             "sha": "9c94e80359decae26b2e2e101ad9134d863a97c230e03953afdd399b7dda0ca8",
             "size": 12834,
-            "live_was": "108516ecacd601583e6151d7f4c8c63cd74f673bb7a3a4117322239333e6367c"
+            "live_was": "108516ecacd601583e6151d7f4c8c63cd74f673bb7a3a4117322239333e6367c",
+            "existed": true,
+            "old_sha": "108516ecacd601583e6151d7f4c8c63cd74f673bb7a3a4117322239333e6367c"
         },
         "app/lib/AiClient.php": {
             "sha": "996e7c7b3c93a1d26269d088776085a5a8fcaec3974c12c38ada6b6a71568b86",
             "size": 31233,
-            "live_was": "8419aefc6e8521e641314ea386c40ba1ad5c2f930acb6a7a3d5c4f38c470a487"
+            "live_was": "8419aefc6e8521e641314ea386c40ba1ad5c2f930acb6a7a3d5c4f38c470a487",
+            "existed": true,
+            "old_sha": "8419aefc6e8521e641314ea386c40ba1ad5c2f930acb6a7a3d5c4f38c470a487"
         },
         "app/lib/stock/StockSource.php": {
             "sha": "6007ae0d9207ce75850bbe8de3b4629473c15a282673cbe1ecf04e1d0e8fee65",
             "size": 3520,
-            "live_was": "a8c6133dd6dcdab5151726f85319e2e28f0fdb429ea3eb498362a2c8b7e6d169"
+            "live_was": "a8c6133dd6dcdab5151726f85319e2e28f0fdb429ea3eb498362a2c8b7e6d169",
+            "existed": true,
+            "old_sha": "a8c6133dd6dcdab5151726f85319e2e28f0fdb429ea3eb498362a2c8b7e6d169"
         },
         "website/admin/api.php": {
             "sha": "c07b7f19c3d67bbeb73c4dde0cc65a3f53542b3ad2874eea8e412000e0cbb7b2",
             "size": 21051,
-            "live_was": "abce251b19574ff67ee16133992190c69406df13bace39ea5447342c8fd2877e"
+            "live_was": "abce251b19574ff67ee16133992190c69406df13bace39ea5447342c8fd2877e",
+            "existed": true,
+            "old_sha": "abce251b19574ff67ee16133992190c69406df13bace39ea5447342c8fd2877e"
         },
         "website/api/stg-csp.php": {
             "sha": "80bd86ba8986ada9c5a58d57bb881fe3de149a28649dd1effcbd6c577e556cf7",
             "size": 1263,
-            "live_was": null
+            "live_was": null,
+            "existed": false
         },
         "website/api/release-bar.php": {
             "sha": "1919491e6f9c9f918bacc234b297df09254d1fe754429dbdb2ef601cccc4a9b0",
             "size": 4886,
-            "live_was": "760447493d8b8dedf6757f4bf2589a289bd5d5a91c8d329247d586fbbcceeb00"
+            "live_was": "760447493d8b8dedf6757f4bf2589a289bd5d5a91c8d329247d586fbbcceeb00",
+            "existed": true,
+            "old_sha": "760447493d8b8dedf6757f4bf2589a289bd5d5a91c8d329247d586fbbcceeb00"
         },
         "website/js/stg-bar.js": {
             "sha": "84bdcbdbbe2d0c25b43bcd1f6ff767e260c52361d9e1d9244c46d7610a2964e5",
             "size": 40053,
-            "live_was": "9288a5eae5ffd9cbe55aab100705e3dd41242b3da99f11f6e91c2e34379199f1"
+            "live_was": "9288a5eae5ffd9cbe55aab100705e3dd41242b3da99f11f6e91c2e34379199f1",
+            "existed": true,
+            "old_sha": "9288a5eae5ffd9cbe55aab100705e3dd41242b3da99f11f6e91c2e34379199f1"
         },
         "website/js/admin-staging.js": {
             "sha": "c94fb51ac60a1c3ed26f1afe5ae30341204f042fead32234b5f6b2578e6d515b",
             "size": 11833,
-            "live_was": "790ef4bc27d52e02feb4ecd23c59b1fcea45d44ed4ea5cad093c6da5cbdd6b6c"
+            "live_was": "790ef4bc27d52e02feb4ecd23c59b1fcea45d44ed4ea5cad093c6da5cbdd6b6c",
+            "existed": true,
+            "old_sha": "790ef4bc27d52e02feb4ecd23c59b1fcea45d44ed4ea5cad093c6da5cbdd6b6c"
         }
     },
     "migrations": [],
     "checks": {
         "ok": true,
-        "where": "staging",
-        "at": "2026-11-15T15:16:20+00:00",
+        "where": "live",
+        "at": "2026-11-15T15:17:17+00:00",
         "items": [
             [
                 "PHP files parse",
@@ -191,7 +244,7 @@
             [
                 "Pages answer",
                 true,
-                "3 pages answered on staging.trvgo.us"
+                "3 pages answered on traversence.com"
             ],
             [
                 "No new fatal errors in the logs",
@@ -251,6 +304,16 @@
             "at": "2026-11-15T15:16:51+00:00",
             "by": 2,
             "msg": "Review UX: approved (Jason DeGraff) [on /]."
+        },
+        {
+            "at": "2026-11-15T15:17:17+00:00",
+            "by": 2,
+            "msg": "Signed off by Publish, after a look on staging."
+        },
+        {
+            "at": "2026-11-15T15:17:17+00:00",
+            "by": 2,
+            "msg": "Published: 32 files; everyone at once (no switch)."
         }
     ]
 }
