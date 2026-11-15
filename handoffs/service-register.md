@@ -4,8 +4,17 @@ Session `session_01CXLi5h9itnngLeRubRrLfm`, from 2026-11-15. Jason: "start stage
 §9–§11; `handoffs/crawler-revamp.md` §7.1 open item 4 (the site's other outside callers onto `ServiceHealth`);
 `handoffs/automation-switches.md`.
 
-**State: plan shown to Jason, waiting for his OK.** Built on Sync 2026-11-15 12:03 UTC (mirror `ab8089f`). Nothing
-claimed, nothing sent. The automation stays paused (master switch); `workers/crawler/` is not touched.
+**State: stopped, nothing built (2026-11-15 12:22 UTC).** Jason approved the plan as one release (Gemini and Supabase rows
+switched off; Services & usage archived into the register). When this session tried to claim its files, another
+session, `session_01CXLi5iFQyKrm52ppEnEUqw` ("Release A: operations, stages 2–6", started 04:06 UTC from the session
+manager), had claimed the same work a minute earlier: `app/lib/Operations.php`, `app/admin/operations-console.php`, and
+changes to `Thresholds`, `AiClient`, `Services`, `SesMail`, `usage.php`, `sections.php`. One session per area: this one
+released its two claims and wrote nothing, waiting for Jason to say which session builds stage 2. The survey below is
+for whichever does. Notes for it: Services & usage was already folded into Outside services by 0152 (`Services.php`
+stays as the use library); the prices differ between `Services::all` (`PLACES_USD_PER_CALL`, `WEBSEARCH_USD_PER_SEARCH`
+0) and `CrawlService::PRICES` (`GOOGLE_PLACES_USD_PER_CALL`, `TAVILY_USD_PER_CREDIT` 0.008), so one price each belongs
+in the register; QuickBooks's routine 401 before a token refresh would open false "key refused" issues, so payments'
+callers should record only server errors and timeouts.
 
 ## What's there today (found in the live code, 2026-11-15)
 
