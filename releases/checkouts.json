@@ -132,6 +132,138 @@
    "expires": "2026-11-15T22:27:56Z",
    "release": "release-b2",
    "callers": {}
+  },
+  {
+   "path": "app/admin/sections.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "Release B part 2",
+   "since": "2026-11-15T18:27:59Z",
+   "expires": "2026-11-15T22:27:59Z",
+   "release": "release-b2",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/AiClient.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "Release B part 2",
+   "since": "2026-11-15T18:27:59Z",
+   "expires": "2026-11-15T22:27:59Z",
+   "release": "release-b2",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Automation.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "Release B part 2",
+   "since": "2026-11-15T18:27:59Z",
+   "expires": "2026-11-15T22:27:59Z",
+   "release": "release-b2",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/DataCleanup.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "Release B part 2",
+   "since": "2026-11-15T18:27:59Z",
+   "expires": "2026-11-15T22:27:59Z",
+   "release": "release-b2",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Gemini.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "Release B part 2",
+   "since": "2026-11-15T18:27:59Z",
+   "expires": "2026-11-15T22:27:59Z",
+   "release": "release-b2",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/ListingConfidence.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "Release B part 2",
+   "since": "2026-11-15T18:27:59Z",
+   "expires": "2026-11-15T22:27:59Z",
+   "release": "release-b2",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/ListingIdentity.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "Release B part 2",
+   "since": "2026-11-15T18:27:59Z",
+   "expires": "2026-11-15T22:27:59Z",
+   "release": "release-b2",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/OutsideServices.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "Release B part 2",
+   "since": "2026-11-15T18:27:59Z",
+   "expires": "2026-11-15T22:27:59Z",
+   "release": "release-b2",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Releases.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "Release B part 2",
+   "since": "2026-11-15T18:27:59Z",
+   "expires": "2026-11-15T22:27:59Z",
+   "release": "release-b2",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Scheduler.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "Release B part 2",
+   "since": "2026-11-15T18:27:59Z",
+   "expires": "2026-11-15T22:27:59Z",
+   "release": "release-b2",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/staging-tables.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "Release B part 2",
+   "since": "2026-11-15T18:27:59Z",
+   "expires": "2026-11-15T22:27:59Z",
+   "release": "release-b2",
+   "callers": {}
+  },
+  {
+   "path": "website/js/admin-releases.js",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "Release B part 2",
+   "since": "2026-11-15T18:27:59Z",
+   "expires": "2026-11-15T22:27:59Z",
+   "release": "release-b2",
+   "callers": {}
   }
  ],
  "lapsed": []
