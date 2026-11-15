@@ -1,8 +1,8 @@
 {
  "zip": "release-0165-staging-safe-mode.zip",
  "built_on": "ff49251 Sync: 2026-11-15 14:12 UTC",
- "recorded": "2026-11-15 14:50 UTC",
- "note": "decisions/0165, all six steps as one release (review). Built on Sync: 2026-11-15 14:12 UTC. Sent through git (releases/inbox).",
+ "recorded": "2026-11-15 14:53 UTC",
+ "note": "decisions/0165, all six steps as one release (review), with the review email in the daily report's look (Jason). Built on Sync: 2026-11-15 14:12 UTC. Sent through git (releases/inbox).",
  "status": "pending",
  "live_in": "",
  "files": {
@@ -12,6 +12,10 @@
   },
   "app/lib/AiClient.php": {
    "sha256": "996e7c7b3c93a1d26269d088776085a5a8fcaec3974c12c38ada6b6a71568b86",
+   "live": false
+  },
+  "app/lib/DailyReport.php": {
+   "sha256": "fdda4aa416dbf11f13026847f34ca276573761a1d9b86585f542132989a3cac1",
    "live": false
   },
   "app/lib/Database.php": {
@@ -35,7 +39,7 @@
    "live": false
   },
   "app/lib/Releases.php": {
-   "sha256": "89e004f3f473c95fc62eb270c67f5fbdb89fa78a368df49c1b8e75dd83b70ace",
+   "sha256": "4049a54cfd85b89bd19924acf1baf083a36cdca4778962b6bb6fe2901aab68f7",
    "live": false
   },
   "app/lib/Scheduler.php": {
@@ -127,7 +131,7 @@
    "live": false
   },
   "website/js/stg-bar.js": {
-   "sha256": "bd494506d785c785c1c83eb54026f50464a6d99ebd896840793e08dd3fbfcdc9",
+   "sha256": "84bdcbdbbe2d0c25b43bcd1f6ff767e260c52361d9e1d9244c46d7610a2964e5",
    "live": false
   }
  }

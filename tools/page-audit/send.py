@@ -13,7 +13,7 @@ kept-line edit as add, each edit of existing code as a change on the functions o
 zip's name, so a session that forgot to claim still can't collide. A clash stops the send. The claims are released when
 `deliveries.py verify` finds the release live.
 """
-import argparse, os, shutil, subprocess, sys, zipfile
+import json, argparse, os, shutil, subprocess, sys, zipfile
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import checkout  # noqa: E402
@@ -65,6 +65,12 @@ def main():
     with zipfile.ZipFile(a.zip) as z:
         if 'release.json' not in z.namelist():
             sys.exit('No release.json at the zip\'s top: give it a title, why, proposals and switch.')
+        try:
+            plan = json.loads(z.read('release.json'))
+        except ValueError:
+            sys.exit('release.json isn\'t valid JSON.')
+        if not plan.get('changes'):   # the review email, Pulse case and site manager list these (Jason, 2026-11-15: legible on a phone)
+            print('Warning: release.json has no "changes" list ([{"what": "a few words", "where": "where to look"}]): the review email falls back to "why" split into its numbered parts.')
     take_claims(a, name)
     check = [sys.executable, os.path.join(HERE, 'zipcheck.py'), a.zip, '--mirror', a.mirror, '--docs', DOCS] + (['--drops', a.drops] if a.drops else []) \
         + (['--session', a.session] if a.session else []) + (['--callers-checked', a.callers_checked] if a.callers_checked else [])

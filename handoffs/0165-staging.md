@@ -34,6 +34,7 @@ These existing files changed:
   - `syncStaging()` and `NOT_ON_STAGING`;
   - three new jobs, `staging_push_tick` (every minute), `staging_night_tick` (nightly) and `staging_publish_tick` (every minute);
   - `staging_tick` is out of AUTO and does nothing.
+- **The review email** (Jason, 2026-11-15, relayed): `Releases::changes()` reads release.json's `changes` (`[{what, where}]`); without it, `why` split into its numbered parts. `sendForReview` sends HTML in the daily report's look (`DailyReport::frame()`, `box()` and `button()`, shared) with a plain-text alternative. The Pulse case's "Read the release" step and the site manager's Changes list the same items. `send.py` warns when `changes` is missing. This release's own email is sent by live's current code, so the new look starts with the next release.
 - **`QuickBooksPay::guardStaging()`**: `guardReal()` refuses while a live key is in staging's .env.
 - **Gates in the outside helpers:** `AiClient` (Gemini), `TravelLegs` (openrouteservice), `stock/StockSource`, `Geocoder` (a bulk run is held) and `PlaceFinder`.
 - **`ServiceHealth::allowed()`** asks the gate.
