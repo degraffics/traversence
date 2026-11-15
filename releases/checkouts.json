@@ -1,5 +1,83 @@
 {
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
- "claims": [],
+ "claims": [
+  {
+   "path": "app/lib/Clocks.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "Release B1: new files",
+   "since": "2026-11-15T16:40:31Z",
+   "expires": "2026-11-15T20:40:31Z",
+   "release": "release-b1",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/EngineCase.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "Release B1: new files",
+   "since": "2026-11-15T16:40:31Z",
+   "expires": "2026-11-15T20:40:31Z",
+   "release": "release-b1",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Gemini.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "Release B1: new files",
+   "since": "2026-11-15T16:40:31Z",
+   "expires": "2026-11-15T20:40:31Z",
+   "release": "release-b1",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/ListingIdentity.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "Release B1: new files",
+   "since": "2026-11-15T16:40:31Z",
+   "expires": "2026-11-15T20:40:31Z",
+   "release": "release-b1",
+   "callers": {}
+  },
+  {
+   "path": "app/migrations/2026-11-16_ai_provider.sql",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "Release B1: new files",
+   "since": "2026-11-15T16:40:31Z",
+   "expires": "2026-11-15T20:40:31Z",
+   "release": "release-b1",
+   "callers": {}
+  },
+  {
+   "path": "app/migrations/2026-11-16_listing_identity.sql",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "Release B1: new files",
+   "since": "2026-11-15T16:40:31Z",
+   "expires": "2026-11-15T20:40:31Z",
+   "release": "release-b1",
+   "callers": {}
+  },
+  {
+   "path": "app/scripts/identity_recheck_tick.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "Release B1: new files",
+   "since": "2026-11-15T16:40:31Z",
+   "expires": "2026-11-15T20:40:31Z",
+   "release": "release-b1",
+   "callers": {}
+  }
+ ],
  "lapsed": []
 }
