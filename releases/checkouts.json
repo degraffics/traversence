@@ -33,6 +33,28 @@
    "expires": "2026-11-16T01:16:37Z",
    "release": "release-b7",
    "callers": {}
+  },
+  {
+   "path": "app/lib/crawler/PageRead.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "Release B part 7: stage 9's reader",
+   "since": "2026-11-15T21:16:40Z",
+   "expires": "2026-11-16T01:16:40Z",
+   "release": "release-b7",
+   "callers": {}
+  },
+  {
+   "path": "app/scripts/page_read_tick.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "Release B part 7: stage 9's reader",
+   "since": "2026-11-15T21:16:40Z",
+   "expires": "2026-11-16T01:16:40Z",
+   "release": "release-b7",
+   "callers": {}
   }
  ],
  "lapsed": []
