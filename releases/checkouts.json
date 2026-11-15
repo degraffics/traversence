@@ -8,9 +8,13 @@
    "session": "session_01CXLi5hvWvRSedDtk54gNDP",
    "why": "Release B part 5b (B5 without its migration, and B6)",
    "since": "2026-11-15T20:38:59Z",
-   "expires": "2026-11-16T00:38:59Z",
-   "release": "release-b5b",
-   "callers": {}
+   "expires": "2026-11-16T00:39:02Z",
+   "release": "release-b5b.zip",
+   "callers": {
+    "pulseDo": [
+     "app/lib/Pulse.php"
+    ]
+   }
   },
   {
    "path": "app/lib/Gemini.php",
@@ -41,8 +45,8 @@
    "session": "session_01CXLi5hvWvRSedDtk54gNDP",
    "why": "Release B part 5b (B5 without its migration, and B6)",
    "since": "2026-11-15T20:38:59Z",
-   "expires": "2026-11-16T00:38:59Z",
-   "release": "release-b5b",
+   "expires": "2026-11-16T00:39:02Z",
+   "release": "release-b5b.zip",
    "callers": {}
   },
   {
@@ -52,9 +56,13 @@
    "session": "session_01CXLi5hvWvRSedDtk54gNDP",
    "why": "Release B part 5b (B5 without its migration, and B6)",
    "since": "2026-11-15T20:38:59Z",
-   "expires": "2026-11-16T00:38:59Z",
-   "release": "release-b5b",
-   "callers": {}
+   "expires": "2026-11-16T00:39:02Z",
+   "release": "release-b5b.zip",
+   "callers": {
+    "warnings": [
+     "app/lib/Services.php"
+    ]
+   }
   },
   {
    "path": "app/lib/SearchDemand.php",
@@ -63,8 +71,8 @@
    "session": "session_01CXLi5hvWvRSedDtk54gNDP",
    "why": "Release B part 5b (B5 without its migration, and B6)",
    "since": "2026-11-15T20:38:59Z",
-   "expires": "2026-11-16T00:38:59Z",
-   "release": "release-b5b",
+   "expires": "2026-11-16T00:39:02Z",
+   "release": "release-b5b.zip",
    "callers": {}
   },
   {
@@ -96,8 +104,8 @@
    "session": "session_01CXLi5hvWvRSedDtk54gNDP",
    "why": "Release B part 5b (B5 without its migration, and B6)",
    "since": "2026-11-15T20:38:59Z",
-   "expires": "2026-11-16T00:38:59Z",
-   "release": "release-b5b",
+   "expires": "2026-11-16T00:39:02Z",
+   "release": "release-b5b.zip",
    "callers": {}
   },
   {
@@ -118,8 +126,63 @@
    "session": "session_01CXLi5hvWvRSedDtk54gNDP",
    "why": "Release B part 5b (B5 without its migration, and B6)",
    "since": "2026-11-15T20:38:59Z",
-   "expires": "2026-11-16T00:38:59Z",
-   "release": "release-b5b",
+   "expires": "2026-11-16T00:39:02Z",
+   "release": "release-b5b.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Gemini.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "release release-b5b.zip",
+   "since": "2026-11-15T20:39:02Z",
+   "expires": "2026-11-16T00:39:02Z",
+   "release": "release-b5b.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/crawler/Sources.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "release release-b5b.zip",
+   "since": "2026-11-15T20:39:02Z",
+   "expires": "2026-11-16T00:39:02Z",
+   "release": "release-b5b.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/crawler/SourceIndex.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "release release-b5b.zip",
+   "since": "2026-11-15T20:39:02Z",
+   "expires": "2026-11-16T00:39:02Z",
+   "release": "release-b5b.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Identity.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "release release-b5b.zip",
+   "since": "2026-11-15T20:39:02Z",
+   "expires": "2026-11-16T00:39:02Z",
+   "release": "release-b5b.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/api/search.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "release release-b5b.zip",
+   "since": "2026-11-15T20:39:02Z",
+   "expires": "2026-11-16T00:39:02Z",
+   "release": "release-b5b.zip",
    "callers": {}
   }
  ],
