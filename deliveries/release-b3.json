@@ -3,96 +3,96 @@
  "built_on": "4cadcfa Sync: 2026-11-15 19:12 UTC",
  "recorded": "2026-11-15 19:36 UTC",
  "note": "Release B part 3 (keys red with where to add them; Release A's leftovers; Geofabrik's weekly load), built on Sync: 2026-11-15 19:12 UTC Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "ffadd93 Sync: 2026-11-15 20:11 UTC",
  "files": {
   "app/lib/AiClient.php": {
    "sha256": "6c91909ee33a95badca51ee8b553c3fec63ab878b6eb0bd852accbca2b5830b9",
-   "live": false
+   "live": true
   },
   "app/lib/Dossier.php": {
    "sha256": "6964c56734a585a2948528876c1d042709b220a7c76076ec3b52cc66e69849fb",
-   "live": false
+   "live": true
   },
   "app/lib/Geocoder.php": {
    "sha256": "ba4ea0cd4b7b090c6aab87c23d96bc507274bfe87bfe6d633f8623c8440073d4",
-   "live": false
+   "live": true
   },
   "app/lib/MarketPay.php": {
    "sha256": "95ce73029f494a0ad7da2f7aebb20a0d20b1a66f4e2171fedbd6ee40af79af9b",
-   "live": false
+   "live": true
   },
   "app/lib/MarketRules.php": {
    "sha256": "1c32ceca7cf9e15cf799f4fdbb9ae8080cec290e37852a1c1c322d7c57a579e7",
-   "live": false
+   "live": true
   },
   "app/lib/OpenPlaces.php": {
    "sha256": "fd26392b8b3780587f094b0e6e816c1623df52a6e662560737fa5d554b385ebe",
-   "live": false
+   "live": true
   },
   "app/lib/Operations.php": {
    "sha256": "af3b74d406e882a1abab76ed6107fbcc27fdd55d4facbb53bfa6fe1d4ded28f6",
-   "live": false
+   "live": true
   },
   "app/lib/PlaceFinder.php": {
    "sha256": "9d5f2b6a8d30eecdc925550185e250f1133cf20bf9b9c970d125563b30f362b8",
-   "live": false
+   "live": true
   },
   "app/lib/QuickBooksPay.php": {
    "sha256": "9a37501c37189be39892320f2bff7d9c9a926d9f79c7c368bd97f4099a62a233",
-   "live": false
+   "live": true
   },
   "app/lib/Roads511.php": {
    "sha256": "7c04fe57348b1f9b3552758cc2e77fc8c7fab2a2b13a6d6185fc1a8e02e2f91f",
-   "live": false
+   "live": true
   },
   "app/lib/ServiceHealth.php": {
    "sha256": "b0606a927c2135d808d6fc9add7aba8f37d2ea7f8ce688c266717ebe3421cd1d",
-   "live": false
+   "live": true
   },
   "app/lib/Services.php": {
    "sha256": "c7d4a6de0b111369e50e5a4c3801af4cbd20f35a1966d7ea1dd636de4db4fdf5",
-   "live": false
+   "live": true
   },
   "app/lib/Thresholds.php": {
    "sha256": "8ffab7cc8cf7f13c7e12d0d24ddce3fe12fbd968c2e44e9c0f5453f0350b74c3",
-   "live": false
+   "live": true
   },
   "app/lib/TravelLegs.php": {
    "sha256": "14ddc03cf41dba0c02233ac4b88a98124d46516ee800852f1eb51c21cf608e8d",
-   "live": false
+   "live": true
   },
   "app/lib/Weather.php": {
    "sha256": "f1d053cb7d1c35d66e6b6e7482546d5b658bdb05e52b5358c4d256371bf3ed06",
-   "live": false
+   "live": true
   },
   "app/lib/ZipPopulation.php": {
    "sha256": "53683fb3b577a67a2920dfd28cf3878d813f99eae1d69df4bada22e5e1c90ae4",
-   "live": false
+   "live": true
   },
   "app/lib/crawler/CrawlService.php": {
    "sha256": "b1eba749a3680a9f57841b47c113af437533d87e2fc2d375e608be630f6adfa8",
-   "live": false
+   "live": true
   },
   "app/lib/crawler/DeepLook.php": {
    "sha256": "ad2da43fb91c08c61c20868887f1555259dc08d706408bf57e7057797f1629b1",
-   "live": false
+   "live": true
   },
   "app/lib/crawler/OpenLoads.php": {
    "sha256": "545837fea073fd06d458a2d7a11971246c992af15d22fdb3e34561dfbe5856dd",
-   "live": false
+   "live": true
   },
   "app/lib/stock/StockSource.php": {
    "sha256": "110298e87cd0a98fda1f679e40988640e019bda28e318fb683dbde46986ba501",
-   "live": false
+   "live": true
   },
   "website/api/crawl/loads.php": {
    "sha256": "9756dbe5571db9e4ae27e678473ff6e974763876f82ec9893a3fe1ba10835543",
-   "live": false
+   "live": true
   },
   "website/api/crawl/service.php": {
    "sha256": "6207c596afe86cd844e29f82378df44545edd4778baede4f8c8800c9e374618c",
-   "live": false
+   "live": true
   }
  }
 }
