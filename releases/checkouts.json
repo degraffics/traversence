@@ -2,28 +2,6 @@
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
  "claims": [
   {
-   "path": "app/lib/HelpFind.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5ikaAYTSrHS6AnPpWB",
-   "why": "Help us find this business card (decisions/0164 \u00a73.5)",
-   "since": "2026-11-15T00:06:51Z",
-   "expires": "2026-11-15T04:08:34Z",
-   "release": "help-find_20261115.zip",
-   "callers": {}
-  },
-  {
-   "path": "website/hub/index.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5ikaAYTSrHS6AnPpWB",
-   "why": "Help us find this business card (decisions/0164 \u00a73.5)",
-   "since": "2026-11-15T00:06:51Z",
-   "expires": "2026-11-15T04:08:34Z",
-   "release": "help-find_20261115.zip",
-   "callers": {}
-  },
-  {
    "path": "app/lib/UniversalSearch.php",
    "functions": [
     "searchAs"
@@ -37,64 +15,6 @@
    "callers": {}
   },
   {
-   "path": "app/lib/Claims.php",
-   "functions": [
-    "listing"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5ikaAYTSrHS6AnPpWB",
-   "why": "Help us find this business card (decisions/0164 \u00a73.5)",
-   "since": "2026-11-15T00:06:54Z",
-   "expires": "2026-11-15T04:08:34Z",
-   "release": "help-find_20261115.zip",
-   "callers": {
-    "listing": [
-     "website/claim.php",
-     "website/listing/api/claim.php",
-     "website/listing/businessportal.php"
-    ]
-   }
-  },
-  {
-   "path": "app/lib/DataCleanup.php",
-   "functions": [
-    "(top)",
-    "junkName"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5ikaAYTSrHS6AnPpWB",
-   "why": "Help us find this business card (decisions/0164 \u00a73.5)",
-   "since": "2026-11-15T00:06:54Z",
-   "expires": "2026-11-15T04:08:34Z",
-   "release": "help-find_20261115.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/admin/cleanup-console.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5ikaAYTSrHS6AnPpWB",
-   "why": "Help us find this business card (decisions/0164 \u00a73.5)",
-   "since": "2026-11-15T00:06:54Z",
-   "expires": "2026-11-15T04:08:34Z",
-   "release": "help-find_20261115.zip",
-   "callers": {}
-  },
-  {
-   "path": "website/js/search-panel.js",
-   "functions": [
-    "helpHtml",
-    "resultsHtml"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5ikaAYTSrHS6AnPpWB",
-   "why": "Help us find this business card (decisions/0164 \u00a73.5)",
-   "since": "2026-11-15T00:06:54Z",
-   "expires": "2026-11-15T04:08:34Z",
-   "release": "help-find_20261115.zip",
-   "callers": {}
-  },
-  {
    "path": "website/js/suggest.js",
    "functions": [
     "open"
@@ -105,39 +25,6 @@
    "since": "2026-11-15T00:06:54Z",
    "expires": "2026-11-15T04:06:54Z",
    "release": "help-find",
-   "callers": {}
-  },
-  {
-   "path": "app/admin/cleanup-console.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5ikaAYTSrHS6AnPpWB",
-   "why": "release help-find_20261115.zip",
-   "since": "2026-11-15T00:07:10Z",
-   "expires": "2026-11-15T04:07:10Z",
-   "release": "help-find_20261115.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/UniversalSearch.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5ikaAYTSrHS6AnPpWB",
-   "why": "release help-find_20261115.zip",
-   "since": "2026-11-15T00:07:10Z",
-   "expires": "2026-11-15T04:08:34Z",
-   "release": "help-find_20261115.zip",
-   "callers": {}
-  },
-  {
-   "path": "website/js/suggest.js",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5ikaAYTSrHS6AnPpWB",
-   "why": "release help-find_20261115.zip",
-   "since": "2026-11-15T00:07:10Z",
-   "expires": "2026-11-15T04:08:34Z",
-   "release": "help-find_20261115.zip",
    "callers": {}
   },
   {
