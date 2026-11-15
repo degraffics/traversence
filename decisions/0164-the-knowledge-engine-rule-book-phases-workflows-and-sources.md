@@ -753,6 +753,19 @@ priority by search demand and residents affected; how deep research goes; the th
   the same primary count once, unless we read the primary** (as copies count once, R11); a research brief never counts
   as a source.
 
+**Note, 2026-11-15: duplicates are rechecked and corrected by the system, not sent to a person** (Jason's direction, in
+his words: "I see this as a process failure and we need to address it at the fundamental level in which the data was
+captured and evaluated." … "I see this a recheck not a pass to human for review. If we have data loads that cause issues
+the system must be able to identify them and correct them. Listings are flexible, since we are building potential
+listings for claiming, once claimed is a whole different conversation."). This changes the intake's rule "a match is
+always a merge for review" (`AutoImport`, from 0044/0076) **for unclaimed listings**: one identity check
+(`ListingIdentity::resolve()`) runs on every path that creates or un-hides a listing, within each batch and under a
+database guard; a recheck after every load and on a schedule **merges by itself** two unclaimed listings with nothing a
+person entered or decided on them (the one with most evidence stays; facts, sources, views, comments and links fold in;
+the old id 301s; logged in the cleanup ledger with Undo). Claimed listings, a person's entries or decisions, other
+locations and providers at one facility (0074) still go to a person, with the reason. The cause, the fix and the design:
+`handoffs/duplicates.md`, built in Release B (0163 §8, stage 8, before any data load is switched on).
+
 ### 3.3 The truth hierarchy (resolving conflicts)
 
 **A person comes first** (R4): what an owner, a claimed business or our staff entered is never overwritten by a crawl; a
