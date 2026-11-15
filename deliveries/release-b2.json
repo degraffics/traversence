@@ -72,11 +72,11 @@
   },
   "app/migrations/2026-11-16_hubs.sql": {
    "sha256": "842dd3e99eb14afd6779e8fa002fb432bdcb89b278a3af760ee13490c0ac752d",
-   "live": false
+   "live": true
   },
   "app/migrations/2026-11-16_open_loads.sql": {
    "sha256": "4a7d7e8eee6c89bbc42efb155bd2bcdd637e60f0242514ff0a950dbdfed78b45",
-   "live": false
+   "live": true
   },
   "app/scripts/supabase_keepalive.php": {
    "sha256": "cfe75d9866617f5e6e38d192ab49e3b5106b215612d5d4d9e14b16fa71f9a4e6",
