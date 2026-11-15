@@ -176,6 +176,16 @@
             "at": "2026-11-15T19:50:37+00:00",
             "by": 0,
             "msg": "Sent for review on staging: UI, UX and Functional, then Publish."
+        },
+        {
+            "at": "2026-11-15T20:07:13+00:00",
+            "by": 2,
+            "msg": "Opened on staging by Jason DeGraff (the staging bar)."
+        },
+        {
+            "at": "2026-11-15T20:08:25+00:00",
+            "by": 2,
+            "msg": "Review UI: approved (Jason DeGraff) [on /admin/config/scheduler]."
         }
     ]
 }
