@@ -1,0 +1,54 @@
+{
+    "id": 67,
+    "title": "Release B, part 7: Withdraw on the staging bar, and stage 9's reader of pages waiting to be read",
+    "why": "Jason, 2026-11-15: #65 failed its checks and couldn't be withdrawn from staging, only on the live admin; and 'the rest of the build I want this done' (decisions/0163 §8 stage 9, 0164 §2.3; gap review P1-1). Everything ships off; the master switch stays off. (1) Withdraw is in the staging bar's Publish menu for any release not yet live (it asks first). (2) Stage 9's reader: pages the crawler logged as waiting to be read are read into facts, three an hour, by the AI that AI use routes 'Read a public page into facts' to: Gemini's free tier for public pages (private details and held names removed first), else Claude inside the cap. When the allowance, a hold or the cap stops it, the page stays waiting; once read, its fingerprint is saved and it's no longer waiting. A cite-only source is never read this way. Shipped off: the feature is off on AI use, the job (page_read_tick) is under W3 and the master switch, and isn't set up in cPanel by itself. No database update. Tests: staging unit 49. Built on Sync 2026-11-15 21:03 UTC.",
+    "proposals": "handoffs/release-b.md, decisions/0163 §8 stage 9, decisions/0164 §2.3",
+    "zip": "release-b7.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/scripts/page_read_tick.php": {
+            "sha": "958032f49e3a334f96c5498b29aa58867968a472daa83301f3a4926a4617a142",
+            "size": 920,
+            "live_was": null
+        },
+        "app/lib/Scheduler.php": {
+            "sha": "890de47063974272577f018a85f804cab3e9cab63a7367498cfd0247ff428b31",
+            "size": 26660,
+            "live_was": "1fa5ace5d0cd339461d293b810642569a2c1d9d318e22ceef2e59768ac44f1be"
+        },
+        "app/lib/crawler/PageRead.php": {
+            "sha": "b6f0530a9791af0beac2dfa0e7c0a78e89b5166b342fc5294c9a52011f4a20ce",
+            "size": 6301,
+            "live_was": null
+        },
+        "app/lib/Releases.php": {
+            "sha": "18d618bbf3400ede63d4a1124d70f0c7773ec6395f295f5e8d9f900a0f581fb1",
+            "size": 110477,
+            "live_was": "8c9d2a505628cd811cf2762197aae1be769df3505cb6d454c15d5fa6058f6c24"
+        },
+        "app/lib/Automation.php": {
+            "sha": "70f9c0c2a10073943f3185792acc83d2bc98767f733b5094e68b1d3a595a4040",
+            "size": 21779,
+            "live_was": "e2c674a322f509114f9426f0e81c488022567d3b5a1203f2e4212cedd9e2cf51"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-15T21:29:03+00:00",
+            "by": 0,
+            "msg": "Uploaded release-b7.zip: 5 files."
+        }
+    ]
+}
