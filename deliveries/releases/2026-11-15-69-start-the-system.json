@@ -1,0 +1,74 @@
+{
+    "id": 69,
+    "title": "Start the system",
+    "why": "Jason, 2026-11-15: \"We need a ondemand system start which will fire each of the steps you expect me to flip. And I will address issues that the system can't fix itself.\" One button runs the whole switch-on (decisions/0163 §10, its note of 2026-11-15); Pause everything stops it in one press. With it (session manager, at Jason's ask): review and staging links opened in a signed-out browser go to the staff login and back, never a page of JSON (decisions/0159, never a dead end).",
+    "proposals": "",
+    "zip": "start-the-system.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/admin/automation-console.php": {
+            "sha": "b4698c0ebccd488ae754031d7b60d9e7d43315ceca18254d45e7e01a596e4da2",
+            "size": 20054,
+            "live_was": "2d625d5c49ebb3e13a26ae66dfc90744284c9cba2f173862d9b51902c9c195c1"
+        },
+        "app/admin/operations-console.php": {
+            "sha": "414aa2f6461f4066286d9a8a9f2d7662d4ab70058339d423b61edea9bd3dc5df",
+            "size": 28899,
+            "live_was": "9f20939fd4bf29b02c1d6d863267fae1cdd7ffe27e1327fb85f3d2bc9e0ea5c9"
+        },
+        "app/ui/faq.md": {
+            "sha": "004da0c746a4b856a02ad74915bbcaf5767dfa25c9f4f94a428a5fbf224e2aef",
+            "size": 310314,
+            "live_was": "2a1f71d1556f370d80500aaa12458f5e89a9a2e0f976f88a68d4db03759af44a"
+        },
+        "app/scripts/system_start_tick.php": {
+            "sha": "65c0525b249eab42c23d91f0615a433f515a88f2e1117d3cdeba8b1cb70fff93",
+            "size": 1188,
+            "live_was": null
+        },
+        "app/bootstrap.php": {
+            "sha": "1546327816a2a06362ec2d30bb70ae55812635cce5eead2634d1f92c8fd53d21",
+            "size": 10521,
+            "live_was": "b4e494112be6d192040d011553330f484a1cfd65d33e8fe86a5855272f9e2079"
+        },
+        "app/lib/Scheduler.php": {
+            "sha": "95005927bbfefac339e2a48dbe137a7a205e5c7e3e7dc22460c3fa8e4c17ef12",
+            "size": 27074,
+            "live_was": "890de47063974272577f018a85f804cab3e9cab63a7367498cfd0247ff428b31"
+        },
+        "app/lib/Operations.php": {
+            "sha": "e3e23dd9e1dd3db3d2580b2de807649adf25580416a1efdfcc7da9a31a16ef7f",
+            "size": 57960,
+            "live_was": "946a3aa31418ec26d77e5f243fad813ee6158516efd0d1d6b28a37a70a169799"
+        },
+        "app/lib/Thresholds.php": {
+            "sha": "ef0f4700b699a901e26f49b1712c619388c60e22e527a043a2996a1db7d890d1",
+            "size": 21461,
+            "live_was": "8ffab7cc8cf7f13c7e12d0d24ddce3fe12fbd968c2e44e9c0f5453f0350b74c3"
+        },
+        "app/lib/SystemStart.php": {
+            "sha": "8c890015efe77fda98ddf77088bc1b3a1b15eff69fe1147827f2a993bfff25a0",
+            "size": 39289,
+            "live_was": null
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-15T22:21:29+00:00",
+            "by": 0,
+            "msg": "Uploaded start-the-system.zip: 9 files."
+        }
+    ]
+}
