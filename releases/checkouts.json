@@ -1,46 +1,5 @@
 {
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
- "claims": [
-  {
-   "path": "app/lib/UniversalSearch.php",
-   "functions": [
-    "searchAs"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5ikaAYTSrHS6AnPpWB",
-   "why": "Help us find this business card (decisions/0164 \u00a73.5)",
-   "since": "2026-11-15T00:06:54Z",
-   "expires": "2026-11-15T04:06:54Z",
-   "release": "help-find",
-   "callers": {}
-  },
-  {
-   "path": "website/js/suggest.js",
-   "functions": [
-    "open"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5ikaAYTSrHS6AnPpWB",
-   "why": "Help us find this business card (decisions/0164 \u00a73.5)",
-   "since": "2026-11-15T00:06:54Z",
-   "expires": "2026-11-15T04:06:54Z",
-   "release": "help-find",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/DataCleanup.php",
-   "functions": [
-    "groups",
-    "undoGroup"
-   ],
-   "kind": "add",
-   "session": "session_01CXLi5ikaAYTSrHS6AnPpWB",
-   "why": "Help us find this business card: undo by reason",
-   "since": "2026-11-15T00:08:31Z",
-   "expires": "2026-11-15T04:08:31Z",
-   "release": "help-find",
-   "callers": {}
-  }
- ],
+ "claims": [],
  "lapsed": []
 }
