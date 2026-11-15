@@ -1,15 +1,15 @@
 {
  "version": 1,
- "generated_at": "2026-11-15T09:30:22Z",
+ "generated_at": "2026-11-15T19:17:27Z",
  "run_url": "https://github.com/degraffics/traversence/actions/runs/43698494444",
  "site": "https://traversence.com",
  "counts": {
-  "open": 10,
+  "open": 13,
   "blocking": 0,
   "by_kind": {
    "path": 2,
    "page": 2,
-   "code": 1,
+   "code": 4,
    "cost": 5
   }
  },
@@ -33,7 +33,27 @@
    "verdict": "",
    "decided": false,
    "first_seen": "2026-11-14T19:17:24Z",
-   "last_seen": "2026-11-15T09:30:22Z"
+   "last_seen": "2026-11-15T19:17:27Z"
+  },
+  {
+   "id": "f-8a89e784fe",
+   "who": [],
+   "paths": [],
+   "page": "",
+   "shot_url": "",
+   "kind": "code",
+   "rule": "R13",
+   "title": "the code breaks R13: 37 places",
+   "detail": "In 28 files. For example: website/api/ses-events.php:31 tv_sns_valid(): an outside call (curl_init) with no gate: ask StagingGate::hold($url, …) first, or say why not with an @gate note; website/api/ses-events.php:48 (top of file)(): an outside call (curl_init) with no gate: ask StagingGate::hold($url, …) first, or say why not with an @gate note; app/lib/StagingSite.php:566 barKeys(): an outside call (curl_init) with no gate: ask StagingGate::hold($url, …) first, or say why not with an @gate note",
+   "severity": "alert",
+   "sig": "1d0d463ec5d957b3",
+   "blocks": 0,
+   "proposal": "",
+   "proposal_url": "",
+   "verdict": "",
+   "decided": false,
+   "first_seen": "2026-11-15T19:17:27Z",
+   "last_seen": "2026-11-15T19:17:27Z"
   },
   {
    "id": "f-fa035ddd5a",
@@ -58,7 +78,7 @@
    "verdict": "fix, to check in the build",
    "decided": true,
    "first_seen": "2026-11-12T17:55:55Z",
-   "last_seen": "2026-11-15T09:30:22Z"
+   "last_seen": "2026-11-15T19:17:27Z"
   },
   {
    "id": "f-c9499ea13e",
@@ -82,7 +102,7 @@
    "verdict": "",
    "decided": false,
    "first_seen": "2026-11-13T17:29:44Z",
-   "last_seen": "2026-11-15T09:30:22Z"
+   "last_seen": "2026-11-15T19:17:27Z"
   },
   {
    "id": "f-be75f4f580",
@@ -102,7 +122,7 @@
    "verdict": "fix, and missing",
    "decided": true,
    "first_seen": "2026-11-12T17:55:55Z",
-   "last_seen": "2026-11-15T09:30:22Z"
+   "last_seen": "2026-11-15T19:17:27Z"
   },
   {
    "id": "f-fc2b825837",
@@ -122,7 +142,7 @@
    "verdict": "",
    "decided": false,
    "first_seen": "2026-11-12T17:55:55Z",
-   "last_seen": "2026-11-15T09:30:22Z"
+   "last_seen": "2026-11-15T19:17:27Z"
   },
   {
    "id": "f-3ff207d9d1",
@@ -144,7 +164,7 @@
    "verdict": "fix",
    "decided": true,
    "first_seen": "2026-11-13T15:09:52Z",
-   "last_seen": "2026-11-15T09:30:22Z"
+   "last_seen": "2026-11-15T19:17:27Z"
   },
   {
    "id": "f-67aa8e62f6",
@@ -166,7 +186,7 @@
    "verdict": "",
    "decided": false,
    "first_seen": "2026-11-14T10:29:30Z",
-   "last_seen": "2026-11-15T09:30:22Z"
+   "last_seen": "2026-11-15T19:17:27Z"
   },
   {
    "id": "f-8b971eeb05",
@@ -186,7 +206,7 @@
    "verdict": "",
    "decided": false,
    "first_seen": "2026-11-15T09:30:22Z",
-   "last_seen": "2026-11-15T09:30:22Z"
+   "last_seen": "2026-11-15T19:17:27Z"
   },
   {
    "id": "f-e6eb284ddf",
@@ -206,7 +226,7 @@
    "verdict": "",
    "decided": false,
    "first_seen": "2026-11-15T09:30:22Z",
-   "last_seen": "2026-11-15T09:30:22Z"
+   "last_seen": "2026-11-15T19:17:27Z"
   },
   {
    "id": "f-f91f4427ba",
@@ -226,7 +246,47 @@
    "verdict": "",
    "decided": false,
    "first_seen": "2026-11-15T09:30:22Z",
-   "last_seen": "2026-11-15T09:30:22Z"
+   "last_seen": "2026-11-15T19:17:27Z"
+  },
+  {
+   "id": "f-44997c18c9",
+   "who": [],
+   "paths": [],
+   "page": "",
+   "shot_url": "",
+   "kind": "code",
+   "rule": "R07",
+   "title": "endpoints that change things without the security token: 1 place",
+   "detail": "In 1 file. For example: website/api/stg-csp.php:9 accepts a POST without Response::requireCsrf() (or a signature check): say why, or add it",
+   "severity": "update",
+   "sig": "332311eebb316700",
+   "blocks": 0,
+   "proposal": "P5",
+   "proposal_url": "https://github.com/degraffics/traversence/blob/main/site-audit/proposals.md#p5-endpoints-without-the-security-token-verdict-accept-with-reasons-or-fix",
+   "verdict": "accept with reasons, or fix",
+   "decided": true,
+   "first_seen": "2026-11-15T19:17:27Z",
+   "last_seen": "2026-11-15T19:17:27Z"
+  },
+  {
+   "id": "f-b404f283e6",
+   "who": [],
+   "paths": [],
+   "page": "",
+   "shot_url": "",
+   "kind": "code",
+   "rule": "R12",
+   "title": "outside services the code calls with no card in Outside services: 1 place",
+   "detail": "In 1 file. For example: workers/crawler/crawler.py:3397 calls download.openstreetmap.fr, which is on no card in Outside services: add it to its company in OutsideServices::HOSTS (or a new card), or to site-audit/services-ignore.txt if it isn't a service",
+   "severity": "update",
+   "sig": "ab819b5626ac8234",
+   "blocks": 0,
+   "proposal": "",
+   "proposal_url": "",
+   "verdict": "",
+   "decided": false,
+   "first_seen": "2026-11-15T19:17:27Z",
+   "last_seen": "2026-11-15T19:17:27Z"
   }
  ]
 }

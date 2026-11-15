@@ -1,6 +1,6 @@
 # Decision register
 
-Decision 0145 §1a. Generated on 2026-11-15 07:17 UTC from `decisions/` and the live mirror (`3895d95`). Don't edit by hand:
+Decision 0145 §1a. Generated on 2026-11-15 19:17 UTC from `decisions/` and the live mirror (`4cadcfa`). Don't edit by hand:
 edit the decision, and this follows. "Missing files" are files a decision names that the site no longer has: the
 decision may be stale, or the file moved.
 
@@ -150,7 +150,7 @@ decision may be stale, or the file moved.
 | 0142 | [Terms, Store Policies and the Acceptance Log](0142-terms-policies-and-acceptance-log.md) | proposed |  | 1 | 3 |  |
 | 0143 | [The Stock Library: a System Repository of Non-User Photos](0143-stock-library.md) | accepted |  | 2 | 35 |  |
 | 0144 | [Word Suggestions and the List ⓘ](0144-word-suggestions-and-list-help.md) | accepted |  |  | 3 |  |
-| 0145 | [The Site Audit and Phased Releases](0145-site-audit-and-phased-releases.md) | accepted |  | 7 | 1 |  |
+| 0145 | [The Site Audit and Phased Releases](0145-site-audit-and-phased-releases.md) | accepted |  | 8 | 1 |  |
 | 0146 | [Suggested Journeys from Guides](0146-suggested-journeys-from-guides.md) | accepted |  | 1 | 2 |  |
 | 0147 | [Guides and Journeys on Demand](0147-guides-and-journeys-on-demand.md) | accepted |  | 1 | 0 |  |
 | 0148 | [Places on Demand](0148-places-on-demand.md) | accepted |  | 1 | 0 |  |
@@ -164,9 +164,10 @@ decision may be stale, or the file moved.
 | 0156 | [The Vault: passwords only their owner can open](0156-the-vault.md) | accepted |  | 6 | 2 |  |
 | 0157 | [Our own index: reading pages and reading searches](0157-our-own-index-reading-pages-and-searches.md) | accepted |  | 1 | 1 |  |
 | 0158 | [One way to publish: our site's releases and businesses' storefronts](0158-one-way-to-publish.md) | accepted |  | 1 | 0 |  |
-| 0159 | [The builder: Traversence's platform builder and Storefront Studio](0159-the-builder-platform-and-storefront-studio.md) | accepted |  |  | 1 |  |
+| 0159 | [The builder: Traversence's platform builder and Storefront Studio](0159-the-builder-platform-and-storefront-studio.md) | accepted |  | 1 | 1 |  |
 | 0160 | [The crawler as one service, and each creation workflow start to finish](0160-the-crawler-as-a-service-and-the-creation-workflows.md) | accepted |  | 2 | 0 |  |
 | 0161 | [Check-out for site files: the page manager](0161-check-out-for-site-files-the-page-manager.md) | accepted |  |  | 5 |  |
 | 0162 | [Migrations at publish, copied first; leftovers after a rollback tracked and removed by release](0162-migrations-at-publish-copied-first-leftovers-tracked.md) | accepted |  |  | 0 |  |
 | 0163 | [Operations: one view of outside services, workflows and spend](0163-operations-one-view-of-services-workflows-and-spend.md) | accepted |  | 1 | 2 |  |
-| 0164 | [The Knowledge Engine: rule book, phases, workflows and sources](0164-the-knowledge-engine-rule-book-phases-workflows-and-sources.md) | accepted |  |  | 0 |  |
+| 0164 | [The Knowledge Engine: rule book, phases, workflows and sources](0164-the-knowledge-engine-rule-book-phases-workflows-and-sources.md) | accepted |  | 1 | 0 |  |
+| 0165 | [Staging is the live site in safe mode; Publish merges it into live](0165-staging-is-live-in-safe-mode-publish-merges-it.md) | accepted |  |  | 2 |  |
