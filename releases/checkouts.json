@@ -1034,6 +1034,17 @@
    "expires": "2026-11-15T21:45:05Z",
    "release": "release-stgbar.zip",
    "callers": {}
+  },
+  {
+   "path": "website/api/stg-bar.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "Staging bar: the host's bot check cookie on its call to live",
+   "since": "2026-11-15T17:47:01Z",
+   "expires": "2026-11-15T21:47:01Z",
+   "release": "release-stgbar",
+   "callers": {}
   }
  ],
  "lapsed": []
