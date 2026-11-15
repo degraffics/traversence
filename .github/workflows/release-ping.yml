@@ -23,9 +23,10 @@ jobs:
       - name: Ask the live site to take the build now
         run: |
           url=https://traversence.com/api/releases-pull.php
+          # an empty POST with no Content-Type got ModSecurity's 406 (2026-11-15): a JSON body like the crawler worker's calls
           cookie='humans_21909=1'   # the host's bot check (research/bluehost-bot-check-2026-11-15.md)
           for try in 1 2 3; do
-            code=$(curl -sS -o out.txt -w '%{http_code}' -X POST --max-time 240 -H 'User-Agent: traversence-release-ping' -b "$cookie" "$url" || echo 000)
+            code=$(curl -sS -o out.txt -w '%{http_code}' -X POST --max-time 240 -A 'Mozilla/5.0 (compatible; TraversenceReleasePing/1.0)' -H 'Content-Type: application/json' -H 'Accept: application/json, */*' --data '{}' -b "$cookie" "$url" || echo 000)
             echo "try $try: $code"; head -c 1500 out.txt; echo
             if [ "$code" = 200 ]; then exit 0; fi
             if [ "$code" = 409 ]; then
