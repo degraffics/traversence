@@ -107,31 +107,53 @@ Tested here (MariaDB, the live libraries): a card shown on its town and found by
 a person's name, a protected name and a 180-day-old card held back; a phone accepted makes it a listing again and it
 leaves the cards; the card at 390px. Not tested: the town page and search panel live (the zip check's code checks only).
 
-## Next: reused or restricted, never a dead end (Jason, 2026-11-15: "table is right"; build it next, in a fresh session)
+## Reused or restricted, never a dead end (`data-cleanup-reuse_20261115.zip`, built on Sync 2026-11-15 00:21 UTC)
 
-Jason: "They still exist, just hidden: this is a dead end. Either they are reused or moved into restricted." And on drop
-boxes: "Yes their own listing and map pin." The mapping, approved by Jason (2026-11-15):
+Jason: "They still exist, just hidden: this is a dead end. Either they are reused or moved into restricted"; the table
+below approved 2026-11-15 ("table is right"); drop boxes: "Yes their own listing and map pin".
 
-| Taken off by a pass | Goes to |
+**State:** sent to `releases/inbox/` (session `session_01CXLi5gjuAjJ6m4FZ8uAGQ1`), PR open, **waiting for Jason's OK to
+merge**. Claims taken (`DataCleanup.php`, `cleanup-console.php`, `data_cleanup_tick.php`, the migration). After it's
+live: run the sync, `deliveries.py verify`, then Jason runs "Taken off by an earlier pass" (release #50's records) and
+"Mail & package drop-offs".
+
+| Taken off by a pass | Goes to (marker: the listing's `removed` note `target`) |
 |---|---|
-| no address or phone, with a town | reused: the "Help us find" card (help-find_20261115) |
-| a name only, no town | reused: a sighting (back to the intake, `crawler_raw_index` staged), retried on the retry ladder (0163 §12) |
-| resting only on cite-only pages | reused: a sighting, retried for a keepable source |
-| page-text name WITH a phone or street address | reused: a sighting "name unknown", its source re-read for the real name |
-| page-text name with nothing else | restricted |
-| staged junk; place-store junk; cite-only facts | restricted (the link kept as a citation) |
-| protected landmarks | restricted until landmarks' story-only level (P5-3), then reused as story only |
-| nation-sensitive landmarks | restricted (the nation decides, R7) |
-| drop and collection boxes | their own listings with a pin, category "Mail & package drop-off" (a new leaf: find its group in `categories`; an INSERT IGNORE migration, the category set by a `data_reason` UPDATE or by a pass) |
+| no address or phone, with a town | `help_find`: the "Help us find" card |
+| a name only, no town; resting only on cite-only pages | `sighting` + `row`: a staged `crawler_raw_index` row |
+| page-text name WITH a phone or street address | `name_unknown` + `row`: a sighting with name '' (the page name kept in `cleanup.page_name`) |
+| page-text name with nothing else | `restricted` |
+| staged junk; place-store junk; cite-only facts; protected and nation-sensitive landmarks | restricted (by rule, as before: quarantined, `held`, Hidden by us) |
+| drop and collection boxes (`DataCleanup::dropName()`) | put back, category `mail-package-drop-off` (rule `drop_box`; pin = the listing's point) |
 
-Plus a **Restricted** list in Data cleanup: every record held, its reason, Put back / Make it a request (no hidden
-limbo). "Restricted" = 0164 R7's tier (kept for our records only). Build it as one release from the live mirror (claims:
-`DataCleanup.php` act/collect, `cleanup-console.php`; `IntakeStager` for sightings); state each stored marker (a
-`restricted` value in the `removed` note's target, or its own meta) and keep Undo working through the ledger.
+| File | What |
+|---|---|
+| `app/lib/DataCleanup.php` | `route()`, `dropName()`/`dropCategory()`, rules `drop_box` and `taken_off` (store `off`, `findOff()`), `toSighting()` (row + ledger field `sighting`; Undo turns a still-staged row down), `nextTry()` (`LADDER`), `retryTick()`/`lookFor()` (the place store, keepable hosts only, no fetch), `settle()` (Review's merge/approve/turn-down), `restricted()`/`restrictedCounts()`/`canRequest()`/`putBack()`/`request()`, `sightingCounts()`; staged junk skips cleanup's own sightings |
+| `app/admin/cleanup-console.php` | Back to sightings (counts, Look for answers now, Open Review); Restricted by reason with Put back / Make it a request (greyed with the reason for landmarks and guard holds); `settle()` on view |
+| `app/scripts/data_cleanup_tick.php` | settle + retry before the daily pass (still off, under the master switch) |
+| `app/migrations/2026-11-15_drop_off_category.sql` | the leaf under the Post Office's group (INSERT … WHERE NOT EXISTS; no UPDATE, no `data_reason`) |
+| `app/ui/faq.md` | new: "What happens to the records Data cleanup takes off?", "What is a Mail & package drop-off?"; two answers updated |
+
+Sighting payload: `cleanup` {entity_id, fact_id, run, kind, rule, page_name, reread, at}, `retry` {fails, next_at, last_at,
+answer}, a `cleanup` flag for Review, `match.exact` = the hidden listing. Settled from Review: merged/approved into it →
+put back (`found` note) only with a real name and a phone or street address, else Restricted saying why; approved as
+another listing → target `found`, `as`; turned down by a person → Restricted ("Turned down in Review"), listed with Put back.
+
+Tested here (MariaDB 10.11, the live libraries, a fixture of each case): the migration twice (one leaf, right group, not
+under "Email marketing"); every route; a second preview finds nothing; the ladder steps; answers found by phone (a real
+name) and by a single-phone name; the three Review outcomes; Restricted, Put back, Make it a request for a listing, a
+staged find and a place-store fact; Undo of a pass (a record requested since is left); the page allowed and denied
+(30 buttons greyed with the reason), no sideways scroll at 390px. Not tested: the live data's size; Review's own screens
+with an empty-name row (Approve needs a name, which is the point).
+
+**Follow-ups, not in this release:** drop-offs without Claim and out of business browse lists (Jason's "own kind" in
+the open question: needs `Claims` and the directory; the category alone is here); a drop box with no point gets its pin
+only when it has one (no geocoding spent); the crawler re-reading `cleanup.reread` pages is the crawler revamp's to wire
+(automation paused); `AutoImport::evaluate` should use `junkName()` and `dropName()`.
 
 ## Not done, on purpose
 
 - `workers/crawler/` untouched (a worker deploy would restore the paused Railway schedule).
 - `AutoImport::evaluate`'s own name check isn't widened here (handoffs/crawler-revamp.md §7.3): with automation paused no
   new junk arrives; when that work is done it should call `DataCleanup::junkName()` so the gate and the cleanup agree.
-- Landmarks' story-only level (P5-3) is its own change; the cleanup holds those places with that target meanwhile.
+- Landmarks' story-only level (P5-3) is its own change; the cleanup holds those places (Restricted) with that target meanwhile.
