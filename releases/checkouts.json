@@ -1031,8 +1031,8 @@
    "session": "session_01CXLi5hvWvRSedDtk54gNDP",
    "why": "Staging bar: fixed at the bottom, above the site's sticky bars, so reviews can be given (Jason 2026-11-15)",
    "since": "2026-11-15T17:44:43Z",
-   "expires": "2026-11-15T21:44:43Z",
-   "release": "release-stgbar",
+   "expires": "2026-11-15T21:45:05Z",
+   "release": "release-stgbar.zip",
    "callers": {}
   }
  ],
