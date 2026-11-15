@@ -139,6 +139,20 @@
    "expires": "2026-11-15T04:07:10Z",
    "release": "help-find_20261115.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/DataCleanup.php",
+   "functions": [
+    "groups",
+    "undoGroup"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5ikaAYTSrHS6AnPpWB",
+   "why": "Help us find this business card: undo by reason",
+   "since": "2026-11-15T00:08:31Z",
+   "expires": "2026-11-15T04:08:31Z",
+   "release": "help-find",
+   "callers": {}
   }
  ],
  "lapsed": []
