@@ -3,20 +3,20 @@
  "built_on": "573cf2c Sync: 2026-11-15 01:20 UTC",
  "recorded": "2026-11-15 01:21 UTC",
  "note": "Data cleanup: the left breakdown (Jason 2026-11-15 'yes, add the left breakdown'). Built on Sync: 2026-11-15 01:20 UTC Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "3895d95 Sync: 2026-11-15 01:39 UTC",
  "files": {
   "app/admin/cleanup-console.php": {
    "sha256": "c47297cf7b00d2793dbaa005fab69e0487eddcce65692a43faf90b0458027732",
-   "live": false
+   "live": true
   },
   "app/lib/DataCleanup.php": {
    "sha256": "0420df5ee92a2a85a09ac49a37c28f92982a73dec4d6609b2d5d29f77473807e",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "3bff5bb3984ab5690cec7d2f36c06ec73cd48bdf9f57775cc1049425edb25b21",
-   "live": false
+   "live": true
   }
  }
 }

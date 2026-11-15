@@ -118,8 +118,29 @@ all 4 files match byte for byte; delivery verified, claims released. Next for Ja
 
 **The "left" breakdown** (`data-cleanup-left_20261115.zip`, built on Sync 2026-11-15 01:20 UTC; Jason: "yes, add the
 left breakdown" after a pass said "left 3,272"): `run()` keeps `left_by` (reason => n, `DataCleanup::leftWhy()`), and
-Passes shows "Why N were left as they are". Old passes have the total only. Sent, PR open, waiting for Jason's OK.
-The 3,087 of his passes are landmarks waiting for their own description (the writer is paused with automation).
+Passes shows "Why N were left as they are". Old passes have the total only. Live as release #53 (PR #686); Sync 01:39
+UTC: all 3 files match; delivery verified, claims released. The 3,087 of his passes are landmarks waiting for their own
+description (the writer is paused with automation).
+
+## The rest, in one release for Jason's review (`data-cleanup-dropoffs_20261115.zip`, built on Sync 2026-11-15 01:39 UTC)
+
+Jason, 2026-11-15: "for the rest of the build make one release so i can check it all at once"; he chose all three
+follow-ups. `"review": true`: staging, UI, UX and Functional each need Approve before Publish. **State:** sent, PR open,
+waiting for his OK to merge; then his review on staging, then the sync and `deliveries.py verify`.
+
+| Part | Files |
+|---|---|
+| Drop-offs not businesses: out of business browse lists, no Claim (Suggest an edit instead) | `PlaceScope::NOT_A_BUSINESS`, `businessOnly()`, `notABusiness()`; `Claims::start`; `website/listing/view.php`; `website/claim.php`; `website/api/search_listings.php` (only when browsing: no words, not the map, no kind chosen, no ids); `Guides.php` (essentials, a town's sections) |
+| The crawler's gate on cleanup's check | `AutoImport::evaluate`: `DataCleanup::junkName()` also fails `complete`, its reason in the label |
+| Pins | `DataCleanup::dropPins()`/`placeDrops()` + the page's "Drop-offs without a map pin" (Census by street address, 25 a press); `OpenPlaces` kind `dropoff` (amenity post_box, parcel_locker; unnamed named from operator; words "drop box", "drop off", "package locker", "mail a package"; not rentals, Dropbox, kids, donations) |
+
+Changed from what Jason was offered: pins aren't copied from OpenStreetMap (decisions/0065 keeps OSM its own layer);
+our point comes from the Census by street address, and OSM's boxes show in search as their own credited layer. Not
+changed: a town's and the place funnel's counts (`Guides::children`, `api/place.php`) still count drop-offs in their
+group. Tested here (MariaDB, the live libraries): browse exclusion, the claim reason, the gate's verdicts ("Contact Us:",
+a webinar title held; "Kayenta Market", "FedEx Drop Box" not held for their names), the kinds' words, the pin counts and
+press, the page at 390px. Not tested: the listing and claim pages rendered (lint and the zip check only); the Census
+call (no network to it here).
 
 | Taken off by a pass | Goes to (marker: the listing's `removed` note `target`) |
 |---|---|
