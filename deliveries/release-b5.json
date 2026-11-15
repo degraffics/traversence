@@ -1,50 +1,50 @@
 {
- "zip": "release-b5.zip",
- "built_on": "ffadd93 Sync: 2026-11-15 20:11 UTC",
- "recorded": "2026-11-15 20:13 UTC",
- "note": "Release B part 5 (reader drift, empty searches, F2-F4), built on Sync: 2026-11-15 20:11 UTC Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
- "files": {
-  "app/lib/EngineCase.php": {
-   "sha256": "3202e33505569768167c706db2936f1d212ad04b5d8ffa7418d6989428a37316",
-   "live": false
-  },
-  "app/lib/Gemini.php": {
-   "sha256": "663010642436834dcdfcd8448fe6d46bc56e172df96b4d7e3189d6877ec4ee52",
-   "live": false
-  },
-  "app/lib/ListingConfidence.php": {
-   "sha256": "64322667e4d1106bcdf9a788728baee1b710650ab6886db69630a51c3c8868c9",
-   "live": false
-  },
-  "app/lib/Operations.php": {
-   "sha256": "946a3aa31418ec26d77e5f243fad813ee6158516efd0d1d6b28a37a70a169799",
-   "live": false
-  },
-  "app/lib/SearchDemand.php": {
-   "sha256": "1f666c46c9558c498c86ef8032fb96e2eb8e515eedf9a37d878c876880c48d4a",
-   "live": false
-  },
-  "app/lib/crawler/SourceIndex.php": {
-   "sha256": "115b2ba62b89b820f813846b6ec526ba1c12a816c01653056e8483d02b1ec574",
-   "live": false
-  },
-  "app/migrations/2026-11-17_search_demand_empty.sql": {
-   "sha256": "6f79e1664228e0bb6712b4b494d4e0849f2302c6a4d0e8a9e4fca998aabc8aed",
-   "live": false
-  },
-  "app/ui/faq.md": {
-   "sha256": "2a1f71d1556f370d80500aaa12458f5e89a9a2e0f976f88a68d4db03759af44a",
-   "live": false
-  },
-  "website/api/search.php": {
-   "sha256": "ad86c2f424cf1d3fcd0437df08d9f2925b08c7c23818a05cf58774fa8fb5b4c9",
-   "live": false
-  },
-  "website/listing/view.php": {
-   "sha256": "148dc16cf6b34119a899f1144a7845e8d82abd015cd1d9f32976755b2a641634",
-   "live": false
+  "zip": "release-b5.zip",
+  "built_on": "ffadd93 Sync: 2026-11-15 20:11 UTC",
+  "recorded": "2026-11-15 20:13 UTC",
+  "note": "Release B part 5 (reader drift, empty searches, F2-F4), built on Sync: 2026-11-15 20:11 UTC Sent through git (releases/inbox). Withdrawn 2026-11-15: its migration failed staging's \"Migrations only add\" check (#65); replaced by release-b5b.",
+  "status": "withdrawn",
+  "live_in": "",
+  "files": {
+    "app/lib/EngineCase.php": {
+      "sha256": "3202e33505569768167c706db2936f1d212ad04b5d8ffa7418d6989428a37316",
+      "live": false
+    },
+    "app/lib/Gemini.php": {
+      "sha256": "663010642436834dcdfcd8448fe6d46bc56e172df96b4d7e3189d6877ec4ee52",
+      "live": false
+    },
+    "app/lib/ListingConfidence.php": {
+      "sha256": "64322667e4d1106bcdf9a788728baee1b710650ab6886db69630a51c3c8868c9",
+      "live": false
+    },
+    "app/lib/Operations.php": {
+      "sha256": "946a3aa31418ec26d77e5f243fad813ee6158516efd0d1d6b28a37a70a169799",
+      "live": false
+    },
+    "app/lib/SearchDemand.php": {
+      "sha256": "1f666c46c9558c498c86ef8032fb96e2eb8e515eedf9a37d878c876880c48d4a",
+      "live": false
+    },
+    "app/lib/crawler/SourceIndex.php": {
+      "sha256": "115b2ba62b89b820f813846b6ec526ba1c12a816c01653056e8483d02b1ec574",
+      "live": false
+    },
+    "app/migrations/2026-11-17_search_demand_empty.sql": {
+      "sha256": "6f79e1664228e0bb6712b4b494d4e0849f2302c6a4d0e8a9e4fca998aabc8aed",
+      "live": false
+    },
+    "app/ui/faq.md": {
+      "sha256": "2a1f71d1556f370d80500aaa12458f5e89a9a2e0f976f88a68d4db03759af44a",
+      "live": false
+    },
+    "website/api/search.php": {
+      "sha256": "ad86c2f424cf1d3fcd0437df08d9f2925b08c7c23818a05cf58774fa8fb5b4c9",
+      "live": false
+    },
+    "website/listing/view.php": {
+      "sha256": "148dc16cf6b34119a899f1144a7845e8d82abd015cd1d9f32976755b2a641634",
+      "live": false
+    }
   }
- }
 }
