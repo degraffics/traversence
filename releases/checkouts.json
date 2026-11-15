@@ -19,7 +19,7 @@
    "session": "session_01CXLi5hvWvRSedDtk54gNDP",
    "why": "Follow-up: review folds, bar records the look, Check for builds",
    "since": "2026-11-15T19:04:36Z",
-   "expires": "2026-11-15T23:04:40Z",
+   "expires": "2026-11-15T23:04:59Z",
    "release": "release-fastpath.zip",
    "callers": {
     "fromGit": [
@@ -45,7 +45,7 @@
    "session": "session_01CXLi5hvWvRSedDtk54gNDP",
    "why": "Follow-up: review folds, bar records the look, Check for builds",
    "since": "2026-11-15T19:04:36Z",
-   "expires": "2026-11-15T23:04:40Z",
+   "expires": "2026-11-15T23:04:59Z",
    "release": "release-fastpath.zip",
    "callers": {}
   },
@@ -56,7 +56,7 @@
    "session": "session_01CXLi5hvWvRSedDtk54gNDP",
    "why": "Follow-up: review folds, bar records the look, Check for builds",
    "since": "2026-11-15T19:04:36Z",
-   "expires": "2026-11-15T23:04:40Z",
+   "expires": "2026-11-15T23:04:59Z",
    "release": "release-fastpath.zip",
    "callers": {}
   },
@@ -67,7 +67,7 @@
    "session": "session_01CXLi5hvWvRSedDtk54gNDP",
    "why": "The ping from git",
    "since": "2026-11-15T19:04:38Z",
-   "expires": "2026-11-15T23:04:40Z",
+   "expires": "2026-11-15T23:04:59Z",
    "release": "release-fastpath.zip",
    "callers": {}
   },
@@ -78,7 +78,7 @@
    "session": "session_01CXLi5hvWvRSedDtk54gNDP",
    "why": "release release-fastpath.zip",
    "since": "2026-11-15T19:04:40Z",
-   "expires": "2026-11-15T23:04:40Z",
+   "expires": "2026-11-15T23:04:59Z",
    "release": "release-fastpath.zip",
    "callers": {}
   },
@@ -89,7 +89,7 @@
    "session": "session_01CXLi5hvWvRSedDtk54gNDP",
    "why": "release release-fastpath.zip",
    "since": "2026-11-15T19:04:40Z",
-   "expires": "2026-11-15T23:04:40Z",
+   "expires": "2026-11-15T23:04:59Z",
    "release": "release-fastpath.zip",
    "callers": {}
   }
