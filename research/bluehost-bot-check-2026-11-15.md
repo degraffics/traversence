@@ -128,4 +128,4 @@ appeared twice in the list).
 - `/robots.txt` still answers 404 (there isn't one), so it can't show whether bots reach it.
 - **Staging rechecked at ~18:38–18:40 UTC**, after Bluehost applied the same whitelist to staging.trvgo.us: 0 of 30 blocked
   (`/api/staging-updates.php`, `/api/stg-probe.php` and `/` each answered 401, the viewing password). All three hosts
-  are now clear. Bluehost described the fix as a ModSecurity whitelist for the rule; the rule ID wasn't recorded.
+  are now clear. Bluehost's fix: **ModSecurity rule ID 900933 whitelisted on traversence.com and staging.trvgo.us** (Bluehost support, 2026-11-15). trvgo.us wasn't named; it wasn't blocked before or after. If the 409 `humans_` page comes back, give Bluehost that rule ID.
