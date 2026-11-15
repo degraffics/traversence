@@ -491,6 +491,21 @@
    "expires": "2026-11-15T18:50:10Z",
    "release": "release-0165-staging-safe-mode.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/DailyReport.php",
+   "functions": [
+    "box",
+    "button",
+    "frame"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5ku2xkVJ8wnDFvC1KM",
+   "why": "decisions/0165 release: system emails share the daily report's look",
+   "since": "2026-11-15T14:52:56Z",
+   "expires": "2026-11-15T18:52:56Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": []
