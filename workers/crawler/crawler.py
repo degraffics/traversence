@@ -213,7 +213,7 @@ SKIP_HOSTS = {"openstreetmap.org", "npino.com", "npiprofile.com", "npidb.org", "
               "npi.report", "npiregistry.cms.hhs.gov", "google.com", "bing.com", "duckduckgo.com", "search.brave.com"}
 
 started = time.monotonic()
-WORKER_V = "2.7.2"           # 2.7: the open-dataset loads and Geofabrik's test (Release B); the service's contract 2 (decisions/0160 §2): the site plans each run, the worker reports it; 2.4: calls by host; 2.5: issues, holds, probes, per-kind Overpass; 2.6: servers from the plan, the pace
+WORKER_V = "2.7.3"           # 2.7.3: Geofabrik over IPv4; 2.7: the open-dataset loads and Geofabrik's test (Release B); the service's contract 2 (decisions/0160 §2): the site plans each run, the worker reports it; 2.4: calls by host; 2.5: issues, holds, probes, per-kind Overpass; 2.6: servers from the plan, the pace
 RUN_END = None             # when this run's own work must stop (started + TIME_BUDGET, or a bulk load's end)
 TASK_END = None            # when the capture task being worked must stop (its share of the run)
 FETCH_CAP = MAX_FETCHES    # fetches this run may have made by the end of the task being worked
@@ -3388,25 +3388,47 @@ def open_load(dataset, deadline):
     return done > 0
 
 
+class ipv4_only:
+    """Resolves names to IPv4 only while open. Railway's containers have no IPv6 route: a host whose IPv6 address comes
+    first (Geofabrik's) answered "network unreachable" (2026-11-15), though the host was up."""
+    def __enter__(self):
+        self._orig = socket.getaddrinfo
+        def v4(host, port, family=0, *a, **k):
+            return self._orig(host, port, socket.AF_INET, *a, **k)
+        socket.getaddrinfo = v4
+        return self
+
+    def __exit__(self, *exc):
+        socket.getaddrinfo = self._orig
+        return False
+
+
 def geofabrik_probe():
     """Geofabrik's state files from Railway (0163 §8 stage 8's first step): one small test each, never repeated tries. The
-    site keeps the answer; a refusal becomes a step for a person (another free mirror, by hand)."""
+    site keeps the answer; a refusal becomes a step for a person."""
     out = []
-    # Geofabrik answered "network unreachable" from Railway (2026-11-15, 0163 §8 stage 8): never tried again by itself;
-    # the next free mirror instead (OpenStreetMap France's extracts), each once. OSM_EXTRACT_BASE overrides.
-    base = os.environ.get("OSM_EXTRACT_BASE", "https://download.openstreetmap.fr/extracts/north-america/us")
-    for state in ("arizona", "new_mexico"):
-        url = f"{base}/{state}-latest.osm.pbf"
-        try:
-            req = urllib.request.Request(url, headers={"User-Agent": UA, "Range": "bytes=0-1048575"})
-            with urllib.request.urlopen(req, timeout=60) as r:
-                n = len(r.read())
-                out.append({"state": state, "ok": r.status in (200, 206) and n > 0, "status": r.status, "bytes": n, "why": ""})
-        except urllib.error.HTTPError as e:
-            out.append({"state": state, "ok": False, "status": e.code, "bytes": 0, "why": f"HTTP {e.code}"})
-        except Exception as e:
-            out.append({"state": state, "ok": False, "status": 0, "bytes": 0, "why": repr(e)[:200]})
-    log("geofabrik test: " + "; ".join(f"{o['state']} {o['status'] or o['why']} {o['bytes']} bytes" for o in out))
+    # Geofabrik answered "network unreachable" from Railway (2026-11-15): its IPv6 address, which Railway can't reach;
+    # asked over IPv4 now. OpenStreetMap France has no Arizona or New Mexico file of its own (only all of us-west, 4 GB).
+    # Geofabrik's names: arizona, new-mexico (a hyphen). OSM_EXTRACT_BASE overrides the base.
+    base = os.environ.get("OSM_EXTRACT_BASE", "https://download.geofabrik.de/north-america/us")
+    host = urllib.parse.urlparse(base).hostname or ""
+    try:
+        fams = sorted({"IPv6" if i[0] == socket.AF_INET6 else "IPv4" for i in socket.getaddrinfo(host, 443)})
+    except Exception as e:
+        fams = [f"lookup failed: {e!r}"[:120]]
+    with ipv4_only():
+        for state in ("arizona", "new-mexico"):
+            url = f"{base}/{state}-latest.osm.pbf"
+            try:
+                req = urllib.request.Request(url, headers={"User-Agent": UA, "Range": "bytes=0-1048575"})
+                with urllib.request.urlopen(req, timeout=60) as r:
+                    n = len(r.read())
+                    out.append({"state": state, "ok": r.status in (200, 206) and n > 0, "status": r.status, "bytes": n, "why": ""})
+            except urllib.error.HTTPError as e:
+                out.append({"state": state, "ok": False, "status": e.code, "bytes": 0, "why": f"HTTP {e.code}"})
+            except Exception as e:
+                out.append({"state": state, "ok": False, "status": 0, "bytes": 0, "why": repr(e)[:200]})
+    log(f"geofabrik test ({host}: {', '.join(fams)} in DNS; asked over IPv4): " + "; ".join(f"{o['state']} {o['status'] or o['why']} {o['bytes']} bytes" for o in out))
     site_call("/api/crawl/loads.php", {"geofabrik_probe": out})
     return True
 
