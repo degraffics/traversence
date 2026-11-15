@@ -8,9 +8,14 @@
    "session": "session_01CXLi5gjuAjJ6m4FZ8uAGQ1",
    "why": "Data cleanup: why a pass left records (the left breakdown)",
    "since": "2026-11-15T01:21:27Z",
-   "expires": "2026-11-15T05:21:27Z",
-   "release": "data-cleanup-left_20261115",
-   "callers": {}
+   "expires": "2026-11-15T05:21:30Z",
+   "release": "data-cleanup-left_20261115.zip",
+   "callers": {
+    "run": [
+     "app/admin/cleanup-console.php",
+     "app/scripts/data_cleanup_tick.php"
+    ]
+   }
   },
   {
    "path": "app/admin/cleanup-console.php",
@@ -19,8 +24,8 @@
    "session": "session_01CXLi5gjuAjJ6m4FZ8uAGQ1",
    "why": "Data cleanup: why a pass left records (the left breakdown)",
    "since": "2026-11-15T01:21:27Z",
-   "expires": "2026-11-15T05:21:27Z",
-   "release": "data-cleanup-left_20261115",
+   "expires": "2026-11-15T05:21:30Z",
+   "release": "data-cleanup-left_20261115.zip",
    "callers": {}
   }
  ],
