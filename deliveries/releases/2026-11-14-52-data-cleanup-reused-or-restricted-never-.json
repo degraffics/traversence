@@ -1,0 +1,56 @@
+{
+    "id": 52,
+    "title": "Data cleanup: reused or restricted, never a dead end",
+    "why": "Jason, 2026-11-15 (in chat): \"They still exist, just hidden: this is a dead end. Either they are reused or moved into restricted\"; the table in handoffs/data-cleanup.md approved (\"table is right\"); drop boxes \"Yes their own listing and map pin\". Every record a Data cleanup pass takes off now goes back to work: a name and a town is a \"Help us find\" card (release #51); a name only, or facts resting only on cite-only pages, is a sighting back in the intake (a staged row in crawler_raw_index whose exact match is the hidden listing, so Review's Merge brings that one back: one record); page text for a name with a phone or street address is a sighting \"name unknown\" (phone and address kept, its page kept to re-read). Sightings carry the retry ladder (decisions/0163 §12: a day, 7, 30, 180 days, for good; an answer resets it), looked up again in the place store from sources we may keep (no fetch, nothing spent): by the daily pass (still off, under the master switch) or the page's Look for answers now. What Review decides is settled: merged in, the listing is back (only with a real name and a phone or street address, else Restricted saying why); approved as another, the hidden one points to it (found); turned down by a person, Restricted. Restricted (0164 R7's tier): page text with nothing else, staged and place-store junk, cite-only facts (links kept), protected and nation-sensitive landmarks; listed on the page by reason with Put back (Undo across passes) and Make it a request (greyed with the reason for landmarks and the guards' holds). New rules: \"Mail & package drop-offs\" (drop and collection boxes get the new leaf, and ones taken off earlier are put back) and \"Taken off by an earlier pass\" (release #50's quarantined and row-less sightings, sent where they go now). Everything logged in the ledger with Undo. Migration: one INSERT of the category leaf under the Post Office's group (no UPDATE). FAQ: two new entries, two updated. Built on Sync 2026-11-15 00:21 UTC.",
+    "proposals": "decisions/0163 §8 stage 1b, §12, decisions/0164 §6.1b, R7, handoffs/data-cleanup.md",
+    "zip": "data-cleanup-reuse_20261115.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/admin/cleanup-console.php": {
+            "sha": "46cb6aa69ba2fa433b181cde1fdb58af11e5e633fe9299bc5f6e034ca0a2a204",
+            "size": 28176,
+            "live_was": "cffa49f418c3d4ac3843713aa31c2304a1f120d845b4222168f00371f0ce3cfa"
+        },
+        "app/ui/faq.md": {
+            "sha": "959c65caa27dd9c2b07b0e796777aefef19ee8e838f0ce9cc5bed06c900d4e61",
+            "size": 296854,
+            "live_was": "4fedd33d889affcbc4fecd987ec0378ba10f2b939389d02327612fc0a6dbe330"
+        },
+        "app/migrations/2026-11-15_drop_off_category.sql": {
+            "sha": "362e2b89976a43b17256558e93a12dd515c2d404655842e4e2c67dfe943670b9",
+            "size": 1383,
+            "live_was": null
+        },
+        "app/scripts/data_cleanup_tick.php": {
+            "sha": "bf865dec93391622e9d23a7889ec5f47e13c0b67eefee1eb4ee83bae923ab392",
+            "size": 2098,
+            "live_was": "478fbf099c9ab3e1c87ff4db5b57606bf0e48c590404eb2c3daa31164cdc9155"
+        },
+        "app/lib/DataCleanup.php": {
+            "sha": "b5d13234466a2ba9273d1971dfdedc69b2b9db1c1df13519200ac861e2aadee2",
+            "size": 104918,
+            "live_was": "830bdc9c91e42fec87075fb7bc19f7f6e7a5ecb497dd3757a3c2b9f606bd6736"
+        }
+    },
+    "migrations": [
+        "app/migrations/2026-11-15_drop_off_category.sql"
+    ],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-15T01:19:02+00:00",
+            "by": 0,
+            "msg": "Uploaded data-cleanup-reuse_20261115.zip: 5 files."
+        }
+    ]
+}
