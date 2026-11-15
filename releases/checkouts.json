@@ -33,6 +33,17 @@
    "expires": "2026-11-15T04:49:08Z",
    "release": "data-cleanup-reuse_20261115",
    "callers": {}
+  },
+  {
+   "path": "app/migrations/2026-11-15_drop_off_category.sql",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5gjuAjJ6m4FZ8uAGQ1",
+   "why": "Data cleanup reuse: FAQ entries, the drop-off category migration",
+   "since": "2026-11-15T00:49:12Z",
+   "expires": "2026-11-15T04:49:12Z",
+   "release": "data-cleanup-reuse_20261115",
+   "callers": {}
   }
  ],
  "lapsed": []
