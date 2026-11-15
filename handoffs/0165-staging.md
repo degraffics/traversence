@@ -86,7 +86,7 @@ These existing files changed:
 The first release removed `autoPublish`; Jason expected Claude's approved builds to keep going live by themselves, with
 Publish staging only for his own work on staging. He reviews and publishes the first release as it is. The second
 release (built in `/home/user/rev0165` on top of the first; sent once the first is live and synced, rebuilt from the
-live copy; sent as `release-0165b-approved-builds-live.zip`, 5 files, built on the 15:19 UTC sync) puts `autoPublish` back for builds from git:
+live copy; sent as `release-0165b-approved-builds-live.zip`, 5 files, built on the 15:19 UTC sync; **release #57, live 2026-11-15** through Publish staging, the first real run of it on the server; the 16:06 UTC sync matched all 5 files) puts `autoPublish` back for builds from git:
 - `Releases::fromGitRelease()` (the "Came from git" note);
 - `onStaging($pdo, $forPublish = true)` lists only uploads for Publish staging;
 - a git release's own Publish and Schedule are back, in the bar, the Releases page and Pulse;
@@ -97,5 +97,7 @@ The FAQ, CLAUDE.md and the 0165 and 0159 notes are updated.
 
 ## Next
 
-Once Jason approves the release on staging and publishes, run the sync and check the files byte for byte. Then release this
-session's claims, and update this file with the release number and "live".
+**Finished.** #56 and #57 are live and verified, the claims are released, and everything is in `main`. Left for later, none of it blocking:
+- **The register of record numbers lists 68 `*_id` columns it can't place yet** (shown in the preview: `address_contacts.owner_id`, `collateral.vendor_id`, `community_groups.owner_id` and the others). Nothing stops because of them until catch-up is on and a renumber touches one. Before Jason switches on Keep staging caught up, add them to `StagingTables::REFS`/`NAMES` in a small release.
+- **Keep staging caught up** and **Staging runs its own jobs** are still off, waiting on Jason.
+- The site manager's Staging ▾ is reached only from staging pages; the Staging page on staging's own admin shows only Held.
