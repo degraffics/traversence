@@ -30,6 +30,8 @@ change.
 | R10 | The brand's icons, not emoji | `CLAUDE.md` Phone layout and visual standard (Icons) | no |
 | R11 | No breadcrumbs on content pages | `CLAUDE.md` Phone layout (No breadcrumbs); decisions/0058 | no |
 | R12 | Every outside service the code calls has its card in Outside services: a host the site, its pages or the workers call that's on no card (`OutsideServices::HOSTS` or a card's links), or a standing source on Sources with no card (ignored hosts: `site-audit/services-ignore.txt`) | decisions/0152 note 2026-11-13 | no |
+| R13 | A new outside call (curl, an http file read, a socket) goes through staging's gate (`StagingGate::hold()`, or another gate), or says why not with an `@gate` note; the message names the function, so only a new one counts | decisions/0165 §1 | yes |
+| R14 | A new table (a migration's or code's `CREATE TABLE`, `AdminTables::make`) has its class in `app/lib/staging-tables.php` | decisions/0165 §3 | yes |
 
 ## Rendered checks (Phase 2)
 
