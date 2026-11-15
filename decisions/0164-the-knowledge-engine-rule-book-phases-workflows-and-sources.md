@@ -733,6 +733,29 @@ priority by search demand and residents affected; how deep research goes; the th
 - **The Nexus** (0054, 0083): made automatically when locations share a website or main phone; **never on a similar
   name alone**; districts and `.gov`/`.us` parents never one brand. A Nexus is a parent with child locations, not one
   merged record. (The draft's "a name shared with records over 250 m apart becomes a Nexus" is held as §12, C5.)
+- **One identity check, on every path** (amended 2026-11-15, Jason: "a process failure … at the fundamental level in
+  which the data was captured and evaluated"; the cause: `handoffs/duplicates.md` §1). Today four different tests guard
+  the ways a listing is made, and the crawler publishes on a match made when a find arrived, however long it waited.
+  From Release B:
+  - **One check, `ListingIdentity::resolve()`,** is this section's match rules in one place. It is called inside the
+    transaction that writes, by **everything that creates or un-hides a listing**: the intake's publish
+    (`IntakeStager::approve()`, whoever approves: arrival, the pipeline, the second look, quick approve, the helper,
+    Review), the ingest API, every bulk load (W1), people's adds and claims (`AddBusiness`), staff adds, Pulse's Create,
+    private client records, and every Show, Undo, Put back and "Help us find" answer. It reads candidates **fresh** from
+    the identity keys (never a match stored earlier), hidden twins included, every candidate scored (no cap). `same`
+    merges into the existing listing (gaps only, R4); a person who answers "a different business" is recorded on the
+    pair for good (R11), read by every path.
+  - **Within each batch:** a load's finds are grouped by identity key and folded into one find with all their sources
+    before staging (one operator's two NPI records at one base arrive as one find with two sources); groups the check
+    calls another location or a provider stay apart (0074).
+  - **A database guard:** normalized phone, address and name keys on `entities`, indexed; a unique key on ZIP + phone +
+    name added once the recheck (§6.1) has cleared today's exact twins; a lock on the identity while it's checked and
+    written, so two workers can't both make it. The keys and the lock's numbers: 0163 §12.
+  - **The match rules, tuned** (the gaps found 2026-11-15): extensions removed from phones; legal endings (LLC, PC,
+    PLLC, LP, LLP, dba) and plurals folded; street types both ways; a PO Box never a street; one name measure everywhere
+    (`AutoImport::sameName`, against the longer name, so a provider at a facility stays apart); "another location" needs
+    two street numbers **and** a different phone or points over 150 m apart (`geohash_7`), so a typo'd or suite-first
+    number isn't a branch. The kinds and 0074, 0081, 0083, 0084 stay as they are.
 
 ### 3.2 Similarity scoring and the grey-zone check
 
@@ -753,18 +776,29 @@ priority by search demand and residents affected; how deep research goes; the th
   the same primary count once, unless we read the primary** (as copies count once, R11); a research brief never counts
   as a source.
 
-**Note, 2026-11-15: duplicates are rechecked and corrected by the system, not sent to a person** (Jason's direction, in
-his words: "I see this as a process failure and we need to address it at the fundamental level in which the data was
-captured and evaluated." … "I see this a recheck not a pass to human for review. If we have data loads that cause issues
-the system must be able to identify them and correct them. Listings are flexible, since we are building potential
-listings for claiming, once claimed is a whole different conversation."). This changes the intake's rule "a match is
-always a merge for review" (`AutoImport`, from 0044/0076) **for unclaimed listings**: one identity check
-(`ListingIdentity::resolve()`) runs on every path that creates or un-hides a listing, within each batch and under a
-database guard; a recheck after every load and on a schedule **merges by itself** two unclaimed listings with nothing a
-person entered or decided on them (the one with most evidence stays; facts, sources, views, comments and links fold in;
-the old id 301s; logged in the cleanup ledger with Undo). Claimed listings, a person's entries or decisions, other
-locations and providers at one facility (0074) still go to a person, with the reason. The cause, the fix and the design:
-`handoffs/duplicates.md`, built in Release B (0163 §8, stage 8, before any data load is switched on).
+**Note, 2026-11-15: duplicates are settled by the engine, not sent to a person** (Jason, in his words: "I see this as a
+process failure and we need to address it at the fundamental level in which the data was captured and evaluated." "I
+see this a recheck not a pass to human for review. If we have data loads that cause issues the system must be able to
+identify them and correct them. Listings are flexible, since we are building potential listings for claiming, once
+claimed is a whole different conversation." "the knowledge engine is the master of this process, so make sure you don't
+create something that doesn't fold into that." "The recheck: this also has tools specifically to check our data against
+what's out there, so if one records has variations we need a go to process/workflow that precisely targets its details
+and vets the single location data." "Only what the evidence can't settle, or anything claimed or entered by a person,
+comes to you, with the reason. let's have a queue for these that allows them to be sales leads or admin taskings, but
+the system will show them as listings until they are merged or vetted."). This **replaces "a match is always a merge
+for review"** (`AutoImport`, 0044/0076) for unclaimed listings. Two listings the identity check (§3.1) matches:
+1. **Exact twins merge by themselves:** `same` at ≥ 0.95 with the same normalized phone, name and ZIP (or address),
+   both unclaimed and nothing a person entered or decided on either (R4). The routing above already says ≥ 0.95 merges;
+   the recheck (§6.1) now applies it to listings already live, not only to finds.
+2. **Variations go to the vetting first:** a pair (or one listing) whose sources differ on its name form, suite,
+   phone, website, hours or open or closed goes to **"Vet this place"** (§6.1: W2's `identity` task, the one entry
+   point), which checks each detail against our anchors and outside sources and settles each field from the evidence
+   (R11); then the pair merges or stays apart on what it found.
+3. **Only what the evidence can't settle, or anything claimed or entered by a person,** goes to the **identity queue**
+   (§6.1), with the reason and each side's evidence, where it becomes a sales lead or an admin task. **Both stay public
+   as listings meanwhile.**
+Other locations and providers at one facility (0074) aren't duplicates and never reach the queue. A merge is undone
+exactly (R11; §6.2's split for a wrong one).
 
 ### 3.3 The truth hierarchy (resolving conflicts)
 
@@ -980,6 +1014,46 @@ A loop back through Phases 1 to 3 that keeps what's published true.
   first.
 - **Freshness sweeper:** stale records to `HOLD_NEEDS_RECHECK` (still shown with "last checked", §3.4) and their URLs to
   the frontier at high priority (a blocked source excepted, §1.2, 5).
+- **The identity recheck** (W2, task `recheck`; added 2026-11-15, Jason's words in the §3.2 note). After every data
+  load (the ids it touched) and on a daily slice of all listings, it runs §3.1's check across live listings and acts on
+  §3.2's note: exact twins it merges itself, variations it sends to "Vet this place", the rest to the identity queue.
+  - **Which stays:** the most evidence (independent sources, then confidence), then the oldest, then the most views; the
+    shown name the one people know (R11), the other kept as another name (0084).
+  - **What folds in:** facts filling gaps only (R4), sources and the identity (R11), views and counts, comments and
+    reactions, saves, guide and journey links, open suggestions, the Nexus, cleanup and "Help us find" notes.
+  - **The old id** is hidden with `same_as`, so its link answers with a **301** to the kept one.
+  - **Logged** in the data cleanup ledger (§6.1b) with Undo per pair and per run; an Undo records the pair as "not the
+    same", never merged again.
+  - It is a task on the switches (0163 §9: master, W2, the task), shipped off, its run and cost on the board (0163 §3);
+    its slice and schedule are 0163 §12's. Data cleanup's `duplicate` rule and the live-pairs pass (`LiveDupes`) feed it
+    instead of sending offers to Review.
+- **"Vet this place": one entry point for checking one place's details** (2026-11-15). The tools exist, split across
+  tasks: W1's `second_look` (a find with one source), W2's `identity` (who a listing is: its own site, NPI, Census, web
+  search; `IdentityJobs`, a person's **Look now**), W2's `places` (Google, within its paced budget) and `geocode`.
+  **W2's `identity` task becomes the one entry point** for a live listing, called by the recheck, the grey zone (§3.2)
+  once a find is listed, and staff (Look now); `second_look` stays W1's look at a find before it's
+  listed and settles fields the same way. A call names the place (or the pair) and the details in doubt; the task
+  checks each one (name, address, phone, website, hours, open or closed): our anchors first (the identity record, the
+  place store, NPI, the IRS list, Census, the open datasets), then Google's answers within allowance (0163 §12's check
+  order), the collaborative score feeding confidence. Each field is settled from the evidence with its sources on the
+  identity record (R11; `Identity::recompute()` on unclaimed listings, the owner offered it on claimed ones), each
+  source used as its licence allows (keep or cite only, R9), nothing private to Gemini's free tier (§0.8). What it
+  can't settle now waits on the retry ladder; what it can't settle at all goes to the identity queue. Toward verified
+  NAP (§3.5).
+- **The identity queue** (2026-11-15): what the vetting can't settle, and any match where a listing is claimed or a
+  person entered or decided something, as **steps of "The engine needs a person"** (X3, above; one kind, a step per
+  pair), each with its reason and each side's evidence, and buttons that do it: **Merge** (choose which stays),
+  **Keep apart**, **Make a sales lead**, **Make an admin task**.
+  - **A sales lead** is the existing pipeline (decisions/0108): `Leads::route()` makes the stronger listing a prospect
+    (source `crawler`) in its territory's rep's list with the question in the note, and puts it on the Call list
+    (`Sales::toConfirm`); the call's outcome (`Sales::log`) answers the step, and a claim on the call ends it (the
+    claimed listing decides, R4).
+  - **An admin task** is the step assigned to a staff member, as the admin's other work is assigned (decisions/0109),
+    done from the case.
+  - **Public meanwhile:** both stay listings until merged or vetted; nothing is hidden while it waits. A visitor sees
+    nothing new, except where the two disagree on a detail: that field shows how it's known (§3.5) with "being
+    checked". Search shows both; the stronger first, the other under it when both answer the same search.
+  - **Case #23's offers** move here (0163 §8, stage 8): each of the 60 is rechecked first; only what is left stays.
 - **Quarantine worker:** re-checks grey-zone records on the retry ladder (free anchors first, then paid within budget);
   a person's answer ends it at once.
 - **Canary for parser drift:** a site paused for drift is dry-run after 7 days and unpaused only if the new rules work;
@@ -1028,7 +1102,7 @@ needs; each has its own queue, share, report and costs (0160 §4) and its switch
 | Workflow | Phases | Under this record |
 |---|---|---|
 | W1 Listings | 1–4, 5.4 | leads in Run 2's order: Overture and NPI, then Google Places' check, with licences and OpenStreetMap (§1.5; Gemini never a finder, §0.8); public once past the "real business" floor, at its confidence (website, licence, collaborative score, owner: §3.5); published when ready (§5.4) |
-| W2 Keeping listings current | 6 (via 1–3) | cadence by band (R12); closure signals (lapsed licences, dataset drops, Google, one site) lower confidence and ask "Still open?"; Closed only from the owner, our team, the public or the business's own site; "Still open?" built here (R12) |
+| W2 Keeping listings current | 6 (via 1–3) | cadence by band (R12); closure signals (lapsed licences, dataset drops, Google, one site) lower confidence and ask "Still open?"; Closed only from the owner, our team, the public or the business's own site; "Still open?" built here (R12); the identity recheck, "Vet this place" (its `identity` task, the one entry point) and the identity queue (§6.1, 2026-11-15) |
 | W3 Source register and place store | 1, 2 | the dossier engine (§1.4); the person's call on each site; each licence registry and open dataset is a source with its licence (R9) |
 | W4 Place guides | 4, 5.4 | written from public-safe facts and research; publishes at R10's guide score; the three protected levels (R7) |
 | W5 Guides on demand | 4, 5.4 | a first look from what we hold; within its share of the daily AI allowance (0147; 0163 §7) |
