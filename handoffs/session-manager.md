@@ -50,16 +50,18 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
   a worker deploy restarts it (details at the top of `handoffs/crawler-revamp.md`); the automation master switch (release
   #48) makes any run that starts end at once. The hourly check expects no crawler runs meanwhile.
 
-## Where things stand (2026-11-14, 12:45 UTC)
+## Where things stand (2026-11-15, 12:30 UTC)
 
-- **Running:** nothing. Open: only the session manager and "Community Build".
-- **Live yesterday:** Outside services for every service, searchable (#37, #39); check-out (0161) and its views; the
-  Pulse flood fix (#35); editor 4a–4d; Storefront Studio 5a (#41) with the header-zone fix (#38) and staging accounts
-  (#40); directory search as you type (#29); crawler W1–W5 and worker 2.4 (Common Crawl fixed).
-- **Next for Jason:** post to the OSM Community Forum (`research/osm-overpass-2026-11-13.md`); start step 5b from
-  `handoffs/0159-the-builder.md`; the payments checklist (`site-audit/payments-checklist.md`); check `places_monthly` and
-  the web-search allowance in Thresholds & gates (the crawler logs "this run may make 0").
-- **Open questions:** the staff sign-out of 2026-11-13 ~23:12 UTC is unexplained (staging cookies ruled out; #40 may be
-  related). If it recurs, he notes the time and what he'd opened, and a session diffs the releases.
-- **Next crawler session** starts from `handoffs/crawler-revamp.md` (junk names first; review checkers need his "build
-  the checkers").
+- **Done:** stage 1b, data cleanup, live as releases #50 to #54 (`handoffs/data-cleanup.md`, finished).
+- **Running:** "Release A: operations, stages 2–6" (one session, one release, `"review": true`), with story-only
+  landmarks and drop-offs out of place counts. When it's live it writes `handoffs/release-b.md`. The session manager
+  then starts **Release B** (stages 7–11, shipped off) in a fresh session (Jason, 2026-11-15: "2 builds").
+- **Queued after Release A** (Jason, 2026-11-15: "do that after Release A"): one session checks all 62 names in Pulse
+  case #31, "Database tables and columns no code uses". It checks each one against the live mirror, including names
+  built in code. It sends one release that drops the confirmed leftovers (copied first, decisions/0162, listed under
+  `"removes"`). Anything doubtful goes to Jason to keep. It must not overlap Release B's files.
+- **Waiting on Jason:** Release A's question on the master switch. It stays refused until Release B's checks exist
+  (0163 §10); the session builds it that way unless he says otherwise.
+- **Jason's own, any time:** post the OSM forum statement (`research/osm-overpass-2026-11-13.md` §2). Mark the Overpass
+  mirror cases resolved: their last failures were Nov 14, before the pause. Keep overpass-api.de's case open. Storefronts
+  step 5c on his go.
