@@ -1,5 +1,138 @@
 {
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
- "claims": [],
+ "claims": [
+  {
+   "path": "app/lib/GeminiCompare.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "Release B part 2: new files",
+   "since": "2026-11-15T18:27:56Z",
+   "expires": "2026-11-15T22:27:56Z",
+   "release": "release-b2",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/HubOpening.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "Release B part 2: new files",
+   "since": "2026-11-15T18:27:56Z",
+   "expires": "2026-11-15T22:27:56Z",
+   "release": "release-b2",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Vectors.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "Release B part 2: new files",
+   "since": "2026-11-15T18:27:56Z",
+   "expires": "2026-11-15T22:27:56Z",
+   "release": "release-b2",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/crawler/OpenLoads.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "Release B part 2: new files",
+   "since": "2026-11-15T18:27:56Z",
+   "expires": "2026-11-15T22:27:56Z",
+   "release": "release-b2",
+   "callers": {}
+  },
+  {
+   "path": "app/migrations/2026-11-16_hubs.sql",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "Release B part 2: new files",
+   "since": "2026-11-15T18:27:56Z",
+   "expires": "2026-11-15T22:27:56Z",
+   "release": "release-b2",
+   "callers": {}
+  },
+  {
+   "path": "app/migrations/2026-11-16_open_loads.sql",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "Release B part 2: new files",
+   "since": "2026-11-15T18:27:56Z",
+   "expires": "2026-11-15T22:27:56Z",
+   "release": "release-b2",
+   "callers": {}
+  },
+  {
+   "path": "app/scripts/supabase_keepalive.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "Release B part 2: new files",
+   "since": "2026-11-15T18:27:56Z",
+   "expires": "2026-11-15T22:27:56Z",
+   "release": "release-b2",
+   "callers": {}
+  },
+  {
+   "path": "app/scripts/vectors_tick.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "Release B part 2: new files",
+   "since": "2026-11-15T18:27:56Z",
+   "expires": "2026-11-15T22:27:56Z",
+   "release": "release-b2",
+   "callers": {}
+  },
+  {
+   "path": "website/api/crawl/loads.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "Release B part 2: new files",
+   "since": "2026-11-15T18:27:56Z",
+   "expires": "2026-11-15T22:27:56Z",
+   "release": "release-b2",
+   "callers": {}
+  },
+  {
+   "path": "website/robots.txt",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "Release B part 2: new files",
+   "since": "2026-11-15T18:27:56Z",
+   "expires": "2026-11-15T22:27:56Z",
+   "release": "release-b2",
+   "callers": {}
+  },
+  {
+   "path": "website/sitemap.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "Release B part 2: new files",
+   "since": "2026-11-15T18:27:56Z",
+   "expires": "2026-11-15T22:27:56Z",
+   "release": "release-b2",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Pulse.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "Release B part 2: new files",
+   "since": "2026-11-15T18:27:56Z",
+   "expires": "2026-11-15T22:27:56Z",
+   "release": "release-b2",
+   "callers": {}
+  }
+ ],
  "lapsed": []
 }
