@@ -363,3 +363,20 @@ Its "network unreachable" from Railway was IPv6: its DNS gives IPv4 and IPv6, an
 test: **arizona 206, new-mexico 206, 1 MB each**. `GEOFABRIK_PROBE` deleted, no cron, restarts NEVER, automation paused.
 Next for W1's `geofabrik_bulk`: the weekly download and reading the file (osmium or pyosmium in the worker), off until
 switched on.
+
+**20:05 UTC: B3 on staging (#63, review); B4 sent for review (PR #724).** Crawler 2.7.4 deployed (its run: paused);
+2.7.5 comes with B4. Work tree `/home/user/relb` (base = live at Sync 16:06, then each release).
+- **B3:** per-key red lines with where to add each, the worker's key report (names only), Release A's leftovers (other
+  callers onto `ServiceHealth::held()/seen()`, `CrawlService::price()`, caps in the register, the worker's per-run
+  limits from the plan's `limits`, `AiClient::shareLeft()`, the plan's `routes`), Geofabrik's weekly load
+  (`geofabrik_load` in the worker with osmium-tool; `OpenPlaces::kindsOfTags()` / `keepExtract()`; `loads.php` geofabrik).
+- **B4:** P5-2 and P5-1 (`ListingConfidence::stillOpenDue()/stillOpenTick()`, meta `still_open_ask`, the Call list
+  first, EngineCase kind `closure`; the "Possibly closed" banner was wiped by a later line in `listing/view.php`, fixed),
+  P1-1 (`crawl_pages.pending_at`, `SourceIndex::waitToRead()` for stage 9's reader), retries end
+  (`DataCleanup::STOP_AFTER` 12, P3-2/P3-3/P4-1), P3-4 (the claim band).
+- **Still to build (B5):** P1-3 (a search with no results records demand), P1-4 (lead states new → read → witness only
+  → expired), P3-2's Facebook-link case and the town page's ask, P3-5 (the owner's "Check these" and email), P4-2
+  (licence change re-sorts facts), P6-1 (after two failed dry runs, "Needs a reader fix"), H2 (vendor-hosted official
+  pages), H3 (a staged source in an open hub switches on with its check), F1–F4 (§12's closure numbers, Gemini's
+  warnings), §12's lead order and Google check order, stage 9's `page_read` queue (call `SourceIndex::waitToRead()` when
+  Gemini's allowance stops a read).
