@@ -20,7 +20,7 @@ logs nothing, and a valid token doesn't help.
 - A response counted as blocked only when it was a 409 **and** its body had `humans_`. Every 409 we got had that body.
   Every other answer was the endpoint's own reply: 401 (no token), 400 (bad signature), 405 (wrong method) and so on.
 
-**Result: 28 of 280 requests (10%) got the bot check.** The rate was about 13% on API endpoints. The 1 in 3 seen earlier
+**Result: 28 of 280 requests (10%) got the bot check** (plus 4 of 60 in a follow-up run on staging.trvgo.us and trvgo.us). The rate was about 13% on API endpoints. The 1 in 3 seen earlier
 on `usage.php` looks like a bad stretch, not the usual rate. Blocked requests landed at random, on GET and POST, on every
 kind of endpoint. Nothing about the path or method protected an endpoint. Endpoints with 0 out of 10 are most likely just
 luck.
@@ -53,8 +53,8 @@ luck.
 | `GET /` as a plain client | — | 10 | 0 | — |
 | `GET /robots.txt` (plain, Googlebot) | search engines | 20 | 0 | **answers 404 every time: there is no robots.txt** (see below) |
 | `GET /sitemap.xml` | search engines | 10 | 0 | **answers 404: there is no sitemap** |
-| `https://trvgo.us/`, `/hours` | storefront edge (Fly.io → Caddy `reverse_proxy https://trvgo.us`), GO codes | 20 | not reached | this session's network policy refuses trvgo.us (proxy 403), so it wasn't tested. If trvgo.us has the same check, the edge passes the 409 page on to the visitor's browser on the shop's own domain. The browser runs it and sets the cookie on that domain, and Caddy forwards the cookie, so it probably passes after one reload. Fly's health check (`/__edge`) is answered by Caddy and never reaches Bluehost |
-| `POST https://staging.trvgo.us/api/staging-updates.php`, `/` | the live server (Releases: staging migrations; release checks via `Releases::fetch`, `StagingSite` probes) | 20 | not reached | refused by this session's network policy, as above. These are server-to-server curl calls with user agents like `Traversence release check`. If they get a 409, the release shows "Staging didn't run them (HTTP 409)" or a failed check: the release stops, loudly but with the wrong reason. Worth checking from the server |
+| `https://trvgo.us/`, `/hours` (plain and Facebook preview) | storefront edge (Fly.io → Caddy `reverse_proxy https://trvgo.us`), GO codes, shared short links | 30 | 0 | none blocked in 30 (follow-up run, after trvgo.us was allowed in this session's network): `/` answers 302, `/hours` 404. trvgo.us may not have the check, or 30 requests was too few to catch it; ask Bluehost to confirm it's exempt. If it ever gets the check, the edge passes the 409 page on to the shopper's browser, which probably gets through after one reload |
+| `POST https://staging.trvgo.us/api/staging-updates.php`, `GET /api/stg-probe.php`, `/` | the live server (Releases: staging migrations, release checks via `Releases::fetch`, `StagingSite` probes) | 30 | 4 (1 on staging-updates, 3 on stg-probe, 0 on `/`) | **the check runs before staging's viewing password** (the other answers were 401). These are curl calls with no cookie. A 409 shows as "Staging didn't run them (HTTP 409)" or a failed check, so a release stops, loudly but with the wrong reason. Our curl calls here came from the Claude cloud, not from the server, so whether Bluehost checks its own server's calls is still open |
 
 Not affected, because the call goes from our server out: the GitHub inbox pickup (`DocsRepo`, `AuditClock`: our server
 reads raw.githubusercontent.com and api.github.com), the OAuth token exchanges, QuickBooks and Stripe API calls, and the
@@ -105,5 +105,4 @@ with SNS or link previews: only an exemption fixes those.
 
 - **No `robots.txt` and no `sitemap.xml`** on traversence.com (404 to everyone). Search engines get no sitemap and no
   rules (staging is kept out by `noindex` and its password, not by robots). This deserves its own decision and release.
-- This run couldn't reach trvgo.us or staging.trvgo.us (this session's network policy). Test them from the server or a
-  session that allows those hosts.
+- trvgo.us and staging.trvgo.us were tested in a second run, once Jason allowed them in this session's environment.
