@@ -312,6 +312,39 @@
    "expires": "2026-11-15T16:43:08Z",
    "release": "operations-release-a_20261115.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/EnvSettings.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5iFQyKrm52ppEnEUqw",
+   "why": "Release A: retired .env copies of the register's caps off the Settings page and cards; Gemini and Supabase cards, switched off (Jason's answers to the stage 2 plan)",
+   "since": "2026-11-15T12:44:57Z",
+   "expires": "2026-11-15T16:44:57Z",
+   "release": "operations-release-a_20261115.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/OutsideServices.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5iFQyKrm52ppEnEUqw",
+   "why": "Release A: retired .env copies of the register's caps off the Settings page and cards; Gemini and Supabase cards, switched off (Jason's answers to the stage 2 plan)",
+   "since": "2026-11-15T12:44:57Z",
+   "expires": "2026-11-15T16:44:57Z",
+   "release": "operations-release-a_20261115.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/admin/settings.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5iFQyKrm52ppEnEUqw",
+   "why": "Release A: retired .env copies of the register's caps off the Settings page and cards; Gemini and Supabase cards, switched off (Jason's answers to the stage 2 plan)",
+   "since": "2026-11-15T12:44:57Z",
+   "expires": "2026-11-15T16:44:57Z",
+   "release": "operations-release-a_20261115.zip",
+   "callers": {}
   }
  ],
  "lapsed": []
