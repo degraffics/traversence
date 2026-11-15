@@ -81,6 +81,16 @@
             "at": "2026-11-15T22:08:24+00:00",
             "by": 0,
             "msg": "Sent for review on staging: UI, UX and Functional, then Publish."
+        },
+        {
+            "at": "2026-11-15T22:10:58+00:00",
+            "by": 2,
+            "msg": "Opened on staging by Jason DeGraff."
+        },
+        {
+            "at": "2026-11-15T22:11:05+00:00",
+            "by": 2,
+            "msg": "Review UI: approved (Jason DeGraff) [on /]."
         }
     ]
 }
