@@ -3,72 +3,72 @@
  "built_on": "a7835f8 Sync: 2026-11-15 18:22 UTC",
  "recorded": "2026-11-15 18:30 UTC",
  "note": "Release B part 2 (decisions/0163 \u00a78 stages 8 to 11 and \u00a712: open data loads, the new weights, Compare, the vector index, hub opening; robots.txt and sitemap; review on the Releases page), built on Sync: 2026-11-15 18:22 UTC Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "fcdf061 Sync: 2026-11-15 19:02 UTC",
  "files": {
   "app/admin/sections.php": {
    "sha256": "1c10dee8d050a2c448ff2afbcaa3d28cb4efc02f0baffac9851f0f3d337bec2c",
-   "live": false
+   "live": true
   },
   "app/lib/AiClient.php": {
    "sha256": "b26a1740db59b412804e9e755be449a766a46d815aa9685c7dd1c9c96806bfec",
-   "live": false
+   "live": true
   },
   "app/lib/Automation.php": {
    "sha256": "e2c674a322f509114f9426f0e81c488022567d3b5a1203f2e4212cedd9e2cf51",
-   "live": false
+   "live": true
   },
   "app/lib/DataCleanup.php": {
    "sha256": "9a4d3b1aa59e69ff76125534215436cdd58fa8e7dfb418d5dfe1dfe65a96d1c1",
-   "live": false
+   "live": true
   },
   "app/lib/Gemini.php": {
    "sha256": "73bb129a36aa09fa2cd0fa4236286946ed41d7ee8bfa13696c9d5efee210ef83",
-   "live": false
+   "live": true
   },
   "app/lib/GeminiCompare.php": {
    "sha256": "670f75866d4fa35b4f6e162371ba0c4df978efbca351dea93b5f66f15c410453",
-   "live": false
+   "live": true
   },
   "app/lib/HubOpening.php": {
    "sha256": "bb65da6920bccaab93466eb639ff3c08e5bc6c9f82fdb7dc4093a972cdbc6878",
-   "live": false
+   "live": true
   },
   "app/lib/ListingConfidence.php": {
    "sha256": "a990da26fb01cb52071a61b86abb9404ca248c38a2a534f1e686cb75c2ecd802",
-   "live": false
+   "live": true
   },
   "app/lib/ListingIdentity.php": {
    "sha256": "0373e876267e80bc6416875de35231a94b549f825e5597f8dc3223fcc538847e",
-   "live": false
+   "live": true
   },
   "app/lib/OutsideServices.php": {
    "sha256": "87d3b79ac122f2f02044c4cc47b2ca0527fef96f1d3c761bbfaa87b96fea1ce3",
-   "live": false
+   "live": true
   },
   "app/lib/Pulse.php": {
    "sha256": "69184af82fdc37de6596f007e5257c38b1295a26263137b117529f5c18534080",
-   "live": false
+   "live": true
   },
   "app/lib/Releases.php": {
    "sha256": "9272cc3c605713bac6bdf3e2ed4f2529e041c841883c8b84900ba00fe48d6764",
-   "live": false
+   "live": true
   },
   "app/lib/Scheduler.php": {
    "sha256": "8c197e9892d99718008626d4f1f0e8cf2c5ed2c82a745b29acd458a748600e32",
-   "live": false
+   "live": true
   },
   "app/lib/Vectors.php": {
    "sha256": "6060d499243d1ae7a03ef45ed57b682f0d45c2cb6e115ca6ced38e13e3603df4",
-   "live": false
+   "live": true
   },
   "app/lib/crawler/OpenLoads.php": {
    "sha256": "01cbc91c06faaa6b2e704e8c24eb63cc0350accb358f85ce1632b322d278128b",
-   "live": false
+   "live": true
   },
   "app/lib/staging-tables.php": {
    "sha256": "f185bf4a10739f7ffc49f3b8d639bdc0bb87810491ec11b78a07e29534efb6ab",
-   "live": false
+   "live": true
   },
   "app/migrations/2026-11-16_hubs.sql": {
    "sha256": "842dd3e99eb14afd6779e8fa002fb432bdcb89b278a3af760ee13490c0ac752d",
@@ -80,31 +80,31 @@
   },
   "app/scripts/supabase_keepalive.php": {
    "sha256": "cfe75d9866617f5e6e38d192ab49e3b5106b215612d5d4d9e14b16fa71f9a4e6",
-   "live": false
+   "live": true
   },
   "app/scripts/vectors_tick.php": {
    "sha256": "44186715a479f1d324c9817a2122ff0428a6a7ba2c8c19150c536290d053f41a",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "9743b97d8a288814d75a332987e0c178c73ca4989f12c235623ff4c79aec43ba",
-   "live": false
+   "live": true
   },
   "website/api/crawl/loads.php": {
    "sha256": "4125546fad073f9455c78a427f3d48757c13028c8f4e1ee03c0b022bc5e5c51e",
-   "live": false
+   "live": true
   },
   "website/js/admin-releases.js": {
    "sha256": "45cc45a0d5ab44473b1fb7d04d97fd5098bf58859d5a330f0dfc6f7a087b2f98",
-   "live": false
+   "live": true
   },
   "website/robots.txt": {
    "sha256": "f96080237c1d209054ef32ca7b9b107b4f536db38f0b666a1f83dbdda65caf35",
-   "live": false
+   "live": true
   },
   "website/sitemap.php": {
    "sha256": "7e24cf47ea199be0d0b2f61fba2e1affbbb26f9c857f74ca4a9d0770f2fcaedb",
-   "live": false
+   "live": true
   }
  }
 }
