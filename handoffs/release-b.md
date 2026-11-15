@@ -294,3 +294,10 @@ pass) always sends the cookie, reads a new name from the challenge, retries once
 and reports a refusal as held (`SiteBotCheck`, the report's `site_blocked`). The staging bar's call to live
 (`website/api/stg-bar.php`) does the same, in `release-stgbar` (PR #708, with the bar fixed along the bottom: it
 flashed and vanished at the top, so B1's review couldn't be given). Railway's restart policy stays NEVER.
+
+**18:10 UTC (Jason: "yes to both"):** PR #708 (release-stgbar) and worker 2.7.2 (PR #710) merged. Railway deployment
+`80c9512a` (2.7.2): its run reached the site and answered "paused" (no 409). One test run (`9f1b50f4`, GEOFABRIK_PROBE=1,
+then deleted): **OpenStreetMap France answered 404** for `…/extracts/north-america/us/arizona-latest.osm.pbf` and
+`new_mexico`: Railway reaches it (so Geofabrik's "unreachable" is Geofabrik-specific), but the path is wrong; find the
+right extract path (it couldn't be listed from this sandbox) before the next one test. `loads.php` 404'd as expected
+(B2 isn't live). Restart policy NEVER, no cron, variable removed.
