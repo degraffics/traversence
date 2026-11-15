@@ -128,6 +128,17 @@
    "expires": "2026-11-16T02:13:11Z",
    "release": "start-the-system.zip",
    "callers": {}
+  },
+  {
+   "path": "app/bootstrap.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5kE9dUdSmDQpFmDsKE",
+   "why": "Review links open the staff login, not JSON (session manager, Jason 2026-11-15; decisions/0159)",
+   "since": "2026-11-15T22:17:02Z",
+   "expires": "2026-11-16T02:17:02Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": []
