@@ -6,7 +6,7 @@
     "zip": "release-b5.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "staged",
+    "state": "withdrawn",
     "step": 0,
     "paused": false,
     "urgent": null,
@@ -123,6 +123,16 @@
             "at": "2026-11-15T20:13:56+00:00",
             "by": 0,
             "msg": "Sent for review on staging: UI, UX and Functional, then Publish."
+        },
+        {
+            "at": "2026-11-15T21:01:51+00:00",
+            "by": 2,
+            "msg": "Opened on staging by Jason DeGraff (the staging bar)."
+        },
+        {
+            "at": "2026-11-15T21:31:58+00:00",
+            "by": 2,
+            "msg": "Withdrawn before it went live (staging keeps its files until its next refresh)."
         }
     ]
 }
