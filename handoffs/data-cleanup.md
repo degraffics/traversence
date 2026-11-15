@@ -85,6 +85,28 @@ state (preview, pass, write gated by AI use, daily pass on, denied with the reas
 tested: the live data's size (600 a press), `SearchIndex` and `ListingConfidence` refresh against the live tables (both
 wrapped so a failure only logs).
 
+## "Help us find this business" (`help-find_20261115.zip`, built on Sync 2026-11-14 23:59 UTC)
+
+**State:** sent to the inbox, PR open, **waiting for Jason's OK to merge**. Claims held: `HelpFind.php`, `hub/index.php` (add);
+`UniversalSearch.php::searchAs`, `Claims.php::listing`, `DataCleanup.php::junkName`, `cleanup-console.php`,
+`search-panel.js::helpHtml`, `suggest.js::open` (change).
+
+- `app/lib/HelpFind.php`: a card is a listing hidden by Data cleanup with target `help_find` (and still unclaimed).
+  `inPlace()` (the town page), `near()` (search), `shown()` (the name rules: junk, `looksPerson` R6, `isProtected` R7,
+  confidential; retired after `RETIRE_DAYS` 180 with no suggestion about it), `promoteSome()` (a phone of 10 digits or an
+  address starting with a number: un-suppressed, `removed` deleted as the editor's Put back does, a `found` note, reindex,
+  confidence; called on every card list), `counts()`, `block()` / `card()`.
+- Town page: `HelpFind::block()` at the end of the Local block. Search: `results['help']`, drawn by `helpHtml()` after
+  "Named on pages we read". Answers: `TvSuggest.open({kind: 'fix', entity_id, help_find: 1})`, a form with phone, street
+  address, website and How do you know? (`fields.source`). Claim: `Claims::listing` accepts a card.
+- Drop and collection boxes are no longer junk (Jason, 2026-11-15: "drop boxes are good to know"); PO Box addresses are.
+  The ones release #50's passes took off are put back with Undo per record. Open question to Jason: drop boxes as their
+  own kind of place (Mail & package drop-off, no Claim, out of business browse lists) or ordinary listings.
+
+Tested here (MariaDB, the live libraries): a card shown on its town and found by its kind in search, not for other words;
+a person's name, a protected name and a 180-day-old card held back; a phone accepted makes it a listing again and it
+leaves the cards; the card at 390px. Not tested: the town page and search panel live (the zip check's code checks only).
+
 ## Not done, on purpose
 
 - `workers/crawler/` untouched (a worker deploy would restore the paused Railway schedule).
