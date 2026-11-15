@@ -68,8 +68,8 @@
    "session": "session_01CXLi5kE9dUdSmDQpFmDsKE",
    "why": "Start the system (Jason, 2026-11-15; decisions/0163 \u00a710)",
    "since": "2026-11-15T22:11:56Z",
-   "expires": "2026-11-16T02:11:56Z",
-   "release": "",
+   "expires": "2026-11-16T02:13:11Z",
+   "release": "start-the-system.zip",
    "callers": {}
   },
   {
@@ -79,8 +79,8 @@
    "session": "session_01CXLi5kE9dUdSmDQpFmDsKE",
    "why": "Start the system (Jason, 2026-11-15; decisions/0163 \u00a710)",
    "since": "2026-11-15T22:11:58Z",
-   "expires": "2026-11-16T02:11:58Z",
-   "release": "",
+   "expires": "2026-11-16T02:13:11Z",
+   "release": "start-the-system.zip",
    "callers": {}
   },
   {
@@ -90,8 +90,8 @@
    "session": "session_01CXLi5kE9dUdSmDQpFmDsKE",
    "why": "Start the system (Jason, 2026-11-15; decisions/0163 \u00a710)",
    "since": "2026-11-15T22:12:00Z",
-   "expires": "2026-11-16T02:13:08Z",
-   "release": "",
+   "expires": "2026-11-16T02:13:11Z",
+   "release": "start-the-system.zip",
    "callers": {}
   },
   {
@@ -101,8 +101,8 @@
    "session": "session_01CXLi5kE9dUdSmDQpFmDsKE",
    "why": "Start the system (Jason, 2026-11-15; decisions/0163 \u00a710)",
    "since": "2026-11-15T22:12:08Z",
-   "expires": "2026-11-16T02:12:08Z",
-   "release": "",
+   "expires": "2026-11-16T02:13:11Z",
+   "release": "start-the-system.zip",
    "callers": {}
   },
   {
@@ -140,6 +140,39 @@
    "since": "2026-11-15T22:12:13Z",
    "expires": "2026-11-16T02:12:13Z",
    "release": "",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/automation-console.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kE9dUdSmDQpFmDsKE",
+   "why": "release start-the-system.zip",
+   "since": "2026-11-15T22:13:11Z",
+   "expires": "2026-11-16T02:13:11Z",
+   "release": "start-the-system.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/operations-console.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kE9dUdSmDQpFmDsKE",
+   "why": "release start-the-system.zip",
+   "since": "2026-11-15T22:13:11Z",
+   "expires": "2026-11-16T02:13:11Z",
+   "release": "start-the-system.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Thresholds.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kE9dUdSmDQpFmDsKE",
+   "why": "release start-the-system.zip",
+   "since": "2026-11-15T22:13:11Z",
+   "expires": "2026-11-16T02:13:11Z",
+   "release": "start-the-system.zip",
    "callers": {}
   }
  ],
