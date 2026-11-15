@@ -6,12 +6,12 @@
     "zip": "start-the-system.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "planned",
+    "state": "approved",
     "step": 0,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
-    "plan_at": null,
+    "plan_at": "2026-11-15 22:21:31",
     "staged_at": null,
     "vetted_at": null,
     "live_at": null,
@@ -69,6 +69,16 @@
             "at": "2026-11-15T22:21:29+00:00",
             "by": 0,
             "msg": "Uploaded start-the-system.zip: 9 files."
+        },
+        {
+            "at": "2026-11-15T22:21:31+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/start-the-system.zip (git 9731a478f9)."
+        },
+        {
+            "at": "2026-11-15T22:21:31+00:00",
+            "by": 0,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
         }
     ]
 }
