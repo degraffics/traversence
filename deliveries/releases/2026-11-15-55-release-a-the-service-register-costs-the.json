@@ -1,0 +1,159 @@
+{
+    "id": 55,
+    "title": "Release A: the service register, costs, the workflow board, warnings, watching; story-only landmarks; place counts without drop-offs",
+    "why": "Jason, 2026-11-15: \"Ok 2 builds. Release A can be one session\" (decisions/0163 §8 stages 2-6). It shows and records: no outside call, nothing switched on, the crawler and website automation stay paused. (2) The service register (System Configuration → Service register): one row per outside service, what uses it, where its key lives (named, never shown), its caps and paces moved into Thresholds as the one setting the code reads (the AI cap, SES's, web search's and Google's monthly allowances and stop lines; started from today's values in .env and the worker's last report, recorded once, with history and Reset), this month's use and cost, and its status with the reason (active, paced, held, off, out of budget). (3) Costs: this month by service and by workflow against revenue and the community budget; the AI cap's shares per workflow. (4) The Workflow board: each workflow's switch, last run, cost, and every setting (tasks' schedule and limits, routes, budgets, gates, the score's weights, the retry ladder, person steps) saved as versions with Go back to it. (5) Warnings at 50/75/95% as one Pulse case per service with Raise the cap, Top up and Pause buttons (they replace the 80/100% emails), and one 'returns empty' case. (6) Watching Railway's deploys and the sync from the site, built and shipped OFF (it needs RAILWAY_API_TOKEN and GITHUB_SYNC_TOKEN in .env). The switch-on check on the Automation page and the board refuses Switch automation on while any line is red; Jason, 2026-11-15: keep the master off until Release B, whose lines are red until built. Leftovers: story-only landmarks (0164 R7, P5-3): a protected name publicly known and off a nation's land is named and told with a courtesy line, never placed (no pin, map, directions, distance); GuideLinks no further; archaeological words held like the sacred; Data cleanup's held ones move by a person's 'Tell them as stories' pass, logged and undoable. Place counts on a town page and in the place finder leave out drop-offs. Also (Jason's answers to the stage 2 plan, 2026-11-15): Gemini and Supabase get their cards and register rows, switched off; the retired .env copies (AI_MONTHLY_CAP_USD on Settings, the stop lines) are off the Settings page and the cards, which now point to the register. Built on Sync 2026-11-15 12:03 UTC.",
+    "proposals": "decisions/0163 §1-§7, §10, decisions/0164 R7 (P5-3), decisions/0066, handoffs/data-cleanup.md",
+    "zip": "operations-release-a_20261115.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/admin/cleanup-console.php": {
+            "sha": "832b355f7c9a888e113535b533e95a868221aeb517845e9ec25dc469c26dd8ab",
+            "size": 31114,
+            "live_was": "9e88eb7e33a96d91e3834ed9dbbb13e187a7bb13963cb53bc3b04ff20665d982"
+        },
+        "app/admin/sections.php": {
+            "sha": "939b5b999cf7754f030c673e951f7448fad45534a9fe25ae30b73026c06123ed",
+            "size": 214942,
+            "live_was": "d59fe8f9dd7ec63f10fd408966aaa4cee481e64eb3af619ae9e4509d10732936"
+        },
+        "app/admin/automation-console.php": {
+            "sha": "2d625d5c49ebb3e13a26ae66dfc90744284c9cba2f173862d9b51902c9c195c1",
+            "size": 19467,
+            "live_was": "ef5503d5b935363dffea32edb11779f56fbdbdf601be96b11727e834b691376d"
+        },
+        "app/admin/manifests.php": {
+            "sha": "aca205e2de5c43ccf629fe4ecb7a5beb8b5136be77397a41bd9a959fba05a837",
+            "size": 21299,
+            "live_was": "a5925ea3fb4a33c084b2e57ce431f198182b304aa5fcfcedfbe050e83d440239"
+        },
+        "app/admin/operations-console.php": {
+            "sha": "9f20939fd4bf29b02c1d6d863267fae1cdd7ffe27e1327fb85f3d2bc9e0ea5c9",
+            "size": 28585,
+            "live_was": null
+        },
+        "app/ui/faq.md": {
+            "sha": "1a934ef70d9b54f6160e97710b414d58aa00cd8c7d7c9047f39e6493f5ce91cd",
+            "size": 300251,
+            "live_was": "0111b96af36318b97eb35f7ab2d9e964bbaaac9bcd985d28a707768f6ac6863b"
+        },
+        "app/lib/EnvSettings.php": {
+            "sha": "7e6a34829aadbe62cea1f9fef7d74d3e3423ede97d1dfc268f2b6a5b9daed34a",
+            "size": 11833,
+            "live_was": "eaf1378e7ab6abf44a3e713dd6df1bc60726b8626aca5d74cd2f8997448d7dd2"
+        },
+        "app/lib/Scheduler.php": {
+            "sha": "4fd97784c71ea70d98bbca586d6a80af6de06d3fef9efd716c2e29a9a91108f3",
+            "size": 21659,
+            "live_was": "e2a03e9fda9fa2439e9c013fd7f481da3ac000d1aac397b55a966bc949125e38"
+        },
+        "app/lib/Operations.php": {
+            "sha": "f3bc2759f965a03e16cf153ba483015c974eace3031b8b6811f3c7ce6201096e",
+            "size": 44161,
+            "live_was": null
+        },
+        "app/lib/GuideLinks.php": {
+            "sha": "ba26bbfe405ba034d2da7a3a31c1f8faedfa11c3b74c11a021fae75c47462b51",
+            "size": 54172,
+            "live_was": "b4a3c883398cee4358498f505f2af57cdf8e3c4d405f43ddc04a4d5c609019a2"
+        },
+        "app/lib/Guides.php": {
+            "sha": "31d328d1e2f6979cd7bd071c82e4637f1f4b92d9cfd1b3622174d96cf0d172ad",
+            "size": 133514,
+            "live_was": "ec64a35a5602882820ac772066a566d34b2313aabd44f8208fae12311a9b0db8"
+        },
+        "app/lib/Thresholds.php": {
+            "sha": "2fea93673d7446896ffa1cb21a59e9164eae41ea951c44adc77d16fb8f54df09",
+            "size": 17541,
+            "live_was": "b83c14b386524b07c4159266cb2ce75c9bb8833c8ca5f26e28954d32a90a6406"
+        },
+        "app/lib/SesMail.php": {
+            "sha": "086db102eada6580acade8b7cce10a181133d5a88de7a206b56163f8671d58fb",
+            "size": 39067,
+            "live_was": "68b416f22c8b2384ddce4361b7b581923a1563de4bd910c1c437b37e0f0686b1"
+        },
+        "app/lib/DataCleanup.php": {
+            "sha": "ed4de077fa6b7c39554218da2dc59bdcd545f148253bb4de506a1986071ba484",
+            "size": 111150,
+            "live_was": "144a2ead41c783864719a702fefbac6f34b018c5a6bcccd279a661164ab1ffe0"
+        },
+        "app/lib/WorkflowSettings.php": {
+            "sha": "6af6ba88b72a450d6726a0870e981b0e212ea3e6c649484ac1d79d77f3c1dab1",
+            "size": 15180,
+            "live_was": null
+        },
+        "app/lib/OutsideServices.php": {
+            "sha": "76b0d87f3f0fe8591fb0b6a7e130250f5852415b7823e47a8075bc8e59cd7f16",
+            "size": 70600,
+            "live_was": "df06dc32494a5f7674f3acceca0593664ccbf26d09b8e3aa7ec895e897607ea4"
+        },
+        "app/lib/Pulse.php": {
+            "sha": "c8ff75590c49b96847eeedc21c196deb83cb7bfb8ffc9fc90918d1233ebce926",
+            "size": 133355,
+            "live_was": "2f77e4d7422dc2e8302992f82bcf54f00d4ac45198bac8d792d6d10eb2795fdf"
+        },
+        "app/lib/Landmarks.php": {
+            "sha": "93cdf8a23b8025bbdfc1e6edfb801aac8a2ec6b8ecf7d907d8c7be36a79b625e",
+            "size": 57255,
+            "live_was": "5b125f6461a8cbb08892cb33df651777373b7ac3132a8d9a4d3b2db534872d38"
+        },
+        "app/lib/AiClient.php": {
+            "sha": "8419aefc6e8521e641314ea386c40ba1ad5c2f930acb6a7a3d5c4f38c470a487",
+            "size": 31193,
+            "live_was": "46fcb80db6481a1f23f721cbc963bf1214e19accd0426516cf413f20be0928e4"
+        },
+        "app/lib/Takedowns.php": {
+            "sha": "dd52ee593092c7c197fe69ea4872643c7efbb29d194a031790c74a9aac8cadc6",
+            "size": 17152,
+            "live_was": "8e6648fcdabcb1d8908c5156886cc2d8ae6861e7ca3c8c2d5059a0c18676b601"
+        },
+        "app/lib/Services.php": {
+            "sha": "5967366d1978d9217442d4fc13903b420490283f34ea7fbbdf4ae41f7dd84373",
+            "size": 13170,
+            "live_was": "a5cd96e0e418a459c252a1e4adac731832dec2bb9a729a3766d5444defef5957"
+        },
+        "website/admin/settings.php": {
+            "sha": "5f627a25f4ce24020140d6594b6020fed5b7c9e37a7a55552847b8e9dbb29819",
+            "size": 37757,
+            "live_was": "8847fcc875fc18d9ee82123648620fd9226516054979179e722f2b903ca0a142"
+        },
+        "website/place/landmark.php": {
+            "sha": "0290317174d453bcbe7efe871dd9d74509d5979108560c3c6d1d6ae52db351e6",
+            "size": 20446,
+            "live_was": "a697b69055cdc6173a64b3b315b088d4b95bb0221cd0edb04cd1db542a32cd62"
+        },
+        "website/hub/index.php": {
+            "sha": "ce0dcaf4ac776eda8d09d9b1d762a0c8598f859d9ab68650b391848078cbaff1",
+            "size": 64321,
+            "live_was": "e191483e8b92520ff26e8a8105ce2812b73fbea88825ffe74386596000d7bb99"
+        },
+        "website/api/crawl/usage.php": {
+            "sha": "ed8e0e5f71c7e36e667b3965752fed1a5a35dc56036d3db7c02549580f73545c",
+            "size": 5447,
+            "live_was": "882088637de6104cb502cc91f5b497085543a66f547fbd61a7d524c3750b1573"
+        },
+        "website/api/place.php": {
+            "sha": "8c909ff94bd9d891e91068b9334a0d6f5da3abadbf13a9e8a0f9a54cac7cfbb7",
+            "size": 29031,
+            "live_was": "da7f8e074a8c6687dda0c2975418094e1f5c139b259fbb5bbdc3ccf010d2bd8b"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-15T13:15:12+00:00",
+            "by": 2,
+            "msg": "Uploaded operations-release-a_20261115.zip: 26 files."
+        }
+    ]
+}
