@@ -1023,6 +1023,28 @@
    "expires": "2026-11-15T20:50:47Z",
    "release": "release-b1.zip",
    "callers": {}
+  },
+  {
+   "path": "website/js/stg-bar.js",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "Staging bar: fixed at the bottom, above the site's sticky bars, so reviews can be given (Jason 2026-11-15)",
+   "since": "2026-11-15T17:44:43Z",
+   "expires": "2026-11-15T21:47:48Z",
+   "release": "release-stgbar.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/api/stg-bar.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "Staging bar: the host's bot check cookie on its call to live",
+   "since": "2026-11-15T17:47:01Z",
+   "expires": "2026-11-15T21:47:48Z",
+   "release": "release-stgbar.zip",
+   "callers": {}
   }
  ],
  "lapsed": []
