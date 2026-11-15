@@ -17,6 +17,39 @@ crawler revamp's own open items (`handoffs/crawler-revamp.md` §7.1), so nothing
 on" while any line is red. B's own lines are red until each one is built. Turn each one green in the release that
 builds it (see "The switch-on check's lines" below).
 
+
+## Jason's checklist before switching automation on (updated 2026-11-15, 19:40 UTC)
+
+Every item below is also a red line on **System Configuration → Workflow board → Check before switching on**, and that
+line says where its key goes. Nothing switches on by itself; the master switch stays off until you turn it on.
+
+**Keys in the site's `.env`** (cPanel → File Manager, `public_html/traversence/.env`; never paste them in chat):
+- [ ] `GEMINI_API_KEY`: Gemini's free tier (Google AI Studio → API keys). Used only for public pages, and only once you
+      move a feature to it on AI use.
+- [ ] `SUPABASE_URL` and `SUPABASE_SERVICE_KEY`: the vector index (Supabase → Project settings → API). First restore the
+      paused project, then paste the setup SQL shown on Supabase's card (Outside services) into its SQL editor once.
+- [ ] `RAILWAY_API_TOKEN` (with `RAILWAY_PROJECT_ID`, `RAILWAY_SERVICE_ID`): watching the crawler's deploys.
+- [ ] `GITHUB_SYNC_TOKEN`: watching the 3-way sync's runs.
+
+**Keys on Railway** (the crawler service → Variables; the crawler reports at each run which it has, by name only):
+- [ ] `HF_TOKEN`: a Hugging Face token whose account accepted Foursquare's open-places terms.
+- [ ] `GOOGLE_PLACES_KEY`: the Google check of listings.
+- [ ] `TAVILY_API_KEY` (or `BRAVE_API_KEY`): web search.
+- [ ] `RIDB_API_KEY`: Recreation.gov.
+
+**Then, in order:**
+1. [ ] Releases B3 (and B4 when it's sent) live.
+2. [ ] Service register → **Switch watching on** (needs the two watching keys above).
+3. [ ] Check before switching on: every line green. Each red line names its fix.
+4. [ ] Railway: set the crawler's schedule again (it was removed 2026-11-14; restarts stay "never").
+5. [ ] Automation → master switch on, then **W1 first**, one workflow at a time. Each new or returning service drains at
+       half budget for its first 14 days (0163 §10.2).
+6. [ ] Switch on the new tasks when you want them: W2's identity recheck, W1's Overture, Foursquare and Geofabrik loads,
+       the vector index (AI use → vector index, and Supabase's card), W14 (hub opening).
+
+Bluehost's bot check: their whitelist of ModSecurity rule 900933 (2026-11-15) cleared it in testing; the crawler still
+sends the cookie and retries once, so a relapse is held and shown, not lost.
+
 ## Before B: decisions/0165 (Accepted 2026-11-15)
 
 `decisions/0165` (staging is the live site in safe mode; Publish merges it into live) is **built before Release B, so B
