@@ -265,3 +265,14 @@ commit = live). The zip is built from `git diff --name-only <first commit>`.
   keys); §12's lead order and Google check order; the gaps list under stage 8 (P3-2 … P6-1, F1–F3, P1-3, P1-4);
   "Left from Release A" (other callers onto ServiceHealth, one price per service, caps still in code, the worker's limits
   from the plan, the Railway keys line, routes and AI shares read).
+
+**2026-11-15 17:30 UTC (Jason: "yes to 2-6, go ahead"):** B1 merged (PR #706), waiting on staging for his review.
+Worker 2.7.0 merged (PR #707) and deployed (Railway deployment `e44cbc40`, its one run: "paused"). Geofabrik's test
+(`GEOFABRIK_PROBE=1`, one redeploy, `a4a84503`):
+- **Geofabrik from Railway: `OSError 101 Network is unreachable`** for both states (0 bytes). Per 0163 §8 stage 8: no more
+  tries there; the next is another free OSM mirror (e.g. openstreetmap.fr's or BBBike's extracts), a worker change.
+- **The site answered the worker 409 with a cookie challenge** (`humans_21909=1`, Bluehost's bot protection) on
+  `/api/crawl/loads.php`, `usage.php` and `service.php`, a minute after the deploy's run got through. Until the host lets
+  Railway's calls through (cPanel / the host's bot protection), the crawler can't talk to the site: **a switch-on blocker**.
+- **Railway's restart policy was ON_FAILURE** (not railway.json's NEVER): the failing run was restarted 8 times in 30 s.
+  Set to NEVER through the API, the deployment stopped, `GEOFABRIK_PROBE` deleted. Cron is null.
