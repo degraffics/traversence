@@ -1,7 +1,7 @@
 {
  "zip": "release-stgbar.zip",
  "built_on": "259a50c Sync: 2026-11-15 16:06 UTC",
- "recorded": "2026-11-15 17:47 UTC",
+ "recorded": "2026-11-15 17:48 UTC",
  "note": "The staging bar fixed along the bottom, and its call to live past the host's bot check, built on Sync: 2026-11-15 16:06 UTC Sent through git (releases/inbox).",
  "status": "pending",
  "live_in": "",
