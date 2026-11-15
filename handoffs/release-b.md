@@ -276,3 +276,13 @@ Worker 2.7.0 merged (PR #707) and deployed (Railway deployment `e44cbc40`, its o
   Railway's calls through (cPanel / the host's bot protection), the crawler can't talk to the site: **a switch-on blocker**.
 - **Railway's restart policy was ON_FAILURE** (not railway.json's NEVER): the failing run was restarted 8 times in 30 s.
   Set to NEVER through the API, the deployment stopped, `GEOFABRIK_PROBE` deleted. Cron is null.
+
+**17:40 UTC: B2 now also carries stages 9–11's first parts** (the patch in `release-b-pending/b2/change.diff`, on B1):
+`GeminiCompare.php` (AI use → "Compare Claude and Gemini", the sample comparison; Gemini prompt `extract_compare`),
+`Vectors.php` + `scripts/vectors_tick.php` (job `vectors_tick`, W3, feature `vector_index` off; the Supabase setup SQL is
+`Vectors::setupSql()`; `search()` comes with its first caller), `HubOpening.php` (hub stages, W14's `authority_sources`
+staged by hand for AZ and NM, the "Hubs" Pulse case `hubs:all` with permission `hubs.open`, the switch-on hub lines; W14 in
+`Automation::WORKFLOWS`, its `crawl_workflows` row added paused), migrations `2026-11-16_open_loads.sql`,
+`2026-11-16_hubs.sql`. Waiting for B1 (#58) to go live, then rebuilt on the live copy and sent.
+Worker 2.7.1 on branch `claude/release-b3-worker` (not merged): Geofabrik's test goes to OpenStreetMap France's extracts
+(`OSM_EXTRACT_BASE`); its paths (`arizona`, `new_mexico`) unchecked from here.
