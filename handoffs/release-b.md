@@ -286,3 +286,11 @@ staged by hand for AZ and NM, the "Hubs" Pulse case `hubs:all` with permission `
 `2026-11-16_hubs.sql`. Waiting for B1 (#58) to go live, then rebuilt on the live copy and sent.
 Worker 2.7.1 on branch `claude/release-b3-worker` (not merged): Geofabrik's test goes to OpenStreetMap France's extracts
 (`OSM_EXTRACT_BASE`); its paths (`arizona`, `new_mexico`) unchecked from here.
+
+**17:50 UTC, the host's bot check (session manager, at Jason's ask):** Bluehost's Apache-level check answers about one in
+three calls to `/api/` with 409 `document.cookie = "humans_21909=1"; …`. **Stopgap until Bluehost exempts /api/ (Jason
+opened a ticket):** worker 2.7.2 (branch `claude/release-b3-worker`, test `workers/crawler/tests/test_site_call.py`, 6
+pass) always sends the cookie, reads a new name from the challenge, retries once, paces site calls (`SITE_GAP` 0.6 s),
+and reports a refusal as held (`SiteBotCheck`, the report's `site_blocked`). The staging bar's call to live
+(`website/api/stg-bar.php`) does the same, in `release-stgbar` (PR #708, with the bar fixed along the bottom: it
+flashed and vanished at the top, so B1's review couldn't be given). Railway's restart policy stays NEVER.
