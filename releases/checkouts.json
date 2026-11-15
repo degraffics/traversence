@@ -441,9 +441,13 @@
    "session": "session_01CXLi5hvWvRSedDtk54gNDP",
    "why": "Release B part 4",
    "since": "2026-11-15T20:00:57Z",
-   "expires": "2026-11-16T00:00:57Z",
-   "release": "release-b4",
-   "callers": {}
+   "expires": "2026-11-16T00:01:00Z",
+   "release": "release-b4.zip",
+   "callers": {
+    "pulseDo": [
+     "app/lib/Pulse.php"
+    ]
+   }
   },
   {
    "path": "app/lib/ListingConfidence.php",
@@ -452,9 +456,13 @@
    "session": "session_01CXLi5hvWvRSedDtk54gNDP",
    "why": "Release B part 4",
    "since": "2026-11-15T20:00:57Z",
-   "expires": "2026-11-16T00:00:57Z",
-   "release": "release-b4",
-   "callers": {}
+   "expires": "2026-11-16T00:01:00Z",
+   "release": "release-b4.zip",
+   "callers": {
+    "yes": [
+     "website/api/listing-confirm.php"
+    ]
+   }
   },
   {
    "path": "app/lib/Sales.php",
@@ -463,9 +471,14 @@
    "session": "session_01CXLi5hvWvRSedDtk54gNDP",
    "why": "Release B part 4",
    "since": "2026-11-15T20:00:57Z",
-   "expires": "2026-11-16T00:00:57Z",
-   "release": "release-b4",
-   "callers": {}
+   "expires": "2026-11-16T00:01:00Z",
+   "release": "release-b4.zip",
+   "callers": {
+    "toConfirm": [
+     "app/admin/tools.php",
+     "app/lib/Pulse.php"
+    ]
+   }
   },
   {
    "path": "app/lib/Scheduler.php",
@@ -474,9 +487,13 @@
    "session": "session_01CXLi5hvWvRSedDtk54gNDP",
    "why": "Release B part 4",
    "since": "2026-11-15T20:00:57Z",
-   "expires": "2026-11-16T00:00:57Z",
-   "release": "release-b4",
-   "callers": {}
+   "expires": "2026-11-16T00:01:00Z",
+   "release": "release-b4.zip",
+   "callers": {
+    "sync": [
+     "app/admin/sections.php"
+    ]
+   }
   },
   {
    "path": "app/lib/crawler/SourceIndex.php",
@@ -485,8 +502,8 @@
    "session": "session_01CXLi5hvWvRSedDtk54gNDP",
    "why": "Release B part 4",
    "since": "2026-11-15T20:00:57Z",
-   "expires": "2026-11-16T00:00:57Z",
-   "release": "release-b4",
+   "expires": "2026-11-16T00:01:00Z",
+   "release": "release-b4.zip",
    "callers": {}
   },
   {
@@ -496,21 +513,33 @@
    "session": "session_01CXLi5hvWvRSedDtk54gNDP",
    "why": "Release B part 4",
    "since": "2026-11-15T20:00:57Z",
-   "expires": "2026-11-16T00:00:57Z",
-   "release": "release-b4",
+   "expires": "2026-11-16T00:01:00Z",
+   "release": "release-b4.zip",
    "callers": {}
   },
   {
    "path": "app/admin/tools.php",
    "functions": [
+    "'growth/calls'",
     "growth/calls"
    ],
    "kind": "change",
    "session": "session_01CXLi5hvWvRSedDtk54gNDP",
    "why": "Release B part 4",
    "since": "2026-11-15T20:00:57Z",
-   "expires": "2026-11-16T00:00:57Z",
-   "release": "release-b4",
+   "expires": "2026-11-16T00:01:00Z",
+   "release": "release-b4.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/DataCleanup.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "release release-b4.zip",
+   "since": "2026-11-15T20:01:00Z",
+   "expires": "2026-11-16T00:01:00Z",
+   "release": "release-b4.zip",
    "callers": {}
   }
  ],
