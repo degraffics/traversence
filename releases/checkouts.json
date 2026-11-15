@@ -16,19 +16,6 @@
    "callers": {}
   },
   {
-   "path": "app/lib/StockLibrary.php",
-   "functions": [
-    "shown"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5kLQB5BQnw5aZGu158",
-   "why": "Stock photos 404: uploads/.htaccess hand-off misses system/ (decisions/0123)",
-   "since": "2026-11-15T21:58:44Z",
-   "expires": "2026-11-16T02:02:05Z",
-   "release": "photos-handoff.zip",
-   "callers": {}
-  },
-  {
    "path": "app/bootstrap.php",
    "functions": [],
    "kind": "change",
@@ -37,28 +24,6 @@
    "since": "2026-11-15T21:58:47Z",
    "expires": "2026-11-16T02:14:21Z",
    "release": "review-link-login.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/Store.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5kLQB5BQnw5aZGu158",
-   "why": "Stock photos 404: uploads/.htaccess hand-off misses system/ (decisions/0123)",
-   "since": "2026-11-15T22:02:03Z",
-   "expires": "2026-11-16T02:02:05Z",
-   "release": "photos-handoff.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/bootstrap.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5kLQB5BQnw5aZGu158",
-   "why": "release photos-handoff.zip",
-   "since": "2026-11-15T22:02:05Z",
-   "expires": "2026-11-16T02:02:05Z",
-   "release": "photos-handoff.zip",
    "callers": {}
   },
   {
