@@ -106,3 +106,23 @@ with SNS or link previews: only an exemption fixes those.
 - **No `robots.txt` and no `sitemap.xml`** on traversence.com (404 to everyone). Search engines get no sitemap and no
   rules (staging is kept out by `noindex` and its password, not by robots). This deserves its own decision and release.
 - trvgo.us and staging.trvgo.us were tested in a second run, once Jason allowed them in this session's environment.
+
+## After Bluehost's change (rerun, 2026-11-15, ~18:10–18:34 UTC)
+
+Jason asked Bluehost to turn the check off for `/api/`, `/admin/api/` and `/data-deletion.php` on traversence.com,
+`/api/` on staging.trvgo.us, all of trvgo.us, and link-preview and search bots on public pages. Bluehost said it was
+done. The same test was run again: 320 requests, 10 per endpoint (20 for the staging and trvgo.us endpoints, which
+appeared twice in the list).
+
+| Host | Requests | 409s | Before |
+|---|---|---|---|
+| traversence.com: every `/api/` endpoint above, `/data-deletion.php`, `/`, `/faq.php` (plain, Facebook preview, Googlebot) | 220 | **0** | 28 of 280 |
+| trvgo.us (`/`, `/hours`, Facebook preview) | 50 | 0 | 0 of 30 |
+| staging.trvgo.us `/api/staging-updates.php`, `/api/stg-probe.php` | 30 | **4** | 4 of 20 |
+| staging.trvgo.us `/` | 20 | 0 | 0 of 10 |
+
+- **traversence.com is fixed:** the crawler, video worker, QuickBooks, Stripe, Square, SES, health report, guide paths,
+  the Vault and link previews all got their own endpoint's answer every time.
+- **staging.trvgo.us `/api/` is still blocked**, at the same rate as before. Ask Bluehost again for staging.trvgo.us.
+  Staging is a separate cPanel domain, so the change on traversence.com may not have carried over to it.
+- `/robots.txt` still answers 404 (there isn't one), so it can't show whether bots reach it.
