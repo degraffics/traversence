@@ -99,7 +99,7 @@ wrapped so a failure only logs).
 - Town page: `HelpFind::block()` at the end of the Local block. Search: `results['help']`, drawn by `helpHtml()` after
   "Named on pages we read". Answers: `TvSuggest.open({kind: 'fix', entity_id, help_find: 1})`, a form with phone, street
   address, website and How do you know? (`fields.source`). Claim: `Claims::listing` accepts a card.
-- Drop and collection boxes are no longer junk (Jason, 2026-11-15: "drop boxes are good to know"); PO Box addresses are.
+- Drop and collection boxes are no longer junk (Jason, 2026-11-15: "drop boxes are good to know"); a PO Box as a name is; a PO Box address is kept as a mailing address (not a street address for the floor). Undo by reason: `DataCleanup::groups()` / `undoGroup()`, "Undo all N" under each pass.
   The ones release #50's passes took off are put back with Undo per record. Open question to Jason: drop boxes as their
   own kind of place (Mail & package drop-off, no Claim, out of business browse lists) or ordinary listings.
 
