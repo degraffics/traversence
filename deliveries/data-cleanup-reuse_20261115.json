@@ -3,28 +3,28 @@
  "built_on": "0ffa028 Sync: 2026-11-15 00:21 UTC",
  "recorded": "2026-11-15 00:59 UTC",
  "note": "Data cleanup: reused or restricted, never a dead end (handoffs/data-cleanup.md; Jason 2026-11-15 'table is right'). Built on Sync: 2026-11-15 00:21 UTC Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "573cf2c Sync: 2026-11-15 01:20 UTC",
  "files": {
   "app/admin/cleanup-console.php": {
    "sha256": "46cb6aa69ba2fa433b181cde1fdb58af11e5e633fe9299bc5f6e034ca0a2a204",
-   "live": false
+   "live": true
   },
   "app/lib/DataCleanup.php": {
    "sha256": "b5d13234466a2ba9273d1971dfdedc69b2b9db1c1df13519200ac861e2aadee2",
-   "live": false
+   "live": true
   },
   "app/migrations/2026-11-15_drop_off_category.sql": {
    "sha256": "362e2b89976a43b17256558e93a12dd515c2d404655842e4e2c67dfe943670b9",
-   "live": false
+   "live": true
   },
   "app/scripts/data_cleanup_tick.php": {
    "sha256": "bf865dec93391622e9d23a7889ec5f47e13c0b67eefee1eb4ee83bae923ab392",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "959c65caa27dd9c2b07b0e796777aefef19ee8e838f0ce9cc5bed06c900d4e61",
-   "live": false
+   "live": true
   }
  }
 }
