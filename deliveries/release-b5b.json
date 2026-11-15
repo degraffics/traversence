@@ -3,56 +3,56 @@
  "built_on": "ffadd93 Sync: 2026-11-15 20:11 UTC",
  "recorded": "2026-11-15 20:39 UTC",
  "note": "Release B part 5 again without its migration, with part 6 (licence changes, Google's check order), built on Sync: 2026-11-15 20:11 UTC Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "09b40b2 Sync: 2026-11-15 21:03 UTC",
  "files": {
   "app/lib/EngineCase.php": {
    "sha256": "c6f162cd7b3580a31dcd90d3e7d649f218947988c01fd9ba84f439bf7c6e781e",
-   "live": false
+   "live": true
   },
   "app/lib/Gemini.php": {
    "sha256": "663010642436834dcdfcd8448fe6d46bc56e172df96b4d7e3189d6877ec4ee52",
-   "live": false
+   "live": true
   },
   "app/lib/Identity.php": {
    "sha256": "dce7ff0326b729762be684e266b3189cd74ff269e66321cff8faf74655f062d3",
-   "live": false
+   "live": true
   },
   "app/lib/ListingConfidence.php": {
    "sha256": "64322667e4d1106bcdf9a788728baee1b710650ab6886db69630a51c3c8868c9",
-   "live": false
+   "live": true
   },
   "app/lib/Operations.php": {
    "sha256": "946a3aa31418ec26d77e5f243fad813ee6158516efd0d1d6b28a37a70a169799",
-   "live": false
+   "live": true
   },
   "app/lib/SearchDemand.php": {
    "sha256": "9c1d75aab4acd9e6f8db2681c2767179f438a5bbe98b682c70b86e9449097775",
-   "live": false
+   "live": true
   },
   "app/lib/crawler/SourceIndex.php": {
    "sha256": "115b2ba62b89b820f813846b6ec526ba1c12a816c01653056e8483d02b1ec574",
-   "live": false
+   "live": true
   },
   "app/lib/crawler/Sources.php": {
    "sha256": "180a1c51d2d62908c12b0211abecb46cc4b519ef92716018562e69535eb39006",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "2a1f71d1556f370d80500aaa12458f5e89a9a2e0f976f88a68d4db03759af44a",
-   "live": false
+   "live": true
   },
   "website/api/crawl/places.php": {
    "sha256": "aaf637128502e7bfb09591e041169e31315113008a500f5a061a38d70122346a",
-   "live": false
+   "live": true
   },
   "website/api/search.php": {
    "sha256": "f3eb0738ee2e4c115c1ae98c257536e7eb7ec9b735f1862c87689088a1a8b596",
-   "live": false
+   "live": true
   },
   "website/listing/view.php": {
    "sha256": "148dc16cf6b34119a899f1144a7845e8d82abd015cd1d9f32976755b2a641634",
-   "live": false
+   "live": true
   }
  }
 }
