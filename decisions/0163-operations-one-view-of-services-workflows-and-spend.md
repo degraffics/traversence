@@ -302,6 +302,32 @@ anything run:
    cards complete, so switching them on is the only step left.
 4. **The one step for Jason** at resume: any key the site needs in `.env` (File Manager), named by the check.
 
+**Note (2026-11-15): Start the system replaces "Jason switches each on".** Jason: "It seems like you expect me to flip
+each switch. Thats more work for me again. We need a ondemand system start which will fire each of the steps you expect
+me to flip. And I will address issues that the system can't fix itself." So the switch-on is one button, **Start the
+system** (System Configuration → Automation, and on the Workflow board), with **Pause everything** beside it
+(`app/lib/SystemStart.php`, carried on by `system_start_tick` every 10 minutes, so the page can close; never on
+staging). The order, the gates' rule (one at a time, W1 first) and the budgets (half for 14 days, §10.2; `Clocks::ramp`)
+stay as above. What changes:
+- **It fires each step itself:** the keys; watching (when its keys are there); the switch-on check, after fixing what it
+  safely can (a waiting database update run, a failed one tried once more, the register's caps recorded, held
+  services' probes brought forward, the junk count read fresh); Railway's schedule set again through its API with
+  `RAILWAY_API_TOKEN` (`*/5 * * * *`, restarts Never, read back); the master on; then W1 to W12 in number order; then
+  the new tasks (the identity recheck, Overture, Foursquare, OpenStreetMap from Geofabrik, the vector index with
+  Supabase and Gemini's embeddings, W14). Gemini's other features and the licence sources aren't switched by it: they
+  wait for the sample comparison (§11) and their hubs (0164 §7.1).
+- **A red line holds only what it's for:** a line for everything holds the master; a workflow's or a service's line
+  (a missing key included) holds that workflow and the tasks under it, and the rest goes ahead. The Railway schedule's
+  line holds nothing (the site's parts run without it). Switch automation on by hand still waits for every line.
+- **Automatic gates** (§12's settings `start_gate_runs`, 2, and `start_gate_hours`, 6, in the Thresholds register):
+  the next starts once the one before has had 2 good runs or 6 hours, with no new service issue for its services,
+  none of them out of budget, and failed runs no more than one in ten. A gate that fails pauses that one, stops the
+  sequence and holds what's left.
+- **One Pulse case, "Starting the system"**, with a step for each thing only Jason can fix (each key and where it goes,
+  each red line with its fix, Railway's exact setting when there's no key, a failed gate's Try again or Leave it). When
+  he fixes one, the next tick carries on. A workflow a person pauses meanwhile stays paused; pausing the master stops
+  the start.
+
 ### 11. Gemini (Google AI Studio) as run (Jason's Decision 7, 2026-11-14; the rules on what may go to it: 0164 §0.8, R5)
 
 **Gemini follows Claude's and the paid APIs' standards** (Jason, 2026-11-14, 0164 §14 point 15): "we monitor it for usage
@@ -388,6 +414,9 @@ the engine retries for itself (the grey zone, gaps, sightings, out-of-options fi
 | any new evidence | back to the start |
 
 Each step is a setting, tuned by a director (kept with who and when, and a Reset).
+
+**Start the system's gates** (§10's note, 2026-11-15): `start_gate_runs` 2 good runs, or `start_gate_hours` 6 hours
+clean, before the next workflow or task starts; settings in the Thresholds register, kept with who and when.
 
 **The identity check and the recheck** (0164 §3.1, §3.2's note, §6.1; Jason, 2026-11-15: "the knowledge engine is the
 master of this process"). Settings, tuned by a director (kept with who and when, and a Reset):

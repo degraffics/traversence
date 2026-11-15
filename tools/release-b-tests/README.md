@@ -8,3 +8,8 @@
 Run on MariaDB or MySQL with a `.env` four folders up from the app's `lib/` (DB_HOST, DB_PORT, DB_DATABASE=lv_main, …):
 `mariadb < schema.sql && mariadb lv_main < <app>/migrations/2026-11-16_listing_identity.sql && php identity.php <app>`
 (the app: a mirror's `sync-app` with the release's `app/` laid over it).
+- `start.php` (with `start-schema.sql`): Start the system (decisions/0163 §10's note, 2026-11-15): never pressed does
+  nothing; a missing key or red line holds only its part; the master waits for lines that hold everything; one workflow
+  at a time, W1 first; the gates (good runs, hours, a rise in errors); a failed gate stops and pauses that one, with
+  Try again / Leave it; a person's pause stands; Pause everything; staging refuses. 33 tests:
+  `mariadb < start-schema.sql && php start.php <app>`.
