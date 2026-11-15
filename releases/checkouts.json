@@ -1,5 +1,28 @@
 {
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
- "claims": [],
+ "claims": [
+  {
+   "path": "app/lib/HelpFind.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ikaAYTSrHS6AnPpWB",
+   "why": "Help us find this business card (decisions/0164 \u00a73.5)",
+   "since": "2026-11-15T00:06:51Z",
+   "expires": "2026-11-15T04:06:51Z",
+   "release": "help-find",
+   "callers": {}
+  },
+  {
+   "path": "website/hub/index.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ikaAYTSrHS6AnPpWB",
+   "why": "Help us find this business card (decisions/0164 \u00a73.5)",
+   "since": "2026-11-15T00:06:51Z",
+   "expires": "2026-11-15T04:06:51Z",
+   "release": "help-find",
+   "callers": {}
+  }
+ ],
  "lapsed": []
 }
