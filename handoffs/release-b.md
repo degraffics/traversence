@@ -211,3 +211,35 @@ commit = live). The zip is built from `git diff --name-only <first commit>`.
 - **Merges:** `SuggestionActions::merge` hides with `same_as` meta (the 301 in `listing/view.php`). Every column that
   holds a listing id is found with `StagingTables::refOf()` over information_schema (both databases).
 - The four crawler patches (W6, W9, W10/W11, W12) still applied cleanly to Sync 16:06 (W12's hunk at an offset).
+
+**Built so far in `/home/user/relb` (all switched off; tests in `/home/user/relb-tests/`, copied into the docs repo at the end):**
+- The crawler's four approved patches (W6, W9, W10/W11, W12) re-applied and their FAQ lines; the map tiles to the tile
+  policy (one credit "© OpenStreetMap contributors" with its link, `referrerPolicy` on every OSM tile layer).
+- **The one identity check** `app/lib/ListingIdentity.php`: keys (`ident_phone/name/addr/geo/live`, migration
+  `2026-11-16_listing_identity.sql`), `resolve()` read fresh with no cap, the lock, `fold()`, `merge()`/`undo()` (every
+  table holding a listing id found through `StagingTables::refOf`, gaps only, views added, exact Undo), the pair record
+  (`identity_pairs`), the recheck (W2 task `recheck`, a site task, `app/scripts/identity_recheck_tick.php`, shipped off;
+  case #23's offers first, then the pairs LiveDupes and Data cleanup send). Wired into `IntakeStager::approve` (every
+  crawler path) and `findLookalikes`, `CrawlerIngest::upsertEntity` + `api/ingest.php`, `AddBusiness::create` and
+  `duplicates()` (with `anyway` from every "add anyway"), every un-hide (`setSuppressed`, `AutoImport::suppress`, HelpFind,
+  Data cleanup's settle, undo, put back; ListingBulk's undo records "different"). Tuned rules in `Identity::digits/addr/
+  nameKey` and `AutoImport::relationTo/nameWords` (extensions, PO Box, street types, plurals, legal endings, main line,
+  the 150 m branch test). Tests: `identity.php`, 36 pass.
+- **"The engine needs a person"** `app/lib/EngineCase.php` (table `engine_steps`; Pulse `engine:person`; permission
+  `engine.person`): the identity queue (Merge, Keep apart, sales lead via `Leads::route`, admin task), many merges in a
+  town, banned services, sites that block us, finds out of options.
+- **P1-2:** `ServiceHealth::probed` never lifts a ban by itself ("looks lifted" step; 3 days still refused → evaluate;
+  checks paused until a person decides); sites that block us held (`SourceIndex::store`, `Refresh::complete`,
+  `SiteFetcher`), sent to the worker as holds.
+- **X1:** `app/lib/Clocks.php` (paused time from `automation_log`; `cutoff()`, the ramp's half for 14 days, due dates moved
+  at switch-on); patched clocks: AutoImport::exhausted, Refresh, IdentityJobs, TownCrawl, SourceIndex, Dossier, Guides,
+  LiveEvents, Landmarks photos, SecondTier scans; CrawlService::plan and listings_tick use the ramp.
+- **X2:** `AutoImport::evaluate` on 0164 §3.5's floor and §5.4's readiness (OPEN_DATASETS, NPI's guard, phone-only finds
+  allowed by `validate`); `listing_one_source` and `guide_find_add`'s score retired as gates.
+- **The switch-on check:** `Operations::releaseB()` tests each line for real (crawler fixes incl. live junk names count
+  and the tile policy, X2, X1, X3, identity, P1-2, Gemini's guards; the hub line waits for stage 10).
+- **Stage 7:** `app/lib/Gemini.php` (refused unless the feature's input class is public, `safe()`, `prompt()` from our
+  vocabulary, the day's allowance with its reserve, all gates; model `gemini-flash-lite-latest`, checked answering
+  2026-11-15); `AiClient::INPUT`, `providerFor`, `providerOf`, AI use's Provider choice greyed with the reason; feature
+  `page_read` (off). Cards (all ADDED_OFF): overture, foursquare, geofabrik, azcc, nmsos, azlicences; caps as Thresholds
+  gates. Migration `2026-11-16_ai_provider.sql`. Tests: `gemini.php`, 21 pass.
