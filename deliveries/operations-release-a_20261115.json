@@ -1,8 +1,8 @@
 {
  "zip": "operations-release-a_20261115.zip",
  "built_on": "ab8089f Sync: 2026-11-15 12:03 UTC",
- "recorded": "2026-11-15 12:43 UTC",
- "note": "Release A (decisions/0163 \u00a78 stages 2-6): the service register, costs, the workflow board with versions, 50/75/95% and returns-empty warnings in Pulse, watching Railway and the sync (shipped off), the switch-on check; story-only landmarks; place counts without drop-offs. For review on staging. Built on Sync: 2026-11-15 12:03 UTC Sent through git (releases/inbox).",
+ "recorded": "2026-11-15 12:46 UTC",
+ "note": "Release A (decisions/0163 \u00a78 stages 2-6): the service register (Gemini and Supabase cards switched off), costs, the workflow board with versions, 50/75/95% and returns-empty warnings in Pulse, watching Railway and the sync (shipped off), the switch-on check; story-only landmarks; place counts without drop-offs. For review on staging. Built on Sync: 2026-11-15 12:03 UTC Sent through git (releases/inbox).",
  "status": "pending",
  "live_in": "",
  "files": {
@@ -34,6 +34,10 @@
    "sha256": "ed4de077fa6b7c39554218da2dc59bdcd545f148253bb4de506a1986071ba484",
    "live": false
   },
+  "app/lib/EnvSettings.php": {
+   "sha256": "7e6a34829aadbe62cea1f9fef7d74d3e3423ede97d1dfc268f2b6a5b9daed34a",
+   "live": false
+  },
   "app/lib/GuideLinks.php": {
    "sha256": "ba26bbfe405ba034d2da7a3a31c1f8faedfa11c3b74c11a021fae75c47462b51",
    "live": false
@@ -47,7 +51,11 @@
    "live": false
   },
   "app/lib/Operations.php": {
-   "sha256": "0678222a19521aaec161355eed34320e60e97fb3abb22f4c674494196ba8c0b5",
+   "sha256": "f3bc2759f965a03e16cf153ba483015c974eace3031b8b6811f3c7ce6201096e",
+   "live": false
+  },
+  "app/lib/OutsideServices.php": {
+   "sha256": "76b0d87f3f0fe8591fb0b6a7e130250f5852415b7823e47a8075bc8e59cd7f16",
    "live": false
   },
   "app/lib/Pulse.php": {
@@ -80,6 +88,10 @@
   },
   "app/ui/faq.md": {
    "sha256": "1a934ef70d9b54f6160e97710b414d58aa00cd8c7d7c9047f39e6493f5ce91cd",
+   "live": false
+  },
+  "website/admin/settings.php": {
+   "sha256": "5f627a25f4ce24020140d6594b6020fed5b7c9e37a7a55552847b8e9dbb29819",
    "live": false
   },
   "website/api/crawl/usage.php": {
