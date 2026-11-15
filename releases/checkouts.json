@@ -638,6 +638,17 @@
    "expires": "2026-11-15T20:40:40Z",
    "release": "release-b1",
    "callers": {}
+  },
+  {
+   "path": "app/lib/Pulse.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "Release B1: the engine's case in Pulse; FAQ entries",
+   "since": "2026-11-15T16:40:42Z",
+   "expires": "2026-11-15T20:40:42Z",
+   "release": "release-b1",
+   "callers": {}
   }
  ],
  "lapsed": []
