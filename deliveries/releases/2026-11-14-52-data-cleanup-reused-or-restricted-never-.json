@@ -6,25 +6,29 @@
     "zip": "data-cleanup-reuse_20261115.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "staged",
-    "step": 0,
+    "state": "live",
+    "step": 3,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
     "plan_at": "2026-11-15 01:19:04",
     "staged_at": "2026-11-15 01:19:06",
-    "vetted_at": null,
-    "live_at": null,
+    "vetted_at": "2026-11-15 01:19:09",
+    "live_at": "2026-11-15 01:19:09",
     "files": {
         "app/admin/cleanup-console.php": {
             "sha": "46cb6aa69ba2fa433b181cde1fdb58af11e5e633fe9299bc5f6e034ca0a2a204",
             "size": 28176,
-            "live_was": "cffa49f418c3d4ac3843713aa31c2304a1f120d845b4222168f00371f0ce3cfa"
+            "live_was": "cffa49f418c3d4ac3843713aa31c2304a1f120d845b4222168f00371f0ce3cfa",
+            "existed": true,
+            "old_sha": "cffa49f418c3d4ac3843713aa31c2304a1f120d845b4222168f00371f0ce3cfa"
         },
         "app/ui/faq.md": {
             "sha": "959c65caa27dd9c2b07b0e796777aefef19ee8e838f0ce9cc5bed06c900d4e61",
             "size": 296854,
-            "live_was": "4fedd33d889affcbc4fecd987ec0378ba10f2b939389d02327612fc0a6dbe330"
+            "live_was": "4fedd33d889affcbc4fecd987ec0378ba10f2b939389d02327612fc0a6dbe330",
+            "existed": true,
+            "old_sha": "4fedd33d889affcbc4fecd987ec0378ba10f2b939389d02327612fc0a6dbe330"
         },
         "app/migrations/2026-11-15_drop_off_category.sql": {
             "sha": "362e2b89976a43b17256558e93a12dd515c2d404655842e4e2c67dfe943670b9",
@@ -34,12 +38,16 @@
         "app/scripts/data_cleanup_tick.php": {
             "sha": "bf865dec93391622e9d23a7889ec5f47e13c0b67eefee1eb4ee83bae923ab392",
             "size": 2098,
-            "live_was": "478fbf099c9ab3e1c87ff4db5b57606bf0e48c590404eb2c3daa31164cdc9155"
+            "live_was": "478fbf099c9ab3e1c87ff4db5b57606bf0e48c590404eb2c3daa31164cdc9155",
+            "existed": true,
+            "old_sha": "478fbf099c9ab3e1c87ff4db5b57606bf0e48c590404eb2c3daa31164cdc9155"
         },
         "app/lib/DataCleanup.php": {
             "sha": "b5d13234466a2ba9273d1971dfdedc69b2b9db1c1df13519200ac861e2aadee2",
             "size": 104918,
-            "live_was": "830bdc9c91e42fec87075fb7bc19f7f6e7a5ecb497dd3757a3c2b9f606bd6736"
+            "live_was": "830bdc9c91e42fec87075fb7bc19f7f6e7a5ecb497dd3757a3c2b9f606bd6736",
+            "existed": true,
+            "old_sha": "830bdc9c91e42fec87075fb7bc19f7f6e7a5ecb497dd3757a3c2b9f606bd6736"
         }
     },
     "migrations": [
@@ -47,8 +55,8 @@
     ],
     "checks": {
         "ok": true,
-        "where": "staging",
-        "at": "2026-11-15T01:19:07+00:00",
+        "where": "live",
+        "at": "2026-11-15T01:19:09+00:00",
         "items": [
             [
                 "PHP files parse",
@@ -56,19 +64,9 @@
                 "3 checked"
             ],
             [
-                "Migrations only add",
-                true,
-                "1 checked"
-            ],
-            [
-                "Migrations ran on staging",
-                true,
-                "Ran 2026-11-15_drop_off_category.sql"
-            ],
-            [
                 "Pages answer",
                 true,
-                "2 pages answered on staging.trvgo.us"
+                "2 pages answered on traversence.com"
             ],
             [
                 "No new fatal errors in the logs",
@@ -98,6 +96,16 @@
             "at": "2026-11-15T01:19:07+00:00",
             "by": 0,
             "msg": "Put on staging (5 files); its checks passed."
+        },
+        {
+            "at": "2026-11-15T01:19:09+00:00",
+            "by": 0,
+            "msg": "Approved in chat before it was sent through git, and its checks on staging passed: publishing by itself."
+        },
+        {
+            "at": "2026-11-15T01:19:09+00:00",
+            "by": 0,
+            "msg": "Published: 4 files, after its 1 migration ran first (2026-11-15_drop_off_category.sql; a copy of what each touched is kept 14 days); everyone at once (no switch)."
         }
     ]
 }
