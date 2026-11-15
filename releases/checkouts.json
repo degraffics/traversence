@@ -133,6 +133,19 @@
    "expires": "2026-11-16T02:12:11Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/admin/operations-console.php",
+   "functions": [
+    "tv_admin_mod_board"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kE9dUdSmDQpFmDsKE",
+   "why": "Start the system (Jason, 2026-11-15; decisions/0163 \u00a710)",
+   "since": "2026-11-15T22:12:13Z",
+   "expires": "2026-11-16T02:12:13Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": []
