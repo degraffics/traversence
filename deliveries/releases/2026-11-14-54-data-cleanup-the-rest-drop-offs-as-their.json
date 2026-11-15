@@ -6,77 +6,99 @@
     "zip": "data-cleanup-dropoffs_20261115.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "staged",
-    "step": 0,
+    "state": "live",
+    "step": 3,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
     "plan_at": "2026-11-15 02:00:05",
     "staged_at": "2026-11-15 02:00:07",
-    "vetted_at": null,
-    "live_at": null,
+    "vetted_at": "2026-11-15 11:56:03",
+    "live_at": "2026-11-15 11:56:03",
     "files": {
         "app/admin/cleanup-console.php": {
             "sha": "9e88eb7e33a96d91e3834ed9dbbb13e187a7bb13963cb53bc3b04ff20665d982",
             "size": 30104,
-            "live_was": "c47297cf7b00d2793dbaa005fab69e0487eddcce65692a43faf90b0458027732"
+            "live_was": "c47297cf7b00d2793dbaa005fab69e0487eddcce65692a43faf90b0458027732",
+            "existed": true,
+            "old_sha": "c47297cf7b00d2793dbaa005fab69e0487eddcce65692a43faf90b0458027732"
         },
         "app/ui/faq.md": {
             "sha": "0111b96af36318b97eb35f7ab2d9e964bbaaac9bcd985d28a707768f6ac6863b",
             "size": 297655,
-            "live_was": "3bff5bb3984ab5690cec7d2f36c06ec73cd48bdf9f57775cc1049425edb25b21"
+            "live_was": "3bff5bb3984ab5690cec7d2f36c06ec73cd48bdf9f57775cc1049425edb25b21",
+            "existed": true,
+            "old_sha": "3bff5bb3984ab5690cec7d2f36c06ec73cd48bdf9f57775cc1049425edb25b21"
         },
         "app/lib/PlaceScope.php": {
             "sha": "ef06828d28ec08ca05b2e4548d823ea66fe10b895942bdb18224a3e215f45419",
             "size": 7981,
-            "live_was": "f0309975f43f7d049c8ee7cda6a68ee3e64e98ca1b4b7bbb97c6c72e88fec388"
+            "live_was": "f0309975f43f7d049c8ee7cda6a68ee3e64e98ca1b4b7bbb97c6c72e88fec388",
+            "existed": true,
+            "old_sha": "f0309975f43f7d049c8ee7cda6a68ee3e64e98ca1b4b7bbb97c6c72e88fec388"
         },
         "app/lib/Guides.php": {
             "sha": "ec64a35a5602882820ac772066a566d34b2313aabd44f8208fae12311a9b0db8",
             "size": 133442,
-            "live_was": "03925502944cf2bda9c913ec027235dc240b17ad7207b44765cc54c8b09d0ed7"
+            "live_was": "03925502944cf2bda9c913ec027235dc240b17ad7207b44765cc54c8b09d0ed7",
+            "existed": true,
+            "old_sha": "03925502944cf2bda9c913ec027235dc240b17ad7207b44765cc54c8b09d0ed7"
         },
         "app/lib/DataCleanup.php": {
             "sha": "144a2ead41c783864719a702fefbac6f34b018c5a6bcccd279a661164ab1ffe0",
             "size": 108878,
-            "live_was": "0420df5ee92a2a85a09ac49a37c28f92982a73dec4d6609b2d5d29f77473807e"
+            "live_was": "0420df5ee92a2a85a09ac49a37c28f92982a73dec4d6609b2d5d29f77473807e",
+            "existed": true,
+            "old_sha": "0420df5ee92a2a85a09ac49a37c28f92982a73dec4d6609b2d5d29f77473807e"
         },
         "app/lib/crawler/AutoImport.php": {
             "sha": "b74a84772d7454c8e9c70b60d8ce101df76265e0cc2c02bed69decf07800565c",
             "size": 53044,
-            "live_was": "873dc34faba053e6c9f96f410d3f4595bd8941a68a9ab802615cc2e4e050c7cc"
+            "live_was": "873dc34faba053e6c9f96f410d3f4595bd8941a68a9ab802615cc2e4e050c7cc",
+            "existed": true,
+            "old_sha": "873dc34faba053e6c9f96f410d3f4595bd8941a68a9ab802615cc2e4e050c7cc"
         },
         "app/lib/OpenPlaces.php": {
             "sha": "7ea4c3ee4f147a4c8f0b9984c57d916686a1b1ffa141c9c20111e64996632700",
             "size": 25000,
-            "live_was": "90b37a7a667f0d262daed171969342ff1f464315ea5669c28a615be9751a7774"
+            "live_was": "90b37a7a667f0d262daed171969342ff1f464315ea5669c28a615be9751a7774",
+            "existed": true,
+            "old_sha": "90b37a7a667f0d262daed171969342ff1f464315ea5669c28a615be9751a7774"
         },
         "app/lib/Claims.php": {
             "sha": "4bbbdcc9ceb07b9e1fc7adbcd2c10b10fc217c8a4684998d396a8fb8841a01d3",
             "size": 56743,
-            "live_was": "71211f91b2942ee22011b537f76d948716787de996155503b8f931754e365947"
+            "live_was": "71211f91b2942ee22011b537f76d948716787de996155503b8f931754e365947",
+            "existed": true,
+            "old_sha": "71211f91b2942ee22011b537f76d948716787de996155503b8f931754e365947"
         },
         "website/listing/view.php": {
             "sha": "4fd0f85f8d7e9d65d00b93553736448e9818b908029f055309152b3b924f7472",
             "size": 53165,
-            "live_was": "f5f788e3eaeb09767fe676ec6aae847ba48abbcf14c6c9d9ab5351a17a7598c6"
+            "live_was": "f5f788e3eaeb09767fe676ec6aae847ba48abbcf14c6c9d9ab5351a17a7598c6",
+            "existed": true,
+            "old_sha": "f5f788e3eaeb09767fe676ec6aae847ba48abbcf14c6c9d9ab5351a17a7598c6"
         },
         "website/api/search_listings.php": {
             "sha": "80067650d94274f6cd2d2a41aede2438c6a7f0bc5dbd26d8db2661d9cfce3798",
             "size": 35577,
-            "live_was": "04940ab8aa4398bb38284a3af796effa4867e6d91c1962062e875de215eb3f50"
+            "live_was": "04940ab8aa4398bb38284a3af796effa4867e6d91c1962062e875de215eb3f50",
+            "existed": true,
+            "old_sha": "04940ab8aa4398bb38284a3af796effa4867e6d91c1962062e875de215eb3f50"
         },
         "website/claim.php": {
             "sha": "5fdeda86b2aba9801957c365be7840296088778ed3907198692148d567d78f20",
             "size": 26356,
-            "live_was": "df7bd8e072ab9c82ec9c62cd0aa3aef1f13274945ea0adeb6006bf3f1409ac01"
+            "live_was": "df7bd8e072ab9c82ec9c62cd0aa3aef1f13274945ea0adeb6006bf3f1409ac01",
+            "existed": true,
+            "old_sha": "df7bd8e072ab9c82ec9c62cd0aa3aef1f13274945ea0adeb6006bf3f1409ac01"
         }
     },
     "migrations": [],
     "checks": {
         "ok": true,
-        "where": "staging",
-        "at": "2026-11-15T02:00:08+00:00",
+        "where": "live",
+        "at": "2026-11-15T11:56:04+00:00",
         "items": [
             [
                 "PHP files parse",
@@ -86,7 +108,7 @@
             [
                 "Pages answer",
                 true,
-                "4 pages answered on staging.trvgo.us"
+                "4 pages answered on traversence.com"
             ],
             [
                 "No new fatal errors in the logs",
@@ -146,6 +168,16 @@
             "at": "2026-11-15T11:55:54+00:00",
             "by": 2,
             "msg": "Review Functional: approved (Jason DeGraff) [on /]."
+        },
+        {
+            "at": "2026-11-15T11:56:03+00:00",
+            "by": 2,
+            "msg": "Signed off by Publish, after a look on staging."
+        },
+        {
+            "at": "2026-11-15T11:56:03+00:00",
+            "by": 2,
+            "msg": "Published: 11 files; everyone at once (no switch)."
         }
     ]
 }
