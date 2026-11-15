@@ -52,10 +52,11 @@ size and time (reads up to 6,000 per store; Preview one rule at a time if every 
 
 ## Step 2: act, ledger, Undo (`data-cleanup-act_20261114.zip`, built on Sync 2026-11-14 23:28 UTC)
 
-**State:** sent to the inbox, PR open, **waiting for Jason's OK to merge**. Claims held by this session: `DataCleanup.php`,
-`cleanup-console.php`, `ListingConfidence.php::compute`, `UniversalSearch.php::peekOutdoors`, `ContentTags.php::card`
-(change); `Pulse.php`, `Scheduler.php`, `Automation.php`, the migration and the script (add). After it's live: run the
-sync, `deliveries.py verify`, and ask Jason to run a pass one rule at a time (the junk names first).
+**State:** live as release #50 (2026-11-14), merged on Jason's "merge it" (PR #681); its migration ran at Publish. Sync
+23:59 UTC: all 10 files match the live mirror byte for byte, the migration deleted; delivery verified, claims released.
+Next: Jason runs passes one rule at a time (junk names first), then the rest; the daily pass stays off until he switches it
+on (and automation is on). Later: the "Help us find this business" card (0164 §3.5) takes the `help_find` targets, and
+landmarks' story-only level (P5-3) takes the `protected_open` ones.
 
 | File | What |
 |---|---|
