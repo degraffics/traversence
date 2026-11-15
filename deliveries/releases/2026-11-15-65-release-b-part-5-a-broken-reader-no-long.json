@@ -6,12 +6,12 @@
     "zip": "release-b5.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "planned",
+    "state": "approved",
     "step": 0,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
-    "plan_at": null,
+    "plan_at": "2026-11-15 20:13:52",
     "staged_at": null,
     "vetted_at": null,
     "live_at": null,
@@ -76,6 +76,16 @@
             "at": "2026-11-15T20:13:50+00:00",
             "by": 0,
             "msg": "Uploaded release-b5.zip: 10 files."
+        },
+        {
+            "at": "2026-11-15T20:13:52+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/release-b5.zip (git 48dd6de505)."
+        },
+        {
+            "at": "2026-11-15T20:13:52+00:00",
+            "by": 0,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
         }
     ]
 }
