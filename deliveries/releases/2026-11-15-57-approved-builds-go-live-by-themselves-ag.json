@@ -6,40 +6,50 @@
     "zip": "release-0165b-approved-builds-live.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "staged",
-    "step": 0,
+    "state": "live",
+    "step": 3,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
     "plan_at": "2026-11-15 15:38:05",
     "staged_at": "2026-11-15 15:38:06",
-    "vetted_at": null,
-    "live_at": null,
+    "vetted_at": "2026-11-15 16:04:58",
+    "live_at": "2026-11-15 16:04:58",
     "files": {
         "app/admin/sections.php": {
             "sha": "6e28adc0a00f30d801a309f9f684bd9507844a010906af1782ffb7c7037901fd",
             "size": 231520,
-            "live_was": "87a4af47d7502299dd5cd6cd3becdb275f7da4a382aab924df07673fcab8c738"
+            "live_was": "87a4af47d7502299dd5cd6cd3becdb275f7da4a382aab924df07673fcab8c738",
+            "existed": true,
+            "old_sha": "87a4af47d7502299dd5cd6cd3becdb275f7da4a382aab924df07673fcab8c738"
         },
         "app/ui/faq.md": {
             "sha": "fb4e4fe3527b1311a019997325ac3fa6ef20bc272baee2e962f643cecc95a5c0",
             "size": 304613,
-            "live_was": "eafbf7aa0736f760ad6217e2cc7ba4f2d5a082cf9063ac40e6a7d9d383bb59e3"
+            "live_was": "eafbf7aa0736f760ad6217e2cc7ba4f2d5a082cf9063ac40e6a7d9d383bb59e3",
+            "existed": true,
+            "old_sha": "eafbf7aa0736f760ad6217e2cc7ba4f2d5a082cf9063ac40e6a7d9d383bb59e3"
         },
         "app/lib/StagingApi.php": {
             "sha": "b9a354ed4a2d68b35ad122636efbfb899c8b24b946b79bc85bc904dc12f52fae",
             "size": 14597,
-            "live_was": "8c61f02645ee63453bcc4bbdf4aeb4c7cf481d3b51b0f82352ea1e48827eac13"
+            "live_was": "8c61f02645ee63453bcc4bbdf4aeb4c7cf481d3b51b0f82352ea1e48827eac13",
+            "existed": true,
+            "old_sha": "8c61f02645ee63453bcc4bbdf4aeb4c7cf481d3b51b0f82352ea1e48827eac13"
         },
         "app/lib/Releases.php": {
             "sha": "54a01e29c219374fa9bef88a8f7a9ef8cce6205ed53bf6805a588286dd023764",
             "size": 107662,
-            "live_was": "4049a54cfd85b89bd19924acf1baf083a36cdca4778962b6bb6fe2901aab68f7"
+            "live_was": "4049a54cfd85b89bd19924acf1baf083a36cdca4778962b6bb6fe2901aab68f7",
+            "existed": true,
+            "old_sha": "4049a54cfd85b89bd19924acf1baf083a36cdca4778962b6bb6fe2901aab68f7"
         },
         "website/js/stg-bar.js": {
             "sha": "60e2ff6202940d1ae2f9a0ae5ac96f9c29299bb7b4b348177e5b7669a7ce0aba",
             "size": 40322,
-            "live_was": "84bdcbdbbe2d0c25b43bcd1f6ff767e260c52361d9e1d9244c46d7610a2964e5"
+            "live_was": "84bdcbdbbe2d0c25b43bcd1f6ff767e260c52361d9e1d9244c46d7610a2964e5",
+            "existed": true,
+            "old_sha": "84bdcbdbbe2d0c25b43bcd1f6ff767e260c52361d9e1d9244c46d7610a2964e5"
         }
     },
     "migrations": [],
@@ -86,6 +96,16 @@
             "at": "2026-11-15T15:38:07+00:00",
             "by": 0,
             "msg": "Put on staging (5 files); its checks passed."
+        },
+        {
+            "at": "2026-11-15T16:00:17+00:00",
+            "by": 2,
+            "msg": "Opened on staging by Jason DeGraff (the staging bar)."
+        },
+        {
+            "at": "2026-11-15T16:04:58+00:00",
+            "by": 2,
+            "msg": "Published with all of staging (4b0b500f9a70): 5 files; everyone at once (no switch)."
         }
     ]
 }
