@@ -6,12 +6,12 @@
     "zip": "release-stgbar2.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "planned",
+    "state": "approved",
     "step": 0,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
-    "plan_at": null,
+    "plan_at": "2026-11-15 18:57:13",
     "staged_at": null,
     "vetted_at": null,
     "live_at": null,
@@ -29,6 +29,16 @@
             "at": "2026-11-15T18:57:12+00:00",
             "by": 0,
             "msg": "Uploaded release-stgbar2.zip: 1 files."
+        },
+        {
+            "at": "2026-11-15T18:57:13+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/release-stgbar2.zip (git 6614e3edc2)."
+        },
+        {
+            "at": "2026-11-15T18:57:13+00:00",
+            "by": 0,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
         }
     ]
 }
