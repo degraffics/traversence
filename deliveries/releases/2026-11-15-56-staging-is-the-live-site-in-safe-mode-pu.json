@@ -1,0 +1,189 @@
+{
+    "id": 56,
+    "title": "Staging is the live site in safe mode; Publish merges it into live (decisions/0165)",
+    "why": "Staging becomes the place to work, and Publish the one door into live for code and data together. What changes, in plain words:\n\n1. Nothing goes live by itself any more. Every build waits on staging, and releases stack there: a file a later release changes again shows 'replaced by #N'. Publish takes everything on staging at once. The urgent fix keeps its own path.\n\n2. Safe mode is closed. Every outside effect from staging is held, sandboxed or paced, and is listed in one place, Held:\n   - email (Send to me sends one to you, marked as from staging);\n   - paid services and AI, including Gemini, openrouteservice and Pixabay, which weren't held before;\n   - free public data, read but paced well inside live's limits (bulk pulls are held);\n   - payments, which refuse to run on staging if a live payment key is in its .env.\n   Every staging page also carries a Content Security Policy, and anything it blocks shows in Held. A nightly scan lists any outside call in the code that skips the gate. The zip check now refuses a new one (R13), and refuses a new table that has no class in the table register (R14). The weekly copy over staging has stopped; Start staging over is now a button, and it says what staging would lose before it runs.\n\n3. Keeping staging caught up. This ships OFF: you switch it on, on System Configuration → Staging.\n   - Switching it on starts staging over once, so the two sides match.\n   - From then on, each change on live is pushed to staging within a minute. It is noted in a small outbox beside the table and sent by a job.\n   - What you do on staging is kept. A row both sides changed goes on the Conflicts list.\n   - A full check runs nightly.\n   - Live keeps its numbers. When live takes a number staging had used, staging's row moves to a new number, and every link to it moves too (the register of record numbers).\n   - 'Staging runs its own jobs' is a second switch, also off.\n\n4. Publish is a merge.\n   - Preview shows what changes on live, counted by kind, plus what isn't carried and why.\n   - Conflicts are shown side by side (base, staging, live), and you choose Keep live or Use staging.\n   - Publish runs on the server one step at a time, while live stays open. A write-ahead journal records each row as it was before each write. If a step fails, everything written is undone at once, last write first.\n   - Rows made on staging take live's numbers.\n   - Never carried: views, counts, test data, money or people's stand-in details.\n   - Held emails are offered afterwards on To send now.\n   - Roll back undoes the whole publish for 14 days.\n\nLive behaves as before until you use these. The new jobs do nothing until staging is caught up or a publish is running, and live's outbox triggers exist only once you switch catch-up on. No migrations: staging's own tables are made in staging's databases when first needed.\n\nWhere to look on staging: the site manager at the top of any page.\n   - Staging ▾ has the line ('Staging · N releases waiting · …'), Preview and publish, Conflicts, Held and To send now.\n   - Releases ▾ → a release → Changes shows 'replaced by'.\n   - Do something that sends an email (for example a password reset for a test account), then open Held and Send to me.\n   - On the live admin, System Configuration → Staging has 'Staging against live', the two switches, the service-by-service staging answers, and Start staging over.\n\nTested without the live database, on MariaDB: 49 rule tests and 49 database tests (catch-up, renumbering across two databases, preview, publish, a forced failure undone backward, a late change, roll back). Test files: tools/staging-tests/ in the docs repo.",
+    "proposals": "decisions/0165",
+    "zip": "release-0165-staging-safe-mode.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/admin/sections.php": {
+            "sha": "87a4af47d7502299dd5cd6cd3becdb275f7da4a382aab924df07673fcab8c738",
+            "size": 230244,
+            "live_was": "939b5b999cf7754f030c673e951f7448fad45534a9fe25ae30b73026c06123ed"
+        },
+        "app/ui/faq.md": {
+            "sha": "eafbf7aa0736f760ad6217e2cc7ba4f2d5a082cf9063ac40e6a7d9d383bb59e3",
+            "size": 304449,
+            "live_was": "1a934ef70d9b54f6160e97710b414d58aa00cd8c7d7c9047f39e6493f5ce91cd"
+        },
+        "app/scripts/staging_tick.php": {
+            "sha": "2422dd81830217d2bf36b1b41220275a63c2bfb1a4eb2c2a73e4d63066968864",
+            "size": 741,
+            "live_was": "f92fdc8b10fd1891d5f81c5af00b9d5ecf1fc1f779725c73a5dcf17cebaba75b"
+        },
+        "app/scripts/staging_publish_tick.php": {
+            "sha": "5a692a8099ca12c97761808803f9d19aa776dcfaacf48c6b153d22c6ded889ae",
+            "size": 1874,
+            "live_was": null
+        },
+        "app/scripts/staging_push_tick.php": {
+            "sha": "69447163b1735c7bf5dc23796600498d2e831b6c44cfdd3a83ff09dcc79e8721",
+            "size": 1464,
+            "live_was": null
+        },
+        "app/scripts/staging_night_tick.php": {
+            "sha": "6484a1742a1dab7686080bacbdbdc2e5aa5f167c0545c394f1149e3e15f1f83f",
+            "size": 2621,
+            "live_was": null
+        },
+        "app/lib/ServiceHealth.php": {
+            "sha": "82c2a3bf12583a484b23437a8ca90464fcb0f3f394f70e5857b483da899f73ba",
+            "size": 40763,
+            "live_was": "9b0822fed614eb7bf717675886add7152694363ba524b136eec224f416bcbb34"
+        },
+        "app/lib/Scheduler.php": {
+            "sha": "46b15a5bb7884e47cca1f8ad108e5eba66e1ef8ba53e767faebaade934430436",
+            "size": 25373,
+            "live_was": "4fd97784c71ea70d98bbca586d6a80af6de06d3fef9efd716c2e29a9a91108f3"
+        },
+        "app/lib/Operations.php": {
+            "sha": "6e18edf122e9d41df995e2d87863feb1e3e444f0a2852d7cbb7e7ab5e2949019",
+            "size": 44418,
+            "live_was": "f3bc2759f965a03e16cf153ba483015c974eace3031b8b6811f3c7ce6201096e"
+        },
+        "app/lib/DailyReport.php": {
+            "sha": "fdda4aa416dbf11f13026847f34ca276573761a1d9b86585f542132989a3cac1",
+            "size": 23846,
+            "live_was": "44332f1a0eda92247bfcaa635c2bfa09091600b1c156f98cae34da201b9f1294"
+        },
+        "app/lib/Staging.php": {
+            "sha": "a668cc898d9073e68dc4b15ddee95c59abe40542c6be23da456f958d0f5dc352",
+            "size": 15002,
+            "live_was": "98e628db9b27621535245b00cdca25902341ec1ca4b0b8160ed2cd2ad7a41ebb"
+        },
+        "app/lib/StagingMerge.php": {
+            "sha": "3430e0589692c13b225c92539f550cf42b857265bdaedd44894ac366aa735f75",
+            "size": 7698,
+            "live_was": null
+        },
+        "app/lib/StagingSite.php": {
+            "sha": "5d45a3c5011c0a0c3fc94cdf90b066ea3723ce1198d6397b3f91e533a1ea6753",
+            "size": 102700,
+            "live_was": "628b5677d6097626cc5753d152abac595593e0b9b5a6f7b7eb9f1b74fc558796"
+        },
+        "app/lib/Geocoder.php": {
+            "sha": "f16e3ff2ff28db59c8481631b920013fb2f44160b3534399b8838fbaad724ef3",
+            "size": 19546,
+            "live_was": "1756e60c6afb1a84d583687a93ecd590bbb9b858952f981e3f08b2be50a662b3"
+        },
+        "app/lib/StagingGate.php": {
+            "sha": "e6a74e8073a8a7d4dc3c4eb361342c907eaf3bf5387493597d8823164f841a58",
+            "size": 21522,
+            "live_was": null
+        },
+        "app/lib/StagingApi.php": {
+            "sha": "8c61f02645ee63453bcc4bbdf4aeb4c7cf481d3b51b0f82352ea1e48827eac13",
+            "size": 14608,
+            "live_was": null
+        },
+        "app/lib/PlaceFinder.php": {
+            "sha": "f32a2a7bc60cadcbaafbef8e069c795bb022d2023a4c492b8fb7ce384c4fe4c9",
+            "size": 48793,
+            "live_was": "b76654e6ecf75f718f5d13ff3c3f3d8215d1102ccb6a24e2f146b0896643a3d7"
+        },
+        "app/lib/StagingSync.php": {
+            "sha": "d64d6cc5d2473c7f134015791a58e8b45c2f9f5df28741625e70a874203778be",
+            "size": 43472,
+            "live_was": null
+        },
+        "app/lib/TravelLegs.php": {
+            "sha": "fc0f44ddff54da6e9d68eea94180529ba8fdbd22ef875dd97a47d8a65c6d7989",
+            "size": 10322,
+            "live_was": "de25c7018db9b439d4e2b7fa6450f05300d1a63f0c4a59c5f903c0cfb4e1a26f"
+        },
+        "app/lib/QuickBooksPay.php": {
+            "sha": "0fa03bd74df7b1560ef64d7e5c827426682eed38b8eeedebb0bf0c1968ca762a",
+            "size": 76785,
+            "live_was": "77de442ebf0d033c5cfde1002ea43862ce62d35d598eb39b2c556a6b13e341ff"
+        },
+        "app/lib/staging-tables.php": {
+            "sha": "9de0e7df1a46744f524b7c0d637ea118e8afd342d4ec8971fbc66f9e416b5555",
+            "size": 16134,
+            "live_was": null
+        },
+        "app/lib/StagingPublish.php": {
+            "sha": "11c952c4d76ba423b85029beacd7f228fe67cef3b0bd5b6f278e1c644e64b32b",
+            "size": 49688,
+            "live_was": null
+        },
+        "app/lib/Releases.php": {
+            "sha": "4049a54cfd85b89bd19924acf1baf083a36cdca4778962b6bb6fe2901aab68f7",
+            "size": 104315,
+            "live_was": "233b15138c514a3f452c4ee176d3024ef87e3fecb7614a1fe0cf0ff3cb4cc6f1"
+        },
+        "app/lib/StagingIds.php": {
+            "sha": "5ebf7f264eceeecc4fc6e76a4e348a1670be4e480c9d1044d04509fc27e93aac",
+            "size": 8119,
+            "live_was": null
+        },
+        "app/lib/Database.php": {
+            "sha": "9c94e80359decae26b2e2e101ad9134d863a97c230e03953afdd399b7dda0ca8",
+            "size": 12834,
+            "live_was": "108516ecacd601583e6151d7f4c8c63cd74f673bb7a3a4117322239333e6367c"
+        },
+        "app/lib/AiClient.php": {
+            "sha": "996e7c7b3c93a1d26269d088776085a5a8fcaec3974c12c38ada6b6a71568b86",
+            "size": 31233,
+            "live_was": "8419aefc6e8521e641314ea386c40ba1ad5c2f930acb6a7a3d5c4f38c470a487"
+        },
+        "app/lib/stock/StockSource.php": {
+            "sha": "6007ae0d9207ce75850bbe8de3b4629473c15a282673cbe1ecf04e1d0e8fee65",
+            "size": 3520,
+            "live_was": "a8c6133dd6dcdab5151726f85319e2e28f0fdb429ea3eb498362a2c8b7e6d169"
+        },
+        "website/admin/api.php": {
+            "sha": "c07b7f19c3d67bbeb73c4dde0cc65a3f53542b3ad2874eea8e412000e0cbb7b2",
+            "size": 21051,
+            "live_was": "abce251b19574ff67ee16133992190c69406df13bace39ea5447342c8fd2877e"
+        },
+        "website/api/stg-csp.php": {
+            "sha": "80bd86ba8986ada9c5a58d57bb881fe3de149a28649dd1effcbd6c577e556cf7",
+            "size": 1263,
+            "live_was": null
+        },
+        "website/api/release-bar.php": {
+            "sha": "1919491e6f9c9f918bacc234b297df09254d1fe754429dbdb2ef601cccc4a9b0",
+            "size": 4886,
+            "live_was": "760447493d8b8dedf6757f4bf2589a289bd5d5a91c8d329247d586fbbcceeb00"
+        },
+        "website/js/stg-bar.js": {
+            "sha": "84bdcbdbbe2d0c25b43bcd1f6ff767e260c52361d9e1d9244c46d7610a2964e5",
+            "size": 40053,
+            "live_was": "9288a5eae5ffd9cbe55aab100705e3dd41242b3da99f11f6e91c2e34379199f1"
+        },
+        "website/js/admin-staging.js": {
+            "sha": "c94fb51ac60a1c3ed26f1afe5ae30341204f042fead32234b5f6b2578e6d515b",
+            "size": 11833,
+            "live_was": "790ef4bc27d52e02feb4ecd23c59b1fcea45d44ed4ea5cad093c6da5cbdd6b6c"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-15T15:16:17+00:00",
+            "by": 2,
+            "msg": "Uploaded release-0165-staging-safe-mode.zip: 32 files."
+        }
+    ]
+}
