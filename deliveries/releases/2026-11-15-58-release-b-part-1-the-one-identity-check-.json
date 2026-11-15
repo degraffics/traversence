@@ -1,0 +1,347 @@
+{
+    "id": 58,
+    "title": "Release B, part 1: the one identity check, \"The engine needs a person\", and everything before any switch-on",
+    "why": "decisions/0163 §8 (\"before any switch-on\", stage 7 and stage 8's first step), decisions/0164 §3.1, §3.2's note, §3.5, §5.4, §6.1, §0.8; handoffs/duplicates.md; handoffs/release-b.md. Everything ships switched off: the master switch stays off, the identity recheck is a W2 task added off, Gemini and the new services are added paused, no workflow or load runs. (1) One identity check on every path that creates or un-hides a listing (the crawler's publish whoever approves, the ingest API, people's and staff's adds, every Show, Undo, Put back and Help us find answer), read fresh with no cap inside an identity lock, with the tuned match rules; merges fill gaps only, move every row that points at the listing, add up views, and undo exactly; a person's \"a different business\" is kept on the pair for good. (2) The identity recheck (W2 task recheck, off): exact twins merge by themselves, variations go to Vet this place, the rest to the identity queue; Pulse case #23's 60 offers are rechecked first. (3) The engine's one Pulse case, \"The engine needs a person\" (X3): the identity queue (Merge, Keep apart, Make a sales lead, Make an admin task), banned services, sites that block us, finds out of options. (4) A banned service is never lifted by itself: a passing check says \"looks lifted\" with Reactivate; after 3 days still refused a person evaluates it (P1-2). A site that blocks us is held with Reactivate, never retried by itself. (5) The clocks count only switched-on time (X1), due dates move on by the pause at switch-on, and each workflow drains at half for 14 days after it comes back on. (6) W1 and W8 gate on 0164's real-business floor and readiness (X2); listing_one_source and Find it's score no longer gate. (7) The Gemini client with its privacy guards (stage 7): only public pages, private details and held names removed first, prompts built from our own vocabulary, its daily allowance with a reserve; AI use's Provider choice is greyed with the reason for every feature that isn't public. (8) Cards for Overture, Foursquare, Geofabrik, the Arizona Corporation Commission, New Mexico's Secretary of State and Arizona's licence lists, all added off, their caps and paces in the register. (9) The crawler's four approved releases (W6, W9, W10/W11, W12) and the map tiles to OpenStreetMap's tile policy. (10) The switch-on check's Release B lines are real tests now. (11) The NPI load folds each batch (one operator's records at one base become one find) and runs the identity check before staging. (12) decisions/0165's open item: the register of record numbers places 179 more *_id columns (the 68 the preview listed among them), and reads owner_type, record_kind, scope_type, target_type and context_type as kind columns, so Keep staging caught up can be switched on later; the 0165 tests pass (49 unit, 49 database). Database updates: 2026-11-16_listing_identity (listing keys and indexes, identity_pairs, identity_merges, engine_steps) and 2026-11-16_ai_provider (ai_features.provider); both add only, safe to run twice. Built on Sync 2026-11-15 16:06 UTC.",
+    "proposals": "handoffs/release-b.md, handoffs/duplicates.md, decisions/0163 §8, §10, §11, §12, decisions/0164 §0.8, §3.1, §3.2, §3.5, §5.4, §6.1",
+    "zip": "release-b1.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/admin/sections.php": {
+            "sha": "3fed8d34e8cd013b5a5d21098d1d650be9c8ce77b9dd4cd4d1d72271a70859d3",
+            "size": 233121,
+            "live_was": "6e28adc0a00f30d801a309f9f684bd9507844a010906af1782ffb7c7037901fd"
+        },
+        "app/ui/faq.md": {
+            "sha": "8e76a5415bd1338edc8640140ed313b5da0867d7db7e2a7b74cb8fc0b55cfb4a",
+            "size": 307806,
+            "live_was": "fb4e4fe3527b1311a019997325ac3fa6ef20bc272baee2e962f643cecc95a5c0"
+        },
+        "app/migrations/2026-11-16_listing_identity.sql": {
+            "sha": "a396c515c0ad1956d63221eb5c007034c5dab1be5c3a266462e98ffdd6fbebaa",
+            "size": 5533,
+            "live_was": null
+        },
+        "app/migrations/2026-11-16_ai_provider.sql": {
+            "sha": "b2e3137787c1facf979558a5fc467f1a655a95e0537ba76cb3633f1422948a0c",
+            "size": 658,
+            "live_was": null
+        },
+        "app/scripts/listings_tick.php": {
+            "sha": "f6bfd3450ac56fa2b4336e9276362f8b534022b71b6dda93fba7f0cb8efd9eea",
+            "size": 2573,
+            "live_was": "eb3c86ea2808695e10aac93e88818af9caaca6a91ddfdf8da2b0742fb9425402"
+        },
+        "app/scripts/identity_recheck_tick.php": {
+            "sha": "0e72c54fd0a3d311d6ea46ad61460380c1feb3a13656416387b46df00a791d0e",
+            "size": 1584,
+            "live_was": null
+        },
+        "app/lib/ListingIdentity.php": {
+            "sha": "61d930040176b403494a11daadd519c8acf2fd406341573d9b78efb9c5e0dc66",
+            "size": 54415,
+            "live_was": null
+        },
+        "app/lib/ServiceHealth.php": {
+            "sha": "a2184ff061f90e458a155b919c1a429eee2497313fb80c6cdbda970a779f2465",
+            "size": 43017,
+            "live_was": "82c2a3bf12583a484b23437a8ca90464fcb0f3f394f70e5857b483da899f73ba"
+        },
+        "app/lib/Scheduler.php": {
+            "sha": "517a16aae59559fdddf60343f7444754f54090e411c92b77c131e49de0292778",
+            "size": 25746,
+            "live_was": "46b15a5bb7884e47cca1f8ad108e5eba66e1ef8ba53e767faebaade934430436"
+        },
+        "app/lib/Operations.php": {
+            "sha": "e8cb7f623c06db7e0b5bce471777743d0a41bfdd449bef890ea668ec49cc1319",
+            "size": 53909,
+            "live_was": "6e18edf122e9d41df995e2d87863feb1e3e444f0a2852d7cbb7e7ab5e2949019"
+        },
+        "app/lib/GuideLinks.php": {
+            "sha": "bcb5b87e295731b9ad15d72098aabf9a261d50fafad2d7d68b218a84786ed6d6",
+            "size": 54358,
+            "live_was": "ba26bbfe405ba034d2da7a3a31c1f8faedfa11c3b74c11a021fae75c47462b51"
+        },
+        "app/lib/Guides.php": {
+            "sha": "e74212617925d4f2e9ca276a95fbd18ef7deb03e1a80817f443e06cf96ddd0f1",
+            "size": 133713,
+            "live_was": "31d328d1e2f6979cd7bd071c82e4637f1f4b92d9cfd1b3622174d96cf0d172ad"
+        },
+        "app/lib/Dossier.php": {
+            "sha": "852f8eb5812ea8d0722a2ac15dc66da4adc3aea9df2d15d370ce3fadb7d0fcf8",
+            "size": 31201,
+            "live_was": "7c5f7b75ff0d5f1eab4efa82abff7b97be6eabb4898d4f4311a74e15b546368b"
+        },
+        "app/lib/Gemini.php": {
+            "sha": "07a23a98bf1d2b5c233f207f1c661a1153b985d1bf6e994c695f9621aa90c169",
+            "size": 14963,
+            "live_was": null
+        },
+        "app/lib/ListingBulk.php": {
+            "sha": "c780179e1c667412007d1daf4612a50c440cb07c75a4712ab62fdff765b91860",
+            "size": 13564,
+            "live_was": "9bf015e1885fab44d4d54ba225a4d41a479cb8049a43cf7849122069b55d661c"
+        },
+        "app/lib/Thresholds.php": {
+            "sha": "0fe4958c1f22fcebeb3e1932e81427f6d0a859e10d9fe41bf2e783e1304d0f08",
+            "size": 19349,
+            "live_was": "2fea93673d7446896ffa1cb21a59e9164eae41ea951c44adc77d16fb8f54df09"
+        },
+        "app/lib/IdentityJobs.php": {
+            "sha": "a1d3eb57a5924bd471d2aaaf442c7a9b2fb885b61763a1d5861c4d200d27def2",
+            "size": 22942,
+            "live_was": "3571c8503641b88cc85cecf09abe9765a14690bd7579729587cb27cd2a0bfb6d"
+        },
+        "app/lib/StagingGate.php": {
+            "sha": "cee4e0beff7cafba8cf1534c368cf9b9f27c8c7776189ef7b14b50ffcf45d5a4",
+            "size": 21652,
+            "live_was": "e6a74e8073a8a7d4dc3c4eb361342c907eaf3bf5387493597d8823164f841a58"
+        },
+        "app/lib/Heritage.php": {
+            "sha": "3b06ca5e81052fc040c61ccde457a8e55ac088d6f7b0bf831bd6ed756747251e",
+            "size": 37020,
+            "live_was": "d36e1aa3f39f92287b8c68a6332511df45ad38fe5529ef7c45c674061e4fc6d9"
+        },
+        "app/lib/HowGuides.php": {
+            "sha": "cf76097607f92a26016908fc8d5155c330e1e7804d4c57b6e4a2eb2914471f34",
+            "size": 19928,
+            "live_was": "3b2bfe975663adcb9649881d4f83dcb50e8579f102b19432fd3567223a058713"
+        },
+        "app/lib/DataCleanup.php": {
+            "sha": "25cd632a29c6ca1e09856464b491739a7dde7ae19c67ce3ce57f84d123f8399d",
+            "size": 113151,
+            "live_was": "ed4de077fa6b7c39554218da2dc59bdcd545f148253bb4de506a1986071ba484"
+        },
+        "app/lib/WorkflowSettings.php": {
+            "sha": "866de61f7f839e59b66433ae0e10d0de965b6b278f1d7d1a653363e4e42c0a1e",
+            "size": 15254,
+            "live_was": "6af6ba88b72a450d6726a0870e981b0e212ea3e6c649484ac1d79d77f3c1dab1"
+        },
+        "app/lib/PlaceFinder.php": {
+            "sha": "64a7d96f926696081d84ef62e644a6ddc7e1ccefc77650106f988ca627e763d0",
+            "size": 49063,
+            "live_was": "f32a2a7bc60cadcbaafbef8e069c795bb022d2023a4c492b8fb7ce384c4fe4c9"
+        },
+        "app/lib/HelpFind.php": {
+            "sha": "dd83b6ee838ad8007a5a0971540be14284a30c691b24e404765a79534141af85",
+            "size": 14872,
+            "live_was": "0af13a1cbf936a23737cadde14a45e6cbdb42924e6e22bab327df8f2c3e61904"
+        },
+        "app/lib/crawler/SecondTier.php": {
+            "sha": "9297b23c7bfb29ce1016b2cad4e40412f75119cd62d05bb2d5bcdd180439070c",
+            "size": 24980,
+            "live_was": "640c3670da31521d91b556bff6996631f5071007eb0eb6e14a49885d7b1c812c"
+        },
+        "app/lib/crawler/LiveDupes.php": {
+            "sha": "ce60490aa01fb755f4b58bede6950acd9d39446cdbbb46050f0652d88e2a9444",
+            "size": 7387,
+            "live_was": "7be5060c07e353aa5b6e061bd19c80bdd21bdfe2b4c9b55420454030630ad87e"
+        },
+        "app/lib/crawler/CrawlService.php": {
+            "sha": "5930062cc606852cd61108eb2a944b914e19555d292dd51875ead8f426d7011d",
+            "size": 33599,
+            "live_was": "df2d0ddf9157a1ab2c6ae53145af70c80f92149e1dcd0898a7fa9f742d169b27"
+        },
+        "app/lib/crawler/TownCrawl.php": {
+            "sha": "14449ff62aa3f506840c8893f79372e9b805d0cecfce58bc7ddd56248f2d88b6",
+            "size": 19080,
+            "live_was": "70830da38b1ca053ad0f1cfd8de2ba7787c042b864928f8b0a7ed7bfa161b3a6"
+        },
+        "app/lib/crawler/IntakeStager.php": {
+            "sha": "0d3d8bda6fc650bd7c273b560f11a61896aa6d44854f6a37b453e9cc889712e9",
+            "size": 63649,
+            "live_was": "7a4682ffcfe7619f231a08ab111084009f5d1faf34cf0e5e4235c03b5a4fad8e"
+        },
+        "app/lib/crawler/SourceIndex.php": {
+            "sha": "93020c755ee51748bb9ae427c575a492a194d4503e67a6dee8344e03b4c1446a",
+            "size": 67711,
+            "live_was": "613ed7efea4f08e67c36ba886879640fb9ff0c61e6cc82490bb536e09eb7dd5c"
+        },
+        "app/lib/crawler/NpiBulk.php": {
+            "sha": "217d233f21c8fe6b16512b17487fbe3e4d5bdf1ce35d9e3b772d69238372ea81",
+            "size": 14869,
+            "live_was": "c1dc0b37911bab186f262181f984d3f2b21cd09f9876bcabd0e330a53d2ce584"
+        },
+        "app/lib/crawler/AutoImport.php": {
+            "sha": "d2fa1fd609ab87839d58a70d56fbd3c53cf1e26e2c5736620d52d873724850d4",
+            "size": 57940,
+            "live_was": "b74a84772d7454c8e9c70b60d8ce101df76265e0cc2c02bed69decf07800565c"
+        },
+        "app/lib/crawler/SiteFetcher.php": {
+            "sha": "9af059950ba722f15d7319cf6fadb6d88a3125746a536441b992d0ba9f318801",
+            "size": 18336,
+            "live_was": "03a3da46d2cf5a4bcb2ac3ac10dfbf4265252cee778569099368afd0a1eb9b5d"
+        },
+        "app/lib/crawler/CrawlQueue.php": {
+            "sha": "2c447ab5149dbb3af83baa591fab9264a057cdbd2d6ccf2d2cba81511b530d0f",
+            "size": 20240,
+            "live_was": "8af0c213f4d5ce380b7fdf78263df9362a7893141600ebc216b15e16c09a6ca0"
+        },
+        "app/lib/crawler/Refresh.php": {
+            "sha": "278489502622bd1ffa2872e883844a1bdb39dc02782c9643bfc6e2f01ea99f0c",
+            "size": 27454,
+            "live_was": "826aeeedc7d1d84342f0705d35416abf800d839f929f2a8ff3cf002ffe3eb656"
+        },
+        "app/lib/Clocks.php": {
+            "sha": "8c860d9f7a6dbd71a1140f672bc4efc5632187bfc4713a6f8331812e5ac7a5b1",
+            "size": 6861,
+            "live_was": null
+        },
+        "app/lib/Sales.php": {
+            "sha": "e8398883ddae43df5fc30162d921de8219ff8cae8290c30e7ff67387c7a0e8f9",
+            "size": 29014,
+            "live_was": "a8f6b0806f4c0fc76bf4556c41bad4b2150e1ee6b0f83559423ec95a2cf1ab6c"
+        },
+        "app/lib/AddBusiness.php": {
+            "sha": "956c86744326f804100ab9abed5baf05913049e683b8c70755a51a8b12b27442",
+            "size": 26715,
+            "live_was": "085a46b840389d662be797985ef8f5d071b51b8f89368e6287a17143ded033dc"
+        },
+        "app/lib/OutsideServices.php": {
+            "sha": "a0f8b69aa7d51d8ba5c219998f27507d140cae636ceebb8fd96de69578a92e88",
+            "size": 76205,
+            "live_was": "76b0d87f3f0fe8591fb0b6a7e130250f5852415b7823e47a8075bc8e59cd7f16"
+        },
+        "app/lib/staging-tables.php": {
+            "sha": "d5d67f7441fcd0c1812b73816124488a4d074c737aeb004a3f8432aab2208a9a",
+            "size": 24339,
+            "live_was": "9de0e7df1a46744f524b7c0d637ea118e8afd342d4ec8971fbc66f9e416b5555"
+        },
+        "app/lib/LiveEvents.php": {
+            "sha": "86c4e80df9e4f2dd718487d34e9493cfc8e0b91501bdea515808f464563a5c7b",
+            "size": 21132,
+            "live_was": "d6eebe8494e1a3c582b6b4f45ed74c7d901db052d2aad0ba0a1372f80876233a"
+        },
+        "app/lib/Identity.php": {
+            "sha": "bd6c2bb22e666604e116940355171bfc82baae67adc5da42ff4e6d76f73d4488",
+            "size": 96767,
+            "live_was": "ea2c2a0472353c45f89b37200a3dfff4063ef903b3f48547886dfe2938156f67"
+        },
+        "app/lib/Rebuild.php": {
+            "sha": "09dca91f918efd6f73fe9b495b8bbbf5bcc62d2ce362e9deeab4ce785760bad5",
+            "size": 31074,
+            "live_was": "834e667047b01d04adeb864665b64990d18065bc2f4306c291a9d94493938c05"
+        },
+        "app/lib/Pulse.php": {
+            "sha": "da971bbbece69dc7bb7cec3da9662847136a782f69a03991be2d4c270598dbd5",
+            "size": 135189,
+            "live_was": "c8ff75590c49b96847eeedc21c196deb83cb7bfb8ffc9fc90918d1233ebce926"
+        },
+        "app/lib/Automation.php": {
+            "sha": "c90329754be51a3fef67df010071105256d1742cabd428ee1bfe3836f8ab25cb",
+            "size": 21340,
+            "live_was": "64647883bc6e83e5961075306745344169f39dbf8093a77e313bc691097a02db"
+        },
+        "app/lib/Landmarks.php": {
+            "sha": "79fbc259c2a04faee3af8bbf629434d7d87e7ddc90fc0729a78fc5b4bc52f2b3",
+            "size": 57332,
+            "live_was": "93cdf8a23b8025bbdfc1e6edfb801aac8a2ec6b8ecf7d907d8c7be36a79b625e"
+        },
+        "app/lib/CardScan.php": {
+            "sha": "e95881f95abac830be8094d0333d809c376329617fea092e53bc7aa9a85ad1f7",
+            "size": 22290,
+            "live_was": "64256ae2f7d90cd97f14726a28efeac5c7322b5f40b20add1286d005b8557039"
+        },
+        "app/lib/EngineCase.php": {
+            "sha": "1672c1f707d512952417426d4e694be722faf42269e5f2f15013c25fc3079f84",
+            "size": 23248,
+            "live_was": null
+        },
+        "app/lib/TestAccounts.php": {
+            "sha": "68fa26b56a77a2beeb5b5dc2957e495e982f327059918665948dc2ae05c3fc7b",
+            "size": 12871,
+            "live_was": "c26957486cebeeddede5d1d9cff92ced292c56b0eb36112b698c9a986e6124f4"
+        },
+        "app/lib/StagingIds.php": {
+            "sha": "6a7f7ae54d3444cfbd67804c4e9a3a6699f71133116bd09f4850607b3983cea6",
+            "size": 8193,
+            "live_was": "5ebf7f264eceeecc4fc6e76a4e348a1670be4e480c9d1044d04509fc27e93aac"
+        },
+        "app/lib/AiClient.php": {
+            "sha": "46b933235c678eea2c281019015d3f3c66af977a048d0d87cf692a414c31c0ab",
+            "size": 35582,
+            "live_was": "996e7c7b3c93a1d26269d088776085a5a8fcaec3974c12c38ada6b6a71568b86"
+        },
+        "app/lib/CrawlerIngest.php": {
+            "sha": "b8c92d9e6d680f3e9634b7658d64b2b157f5e747aa9a51bd7780b4e1d8ec605e",
+            "size": 29640,
+            "live_was": "8636fdbc089f72ef280b15d61dbd01652addb9bd5523337f42a8f7be88f3a20e"
+        },
+        "app/lib/Learning.php": {
+            "sha": "5eaf0464357ad5ed796ad3ff0de1e510c571999dfa0db2201b968729bca4df57",
+            "size": 50058,
+            "live_was": "148e628a9f19946cfc46b95c5eb4be76df3d9da17d6c2a495738ac9709aa4827"
+        },
+        "website/listing/location.php": {
+            "sha": "74660c07c90e30302c8655b526a146ecbca0ba0fdb967a60e01eff07d31188e7",
+            "size": 11823,
+            "live_was": "048e7f6409966e13b692b841ddcd36f5a171d3645e190f3638c392f050b47fd9"
+        },
+        "website/admin/review-item.php": {
+            "sha": "74dbe2a81a2ea27a884628ca7d5c837d31d6a72094d54810d136b8607d6a3190",
+            "size": 21027,
+            "live_was": "db39219e70d82cbee5d362367589302641af84b2d1e582696fd86ce637bf58ef"
+        },
+        "website/admin/listing-edit.php": {
+            "sha": "1b9db383e4005aabba8508093d65e9ce86219197759b22166bc102f911d2c290",
+            "size": 24173,
+            "live_was": "1c7bcc1e4d9e88326f0769f012e2c3f57ebd39e31624726f645eefa3836c6a93"
+        },
+        "website/admin/listing-add.php": {
+            "sha": "ad1fc4ee72fe6ae1ff4e5fcbe6d613836a62909f647bb14595f7079ea88818fe",
+            "size": 6954,
+            "live_was": "cc37fb5fff925f77ba2015f716c53b8955c04d23fa1a398029a6beebf8ec26e9"
+        },
+        "website/user/journeys/compose.php": {
+            "sha": "5e13ba8892704f6099c9bafd85db9c1e9cbb15e6966d371bc0c0b66af42f8b4a",
+            "size": 37234,
+            "live_was": "84033c2aafe079d55a3d74e382b6b4c9e1a5ddbfac3f1352b84f9a490d615933"
+        },
+        "website/api/ingest.php": {
+            "sha": "78bd19f3b0f0bae41870cec0b3c9e295197ca3f7266162807cd020bff8d5e369",
+            "size": 3895,
+            "live_was": "df59894092caa6ec71b5acdcde0847056f3283b0568b6dd7c24df3ac45ae9a93"
+        },
+        "website/directory/index.php": {
+            "sha": "6ccc8d95b23ef1a1dc91fb9c7d3018415986241f110f28f492d50b03f5aeae12",
+            "size": 61541,
+            "live_was": "fe64c6637556c8ecdd158edb5b3e10658deca8bca77424e12ade124891431c28"
+        },
+        "website/directory/classic.php": {
+            "sha": "3928d75e09bf698f214d80a33365d41286ef9f152fb30c406d51062491f98da1",
+            "size": 106204,
+            "live_was": "512c6a8472748bb41c6fa38e3389aa0d6baa65211d0c8af39b760b884d6c8574"
+        },
+        "website/js/map-view.js": {
+            "sha": "547651ffabcb86487cd120f780d4da296dacc7655883d85ddcf94337cb72dac2",
+            "size": 67940,
+            "live_was": "3830c9373e1c3ce91269f106bc3c5218e5f03d4e908d15c8343568972e98ea2a"
+        },
+        "website/js/suggest.js": {
+            "sha": "6d344eb07e396cc2628bd971c50211fc6c9e24ff6ecb48f88e657e3c98e48f4c",
+            "size": 20906,
+            "live_was": "ce39696e88ebc73bc54f8483e88329381cfd3ee76fdc731bb40ae47ae32e10c9"
+        }
+    },
+    "migrations": [
+        "app/migrations/2026-11-16_listing_identity.sql",
+        "app/migrations/2026-11-16_ai_provider.sql"
+    ],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-15T17:19:04+00:00",
+            "by": 0,
+            "msg": "Uploaded release-b1.zip: 63 files."
+        }
+    ]
+}
