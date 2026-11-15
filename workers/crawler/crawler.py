@@ -3366,8 +3366,8 @@ def geofabrik_probe():
             out.append({"state": state, "ok": False, "status": e.code, "bytes": 0, "why": f"HTTP {e.code}"})
         except Exception as e:
             out.append({"state": state, "ok": False, "status": 0, "bytes": 0, "why": repr(e)[:200]})
-    site_call("/api/crawl/loads.php", {"geofabrik_probe": out})
     log("geofabrik test: " + "; ".join(f"{o['state']} {o['status'] or o['why']} {o['bytes']} bytes" for o in out))
+    site_call("/api/crawl/loads.php", {"geofabrik_probe": out})
     return True
 
 HANDLERS = {
@@ -3642,6 +3642,14 @@ if __name__ == "__main__":
         os._exit(1)                                # a failed run on Railway, never "succeeded" (the review's F27)
     if hasattr(signal, "SIGALRM"):
         signal.signal(signal.SIGALRM, _stop)
+    # Geofabrik's one test download (0163 §8 stage 8's first step), asked for by a person setting GEOFABRIK_PROBE=1 on
+    # Railway for one run: it runs whatever the switches say (a small ranged read of each state's file, never the real
+    # work), logs the answer, sends it to the site when the site takes it, and the run then goes on as usual.
+    if os.environ.get("GEOFABRIK_PROBE") == "1":
+        try:
+            geofabrik_probe()
+        except Exception as e:
+            log(f"geofabrik test: the site didn't take the answer ({e!r}); the log line above has it"[:300])
         signal.alarm(int(os.environ.get("RUN_LIMIT", "1800")))
     if not SITE or not TOKEN:
         log("TRAVERSENCE_URL and CRAWLER_API_TOKEN must be set.")
