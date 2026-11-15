@@ -265,3 +265,50 @@ commit = live). The zip is built from `git diff --name-only <first commit>`.
   keys); §12's lead order and Google check order; the gaps list under stage 8 (P3-2 … P6-1, F1–F3, P1-3, P1-4);
   "Left from Release A" (other callers onto ServiceHealth, one price per service, caps still in code, the worker's limits
   from the plan, the Railway keys line, routes and AI shares read).
+
+**2026-11-15 17:30 UTC (Jason: "yes to 2-6, go ahead"):** B1 merged (PR #706), waiting on staging for his review.
+Worker 2.7.0 merged (PR #707) and deployed (Railway deployment `e44cbc40`, its one run: "paused"). Geofabrik's test
+(`GEOFABRIK_PROBE=1`, one redeploy, `a4a84503`):
+- **Geofabrik from Railway: `OSError 101 Network is unreachable`** for both states (0 bytes). Per 0163 §8 stage 8: no more
+  tries there; the next is another free OSM mirror (e.g. openstreetmap.fr's or BBBike's extracts), a worker change.
+- **The site answered the worker 409 with a cookie challenge** (`humans_21909=1`, Bluehost's bot protection) on
+  `/api/crawl/loads.php`, `usage.php` and `service.php`, a minute after the deploy's run got through. Until the host lets
+  Railway's calls through (cPanel / the host's bot protection), the crawler can't talk to the site: **a switch-on blocker**.
+- **Railway's restart policy was ON_FAILURE** (not railway.json's NEVER): the failing run was restarted 8 times in 30 s.
+  Set to NEVER through the API, the deployment stopped, `GEOFABRIK_PROBE` deleted. Cron is null.
+
+**17:40 UTC: B2 now also carries stages 9–11's first parts** (the patch in `release-b-pending/b2/change.diff`, on B1):
+`GeminiCompare.php` (AI use → "Compare Claude and Gemini", the sample comparison; Gemini prompt `extract_compare`),
+`Vectors.php` + `scripts/vectors_tick.php` (job `vectors_tick`, W3, feature `vector_index` off; the Supabase setup SQL is
+`Vectors::setupSql()`; `search()` comes with its first caller), `HubOpening.php` (hub stages, W14's `authority_sources`
+staged by hand for AZ and NM, the "Hubs" Pulse case `hubs:all` with permission `hubs.open`, the switch-on hub lines; W14 in
+`Automation::WORKFLOWS`, its `crawl_workflows` row added paused), migrations `2026-11-16_open_loads.sql`,
+`2026-11-16_hubs.sql`. Waiting for B1 (#58) to go live, then rebuilt on the live copy and sent.
+Worker 2.7.1 on branch `claude/release-b3-worker` (not merged): Geofabrik's test goes to OpenStreetMap France's extracts
+(`OSM_EXTRACT_BASE`); its paths (`arizona`, `new_mexico`) unchecked from here.
+
+**17:50 UTC, the host's bot check (session manager, at Jason's ask):** Bluehost's Apache-level check answers about one in
+three calls to `/api/` with 409 `document.cookie = "humans_21909=1"; …`. **Stopgap until Bluehost exempts /api/ (Jason
+opened a ticket):** worker 2.7.2 (branch `claude/release-b3-worker`, test `workers/crawler/tests/test_site_call.py`, 6
+pass) always sends the cookie, reads a new name from the challenge, retries once, paces site calls (`SITE_GAP` 0.6 s),
+and reports a refusal as held (`SiteBotCheck`, the report's `site_blocked`). The staging bar's call to live
+(`website/api/stg-bar.php`) does the same, in `release-stgbar` (PR #708, with the bar fixed along the bottom: it
+flashed and vanished at the top, so B1's review couldn't be given). Railway's restart policy stays NEVER.
+
+**18:10 UTC (Jason: "yes to both"):** PR #708 (release-stgbar) and worker 2.7.2 (PR #710) merged. Railway deployment
+`80c9512a` (2.7.2): its run reached the site and answered "paused" (no 409). One test run (`9f1b50f4`, GEOFABRIK_PROBE=1,
+then deleted): **OpenStreetMap France answered 404** for `…/extracts/north-america/us/arizona-latest.osm.pbf` and
+`new_mexico`: Railway reaches it (so Geofabrik's "unreachable" is Geofabrik-specific), but the path is wrong; find the
+right extract path (it couldn't be listed from this sandbox) before the next one test. `loads.php` 404'd as expected
+(B2 isn't live). Restart policy NEVER, no cron, variable removed.
+
+**19:00 UTC: B1 (#58) and the staging bar (#59) live**, Sync 18:22 UTC, 61/61 and 2/2 files byte for byte; their claims
+released; the delivery log reads both live. B1's review was given through the live Releases page's API (the staging bar
+still didn't show for Jason; cause not found, `website/js/stg-bar.js` now fixed along the bottom with a re-attach).
+**Release B2 sent for review:** `releases/inbox/release-b2.zip` (25 files, built on Sync 18:22 UTC, zip check clean,
+claims `release-b2`), the patch kept in `release-b-pending/b2/change.diff` (on b1 = live). Besides the 17:40 parts:
+`website/robots.txt` + `website/sitemap.php` (Jason: the site had neither; public pages only, 404 on staging), the
+review's three parts on the live Releases page (`sections.php` release card, `admin-releases.js` `data-rel="review"`,
+`Releases::reviewPart` fills the staff name), a fix to B1 (`ListingIdentity::settleOffers`: a merged pair's offer had both
+ids on the keep and was never marked used), `tv_vectors` classed never, FAQ entries (open datasets, search engines).
+Tests on Sync 18:22 + B2: staging unit 49, identity 36, Gemini 21; both migrations run twice clean.

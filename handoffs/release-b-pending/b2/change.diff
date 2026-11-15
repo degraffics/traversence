@@ -1,3 +1,95 @@
+diff --git a/app/admin/sections.php b/app/admin/sections.php
+index 60eb3f9..1d5e6a3 100644
+--- a/app/admin/sections.php
++++ b/app/admin/sections.php
+@@ -363,6 +363,25 @@ function tv_admin_mod_ai(PDO $pdo): string
+             . '<button class="ak-b go"' . $dis . '>Save</button></form>';
+         $h .= tv_admin_fold($name, $status . ($pz ? ' · paused' : ''), !$c['enabled'] ? '' : ($ok ? 'ok' : ($pz ? 'info' : 'bad')), '', $body, false);
+     }
++    // the sample comparison (decisions/0164 §2.3, 0163 §11): before a director moves page_read to Gemini, a sample read by both
++    require_once __DIR__ . '/../lib/GeminiCompare.php';
++    if ($can && ($_SERVER['REQUEST_METHOD'] ?? '') === 'POST' && isset($_POST['ai_compare']) && hash_equals($csrf, (string) ($_POST['csrf'] ?? ''))) {
++        try { $me = Auth::currentUser(); GeminiCompare::run($pdo, (int) (Auth::currentUserId() ?? 0), (string) ($me['display_name'] ?? 'staff')); $h .= '<p class="ak-flash" role="status" data-tv-flash="ok">The comparison ran: its pages are below.</p>'; }
++        catch (Throwable $e) { $h .= '<p class="ak-flash bad" role="status" data-tv-flash="error">' . tv_w_e($e->getMessage()) . '</p>'; }
++    }
++    $cmp = GeminiCompare::last($pdo);
++    $cb = '<p class="ak-note">A sample of up to ' . GeminiCompare::PAGES . ' public pages from the source register, cleaned of private details and held names, read by Claude (Haiku, inside the AI cap) and by Gemini\'s free tier, side by side. It decides nothing: moving "Read a public page into facts" to Gemini is its Provider choice above, your call once you\'ve seen this.</p>'
++        . '<form method="post"><input type="hidden" name="csrf" value="' . tv_w_e($csrf) . '"><input type="hidden" name="ai_compare" value="1"><button class="ak-b go"' . ($can ? '' : ' disabled title="' . tv_w_e($why) . '"') . ' data-confirm="Read up to ' . GeminiCompare::PAGES . ' public pages with both? Claude\'s side is counted against the AI cap." data-yes="Compare">Compare Claude and Gemini</button></form>';
++    if ($cmp) {
++        $cb .= '<p class="ak-note">Last run <time datetime="' . tv_w_e((string) $cmp['at']) . '" data-tv-time>' . tv_w_e((string) $cmp['at']) . '</time> by ' . tv_w_e((string) $cmp['by']) . '.</p>';
++        foreach ((array) $cmp['pages'] as $p) {
++            $list = fn (array $xs) => $xs ? '<ul class="ak-note">' . implode('', array_map(fn ($x) => '<li>' . tv_w_e(implode(' · ', array_filter(array_map('strval', array_intersect_key((array) $x, array_flip(['name', 'street', 'city', 'phone', 'website'])))))) . '</li>', array_slice($xs, 0, 12))) . '</ul>' : '<p class="ak-note">Nothing.</p>';
++            $cb .= '<div class="ak-card"><p><b>' . tv_w_e((string) $p['url']) . '</b> · agree ' . (int) $p['agree'] . '%' . ($p['removed'] ? ' · removed first: ' . tv_w_e(implode(', ', array_map(fn ($k, $n) => $n . ' ' . $k, array_keys((array) $p['removed']), (array) $p['removed']))) : '') . '</p>'
++                . ($p['why'] !== '' ? '<p data-tv-status="info" data-tv-label="Note:">' . tv_w_e((string) $p['why']) . '</p>' : '')
++                . '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(16rem,1fr));gap:.6rem"><div><b>Claude</b>' . $list((array) $p['claude']) . '</div><div><b>Gemini</b>' . $list((array) $p['gemini']) . '</div></div></div>';
++        }
++    }
++    $h .= tv_admin_fold('Compare Claude and Gemini (the sample comparison)', $cmp ? 'Last run ' . substr((string) $cmp['at'], 0, 10) : 'Not run yet', '', '', $cb, false);
+     $other = [];   // what else spent this month (card scans, brochures, menus), under the overall cap only
+     foreach (AiClient::monthBy($pdo) as $prov => $row) foreach ((array) ($row[2] ?? []) as $kind => $n) if (!isset(AiClient::FEATURES[$kind])) $other[] = $kind . ' (' . (int) $n . ')';
+     if ($other) $h .= '<p class="ak-note">Also this month, under the overall cap only: ' . tv_w_e(implode(', ', $other)) . '.</p>';
+@@ -1938,6 +1957,18 @@ function tv_admin_mod_releases(PDO $pdo): string
+                     break;
+                 }
+                 $acts .= $btn('stage', $id, 'Put it on staging again', 'releases.publish');
++                // its review here too (Jason, 2026-11-15: the staging bar wasn't there, so the review couldn't be given): UI, UX
++                // and Functional, each Approve or Needs changes with a note; Publish opens when all three are approved
++                if (($rv = Releases::review($pdo, $id)) !== null) {
++                    $acts .= '<div class="ak-form" style="display:grid;gap:.45rem;margin:.5rem 0"><b>Review</b>';
++                    foreach (Releases::REVIEW_PARTS as $pk => [$pn, $pw]) {
++                        $pp = $rv['parts'][$pk] ?? []; $st = ($pp['ok'] ?? null) === true ? '✓ Approved' . (!empty($pp['by']) ? ' by ' . $pp['by'] : '') : (($pp['ok'] ?? null) === false ? '✗ Needs changes: ' . (string) ($pp['note'] ?? '') : 'Waiting for you');
++                        $acts .= '<div><span><b>' . $e($pn) . '</b> · ' . $e($pw) . ' · <i>' . $e($st) . '</i></span><div style="display:flex;gap:.35rem;flex-wrap:wrap;align-items:center;margin-top:.25rem">'
++                            . '<input class="ak-in" data-spell data-rel-note="' . $id . ':' . $pk . '" placeholder="What needs changing (for Needs changes)" aria-label="What needs changing in ' . $e($pn) . '" style="flex:1 1 14rem">'
++                            . $btn('review', $id, 'Approve', 'releases.publish', 'go', ['data-part' => $pk, 'data-ok' => '1']) . $btn('review', $id, 'Needs changes', 'releases.publish', '', ['data-part' => $pk, 'data-ok' => '0']) . '</div></div>';
++                    }
++                    $acts .= '</div>';
++                }
+                 // its checks passed: Publish and Schedule now, each the sign-off once someone has looked at it on staging (decisions/0159 §5)
+             case 'vetted':
+             case 'scheduled':
+diff --git a/app/lib/AiClient.php b/app/lib/AiClient.php
+index 7c5d806..a3eee08 100644
+--- a/app/lib/AiClient.php
++++ b/app/lib/AiClient.php
+@@ -26,7 +26,7 @@ final class AiClient
+         'guide_names' => 'research', 'content_names' => 'person', 'guide_find' => 'research', 'place_about' => 'research', 'source_terms' => 'public',
+         'find_settle' => 'listing', 'page_extract' => 'public', 'page_read' => 'public', 'guide_draft' => 'research', 'guide_draft_auto' => 'research', 'guide_ondemand' => 'research',
+         'guide_research' => 'research', 'guide_triage' => 'research', 'heritage_extract' => 'archive', 'topic_summary' => 'research', 'topic_assist' => 'person',
+-        'topic_research' => 'research', 'live_events' => 'public', 'fact_check' => 'person', 'item_write' => 'person',
++        'topic_research' => 'research', 'live_events' => 'public', 'fact_check' => 'person', 'item_write' => 'person', 'vector_index' => 'public',
+     ];
+     public const INPUT_CLASSES = [
+         'public' => 'a public page, with R6\'s private details removed first', 'research' => 'our research (dossiers, briefs, guides), which can hold names we keep back',
+@@ -102,6 +102,7 @@ final class AiClient
+         // the second tier, where the free steps fall short (decisions/0157): off until Jason switches each on and sets its budget
+         'source_terms' => ['Source terms (second tier)', 'Reads the terms of a website waiting for a call (a chamber, a tourism site, an organization) and decides whether our crawler reads it regularly or only cites it, with the exact sentence it relied on (a quote not in the terms isn\'t used). Never a tribal nation\'s site.', 'claude-haiku-5-5', 20, 0, false],
+         'find_settle' => ['Settle a find (second tier)', 'Looks up on the web a business the free steps couldn\'t confirm (waiting in Review after the second look): open, closed or not found, each with its sources and the words on them, checked on the pages themselves. Confirmed ones are published through the usual rules, closed ones turned down (undoable in Review); the rest stay for a person. Never places on a nation\'s land or kept private.', 'claude-sonnet-5-5', 20, 3, false],
++        'vector_index' => ['The vector index (semantic search)', 'Public text of listings (name, kind, town, what they show the public) turned into vectors by Gemini\'s free embedding model and kept on Supabase\'s free tier (decisions/0164 §5.2). Never contact details, a person\'s words or held names. Off until switched on.', 'claude-haiku-5-5', 1000, 0, false],
+         'page_read' => ['Read a public page into facts (Step 2)', 'The narrative waterfall (decisions/0164 §2.3): a public page the code-first step couldn\'t read is read into facts by AI, on Claude, or on Gemini\'s free tier once a director moves it there after the sample comparison. Only public pages, with people\'s private details and held names removed first. Off until switched on.', 'claude-haiku-5-5', 200, 0, false],
+         'page_extract' => ['Read a page through Tavily (second tier)', 'A page of a source we read that our crawler couldn\'t fetch, or that shows nothing without a browser: Tavily Extract reads its text (about $0.0016 a page; TAVILY_API_KEY on the worker). Never a page robots.txt or the site refuses. Pages a day and pages a crawler run are set here.', 'claude-haiku-5-5', 30, 3, false],
+         'scan_read' => ['Read a scanned PDF (second tier)', 'A scanned PDF (pictures of pages, no text) on a source we read: AWS Textract reads it (about $0.0015 a page, one page at a time for now), and our crawler reads its text into places like any page. Runs a day here are scans a day.', 'claude-haiku-5-5', 10, 0, false],
+diff --git a/app/lib/Automation.php b/app/lib/Automation.php
+index 3c78bb1..39cbbcd 100644
+--- a/app/lib/Automation.php
++++ b/app/lib/Automation.php
+@@ -40,6 +40,7 @@ final class Automation
+         'W11' => ['How-to guides', 'Official pages read into how-to guides.', 'crawler'],
+         'W12' => ['Search learning', 'What people search, learned; gaps queued for the crawler.', 'crawler'],
+         'W13' => ['Stories', 'Person-written only: no crawler. Its named places go to Find it (W8).', 'people'],
++        'W14' => ['Authority sources', 'Each state\'s licence and registry sources found, their terms read and readers tested, and staged switched off ahead of its hubs (decisions/0164 §7.1).', 'crawler and site'],
+     ];
+ 
+     /** The site's scheduled jobs that gather or create content: job => its workflows. A job skips when the master is
+@@ -53,7 +54,8 @@ final class Automation
+         'listings_tick' => ['W1'],
+         'landmark_photos_tick' => ['W9'],
+         'data_cleanup_tick' => ['W1'],
+-        'identity_recheck_tick' => ['W2'],   // the identity recheck (decisions/0164 §6.1): W2's task `recheck`, shipped off   // Data cleanup's daily pass (decisions/0163 §8 stage 1b): under the master switch, and shipped off
++        'identity_recheck_tick' => ['W2'],
++        'vectors_tick' => ['W3'],   // the vector index's upkeep (decisions/0164 §5.2), under Supabase's card; shipped off   // the identity recheck (decisions/0164 §6.1): W2's task `recheck`, shipped off   // Data cleanup's daily pass (decisions/0163 §8 stage 1b): under the master switch, and shipped off
+     ];
+ 
+     /** AI features a person presses for themselves (a staff member in the admin, a member, a business): the master and
 diff --git a/app/lib/DataCleanup.php b/app/lib/DataCleanup.php
 index 64d1232..7b30488 100644
 --- a/app/lib/DataCleanup.php
@@ -14,6 +106,303 @@ index 64d1232..7b30488 100644
          return date('Y-m-d H:i:s', ($now ?? time()) + $days * 86400);
      }
  
+diff --git a/app/lib/Gemini.php b/app/lib/Gemini.php
+index a035af5..94faa95 100644
+--- a/app/lib/Gemini.php
++++ b/app/lib/Gemini.php
+@@ -28,6 +28,7 @@ final class Gemini
+     /** Prompts built by the system: template => [text with {fields}, the fields' vocabularies]. Nothing else is ever sent. */
+     public const PROMPTS = [
+         'extract_places' => ["Read the public web page below. List each business, organization or public place it names in {town}, {state}, as JSON lines with the keys name, street, city, zip, phone, website, kind. Use kind values from this list only: {kinds}. Leave a key empty when the page doesn't say it. Don't guess and don't add anything the page doesn't say. Never include people's names unless the person is the business.\n\nPAGE:\n{page}", ['town' => 'town', 'state' => 'state', 'kinds' => 'kinds', 'page' => 'page']],
++        'extract_compare' => ["Read the public web page below. List each business, organization or public place it names, with its street, city, phone and website as the page gives them, as JSON lines with the keys name, street, city, phone, website. Leave a key empty when the page doesn't say it. Don't guess.\n\nPAGE:\n{page}", ['page' => 'page']],
+         'extract_facts' => ["Read the public web page below about {name}. Give, as JSON with the keys hours, phone, website, street, open, the facts the page states about it. Leave a key empty when the page doesn't say it. Don't guess.\n\nPAGE:\n{page}", ['name' => 'listing', 'page' => 'page']],
+     ];
+ 
+diff --git a/app/lib/GeminiCompare.php b/app/lib/GeminiCompare.php
+new file mode 100644
+index 0000000..73aa96d
+--- /dev/null
++++ b/app/lib/GeminiCompare.php
+@@ -0,0 +1,103 @@
++<?php
++// app/lib/GeminiCompare.php — The sample comparison before any feature moves to Gemini (decisions/0164 §2.3, 0163 §11:
++// "a director's call on AI use, made after the sample comparison: a sample read by both, side by side"). A director
++// presses Compare on AI use: up to 5 public pages from the source register (sites we read, never cite-only) are fetched
++// once, cleaned by Gemini::safe, and read by Claude (Haiku, inside the AI cap, counted) and by Gemini (the free tier,
++// through every gate). Both answers are kept side by side with how far they agree, for the director to judge. Nothing is
++// stored as a fact; nothing is listed. It changes no provider: moving page_read is the separate Provider choice.
++declare(strict_types=1);
++
++require_once __DIR__ . '/Database.php';
++require_once __DIR__ . '/Gemini.php';
++require_once __DIR__ . '/AiClient.php';
++
++final class GeminiCompare
++{
++    public const PAGES = 5;
++    private const STATE = 'gemini:compare';
++    private const SCHEMA = ['type' => 'object', 'properties' => ['places' => ['type' => 'array', 'items' => ['type' => 'object',
++        'properties' => ['name' => ['type' => 'string'], 'street' => ['type' => 'string'], 'city' => ['type' => 'string'], 'phone' => ['type' => 'string'], 'website' => ['type' => 'string']],
++        'required' => ['name', 'street', 'city', 'phone', 'website'], 'additionalProperties' => false]]], 'required' => ['places'], 'additionalProperties' => false];
++
++    /** Public pages to compare on: the source register's sites we read (rule "facts"), each one's home page. */
++    public static function pages(PDO $pdo, int $n = self::PAGES): array
++    {
++        require_once __DIR__ . '/crawler/SourceIndex.php';
++        $out = [];
++        try {
++            foreach ($pdo->query("SELECT host, home_url FROM " . Database::t('reference_sources') . " WHERE status = 'read' ORDER BY last_read_at DESC LIMIT 60")->fetchAll(PDO::FETCH_ASSOC) as $r) {
++                if (in_array(SourceIndex::useRule($pdo, (string) $r['host']), ['cite', 'ignore'], true)) continue;
++                $out[] = (string) ($r['home_url'] ?: 'https://' . $r['host'] . '/');
++                if (count($out) >= $n) break;
++            }
++        } catch (Throwable $x) { error_log('gemini compare pages: ' . $x->getMessage()); }
++        return $out;
++    }
++
++    /** Runs the comparison. Returns the stored result: ['at', 'by', 'pages' => [[url, removed, claude[], gemini[], agree, why]]]. */
++    public static function run(PDO $pdo, int $uid, string $who): array
++    {
++        if (($w = Gemini::refused('page_read')) !== null) throw new RuntimeException($w);
++        if (!AiClient::on('gemini')) throw new RuntimeException('Gemini isn\'t connected: add GEMINI_API_KEY to .env (File Manager).');
++        if (!AiClient::on('claude')) throw new RuntimeException('Claude isn\'t connected (ANTHROPIC_API_KEY in .env).');
++        if (AiClient::overCap($pdo)) throw new RuntimeException('The month\'s AI cap is reached: Claude\'s side waits until the 1st.');
++        @set_time_limit(300);
++        require_once __DIR__ . '/crawler/SiteFetcher.php';
++        $res = ['at' => gmdate('c'), 'by' => $who, 'pages' => []];
++        foreach (self::pages($pdo) as $url) {
++            $row = ['url' => $url, 'removed' => [], 'claude' => [], 'gemini' => [], 'agree' => 0, 'why' => ''];
++            try {
++                $pages = (new SiteFetcher(['max_pages' => 1]))->fetch(SiteFetcher::normalizeStartUrl($url))['pages'] ?? [];   // robots.txt, the pace, held sites (SiteFetcher)
++                $text = (string) ($pages[0]['text'] ?? strip_tags((string) ($pages[0]['html'] ?? '')));
++                if (trim($text) === '') { $row['why'] = 'The page didn\'t load (or robots.txt asks us not to).'; $res['pages'][] = $row; continue; }
++                [$clean, $gone] = Gemini::safe($text, $pdo);
++                $row['removed'] = $gone; $clean = mb_substr($clean, 0, 20000);
++                $ask = "Read the public web page below. List each business, organization or public place it names, with its street, city, phone and website as the page gives them; leave a field empty when the page doesn't say it. Don't guess.\n\nPAGE:\n" . $clean;
++                // Claude: Haiku, counted against the AI cap (decisions/0163 §7)
++                $c = AiClient::claudeAsk($ask, self::SCHEMA, 'claude-haiku-5-5', 0, 2048);
++                AiClient::record($pdo, 'page_read', 0, 'done', ['provider' => 'claude', 'model' => 'claude-haiku-5-5', 'in' => (int) ($c['in'] ?? 0), 'out' => (int) ($c['out'] ?? 0), 'micros' => (int) ($c['micros'] ?? 0)], $uid);
++                $row['claude'] = array_slice((array) ($c['data']['places'] ?? []), 0, 40);
++                // Gemini: the free tier, through every gate (Gemini::read), from the same cleaned page
++                $g = Gemini::read($pdo, 'page_read', 'extract_compare', ['page' => $clean], true);
++                if (!$g['ok']) { $row['why'] = 'Gemini: ' . $g['why']; }
++                else $row['gemini'] = self::lines($g['text']);
++                $row['agree'] = self::agree($row['claude'], $row['gemini']);
++            } catch (Throwable $x) { $row['why'] = mb_substr($x->getMessage(), 0, 200); }
++            $res['pages'][] = $row;
++        }
++        require_once __DIR__ . '/SearchIndex.php';
++        SearchIndex::setState($pdo, self::STATE, json_encode($res, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
++        return $res;
++    }
++
++    public static function last(PDO $pdo): ?array
++    {
++        try { require_once __DIR__ . '/SearchIndex.php'; $v = json_decode(SearchIndex::state($pdo, self::STATE), true); return is_array($v) ? $v : null; } catch (Throwable) { return null; }
++    }
++
++    /** Gemini's JSON lines (or a JSON list) as places. */
++    private static function lines(string $t): array
++    {
++        $t = trim(preg_replace('/^```(json)?|```$/m', '', $t));
++        $j = json_decode($t, true);
++        if (is_array($j)) return array_slice(array_values(isset($j['places']) ? (array) $j['places'] : $j), 0, 40);
++        $out = [];
++        foreach (preg_split('/\R/', $t) as $l) { $x = json_decode(trim($l, " ,\t"), true); if (is_array($x)) $out[] = $x; }
++        return array_slice($out, 0, 40);
++    }
++
++    /** Share (0–100) of Claude's names Gemini also found, with the same phone where both give one. */
++    public static function agree(array $a, array $b): int
++    {
++        if (!$a) return $b ? 0 : 100;
++        require_once __DIR__ . '/ListingIdentity.php';
++        $hit = 0;
++        foreach ($a as $x) foreach ($b as $y) {
++            if (!is_array($x) || !is_array($y)) continue;
++            if (ListingIdentity::nameKey((string) ($x['name'] ?? '')) !== ListingIdentity::nameKey((string) ($y['name'] ?? ''))) continue;
++            $p1 = ListingIdentity::phoneKey((string) ($x['phone'] ?? '')); $p2 = ListingIdentity::phoneKey((string) ($y['phone'] ?? ''));
++            if ($p1 === '' || $p2 === '' || $p1 === $p2) { $hit++; break; }
++        }
++        return (int) round(100 * $hit / count($a));
++    }
++}
+diff --git a/app/lib/HubOpening.php b/app/lib/HubOpening.php
+new file mode 100644
+index 0000000..3bb13c9
+--- /dev/null
++++ b/app/lib/HubOpening.php
+@@ -0,0 +1,170 @@
++<?php
++// app/lib/HubOpening.php — Opening a hub and W14, authority sources staged ahead of every hub (decisions/0164 R17, §7.1;
++// 0163 §8 stage 10, §10's hub line; H1–H5):
++//   - a hub's stage on its readiness meter (Planned → Seeding → Opening budget → Soft open → Open), moved by a director;
++//     marking a hub Planned starts W14 for its state (H1), and a state's first hub stays Planned until its R8 record is signed
++//   - W14's staged sources (`authority_sources`): each state's licence and registry sources, status staged and switched
++//     off, with their real use (bulk data, lookup only, blocked, claim-time check: Run 2), their terms and their reader's
++//     test. Government pages, or a vendor page one links to, its link kept as provenance (H2). Arizona's and New
++//     Mexico's are staged by hand from Run 2 (the database update), as 0163 §8 stage 10 allows
++//   - for a hub already open (Arizona's, New Mexico's), a newly staged source switches on from its card once the switch-on
++//     check's hub line passes for it (H3)
++//   - one Pulse case, "Hubs" (H4): a step per thing a person does in a hub's life, each a button
++//   - the opening budget, set per hub, named in the switch-on check when it isn't (H5)
++// W14 runs only on the master, its workflow and its sources' switches; shipped off.
++declare(strict_types=1);
++
++require_once __DIR__ . '/Database.php';
++
++final class HubOpening
++{
++    public const STAGES = ['planned' => 'Planned', 'seeding' => 'Seeding', 'budget' => 'Opening budget', 'soft' => 'Soft open', 'open' => 'Open'];
++    public const USES = ['bulk' => 'Bulk data', 'lookup' => 'Lookup only (paced)', 'blocked' => 'Blocked (a person, or a public-records request for the list)', 'claim' => 'Claim-time check (a number the owner gives)'];
++    public const KEY = 'hubs:all';
++
++    public static function ready(PDO $pdo): bool
++    {
++        try { $pdo->query('SELECT 1 FROM hub_stages LIMIT 0'); $pdo->query('SELECT 1 FROM authority_sources LIMIT 0'); return true; } catch (Throwable) { return false; }
++    }
++
++    /** W14's workflow row on the switches (paused), added once. */
++    public static function ensureWorkflow(PDO $pdo): void
++    {
++        try {
++            $ex = $pdo->query("SELECT COUNT(*) FROM crawl_workflows WHERE wf = 'W14'")->fetchColumn();
++            if ((int) $ex) return;
++            $cols = []; foreach ($pdo->query('SHOW COLUMNS FROM crawl_workflows')->fetchAll(PDO::FETCH_ASSOC) as $c) $cols[$c['Field']] = $c;
++            $want = ['wf' => 'W14', 'name' => 'Authority sources', 'label' => 'Authority sources', 'paused' => 1, 'paused_at' => date('Y-m-d H:i:s'), 'share_pct' => 5, 'why' => 'Added paused (Release B): a person switches it on'];
++            $row = [];
++            foreach ($cols as $f => $c) {
++                if (array_key_exists($f, $want)) { $row[$f] = $want[$f]; continue; }
++                if ($c['Null'] === 'NO' && $c['Default'] === null && !str_contains((string) $c['Extra'], 'auto_increment')) $row[$f] = preg_match('/int|dec/i', (string) $c['Type']) ? 0 : (preg_match('/date|time/i', (string) $c['Type']) ? date('Y-m-d H:i:s') : '');
++            }
++            $pdo->prepare('INSERT IGNORE INTO crawl_workflows (`' . implode('`, `', array_keys($row)) . '`) VALUES (' . implode(', ', array_fill(0, count($row), '?')) . ')')->execute(array_values($row));
++        } catch (Throwable $x) { error_log('W14 row: ' . $x->getMessage()); }
++    }
++
++    /** Hubs with their stage, state and budget: [id => ['name', 'stage', 'state', 'budget', 'set_at']]. */
++    public static function hubs(PDO $pdo): array
++    {
++        $out = [];
++        try {
++            foreach ($pdo->query("SELECT h.id, h.name, s.stage, s.state, s.opening_budget_usd, s.set_at,
++                                         (SELECT z.state FROM geo_hubs g JOIN micro_clusters mc ON mc.geo_hub_id = g.id JOIN zip_coordinates z ON z.zip = mc.primary_zip WHERE g.hub_id = h.id LIMIT 1) AS zstate
++                                    FROM hubs h LEFT JOIN hub_stages s ON s.hub_id = h.id ORDER BY h.id")->fetchAll(PDO::FETCH_ASSOC) as $r)
++                $out[(int) $r['id']] = ['name' => (string) $r['name'], 'stage' => (string) ($r['stage'] ?: 'open'), 'state' => strtoupper((string) ($r['state'] ?: $r['zstate'] ?: '')),
++                                        'budget' => $r['opening_budget_usd'] !== null ? (float) $r['opening_budget_usd'] : null, 'set_at' => (string) ($r['set_at'] ?? '')];
++        } catch (Throwable $x) { error_log('hubs: ' . $x->getMessage()); }
++        return $out;
++    }
++
++    /** A director moves a hub's stage (H1: Planned starts W14 for its state). */
++    public static function setStage(PDO $pdo, int $hub, string $stage, int $uid, string $state = ''): string
++    {
++        if (!isset(self::STAGES[$stage])) throw new InvalidArgumentException('Which stage?');
++        $h = self::hubs($pdo)[$hub] ?? null;
++        if (!$h) throw new InvalidArgumentException('That hub isn\'t here.');
++        $state = strtoupper($state ?: $h['state']);
++        if ($stage !== 'planned' && !self::lawSigned($pdo, $state) && !self::anyOpen($pdo, $state)) throw new InvalidArgumentException('A state\'s first hub stays Planned until its jurisdiction record (R8) is signed.');
++        $pdo->prepare('INSERT INTO hub_stages (hub_id, stage, state, set_by, set_at) VALUES (?, ?, ?, ?, UTC_TIMESTAMP()) ON DUPLICATE KEY UPDATE stage = VALUES(stage), state = VALUES(state), set_by = VALUES(set_by), set_at = VALUES(set_at)')
++            ->execute([$hub, $stage, $state ?: null, $uid ?: null]);
++        return $h['name'] . ': ' . self::STAGES[$stage] . ($stage === 'planned' ? '. W14 stages ' . $state . '\'s authority sources (while W14 is on).' : '.');
++    }
++
++    public static function setBudget(PDO $pdo, int $hub, float $usd, int $uid): void
++    {
++        $pdo->prepare('INSERT INTO hub_stages (hub_id, stage, opening_budget_usd, set_by, set_at) VALUES (?, \'open\', ?, ?, UTC_TIMESTAMP()) ON DUPLICATE KEY UPDATE opening_budget_usd = VALUES(opening_budget_usd), set_by = VALUES(set_by), set_at = VALUES(set_at)')
++            ->execute([$hub, max(0, round($usd, 2)), $uid ?: null]);
++    }
++
++    private static function lawSigned(PDO $pdo, string $state): bool
++    {
++        try { $st = $pdo->prepare("SELECT COUNT(*) FROM jurisdictions WHERE UPPER(code) = ? AND signed_at IS NOT NULL"); $st->execute([$state]); return (int) $st->fetchColumn() > 0; } catch (Throwable) { return false; }
++    }
++
++    private static function anyOpen(PDO $pdo, string $state): bool
++    {
++        foreach (self::hubs($pdo) as $h) if ($h['state'] === $state && in_array($h['stage'], ['soft', 'open'], true)) return true;
++        return false;
++    }
++
++    /** A state's staged sources: [[id, kind, name, url, host, real_use, terms_url, terms_read_at, reader_ok_at, enabled, provenance]]. */
++    public static function sources(PDO $pdo, string $state = ''): array
++    {
++        try {
++            $st = $pdo->prepare('SELECT * FROM authority_sources' . ($state !== '' ? ' WHERE state = ?' : '') . ' ORDER BY state, kind, id');
++            $st->execute($state !== '' ? [$state] : []);
++            return $st->fetchAll(PDO::FETCH_ASSOC);
++        } catch (Throwable) { return []; }
++    }
++
++    /** The switch-on check's hub lines (0163 §10, H3, H5): one per hub past Planned. [what, ok, why, fix, scope]. */
++    public static function lines(PDO $pdo): array
++    {
++        if (!self::ready($pdo)) return [['Opening a geo-hub: its authority sources\' terms and readers, and its opening budget set (H3, H5)', false, 'Its database update (2026-11-16_hubs) hasn\'t run yet.', ['Database updates', '/admin/config/dbupdates']]];
++        $L = [];
++        foreach (self::hubs($pdo) as $id => $h) {
++            if ($h['stage'] === 'planned') continue;
++            $miss = [];
++            foreach (self::sources($pdo, $h['state']) as $s) {
++                if ((string) $s['real_use'] === 'blocked') continue;   // never read by the crawler: a person, or a records request
++                if ($s['terms_read_at'] === null) $miss[] = $s['name'] . ': its terms not read';
++                elseif ((int) $s['enabled'] && $s['real_use'] !== 'claim' && $s['reader_ok_at'] === null) $miss[] = $s['name'] . ': its reader not tested';
++            }
++            $early = in_array($h['stage'], ['seeding', 'budget'], true);
++            if ($early && $h['budget'] === null) $miss[] = 'opening budget not set';
++            $L[] = ['Opening a geo-hub: ' . $h['name'] . ' (' . self::STAGES[$h['stage']] . ')', !$miss, $miss ? ucfirst(implode('; ', array_slice($miss, 0, 6))) . '.' : 'Its authority sources\' terms read and readers passing' . ($early ? ', its opening budget set ($' . number_format((float) $h['budget'], 2) . ')' : '') . '.', ['Hubs (Pulse)', '/admin/pulse'], 'all'];
++        }
++        return $L ?: [['Opening a geo-hub: its authority sources\' terms and readers, and its opening budget set (H3, H5)', true, 'No hub is past Planned without its sources ready.', null, 'all']];
++    }
++
++    // ---- the Hubs case (H4) ------------------------------------------------------------------------------------------
++
++    public static function pulseItems(PDO $pdo): array
++    {
++        if (!self::ready($pdo)) return [];
++        self::ensureWorkflow($pdo);   // W14's row, paused, the first time Pulse looks
++        $n = 0;
++        foreach (self::sources($pdo) as $s) if ($s['terms_read_at'] === null || ((int) $s['enabled'] === 0 && (string) $s['status'] === 'staged' && $s['real_use'] !== 'blocked')) $n++;
++        foreach (self::hubs($pdo) as $h) if (in_array($h['stage'], ['seeding', 'budget'], true) && $h['budget'] === null) $n++;
++        if (!$n) return [];
++        return [[self::KEY, 'update', 'Hubs: ' . $n . ' step' . ($n === 1 ? '' : 's') . ' for a person', 'Authority sources whose terms to read or that can be switched on, and hubs waiting on a stage or their opening budget (decisions/0164 R17, §7.1).', gmdate('Y-m-d H:i:s') . ' UTC']];
++    }
++
++    public static function pulseSteps(PDO $pdo, callable $s): array
++    {
++        $st = [];
++        $stages = array_map(fn ($k, $v) => [$k, $v], array_keys(self::STAGES), self::STAGES);
++        foreach (self::hubs($pdo) as $id => $h) {
++            $st[] = $s($h['name'] . ': ' . self::STAGES[$h['stage']], 'A director moves it when its targets are met. Planned starts W14 for ' . ($h['state'] ?: 'its state') . '.', ['form', 'hub_stage:' . $id, 'Move it', [['stage', 'Stage', 'select', $h['stage'], $stages]]]);
++            if (in_array($h['stage'], ['seeding', 'budget'], true)) $st[] = $s($h['name'] . ': its opening budget' . ($h['budget'] === null ? ' (not set)' : ' ($' . number_format((float) $h['budget'], 2) . ')'), 'A one-time allowance, separate from upkeep, spent highest value first (0163 §2).', ['form', 'hub_budget:' . $id, 'Set it', [['usd', 'Dollars', 'text', $h['budget'] !== null ? (string) $h['budget'] : '']]]);
++        }
++        foreach (self::sources($pdo) as $r) {
++            $id = (int) $r['id']; $use = self::USES[$r['real_use']] ?? $r['real_use'];
++            if ($r['terms_read_at'] === null) $st[] = ['t' => $r['state'] . ', ' . $r['name'] . ': read its terms', 'h' => $use . '. Robots.txt, its terms of use and any data licence: whether automated reading is allowed, and how fast.', 'act' => ['do', 'hub_terms:' . $id, 'Terms read: allowed'], 'auto' => false, 'ext' => ['Its terms', (string) ($r['terms_url'] ?: $r['url'])]];
++            elseif (!(int) $r['enabled'] && $r['real_use'] !== 'blocked') $st[] = $s($r['state'] . ', ' . $r['name'] . ': switch it on', $use . '. For an open hub it switches on from here once the hub line passes (H3).', ['do', 'hub_on:' . $id, 'Switch it on']);
++        }
++        return $st ?: [$s('Nothing waits on a person', 'The case closes by itself.', ['resolve'])];
++    }
++
++    public static function pulseDo(PDO $pdo, string $what, array $a, int $uid): string
++    {
++        if (!preg_match('/^hub_(stage|budget|terms|on):(\d+)$/', $what, $m)) throw new InvalidArgumentException('Unknown step.');
++        $id = (int) $m[2];
++        switch ($m[1]) {
++            case 'stage': return self::setStage($pdo, $id, (string) ($a['stage'] ?? ''), $uid);
++            case 'budget': self::setBudget($pdo, $id, (float) ($a['usd'] ?? 0), $uid); return 'Opening budget set.';
++            case 'terms': $pdo->prepare('UPDATE authority_sources SET terms_read_at = UTC_TIMESTAMP(), terms_by = ? WHERE id = ?')->execute([$uid ?: null, $id]); return 'Its terms are read and allow it.';
++            case 'on':
++                $r = $pdo->prepare('SELECT * FROM authority_sources WHERE id = ?'); $r->execute([$id]); $r = $r->fetch(PDO::FETCH_ASSOC);
++                if (!$r) throw new InvalidArgumentException('That source isn\'t here.');
++                $hubOk = true;
++                foreach (self::lines($pdo) as $l) if (str_contains((string) $l[0], 'Opening a geo-hub') && !$l[1]) $hubOk = false;
++                if ($r['terms_read_at'] === null) throw new InvalidArgumentException('Read its terms first.');
++                if (!$hubOk) throw new InvalidArgumentException('The switch-on check\'s hub line isn\'t green yet (H3).');
++                $pdo->prepare("UPDATE authority_sources SET enabled = 1, status = 'on', on_by = ?, on_at = UTC_TIMESTAMP() WHERE id = ?")->execute([$uid ?: null, $id]);
++                return $r['name'] . ' is on (its service card and the master switch still decide when it\'s read).';
++        }
++        throw new InvalidArgumentException('Unknown step.');
++    }
++}
 diff --git a/app/lib/ListingConfidence.php b/app/lib/ListingConfidence.php
 index 9e240a1..9344ad5 100644
 --- a/app/lib/ListingConfidence.php
@@ -83,7 +472,7 @@ index 9e240a1..9344ad5 100644
      private static function phrase(string $kind, string $label, string $site, array $facts, string $key): string
      {
 diff --git a/app/lib/ListingIdentity.php b/app/lib/ListingIdentity.php
-index d4514e5..ad5b017 100644
+index d4514e5..202fdf5 100644
 --- a/app/lib/ListingIdentity.php
 +++ b/app/lib/ListingIdentity.php
 @@ -513,15 +513,16 @@ final class ListingIdentity
@@ -116,6 +505,253 @@ index d4514e5..ad5b017 100644
      }
  
      /** Whether the recheck may run now: the master, W2 and its task on (0163 §9). Null when it may, else why not. */
+@@ -623,7 +624,8 @@ final class ListingIdentity
+             $st = $pdo->query("SELECT id, entity_id, same_as_id FROM suggestions WHERE kind = 'same' AND status = 'new' AND device_hash IN ('crawler-cleanup', 'crawler-dupes') LIMIT 500");
+             $up = $pdo->prepare("UPDATE suggestions SET status = ?, handled_at = NOW(), note = CONCAT(COALESCE(note, ''), ?) WHERE id = ? AND status = 'new'");
+             foreach ($st->fetchAll(PDO::FETCH_ASSOC) as $r) {
+-                $v = self::verdict($pdo, (int) $r['entity_id'], (int) $r['same_as_id']);
++                // a merge moves the rows that point at the hidden one, this offer's too: both ids then name the keep
++                $v = (int) $r['entity_id'] === (int) $r['same_as_id'] ? 'same' : self::verdict($pdo, (int) $r['entity_id'], (int) $r['same_as_id']);
+                 $to = ['same' => ['used', ' · The identity recheck merged them.'], 'queue' => ['dismissed', ' · Moved to the identity queue (The engine needs a person).'], 'different' => ['dismissed', ' · Two businesses: recorded on the pair.']][$v] ?? null;
+                 if ($to) { $up->execute([$to[0], $to[1], (int) $r['id']]); $n++; }
+             }
+diff --git a/app/lib/OutsideServices.php b/app/lib/OutsideServices.php
+index 56e4bce..6ec7e28 100644
+--- a/app/lib/OutsideServices.php
++++ b/app/lib/OutsideServices.php
+@@ -266,7 +266,7 @@ final class OutsideServices
+         'gemini' => ['generativelanguage.googleapis.com'],   // the longest match wins over Google's googleapis.com (serviceOfHost)
+         'supabase' => ['supabase.co'],
+         'overture' => ['overturemaps-us-west-2.s3.amazonaws.com', 'overturemaps.org'],
+-        'foursquare' => ['huggingface.co'],
++        'foursquare' => ['huggingface.co', 'foursquare.com'],
+         'geofabrik' => ['download.geofabrik.de'],
+         'azcc' => ['arizonabusinesscenter.azcc.gov', 'azcc.gov', 'ecorp.azcc.gov'],
+         'nmsos' => ['enterprise.sos.nm.gov', 'sos.nm.gov'],
+@@ -328,7 +328,7 @@ final class OutsideServices
+         'railway' => ['switches' => ['staging_crawler']],
+         'irs' => ['sources' => ['irs.gov'], 'tasks' => ['irs_bulk']],
+         'cms' => ['sources' => ['npiregistry.cms.hhs.gov'], 'tasks' => ['second_look', 'identity', 'npi_bulk', 'npi_town']],   // npi_town: NPI by town for Arizona and New Mexico (stage 8), with its two guards
+-        'overture' => ['tasks' => ['overture_bulk']], 'foursquare' => ['tasks' => ['foursquare_bulk']], 'geofabrik' => ['tasks' => ['geofabrik_bulk']],
++        'supabase' => ['jobs' => ['vectors_tick', 'supabase_keepalive']], 'overture' => ['tasks' => ['overture_bulk']], 'foursquare' => ['tasks' => ['foursquare_bulk']], 'geofabrik' => ['tasks' => ['geofabrik_bulk']],
+         'azcc' => ['tasks' => ['licence_lookup']], 'nmsos' => ['tasks' => ['licence_lookup']],
+         'ridb' => ['sources' => ['recreation.gov'], 'tasks' => ['rec_bulk']],
+         'census' => ['sources' => ['census.gov'], 'tasks' => ['geocode', 'landmarks_bulk']],
+diff --git a/app/lib/Pulse.php b/app/lib/Pulse.php
+index 64c5d0d..ca43133 100644
+--- a/app/lib/Pulse.php
++++ b/app/lib/Pulse.php
+@@ -412,6 +412,13 @@ final class Pulse
+                     }
+                 }
+             } catch (Throwable) {}
++            // Hubs (decisions/0164 R17, §7.1, H4): a hub's stage and opening budget, and W14's staged sources to read or switch on
++            try {
++                if (is_file(__DIR__ . '/HubOpening.php')) {
++                    require_once __DIR__ . '/HubOpening.php';
++                    foreach (HubOpening::pulseItems($pdo) as [$hk, $hsev, $htitle, $hwhy, $hwhen]) { $add($hk, 'system', $hsev, $htitle, $hwhy, $hwhen, '/admin/pulse', 'Open it'); $out[$hk]['no_clock'] = true; }
++                }
++            } catch (Throwable) {}
+             // releases waiting on someone, or paused by a failed check (decisions/0145 Phase 5): a case each, its next move a button
+             try {
+                 if (is_file(__DIR__ . '/Releases.php')) {
+@@ -715,6 +722,15 @@ final class Pulse
+             self::note($pdo, $key, $uid, 'note', $msg);
+             return $msg;
+         }
++        if ($key === 'hubs:all' && str_starts_with($what, 'hub_')) {   // a hub's stage and budget, a source's terms or switch (HubOpening::pulseDo)
++            require_once __DIR__ . '/HubOpening.php';
++            require_once __DIR__ . '/../admin/Access.php';
++            [$ok, $why] = Access::can('hubs.open', ['min' => 'director', 'depts' => []]);   // a director moves each stage (R17)
++            if (!$ok) throw new RuntimeException($why . '.');
++            $msg = HubOpening::pulseDo($pdo, $what, $a, $uid);
++            self::note($pdo, $key, $uid, 'note', $msg);
++            return $msg;
++        }
+         if ($key === 'engine:person' && str_starts_with($what, 'eng_')) {   // the engine's steps (EngineCase::pulseDo)
+             require_once __DIR__ . '/EngineCase.php';
+             require_once __DIR__ . '/../admin/Access.php';
+@@ -1160,6 +1176,9 @@ final class Pulse
+             case 'ops':   // the service register's warnings, "returns empty" and watching (Operations::pulseSteps)
+                 require_once __DIR__ . '/Operations.php';
+                 return Operations::pulseSteps(Database::connection(), (string) $it['key'], $s);
++            case 'hubs':   // opening a hub and W14's sources (HubOpening::pulseSteps, decisions/0164 R17)
++                require_once __DIR__ . '/HubOpening.php';
++                return HubOpening::pulseSteps(Database::connection(), $s);
+             case 'engine':   // "The engine needs a person" (EngineCase::pulseSteps, decisions/0164 §6.1)
+                 require_once __DIR__ . '/EngineCase.php';
+                 return EngineCase::pulseSteps(Database::connection(), $s);
+diff --git a/app/lib/Releases.php b/app/lib/Releases.php
+index 84135bd..1d7ab27 100644
+--- a/app/lib/Releases.php
++++ b/app/lib/Releases.php
+@@ -830,6 +830,9 @@ final class Releases
+         $note = trim(mb_substr((string) ($a['text'] ?? ''), 0, 2000));
+         if (!$ok && $note === '') throw new RuntimeException('Say what needs changing, so it can be fixed.');
+         $who = trim((string) ($a['name'] ?? ''));
++        if ($who === '' && $uid > 0) {   // given on the Releases page: the signed-in staff member's name
++            try { $q = $pdo->prepare('SELECT COALESCE(NULLIF(s.name, \'\'), u.display_name) FROM ' . Database::t('staff_accounts') . ' s JOIN users u ON u.id = s.user_id WHERE s.user_id = ? LIMIT 1'); $q->execute([$uid]); $who = trim((string) $q->fetchColumn()); } catch (Throwable $x) { $who = ''; }
++        }
+         $rv['parts'][$k] = ['ok' => $ok, 'by' => $who, 'at' => gmdate('c'), 'note' => $note, 'page' => mb_substr((string) ($a['page'] ?? ''), 0, 200)];
+         self::saveReview($pdo, $id, $rv);
+         $name = self::REVIEW_PARTS[$k][0];
+diff --git a/app/lib/Scheduler.php b/app/lib/Scheduler.php
+index dbc12bb..5f386eb 100644
+--- a/app/lib/Scheduler.php
++++ b/app/lib/Scheduler.php
+@@ -34,6 +34,8 @@ final class Scheduler
+         'region_tick' => ['Sign-up region check', 'Keeps the EU/EEA/UK address ranges for the sign-up check fresh (decisions/0027): downloads DB-IP\'s free country file (CC BY 4.0) once a month; daily it only checks.', 'daily', 240],
+         'guide_ondemand_tick' => ['Guides on demand', 'Carries on guides a searcher asked for after they leave, writes the ones waiting for the allowance (most asked first), and writes each first look in full once its deeper research is in (decisions/0147).', '5min', 30],
+         'journeys_tick' => ['Suggested journeys', 'Builds each live guide\'s suggested journeys from its own places by rules (no AI), three guides a run, again weekly or when the guide changes; asks openrouteservice once for a town\'s travel times and keeps them (decisions/0146).', 'hourly', 180],
++        'supabase_keepalive' => ['Supabase keep-alive', 'One tiny read a day so the free Supabase project doesn\'t pause (decisions/0164 §5.2). Under Supabase\'s own switch, not the master: it gathers nothing and costs nothing.', 'daily', 60],
++        'vectors_tick' => ['Vector index', 'Public listings\' text turned into vectors on Supabase for semantic search (decisions/0164 §5.2). Shipped off: it runs only while automation, W3, Supabase and AI use\'s "vector index" are on. Not set up in cPanel by itself.', 'hourly', 300],
+         'identity_recheck_tick' => ['Identity recheck', 'Live listings checked against each other (decisions/0164 §6.1): exact twins merged by themselves with Undo, variations vetted, the rest to "The engine needs a person". Shipped off: it runs only while automation, W2 and its task are on. Not set up in cPanel by itself: add it here, in a quiet hour.', 'daily', 600],
+         'data_cleanup_tick' => ['Data cleanup', 'A pass for every rule of Insights → Data cleanup, once a day, so what the crawler made stays in line with today\'s rules. Shipped off: it does nothing until its daily pass is switched on there, and only while automation is on. Not set up in cPanel by itself: add it here when it\'s wanted.', 'daily', 600],
+         'landmark_photos_tick' => ['Landmark photos', 'Looks on Wikimedia Commons for a free photo of each shown landmark that has none (taken nearby and named for it), 20 an hour, and keeps the best with its credit and licence. One with none found is looked at again after 30 days.', 'hourly', 180],
+diff --git a/app/lib/Vectors.php b/app/lib/Vectors.php
+new file mode 100644
+index 0000000..dfde7df
+--- /dev/null
++++ b/app/lib/Vectors.php
+@@ -0,0 +1,138 @@
++<?php
++// app/lib/Vectors.php — The sidecar vector index for semantic search (decisions/0164 §5.2, §12 C10; 0163 §8 stage 11):
++// Postgres with pgvector on Supabase's free tier, beside MySQL, which stays the record. Embeddings come from Gemini's free
++// embedding model, PUBLIC TEXT ONLY (what a listing or a guide shows the public, through Gemini::safe and its gates); a
++// person's words, private details and held names never go. Its upkeep is a task under Supabase's card (vectors_tick).
++//   setupSql()          the table and the match function, to paste once in Supabase's SQL editor (shown on the card)
++//   tick($pdo, $n)      public records changed since their last embedding, $n at a time, paced (supabase_daily)
++//   (search, the index's reader, comes with its first caller: semantic search and AI Assist; 0164 §5.2)
++// Shipped off: Supabase's service is paused (Operations::ADDED_OFF), the AI feature vector_index is off by default, and
++// the job is under the master switch. Needs SUPABASE_URL and SUPABASE_SERVICE_KEY in .env (Jason, 2026-11-15).
++declare(strict_types=1);
++
++require_once __DIR__ . '/Database.php';
++
++final class Vectors
++{
++    public const DIM = 768;
++    public const MODEL = 'gemini-embedding-001';
++    public const FEATURE = 'vector_index';
++
++    public static function setupSql(): string
++    {
++        return "create extension if not exists vector;\n"
++             . "create table if not exists tv_vectors (ref text primary key, kind text not null, place text, body_hash text not null, embedding vector(" . self::DIM . ") not null, updated_at timestamptz not null default now());\n"
++             . "create index if not exists tv_vectors_hnsw on tv_vectors using hnsw (embedding vector_cosine_ops);\n"
++             . "create or replace function tv_match(q vector(" . self::DIM . "), k int, kinds text[] default null) returns table(ref text, kind text, distance float)\n"
++             . "language sql stable as \$\$ select ref, kind, embedding <=> q as distance from tv_vectors where kinds is null or kind = any(kinds) order by embedding <=> q limit k \$\$;";
++    }
++
++    private static function env(string $k): string
++    {
++        $v = getenv($k);
++        return $v === false ? '' : trim((string) $v);
++    }
++
++    public static function configured(): bool { return self::env('SUPABASE_URL') !== '' && self::env('SUPABASE_SERVICE_KEY') !== ''; }
++
++    /** Why the index may not be used now, or null. */
++    public static function off(PDO $pdo): ?string
++    {
++        if (!self::configured()) return 'Supabase isn\'t connected: SUPABASE_URL and SUPABASE_SERVICE_KEY in .env.';
++        require_once __DIR__ . '/Automation.php';
++        if (($w = Automation::serviceOff($pdo, 'supabase')) !== null) return $w;
++        require_once __DIR__ . '/AiClient.php';
++        if (!AiClient::feature($pdo, self::FEATURE)['enabled']) return 'The vector index is switched off on AI use.';
++        $host = (string) parse_url(self::env('SUPABASE_URL'), PHP_URL_HOST);
++        require_once __DIR__ . '/ServiceHealth.php';
++        return ServiceHealth::allowed($pdo, $host);   // holds, bans and staging's answer (StagingGate::hold)
++    }
++
++    /** One text's embedding from Gemini (public text only, through its gates and its daily allowance), or null. */
++    public static function embed(PDO $pdo, string $text, bool $onDemand = false): ?array
++    {
++        require_once __DIR__ . '/Gemini.php'; require_once __DIR__ . '/AiClient.php'; require_once __DIR__ . '/Automation.php'; require_once __DIR__ . '/ServiceHealth.php'; require_once __DIR__ . '/StagingGate.php';
++        if (Gemini::refused(self::FEATURE) !== null || !AiClient::on('gemini')) return null;
++        if (Automation::serviceOff($pdo, Gemini::SERVICE) !== null || ServiceHealth::allowed($pdo, Gemini::HOST) !== null || Gemini::room($pdo, $onDemand) !== null) return null;
++        [$clean] = Gemini::safe($text, $pdo);
++        if ($clean === '') return null;
++        $url = 'https://' . Gemini::HOST . '/v1beta/models/' . self::MODEL . ':embedContent';
++        if (StagingGate::hold($url, 'Gemini: embeddings') !== null) return null;
++        $ch = curl_init($url);
++        curl_setopt_array($ch, [CURLOPT_POST => true, CURLOPT_RETURNTRANSFER => true, CURLOPT_TIMEOUT => 30, CURLOPT_CONNECTTIMEOUT => 8,
++            CURLOPT_HTTPHEADER => ['Content-Type: application/json', 'x-goog-api-key: ' . AiClient::geminiKey()],
++            CURLOPT_POSTFIELDS => json_encode(['content' => ['parts' => [['text' => mb_substr($clean, 0, 8000)]]], 'outputDimensionality' => self::DIM], JSON_UNESCAPED_UNICODE)]);
++        $b = curl_exec($ch); $code = (int) curl_getinfo($ch, CURLINFO_HTTP_CODE); $err = curl_error($ch); curl_close($ch);
++        $v = is_string($b) ? (json_decode($b, true)['embedding']['values'] ?? null) : null;
++        AiClient::record($pdo, self::FEATURE, 0, is_array($v) ? 'done' : 'failed', ['provider' => 'gemini', 'model' => self::MODEL, 'micros' => 0]);
++        if (!is_array($v) || count($v) !== self::DIM) { ServiceHealth::siteFailed($pdo, $url, $code, is_string($b) ? mb_substr($b, 0, 1000) : '', $err, 'Gemini embeddings'); return null; }
++        return array_map('floatval', $v);
++    }
++
++    /** Supabase's REST call (PostgREST). */
++    private static function rest(PDO $pdo, string $method, string $path, $body = null): array
++    {
++        require_once __DIR__ . '/StagingGate.php'; require_once __DIR__ . '/ServiceHealth.php';
++        $url = rtrim(self::env('SUPABASE_URL'), '/') . '/rest/v1/' . $path;
++        if (($w = StagingGate::hold($url, 'Supabase: ' . $path)) !== null) throw new RuntimeException($w);
++        $k = self::env('SUPABASE_SERVICE_KEY');
++        $ch = curl_init($url);
++        curl_setopt_array($ch, [CURLOPT_CUSTOMREQUEST => $method, CURLOPT_RETURNTRANSFER => true, CURLOPT_TIMEOUT => 20, CURLOPT_CONNECTTIMEOUT => 6,
++            CURLOPT_HTTPHEADER => ['apikey: ' . $k, 'Authorization: Bearer ' . $k, 'Content-Type: application/json', 'Prefer: resolution=merge-duplicates,return=minimal']]
++            + ($body !== null ? [CURLOPT_POSTFIELDS => json_encode($body)] : []));
++        $b = curl_exec($ch); $code = (int) curl_getinfo($ch, CURLINFO_HTTP_CODE); $err = curl_error($ch); curl_close($ch);
++        if ($code < 200 || $code >= 300) { ServiceHealth::siteFailed($pdo, $url, $code, is_string($b) ? mb_substr($b, 0, 1000) : '', $err, 'Supabase'); throw new RuntimeException('Supabase answered ' . ($code ?: $err)); }
++        return is_string($b) && $b !== '' ? (json_decode($b, true) ?: []) : [];
++    }
++
++    /**
++     * The free project's keep-alive (Supabase pauses a free project after about a week idle): one tiny read a day. Under
++     * Supabase's own switch and its keys only, not the master: it gathers nothing and costs nothing (session manager,
++     * 2026-11-15). While the project is paused anyway, search keeps to the normal index.
++     */
++    public static function keepAlive(PDO $pdo): string
++    {
++        if (!self::configured()) return 'Supabase isn\'t connected: SUPABASE_URL and SUPABASE_SERVICE_KEY in .env.';
++        require_once __DIR__ . '/Automation.php';
++        if (($w = Automation::serviceOff($pdo, 'supabase')) !== null) return $w;
++        try { self::rest($pdo, 'GET', 'tv_vectors?select=ref&limit=1'); return 'Supabase answered: kept awake.'; }
++        catch (Throwable $x) { return 'Supabase didn\'t answer: ' . $x->getMessage(); }
++    }
++
++    /** The public text of a listing: its name, its kind, its town and what it shows the public (never contact details). */
++    private static function listingText(array $r): string
++    {
++        return trim($r['name'] . '. ' . ($r['cat'] ?? '') . ' in ' . ($r['city'] ?? '') . '. ' . mb_substr((string) ($r['about'] ?? ''), 0, 1500));
++    }
++
++    /** Upkeep: public listings whose text changed since their embedding, $n at a time. Returns how many were indexed. */
++    public static function tick(PDO $pdo, int $n = 50): int
++    {
++        if (self::off($pdo) !== null) return 0;
++        require_once __DIR__ . '/Thresholds.php'; require_once __DIR__ . '/SearchIndex.php'; require_once __DIR__ . '/ListingSafety.php';
++        $today = 'vectors:day:' . gmdate('Y-m-d');
++        $done = (int) SearchIndex::state($pdo, $today);
++        $room = max(0, (int) Thresholds::get($pdo, 'supabase_daily') - $done);
++        $n = min($n, $room);
++        if ($n <= 0) return 0;
++        $since = SearchIndex::state($pdo, 'vectors:since') ?: '2000-01-01 00:00:00';
++        $st = $pdo->prepare("SELECT e.id, e.name, e.category_id, e.updated_at, c.name AS cat, JSON_UNQUOTE(m.meta_value) AS city, JSON_UNQUOTE(d.meta_value) AS about
++                               FROM entities e LEFT JOIN categories c ON c.id = e.category_id
++                               LEFT JOIN entity_metadata m ON m.entity_id = e.id AND m.meta_key = 'city'
++                               LEFT JOIN entity_metadata d ON d.entity_id = e.id AND d.meta_key = 'description'
++                              WHERE e.entity_type = 'merchant' AND e.is_suppressed = 0 AND e.updated_at > ? ORDER BY e.updated_at, e.id LIMIT " . (int) $n);
++        $st->execute([$since]);
++        $rows = []; $last = $since;
++        foreach ($st->fetchAll(PDO::FETCH_ASSOC) as $r) {
++            if (ListingSafety::isConfidential($r['category_id'] !== null ? (int) $r['category_id'] : null, (string) $r['name'])) { $last = (string) $r['updated_at']; continue; }   // a confidential place is never sent (T1)
++            $t = self::listingText($r);
++            $v = self::embed($pdo, $t);
++            if ($v === null) break;   // Gemini's allowance or a hold: this one and the rest wait for the next run
++            $last = (string) $r['updated_at'];
++            $rows[] = ['ref' => 'listing:' . (int) $r['id'], 'kind' => 'listing', 'place' => (string) ($r['city'] ?? ''), 'body_hash' => sha1($t), 'embedding' => '[' . implode(',', $v) . ']'];
++        }
++        if ($rows) { self::rest($pdo, 'POST', 'tv_vectors', $rows); SearchIndex::setState($pdo, $today, (string) ($done + count($rows))); }
++        SearchIndex::setState($pdo, 'vectors:since', $last);
++        return count($rows);
++    }
++}
 diff --git a/app/lib/crawler/OpenLoads.php b/app/lib/crawler/OpenLoads.php
 new file mode 100644
 index 0000000..eb92a52
@@ -299,9 +935,18 @@ index 0000000..eb92a52
 +    }
 +}
 diff --git a/app/lib/staging-tables.php b/app/lib/staging-tables.php
-index d2ef07d..bb0020f 100644
+index d2ef07d..0abd730 100644
 --- a/app/lib/staging-tables.php
 +++ b/app/lib/staging-tables.php
+@@ -30,7 +30,7 @@ final class StagingTables
+         'entities', 'entity_metadata', 'listing_categories', 'listing_access', 'listing_memberships', 'listing_actions', 'categories', 'category_also', 'category_terms', 'category_changes',
+         'places', 'place_profile', 'place_guides', 'place_stories', 'place_dossiers', 'landmarks', 'experiences', 'experience_links', 'storefronts', 'business_domains', 'short_codes',
+         'hubs', 'geo_hubs', 'hub_counties', 'micro_clusters', 'cluster_overrides', 'cluster_subgroups', 'nations', 'nation_decision_log', 'jurisdictions', 'jurisdiction_laws',
+-        'identity_facts', 'identity_fact_sources', 'identity_applied', 'identity_pairs', 'stories', 'live_events', 'live_event_places', 'heritage_places', 'heritage_facts', 'heritage_sources',
++        'identity_facts', 'identity_fact_sources', 'identity_applied', 'identity_pairs', 'hub_stages', 'authority_sources', 'stories', 'live_events', 'live_event_places', 'heritage_places', 'heritage_facts', 'heritage_sources',
+         // guides, journeys, topics
+         'resource_guides', 'resource_entries', 'how_guides', 'guide_picks', 'guide_requests', 'guide_audits', 'journeys', 'journey_media', 'journey_coauthors', 'suggested_journeys',
+         'topics', 'topic_names', 'topic_places', 'topic_relations', 'topic_facts', 'situations', 'situation_needs', 'situation_sources', 'situation_triggers',
 @@ -60,7 +60,7 @@ final class StagingTables
          'qbo_items', 'cart_plans', 'vendor_orders', 'vendor_jobs', 'member_post_spend', 'member_storage_earned', 'earned_gb'];
  
@@ -311,6 +956,77 @@ index d2ef07d..bb0020f 100644
          'nation_shapes', 'nation_sensitive', 'ip_eu_ranges', 'ip_eu_ranges_new', 'ip_eu_meta', 'search_index', 'search_index_state', 'search_learned', 'search_demand', 'search_counts',
          'search_outcomes', 'search_opens', 'search_suggestion_flags', 'search_frames', 'search_edits', 'search_drafts', 'listing_confidence', 'lead_scores', 'platform_counts', 'tag_counts',
          'content_like_tally', 'crawl_jobs', 'crawl_targets', 'crawl_pages', 'crawl_runs', 'crawl_run_items', 'crawl_requests', 'crawl_costs', 'crawl_service_calls', 'crawl_osm_asks',
+@@ -81,7 +81,7 @@ final class StagingTables
+         'business_contact_shares', 'community_group_invites', 'community_group_joins', 'community_invite_codes', 'ai_asks', 'test_records', 'user_blocks'];
+ 
+     /** Never copied: empty on staging (StagingSite::EMPTY_TABLES and live's own records of staging and releases). */
+-    public const NEVER = ['vault_meta', 'vault_creds', 'vault_items', 'vault_ext', 'vault_log', 'email_confirmations', 'user_otp_challenges', 'user_identities', 'two_step_devices',
++    public const NEVER = ['tv_vectors' /* Supabase's, not MySQL: the vector index (Vectors.php), never copied */, 'vault_meta', 'vault_creds', 'vault_items', 'vault_ext', 'vault_log', 'email_confirmations', 'user_otp_challenges', 'user_identities', 'two_step_devices',
+         'staff_recovery_codes', 'guest_devices', 'support_grants', 'page_cache', 'staging_state', 'site_releases', 'site_release_settings', 'stg_outbox', 'identities'];
+ 
+     /**
+@@ -111,7 +111,7 @@ final class StagingTables
+         '*.owner_user_id' => 'users', '*.created_by' => 'users', '*.updated_by' => 'users', '*.approved_by' => 'users', '*.decided_by' => 'users', '*.by_user' => 'users',
+         '*.member_user_id' => 'users', '*.author_id' => 'users', '*.parent_id' => '=', '*.replaces_id' => '=', '*.ref_id' => '?kind', '*.from_id' => '?kind', '*.to_id' => '?kind',
+         'listing_access.entity_id' => 'entities', 'identity_pairs.a_id' => 'entities', 'identity_pairs.b_id' => 'entities', 'identity_merges.keep_id' => 'entities', 'identity_merges.drop_id' => 'entities',
+-        'engine_steps.assigned_to' => 'users', 'engine_steps.done_by' => 'users', 'identity_merges.undone_by' => 'users',
++        'hub_stages.hub_id' => 'hubs', 'authority_sources.terms_by' => 'users', 'authority_sources.on_by' => 'users', 'hub_stages.set_by' => 'users', 'engine_steps.assigned_to' => 'users', 'engine_steps.done_by' => 'users', 'identity_merges.undone_by' => 'users',
+         // the columns the register couldn't place (decisions/0165's open item, Release B): found from the code's own queries and
+         // JOINs, each checked by hand; '' is not one of our record numbers (an outside id, a batch number)
+         'community_groups.owner_id' => 'users', 'people_groups.owner_id' => 'users', 'address_contacts.owner_id' => 'users', 'contact_shares.owner_id' => 'users', 'contact_shares.viewer_id' => 'users',
+diff --git a/app/migrations/2026-11-16_hubs.sql b/app/migrations/2026-11-16_hubs.sql
+new file mode 100644
+index 0000000..9a1efac
+--- /dev/null
++++ b/app/migrations/2026-11-16_hubs.sql
+@@ -0,0 +1,47 @@
++-- Release B (decisions/0164 R17, §7.1; 0163 §8 stage 10): a hub's stage on its readiness meter and its opening budget,
++-- and W14's staged authority sources (Arizona's and New Mexico's from the rural test's Run 2, staged by hand, switched
++-- off). Safe to run twice: tables if missing, rows only if missing.
++CREATE TABLE IF NOT EXISTS hub_stages (
++  hub_id INT UNSIGNED NOT NULL,
++  stage VARCHAR(10) NOT NULL DEFAULT 'open',
++  state CHAR(2) DEFAULT NULL,
++  opening_budget_usd DECIMAL(10,2) DEFAULT NULL,
++  set_by INT UNSIGNED DEFAULT NULL,
++  set_at DATETIME DEFAULT NULL,
++  PRIMARY KEY (hub_id)
++) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
++
++CREATE TABLE IF NOT EXISTS authority_sources (
++  id INT UNSIGNED NOT NULL AUTO_INCREMENT,
++  state CHAR(2) NOT NULL,
++  kind VARCHAR(20) NOT NULL,
++  name VARCHAR(160) NOT NULL,
++  url VARCHAR(500) NOT NULL,
++  host VARCHAR(160) NOT NULL,
++  service VARCHAR(20) DEFAULT NULL,
++  real_use VARCHAR(10) NOT NULL DEFAULT 'lookup',
++  proves VARCHAR(200) DEFAULT NULL,
++  terms_url VARCHAR(500) DEFAULT NULL,
++  terms_read_at DATETIME DEFAULT NULL,
++  terms_by INT UNSIGNED DEFAULT NULL,
++  reader_ok_at DATETIME DEFAULT NULL,
++  provenance VARCHAR(500) DEFAULT NULL,
++  status VARCHAR(10) NOT NULL DEFAULT 'staged',
++  enabled TINYINT NOT NULL DEFAULT 0,
++  on_by INT UNSIGNED DEFAULT NULL,
++  on_at DATETIME DEFAULT NULL,
++  note VARCHAR(500) DEFAULT NULL,
++  added_at DATETIME NOT NULL,
++  PRIMARY KEY (id),
++  UNIQUE KEY uq_state_url (state, url(190))
++) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
++
++INSERT IGNORE INTO authority_sources (state, kind, name, url, host, service, real_use, proves, terms_url, provenance, note, added_at) VALUES
++('AZ', 'company', 'Arizona Corporation Commission (Arizona Business Center)', 'https://arizonabusinesscenter.azcc.gov/', 'arizonabusinesscenter.azcc.gov', 'azcc', 'lookup', 'exists, its registered name and address', 'https://azcc.gov/', 'Run 2 (research/rural-test-2026-11-14.md §8): moved from ecorp.azcc.gov', 'Terms to read before use', UTC_TIMESTAMP()),
++('AZ', 'sales_tax', 'Arizona TPT licence lookup', 'https://aztaxes.gov/', 'aztaxes.gov', NULL, 'claim', 'a transaction privilege tax licence (by its number)', 'https://azdor.gov/', 'Run 2: a licence number behind a CAPTCHA', 'A claim-time check of the number the owner gives', UTC_TIMESTAMP()),
++('AZ', 'liquor', 'Arizona Department of Liquor Licenses and Control', 'https://azliquor.gov/', 'azliquor.gov', 'azlicences', 'blocked', 'a liquor licence: open, kind of business, location', 'https://azliquor.gov/', 'Run 2: a Cloudflare challenge on robots.txt itself', 'Ask for the public licence list as a file (a public-records request)', UTC_TIMESTAMP()),
++('AZ', 'contractor', 'Arizona Registrar of Contractors', 'https://roc.az.gov/', 'roc.az.gov', 'azlicences', 'blocked', 'a contractor licence', 'https://roc.az.gov/', 'Run 2: a Cloudflare challenge', 'Ask for the list as a file', UTC_TIMESTAMP()),
++('AZ', 'health', 'Apache County health permits', 'https://www.apachecountyaz.gov/', 'apachecountyaz.gov', 'azlicences', 'blocked', 'a food-service permit: open, location', 'https://www.apachecountyaz.gov/', 'Run 2: a Cloudflare challenge', 'Ask for the permit list as a file', UTC_TIMESTAMP()),
++('AZ', 'health', 'Navajo County health permits', 'https://www.navajocountyaz.gov/', 'navajocountyaz.gov', 'azlicences', 'blocked', 'a food-service permit: open, location', 'https://www.navajocountyaz.gov/', 'Run 2', 'Ask for the permit list as a file', UTC_TIMESTAMP()),
++('NM', 'company', 'New Mexico Secretary of State (business search)', 'https://enterprise.sos.nm.gov/search', 'enterprise.sos.nm.gov', 'nmsos', 'lookup', 'exists, its registered name and address', 'https://www.sos.nm.gov/', 'decisions/0164 §1.5', 'Terms to read before use', UTC_TIMESTAMP()),
++('NM', 'liquor', 'New Mexico Alcoholic Beverage Control', 'https://www.rld.nm.gov/alcohol-and-gaming/', 'rld.nm.gov', NULL, 'lookup', 'a liquor licence', 'https://www.rld.nm.gov/', 'decisions/0164 §1.5', 'Terms and the list\'s form to check', UTC_TIMESTAMP());
 diff --git a/app/migrations/2026-11-16_open_loads.sql b/app/migrations/2026-11-16_open_loads.sql
 new file mode 100644
 index 0000000..f83813b
@@ -333,6 +1049,62 @@ index 0000000..f83813b
 +  PRIMARY KEY (id),
 +  UNIQUE KEY uq_load (dataset, place_key, release_id)
 +) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+diff --git a/app/scripts/supabase_keepalive.php b/app/scripts/supabase_keepalive.php
+new file mode 100644
+index 0000000..0aee573
+--- /dev/null
++++ b/app/scripts/supabase_keepalive.php
+@@ -0,0 +1,12 @@
++<?php
++// app/scripts/supabase_keepalive.php — Supabase's keep-alive (decisions/0164 §5.2): one tiny read a day so the free project
++// doesn't pause after a week idle. Under Supabase's own switch and keys, not the master (it gathers nothing, costs nothing).
++// Not in Scheduler::AUTO: added in System Configuration → Scheduled tasks once Supabase is connected.
++declare(strict_types=1);
++
++if (PHP_SAPI !== 'cli') { http_response_code(404); exit; }
++require_once __DIR__ . '/../lib/Database.php';
++require_once __DIR__ . '/../lib/Scheduler.php';
++Scheduler::run('supabase_keepalive');
++require_once __DIR__ . '/../lib/Vectors.php';
++echo Vectors::keepAlive(Database::connection()) . "\n";
+diff --git a/app/scripts/vectors_tick.php b/app/scripts/vectors_tick.php
+new file mode 100644
+index 0000000..43b8240
+--- /dev/null
++++ b/app/scripts/vectors_tick.php
+@@ -0,0 +1,15 @@
++<?php
++// app/scripts/vectors_tick.php — The vector index's upkeep (decisions/0164 §5.2; 0163 §8 stage 11): public listings whose
++// text changed are embedded by Gemini's free model (public text only) and kept on Supabase's free tier. Shipped off: it
++// runs only while automation, W3, Supabase's service and AI use's "vector index" are on, and SUPABASE_URL and
++// SUPABASE_SERVICE_KEY are in .env. Not in Scheduler::AUTO: added in System Configuration → Scheduled tasks when wanted.
++declare(strict_types=1);
++
++if (PHP_SAPI !== 'cli') { http_response_code(404); exit; }
++require_once __DIR__ . '/../lib/Database.php';
++require_once __DIR__ . '/../lib/Scheduler.php';
++Scheduler::run('vectors_tick');
++require_once __DIR__ . '/../lib/Vectors.php';
++$pdo = Database::connection();
++if (($w = Vectors::off($pdo)) !== null) { echo 'Not run: ' . $w . "\n"; exit(0); }
++echo 'Vector index: ' . Vectors::tick($pdo, 50) . " listings indexed.\n";
+diff --git a/app/ui/faq.md b/app/ui/faq.md
+index 273e730..b3db164 100644
+--- a/app/ui/faq.md
++++ b/app/ui/faq.md
+@@ -680,6 +680,12 @@ Our crawler checks each business against public sources: its own website, offici
+ ### How do you keep a business from being listed twice?
+ Every way a listing is made or shown again (our crawler's finds, the businesses' own "Add a business", our team's adds, a "Help us find this business" answer, a listing put back) goes through one identity check first. It compares the business with everything we list nearby, including listings that are hidden, by its name (with "LLC", "Inc" and plurals set aside), its phone (an extension doesn't count) and its street address written any way ("Rd" or "Road", a suite or none). If it's the same business, what's new fills the gaps in the listing we have, and nothing is listed twice. A separate check, switched on by our team, looks over the listings already live: two that are exactly the same business become one by themselves, two that differ on a detail (a suite, a second phone, a different website) are checked against public sources first, and only what the evidence can't settle, or a listing a business has claimed, comes to our team. Both stay on the site meanwhile. Another location of a business, or a doctor at a clinic, is never treated as a duplicate.
+ 
++### Do you use open business datasets?
++Coming, and switched off until our team turns it on. Open datasets that anyone may use (Overture Maps and Foursquare's open places, under their licences, credited) will tell our crawler which businesses are in a town we don't cover well yet. Each one goes through the same identity check as everything else, so a business we already list only gets what's missing filled in, and a find is listed only once it has a real name and a phone or street address we're allowed to keep, at the confidence its sources earn. A dataset saying a place has closed only asks our team to check it; it never takes a listing down by itself.
++
++### Can search engines find Traversence?
++Yes, the public pages: listings, places, towns, guides and the like. We publish a sitemap so search engines find them, and ask them (in our robots.txt) to leave out sign-in, your account, your messages, the admin and our own tools. A business that's private or confidential isn't in the sitemap. Staging, where our team tests changes, is never indexed.
++
+ ### Why did a listing I saw move to another link?
+ It was the same business as another listing, so the two became one. The old link takes you to the one we kept, with everything we knew about both. If we got it wrong, tell us with **Closed, moved or listed twice? Tell us** on the listing: our team can undo it exactly, and the two are never put together again.
+ 
 diff --git a/website/api/crawl/loads.php b/website/api/crawl/loads.php
 new file mode 100644
 index 0000000..27c15ad
@@ -377,3 +1149,102 @@ index 0000000..27c15ad
 +    error_log('api/crawl/loads.php: ' . $e->getMessage());
 +    Response::error('Could not take the load: ' . mb_substr($e->getMessage(), 0, 200), 500, 'server_error');
 +}
+diff --git a/website/js/admin-releases.js b/website/js/admin-releases.js
+index 4456e63..6751a3e 100644
+--- a/website/js/admin-releases.js
++++ b/website/js/admin-releases.js
+@@ -51,6 +51,12 @@
+       var f = document.querySelector('[data-rel-plan="' + id + '"]');
+       if (f) f.querySelectorAll('input,textarea,select').forEach(function (x) { body.args[x.name] = x.value; });
+     }
++    if (what === 'review') {   // a part of the review given here (UI, UX, Functional), as on the staging bar
++      body.args.part = btn.getAttribute('data-part'); body.args.ok = btn.getAttribute('data-ok') === '1' ? 1 : 0;
++      var n = document.querySelector('[data-rel-note="' + id + ':' + body.args.part + '"]');
++      body.args.text = n ? n.value : '';
++      if (!body.args.ok && !body.args.text.trim()) { say('Say what needs changing first.', n || btn, true); if (n) n.focus(); return; }
++    }
+     if (what === 'schedule') {
+       var w = document.querySelector('[data-rel-when="' + id + '"]');
+       if (!w || !w.value) { say('Choose the date and time first.', w || btn, true); return; }
+diff --git a/website/robots.txt b/website/robots.txt
+new file mode 100644
+index 0000000..d153314
+--- /dev/null
++++ b/website/robots.txt
+@@ -0,0 +1,16 @@
++# Traversence: what search engines may read (2026-11-15). The public site is open; accounts, the admin, the APIs and
++# one-time links are not.
++User-agent: *
++Disallow: /admin/
++Disallow: /api/
++Disallow: /user/
++Disallow: /dashboard.php
++Disallow: /order.php
++Disallow: /verify-email.php
++Disallow: /email-revert.php
++Disallow: /reset-password.php
++Disallow: /two-step.php
++Disallow: /stg-enter.php
++Disallow: /q-file.php
++
++Sitemap: https://traversence.com/sitemap.php
+diff --git a/website/sitemap.php b/website/sitemap.php
+new file mode 100644
+index 0000000..ec46bb2
+--- /dev/null
++++ b/website/sitemap.php
+@@ -0,0 +1,54 @@
++<?php
++// /sitemap.php — the site's sitemap for search engines (2026-11-15: there was none, and no robots.txt pointed to one).
++// With no `part`, the sitemap index; its parts: `pages` (the page builder's live pages), `hubs` (each hub's page) and
++// `listings&n=<k>` (public listings, 40,000 a file, as the sitemap protocol allows 50,000). Hidden, merged, confidential and
++// suppressed listings are never in it. On the staging copy it answers 404, so staging is never offered to a search engine.
++declare(strict_types=1);
++
++require_once __DIR__ . '/../app/bootstrap.php';
++require_once __DIR__ . '/../app/lib/Staging.php';
++if (Staging::here()) { http_response_code(404); exit; }
++require_once __DIR__ . '/../app/lib/PlaceScope.php';
++require_once __DIR__ . '/../app/lib/ListingSafety.php';
++
++const PER = 40000;
++$pdo = Database::connection();
++$base = 'https://traversence.com';
++$x = fn (string $s) => htmlspecialchars($s, ENT_XML1 | ENT_QUOTES, 'UTF-8');
++$day = fn ($t) => $t ? date('Y-m-d', strtotime((string) $t)) : date('Y-m-d');
++header('Content-Type: application/xml; charset=utf-8');
++header('Cache-Control: public, max-age=3600');
++echo '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
++$pub = implode(',', array_map(fn ($s) => $pdo->quote($s), PlaceScope::PUBLIC_STATUSES));
++$part = (string) ($_GET['part'] ?? '');
++
++if ($part === '') {
++    $n = 0;
++    try { $n = (int) $pdo->query("SELECT COUNT(*) FROM entities WHERE entity_type = 'merchant' AND is_suppressed = 0 AND status IN ($pub)")->fetchColumn(); } catch (Throwable) {}
++    echo '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
++    echo '  <sitemap><loc>' . $x($base . '/sitemap.php?part=pages') . '</loc></sitemap>' . "\n";
++    echo '  <sitemap><loc>' . $x($base . '/sitemap.php?part=hubs') . '</loc></sitemap>' . "\n";
++    for ($k = 1; $k <= max(1, (int) ceil($n / PER)); $k++) echo '  <sitemap><loc>' . $x($base . '/sitemap.php?part=listings&n=' . $k) . '</loc></sitemap>' . "\n";
++    echo '</sitemapindex>' . "\n";
++    exit;
++}
++
++echo '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
++$url = function (string $path, $mod = null) use ($x, $base, $day) { echo '  <url><loc>' . $x($base . $path) . '</loc><lastmod>' . $day($mod) . '</lastmod></url>' . "\n"; };
++try {
++    if ($part === 'pages') {
++        foreach (['/', '/faq.php', '/our-approach.php', '/plans.php', '/privacy.php', '/terms.php', '/directory/', '/discovery/', '/community/', '/market/'] as $p) $url($p);
++        require_once __DIR__ . '/../app/lib/SitePages.php';
++        foreach (SitePages::all($pdo) as $p) if ($p['status'] === 'live') $url(SitePages::url($p), $p['updated_at'] ?? null);
++    } elseif ($part === 'hubs') {
++        foreach ($pdo->query('SELECT slug FROM hubs WHERE slug <> \'\'')->fetchAll(PDO::FETCH_COLUMN) as $s) $url('/hub/?hub=' . rawurlencode((string) $s));
++    } elseif ($part === 'listings') {
++        $k = max(1, (int) ($_GET['n'] ?? 1));
++        $st = $pdo->query("SELECT id, name, category_id, updated_at FROM entities WHERE entity_type = 'merchant' AND is_suppressed = 0 AND status IN ($pub) ORDER BY id LIMIT " . PER . ' OFFSET ' . (($k - 1) * PER));
++        foreach ($st->fetchAll(PDO::FETCH_ASSOC) as $r) {
++            if (ListingSafety::isConfidential($r['category_id'] !== null ? (int) $r['category_id'] : null, (string) $r['name'])) continue;   // a confidential place is never offered
++            $url('/listing/view.php?id=' . (int) $r['id'], $r['updated_at']);
++        }
++    }
++} catch (Throwable $e) { error_log('sitemap ' . $part . ': ' . $e->getMessage()); }
++echo '</urlset>' . "\n";
