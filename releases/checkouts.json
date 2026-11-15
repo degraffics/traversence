@@ -2,447 +2,14 @@
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
  "claims": [
   {
-   "path": "app/lib/AiClient.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
-   "why": "Release B part 3: keys, Release A's leftovers, Geofabrik's load",
-   "since": "2026-11-15T19:36:18Z",
-   "expires": "2026-11-15T23:36:18Z",
-   "release": "release-b3",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/Dossier.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
-   "why": "Release B part 3: keys, Release A's leftovers, Geofabrik's load",
-   "since": "2026-11-15T19:36:18Z",
-   "expires": "2026-11-15T23:36:18Z",
-   "release": "release-b3",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/Geocoder.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
-   "why": "Release B part 3: keys, Release A's leftovers, Geofabrik's load",
-   "since": "2026-11-15T19:36:18Z",
-   "expires": "2026-11-15T23:36:18Z",
-   "release": "release-b3",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/MarketPay.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
-   "why": "Release B part 3: keys, Release A's leftovers, Geofabrik's load",
-   "since": "2026-11-15T19:36:18Z",
-   "expires": "2026-11-15T23:36:33Z",
-   "release": "release-b3.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/MarketRules.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
-   "why": "Release B part 3: keys, Release A's leftovers, Geofabrik's load",
-   "since": "2026-11-15T19:36:18Z",
-   "expires": "2026-11-15T23:36:18Z",
-   "release": "release-b3",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/OpenPlaces.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
-   "why": "Release B part 3: keys, Release A's leftovers, Geofabrik's load",
-   "since": "2026-11-15T19:36:18Z",
-   "expires": "2026-11-15T23:36:33Z",
-   "release": "release-b3.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/Operations.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
-   "why": "Release B part 3: keys, Release A's leftovers, Geofabrik's load",
-   "since": "2026-11-15T19:36:18Z",
-   "expires": "2026-11-15T23:36:33Z",
-   "release": "release-b3.zip",
-   "callers": {
-    "switchOnCheck": [
-     "app/admin/automation-console.php",
-     "app/admin/operations-console.php"
-    ]
-   }
-  },
-  {
-   "path": "app/lib/PlaceFinder.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
-   "why": "Release B part 3: keys, Release A's leftovers, Geofabrik's load",
-   "since": "2026-11-15T19:36:18Z",
-   "expires": "2026-11-15T23:36:18Z",
-   "release": "release-b3",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/QuickBooksPay.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
-   "why": "Release B part 3: keys, Release A's leftovers, Geofabrik's load",
-   "since": "2026-11-15T19:36:18Z",
-   "expires": "2026-11-15T23:36:18Z",
-   "release": "release-b3",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/Roads511.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
-   "why": "Release B part 3: keys, Release A's leftovers, Geofabrik's load",
-   "since": "2026-11-15T19:36:18Z",
-   "expires": "2026-11-15T23:36:18Z",
-   "release": "release-b3",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/ServiceHealth.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
-   "why": "Release B part 3: keys, Release A's leftovers, Geofabrik's load",
-   "since": "2026-11-15T19:36:18Z",
-   "expires": "2026-11-15T23:36:18Z",
-   "release": "release-b3",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/Services.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
-   "why": "Release B part 3: keys, Release A's leftovers, Geofabrik's load",
-   "since": "2026-11-15T19:36:18Z",
-   "expires": "2026-11-15T23:36:33Z",
-   "release": "release-b3.zip",
-   "callers": {
-    "all": [
-     "app/lib/Operations.php",
-     "app/lib/OutsideServices.php",
-     "app/ui/outside-services.php"
-    ]
-   }
-  },
-  {
-   "path": "app/lib/Thresholds.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
-   "why": "Release B part 3: keys, Release A's leftovers, Geofabrik's load",
-   "since": "2026-11-15T19:36:18Z",
-   "expires": "2026-11-15T23:36:18Z",
-   "release": "release-b3",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/TravelLegs.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
-   "why": "Release B part 3: keys, Release A's leftovers, Geofabrik's load",
-   "since": "2026-11-15T19:36:18Z",
-   "expires": "2026-11-15T23:36:33Z",
-   "release": "release-b3.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/Weather.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
-   "why": "Release B part 3: keys, Release A's leftovers, Geofabrik's load",
-   "since": "2026-11-15T19:36:18Z",
-   "expires": "2026-11-15T23:36:18Z",
-   "release": "release-b3",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/ZipPopulation.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
-   "why": "Release B part 3: keys, Release A's leftovers, Geofabrik's load",
-   "since": "2026-11-15T19:36:18Z",
-   "expires": "2026-11-15T23:36:18Z",
-   "release": "release-b3",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/crawler/CrawlService.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
-   "why": "Release B part 3: keys, Release A's leftovers, Geofabrik's load",
-   "since": "2026-11-15T19:36:18Z",
-   "expires": "2026-11-15T23:36:33Z",
-   "release": "release-b3.zip",
-   "callers": {
-    "plan": [
-     "website/api/crawl/service.php"
-    ]
-   }
-  },
-  {
-   "path": "app/lib/crawler/DeepLook.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
-   "why": "Release B part 3: keys, Release A's leftovers, Geofabrik's load",
-   "since": "2026-11-15T19:36:18Z",
-   "expires": "2026-11-15T23:36:33Z",
-   "release": "release-b3.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/crawler/OpenLoads.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
-   "why": "Release B part 3: keys, Release A's leftovers, Geofabrik's load",
-   "since": "2026-11-15T19:36:18Z",
-   "expires": "2026-11-15T23:36:18Z",
-   "release": "release-b3",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/stock/StockSource.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
-   "why": "Release B part 3: keys, Release A's leftovers, Geofabrik's load",
-   "since": "2026-11-15T19:36:18Z",
-   "expires": "2026-11-15T23:36:18Z",
-   "release": "release-b3",
-   "callers": {}
-  },
-  {
-   "path": "website/api/crawl/loads.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
-   "why": "Release B part 3: keys, Release A's leftovers, Geofabrik's load",
-   "since": "2026-11-15T19:36:18Z",
-   "expires": "2026-11-15T23:36:18Z",
-   "release": "release-b3",
-   "callers": {}
-  },
-  {
-   "path": "website/api/crawl/service.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
-   "why": "Release B part 3: keys, Release A's leftovers, Geofabrik's load",
-   "since": "2026-11-15T19:36:18Z",
-   "expires": "2026-11-15T23:36:18Z",
-   "release": "release-b3",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/ServiceHealth.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
-   "why": "release release-b3.zip",
-   "since": "2026-11-15T19:36:33Z",
-   "expires": "2026-11-15T23:36:33Z",
-   "release": "release-b3.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/MarketRules.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
-   "why": "release release-b3.zip",
-   "since": "2026-11-15T19:36:33Z",
-   "expires": "2026-11-15T23:36:33Z",
-   "release": "release-b3.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/Dossier.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
-   "why": "release release-b3.zip",
-   "since": "2026-11-15T19:36:33Z",
-   "expires": "2026-11-15T23:36:33Z",
-   "release": "release-b3.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/Weather.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
-   "why": "release release-b3.zip",
-   "since": "2026-11-15T19:36:33Z",
-   "expires": "2026-11-15T23:36:33Z",
-   "release": "release-b3.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/Thresholds.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
-   "why": "release release-b3.zip",
-   "since": "2026-11-15T19:36:33Z",
-   "expires": "2026-11-15T23:36:33Z",
-   "release": "release-b3.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/Roads511.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
-   "why": "release release-b3.zip",
-   "since": "2026-11-15T19:36:33Z",
-   "expires": "2026-11-15T23:36:33Z",
-   "release": "release-b3.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/Geocoder.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
-   "why": "release release-b3.zip",
-   "since": "2026-11-15T19:36:33Z",
-   "expires": "2026-11-15T23:36:33Z",
-   "release": "release-b3.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/PlaceFinder.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
-   "why": "release release-b3.zip",
-   "since": "2026-11-15T19:36:33Z",
-   "expires": "2026-11-15T23:36:33Z",
-   "release": "release-b3.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/crawler/OpenLoads.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
-   "why": "release release-b3.zip",
-   "since": "2026-11-15T19:36:33Z",
-   "expires": "2026-11-15T23:36:33Z",
-   "release": "release-b3.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/QuickBooksPay.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
-   "why": "release release-b3.zip",
-   "since": "2026-11-15T19:36:33Z",
-   "expires": "2026-11-15T23:36:33Z",
-   "release": "release-b3.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/AiClient.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
-   "why": "release release-b3.zip",
-   "since": "2026-11-15T19:36:33Z",
-   "expires": "2026-11-15T23:36:33Z",
-   "release": "release-b3.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/ZipPopulation.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
-   "why": "release release-b3.zip",
-   "since": "2026-11-15T19:36:33Z",
-   "expires": "2026-11-15T23:36:33Z",
-   "release": "release-b3.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/stock/StockSource.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
-   "why": "release release-b3.zip",
-   "since": "2026-11-15T19:36:33Z",
-   "expires": "2026-11-15T23:36:33Z",
-   "release": "release-b3.zip",
-   "callers": {}
-  },
-  {
-   "path": "website/api/crawl/loads.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
-   "why": "release release-b3.zip",
-   "since": "2026-11-15T19:36:33Z",
-   "expires": "2026-11-15T23:36:33Z",
-   "release": "release-b3.zip",
-   "callers": {}
-  },
-  {
-   "path": "website/api/crawl/service.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
-   "why": "release release-b3.zip",
-   "since": "2026-11-15T19:36:33Z",
-   "expires": "2026-11-15T23:36:33Z",
-   "release": "release-b3.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/DataCleanup.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
-   "why": "Release B part 4",
-   "since": "2026-11-15T20:00:57Z",
-   "expires": "2026-11-16T00:00:57Z",
-   "release": "release-b4",
-   "callers": {}
-  },
-  {
    "path": "app/lib/EngineCase.php",
    "functions": [],
    "kind": "change",
    "session": "session_01CXLi5hvWvRSedDtk54gNDP",
-   "why": "Release B part 4",
-   "since": "2026-11-15T20:00:57Z",
-   "expires": "2026-11-16T00:01:00Z",
-   "release": "release-b4.zip",
+   "why": "Release B part 5",
+   "since": "2026-11-15T20:12:22Z",
+   "expires": "2026-11-16T00:13:05Z",
+   "release": "release-b5.zip",
    "callers": {
     "pulseDo": [
      "app/lib/Pulse.php"
@@ -450,60 +17,73 @@
    }
   },
   {
+   "path": "app/lib/Gemini.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "Release B part 5",
+   "since": "2026-11-15T20:12:22Z",
+   "expires": "2026-11-16T00:12:22Z",
+   "release": "release-b5",
+   "callers": {}
+  },
+  {
    "path": "app/lib/ListingConfidence.php",
    "functions": [],
    "kind": "change",
    "session": "session_01CXLi5hvWvRSedDtk54gNDP",
-   "why": "Release B part 4",
-   "since": "2026-11-15T20:00:57Z",
-   "expires": "2026-11-16T00:01:00Z",
-   "release": "release-b4.zip",
+   "why": "Release B part 5",
+   "since": "2026-11-15T20:12:22Z",
+   "expires": "2026-11-16T00:13:05Z",
+   "release": "release-b5.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Operations.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "Release B part 5",
+   "since": "2026-11-15T20:12:22Z",
+   "expires": "2026-11-16T00:13:05Z",
+   "release": "release-b5.zip",
    "callers": {
-    "yes": [
-     "website/api/listing-confirm.php"
+    "warnings": [
+     "app/lib/Services.php"
     ]
    }
   },
   {
-   "path": "app/lib/Sales.php",
+   "path": "app/lib/SearchDemand.php",
    "functions": [],
    "kind": "change",
    "session": "session_01CXLi5hvWvRSedDtk54gNDP",
-   "why": "Release B part 4",
-   "since": "2026-11-15T20:00:57Z",
-   "expires": "2026-11-16T00:01:00Z",
-   "release": "release-b4.zip",
-   "callers": {
-    "toConfirm": [
-     "app/admin/tools.php",
-     "app/lib/Pulse.php"
-    ]
-   }
-  },
-  {
-   "path": "app/lib/Scheduler.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
-   "why": "Release B part 4",
-   "since": "2026-11-15T20:00:57Z",
-   "expires": "2026-11-16T00:01:00Z",
-   "release": "release-b4.zip",
-   "callers": {
-    "sync": [
-     "app/admin/sections.php"
-    ]
-   }
+   "why": "Release B part 5",
+   "since": "2026-11-15T20:12:22Z",
+   "expires": "2026-11-16T00:13:05Z",
+   "release": "release-b5.zip",
+   "callers": {}
   },
   {
    "path": "app/lib/crawler/SourceIndex.php",
    "functions": [],
    "kind": "change",
    "session": "session_01CXLi5hvWvRSedDtk54gNDP",
-   "why": "Release B part 4",
-   "since": "2026-11-15T20:00:57Z",
-   "expires": "2026-11-16T00:01:00Z",
-   "release": "release-b4.zip",
+   "why": "Release B part 5",
+   "since": "2026-11-15T20:12:22Z",
+   "expires": "2026-11-16T00:12:22Z",
+   "release": "release-b5",
+   "callers": {}
+  },
+  {
+   "path": "website/api/search.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "Release B part 5",
+   "since": "2026-11-15T20:12:22Z",
+   "expires": "2026-11-16T00:12:22Z",
+   "release": "release-b5",
    "callers": {}
   },
   {
@@ -511,35 +91,54 @@
    "functions": [],
    "kind": "change",
    "session": "session_01CXLi5hvWvRSedDtk54gNDP",
-   "why": "Release B part 4",
-   "since": "2026-11-15T20:00:57Z",
-   "expires": "2026-11-16T00:01:00Z",
-   "release": "release-b4.zip",
+   "why": "Release B part 5",
+   "since": "2026-11-15T20:12:22Z",
+   "expires": "2026-11-16T00:13:05Z",
+   "release": "release-b5.zip",
    "callers": {}
   },
   {
-   "path": "app/admin/tools.php",
-   "functions": [
-    "'growth/calls'",
-    "growth/calls"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
-   "why": "Release B part 4",
-   "since": "2026-11-15T20:00:57Z",
-   "expires": "2026-11-16T00:01:00Z",
-   "release": "release-b4.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/DataCleanup.php",
+   "path": "app/migrations/2026-11-17_search_demand_empty.sql",
    "functions": [],
    "kind": "add",
    "session": "session_01CXLi5hvWvRSedDtk54gNDP",
-   "why": "release release-b4.zip",
-   "since": "2026-11-15T20:01:00Z",
-   "expires": "2026-11-16T00:01:00Z",
-   "release": "release-b4.zip",
+   "why": "release release-b5.zip",
+   "since": "2026-11-15T20:12:24Z",
+   "expires": "2026-11-16T00:13:05Z",
+   "release": "release-b5.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Gemini.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "release release-b5.zip",
+   "since": "2026-11-15T20:12:24Z",
+   "expires": "2026-11-16T00:13:05Z",
+   "release": "release-b5.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/crawler/SourceIndex.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "release release-b5.zip",
+   "since": "2026-11-15T20:12:24Z",
+   "expires": "2026-11-16T00:13:05Z",
+   "release": "release-b5.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/api/search.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "release release-b5.zip",
+   "since": "2026-11-15T20:12:24Z",
+   "expires": "2026-11-16T00:13:05Z",
+   "release": "release-b5.zip",
    "callers": {}
   }
  ],
