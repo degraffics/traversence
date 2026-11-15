@@ -1,8 +1,8 @@
 {
  "zip": "start-the-system.zip",
- "built_on": "63c5eed Sync: 2026-11-15 21:47 UTC",
- "recorded": "2026-11-15 22:13 UTC",
- "note": "Start the system and Pause everything (decisions/0163 \u00a710 note, 2026-11-15), review; built on Sync: 2026-11-15 21:47 UTC Sent through git (releases/inbox).",
+ "built_on": "60e8abe Sync: 2026-11-15 22:13 UTC",
+ "recorded": "2026-11-15 22:17 UTC",
+ "note": "Start the system and Pause everything (decisions/0163 \u00a710 note, 2026-11-15), with review links to the staff login; review; built on Sync: 2026-11-15 22:13 UTC Sent through git (releases/inbox).",
  "status": "pending",
  "live_in": "",
  "files": {
@@ -12,6 +12,10 @@
   },
   "app/admin/operations-console.php": {
    "sha256": "414aa2f6461f4066286d9a8a9f2d7662d4ab70058339d423b61edea9bd3dc5df",
+   "live": false
+  },
+  "app/bootstrap.php": {
+   "sha256": "1546327816a2a06362ec2d30bb70ae55812635cce5eead2634d1f92c8fd53d21",
    "live": false
   },
   "app/lib/Operations.php": {
