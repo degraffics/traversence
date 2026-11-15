@@ -1,0 +1,102 @@
+{
+ "zip": "operations-release-a_20261115.zip",
+ "built_on": "ab8089f Sync: 2026-11-15 12:03 UTC",
+ "recorded": "2026-11-15 12:43 UTC",
+ "note": "Release A (decisions/0163 \u00a78 stages 2-6): the service register, costs, the workflow board with versions, 50/75/95% and returns-empty warnings in Pulse, watching Railway and the sync (shipped off), the switch-on check; story-only landmarks; place counts without drop-offs. For review on staging. Built on Sync: 2026-11-15 12:03 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/admin/automation-console.php": {
+   "sha256": "2d625d5c49ebb3e13a26ae66dfc90744284c9cba2f173862d9b51902c9c195c1",
+   "live": false
+  },
+  "app/admin/cleanup-console.php": {
+   "sha256": "832b355f7c9a888e113535b533e95a868221aeb517845e9ec25dc469c26dd8ab",
+   "live": false
+  },
+  "app/admin/manifests.php": {
+   "sha256": "aca205e2de5c43ccf629fe4ecb7a5beb8b5136be77397a41bd9a959fba05a837",
+   "live": false
+  },
+  "app/admin/operations-console.php": {
+   "sha256": "9f20939fd4bf29b02c1d6d863267fae1cdd7ffe27e1327fb85f3d2bc9e0ea5c9",
+   "live": false
+  },
+  "app/admin/sections.php": {
+   "sha256": "939b5b999cf7754f030c673e951f7448fad45534a9fe25ae30b73026c06123ed",
+   "live": false
+  },
+  "app/lib/AiClient.php": {
+   "sha256": "8419aefc6e8521e641314ea386c40ba1ad5c2f930acb6a7a3d5c4f38c470a487",
+   "live": false
+  },
+  "app/lib/DataCleanup.php": {
+   "sha256": "ed4de077fa6b7c39554218da2dc59bdcd545f148253bb4de506a1986071ba484",
+   "live": false
+  },
+  "app/lib/GuideLinks.php": {
+   "sha256": "ba26bbfe405ba034d2da7a3a31c1f8faedfa11c3b74c11a021fae75c47462b51",
+   "live": false
+  },
+  "app/lib/Guides.php": {
+   "sha256": "31d328d1e2f6979cd7bd071c82e4637f1f4b92d9cfd1b3622174d96cf0d172ad",
+   "live": false
+  },
+  "app/lib/Landmarks.php": {
+   "sha256": "93cdf8a23b8025bbdfc1e6edfb801aac8a2ec6b8ecf7d907d8c7be36a79b625e",
+   "live": false
+  },
+  "app/lib/Operations.php": {
+   "sha256": "0678222a19521aaec161355eed34320e60e97fb3abb22f4c674494196ba8c0b5",
+   "live": false
+  },
+  "app/lib/Pulse.php": {
+   "sha256": "c8ff75590c49b96847eeedc21c196deb83cb7bfb8ffc9fc90918d1233ebce926",
+   "live": false
+  },
+  "app/lib/Scheduler.php": {
+   "sha256": "4fd97784c71ea70d98bbca586d6a80af6de06d3fef9efd716c2e29a9a91108f3",
+   "live": false
+  },
+  "app/lib/Services.php": {
+   "sha256": "5967366d1978d9217442d4fc13903b420490283f34ea7fbbdf4ae41f7dd84373",
+   "live": false
+  },
+  "app/lib/SesMail.php": {
+   "sha256": "086db102eada6580acade8b7cce10a181133d5a88de7a206b56163f8671d58fb",
+   "live": false
+  },
+  "app/lib/Takedowns.php": {
+   "sha256": "dd52ee593092c7c197fe69ea4872643c7efbb29d194a031790c74a9aac8cadc6",
+   "live": false
+  },
+  "app/lib/Thresholds.php": {
+   "sha256": "2fea93673d7446896ffa1cb21a59e9164eae41ea951c44adc77d16fb8f54df09",
+   "live": false
+  },
+  "app/lib/WorkflowSettings.php": {
+   "sha256": "6af6ba88b72a450d6726a0870e981b0e212ea3e6c649484ac1d79d77f3c1dab1",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "1a934ef70d9b54f6160e97710b414d58aa00cd8c7d7c9047f39e6493f5ce91cd",
+   "live": false
+  },
+  "website/api/crawl/usage.php": {
+   "sha256": "ed8e0e5f71c7e36e667b3965752fed1a5a35dc56036d3db7c02549580f73545c",
+   "live": false
+  },
+  "website/api/place.php": {
+   "sha256": "8c909ff94bd9d891e91068b9334a0d6f5da3abadbf13a9e8a0f9a54cac7cfbb7",
+   "live": false
+  },
+  "website/hub/index.php": {
+   "sha256": "ce0dcaf4ac776eda8d09d9b1d762a0c8598f859d9ab68650b391848078cbaff1",
+   "live": false
+  },
+  "website/place/landmark.php": {
+   "sha256": "0290317174d453bcbe7efe871dd9d74509d5979108560c3c6d1d6ae52db351e6",
+   "live": false
+  }
+ }
+}
