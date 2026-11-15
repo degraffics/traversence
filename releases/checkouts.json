@@ -327,8 +327,8 @@
    "session": "session_01CXLi5hvWvRSedDtk54gNDP",
    "why": "The staging bar never drew: a variable hid its date helper",
    "since": "2026-11-15T18:38:48Z",
-   "expires": "2026-11-15T22:38:48Z",
-   "release": "release-stgbar2",
+   "expires": "2026-11-15T22:38:52Z",
+   "release": "release-stgbar2.zip",
    "callers": {}
   }
  ],
