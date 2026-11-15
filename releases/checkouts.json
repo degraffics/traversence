@@ -1,5 +1,61 @@
 {
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
- "claims": [],
+ "claims": [
+  {
+   "path": "app/admin/sections.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "Follow-up: review folds, bar records the look, Check for builds",
+   "since": "2026-11-15T19:04:36Z",
+   "expires": "2026-11-15T23:04:36Z",
+   "release": "release-fastpath",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Releases.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "Follow-up: review folds, bar records the look, Check for builds",
+   "since": "2026-11-15T19:04:36Z",
+   "expires": "2026-11-15T23:04:36Z",
+   "release": "release-fastpath",
+   "callers": {}
+  },
+  {
+   "path": "website/admin/api.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "Follow-up: review folds, bar records the look, Check for builds",
+   "since": "2026-11-15T19:04:36Z",
+   "expires": "2026-11-15T23:04:36Z",
+   "release": "release-fastpath",
+   "callers": {}
+  },
+  {
+   "path": "website/api/release-bar.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "Follow-up: review folds, bar records the look, Check for builds",
+   "since": "2026-11-15T19:04:36Z",
+   "expires": "2026-11-15T23:04:36Z",
+   "release": "release-fastpath",
+   "callers": {}
+  },
+  {
+   "path": "website/js/stg-bar.js",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "Follow-up: review folds, bar records the look, Check for builds",
+   "since": "2026-11-15T19:04:36Z",
+   "expires": "2026-11-15T23:04:36Z",
+   "release": "release-fastpath",
+   "callers": {}
+  }
+ ],
  "lapsed": []
 }
