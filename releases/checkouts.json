@@ -1,5 +1,50 @@
 {
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
- "claims": [],
+ "claims": [
+  {
+   "path": "app/lib/Operations.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5iFQyKrm52ppEnEUqw",
+   "why": "Release A: the service register, costs, workflow board, warnings, watching (0163 \u00a78 stages 2-6)",
+   "since": "2026-11-15T12:20:08Z",
+   "expires": "2026-11-15T16:20:08Z",
+   "release": "operations-release-a_20261115.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/WorkflowSettings.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5iFQyKrm52ppEnEUqw",
+   "why": "Release A: the service register, costs, workflow board, warnings, watching (0163 \u00a78 stages 2-6)",
+   "since": "2026-11-15T12:20:08Z",
+   "expires": "2026-11-15T16:20:08Z",
+   "release": "operations-release-a_20261115.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/operations-console.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5iFQyKrm52ppEnEUqw",
+   "why": "Release A: the service register, costs, workflow board, warnings, watching (0163 \u00a78 stages 2-6)",
+   "since": "2026-11-15T12:20:08Z",
+   "expires": "2026-11-15T16:20:08Z",
+   "release": "operations-release-a_20261115.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/scripts/ops_tick.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5iFQyKrm52ppEnEUqw",
+   "why": "Release A: the service register, costs, workflow board, warnings, watching (0163 \u00a78 stages 2-6)",
+   "since": "2026-11-15T12:20:08Z",
+   "expires": "2026-11-15T16:20:08Z",
+   "release": "operations-release-a_20261115.zip",
+   "callers": {}
+  }
+ ],
  "lapsed": []
 }
