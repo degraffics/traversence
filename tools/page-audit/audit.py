@@ -29,6 +29,8 @@ RULES = {
     'R10': ("The brand's icons, not emoji", False),
     'R11': ('No breadcrumbs on content pages', False),
     'R12': ('Every outside service the code calls has its card in Outside services', False),
+    'R13': ("A new outside call goes through staging's gate (decisions/0165 §1)", True),
+    'R14': ("A new table has its class in app/lib/staging-tables.php (decisions/0165 §3)", True),
 }
 
 def load(mirror):
@@ -472,12 +474,78 @@ def exceptions(docs):
     except (OSError, ValueError):
         return []
 
+# ---- R13: outside calls go through staging's gate (decisions/0165 §1) -------------------------------------------------
+# A function that makes an outside call (curl, an http file read, a socket) asks a gate first: StagingGate::, Staging::here/
+# allow/holdMail, ServiceHealth::allowed or Automation::gathering/hostOff/job, or says why it needn't with an "@gate" note
+# (a live-only call, a call to staging itself). The same scan as StagingGate::scanText, which staging runs nightly on its
+# own code. The message names the function, not the line, so only a new one counts against a zip.
+GATE_CALL = re.compile(r'\b(curl_init|curl_multi_init|fsockopen|stream_socket_client)\s*\(|file_get_contents\(\s*[\'"]https?:')
+GATE_OK = re.compile(r'StagingGate::|Staging::(here|allow|holdMail)|ServiceHealth::allowed|Automation::(gathering|hostOff|job)|@gate\b')
+FN = re.compile(r'^\s*(?:(?:public|private|protected|static|final|abstract)\s+)*function\s+(\w+)')
+
+def gate_scan(text):
+    out, fn, depth, fdepth, body, calls = [], '', 0, -1, [], []
+    def flush():
+        nonlocal calls
+        if calls and not GATE_OK.search('\n'.join(body)):
+            for ln, what in calls: out.append((ln, fn or '(top of file)', what))
+        calls = []
+    for i, l in enumerate(text.split('\n')):
+        m = FN.match(l)
+        if m and fdepth < 0:
+            flush(); fn, fdepth, body = m.group(1), depth, []
+        if fdepth >= 0 or fn == '':
+            body.append(l)
+        if not re.match(r'^\s*(//|\*|/\*)', l):
+            g = GATE_CALL.search(l)
+            if g: calls.append((i + 1, g.group(1) or 'file_get_contents(http)'))
+        depth += l.count('{') - l.count('}')
+        if fdepth >= 0 and depth <= fdepth and '}' in l:
+            flush(); fn, fdepth, body = '', -1, []
+    flush()
+    return out
+
+def check_gate(files, findings):
+    for path, text in files.items():
+        if not path.endswith('.php') or path.startswith(('app/vendor/', 'app/data/')):
+            continue
+        seen = set()
+        for ln, fn, what in gate_scan(text):
+            if fn in seen: continue
+            seen.add(fn)
+            find(findings, 'R13', path, ln, f'{fn}(): an outside call ({what}) with no gate: ask StagingGate::hold($url, …) first, or say why not with an @gate note')
+
+# ---- R14: every table has a staging class (decisions/0165 §3) ---------------------------------------------------------
+CREATE_T = re.compile(r'CREATE\s+TABLE\s+(?:IF\s+NOT\s+EXISTS\s+)?[`\'"]?([a-z][a-z0-9_]*)[`\'"]?\s*\(', re.I)
+
+def staging_register(files):
+    reg = files.get('app/lib/staging-tables.php')
+    if reg is None: return None
+    names = set(re.findall(r"'([a-z][a-z0-9_]*)'", reg))
+    pats = [re.compile(p) for p in re.findall(r"'/(.+?)/'", reg.split('FOLLOWS_LIKE', 1)[1].split(';', 1)[0])] if 'FOLLOWS_LIKE' in reg else []
+    return names, pats
+
+def check_table_class(files, findings):
+    r = staging_register(files)
+    if r is None: return   # no register yet (before decisions/0165's release)
+    names, pats = r
+    for path, text in files.items():
+        if not (path.endswith('.php') or path.endswith('.sql')) or path.startswith(('app/vendor/', 'app/data/')):
+            continue
+        made = list(CREATE_T.finditer(text))
+        if 'AdminTables::make' in text: made += list(re.finditer(r"'([a-z][a-z0-9_]*)'\s*=>\s*'\(", text))   # AdminTables::make($pdo, ['name' => '(…)'])
+        for m in made:
+            t = m.group(1).lower()
+            if t in names or any(p.search(t) for p in pats): continue
+            find(findings, 'R14', path, text.count('\n', 0, m.start()) + 1, f'the table {t} has no class in app/lib/staging-tables.php: name it there (records, money, follows, own or never) in the same release')
+
 def run(mirror, docs, keep_exceptions=False):
     files = load(mirror)
     findings, tree = [], []
     check_calls(files, findings); check_shell_order(files, findings); check_dialogs(files, findings); check_uploads(files, findings); check_php80(files, findings, server_php(docs))
     check_shell(files, findings); check_faq(files, findings); check_csrf(files, findings); check_migrations(files, findings)
     check_listed(files, docs, findings, tree); check_emoji_crumbs(files, findings); check_services(files, docs, findings)
+    check_gate(files, findings); check_table_class(files, findings)
     ex = {(e['rule'], e['file']): e for e in exceptions(docs) if e.get('reason')}
     kept = []
     for f in findings:

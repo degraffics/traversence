@@ -1,6 +1,6 @@
 # ADR 0165: Staging is the live site in safe mode; Publish merges it into live
 
-**Status:** Accepted (Jason, 2026-11-15, through the session manager; his answers to the five choices are under "Choices for Jason"). Nothing here is built yet.
+**Status:** Accepted (Jason, 2026-11-15, through the session manager; his answers to the five choices are under "Choices for Jason"). **Built 2026-11-15 as one release** covering all six steps of §7 (`handoffs/0165-staging.md`: what's where, what ships off, the tests in `tools/staging-tests/`, and what's left for later).
 Once accepted it **replaces** `decisions/0159`'s 2026-11-13 progress note that builds sent through git go live by
 themselves (`Releases::autoPublish`), and `decisions/0145`'s "refreshed from live" (the weekly copy over staging,
 `staging_tick`). It keeps `0145`'s staging rules (held email, sandbox payments, not indexed, behind a password), `0159` §5
@@ -376,6 +376,11 @@ to code being tried.
    and even), with the register of record numbers as a required part of the build (§4).
 4. Changed: push at the time of the action, plus the nightly full pass (the amendment in §3).
 5. Confirmed: staging's own views, taps and counts are never carried.
+
+**Jason, 2026-11-15, at the build ("Go"):** the release goes to staging for his review; and live's outbox is filled by
+one-statement triggers on live's tables, in the database that owns each table (they only note the table, key and kind of
+change), added only when Keep staging caught up is switched on and taken off when it's switched off. That is the one
+exception to §3's "triggers on staging only".
 
 ## Consequences
 

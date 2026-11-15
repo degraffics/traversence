@@ -1,0 +1,138 @@
+{
+ "zip": "release-0165-staging-safe-mode.zip",
+ "built_on": "ff49251 Sync: 2026-11-15 14:12 UTC",
+ "recorded": "2026-11-15 14:53 UTC",
+ "note": "decisions/0165, all six steps as one release (review), with the review email in the daily report's look (Jason). Built on Sync: 2026-11-15 14:12 UTC. Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/admin/sections.php": {
+   "sha256": "87a4af47d7502299dd5cd6cd3becdb275f7da4a382aab924df07673fcab8c738",
+   "live": false
+  },
+  "app/lib/AiClient.php": {
+   "sha256": "996e7c7b3c93a1d26269d088776085a5a8fcaec3974c12c38ada6b6a71568b86",
+   "live": false
+  },
+  "app/lib/DailyReport.php": {
+   "sha256": "fdda4aa416dbf11f13026847f34ca276573761a1d9b86585f542132989a3cac1",
+   "live": false
+  },
+  "app/lib/Database.php": {
+   "sha256": "9c94e80359decae26b2e2e101ad9134d863a97c230e03953afdd399b7dda0ca8",
+   "live": false
+  },
+  "app/lib/Geocoder.php": {
+   "sha256": "f16e3ff2ff28db59c8481631b920013fb2f44160b3534399b8838fbaad724ef3",
+   "live": false
+  },
+  "app/lib/Operations.php": {
+   "sha256": "6e18edf122e9d41df995e2d87863feb1e3e444f0a2852d7cbb7e7ab5e2949019",
+   "live": false
+  },
+  "app/lib/PlaceFinder.php": {
+   "sha256": "f32a2a7bc60cadcbaafbef8e069c795bb022d2023a4c492b8fb7ce384c4fe4c9",
+   "live": false
+  },
+  "app/lib/QuickBooksPay.php": {
+   "sha256": "0fa03bd74df7b1560ef64d7e5c827426682eed38b8eeedebb0bf0c1968ca762a",
+   "live": false
+  },
+  "app/lib/Releases.php": {
+   "sha256": "4049a54cfd85b89bd19924acf1baf083a36cdca4778962b6bb6fe2901aab68f7",
+   "live": false
+  },
+  "app/lib/Scheduler.php": {
+   "sha256": "46b15a5bb7884e47cca1f8ad108e5eba66e1ef8ba53e767faebaade934430436",
+   "live": false
+  },
+  "app/lib/ServiceHealth.php": {
+   "sha256": "82c2a3bf12583a484b23437a8ca90464fcb0f3f394f70e5857b483da899f73ba",
+   "live": false
+  },
+  "app/lib/Staging.php": {
+   "sha256": "a668cc898d9073e68dc4b15ddee95c59abe40542c6be23da456f958d0f5dc352",
+   "live": false
+  },
+  "app/lib/StagingApi.php": {
+   "sha256": "8c61f02645ee63453bcc4bbdf4aeb4c7cf481d3b51b0f82352ea1e48827eac13",
+   "live": false
+  },
+  "app/lib/StagingGate.php": {
+   "sha256": "e6a74e8073a8a7d4dc3c4eb361342c907eaf3bf5387493597d8823164f841a58",
+   "live": false
+  },
+  "app/lib/StagingIds.php": {
+   "sha256": "5ebf7f264eceeecc4fc6e76a4e348a1670be4e480c9d1044d04509fc27e93aac",
+   "live": false
+  },
+  "app/lib/StagingMerge.php": {
+   "sha256": "3430e0589692c13b225c92539f550cf42b857265bdaedd44894ac366aa735f75",
+   "live": false
+  },
+  "app/lib/StagingPublish.php": {
+   "sha256": "11c952c4d76ba423b85029beacd7f228fe67cef3b0bd5b6f278e1c644e64b32b",
+   "live": false
+  },
+  "app/lib/StagingSite.php": {
+   "sha256": "5d45a3c5011c0a0c3fc94cdf90b066ea3723ce1198d6397b3f91e533a1ea6753",
+   "live": false
+  },
+  "app/lib/StagingSync.php": {
+   "sha256": "d64d6cc5d2473c7f134015791a58e8b45c2f9f5df28741625e70a874203778be",
+   "live": false
+  },
+  "app/lib/TravelLegs.php": {
+   "sha256": "fc0f44ddff54da6e9d68eea94180529ba8fdbd22ef875dd97a47d8a65c6d7989",
+   "live": false
+  },
+  "app/lib/staging-tables.php": {
+   "sha256": "9de0e7df1a46744f524b7c0d637ea118e8afd342d4ec8971fbc66f9e416b5555",
+   "live": false
+  },
+  "app/lib/stock/StockSource.php": {
+   "sha256": "6007ae0d9207ce75850bbe8de3b4629473c15a282673cbe1ecf04e1d0e8fee65",
+   "live": false
+  },
+  "app/scripts/staging_night_tick.php": {
+   "sha256": "6484a1742a1dab7686080bacbdbdc2e5aa5f167c0545c394f1149e3e15f1f83f",
+   "live": false
+  },
+  "app/scripts/staging_publish_tick.php": {
+   "sha256": "5a692a8099ca12c97761808803f9d19aa776dcfaacf48c6b153d22c6ded889ae",
+   "live": false
+  },
+  "app/scripts/staging_push_tick.php": {
+   "sha256": "69447163b1735c7bf5dc23796600498d2e831b6c44cfdd3a83ff09dcc79e8721",
+   "live": false
+  },
+  "app/scripts/staging_tick.php": {
+   "sha256": "2422dd81830217d2bf36b1b41220275a63c2bfb1a4eb2c2a73e4d63066968864",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "eafbf7aa0736f760ad6217e2cc7ba4f2d5a082cf9063ac40e6a7d9d383bb59e3",
+   "live": false
+  },
+  "website/admin/api.php": {
+   "sha256": "c07b7f19c3d67bbeb73c4dde0cc65a3f53542b3ad2874eea8e412000e0cbb7b2",
+   "live": false
+  },
+  "website/api/release-bar.php": {
+   "sha256": "1919491e6f9c9f918bacc234b297df09254d1fe754429dbdb2ef601cccc4a9b0",
+   "live": false
+  },
+  "website/api/stg-csp.php": {
+   "sha256": "80bd86ba8986ada9c5a58d57bb881fe3de149a28649dd1effcbd6c577e556cf7",
+   "live": false
+  },
+  "website/js/admin-staging.js": {
+   "sha256": "c94fb51ac60a1c3ed26f1afe5ae30341204f042fead32234b5f6b2578e6d515b",
+   "live": false
+  },
+  "website/js/stg-bar.js": {
+   "sha256": "84bdcbdbbe2d0c25b43bcd1f6ff767e260c52361d9e1d9244c46d7610a2964e5",
+   "live": false
+  }
+ }
+}
