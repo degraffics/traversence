@@ -3,16 +3,16 @@
  "built_on": "259a50c Sync: 2026-11-15 16:06 UTC",
  "recorded": "2026-11-15 17:48 UTC",
  "note": "The staging bar fixed along the bottom, and its call to live past the host's bot check, built on Sync: 2026-11-15 16:06 UTC Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "a7835f8 Sync: 2026-11-15 18:22 UTC",
  "files": {
   "website/api/stg-bar.php": {
    "sha256": "93aaafd6f52a3730d070852d160af6f562cc6ce17c8048479601072728ea2253",
-   "live": false
+   "live": true
   },
   "website/js/stg-bar.js": {
    "sha256": "4f281e4c25d4d2729aea560b7268a2da34ccff7b581384d8e27c0c4fa88442ac",
-   "live": false
+   "live": true
   }
  }
 }

@@ -1,5 +1,5 @@
 diff --git a/app/admin/sections.php b/app/admin/sections.php
-index 60eb3f9..7acf004 100644
+index 60eb3f9..1d5e6a3 100644
 --- a/app/admin/sections.php
 +++ b/app/admin/sections.php
 @@ -363,6 +363,25 @@ function tv_admin_mod_ai(PDO $pdo): string
@@ -28,6 +28,25 @@ index 60eb3f9..7acf004 100644
      $other = [];   // what else spent this month (card scans, brochures, menus), under the overall cap only
      foreach (AiClient::monthBy($pdo) as $prov => $row) foreach ((array) ($row[2] ?? []) as $kind => $n) if (!isset(AiClient::FEATURES[$kind])) $other[] = $kind . ' (' . (int) $n . ')';
      if ($other) $h .= '<p class="ak-note">Also this month, under the overall cap only: ' . tv_w_e(implode(', ', $other)) . '.</p>';
+@@ -1938,6 +1957,18 @@ function tv_admin_mod_releases(PDO $pdo): string
+                     break;
+                 }
+                 $acts .= $btn('stage', $id, 'Put it on staging again', 'releases.publish');
++                // its review here too (Jason, 2026-11-15: the staging bar wasn't there, so the review couldn't be given): UI, UX
++                // and Functional, each Approve or Needs changes with a note; Publish opens when all three are approved
++                if (($rv = Releases::review($pdo, $id)) !== null) {
++                    $acts .= '<div class="ak-form" style="display:grid;gap:.45rem;margin:.5rem 0"><b>Review</b>';
++                    foreach (Releases::REVIEW_PARTS as $pk => [$pn, $pw]) {
++                        $pp = $rv['parts'][$pk] ?? []; $st = ($pp['ok'] ?? null) === true ? '✓ Approved' . (!empty($pp['by']) ? ' by ' . $pp['by'] : '') : (($pp['ok'] ?? null) === false ? '✗ Needs changes: ' . (string) ($pp['note'] ?? '') : 'Waiting for you');
++                        $acts .= '<div><span><b>' . $e($pn) . '</b> · ' . $e($pw) . ' · <i>' . $e($st) . '</i></span><div style="display:flex;gap:.35rem;flex-wrap:wrap;align-items:center;margin-top:.25rem">'
++                            . '<input class="ak-in" data-spell data-rel-note="' . $id . ':' . $pk . '" placeholder="What needs changing (for Needs changes)" aria-label="What needs changing in ' . $e($pn) . '" style="flex:1 1 14rem">'
++                            . $btn('review', $id, 'Approve', 'releases.publish', 'go', ['data-part' => $pk, 'data-ok' => '1']) . $btn('review', $id, 'Needs changes', 'releases.publish', '', ['data-part' => $pk, 'data-ok' => '0']) . '</div></div>';
++                    }
++                    $acts .= '</div>';
++                }
+                 // its checks passed: Publish and Schedule now, each the sign-off once someone has looked at it on staging (decisions/0159 §5)
+             case 'vetted':
+             case 'scheduled':
 diff --git a/app/lib/AiClient.php b/app/lib/AiClient.php
 index 7c5d806..a3eee08 100644
 --- a/app/lib/AiClient.php
@@ -453,7 +472,7 @@ index 9e240a1..9344ad5 100644
      private static function phrase(string $kind, string $label, string $site, array $facts, string $key): string
      {
 diff --git a/app/lib/ListingIdentity.php b/app/lib/ListingIdentity.php
-index d4514e5..ad5b017 100644
+index d4514e5..202fdf5 100644
 --- a/app/lib/ListingIdentity.php
 +++ b/app/lib/ListingIdentity.php
 @@ -513,15 +513,16 @@ final class ListingIdentity
@@ -486,10 +505,29 @@ index d4514e5..ad5b017 100644
      }
  
      /** Whether the recheck may run now: the master, W2 and its task on (0163 §9). Null when it may, else why not. */
+@@ -623,7 +624,8 @@ final class ListingIdentity
+             $st = $pdo->query("SELECT id, entity_id, same_as_id FROM suggestions WHERE kind = 'same' AND status = 'new' AND device_hash IN ('crawler-cleanup', 'crawler-dupes') LIMIT 500");
+             $up = $pdo->prepare("UPDATE suggestions SET status = ?, handled_at = NOW(), note = CONCAT(COALESCE(note, ''), ?) WHERE id = ? AND status = 'new'");
+             foreach ($st->fetchAll(PDO::FETCH_ASSOC) as $r) {
+-                $v = self::verdict($pdo, (int) $r['entity_id'], (int) $r['same_as_id']);
++                // a merge moves the rows that point at the hidden one, this offer's too: both ids then name the keep
++                $v = (int) $r['entity_id'] === (int) $r['same_as_id'] ? 'same' : self::verdict($pdo, (int) $r['entity_id'], (int) $r['same_as_id']);
+                 $to = ['same' => ['used', ' · The identity recheck merged them.'], 'queue' => ['dismissed', ' · Moved to the identity queue (The engine needs a person).'], 'different' => ['dismissed', ' · Two businesses: recorded on the pair.']][$v] ?? null;
+                 if ($to) { $up->execute([$to[0], $to[1], (int) $r['id']]); $n++; }
+             }
 diff --git a/app/lib/OutsideServices.php b/app/lib/OutsideServices.php
-index 56e4bce..5db8e2c 100644
+index 56e4bce..6ec7e28 100644
 --- a/app/lib/OutsideServices.php
 +++ b/app/lib/OutsideServices.php
+@@ -266,7 +266,7 @@ final class OutsideServices
+         'gemini' => ['generativelanguage.googleapis.com'],   // the longest match wins over Google's googleapis.com (serviceOfHost)
+         'supabase' => ['supabase.co'],
+         'overture' => ['overturemaps-us-west-2.s3.amazonaws.com', 'overturemaps.org'],
+-        'foursquare' => ['huggingface.co'],
++        'foursquare' => ['huggingface.co', 'foursquare.com'],
+         'geofabrik' => ['download.geofabrik.de'],
+         'azcc' => ['arizonabusinesscenter.azcc.gov', 'azcc.gov', 'ecorp.azcc.gov'],
+         'nmsos' => ['enterprise.sos.nm.gov', 'sos.nm.gov'],
 @@ -328,7 +328,7 @@ final class OutsideServices
          'railway' => ['switches' => ['staging_crawler']],
          'irs' => ['sources' => ['irs.gov'], 'tasks' => ['irs_bulk']],
@@ -543,6 +581,20 @@ index 64c5d0d..ca43133 100644
              case 'engine':   // "The engine needs a person" (EngineCase::pulseSteps, decisions/0164 §6.1)
                  require_once __DIR__ . '/EngineCase.php';
                  return EngineCase::pulseSteps(Database::connection(), $s);
+diff --git a/app/lib/Releases.php b/app/lib/Releases.php
+index 84135bd..1d7ab27 100644
+--- a/app/lib/Releases.php
++++ b/app/lib/Releases.php
+@@ -830,6 +830,9 @@ final class Releases
+         $note = trim(mb_substr((string) ($a['text'] ?? ''), 0, 2000));
+         if (!$ok && $note === '') throw new RuntimeException('Say what needs changing, so it can be fixed.');
+         $who = trim((string) ($a['name'] ?? ''));
++        if ($who === '' && $uid > 0) {   // given on the Releases page: the signed-in staff member's name
++            try { $q = $pdo->prepare('SELECT COALESCE(NULLIF(s.name, \'\'), u.display_name) FROM ' . Database::t('staff_accounts') . ' s JOIN users u ON u.id = s.user_id WHERE s.user_id = ? LIMIT 1'); $q->execute([$uid]); $who = trim((string) $q->fetchColumn()); } catch (Throwable $x) { $who = ''; }
++        }
+         $rv['parts'][$k] = ['ok' => $ok, 'by' => $who, 'at' => gmdate('c'), 'note' => $note, 'page' => mb_substr((string) ($a['page'] ?? ''), 0, 200)];
+         self::saveReview($pdo, $id, $rv);
+         $name = self::REVIEW_PARTS[$k][0];
 diff --git a/app/lib/Scheduler.php b/app/lib/Scheduler.php
 index dbc12bb..5f386eb 100644
 --- a/app/lib/Scheduler.php
@@ -883,7 +935,7 @@ index 0000000..eb92a52
 +    }
 +}
 diff --git a/app/lib/staging-tables.php b/app/lib/staging-tables.php
-index d2ef07d..b1fb189 100644
+index d2ef07d..0abd730 100644
 --- a/app/lib/staging-tables.php
 +++ b/app/lib/staging-tables.php
 @@ -30,7 +30,7 @@ final class StagingTables
@@ -904,6 +956,15 @@ index d2ef07d..b1fb189 100644
          'nation_shapes', 'nation_sensitive', 'ip_eu_ranges', 'ip_eu_ranges_new', 'ip_eu_meta', 'search_index', 'search_index_state', 'search_learned', 'search_demand', 'search_counts',
          'search_outcomes', 'search_opens', 'search_suggestion_flags', 'search_frames', 'search_edits', 'search_drafts', 'listing_confidence', 'lead_scores', 'platform_counts', 'tag_counts',
          'content_like_tally', 'crawl_jobs', 'crawl_targets', 'crawl_pages', 'crawl_runs', 'crawl_run_items', 'crawl_requests', 'crawl_costs', 'crawl_service_calls', 'crawl_osm_asks',
+@@ -81,7 +81,7 @@ final class StagingTables
+         'business_contact_shares', 'community_group_invites', 'community_group_joins', 'community_invite_codes', 'ai_asks', 'test_records', 'user_blocks'];
+ 
+     /** Never copied: empty on staging (StagingSite::EMPTY_TABLES and live's own records of staging and releases). */
+-    public const NEVER = ['vault_meta', 'vault_creds', 'vault_items', 'vault_ext', 'vault_log', 'email_confirmations', 'user_otp_challenges', 'user_identities', 'two_step_devices',
++    public const NEVER = ['tv_vectors' /* Supabase's, not MySQL: the vector index (Vectors.php), never copied */, 'vault_meta', 'vault_creds', 'vault_items', 'vault_ext', 'vault_log', 'email_confirmations', 'user_otp_challenges', 'user_identities', 'two_step_devices',
+         'staff_recovery_codes', 'guest_devices', 'support_grants', 'page_cache', 'staging_state', 'site_releases', 'site_release_settings', 'stg_outbox', 'identities'];
+ 
+     /**
 @@ -111,7 +111,7 @@ final class StagingTables
          '*.owner_user_id' => 'users', '*.created_by' => 'users', '*.updated_by' => 'users', '*.approved_by' => 'users', '*.decided_by' => 'users', '*.by_user' => 'users',
          '*.member_user_id' => 'users', '*.author_id' => 'users', '*.parent_id' => '=', '*.replaces_id' => '=', '*.ref_id' => '?kind', '*.from_id' => '?kind', '*.to_id' => '?kind',
@@ -1027,6 +1088,23 @@ index 0000000..43b8240
 +$pdo = Database::connection();
 +if (($w = Vectors::off($pdo)) !== null) { echo 'Not run: ' . $w . "\n"; exit(0); }
 +echo 'Vector index: ' . Vectors::tick($pdo, 50) . " listings indexed.\n";
+diff --git a/app/ui/faq.md b/app/ui/faq.md
+index 273e730..b3db164 100644
+--- a/app/ui/faq.md
++++ b/app/ui/faq.md
+@@ -680,6 +680,12 @@ Our crawler checks each business against public sources: its own website, offici
+ ### How do you keep a business from being listed twice?
+ Every way a listing is made or shown again (our crawler's finds, the businesses' own "Add a business", our team's adds, a "Help us find this business" answer, a listing put back) goes through one identity check first. It compares the business with everything we list nearby, including listings that are hidden, by its name (with "LLC", "Inc" and plurals set aside), its phone (an extension doesn't count) and its street address written any way ("Rd" or "Road", a suite or none). If it's the same business, what's new fills the gaps in the listing we have, and nothing is listed twice. A separate check, switched on by our team, looks over the listings already live: two that are exactly the same business become one by themselves, two that differ on a detail (a suite, a second phone, a different website) are checked against public sources first, and only what the evidence can't settle, or a listing a business has claimed, comes to our team. Both stay on the site meanwhile. Another location of a business, or a doctor at a clinic, is never treated as a duplicate.
+ 
++### Do you use open business datasets?
++Coming, and switched off until our team turns it on. Open datasets that anyone may use (Overture Maps and Foursquare's open places, under their licences, credited) will tell our crawler which businesses are in a town we don't cover well yet. Each one goes through the same identity check as everything else, so a business we already list only gets what's missing filled in, and a find is listed only once it has a real name and a phone or street address we're allowed to keep, at the confidence its sources earn. A dataset saying a place has closed only asks our team to check it; it never takes a listing down by itself.
++
++### Can search engines find Traversence?
++Yes, the public pages: listings, places, towns, guides and the like. We publish a sitemap so search engines find them, and ask them (in our robots.txt) to leave out sign-in, your account, your messages, the admin and our own tools. A business that's private or confidential isn't in the sitemap. Staging, where our team tests changes, is never indexed.
++
+ ### Why did a listing I saw move to another link?
+ It was the same business as another listing, so the two became one. The old link takes you to the one we kept, with everything we knew about both. If we got it wrong, tell us with **Closed, moved or listed twice? Tell us** on the listing: our team can undo it exactly, and the two are never put together again.
+ 
 diff --git a/website/api/crawl/loads.php b/website/api/crawl/loads.php
 new file mode 100644
 index 0000000..27c15ad
@@ -1071,3 +1149,102 @@ index 0000000..27c15ad
 +    error_log('api/crawl/loads.php: ' . $e->getMessage());
 +    Response::error('Could not take the load: ' . mb_substr($e->getMessage(), 0, 200), 500, 'server_error');
 +}
+diff --git a/website/js/admin-releases.js b/website/js/admin-releases.js
+index 4456e63..6751a3e 100644
+--- a/website/js/admin-releases.js
++++ b/website/js/admin-releases.js
+@@ -51,6 +51,12 @@
+       var f = document.querySelector('[data-rel-plan="' + id + '"]');
+       if (f) f.querySelectorAll('input,textarea,select').forEach(function (x) { body.args[x.name] = x.value; });
+     }
++    if (what === 'review') {   // a part of the review given here (UI, UX, Functional), as on the staging bar
++      body.args.part = btn.getAttribute('data-part'); body.args.ok = btn.getAttribute('data-ok') === '1' ? 1 : 0;
++      var n = document.querySelector('[data-rel-note="' + id + ':' + body.args.part + '"]');
++      body.args.text = n ? n.value : '';
++      if (!body.args.ok && !body.args.text.trim()) { say('Say what needs changing first.', n || btn, true); if (n) n.focus(); return; }
++    }
+     if (what === 'schedule') {
+       var w = document.querySelector('[data-rel-when="' + id + '"]');
+       if (!w || !w.value) { say('Choose the date and time first.', w || btn, true); return; }
+diff --git a/website/robots.txt b/website/robots.txt
+new file mode 100644
+index 0000000..d153314
+--- /dev/null
++++ b/website/robots.txt
+@@ -0,0 +1,16 @@
++# Traversence: what search engines may read (2026-11-15). The public site is open; accounts, the admin, the APIs and
++# one-time links are not.
++User-agent: *
++Disallow: /admin/
++Disallow: /api/
++Disallow: /user/
++Disallow: /dashboard.php
++Disallow: /order.php
++Disallow: /verify-email.php
++Disallow: /email-revert.php
++Disallow: /reset-password.php
++Disallow: /two-step.php
++Disallow: /stg-enter.php
++Disallow: /q-file.php
++
++Sitemap: https://traversence.com/sitemap.php
+diff --git a/website/sitemap.php b/website/sitemap.php
+new file mode 100644
+index 0000000..ec46bb2
+--- /dev/null
++++ b/website/sitemap.php
+@@ -0,0 +1,54 @@
++<?php
++// /sitemap.php — the site's sitemap for search engines (2026-11-15: there was none, and no robots.txt pointed to one).
++// With no `part`, the sitemap index; its parts: `pages` (the page builder's live pages), `hubs` (each hub's page) and
++// `listings&n=<k>` (public listings, 40,000 a file, as the sitemap protocol allows 50,000). Hidden, merged, confidential and
++// suppressed listings are never in it. On the staging copy it answers 404, so staging is never offered to a search engine.
++declare(strict_types=1);
++
++require_once __DIR__ . '/../app/bootstrap.php';
++require_once __DIR__ . '/../app/lib/Staging.php';
++if (Staging::here()) { http_response_code(404); exit; }
++require_once __DIR__ . '/../app/lib/PlaceScope.php';
++require_once __DIR__ . '/../app/lib/ListingSafety.php';
++
++const PER = 40000;
++$pdo = Database::connection();
++$base = 'https://traversence.com';
++$x = fn (string $s) => htmlspecialchars($s, ENT_XML1 | ENT_QUOTES, 'UTF-8');
++$day = fn ($t) => $t ? date('Y-m-d', strtotime((string) $t)) : date('Y-m-d');
++header('Content-Type: application/xml; charset=utf-8');
++header('Cache-Control: public, max-age=3600');
++echo '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
++$pub = implode(',', array_map(fn ($s) => $pdo->quote($s), PlaceScope::PUBLIC_STATUSES));
++$part = (string) ($_GET['part'] ?? '');
++
++if ($part === '') {
++    $n = 0;
++    try { $n = (int) $pdo->query("SELECT COUNT(*) FROM entities WHERE entity_type = 'merchant' AND is_suppressed = 0 AND status IN ($pub)")->fetchColumn(); } catch (Throwable) {}
++    echo '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
++    echo '  <sitemap><loc>' . $x($base . '/sitemap.php?part=pages') . '</loc></sitemap>' . "\n";
++    echo '  <sitemap><loc>' . $x($base . '/sitemap.php?part=hubs') . '</loc></sitemap>' . "\n";
++    for ($k = 1; $k <= max(1, (int) ceil($n / PER)); $k++) echo '  <sitemap><loc>' . $x($base . '/sitemap.php?part=listings&n=' . $k) . '</loc></sitemap>' . "\n";
++    echo '</sitemapindex>' . "\n";
++    exit;
++}
++
++echo '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
++$url = function (string $path, $mod = null) use ($x, $base, $day) { echo '  <url><loc>' . $x($base . $path) . '</loc><lastmod>' . $day($mod) . '</lastmod></url>' . "\n"; };
++try {
++    if ($part === 'pages') {
++        foreach (['/', '/faq.php', '/our-approach.php', '/plans.php', '/privacy.php', '/terms.php', '/directory/', '/discovery/', '/community/', '/market/'] as $p) $url($p);
++        require_once __DIR__ . '/../app/lib/SitePages.php';
++        foreach (SitePages::all($pdo) as $p) if ($p['status'] === 'live') $url(SitePages::url($p), $p['updated_at'] ?? null);
++    } elseif ($part === 'hubs') {
++        foreach ($pdo->query('SELECT slug FROM hubs WHERE slug <> \'\'')->fetchAll(PDO::FETCH_COLUMN) as $s) $url('/hub/?hub=' . rawurlencode((string) $s));
++    } elseif ($part === 'listings') {
++        $k = max(1, (int) ($_GET['n'] ?? 1));
++        $st = $pdo->query("SELECT id, name, category_id, updated_at FROM entities WHERE entity_type = 'merchant' AND is_suppressed = 0 AND status IN ($pub) ORDER BY id LIMIT " . PER . ' OFFSET ' . (($k - 1) * PER));
++        foreach ($st->fetchAll(PDO::FETCH_ASSOC) as $r) {
++            if (ListingSafety::isConfidential($r['category_id'] !== null ? (int) $r['category_id'] : null, (string) $r['name'])) continue;   // a confidential place is never offered
++            $url('/listing/view.php?id=' . (int) $r['id'], $r['updated_at']);
++        }
++    }
++} catch (Throwable $e) { error_log('sitemap ' . $part . ': ' . $e->getMessage()); }
++echo '</urlset>' . "\n";

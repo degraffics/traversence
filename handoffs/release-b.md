@@ -301,3 +301,14 @@ then deleted): **OpenStreetMap France answered 404** for `…/extracts/north-ame
 `new_mexico`: Railway reaches it (so Geofabrik's "unreachable" is Geofabrik-specific), but the path is wrong; find the
 right extract path (it couldn't be listed from this sandbox) before the next one test. `loads.php` 404'd as expected
 (B2 isn't live). Restart policy NEVER, no cron, variable removed.
+
+**19:00 UTC: B1 (#58) and the staging bar (#59) live**, Sync 18:22 UTC, 61/61 and 2/2 files byte for byte; their claims
+released; the delivery log reads both live. B1's review was given through the live Releases page's API (the staging bar
+still didn't show for Jason; cause not found, `website/js/stg-bar.js` now fixed along the bottom with a re-attach).
+**Release B2 sent for review:** `releases/inbox/release-b2.zip` (25 files, built on Sync 18:22 UTC, zip check clean,
+claims `release-b2`), the patch kept in `release-b-pending/b2/change.diff` (on b1 = live). Besides the 17:40 parts:
+`website/robots.txt` + `website/sitemap.php` (Jason: the site had neither; public pages only, 404 on staging), the
+review's three parts on the live Releases page (`sections.php` release card, `admin-releases.js` `data-rel="review"`,
+`Releases::reviewPart` fills the staff name), a fix to B1 (`ListingIdentity::settleOffers`: a merged pair's offer had both
+ids on the keep and was never marked used), `tv_vectors` classed never, FAQ entries (open datasets, search engines).
+Tests on Sync 18:22 + B2: staging unit 49, identity 36, Gemini 21; both migrations run twice clean.

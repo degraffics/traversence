@@ -3,260 +3,260 @@
  "built_on": "259a50c Sync: 2026-11-15 16:06 UTC",
  "recorded": "2026-11-15 16:51 UTC",
  "note": "Release B part 1 (decisions/0163 \u00a78 before any switch-on, stage 7, stage 8's identity check first; 0165's register), built on Sync: 2026-11-15 16:06 UTC Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "a7835f8 Sync: 2026-11-15 18:22 UTC",
  "files": {
   "app/admin/sections.php": {
    "sha256": "3fed8d34e8cd013b5a5d21098d1d650be9c8ce77b9dd4cd4d1d72271a70859d3",
-   "live": false
+   "live": true
   },
   "app/lib/AddBusiness.php": {
    "sha256": "956c86744326f804100ab9abed5baf05913049e683b8c70755a51a8b12b27442",
-   "live": false
+   "live": true
   },
   "app/lib/AiClient.php": {
    "sha256": "46b933235c678eea2c281019015d3f3c66af977a048d0d87cf692a414c31c0ab",
-   "live": false
+   "live": true
   },
   "app/lib/Automation.php": {
    "sha256": "c90329754be51a3fef67df010071105256d1742cabd428ee1bfe3836f8ab25cb",
-   "live": false
+   "live": true
   },
   "app/lib/CardScan.php": {
    "sha256": "e95881f95abac830be8094d0333d809c376329617fea092e53bc7aa9a85ad1f7",
-   "live": false
+   "live": true
   },
   "app/lib/Clocks.php": {
    "sha256": "8c860d9f7a6dbd71a1140f672bc4efc5632187bfc4713a6f8331812e5ac7a5b1",
-   "live": false
+   "live": true
   },
   "app/lib/CrawlerIngest.php": {
    "sha256": "b8c92d9e6d680f3e9634b7658d64b2b157f5e747aa9a51bd7780b4e1d8ec605e",
-   "live": false
+   "live": true
   },
   "app/lib/DataCleanup.php": {
    "sha256": "25cd632a29c6ca1e09856464b491739a7dde7ae19c67ce3ce57f84d123f8399d",
-   "live": false
+   "live": true
   },
   "app/lib/Dossier.php": {
    "sha256": "852f8eb5812ea8d0722a2ac15dc66da4adc3aea9df2d15d370ce3fadb7d0fcf8",
-   "live": false
+   "live": true
   },
   "app/lib/EngineCase.php": {
    "sha256": "1672c1f707d512952417426d4e694be722faf42269e5f2f15013c25fc3079f84",
-   "live": false
+   "live": true
   },
   "app/lib/Gemini.php": {
    "sha256": "07a23a98bf1d2b5c233f207f1c661a1153b985d1bf6e994c695f9621aa90c169",
-   "live": false
+   "live": true
   },
   "app/lib/GuideLinks.php": {
    "sha256": "bcb5b87e295731b9ad15d72098aabf9a261d50fafad2d7d68b218a84786ed6d6",
-   "live": false
+   "live": true
   },
   "app/lib/Guides.php": {
    "sha256": "e74212617925d4f2e9ca276a95fbd18ef7deb03e1a80817f443e06cf96ddd0f1",
-   "live": false
+   "live": true
   },
   "app/lib/HelpFind.php": {
    "sha256": "dd83b6ee838ad8007a5a0971540be14284a30c691b24e404765a79534141af85",
-   "live": false
+   "live": true
   },
   "app/lib/Heritage.php": {
    "sha256": "3b06ca5e81052fc040c61ccde457a8e55ac088d6f7b0bf831bd6ed756747251e",
-   "live": false
+   "live": true
   },
   "app/lib/HowGuides.php": {
    "sha256": "cf76097607f92a26016908fc8d5155c330e1e7804d4c57b6e4a2eb2914471f34",
-   "live": false
+   "live": true
   },
   "app/lib/Identity.php": {
    "sha256": "bd6c2bb22e666604e116940355171bfc82baae67adc5da42ff4e6d76f73d4488",
-   "live": false
+   "live": true
   },
   "app/lib/IdentityJobs.php": {
    "sha256": "a1d3eb57a5924bd471d2aaaf442c7a9b2fb885b61763a1d5861c4d200d27def2",
-   "live": false
+   "live": true
   },
   "app/lib/Landmarks.php": {
    "sha256": "79fbc259c2a04faee3af8bbf629434d7d87e7ddc90fc0729a78fc5b4bc52f2b3",
-   "live": false
+   "live": true
   },
   "app/lib/Learning.php": {
    "sha256": "5eaf0464357ad5ed796ad3ff0de1e510c571999dfa0db2201b968729bca4df57",
-   "live": false
+   "live": true
   },
   "app/lib/ListingBulk.php": {
    "sha256": "c780179e1c667412007d1daf4612a50c440cb07c75a4712ab62fdff765b91860",
-   "live": false
+   "live": true
   },
   "app/lib/ListingIdentity.php": {
    "sha256": "61d930040176b403494a11daadd519c8acf2fd406341573d9b78efb9c5e0dc66",
-   "live": false
+   "live": true
   },
   "app/lib/LiveEvents.php": {
    "sha256": "86c4e80df9e4f2dd718487d34e9493cfc8e0b91501bdea515808f464563a5c7b",
-   "live": false
+   "live": true
   },
   "app/lib/Operations.php": {
    "sha256": "e8cb7f623c06db7e0b5bce471777743d0a41bfdd449bef890ea668ec49cc1319",
-   "live": false
+   "live": true
   },
   "app/lib/OutsideServices.php": {
    "sha256": "a0f8b69aa7d51d8ba5c219998f27507d140cae636ceebb8fd96de69578a92e88",
-   "live": false
+   "live": true
   },
   "app/lib/PlaceFinder.php": {
    "sha256": "64a7d96f926696081d84ef62e644a6ddc7e1ccefc77650106f988ca627e763d0",
-   "live": false
+   "live": true
   },
   "app/lib/Pulse.php": {
    "sha256": "da971bbbece69dc7bb7cec3da9662847136a782f69a03991be2d4c270598dbd5",
-   "live": false
+   "live": true
   },
   "app/lib/Rebuild.php": {
    "sha256": "09dca91f918efd6f73fe9b495b8bbbf5bcc62d2ce362e9deeab4ce785760bad5",
-   "live": false
+   "live": true
   },
   "app/lib/Sales.php": {
    "sha256": "e8398883ddae43df5fc30162d921de8219ff8cae8290c30e7ff67387c7a0e8f9",
-   "live": false
+   "live": true
   },
   "app/lib/Scheduler.php": {
    "sha256": "517a16aae59559fdddf60343f7444754f54090e411c92b77c131e49de0292778",
-   "live": false
+   "live": true
   },
   "app/lib/ServiceHealth.php": {
    "sha256": "a2184ff061f90e458a155b919c1a429eee2497313fb80c6cdbda970a779f2465",
-   "live": false
+   "live": true
   },
   "app/lib/StagingGate.php": {
    "sha256": "cee4e0beff7cafba8cf1534c368cf9b9f27c8c7776189ef7b14b50ffcf45d5a4",
-   "live": false
+   "live": true
   },
   "app/lib/StagingIds.php": {
    "sha256": "6a7f7ae54d3444cfbd67804c4e9a3a6699f71133116bd09f4850607b3983cea6",
-   "live": false
+   "live": true
   },
   "app/lib/TestAccounts.php": {
    "sha256": "68fa26b56a77a2beeb5b5dc2957e495e982f327059918665948dc2ae05c3fc7b",
-   "live": false
+   "live": true
   },
   "app/lib/Thresholds.php": {
    "sha256": "0fe4958c1f22fcebeb3e1932e81427f6d0a859e10d9fe41bf2e783e1304d0f08",
-   "live": false
+   "live": true
   },
   "app/lib/WorkflowSettings.php": {
    "sha256": "866de61f7f839e59b66433ae0e10d0de965b6b278f1d7d1a653363e4e42c0a1e",
-   "live": false
+   "live": true
   },
   "app/lib/crawler/AutoImport.php": {
    "sha256": "d2fa1fd609ab87839d58a70d56fbd3c53cf1e26e2c5736620d52d873724850d4",
-   "live": false
+   "live": true
   },
   "app/lib/crawler/CrawlQueue.php": {
    "sha256": "2c447ab5149dbb3af83baa591fab9264a057cdbd2d6ccf2d2cba81511b530d0f",
-   "live": false
+   "live": true
   },
   "app/lib/crawler/CrawlService.php": {
    "sha256": "5930062cc606852cd61108eb2a944b914e19555d292dd51875ead8f426d7011d",
-   "live": false
+   "live": true
   },
   "app/lib/crawler/IntakeStager.php": {
    "sha256": "0d3d8bda6fc650bd7c273b560f11a61896aa6d44854f6a37b453e9cc889712e9",
-   "live": false
+   "live": true
   },
   "app/lib/crawler/LiveDupes.php": {
    "sha256": "ce60490aa01fb755f4b58bede6950acd9d39446cdbbb46050f0652d88e2a9444",
-   "live": false
+   "live": true
   },
   "app/lib/crawler/NpiBulk.php": {
    "sha256": "217d233f21c8fe6b16512b17487fbe3e4d5bdf1ce35d9e3b772d69238372ea81",
-   "live": false
+   "live": true
   },
   "app/lib/crawler/Refresh.php": {
    "sha256": "278489502622bd1ffa2872e883844a1bdb39dc02782c9643bfc6e2f01ea99f0c",
-   "live": false
+   "live": true
   },
   "app/lib/crawler/SecondTier.php": {
    "sha256": "9297b23c7bfb29ce1016b2cad4e40412f75119cd62d05bb2d5bcdd180439070c",
-   "live": false
+   "live": true
   },
   "app/lib/crawler/SiteFetcher.php": {
    "sha256": "9af059950ba722f15d7319cf6fadb6d88a3125746a536441b992d0ba9f318801",
-   "live": false
+   "live": true
   },
   "app/lib/crawler/SourceIndex.php": {
    "sha256": "93020c755ee51748bb9ae427c575a492a194d4503e67a6dee8344e03b4c1446a",
-   "live": false
+   "live": true
   },
   "app/lib/crawler/TownCrawl.php": {
    "sha256": "14449ff62aa3f506840c8893f79372e9b805d0cecfce58bc7ddd56248f2d88b6",
-   "live": false
+   "live": true
   },
   "app/lib/staging-tables.php": {
    "sha256": "d5d67f7441fcd0c1812b73816124488a4d074c737aeb004a3f8432aab2208a9a",
-   "live": false
+   "live": true
   },
   "app/migrations/2026-11-16_ai_provider.sql": {
    "sha256": "b2e3137787c1facf979558a5fc467f1a655a95e0537ba76cb3633f1422948a0c",
-   "live": false
+   "live": true
   },
   "app/migrations/2026-11-16_listing_identity.sql": {
    "sha256": "a396c515c0ad1956d63221eb5c007034c5dab1be5c3a266462e98ffdd6fbebaa",
-   "live": false
+   "live": true
   },
   "app/scripts/identity_recheck_tick.php": {
    "sha256": "0e72c54fd0a3d311d6ea46ad61460380c1feb3a13656416387b46df00a791d0e",
-   "live": false
+   "live": true
   },
   "app/scripts/listings_tick.php": {
    "sha256": "f6bfd3450ac56fa2b4336e9276362f8b534022b71b6dda93fba7f0cb8efd9eea",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "8e76a5415bd1338edc8640140ed313b5da0867d7db7e2a7b74cb8fc0b55cfb4a",
-   "live": false
+   "live": true
   },
   "website/admin/listing-add.php": {
    "sha256": "ad1fc4ee72fe6ae1ff4e5fcbe6d613836a62909f647bb14595f7079ea88818fe",
-   "live": false
+   "live": true
   },
   "website/admin/listing-edit.php": {
    "sha256": "1b9db383e4005aabba8508093d65e9ce86219197759b22166bc102f911d2c290",
-   "live": false
+   "live": true
   },
   "website/admin/review-item.php": {
    "sha256": "74dbe2a81a2ea27a884628ca7d5c837d31d6a72094d54810d136b8607d6a3190",
-   "live": false
+   "live": true
   },
   "website/api/ingest.php": {
    "sha256": "78bd19f3b0f0bae41870cec0b3c9e295197ca3f7266162807cd020bff8d5e369",
-   "live": false
+   "live": true
   },
   "website/directory/classic.php": {
    "sha256": "3928d75e09bf698f214d80a33365d41286ef9f152fb30c406d51062491f98da1",
-   "live": false
+   "live": true
   },
   "website/directory/index.php": {
    "sha256": "6ccc8d95b23ef1a1dc91fb9c7d3018415986241f110f28f492d50b03f5aeae12",
-   "live": false
+   "live": true
   },
   "website/js/map-view.js": {
    "sha256": "547651ffabcb86487cd120f780d4da296dacc7655883d85ddcf94337cb72dac2",
-   "live": false
+   "live": true
   },
   "website/js/suggest.js": {
    "sha256": "6d344eb07e396cc2628bd971c50211fc6c9e24ff6ecb48f88e657e3c98e48f4c",
-   "live": false
+   "live": true
   },
   "website/listing/location.php": {
    "sha256": "74660c07c90e30302c8655b526a146ecbca0ba0fdb967a60e01eff07d31188e7",
-   "live": false
+   "live": true
   },
   "website/user/journeys/compose.php": {
    "sha256": "5e13ba8892704f6099c9bafd85db9c1e9cbb15e6966d371bc0c0b66af42f8b4a",
-   "live": false
+   "live": true
   }
  }
 }
