@@ -6,12 +6,12 @@
     "zip": "operations-release-a_20261115.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "planned",
+    "state": "approved",
     "step": 0,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
-    "plan_at": null,
+    "plan_at": "2026-11-15 13:15:14",
     "staged_at": null,
     "vetted_at": null,
     "live_at": null,
@@ -154,6 +154,16 @@
             "at": "2026-11-15T13:15:12+00:00",
             "by": 2,
             "msg": "Uploaded operations-release-a_20261115.zip: 26 files."
+        },
+        {
+            "at": "2026-11-15T13:15:14+00:00",
+            "by": 2,
+            "msg": "Came from git: releases/inbox/operations-release-a_20261115.zip (git c46e35ff9b)."
+        },
+        {
+            "at": "2026-11-15T13:15:14+00:00",
+            "by": 2,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
         }
     ]
 }
