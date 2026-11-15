@@ -1,17 +1,17 @@
 {
     "id": 60,
-    "title": "Release B, part 2: open business data, the new confidence weights, Compare Claude and Gemini, the vector index, hub opening, robots.txt and sitemap, and review ",
+    "title": "Release B, part 2: open business data, the new confidence weights, Compare Claude and Gemini, the vector index, hub opening, robots.txt and sitemap, and review",
     "why": "decisions/0163 §8 stages 8 to 11 and §12; decisions/0164 §2.3, §3.5, §5.2, §12; handoffs/release-b.md. Builds on part 1 (Release #58, live). Everything new ships switched off: the master switch stays off, the loads and the vector index are tasks added off, W14 is added paused, Supabase is a paused service, and Gemini is used only when a director presses Compare. (1) The open data loads (W1 tasks, off): Overture and Foursquare's open places for Arizona and New Mexico, read by the worker, towns with the biggest gap first; each batch folded, run through the one identity check, staged at the floor, and a dataset's 'closed' only asks a person. (2) The confidence score uses 0163 §12's weights (Jason approved, 2026-11-15), tunable as W1's settings; this changes live listings' scores, never their visibility by itself. Data cleanup's retries follow the retry ladder from W1's settings. (3) Compare Claude and Gemini on AI use: up to 5 public register pages read by both, side by side with how far they agree; it changes no provider. (4) The vector index on Supabase's free tier (stage 11): public listing text only, through Gemini's guards; its upkeep task is off, and a daily keep-alive under Supabase's own switch. (5) Opening a hub (W14, paused): stages, budget, the authority sources for AZ and NM (8 seeded), and a Pulse case for each hub's next step. (6) robots.txt and a sitemap (Jason, 2026-11-15: the site had neither): public pages only, never on staging. (7) The review's three parts (UI, UX, Functional) can be given on the live Releases page too, since the staging bar didn't show (Jason, 2026-11-15). (8) A fix to part 1: after the identity recheck merges a pair, its Review offer is marked used (it was left waiting). Database updates: 2026-11-16_open_loads (open_loads) and 2026-11-16_hubs (hub_stages, authority_sources, 8 rows seeded with INSERT IGNORE); add only, safe to run twice. Tests: staging unit 49 passed, identity 36 passed, Gemini guards 21 passed. Built on Sync 2026-11-15 18:22 UTC.",
     "proposals": "handoffs/release-b.md, decisions/0163 §8, §12, decisions/0164 §2.3, §3.5, §5.2, §12",
     "zip": "release-b2.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "planned",
+    "state": "approved",
     "step": 0,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
-    "plan_at": null,
+    "plan_at": "2026-11-15 18:57:04",
     "staged_at": null,
     "vetted_at": null,
     "live_at": null,
@@ -152,6 +152,16 @@
             "at": "2026-11-15T18:57:02+00:00",
             "by": 0,
             "msg": "Uploaded release-b2.zip: 25 files."
+        },
+        {
+            "at": "2026-11-15T18:57:04+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/release-b2.zip (git 32e80cdac2)."
+        },
+        {
+            "at": "2026-11-15T18:57:04+00:00",
+            "by": 0,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
         }
     ]
 }
