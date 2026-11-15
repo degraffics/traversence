@@ -649,6 +649,39 @@
    "expires": "2026-11-15T20:40:42Z",
    "release": "release-b1",
    "callers": {}
+  },
+  {
+   "path": "app/lib/StagingIds.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "Release B1: register of record numbers (0165's open item), staging answers for the new cards, the NPI load's batch fold",
+   "since": "2026-11-15T16:46:07Z",
+   "expires": "2026-11-15T20:46:07Z",
+   "release": "release-b1",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/StagingGate.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "Release B1: register of record numbers (0165's open item), staging answers for the new cards, the NPI load's batch fold",
+   "since": "2026-11-15T16:46:07Z",
+   "expires": "2026-11-15T20:46:07Z",
+   "release": "release-b1",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/crawler/NpiBulk.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "Release B1: register of record numbers (0165's open item), staging answers for the new cards, the NPI load's batch fold",
+   "since": "2026-11-15T16:46:07Z",
+   "expires": "2026-11-15T20:46:07Z",
+   "release": "release-b1",
+   "callers": {}
   }
  ],
  "lapsed": []
