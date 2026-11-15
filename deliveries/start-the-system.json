@@ -1,0 +1,46 @@
+{
+ "zip": "start-the-system.zip",
+ "built_on": "60e8abe Sync: 2026-11-15 22:13 UTC",
+ "recorded": "2026-11-15 22:17 UTC",
+ "note": "Start the system and Pause everything (decisions/0163 \u00a710 note, 2026-11-15), with review links to the staff login; review; built on Sync: 2026-11-15 22:13 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/admin/automation-console.php": {
+   "sha256": "b4698c0ebccd488ae754031d7b60d9e7d43315ceca18254d45e7e01a596e4da2",
+   "live": false
+  },
+  "app/admin/operations-console.php": {
+   "sha256": "414aa2f6461f4066286d9a8a9f2d7662d4ab70058339d423b61edea9bd3dc5df",
+   "live": false
+  },
+  "app/bootstrap.php": {
+   "sha256": "1546327816a2a06362ec2d30bb70ae55812635cce5eead2634d1f92c8fd53d21",
+   "live": false
+  },
+  "app/lib/Operations.php": {
+   "sha256": "e3e23dd9e1dd3db3d2580b2de807649adf25580416a1efdfcc7da9a31a16ef7f",
+   "live": false
+  },
+  "app/lib/Scheduler.php": {
+   "sha256": "95005927bbfefac339e2a48dbe137a7a205e5c7e3e7dc22460c3fa8e4c17ef12",
+   "live": false
+  },
+  "app/lib/SystemStart.php": {
+   "sha256": "8c890015efe77fda98ddf77088bc1b3a1b15eff69fe1147827f2a993bfff25a0",
+   "live": false
+  },
+  "app/lib/Thresholds.php": {
+   "sha256": "ef0f4700b699a901e26f49b1712c619388c60e22e527a043a2996a1db7d890d1",
+   "live": false
+  },
+  "app/scripts/system_start_tick.php": {
+   "sha256": "65c0525b249eab42c23d91f0615a433f515a88f2e1117d3cdeba8b1cb70fff93",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "004da0c746a4b856a02ad74915bbcaf5767dfa25c9f4f94a428a5fbf224e2aef",
+   "live": false
+  }
+ }
+}
