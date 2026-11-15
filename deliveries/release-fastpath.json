@@ -1,0 +1,34 @@
+{
+ "zip": "release-fastpath.zip",
+ "built_on": "fcdf061 Sync: 2026-11-15 19:02 UTC",
+ "recorded": "2026-11-15 19:05 UTC",
+ "note": "Check for builds, the ping from git, review folds, the bar records the look, built on Sync: 2026-11-15 19:02 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/admin/sections.php": {
+   "sha256": "ce89b335a811b5916cf3aa0282b7f6920b1ce9b9e438d1c2543d58dfbe13f7e4",
+   "live": false
+  },
+  "app/lib/Releases.php": {
+   "sha256": "8c9d2a505628cd811cf2762197aae1be769df3505cb6d454c15d5fa6058f6c24",
+   "live": false
+  },
+  "website/admin/api.php": {
+   "sha256": "0d17c736dfe9af8e7e626615b1bc687bb83edf66fe04149a2bee73fbf9051fba",
+   "live": false
+  },
+  "website/api/release-bar.php": {
+   "sha256": "f418aa69481e0b8c771a4f49e9fbe35a53642333ae582ab1ab6e74fba09c7fbc",
+   "live": false
+  },
+  "website/api/releases-pull.php": {
+   "sha256": "4a66ee9889c1e3224069195667772fe4ad67a4a1cfd7b3d8ba7318c50ed0b30b",
+   "live": false
+  },
+  "website/js/stg-bar.js": {
+   "sha256": "17b901e4f890aa5f15525b75ec0bd6db43172885313fbd6015b89222bdd5b737",
+   "live": false
+  }
+ }
+}

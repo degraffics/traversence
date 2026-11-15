@@ -1,0 +1,37 @@
+# The ping from git (Jason, 2026-11-15: "need a way to push immediate fixes like this into production"). When a build
+# lands in releases/inbox/ on main (a merged PR), this asks the live site to take it now (website/api/releases-pull.php,
+# the same as its 10-minute job), instead of waiting for that job. The site still puts it on staging first and runs its
+# checks; one not sent for review goes live by itself once they pass. Without the endpoint (before it's live) or when
+# the site doesn't answer, nothing is lost: the 10-minute job and Check for builds on the Releases page still take it.
+name: Release ping
+
+on:
+  push:
+    branches: [main]
+    paths: ['releases/inbox/*.zip']
+  workflow_dispatch:
+
+concurrency:
+  group: release-ping
+  cancel-in-progress: false
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - name: Ask the live site to take the build now
+        run: |
+          url=https://traversence.com/api/releases-pull.php
+          cookie='humans_21909=1'   # the host's bot check (research/bluehost-bot-check-2026-11-15.md)
+          for try in 1 2 3; do
+            code=$(curl -sS -o out.txt -w '%{http_code}' -X POST --max-time 240 -H 'User-Agent: traversence-release-ping' -b "$cookie" "$url" || echo 000)
+            echo "try $try: $code"; head -c 1500 out.txt; echo
+            if [ "$code" = 200 ]; then exit 0; fi
+            if [ "$code" = 409 ]; then
+              n=$(grep -o 'humans_[0-9]*=[0-9]*' out.txt | head -1); [ -n "$n" ] && cookie="$n"
+            fi
+            if [ "$code" = 429 ] || [ "$code" = 404 ]; then echo "Taken by the next look (404: the endpoint isn't live yet)."; exit 0; fi
+            sleep 20
+          done
+          echo "::warning::The site didn't take it now; its 10-minute job or Check for builds on the Releases page will."
