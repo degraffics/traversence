@@ -422,6 +422,83 @@
    "expires": "2026-11-15T23:36:33Z",
    "release": "release-b3.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/DataCleanup.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "Release B part 4",
+   "since": "2026-11-15T20:00:33Z",
+   "expires": "2026-11-16T00:00:33Z",
+   "release": "release-b4",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/EngineCase.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "Release B part 4",
+   "since": "2026-11-15T20:00:33Z",
+   "expires": "2026-11-16T00:00:33Z",
+   "release": "release-b4",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/ListingConfidence.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "Release B part 4",
+   "since": "2026-11-15T20:00:33Z",
+   "expires": "2026-11-16T00:00:33Z",
+   "release": "release-b4",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Sales.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "Release B part 4",
+   "since": "2026-11-15T20:00:33Z",
+   "expires": "2026-11-16T00:00:33Z",
+   "release": "release-b4",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Scheduler.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "Release B part 4",
+   "since": "2026-11-15T20:00:33Z",
+   "expires": "2026-11-16T00:00:33Z",
+   "release": "release-b4",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/crawler/SourceIndex.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "Release B part 4",
+   "since": "2026-11-15T20:00:33Z",
+   "expires": "2026-11-16T00:00:33Z",
+   "release": "release-b4",
+   "callers": {}
+  },
+  {
+   "path": "website/listing/view.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "Release B part 4",
+   "since": "2026-11-15T20:00:33Z",
+   "expires": "2026-11-16T00:00:33Z",
+   "release": "release-b4",
+   "callers": {}
   }
  ],
  "lapsed": []
