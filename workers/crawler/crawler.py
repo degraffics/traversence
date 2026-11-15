@@ -1813,10 +1813,14 @@ def read_source(deadline):
             if body:
                 extracted += 1
                 r = {"body": body, "status": 200, "type": "text/html", "bytes": len(body), "etag": "", "modified": "", "why": "", "via": "tavily"}
+        elif r.get("why") in ("error", "empty") and r.get("status"):
+            r["pending"] = True                         # its reading had to stop (the run's Tavily pages used): waiting to be read (P1-1)
         if not r["status"]:
             continue                                    # not fetched (a budget, robots.txt): nothing to log
         pages += 1
         row = {"url": url, "status": r["status"], "type": r["type"], "bytes": r["bytes"], "etag": r["etag"], "modified": r["modified"], "via": r.get("via", "")}
+        if r.get("pending"):
+            row["pending"] = True
         if r["status"] == 304:
             unchanged.append(url)
             links = list(k.get("links") or [])
