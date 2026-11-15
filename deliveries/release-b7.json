@@ -1,0 +1,30 @@
+{
+ "zip": "release-b7.zip",
+ "built_on": "09b40b2 Sync: 2026-11-15 21:03 UTC",
+ "recorded": "2026-11-15 21:16 UTC",
+ "note": "Release B part 7 (Withdraw on the bar, stage 9's reader), built on Sync: 2026-11-15 21:03 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/Automation.php": {
+   "sha256": "70f9c0c2a10073943f3185792acc83d2bc98767f733b5094e68b1d3a595a4040",
+   "live": false
+  },
+  "app/lib/Releases.php": {
+   "sha256": "18d618bbf3400ede63d4a1124d70f0c7773ec6395f295f5e8d9f900a0f581fb1",
+   "live": false
+  },
+  "app/lib/Scheduler.php": {
+   "sha256": "890de47063974272577f018a85f804cab3e9cab63a7367498cfd0247ff428b31",
+   "live": false
+  },
+  "app/lib/crawler/PageRead.php": {
+   "sha256": "b6f0530a9791af0beac2dfa0e7c0a78e89b5166b342fc5294c9a52011f4a20ce",
+   "live": false
+  },
+  "app/scripts/page_read_tick.php": {
+   "sha256": "958032f49e3a334f96c5498b29aa58867968a472daa83301f3a4926a4617a142",
+   "live": false
+  }
+ }
+}
