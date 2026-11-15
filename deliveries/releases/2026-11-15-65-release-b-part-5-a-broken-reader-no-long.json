@@ -6,13 +6,13 @@
     "zip": "release-b5.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "approved",
+    "state": "staged",
     "step": 0,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
     "plan_at": "2026-11-15 20:13:52",
-    "staged_at": null,
+    "staged_at": "2026-11-15 20:13:53",
     "vetted_at": null,
     "live_at": null,
     "files": {
@@ -70,7 +70,34 @@
     "migrations": [
         "app/migrations/2026-11-17_search_demand_empty.sql"
     ],
-    "checks": [],
+    "checks": {
+        "ok": false,
+        "where": "staging",
+        "at": "2026-11-15T20:13:54+00:00",
+        "items": [
+            [
+                "PHP files parse",
+                true,
+                "8 checked"
+            ],
+            [
+                "Migrations only add",
+                false,
+                "Not add-only: 2026-11-17_search_demand_empty.sql (MODIFY DEST). A removal comes in a later release, of what a rolled-back release left (decisions/0145 §6, 0162)."
+            ],
+            [
+                "Pages answer",
+                true,
+                "3 pages answered on staging.trvgo.us"
+            ],
+            [
+                "No new fatal errors in the logs",
+                true,
+                "4 logs read"
+            ]
+        ],
+        "first_fail": "Migrations only add: Not add-only: 2026-11-17_search_demand_empty.sql (MODIFY DEST). A removal comes in a later release, of what a rolled-back release left (decisions/0145 §6, 0162)."
+    },
     "log": [
         {
             "at": "2026-11-15T20:13:50+00:00",
@@ -86,6 +113,11 @@
             "at": "2026-11-15T20:13:52+00:00",
             "by": 0,
             "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
+        },
+        {
+            "at": "2026-11-15T20:13:54+00:00",
+            "by": 0,
+            "msg": "Put on staging (10 files); its checks found a problem: Migrations only add: Not add-only: 2026-11-17_search_demand_empty.sql (MODIFY DEST). A removal comes in a later release, of what a rolled-back release left (decisions/0145 §6, 0162).."
         }
     ]
 }
