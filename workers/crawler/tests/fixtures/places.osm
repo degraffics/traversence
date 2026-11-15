@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="test">
+ <node id="1" lat="34.5" lon="-109.3" version="1"><tag k="amenity" v="restaurant"/><tag k="cuisine" v="pizza"/><tag k="name" v="Pie Place"/><tag k="phone" v="928-555-0101"/></node>
+ <node id="2" lat="34.50" lon="-109.30" version="1"/>
+ <node id="3" lat="34.51" lon="-109.30" version="1"/>
+ <node id="4" lat="34.51" lon="-109.31" version="1"/>
+ <node id="5" lat="34.50" lon="-109.31" version="1"/>
+ <node id="6" lat="34.6" lon="-109.4" version="1"><tag k="historic" v="ruins"/><tag k="name" v="Old Ruin"/><tag k="tourism" v="attraction"/></node>
+ <node id="7" lat="34.6" lon="-109.4" version="1"><tag k="highway" v="primary"/></node>
+ <way id="10" version="1"><nd ref="2"/><nd ref="3"/><nd ref="4"/><nd ref="5"/><nd ref="2"/><tag k="shop" v="supermarket"/><tag k="name" v="Bashas"/></way>
+</osm>

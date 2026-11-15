@@ -88,7 +88,10 @@ import math
 import os
 import re
 import signal
+import shutil
 import socket
+import subprocess
+import tempfile
 import sys
 import time
 import urllib.error
@@ -213,7 +216,8 @@ SKIP_HOSTS = {"openstreetmap.org", "npino.com", "npiprofile.com", "npidb.org", "
               "npi.report", "npiregistry.cms.hhs.gov", "google.com", "bing.com", "duckduckgo.com", "search.brave.com"}
 
 started = time.monotonic()
-WORKER_V = "2.7.3"           # 2.7.3: Geofabrik over IPv4; 2.7: the open-dataset loads and Geofabrik's test (Release B); the service's contract 2 (decisions/0160 §2): the site plans each run, the worker reports it; 2.4: calls by host; 2.5: issues, holds, probes, per-kind Overpass; 2.6: servers from the plan, the pace
+WORKER_KEYS = ("GOOGLE_PLACES_KEY", "TAVILY_API_KEY", "BRAVE_API_KEY", "RIDB_API_KEY", "HF_TOKEN")   # reported by name at each run
+WORKER_V = "2.7.4"           # 2.7.4: reports which keys it has (names only), its per-run limits from the plan, Geofabrik's weekly load (osmium); 2.7.3: Geofabrik over IPv4; 2.7: the open-dataset loads and Geofabrik's test (Release B); the service's contract 2 (decisions/0160 §2): the site plans each run, the worker reports it; 2.4: calls by host; 2.5: issues, holds, probes, per-kind Overpass; 2.6: servers from the plan, the pace
 RUN_END = None             # when this run's own work must stop (started + TIME_BUDGET, or a bulk load's end)
 TASK_END = None            # when the capture task being worked must stop (its share of the run)
 FETCH_CAP = MAX_FETCHES    # fetches this run may have made by the end of the task being worked
@@ -3432,6 +3436,102 @@ def geofabrik_probe():
     site_call("/api/crawl/loads.php", {"geofabrik_probe": out})
     return True
 
+OSM_TAG_FILTER = ["nwr/amenity", "nwr/shop", "nwr/tourism", "nwr/leisure", "nwr/highway=trailhead"]   # the site's kinds (OpenPlaces::KINDS)
+OSM_KEEP_TAGS = {"name", "amenity", "shop", "tourism", "leisure", "highway", "cuisine", "phone", "contact:phone", "website", "contact:website",
+                 "opening_hours", "addr:housenumber", "addr:street", "addr:city", "addr:state", "historic", "natural", "description",
+                 "operator", "brand", "dog"}
+
+
+def _center(geom):
+    """A point for a place: the point itself, else the middle of its outline's bounding box."""
+    t, c = geom.get("type"), geom.get("coordinates")
+    if t == "Point":
+        return c[1], c[0]
+    pts = []
+    def walk(x):
+        if isinstance(x, list) and len(x) == 2 and all(isinstance(v, (int, float)) for v in x):
+            pts.append(x)
+        elif isinstance(x, list):
+            for y in x:
+                walk(y)
+    walk(c)
+    if not pts:
+        return None
+    xs, ys = [p[0] for p in pts], [p[1] for p in pts]
+    return (min(ys) + max(ys)) / 2, (min(xs) + max(xs)) / 2
+
+
+def osm_places(pbf, workdir):
+    """The places in a state's OpenStreetMap file the site has kinds for: [{type, id, lat, lon, tags}], by osmium-tool."""
+    small = os.path.join(workdir, "places.osm.pbf")
+    out = os.path.join(workdir, "places.geojsonseq")
+    subprocess.run(["osmium", "tags-filter", "--overwrite", "-o", small, pbf] + OSM_TAG_FILTER, check=True, capture_output=True, timeout=1200)
+    subprocess.run(["osmium", "export", "--overwrite", "-f", "geojsonseq", "-a", "type,id", "-o", out, small], check=True, capture_output=True, timeout=1200)
+    seen = set()   # a closed way comes out as both a line and an area: once
+    with open(out, encoding="utf-8") as f:
+        for line in f:
+            line = line.strip().lstrip("\x1e")
+            if not line:
+                continue
+            try:
+                g = json.loads(line)
+            except ValueError:
+                continue
+            pr = g.get("properties") or {}
+            tags = {k: str(v)[:255] for k, v in pr.items() if k in OSM_KEEP_TAGS}
+            if not tags.get("name") and pr.get("amenity") not in ("post_box", "parcel_locker"):
+                continue
+            ll = _center(g.get("geometry") or {})
+            typ, oid = pr.get("@type"), pr.get("@id")
+            if not ll or typ not in ("node", "way", "relation") or oid is None:
+                continue
+            if (typ, oid) in seen:
+                continue
+            seen.add((typ, oid))
+            yield {"type": typ, "id": int(oid), "lat": round(ll[0], 6), "lon": round(ll[1], 6), "tags": tags}
+
+
+def geofabrik_load():
+    """W1's geofabrik_bulk (0163 §8 stage 8): each state the site says is due (one a week at most), its Geofabrik file over
+    IPv4, read by osmium-tool, its places sent in batches to OpenStreetMap's own table on the site (decisions/0065)."""
+    st = site_call("/api/crawl/loads.php?dataset=geofabrik")
+    if st.get("paused"):
+        log(f"geofabrik: paused: {st.get('why', '')}")
+        return False
+    base = os.environ.get("OSM_EXTRACT_BASE", "https://download.geofabrik.de/north-america/us")
+    did = False
+    for s in st.get("states") or []:
+        key, rel = s["key"], s["release"]
+        with tempfile.TemporaryDirectory() as wd:
+            pbf = os.path.join(wd, f"{key}.osm.pbf")
+            url = f"{base}/{key}-latest.osm.pbf"
+            try:
+                with ipv4_only():
+                    req = urllib.request.Request(url, headers={"User-Agent": UA})
+                    with urllib.request.urlopen(req, timeout=120) as r, open(pbf, "wb") as f:
+                        shutil.copyfileobj(r, f, 1 << 20)
+            except Exception as e:
+                log(f"geofabrik: {key}: download failed: {e!r}"[:300])
+                continue
+            log(f"geofabrik: {key}: {os.path.getsize(pbf) // (1 << 20)} MB")
+            batch, sent, kept = [], 0, 0
+            for p in osm_places(pbf, wd):
+                batch.append(p)
+                if len(batch) >= 2000:
+                    r = site_call("/api/crawl/loads.php", {"dataset": "geofabrik", "release": rel, "key": key, "osm": batch}, timeout=120)
+                    if r.get("paused"):
+                        log(f"geofabrik: paused mid-load: {r.get('why', '')}")
+                        return did
+                    sent += len(batch); kept += int(r.get("kept", 0)); batch = []
+            if batch:
+                r = site_call("/api/crawl/loads.php", {"dataset": "geofabrik", "release": rel, "key": key, "osm": batch}, timeout=120)
+                sent += len(batch); kept += int(r.get("kept", 0))
+            site_call("/api/crawl/loads.php", {"dataset": "geofabrik", "release": rel, "key": key, "done": True})
+            log(f"geofabrik: {key}: {sent} places sent, {kept} kept")
+            did = True
+    return did
+
+
 HANDLERS = {
     "coverage": (coverage, "JOBS_PER_RUN", lambda: "" if JOBS_PER_RUN > 0 else "JOBS_PER_RUN is 0"),
     "second_look": (second_look, "VERIFY_PER_RUN", lambda: "" if VERIFY_PER_RUN > 0 else "VERIFY_PER_RUN is 0"),
@@ -3453,7 +3553,7 @@ HANDLERS = {
     # Release B: the open-dataset loads and Geofabrik's test (decisions/0164 §1.5), each a W1 task the site adds switched off
     "overture_bulk": (lambda d: open_load("overture", d), None, lambda: ""),
     "foursquare_bulk": (lambda d: open_load("foursquare", d), None, lambda: "" if HF_TOKEN else "no Hugging Face token on Railway (HF_TOKEN)"),
-    "geofabrik_bulk": (lambda _d: geofabrik_probe(), None, lambda: ""),
+    "geofabrik_bulk": (lambda _d: geofabrik_load(), None, lambda: "" if shutil.which("osmium") else "osmium-tool isn't installed in the worker"),
 }
 MIN_TASK = 15          # seconds: a task with less than this left isn't started (it's "not reached", never a failure)
 
@@ -3562,13 +3662,21 @@ def run_service():
     run_key = hashlib.sha1(f"{time.time()}-{os.getpid()}".encode()).hexdigest()[:16]
     try:
         st = site_call("/api/crawl/service.php", {"start": {"run_key": run_key, "worker_v": WORKER_V, "budget": TIME_BUDGET,
-                                                           "fetches": MAX_FETCHES, "have": list(HANDLERS)}}, timeout=30)
+                                                           "fetches": MAX_FETCHES, "have": list(HANDLERS),
+                                                           # which keys this worker has, by name only, never a value (the switch-on check)
+                                                           "keys": {k: bool(os.environ.get(k, "").strip()) for k in WORKER_KEYS}}}, timeout=30)
     except RuntimeError as e:
         if " said 404" in str(e):
             return None                              # an older site: the fixed order, as before
         raise
     if not st.get("ready", True) or "plan" not in st:
         return None
+    # the run's ceilings from the site's plan (0163 §1), not from Railway's own settings, when the site sends them
+    global MAX_SEARCHES, PLACES_PER_RUN, OSM_PER_RUN
+    lim = st.get("limits") or {}
+    for name, key in (("MAX_SEARCHES", "searches"), ("PLACES_PER_RUN", "places"), ("OSM_PER_RUN", "osm")):
+        if isinstance(lim.get(key), int) and lim[key] >= 0:
+            globals()[name] = lim[key]
     if st.get("paused"):
         log(f"paused: {st.get('why', '')}")
         site_call("/api/crawl/service.php", {"report": {"run_key": run_key, "status": "ok", "why": st.get("why", "paused"), "items": []}})
