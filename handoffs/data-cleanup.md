@@ -112,10 +112,14 @@ leaves the cards; the card at 390px. Not tested: the town page and search panel 
 Jason: "They still exist, just hidden: this is a dead end. Either they are reused or moved into restricted"; the table
 below approved 2026-11-15 ("table is right"); drop boxes: "Yes their own listing and map pin".
 
-**State:** sent to `releases/inbox/` (session `session_01CXLi5gjuAjJ6m4FZ8uAGQ1`), PR open, **waiting for Jason's OK to
-merge**. Claims taken (`DataCleanup.php`, `cleanup-console.php`, `data_cleanup_tick.php`, the migration). After it's
-live: run the sync, `deliveries.py verify`, then Jason runs "Taken off by an earlier pass" (release #50's records) and
-"Mail & package drop-offs".
+**State:** live as release #52 (2026-11-15), merged on Jason's "merge it" (PR #685); its migration ran. Sync 01:20 UTC:
+all 4 files match byte for byte; delivery verified, claims released. Next for Jason: run "Taken off by an earlier pass"
+(release #50's records) and "Mail & package drop-offs".
+
+**The "left" breakdown** (`data-cleanup-left_20261115.zip`, built on Sync 2026-11-15 01:20 UTC; Jason: "yes, add the
+left breakdown" after a pass said "left 3,272"): `run()` keeps `left_by` (reason => n, `DataCleanup::leftWhy()`), and
+Passes shows "Why N were left as they are". Old passes have the total only. Sent, PR open, waiting for Jason's OK.
+The 3,087 of his passes are landmarks waiting for their own description (the writer is paused with automation).
 
 | Taken off by a pass | Goes to (marker: the listing's `removed` note `target`) |
 |---|---|
