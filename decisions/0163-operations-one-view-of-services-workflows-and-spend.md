@@ -206,6 +206,12 @@ Then the Knowledge Engine's new parts (0164; Jason, 2026-11-14, §14 point 14: o
    its email (P3-5); licence changes re-sorting stored facts (P4-2); our team as a closer (P5-1); "Still open?" with W2
    (P5-2) and the public's Closed count (F2); the three card states (F3); the signals against (§12, F1); zero-result
    searches as demand (P1-3); a lead's states (P1-4); "Needs a reader fix" (P6-1).
+   **And first in the stage, before any load is switched on** (Jason, 2026-11-15; 0164 §3.1, §3.2's note, §6.1): the
+   one identity check on every path that creates or un-hides a listing, the check within each batch, the identity keys
+   and lock (the unique key once the twins are cleared), the tuned match rules; then the identity recheck (W2 task
+   `recheck`), W2's `identity` task as "Vet this place", and the identity queue in "The engine needs a person", with
+   Pulse case #23's 60 offers rechecked first and only what's left moved to the queue. The cause and the build notes:
+   `handoffs/duplicates.md`.
    OpenStreetMap for stage 8 comes from **Geofabrik's state extracts** (Arizona, New Mexico; weekly), downloaded by the
    **Railway worker**, not Overpass (Overpass only for one place on demand). Geofabrik resets connections from Claude's
    cloud network (2026-11-14: TLS reset by peer; not our proxy, not a ban on us), so the stage's first step is one test
@@ -378,6 +384,24 @@ the engine retries for itself (the grey zone, gaps, sightings, out-of-options fi
 | any new evidence | back to the start |
 
 Each step is a setting, tuned by a director (kept with who and when, and a Reset).
+
+**The identity check and the recheck** (0164 §3.1, §3.2's note, §6.1; Jason, 2026-11-15: "the knowledge engine is the
+master of this process"). Settings, tuned by a director (kept with who and when, and a Reset):
+
+| Setting | To start |
+|---|---|
+| Merges by itself (exact twins, unclaimed, nothing a person's) | `same` at ≥ 0.95 (0164 §3.2's routing) with the same phone key, name key and ZIP, or the same address key |
+| To "Vet this place" | `same` or `covered` with any detail differing across the two, or `maybe` (0.60–0.95) |
+| A phone shared by more listings than this is a main line (never proof alone) | 4 |
+| "Another location" needs points at least this far apart (or a different phone) | 150 m (`geohash_7`) |
+| The identity lock's wait | 5 s, then the write retries once |
+| The recheck after a load | the ids the load touched, at once |
+| The recheck's daily slice | 2,000 listings, oldest checked first, in a quiet hour |
+| Pairs merged in one run, at most | 200 (the rest next run); more than 5% of a town's listings in one run waits for a person's OK, as the sync's mass-delete guard does |
+| "Vet this place" retries | the retry ladder (above) |
+| Its costs | the recheck itself is free (our database); what it sends on is counted to `identity` and `places` on the board (§3), inside their allowances (§1) |
+
+The recheck is a task of W2 on the switches (§9), shipped off; its runs, merges, sends and leftovers are on the board.
 
 ## Consequences
 

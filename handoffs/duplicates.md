@@ -15,7 +15,8 @@ case #23, sent to Review as merge offers). Jason, 2026-11-15, in his words:
 > to identify them and correct them. Listings are flexible, since we are building potential listings for claiming, once
 > claimed is a whole different conversation."
 
-Recorded in `decisions/0164` §3.2 (note of 2026-11-15).
+Jason's further direction the same day (relayed by the session manager) is quoted in `decisions/0164` §3.2's note of
+2026-11-15, which records it.
 
 ---
 
@@ -160,170 +161,44 @@ duplicates" and cleanup offers), each listing's **Sources** panel (`/admin/listi
 
 ---
 
-## 2. The fix at the source (Release B, with stage 8, before any data load is switched on)
+## 2. Where the fix lives: the Knowledge Engine (not a separate system)
 
-### 2.1 One identity check: `ListingIdentity::resolve()`
+Jason, 2026-11-15: "the knowledge engine is the master of this process, so make sure you don't create something that
+doesn't fold into that." The design is written into the engine's own sections; this file doesn't repeat it.
 
-A new library, `app/lib/ListingIdentity.php`, the **only** place that decides whether a find or a new listing is one we
-already have. Every creating path calls it **inside the transaction that inserts**, and nothing inserts an `entities`
-row except `ListingIdentity::create()`, which calls it.
-
-```
-resolve(PDO $pdo, array $cand, array $opts = []): array
-  // $cand: name, other names, phone, website, address, city, state, zip, point, category, person-or-business
-  // returns ['verdict' => same|covered|branch|place|other|maybe, 'id' => ?int, 'score' => float, 'why' => [..], 'checked' => [ids]]
-```
-
-- **Candidates read fresh, every time**, from the indexed key columns (§2.3), never from a match stored earlier: same
-  phone key anywhere; same ZIP with the same address key or the same name key; same website page (`WebIdentity`); same
-  Google place id or Overture/NPI id where held. Hidden listings count (a hidden twin is still a twin); merged ones
-  (`same_as`) resolve to the kept one. No cap of 5: every candidate is scored, the best kept.
-- **Verdicts are `relationTo`'s** (0074, 0076, 0081, 0084 kept as they are: `branch`, `place`, `covered` aren't
-  duplicates) with the tuning in §2.4, and 0164 §3.2's routing on the score: ≥ 0.95 same → merge (gaps only, R4);
-  0.60–0.95 → the grey-zone worker, then the recheck (§3); < 0.60 a new listing.
-- **Callers:**
-  - `IntakeStager::approve()` calls it before `upsertEntity()`: a `same` verdict merges (`AutoImport::fillGaps`) instead
-    of creating, **whoever approved it** (Verify, quick approve, the helper, Review). A person who pressed "a different
-    business" passes `['not_same' => [ids]]`, stored on the pair (§3.4), so it's honoured for good.
-  - `AutoImport::tryImport()` and `quickApprove()` get the match from `resolve()`, not `$c['match']` (Verify's hole
-    closes).
-  - `api/ingest.php` goes through `approve()`'s path (or `resolve()` then `upsertEntity()`), never straight to the hash.
-  - `AddBusiness::create()` calls it: `same` with an unclaimed listing → the person is offered that listing to claim
-    (the add becomes a claim); "Add anyway" / `not_mine` / Pulse's button pass the person's `not_same`, recorded. The
-    form's own `duplicates()` becomes a call to `resolve()` (one test, four places fewer).
-  - `Clients::makePrivate()`: a `same` verdict links the private record to the live listing instead of making a shadow.
-  - **Every un-hide** (`setSuppressed(false)`, `AutoImport::suppress(false)`, `DataCleanup` undo/Put back/settle,
-    `HelpFind::promoteSome`, merge undo): `resolve()` first; a `same` with another live listing merges instead (or, when
-    a person pressed it, shows the twin and asks).
-- **A lock on the identity:** `resolve()` + insert run under `GET_LOCK('tv_ident_<phone key or zip+name key>', 5)`, so
-  two workers can't both create the same business.
-
-### 2.2 A check within each batch
-
-`IntakeStager::stage()` and every bulk load (NPI by town, Overture, licence files, `api/ingest.php` batches) first
-**group the batch by identity key** (phone key; ZIP + address key; ZIP + name key) and fold each group into one find
-(sources and facts unioned, the strongest value per field by 0164 §3.3) before anything is staged. So the NPI's two
-records of one operator at one base arrive as **one** find with two sources, not two finds. Groups that `resolve()`
-calls `branch` or `place` stay separate.
-
-### 2.3 A database-level guard
-
-A migration (Bluehost-safe, guarded with `information_schema`, safe to run twice):
-
-- `entities.ident_phone` CHAR(10) NULL, `ident_addr` VARCHAR(120) NULL, `ident_name` VARCHAR(160) NULL, written by
-  `ListingIdentity::keys()` on every insert and every edit of name, phone, address or ZIP (and back-filled in batches by
-  the recheck's first run).
-- Indexes: `(ident_phone)`, `(primary_zip, ident_addr)`, `(primary_zip, ident_name)`.
-- **A unique key** on a generated column `ident_unique` = `CONCAT(primary_zip, '|', ident_phone, '|', ident_name)` when
-  all three are present, else NULL (MySQL allows many NULLs). It is the last guard: the insert of an exact twin fails,
-  and `create()` turns the failure into a merge. **Added only after the recheck has cleared today's exact twins**
-  (otherwise the `ALTER` fails); until then the index is plain, and the migration adds the unique key on a later run
-  when `SELECT … GROUP BY ident_unique HAVING COUNT(*) > 1` is empty. Rows a person kept apart (`not_same`) get a
-  suffix in `ident_unique` so the key doesn't force a merge a person refused.
-- `composite_hash` stays for history but stops being the identity.
-
-### 2.4 Match rules, tuned to what was found
-
-`ListingIdentity::keys()`, shared by the intake, the cleanup and the recheck:
-- **Phone:** digits with any extension removed first (`x`, `ext`, `#` and what follows), a leading 1 dropped, 10 digits
-  or none. Toll-free and numbers shared by more than 4 listings count as a main line (as `LiveDupes::MAX_GROUP`): never
-  proof alone.
-- **Name:** `Identity::nameKey` plus `AutoImport::ABBREV`, legal endings dropped (inc, llc, pllc, pc, plc, ltd, lp, llp,
-  corp, co, company, dba and the words after "dba" kept as another name), "&" = "and", **plurals folded** (a final s
-  after a non-s: flights → flight; not "services"/"ss" words, which `ABBREV` already folds), small words dropped. One
-  similarity measure, `sameName()` against the longer name (so a provider at a facility stays apart), used everywhere;
-  `nameMatch()` and `similar_text()` retire from identity.
-- **Address:** `Identity::addr` plus street types both ways (rd/road, hwy/highway, ste/suite dropped), ordinal words (1st
-  / first), PO Box kept apart as a mailing address (never the street key, as `HelpFind` already does), "US 191"/"Hwy 191"
-  /"Highway 191" folded.
-- **Street numbers:** `branch` needs two different numbers **and** either a different phone or a distance over 150 m
-  (`geohash_7`, 0164 §3.1) when both have points; the same phone, same name and points within 150 m is `same` whatever
-  the numbers say (a typo or a suite-first address).
-- **Kept as is:** a person's name at a facility is a provider (`looksPerson`), never merged into the facility (0074);
-  another business sharing a phone or a building is `place`/`other`; a parent or legal name in front is `same`/`covered`
-  (0081); a chain's shared website is "same brand", a Nexus, never a merge (0083).
-
----
-
-## 3. The self-correcting recheck (replaces sending duplicates to a person)
-
-### 3.1 What it may merge, by itself
-
-A pair qualifies only when **both** listings are:
-- **unclaimed** (`owner_user_id` null, status `unclaimed`, no `access`: `SuggestionActions::managed()` false), and
-- carry **nothing a person entered or decided** (Data cleanup's R4 test: no metadata locked or from admin/owner/user,
-  `updated_by_type` not a person, not approved by a person in the intake, no person's `not_same` for the pair), and
-- `resolve()` calls them **`same` at ≥ 0.95** (or `covered` with the same kind of place, as `obvious()` does).
-
-Comments, views, saves and links people made **on** a listing don't stop a merge: they are the visitors', not facts about
-the business, and they move with it (§3.2).
-
-### 3.2 How it merges
-
-- **Which stays:** the one with the most evidence (independent sources, then confidence), then the oldest (lowest id),
-  then the most views. Its name stays unless the other's is the one people know (R11: the better-sourced shown name);
-  the other's name becomes another name (0084).
-- **Folded in:** facts filling gaps only (`ListingBulk::merge`'s fill, never overwriting); sources, Identity and evidence
-  (`Identity::mergeInto`); **views and counts** (`tv_count_item` totals for `listing:<id>`), **comments and reactions**
-  (engage tables by `kind`/`ref`), saves/keeps, guide and journey links (`content_tags.ref = 'entity:<id>'`), open
-  suggestions, Nexus membership, Help-find and cleanup notes. Release B lists every table that holds an entity id (`grep
-  -rn "entity_id\|'entity:'\|listing:" app`) and moves each, recording the moved row ids for Undo.
-- **The old id:** hidden with `same_as` {id, at, by: 0, how: 'recheck', run}, so `listing/view.php`'s **301** sends its
-  link on; search and the sitemap drop it at reindex.
-- **Logged** in the cleanup ledger (`cleanup_runs` / `cleanup_ledger`, rule `recheck_same`), one entry per pair with
-  every value and row moved, **Undo per pair and per run** (Undo un-hides, moves the rows back, removes `same_as`, and
-  records the pair as `not_same` so the recheck never repeats it).
-
-### 3.3 When it runs
-
-- **After every data load** (each `stage()` batch, each bulk load, each `api/ingest.php` batch): the ids it touched,
-  against everything.
-- **On a schedule:** a daily slice across all listings (keyed on the new indexes, so it's cheap), in `Scheduler::JOBS`
-  and `Automation::JOBS`, behind the master switch, **shipped off** like the other tasks (0163 §9).
-- Its report joins Data cleanup's pass report: merged, sent to a person (by reason), left.
-
-### 3.4 What it never merges: a person decides, with the reason
-
-| Case | Why it goes to a person | The step says |
+| What | The spec | Its numbers |
 |---|---|---|
-| Either listing **claimed** or managed | "once claimed is a whole different conversation" | "Claimed by its owner: ask them before merging" |
-| A person's entry or decision on either | R4 | "Our team / the owner entered … on #…" |
-| A person said "not the same" before | their answer stands | never offered again |
-| **Another location** (`branch`) | 0074, 0083: a Nexus, not a merge | joins the Nexus by rule (`autoNexus`), no step |
-| **Providers or offices at one facility** (`place`, a person's name) | 0074 | no step (not duplicates) |
-| Grey zone (0.60–0.95, `maybe`) after the grey-zone worker | 0164 §3.2 | on the retry ladder, a step in "The engine needs a person" |
+| One identity check on every path, the batch check, the database guard, the tuned match rules | 0164 §3.1 ("One identity check, on every path") | 0163 §12, "The identity check and the recheck" |
+| Exact twins merge; variations to the vetting; the rest to the queue | 0164 §3.2, note of 2026-11-15 (Jason's words) | 0163 §12 |
+| The identity recheck (W2 task `recheck`, on the switches, on the board) | 0164 §6.1 | 0163 §12, §9, §3 |
+| "Vet this place": W2's `identity` task as the one entry point | 0164 §6.1 | the retry ladder, the check order (0163 §12) |
+| The identity queue: sales lead (the existing pipeline, `Leads::route`, the Call list) or admin task, both still public | 0164 §6.1 ("The engine needs a person", X3) | — |
+| W2's row | 0164 §7 | — |
+| When it's built | 0163 §8, stage 8, first, before any load is switched on | — |
 
-Pairs a person decides are stored as a pair (`listing_pairs`: a, b, verdict same/not_same, by, at, why) so every path
-(`resolve()`, the recheck, `LiveDupes`, cleanup) reads one answer.
+**Nothing found without a home in 0164.** Two choices made, for Jason to overrule:
+- The entry point for vetting a live listing is W2's `identity` task (it already "confirms who a listing is", with
+  staff's Look now); W1's `second_look` stays the look at a find before it's listed.
+- The identity queue is a kind of step in the engine's one Pulse case (X3), not a new case or a new lead store.
 
-### 3.5 The 60 already offered
-
-The recheck's first run takes Pulse case #23's 60 offers (suggestions `kind = 'same'`, devices `crawler-cleanup` and
-`crawler-dupes`, status `new`) **before** anything else:
-1. Each pair is resolved again under §2.4's rules and checked against §3.1.
-2. **Qualifies:** merged as in §3.2; its offer closed as "merged by the recheck" (with the ledger's Undo); the Pulse step
-   for it goes.
-3. **Doesn't:** stays in Review **with its reason** from §3.4 (claimed, a person's entry, grey zone); a pair that is now
-   `branch` or `place` is closed as "not duplicates (another location / at one facility)" with no person needed.
-4. The run's report says how many of the 60 were merged, closed as not duplicates, and left for a person, and why.
-
-`LiveDupes::tick()` and Data cleanup's `duplicate` rule stop sending offers: they feed the recheck instead, and only what
-§3.4 sends reaches Review.
-
----
-
-## 4. For the session that builds it
+## 3. Build notes for Release B
 
 - **Claims** (decisions/0161), `--change`: `app/lib/CrawlerIngest.php::upsertEntity`, `app/lib/AddBusiness.php::create`,
   `::duplicates`, `app/lib/crawler/IntakeStager.php::approve`, `::stage`, `app/lib/crawler/AutoImport.php::tryImport`,
-  `::quickApprove`, `app/lib/crawler/Verify.php`, `app/lib/crawler/LiveDupes.php::tick`, `app/lib/DataCleanup.php`
-  (findDupes, undo, putBack, settle), `app/lib/HelpFind.php::promoteSome`, `app/lib/Helper.php::act`,
+  `::quickApprove`, `app/lib/crawler/Verify.php`, `app/lib/crawler/LiveDupes.php::tick`, `app/lib/IdentityJobs.php`
+  (a reason and the details in doubt on a look), `app/lib/DataCleanup.php` (findDupes, undo, putBack, settle),
+  `app/lib/HelpFind.php::promoteSome`, `app/lib/Helper.php::act`, `app/lib/Pulse.php` (the queue's step kind),
   `website/api/ingest.php`, `website/api/admin/intake/review.php`; `--add`: `app/lib/ListingIdentity.php`, the
-  migration, `app/scripts/listing_recheck_tick.php`, `app/ui/faq.md` entries.
-- **Order inside the release:** keys + migration (plain indexes) → `resolve()` and every caller → the batch fold → the
-  recheck with the 60 → the unique key on the next run once twins are gone.
-- **Tests to run:** the 60 pairs' shapes as fixtures (same/different numbers, suites, ext phones, plurals, LLC/PC, a
-  provider at a clinic, two bases of one operator, a claimed side, a person's lock); two workers at once; an NPI batch
-  with two records of one operator; Undo of a recheck merge; the 301; a Help-find answer carrying a live listing's phone.
+  migration (identity keys, indexes; the unique key on a later run once twins are gone), the recheck's script (in
+  `Scheduler::JOBS` and `Automation::JOBS` under W2), `app/ui/faq.md` entries.
+- **What moves on a merge:** list every table holding an entity id before writing (`grep -rn "entity_id\|'entity:'\|listing:" app`)
+  and move each with its row ids in the ledger, so Undo is exact. `SuggestionActions::merge()` and `ListingBulk::merge()`
+  move only facts, suggestions, the identity and the Nexus today.
+- **Order:** keys + migration → `resolve()` and every caller → the batch fold → the recheck, case #23's 60 first → the
+  unique key.
+- **Tests:** the 60 pairs' shapes as fixtures (same and different numbers, suites, phones with extensions, plurals,
+  LLC/PC, a provider at a clinic, two bases of one operator, a claimed side, a person's lock); two workers at once; an
+  NPI batch with two records of one operator; a recheck merge and its Undo; the 301; a "Help us find" answer carrying a
+  live listing's phone; a sales lead made from the queue and its call closing the step.
 - **FAQ:** "Why did a listing I saw move to another link?" (merged; its link follows) and, for owners, "Will you merge my
   claimed listing?" (never without asking you).
