@@ -499,6 +499,19 @@
    "expires": "2026-11-16T00:00:33Z",
    "release": "release-b4",
    "callers": {}
+  },
+  {
+   "path": "app/admin/tools.php",
+   "functions": [
+    "sales.calls"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "Release B part 4: the Call list shows Still open?",
+   "since": "2026-11-15T20:00:35Z",
+   "expires": "2026-11-16T00:00:35Z",
+   "release": "release-b4",
+   "callers": {}
   }
  ],
  "lapsed": []
