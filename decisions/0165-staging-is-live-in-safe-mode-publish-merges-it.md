@@ -6,6 +6,8 @@ themselves (`Releases::autoPublish`), and `decisions/0145`'s "refreshed from liv
 `staging_tick`). It keeps `0145`'s staging rules (held email, sandbox payments, not indexed, behind a password), `0159` §5
 (the site manager), `0162` (migrations first, copied first) and `0110` (the walls between the databases).
 Release B waits for Jason's answer on this.
+Checked the same day against an outside spec Jason shared ("Two-Tier Platform & Content Release System"): what it adds
+is folded in, and §8 says where this decision differs from it and why.
 
 ## Context
 
@@ -49,11 +51,18 @@ So today staging is a place to look at code, not a place to work. This decision 
 
 ### 1. Safe mode: staging acts like live and can't touch the real world
 
-**One gate.** Every outside effect goes through one question, `Staging::outside($what, $detail)`: on live it says
-"go"; on staging it says **hold**, **sandbox** or **allow** (for a switch turned on for a test), and records what was
-held in one ledger, `staging_held` (it takes in `staging_mail`). The service register of `decisions/0163` names every
+**One gate, built from what's there.** The site already asks before every outside call: `ServiceHealth::allowed()` per
+host (with `Automation::hostOff()`, the master and per-service switches of 0163 §9), `AiClient` for the AI providers,
+`Staging::allow()` for the staging switches, `Staging::holdMail()` in Mailer and SES, `QuickBooksPay::testHere()` and
+`guardReal()` for money. Staging's answer goes into those same places (our calls are curl, so there's no middleware to
+add): on live they say "go"; on staging **hold**, **sandbox** or **allow** (a switch turned on for a test). What's held
+goes in one ledger, `staging_held` (it takes in `staging_mail`). The service register of `decisions/0163` names every
 service; each one's staging answer is a column there, so a new service can't be added without one. A service with no
-answer is held.
+answer is held. Held items can be **replayed** only to somewhere safe: an email with **Send to me** (to the staff
+member's own address, marked as from staging), a webhook to the sandbox's address. Never to the real recipient.
+
+**Payments refuse to start on staging if a live key is present** in its `.env` (a live QuickBooks, Stripe or Square
+key): the site manager says which, and payments stay off until it's gone.
 
 | Outside effect | On staging |
 |---|---|
@@ -97,8 +106,14 @@ the switch on, else "Held on staging: ask our team (support@traversence.com)". N
 
 Live keeps changing (visitors, owners, orders). Instead of the weekly copy over staging, staging **catches up**:
 
-- **When:** every night (02:00 Arizona time, outside the release window), on **Catch up now**, and just before every
-  Publish preview.
+- **When, in two speeds** (Bluehost throttles CPU and IO per account, and live and staging share it):
+  - **every 15 minutes, the quick pass:** tables that keep an `updated_at` (set by the database on every change) are
+    read only for rows changed since the last pass, and small tables' keys are compared for rows removed;
+  - **every night (02:00 Arizona time, outside the release window), the full pass:** every row's fingerprint, which
+    catches removals in big tables, tables with no `updated_at`, and deletes the database cascaded;
+  - and on **Catch up now**, and just before every Publish preview.
+  The register (below) records per table whether it has a primary key (needed), an `updated_at` (for the quick pass)
+  and its size. A table with no `updated_at` waits for the night.
 - **The common base.** For every row, staging keeps two fingerprints taken when the two sides last matched: live's row
   and staging's row (`stg_base`: realm, table, key, the two hashes). Two, because staging's copy of a person's row is
   stripped and never equals live's. A row has changed on a side when its fingerprint there no longer matches the base;
@@ -128,6 +143,16 @@ in the same release, and the zip check blocks one that doesn't; an unlisted tabl
 | **Staging's own** | The held ledger, `staging_s3`, its job logs, its sessions, views and taps from staging visits | Kept | Never carried |
 | **Never copied** | Sign-in secrets, devices, the vault, one-time codes, page cache, live's release record | Empty on staging | Never carried |
 
+**Work data and test data.** Jason wants "what the stage has become and the data it has generated" carried, so a row
+made on staging isn't test data just because it was made there. Each change staging's triggers record also records
+who made it (the site sets `@stg_actor` and `@stg_test` on staging's connection when someone signs in; a job sets its
+name):
+- **Work data** (carried and merged): Records changed by a staff login that isn't a test account, and by staging's jobs
+  on Records tables.
+- **Test data** (never carried): anything a test account made or owns (`users.is_test`, `check+…@traversence.com`,
+  the staff logins Test accounts made), every Money row, the held ledger, the stripped values.
+- In the preview, Jason can mark any carried row as test (left out) or a test row as work (carried), one at a time.
+
 Links between rows are in the same register (`listing_id` → listings, `kind:id` references like `listing:123`), so a row
 can be carried with what it points to and its new id (§4). A table with no primary key can't be merged row by row: it is
 *follows live* until it gets one.
@@ -144,6 +169,7 @@ staging's uploaded files (`staging/<key>` to `<key>`), and the code and migratio
 | changed | unchanged | staging's row |
 | unchanged | changed | live's row stays |
 | changed | changed, different fields | both: each side's fields |
+| changed | changed, the same field to the same value | nothing to do |
 | changed | changed, the same field, different values | **a conflict**: Jason chooses |
 | added | — | added to live, with a live id |
 | removed | unchanged | removed on live |
@@ -151,11 +177,19 @@ staging's uploaded files (`staging/<key>` to `<key>`), and the code and migratio
 | changed | removed | a conflict |
 | both added rows that clash on a unique key (the same slug, the same email) | | a conflict |
 
-**New ids.** Staging gives its new rows ids from a high block (each table's next id set to 2,000,000,000 at every
-catch-up; live never gets near it). At Publish each new row is inserted on live with a new live id, and a remap
-(`stg_id` → `live_id`) rewrites every link to it in the other carried rows and in `kind:id` references, parents before
-children. Codes people see (GO codes, short codes, slugs) keep their text; a clash is a conflict. After Publish, staging
-renumbers its own copies the same way, so the two match again.
+**New ids: live odd, staging even** (recommended). Every connection to the databases is made in one place
+(`Database::connection()`; the Railway workers don't connect to them), so one setting there gives every new row on live
+an odd id and every new row on staging an even one, in all four databases (`SET SESSION auto_increment_increment = 2,
+auto_increment_offset = 1` on live, `2` on staging). Rows that exist keep their ids; the next one is the next odd (or
+even) number after them. So a row made on staging keeps its id on live, and every link to it (`listing_id`, `kind:id`
+references like `listing:123`, file keys that carry an id) stays right with nothing rewritten. The cost: it changes how
+live numbers every new row (ids step by two, which shows where a number is the id, such as an order with no order
+number), so it goes in alone, in Release 1, and is watched.
+- **The other way, if Jason prefers not to touch live's numbering:** staging takes ids from a high block (2,000,000,000
+  up) and Publish gives each new row a live id, with a remap (`stg_id` → `live_id`) that rewrites every link in the
+  carried rows and `kind:id` references, parents before children. Live is untouched, but the remap is the most
+  error-prone part of the publish, and a missed link is a wrong link.
+- Either way, codes people see (GO codes, short codes, slugs) keep their text, and a clash on a unique key is a conflict.
 
 **Conflicts:** shown side by side, base · staging · live, with who changed each and when. Jason picks **Keep live**,
 **Use staging**, or per field, or types the value. Nothing is overwritten silently, and Publish doesn't open while one
@@ -177,19 +211,28 @@ the page can close; an email when it's done):
 2. **Copies:** every migration's tables (0162) and every live row the merge will change or remove, into the publish's
    journal (`pub_journal`: the row before, and the ids it adds).
 3. **Migrations,** oldest first (0162: add-only, copied first; a failure stops here with nothing else changed).
-4. **Data,** a batch at a time, per database, each batch in one transaction, each row written only if live's row still
-   matches what the preview saw. A row that changed in between becomes a late conflict, left as live has it, for Jason
-   after. Live stays open the whole time.
-5. **Files,** as Publish does today (the previous copy of each kept). Then staging's files in the store.
+4. **Data,** a batch at a time (250 rows), per database, each batch in one transaction, each row written only if
+   live's row still matches what the preview saw. A row that changed in between becomes a late conflict, left as live
+   has it, for Jason after. Live stays open the whole time. (One transaction for the whole merge isn't possible: each
+   database has its own login, 0110, and a transaction can't cross logins. The journal makes the whole of it undoable
+   instead.)
+5. **Files,** as Publish does today: each file is already waiting in the release's folder
+   (`app/storage/releases/<id>/new/`), its previous copy kept, and it goes live by a rename, which is all-at-once for
+   that file. A few hundred renames take seconds. Then staging's files in the store (100 a step).
 6. **Checks on live,** then switches step 1 (staff and test accounts) where a release has one.
-7. **Staging matches live again:** the remap applied there, the base taken again.
+7. **Staging matches live again:** the base taken again (with the high-block way, the remap applied there first).
+
+**If a step fails while writing** (migrations aside, which 0162 keeps), what this publish wrote is undone at once from
+the journal, by itself, and the site manager says where it stopped and why. **If a check on live fails afterwards,**
+it's Jason's call, as today: Turn off, or Roll back.
 
 **Roll back** is for the whole publish, for 14 days (as 0162's copies): files back, added rows removed, changed rows put
 back, removed rows put back, each only if live hasn't changed that row since (else it's listed for Jason). Migrations
 stay (add-only; what they made is tracked as leftovers, 0162).
 
-**A failed publish halfway** stops at the step it was on, with the reason. The site manager offers **Carry on** (from
-that step) or **Roll back** (what was done), and ask our team. Each step is in the journal, so nothing is half-known.
+**A publish that stops halfway for any other reason** (the server restarted, a time limit) stops at the step it was
+on. The site manager offers **Carry on** (from that step) or **Roll back** (what was done), and ask our team. Each step
+is in the journal, so nothing is half-known.
 
 **The preview** (before every Publish, and any time): what changes on live, by kind (pages, listings, settings,
 workflows, files, migrations), counts for added, changed, removed; each row on a click; the conflicts; what isn't carried
@@ -216,13 +259,16 @@ stop with a way on (Carry on, Roll back, ask our team), times labeled in the zon
 
 ### 6. Risks and limits
 
-- **Bluehost's MySQL 5.7:** no window functions or `WITH`; JSON functions are there (the before-copies). Triggers need
+- **Bluehost's MySQL 5.7:** no `WITH`, `OVER()` or `JSON_TABLE` (the code check, R04, flags them); `JSON_OBJECT`
+  is there (the before-copies). Session `SET` is allowed; nothing needs SUPER. Triggers need
   the TRIGGER right on staging's databases (cPanel normally gives it; Release 3 checks first, with the fallback in §3). A
   single-statement trigger needs no `DELIMITER`. No binlog or replication on shared hosting, which is why fingerprints.
 - **PHP 8.0:** none of the newer forms (CLAUDE.md).
-- **The four databases (0110):** each realm is merged by its own login, as the refresh copies today: no login crosses a
-  wall. A transaction can't span two databases, so each batch is per database and the journal makes the whole publish
-  undoable.
+- **The four databases (0110), on each side:** main, admin, listings and users on live, and staging's copy of each.
+  Every pass and every merge runs per pair, each by that realm's own login, as the refresh copies today: no login
+  crosses a wall. The new tables (`stg_base`, `stg_changes`, `pub_journal`) go inside the databases staging already
+  has, so the plan's database count doesn't change (setup checked there was room for staging's four through cPanel,
+  `StagingSite::room()`).
 - **Size and time:** staging already doubles the databases; the base adds a key and two hashes per row. Fingerprints run
   in chunks of a few thousand rows by key, at night, on the command line (no web time limit). Bulk tables follow live, so
   they're copied when they change, not compared row by row.
@@ -237,26 +283,59 @@ stop with a way on (Carry on, Roll back, ask our team), times labeled in the zon
 
 ### 7. Build order (releases)
 
-1. **Safe mode closed, nothing by itself.** The gate and the Held ledger; the remaining live keys out of staging's
-   `.env`; sandbox webhooks to staging; staging's scheduled jobs; `autoPublish` removed (every build waits on staging);
-   the weekly refresh stopped (Start staging over stays as the button).
+1. **Safe mode closed, nothing by itself.** The gate and the Held ledger (with Send to me); the remaining live keys out
+   of staging's `.env`, and payments refusing if one is there; sandbox webhooks to staging; staging's scheduled jobs;
+   `autoPublish` removed (every build waits on staging); the weekly refresh stopped (Start staging over stays as the
+   button); odd and even ids, if Jason chooses them.
 2. **The table register** (`staging-tables.php`) with its zip check rule, the link register, and **Staging against live**
    for code: releases stack, and Publish takes every release on staging together (files and migrations).
 3. **The base and catch-up:** fingerprints, staging's triggers, the high id block, nightly and Catch up now, the strip
    on the way in, the conflicts list.
 4. **The preview and conflicts:** the side-by-side choice, Keep live for the rest.
-5. **Publish as a merge:** the journal, the remap, batches with the still-matches check, staging's files, the steps run
+5. **Publish as a merge:** the journal, the remap (the high-block way only), batches with the still-matches check, staging's files, the steps run
    by the server, Carry on.
 6. **Roll back the whole publish, To send now,** and the old refresh code removed.
+
+### 8. Content edits stay live (0159), and where this differs from the outside spec
+
+**The spec's Tier 1 is already decided:** `decisions/0159` §3 puts content and layout in the editor on live, with a
+draft only the team sees, Publish now or on a schedule, a version per publish and Roll back to any of them, and its
+rule between the layers (a part that needs new platform code is a code release, through staging). This decision
+doesn't add a second content path. The editor's pages and versions are Records: an edit made on live comes to staging
+by catch-up; one made on staging is merged at Publish like any other. Content belongs on live; staging is for work tied
+to code being tried.
+
+**Where this differs from the spec, and why:**
+- **No new `APP_ENV` / `SAFE_MODE`:** staging is already marked by `STAGING=1` in its `.env` (`Staging::here()`).
+- **No new interceptor layer:** the gates exist (§1); staging's answer goes into them.
+- **No `is_test_data=1` on every row made on staging:** that would leave behind the work Jason wants carried. Work data
+  and test data are told apart by who made the change (§3).
+- **Ids:** the spec's odd/even is taken (recommended), with the high block and remap kept as the other way.
+- **Catch-up:** every 15 minutes only for what's cheap to find (tables with `updated_at`, small tables' keys); the full
+  comparison nightly, because the server's CPU is shared with live.
+- **No maintenance lock and no single transaction:** live stays open, each row is written only if it still matches the
+  preview, and a transaction can't cross the four databases' logins (0110). The journal gives the whole-publish undo
+  instead. (A short lock is choice 2 below.)
+- **No webroot symlink or folder swap:** releases write into `public_html/traversence/` file by file, the 3-way sync reads
+  that folder, and `app/storage` (sessions, the releases' copies) and the uploads live inside it, so swapping the folder
+  would mean copying the whole site each time. Each file is staged first and renamed into place, which is all-at-once
+  per file and seconds for a release.
+- **Rollback on a failed step is automatic** (as the spec says) for what Publish wrote; a failed check after Publish stays
+  Jason's call, as today. Migrations are never undone (0162: add-only, copied first).
+- Taken from the spec: Replay of held items to safe places, payments refusing with a live key present, no-op for the
+  same change on both sides, the held count in the site manager, the dry run, 250 rows and 100 files a step.
 
 ## Choices for Jason
 
 1. **All of staging at once, or pick releases?** Recommended: all at once (staging is one state; picking breaks data
    that depends on a release), with the urgent single-release path kept.
-2. **Live stays open during Publish** (late conflicts listed after), or a few minutes read-only? Recommended: open.
-3. **Catch-up nightly, on demand and before every preview,** or every 15 minutes? Recommended: nightly and on demand
-   (Bluehost's throttling).
-4. **Staging's own views, taps and counts are never carried** (test traffic). Confirm.
+2. **Live stays open during Publish** (late conflicts listed after), or a short lock (visitors read, writes wait a few
+   minutes, staff allowed in)? Recommended: open.
+3. **New ids: live odd and staging even** (no remap; live's ids step by two from then on), or **a high block for
+   staging and a remap at Publish** (live untouched, more that can go wrong)? Recommended: odd and even.
+4. **Catch-up:** the quick pass every 15 minutes and the full pass nightly (recommended), or nightly only (lighter on
+   Bluehost, staging up to a day behind).
+5. **Staging's own views, taps and counts are never carried** (test traffic). Confirm.
 
 ## Consequences
 
