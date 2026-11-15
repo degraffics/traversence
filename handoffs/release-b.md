@@ -395,3 +395,22 @@ ListingConfidence and the listing page with them, so it's zipped from the live c
   owner's "Check these" and email), P4-2 (licence change re-sorts facts), P3-2's Facebook-link case and the town page's
   ask, §12's lead order and Google check order, stage 9's `page_read` queue (call `SourceIndex::waitToRead()` when
   Gemini's allowance stops a read).
+
+**21:25 UTC: B5b (#66) live** (B5's migration failed "Migrations only add", #65, to be withdrawn by Jason on the live
+admin; B5b replaced it with no migration and carried B6: P4-2 licence re-sort, §12 Google's check order). Sync 21:03,
+12/12 files match. **B7 sent for review:** Withdraw in the staging bar's Publish menu (`Releases::barState` acts), stage
+9's reader (`app/lib/crawler/PageRead.php`, `app/scripts/page_read_tick.php`, job `page_read_tick` under W3, off).
+§12's lead order needed no code: the loads and the plan already run free sources first (Overture, NPI), then Google.
+
+**For the next session (this one's context is spent): what's left of Release B**
+1. **P3-5, the owner's "Check these":** the crawler's offers on a claimed listing (`Suggestions::create(... 'crawler-refresh')`
+   in `app/lib/crawler/Refresh.php:336`, and `closed_signal`/`still_open_ask` from B4) reach nobody but staff. Build a
+   section in the business portal (decisions/0109: a section in `app/admin/manifests.php`, scoped to the business, a list
+   tool in `app/admin/tools.php`) listing each offered change with its source, **Accept** / **Keep mine** (Keep mine
+   records the owner's value, `Identity::listingWrote(..., 'owner')`), and a system email the day one is raised (free,
+   CLAUDE.md). An owner's answer settles the X3 step (EngineCase kind `closure` for Still open?).
+2. **P3-2's two leftovers:** sightings with only a Facebook link → a Pulse case "Confirm from its page" (a step each: the
+   link, the fields to type, R14); and the town page asking visitors "Know its phone or address?" as a suggestion.
+   Sightings already retry on the ladder and stop after `DataCleanup::STOP_AFTER`.
+3. **Not buildable yet:** P1-4 (Gemini grounded-search leads; built only if Jason funds grounded search), H2 and H3 (W14's
+   own finding of official sources isn't built).
