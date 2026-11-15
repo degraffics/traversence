@@ -71,6 +71,17 @@
    "expires": "2026-11-16T02:11:56Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/scripts/system_start_tick.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kE9dUdSmDQpFmDsKE",
+   "why": "Start the system (Jason, 2026-11-15; decisions/0163 \u00a710)",
+   "since": "2026-11-15T22:11:58Z",
+   "expires": "2026-11-16T02:11:58Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": []
