@@ -3572,6 +3572,12 @@ def run_service():
         raise
     if not st.get("ready", True) or "plan" not in st:
         return None
+    # the run's ceilings from the site's plan (0163 §1), not from Railway's own settings, when the site sends them
+    global MAX_SEARCHES, PLACES_PER_RUN, OSM_PER_RUN
+    lim = st.get("limits") or {}
+    for name, key in (("MAX_SEARCHES", "searches"), ("PLACES_PER_RUN", "places"), ("OSM_PER_RUN", "osm")):
+        if isinstance(lim.get(key), int) and lim[key] >= 0:
+            globals()[name] = lim[key]
     if st.get("paused"):
         log(f"paused: {st.get('why', '')}")
         site_call("/api/crawl/service.php", {"report": {"run_key": run_key, "status": "ok", "why": st.get("why", "paused"), "items": []}})
