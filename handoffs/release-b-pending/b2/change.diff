@@ -487,7 +487,7 @@ index d4514e5..ad5b017 100644
  
      /** Whether the recheck may run now: the master, W2 and its task on (0163 §9). Null when it may, else why not. */
 diff --git a/app/lib/OutsideServices.php b/app/lib/OutsideServices.php
-index 56e4bce..bd3431d 100644
+index 56e4bce..5db8e2c 100644
 --- a/app/lib/OutsideServices.php
 +++ b/app/lib/OutsideServices.php
 @@ -328,7 +328,7 @@ final class OutsideServices
@@ -495,7 +495,7 @@ index 56e4bce..bd3431d 100644
          'irs' => ['sources' => ['irs.gov'], 'tasks' => ['irs_bulk']],
          'cms' => ['sources' => ['npiregistry.cms.hhs.gov'], 'tasks' => ['second_look', 'identity', 'npi_bulk', 'npi_town']],   // npi_town: NPI by town for Arizona and New Mexico (stage 8), with its two guards
 -        'overture' => ['tasks' => ['overture_bulk']], 'foursquare' => ['tasks' => ['foursquare_bulk']], 'geofabrik' => ['tasks' => ['geofabrik_bulk']],
-+        'supabase' => ['jobs' => ['vectors_tick']], 'overture' => ['tasks' => ['overture_bulk']], 'foursquare' => ['tasks' => ['foursquare_bulk']], 'geofabrik' => ['tasks' => ['geofabrik_bulk']],
++        'supabase' => ['jobs' => ['vectors_tick', 'supabase_keepalive']], 'overture' => ['tasks' => ['overture_bulk']], 'foursquare' => ['tasks' => ['foursquare_bulk']], 'geofabrik' => ['tasks' => ['geofabrik_bulk']],
          'azcc' => ['tasks' => ['licence_lookup']], 'nmsos' => ['tasks' => ['licence_lookup']],
          'ridb' => ['sources' => ['recreation.gov'], 'tasks' => ['rec_bulk']],
          'census' => ['sources' => ['census.gov'], 'tasks' => ['geocode', 'landmarks_bulk']],
@@ -544,23 +544,24 @@ index 64c5d0d..ca43133 100644
                  require_once __DIR__ . '/EngineCase.php';
                  return EngineCase::pulseSteps(Database::connection(), $s);
 diff --git a/app/lib/Scheduler.php b/app/lib/Scheduler.php
-index dbc12bb..0640013 100644
+index dbc12bb..5f386eb 100644
 --- a/app/lib/Scheduler.php
 +++ b/app/lib/Scheduler.php
-@@ -34,6 +34,7 @@ final class Scheduler
+@@ -34,6 +34,8 @@ final class Scheduler
          'region_tick' => ['Sign-up region check', 'Keeps the EU/EEA/UK address ranges for the sign-up check fresh (decisions/0027): downloads DB-IP\'s free country file (CC BY 4.0) once a month; daily it only checks.', 'daily', 240],
          'guide_ondemand_tick' => ['Guides on demand', 'Carries on guides a searcher asked for after they leave, writes the ones waiting for the allowance (most asked first), and writes each first look in full once its deeper research is in (decisions/0147).', '5min', 30],
          'journeys_tick' => ['Suggested journeys', 'Builds each live guide\'s suggested journeys from its own places by rules (no AI), three guides a run, again weekly or when the guide changes; asks openrouteservice once for a town\'s travel times and keeps them (decisions/0146).', 'hourly', 180],
++        'supabase_keepalive' => ['Supabase keep-alive', 'One tiny read a day so the free Supabase project doesn\'t pause (decisions/0164 §5.2). Under Supabase\'s own switch, not the master: it gathers nothing and costs nothing.', 'daily', 60],
 +        'vectors_tick' => ['Vector index', 'Public listings\' text turned into vectors on Supabase for semantic search (decisions/0164 §5.2). Shipped off: it runs only while automation, W3, Supabase and AI use\'s "vector index" are on. Not set up in cPanel by itself.', 'hourly', 300],
          'identity_recheck_tick' => ['Identity recheck', 'Live listings checked against each other (decisions/0164 §6.1): exact twins merged by themselves with Undo, variations vetted, the rest to "The engine needs a person". Shipped off: it runs only while automation, W2 and its task are on. Not set up in cPanel by itself: add it here, in a quiet hour.', 'daily', 600],
          'data_cleanup_tick' => ['Data cleanup', 'A pass for every rule of Insights → Data cleanup, once a day, so what the crawler made stays in line with today\'s rules. Shipped off: it does nothing until its daily pass is switched on there, and only while automation is on. Not set up in cPanel by itself: add it here when it\'s wanted.', 'daily', 600],
          'landmark_photos_tick' => ['Landmark photos', 'Looks on Wikimedia Commons for a free photo of each shown landmark that has none (taken nearby and named for it), 20 an hour, and keeps the best with its credit and licence. One with none found is looked at again after 30 days.', 'hourly', 180],
 diff --git a/app/lib/Vectors.php b/app/lib/Vectors.php
 new file mode 100644
-index 0000000..84b8ee2
+index 0000000..dfde7df
 --- /dev/null
 +++ b/app/lib/Vectors.php
-@@ -0,0 +1,124 @@
+@@ -0,0 +1,138 @@
 +<?php
 +// app/lib/Vectors.php — The sidecar vector index for semantic search (decisions/0164 §5.2, §12 C10; 0163 §8 stage 11):
 +// Postgres with pgvector on Supabase's free tier, beside MySQL, which stays the record. Embeddings come from Gemini's free
@@ -646,6 +647,20 @@ index 0000000..84b8ee2
 +        $b = curl_exec($ch); $code = (int) curl_getinfo($ch, CURLINFO_HTTP_CODE); $err = curl_error($ch); curl_close($ch);
 +        if ($code < 200 || $code >= 300) { ServiceHealth::siteFailed($pdo, $url, $code, is_string($b) ? mb_substr($b, 0, 1000) : '', $err, 'Supabase'); throw new RuntimeException('Supabase answered ' . ($code ?: $err)); }
 +        return is_string($b) && $b !== '' ? (json_decode($b, true) ?: []) : [];
++    }
++
++    /**
++     * The free project's keep-alive (Supabase pauses a free project after about a week idle): one tiny read a day. Under
++     * Supabase's own switch and its keys only, not the master: it gathers nothing and costs nothing (session manager,
++     * 2026-11-15). While the project is paused anyway, search keeps to the normal index.
++     */
++    public static function keepAlive(PDO $pdo): string
++    {
++        if (!self::configured()) return 'Supabase isn\'t connected: SUPABASE_URL and SUPABASE_SERVICE_KEY in .env.';
++        require_once __DIR__ . '/Automation.php';
++        if (($w = Automation::serviceOff($pdo, 'supabase')) !== null) return $w;
++        try { self::rest($pdo, 'GET', 'tv_vectors?select=ref&limit=1'); return 'Supabase answered: kept awake.'; }
++        catch (Throwable $x) { return 'Supabase didn\'t answer: ' . $x->getMessage(); }
 +    }
 +
 +    /** The public text of a listing: its name, its kind, its town and what it shows the public (never contact details). */
@@ -973,6 +988,24 @@ index 0000000..f83813b
 +  PRIMARY KEY (id),
 +  UNIQUE KEY uq_load (dataset, place_key, release_id)
 +) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+diff --git a/app/scripts/supabase_keepalive.php b/app/scripts/supabase_keepalive.php
+new file mode 100644
+index 0000000..0aee573
+--- /dev/null
++++ b/app/scripts/supabase_keepalive.php
+@@ -0,0 +1,12 @@
++<?php
++// app/scripts/supabase_keepalive.php — Supabase's keep-alive (decisions/0164 §5.2): one tiny read a day so the free project
++// doesn't pause after a week idle. Under Supabase's own switch and keys, not the master (it gathers nothing, costs nothing).
++// Not in Scheduler::AUTO: added in System Configuration → Scheduled tasks once Supabase is connected.
++declare(strict_types=1);
++
++if (PHP_SAPI !== 'cli') { http_response_code(404); exit; }
++require_once __DIR__ . '/../lib/Database.php';
++require_once __DIR__ . '/../lib/Scheduler.php';
++Scheduler::run('supabase_keepalive');
++require_once __DIR__ . '/../lib/Vectors.php';
++echo Vectors::keepAlive(Database::connection()) . "\n";
 diff --git a/app/scripts/vectors_tick.php b/app/scripts/vectors_tick.php
 new file mode 100644
 index 0000000..43b8240
