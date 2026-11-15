@@ -1,0 +1,89 @@
+{
+    "id": 66,
+    "title": "Release B, part 5 (again, with part 6): a broken reader no longer wipes a site's facts, searches that find nothing become work, Closed made stricter, Gemini's w",
+    "why": "decisions/0163 §8's gap list (research/knowledge-engine-gap-review-2026-11-14.md): P6-1, P1-3, F2, F3, F4. Jason, 2026-11-15: finish Release B without waiting for his keys. Everything ships off; the master switch stays off. (1) Parser drift (P6-1): a read of a site that finds nothing on pages that had facts used to delete those facts; now they're kept (shown with 'last checked'), and after two such reads 'The engine needs a person' asks for a reader fix, naming the site and its pages. (2) A search that finds nothing (P1-3): recorded as demand for the place searched or the searcher's area, named or not; a kind of place becomes that kind's job in the town (from our own kinds, never the words), a topic waits as one of W6's gaps. (3) The public confirms Closed (F2): three answers on at least two days within 60 days, none saying open since. (4) Three states only (F3): the listing says 'Still open?' with the source's own words; 'Possibly closed' and 'Reported closed' are retired, and a Closed listing isn't scored down. (5) Gemini (F4): its daily allowance is paced to be used, so it warns only on the unexpected: background work at its stop before 18:00 UTC three days running, or the visitors' reserve under 5%. No database update: #65 failed staging's 'Migrations only add' check (its migration changed a column's type), so an empty search is now recorded as 'lacking' (results lacking), a value the column already has; #65 is withdrawn. Also part 6: (6) a source whose licence tightens (gap review P4-2): its stored facts stop feeding new listings at once, and a step in 'The engine needs a person' counts the listing facts resting only on it, with Take them off (kept as taken off, never written back; names, map points and towns left for a person); (7) Google's check order (decisions/0163 §12): never checked first, then a listing with a phone and no website, then one at the score line (35, W1's setting); order only. Tests: staging unit 49, identity 36, Gemini guards 21. Built on Sync 2026-11-15 20:11 UTC.",
+    "proposals": "handoffs/release-b.md, research/knowledge-engine-gap-review-2026-11-14.md P1-3, P4-2, P6-1, F2, F3, F4, decisions/0163 §12",
+    "zip": "release-b5b.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/ui/faq.md": {
+            "sha": "2a1f71d1556f370d80500aaa12458f5e89a9a2e0f976f88a68d4db03759af44a",
+            "size": 309568,
+            "live_was": "3c3dce08b99de4fc5fa8e5d506a7a4dd9c99d4fde9ff6d839f22b2081b87c464"
+        },
+        "app/lib/Operations.php": {
+            "sha": "946a3aa31418ec26d77e5f243fad813ee6158516efd0d1d6b28a37a70a169799",
+            "size": 57321,
+            "live_was": "af3b74d406e882a1abab76ed6107fbcc27fdd55d4facbb53bfa6fe1d4ded28f6"
+        },
+        "app/lib/ListingConfidence.php": {
+            "sha": "64322667e4d1106bcdf9a788728baee1b710650ab6886db69630a51c3c8868c9",
+            "size": 24147,
+            "live_was": "8502a81b94c764d6cb5a68a8fc8d9b47e4f787d7574c21e297d2aa22bd6db042"
+        },
+        "app/lib/SearchDemand.php": {
+            "sha": "9c1d75aab4acd9e6f8db2681c2767179f438a5bbe98b682c70b86e9449097775",
+            "size": 10111,
+            "live_was": "01e7d53e3e565bc1787f90320c9d5bdaad5eea4fdb22da9f6d0961a44d6266df"
+        },
+        "app/lib/Gemini.php": {
+            "sha": "663010642436834dcdfcd8448fe6d46bc56e172df96b4d7e3189d6877ec4ee52",
+            "size": 17263,
+            "live_was": "73bb129a36aa09fa2cd0fa4236286946ed41d7ee8bfa13696c9d5efee210ef83"
+        },
+        "app/lib/crawler/Sources.php": {
+            "sha": "180a1c51d2d62908c12b0211abecb46cc4b519ef92716018562e69535eb39006",
+            "size": 38573,
+            "live_was": "8a540bba7a6705e4bfa791cfc8ac5920abff586a41f8589e61a85567523cb723"
+        },
+        "app/lib/crawler/SourceIndex.php": {
+            "sha": "115b2ba62b89b820f813846b6ec526ba1c12a816c01653056e8483d02b1ec574",
+            "size": 71425,
+            "live_was": "eba9a045d237c32f7b4e9cc5102891c3e238319d6acd4c5de1d6b19cc055eed3"
+        },
+        "app/lib/Identity.php": {
+            "sha": "dce7ff0326b729762be684e266b3189cd74ff269e66321cff8faf74655f062d3",
+            "size": 99761,
+            "live_was": "bd6c2bb22e666604e116940355171bfc82baae67adc5da42ff4e6d76f73d4488"
+        },
+        "app/lib/EngineCase.php": {
+            "sha": "c6f162cd7b3580a31dcd90d3e7d649f218947988c01fd9ba84f439bf7c6e781e",
+            "size": 29788,
+            "live_was": "1cba4fad9fe541c22f944bf76a9b365d3bbc0675ff0fc39eea5b6957a05038e0"
+        },
+        "website/listing/view.php": {
+            "sha": "148dc16cf6b34119a899f1144a7845e8d82abd015cd1d9f32976755b2a641634",
+            "size": 54880,
+            "live_was": "3b06aa193105196cff744a25eff1cfe87b1ce7d1cf8299e89a8e25767d175b9c"
+        },
+        "website/api/search.php": {
+            "sha": "f3eb0738ee2e4c115c1ae98c257536e7eb7ec9b735f1862c87689088a1a8b596",
+            "size": 14321,
+            "live_was": "74cd95f11d7680b9d915de5d999dc1a4012297503ae881514004d4c766cba33f"
+        },
+        "website/api/crawl/places.php": {
+            "sha": "aaf637128502e7bfb09591e041169e31315113008a500f5a061a38d70122346a",
+            "size": 8166,
+            "live_was": "d49f093a1eda397e41c1f4c03776491013fbbcf15e0c3d6f0f25bb5d3aca0190"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-15T20:40:25+00:00",
+            "by": 0,
+            "msg": "Uploaded release-b5b.zip: 12 files."
+        }
+    ]
+}
