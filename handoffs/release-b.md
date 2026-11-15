@@ -191,3 +191,77 @@ opening budget line in the switch-on check (Costs → "A hub's opening budget" i
 Replace each fixed red line with a real test as you build it. When every line is green, Jason switches the master on
 himself, one workflow at a time (W1 first), each new or returning service at half budget for its first 14 days (0163
 §10.2).
+
+---
+
+## Progress (session `session_01CXLi5hvWvRSedDtk54gNDP`, building B; started 2026-11-15 on Sync 16:06 UTC)
+
+Work tree: `/home/user/relb` (a git repo laid out `app/`, `website/`, `trvgo/` from the mirror at Sync 16:06 UTC, first
+commit = live). The zip is built from `git diff --name-only <first commit>`.
+
+**Found in the live code (for whoever picks this up):**
+- **Pulse cases aren't stored:** `Pulse::items()` rebuilds them from source tables on each load; `pulse_marks` keeps
+  only the person's state (case_no, assigned_to, done). A library joins by three hand edits in `Pulse.php`: `items()`
+  (`Lib::pulseItems`), `playbook()` (`Lib::pulseSteps`), `manage()` (`Lib::pulseDo`). Steps: `['do', what, label]`,
+  `['form', what, label, fields]`. No per-step assignment exists: the engine's case keeps its own steps table.
+- **Case #23** is `cleanup:checks` (DataCleanup's 60 `suggestions` kind `same`, device `crawler-cleanup`). LiveDupes
+  makes its own (`crawler-dupes`, "Crawler: live duplicates").
+- **Nothing calls Gemini yet:** `AiClient::PROVIDERS` has claude, google (Document AI), aws (Textract); ROUTES are all
+  claude but the readers. The AI use page (`sections.php` `tv_admin_mod_ai`) chooses a model, not a provider.
+- **Merges:** `SuggestionActions::merge` hides with `same_as` meta (the 301 in `listing/view.php`). Every column that
+  holds a listing id is found with `StagingTables::refOf()` over information_schema (both databases).
+- The four crawler patches (W6, W9, W10/W11, W12) still applied cleanly to Sync 16:06 (W12's hunk at an offset).
+
+**Built so far in `/home/user/relb` (all switched off; tests in `/home/user/relb-tests/`, copied into the docs repo at the end):**
+- The crawler's four approved patches (W6, W9, W10/W11, W12) re-applied and their FAQ lines; the map tiles to the tile
+  policy (one credit "© OpenStreetMap contributors" with its link, `referrerPolicy` on every OSM tile layer).
+- **The one identity check** `app/lib/ListingIdentity.php`: keys (`ident_phone/name/addr/geo/live`, migration
+  `2026-11-16_listing_identity.sql`), `resolve()` read fresh with no cap, the lock, `fold()`, `merge()`/`undo()` (every
+  table holding a listing id found through `StagingTables::refOf`, gaps only, views added, exact Undo), the pair record
+  (`identity_pairs`), the recheck (W2 task `recheck`, a site task, `app/scripts/identity_recheck_tick.php`, shipped off;
+  case #23's offers first, then the pairs LiveDupes and Data cleanup send). Wired into `IntakeStager::approve` (every
+  crawler path) and `findLookalikes`, `CrawlerIngest::upsertEntity` + `api/ingest.php`, `AddBusiness::create` and
+  `duplicates()` (with `anyway` from every "add anyway"), every un-hide (`setSuppressed`, `AutoImport::suppress`, HelpFind,
+  Data cleanup's settle, undo, put back; ListingBulk's undo records "different"). Tuned rules in `Identity::digits/addr/
+  nameKey` and `AutoImport::relationTo/nameWords` (extensions, PO Box, street types, plurals, legal endings, main line,
+  the 150 m branch test). Tests: `identity.php`, 36 pass.
+- **"The engine needs a person"** `app/lib/EngineCase.php` (table `engine_steps`; Pulse `engine:person`; permission
+  `engine.person`): the identity queue (Merge, Keep apart, sales lead via `Leads::route`, admin task), many merges in a
+  town, banned services, sites that block us, finds out of options.
+- **P1-2:** `ServiceHealth::probed` never lifts a ban by itself ("looks lifted" step; 3 days still refused → evaluate;
+  checks paused until a person decides); sites that block us held (`SourceIndex::store`, `Refresh::complete`,
+  `SiteFetcher`), sent to the worker as holds.
+- **X1:** `app/lib/Clocks.php` (paused time from `automation_log`; `cutoff()`, the ramp's half for 14 days, due dates moved
+  at switch-on); patched clocks: AutoImport::exhausted, Refresh, IdentityJobs, TownCrawl, SourceIndex, Dossier, Guides,
+  LiveEvents, Landmarks photos, SecondTier scans; CrawlService::plan and listings_tick use the ramp.
+- **X2:** `AutoImport::evaluate` on 0164 §3.5's floor and §5.4's readiness (OPEN_DATASETS, NPI's guard, phone-only finds
+  allowed by `validate`); `listing_one_source` and `guide_find_add`'s score retired as gates.
+- **The switch-on check:** `Operations::releaseB()` tests each line for real (crawler fixes incl. live junk names count
+  and the tile policy, X2, X1, X3, identity, P1-2, Gemini's guards; the hub line waits for stage 10).
+- **Stage 7:** `app/lib/Gemini.php` (refused unless the feature's input class is public, `safe()`, `prompt()` from our
+  vocabulary, the day's allowance with its reserve, all gates; model `gemini-flash-lite-latest`, checked answering
+  2026-11-15); `AiClient::INPUT`, `providerFor`, `providerOf`, AI use's Provider choice greyed with the reason; feature
+  `page_read` (off). Cards (all ADDED_OFF): overture, foursquare, geofabrik, azcc, nmsos, azlicences; caps as Thresholds
+  gates. Migration `2026-11-16_ai_provider.sql`. Tests: `gemini.php`, 21 pass.
+
+**State at 2026-11-15 ~17:05 UTC:**
+- **Release B1** (everything above, plus the NPI load's batch fold and 0165's register: 179 more `*_id` columns placed in
+  `StagingTables::REFS`, `StagingIds::kindCol` reading owner_type, record_kind, scope_type, target_type, context_type;
+  KINDS `intake`): `releases/inbox/release-b1.zip`, `"review": true`, zip check clean, **PR #706, waiting for Jason's OK**.
+  Claims: release `release-b1` (renew if it outlasts 20:40 UTC).
+- **Release B2, built, not sent** (send after B1 is live, rebuilt on the live copy): `handoffs/release-b-pending/b2/
+  change.diff` (apply to a tree with B1 laid over the mirror): `app/lib/crawler/OpenLoads.php`, `website/api/crawl/
+  loads.php`, migration `2026-11-16_open_loads.sql`, `ListingConfidence` (the collaborative score's weights from W1's
+  settings, closure −40), `DataCleanup::nextTry` (the ladder from W1's settings), `ListingIdentity::ensureTask($task…)`,
+  `open_loads` in the staging register. Changes live confidence when listings are next scored (by design, 0163 §12).
+- **Worker 2.7.0**, branch `claude/release-b2-worker` (not merged: merging deploys to Railway): `overture_bulk`,
+  `foursquare_bulk`, `geofabrik_bulk` handlers, DuckDB in the Dockerfile, **railway.json's cronSchedule removed**.
+  Tested here: Overture's town-box query on DuckDB 1.4.1 (St. Johns: 165 records, 6 s, licences per record).
+  Foursquare: this environment's Hugging Face access opens the gated files over plain HTTPS (an account has accepted the
+  terms), but DuckDB's `hf://` got 401 through this sandbox's proxy; Railway needs `HF_TOKEN`.
+- **Not built yet (B3 and after):** stage 9 (the sample comparison couldn't run here: the pages' hosts aren't in this
+  sandbox's network; then `page_read` wired to a "waiting to be read" queue and F4's Gemini case); stage 10 (W14, H1–H5,
+  `HubOpening` lines: the switch-on check looks for `app/lib/HubOpening.php`); stage 11 (vectors on Supabase: needs its
+  keys); §12's lead order and Google check order; the gaps list under stage 8 (P3-2 … P6-1, F1–F3, P1-3, P1-4);
+  "Left from Release A" (other callers onto ServiceHealth, one price per service, caps still in code, the worker's limits
+  from the plan, the Railway keys line, routes and AI shares read).
