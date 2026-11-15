@@ -65,8 +65,10 @@ jobs:
           token: ${{ secrets.MIRROR_READ_TOKEN }}
           path: mirror
           fetch-depth: 1
+          sparse-checkout-cone-mode: false   # a single file (Store.php, its KINDS) besides the admin's folder
           sparse-checkout: |
-            sync-app/admin
+            /sync-app/admin/
+            /sync-app/lib/Store.php
 
       - uses: actions/setup-node@v4
         if: env.SKIP != '1'
@@ -133,3 +135,11 @@ jobs:
           git commit -m "Site checks: rendered pages and paths"
           git pull --rebase -X theirs -q   # the run's own generated files win a collision
           git push
+
+      - name: Public photos load (stock and member; the uploads rule for every kind)
+        if: always() && env.SKIP != '1'
+        env:
+          SITE: https://traversence.com
+          STORE: mirror/sync-app/lib/Store.php
+          PHOTO_MEMBER: ${{ vars.PHOTO_MEMBER }}
+        run: bash tools/page-audit/photos-check.sh

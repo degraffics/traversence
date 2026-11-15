@@ -1,0 +1,22 @@
+{
+ "zip": "photos-handoff.zip",
+ "built_on": "63c5eed Sync: 2026-11-15 21:47 UTC",
+ "recorded": "2026-11-15 22:02 UTC",
+ "note": "Stock photos load again: the site writes uploads/.htaccess's media.php hand-off from Store::KINDS (system/ was missing), and stock photos get an address that works without it. Review: true. built on Sync: 2026-11-15 21:47 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/bootstrap.php": {
+   "sha256": "b4e494112be6d192040d011553330f484a1cfd65d33e8fe86a5855272f9e2079",
+   "live": false
+  },
+  "app/lib/StockLibrary.php": {
+   "sha256": "3fdc750876c8d0b7c1e196628c9c5f2b82e1a4a7a13f0f5ce03b1f29828ffab4",
+   "live": false
+  },
+  "app/lib/Store.php": {
+   "sha256": "9503b7dfcff70819b862a2f6d105439b7c59f4067f0d6f185db4e190e4e2a541",
+   "live": false
+  }
+ }
+}
