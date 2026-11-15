@@ -292,6 +292,10 @@ anything run:
      button to set it (H5). For a hub already open (Arizona, New Mexico), the same line runs when a newly staged source's
      card is switched on (H3).
    Anything red keeps that part paused with the reason; the rest can start.
+   **Built in Release A (release #55, 2026-11-15)**: `Operations::switchOnCheck()`, on the Workflow board and the
+   Automation page. **Jason, 2026-11-15: the master switch stays off until Release B is built**; the check refuses
+   Switch automation on while any line is red (a workflow's or a service's switch: while a line for it is red), and B's
+   lines are red until each is built (`handoffs/release-b.md`).
 2. **Resume in steps, not all at once:** one workflow at a time (W1 first), each new or returning service at half
    budget for its first 14 days (the ramp already live), with the "returns empty" and 50/75/95% warnings watching.
 3. **New services are added switched off** (Gemini, Overture, Foursquare's open data, each licence source) with their
