@@ -1,5 +1,248 @@
 {
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
- "claims": [],
+ "claims": [
+  {
+   "path": "app/lib/AiClient.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "Release B part 3: keys, Release A's leftovers, Geofabrik's load",
+   "since": "2026-11-15T19:36:18Z",
+   "expires": "2026-11-15T23:36:18Z",
+   "release": "release-b3",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Dossier.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "Release B part 3: keys, Release A's leftovers, Geofabrik's load",
+   "since": "2026-11-15T19:36:18Z",
+   "expires": "2026-11-15T23:36:18Z",
+   "release": "release-b3",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Geocoder.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "Release B part 3: keys, Release A's leftovers, Geofabrik's load",
+   "since": "2026-11-15T19:36:18Z",
+   "expires": "2026-11-15T23:36:18Z",
+   "release": "release-b3",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/MarketPay.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "Release B part 3: keys, Release A's leftovers, Geofabrik's load",
+   "since": "2026-11-15T19:36:18Z",
+   "expires": "2026-11-15T23:36:18Z",
+   "release": "release-b3",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/MarketRules.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "Release B part 3: keys, Release A's leftovers, Geofabrik's load",
+   "since": "2026-11-15T19:36:18Z",
+   "expires": "2026-11-15T23:36:18Z",
+   "release": "release-b3",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/OpenPlaces.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "Release B part 3: keys, Release A's leftovers, Geofabrik's load",
+   "since": "2026-11-15T19:36:18Z",
+   "expires": "2026-11-15T23:36:18Z",
+   "release": "release-b3",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Operations.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "Release B part 3: keys, Release A's leftovers, Geofabrik's load",
+   "since": "2026-11-15T19:36:18Z",
+   "expires": "2026-11-15T23:36:18Z",
+   "release": "release-b3",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/PlaceFinder.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "Release B part 3: keys, Release A's leftovers, Geofabrik's load",
+   "since": "2026-11-15T19:36:18Z",
+   "expires": "2026-11-15T23:36:18Z",
+   "release": "release-b3",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/QuickBooksPay.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "Release B part 3: keys, Release A's leftovers, Geofabrik's load",
+   "since": "2026-11-15T19:36:18Z",
+   "expires": "2026-11-15T23:36:18Z",
+   "release": "release-b3",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Roads511.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "Release B part 3: keys, Release A's leftovers, Geofabrik's load",
+   "since": "2026-11-15T19:36:18Z",
+   "expires": "2026-11-15T23:36:18Z",
+   "release": "release-b3",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/ServiceHealth.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "Release B part 3: keys, Release A's leftovers, Geofabrik's load",
+   "since": "2026-11-15T19:36:18Z",
+   "expires": "2026-11-15T23:36:18Z",
+   "release": "release-b3",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Services.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "Release B part 3: keys, Release A's leftovers, Geofabrik's load",
+   "since": "2026-11-15T19:36:18Z",
+   "expires": "2026-11-15T23:36:18Z",
+   "release": "release-b3",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Thresholds.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "Release B part 3: keys, Release A's leftovers, Geofabrik's load",
+   "since": "2026-11-15T19:36:18Z",
+   "expires": "2026-11-15T23:36:18Z",
+   "release": "release-b3",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/TravelLegs.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "Release B part 3: keys, Release A's leftovers, Geofabrik's load",
+   "since": "2026-11-15T19:36:18Z",
+   "expires": "2026-11-15T23:36:18Z",
+   "release": "release-b3",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Weather.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "Release B part 3: keys, Release A's leftovers, Geofabrik's load",
+   "since": "2026-11-15T19:36:18Z",
+   "expires": "2026-11-15T23:36:18Z",
+   "release": "release-b3",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/ZipPopulation.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "Release B part 3: keys, Release A's leftovers, Geofabrik's load",
+   "since": "2026-11-15T19:36:18Z",
+   "expires": "2026-11-15T23:36:18Z",
+   "release": "release-b3",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/crawler/CrawlService.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "Release B part 3: keys, Release A's leftovers, Geofabrik's load",
+   "since": "2026-11-15T19:36:18Z",
+   "expires": "2026-11-15T23:36:18Z",
+   "release": "release-b3",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/crawler/DeepLook.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "Release B part 3: keys, Release A's leftovers, Geofabrik's load",
+   "since": "2026-11-15T19:36:18Z",
+   "expires": "2026-11-15T23:36:18Z",
+   "release": "release-b3",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/crawler/OpenLoads.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "Release B part 3: keys, Release A's leftovers, Geofabrik's load",
+   "since": "2026-11-15T19:36:18Z",
+   "expires": "2026-11-15T23:36:18Z",
+   "release": "release-b3",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/stock/StockSource.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "Release B part 3: keys, Release A's leftovers, Geofabrik's load",
+   "since": "2026-11-15T19:36:18Z",
+   "expires": "2026-11-15T23:36:18Z",
+   "release": "release-b3",
+   "callers": {}
+  },
+  {
+   "path": "website/api/crawl/loads.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "Release B part 3: keys, Release A's leftovers, Geofabrik's load",
+   "since": "2026-11-15T19:36:18Z",
+   "expires": "2026-11-15T23:36:18Z",
+   "release": "release-b3",
+   "callers": {}
+  },
+  {
+   "path": "website/api/crawl/service.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "Release B part 3: keys, Release A's leftovers, Geofabrik's load",
+   "since": "2026-11-15T19:36:18Z",
+   "expires": "2026-11-15T23:36:18Z",
+   "release": "release-b3",
+   "callers": {}
+  }
+ ],
  "lapsed": []
 }
