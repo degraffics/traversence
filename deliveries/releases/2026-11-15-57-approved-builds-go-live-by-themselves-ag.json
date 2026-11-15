@@ -55,8 +55,8 @@
     "migrations": [],
     "checks": {
         "ok": true,
-        "where": "staging",
-        "at": "2026-11-15T15:38:07+00:00",
+        "where": "live",
+        "at": "2026-11-15T16:04:59+00:00",
         "items": [
             [
                 "PHP files parse",
@@ -66,7 +66,7 @@
             [
                 "Pages answer",
                 true,
-                "2 pages answered on staging.trvgo.us"
+                "2 pages answered on traversence.com"
             ],
             [
                 "No new fatal errors in the logs",
