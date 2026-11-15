@@ -30,9 +30,19 @@
    "session": "session_01CXLi5gjuAjJ6m4FZ8uAGQ1",
    "why": "Drop-offs as their own kind, the crawler gate on cleanup's checks, drop-off pins (Jason 2026-11-15)",
    "since": "2026-11-15T01:40:05Z",
-   "expires": "2026-11-15T05:40:05Z",
-   "release": "data-cleanup-dropoffs_20261115",
-   "callers": {}
+   "expires": "2026-11-15T05:43:54Z",
+   "release": "data-cleanup-dropoffs_20261115.zip",
+   "callers": {
+    "picks": [
+     "app/lib/JourneyPlan.php",
+     "app/lib/LiveEvents.php",
+     "website/admin/guide-edit.php",
+     "website/hub/index.php"
+    ],
+    "essentials": [
+     "website/hub/index.php"
+    ]
+   }
   },
   {
    "path": "app/lib/crawler/AutoImport.php",
@@ -41,8 +51,8 @@
    "session": "session_01CXLi5gjuAjJ6m4FZ8uAGQ1",
    "why": "Drop-offs as their own kind, the crawler gate on cleanup's checks, drop-off pins (Jason 2026-11-15)",
    "since": "2026-11-15T01:40:05Z",
-   "expires": "2026-11-15T05:40:05Z",
-   "release": "data-cleanup-dropoffs_20261115",
+   "expires": "2026-11-15T05:43:54Z",
+   "release": "data-cleanup-dropoffs_20261115.zip",
    "callers": {}
   },
   {
@@ -52,8 +62,8 @@
    "session": "session_01CXLi5gjuAjJ6m4FZ8uAGQ1",
    "why": "Drop-offs as their own kind, the crawler gate on cleanup's checks, drop-off pins (Jason 2026-11-15)",
    "since": "2026-11-15T01:40:05Z",
-   "expires": "2026-11-15T05:40:05Z",
-   "release": "data-cleanup-dropoffs_20261115",
+   "expires": "2026-11-15T05:43:54Z",
+   "release": "data-cleanup-dropoffs_20261115.zip",
    "callers": {}
   },
   {
@@ -96,8 +106,8 @@
    "session": "session_01CXLi5gjuAjJ6m4FZ8uAGQ1",
    "why": "Drop-offs as their own kind, the crawler gate on cleanup's checks, drop-off pins (Jason 2026-11-15)",
    "since": "2026-11-15T01:40:05Z",
-   "expires": "2026-11-15T05:40:05Z",
-   "release": "data-cleanup-dropoffs_20261115",
+   "expires": "2026-11-15T05:43:54Z",
+   "release": "data-cleanup-dropoffs_20261115.zip",
    "callers": {}
   },
   {
@@ -107,8 +117,63 @@
    "session": "session_01CXLi5gjuAjJ6m4FZ8uAGQ1",
    "why": "Drop-offs as their own kind, the crawler gate on cleanup's checks, drop-off pins (Jason 2026-11-15)",
    "since": "2026-11-15T01:40:05Z",
-   "expires": "2026-11-15T05:40:05Z",
-   "release": "data-cleanup-dropoffs_20261115",
+   "expires": "2026-11-15T05:43:54Z",
+   "release": "data-cleanup-dropoffs_20261115.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/cleanup-console.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5gjuAjJ6m4FZ8uAGQ1",
+   "why": "release data-cleanup-dropoffs_20261115.zip",
+   "since": "2026-11-15T01:43:54Z",
+   "expires": "2026-11-15T05:43:54Z",
+   "release": "data-cleanup-dropoffs_20261115.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/PlaceScope.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5gjuAjJ6m4FZ8uAGQ1",
+   "why": "release data-cleanup-dropoffs_20261115.zip",
+   "since": "2026-11-15T01:43:54Z",
+   "expires": "2026-11-15T05:43:54Z",
+   "release": "data-cleanup-dropoffs_20261115.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/DataCleanup.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5gjuAjJ6m4FZ8uAGQ1",
+   "why": "release data-cleanup-dropoffs_20261115.zip",
+   "since": "2026-11-15T01:43:54Z",
+   "expires": "2026-11-15T05:43:54Z",
+   "release": "data-cleanup-dropoffs_20261115.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Claims.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5gjuAjJ6m4FZ8uAGQ1",
+   "why": "release data-cleanup-dropoffs_20261115.zip",
+   "since": "2026-11-15T01:43:54Z",
+   "expires": "2026-11-15T05:43:54Z",
+   "release": "data-cleanup-dropoffs_20261115.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/api/search_listings.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5gjuAjJ6m4FZ8uAGQ1",
+   "why": "release data-cleanup-dropoffs_20261115.zip",
+   "since": "2026-11-15T01:43:54Z",
+   "expires": "2026-11-15T05:43:54Z",
+   "release": "data-cleanup-dropoffs_20261115.zip",
    "callers": {}
   }
  ],
