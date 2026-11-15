@@ -1,0 +1,74 @@
+{
+    "id": 64,
+    "title": "Release B, part 4: \"Still open?\" built, a page whose reading had to stop is read again, retries end, a claim keeps its band",
+    "why": "decisions/0163 §8's gap list (research/knowledge-engine-gap-review-2026-11-14.md), the two that block first: P5-2 and P1-1. Jason, 2026-11-15: finish Release B without waiting for his keys. Everything ships off; the master switch stays off. (1) \"Still open?\" (P5-2, P5-1): the \"Possibly closed\" notice shows again (a line after it wiped it, so visitors never saw it), with Yes, it's open and It's closed, counted once a day per device, never who; a daily check sends a listing to the top of the Call list after 30 days with fewer than 3 visitors saying open, at once when a visitor and a source both say closed, or when 3 visitors say closed and none open; with no phone it's a step in \"The engine needs a person\" (Still open / Closed, saying how our team knows: a visit, its sign, the owner). Nothing closes a listing by itself. (2) Waiting to be read (P1-1): a page the crawler fetched but couldn't finish reading (the run's Tavily pages used) is marked so, asked in full next time (no 'unchanged since'), and its fingerprint kept until its facts are taken, so it's never mistaken for unchanged; crawler 2.7.5 marks it. (3) Retries end (P3-2, P3-3, P4-1): after 12 failures in a row (past a year on the ladder) a find is kept in its record and Review with its step, and never retried by itself again. (4) A claim keeps its band (P3-4): something the crawler finds against a claimed listing shows as a caution and lowers it within the band (80 to 89 claimed, 90 to 99 proved). (5) The Call list shows why a listing is asked \"Still open?\". No database update (the page log's new column is added by its own upkeep). Tests: staging unit 49, identity 36, Gemini guards 21. Built on Sync 2026-11-15 19:12 UTC.",
+    "proposals": "handoffs/release-b.md, research/knowledge-engine-gap-review-2026-11-14.md P1-1, P3-2, P3-3, P3-4, P4-1, P5-1, P5-2",
+    "zip": "release-b4.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/admin/tools.php": {
+            "sha": "4a8d2addbdb5908fea81cc238ef800de02266bf86986f057f2c1a0ddb346cac8",
+            "size": 250477,
+            "live_was": "20b2f4f8e96e614efc88388064e4c09517c552f13d94c37890354b3f36a0eaef"
+        },
+        "app/ui/faq.md": {
+            "sha": "3c3dce08b99de4fc5fa8e5d506a7a4dd9c99d4fde9ff6d839f22b2081b87c464",
+            "size": 309471,
+            "live_was": "9743b97d8a288814d75a332987e0c178c73ca4989f12c235623ff4c79aec43ba"
+        },
+        "app/lib/Scheduler.php": {
+            "sha": "1fa5ace5d0cd339461d293b810642569a2c1d9d318e22ceef2e59768ac44f1be",
+            "size": 26323,
+            "live_was": "8c197e9892d99718008626d4f1f0e8cf2c5ed2c82a745b29acd458a748600e32"
+        },
+        "app/lib/ListingConfidence.php": {
+            "sha": "8502a81b94c764d6cb5a68a8fc8d9b47e4f787d7574c21e297d2aa22bd6db042",
+            "size": 23482,
+            "live_was": "a990da26fb01cb52071a61b86abb9404ca248c38a2a534f1e686cb75c2ecd802"
+        },
+        "app/lib/DataCleanup.php": {
+            "sha": "983c656044e17d9a9973af01db6e8cee861427c5946efc4eabc6a3eeb7c4ef83",
+            "size": 114158,
+            "live_was": "9a4d3b1aa59e69ff76125534215436cdd58fa8e7dfb418d5dfe1dfe65a96d1c1"
+        },
+        "app/lib/crawler/SourceIndex.php": {
+            "sha": "eba9a045d237c32f7b4e9cc5102891c3e238319d6acd4c5de1d6b19cc055eed3",
+            "size": 69813,
+            "live_was": "93020c755ee51748bb9ae427c575a492a194d4503e67a6dee8344e03b4c1446a"
+        },
+        "app/lib/Sales.php": {
+            "sha": "c98a2f6b12075e78a5a074500a953c0ada9222fa2c6f31942edfbf45ea4bce73",
+            "size": 29252,
+            "live_was": "e8398883ddae43df5fc30162d921de8219ff8cae8290c30e7ff67387c7a0e8f9"
+        },
+        "app/lib/EngineCase.php": {
+            "sha": "1cba4fad9fe541c22f944bf76a9b365d3bbc0675ff0fc39eea5b6957a05038e0",
+            "size": 25923,
+            "live_was": "1672c1f707d512952417426d4e694be722faf42269e5f2f15013c25fc3079f84"
+        },
+        "website/listing/view.php": {
+            "sha": "3b06aa193105196cff744a25eff1cfe87b1ce7d1cf8299e89a8e25767d175b9c",
+            "size": 54758,
+            "live_was": "4fd0f85f8d7e9d65d00b93553736448e9818b908029f055309152b3b924f7472"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-15T20:04:02+00:00",
+            "by": 0,
+            "msg": "Uploaded release-b4.zip: 9 files."
+        }
+    ]
+}
