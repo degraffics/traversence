@@ -1,0 +1,59 @@
+{
+    "id": 62,
+    "title": "Fixes go live faster, and review is quicker: Check for builds, the ping from git, approved parts fold, the look is recorded",
+    "why": "Jason, 2026-11-15: \"need a way to push immediate fixes like this into production\" (a fix waited in git: the Releases job ran on */19, not every 10 minutes, and the live admin had no way to fetch it); \"once approved the info should disappear and only the approved line is present with edit option\"; and Publish refused #60 because the bar, opened from the Releases page with no release named, showed #60 by itself without recording the look. (1) Check for builds on the live Releases page takes Claude's builds from git now, and the page shows when the site last looked (the job, the ping, the button), in red after 25 minutes of nothing. (2) /api/releases-pull.php: the docs repo's workflow (release-ping.yml) calls it as soon as a build is merged into releases/inbox/, so the site takes it within a minute; it does only what the job does, so it needs no secret, at most once a minute. (3) One taker at a time (a lock in Releases::fromGit), so the job, the button and the ping never make a build twice. (4) An approved review part is one line with Edit, on the bar and on the Releases page. (5) The bar records the look for the release it shows, whichever way it was chosen. No database update. Built on Sync 2026-11-15 19:02 UTC.",
+    "proposals": "handoffs/release-b.md",
+    "zip": "release-fastpath.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/admin/sections.php": {
+            "sha": "ce89b335a811b5916cf3aa0282b7f6920b1ce9b9e438d1c2543d58dfbe13f7e4",
+            "size": 239291,
+            "live_was": "1c10dee8d050a2c448ff2afbcaa3d28cb4efc02f0baffac9851f0f3d337bec2c"
+        },
+        "app/lib/Releases.php": {
+            "sha": "8c9d2a505628cd811cf2762197aae1be769df3505cb6d454c15d5fa6058f6c24",
+            "size": 110174,
+            "live_was": "9272cc3c605713bac6bdf3e2ed4f2529e041c841883c8b84900ba00fe48d6764"
+        },
+        "website/admin/api.php": {
+            "sha": "0d17c736dfe9af8e7e626615b1bc687bb83edf66fe04149a2bee73fbf9051fba",
+            "size": 21190,
+            "live_was": "c07b7f19c3d67bbeb73c4dde0cc65a3f53542b3ad2874eea8e412000e0cbb7b2"
+        },
+        "website/api/releases-pull.php": {
+            "sha": "4a66ee9889c1e3224069195667772fe4ad67a4a1cfd7b3d8ba7318c50ed0b30b",
+            "size": 1836,
+            "live_was": null
+        },
+        "website/api/release-bar.php": {
+            "sha": "f418aa69481e0b8c771a4f49e9fbe35a53642333ae582ab1ab6e74fba09c7fbc",
+            "size": 5334,
+            "live_was": "1919491e6f9c9f918bacc234b297df09254d1fe754429dbdb2ef601cccc4a9b0"
+        },
+        "website/js/stg-bar.js": {
+            "sha": "17b901e4f890aa5f15525b75ec0bd6db43172885313fbd6015b89222bdd5b737",
+            "size": 41908,
+            "live_was": "353ca99bbe989e25289873ec093c1a9fbe54b96a3e21a3751c64168bc9663931"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-15T19:10:03+00:00",
+            "by": 0,
+            "msg": "Uploaded release-fastpath.zip: 6 files."
+        }
+    ]
+}
