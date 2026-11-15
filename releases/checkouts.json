@@ -127,9 +127,9 @@
    "functions": [],
    "kind": "change",
    "session": "session_01CXLi5ku2xkVJ8wnDFvC1KM",
-   "why": "decisions/0165: staging is live in safe mode; Publish merges it",
+   "why": "decisions/0165: staging answer column",
    "since": "2026-11-15T14:28:41Z",
-   "expires": "2026-11-15T18:28:41Z",
+   "expires": "2026-11-15T18:35:31Z",
    "release": "",
    "callers": {}
   },
@@ -333,6 +333,23 @@
    "expires": "2026-11-15T18:28:45Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/lib/Operations.php",
+   "functions": [
+    "register"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ku2xkVJ8wnDFvC1KM",
+   "why": "decisions/0165: staging answer column",
+   "since": "2026-11-15T14:35:31Z",
+   "expires": "2026-11-15T18:35:31Z",
+   "release": "",
+   "callers": {
+    "register": [
+     "app/admin/operations-console.php"
+    ]
+   }
   }
  ],
  "lapsed": []
