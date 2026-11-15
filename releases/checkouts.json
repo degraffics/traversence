@@ -16,50 +16,6 @@
    "callers": {}
   },
   {
-   "path": "app/lib/SystemStart.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5kE9dUdSmDQpFmDsKE",
-   "why": "Start the system (Jason, 2026-11-15; decisions/0163 \u00a710)",
-   "since": "2026-11-15T22:11:56Z",
-   "expires": "2026-11-16T02:17:28Z",
-   "release": "start-the-system.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/scripts/system_start_tick.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5kE9dUdSmDQpFmDsKE",
-   "why": "Start the system (Jason, 2026-11-15; decisions/0163 \u00a710)",
-   "since": "2026-11-15T22:11:58Z",
-   "expires": "2026-11-16T02:17:28Z",
-   "release": "start-the-system.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/Operations.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5kE9dUdSmDQpFmDsKE",
-   "why": "Start the system (Jason, 2026-11-15; decisions/0163 \u00a710)",
-   "since": "2026-11-15T22:12:00Z",
-   "expires": "2026-11-16T02:17:28Z",
-   "release": "start-the-system.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/Scheduler.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5kE9dUdSmDQpFmDsKE",
-   "why": "Start the system (Jason, 2026-11-15; decisions/0163 \u00a710)",
-   "since": "2026-11-15T22:12:08Z",
-   "expires": "2026-11-16T02:17:28Z",
-   "release": "start-the-system.zip",
-   "callers": {}
-  },
-  {
    "path": "app/lib/Thresholds.php",
    "functions": [],
    "kind": "change",
@@ -94,50 +50,6 @@
    "since": "2026-11-15T22:12:13Z",
    "expires": "2026-11-16T02:12:13Z",
    "release": "",
-   "callers": {}
-  },
-  {
-   "path": "app/admin/automation-console.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5kE9dUdSmDQpFmDsKE",
-   "why": "release start-the-system.zip",
-   "since": "2026-11-15T22:13:11Z",
-   "expires": "2026-11-16T02:17:28Z",
-   "release": "start-the-system.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/admin/operations-console.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5kE9dUdSmDQpFmDsKE",
-   "why": "release start-the-system.zip",
-   "since": "2026-11-15T22:13:11Z",
-   "expires": "2026-11-16T02:17:28Z",
-   "release": "start-the-system.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/Thresholds.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5kE9dUdSmDQpFmDsKE",
-   "why": "release start-the-system.zip",
-   "since": "2026-11-15T22:13:11Z",
-   "expires": "2026-11-16T02:17:28Z",
-   "release": "start-the-system.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/bootstrap.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5kE9dUdSmDQpFmDsKE",
-   "why": "Review links open the staff login, not JSON (session manager, Jason 2026-11-15; decisions/0159)",
-   "since": "2026-11-15T22:17:02Z",
-   "expires": "2026-11-16T02:17:28Z",
-   "release": "start-the-system.zip",
    "callers": {}
   }
  ],
