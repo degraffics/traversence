@@ -12,7 +12,7 @@
 - Daily: `tools/page-audit/photos-check.sh`, the last step of `site-checks.yml`. Set the repo variable `PHOTO_MEMBER`
   to a real member photo's `/uploads/…` address so a member photo is loaded too. No signed-out page showed one.
 
-**Follow-up `review-link-login.zip`** (the session manager asked this session to build it): an admin API link opened
-in a browser with no staff sign-in (the review email, the Pulse staging step, Open staging) now goes to
-`/admin/login.php?next=…` instead of raw JSON. Scripts still get the JSON. ModSecurity lets `next` through both on
-the GET and on the form post (checked live).
+**The review link's dead end** (an `/admin/api/…` link opened with no staff sign-in shows raw JSON): Jason moved it
+to the "Start the system" session. A version was built here and withdrawn before it was sent: in `app/bootstrap.php`'s
+401 branch, a GET with `Sec-Fetch-Mode: navigate` (or `Accept` with `text/html` and no `X-Requested-With`) redirects
+to `/admin/login.php?next=…`. ModSecurity lets that `next` through on the GET and on the form post (checked live).
