@@ -1023,6 +1023,17 @@
    "expires": "2026-11-15T20:50:47Z",
    "release": "release-b1.zip",
    "callers": {}
+  },
+  {
+   "path": "website/js/stg-bar.js",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hvWvRSedDtk54gNDP",
+   "why": "Staging bar: fixed at the bottom, above the site's sticky bars, so reviews can be given (Jason 2026-11-15)",
+   "since": "2026-11-15T17:44:43Z",
+   "expires": "2026-11-15T21:44:43Z",
+   "release": "release-stgbar",
+   "callers": {}
   }
  ],
  "lapsed": []
