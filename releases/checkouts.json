@@ -22,6 +22,88 @@
    "expires": "2026-11-15T04:06:51Z",
    "release": "help-find",
    "callers": {}
+  },
+  {
+   "path": "app/lib/UniversalSearch.php",
+   "functions": [
+    "searchAs"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ikaAYTSrHS6AnPpWB",
+   "why": "Help us find this business card (decisions/0164 \u00a73.5)",
+   "since": "2026-11-15T00:06:54Z",
+   "expires": "2026-11-15T04:06:54Z",
+   "release": "help-find",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Claims.php",
+   "functions": [
+    "listing"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ikaAYTSrHS6AnPpWB",
+   "why": "Help us find this business card (decisions/0164 \u00a73.5)",
+   "since": "2026-11-15T00:06:54Z",
+   "expires": "2026-11-15T04:06:54Z",
+   "release": "help-find",
+   "callers": {
+    "listing": [
+     "website/claim.php",
+     "website/listing/api/claim.php",
+     "website/listing/businessportal.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/DataCleanup.php",
+   "functions": [
+    "junkName"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ikaAYTSrHS6AnPpWB",
+   "why": "Help us find this business card (decisions/0164 \u00a73.5)",
+   "since": "2026-11-15T00:06:54Z",
+   "expires": "2026-11-15T04:06:54Z",
+   "release": "help-find",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/cleanup-console.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5ikaAYTSrHS6AnPpWB",
+   "why": "Help us find this business card (decisions/0164 \u00a73.5)",
+   "since": "2026-11-15T00:06:54Z",
+   "expires": "2026-11-15T04:06:54Z",
+   "release": "help-find",
+   "callers": {}
+  },
+  {
+   "path": "website/js/search-panel.js",
+   "functions": [
+    "helpHtml"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ikaAYTSrHS6AnPpWB",
+   "why": "Help us find this business card (decisions/0164 \u00a73.5)",
+   "since": "2026-11-15T00:06:54Z",
+   "expires": "2026-11-15T04:06:54Z",
+   "release": "help-find",
+   "callers": {}
+  },
+  {
+   "path": "website/js/suggest.js",
+   "functions": [
+    "open"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ikaAYTSrHS6AnPpWB",
+   "why": "Help us find this business card (decisions/0164 \u00a73.5)",
+   "since": "2026-11-15T00:06:54Z",
+   "expires": "2026-11-15T04:06:54Z",
+   "release": "help-find",
+   "callers": {}
   }
  ],
  "lapsed": []
