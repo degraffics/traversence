@@ -1,6 +1,6 @@
 # Hand-off: decisions/0165, staging is the live site in safe mode; Publish merges it
 
-Built 2026-11-15 in one session as **one release** covering all six steps of 0165 §7. The zip is
+Built 2026-11-15 in one session as **one release** covering all six steps of 0165 §7: **release #56, live 2026-11-15** (published by Jason; checks on live passed; the 15:19 UTC sync matched all 32 files byte for byte). The zip is
 `releases/inbox/release-0165-staging-safe-mode.zip`, sent with `"review": true`. It was built on the sync of
 **14:12 UTC, 2026-11-15**, after #55. This file says what's where, what ships off, how it was tested, and what's left.
 
@@ -86,7 +86,7 @@ These existing files changed:
 The first release removed `autoPublish`; Jason expected Claude's approved builds to keep going live by themselves, with
 Publish staging only for his own work on staging. He reviews and publishes the first release as it is. The second
 release (built in `/home/user/rev0165` on top of the first; sent once the first is live and synced, rebuilt from the
-live copy) puts `autoPublish` back for builds from git:
+live copy; sent as `release-0165b-approved-builds-live.zip`, 5 files, built on the 15:19 UTC sync) puts `autoPublish` back for builds from git:
 - `Releases::fromGitRelease()` (the "Came from git" note);
 - `onStaging($pdo, $forPublish = true)` lists only uploads for Publish staging;
 - a git release's own Publish and Schedule are back, in the bar, the Releases page and Pulse;

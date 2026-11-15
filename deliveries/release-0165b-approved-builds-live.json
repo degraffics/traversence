@@ -1,0 +1,30 @@
+{
+ "zip": "release-0165b-approved-builds-live.zip",
+ "built_on": "d2743f2 Sync: 2026-11-15 15:19 UTC",
+ "recorded": "2026-11-15 15:21 UTC",
+ "note": "0165 correction (Jason): approved builds go live by themselves; Publish staging for work on staging. Built on Sync: 2026-11-15 15:19 UTC. Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/admin/sections.php": {
+   "sha256": "6e28adc0a00f30d801a309f9f684bd9507844a010906af1782ffb7c7037901fd",
+   "live": false
+  },
+  "app/lib/Releases.php": {
+   "sha256": "54a01e29c219374fa9bef88a8f7a9ef8cce6205ed53bf6805a588286dd023764",
+   "live": false
+  },
+  "app/lib/StagingApi.php": {
+   "sha256": "b9a354ed4a2d68b35ad122636efbfb899c8b24b946b79bc85bc904dc12f52fae",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "fb4e4fe3527b1311a019997325ac3fa6ef20bc272baee2e962f643cecc95a5c0",
+   "live": false
+  },
+  "website/js/stg-bar.js": {
+   "sha256": "60e2ff6202940d1ae2f9a0ae5ac96f9c29299bb7b4b348177e5b7669a7ce0aba",
+   "live": false
+  }
+ }
+}
