@@ -213,7 +213,7 @@ SKIP_HOSTS = {"openstreetmap.org", "npino.com", "npiprofile.com", "npidb.org", "
               "npi.report", "npiregistry.cms.hhs.gov", "google.com", "bing.com", "duckduckgo.com", "search.brave.com"}
 
 started = time.monotonic()
-WORKER_V = "2.6.1"           # the service's contract 2 (decisions/0160 §2): the site plans each run, the worker reports it; 2.4: calls by host; 2.5: issues, holds, probes, per-kind Overpass; 2.6: servers from the plan, the pace
+WORKER_V = "2.7.0"           # 2.7: the open-dataset loads and Geofabrik's test (Release B); the service's contract 2 (decisions/0160 §2): the site plans each run, the worker reports it; 2.4: calls by host; 2.5: issues, holds, probes, per-kind Overpass; 2.6: servers from the plan, the pace
 RUN_END = None             # when this run's own work must stop (started + TIME_BUDGET, or a bulk load's end)
 TASK_END = None            # when the capture task being worked must stop (its share of the run)
 FETCH_CAP = MAX_FETCHES    # fetches this run may have made by the end of the task being worked
@@ -3282,6 +3282,94 @@ def places_check(deadline):
 # ---------------------------------------------------------------------------------------------------
 
 # task -> (what does it, the per-run setting it's limited by (None: none), why it's off here ("" when it's on))
+
+# ---- Release B (decisions/0164 §1.5; 0163 §8 stage 8): the open-dataset loads and Geofabrik's test, all off until the site
+# plans them (each a W1 task added disabled; its service paused). The site keeps only what the licence allows (OpenLoads).
+OVERTURE_RELEASE = os.environ.get("OVERTURE_RELEASE", "")      # e.g. 2026-10-21.0; empty: the newest on the bucket
+FSQ_RELEASE = os.environ.get("FSQ_RELEASE", "")                # e.g. dt=2026-10-15; empty: the newest on Hugging Face
+HF_TOKEN = os.environ.get("HF_TOKEN", "")                      # a Hugging Face token whose account accepted Foursquare's terms
+
+
+def _duck():
+    import duckdb                                              # only these tasks need it (Dockerfile installs it)
+    con = duckdb.connect()
+    con.execute("INSTALL httpfs; LOAD httpfs; SET s3_region='us-west-2';")
+    return con
+
+
+def _overture_release():
+    if OVERTURE_RELEASE:
+        return OVERTURE_RELEASE
+    req = urllib.request.Request("https://overturemaps-us-west-2.s3.us-west-2.amazonaws.com/?list-type=2&prefix=release/&delimiter=/", headers={"User-Agent": UA})
+    with urllib.request.urlopen(req, timeout=30) as r:
+        found = re.findall(r"<Prefix>release/([0-9.-]+)/</Prefix>", r.read().decode())
+    return sorted(found)[-1] if found else ""
+
+
+def open_load(dataset, deadline):
+    """One dataset's towns, biggest gap first, as many as the site hands out: each town's box read, sent, then marked done."""
+    release = _overture_release() if dataset == "overture" else (FSQ_RELEASE or "dt=2026-10-15")
+    st = site_call(f"/api/crawl/loads.php?dataset={dataset}&release={urllib.parse.quote(release)}")
+    if st.get("paused"):
+        return "paused"
+    towns = st.get("towns") or []
+    if not towns:
+        return False
+    con = _duck()
+    if dataset == "foursquare":
+        if not HF_TOKEN:
+            raise ServiceHeld("no Hugging Face token on Railway (HF_TOKEN)")
+        con.execute(f"CREATE SECRET hf (TYPE huggingface, TOKEN '{HF_TOKEN}')")
+    done = 0
+    for t in towns:
+        if time.monotonic() > deadline - 30:
+            break
+        x0, y0, x1, y1 = [float(v) for v in t["box"]]
+        if dataset == "overture":
+            q = f"""SELECT id, names.primary, basic_category, confidence, addresses[1].freeform, addresses[1].locality, addresses[1].region, addresses[1].postcode,
+                      phones[1], websites[1], operating_status, (bbox.xmin + bbox.xmax) / 2, (bbox.ymin + bbox.ymax) / 2,
+                      list_transform(sources, lambda s: [s.dataset, coalesce(s.license, '')])
+                    FROM read_parquet('s3://overturemaps-us-west-2/release/{release}/theme=places/type=place/*', hive_partitioning=1)
+                    WHERE bbox.xmin BETWEEN {x0} AND {x1} AND bbox.ymin BETWEEN {y0} AND {y1}"""
+            rows = [{"id": r[0], "name": r[1] or "", "category": r[2] or "", "confidence": r[3], "street": r[4] or "", "city": r[5] or "", "state": (r[6] or "")[-2:],
+                     "zip": (r[7] or "")[:5], "phone": r[8] or "", "website": r[9] or "", "status": r[10] or "", "lng": r[11], "lat": r[12], "sources": r[13] or []}
+                    for r in con.execute(q).fetchall()]                # emails are never read (decisions/0164 §1.5)
+        else:
+            q = f"""SELECT fsq_place_id, name, fsq_category_labels[1], address, locality, region, postcode, tel, website, latitude, longitude, date_closed
+                    FROM read_parquet('hf://datasets/foursquare/fsq-os-places/release/{release}/places/parquet/*.parquet')
+                    WHERE longitude BETWEEN {x0} AND {x1} AND latitude BETWEEN {y0} AND {y1}"""
+            rows = [{"id": r[0], "name": r[1] or "", "category": r[2] or "", "street": r[3] or "", "city": r[4] or "", "state": (r[5] or "")[-2:], "zip": (r[6] or "")[:5],
+                     "phone": r[7] or "", "website": r[8] or "", "lat": r[9], "lng": r[10], "date_closed": str(r[11] or ""), "sources": [["Foursquare", "Apache-2.0"]], "confidence": 0.6}
+                    for r in con.execute(q).fetchall()]
+        for i in range(0, len(rows), 500):
+            res = site_call("/api/crawl/loads.php", {"dataset": dataset, "release": release, "key": t["key"], "rows": rows[i:i + 500]}, timeout=120)
+            if res.get("paused"):
+                return "paused"
+        site_call("/api/crawl/loads.php", {"dataset": dataset, "release": release, "key": t["key"], "done": True})
+        log(f"{dataset}: {t['name']}, {t['state']}: {len(rows)} records sent")
+        done += 1
+    return done > 0
+
+
+def geofabrik_probe():
+    """Geofabrik's state files from Railway (0163 §8 stage 8's first step): one small test each, never repeated tries. The
+    site keeps the answer; a refusal becomes a step for a person (another free mirror, by hand)."""
+    out = []
+    for state in ("arizona", "new-mexico"):
+        url = f"https://download.geofabrik.de/north-america/us/{state}-latest.osm.pbf"
+        try:
+            req = urllib.request.Request(url, headers={"User-Agent": UA, "Range": "bytes=0-1048575"})
+            with urllib.request.urlopen(req, timeout=60) as r:
+                n = len(r.read())
+                out.append({"state": state, "ok": r.status in (200, 206) and n > 0, "status": r.status, "bytes": n, "why": ""})
+        except urllib.error.HTTPError as e:
+            out.append({"state": state, "ok": False, "status": e.code, "bytes": 0, "why": f"HTTP {e.code}"})
+        except Exception as e:
+            out.append({"state": state, "ok": False, "status": 0, "bytes": 0, "why": repr(e)[:200]})
+    site_call("/api/crawl/loads.php", {"geofabrik_probe": out})
+    log("geofabrik test: " + "; ".join(f"{o['state']} {o['status'] or o['why']} {o['bytes']} bytes" for o in out))
+    return True
+
 HANDLERS = {
     "coverage": (coverage, "JOBS_PER_RUN", lambda: "" if JOBS_PER_RUN > 0 else "JOBS_PER_RUN is 0"),
     "second_look": (second_look, "VERIFY_PER_RUN", lambda: "" if VERIFY_PER_RUN > 0 else "VERIFY_PER_RUN is 0"),
@@ -3300,6 +3388,10 @@ HANDLERS = {
     "irs_bulk": (lambda _d: irs_bulk(), None, lambda: "" if IRS_BULK else "IRS_BULK is off"),
     "rec_bulk": (lambda _d: rec_bulk(), None, lambda: "" if RIDB_API_KEY or os.environ.get("RIDB_FIXTURE") else "no Recreation.gov key on Railway (RIDB_API_KEY)"),
     "landmarks_bulk": (lambda _d: landmarks_bulk(), None, lambda: "" if LANDMARKS else "LANDMARKS is off"),
+    # Release B: the open-dataset loads and Geofabrik's test (decisions/0164 §1.5), each a W1 task the site adds switched off
+    "overture_bulk": (lambda d: open_load("overture", d), None, lambda: ""),
+    "foursquare_bulk": (lambda d: open_load("foursquare", d), None, lambda: "" if HF_TOKEN else "no Hugging Face token on Railway (HF_TOKEN)"),
+    "geofabrik_bulk": (lambda _d: geofabrik_probe(), None, lambda: ""),
 }
 MIN_TASK = 15          # seconds: a task with less than this left isn't started (it's "not reached", never a failure)
 
