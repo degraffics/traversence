@@ -6,12 +6,12 @@
     "zip": "release-fastpath.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "planned",
+    "state": "approved",
     "step": 0,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
-    "plan_at": null,
+    "plan_at": "2026-11-15 19:10:05",
     "staged_at": null,
     "vetted_at": null,
     "live_at": null,
@@ -54,6 +54,16 @@
             "at": "2026-11-15T19:10:03+00:00",
             "by": 0,
             "msg": "Uploaded release-fastpath.zip: 6 files."
+        },
+        {
+            "at": "2026-11-15T19:10:05+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/release-fastpath.zip (git a0c84c0a8c)."
+        },
+        {
+            "at": "2026-11-15T19:10:05+00:00",
+            "by": 0,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
         }
     ]
 }
