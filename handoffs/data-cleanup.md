@@ -87,9 +87,9 @@ wrapped so a failure only logs).
 
 ## "Help us find this business" (`help-find_20261115.zip`, built on Sync 2026-11-14 23:59 UTC)
 
-**State:** sent to the inbox, PR #683 open (with Undo all by reason), **waiting for Jason's OK to merge**. Claims held: `HelpFind.php`, `hub/index.php` (add);
-`UniversalSearch.php::searchAs`, `Claims.php::listing`, `DataCleanup.php::junkName`, `cleanup-console.php`,
-`search-panel.js::helpHtml`, `suggest.js::open` (change).
+**State:** live as release #51 (2026-11-15), merged on Jason's "merge it" (PR #683). Sync 00:21 UTC: all 9 files match
+the live mirror byte for byte; delivery verified, claims released. Jason to press "Undo all" for the drop boxes' reason
+under release #50's pass.
 
 - `app/lib/HelpFind.php`: a card is a listing hidden by Data cleanup with target `help_find` (and still unclaimed).
   `inPlace()` (the town page), `near()` (search), `shown()` (the name rules: junk, `looksPerson` R6, `isProtected` R7,
@@ -107,10 +107,10 @@ Tested here (MariaDB, the live libraries): a card shown on its town and found by
 a person's name, a protected name and a 180-day-old card held back; a phone accepted makes it a listing again and it
 leaves the cards; the card at 390px. Not tested: the town page and search panel live (the zip check's code checks only).
 
-## Next: reused or restricted, never a dead end (Jason, 2026-11-15; proposed, waiting for his OK on the table)
+## Next: reused or restricted, never a dead end (Jason, 2026-11-15: "table is right"; build it next, in a fresh session)
 
 Jason: "They still exist, just hidden: this is a dead end. Either they are reused or moved into restricted." And on drop
-boxes: "Yes their own listing and map pin." Proposed mapping (asked in chat; build once he confirms):
+boxes: "Yes their own listing and map pin." The mapping, approved by Jason (2026-11-15):
 
 | Taken off by a pass | Goes to |
 |---|---|
