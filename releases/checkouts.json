@@ -1,5 +1,28 @@
 {
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
- "claims": [],
+ "claims": [
+  {
+   "path": "app/lib/DataCleanup.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5gjuAjJ6m4FZ8uAGQ1",
+   "why": "Data cleanup: why a pass left records (the left breakdown)",
+   "since": "2026-11-15T01:21:27Z",
+   "expires": "2026-11-15T05:21:27Z",
+   "release": "data-cleanup-left_20261115",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/cleanup-console.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5gjuAjJ6m4FZ8uAGQ1",
+   "why": "Data cleanup: why a pass left records (the left breakdown)",
+   "since": "2026-11-15T01:21:27Z",
+   "expires": "2026-11-15T05:21:27Z",
+   "release": "data-cleanup-left_20261115",
+   "callers": {}
+  }
+ ],
  "lapsed": []
 }
