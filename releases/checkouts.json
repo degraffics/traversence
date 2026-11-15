@@ -234,6 +234,105 @@
    "expires": "2026-11-15T18:28:41Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/lib/StagingGate.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ku2xkVJ8wnDFvC1KM",
+   "why": "decisions/0165 build",
+   "since": "2026-11-15T14:28:45Z",
+   "expires": "2026-11-15T18:28:45Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/StagingSync.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ku2xkVJ8wnDFvC1KM",
+   "why": "decisions/0165 build",
+   "since": "2026-11-15T14:28:45Z",
+   "expires": "2026-11-15T18:28:45Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/StagingPublish.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ku2xkVJ8wnDFvC1KM",
+   "why": "decisions/0165 build",
+   "since": "2026-11-15T14:28:45Z",
+   "expires": "2026-11-15T18:28:45Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/StagingMerge.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ku2xkVJ8wnDFvC1KM",
+   "why": "decisions/0165 build",
+   "since": "2026-11-15T14:28:45Z",
+   "expires": "2026-11-15T18:28:45Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/StagingIds.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ku2xkVJ8wnDFvC1KM",
+   "why": "decisions/0165 build",
+   "since": "2026-11-15T14:28:45Z",
+   "expires": "2026-11-15T18:28:45Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/staging-tables.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ku2xkVJ8wnDFvC1KM",
+   "why": "decisions/0165 build",
+   "since": "2026-11-15T14:28:45Z",
+   "expires": "2026-11-15T18:28:45Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "app/scripts/staging_push_tick.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ku2xkVJ8wnDFvC1KM",
+   "why": "decisions/0165 build",
+   "since": "2026-11-15T14:28:45Z",
+   "expires": "2026-11-15T18:28:45Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "app/scripts/staging_night_tick.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ku2xkVJ8wnDFvC1KM",
+   "why": "decisions/0165 build",
+   "since": "2026-11-15T14:28:45Z",
+   "expires": "2026-11-15T18:28:45Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "app/scripts/staging_publish_tick.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ku2xkVJ8wnDFvC1KM",
+   "why": "decisions/0165 build",
+   "since": "2026-11-15T14:28:45Z",
+   "expires": "2026-11-15T18:28:45Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": []
