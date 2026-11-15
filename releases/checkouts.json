@@ -231,6 +231,28 @@
    "expires": "2026-11-15T16:20:20Z",
    "release": "operations-release-a_20261115.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/Pulse.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5iFQyKrm52ppEnEUqw",
+   "why": "Release A: Pulse cases ops:* (caps, returns empty, watching); config sections register, costs, board",
+   "since": "2026-11-15T12:20:23Z",
+   "expires": "2026-11-15T16:20:23Z",
+   "release": "operations-release-a_20261115.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/manifests.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5iFQyKrm52ppEnEUqw",
+   "why": "Release A: Pulse cases ops:* (caps, returns empty, watching); config sections register, costs, board",
+   "since": "2026-11-15T12:20:23Z",
+   "expires": "2026-11-15T16:20:23Z",
+   "release": "operations-release-a_20261115.zip",
+   "callers": {}
   }
  ],
  "lapsed": []
