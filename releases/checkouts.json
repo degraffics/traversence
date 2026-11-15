@@ -1,5 +1,19 @@
 {
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
- "claims": [],
+ "claims": [
+  {
+   "path": "app/lib/Store.php",
+   "functions": [
+    "uploadsRule"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5kLQB5BQnw5aZGu158",
+   "why": "Stock photos 404: uploads/.htaccess hand-off misses system/ (decisions/0123)",
+   "since": "2026-11-15T21:58:38Z",
+   "expires": "2026-11-16T01:58:38Z",
+   "release": "",
+   "callers": {}
+  }
+ ],
  "lapsed": []
 }
