@@ -1,0 +1,81 @@
+{
+    "id": 65,
+    "title": "Release B, part 5: a broken reader no longer wipes a site's facts, searches that find nothing become work, Closed made stricter, Gemini warns only on the unexpe",
+    "why": "decisions/0163 §8's gap list (research/knowledge-engine-gap-review-2026-11-14.md): P6-1, P1-3, F2, F3, F4. Jason, 2026-11-15: finish Release B without waiting for his keys. Everything ships off; the master switch stays off. (1) Parser drift (P6-1): a read of a site that finds nothing on pages that had facts used to delete those facts; now they're kept (shown with 'last checked'), and after two such reads 'The engine needs a person' asks for a reader fix, naming the site and its pages. (2) A search that finds nothing (P1-3): recorded as demand for the place searched or the searcher's area, named or not; a kind of place becomes that kind's job in the town (from our own kinds, never the words), a topic waits as one of W6's gaps. (3) The public confirms Closed (F2): three answers on at least two days within 60 days, none saying open since. (4) Three states only (F3): the listing says 'Still open?' with the source's own words; 'Possibly closed' and 'Reported closed' are retired, and a Closed listing isn't scored down. (5) Gemini (F4): its daily allowance is paced to be used, so it warns only on the unexpected: background work at its stop before 18:00 UTC three days running, or the visitors' reserve under 5%. Database update: 2026-11-17_search_demand_empty (search demand's dest becomes short text if it's an ENUM; nothing else changes; safe to run twice). Tests: staging unit 49, identity 36, Gemini guards 21. Built on Sync 2026-11-15 20:11 UTC.",
+    "proposals": "handoffs/release-b.md, research/knowledge-engine-gap-review-2026-11-14.md P1-3, P6-1, F2, F3, F4",
+    "zip": "release-b5.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/ui/faq.md": {
+            "sha": "2a1f71d1556f370d80500aaa12458f5e89a9a2e0f976f88a68d4db03759af44a",
+            "size": 309568,
+            "live_was": "3c3dce08b99de4fc5fa8e5d506a7a4dd9c99d4fde9ff6d839f22b2081b87c464"
+        },
+        "app/migrations/2026-11-17_search_demand_empty.sql": {
+            "sha": "6f79e1664228e0bb6712b4b494d4e0849f2302c6a4d0e8a9e4fca998aabc8aed",
+            "size": 563,
+            "live_was": null
+        },
+        "app/lib/Operations.php": {
+            "sha": "946a3aa31418ec26d77e5f243fad813ee6158516efd0d1d6b28a37a70a169799",
+            "size": 57321,
+            "live_was": "af3b74d406e882a1abab76ed6107fbcc27fdd55d4facbb53bfa6fe1d4ded28f6"
+        },
+        "app/lib/ListingConfidence.php": {
+            "sha": "64322667e4d1106bcdf9a788728baee1b710650ab6886db69630a51c3c8868c9",
+            "size": 24147,
+            "live_was": "8502a81b94c764d6cb5a68a8fc8d9b47e4f787d7574c21e297d2aa22bd6db042"
+        },
+        "app/lib/SearchDemand.php": {
+            "sha": "1f666c46c9558c498c86ef8032fb96e2eb8e515eedf9a37d878c876880c48d4a",
+            "size": 10065,
+            "live_was": "01e7d53e3e565bc1787f90320c9d5bdaad5eea4fdb22da9f6d0961a44d6266df"
+        },
+        "app/lib/Gemini.php": {
+            "sha": "663010642436834dcdfcd8448fe6d46bc56e172df96b4d7e3189d6877ec4ee52",
+            "size": 17263,
+            "live_was": "73bb129a36aa09fa2cd0fa4236286946ed41d7ee8bfa13696c9d5efee210ef83"
+        },
+        "app/lib/crawler/SourceIndex.php": {
+            "sha": "115b2ba62b89b820f813846b6ec526ba1c12a816c01653056e8483d02b1ec574",
+            "size": 71425,
+            "live_was": "eba9a045d237c32f7b4e9cc5102891c3e238319d6acd4c5de1d6b19cc055eed3"
+        },
+        "app/lib/EngineCase.php": {
+            "sha": "3202e33505569768167c706db2936f1d212ad04b5d8ffa7418d6989428a37316",
+            "size": 27661,
+            "live_was": "1cba4fad9fe541c22f944bf76a9b365d3bbc0675ff0fc39eea5b6957a05038e0"
+        },
+        "website/listing/view.php": {
+            "sha": "148dc16cf6b34119a899f1144a7845e8d82abd015cd1d9f32976755b2a641634",
+            "size": 54880,
+            "live_was": "3b06aa193105196cff744a25eff1cfe87b1ce7d1cf8299e89a8e25767d175b9c"
+        },
+        "website/api/search.php": {
+            "sha": "ad86c2f424cf1d3fcd0437df08d9f2925b08c7c23818a05cf58774fa8fb5b4c9",
+            "size": 14244,
+            "live_was": "74cd95f11d7680b9d915de5d999dc1a4012297503ae881514004d4c766cba33f"
+        }
+    },
+    "migrations": [
+        "app/migrations/2026-11-17_search_demand_empty.sql"
+    ],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-15T20:13:50+00:00",
+            "by": 0,
+            "msg": "Uploaded release-b5.zip: 10 files."
+        }
+    ]
+}
