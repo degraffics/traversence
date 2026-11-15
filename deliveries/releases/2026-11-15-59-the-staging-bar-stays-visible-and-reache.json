@@ -1,0 +1,39 @@
+{
+    "id": 59,
+    "title": "The staging bar stays visible and reaches the live site past the host's bot check",
+    "why": "Jason, 2026-11-15: opening a release for review on staging, the site manager bar flashed for a second and disappeared, so the review (UI, UX, Functional) couldn't be given and Publish stayed shut. The bar sat at the top of the page, under the site's sticky account bar and header. Now it's fixed along the bottom of the screen above everything, its menus and panels open upward, the page is padded so it covers nothing, and it puts itself back if a page's script takes it out. Also website/api/stg-bar.php: the host's bot check (Bluehost's 409 \"humans\" cookie challenge, 2026-11-15) can refuse staging's call to the live site for the release, so the bar sends its cookie and asks once more (the stopgap until Bluehost exempts /api/). No database update. Built on Sync 2026-11-15 16:06 UTC.",
+    "proposals": "handoffs/release-b.md",
+    "zip": "release-stgbar.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "website/api/stg-bar.php": {
+            "sha": "93aaafd6f52a3730d070852d160af6f562cc6ce17c8048479601072728ea2253",
+            "size": 3000,
+            "live_was": "d6341d62e9e1280057faf4a5797d793136f76df7dd5db5872e00a085334629e5"
+        },
+        "website/js/stg-bar.js": {
+            "sha": "4f281e4c25d4d2729aea560b7268a2da34ccff7b581384d8e27c0c4fa88442ac",
+            "size": 41071,
+            "live_was": "60e2ff6202940d1ae2f9a0ae5ac96f9c29299bb7b4b348177e5b7669a7ce0aba"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-15T18:00:02+00:00",
+            "by": 0,
+            "msg": "Uploaded release-stgbar.zip: 2 files."
+        }
+    ]
+}
