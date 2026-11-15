@@ -1,0 +1,139 @@
+{
+    "id": 63,
+    "title": "Release B, part 3: every missing key a red line saying where it goes, Release A's leftovers, Geofabrik's weekly load",
+    "why": "Jason, 2026-11-15 (through the session manager): finish Release B without waiting for his keys; every line that needs a key simply red, with a clear 'add this key'. decisions/0163 stage 2 and §1 (Release A's leftovers, handoffs/release-b.md), §8 stage 8 (OpenStreetMap from Geofabrik's state files). Everything ships off; the master switch stays off. (1) The switch-on check has one line per key the switch-on needs, red with where to add it (.env through File Manager, or Railway's Variables); the crawler now reports which Railway keys it has, by name only, never a value, so Google, Tavily, Brave, RIDB and the Hugging Face token show as in place or missing. (2) The site's other outside calls (weather, AZ 511, the Census geocoder and populations, place lookups, openrouteservice, Dossier, Claude, stock photos, CPSC recalls) check the service's health first and record a failure the way the crawler's are; a refusal from some website that isn't a service never opens an issue; payments record only server errors and timeouts and are never held by it. (3) One price per service: the Services page and the crawler's ledger read the same estimate. (4) The caps that were in code (OpenStreetMap 60 and 40 an hour, openrouteservice 400 a day) and the crawler's per-run ceilings (10 searches, 5 Google checks, 5 OpenStreetMap asks) are in the register, same numbers, and the crawler takes them from the site's plan. (5) Each workflow's share of the AI cap is read: a workflow with a share stops at it, last month's unused part passed on; a share of 0 is 'not set'. Each task's routes are read: a task with no paid service among its routes makes no paid calls. (6) Geofabrik's weekly load for Arizona and New Mexico (W1, off): the crawler downloads the state file over IPv4, reads it with osmium-tool and sends its places to OpenStreetMap's own table (never our listings, decisions/0065), sorted into the site's kinds by the same filters, with the same rules (nothing historic, no protected names). No database update. Tests: staging unit 49, identity 36, Gemini guards 21; the crawler's tests pass. Built on Sync 2026-11-15 19:12 UTC.",
+    "proposals": "handoffs/release-b.md, decisions/0163 §1, §8, stage 2",
+    "zip": "release-b3.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/lib/ServiceHealth.php": {
+            "sha": "b0606a927c2135d808d6fc9add7aba8f37d2ea7f8ce688c266717ebe3421cd1d",
+            "size": 44814,
+            "live_was": "a2184ff061f90e458a155b919c1a429eee2497313fb80c6cdbda970a779f2465"
+        },
+        "app/lib/Operations.php": {
+            "sha": "af3b74d406e882a1abab76ed6107fbcc27fdd55d4facbb53bfa6fe1d4ded28f6",
+            "size": 56956,
+            "live_was": "e8cb7f623c06db7e0b5bce471777743d0a41bfdd449bef890ea668ec49cc1319"
+        },
+        "app/lib/MarketRules.php": {
+            "sha": "1c32ceca7cf9e15cf799f4fdbb9ae8080cec290e37852a1c1c322d7c57a579e7",
+            "size": 21855,
+            "live_was": "9545d4a267346c0fdce8303ce31e9e9ed8f36b0e7a42146b18936e4af46efad9"
+        },
+        "app/lib/Dossier.php": {
+            "sha": "6964c56734a585a2948528876c1d042709b220a7c76076ec3b52cc66e69849fb",
+            "size": 31368,
+            "live_was": "852f8eb5812ea8d0722a2ac15dc66da4adc3aea9df2d15d370ce3fadb7d0fcf8"
+        },
+        "app/lib/Weather.php": {
+            "sha": "f1d053cb7d1c35d66e6b6e7482546d5b658bdb05e52b5358c4d256371bf3ed06",
+            "size": 19368,
+            "live_was": "3d947ea11f7a44c49bf2eef371917c2517a3180c4e58c1c5332c065b58963e48"
+        },
+        "app/lib/Thresholds.php": {
+            "sha": "8ffab7cc8cf7f13c7e12d0d24ddce3fe12fbd968c2e44e9c0f5453f0350b74c3",
+            "size": 20764,
+            "live_was": "0fe4958c1f22fcebeb3e1932e81427f6d0a859e10d9fe41bf2e783e1304d0f08"
+        },
+        "app/lib/Roads511.php": {
+            "sha": "7c04fe57348b1f9b3552758cc2e77fc8c7fab2a2b13a6d6185fc1a8e02e2f91f",
+            "size": 17147,
+            "live_was": "922048c8ec80be7150ce58ecd45060f74f361df315264befab6ddde95de7a126"
+        },
+        "app/lib/Geocoder.php": {
+            "sha": "ba4ea0cd4b7b090c6aab87c23d96bc507274bfe87bfe6d633f8623c8440073d4",
+            "size": 20001,
+            "live_was": "f16e3ff2ff28db59c8481631b920013fb2f44160b3534399b8838fbaad724ef3"
+        },
+        "app/lib/PlaceFinder.php": {
+            "sha": "9d5f2b6a8d30eecdc925550185e250f1133cf20bf9b9c970d125563b30f362b8",
+            "size": 49237,
+            "live_was": "64a7d96f926696081d84ef62e644a6ddc7e1ccefc77650106f988ca627e763d0"
+        },
+        "app/lib/crawler/DeepLook.php": {
+            "sha": "ad2da43fb91c08c61c20868887f1555259dc08d706408bf57e7057797f1629b1",
+            "size": 12363,
+            "live_was": "3112ae2fcde998d7d5d22b44bb8df98e446acd9d28a1435a49100a9a758c42ba"
+        },
+        "app/lib/crawler/CrawlService.php": {
+            "sha": "b1eba749a3680a9f57841b47c113af437533d87e2fc2d375e608be630f6adfa8",
+            "size": 35331,
+            "live_was": "5930062cc606852cd61108eb2a944b914e19555d292dd51875ead8f426d7011d"
+        },
+        "app/lib/crawler/OpenLoads.php": {
+            "sha": "545837fea073fd06d458a2d7a11971246c992af15d22fdb3e34561dfbe5856dd",
+            "size": 15797,
+            "live_was": "01cbc91c06faaa6b2e704e8c24eb63cc0350accb358f85ce1632b322d278128b"
+        },
+        "app/lib/TravelLegs.php": {
+            "sha": "14ddc03cf41dba0c02233ac4b88a98124d46516ee800852f1eb51c21cf608e8d",
+            "size": 10813,
+            "live_was": "fc0f44ddff54da6e9d68eea94180529ba8fdbd22ef875dd97a47d8a65c6d7989"
+        },
+        "app/lib/QuickBooksPay.php": {
+            "sha": "9a37501c37189be39892320f2bff7d9c9a926d9f79c7c368bd97f4099a62a233",
+            "size": 76991,
+            "live_was": "0fa03bd74df7b1560ef64d7e5c827426682eed38b8eeedebb0bf0c1968ca762a"
+        },
+        "app/lib/OpenPlaces.php": {
+            "sha": "fd26392b8b3780587f094b0e6e816c1623df52a6e662560737fa5d554b385ebe",
+            "size": 26798,
+            "live_was": "7ea4c3ee4f147a4c8f0b9984c57d916686a1b1ffa141c9c20111e64996632700"
+        },
+        "app/lib/AiClient.php": {
+            "sha": "6c91909ee33a95badca51ee8b553c3fec63ab878b6eb0bd852accbca2b5830b9",
+            "size": 38568,
+            "live_was": "b26a1740db59b412804e9e755be449a766a46d815aa9685c7dd1c9c96806bfec"
+        },
+        "app/lib/ZipPopulation.php": {
+            "sha": "53683fb3b577a67a2920dfd28cf3878d813f99eae1d69df4bada22e5e1c90ae4",
+            "size": 7297,
+            "live_was": "f22c2e73e8a81c725c363282e9b39ea54e0664eea3bb084495b9426d3cfce7b2"
+        },
+        "app/lib/Services.php": {
+            "sha": "c7d4a6de0b111369e50e5a4c3801af4cbd20f35a1966d7ea1dd636de4db4fdf5",
+            "size": 13235,
+            "live_was": "5967366d1978d9217442d4fc13903b420490283f34ea7fbbdf4ae41f7dd84373"
+        },
+        "app/lib/stock/StockSource.php": {
+            "sha": "110298e87cd0a98fda1f679e40988640e019bda28e318fb683dbde46986ba501",
+            "size": 3698,
+            "live_was": "6007ae0d9207ce75850bbe8de3b4629473c15a282673cbe1ecf04e1d0e8fee65"
+        },
+        "app/lib/MarketPay.php": {
+            "sha": "95ce73029f494a0ad7da2f7aebb20a0d20b1a66f4e2171fedbd6ee40af79af9b",
+            "size": 31936,
+            "live_was": "bfaeeb54eeb684c5fd36248359c05b7fd556a05a7be2c4ee153fb8e74062e0c8"
+        },
+        "website/api/crawl/loads.php": {
+            "sha": "9756dbe5571db9e4ae27e678473ff6e974763876f82ec9893a3fe1ba10835543",
+            "size": 3813,
+            "live_was": "4125546fad073f9455c78a427f3d48757c13028c8f4e1ee03c0b022bc5e5c51e"
+        },
+        "website/api/crawl/service.php": {
+            "sha": "6207c596afe86cd844e29f82378df44545edd4778baede4f8c8800c9e374618c",
+            "size": 2357,
+            "live_was": "ff42a131fcfbaea4fb7edb08de9193b81d489fe7bab529c7fb8c0e78e6a6f851"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-15T19:50:30+00:00",
+            "by": 0,
+            "msg": "Uploaded release-b3.zip: 22 files."
+        }
+    ]
+}
