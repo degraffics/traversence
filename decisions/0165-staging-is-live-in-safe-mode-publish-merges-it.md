@@ -377,6 +377,11 @@ to code being tried.
 4. Changed: push at the time of the action, plus the nightly full pass (the amendment in §3).
 5. Confirmed: staging's own views, taps and counts are never carried.
 
+**Jason, 2026-11-15, at the build ("Go"):** the release goes to staging for his review; and live's outbox is filled by
+one-statement triggers on live's tables, in the database that owns each table (they only note the table, key and kind of
+change), added only when Keep staging caught up is switched on and taken off when it's switched off. That is the one
+exception to §3's "triggers on staging only".
+
 ## Consequences
 
 - Staging becomes where the work happens; Publish is the one door into live, for code and data together.
