@@ -1,7 +1,8 @@
 # Hand-off: Release B (decisions/0163 §8 stages 7–11, and the "before any switch-on" list)
 
 From session `session_01CXLi5iFQyKrm52ppEnEUqw`, which built Release A (release #55,
-`operations-release-a_20261115.zip`, built on Sync 2026-11-15 12:03 UTC). Jason, 2026-11-15: "Ok 2 builds. Release A can
+`operations-release-a_20261115.zip`, built on Sync 2026-11-15 12:03 UTC; **live 2026-11-15 14:09 UTC**, verified
+byte for byte against Sync 2026-11-15 14:12 UTC, 26 files; claims released). Jason, 2026-11-15: "Ok 2 builds. Release A can
 be one session and once its done the handover and next session." This file is for the session that builds B.
 
 **Rules that carry over:** everything in `CLAUDE.md`. Build from the live mirror after the newest sync, claim with
@@ -15,6 +16,25 @@ crawler revamp's own open items (`handoffs/crawler-revamp.md` §7.1), so nothing
 (System Configuration → Workflow board → Check before switching on, and the Automation page) refuses "Switch automation
 on" while any line is red. B's own lines are red until each one is built. Turn each one green in the release that
 builds it (see "The switch-on check's lines" below).
+
+## Before B: decisions/0165 (Accepted 2026-11-15)
+
+`decisions/0165` (staging is the live site in safe mode; Publish merges it into live) is **built before Release B, so B
+is published that way** (its status line). Build it first, in its own six releases (§7):
+1. safe mode closed, with nothing running by itself (`autoPublish` removed, so every build waits on staging; the zip
+   check refuses ungated outside calls; the CSP);
+2. the table register and the register of record numbers, and Staging against live (releases stack, and Publish takes
+   every one on staging together);
+3. the base and catch-up;
+4. the preview and conflicts;
+5. Publish as a merge, with the write-ahead journal and backward undo;
+6. Roll back the whole publish, To send now.
+
+What this changes for B: the auto-publish note in `CLAUDE.md` (0159's 2026-11-13 progress note) no longer holds once
+0165's release 1 is live, and B's releases stack on staging until Jason publishes. The zip check's new rule against
+ungated outside calls applies to B's new callers (Gemini, Overture, Geofabrik, Supabase, the watch): each must go
+through the gates (`Automation`, `ServiceHealth`, Staging's answer). Check 0165's current text before building: it may
+have moved on.
 
 ## What Release A left in place (use it, don't rebuild it)
 
