@@ -1,5 +1,7 @@
 # ADR 0145: The Site Audit and Phased Releases
 
+**Note (2026-11-15, decisions/0165, proposed):** once 0165 is accepted, staging is no longer "refreshed from live" each week (`staging_tick` copying over it): it catches up from live nightly with its own work kept, and Publish merges it into live. The other staging rules here (email held, payments in sandbox, not indexed, behind a password) stay, widened by 0165 §1.
+
 **Note (2026-11-14, decisions/0164):** Amended by `decisions/0164` R9, R19 (the source register's licence and terms, and paid calls). 0133, named below, is closed and its rules are in 0164. The rest of this record stands; where it and 0164 disagree, 0164 rules.
 
 **Status:** Accepted (Jason, 2026-11-06). The work is in six phases, each with its own file in `site-audit/`.

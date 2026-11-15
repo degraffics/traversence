@@ -1,5 +1,7 @@
 # ADR 0159: The builder: Traversence's platform builder and Storefront Studio
 
+**Note (2026-11-15, decisions/0165, proposed):** once 0165 is accepted it replaces the 2026-11-13 progress note that builds sent through git go live by themselves (`Releases::autoPublish`): every build waits on staging, releases stack there, and Publish (Jason's, on the site manager) merges staging's code and data into live. §5's site manager stays.
+
 **Status:** Accepted (Jason, 2026-11-13: "accepted, but I want this built in a new session"; the hand-off is `handoffs/0159-the-builder.md`). Not built yet.
 (the release process, Phases 5 and 6), `0158` (one way to publish), `0112` §3 (`SitePages`), `0139` (storefronts on
 trvgo.us) and `0135` (the Marketplace and Storefronts), and keeps `0109` (the admin), `0129` (the command strip), `0058`
