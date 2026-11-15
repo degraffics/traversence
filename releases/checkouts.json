@@ -8,9 +8,23 @@
    "session": "session_01CXLi5gjuAjJ6m4FZ8uAGQ1",
    "why": "Data cleanup: reused or restricted, never a dead end (handoffs/data-cleanup.md)",
    "since": "2026-11-15T00:49:08Z",
-   "expires": "2026-11-15T04:49:08Z",
-   "release": "data-cleanup-reuse_20261115",
-   "callers": {}
+   "expires": "2026-11-15T04:59:32Z",
+   "release": "data-cleanup-reuse_20261115.zip",
+   "callers": {
+    "preview": [
+     "app/admin/cleanup-console.php"
+    ],
+    "run": [
+     "app/admin/cleanup-console.php",
+     "app/scripts/data_cleanup_tick.php"
+    ],
+    "undo": [
+     "app/admin/cleanup-console.php"
+    ],
+    "pulseItems": [
+     "app/lib/Pulse.php"
+    ]
+   }
   },
   {
    "path": "app/admin/cleanup-console.php",
@@ -19,8 +33,8 @@
    "session": "session_01CXLi5gjuAjJ6m4FZ8uAGQ1",
    "why": "Data cleanup: reused or restricted, never a dead end (handoffs/data-cleanup.md)",
    "since": "2026-11-15T00:49:08Z",
-   "expires": "2026-11-15T04:49:08Z",
-   "release": "data-cleanup-reuse_20261115",
+   "expires": "2026-11-15T04:59:32Z",
+   "release": "data-cleanup-reuse_20261115.zip",
    "callers": {}
   },
   {
@@ -41,8 +55,19 @@
    "session": "session_01CXLi5gjuAjJ6m4FZ8uAGQ1",
    "why": "Data cleanup reuse: FAQ entries, the drop-off category migration",
    "since": "2026-11-15T00:49:12Z",
-   "expires": "2026-11-15T04:49:12Z",
-   "release": "data-cleanup-reuse_20261115",
+   "expires": "2026-11-15T04:59:32Z",
+   "release": "data-cleanup-reuse_20261115.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/scripts/data_cleanup_tick.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5gjuAjJ6m4FZ8uAGQ1",
+   "why": "release data-cleanup-reuse_20261115.zip",
+   "since": "2026-11-15T00:59:32Z",
+   "expires": "2026-11-15T04:59:32Z",
+   "release": "data-cleanup-reuse_20261115.zip",
    "callers": {}
   }
  ],
