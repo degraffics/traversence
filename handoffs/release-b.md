@@ -322,3 +322,11 @@ for the release it shows). #62 also brought **Check for builds** on the live Rel
 looked), `/api/releases-pull.php` called by `.github/workflows/release-ping.yml` when a zip lands in the inbox (no secret:
 it only makes the site look sooner, once a minute at most; a lock in `Releases::fromGit` keeps one taker), and approved
 review parts folded to one line with Edit. Jason ran Data cleanup's pass: nothing to change, 45 to check.
+
+**19:28 UTC, Geofabrik works from Railway over IPv4 (Jason: "ok").** OpenStreetMap France has no Arizona or New Mexico file
+(its us-west folder holds only California and Colorado; all of us-west is 4 GB). Geofabrik is up (Arizona 291 MB, daily).
+Its "network unreachable" from Railway was IPv6: its DNS gives IPv4 and IPv6, and Railway has no IPv6 route. Worker 2.7.3
+(PR #721, deployment `da37b718`) asks over IPv4 (`ipv4_only`) with Geofabrik's names (`arizona`, `new-mexico`); the one
+test: **arizona 206, new-mexico 206, 1 MB each**. `GEOFABRIK_PROBE` deleted, no cron, restarts NEVER, automation paused.
+Next for W1's `geofabrik_bulk`: the weekly download and reading the file (osmium or pyosmium in the worker), off until
+switched on.
