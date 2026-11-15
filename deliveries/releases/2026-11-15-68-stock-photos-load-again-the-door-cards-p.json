@@ -1,0 +1,44 @@
+{
+    "id": 68,
+    "title": "Stock photos load again (the door cards' photos)",
+    "why": "The home page's door cards (Let's Explore, Get Local) and other stock-library photos showed only their credit: their /uploads/system/... addresses gave a 404. website/uploads/.htaccess hands a photo that isn't on the server to media.php (decisions/0123), but that rule was written by hand and lists members, businesses, guests and orders, not system (the stock library, decisions/0143). Member, business and older photos were fine. Now the site writes the rule itself from Store::KINDS, and stock photos are given an address that works even without it.",
+    "proposals": "decisions/0123 (public photos keep their /uploads/ address), decisions/0143",
+    "zip": "photos-handoff.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/bootstrap.php": {
+            "sha": "b4e494112be6d192040d011553330f484a1cfd65d33e8fe86a5855272f9e2079",
+            "size": 9951,
+            "live_was": "61b2d432da650fc1e80f09ebb8043806665be554c6aa160cf7fccdd5f2e5e20f"
+        },
+        "app/lib/StockLibrary.php": {
+            "sha": "3fdc750876c8d0b7c1e196628c9c5f2b82e1a4a7a13f0f5ce03b1f29828ffab4",
+            "size": 34885,
+            "live_was": "fa7bf6d80acd2565571df81dd5446e9006301160ed9855fa75b307bf1915b7f0"
+        },
+        "app/lib/Store.php": {
+            "sha": "9503b7dfcff70819b862a2f6d105439b7c59f4067f0d6f185db4e190e4e2a541",
+            "size": 29034,
+            "live_was": "b8543a452f496ec6947437ac008407c68e4e8e610d5a68961a668f61e52f1869"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-15T22:08:18+00:00",
+            "by": 0,
+            "msg": "Uploaded photos-handoff.zip: 3 files."
+        }
+    ]
+}
