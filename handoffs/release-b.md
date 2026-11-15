@@ -191,3 +191,23 @@ opening budget line in the switch-on check (Costs → "A hub's opening budget" i
 Replace each fixed red line with a real test as you build it. When every line is green, Jason switches the master on
 himself, one workflow at a time (W1 first), each new or returning service at half budget for its first 14 days (0163
 §10.2).
+
+---
+
+## Progress (session `session_01CXLi5hvWvRSedDtk54gNDP`, building B; started 2026-11-15 on Sync 16:06 UTC)
+
+Work tree: `/home/user/relb` (a git repo laid out `app/`, `website/`, `trvgo/` from the mirror at Sync 16:06 UTC, first
+commit = live). The zip is built from `git diff --name-only <first commit>`.
+
+**Found in the live code (for whoever picks this up):**
+- **Pulse cases aren't stored:** `Pulse::items()` rebuilds them from source tables on each load; `pulse_marks` keeps
+  only the person's state (case_no, assigned_to, done). A library joins by three hand edits in `Pulse.php`: `items()`
+  (`Lib::pulseItems`), `playbook()` (`Lib::pulseSteps`), `manage()` (`Lib::pulseDo`). Steps: `['do', what, label]`,
+  `['form', what, label, fields]`. No per-step assignment exists: the engine's case keeps its own steps table.
+- **Case #23** is `cleanup:checks` (DataCleanup's 60 `suggestions` kind `same`, device `crawler-cleanup`). LiveDupes
+  makes its own (`crawler-dupes`, "Crawler: live duplicates").
+- **Nothing calls Gemini yet:** `AiClient::PROVIDERS` has claude, google (Document AI), aws (Textract); ROUTES are all
+  claude but the readers. The AI use page (`sections.php` `tv_admin_mod_ai`) chooses a model, not a provider.
+- **Merges:** `SuggestionActions::merge` hides with `same_as` meta (the 301 in `listing/view.php`). Every column that
+  holds a listing id is found with `StagingTables::refOf()` over information_schema (both databases).
+- The four crawler patches (W6, W9, W10/W11, W12) still applied cleanly to Sync 16:06 (W12's hunk at an offset).
