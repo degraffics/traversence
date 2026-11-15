@@ -125,8 +125,13 @@ description (the writer is paused with automation).
 ## The rest, in one release for Jason's review (`data-cleanup-dropoffs_20261115.zip`, built on Sync 2026-11-15 01:39 UTC)
 
 Jason, 2026-11-15: "for the rest of the build make one release so i can check it all at once"; he chose all three
-follow-ups. `"review": true`: staging, UI, UX and Functional each need Approve before Publish. **State:** sent, PR open,
-waiting for his OK to merge; then his review on staging, then the sync and `deliveries.py verify`.
+follow-ups. `"review": true`: staging, UI, UX and Functional each need Approve before Publish. **State:** merged on
+Jason's "Merge it" (PR #687); **release #54, on staging since 2026-11-15 02:00 UTC, waiting for Jason's UI, UX and
+Functional approvals** (the email and Pulse case went out). Nothing else is waiting. To finish, once a "Release #54: Live"
+commit lands on `main`: list `sync.yml` runs on traverse-3way-sync (start one only if none is queued or running), wait for
+its "Sync: …" commit, `cmp` the 11 files in the table below against the mirror, run
+`tools/page-audit/deliveries.py verify --mirror <checkout>` (it releases the claims), and set this line to live. His
+"needs changes" notes, if any, come back in `deliveries/releases/2026-11-14-54-…json`: fix them as a new release.
 
 | Part | Files |
 |---|---|
@@ -171,7 +176,7 @@ staged find and a place-store fact; Undo of a pass (a record requested since is 
 (30 buttons greyed with the reason), no sideways scroll at 390px. Not tested: the live data's size; Review's own screens
 with an empty-name row (Approve needs a name, which is the point).
 
-**Follow-ups, not in this release:** drop-offs without Claim and out of business browse lists (Jason's "own kind" in
+**Follow-ups, not in release #52 (all three are in #54, below the next heading's table):** drop-offs without Claim and out of business browse lists (Jason's "own kind" in
 the open question: needs `Claims` and the directory; the category alone is here); a drop box with no point gets its pin
 only when it has one (no geocoding spent); the crawler re-reading `cleanup.reread` pages is the crawler revamp's to wire
 (automation paused); `AutoImport::evaluate` should use `junkName()` and `dropName()`.
@@ -179,6 +184,6 @@ only when it has one (no geocoding spent); the crawler re-reading `cleanup.rerea
 ## Not done, on purpose
 
 - `workers/crawler/` untouched (a worker deploy would restore the paused Railway schedule).
-- `AutoImport::evaluate`'s own name check isn't widened here (handoffs/crawler-revamp.md §7.3): with automation paused no
-  new junk arrives; when that work is done it should call `DataCleanup::junkName()` so the gate and the cleanup agree.
+- `AutoImport::evaluate` calls `DataCleanup::junkName()` since #54; `dropName()` there (taking a box as a drop-off at
+  intake) is left to the crawler revamp (handoffs/crawler-revamp.md §7.3).
 - Landmarks' story-only level (P5-3) is its own change; the cleanup holds those places (Restricted) with that target meanwhile.
