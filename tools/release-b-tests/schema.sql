@@ -1,0 +1,13 @@
+DROP DATABASE IF EXISTS lv_main; CREATE DATABASE lv_main; USE lv_main;
+CREATE TABLE entities (id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, entity_type VARCHAR(20) DEFAULT 'merchant', name VARCHAR(255), composite_hash CHAR(64), primary_zip VARCHAR(10), micro_cluster_id INT NULL, category_id INT NULL, latitude DECIMAL(10,7) NULL, longitude DECIMAL(10,7) NULL, status VARCHAR(20) DEFAULT 'unclaimed', trust_score DECIMAL(6,2) DEFAULT 10, is_suppressed TINYINT DEFAULT 0, submission_source VARCHAR(30), intent_utility TINYINT DEFAULT 0, intent_experience TINYINT DEFAULT 0, created_by_type VARCHAR(20), updated_by_type VARCHAR(20), nexus_id INT NULL, nexus_role VARCHAR(20) NULL, created_at DATETIME DEFAULT CURRENT_TIMESTAMP, updated_at DATETIME DEFAULT CURRENT_TIMESTAMP);
+CREATE TABLE entity_metadata (id INT AUTO_INCREMENT PRIMARY KEY, entity_id INT UNSIGNED, meta_key VARCHAR(64), meta_value TEXT, source_type VARCHAR(20) DEFAULT 'crawler', is_locked TINYINT DEFAULT 0, trust_score DECIMAL(6,2) DEFAULT 10, created_at DATETIME, updated_at DATETIME, UNIQUE KEY (entity_id, meta_key));
+CREATE TABLE platform_counts (day DATE, metric VARCHAR(20), k VARCHAR(80), n INT DEFAULT 0, visits INT DEFAULT 0, PRIMARY KEY (day, metric, k));
+CREATE TABLE content_tags (id INT AUTO_INCREMENT PRIMARY KEY, ref VARCHAR(80), status VARCHAR(20));
+CREATE TABLE suggestions (id INT AUTO_INCREMENT PRIMARY KEY, kind VARCHAR(20), entity_id INT UNSIGNED, same_as_id INT UNSIGNED NULL, status VARCHAR(20) DEFAULT 'new', device_hash VARCHAR(40), note TEXT, handled_at DATETIME NULL);
+CREATE TABLE listing_categories (entity_id INT UNSIGNED, category_id INT, PRIMARY KEY (entity_id, category_id));
+CREATE TABLE prospects (id INT AUTO_INCREMENT PRIMARY KEY, entity_id INT UNSIGNED UNIQUE, notes TEXT);
+CREATE TABLE listing_confidence (entity_id INT UNSIGNED PRIMARY KEY, score INT);
+CREATE TABLE data_moves (tbl VARCHAR(64), realm VARCHAR(20));
+CREATE TABLE crawl_capture_tasks (task VARCHAR(40) PRIMARY KEY, wf VARCHAR(4), mode VARCHAR(10) DEFAULT 'run', enabled TINYINT DEFAULT 1, every_minutes INT DEFAULT 60, per_run INT DEFAULT 5, max_seconds INT DEFAULT 60, max_fetches INT DEFAULT 0, sort INT DEFAULT 0, label VARCHAR(80) NOT NULL, off_why VARCHAR(255), off_by INT, off_at DATETIME, last_served_at DATETIME, updated_at DATETIME);
+CREATE TABLE search_state (k VARCHAR(80) PRIMARY KEY, v MEDIUMTEXT);
+CREATE TABLE search_index_state (k VARCHAR(80) PRIMARY KEY, v MEDIUMTEXT);
