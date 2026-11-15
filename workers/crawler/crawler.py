@@ -3355,8 +3355,11 @@ def geofabrik_probe():
     """Geofabrik's state files from Railway (0163 §8 stage 8's first step): one small test each, never repeated tries. The
     site keeps the answer; a refusal becomes a step for a person (another free mirror, by hand)."""
     out = []
-    for state in ("arizona", "new-mexico"):
-        url = f"https://download.geofabrik.de/north-america/us/{state}-latest.osm.pbf"
+    # Geofabrik answered "network unreachable" from Railway (2026-11-15, 0163 §8 stage 8): never tried again by itself;
+    # the next free mirror instead (OpenStreetMap France's extracts), each once. OSM_EXTRACT_BASE overrides.
+    base = os.environ.get("OSM_EXTRACT_BASE", "https://download.openstreetmap.fr/extracts/north-america/us")
+    for state in ("arizona", "new_mexico"):
+        url = f"{base}/{state}-latest.osm.pbf"
         try:
             req = urllib.request.Request(url, headers={"User-Agent": UA, "Range": "bytes=0-1048575"})
             with urllib.request.urlopen(req, timeout=60) as r:
