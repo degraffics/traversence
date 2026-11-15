@@ -35,17 +35,6 @@
    "callers": {}
   },
   {
-   "path": "app/scripts/ops_tick.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5iFQyKrm52ppEnEUqw",
-   "why": "Release A: the service register, costs, workflow board, warnings, watching (0163 \u00a78 stages 2-6)",
-   "since": "2026-11-15T12:20:08Z",
-   "expires": "2026-11-15T16:20:08Z",
-   "release": "operations-release-a_20261115.zip",
-   "callers": {}
-  },
-  {
    "path": "app/lib/Thresholds.php",
    "functions": [],
    "kind": "change",
