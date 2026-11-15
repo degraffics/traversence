@@ -125,13 +125,10 @@ description (the writer is paused with automation).
 ## The rest, in one release for Jason's review (`data-cleanup-dropoffs_20261115.zip`, built on Sync 2026-11-15 01:39 UTC)
 
 Jason, 2026-11-15: "for the rest of the build make one release so i can check it all at once"; he chose all three
-follow-ups. `"review": true`: staging, UI, UX and Functional each need Approve before Publish. **State:** merged on
-Jason's "Merge it" (PR #687); **release #54, on staging since 2026-11-15 02:00 UTC, waiting for Jason's UI, UX and
-Functional approvals** (the email and Pulse case went out). Nothing else is waiting. To finish, once a "Release #54: Live"
-commit lands on `main`: list `sync.yml` runs on traverse-3way-sync (start one only if none is queued or running), wait for
-its "Sync: …" commit, `cmp` the 11 files in the table below against the mirror, run
-`tools/page-audit/deliveries.py verify --mirror <checkout>` (it releases the claims), and set this line to live. His
-"needs changes" notes, if any, come back in `deliveries/releases/2026-11-14-54-…json`: fix them as a new release.
+follow-ups. `"review": true`: staging, UI, UX and Functional each need Approve before Publish. **State:** live as release #54
+(2026-11-15 11:56 UTC), merged on Jason's "Merge it" (PR #687), approved by him on staging. Sync 12:03 UTC: all 11 files
+match the live mirror byte for byte, delivery verified, claims released. The data cleanup build is finished; stage 2
+(the service register) can start.
 
 | Part | Files |
 |---|---|

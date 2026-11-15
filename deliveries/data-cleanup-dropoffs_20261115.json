@@ -3,52 +3,52 @@
  "built_on": "3895d95 Sync: 2026-11-15 01:39 UTC",
  "recorded": "2026-11-15 01:44 UTC",
  "note": "Data cleanup, the rest: drop-offs as their own kind, the crawler gate on cleanup's checks, drop-off pins (Jason 2026-11-15: one release to check at once). Built on Sync: 2026-11-15 01:39 UTC Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "ab8089f Sync: 2026-11-15 12:03 UTC",
  "files": {
   "app/admin/cleanup-console.php": {
    "sha256": "9e88eb7e33a96d91e3834ed9dbbb13e187a7bb13963cb53bc3b04ff20665d982",
-   "live": false
+   "live": true
   },
   "app/lib/Claims.php": {
    "sha256": "4bbbdcc9ceb07b9e1fc7adbcd2c10b10fc217c8a4684998d396a8fb8841a01d3",
-   "live": false
+   "live": true
   },
   "app/lib/DataCleanup.php": {
    "sha256": "144a2ead41c783864719a702fefbac6f34b018c5a6bcccd279a661164ab1ffe0",
-   "live": false
+   "live": true
   },
   "app/lib/Guides.php": {
    "sha256": "ec64a35a5602882820ac772066a566d34b2313aabd44f8208fae12311a9b0db8",
-   "live": false
+   "live": true
   },
   "app/lib/OpenPlaces.php": {
    "sha256": "7ea4c3ee4f147a4c8f0b9984c57d916686a1b1ffa141c9c20111e64996632700",
-   "live": false
+   "live": true
   },
   "app/lib/PlaceScope.php": {
    "sha256": "ef06828d28ec08ca05b2e4548d823ea66fe10b895942bdb18224a3e215f45419",
-   "live": false
+   "live": true
   },
   "app/lib/crawler/AutoImport.php": {
    "sha256": "b74a84772d7454c8e9c70b60d8ce101df76265e0cc2c02bed69decf07800565c",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "0111b96af36318b97eb35f7ab2d9e964bbaaac9bcd985d28a707768f6ac6863b",
-   "live": false
+   "live": true
   },
   "website/api/search_listings.php": {
    "sha256": "80067650d94274f6cd2d2a41aede2438c6a7f0bc5dbd26d8db2661d9cfce3798",
-   "live": false
+   "live": true
   },
   "website/claim.php": {
    "sha256": "5fdeda86b2aba9801957c365be7840296088778ed3907198692148d567d78f20",
-   "live": false
+   "live": true
   },
   "website/listing/view.php": {
    "sha256": "4fd0f85f8d7e9d65d00b93553736448e9818b908029f055309152b3b924f7472",
-   "live": false
+   "live": true
   }
  }
 }
