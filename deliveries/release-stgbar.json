@@ -1,0 +1,14 @@
+{
+ "zip": "release-stgbar.zip",
+ "built_on": "259a50c Sync: 2026-11-15 16:06 UTC",
+ "recorded": "2026-11-15 17:45 UTC",
+ "note": "The staging bar fixed along the bottom of the screen (Jason 2026-11-15: it flashed and vanished), built on Sync: 2026-11-15 16:06 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "website/js/stg-bar.js": {
+   "sha256": "4f281e4c25d4d2729aea560b7268a2da34ccff7b581384d8e27c0c4fa88442ac",
+   "live": false
+  }
+ }
+}
