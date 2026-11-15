@@ -86,6 +86,7 @@
   {
    "path": "app/lib/Operations.php",
    "functions": [
+    "pulseDo",
     "pulseItems",
     "pulseSteps"
    ],
@@ -93,7 +94,7 @@
    "session": "session_01CXLi5kE9dUdSmDQpFmDsKE",
    "why": "Start the system (Jason, 2026-11-15; decisions/0163 \u00a710)",
    "since": "2026-11-15T22:12:00Z",
-   "expires": "2026-11-16T02:12:02Z",
+   "expires": "2026-11-16T02:12:04Z",
    "release": "",
    "callers": {}
   }
