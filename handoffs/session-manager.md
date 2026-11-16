@@ -50,28 +50,37 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
   a worker deploy restarts it (details at the top of `handoffs/crawler-revamp.md`); the automation master switch (release
   #48) makes any run that starts end at once. The hourly check expects no crawler runs meanwhile.
 
-## Where things stand (2026-11-15, 12:30 UTC)
+## Where things stand (2026-11-16, 14:30 UTC)
 
-- **Done:** stage 1b, data cleanup, live as releases #50 to #54 (`handoffs/data-cleanup.md`, finished).
-- **Running:** "Release A: operations, stages 2–6" (one session, one release, `"review": true`), with story-only
-  landmarks and drop-offs out of place counts. When it's live it writes `handoffs/release-b.md`. The session manager
-  then starts **Release B** (stages 7–11, shipped off) in a fresh session (Jason, 2026-11-15: "2 builds").
-- **Queued after Release A** (Jason, 2026-11-15: "do that after Release A"): one session checks all 62 names in Pulse
-  case #31, "Database tables and columns no code uses". It checks each one against the live mirror, including names
-  built in code. It sends one release that drops the confirmed leftovers (copied first, decisions/0162, listed under
-  `"removes"`). Anything doubtful goes to Jason to keep. It must not overlap Release B's files.
-  The same session also clears Pulse case #22, Site health (Jason, 2026-11-15: "add them to the cleanup session"):
-  - **D06 drift false alarm:** the check counts a migration that ran and deleted itself as a file removed without a
-    release (`2026-11-14_crawl_service_calls.sql`). Teach it to ignore that (`tools/page-audit/drift.py`, `db_updates_log`).
-  - **J03, "open now":** none of the results says it's open (proposal P10, approved).
-  - **V06, layout shift 0.54:** on `/hub/?cluster=…` after the "swiming" typo search.
-  - **D03, Scheduled tasks bad:** guide weather and roads fails nearly every run (proposal P7, approved).
-  - **V01, sideways scroll at 390px:** on `/admin/market/gateways` (P12, approved). Check `/admin/config/services` after
-    Release A, which rebuilds it.
-  - **`staging_carry_tick`:** hasn't run since 2026-11-12; find out why.
-  - **Left alone:** Crawler bad, NPI Registry warn and Search learning warn come from the pause and clear at switch-on.
-- **Waiting on Jason:** Release A's question on the master switch. It stays refused until Release B's checks exist
-  (0163 §10); the session builds it that way unless he says otherwise.
-- **Jason's own, any time:** post the OSM forum statement (`research/osm-overpass-2026-11-13.md` §2). Mark the Overpass
-  mirror cases resolved: their last failures were Nov 14, before the pause. Keep overpass-api.de's case open. Storefronts
-  step 5c on his go.
+- **Built and live:** decisions/0165 (#56, #57), Release B (#58–#67), the photo fix (#68), and Start the system plus the
+  review link's login redirect (#69). Nothing is running. Automation and the crawler stay off until Jason presses
+  **Start the system** (keys first: `handoffs/release-b.md`).
+- **Keys, traced with Jason by service on 2026-11-16:**
+  - GitHub: `GITHUB_SYNC_TOKEN`, read-only on both repos.
+  - Railway: limits set, compute $25 stop and $10 alert, agent $10 and $5; `RAILWAY_API_TOKEN` made; `HF_TOKEN` added.
+  - Google and Gemini: done. m2servcore owns the projects and billing. The Places key is restricted to Places API (New),
+    with SearchText at 200 a day and a $10 budget. `GOOGLE_PLACES_MONTHLY`=1000 on Railway. One Gemini key, …rCWw, on the
+    free tier.
+  - Still to go: AWS, Cloudflare R2, Stripe, Square, the others, and Supabase last.
+- **Queued after the usage reset (~Nov 17 23:00 UTC):**
+  1. **QuickBooks setup step**, which needs a decision note (Jason, 2026-11-16):
+     - On connecting, it asks **who manages the chart of accounts and products**:
+       - **A, Traversence manages:** the site suggests and creates income accounts and QuickBooks products per revenue
+         stream.
+       - **B, QuickBooks is the master:** the site only reads and matches, never creates.
+     - It chooses the deposit and refund bank account, and checks sales tax.
+     - The choices live in the site's settings, not `.env`, so `QB_INCOME_ACCOUNT_ID` and `QB_REFUND_ACCOUNT_ID` are
+       retired.
+     - **The catalog owns the link** (Jason: "this should be addressed by when a product is created"). Creating or
+       editing a product in the catalog checks QuickBooks and assigns it there: in A it creates the QuickBooks product
+       on save, and in B it's picked from QuickBooks' list. A product with no QuickBooks match can't go on sale. The
+       sale-time hold stays only as a safety net.
+     - Traversence itself starts in B.
+  2. **The cleanup session:**
+     - Pulse #31's 62 unused names;
+     - Pulse #22's Site health items;
+     - Data cleanup's "From visitors" label;
+     - `/admin/crawler.php`'s outdated "Cron Schedule */5" instruction (Start the system sets the cron now).
+  3. **Release B's small leftovers:** P3-5 (the owner's "Check these") and P3-2's Facebook-link case.
+- **Jason's own, any time:** the OSM forum statement (`research/osm-overpass-2026-11-13.md` §2), and the SES dashboard
+  check for bounces lost while the bot check blocked them.
