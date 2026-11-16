@@ -63,16 +63,21 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
     free tier.
   - Still to go: AWS, Cloudflare R2, Stripe, Square, the others, and Supabase last.
 - **Queued after the usage reset (~Nov 17 23:00 UTC):**
-  1. **decisions/0166, provider-neutral payments and bookkeeping** (accepted 2026-11-16). Build it in its four steps,
-     each a release for Jason's review:
-     1. our ledger plus a QuickBooks connector matching today's path, run side by side and compared;
-     2. the QuickBooks setup step (A or B, the starter chart, the catalog's type, income, cost and link, the plan
-        detected);
-     3. the payments layer (routing, the fallback, refunds through the original provider, clearing accounts);
-     4. further connectors only when wanted.
+  1. **decisions/0169, the Shop's App store and one lifecycle for every app** (accepted 2026-11-16). First: the Shop
+     with departments, the App store, the app lifecycle (choose, install, configure, use, update, remove), the Apps page
+     and the staff view. Today's Stripe and Square connections keep working until their app is built.
+  2. **Then the apps, one release each, in Jason's order** (each built on 0169's lifecycle):
+     1. **QuickBooks Bookkeeper:** decisions/0166 steps 1–2 (our ledger and a QuickBooks connector matching today's
+        path, run side by side and compared; then the setup step: A or B, the starter chart, the catalog's type,
+        income, cost and link, the plan detected);
+     2. **QuickBooks Payments:** 0166 step 3's payments layer (routing, the fallback, refunds through the original
+        provider, clearing accounts), QuickBooks Payments its first processor;
+     3. **Stripe Payments:** 0135's connection moved in, with "Which should I use?" and "Don't have an account?";
+     4. **Facebook Personal:** decisions/0168 Phase 1;
+     5. **Facebook Business:** 0168 Phase 3 on (waits for Jason's Business Verification and Meta's App Review).
 
-     All of Jason's 2026-11-16 directions are in 0166.
-  2. **The cleanup session:**
+     Others (Square, Tickets, Appointments, Gallery storage, calendars, 1Password…) to be discussed with Jason next.
+  3. **The cleanup session** (its own area; can run beside the above):
      - Pulse #31's 62 unused names;
      - Pulse #22's Site health items;
      - Data cleanup's "From visitors" label;
@@ -80,16 +85,14 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
      - Outside services' Stripe card checks `STRIPE_LIVE_SECRET_KEY`/`STRIPE_LIVE_CLIENT_ID` for live, but `MarketPay` reads
        live keys as `STRIPE_SECRET_KEY`… (no `LIVE_`), so a correct live setup shows "keys missing" (found 2026-11-16).
        Make the card read what `MarketPay::missingAll()` reads; same check for Square's card.
-  3. **Release B's small leftovers:** P3-5 (the owner's "Check these") and P3-2's Facebook-link case.
-  4. **decisions/0167, communications in one place** (accepted 2026-11-16). Build it in its four steps, each a release
+  4. **Release B's small leftovers:** P3-5 (the owner's "Check these") and P3-2's Facebook-link case.
+  5. **decisions/0167, communications in one place** (accepted 2026-11-16). Build it in its four steps, each a release
      for Jason's review:
      1. System Configuration → Communications: senders, mailboxes from cPanel on every domain, Check and Send me a
         test, domain health read-only; Bluehost sends logged;
      2. manage: make, suspend and reset mailboxes, passwords written to `.env` by the site, the routing table, DNS fixes;
      3. Pulse: incoming mail in the Stream, bounces and complaints as items, the Sent view, failures as cases;
      4. compose in Pulse, with threading; one inbox per person across the mailboxes they oversee, and a From choice (§2a).
-  5. **decisions/0168, Facebook and Instagram** (outline accepted 2026-11-16). Phase 1 (members' sign-in, linking,
-     Meta's deletion and deauthorize callbacks, "Also share to Facebook", Open Graph checks) can go first; Phase 3 on
-     waits for Jason's Business Verification (Phase 2) and Meta's App Review.
+  (decisions/0168's phases are apps 4 and 5 in item 2; its later phases follow those.)
 - **Jason's own, any time:** Meta Business portfolio and Business Verification (0168 Phase 2); the OSM forum statement (`research/osm-overpass-2026-11-13.md` §2), and the SES dashboard
   check for bounces lost while the bot check blocked them.

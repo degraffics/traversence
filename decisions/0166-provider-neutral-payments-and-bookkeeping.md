@@ -1,5 +1,7 @@
 # 0166: Provider-neutral payments and bookkeeping: our own ledger, connectors, and QuickBooks set up once
 
+**Note (2026-11-16, decisions/0169):** built as apps in the Shop's App store, after 0169's first release (see its build order).
+
 Status: accepted (Jason, 2026-11-16: "set decision, and let's put this in a queue for future work"). Not built; queued
 in `handoffs/session-manager.md` for after the usage reset.
 Builds on: 0095 (GO Codes, QuickBooks checkout), 0096 (the QuickBooks connector), 0128 (QuickBooks invoices and
