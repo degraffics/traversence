@@ -349,6 +349,12 @@ finds what's missing as it goes. The pre-flight proves each one **works**, all o
   without sending, a known test value (Turnstile's test token, a free endpoint); never an email to a real person, a
   charge, or a write to someone's data. Each shows ready, not ready (with the exact reason the service gave), or not
   needed yet; when it last ran; and its fix (a button where the site can fix it, the URL where Jason must).
+- **Its own process, apart from Start and Pause** (Jason: "it is a separate process and can be run independant from
+  system start/stop in case we need to diagnos things while running"): the pre-flight runs any time, whether the
+  system is stopped, starting or running, and never starts, pauses or changes anything itself. While the engine runs
+  it's the diagnosis page: its tests stay read-only and free, take their small share of a service's pace (so they
+  never crowd a running task), and its dry runs write nothing. Start the system *reads* its latest result; it doesn't
+  run it.
 - **Required or optional:** each item says whether the engine's launch needs it. Start the system shows the
   pre-flight's result first; with a required item red it says what that holds (as §10's red lines do) and offers to
   start the rest or wait.
