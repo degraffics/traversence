@@ -6,7 +6,7 @@
    "expect": "Dana Point, CA and its guide (it has one), not Point, TX",
    "url": "/api/search.php?q=Dana%20point",
    "status": 200,
-   "ms": 1353,
+   "ms": 351,
    "place": "Dana Point, CA",
    "chips": [
     "place: Dana Point, CA"
@@ -90,7 +90,7 @@
    "expect": "Dana Point, CA",
    "url": "/api/search.php?q=dana%20point%20california",
    "status": 200,
-   "ms": 93,
+   "ms": 100,
    "place": "Dana Point, CA",
    "chips": [
     "place: Dana Point, CA"
@@ -132,7 +132,7 @@
    "expect": "places to eat in Dana Point",
    "url": "/api/search.php?q=restaurants%20in%20Dana%20Point%2C%20CA",
    "status": 200,
-   "ms": 136,
+   "ms": 145,
    "place": "Dana Point, CA",
    "chips": [
     "place: Dana Point, CA",
@@ -141,13 +141,13 @@
    "text": "",
    "guide": "",
    "ask": "",
-   "total": 6,
+   "total": 9,
    "kinds": [
     {
      "kind": "listing",
      "label": "Listing",
      "plural": "Listings",
-     "count": 6
+     "count": 9
     }
    ],
    "note": "",
@@ -156,10 +156,10 @@
    "first": [
     "Baskin-Robbins (listing · Restaurants · Ladera Ranch, CA)",
     "Better Buzz Coffee (listing · Restaurants · Dana Point, CA)",
+    "Carlos Mexican Restaurant (listing · Restaurants · Dana Point, CA)",
     "Chick-fil-A (listing · Restaurants · Laguna Niguel, CA)",
     "Domino's (listing · Restaurants · Laguna Niguel, CA)",
-    "Sourdough & Co (listing · Restaurants · Ladera Ranch, CA)",
-    "Wendy's (listing · Restaurants · Laguna Niguel, CA)"
+    "Shwack Beach Grill (listing · Restaurants · Dana Point, CA)"
    ],
    "groups": [
     "Places 1",
@@ -167,7 +167,7 @@
    ],
    "funnels": [
     "Let's Explore 1 → /hub/?cluster=cluster-auto-laguna-niguel",
-    "Get Local 6 → /directory/?cluster=cluster-auto-laguna-niguel&q=restaurants"
+    "Get Local 9 → /directory/?cluster=cluster-auto-laguna-niguel&q=restaurants"
    ],
    "intent": "",
    "near": "",
@@ -188,13 +188,13 @@
    "text": "",
    "guide": "",
    "ask": "What would you like to know about Dana Point, CA?",
-   "total": 7,
+   "total": 10,
    "kinds": [
     {
      "kind": "listing",
      "label": "Listing",
      "plural": "Listings",
-     "count": 7
+     "count": 10
     }
    ],
    "note": "",
@@ -203,10 +203,10 @@
    "first": [
     "Baskin-Robbins (listing · Restaurants · Ladera Ranch, CA)",
     "Better Buzz Coffee (listing · Restaurants · Dana Point, CA)",
+    "Carlos Mexican Restaurant (listing · Restaurants · Dana Point, CA)",
     "Chick-fil-A (listing · Restaurants · Laguna Niguel, CA)",
     "Domino's (listing · Restaurants · Laguna Niguel, CA)",
-    "Pizza Hut (listing · Pizza · Ladera Ranch, CA)",
-    "Sourdough & Co (listing · Restaurants · Ladera Ranch, CA)"
+    "Pizza Hut (listing · Pizza · Ladera Ranch, CA)"
    ],
    "groups": [
     "Places 1",
@@ -214,7 +214,7 @@
    ],
    "funnels": [
     "Let's Explore 1 → /hub/?cluster=cluster-auto-laguna-niguel",
-    "Get Local 7 → /directory/"
+    "Get Local 10 → /directory/"
    ],
    "intent": "",
    "near": "",
@@ -226,7 +226,7 @@
    "expect": "Phoenix, AZ: its guide, listings, places",
    "url": "/api/search.php?q=Phoenix%2C%20az",
    "status": 200,
-   "ms": 96,
+   "ms": 102,
    "place": "Phoenix, AZ",
    "chips": [
     "place: Phoenix, AZ"
@@ -270,7 +270,7 @@
    "expect": "Phoenix, AZ (the pilot state first)",
    "url": "/api/search.php?q=Phoenix",
    "status": 200,
-   "ms": 97,
+   "ms": 114,
    "place": "Phoenix, AZ",
    "chips": [
     "place: Phoenix, AZ"
@@ -315,7 +315,7 @@
    "expect": "places to eat in Phoenix",
    "url": "/api/search.php?q=restaurants&city=Phoenix&state=AZ&reach=25",
    "status": 200,
-   "ms": 94,
+   "ms": 99,
    "place": "Phoenix, AZ",
    "chips": [
     "place: Phoenix, AZ",
@@ -324,13 +324,13 @@
    "text": "",
    "guide": "Phoenix, AZ [new]: We don't have a guide to Phoenix, AZ yet, and new guides are paused for now. Ask for one and we'll build it when they're back on.",
    "ask": "",
-   "total": 17,
+   "total": 18,
    "kinds": [
     {
      "kind": "listing",
      "label": "Listing",
      "plural": "Listings",
-     "count": 17
+     "count": 18
     }
    ],
    "note": "",
@@ -348,7 +348,7 @@
     "Listings 5"
    ],
    "funnels": [
-    "Get Local 17 → /directory/?lat=33.4484&lon=-112.074&radius=25&near=Phoenix%2C+AZ&q=restaurants"
+    "Get Local 18 → /directory/?lat=33.4484&lon=-112.074&radius=25&near=Phoenix%2C+AZ&q=restaurants"
    ],
    "intent": "",
    "near": "",
@@ -360,7 +360,7 @@
    "expect": "pizza places in Phoenix",
    "url": "/api/search.php?q=pizza%20in%20phoenix",
    "status": 200,
-   "ms": 124,
+   "ms": 137,
    "place": "Phoenix, AZ",
    "chips": [
     "place: Phoenix, AZ",
@@ -404,7 +404,7 @@
    "expect": "coffee near Glendale, AZ 85302",
    "url": "/api/search.php?q=coffee&zip=85302&reach=10",
    "status": 200,
-   "ms": 127,
+   "ms": 130,
    "place": "Glendale, AZ",
    "chips": [
     "place: Glendale, AZ"
@@ -443,7 +443,7 @@
    "expect": "trails and hikes within 2 mi of Phoenix, then 5",
    "url": "/api/search.php?q=hiking%20near%20me&city=Phoenix&state=AZ&reach=2",
    "status": 200,
-   "ms": 328,
+   "ms": 329,
    "place": "Phoenix, AZ",
    "chips": [
     "do: Hiking",
@@ -486,7 +486,7 @@
    "expect": "trails and hikes around Phoenix",
    "url": "/api/search.php?q=hiking&city=Phoenix&state=AZ&reach=25",
    "status": 200,
-   "ms": 161,
+   "ms": 168,
    "place": "Phoenix, AZ",
    "chips": [
     "do: Hiking",
@@ -531,7 +531,7 @@
    "expect": "coffee shops in Phoenix (OpenStreetMap at once, ours once crawled)",
    "url": "/api/search.php?q=coffee%20near%20me&city=Phoenix&state=AZ&reach=10",
    "status": 200,
-   "ms": 173,
+   "ms": 184,
    "place": "Phoenix, AZ",
    "chips": [
     "place: Phoenix, AZ"
@@ -586,7 +586,7 @@
    "expect": "things to do around 85302",
    "url": "/api/search.php?q=Things%20to%20do%20near%20me&zip=85302&reach=25",
    "status": 200,
-   "ms": 188,
+   "ms": 181,
    "place": "Glendale, AZ",
    "chips": [
     "why: Things to do",
@@ -613,7 +613,7 @@
    "expect": "Glendale, AZ: its guide (built on demand) and listings",
    "url": "/api/search.php?q=Glendale%2C%20AZ",
    "status": 200,
-   "ms": 107,
+   "ms": 96,
    "place": "Glendale, AZ",
    "chips": [
     "place: Glendale, AZ"
@@ -657,7 +657,7 @@
    "expect": "places to stay in Sedona",
    "url": "/api/search.php?q=hotels%20in%20sedona",
    "status": 200,
-   "ms": 282,
+   "ms": 255,
    "place": "Sedona, AZ",
    "chips": [
     "place: Sedona, AZ"
@@ -699,7 +699,7 @@
    "expect": "Show Low, AZ (a pilot town)",
    "url": "/api/search.php?q=show%20low",
    "status": 200,
-   "ms": 107,
+   "ms": 109,
    "place": "Show Low, AZ",
    "chips": [
     "place: Show Low, AZ"
@@ -740,7 +740,7 @@
    "expect": "Greer, AZ (a pilot town)",
    "url": "/api/search.php?q=greer%20arizona",
    "status": 200,
-   "ms": 87,
+   "ms": 91,
    "place": "Greer, AZ",
    "chips": [
     "place: Greer, AZ"
@@ -784,7 +784,7 @@
    "expect": "Four Corners Monument, not Four Corners, WY",
    "url": "/api/search.php?q=Four%20Corners",
    "status": 200,
-   "ms": 131,
+   "ms": 135,
    "place": "Four Corners, WY",
    "chips": [
     "place: Four Corners, WY"
@@ -812,7 +812,7 @@
    "expect": "Grand Canyon National Park",
    "url": "/api/search.php?q=grand%20canyon",
    "status": 200,
-   "ms": 228,
+   "ms": 234,
    "place": "",
    "chips": [],
    "text": "grand canyon",
@@ -861,7 +861,7 @@
    "expect": "Four Corners Monument (a landmark added by hand)",
    "url": "/api/search.php?q=four%20corners%20monument",
    "status": 200,
-   "ms": 300,
+   "ms": 274,
    "place": "",
    "chips": [],
    "text": "four corners monument",
@@ -896,7 +896,7 @@
    "expect": "Laguna Art Museum (found for the Laguna Beach guide)",
    "url": "/api/search.php?q=laguna%20art%20museum",
    "status": 200,
-   "ms": 243,
+   "ms": 244,
    "place": "",
    "chips": [],
    "text": "laguna art museum",
@@ -940,7 +940,7 @@
    "expect": "plumbers in Show Low",
    "url": "/api/search.php?q=plumber%20in%20show%20low",
    "status": 200,
-   "ms": 170,
+   "ms": 175,
    "place": "Show Low, AZ",
    "chips": [
     "place: Show Low, AZ",
@@ -1114,14 +1114,14 @@
  "directory": {
   "ok": false,
   "place": "St. Johns, AZ",
-  "all": 3886,
+  "all": 4018,
   "name": "1st Assembly Of God",
   "api": 1,
   "api_has": true,
-  "before": "3,886 businesses near St. Johns · showing 1–10",
+  "before": "4,018 businesses near St. Johns · showing 1–10",
   "title": "“1st Assembly Of God” near St. Johns",
-  "after": "3,886 businesses near St. Johns · showing 1–10",
+  "after": "4,018 businesses near St. Johns · showing 1–10",
   "names": [],
-  "error": "typing \"1st Assembly Of God\" didn't narrow the list: \"3,886 businesses near St. Johns · showing 1–10\" became \"3,886 businesses near St. Johns · showing 1–10\""
+  "error": "typing \"1st Assembly Of God\" didn't narrow the list: \"4,018 businesses near St. Johns · showing 1–10\" became \"4,018 businesses near St. Johns · showing 1–10\""
  }
 }
