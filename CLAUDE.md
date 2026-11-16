@@ -199,6 +199,7 @@ Listings, outdoor places, experiences, places, journeys and any new content kind
 When a reply sends Jason somewhere to do something (an admin page, a console, a settings screen, a form), give its full
 URL, e.g. `https://traversence.com/admin/config/settings`, with an anchor where the page has one, never only a path of
 menus. Where the address is his own (a cPanel host, an account id), give the sign-in URL and the clicks from there.
+This includes the comments in `.env` blocks and setup steps: every "get it from" line carries its URL.
 
 ## Pulse (Jason, 2026-11-01): every build
 
