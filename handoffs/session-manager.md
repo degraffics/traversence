@@ -70,7 +70,8 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
     match the GitHub secret); Hugging Face on Railway only; Supabase (setup SQL from its card still to run).
 - **Queued after the usage reset (~Nov 17 23:00 UTC):**
   0. **The pre-flight check** (decisions/0163 §10's note of 2026-11-16; Jason asked for it before launching the
-     engine): System Configuration → Pre-flight, a real, free, harmless test of every service and setting, ready or
+     engine): System Configuration → Pre-flight, a real, free, harmless test of every service and setting, and every
+     phase, workflow and task (services, scheduler, settings, caps, gates, a dry run where there's a preview), ready or
      not with the service's reason and the fix, required or optional for launch; Start the system shows it first;
      nightly and after a `.env` change, red items to Pulse; each Outside services card's Test is its item.
   1. **decisions/0169, the Shop's App store and one lifecycle for every app** (accepted 2026-11-16). First: the Shop

@@ -339,6 +339,12 @@ finds what's missing as it goes. The pre-flight proves each one **works**, all o
   down, Census, OpenRouteService); email (Bluehost system and orders mailboxes, SES keys, identities and production
   access); storage (R2 bucket and its CORS rule); money (QuickBooks connected, Stripe and Square sandbox); sign-in
   (Turnstile's secret, Google, Facebook, Microsoft, Apple); GitHub's tokens and their expiry; cPanel's API.
+- **The phases and workflows too** (Jason: "this also includes the phases and workflows too"): below the services,
+  0164's phases (1–6) and each workflow (W1–W14) with its tasks, in the order Start the system runs them. Each shows
+  ready only when everything under it is: the services it uses (above), its tasks registered with the scheduler, its
+  settings and thresholds set, its cap and budget recorded, its gate (§10) able to pass, and a **dry run** of one small
+  step where the task has a preview mode (what it would find or change, nothing written). A phase is ready when its
+  workflows are. The same rule as the red lines: a not-ready workflow holds only itself and what's under it.
 - **Each item is a real test, not a key check,** chosen to cost nothing and touch no one: a read-only call, a sign-in
   without sending, a known test value (Turnstile's test token, a free endpoint); never an email to a real person, a
   charge, or a write to someone's data. Each shows ready, not ready (with the exact reason the service gave), or not
