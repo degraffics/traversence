@@ -91,6 +91,9 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
      - Outside services' Stripe card checks `STRIPE_LIVE_SECRET_KEY`/`STRIPE_LIVE_CLIENT_ID` for live, but `MarketPay` reads
        live keys as `STRIPE_SECRET_KEY`… (no `LIVE_`), so a correct live setup shows "keys missing" (found 2026-11-16).
        Make the card read what `MarketPay::missingAll()` reads; same check for Square's card.
+     - `Vectors::setupSql()` (Supabase card) leaves `tv_vectors` without row level security and `tv_match` callable by
+       Supabase's public roles. Add `enable row level security` and revoke `tv_match` from anon/authenticated/public with
+       a grant to service_role (Jason ran these by hand on 2026-11-16).
   4. **Release B's small leftovers:** P3-5 (the owner's "Check these") and P3-2's Facebook-link case.
   5. **decisions/0167, communications in one place** (accepted 2026-11-16). Build it in its four steps, each a release
      for Jason's review:
