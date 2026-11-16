@@ -78,5 +78,12 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
      - Data cleanup's "From visitors" label;
      - `/admin/crawler.php`'s outdated "Cron Schedule */5" instruction (Start the system sets the cron now).
   3. **Release B's small leftovers:** P3-5 (the owner's "Check these") and P3-2's Facebook-link case.
+  4. **decisions/0167, communications in one place** (accepted 2026-11-16). Build it in its four steps, each a release
+     for Jason's review:
+     1. System Configuration → Communications: senders, mailboxes from cPanel on every domain, Check and Send me a
+        test, domain health read-only; Bluehost sends logged;
+     2. manage: make, suspend and reset mailboxes, passwords written to `.env` by the site, the routing table, DNS fixes;
+     3. Pulse: incoming mail in the Stream, bounces and complaints as items, the Sent view, failures as cases;
+     4. compose in Pulse, with threading.
 - **Jason's own, any time:** the OSM forum statement (`research/osm-overpass-2026-11-13.md` §2), and the SES dashboard
   check for bounces lost while the bot check blocked them.
