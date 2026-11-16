@@ -75,6 +75,19 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
        editing a product in the catalog checks QuickBooks and assigns it there: in A it creates the QuickBooks product
        on save, and in B it's picked from QuickBooks' list. A product with no QuickBooks match can't go on sale. The
        sale-time hold stays only as a safety net.
+     - **Each catalog product carries both sides** (Jason, 2026-11-16): its **income** account, and its **expense** or cost
+       account (cost of goods sold for what we buy or make, such as printing, shipping or a supplier's fee), with the
+       cost amount. In QuickBooks that's the product's income and purchase accounts.
+     - **Payment processing is set up separately from products** (Jason: "payment processing vs bookkeeping"):
+       - which processor takes each kind of payment: QuickBooks Payments, Stripe or Square;
+       - where the money lands: a clearing account or "undeposited funds" until the payout, then the bank;
+       - processor fees, booked to a "Merchant fees" expense;
+       - payouts and refunds leaving the processor or the bank.
+
+       A refund touches both sides: it reverses the product's income and cost (bookkeeping), and money leaves through
+       its processor (processing).
+     - **Marketplace sales for businesses** (Stripe Connect, Square) are the business's money, not Traversence income.
+       Only the platform fee is our income.
      - Traversence itself starts in B.
   2. **The cleanup session:**
      - Pulse #31's 62 unused names;
