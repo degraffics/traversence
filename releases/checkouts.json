@@ -1,6 +1,7 @@
 {
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
- "claims": [
+ "claims": [],
+ "lapsed": [
   {
    "path": "app/lib/Store.php",
    "functions": [
@@ -13,8 +14,8 @@
    "since": "2026-11-15T21:58:38Z",
    "expires": "2026-11-16T01:58:41Z",
    "release": "",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-16T07:17:37Z"
   }
- ],
- "lapsed": []
+ ]
 }
