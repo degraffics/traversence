@@ -173,3 +173,4 @@ decision may be stale, or the file moved.
 | 0165 | [Staging is the live site in safe mode; Publish merges it into live](0165-staging-is-live-in-safe-mode-publish-merges-it.md) | accepted |  |  | 2 |  |
 | 0166 | [Provider-neutral payments and bookkeeping: our own ledger, connectors, and QuickBooks set up once](0166-provider-neutral-payments-and-bookkeeping.md) | accepted |  |  | 0 |  |
 | 0167 | [Communications in one place: set up in System Configuration, handled in Pulse](0167-communications-in-one-place.md) | accepted |  |  | 0 |  |
+| 0168 | [Facebook and Instagram for members and businesses: sign-in, sharing, connected Pages](0168-facebook-and-instagram-for-members-and-businesses.md) | accepted |  |  | 0 |  |

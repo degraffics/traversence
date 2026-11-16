@@ -85,5 +85,8 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
      2. manage: make, suspend and reset mailboxes, passwords written to `.env` by the site, the routing table, DNS fixes;
      3. Pulse: incoming mail in the Stream, bounces and complaints as items, the Sent view, failures as cases;
      4. compose in Pulse, with threading; one inbox per person across the mailboxes they oversee, and a From choice (§2a).
-- **Jason's own, any time:** the OSM forum statement (`research/osm-overpass-2026-11-13.md` §2), and the SES dashboard
+  5. **decisions/0168, Facebook and Instagram** (outline accepted 2026-11-16). Phase 1 (members' sign-in, linking,
+     Meta's deletion and deauthorize callbacks, "Also share to Facebook", Open Graph checks) can go first; Phase 3 on
+     waits for Jason's Business Verification (Phase 2) and Meta's App Review.
+- **Jason's own, any time:** Meta Business portfolio and Business Verification (0168 Phase 2); the OSM forum statement (`research/osm-overpass-2026-11-13.md` §2), and the SES dashboard
   check for bounces lost while the bot check blocked them.
