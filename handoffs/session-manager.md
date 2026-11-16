@@ -87,8 +87,11 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
      `CrawlerIngest::resolveMicroClusterId()` files any ZIP outside an existing area under `DEFAULT_GEO_HUB_SLUG`
      (ancient-borderlands), wherever it is (callers: `api/ingest.php`, `IntakeStager`, `IntakeClusters`,
      `AddBusiness`). Fix: an existing area first; else the hub whose region holds it, or the nearest in reach; else
-     "no hub yet", held for 0164's hub opening and counted as demand. `DEFAULT_GEO_HUB_SLUG` then means only where the
-     site opens. Data cleanup proposes moving areas already seeded outside Ancient Borderlands (preview, Undo).
+     "no hub yet", held for 0164's hub opening and counted as demand. **No default hub** (Jason: "I dont want the
+     ancient-borderlands as the default. It is the pilot."): remove the hard-coded `'ancient-borderlands'` fallbacks
+     (`api/ingest.php`, `IntakeStager::defaultGeoHubId`, `IntakeClusters`) and retire `DEFAULT_GEO_HUB_SLUG` (Settings'
+     "Default place" row goes; nothing else reads it). Intake approvals never refuse for a missing hub: "no hub yet" is
+     a valid answer. Data cleanup proposes moving areas already seeded outside Ancient Borderlands (preview, Undo).
   3. **The cleanup session** (its own area; can run beside the above):
      - Pulse #31's 62 unused names;
      - Pulse #22's Site health items;
