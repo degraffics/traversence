@@ -352,6 +352,13 @@ finds what's missing as it goes. The pre-flight proves each one **works**, all o
 - **Required or optional:** each item says whether the engine's launch needs it. Start the system shows the
   pre-flight's result first; with a required item red it says what that holds (as §10's red lines do) and offers to
   start the rest or wait.
+- **It looks like a queue log** (Jason: "one line per check with a green check for confirmed and red x for failed.
+  Each will be toggled to see status and actions to fix."): one line per check, in the order they run, each with its
+  mark (the brand's icons, `tv_icon()`, never emoji: a green ✓ when confirmed, a red ✗ when it failed, a spinner while
+  it runs, a grey dash when not needed yet), its name and when it last ran. Lines fill in one after another as a run
+  goes, like a log. A line opens with a tap (▾) to show its status in full (what was tested, the service's own answer)
+  and its actions to fix (the button or the URL); a red line can be opened straight from a count at the top
+  ("41 ✓ · 3 ✗"). Groups (the site, services, phases, workflows) fold the same way, each with its own count.
 - **Run all, or one at a time,** with a spinner on each and the results kept. It runs again by itself each night and
   after a `.env` change; an item that turns red becomes a step in Pulse.
 - Calls go through `ServiceHealth::allowed()` and `StagingGate::hold()` (0165): on staging only what's safe there runs.

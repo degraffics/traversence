@@ -73,7 +73,8 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
      engine): System Configuration → Pre-flight, a real, free, harmless test of every service and setting, and every
      phase, workflow and task (services, scheduler, settings, caps, gates, a dry run where there's a preview), ready or
      not with the service's reason and the fix, required or optional for launch; Start the system shows it first;
-     nightly and after a `.env` change, red items to Pulse; each Outside services card's Test is its item.
+     nightly and after a `.env` change, red items to Pulse; each Outside services card's Test is its item. Laid out as a
+     queue log: one line per check, green ✓ / red ✗, each line opens to its status and its fix.
   1. **decisions/0169, the Shop's App store and one lifecycle for every app** (accepted 2026-11-16). First: the Shop
      with departments, the App store, the app lifecycle (choose, install, configure, use, update, remove), the Apps page
      and the staff view. Today's Stripe and Square connections keep working until their app is built.
