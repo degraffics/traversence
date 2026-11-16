@@ -171,3 +171,4 @@ decision may be stale, or the file moved.
 | 0163 | [Operations: one view of outside services, workflows and spend](0163-operations-one-view-of-services-workflows-and-spend.md) | accepted |  | 2 | 3 |  |
 | 0164 | [The Knowledge Engine: rule book, phases, workflows and sources](0164-the-knowledge-engine-rule-book-phases-workflows-and-sources.md) | accepted |  | 1 | 0 |  |
 | 0165 | [Staging is the live site in safe mode; Publish merges it into live](0165-staging-is-live-in-safe-mode-publish-merges-it.md) | accepted |  |  | 2 |  |
+| 0166 | [Provider-neutral payments and bookkeeping: our own ledger, connectors, and QuickBooks set up once](0166-provider-neutral-payments-and-bookkeeping.md) | accepted |  |  | 0 |  |
