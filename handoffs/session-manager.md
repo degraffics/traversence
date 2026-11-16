@@ -69,6 +69,10 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
     to consider a shared `LEGAL_EMAIL` and a business `LEGAL_PHONE`); Pixabay, OpenRouteService, `HEALTH_TOKEN` (must
     match the GitHub secret); Hugging Face on Railway only; Supabase (setup SQL from its card still to run).
 - **Queued after the usage reset (~Nov 17 23:00 UTC):**
+  0. **The pre-flight check** (decisions/0163 §10's note of 2026-11-16; Jason asked for it before launching the
+     engine): System Configuration → Pre-flight, a real, free, harmless test of every service and setting, ready or
+     not with the service's reason and the fix, required or optional for launch; Start the system shows it first;
+     nightly and after a `.env` change, red items to Pulse; each Outside services card's Test is its item.
   1. **decisions/0169, the Shop's App store and one lifecycle for every app** (accepted 2026-11-16). First: the Shop
      with departments, the App store, the app lifecycle (choose, install, configure, use, update, remove), the Apps page
      and the staff view. Today's Stripe and Square connections keep working until their app is built.
