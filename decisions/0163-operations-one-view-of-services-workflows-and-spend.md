@@ -328,6 +328,30 @@ stay as above. What changes:
   he fixes one, the next tick carries on. A workflow a person pauses meanwhile stays paused; pausing the master stops
   the start.
 
+**Note (2026-11-16): the pre-flight check, before Start the system.** Jason, after tracing every key: "what I also
+want is the pre-flight checklist and system check page that goes through each item and ensures it is connected and
+ready for use before we launch the updated engine." Today the cards say whether a key is *set*, and Start the system
+finds what's missing as it goes. The pre-flight proves each one **works**, all on one page, before the press:
+- **System Configuration → Pre-flight** (`/admin/config/preflight`), linked from Start the system and from Outside
+  services. One list, grouped: the site itself (the four databases, `.env` writable, the scheduler running, database
+  updates done, `HEALTH_TOKEN`, staging); the engine's services (Railway's API and both workers' shared keys matching,
+  Google Places, Gemini, Tavily, RIDB, Overture, Foursquare through Hugging Face, Geofabrik, Supabase's index locked
+  down, Census, OpenRouteService); email (Bluehost system and orders mailboxes, SES keys, identities and production
+  access); storage (R2 bucket and its CORS rule); money (QuickBooks connected, Stripe and Square sandbox); sign-in
+  (Turnstile's secret, Google, Facebook, Microsoft, Apple); GitHub's tokens and their expiry; cPanel's API.
+- **Each item is a real test, not a key check,** chosen to cost nothing and touch no one: a read-only call, a sign-in
+  without sending, a known test value (Turnstile's test token, a free endpoint); never an email to a real person, a
+  charge, or a write to someone's data. Each shows ready, not ready (with the exact reason the service gave), or not
+  needed yet; when it last ran; and its fix (a button where the site can fix it, the URL where Jason must).
+- **Required or optional:** each item says whether the engine's launch needs it. Start the system shows the
+  pre-flight's result first; with a required item red it says what that holds (as §10's red lines do) and offers to
+  start the rest or wait.
+- **Run all, or one at a time,** with a spinner on each and the results kept. It runs again by itself each night and
+  after a `.env` change; an item that turns red becomes a step in Pulse.
+- Calls go through `ServiceHealth::allowed()` and `StagingGate::hold()` (0165): on staging only what's safe there runs.
+- It takes in 0152's "a Test button per part is a later step": each card's Test is that item's test.
+- Queued in `handoffs/session-manager.md` **first**, before the App store, since the launch waits on it.
+
 ### 11. Gemini (Google AI Studio) as run (Jason's Decision 7, 2026-11-14; the rules on what may go to it: 0164 §0.8, R5)
 
 **Gemini follows Claude's and the paid APIs' standards** (Jason, 2026-11-14, 0164 §14 point 15): "we monitor it for usage
