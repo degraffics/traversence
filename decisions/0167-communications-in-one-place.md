@@ -84,8 +84,12 @@ routing and fixing DNS are owner-level. Disallowed actions are greyed out with t
 ### 4. Passwords are written by the site, never shown
 
 Jason agreed (2026-11-16) to change the earlier "by hand" rule:
-- When Communications makes or resets a mailbox, it makes a strong password, sets it through cPanel, and **writes it
-  straight into `.env` on the server** for that sender (`SMTP_PASSWORD`, `ORDERS_SMTP_PASSWORD`, …). Nobody sees it.
+- When Communications makes or resets a mailbox, the password is **typed by the person or made by the site**
+  (Jason, 2026-11-16: "user generated or system generated as an optional input"): the password box is optional, and left
+  empty the site makes a strong one. A typed one gets the site's new-password box (`js/tv-password.js`: Show/Hide, the
+  live checklist, a confirm box); cPanel's own strength rule is checked before anything changes.
+- The site sets it through cPanel and **writes it straight into `.env` on the server** for that sender
+  (`SMTP_PASSWORD`, `ORDERS_SMTP_PASSWORD`, …). A made one is never shown; a typed one is never shown back.
 - Then it runs **Check** at once, so a wrong write shows immediately.
 - The old value is kept in `.env` as a dated comment until the next Check passes, so a failed reset can be undone.
 - Every change is logged (who, when, which mailbox), never the password itself.
