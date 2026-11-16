@@ -1,15 +1,15 @@
 {
  "version": 1,
- "generated_at": "2026-11-15T19:17:27Z",
+ "generated_at": "2026-11-16T07:17:31Z",
  "run_url": "https://github.com/degraffics/traversence/actions/runs/43698494444",
  "site": "https://traversence.com",
  "counts": {
-  "open": 13,
+  "open": 12,
   "blocking": 0,
   "by_kind": {
    "path": 2,
    "page": 2,
-   "code": 4,
+   "code": 3,
    "cost": 5
   }
  },
@@ -33,7 +33,7 @@
    "verdict": "",
    "decided": false,
    "first_seen": "2026-11-14T19:17:24Z",
-   "last_seen": "2026-11-15T19:17:27Z"
+   "last_seen": "2026-11-16T07:17:31Z"
   },
   {
    "id": "f-8a89e784fe",
@@ -53,7 +53,7 @@
    "verdict": "",
    "decided": false,
    "first_seen": "2026-11-15T19:17:27Z",
-   "last_seen": "2026-11-15T19:17:27Z"
+   "last_seen": "2026-11-16T07:17:31Z"
   },
   {
    "id": "f-fa035ddd5a",
@@ -78,7 +78,7 @@
    "verdict": "fix, to check in the build",
    "decided": true,
    "first_seen": "2026-11-12T17:55:55Z",
-   "last_seen": "2026-11-15T19:17:27Z"
+   "last_seen": "2026-11-16T07:17:31Z"
   },
   {
    "id": "f-c9499ea13e",
@@ -102,7 +102,7 @@
    "verdict": "",
    "decided": false,
    "first_seen": "2026-11-13T17:29:44Z",
-   "last_seen": "2026-11-15T19:17:27Z"
+   "last_seen": "2026-11-16T07:17:31Z"
   },
   {
    "id": "f-be75f4f580",
@@ -122,7 +122,7 @@
    "verdict": "fix, and missing",
    "decided": true,
    "first_seen": "2026-11-12T17:55:55Z",
-   "last_seen": "2026-11-15T19:17:27Z"
+   "last_seen": "2026-11-16T07:17:31Z"
   },
   {
    "id": "f-fc2b825837",
@@ -142,7 +142,7 @@
    "verdict": "",
    "decided": false,
    "first_seen": "2026-11-12T17:55:55Z",
-   "last_seen": "2026-11-15T19:17:27Z"
+   "last_seen": "2026-11-16T07:17:31Z"
   },
   {
    "id": "f-3ff207d9d1",
@@ -164,7 +164,7 @@
    "verdict": "fix",
    "decided": true,
    "first_seen": "2026-11-13T15:09:52Z",
-   "last_seen": "2026-11-15T19:17:27Z"
+   "last_seen": "2026-11-16T07:17:31Z"
   },
   {
    "id": "f-67aa8e62f6",
@@ -186,7 +186,7 @@
    "verdict": "",
    "decided": false,
    "first_seen": "2026-11-14T10:29:30Z",
-   "last_seen": "2026-11-15T19:17:27Z"
+   "last_seen": "2026-11-16T07:17:31Z"
   },
   {
    "id": "f-8b971eeb05",
@@ -206,7 +206,7 @@
    "verdict": "",
    "decided": false,
    "first_seen": "2026-11-15T09:30:22Z",
-   "last_seen": "2026-11-15T19:17:27Z"
+   "last_seen": "2026-11-16T07:17:31Z"
   },
   {
    "id": "f-e6eb284ddf",
@@ -226,7 +226,7 @@
    "verdict": "",
    "decided": false,
    "first_seen": "2026-11-15T09:30:22Z",
-   "last_seen": "2026-11-15T19:17:27Z"
+   "last_seen": "2026-11-16T07:17:31Z"
   },
   {
    "id": "f-f91f4427ba",
@@ -246,7 +246,7 @@
    "verdict": "",
    "decided": false,
    "first_seen": "2026-11-15T09:30:22Z",
-   "last_seen": "2026-11-15T19:17:27Z"
+   "last_seen": "2026-11-16T07:17:31Z"
   },
   {
    "id": "f-44997c18c9",
@@ -266,27 +266,7 @@
    "verdict": "accept with reasons, or fix",
    "decided": true,
    "first_seen": "2026-11-15T19:17:27Z",
-   "last_seen": "2026-11-15T19:17:27Z"
-  },
-  {
-   "id": "f-b404f283e6",
-   "who": [],
-   "paths": [],
-   "page": "",
-   "shot_url": "",
-   "kind": "code",
-   "rule": "R12",
-   "title": "outside services the code calls with no card in Outside services: 1 place",
-   "detail": "In 1 file. For example: workers/crawler/crawler.py:3397 calls download.openstreetmap.fr, which is on no card in Outside services: add it to its company in OutsideServices::HOSTS (or a new card), or to site-audit/services-ignore.txt if it isn't a service",
-   "severity": "update",
-   "sig": "ab819b5626ac8234",
-   "blocks": 0,
-   "proposal": "",
-   "proposal_url": "",
-   "verdict": "",
-   "decided": false,
-   "first_seen": "2026-11-15T19:17:27Z",
-   "last_seen": "2026-11-15T19:17:27Z"
+   "last_seen": "2026-11-16T07:17:31Z"
   }
  ]
 }

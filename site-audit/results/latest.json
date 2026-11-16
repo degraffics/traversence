@@ -1,18 +1,12 @@
 {
- "run": "2026-11-15 19:17 UTC",
- "mirror": "4cadcfa",
+ "run": "2026-11-16 07:17 UTC",
+ "mirror": "f33ff8d",
  "findings": [
   {
    "rule": "R07",
    "file": "website/api/stg-csp.php",
    "line": 9,
    "msg": "accepts a POST without Response::requireCsrf() (or a signature check): say why, or add it"
-  },
-  {
-   "rule": "R12",
-   "file": "workers/crawler/crawler.py",
-   "line": 3397,
-   "msg": "calls download.openstreetmap.fr, which is on no card in Outside services: add it to its company in OutsideServices::HOSTS (or a new card), or to site-audit/services-ignore.txt if it isn't a service"
   },
   {
    "rule": "R13",
@@ -47,7 +41,7 @@
   {
    "rule": "R13",
    "file": "app/lib/MarketRules.php",
-   "line": 184,
+   "line": 185,
    "msg": "recall(): an outside call (curl_init) with no gate: ask StagingGate::hold($url, \u2026) first, or say why not with an @gate note"
   },
   {
@@ -65,13 +59,13 @@
   {
    "rule": "R13",
    "file": "app/lib/AiClient.php",
-   "line": 344,
+   "line": 375,
    "msg": "post(): an outside call (curl_init) with no gate: ask StagingGate::hold($url, \u2026) first, or say why not with an @gate note"
   },
   {
    "rule": "R13",
    "file": "app/lib/AiClient.php",
-   "line": 375,
+   "line": 408,
    "msg": "claudeRead(): an outside call (curl_init) with no gate: ask StagingGate::hold($url, \u2026) first, or say why not with an @gate note"
   },
   {
@@ -95,7 +89,7 @@
   {
    "rule": "R13",
    "file": "app/lib/StockLibrary.php",
-   "line": 300,
+   "line": 301,
    "msg": "copy(): an outside call (curl_init) with no gate: ask StagingGate::hold($url, \u2026) first, or say why not with an @gate note"
   },
   {
@@ -119,7 +113,7 @@
   {
    "rule": "R13",
    "file": "app/lib/Weather.php",
-   "line": 239,
+   "line": 240,
    "msg": "get(): an outside call (curl_init) with no gate: ask StagingGate::hold($url, \u2026) first, or say why not with an @gate note"
   },
   {
@@ -137,7 +131,7 @@
   {
    "rule": "R13",
    "file": "app/lib/ZipPopulation.php",
-   "line": 32,
+   "line": 33,
    "msg": "fetch(): an outside call (curl_init) with no gate: ask StagingGate::hold($url, \u2026) first, or say why not with an @gate note"
   },
   {
@@ -149,13 +143,13 @@
   {
    "rule": "R13",
    "file": "app/lib/Releases.php",
-   "line": 1085,
+   "line": 1087,
    "msg": "fetch(): an outside call (curl_init) with no gate: ask StagingGate::hold($url, \u2026) first, or say why not with an @gate note"
   },
   {
    "rule": "R13",
    "file": "app/lib/Releases.php",
-   "line": 1130,
+   "line": 1132,
    "msg": "runStagingMigrations(): an outside call (curl_init) with no gate: ask StagingGate::hold($url, \u2026) first, or say why not with an @gate note"
   },
   {
@@ -179,7 +173,7 @@
   {
    "rule": "R13",
    "file": "app/lib/Operations.php",
-   "line": 437,
+   "line": 473,
    "msg": "get(): an outside call (curl_init) with no gate: ask StagingGate::hold($url, \u2026) first, or say why not with an @gate note"
   },
   {
@@ -203,13 +197,13 @@
   {
    "rule": "R13",
    "file": "app/lib/Roads511.php",
-   "line": 144,
+   "line": 145,
    "msg": "wzdx(): an outside call (curl_init) with no gate: ask StagingGate::hold($url, \u2026) first, or say why not with an @gate note"
   },
   {
    "rule": "R13",
    "file": "app/lib/Roads511.php",
-   "line": 200,
+   "line": 203,
    "msg": "feed(): an outside call (curl_init) with no gate: ask StagingGate::hold($url, \u2026) first, or say why not with an @gate note"
   },
   {
