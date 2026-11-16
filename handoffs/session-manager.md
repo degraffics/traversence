@@ -63,32 +63,15 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
     free tier.
   - Still to go: AWS, Cloudflare R2, Stripe, Square, the others, and Supabase last.
 - **Queued after the usage reset (~Nov 17 23:00 UTC):**
-  1. **QuickBooks setup step**, which needs a decision note (Jason, 2026-11-16):
-     - On connecting, it asks **who manages the chart of accounts and products**:
-       - **A, Traversence manages:** the site suggests and creates income accounts and QuickBooks products per revenue
-         stream.
-       - **B, QuickBooks is the master:** the site only reads and matches, never creates.
-     - It chooses the deposit and refund bank account, and checks sales tax.
-     - The choices live in the site's settings, not `.env`, so `QB_INCOME_ACCOUNT_ID` and `QB_REFUND_ACCOUNT_ID` are
-       retired.
-     - **The catalog owns the link** (Jason: "this should be addressed by when a product is created"). Creating or
-       editing a product in the catalog checks QuickBooks and assigns it there: in A it creates the QuickBooks product
-       on save, and in B it's picked from QuickBooks' list. A product with no QuickBooks match can't go on sale. The
-       sale-time hold stays only as a safety net.
-     - **Each catalog product carries both sides** (Jason, 2026-11-16): its **income** account, and its **expense** or cost
-       account (cost of goods sold for what we buy or make, such as printing, shipping or a supplier's fee), with the
-       cost amount. In QuickBooks that's the product's income and purchase accounts.
-     - **Payment processing is set up separately from products** (Jason: "payment processing vs bookkeeping"):
-       - which processor takes each kind of payment: QuickBooks Payments, Stripe or Square;
-       - where the money lands: a clearing account or "undeposited funds" until the payout, then the bank;
-       - processor fees, booked to a "Merchant fees" expense;
-       - payouts and refunds leaving the processor or the bank.
+  1. **decisions/0166, provider-neutral payments and bookkeeping** (accepted 2026-11-16). Build it in its four steps,
+     each a release for Jason's review:
+     1. our ledger plus a QuickBooks connector matching today's path, run side by side and compared;
+     2. the QuickBooks setup step (A or B, the starter chart, the catalog's type, income, cost and link, the plan
+        detected);
+     3. the payments layer (routing, the fallback, refunds through the original provider, clearing accounts);
+     4. further connectors only when wanted.
 
-       A refund touches both sides: it reverses the product's income and cost (bookkeeping), and money leaves through
-       its processor (processing).
-     - **Marketplace sales for businesses** (Stripe Connect, Square) are the business's money, not Traversence income.
-       Only the platform fee is our income.
-     - Traversence itself starts in B.
+     All of Jason's 2026-11-16 directions are in 0166.
   2. **The cleanup session:**
      - Pulse #31's 62 unused names;
      - Pulse #22's Site health items;
