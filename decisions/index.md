@@ -1,6 +1,6 @@
 # Decision register
 
-Decision 0145 §1a. Generated on 2026-11-16 07:17 UTC from `decisions/` and the live mirror (`f33ff8d`). Don't edit by hand:
+Decision 0145 §1a. Generated on 2026-11-16 18:56 UTC from `decisions/` and the live mirror (`3c54bf3`). Don't edit by hand:
 edit the decision, and this follows. "Missing files" are files a decision names that the site no longer has: the
 decision may be stale, or the file moved.
 
@@ -160,7 +160,7 @@ decision may be stale, or the file moved.
 | 0152 | [Outside services, one card per company; Settings rebuilt in the new admin](0152-outside-services-by-company.md) | accepted |  | 5 | 1 |  |
 | 0153 | [Moments, Snaps and Keep (the personal feed)](0153-moments-snaps-and-keep.md) | accepted |  |  | 9 |  |
 | 0154 | [Free, Creator and Business: Who Pays for What, and How Upgrades Are Offered](0154-free-creator-and-business-balance.md) | accepted |  | 1 | 6 |  |
-| 0155 | [Add-ons (plug-in modules) and 1Password, resold and managed from our site](0155-add-ons-and-1password.md) | proposed |  | 2 | 0 |  |
+| 0155 | [Add-ons (plug-in modules) and 1Password, resold and managed from our site](0155-add-ons-and-1password.md) | proposed | 0169 | 3 | 0 |  |
 | 0156 | [The Vault: passwords only their owner can open](0156-the-vault.md) | accepted |  | 6 | 2 |  |
 | 0157 | [Our own index: reading pages and reading searches](0157-our-own-index-reading-pages-and-searches.md) | accepted |  | 1 | 1 |  |
 | 0158 | [One way to publish: our site's releases and businesses' storefronts](0158-one-way-to-publish.md) | accepted |  | 1 | 0 |  |
@@ -168,10 +168,10 @@ decision may be stale, or the file moved.
 | 0160 | [The crawler as one service, and each creation workflow start to finish](0160-the-crawler-as-a-service-and-the-creation-workflows.md) | accepted |  | 2 | 0 |  |
 | 0161 | [Check-out for site files: the page manager](0161-check-out-for-site-files-the-page-manager.md) | accepted |  |  | 5 |  |
 | 0162 | [Migrations at publish, copied first; leftovers after a rollback tracked and removed by release](0162-migrations-at-publish-copied-first-leftovers-tracked.md) | accepted |  |  | 0 |  |
-| 0163 | [Operations: one view of outside services, workflows and spend](0163-operations-one-view-of-services-workflows-and-spend.md) | accepted |  | 2 | 3 |  |
+| 0163 | [Operations: one view of outside services, workflows and spend](0163-operations-one-view-of-services-workflows-and-spend.md) | accepted |  | 3 | 3 |  |
 | 0164 | [The Knowledge Engine: rule book, phases, workflows and sources](0164-the-knowledge-engine-rule-book-phases-workflows-and-sources.md) | accepted |  | 1 | 0 |  |
 | 0165 | [Staging is the live site in safe mode; Publish merges it into live](0165-staging-is-live-in-safe-mode-publish-merges-it.md) | accepted |  |  | 2 |  |
-| 0166 | [Provider-neutral payments and bookkeeping: our own ledger, connectors, and QuickBooks set up once](0166-provider-neutral-payments-and-bookkeeping.md) | accepted |  |  | 0 |  |
-| 0167 | [Communications in one place: set up in System Configuration, handled in Pulse](0167-communications-in-one-place.md) | accepted |  |  | 0 |  |
-| 0168 | [Facebook and Instagram for members and businesses: sign-in, sharing, connected Pages](0168-facebook-and-instagram-for-members-and-businesses.md) | accepted |  |  | 0 |  |
-| 0169 | [The Shop's App store, and one lifecycle for every app](0169-the-shop-app-store-and-the-app-lifecycle.md) | accepted |  |  | 0 |  |
+| 0166 | [0166: Provider-neutral payments and bookkeeping: our own ledger, connectors, and QuickBooks set up once](0166-provider-neutral-payments-and-bookkeeping.md) | accepted |  | 1 | 0 |  |
+| 0167 | [0167: Communications in one place: set up in System Configuration, handled in Pulse](0167-communications-in-one-place.md) | accepted |  |  | 0 |  |
+| 0168 | [0168: Facebook and Instagram for members and businesses: sign-in, sharing, connected Pages](0168-facebook-and-instagram-for-members-and-businesses.md) | accepted |  | 1 | 0 |  |
+| 0169 | [0169: The Shop's App store, and one lifecycle for every app](0169-the-shop-app-store-and-the-app-lifecycle.md) | accepted |  |  | 0 |  |
