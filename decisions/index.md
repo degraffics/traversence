@@ -174,3 +174,4 @@ decision may be stale, or the file moved.
 | 0166 | [Provider-neutral payments and bookkeeping: our own ledger, connectors, and QuickBooks set up once](0166-provider-neutral-payments-and-bookkeeping.md) | accepted |  |  | 0 |  |
 | 0167 | [Communications in one place: set up in System Configuration, handled in Pulse](0167-communications-in-one-place.md) | accepted |  |  | 0 |  |
 | 0168 | [Facebook and Instagram for members and businesses: sign-in, sharing, connected Pages](0168-facebook-and-instagram-for-members-and-businesses.md) | accepted |  |  | 0 |  |
+| 0169 | [The Shop's App store, and one lifecycle for every app](0169-the-shop-app-store-and-the-app-lifecycle.md) | accepted |  |  | 0 |  |

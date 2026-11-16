@@ -1,5 +1,7 @@
 # 0168: Facebook and Instagram for members and businesses: sign-in, sharing, connected Pages
 
+**Note (2026-11-16, decisions/0169):** built as apps in the Shop's App store, after 0169's first release (see its build order).
+
 Status: accepted as the outline (Jason, 2026-11-16: "lets write this up and queue it for future work"). Not built;
 queued in `handoffs/session-manager.md`. Each phase is its own release for Jason's review.
 Builds on: 0058 (public profiles), 0086 (web presence in Sales: "Facebook or social only"), 0090 (Sign in with Apple,

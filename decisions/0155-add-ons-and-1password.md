@@ -1,5 +1,7 @@
 # ADR 0155: Add-ons (plug-in modules) and 1Password, resold and managed from our site
 
+**Note (2026-11-16, decisions/0169):** §1's add-on pattern is replaced by 0169's app lifecycle in the Shop's App store; 1Password becomes an app there. The rest of this record stands.
+
 **Status:** Proposed (Jason, 2026-11-11, in conversation). Waits on 1Password's partner agreement (§6). Builds on
 `decisions/0035`/`0037` (a person is their own account; a business is a listing they manage), `0098` (the order system
 and products), `0108` (plans), `0152` (Outside services), `0154` §6 (the Shop and one cart) and CLAUDE.md "No income, no
