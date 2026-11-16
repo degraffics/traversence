@@ -7,7 +7,7 @@
     "switch": "audit_clock",
     "advance": "schedule",
     "state": "live",
-    "step": 1,
+    "step": 2,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
@@ -61,7 +61,7 @@
     "checks": {
         "ok": true,
         "where": "live",
-        "at": "2026-11-13T15:20:10+00:00",
+        "at": "2026-11-16T13:00:02+00:00",
         "items": [
             [
                 "PHP files parse",
@@ -116,6 +116,11 @@
             "at": "2026-11-13T15:20:10+00:00",
             "by": 2,
             "msg": "Published: 6 files; step 1, staff and test accounts."
+        },
+        {
+            "at": "2026-11-16T13:00:02+00:00",
+            "by": 0,
+            "msg": "On schedule: step 2, 25% of members (and staff and test accounts)."
         }
     ]
 }
