@@ -83,6 +83,12 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
      5. **Facebook Business:** 0168 Phase 3 on (waits for Jason's Business Verification and Meta's App Review).
 
      Others (Square, Tickets, Appointments, Gallery storage, calendars, 1Password…) to be discussed with Jason next.
+  3. **Hubs by location, before the crawler works beyond the pilot** (Jason, 2026-11-16, found in the `.env` trace):
+     `CrawlerIngest::resolveMicroClusterId()` files any ZIP outside an existing area under `DEFAULT_GEO_HUB_SLUG`
+     (ancient-borderlands), wherever it is (callers: `api/ingest.php`, `IntakeStager`, `IntakeClusters`,
+     `AddBusiness`). Fix: an existing area first; else the hub whose region holds it, or the nearest in reach; else
+     "no hub yet", held for 0164's hub opening and counted as demand. `DEFAULT_GEO_HUB_SLUG` then means only where the
+     site opens. Data cleanup proposes moving areas already seeded outside Ancient Borderlands (preview, Undo).
   3. **The cleanup session** (its own area; can run beside the above):
      - Pulse #31's 62 unused names;
      - Pulse #22's Site health items;
