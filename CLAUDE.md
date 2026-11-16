@@ -194,6 +194,12 @@ Listings, outdoor places, experiences, places, journeys and any new content kind
 - **Comments** at the end: `tv_engage_comments($pdo, $kind, $ref)` (public, 18+, reportable).
 - **Views:** `tv_count_item('<kind>:<id>')`. Maps opened as their own view pass `panel: true` to `TvMap.open()`.
 
+## A link for every place Jason acts (Jason, 2026-11-16): every reply
+
+When a reply sends Jason somewhere to do something (an admin page, a console, a settings screen, a form), give its full
+URL, e.g. `https://traversence.com/admin/config/settings`, with an anchor where the page has one, never only a path of
+menus. Where the address is his own (a cPanel host, an account id), give the sign-in URL and the clicks from there.
+
 ## Pulse (Jason, 2026-11-01): every build
 
 A step doable from the case is a button that does it (`['do', …]` / `['form', …]` → `Pulse::manage`), not a link. A step
