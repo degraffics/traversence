@@ -84,6 +84,6 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
         test, domain health read-only; Bluehost sends logged;
      2. manage: make, suspend and reset mailboxes, passwords written to `.env` by the site, the routing table, DNS fixes;
      3. Pulse: incoming mail in the Stream, bounces and complaints as items, the Sent view, failures as cases;
-     4. compose in Pulse, with threading.
+     4. compose in Pulse, with threading; one inbox per person across the mailboxes they oversee, and a From choice (§2a).
 - **Jason's own, any time:** the OSM forum statement (`research/osm-overpass-2026-11-13.md` §2), and the SES dashboard
   check for bounces lost while the bot check blocked them.

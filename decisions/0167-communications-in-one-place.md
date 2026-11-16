@@ -63,6 +63,19 @@ A new section in the manifests. Outside services' Bluehost and Amazon cards link
 - **Failures:** a send that fails (bad password, suspended mailbox, refused by the server) becomes a Pulse case with a
   button to fix it (Check again, Reset the password), linking to the sender's card in Communications.
 
+### 2a. One inbox for each person, across the mailboxes they oversee (Jason, 2026-11-16)
+
+Jason: "for people like me where I oversee multiple email accounts those will all be routed to my inbox and if I sent I
+can select the account to send from."
+- **Who oversees which mailbox** is set on each mailbox's card in Communications (one or more staff members per mailbox:
+  support@, orders@, donotreply@'s bounces, a staff member's own mailbox).
+- **My inbox** in Pulse shows the incoming mail of every mailbox the signed-in staff member oversees, together, each
+  message labelled with the mailbox it came to, with a filter by mailbox. A staff member's own mailbox is always theirs.
+- **Sending:** a **From** choice lists only the mailboxes that person oversees. A reply goes from the mailbox the message
+  came to unless they pick another.
+- Read and reply state is per mailbox, so two people overseeing support@ see what the other has handled.
+- Only mailboxes on our cPanel account are read. Outside addresses aren't connected.
+
 ### 3. Access
 
 Viewing Communications and Pulse mail follows `Access::can()`. Making, suspending or resetting a mailbox, changing
@@ -85,7 +98,7 @@ Jason agreed (2026-11-16) to change the earlier "by hand" rule:
 2. **Manage:** make, suspend and reset on any domain, passwords written to `.env` (§4), routing table, DNS fix buttons.
    Settings' and Orders and payments' email rows move here (their settings kept, each where it now belongs).
 3. **Pulse:** incoming mail in the Stream, bounces and complaints as items, the Sent view, failures as cases.
-4. **Compose** in Pulse, with threading.
+4. **Compose** in Pulse, with threading; each person's inbox across the mailboxes they oversee, and the From choice (§2a).
 
 ## Consequences
 
