@@ -172,7 +172,16 @@ storefront to one of the account's domains is the app's job, with `Domains` (the
   that many years, markup once a year, `domain_cart.years`; every call on `/core/v1` (paths and fields checked against the
   official SDK `@namecom/core-api` 1.36.4); registrations only; no `purchasePrice` on a standard create or renew; Name.com
   auto-renew off on create (we renew, card first); `X-Idempotency-Key` on create and renew. Storefront buy and renew too.
-- **Open with Jason:** the price policy (one steady yearly price vs Name.com's first-year deal), after he reviews real
-  prices; whether to ask Name.com about reseller pricing or compare wholesalers (OpenSRS, ResellerClub, Namecheap).
-- **Next build candidates:** contact verification status on the Domains tab (`GET /core/v1/contacts/unverified`; a
-  domain stops resolving if the registrant doesn't verify within 15 days); TLD requirements before checkout for ccTLDs.
+- **Terms per ending** (#77): each row offers only the terms Name.com sells for its ending (`GET
+  /core/v1/domaininfo/requirements/<tld>`, `allowedRegistrationYears`, kept a week in `market_settings`). Real prices
+  seen: extra years cost a fixed rate per ending, below renewal on .us ($10.99 vs $18.99) and .net, equal to renewal on
+  .store, .biz and .co; .co sells up to 5 years.
+- **Per-year cost and the registrant's confirmation** (#81): multi-year rows show the cost a year. Registration marks the
+  domain `verify_state = 'waiting'`; `verifyTick` (every domains_tick run, even with sales Off) reads `GET
+  /core/v1/contacts/unverified`, keeps `verify_by`/`verify_email`, emails the owner at 13, 7, 3, 1 days left, and marks it
+  verified once Name.com stops listing it. The tab shows Confirm the registrant and Send the confirmation again
+  (`:resend`); Pulse opens `domverify:<id>` as **Critical** at 3 days left (Jason: "HIGH PRIORITY").
+- **Open with Jason:** the price policy (one steady yearly price vs Name.com's first-year deal; whether to keep .store
+  and .biz); reseller pricing, which he'll compare and confirm himself.
+- **Next build candidates:** TLD requirements before checkout for ccTLDs (`requirements` in the same lookup); the
+  markup as a setting on the Name.com card; Name.com webhooks for verification instead of polling (post-MVP).
