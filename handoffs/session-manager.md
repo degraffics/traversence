@@ -99,7 +99,7 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
      (`api/ingest.php`, `IntakeStager::defaultGeoHubId`, `IntakeClusters`) and retire `DEFAULT_GEO_HUB_SLUG` (Settings'
      "Default place" row goes; nothing else reads it). Intake approvals never refuse for a missing hub: "no hub yet" is
      a valid answer. Data cleanup proposes moving areas already seeded outside Ancient Borderlands (preview, Undo).
-  3. **The cleanup session** (its own area; can run beside the above):
+  3. **The cleanup stage** (its own area; can run beside the above). **Fixes in the code:**
      - Pulse #31's 62 unused names;
      - Pulse #22's Site health items;
      - Data cleanup's "From visitors" label;
@@ -110,6 +110,23 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
      - `Vectors::setupSql()` (Supabase card) leaves `tv_vectors` without row level security and `tv_match` callable by
        Supabase's public roles. Add `enable row level security` and revoke `tv_match` from anon/authenticated/public with
        a grant to service_role (Jason ran these by hand on 2026-11-16).
+     **To purge or remove** (Jason, 2026-11-17: "put anything that needs to be purged or removed into queue under
+     cleanup stage"). Each is checked against the live site first and removed only with Jason's OK where marked ⚑:
+     - **Amazon S3:** empty the old bucket `traversence-media` (from 2026-11-18, once a week on R2 shows nothing missing;
+       0151 step 5) ⚑, then narrow the AWS key (`AWS_ACCESS_KEY_ID`) to SES sending only, then delete the `#OLD
+       S3_BUCKET=traversence-media` line from `.env`.
+     - **`.env` leftovers** (Jason removes them; nothing reads them): `MIGRATION_RUNNER_TOKEN` (its scripts are gone),
+       `AUTO_IMPORT_MIN_CONFIDENCE` (moved to Thresholds), Cloudflare's stray `token_value=` (the R2 page's token value;
+       not read; keep it in 1Password if wanted, don't revoke: it may be the R2 key's own), `DEFAULT_GEO_HUB_SLUG`
+       (with the hubs-by-location fix), and `QB_INCOME_ACCOUNT_ID`/`QB_REFUND_ACCOUNT_ID` once 0166's setup step is live.
+     - **Database leftovers:** the `_moved_npi_orgs` (38 MB) and `_moved_irs_orgs` (16 MB) tables in the health report:
+       confirm they're leftovers of a finished move (decisions/0110, 0162's leftover check in Pulse) and nothing reads
+       them, then drop them through a release's `"removes"` ⚑.
+     - **Settings:** the "Default place" row (goes with the hubs-by-location fix).
+     - **Claims:** the lapsed claim on `app/lib/Store.php` by the archived photos session: clear it with `checkout.py`.
+     - **Pulse:** the old Overpass/OSM cases from before the pause (resolve, keeping the overpass-api.de one), and the
+       62 unused names (above).
+     - **GitHub:** merged `claude/…` branches (Branches → trash), keeping `claude/session-manager-checks`.
   4. **Release B's small leftovers:** P3-5 (the owner's "Check these") and P3-2's Facebook-link case.
   5. **decisions/0167, communications in one place** (accepted 2026-11-16). Build it in its four steps, each a release
      for Jason's review:
