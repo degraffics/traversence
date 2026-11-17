@@ -119,7 +119,8 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
      the cron; indexing only; first in Start the system; Pause everything stops it; its own switch and budget line.
      With the reader's verdicts looped back into the index (promoted, normal, demoted, junk kept compact so it's never
      recaptured; patterns become skip rules), reading priority, a size guard, and pace on the site: writes to the site in
-     batches of 250 records (split by request size, keyed so a resend changes nothing, back-off on 409/503).
+     batches: 250 found URLs or 25 read pages, 100 KB at most, one batch per 10 s, self-adjusting (halve on 409/413/slow,
+     grow back to 250, cap 500), settings in Thresholds, keyed; the pre-flight sends one full-size test batch.
   3. **The cleanup stage** (its own area; can run beside the above). **Fixes in the code:**
      - Pulse #31's 62 unused names;
      - Pulse #22's Site health items;
