@@ -396,6 +396,20 @@
      "app/scripts/guide_finds_tick.php"
     ]
    }
+  },
+  {
+   "path": "app/lib/Mailer.php",
+   "functions": [
+    "smtp",
+    "viaSes"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
+   "why": "(c2) the source map's fallbacks: site email Bluehost SMTP then Amazon SES, weather link when hidden, events retried next day (0163)",
+   "since": "2026-11-17T17:18:06Z",
+   "expires": "2026-11-17T21:18:06Z",
+   "release": "refresh-archive",
+   "callers": {}
   }
  ],
  "lapsed": [
