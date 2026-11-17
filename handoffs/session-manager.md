@@ -232,6 +232,22 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
      3. Pulse: incoming mail in the Stream, bounces and complaints as items, the Sent view, failures as cases;
      4. compose in Pulse, with threading; one inbox per person across the mailboxes they oversee, and a From choice (§2a).
   (decisions/0168's phases are apps 4 and 5 in item 2; its later phases follow those.)
+  9. **Backups for the needs that have none** (Jason, 2026-11-17: "this needs to be a future build so pass it to the
+     session manager for adding to the work queue"). Recorded in decisions/0163's note "the source map, ours first, a
+     backup for every need", table "Planned backups" (in PR #840). Not needed for launch; until each is built the
+     pre-flight shows it as "no backup yet, planned". Jason's order: database backups and the read-only copy first.
+     1. Hosting (Bluehost): nightly database backups to R2 or Supabase; a nightly read-only copy of the public pages
+        (guides, listings, places) served from Cloudflare or the Fly edge when Bluehost stops answering (Supabase can't
+        run the PHP site).
+     2. The engine's host (Railway): Bluehost jobs keep the light tasks; the same crawler image on the traversence Fly
+        organization for the heavy ones.
+     3. The sync (GitHub Actions): Railway runs `sync.py` on its schedule; the result recorded in git once GitHub is back.
+     4. Our payments (QuickBooks): Stripe as a second processor, then wire or check; no card processing of our own (PCI).
+     5. Marketplace checkout: the business's other processor if both are connected, else pay at pickup or contact the
+        seller.
+     (The source map's own builds stay with the pre-flight session after PR #840: (a) the pre-flight judging by need,
+     our own data copies checked; (b) W1 reading `open_places` (the Geofabrik copy) before Overpass; (c) the other
+     workflows' fallbacks.)
 - **Jason, from the Domains build:** set **Own domains on storefronts** to **test** on the Name.com card
   (https://traversence.com/admin/config/services) to try domain sales; **withdraw release #70** (staged, never shipped:
   its migration wasn't add-only; #71 replaced it) on the site manager's Releases page.
