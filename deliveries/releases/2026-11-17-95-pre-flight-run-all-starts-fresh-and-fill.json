@@ -1,0 +1,44 @@
+{
+    "id": 95,
+    "title": "Pre-flight: Run all starts fresh and fills in like a log; licence lists inactive",
+    "why": "Jason, 2026-11-17: \"it needs to refresh the preflight, none of the items below show initial states\". Run all now sets every line back to queued (a grey dot) and the counts back to 0, then each line fills in with its ✓ or ✗ as its answer comes, the counts climbing with them. Above the buttons, \"Testing 34 of 87: OpenStreetMap\", or, while W0's test batch is awaited, how many lines are waiting and when they're asked again. At the end the counts and the run's times come from the server. Any filter is cleared at the start, so every line shows. Also (Jason, 2026-11-17: \"for now the preflight doesnt need to try and run it, list it as inactive until released\"): the Arizona licence lists (azliquor.gov, roc.az.gov, the counties', behind a Cloudflare challenge) aren't called; their line shows — \"Inactive: not released yet (licence lists, queue 3a)\", not needed for launch, never raised to Pulse. Queue 3a's own line replaces it when it ships.",
+    "proposals": "",
+    "zip": "preflight-refresh.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "website/js/admin-preflight.js": {
+            "sha": "69a90686cde5e81178f9f748e0e9f0f6a73f5fcc59a9896d731556a853ab99db",
+            "size": 9723,
+            "live_was": "0b1cad069301062cc3c889b4ce837feeb9a5413c45285fd8b456ce563ec6c67a"
+        },
+        "app/admin/preflight-console.php": {
+            "sha": "998d91a4aa832a0e73fd8cab6d52024dc0bc39d0cd21344ef28e7204da44e73c",
+            "size": 11167,
+            "live_was": "41013f9ad8dad3697d69237e76dd4ebbbae4ff3a1f75b6a9d438ba246ee43a51"
+        },
+        "app/lib/Preflight.php": {
+            "sha": "67123e379d23f97fd757f6c9ee9cc4a676e0823f60cdd463b1507e196429ff18",
+            "size": 94864,
+            "live_was": "7bdc596c47e91062c4a7d1c646d8e31f0139f684d274bd4bd54955a9fd4d7f7d"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-17T15:13:19+00:00",
+            "by": 0,
+            "msg": "Uploaded preflight-refresh.zip: 3 files."
+        }
+    ]
+}
