@@ -383,7 +383,7 @@
    "session": "releases-fold",
    "why": "Fold each release on the Releases page to one line; open the ones that need Jason (Jason, 2026-11-17)",
    "since": "2026-11-17T13:09:43Z",
-   "expires": "2026-11-17T17:15:53Z",
+   "expires": "2026-11-17T17:16:15Z",
    "release": "releases-fold.zip",
    "callers": {}
   },
@@ -405,7 +405,7 @@
    "session": "releases-fold",
    "why": "release releases-fold.zip",
    "since": "2026-11-17T13:11:21Z",
-   "expires": "2026-11-17T17:15:53Z",
+   "expires": "2026-11-17T17:16:15Z",
    "release": "releases-fold.zip",
    "callers": {}
   },
