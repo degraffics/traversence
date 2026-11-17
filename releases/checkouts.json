@@ -525,6 +525,17 @@
    "expires": "2026-11-17T21:24:18Z",
    "release": "large-fallbacks",
    "callers": {}
+  },
+  {
+   "path": "app/admin/job-line.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kHKsQbGaogTWfpFiw",
+   "why": "Scheduled tasks and their pages link both ways: Open <page> on each task, a Runs line on each page (Jason, 2026-11-17)",
+   "since": "2026-11-17T17:25:47Z",
+   "expires": "2026-11-17T21:25:47Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
