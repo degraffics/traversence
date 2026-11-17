@@ -167,7 +167,7 @@
    "session": "domain-verify",
    "why": "Domains: per-year cost on multi-year terms; a follow-up for the registrant's contact verification until it's resolved (Jason, 2026-11-17)",
    "since": "2026-11-17T13:15:09Z",
-   "expires": "2026-11-17T17:19:27Z",
+   "expires": "2026-11-17T17:23:03Z",
    "release": "domain-verify.zip",
    "callers": {
     "tick": [
@@ -199,7 +199,7 @@
    "session": "domain-verify",
    "why": "Domains: per-year cost on multi-year terms; a follow-up for the registrant's contact verification until it's resolved (Jason, 2026-11-17)",
    "since": "2026-11-17T13:15:09Z",
-   "expires": "2026-11-17T17:19:27Z",
+   "expires": "2026-11-17T17:23:03Z",
    "release": "domain-verify.zip",
    "callers": {
     "items": [
@@ -224,7 +224,7 @@
    "session": "domain-verify",
    "why": "Domains: per-year cost on multi-year terms; a follow-up for the registrant's contact verification until it's resolved (Jason, 2026-11-17)",
    "since": "2026-11-17T13:15:09Z",
-   "expires": "2026-11-17T17:19:27Z",
+   "expires": "2026-11-17T17:23:03Z",
    "release": "domain-verify.zip",
    "callers": {}
   },
@@ -235,7 +235,7 @@
    "session": "domain-verify",
    "why": "Domains: per-year cost on multi-year terms; a follow-up for the registrant's contact verification until it's resolved (Jason, 2026-11-17)",
    "since": "2026-11-17T13:15:09Z",
-   "expires": "2026-11-17T17:19:27Z",
+   "expires": "2026-11-17T17:23:03Z",
    "release": "domain-verify.zip",
    "callers": {}
   },
@@ -261,7 +261,7 @@
    "session": "domain-verify",
    "why": "Domains: per-year cost on multi-year terms; a follow-up for the registrant's contact verification until it's resolved (Jason, 2026-11-17)",
    "since": "2026-11-17T13:15:21Z",
-   "expires": "2026-11-17T17:19:27Z",
+   "expires": "2026-11-17T17:23:03Z",
    "release": "domain-verify.zip",
    "callers": {}
   },
@@ -274,7 +274,7 @@
    "session": "domain-verify",
    "why": "Domain sales Off: the choice's wording corrected (auto-renew stops with it)",
    "since": "2026-11-17T13:16:32Z",
-   "expires": "2026-11-17T17:19:27Z",
+   "expires": "2026-11-17T17:23:03Z",
    "release": "domain-verify.zip",
    "callers": {}
   }
