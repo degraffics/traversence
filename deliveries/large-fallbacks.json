@@ -1,8 +1,8 @@
 {
  "zip": "large-fallbacks.zip",
- "built_on": "28c78ae Sync: 2026-11-17 17:53 UTC",
- "recorded": "2026-11-17 17:54 UTC",
- "note": "Find it's web step before Claude; files_tick set up by the site (c2 large builds); built on Sync: 2026-11-17 17:53 UTC Sent through git (releases/inbox).",
+ "built_on": "0e60032 Sync: 2026-11-17 17:57 UTC",
+ "recorded": "2026-11-17 17:59 UTC",
+ "note": "W1 not held by one banned Overpass server; Find it's web step; files_tick (c2 large); built on Sync: 2026-11-17 17:57 UTC Sent through git (releases/inbox).",
  "status": "pending",
  "live_in": "",
  "files": {
@@ -10,12 +10,16 @@
    "sha256": "f36154ff956eaf286e4923d2896030707ae1b0fdd572e4eca4c5ef9f11bccea9",
    "live": false
   },
+  "app/lib/Operations.php": {
+   "sha256": "f0e1733bd35997c7ad883b89c3c719b11dc1f832735ed05fd9656bceafc8d576",
+   "live": false
+  },
   "app/lib/Scheduler.php": {
    "sha256": "ad87ca5b792a7aeacc0586614786697369865d332b23ec8a704cad5be79cf9d6",
    "live": false
   },
   "app/ui/faq.md": {
-   "sha256": "4ed36beb0af466c2876f7730c89e2e53b9f82c7b3e8fb34bff2264efbb71ebce",
+   "sha256": "0ad2c6f830b8c384feedeca6f6f203d6ca8112398d4dce55c121f460a2756d34",
    "live": false
   }
  }

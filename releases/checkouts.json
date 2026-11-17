@@ -4,6 +4,7 @@
   {
    "path": "app/lib/Scheduler.php",
    "functions": [
+    "(top)",
     "AUTO",
     "JOBS"
    ],
@@ -11,8 +12,8 @@
    "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
    "why": "(c2 large) file storage: a failed upload waits on the server and files_tick retries it, set up by the scheduler itself (0163 source map)",
    "since": "2026-11-17T17:24:13Z",
-   "expires": "2026-11-17T21:24:13Z",
-   "release": "large-fallbacks",
+   "expires": "2026-11-17T21:54:23Z",
+   "release": "large-fallbacks.zip",
    "callers": {
     "JOBS": [
      "app/admin/automation-console.php",
@@ -89,19 +90,8 @@
    "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
    "why": "(c2 large) W8 Find it web step",
    "since": "2026-11-17T17:24:18Z",
-   "expires": "2026-11-17T21:24:18Z",
-   "release": "large-fallbacks",
-   "callers": {}
-  },
-  {
-   "path": "app/admin/job-line.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5kHKsQbGaogTWfpFiw",
-   "why": "Scheduled tasks and their pages link both ways: Open <page> on each task, a Runs line on each page (Jason, 2026-11-17)",
-   "since": "2026-11-17T17:25:47Z",
-   "expires": "2026-11-17T21:54:16Z",
-   "release": "job-links.zip",
+   "expires": "2026-11-17T21:54:23Z",
+   "release": "large-fallbacks.zip",
    "callers": {}
   },
   {
@@ -111,9 +101,9 @@
    ],
    "kind": "change",
    "session": "session_01CXLi5kHKsQbGaogTWfpFiw",
-   "why": "Scheduled tasks and their pages link both ways: Open <page> on each task, a Runs line on each page (Jason, 2026-11-17)",
+   "why": "Scheduled tasks and their pages link both ways (Jason, 2026-11-17)",
    "since": "2026-11-17T17:25:49Z",
-   "expires": "2026-11-17T21:25:49Z",
+   "expires": "2026-11-17T21:54:35Z",
    "release": "",
    "callers": {}
   },
@@ -124,32 +114,47 @@
    ],
    "kind": "change",
    "session": "session_01CXLi5kHKsQbGaogTWfpFiw",
-   "why": "Scheduled tasks and their pages link both ways: Open <page> on each task, a Runs line on each page (Jason, 2026-11-17)",
+   "why": "Scheduled tasks and their pages link both ways (Jason, 2026-11-17)",
    "since": "2026-11-17T17:25:51Z",
-   "expires": "2026-11-17T21:25:51Z",
+   "expires": "2026-11-17T21:54:38Z",
    "release": "",
    "callers": {}
   },
   {
-   "path": "app/admin/sections.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5kHKsQbGaogTWfpFiw",
-   "why": "release job-links.zip",
-   "since": "2026-11-17T17:28:40Z",
-   "expires": "2026-11-17T21:54:16Z",
-   "release": "job-links.zip",
-   "callers": {}
+   "path": "app/lib/Operations.php",
+   "functions": [
+    "status",
+    "switchOnCheck"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
+   "why": "A hold on one OpenStreetMap server (overpass-api.de, Issue #1) stays on that server; it holds the service, and W1, only when no other server or source in the map answers (Jason's report 17:56 UTC)",
+   "since": "2026-11-17T17:58:31Z",
+   "expires": "2026-11-17T21:58:31Z",
+   "release": "large-fallbacks",
+   "callers": {
+    "switchOnCheck": [
+     "app/admin/automation-console.php",
+     "app/admin/operations-console.php",
+     "app/lib/SystemStart.php"
+    ],
+    "status": [
+     "app/lib/SystemStart.php"
+    ]
+   }
   },
   {
-   "path": "app/admin/widgets.php",
-   "functions": [],
+   "path": "app/lib/Operations.php",
+   "functions": [
+    "osmOtherSource",
+    "serverScoped"
+   ],
    "kind": "add",
-   "session": "session_01CXLi5kHKsQbGaogTWfpFiw",
-   "why": "release job-links.zip",
-   "since": "2026-11-17T17:28:40Z",
-   "expires": "2026-11-17T21:54:16Z",
-   "release": "job-links.zip",
+   "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
+   "why": "OpenStreetMap's other sources (the source map)",
+   "since": "2026-11-17T17:58:35Z",
+   "expires": "2026-11-17T21:58:35Z",
+   "release": "large-fallbacks",
    "callers": {}
   }
  ],

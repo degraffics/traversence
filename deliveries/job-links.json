@@ -1,0 +1,26 @@
+{
+ "zip": "job-links.zip",
+ "built_on": "28c78ae Sync: 2026-11-17 17:53 UTC",
+ "recorded": "2026-11-17 17:54 UTC",
+ "note": "Scheduled tasks and their pages link both ways: Open <page> on each task card, a Runs line with Change on each page a task serves (Jason, 2026-11-17, the Pre-flight dead end). Files: app/admin/job-line.php (new), app/admin/sections.php, app/admin/widgets.php, app/ui/faq.md. Built on Sync: 2026-11-17 17:53 UTC Sent through git (releases/inbox).",
+ "status": "live",
+ "live_in": "0e60032 Sync: 2026-11-17 17:57 UTC",
+ "files": {
+  "app/admin/job-line.php": {
+   "sha256": "a00587dce26f5e5bc55c852e7609482a329508651af611120338683db99e53e5",
+   "live": true
+  },
+  "app/admin/sections.php": {
+   "sha256": "d7107c5a665940fa04220ba3a1884c730bfc382b3e8d774f544b1a16103f5aac",
+   "live": true
+  },
+  "app/admin/widgets.php": {
+   "sha256": "aa841e4d7a5c1d96a98de597b5b47c4e64e0ed4350c3340f9bd46aa2642c994a",
+   "live": true
+  },
+  "app/ui/faq.md": {
+   "sha256": "3509d099f739cdcdbaa0710361c3a40ad04aafc3e75d909d4a7d0e8b7815a716",
+   "live": true
+  }
+ }
+}
