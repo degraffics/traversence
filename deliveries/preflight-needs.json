@@ -3,20 +3,20 @@
  "built_on": "4b10ec6 Sync: 2026-11-17 16:27 UTC",
  "recorded": "2026-11-17 16:28 UTC",
  "note": "Pre-flight judges by need, ours first; built on Sync: 2026-11-17 16:27 UTC Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "0ffd7b9 Sync: 2026-11-17 16:33 UTC",
  "files": {
   "app/admin/preflight-console.php": {
    "sha256": "0f32bd327a935682d5facc8dea5ab57c14ff2e00d3bd81bdf487b3276ab8b34e",
-   "live": false
+   "live": true
   },
   "app/lib/Preflight.php": {
    "sha256": "d1d1767ac39feab87d2da18b2189fc552ecc53adeb178522d28a2f07d2500d75",
-   "live": false
+   "live": true
   },
   "website/js/admin-preflight.js": {
    "sha256": "a3ee5250cb78572df16ca4ecf66d2fb734058f8ee5de3f48861bff72aaa7b2f9",
-   "live": false
+   "live": true
   }
  }
 }
