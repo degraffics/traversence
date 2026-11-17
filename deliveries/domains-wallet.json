@@ -2,8 +2,8 @@
  "zip": "domains-wallet.zip",
  "built_on": "fa990c7 Sync: 2026-11-17 01:45 UTC",
  "recorded": "2026-11-17 02:03 UTC",
- "note": "domains-wallet (resent: live and test wallets): Shop \u2192 Domains, the Domains tab and the wallet (0169 \u00a71a, 0166 \u00a76a); built on Sync: 2026-11-17 01:45 UTC Sent through git (releases/inbox).",
- "status": "pending",
+ "note": "domains-wallet (resent: live and test wallets): Shop \u2192 Domains, the Domains tab and the wallet (0169 \u00a71a, 0166 \u00a76a); built on Sync: 2026-11-17 01:45 UTC Sent through git (releases/inbox). Replaced by domains-wallet-2: staging stopped release #70 (its migration changed cart_plans.owner_type, not add-only).",
+ "status": "replaced",
  "live_in": "",
  "files": {
   "app/business/domains.php": {
@@ -98,5 +98,6 @@
    "sha256": "3fa23b1341b445af120816cb4543195e3be4fb668a1989ad74e9da1b350b3087",
    "live": false
   }
- }
+ },
+ "replaced_by": "domains-wallet-2"
 }

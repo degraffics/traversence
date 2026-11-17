@@ -18,6 +18,12 @@ Session: claude/domains-0169-1a. Started 2026-11-17, on the mirror at `3c54bf3` 
 - **Revised 2026-11-17 (Jason: a test/sandbox wallet "to ensure no actual live payment is ever available"):** two
   wallets per account (live and test, 0166 §6a note); resent as `domains-wallet.zip`, 73 local checks.
 
+- **Release #70 stopped on staging (2026-11-17 02:13 UTC):** "Migrations only add" refused the guarded
+  `ALTER TABLE cart_plans MODIFY owner_type` (it's not add-only). Fixed: no column change; domain lines ride in the cart
+  as `oneoff` lines (items `domain_purchase` / `domain_renewal`), which the live cart already takes. Resent as
+  `domains-wallet-2.zip` (the old delivery marked replaced); 73 local checks and the 49 staging tests pass. #70 is to be
+  withdrawn on the Releases page.
+
 ### After it's live
 1. Run the sync, check the mirror matches the zip byte for byte, `deliveries.py verify`.
 2. Jason sets `DOMAINS_MODE=test` (Admin → Settings) to try it as staff in the sandboxes, then `live` with
