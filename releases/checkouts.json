@@ -4,6 +4,7 @@
   {
    "path": "app/lib/Domains.php",
    "functions": [
+    "(top)",
     "api",
     "mode",
     "noRealMoney"
@@ -12,8 +13,8 @@
    "session": "domain-sales-switch",
    "why": "Domain sales get their own switch, DOMAIN_SALES_MODE (Jason, 2026-11-17)",
    "since": "2026-11-17T11:03:09Z",
-   "expires": "2026-11-17T15:03:09Z",
-   "release": "",
+   "expires": "2026-11-17T15:07:17Z",
+   "release": "domain-sales-switch.zip",
    "callers": {
     "mode": [
      "app/admin/tools.php",
@@ -27,6 +28,7 @@
   {
    "path": "app/lib/AccountDomains.php",
    "functions": [
+    "(top)",
     "addEmailRecords",
     "deleteRecord",
     "dkim",
@@ -47,8 +49,8 @@
    "session": "domain-sales-switch",
    "why": "Domain sales get their own switch, DOMAIN_SALES_MODE (Jason, 2026-11-17)",
    "since": "2026-11-17T11:03:09Z",
-   "expires": "2026-11-17T15:03:09Z",
-   "release": "",
+   "expires": "2026-11-17T15:07:17Z",
+   "release": "domain-sales-switch.zip",
    "callers": {
     "open": [
      "website/api/domains.php"
@@ -88,14 +90,15 @@
   {
    "path": "app/lib/EnvSettings.php",
    "functions": [
+    "(top)",
     "EDITABLE"
    ],
    "kind": "change",
    "session": "domain-sales-switch",
    "why": "Domain sales get their own switch, DOMAIN_SALES_MODE (Jason, 2026-11-17)",
    "since": "2026-11-17T11:03:09Z",
-   "expires": "2026-11-17T15:03:09Z",
-   "release": "",
+   "expires": "2026-11-17T15:07:17Z",
+   "release": "domain-sales-switch.zip",
    "callers": {
     "EDITABLE": [
      "app/lib/OutsideServices.php",
@@ -108,6 +111,7 @@
   {
    "path": "app/lib/OutsideServices.php",
    "functions": [
+    "(top)",
     "COMPANIES",
     "SETTINGS",
     "looksSecret",
@@ -117,8 +121,8 @@
    "session": "domain-sales-switch",
    "why": "Domain sales get their own switch, DOMAIN_SALES_MODE (Jason, 2026-11-17)",
    "since": "2026-11-17T11:03:09Z",
-   "expires": "2026-11-17T15:06:31Z",
-   "release": "",
+   "expires": "2026-11-17T15:07:17Z",
+   "release": "domain-sales-switch.zip",
    "callers": {
     "COMPANIES": [
      "app/admin/automation-console.php",
@@ -149,8 +153,8 @@
    "session": "domain-sales-switch",
    "why": "Domain sales get their own switch, DOMAIN_SALES_MODE (Jason, 2026-11-17)",
    "since": "2026-11-17T11:03:09Z",
-   "expires": "2026-11-17T15:06:31Z",
-   "release": "",
+   "expires": "2026-11-17T15:07:17Z",
+   "release": "domain-sales-switch.zip",
    "callers": {
     "start": [
      "website/admin/api.php"
@@ -164,8 +168,8 @@
    "session": "domain-sales-switch",
    "why": "Domain sales' own test flag",
    "since": "2026-11-17T11:05:22Z",
-   "expires": "2026-11-17T15:05:22Z",
-   "release": "",
+   "expires": "2026-11-17T15:07:17Z",
+   "release": "domain-sales-switch.zip",
    "callers": {}
   }
  ],
