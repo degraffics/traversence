@@ -1238,6 +1238,43 @@ phases, so opening a hub starts with its sources ready.
 - **Tribal nations:** each nation's own business, licensing or enterprise sources are found and staged the same way, but
   read only after a person's call and under the nation's rules (0066, R7, §12 C12). State records rarely reach nations'
   land (the rural test, Kayenta).
+
+**Note (2026-11-17): when the official licence source is blocked or lacking** (Jason: "it seems like official sites for
+license are lacking so we may need a strategy to solve the issues"; written for his OK, nothing built yet). Found while
+building 0163's source map: Arizona's Corporation Commission moved to `arizonabusinesscenter.azcc.gov`, which answers our
+reads with Azure's "Access Blocked" page; New Mexico's Secretary of State search couldn't be reached; azliquor.gov sits
+behind a Cloudflare challenge; and neither publishes an open bulk file (research/rural-test-2026-11-14.md §8). R-rules
+stand: a blocked site is never worked around, and the licence decides the use. So, for each state and kind, in this order,
+each step recorded on the source's W14 row as its **real use**:
+
+1. **Ask the agency for the official route.** A public-records request for the register as a file (Arizona's public
+   records law, A.R.S. §39-121; New Mexico's Inspection of Public Records Act), and in the same letter, whether an API or
+   an allowance for our host exists. Free or at cost, the terms in writing, and a file is bulk data (refreshed by asking
+   again on a schedule the agency accepts). W14 drafts the letter per source; a director sends it; the answer is kept on
+   the row. Arizona's Corporation Commission and New Mexico's Secretary of State first.
+2. **The claim-time check** (§7.1, 3, as Arizona's TPT): when an owner claims or adds a business, they give its registry
+   number and our team looks it up once by hand on the agency's own page. No automated read, so nothing is worked
+   around; the fact is kept with the source and the date, and the listing gains the registry's weight.
+3. **Other public authorities that overlap** (free, public domain, already ours or close): NPI and the IRS list (we hold
+   both), Recreation.gov, the federal SAM.gov entity register (businesses registered for federal work; free key, its
+   terms read first), county permit and inspection lists where a county publishes them, and licence boards that do
+   publish files. W14 stages each with its fields; together they cover part of what the state register would.
+4. **A licensed aggregator, only as a paid backup by override** (0163's source map, step 3; PaidOverride): off until a
+   director sets its cap, used only when 1–3 gave nothing for a business being confirmed. Only one that (a) states its
+   right to the data (an official feed or public-records requests), (b) lets us keep and show what we use, with credit,
+   and (c) is priced per call. Candidates as of today, terms not read yet (their sites are outside this environment's
+   network): Palm (getpalm.com: registry search across Secretaries of State, 100 free calls, then per call), Topograph
+   (Arizona in beta, by request), Cobalt Intelligence. **Never** one that scrapes past an agency's block (a "catalog"
+   of a site that blocks bots, such as anakin.io's page for the Arizona register): that is the same as working around
+   it ourselves.
+5. **Otherwise the listing stands on what else it has** (§3.5: its own website, two sources, a government page, local
+   people's "Yes"), with its confidence shown, and the pre-flight and the hub readiness meter say **"no authority source
+   yet"** for that state and kind, so the gap is seen.
+
+To build once approved: W14's row gains the five steps' state (asked, answered, file received, claim-time, aggregator);
+the letter template; the claim form's registry number field and its one-look task for our team; SAM.gov's reader
+after its terms; the aggregator as a third `PaidOverride` need ("Confirm a business: licensed registry") after its
+terms are read and a director chooses one.
 - **Gate:** government (or a nation's own) sources, or a vendor page one of them links to (H2); terms read; a person's
   call where unclear.
 - **Makes:** staged rows in the source register, ready for a hub; the state's readiness line in the hub meter (R17).
