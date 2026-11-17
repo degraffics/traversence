@@ -536,6 +536,19 @@
    "expires": "2026-11-17T21:25:47Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/admin/sections.php",
+   "functions": [
+    "tv_admin_mod_scheduler"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kHKsQbGaogTWfpFiw",
+   "why": "Scheduled tasks and their pages link both ways: Open <page> on each task, a Runs line on each page (Jason, 2026-11-17)",
+   "since": "2026-11-17T17:25:49Z",
+   "expires": "2026-11-17T21:25:49Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
