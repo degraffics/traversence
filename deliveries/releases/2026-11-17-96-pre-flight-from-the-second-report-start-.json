@@ -6,32 +6,36 @@
     "zip": "preflight-fix2.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "staged",
-    "step": 0,
+    "state": "live",
+    "step": 3,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
     "plan_at": "2026-11-17 15:23:40",
     "staged_at": "2026-11-17 15:23:42",
-    "vetted_at": null,
-    "live_at": null,
+    "vetted_at": "2026-11-17 15:23:45",
+    "live_at": "2026-11-17 15:23:45",
     "files": {
         "app/lib/Preflight.php": {
             "sha": "f6de8ac9b40861e5563030e876dc1d5cf385e172b58f3fbcfac891a3e1663e0b",
             "size": 97741,
-            "live_was": "67123e379d23f97fd757f6c9ee9cc4a676e0823f60cdd463b1507e196429ff18"
+            "live_was": "67123e379d23f97fd757f6c9ee9cc4a676e0823f60cdd463b1507e196429ff18",
+            "existed": true,
+            "old_sha": "67123e379d23f97fd757f6c9ee9cc4a676e0823f60cdd463b1507e196429ff18"
         },
         "app/lib/SystemStart.php": {
             "sha": "c8df2c4255284e5050204315ffefa2f8fb11fd9b9b217812867d5e473ce60944",
             "size": 41171,
-            "live_was": "793cd3717c48cb0e8cc2c78c7815e69883af56e8a57a50c4942de75006adf42c"
+            "live_was": "793cd3717c48cb0e8cc2c78c7815e69883af56e8a57a50c4942de75006adf42c",
+            "existed": true,
+            "old_sha": "793cd3717c48cb0e8cc2c78c7815e69883af56e8a57a50c4942de75006adf42c"
         }
     },
     "migrations": [],
     "checks": {
         "ok": true,
-        "where": "staging",
-        "at": "2026-11-17T15:23:43+00:00",
+        "where": "live",
+        "at": "2026-11-17T15:23:45+00:00",
         "items": [
             [
                 "PHP files parse",
@@ -41,7 +45,7 @@
             [
                 "Pages answer",
                 true,
-                "2 pages answered on staging.trvgo.us"
+                "2 pages answered on traversence.com"
             ],
             [
                 "No new fatal errors in the logs",
@@ -71,6 +75,16 @@
             "at": "2026-11-17T15:23:43+00:00",
             "by": 0,
             "msg": "Put on staging (2 files); its checks passed."
+        },
+        {
+            "at": "2026-11-17T15:23:45+00:00",
+            "by": 0,
+            "msg": "Approved in chat before it was sent through git, and its checks on staging passed: publishing by itself."
+        },
+        {
+            "at": "2026-11-17T15:23:45+00:00",
+            "by": 0,
+            "msg": "Published: 2 files; everyone at once (no switch)."
         }
     ]
 }
