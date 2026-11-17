@@ -1,0 +1,34 @@
+{
+    "id": 97,
+    "title": "Pre-flight: .env names set twice; Fly's hint corrected",
+    "why": "Jason, 2026-11-17, setting up the Fly edge: the new FLY_API_TOKEN didn't take because .env still had the old line above it, and the site uses the first line for a name and ignores the rest. 1. A new line under The site itself, needed for launch: \".env names each set once\". It counts the names (never the values) and names any set twice, with their line numbers. 2. Fly's line no longer says a deploy token can't read certificates (it can: Jason's deploy token for trvgo-edge passes); it says to use the whole \"FlyV1 …\" line from fly tokens create deploy, set once, and links the traversence organization's tokens.",
+    "proposals": "",
+    "zip": "preflight-envdup.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/lib/Preflight.php": {
+            "sha": "008690817c9735ce613ca8a7bf1e02b05ea039c708152e01b598492f87d3d83b",
+            "size": 99346,
+            "live_was": "f6de8ac9b40861e5563030e876dc1d5cf385e172b58f3fbcfac891a3e1663e0b"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-17T15:53:01+00:00",
+            "by": 0,
+            "msg": "Uploaded preflight-envdup.zip: 1 files."
+        }
+    ]
+}
