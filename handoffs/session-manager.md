@@ -115,6 +115,8 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
      classification runs by itself on new sites; reading only where §1.2's rules allow; a person's call overrides,
      never gates; today's "Waiting for you" sources classified on the first pass. Worker (`own_site_links`, the
      40/60 caps, `read_source`) and site (`Sources.php`, `SourceIndex.php`, `/api/crawl/sources.php`).
+     **And the indexer always on** (Jason, 2026-11-17): its own continuous Railway service (restart on failure), not
+     the cron; indexing only; first in Start the system; Pause everything stops it; its own switch and budget line.
   3. **The cleanup stage** (its own area; can run beside the above). **Fixes in the code:**
      - Pulse #31's 62 unused names;
      - Pulse #22's Site health items;

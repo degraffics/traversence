@@ -629,6 +629,15 @@ say otherwise, and this makes it plain:
 - **A person's call is an override, never a gate:** Read regularly, Cite only or Ignore on the register still wins over
   the classifier, and a person sees only what the evidence can't settle (as §6.1's identity queue).
 - **Today's "Waiting for you" sources** are classified by the same pass when this ships; nothing already decided changes.
+- **The indexer runs all the time, not on a schedule** (Jason: "That is the one thing I want to be a standard always
+  running task, not on a schedule, because it will be the one thing that indexes our potential knowledge"). Logging
+  the frontier, fetching what §1.2 allows, keeping each page's fingerprint and links, and classifying new sites run as
+  one continuous worker: its own always-on service on Railway (restart on failure), not the cron. It only indexes:
+  extracting, resolving, publishing and every other workflow stay scheduled (0163). It keeps every rule above (per-site
+  pace, R18; robots; the restricted registry; blocked hosts never retried), sends its results to the site in small
+  batches at the worker's pace (the Bluehost bot check, 2026-11-15), sleeps when the frontier is empty rather than
+  spinning, and has its own switch and budget line in the register. Start the system starts it first; Pause
+  everything stops it (the safety stop stays one button).
 
 ### 1.5 Lead sources for rural businesses
 
