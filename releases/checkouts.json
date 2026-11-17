@@ -248,8 +248,8 @@
    "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
    "why": "W1 reads our OpenStreetMap copy before Overpass (zip check's function attribution)",
    "since": "2026-11-17T16:37:26Z",
-   "expires": "2026-11-17T20:44:09Z",
-   "release": "osm-ours",
+   "expires": "2026-11-17T20:44:26Z",
+   "release": "osm-ours.zip",
    "callers": {
     "keepExtract": [
      "app/lib/crawler/OpenLoads.php"
@@ -269,8 +269,8 @@
    "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
    "why": "W1 reads our OpenStreetMap copy before Overpass: a state loaded before the crawler's kinds is due again",
    "since": "2026-11-17T16:37:26Z",
-   "expires": "2026-11-17T20:40:09Z",
-   "release": "osm-ours",
+   "expires": "2026-11-17T20:44:26Z",
+   "release": "osm-ours.zip",
    "callers": {
     "finish": [
      "website/api/crawl/loads.php"
@@ -290,8 +290,8 @@
    "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
    "why": "W1 reads our OpenStreetMap copy before Overpass (zip check's function attribution)",
    "since": "2026-11-17T16:37:26Z",
-   "expires": "2026-11-17T20:44:04Z",
-   "release": "osm-ours",
+   "expires": "2026-11-17T20:44:26Z",
+   "release": "osm-ours.zip",
    "callers": {
     "switchOnCheck": [
      "app/admin/automation-console.php",
@@ -310,8 +310,8 @@
    "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
    "why": "W1 reads our OpenStreetMap copy before Overpass (zip check's function attribution)",
    "since": "2026-11-17T16:37:26Z",
-   "expires": "2026-11-17T20:44:07Z",
-   "release": "osm-ours",
+   "expires": "2026-11-17T20:44:26Z",
+   "release": "osm-ours.zip",
    "callers": {}
   },
   {
@@ -321,8 +321,8 @@
    "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
    "why": "W1 reads our OpenStreetMap copy (open_places, Geofabrik) before Overpass (0163 source map, preflight hand-off (b))",
    "since": "2026-11-17T16:37:26Z",
-   "expires": "2026-11-17T20:37:26Z",
-   "release": "osm-ours",
+   "expires": "2026-11-17T20:44:26Z",
+   "release": "osm-ours.zip",
    "callers": {}
   },
   {
@@ -332,8 +332,8 @@
    "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
    "why": "W1 reads our OpenStreetMap copy (open_places, Geofabrik) before Overpass (0163 source map, preflight hand-off (b))",
    "since": "2026-11-17T16:37:26Z",
-   "expires": "2026-11-17T20:37:26Z",
-   "release": "osm-ours",
+   "expires": "2026-11-17T20:44:26Z",
+   "release": "osm-ours.zip",
    "callers": {}
   },
   {
