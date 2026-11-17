@@ -1,0 +1,22 @@
+{
+ "zip": "domain-tlds.zip",
+ "built_on": "a9e0bad Sync: 2026-11-17 13:37 UTC",
+ "recorded": "2026-11-17 13:41 UTC",
+ "note": "Domains: .app and .ai offered; an ending with a longer minimum opens on its shortest term (Jason, 2026-11-17). Files: app/lib/Domains.php, app/lib/AccountDomains.php, app/ui/faq.md. built on Sync: 2026-11-17 13:37 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/AccountDomains.php": {
+   "sha256": "df2428246da2b51585c3fa300be7d772306bc3d9a617c3960969fbaf2fc855f1",
+   "live": false
+  },
+  "app/lib/Domains.php": {
+   "sha256": "c71170f77c9bc00efa43763f964b340180b1ae01f800b79186c038aace3f3b47",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "67309f6b435e4d904f6c5fd6c1e01fd813e75562c5d65904dbcc6ed059f5d39b",
+   "live": false
+  }
+ }
+}
