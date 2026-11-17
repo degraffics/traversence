@@ -1,0 +1,164 @@
+{
+    "id": 102,
+    "title": "Every outside call asks staging's gate; held calls say TEST MODE",
+    "why": "decisions/0165 §1 (staging is live in safe mode). Jason, 2026-11-17: \"Gate should be checked right, so we need to update these instances\", and the wording \"TEST MODE: ACTIVE (STAGE REPLIES ONLY)\". The pre-flight's line \"Staging's safe mode: no outside call skips the gate\" found 36 outside calls that skipped StagingGate::hold(). 1. Each now asks the gate first, with a staging reply that fits its caller: sign-in checks (Google, Apple, Microsoft, Facebook) say to sign in with email on staging; cPanel and cPanel mailboxes, GitHub (docs, audit clock), Railway, Amazon SES and SNS (send and change our AWS account) and Textract (paid) are held; payments (QuickBooks, Stripe, Square) reach only the sandbox; public pages (guides' link check, resource checks, the crawler without its switch) are held and leave records as they were; free public data (weather, roads, recalls) is paced; the IP country file and the Census ZIP table are bulk pulls, held; the file store and calls to staging itself go straight through. On live nothing changes: the gate always says go. 2. AWS is 'allow' for the store only: Textract, SES and SNS hosts are held on staging. 3. ServiceHealth::held() asks staging's gate first and on its own, so a failed database can't let a call out of staging; the scan counts it as a gate (it was one already). 4. A held call's message now starts \"TEST MODE: ACTIVE (STAGE REPLIES ONLY)\", then which service wasn't called and why (held, sandbox only, paced), then \"Nothing was sent.\" The ledger's own reason text is unchanged. 5. FAQ: the held notice and what asks the gate.",
+    "proposals": "",
+    "zip": "staging-gate.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/ui/faq.md": {
+            "sha": "17468c1560918f5bb2a52022d7cc78a5d15b2feddfca6736d626db20c3e8b4c3",
+            "size": 319345,
+            "live_was": "157e36139302ce436b7613382ab219080050fcdaced730c644f6814ddf9c14f1"
+        },
+        "app/lib/ServiceHealth.php": {
+            "sha": "b181e464cc34d0bfa4880cbde63f3eb77c462dcc79db1212d4a104352291559a",
+            "size": 45232,
+            "live_was": "b0606a927c2135d808d6fc9add7aba8f37d2ea7f8ce688c266717ebe3421cd1d"
+        },
+        "app/lib/Captcha.php": {
+            "sha": "f815b7dd359df6aeafd36d793e99816b70ae63be42d2e618b28f40d42a641327",
+            "size": 4515,
+            "live_was": "22d288e30d27a854df0a472dbfb7f4a18ef9352d68f9efd01a6ad5f7a9d885d2"
+        },
+        "app/lib/Operations.php": {
+            "sha": "ac1729ae2a936afd49b90b9eab7e095805d54ae7a02f49eed78daea65ab460ad",
+            "size": 63988,
+            "live_was": "cb22a17f55c2d21e45f03375b371b0bdd724e70d7dae55a99285265fc8080dac"
+        },
+        "app/lib/RegionGate.php": {
+            "sha": "a55a452280c1c3260959955edf5e426c0af7e718a2b4ca965c10f04be52743be",
+            "size": 6714,
+            "live_was": "db53994e8c4c78a770d49ef7825a1a49c8749ceb3a8c02d8c33227f58a4d8439"
+        },
+        "app/lib/DocsRepo.php": {
+            "sha": "bf61d0033bc52f4ab07440020497ffa13365215c6e02b9273f249104d7f6b86f",
+            "size": 18820,
+            "live_was": "e19aa2b5fccf664263a57546903e04be940666f9b1c58042f1bc548f947d550f"
+        },
+        "app/lib/Guides.php": {
+            "sha": "71d8367b7df97086269dba2f937dfbfb0a127ac7b85fbb73bd6ecbacbf3181ee",
+            "size": 133885,
+            "live_was": "e74212617925d4f2e9ca276a95fbd18ef7deb03e1a80817f443e06cf96ddd0f1"
+        },
+        "app/lib/Weather.php": {
+            "sha": "1cf739e45a666a7c10a98d01864359979cd9c791e0355061eba65a06a0a255bc",
+            "size": 19580,
+            "live_was": "f1d053cb7d1c35d66e6b6e7482546d5b658bdb05e52b5358c4d256371bf3ed06"
+        },
+        "app/lib/StagingSite.php": {
+            "sha": "b4fd355b8e9006366deb63946f1d0d8615af0c3bc863c7ee642b8fb0ae5b1aa2",
+            "size": 103260,
+            "live_was": "078225b17faf7c3dbab6659045670a88fb75af6bc4f9ef500157243f9b813010"
+        },
+        "app/lib/CPanelMail.php": {
+            "sha": "51c4d2a63a1d1b31866d5d4e54d53e8865cc3155a988bad68b58a5085c9f3d9f",
+            "size": 4238,
+            "live_was": "471a1e2ae2f3cbec601965e5f2feae5d4043ea6810150a707150554d0a54dacb"
+        },
+        "app/lib/StagingGate.php": {
+            "sha": "c3696af714b2f47a6bc8f9d4281a1c5ec57470c859edf1fb77553acf5f61b720",
+            "size": 22935,
+            "live_was": "cee4e0beff7cafba8cf1534c368cf9b9f27c8c7776189ef7b14b50ffcf45d5a4"
+        },
+        "app/lib/SesMail.php": {
+            "sha": "74d96dab027d0af648ac060cc395e0f6be0a3ef6e65b67f5728f70e6fa7ed368",
+            "size": 39327,
+            "live_was": "086db102eada6580acade8b7cce10a181133d5a88de7a206b56163f8671d58fb"
+        },
+        "app/lib/crawler/SiteFetcher.php": {
+            "sha": "6428579169103cd8b70a3c847884858cdc50212d25cef085d4484bfbded84036",
+            "size": 18709,
+            "live_was": "9af059950ba722f15d7319cf6fadb6d88a3125746a536441b992d0ba9f318801"
+        },
+        "app/lib/S3.php": {
+            "sha": "7b5ea0e5e82842753c1a3af9898b63cd43474dfd305bc85e974b34f9ff027ee8",
+            "size": 13491,
+            "live_was": "963708ff028ea186f1d48abd30533e756276b617a60241ae1b21119f8a15f453"
+        },
+        "app/lib/SocialAuth.php": {
+            "sha": "1b3e04bd4181f00f9d64e63aff3a52554cf1a39a343653ae934adf4659084632",
+            "size": 29965,
+            "live_was": "03bc84862b75d3950e6d43d3014f9a59a514fce9945fdb675e81358e31a1f71e"
+        },
+        "app/lib/SiteHealth.php": {
+            "sha": "b4b12cf33897b27cf7b193c8ae1ff228e90653e53de4f682ea71a83dfc132615",
+            "size": 16919,
+            "live_was": "d32c85af07d9a48d3860badf2c2074d3c63fb2b182511ec9a9d4dd73c5228dc7"
+        },
+        "app/lib/QuickBooksPay.php": {
+            "sha": "a03f31e2c5ee33b8a9dc55d93d987c4c875de0dcab0cf5ad8280882695c6efea",
+            "size": 79625,
+            "live_was": "2fe5bac06b081604cc5cbb3c93d7b78367333cbd7371b165eb1f8d3bb51cd5e3"
+        },
+        "app/lib/ResourceGuides.php": {
+            "sha": "f62b4e273d0dfd5e358943e96e9a2a6e1925626d0cfd7a5efca582dff8ebea05",
+            "size": 13756,
+            "live_was": "96f8471bcc86f95bb429a5999b40c42358620bfd2710befb2fc3e6dff899e6a2"
+        },
+        "app/lib/Releases.php": {
+            "sha": "ba0309dd57f807bde9e9fb57c042aa247d0b8e865afeb8add399e6bc13a6e6e0",
+            "size": 110903,
+            "live_was": "18d618bbf3400ede63d4a1124d70f0c7773ec6395f295f5e8d9f900a0f581fb1"
+        },
+        "app/lib/GoogleAuth.php": {
+            "sha": "7b50fe5623e3c1d76f58a9e43f3be33fc53e29af2a58849056b6a4100ffa542a",
+            "size": 17908,
+            "live_was": "11df16829c8663b4c9ca57ac8a6878cc82e81c6ed74055fe9db2f42b0a723f62"
+        },
+        "app/lib/CPanel.php": {
+            "sha": "9bbdf399fc2eba7a6acc1422022fb6307df4971a05709a01aefe8c60be43a37d",
+            "size": 10290,
+            "live_was": "056b91be027dc621f85390c3b952cd3d206b781f5d2ce241c3cc85c34852d0ab"
+        },
+        "app/lib/AuditClock.php": {
+            "sha": "65dc4252cf90a79b40f12385b54325addf7c11e56b82812605e7bffbbdd5355a",
+            "size": 9537,
+            "live_was": "65a5597777efc4c0d4074028ea03b203e485fde20b35237734c65b9702e08291"
+        },
+        "app/lib/ZipPopulation.php": {
+            "sha": "d32d831d170384f0c9375d9dc6870d93b87d19e56d90b1a343df610bb6e1ab4d",
+            "size": 7501,
+            "live_was": "53683fb3b577a67a2920dfd28cf3878d813f99eae1d69df4bada22e5e1c90ae4"
+        },
+        "app/lib/StockLibrary.php": {
+            "sha": "997cbb5ed6855391bc0f5315869bb38dfdb346a1d34f198c40e456e57180479b",
+            "size": 35045,
+            "live_was": "3fdc750876c8d0b7c1e196628c9c5f2b82e1a4a7a13f0f5ce03b1f29828ffab4"
+        },
+        "app/lib/Aws.php": {
+            "sha": "0009c2b529f84b24ce38e6c042a1dda062fe84d2e4fce1c30aed4cfc05d2bf39",
+            "size": 5460,
+            "live_was": "271bc9fbc22ff692a030a84ac8719d27d4fbf7c3aab4ffe0bd4cf2fac43bd233"
+        },
+        "app/lib/MarketPay.php": {
+            "sha": "a47663d9c9c99a4301a45a2298df17d96b480249cc47b7512ebfdb441f714161",
+            "size": 32118,
+            "live_was": "95ce73029f494a0ad7da2f7aebb20a0d20b1a66f4e2171fedbd6ee40af79af9b"
+        },
+        "website/api/ses-events.php": {
+            "sha": "38dd7fbe376bf9f48c06da6f71d0e8a78aadc2b7f367b4004e7f43cba78a6390",
+            "size": 4138,
+            "live_was": "355e5078d57aa9541410e7e07c46f16a460d11a63b353f355f22f70328f83e0a"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-17T16:57:12+00:00",
+            "by": 0,
+            "msg": "Uploaded staging-gate.zip: 27 files."
+        }
+    ]
+}
