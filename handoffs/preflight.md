@@ -69,6 +69,27 @@ Check-out release names: `preflight` (release 1), `outside-table` (release 2, no
   hold W1 while `open_places` is loaded and fresh. Then (c): the paid-backup overrides (a director's switch per need, a
   cap in Thresholds, logged; shown on the need's line) and the other workflows' fallbacks in the map's order.
 
+- **(b) `osm-ours.zip`** (session_01CXLi5kkqbbZZGMKEB1cFnC, built on Sync 16:33 UTC, sent 2026-11-17; Jason's OK pending):
+  W1 reads our OpenStreetMap copy before Overpass. Files: `app/lib/OpenPlaces.php` (leadKinds: TownCrawl::KINDS' filters
+  kept from each Geofabrik extract as their own kind `f:<hash>`; filterKind, copyKinds/copySignature, copyStates/ourCopy,
+  forJob, attach), `app/lib/crawler/OpenLoads.php` (finish stores the kinds' signature per state,
+  `open:geofabrik_sig:<state>`; geofabrikDue: a state loaded before today's kinds is due at once), `website/api/crawl/jobs.php`
+  and `targets.php` (each leased job carries `ours` {filter: elements} and `ours_note`; no new endpoint, so no new calls
+  through Bluehost's 409 check), `app/lib/Operations.php` (switch-on line "OpenStreetMap: our copy loaded, or a server not
+  held": green on a fresh copy, a free server, or Geofabrik's test download passed, since t:osm runs only after W1 is on),
+  `app/lib/Preflight.php` (source type `['copy', 'osm', …]`, first for the "places" need), `app/ui/faq.md`. Crawler 2.9.0
+  (`workers/crawler/crawler.py`): `overpass()` reads `ours` first, Overpass only for the gaps; coverage and targets no
+  longer stop at the door when every server is held: covered jobs are worked (partial when gaps wait), uncovered ones
+  go back with their lease, the task reports held only when nothing could be worked; the run report adds `osm_ours`.
+  Tests: `workers/crawler/tests/test_ours.py`; the site part was tested on SQLite (keepExtract, forJob, stale signature).
+  **Not from our copy (Overpass only):** filters on `healthcare`, `office`, `social_facility` (not in the extract), the
+  support groups' (worker's GROUP_QUERIES) and situation gaps' (Learning::OSM, private) filters, towns outside AZ and NM.
+  Our copy is "fresh" for 45 days (OpenPlaces::COPY_DAYS). Places deleted in OpenStreetMap stay in open_places (keep()
+  only replaces); a cleanup per load is a follow-up. The site's own nearby search (OpenPlaces::near) still asks Overpass
+  for a stale spot; it could skip the ask in a loaded state (follow-up).
+- **Next, (c)** (ask Jason first): the paid-backup overrides (a director's switch per need, a cap in Thresholds, logged,
+  shown on the need's line) and the other workflows' fallbacks in the source map's order.
+
 ## How it works
 
 - `Preflight::lines()`: one list in run order: the site, every `OutsideServices::COMPANIES` key (`svc:<key>`: each

@@ -1,0 +1,38 @@
+{
+ "zip": "osm-ours.zip",
+ "built_on": "0ffd7b9 Sync: 2026-11-17 16:33 UTC",
+ "recorded": "2026-11-17 16:44 UTC",
+ "note": "W1 reads our OpenStreetMap copy (open_places, Geofabrik) before Overpass; the crawler 2.9.0 in workers/crawler; built on Sync: 2026-11-17 16:33 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/OpenPlaces.php": {
+   "sha256": "6548accd964fec2dfd23bff5c9ee13cf28a6db3369c0ba536c4efbf34a8428a0",
+   "live": false
+  },
+  "app/lib/Operations.php": {
+   "sha256": "cb22a17f55c2d21e45f03375b371b0bdd724e70d7dae55a99285265fc8080dac",
+   "live": false
+  },
+  "app/lib/Preflight.php": {
+   "sha256": "8c9a7fd8869320654804a24be230c669710a8830ed03f4bd29836d592d625023",
+   "live": false
+  },
+  "app/lib/crawler/OpenLoads.php": {
+   "sha256": "1592176cc2bed1f8cc5f7af3501de4a868cf925f930e81666c8de2b23c498fae",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "157e36139302ce436b7613382ab219080050fcdaced730c644f6814ddf9c14f1",
+   "live": false
+  },
+  "website/api/crawl/jobs.php": {
+   "sha256": "f199805e617dae3d17dbd04523515aa9272d6c6126cd19747cb5f2c5579589d0",
+   "live": false
+  },
+  "website/api/crawl/targets.php": {
+   "sha256": "cd25b7be34e4f3e0a734af3518edd90b3541525eda6b64ff2bdd6a4f785f8e97",
+   "live": false
+  }
+ }
+}
