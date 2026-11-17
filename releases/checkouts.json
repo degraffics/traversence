@@ -4,19 +4,6 @@
   {
    "path": "app/lib/Domains.php",
    "functions": [
-    "isTeam"
-   ],
-   "kind": "add",
-   "session": "domain-sales-team",
-   "why": "Domain sales Test: the Founder admin counts as our team; Edit no longer opens the privacy card (Jason, 2026-11-17)",
-   "since": "2026-11-17T11:52:24Z",
-   "expires": "2026-11-17T15:52:24Z",
-   "release": "",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/Domains.php",
-   "functions": [
     "lookupLive"
    ],
    "kind": "add",
@@ -290,29 +277,23 @@
    "expires": "2026-11-17T17:48:36Z",
    "release": "favicon-everywhere.zip",
    "callers": {}
-  },
-  {
-   "path": "app/lib/Preflight.php",
-   "functions": [
-    "clean",
-    "lines",
-    "serviceTest",
-    "test"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5kGG8gG4QBmC4uzMzN",
-   "why": "Pre-flight: .env names set twice (the second ignored); Fly's hint corrected (Jason, 2026-11-17)",
-   "since": "2026-11-17T15:49:48Z",
-   "expires": "2026-11-17T19:50:18Z",
-   "release": "preflight-envdup.zip",
-   "callers": {
-    "lines": [
-     "app/admin/preflight-console.php"
-    ]
-   }
   }
  ],
  "lapsed": [
+  {
+   "path": "app/lib/Domains.php",
+   "functions": [
+    "isTeam"
+   ],
+   "kind": "add",
+   "session": "domain-sales-team",
+   "why": "Domain sales Test: the Founder admin counts as our team; Edit no longer opens the privacy card (Jason, 2026-11-17)",
+   "since": "2026-11-17T11:52:24Z",
+   "expires": "2026-11-17T15:52:24Z",
+   "release": "",
+   "callers": {},
+   "lapsed": "2026-11-17T15:55:08Z"
+  },
   {
    "path": "app/lib/EnvSettings.php",
    "functions": [
