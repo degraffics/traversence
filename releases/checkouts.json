@@ -37,6 +37,30 @@
    "expires": "2026-11-17T23:23:54Z",
    "release": "switchon-group.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/SystemStart.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
+   "why": "Start confirms operational, then fires the queue (Jason, 2026-11-17)",
+   "since": "2026-11-17T20:15:01Z",
+   "expires": "2026-11-18T00:15:01Z",
+   "release": "start-confirm",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Thresholds.php",
+   "functions": [
+    "START_GATE"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
+   "why": "Start confirms operational, then fires the queue (Jason, 2026-11-17)",
+   "since": "2026-11-17T20:15:01Z",
+   "expires": "2026-11-18T00:15:01Z",
+   "release": "start-confirm",
+   "callers": {}
   }
  ],
  "lapsed": [
