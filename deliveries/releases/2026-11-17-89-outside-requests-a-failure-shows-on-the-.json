@@ -1,0 +1,44 @@
+{
+    "id": 89,
+    "title": "Outside requests: a failure shows on the card and in Pulse; the form says what it's for",
+    "why": "Jason, 2026-11-17: \"nothing in pulse and the add request does not make any sense.\" After #87 the Name.com card still said Nothing waiting, so the requests couldn't be read or saved, and the code swallowed why. Now it can't be silent: the card shows what the database said (Can't keep requests: …) and Pulse opens an Alert, 'Requests to outside companies can't be saved', with the same words and a link to the card. The bare + became a labelled button, Note a request we sent <company>, its fields styled like the card's other forms, its button Keep it in Pulse, and the empty state says what it's for: sent them a question or a ticket and waiting for an answer, Pulse keeps it as a case, reminds you after 5 days, and closes it when you record their answer.",
+    "proposals": "",
+    "zip": "outside-requests-visible.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/ui/outside-services.php": {
+            "sha": "70cc8fb01d1847f9fea1bcab3316c4dc73413890b7e14a9d3adf2c93b6ff9052",
+            "size": 38871,
+            "live_was": "2eedb4ec4e84998dd08f56c8db23f2c66cf1e8ee19b69d72b2ca90f4cc13d421"
+        },
+        "app/lib/OutsideServices.php": {
+            "sha": "9676368c8bfb9de598e92ba1c630032b113a417743b23c55b7dcd1ddf6a7b8f2",
+            "size": 83126,
+            "live_was": "3f2b2a14563142905524e42fd2f768f04e804c60646f4c5c953fbbd28d1d6406"
+        },
+        "app/lib/Pulse.php": {
+            "sha": "70f5d38c163df56fb80428a6563fe1a173f40fdf32fc1b68b8c4d4da78e22860",
+            "size": 143086,
+            "live_was": "12fc686dcf5f122b9c487fb276ca57e58f2fc82c6571b590a78581e19fd850bb"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-17T14:19:43+00:00",
+            "by": 0,
+            "msg": "Uploaded outside-requests-visible.zip: 3 files."
+        }
+    ]
+}
