@@ -46,6 +46,15 @@ joining it to the account's domains is the Storefront app's job (0169 app 6).
    a link to its storefront page, managed there as today.
 5. **Admin → Market 360 → Custom domains:** also lists the accounts' domains (owner, source, expiry, where it points).
 6. FAQ entries; 390px check; tests in mock mode.
+7. **Two products** (Jason, 2026-11-17, relayed by the session manager: "Domain Purchase, domain renewal. Two
+   products"): **Domain Purchase** (a first registration) and **Domain Renewal** (every yearly renewal, Renew now or
+   auto-renew), added to `products` by the migration (INSERT … WHERE NOT EXISTS), both services priced per sale
+   (Name.com's cost + `DOMAIN_MARKUP_CENTS`). Each links to its own QuickBooks item through the product's link
+   (`Books::itemFor`), never a name picked at sale time. Every order line carries the product, **Name.com as its vendor**
+   (`vendors`, `order_lines.vendor_id`) and **Name.com's actual cost** for that domain and year (`order_line_costs.vendor_cents`),
+   so 0166's ledger can post the cost of goods; the margin is the markup. No income or cost account is chosen in code:
+   that's 0166's QuickBooks setup step (two starter pairs: Domain purchases and Domain renewals, income + COGS). Until
+   then the receipt follows today's `QuickBooksPay` path.
 
 ## Questions put to Jason (2026-11-17)
 
