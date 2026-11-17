@@ -216,6 +216,10 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
        remaining `v` into `v_long`, moves reads and writes to `v_long` alone, and drops `v` as a recorded leftover under
        0162 (named under `"removes"` in release.json; Pulse #31's unused-schema list shows it). Same sweep for the other
        leftovers that list names.
+     - **The pre-flight's Arizona Corporation Commission line tests a dead address** (2026-11-17): `Preflight::test`
+       case 'azcc' still calls `ecorp.azcc.gov`, which no longer resolves; the Commission moved to
+       `arizonabusinesscenter.azcc.gov`, which answers our host 403 "Access Blocked". Test the new host and say it's
+       blocked pending the records request (one line), not "No answer".
      **For Jason to address in the cleanup** (Jason, 2026-11-17: "Add these to the queue for me to address in the clean
      up"):
      - **Records requests to the Arizona Corporation Commission and New Mexico's Secretary of State** for their
