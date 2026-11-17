@@ -142,6 +142,20 @@
      "app/lib/SystemStart.php"
     ]
    }
+  },
+  {
+   "path": "app/lib/Operations.php",
+   "functions": [
+    "osmOtherSource",
+    "serverScoped"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
+   "why": "OpenStreetMap's other sources (the source map)",
+   "since": "2026-11-17T17:58:35Z",
+   "expires": "2026-11-17T21:58:35Z",
+   "release": "large-fallbacks",
+   "callers": {}
   }
  ],
  "lapsed": [
