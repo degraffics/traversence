@@ -70,8 +70,13 @@ joining it to the account's domains is the Storefront app's job (0169 app 6).
    - 30 days before a locked card expires: a reminder with Replace card; a declined renewal retries at 3 and 7 days, a
      new card at once;
    - test accounts in the sandbox; every charge has its key so it's made once;
-   - plans keep their own card for now (nothing working changes); they move onto the wallet with 0166's QuickBooks
-     Payments app.
+   - **plans use the wallet too** (Jason, 2026-11-17: "this should not be different, it is a payment method from
+     wallet"): the migration copies each subscription's card into its account's wallet (INSERT only; the QuickBooks
+     wallet ids `TRV-U<id>` / `TRV-L<id>` are already per account, so the cards are already there at QuickBooks) and
+     assigns the plan to it. `Billing::start` and `setCard` save through `Wallet` and assign; replacing the card in the
+     wallet replaces it on the plan. `subscriptions.card_id` / `card_label` stay, kept equal to the assigned card, so
+     every reader today (renewals, the cart, the Plans page, the admin, receipts) keeps working unchanged. A business's
+     ownership moving (`Team.php`) unassigns and removes the old owner's card, as it clears it today;
    - `saveCard` and the cardOnFile charge are verified against QuickBooks' sandbox **on staging** once the release is
      there (QuickBooks is sandbox-only on staging; this session can't reach it).
 
