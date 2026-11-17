@@ -50,6 +50,7 @@
   {
    "path": "app/lib/Domains.php",
    "functions": [
+    "(top)",
     "namecom",
     "ncAccount"
    ],
@@ -57,8 +58,8 @@
    "session": "domain-live-search",
    "why": "Test mode searches Name.com live (real availability and prices), buys in the sandbox; no guessed renewal prices (Jason, 2026-11-17)",
    "since": "2026-11-17T12:17:57Z",
-   "expires": "2026-11-17T16:17:57Z",
-   "release": "",
+   "expires": "2026-11-17T16:20:54Z",
+   "release": "domain-live-search.zip",
    "callers": {}
   },
   {
@@ -74,8 +75,8 @@
    "session": "domain-live-search",
    "why": "Test mode searches Name.com live; no guessed renewal prices (Jason, 2026-11-17)",
    "since": "2026-11-17T12:17:57Z",
-   "expires": "2026-11-17T16:19:28Z",
-   "release": "",
+   "expires": "2026-11-17T16:20:54Z",
+   "release": "domain-live-search.zip",
    "callers": {
     "search": [
      "website/api/domains.php"
@@ -92,8 +93,8 @@
    "session": "domain-live-search",
    "why": "Test mode searches Name.com live (real availability and prices), buys in the sandbox; no guessed renewal prices (Jason, 2026-11-17)",
    "since": "2026-11-17T12:17:57Z",
-   "expires": "2026-11-17T16:17:57Z",
-   "release": "",
+   "expires": "2026-11-17T16:20:54Z",
+   "release": "domain-live-search.zip",
    "callers": {}
   },
   {
@@ -103,8 +104,8 @@
    "session": "domain-live-search",
    "why": "Test mode searches Name.com live (real availability and prices), buys in the sandbox; no guessed renewal prices (Jason, 2026-11-17)",
    "since": "2026-11-17T12:17:57Z",
-   "expires": "2026-11-17T16:17:57Z",
-   "release": "",
+   "expires": "2026-11-17T16:20:54Z",
+   "release": "domain-live-search.zip",
    "callers": {}
   },
   {
