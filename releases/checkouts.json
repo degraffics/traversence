@@ -224,6 +224,35 @@
      "app/admin/sections.php"
     ]
    }
+  },
+  {
+   "path": "app/lib/OutsideServices.php",
+   "functions": [
+    "REQ_SEED",
+    "addRequest",
+    "pulseDo",
+    "requests"
+   ],
+   "kind": "add",
+   "session": "outside-requests",
+   "why": "Requests waiting on outside companies, each a Pulse case until answered; Name.com reseller pricing ticket #3113488 (Jason, 2026-11-17)",
+   "since": "2026-11-17T13:44:09Z",
+   "expires": "2026-11-17T17:44:09Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "app/ui/outside-services.php",
+   "functions": [
+    "tv_os_requests"
+   ],
+   "kind": "add",
+   "session": "outside-requests",
+   "why": "Requests waiting on outside companies, each a Pulse case until answered; Name.com reseller pricing ticket #3113488 (Jason, 2026-11-17)",
+   "since": "2026-11-17T13:44:09Z",
+   "expires": "2026-11-17T17:44:09Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
