@@ -45,8 +45,8 @@
    "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
    "why": "Pre-flight run life cycle",
    "since": "2026-11-17T18:11:16Z",
-   "expires": "2026-11-17T23:07:09Z",
-   "release": "hub-gate-preflight-2.zip",
+   "expires": "2026-11-17T23:19:16Z",
+   "release": "hub-gate-preflight-3.zip",
    "callers": {}
   },
   {
@@ -96,8 +96,8 @@
    "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
    "why": "Hub lines hold W14 only; planned hubs and other states' sources stop holding Start; pre-flight switch-on line",
    "since": "2026-11-17T18:49:42Z",
-   "expires": "2026-11-17T23:07:28Z",
-   "release": "hub-gate-preflight-2",
+   "expires": "2026-11-17T23:19:16Z",
+   "release": "hub-gate-preflight-3.zip",
    "callers": {
     "lines": [
      "app/lib/Operations.php"
