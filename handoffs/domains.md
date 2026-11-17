@@ -4,6 +4,16 @@ Session: claude/domains-0169-1a. Started 2026-11-17, on the mirror at `3c54bf3` 
 
 ## Where it stands
 
+- **Live as release #71 (`domains-wallet-2.zip`), 2026-11-17 03:30 UTC:** staging's checks passed, the migration ran
+  first, 22 files published. Synced at 03:33 UTC; every file matches the zip byte for byte; claims released.
+- **Release #70** (`domains-wallet.zip`) never went live (its migration wasn't add-only); it's replaced by #71 and can
+  be withdrawn on https://traversence.com/admin/config/releases.
+- **Buying is off** until `DOMAINS_MODE` is set (https://traversence.com/admin/config/settings): `test` (our team only,
+  sandboxes), then `live` with `NAMECOM_ENV=live`.
+- **Still to check against the sandboxes** (not reachable from a Claude session): saving a card
+  (`QuickBooksPay::saveCard`, with its expiry) and charging a saved card (`chargeSaved`); with Name.com allowed for a
+  test on staging, search, register, renew, forward, records, nameservers, transfer code. Done by our team in test mode.
+
 - **Built and sent as release `domains-wallet.zip`** (built on the **01:45 UTC sync, 2026-11-17**; no site code changed
   between that and 15:16 UTC 2026-11-16, which it was written on). Waiting on Jason's OK in chat before merging into
   `main` (the live site then takes it onto staging and publishes it when its checks pass).

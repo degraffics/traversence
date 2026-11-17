@@ -3,100 +3,100 @@
  "built_on": "fa990c7 Sync: 2026-11-17 01:45 UTC",
  "recorded": "2026-11-17 02:42 UTC",
  "note": "domains-wallet-2: replaces #70 (its migration wasn't add-only); built on Sync: 2026-11-17 01:45 UTC Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "2101a57 Sync: 2026-11-17 03:33 UTC",
  "files": {
   "app/business/domains.php": {
    "sha256": "aa1d554dda3ecbc9ce3056d530049c1c3445aeeabdfc9fc0091a0ba96dd589f3",
-   "live": false
+   "live": true
   },
   "app/business/portal.php": {
    "sha256": "ce1aa8ba640293dd1c3086bde3d91ac0226bee802c1b3ebbd7975a173a0351b4",
-   "live": false
+   "live": true
   },
   "app/lib/AccountDomains.php": {
    "sha256": "5523d8ccc4af579d20e2847b9c20f6e8b22208c805befe76ff21d96d397339e2",
-   "live": false
+   "live": true
   },
   "app/lib/Billing.php": {
    "sha256": "0e244942129fd65c377c7ee5658ece1bb7a6a2f4f7a67db57dfdbdf39b2a5824",
-   "live": false
+   "live": true
   },
   "app/lib/CartPlans.php": {
    "sha256": "5364b1560b79de3c3a5782669e70b8d2023803ca104d49934909482eac6f3cbc",
-   "live": false
+   "live": true
   },
   "app/lib/Domains.php": {
    "sha256": "9d725480f65bb9e92e829452b8bc3d92c23b7b39e5affe28658d954fcc5bf16e",
-   "live": false
+   "live": true
   },
   "app/lib/Pulse.php": {
    "sha256": "784c7578047e94b85bd1d77d8252f130972a57a76762ab76f0e37eb5bfe0da76",
-   "live": false
+   "live": true
   },
   "app/lib/QuickBooksPay.php": {
    "sha256": "2fe5bac06b081604cc5cbb3c93d7b78367333cbd7371b165eb1f8d3bb51cd5e3",
-   "live": false
+   "live": true
   },
   "app/lib/Team.php": {
    "sha256": "dcbb5dd60570ee11d2fba44e1afcb722bc5bc3aa4a1feaae466337647376502a",
-   "live": false
+   "live": true
   },
   "app/lib/Wallet.php": {
    "sha256": "0ada9945a5ee9b87a70da4c6fa2a68381df0f717728c5adcf89c759b9cedd01d",
-   "live": false
+   "live": true
   },
   "app/lib/staging-tables.php": {
    "sha256": "abd9551185abb9ffe355c1192a16755711caa72a46aa18d372e8ea16a2d156eb",
-   "live": false
+   "live": true
   },
   "app/migrations/2027-03-10_account_domains_wallet.sql": {
    "sha256": "c2243105388a3f1d24599ee82bd34f7131d0e9ab2816b1a56985cf1e86077403",
-   "live": false
+   "live": true
   },
   "app/scripts/domains_tick.php": {
    "sha256": "eee8c54165179f8b5adf9db207695f69abc85fda4c8f8c0adc019af46872f07f",
-   "live": false
+   "live": true
   },
   "app/ui/domains-view.php": {
    "sha256": "4bb164966109b4eb97bb7aaaca4be94df176f9bebfb585a7a9a32fea7386d98f",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "3e21db047e04c1faa3950933342d31645767fa31f2f2d1605deb9ebaa76906e1",
-   "live": false
+   "live": true
   },
   "website/api/domains.php": {
    "sha256": "590a0d17d3987627bb8e7c30fc9111c94903e5f85ecb85c52fe29ba8fd78331c",
-   "live": false
+   "live": true
   },
   "website/business/router.php": {
    "sha256": "c4f841909e37774b89c2390da6dbca14332bf69ba27dedb7cb79f798b2113fe5",
-   "live": false
+   "live": true
   },
   "website/js/tv-domains.js": {
    "sha256": "d5d2ddabe0e8c7cc1160311bd4d5eb183ebf3b723148b3f9cbc344a3caff93b5",
-   "live": false
+   "live": true
   },
   "website/qr/cart.php": {
    "sha256": "2543d4ad105bf2795414036534d4ed65c08ee5ea0475efa98d26d0135c19b7ef",
-   "live": false
+   "live": true
   },
   "website/shop/domains.php": {
    "sha256": "e3786980af9821ed4b4d1625fbd6b20c8185ea1da1c2bcc139e304b573476b8f",
-   "live": false
+   "live": true
   },
   "website/shop/index.php": {
    "sha256": "5eb04e4aede4b0dd7fcb9eac651e647319fdcc30550a50362e601817b145d1cd",
-   "live": false
+   "live": true
   },
   "website/user/dashboard.php": {
    "sha256": "48cd9686ea9a8b578ccc933cdb5958cfbfc4b1a94346f46ee5876c3981b77069",
-   "live": false
+   "live": true
   },
   "website/user/domains/index.php": {
    "sha256": "3fa23b1341b445af120816cb4543195e3be4fb668a1989ad74e9da1b350b3087",
-   "live": false
+   "live": true
   }
  }
 }
