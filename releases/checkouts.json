@@ -76,18 +76,38 @@
   {
    "path": "app/lib/Domains.php",
    "functions": [
+    "LOOKUP_PATHS",
     "api",
-    "namecom"
+    "buy",
+    "namecom",
+    "ncCheck",
+    "renew",
+    "search",
+    "setRecords",
+    "transferCode"
    ],
    "kind": "change",
    "session": "domain-years",
-   "why": "Domain purchases: idempotency key on registration (Name.com's quickstart)",
+   "why": "Name.com's Core API (/core/v1) for every call; storefront buy and renew follow Name.com's pricing guide (Jason, 2026-11-17)",
    "since": "2026-11-17T12:40:44Z",
-   "expires": "2026-11-17T16:45:01Z",
+   "expires": "2026-11-17T16:49:37Z",
    "release": "domain-years.zip",
    "callers": {
     "api": [
      "app/lib/AccountDomains.php"
+    ],
+    "search": [
+     "app/business/storefront.php"
+    ],
+    "buy": [
+     "app/business/storefront.php"
+    ],
+    "transferCode": [
+     "app/business/storefront.php"
+    ],
+    "ncCheck": [
+     "app/lib/EnvSettings.php",
+     "app/lib/Pulse.php"
     ]
    }
   },
@@ -95,24 +115,33 @@
    "path": "app/lib/AccountDomains.php",
    "functions": [
     "(top)",
+    "addEmailRecords",
     "addToCart",
     "cartGroups",
+    "deleteRecord",
+    "forward",
     "mailBuyer",
     "pay",
     "payGroup",
     "pulseDo",
     "receipt",
+    "records",
     "register",
     "renewAt",
+    "renewPrice",
     "renewalCost",
+    "saveRecord",
     "search",
+    "setNameservers",
+    "tick",
+    "transferCode",
     "usd"
    ],
    "kind": "change",
    "session": "domain-years",
-   "why": "Domain purchases: terms of years (Jason, 2026-11-17)",
+   "why": "Name.com's Core API (/core/v1) for every call; storefront buy and renew follow Name.com's pricing guide (Jason, 2026-11-17)",
    "since": "2026-11-17T12:40:44Z",
-   "expires": "2026-11-17T16:45:01Z",
+   "expires": "2026-11-17T16:49:37Z",
    "release": "domain-years.zip",
    "callers": {
     "search": [
@@ -132,6 +161,30 @@
     ],
     "usd": [
      "website/api/domains.php"
+    ],
+    "forward": [
+     "website/api/domains.php"
+    ],
+    "records": [
+     "website/api/domains.php"
+    ],
+    "saveRecord": [
+     "website/api/domains.php"
+    ],
+    "deleteRecord": [
+     "website/api/domains.php"
+    ],
+    "setNameservers": [
+     "website/api/domains.php"
+    ],
+    "addEmailRecords": [
+     "website/api/domains.php"
+    ],
+    "transferCode": [
+     "website/api/domains.php"
+    ],
+    "tick": [
+     "app/scripts/domains_tick.php"
     ]
    }
   },
