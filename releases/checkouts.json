@@ -360,6 +360,42 @@
    "expires": "2026-11-17T21:00:47Z",
    "release": "paid-overrides.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/crawler/Verify.php",
+   "functions": [
+    "KINDS"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
+   "why": "A Google match (paid backup, by override) raises a new find's confidence in the second look; never keepable (Jason, 2026-11-17)",
+   "since": "2026-11-17T17:02:37Z",
+   "expires": "2026-11-17T21:02:37Z",
+   "release": "paid-overrides",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/crawler/AutoImport.php",
+   "functions": [
+    "evaluate"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
+   "why": "A Google match (paid backup, by override) raises a new find's confidence in the second look; never keepable (Jason, 2026-11-17)",
+   "since": "2026-11-17T17:02:37Z",
+   "expires": "2026-11-17T21:02:37Z",
+   "release": "paid-overrides",
+   "callers": {
+    "evaluate": [
+     "app/lib/GuideLinks.php",
+     "app/lib/Helper.php",
+     "app/lib/Thresholds.php",
+     "app/lib/crawler/Verify.php",
+     "website/admin/crawler-review.php",
+     "website/admin/review-item.php",
+     "website/api/health.php"
+    ]
+   }
   }
  ],
  "lapsed": [
