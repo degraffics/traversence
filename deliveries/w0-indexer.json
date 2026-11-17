@@ -1,0 +1,74 @@
+{
+ "zip": "w0-indexer.zip",
+ "built_on": "33083ea Sync: 2026-11-17 12:57 UTC",
+ "recorded": "2026-11-17 13:07 UTC",
+ "note": "W0 Indexer, site side (Release 1 of 2), built on Sync: 2026-11-17 12:57 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/admin/index-console.php": {
+   "sha256": "3cbb506b519d76a53aed9451d375fc1e43f07e9214311f6aa4f288204591faf3",
+   "live": false
+  },
+  "app/admin/manifests.php": {
+   "sha256": "a6956d76fd35735c6caf754b8042baa513dfdacac1712ac62a768c406cebc1a4",
+   "live": false
+  },
+  "app/admin/sections.php": {
+   "sha256": "023fe1b2e3c8bf1f203b9014601d1c4ceb0cf4b7f8baceddae38a309c8d11534",
+   "live": false
+  },
+  "app/lib/Automation.php": {
+   "sha256": "6f6733ee5a50e47b261dc4723cab01bf9350e3e749c1c0d0a653c4364a7f5787",
+   "live": false
+  },
+  "app/lib/Operations.php": {
+   "sha256": "ac1e9258946acb1c3cdedc77f32734cf1e6a8117c26973af7365f643187f864a",
+   "live": false
+  },
+  "app/lib/OutsideServices.php": {
+   "sha256": "7ac6eb08d9a39ce9c435d4e44938fefc4ab699c52af04fbd4df2271a8e21fe9e",
+   "live": false
+  },
+  "app/lib/Scheduler.php": {
+   "sha256": "2eb8b8509e6d8c32096a221884718733962121fa57ecc01c947106a11959a2e9",
+   "live": false
+  },
+  "app/lib/SystemStart.php": {
+   "sha256": "744565e10b649234dda61cab67f5887c8146cdecca97891dedbdd67c8f44abe7",
+   "live": false
+  },
+  "app/lib/Thresholds.php": {
+   "sha256": "18a7111b4456290cf3ce3bc629dfd54212ab80367406f480b27ab750bbc80c35",
+   "live": false
+  },
+  "app/lib/crawler/Frontier.php": {
+   "sha256": "94a1ab458e54dfaa0d67492a05c5d88cf18c66289cfe88692ca327699f776dd8",
+   "live": false
+  },
+  "app/lib/crawler/SourceIndex.php": {
+   "sha256": "ae263792a120c20083d11e1c12d0bd9a68637c4580ba77fa7b8319847618ea14",
+   "live": false
+  },
+  "app/lib/crawler/Sources.php": {
+   "sha256": "0646345bf66af96cf84f38b5859a7b8e963aeec15f578b623fe36276e38c7d77",
+   "live": false
+  },
+  "app/migrations/2027-03-12_w0_frontier.sql": {
+   "sha256": "6258bba08e36f01789061afc9264bd9d9682a5c5b66d5baae806f4133e08de20",
+   "live": false
+  },
+  "app/scripts/frontier_tick.php": {
+   "sha256": "8de423ab1d3e9d85f23ea3c0ec4a18a125d968485b8b2eef0f7d687e93afe258",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "26a02fab0618d78af17d3de7843be53d41026571577a2f76ccae014607075a4b",
+   "live": false
+  },
+  "website/api/crawl/index.php": {
+   "sha256": "00333a24febbefa4b8f99b25bf73bffd8949c3e6e1d1cac9bde9986ab1fb0b01",
+   "live": false
+  }
+ }
+}
