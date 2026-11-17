@@ -69,7 +69,7 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
     to consider a shared `LEGAL_EMAIL` and a business `LEGAL_PHONE`); Pixabay, OpenRouteService, `HEALTH_TOKEN` (must
     match the GitHub secret); Hugging Face on Railway only; Supabase (setup SQL from its card still to run).
 - **Queued after the usage reset (~Nov 17 23:00 UTC):**
-  1. **The indexer: every URL logged, always on** (0164 §1.4's note, Jason 2026-11-17: "Put it first in the queue"): every link on every page read into the frontier (same site or not, with its page and link text);
+  1. **W0 Indexer: every URL logged, always on** (0164 §1.4's note, Jason 2026-11-17: "Put it first in the queue"): every link on every page read into the frontier (same site or not, with its page and link text);
      classification runs by itself on new sites; reading only where §1.2's rules allow; a person's call overrides,
      never gates; today's "Waiting for you" sources classified on the first pass. Worker (`own_site_links`, the
      40/60 caps, `read_source`) and site (`Sources.php`, `SourceIndex.php`, `/api/crawl/sources.php`).
@@ -99,7 +99,7 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
      use, not in use; kind: storage, email, payments, AI, sign-in, data sources, domains, workers, hosting); sort by
      status (default), name or cost; a row opens to today's full card in place (nothing dropped); filter and search
      remembered. One list and one status shared with the pre-flight; a ✗ there links to the company's row.
-  3. **Places by location: every find and every piece of content into the discovery funnel** (decisions/0170, proposed) (Jason, 2026-11-16, found in the `.env` trace):
+  3. **W15 Funnel: every find and every piece of content into the discovery funnel** (decisions/0170, proposed) (Jason, 2026-11-16, found in the `.env` trace):
      `CrawlerIngest::resolveMicroClusterId()` files any ZIP outside an existing area under `DEFAULT_GEO_HUB_SLUG`
      (ancient-borderlands), wherever it is (callers: `api/ingest.php`, `IntakeStager`, `IntakeClusters`,
      `AddBusiness`). Fix: an existing area first; else the hub whose region holds it, or the nearest in reach; else
@@ -190,8 +190,9 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
 - **Jason, from the Domains build:** set **Own domains on storefronts** to **test** on the Name.com card
   (https://traversence.com/admin/config/services) to try domain sales; **withdraw release #70** (staged, never shipped:
   its migration wasn't add-only; #71 replaced it) on the site manager's Releases page.
-- **For Jason to sort out:** the **Chameleon Filter** (brand.md §5, architecture.md §22; "coming" in toolkit.md and
-  prd.md): how each place's page shifts emphasis by the visitor's track (Get Local, Let's Explore, Community), which
+- **For Jason to sort out:** the **Chameleon Filter** (brand.md §5, architecture.md §22, 0003, 0131 §3). **Already built
+  in guides:** the Visiting / Live here dial and each section's picks (relevance, proximity, kind, season; never paid);
+  **still to decide:** the Community track, the filter beyond guides, and its use of the intent tags (0170 §1a): how each place's page shifts emphasis by the visitor's track (Get Local, Let's Explore, Community), which
   tags and items show for each, and the DIKW climb. Phase 4's intent tags (decisions/0170 §1a) are its data; its
   design is Jason's to decide (Jason, 2026-11-17: "put chameleon filter on the queue for me to sort out"), then a
   decision and a build. Two questions with it (2026-11-17): (1) where research finds a real community organization

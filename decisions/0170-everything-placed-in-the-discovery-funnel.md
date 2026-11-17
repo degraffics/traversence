@@ -41,6 +41,8 @@ placement."
 
 ### 1. Placement is Phase 4's job, for everything
 
+**Its workflow: W15 Funnel** (Jason, 2026-11-17): the placement, the intent tags, the roll-up, the gaps by level and planned levels' readiness run as one workflow in the engine (0164's table), scheduled and run as things are catalogued, gated and budgeted like the rest.
+
 Organizing happens in the Knowledge Engine's **Phase 4, the master catalog** (0164 Phase 4, step 6 "Catalogued"), not
 in each content type's own code and not only for listings. When anything is catalogued (a listing, a landmark or
 outdoor place, a place, an event, a topic, heritage, the Human Record and the Living Landscape, a footprint, a dossier

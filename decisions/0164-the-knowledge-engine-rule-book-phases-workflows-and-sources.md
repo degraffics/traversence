@@ -1170,9 +1170,10 @@ needs; each has its own queue, share, report and costs (0160 §4) and its switch
 
 | Workflow | Phases | Under this record |
 |---|---|---|
+| **W0 Indexer** (new, Jason, 2026-11-17) | 1, 1.4 | always on, its own Railway service (not on a schedule): logs every URL found into the frontier, classifies new sites, keeps the verdict loop (promoted, normal, demoted, junk), reading priority, size guard, batches with receipts (§1.4's note); starts first in Start the system, stopped by Pause everything |
 | W1 Listings | 1–4, 5.4 | leads in Run 2's order: Overture and NPI, then Google Places' check, with licences and OpenStreetMap (§1.5; Gemini never a finder, §0.8); public once past the "real business" floor, at its confidence (website, licence, collaborative score, owner: §3.5); published when ready (§5.4) |
 | W2 Keeping listings current | 6 (via 1–3) | cadence by band (R12); closure signals (lapsed licences, dataset drops, Google, one site) lower confidence and ask "Still open?"; Closed only from the owner, our team, the public or the business's own site; "Still open?" built here (R12); the identity recheck, "Vet this place" (its `identity` task, the one entry point) and the identity queue (§6.1, 2026-11-15) |
-| W3 Source register and place store | 1, 2 | the dossier engine (§1.4); the person's call on each site; each licence registry and open dataset is a source with its licence (R9) |
+| W3 Source register and place store | 1, 2 | reads the sources classified Read regularly (W0 finds and classifies them; a person's call overrides, never gates: §1.4's note); the dossier engine (§1.4); each licence registry and open dataset is a source with its licence (R9) |
 | W4 Place guides | 4, 5.4 | written from public-safe facts and research; publishes at R10's guide score; the three protected levels (R7) |
 | W5 Guides on demand | 4, 5.4 | a first look from what we hold; within its share of the daily AI allowance (0147; 0163 §7) |
 | W6 Heritage and topics | 1–4, 6 | Library of Congress; vetting (§3.2); the Topic index (R15) |
@@ -1183,6 +1184,7 @@ needs; each has its own queue, share, report and costs (0160 §4) and its switch
 | W12 Search learning | 4.5 | searches feed the frontier; a search that found nothing records demand by place, kind or topic, never the words (§4.5); no grounded search unless funded (§0.8) |
 | W13 Stories | 5.4 | person-written only (R5); named places to Find it, on Claude only (§0.8) |
 | **W14 Authority sources** (new, Jason, 2026-11-14) | 1, 2, 6 | finds and stages each state's licence and registry sources in the source register ahead of its hubs (§7.1) |
+| **W15 Funnel** (new, Jason, 2026-11-17; decisions/0170) | 4, 4.5 | places everything catalogued on the taxonomy (hub → zone → town → anchor → sub-group), active or planned, and tags its intent (Get Local, Let's Explore, Community); rolls each level's research up into that level's dossier for W4's guides; sends each level's gaps to W0 and W1; keeps each planned level's readiness (HubOpening); scheduled, and run as things are catalogued |
 
 **The new parts and where they fit** (Jason, 2026-11-14; built in the order of 0163 §8, stages 7–11):
 
