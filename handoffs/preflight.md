@@ -23,6 +23,13 @@ Check-out release names: `preflight` (release 1), `outside-table` (release 2, no
   (the header showed "78 not run yet"); slow checks (over `pf_slow_ms`, 5 s) in amber with "Show the slow ones"; each
   line's last 10 times; a full run's start, end and length; **Report (text)**: `GET /admin/api/config/preflight?action=report`.
   Lesson: `search_index_state.v` is short on live; keep anything longer than a few hundred characters out of it.
+- **`preflight-tune.zip`** (2026-11-17, from Jason's first report: 58 ready, 24 not), built on Sync 14:36 UTC: Railway
+  test reads the project (a team token can't ask `me`), OpenStreetMap asks each free server (6 s each), Fly sends a
+  macaroon as FlyV1, Supabase's empty index is expected before switch-on, jobs shipped off get their line from Start the
+  system, openrouteservice's 5xx is theirs. Real items found (for Jason): HF_TOKEN missing on Railway's `traversence`
+  service; azliquor.gov's Cloudflare challenge; GITHUB_SYNC_TOKEN expires Dec 16, 2026; the switch-on check holds W1, W2,
+  W3, W11, W12 for BRAVE_API_KEY though Tavily is the search (Operations::switchOnCheck; Jason's call); Domains::fly sends
+  Bearer, so a macaroon FLY_API_TOKEN fails there too (domains session); 36 ungated outside calls (StagingGate::scan).
 - **Release 2, Outside services as a table:** waits for release 1 to be live (both touch `app/admin/sections.php`), then
   start from the live `OutsideServices.php`, `app/ui/outside-services.php` and `sections.php` (outside-requests is live
   as #84 and #87, so its claims have ended). Plan below.
