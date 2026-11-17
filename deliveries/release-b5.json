@@ -3,7 +3,7 @@
  "built_on": "ffadd93 Sync: 2026-11-15 20:11 UTC",
  "recorded": "2026-11-15 20:13 UTC",
  "note": "Release B part 5 (reader drift, empty searches, F2-F4), built on Sync: 2026-11-15 20:11 UTC Sent through git (releases/inbox). Withdrawn 2026-11-15: its migration failed staging's \"Migrations only add\" check (#65); replaced by release-b5b.",
- "status": "pending",
+ "status": "partial",
  "live_in": "",
  "files": {
   "app/lib/EngineCase.php": {
@@ -12,11 +12,11 @@
   },
   "app/lib/Gemini.php": {
    "sha256": "663010642436834dcdfcd8448fe6d46bc56e172df96b4d7e3189d6877ec4ee52",
-   "live": false
+   "live": true
   },
   "app/lib/ListingConfidence.php": {
    "sha256": "64322667e4d1106bcdf9a788728baee1b710650ab6886db69630a51c3c8868c9",
-   "live": false
+   "live": true
   },
   "app/lib/Operations.php": {
    "sha256": "946a3aa31418ec26d77e5f243fad813ee6158516efd0d1d6b28a37a70a169799",

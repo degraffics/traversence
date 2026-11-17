@@ -9,7 +9,9 @@ Check-out session name: `w0-indexer`.
   `stored` is a reserved word in MySQL 8 (MariaDB, where it was tested, allows it). Corrected as `w0-indexer-2`
   (`crawl_batches.stored_n`), built on Sync: 2026-11-17 13:09 UTC; `w0-indexer` marked replaced. Lesson: check every new
   column name against MySQL 8's reserved words, not only MariaDB.
-- Release 2 (the worker): not started. Release 3 (the Railway service): ask Jason first.
+- **Release 1 is live** as release #79 (2026-11-17), synced (Sync: 2026-11-17 13:15 UTC) and verified byte for byte
+  (`deliveries.py verify`); its claims released. W0 is paused; the hourly upkeep (`frontier_tick`) runs.
+- Release 2 (the worker): built and tested on branch `claude/w0-worker`, waiting for Jason's OK (merging redeploys the crawler's image on Railway). Release 3 (the Railway service): ask Jason first.
 - Jason's calls (2026-11-17, "ok. go."): chambers, tourism boards, organizations and other non-public sites → Read
   regularly by the machine (facts only as licence and terms allow); the key is sha1 (the page log's). Both noted in 0164.
 
