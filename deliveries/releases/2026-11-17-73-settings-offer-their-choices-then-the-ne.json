@@ -6,52 +6,63 @@
     "zip": "setting-choices.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "staged",
-    "step": 0,
+    "state": "live",
+    "step": 3,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
     "plan_at": "2026-11-17 11:47:54",
     "staged_at": "2026-11-17 11:47:55",
-    "vetted_at": null,
-    "live_at": null,
+    "vetted_at": "2026-11-17 11:47:58",
+    "live_at": "2026-11-17 11:47:58",
     "files": {
         "app/ui/outside-services.php": {
             "sha": "0a7fbae05ca045c4a8ab8629856fd6c7a00126662e8c7462d1f31ffdc1078c5f",
             "size": 32271,
-            "live_was": "2c60f3bd8006d84435c360b8517c85f50650811b52411e3cb1d1f0b3053ecc10"
+            "live_was": "2c60f3bd8006d84435c360b8517c85f50650811b52411e3cb1d1f0b3053ecc10",
+            "existed": true,
+            "old_sha": "2c60f3bd8006d84435c360b8517c85f50650811b52411e3cb1d1f0b3053ecc10"
         },
         "app/lib/EnvSettings.php": {
             "sha": "9371de1a32818d7b229349798febb684b2122ac241662d75b4eb94d3b5c6425e",
             "size": 19575,
-            "live_was": "3c733a4150b22c9a1660dd843b5ab82811e8a7309ac118dff219d5a3b872a9d8"
+            "live_was": "3c733a4150b22c9a1660dd843b5ab82811e8a7309ac118dff219d5a3b872a9d8",
+            "existed": true,
+            "old_sha": "3c733a4150b22c9a1660dd843b5ab82811e8a7309ac118dff219d5a3b872a9d8"
         },
         "website/admin/settings.php": {
             "sha": "06d0e6dcbf2df72fc9a13cd4595690049f6365b85e0ff54309a61b765956d449",
             "size": 36699,
-            "live_was": "5f627a25f4ce24020140d6594b6020fed5b7c9e37a7a55552847b8e9dbb29819"
+            "live_was": "5f627a25f4ce24020140d6594b6020fed5b7c9e37a7a55552847b8e9dbb29819",
+            "existed": true,
+            "old_sha": "5f627a25f4ce24020140d6594b6020fed5b7c9e37a7a55552847b8e9dbb29819"
         },
         "website/admin/api/env-setting.php": {
             "sha": "2a98dec4acc7e3de56840553596903c11de38ef31d6f9bd791c66b183d348a67",
             "size": 2776,
-            "live_was": "acd37a7b13c4f4aee09c3ec8402080139cb2e0788ec59d842924bf91f4cf5a9f"
+            "live_was": "acd37a7b13c4f4aee09c3ec8402080139cb2e0788ec59d842924bf91f4cf5a9f",
+            "existed": true,
+            "old_sha": "acd37a7b13c4f4aee09c3ec8402080139cb2e0788ec59d842924bf91f4cf5a9f"
         },
         "website/js/tv-ask.js": {
             "sha": "ce0df9343a023c03ae89ab8b2aec36826a62f865f7b53a30ba9ea6457ce44ed7",
             "size": 48617,
-            "live_was": "7b0a259088f314ae97dc94b9415824cca272fd496b28a76b3fdc97cc7705defb"
+            "live_was": "7b0a259088f314ae97dc94b9415824cca272fd496b28a76b3fdc97cc7705defb",
+            "existed": true,
+            "old_sha": "7b0a259088f314ae97dc94b9415824cca272fd496b28a76b3fdc97cc7705defb"
         },
         "website/js/tv-env-edit.js": {
             "sha": "718e9668d53b2e6ddcfe9b528b518aca4a60dbb9f8dc7b5d28bdfc47524672af",
             "size": 4648,
-            "live_was": null
+            "live_was": null,
+            "existed": false
         }
     },
     "migrations": [],
     "checks": {
         "ok": true,
-        "where": "staging",
-        "at": "2026-11-17T11:47:56+00:00",
+        "where": "live",
+        "at": "2026-11-17T11:47:58+00:00",
         "items": [
             [
                 "PHP files parse",
@@ -61,7 +72,7 @@
             [
                 "Pages answer",
                 true,
-                "3 pages answered on staging.trvgo.us"
+                "3 pages answered on traversence.com"
             ],
             [
                 "No new fatal errors in the logs",
@@ -91,6 +102,16 @@
             "at": "2026-11-17T11:47:56+00:00",
             "by": 0,
             "msg": "Put on staging (6 files); its checks passed."
+        },
+        {
+            "at": "2026-11-17T11:47:58+00:00",
+            "by": 0,
+            "msg": "Approved in chat before it was sent through git, and its checks on staging passed: publishing by itself."
+        },
+        {
+            "at": "2026-11-17T11:47:58+00:00",
+            "by": 0,
+            "msg": "Published: 6 files; everyone at once (no switch)."
         }
     ]
 }
