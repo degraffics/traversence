@@ -327,6 +327,7 @@
   {
    "path": "app/lib/Preflight.php",
    "functions": [
+    "lines",
     "railwayKey",
     "serviceTest",
     "task"
@@ -335,9 +336,13 @@
    "session": "session_01CXLi5kGG8gG4QBmC4uzMzN",
    "why": "Pre-flight from Jason's second report: Railway keys read from Railway, OpenStreetMap a tiny real query, openrouteservice's new address; Start the system registers the recheck task first (2026-11-17)",
    "since": "2026-11-17T15:19:51Z",
-   "expires": "2026-11-17T19:19:51Z",
-   "release": "preflight-fix2",
-   "callers": {}
+   "expires": "2026-11-17T19:21:14Z",
+   "release": "preflight-fix2.zip",
+   "callers": {
+    "lines": [
+     "app/admin/preflight-console.php"
+    ]
+   }
   },
   {
    "path": "app/lib/SystemStart.php",
@@ -350,6 +355,17 @@
    "since": "2026-11-17T15:19:51Z",
    "expires": "2026-11-17T19:19:51Z",
    "release": "preflight-fix2",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/SystemStart.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kGG8gG4QBmC4uzMzN",
+   "why": "release preflight-fix2.zip",
+   "since": "2026-11-17T15:21:14Z",
+   "expires": "2026-11-17T19:21:14Z",
+   "release": "preflight-fix2.zip",
    "callers": {}
   }
  ],
