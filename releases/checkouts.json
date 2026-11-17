@@ -1,6 +1,63 @@
 {
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
- "claims": [],
+ "claims": [
+  {
+   "path": "app/lib/EnvSettings.php",
+   "functions": [
+    "EDITABLE"
+   ],
+   "kind": "change",
+   "session": "setting-choices",
+   "why": "Settings with set answers offer choices and the next step (Jason, 2026-11-17)",
+   "since": "2026-11-17T11:33:45Z",
+   "expires": "2026-11-17T15:33:45Z",
+   "release": "",
+   "callers": {
+    "EDITABLE": [
+     "app/lib/OutsideServices.php",
+     "app/ui/outside-services.php",
+     "website/admin/api/env-setting.php",
+     "website/admin/settings.php"
+    ]
+   }
+  },
+  {
+   "path": "app/ui/outside-services.php",
+   "functions": [
+    "tv_os_env_js",
+    "tv_os_env_rows"
+   ],
+   "kind": "change",
+   "session": "setting-choices",
+   "why": "Settings with set answers offer choices and the next step (Jason, 2026-11-17)",
+   "since": "2026-11-17T11:33:45Z",
+   "expires": "2026-11-17T15:33:45Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "website/admin/settings.php",
+   "functions": [],
+   "kind": "change",
+   "session": "setting-choices",
+   "why": "Settings with set answers offer choices and the next step (Jason, 2026-11-17)",
+   "since": "2026-11-17T11:33:45Z",
+   "expires": "2026-11-17T15:33:45Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "website/admin/api/env-setting.php",
+   "functions": [],
+   "kind": "change",
+   "session": "setting-choices",
+   "why": "Settings with set answers offer choices and the next step (Jason, 2026-11-17)",
+   "since": "2026-11-17T11:33:45Z",
+   "expires": "2026-11-17T15:33:45Z",
+   "release": "",
+   "callers": {}
+  }
+ ],
  "lapsed": [
   {
    "path": "app/lib/Store.php",
