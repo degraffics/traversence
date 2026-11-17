@@ -68,7 +68,7 @@ The site's code isn't here. It runs on the server and in OneDrive, and its live 
 
 | Folder | What it is |
 |---|---|
-| `workers/crawler/` | The guide-crawl worker (Railway) |
+| `workers/crawler/` | The guide-crawl worker (Railway), and W0 Indexer (`indexer.py`, always on, its own Railway service from `railway.indexer.json`; decisions/0164 §1.4) |
 | `workers/video/` | The video worker: 720p and 1080p copies of posted videos (Railway, ffmpeg, decisions/0153 §8) |
 | `workers/storefront-edge/` | The edge for businesses' own domains on their storefronts (Fly.io, decisions/0139) |
 | `workers/lexicon/` | Builders for the site's word data (from WordNet) |

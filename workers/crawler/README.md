@@ -7,6 +7,18 @@ traversence.com, where they are published or queued for review under the ADR 004
 It runs **off Bluehost** so the shared host only does two small requests per run: hand out jobs, and
 check results. All fetching happens here.
 
+## W0 Indexer (`indexer.py`, decisions/0164 §1.4's note of 2026-11-17)
+
+Phase 1's engine, always on: its own Railway service from this image (`railway.indexer.json`: start `python -u indexer.py`,
+restart on failure), not the cron. It checks in with the site every minute (`/api/crawl/index.php`), sleeps while W0 is
+off (shipped paused; Start the system switches it on first, Pause everything stops it), and while it's on reads what the
+site hands out under the crawler's rules (robots.txt, 1.5 s or the site's Crawl-delay, the open web only, never a sign-in
+page or a held host), sending every link on every page (same site or not, with its page and words), each page's answer,
+and what new sites' home pages say. Batches: 250 found URLs or 25 pages, 100 KB, one every 10 s (Thresholds), halved on a
+409, 413, 503 or slow answer, grown back after an hour clean; each with a receipt, resent when it doesn't match.
+Variables: `TRAVERSENCE_URL`, `CRAWLER_API_TOKEN` (the crawler's). `INDEXER_TEST=1` sends the pre-flight's one test batch.
+Tests: `python3 tests/test_indexer.py`.
+
 ## The crawler as one service (decisions/0160, since 2026-11-13)
 
 Every 5 minutes Railway starts the container, and the **site plans the run** (`POST /api/crawl/service.php {start}`):
