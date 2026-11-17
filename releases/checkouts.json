@@ -143,6 +143,40 @@
    "expires": "2026-11-17T17:32:35Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/lib/Domains.php",
+   "functions": [
+    "TLDS"
+   ],
+   "kind": "change",
+   "session": "domain-tlds",
+   "why": "Offer .app and .ai (Jason, 2026-11-17)",
+   "since": "2026-11-17T13:40:18Z",
+   "expires": "2026-11-17T17:40:18Z",
+   "release": "",
+   "callers": {
+    "TLDS": [
+     "app/lib/AccountDomains.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/AccountDomains.php",
+   "functions": [
+    "search"
+   ],
+   "kind": "change",
+   "session": "domain-tlds",
+   "why": "Offer .app and .ai (Jason, 2026-11-17)",
+   "since": "2026-11-17T13:40:18Z",
+   "expires": "2026-11-17T17:40:18Z",
+   "release": "",
+   "callers": {
+    "search": [
+     "website/api/domains.php"
+    ]
+   }
   }
  ],
  "lapsed": [
