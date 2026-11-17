@@ -378,6 +378,19 @@
    "expires": "2026-11-17T18:29:27Z",
    "release": "preflight-slow",
    "callers": {}
+  },
+  {
+   "path": "app/lib/Thresholds.php",
+   "functions": [
+    "GATES"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5kGG8gG4QBmC4uzMzN",
+   "why": "Pre-flight: the slow line's limit",
+   "since": "2026-11-17T14:29:32Z",
+   "expires": "2026-11-17T18:29:32Z",
+   "release": "preflight-slow",
+   "callers": {}
   }
  ],
  "lapsed": [
