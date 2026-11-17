@@ -2,6 +2,8 @@
 
 **Note (2026-11-14, decisions/0164):** Amended by `decisions/0164` R1, R19, §10 (Services & usage (independence reported), now with 0163's register). 0133, named below, is closed and its rules are in 0164. The rest of this record stands; where it and 0164 disagree, 0164 rules.
 
+**Note (2026-11-17):** the page becomes a table (search, one filter dropdown by status and kind, sort, each row opening to its full card), built with 0163 §10's pre-flight check and sharing its status (Jason: "treat it like the table view with search and filters sorting").
+
 **Status:** Accepted (Jason, 2026-11-11: "yes, by company, build it"). Built: `outside-services_20261111.zip`. Replaces
 decisions/0133's Services & usage page (everything it showed is kept, on the cards and at the foot of the page) and
 changes how decisions/0125's Settings is laid out (its "Change here" settings are kept, each where it belongs).
