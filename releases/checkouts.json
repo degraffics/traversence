@@ -178,6 +178,52 @@
      "website/api/domains.php"
     ]
    }
+  },
+  {
+   "path": "app/lib/Pulse.php",
+   "functions": [
+    "items",
+    "manage",
+    "playbook"
+   ],
+   "kind": "change",
+   "session": "outside-requests",
+   "why": "Requests waiting on outside companies, each a Pulse case until answered; Name.com reseller pricing ticket #3113488 (Jason, 2026-11-17)",
+   "since": "2026-11-17T13:44:03Z",
+   "expires": "2026-11-17T17:44:03Z",
+   "release": "",
+   "callers": {
+    "items": [
+     "app/lib/DailyReport.php",
+     "app/ui/pulse-ui.php",
+     "website/admin/staff-profile.php",
+     "website/admin/w.php"
+    ],
+    "manage": [
+     "website/admin/api/pulse.php"
+    ],
+    "playbook": [
+     "app/lib/DailyReport.php",
+     "app/ui/pulse-ui.php"
+    ]
+   }
+  },
+  {
+   "path": "app/ui/outside-services.php",
+   "functions": [
+    "tv_outside_services"
+   ],
+   "kind": "change",
+   "session": "outside-requests",
+   "why": "Requests waiting on outside companies, each a Pulse case until answered; Name.com reseller pricing ticket #3113488 (Jason, 2026-11-17)",
+   "since": "2026-11-17T13:44:03Z",
+   "expires": "2026-11-17T17:44:03Z",
+   "release": "",
+   "callers": {
+    "tv_outside_services": [
+     "app/admin/sections.php"
+    ]
+   }
   }
  ],
  "lapsed": [
