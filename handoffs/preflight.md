@@ -113,6 +113,28 @@ Check-out release names: `preflight` (release 1), `outside-table` (release 2, no
   reader exists), W6 heritage's Wikimedia and NPS steps, Find it's Tavily → Brave step (the worker's `find_name` request
   could serve it), AZCC and NM SOS readers, W14, file storage's retry and old-bucket read.
 
+- **(c2, large builds)** (Jason, 2026-11-17: "Large Builds: Go ahead and start this"; release `large-fallbacks`, claims held):
+  built, **not sent yet**, waiting for #851 (`refresh-archive.zip`) to go live, since its FAQ entry sits on #851's FAQ (never
+  build on a zip that isn't live). Patches against the 17:05 UTC live copies in `handoffs/large-fallbacks-pending/`
+  (`faq.patch` against #851's faq.md). Once #851 is live and synced: apply them to fresh live copies, zip, zip check, send.
+  - **W8 Find it, Tavily → Brave** (`GuideLinks::findTick`, new `webStep`): after our crawler's map lookup finds nothing,
+    one `find_name` request to the crawler (one web search, Tavily then Brave since 2.10.0, then its own website); found
+    and staged → the find is `found`, its name links once listed; nothing, failed or a day waiting → Claude as before.
+  - **File storage** (`Scheduler::AUTO` + `files_tick`): an upload the store didn't take waits on the server and
+    `Store::moveOld` (step 2, files in their owner's folder not yet in the store) retries it every 10 minutes; `files_tick`
+    is now set up by the scheduler itself. The old Amazon bucket as a read fallback isn't built: the files were copied to
+    R2 (decisions/0151) and the old bucket's name is no longer in `.env`; worth it only if something turns up missing.
+  - **Not started, blocked:** the AZ Corporation Commission reader (`arizonabusinesscenter.azcc.gov` answers 403 "Access
+    Blocked" to us, Azure's firewall), the NM Secretary of State reader (refused at the session's proxy), and W14, which
+    stages them. 0164 says each source's terms are read first and a blocked site is never worked around: Jason to ask AZCC
+    for access (an API, a bulk file, or our host allowed) and read both sites' terms; then build.
+  - **Not started, needs a decision:** W6 heritage's Wikimedia Commons and National Park Service steps. `completeLoc`
+    accepts only loc.gov URLs and `heritage_sources.kind` is `loc`/`news` (its migration isn't in the sync's `deleted/`,
+    so check the live column first); Commons' licences vary (CC BY-SA needs credit and share-alike on what we show), so
+    each source's use needs Jason's call (decisions/0164: the licence decides the use) before code.
+  - Passed to the session manager (Jason): stock photos' order (0143 interleaves on purpose) and a menu reader (none
+    exists; Document AI → Textract → Claude).
+
 ## How it works
 
 - `Preflight::lines()`: one list in run order: the site, every `OutsideServices::COMPANIES` key (`svc:<key>`: each
