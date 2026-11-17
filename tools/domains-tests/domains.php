@@ -39,6 +39,7 @@ $c->exec("INSERT INTO listing_access VALUES (1, 3, 'owner')");
 // a running plan with a card on file (copied into the wallet by the migration)
 $c->exec("INSERT INTO subscriptions (owner_type, owner_id, plan, status, price_cents, period_start, period_end, payer_id, bill_email, wallet, card_id, card_label) VALUES ('user', 1, 'personal_plus', 'active', 495, CURDATE(), DATE_ADD(CURDATE(), INTERVAL 1 MONTH), 1, 'check+ann@traversence.com', 'TRV-U1', 'MCARD-old111', 'Visa ••1111')");
 
+$c->exec("INSERT INTO subscriptions (owner_type, owner_id, plan, status, price_cents, period_start, period_end, payer_id, bill_email, wallet, card_id, card_label) VALUES ('user', 2, 'personal_plus', 'active', 495, CURDATE(), DATE_ADD(CURDATE(), INTERVAL 1 MONTH), 2, 'check+bo@traversence.com', 'TRV-U2', 'MCARD-test222', 'Visa ••2222')");
 $fails = 0; $n = 0;
 function ok(bool $cond, string $what): void { global $fails, $n; $n++; echo ($cond ? '  ok  ' : 'FAIL  ') . $what . "\n"; if (!$cond) $fails++; }
 function throws(callable $f, string $what, string $has = ''): void { try { $f(); ok(false, $what . ' (no error)'); } catch (Throwable $x) { ok($has === '' || stripos($x->getMessage(), $has) !== false, $what . ': ' . $x->getMessage()); } }
@@ -47,10 +48,11 @@ function throws(callable $f, string $what, string $has = ''): void { try { $f();
 require_once $app . '/lib/DbUpdates.php';
 $sql = file_get_contents($app . '/migrations/2027-03-10_account_domains_wallet.sql');
 foreach ([1, 2] as $run) foreach (DbUpdates::statements($sql) as $q) { $st = $c->query($q); if ($st) $st->closeCursor(); }
-ok((int) $c->query('SELECT COUNT(*) FROM wallet_cards')->fetchColumn() === 1, 'migration (twice): the plan card copied into the wallet once');
+ok((int) $c->query('SELECT COUNT(*) FROM wallet_cards')->fetchColumn() === 2, 'migration (twice): each plan card copied into the wallet once');
+ok($c->query("SELECT env FROM wallet_cards WHERE card_ref = 'MCARD-test222'")->fetchColumn() === 'sandbox' && $c->query("SELECT env FROM wallet_cards WHERE card_ref = 'MCARD-old111'")->fetchColumn() === '', 'migration: a test account\'s plan card goes into its test wallet, a member\'s into the live one');
 ok((int) $c->query("SELECT COUNT(*) FROM wallet_assignments WHERE item_type = 'plan' AND item_id = 1 AND ended_at IS NULL")->fetchColumn() === 1, 'migration: the plan is assigned its card once');
 ok($c->query("SELECT DATA_TYPE FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = 'tvtest' AND TABLE_NAME = 'cart_plans' AND COLUMN_NAME = 'owner_type'")->fetchColumn() === 'varchar', 'migration: cart_plans.owner_type takes domain');
-ok((int) $c->query("SELECT COUNT(*) FROM subscriptions WHERE card_id = 'MCARD-old111'")->fetchColumn() === 1, 'migration: subscriptions untouched');
+ok((int) $c->query("SELECT COUNT(*) FROM subscriptions WHERE card_id IN ('MCARD-old111','MCARD-test222')")->fetchColumn() === 2, 'migration: subscriptions untouched');
 
 require_once $app . '/lib/Database.php';
 require_once $app . '/lib/AccountDomains.php';
@@ -187,6 +189,17 @@ Wallet::remove($pdo, 'user', 1, $old);
 ok(!Wallet::card($pdo, 'user', 1, $old), 'plans: the plan\'s old card unlocked once replaced');
 $s2 = Billing::start($pdo, 4, 'user', 4, 'personal_pro', 'month', [], 'mock-7777');
 ok(Wallet::assigned($pdo, 'plan', (int) $s2['id'])['label'] === 'Visa ••7777', 'plans: a new plan saves its card into the wallet and is assigned it');
+// ---- the test wallet and the live wallet never mix (Jason, 2026-11-17)
+$liveCards = Wallet::cards($pdo, 'user', 1);
+$tc = Wallet::asSandbox(true, fn () => Wallet::add($pdo, 1, 'user', 1, 'mock-4111'));
+ok($tc['env'] === 'sandbox' && Wallet::cards($pdo, 'user', 1) == $liveCards, 'test wallet: a card saved while testing goes into the test wallet; the live wallet is unchanged');
+ok(count(Wallet::asSandbox(true, fn () => Wallet::cards($pdo, 'user', 1))) === 1 && (int) Wallet::asSandbox(true, fn () => Wallet::cards($pdo, 'user', 1))[0]['is_default'] === 1, 'test wallet: only its own cards, with its own default');
+ok((int) Wallet::cards($pdo, 'user', 1)[0]['is_default'] === 1, 'live wallet: keeps its default');
+throws(fn () => Wallet::asSandbox(true, fn () => Wallet::resolve($pdo, 1, 'user', 1, 'wallet:' . (int) $liveCards[0]['id'])), 'test: a live card can\'t be picked', 'isn\'t in');
+throws(fn () => Wallet::asSandbox(true, fn () => Wallet::charge($pdo, $liveCards[0], 100, 'x', 'k-live-in-test')), 'test: a live card is never charged', 'never charges a real card');
+throws(fn () => Wallet::resolve($pdo, 1, 'user', 1, 'wallet:' . (int) $tc['id']), 'live: a test card can\'t be picked', 'isn\'t in');
+ok(str_starts_with(Wallet::charge($pdo, $tc, 100, 'x', 'k-test'), 'MCH-S-'), 'a test card is charged in the sandbox (mock here)');
+ok(Wallet::side($pdo, 'user', 2) === 'test' && !Wallet::liveAllowed($pdo, 'user', 2), 'a test account has only a test wallet');
 // wallet expiry reminder
 $c->exec("UPDATE wallet_cards SET exp = DATE_FORMAT(NOW(), '%Y-%m') WHERE owner_id = 4 AND owner_type = 'user'");
 ok(Wallet::tick($pdo) === 1 && Wallet::tick($pdo) === 0, 'wallet: one reminder before a locked card expires');

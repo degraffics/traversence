@@ -132,6 +132,12 @@ It also locks the card from being removed but it can be replaced with a new card
   new one), and `subscriptions.card_id` / `card_label` stay, kept equal to the assigned card, so renewals work as
   before. A business changing owner takes the previous owner's cards out of its wallet. Built as `app/lib/Wallet.php`
   (release `domains-wallet`, handoffs/domains.md).
+- **Note (Jason, 2026-11-17: "this should have a test/sandbox version that is used by the system for testing to ensure
+  no actual live payment is ever available"):** two wallets per account, never mixed: the live wallet and the test
+  wallet (cards saved in QuickBooks' sandbox). Whenever the system is testing (a test account, domains' test mode, the
+  staging copy, a test account signed in, or payments switched to Sandbox) only the test wallet is seen, saved to and
+  charged; a live card is refused, and a test card is charged only with QuickBooks forced to its sandbox (refused if it
+  still reads production). A test account has only a test wallet; each wallet has its own default.
 
 ### 7. Running costs (optional, later)
 

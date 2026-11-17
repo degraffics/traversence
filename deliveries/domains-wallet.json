@@ -1,8 +1,8 @@
 {
  "zip": "domains-wallet.zip",
  "built_on": "fa990c7 Sync: 2026-11-17 01:45 UTC",
- "recorded": "2026-11-17 02:00 UTC",
- "note": "domains-wallet: Shop \u2192 Domains, the Domains tab and the wallet (0169 \u00a71a, 0166 \u00a76a); built on Sync: 2026-11-17 01:45 UTC Sent through git (releases/inbox).",
+ "recorded": "2026-11-17 02:03 UTC",
+ "note": "domains-wallet (resent: live and test wallets): Shop \u2192 Domains, the Domains tab and the wallet (0169 \u00a71a, 0166 \u00a76a); built on Sync: 2026-11-17 01:45 UTC Sent through git (releases/inbox).",
  "status": "pending",
  "live_in": "",
  "files": {
@@ -15,7 +15,7 @@
    "live": false
   },
   "app/lib/AccountDomains.php": {
-   "sha256": "11825addd37981bd078a6bb19ad5a46a64f6164677308c49d2eddeb80c2979c0",
+   "sha256": "2c8c382fb3c7b34b574c02b90bae90a41890d560d6741e88b76673aa0529fd19",
    "live": false
   },
   "app/lib/Billing.php": {
@@ -43,7 +43,7 @@
    "live": false
   },
   "app/lib/Wallet.php": {
-   "sha256": "92e92529e4c10ace37aade82f23d121b4b6b1e2d479c1a5fa507c44e87c6f5ca",
+   "sha256": "0ada9945a5ee9b87a70da4c6fa2a68381df0f717728c5adcf89c759b9cedd01d",
    "live": false
   },
   "app/lib/staging-tables.php": {
@@ -51,7 +51,7 @@
    "live": false
   },
   "app/migrations/2027-03-10_account_domains_wallet.sql": {
-   "sha256": "d96c334a289641a197b814d79adbe7033cb92ee8b72d6fb7e9617d4b6e355c32",
+   "sha256": "914f64b2b67ad309839b9b2295172f4c6bf97b0dbfaa30ec280447e7e03ac0b4",
    "live": false
   },
   "app/scripts/domains_tick.php": {
@@ -63,11 +63,11 @@
    "live": false
   },
   "app/ui/faq.md": {
-   "sha256": "311b54d9dd218604b303acdfb649178809165959a6ef13b6de03e51735954023",
+   "sha256": "3e21db047e04c1faa3950933342d31645767fa31f2f2d1605deb9ebaa76906e1",
    "live": false
   },
   "website/api/domains.php": {
-   "sha256": "e812a7f117e37c2a9322b7e4343c5b77c8bb38f9c0b174ee241eb1ea0d14dccf",
+   "sha256": "590a0d17d3987627bb8e7c30fc9111c94903e5f85ecb85c52fe29ba8fd78331c",
    "live": false
   },
   "website/business/router.php": {
@@ -75,7 +75,7 @@
    "live": false
   },
   "website/js/tv-domains.js": {
-   "sha256": "e4a5f7b5dc75e4f7280f1b3a0786ce7f7d19cac2b5d6df26da0e89b8ad01163c",
+   "sha256": "d5d2ddabe0e8c7cc1160311bd4d5eb183ebf3b723148b3f9cbc344a3caff93b5",
    "live": false
   },
   "website/qr/cart.php": {

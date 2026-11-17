@@ -15,6 +15,9 @@ Session: claude/domains-0169-1a. Started 2026-11-17, on the mirror at `3c54bf3` 
   (`QuickBooksPay::saveCard`, now also returning its expiry) and charging a saved card (`chargeSaved`); then with Name.com
   allowed for a test: search, register, renew, forward, records, nameservers, transfer code.
 
+- **Revised 2026-11-17 (Jason: a test/sandbox wallet "to ensure no actual live payment is ever available"):** two
+  wallets per account (live and test, 0166 §6a note); resent as `domains-wallet.zip`, 73 local checks.
+
 ### After it's live
 1. Run the sync, check the mirror matches the zip byte for byte, `deliveries.py verify`.
 2. Jason sets `DOMAINS_MODE=test` (Admin → Settings) to try it as staff in the sandboxes, then `live` with
