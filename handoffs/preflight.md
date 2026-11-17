@@ -51,6 +51,24 @@ Check-out release names: `preflight` (release 1), `outside-table` (release 2, no
   time out or 504): ask again before Start, or mark Overpass optional for launch (his call). GITHUB_SYNC_TOKEN expires
   Dec 16, 2026. 36 ungated outside calls are in the session manager's cleanup stage.
 
+- **`preflight-log.zip`** (#99): the page opens fresh; the run log at its foot (`preflight_runs`, the last 50, staging's
+  own), each run with its report as it stood (`/admin/api/config/preflight?action=report&run=<id>`).
+- **decisions/0163's note "the source map, ours first, a backup for every need"** (Jason approved, 2026-11-17; PR #840):
+  every need answered ours first, then outside free before paid, a paid backup only by a director's override inside its
+  own cap, then a planned fallback; "no backup" said plainly; the planned backups for those are queue item 9.
+- **(a) `preflight-needs.zip`** (PR #843, sent, built on Sync 16:27 UTC): `Preflight::NEEDS` (21 engine needs, needed for
+  launch; 22 site needs, shown): each need's sources in order (`['ours', table, words, stale days]`, `['svc', company]`,
+  `['line', pre-flight line, words]`), `ours()` checks a copy's rows and freshness (its date column found in
+  information_schema), `need()`: ✓ first source, amber `warn` "on a backup" (or a soft need whose fallback always works),
+  ✗ none. Workflows are judged by their needs; services are needed for launch only for CORE (Bluehost, Railway, GitHub).
+- **Next, (b) W1 reads `open_places` before Overpass** (for a fresh session if this one is full): the crawler's coverage
+  task ("Find places by kind and town", `crawler.py` around `overpass(job, deadline) + wikidata(...)`, ~line 3231) and
+  targets (`targets()`, ~line 2030) ask the site first for what `open_places` holds for the town box and kind (a new
+  read-only endpoint, or `api/crawl/loads.php`), and call Overpass only for a kind or town our copy lacks; the switch-on
+  check's line "OpenStreetMap: at least one server not held" (`Operations::switchOnCheck`, scope `osm`) then shouldn't
+  hold W1 while `open_places` is loaded and fresh. Then (c): the paid-backup overrides (a director's switch per need, a
+  cap in Thresholds, logged; shown on the need's line) and the other workflows' fallbacks in the map's order.
+
 ## How it works
 
 - `Preflight::lines()`: one list in run order: the site, every `OutsideServices::COMPANIES` key (`svc:<key>`: each
