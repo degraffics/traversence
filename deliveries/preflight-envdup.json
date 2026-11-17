@@ -3,12 +3,12 @@
  "built_on": "24aecad Sync: 2026-11-17 15:43 UTC",
  "recorded": "2026-11-17 15:50 UTC",
  "note": "Pre-flight: .env duplicates, Fly hint; built on Sync: 2026-11-17 15:43 UTC Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "b319666 Sync: 2026-11-17 15:54 UTC",
  "files": {
   "app/lib/Preflight.php": {
    "sha256": "008690817c9735ce613ca8a7bf1e02b05ea039c708152e01b598492f87d3d83b",
-   "live": false
+   "live": true
   }
  }
 }
