@@ -97,8 +97,8 @@
    "session": "w0-indexer",
    "why": "W0 Indexer: every URL logged, the machine classifies, the frontier (decisions/0164 \u00a71.4 note)",
    "since": "2026-11-17T12:51:47Z",
-   "expires": "2026-11-17T16:51:47Z",
-   "release": "w0-indexer",
+   "expires": "2026-11-17T17:06:57Z",
+   "release": "w0-indexer.zip",
    "callers": {}
   },
   {
@@ -108,8 +108,8 @@
    "session": "w0-indexer",
    "why": "W0 Indexer: every URL logged, the machine classifies, the frontier (decisions/0164 \u00a71.4 note)",
    "since": "2026-11-17T12:51:47Z",
-   "expires": "2026-11-17T16:51:47Z",
-   "release": "w0-indexer",
+   "expires": "2026-11-17T17:06:57Z",
+   "release": "w0-indexer.zip",
    "callers": {}
   },
   {
@@ -119,8 +119,8 @@
    "session": "w0-indexer",
    "why": "W0 Indexer: every URL logged, the machine classifies, the frontier (decisions/0164 \u00a71.4 note)",
    "since": "2026-11-17T12:51:47Z",
-   "expires": "2026-11-17T16:51:47Z",
-   "release": "w0-indexer",
+   "expires": "2026-11-17T17:06:57Z",
+   "release": "w0-indexer.zip",
    "callers": {}
   },
   {
@@ -130,8 +130,8 @@
    "session": "w0-indexer",
    "why": "W0 Indexer: every URL logged, the machine classifies, the frontier (decisions/0164 \u00a71.4 note)",
    "since": "2026-11-17T12:51:47Z",
-   "expires": "2026-11-17T16:51:47Z",
-   "release": "w0-indexer",
+   "expires": "2026-11-17T17:06:57Z",
+   "release": "w0-indexer.zip",
    "callers": {}
   },
   {
@@ -141,8 +141,8 @@
    "session": "w0-indexer",
    "why": "W0 Indexer: every URL logged, the machine classifies, the frontier (decisions/0164 \u00a71.4 note)",
    "since": "2026-11-17T12:51:47Z",
-   "expires": "2026-11-17T16:51:47Z",
-   "release": "w0-indexer",
+   "expires": "2026-11-17T17:06:57Z",
+   "release": "w0-indexer.zip",
    "callers": {}
   },
   {
@@ -154,8 +154,8 @@
    "session": "w0-indexer",
    "why": "W0 Indexer: every URL logged, the machine classifies, the frontier (decisions/0164 \u00a71.4 note)",
    "since": "2026-11-17T12:51:47Z",
-   "expires": "2026-11-17T16:51:47Z",
-   "release": "w0-indexer",
+   "expires": "2026-11-17T17:06:57Z",
+   "release": "w0-indexer.zip",
    "callers": {}
   },
   {
@@ -179,8 +179,8 @@
    "session": "w0-indexer",
    "why": "W0 Indexer: every URL logged, the machine classifies, the frontier (decisions/0164 \u00a71.4 note)",
    "since": "2026-11-17T12:51:47Z",
-   "expires": "2026-11-17T16:51:47Z",
-   "release": "w0-indexer",
+   "expires": "2026-11-17T17:06:57Z",
+   "release": "w0-indexer.zip",
    "callers": {}
   },
   {
@@ -190,24 +190,26 @@
    "session": "w0-indexer",
    "why": "W0 Indexer: every URL logged, the machine classifies, the frontier (decisions/0164 \u00a71.4 note)",
    "since": "2026-11-17T12:51:47Z",
-   "expires": "2026-11-17T16:51:47Z",
-   "release": "w0-indexer",
+   "expires": "2026-11-17T17:06:57Z",
+   "release": "w0-indexer.zip",
    "callers": {}
   },
   {
    "path": "app/lib/crawler/Sources.php",
    "functions": [
+    "(top)",
     "STATUSES",
     "addLinked",
     "ensureJudge",
+    "harvest",
     "sweep"
    ],
    "kind": "change",
    "session": "w0-indexer",
    "why": "W0 Indexer: every URL logged, the machine classifies, the frontier (decisions/0164 \u00a71.4 note)",
    "since": "2026-11-17T12:51:49Z",
-   "expires": "2026-11-17T16:51:49Z",
-   "release": "w0-indexer",
+   "expires": "2026-11-17T17:06:57Z",
+   "release": "w0-indexer.zip",
    "callers": {
     "addLinked": [
      "website/api/crawl/commoncrawl.php",
@@ -222,6 +224,9 @@
     ],
     "STATUSES": [
      "website/admin/sources.php"
+    ],
+    "harvest": [
+     "website/admin/sources.php"
     ]
    }
   },
@@ -234,8 +239,8 @@
    "session": "w0-indexer",
    "why": "W0 Indexer: every URL logged, the machine classifies, the frontier (decisions/0164 \u00a71.4 note)",
    "since": "2026-11-17T12:51:49Z",
-   "expires": "2026-11-17T16:51:49Z",
-   "release": "w0-indexer",
+   "expires": "2026-11-17T17:06:57Z",
+   "release": "w0-indexer.zip",
    "callers": {
     "logPages": [
      "app/lib/crawler/PageRead.php"
@@ -245,14 +250,15 @@
   {
    "path": "app/lib/Automation.php",
    "functions": [
+    "(top)",
     "WORKFLOWS"
    ],
    "kind": "change",
    "session": "w0-indexer",
    "why": "W0 Indexer: every URL logged, the machine classifies, the frontier (decisions/0164 \u00a71.4 note)",
    "since": "2026-11-17T12:51:49Z",
-   "expires": "2026-11-17T16:51:49Z",
-   "release": "w0-indexer",
+   "expires": "2026-11-17T17:06:57Z",
+   "release": "w0-indexer.zip",
    "callers": {
     "WORKFLOWS": [
      "app/admin/automation-console.php",
@@ -267,6 +273,7 @@
   {
    "path": "app/lib/SystemStart.php",
    "functions": [
+    "(top)",
     "ORDER",
     "gate",
     "heldBy",
@@ -277,13 +284,14 @@
    "session": "w0-indexer",
    "why": "W0 Indexer: every URL logged, the machine classifies, the frontier (decisions/0164 \u00a71.4 note)",
    "since": "2026-11-17T12:51:49Z",
-   "expires": "2026-11-17T16:51:49Z",
-   "release": "w0-indexer",
+   "expires": "2026-11-17T17:06:57Z",
+   "release": "w0-indexer.zip",
    "callers": {}
   },
   {
    "path": "app/lib/Operations.php",
    "functions": [
+    "(top)",
     "CAPS",
     "pulseDo",
     "pulseItems",
@@ -294,8 +302,8 @@
    "session": "w0-indexer",
    "why": "W0 Indexer: every URL logged, the machine classifies, the frontier (decisions/0164 \u00a71.4 note)",
    "since": "2026-11-17T12:51:49Z",
-   "expires": "2026-11-17T16:51:49Z",
-   "release": "w0-indexer",
+   "expires": "2026-11-17T17:06:57Z",
+   "release": "w0-indexer.zip",
    "callers": {
     "CAPS": [
      "app/admin/operations-console.php"
@@ -314,14 +322,15 @@
   {
    "path": "app/lib/OutsideServices.php",
    "functions": [
+    "(top)",
     "COMPANIES"
    ],
    "kind": "change",
    "session": "w0-indexer",
    "why": "W0 Indexer: every URL logged, the machine classifies, the frontier (decisions/0164 \u00a71.4 note)",
    "since": "2026-11-17T12:51:49Z",
-   "expires": "2026-11-17T16:51:49Z",
-   "release": "w0-indexer",
+   "expires": "2026-11-17T17:06:57Z",
+   "release": "w0-indexer.zip",
    "callers": {
     "COMPANIES": [
      "app/admin/automation-console.php",
@@ -409,6 +418,19 @@
    "since": "2026-11-17T13:03:23Z",
    "expires": "2026-11-17T17:03:23Z",
    "release": "",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Scheduler.php",
+   "functions": [
+    "(top)"
+   ],
+   "kind": "change",
+   "session": "w0-indexer",
+   "why": "release w0-indexer.zip",
+   "since": "2026-11-17T13:06:57Z",
+   "expires": "2026-11-17T17:06:57Z",
+   "release": "w0-indexer.zip",
    "callers": {}
   }
  ],
