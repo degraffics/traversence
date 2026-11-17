@@ -1,8 +1,8 @@
 {
  "zip": "preflight-server-run.zip",
  "built_on": "2ff3304 Sync: 2026-11-17 18:09 UTC",
- "recorded": "2026-11-17 18:15 UTC",
- "note": "Pre-flight's Run all on the server (Jason: 'make it a run on the server'): runAll's browser loop (next, again) moves to Preflight::work; built on Sync: 2026-11-17 18:09 UTC Sent through git (releases/inbox).",
+ "recorded": "2026-11-17 18:17 UTC",
+ "note": "Pre-flight's Run all on the server; search_index_state.v widened (Start the system's state); built on Sync: 2026-11-17 18:09 UTC Sent through git (releases/inbox).",
  "status": "pending",
  "live_in": "",
  "files": {
@@ -11,7 +11,11 @@
    "live": false
   },
   "app/lib/Preflight.php": {
-   "sha256": "859e6fe25b1d885b074f95d24787468f9c9ab1e95c9c4302ac183d26733741f0",
+   "sha256": "e9b0c3e867768560137b0b53e6a2aa1b496af8194f94a04348202e59698e2844",
+   "live": false
+  },
+  "app/migrations/2026-11-17_search_index_state_wide.sql": {
+   "sha256": "5a42783b637152fa707136d3a01770584975a68841869bad95d15bb5d4e1f43a",
    "live": false
   },
   "app/ui/faq.md": {
