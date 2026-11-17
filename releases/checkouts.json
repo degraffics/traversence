@@ -327,7 +327,9 @@
   {
    "path": "app/lib/Preflight.php",
    "functions": [
+    "(top)",
     "finished",
+    "lines",
     "result",
     "results",
     "run",
@@ -339,8 +341,8 @@
    "session": "session_01CXLi5kGG8gG4QBmC4uzMzN",
    "why": "Pre-flight: results in their own table (search_index_state.v cuts them short on live) (2026-11-17)",
    "since": "2026-11-17T14:29:27Z",
-   "expires": "2026-11-17T18:31:52Z",
-   "release": "preflight-slow",
+   "expires": "2026-11-17T18:33:18Z",
+   "release": "preflight-slow.zip",
    "callers": {
     "run": [
      "website/admin/api.php"
@@ -357,6 +359,9 @@
     ],
     "results": [
      "app/admin/preflight-console.php"
+    ],
+    "lines": [
+     "app/admin/preflight-console.php"
     ]
    }
   },
@@ -371,8 +376,8 @@
    "session": "session_01CXLi5kGG8gG4QBmC4uzMzN",
    "why": "Pre-flight: slow checks marked, a filter for them, each line's last times (Jason, 2026-11-17)",
    "since": "2026-11-17T14:29:27Z",
-   "expires": "2026-11-17T18:29:27Z",
-   "release": "preflight-slow",
+   "expires": "2026-11-17T18:33:18Z",
+   "release": "preflight-slow.zip",
    "callers": {
     "tv_preflight_counts": [
      "website/admin/api.php"
@@ -389,8 +394,8 @@
    "session": "session_01CXLi5kGG8gG4QBmC4uzMzN",
    "why": "Pre-flight: slow checks marked, a filter for them, each line's last times (Jason, 2026-11-17)",
    "since": "2026-11-17T14:29:27Z",
-   "expires": "2026-11-17T18:29:27Z",
-   "release": "preflight-slow",
+   "expires": "2026-11-17T18:33:18Z",
+   "release": "preflight-slow.zip",
    "callers": {}
   },
   {
@@ -402,8 +407,8 @@
    "session": "session_01CXLi5kGG8gG4QBmC4uzMzN",
    "why": "Pre-flight: the slow line's limit",
    "since": "2026-11-17T14:29:32Z",
-   "expires": "2026-11-17T18:29:32Z",
-   "release": "preflight-slow",
+   "expires": "2026-11-17T18:33:18Z",
+   "release": "preflight-slow.zip",
    "callers": {}
   },
   {
@@ -415,8 +420,8 @@
    "session": "session_01CXLi5kGG8gG4QBmC4uzMzN",
    "why": "Pre-flight: the plain-text report (GET action=report) (Jason, 2026-11-17)",
    "since": "2026-11-17T14:29:48Z",
-   "expires": "2026-11-17T18:29:48Z",
-   "release": "preflight-slow",
+   "expires": "2026-11-17T18:33:18Z",
+   "release": "preflight-slow.zip",
    "callers": {}
   },
   {
@@ -430,6 +435,19 @@
    "since": "2026-11-17T14:31:57Z",
    "expires": "2026-11-17T18:31:57Z",
    "release": "preflight-slow",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/staging-tables.php",
+   "functions": [
+    "(top)"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kGG8gG4QBmC4uzMzN",
+   "why": "release preflight-slow.zip",
+   "since": "2026-11-17T14:33:18Z",
+   "expires": "2026-11-17T18:33:18Z",
+   "release": "preflight-slow.zip",
    "callers": {}
   }
  ],
