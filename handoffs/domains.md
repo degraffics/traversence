@@ -4,8 +4,34 @@ Session: claude/domains-0169-1a. Started 2026-11-17, on the mirror at `3c54bf3` 
 
 ## Where it stands
 
-- **Planned; scope and renewal card answered (relayed). Waiting on Jason's go in chat** before code is written.
-- No release sent yet. Nothing in `releases/inbox/` from this work. No claims taken yet.
+- **Built and sent as release `domains-wallet.zip`** (built on the **01:45 UTC sync, 2026-11-17**; no site code changed
+  between that and 15:16 UTC 2026-11-16, which it was written on). Waiting on Jason's OK in chat before merging into
+  `main` (the live site then takes it onto staging and publishes it when its checks pass).
+- Claims: release `domains-wallet` in `releases/checkouts.json`.
+- Tested locally (MariaDB 10.11, `QB_ENV=mock`, `DOMAINS_MODE=mock`): 64 checks (scratchpad `domains_test.php`,
+  summarised below); the staging unit tests (49) on the code; the pages at 390px and 1200px (no sideways scroll).
+- **Not tested here:** Name.com's and QuickBooks' real APIs. To check on staging once it's there (QuickBooks is
+  sandbox-only on staging; Name.com is held there unless allowed for a test in the site manager): saving a card
+  (`QuickBooksPay::saveCard`, now also returning its expiry) and charging a saved card (`chargeSaved`); then with Name.com
+  allowed for a test: search, register, renew, forward, records, nameservers, transfer code.
+
+### After it's live
+1. Run the sync, check the mirror matches the zip byte for byte, `deliveries.py verify`.
+2. Jason sets `DOMAINS_MODE=test` (Admin → Settings) to try it as staff in the sandboxes, then `live` with
+   `NAMECOM_ENV=live` to sell.
+
+### Local tests (64), in short
+Migration twice (plan card copied once, assigned once, cart_plans.owner_type takes 'domain', subscriptions untouched);
+search (7 endings, cost + markup, typed ending first, taken and premium marked, our own never offered); cart (18+ tick,
+registrant details, premium referred, taken refused, never more than shown, not twice, a clerk without billing refused,
+the default wallet card offered, tokens counted); paying (one order charged once, the failed one refunded, Domain
+Purchase line with Name.com as vendor and cost, costing row, done/cancelled lines); registering (member's, auto-renew on,
+card saved and assigned, locked); Renew now (a year, Domain Renewal line); auto-renew (declined, retried at 3 and 7 days,
+then a Pulse case); replace (new card, retried at once); unlocks (replaced, auto-renew off); forward, DNS checks, MX,
+nameservers, another member refused; transfer code not kept; tickets (on the order; a brought domain's own case);
+brought domains (pointing only, one account, removed); a business (own order, own wallet); Pulse Try again; a test
+account (sandbox domain, sandbox order, sandbox card); plans (Change card from the wallet, old card unlocks, a new plan
+saves into the wallet); the expiry reminder once.
 
 ## What's live today (read 2026-11-17)
 
@@ -94,12 +120,23 @@ joining it to the account's domains is the Storefront app's job (0169 app 6).
 
 Jason confirmed the scope (relayed 2026-11-17): Shop → Domains and the Domains tab; the storefront unchanged.
 
-## Questions put to Jason (2026-11-17)
+## Answered by Jason (2026-11-17)
 
-1. Renewals: keep the checkout card on file for that domain's renewals (shown, can be changed or removed; no card means
-   reminders and Renew now). 0139 charged only a plan's card, which a member may not have.
-2. Confirm the narrowed scope (relayed by the session manager).
+Scope narrowed (relayed); two products (relayed); the wallet, renewal cards locked and replaceable (relayed); plans pay
+from the wallet too (in chat); no admin list: orders handle failed purchases and renewals, with support tickets (in
+chat). "Go" given in chat.
 
-## Files the release will carry (filled in as built)
+## Files the release carries
 
--
+New: `app/lib/Wallet.php`, `app/lib/AccountDomains.php`, `app/ui/domains-view.php`, `app/business/domains.php`,
+`app/migrations/2027-03-10_account_domains_wallet.sql`, `website/api/domains.php`, `website/js/tv-domains.js`,
+`website/shop/domains.php`, `website/user/domains/index.php`.
+Changed: `app/lib/Billing.php` (start, setCard, cardFrom), `app/lib/Team.php` (handOverBilling), `app/lib/CartPlans.php`
+(groups, pay), `app/lib/QuickBooksPay.php` (saveCard's expiry, forcedEnv, salesReceiptFor), `app/lib/Domains.php`
+(staging gate on fly and namecom, api, asSandbox, ncEnv, ncReady), `app/lib/Pulse.php` (items, playbook, manage),
+`app/lib/staging-tables.php`, `app/scripts/domains_tick.php`, `app/business/portal.php`, `app/ui/faq.md`,
+`website/business/router.php`, `website/qr/cart.php`, `website/shop/index.php`, `website/user/dashboard.php`.
+
+## For the next session (the Storefront app, 0169 app 6)
+`AccountDomains` (search, addToCart, forOwner, the Domains view) and `Wallet` are callable as they are; joining a
+storefront to one of the account's domains is the app's job, with `Domains` (the edge, certificates, `business_domains`).

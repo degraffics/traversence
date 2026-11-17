@@ -59,6 +59,15 @@ integrate the domain buy process into the storefront process."
   setup step, not in code).
 - "No test moves real money" and "no income, no expense" hold: charged before Name.com is paid, test accounts and
   test mode always on Name.com's sandbox.
+- **Built (release `domains-wallet`, 2026-11-17; handoffs/domains.md):** Shop → Domains (`/shop/domains.php`) and the
+  Domains tab (`/user/domains/`, Dashboard → Domains, the portal's Domains), `app/lib/AccountDomains.php` with its own
+  table `account_domains`; the storefront's Connect your domain and `business_domains` are unchanged (Jason, 2026-11-17:
+  "Shop for domains. Not the storefront app, that goes into the queue"); a business's storefront domain shows on its
+  tab read only. Two catalog products, **Domain Purchase** and **Domain Renewal** (Jason: "Two products"), each line with
+  Name.com as vendor and its actual cost. Paid from the account's wallet (0166 §6a). What goes wrong is handled on the
+  order, with a Pulse case (Try again, Refund, Email the owner), and Something isn't right opens a support ticket (Jason:
+  "Order processing should address situation like failed renewals and new purchases. And support tickets for
+  issues."); no separate admin list of accounts' domains.
 
 ### 2. Apps belong to accounts, members and businesses alike
 

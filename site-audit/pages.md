@@ -40,6 +40,7 @@ and the portal's routers and endpoints, the sitemap) are live like any other.*
 | `/vendor.php?v=` | A vendor's own page: all their work orders, each opening its full work order (`/wo.php?w=`); private links, 30 days, then Request a new link (emailed) | 0101, 0150 | Live |
 | `/wo.php?w=` | One work order for its vendor: items, specs, ship-to, files, their status buttons; 30 days, then Request a new link | 0101, 0150 | Live |
 | `/shop/` | The Traversence Shop: what we sell, shown for who's looking (a member, the business you're acting as, a guest); plans and packs pay on the Plans page, GO Codes in the cart | 0154 | Built (channel-shop-earned zip) |
+| `/shop/domains.php` | Shop → Domains: search a name, our price a year, the registrant, Add to cart; paid in the one cart, registered through Name.com | 0169 §1a | Built (domains-wallet, 2026-11-17) |
 | `/terms.php`, `/privacy.php` | Terms and privacy | — | Live, placeholder: not real legal text, to replace before launch |
 | `/ai/` | The AI page (Ask Traversence) | — | Live (P6, 2026-11-13) |
 | `/data-deletion.php` | How to delete your data | — | Live (P6, 2026-11-13) |
@@ -91,6 +92,7 @@ and the portal's routers and endpoints, the sitemap) are live like any other.*
 | `/dashboard.php` | Old address of the business portal | — | Moved to `/listing/businessportal.php` |
 | `/user/accounts.php` | Your accounts (switch between them) | — | Live (P6, 2026-11-13) |
 | `/user/delete-account.php` | Delete your account | — | Live (P6, 2026-11-13) |
+| `/user/domains/` | Your domains (renew, auto-renew, where each points, DNS and email records, transfer away, history, tickets) and your wallet; also Dashboard → Domains | 0169 §1a, 0166 §6a | Built (domains-wallet, 2026-11-17) |
 | `/user/market/` | Your Marketplace posts | — | Live (P6, 2026-11-13) |
 | `/user/notice.php` | One notice | — | Live (P6, 2026-11-13) |
 | `/user/orders.php` | Your orders | — | Live (P6, 2026-11-13) |

@@ -1,0 +1,102 @@
+{
+ "zip": "domains-wallet.zip",
+ "built_on": "fa990c7 Sync: 2026-11-17 01:45 UTC",
+ "recorded": "2026-11-17 02:00 UTC",
+ "note": "domains-wallet: Shop \u2192 Domains, the Domains tab and the wallet (0169 \u00a71a, 0166 \u00a76a); built on Sync: 2026-11-17 01:45 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/business/domains.php": {
+   "sha256": "aa1d554dda3ecbc9ce3056d530049c1c3445aeeabdfc9fc0091a0ba96dd589f3",
+   "live": false
+  },
+  "app/business/portal.php": {
+   "sha256": "ce1aa8ba640293dd1c3086bde3d91ac0226bee802c1b3ebbd7975a173a0351b4",
+   "live": false
+  },
+  "app/lib/AccountDomains.php": {
+   "sha256": "11825addd37981bd078a6bb19ad5a46a64f6164677308c49d2eddeb80c2979c0",
+   "live": false
+  },
+  "app/lib/Billing.php": {
+   "sha256": "0e244942129fd65c377c7ee5658ece1bb7a6a2f4f7a67db57dfdbdf39b2a5824",
+   "live": false
+  },
+  "app/lib/CartPlans.php": {
+   "sha256": "c68991ddedbc3b6e2174c580d2c181aa5d1e025484b40c3b3335a8f642c5113a",
+   "live": false
+  },
+  "app/lib/Domains.php": {
+   "sha256": "9d725480f65bb9e92e829452b8bc3d92c23b7b39e5affe28658d954fcc5bf16e",
+   "live": false
+  },
+  "app/lib/Pulse.php": {
+   "sha256": "784c7578047e94b85bd1d77d8252f130972a57a76762ab76f0e37eb5bfe0da76",
+   "live": false
+  },
+  "app/lib/QuickBooksPay.php": {
+   "sha256": "2fe5bac06b081604cc5cbb3c93d7b78367333cbd7371b165eb1f8d3bb51cd5e3",
+   "live": false
+  },
+  "app/lib/Team.php": {
+   "sha256": "dcbb5dd60570ee11d2fba44e1afcb722bc5bc3aa4a1feaae466337647376502a",
+   "live": false
+  },
+  "app/lib/Wallet.php": {
+   "sha256": "92e92529e4c10ace37aade82f23d121b4b6b1e2d479c1a5fa507c44e87c6f5ca",
+   "live": false
+  },
+  "app/lib/staging-tables.php": {
+   "sha256": "abd9551185abb9ffe355c1192a16755711caa72a46aa18d372e8ea16a2d156eb",
+   "live": false
+  },
+  "app/migrations/2027-03-10_account_domains_wallet.sql": {
+   "sha256": "d96c334a289641a197b814d79adbe7033cb92ee8b72d6fb7e9617d4b6e355c32",
+   "live": false
+  },
+  "app/scripts/domains_tick.php": {
+   "sha256": "eee8c54165179f8b5adf9db207695f69abc85fda4c8f8c0adc019af46872f07f",
+   "live": false
+  },
+  "app/ui/domains-view.php": {
+   "sha256": "4bb164966109b4eb97bb7aaaca4be94df176f9bebfb585a7a9a32fea7386d98f",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "311b54d9dd218604b303acdfb649178809165959a6ef13b6de03e51735954023",
+   "live": false
+  },
+  "website/api/domains.php": {
+   "sha256": "e812a7f117e37c2a9322b7e4343c5b77c8bb38f9c0b174ee241eb1ea0d14dccf",
+   "live": false
+  },
+  "website/business/router.php": {
+   "sha256": "c4f841909e37774b89c2390da6dbca14332bf69ba27dedb7cb79f798b2113fe5",
+   "live": false
+  },
+  "website/js/tv-domains.js": {
+   "sha256": "e4a5f7b5dc75e4f7280f1b3a0786ce7f7d19cac2b5d6df26da0e89b8ad01163c",
+   "live": false
+  },
+  "website/qr/cart.php": {
+   "sha256": "2543d4ad105bf2795414036534d4ed65c08ee5ea0475efa98d26d0135c19b7ef",
+   "live": false
+  },
+  "website/shop/domains.php": {
+   "sha256": "e3786980af9821ed4b4d1625fbd6b20c8185ea1da1c2bcc139e304b573476b8f",
+   "live": false
+  },
+  "website/shop/index.php": {
+   "sha256": "5eb04e4aede4b0dd7fcb9eac651e647319fdcc30550a50362e601817b145d1cd",
+   "live": false
+  },
+  "website/user/dashboard.php": {
+   "sha256": "48cd9686ea9a8b578ccc933cdb5958cfbfc4b1a94346f46ee5876c3981b77069",
+   "live": false
+  },
+  "website/user/domains/index.php": {
+   "sha256": "3fa23b1341b445af120816cb4543195e3be4fb668a1989ad74e9da1b350b3087",
+   "live": false
+  }
+ }
+}
