@@ -1,17 +1,17 @@
 {
  "zip": "domain-years.zip",
  "built_on": "4823786 Sync: 2026-11-17 12:27 UTC",
- "recorded": "2026-11-17 12:45 UTC",
- "note": "Domains: 1-10 year terms with Name.com's real total; registrations only; no purchasePrice on standard create/renew; Name.com auto-renew off; idempotency key (Jason, 2026-11-17). Files: app/lib/Domains.php, app/lib/AccountDomains.php, app/ui/domains-view.php, app/ui/faq.md, app/migrations/2027-03-11_domain_cart_years.sql, website/api/domains.php, website/js/tv-domains.js. built on Sync: 2026-11-17 12:27 UTC Sent through git (releases/inbox).",
+ "recorded": "2026-11-17 12:52 UTC",
+ "note": "Domains on Name.com's Core API (/core/v1); 1-10 year terms at Name.com's real total; registrations only; no purchasePrice on standard create/renew (account and storefront); Name.com auto-renew off; idempotency keys (Jason, 2026-11-17). Files: app/lib/Domains.php, app/lib/AccountDomains.php, app/ui/domains-view.php, app/ui/faq.md, app/migrations/2027-03-11_domain_cart_years.sql, website/api/domains.php, website/js/tv-domains.js. built on Sync: 2026-11-17 12:27 UTC Sent through git (releases/inbox).",
  "status": "pending",
  "live_in": "",
  "files": {
   "app/lib/AccountDomains.php": {
-   "sha256": "c588d0867e014f5166fc7c5fa9b032eea025b9c89c348e4f873d41291d866adc",
+   "sha256": "2680ca34d7d71059b6c32d43fafa856f4d53e927261b1e7fe4bb8ac967bb4f93",
    "live": false
   },
   "app/lib/Domains.php": {
-   "sha256": "83b1ceccc418da7e4f6de0a17014f8971fbfd3c7199c14161e8672eff7771143",
+   "sha256": "24cae919fc8f8a62c8f8937f3e0f1e58ffacd38aed382c8d3884b64140ba1a8e",
    "live": false
   },
   "app/migrations/2027-03-11_domain_cart_years.sql": {
