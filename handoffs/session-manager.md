@@ -69,7 +69,19 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
     to consider a shared `LEGAL_EMAIL` and a business `LEGAL_PHONE`); Pixabay, OpenRouteService, `HEALTH_TOKEN` (must
     match the GitHub secret); Hugging Face on Railway only; Supabase (setup SQL from its card still to run).
 - **Queued after the usage reset (~Nov 17 23:00 UTC):**
-  0. **The pre-flight check** (decisions/0163 §10's note of 2026-11-16; Jason asked for it before launching the
+  1. **The indexer: every URL logged, always on** (0164 §1.4's note, Jason 2026-11-17: "Put it first in the queue"): every link on every page read into the frontier (same site or not, with its page and link text);
+     classification runs by itself on new sites; reading only where §1.2's rules allow; a person's call overrides,
+     never gates; today's "Waiting for you" sources classified on the first pass. Worker (`own_site_links`, the
+     40/60 caps, `read_source`) and site (`Sources.php`, `SourceIndex.php`, `/api/crawl/sources.php`).
+     **And the indexer always on** (Jason, 2026-11-17): its own continuous Railway service (restart on failure), not
+     the cron; indexing only; first in Start the system; Pause everything stops it; its own switch and budget line.
+     With the reader's verdicts looped back into the index (promoted, normal, demoted, junk kept compact so it's never
+     recaptured; patterns become skip rules), reading priority, a size guard, and pace on the site: writes to the site in
+     batches: 250 found URLs or 25 read pages, 100 KB at most, one batch per 10 s, self-adjusting (halve on 409/413/slow,
+     grow back to 250, cap 500), settings in Thresholds, keyed; the pre-flight sends one full-size test batch.
+     No per-page or per-source caps (the old 60/40 go); a safety net only for a broken page with an absurd number of
+     links: logged over several passes and flagged, nothing dropped.
+  2. **The pre-flight check** (decisions/0163 §10's note of 2026-11-16; Jason asked for it before launching the
      engine): System Configuration → Pre-flight, a real, free, harmless test of every service and setting, and every
      phase, workflow and task (services, scheduler, settings, caps, gates, a dry run where there's a preview), ready or
      not with the service's reason and the fix, required or optional for launch; Start the system shows it first;
@@ -83,10 +95,19 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
      use, not in use; kind: storage, email, payments, AI, sign-in, data sources, domains, workers, hosting); sort by
      status (default), name or cost; a row opens to today's full card in place (nothing dropped); filter and search
      remembered. One list and one status shared with the pre-flight; a ✗ there links to the company's row.
-  1. **decisions/0169, the Shop's App store and one lifecycle for every app** (accepted 2026-11-16). First: the Shop
+  3. **Hubs by location, before the crawler works beyond the pilot** (Jason, 2026-11-16, found in the `.env` trace):
+     `CrawlerIngest::resolveMicroClusterId()` files any ZIP outside an existing area under `DEFAULT_GEO_HUB_SLUG`
+     (ancient-borderlands), wherever it is (callers: `api/ingest.php`, `IntakeStager`, `IntakeClusters`,
+     `AddBusiness`). Fix: an existing area first; else the hub whose region holds it, or the nearest in reach; else
+     "no hub yet", held for 0164's hub opening and counted as demand. **No default hub** (Jason: "I dont want the
+     ancient-borderlands as the default. It is the pilot."): remove the hard-coded `'ancient-borderlands'` fallbacks
+     (`api/ingest.php`, `IntakeStager::defaultGeoHubId`, `IntakeClusters`) and retire `DEFAULT_GEO_HUB_SLUG` (Settings'
+     "Default place" row goes; nothing else reads it). Intake approvals never refuse for a missing hub: "no hub yet" is
+     a valid answer. Data cleanup proposes moving areas already seeded outside Ancient Borderlands (preview, Undo).
+  4. **decisions/0169, the Shop's App store and one lifecycle for every app** (accepted 2026-11-16). First: the Shop
      with departments, the App store, the app lifecycle (choose, install, configure, use, update, remove), the Apps page
      and the staff view. Today's Stripe and Square connections keep working until their app is built.
-  2. **Then the apps, one release each, in Jason's order** (each built on 0169's lifecycle):
+  5. **Then the apps, one release each, in Jason's order** (each built on 0169's lifecycle):
      1. **QuickBooks Bookkeeper:** decisions/0166 steps 1–2 (our ledger and a QuickBooks connector matching today's
         path, run side by side and compared; then the setup step: A or B, the starter chart, the catalog's type,
         income, cost and link, the plan detected);
@@ -101,27 +122,7 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
         stays with app 6 (Storefront), queued; the storefront's Connect your domain is left as it is until then.
 
      Others (Square, Tickets, Appointments, Gallery storage, calendars, 1Password…) to be discussed with Jason next.
-  3. **Hubs by location, before the crawler works beyond the pilot** (Jason, 2026-11-16, found in the `.env` trace):
-     `CrawlerIngest::resolveMicroClusterId()` files any ZIP outside an existing area under `DEFAULT_GEO_HUB_SLUG`
-     (ancient-borderlands), wherever it is (callers: `api/ingest.php`, `IntakeStager`, `IntakeClusters`,
-     `AddBusiness`). Fix: an existing area first; else the hub whose region holds it, or the nearest in reach; else
-     "no hub yet", held for 0164's hub opening and counted as demand. **No default hub** (Jason: "I dont want the
-     ancient-borderlands as the default. It is the pilot."): remove the hard-coded `'ancient-borderlands'` fallbacks
-     (`api/ingest.php`, `IntakeStager::defaultGeoHubId`, `IntakeClusters`) and retire `DEFAULT_GEO_HUB_SLUG` (Settings'
-     "Default place" row goes; nothing else reads it). Intake approvals never refuse for a missing hub: "no hub yet" is
-     a valid answer. Data cleanup proposes moving areas already seeded outside Ancient Borderlands (preview, Undo).
-  2b. **Every URL logged, no "suggested" gate** (0164 §1.4's note, Jason 2026-11-17), with the hubs fix, before W3
-     starts: every link on every page read into the frontier (same site or not, with its page and link text);
-     classification runs by itself on new sites; reading only where §1.2's rules allow; a person's call overrides,
-     never gates; today's "Waiting for you" sources classified on the first pass. Worker (`own_site_links`, the
-     40/60 caps, `read_source`) and site (`Sources.php`, `SourceIndex.php`, `/api/crawl/sources.php`).
-     **And the indexer always on** (Jason, 2026-11-17): its own continuous Railway service (restart on failure), not
-     the cron; indexing only; first in Start the system; Pause everything stops it; its own switch and budget line.
-     With the reader's verdicts looped back into the index (promoted, normal, demoted, junk kept compact so it's never
-     recaptured; patterns become skip rules), reading priority, a size guard, and pace on the site: writes to the site in
-     batches: 250 found URLs or 25 read pages, 100 KB at most, one batch per 10 s, self-adjusting (halve on 409/413/slow,
-     grow back to 250, cap 500), settings in Thresholds, keyed; the pre-flight sends one full-size test batch.
-  3. **The cleanup stage** (its own area; can run beside the above). **Fixes in the code:**
+  6. **The cleanup stage** (its own area; can run beside the above). **Fixes in the code:**
      - Pulse #31's 62 unused names;
      - Pulse #22's Site health items;
      - Data cleanup's "From visitors" label;
@@ -151,8 +152,8 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
      - **Pulse:** the old Overpass/OSM cases from before the pause (resolve, keeping the overpass-api.de one), and the
        62 unused names (above).
      - **GitHub:** merged `claude/…` branches (Branches → trash), keeping `claude/session-manager-checks`.
-  4. **Release B's small leftovers:** P3-5 (the owner's "Check these") and P3-2's Facebook-link case.
-  5. **decisions/0167, communications in one place** (accepted 2026-11-16). Build it in its four steps, each a release
+  7. **Release B's small leftovers:** P3-5 (the owner's "Check these") and P3-2's Facebook-link case.
+  8. **decisions/0167, communications in one place** (accepted 2026-11-16). Build it in its four steps, each a release
      for Jason's review:
      1. System Configuration → Communications: senders, mailboxes from cPanel on every domain, Check and Send me a
         test, domain health read-only; Bluehost sends logged;

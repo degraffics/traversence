@@ -620,7 +620,9 @@ happens until a person marks one Read regularly; links within a site are kept on
 say otherwise, and this makes it plain:
 - **Logged, all of them:** every link on every page read, on the same site or another, goes into the frontier (§1.1)
   normalized and de-duplicated, with the page it came from and its link text. No cap but the frontier's own size
-  guard; nothing dropped for being off-site.
+  guard; nothing dropped for being off-site. (The old caps, 60 links a page and 40 off-site a source, go: batching,
+  the classifier, the junk loop and the size guard now do their jobs.) A safety net only for a broken page with an
+  absurd number of links: they're logged over several passes and the page is flagged; nothing is dropped.
 - **Identified later, by the machine:** classification (§1.4: tier, kind, dossier, licence and terms) runs on each
   new site by itself; there's no waiting on a person.
 - **Read only where the rules allow:** logging isn't reading. Before any fetch, §1.2 holds as written: the switches,
