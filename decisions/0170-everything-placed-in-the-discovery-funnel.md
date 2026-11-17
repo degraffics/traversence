@@ -66,12 +66,29 @@ the Chameleon Filter (not yet built; Jason to sort out its design) has the data 
   zone the ZIPs of its towns (regions.md, through `zip_coordinates`) and the counties they sit in; each town its ZIPs.
 - **A thing goes to its real level, open or not:** an existing town first; else a town seeded in its zone by 0042's
   clustering ("needs review"); else its zone; else its continental hub.
-- **Held where its level isn't open:** catalogued and kept, not public, until that level opens.
-- **Only what no hub covers is "no hub yet":** held, and counted as demand by place.
+- **Shown right away, wherever it lands** (Jason, 2026-11-17: "Showing it right away is my initial thought. No need to
+  say coming soon, because open hubs vs closed hubs is more about administration support over data available"): a
+  zone or hub being open or planned is about our team's support there (staff, sales, the opening budget), not about
+  what's shown. Content in a planned zone is public as soon as it passes the usual gates (the real-business floor,
+  the publish thresholds, nations' land, privacy), with no "Coming soon" on it; it still counts toward that level's
+  readiness.
+- **Only what no hub covers is "no hub yet":** shown as usual, and counted as demand by place.
 - **No default hub.** `DEFAULT_GEO_HUB_SLUG` and the `ancient-borderlands` fallbacks go; "no hub yet" is a valid
   answer everywhere (intake approvals never refuse for it).
-- **Things that span places** (a state, a river, a trail or route across zones, a nation's land) get an edge to the
-  level that spans them and to each level they touch; a journey is placed where it starts and linked along its route.
+- **Home and reach** (Jason, 2026-11-17, on the Single Home Rule: "If we are talking something physical then there is
+  a specific geographic placement, but if we are talking context, then the scope of access and intent must be shaped
+  as well. Example: The Grand Canyon…"). Two things, kept apart:
+  - **Home:** every thing has **exactly one** home on the taxonomy (the Single Home Rule, architecture.md §22, 0042):
+    its physical point's town, or, for something with no single point (a river, a trail, a state, a nation's land),
+    the one level that spans it. Home is where it lives, is counted and is managed; it never duplicates.
+  - **Reach:** how widely it matters and to whom: town, zone, hub, state, national or international, and for which
+    intent (Get Local, Let's Explore, Community). Reach decides which higher levels' guides, lists and searches link to
+    it, never where it lives. **The Grand Canyon:** home is its point (Grand Canyon Village, in the Flagstaff, Grand
+    Canyon & Colorado Rim zone); its reach is international and Let's Explore, so Ancient America's guide, Arizona's
+    and the national pages all link to it, while a local café beside it has town reach and Get Local intent.
+  - Reach comes from the evidence (how widely it's written about, visited, searched, protected or listed, e.g. a
+    national park or a World Heritage Site), set at Phase 4 with the intent tags, and a person can adjust it.
+  - A journey's home is where it starts; it reaches every level along its route.
 
 ### 3. Once organized, research builds the bigger picture
 
@@ -90,8 +107,13 @@ With everything placed, Phase 4 rolls what's under each level up into that level
 
 - Nations' land (0066): pins on a nation's land still move to a public place; held names stay held.
 - "Places in search": a city named is always found and is demand, whatever level it falls in.
-- A person's choice of place (an owner's listing, a staff member's guide) wins over the catalog's; Phase 4 suggests
-  and fills in.
+- **Claims and people's input win** (Jason, 2026-11-17: "Claims and user input should win over system content or
+  listing generation 99%. As long as the user input is valid and follows our rules."): an owner's or a member's or a
+  staff member's choice of place stands over the engine's; Phase 4 only suggests and fills in where none was given.
+  **Valid** means it follows our rules: the chosen place is where the thing really is or plausibly serves (a home
+  within reach of its address, not a town far away to look local), and it breaks no rule (nations' land, held names,
+  privacy, honest representation). A choice that doesn't fit is never silently overridden: it's flagged with the
+  reason, as a step in the person's own Pulse and, where needed, the team's.
 
 ### 5. The 20 continental hubs
 
