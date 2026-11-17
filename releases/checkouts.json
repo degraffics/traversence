@@ -359,6 +359,151 @@
    "expires": "2026-11-17T16:51:47Z",
    "release": "w0-indexer",
    "callers": {}
+  },
+  {
+   "path": "app/lib/crawler/Sources.php",
+   "functions": [
+    "STATUSES",
+    "addLinked",
+    "ensureJudge",
+    "sweep"
+   ],
+   "kind": "change",
+   "session": "w0-indexer",
+   "why": "W0 Indexer: every URL logged, the machine classifies, the frontier (decisions/0164 \u00a71.4 note)",
+   "since": "2026-11-17T12:51:49Z",
+   "expires": "2026-11-17T16:51:49Z",
+   "release": "w0-indexer",
+   "callers": {
+    "addLinked": [
+     "website/api/crawl/commoncrawl.php",
+     "website/api/crawl/sources.php"
+    ],
+    "sweep": [
+     "website/api/crawl/sources.php"
+    ],
+    "ensureJudge": [
+     "app/lib/crawler/SecondTier.php",
+     "website/api/crawl/commoncrawl.php"
+    ],
+    "STATUSES": [
+     "website/admin/sources.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/crawler/SourceIndex.php",
+   "functions": [
+    "logPages"
+   ],
+   "kind": "change",
+   "session": "w0-indexer",
+   "why": "W0 Indexer: every URL logged, the machine classifies, the frontier (decisions/0164 \u00a71.4 note)",
+   "since": "2026-11-17T12:51:49Z",
+   "expires": "2026-11-17T16:51:49Z",
+   "release": "w0-indexer",
+   "callers": {
+    "logPages": [
+     "app/lib/crawler/PageRead.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/Automation.php",
+   "functions": [
+    "WORKFLOWS"
+   ],
+   "kind": "change",
+   "session": "w0-indexer",
+   "why": "W0 Indexer: every URL logged, the machine classifies, the frontier (decisions/0164 \u00a71.4 note)",
+   "since": "2026-11-17T12:51:49Z",
+   "expires": "2026-11-17T16:51:49Z",
+   "release": "w0-indexer",
+   "callers": {
+    "WORKFLOWS": [
+     "app/admin/automation-console.php",
+     "app/admin/operations-console.php",
+     "app/lib/Clocks.php",
+     "app/lib/Operations.php",
+     "app/lib/SystemStart.php",
+     "app/lib/WorkflowSettings.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/SystemStart.php",
+   "functions": [
+    "ORDER",
+    "gate",
+    "heldBy",
+    "runs",
+    "turnOn"
+   ],
+   "kind": "change",
+   "session": "w0-indexer",
+   "why": "W0 Indexer: every URL logged, the machine classifies, the frontier (decisions/0164 \u00a71.4 note)",
+   "since": "2026-11-17T12:51:49Z",
+   "expires": "2026-11-17T16:51:49Z",
+   "release": "w0-indexer",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Operations.php",
+   "functions": [
+    "CAPS",
+    "pulseDo",
+    "pulseItems",
+    "pulseSteps",
+    "usage"
+   ],
+   "kind": "change",
+   "session": "w0-indexer",
+   "why": "W0 Indexer: every URL logged, the machine classifies, the frontier (decisions/0164 \u00a71.4 note)",
+   "since": "2026-11-17T12:51:49Z",
+   "expires": "2026-11-17T16:51:49Z",
+   "release": "w0-indexer",
+   "callers": {
+    "CAPS": [
+     "app/admin/operations-console.php"
+    ],
+    "pulseItems": [
+     "app/lib/Pulse.php"
+    ],
+    "pulseSteps": [
+     "app/lib/Pulse.php"
+    ],
+    "pulseDo": [
+     "app/lib/Pulse.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/OutsideServices.php",
+   "functions": [
+    "COMPANIES"
+   ],
+   "kind": "change",
+   "session": "w0-indexer",
+   "why": "W0 Indexer: every URL logged, the machine classifies, the frontier (decisions/0164 \u00a71.4 note)",
+   "since": "2026-11-17T12:51:49Z",
+   "expires": "2026-11-17T16:51:49Z",
+   "release": "w0-indexer",
+   "callers": {
+    "COMPANIES": [
+     "app/admin/automation-console.php",
+     "app/admin/operations-console.php",
+     "app/admin/sections.php",
+     "app/lib/Automation.php",
+     "app/lib/Operations.php",
+     "app/lib/Pulse.php",
+     "app/lib/ServiceHealth.php",
+     "app/lib/StagingGate.php",
+     "app/lib/SystemStart.php",
+     "app/lib/WorkflowSettings.php",
+     "app/ui/outside-services.php",
+     "website/admin/api/find.php"
+    ]
+   }
   }
  ],
  "lapsed": [
