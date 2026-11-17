@@ -45,21 +45,27 @@
    "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
    "why": "Start confirms operational, then fires the queue (Jason, 2026-11-17)",
    "since": "2026-11-17T20:15:01Z",
-   "expires": "2026-11-18T00:15:01Z",
-   "release": "start-confirm",
-   "callers": {}
+   "expires": "2026-11-18T00:15:04Z",
+   "release": "start-confirm.zip",
+   "callers": {
+    "pulseDo": [
+     "app/admin/automation-console.php",
+     "app/lib/Operations.php"
+    ]
+   }
   },
   {
    "path": "app/lib/Thresholds.php",
    "functions": [
+    "(top)",
     "START_GATE"
    ],
    "kind": "change",
    "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
    "why": "Start confirms operational, then fires the queue (Jason, 2026-11-17)",
    "since": "2026-11-17T20:15:01Z",
-   "expires": "2026-11-18T00:15:01Z",
-   "release": "start-confirm",
+   "expires": "2026-11-18T00:15:04Z",
+   "release": "start-confirm.zip",
    "callers": {}
   }
  ],
