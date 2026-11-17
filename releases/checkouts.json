@@ -108,15 +108,35 @@
   {
    "path": "app/lib/OutsideServices.php",
    "functions": [
-    "SETTINGS"
+    "COMPANIES",
+    "SETTINGS",
+    "parts"
    ],
    "kind": "change",
    "session": "domain-sales-switch",
    "why": "Domain sales get their own switch, DOMAIN_SALES_MODE (Jason, 2026-11-17)",
    "since": "2026-11-17T11:03:09Z",
-   "expires": "2026-11-17T15:03:09Z",
+   "expires": "2026-11-17T15:05:16Z",
    "release": "",
-   "callers": {}
+   "callers": {
+    "COMPANIES": [
+     "app/admin/automation-console.php",
+     "app/admin/operations-console.php",
+     "app/admin/sections.php",
+     "app/lib/Automation.php",
+     "app/lib/Operations.php",
+     "app/lib/Pulse.php",
+     "app/lib/ServiceHealth.php",
+     "app/lib/StagingGate.php",
+     "app/lib/SystemStart.php",
+     "app/lib/WorkflowSettings.php",
+     "app/ui/outside-services.php",
+     "website/admin/api/find.php"
+    ],
+    "parts": [
+     "app/ui/outside-services.php"
+    ]
+   }
   },
   {
    "path": "app/lib/StagingSite.php",
