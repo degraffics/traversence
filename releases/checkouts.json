@@ -204,7 +204,7 @@
    "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
    "why": "W2 re-read: Common Crawl's copy when a website doesn't load for us; a recent copy sends it to a person instead of taking it off (0163 source map, c2)",
    "since": "2026-11-17T17:07:22Z",
-   "expires": "2026-11-17T21:09:27Z",
+   "expires": "2026-11-17T21:18:30Z",
    "release": "refresh-archive.zip",
    "callers": {
     "complete": [
@@ -222,8 +222,8 @@
    "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
    "why": "(c2) W2 missing phone or website: our NPI and Recreation.gov copies first (0163 source map)",
    "since": "2026-11-17T17:13:07Z",
-   "expires": "2026-11-17T21:13:07Z",
-   "release": "refresh-archive",
+   "expires": "2026-11-17T21:18:30Z",
+   "release": "refresh-archive.zip",
    "callers": {
     "complete": [
      "website/api/crawl/identity.php"
@@ -253,8 +253,8 @@
    "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
    "why": "(c2) W2 map points: a Census failure waits (held), not failed (0163 source map)",
    "since": "2026-11-17T17:13:58Z",
-   "expires": "2026-11-17T21:13:58Z",
-   "release": "refresh-archive",
+   "expires": "2026-11-17T21:18:30Z",
+   "release": "refresh-archive.zip",
    "callers": {}
   },
   {
@@ -264,8 +264,8 @@
    "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
    "why": "(c2) W2 still open: listings our copies flag as possibly closed go to the Google check first (0163 source map)",
    "since": "2026-11-17T17:14:15Z",
-   "expires": "2026-11-17T21:14:15Z",
-   "release": "refresh-archive",
+   "expires": "2026-11-17T21:18:30Z",
+   "release": "refresh-archive.zip",
    "callers": {}
   },
   {
@@ -294,8 +294,8 @@
    "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
    "why": "(c2) W8 Find it: our OpenStreetMap copy first",
    "since": "2026-11-17T17:15:18Z",
-   "expires": "2026-11-17T21:15:18Z",
-   "release": "refresh-archive",
+   "expires": "2026-11-17T21:18:30Z",
+   "release": "refresh-archive.zip",
    "callers": {}
   },
   {
@@ -314,14 +314,15 @@
   {
    "path": "app/lib/Mailer.php",
    "functions": [
+    "(top)",
     "send"
    ],
    "kind": "change",
    "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
    "why": "(c2) the source map's fallbacks: site email Bluehost SMTP then Amazon SES, weather link when hidden, events retried next day (0163)",
    "since": "2026-11-17T17:18:03Z",
-   "expires": "2026-11-17T21:18:03Z",
-   "release": "refresh-archive",
+   "expires": "2026-11-17T21:18:30Z",
+   "release": "refresh-archive.zip",
    "callers": {
     "send": [
      "app/admin/Workflow.php",
@@ -389,8 +390,8 @@
    "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
    "why": "(c2) the source map's fallbacks: site email Bluehost SMTP then Amazon SES, weather link when hidden, events retried next day (0163)",
    "since": "2026-11-17T17:18:03Z",
-   "expires": "2026-11-17T21:18:03Z",
-   "release": "refresh-archive",
+   "expires": "2026-11-17T21:18:30Z",
+   "release": "refresh-archive.zip",
    "callers": {
     "tick": [
      "app/scripts/guide_finds_tick.php"
@@ -418,8 +419,8 @@
    "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
    "why": "(c2) the source map's fallbacks: site email Bluehost SMTP then Amazon SES, weather link when hidden, events retried next day (0163)",
    "since": "2026-11-17T17:18:09Z",
-   "expires": "2026-11-17T21:18:09Z",
-   "release": "refresh-archive",
+   "expires": "2026-11-17T21:18:30Z",
+   "release": "refresh-archive.zip",
    "callers": {}
   },
   {
