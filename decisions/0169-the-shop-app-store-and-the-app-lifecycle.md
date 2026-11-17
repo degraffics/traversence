@@ -97,6 +97,12 @@ find and buy; Apps is where you run them.**
    4. **Facebook Personal** (0168 Phase 1);
    5. **Facebook Business** (0168 Phase 3 on).
 
+   6. **Storefront** (decisions/0139 moved in; Jason, 2026-11-17): Configure walks through the shop name and look
+      (`trvgo.us/<name>` works at once), then **your address**: keep `trvgo.us/<name>` (free), use a domain you own (the
+      records shown and checked for you), or buy one through Name.com (search, price, buy, connected by itself); then
+      pages, Preview, Go live. Remove says what happens: the storefront closes, a bought domain stays the business's
+      (its transfer code shown), a brought domain's records can be pointed elsewhere.
+
    The others (Square, Tickets, Appointments, Gallery storage, calendars, 1Password…) are discussed next.
 
 ## Consequences

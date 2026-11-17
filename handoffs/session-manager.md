@@ -75,6 +75,7 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
      not with the service's reason and the fix, required or optional for launch; Start the system shows it first;
      nightly and after a `.env` change, red items to Pulse; each Outside services card's Test is its item. Laid out as a
      queue log: one line per check, green ✓ / red ✗, each line opens to its status and its fix.
+     Domains in it: Fly's API token can read the edge's certificates; Name.com's sandbox answers a search with a price.
      Its own process: runs any time (stopped, starting or running) to diagnose, never starts or pauses anything.
      **With it, Outside services becomes a table** (Jason, 2026-11-17: "maybe we treat it like the table view with search
      and filters sorting"): the admin's table widget, one row per company (name, what we use it for, status ✓/✗/—, this
@@ -94,6 +95,7 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
      3. **Stripe Payments:** 0135's connection moved in, with "Which should I use?" and "Don't have an account?";
      4. **Facebook Personal:** decisions/0168 Phase 1;
      5. **Facebook Business:** 0168 Phase 3 on (waits for Jason's Business Verification and Meta's App Review).
+     6. **Storefront:** 0139 moved in; its setup includes the address (keep trvgo.us/<name>, bring a domain, or buy one).
 
      Others (Square, Tickets, Appointments, Gallery storage, calendars, 1Password…) to be discussed with Jason next.
   3. **Hubs by location, before the crawler works beyond the pilot** (Jason, 2026-11-16, found in the `.env` trace):
