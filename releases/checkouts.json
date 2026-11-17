@@ -331,22 +331,27 @@
    "session": "session_01CXLi5kGG8gG4QBmC4uzMzN",
    "why": "Pre-flight: a line's notice opens in its body, full width, not in the header row (Jason's screenshot, 2026-11-17)",
    "since": "2026-11-17T14:23:32Z",
-   "expires": "2026-11-17T18:23:32Z",
-   "release": "preflight-fix",
+   "expires": "2026-11-17T18:25:00Z",
+   "release": "preflight-fix.zip",
    "callers": {}
   },
   {
    "path": "app/admin/preflight-console.php",
    "functions": [
-    "tv_admin_mod_preflight"
+    "tv_admin_mod_preflight",
+    "tv_preflight_line"
    ],
    "kind": "change",
    "session": "session_01CXLi5kGG8gG4QBmC4uzMzN",
    "why": "Pre-flight: a line's notice opens in its body, full width, not in the header row (Jason's screenshot, 2026-11-17)",
    "since": "2026-11-17T14:23:32Z",
-   "expires": "2026-11-17T18:23:32Z",
-   "release": "preflight-fix",
-   "callers": {}
+   "expires": "2026-11-17T18:25:00Z",
+   "release": "preflight-fix.zip",
+   "callers": {
+    "tv_preflight_line": [
+     "website/admin/api.php"
+    ]
+   }
   }
  ],
  "lapsed": [
