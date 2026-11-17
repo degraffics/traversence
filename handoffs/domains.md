@@ -4,7 +4,7 @@ Session: claude/domains-0169-1a. Started 2026-11-17, on the mirror at `3c54bf3` 
 
 ## Where it stands
 
-- **Planned (scope narrowed 2026-11-17), waiting on Jason's OK** (below) before code is written.
+- **Planned; scope and renewal card answered (relayed). Waiting on Jason's go in chat** before code is written.
 - No release sent yet. Nothing in `releases/inbox/` from this work. No claims taken yet.
 
 ## What's live today (read 2026-11-17)
@@ -55,6 +55,27 @@ joining it to the account's domains is the Storefront app's job (0169 app 6).
    so 0166's ledger can post the cost of goods; the margin is the markup. No income or cost account is chosen in code:
    that's 0166's QuickBooks setup step (two starter pairs: Domain purchases and Domain renewals, income + COGS). Until
    then the receipt follows today's `QuickBooksPay` path.
+
+8. **A Wallet** (Jason, 2026-11-17, relayed: "Payments should have a payment wallet like system where multiple payment
+   methods can be held … that card will be assigned to its future use for renewals. It also locks the card from being
+   removed but it can be replaced with a new card." "Yes. Add to build."). `app/lib/Wallet.php`, tables `wallet_cards`
+   and `wallet_assignments`, recorded as a note in decisions/0166:
+   - one wallet per account (a member's; a business's, run by its owner, or its accountant role if the owner allows);
+     never mixed;
+   - many cards, one default (offered first at checkout); only the processor's card reference and a label
+     ("Visa ··4242"), through `QuickBooksPay::saveCard` / `chargeSaved`; each card stays with the processor that saved it;
+   - each purchase that renews is **assigned** a card (Domain Purchase now; plans and paid apps later); an assigned card
+     is **locked**: never removed, only **replaced** (for that item, or everything on it); it unlocks when nothing
+     renews on it (cancelled, auto-renew off, transferred away);
+   - 30 days before a locked card expires: a reminder with Replace card; a declined renewal retries at 3 and 7 days, a
+     new card at once;
+   - test accounts in the sandbox; every charge has its key so it's made once;
+   - plans keep their own card for now (nothing working changes); they move onto the wallet with 0166's QuickBooks
+     Payments app.
+   - `saveCard` and the cardOnFile charge are verified against QuickBooks' sandbox **on staging** once the release is
+     there (QuickBooks is sandbox-only on staging; this session can't reach it).
+
+Jason confirmed the scope (relayed 2026-11-17): Shop → Domains and the Domains tab; the storefront unchanged.
 
 ## Questions put to Jason (2026-11-17)
 
