@@ -1,0 +1,44 @@
+{
+    "id": 109,
+    "title": "Pre-flight: the page that pressed Run all follows the run live",
+    "why": "Pressing Run all left the button spinning and the counts at 0 while the run went on on the server: the page waited for start's answer before following, and on LiteSpeed that answer only came when the run ended. Now the page follows at once, the button stops spinning once the run is under way, and the server ends the start request early on LiteSpeed too.",
+    "proposals": "",
+    "zip": "preflight-follow.zip",
+    "switch": "none",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "website/admin/api.php": {
+            "sha": "cf4ef4fee07b83346bc434e30688a758f50ffa4300413b14c18c3a82b6e33209",
+            "size": 25809,
+            "live_was": "6a482be80585494ed796b027377af01d6bb5b53b9bf007302355ab40ff37b570"
+        },
+        "website/js/admin-preflight.js": {
+            "sha": "41097c8cdc71e2bd8d81e20aaac83f6f0848478258c72fb0252f0df8dfe7ea4a",
+            "size": 14482,
+            "live_was": "44d499f92a943152d7c473212c46c1816f4a525907d9377207486ccd0e4bf30c"
+        },
+        "app/admin/preflight-console.php": {
+            "sha": "6bd7a4e6dcd18eb60e9463054ba667647a38d2fbb5c8e2b5b2e055d1490ce769",
+            "size": 16815,
+            "live_was": "b3afdfb1dc98e19387f947fa638baad626aa278e3cac015187d01c9a504791db"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-17T19:09:31+00:00",
+            "by": 0,
+            "msg": "Uploaded preflight-follow.zip: 3 files."
+        }
+    ]
+}
