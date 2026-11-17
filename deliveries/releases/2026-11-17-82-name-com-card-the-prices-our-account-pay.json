@@ -6,12 +6,12 @@
     "zip": "namecom-prices.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "planned",
+    "state": "approved",
     "step": 0,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
-    "plan_at": null,
+    "plan_at": "2026-11-17 13:36:08",
     "staged_at": null,
     "vetted_at": null,
     "live_at": null,
@@ -34,6 +34,16 @@
             "at": "2026-11-17T13:36:06+00:00",
             "by": 0,
             "msg": "Uploaded namecom-prices.zip: 2 files."
+        },
+        {
+            "at": "2026-11-17T13:36:08+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/namecom-prices.zip (git feea2409aa)."
+        },
+        {
+            "at": "2026-11-17T13:36:08+00:00",
+            "by": 0,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
         }
     ]
 }
