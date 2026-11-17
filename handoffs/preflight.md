@@ -145,8 +145,13 @@ Check-out release names: `preflight` (release 1), `outside-table` (release 2, no
   Mexico registry requests (decisions/0164 §7.1's note), heritage's Commons licence call, his OK on that note, and his
   pre-flight run before Start the system.
 
-- **`preflight-server-run.zip`** (Jason via the session manager, 2026-11-17: "Preflight only works if I stay on that
-  page"; built on Sync 18:09 UTC): Run all runs on the server. `Preflight::startRun` / `work` / `live` / `liveLines` /
+- **`preflight-server-run-2.zip`** (Jason via the session manager, 2026-11-17: "Preflight only works if I stay on that
+  page"; built on Sync 18:09 UTC; replaces `preflight-server-run.zip`, never taken): Run all runs on the server. **Changed
+  after review (Jason):** an interrupted run is never resumed by itself: it's marked Interrupted and waits for Continue or
+  Cancel (the page asks on open; Run all asks Continue / Start a new run / Cancel via `TvAsk.choose`; Pulse steps
+  `ops_pf_continue`, `ops_pf_cancel`; nightly and .env runs wait); every run is one log line from its start
+  (`logStart`, `logSet`: Running, Interrupted at N of M, continued, Cancelled, Finished), its report as far as it got.
+  The text below describing automatic pick-ups is superseded. `Preflight::startRun` / `work` / `live` / `liveLines` /
   `interrupted` / `stopRun`, the run's state in `preflight_results` row `_live` (kept out of `results()`), one at a time by
   `GET_LOCK('tv_preflight_run')`; the API's `start` answers, releases the session, then keeps working
   (`ignore_user_abort`, `fastcgi_finish_request`); `status` sends the lines finished since `from`. A run with no progress
