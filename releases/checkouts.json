@@ -668,6 +668,95 @@
    "expires": "2026-11-17T20:49:24Z",
    "release": "staging-gate.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/Thresholds.php",
+   "functions": [
+    "GATES"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
+   "why": "Paid backups by a director's override, and Tavily to Brave (0163 source map, preflight hand-off (c))",
+   "since": "2026-11-17T16:53:41Z",
+   "expires": "2026-11-17T20:53:41Z",
+   "release": "paid-overrides",
+   "callers": {
+    "GATES": [
+     "app/admin/operations-console.php",
+     "app/admin/sections.php",
+     "app/lib/Operations.php",
+     "app/lib/WorkflowSettings.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/Operations.php",
+   "functions": [
+    "CAPS"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
+   "why": "Paid backups by a director's override, and Tavily to Brave (0163 source map, preflight hand-off (c))",
+   "since": "2026-11-17T16:53:41Z",
+   "expires": "2026-11-17T20:53:41Z",
+   "release": "paid-overrides",
+   "callers": {
+    "CAPS": [
+     "app/admin/operations-console.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/crawler/CrawlService.php",
+   "functions": [
+    "plan",
+    "report"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
+   "why": "Paid backups by a director's override, and Tavily to Brave (0163 source map, preflight hand-off (c))",
+   "since": "2026-11-17T16:53:41Z",
+   "expires": "2026-11-17T20:53:41Z",
+   "release": "paid-overrides",
+   "callers": {
+    "plan": [
+     "website/api/crawl/service.php"
+    ],
+    "report": [
+     "website/api/crawl/service.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/IdentityJobs.php",
+   "functions": [
+    "complete"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
+   "why": "Paid backups by a director's override, and Tavily to Brave (0163 source map, preflight hand-off (c))",
+   "since": "2026-11-17T16:53:41Z",
+   "expires": "2026-11-17T20:53:41Z",
+   "release": "paid-overrides",
+   "callers": {
+    "complete": [
+     "website/api/crawl/identity.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/Preflight.php",
+   "functions": [
+    "NEEDS",
+    "need"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
+   "why": "Paid backups by a director's override, and Tavily to Brave (0163 source map, preflight hand-off (c))",
+   "since": "2026-11-17T16:53:41Z",
+   "expires": "2026-11-17T20:53:41Z",
+   "release": "paid-overrides",
+   "callers": {}
   }
  ],
  "lapsed": [
