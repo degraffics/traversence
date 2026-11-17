@@ -1,0 +1,44 @@
+{
+    "id": 114,
+    "title": "Start the system: a fair gate, and a stopped step's fixes on the step itself",
+    "why": "2026-11-17: W1 stopped at its gate on one timeout at one OpenStreetMap server (overpass.kumi.systems), though other servers and our own copy answer; and the stopped step showed only Check again, its Try it again being in Pulse. Jason: 'issues don't need to go to pulse if the action to fix is required on page. A notice can go to the pulse, but the corrections needs in page fix option.' 1. A new service issue fails a workflow's gate only when it holds the service (Operations::status: a block, refused key, used-up quota, or every server down with nothing else to answer). 2. A stopped step shows Try it again, Leave it paused and carry on, and for its service issue Check issue now and Mark issue resolved, on the card. 3. A step stopped by an issue that no longer holds the service carries on by itself at the next look (Check again looks at once), W1 included. 4. The Now line points to the stopped step, not to Pulse. 5. FAQ updated.",
+    "proposals": "",
+    "zip": "start-gate-fair.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/admin/automation-console.php": {
+            "sha": "d1ecc45c2cbac8a751d748dcb6c041cbd5f24fb8a8ea9d642647b488863c3d1b",
+            "size": 21257,
+            "live_was": "5edb8eed0973077f64667a345b5df2ef5dd1cec6c09cc95f62fbac42bf91810a"
+        },
+        "app/ui/faq.md": {
+            "sha": "1476ad3534ca5801382de0819c0239a3e36e066b8191aea7384b9958791b848c",
+            "size": 324731,
+            "live_was": "413443ac2da9db0fa474058252108e27754c268a83555a8ad6fc88c972ae5d0a"
+        },
+        "app/lib/SystemStart.php": {
+            "sha": "c0b49a8d5903d3559887bb57bab9061646f9c2c36f517f76202545e29672b75b",
+            "size": 59134,
+            "live_was": "58e76792c9b7a36f02ea669040663dcd71b7e69035ec8d569dafa0be280ab8e0"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-17T20:07:57+00:00",
+            "by": 0,
+            "msg": "Uploaded start-gate-fair.zip: 3 files."
+        }
+    ]
+}
