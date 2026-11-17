@@ -6,12 +6,12 @@
     "zip": "preflight-log.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "planned",
+    "state": "approved",
     "step": 0,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
-    "plan_at": null,
+    "plan_at": "2026-11-17 16:25:15",
     "staged_at": null,
     "vetted_at": null,
     "live_at": null,
@@ -49,6 +49,16 @@
             "at": "2026-11-17T16:25:13+00:00",
             "by": 0,
             "msg": "Uploaded preflight-log.zip: 5 files."
+        },
+        {
+            "at": "2026-11-17T16:25:15+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/preflight-log.zip (git 70b52e36a5)."
+        },
+        {
+            "at": "2026-11-17T16:25:15+00:00",
+            "by": 0,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
         }
     ]
 }
