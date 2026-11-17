@@ -1,0 +1,44 @@
+{
+    "id": 113,
+    "title": "Start the system stands on its own: fixes inline, Check again, each step's life, one run log line per Start",
+    "why": "Jason, 2026-11-17: 'the start system needs to function as a selfcontained process, so if there is a failure/fix it needs to be inline with the START up'; 'the process within steps should be lined as started, running, complete, active status'; 'the log should show a START session with a report with all items logged within that report'. 1. The pre-flight's result is off the Start card (a link to it as diagnostics; Start doesn't wait on it). 2. Each held step opens to what holds it, each with its fix: a button that does it there, or the exact page; and Check again, which looks again at once on the server. 3. Each workflow and task opens to Started, Running (good runs so far), Complete (when it passed its gate) and Active status (on or paused, its last run). 4. The run log has one line per Start session (status, started, ended or last update, who, counts), each opening to its report: every step's end state, then every event in order. A new Start keeps the one before whole in the log (the last 20). 5. FAQ updated.",
+    "proposals": "",
+    "zip": "start-inline.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/admin/automation-console.php": {
+            "sha": "5edb8eed0973077f64667a345b5df2ef5dd1cec6c09cc95f62fbac42bf91810a",
+            "size": 20509,
+            "live_was": "b4698c0ebccd488ae754031d7b60d9e7d43315ceca18254d45e7e01a596e4da2"
+        },
+        "app/ui/faq.md": {
+            "sha": "413443ac2da9db0fa474058252108e27754c268a83555a8ad6fc88c972ae5d0a",
+            "size": 324208,
+            "live_was": "3b97304f47afc0e6f16be9f7a989c38c7ce70a6707857b485c8891d31d09ce1d"
+        },
+        "app/lib/SystemStart.php": {
+            "sha": "58e76792c9b7a36f02ea669040663dcd71b7e69035ec8d569dafa0be280ab8e0",
+            "size": 56360,
+            "live_was": "c32827e6235ea5b1444f2ee3a211050ec5751699597325157c4cba26af47ab2a"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-17T20:02:20+00:00",
+            "by": 0,
+            "msg": "Uploaded start-inline.zip: 3 files."
+        }
+    ]
+}
