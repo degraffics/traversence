@@ -638,6 +638,26 @@ say otherwise, and this makes it plain:
   batches at the worker's pace (the Bluehost bot check, 2026-11-15), sleeps when the frontier is empty rather than
   spinning, and has its own switch and budget line in the register. Start the system starts it first; Pause
   everything stops it (the safety stop stays one button).
+- **The reader loops back into the index** (Jason: "Maybe we loop back the reader to segment or promote urls in index
+  so we restrict bad or junk while using them to keep from recapturing them"). Every later step that reads or judges a
+  URL (the classifier, Phase 2's reading, Phase 3's vetting, a person's call) writes its verdict back onto the URL and
+  its site in the index:
+  - **Promoted:** it gave facts we kept, or a trusted source leads to it; read sooner, and its links ranked up.
+  - **Normal:** waiting its turn by the priority below.
+  - **Demoted:** thin or off-topic; read rarely, its links ranked down.
+  - **Junk:** Tier 5 (parked, link farm, spam), a trap (endless calendars, session or search-result URLs), restricted,
+    blocked or gone. **Never fetched again, but never forgotten:** it stays as a compact record (its hash, site and
+    reason), so the indexer recognises it the moment it's found again and doesn't log or read it twice. A pattern
+    seen often (a site's calendar pages, a tracking query) becomes a rule, so whole families are skipped at the door.
+  - Verdicts can be undone (a person's call, or new evidence), and every one is in the audit log with its reason.
+- **Reading priority:** every URL is logged, but what gets read first: sites in or about our hubs' places (with hubs by
+  location); then by the classifier's tier and the URL's verdict; then how many of our known sources link to it; within
+  a set depth from a trusted source. Low-value URLs wait; nothing is dropped except junk, which is remembered as junk.
+- **A size guard:** junk kept compact; a URL never read after six months, and not linked from anything promoted, is
+  compressed to its hash; the frontier's size and growth shown in the pre-flight. If it outgrows Bluehost's database,
+  the frontier moves to the worker's side (Railway or Supabase).
+- **Pace on the site:** results sent in small batches at a fixed pace, and the indexer slows when the site is slow, so
+  it never trips the host's bot check or slows pages.
 
 ### 1.5 Lead sources for rural businesses
 
