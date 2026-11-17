@@ -300,15 +300,12 @@
   },
   {
    "path": "app/lib/Preflight.php",
-   "functions": [
-    "NEEDS",
-    "need"
-   ],
+   "functions": [],
    "kind": "change",
    "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
-   "why": "W1 reads our OpenStreetMap copy (open_places, Geofabrik) before Overpass (0163 source map, preflight hand-off (b))",
+   "why": "W1 reads our OpenStreetMap copy before Overpass (zip check's function attribution)",
    "since": "2026-11-17T16:37:26Z",
-   "expires": "2026-11-17T20:37:26Z",
+   "expires": "2026-11-17T20:44:07Z",
    "release": "osm-ours",
    "callers": {}
   },
