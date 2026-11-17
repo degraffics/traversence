@@ -32,17 +32,19 @@
    "functions": [
     "(top)",
     "finished",
+    "lines",
     "results",
     "runAll",
     "stopRun",
+    "test",
     "tick"
    ],
    "kind": "change",
    "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
-   "why": "Pre-flight server run: the run's own record kept out of the lines' results",
+   "why": "Long values kept whole: search_index_state.v widened (VARCHAR(200) cut Start the system's state); a pre-flight line proves the round trip (session manager, 2026-11-17)",
    "since": "2026-11-17T18:11:12Z",
-   "expires": "2026-11-17T22:15:23Z",
-   "release": "preflight-server-run.zip",
+   "expires": "2026-11-17T22:17:01Z",
+   "release": "preflight-server-run",
    "callers": {
     "tick": [
      "app/scripts/preflight_tick.php"
@@ -52,6 +54,9 @@
     ],
     "results": [
      "app/ui/outside-services.php"
+    ],
+    "lines": [
+     "app/admin/preflight-console.php"
     ]
    }
   },
