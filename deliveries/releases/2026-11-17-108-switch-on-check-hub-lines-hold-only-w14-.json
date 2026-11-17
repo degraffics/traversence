@@ -6,7 +6,7 @@
     "zip": "hub-gate-preflight-2.zip",
     "switch": "none",
     "advance": "schedule",
-    "state": "planned",
+    "state": "withdrawn",
     "step": 0,
     "paused": false,
     "urgent": null,
@@ -34,6 +34,16 @@
             "at": "2026-11-17T19:09:27+00:00",
             "by": 0,
             "msg": "Uploaded hub-gate-preflight-2.zip: 2 files."
+        },
+        {
+            "at": "2026-11-17T19:09:29+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/hub-gate-preflight-2.zip (git ad8382abc8)."
+        },
+        {
+            "at": "2026-11-17T19:18:34+00:00",
+            "by": 2,
+            "msg": "Withdrawn before it went live."
         }
     ]
 }
