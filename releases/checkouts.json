@@ -54,10 +54,10 @@
    "functions": [],
    "kind": "change",
    "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
-   "why": "Pre-flight: the page that pressed Run all follows the run live (it waited for start's answer, which on LiteSpeed came only at the end)",
+   "why": "Check before switching on as a pre-flight group: line by line on the server, run log, filters; one engine for the board, Start and the pre-flight (Jason, 2026-11-17)",
    "since": "2026-11-17T18:43:36Z",
-   "expires": "2026-11-17T22:46:43Z",
-   "release": "preflight-follow.zip",
+   "expires": "2026-11-17T23:14:46Z",
+   "release": "switchon-group",
    "callers": {}
   },
   {
@@ -65,23 +65,24 @@
    "functions": [],
    "kind": "change",
    "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
-   "why": "Pre-flight: the page that pressed Run all follows the run live (it waited for start's answer, which on LiteSpeed came only at the end)",
+   "why": "Check before switching on as a pre-flight group: line by line on the server, run log, filters; one engine for the board, Start and the pre-flight (Jason, 2026-11-17)",
    "since": "2026-11-17T18:43:36Z",
-   "expires": "2026-11-17T22:46:43Z",
-   "release": "preflight-follow.zip",
+   "expires": "2026-11-17T23:14:46Z",
+   "release": "switchon-group",
    "callers": {}
   },
   {
    "path": "app/admin/preflight-console.php",
    "functions": [
+    "tv_admin_mod_preflight",
     "tv_preflight_live"
    ],
    "kind": "change",
    "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
-   "why": "Pre-flight: the page that pressed Run all follows the run live (it waited for start's answer, which on LiteSpeed came only at the end)",
+   "why": "Check before switching on as a pre-flight group: line by line on the server, run log, filters; one engine for the board, Start and the pre-flight (Jason, 2026-11-17)",
    "since": "2026-11-17T18:43:36Z",
-   "expires": "2026-11-17T22:46:43Z",
-   "release": "preflight-follow.zip",
+   "expires": "2026-11-17T23:14:46Z",
+   "release": "switchon-group",
    "callers": {
     "tv_preflight_live": [
      "website/admin/api.php"
@@ -107,19 +108,57 @@
    "path": "app/lib/Preflight.php",
    "functions": [
     "lines",
-    "test"
+    "logSet",
+    "startRun",
+    "summary",
+    "test",
+    "work"
    ],
    "kind": "change",
    "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
-   "why": "Hub lines hold W14 only; planned hubs and other states' sources stop holding Start; pre-flight switch-on line",
+   "why": "Check before switching on as a pre-flight group: line by line on the server, run log, filters; one engine for the board, Start and the pre-flight (Jason, 2026-11-17)",
    "since": "2026-11-17T18:49:42Z",
-   "expires": "2026-11-17T23:07:28Z",
-   "release": "hub-gate-preflight-2",
+   "expires": "2026-11-17T23:14:46Z",
+   "release": "switchon-group",
    "callers": {
     "lines": [
      "app/admin/preflight-console.php"
+    ],
+    "summary": [
+     "app/admin/preflight-console.php",
+     "app/admin/sections.php"
+    ],
+    "startRun": [
+     "website/admin/api.php"
+    ],
+    "work": [
+     "website/admin/api.php"
     ]
    }
+  },
+  {
+   "path": "app/admin/operations-console.php",
+   "functions": [
+    "tv_admin_mod_board"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
+   "why": "Check before switching on as a pre-flight group: line by line on the server, run log, filters; one engine for the board, Start and the pre-flight (Jason, 2026-11-17)",
+   "since": "2026-11-17T19:14:46Z",
+   "expires": "2026-11-17T23:14:46Z",
+   "release": "switchon-group",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/SystemStart.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
+   "why": "Check before switching on as a pre-flight group: line by line on the server, run log, filters; one engine for the board, Start and the pre-flight (Jason, 2026-11-17)",
+   "since": "2026-11-17T19:14:46Z",
+   "expires": "2026-11-17T23:14:46Z",
+   "release": "switchon-group",
+   "callers": {}
   }
  ],
  "lapsed": [
