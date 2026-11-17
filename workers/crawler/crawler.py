@@ -217,7 +217,7 @@ SKIP_HOSTS = {"openstreetmap.org", "npino.com", "npiprofile.com", "npidb.org", "
 
 started = time.monotonic()
 WORKER_KEYS = ("GOOGLE_PLACES_KEY", "TAVILY_API_KEY", "BRAVE_API_KEY", "RIDB_API_KEY", "HF_TOKEN")   # reported by name at each run
-WORKER_V = "2.11.0"          # 2.11.0: a website that doesn't load for the refresh is looked up in Common Crawl's newest crawl (W2, decisions/0163's source map: direct, then Common Crawl); 2.10.0: web search falls to Brave when Tavily fails or is held; Google Places as the paid backup for confirming a business in the identity check, only by a director's override within its cap (decisions/0163's source map); 2.9.0: W1 reads our OpenStreetMap copy first (the job's "ours", from Geofabrik), Overpass only for a kind or town it lacks, and works on while every Overpass server is held (decisions/0163's source map); 2.8.0: every link on a page read goes to the page log (same site or not; no cap of 60, nor 40 other sites: W0, decisions/0164 §1.4); 2.7.5: a page whose reading had to stop is logged waiting to be read (P1-1); 2.7.4: reports which keys it has (names only), its per-run limits from the plan, Geofabrik's weekly load (osmium); 2.7.3: Geofabrik over IPv4; 2.7: the open-dataset loads and Geofabrik's test (Release B); the service's contract 2 (decisions/0160 §2): the site plans each run, the worker reports it; 2.4: calls by host; 2.5: issues, holds, probes, per-kind Overpass; 2.6: servers from the plan, the pace
+WORKER_V = "2.12.0"          # 2.12.0: the identity check starts from what the site's own copies hold (the job's "local"), outside only for the rest; 2.11.0: a website that doesn't load for the refresh is looked up in Common Crawl's newest crawl (W2, decisions/0163's source map: direct, then Common Crawl); 2.10.0: web search falls to Brave when Tavily fails or is held; Google Places as the paid backup for confirming a business in the identity check, only by a director's override within its cap (decisions/0163's source map); 2.9.0: W1 reads our OpenStreetMap copy first (the job's "ours", from Geofabrik), Overpass only for a kind or town it lacks, and works on while every Overpass server is held (decisions/0163's source map); 2.8.0: every link on a page read goes to the page log (same site or not; no cap of 60, nor 40 other sites: W0, decisions/0164 §1.4); 2.7.5: a page whose reading had to stop is logged waiting to be read (P1-1); 2.7.4: reports which keys it has (names only), its per-run limits from the plan, Geofabrik's weekly load (osmium); 2.7.3: Geofabrik over IPv4; 2.7: the open-dataset loads and Geofabrik's test (Release B); the service's contract 2 (decisions/0160 §2): the site plans each run, the worker reports it; 2.4: calls by host; 2.5: issues, holds, probes, per-kind Overpass; 2.6: servers from the plan, the pace
 RUN_END = None             # when this run's own work must stop (started + TIME_BUDGET, or a bulk load's end)
 TASK_END = None            # when the capture task being worked must stop (its share of the run)
 FETCH_CAP = MAX_FETCHES    # fetches this run may have made by the end of the task being worked
@@ -687,11 +687,13 @@ def wikidata(job, deadline=None):
                                      headers={"User-Agent": UA, "Accept": "application/sparql-results+json"})
         try:
             if time_left(deadline) < 10:
+                OSM_INCOMPLETE.add(job.get("job_id") or job.get("target_id"))   # its official places wait for the next turn
                 return []                          # no time for it this turn: OpenStreetMap's answer still counts
             with urllib.request.urlopen(req, timeout=max(5, min(60, time_left(deadline) - 5))) as r:
                 rows = json.loads(r.read().decode("utf-8")).get("results", {}).get("bindings", [])
-        except Exception as e:                     # Wikidata busy: OpenStreetMap's answer still counts
-            log(f"  wikidata: {e!r}"[:200])
+        except Exception as e:                     # Wikidata busy: OpenStreetMap's answer still counts, and the job goes
+            log(f"  wikidata: {e!r}"[:200])        # round again for its official places (partial; 0163's source map: it waits)
+            OSM_INCOMPLETE.add(job.get("job_id") or job.get("target_id"))
             return []
     out, seen = [], set()
     for b in rows:
@@ -1685,18 +1687,21 @@ def cc_page(rec):
 
 
 _CC_NEWEST = []    # the newest crawl (its id, its index), looked up once a run
+CC_COPIES = [0]    # copies looked up this run: at most CC_COPY_MAX, so a site that's down can't spend the run on the archive
+CC_COPY_MAX = int(os.environ.get("CC_COPY_MAX", "12"))
 
 
 def cc_home(site):
-    """A website's home page as Common Crawl's newest crawl copied it, when it didn't load for us (decisions/0163's source
-    map, W2: direct, then Common Crawl): (html, capture time YYYYMMDDhhmmss, crawl id), or None. Never when Common Crawl is
-    held; a copy only, never a sign the site works for us."""
+    """A page (a website's home page, a source's page) as Common Crawl's newest crawl copied it, when it didn't load for us
+    (decisions/0163's source map, W2 and W3: direct, then Common Crawl): (html, capture time YYYYMMDDhhmmss, crawl id), or
+    None. Never when Common Crawl is held; a copy only, never a sign the site works for us."""
     if os.environ.get("CC_FIXTURE"):
         with open(os.environ["CC_FIXTURE"]) as f:
             x = json.load(f).get(site)
         return (x["html"], x["at"], "CC-TEST") if x else None
-    if held("index.commoncrawl.org") or held("data.commoncrawl.org") or out_of_time():
+    if held("index.commoncrawl.org") or held("data.commoncrawl.org") or out_of_time() or CC_COPIES[0] >= CC_COPY_MAX:
         return None
+    CC_COPIES[0] += 1
     try:
         if not _CC_NEWEST:
             _CC_NEWEST.append(cc_latest())
@@ -1886,6 +1891,9 @@ def read_source(deadline):
         r = fetch_page_meta(url, k.get("etag", ""), k.get("modified", ""), pdf=True)
         if is_pdf or "pdf" in (r.get("type") or "").lower():
             pdfs += 1
+        elif r.get("why") in ("error", "empty") and (arch := cc_home(url)):
+            # free before paid (decisions/0163's source map, W3: direct, then Common Crawl; 2.12.0): its newest crawl's copy
+            r = {"body": arch[0], "status": 200, "type": "text/html", "bytes": len(arch[0]), "etag": "", "modified": "", "why": "", "via": "commoncrawl"}
         elif r.get("why") in ("error", "empty") and extracted < extract_left:
             body = tavily_extract(url)
             if body:
@@ -2215,6 +2223,8 @@ def geocode(deadline):
         if r.get("paused"):
             log("map points: queue paused on the site")
             break
+        if r.get("waits"):                          # the Census didn't answer: the batch waits, the task is held (2.12.0)
+            raise ServiceHeld(str(r.get("why") or "the Census geocoder didn't answer")[:200])
         log(f"map points: sent {r.get('sent', 0)}, placed {r.get('found', 0)}, not found {r.get('not_found', 0)}, "
             f"placed another way {r.get('skipped', 0)}, left {r.get('left', 0)}")
         if not r.get("left") or (r.get("sent", 0) + r.get("skipped", 0) + r.get("private", 0)) == 0:
@@ -2590,6 +2600,12 @@ def identity_jobs(deadline):
             rejected = set(lst.get("rejected") or [])
             need = set(lst.get("need") or [])
             found, checked = [], []
+            # 0. ours first: what the site's own copies hold for it (NPI, Recreation.gov; 2.12.0), so outside is asked
+            # only for what's still missing
+            local = [f for f in (lst.get("local") or []) if isinstance(f, dict) and f.get("fact")]
+            if local:
+                checked.append("local")
+                found += local
             have = lambda fact: any(f["fact"] == fact for f in found)
             # 1. its own website
             if lst.get("website"):
