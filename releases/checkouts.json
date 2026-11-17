@@ -342,6 +342,17 @@
    "expires": "2026-11-17T20:37:26Z",
    "release": "osm-ours",
    "callers": {}
+  },
+  {
+   "path": "app/lib/OpenPlaces.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
+   "why": "W1 reads our OpenStreetMap copy (open_places, Geofabrik) before Overpass (0163 source map, preflight hand-off (b))",
+   "since": "2026-11-17T16:37:33Z",
+   "expires": "2026-11-17T20:37:33Z",
+   "release": "osm-ours",
+   "callers": {}
   }
  ],
  "lapsed": [
