@@ -188,7 +188,14 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
 
      Others (Square, Tickets, Appointments, Gallery storage, calendars, 1Password…) to be discussed with Jason next.
   6. **The cleanup stage** (its own area; can run beside the above). **Fixes in the code:**
-     - Pulse #31's 62 unused names;
+     - Pulse #31's 62 unused names (Jason, 2026-11-17: "just add it to the queue"): the monthly check found 62 tables
+       and columns no live file names (0-row tables like `accuracy_reports`, `ai_credit_usage`,
+       `gbp_addon_subscriptions`, `guide_mentions`; dated backups like `listing_actions_bak_20261014`). A cleanup
+       session checks each against the live code, names built on the fly included, and gives Jason one list: safe to
+       remove, keep (with the reason), unsure. On his OK, a release removes the safe ones (copied first, under 0162,
+       named under "removes"), Keep it is pressed on the rest, and the case closes. With it, Jason's rule (2026-11-17):
+       "we dont want a ton of non-used items in our dbase". Also: that case's "Open the tool" view is blank on the
+       left (no tool drawn for it); give it its list, or open the case alone.
      - Pulse #22's Site health items;
      - Data cleanup's "From visitors" label;
      - `/admin/crawler.php`'s outdated "Cron Schedule */5" instruction (Start the system sets the cron now).
@@ -222,6 +229,14 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
        case 'azcc' still calls `ecorp.azcc.gov`, which no longer resolves; the Commission moved to
        `arizonabusinesscenter.azcc.gov`, which answers our host 403 "Access Blocked". Test the new host and say it's
        blocked pending the records request (one line), not "No answer".
+     - **A release that fails its staging checks is withdrawn by itself** (Jason, 2026-11-17: "withdrawing bad releases
+       needs to be addressed so it can be automated upon fails"). Today a failed release sits on staging ("check failed:
+       upload a fixed zip or put it on staging again") until someone presses Withdraw: #70, #78, #108 and #109 were all
+       withdrawn by hand. Make it automatic: when a Claude build (from git) fails its staging checks, the site withdraws
+       it ("Withdrawn: its checks failed: <which check and why>"), records that in its release record (so the building
+       session sees it in git), and raises one Pulse item for staff; nothing on live changes. A build uploaded by a
+       person isn't auto-withdrawn (they may fix it on staging), but gets the same Pulse item. A later build with the
+       same name replaces it as usual.
      **For Jason to address in the cleanup** (Jason, 2026-11-17: "Add these to the queue for me to address in the clean
      up"):
      - **Records requests to the Arizona Corporation Commission and New Mexico's Secretary of State** for their
