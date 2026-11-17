@@ -1,0 +1,54 @@
+{
+    "id": 75,
+    "title": "Domain sales Test: search shows real names and prices, buying stays a test",
+    "why": "Jason, 2026-11-17: Test-mode search said robotsrus.com was free (Name.com's sandbox doesn't know the real registry; whois.com shows it registered), and its prices were the sandbox's. \"Live prices and testing purchase sounds like a much better UI and UX for me.\" In a test (Domain sales on Test, a test account, staging), search now asks Name.com live for availability and prices, read only: Domains::lookupLive uses the live pair and refuses anything but checkAvailability and getPricing, and a refusal there never pauses sales. Buying stays in the sandbox with the test wallet; before a test purchase goes in the cart, the sandbox is asked whether it can register the name, and says so plainly if not (nothing charged). The sandbox registers at its own price. When Name.com's lookup doesn't answer, the page says the results are the test system's, never passed off as real. A missing renewal price is asked for (getPricing) instead of repeating the first-year price; if still unknown the page says 'renewal price confirmed before it renews', and a renewal is never charged at our markup alone (auto-renew tries again next run). The domains page's status lines (the Test mode note showed as plain text) now become the site's notice boxes. FAQ: the cost entry says a renewal price is never guessed. Pricing policy waits for Jason's review of the real prices.",
+    "proposals": "",
+    "zip": "domain-live-search.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/ui/faq.md": {
+            "sha": "02452b2f290c1f8795c53b8d538e5e1096569937113be61e43d2357d241ca8f0",
+            "size": 315516,
+            "live_was": "511bf68b6c8b2b65cc063ac33b4a655b6b587cb99e0130bd2a5894b0d1416c3f"
+        },
+        "app/lib/AccountDomains.php": {
+            "sha": "a71e0e9172e11e7456820d3689c0600dbe067f958cf4394cdcd3f51d72964cd4",
+            "size": 88750,
+            "live_was": "d3964c3d5ef36a4f3b830b16d0d19f01c378495aee865ac8f6fa96ffae9db289"
+        },
+        "app/lib/Domains.php": {
+            "sha": "9be913146b7c3f242a2cd414f378c3a6855bd5aa820a6d8f50a628916ddd9f5f",
+            "size": 44306,
+            "live_was": "b189ccb6f0ef0ee01652d82b96bbdc67ffedddb6c503e0e703914a8d8a7d7f8d"
+        },
+        "website/api/domains.php": {
+            "sha": "b3c91f738f6bac62e4b4ce04d42be3a56d8bd93b02c8f7a708517463d38e0883",
+            "size": 11202,
+            "live_was": "5b46bc49ea489e7fbc94d1646b25a67d4207aa1ca5b91990fe20d1f152b115ce"
+        },
+        "website/js/tv-domains.js": {
+            "sha": "d02339d4eb3a4f08ab4e330d7921501661ab36c112778e7f700db84587cf2f41",
+            "size": 30931,
+            "live_was": "d5d2ddabe0e8c7cc1160311bd4d5eb183ebf3b723148b3f9cbc344a3caff93b5"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-17T12:25:31+00:00",
+            "by": 0,
+            "msg": "Uploaded domain-live-search.zip: 5 files."
+        }
+    ]
+}
