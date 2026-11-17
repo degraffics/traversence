@@ -203,6 +203,12 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
      - Outside requests don't save (Name.com ticket #3113488, after #84/#87/#89): likely the same cause the pre-flight
        found in `search_index_state.v`, a live column shorter than the code assumes, cutting the JSON silently; fix as
        the pre-flight did (their own table), confirmed by the card's "Can't keep requests" line.
+     - **A build merged while its zip name was already in the inbox stalls at "Plan approved"** (release #106,
+       2026-11-17): `large-fallbacks.zip` was sent, then rebuilt under the same name; on merge the site recorded "taken
+       from the inbox (it was already in)" and never put it on staging, and Check for builds said "nothing is waiting".
+       Jason had to press Put it on staging, then Publish. Fix: a rebuilt zip (new bytes, same name) is taken as a new
+       build and goes on to staging by itself; a release left at Plan approved with its zip present is picked up by the
+       10-minute job and by Check for builds; and a Claude build that passes staging publishes itself as usual.
      **For Jason to address in the cleanup** (Jason, 2026-11-17: "Add these to the queue for me to address in the clean
      up"):
      - **Records requests to the Arizona Corporation Commission and New Mexico's Secretary of State** for their
