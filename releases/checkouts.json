@@ -262,6 +262,19 @@
    "expires": "2026-11-17T17:15:21Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/lib/EnvSettings.php",
+   "functions": [
+    "choices"
+   ],
+   "kind": "change",
+   "session": "domain-verify",
+   "why": "Domain sales Off: the choice's wording corrected (auto-renew stops with it)",
+   "since": "2026-11-17T13:16:32Z",
+   "expires": "2026-11-17T17:16:32Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
