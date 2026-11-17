@@ -69,7 +69,7 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
     to consider a shared `LEGAL_EMAIL` and a business `LEGAL_PHONE`); Pixabay, OpenRouteService, `HEALTH_TOKEN` (must
     match the GitHub secret); Hugging Face on Railway only; Supabase (setup SQL from its card still to run).
 - **Queued after the usage reset (~Nov 17 23:00 UTC):**
-  1. **W0 Indexer: every URL logged, always on** (0164 §1.4's note, Jason 2026-11-17: "Put it first in the queue"): every link on every page read into the frontier (same site or not, with its page and link text);
+  1. **W0 Indexer: every URL logged, always on** (**in progress** in session_01CXLi5jAPsvr7mrCV6roykv, started 2026-11-17 12:40 UTC on Jason's go) (0164 §1.4's note, Jason 2026-11-17: "Put it first in the queue"): every link on every page read into the frontier (same site or not, with its page and link text);
      classification runs by itself on new sites; reading only where §1.2's rules allow; a person's call overrides,
      never gates; today's "Waiting for you" sources classified on the first pass. Worker (`own_site_links`, the
      40/60 caps, `read_source`) and site (`Sources.php`, `SourceIndex.php`, `/api/crawl/sources.php`).
