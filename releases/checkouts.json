@@ -45,8 +45,8 @@
    "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
    "why": "Pre-flight run life cycle",
    "since": "2026-11-17T18:11:16Z",
-   "expires": "2026-11-17T22:50:34Z",
-   "release": "hub-gate-preflight.zip",
+   "expires": "2026-11-17T23:07:09Z",
+   "release": "hub-gate-preflight-2.zip",
    "callers": {}
   },
   {
@@ -91,6 +91,7 @@
   {
    "path": "app/lib/HubOpening.php",
    "functions": [
+    "(top)",
     "hubs",
     "lines"
    ],
@@ -98,8 +99,8 @@
    "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
    "why": "Switch-on check: hubs without a stage take hubs.status, a hub with no state gets no sources; the pre-flight includes the switch-on check's red lines",
    "since": "2026-11-17T18:49:42Z",
-   "expires": "2026-11-17T22:50:34Z",
-   "release": "hub-gate-preflight.zip",
+   "expires": "2026-11-17T23:07:09Z",
+   "release": "hub-gate-preflight-2.zip",
    "callers": {
     "lines": [
      "app/lib/Operations.php"
