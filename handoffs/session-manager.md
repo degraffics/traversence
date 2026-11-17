@@ -183,5 +183,10 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
      3. Pulse: incoming mail in the Stream, bounces and complaints as items, the Sent view, failures as cases;
      4. compose in Pulse, with threading; one inbox per person across the mailboxes they oversee, and a From choice (§2a).
   (decisions/0168's phases are apps 4 and 5 in item 2; its later phases follow those.)
+- **For Jason to sort out:** the **Chameleon Filter** (brand.md §5, architecture.md §22; "coming" in toolkit.md and
+  prd.md): how each place's page shifts emphasis by the visitor's track (Get Local, Let's Explore, Community), which
+  tags and items show for each, and the DIKW climb. Phase 4's intent tags (decisions/0170 §1a) are its data; its
+  design is Jason's to decide (Jason, 2026-11-17: "put chameleon filter on the queue for me to sort out"), then a
+  decision and a build.
 - **Jason's own, any time:** Meta Business portfolio and Business Verification (0168 Phase 2); the OSM forum statement (`research/osm-overpass-2026-11-13.md` §2), and the SES dashboard
   check for bounces lost while the bot check blocked them.

@@ -49,6 +49,15 @@ place taxonomy (0042: Continental Hub → zone → town → anchor → sub-group
 point on the map (§4.2). Content a person makes goes through the same catalog step; nothing places itself.
 `CrawlerIngest::resolveMicroClusterId` and every other path that picks a place today hand over to it.
 
+### 1a. Intent tags, for the Chameleon Filter (Jason, 2026-11-17: "Intent tags will help")
+
+Placement answers *where*; the Chameleon Filter (brand.md §5, architecture.md §22) answers *for whom and how* a level's
+items show. So when Phase 4 catalogues an item it also tags **which tracks it serves**: **Get Local** (commerce and
+utility: a café, a pharmacy), **Let's Explore** (narrative, corridors, history: a heritage site, a trail, a guide) and
+**Community** (groups, posts, events people make); many serve more than one, each with a weight. Tags come from the
+item's kind and category, its facts and its source, and a person can correct them. They're stored with the item, so
+the Chameleon Filter (not yet built; Jason to sort out its design) has the data waiting for it.
+
 ### 2. By location, active or planned
 
 - **Every level carries its geography:** each continental hub its states (and counties where a state is split); each
@@ -98,7 +107,8 @@ ledger and Undo. Areas seeded under the Ancient Borderlands that lie outside it 
 1. Zone geography for Ancient America's 15 zones; Phase 4's placement step (`LOCATED_IN` edges); listings and the
    crawler's intake onto it; the default removed; Settings' "Default place" row removed.
 2. Every other kind of content through Phase 4's placement; things that span places.
-2b. Research rolled up to each level (§3): level dossiers feeding the guides, gaps per level, readiness on the meter.
+2b. Research rolled up to each level (§3): level dossiers feeding the guides, gaps per level, readiness on the meter;
+    intent tags (§1a) on everything catalogued.
 3. Data cleanup's re-placing of what exists.
 4. The other 19 continental hubs, when Jason has sent them.
 
