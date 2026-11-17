@@ -50,67 +50,6 @@
   {
    "path": "app/lib/Domains.php",
    "functions": [
-    "(top)",
-    "namecom",
-    "ncAccount"
-   ],
-   "kind": "change",
-   "session": "domain-live-search",
-   "why": "Test mode searches Name.com live (real availability and prices), buys in the sandbox; no guessed renewal prices (Jason, 2026-11-17)",
-   "since": "2026-11-17T12:17:57Z",
-   "expires": "2026-11-17T16:20:54Z",
-   "release": "domain-live-search.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/AccountDomains.php",
-   "functions": [
-    "addToCart",
-    "autoRenew",
-    "register",
-    "renewPrice",
-    "search"
-   ],
-   "kind": "change",
-   "session": "domain-live-search",
-   "why": "Test mode searches Name.com live; no guessed renewal prices (Jason, 2026-11-17)",
-   "since": "2026-11-17T12:17:57Z",
-   "expires": "2026-11-17T16:20:54Z",
-   "release": "domain-live-search.zip",
-   "callers": {
-    "search": [
-     "website/api/domains.php"
-    ],
-    "addToCart": [
-     "website/api/domains.php"
-    ]
-   }
-  },
-  {
-   "path": "website/api/domains.php",
-   "functions": [],
-   "kind": "change",
-   "session": "domain-live-search",
-   "why": "Test mode searches Name.com live (real availability and prices), buys in the sandbox; no guessed renewal prices (Jason, 2026-11-17)",
-   "since": "2026-11-17T12:17:57Z",
-   "expires": "2026-11-17T16:20:54Z",
-   "release": "domain-live-search.zip",
-   "callers": {}
-  },
-  {
-   "path": "website/js/tv-domains.js",
-   "functions": [],
-   "kind": "change",
-   "session": "domain-live-search",
-   "why": "Test mode searches Name.com live (real availability and prices), buys in the sandbox; no guessed renewal prices (Jason, 2026-11-17)",
-   "since": "2026-11-17T12:17:57Z",
-   "expires": "2026-11-17T16:20:54Z",
-   "release": "domain-live-search.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/Domains.php",
-   "functions": [
     "lookupLive"
    ],
    "kind": "add",
