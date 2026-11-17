@@ -393,6 +393,19 @@
    "expires": "2026-11-17T18:47:24Z",
    "release": "outside-table.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/Domains.php",
+   "functions": [
+    "fly"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kGG8gG4QBmC4uzMzN",
+   "why": "Domains::fly sends a FlyV1 token as-is, Bearer for others (Jason, 2026-11-17)",
+   "since": "2026-11-17T14:56:48Z",
+   "expires": "2026-11-17T18:56:48Z",
+   "release": "fly-token",
+   "callers": {}
   }
  ],
  "lapsed": [
