@@ -145,6 +145,28 @@ Check-out release names: `preflight` (release 1), `outside-table` (release 2, no
   Mexico registry requests (decisions/0164 §7.1's note), heritage's Commons licence call, his OK on that note, and his
   pre-flight run before Start the system.
 
+- **`preflight-server-run-2.zip`** (Jason via the session manager, 2026-11-17: "Preflight only works if I stay on that
+  page"; built on Sync 18:09 UTC; replaces `preflight-server-run.zip`, never taken): Run all runs on the server. **Changed
+  after review (Jason):** an interrupted run is never resumed by itself: it's marked Interrupted and waits for Continue or
+  Cancel (the page asks on open; Run all asks Continue / Start a new run / Cancel via `TvAsk.choose`; Pulse steps
+  `ops_pf_continue`, `ops_pf_cancel`; nightly and .env runs wait); every run is one log line from its start
+  (`logStart`, `logSet`: Running, Interrupted at N of M, continued, Cancelled, Finished), its report as far as it got.
+  The text below describing automatic pick-ups is superseded. `Preflight::startRun` / `work` / `live` / `liveLines` /
+  `interrupted` / `stopRun`, the run's state in `preflight_results` row `_live` (kept out of `results()`), one at a time by
+  `GET_LOCK('tv_preflight_run')`; the API's `start` answers, releases the session, then keeps working
+  (`ignore_user_abort`, `fastcgi_finish_request`); `status` sends the lines finished since `from`. A run with no progress
+  for 3 minutes is picked up from where it reached (the page, Run all, or `preflight_tick`), and after 3 pick-ups logged as
+  "Stopped at N of M" (`finished()` takes a note, shown in the run log). `runAll` (nightly, .env) uses the same run. The
+  page opens fresh except while a run is going. The old browser loop's `next` and `again` (js) moved to `work()` (named
+  with `--drops`, Jason's ask). Tested on SQLite with faked lines (full run, cut off and picked up, stopped after 3, the
+  lock); the page itself needs a look on staging.
+  The same release keeps long settings whole, **add-only** (a `MODIFY` fails the Releases check's "Migrations only add",
+  as #70 found; 0162 has no widening exception): `2026-11-17_search_index_state_wide.sql` adds `v_long MEDIUMTEXT NULL`
+  (guarded), and `SearchIndex::state` reads `COALESCE(v_long, v)` / `setState` writes both (`v` its first 200 characters).
+  `search_index_state.v` was VARCHAR(200), cut silently on live: Start the system's state, W0's flagged list,
+  Geofabrik's probe, identity:last_run, worker:keys, search presets and Gemini's comparison were all longer than 200. New
+  pre-flight line `site:state` (needed for launch): a ~4,800-character value written and read back.
+
 ## How it works
 
 - `Preflight::lines()`: one list in run order: the site, every `OutsideServices::COMPANIES` key (`svc:<key>`: each

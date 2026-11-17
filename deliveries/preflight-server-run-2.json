@@ -1,0 +1,38 @@
+{
+ "zip": "preflight-server-run-2.zip",
+ "built_on": "2ff3304 Sync: 2026-11-17 18:09 UTC",
+ "recorded": "2026-11-17 18:24 UTC",
+ "note": "Pre-flight's Run all on the server; Continue/Cancel; one log line per run; long settings kept whole, add-only (v_long); built on Sync: 2026-11-17 18:09 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/admin/preflight-console.php": {
+   "sha256": "b3afdfb1dc98e19387f947fa638baad626aa278e3cac015187d01c9a504791db",
+   "live": false
+  },
+  "app/lib/Preflight.php": {
+   "sha256": "d498bdbb0d24aff09861a50dc63993b6f10345091e22cb84f728477d790151df",
+   "live": false
+  },
+  "app/lib/SearchIndex.php": {
+   "sha256": "aad4a464983557629c8da663a4de0ef47f695250b12f2349a6a66ef12d0155d8",
+   "live": false
+  },
+  "app/migrations/2026-11-17_search_index_state_wide.sql": {
+   "sha256": "cec8fec7feb0875a945a305d71ba2301076d487ad5aeafe07f42a576c0501cb2",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "503c40ae779a62d24d6328dbed629c8b64ad93f27bdc5006891d0baf6b827195",
+   "live": false
+  },
+  "website/admin/api.php": {
+   "sha256": "6a482be80585494ed796b027377af01d6bb5b53b9bf007302355ab40ff37b570",
+   "live": false
+  },
+  "website/js/admin-preflight.js": {
+   "sha256": "44d499f92a943152d7c473212c46c1816f4a525907d9377207486ccd0e4bf30c",
+   "live": false
+  }
+ }
+}
