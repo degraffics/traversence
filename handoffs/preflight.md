@@ -245,3 +245,11 @@ Start the system is now self-contained (Jason).
 - Held, stopped and running steps get **Check again** (`au_do=start_tick` → `SystemStart::tick`). Both handlers are in automation-console.php.
 - Workflows and tasks show `lifeLines`: Started, Running (via `self::runs`), Complete (`done_at`, stored by `set()`) and Active status (wfOff/master and its last crawler run).
 - The run log shows one line per session. `start()` archives the previous session to `start:sessions` (the last 20), and each line opens to that session's report.
+
+## start-gate-fair (2026-11-17, built on Sync 20:04 UTC)
+
+W1 stopped on a single timeout from overpass.kumi.systems (issue #12).
+- `SystemStart::gate` now fails on a new issue only when `issueHolds()`: `ServiceHealth::holding()` and `Operations::status()` give 'held' (server-scoped).
+- A stop keeps `items[id]['issue']`. In `advance()`, a step stopped by an issue that no longer holds its service carries on by itself.
+- A stopped step on the card shows Try it again / Leave it paused (`start_do`) and Check issue now / Mark issue resolved (`start_issue_check` / `start_issue_resolve` in automation-console.php).
+- The "Now" line points to the stopped step.
