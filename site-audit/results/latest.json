@@ -1,6 +1,6 @@
 {
- "run": "2026-11-16 18:56 UTC",
- "mirror": "3c54bf3",
+ "run": "2026-11-17 08:17 UTC",
+ "mirror": "2101a57",
  "findings": [
   {
    "rule": "R07",
@@ -137,7 +137,7 @@
   {
    "rule": "R13",
    "file": "app/lib/QuickBooksPay.php",
-   "line": 303,
+   "line": 306,
    "msg": "http(): an outside call (curl_init) with no gate: ask StagingGate::hold($url, \u2026) first, or say why not with an @gate note"
   },
   {
@@ -205,18 +205,6 @@
    "file": "app/lib/Roads511.php",
    "line": 203,
    "msg": "feed(): an outside call (curl_init) with no gate: ask StagingGate::hold($url, \u2026) first, or say why not with an @gate note"
-  },
-  {
-   "rule": "R13",
-   "file": "app/lib/Domains.php",
-   "line": 296,
-   "msg": "fly(): an outside call (curl_init) with no gate: ask StagingGate::hold($url, \u2026) first, or say why not with an @gate note"
-  },
-  {
-   "rule": "R13",
-   "file": "app/lib/Domains.php",
-   "line": 484,
-   "msg": "namecom(): an outside call (curl_init) with no gate: ask StagingGate::hold($url, \u2026) first, or say why not with an @gate note"
   },
   {
    "rule": "R13",

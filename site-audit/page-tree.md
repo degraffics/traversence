@@ -1,6 +1,6 @@
 # Page tree
 
-Decision 0145 §1a. Generated from the live mirror on 2026-11-16 18:56 UTC (`3c54bf3`). Checked against the
+Decision 0145 §1a. Generated from the live mirror on 2026-11-17 08:17 UTC (`2101a57`). Checked against the
 register `site-audit/pages.md` (it replaced `routes.md`, P6). Columns: does the page load the session and the shell, does it draw the account bar, is it in
 `pages.md` / `archive.md`, and which decisions name its file.
 
@@ -138,6 +138,7 @@ register `site-audit/pages.md` (it replaced `routes.md`, P6). Columns: does the 
 | `/qr/manage.php` | `website/qr/manage.php` | yes | yes | yes |  |
 | `/register.php` | `website/register.php` | **no** | **no** | yes | 0055, 0090 |
 | `/reset-password.php` | `website/reset-password.php` | yes | **no** | yes |  |
+| `/shop/domains.php` | `website/shop/domains.php` | yes | yes | yes |  |
 | `/shop/` | `website/shop/index.php` | yes | yes | yes |  |
 | `/sitemap.php` | `website/sitemap.php` | yes | yes | yes |  |
 | `/stg-enter.php` | `website/stg-enter.php` | yes | yes | yes |  |
@@ -147,6 +148,7 @@ register `site-audit/pages.md` (it replaced `routes.md`, P6). Columns: does the 
 | `/user/accounts.php` | `website/user/accounts.php` | yes | yes | yes |  |
 | `/user/dashboard.php` | `website/user/dashboard.php` | yes | yes | yes |  |
 | `/user/delete-account.php` | `website/user/delete-account.php` | yes | yes | yes |  |
+| `/user/domains/` | `website/user/domains/index.php` | yes | yes | yes |  |
 | `/user/experiences/` | `website/user/experiences/index.php` | yes | yes | yes |  |
 | `/user/journeys/compose.php` | `website/user/journeys/compose.php` | yes | yes | yes |  |
 | `/user/journeys/` | `website/user/journeys/index.php` | yes | yes | yes |  |
