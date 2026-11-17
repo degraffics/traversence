@@ -22,57 +22,6 @@
    }
   },
   {
-   "path": "app/ui/outside-services.php",
-   "functions": [
-    "(top)",
-    "tv_os_env_js",
-    "tv_os_env_rows"
-   ],
-   "kind": "change",
-   "session": "setting-choices",
-   "why": "Settings with set answers offer choices and the next step (Jason, 2026-11-17)",
-   "since": "2026-11-17T11:33:45Z",
-   "expires": "2026-11-17T15:37:05Z",
-   "release": "setting-choices.zip",
-   "callers": {}
-  },
-  {
-   "path": "website/admin/settings.php",
-   "functions": [],
-   "kind": "change",
-   "session": "setting-choices",
-   "why": "Settings with set answers offer choices and the next step (Jason, 2026-11-17)",
-   "since": "2026-11-17T11:33:45Z",
-   "expires": "2026-11-17T15:37:05Z",
-   "release": "setting-choices.zip",
-   "callers": {}
-  },
-  {
-   "path": "website/admin/api/env-setting.php",
-   "functions": [],
-   "kind": "change",
-   "session": "setting-choices",
-   "why": "Settings with set answers offer choices and the next step (Jason, 2026-11-17)",
-   "since": "2026-11-17T11:33:45Z",
-   "expires": "2026-11-17T15:37:05Z",
-   "release": "setting-choices.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/EnvSettings.php",
-   "functions": [
-    "choices",
-    "next"
-   ],
-   "kind": "add",
-   "session": "setting-choices",
-   "why": "Settings with set answers offer choices and the next step (Jason, 2026-11-17)",
-   "since": "2026-11-17T11:33:49Z",
-   "expires": "2026-11-17T15:37:05Z",
-   "release": "setting-choices.zip",
-   "callers": {}
-  },
-  {
    "path": "website/js/tv-ask.js",
    "functions": [
     "choose"
@@ -83,30 +32,6 @@
    "since": "2026-11-17T11:33:49Z",
    "expires": "2026-11-17T15:33:49Z",
    "release": "",
-   "callers": {}
-  },
-  {
-   "path": "website/js/tv-env-edit.js",
-   "functions": [],
-   "kind": "add",
-   "session": "setting-choices",
-   "why": "Settings with set answers offer choices and the next step (Jason, 2026-11-17)",
-   "since": "2026-11-17T11:33:49Z",
-   "expires": "2026-11-17T15:37:05Z",
-   "release": "setting-choices.zip",
-   "callers": {}
-  },
-  {
-   "path": "website/js/tv-ask.js",
-   "functions": [
-    "peek"
-   ],
-   "kind": "change",
-   "session": "setting-choices",
-   "why": "release setting-choices.zip",
-   "since": "2026-11-17T11:37:05Z",
-   "expires": "2026-11-17T15:37:05Z",
-   "release": "setting-choices.zip",
    "callers": {}
   }
  ],
