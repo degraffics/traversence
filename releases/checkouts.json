@@ -323,22 +323,6 @@
    "expires": "2026-11-17T17:48:36Z",
    "release": "favicon-everywhere.zip",
    "callers": {}
-  },
-  {
-   "path": "app/lib/Preflight.php",
-   "functions": [
-    "serviceTest",
-    "supabase",
-    "task",
-    "workflow"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5kGG8gG4QBmC4uzMzN",
-   "why": "Pre-flight tuned from Jason's first report (2026-11-17): Railway, OpenStreetMap, Fly, Supabase, openrouteservice tests; jobs Start the system sets up",
-   "since": "2026-11-17T14:38:16Z",
-   "expires": "2026-11-17T18:39:21Z",
-   "release": "preflight-tune.zip",
-   "callers": {}
   }
  ],
  "lapsed": [
