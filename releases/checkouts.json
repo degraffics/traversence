@@ -99,9 +99,9 @@
    "functions": [],
    "kind": "add",
    "session": "session_01CXLi5kHKsQbGaogTWfpFiw",
-   "why": "Scheduled tasks and their pages link both ways: Open <page> on each task, a Runs line on each page (Jason, 2026-11-17)",
+   "why": "Scheduled tasks and their pages link both ways (Jason, 2026-11-17)",
    "since": "2026-11-17T17:25:47Z",
-   "expires": "2026-11-17T21:54:16Z",
+   "expires": "2026-11-17T21:54:32Z",
    "release": "job-links.zip",
    "callers": {}
   },
