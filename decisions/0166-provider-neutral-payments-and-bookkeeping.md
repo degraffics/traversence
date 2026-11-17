@@ -63,9 +63,10 @@ settings, not `.env`, and every change is logged.
    - Traversence itself starts in **B**.
 2. **The starter chart** (what A creates, and what B asks you to match):
    - **Income (4000s):** Subscriptions and plans, GO Codes, Storefront and Market 360 services, Advertising and
-     promotions, Custom work, Gift certificate sales, Platform fees; plus **Refunds and allowances** as contra-income,
+     promotions, Custom work, Gift certificate sales, Platform fees, **Domain purchases**, **Domain renewals** (Jason, 2026-11-17: two products); plus **Refunds and allowances** as contra-income,
      so Net Sales is right.
-   - **COGS (5000s):** Printing, Shipping and fulfilment, Subcontractors.
+   - **COGS (5000s):** Printing, Shipping and fulfilment, Subcontractors, **Domain registrations** and **Domain renewals**
+     (Name.com's cost per domain, the vendor Name.com).
    - **Expenses (6000s):** Merchant fees, Software and hosting (a sub-account per service), AI services, Community
      (0154), Advertising.
    - **Assets:** one clearing account per processor, and Undeposited Funds.
