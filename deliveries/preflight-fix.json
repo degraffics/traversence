@@ -1,0 +1,18 @@
+{
+ "zip": "preflight-fix.zip",
+ "built_on": "728d9ab Sync: 2026-11-17 14:22 UTC",
+ "recorded": "2026-11-17 14:25 UTC",
+ "note": "Pre-flight: compact lines, the mark is the answer (Jason's screenshot); built on Sync: 2026-11-17 14:22 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/admin/preflight-console.php": {
+   "sha256": "a41740f71fe4eefdb1941ba241c7e8301a57f56fc36ff6434751b217b04b5eb6",
+   "live": false
+  },
+  "website/js/admin-preflight.js": {
+   "sha256": "7e9ea2f7a0847dab8fc13b061ff4629b25c3e17a214710fea9347e0746d4de4e",
+   "live": false
+  }
+ }
+}

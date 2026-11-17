@@ -17,6 +17,7 @@ Check-out release names: `preflight` (release 1), `outside-table` (release 2, no
 - **The worker, in the same PR:** `workers/crawler/indexer.py` 1.1.0 sends the full-size test batch when its check-in
   says `test` (W0 stays asleep); tests in `workers/crawler/tests/test_indexer.py`. Merging redeploys `w0-indexer` on
   Railway (it watches `/workers/crawler/**`). Until it runs 1.1.0, the pre-flight's batch line says so (red).
+- **Fix, `preflight-fix.zip`** (Jason, 2026-11-17: "keep lines compact"; "a green check mark or red x is enough"): one row per line, no notice after a test (only when a request fails, in the line's body). Built on Sync 14:22 UTC; js and the console only.
 - **Release 2, Outside services as a table:** waits for release 1 to be live (both touch `app/admin/sections.php`), then
   start from the live `OutsideServices.php`, `app/ui/outside-services.php` and `sections.php` (outside-requests is live
   as #84 and #87, so its claims have ended). Plan below.
