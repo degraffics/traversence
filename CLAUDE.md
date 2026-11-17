@@ -198,8 +198,8 @@ Listings, outdoor places, experiences, places, journeys and any new content kind
 
 Jason answers in the session manager's chat, not in the system or in each session. Anything that waits on him (a PR to
 approve, a decision, a key to add) goes to the session manager by send_message, with what it is, why, and its link; he
-lists every open one at the top of his replies, numbered, as **"Waiting for your OK:"**, with a push notification, until
-answered, and relays the answer. A session asked directly by Jason answers him there too.
+asks him each with the app's decision pop-up (AskUserQuestion: approve, not now, needs changes), lists any still
+open at the top of his replies as **"Waiting for your OK:"** with a push notification, and relays the answer. A session asked directly by Jason answers him there too.
 
 ## A link for every place Jason acts (Jason, 2026-11-16): every reply
 
