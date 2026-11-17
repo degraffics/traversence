@@ -323,6 +323,61 @@
    "expires": "2026-11-17T17:48:36Z",
    "release": "favicon-everywhere.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/Preflight.php",
+   "functions": [
+    "run",
+    "summary"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kGG8gG4QBmC4uzMzN",
+   "why": "Pre-flight: slow checks marked, a filter for them, each line's last times (Jason, 2026-11-17)",
+   "since": "2026-11-17T14:29:27Z",
+   "expires": "2026-11-17T18:29:27Z",
+   "release": "preflight-slow",
+   "callers": {
+    "run": [
+     "website/admin/api.php"
+    ],
+    "summary": [
+     "app/admin/preflight-console.php",
+     "app/admin/sections.php"
+    ]
+   }
+  },
+  {
+   "path": "app/admin/preflight-console.php",
+   "functions": [
+    "tv_admin_mod_preflight",
+    "tv_preflight_counts",
+    "tv_preflight_line"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kGG8gG4QBmC4uzMzN",
+   "why": "Pre-flight: slow checks marked, a filter for them, each line's last times (Jason, 2026-11-17)",
+   "since": "2026-11-17T14:29:27Z",
+   "expires": "2026-11-17T18:29:27Z",
+   "release": "preflight-slow",
+   "callers": {
+    "tv_preflight_counts": [
+     "website/admin/api.php"
+    ],
+    "tv_preflight_line": [
+     "website/admin/api.php"
+    ]
+   }
+  },
+  {
+   "path": "website/js/admin-preflight.js",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5kGG8gG4QBmC4uzMzN",
+   "why": "Pre-flight: slow checks marked, a filter for them, each line's last times (Jason, 2026-11-17)",
+   "since": "2026-11-17T14:29:27Z",
+   "expires": "2026-11-17T18:29:27Z",
+   "release": "preflight-slow",
+   "callers": {}
   }
  ],
  "lapsed": [
