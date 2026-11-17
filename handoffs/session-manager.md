@@ -139,7 +139,7 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
      4. **Facebook Personal:** decisions/0168 Phase 1;
      5. **Facebook Business:** 0168 Phase 3 on (waits for Jason's Business Verification and Meta's App Review).
      6. **Storefront:** 0139 moved in; its setup includes the address (keep trvgo.us/<name>, bring a domain, or buy one).
-     7. **Domains** (0169 §1a): **in progress** in session_01CXLi5j7MKBy27a6L7AXRHN (started 2026-11-17 00:53 UTC at
+     7. **Domains** (0169 §1a): **live as release #71** (2026-11-17 03:30 UTC, synced and verified; session archived) from session_01CXLi5j7MKBy27a6L7AXRHN (started 2026-11-17 00:53 UTC at
         Jason's ask): Shop → Domains, the account's Domains tab, and the shared wallet (0166 §6a) only. Joining storefronts to the account's domains
         stays with app 6 (Storefront), queued; the storefront's Connect your domain is left as it is until then.
 
@@ -183,6 +183,9 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
      3. Pulse: incoming mail in the Stream, bounces and complaints as items, the Sent view, failures as cases;
      4. compose in Pulse, with threading; one inbox per person across the mailboxes they oversee, and a From choice (§2a).
   (decisions/0168's phases are apps 4 and 5 in item 2; its later phases follow those.)
+- **Jason, from the Domains build:** set **Own domains on storefronts** to **test** on the Name.com card
+  (https://traversence.com/admin/config/services) to try domain sales; **withdraw release #70** (staged, never shipped:
+  its migration wasn't add-only; #71 replaced it) on the site manager's Releases page.
 - **For Jason to sort out:** the **Chameleon Filter** (brand.md §5, architecture.md §22; "coming" in toolkit.md and
   prd.md): how each place's page shifts emphasis by the visitor's track (Get Local, Let's Explore, Community), which
   tags and items show for each, and the DIKW climb. Phase 4's intent tags (decisions/0170 §1a) are its data; its
