@@ -288,8 +288,8 @@
    "session": "session_01CXLi5kGG8gG4QBmC4uzMzN",
    "why": "Pre-flight: workflows, new tasks, phases and every service a workflow uses are needed for launch (Jason, 2026-11-17)",
    "since": "2026-11-17T15:55:50Z",
-   "expires": "2026-11-17T19:55:50Z",
-   "release": "preflight-required",
+   "expires": "2026-11-17T19:56:20Z",
+   "release": "preflight-required.zip",
    "callers": {
     "lines": [
      "app/admin/preflight-console.php"
