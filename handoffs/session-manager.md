@@ -205,6 +205,15 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
        the pre-flight did (their own table), confirmed by the card's "Can't keep requests" line.
      **For Jason** (from the same report): `HF_TOKEN` and `BRAVE_API_KEY` on Railway's `traversence` service's Variables; `GITHUB_SYNC_TOKEN`
      expires Dec 16, 2026.
+     - **Page-builder editing is switched on, not always on** (Jason, 2026-11-17: "i would prefer to have to activate
+       these feature"): today a staff account with `pages.edit` sees every zone outlined with "Not published yet" and
+       Edit on the live site (`Blocks::zone()`, `js/tv-editor.js`). Make it off by default: an **Edit page** switch in
+       the profile menu (or the admin bar) turns on editing for that device until turned off; with it off, staff see the
+       page exactly as visitors do.
+     - **Stock photos show their byline** (Jason, 2026-11-17: "the by line should be shown, with maybe an i icon to show
+       more"): replace the "Stock photo · Representative" pill with the photo's credit shown on the photo ("Photo:
+       jplenio on Pixabay"), with an ⓘ that opens today's panel (representative photo, licence, link, About stock
+       photos). Keep it `tv_icon()` and the brand look; check on phones.
      **To purge or remove** (Jason, 2026-11-17: "put anything that needs to be purged or removed into queue under
      cleanup stage"). Each is checked against the live site first and removed only with Jason's OK where marked ⚑:
      - **Amazon S3:** empty the old bucket `traversence-media` (from 2026-11-18, once a week on R2 shows nothing missing;
