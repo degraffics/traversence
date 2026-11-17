@@ -8,8 +8,9 @@ Session: claude/domains-0169-1a. Started 2026-11-17, on the mirror at `3c54bf3` 
   first, 22 files published. Synced at 03:33 UTC; every file matches the zip byte for byte; claims released.
 - **Release #70** (`domains-wallet.zip`) never went live (its migration wasn't add-only); it's replaced by #71 and can
   be withdrawn on https://traversence.com/admin/config/releases.
-- **Buying is off** until `DOMAINS_MODE` is set (https://traversence.com/admin/config/settings): `test` (our team only,
-  sandboxes), then `live` with `NAMECOM_ENV=live`.
+- **Buying is off** until **Domain sales** (`DOMAIN_SALES_MODE`, its own switch since 2026-11-17; on the Name.com card at
+  https://traversence.com/admin/config/services) is set: `test` (our team only, sandboxes), then `live` with
+  `NAMECOM_ENV=live`. `DOMAINS_MODE` is only the storefront's Connect your domain (release `domain-sales-switch`).
 - **Still to check against the sandboxes** (not reachable from a Claude session): saving a card
   (`QuickBooksPay::saveCard`, with its expiry) and charging a saved card (`chargeSaved`); with Name.com allowed for a
   test on staging, search, register, renew, forward, records, nameservers, transfer code. Done by our team in test mode.
@@ -36,7 +37,7 @@ Session: claude/domains-0169-1a. Started 2026-11-17, on the mirror at `3c54bf3` 
 
 ### After it's live
 1. Run the sync, check the mirror matches the zip byte for byte, `deliveries.py verify`.
-2. Jason sets `DOMAINS_MODE=test` (Admin → Settings) to try it as staff in the sandboxes, then `live` with
+2. Jason sets **Domain sales** (`DOMAIN_SALES_MODE`) to `test` on the Name.com card to try it as staff in the sandboxes, then `live` with
    `NAMECOM_ENV=live` to sell.
 
 ### Local tests (64), in short
@@ -85,7 +86,7 @@ joining it to the account's domains is the Storefront app's job (0169 app 6).
    renew now, auto-renew 14 days ahead in `domains_tick`, forwarding, DNS records, nameservers, the DKIM records when
    SES sends for it, unlock and transfer code, history. Its Name.com calls ask `StagingGate::hold()` first.
 3. **Shop → Domains** (`/shop/domains.php`, a department link on the Shop), any account; the registrant 18+
-   (`AgeGate`) with real contact details. Test accounts and `DOMAINS_MODE=test`: Name.com's and QuickBooks' sandboxes.
+   (`AgeGate`) with real contact details. Test accounts and `DOMAIN_SALES_MODE=test`: Name.com's and QuickBooks' sandboxes.
 4. **Domains tab:** `/user/domains/` (a Dashboard section) and a **Domains** module in the business portal, one shared
    view (`app/ui/domains-view.php`). A business's storefront domain (`business_domains`) is listed there read-only, with
    a link to its storefront page, managed there as today.
