@@ -331,7 +331,7 @@
    "session": "session_01CXLi5kGG8gG4QBmC4uzMzN",
    "why": "Pre-flight: Run all resets every line and fills in like a log, with progress (Jason, 2026-11-17)",
    "since": "2026-11-17T15:10:24Z",
-   "expires": "2026-11-17T19:11:37Z",
+   "expires": "2026-11-17T19:12:47Z",
    "release": "preflight-refresh.zip",
    "callers": {}
   },
@@ -355,22 +355,27 @@
    "session": "session_01CXLi5kGG8gG4QBmC4uzMzN",
    "why": "release preflight-refresh.zip",
    "since": "2026-11-17T15:11:37Z",
-   "expires": "2026-11-17T19:11:37Z",
+   "expires": "2026-11-17T19:12:47Z",
    "release": "preflight-refresh.zip",
    "callers": {}
   },
   {
    "path": "app/lib/Preflight.php",
    "functions": [
+    "lines",
     "serviceTest"
    ],
    "kind": "change",
    "session": "session_01CXLi5kGG8gG4QBmC4uzMzN",
    "why": "Pre-flight: the licence lists shown inactive, not called, until queue 3a (Jason, 2026-11-17)",
    "since": "2026-11-17T15:12:36Z",
-   "expires": "2026-11-17T19:12:36Z",
-   "release": "preflight-refresh",
-   "callers": {}
+   "expires": "2026-11-17T19:12:47Z",
+   "release": "preflight-refresh.zip",
+   "callers": {
+    "lines": [
+     "app/admin/preflight-console.php"
+    ]
+   }
   }
  ],
  "lapsed": [
