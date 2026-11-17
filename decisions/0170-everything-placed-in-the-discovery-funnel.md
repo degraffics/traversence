@@ -35,39 +35,52 @@ but how all content gets organized into the discovery funnel too."
 
 ## Decision
 
-### 1. One place resolver for everything
+Jason, 2026-11-17, settling where this lives: "The crawler should properly organize in phase 4. This is where it needs
+to be bigger more than just listings." And: "Once organized, it will apply research data into the bigger picture for
+placement."
 
-A single resolver answers "where does this belong?" for **every kind of content**, as it's made or found:
-listings; landmarks and outdoor places; places; guides; journeys; events; stories; heritage and topics; research and
-dossiers; Moments and Marketplace posts; sources and the indexer's sites. It returns the deepest level that fits:
-Continental Hub → zone → town → anchor → sub-group. Every path that creates or moves content calls it; nothing places
-itself.
+### 1. Placement is Phase 4's job, for everything
+
+Organizing happens in the Knowledge Engine's **Phase 4, the master catalog** (0164 Phase 4, step 6 "Catalogued"), not
+in each content type's own code and not only for listings. When anything is catalogued (a listing, a landmark or
+outdoor place, a place, an event, a topic, heritage, the Human Record and the Living Landscape, a footprint, a dossier
+or research brief, a guide, a journey, a story, a Moment or a Marketplace post, a source), Phase 4 places it on the
+place taxonomy (0042: Continental Hub → zone → town → anchor → sub-group) as `LOCATED_IN` edges (0164 §4.3) from its
+point on the map (§4.2). Content a person makes goes through the same catalog step; nothing places itself.
+`CrawlerIngest::resolveMicroClusterId` and every other path that picks a place today hand over to it.
 
 ### 2. By location, active or planned
 
 - **Every level carries its geography:** each continental hub its states (and counties where a state is split); each
-  zone the ZIPs of its towns (regions.md, through `zip_coordinates`) and the counties they sit in; each town its ZIPs
-  (as today).
-- **A thing with a location goes to its real level, open or not:** an existing town first; else a town seeded in its
-  zone by 0042's clustering ("needs review"); else its zone; else its continental hub.
-- **Held where its level isn't open:** filed and kept, not public, until that level opens. It counts toward that
-  level's readiness (HubOpening), so it's plain which zone or hub is filling up and worth opening next.
+  zone the ZIPs of its towns (regions.md, through `zip_coordinates`) and the counties they sit in; each town its ZIPs.
+- **A thing goes to its real level, open or not:** an existing town first; else a town seeded in its zone by 0042's
+  clustering ("needs review"); else its zone; else its continental hub.
+- **Held where its level isn't open:** catalogued and kept, not public, until that level opens.
 - **Only what no hub covers is "no hub yet":** held, and counted as demand by place.
 - **No default hub.** `DEFAULT_GEO_HUB_SLUG` and the `ancient-borderlands` fallbacks go; "no hub yet" is a valid
   answer everywhere (intake approvals never refuse for it).
+- **Things that span places** (a state, a river, a trail or route across zones, a nation's land) get an edge to the
+  level that spans them and to each level they touch; a journey is placed where it starts and linked along its route.
 
-### 3. Things that span places
+### 3. Once organized, research builds the bigger picture
 
-Something about a whole region (a state, a river, a trail or a route across zones, a nation's land) is placed at the
-level that spans it, and linked to each level it touches, rather than forced into one town. A journey is placed where
-it starts and linked along its route.
+With everything placed, Phase 4 rolls what's under each level up into that level's picture, town → zone → hub:
+- **Each level's knowledge:** the research, dossiers, heritage, topics, landscape and facts placed in or under it feed
+  that level's dossier and its discovery guide (0043; written in Phase 5, §5.4, from the catalog), so a zone's guide
+  is built from its towns' research, and a hub's from its zones'.
+- **Each level's gaps:** what a level is missing (kinds of place, topics, thin coverage) becomes Phase 1 targets
+  (§4.5) and ranks the indexer's reading (0164 §1.4's note) toward the levels that need it.
+- **Each level's readiness:** what's gathered under a planned zone or hub (listings, places, research, demand) shows
+  on HubOpening's meter, so the next level to open is the one the evidence says is ready.
+- **Placement refined by research:** a thing whose place was unclear (a name with no point, a business with only a
+  town) is placed again when research gives it a better location; regional facts move to the level they describe.
 
 ### 4. Rules that still hold
 
 - Nations' land (0066): pins on a nation's land still move to a public place; held names stay held.
 - "Places in search": a city named is always found and is demand, whatever level it falls in.
-- A person's choice of place (an owner's listing, a staff member's guide) wins over the resolver; the resolver only
-  suggests and fills in.
+- A person's choice of place (an owner's listing, a staff member's guide) wins over the catalog's; Phase 4 suggests
+  and fills in.
 
 ### 5. The 20 continental hubs
 
@@ -77,19 +90,21 @@ states each covers.** Each is added as planned with its states; its zones are dr
 
 ### 6. What's already there
 
-Data cleanup (0163 §8 stage 1b) re-places existing content with the resolver: a preview of every move, a ledger and
-Undo. Areas seeded under the Ancient Borderlands that lie outside it are the first proposals.
+Data cleanup (0163 §8 stage 1b) re-places existing content through Phase 4's placement: a preview of every move, a
+ledger and Undo. Areas seeded under the Ancient Borderlands that lie outside it are the first proposals.
 
 ## Build order (each a release Jason reviews)
 
-1. Zone geography for Ancient America's 15 zones; the resolver; listings and the crawler's intake onto it; the
-   default removed; Settings' "Default place" row removed.
-2. Every other kind of content onto the resolver; things that span places.
+1. Zone geography for Ancient America's 15 zones; Phase 4's placement step (`LOCATED_IN` edges); listings and the
+   crawler's intake onto it; the default removed; Settings' "Default place" row removed.
+2. Every other kind of content through Phase 4's placement; things that span places.
+2b. Research rolled up to each level (§3): level dossiers feeding the guides, gaps per level, readiness on the meter.
 3. Data cleanup's re-placing of what exists.
 4. The other 19 continental hubs, when Jason has sent them.
 
 ## Consequences
 
 - Every find and every piece of content lands where it is, and a planned zone or hub fills up visibly before it opens.
-- One rule to test and to explain; the indexer's reading priority (0164 §1.4) uses the same levels.
+- One rule, in one place (Phase 4), to test and to explain; the indexer's reading priority uses the same levels.
+- Each level's guide and readiness come from what's actually gathered under it.
 - More geography to keep (each zone's ZIPs and counties); it comes from regions.md and our locations data, not by hand.
