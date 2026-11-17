@@ -502,6 +502,58 @@
    "expires": "2026-11-17T17:55:10Z",
    "release": "preflight",
    "callers": {}
+  },
+  {
+   "path": "app/lib/OutsideServices.php",
+   "functions": [
+    "addRequest",
+    "pulseDo",
+    "requests",
+    "store"
+   ],
+   "kind": "change",
+   "session": "outside-requests-fix",
+   "why": "Outside requests: records fit staff_settings; the Name.com ticket seeded by its number; chase wording (Jason, 2026-11-17: no Pulse case showed)",
+   "since": "2026-11-17T13:59:51Z",
+   "expires": "2026-11-17T17:59:51Z",
+   "release": "",
+   "callers": {
+    "requests": [
+     "app/lib/Pulse.php",
+     "app/ui/outside-services.php"
+    ],
+    "addRequest": [
+     "app/ui/outside-services.php"
+    ],
+    "pulseDo": [
+     "app/lib/Pulse.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/Pulse.php",
+   "functions": [
+    "items",
+    "playbook"
+   ],
+   "kind": "change",
+   "session": "outside-requests-fix",
+   "why": "Outside requests: records fit staff_settings; the Name.com ticket seeded by its number; chase wording (Jason, 2026-11-17: no Pulse case showed)",
+   "since": "2026-11-17T13:59:51Z",
+   "expires": "2026-11-17T17:59:51Z",
+   "release": "",
+   "callers": {
+    "playbook": [
+     "app/lib/DailyReport.php",
+     "app/ui/pulse-ui.php"
+    ],
+    "items": [
+     "app/lib/DailyReport.php",
+     "app/ui/pulse-ui.php",
+     "website/admin/staff-profile.php",
+     "website/admin/w.php"
+    ]
+   }
   }
  ],
  "lapsed": [
