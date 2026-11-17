@@ -116,6 +116,17 @@
    "expires": "2026-11-17T22:11:16Z",
    "release": "preflight-server-run",
    "callers": {}
+  },
+  {
+   "path": "app/migrations/2026-11-17_search_index_state_wide.sql",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
+   "why": "search_index_state.v to MEDIUMTEXT",
+   "since": "2026-11-17T18:17:07Z",
+   "expires": "2026-11-17T22:17:07Z",
+   "release": "preflight-server-run",
+   "callers": {}
   }
  ],
  "lapsed": [
