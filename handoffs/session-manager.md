@@ -113,8 +113,8 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
      the Ancient Borderlands active, 14 `planned`, regions.md) → towns (`micro_clusters`). Give every zone its geography
      (its towns' ZIPs from regions.md through `zip_coordinates`, then the counties they sit in), so a find goes to its
      zone **whether the zone is active or planned**; an existing town first, else a town seeded in that zone
-     ("needs review"). A find in a planned zone is filed and held there (not public until the zone opens), and counts
-     toward that zone's readiness (HubOpening's stages, Planned → Open). Only a find outside all 15 zones is "no hub
+     ("needs review"). A find in a planned zone is filed there and shown as usual (open or planned is about our team's
+     support, not visibility; Jason 2026-11-17), and counts toward that zone's readiness (HubOpening's stages, Planned → Open). Only a find outside all 15 zones is "no hub
      yet" (demand, held for 0164's hub opening). No default hub.
      **And across continental hubs** (Jason, 2026-11-17: "if it is not in this hub, but another hub it could be aligned
      within the correct main hub"): the plan is 20 continental hubs (Ancient America is Hub 9 of 20, platform spec);
@@ -127,7 +127,7 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
      of content as it's made or found: listings, landmarks and outdoor places, places, guides, journeys, events,
      stories, heritage and topics, research and dossiers, Moments and Marketplace posts, sources. Each is placed on the
      place taxonomy (0042, 0043: Continental Hub → Geo-Hub zone → town cluster → anchor → sub-group) from its
-     location, active or planned; held where its level isn't open; feeding that level's discovery guide and counts.
+     location, active or planned; shown as usual (0170: open or planned is about support, not visibility); feeding that level's discovery guide and counts.
      Something about a whole region (a state, a river, a trail across zones) is placed at the level that spans it.
      Existing content is re-placed by Data cleanup (preview, Undo). Today each kind places itself its own way.
   4. **decisions/0169, the Shop's App store and one lifecycle for every app** (accepted 2026-11-16). First: the Shop
