@@ -3,12 +3,12 @@
  "built_on": "8b3fd62 Sync: 2026-11-17 14:43 UTC",
  "recorded": "2026-11-17 14:57 UTC",
  "note": "Domains::fly sends a FlyV1 token as-is; built on Sync: 2026-11-17 14:43 UTC Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "0c941d1 Sync: 2026-11-17 15:07 UTC",
  "files": {
   "app/lib/Domains.php": {
    "sha256": "350c9959e2cbba6f6118c2838e9682def5a1a5d830732c805694456dec8025a1",
-   "live": false
+   "live": true
   }
  }
 }
