@@ -119,6 +119,29 @@
    "expires": "2026-11-17T21:54:38Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/lib/Operations.php",
+   "functions": [
+    "status",
+    "switchOnCheck"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
+   "why": "A hold on one OpenStreetMap server (overpass-api.de, Issue #1) stays on that server; it holds the service, and W1, only when no other server or source in the map answers (Jason's report 17:56 UTC)",
+   "since": "2026-11-17T17:58:31Z",
+   "expires": "2026-11-17T21:58:31Z",
+   "release": "large-fallbacks",
+   "callers": {
+    "switchOnCheck": [
+     "app/admin/automation-console.php",
+     "app/admin/operations-console.php",
+     "app/lib/SystemStart.php"
+    ],
+    "status": [
+     "app/lib/SystemStart.php"
+    ]
+   }
   }
  ],
  "lapsed": [
