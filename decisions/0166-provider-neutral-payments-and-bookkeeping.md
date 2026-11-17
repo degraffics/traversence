@@ -110,6 +110,23 @@ Jason: "this should be addressed by when a product is created". Each catalog pro
 - **"No test moves real money"** (0145) applies to every connector: `guardReal()`/`testHere()` sit in the layer, not in
   one processor's code.
 
+### 6a. The wallet (Jason, 2026-11-17)
+
+Jason: "Payments should have a payment wallet like system where multiple payment methods can be held. When a
+subscription or product like domain renewals are purchased that card will be assigned to its future use for renewals.
+It also locks the card from being removed but it can be replaced with a new card."
+- **Each account has its own wallet:** a member's, and a business's (managed by its owner, or by its accountant role
+  if the owner allows); they never mix. Many saved cards, one the **default**, offered first at checkout. Only the
+  processor's card reference and a label ("Visa ··4242") are kept, never the number.
+- **Every purchase that renews is assigned a card** (a plan, a domain's renewals, a paid app).
+- **An assigned card is locked:** it can't be removed, only **replaced**, for one item or for everything on it. It
+  unlocks when nothing renews on it any more (cancelled, auto-renew off, a domain transferred away).
+- **Expiry:** a reminder 30 days before a locked card expires, with Replace card. A declined renewal is retried 3 and
+  7 days later; a new card retries at once.
+- **Each card stays with the processor that saved it** (§6, rule 2).
+- **Built first by the Domains build** (0169 §1a, 2026-11-17) as a shared `Wallet` library; plans move onto it with
+  this decision's payments layer (step 3), so nothing working today changes.
+
 ### 7. Running costs (optional, later)
 
 The Costs page (0163, Release A) knows each service's monthly spend. It may post those costs to the bookkeeper as bills

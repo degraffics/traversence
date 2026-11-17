@@ -97,7 +97,7 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
      5. **Facebook Business:** 0168 Phase 3 on (waits for Jason's Business Verification and Meta's App Review).
      6. **Storefront:** 0139 moved in; its setup includes the address (keep trvgo.us/<name>, bring a domain, or buy one).
      7. **Domains** (0169 §1a): **in progress** in session_01CXLi5j7MKBy27a6L7AXRHN (started 2026-11-17 00:53 UTC at
-        Jason's ask): Shop → Domains and the account's Domains tab only. Joining storefronts to the account's domains
+        Jason's ask): Shop → Domains, the account's Domains tab, and the shared wallet (0166 §6a) only. Joining storefronts to the account's domains
         stays with app 6 (Storefront), queued; the storefront's Connect your domain is left as it is until then.
 
      Others (Square, Tickets, Appointments, Gallery storage, calendars, 1Password…) to be discussed with Jason next.
