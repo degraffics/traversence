@@ -396,6 +396,19 @@
      "website/api/health.php"
     ]
    }
+  },
+  {
+   "path": "app/lib/crawler/AutoImport.php",
+   "functions": [
+    "isGoogleHost"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
+   "why": "A Google match (paid backup, by override) raises a new find's confidence in the second look; never keepable (Jason, 2026-11-17)",
+   "since": "2026-11-17T17:02:40Z",
+   "expires": "2026-11-17T21:02:40Z",
+   "release": "paid-overrides",
+   "callers": {}
   }
  ],
  "lapsed": [
