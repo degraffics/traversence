@@ -116,6 +116,8 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
      - `Vectors::setupSql()` (Supabase card) leaves `tv_vectors` without row level security and `tv_match` callable by
        Supabase's public roles. Add `enable row level security` and revoke `tv_match` from anon/authenticated/public with
        a grant to service_role (Jason ran these by hand on 2026-11-16).
+     - Admin search on a phone (seen 2026-11-17, 390px): a result's where-it-lives line takes the row, so names shrink
+       to "Na…", "Bus…", "Em…". On phones, put that line under the name, full width.
      **To purge or remove** (Jason, 2026-11-17: "put anything that needs to be purged or removed into queue under
      cleanup stage"). Each is checked against the live site first and removed only with Jason's OK where marked ⚑:
      - **Amazon S3:** empty the old bucket `traversence-media` (from 2026-11-18, once a week on R2 shows nothing missing;
