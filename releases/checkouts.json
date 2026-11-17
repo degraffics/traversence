@@ -746,15 +746,12 @@
   },
   {
    "path": "app/lib/Preflight.php",
-   "functions": [
-    "NEEDS",
-    "need"
-   ],
+   "functions": [],
    "kind": "change",
    "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
-   "why": "Paid backups by a director's override, and Tavily to Brave (0163 source map, preflight hand-off (c))",
+   "why": "Paid backups by override (zip check's attribution: constants at the top)",
    "since": "2026-11-17T16:53:41Z",
-   "expires": "2026-11-17T20:53:41Z",
+   "expires": "2026-11-17T20:55:49Z",
    "release": "paid-overrides",
    "callers": {}
   },
