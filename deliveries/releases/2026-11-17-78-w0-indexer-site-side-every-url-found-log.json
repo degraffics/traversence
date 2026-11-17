@@ -6,13 +6,13 @@
     "zip": "w0-indexer.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "approved",
+    "state": "staged",
     "step": 0,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
     "plan_at": "2026-11-17 13:09:35",
-    "staged_at": null,
+    "staged_at": "2026-11-17 13:09:37",
     "vetted_at": null,
     "live_at": null,
     "files": {
@@ -100,7 +100,39 @@
     "migrations": [
         "app/migrations/2027-03-12_w0_frontier.sql"
     ],
-    "checks": [],
+    "checks": {
+        "ok": false,
+        "where": "staging",
+        "at": "2026-11-17T13:09:38+00:00",
+        "items": [
+            [
+                "PHP files parse",
+                true,
+                "14 checked"
+            ],
+            [
+                "Migrations only add",
+                true,
+                "1 checked"
+            ],
+            [
+                "Migrations ran on staging",
+                false,
+                "2027-03-12_w0_frontier.sql: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'stored INT UNSIGNED NOT NULL DEFAULT 0,\n  rejected INT UNSIGNED NOT NULL DEFAULT' at line 7"
+            ],
+            [
+                "Pages answer",
+                true,
+                "2 pages answered on staging.trvgo.us"
+            ],
+            [
+                "No new fatal errors in the logs",
+                true,
+                "4 logs read"
+            ]
+        ],
+        "first_fail": "Migrations ran on staging: 2027-03-12_w0_frontier.sql: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'stored INT UNSIGNED NOT NULL DEFAULT 0,\n  rejected INT UNSIGNED NOT NULL DEFAULT' at line 7"
+    },
     "log": [
         {
             "at": "2026-11-17T13:09:34+00:00",
@@ -116,6 +148,11 @@
             "at": "2026-11-17T13:09:35+00:00",
             "by": 0,
             "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
+        },
+        {
+            "at": "2026-11-17T13:09:38+00:00",
+            "by": 0,
+            "msg": "Put on staging (16 files); its checks found a problem: Migrations ran on staging: 2027-03-12_w0_frontier.sql: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'stored INT UNSIGNED NOT NULL DEFAULT 0,\n  rejected INT UNSIGNED NOT NULL DEFAULT' at line 7."
         }
     ]
 }
