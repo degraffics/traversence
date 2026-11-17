@@ -32,6 +32,30 @@ connectors, 0168's Page connection. This makes them one thing.
   options).
 - The Shop shows each account what fits who it is (a member, a business), never what that account can't use.
 
+### 1a. Domains: a Shop department, and a Domains tab on the account (Jason, 2026-11-17)
+
+Jason: "I would like a domains category on the shop page when I can search for domains and purchase/register them. The
+users would get a domains tab where they can manage them. … we can offer these as standalone products and then
+integrate the domain buy process into the storefront process."
+- **Shop → Domains:** search a name, see it and the usual endings with our price a year (Name.com's cost plus
+  `DOMAIN_MARKUP_CENTS`, premium names referred to us), add to the one cart, pay first, then it's registered through
+  Name.com in the buyer's name with WHOIS privacy. A standalone product: no storefront and no particular plan needed.
+  Any account can buy, member or business; the registrant must be 18 or older (0058) and give real contact details
+  (ICANN's rule; Name.com emails a confirmation).
+- **The account's Domains tab** (members' account pages and the business portal): every domain the account holds, its
+  expiry, **renew now**, **auto-renew** on or off (charged first, two weeks ahead, as 0139 does today), **where it
+  points** (its storefront; forward to another address; or its own DNS records, edited there through Name.com's API;
+  or nameservers set elsewhere), **email records** when SES sends for it, **transfer away** (unlock and the code shown
+  once), and its history. A domain brought from elsewhere can be listed too, for pointing only.
+- **The Storefront app uses the same domains:** its address step offers "one of your domains", "buy one" (the same
+  Shop search, inside the step) or "bring one", so a domain bought on its own can later become a storefront's address,
+  and one bought for a storefront lives in the Domains tab like any other.
+- **Today's code** (`Domains`, 0139 5b) ties one domain to one storefront and charges the plan's card. This separates
+  them: a domain belongs to the account; a storefront *uses* one. Existing storefront domains move across with nothing
+  lost.
+- "No test moves real money" and "no income, no expense" hold: charged before Name.com is paid, test accounts and
+  test mode always on Name.com's sandbox.
+
 ### 2. Apps belong to accounts, members and businesses alike
 
 Every account is its own entity, so apps are for **accounts**:
