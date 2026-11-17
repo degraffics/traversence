@@ -212,16 +212,18 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
        and logs each switch; every call through `StagingGate::hold()`, paid ones inside their caps, a business's
        menu only ("no income, no expense": inside the business's plan).
      **Visual fixes** (Jason, 2026-11-17: "add to visual fixes queue"):
-     - **Discovery's hero doesn't change between views** (Jason: "when I click regions it doesnt really feel like the
-       page changes visually … The hero is not changing like it should"). `website/discovery/index.php` (lines ~497,
-       582, 599, 650): Overview, Experiences, Parks & Landmarks and Regions all ask `StockLibrary::forSlot` for subject
-       `landscape`, and Regions and Parks with no place (Parks ignores `state=AZ`), so all show the same Death Valley
-       photo. And `tv_explore_hero()` takes a stock photo (one, no carousel) before the page's own landmark Commons
-       photos (`fallback_slides`, `dv_hero_photos`, 6 a view). Fix: real photos first (journeys, then the view's own
-       Commons photos for its place, several, with arrows), stock only when there are none; each view its own subject
-       (Regions terrain or aerial, Experiences people doing things, Parks a park or monument, Map topographic) and its
-       own place (state, region); a visible change on switching (a cross-fade, the tab's icon in the heading, the view's
-       own content on the hero as the Overview's region cards).
+     - **Discovery's hero doesn't follow the process already decided** (Jason, 2026-11-17: "when I click regions it
+       doesnt really feel like the page changes visually … The hero is not changing like it should", then "I thought I
+       already outlined this process"). The process: **real photos first** (journeys' photos for that place and the
+       places inside it, 0058 §30 and the explore-hero section; then the page's own photos, e.g. landmarks' Commons
+       photos), **stock only when there's no real image** and replaced by itself the moment one exists (0138, 0143 §4),
+       and stock picked **this place first, then its region, then representative of the subject** (0143 §5,
+       `StockLibrary::pick`). The code doesn't: `website/discovery/index.php` (lines ~497, 582, 599, 650) passes no place
+       for Regions and Parks (Parks ignores `state=AZ`) and the same subject `landscape` everywhere, and
+       `tv_explore_hero()` takes the one stock photo before the page's own landmark photos (`fallback_slides`,
+       `dv_hero_photos`, 6 a view). Fix it to that order, each view passing its place (and a subject that fits the
+       view), several real photos with arrows; and make switching views visibly change the hero (its photos, the tab
+       in the heading, the view's own cards on it as the Overview has).
      - **An empty footer edit zone squeezed to one word per line** (Jason's screenshot, 2026-11-17, under the "Local
        businesses / Cities & towns" counts): the zone "…page, above the footer is empty: Edit to add a section" sits in
        a narrow column, so its tag and text wrap a word a line. The zone should take the full width of its row (or the
