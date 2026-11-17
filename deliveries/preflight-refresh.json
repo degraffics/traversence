@@ -3,20 +3,20 @@
  "built_on": "0c941d1 Sync: 2026-11-17 15:07 UTC",
  "recorded": "2026-11-17 15:12 UTC",
  "note": "Pre-flight: Run all starts fresh, progress; licence lists inactive until 3a; built on Sync: 2026-11-17 15:07 UTC Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "f1fbc50 Sync: 2026-11-17 15:15 UTC",
  "files": {
   "app/admin/preflight-console.php": {
    "sha256": "998d91a4aa832a0e73fd8cab6d52024dc0bc39d0cd21344ef28e7204da44e73c",
-   "live": false
+   "live": true
   },
   "app/lib/Preflight.php": {
    "sha256": "67123e379d23f97fd757f6c9ee9cc4a676e0823f60cdd463b1507e196429ff18",
-   "live": false
+   "live": true
   },
   "website/js/admin-preflight.js": {
    "sha256": "69a90686cde5e81178f9f748e0e9f0f6a73f5fcc59a9896d731556a853ab99db",
-   "live": false
+   "live": true
   }
  }
 }
