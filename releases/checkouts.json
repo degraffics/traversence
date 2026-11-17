@@ -327,6 +327,7 @@
   {
    "path": "app/ui/outside-services.php",
    "functions": [
+    "(top)",
     "tv_os_css",
     "tv_outside_services"
    ],
@@ -334,8 +335,8 @@
    "session": "session_01CXLi5kGG8gG4QBmC4uzMzN",
    "why": "Outside services as a table: one row per company, search, one filter, sort, a row opens its card; each card's Test (Jason, 2026-11-17)",
    "since": "2026-11-17T14:45:02Z",
-   "expires": "2026-11-17T18:45:02Z",
-   "release": "outside-table",
+   "expires": "2026-11-17T18:47:24Z",
+   "release": "outside-table.zip",
    "callers": {
     "tv_outside_services": [
      "app/admin/sections.php"
@@ -351,8 +352,8 @@
    "session": "session_01CXLi5kGG8gG4QBmC4uzMzN",
    "why": "Outside services as a table: one row per company, search, one filter, sort, a row opens its card; each card's Test (Jason, 2026-11-17)",
    "since": "2026-11-17T14:45:02Z",
-   "expires": "2026-11-17T18:45:02Z",
-   "release": "outside-table",
+   "expires": "2026-11-17T18:47:24Z",
+   "release": "outside-table.zip",
    "callers": {}
   },
   {
@@ -364,8 +365,8 @@
    "session": "session_01CXLi5kGG8gG4QBmC4uzMzN",
    "why": "Outside services as a table: one row per company, search, one filter, sort, a row opens its card; each card's Test (Jason, 2026-11-17)",
    "since": "2026-11-17T14:45:02Z",
-   "expires": "2026-11-17T18:45:02Z",
-   "release": "outside-table",
+   "expires": "2026-11-17T18:47:24Z",
+   "release": "outside-table.zip",
    "callers": {}
   },
   {
@@ -378,8 +379,8 @@
    "session": "session_01CXLi5kGG8gG4QBmC4uzMzN",
    "why": "Outside services as a table: one row per company, search, one filter, sort, a row opens its card; each card's Test (Jason, 2026-11-17)",
    "since": "2026-11-17T14:45:08Z",
-   "expires": "2026-11-17T18:45:08Z",
-   "release": "outside-table",
+   "expires": "2026-11-17T18:47:24Z",
+   "release": "outside-table.zip",
    "callers": {}
   },
   {
@@ -389,8 +390,8 @@
    "session": "session_01CXLi5kGG8gG4QBmC4uzMzN",
    "why": "Outside services as a table: one row per company, search, one filter, sort, a row opens its card; each card's Test (Jason, 2026-11-17)",
    "since": "2026-11-17T14:45:08Z",
-   "expires": "2026-11-17T18:45:08Z",
-   "release": "outside-table",
+   "expires": "2026-11-17T18:47:24Z",
+   "release": "outside-table.zip",
    "callers": {}
   }
  ],
