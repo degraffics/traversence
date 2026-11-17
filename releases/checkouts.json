@@ -92,6 +92,19 @@
    "expires": "2026-11-17T15:52:18Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/lib/Domains.php",
+   "functions": [
+    "isTeam"
+   ],
+   "kind": "add",
+   "session": "domain-sales-team",
+   "why": "Domain sales Test: the Founder admin counts as our team; Edit no longer opens the privacy card (Jason, 2026-11-17)",
+   "since": "2026-11-17T11:52:24Z",
+   "expires": "2026-11-17T15:52:24Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
