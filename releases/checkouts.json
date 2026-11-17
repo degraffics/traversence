@@ -2,32 +2,6 @@
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
  "claims": [
   {
-   "path": "app/lib/Domains.php",
-   "functions": [
-    "lookupLive"
-   ],
-   "kind": "add",
-   "session": "domain-live-search",
-   "why": "Test mode searches Name.com live (real availability and prices), buys in the sandbox; no guessed renewal prices (Jason, 2026-11-17)",
-   "since": "2026-11-17T12:18:07Z",
-   "expires": "2026-11-17T16:18:07Z",
-   "release": "",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/AccountDomains.php",
-   "functions": [
-    "renewalCost"
-   ],
-   "kind": "add",
-   "session": "domain-live-search",
-   "why": "Test mode searches Name.com live; no guessed renewal prices (Jason, 2026-11-17)",
-   "since": "2026-11-17T12:19:33Z",
-   "expires": "2026-11-17T16:19:33Z",
-   "release": "",
-   "callers": {}
-  },
-  {
    "path": "app/lib/AccountDomains.php",
    "functions": [
     "TERMS",
@@ -277,113 +251,37 @@
    "expires": "2026-11-17T17:48:36Z",
    "release": "favicon-everywhere.zip",
    "callers": {}
-  },
-  {
-   "path": "app/lib/Preflight.php",
-   "functions": [
-    "ensure",
-    "finished"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5kGG8gG4QBmC4uzMzN",
-   "why": "Pre-flight: a log of full runs, each with its report; the page opens fresh (Jason, 2026-11-17)",
-   "since": "2026-11-17T16:03:23Z",
-   "expires": "2026-11-17T20:03:23Z",
-   "release": "preflight-log",
-   "callers": {
-    "finished": [
-     "website/admin/api.php"
-    ]
-   }
-  },
-  {
-   "path": "app/admin/preflight-console.php",
-   "functions": [
-    "tv_admin_mod_preflight",
-    "tv_preflight_counts",
-    "tv_preflight_line"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5kGG8gG4QBmC4uzMzN",
-   "why": "Pre-flight: a log of full runs, each with its report; the page opens fresh (Jason, 2026-11-17)",
-   "since": "2026-11-17T16:03:23Z",
-   "expires": "2026-11-17T20:05:24Z",
-   "release": "preflight-log.zip",
-   "callers": {
-    "tv_preflight_counts": [
-     "website/admin/api.php"
-    ],
-    "tv_preflight_line": [
-     "website/admin/api.php"
-    ]
-   }
-  },
-  {
-   "path": "website/js/admin-preflight.js",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5kGG8gG4QBmC4uzMzN",
-   "why": "Pre-flight: a log of full runs, each with its report; the page opens fresh (Jason, 2026-11-17)",
-   "since": "2026-11-17T16:03:23Z",
-   "expires": "2026-11-17T20:05:24Z",
-   "release": "preflight-log.zip",
-   "callers": {}
-  },
-  {
-   "path": "website/admin/api.php",
-   "functions": [
-    "(top)"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5kGG8gG4QBmC4uzMzN",
-   "why": "Pre-flight: a log of full runs, each with its report; the page opens fresh (Jason, 2026-11-17)",
-   "since": "2026-11-17T16:03:23Z",
-   "expires": "2026-11-17T20:05:24Z",
-   "release": "preflight-log.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/staging-tables.php",
-   "functions": [
-    "OWN"
-   ],
-   "kind": "add",
-   "session": "session_01CXLi5kGG8gG4QBmC4uzMzN",
-   "why": "Pre-flight: a log of full runs, each with its report; the page opens fresh (Jason, 2026-11-17)",
-   "since": "2026-11-17T16:03:33Z",
-   "expires": "2026-11-17T20:03:33Z",
-   "release": "preflight-log",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/Preflight.php",
-   "functions": [
-    "runReport",
-    "runs"
-   ],
-   "kind": "add",
-   "session": "session_01CXLi5kGG8gG4QBmC4uzMzN",
-   "why": "Pre-flight: a log of full runs, each with its report; the page opens fresh (Jason, 2026-11-17)",
-   "since": "2026-11-17T16:03:33Z",
-   "expires": "2026-11-17T20:05:24Z",
-   "release": "preflight-log.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/staging-tables.php",
-   "functions": [
-    "(top)"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5kGG8gG4QBmC4uzMzN",
-   "why": "release preflight-log.zip",
-   "since": "2026-11-17T16:05:24Z",
-   "expires": "2026-11-17T20:05:24Z",
-   "release": "preflight-log.zip",
-   "callers": {}
   }
  ],
  "lapsed": [
+  {
+   "path": "app/lib/Domains.php",
+   "functions": [
+    "lookupLive"
+   ],
+   "kind": "add",
+   "session": "domain-live-search",
+   "why": "Test mode searches Name.com live (real availability and prices), buys in the sandbox; no guessed renewal prices (Jason, 2026-11-17)",
+   "since": "2026-11-17T12:18:07Z",
+   "expires": "2026-11-17T16:18:07Z",
+   "release": "",
+   "callers": {},
+   "lapsed": "2026-11-17T16:27:28Z"
+  },
+  {
+   "path": "app/lib/AccountDomains.php",
+   "functions": [
+    "renewalCost"
+   ],
+   "kind": "add",
+   "session": "domain-live-search",
+   "why": "Test mode searches Name.com live; no guessed renewal prices (Jason, 2026-11-17)",
+   "since": "2026-11-17T12:19:33Z",
+   "expires": "2026-11-17T16:19:33Z",
+   "release": "",
+   "callers": {},
+   "lapsed": "2026-11-17T16:27:28Z"
+  },
   {
    "path": "app/lib/Domains.php",
    "functions": [
