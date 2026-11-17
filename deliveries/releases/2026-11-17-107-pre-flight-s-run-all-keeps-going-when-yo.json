@@ -6,25 +6,29 @@
     "zip": "preflight-server-run-2.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "staged",
-    "step": 0,
+    "state": "live",
+    "step": 3,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
     "plan_at": "2026-11-17 18:25:14",
     "staged_at": "2026-11-17 18:25:16",
-    "vetted_at": null,
-    "live_at": null,
+    "vetted_at": "2026-11-17 18:25:19",
+    "live_at": "2026-11-17 18:25:19",
     "files": {
         "app/admin/preflight-console.php": {
             "sha": "b3afdfb1dc98e19387f947fa638baad626aa278e3cac015187d01c9a504791db",
             "size": 16785,
-            "live_was": "0f32bd327a935682d5facc8dea5ab57c14ff2e00d3bd81bdf487b3276ab8b34e"
+            "live_was": "0f32bd327a935682d5facc8dea5ab57c14ff2e00d3bd81bdf487b3276ab8b34e",
+            "existed": true,
+            "old_sha": "0f32bd327a935682d5facc8dea5ab57c14ff2e00d3bd81bdf487b3276ab8b34e"
         },
         "app/ui/faq.md": {
             "sha": "503c40ae779a62d24d6328dbed629c8b64ad93f27bdc5006891d0baf6b827195",
             "size": 322583,
-            "live_was": "0ad2c6f830b8c384feedeca6f6f203d6ca8112398d4dce55c121f460a2756d34"
+            "live_was": "0ad2c6f830b8c384feedeca6f6f203d6ca8112398d4dce55c121f460a2756d34",
+            "existed": true,
+            "old_sha": "0ad2c6f830b8c384feedeca6f6f203d6ca8112398d4dce55c121f460a2756d34"
         },
         "app/migrations/2026-11-17_search_index_state_wide.sql": {
             "sha": "cec8fec7feb0875a945a305d71ba2301076d487ad5aeafe07f42a576c0501cb2",
@@ -34,22 +38,30 @@
         "app/lib/SearchIndex.php": {
             "sha": "aad4a464983557629c8da663a4de0ef47f695250b12f2349a6a66ef12d0155d8",
             "size": 71234,
-            "live_was": "9c96e74d50e7cf1d16987b724e8b8e6de51b9869b072ad771ed3b604064f454f"
+            "live_was": "9c96e74d50e7cf1d16987b724e8b8e6de51b9869b072ad771ed3b604064f454f",
+            "existed": true,
+            "old_sha": "9c96e74d50e7cf1d16987b724e8b8e6de51b9869b072ad771ed3b604064f454f"
         },
         "app/lib/Preflight.php": {
             "sha": "d498bdbb0d24aff09861a50dc63993b6f10345091e22cb84f728477d790151df",
             "size": 131942,
-            "live_was": "2b9607815593b16336c9087d50641b71e478b06db2819d5e6886dce6367634a5"
+            "live_was": "2b9607815593b16336c9087d50641b71e478b06db2819d5e6886dce6367634a5",
+            "existed": true,
+            "old_sha": "2b9607815593b16336c9087d50641b71e478b06db2819d5e6886dce6367634a5"
         },
         "website/admin/api.php": {
             "sha": "6a482be80585494ed796b027377af01d6bb5b53b9bf007302355ab40ff37b570",
             "size": 25600,
-            "live_was": "fdc8974b7a59442e54ec46d6b8f230cbc11ba4676d0534c3ef951bc50de85261"
+            "live_was": "fdc8974b7a59442e54ec46d6b8f230cbc11ba4676d0534c3ef951bc50de85261",
+            "existed": true,
+            "old_sha": "fdc8974b7a59442e54ec46d6b8f230cbc11ba4676d0534c3ef951bc50de85261"
         },
         "website/js/admin-preflight.js": {
             "sha": "44d499f92a943152d7c473212c46c1816f4a525907d9377207486ccd0e4bf30c",
             "size": 12733,
-            "live_was": "a3ee5250cb78572df16ca4ecf66d2fb734058f8ee5de3f48861bff72aaa7b2f9"
+            "live_was": "a3ee5250cb78572df16ca4ecf66d2fb734058f8ee5de3f48861bff72aaa7b2f9",
+            "existed": true,
+            "old_sha": "a3ee5250cb78572df16ca4ecf66d2fb734058f8ee5de3f48861bff72aaa7b2f9"
         }
     },
     "migrations": [
@@ -57,8 +69,8 @@
     ],
     "checks": {
         "ok": true,
-        "where": "staging",
-        "at": "2026-11-17T18:25:17+00:00",
+        "where": "live",
+        "at": "2026-11-17T18:25:20+00:00",
         "items": [
             [
                 "PHP files parse",
@@ -66,19 +78,9 @@
                 "4 checked"
             ],
             [
-                "Migrations only add",
-                true,
-                "1 checked"
-            ],
-            [
-                "Migrations ran on staging",
-                true,
-                "Ran 2026-11-17_search_index_state_wide.sql"
-            ],
-            [
                 "Pages answer",
                 true,
-                "3 pages answered on staging.trvgo.us"
+                "3 pages answered on traversence.com"
             ],
             [
                 "No new fatal errors in the logs",
@@ -108,6 +110,16 @@
             "at": "2026-11-17T18:25:17+00:00",
             "by": 0,
             "msg": "Put on staging (7 files); its checks passed."
+        },
+        {
+            "at": "2026-11-17T18:25:19+00:00",
+            "by": 0,
+            "msg": "Approved in chat before it was sent through git, and its checks on staging passed: publishing by itself."
+        },
+        {
+            "at": "2026-11-17T18:25:19+00:00",
+            "by": 0,
+            "msg": "Published: 6 files, after its 1 migration ran first (2026-11-17_search_index_state_wide.sql; a copy of what each touched is kept 14 days); everyone at once (no switch)."
         }
     ]
 }
