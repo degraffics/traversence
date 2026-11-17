@@ -95,8 +95,9 @@ Check-out release names: `preflight` (release 1), `outside-table` (release 2, no
   IdentityJobs accepts checked `google`; Preflight source `['paid', need]` last on confirm and prose. Crawler 2.10.0:
   `search()` Tavily → Brave (held or failed), `SEARCH_SWITCHES` in the report; `google_confirm()` in identity_jobs only when
   nothing free found it (its Maps link as `social`/`evidence`, OPERATIONAL only). Tests: `workers/crawler/tests/test_paid.py`.
-  Not done: W1's second look (staged finds) doesn't take a Google match: Verify::KINDS has no Google kind, and whether a
-  Google match may count toward a staged find's publishing is Jason's call.
+  The second look takes a Google match too (Jason, 2026-11-17: "google match is a good thing"): Verify::KINDS `google`, a
+  reference that raises a new find's confidence (about +10 × its record); AutoImport::isGoogleHost keeps Google out of the
+  keepable hosts, so it never passes the "real business" floor by itself.
 - **Next, (c2): the other workflows' fallbacks** (audit 2026-11-17, in map order): W2 refresh (no last copy, no Common
   Crawl before a website is taken off; medium), W2 missing phone/website (open_places/npi_orgs not read first; medium),
   W2 map points (open_places points before Census; Census failure should wait, not fail; small), W2 still open (put our

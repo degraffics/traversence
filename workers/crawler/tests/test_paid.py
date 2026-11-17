@@ -97,6 +97,11 @@ class Google(unittest.TestCase):
         self.assertEqual(crawler.PAID_USED["places_confirm"], 1)
         self.assertFalse(crawler.paid_left("places_confirm"))   # the cap holds
 
+    def test_second_look_reference(self):
+        crawler.PAID["places_confirm"] = 1
+        f = crawler.google_confirm(LST, for_find=True)
+        self.assertEqual([(x["kind"], x["evidence"]) for x in f], [("google", "address")])
+
     def test_other_address_not_confirmed(self):
         crawler.PAID["places_confirm"] = 5
         self.assertEqual(crawler.google_confirm({**LST, "address": "400 Elm St"}), [])

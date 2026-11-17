@@ -2438,6 +2438,11 @@ def second_look(deadline):
             if SEARCH_ON and not found:                  # a registry match is enough on its own
                 checked.append("search")
                 found += web_references(lst, have | {h for f in found for h in [host_of(f["url"])]})
+            # the paid backup, only by a director's override and only when nothing free found it: Google's place at our
+            # address raises the find's confidence (Jason, 2026-11-17: "google match is a good thing"); never a source we keep
+            if not found and lst.get("address") and paid_left("places_confirm"):
+                checked.append("google")
+                found += google_confirm(lst, for_find=True)
             res = site_call("/api/crawl/verify.php", {"row_id": lst["row_id"], "found": found, "checked": checked})
             kinds = ", ".join(f"{f['kind']} {host_of(f['url'])}" for f in found) or "nothing more"
             if not any(f["kind"] == "registry" for f in found) and npi_note[0]:
@@ -2633,7 +2638,7 @@ def paid_left(need):
     return PAID_USED.get(need, 0) < PAID.get(need, 0)
 
 
-def google_confirm(lst):
+def google_confirm(lst, for_find=False):
     """The paid backup for "Confirm a business" (by override): one Google Places Text Search (ID, name, address and status
     only, the cheapest fields). When Google's place carries the business's name at our address, its Maps link goes back
     as evidence (the identity record's Google kind, decisions/0163 §12's weights); nothing of Google's is copied."""
@@ -2661,8 +2666,10 @@ def google_confirm(lst):
     if p.get("businessStatus") and p["businessStatus"] != "OPERATIONAL":
         return []                                    # not confirmed open: the person queue decides, never this
     url = "https://www.google.com/maps/place/?q=place_id:" + urllib.parse.quote(p["id"])
-    return [{"fact": "social", "value": url, "url": url, "kind": "evidence", "evidence": "address",
-             "label": f"Google Maps: {name} (paid backup)"[:120]}]
+    label = f"Google Maps: {name} (paid backup)"[:120]
+    if for_find:                                     # the second look: a reference that raises the find's confidence
+        return [{"url": url, "kind": "google", "evidence": "address", "label": label}]
+    return [{"fact": "social", "value": url, "url": url, "kind": "evidence", "evidence": "address", "label": label}]
 
 
 # ---------------------------------------------------------------------------------------------------

@@ -1,8 +1,8 @@
 {
  "zip": "paid-overrides.zip",
  "built_on": "761d78f Sync: 2026-11-17 16:59 UTC",
- "recorded": "2026-11-17 17:00 UTC",
- "note": "Paid backups by a director's override (Google Places to confirm, Claude after Gemini), both off; crawler 2.10.0 with Tavily to Brave; rebuilt on Sync: 2026-11-17 16:59 UTC Sent through git (releases/inbox).",
+ "recorded": "2026-11-17 17:03 UTC",
+ "note": "Paid backups by override (Google Places to confirm, in the second look and the identity check; Claude after Gemini), both off; crawler 2.10.0 with Tavily to Brave; built on Sync: 2026-11-17 16:59 UTC Sent through git (releases/inbox).",
  "status": "pending",
  "live_in": "",
  "files": {
@@ -15,7 +15,7 @@
    "live": false
   },
   "app/lib/PaidOverride.php": {
-   "sha256": "f09168908546bd4b36f078f45a30489d5bca1e3a5656b646180607fe4708134e",
+   "sha256": "fa16fb22d147558dd0619052ac4546ac9ff38411e59164c8a87791cfd1def4f8",
    "live": false
   },
   "app/lib/Preflight.php": {
@@ -23,7 +23,11 @@
    "live": false
   },
   "app/lib/Thresholds.php": {
-   "sha256": "50190530916d945bd660a9aaafc73c7ba4571542cbb3a39c606287a05fbe9b91",
+   "sha256": "3c79f90d92f957fadf4b6d29ebca67097f05aae627d9bd84552a5242667ab7d6",
+   "live": false
+  },
+  "app/lib/crawler/AutoImport.php": {
+   "sha256": "0118070d570fa5da4ca8775f80503c1a942c0cb1f8d8af8df864ea45a5d1a1e3",
    "live": false
   },
   "app/lib/crawler/CrawlService.php": {
@@ -34,8 +38,12 @@
    "sha256": "212230deb9ac455ac49a0b9b3e31bc6d70b182d729cab0dcb6a94361b19e5c3e",
    "live": false
   },
+  "app/lib/crawler/Verify.php": {
+   "sha256": "caf41503ec334b53f9e682f2e9840abb5d1be01ad28c6d1d893e1db5659195cf",
+   "live": false
+  },
   "app/ui/faq.md": {
-   "sha256": "e39830916bf0a854dc3ea9b1d36af75cdbf2c5d6b2fe72d98cb5c89b04e050cb",
+   "sha256": "90713bf2d86972716bebdf11f4daec688eb2835c04bd84701e39d8df32d4418c",
    "live": false
   }
  }
