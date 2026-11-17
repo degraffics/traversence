@@ -1,0 +1,44 @@
+{
+    "id": 100,
+    "title": "Pre-flight judges by need, ours first",
+    "why": "decisions/0163's note of 2026-11-17, the source map (Jason: \"we should have backups for sources/apis if one fails\"; \"ok on starting your part\"). 1. Two new groups: What the engine needs (21 needs, needed for launch) and What the site needs (22, shown, optional for the engine's launch). Each need lists its sources in order, ours first: our own copies (open_places, npi_orgs, irs_orgs, rec_places, landmarks, zip_coordinates, travel_legs, source_facts, heritage_facts, stock_images and more) checked for rows and freshness, then each outside source by its own line. 2. A need is ✓ when its first source works, amber \"on a backup\" when a later one does (or when its fallback always works, like keyword search or estimated drive times), ✗ only when nothing works. A need with one source says \"No backup yet\" with the planned backup. 3. Each workflow is now judged by its needs instead of each company, so a company that's down but has a working backup no longer holds a workflow; services are needed for launch only for what everything stands on (Bluehost, Railway, GitHub). 4. The report marks a need on a backup as BKUP. The paid-backup overrides and the workflows' own fallbacks (W1 reading open_places before Overpass first) are the next builds.",
+    "proposals": "",
+    "zip": "preflight-needs.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/lib/Preflight.php": {
+            "sha": "d1d1767ac39feab87d2da18b2189fc552ecc53adeb178522d28a2f07d2500d75",
+            "size": 115476,
+            "live_was": "95b71a97276a4069c9b614594022e0f57927e47af7e9fcf51f5b8e9f3846c57d"
+        },
+        "app/admin/preflight-console.php": {
+            "sha": "0f32bd327a935682d5facc8dea5ab57c14ff2e00d3bd81bdf487b3276ab8b34e",
+            "size": 13609,
+            "live_was": "eabccc663297015c5ab34df9a13c75fd5b499275eda73eb53057ec9e0e18f7a0"
+        },
+        "website/js/admin-preflight.js": {
+            "sha": "a3ee5250cb78572df16ca4ecf66d2fb734058f8ee5de3f48861bff72aaa7b2f9",
+            "size": 9976,
+            "live_was": "f1a48f83ec517979ab598ba8db7e3a7b0d9d39fac9706194f66221bd0aac801e"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-17T16:31:16+00:00",
+            "by": 0,
+            "msg": "Uploaded preflight-needs.zip: 3 files."
+        }
+    ]
+}
