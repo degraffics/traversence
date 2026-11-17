@@ -548,8 +548,8 @@
    "session": "outside-requests-visible",
    "why": "Outside requests: a failure shows on the card and in Pulse; the form says what it is (Jason, 2026-11-17)",
    "since": "2026-11-17T14:17:13Z",
-   "expires": "2026-11-17T18:17:13Z",
-   "release": "",
+   "expires": "2026-11-17T18:18:00Z",
+   "release": "outside-requests-visible.zip",
    "callers": {
     "requests": [
      "app/lib/Pulse.php",
@@ -566,8 +566,8 @@
    "session": "outside-requests-visible",
    "why": "Outside requests: a failure shows on the card and in Pulse; the form says what it is (Jason, 2026-11-17)",
    "since": "2026-11-17T14:17:13Z",
-   "expires": "2026-11-17T18:17:13Z",
-   "release": "",
+   "expires": "2026-11-17T18:18:00Z",
+   "release": "outside-requests-visible.zip",
    "callers": {
     "items": [
      "app/lib/DailyReport.php",
@@ -587,8 +587,8 @@
    "session": "outside-requests-visible",
    "why": "Outside requests: a failure shows on the card and in Pulse; the form says what it is (Jason, 2026-11-17)",
    "since": "2026-11-17T14:17:13Z",
-   "expires": "2026-11-17T18:17:13Z",
-   "release": "",
+   "expires": "2026-11-17T18:18:00Z",
+   "release": "outside-requests-visible.zip",
    "callers": {}
   }
  ],
