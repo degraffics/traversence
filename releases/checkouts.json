@@ -272,8 +272,8 @@
    "session": "session_01CXLi5iXPuLbnLpdUjRWunZ",
    "why": "Site icon on every page (favicon.ico, touch icon, one shared helper)",
    "since": "2026-11-17T13:47:00Z",
-   "expires": "2026-11-17T17:47:00Z",
-   "release": "favicon",
+   "expires": "2026-11-17T17:48:36Z",
+   "release": "favicon-everywhere.zip",
    "callers": {}
   },
   {
@@ -283,8 +283,8 @@
    "session": "session_01CXLi5iXPuLbnLpdUjRWunZ",
    "why": "Site icon on every page (favicon.ico, touch icon, one shared helper)",
    "since": "2026-11-17T13:47:00Z",
-   "expires": "2026-11-17T17:47:00Z",
-   "release": "favicon",
+   "expires": "2026-11-17T17:48:36Z",
+   "release": "favicon-everywhere.zip",
    "callers": {}
   },
   {
@@ -294,8 +294,8 @@
    "session": "session_01CXLi5iXPuLbnLpdUjRWunZ",
    "why": "Site icon on every page (favicon.ico, touch icon, one shared helper)",
    "since": "2026-11-17T13:47:00Z",
-   "expires": "2026-11-17T17:47:00Z",
-   "release": "favicon",
+   "expires": "2026-11-17T17:48:36Z",
+   "release": "favicon-everywhere.zip",
    "callers": {}
   },
   {
@@ -307,8 +307,8 @@
    "session": "session_01CXLi5iXPuLbnLpdUjRWunZ",
    "why": "Site icon on every page (favicon.ico, touch icon, one shared helper)",
    "since": "2026-11-17T13:47:10Z",
-   "expires": "2026-11-17T17:47:10Z",
-   "release": "favicon",
+   "expires": "2026-11-17T17:48:36Z",
+   "release": "favicon-everywhere.zip",
    "callers": {}
   },
   {
@@ -349,6 +349,7 @@
   {
    "path": "app/ui/storefront-view.php",
    "functions": [
+    "(top)",
     "tv_storefront_closed",
     "tv_storefront_serve"
    ],
@@ -356,8 +357,8 @@
    "session": "session_01CXLi5iXPuLbnLpdUjRWunZ",
    "why": "Site icon on every page (favicon.ico, touch icon, one shared helper)",
    "since": "2026-11-17T13:47:10Z",
-   "expires": "2026-11-17T17:47:10Z",
-   "release": "favicon",
+   "expires": "2026-11-17T17:48:36Z",
+   "release": "favicon-everywhere.zip",
    "callers": {
     "tv_storefront_serve": [
      "trvgo/index.php"
@@ -382,8 +383,8 @@
    "session": "session_01CXLi5iXPuLbnLpdUjRWunZ",
    "why": "Site icon on every page (favicon.ico, touch icon, one shared helper)",
    "since": "2026-11-17T13:47:10Z",
-   "expires": "2026-11-17T17:47:10Z",
-   "release": "favicon",
+   "expires": "2026-11-17T17:48:36Z",
+   "release": "favicon-everywhere.zip",
    "callers": {}
   },
   {
@@ -393,8 +394,8 @@
    "session": "session_01CXLi5iXPuLbnLpdUjRWunZ",
    "why": "Site icon on every page (favicon.ico, touch icon, one shared helper)",
    "since": "2026-11-17T13:47:10Z",
-   "expires": "2026-11-17T17:47:10Z",
-   "release": "favicon",
+   "expires": "2026-11-17T17:48:36Z",
+   "release": "favicon-everywhere.zip",
    "callers": {},
    "zones": [
     "home.after-doors"
@@ -407,8 +408,41 @@
    "session": "session_01CXLi5iXPuLbnLpdUjRWunZ",
    "why": "Site icon on every page (favicon.ico, touch icon, one shared helper)",
    "since": "2026-11-17T13:47:10Z",
-   "expires": "2026-11-17T17:47:10Z",
-   "release": "favicon",
+   "expires": "2026-11-17T17:48:36Z",
+   "release": "favicon-everywhere.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/ui/auth-nav.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5iXPuLbnLpdUjRWunZ",
+   "why": "release favicon-everywhere.zip",
+   "since": "2026-11-17T13:48:36Z",
+   "expires": "2026-11-17T17:48:36Z",
+   "release": "favicon-everywhere.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/ui/page-shell.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5iXPuLbnLpdUjRWunZ",
+   "why": "release favicon-everywhere.zip",
+   "since": "2026-11-17T13:48:36Z",
+   "expires": "2026-11-17T17:48:36Z",
+   "release": "favicon-everywhere.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/admin/chamber-builder.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5iXPuLbnLpdUjRWunZ",
+   "why": "release favicon-everywhere.zip",
+   "since": "2026-11-17T13:48:36Z",
+   "expires": "2026-11-17T17:48:36Z",
+   "release": "favicon-everywhere.zip",
    "callers": {}
   }
  ],
