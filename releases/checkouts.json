@@ -323,6 +323,50 @@
    "expires": "2026-11-17T17:48:36Z",
    "release": "favicon-everywhere.zip",
    "callers": {}
+  },
+  {
+   "path": "app/ui/outside-services.php",
+   "functions": [
+    "tv_os_css",
+    "tv_outside_services"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kGG8gG4QBmC4uzMzN",
+   "why": "Outside services as a table: one row per company, search, one filter, sort, a row opens its card; each card's Test (Jason, 2026-11-17)",
+   "since": "2026-11-17T14:45:02Z",
+   "expires": "2026-11-17T18:45:02Z",
+   "release": "outside-table",
+   "callers": {
+    "tv_outside_services": [
+     "app/admin/sections.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/Preflight.php",
+   "functions": [
+    "serviceTest"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kGG8gG4QBmC4uzMzN",
+   "why": "Outside services as a table: one row per company, search, one filter, sort, a row opens its card; each card's Test (Jason, 2026-11-17)",
+   "since": "2026-11-17T14:45:02Z",
+   "expires": "2026-11-17T18:45:02Z",
+   "release": "outside-table",
+   "callers": {}
+  },
+  {
+   "path": "website/admin/api.php",
+   "functions": [
+    "(top)"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kGG8gG4QBmC4uzMzN",
+   "why": "Outside services as a table: one row per company, search, one filter, sort, a row opens its card; each card's Test (Jason, 2026-11-17)",
+   "since": "2026-11-17T14:45:02Z",
+   "expires": "2026-11-17T18:45:02Z",
+   "release": "outside-table",
+   "callers": {}
   }
  ],
  "lapsed": [
