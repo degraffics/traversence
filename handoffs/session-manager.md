@@ -112,6 +112,12 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
      ("needs review"). A find in a planned zone is filed and held there (not public until the zone opens), and counts
      toward that zone's readiness (HubOpening's stages, Planned → Open). Only a find outside all 15 zones is "no hub
      yet" (demand, held for 0164's hub opening). No default hub.
+     **And across continental hubs** (Jason, 2026-11-17: "if it is not in this hub, but another hub it could be aligned
+     within the correct main hub"): the plan is 20 continental hubs (Ancient America is Hub 9 of 20, platform spec);
+     each gets its states (and its zones when they're drawn) as **planned**, so a find outside Ancient America is filed
+     under the continental hub that covers it, held there and counted as its demand, and placed in a zone once that hub's
+     zones exist. Only Ancient America is defined in the repo: **the other 19 hubs' names and states are needed from
+     Jason** before this part is built.
   4. **decisions/0169, the Shop's App store and one lifecycle for every app** (accepted 2026-11-16). First: the Shop
      with departments, the App store, the app lifecycle (choose, install, configure, use, update, remove), the Apps page
      and the staff view. Today's Stripe and Square connections keep working until their app is built.
