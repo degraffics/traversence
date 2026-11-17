@@ -154,6 +154,17 @@
      "website/admin/api.php"
     ]
    }
+  },
+  {
+   "path": "website/api/domains.php",
+   "functions": [],
+   "kind": "change",
+   "session": "domain-sales-switch",
+   "why": "Domain sales' own test flag",
+   "since": "2026-11-17T11:05:22Z",
+   "expires": "2026-11-17T15:05:22Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
