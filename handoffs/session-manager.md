@@ -237,6 +237,11 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
        session sees it in git), and raises one Pulse item for staff; nothing on live changes. A build uploaded by a
        person isn't auto-withdrawn (they may fix it on staging), but gets the same Pulse item. A later build with the
        same name replaces it as usual.
+     - **A bad `release.json` can't strand a release at Planned** (#108, #109, 2026-11-17: `"switch": "none"` was stored
+       as a switch key, `approve` found no such switch and threw, so both sat at Planned and never reached staging;
+       Jason, on #109's card: "this is not how this is supposed to work"). `send.py`/zipcheck refuse a `switch` that
+       isn't empty or a known `Switches::DEFS` key; `Releases::fromUpload` treats "none" as empty; a release that can't
+       be approved says why on its card and in Pulse, never sits silently.
      **For Jason to address in the cleanup** (Jason, 2026-11-17: "Add these to the queue for me to address in the clean
      up"):
      - **Records requests to the Arizona Corporation Commission and New Mexico's Secretary of State** for their
