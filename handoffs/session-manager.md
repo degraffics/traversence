@@ -170,8 +170,7 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
        a grant to service_role (Jason ran these by hand on 2026-11-16).
      - Admin search on a phone (seen 2026-11-17, 390px): a result's where-it-lives line takes the row, so names shrink
        to "Na…", "Bus…", "Em…". On phones, put that line under the name, full width.
-     - From the pre-flight's first report (2026-11-17): `Domains::fly` sends a FlyV1 macaroon as `Bearer`, so the edge's
-       certificate calls fail with a token from `fly tokens create`; 36 outside calls skip `StagingGate::hold()`
+     - From the pre-flight's first report (2026-11-17): 36 outside calls skip `StagingGate::hold()`
        (`StagingGate::scan`, older than the pre-flight). (The switch-on check's `BRAVE_API_KEY` hold is correct: Jason,
        2026-11-17, Brave and Tavily both present and ready; which one a workflow uses is the workflow's matter.)
      - Outside requests don't save (Name.com ticket #3113488, after #84/#87/#89): likely the same cause the pre-flight

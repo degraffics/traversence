@@ -1,0 +1,30 @@
+{
+ "zip": "outside-table.zip",
+ "built_on": "8b3fd62 Sync: 2026-11-17 14:43 UTC",
+ "recorded": "2026-11-17 14:47 UTC",
+ "note": "Outside services as a table, each card's Test, the Brave line; built on Sync: 2026-11-17 14:43 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/OutsideServices.php": {
+   "sha256": "c20ee985a12e39a923e64eaecae735968125aba790e619058783fc02637261ea",
+   "live": false
+  },
+  "app/lib/Preflight.php": {
+   "sha256": "7bdc596c47e91062c4a7d1c646d8e31f0139f684d274bd4bd54955a9fd4d7f7d",
+   "live": false
+  },
+  "app/ui/outside-services.php": {
+   "sha256": "4c78361c10766032d01cbf222769b9c80b7ad7bbfa5d16ff47db22ab4e5aa669",
+   "live": false
+  },
+  "website/admin/api.php": {
+   "sha256": "ded62c4043276efe737b7afe6a2174e99346b7365d1546ac9a4b525dc8a30f5c",
+   "live": false
+  },
+  "website/js/admin-outside.js": {
+   "sha256": "eb3155a70ac9904b3ccfdfa44dc8b814fc83f3b86ac2ea47addd2956dc509298",
+   "live": false
+  }
+ }
+}
