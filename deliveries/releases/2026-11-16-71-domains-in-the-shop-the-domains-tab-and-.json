@@ -6,13 +6,13 @@
     "zip": "domains-wallet-2.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "approved",
+    "state": "staged",
     "step": 0,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
     "plan_at": "2026-11-17 03:30:28",
-    "staged_at": null,
+    "staged_at": "2026-11-17 03:30:29",
     "vetted_at": null,
     "live_at": null,
     "files": {
@@ -135,7 +135,39 @@
     "migrations": [
         "app/migrations/2027-03-10_account_domains_wallet.sql"
     ],
-    "checks": [],
+    "checks": {
+        "ok": true,
+        "where": "staging",
+        "at": "2026-11-17T03:30:31+00:00",
+        "items": [
+            [
+                "PHP files parse",
+                true,
+                "20 checked"
+            ],
+            [
+                "Migrations only add",
+                true,
+                "1 checked"
+            ],
+            [
+                "Migrations ran on staging",
+                true,
+                "Ran 2026-11-17_search_demand_empty.sql, 2027-03-10_account_domains_wallet.sql"
+            ],
+            [
+                "Pages answer",
+                true,
+                "8 pages answered on staging.trvgo.us"
+            ],
+            [
+                "No new fatal errors in the logs",
+                true,
+                "9 logs read"
+            ]
+        ],
+        "first_fail": ""
+    },
     "log": [
         {
             "at": "2026-11-17T03:30:26+00:00",
@@ -151,6 +183,11 @@
             "at": "2026-11-17T03:30:28+00:00",
             "by": 0,
             "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
+        },
+        {
+            "at": "2026-11-17T03:30:31+00:00",
+            "by": 0,
+            "msg": "Put on staging (23 files); its checks passed."
         }
     ]
 }
