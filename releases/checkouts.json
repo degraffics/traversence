@@ -45,9 +45,14 @@
    "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
    "why": "Fair gate; a stopped step's fixes on the Start card (Jason, 2026-11-17)",
    "since": "2026-11-17T20:07:05Z",
-   "expires": "2026-11-18T00:07:05Z",
-   "release": "start-gate-fair",
-   "callers": {}
+   "expires": "2026-11-18T00:07:08Z",
+   "release": "start-gate-fair.zip",
+   "callers": {
+    "panel": [
+     "app/admin/automation-console.php",
+     "app/admin/operations-console.php"
+    ]
+   }
   },
   {
    "path": "app/admin/automation-console.php",
@@ -58,6 +63,17 @@
    "since": "2026-11-17T20:07:05Z",
    "expires": "2026-11-18T00:07:05Z",
    "release": "start-gate-fair",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/automation-console.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
+   "why": "release start-gate-fair.zip",
+   "since": "2026-11-17T20:07:08Z",
+   "expires": "2026-11-18T00:07:08Z",
+   "release": "start-gate-fair.zip",
    "callers": {}
   }
  ],
