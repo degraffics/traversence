@@ -88,6 +88,19 @@ foreach ([StagingTables::RECORDS, StagingTables::MONEY, StagingTables::OWN, Stag
 $src = "<?php\nfunction a() {\n  \$c = curl_init('https://x');\n}\nfunction b() {\n  if (StagingGate::hold(\$u) !== null) return;\n  \$c = curl_init(\$u);\n}\nfunction c() { // @gate live only\n  curl_init('x');\n}\nfunction d() {\n  return file_get_contents('https://api.example.com/x');\n}\n";
 $hits = StagingGate::scanText($src);
 eqv(array_map(fn ($h) => $h[1], $hits), ['a', 'd'], 'scan: ungated calls found, gated and noted ones not');
+eqv(StagingGate::scanText("<?php\nfunction e() {\n  if (ServiceHealth::held(\$u) !== null) return;\n  curl_init(\$u);\n}\n"), [], 'scan: ServiceHealth::held() is a gate (it asks StagingGate first)');
+// what a held call says on staging (Jason, 2026-11-17), with no database: the ledger write fails quietly and the call stays held
+StagingGate::pretend(true);
+eqv(StagingGate::hold('https://api.name.com/v4/domains'), "TEST MODE: ACTIVE (STAGE REPLIES ONLY) · Name.com wasn't called (held on staging). Nothing was sent.", 'a held call starts TEST MODE: ACTIVE (STAGE REPLIES ONLY) and names the service');
+eqv(StagingGate::hold('https://quickbooks.api.intuit.com/v3/company/1/invoice'), "TEST MODE: ACTIVE (STAGE REPLIES ONLY) · QuickBooks (Intuit) wasn't called (sandbox only on staging). Nothing was sent.", 'payments: only the sandbox');
+eqv(StagingGate::hold('https://sandbox-quickbooks.api.intuit.com/v3/company/1/invoice'), null, '…the sandbox goes');
+eqv(StagingGate::hold('https://api.census.gov/data/2020/x', '', '', true), "TEST MODE: ACTIVE (STAGE REPLIES ONLY) · U.S. Census Bureau wasn't called (bulk pulls are held on staging). Nothing was sent.", 'a bulk pull of a free service is held');
+ok(str_contains((string) StagingGate::hold('https://textract.us-east-2.amazonaws.com/'), 'Amazon Textract wasn\'t called (held on staging)'), 'Textract (paid) is held though AWS is allowed');
+ok(str_contains((string) StagingGate::hold('https://email.us-east-2.amazonaws.com/v2/email/identities'), 'Amazon SES wasn\'t called'), 'SES (sends, changes our account) is held');
+eqv(StagingGate::hold('https://bucket.s3.us-east-2.amazonaws.com/staging/x.jpg'), null, 'the file store is allowed');
+eqv(StagingGate::hold('https://staging.trvgo.us/api/staging-updates.php'), null, 'a call to staging itself goes');
+ok(str_starts_with((string) StagingGate::hold('https://box.example-host.com:2083/execute/Email/add_pop'), 'TEST MODE: ACTIVE (STAGE REPLIES ONLY) · box.example-host.com wasn\'t called'), 'a host with no service card (cPanel) is held');
+StagingGate::pretend(false);
 // the gate on live: always go, and no database touched
 StagingGate::pretend(false);
 eqv(StagingGate::hold('https://api.anthropic.com/v1/messages'), null, 'on live the gate always says go');

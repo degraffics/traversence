@@ -1,0 +1,118 @@
+{
+ "zip": "staging-gate.zip",
+ "built_on": "5360319 Sync: 2026-11-17 16:48 UTC",
+ "recorded": "2026-11-17 16:54 UTC",
+ "note": "Every outside call asks StagingGate::hold() first (the 36 the scan found); a held call says TEST MODE: ACTIVE (STAGE REPLIES ONLY); Textract, SES and SNS held on staging; built on Sync: 2026-11-17 16:48 UTC Sent through git (releases/inbox).",
+ "status": "live",
+ "live_in": "761d78f Sync: 2026-11-17 16:59 UTC",
+ "files": {
+  "app/lib/AuditClock.php": {
+   "sha256": "65dc4252cf90a79b40f12385b54325addf7c11e56b82812605e7bffbbdd5355a",
+   "live": true
+  },
+  "app/lib/Aws.php": {
+   "sha256": "0009c2b529f84b24ce38e6c042a1dda062fe84d2e4fce1c30aed4cfc05d2bf39",
+   "live": true
+  },
+  "app/lib/CPanel.php": {
+   "sha256": "9bbdf399fc2eba7a6acc1422022fb6307df4971a05709a01aefe8c60be43a37d",
+   "live": true
+  },
+  "app/lib/CPanelMail.php": {
+   "sha256": "51c4d2a63a1d1b31866d5d4e54d53e8865cc3155a988bad68b58a5085c9f3d9f",
+   "live": true
+  },
+  "app/lib/Captcha.php": {
+   "sha256": "f815b7dd359df6aeafd36d793e99816b70ae63be42d2e618b28f40d42a641327",
+   "live": true
+  },
+  "app/lib/DocsRepo.php": {
+   "sha256": "bf61d0033bc52f4ab07440020497ffa13365215c6e02b9273f249104d7f6b86f",
+   "live": true
+  },
+  "app/lib/GoogleAuth.php": {
+   "sha256": "7b50fe5623e3c1d76f58a9e43f3be33fc53e29af2a58849056b6a4100ffa542a",
+   "live": true
+  },
+  "app/lib/Guides.php": {
+   "sha256": "71d8367b7df97086269dba2f937dfbfb0a127ac7b85fbb73bd6ecbacbf3181ee",
+   "live": true
+  },
+  "app/lib/MarketPay.php": {
+   "sha256": "a47663d9c9c99a4301a45a2298df17d96b480249cc47b7512ebfdb441f714161",
+   "live": true
+  },
+  "app/lib/Operations.php": {
+   "sha256": "ac1729ae2a936afd49b90b9eab7e095805d54ae7a02f49eed78daea65ab460ad",
+   "live": true
+  },
+  "app/lib/QuickBooksPay.php": {
+   "sha256": "a03f31e2c5ee33b8a9dc55d93d987c4c875de0dcab0cf5ad8280882695c6efea",
+   "live": true
+  },
+  "app/lib/RegionGate.php": {
+   "sha256": "a55a452280c1c3260959955edf5e426c0af7e718a2b4ca965c10f04be52743be",
+   "live": true
+  },
+  "app/lib/Releases.php": {
+   "sha256": "ba0309dd57f807bde9e9fb57c042aa247d0b8e865afeb8add399e6bc13a6e6e0",
+   "live": true
+  },
+  "app/lib/ResourceGuides.php": {
+   "sha256": "f62b4e273d0dfd5e358943e96e9a2a6e1925626d0cfd7a5efca582dff8ebea05",
+   "live": true
+  },
+  "app/lib/S3.php": {
+   "sha256": "7b5ea0e5e82842753c1a3af9898b63cd43474dfd305bc85e974b34f9ff027ee8",
+   "live": true
+  },
+  "app/lib/ServiceHealth.php": {
+   "sha256": "b181e464cc34d0bfa4880cbde63f3eb77c462dcc79db1212d4a104352291559a",
+   "live": true
+  },
+  "app/lib/SesMail.php": {
+   "sha256": "74d96dab027d0af648ac060cc395e0f6be0a3ef6e65b67f5728f70e6fa7ed368",
+   "live": true
+  },
+  "app/lib/SiteHealth.php": {
+   "sha256": "b4b12cf33897b27cf7b193c8ae1ff228e90653e53de4f682ea71a83dfc132615",
+   "live": true
+  },
+  "app/lib/SocialAuth.php": {
+   "sha256": "1b3e04bd4181f00f9d64e63aff3a52554cf1a39a343653ae934adf4659084632",
+   "live": true
+  },
+  "app/lib/StagingGate.php": {
+   "sha256": "c3696af714b2f47a6bc8f9d4281a1c5ec57470c859edf1fb77553acf5f61b720",
+   "live": true
+  },
+  "app/lib/StagingSite.php": {
+   "sha256": "b4fd355b8e9006366deb63946f1d0d8615af0c3bc863c7ee642b8fb0ae5b1aa2",
+   "live": true
+  },
+  "app/lib/StockLibrary.php": {
+   "sha256": "997cbb5ed6855391bc0f5315869bb38dfdb346a1d34f198c40e456e57180479b",
+   "live": true
+  },
+  "app/lib/Weather.php": {
+   "sha256": "1cf739e45a666a7c10a98d01864359979cd9c791e0355061eba65a06a0a255bc",
+   "live": true
+  },
+  "app/lib/ZipPopulation.php": {
+   "sha256": "d32d831d170384f0c9375d9dc6870d93b87d19e56d90b1a343df610bb6e1ab4d",
+   "live": true
+  },
+  "app/lib/crawler/SiteFetcher.php": {
+   "sha256": "6428579169103cd8b70a3c847884858cdc50212d25cef085d4484bfbded84036",
+   "live": true
+  },
+  "app/ui/faq.md": {
+   "sha256": "17468c1560918f5bb2a52022d7cc78a5d15b2feddfca6736d626db20c3e8b4c3",
+   "live": true
+  },
+  "website/api/ses-events.php": {
+   "sha256": "38dd7fbe376bf9f48c06da6f71d0e8a78aadc2b7f367b4004e7f43cba78a6390",
+   "live": true
+  }
+ }
+}

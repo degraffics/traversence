@@ -236,432 +236,180 @@
    "callers": {}
   },
   {
-   "path": "app/lib/StagingGate.php",
+   "path": "app/lib/Thresholds.php",
    "functions": [
-    "hold",
-    "scanText"
+    "GATES"
    ],
    "kind": "change",
-   "session": "session_01CXLi5hmaQuy1GKHaPQhoen",
-   "why": "Every outside call asks StagingGate::hold() first; held calls say TEST MODE: ACTIVE (STAGE REPLIES ONLY) (Jason, 2026-11-17; decisions/0165)",
-   "since": "2026-11-17T16:49:24Z",
-   "expires": "2026-11-17T20:49:24Z",
-   "release": "staging-gate.zip",
+   "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
+   "why": "Paid backups by a director's override, and Tavily to Brave (0163 source map, preflight hand-off (c))",
+   "since": "2026-11-17T16:53:41Z",
+   "expires": "2026-11-17T20:53:41Z",
+   "release": "paid-overrides",
    "callers": {
-    "hold": [
-     "app/lib/AccountDomains.php",
-     "app/lib/Domains.php",
-     "app/lib/Gemini.php",
-     "app/lib/Geocoder.php",
-     "app/lib/PlaceFinder.php",
-     "app/lib/Preflight.php",
-     "app/lib/ServiceHealth.php",
-     "app/lib/TravelLegs.php",
-     "app/lib/Vectors.php",
-     "app/lib/stock/StockSource.php"
-    ]
-   }
-  },
-  {
-   "path": "app/lib/ServiceHealth.php",
-   "functions": [
-    "allowed",
-    "held"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5hmaQuy1GKHaPQhoen",
-   "why": "Every outside call asks StagingGate::hold() first; held calls say TEST MODE: ACTIVE (STAGE REPLIES ONLY) (Jason, 2026-11-17; decisions/0165)",
-   "since": "2026-11-17T16:49:24Z",
-   "expires": "2026-11-17T20:49:24Z",
-   "release": "staging-gate.zip",
-   "callers": {
-    "held": [
-     "app/lib/AiClient.php",
-     "app/lib/Dossier.php",
-     "app/lib/Geocoder.php",
-     "app/lib/MarketRules.php",
-     "app/lib/PlaceFinder.php",
-     "app/lib/Roads511.php",
-     "app/lib/TravelLegs.php",
-     "app/lib/Weather.php",
-     "app/lib/ZipPopulation.php",
-     "app/lib/stock/StockSource.php"
-    ],
-    "allowed": [
-     "app/lib/Gemini.php",
-     "app/lib/OpenPlaces.php",
-     "app/lib/StagingGate.php",
-     "app/lib/SystemStart.php",
-     "app/lib/Vectors.php"
-    ]
-   }
-  },
-  {
-   "path": "app/lib/Captcha.php",
-   "functions": [
-    "verify"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5hmaQuy1GKHaPQhoen",
-   "why": "Every outside call asks StagingGate::hold() first; held calls say TEST MODE: ACTIVE (STAGE REPLIES ONLY) (Jason, 2026-11-17; decisions/0165)",
-   "since": "2026-11-17T16:49:24Z",
-   "expires": "2026-11-17T20:49:24Z",
-   "release": "staging-gate.zip",
-   "callers": {
-    "verify": [
-     "app/lib/LikeGuard.php",
-     "website/api/auth/login.php",
-     "website/api/auth/password/request-reset.php",
-     "website/api/auth/register.php",
-     "website/pages/form.php",
-     "website/takedown.php"
+    "GATES": [
+     "app/admin/operations-console.php",
+     "app/admin/sections.php",
+     "app/lib/Operations.php",
+     "app/lib/WorkflowSettings.php"
     ]
    }
   },
   {
    "path": "app/lib/Operations.php",
    "functions": [
-    "get"
+    "(top)",
+    "CAPS"
    ],
    "kind": "change",
-   "session": "session_01CXLi5hmaQuy1GKHaPQhoen",
-   "why": "Every outside call asks StagingGate::hold() first; held calls say TEST MODE: ACTIVE (STAGE REPLIES ONLY) (Jason, 2026-11-17; decisions/0165)",
-   "since": "2026-11-17T16:49:24Z",
-   "expires": "2026-11-17T20:49:24Z",
-   "release": "staging-gate.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/RegionGate.php",
-   "functions": [
-    "refresh"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5hmaQuy1GKHaPQhoen",
-   "why": "Every outside call asks StagingGate::hold() first; held calls say TEST MODE: ACTIVE (STAGE REPLIES ONLY) (Jason, 2026-11-17; decisions/0165)",
-   "since": "2026-11-17T16:49:24Z",
-   "expires": "2026-11-17T20:49:24Z",
-   "release": "staging-gate.zip",
+   "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
+   "why": "Paid backups by a director's override, and Tavily to Brave (0163 source map, preflight hand-off (c))",
+   "since": "2026-11-17T16:53:41Z",
+   "expires": "2026-11-17T21:03:15Z",
+   "release": "paid-overrides.zip",
    "callers": {
-    "refresh": [
-     "app/scripts/region_tick.php"
+    "CAPS": [
+     "app/admin/operations-console.php"
     ]
    }
   },
   {
-   "path": "app/lib/DocsRepo.php",
+   "path": "app/lib/crawler/CrawlService.php",
    "functions": [
-    "http"
+    "plan",
+    "report"
    ],
    "kind": "change",
-   "session": "session_01CXLi5hmaQuy1GKHaPQhoen",
-   "why": "Every outside call asks StagingGate::hold() first; held calls say TEST MODE: ACTIVE (STAGE REPLIES ONLY) (Jason, 2026-11-17; decisions/0165)",
-   "since": "2026-11-17T16:49:24Z",
-   "expires": "2026-11-17T20:49:24Z",
-   "release": "staging-gate.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/Guides.php",
-   "functions": [
-    "deadLinks"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5hmaQuy1GKHaPQhoen",
-   "why": "Every outside call asks StagingGate::hold() first; held calls say TEST MODE: ACTIVE (STAGE REPLIES ONLY) (Jason, 2026-11-17; decisions/0165)",
-   "since": "2026-11-17T16:49:24Z",
-   "expires": "2026-11-17T20:49:24Z",
-   "release": "staging-gate.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/Weather.php",
-   "functions": [
-    "getMany"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5hmaQuy1GKHaPQhoen",
-   "why": "Every outside call asks StagingGate::hold() first; held calls say TEST MODE: ACTIVE (STAGE REPLIES ONLY) (Jason, 2026-11-17; decisions/0165)",
-   "since": "2026-11-17T16:49:24Z",
-   "expires": "2026-11-17T20:49:24Z",
-   "release": "staging-gate.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/StagingSite.php",
-   "functions": [
-    "barKeys",
-    "probe"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5hmaQuy1GKHaPQhoen",
-   "why": "Every outside call asks StagingGate::hold() first; held calls say TEST MODE: ACTIVE (STAGE REPLIES ONLY) (Jason, 2026-11-17; decisions/0165)",
-   "since": "2026-11-17T16:49:24Z",
-   "expires": "2026-11-17T20:49:24Z",
-   "release": "staging-gate.zip",
+   "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
+   "why": "Paid backups by a director's override, and Tavily to Brave (0163 source map, preflight hand-off (c))",
+   "since": "2026-11-17T16:53:41Z",
+   "expires": "2026-11-17T21:03:15Z",
+   "release": "paid-overrides.zip",
    "callers": {
-    "barKeys": [
-     "app/lib/Releases.php"
-    ]
-   }
-  },
-  {
-   "path": "app/lib/CPanelMail.php",
-   "functions": [
-    "call"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5hmaQuy1GKHaPQhoen",
-   "why": "Every outside call asks StagingGate::hold() first; held calls say TEST MODE: ACTIVE (STAGE REPLIES ONLY) (Jason, 2026-11-17; decisions/0165)",
-   "since": "2026-11-17T16:49:24Z",
-   "expires": "2026-11-17T20:49:24Z",
-   "release": "staging-gate.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/SesMail.php",
-   "functions": [
-    "signed"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5hmaQuy1GKHaPQhoen",
-   "why": "Every outside call asks StagingGate::hold() first; held calls say TEST MODE: ACTIVE (STAGE REPLIES ONLY) (Jason, 2026-11-17; decisions/0165)",
-   "since": "2026-11-17T16:49:24Z",
-   "expires": "2026-11-17T20:49:24Z",
-   "release": "staging-gate.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/crawler/SiteFetcher.php",
-   "functions": [
-    "request"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5hmaQuy1GKHaPQhoen",
-   "why": "Every outside call asks StagingGate::hold() first; held calls say TEST MODE: ACTIVE (STAGE REPLIES ONLY) (Jason, 2026-11-17; decisions/0165)",
-   "since": "2026-11-17T16:49:24Z",
-   "expires": "2026-11-17T20:49:24Z",
-   "release": "staging-gate.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/S3.php",
-   "functions": [
-    "put"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5hmaQuy1GKHaPQhoen",
-   "why": "Every outside call asks StagingGate::hold() first; held calls say TEST MODE: ACTIVE (STAGE REPLIES ONLY) (Jason, 2026-11-17; decisions/0165)",
-   "since": "2026-11-17T16:49:24Z",
-   "expires": "2026-11-17T20:49:24Z",
-   "release": "staging-gate.zip",
-   "callers": {
-    "put": [
-     "app/lib/MemberPosts.php",
-     "app/lib/Store.php"
-    ]
-   }
-  },
-  {
-   "path": "app/lib/SocialAuth.php",
-   "functions": [
-    "httpGet",
-    "jwks"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5hmaQuy1GKHaPQhoen",
-   "why": "Every outside call asks StagingGate::hold() first; held calls say TEST MODE: ACTIVE (STAGE REPLIES ONLY) (Jason, 2026-11-17; decisions/0165)",
-   "since": "2026-11-17T16:49:24Z",
-   "expires": "2026-11-17T20:49:24Z",
-   "release": "staging-gate.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/SiteHealth.php",
-   "functions": [
-    "fetch"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5hmaQuy1GKHaPQhoen",
-   "why": "Every outside call asks StagingGate::hold() first; held calls say TEST MODE: ACTIVE (STAGE REPLIES ONLY) (Jason, 2026-11-17; decisions/0165)",
-   "since": "2026-11-17T16:49:24Z",
-   "expires": "2026-11-17T20:49:24Z",
-   "release": "staging-gate.zip",
-   "callers": {
-    "fetch": [
-     "app/lib/Pulse.php"
-    ]
-   }
-  },
-  {
-   "path": "app/lib/QuickBooksPay.php",
-   "functions": [
-    "http"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5hmaQuy1GKHaPQhoen",
-   "why": "Every outside call asks StagingGate::hold() first; held calls say TEST MODE: ACTIVE (STAGE REPLIES ONLY) (Jason, 2026-11-17; decisions/0165)",
-   "since": "2026-11-17T16:49:24Z",
-   "expires": "2026-11-17T20:49:24Z",
-   "release": "staging-gate.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/ResourceGuides.php",
-   "functions": [
-    "check",
-    "fetch"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5hmaQuy1GKHaPQhoen",
-   "why": "Every outside call asks StagingGate::hold() first; held calls say TEST MODE: ACTIVE (STAGE REPLIES ONLY) (Jason, 2026-11-17; decisions/0165)",
-   "since": "2026-11-17T16:49:24Z",
-   "expires": "2026-11-17T20:49:24Z",
-   "release": "staging-gate.zip",
-   "callers": {
-    "check": [
-     "website/admin/resource-guides.php",
-     "website/admin/search-oversight.php"
+    "plan": [
+     "website/api/crawl/service.php"
     ],
-    "fetch": [
-     "app/lib/Situations.php"
+    "report": [
+     "website/api/crawl/service.php"
     ]
    }
   },
   {
-   "path": "app/lib/Releases.php",
+   "path": "app/lib/IdentityJobs.php",
    "functions": [
-    "fetch",
-    "runStagingMigrations"
+    "complete"
    ],
    "kind": "change",
-   "session": "session_01CXLi5hmaQuy1GKHaPQhoen",
-   "why": "Every outside call asks StagingGate::hold() first; held calls say TEST MODE: ACTIVE (STAGE REPLIES ONLY) (Jason, 2026-11-17; decisions/0165)",
-   "since": "2026-11-17T16:49:24Z",
-   "expires": "2026-11-17T20:49:24Z",
-   "release": "staging-gate.zip",
+   "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
+   "why": "Paid backups by a director's override, and Tavily to Brave (0163 source map, preflight hand-off (c))",
+   "since": "2026-11-17T16:53:41Z",
+   "expires": "2026-11-17T21:03:15Z",
+   "release": "paid-overrides.zip",
    "callers": {
-    "fetch": [
-     "app/lib/OutsideServices.php",
-     "app/lib/Pulse.php",
-     "app/lib/Scheduler.php",
-     "app/lib/StagingApi.php",
-     "app/lib/StagingPublish.php",
-     "app/lib/StagingSite.php"
+    "complete": [
+     "website/api/crawl/identity.php"
     ]
    }
   },
   {
-   "path": "app/lib/GoogleAuth.php",
-   "functions": [
-    "googleCerts",
-    "httpPost"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5hmaQuy1GKHaPQhoen",
-   "why": "Every outside call asks StagingGate::hold() first; held calls say TEST MODE: ACTIVE (STAGE REPLIES ONLY) (Jason, 2026-11-17; decisions/0165)",
-   "since": "2026-11-17T16:49:24Z",
-   "expires": "2026-11-17T20:49:24Z",
-   "release": "staging-gate.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/CPanel.php",
-   "functions": [
-    "get"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5hmaQuy1GKHaPQhoen",
-   "why": "Every outside call asks StagingGate::hold() first; held calls say TEST MODE: ACTIVE (STAGE REPLIES ONLY) (Jason, 2026-11-17; decisions/0165)",
-   "since": "2026-11-17T16:49:24Z",
-   "expires": "2026-11-17T20:49:24Z",
-   "release": "staging-gate.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/AuditClock.php",
-   "functions": [
-    "http"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5hmaQuy1GKHaPQhoen",
-   "why": "Every outside call asks StagingGate::hold() first; held calls say TEST MODE: ACTIVE (STAGE REPLIES ONLY) (Jason, 2026-11-17; decisions/0165)",
-   "since": "2026-11-17T16:49:24Z",
-   "expires": "2026-11-17T20:49:24Z",
-   "release": "staging-gate.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/ZipPopulation.php",
-   "functions": [
-    "fetch"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5hmaQuy1GKHaPQhoen",
-   "why": "Every outside call asks StagingGate::hold() first; held calls say TEST MODE: ACTIVE (STAGE REPLIES ONLY) (Jason, 2026-11-17; decisions/0165)",
-   "since": "2026-11-17T16:49:24Z",
-   "expires": "2026-11-17T20:49:24Z",
-   "release": "staging-gate.zip",
-   "callers": {
-    "fetch": [
-     "app/lib/PlaceProfile.php",
-     "app/scripts/import_zip_population.php",
-     "website/admin/cluster-tools.php"
-    ]
-   }
-  },
-  {
-   "path": "app/lib/StockLibrary.php",
-   "functions": [
-    "copy"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5hmaQuy1GKHaPQhoen",
-   "why": "Every outside call asks StagingGate::hold() first; held calls say TEST MODE: ACTIVE (STAGE REPLIES ONLY) (Jason, 2026-11-17; decisions/0165)",
-   "since": "2026-11-17T16:49:24Z",
-   "expires": "2026-11-17T20:49:24Z",
-   "release": "staging-gate.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/Aws.php",
-   "functions": [
-    "request"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5hmaQuy1GKHaPQhoen",
-   "why": "Every outside call asks StagingGate::hold() first; held calls say TEST MODE: ACTIVE (STAGE REPLIES ONLY) (Jason, 2026-11-17; decisions/0165)",
-   "since": "2026-11-17T16:49:24Z",
-   "expires": "2026-11-17T20:49:24Z",
-   "release": "staging-gate.zip",
-   "callers": {
-    "request": [
-     "app/lib/crawler/SecondTier.php"
-    ]
-   }
-  },
-  {
-   "path": "app/lib/MarketPay.php",
-   "functions": [
-    "http"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5hmaQuy1GKHaPQhoen",
-   "why": "Every outside call asks StagingGate::hold() first; held calls say TEST MODE: ACTIVE (STAGE REPLIES ONLY) (Jason, 2026-11-17; decisions/0165)",
-   "since": "2026-11-17T16:49:24Z",
-   "expires": "2026-11-17T20:49:24Z",
-   "release": "staging-gate.zip",
-   "callers": {}
-  },
-  {
-   "path": "website/api/ses-events.php",
+   "path": "app/lib/Preflight.php",
    "functions": [],
    "kind": "change",
-   "session": "session_01CXLi5hmaQuy1GKHaPQhoen",
-   "why": "Every outside call asks StagingGate::hold() first; held calls say TEST MODE: ACTIVE (STAGE REPLIES ONLY) (Jason, 2026-11-17; decisions/0165)",
-   "since": "2026-11-17T16:49:24Z",
-   "expires": "2026-11-17T20:49:24Z",
-   "release": "staging-gate.zip",
+   "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
+   "why": "Paid backups by override (zip check's attribution: constants at the top)",
+   "since": "2026-11-17T16:53:41Z",
+   "expires": "2026-11-17T21:03:15Z",
+   "release": "paid-overrides.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/PaidOverride.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
+   "why": "Paid backups by a director's override, and Tavily to Brave (0163 source map, preflight hand-off (c))",
+   "since": "2026-11-17T16:53:46Z",
+   "expires": "2026-11-17T21:03:15Z",
+   "release": "paid-overrides.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/crawler/PageRead.php",
+   "functions": [
+    "tick"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
+   "why": "Claude as the paid backup after Gemini for page reading, by override (0163 source map)",
+   "since": "2026-11-17T16:53:54Z",
+   "expires": "2026-11-17T21:03:15Z",
+   "release": "paid-overrides.zip",
+   "callers": {
+    "tick": [
+     "app/scripts/page_read_tick.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/Thresholds.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
+   "why": "release paid-overrides.zip",
+   "since": "2026-11-17T16:55:52Z",
+   "expires": "2026-11-17T21:03:15Z",
+   "release": "paid-overrides.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/crawler/Verify.php",
+   "functions": [
+    "(top)",
+    "KINDS"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
+   "why": "A Google match (paid backup, by override) raises a new find's confidence in the second look; never keepable (Jason, 2026-11-17)",
+   "since": "2026-11-17T17:02:37Z",
+   "expires": "2026-11-17T21:03:15Z",
+   "release": "paid-overrides.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/crawler/AutoImport.php",
+   "functions": [
+    "(top)",
+    "evaluate"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
+   "why": "A Google match (paid backup, by override) raises a new find's confidence in the second look; never keepable (Jason, 2026-11-17)",
+   "since": "2026-11-17T17:02:37Z",
+   "expires": "2026-11-17T21:03:15Z",
+   "release": "paid-overrides.zip",
+   "callers": {
+    "evaluate": [
+     "app/lib/GuideLinks.php",
+     "app/lib/Helper.php",
+     "app/lib/Thresholds.php",
+     "app/lib/crawler/Verify.php",
+     "website/admin/crawler-review.php",
+     "website/admin/review-item.php",
+     "website/api/health.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/crawler/AutoImport.php",
+   "functions": [
+    "isGoogleHost"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
+   "why": "A Google match (paid backup, by override) raises a new find's confidence in the second look; never keepable (Jason, 2026-11-17)",
+   "since": "2026-11-17T17:02:40Z",
+   "expires": "2026-11-17T21:02:40Z",
+   "release": "paid-overrides",
    "callers": {}
   }
  ],
