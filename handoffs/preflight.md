@@ -204,15 +204,17 @@ The page that pressed Run all now follows the run live. Before, it waited for `s
 
 Files: `website/js/admin-preflight.js`, `website/admin/api.php`, `app/admin/preflight-console.php`.
 
-## hub-gate-preflight (2026-11-17, built on Sync 18:36 UTC)
+## hub-gate-preflight-2 (2026-11-17, built on Sync 18:36 UTC; replaces hub-gate-preflight, never sent)
 
-After Start, the switch-on check held on 20 "Opening a geo-hub" lines. There were two causes in `HubOpening::hubs()`/`lines()`:
-- A hub with no `hub_stages` row defaulted to Open, so all 20 continental hubs got a line.
-- A hub with no state got `sources($pdo, '')`, which returns every state's sources, so each one was red on AZ's unread terms.
+After Start, the switch-on check held the master on 20 "Opening a geo-hub" lines. There were three causes:
+- A hub with no `hub_stages` row defaulted to Open.
+- A hub with no state got `sources($pdo, '')`, which returns every state's sources.
+- The hub lines held everything (scope 'all').
 
-The fix:
-- A hub's stage now comes from `hubs.status` when no stage row is set (`'planned'` means Planned).
-- A hub with no state gets no sources, and its line is green.
-- The pre-flight's new `site:switchon` line is needed for launch. It holds every red line Start's check step would hold on, leaving out keys and the schedule.
+The fix (Jason, 2026-11-17; 0163 §10's note; 0170 §2):
+- A hub's stage now comes from `hubs.status` when no stage row is set.
+- A hub's sources are those of its own states (`states`: every state of its micro-clusters' zips). It has none when no state is known.
+- The hub lines' scope is **W14**, so they hold W14 only.
+- The pre-flight's `site:switchon` is red only for lines that hold everything; a part's red lines are named but don't count.
 
-Still red until Jason reads the terms: Ancient America, held by AZ's and NM's staged sources whose terms aren't read (Pulse → Hubs). Proposed, and waiting on Jason: the hub lines would hold W14 instead of the master.
+After it ships, Ancient America's line stays red for W14 alone until AZ's and NM's terms are read in Pulse → Hubs. Start's master no longer waits on it.
