@@ -30,33 +30,47 @@
   {
    "path": "app/lib/Preflight.php",
    "functions": [
+    "finished",
+    "results",
     "runAll",
+    "stopRun",
     "tick"
    ],
    "kind": "change",
    "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
-   "why": "Pre-flight's Run all runs on the server and keeps going when the page closes; the page shows its progress (Jason, 2026-11-17)",
+   "why": "Pre-flight server run: the run's own record kept out of the lines' results",
    "since": "2026-11-17T18:11:12Z",
-   "expires": "2026-11-17T22:11:12Z",
+   "expires": "2026-11-17T22:12:30Z",
    "release": "preflight-server-run",
    "callers": {
     "tick": [
      "app/scripts/preflight_tick.php"
+    ],
+    "finished": [
+     "website/admin/api.php"
+    ],
+    "results": [
+     "app/ui/outside-services.php"
     ]
    }
   },
   {
    "path": "app/admin/preflight-console.php",
    "functions": [
-    "tv_admin_mod_preflight"
+    "tv_admin_mod_preflight",
+    "tv_preflight_log"
    ],
    "kind": "change",
    "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
-   "why": "Pre-flight's Run all runs on the server and keeps going when the page closes; the page shows its progress (Jason, 2026-11-17)",
+   "why": "Pre-flight server run: the run's own record kept out of the lines' results",
    "since": "2026-11-17T18:11:12Z",
-   "expires": "2026-11-17T22:11:12Z",
+   "expires": "2026-11-17T22:12:30Z",
    "release": "preflight-server-run",
-   "callers": {}
+   "callers": {
+    "tv_preflight_log": [
+     "website/admin/api.php"
+    ]
+   }
   },
   {
    "path": "website/admin/api.php",
