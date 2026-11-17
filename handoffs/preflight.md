@@ -145,7 +145,7 @@ Check-out release names: `preflight` (release 1), `outside-table` (release 2, no
   Mexico registry requests (decisions/0164 §7.1's note), heritage's Commons licence call, his OK on that note, and his
   pre-flight run before Start the system.
 
-- **`preflight-server-run-2.zip`** (Jason via the session manager, 2026-11-17: "Preflight only works if I stay on that
+- **Live as #107** (Sync 18:36 UTC, all files verified; the `-3` rename never merged and wasn't sent). **`preflight-server-run-2.zip`** (Jason via the session manager, 2026-11-17: "Preflight only works if I stay on that
   page"; built on Sync 18:09 UTC; replaces `preflight-server-run.zip`, never taken): Run all runs on the server. **Changed
   after review (Jason):** an interrupted run is never resumed by itself: it's marked Interrupted and waits for Continue or
   Cancel (the page asks on open; Run all asks Continue / Start a new run / Cancel via `TvAsk.choose`; Pulse steps
@@ -166,6 +166,13 @@ Check-out release names: `preflight` (release 1), `outside-table` (release 2, no
   `search_index_state.v` was VARCHAR(200), cut silently on live: Start the system's state, W0's flagged list,
   Geofabrik's probe, identity:last_run, worker:keys, search presets and Gemini's comparison were all longer than 200. New
   pre-flight line `site:state` (needed for launch): a ~4,800-character value written and read back.
+
+- **Jason's pre-flight, 18:29 UTC (after #107):** 110 ready, 14 on a backup, 2 not ready (both optional), none needed for
+  launch: clear for Start the system. "Long settings are kept whole" OK (4,827 characters back whole). W1 on a backup:
+  Places on Overture until the Geofabrik copy loads (a W1 task), Health providers on the live NPI Registry (our copy 48
+  days old, over 45). Optional reds: OpenStreetMap (the 3 free Overpass servers time out) and the AZ Corporation
+  Commission line, which still tests `ecorp.azcc.gov` (gone; the register moved to `arizonabusinesscenter.azcc.gov`,
+  which answers us 403): follow-up, point `Preflight::test` case `azcc` at the new host and say it's blocked.
 
 ## How it works
 
