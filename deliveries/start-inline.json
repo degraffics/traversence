@@ -3,20 +3,20 @@
  "built_on": "3e098aa Sync: 2026-11-17 19:33 UTC",
  "recorded": "2026-11-17 20:00 UTC",
  "note": "Start the system self-contained; built on Sync 19:33 UTC Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "e64b8ed Sync: 2026-11-17 20:04 UTC",
  "files": {
   "app/admin/automation-console.php": {
    "sha256": "5edb8eed0973077f64667a345b5df2ef5dd1cec6c09cc95f62fbac42bf91810a",
-   "live": false
+   "live": true
   },
   "app/lib/SystemStart.php": {
    "sha256": "58e76792c9b7a36f02ea669040663dcd71b7e69035ec8d569dafa0be280ab8e0",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "413443ac2da9db0fa474058252108e27754c268a83555a8ad6fc88c972ae5d0a",
-   "live": false
+   "live": true
   }
  }
 }
