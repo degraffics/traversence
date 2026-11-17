@@ -2,21 +2,6 @@
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
  "claims": [
   {
-   "path": "app/lib/AccountDomains.php",
-   "functions": [
-    "VERIFY_TELL",
-    "resendVerify",
-    "verifyTick"
-   ],
-   "kind": "add",
-   "session": "domain-verify",
-   "why": "Domains: per-year cost on multi-year terms; a follow-up for the registrant's contact verification until it's resolved (Jason, 2026-11-17)",
-   "since": "2026-11-17T13:15:21Z",
-   "expires": "2026-11-17T17:15:21Z",
-   "release": "",
-   "callers": {}
-  },
-  {
    "path": "app/lib/Domains.php",
    "functions": [
     "priceList"
@@ -325,9 +310,111 @@
    "expires": "2026-11-17T21:15:18Z",
    "release": "refresh-archive",
    "callers": {}
+  },
+  {
+   "path": "app/lib/Mailer.php",
+   "functions": [
+    "send"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
+   "why": "(c2) the source map's fallbacks: site email Bluehost SMTP then Amazon SES, weather link when hidden, events retried next day (0163)",
+   "since": "2026-11-17T17:18:03Z",
+   "expires": "2026-11-17T21:18:03Z",
+   "release": "refresh-archive",
+   "callers": {
+    "send": [
+     "app/admin/Workflow.php",
+     "app/admin/tools.php",
+     "app/lib/AccountDeletion.php",
+     "app/lib/AccountDomains.php",
+     "app/lib/AddBusiness.php",
+     "app/lib/AiAssist.php",
+     "app/lib/Billing.php",
+     "app/lib/BizQuotes.php",
+     "app/lib/Claims.php",
+     "app/lib/ClientOrders.php",
+     "app/lib/Clients.php",
+     "app/lib/Collateral.php",
+     "app/lib/DailyReport.php",
+     "app/lib/Gallery.php",
+     "app/lib/GalleryModes.php",
+     "app/lib/GuestInquiries.php",
+     "app/lib/GuideAudits.php",
+     "app/lib/Inform.php",
+     "app/lib/Market.php",
+     "app/lib/MarketCheckout.php",
+     "app/lib/MarketOffers.php",
+     "app/lib/OnDemand.php",
+     "app/lib/OneOffs.php",
+     "app/lib/Orders.php",
+     "app/lib/People.php",
+     "app/lib/Promotions.php",
+     "app/lib/Pulse.php",
+     "app/lib/QrIssue.php",
+     "app/lib/Releases.php",
+     "app/lib/Sales.php",
+     "app/lib/Services.php",
+     "app/lib/SocialAuth.php",
+     "app/lib/StaffLogin.php",
+     "app/lib/StagingApi.php",
+     "app/lib/StagingPublish.php",
+     "app/lib/StagingSite.php",
+     "app/lib/Standing.php",
+     "app/lib/SuggestionActions.php",
+     "app/lib/SupportAccess.php",
+     "app/lib/Takedowns.php",
+     "app/lib/Team.php",
+     "app/lib/Vault.php",
+     "app/lib/Vendors.php",
+     "app/lib/VerifyRequests.php",
+     "app/lib/Wallet.php",
+     "app/lib/WorkOrders.php",
+     "website/api/auth/change-password.php",
+     "website/api/auth/email/confirm-change.php",
+     "website/api/auth/email/request-change.php",
+     "website/api/auth/password/request-reset.php",
+     "website/api/auth/register.php",
+     "website/api/auth/resend-confirmation.php",
+     "website/q.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/LiveEvents.php",
+   "functions": [
+    "tick"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
+   "why": "(c2) the source map's fallbacks: site email Bluehost SMTP then Amazon SES, weather link when hidden, events retried next day (0163)",
+   "since": "2026-11-17T17:18:03Z",
+   "expires": "2026-11-17T21:18:03Z",
+   "release": "refresh-archive",
+   "callers": {
+    "tick": [
+     "app/scripts/guide_finds_tick.php"
+    ]
+   }
   }
  ],
  "lapsed": [
+  {
+   "path": "app/lib/AccountDomains.php",
+   "functions": [
+    "VERIFY_TELL",
+    "resendVerify",
+    "verifyTick"
+   ],
+   "kind": "add",
+   "session": "domain-verify",
+   "why": "Domains: per-year cost on multi-year terms; a follow-up for the registrant's contact verification until it's resolved (Jason, 2026-11-17)",
+   "since": "2026-11-17T13:15:21Z",
+   "expires": "2026-11-17T17:15:21Z",
+   "release": "",
+   "callers": {},
+   "lapsed": "2026-11-17T17:18:03Z"
+  },
   {
    "path": "app/lib/AccountDomains.php",
    "functions": [
