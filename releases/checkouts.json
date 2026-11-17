@@ -43,8 +43,8 @@
    "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
    "why": "Start the system's card as a queue like the pre-flight; check step done when only parts are held (Jason, 2026-11-17)",
    "since": "2026-11-17T18:49:42Z",
-   "expires": "2026-11-17T23:29:06Z",
-   "release": "switchon-group-2",
+   "expires": "2026-11-17T23:29:10Z",
+   "release": "switchon-group-2.zip",
    "callers": {
     "lines": [
      "app/admin/preflight-console.php"
@@ -70,8 +70,8 @@
    "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
    "why": "Check before switching on as a pre-flight group: line by line on the server, run log, filters; one engine for the board, Start and the pre-flight (Jason, 2026-11-17)",
    "since": "2026-11-17T19:14:46Z",
-   "expires": "2026-11-17T23:23:54Z",
-   "release": "switchon-group.zip",
+   "expires": "2026-11-17T23:29:10Z",
+   "release": "switchon-group-2.zip",
    "callers": {}
   },
   {
@@ -81,9 +81,14 @@
    "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
    "why": "Start the system's card as a queue like the pre-flight; check step done when only parts are held (Jason, 2026-11-17)",
    "since": "2026-11-17T19:14:46Z",
-   "expires": "2026-11-17T23:29:06Z",
-   "release": "switchon-group-2",
-   "callers": {}
+   "expires": "2026-11-17T23:29:10Z",
+   "release": "switchon-group-2.zip",
+   "callers": {
+    "panel": [
+     "app/admin/automation-console.php",
+     "app/admin/operations-console.php"
+    ]
+   }
   },
   {
    "path": "app/admin/preflight-console.php",
@@ -94,8 +99,8 @@
    "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
    "why": "Check before switching on as a pre-flight group (Jason, 2026-11-17)",
    "since": "2026-11-17T19:23:51Z",
-   "expires": "2026-11-17T23:23:54Z",
-   "release": "switchon-group.zip",
+   "expires": "2026-11-17T23:29:10Z",
+   "release": "switchon-group-2.zip",
    "callers": {}
   },
   {
@@ -105,8 +110,8 @@
    "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
    "why": "Check before switching on as a pre-flight group (Jason, 2026-11-17)",
    "since": "2026-11-17T19:23:51Z",
-   "expires": "2026-11-17T23:23:54Z",
-   "release": "switchon-group.zip",
+   "expires": "2026-11-17T23:29:10Z",
+   "release": "switchon-group-2.zip",
    "callers": {}
   },
   {
@@ -116,8 +121,8 @@
    "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
    "why": "Check before switching on as a pre-flight group (Jason, 2026-11-17)",
    "since": "2026-11-17T19:23:51Z",
-   "expires": "2026-11-17T23:23:54Z",
-   "release": "switchon-group.zip",
+   "expires": "2026-11-17T23:29:10Z",
+   "release": "switchon-group-2.zip",
    "callers": {}
   },
   {
