@@ -6,12 +6,12 @@
     "zip": "domain-sales-switch.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "planned",
+    "state": "approved",
     "step": 0,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
-    "plan_at": null,
+    "plan_at": "2026-11-17 11:15:46",
     "staged_at": null,
     "vetted_at": null,
     "live_at": null,
@@ -59,6 +59,16 @@
             "at": "2026-11-17T11:15:44+00:00",
             "by": 0,
             "msg": "Uploaded domain-sales-switch.zip: 7 files."
+        },
+        {
+            "at": "2026-11-17T11:15:46+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/domain-sales-switch.zip (git 05b941b0b1)."
+        },
+        {
+            "at": "2026-11-17T11:15:46+00:00",
+            "by": 0,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
         }
     ]
 }
