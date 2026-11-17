@@ -68,6 +68,14 @@ integrate the domain buy process into the storefront process."
   order, with a Pulse case (Try again, Refund, Email the owner), and Something isn't right opens a support ticket (Jason:
   "Order processing should address situation like failed renewals and new purchases. And support tickets for
   issues."); no separate admin list of accounts' domains.
+- **Note, 2026-11-17 (Jason: "I did say domains where to be separated from storefronts right. Finding and buying was to
+  be its own process."):** the build had opened domain sales on `DOMAINS_MODE`, the storefront's "Own domains on
+  storefronts" setting. Domain sales now have their own switch, `DOMAIN_SALES_MODE` ("Domain sales": off, test or live;
+  unset is off), on the Name.com card beside `DOMAINS_MODE` and `NAMECOM_ENV`. It alone governs Shop → Domains, the
+  Domains tab's buying, renewals and auto-renew, and the wallet's domain charges; `DOMAINS_MODE` is the storefront's
+  Connect your domain only (0139). The sandbox rules hold on the new switch (test mode, test accounts, the staging copy;
+  live refused while `NAMECOM_ENV` is sandbox), and a sale's Name.com calls follow only the sales switch
+  (`Domains::forSales`). Release `domain-sales-switch`.
 
 ### 2. Apps belong to accounts, members and businesses alike
 
