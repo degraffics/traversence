@@ -323,6 +323,30 @@
    "expires": "2026-11-17T17:48:36Z",
    "release": "favicon-everywhere.zip",
    "callers": {}
+  },
+  {
+   "path": "website/js/admin-preflight.js",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5kGG8gG4QBmC4uzMzN",
+   "why": "Pre-flight: Run all resets every line and fills in like a log, with progress (Jason, 2026-11-17)",
+   "since": "2026-11-17T15:10:24Z",
+   "expires": "2026-11-17T19:10:24Z",
+   "release": "preflight-refresh",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/preflight-console.php",
+   "functions": [
+    "tv_admin_mod_preflight"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kGG8gG4QBmC4uzMzN",
+   "why": "Pre-flight: Run all resets every line and fills in like a log, with progress (Jason, 2026-11-17)",
+   "since": "2026-11-17T15:10:24Z",
+   "expires": "2026-11-17T19:10:24Z",
+   "release": "preflight-refresh",
+   "callers": {}
   }
  ],
  "lapsed": [
