@@ -238,6 +238,7 @@
   {
    "path": "app/lib/StagingGate.php",
    "functions": [
+    "(top)",
     "hold",
     "scanText"
    ],
@@ -245,7 +246,7 @@
    "session": "session_01CXLi5hmaQuy1GKHaPQhoen",
    "why": "Every outside call asks StagingGate::hold() first; held calls say TEST MODE: ACTIVE (STAGE REPLIES ONLY) (Jason, 2026-11-17; decisions/0165)",
    "since": "2026-11-17T16:49:24Z",
-   "expires": "2026-11-17T20:49:24Z",
+   "expires": "2026-11-17T20:53:23Z",
    "release": "staging-gate.zip",
    "callers": {
     "hold": [
@@ -266,13 +267,14 @@
    "path": "app/lib/ServiceHealth.php",
    "functions": [
     "allowed",
+    "dueProbes",
     "held"
    ],
    "kind": "change",
    "session": "session_01CXLi5hmaQuy1GKHaPQhoen",
    "why": "Every outside call asks StagingGate::hold() first; held calls say TEST MODE: ACTIVE (STAGE REPLIES ONLY) (Jason, 2026-11-17; decisions/0165)",
    "since": "2026-11-17T16:49:24Z",
-   "expires": "2026-11-17T20:49:24Z",
+   "expires": "2026-11-17T20:53:23Z",
    "release": "staging-gate.zip",
    "callers": {
     "held": [
@@ -293,6 +295,9 @@
      "app/lib/StagingGate.php",
      "app/lib/SystemStart.php",
      "app/lib/Vectors.php"
+    ],
+    "dueProbes": [
+     "app/lib/crawler/CrawlService.php"
     ]
    }
   },
