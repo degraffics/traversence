@@ -205,6 +205,12 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
        the pre-flight did (their own table), confirmed by the card's "Can't keep requests" line.
      **For Jason** (from the same report): `HF_TOKEN` and `BRAVE_API_KEY` on Railway's `traversence` service's Variables; `GITHUB_SYNC_TOKEN`
      expires Dec 16, 2026.
+     - **Menus have no reader** (from the source-map session, 2026-11-17, Jason's ask to queue it): decisions/0163's
+       map lists Google Document AI → Amazon Textract → Claude for menus (`AiClient::ROUTES`), but `providerFor` is
+       called only for 'card', `ai_worker.php` fails every 'menu' job ("No reader for \"menu\" yet"), and there's no
+       Document AI or Textract menu caller. Build a menu reader that tries each in order, falls to the next on failure
+       and logs each switch; every call through `StagingGate::hold()`, paid ones inside their caps, a business's
+       menu only ("no income, no expense": inside the business's plan).
      **Visual fixes** (Jason, 2026-11-17: "add to visual fixes queue"):
      - **Discovery's hero doesn't change between views** (Jason: "when I click regions it doesnt really feel like the
        page changes visually … The hero is not changing like it should"). `website/discovery/index.php` (lines ~497,
