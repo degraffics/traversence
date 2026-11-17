@@ -1,0 +1,18 @@
+{
+ "zip": "releases-fold.zip",
+ "built_on": "7275a5c Sync: 2026-11-17 13:15 UTC",
+ "recorded": "2026-11-17 13:16 UTC",
+ "note": "Releases page: each release folds to one line; open while it needs Jason; #rel-N opens it; remembered per release (Jason, 2026-11-17). Files: app/admin/sections.php (tv_admin_mod_releases), website/js/admin-releases.js. No FAQ entry: staff-only page. Built on Sync: 2026-11-17 13:15 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/admin/sections.php": {
+   "sha256": "51b25ba1ad4e2e1154713c5e8d2008c7980d99f45bc065c09074a6e5d4d194ff",
+   "live": false
+  },
+  "website/js/admin-releases.js": {
+   "sha256": "e664173f4a1740c346f7f6d0699be0d040b55f39baaf2a48c7be93037eab72be",
+   "live": false
+  }
+ }
+}

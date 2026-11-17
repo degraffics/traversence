@@ -91,250 +91,6 @@
    "callers": {}
   },
   {
-   "path": "app/lib/crawler/Frontier.php",
-   "functions": [],
-   "kind": "add",
-   "session": "w0-indexer",
-   "why": "W0 Indexer: every URL logged, the machine classifies, the frontier (decisions/0164 \u00a71.4 note)",
-   "since": "2026-11-17T12:51:47Z",
-   "expires": "2026-11-17T17:11:38Z",
-   "release": "w0-indexer-2.zip",
-   "callers": {}
-  },
-  {
-   "path": "website/api/crawl/index.php",
-   "functions": [],
-   "kind": "add",
-   "session": "w0-indexer",
-   "why": "W0 Indexer: every URL logged, the machine classifies, the frontier (decisions/0164 \u00a71.4 note)",
-   "since": "2026-11-17T12:51:47Z",
-   "expires": "2026-11-17T17:11:38Z",
-   "release": "w0-indexer-2.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/migrations/2027-03-12_w0_frontier.sql",
-   "functions": [],
-   "kind": "add",
-   "session": "w0-indexer",
-   "why": "W0 Indexer: every URL logged, the machine classifies, the frontier (decisions/0164 \u00a71.4 note)",
-   "since": "2026-11-17T12:51:47Z",
-   "expires": "2026-11-17T17:11:38Z",
-   "release": "w0-indexer-2.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/scripts/frontier_tick.php",
-   "functions": [],
-   "kind": "add",
-   "session": "w0-indexer",
-   "why": "W0 Indexer: every URL logged, the machine classifies, the frontier (decisions/0164 \u00a71.4 note)",
-   "since": "2026-11-17T12:51:47Z",
-   "expires": "2026-11-17T17:11:38Z",
-   "release": "w0-indexer-2.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/admin/index-console.php",
-   "functions": [],
-   "kind": "add",
-   "session": "w0-indexer",
-   "why": "W0 Indexer: every URL logged, the machine classifies, the frontier (decisions/0164 \u00a71.4 note)",
-   "since": "2026-11-17T12:51:47Z",
-   "expires": "2026-11-17T17:11:38Z",
-   "release": "w0-indexer-2.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/Thresholds.php",
-   "functions": [
-    "GATES"
-   ],
-   "kind": "add",
-   "session": "w0-indexer",
-   "why": "W0 Indexer: every URL logged, the machine classifies, the frontier (decisions/0164 \u00a71.4 note)",
-   "since": "2026-11-17T12:51:47Z",
-   "expires": "2026-11-17T17:11:38Z",
-   "release": "w0-indexer-2.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/admin/manifests.php",
-   "functions": [],
-   "kind": "add",
-   "session": "w0-indexer",
-   "why": "W0 Indexer: every URL logged, the machine classifies, the frontier (decisions/0164 \u00a71.4 note)",
-   "since": "2026-11-17T12:51:47Z",
-   "expires": "2026-11-17T17:11:38Z",
-   "release": "w0-indexer-2.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/admin/sections.php",
-   "functions": [],
-   "kind": "add",
-   "session": "w0-indexer",
-   "why": "W0 Indexer: every URL logged, the machine classifies, the frontier (decisions/0164 \u00a71.4 note)",
-   "since": "2026-11-17T12:51:47Z",
-   "expires": "2026-11-17T17:11:38Z",
-   "release": "w0-indexer-2.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/crawler/Sources.php",
-   "functions": [
-    "(top)",
-    "STATUSES",
-    "addLinked",
-    "ensureJudge",
-    "harvest",
-    "sweep"
-   ],
-   "kind": "change",
-   "session": "w0-indexer",
-   "why": "W0 Indexer: every URL logged, the machine classifies, the frontier (decisions/0164 \u00a71.4 note)",
-   "since": "2026-11-17T12:51:49Z",
-   "expires": "2026-11-17T17:11:38Z",
-   "release": "w0-indexer-2.zip",
-   "callers": {
-    "addLinked": [
-     "website/api/crawl/commoncrawl.php",
-     "website/api/crawl/sources.php"
-    ],
-    "sweep": [
-     "website/api/crawl/sources.php"
-    ],
-    "ensureJudge": [
-     "app/lib/crawler/SecondTier.php",
-     "website/api/crawl/commoncrawl.php"
-    ],
-    "STATUSES": [
-     "website/admin/sources.php"
-    ],
-    "harvest": [
-     "website/admin/sources.php"
-    ]
-   }
-  },
-  {
-   "path": "app/lib/crawler/SourceIndex.php",
-   "functions": [
-    "logPages"
-   ],
-   "kind": "change",
-   "session": "w0-indexer",
-   "why": "W0 Indexer: every URL logged, the machine classifies, the frontier (decisions/0164 \u00a71.4 note)",
-   "since": "2026-11-17T12:51:49Z",
-   "expires": "2026-11-17T17:11:38Z",
-   "release": "w0-indexer-2.zip",
-   "callers": {
-    "logPages": [
-     "app/lib/crawler/PageRead.php"
-    ]
-   }
-  },
-  {
-   "path": "app/lib/Automation.php",
-   "functions": [
-    "(top)",
-    "WORKFLOWS"
-   ],
-   "kind": "change",
-   "session": "w0-indexer",
-   "why": "W0 Indexer: every URL logged, the machine classifies, the frontier (decisions/0164 \u00a71.4 note)",
-   "since": "2026-11-17T12:51:49Z",
-   "expires": "2026-11-17T17:11:38Z",
-   "release": "w0-indexer-2.zip",
-   "callers": {
-    "WORKFLOWS": [
-     "app/admin/automation-console.php",
-     "app/admin/operations-console.php",
-     "app/lib/Clocks.php",
-     "app/lib/Operations.php",
-     "app/lib/SystemStart.php",
-     "app/lib/WorkflowSettings.php"
-    ]
-   }
-  },
-  {
-   "path": "app/lib/SystemStart.php",
-   "functions": [
-    "(top)",
-    "ORDER",
-    "gate",
-    "heldBy",
-    "runs",
-    "turnOn"
-   ],
-   "kind": "change",
-   "session": "w0-indexer",
-   "why": "W0 Indexer: every URL logged, the machine classifies, the frontier (decisions/0164 \u00a71.4 note)",
-   "since": "2026-11-17T12:51:49Z",
-   "expires": "2026-11-17T17:11:38Z",
-   "release": "w0-indexer-2.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/Operations.php",
-   "functions": [
-    "(top)",
-    "CAPS",
-    "pulseDo",
-    "pulseItems",
-    "pulseSteps",
-    "usage"
-   ],
-   "kind": "change",
-   "session": "w0-indexer",
-   "why": "W0 Indexer: every URL logged, the machine classifies, the frontier (decisions/0164 \u00a71.4 note)",
-   "since": "2026-11-17T12:51:49Z",
-   "expires": "2026-11-17T17:11:38Z",
-   "release": "w0-indexer-2.zip",
-   "callers": {
-    "CAPS": [
-     "app/admin/operations-console.php"
-    ],
-    "pulseItems": [
-     "app/lib/Pulse.php"
-    ],
-    "pulseSteps": [
-     "app/lib/Pulse.php"
-    ],
-    "pulseDo": [
-     "app/lib/Pulse.php"
-    ]
-   }
-  },
-  {
-   "path": "app/lib/OutsideServices.php",
-   "functions": [
-    "(top)",
-    "COMPANIES"
-   ],
-   "kind": "change",
-   "session": "w0-indexer",
-   "why": "W0 Indexer: every URL logged, the machine classifies, the frontier (decisions/0164 \u00a71.4 note)",
-   "since": "2026-11-17T12:51:49Z",
-   "expires": "2026-11-17T17:11:38Z",
-   "release": "w0-indexer-2.zip",
-   "callers": {
-    "COMPANIES": [
-     "app/admin/automation-console.php",
-     "app/admin/operations-console.php",
-     "app/admin/sections.php",
-     "app/lib/Automation.php",
-     "app/lib/Operations.php",
-     "app/lib/Pulse.php",
-     "app/lib/ServiceHealth.php",
-     "app/lib/StagingGate.php",
-     "app/lib/SystemStart.php",
-     "app/lib/WorkflowSettings.php",
-     "app/ui/outside-services.php",
-     "website/admin/api/find.php"
-    ]
-   }
-  },
-  {
    "path": "app/lib/AccountDomains.php",
    "functions": [
     "termsFor"
@@ -361,19 +117,6 @@
    "callers": {}
   },
   {
-   "path": "app/lib/Scheduler.php",
-   "functions": [
-    "(top)"
-   ],
-   "kind": "change",
-   "session": "w0-indexer",
-   "why": "release w0-indexer.zip",
-   "since": "2026-11-17T13:06:57Z",
-   "expires": "2026-11-17T17:11:38Z",
-   "release": "w0-indexer-2.zip",
-   "callers": {}
-  },
-  {
    "path": "app/admin/sections.php",
    "functions": [
     "(top)",
@@ -383,7 +126,7 @@
    "session": "releases-fold",
    "why": "Fold each release on the Releases page to one line; open the ones that need Jason (Jason, 2026-11-17)",
    "since": "2026-11-17T13:09:43Z",
-   "expires": "2026-11-17T17:15:53Z",
+   "expires": "2026-11-17T17:16:15Z",
    "release": "releases-fold.zip",
    "callers": {}
   },
@@ -405,7 +148,7 @@
    "session": "releases-fold",
    "why": "release releases-fold.zip",
    "since": "2026-11-17T13:11:21Z",
-   "expires": "2026-11-17T17:15:53Z",
+   "expires": "2026-11-17T17:16:15Z",
    "release": "releases-fold.zip",
    "callers": {}
   },
@@ -517,6 +260,19 @@
    "why": "Domains: per-year cost on multi-year terms; a follow-up for the registrant's contact verification until it's resolved (Jason, 2026-11-17)",
    "since": "2026-11-17T13:15:21Z",
    "expires": "2026-11-17T17:15:21Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/EnvSettings.php",
+   "functions": [
+    "choices"
+   ],
+   "kind": "change",
+   "session": "domain-verify",
+   "why": "Domain sales Off: the choice's wording corrected (auto-renew stops with it)",
+   "since": "2026-11-17T13:16:32Z",
+   "expires": "2026-11-17T17:16:32Z",
    "release": "",
    "callers": {}
   }
