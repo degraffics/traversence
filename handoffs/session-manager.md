@@ -170,6 +170,15 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
        a grant to service_role (Jason ran these by hand on 2026-11-16).
      - Admin search on a phone (seen 2026-11-17, 390px): a result's where-it-lives line takes the row, so names shrink
        to "Na…", "Bus…", "Em…". On phones, put that line under the name, full width.
+     - From the pre-flight's first report (2026-11-17): `Domains::fly` sends a FlyV1 macaroon as `Bearer`, so the edge's
+       certificate calls fail with a token from `fly tokens create`; 36 outside calls skip `StagingGate::hold()`
+       (`StagingGate::scan`, older than the pre-flight); `Operations::switchOnCheck` holds W1, W2, W3, W11 and W12 for
+       `BRAVE_API_KEY` though Tavily is the search (asked of Jason, no answer yet).
+     - Outside requests don't save (Name.com ticket #3113488, after #84/#87/#89): likely the same cause the pre-flight
+       found in `search_index_state.v`, a live column shorter than the code assumes, cutting the JSON silently; fix as
+       the pre-flight did (their own table), confirmed by the card's "Can't keep requests" line.
+     **For Jason** (from the same report): `HF_TOKEN` missing on Railway's `traversence` service; `GITHUB_SYNC_TOKEN`
+     expires Dec 16, 2026.
      **To purge or remove** (Jason, 2026-11-17: "put anything that needs to be purged or removed into queue under
      cleanup stage"). Each is checked against the live site first and removed only with Jason's OK where marked ⚑:
      - **Amazon S3:** empty the old bucket `traversence-media` (from 2026-11-18, once a week on R2 shows nothing missing;
