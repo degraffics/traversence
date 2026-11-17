@@ -32,17 +32,19 @@
    "functions": [
     "lines",
     "logSet",
+    "phase",
     "startRun",
     "summary",
     "test",
-    "work"
+    "work",
+    "workflow"
    ],
    "kind": "change",
    "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
-   "why": "Check before switching on as a pre-flight group: line by line on the server, run log, filters; one engine for the board, Start and the pre-flight (Jason, 2026-11-17)",
+   "why": "Start the system's card as a queue like the pre-flight; check step done when only parts are held (Jason, 2026-11-17)",
    "since": "2026-11-17T18:49:42Z",
-   "expires": "2026-11-17T23:23:54Z",
-   "release": "switchon-group.zip",
+   "expires": "2026-11-17T23:29:06Z",
+   "release": "switchon-group-2",
    "callers": {
     "lines": [
      "app/admin/preflight-console.php"
@@ -77,10 +79,10 @@
    "functions": [],
    "kind": "change",
    "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
-   "why": "Check before switching on as a pre-flight group: line by line on the server, run log, filters; one engine for the board, Start and the pre-flight (Jason, 2026-11-17)",
+   "why": "Start the system's card as a queue like the pre-flight; check step done when only parts are held (Jason, 2026-11-17)",
    "since": "2026-11-17T19:14:46Z",
-   "expires": "2026-11-17T23:14:46Z",
-   "release": "switchon-group",
+   "expires": "2026-11-17T23:29:06Z",
+   "release": "switchon-group-2",
    "callers": {}
   },
   {
