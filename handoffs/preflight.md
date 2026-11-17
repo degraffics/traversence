@@ -87,8 +87,24 @@ Check-out release names: `preflight` (release 1), `outside-table` (release 2, no
   Our copy is "fresh" for 45 days (OpenPlaces::COPY_DAYS). Places deleted in OpenStreetMap stay in open_places (keep()
   only replaces); a cleanup per load is a follow-up. The site's own nearby search (OpenPlaces::near) still asks Overpass
   for a stale spot; it could skip the ask in a loaded state (follow-up).
-- **Next, (c)** (ask Jason first): the paid-backup overrides (a director's switch per need, a cap in Thresholds, logged,
-  shown on the need's line) and the other workflows' fallbacks in the source map's order.
+- **(c1) `paid-overrides.zip`** (Jason: "go on c", 2026-11-17; built on Sync 16:48 UTC): `app/lib/PaidOverride.php` (new:
+  NEEDS confirm → Google Places, prose → Claude; state, usable, runAllowance (at most 3 a run), recordRun → month count in
+  `po:confirm:*` and the cost ledger as google_places W2 identity); Thresholds gates `po_places_confirm` (checks a month)
+  and `po_claude_prose` (dollars a month), 0 = off, on the Service register (Operations::CAPS); CrawlService plan sends
+  `paid_backups`, report reads `paid_used`; PageRead: on Gemini's failure, Claude by override, charged `po:prose`;
+  IdentityJobs accepts checked `google`; Preflight source `['paid', need]` last on confirm and prose. Crawler 2.10.0:
+  `search()` Tavily → Brave (held or failed), `SEARCH_SWITCHES` in the report; `google_confirm()` in identity_jobs only when
+  nothing free found it (its Maps link as `social`/`evidence`, OPERATIONAL only). Tests: `workers/crawler/tests/test_paid.py`.
+  Not done: W1's second look (staged finds) doesn't take a Google match: Verify::KINDS has no Google kind, and whether a
+  Google match may count toward a staged find's publishing is Jason's call.
+- **Next, (c2): the other workflows' fallbacks** (audit 2026-11-17, in map order): W2 refresh (no last copy, no Common
+  Crawl before a website is taken off; medium), W2 missing phone/website (open_places/npi_orgs not read first; medium),
+  W2 map points (open_places points before Census; Census failure should wait, not fail; small), W2 still open (put our
+  copies' flagged listings first; small), W1 official places (Wikidata failure reported done; small), W1 confirm's free
+  part (npi_orgs/irs_orgs first; AZCC and NM SOS readers don't exist; large), W3 sources (Common Crawl per page before
+  Tavily Extract; medium), W6 heritage (only the Library of Congress; medium), W8 Find it (open_places, Tavily → Brave;
+  medium), W10 events (an error waits 7 days; medium), site email (no SES fallback; medium), file storage, menus' runtime
+  failover, weather's link when hidden, stock photos' order.
 
 ## How it works
 
