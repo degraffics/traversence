@@ -98,14 +98,42 @@ Check-out release names: `preflight` (release 1), `outside-table` (release 2, no
   The second look takes a Google match too (Jason, 2026-11-17: "google match is a good thing"): Verify::KINDS `google`, a
   reference that raises a new find's confidence (about +10 × its record); AutoImport::isGoogleHost keeps Google out of the
   keepable hosts, so it never passes the "real business" floor by itself.
-- **Next, (c2): the other workflows' fallbacks** (audit 2026-11-17, in map order): W2 refresh (no last copy, no Common
-  Crawl before a website is taken off; medium), W2 missing phone/website (open_places/npi_orgs not read first; medium),
-  W2 map points (open_places points before Census; Census failure should wait, not fail; small), W2 still open (put our
-  copies' flagged listings first; small), W1 official places (Wikidata failure reported done; small), W1 confirm's free
-  part (npi_orgs/irs_orgs first; AZCC and NM SOS readers don't exist; large), W3 sources (Common Crawl per page before
-  Tavily Extract; medium), W6 heritage (only the Library of Congress; medium), W8 Find it (open_places, Tavily → Brave;
-  medium), W10 events (an error waits 7 days; medium), site email (no SES fallback; medium), file storage, menus' runtime
-  failover, weather's link when hidden, stock photos' order.
+- **(c2) `refresh-archive.zip`**, one release for all of (c2) (Jason, 2026-11-17: "do the full build so I only approve once";
+  built on Sync 17:05 UTC; crawler 2.12.0). W2 re-read: Common Crawl's copy (`cc_home`) when a website doesn't load;
+  `Refresh::siteResult` sends it to Review instead of taking it off when the copy is within 90 days; an empty description
+  only, dated. W3 sources: Common Crawl's copy before Tavily Extract (`read_source`; CC_COPY_MAX 12 a run). W2 missing
+  phone: `IdentityJobs::local` (npi_orgs by street number and ZIP, rec_places by name and ZIP) sent as the job's `local`,
+  merged first by `identity_jobs`. W2 map points: `api/crawl/geocode.php` answers `waits` when the Census fails; the worker
+  raises ServiceHeld. W2 still open: `api/crawl/places.php` orders closed_signal first. W1 official places: a Wikidata
+  failure marks the job partial. W8: `DeepLook::fromOurCopy` (open_places) before Overpass. Site email: `Mailer::send` →
+  `smtp()` then `viaSes()` (SesMail, personal account, only when SES is live); a failed QUIT after 250 isn't a failure.
+  Weather: `website/hub/index.php` `noWx()` shows the NWS link. W10: `LiveEvents::tick` retries a failed check next day.
+  Tests: `workers/crawler/tests/test_refresh_archive.py`, `test_fallbacks.py`; the site parts with stubs (scratch only).
+  **Not built:** stock photos' order (decisions/0143 interleaves on purpose: Jason's call and a note on 0143), menus (no
+  reader exists), W6 heritage's Wikimedia and NPS steps, Find it's Tavily → Brave step (the worker's `find_name` request
+  could serve it), AZCC and NM SOS readers, W14, file storage's retry and old-bucket read.
+
+- **(c2, large builds)** (Jason, 2026-11-17: "Large Builds: Go ahead and start this"; release `large-fallbacks`, claims held):
+  built, **not sent yet**, waiting for #851 (`refresh-archive.zip`) to go live, since its FAQ entry sits on #851's FAQ (never
+  build on a zip that isn't live). Patches against the 17:05 UTC live copies in `handoffs/large-fallbacks-pending/`
+  (`faq.patch` against #851's faq.md). Once #851 is live and synced: apply them to fresh live copies, zip, zip check, send.
+  - **W8 Find it, Tavily → Brave** (`GuideLinks::findTick`, new `webStep`): after our crawler's map lookup finds nothing,
+    one `find_name` request to the crawler (one web search, Tavily then Brave since 2.10.0, then its own website); found
+    and staged → the find is `found`, its name links once listed; nothing, failed or a day waiting → Claude as before.
+  - **File storage** (`Scheduler::AUTO` + `files_tick`): an upload the store didn't take waits on the server and
+    `Store::moveOld` (step 2, files in their owner's folder not yet in the store) retries it every 10 minutes; `files_tick`
+    is now set up by the scheduler itself. The old Amazon bucket as a read fallback isn't built: the files were copied to
+    R2 (decisions/0151) and the old bucket's name is no longer in `.env`; worth it only if something turns up missing.
+  - **Not started, blocked:** the AZ Corporation Commission reader (`arizonabusinesscenter.azcc.gov` answers 403 "Access
+    Blocked" to us, Azure's firewall), the NM Secretary of State reader (refused at the session's proxy), and W14, which
+    stages them. 0164 says each source's terms are read first and a blocked site is never worked around: Jason to ask AZCC
+    for access (an API, a bulk file, or our host allowed) and read both sites' terms; then build.
+  - **Not started, needs a decision:** W6 heritage's Wikimedia Commons and National Park Service steps. `completeLoc`
+    accepts only loc.gov URLs and `heritage_sources.kind` is `loc`/`news` (its migration isn't in the sync's `deleted/`,
+    so check the live column first); Commons' licences vary (CC BY-SA needs credit and share-alike on what we show), so
+    each source's use needs Jason's call (decisions/0164: the licence decides the use) before code.
+  - Passed to the session manager (Jason): stock photos' order (0143 interleaves on purpose) and a menu reader (none
+    exists; Document AI → Textract → Claude).
 
 ## How it works
 
