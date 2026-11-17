@@ -4,23 +4,6 @@
   {
    "path": "app/lib/AccountDomains.php",
    "functions": [
-    "TERMS",
-    "forYears",
-    "pricing",
-    "quote",
-    "termName"
-   ],
-   "kind": "add",
-   "session": "domain-years",
-   "why": "Domain purchases: terms of years",
-   "since": "2026-11-17T12:40:57Z",
-   "expires": "2026-11-17T16:42:17Z",
-   "release": "",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/AccountDomains.php",
-   "functions": [
     "termsFor"
    ],
    "kind": "add",
@@ -295,19 +278,23 @@
   {
    "path": "app/lib/Operations.php",
    "functions": [
+    "pulseItems",
     "switchOnCheck"
    ],
    "kind": "change",
    "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
-   "why": "W1 reads our OpenStreetMap copy (open_places, Geofabrik) before Overpass (0163 source map, preflight hand-off (b))",
+   "why": "W1 reads our OpenStreetMap copy before Overpass (zip check's function attribution)",
    "since": "2026-11-17T16:37:26Z",
-   "expires": "2026-11-17T20:37:26Z",
+   "expires": "2026-11-17T20:44:04Z",
    "release": "osm-ours",
    "callers": {
     "switchOnCheck": [
      "app/admin/automation-console.php",
      "app/admin/operations-console.php",
      "app/lib/SystemStart.php"
+    ],
+    "pulseItems": [
+     "app/lib/Pulse.php"
     ]
    }
   },
@@ -360,6 +347,24 @@
   }
  ],
  "lapsed": [
+  {
+   "path": "app/lib/AccountDomains.php",
+   "functions": [
+    "TERMS",
+    "forYears",
+    "pricing",
+    "quote",
+    "termName"
+   ],
+   "kind": "add",
+   "session": "domain-years",
+   "why": "Domain purchases: terms of years",
+   "since": "2026-11-17T12:40:57Z",
+   "expires": "2026-11-17T16:42:17Z",
+   "release": "",
+   "callers": {},
+   "lapsed": "2026-11-17T16:44:04Z"
+  },
   {
    "path": "app/lib/Domains.php",
    "functions": [
