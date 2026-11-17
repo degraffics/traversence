@@ -1,0 +1,39 @@
+{
+    "id": 108,
+    "title": "Switch-on check: hub lines hold only W14; planned hubs and other states' sources stop holding Start; the pre-flight includes the switch-on check",
+    "why": "After Start (18:44 UTC) the check held the master on 20 'Opening a geo-hub' lines. Three causes: a hub with no stage row counted as Open; a hub with no recorded state was checked against every state's sources; and the hub lines held everything. Now a hub's stage comes from hubs.status when none is set; a hub's sources are its own states' (its micro-clusters' zips), none when no state is known; and the hub lines hold W14 only (Jason, 2026-11-17; 0163 §10's note; 0170 §2: a hub's stage is about support, never data). The pre-flight gains 'Start the system's switch-on check: no red line that holds everything', needed for launch.",
+    "proposals": "",
+    "zip": "hub-gate-preflight-2.zip",
+    "switch": "none",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/lib/HubOpening.php": {
+            "sha": "86a7b5e558887d6d569b804e788e546dbf0d008ad8b80d40fbd9699d9e24a006",
+            "size": 15422,
+            "live_was": "bb65da6920bccaab93466eb639ff3c08e5bc6c9f82fdb7dc4093a972cdbc6878"
+        },
+        "app/lib/Preflight.php": {
+            "sha": "9ea20fe9883091f5b20efaf3247bf7c90390d61ba75e0d39ecb694ba6ace891a",
+            "size": 134010,
+            "live_was": "d498bdbb0d24aff09861a50dc63993b6f10345091e22cb84f728477d790151df"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-17T19:09:27+00:00",
+            "by": 0,
+            "msg": "Uploaded hub-gate-preflight-2.zip: 2 files."
+        }
+    ]
+}
