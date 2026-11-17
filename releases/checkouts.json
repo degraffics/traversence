@@ -331,8 +331,8 @@
    "session": "session_01CXLi5kGG8gG4QBmC4uzMzN",
    "why": "The pre-flight check: System Configuration \u2192 Pre-flight (decisions/0163 \u00a710 note 2026-11-16; Jason 2026-11-17)",
    "since": "2026-11-17T13:55:08Z",
-   "expires": "2026-11-17T17:55:08Z",
-   "release": "preflight",
+   "expires": "2026-11-17T18:07:58Z",
+   "release": "preflight.zip",
    "callers": {}
   },
   {
@@ -342,8 +342,8 @@
    "session": "session_01CXLi5kGG8gG4QBmC4uzMzN",
    "why": "The pre-flight check: System Configuration \u2192 Pre-flight (decisions/0163 \u00a710 note 2026-11-16; Jason 2026-11-17)",
    "since": "2026-11-17T13:55:08Z",
-   "expires": "2026-11-17T17:55:08Z",
-   "release": "preflight",
+   "expires": "2026-11-17T18:07:58Z",
+   "release": "preflight.zip",
    "callers": {}
   },
   {
@@ -353,8 +353,8 @@
    "session": "session_01CXLi5kGG8gG4QBmC4uzMzN",
    "why": "The pre-flight check: System Configuration \u2192 Pre-flight (decisions/0163 \u00a710 note 2026-11-16; Jason 2026-11-17)",
    "since": "2026-11-17T13:55:08Z",
-   "expires": "2026-11-17T17:55:08Z",
-   "release": "preflight",
+   "expires": "2026-11-17T18:07:58Z",
+   "release": "preflight.zip",
    "callers": {}
   },
   {
@@ -364,8 +364,8 @@
    "session": "session_01CXLi5kGG8gG4QBmC4uzMzN",
    "why": "The pre-flight check: System Configuration \u2192 Pre-flight (decisions/0163 \u00a710 note 2026-11-16; Jason 2026-11-17)",
    "since": "2026-11-17T13:55:08Z",
-   "expires": "2026-11-17T17:55:08Z",
-   "release": "preflight",
+   "expires": "2026-11-17T18:07:58Z",
+   "release": "preflight.zip",
    "callers": {}
   },
   {
@@ -377,8 +377,8 @@
    "session": "session_01CXLi5kGG8gG4QBmC4uzMzN",
    "why": "The pre-flight check: System Configuration \u2192 Pre-flight (decisions/0163 \u00a710 note 2026-11-16; Jason 2026-11-17)",
    "since": "2026-11-17T13:55:08Z",
-   "expires": "2026-11-17T17:55:08Z",
-   "release": "preflight",
+   "expires": "2026-11-17T18:07:58Z",
+   "release": "preflight.zip",
    "callers": {}
   },
   {
@@ -404,8 +404,8 @@
    "session": "session_01CXLi5kGG8gG4QBmC4uzMzN",
    "why": "The pre-flight check: System Configuration \u2192 Pre-flight (decisions/0163 \u00a710 note 2026-11-16; Jason 2026-11-17)",
    "since": "2026-11-17T13:55:08Z",
-   "expires": "2026-11-17T17:55:08Z",
-   "release": "preflight",
+   "expires": "2026-11-17T18:07:58Z",
+   "release": "preflight.zip",
    "callers": {}
   },
   {
@@ -417,8 +417,8 @@
    "session": "session_01CXLi5kGG8gG4QBmC4uzMzN",
    "why": "The pre-flight check: System Configuration \u2192 Pre-flight (decisions/0163 \u00a710 note 2026-11-16; Jason 2026-11-17)",
    "since": "2026-11-17T13:55:08Z",
-   "expires": "2026-11-17T17:55:08Z",
-   "release": "preflight",
+   "expires": "2026-11-17T18:07:58Z",
+   "release": "preflight.zip",
    "callers": {}
   },
   {
@@ -430,8 +430,8 @@
    "session": "session_01CXLi5kGG8gG4QBmC4uzMzN",
    "why": "The pre-flight check: System Configuration \u2192 Pre-flight (decisions/0163 \u00a710 note 2026-11-16; Jason 2026-11-17)",
    "since": "2026-11-17T13:55:08Z",
-   "expires": "2026-11-17T17:55:08Z",
-   "release": "preflight",
+   "expires": "2026-11-17T18:07:58Z",
+   "release": "preflight.zip",
    "callers": {}
   },
   {
@@ -480,14 +480,15 @@
   {
    "path": "app/admin/sections.php",
    "functions": [
+    "(top)",
     "tv_admin_mod_services"
    ],
    "kind": "change",
    "session": "session_01CXLi5kGG8gG4QBmC4uzMzN",
    "why": "The pre-flight check: System Configuration \u2192 Pre-flight (decisions/0163 \u00a710 note 2026-11-16; Jason 2026-11-17)",
    "since": "2026-11-17T13:55:10Z",
-   "expires": "2026-11-17T17:55:10Z",
-   "release": "preflight",
+   "expires": "2026-11-17T18:07:58Z",
+   "release": "preflight.zip",
    "callers": {}
   },
   {
@@ -499,8 +500,43 @@
    "session": "session_01CXLi5kGG8gG4QBmC4uzMzN",
    "why": "The pre-flight check: System Configuration \u2192 Pre-flight (decisions/0163 \u00a710 note 2026-11-16; Jason 2026-11-17)",
    "since": "2026-11-17T13:55:10Z",
-   "expires": "2026-11-17T17:55:10Z",
-   "release": "preflight",
+   "expires": "2026-11-17T18:07:58Z",
+   "release": "preflight.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Operations.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kGG8gG4QBmC4uzMzN",
+   "why": "release preflight.zip",
+   "since": "2026-11-17T14:07:58Z",
+   "expires": "2026-11-17T18:07:58Z",
+   "release": "preflight.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/SystemStart.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kGG8gG4QBmC4uzMzN",
+   "why": "release preflight.zip",
+   "since": "2026-11-17T14:07:58Z",
+   "expires": "2026-11-17T18:07:58Z",
+   "release": "preflight.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Scheduler.php",
+   "functions": [
+    "(top)"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kGG8gG4QBmC4uzMzN",
+   "why": "release preflight.zip",
+   "since": "2026-11-17T14:07:58Z",
+   "expires": "2026-11-17T18:07:58Z",
+   "release": "preflight.zip",
    "callers": {}
   }
  ],
