@@ -1,0 +1,34 @@
+{
+ "zip": "setting-choices.zip",
+ "built_on": "58f9ad6 Sync: 2026-11-17 11:17 UTC",
+ "recorded": "2026-11-17 11:37 UTC",
+ "note": "Settings with set answers offer their choices, then the next step as a button (Jason, 2026-11-17). Files: app/lib/EnvSettings.php, app/ui/outside-services.php, website/admin/settings.php, website/admin/api/env-setting.php, website/js/tv-ask.js, website/js/tv-env-edit.js (new). built on Sync: 2026-11-17 11:17 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/EnvSettings.php": {
+   "sha256": "9371de1a32818d7b229349798febb684b2122ac241662d75b4eb94d3b5c6425e",
+   "live": false
+  },
+  "app/ui/outside-services.php": {
+   "sha256": "0a7fbae05ca045c4a8ab8629856fd6c7a00126662e8c7462d1f31ffdc1078c5f",
+   "live": false
+  },
+  "website/admin/api/env-setting.php": {
+   "sha256": "2a98dec4acc7e3de56840553596903c11de38ef31d6f9bd791c66b183d348a67",
+   "live": false
+  },
+  "website/admin/settings.php": {
+   "sha256": "06d0e6dcbf2df72fc9a13cd4595690049f6365b85e0ff54309a61b765956d449",
+   "live": false
+  },
+  "website/js/tv-ask.js": {
+   "sha256": "ce0df9343a023c03ae89ab8b2aec36826a62f865f7b53a30ba9ea6457ce44ed7",
+   "live": false
+  },
+  "website/js/tv-env-edit.js": {
+   "sha256": "718e9668d53b2e6ddcfe9b528b518aca4a60dbb9f8dc7b5d28bdfc47524672af",
+   "live": false
+  }
+ }
+}
