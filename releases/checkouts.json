@@ -2,39 +2,6 @@
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
  "claims": [
   {
-   "path": "app/lib/EnvSettings.php",
-   "functions": [
-    "EDITABLE"
-   ],
-   "kind": "change",
-   "session": "setting-choices",
-   "why": "Settings with set answers offer choices and the next step (Jason, 2026-11-17)",
-   "since": "2026-11-17T11:33:45Z",
-   "expires": "2026-11-17T15:33:45Z",
-   "release": "",
-   "callers": {
-    "EDITABLE": [
-     "app/lib/OutsideServices.php",
-     "app/ui/outside-services.php",
-     "website/admin/api/env-setting.php",
-     "website/admin/settings.php"
-    ]
-   }
-  },
-  {
-   "path": "website/js/tv-ask.js",
-   "functions": [
-    "choose"
-   ],
-   "kind": "add",
-   "session": "setting-choices",
-   "why": "Settings with set answers offer choices and the next step (Jason, 2026-11-17)",
-   "since": "2026-11-17T11:33:49Z",
-   "expires": "2026-11-17T15:33:49Z",
-   "release": "",
-   "callers": {}
-  },
-  {
    "path": "app/lib/Domains.php",
    "functions": [
     "isTeam"
@@ -323,9 +290,63 @@
    "expires": "2026-11-17T17:48:36Z",
    "release": "favicon-everywhere.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/Preflight.php",
+   "functions": [
+    "lines",
+    "serviceTest",
+    "test"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kGG8gG4QBmC4uzMzN",
+   "why": "Pre-flight: .env names set twice (the second ignored); Fly's hint corrected (Jason, 2026-11-17)",
+   "since": "2026-11-17T15:49:48Z",
+   "expires": "2026-11-17T19:49:48Z",
+   "release": "preflight-envdup",
+   "callers": {
+    "lines": [
+     "app/admin/preflight-console.php"
+    ]
+   }
   }
  ],
  "lapsed": [
+  {
+   "path": "app/lib/EnvSettings.php",
+   "functions": [
+    "EDITABLE"
+   ],
+   "kind": "change",
+   "session": "setting-choices",
+   "why": "Settings with set answers offer choices and the next step (Jason, 2026-11-17)",
+   "since": "2026-11-17T11:33:45Z",
+   "expires": "2026-11-17T15:33:45Z",
+   "release": "",
+   "callers": {
+    "EDITABLE": [
+     "app/lib/OutsideServices.php",
+     "app/ui/outside-services.php",
+     "website/admin/api/env-setting.php",
+     "website/admin/settings.php"
+    ]
+   },
+   "lapsed": "2026-11-17T15:49:48Z"
+  },
+  {
+   "path": "website/js/tv-ask.js",
+   "functions": [
+    "choose"
+   ],
+   "kind": "add",
+   "session": "setting-choices",
+   "why": "Settings with set answers offer choices and the next step (Jason, 2026-11-17)",
+   "since": "2026-11-17T11:33:49Z",
+   "expires": "2026-11-17T15:33:49Z",
+   "release": "",
+   "callers": {},
+   "lapsed": "2026-11-17T15:49:48Z"
+  },
   {
    "path": "app/lib/Store.php",
    "functions": [
