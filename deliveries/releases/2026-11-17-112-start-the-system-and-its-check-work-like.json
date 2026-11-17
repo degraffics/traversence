@@ -1,0 +1,64 @@
+{
+    "id": 112,
+    "title": "Start the system and its check work like the pre-flight: a queue of lines, run on the server, a run log; W14 waiting for its terms doesn't count against launch",
+    "why": "Jason, 2026-11-17: the Start page's check should act like the pre-flight queue. 1. The switch-on check is now a pre-flight group, Check before switching on: one line per check line, each a check mark or a cross that opens to its answer and its fix, saying what it holds (everything, or only its part, such as W14). Lines that hold everything are needed for launch. 2. The Workflow board's Check before switching on shows that group, with Run the check (on the server, one line at a time, so the page can close and come back), Show only what's red, Show the slow ones and the run log with each run's report. 3. One engine: Start the system and the board write the check's answers into the same lines each time they read it, so the pre-flight, the board and Start agree. A run of the check alone is logged as its own run and isn't counted as a full pre-flight run. 4. It replaces the single line 'Start the system's switch-on check: no red line that holds everything' added in #110. 5. FAQ updated. 6. The Start the system card (Automation and the Workflow board) shows its steps as a queue like the pre-flight: one line per step (check mark, spinner, ! or dash), each opening to what it found and its fixes, the counts on top and the run log underneath; while it runs, the card follows it every 15 seconds without a reload. 7. The check step is Done, not Held, when its red lines hold only their own parts (it said Held in red while the master went on). 8. In the pre-flight, W14 held only by its own hub lines (terms not read) is amber, 'W14 waits for its terms', and doesn't count against launch; Phases 1, 2 and 6 aren't red for it (Jason, 2026-11-17).",
+    "proposals": "",
+    "zip": "switchon-group-2.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/admin/operations-console.php": {
+            "sha": "8db9043f68c6f535c7911d66e0c2a159601992005b357f43eb4c9ed6f3736807",
+            "size": 28761,
+            "live_was": "414aa2f6461f4066286d9a8a9f2d7662d4ab70058339d423b61edea9bd3dc5df"
+        },
+        "app/admin/preflight-console.php": {
+            "sha": "07d372f8b8d4f9d2940f2cfcb8a9ade06ed3b9dd0faa5574478294ac9b5e0f69",
+            "size": 18319,
+            "live_was": "6bd7a4e6dcd18eb60e9463054ba667647a38d2fbb5c8e2b5b2e055d1490ce769"
+        },
+        "app/ui/faq.md": {
+            "sha": "3b97304f47afc0e6f16be9f7a989c38c7ce70a6707857b485c8891d31d09ce1d",
+            "size": 323563,
+            "live_was": "503c40ae779a62d24d6328dbed629c8b64ad93f27bdc5006891d0baf6b827195"
+        },
+        "app/lib/Preflight.php": {
+            "sha": "3ed65ed207cf91831f1bffa0d40de16485f03ef64e6379ffc4414cd0fe20fbf3",
+            "size": 139226,
+            "live_was": "9ea20fe9883091f5b20efaf3247bf7c90390d61ba75e0d39ecb694ba6ace891a"
+        },
+        "app/lib/SystemStart.php": {
+            "sha": "c32827e6235ea5b1444f2ee3a211050ec5751699597325157c4cba26af47ab2a",
+            "size": 46345,
+            "live_was": "c8df2c4255284e5050204315ffefa2f8fb11fd9b9b217812867d5e473ce60944"
+        },
+        "website/admin/api.php": {
+            "sha": "95c7e6c81dd3803b9362a6fc8d3b2172658f841ccbb7824602480043a66d6783",
+            "size": 25954,
+            "live_was": "cf4ef4fee07b83346bc434e30688a758f50ffa4300413b14c18c3a82b6e33209"
+        },
+        "website/js/admin-preflight.js": {
+            "sha": "cb7b76d1387d649ceac6ac4971208d0d280858af3e5e9cae1aca19b379dc1706",
+            "size": 14755,
+            "live_was": "41097c8cdc71e2bd8d81e20aaac83f6f0848478258c72fb0252f0df8dfe7ea4a"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-17T19:31:01+00:00",
+            "by": 0,
+            "msg": "Uploaded switchon-group-2.zip: 7 files."
+        }
+    ]
+}
