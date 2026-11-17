@@ -242,6 +242,10 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
        Jason, on #109's card: "this is not how this is supposed to work"). `send.py`/zipcheck refuse a `switch` that
        isn't empty or a known `Switches::DEFS` key; `Releases::fromUpload` treats "none" as empty; a release that can't
        be approved says why on its card and in Pulse, never sits silently.
+     - **"Waiting for your OK" on the site** (Jason, 2026-11-17: "sessions need to do a better job at alerting me"): a
+       release still in an open PR is invisible to the site until merged. Show open release PRs on the release bar and in
+       Pulse as "Waiting for your OK" (title, what it does, the PR link), read from GitHub with the docs token, with an
+       Approve button that merges it (Jason only), so nothing waits unseen.
      **For Jason to address in the cleanup** (Jason, 2026-11-17: "Add these to the queue for me to address in the clean
      up"):
      - **Records requests to the Arizona Corporation Commission and New Mexico's Secretary of State** for their
