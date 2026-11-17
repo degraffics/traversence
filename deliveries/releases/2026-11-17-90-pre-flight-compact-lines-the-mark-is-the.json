@@ -1,0 +1,39 @@
+{
+    "id": 90,
+    "title": "Pre-flight: compact lines; the mark is the answer",
+    "why": "Jason, 2026-11-17 (a screenshot of the live page): Test's \"Success: Ready.\" opened inside the line's header row and squeezed the name into a narrow column. \"keep lines compact\"; \"a green check mark or red x is enough to know its test status\". 1. Each line is one row: the name on one line, shortened with … when it's long (the full name on hover). 2. Test, Run all and a fix show no notice: the line's ✓ or ✗ and the counts are the answer. A notice appears only when a request fails, and then at the top of the line's opened body, the full width. 3. The opened body is tighter.",
+    "proposals": "",
+    "zip": "preflight-fix.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "website/js/admin-preflight.js": {
+            "sha": "7e9ea2f7a0847dab8fc13b061ff4629b25c3e17a214710fea9347e0746d4de4e",
+            "size": 7080,
+            "live_was": "eafccc5c078874d542dcc9e164015a383c4090785e257efaa7599bcd471f2d4a"
+        },
+        "app/admin/preflight-console.php": {
+            "sha": "a41740f71fe4eefdb1941ba241c7e8301a57f56fc36ff6434751b217b04b5eb6",
+            "size": 9936,
+            "live_was": "6e855c2f8bb1223af3b9b4927326a120d9c496f16c65d9550a784c6430ab52d4"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-17T14:26:05+00:00",
+            "by": 0,
+            "msg": "Uploaded preflight-fix.zip: 2 files."
+        }
+    ]
+}
