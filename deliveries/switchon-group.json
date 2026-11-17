@@ -1,0 +1,38 @@
+{
+ "zip": "switchon-group.zip",
+ "built_on": "93239aa Sync: 2026-11-17 19:23 UTC",
+ "recorded": "2026-11-17 19:24 UTC",
+ "note": "Check before switching on as a pre-flight group; built on Sync 19:23 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/admin/operations-console.php": {
+   "sha256": "8db9043f68c6f535c7911d66e0c2a159601992005b357f43eb4c9ed6f3736807",
+   "live": false
+  },
+  "app/admin/preflight-console.php": {
+   "sha256": "07d372f8b8d4f9d2940f2cfcb8a9ade06ed3b9dd0faa5574478294ac9b5e0f69",
+   "live": false
+  },
+  "app/lib/Preflight.php": {
+   "sha256": "f326905d02e71c11e9f6ac8077e79b009506a434b974d3ffd5e86d23abbd6e3a",
+   "live": false
+  },
+  "app/lib/SystemStart.php": {
+   "sha256": "c116e0f36832e27835c8072acafff5fffa79972f71252287c229f5307954e508",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "da9ccf304107751e67c88b517d60934b872ff705a05b127bdeb0fcd1d61ca7ad",
+   "live": false
+  },
+  "website/admin/api.php": {
+   "sha256": "95c7e6c81dd3803b9362a6fc8d3b2172658f841ccbb7824602480043a66d6783",
+   "live": false
+  },
+  "website/js/admin-preflight.js": {
+   "sha256": "cb7b76d1387d649ceac6ac4971208d0d280858af3e5e9cae1aca19b379dc1706",
+   "live": false
+  }
+ }
+}

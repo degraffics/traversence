@@ -218,3 +218,16 @@ The fix (Jason, 2026-11-17; 0163 §10's note; 0170 §2):
 - The pre-flight's `site:switchon` is red only for lines that hold everything; a part's red lines are named but don't count.
 
 After it ships, Ancient America's line stays red for W14 alone until AZ's and NM's terms are read in Pulse → Hubs. Start's master no longer waits on it.
+
+## switchon-group (2026-11-17, built on Sync 19:23 UTC)
+
+Jason asked for Start's "Check before switching on" to act like the pre-flight queue.
+- The switch-on check is now a pre-flight group, `switchon`, with one line per check line.
+  - Ids look like `so:<slug>-<sha8>`. They stay at 40 characters or fewer, the length of `preflight_results.id`.
+  - The list of lines is kept in the search state `pf:so`.
+  - `soTest` reads `Operations::switchOnCheck` and caches it for 20 seconds within a request.
+- A line is needed for launch when its scope is 'all'.
+- `recordSwitchOn` writes the check's answers into the group whenever the Workflow board opens or Start's check step runs.
+- `startRun(..., $group)` runs the group alone. Its log line carries `counts.group`, and it doesn't count as a full run (lastFull).
+- The board draws `tv_admin_mod_preflight($pdo, 'switchon')`: Run the check, the filters and the run log. The JS sends `group`.
+- This replaces the single `site:switchon` line from #110.
