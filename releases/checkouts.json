@@ -255,6 +255,7 @@
   {
    "path": "app/lib/Preflight.php",
    "functions": [
+    "(top)",
     "lines",
     "report",
     "requiredServices",
@@ -266,8 +267,8 @@
    "session": "session_01CXLi5kGG8gG4QBmC4uzMzN",
    "why": "Pre-flight judges by need, ours first (decisions/0163, the source map; Jason, 2026-11-17)",
    "since": "2026-11-17T16:28:24Z",
-   "expires": "2026-11-17T20:28:24Z",
-   "release": "preflight-needs",
+   "expires": "2026-11-17T20:28:38Z",
+   "release": "preflight-needs.zip",
    "callers": {
     "report": [
      "website/admin/api.php"
@@ -287,8 +288,8 @@
    "session": "session_01CXLi5kGG8gG4QBmC4uzMzN",
    "why": "Pre-flight judges by need, ours first (decisions/0163, the source map; Jason, 2026-11-17)",
    "since": "2026-11-17T16:28:24Z",
-   "expires": "2026-11-17T20:28:24Z",
-   "release": "preflight-needs",
+   "expires": "2026-11-17T20:28:38Z",
+   "release": "preflight-needs.zip",
    "callers": {}
   },
   {
@@ -298,8 +299,8 @@
    "session": "session_01CXLi5kGG8gG4QBmC4uzMzN",
    "why": "Pre-flight judges by need, ours first (decisions/0163, the source map; Jason, 2026-11-17)",
    "since": "2026-11-17T16:28:24Z",
-   "expires": "2026-11-17T20:28:24Z",
-   "release": "preflight-needs",
+   "expires": "2026-11-17T20:28:38Z",
+   "release": "preflight-needs.zip",
    "callers": {}
   },
   {
