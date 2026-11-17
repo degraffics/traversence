@@ -4,7 +4,7 @@ Session: claude/domains-0169-1a. Started 2026-11-17, on the mirror at `3c54bf3` 
 
 ## Where it stands
 
-- **Planned, waiting on Jason's OK on three points** (below) before code is written.
+- **Planned (scope narrowed 2026-11-17), waiting on Jason's OK** (below) before code is written.
 - No release sent yet. Nothing in `releases/inbox/` from this work. No claims taken yet.
 
 ## What's live today (read 2026-11-17)
@@ -24,37 +24,34 @@ Session: claude/domains-0169-1a. Started 2026-11-17, on the mirror at `3c54bf3` 
 - Live `.env`: `DOMAINS_MODE=off` (session-manager.md: Fly and Name.com set up later), so nothing here is visible to
   the public until it's switched to `test`.
 
-## The plan (one release)
+## The plan (one release), narrowed 2026-11-17
 
-1. **Data:** a new table `account_domains` (owner_type `user`|`listing`, owner_id; `storefront_id` the storefront that
-   uses it, or none; `points` storefront|forward|dns|nameservers; forward address; nameservers; the renewal card;
-   everything `business_domains` has). `domain_events` (its history) and `domain_cart` (a pending purchase: name,
-   price shown, registrant, for whom, the storefront it's for). The migration copies every `business_domains` row
-   across with the same id (INSERT … SELECT … WHERE NOT EXISTS: safe twice, no UPDATE, so no `data_reason`); the old
-   table stays untouched as the rollback copy. Classes in `staging-tables.php`.
-2. **`Domains`** reads and writes the new table; every live function keeps its name and arguments (`forEntity` = the
-   domain a storefront uses, `byHost`, `add`, `buy`, `check`, `disconnect`…), with new ones per account (`forOwner`,
-   `use`, `release`, `pointTo`, `dnsRecords`/`setDnsRecord`, `forward`, `nameservers`, `renewNow`). `namecom()` and
-   `fly()` ask `StagingGate::hold()` first.
-3. **Shop → Domains** (`/shop/domains.php`, a department link on the Shop): search, price a year, **Add to cart** with
-   the registrant's details and an 18+ tick (`AgeGate`); the cart pays it as its own order (like Keep in 4K): card
-   charged, then Name.com registers it (WHOIS privacy), refunded if it can't be. Test accounts and `DOMAINS_MODE=test`:
-   Name.com's sandbox and the QuickBooks sandbox.
-4. **Domains tab:** `/user/domains/` (embedded in the member Dashboard as a section) and a **Domains** module in the
-   business portal, both drawn by one shared view (`app/ui/domains-view.php`) so the Storefront app can reuse it.
-5. **Storefront's Connect your domain:** "One of your domains", "Buy one" (the same search, into the cart, connected by
-   itself once registered), "Bring one".
-6. **Admin → Market 360 → Custom domains:** every account's domains, with the owner (member or business) and the
-   storefront using it.
-7. FAQ entries; phone layout checked at 390px; tests in mock mode.
+Scope change relayed by the session manager (Jason: "Shop for domains. Not the storefront app, that goes into the
+queue"): only Shop → Domains and the account's Domains tab. The storefront's Connect your domain stays exactly as it is;
+joining it to the account's domains is the Storefront app's job (0169 app 6).
+
+1. **Data:** a new table `account_domains` for domains an account buys in the Shop or lists as brought (owner_type
+   `user`|`listing`, owner_id, source bought|own, where it points: forward|dns|nameservers, the renewal card, expiry,
+   auto-renew), `domain_events` (history) and `domain_cart` (a pending purchase). `business_domains` and every function
+   on it are untouched; nothing is copied or updated, so no `data_reason`. Classes in `staging-tables.php`.
+2. **`AccountDomains`** (`app/lib/AccountDomains.php`), a new library beside `Domains`: search and price (calls
+   `Domains::search`/`price`/`canSell`, so the live + sandbox guard holds), the cart line, paying (its own order like
+   Keep in 4K: card saved and charged, then Name.com registers it with WHOIS privacy, refunded if it can't be),
+   renew now, auto-renew 14 days ahead in `domains_tick`, forwarding, DNS records, nameservers, the DKIM records when
+   SES sends for it, unlock and transfer code, history. Its Name.com calls ask `StagingGate::hold()` first.
+3. **Shop → Domains** (`/shop/domains.php`, a department link on the Shop), any account; the registrant 18+
+   (`AgeGate`) with real contact details. Test accounts and `DOMAINS_MODE=test`: Name.com's and QuickBooks' sandboxes.
+4. **Domains tab:** `/user/domains/` (a Dashboard section) and a **Domains** module in the business portal, one shared
+   view (`app/ui/domains-view.php`). A business's storefront domain (`business_domains`) is listed there read-only, with
+   a link to its storefront page, managed there as today.
+5. **Admin → Market 360 → Custom domains:** also lists the accounts' domains (owner, source, expiry, where it points).
+6. FAQ entries; 390px check; tests in mock mode.
 
 ## Questions put to Jason (2026-11-17)
 
-1. Renewals for an account with no plan card: keep the checkout card on file for that domain's renewals (shown, can be
-   changed or removed; no card means reminders and Renew now). Businesses' existing domains keep renewing on the plan
-   card. (0139 charged only the plan's card.)
-2. Buying from the storefront step goes through the cart too (0139 paid in place on the plan card).
-3. One release rather than two.
+1. Renewals: keep the checkout card on file for that domain's renewals (shown, can be changed or removed; no card means
+   reminders and Renew now). 0139 charged only a plan's card, which a member may not have.
+2. Confirm the narrowed scope (relayed by the session manager).
 
 ## Files the release will carry (filled in as built)
 
