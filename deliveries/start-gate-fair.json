@@ -1,0 +1,22 @@
+{
+ "zip": "start-gate-fair.zip",
+ "built_on": "e64b8ed Sync: 2026-11-17 20:04 UTC",
+ "recorded": "2026-11-17 20:07 UTC",
+ "note": "Fair gate and stopped-step fixes on the Start card; built on Sync 20:04 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/admin/automation-console.php": {
+   "sha256": "d1ecc45c2cbac8a751d748dcb6c041cbd5f24fb8a8ea9d642647b488863c3d1b",
+   "live": false
+  },
+  "app/lib/SystemStart.php": {
+   "sha256": "c0b49a8d5903d3559887bb57bab9061646f9c2c36f517f76202545e29672b75b",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "1476ad3534ca5801382de0819c0239a3e36e066b8191aea7384b9958791b848c",
+   "live": false
+  }
+ }
+}
