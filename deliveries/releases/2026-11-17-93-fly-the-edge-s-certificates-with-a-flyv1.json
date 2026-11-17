@@ -1,0 +1,34 @@
+{
+    "id": 93,
+    "title": "Fly: the edge's certificates with a FlyV1 token",
+    "why": "Jason, 2026-11-17, from the pre-flight: a Fly token made with \"fly tokens create\" or the dashboard reads \"FlyV1 fm2_…\"; Domains::fly sent it as \"Bearer FlyV1 …\", which Fly refuses, so businesses' own domains couldn't get their certificates. Now a token starting \"FlyV1 \" is sent as it is, and any other token as Bearer. The staging gate is unchanged. The pre-flight's Fly line already sends it the same way.",
+    "proposals": "",
+    "zip": "fly-token.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/lib/Domains.php": {
+            "sha": "350c9959e2cbba6f6118c2838e9682def5a1a5d830732c805694456dec8025a1",
+            "size": 48004,
+            "live_was": "c71170f77c9bc00efa43763f964b340180b1ae01f800b79186c038aace3f3b47"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-17T15:05:34+00:00",
+            "by": 0,
+            "msg": "Uploaded fly-token.zip: 1 files."
+        }
+    ]
+}
