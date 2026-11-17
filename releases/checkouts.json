@@ -342,14 +342,15 @@
   {
    "path": "app/lib/Domains.php",
    "functions": [
+    "(top)",
     "namecom"
    ],
    "kind": "change",
    "session": "domain-terms",
    "why": "Domain year choices limited to the terms Name.com sells for each ending (Jason, 2026-11-17)",
    "since": "2026-11-17T13:03:17Z",
-   "expires": "2026-11-17T17:03:17Z",
-   "release": "",
+   "expires": "2026-11-17T17:04:29Z",
+   "release": "domain-terms.zip",
    "callers": {}
   },
   {
@@ -362,8 +363,8 @@
    "session": "domain-terms",
    "why": "Domain year choices limited to the terms Name.com sells for each ending (Jason, 2026-11-17)",
    "since": "2026-11-17T13:03:17Z",
-   "expires": "2026-11-17T17:03:17Z",
-   "release": "",
+   "expires": "2026-11-17T17:04:29Z",
+   "release": "domain-terms.zip",
    "callers": {
     "search": [
      "website/api/domains.php"
@@ -380,8 +381,8 @@
    "session": "domain-terms",
    "why": "Domain year choices limited to the terms Name.com sells for each ending (Jason, 2026-11-17)",
    "since": "2026-11-17T13:03:17Z",
-   "expires": "2026-11-17T17:03:17Z",
-   "release": "",
+   "expires": "2026-11-17T17:04:29Z",
+   "release": "domain-terms.zip",
    "callers": {}
   },
   {
