@@ -1,8 +1,8 @@
 {
- "zip": "preflight-server-run-2.zip",
+ "zip": "preflight-server-run-3.zip",
  "built_on": "2ff3304 Sync: 2026-11-17 18:09 UTC",
- "recorded": "2026-11-17 18:24 UTC",
- "note": "Pre-flight's Run all on the server; Continue/Cancel; one log line per run; long settings kept whole, add-only (v_long); built on Sync: 2026-11-17 18:09 UTC Sent through git (releases/inbox).",
+ "recorded": "2026-11-17 18:25 UTC",
+ "note": "Pre-flight's Run all on the server; Continue/Cancel; one log line per run; long settings kept whole, add-only (v_long); built on Sync: 2026-11-17 18:09 UTC (replaces -2, never taken) Sent through git (releases/inbox).",
  "status": "pending",
  "live_in": "",
  "files": {

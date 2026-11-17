@@ -145,7 +145,7 @@ Check-out release names: `preflight` (release 1), `outside-table` (release 2, no
   Mexico registry requests (decisions/0164 §7.1's note), heritage's Commons licence call, his OK on that note, and his
   pre-flight run before Start the system.
 
-- **`preflight-server-run-2.zip`** (Jason via the session manager, 2026-11-17: "Preflight only works if I stay on that
+- **`preflight-server-run-3.zip`** (Jason via the session manager, 2026-11-17: "Preflight only works if I stay on that
   page"; built on Sync 18:09 UTC; replaces `preflight-server-run.zip`, never taken): Run all runs on the server. **Changed
   after review (Jason):** an interrupted run is never resumed by itself: it's marked Interrupted and waits for Continue or
   Cancel (the page asks on open; Run all asks Continue / Start a new run / Cancel via `TvAsk.choose`; Pulse steps
