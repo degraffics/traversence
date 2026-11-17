@@ -6,20 +6,22 @@
     "zip": "domain-verify.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "staged",
-    "step": 0,
+    "state": "live",
+    "step": 3,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
     "plan_at": "2026-11-17 13:23:48",
     "staged_at": "2026-11-17 13:23:50",
-    "vetted_at": null,
-    "live_at": null,
+    "vetted_at": "2026-11-17 13:23:52",
+    "live_at": "2026-11-17 13:23:53",
     "files": {
         "app/ui/faq.md": {
             "sha": "25d269056f8c73782778655e2d0d54e3229c6249a2bd1794607ceac89e300102",
             "size": 317969,
-            "live_was": "26a02fab0618d78af17d3de7843be53d41026571577a2f76ccae014607075a4b"
+            "live_was": "26a02fab0618d78af17d3de7843be53d41026571577a2f76ccae014607075a4b",
+            "existed": true,
+            "old_sha": "26a02fab0618d78af17d3de7843be53d41026571577a2f76ccae014607075a4b"
         },
         "app/migrations/2027-03-12_account_domains_verify.sql": {
             "sha": "f3f0006c97881bb137e004fcbb5e38f8e314ac78fc4627676a67c17bd71144c9",
@@ -29,27 +31,37 @@
         "app/lib/EnvSettings.php": {
             "sha": "dca7194df047e13669a7c63d116fc8fa4b9fc2de800bff717cdfceda653e0be0",
             "size": 19671,
-            "live_was": "5b6744605e4bdded96ecfc8edef8a8d276c3b633eca7045f7b48d8f87294748f"
+            "live_was": "5b6744605e4bdded96ecfc8edef8a8d276c3b633eca7045f7b48d8f87294748f",
+            "existed": true,
+            "old_sha": "5b6744605e4bdded96ecfc8edef8a8d276c3b633eca7045f7b48d8f87294748f"
         },
         "app/lib/Pulse.php": {
             "sha": "6fc10ff4d42779f7e04e10a75cff6a83791ac0ef8ebe0fd467720e52f8f8d4b5",
             "size": 139548,
-            "live_was": "784c7578047e94b85bd1d77d8252f130972a57a76762ab76f0e37eb5bfe0da76"
+            "live_was": "784c7578047e94b85bd1d77d8252f130972a57a76762ab76f0e37eb5bfe0da76",
+            "existed": true,
+            "old_sha": "784c7578047e94b85bd1d77d8252f130972a57a76762ab76f0e37eb5bfe0da76"
         },
         "app/lib/AccountDomains.php": {
             "sha": "65c55888bd4dc61946a56f07f4f0df595e366b0d2b6f12416a5280926739b3ac",
             "size": 105784,
-            "live_was": "2444828a9aa9305711cc921552d7fe8cb3ff02ee4ed6a56ebb8670dbb426adfe"
+            "live_was": "2444828a9aa9305711cc921552d7fe8cb3ff02ee4ed6a56ebb8670dbb426adfe",
+            "existed": true,
+            "old_sha": "2444828a9aa9305711cc921552d7fe8cb3ff02ee4ed6a56ebb8670dbb426adfe"
         },
         "website/api/domains.php": {
             "sha": "12647b7eb0a569b8783279e72e981567097eb9c664ae208cd81d85f55c7922a6",
             "size": 12318,
-            "live_was": "397dd3021b28210a8a0f48361b1877a51d6792855c3bb43c82ccf17d9a99d9a3"
+            "live_was": "397dd3021b28210a8a0f48361b1877a51d6792855c3bb43c82ccf17d9a99d9a3",
+            "existed": true,
+            "old_sha": "397dd3021b28210a8a0f48361b1877a51d6792855c3bb43c82ccf17d9a99d9a3"
         },
         "website/js/tv-domains.js": {
             "sha": "9765b84f92991f222c7be9fd7952c45136fea535d6a0eb18619d4cbbeb013705",
             "size": 34155,
-            "live_was": "b0b398b42e438f61afa3e83f5ba1adcbf659444812ebe860e97d5713a2c0cc5a"
+            "live_was": "b0b398b42e438f61afa3e83f5ba1adcbf659444812ebe860e97d5713a2c0cc5a",
+            "existed": true,
+            "old_sha": "b0b398b42e438f61afa3e83f5ba1adcbf659444812ebe860e97d5713a2c0cc5a"
         }
     },
     "migrations": [
@@ -57,8 +69,8 @@
     ],
     "checks": {
         "ok": true,
-        "where": "staging",
-        "at": "2026-11-17T13:23:51+00:00",
+        "where": "live",
+        "at": "2026-11-17T13:23:53+00:00",
         "items": [
             [
                 "PHP files parse",
@@ -66,19 +78,9 @@
                 "4 checked"
             ],
             [
-                "Migrations only add",
-                true,
-                "1 checked"
-            ],
-            [
-                "Migrations ran on staging",
-                true,
-                "Ran 2027-03-12_account_domains_verify.sql"
-            ],
-            [
                 "Pages answer",
                 true,
-                "2 pages answered on staging.trvgo.us"
+                "2 pages answered on traversence.com"
             ],
             [
                 "No new fatal errors in the logs",
@@ -108,6 +110,16 @@
             "at": "2026-11-17T13:23:51+00:00",
             "by": 0,
             "msg": "Put on staging (7 files); its checks passed."
+        },
+        {
+            "at": "2026-11-17T13:23:52+00:00",
+            "by": 0,
+            "msg": "Approved in chat before it was sent through git, and its checks on staging passed: publishing by itself."
+        },
+        {
+            "at": "2026-11-17T13:23:53+00:00",
+            "by": 0,
+            "msg": "Published: 6 files, after its 1 migration ran first (2027-03-12_account_domains_verify.sql; a copy of what each touched is kept 14 days); everyone at once (no switch)."
         }
     ]
 }
