@@ -1,0 +1,44 @@
+{
+    "id": 77,
+    "title": "Domain year choices: only the terms Name.com sells for each ending",
+    "why": "Jason, 2026-11-17, on .co refusing 10 years: \"Name.com doesn't sell robotsrus.co for 10 years: choose fewer. This should limit the dropdown to what is acceptable for options.\" Each search row now offers only the terms (of 1, 2, 3, 4, 5, 10) that Name.com sells for its ending, from Name.com's requirements lookup (GET /core/v1/domaininfo/requirements/<tld>, allowedRegistrationYears; read only, live in a test), each ending's answer kept a week in market_settings ('domains:terms:<tld>'). If a term is still refused (Name.com changed, or no price for it), the message is Jason's wording, shown under the row (not inside it), and it clears once a price loads; the choice goes back to the last one that worked.",
+    "proposals": "",
+    "zip": "domain-terms.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/lib/AccountDomains.php": {
+            "sha": "2444828a9aa9305711cc921552d7fe8cb3ff02ee4ed6a56ebb8670dbb426adfe",
+            "size": 95345,
+            "live_was": "2680ca34d7d71059b6c32d43fafa856f4d53e927261b1e7fe4bb8ac967bb4f93"
+        },
+        "app/lib/Domains.php": {
+            "sha": "a53b2167dd247c13cc7615240756f1176c561c28e70e163b55b4f4d1fa691b6b",
+            "size": 45023,
+            "live_was": "24cae919fc8f8a62c8f8937f3e0f1e58ffacd38aed382c8d3884b64140ba1a8e"
+        },
+        "website/js/tv-domains.js": {
+            "sha": "b0b398b42e438f61afa3e83f5ba1adcbf659444812ebe860e97d5713a2c0cc5a",
+            "size": 32842,
+            "live_was": "aa561b8827eb139e63d2767142ec415522576ff18b6c1996138c4f4d93e94ec7"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-17T13:07:24+00:00",
+            "by": 0,
+            "msg": "Uploaded domain-terms.zip: 3 files."
+        }
+    ]
+}
