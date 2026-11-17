@@ -506,6 +506,7 @@
   {
    "path": "app/lib/OutsideServices.php",
    "functions": [
+    "(top)",
     "addRequest",
     "pulseDo",
     "requests",
@@ -515,8 +516,8 @@
    "session": "outside-requests-fix",
    "why": "Outside requests: records fit staff_settings; the Name.com ticket seeded by its number; chase wording (Jason, 2026-11-17: no Pulse case showed)",
    "since": "2026-11-17T13:59:51Z",
-   "expires": "2026-11-17T17:59:51Z",
-   "release": "",
+   "expires": "2026-11-17T18:00:54Z",
+   "release": "outside-requests-fix.zip",
    "callers": {
     "requests": [
      "app/lib/Pulse.php",
@@ -533,6 +534,7 @@
   {
    "path": "app/lib/Pulse.php",
    "functions": [
+    "'square'",
     "items",
     "playbook"
    ],
@@ -540,8 +542,8 @@
    "session": "outside-requests-fix",
    "why": "Outside requests: records fit staff_settings; the Name.com ticket seeded by its number; chase wording (Jason, 2026-11-17: no Pulse case showed)",
    "since": "2026-11-17T13:59:51Z",
-   "expires": "2026-11-17T17:59:51Z",
-   "release": "",
+   "expires": "2026-11-17T18:00:54Z",
+   "release": "outside-requests-fix.zip",
    "callers": {
     "playbook": [
      "app/lib/DailyReport.php",
@@ -564,8 +566,8 @@
    "session": "outside-requests-fix",
    "why": "Outside requests: form limits match",
    "since": "2026-11-17T14:00:37Z",
-   "expires": "2026-11-17T18:00:37Z",
-   "release": "",
+   "expires": "2026-11-17T18:00:54Z",
+   "release": "outside-requests-fix.zip",
    "callers": {}
   }
  ],
