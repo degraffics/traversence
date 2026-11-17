@@ -205,6 +205,21 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
        the pre-flight did (their own table), confirmed by the card's "Can't keep requests" line.
      **For Jason** (from the same report): `HF_TOKEN` and `BRAVE_API_KEY` on Railway's `traversence` service's Variables; `GITHUB_SYNC_TOKEN`
      expires Dec 16, 2026.
+     **Visual fixes** (Jason, 2026-11-17: "add to visual fixes queue"):
+     - **Discovery's hero doesn't change between views** (Jason: "when I click regions it doesnt really feel like the
+       page changes visually … The hero is not changing like it should"). `website/discovery/index.php` (lines ~497,
+       582, 599, 650): Overview, Experiences, Parks & Landmarks and Regions all ask `StockLibrary::forSlot` for subject
+       `landscape`, and Regions and Parks with no place (Parks ignores `state=AZ`), so all show the same Death Valley
+       photo. And `tv_explore_hero()` takes a stock photo (one, no carousel) before the page's own landmark Commons
+       photos (`fallback_slides`, `dv_hero_photos`, 6 a view). Fix: real photos first (journeys, then the view's own
+       Commons photos for its place, several, with arrows), stock only when there are none; each view its own subject
+       (Regions terrain or aerial, Experiences people doing things, Parks a park or monument, Map topographic) and its
+       own place (state, region); a visible change on switching (a cross-fade, the tab's icon in the heading, the view's
+       own content on the hero as the Overview's region cards).
+     - **An empty footer edit zone squeezed to one word per line** (Jason's screenshot, 2026-11-17, under the "Local
+       businesses / Cities & towns" counts): the zone "…page, above the footer is empty: Edit to add a section" sits in
+       a narrow column, so its tag and text wrap a word a line. The zone should take the full width of its row (or the
+       page). Moot for visitors (they don't see empty zones), but goes with "editing switched on".
      - **Page-builder editing is switched on, not always on** (Jason, 2026-11-17: "i would prefer to have to activate
        these feature"): today a staff account with `pages.edit` sees every zone outlined with "Not published yet" and
        Edit on the live site (`Blocks::zone()`, `js/tv-editor.js`). Make it off by default: an **Edit page** switch in
