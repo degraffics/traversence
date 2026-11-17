@@ -79,6 +79,8 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
      recaptured; patterns become skip rules), reading priority, a size guard, and pace on the site: writes to the site in
      batches: 250 found URLs or 25 read pages, 100 KB at most, one batch per 10 s, self-adjusting (halve on 409/413/slow,
      grow back to 250, cap 500), settings in Thresholds, keyed; the pre-flight sends one full-size test batch.
+     **Every batch gets a receipt** (stored count and checksum; the indexer resends what's missing; three mismatches slow
+     it and open a Pulse case).
      No per-page or per-source caps (the old 60/40 go); a safety net only for a broken page with an absurd number of
      links: logged over several passes and flagged, nothing dropped.
   2. **The pre-flight check** (decisions/0163 §10's note of 2026-11-16; Jason asked for it before launching the
@@ -88,6 +90,8 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
      nightly and after a `.env` change, red items to Pulse; each Outside services card's Test is its item. Laid out as a
      queue log: one line per check, green ✓ / red ✗, each line opens to its status and its fix.
      Domains in it: Fly's API token can read the edge's certificates; Name.com's sandbox answers a search with a price.
+     **Query timings** (Gemini's review, 2026-11-17): the heaviest queries (a radius search, a zone roll-up, a graph walk,
+     an index lookup) timed against set limits, a ✗ when one slows as the data grows. Supabase awake and the index complete.
      Its own process: runs any time (stopped, starting or running) to diagnose, never starts or pauses anything.
      **With it, Outside services becomes a table** (Jason, 2026-11-17: "maybe we treat it like the table view with search
      and filters sorting"): the admin's table widget, one row per company (name, what we use it for, status ✓/✗/—, this
