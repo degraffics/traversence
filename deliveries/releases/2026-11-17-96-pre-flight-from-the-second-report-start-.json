@@ -6,12 +6,12 @@
     "zip": "preflight-fix2.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "planned",
+    "state": "approved",
     "step": 0,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
-    "plan_at": null,
+    "plan_at": "2026-11-17 15:23:40",
     "staged_at": null,
     "vetted_at": null,
     "live_at": null,
@@ -34,6 +34,16 @@
             "at": "2026-11-17T15:23:38+00:00",
             "by": 0,
             "msg": "Uploaded preflight-fix2.zip: 2 files."
+        },
+        {
+            "at": "2026-11-17T15:23:40+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/preflight-fix2.zip (git c7bdb45a56)."
+        },
+        {
+            "at": "2026-11-17T15:23:40+00:00",
+            "by": 0,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
         }
     ]
 }
