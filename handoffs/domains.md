@@ -44,7 +44,19 @@ joining it to the account's domains is the Storefront app's job (0169 app 6).
 4. **Domains tab:** `/user/domains/` (a Dashboard section) and a **Domains** module in the business portal, one shared
    view (`app/ui/domains-view.php`). A business's storefront domain (`business_domains`) is listed there read-only, with
    a link to its storefront page, managed there as today.
-5. **Admin → Market 360 → Custom domains:** also lists the accounts' domains (owner, source, expiry, where it points).
+5. **No admin list** (Jason, 2026-11-17: "Order processing should address situation like failed renewals and new
+   purchases. And support tickets for issues."). Market 360 → Custom domains stays as it is (storefront domains only).
+   Instead:
+   - **Every purchase and renewal is an order** (0098) in Back-Office → Orders (`https://traversence.com/admin/backoffice/orders`):
+     Domain Purchase paid → registering at Name.com → done; a renewal ordered 14 days ahead → charged → renewed. Each
+     step is an order event, so the order is the record.
+   - **What goes wrong is handled on the order:** a registration that fails after the charge (refunded, or the refund
+     failed too), a renewal declined after its retries (3 and 7 days), a renewal charged but not renewed at Name.com:
+     the order shows Needs attention and a Pulse case opens with the order and its buttons (Try again, Refund, Email the
+     owner); the owner is emailed with a way forward (Replace card, Renew now).
+   - **Support tickets:** the Domains tab's **Something isn't right** on a domain opens a support ticket on its latest
+     order, the way orders' tickets work today (0101 follow-up: `order_feedback` kind `problem`, a Support case in the
+     Pulse with its number, replies emailed, resolving it closes it on the order).
 6. FAQ entries; 390px check; tests in mock mode.
 7. **Two products** (Jason, 2026-11-17, relayed by the session manager: "Domain Purchase, domain renewal. Two
    products"): **Domain Purchase** (a first registration) and **Domain Renewal** (every yearly renewal, Renew now or
