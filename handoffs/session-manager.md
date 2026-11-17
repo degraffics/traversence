@@ -192,6 +192,8 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
   its migration wasn't add-only; #71 replaced it) on the site manager's Releases page.
 - **For Jason to sort out:** the **Chameleon Filter** (brand.md §5, architecture.md §22, 0003, 0131 §3). **Already built
   in guides:** the Visiting / Live here dial and each section's picks (relevance, proximity, kind, season; never paid);
+  **Jason's frame (2026-11-17):** the place tree and the topic tree joined by home, touch points and reach (0170 §2)
+  "is the chameleon filter in my head": the filter is the lens that, for a visitor's intent, picks which links to follow.
   **still to decide:** the Community track, the filter beyond guides, and its use of the intent tags (0170 §1a): how each place's page shifts emphasis by the visitor's track (Get Local, Let's Explore, Community), which
   tags and items show for each, and the DIKW climb. Phase 4's intent tags (decisions/0170 §1a) are its data; its
   design is Jason's to decide (Jason, 2026-11-17: "put chameleon filter on the queue for me to sort out"), then a

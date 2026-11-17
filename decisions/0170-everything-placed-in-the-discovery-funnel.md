@@ -86,6 +86,11 @@ the Chameleon Filter (not yet built; Jason to sort out its design) has the data 
     an event's venue) takes the cluster its point falls in, the same way; a thing with no single point (a river, a
     trail, a state, a nation's land) takes the one level that spans it (a zone or a hub) as its one home. Still one
     home each; home is where it lives, is counted and is managed.
+  - **Span, for things with no single point** (Jason, 2026-11-17): its one home is the level that spans it, and it
+    keeps **touch points**: every physical place it really touches (a river's towns and access points, a trail's
+    trailheads, a nation's land within each zone), each placed in its own cluster, so it shows as local in every one of
+    them while existing once. (The Little Colorado River: one home, the zone that spans it; touch points St. Johns,
+    Holbrook, Winslow, Cameron.) Touch points are never extra homes.
   - **Reach:** how widely it matters and to whom: town, zone, hub, state, national or international, and for which
     intent (Get Local, Let's Explore, Community). Reach decides which higher levels' guides, lists and searches link to
     it, never where it lives. **The Grand Canyon:** home is its point (Grand Canyon Village, in the Flagstaff, Grand
@@ -94,6 +99,19 @@ the Chameleon Filter (not yet built; Jason to sort out its design) has the data 
   - Reach comes from the evidence (how widely it's written about, visited, searched, protected or listed, e.g. a
     national park or a World Heritage Site), set at Phase 4 with the intent tags, and a person can adjust it.
   - A journey's home is where it starts; it reaches every level along its route.
+  - **A listing's service area is its reach** (Jason, 2026-11-17): its home follows its address; the towns it serves
+    link it into those towns' Get Local lists and searches, without moving or duplicating it; the owner sets it,
+    within the valid rule (it plausibly serves them).
+  - **Topics and experiences live in a second tree** (Jason, 2026-11-17): a topic or a kind of experience ("Route 66",
+    "ranching heritage", "stargazing") has no point on the map; its home is the **Topic index** (0164 R15). It touches
+    the map through its instances (each landmark, diner or museum with its own home), its touch points; its reach is
+    its scope and intent (Route 66: national, Let's Explore). A specific experience offered (a business's guided tour)
+    is content with a home: where it starts, or its business.
+  - **Two trees joined by links:** the place tree (hub → zone → cluster: where things live, one home each) and the
+    topic tree (themes and kinds of experience: what they mean), joined by home, touch points and reach. Jason: "two
+    trees joined by links: this is the chameleon filter in my head." The Chameleon Filter is the lens over these two
+    trees: for a visitor's intent, it chooses which links to follow and what to show ("stargazing near Springerville",
+    "Route 66 across Arizona").
 
 ### 3. Once organized, research builds the bigger picture
 
