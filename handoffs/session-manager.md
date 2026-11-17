@@ -99,7 +99,7 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
      use, not in use; kind: storage, email, payments, AI, sign-in, data sources, domains, workers, hosting); sort by
      status (default), name or cost; a row opens to today's full card in place (nothing dropped); filter and search
      remembered. One list and one status shared with the pre-flight; a ✗ there links to the company's row.
-  3. **W15 Funnel: every find and every piece of content into the discovery funnel** (decisions/0170, proposed) (Jason, 2026-11-16, found in the `.env` trace):
+  3. **W15 Funnel: every find and every piece of content into the discovery funnel** (decisions/0170, accepted) (Jason, 2026-11-16, found in the `.env` trace):
      `CrawlerIngest::resolveMicroClusterId()` files any ZIP outside an existing area under `DEFAULT_GEO_HUB_SLUG`
      (ancient-borderlands), wherever it is (callers: `api/ingest.php`, `IntakeStager`, `IntakeClusters`,
      `AddBusiness`). Fix: an existing area first; else the hub whose region holds it, or the nearest in reach; else

@@ -1,6 +1,7 @@
 # 0170: Everything placed in the discovery funnel, by location, active or planned
 
-Status: proposed (drafted 2026-11-17 at Jason's ask; for his approval). Not built; queue item 3 in
+Status: accepted (Jason, 2026-11-17, after his answers on the three choices and confirming that home is the existing
+Single Home Rule, not a second one). Not built; queue item 3 in
 `handoffs/session-manager.md`.
 Builds on: 0006 (the pilot hub), 0013 (the nested route), 0042 (the five-tier taxonomy and clustering), 0043 (a
 discovery guide at every level), 0048 (the continental data plan), 0060 and "Places in search" (a city named is always
@@ -78,9 +79,13 @@ the Chameleon Filter (not yet built; Jason to sort out its design) has the data 
 - **Home and reach** (Jason, 2026-11-17, on the Single Home Rule: "If we are talking something physical then there is
   a specific geographic placement, but if we are talking context, then the scope of access and intent must be shaped
   as well. Example: The Grand Canyon…"). Two things, kept apart:
-  - **Home:** every thing has **exactly one** home on the taxonomy (the Single Home Rule, architecture.md §22, 0042):
-    its physical point's town, or, for something with no single point (a river, a trail, a state, a nation's land),
-    the one level that spans it. Home is where it lives, is counted and is managed; it never duplicates.
+  - **Home is the Single Home Rule, unchanged** (architecture.md §22, decisions/0042), not a new rule. As written
+    there: every listing has exactly one permanent home, bound 1:1 to its micro-cluster's resolved anchor from its
+    physical address (`primary_zip`, secondary ZIPs mapped to the same profile), so it's never duplicated across
+    clusters. 0170 only **applies the same rule to everything else**: a thing with a point (a landmark, a trailhead,
+    an event's venue) takes the cluster its point falls in, the same way; a thing with no single point (a river, a
+    trail, a state, a nation's land) takes the one level that spans it (a zone or a hub) as its one home. Still one
+    home each; home is where it lives, is counted and is managed.
   - **Reach:** how widely it matters and to whom: town, zone, hub, state, national or international, and for which
     intent (Get Local, Let's Explore, Community). Reach decides which higher levels' guides, lists and searches link to
     it, never where it lives. **The Grand Canyon:** home is its point (Grand Canyon Village, in the Flagstaff, Grand
@@ -110,6 +115,10 @@ With everything placed, Phase 4 rolls what's under each level up into that level
 - **Claims and people's input win** (Jason, 2026-11-17: "Claims and user input should win over system content or
   listing generation 99%. As long as the user input is valid and follows our rules."): an owner's or a member's or a
   staff member's choice of place stands over the engine's; Phase 4 only suggests and fills in where none was given.
+  **For a listing, its home follows its address** (the Single Home Rule): an owner corrects the address and the home
+  follows; there's no choosing a home apart from where the business is. Where a person's choice sets the home is
+  content with no address of its own (a guide, a story, a group, a post), and a business's **reach** (the towns it
+  serves), which is theirs to set.
   **Valid** means it follows our rules: the chosen place is where the thing really is or plausibly serves (a home
   within reach of its address, not a town far away to look local), and it breaks no rule (nations' land, held names,
   privacy, honest representation). A choice that doesn't fit is never silently overridden: it's flagged with the
