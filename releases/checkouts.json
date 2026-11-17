@@ -226,6 +226,27 @@
      "website/api/crawl/refresh.php"
     ]
    }
+  },
+  {
+   "path": "app/lib/IdentityJobs.php",
+   "functions": [
+    "complete",
+    "lease"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
+   "why": "(c2) W2 missing phone or website: our NPI and Recreation.gov copies first (0163 source map)",
+   "since": "2026-11-17T17:13:07Z",
+   "expires": "2026-11-17T21:13:07Z",
+   "release": "refresh-archive",
+   "callers": {
+    "complete": [
+     "website/api/crawl/identity.php"
+    ],
+    "lease": [
+     "website/api/crawl/identity.php"
+    ]
+   }
   }
  ],
  "lapsed": [
