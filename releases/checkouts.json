@@ -142,6 +142,31 @@
    "expires": "2026-11-17T16:40:44Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/lib/AccountDomains.php",
+   "functions": [
+    "TERMS",
+    "quote"
+   ],
+   "kind": "add",
+   "session": "domain-years",
+   "why": "Domain purchases: 1-10 year terms with Name.com's real total; follow Name.com's pricing guide (Jason, 2026-11-17)",
+   "since": "2026-11-17T12:40:57Z",
+   "expires": "2026-11-17T16:40:57Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "app/migrations/2027-03-11_domain_cart_years.sql",
+   "functions": [],
+   "kind": "add",
+   "session": "domain-years",
+   "why": "Domain purchases: 1-10 year terms with Name.com's real total; follow Name.com's pricing guide (Jason, 2026-11-17)",
+   "since": "2026-11-17T12:40:57Z",
+   "expires": "2026-11-17T16:40:57Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
