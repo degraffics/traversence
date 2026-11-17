@@ -94,17 +94,19 @@
     "mailBuyer",
     "pay",
     "payGroup",
+    "pulseDo",
     "receipt",
     "register",
     "renewAt",
     "renewalCost",
-    "search"
+    "search",
+    "usd"
    ],
    "kind": "change",
    "session": "domain-years",
-   "why": "Domain purchases: 1-10 year terms with Name.com's real total; follow Name.com's pricing guide (Jason, 2026-11-17)",
+   "why": "Domain purchases: terms of years (Jason, 2026-11-17)",
    "since": "2026-11-17T12:40:44Z",
-   "expires": "2026-11-17T16:40:44Z",
+   "expires": "2026-11-17T16:42:08Z",
    "release": "",
    "callers": {
     "search": [
@@ -118,6 +120,12 @@
     ],
     "payGroup": [
      "app/lib/CartPlans.php"
+    ],
+    "pulseDo": [
+     "app/lib/Pulse.php"
+    ],
+    "usd": [
+     "website/api/domains.php"
     ]
    }
   },
