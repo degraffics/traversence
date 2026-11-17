@@ -87,6 +87,42 @@
      "website/admin/api.php"
     ]
    }
+  },
+  {
+   "path": "app/lib/HubOpening.php",
+   "functions": [
+    "hubs",
+    "lines"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
+   "why": "Switch-on check: hubs without a stage take hubs.status, a hub with no state gets no sources; the pre-flight includes the switch-on check's red lines",
+   "since": "2026-11-17T18:49:42Z",
+   "expires": "2026-11-17T22:49:42Z",
+   "release": "hub-gate-preflight",
+   "callers": {
+    "lines": [
+     "app/lib/Operations.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/Preflight.php",
+   "functions": [
+    "lines",
+    "test"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
+   "why": "Switch-on check: hubs without a stage take hubs.status, a hub with no state gets no sources; the pre-flight includes the switch-on check's red lines",
+   "since": "2026-11-17T18:49:42Z",
+   "expires": "2026-11-17T22:49:42Z",
+   "release": "hub-gate-preflight",
+   "callers": {
+    "lines": [
+     "app/admin/preflight-console.php"
+    ]
+   }
   }
  ],
  "lapsed": [
