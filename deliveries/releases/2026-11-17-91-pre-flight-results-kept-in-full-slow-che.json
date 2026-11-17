@@ -1,0 +1,59 @@
+{
+    "id": 91,
+    "title": "Pre-flight: results kept in full, slow checks marked, a plain-text report",
+    "why": "Jason, 2026-11-17. 1. A fix: the header said \"4 ✓ · 0 ✗ · 78 not run yet\" while the lines showed results. The results were stored in search_index_state, whose value column cuts long values short on live, so most results were lost (only short ones survived). They now have their own table, preflight_results, made on first use (no hand step), registered as staging's own (each site keeps its own diagnosis); the cut-off rows are cleared once. Run the pre-flight again after this goes live. 2. Slow checks (\"identify a slow load or long check process that we could come back to\"): a check over 5 s (Thresholds: pf_slow_ms) shows its time in amber on its row; \"Show the slow ones\" lists only those; the header counts them; each line keeps its last 10 times; a full run's start, finish and length are kept, with the last 10 runs. 3. Report (text) (\"a simple results of preflight report, text only\"): a download of the latest results as plain text: the counts and the run's times, what's not ready (needed for launch first), the slow ones, then every line with its answer, what was tested, how long it took and its fix links, to read or send to Claude.",
+    "proposals": "",
+    "zip": "preflight-slow.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/lib/Preflight.php": {
+            "sha": "2877130c7677263a605b4e9c89c654958e8cb5a5d4b0f8f1e05ff88527b2b7d9",
+            "size": 91670,
+            "live_was": "660baef57909c7d983d6f797aa4f5810d1991d82015331a1ed991283e1063f38"
+        },
+        "app/lib/Thresholds.php": {
+            "sha": "908a1ad55b8f2569d31e1ff30808faa748aec78db44d2487cae0d95a43eecf3e",
+            "size": 25478,
+            "live_was": "9e53cbeea2f802d6145a45fe90fa47105f91ac4d0d54893c6a14a105489bbc00"
+        },
+        "app/lib/staging-tables.php": {
+            "sha": "23aebf75fdeb57241777e8992fba912d11ff112050de11be3848df0be570c674",
+            "size": 25164,
+            "live_was": "abd9551185abb9ffe355c1192a16755711caa72a46aa18d372e8ea16a2d156eb"
+        },
+        "app/admin/preflight-console.php": {
+            "sha": "41013f9ad8dad3697d69237e76dd4ebbbae4ff3a1f75b6a9d438ba246ee43a51",
+            "size": 10961,
+            "live_was": "a41740f71fe4eefdb1941ba241c7e8301a57f56fc36ff6434751b217b04b5eb6"
+        },
+        "website/js/admin-preflight.js": {
+            "sha": "0b1cad069301062cc3c889b4ce837feeb9a5413c45285fd8b456ce563ec6c67a",
+            "size": 7709,
+            "live_was": "7e9ea2f7a0847dab8fc13b061ff4629b25c3e17a214710fea9347e0746d4de4e"
+        },
+        "website/admin/api.php": {
+            "sha": "706d4485477e032d82aad1cb70d3ce81d35a0bffda2746c4835f6375f3d4fa3c",
+            "size": 23130,
+            "live_was": "c469bfaab3c0b3ec34c32f41a8f52346bf35b5bbf176d0985a60995a8a315ca8"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-17T14:34:50+00:00",
+            "by": 0,
+            "msg": "Uploaded preflight-slow.zip: 6 files."
+        }
+    ]
+}
