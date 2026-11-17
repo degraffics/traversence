@@ -1,8 +1,8 @@
 {
- "zip": "hub-gate-preflight-2.zip",
+ "zip": "hub-gate-preflight-3.zip",
  "built_on": "d2e626c Sync: 2026-11-17 18:36 UTC",
- "recorded": "2026-11-17 19:07 UTC",
- "note": "Hub lines hold W14 only; planned hubs and other states' sources stop holding Start; pre-flight switch-on line. Built on Sync 18:36 UTC Sent through git (releases/inbox).",
+ "recorded": "2026-11-17 19:20 UTC",
+ "note": "Re-send of hub-gate-preflight-2.zip (#108, withdrawn: switch \"none\"); same code, switch empty. Built on Sync 18:36 UTC Sent through git (releases/inbox).",
  "status": "pending",
  "live_in": "",
  "files": {
