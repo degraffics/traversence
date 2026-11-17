@@ -43,8 +43,8 @@
    "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
    "why": "Long values kept whole: search_index_state.v widened (VARCHAR(200) cut Start the system's state); a pre-flight line proves the round trip (session manager, 2026-11-17)",
    "since": "2026-11-17T18:11:12Z",
-   "expires": "2026-11-17T22:17:01Z",
-   "release": "preflight-server-run",
+   "expires": "2026-11-17T22:17:34Z",
+   "release": "preflight-server-run.zip",
    "callers": {
     "tick": [
      "app/scripts/preflight_tick.php"
@@ -70,7 +70,7 @@
    "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
    "why": "Pre-flight server run: the run's own record kept out of the lines' results",
    "since": "2026-11-17T18:11:12Z",
-   "expires": "2026-11-17T22:15:23Z",
+   "expires": "2026-11-17T22:17:34Z",
    "release": "preflight-server-run.zip",
    "callers": {
     "tv_preflight_log": [
@@ -85,7 +85,7 @@
    "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
    "why": "Pre-flight's Run all runs on the server and keeps going when the page closes; the page shows its progress (Jason, 2026-11-17)",
    "since": "2026-11-17T18:11:12Z",
-   "expires": "2026-11-17T22:15:23Z",
+   "expires": "2026-11-17T22:17:34Z",
    "release": "preflight-server-run.zip",
    "callers": {}
   },
@@ -96,7 +96,7 @@
    "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
    "why": "Pre-flight's Run all runs on the server and keeps going when the page closes; the page shows its progress (Jason, 2026-11-17)",
    "since": "2026-11-17T18:11:12Z",
-   "expires": "2026-11-17T22:15:23Z",
+   "expires": "2026-11-17T22:17:34Z",
    "release": "preflight-server-run.zip",
    "callers": {}
   },
@@ -124,8 +124,8 @@
    "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
    "why": "search_index_state.v to MEDIUMTEXT",
    "since": "2026-11-17T18:17:07Z",
-   "expires": "2026-11-17T22:17:07Z",
-   "release": "preflight-server-run",
+   "expires": "2026-11-17T22:17:34Z",
+   "release": "preflight-server-run.zip",
    "callers": {}
   }
  ],
