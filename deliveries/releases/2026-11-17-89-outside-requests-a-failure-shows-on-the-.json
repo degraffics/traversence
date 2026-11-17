@@ -6,12 +6,12 @@
     "zip": "outside-requests-visible.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "planned",
+    "state": "approved",
     "step": 0,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
-    "plan_at": null,
+    "plan_at": "2026-11-17 14:19:44",
     "staged_at": null,
     "vetted_at": null,
     "live_at": null,
@@ -39,6 +39,16 @@
             "at": "2026-11-17T14:19:43+00:00",
             "by": 0,
             "msg": "Uploaded outside-requests-visible.zip: 3 files."
+        },
+        {
+            "at": "2026-11-17T14:19:44+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/outside-requests-visible.zip (git 7c19e10a09)."
+        },
+        {
+            "at": "2026-11-17T14:19:44+00:00",
+            "by": 0,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
         }
     ]
 }
