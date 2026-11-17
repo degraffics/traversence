@@ -145,41 +145,6 @@
    "callers": {}
   },
   {
-   "path": "app/lib/Domains.php",
-   "functions": [
-    "(top)",
-    "TLDS"
-   ],
-   "kind": "change",
-   "session": "domain-tlds",
-   "why": "Offer .app and .ai (Jason, 2026-11-17)",
-   "since": "2026-11-17T13:40:18Z",
-   "expires": "2026-11-17T17:40:44Z",
-   "release": "domain-tlds.zip",
-   "callers": {
-    "TLDS": [
-     "app/lib/AccountDomains.php"
-    ]
-   }
-  },
-  {
-   "path": "app/lib/AccountDomains.php",
-   "functions": [
-    "search"
-   ],
-   "kind": "change",
-   "session": "domain-tlds",
-   "why": "Offer .app and .ai (Jason, 2026-11-17)",
-   "since": "2026-11-17T13:40:18Z",
-   "expires": "2026-11-17T17:40:44Z",
-   "release": "domain-tlds.zip",
-   "callers": {
-    "search": [
-     "website/api/domains.php"
-    ]
-   }
-  },
-  {
    "path": "app/lib/Pulse.php",
    "functions": [
     "items",
@@ -224,46 +189,6 @@
      "app/admin/sections.php"
     ]
    }
-  },
-  {
-   "path": "app/lib/OutsideServices.php",
-   "functions": [
-    "REQ_SEED",
-    "addRequest",
-    "pulseDo",
-    "requests"
-   ],
-   "kind": "add",
-   "session": "outside-requests",
-   "why": "Requests waiting on outside companies, each a Pulse case until answered; Name.com reseller pricing ticket #3113488 (Jason, 2026-11-17)",
-   "since": "2026-11-17T13:44:09Z",
-   "expires": "2026-11-17T17:45:29Z",
-   "release": "outside-requests.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/ui/outside-services.php",
-   "functions": [
-    "tv_os_requests"
-   ],
-   "kind": "add",
-   "session": "outside-requests",
-   "why": "Requests waiting on outside companies, each a Pulse case until answered; Name.com reseller pricing ticket #3113488 (Jason, 2026-11-17)",
-   "since": "2026-11-17T13:44:09Z",
-   "expires": "2026-11-17T17:45:29Z",
-   "release": "outside-requests.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/Pulse.php",
-   "functions": [],
-   "kind": "add",
-   "session": "outside-requests",
-   "why": "release outside-requests.zip",
-   "since": "2026-11-17T13:45:29Z",
-   "expires": "2026-11-17T17:45:29Z",
-   "release": "outside-requests.zip",
-   "callers": {}
   },
   {
    "path": "app/ui/favicon.php",
