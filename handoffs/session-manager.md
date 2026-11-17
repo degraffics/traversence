@@ -95,7 +95,7 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
      use, not in use; kind: storage, email, payments, AI, sign-in, data sources, domains, workers, hosting); sort by
      status (default), name or cost; a row opens to today's full card in place (nothing dropped); filter and search
      remembered. One list and one status shared with the pre-flight; a ✗ there links to the company's row.
-  3. **Hubs by location, before the crawler works beyond the pilot** (Jason, 2026-11-16, found in the `.env` trace):
+  3. **Places by location: every find and every piece of content into the discovery funnel** (Jason, 2026-11-16, found in the `.env` trace):
      `CrawlerIngest::resolveMicroClusterId()` files any ZIP outside an existing area under `DEFAULT_GEO_HUB_SLUG`
      (ancient-borderlands), wherever it is (callers: `api/ingest.php`, `IntakeStager`, `IntakeClusters`,
      `AddBusiness`). Fix: an existing area first; else the hub whose region holds it, or the nearest in reach; else
@@ -118,6 +118,14 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
      under the continental hub that covers it, held there and counted as its demand, and placed in a zone once that hub's
      zones exist. Only Ancient America is defined in the repo: **the other 19 hubs' names and states are needed from
      Jason** before this part is built.
+     **For all content, not just listings** (Jason, 2026-11-17: "this is not just about listings but how all content
+     gets organized into the discovery funnel too"): one place resolver, "where does this belong", used by every kind
+     of content as it's made or found: listings, landmarks and outdoor places, places, guides, journeys, events,
+     stories, heritage and topics, research and dossiers, Moments and Marketplace posts, sources. Each is placed on the
+     place taxonomy (0042, 0043: Continental Hub → Geo-Hub zone → town cluster → anchor → sub-group) from its
+     location, active or planned; held where its level isn't open; feeding that level's discovery guide and counts.
+     Something about a whole region (a state, a river, a trail across zones) is placed at the level that spans it.
+     Existing content is re-placed by Data cleanup (preview, Undo). Today each kind places itself its own way.
   4. **decisions/0169, the Shop's App store and one lifecycle for every app** (accepted 2026-11-16). First: the Shop
      with departments, the App store, the app lifecycle (choose, install, configure, use, update, remove), the Apps page
      and the staff view. Today's Stripe and Square connections keep working until their app is built.
