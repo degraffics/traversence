@@ -178,6 +178,17 @@
    "expires": "2026-11-17T16:40:57Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/ui/domains-view.php",
+   "functions": [],
+   "kind": "change",
+   "session": "domain-years",
+   "why": "Domain purchases: year picker styling",
+   "since": "2026-11-17T12:43:03Z",
+   "expires": "2026-11-17T16:43:03Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
