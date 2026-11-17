@@ -187,6 +187,9 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
   prd.md): how each place's page shifts emphasis by the visitor's track (Get Local, Let's Explore, Community), which
   tags and items show for each, and the DIKW climb. Phase 4's intent tags (decisions/0170 §1a) are its data; its
   design is Jason's to decide (Jason, 2026-11-17: "put chameleon filter on the queue for me to sort out"), then a
-  decision and a build.
+  decision and a build. Two questions with it (2026-11-17): (1) where research finds a real community organization
+  with no group, should the Community track invite it to claim its listing and start one? Groups are never
+  auto-created; they stay person-made (Jason). (2) When an item is both Get Local and Community (a church, a library),
+  which track leads on a place's page? Tabled by Jason for another day.
 - **Jason's own, any time:** Meta Business portfolio and Business Verification (0168 Phase 2); the OSM forum statement (`research/osm-overpass-2026-11-13.md` §2), and the SES dashboard
   check for bounces lost while the bot check blocked them.
