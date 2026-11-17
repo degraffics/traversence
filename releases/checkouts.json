@@ -338,6 +338,51 @@
      "website/admin/api/find.php"
     ]
    }
+  },
+  {
+   "path": "app/lib/Domains.php",
+   "functions": [
+    "namecom"
+   ],
+   "kind": "change",
+   "session": "domain-terms",
+   "why": "Domain year choices limited to the terms Name.com sells for each ending (Jason, 2026-11-17)",
+   "since": "2026-11-17T13:03:17Z",
+   "expires": "2026-11-17T17:03:17Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/AccountDomains.php",
+   "functions": [
+    "quote",
+    "search"
+   ],
+   "kind": "change",
+   "session": "domain-terms",
+   "why": "Domain year choices limited to the terms Name.com sells for each ending (Jason, 2026-11-17)",
+   "since": "2026-11-17T13:03:17Z",
+   "expires": "2026-11-17T17:03:17Z",
+   "release": "",
+   "callers": {
+    "search": [
+     "website/api/domains.php"
+    ],
+    "quote": [
+     "website/api/domains.php"
+    ]
+   }
+  },
+  {
+   "path": "website/js/tv-domains.js",
+   "functions": [],
+   "kind": "change",
+   "session": "domain-terms",
+   "why": "Domain year choices limited to the terms Name.com sells for each ending (Jason, 2026-11-17)",
+   "since": "2026-11-17T13:03:17Z",
+   "expires": "2026-11-17T17:03:17Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
