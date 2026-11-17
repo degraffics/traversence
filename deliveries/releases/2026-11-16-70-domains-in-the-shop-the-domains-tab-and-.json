@@ -1,0 +1,146 @@
+{
+    "id": 70,
+    "title": "Domains in the Shop, the Domains tab, and the wallet",
+    "why": "decisions/0169 §1a (Jason, 2026-11-17): \"a domains category on the shop page when I can search for domains and purchase/register them. The users would get a domains tab where they can manage them\", standalone, any account; \"Domain Purchase, domain renewal. Two products\"; and decisions/0166 §6a: \"Payments should have a payment wallet like system where multiple payment methods can be held\", plans included (\"it is a payment method from wallet\"). Failed purchases and renewals are handled on their orders, with support tickets (Jason: \"Order processing should address situation like failed renewals and new purchases. And support tickets for issues.\"). The storefront's Connect your domain is unchanged (the Storefront app, queued). Two wallets per account, live and test (Jason, 2026-11-17: \"a test/sandbox version that is used by the system for testing to ensure no actual live payment is ever available\").",
+    "proposals": "",
+    "zip": "domains-wallet.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/ui/domains-view.php": {
+            "sha": "4bb164966109b4eb97bb7aaaca4be94df176f9bebfb585a7a9a32fea7386d98f",
+            "size": 3515,
+            "live_was": null
+        },
+        "app/ui/faq.md": {
+            "sha": "3e21db047e04c1faa3950933342d31645767fa31f2f2d1605deb9ebaa76906e1",
+            "size": 314858,
+            "live_was": "004da0c746a4b856a02ad74915bbcaf5767dfa25c9f4f94a428a5fbf224e2aef"
+        },
+        "app/business/portal.php": {
+            "sha": "ce1aa8ba640293dd1c3086bde3d91ac0226bee802c1b3ebbd7975a173a0351b4",
+            "size": 18004,
+            "live_was": "cb3882410831e17fb86f8a76d14d449e6c68cf424ab693d6612340cb9c47f8f6"
+        },
+        "app/business/domains.php": {
+            "sha": "aa1d554dda3ecbc9ce3056d530049c1c3445aeeabdfc9fc0091a0ba96dd589f3",
+            "size": 988,
+            "live_was": null
+        },
+        "app/migrations/2027-03-10_account_domains_wallet.sql": {
+            "sha": "914f64b2b67ad309839b9b2295172f4c6bf97b0dbfaa30ec280447e7e03ac0b4",
+            "size": 5835,
+            "live_was": null
+        },
+        "app/scripts/domains_tick.php": {
+            "sha": "eee8c54165179f8b5adf9db207695f69abc85fda4c8f8c0adc019af46872f07f",
+            "size": 1366,
+            "live_was": "b62f70d793b2dff3d25c0131d2579ed5854c6c6e3c6031276eef18112d048678"
+        },
+        "app/lib/Team.php": {
+            "sha": "dcbb5dd60570ee11d2fba44e1afcb722bc5bc3aa4a1feaae466337647376502a",
+            "size": 36237,
+            "live_was": "10d22eabe2962417483e973b1075bd807297a5a544f4dcf3b2169651520166f3"
+        },
+        "app/lib/CartPlans.php": {
+            "sha": "c68991ddedbc3b6e2174c580d2c181aa5d1e025484b40c3b3335a8f642c5113a",
+            "size": 9783,
+            "live_was": "650193349930500e8252597240dec3ec6ca3855be93c2101a6609985ec322e2f"
+        },
+        "app/lib/Billing.php": {
+            "sha": "0e244942129fd65c377c7ee5658ece1bb7a6a2f4f7a67db57dfdbdf39b2a5824",
+            "size": 43537,
+            "live_was": "39fbfd47349113989e1d16c5d80649d39037718f33375051f4f14b3f5c46fc9b"
+        },
+        "app/lib/QuickBooksPay.php": {
+            "sha": "2fe5bac06b081604cc5cbb3c93d7b78367333cbd7371b165eb1f8d3bb51cd5e3",
+            "size": 79389,
+            "live_was": "9a37501c37189be39892320f2bff7d9c9a926d9f79c7c368bd97f4099a62a233"
+        },
+        "app/lib/staging-tables.php": {
+            "sha": "abd9551185abb9ffe355c1192a16755711caa72a46aa18d372e8ea16a2d156eb",
+            "size": 25084,
+            "live_was": "f185bf4a10739f7ffc49f3b8d639bdc0bb87810491ec11b78a07e29534efb6ab"
+        },
+        "app/lib/Pulse.php": {
+            "sha": "784c7578047e94b85bd1d77d8252f130972a57a76762ab76f0e37eb5bfe0da76",
+            "size": 139317,
+            "live_was": "69184af82fdc37de6596f007e5257c38b1295a26263137b117529f5c18534080"
+        },
+        "app/lib/Wallet.php": {
+            "sha": "0ada9945a5ee9b87a70da4c6fa2a68381df0f717728c5adcf89c759b9cedd01d",
+            "size": 25168,
+            "live_was": null
+        },
+        "app/lib/AccountDomains.php": {
+            "sha": "2c8c382fb3c7b34b574c02b90bae90a41890d560d6741e88b76673aa0529fd19",
+            "size": 85048,
+            "live_was": null
+        },
+        "app/lib/Domains.php": {
+            "sha": "9d725480f65bb9e92e829452b8bc3d92c23b7b39e5affe28658d954fcc5bf16e",
+            "size": 39843,
+            "live_was": "0eff77824694f7a675aa9e7a196d604267ceadb517b8972b45932c20213e413d"
+        },
+        "website/user/dashboard.php": {
+            "sha": "48cd9686ea9a8b578ccc933cdb5958cfbfc4b1a94346f46ee5876c3981b77069",
+            "size": 115809,
+            "live_was": "686655edbc94dea8f1e84a4cf97dcdc4aa78053c93cd36174f1395676041c535"
+        },
+        "website/user/domains/index.php": {
+            "sha": "3fa23b1341b445af120816cb4543195e3be4fb668a1989ad74e9da1b350b3087",
+            "size": 1423,
+            "live_was": null
+        },
+        "website/business/router.php": {
+            "sha": "c4f841909e37774b89c2390da6dbca14332bf69ba27dedb7cb79f798b2113fe5",
+            "size": 48659,
+            "live_was": "8869d72e666583ff8cb48b378a3187f95cf0f8dd19524096ee5af1aba020d153"
+        },
+        "website/qr/cart.php": {
+            "sha": "2543d4ad105bf2795414036534d4ed65c08ee5ea0475efa98d26d0135c19b7ef",
+            "size": 17280,
+            "live_was": "e57c00000d45d8a10f79cdf8e9abf2209f6695b53acb018f42abc5fb2f89d292"
+        },
+        "website/api/domains.php": {
+            "sha": "590a0d17d3987627bb8e7c30fc9111c94903e5f85ecb85c52fe29ba8fd78331c",
+            "size": 11126,
+            "live_was": null
+        },
+        "website/shop/index.php": {
+            "sha": "5eb04e4aede4b0dd7fcb9eac651e647319fdcc30550a50362e601817b145d1cd",
+            "size": 12658,
+            "live_was": "40ce4d5a07179ad21089fed2e3145404f3efdf1cb4d6e786bfe0c07af84959e5"
+        },
+        "website/shop/domains.php": {
+            "sha": "e3786980af9821ed4b4d1625fbd6b20c8185ea1da1c2bcc139e304b573476b8f",
+            "size": 2587,
+            "live_was": null
+        },
+        "website/js/tv-domains.js": {
+            "sha": "d5d2ddabe0e8c7cc1160311bd4d5eb183ebf3b723148b3f9cbc344a3caff93b5",
+            "size": 30030,
+            "live_was": null
+        }
+    },
+    "migrations": [
+        "app/migrations/2027-03-10_account_domains_wallet.sql"
+    ],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-17T02:13:51+00:00",
+            "by": 0,
+            "msg": "Uploaded domains-wallet.zip: 23 files."
+        }
+    ]
+}
