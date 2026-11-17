@@ -147,14 +147,15 @@
   {
    "path": "app/lib/Domains.php",
    "functions": [
+    "(top)",
     "TLDS"
    ],
    "kind": "change",
    "session": "domain-tlds",
    "why": "Offer .app and .ai (Jason, 2026-11-17)",
    "since": "2026-11-17T13:40:18Z",
-   "expires": "2026-11-17T17:40:18Z",
-   "release": "",
+   "expires": "2026-11-17T17:40:44Z",
+   "release": "domain-tlds.zip",
    "callers": {
     "TLDS": [
      "app/lib/AccountDomains.php"
@@ -170,8 +171,8 @@
    "session": "domain-tlds",
    "why": "Offer .app and .ai (Jason, 2026-11-17)",
    "since": "2026-11-17T13:40:18Z",
-   "expires": "2026-11-17T17:40:18Z",
-   "release": "",
+   "expires": "2026-11-17T17:40:44Z",
+   "release": "domain-tlds.zip",
    "callers": {
     "search": [
      "website/api/domains.php"
