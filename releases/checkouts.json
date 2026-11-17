@@ -1,6 +1,117 @@
 {
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
- "claims": [],
+ "claims": [
+  {
+   "path": "app/lib/Wallet.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5j7MKBy27a6L7AXRHN",
+   "why": "0169 \u00a71a: Shop \u2192 Domains, the Domains tab and the Wallet (new files)",
+   "since": "2026-11-17T01:32:38Z",
+   "expires": "2026-11-17T05:32:38Z",
+   "release": "domains-wallet",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/AccountDomains.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5j7MKBy27a6L7AXRHN",
+   "why": "0169 \u00a71a: Shop \u2192 Domains, the Domains tab and the Wallet (new files)",
+   "since": "2026-11-17T01:32:38Z",
+   "expires": "2026-11-17T05:32:38Z",
+   "release": "domains-wallet",
+   "callers": {}
+  },
+  {
+   "path": "app/ui/domains-view.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5j7MKBy27a6L7AXRHN",
+   "why": "0169 \u00a71a: Shop \u2192 Domains, the Domains tab and the Wallet (new files)",
+   "since": "2026-11-17T01:32:38Z",
+   "expires": "2026-11-17T05:32:38Z",
+   "release": "domains-wallet",
+   "callers": {}
+  },
+  {
+   "path": "app/business/domains.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5j7MKBy27a6L7AXRHN",
+   "why": "0169 \u00a71a: Shop \u2192 Domains, the Domains tab and the Wallet (new files)",
+   "since": "2026-11-17T01:32:38Z",
+   "expires": "2026-11-17T05:32:38Z",
+   "release": "domains-wallet",
+   "callers": {}
+  },
+  {
+   "path": "website/shop/domains.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5j7MKBy27a6L7AXRHN",
+   "why": "0169 \u00a71a: Shop \u2192 Domains, the Domains tab and the Wallet (new files)",
+   "since": "2026-11-17T01:32:38Z",
+   "expires": "2026-11-17T05:32:38Z",
+   "release": "domains-wallet",
+   "callers": {}
+  },
+  {
+   "path": "website/user/domains/index.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5j7MKBy27a6L7AXRHN",
+   "why": "0169 \u00a71a: Shop \u2192 Domains, the Domains tab and the Wallet (new files)",
+   "since": "2026-11-17T01:32:38Z",
+   "expires": "2026-11-17T05:32:38Z",
+   "release": "domains-wallet",
+   "callers": {}
+  },
+  {
+   "path": "website/api/domains.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5j7MKBy27a6L7AXRHN",
+   "why": "0169 \u00a71a: Shop \u2192 Domains, the Domains tab and the Wallet (new files)",
+   "since": "2026-11-17T01:32:38Z",
+   "expires": "2026-11-17T05:32:38Z",
+   "release": "domains-wallet",
+   "callers": {}
+  },
+  {
+   "path": "website/js/tv-domains.js",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5j7MKBy27a6L7AXRHN",
+   "why": "0169 \u00a71a: Shop \u2192 Domains, the Domains tab and the Wallet (new files)",
+   "since": "2026-11-17T01:32:38Z",
+   "expires": "2026-11-17T05:32:38Z",
+   "release": "domains-wallet",
+   "callers": {}
+  },
+  {
+   "path": "app/migrations/2027-03-10_account_domains_wallet.sql",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5j7MKBy27a6L7AXRHN",
+   "why": "0169 \u00a71a: Shop \u2192 Domains, the Domains tab and the Wallet (new files)",
+   "since": "2026-11-17T01:32:38Z",
+   "expires": "2026-11-17T05:32:38Z",
+   "release": "domains-wallet",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/staging-tables.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5j7MKBy27a6L7AXRHN",
+   "why": "0169 \u00a71a: Shop \u2192 Domains, the Domains tab and the Wallet (new files)",
+   "since": "2026-11-17T01:32:38Z",
+   "expires": "2026-11-17T05:32:38Z",
+   "release": "domains-wallet",
+   "callers": {}
+  }
+ ],
  "lapsed": [
   {
    "path": "app/lib/Store.php",
