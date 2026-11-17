@@ -1,0 +1,66 @@
+{
+    "id": 107,
+    "title": "Pre-flight's Run all keeps going when you leave the page; long settings kept whole",
+    "why": "Jason, 2026-11-17: \"Preflight only works if I stay on that page. I started a run, hit a link to go somewhere else, hit the back arrow, and page was refreshed.\" Run all was driven by the browser, line by line. Now: 1. Run all starts a run on the server (Preflight::startRun, work): the request answers at once, then carries on through every line after the page has its answer (the session released first, so the person's other pages never wait), one run at a time (a database lock). 2. The page only watches: every 2 seconds it draws the lines finished since it last asked, the line being tested has its spinner, and the progress says \"Testing 41 of 87: …, started by Jason at 6:12 PM UTC. It carries on if you leave this page.\" 3. Opening the page while a run is going shows the lines done so far and picks the run up live; otherwise the page opens fresh, as before. 4. A run the server cut off (no progress for 3 minutes) is marked Interrupted and waits for a person (Jason: \"this should be a prompt to answer continue, cancel\"): opening the page asks Continue or Cancel (the site's own chooser, no browser dialog); Run all asks Continue, Start a new run, or Cancel; Pulse's Pre-flight case has Continue and Cancel as buttons; the nightly and .env runs wait too. 4b. Every run is one line in the run log from its start (Jason: \"status of partial runs go into log right?\"), its status kept up to date (Running; Interrupted at N of 87, waiting for Continue or Cancel; Running, continued from N; Cancelled at N of 87 by …; Finished, or Finished (continued after it stopped)), with its start and end labelled, who started it (or the nightly run, a .env change), and its Report as far as it got (it says where it reached; the lines after show their earlier results). A continued run stays one line. The nightly and .env-change runs use the same run, so the page shows them too. No migration; the run's state is a row in preflight_results. 5. Long settings kept whole (the session manager, before Start the system): search_index_state.v is VARCHAR(200) and the server cut longer values without an error, so Start the system's state (a JSON document with its log) would be cut after a few steps, read back as nothing and lose its place; so would W0's flagged list, Geofabrik's test results, the identity check's last run, the worker's key report, search presets and Gemini's comparison. Add-only (decisions/0162; a MODIFY isn't, as release #70 found): the database update 2026-11-17_search_index_state_wide.sql adds a column, v_long (MEDIUMTEXT), and SearchIndex::state() reads it first while setState() writes both (v keeps its first 200 characters for anything reading the table directly). No rows change; it runs first at Publish. 6. A new pre-flight line, \"Long settings are kept whole\" (needed for launch), writes a long value and reads it back, with the table's columns and a button to run the database updates.",
+    "proposals": "",
+    "zip": "preflight-server-run-2.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/admin/preflight-console.php": {
+            "sha": "b3afdfb1dc98e19387f947fa638baad626aa278e3cac015187d01c9a504791db",
+            "size": 16785,
+            "live_was": "0f32bd327a935682d5facc8dea5ab57c14ff2e00d3bd81bdf487b3276ab8b34e"
+        },
+        "app/ui/faq.md": {
+            "sha": "503c40ae779a62d24d6328dbed629c8b64ad93f27bdc5006891d0baf6b827195",
+            "size": 322583,
+            "live_was": "0ad2c6f830b8c384feedeca6f6f203d6ca8112398d4dce55c121f460a2756d34"
+        },
+        "app/migrations/2026-11-17_search_index_state_wide.sql": {
+            "sha": "cec8fec7feb0875a945a305d71ba2301076d487ad5aeafe07f42a576c0501cb2",
+            "size": 1023,
+            "live_was": null
+        },
+        "app/lib/SearchIndex.php": {
+            "sha": "aad4a464983557629c8da663a4de0ef47f695250b12f2349a6a66ef12d0155d8",
+            "size": 71234,
+            "live_was": "9c96e74d50e7cf1d16987b724e8b8e6de51b9869b072ad771ed3b604064f454f"
+        },
+        "app/lib/Preflight.php": {
+            "sha": "d498bdbb0d24aff09861a50dc63993b6f10345091e22cb84f728477d790151df",
+            "size": 131942,
+            "live_was": "2b9607815593b16336c9087d50641b71e478b06db2819d5e6886dce6367634a5"
+        },
+        "website/admin/api.php": {
+            "sha": "6a482be80585494ed796b027377af01d6bb5b53b9bf007302355ab40ff37b570",
+            "size": 25600,
+            "live_was": "fdc8974b7a59442e54ec46d6b8f230cbc11ba4676d0534c3ef951bc50de85261"
+        },
+        "website/js/admin-preflight.js": {
+            "sha": "44d499f92a943152d7c473212c46c1816f4a525907d9377207486ccd0e4bf30c",
+            "size": 12733,
+            "live_was": "a3ee5250cb78572df16ca4ecf66d2fb734058f8ee5de3f48861bff72aaa7b2f9"
+        }
+    },
+    "migrations": [
+        "app/migrations/2026-11-17_search_index_state_wide.sql"
+    ],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-17T18:25:12+00:00",
+            "by": 0,
+            "msg": "Uploaded preflight-server-run-2.zip: 7 files."
+        }
+    ]
+}
