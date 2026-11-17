@@ -1,8 +1,8 @@
 {
  "zip": "refresh-archive.zip",
  "built_on": "a895191 Sync: 2026-11-17 17:05 UTC",
- "recorded": "2026-11-17 17:19 UTC",
- "note": "Every need's backups in the source map's order (c2); crawler 2.12.0; built on Sync: 2026-11-17 17:05 UTC Sent through git (releases/inbox).",
+ "recorded": "2026-11-17 17:49 UTC",
+ "note": "Every need's backups in the source map's order (c2) and the pre-flight's W1 deadlock fixed; crawler 2.12.0; built on Sync: 2026-11-17 17:05 UTC Sent through git (releases/inbox).",
  "status": "pending",
  "live_in": "",
  "files": {
@@ -16,6 +16,14 @@
   },
   "app/lib/Mailer.php": {
    "sha256": "e307533dc0e7016ac22131af1deda4bf7ad0261f787017a347e897a8936da8a3",
+   "live": false
+  },
+  "app/lib/Operations.php": {
+   "sha256": "6734f39637da19f917949f73f600590d36fa8b132881815e7198c3a68099d0aa",
+   "live": false
+  },
+  "app/lib/Preflight.php": {
+   "sha256": "2b9607815593b16336c9087d50641b71e478b06db2819d5e6886dce6367634a5",
    "live": false
   },
   "app/lib/crawler/DeepLook.php": {
