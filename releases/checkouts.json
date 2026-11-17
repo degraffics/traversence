@@ -422,6 +422,91 @@
    "expires": "2026-11-17T17:11:21Z",
    "release": "releases-fold.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/AccountDomains.php",
+   "functions": [
+    "attention",
+    "pulseDo",
+    "pulseSteps",
+    "register",
+    "shape",
+    "tick"
+   ],
+   "kind": "change",
+   "session": "domain-verify",
+   "why": "Domains: per-year cost on multi-year terms; a follow-up for the registrant's contact verification until it's resolved (Jason, 2026-11-17)",
+   "since": "2026-11-17T13:15:09Z",
+   "expires": "2026-11-17T17:15:09Z",
+   "release": "",
+   "callers": {
+    "tick": [
+     "app/scripts/domains_tick.php"
+    ],
+    "shape": [
+     "website/api/domains.php"
+    ],
+    "attention": [
+     "app/lib/Pulse.php"
+    ],
+    "pulseSteps": [
+     "app/lib/Pulse.php"
+    ],
+    "pulseDo": [
+     "app/lib/Pulse.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/Pulse.php",
+   "functions": [
+    "items",
+    "manage",
+    "playbook"
+   ],
+   "kind": "change",
+   "session": "domain-verify",
+   "why": "Domains: per-year cost on multi-year terms; a follow-up for the registrant's contact verification until it's resolved (Jason, 2026-11-17)",
+   "since": "2026-11-17T13:15:09Z",
+   "expires": "2026-11-17T17:15:09Z",
+   "release": "",
+   "callers": {
+    "items": [
+     "app/lib/DailyReport.php",
+     "app/ui/pulse-ui.php",
+     "website/admin/staff-profile.php",
+     "website/admin/w.php"
+    ],
+    "manage": [
+     "website/admin/api/pulse.php"
+    ],
+    "playbook": [
+     "app/lib/DailyReport.php",
+     "app/ui/pulse-ui.php"
+    ]
+   }
+  },
+  {
+   "path": "website/api/domains.php",
+   "functions": [],
+   "kind": "change",
+   "session": "domain-verify",
+   "why": "Domains: per-year cost on multi-year terms; a follow-up for the registrant's contact verification until it's resolved (Jason, 2026-11-17)",
+   "since": "2026-11-17T13:15:09Z",
+   "expires": "2026-11-17T17:15:09Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "website/js/tv-domains.js",
+   "functions": [],
+   "kind": "change",
+   "session": "domain-verify",
+   "why": "Domains: per-year cost on multi-year terms; a follow-up for the registrant's contact verification until it's resolved (Jason, 2026-11-17)",
+   "since": "2026-11-17T13:15:09Z",
+   "expires": "2026-11-17T17:15:09Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
