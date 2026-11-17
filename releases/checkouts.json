@@ -282,6 +282,23 @@
    "expires": "2026-11-17T21:14:15Z",
    "release": "refresh-archive",
    "callers": {}
+  },
+  {
+   "path": "app/lib/crawler/DeepLook.php",
+   "functions": [
+    "findByName"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
+   "why": "(c2) W8 Find it: our OpenStreetMap copy (open_places) before a live Overpass ask (0163 source map)",
+   "since": "2026-11-17T17:15:10Z",
+   "expires": "2026-11-17T21:15:10Z",
+   "release": "refresh-archive",
+   "callers": {
+    "findByName": [
+     "app/lib/GuideLinks.php"
+    ]
+   }
   }
  ],
  "lapsed": [
