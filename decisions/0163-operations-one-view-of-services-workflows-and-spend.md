@@ -440,6 +440,17 @@ The site:
 | Menus, forms, cards | Google Document AI → Amazon Textract → Claude | waits |
 | AI Assist | Claude (AI cap) | "try again later" |
 
+**Planned backups for the "no backup" needs** (Jason, 2026-11-17; a future build, queued in `handoffs/session-manager.md`;
+until each is built the pre-flight says "no backup yet, planned: …"):
+
+| Need | Now | Planned backup | Cost |
+|---|---|---|---|
+| Hosting | Bluehost | a read-only copy of the public pages (guides, listings, places), refreshed nightly, served from Cloudflare or the Fly edge when Bluehost stops answering (visitors read; sign-in and posting wait); nightly database backups to R2 or Supabase (Supabase can't run the PHP site itself) | small |
+| The engine's host | Railway | Bluehost's jobs for the light tasks (as today); the same crawler image on the `traversence` Fly organization for the heavy ones | only when used |
+| The sync | GitHub Actions | Railway runs `sync.py` on its schedule; recorded in git once GitHub is back (OneDrive is already one of the three copies) | only when used |
+| Our payments | QuickBooks | Stripe as a second processor (our account, in test mode now), then wire or check; no internal card processing (PCI) | fees only when used |
+| Marketplace checkout | the business's Stripe or Square | the other, when the business has connected both; else pay at pickup, contact the seller | none |
+
 **The pre-flight judges by need** (to build): a line per need, ✓ when its first source works, amber when it runs on a
 backup, ✗ only when nothing works; our copies checked too (loaded, with rows, fresh), so an empty or stale copy is red
 like a failed service. Then each workflow uses this order: W1 first (`open_places` before Overpass), then W2's fallbacks,
