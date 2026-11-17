@@ -1,0 +1,18 @@
+{
+ "zip": "refresh-archive.zip",
+ "built_on": "a895191 Sync: 2026-11-17 17:05 UTC",
+ "recorded": "2026-11-17 17:09 UTC",
+ "note": "W2 re-read: Common Crawl's copy before a website comes off; crawler 2.11.0; built on Sync: 2026-11-17 17:05 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/crawler/Refresh.php": {
+   "sha256": "367f4a506556b06300e488bdae9921832b0157d40dab5ad9a3068b60fec9081f",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "c315b9420c7d2d7a32fa6debf0c7c380c9e65f86f9c0d41459e16f5ed0c88c86",
+   "live": false
+  }
+ }
+}

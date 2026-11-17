@@ -217,7 +217,7 @@ SKIP_HOSTS = {"openstreetmap.org", "npino.com", "npiprofile.com", "npidb.org", "
 
 started = time.monotonic()
 WORKER_KEYS = ("GOOGLE_PLACES_KEY", "TAVILY_API_KEY", "BRAVE_API_KEY", "RIDB_API_KEY", "HF_TOKEN")   # reported by name at each run
-WORKER_V = "2.10.0"          # 2.10.0: web search falls to Brave when Tavily fails or is held; Google Places as the paid backup for confirming a business in the identity check, only by a director's override within its cap (decisions/0163's source map); 2.9.0: W1 reads our OpenStreetMap copy first (the job's "ours", from Geofabrik), Overpass only for a kind or town it lacks, and works on while every Overpass server is held (decisions/0163's source map); 2.8.0: every link on a page read goes to the page log (same site or not; no cap of 60, nor 40 other sites: W0, decisions/0164 §1.4); 2.7.5: a page whose reading had to stop is logged waiting to be read (P1-1); 2.7.4: reports which keys it has (names only), its per-run limits from the plan, Geofabrik's weekly load (osmium); 2.7.3: Geofabrik over IPv4; 2.7: the open-dataset loads and Geofabrik's test (Release B); the service's contract 2 (decisions/0160 §2): the site plans each run, the worker reports it; 2.4: calls by host; 2.5: issues, holds, probes, per-kind Overpass; 2.6: servers from the plan, the pace
+WORKER_V = "2.11.0"          # 2.11.0: a website that doesn't load for the refresh is looked up in Common Crawl's newest crawl (W2, decisions/0163's source map: direct, then Common Crawl); 2.10.0: web search falls to Brave when Tavily fails or is held; Google Places as the paid backup for confirming a business in the identity check, only by a director's override within its cap (decisions/0163's source map); 2.9.0: W1 reads our OpenStreetMap copy first (the job's "ours", from Geofabrik), Overpass only for a kind or town it lacks, and works on while every Overpass server is held (decisions/0163's source map); 2.8.0: every link on a page read goes to the page log (same site or not; no cap of 60, nor 40 other sites: W0, decisions/0164 §1.4); 2.7.5: a page whose reading had to stop is logged waiting to be read (P1-1); 2.7.4: reports which keys it has (names only), its per-run limits from the plan, Geofabrik's weekly load (osmium); 2.7.3: Geofabrik over IPv4; 2.7: the open-dataset loads and Geofabrik's test (Release B); the service's contract 2 (decisions/0160 §2): the site plans each run, the worker reports it; 2.4: calls by host; 2.5: issues, holds, probes, per-kind Overpass; 2.6: servers from the plan, the pace
 RUN_END = None             # when this run's own work must stop (started + TIME_BUDGET, or a bulk load's end)
 TASK_END = None            # when the capture task being worked must stop (its share of the run)
 FETCH_CAP = MAX_FETCHES    # fetches this run may have made by the end of the task being worked
@@ -1684,6 +1684,34 @@ def cc_page(rec):
         return parts[2][:400_000].decode("utf-8", "replace")
 
 
+_CC_NEWEST = []    # the newest crawl (its id, its index), looked up once a run
+
+
+def cc_home(site):
+    """A website's home page as Common Crawl's newest crawl copied it, when it didn't load for us (decisions/0163's source
+    map, W2: direct, then Common Crawl): (html, capture time YYYYMMDDhhmmss, crawl id), or None. Never when Common Crawl is
+    held; a copy only, never a sign the site works for us."""
+    if os.environ.get("CC_FIXTURE"):
+        with open(os.environ["CC_FIXTURE"]) as f:
+            x = json.load(f).get(site)
+        return (x["html"], x["at"], "CC-TEST") if x else None
+    if held("index.commoncrawl.org") or held("data.commoncrawl.org") or out_of_time():
+        return None
+    try:
+        if not _CC_NEWEST:
+            _CC_NEWEST.append(cc_latest())
+        crawl, api = _CC_NEWEST[0]
+        recs = [r for r in cc_list(api, {"url": site}, limit=10) if str(r.get("status")) == "200" and "html" in str(r.get("mime", "html"))]
+        if not recs:
+            return None
+        rec = max(recs, key=lambda r: str(r.get("timestamp", "")))
+        page = cc_page(rec)
+        return (page, str(rec.get("timestamp", "")), crawl) if page else None
+    except Exception as e:
+        log(f"  Common Crawl copy of {site}: {e!r}"[:200])
+        return None
+
+
 def common_crawl(deadline):
     crawl, api = cc_latest()
     d = site_call("/api/crawl/commoncrawl.php?crawl=" + urllib.parse.quote(crawl))
@@ -2353,6 +2381,16 @@ def refresh_listings(deadline):
             site_call("/api/crawl/refresh.php", {"entity_id": lst["entity_id"], "website": site, "found": {}, "locations": [], "site": {"status": how}})
             continue                               # not read: never counts against the site
         home = fetch_page(site)
+        if not home:                               # didn't load for us: Common Crawl's newest copy, when it has one (2.11.0)
+            arch = cc_home(site)
+            if arch:
+                html_, at, crawl = arch
+                found = {"description": meta_description(html_)} if "description" in lst["missing"] else {}
+                res = site_call("/api/crawl/refresh.php", {"entity_id": lst["entity_id"], "website": site, "found": found, "locations": [],
+                                                           "site": {"status": "archived", "archive": {"crawl": crawl, "at": at}}})
+                log(f"refresh {lst['name']}: website did not load; Common Crawl's copy of {at[:8]}: {res.get('site', '')}"
+                    + (f"; filled {', '.join(res.get('filled', []))}" if res.get("filled") else ""))
+                continue
         if not home or dead_site(home):            # the site decides: tried again in a few days, then off the listing or to Review
             how = "dead" if home else "unreachable"
             res = site_call("/api/crawl/refresh.php", {"entity_id": lst["entity_id"], "website": site, "found": {}, "locations": [], "site": {"status": how}})

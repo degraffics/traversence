@@ -98,6 +98,13 @@ Check-out release names: `preflight` (release 1), `outside-table` (release 2, no
   The second look takes a Google match too (Jason, 2026-11-17: "google match is a good thing"): Verify::KINDS `google`, a
   reference that raises a new find's confidence (about +10 × its record); AutoImport::isGoogleHost keeps Google out of the
   keepable hosts, so it never passes the "real business" floor by itself.
+- **(c2-1) `refresh-archive.zip`** (built on Sync 17:05 UTC): W2 re-read websites, direct → Common Crawl. Crawler 2.11.0
+  `cc_home()` (the newest crawl's capture of the home page, 200 and HTML only, never while Common Crawl is held) when
+  `fetch_page` fails; it sends `site.status = archived` with `archive.at`. `Refresh::complete`/`siteResult`: archived
+  counts as a failure, but at the second failure a copy within 90 days (ARCHIVE_DAYS) sends the website to Review instead
+  of taking it off; only an empty description is filled from the copy, labelled with its date. Test:
+  `workers/crawler/tests/test_refresh_archive.py`. "Our last copy" first isn't built: we keep no page copies, only
+  fingerprints.
 - **Next, (c2): the other workflows' fallbacks** (audit 2026-11-17, in map order): W2 refresh (no last copy, no Common
   Crawl before a website is taken off; medium), W2 missing phone/website (open_places/npi_orgs not read first; medium),
   W2 map points (open_places points before Census; Census failure should wait, not fail; small), W2 still open (put our
