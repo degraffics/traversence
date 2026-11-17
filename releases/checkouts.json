@@ -383,6 +383,32 @@
    "expires": "2026-11-17T17:03:17Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/lib/AccountDomains.php",
+   "functions": [
+    "termsFor"
+   ],
+   "kind": "add",
+   "session": "domain-terms",
+   "why": "Domain year choices limited to the terms Name.com sells for each ending (Jason, 2026-11-17)",
+   "since": "2026-11-17T13:03:23Z",
+   "expires": "2026-11-17T17:03:23Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Domains.php",
+   "functions": [
+    "INFO_PATH"
+   ],
+   "kind": "add",
+   "session": "domain-terms",
+   "why": "Domain year choices limited to the terms Name.com sells for each ending (Jason, 2026-11-17)",
+   "since": "2026-11-17T13:03:23Z",
+   "expires": "2026-11-17T17:03:23Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
