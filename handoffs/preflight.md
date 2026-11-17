@@ -35,3 +35,37 @@ Check-out release names: `preflight` (release 1), `outside-table` (release 2, no
   one filter (status or kind, `OutsideServices::KINDS`/`KIND_NAMES`), sort (status default, name, cost), the card opens
   in place (`js/admin-outside.js`, kept in localStorage `os:table`), Test on each card (pre-flight `svc:<key>`); the
   pre-flight's Brave line checks BRAVE_API_KEY (Jason: Brave and Tavily both live and ready).
+- **`preflight-refresh.zip`** (#95): Run all resets every line to queued, counts from 0, "Testing N of 87: …"; the Arizona
+  licence lists aren't called (— "Inactive: not released yet (licence lists, queue 3a)", Jason via the session manager).
+- **`preflight-fix2.zip`** (#96, from Jason's second report): Railway key names read from Railway's API (values never
+  kept; falls back to the crawler's report); OpenStreetMap a one-node query to each free server; openrouteservice at
+  `api.heigit.org/openrouteservice` (a two-point matrix, as TravelLegs); **a Start the system bug**: `turnOn('t:recheck')`
+  refused "No such capture task" until the recheck had run once, now `ListingIdentity::ensureTask` first.
+- **The Fly edge is set up** (Jason, 2026-11-17, with this session): `trvgo-edge` moved from his personal Fly account to
+  the shared `traversence` organization (`fly apps move`), a fresh `STOREFRONT_EDGE_KEY` set on it, a deploy token for
+  the site; `.env` has `DOMAINS_MODE=test`, `FLY_APP=trvgo-edge`, `FLY_IPV4=66.241.125.213` (shared),
+  `FLY_IPV6=2a09:8280:1::1de:4a7c:0` (dedicated). The pre-flight's Fly line is ✓ (0 certificates). Lesson: `.env` keeps
+  the first line for a name; **`preflight-envdup.zip`** adds a check for names set twice (needed for launch) and corrects
+  Fly's hint (a deploy token for the app does read its certificates).
+- **Left (Jason's, 2026-11-17):** OpenStreetMap's Overpass servers don't answer our host (one held by its ban issue, three
+  time out or 504): ask again before Start, or mark Overpass optional for launch (his call). GITHUB_SYNC_TOKEN expires
+  Dec 16, 2026. 36 ungated outside calls are in the session manager's cleanup stage.
+
+## How it works
+
+- `Preflight::lines()`: one list in run order: the site, every `OutsideServices::COMPANIES` key (`svc:<key>`: each
+  card's Test, one status), Railway and W0 (`rw:*`), the query timings (`ms:*`), the workflows in `SystemStart::ORDER`
+  plus W14 (`wf:*`), the new tasks (`t:*`), then 0164's phases (`ph:*`, last, since they roll up the workflows).
+  Each: [group, name, needed for launch, company, workflow]. Needed for launch: the site's lines, Railway and W0, and
+  companies W0 or W1 use (plus Bluehost, Railway, GitHub).
+- Each test returns [ok|bad|na|wait, the service's own answer, what was tested, fixes]. Fixes: `['do', act, label]`
+  (the site fixes it: `sched` = Scheduler::sync, `dbup` = DbUpdates::autoRun), `['url', label, url]`, `['tool', label,
+  admin url]`. Answers pass through `clean()` (no key=value or JSON secret, no 32+ character token).
+- Calls: `http()` asks `StagingGate::hold()` first and skips a host held by an open ServiceHealth issue; a service only
+  paused on Automation is still tested (read-only). Nothing charges: Stripe only with an `sk_test_` key, Square and
+  Name.com only their sandboxes, Places and Tavily never called (their keys are on Railway: the crawler's key report).
+- W0's batch: the line stores `w0:test_ask`; the next check-in hands it out once (`Preflight::takeTestAsk`); the worker
+  posts kind `test` (never stored); the line reads the receipt in `crawl_batches` after the ask.
+- `preflight_tick` (15 min): a full run when `.env`'s time or size changed, and nightly after 2 am Arizona.
+- Pulse: `ops:preflight` through `Operations::pulseItems/Steps/Do`; a step per red line ("Test again", or its fix),
+  outside fixes carry their URL, and a "Run it all" step.
