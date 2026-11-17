@@ -1,0 +1,39 @@
+{
+    "id": 86,
+    "title": "Domains wording: available, not free",
+    "why": "Jason, 2026-11-17: \"the statement should say available not free.\" The Test mode notice on Shop → Domains now says search shows which names are really available, and the message when Name.com's sandbox holds a name says it's available for real. Wording only.",
+    "proposals": "",
+    "zip": "domain-wording.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/lib/AccountDomains.php": {
+            "sha": "edacd97c0d666d25bbba231dfa724bd57c7c32fc728c38f6234598abc2081b73",
+            "size": 106286,
+            "live_was": "df2428246da2b51585c3fa300be7d772306bc3d9a617c3960969fbaf2fc855f1"
+        },
+        "website/js/tv-domains.js": {
+            "sha": "fd9b58174d8d8f8d4fd4000a8925e244a9c9f1a30e5960bfb411991ca6b577fa",
+            "size": 34160,
+            "live_was": "9765b84f92991f222c7be9fd7952c45136fea535d6a0eb18619d4cbbeb013705"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-17T13:54:11+00:00",
+            "by": 0,
+            "msg": "Uploaded domain-wording.zip: 2 files."
+        }
+    ]
+}
