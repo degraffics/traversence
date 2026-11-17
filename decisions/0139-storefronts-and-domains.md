@@ -4,6 +4,8 @@
 session's hand-off), 0135 §9 and 0137 §8 "DNS and hosting". Builds as the Marketplace's step 5: 5a the storefront,
 5b Connect your domain.
 
+**Note (2026-11-17, decisions/0169 §1a):** domains become a standalone product (Shop → Domains, and a Domains tab on every account); a storefront uses one of the account's domains rather than owning it.
+
 ## 1. Where a storefront loads
 
 - **On trvgo.us itself:** `trvgo.us/<shop>` shows the business's storefront, and the address bar stays there (Jason).
