@@ -768,6 +768,23 @@
    "expires": "2026-11-17T20:53:46Z",
    "release": "paid-overrides",
    "callers": {}
+  },
+  {
+   "path": "app/lib/crawler/PageRead.php",
+   "functions": [
+    "tick"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
+   "why": "Claude as the paid backup after Gemini for page reading, by override (0163 source map)",
+   "since": "2026-11-17T16:53:54Z",
+   "expires": "2026-11-17T20:53:54Z",
+   "release": "paid-overrides",
+   "callers": {
+    "tick": [
+     "app/scripts/page_read_tick.php"
+    ]
+   }
   }
  ],
  "lapsed": [
