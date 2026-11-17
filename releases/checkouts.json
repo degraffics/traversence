@@ -8,8 +8,8 @@
    "session": "session_01CXLi5j7MKBy27a6L7AXRHN",
    "why": "0169 \u00a71a: Shop \u2192 Domains, the Domains tab and the Wallet (new files)",
    "since": "2026-11-17T01:32:38Z",
-   "expires": "2026-11-17T05:32:38Z",
-   "release": "domains-wallet",
+   "expires": "2026-11-17T06:00:10Z",
+   "release": "domains-wallet.zip",
    "callers": {}
   },
   {
@@ -19,8 +19,8 @@
    "session": "session_01CXLi5j7MKBy27a6L7AXRHN",
    "why": "0169 \u00a71a: Shop \u2192 Domains, the Domains tab and the Wallet (new files)",
    "since": "2026-11-17T01:32:38Z",
-   "expires": "2026-11-17T05:32:38Z",
-   "release": "domains-wallet",
+   "expires": "2026-11-17T06:00:10Z",
+   "release": "domains-wallet.zip",
    "callers": {}
   },
   {
@@ -30,8 +30,8 @@
    "session": "session_01CXLi5j7MKBy27a6L7AXRHN",
    "why": "0169 \u00a71a: Shop \u2192 Domains, the Domains tab and the Wallet (new files)",
    "since": "2026-11-17T01:32:38Z",
-   "expires": "2026-11-17T05:32:38Z",
-   "release": "domains-wallet",
+   "expires": "2026-11-17T06:00:10Z",
+   "release": "domains-wallet.zip",
    "callers": {}
   },
   {
@@ -41,8 +41,8 @@
    "session": "session_01CXLi5j7MKBy27a6L7AXRHN",
    "why": "0169 \u00a71a: Shop \u2192 Domains, the Domains tab and the Wallet (new files)",
    "since": "2026-11-17T01:32:38Z",
-   "expires": "2026-11-17T05:32:38Z",
-   "release": "domains-wallet",
+   "expires": "2026-11-17T06:00:10Z",
+   "release": "domains-wallet.zip",
    "callers": {}
   },
   {
@@ -52,8 +52,8 @@
    "session": "session_01CXLi5j7MKBy27a6L7AXRHN",
    "why": "0169 \u00a71a: Shop \u2192 Domains, the Domains tab and the Wallet (new files)",
    "since": "2026-11-17T01:32:38Z",
-   "expires": "2026-11-17T05:32:38Z",
-   "release": "domains-wallet",
+   "expires": "2026-11-17T06:00:10Z",
+   "release": "domains-wallet.zip",
    "callers": {}
   },
   {
@@ -63,8 +63,8 @@
    "session": "session_01CXLi5j7MKBy27a6L7AXRHN",
    "why": "0169 \u00a71a: Shop \u2192 Domains, the Domains tab and the Wallet (new files)",
    "since": "2026-11-17T01:32:38Z",
-   "expires": "2026-11-17T05:32:38Z",
-   "release": "domains-wallet",
+   "expires": "2026-11-17T06:00:10Z",
+   "release": "domains-wallet.zip",
    "callers": {}
   },
   {
@@ -74,8 +74,8 @@
    "session": "session_01CXLi5j7MKBy27a6L7AXRHN",
    "why": "0169 \u00a71a: Shop \u2192 Domains, the Domains tab and the Wallet (new files)",
    "since": "2026-11-17T01:32:38Z",
-   "expires": "2026-11-17T05:32:38Z",
-   "release": "domains-wallet",
+   "expires": "2026-11-17T06:00:10Z",
+   "release": "domains-wallet.zip",
    "callers": {}
   },
   {
@@ -85,8 +85,8 @@
    "session": "session_01CXLi5j7MKBy27a6L7AXRHN",
    "why": "0169 \u00a71a: Shop \u2192 Domains, the Domains tab and the Wallet (new files)",
    "since": "2026-11-17T01:32:38Z",
-   "expires": "2026-11-17T05:32:38Z",
-   "release": "domains-wallet",
+   "expires": "2026-11-17T06:00:10Z",
+   "release": "domains-wallet.zip",
    "callers": {}
   },
   {
@@ -96,8 +96,8 @@
    "session": "session_01CXLi5j7MKBy27a6L7AXRHN",
    "why": "0169 \u00a71a: Shop \u2192 Domains, the Domains tab and the Wallet (new files)",
    "since": "2026-11-17T01:32:38Z",
-   "expires": "2026-11-17T05:32:38Z",
-   "release": "domains-wallet",
+   "expires": "2026-11-17T06:00:10Z",
+   "release": "domains-wallet.zip",
    "callers": {}
   },
   {
@@ -121,8 +121,8 @@
    "session": "session_01CXLi5j7MKBy27a6L7AXRHN",
    "why": "0169 \u00a71a: wallet cards for plans, domains in the cart, Domains tab, domain order cases",
    "since": "2026-11-17T01:32:53Z",
-   "expires": "2026-11-17T05:32:53Z",
-   "release": "domains-wallet",
+   "expires": "2026-11-17T06:00:10Z",
+   "release": "domains-wallet.zip",
    "callers": {
     "start": [
      "app/lib/CartPlans.php",
@@ -156,8 +156,8 @@
    "session": "session_01CXLi5j7MKBy27a6L7AXRHN",
    "why": "0169 \u00a71a: wallet cards for plans, domains in the cart, Domains tab, domain order cases",
    "since": "2026-11-17T01:32:53Z",
-   "expires": "2026-11-17T05:32:53Z",
-   "release": "domains-wallet",
+   "expires": "2026-11-17T06:00:10Z",
+   "release": "domains-wallet.zip",
    "callers": {
     "groups": [
      "app/ui/section-rails.php",
@@ -172,14 +172,15 @@
   {
    "path": "app/lib/QuickBooksPay.php",
    "functions": [
+    "(top)",
     "saveCard"
    ],
    "kind": "change",
    "session": "session_01CXLi5j7MKBy27a6L7AXRHN",
    "why": "0169 \u00a71a: wallet cards for plans, domains in the cart, Domains tab, domain order cases",
    "since": "2026-11-17T01:32:53Z",
-   "expires": "2026-11-17T05:32:53Z",
-   "release": "domains-wallet",
+   "expires": "2026-11-17T06:00:10Z",
+   "release": "domains-wallet.zip",
    "callers": {
     "saveCard": [
      "app/lib/Billing.php"
@@ -191,14 +192,15 @@
    "functions": [
     "fly",
     "namecom",
+    "ncAccount",
     "tick"
    ],
    "kind": "change",
    "session": "session_01CXLi5j7MKBy27a6L7AXRHN",
    "why": "0169 \u00a71a: wallet cards for plans, domains in the cart, Domains tab, domain order cases",
    "since": "2026-11-17T01:32:53Z",
-   "expires": "2026-11-17T05:32:53Z",
-   "release": "domains-wallet",
+   "expires": "2026-11-17T06:00:10Z",
+   "release": "domains-wallet.zip",
    "callers": {
     "tick": [
      "app/scripts/domains_tick.php"
@@ -241,8 +243,8 @@
    "session": "session_01CXLi5j7MKBy27a6L7AXRHN",
    "why": "0169 \u00a71a: wallet cards for plans, domains in the cart, Domains tab, domain order cases",
    "since": "2026-11-17T01:32:53Z",
-   "expires": "2026-11-17T05:32:53Z",
-   "release": "domains-wallet",
+   "expires": "2026-11-17T06:00:10Z",
+   "release": "domains-wallet.zip",
    "callers": {}
   },
   {
@@ -298,6 +300,96 @@
    "since": "2026-11-17T01:32:53Z",
    "expires": "2026-11-17T05:32:53Z",
    "release": "domains-wallet",
+   "callers": {}
+  },
+  {
+   "path": "app/business/portal.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5j7MKBy27a6L7AXRHN",
+   "why": "release domains-wallet.zip",
+   "since": "2026-11-17T02:00:10Z",
+   "expires": "2026-11-17T06:00:10Z",
+   "release": "domains-wallet.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/scripts/domains_tick.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5j7MKBy27a6L7AXRHN",
+   "why": "release domains-wallet.zip",
+   "since": "2026-11-17T02:00:10Z",
+   "expires": "2026-11-17T06:00:10Z",
+   "release": "domains-wallet.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Team.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5j7MKBy27a6L7AXRHN",
+   "why": "release domains-wallet.zip",
+   "since": "2026-11-17T02:00:10Z",
+   "expires": "2026-11-17T06:00:10Z",
+   "release": "domains-wallet.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/staging-tables.php",
+   "functions": [
+    "(top)"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5j7MKBy27a6L7AXRHN",
+   "why": "release domains-wallet.zip",
+   "since": "2026-11-17T02:00:10Z",
+   "expires": "2026-11-17T06:00:10Z",
+   "release": "domains-wallet.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Pulse.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5j7MKBy27a6L7AXRHN",
+   "why": "release domains-wallet.zip",
+   "since": "2026-11-17T02:00:10Z",
+   "expires": "2026-11-17T06:00:10Z",
+   "release": "domains-wallet.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/user/dashboard.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5j7MKBy27a6L7AXRHN",
+   "why": "release domains-wallet.zip",
+   "since": "2026-11-17T02:00:10Z",
+   "expires": "2026-11-17T06:00:10Z",
+   "release": "domains-wallet.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/business/router.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5j7MKBy27a6L7AXRHN",
+   "why": "release domains-wallet.zip",
+   "since": "2026-11-17T02:00:10Z",
+   "expires": "2026-11-17T06:00:10Z",
+   "release": "domains-wallet.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/shop/index.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5j7MKBy27a6L7AXRHN",
+   "why": "release domains-wallet.zip",
+   "since": "2026-11-17T02:00:10Z",
+   "expires": "2026-11-17T06:00:10Z",
+   "release": "domains-wallet.zip",
    "callers": {}
   }
  ],
