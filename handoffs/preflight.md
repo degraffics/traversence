@@ -231,3 +231,8 @@ Jason asked for Start's "Check before switching on" to act like the pre-flight q
 - `startRun(..., $group)` runs the group alone. Its log line carries `counts.group`, and it doesn't count as a full run (lastFull).
 - The board draws `tv_admin_mod_preflight($pdo, 'switchon')`: Run the check, the filters and the run log. The JS sends `group`.
 - This replaces the single `site:switchon` line from #110.
+
+switchon-group-2 replaces switchon-group, which was never sent.
+- `SystemStart::panel` draws its steps as a queue like the pre-flight's (`.st-q`), with counts and the run log. While a run is going, it fetches itself again every 15 seconds.
+- The check step is 'done' when no red line holds everything.
+- `Preflight::workflow` returns 'warn' ("waits for its terms") when its only red lines are its own "Opening a geo-hub" lines. A phase shows that as amber.

@@ -1,8 +1,8 @@
 {
- "zip": "switchon-group.zip",
+ "zip": "switchon-group-2.zip",
  "built_on": "93239aa Sync: 2026-11-17 19:23 UTC",
- "recorded": "2026-11-17 19:24 UTC",
- "note": "Check before switching on as a pre-flight group; built on Sync 19:23 UTC Sent through git (releases/inbox).",
+ "recorded": "2026-11-17 19:29 UTC",
+ "note": "Start the system and its check as pre-flight-style queues; W14 waiting for its terms is amber. Built on Sync 19:23 UTC Sent through git (releases/inbox).",
  "status": "pending",
  "live_in": "",
  "files": {
@@ -15,15 +15,15 @@
    "live": false
   },
   "app/lib/Preflight.php": {
-   "sha256": "f326905d02e71c11e9f6ac8077e79b009506a434b974d3ffd5e86d23abbd6e3a",
+   "sha256": "3ed65ed207cf91831f1bffa0d40de16485f03ef64e6379ffc4414cd0fe20fbf3",
    "live": false
   },
   "app/lib/SystemStart.php": {
-   "sha256": "c116e0f36832e27835c8072acafff5fffa79972f71252287c229f5307954e508",
+   "sha256": "c32827e6235ea5b1444f2ee3a211050ec5751699597325157c4cba26af47ab2a",
    "live": false
   },
   "app/ui/faq.md": {
-   "sha256": "da9ccf304107751e67c88b517d60934b872ff705a05b127bdeb0fcd1d61ca7ad",
+   "sha256": "3b97304f47afc0e6f16be9f7a989c38c7ce70a6707857b485c8891d31d09ce1d",
    "live": false
   },
   "website/admin/api.php": {
