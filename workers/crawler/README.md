@@ -9,8 +9,9 @@ check results. All fetching happens here.
 
 ## W0 Indexer (`indexer.py`, decisions/0164 §1.4's note of 2026-11-17)
 
-Phase 1's engine, always on: its own Railway service from this image (`railway.indexer.json`: start `python -u indexer.py`,
-restart on failure), not the cron. It checks in with the site every minute (`/api/crawl/index.php`), sleeps while W0 is
+Phase 1's engine, always on: its own Railway service `w0-indexer` from this image (root `workers/crawler`, start
+`python -u indexer.py`, restart on failure; set on the service, since Railway no longer reads a config file for new
+services: `railway.indexer.json` records the same settings), not the cron. It checks in with the site every minute (`/api/crawl/index.php`), sleeps while W0 is
 off (shipped paused; Start the system switches it on first, Pause everything stops it), and while it's on reads what the
 site hands out under the crawler's rules (robots.txt, 1.5 s or the site's Crawl-delay, the open web only, never a sign-in
 page or a held host), sending every link on every page (same site or not, with its page and words), each page's answer,

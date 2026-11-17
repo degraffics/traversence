@@ -11,7 +11,18 @@ Check-out session name: `w0-indexer`.
   column name against MySQL 8's reserved words, not only MariaDB.
 - **Release 1 is live** as release #79 (2026-11-17), synced (Sync: 2026-11-17 13:15 UTC) and verified byte for byte
   (`deliveries.py verify`); its claims released. W0 is paused; the hourly upkeep (`frontier_tick`) runs.
-- Release 2 (the worker): built and tested on branch `claude/w0-worker`, waiting for Jason's OK (merging redeploys the crawler's image on Railway). Release 3 (the Railway service): ask Jason first.
+- **Release 2 (the worker) is in `main`** (#803, Jason's OK 2026-11-17): `workers/crawler/indexer.py` 1.0.0, crawler 2.8.0
+  (no 60/40 caps). The crawler's redeploy ran once, saw the pause and stopped.
+- **The Railway service exists and runs** (Jason's OK 2026-11-17): `w0-indexer` (id d2f49c7a-cc36-436b-bfc2-bf93111ab287)
+  in gracious-sparkle, production; from degraffics/traversence main, root `workers/crawler`, start `python -u indexer.py`,
+  restart on failure (10 tries), watch `/workers/crawler/**`; variables are references to the crawler service's
+  (`${{traversence.TRAVERSENCE_URL}}`, `CRAWLER_API_TOKEN`, `CRAWLER_CONTACT`). Set through Railway's API: it refuses a
+  config-file path now ("Config as Code is deprecated"), so `railway.indexer.json` only records the same settings.
+  First deploy 13:21 UTC: it checked in with the live site and sleeps ("Automation is paused"), checking in every minute.
+- **Done.** W0 stays paused until Jason presses Start the system (https://traversence.com/admin/config/automation#start):
+  W0 comes on first, once its check-in is fresh; Pause everything stops it. Left for later sessions: the pre-flight
+  (queue item 2) runs `INDEXER_TEST=1` style test batch through the site; the frontier's growth watched on
+  https://traversence.com/admin/insights/index.
 - Jason's calls (2026-11-17, "ok. go."): chambers, tourism boards, organizations and other non-public sites → Read
   regularly by the machine (facts only as licence and terms allow); the key is sha1 (the page log's). Both noted in 0164.
 
