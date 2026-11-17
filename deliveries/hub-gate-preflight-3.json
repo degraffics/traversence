@@ -3,16 +3,16 @@
  "built_on": "d2e626c Sync: 2026-11-17 18:36 UTC",
  "recorded": "2026-11-17 19:20 UTC",
  "note": "Re-send of hub-gate-preflight-2.zip (#108, withdrawn: switch \"none\"); same code, switch empty. Built on Sync 18:36 UTC Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "93239aa Sync: 2026-11-17 19:23 UTC",
  "files": {
   "app/lib/HubOpening.php": {
    "sha256": "86a7b5e558887d6d569b804e788e546dbf0d008ad8b80d40fbd9699d9e24a006",
-   "live": false
+   "live": true
   },
   "app/lib/Preflight.php": {
    "sha256": "9ea20fe9883091f5b20efaf3247bf7c90390d61ba75e0d39ecb694ba6ace891a",
-   "live": false
+   "live": true
   }
  }
 }
