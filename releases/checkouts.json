@@ -82,6 +82,41 @@
    "expires": "2026-11-17T23:14:46Z",
    "release": "switchon-group",
    "callers": {}
+  },
+  {
+   "path": "app/admin/preflight-console.php",
+   "functions": [
+    "tv_admin_mod_preflight"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
+   "why": "Check before switching on as a pre-flight group (Jason, 2026-11-17)",
+   "since": "2026-11-17T19:23:51Z",
+   "expires": "2026-11-17T23:23:51Z",
+   "release": "switchon-group",
+   "callers": {}
+  },
+  {
+   "path": "website/admin/api.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
+   "why": "Check before switching on as a pre-flight group (Jason, 2026-11-17)",
+   "since": "2026-11-17T19:23:51Z",
+   "expires": "2026-11-17T23:23:51Z",
+   "release": "switchon-group",
+   "callers": {}
+  },
+  {
+   "path": "website/js/admin-preflight.js",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
+   "why": "Check before switching on as a pre-flight group (Jason, 2026-11-17)",
+   "since": "2026-11-17T19:23:51Z",
+   "expires": "2026-11-17T23:23:51Z",
+   "release": "switchon-group",
+   "callers": {}
   }
  ],
  "lapsed": [
