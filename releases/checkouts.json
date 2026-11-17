@@ -110,13 +110,14 @@
    "functions": [
     "COMPANIES",
     "SETTINGS",
+    "looksSecret",
     "parts"
    ],
    "kind": "change",
    "session": "domain-sales-switch",
    "why": "Domain sales get their own switch, DOMAIN_SALES_MODE (Jason, 2026-11-17)",
    "since": "2026-11-17T11:03:09Z",
-   "expires": "2026-11-17T15:05:16Z",
+   "expires": "2026-11-17T15:06:31Z",
    "release": "",
    "callers": {
     "COMPANIES": [
@@ -141,13 +142,14 @@
   {
    "path": "app/lib/StagingSite.php",
    "functions": [
-    "start"
+    "start",
+    "writeEnv"
    ],
    "kind": "change",
    "session": "domain-sales-switch",
    "why": "Domain sales get their own switch, DOMAIN_SALES_MODE (Jason, 2026-11-17)",
    "since": "2026-11-17T11:03:09Z",
-   "expires": "2026-11-17T15:03:09Z",
+   "expires": "2026-11-17T15:06:31Z",
    "release": "",
    "callers": {
     "start": [
