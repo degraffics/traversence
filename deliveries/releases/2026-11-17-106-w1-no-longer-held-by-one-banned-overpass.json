@@ -1,0 +1,49 @@
+{
+    "id": 106,
+    "title": "W1 no longer held by one banned Overpass server; Find it searches the web before Claude; uploads retried",
+    "why": "decisions/0163's source map, the large builds of (c2) (Jason, 2026-11-17: \"Large Builds: Go ahead and start this\"). 1. W8 Find it: catalog and local copies → Tavily → Brave, then Claude. When our crawler's map lookup finds nothing for a name a guide uses, Find it asks the crawler for one web search for the place's own website (its find_name request: Tavily, then Brave, then that website, read like any business's). What it finds goes through the listing checks like any find, and the name links once it's listed. Claude is asked only when that found nothing, failed, or waited a day. 2. File storage: R2, else uploads wait. A file the store didn't take stays on the server and the files_tick job moves it every 10 minutes (Store::moveOld already does this); files_tick is now among the jobs the site sets up by itself. 3. W1's real blocker (Jason's pre-flight report, 17:56 UTC: \"OpenStreetMap (W1)\": held by Issue #1, overpass-api.de's 406): an open issue on one of a service's servers held the whole service, and with it every workflow using it. Now a hold on one server stays on that server (it's never called: ServiceHealth::allowed keeps refusing it), and holds the service only when no other server is free and, for OpenStreetMap, no other source in the source map answers (our Geofabrik copy, Geofabrik itself, or the places need's backup). Issue #1 stays open and overpass-api.de stays held; nothing on the Service register needs changing. Not built: reading the old Amazon bucket (the files were copied to R2, decisions/0151), the AZ Corporation Commission and NM Secretary of State readers and W14 (blocked; decisions/0164 §7.1's note of 2026-11-17), W6 heritage's Wikimedia and NPS steps (a licence call). No migration; no new endpoint.",
+    "proposals": "",
+    "zip": "large-fallbacks.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/ui/faq.md": {
+            "sha": "0ad2c6f830b8c384feedeca6f6f203d6ca8112398d4dce55c121f460a2756d34",
+            "size": 322068,
+            "live_was": "3509d099f739cdcdbaa0710361c3a40ad04aafc3e75d909d4a7d0e8b7815a716"
+        },
+        "app/lib/Scheduler.php": {
+            "sha": "ad87ca5b792a7aeacc0586614786697369865d332b23ec8a704cad5be79cf9d6",
+            "size": 28082,
+            "live_was": "ab233d1d331ac624fa4c199807377bcb44df9f55a61ac76597bbefc93e82212f"
+        },
+        "app/lib/Operations.php": {
+            "sha": "f0e1733bd35997c7ad883b89c3c719b11dc1f832735ed05fd9656bceafc8d576",
+            "size": 66541,
+            "live_was": "6734f39637da19f917949f73f600590d36fa8b132881815e7198c3a68099d0aa"
+        },
+        "app/lib/GuideLinks.php": {
+            "sha": "f36154ff956eaf286e4923d2896030707ae1b0fdd572e4eca4c5ef9f11bccea9",
+            "size": 58005,
+            "live_was": "bcb5b87e295731b9ad15d72098aabf9a261d50fafad2d7d68b218a84786ed6d6"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-17T18:01:20+00:00",
+            "by": 0,
+            "msg": "Uploaded large-fallbacks.zip: 4 files."
+        }
+    ]
+}
