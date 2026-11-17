@@ -6,7 +6,7 @@
     "zip": "w0-indexer.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "staged",
+    "state": "withdrawn",
     "step": 0,
     "paused": false,
     "urgent": null,
@@ -153,6 +153,16 @@
             "at": "2026-11-17T13:09:38+00:00",
             "by": 0,
             "msg": "Put on staging (16 files); its checks found a problem: Migrations ran on staging: 2027-03-12_w0_frontier.sql: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'stored INT UNSIGNED NOT NULL DEFAULT 0,\n  rejected INT UNSIGNED NOT NULL DEFAULT' at line 7."
+        },
+        {
+            "at": "2026-11-17T13:09:51+00:00",
+            "by": 2,
+            "msg": "Opened on staging by Jason DeGraff (the staging bar)."
+        },
+        {
+            "at": "2026-11-17T13:18:04+00:00",
+            "by": 2,
+            "msg": "Withdrawn before it went live (staging keeps its files until its next refresh)."
         }
     ]
 }
