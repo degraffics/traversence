@@ -371,6 +371,80 @@ finds what's missing as it goes. The pre-flight proves each one **works**, all o
 - It takes in 0152's "a Test button per part is a later step": each card's Test is that item's test.
 - Queued in `handoffs/session-manager.md` **first**, before the App store, since the launch waits on it.
 
+**Note (2026-11-17): the source map, ours first, a backup for every need** (Jason: "we should have backups for
+sources/apis if one fails that way it can still run in the event of failures. All workflows should be like this";
+"for the workflows, do we have resources available for these because it seems like they only use outside services";
+approved the direction the same day). Every need, the engine's and the site's, is answered in this order:
+1. **Ours first** (0164's "what we hold first"): our catalog (`entities`, `landmarks`, `topics`, `heritage_facts`,
+   `place_about`, `guide_finds`), our copies of open data (`open_places` from Geofabrik, Overture and Foursquare;
+   `npi_orgs`, `irs_orgs`, `rec_places`, `zip_coordinates`, `tv_zip_population`, `nation_shapes`), our crawler's record
+   (`crawl_frontier`, `crawl_pages`, `source_facts`, `crawler_raw_index`) and kept answers (`travel_legs`, `weather`,
+   `stock_images`, the search index). Outside services fill a gap or refresh what we hold.
+2. **Then outside, free before paid, in order**; the first that works wins and each switch to a backup is logged.
+3. **A paid backup only by override** (Jason, 2026-11-17: "we can have an override for this if we need a source and no
+   free ones are available"): off until a director switches it on for that one need, used only while no free source
+   works, inside its own cap on the Service register, logged and shown on the pre-flight. Marked $ below.
+4. **If none works, a planned fallback**: the work waits (nothing lost), goes to the person queue, or the page shows
+   less. A need with no second source says **"no backup"** on the pre-flight, so the risk is seen.
+
+The engine:
+
+| Workflow | Need | Ours | Then outside | If none works |
+|---|---|---|---|---|
+| W0 | Read pages | the frontier, pages already read | Railway reads new ones | waits |
+| W1 | Places by kind and town | `open_places`, `entities` | Overpass (4 servers) for a gap; the loads refresh | waits |
+| W1 | Businesses in bulk | `open_places` | Overture → Foursquare (monthly) | last load kept |
+| W1 | Special kinds | `npi_orgs`, `irs_orgs`, `rec_places` | NPI, IRS, Recreation.gov files | last load kept |
+| W1 | Official places | `landmarks`, `entities` | Wikidata | waits |
+| W1, W2 | Confirm a business | the catalog and local copies agreeing | NPI → AZ Corporation Commission, NM Secretary of State → Tavily → Brave → $ Google Places | person queue |
+| W1–W3, W10, W11 | Page prose into facts | code's pre-scan; pages already read | Gemini (free tier) → $ Claude (AI cap) | "waiting to be read" |
+| W2 | Re-read websites | our last copy | direct → Common Crawl | waits |
+| W2 | Missing phone or website | local copies | Tavily → Brave | waits |
+| W2 | Map points | `zip_coordinates`, `open_places` | Census geocoder | waits |
+| W2 | Still open? | our copies' status | Google Places (within cap) | waits |
+| W3 | Sources | `source_facts`, the frontier | direct → Common Crawl | waits |
+| W3 | Semantic search | MySQL keyword search | Supabase with Gemini embeddings | keyword search |
+| W4, W5 | Guides, first looks | catalog, research, heritage, topics | Claude (AI cap) | queued; W5's first look from what we hold |
+| W6 | Heritage | `heritage_facts`, `topics` | Library of Congress → Wikimedia → National Park Service | waits |
+| W7 | Drive times | `travel_legs` | openrouteservice | estimated times |
+| W8 | Find it | catalog and local copies | Tavily → Brave, then Claude | waits |
+| W9 | Landmarks | `landmarks`, our loads | Wikidata, USGS GNIS, Census TIGER | waits |
+| W10–W12 | Events, how-tos, search learning | the search index, what it learned, pages read | Tavily → Brave | queued |
+| W14 | Authority sources | what W14 staged | AZ Corporation Commission, NM Secretary of State (licence lists inactive until 3a) | waits |
+
+The site:
+
+| Need | Sources | If none works |
+|---|---|---|
+| Hosting, cPanel | Bluehost | **no backup**: the site is down |
+| The site's own email | Bluehost SMTP → Amazon SES | waits |
+| Bulk email, digests | Amazon SES | waits |
+| File storage | Cloudflare R2 → Amazon S3 (until the old bucket is emptied) | uploads wait |
+| Captcha | Cloudflare Turnstile | sign-in works, tighter rate limits |
+| Our orders' payments | QuickBooks | **no backup**: wire or check |
+| Marketplace checkout | Stripe or Square (the business's choice) | **no backup**: contact the seller |
+| Selling domains | Name.com | sales pause |
+| Own domains | Fly.io edge | the trvgo.us address still works |
+| Sign-in with Google, Microsoft, Apple, Meta | each provider | email and password |
+| The engine's host | Railway | **no backup**: the engine waits |
+| Sync, checks, docs | GitHub | **no backup**: the sync waits, the site runs |
+| Staff logins | 1Password | the admin's Vault |
+| Maps | OpenStreetMap tiles → USGS National Map tiles; Leaflet via cdnjs | the list without the map |
+| Weather, road work | National Weather Service; AZ 511 | hidden, with a link |
+| Populations, tribal boundaries | our Census loads | last load kept |
+| EU sign-up check | our DB-IP file | last file kept |
+| Stock photos | `stock_images` → Pixabay → Library of Congress → Wikimedia Commons | placeholder |
+| Videos | YouTube, Vimeo | a link out |
+| Older pages' styles | Tailwind's CDN | unstyled |
+| Recalls | CPSC | check skipped, logged |
+| Menus, forms, cards | Google Document AI → Amazon Textract → Claude | waits |
+| AI Assist | Claude (AI cap) | "try again later" |
+
+**The pre-flight judges by need** (to build): a line per need, ✓ when its first source works, amber when it runs on a
+backup, ✗ only when nothing works; our copies checked too (loaded, with rows, fresh), so an empty or stale copy is red
+like a failed service. Then each workflow uses this order: W1 first (`open_places` before Overpass), then W2's fallbacks,
+then the rest.
+
 ### 11. Gemini (Google AI Studio) as run (Jason's Decision 7, 2026-11-14; the rules on what may go to it: 0164 §0.8, R5)
 
 **Gemini follows Claude's and the paid APIs' standards** (Jason, 2026-11-14, 0164 §14 point 15): "we monitor it for usage
