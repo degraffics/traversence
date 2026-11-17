@@ -1,0 +1,44 @@
+{
+    "id": 84,
+    "title": "Requests waiting on outside companies, each a Pulse case until answered",
+    "why": "Jason, 2026-11-17, after sending Name.com's API support a reseller pricing request (ticket #3113488): \"pulse this.\" Pulse builds its cases from the site's own sources, so there was no way to track something we're waiting on from a company. Each company card on Outside services now has Waiting on them, with Add a request (what you asked, ticket number, link; Executives and the Founder, like the cards' sign-in notes). Each open request is its own Pulse case, 'Waiting on <company>: <what> (ticket #…)', an Update that turns to an Alert after 5 days without an answer, with steps: Open their support, Chase them (noted), Record their answer (kept on the case; it closes). Kept in staff_settings as outreq:<id>, like the sign-in notes, so no new table. Name.com's reseller pricing request, ticket #3113488 sent 2026-11-17, is added once by the code (a marker stops a second time), so its case is there when this is live.",
+    "proposals": "",
+    "zip": "outside-requests.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/ui/outside-services.php": {
+            "sha": "af3db460332cb3b9a3fc2353e48d69525e68e126f217ed77844885a1a93e5601",
+            "size": 38265,
+            "live_was": "60c019c37150c91d9fea461c5472e62b2dcbdb65771107c57b271f4cb4ee1b52"
+        },
+        "app/lib/OutsideServices.php": {
+            "sha": "bafa67581f6fda607486bd56f8e1bdeed928a0b1e356632e9e4a34a98e5e31b0",
+            "size": 81427,
+            "live_was": "7ac6eb08d9a39ce9c435d4e44938fefc4ab699c52af04fbd4df2271a8e21fe9e"
+        },
+        "app/lib/Pulse.php": {
+            "sha": "6491acb12eb5f21df4d9b16c932a003a4c1f492b45697c92f5b8866f459e76f2",
+            "size": 142438,
+            "live_was": "6fc10ff4d42779f7e04e10a75cff6a83791ac0ef8ebe0fd467720e52f8f8d4b5"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-17T13:48:41+00:00",
+            "by": 0,
+            "msg": "Uploaded outside-requests.zip: 3 files."
+        }
+    ]
+}
