@@ -76,15 +76,20 @@
   {
    "path": "app/lib/Domains.php",
    "functions": [
+    "api",
     "namecom"
    ],
    "kind": "change",
    "session": "domain-years",
-   "why": "Domain purchases: 1-10 year terms with Name.com's real total; follow Name.com's pricing guide (Jason, 2026-11-17)",
+   "why": "Domain purchases: idempotency key on registration (Name.com's quickstart)",
    "since": "2026-11-17T12:40:44Z",
-   "expires": "2026-11-17T16:40:44Z",
+   "expires": "2026-11-17T16:44:02Z",
    "release": "",
-   "callers": {}
+   "callers": {
+    "api": [
+     "app/lib/AccountDomains.php"
+    ]
+   }
   },
   {
    "path": "app/lib/AccountDomains.php",
