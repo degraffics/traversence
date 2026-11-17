@@ -410,6 +410,28 @@
    "expires": "2026-11-17T21:18:06Z",
    "release": "refresh-archive",
    "callers": {}
+  },
+  {
+   "path": "website/hub/index.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
+   "why": "(c2) the source map's fallbacks: site email Bluehost SMTP then Amazon SES, weather link when hidden, events retried next day (0163)",
+   "since": "2026-11-17T17:18:09Z",
+   "expires": "2026-11-17T21:18:09Z",
+   "release": "refresh-archive",
+   "callers": {}
+  },
+  {
+   "path": "website/hub/index.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
+   "why": "(c2) the source map's fallbacks: site email Bluehost SMTP then Amazon SES, weather link when hidden, events retried next day (0163)",
+   "since": "2026-11-17T17:18:09Z",
+   "expires": "2026-11-17T21:18:09Z",
+   "release": "refresh-archive",
+   "callers": {}
   }
  ],
  "lapsed": [
