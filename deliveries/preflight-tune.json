@@ -1,0 +1,14 @@
+{
+ "zip": "preflight-tune.zip",
+ "built_on": "72d613d Sync: 2026-11-17 14:36 UTC",
+ "recorded": "2026-11-17 14:39 UTC",
+ "note": "Pre-flight tuned from Jason's first report; built on Sync: 2026-11-17 14:36 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/Preflight.php": {
+   "sha256": "8cff1b7f98f92901ddd06171ec22e06f38a9eba8c137bf8421f82909156c4ad3",
+   "live": false
+  }
+ }
+}
