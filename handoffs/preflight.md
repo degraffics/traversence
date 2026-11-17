@@ -145,6 +145,17 @@ Check-out release names: `preflight` (release 1), `outside-table` (release 2, no
   Mexico registry requests (decisions/0164 §7.1's note), heritage's Commons licence call, his OK on that note, and his
   pre-flight run before Start the system.
 
+- **`preflight-server-run.zip`** (Jason via the session manager, 2026-11-17: "Preflight only works if I stay on that
+  page"; built on Sync 18:09 UTC): Run all runs on the server. `Preflight::startRun` / `work` / `live` / `liveLines` /
+  `interrupted` / `stopRun`, the run's state in `preflight_results` row `_live` (kept out of `results()`), one at a time by
+  `GET_LOCK('tv_preflight_run')`; the API's `start` answers, releases the session, then keeps working
+  (`ignore_user_abort`, `fastcgi_finish_request`); `status` sends the lines finished since `from`. A run with no progress
+  for 3 minutes is picked up from where it reached (the page, Run all, or `preflight_tick`), and after 3 pick-ups logged as
+  "Stopped at N of M" (`finished()` takes a note, shown in the run log). `runAll` (nightly, .env) uses the same run. The
+  page opens fresh except while a run is going. The old browser loop's `next` and `again` (js) moved to `work()` (named
+  with `--drops`, Jason's ask). Tested on SQLite with faked lines (full run, cut off and picked up, stopped after 3, the
+  lock); the page itself needs a look on staging.
+
 ## How it works
 
 - `Preflight::lines()`: one list in run order: the site, every `OutsideServices::COMPANIES` key (`svc:<key>`: each

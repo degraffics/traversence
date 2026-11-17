@@ -1,0 +1,30 @@
+{
+ "zip": "preflight-server-run.zip",
+ "built_on": "2ff3304 Sync: 2026-11-17 18:09 UTC",
+ "recorded": "2026-11-17 18:15 UTC",
+ "note": "Pre-flight's Run all on the server (Jason: 'make it a run on the server'): runAll's browser loop (next, again) moves to Preflight::work; built on Sync: 2026-11-17 18:09 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/admin/preflight-console.php": {
+   "sha256": "c2138643d6d1ecac01263d78da49ee9867eef3f809e95fdaeb6feb26bd6393e9",
+   "live": false
+  },
+  "app/lib/Preflight.php": {
+   "sha256": "859e6fe25b1d885b074f95d24787468f9c9ab1e95c9c4302ac183d26733741f0",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "17f719390cd1f052f4b6e0c6c3c48c9dae3e80460a7af83105429854c52b8d3e",
+   "live": false
+  },
+  "website/admin/api.php": {
+   "sha256": "17a66e73c0acbd16ffef938c66b986c578bb061a5676ad80fabc25270a9bb19b",
+   "live": false
+  },
+  "website/js/admin-preflight.js": {
+   "sha256": "78e1cc9720dbaacd0aaf152b08fd325ad20a07c25989e9a433d54c974affd9a1",
+   "live": false
+  }
+ }
+}
