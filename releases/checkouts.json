@@ -24,6 +24,7 @@
   {
    "path": "app/ui/outside-services.php",
    "functions": [
+    "(top)",
     "tv_os_env_js",
     "tv_os_env_rows"
    ],
@@ -31,8 +32,8 @@
    "session": "setting-choices",
    "why": "Settings with set answers offer choices and the next step (Jason, 2026-11-17)",
    "since": "2026-11-17T11:33:45Z",
-   "expires": "2026-11-17T15:33:45Z",
-   "release": "",
+   "expires": "2026-11-17T15:37:05Z",
+   "release": "setting-choices.zip",
    "callers": {}
   },
   {
@@ -42,8 +43,8 @@
    "session": "setting-choices",
    "why": "Settings with set answers offer choices and the next step (Jason, 2026-11-17)",
    "since": "2026-11-17T11:33:45Z",
-   "expires": "2026-11-17T15:33:45Z",
-   "release": "",
+   "expires": "2026-11-17T15:37:05Z",
+   "release": "setting-choices.zip",
    "callers": {}
   },
   {
@@ -53,8 +54,8 @@
    "session": "setting-choices",
    "why": "Settings with set answers offer choices and the next step (Jason, 2026-11-17)",
    "since": "2026-11-17T11:33:45Z",
-   "expires": "2026-11-17T15:33:45Z",
-   "release": "",
+   "expires": "2026-11-17T15:37:05Z",
+   "release": "setting-choices.zip",
    "callers": {}
   },
   {
@@ -67,8 +68,8 @@
    "session": "setting-choices",
    "why": "Settings with set answers offer choices and the next step (Jason, 2026-11-17)",
    "since": "2026-11-17T11:33:49Z",
-   "expires": "2026-11-17T15:33:49Z",
-   "release": "",
+   "expires": "2026-11-17T15:37:05Z",
+   "release": "setting-choices.zip",
    "callers": {}
   },
   {
@@ -91,8 +92,21 @@
    "session": "setting-choices",
    "why": "Settings with set answers offer choices and the next step (Jason, 2026-11-17)",
    "since": "2026-11-17T11:33:49Z",
-   "expires": "2026-11-17T15:33:49Z",
-   "release": "",
+   "expires": "2026-11-17T15:37:05Z",
+   "release": "setting-choices.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/js/tv-ask.js",
+   "functions": [
+    "peek"
+   ],
+   "kind": "change",
+   "session": "setting-choices",
+   "why": "release setting-choices.zip",
+   "since": "2026-11-17T11:37:05Z",
+   "expires": "2026-11-17T15:37:05Z",
+   "release": "setting-choices.zip",
    "callers": {}
   }
  ],
