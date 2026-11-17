@@ -132,7 +132,7 @@ addiction, land and water disputes, a nation's history). What we manage is **exp
   - **The Living Landscape:** the land that shaped them: landforms, water, timber and stone, weather and seasons,
     wildlife, the old routes today's roads follow.
 - Every guide shows how the two shaped each other.
-- **Phases 1 and 2 are always-on automation** once switched on (0163 §9), gathering within the guardrails with no content settings;
+- **Phase 1 is always-on automation** once switched on (0163 §9): fast, efficient and always working in small batches (W0, §1.4's note), gathering within the guardrails with no content settings. **Phase 2 and the later phases run on their own schedules or on demand** (Jason, 2026-11-17: "Phase 2 and the others can run on their own schedules or demand calls so we do[n't] bog down the crawler/railway/or host"), each within its budget;
   **configuration starts at Phase 3**, where research is shaped (coverage by area and theme, depth, the thresholds).
 
 ### R4. Provenance and ownership: never overwrite what a person entered
@@ -631,7 +631,7 @@ say otherwise, and this makes it plain:
 - **A person's call is an override, never a gate:** Read regularly, Cite only or Ignore on the register still wins over
   the classifier, and a person sees only what the evidence can't settle (as §6.1's identity queue).
 - **Today's "Waiting for you" sources** are classified by the same pass when this ships; nothing already decided changes.
-- **The indexer runs all the time, not on a schedule** (Jason: "That is the one thing I want to be a standard always
+- **The indexer is Phase 1, and runs all the time, not on a schedule** (Jason: "That is the one thing I want to be a standard always
   running task, not on a schedule, because it will be the one thing that indexes our potential knowledge"). Logging
   the frontier, fetching what §1.2 allows, keeping each page's fingerprint and links, and classifying new sites run as
   one continuous worker: its own always-on service on Railway (restart on failure), not the cron. It only indexes:
@@ -1170,7 +1170,7 @@ needs; each has its own queue, share, report and costs (0160 §4) and its switch
 
 | Workflow | Phases | Under this record |
 |---|---|---|
-| **W0 Indexer** (new, Jason, 2026-11-17) | 1, 1.4 | always on, its own Railway service (not on a schedule): logs every URL found into the frontier, classifies new sites, keeps the verdict loop (promoted, normal, demoted, junk), reading priority, size guard, batches with receipts (§1.4's note); starts first in Start the system, stopped by Pause everything |
+| **W0 Indexer** (new, Jason, 2026-11-17) | 1 (§1.1–1.4; §1.5's bulk loads stay with W1 and W14) | Phase 1's engine, always on in small batches, its own Railway service (not on a schedule): logs every URL found into the frontier, classifies new sites, keeps the verdict loop (promoted, normal, demoted, junk), reading priority, size guard, batches with receipts (§1.4's note); starts first in Start the system, stopped by Pause everything |
 | W1 Listings | 1–4, 5.4 | leads in Run 2's order: Overture and NPI, then Google Places' check, with licences and OpenStreetMap (§1.5; Gemini never a finder, §0.8); public once past the "real business" floor, at its confidence (website, licence, collaborative score, owner: §3.5); published when ready (§5.4) |
 | W2 Keeping listings current | 6 (via 1–3) | cadence by band (R12); closure signals (lapsed licences, dataset drops, Google, one site) lower confidence and ask "Still open?"; Closed only from the owner, our team, the public or the business's own site; "Still open?" built here (R12); the identity recheck, "Vet this place" (its `identity` task, the one entry point) and the identity queue (§6.1, 2026-11-15) |
 | W3 Source register and place store | 1, 2 | reads the sources classified Read regularly (W0 finds and classifies them; a person's call overrides, never gates: §1.4's note); the dossier engine (§1.4); each licence registry and open dataset is a source with its licence (R9) |
