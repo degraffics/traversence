@@ -265,7 +265,7 @@
    "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
    "why": "Paid backups by a director's override, and Tavily to Brave (0163 source map, preflight hand-off (c))",
    "since": "2026-11-17T16:53:41Z",
-   "expires": "2026-11-17T21:00:47Z",
+   "expires": "2026-11-17T21:03:15Z",
    "release": "paid-overrides.zip",
    "callers": {
     "CAPS": [
@@ -283,7 +283,7 @@
    "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
    "why": "Paid backups by a director's override, and Tavily to Brave (0163 source map, preflight hand-off (c))",
    "since": "2026-11-17T16:53:41Z",
-   "expires": "2026-11-17T21:00:47Z",
+   "expires": "2026-11-17T21:03:15Z",
    "release": "paid-overrides.zip",
    "callers": {
     "plan": [
@@ -303,7 +303,7 @@
    "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
    "why": "Paid backups by a director's override, and Tavily to Brave (0163 source map, preflight hand-off (c))",
    "since": "2026-11-17T16:53:41Z",
-   "expires": "2026-11-17T21:00:47Z",
+   "expires": "2026-11-17T21:03:15Z",
    "release": "paid-overrides.zip",
    "callers": {
     "complete": [
@@ -318,7 +318,7 @@
    "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
    "why": "Paid backups by override (zip check's attribution: constants at the top)",
    "since": "2026-11-17T16:53:41Z",
-   "expires": "2026-11-17T21:00:47Z",
+   "expires": "2026-11-17T21:03:15Z",
    "release": "paid-overrides.zip",
    "callers": {}
   },
@@ -329,7 +329,7 @@
    "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
    "why": "Paid backups by a director's override, and Tavily to Brave (0163 source map, preflight hand-off (c))",
    "since": "2026-11-17T16:53:46Z",
-   "expires": "2026-11-17T21:00:47Z",
+   "expires": "2026-11-17T21:03:15Z",
    "release": "paid-overrides.zip",
    "callers": {}
   },
@@ -342,7 +342,7 @@
    "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
    "why": "Claude as the paid backup after Gemini for page reading, by override (0163 source map)",
    "since": "2026-11-17T16:53:54Z",
-   "expires": "2026-11-17T21:00:47Z",
+   "expires": "2026-11-17T21:03:15Z",
    "release": "paid-overrides.zip",
    "callers": {
     "tick": [
@@ -357,34 +357,36 @@
    "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
    "why": "release paid-overrides.zip",
    "since": "2026-11-17T16:55:52Z",
-   "expires": "2026-11-17T21:00:47Z",
+   "expires": "2026-11-17T21:03:15Z",
    "release": "paid-overrides.zip",
    "callers": {}
   },
   {
    "path": "app/lib/crawler/Verify.php",
    "functions": [
+    "(top)",
     "KINDS"
    ],
    "kind": "change",
    "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
    "why": "A Google match (paid backup, by override) raises a new find's confidence in the second look; never keepable (Jason, 2026-11-17)",
    "since": "2026-11-17T17:02:37Z",
-   "expires": "2026-11-17T21:02:37Z",
-   "release": "paid-overrides",
+   "expires": "2026-11-17T21:03:15Z",
+   "release": "paid-overrides.zip",
    "callers": {}
   },
   {
    "path": "app/lib/crawler/AutoImport.php",
    "functions": [
+    "(top)",
     "evaluate"
    ],
    "kind": "change",
    "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
    "why": "A Google match (paid backup, by override) raises a new find's confidence in the second look; never keepable (Jason, 2026-11-17)",
    "since": "2026-11-17T17:02:37Z",
-   "expires": "2026-11-17T21:02:37Z",
-   "release": "paid-overrides",
+   "expires": "2026-11-17T21:03:15Z",
+   "release": "paid-overrides.zip",
    "callers": {
     "evaluate": [
      "app/lib/GuideLinks.php",
