@@ -79,6 +79,23 @@
    "expires": "2026-11-17T22:11:12Z",
    "release": "preflight-server-run",
    "callers": {}
+  },
+  {
+   "path": "app/lib/Preflight.php",
+   "functions": [
+    "interrupted",
+    "live",
+    "liveLines",
+    "startRun",
+    "work"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
+   "why": "Pre-flight's Run all runs on the server and keeps going when the page closes; the page shows its progress (Jason, 2026-11-17)",
+   "since": "2026-11-17T18:11:16Z",
+   "expires": "2026-11-17T22:11:16Z",
+   "release": "preflight-server-run",
+   "callers": {}
   }
  ],
  "lapsed": [
