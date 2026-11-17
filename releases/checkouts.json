@@ -549,6 +549,19 @@
    "expires": "2026-11-17T21:25:49Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/admin/widgets.php",
+   "functions": [
+    "tv_w_section"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kHKsQbGaogTWfpFiw",
+   "why": "Scheduled tasks and their pages link both ways: Open <page> on each task, a Runs line on each page (Jason, 2026-11-17)",
+   "since": "2026-11-17T17:25:51Z",
+   "expires": "2026-11-17T21:25:51Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
