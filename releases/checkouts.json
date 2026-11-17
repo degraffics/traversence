@@ -299,6 +299,32 @@
      "app/lib/GuideLinks.php"
     ]
    }
+  },
+  {
+   "path": "app/lib/crawler/DeepLook.php",
+   "functions": [
+    "fromOurCopy"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
+   "why": "(c2) W8 Find it: our OpenStreetMap copy first",
+   "since": "2026-11-17T17:15:18Z",
+   "expires": "2026-11-17T21:15:18Z",
+   "release": "refresh-archive",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/crawler/Refresh.php",
+   "functions": [
+    "archiveAt"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
+   "why": "(c2) W8 Find it: our OpenStreetMap copy first",
+   "since": "2026-11-17T17:15:18Z",
+   "expires": "2026-11-17T21:15:18Z",
+   "release": "refresh-archive",
+   "callers": {}
   }
  ],
  "lapsed": [
