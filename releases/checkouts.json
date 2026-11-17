@@ -271,6 +271,17 @@
    "expires": "2026-11-17T21:13:58Z",
    "release": "refresh-archive",
    "callers": {}
+  },
+  {
+   "path": "website/api/crawl/places.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
+   "why": "(c2) W2 still open: listings our copies flag as possibly closed go to the Google check first (0163 source map)",
+   "since": "2026-11-17T17:14:15Z",
+   "expires": "2026-11-17T21:14:15Z",
+   "release": "refresh-archive",
+   "callers": {}
   }
  ],
  "lapsed": [
