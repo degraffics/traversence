@@ -12,7 +12,7 @@
    "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
    "why": "(c2 large) file storage: a failed upload waits on the server and files_tick retries it, set up by the scheduler itself (0163 source map)",
    "since": "2026-11-17T17:24:13Z",
-   "expires": "2026-11-17T21:54:23Z",
+   "expires": "2026-11-17T21:59:20Z",
    "release": "large-fallbacks.zip",
    "callers": {
     "JOBS": [
@@ -90,7 +90,7 @@
    "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
    "why": "(c2 large) W8 Find it web step",
    "since": "2026-11-17T17:24:18Z",
-   "expires": "2026-11-17T21:54:23Z",
+   "expires": "2026-11-17T21:59:20Z",
    "release": "large-fallbacks.zip",
    "callers": {}
   },
@@ -123,6 +123,7 @@
   {
    "path": "app/lib/Operations.php",
    "functions": [
+    "pulseItems",
     "status",
     "switchOnCheck"
    ],
@@ -130,8 +131,8 @@
    "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
    "why": "A hold on one OpenStreetMap server (overpass-api.de, Issue #1) stays on that server; it holds the service, and W1, only when no other server or source in the map answers (Jason's report 17:56 UTC)",
    "since": "2026-11-17T17:58:31Z",
-   "expires": "2026-11-17T21:58:31Z",
-   "release": "large-fallbacks",
+   "expires": "2026-11-17T21:59:20Z",
+   "release": "large-fallbacks.zip",
    "callers": {
     "switchOnCheck": [
      "app/admin/automation-console.php",
@@ -140,6 +141,9 @@
     ],
     "status": [
      "app/lib/SystemStart.php"
+    ],
+    "pulseItems": [
+     "app/lib/Pulse.php"
     ]
    }
   },
