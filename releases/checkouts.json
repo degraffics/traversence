@@ -538,6 +538,58 @@
    "expires": "2026-11-17T18:07:58Z",
    "release": "preflight.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/OutsideServices.php",
+   "functions": [
+    "requests"
+   ],
+   "kind": "change",
+   "session": "outside-requests-visible",
+   "why": "Outside requests: a failure shows on the card and in Pulse; the form says what it is (Jason, 2026-11-17)",
+   "since": "2026-11-17T14:17:13Z",
+   "expires": "2026-11-17T18:17:13Z",
+   "release": "",
+   "callers": {
+    "requests": [
+     "app/lib/Pulse.php",
+     "app/ui/outside-services.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/Pulse.php",
+   "functions": [
+    "items"
+   ],
+   "kind": "change",
+   "session": "outside-requests-visible",
+   "why": "Outside requests: a failure shows on the card and in Pulse; the form says what it is (Jason, 2026-11-17)",
+   "since": "2026-11-17T14:17:13Z",
+   "expires": "2026-11-17T18:17:13Z",
+   "release": "",
+   "callers": {
+    "items": [
+     "app/lib/DailyReport.php",
+     "app/ui/pulse-ui.php",
+     "website/admin/staff-profile.php",
+     "website/admin/w.php"
+    ]
+   }
+  },
+  {
+   "path": "app/ui/outside-services.php",
+   "functions": [
+    "tv_os_css",
+    "tv_os_requests"
+   ],
+   "kind": "change",
+   "session": "outside-requests-visible",
+   "why": "Outside requests: a failure shows on the card and in Pulse; the form says what it is (Jason, 2026-11-17)",
+   "since": "2026-11-17T14:17:13Z",
+   "expires": "2026-11-17T18:17:13Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
