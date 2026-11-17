@@ -83,8 +83,8 @@
    "session": "domain-years",
    "why": "Domain purchases: idempotency key on registration (Name.com's quickstart)",
    "since": "2026-11-17T12:40:44Z",
-   "expires": "2026-11-17T16:44:02Z",
-   "release": "",
+   "expires": "2026-11-17T16:45:01Z",
+   "release": "domain-years.zip",
    "callers": {
     "api": [
      "app/lib/AccountDomains.php"
@@ -94,6 +94,7 @@
   {
    "path": "app/lib/AccountDomains.php",
    "functions": [
+    "(top)",
     "addToCart",
     "cartGroups",
     "mailBuyer",
@@ -111,8 +112,8 @@
    "session": "domain-years",
    "why": "Domain purchases: terms of years (Jason, 2026-11-17)",
    "since": "2026-11-17T12:40:44Z",
-   "expires": "2026-11-17T16:42:08Z",
-   "release": "",
+   "expires": "2026-11-17T16:45:01Z",
+   "release": "domain-years.zip",
    "callers": {
     "search": [
      "website/api/domains.php"
@@ -141,8 +142,8 @@
    "session": "domain-years",
    "why": "Domain purchases: 1-10 year terms with Name.com's real total; follow Name.com's pricing guide (Jason, 2026-11-17)",
    "since": "2026-11-17T12:40:44Z",
-   "expires": "2026-11-17T16:40:44Z",
-   "release": "",
+   "expires": "2026-11-17T16:45:01Z",
+   "release": "domain-years.zip",
    "callers": {}
   },
   {
@@ -152,8 +153,8 @@
    "session": "domain-years",
    "why": "Domain purchases: 1-10 year terms with Name.com's real total; follow Name.com's pricing guide (Jason, 2026-11-17)",
    "since": "2026-11-17T12:40:44Z",
-   "expires": "2026-11-17T16:40:44Z",
-   "release": "",
+   "expires": "2026-11-17T16:45:01Z",
+   "release": "domain-years.zip",
    "callers": {}
   },
   {
@@ -180,8 +181,8 @@
    "session": "domain-years",
    "why": "Domain purchases: 1-10 year terms with Name.com's real total; follow Name.com's pricing guide (Jason, 2026-11-17)",
    "since": "2026-11-17T12:40:57Z",
-   "expires": "2026-11-17T16:40:57Z",
-   "release": "",
+   "expires": "2026-11-17T16:45:01Z",
+   "release": "domain-years.zip",
    "callers": {}
   },
   {
@@ -191,9 +192,15 @@
    "session": "domain-years",
    "why": "Domain purchases: year picker styling",
    "since": "2026-11-17T12:43:03Z",
-   "expires": "2026-11-17T16:43:03Z",
-   "release": "",
-   "callers": {}
+   "expires": "2026-11-17T16:45:01Z",
+   "release": "domain-years.zip",
+   "callers": {
+    "tv_domains_view": [
+     "app/business/domains.php",
+     "website/shop/domains.php",
+     "website/user/domains/index.php"
+    ]
+   }
   }
  ],
  "lapsed": [
