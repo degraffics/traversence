@@ -236,3 +236,12 @@ switchon-group-2 replaces switchon-group, which was never sent.
 - `SystemStart::panel` draws its steps as a queue like the pre-flight's (`.st-q`), with counts and the run log. While a run is going, it fetches itself again every 15 seconds.
 - The check step is 'done' when no red line holds everything.
 - `Preflight::workflow` returns 'warn' ("waits for its terms") when its only red lines are its own "Opening a geo-hub" lines. A phase shows that as amber.
+
+## start-inline (2026-11-17, built on Sync 19:33 UTC)
+
+Start the system is now self-contained (Jason).
+- `SystemStart::panel` no longer shows `Preflight::startNote`; it links to the pre-flight as diagnostics instead.
+- Asks carry `[4]` (the steps they belong to) and `[5]` (their scope). Each step shows its own asks inline with their fix: a 'do' becomes the button `au_do=start_do`, a 'tool' becomes a link, and an ext becomes its `Pulse::SERVICES` link.
+- Held, stopped and running steps get **Check again** (`au_do=start_tick` → `SystemStart::tick`). Both handlers are in automation-console.php.
+- Workflows and tasks show `lifeLines`: Started, Running (via `self::runs`), Complete (`done_at`, stored by `set()`) and Active status (wfOff/master and its last crawler run).
+- The run log shows one line per session. `start()` archives the previous session to `start:sessions` (the last 20), and each line opens to that session's report.
