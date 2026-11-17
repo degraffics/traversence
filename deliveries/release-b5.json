@@ -28,7 +28,7 @@
   },
   "app/lib/crawler/SourceIndex.php": {
    "sha256": "115b2ba62b89b820f813846b6ec526ba1c12a816c01653056e8483d02b1ec574",
-   "live": true
+   "live": false
   },
   "app/migrations/2026-11-17_search_demand_empty.sql": {
    "sha256": "6f79e1664228e0bb6712b4b494d4e0849f2302c6a4d0e8a9e4fca998aabc8aed",
@@ -44,7 +44,7 @@
   },
   "website/listing/view.php": {
    "sha256": "148dc16cf6b34119a899f1144a7845e8d82abd015cd1d9f32976755b2a641634",
-   "live": true
+   "live": false
   }
  }
 }
