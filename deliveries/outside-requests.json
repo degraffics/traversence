@@ -1,0 +1,22 @@
+{
+ "zip": "outside-requests.zip",
+ "built_on": "a9e0bad Sync: 2026-11-17 13:37 UTC",
+ "recorded": "2026-11-17 13:45 UTC",
+ "note": "Requests waiting on outside companies (Outside services: Waiting on them, Add a request), each a Pulse case until answered; Name.com reseller pricing ticket #3113488 seeded (Jason, 2026-11-17). Files: app/lib/OutsideServices.php, app/lib/Pulse.php, app/ui/outside-services.php. built on Sync: 2026-11-17 13:37 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/OutsideServices.php": {
+   "sha256": "bafa67581f6fda607486bd56f8e1bdeed928a0b1e356632e9e4a34a98e5e31b0",
+   "live": false
+  },
+  "app/lib/Pulse.php": {
+   "sha256": "6491acb12eb5f21df4d9b16c932a003a4c1f492b45697c92f5b8866f459e76f2",
+   "live": false
+  },
+  "app/ui/outside-services.php": {
+   "sha256": "af3db460332cb3b9a3fc2353e48d69525e68e126f217ed77844885a1a93e5601",
+   "live": false
+  }
+ }
+}
