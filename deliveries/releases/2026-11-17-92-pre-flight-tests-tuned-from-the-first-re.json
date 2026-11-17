@@ -1,0 +1,34 @@
+{
+    "id": 92,
+    "title": "Pre-flight: tests tuned from the first report",
+    "why": "Jason sent the first report (2026-11-17, 58 ready, 24 not). Six of the red lines were the pre-flight's own mistakes, now fixed: 1. Railway: our token is a team or project token, which can't ask Railway \"who am I\" (400); it now reads our project, as Start the system does. 2. OpenStreetMap: it timed out on one server (15 s) while 3 of 4 were free; it now asks each free server's status page in turn, 6 s at most each, and is ready once one answers. 3. Fly: a token from \"fly tokens create\" is sent as FlyV1, not Bearer; when Fly still refuses, the line says which kind of token reads certificates. 4. Supabase: an empty vector index before Start the system switches its task on is expected, no longer red. 5. Scheduled jobs shipped off (Data cleanup, the identity recheck, pages waiting, the vector index) get their cron line from Start the system; their missing line no longer turns W1, W2 and W3 red. 6. openrouteservice: one leg inside Flagstaff, and a 5xx says it's their server, not our key.",
+    "proposals": "",
+    "zip": "preflight-tune.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/lib/Preflight.php": {
+            "sha": "8cff1b7f98f92901ddd06171ec22e06f38a9eba8c137bf8421f82909156c4ad3",
+            "size": 94592,
+            "live_was": "2877130c7677263a605b4e9c89c654958e8cb5a5d4b0f8f1e05ff88527b2b7d9"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-17T14:41:44+00:00",
+            "by": 0,
+            "msg": "Uploaded preflight-tune.zip: 1 files."
+        }
+    ]
+}
