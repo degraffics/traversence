@@ -35,65 +35,6 @@
    "callers": {}
   },
   {
-   "path": "app/lib/AccountDomains.php",
-   "functions": [
-    "visibleTo"
-   ],
-   "kind": "change",
-   "session": "domain-sales-team",
-   "why": "Domain sales Test: the Founder admin counts as our team; Edit no longer opens the privacy card (Jason, 2026-11-17)",
-   "since": "2026-11-17T11:52:18Z",
-   "expires": "2026-11-17T15:53:46Z",
-   "release": "domain-sales-team.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/Domains.php",
-   "functions": [
-    "visibleTo"
-   ],
-   "kind": "change",
-   "session": "domain-sales-team",
-   "why": "Domain sales Test: the Founder admin counts as our team; Edit no longer opens the privacy card (Jason, 2026-11-17)",
-   "since": "2026-11-17T11:52:18Z",
-   "expires": "2026-11-17T15:53:46Z",
-   "release": "domain-sales-team.zip",
-   "callers": {
-    "visibleTo": [
-     "app/business/storefront.php"
-    ]
-   }
-  },
-  {
-   "path": "app/lib/EnvSettings.php",
-   "functions": [
-    "editAttrs"
-   ],
-   "kind": "change",
-   "session": "domain-sales-team",
-   "why": "Domain sales Test: the Founder admin counts as our team; Edit no longer opens the privacy card (Jason, 2026-11-17)",
-   "since": "2026-11-17T11:52:18Z",
-   "expires": "2026-11-17T15:53:46Z",
-   "release": "domain-sales-team.zip",
-   "callers": {
-    "editAttrs": [
-     "app/ui/outside-services.php",
-     "website/admin/settings.php"
-    ]
-   }
-  },
-  {
-   "path": "website/js/tv-env-edit.js",
-   "functions": [],
-   "kind": "change",
-   "session": "domain-sales-team",
-   "why": "Domain sales Test: the Founder admin counts as our team; Edit no longer opens the privacy card (Jason, 2026-11-17)",
-   "since": "2026-11-17T11:52:18Z",
-   "expires": "2026-11-17T15:53:46Z",
-   "release": "domain-sales-team.zip",
-   "callers": {}
-  },
-  {
    "path": "app/lib/Domains.php",
    "functions": [
     "isTeam"
