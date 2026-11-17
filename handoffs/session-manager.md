@@ -203,14 +203,23 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
      - Outside requests don't save (Name.com ticket #3113488, after #84/#87/#89): likely the same cause the pre-flight
        found in `search_index_state.v`, a live column shorter than the code assumes, cutting the JSON silently; fix as
        the pre-flight did (their own table), confirmed by the card's "Can't keep requests" line.
-     **For Jason** (from the same report): `HF_TOKEN` and `BRAVE_API_KEY` on Railway's `traversence` service's Variables; `GITHUB_SYNC_TOKEN`
-     expires Dec 16, 2026.
-     - **Menus have no reader** (from the source-map session, 2026-11-17, Jason's ask to queue it): decisions/0163's
-       map lists Google Document AI → Amazon Textract → Claude for menus (`AiClient::ROUTES`), but `providerFor` is
-       called only for 'card', `ai_worker.php` fails every 'menu' job ("No reader for \"menu\" yet"), and there's no
-       Document AI or Textract menu caller. Build a menu reader that tries each in order, falls to the next on failure
-       and logs each switch; every call through `StagingGate::hold()`, paid ones inside their caps, a business's
-       menu only ("no income, no expense": inside the business's plan).
+     **For Jason to address in the cleanup** (Jason, 2026-11-17: "Add these to the queue for me to address in the clean
+     up"):
+     - **Records requests to the Arizona Corporation Commission and New Mexico's Secretary of State** for their
+       registers as files (or an API, or our host allowed); they unblock the AZCC and NM SoS readers and W14
+       (`arizonabusinesscenter.azcc.gov` answers 403 from the build environment; the pre-flight reached both from the
+       site). Each site's terms read first (0164).
+     - **Wikimedia Commons for heritage (W6):** store its facts with credit, or only link to it. (Suggested: accept
+       public domain, CC0, CC BY and CC BY-SA with credit and licence shown, files unaltered; skip no-derivatives and
+       non-commercial; National Park Service photos checked per credit.)
+     - **Approve the licence-source strategy, decisions/0164 §7.1** ("when the official licence source is blocked or
+       lacking": records request, the claim-time registry number, other free authorities, a licensed aggregator only by
+       paid override, else "no authority source yet"). It went into `main` with #851 but needs Jason's OK before anything
+       is built from it (then queued: W14's five step states, the letter template, the registry-number field and a
+       one-look task, a SAM.gov reader, the aggregator's PaidOverride need). Fold queue 3a's monthly manual exports in
+       as a step if he agrees.
+     - `GITHUB_SYNC_TOKEN` expires Dec 16, 2026: renew at https://github.com/settings/tokens. (`HF_TOKEN` and
+       `BRAVE_API_KEY` are set on Railway.)
      **Visual fixes** (Jason, 2026-11-17: "add to visual fixes queue"):
      - **Discovery's hero doesn't follow the process already decided** (Jason, 2026-11-17: "when I click regions it
        doesnt really feel like the page changes visually … The hero is not changing like it should", then "I thought I
