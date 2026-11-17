@@ -33,6 +33,9 @@
     "(top)",
     "finished",
     "lines",
+    "pulseDo",
+    "pulseItems",
+    "pulseSteps",
     "results",
     "runAll",
     "stopRun",
@@ -41,10 +44,10 @@
    ],
    "kind": "change",
    "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
-   "why": "Long values kept whole: search_index_state.v widened (VARCHAR(200) cut Start the system's state); a pre-flight line proves the round trip (session manager, 2026-11-17)",
+   "why": "Pre-flight: an interrupted run waits for Continue or Cancel (the page, Run all, Pulse); one log line per run with its status (Jason, 2026-11-17)",
    "since": "2026-11-17T18:11:12Z",
-   "expires": "2026-11-17T22:17:34Z",
-   "release": "preflight-server-run.zip",
+   "expires": "2026-11-17T22:20:18Z",
+   "release": "preflight-server-run",
    "callers": {
     "tick": [
      "app/scripts/preflight_tick.php"
@@ -57,6 +60,15 @@
     ],
     "lines": [
      "app/admin/preflight-console.php"
+    ],
+    "pulseDo": [
+     "app/lib/Operations.php"
+    ],
+    "pulseItems": [
+     "app/lib/Operations.php"
+    ],
+    "pulseSteps": [
+     "app/lib/Operations.php"
     ]
    }
   },
