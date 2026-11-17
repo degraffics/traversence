@@ -692,14 +692,15 @@
   {
    "path": "app/lib/Operations.php",
    "functions": [
+    "(top)",
     "CAPS"
    ],
    "kind": "change",
    "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
    "why": "Paid backups by a director's override, and Tavily to Brave (0163 source map, preflight hand-off (c))",
    "since": "2026-11-17T16:53:41Z",
-   "expires": "2026-11-17T20:53:41Z",
-   "release": "paid-overrides",
+   "expires": "2026-11-17T20:55:52Z",
+   "release": "paid-overrides.zip",
    "callers": {
     "CAPS": [
      "app/admin/operations-console.php"
@@ -716,8 +717,8 @@
    "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
    "why": "Paid backups by a director's override, and Tavily to Brave (0163 source map, preflight hand-off (c))",
    "since": "2026-11-17T16:53:41Z",
-   "expires": "2026-11-17T20:53:41Z",
-   "release": "paid-overrides",
+   "expires": "2026-11-17T20:55:52Z",
+   "release": "paid-overrides.zip",
    "callers": {
     "plan": [
      "website/api/crawl/service.php"
@@ -736,8 +737,8 @@
    "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
    "why": "Paid backups by a director's override, and Tavily to Brave (0163 source map, preflight hand-off (c))",
    "since": "2026-11-17T16:53:41Z",
-   "expires": "2026-11-17T20:53:41Z",
-   "release": "paid-overrides",
+   "expires": "2026-11-17T20:55:52Z",
+   "release": "paid-overrides.zip",
    "callers": {
     "complete": [
      "website/api/crawl/identity.php"
@@ -751,8 +752,8 @@
    "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
    "why": "Paid backups by override (zip check's attribution: constants at the top)",
    "since": "2026-11-17T16:53:41Z",
-   "expires": "2026-11-17T20:55:49Z",
-   "release": "paid-overrides",
+   "expires": "2026-11-17T20:55:52Z",
+   "release": "paid-overrides.zip",
    "callers": {}
   },
   {
@@ -762,8 +763,8 @@
    "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
    "why": "Paid backups by a director's override, and Tavily to Brave (0163 source map, preflight hand-off (c))",
    "since": "2026-11-17T16:53:46Z",
-   "expires": "2026-11-17T20:53:46Z",
-   "release": "paid-overrides",
+   "expires": "2026-11-17T20:55:52Z",
+   "release": "paid-overrides.zip",
    "callers": {}
   },
   {
@@ -775,8 +776,8 @@
    "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
    "why": "Claude as the paid backup after Gemini for page reading, by override (0163 source map)",
    "since": "2026-11-17T16:53:54Z",
-   "expires": "2026-11-17T20:53:54Z",
-   "release": "paid-overrides",
+   "expires": "2026-11-17T20:55:52Z",
+   "release": "paid-overrides.zip",
    "callers": {
     "tick": [
      "app/scripts/page_read_tick.php"
@@ -1034,6 +1035,17 @@
    "since": "2026-11-17T16:54:04Z",
    "expires": "2026-11-17T20:54:04Z",
    "release": "staging-gate.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Thresholds.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
+   "why": "release paid-overrides.zip",
+   "since": "2026-11-17T16:55:52Z",
+   "expires": "2026-11-17T20:55:52Z",
+   "release": "paid-overrides.zip",
    "callers": {}
   }
  ],
