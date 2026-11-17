@@ -1,0 +1,18 @@
+{
+ "zip": "namecom-prices.zip",
+ "built_on": "670536f Sync: 2026-11-17 13:26 UTC",
+ "recorded": "2026-11-17 13:34 UTC",
+ "note": "Name.com card: Prices we pay per ending vs Name.com's public prices (tldpricing, read only, kept 12 hours) and a verdict (Jason, 2026-11-17). Files: app/lib/Domains.php, app/ui/outside-services.php. built on Sync: 2026-11-17 13:26 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/Domains.php": {
+   "sha256": "06fa486453dd9a8823a686694c174493bbb32e59dcd6a4119e955def1287fd93",
+   "live": false
+  },
+  "app/ui/outside-services.php": {
+   "sha256": "60c019c37150c91d9fea461c5472e62b2dcbdb65771107c57b271f4cb4ee1b52",
+   "live": false
+  }
+ }
+}
