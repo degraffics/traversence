@@ -6,12 +6,12 @@
     "zip": "domain-live-search.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "planned",
+    "state": "approved",
     "step": 0,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
-    "plan_at": null,
+    "plan_at": "2026-11-17 12:25:33",
     "staged_at": null,
     "vetted_at": null,
     "live_at": null,
@@ -49,6 +49,16 @@
             "at": "2026-11-17T12:25:31+00:00",
             "by": 0,
             "msg": "Uploaded domain-live-search.zip: 5 files."
+        },
+        {
+            "at": "2026-11-17T12:25:33+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/domain-live-search.zip (git 9af61bfee4)."
+        },
+        {
+            "at": "2026-11-17T12:25:33+00:00",
+            "by": 0,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
         }
     ]
 }
