@@ -126,6 +126,18 @@ It also locks the card from being removed but it can be replaced with a new card
 - **Each card stays with the processor that saved it** (§6, rule 2).
 - **Built first by the Domains build** (0169 §1a, 2026-11-17) as a shared `Wallet` library; plans move onto it with
   this decision's payments layer (step 3), so nothing working today changes.
+- **Note (Jason, 2026-11-17: "this should not be different, it is a payment method from wallet"):** plans pay from the
+  wallet in the same build, not later. Each running plan's card is copied into its account's wallet and assigned to the
+  plan (the migration adds rows only); starting a plan or changing its card goes through the wallet (a saved card or a
+  new one), and `subscriptions.card_id` / `card_label` stay, kept equal to the assigned card, so renewals work as
+  before. A business changing owner takes the previous owner's cards out of its wallet. Built as `app/lib/Wallet.php`
+  (release `domains-wallet`, handoffs/domains.md).
+- **Note (Jason, 2026-11-17: "this should have a test/sandbox version that is used by the system for testing to ensure
+  no actual live payment is ever available"):** two wallets per account, never mixed: the live wallet and the test
+  wallet (cards saved in QuickBooks' sandbox). Whenever the system is testing (a test account, domains' test mode, the
+  staging copy, a test account signed in, or payments switched to Sandbox) only the test wallet is seen, saved to and
+  charged; a live card is refused, and a test card is charged only with QuickBooks forced to its sandbox (refused if it
+  still reads production). A test account has only a test wallet; each wallet has its own default.
 
 ### 7. Running costs (optional, later)
 
