@@ -87,7 +87,7 @@ Check-out release names: `preflight` (release 1), `outside-table` (release 2, no
   Our copy is "fresh" for 45 days (OpenPlaces::COPY_DAYS). Places deleted in OpenStreetMap stay in open_places (keep()
   only replaces); a cleanup per load is a follow-up. The site's own nearby search (OpenPlaces::near) still asks Overpass
   for a stale spot; it could skip the ask in a loaded state (follow-up).
-- **(c1) `paid-overrides.zip`** (Jason: "go on c", 2026-11-17; built on Sync 16:48 UTC): `app/lib/PaidOverride.php` (new:
+- **(c1) `paid-overrides.zip`** (Jason: "go on c", 2026-11-17; rebuilt on Sync 16:59 UTC after #102 changed Operations.php): `app/lib/PaidOverride.php` (new:
   NEEDS confirm → Google Places, prose → Claude; state, usable, runAllowance (at most 3 a run), recordRun → month count in
   `po:confirm:*` and the cost ledger as google_places W2 identity); Thresholds gates `po_places_confirm` (checks a month)
   and `po_claude_prose` (dollars a month), 0 = off, on the Service register (Operations::CAPS); CrawlService plan sends

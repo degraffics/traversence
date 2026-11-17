@@ -1,8 +1,8 @@
 {
  "zip": "paid-overrides.zip",
- "built_on": "5360319 Sync: 2026-11-17 16:48 UTC",
- "recorded": "2026-11-17 16:56 UTC",
- "note": "Paid backups by a director's override (Google Places to confirm, Claude after Gemini), both off; crawler 2.10.0 with Tavily to Brave; built on Sync: 2026-11-17 16:48 UTC Sent through git (releases/inbox).",
+ "built_on": "761d78f Sync: 2026-11-17 16:59 UTC",
+ "recorded": "2026-11-17 17:00 UTC",
+ "note": "Paid backups by a director's override (Google Places to confirm, Claude after Gemini), both off; crawler 2.10.0 with Tavily to Brave; rebuilt on Sync: 2026-11-17 16:59 UTC Sent through git (releases/inbox).",
  "status": "pending",
  "live_in": "",
  "files": {
@@ -11,7 +11,7 @@
    "live": false
   },
   "app/lib/Operations.php": {
-   "sha256": "53a60f60a9627c152a797a0288e44bd662d965099b239efd273ffe91bfea43dc",
+   "sha256": "0128713567741ce77396c9d103ddb5935cfd335698a3b1f4eeb04eb88da9d306",
    "live": false
   },
   "app/lib/PaidOverride.php": {
@@ -35,7 +35,7 @@
    "live": false
   },
   "app/ui/faq.md": {
-   "sha256": "ff79f3d421486642daec35475012808e56a64bea650e6cd660177d41b6599eac",
+   "sha256": "e39830916bf0a854dc3ea9b1d36af75cdbf2c5d6b2fe72d98cb5c89b04e050cb",
    "live": false
   }
  }
