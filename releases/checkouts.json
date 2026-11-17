@@ -432,6 +432,30 @@
    "expires": "2026-11-17T17:06:57Z",
    "release": "w0-indexer.zip",
    "callers": {}
+  },
+  {
+   "path": "app/admin/sections.php",
+   "functions": [
+    "tv_admin_mod_releases"
+   ],
+   "kind": "change",
+   "session": "releases-fold",
+   "why": "Fold each release on the Releases page to one line; open the ones that need Jason (Jason, 2026-11-17)",
+   "since": "2026-11-17T13:09:43Z",
+   "expires": "2026-11-17T17:09:43Z",
+   "release": "releases-fold.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/js/admin-releases.js",
+   "functions": [],
+   "kind": "change",
+   "session": "releases-fold",
+   "why": "Fold each release on the Releases page to one line; open the ones that need Jason (Jason, 2026-11-17)",
+   "since": "2026-11-17T13:09:43Z",
+   "expires": "2026-11-17T17:09:43Z",
+   "release": "releases-fold.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
