@@ -1,0 +1,26 @@
+{
+ "zip": "domain-sales-team.zip",
+ "built_on": "d2f0d6f Sync: 2026-11-17 11:50 UTC",
+ "recorded": "2026-11-17 11:54 UTC",
+ "note": "Domain sales Test lets the Founder in (Domains::isTeam); Edit's data-choices renamed so the privacy card doesn't open (Jason, 2026-11-17). Files: app/lib/Domains.php, app/lib/AccountDomains.php, app/lib/EnvSettings.php, website/js/tv-env-edit.js. built on Sync: 2026-11-17 11:50 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/AccountDomains.php": {
+   "sha256": "d3964c3d5ef36a4f3b830b16d0d19f01c378495aee865ac8f6fa96ffae9db289",
+   "live": false
+  },
+  "app/lib/Domains.php": {
+   "sha256": "b189ccb6f0ef0ee01652d82b96bbdc67ffedddb6c503e0e703914a8d8a7d7f8d",
+   "live": false
+  },
+  "app/lib/EnvSettings.php": {
+   "sha256": "5b6744605e4bdded96ecfc8edef8a8d276c3b633eca7045f7b48d8f87294748f",
+   "live": false
+  },
+  "website/js/tv-env-edit.js": {
+   "sha256": "d7f6c713c38faebc12865dd7509d42f3a82b103f7f20659269b365ebaf5af9e0",
+   "live": false
+  }
+ }
+}
