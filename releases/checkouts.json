@@ -328,15 +328,18 @@
    "path": "app/lib/Preflight.php",
    "functions": [
     "finished",
+    "result",
+    "results",
     "run",
     "runAll",
+    "save",
     "summary"
    ],
    "kind": "change",
    "session": "session_01CXLi5kGG8gG4QBmC4uzMzN",
-   "why": "Pre-flight: the plain-text report (GET action=report) (Jason, 2026-11-17)",
+   "why": "Pre-flight: results in their own table (search_index_state.v cuts them short on live) (2026-11-17)",
    "since": "2026-11-17T14:29:27Z",
-   "expires": "2026-11-17T18:29:48Z",
+   "expires": "2026-11-17T18:31:52Z",
    "release": "preflight-slow",
    "callers": {
     "run": [
@@ -348,6 +351,12 @@
     ],
     "finished": [
      "website/admin/api.php"
+    ],
+    "result": [
+     "app/admin/preflight-console.php"
+    ],
+    "results": [
+     "app/admin/preflight-console.php"
     ]
    }
   },
