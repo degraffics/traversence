@@ -1,0 +1,49 @@
+{
+    "id": 105,
+    "title": "Scheduled tasks and their pages link both ways",
+    "why": "Jason, 2026-11-17, on the Pre-flight task's card in System Configuration → Scheduled tasks: \"this is a dead end issue: the task and the actual preflight page has not way to link to each other.\" Fixed for every scheduled task, not only the pre-flight. 1. Each task card on Scheduled tasks has \"Open <page>\" to the admin page it serves (37 tasks: Open Pre-flight, Open Staging, Open Guides, Open Releases…; greyed with the reason when the person can't open that section). Seven have no page of their own and no button: files_tick, notice_digest, region_tick, like_watch_tick, earned_storage_tick, guest_tick, audit_clock_tick (and the stopped staging_tick). 2. Each of those pages shows a slim line above its content, one shared helper (app/admin/job-line.php, drawn by tv_w_section for every section, so the Pre-flight and every other page get it the same way): \"Runs: every 15 minutes · last ran 7 minutes ago, Nov 17, 10:05 AM MST · Change\". The time is labelled with its zone (js/tv-time.js). Change opens the task's card (/admin/config/scheduler#job-<key>, opened and highlighted as before). Change is greyed with the reason for anyone the Scheduled tasks page's own rule (config.scheduler.edit) doesn't allow. A task that stopped, is late or isn't set up in cPanel shows as the site's red notice instead. 3. The schedule words come from cPanel's lines as the Scheduled tasks page last read them (kept in app/storage/job-schedules.json), so no page waits on cPanel; before that page is opened once, each line says the task's usual time. The map is a new tv_job_pages() beside Scheduler::JOBS, because another session's release (large-fallbacks) holds the change claim on Scheduler::JOBS; it can move into JOBS once that one is live. No migration, no new table, no outside call, no new endpoint.",
+    "proposals": "",
+    "zip": "job-links.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/admin/job-line.php": {
+            "sha": "a00587dce26f5e5bc55c852e7609482a329508651af611120338683db99e53e5",
+            "size": 9684,
+            "live_was": null
+        },
+        "app/admin/sections.php": {
+            "sha": "d7107c5a665940fa04220ba3a1884c730bfc382b3e8d774f544b1a16103f5aac",
+            "size": 242336,
+            "live_was": "708bcad43594efcf7e10ef5d8026aff42cebd65c2b29313eb4d9f801f47df8c5"
+        },
+        "app/admin/widgets.php": {
+            "sha": "aa841e4d7a5c1d96a98de597b5b47c4e64e0ed4350c3340f9bd46aa2642c994a",
+            "size": 7778,
+            "live_was": "cab70e810f6bcbef72b26c50ca1faa3be73c8df7b6ecea16b5d603481a77ac3c"
+        },
+        "app/ui/faq.md": {
+            "sha": "3509d099f739cdcdbaa0710361c3a40ad04aafc3e75d909d4a7d0e8b7815a716",
+            "size": 322021,
+            "live_was": "99ffb4e6c7e8b921ced4a5b65eb126658a5c2233ac0b3067fb9d21b841f87748"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-17T17:55:05+00:00",
+            "by": 0,
+            "msg": "Uploaded job-links.zip: 4 files."
+        }
+    ]
+}
