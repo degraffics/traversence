@@ -186,7 +186,7 @@ storefront to one of the account's domains is the app's job, with `Domains` (the
 - **Next build candidates:** TLD requirements before checkout for ccTLDs (`requirements` in the same lookup); the
   markup as a setting on the Name.com card; Name.com webhooks for verification instead of polling (post-MVP).
 
-## 2026-11-17, later: prices, endings, outside requests (releases #83–#88; this session handed to the session manager)
+## 2026-11-17, later: prices, endings, outside requests (releases #83–#89; this session handed to the session manager)
 - **Prices we pay** (namecom-prices, live): the Name.com card at https://traversence.com/admin/config/services#svc-namecom
   shows our account's price per ending beside Name.com's public and list price (`Domains::priceList`, `GET
   /core/v1/tldpricing` through the live lookup path, kept 12 hours in `market_settings` 'domains:pricelist') and a verdict
@@ -198,14 +198,14 @@ storefront to one of the account's domains is the app's job, with `Domains` (the
 - **Name.com reseller pricing: ticket #3113488** (sent 2026-11-17 13:42 UTC; Name.com's auto-reply asks for no reply
   before they answer). Jason waits for their answer, then decides the price policy (steady yearly price vs Name.com's
   first-year deal; whether .store and .biz stay).
-- **Requests waiting on outside companies** (#84, #87, #88): each company card has Waiting on them and *Note a request
+- **Requests waiting on outside companies** (#84, #87, #89): each company card has Waiting on them and *Note a request
   we sent <company>*; each open request is a Pulse case `outreq:<id>` (Update; Alert after 5 days) with Open their
   support, Chase them (after 5 days), Record their answer (closes it). Stored in `staff_settings` as `outreq:<id>`,
   compact (≤ 250 characters); `OutsideServices::REQ_SEED` adds ticket #3113488 if no request with that number exists.
   **OPEN BUG:** after #84 and #87 the Name.com card still said *Nothing waiting* and Pulse had no case: reading or
   saving the requests fails, cause unknown. #84's seed was 262 characters (over a likely 255 column) and its marker
   (`outreq:seeded`, still in the table, now ignored) stopped retries; #87 made records compact and seeds by ticket
-  number, and still nothing showed. #88 (outside-requests-visible) stops hiding it: the card shows the database's
+  number, and still nothing showed. #89 (outside-requests-visible) stops hiding it: the card shows the database's
   words ("Can't keep requests: …") and Pulse raises an Alert "Requests to outside companies can't be saved". **Next:
   read that message on the card, fix the cause, confirm the case for #3113488 appears.** Suspects: the `staff_settings`
   columns (`name`/`value` size or a missing unique key on `name`), or the admin connection's rights on the admin

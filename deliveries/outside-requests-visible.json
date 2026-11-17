@@ -3,20 +3,20 @@
  "built_on": "2e00ea2 Sync: 2026-11-17 14:05 UTC",
  "recorded": "2026-11-17 14:18 UTC",
  "note": "Outside requests: failures shown on the card and as a Pulse alert; the form labelled (Jason, 2026-11-17). Files: app/lib/OutsideServices.php, app/lib/Pulse.php, app/ui/outside-services.php. built on Sync: 2026-11-17 14:05 UTC Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "728d9ab Sync: 2026-11-17 14:22 UTC",
  "files": {
   "app/lib/OutsideServices.php": {
    "sha256": "9676368c8bfb9de598e92ba1c630032b113a417743b23c55b7dcd1ddf6a7b8f2",
-   "live": false
+   "live": true
   },
   "app/lib/Pulse.php": {
    "sha256": "70f5d38c163df56fb80428a6563fe1a173f40fdf32fc1b68b8c4d4da78e22860",
-   "live": false
+   "live": true
   },
   "app/ui/outside-services.php": {
    "sha256": "70cc8fb01d1847f9fea1bcab3316c4dc73413890b7e14a9d3adf2c93b6ff9052",
-   "live": false
+   "live": true
   }
  }
 }

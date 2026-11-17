@@ -3,60 +3,60 @@
  "built_on": "2e00ea2 Sync: 2026-11-17 14:05 UTC",
  "recorded": "2026-11-17 14:08 UTC",
  "note": "Pre-flight (decisions/0163 \u00a710 note): System Configuration \u2192 Pre-flight, its nightly job, Pulse case, Start the system note; built on Sync: 2026-11-17 14:05 UTC Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "728d9ab Sync: 2026-11-17 14:22 UTC",
  "files": {
   "app/admin/manifests.php": {
    "sha256": "2acee3d0d538a526c30e6cd28f1dfef3cf9e814381d1d762c639efbea143dd66",
-   "live": false
+   "live": true
   },
   "app/admin/preflight-console.php": {
    "sha256": "6e855c2f8bb1223af3b9b4927326a120d9c496f16c65d9550a784c6430ab52d4",
-   "live": false
+   "live": true
   },
   "app/admin/sections.php": {
    "sha256": "708bcad43594efcf7e10ef5d8026aff42cebd65c2b29313eb4d9f801f47df8c5",
-   "live": false
+   "live": true
   },
   "app/lib/Operations.php": {
    "sha256": "2fec52ccc12ab13da7356c439c025ccfcd56ae4ab2f6624d831d6965b991e90e",
-   "live": false
+   "live": true
   },
   "app/lib/Preflight.php": {
    "sha256": "660baef57909c7d983d6f797aa4f5810d1991d82015331a1ed991283e1063f38",
-   "live": false
+   "live": true
   },
   "app/lib/Scheduler.php": {
    "sha256": "ab233d1d331ac624fa4c199807377bcb44df9f55a61ac76597bbefc93e82212f",
-   "live": false
+   "live": true
   },
   "app/lib/SystemStart.php": {
    "sha256": "793cd3717c48cb0e8cc2c78c7815e69883af56e8a57a50c4942de75006adf42c",
-   "live": false
+   "live": true
   },
   "app/lib/Thresholds.php": {
    "sha256": "9e53cbeea2f802d6145a45fe90fa47105f91ac4d0d54893c6a14a105489bbc00",
-   "live": false
+   "live": true
   },
   "app/scripts/preflight_tick.php": {
    "sha256": "74ddfd37e20b287e32adf20bee74fa79213b3bdf6d615e5a336eb590678fdf1a",
-   "live": false
+   "live": true
   },
   "app/ui/app-shell.php": {
    "sha256": "d8d00f68b14c7e1042b0c84f2262f1fe182d0fc7b548f44ec05e146a39381593",
-   "live": false
+   "live": true
   },
   "website/admin/api.php": {
    "sha256": "c469bfaab3c0b3ec34c32f41a8f52346bf35b5bbf176d0985a60995a8a315ca8",
-   "live": false
+   "live": true
   },
   "website/api/crawl/index.php": {
    "sha256": "4623db39fa36db746862bd52c512fda6915c1a1ee37f284c414d282501477800",
-   "live": false
+   "live": true
   },
   "website/js/admin-preflight.js": {
    "sha256": "eafccc5c078874d542dcc9e164015a383c4090785e257efaa7599bcd471f2d4a",
-   "live": false
+   "live": true
   }
  }
 }
