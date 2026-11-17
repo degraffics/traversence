@@ -507,6 +507,32 @@
    "expires": "2026-11-17T17:15:09Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/lib/AccountDomains.php",
+   "functions": [
+    "VERIFY_TELL",
+    "resendVerify",
+    "verifyTick"
+   ],
+   "kind": "add",
+   "session": "domain-verify",
+   "why": "Domains: per-year cost on multi-year terms; a follow-up for the registrant's contact verification until it's resolved (Jason, 2026-11-17)",
+   "since": "2026-11-17T13:15:21Z",
+   "expires": "2026-11-17T17:15:21Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "app/migrations/2027-03-12_account_domains_verify.sql",
+   "functions": [],
+   "kind": "add",
+   "session": "domain-verify",
+   "why": "Domains: per-year cost on multi-year terms; a follow-up for the registrant's contact verification until it's resolved (Jason, 2026-11-17)",
+   "since": "2026-11-17T13:15:21Z",
+   "expires": "2026-11-17T17:15:21Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
