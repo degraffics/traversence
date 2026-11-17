@@ -143,6 +143,13 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
      4. **Facebook Personal:** decisions/0168 Phase 1;
      5. **Facebook Business:** 0168 Phase 3 on (waits for Jason's Business Verification and Meta's App Review).
      6. **Storefront:** 0139 moved in; its setup includes the address (keep trvgo.us/<name>, bring a domain, or buy one).
+        **With it, trvgo.us's hyphenated addresses** (found 2026-11-17 by the favicon build; Jason: "add to storefront
+        app"): `https://trvgo.us/round-valley`, `/sj-portables` and pages like `/shop/about-us` get Apache's own 404
+        ("…while trying to use an ErrorDocument") and never reach `trvgo/index.php`; `/abc12` and `/sjportables` do.
+        Likely `trvgo/.htaccess`'s rewrite pattern allows only letters and digits: widen it to hyphens and slashes
+        (real files and folders still excluded), give trvgo a working ErrorDocument, name the `.htaccess` separately in
+        the release (dotfiles aren't synced), and test a hyphenated storefront end to end, including a business's own
+        domain through the Fly edge (`X-TV-Host`), untested.
      7. **Domains** (0169 §1a): **live as release #71** (2026-11-17 03:30 UTC, synced and verified; session archived) from session_01CXLi5j7MKBy27a6L7AXRHN (started 2026-11-17 00:53 UTC at
         Jason's ask): Shop → Domains, the account's Domains tab, and the shared wallet (0166 §6a) only. Joining storefronts to the account's domains
         stays with app 6 (Storefront), queued; the storefront's Connect your domain is left as it is until then.
