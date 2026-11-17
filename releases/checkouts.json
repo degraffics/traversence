@@ -2,140 +2,6 @@
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
  "claims": [
   {
-   "path": "app/ui/favicon.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5iXPuLbnLpdUjRWunZ",
-   "why": "Site icon on every page (favicon.ico, touch icon, one shared helper)",
-   "since": "2026-11-17T13:47:00Z",
-   "expires": "2026-11-17T17:48:36Z",
-   "release": "favicon-everywhere.zip",
-   "callers": {}
-  },
-  {
-   "path": "website/favicon.ico",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5iXPuLbnLpdUjRWunZ",
-   "why": "Site icon on every page (favicon.ico, touch icon, one shared helper)",
-   "since": "2026-11-17T13:47:00Z",
-   "expires": "2026-11-17T17:48:36Z",
-   "release": "favicon-everywhere.zip",
-   "callers": {}
-  },
-  {
-   "path": "website/image/apple-touch-icon.png",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5iXPuLbnLpdUjRWunZ",
-   "why": "Site icon on every page (favicon.ico, touch icon, one shared helper)",
-   "since": "2026-11-17T13:47:00Z",
-   "expires": "2026-11-17T17:48:36Z",
-   "release": "favicon-everywhere.zip",
-   "callers": {}
-  },
-  {
-   "path": "trvgo/index.php",
-   "functions": [
-    "(top)"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5iXPuLbnLpdUjRWunZ",
-   "why": "Site icon on every page (favicon.ico, touch icon, one shared helper)",
-   "since": "2026-11-17T13:47:10Z",
-   "expires": "2026-11-17T17:48:36Z",
-   "release": "favicon-everywhere.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/ui/storefront-view.php",
-   "functions": [
-    "(top)",
-    "tv_storefront_closed",
-    "tv_storefront_serve"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5iXPuLbnLpdUjRWunZ",
-   "why": "Site icon on every page (favicon.ico, touch icon, one shared helper)",
-   "since": "2026-11-17T13:47:10Z",
-   "expires": "2026-11-17T17:48:36Z",
-   "release": "favicon-everywhere.zip",
-   "callers": {
-    "tv_storefront_serve": [
-     "trvgo/index.php"
-    ]
-   }
-  },
-  {
-   "path": "website/admin/manifest.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5iXPuLbnLpdUjRWunZ",
-   "why": "Site icon on every page (favicon.ico, touch icon, one shared helper)",
-   "since": "2026-11-17T13:47:10Z",
-   "expires": "2026-11-17T17:48:36Z",
-   "release": "favicon-everywhere.zip",
-   "callers": {}
-  },
-  {
-   "path": "website/index.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5iXPuLbnLpdUjRWunZ",
-   "why": "Site icon on every page (favicon.ico, touch icon, one shared helper)",
-   "since": "2026-11-17T13:47:10Z",
-   "expires": "2026-11-17T17:48:36Z",
-   "release": "favicon-everywhere.zip",
-   "callers": {},
-   "zones": [
-    "home.after-doors"
-   ]
-  },
-  {
-   "path": "website/directory/classic.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5iXPuLbnLpdUjRWunZ",
-   "why": "Site icon on every page (favicon.ico, touch icon, one shared helper)",
-   "since": "2026-11-17T13:47:10Z",
-   "expires": "2026-11-17T17:48:36Z",
-   "release": "favicon-everywhere.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/ui/auth-nav.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5iXPuLbnLpdUjRWunZ",
-   "why": "release favicon-everywhere.zip",
-   "since": "2026-11-17T13:48:36Z",
-   "expires": "2026-11-17T17:48:36Z",
-   "release": "favicon-everywhere.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/ui/page-shell.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5iXPuLbnLpdUjRWunZ",
-   "why": "release favicon-everywhere.zip",
-   "since": "2026-11-17T13:48:36Z",
-   "expires": "2026-11-17T17:48:36Z",
-   "release": "favicon-everywhere.zip",
-   "callers": {}
-  },
-  {
-   "path": "website/admin/chamber-builder.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5iXPuLbnLpdUjRWunZ",
-   "why": "release favicon-everywhere.zip",
-   "since": "2026-11-17T13:48:36Z",
-   "expires": "2026-11-17T17:48:36Z",
-   "release": "favicon-everywhere.zip",
-   "callers": {}
-  },
-  {
    "path": "app/lib/crawler/Refresh.php",
    "functions": [
     "complete",
@@ -145,7 +11,7 @@
    "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
    "why": "W2 re-read: Common Crawl's copy when a website doesn't load for us; a recent copy sends it to a person instead of taking it off (0163 source map, c2)",
    "since": "2026-11-17T17:07:22Z",
-   "expires": "2026-11-17T21:19:16Z",
+   "expires": "2026-11-17T21:48:55Z",
    "release": "refresh-archive.zip",
    "callers": {
     "complete": [
@@ -163,7 +29,7 @@
    "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
    "why": "(c2) W2 missing phone or website: our NPI and Recreation.gov copies first (0163 source map)",
    "since": "2026-11-17T17:13:07Z",
-   "expires": "2026-11-17T21:19:16Z",
+   "expires": "2026-11-17T21:48:55Z",
    "release": "refresh-archive.zip",
    "callers": {
     "complete": [
@@ -194,7 +60,7 @@
    "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
    "why": "(c2) W2 map points: a Census failure waits (held), not failed (0163 source map)",
    "since": "2026-11-17T17:13:58Z",
-   "expires": "2026-11-17T21:19:16Z",
+   "expires": "2026-11-17T21:48:55Z",
    "release": "refresh-archive.zip",
    "callers": {}
   },
@@ -205,7 +71,7 @@
    "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
    "why": "(c2) W2 still open: listings our copies flag as possibly closed go to the Google check first (0163 source map)",
    "since": "2026-11-17T17:14:15Z",
-   "expires": "2026-11-17T21:19:16Z",
+   "expires": "2026-11-17T21:48:55Z",
    "release": "refresh-archive.zip",
    "callers": {}
   },
@@ -235,7 +101,7 @@
    "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
    "why": "(c2) W8 Find it: our OpenStreetMap copy first",
    "since": "2026-11-17T17:15:18Z",
-   "expires": "2026-11-17T21:19:16Z",
+   "expires": "2026-11-17T21:48:55Z",
    "release": "refresh-archive.zip",
    "callers": {}
   },
@@ -262,7 +128,7 @@
    "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
    "why": "(c2) the source map's fallbacks: site email Bluehost SMTP then Amazon SES, weather link when hidden, events retried next day (0163)",
    "since": "2026-11-17T17:18:03Z",
-   "expires": "2026-11-17T21:19:16Z",
+   "expires": "2026-11-17T21:48:55Z",
    "release": "refresh-archive.zip",
    "callers": {
     "send": [
@@ -331,7 +197,7 @@
    "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
    "why": "(c2) the source map's fallbacks: site email Bluehost SMTP then Amazon SES, weather link when hidden, events retried next day (0163)",
    "since": "2026-11-17T17:18:03Z",
-   "expires": "2026-11-17T21:19:16Z",
+   "expires": "2026-11-17T21:48:55Z",
    "release": "refresh-archive.zip",
    "callers": {
     "tick": [
@@ -360,7 +226,7 @@
    "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
    "why": "(c2) the source map's fallbacks: site email Bluehost SMTP then Amazon SES, weather link when hidden, events retried next day (0163)",
    "since": "2026-11-17T17:18:09Z",
-   "expires": "2026-11-17T21:19:16Z",
+   "expires": "2026-11-17T21:48:55Z",
    "release": "refresh-archive.zip",
    "callers": {}
   },
@@ -529,19 +395,23 @@
   {
    "path": "app/lib/Operations.php",
    "functions": [
+    "pulseItems",
     "switchOnCheck"
    ],
    "kind": "change",
    "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
    "why": "Pre-flight: W1 held by the OpenStreetMap line while our copy can't load before W1 (chicken-and-egg); red reasons first; answers never cut (Jason's report 17:44 UTC)",
    "since": "2026-11-17T17:48:17Z",
-   "expires": "2026-11-17T21:48:17Z",
-   "release": "refresh-archive",
+   "expires": "2026-11-17T21:48:55Z",
+   "release": "refresh-archive.zip",
    "callers": {
     "switchOnCheck": [
      "app/admin/automation-console.php",
      "app/admin/operations-console.php",
      "app/lib/SystemStart.php"
+    ],
+    "pulseItems": [
+     "app/lib/Pulse.php"
     ]
    }
   },
@@ -555,12 +425,157 @@
    "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
    "why": "Pre-flight: W1 held by the OpenStreetMap line while our copy can't load before W1 (chicken-and-egg); red reasons first; answers never cut (Jason's report 17:44 UTC)",
    "since": "2026-11-17T17:48:17Z",
-   "expires": "2026-11-17T21:48:17Z",
-   "release": "refresh-archive",
+   "expires": "2026-11-17T21:48:55Z",
+   "release": "refresh-archive.zip",
    "callers": {}
   }
  ],
  "lapsed": [
+  {
+   "path": "app/ui/favicon.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5iXPuLbnLpdUjRWunZ",
+   "why": "Site icon on every page (favicon.ico, touch icon, one shared helper)",
+   "since": "2026-11-17T13:47:00Z",
+   "expires": "2026-11-17T17:48:36Z",
+   "release": "favicon-everywhere.zip",
+   "callers": {},
+   "lapsed": "2026-11-17T17:48:55Z"
+  },
+  {
+   "path": "website/favicon.ico",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5iXPuLbnLpdUjRWunZ",
+   "why": "Site icon on every page (favicon.ico, touch icon, one shared helper)",
+   "since": "2026-11-17T13:47:00Z",
+   "expires": "2026-11-17T17:48:36Z",
+   "release": "favicon-everywhere.zip",
+   "callers": {},
+   "lapsed": "2026-11-17T17:48:55Z"
+  },
+  {
+   "path": "website/image/apple-touch-icon.png",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5iXPuLbnLpdUjRWunZ",
+   "why": "Site icon on every page (favicon.ico, touch icon, one shared helper)",
+   "since": "2026-11-17T13:47:00Z",
+   "expires": "2026-11-17T17:48:36Z",
+   "release": "favicon-everywhere.zip",
+   "callers": {},
+   "lapsed": "2026-11-17T17:48:55Z"
+  },
+  {
+   "path": "trvgo/index.php",
+   "functions": [
+    "(top)"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5iXPuLbnLpdUjRWunZ",
+   "why": "Site icon on every page (favicon.ico, touch icon, one shared helper)",
+   "since": "2026-11-17T13:47:10Z",
+   "expires": "2026-11-17T17:48:36Z",
+   "release": "favicon-everywhere.zip",
+   "callers": {},
+   "lapsed": "2026-11-17T17:48:55Z"
+  },
+  {
+   "path": "app/ui/storefront-view.php",
+   "functions": [
+    "(top)",
+    "tv_storefront_closed",
+    "tv_storefront_serve"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5iXPuLbnLpdUjRWunZ",
+   "why": "Site icon on every page (favicon.ico, touch icon, one shared helper)",
+   "since": "2026-11-17T13:47:10Z",
+   "expires": "2026-11-17T17:48:36Z",
+   "release": "favicon-everywhere.zip",
+   "callers": {
+    "tv_storefront_serve": [
+     "trvgo/index.php"
+    ]
+   },
+   "lapsed": "2026-11-17T17:48:55Z"
+  },
+  {
+   "path": "website/admin/manifest.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5iXPuLbnLpdUjRWunZ",
+   "why": "Site icon on every page (favicon.ico, touch icon, one shared helper)",
+   "since": "2026-11-17T13:47:10Z",
+   "expires": "2026-11-17T17:48:36Z",
+   "release": "favicon-everywhere.zip",
+   "callers": {},
+   "lapsed": "2026-11-17T17:48:55Z"
+  },
+  {
+   "path": "website/index.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5iXPuLbnLpdUjRWunZ",
+   "why": "Site icon on every page (favicon.ico, touch icon, one shared helper)",
+   "since": "2026-11-17T13:47:10Z",
+   "expires": "2026-11-17T17:48:36Z",
+   "release": "favicon-everywhere.zip",
+   "callers": {},
+   "zones": [
+    "home.after-doors"
+   ],
+   "lapsed": "2026-11-17T17:48:55Z"
+  },
+  {
+   "path": "website/directory/classic.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5iXPuLbnLpdUjRWunZ",
+   "why": "Site icon on every page (favicon.ico, touch icon, one shared helper)",
+   "since": "2026-11-17T13:47:10Z",
+   "expires": "2026-11-17T17:48:36Z",
+   "release": "favicon-everywhere.zip",
+   "callers": {},
+   "lapsed": "2026-11-17T17:48:55Z"
+  },
+  {
+   "path": "app/ui/auth-nav.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5iXPuLbnLpdUjRWunZ",
+   "why": "release favicon-everywhere.zip",
+   "since": "2026-11-17T13:48:36Z",
+   "expires": "2026-11-17T17:48:36Z",
+   "release": "favicon-everywhere.zip",
+   "callers": {},
+   "lapsed": "2026-11-17T17:48:55Z"
+  },
+  {
+   "path": "app/ui/page-shell.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5iXPuLbnLpdUjRWunZ",
+   "why": "release favicon-everywhere.zip",
+   "since": "2026-11-17T13:48:36Z",
+   "expires": "2026-11-17T17:48:36Z",
+   "release": "favicon-everywhere.zip",
+   "callers": {},
+   "lapsed": "2026-11-17T17:48:55Z"
+  },
+  {
+   "path": "website/admin/chamber-builder.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5iXPuLbnLpdUjRWunZ",
+   "why": "release favicon-everywhere.zip",
+   "since": "2026-11-17T13:48:36Z",
+   "expires": "2026-11-17T17:48:36Z",
+   "release": "favicon-everywhere.zip",
+   "callers": {},
+   "lapsed": "2026-11-17T17:48:55Z"
+  },
   {
    "path": "app/lib/Domains.php",
    "functions": [
