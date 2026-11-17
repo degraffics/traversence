@@ -1,0 +1,54 @@
+{
+    "id": 99,
+    "title": "Pre-flight: a run log, each run with its report; the page opens fresh",
+    "why": "Jason, 2026-11-17: \"i would like the preflight to log its runs and have the report downloadable from that log line. That way when the page refreshes it always starts fresh and i can go back to the previous report from the log itself.\" 1. The page opens fresh: every line not run yet, the counts at 0 with how many to test; Run all fills it in as before. 2. A Run log at the foot of the page, under the checklist (Jason: \"put log at bottom of page\"), newest first: each full run (Run all, the nightly run, a .env change) with when it ended, how long it took, who or what ran it, its ✓ ✗ — counts, how many needed for launch and slow, and Report, which downloads that run's report as it stood when the run ended. The last 50 are kept, in a table of their own (preflight_runs, made on first use, staging's own). 3. A single line's Test updates that line only. Start the system and Pulse still read the latest results.",
+    "proposals": "",
+    "zip": "preflight-log.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/lib/Preflight.php": {
+            "sha": "95b71a97276a4069c9b614594022e0f57927e47af7e9fcf51f5b8e9f3846c57d",
+            "size": 103027,
+            "live_was": "5d9e0299bcb103f557853e4772563a4e663fd0f0ba854f10fad5e72028901485"
+        },
+        "app/lib/staging-tables.php": {
+            "sha": "f057f89df788d9f4a4d1a1503eba67b3c6edafeef9f09d61db5f074c94bc71c9",
+            "size": 25226,
+            "live_was": "23aebf75fdeb57241777e8992fba912d11ff112050de11be3848df0be570c674"
+        },
+        "app/admin/preflight-console.php": {
+            "sha": "eabccc663297015c5ab34df9a13c75fd5b499275eda73eb53057ec9e0e18f7a0",
+            "size": 13475,
+            "live_was": "998d91a4aa832a0e73fd8cab6d52024dc0bc39d0cd21344ef28e7204da44e73c"
+        },
+        "website/js/admin-preflight.js": {
+            "sha": "f1a48f83ec517979ab598ba8db7e3a7b0d9d39fac9706194f66221bd0aac801e",
+            "size": 9916,
+            "live_was": "69a90686cde5e81178f9f748e0e9f0f6a73f5fcc59a9896d731556a853ab99db"
+        },
+        "website/admin/api.php": {
+            "sha": "fdc8974b7a59442e54ec46d6b8f230cbc11ba4676d0534c3ef951bc50de85261",
+            "size": 23547,
+            "live_was": "ded62c4043276efe737b7afe6a2174e99346b7365d1546ac9a4b525dc8a30f5c"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-17T16:25:13+00:00",
+            "by": 0,
+            "msg": "Uploaded preflight-log.zip: 5 files."
+        }
+    ]
+}
