@@ -3,36 +3,36 @@
  "built_on": "2101a57 Sync: 2026-11-17 03:33 UTC",
  "recorded": "2026-11-17 11:07 UTC",
  "note": "Domain sales get their own switch, DOMAIN_SALES_MODE; DOMAINS_MODE back to storefronts only (Jason, 2026-11-17). Files: app/lib/Domains.php, app/lib/AccountDomains.php, app/lib/EnvSettings.php, app/lib/OutsideServices.php, app/lib/StagingSite.php, app/ui/faq.md, website/api/domains.php. built on Sync: 2026-11-17 03:33 UTC Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "58f9ad6 Sync: 2026-11-17 11:17 UTC",
  "files": {
   "app/lib/AccountDomains.php": {
    "sha256": "077c168d55046e7c8f68a629b982364e8fa8a1004bf9632dd1b94a0c8fc31f30",
-   "live": false
+   "live": true
   },
   "app/lib/Domains.php": {
    "sha256": "f114a4baec623df4fbef567bd54b413de1ee4e37c821d22cff74851981a56ab4",
-   "live": false
+   "live": true
   },
   "app/lib/EnvSettings.php": {
    "sha256": "3c733a4150b22c9a1660dd843b5ab82811e8a7309ac118dff219d5a3b872a9d8",
-   "live": false
+   "live": true
   },
   "app/lib/OutsideServices.php": {
    "sha256": "b455d1f828627c4ca0a1652c20c558782bd42926d167899e75cfef6673253511",
-   "live": false
+   "live": true
   },
   "app/lib/StagingSite.php": {
    "sha256": "078225b17faf7c3dbab6659045670a88fb75af6bc4f9ef500157243f9b813010",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "511bf68b6c8b2b65cc063ac33b4a655b6b587cb99e0130bd2a5894b0d1416c3f",
-   "live": false
+   "live": true
   },
   "website/api/domains.php": {
    "sha256": "5b46bc49ea489e7fbc94d1646b25a67d4207aa1ca5b91990fe20d1f152b115ce",
-   "live": false
+   "live": true
   }
  }
 }
