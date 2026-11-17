@@ -53,6 +53,10 @@ integrate the domain buy process into the storefront process."
 - **Today's code** (`Domains`, 0139 5b) ties one domain to one storefront and charges the plan's card. This separates
   them: a domain belongs to the account; a storefront *uses* one. Existing storefront domains move across with nothing
   lost.
+- **Two products** (Jason, 2026-11-17: "Domain Purchase, domain renewal. Two products"): **Domain Purchase** and
+  **Domain Renewal**, each a catalog product with its own QuickBooks link, price set per sale; every order line carries
+  Name.com's actual cost with Name.com as the vendor, for 0166's ledger (income and cost accounts chosen in 0166's
+  setup step, not in code).
 - "No test moves real money" and "no income, no expense" hold: charged before Name.com is paid, test accounts and
   test mode always on Name.com's sandbox.
 
