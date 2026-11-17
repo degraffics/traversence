@@ -251,6 +251,97 @@
    "expires": "2026-11-17T17:48:36Z",
    "release": "favicon-everywhere.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/OpenPlaces.php",
+   "functions": [
+    "keep",
+    "keepExtract",
+    "what"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
+   "why": "W1 reads our OpenStreetMap copy (open_places, Geofabrik) before Overpass (0163 source map, preflight hand-off (b))",
+   "since": "2026-11-17T16:37:26Z",
+   "expires": "2026-11-17T20:37:26Z",
+   "release": "osm-ours",
+   "callers": {
+    "keepExtract": [
+     "app/lib/crawler/OpenLoads.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/crawler/OpenLoads.php",
+   "functions": [
+    "finish"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
+   "why": "W1 reads our OpenStreetMap copy (open_places, Geofabrik) before Overpass (0163 source map, preflight hand-off (b))",
+   "since": "2026-11-17T16:37:26Z",
+   "expires": "2026-11-17T20:37:26Z",
+   "release": "osm-ours",
+   "callers": {
+    "finish": [
+     "website/api/crawl/loads.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/Operations.php",
+   "functions": [
+    "switchOnCheck"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
+   "why": "W1 reads our OpenStreetMap copy (open_places, Geofabrik) before Overpass (0163 source map, preflight hand-off (b))",
+   "since": "2026-11-17T16:37:26Z",
+   "expires": "2026-11-17T20:37:26Z",
+   "release": "osm-ours",
+   "callers": {
+    "switchOnCheck": [
+     "app/admin/automation-console.php",
+     "app/admin/operations-console.php",
+     "app/lib/SystemStart.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/Preflight.php",
+   "functions": [
+    "NEEDS",
+    "need"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
+   "why": "W1 reads our OpenStreetMap copy (open_places, Geofabrik) before Overpass (0163 source map, preflight hand-off (b))",
+   "since": "2026-11-17T16:37:26Z",
+   "expires": "2026-11-17T20:37:26Z",
+   "release": "osm-ours",
+   "callers": {}
+  },
+  {
+   "path": "website/api/crawl/jobs.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
+   "why": "W1 reads our OpenStreetMap copy (open_places, Geofabrik) before Overpass (0163 source map, preflight hand-off (b))",
+   "since": "2026-11-17T16:37:26Z",
+   "expires": "2026-11-17T20:37:26Z",
+   "release": "osm-ours",
+   "callers": {}
+  },
+  {
+   "path": "website/api/crawl/targets.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
+   "why": "W1 reads our OpenStreetMap copy (open_places, Geofabrik) before Overpass (0163 source map, preflight hand-off (b))",
+   "since": "2026-11-17T16:37:26Z",
+   "expires": "2026-11-17T20:37:26Z",
+   "release": "osm-ours",
+   "callers": {}
   }
  ],
  "lapsed": [
