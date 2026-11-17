@@ -757,6 +757,17 @@
    "expires": "2026-11-17T20:53:41Z",
    "release": "paid-overrides",
    "callers": {}
+  },
+  {
+   "path": "app/lib/PaidOverride.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
+   "why": "Paid backups by a director's override, and Tavily to Brave (0163 source map, preflight hand-off (c))",
+   "since": "2026-11-17T16:53:46Z",
+   "expires": "2026-11-17T20:53:46Z",
+   "release": "paid-overrides",
+   "callers": {}
   }
  ],
  "lapsed": [
