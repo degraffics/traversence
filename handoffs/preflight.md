@@ -13,11 +13,16 @@ Check-out release names: `preflight` (release 1), `outside-table` (release 2, no
   `pf_ms_index`), `app/admin/manifests.php` (config → `preflight`), `app/admin/sections.php` (requires the console;
   Outside services links to it), `app/ui/app-shell.php` (`tv_icon` 'x' and 'dash'), `website/admin/api.php`
   (`/admin/api/config/preflight`: run, fix, done), `website/api/crawl/index.php` (the check-in answers `"test": true`
-  once when asked). No migration, no new table (results in `search_index_state`, `pf:r:<id>`).
+  once when asked). No migration (results moved to `preflight_results` in preflight-slow).
 - **The worker, in the same PR:** `workers/crawler/indexer.py` 1.1.0 sends the full-size test batch when its check-in
   says `test` (W0 stays asleep); tests in `workers/crawler/tests/test_indexer.py`. Merging redeploys `w0-indexer` on
   Railway (it watches `/workers/crawler/**`). Until it runs 1.1.0, the pre-flight's batch line says so (red).
 - **Fix, `preflight-fix.zip`** (Jason, 2026-11-17: "keep lines compact"; "a green check mark or red x is enough"): one row per line, no notice after a test (only when a request fails, in the line's body). Built on Sync 14:22 UTC; js and the console only.
+- **`preflight-slow.zip`** (Jason, 2026-11-17), built on Sync 14:28 UTC: results moved to their own table
+  `preflight_results` (made on first use; staging's own), because live's `search_index_state.v` cut long values short
+  (the header showed "78 not run yet"); slow checks (over `pf_slow_ms`, 5 s) in amber with "Show the slow ones"; each
+  line's last 10 times; a full run's start, end and length; **Report (text)**: `GET /admin/api/config/preflight?action=report`.
+  Lesson: `search_index_state.v` is short on live; keep anything longer than a few hundred characters out of it.
 - **Release 2, Outside services as a table:** waits for release 1 to be live (both touch `app/admin/sections.php`), then
   start from the live `OutsideServices.php`, `app/ui/outside-services.php` and `sections.php` (outside-requests is live
   as #84 and #87, so its claims have ended). Plan below.
