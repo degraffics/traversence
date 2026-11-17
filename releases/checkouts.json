@@ -358,6 +358,19 @@
    "expires": "2026-11-17T19:11:37Z",
    "release": "preflight-refresh.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/Preflight.php",
+   "functions": [
+    "serviceTest"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kGG8gG4QBmC4uzMzN",
+   "why": "Pre-flight: the licence lists shown inactive, not called, until queue 3a (Jason, 2026-11-17)",
+   "since": "2026-11-17T15:12:36Z",
+   "expires": "2026-11-17T19:12:36Z",
+   "release": "preflight-refresh",
+   "callers": {}
   }
  ],
  "lapsed": [
