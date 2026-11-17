@@ -237,8 +237,8 @@
    "session": "outside-requests",
    "why": "Requests waiting on outside companies, each a Pulse case until answered; Name.com reseller pricing ticket #3113488 (Jason, 2026-11-17)",
    "since": "2026-11-17T13:44:09Z",
-   "expires": "2026-11-17T17:44:09Z",
-   "release": "",
+   "expires": "2026-11-17T17:45:29Z",
+   "release": "outside-requests.zip",
    "callers": {}
   },
   {
@@ -250,8 +250,19 @@
    "session": "outside-requests",
    "why": "Requests waiting on outside companies, each a Pulse case until answered; Name.com reseller pricing ticket #3113488 (Jason, 2026-11-17)",
    "since": "2026-11-17T13:44:09Z",
-   "expires": "2026-11-17T17:44:09Z",
-   "release": "",
+   "expires": "2026-11-17T17:45:29Z",
+   "release": "outside-requests.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Pulse.php",
+   "functions": [],
+   "kind": "add",
+   "session": "outside-requests",
+   "why": "release outside-requests.zip",
+   "since": "2026-11-17T13:45:29Z",
+   "expires": "2026-11-17T17:45:29Z",
+   "release": "outside-requests.zip",
    "callers": {}
   }
  ],
