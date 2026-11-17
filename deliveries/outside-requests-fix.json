@@ -1,0 +1,22 @@
+{
+ "zip": "outside-requests-fix.zip",
+ "built_on": "6be0053 Sync: 2026-11-17 13:56 UTC",
+ "recorded": "2026-11-17 14:01 UTC",
+ "note": "Outside requests: compact records that fit staff_settings; the Name.com ticket seeded by its number; chase wording (Jason, 2026-11-17: no Pulse case showed). Files: app/lib/OutsideServices.php, app/lib/Pulse.php, app/ui/outside-services.php. built on Sync: 2026-11-17 13:56 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/OutsideServices.php": {
+   "sha256": "3f2b2a14563142905524e42fd2f768f04e804c60646f4c5c953fbbd28d1d6406",
+   "live": false
+  },
+  "app/lib/Pulse.php": {
+   "sha256": "12fc686dcf5f122b9c487fb276ca57e58f2fc82c6571b590a78581e19fd850bb",
+   "live": false
+  },
+  "app/ui/outside-services.php": {
+   "sha256": "2eedb4ec4e84998dd08f56c8db23f2c66cf1e8ee19b69d72b2ca90f4cc13d421",
+   "live": false
+  }
+ }
+}
