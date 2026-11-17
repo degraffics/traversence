@@ -1,0 +1,18 @@
+{
+ "zip": "domain-wording.zip",
+ "built_on": "96ceaf7 Sync: 2026-11-17 13:50 UTC",
+ "recorded": "2026-11-17 13:52 UTC",
+ "note": "Domains wording: available, not free (Jason, 2026-11-17). Files: app/lib/AccountDomains.php, website/js/tv-domains.js. built on Sync: 2026-11-17 13:50 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/AccountDomains.php": {
+   "sha256": "edacd97c0d666d25bbba231dfa724bd57c7c32fc728c38f6234598abc2081b73",
+   "live": false
+  },
+  "website/js/tv-domains.js": {
+   "sha256": "fd9b58174d8d8f8d4fd4000a8925e244a9c9f1a30e5960bfb411991ca6b577fa",
+   "live": false
+  }
+ }
+}
