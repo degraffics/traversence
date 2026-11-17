@@ -1,0 +1,34 @@
+{
+    "id": 98,
+    "title": "Pre-flight: the engine is needed for launch",
+    "why": "Jason, 2026-11-17: \"you say optional, but they are critical to our system arent they?\" They are: \"optional\" only meant a red line holds just its own part at Start the system (0163 §10). Now every workflow (W0–W12, W14), every new task, every phase, and every outside service a workflow or crawler task uses are \"Needed for launch\", so Start the system's summary and the Pulse case count them as such. Business operations the engine doesn't run on (payments, domains, sign-in, email, storage) and visitor extras (weather, road work, video, the CDN) stay optional for the engine's launch.",
+    "proposals": "",
+    "zip": "preflight-required.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/lib/Preflight.php": {
+            "sha": "5d9e0299bcb103f557853e4772563a4e663fd0f0ba854f10fad5e72028901485",
+            "size": 100000,
+            "live_was": "008690817c9735ce613ca8a7bf1e02b05ea039c708152e01b598492f87d3d83b"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-17T15:56:55+00:00",
+            "by": 0,
+            "msg": "Uploaded preflight-required.zip: 1 files."
+        }
+    ]
+}
