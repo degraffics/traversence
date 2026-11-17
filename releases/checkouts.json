@@ -72,6 +72,76 @@
    "expires": "2026-11-17T16:19:33Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/lib/Domains.php",
+   "functions": [
+    "namecom"
+   ],
+   "kind": "change",
+   "session": "domain-years",
+   "why": "Domain purchases: 1-10 year terms with Name.com's real total; follow Name.com's pricing guide (Jason, 2026-11-17)",
+   "since": "2026-11-17T12:40:44Z",
+   "expires": "2026-11-17T16:40:44Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/AccountDomains.php",
+   "functions": [
+    "addToCart",
+    "cartGroups",
+    "mailBuyer",
+    "pay",
+    "payGroup",
+    "receipt",
+    "register",
+    "renewAt",
+    "renewalCost",
+    "search"
+   ],
+   "kind": "change",
+   "session": "domain-years",
+   "why": "Domain purchases: 1-10 year terms with Name.com's real total; follow Name.com's pricing guide (Jason, 2026-11-17)",
+   "since": "2026-11-17T12:40:44Z",
+   "expires": "2026-11-17T16:40:44Z",
+   "release": "",
+   "callers": {
+    "search": [
+     "website/api/domains.php"
+    ],
+    "addToCart": [
+     "website/api/domains.php"
+    ],
+    "cartGroups": [
+     "app/lib/CartPlans.php"
+    ],
+    "payGroup": [
+     "app/lib/CartPlans.php"
+    ]
+   }
+  },
+  {
+   "path": "website/api/domains.php",
+   "functions": [],
+   "kind": "change",
+   "session": "domain-years",
+   "why": "Domain purchases: 1-10 year terms with Name.com's real total; follow Name.com's pricing guide (Jason, 2026-11-17)",
+   "since": "2026-11-17T12:40:44Z",
+   "expires": "2026-11-17T16:40:44Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "website/js/tv-domains.js",
+   "functions": [],
+   "kind": "change",
+   "session": "domain-years",
+   "why": "Domain purchases: 1-10 year terms with Name.com's real total; follow Name.com's pricing guide (Jason, 2026-11-17)",
+   "since": "2026-11-17T12:40:44Z",
+   "expires": "2026-11-17T16:40:44Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
