@@ -294,6 +294,7 @@
   {
    "path": "app/lib/Preflight.php",
    "functions": [
+    "clean",
     "lines",
     "serviceTest",
     "test"
@@ -302,8 +303,8 @@
    "session": "session_01CXLi5kGG8gG4QBmC4uzMzN",
    "why": "Pre-flight: .env names set twice (the second ignored); Fly's hint corrected (Jason, 2026-11-17)",
    "since": "2026-11-17T15:49:48Z",
-   "expires": "2026-11-17T19:49:48Z",
-   "release": "preflight-envdup",
+   "expires": "2026-11-17T19:50:18Z",
+   "release": "preflight-envdup.zip",
    "callers": {
     "lines": [
      "app/admin/preflight-console.php"
