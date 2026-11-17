@@ -1,0 +1,59 @@
+{
+    "id": 73,
+    "title": "Settings offer their choices, then the next step",
+    "why": "Jason, 2026-11-17, on the Name.com card's Edit opening an empty box for Domain sales: \"creating a popup into box that assumes I know what you want to be entered so I can then move on the next set of activation is killing me … We use intuitive processing for action steps to ensure we can start to finish an idea.\" Every setting with set answers (Domain sales, Own domains on storefronts, Name.com sandbox or live, Ways clients can pay) now opens its choices, each saying what it does, with the current one marked; the page shows the choice's name (\"Test\", \"Off (not set)\"), not its code. After a save, the site checks whether what it switched on works for whoever saved it and offers the step that finishes the job as a button: Open Shop → Domains; Switch Name.com to Live when sales are Live on the sandbox; Ask Name.com again when it refused our sign-in; Name.com's API page when its sign-in isn't in .env; Open Custom domains for storefront domains. The same on Settings and the company cards (one shared script, js/tv-env-edit.js; TvAsk.choose added to js/tv-ask.js). Settings without set answers keep their one-field form. No visitor-facing change, so no FAQ entry.",
+    "proposals": "",
+    "zip": "setting-choices.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/ui/outside-services.php": {
+            "sha": "0a7fbae05ca045c4a8ab8629856fd6c7a00126662e8c7462d1f31ffdc1078c5f",
+            "size": 32271,
+            "live_was": "2c60f3bd8006d84435c360b8517c85f50650811b52411e3cb1d1f0b3053ecc10"
+        },
+        "app/lib/EnvSettings.php": {
+            "sha": "9371de1a32818d7b229349798febb684b2122ac241662d75b4eb94d3b5c6425e",
+            "size": 19575,
+            "live_was": "3c733a4150b22c9a1660dd843b5ab82811e8a7309ac118dff219d5a3b872a9d8"
+        },
+        "website/admin/settings.php": {
+            "sha": "06d0e6dcbf2df72fc9a13cd4595690049f6365b85e0ff54309a61b765956d449",
+            "size": 36699,
+            "live_was": "5f627a25f4ce24020140d6594b6020fed5b7c9e37a7a55552847b8e9dbb29819"
+        },
+        "website/admin/api/env-setting.php": {
+            "sha": "2a98dec4acc7e3de56840553596903c11de38ef31d6f9bd791c66b183d348a67",
+            "size": 2776,
+            "live_was": "acd37a7b13c4f4aee09c3ec8402080139cb2e0788ec59d842924bf91f4cf5a9f"
+        },
+        "website/js/tv-ask.js": {
+            "sha": "ce0df9343a023c03ae89ab8b2aec36826a62f865f7b53a30ba9ea6457ce44ed7",
+            "size": 48617,
+            "live_was": "7b0a259088f314ae97dc94b9415824cca272fd496b28a76b3fdc97cc7705defb"
+        },
+        "website/js/tv-env-edit.js": {
+            "sha": "718e9668d53b2e6ddcfe9b528b518aca4a60dbb9f8dc7b5d28bdfc47524672af",
+            "size": 4648,
+            "live_was": null
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-17T11:47:52+00:00",
+            "by": 0,
+            "msg": "Uploaded setting-choices.zip: 6 files."
+        }
+    ]
+}
