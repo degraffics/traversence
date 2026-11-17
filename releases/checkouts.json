@@ -494,6 +494,24 @@
      "app/scripts/work_orders_tick.php"
     ]
    }
+  },
+  {
+   "path": "app/lib/GuideLinks.php",
+   "functions": [
+    "findTick"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
+   "why": "(c2 large) W8 Find it: a web search through the crawler (Tavily then Brave) before Claude (0163 source map)",
+   "since": "2026-11-17T17:24:16Z",
+   "expires": "2026-11-17T21:24:16Z",
+   "release": "large-fallbacks",
+   "callers": {
+    "findTick": [
+     "app/scripts/guide_finds_tick.php",
+     "website/admin/guide-edit.php"
+    ]
+   }
   }
  ],
  "lapsed": [
