@@ -3,12 +3,12 @@
  "built_on": "b319666 Sync: 2026-11-17 15:54 UTC",
  "recorded": "2026-11-17 15:56 UTC",
  "note": "Pre-flight: the engine is needed for launch; built on Sync: 2026-11-17 15:54 UTC Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "f36fef6 Sync: 2026-11-17 15:58 UTC",
  "files": {
   "app/lib/Preflight.php": {
    "sha256": "5d9e0299bcb103f557853e4772563a4e663fd0f0ba854f10fad5e72028901485",
-   "live": false
+   "live": true
   }
  }
 }
