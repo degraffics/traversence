@@ -1,0 +1,125 @@
+{
+    "id": 76,
+    "title": "Domains on Name.com's Core API; buy 1 to 10 years at Name.com's real total; Name.com's pricing guide followed",
+    "why": "Jason, 2026-11-17: \"add a 1,2,3,4,5,10 year dropdown like whois for domain purchases\", and asked whether extra years cost the first-year price or the renewal price; he shared Name.com's Domain Purchase Pricing guide and Reseller Quickstart to check against. Each name in Shop → Domains has a 1, 2, 3, 4, 5 or 10 year choice; choosing a term asks Name.com's Get Pricing for those years (live and read only in a test) and shows the real total, our markup once a year; the term goes into the cart (domain_cart.years, one guarded column), the order, the receipt and the registration. Fixes from the guide: search and the sandbox check ask for registrations only (purchaseType registration: no aftermarket, expiring or backorder names); a standard registration and a standard renewal no longer send purchasePrice (sent, it must match to the cent, and a mismatch failed the order after the card was charged); new domains are registered with Name.com's own auto-renew off (we renew ourselves, the customer's card charged first) and an X-Idempotency-Key, so a retry can't buy twice. A Pulse retry registers the term that was paid for. FAQ: the cost entry explains terms. Jason, 2026-11-17: \"need to address new api too.\" Every Name.com call moves from the legacy /v4 API to the Core API (/core/v1), the version Name.com's guides and its official SDKs (TypeScript @namecom/core-api 1.36.4, read for the exact paths and fields) describe: same hosts, same paths under /core/v1, same request and answer fields; the sign-in check uses GET /core/v1/accountinfo/balance in place of /v4/hello. On the Core API, autorenewEnabled sits inside the domain object. The storefront's own buy and renew (Domains::buy, ::renew; switched off today) get the same guide fixes: registrations only, no purchasePrice on a standard name or renewal (its renewal sent a price derived from ours, which would have failed after the business was charged), Name.com auto-renew off, an idempotency key. Not in this release: contact verification status on the Domains tab.",
+    "proposals": "",
+    "zip": "domain-years.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "live",
+    "step": 3,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": "2026-11-17 12:55:24",
+    "staged_at": "2026-11-17 12:55:26",
+    "vetted_at": "2026-11-17 12:55:29",
+    "live_at": "2026-11-17 12:55:29",
+    "files": {
+        "app/ui/domains-view.php": {
+            "sha": "34176a86d86a9ea35c0b330b7fff2247e1d4e8910fccfca9c60de7bd811fda62",
+            "size": 3667,
+            "live_was": "4bb164966109b4eb97bb7aaaca4be94df176f9bebfb585a7a9a32fea7386d98f",
+            "existed": true,
+            "old_sha": "4bb164966109b4eb97bb7aaaca4be94df176f9bebfb585a7a9a32fea7386d98f"
+        },
+        "app/ui/faq.md": {
+            "sha": "f539a66242f0360008c21695bb877db4217a2c936cf029b7523a9e73f87603eb",
+            "size": 315739,
+            "live_was": "02452b2f290c1f8795c53b8d538e5e1096569937113be61e43d2357d241ca8f0",
+            "existed": true,
+            "old_sha": "02452b2f290c1f8795c53b8d538e5e1096569937113be61e43d2357d241ca8f0"
+        },
+        "app/migrations/2027-03-11_domain_cart_years.sql": {
+            "sha": "fd8750619ecc11a5c962011765888c564156999ea91b19f5c45c23bf1ce4f0d2",
+            "size": 547,
+            "live_was": null
+        },
+        "app/lib/AccountDomains.php": {
+            "sha": "2680ca34d7d71059b6c32d43fafa856f4d53e927261b1e7fe4bb8ac967bb4f93",
+            "size": 92956,
+            "live_was": "a71e0e9172e11e7456820d3689c0600dbe067f958cf4394cdcd3f51d72964cd4",
+            "existed": true,
+            "old_sha": "a71e0e9172e11e7456820d3689c0600dbe067f958cf4394cdcd3f51d72964cd4"
+        },
+        "app/lib/Domains.php": {
+            "sha": "24cae919fc8f8a62c8f8937f3e0f1e58ffacd38aed382c8d3884b64140ba1a8e",
+            "size": 44924,
+            "live_was": "9be913146b7c3f242a2cd414f378c3a6855bd5aa820a6d8f50a628916ddd9f5f",
+            "existed": true,
+            "old_sha": "9be913146b7c3f242a2cd414f378c3a6855bd5aa820a6d8f50a628916ddd9f5f"
+        },
+        "website/api/domains.php": {
+            "sha": "397dd3021b28210a8a0f48361b1877a51d6792855c3bb43c82ccf17d9a99d9a3",
+            "size": 11943,
+            "live_was": "b3c91f738f6bac62e4b4ce04d42be3a56d8bd93b02c8f7a708517463d38e0883",
+            "existed": true,
+            "old_sha": "b3c91f738f6bac62e4b4ce04d42be3a56d8bd93b02c8f7a708517463d38e0883"
+        },
+        "website/js/tv-domains.js": {
+            "sha": "aa561b8827eb139e63d2767142ec415522576ff18b6c1996138c4f4d93e94ec7",
+            "size": 32473,
+            "live_was": "d02339d4eb3a4f08ab4e330d7921501661ab36c112778e7f700db84587cf2f41",
+            "existed": true,
+            "old_sha": "d02339d4eb3a4f08ab4e330d7921501661ab36c112778e7f700db84587cf2f41"
+        }
+    },
+    "migrations": [
+        "app/migrations/2027-03-11_domain_cart_years.sql"
+    ],
+    "checks": {
+        "ok": true,
+        "where": "live",
+        "at": "2026-11-17T12:55:29+00:00",
+        "items": [
+            [
+                "PHP files parse",
+                true,
+                "4 checked"
+            ],
+            [
+                "Pages answer",
+                true,
+                "2 pages answered on traversence.com"
+            ],
+            [
+                "No new fatal errors in the logs",
+                true,
+                "4 logs read"
+            ]
+        ],
+        "first_fail": ""
+    },
+    "log": [
+        {
+            "at": "2026-11-17T12:55:22+00:00",
+            "by": 0,
+            "msg": "Uploaded domain-years.zip: 7 files."
+        },
+        {
+            "at": "2026-11-17T12:55:24+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/domain-years.zip (git 50242d7b56)."
+        },
+        {
+            "at": "2026-11-17T12:55:24+00:00",
+            "by": 0,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
+        },
+        {
+            "at": "2026-11-17T12:55:27+00:00",
+            "by": 0,
+            "msg": "Put on staging (7 files); its checks passed."
+        },
+        {
+            "at": "2026-11-17T12:55:29+00:00",
+            "by": 0,
+            "msg": "Approved in chat before it was sent through git, and its checks on staging passed: publishing by itself."
+        },
+        {
+            "at": "2026-11-17T12:55:29+00:00",
+            "by": 0,
+            "msg": "Published: 6 files, after its 1 migration ran first (2027-03-11_domain_cart_years.sql; a copy of what each touched is kept 14 days); everyone at once (no switch)."
+        }
+    ]
+}

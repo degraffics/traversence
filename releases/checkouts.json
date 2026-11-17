@@ -74,98 +74,363 @@
    "callers": {}
   },
   {
+   "path": "app/lib/AccountDomains.php",
+   "functions": [
+    "TERMS",
+    "forYears",
+    "pricing",
+    "quote",
+    "termName"
+   ],
+   "kind": "add",
+   "session": "domain-years",
+   "why": "Domain purchases: terms of years",
+   "since": "2026-11-17T12:40:57Z",
+   "expires": "2026-11-17T16:42:17Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/crawler/Frontier.php",
+   "functions": [],
+   "kind": "add",
+   "session": "w0-indexer",
+   "why": "W0 Indexer: every URL logged, the machine classifies, the frontier (decisions/0164 \u00a71.4 note)",
+   "since": "2026-11-17T12:51:47Z",
+   "expires": "2026-11-17T17:06:57Z",
+   "release": "w0-indexer.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/api/crawl/index.php",
+   "functions": [],
+   "kind": "add",
+   "session": "w0-indexer",
+   "why": "W0 Indexer: every URL logged, the machine classifies, the frontier (decisions/0164 \u00a71.4 note)",
+   "since": "2026-11-17T12:51:47Z",
+   "expires": "2026-11-17T17:06:57Z",
+   "release": "w0-indexer.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/migrations/2027-03-12_w0_frontier.sql",
+   "functions": [],
+   "kind": "add",
+   "session": "w0-indexer",
+   "why": "W0 Indexer: every URL logged, the machine classifies, the frontier (decisions/0164 \u00a71.4 note)",
+   "since": "2026-11-17T12:51:47Z",
+   "expires": "2026-11-17T17:06:57Z",
+   "release": "w0-indexer.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/scripts/frontier_tick.php",
+   "functions": [],
+   "kind": "add",
+   "session": "w0-indexer",
+   "why": "W0 Indexer: every URL logged, the machine classifies, the frontier (decisions/0164 \u00a71.4 note)",
+   "since": "2026-11-17T12:51:47Z",
+   "expires": "2026-11-17T17:06:57Z",
+   "release": "w0-indexer.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/index-console.php",
+   "functions": [],
+   "kind": "add",
+   "session": "w0-indexer",
+   "why": "W0 Indexer: every URL logged, the machine classifies, the frontier (decisions/0164 \u00a71.4 note)",
+   "since": "2026-11-17T12:51:47Z",
+   "expires": "2026-11-17T17:06:57Z",
+   "release": "w0-indexer.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Thresholds.php",
+   "functions": [
+    "GATES"
+   ],
+   "kind": "add",
+   "session": "w0-indexer",
+   "why": "W0 Indexer: every URL logged, the machine classifies, the frontier (decisions/0164 \u00a71.4 note)",
+   "since": "2026-11-17T12:51:47Z",
+   "expires": "2026-11-17T17:06:57Z",
+   "release": "w0-indexer.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Scheduler.php",
+   "functions": [
+    "AUTO",
+    "JOBS"
+   ],
+   "kind": "add",
+   "session": "w0-indexer",
+   "why": "W0 Indexer: every URL logged, the machine classifies, the frontier (decisions/0164 \u00a71.4 note)",
+   "since": "2026-11-17T12:51:47Z",
+   "expires": "2026-11-17T16:51:47Z",
+   "release": "w0-indexer",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/manifests.php",
+   "functions": [],
+   "kind": "add",
+   "session": "w0-indexer",
+   "why": "W0 Indexer: every URL logged, the machine classifies, the frontier (decisions/0164 \u00a71.4 note)",
+   "since": "2026-11-17T12:51:47Z",
+   "expires": "2026-11-17T17:06:57Z",
+   "release": "w0-indexer.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/sections.php",
+   "functions": [],
+   "kind": "add",
+   "session": "w0-indexer",
+   "why": "W0 Indexer: every URL logged, the machine classifies, the frontier (decisions/0164 \u00a71.4 note)",
+   "since": "2026-11-17T12:51:47Z",
+   "expires": "2026-11-17T17:06:57Z",
+   "release": "w0-indexer.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/crawler/Sources.php",
+   "functions": [
+    "(top)",
+    "STATUSES",
+    "addLinked",
+    "ensureJudge",
+    "harvest",
+    "sweep"
+   ],
+   "kind": "change",
+   "session": "w0-indexer",
+   "why": "W0 Indexer: every URL logged, the machine classifies, the frontier (decisions/0164 \u00a71.4 note)",
+   "since": "2026-11-17T12:51:49Z",
+   "expires": "2026-11-17T17:06:57Z",
+   "release": "w0-indexer.zip",
+   "callers": {
+    "addLinked": [
+     "website/api/crawl/commoncrawl.php",
+     "website/api/crawl/sources.php"
+    ],
+    "sweep": [
+     "website/api/crawl/sources.php"
+    ],
+    "ensureJudge": [
+     "app/lib/crawler/SecondTier.php",
+     "website/api/crawl/commoncrawl.php"
+    ],
+    "STATUSES": [
+     "website/admin/sources.php"
+    ],
+    "harvest": [
+     "website/admin/sources.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/crawler/SourceIndex.php",
+   "functions": [
+    "logPages"
+   ],
+   "kind": "change",
+   "session": "w0-indexer",
+   "why": "W0 Indexer: every URL logged, the machine classifies, the frontier (decisions/0164 \u00a71.4 note)",
+   "since": "2026-11-17T12:51:49Z",
+   "expires": "2026-11-17T17:06:57Z",
+   "release": "w0-indexer.zip",
+   "callers": {
+    "logPages": [
+     "app/lib/crawler/PageRead.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/Automation.php",
+   "functions": [
+    "(top)",
+    "WORKFLOWS"
+   ],
+   "kind": "change",
+   "session": "w0-indexer",
+   "why": "W0 Indexer: every URL logged, the machine classifies, the frontier (decisions/0164 \u00a71.4 note)",
+   "since": "2026-11-17T12:51:49Z",
+   "expires": "2026-11-17T17:06:57Z",
+   "release": "w0-indexer.zip",
+   "callers": {
+    "WORKFLOWS": [
+     "app/admin/automation-console.php",
+     "app/admin/operations-console.php",
+     "app/lib/Clocks.php",
+     "app/lib/Operations.php",
+     "app/lib/SystemStart.php",
+     "app/lib/WorkflowSettings.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/SystemStart.php",
+   "functions": [
+    "(top)",
+    "ORDER",
+    "gate",
+    "heldBy",
+    "runs",
+    "turnOn"
+   ],
+   "kind": "change",
+   "session": "w0-indexer",
+   "why": "W0 Indexer: every URL logged, the machine classifies, the frontier (decisions/0164 \u00a71.4 note)",
+   "since": "2026-11-17T12:51:49Z",
+   "expires": "2026-11-17T17:06:57Z",
+   "release": "w0-indexer.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Operations.php",
+   "functions": [
+    "(top)",
+    "CAPS",
+    "pulseDo",
+    "pulseItems",
+    "pulseSteps",
+    "usage"
+   ],
+   "kind": "change",
+   "session": "w0-indexer",
+   "why": "W0 Indexer: every URL logged, the machine classifies, the frontier (decisions/0164 \u00a71.4 note)",
+   "since": "2026-11-17T12:51:49Z",
+   "expires": "2026-11-17T17:06:57Z",
+   "release": "w0-indexer.zip",
+   "callers": {
+    "CAPS": [
+     "app/admin/operations-console.php"
+    ],
+    "pulseItems": [
+     "app/lib/Pulse.php"
+    ],
+    "pulseSteps": [
+     "app/lib/Pulse.php"
+    ],
+    "pulseDo": [
+     "app/lib/Pulse.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/OutsideServices.php",
+   "functions": [
+    "(top)",
+    "COMPANIES"
+   ],
+   "kind": "change",
+   "session": "w0-indexer",
+   "why": "W0 Indexer: every URL logged, the machine classifies, the frontier (decisions/0164 \u00a71.4 note)",
+   "since": "2026-11-17T12:51:49Z",
+   "expires": "2026-11-17T17:06:57Z",
+   "release": "w0-indexer.zip",
+   "callers": {
+    "COMPANIES": [
+     "app/admin/automation-console.php",
+     "app/admin/operations-console.php",
+     "app/admin/sections.php",
+     "app/lib/Automation.php",
+     "app/lib/Operations.php",
+     "app/lib/Pulse.php",
+     "app/lib/ServiceHealth.php",
+     "app/lib/StagingGate.php",
+     "app/lib/SystemStart.php",
+     "app/lib/WorkflowSettings.php",
+     "app/ui/outside-services.php",
+     "website/admin/api/find.php"
+    ]
+   }
+  },
+  {
    "path": "app/lib/Domains.php",
    "functions": [
+    "(top)",
     "namecom"
    ],
    "kind": "change",
-   "session": "domain-years",
-   "why": "Domain purchases: 1-10 year terms with Name.com's real total; follow Name.com's pricing guide (Jason, 2026-11-17)",
-   "since": "2026-11-17T12:40:44Z",
-   "expires": "2026-11-17T16:40:44Z",
-   "release": "",
+   "session": "domain-terms",
+   "why": "Domain year choices limited to the terms Name.com sells for each ending (Jason, 2026-11-17)",
+   "since": "2026-11-17T13:03:17Z",
+   "expires": "2026-11-17T17:04:29Z",
+   "release": "domain-terms.zip",
    "callers": {}
   },
   {
    "path": "app/lib/AccountDomains.php",
    "functions": [
-    "addToCart",
-    "cartGroups",
-    "mailBuyer",
-    "pay",
-    "payGroup",
-    "receipt",
-    "register",
-    "renewAt",
-    "renewalCost",
+    "quote",
     "search"
    ],
    "kind": "change",
-   "session": "domain-years",
-   "why": "Domain purchases: 1-10 year terms with Name.com's real total; follow Name.com's pricing guide (Jason, 2026-11-17)",
-   "since": "2026-11-17T12:40:44Z",
-   "expires": "2026-11-17T16:40:44Z",
-   "release": "",
+   "session": "domain-terms",
+   "why": "Domain year choices limited to the terms Name.com sells for each ending (Jason, 2026-11-17)",
+   "since": "2026-11-17T13:03:17Z",
+   "expires": "2026-11-17T17:04:29Z",
+   "release": "domain-terms.zip",
    "callers": {
     "search": [
      "website/api/domains.php"
     ],
-    "addToCart": [
+    "quote": [
      "website/api/domains.php"
-    ],
-    "cartGroups": [
-     "app/lib/CartPlans.php"
-    ],
-    "payGroup": [
-     "app/lib/CartPlans.php"
     ]
    }
-  },
-  {
-   "path": "website/api/domains.php",
-   "functions": [],
-   "kind": "change",
-   "session": "domain-years",
-   "why": "Domain purchases: 1-10 year terms with Name.com's real total; follow Name.com's pricing guide (Jason, 2026-11-17)",
-   "since": "2026-11-17T12:40:44Z",
-   "expires": "2026-11-17T16:40:44Z",
-   "release": "",
-   "callers": {}
   },
   {
    "path": "website/js/tv-domains.js",
    "functions": [],
    "kind": "change",
-   "session": "domain-years",
-   "why": "Domain purchases: 1-10 year terms with Name.com's real total; follow Name.com's pricing guide (Jason, 2026-11-17)",
-   "since": "2026-11-17T12:40:44Z",
-   "expires": "2026-11-17T16:40:44Z",
-   "release": "",
+   "session": "domain-terms",
+   "why": "Domain year choices limited to the terms Name.com sells for each ending (Jason, 2026-11-17)",
+   "since": "2026-11-17T13:03:17Z",
+   "expires": "2026-11-17T17:04:29Z",
+   "release": "domain-terms.zip",
    "callers": {}
   },
   {
    "path": "app/lib/AccountDomains.php",
    "functions": [
-    "TERMS",
-    "quote"
+    "termsFor"
    ],
    "kind": "add",
-   "session": "domain-years",
-   "why": "Domain purchases: 1-10 year terms with Name.com's real total; follow Name.com's pricing guide (Jason, 2026-11-17)",
-   "since": "2026-11-17T12:40:57Z",
-   "expires": "2026-11-17T16:40:57Z",
+   "session": "domain-terms",
+   "why": "Domain year choices limited to the terms Name.com sells for each ending (Jason, 2026-11-17)",
+   "since": "2026-11-17T13:03:23Z",
+   "expires": "2026-11-17T17:03:23Z",
    "release": "",
    "callers": {}
   },
   {
-   "path": "app/migrations/2027-03-11_domain_cart_years.sql",
-   "functions": [],
+   "path": "app/lib/Domains.php",
+   "functions": [
+    "INFO_PATH"
+   ],
    "kind": "add",
-   "session": "domain-years",
-   "why": "Domain purchases: 1-10 year terms with Name.com's real total; follow Name.com's pricing guide (Jason, 2026-11-17)",
-   "since": "2026-11-17T12:40:57Z",
-   "expires": "2026-11-17T16:40:57Z",
+   "session": "domain-terms",
+   "why": "Domain year choices limited to the terms Name.com sells for each ending (Jason, 2026-11-17)",
+   "since": "2026-11-17T13:03:23Z",
+   "expires": "2026-11-17T17:03:23Z",
    "release": "",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Scheduler.php",
+   "functions": [
+    "(top)"
+   ],
+   "kind": "change",
+   "session": "w0-indexer",
+   "why": "release w0-indexer.zip",
+   "since": "2026-11-17T13:06:57Z",
+   "expires": "2026-11-17T17:06:57Z",
+   "release": "w0-indexer.zip",
    "callers": {}
   }
  ],
