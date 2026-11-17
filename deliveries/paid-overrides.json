@@ -3,48 +3,48 @@
  "built_on": "761d78f Sync: 2026-11-17 16:59 UTC",
  "recorded": "2026-11-17 17:03 UTC",
  "note": "Paid backups by override (Google Places to confirm, in the second look and the identity check; Claude after Gemini), both off; crawler 2.10.0 with Tavily to Brave; built on Sync: 2026-11-17 16:59 UTC Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "a895191 Sync: 2026-11-17 17:05 UTC",
  "files": {
   "app/lib/IdentityJobs.php": {
    "sha256": "6bb9ba3205e340964717462728d1aac60dd2e3476578d7cc656350464a29d3d2",
-   "live": false
+   "live": true
   },
   "app/lib/Operations.php": {
    "sha256": "0128713567741ce77396c9d103ddb5935cfd335698a3b1f4eeb04eb88da9d306",
-   "live": false
+   "live": true
   },
   "app/lib/PaidOverride.php": {
    "sha256": "fa16fb22d147558dd0619052ac4546ac9ff38411e59164c8a87791cfd1def4f8",
-   "live": false
+   "live": true
   },
   "app/lib/Preflight.php": {
    "sha256": "6bc2c7905004d469f790a207fff3e0dac1e162c798d066bea72663bdf71db053",
-   "live": false
+   "live": true
   },
   "app/lib/Thresholds.php": {
    "sha256": "3c79f90d92f957fadf4b6d29ebca67097f05aae627d9bd84552a5242667ab7d6",
-   "live": false
+   "live": true
   },
   "app/lib/crawler/AutoImport.php": {
    "sha256": "0118070d570fa5da4ca8775f80503c1a942c0cb1f8d8af8df864ea45a5d1a1e3",
-   "live": false
+   "live": true
   },
   "app/lib/crawler/CrawlService.php": {
    "sha256": "3e8284a823b9d9b18c85644ccd3817fb4081bc49b935ce99124610c9753bbde4",
-   "live": false
+   "live": true
   },
   "app/lib/crawler/PageRead.php": {
    "sha256": "212230deb9ac455ac49a0b9b3e31bc6d70b182d729cab0dcb6a94361b19e5c3e",
-   "live": false
+   "live": true
   },
   "app/lib/crawler/Verify.php": {
    "sha256": "caf41503ec334b53f9e682f2e9840abb5d1be01ad28c6d1d893e1db5659195cf",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "90713bf2d86972716bebdf11f4daec688eb2835c04bd84701e39d8df32d4418c",
-   "live": false
+   "live": true
   }
  }
 }
