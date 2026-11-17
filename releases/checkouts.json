@@ -397,6 +397,116 @@
      "website/api/domains.php"
     ]
    }
+  },
+  {
+   "path": "app/lib/Preflight.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kGG8gG4QBmC4uzMzN",
+   "why": "The pre-flight check: System Configuration \u2192 Pre-flight (decisions/0163 \u00a710 note 2026-11-16; Jason 2026-11-17)",
+   "since": "2026-11-17T13:55:08Z",
+   "expires": "2026-11-17T17:55:08Z",
+   "release": "preflight",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/preflight-console.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kGG8gG4QBmC4uzMzN",
+   "why": "The pre-flight check: System Configuration \u2192 Pre-flight (decisions/0163 \u00a710 note 2026-11-16; Jason 2026-11-17)",
+   "since": "2026-11-17T13:55:08Z",
+   "expires": "2026-11-17T17:55:08Z",
+   "release": "preflight",
+   "callers": {}
+  },
+  {
+   "path": "app/scripts/preflight_tick.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kGG8gG4QBmC4uzMzN",
+   "why": "The pre-flight check: System Configuration \u2192 Pre-flight (decisions/0163 \u00a710 note 2026-11-16; Jason 2026-11-17)",
+   "since": "2026-11-17T13:55:08Z",
+   "expires": "2026-11-17T17:55:08Z",
+   "release": "preflight",
+   "callers": {}
+  },
+  {
+   "path": "website/js/admin-preflight.js",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kGG8gG4QBmC4uzMzN",
+   "why": "The pre-flight check: System Configuration \u2192 Pre-flight (decisions/0163 \u00a710 note 2026-11-16; Jason 2026-11-17)",
+   "since": "2026-11-17T13:55:08Z",
+   "expires": "2026-11-17T17:55:08Z",
+   "release": "preflight",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/manifests.php",
+   "functions": [
+    "config"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5kGG8gG4QBmC4uzMzN",
+   "why": "The pre-flight check: System Configuration \u2192 Pre-flight (decisions/0163 \u00a710 note 2026-11-16; Jason 2026-11-17)",
+   "since": "2026-11-17T13:55:08Z",
+   "expires": "2026-11-17T17:55:08Z",
+   "release": "preflight",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Scheduler.php",
+   "functions": [
+    "AUTO",
+    "JOBS"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5kGG8gG4QBmC4uzMzN",
+   "why": "The pre-flight check: System Configuration \u2192 Pre-flight (decisions/0163 \u00a710 note 2026-11-16; Jason 2026-11-17)",
+   "since": "2026-11-17T13:55:08Z",
+   "expires": "2026-11-17T17:55:08Z",
+   "release": "preflight",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Thresholds.php",
+   "functions": [
+    "GATES"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5kGG8gG4QBmC4uzMzN",
+   "why": "The pre-flight check: System Configuration \u2192 Pre-flight (decisions/0163 \u00a710 note 2026-11-16; Jason 2026-11-17)",
+   "since": "2026-11-17T13:55:08Z",
+   "expires": "2026-11-17T17:55:08Z",
+   "release": "preflight",
+   "callers": {}
+  },
+  {
+   "path": "website/admin/api.php",
+   "functions": [
+    "(top)"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5kGG8gG4QBmC4uzMzN",
+   "why": "The pre-flight check: System Configuration \u2192 Pre-flight (decisions/0163 \u00a710 note 2026-11-16; Jason 2026-11-17)",
+   "since": "2026-11-17T13:55:08Z",
+   "expires": "2026-11-17T17:55:08Z",
+   "release": "preflight",
+   "callers": {}
+  },
+  {
+   "path": "app/ui/app-shell.php",
+   "functions": [
+    "tv_icon"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5kGG8gG4QBmC4uzMzN",
+   "why": "The pre-flight check: System Configuration \u2192 Pre-flight (decisions/0163 \u00a710 note 2026-11-16; Jason 2026-11-17)",
+   "since": "2026-11-17T13:55:08Z",
+   "expires": "2026-11-17T17:55:08Z",
+   "release": "preflight",
+   "callers": {}
   }
  ],
  "lapsed": [
