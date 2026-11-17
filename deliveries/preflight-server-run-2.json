@@ -1,8 +1,8 @@
 {
  "zip": "preflight-server-run-2.zip",
  "built_on": "2ff3304 Sync: 2026-11-17 18:09 UTC",
- "recorded": "2026-11-17 18:22 UTC",
- "note": "Pre-flight's Run all on the server; an interrupted run waits for Continue or Cancel; one log line per run; search_index_state.v widened; built on Sync: 2026-11-17 18:09 UTC (replaces preflight-server-run.zip, never taken) Sent through git (releases/inbox).",
+ "recorded": "2026-11-17 18:24 UTC",
+ "note": "Pre-flight's Run all on the server; Continue/Cancel; one log line per run; long settings kept whole, add-only (v_long); built on Sync: 2026-11-17 18:09 UTC Sent through git (releases/inbox).",
  "status": "pending",
  "live_in": "",
  "files": {
@@ -11,11 +11,15 @@
    "live": false
   },
   "app/lib/Preflight.php": {
-   "sha256": "fd4ff33a46bd32b5419931f77f965bc7db67cb08f914b4ef2e540270568e87ba",
+   "sha256": "d498bdbb0d24aff09861a50dc63993b6f10345091e22cb84f728477d790151df",
+   "live": false
+  },
+  "app/lib/SearchIndex.php": {
+   "sha256": "aad4a464983557629c8da663a4de0ef47f695250b12f2349a6a66ef12d0155d8",
    "live": false
   },
   "app/migrations/2026-11-17_search_index_state_wide.sql": {
-   "sha256": "5a42783b637152fa707136d3a01770584975a68841869bad95d15bb5d4e1f43a",
+   "sha256": "cec8fec7feb0875a945a305d71ba2301076d487ad5aeafe07f42a576c0501cb2",
    "live": false
   },
   "app/ui/faq.md": {

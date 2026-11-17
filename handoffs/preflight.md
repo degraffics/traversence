@@ -160,8 +160,10 @@ Check-out release names: `preflight` (release 1), `outside-table` (release 2, no
   page opens fresh except while a run is going. The old browser loop's `next` and `again` (js) moved to `work()` (named
   with `--drops`, Jason's ask). Tested on SQLite with faked lines (full run, cut off and picked up, stopped after 3, the
   lock); the page itself needs a look on staging.
-  The same release widens `search_index_state.v` (VARCHAR(200), cut silently on live) to MEDIUMTEXT
-  (`app/migrations/2026-11-17_search_index_state_wide.sql`, guarded): Start the system's state, W0's flagged list,
+  The same release keeps long settings whole, **add-only** (a `MODIFY` fails the Releases check's "Migrations only add",
+  as #70 found; 0162 has no widening exception): `2026-11-17_search_index_state_wide.sql` adds `v_long MEDIUMTEXT NULL`
+  (guarded), and `SearchIndex::state` reads `COALESCE(v_long, v)` / `setState` writes both (`v` its first 200 characters).
+  `search_index_state.v` was VARCHAR(200), cut silently on live: Start the system's state, W0's flagged list,
   Geofabrik's probe, identity:last_run, worker:keys, search presets and Gemini's comparison were all longer than 200. New
   pre-flight line `site:state` (needed for launch): a ~4,800-character value written and read back.
 
