@@ -327,14 +327,16 @@
   {
    "path": "app/lib/Preflight.php",
    "functions": [
+    "finished",
     "run",
+    "runAll",
     "summary"
    ],
    "kind": "change",
    "session": "session_01CXLi5kGG8gG4QBmC4uzMzN",
-   "why": "Pre-flight: slow checks marked, a filter for them, each line's last times (Jason, 2026-11-17)",
+   "why": "Pre-flight: the plain-text report (GET action=report) (Jason, 2026-11-17)",
    "since": "2026-11-17T14:29:27Z",
-   "expires": "2026-11-17T18:29:27Z",
+   "expires": "2026-11-17T18:29:48Z",
    "release": "preflight-slow",
    "callers": {
     "run": [
@@ -343,6 +345,9 @@
     "summary": [
      "app/admin/preflight-console.php",
      "app/admin/sections.php"
+    ],
+    "finished": [
+     "website/admin/api.php"
     ]
    }
   },
@@ -389,6 +394,19 @@
    "why": "Pre-flight: the slow line's limit",
    "since": "2026-11-17T14:29:32Z",
    "expires": "2026-11-17T18:29:32Z",
+   "release": "preflight-slow",
+   "callers": {}
+  },
+  {
+   "path": "website/admin/api.php",
+   "functions": [
+    "(top)"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kGG8gG4QBmC4uzMzN",
+   "why": "Pre-flight: the plain-text report (GET action=report) (Jason, 2026-11-17)",
+   "since": "2026-11-17T14:29:48Z",
+   "expires": "2026-11-17T18:29:48Z",
    "release": "preflight-slow",
    "callers": {}
   }
