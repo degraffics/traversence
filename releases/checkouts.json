@@ -297,6 +297,119 @@
    "expires": "2026-11-17T17:47:00Z",
    "release": "favicon",
    "callers": {}
+  },
+  {
+   "path": "trvgo/index.php",
+   "functions": [
+    "(top)"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5iXPuLbnLpdUjRWunZ",
+   "why": "Site icon on every page (favicon.ico, touch icon, one shared helper)",
+   "since": "2026-11-17T13:47:10Z",
+   "expires": "2026-11-17T17:47:10Z",
+   "release": "favicon",
+   "callers": {}
+  },
+  {
+   "path": "app/ui/page-shell.php",
+   "functions": [
+    "tv_page_start"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5iXPuLbnLpdUjRWunZ",
+   "why": "Site icon on every page (favicon.ico, touch icon, one shared helper)",
+   "since": "2026-11-17T13:47:10Z",
+   "expires": "2026-11-17T17:47:10Z",
+   "release": "favicon",
+   "callers": {
+    "tv_page_start": [
+     "app/ui/admin-crawler.php",
+     "app/ui/admin-hub.php",
+     "app/ui/app-shell.php",
+     "app/ui/not-found.php",
+     "website/admin/router.php",
+     "website/hub/build.php"
+    ]
+   }
+  },
+  {
+   "path": "app/ui/auth-nav.php",
+   "functions": [
+    "tv_nav_head"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5iXPuLbnLpdUjRWunZ",
+   "why": "Site icon on every page (favicon.ico, touch icon, one shared helper)",
+   "since": "2026-11-17T13:47:10Z",
+   "expires": "2026-11-17T17:47:10Z",
+   "release": "favicon",
+   "callers": {}
+  },
+  {
+   "path": "app/ui/storefront-view.php",
+   "functions": [
+    "tv_storefront_closed",
+    "tv_storefront_serve"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5iXPuLbnLpdUjRWunZ",
+   "why": "Site icon on every page (favicon.ico, touch icon, one shared helper)",
+   "since": "2026-11-17T13:47:10Z",
+   "expires": "2026-11-17T17:47:10Z",
+   "release": "favicon",
+   "callers": {
+    "tv_storefront_serve": [
+     "trvgo/index.php"
+    ]
+   }
+  },
+  {
+   "path": "website/admin/chamber-builder.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5iXPuLbnLpdUjRWunZ",
+   "why": "Site icon on every page (favicon.ico, touch icon, one shared helper)",
+   "since": "2026-11-17T13:47:10Z",
+   "expires": "2026-11-17T17:47:10Z",
+   "release": "favicon",
+   "callers": {}
+  },
+  {
+   "path": "website/admin/manifest.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5iXPuLbnLpdUjRWunZ",
+   "why": "Site icon on every page (favicon.ico, touch icon, one shared helper)",
+   "since": "2026-11-17T13:47:10Z",
+   "expires": "2026-11-17T17:47:10Z",
+   "release": "favicon",
+   "callers": {}
+  },
+  {
+   "path": "website/index.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5iXPuLbnLpdUjRWunZ",
+   "why": "Site icon on every page (favicon.ico, touch icon, one shared helper)",
+   "since": "2026-11-17T13:47:10Z",
+   "expires": "2026-11-17T17:47:10Z",
+   "release": "favicon",
+   "callers": {},
+   "zones": [
+    "home.after-doors"
+   ]
+  },
+  {
+   "path": "website/directory/classic.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5iXPuLbnLpdUjRWunZ",
+   "why": "Site icon on every page (favicon.ico, touch icon, one shared helper)",
+   "since": "2026-11-17T13:47:10Z",
+   "expires": "2026-11-17T17:47:10Z",
+   "release": "favicon",
+   "callers": {}
   }
  ],
  "lapsed": [
