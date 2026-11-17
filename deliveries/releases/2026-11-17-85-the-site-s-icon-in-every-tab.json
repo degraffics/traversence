@@ -6,77 +6,96 @@
     "zip": "favicon-everywhere.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "staged",
-    "step": 0,
+    "state": "live",
+    "step": 3,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
     "plan_at": "2026-11-17 13:50:47",
     "staged_at": "2026-11-17 13:50:49",
-    "vetted_at": null,
-    "live_at": null,
+    "vetted_at": "2026-11-17 13:50:52",
+    "live_at": "2026-11-17 13:50:52",
     "files": {
         "app/ui/storefront-view.php": {
             "sha": "80251927b0472781752034310f42aac398f41f10c031d0c2b78bc5838ab748b8",
             "size": 19246,
-            "live_was": "c34231be1f46617c0387cbeff607e7f0273734c4df395a42c646a547bc657ca2"
+            "live_was": "c34231be1f46617c0387cbeff607e7f0273734c4df395a42c646a547bc657ca2",
+            "existed": true,
+            "old_sha": "c34231be1f46617c0387cbeff607e7f0273734c4df395a42c646a547bc657ca2"
         },
         "app/ui/auth-nav.php": {
             "sha": "d3b211fb02359470219898a6b042f9598c20a236ac27504a6ab3c7929eca3638",
             "size": 2139,
-            "live_was": "d29179d59392f2b6a6f7581656e15aa4b4e1115b384da64137b3c4a0573bcc02"
+            "live_was": "d29179d59392f2b6a6f7581656e15aa4b4e1115b384da64137b3c4a0573bcc02",
+            "existed": true,
+            "old_sha": "d29179d59392f2b6a6f7581656e15aa4b4e1115b384da64137b3c4a0573bcc02"
         },
         "app/ui/page-shell.php": {
             "sha": "dbab163a39b86cc7f5d977ea77043fe235530424a7295a496f3d0ca9df597187",
             "size": 12245,
-            "live_was": "bd6187776c48e316414a2bbaeaafa0db0909071fc4f31171396222417de9a23d"
+            "live_was": "bd6187776c48e316414a2bbaeaafa0db0909071fc4f31171396222417de9a23d",
+            "existed": true,
+            "old_sha": "bd6187776c48e316414a2bbaeaafa0db0909071fc4f31171396222417de9a23d"
         },
         "app/ui/favicon.php": {
             "sha": "7b9694b50da2e7c7506125deaa3336efd05d353ca73203ce464967b25e710ebe",
             "size": 1656,
-            "live_was": null
+            "live_was": null,
+            "existed": false
         },
         "website/admin/chamber-builder.php": {
             "sha": "b4cf087e781e9b027d2df7cba9aeaf7b46a8ef879a56ae74ba1eb9e971cddd12",
             "size": 34404,
-            "live_was": "d28924ca00dfc834be09884796db1995ed462da07bfb8bd8bcdeaebcf99fc2d1"
+            "live_was": "d28924ca00dfc834be09884796db1995ed462da07bfb8bd8bcdeaebcf99fc2d1",
+            "existed": true,
+            "old_sha": "d28924ca00dfc834be09884796db1995ed462da07bfb8bd8bcdeaebcf99fc2d1"
         },
         "website/admin/manifest.php": {
             "sha": "fd7355fd10815083d7c906d65bb8c09a086a77a76815bb0d73b608a5c3033cb3",
             "size": 7332,
-            "live_was": "9d41835170111e0b5dfb1ad900b5f7cd2d3be6aa6ef3f257713281586d528736"
+            "live_was": "9d41835170111e0b5dfb1ad900b5f7cd2d3be6aa6ef3f257713281586d528736",
+            "existed": true,
+            "old_sha": "9d41835170111e0b5dfb1ad900b5f7cd2d3be6aa6ef3f257713281586d528736"
         },
         "website/index.php": {
             "sha": "8edd91b8d35089eea6b6b5120c320795c509f62d6763343a1b220be5757d4b7d",
             "size": 45460,
-            "live_was": "77c396c843046d68909211eff032baf6d7edc7e75eb7fc99e41da2d6e8d171ee"
+            "live_was": "77c396c843046d68909211eff032baf6d7edc7e75eb7fc99e41da2d6e8d171ee",
+            "existed": true,
+            "old_sha": "77c396c843046d68909211eff032baf6d7edc7e75eb7fc99e41da2d6e8d171ee"
         },
         "website/favicon.ico": {
             "sha": "862fd9c8769b2660f267183c1c36188092e223ca3b2b558de08bd59fc5c30ccd",
             "size": 5419,
-            "live_was": null
+            "live_was": null,
+            "existed": false
         },
         "website/image/apple-touch-icon.png": {
             "sha": "49ac41fd6e7e9549e88ccb4e9206c13cb5e382b13b9c535e0ee52a35e93bc1e5",
             "size": 12612,
-            "live_was": null
+            "live_was": null,
+            "existed": false
         },
         "website/directory/classic.php": {
             "sha": "4a4bdee1015c852752284ddfb26a2b06d6d30d9059e5c196d6251465d3168c38",
             "size": 106229,
-            "live_was": "3928d75e09bf698f214d80a33365d41286ef9f152fb30c406d51062491f98da1"
+            "live_was": "3928d75e09bf698f214d80a33365d41286ef9f152fb30c406d51062491f98da1",
+            "existed": true,
+            "old_sha": "3928d75e09bf698f214d80a33365d41286ef9f152fb30c406d51062491f98da1"
         },
         "trvgo/index.php": {
             "sha": "a088b83378d2ddb91c8f20919c5235b2fb498012356a142417f9ef3569af1c70",
             "size": 14575,
-            "live_was": "42f9e3988b5c403ef3ec45d9153203cae33e79658462812bb55ff2a070206a2e"
+            "live_was": "42f9e3988b5c403ef3ec45d9153203cae33e79658462812bb55ff2a070206a2e",
+            "existed": true,
+            "old_sha": "42f9e3988b5c403ef3ec45d9153203cae33e79658462812bb55ff2a070206a2e"
         }
     },
     "migrations": [],
     "checks": {
         "ok": true,
-        "where": "staging",
-        "at": "2026-11-17T13:50:49+00:00",
+        "where": "live",
+        "at": "2026-11-17T13:50:53+00:00",
         "items": [
             [
                 "PHP files parse",
@@ -86,7 +105,7 @@
             [
                 "Pages answer",
                 true,
-                "5 pages answered on staging.trvgo.us"
+                "5 pages answered on traversence.com"
             ],
             [
                 "No new fatal errors in the logs",
@@ -116,6 +135,16 @@
             "at": "2026-11-17T13:50:49+00:00",
             "by": 2,
             "msg": "Put on staging (11 files); its checks passed."
+        },
+        {
+            "at": "2026-11-17T13:50:52+00:00",
+            "by": 2,
+            "msg": "Approved in chat before it was sent through git, and its checks on staging passed: publishing by itself."
+        },
+        {
+            "at": "2026-11-17T13:50:52+00:00",
+            "by": 2,
+            "msg": "Published: 11 files; everyone at once (no switch)."
         }
     ]
 }
