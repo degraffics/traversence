@@ -104,6 +104,14 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
      (`api/ingest.php`, `IntakeStager::defaultGeoHubId`, `IntakeClusters`) and retire `DEFAULT_GEO_HUB_SLUG` (Settings'
      "Default place" row goes; nothing else reads it). Intake approvals never refuse for a missing hub: "no hub yet" is
      a valid answer. Data cleanup proposes moving areas already seeded outside Ancient Borderlands (preview, Undo).
+     **Use the hub framework we have** (Jason, 2026-11-17: "dont we have a way this can use our existing hub Framework to
+     put a find into the right hub even if it isn't an active hub yet?"): Ancient America → its 15 zones (`geo_hubs`;
+     the Ancient Borderlands active, 14 `planned`, regions.md) → towns (`micro_clusters`). Give every zone its geography
+     (its towns' ZIPs from regions.md through `zip_coordinates`, then the counties they sit in), so a find goes to its
+     zone **whether the zone is active or planned**; an existing town first, else a town seeded in that zone
+     ("needs review"). A find in a planned zone is filed and held there (not public until the zone opens), and counts
+     toward that zone's readiness (HubOpening's stages, Planned → Open). Only a find outside all 15 zones is "no hub
+     yet" (demand, held for 0164's hub opening). No default hub.
   4. **decisions/0169, the Shop's App store and one lifecycle for every app** (accepted 2026-11-16). First: the Shop
      with departments, the App store, the app lifecycle (choose, install, configure, use, update, remove), the Apps page
      and the staff view. Today's Stripe and Square connections keep working until their app is built.
