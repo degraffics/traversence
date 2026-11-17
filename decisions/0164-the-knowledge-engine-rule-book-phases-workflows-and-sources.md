@@ -656,12 +656,19 @@ say otherwise, and this makes it plain:
 - **A size guard:** junk kept compact; a URL never read after six months, and not linked from anything promoted, is
   compressed to its hash; the frontier's size and growth shown in the pre-flight. If it outgrows Bluehost's database,
   the frontier moves to the worker's side (Railway or Supabase).
-- **Pace on the site:** the indexer on Railway gathers what it finds and writes it to the site **in batches of 250
-  records** (Jason, 2026-11-17: "batch 250 records into dbase to stay away from bot check"), so the site sees a few
-  requests rather than a steady stream. A batch is also split if it would pass the host's request size (PHP's
-  `post_max_size`; links wrapped as usual, `tvSafe`), sent at the worker's pace (the cookie and 0.6 s gap of worker
-  2.7.2+), retried on a 409 or 503 with a back-off, and never duplicated (each record keyed, so a resent batch changes
-  nothing). The indexer slows when the site is slow, so it never trips the bot check or slows pages.
+- **Pace on the site:** the indexer on Railway gathers what it finds and writes it to the site in batches, so the site
+  sees a few requests rather than a steady stream (Jason, 2026-11-17: "batch 250 records into dbase to stay away from
+  bot check"; the numbers below agreed the same day):
+  - **found URLs: 250 a batch; read pages with their links: 25 a batch; either capped at 100 KB**, whichever comes
+    first (under ModSecurity's usual 128 KB limit on a request without files; a found URL is about 0.3–0.5 KB, a read
+    page 5–10 KB);
+  - **at most one batch every 10 seconds** (about 1,500 URLs a minute at most);
+  - **self-adjusting:** a 409, 413 or slow answer halves the batch and doubles the gap; an hour of clean answers grows
+    it back toward 250, never past 500;
+  - **settings, not code:** batch size, size cap and gap in the Thresholds register;
+  - links wrapped as usual (`tvSafe`), the worker's cookie and pacing (2.7.2+), back-off on 409 or 503, and each record
+    keyed so a resent batch changes nothing; the indexer slows when the site is slow;
+  - **tested before launch:** the pre-flight sends one full-size test batch to the intake (marked test, discarded).
 
 ### 1.5 Lead sources for rural businesses
 
