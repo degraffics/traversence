@@ -98,21 +98,20 @@ Check-out release names: `preflight` (release 1), `outside-table` (release 2, no
   The second look takes a Google match too (Jason, 2026-11-17: "google match is a good thing"): Verify::KINDS `google`, a
   reference that raises a new find's confidence (about +10 × its record); AutoImport::isGoogleHost keeps Google out of the
   keepable hosts, so it never passes the "real business" floor by itself.
-- **(c2-1) `refresh-archive.zip`** (built on Sync 17:05 UTC): W2 re-read websites, direct → Common Crawl. Crawler 2.11.0
-  `cc_home()` (the newest crawl's capture of the home page, 200 and HTML only, never while Common Crawl is held) when
-  `fetch_page` fails; it sends `site.status = archived` with `archive.at`. `Refresh::complete`/`siteResult`: archived
-  counts as a failure, but at the second failure a copy within 90 days (ARCHIVE_DAYS) sends the website to Review instead
-  of taking it off; only an empty description is filled from the copy, labelled with its date. Test:
-  `workers/crawler/tests/test_refresh_archive.py`. "Our last copy" first isn't built: we keep no page copies, only
-  fingerprints.
-- **Next, (c2): the other workflows' fallbacks** (audit 2026-11-17, in map order): W2 refresh (no last copy, no Common
-  Crawl before a website is taken off; medium), W2 missing phone/website (open_places/npi_orgs not read first; medium),
-  W2 map points (open_places points before Census; Census failure should wait, not fail; small), W2 still open (put our
-  copies' flagged listings first; small), W1 official places (Wikidata failure reported done; small), W1 confirm's free
-  part (npi_orgs/irs_orgs first; AZCC and NM SOS readers don't exist; large), W3 sources (Common Crawl per page before
-  Tavily Extract; medium), W6 heritage (only the Library of Congress; medium), W8 Find it (open_places, Tavily → Brave;
-  medium), W10 events (an error waits 7 days; medium), site email (no SES fallback; medium), file storage, menus' runtime
-  failover, weather's link when hidden, stock photos' order.
+- **(c2) `refresh-archive.zip`**, one release for all of (c2) (Jason, 2026-11-17: "do the full build so I only approve once";
+  built on Sync 17:05 UTC; crawler 2.12.0). W2 re-read: Common Crawl's copy (`cc_home`) when a website doesn't load;
+  `Refresh::siteResult` sends it to Review instead of taking it off when the copy is within 90 days; an empty description
+  only, dated. W3 sources: Common Crawl's copy before Tavily Extract (`read_source`; CC_COPY_MAX 12 a run). W2 missing
+  phone: `IdentityJobs::local` (npi_orgs by street number and ZIP, rec_places by name and ZIP) sent as the job's `local`,
+  merged first by `identity_jobs`. W2 map points: `api/crawl/geocode.php` answers `waits` when the Census fails; the worker
+  raises ServiceHeld. W2 still open: `api/crawl/places.php` orders closed_signal first. W1 official places: a Wikidata
+  failure marks the job partial. W8: `DeepLook::fromOurCopy` (open_places) before Overpass. Site email: `Mailer::send` →
+  `smtp()` then `viaSes()` (SesMail, personal account, only when SES is live); a failed QUIT after 250 isn't a failure.
+  Weather: `website/hub/index.php` `noWx()` shows the NWS link. W10: `LiveEvents::tick` retries a failed check next day.
+  Tests: `workers/crawler/tests/test_refresh_archive.py`, `test_fallbacks.py`; the site parts with stubs (scratch only).
+  **Not built:** stock photos' order (decisions/0143 interleaves on purpose: Jason's call and a note on 0143), menus (no
+  reader exists), W6 heritage's Wikimedia and NPS steps, Find it's Tavily → Brave step (the worker's `find_name` request
+  could serve it), AZCC and NM SOS readers, W14, file storage's retry and old-bucket read.
 
 ## How it works
 
