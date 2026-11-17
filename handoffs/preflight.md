@@ -114,9 +114,8 @@ Check-out release names: `preflight` (release 1), `outside-table` (release 2, no
   could serve it), AZCC and NM SOS readers, W14, file storage's retry and old-bucket read.
 
 - **(c2, large builds)** (Jason, 2026-11-17: "Large Builds: Go ahead and start this"; release `large-fallbacks`, claims held):
-  built, **not sent yet**, waiting for #851 (`refresh-archive.zip`) to go live, since its FAQ entry sits on #851's FAQ (never
-  build on a zip that isn't live). Patches against the 17:05 UTC live copies in `handoffs/large-fallbacks-pending/`
-  (`faq.patch` against #851's faq.md). Once #851 is live and synced: apply them to fresh live copies, zip, zip check, send.
+  sent as `large-fallbacks.zip` after #851 went live as #104 (built on Sync 17:53 UTC): `app/lib/GuideLinks.php`,
+  `app/lib/Scheduler.php`, `app/ui/faq.md`.
   - **W8 Find it, Tavily → Brave** (`GuideLinks::findTick`, new `webStep`): after our crawler's map lookup finds nothing,
     one `find_name` request to the crawler (one web search, Tavily then Brave since 2.10.0, then its own website); found
     and staged → the find is `found`, its name links once listed; nothing, failed or a day waiting → Claude as before.

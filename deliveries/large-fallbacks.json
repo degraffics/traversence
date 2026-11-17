@@ -1,0 +1,22 @@
+{
+ "zip": "large-fallbacks.zip",
+ "built_on": "28c78ae Sync: 2026-11-17 17:53 UTC",
+ "recorded": "2026-11-17 17:54 UTC",
+ "note": "Find it's web step before Claude; files_tick set up by the site (c2 large builds); built on Sync: 2026-11-17 17:53 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/GuideLinks.php": {
+   "sha256": "f36154ff956eaf286e4923d2896030707ae1b0fdd572e4eca4c5ef9f11bccea9",
+   "live": false
+  },
+  "app/lib/Scheduler.php": {
+   "sha256": "ad87ca5b792a7aeacc0586614786697369865d332b23ec8a704cad5be79cf9d6",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "4ed36beb0af466c2876f7730c89e2e53b9f82c7b3e8fb34bff2264efbb71ebce",
+   "live": false
+  }
+ }
+}
