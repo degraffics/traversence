@@ -418,6 +418,19 @@
    "expires": "2026-11-17T18:29:48Z",
    "release": "preflight-slow",
    "callers": {}
+  },
+  {
+   "path": "app/lib/staging-tables.php",
+   "functions": [
+    "OWN"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5kGG8gG4QBmC4uzMzN",
+   "why": "Pre-flight: preflight_results is staging's own",
+   "since": "2026-11-17T14:31:57Z",
+   "expires": "2026-11-17T18:31:57Z",
+   "release": "preflight-slow",
+   "callers": {}
   }
  ],
  "lapsed": [
