@@ -1,0 +1,64 @@
+{
+    "id": 72,
+    "title": "Domain sales get their own switch",
+    "why": "Jason, 2026-11-17: \"I did say domains where to be separated from storefronts right. Finding and buying was to be its own process.\" Release #71 opened Shop → Domains, the Domains tab and the wallet's domain charges on DOMAINS_MODE, the storefront's \"Own domains on storefronts\" setting. A new setting, DOMAIN_SALES_MODE (\"Domain sales\": off, test or live; on the Name.com card), now alone governs them; DOMAINS_MODE means only the storefront's Connect your domain again. Every safety rule carries over: test mode (our team only), test accounts and the staging copy use Name.com's and QuickBooks' sandboxes; live sales are refused while NAMECOM_ENV is sandbox; Name.com refusing us shows the paused message. A domain sale's Name.com calls now follow the sales switch only, so the storefront switch's test mode can never send a live sale to the sandbox, or the reverse. The Name.com card shows both switches. One FAQ entry added.",
+    "proposals": "",
+    "zip": "domain-sales-switch.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/ui/faq.md": {
+            "sha": "511bf68b6c8b2b65cc063ac33b4a655b6b587cb99e0130bd2a5894b0d1416c3f",
+            "size": 315387,
+            "live_was": "3e21db047e04c1faa3950933342d31645767fa31f2f2d1605deb9ebaa76906e1"
+        },
+        "app/lib/EnvSettings.php": {
+            "sha": "3c733a4150b22c9a1660dd843b5ab82811e8a7309ac118dff219d5a3b872a9d8",
+            "size": 12385,
+            "live_was": "7e6a34829aadbe62cea1f9fef7d74d3e3423ede97d1dfc268f2b6a5b9daed34a"
+        },
+        "app/lib/StagingSite.php": {
+            "sha": "078225b17faf7c3dbab6659045670a88fb75af6bc4f9ef500157243f9b813010",
+            "size": 102730,
+            "live_was": "5d45a3c5011c0a0c3fc94cdf90b066ea3723ce1198d6397b3f91e533a1ea6753"
+        },
+        "app/lib/OutsideServices.php": {
+            "sha": "b455d1f828627c4ca0a1652c20c558782bd42926d167899e75cfef6673253511",
+            "size": 76720,
+            "live_was": "87d3b79ac122f2f02044c4cc47b2ca0527fef96f1d3c761bbfaa87b96fea1ce3"
+        },
+        "app/lib/AccountDomains.php": {
+            "sha": "077c168d55046e7c8f68a629b982364e8fa8a1004bf9632dd1b94a0c8fc31f30",
+            "size": 86417,
+            "live_was": "5523d8ccc4af579d20e2847b9c20f6e8b22208c805befe76ff21d96d397339e2"
+        },
+        "app/lib/Domains.php": {
+            "sha": "f114a4baec623df4fbef567bd54b413de1ee4e37c821d22cff74851981a56ab4",
+            "size": 41475,
+            "live_was": "9d725480f65bb9e92e829452b8bc3d92c23b7b39e5affe28658d954fcc5bf16e"
+        },
+        "website/api/domains.php": {
+            "sha": "5b46bc49ea489e7fbc94d1646b25a67d4207aa1ca5b91990fe20d1f152b115ce",
+            "size": 11133,
+            "live_was": "590a0d17d3987627bb8e7c30fc9111c94903e5f85ecb85c52fe29ba8fd78331c"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-17T11:15:44+00:00",
+            "by": 0,
+            "msg": "Uploaded domain-sales-switch.zip: 7 files."
+        }
+    ]
+}
