@@ -53,8 +53,10 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
 ## Where things stand (2026-11-16, 14:30 UTC)
 
 - **Built and live:** decisions/0165 (#56, #57), Release B (#58–#67), the photo fix (#68), and Start the system plus the
-  review link's login redirect (#69). Nothing is running. Automation and the crawler stay off until Jason presses
-  **Start the system** (keys first: `handoffs/release-b.md`).
+  review link's login redirect (#69). **Jason pressed Start the system on 2026-11-17 at 18:44 UTC**, after a
+  pre-flight with nothing needed for launch red (18:42 UTC: 114 ready, 11 on a backup, only OpenStreetMap's free
+  servers red, optional). The site set the crawler's cron (*/5) itself; from now on the session manager never changes
+  Railway's cron or restart policy, only reports failures.
 - **Keys, traced with Jason by service on 2026-11-16:**
   - GitHub: `GITHUB_SYNC_TOKEN`, read-only on both repos.
   - Railway: limits set, compute $25 stop and $10 alert, agent $10 and $5; `RAILWAY_API_TOKEN` made; `HF_TOKEN` added.
