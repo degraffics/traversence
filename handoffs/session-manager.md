@@ -110,6 +110,11 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
      (`api/ingest.php`, `IntakeStager::defaultGeoHubId`, `IntakeClusters`) and retire `DEFAULT_GEO_HUB_SLUG` (Settings'
      "Default place" row goes; nothing else reads it). Intake approvals never refuse for a missing hub: "no hub yet" is
      a valid answer. Data cleanup proposes moving areas already seeded outside Ancient Borderlands (preview, Undo).
+  2b. **Every URL logged, no "suggested" gate** (0164 §1.4's note, Jason 2026-11-17), with the hubs fix, before W3
+     starts: every link on every page read into the frontier (same site or not, with its page and link text);
+     classification runs by itself on new sites; reading only where §1.2's rules allow; a person's call overrides,
+     never gates; today's "Waiting for you" sources classified on the first pass. Worker (`own_site_links`, the
+     40/60 caps, `read_source`) and site (`Sources.php`, `SourceIndex.php`, `/api/crawl/sources.php`).
   3. **The cleanup stage** (its own area; can run beside the above). **Fixes in the code:**
      - Pulse #31's 62 unused names;
      - Pulse #22's Site health items;

@@ -613,6 +613,23 @@ Each 200 gets a `source_tier` (1–5) and its dossier:
   regularly, Cite only, Ignore) and its licence override the classifier.**
 - **Audit log** (`crawl_audit_log`, append-only): every decision with its reason code and the rule it applied.
 
+**Note (2026-11-17): every URL found is logged; no "suggested" gate** (Jason: "'suggested' i dont recall approving
+that part. It should log all urls it finds because it will be identified at a later step."). The live code still
+works as 0045 did: links to other sites (at most 40 a site) enter the register as **suggested** and nothing more
+happens until a person marks one Read regularly; links within a site are kept only 60 a page. Steps 1–3 above already
+say otherwise, and this makes it plain:
+- **Logged, all of them:** every link on every page read, on the same site or another, goes into the frontier (§1.1)
+  normalized and de-duplicated, with the page it came from and its link text. No cap but the frontier's own size
+  guard; nothing dropped for being off-site.
+- **Identified later, by the machine:** classification (§1.4: tier, kind, dossier, licence and terms) runs on each
+  new site by itself; there's no waiting on a person.
+- **Read only where the rules allow:** logging isn't reading. Before any fetch, §1.2 holds as written: the switches,
+  the restricted registry, robots.txt, non-public paths; commercial directories cite only; Facebook and Instagram never
+  read (R14); nations' sites a person's call (R7); blocked or banned hosts never retried.
+- **A person's call is an override, never a gate:** Read regularly, Cite only or Ignore on the register still wins over
+  the classifier, and a person sees only what the evidence can't settle (as §6.1's identity queue).
+- **Today's "Waiting for you" sources** are classified by the same pass when this ships; nothing already decided changes.
+
 ### 1.5 Lead sources for rural businesses
 
 Finding businesses that have no website, and proving they're real, from four kinds of source. Each is a service under
