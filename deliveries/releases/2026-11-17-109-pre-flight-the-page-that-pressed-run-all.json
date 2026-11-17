@@ -6,7 +6,7 @@
     "zip": "preflight-follow.zip",
     "switch": "none",
     "advance": "schedule",
-    "state": "planned",
+    "state": "withdrawn",
     "step": 0,
     "paused": false,
     "urgent": null,
@@ -39,6 +39,16 @@
             "at": "2026-11-17T19:09:31+00:00",
             "by": 0,
             "msg": "Uploaded preflight-follow.zip: 3 files."
+        },
+        {
+            "at": "2026-11-17T19:09:33+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/preflight-follow.zip (git 79c3838709)."
+        },
+        {
+            "at": "2026-11-17T19:18:27+00:00",
+            "by": 2,
+            "msg": "Withdrawn before it went live."
         }
     ]
 }
