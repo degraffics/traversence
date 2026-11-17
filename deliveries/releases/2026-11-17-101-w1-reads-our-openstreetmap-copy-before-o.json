@@ -1,0 +1,64 @@
+{
+    "id": 101,
+    "title": "W1 reads our OpenStreetMap copy before Overpass",
+    "why": "decisions/0163's source map, ours first (Jason approved the plan 2026-11-17: \"ok\"; handoffs/preflight.md, (b)). Overpass doesn't answer our hosts (overpass-api.de 406, the others time out), which held W1. 1. A state's Geofabrik file is now also kept by the crawler's town kinds (places to eat and stay, things to do, shops, services, groceries and gas, public services, places of worship, campgrounds, health care's amenity part), in OpenStreetMap's own table (open_places), each as its own kind; still its own layer, a lead and a link, never copied into our listings (decisions/0065). A state loaded before this is due again at once. 2. Each crawl job and search target the crawler leases (jobs.php, targets.php) carries what our copy holds for its town and kinds; the crawler (2.9.0) reads those and asks Overpass only for a kind the files don't carry (healthcare=*, office=guide, the support groups' and situation gaps' filters) or a town outside Arizona and New Mexico. While every Overpass server is held, it carries on from our copy (jobs marked partial so their gaps go round again); a job our copy can't answer waits with its lease, nothing lost. No new endpoint, so no new calls through Bluehost's bot check, and no outside calls on the site. 3. The switch-on check's OpenStreetMap line is green while our copy is loaded and fresh (45 days), or a server is free, or Geofabrik's test download passed (the load is W1's own task, t:osm, so holding W1 for it would never let it run). 4. The pre-flight's \"Places by kind and town (W1)\" need reads our copy first, state by state.",
+    "proposals": "",
+    "zip": "osm-ours.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/ui/faq.md": {
+            "sha": "157e36139302ce436b7613382ab219080050fcdaced730c644f6814ddf9c14f1",
+            "size": 318922,
+            "live_was": "67309f6b435e4d904f6c5fd6c1e01fd813e75562c5d65904dbcc6ed059f5d39b"
+        },
+        "app/lib/Operations.php": {
+            "sha": "cb22a17f55c2d21e45f03375b371b0bdd724e70d7dae55a99285265fc8080dac",
+            "size": 63792,
+            "live_was": "2fec52ccc12ab13da7356c439c025ccfcd56ae4ab2f6624d831d6965b991e90e"
+        },
+        "app/lib/crawler/OpenLoads.php": {
+            "sha": "1592176cc2bed1f8cc5f7af3501de4a868cf925f930e81666c8de2b23c498fae",
+            "size": 16565,
+            "live_was": "545837fea073fd06d458a2d7a11971246c992af15d22fdb3e34561dfbe5856dd"
+        },
+        "app/lib/Preflight.php": {
+            "sha": "8c9a7fd8869320654804a24be230c669710a8830ed03f4bd29836d592d625023",
+            "size": 116000,
+            "live_was": "d1d1767ac39feab87d2da18b2189fc552ecc53adeb178522d28a2f07d2500d75"
+        },
+        "app/lib/OpenPlaces.php": {
+            "sha": "6548accd964fec2dfd23bff5c9ee13cf28a6db3369c0ba536c4efbf34a8428a0",
+            "size": 38032,
+            "live_was": "fd26392b8b3780587f094b0e6e816c1623df52a6e662560737fa5d554b385ebe"
+        },
+        "website/api/crawl/jobs.php": {
+            "sha": "f199805e617dae3d17dbd04523515aa9272d6c6126cd19747cb5f2c5579589d0",
+            "size": 730,
+            "live_was": "0f95c8f571294c0d1e486f55975a0470110a10d1e2be3c36a02c333e57e96ce2"
+        },
+        "website/api/crawl/targets.php": {
+            "sha": "cd25b7be34e4f3e0a734af3518edd90b3541525eda6b64ff2bdd6a4f785f8e97",
+            "size": 1383,
+            "live_was": "08d557807693b62c6ed10c3d3680c16cd5fa8d8be21d18fa022f3cf844c8f37a"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-17T16:46:45+00:00",
+            "by": 0,
+            "msg": "Uploaded osm-ours.zip: 7 files."
+        }
+    ]
+}
