@@ -194,11 +194,12 @@ Listings, outdoor places, experiences, places, journeys and any new content kind
 - **Comments** at the end: `tv_engage_comments($pdo, $kind, $ref)` (public, 18+, reportable).
 - **Views:** `tv_count_item('<kind>:<id>')`. Maps opened as their own view pass `panel: true` to `TvMap.open()`.
 
-## Waiting for Jason's OK is said loudly (Jason, 2026-11-17): every session
+## Jason's OKs come through the session manager (Jason, 2026-11-17): every session
 
-Anything that waits on Jason (a PR to approve, a decision, a key to add) starts the reply with a line **"Waiting for your
-OK:"**, what it is and its link, sends a push notification, and tells the session manager, who repeats it at the top
-of his next report until it's answered. Never only a line at the end of a long message.
+Jason answers in the session manager's chat, not in the system or in each session. Anything that waits on him (a PR to
+approve, a decision, a key to add) goes to the session manager by send_message, with what it is, why, and its link; he
+lists every open one at the top of his replies, numbered, as **"Waiting for your OK:"**, with a push notification, until
+answered, and relays the answer. A session asked directly by Jason answers him there too.
 
 ## A link for every place Jason acts (Jason, 2026-11-16): every reply
 
