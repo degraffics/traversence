@@ -19,15 +19,8 @@ Jason, looking at a withdrawn release's full card: "the releases should be colla
 
 ## Where it stands
 
-Built on Sync: 2026-11-17 13:09 UTC, zip check clean, then **blocked at send**: release #78 (w0-indexer.zip, on staging,
-not live) also carries `app/admin/sections.php`. Per CLAUDE.md: wait for #78 to go live and the sync, then rebuild on
-the live copy.
-
-## To finish
-
-1. Once #78 is live and synced: fetch the mirror; `git apply` won't fit the mirror's paths, so apply
-   `releases-fold-pending/releases-fold.patch` to copies of `sync-app/admin/sections.php` and
-   `sync-storage/js/admin-releases.js` placed at `app/admin/…` and `website/js/…` (`patch -p1` from that folder). Only
-   `tv_admin_mod_releases()` and the end of `admin-releases.js` change; re-apply by hand if #78 touched the same lines.
-2. Zip `release.json` (here, `"review": false`) with the two files; `zipcheck.py`, then `send.py … --note "… built on Sync: <time>"`.
-3. Claims are held (`checkout.py`, session `releases-fold`, until 17:09 UTC; renew if needed).
+First built on Sync 13:09 UTC and blocked behind release #78 (w0-indexer), whose migration failed on staging (`stored`
+is a reserved word). Its corrected copy, #79 (w0-indexer-2.zip), went live 13:12 UTC; rebuilt on Sync: 2026-11-17 13:15
+UTC and sent through git as `releases-fold.zip` (`release.json`, `app/admin/sections.php`, `website/js/admin-releases.js`),
+`"review": false`. Left: watch for its "Release #N: Live" record, then the sync and a byte-for-byte check.
+#78 is still on staging with its failed check; it's superseded by #79 and can be withdrawn on the Releases page.

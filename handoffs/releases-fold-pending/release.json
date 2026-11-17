@@ -1,7 +1,0 @@
-{
-  "title": "Releases page: each release folds to one line",
-  "why": "Jason, 2026-11-17: \"the releases should be collapsed.\" On System Configuration → Releases each release is now one line (#N · title, where it stands, when); click it for the full card as before. Open by default only while it needs you (planned, plan approved, on staging, vetted, scheduled); live, turned off, rolled back and withdrawn stay folded. A link to a release (#rel-N, from Pulse or the staging bar) opens it and goes to it. What you open or close is remembered per release until its state changes. Staff only; nothing else on the page changes.",
-  "proposals": "",
-  "switch": "",
-  "review": false
-}
