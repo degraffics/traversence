@@ -83,7 +83,7 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
      it and open a Pulse case).
      No per-page or per-source caps (the old 60/40 go); a safety net only for a broken page with an absurd number of
      links: logged over several passes and flagged, nothing dropped.
-  2. **The pre-flight check** (in progress 2026-11-17 in session_01CXLi5kGG8gG4QBmC4uzMzN: release 1 `preflight.zip`
+  2. **The pre-flight check** (**done** 2026-11-17: live as #88, #90, #91, #92, the Outside services table #94 and the Fly fix #93, synced 15:07 UTC; session_01CXLi5kGG8gG4QBmC4uzMzN stands by for Jason's first report after his keys. Earlier: release 1 `preflight.zip`
      sent (built on Sync 14:05 UTC), waiting for Jason's OK; worker 1.1.0 in the same PR; Outside services as a table is
      release 2, after release 1 is live; handoffs/preflight.md) (decisions/0163 §10's note of 2026-11-16; Jason asked for it before launching the
      engine): System Configuration → Pre-flight, a real, free, harmless test of every service and setting, and every
@@ -132,6 +132,34 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
      location, active or planned; shown as usual (0170: open or planned is about support, not visibility); feeding that level's discovery guide and counts.
      Something about a whole region (a state, a river, a trail across zones) is placed at the level that spans it.
      Existing content is re-placed by Data cleanup (preview, Undo). Today each kind places itself its own way.
+  3a. **State licence lists: a write-up (a decision) and a build plan, then its own build** (Jason, 2026-11-17: "this
+     seems like it needs a build of its own. Let's put it into the queue for a write up and build plan"). After W15,
+     since it feeds the funnel and uses the one identity check.
+     - **Why:** licensing sites block automation (azliquor.gov and liquor.az.gov, roc.az.gov, apachecountyaz.gov: a
+       Cloudflare challenge on every page, `robots.txt` too; never worked around, 0164), but a person can export a
+       county's list. Jason's Apache County export (2026-11-17, `license_search_export.csv`, DLLC): 250 licences, 23
+       columns; 62 active, 188 lapsed (closure signals); 60 active premises (bars, liquor and beer-and-wine stores,
+       restaurants, lodges, wineries), 59 with a phone. The value is the rural places open data misses (Molly Butler
+       Lodge, Mulloys Public House, Hawley Lake Lodge, RL Winery), proof of open or closed, a phone and "serves
+       alcohol"; chains are already in Overture. Exactly 250 rows: check for an export cap (a statewide export).
+     - **Workflow:** one source per licensing agency (export page, terms, column map), for Ancient America's states
+       (Jason to confirm which); a monthly Pulse case "Licence lists due", a step per agency with its export link and an
+       Upload button; a new target in `upload-targets.php` through the one uploader (0127); an agency's own file feed,
+       where one exists, replaces its step. About 5 minutes an agency a month. Records requests for a statewide file
+       (DLLC, ROC, Apache County) only if exports prove capped. Contractors (ROC) next, the same way.
+     - **Rules:** personal columns dropped on load (licensee and agent names, owners' mailing addresses; "anything
+       about an owner is private"); kept in its own licence tables, credited, never copied into listings (like OSM,
+       0065); never overwrites what a person entered.
+     - **Duplicates and names** (Jason, 2026-11-17: "dups with one active and one closed or the name of record is
+       different than what the local store brand is publicly"): in Apache County 110 premises licences are only 90
+       addresses; 15 have more than one licence, 10 an active beside a lapsed one. Group by premises (address, phone,
+       type), not licence: the newest active decides; a lapsed licence beside an active one is history, not a closure
+       signal; a closure signal only when nothing at the address is active, and to Review, never automatic; a new name
+       at the same address goes to the identity queue ("same place, new owner?"), never a second listing. The licence
+       name is never the public name: kept as an alias for search ("Mickey's Again Inc", "Short Stop Markets"); the
+       listing shows the owner's or best-attested name. Names cleaned before matching (case, spaces, Inc/LLC, store
+       numbers); one identity check (0164 §3.1, `handoffs/duplicates.md`), no second path that makes duplicates.
+     - **Write-up first:** a decision for Jason with these rules and the build plan (releases in order), then the build.
   4. **decisions/0169, the Shop's App store and one lifecycle for every app** (accepted 2026-11-16). First: the Shop
      with departments, the App store, the app lifecycle (choose, install, configure, use, update, remove), the Apps page
      and the staff view. Today's Stripe and Square connections keep working until their app is built.
