@@ -542,6 +542,9 @@ later phases, is normalized before queueing:
   `gclid`, `ref`); resolve relative paths; sort remaining query keys; strip trailing slashes except on the root.
 - **Deduplication and priority:** `url_hash = SHA256(normalized_url)`, checked against the frontier and the restricted
   registry before insert. Inserts from a Phase 3 recheck or a parser-drift flag get high priority.
+  *Note (Jason, 2026-11-17, W0):* the key is `sha1(normalized_url)`, the page log's own `url_hash`, so a frontier row and
+  its page log row join; SHA-256 bought nothing here. Built in `app/lib/crawler/Frontier.php` (`crawl_frontier`, junk in
+  `crawl_junk`); the restricted registry is the register's Ignore, junk records and skip rules (`crawl_skip_rules`).
 - **States:** `PENDING → IN_FLIGHT → FETCHED | PENDING_EXTRACT | RESTRICTED | HELD_BLOCKED | FAILED_TRANSIENT | GONE`.
 - **Waiting to be read** (`PENDING_EXTRACT`, P1-1): set when Phase 2 stops short (Gemini's allowance, or the second
   tier's budget, used). A page in it is re-fetched without `If-None-Match`/`If-Modified-Since`, and its fingerprint is
@@ -631,6 +634,12 @@ say otherwise, and this makes it plain:
 - **A person's call is an override, never a gate:** Read regularly, Cite only or Ignore on the register still wins over
   the classifier, and a person sees only what the evidence can't settle (as §6.1's identity queue).
 - **Today's "Waiting for you" sources** are classified by the same pass when this ships; nothing already decided changes.
+  *Note (Jason, 2026-11-17, W0):* the machine's call (`Sources::machineCall`) sets a site that isn't a public body,
+  a commercial directory or social media (a chamber, a tourism board, an organization, a business) to **Read regularly**
+  at its tier: its pages are indexed, and its facts are kept only as its licence and terms allow (`Sources::rules`). A
+  site its address can't settle is classified once its home page has been read (it may say it's a nation's). A tribal
+  nation's site stays `suggested` with `judged_by = 'nation'`, a person's call (R7). "suggested" otherwise means only
+  "being classified".
 - **The indexer is Phase 1, and runs all the time, not on a schedule** (Jason: "That is the one thing I want to be a standard always
   running task, not on a schedule, because it will be the one thing that indexes our potential knowledge"). Logging
   the frontier, fetching what §1.2 allows, keeping each page's fingerprint and links, and classifying new sites run as
