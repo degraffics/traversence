@@ -656,8 +656,12 @@ say otherwise, and this makes it plain:
 - **A size guard:** junk kept compact; a URL never read after six months, and not linked from anything promoted, is
   compressed to its hash; the frontier's size and growth shown in the pre-flight. If it outgrows Bluehost's database,
   the frontier moves to the worker's side (Railway or Supabase).
-- **Pace on the site:** results sent in small batches at a fixed pace, and the indexer slows when the site is slow, so
-  it never trips the host's bot check or slows pages.
+- **Pace on the site:** the indexer on Railway gathers what it finds and writes it to the site **in batches of 250
+  records** (Jason, 2026-11-17: "batch 250 records into dbase to stay away from bot check"), so the site sees a few
+  requests rather than a steady stream. A batch is also split if it would pass the host's request size (PHP's
+  `post_max_size`; links wrapped as usual, `tvSafe`), sent at the worker's pace (the cookie and 0.6 s gap of worker
+  2.7.2+), retried on a 409 or 503 with a back-off, and never duplicated (each record keyed, so a resent batch changes
+  nothing). The indexer slows when the site is slow, so it never trips the bot check or slows pages.
 
 ### 1.5 Lead sources for rural businesses
 
