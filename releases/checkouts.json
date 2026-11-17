@@ -390,13 +390,14 @@
   {
    "path": "app/admin/sections.php",
    "functions": [
+    "(top)",
     "tv_admin_mod_releases"
    ],
    "kind": "change",
    "session": "releases-fold",
    "why": "Fold each release on the Releases page to one line; open the ones that need Jason (Jason, 2026-11-17)",
    "since": "2026-11-17T13:09:43Z",
-   "expires": "2026-11-17T17:09:43Z",
+   "expires": "2026-11-17T17:11:21Z",
    "release": "releases-fold.zip",
    "callers": {}
   },
@@ -408,6 +409,17 @@
    "why": "Fold each release on the Releases page to one line; open the ones that need Jason (Jason, 2026-11-17)",
    "since": "2026-11-17T13:09:43Z",
    "expires": "2026-11-17T17:09:43Z",
+   "release": "releases-fold.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/js/admin-releases.js",
+   "functions": [],
+   "kind": "add",
+   "session": "releases-fold",
+   "why": "release releases-fold.zip",
+   "since": "2026-11-17T13:11:21Z",
+   "expires": "2026-11-17T17:11:21Z",
    "release": "releases-fold.zip",
    "callers": {}
   }
