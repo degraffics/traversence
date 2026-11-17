@@ -671,6 +671,9 @@ say otherwise, and this makes it plain:
   - links wrapped as usual (`tvSafe`), the worker's cookie and pacing (2.7.2+), back-off on 409 or 503, and each record
     keyed so a resent batch changes nothing; the indexer slows when the site is slow;
   - **tested before launch:** the pre-flight sends one full-size test batch to the intake (marked test, discarded).
+  - **every batch gets a receipt** (Gemini's review, agreed by Jason 2026-11-17): the site answers with how many records
+    it stored and a checksum of them; the indexer compares that to what it sent and resends what's missing. Three
+    mismatches in a row slow the pace and open a Pulse case, so a batch a firewall swallows without an error is caught.
 
 ### 1.5 Lead sources for rural businesses
 
@@ -1007,6 +1010,13 @@ aren't held for a person.
   embedding model (public text only) or a small model on the Railway worker. Built in a later stage under its own
   budget. Until then, search keeps improving what it does (our index as the dictionary, senses from context, phrases;
   0157 §4).
+
+**Note (2026-11-17): everything works without the vector index** (Gemini's review, agreed by Jason). Supabase's
+free tier can pause, and the index is a copy of public text, never the record. So every caller of the vector index
+(semantic search, AI Assist, the Seeker) falls back to MySQL's own keyword search when it's paused, off or slow, with
+a quiet "fewer matches right now" note, never an error. When it's back, the next upkeep run (`vectors_tick`) sends
+anything missed, keyed by the text's hash, so a resend changes nothing and nothing is lost. The pre-flight checks that
+Supabase is awake and the index is complete.
 
 ### 5.3 Provenance shown
 
