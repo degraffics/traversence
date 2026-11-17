@@ -22,6 +22,7 @@ It sleeps when there's nothing to do and when W0 is off, never spinning.
 
     python -u indexer.py               the loop (Railway: railway.indexer.json)
     INDEXER_TEST=1 python indexer.py   the pre-flight: one full-size test batch (marked test, never stored), then exit
+    (1.1.0: the same batch when the site's check-in answers "test": true, asked from System Configuration → Pre-flight)
 """
 import collections
 import hashlib
@@ -35,7 +36,7 @@ import urllib.parse
 
 import crawler as C
 
-VERSION = "1.0.0"
+VERSION = "1.1.0"
 C.WORKER_V = "indexer " + VERSION
 # the crawler's per-run budgets don't apply: the indexer runs all the time, paced by the site and by each site's rules
 C.MAX_FETCHES = C.FETCH_CAP = 10 ** 12
@@ -334,6 +335,16 @@ def preflight():
     return 0 if res and res.get("ok") else 1
 
 
+def on_check_in(d):
+    """What every check-in's answer carries: the sites held (paused hosts), and the pre-flight's ask for its test batch."""
+    holds.clear(); holds.update({str(k).lower(): str(v) for k, v in (d.get("holds") or {}).items()} if isinstance(d.get("holds"), dict) else {})
+    if d.get("test"):   # System Configuration → Pre-flight asked for the full-size test batch (0164 §1.4): sent once, even while W0 sleeps
+        try:
+            preflight()
+        except Exception as e:
+            C.log(f"pre-flight batch: {e!r}"[:200])
+
+
 def main():
     if not C.SITE or not C.TOKEN:
         C.log("TRAVERSENCE_URL and CRAWLER_API_TOKEN must be set.")
@@ -352,7 +363,7 @@ def main():
         except Exception as e:
             C.log(f"check-in failed: {e!r}"[:200]); time.sleep(60); continue
         B.settings(d.get("settings"))
-        holds.clear(); holds.update({str(k).lower(): str(v) for k, v in (d.get("holds") or {}).items()} if isinstance(d.get("holds"), dict) else {})
+        on_check_in(d)
         if not d.get("on"):
             flush(time.monotonic() + 30)              # what was gathered still goes (logging isn't reading)
             C.log(f"off: {d.get('why', '')}"[:200])

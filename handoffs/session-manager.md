@@ -83,7 +83,9 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
      it and open a Pulse case).
      No per-page or per-source caps (the old 60/40 go); a safety net only for a broken page with an absurd number of
      links: logged over several passes and flagged, nothing dropped.
-  2. **The pre-flight check** (decisions/0163 §10's note of 2026-11-16; Jason asked for it before launching the
+  2. **The pre-flight check** (in progress 2026-11-17 in session_01CXLi5kGG8gG4QBmC4uzMzN: release 1 `preflight.zip`
+     sent (built on Sync 14:05 UTC), waiting for Jason's OK; worker 1.1.0 in the same PR; Outside services as a table is
+     release 2, after release 1 is live; handoffs/preflight.md) (decisions/0163 §10's note of 2026-11-16; Jason asked for it before launching the
      engine): System Configuration → Pre-flight, a real, free, harmless test of every service and setting, and every
      phase, workflow and task (services, scheduler, settings, caps, gates, a dry run where there's a preview), ready or
      not with the service's reason and the fix, required or optional for launch; Start the system shows it first;

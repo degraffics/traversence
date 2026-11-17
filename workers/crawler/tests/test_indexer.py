@@ -132,6 +132,11 @@ d = indexer.check_in(time.monotonic() - 61, 25)
 check("the check-in says its time, version, queue and pace", "secs=61" in S["gets"][-1] and "v=" + indexer.VERSION in S["gets"][-1] and d.get("on") is True)
 B.size = 250
 check("the pre-flight: one full-size test batch, matched", indexer.preflight() == 0 and S["posts"][-1]["kind"] == "test" and S["posts"][-1]["n"] >= 200)
+n0 = len(S["posts"])
+indexer.on_check_in({"on": False, "test": True, "holds": {"Example.com": "paused"}})
+check("a check-in asking for the test batch sends it once, W0 asleep", len(S["posts"]) == n0 + 1 and S["posts"][-1]["kind"] == "test" and indexer.holds.get("example.com") == "paused")
+indexer.on_check_in({"on": False})
+check("a check-in without the ask sends nothing", len(S["posts"]) == n0 + 1)
 
 os.unlink(fx.name)
 srv.shutdown()
