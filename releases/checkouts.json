@@ -159,20 +159,6 @@
    "callers": {}
   },
   {
-   "path": "app/lib/Scheduler.php",
-   "functions": [
-    "AUTO",
-    "JOBS"
-   ],
-   "kind": "add",
-   "session": "w0-indexer",
-   "why": "W0 Indexer: every URL logged, the machine classifies, the frontier (decisions/0164 \u00a71.4 note)",
-   "since": "2026-11-17T12:51:47Z",
-   "expires": "2026-11-17T16:51:47Z",
-   "release": "w0-indexer",
-   "callers": {}
-  },
-  {
    "path": "app/admin/manifests.php",
    "functions": [],
    "kind": "add",
