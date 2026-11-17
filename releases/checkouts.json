@@ -260,6 +260,17 @@
    "expires": "2026-11-17T21:13:15Z",
    "release": "refresh-archive",
    "callers": {}
+  },
+  {
+   "path": "website/api/crawl/geocode.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
+   "why": "(c2) W2 map points: a Census failure waits (held), not failed (0163 source map)",
+   "since": "2026-11-17T17:13:58Z",
+   "expires": "2026-11-17T21:13:58Z",
+   "release": "refresh-archive",
+   "callers": {}
   }
  ],
  "lapsed": [
