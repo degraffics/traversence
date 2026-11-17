@@ -209,6 +209,13 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
        Jason had to press Put it on staging, then Publish. Fix: a rebuilt zip (new bytes, same name) is taken as a new
        build and goes on to staging by itself; a release left at Plan approved with its zip present is picked up by the
        10-minute job and by Check for builds; and a Claude build that passes staging publishes itself as usual.
+     - **Unused database leftovers are removed, not kept** (Jason, 2026-11-17: "we dont want a ton of non-used items in
+       our dbase"). First: `search_index_state.v`, the 200-character column left after #107 added `v_long` (add-only,
+       since the release check refuses `MODIFY`). Once every reader uses `SearchIndex::state()` (grep for direct reads of
+       `search_index_state`, e.g. health.php's listing_mark) and `v_long` holds every row, a later release copies any
+       remaining `v` into `v_long`, moves reads and writes to `v_long` alone, and drops `v` as a recorded leftover under
+       0162 (named under `"removes"` in release.json; Pulse #31's unused-schema list shows it). Same sweep for the other
+       leftovers that list names.
      **For Jason to address in the cleanup** (Jason, 2026-11-17: "Add these to the queue for me to address in the clean
      up"):
      - **Records requests to the Arizona Corporation Commission and New Mexico's Secretary of State** for their
