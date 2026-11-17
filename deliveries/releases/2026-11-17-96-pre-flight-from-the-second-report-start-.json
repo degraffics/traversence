@@ -1,0 +1,39 @@
+{
+    "id": 96,
+    "title": "Pre-flight from the second report; Start the system registers the identity recheck first",
+    "why": "Jason's second pre-flight report (2026-11-17, 62 ready, 20 not, 3 needed for launch). 1. A Start the system bug it found: switching on the identity recheck (its turn among the new tasks) refused with \"No such capture task\", because that task is only registered at the recheck's first run, which never comes while it's off; the sequence would have stopped there on every tick. Start the system now registers it first (ListingIdentity::ensureTask), as it already does for Overture, Foursquare and Geofabrik. 2. Railway keys (HF_TOKEN, BRAVE_API_KEY, GOOGLE_PLACES_KEY, TAVILY_API_KEY, RIDB_API_KEY): read from Railway's API, the crawler service's variable names (values never kept); the crawler's own report went stale while it has no schedule. Falls back to that report if Railway can't be read. 3. OpenStreetMap: a one-node query to each free server (10 s each) instead of the status page, which the mirrors don't answer quickly. 4. openrouteservice: its address moved to api.heigit.org/openrouteservice (the old one answers 500); the test is now a two-point matrix there, the call the journeys make.",
+    "proposals": "",
+    "zip": "preflight-fix2.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/lib/Preflight.php": {
+            "sha": "f6de8ac9b40861e5563030e876dc1d5cf385e172b58f3fbcfac891a3e1663e0b",
+            "size": 97741,
+            "live_was": "67123e379d23f97fd757f6c9ee9cc4a676e0823f60cdd463b1507e196429ff18"
+        },
+        "app/lib/SystemStart.php": {
+            "sha": "c8df2c4255284e5050204315ffefa2f8fb11fd9b9b217812867d5e473ce60944",
+            "size": 41171,
+            "live_was": "793cd3717c48cb0e8cc2c78c7815e69883af56e8a57a50c4942de75006adf42c"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-17T15:23:38+00:00",
+            "by": 0,
+            "msg": "Uploaded preflight-fix2.zip: 2 files."
+        }
+    ]
+}
