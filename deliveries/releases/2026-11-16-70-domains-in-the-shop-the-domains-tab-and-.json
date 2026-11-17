@@ -6,12 +6,12 @@
     "zip": "domains-wallet.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "planned",
+    "state": "approved",
     "step": 0,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
-    "plan_at": null,
+    "plan_at": "2026-11-17 02:13:52",
     "staged_at": null,
     "vetted_at": null,
     "live_at": null,
@@ -141,6 +141,16 @@
             "at": "2026-11-17T02:13:51+00:00",
             "by": 0,
             "msg": "Uploaded domains-wallet.zip: 23 files."
+        },
+        {
+            "at": "2026-11-17T02:13:52+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/domains-wallet.zip (git 668f22da67)."
+        },
+        {
+            "at": "2026-11-17T02:13:52+00:00",
+            "by": 0,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
         }
     ]
 }
