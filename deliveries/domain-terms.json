@@ -3,20 +3,20 @@
  "built_on": "33083ea Sync: 2026-11-17 12:57 UTC",
  "recorded": "2026-11-17 13:04 UTC",
  "note": "Domain year choices limited to the terms Name.com sells per ending (requirements lookup, kept a week); refused-term notice under the row, Jason's wording, cleared on a good price (Jason, 2026-11-17). Files: app/lib/Domains.php, app/lib/AccountDomains.php, website/js/tv-domains.js. built on Sync: 2026-11-17 12:57 UTC Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "ca324f0 Sync: 2026-11-17 13:09 UTC",
  "files": {
   "app/lib/AccountDomains.php": {
    "sha256": "2444828a9aa9305711cc921552d7fe8cb3ff02ee4ed6a56ebb8670dbb426adfe",
-   "live": false
+   "live": true
   },
   "app/lib/Domains.php": {
    "sha256": "a53b2167dd247c13cc7615240756f1176c561c28e70e163b55b4f4d1fa691b6b",
-   "live": false
+   "live": true
   },
   "website/js/tv-domains.js": {
    "sha256": "b0b398b42e438f61afa3e83f5ba1adcbf659444812ebe860e97d5713a2c0cc5a",
-   "live": false
+   "live": true
   }
  }
 }
