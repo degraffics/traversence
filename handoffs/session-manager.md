@@ -76,6 +76,12 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
      nightly and after a `.env` change, red items to Pulse; each Outside services card's Test is its item. Laid out as a
      queue log: one line per check, green ✓ / red ✗, each line opens to its status and its fix.
      Its own process: runs any time (stopped, starting or running) to diagnose, never starts or pauses anything.
+     **With it, Outside services becomes a table** (Jason, 2026-11-17: "maybe we treat it like the table view with search
+     and filters sorting"): the admin's table widget, one row per company (name, what we use it for, status ✓/✗/—, this
+     month's cost, last checked); search across names, uses and key names; one filter dropdown (status: needs a look, in
+     use, not in use; kind: storage, email, payments, AI, sign-in, data sources, domains, workers, hosting); sort by
+     status (default), name or cost; a row opens to today's full card in place (nothing dropped); filter and search
+     remembered. One list and one status shared with the pre-flight; a ✗ there links to the company's row.
   1. **decisions/0169, the Shop's App store and one lifecycle for every app** (accepted 2026-11-16). First: the Shop
      with departments, the App store, the app lifecycle (choose, install, configure, use, update, remove), the Apps page
      and the staff view. Today's Stripe and Square connections keep working until their app is built.
