@@ -3,16 +3,16 @@
  "built_on": "f1fbc50 Sync: 2026-11-17 15:15 UTC",
  "recorded": "2026-11-17 15:21 UTC",
  "note": "Pre-flight from the second report; Start the system registers the recheck first; built on Sync: 2026-11-17 15:15 UTC Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "9d3cb80 Sync: 2026-11-17 15:25 UTC",
  "files": {
   "app/lib/Preflight.php": {
    "sha256": "f6de8ac9b40861e5563030e876dc1d5cf385e172b58f3fbcfac891a3e1663e0b",
-   "live": false
+   "live": true
   },
   "app/lib/SystemStart.php": {
    "sha256": "c8df2c4255284e5050204315ffefa2f8fb11fd9b9b217812867d5e473ce60944",
-   "live": false
+   "live": true
   }
  }
 }
