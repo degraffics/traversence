@@ -1,0 +1,39 @@
+{
+    "id": 82,
+    "title": "Name.com card: the prices our account pays, beside Name.com's public prices",
+    "why": "Jason, 2026-11-17, comparing shineoncinema.com for 5 years: whois.com $72.40, ours $106.95: \"we are priced out. why would anyone buy domains at this pricing difference?\" Our markup is $5 of that; the rest is what Name.com charges our account. The Name.com card on Outside services now shows Prices we pay: for each ending we sell, our account's price to register and to renew beside Name.com's public (retail) price and list price, from Name.com's price list (GET /core/v1/tldpricing, live and read only, kept 12 hours, with Ask Name.com again), and a verdict: On retail (our account pays the public price on every ending: ask Name.com about reseller pricing) or Discounted. Nothing is bought or changed.",
+    "proposals": "",
+    "zip": "namecom-prices.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/ui/outside-services.php": {
+            "sha": "60c019c37150c91d9fea461c5472e62b2dcbdb65771107c57b271f4cb4ee1b52",
+            "size": 35290,
+            "live_was": "0a7fbae05ca045c4a8ab8629856fd6c7a00126662e8c7462d1f31ffdc1078c5f"
+        },
+        "app/lib/Domains.php": {
+            "sha": "06fa486453dd9a8823a686694c174493bbb32e59dcd6a4119e955def1287fd93",
+            "size": 47741,
+            "live_was": "a53b2167dd247c13cc7615240756f1176c561c28e70e163b55b4f4d1fa691b6b"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-17T13:36:06+00:00",
+            "by": 0,
+            "msg": "Uploaded namecom-prices.zip: 2 files."
+        }
+    ]
+}
