@@ -6,13 +6,13 @@
     "zip": "domain-sales-switch.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "approved",
+    "state": "staged",
     "step": 0,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
     "plan_at": "2026-11-17 11:15:46",
-    "staged_at": null,
+    "staged_at": "2026-11-17 11:15:47",
     "vetted_at": null,
     "live_at": null,
     "files": {
@@ -53,7 +53,29 @@
         }
     },
     "migrations": [],
-    "checks": [],
+    "checks": {
+        "ok": true,
+        "where": "staging",
+        "at": "2026-11-17T11:15:48+00:00",
+        "items": [
+            [
+                "PHP files parse",
+                true,
+                "6 checked"
+            ],
+            [
+                "Pages answer",
+                true,
+                "2 pages answered on staging.trvgo.us"
+            ],
+            [
+                "No new fatal errors in the logs",
+                true,
+                "3 logs read"
+            ]
+        ],
+        "first_fail": ""
+    },
     "log": [
         {
             "at": "2026-11-17T11:15:44+00:00",
@@ -69,6 +91,11 @@
             "at": "2026-11-17T11:15:46+00:00",
             "by": 0,
             "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
+        },
+        {
+            "at": "2026-11-17T11:15:48+00:00",
+            "by": 0,
+            "msg": "Put on staging (7 files); its checks passed."
         }
     ]
 }
