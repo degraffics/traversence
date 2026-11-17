@@ -95,17 +95,6 @@
    "callers": {}
   },
   {
-   "path": "app/admin/job-line.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5kHKsQbGaogTWfpFiw",
-   "why": "Scheduled tasks and their pages link both ways (Jason, 2026-11-17)",
-   "since": "2026-11-17T17:25:47Z",
-   "expires": "2026-11-17T21:54:32Z",
-   "release": "job-links.zip",
-   "callers": {}
-  },
-  {
    "path": "app/admin/sections.php",
    "functions": [
     "tv_admin_mod_scheduler"
@@ -129,28 +118,6 @@
    "since": "2026-11-17T17:25:51Z",
    "expires": "2026-11-17T21:54:38Z",
    "release": "",
-   "callers": {}
-  },
-  {
-   "path": "app/admin/sections.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5kHKsQbGaogTWfpFiw",
-   "why": "release job-links.zip",
-   "since": "2026-11-17T17:28:40Z",
-   "expires": "2026-11-17T21:54:16Z",
-   "release": "job-links.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/admin/widgets.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5kHKsQbGaogTWfpFiw",
-   "why": "release job-links.zip",
-   "since": "2026-11-17T17:28:40Z",
-   "expires": "2026-11-17T21:54:16Z",
-   "release": "job-links.zip",
    "callers": {}
   }
  ],
