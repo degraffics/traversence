@@ -1,0 +1,49 @@
+{
+    "id": 74,
+    "title": "Domain sales Test lets the Founder in; Edit no longer opens the privacy card",
+    "why": "Jason, 2026-11-17, after choosing Test for Domain sales: \"Saved, but Shop → Domains isn't open for you yet: Buying a domain through Traversence opens soon\", and the privacy choices card popped up. (1) Test mode lets in only our team, but its check (Market::isStaff) counted only admin_access rows, so the Founder's admin login (is_admin) wasn't counted. Domains::isTeam now counts our team as the admin side's sign-in does (TwoStep::isStaff: is_admin, admin_access, an admin role grant), for Domain sales and for Own domains on storefronts alike. (2) Release #73's Edit buttons carried data-choices, which js/consent.js treats as 'open the privacy card' on any click; renamed data-env-choices.",
+    "proposals": "",
+    "zip": "domain-sales-team.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/lib/EnvSettings.php": {
+            "sha": "5b6744605e4bdded96ecfc8edef8a8d276c3b633eca7045f7b48d8f87294748f",
+            "size": 19579,
+            "live_was": "9371de1a32818d7b229349798febb684b2122ac241662d75b4eb94d3b5c6425e"
+        },
+        "app/lib/AccountDomains.php": {
+            "sha": "d3964c3d5ef36a4f3b830b16d0d19f01c378495aee865ac8f6fa96ffae9db289",
+            "size": 86437,
+            "live_was": "077c168d55046e7c8f68a629b982364e8fa8a1004bf9632dd1b94a0c8fc31f30"
+        },
+        "app/lib/Domains.php": {
+            "sha": "b189ccb6f0ef0ee01652d82b96bbdc67ffedddb6c503e0e703914a8d8a7d7f8d",
+            "size": 42380,
+            "live_was": "f114a4baec623df4fbef567bd54b413de1ee4e37c821d22cff74851981a56ab4"
+        },
+        "website/js/tv-env-edit.js": {
+            "sha": "d7f6c713c38faebc12865dd7509d42f3a82b103f7f20659269b365ebaf5af9e0",
+            "size": 4735,
+            "live_was": "718e9668d53b2e6ddcfe9b528b518aca4a60dbb9f8dc7b5d28bdfc47524672af"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-17T11:55:14+00:00",
+            "by": 0,
+            "msg": "Uploaded domain-sales-team.zip: 4 files."
+        }
+    ]
+}
