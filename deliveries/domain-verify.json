@@ -1,8 +1,8 @@
 {
  "zip": "domain-verify.zip",
  "built_on": "7275a5c Sync: 2026-11-17 13:15 UTC",
- "recorded": "2026-11-17 13:19 UTC",
- "note": "Domains: per-year cost on multi-year terms; the registrant's contact confirmation followed until resolved (job, reminders, tab, resend, Pulse); domains date fallback fixed; Off wording corrected (Jason, 2026-11-17). Files: app/lib/AccountDomains.php, app/lib/EnvSettings.php, app/lib/Pulse.php, app/ui/faq.md, app/migrations/2027-03-12_account_domains_verify.sql, website/api/domains.php, website/js/tv-domains.js. built on Sync: 2026-11-17 13:15 UTC Sent through git (releases/inbox).",
+ "recorded": "2026-11-17 13:23 UTC",
+ "note": "Domains: per-year cost; the registrant's contact confirmation followed until resolved (Pulse case Critical at 3 days); domains date fallback fixed; Off wording corrected (Jason, 2026-11-17). Files: app/lib/AccountDomains.php, app/lib/EnvSettings.php, app/lib/Pulse.php, app/ui/faq.md, app/migrations/2027-03-12_account_domains_verify.sql, website/api/domains.php, website/js/tv-domains.js. built on Sync: 2026-11-17 13:15 UTC Sent through git (releases/inbox).",
  "status": "pending",
  "live_in": "",
  "files": {
@@ -15,7 +15,7 @@
    "live": false
   },
   "app/lib/Pulse.php": {
-   "sha256": "bb53cab86f7273b88c5c721b9e5f97c27b6f0b78918fcc9893c84873e835c7ad",
+   "sha256": "6fc10ff4d42779f7e04e10a75cff6a83791ac0ef8ebe0fd467720e52f8f8d4b5",
    "live": false
   },
   "app/migrations/2027-03-12_account_domains_verify.sql": {
