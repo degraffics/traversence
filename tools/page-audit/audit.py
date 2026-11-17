@@ -476,11 +476,11 @@ def exceptions(docs):
 
 # ---- R13: outside calls go through staging's gate (decisions/0165 §1) -------------------------------------------------
 # A function that makes an outside call (curl, an http file read, a socket) asks a gate first: StagingGate::, Staging::here/
-# allow/holdMail, ServiceHealth::allowed or Automation::gathering/hostOff/job, or says why it needn't with an "@gate" note
+# allow/holdMail, ServiceHealth::allowed or ::held (it asks StagingGate first) or Automation::gathering/hostOff/job, or says why it needn't with an "@gate" note
 # (a live-only call, a call to staging itself). The same scan as StagingGate::scanText, which staging runs nightly on its
 # own code. The message names the function, not the line, so only a new one counts against a zip.
 GATE_CALL = re.compile(r'\b(curl_init|curl_multi_init|fsockopen|stream_socket_client)\s*\(|file_get_contents\(\s*[\'"]https?:')
-GATE_OK = re.compile(r'StagingGate::|Staging::(here|allow|holdMail)|ServiceHealth::allowed|Automation::(gathering|hostOff|job)|@gate\b')
+GATE_OK = re.compile(r'StagingGate::|Staging::(here|allow|holdMail)|ServiceHealth::(allowed|held)|Automation::(gathering|hostOff|job)|@gate\b')
 FN = re.compile(r'^\s*(?:(?:public|private|protected|static|final|abstract)\s+)*function\s+(\w+)')
 
 def gate_scan(text):

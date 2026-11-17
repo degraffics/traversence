@@ -87,6 +87,12 @@ notice offers the way on: **Use live's answer** when there is one, **Allow it fo
 the switch on, else "Held on staging: ask our team (support@traversence.com)". Never a dead end. The site manager's
 **Held** list shows everything held, newest first, with the time in the zone it happened (`data-tv-time`).
 
+> **Note 2026-11-17 (Jason: "TEST MODE: ACTIVE (STAGE REPLIES ONLY) does this work?", yes):** a held call's notice now
+> starts **TEST MODE: ACTIVE (STAGE REPLIES ONLY)**, then which service wasn't called and why (held, sandbox only,
+> paced), then "Nothing was sent." (`StagingGate::said()`), e.g. "TEST MODE: ACTIVE (STAGE REPLIES ONLY) · Name.com wasn't
+> called (held on staging). Nothing was sent." The ledger keeps its own reason text. The same release gated the 36 calls
+> that skipped the gate, and AWS's staging answer ("allow") now covers the file store only: Textract, SES and SNS are held.
+
 **Added 2026-11-15 after Gemini's review (Jason: "GO"):**
 - **A raw outside call that skips the gates.** Our calls use curl directly, and Bluehost can't block the network for
   staging alone. So the zip check refuses any new outside call that doesn't go through the outside-services gate
