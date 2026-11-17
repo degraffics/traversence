@@ -3,8 +3,8 @@
  "built_on": "a9e0bad Sync: 2026-11-17 13:37 UTC",
  "recorded": "2026-11-17 13:48 UTC",
  "note": "The site's icon in every tab (favicon.ico, touch icon, app/ui/favicon.php in every shared head); built on Sync: 2026-11-17 13:37 UTC Sent through git (releases/inbox).",
- "status": "partial",
- "live_in": "",
+ "status": "live",
+ "live_in": "d2e626c Sync: 2026-11-17 18:36 UTC",
  "files": {
   "app/ui/auth-nav.php": {
    "sha256": "d3b211fb02359470219898a6b042f9598c20a236ac27504a6ab3c7929eca3638",
@@ -24,7 +24,7 @@
   },
   "trvgo/index.php": {
    "sha256": "a088b83378d2ddb91c8f20919c5235b2fb498012356a142417f9ef3569af1c70",
-   "live": false
+   "live": true
   },
   "website/admin/chamber-builder.php": {
    "sha256": "b4cf087e781e9b027d2df7cba9aeaf7b46a8ef879a56ae74ba1eb9e971cddd12",

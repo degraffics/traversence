@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-11-17T09:32:06Z",
+ "generated_at": "2026-11-17T19:17:21Z",
  "run_url": "https://github.com/degraffics/traversence/actions/runs/44054162267",
  "site": "https://traversence.com",
  "counts": {
@@ -33,27 +33,7 @@
    "verdict": "",
    "decided": false,
    "first_seen": "2026-11-14T19:17:24Z",
-   "last_seen": "2026-11-17T09:32:06Z"
-  },
-  {
-   "id": "f-8a89e784fe",
-   "who": [],
-   "paths": [],
-   "page": "",
-   "shot_url": "",
-   "kind": "code",
-   "rule": "R13",
-   "title": "the code breaks R13: 35 places",
-   "detail": "In 27 files. For example: website/api/ses-events.php:31 tv_sns_valid(): an outside call (curl_init) with no gate: ask StagingGate::hold($url, …) first, or say why not with an @gate note; website/api/ses-events.php:48 (top of file)(): an outside call (curl_init) with no gate: ask StagingGate::hold($url, …) first, or say why not with an @gate note; app/lib/StagingSite.php:566 barKeys(): an outside call (curl_init) with no gate: ask StagingGate::hold($url, …) first, or say why not with an @gate note",
-   "severity": "alert",
-   "sig": "f3afa2cea03c85b4",
-   "blocks": 0,
-   "proposal": "",
-   "proposal_url": "",
-   "verdict": "",
-   "decided": false,
-   "first_seen": "2026-11-15T19:17:27Z",
-   "last_seen": "2026-11-17T09:32:06Z"
+   "last_seen": "2026-11-17T19:17:21Z"
   },
   {
    "id": "f-fa035ddd5a",
@@ -78,7 +58,7 @@
    "verdict": "fix, to check in the build",
    "decided": true,
    "first_seen": "2026-11-12T17:55:55Z",
-   "last_seen": "2026-11-17T09:32:06Z"
+   "last_seen": "2026-11-17T19:17:21Z"
   },
   {
    "id": "f-c9499ea13e",
@@ -102,7 +82,7 @@
    "verdict": "",
    "decided": false,
    "first_seen": "2026-11-13T17:29:44Z",
-   "last_seen": "2026-11-17T09:32:06Z"
+   "last_seen": "2026-11-17T19:17:21Z"
   },
   {
    "id": "f-67aa8e62f6",
@@ -124,7 +104,7 @@
    "verdict": "",
    "decided": false,
    "first_seen": "2026-11-14T10:29:30Z",
-   "last_seen": "2026-11-17T09:32:06Z"
+   "last_seen": "2026-11-17T19:17:21Z"
   },
   {
    "id": "f-44997c18c9",
@@ -144,7 +124,7 @@
    "verdict": "accept with reasons, or fix",
    "decided": true,
    "first_seen": "2026-11-15T19:17:27Z",
-   "last_seen": "2026-11-17T09:32:06Z"
+   "last_seen": "2026-11-17T19:17:21Z"
   },
   {
    "id": "f-be75f4f580",
@@ -164,7 +144,7 @@
    "verdict": "fix, and missing",
    "decided": true,
    "first_seen": "2026-11-16T18:44:37Z",
-   "last_seen": "2026-11-17T09:32:06Z"
+   "last_seen": "2026-11-17T19:17:21Z"
   },
   {
    "id": "f-e6eb284ddf",
@@ -184,7 +164,7 @@
    "verdict": "",
    "decided": false,
    "first_seen": "2026-11-16T18:44:37Z",
-   "last_seen": "2026-11-17T09:32:06Z"
+   "last_seen": "2026-11-17T19:17:21Z"
   },
   {
    "id": "f-f91f4427ba",
@@ -204,7 +184,7 @@
    "verdict": "",
    "decided": false,
    "first_seen": "2026-11-16T18:44:37Z",
-   "last_seen": "2026-11-17T09:32:06Z"
+   "last_seen": "2026-11-17T19:17:21Z"
   },
   {
    "id": "f-fc2b825837",
@@ -224,7 +204,7 @@
    "verdict": "",
    "decided": false,
    "first_seen": "2026-11-16T18:44:37Z",
-   "last_seen": "2026-11-17T09:32:06Z"
+   "last_seen": "2026-11-17T19:17:21Z"
   },
   {
    "id": "f-8b971eeb05",
@@ -244,7 +224,7 @@
    "verdict": "",
    "decided": false,
    "first_seen": "2026-11-17T09:32:06Z",
-   "last_seen": "2026-11-17T09:32:06Z"
+   "last_seen": "2026-11-17T19:17:21Z"
   },
   {
    "id": "f-dff382e581",
@@ -264,7 +244,27 @@
    "verdict": "",
    "decided": false,
    "first_seen": "2026-11-17T09:32:06Z",
-   "last_seen": "2026-11-17T09:32:06Z"
+   "last_seen": "2026-11-17T19:17:21Z"
+  },
+  {
+   "id": "f-b404f283e6",
+   "who": [],
+   "paths": [],
+   "page": "",
+   "shot_url": "",
+   "kind": "code",
+   "rule": "R12",
+   "title": "outside services the code calls with no card in Outside services: 8 places",
+   "detail": "In 4 files. For example: workers/crawler/tests/test_paid.py:49 calls a.example, which is on no card in Outside services: add it to its company in OutsideServices::HOSTS (or a new card), or to site-audit/services-ignore.txt if it isn't a service; workers/crawler/tests/test_paid.py:50 calls b.example, which is on no card in Outside services: add it to its company in OutsideServices::HOSTS (or a new card), or to site-audit/services-ignore.txt if it isn't a service; workers/crawler/tests/test_indexer.py:16 calls big.example.org, which is on no card in Outside services: add it to its company in Out",
+   "severity": "update",
+   "sig": "d40397b322f9c189",
+   "blocks": 0,
+   "proposal": "",
+   "proposal_url": "",
+   "verdict": "",
+   "decided": false,
+   "first_seen": "2026-11-17T19:17:21Z",
+   "last_seen": "2026-11-17T19:17:21Z"
   }
  ]
 }
