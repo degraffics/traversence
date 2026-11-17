@@ -507,6 +507,75 @@
    "expires": "2026-11-17T17:55:08Z",
    "release": "preflight",
    "callers": {}
+  },
+  {
+   "path": "app/lib/Operations.php",
+   "functions": [
+    "pulseDo",
+    "pulseItems",
+    "pulseSteps"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kGG8gG4QBmC4uzMzN",
+   "why": "The pre-flight check: System Configuration \u2192 Pre-flight (decisions/0163 \u00a710 note 2026-11-16; Jason 2026-11-17)",
+   "since": "2026-11-17T13:55:10Z",
+   "expires": "2026-11-17T17:55:10Z",
+   "release": "preflight",
+   "callers": {
+    "pulseDo": [
+     "app/lib/Pulse.php"
+    ],
+    "pulseItems": [
+     "app/lib/Pulse.php"
+    ],
+    "pulseSteps": [
+     "app/lib/Pulse.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/SystemStart.php",
+   "functions": [
+    "panel"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kGG8gG4QBmC4uzMzN",
+   "why": "The pre-flight check: System Configuration \u2192 Pre-flight (decisions/0163 \u00a710 note 2026-11-16; Jason 2026-11-17)",
+   "since": "2026-11-17T13:55:10Z",
+   "expires": "2026-11-17T17:55:10Z",
+   "release": "preflight",
+   "callers": {
+    "panel": [
+     "app/admin/automation-console.php",
+     "app/admin/operations-console.php"
+    ]
+   }
+  },
+  {
+   "path": "app/admin/sections.php",
+   "functions": [
+    "tv_admin_mod_services"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kGG8gG4QBmC4uzMzN",
+   "why": "The pre-flight check: System Configuration \u2192 Pre-flight (decisions/0163 \u00a710 note 2026-11-16; Jason 2026-11-17)",
+   "since": "2026-11-17T13:55:10Z",
+   "expires": "2026-11-17T17:55:10Z",
+   "release": "preflight",
+   "callers": {}
+  },
+  {
+   "path": "website/api/crawl/index.php",
+   "functions": [
+    "(top)"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kGG8gG4QBmC4uzMzN",
+   "why": "The pre-flight check: System Configuration \u2192 Pre-flight (decisions/0163 \u00a710 note 2026-11-16; Jason 2026-11-17)",
+   "since": "2026-11-17T13:55:10Z",
+   "expires": "2026-11-17T17:55:10Z",
+   "release": "preflight",
+   "callers": {}
   }
  ],
  "lapsed": [
