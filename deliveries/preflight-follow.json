@@ -1,0 +1,22 @@
+{
+ "zip": "preflight-follow.zip",
+ "built_on": "d2e626c Sync: 2026-11-17 18:36 UTC",
+ "recorded": "2026-11-17 18:46 UTC",
+ "note": "Pre-flight: Run all's page follows the run live; built on Sync 18:36 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/admin/preflight-console.php": {
+   "sha256": "6bd7a4e6dcd18eb60e9463054ba667647a38d2fbb5c8e2b5b2e055d1490ce769",
+   "live": false
+  },
+  "website/admin/api.php": {
+   "sha256": "cf4ef4fee07b83346bc434e30688a758f50ffa4300413b14c18c3a82b6e33209",
+   "live": false
+  },
+  "website/js/admin-preflight.js": {
+   "sha256": "41097c8cdc71e2bd8d81e20aaac83f6f0848478258c72fb0252f0df8dfe7ea4a",
+   "live": false
+  }
+ }
+}

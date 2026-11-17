@@ -192,3 +192,14 @@ Check-out release names: `preflight` (release 1), `outside-table` (release 2, no
 - `preflight_tick` (15 min): a full run when `.env`'s time or size changed, and nightly after 2 am Arizona.
 - Pulse: `ops:preflight` through `Operations::pulseItems/Steps/Do`; a step per red line ("Test again", or its fix),
   outside fixes carry their URL, and a "Run it all" step.
+
+
+## preflight-follow (2026-11-17, built on Sync 18:36 UTC)
+
+The page that pressed Run all now follows the run live. Before, it waited for `start`'s answer, which on LiteSpeed came only at the end of the run, so the button spun and the counts stayed at 0. Now:
+- `begin()` polls `status` after 0.8 s whatever `start` does, and an ended state from an earlier run isn't taken as this run's end (`after`, 30 s).
+- The button spins only until the run shows as running.
+- `api.php` start calls `litespeed_finish_request()` where it exists.
+- `tv_preflight_live` sends `start`.
+
+Files: `website/js/admin-preflight.js`, `website/admin/api.php`, `app/admin/preflight-console.php`.
