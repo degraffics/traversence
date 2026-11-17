@@ -219,8 +219,8 @@
    "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
    "why": "W2 re-read: Common Crawl's copy when a website doesn't load for us; a recent copy sends it to a person instead of taking it off (0163 source map, c2)",
    "since": "2026-11-17T17:07:22Z",
-   "expires": "2026-11-17T21:07:22Z",
-   "release": "refresh-archive",
+   "expires": "2026-11-17T21:09:27Z",
+   "release": "refresh-archive.zip",
    "callers": {
     "complete": [
      "website/api/crawl/refresh.php"
