@@ -277,6 +277,66 @@
    "expires": "2026-11-17T17:48:36Z",
    "release": "favicon-everywhere.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/Preflight.php",
+   "functions": [
+    "ensure",
+    "finished"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kGG8gG4QBmC4uzMzN",
+   "why": "Pre-flight: a log of full runs, each with its report; the page opens fresh (Jason, 2026-11-17)",
+   "since": "2026-11-17T16:03:23Z",
+   "expires": "2026-11-17T20:03:23Z",
+   "release": "preflight-log",
+   "callers": {
+    "finished": [
+     "website/admin/api.php"
+    ]
+   }
+  },
+  {
+   "path": "app/admin/preflight-console.php",
+   "functions": [
+    "tv_admin_mod_preflight",
+    "tv_preflight_counts"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kGG8gG4QBmC4uzMzN",
+   "why": "Pre-flight: a log of full runs, each with its report; the page opens fresh (Jason, 2026-11-17)",
+   "since": "2026-11-17T16:03:23Z",
+   "expires": "2026-11-17T20:03:23Z",
+   "release": "preflight-log",
+   "callers": {
+    "tv_preflight_counts": [
+     "website/admin/api.php"
+    ]
+   }
+  },
+  {
+   "path": "website/js/admin-preflight.js",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5kGG8gG4QBmC4uzMzN",
+   "why": "Pre-flight: a log of full runs, each with its report; the page opens fresh (Jason, 2026-11-17)",
+   "since": "2026-11-17T16:03:23Z",
+   "expires": "2026-11-17T20:03:23Z",
+   "release": "preflight-log",
+   "callers": {}
+  },
+  {
+   "path": "website/admin/api.php",
+   "functions": [
+    "(top)"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kGG8gG4QBmC4uzMzN",
+   "why": "Pre-flight: a log of full runs, each with its report; the page opens fresh (Jason, 2026-11-17)",
+   "since": "2026-11-17T16:03:23Z",
+   "expires": "2026-11-17T20:03:23Z",
+   "release": "preflight-log",
+   "callers": {}
   }
  ],
  "lapsed": [
