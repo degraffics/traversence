@@ -217,7 +217,7 @@ SKIP_HOSTS = {"openstreetmap.org", "npino.com", "npiprofile.com", "npidb.org", "
 
 started = time.monotonic()
 WORKER_KEYS = ("GOOGLE_PLACES_KEY", "TAVILY_API_KEY", "BRAVE_API_KEY", "RIDB_API_KEY", "HF_TOKEN")   # reported by name at each run
-WORKER_V = "2.7.5"           # 2.7.5: a page whose reading had to stop is logged waiting to be read (P1-1); 2.7.4: reports which keys it has (names only), its per-run limits from the plan, Geofabrik's weekly load (osmium); 2.7.3: Geofabrik over IPv4; 2.7: the open-dataset loads and Geofabrik's test (Release B); the service's contract 2 (decisions/0160 §2): the site plans each run, the worker reports it; 2.4: calls by host; 2.5: issues, holds, probes, per-kind Overpass; 2.6: servers from the plan, the pace
+WORKER_V = "2.8.0"           # 2.8.0: every link on a page read goes to the page log (same site or not; no cap of 60, nor 40 other sites: W0, decisions/0164 §1.4); 2.7.5: a page whose reading had to stop is logged waiting to be read (P1-1); 2.7.4: reports which keys it has (names only), its per-run limits from the plan, Geofabrik's weekly load (osmium); 2.7.3: Geofabrik over IPv4; 2.7: the open-dataset loads and Geofabrik's test (Release B); the service's contract 2 (decisions/0160 §2): the site plans each run, the worker reports it; 2.4: calls by host; 2.5: issues, holds, probes, per-kind Overpass; 2.6: servers from the plan, the pace
 RUN_END = None             # when this run's own work must stop (started + TIME_BUDGET, or a bulk load's end)
 TASK_END = None            # when the capture task being worked must stop (its share of the run)
 FETCH_CAP = MAX_FETCHES    # fetches this run may have made by the end of the task being worked
@@ -1684,7 +1684,7 @@ def common_crawl(deadline):
         for f in facts:
             uniq.setdefault((f["name"].lower(), re.sub(r"\D", "", f["phone"])[-10:], f["address"][:20].lower()), f)
         res = site_call("/api/crawl/commoncrawl.php", tv_safe({"host": host, "crawl": crawl, "done": finished, "facts": list(uniq.values()), "log": rows,
-                                                               "outlinks": list({o["url"]: o for o in outlinks}.values())[:40]}))
+                                                               "outlinks": list({o["url"]: o for o in outlinks}.values())}))   # no cap of 40 (W0)
         log(f"Common Crawl {crawl}: {host}, {n} of {len(recs)} page(s) read, {len(uniq)} place(s), {res.get('kept', 0)} kept")
 
 
@@ -1800,7 +1800,7 @@ def read_source(deadline):
         k = known.get(url) or {}
         if k and url != start and k.get("due") is False:   # read lately and not due: its places kept, its links still lead on
             unchanged.append(url)
-            queue += [l for l in (k.get("links") or []) if l not in seen]
+            queue += [l for l in (k.get("links") or []) if l not in seen and host_of(l) == host]   # its own pages (the log keeps other sites' links too, 2.8.0)
             continue
         is_pdf = bool(re.search(r"\.pdf($|\?)", url, re.I))
         if is_pdf and pdfs >= SOURCE_PDFS:
@@ -1823,23 +1823,26 @@ def read_source(deadline):
             row["pending"] = True
         if r["status"] == 304:
             unchanged.append(url)
-            links = list(k.get("links") or [])
+            links = [l for l in (k.get("links") or []) if host_of(l) == host]   # its own pages lead on (2.8.0)
             row["links"] = links
         elif r["body"]:
             page = r["body"]
             here, kind, title = read_page(page, url)
             facts += here
             outlinks += own_site_links(page, url, host, here)
-            links = []
+            links, every = [], []
             for href in re.findall(r'(?i)href=["\']([^"\'#]+)', page):
                 full = join_url(url, href)
-                if host_of(full) == host and full.startswith("http") and not re.search(r"\.(jpe?g|png|gif|zip|docx?)$", full, re.I):
+                if not full.startswith("http"):
+                    continue
+                every.append(full)                      # every link, same site or not: the site logs them all (W0's frontier)
+                if host_of(full) == host and not re.search(r"\.(jpe?g|png|gif|zip|docx?)$", full, re.I):
                     links.append(full)
             links.sort(key=lambda u: 0 if any(h in u.lower() for h in LINK_HINTS) else 1)   # directory-like pages first
-            links = list(dict.fromkeys(links))[:60]
+            links = list(dict.fromkeys(links))           # no cap of 60 (W0, decisions/0164 §1.4's note)
             text = re.sub(r"\s+", " ", " ".join(page_lines(page)))
             row.update(fingerprint=hashlib.sha1(text.encode("utf-8", "replace")).hexdigest(), page_kind=kind, named=len(here),
-                       links=links, title=title)
+                       links=list(dict.fromkeys(links + every)), title=title)
         else:
             links = []
             if r.get("scan"):
@@ -1852,7 +1855,7 @@ def read_source(deadline):
         uniq.setdefault((f["name"].lower(), re.sub(r"\D", "", f["phone"])[-10:], f["address"][:20].lower()), f)
     res = site_call("/api/crawl/sources.php", tv_safe({"host": host, "pages": pages, "facts": list(uniq.values()),
                                                       "log": log_rows, "unchanged": unchanged, "extracted": extracted,
-                                                      "outlinks": list({o["url"]: o for o in outlinks}.values())[:40]}))
+                                                      "outlinks": list({o["url"]: o for o in outlinks}.values())}))   # no cap of 40 (W0)
     log(f"read source {host}: {pages} page(s), {pdfs} PDF(s), {extracted} extracted, {len(unchanged)} unchanged, {len(uniq)} place(s) found, "
         f"{res.get('kept', 0)} kept, {len(outlinks)} link(s) to other sites, {res.get('new_sites', 0)} new")
 
