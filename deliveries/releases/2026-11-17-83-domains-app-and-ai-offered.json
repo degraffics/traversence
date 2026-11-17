@@ -1,0 +1,44 @@
+{
+    "id": 83,
+    "title": "Domains: .app and .ai offered",
+    "why": "Jason, 2026-11-17: \"can we add .app, .ai to the list of what we would like to offer?\" Domains::TLDS gains app and ai, so Shop → Domains, the storefront's search and the Name.com card's Prices we pay table include them. An ending Name.com sells only for longer terms (.ai, from 2 years) opens on its shortest term with Name.com's price for it (Get Pricing for that term; not offered if Name.com gives none), never a 1-year price that can't be bought. FAQ: the endings listed, the longer minimum, and .app's HTTPS-only rule.",
+    "proposals": "",
+    "zip": "domain-tlds.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/ui/faq.md": {
+            "sha": "67309f6b435e4d904f6c5fd6c1e01fd813e75562c5d65904dbcc6ed059f5d39b",
+            "size": 318244,
+            "live_was": "25d269056f8c73782778655e2d0d54e3229c6249a2bd1794607ceac89e300102"
+        },
+        "app/lib/AccountDomains.php": {
+            "sha": "df2428246da2b51585c3fa300be7d772306bc3d9a617c3960969fbaf2fc855f1",
+            "size": 106281,
+            "live_was": "65c55888bd4dc61946a56f07f4f0df595e366b0d2b6f12416a5280926739b3ac"
+        },
+        "app/lib/Domains.php": {
+            "sha": "c71170f77c9bc00efa43763f964b340180b1ae01f800b79186c038aace3f3b47",
+            "size": 47785,
+            "live_was": "06fa486453dd9a8823a686694c174493bbb32e59dcd6a4119e955def1287fd93"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-17T13:42:56+00:00",
+            "by": 0,
+            "msg": "Uploaded domain-tlds.zip: 3 files."
+        }
+    ]
+}
