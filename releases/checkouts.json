@@ -76,6 +76,7 @@
   {
    "path": "app/lib/Domains.php",
    "functions": [
+    "(top)",
     "LOOKUP_PATHS",
     "api",
     "buy",
@@ -90,7 +91,7 @@
    "session": "domain-years",
    "why": "Name.com's Core API (/core/v1) for every call; storefront buy and renew follow Name.com's pricing guide (Jason, 2026-11-17)",
    "since": "2026-11-17T12:40:44Z",
-   "expires": "2026-11-17T16:49:37Z",
+   "expires": "2026-11-17T16:50:38Z",
    "release": "domain-years.zip",
    "callers": {
     "api": [
@@ -141,7 +142,7 @@
    "session": "domain-years",
    "why": "Name.com's Core API (/core/v1) for every call; storefront buy and renew follow Name.com's pricing guide (Jason, 2026-11-17)",
    "since": "2026-11-17T12:40:44Z",
-   "expires": "2026-11-17T16:49:37Z",
+   "expires": "2026-11-17T16:50:38Z",
    "release": "domain-years.zip",
    "callers": {
     "search": [
@@ -195,7 +196,7 @@
    "session": "domain-years",
    "why": "Domain purchases: 1-10 year terms with Name.com's real total; follow Name.com's pricing guide (Jason, 2026-11-17)",
    "since": "2026-11-17T12:40:44Z",
-   "expires": "2026-11-17T16:45:01Z",
+   "expires": "2026-11-17T16:50:38Z",
    "release": "domain-years.zip",
    "callers": {}
   },
@@ -206,7 +207,7 @@
    "session": "domain-years",
    "why": "Domain purchases: 1-10 year terms with Name.com's real total; follow Name.com's pricing guide (Jason, 2026-11-17)",
    "since": "2026-11-17T12:40:44Z",
-   "expires": "2026-11-17T16:45:01Z",
+   "expires": "2026-11-17T16:50:38Z",
    "release": "domain-years.zip",
    "callers": {}
   },
@@ -234,7 +235,7 @@
    "session": "domain-years",
    "why": "Domain purchases: 1-10 year terms with Name.com's real total; follow Name.com's pricing guide (Jason, 2026-11-17)",
    "since": "2026-11-17T12:40:57Z",
-   "expires": "2026-11-17T16:45:01Z",
+   "expires": "2026-11-17T16:50:38Z",
    "release": "domain-years.zip",
    "callers": {}
   },
@@ -245,7 +246,7 @@
    "session": "domain-years",
    "why": "Domain purchases: year picker styling",
    "since": "2026-11-17T12:43:03Z",
-   "expires": "2026-11-17T16:45:01Z",
+   "expires": "2026-11-17T16:50:38Z",
    "release": "domain-years.zip",
    "callers": {
     "tv_domains_view": [
