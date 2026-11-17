@@ -331,8 +331,8 @@
    "session": "session_01CXLi5kGG8gG4QBmC4uzMzN",
    "why": "Pre-flight: Run all resets every line and fills in like a log, with progress (Jason, 2026-11-17)",
    "since": "2026-11-17T15:10:24Z",
-   "expires": "2026-11-17T19:10:24Z",
-   "release": "preflight-refresh",
+   "expires": "2026-11-17T19:11:37Z",
+   "release": "preflight-refresh.zip",
    "callers": {}
   },
   {
@@ -346,6 +346,17 @@
    "since": "2026-11-17T15:10:24Z",
    "expires": "2026-11-17T19:10:24Z",
    "release": "preflight-refresh",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/preflight-console.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kGG8gG4QBmC4uzMzN",
+   "why": "release preflight-refresh.zip",
+   "since": "2026-11-17T15:11:37Z",
+   "expires": "2026-11-17T19:11:37Z",
+   "release": "preflight-refresh.zip",
    "callers": {}
   }
  ],
