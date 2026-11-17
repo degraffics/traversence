@@ -246,7 +246,7 @@
    "session": "session_01CXLi5hmaQuy1GKHaPQhoen",
    "why": "Every outside call asks StagingGate::hold() first; held calls say TEST MODE: ACTIVE (STAGE REPLIES ONLY) (Jason, 2026-11-17; decisions/0165)",
    "since": "2026-11-17T16:49:24Z",
-   "expires": "2026-11-17T20:53:23Z",
+   "expires": "2026-11-17T20:54:04Z",
    "release": "staging-gate.zip",
    "callers": {
     "hold": [
@@ -274,7 +274,7 @@
    "session": "session_01CXLi5hmaQuy1GKHaPQhoen",
    "why": "Every outside call asks StagingGate::hold() first; held calls say TEST MODE: ACTIVE (STAGE REPLIES ONLY) (Jason, 2026-11-17; decisions/0165)",
    "since": "2026-11-17T16:49:24Z",
-   "expires": "2026-11-17T20:53:23Z",
+   "expires": "2026-11-17T20:54:04Z",
    "release": "staging-gate.zip",
    "callers": {
     "held": [
@@ -388,7 +388,7 @@
    "session": "session_01CXLi5hmaQuy1GKHaPQhoen",
    "why": "Every outside call asks StagingGate::hold() first; held calls say TEST MODE: ACTIVE (STAGE REPLIES ONLY) (Jason, 2026-11-17; decisions/0165)",
    "since": "2026-11-17T16:49:24Z",
-   "expires": "2026-11-17T20:49:24Z",
+   "expires": "2026-11-17T20:54:04Z",
    "release": "staging-gate.zip",
    "callers": {}
   },
@@ -785,6 +785,259 @@
      "app/scripts/page_read_tick.php"
     ]
    }
+  },
+  {
+   "path": "app/lib/Captcha.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5hmaQuy1GKHaPQhoen",
+   "why": "release staging-gate.zip",
+   "since": "2026-11-17T16:54:04Z",
+   "expires": "2026-11-17T20:54:04Z",
+   "release": "staging-gate.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Operations.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5hmaQuy1GKHaPQhoen",
+   "why": "release staging-gate.zip",
+   "since": "2026-11-17T16:54:04Z",
+   "expires": "2026-11-17T20:54:04Z",
+   "release": "staging-gate.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/RegionGate.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5hmaQuy1GKHaPQhoen",
+   "why": "release staging-gate.zip",
+   "since": "2026-11-17T16:54:04Z",
+   "expires": "2026-11-17T20:54:04Z",
+   "release": "staging-gate.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/DocsRepo.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5hmaQuy1GKHaPQhoen",
+   "why": "release staging-gate.zip",
+   "since": "2026-11-17T16:54:04Z",
+   "expires": "2026-11-17T20:54:04Z",
+   "release": "staging-gate.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Guides.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5hmaQuy1GKHaPQhoen",
+   "why": "release staging-gate.zip",
+   "since": "2026-11-17T16:54:04Z",
+   "expires": "2026-11-17T20:54:04Z",
+   "release": "staging-gate.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/StagingSite.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5hmaQuy1GKHaPQhoen",
+   "why": "release staging-gate.zip",
+   "since": "2026-11-17T16:54:04Z",
+   "expires": "2026-11-17T20:54:04Z",
+   "release": "staging-gate.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/CPanelMail.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5hmaQuy1GKHaPQhoen",
+   "why": "release staging-gate.zip",
+   "since": "2026-11-17T16:54:04Z",
+   "expires": "2026-11-17T20:54:04Z",
+   "release": "staging-gate.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/SesMail.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5hmaQuy1GKHaPQhoen",
+   "why": "release staging-gate.zip",
+   "since": "2026-11-17T16:54:04Z",
+   "expires": "2026-11-17T20:54:04Z",
+   "release": "staging-gate.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/crawler/SiteFetcher.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5hmaQuy1GKHaPQhoen",
+   "why": "release staging-gate.zip",
+   "since": "2026-11-17T16:54:04Z",
+   "expires": "2026-11-17T20:54:04Z",
+   "release": "staging-gate.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/S3.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5hmaQuy1GKHaPQhoen",
+   "why": "release staging-gate.zip",
+   "since": "2026-11-17T16:54:04Z",
+   "expires": "2026-11-17T20:54:04Z",
+   "release": "staging-gate.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/SocialAuth.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5hmaQuy1GKHaPQhoen",
+   "why": "release staging-gate.zip",
+   "since": "2026-11-17T16:54:04Z",
+   "expires": "2026-11-17T20:54:04Z",
+   "release": "staging-gate.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/SiteHealth.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5hmaQuy1GKHaPQhoen",
+   "why": "release staging-gate.zip",
+   "since": "2026-11-17T16:54:04Z",
+   "expires": "2026-11-17T20:54:04Z",
+   "release": "staging-gate.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/QuickBooksPay.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5hmaQuy1GKHaPQhoen",
+   "why": "release staging-gate.zip",
+   "since": "2026-11-17T16:54:04Z",
+   "expires": "2026-11-17T20:54:04Z",
+   "release": "staging-gate.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/ResourceGuides.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5hmaQuy1GKHaPQhoen",
+   "why": "release staging-gate.zip",
+   "since": "2026-11-17T16:54:04Z",
+   "expires": "2026-11-17T20:54:04Z",
+   "release": "staging-gate.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Releases.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5hmaQuy1GKHaPQhoen",
+   "why": "release staging-gate.zip",
+   "since": "2026-11-17T16:54:04Z",
+   "expires": "2026-11-17T20:54:04Z",
+   "release": "staging-gate.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/GoogleAuth.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5hmaQuy1GKHaPQhoen",
+   "why": "release staging-gate.zip",
+   "since": "2026-11-17T16:54:04Z",
+   "expires": "2026-11-17T20:54:04Z",
+   "release": "staging-gate.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/CPanel.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5hmaQuy1GKHaPQhoen",
+   "why": "release staging-gate.zip",
+   "since": "2026-11-17T16:54:04Z",
+   "expires": "2026-11-17T20:54:04Z",
+   "release": "staging-gate.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/AuditClock.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5hmaQuy1GKHaPQhoen",
+   "why": "release staging-gate.zip",
+   "since": "2026-11-17T16:54:04Z",
+   "expires": "2026-11-17T20:54:04Z",
+   "release": "staging-gate.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/ZipPopulation.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5hmaQuy1GKHaPQhoen",
+   "why": "release staging-gate.zip",
+   "since": "2026-11-17T16:54:04Z",
+   "expires": "2026-11-17T20:54:04Z",
+   "release": "staging-gate.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/StockLibrary.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5hmaQuy1GKHaPQhoen",
+   "why": "release staging-gate.zip",
+   "since": "2026-11-17T16:54:04Z",
+   "expires": "2026-11-17T20:54:04Z",
+   "release": "staging-gate.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Aws.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5hmaQuy1GKHaPQhoen",
+   "why": "release staging-gate.zip",
+   "since": "2026-11-17T16:54:04Z",
+   "expires": "2026-11-17T20:54:04Z",
+   "release": "staging-gate.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/MarketPay.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5hmaQuy1GKHaPQhoen",
+   "why": "release staging-gate.zip",
+   "since": "2026-11-17T16:54:04Z",
+   "expires": "2026-11-17T20:54:04Z",
+   "release": "staging-gate.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/api/ses-events.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5hmaQuy1GKHaPQhoen",
+   "why": "release staging-gate.zip",
+   "since": "2026-11-17T16:54:04Z",
+   "expires": "2026-11-17T20:54:04Z",
+   "release": "staging-gate.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
