@@ -6,12 +6,12 @@
     "zip": "osm-ours.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "planned",
+    "state": "approved",
     "step": 0,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
-    "plan_at": null,
+    "plan_at": "2026-11-17 16:46:47",
     "staged_at": null,
     "vetted_at": null,
     "live_at": null,
@@ -59,6 +59,16 @@
             "at": "2026-11-17T16:46:45+00:00",
             "by": 0,
             "msg": "Uploaded osm-ours.zip: 7 files."
+        },
+        {
+            "at": "2026-11-17T16:46:47+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/osm-ours.zip (git 44c8429411)."
+        },
+        {
+            "at": "2026-11-17T16:46:47+00:00",
+            "by": 0,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
         }
     ]
 }
