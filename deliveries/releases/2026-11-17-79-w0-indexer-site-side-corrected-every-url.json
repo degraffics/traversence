@@ -1,0 +1,111 @@
+{
+    "id": 79,
+    "title": "W0 Indexer, site side (corrected): every URL found logged, the machine classifies sites, shipped switched off",
+    "why": "Replaces #78, whose migration MySQL refused (stored is a reserved word in MySQL 8; crawl_batches.stored is now stored_n). Otherwise the same release. Jason, 2026-11-17 (decisions/0164 §1.4's note: \"It should log all urls it finds because it will be identified at a later step\"; \"Put it first in the queue\"). 1) The frontier: every link on every page read is logged (normalized, de-duplicated, with its page and link text), same site or not; the old caps (60 links a page, 40 other sites a read) are gone on the site; a safety net flags a page with an absurd number of links, nothing dropped. 2) No 'Waiting for you' gate: the machine classifies every site by its address and what its home page says (tier 1-5, kind, status); chambers, tourism boards and organizations are Read regularly, their facts kept only as licence and terms allow (Jason's OK, 2026-11-17); commercial and social cite only; Facebook and Instagram never read; a tribal nation's site stays a person's call (R7); nothing already decided changes; today's waiting sites are classified by the hourly upkeep on the first pass. 3) The verdict loop: promoted, normal, demoted, junk on each URL and site, junk kept as its hash so it's never logged or read twice, frequent junk patterns become skip rules, every verdict in crawl_audit_log with Undo; a person's verdict outranks the machine's. 4) Reading priority: places we have first, then tier and verdict, links in, depth from a trusted source. 5) Size guard: a URL never read in 180 days keeps only its hash; size and growth recorded. 6) /api/crawl/index.php for the always-on worker (Release 2): work out, batches in, each with a receipt (stored count and checksum), keyed so a resend changes nothing; three mismatches in a row open a Pulse case. 7) W0 is its own workflow (switched off), first in Start the system; Pause everything stops it (the master); its budget line under Railway in the Service register; its settings in Thresholds. The key is sha1 (the page log's), not SHA-256 (Jason's OK). Tested on MariaDB: tools/w0-tests/frontier.php, 55 of 55.",
+    "proposals": "",
+    "zip": "w0-indexer-2.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/admin/sections.php": {
+            "sha": "023fe1b2e3c8bf1f203b9014601d1c4ceb0cf4b7f8baceddae38a309c8d11534",
+            "size": 239416,
+            "live_was": "ce89b335a811b5916cf3aa0282b7f6920b1ce9b9e438d1c2543d58dfbe13f7e4"
+        },
+        "app/admin/manifests.php": {
+            "sha": "a6956d76fd35735c6caf754b8042baa513dfdacac1712ac62a768c406cebc1a4",
+            "size": 21514,
+            "live_was": "aca205e2de5c43ccf629fe4ecb7a5beb8b5136be77397a41bd9a959fba05a837"
+        },
+        "app/admin/index-console.php": {
+            "sha": "3cbb506b519d76a53aed9451d375fc1e43f07e9214311f6aa4f288204591faf3",
+            "size": 15073,
+            "live_was": null
+        },
+        "app/ui/faq.md": {
+            "sha": "26a02fab0618d78af17d3de7843be53d41026571577a2f76ccae014607075a4b",
+            "size": 317367,
+            "live_was": "f539a66242f0360008c21695bb877db4217a2c936cf029b7523a9e73f87603eb"
+        },
+        "app/migrations/2027-03-12_w0_frontier.sql": {
+            "sha": "d59448e32599602ddeb0ca66ca780672bdfd791ea36a3125d5e12c7c618e7b04",
+            "size": 3815,
+            "live_was": null
+        },
+        "app/scripts/frontier_tick.php": {
+            "sha": "8de423ab1d3e9d85f23ea3c0ec4a18a125d968485b8b2eef0f7d687e93afe258",
+            "size": 1266,
+            "live_was": null
+        },
+        "app/lib/Scheduler.php": {
+            "sha": "2eb8b8509e6d8c32096a221884718733962121fa57ecc01c947106a11959a2e9",
+            "size": 27549,
+            "live_was": "95005927bbfefac339e2a48dbe137a7a205e5c7e3e7dc22460c3fa8e4c17ef12"
+        },
+        "app/lib/Operations.php": {
+            "sha": "ac1e9258946acb1c3cdedc77f32734cf1e6a8117c26973af7365f643187f864a",
+            "size": 61799,
+            "live_was": "e3e23dd9e1dd3db3d2580b2de807649adf25580416a1efdfcc7da9a31a16ef7f"
+        },
+        "app/lib/Thresholds.php": {
+            "sha": "18a7111b4456290cf3ce3bc629dfd54212ab80367406f480b27ab750bbc80c35",
+            "size": 24312,
+            "live_was": "ef0f4700b699a901e26f49b1712c619388c60e22e527a043a2996a1db7d890d1"
+        },
+        "app/lib/crawler/Frontier.php": {
+            "sha": "157978eb6e4501f475f56da3e0300b56aaa090b3844c3b526f97d5f864053d52",
+            "size": 61358,
+            "live_was": null
+        },
+        "app/lib/crawler/Sources.php": {
+            "sha": "0646345bf66af96cf84f38b5859a7b8e963aeec15f578b623fe36276e38c7d77",
+            "size": 48182,
+            "live_was": "180a1c51d2d62908c12b0211abecb46cc4b519ef92716018562e69535eb39006"
+        },
+        "app/lib/crawler/SourceIndex.php": {
+            "sha": "ae263792a120c20083d11e1c12d0bd9a68637c4580ba77fa7b8319847618ea14",
+            "size": 72454,
+            "live_was": "115b2ba62b89b820f813846b6ec526ba1c12a816c01653056e8483d02b1ec574"
+        },
+        "app/lib/OutsideServices.php": {
+            "sha": "7ac6eb08d9a39ce9c435d4e44938fefc4ab699c52af04fbd4df2271a8e21fe9e",
+            "size": 76777,
+            "live_was": "b455d1f828627c4ca0a1652c20c558782bd42926d167899e75cfef6673253511"
+        },
+        "app/lib/Automation.php": {
+            "sha": "6f6733ee5a50e47b261dc4723cab01bf9350e3e749c1c0d0a653c4364a7f5787",
+            "size": 22028,
+            "live_was": "70f9c0c2a10073943f3185792acc83d2bc98767f733b5094e68b1d3a595a4040"
+        },
+        "app/lib/SystemStart.php": {
+            "sha": "744565e10b649234dda61cab67f5887c8146cdecca97891dedbdd67c8f44abe7",
+            "size": 40635,
+            "live_was": "8c890015efe77fda98ddf77088bc1b3a1b15eff69fe1147827f2a993bfff25a0"
+        },
+        "website/api/crawl/index.php": {
+            "sha": "00333a24febbefa4b8f99b25bf73bffd8949c3e6e1d1cac9bde9986ab1fb0b01",
+            "size": 5147,
+            "live_was": null
+        }
+    },
+    "migrations": [
+        "app/migrations/2027-03-12_w0_frontier.sql"
+    ],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-17T13:12:28+00:00",
+            "by": 0,
+            "msg": "Uploaded w0-indexer-2.zip: 16 files."
+        }
+    ]
+}
