@@ -37,6 +37,28 @@
    "expires": "2026-11-17T23:23:54Z",
    "release": "switchon-group.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/SystemStart.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
+   "why": "Start the system self-contained: fixes inline, Check again, steps' life, run log by session (Jason, 2026-11-17)",
+   "since": "2026-11-17T20:00:35Z",
+   "expires": "2026-11-18T00:00:35Z",
+   "release": "start-inline",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/automation-console.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
+   "why": "Start the system self-contained: fixes inline, Check again, steps' life, run log by session (Jason, 2026-11-17)",
+   "since": "2026-11-17T20:00:35Z",
+   "expires": "2026-11-18T00:00:35Z",
+   "release": "start-inline",
+   "callers": {}
   }
  ],
  "lapsed": [
