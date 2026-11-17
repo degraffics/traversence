@@ -65,15 +65,16 @@
    "path": "app/lib/AccountDomains.php",
    "functions": [
     "addToCart",
+    "autoRenew",
     "register",
     "renewPrice",
     "search"
    ],
    "kind": "change",
    "session": "domain-live-search",
-   "why": "Test mode searches Name.com live (real availability and prices), buys in the sandbox; no guessed renewal prices (Jason, 2026-11-17)",
+   "why": "Test mode searches Name.com live; no guessed renewal prices (Jason, 2026-11-17)",
    "since": "2026-11-17T12:17:57Z",
-   "expires": "2026-11-17T16:17:57Z",
+   "expires": "2026-11-17T16:19:28Z",
    "release": "",
    "callers": {
     "search": [
