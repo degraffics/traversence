@@ -554,6 +554,19 @@
      "website/admin/w.php"
     ]
    }
+  },
+  {
+   "path": "app/ui/outside-services.php",
+   "functions": [
+    "tv_os_requests"
+   ],
+   "kind": "change",
+   "session": "outside-requests-fix",
+   "why": "Outside requests: form limits match",
+   "since": "2026-11-17T14:00:37Z",
+   "expires": "2026-11-17T18:00:37Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
