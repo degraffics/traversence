@@ -30,35 +30,8 @@ Check-out release names: `preflight` (release 1), `outside-table` (release 2, no
   service; azliquor.gov's Cloudflare challenge; GITHUB_SYNC_TOKEN expires Dec 16, 2026; the switch-on check holds W1, W2,
   W3, W11, W12 for BRAVE_API_KEY though Tavily is the search (Operations::switchOnCheck; Jason's call); Domains::fly sends
   Bearer, so a macaroon FLY_API_TOKEN fails there too (domains session); 36 ungated outside calls (StagingGate::scan).
-- **Release 2, Outside services as a table:** waits for release 1 to be live (both touch `app/admin/sections.php`), then
-  start from the live `OutsideServices.php`, `app/ui/outside-services.php` and `sections.php` (outside-requests is live
-  as #84 and #87, so its claims have ended). Plan below.
-
-## How it works
-
-- `Preflight::lines()`: one list in run order: the site, every `OutsideServices::COMPANIES` key (`svc:<key>`: each
-  card's Test, one status), Railway and W0 (`rw:*`), the query timings (`ms:*`), the workflows in `SystemStart::ORDER`
-  plus W14 (`wf:*`), the new tasks (`t:*`), then 0164's phases (`ph:*`, last, since they roll up the workflows).
-  Each: [group, name, needed for launch, company, workflow]. Needed for launch: the site's lines, Railway and W0, and
-  companies W0 or W1 use (plus Bluehost, Railway, GitHub).
-- Each test returns [ok|bad|na|wait, the service's own answer, what was tested, fixes]. Fixes: `['do', act, label]`
-  (the site fixes it: `sched` = Scheduler::sync, `dbup` = DbUpdates::autoRun), `['url', label, url]`, `['tool', label,
-  admin url]`. Answers pass through `clean()` (no key=value or JSON secret, no 32+ character token).
-- Calls: `http()` asks `StagingGate::hold()` first and skips a host held by an open ServiceHealth issue; a service only
-  paused on Automation is still tested (read-only). Nothing charges: Stripe only with an `sk_test_` key, Square and
-  Name.com only their sandboxes, Places and Tavily never called (their keys are on Railway: the crawler's key report).
-- W0's batch: the line stores `w0:test_ask`; the next check-in hands it out once (`Preflight::takeTestAsk`); the worker
-  posts kind `test` (never stored); the line reads the receipt in `crawl_batches` after the ask.
-- `preflight_tick` (15 min): a full run when `.env`'s time or size changed, and nightly after 2 am Arizona.
-- Pulse: `ops:preflight` through `Operations::pulseItems/Steps/Do`; a step per red line ("Test again", or its fix),
-  outside fixes carry their URL, and a "Run it all" step.
-
-## Release 2 plan: Outside services as a table (Jason, 2026-11-17)
-
-The admin's table widget, one row per company: name, what we use it for, status ✓/✗/— (from `Preflight::result('svc:'
-. key)`, the same status), this month's cost, last checked. Search across names, uses and key names
-(`OutsideServices::searchText`); one filter dropdown (status: needs a look, in use, not in use; kind: storage, email,
-payments, AI, sign-in, data sources, domains, workers, hosting); sort by status (default), name, cost; a row opens to
-today's full card in place, nothing dropped; filter and search remembered. The pre-flight's ✗ on a company links to its
-row (`/admin/config/services#svc-<key>`, kept as the row's id). Each card's Test button runs `svc:<key>` through
-`/admin/api/config/preflight`.
+- **Release 2, `outside-table.zip`** (built on Sync 14:43 UTC, sent 2026-11-17): Outside services as a table: row per
+  company (name, use, ✓/✗/— from its pre-flight line, this month's cost, last checked), search (names, uses, key names),
+  one filter (status or kind, `OutsideServices::KINDS`/`KIND_NAMES`), sort (status default, name, cost), the card opens
+  in place (`js/admin-outside.js`, kept in localStorage `os:table`), Test on each card (pre-flight `svc:<key>`); the
+  pre-flight's Brave line checks BRAVE_API_KEY (Jason: Brave and Tavily both live and ready).
