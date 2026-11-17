@@ -3,36 +3,36 @@
  "built_on": "7275a5c Sync: 2026-11-17 13:15 UTC",
  "recorded": "2026-11-17 13:23 UTC",
  "note": "Domains: per-year cost; the registrant's contact confirmation followed until resolved (Pulse case Critical at 3 days); domains date fallback fixed; Off wording corrected (Jason, 2026-11-17). Files: app/lib/AccountDomains.php, app/lib/EnvSettings.php, app/lib/Pulse.php, app/ui/faq.md, app/migrations/2027-03-12_account_domains_verify.sql, website/api/domains.php, website/js/tv-domains.js. built on Sync: 2026-11-17 13:15 UTC Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "670536f Sync: 2026-11-17 13:26 UTC",
  "files": {
   "app/lib/AccountDomains.php": {
    "sha256": "65c55888bd4dc61946a56f07f4f0df595e366b0d2b6f12416a5280926739b3ac",
-   "live": false
+   "live": true
   },
   "app/lib/EnvSettings.php": {
    "sha256": "dca7194df047e13669a7c63d116fc8fa4b9fc2de800bff717cdfceda653e0be0",
-   "live": false
+   "live": true
   },
   "app/lib/Pulse.php": {
    "sha256": "6fc10ff4d42779f7e04e10a75cff6a83791ac0ef8ebe0fd467720e52f8f8d4b5",
-   "live": false
+   "live": true
   },
   "app/migrations/2027-03-12_account_domains_verify.sql": {
    "sha256": "f3f0006c97881bb137e004fcbb5e38f8e314ac78fc4627676a67c17bd71144c9",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "25d269056f8c73782778655e2d0d54e3229c6249a2bd1794607ceac89e300102",
-   "live": false
+   "live": true
   },
   "website/api/domains.php": {
    "sha256": "12647b7eb0a569b8783279e72e981567097eb9c664ae208cd81d85f55c7922a6",
-   "live": false
+   "live": true
   },
   "website/js/tv-domains.js": {
    "sha256": "9765b84f92991f222c7be9fd7952c45136fea535d6a0eb18619d4cbbeb013705",
-   "live": false
+   "live": true
   }
  }
 }
