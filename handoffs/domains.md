@@ -160,3 +160,19 @@ Changed: `app/lib/Billing.php` (start, setCard, cardFrom), `app/lib/Team.php` (h
 ## For the next session (the Storefront app, 0169 app 6)
 `AccountDomains` (search, addToCart, forOwner, the Domains view) and `Wallet` are callable as they are; joining a
 storefront to one of the account's domains is the app's job, with `Domains` (the edge, certificates, `business_domains`).
+
+## 2026-11-17: separate switch, live search, terms, Core API (releases #72–#76)
+- **Switches:** `DOMAIN_SALES_MODE` ("Domain sales", on the Name.com card at https://traversence.com/admin/config/services)
+  governs Shop → Domains, the Domains tab and the wallet's domain charges; `DOMAINS_MODE` is only the storefront's own
+  domain (#72). Settings with set answers offer choices and the next step (#73). Test mode counts the Founder admin as our
+  team (`Domains::isTeam`, #74). Domain sales are on **Test**.
+- **Search in a test reads Name.com live**, read only (`Domains::lookupLive`: checkAvailability and getPricing only);
+  buying stays in the sandbox, which is asked first whether it can register the name (#75).
+- **Terms and the Core API** (release `domain-years`): 1, 2, 3, 4, 5 or 10 years per name, priced by Get Pricing for
+  that many years, markup once a year, `domain_cart.years`; every call on `/core/v1` (paths and fields checked against the
+  official SDK `@namecom/core-api` 1.36.4); registrations only; no `purchasePrice` on a standard create or renew; Name.com
+  auto-renew off on create (we renew, card first); `X-Idempotency-Key` on create and renew. Storefront buy and renew too.
+- **Open with Jason:** the price policy (one steady yearly price vs Name.com's first-year deal), after he reviews real
+  prices; whether to ask Name.com about reseller pricing or compare wholesalers (OpenSRS, ResellerClub, Namecheap).
+- **Next build candidates:** contact verification status on the Domains tab (`GET /core/v1/contacts/unverified`; a
+  domain stops resolving if the registrant doesn't verify within 15 days); TLD requirements before checkout for ccTLDs.
