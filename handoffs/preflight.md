@@ -114,7 +114,7 @@ Check-out release names: `preflight` (release 1), `outside-table` (release 2, no
   could serve it), AZCC and NM SOS readers, W14, file storage's retry and old-bucket read.
 
 - **(c2, large builds)** (Jason, 2026-11-17: "Large Builds: Go ahead and start this"; release `large-fallbacks`, claims held):
-  sent as `large-fallbacks.zip` after #851 went live as #104; rebuilt on Sync 17:57 UTC after #105 (job-links) changed
+  live as **#106** (Sync 18:09 UTC, all four files verified); sent as `large-fallbacks.zip` after #851 went live as #104; rebuilt on Sync 17:57 UTC after #105 (job-links) changed
   faq.md: `app/lib/GuideLinks.php`, `app/lib/Scheduler.php`, `app/ui/faq.md`, and `app/lib/Operations.php` (W1's real
   blocker in Jason's 17:56 report: Issue #1, overpass-api.de's 406, held the whole OpenStreetMap service and so W1;
   `Operations::status` now asks `serverScoped()`: a hold on one server stays on it, and holds the service only when no
@@ -137,6 +137,13 @@ Check-out release names: `preflight` (release 1), `outside-table` (release 2, no
     each source's use needs Jason's call (decisions/0164: the licence decides the use) before code.
   - Passed to the session manager (Jason): stock photos' order (0143 interleaves on purpose) and a menu reader (none
     exists; Document AI → Textract → Claude).
+
+- **Lesson (2026-11-17, #106):** a zip rebuilt and re-sent under the **same name** stalls at "Plan approved" ("taken from
+  the inbox (it was already in)"); Jason had to stage and publish it by hand. Until the site's inbox handles it, give a
+  rebuilt zip a new name (`large-fallbacks-2.zip`). Queued in the session manager's cleanup.
+- **State at 18:10 UTC:** (b), (c1) and (c2) are live (#101, #103, #104, #106). Waiting on Jason: the Arizona and New
+  Mexico registry requests (decisions/0164 §7.1's note), heritage's Commons licence call, his OK on that note, and his
+  pre-flight run before Start the system.
 
 ## How it works
 
