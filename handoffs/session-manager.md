@@ -239,6 +239,12 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
        as a step if he agrees.
      - `GITHUB_SYNC_TOKEN` expires Dec 16, 2026: renew at https://github.com/settings/tokens. (`HF_TOKEN` and
        `BRAVE_API_KEY` are set on Railway.)
+     - **Pulse shows what each person has read** (Jason, 2026-11-17: "also need a way to know when Ive read something in
+       the pulse"): Pulse items and cases have no read state per person today (only message threads and sources' rules
+       do). Add it: an item is **unread** (bold, a dot) for each staff member until they open it; it goes unread again
+       when something new happens on it (a step, a note, a change of status); a filter "Unread" in the list's one
+       filter dropdown and a count on Pulse's tab; "Mark all read" and "Mark unread" per item. Read state is per person,
+       so two people can see what the other hasn't opened; kept small (one row per person per item, last seen time).
      **Visual fixes** (Jason, 2026-11-17: "add to visual fixes queue"):
      - **Discovery's hero doesn't follow the process already decided** (Jason, 2026-11-17: "when I click regions it
        doesnt really feel like the page changes visually … The hero is not changing like it should", then "I thought I
