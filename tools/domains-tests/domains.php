@@ -51,7 +51,7 @@ foreach ([1, 2] as $run) foreach (DbUpdates::statements($sql) as $q) { $st = $c-
 ok((int) $c->query('SELECT COUNT(*) FROM wallet_cards')->fetchColumn() === 2, 'migration (twice): each plan card copied into the wallet once');
 ok($c->query("SELECT env FROM wallet_cards WHERE card_ref = 'MCARD-test222'")->fetchColumn() === 'sandbox' && $c->query("SELECT env FROM wallet_cards WHERE card_ref = 'MCARD-old111'")->fetchColumn() === '', 'migration: a test account\'s plan card goes into its test wallet, a member\'s into the live one');
 ok((int) $c->query("SELECT COUNT(*) FROM wallet_assignments WHERE item_type = 'plan' AND item_id = 1 AND ended_at IS NULL")->fetchColumn() === 1, 'migration: the plan is assigned its card once');
-ok($c->query("SELECT DATA_TYPE FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = 'tvtest' AND TABLE_NAME = 'cart_plans' AND COLUMN_NAME = 'owner_type'")->fetchColumn() === 'varchar', 'migration: cart_plans.owner_type takes domain');
+ok($c->query("SELECT DATA_TYPE FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = 'tvtest' AND TABLE_NAME = 'cart_plans' AND COLUMN_NAME = 'owner_type'")->fetchColumn() === 'enum', 'migration: add-only (cart_plans untouched; domains ride as oneoff lines)');
 ok((int) $c->query("SELECT COUNT(*) FROM subscriptions WHERE card_id IN ('MCARD-old111','MCARD-test222')")->fetchColumn() === 2, 'migration: subscriptions untouched');
 
 require_once $app . '/lib/Database.php';
@@ -91,7 +91,7 @@ ok(CartPlans::tokensNeeded($pdo, 1) === 1, 'cart: a new card needs one token');
 // ---- paying: one charges, the other fails at Name.com and is refunded
 putenv('DOMAINS_MOCK_FAIL=["pinecafe.store"]');
 $done = CartPlans::pay($pdo, 1, ['mock-4242']);
-ok(count($done) === 1 && !(int) $c->query("SELECT COUNT(*) FROM cart_plans WHERE owner_type = 'domain'")->fetchColumn(), 'pay: the cart\'s domain lines are paid and come out');
+ok(count($done) === 1 && !(int) $c->query("SELECT COUNT(*) FROM cart_plans WHERE item LIKE 'domain%'")->fetchColumn(), 'pay: the cart\'s domain lines are paid and come out');
 $o = $c->query('SELECT * FROM orders ORDER BY id DESC LIMIT 1')->fetch(PDO::FETCH_ASSOC);
 ok($o['total_cents'] == 1799 + 2499 && $o['status'] === 'part_refunded', 'pay: one order, charged once, the failed one refunded (part refunded)');
 $lines = $c->query('SELECT * FROM order_lines WHERE order_id = ' . (int) $o['id'] . ' ORDER BY id')->fetchAll(PDO::FETCH_ASSOC);
