@@ -1,0 +1,30 @@
+{
+ "zip": "preflight-log.zip",
+ "built_on": "f36fef6 Sync: 2026-11-17 15:58 UTC",
+ "recorded": "2026-11-17 16:05 UTC",
+ "note": "Pre-flight: run log with reports, page opens fresh; built on Sync: 2026-11-17 15:58 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/admin/preflight-console.php": {
+   "sha256": "190d255b9cc50db9acaa3c6ce7047ffac34787f63c8d9803c76ef06b1877b4c1",
+   "live": false
+  },
+  "app/lib/Preflight.php": {
+   "sha256": "95b71a97276a4069c9b614594022e0f57927e47af7e9fcf51f5b8e9f3846c57d",
+   "live": false
+  },
+  "app/lib/staging-tables.php": {
+   "sha256": "f057f89df788d9f4a4d1a1503eba67b3c6edafeef9f09d61db5f074c94bc71c9",
+   "live": false
+  },
+  "website/admin/api.php": {
+   "sha256": "fdc8974b7a59442e54ec46d6b8f230cbc11ba4676d0534c3ef951bc50de85261",
+   "live": false
+  },
+  "website/js/admin-preflight.js": {
+   "sha256": "f1a48f83ec517979ab598ba8db7e3a7b0d9d39fac9706194f66221bd0aac801e",
+   "live": false
+  }
+ }
+}
