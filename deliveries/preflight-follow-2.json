@@ -1,8 +1,8 @@
 {
- "zip": "preflight-follow.zip",
+ "zip": "preflight-follow-2.zip",
  "built_on": "d2e626c Sync: 2026-11-17 18:36 UTC",
- "recorded": "2026-11-17 18:46 UTC",
- "note": "Pre-flight: Run all's page follows the run live; built on Sync 18:36 UTC Sent through git (releases/inbox).",
+ "recorded": "2026-11-17 19:20 UTC",
+ "note": "Re-send of preflight-follow.zip (#109, withdrawn: its release.json said switch \"none\"); same code, switch empty. Built on Sync 18:36 UTC Sent through git (releases/inbox).",
  "status": "pending",
  "live_in": "",
  "files": {
