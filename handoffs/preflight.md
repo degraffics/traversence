@@ -192,3 +192,29 @@ Check-out release names: `preflight` (release 1), `outside-table` (release 2, no
 - `preflight_tick` (15 min): a full run when `.env`'s time or size changed, and nightly after 2 am Arizona.
 - Pulse: `ops:preflight` through `Operations::pulseItems/Steps/Do`; a step per red line ("Test again", or its fix),
   outside fixes carry their URL, and a "Run it all" step.
+
+
+## preflight-follow (2026-11-17, built on Sync 18:36 UTC)
+
+The page that pressed Run all now follows the run live. Before, it waited for `start`'s answer, which on LiteSpeed came only at the end of the run, so the button spun and the counts stayed at 0. Now:
+- `begin()` polls `status` after 0.8 s whatever `start` does, and an ended state from an earlier run isn't taken as this run's end (`after`, 30 s).
+- The button spins only until the run shows as running.
+- `api.php` start calls `litespeed_finish_request()` where it exists.
+- `tv_preflight_live` sends `start`.
+
+Files: `website/js/admin-preflight.js`, `website/admin/api.php`, `app/admin/preflight-console.php`.
+
+## hub-gate-preflight-2 (2026-11-17, built on Sync 18:36 UTC; replaces hub-gate-preflight, never sent)
+
+After Start, the switch-on check held the master on 20 "Opening a geo-hub" lines. There were three causes:
+- A hub with no `hub_stages` row defaulted to Open.
+- A hub with no state got `sources($pdo, '')`, which returns every state's sources.
+- The hub lines held everything (scope 'all').
+
+The fix (Jason, 2026-11-17; 0163 §10's note; 0170 §2):
+- A hub's stage now comes from `hubs.status` when no stage row is set.
+- A hub's sources are those of its own states (`states`: every state of its micro-clusters' zips). It has none when no state is known.
+- The hub lines' scope is **W14**, so they hold W14 only.
+- The pre-flight's `site:switchon` is red only for lines that hold everything; a part's red lines are named but don't count.
+
+After it ships, Ancient America's line stays red for W14 alone until AZ's and NM's terms are read in Pulse → Hubs. Start's master no longer waits on it.

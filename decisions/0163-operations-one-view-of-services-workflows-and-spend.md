@@ -291,6 +291,12 @@ anything run:
      terms still valid and readers passing, before they switch on with the hub; **"opening budget not set"** named with a
      button to set it (H5). For a hub already open (Arizona, New Mexico), the same line runs when a newly staged source's
      card is switched on (H3).
+     **Note (Jason, 2026-11-17, after Start held on 20 hub lines; decisions/0170 §2):** the hub lines hold **W14 only**
+     (authority sources, the one reader of `authority_sources`), never the master switch or W0–W13. A hub's stage is about
+     our team's support (staff, sales, the opening budget), never about gathering or showing data: "we don't restrict data
+     to fill where hubs exist, we just don't offer support in those hubs yet." Unread terms or an untested reader keep W14
+     off and nothing else. A hub's sources are those of its own states (its micro-clusters' zips); a hub with no stage set
+     takes it from `hubs.status`, and one with no state recorded has none (release hub-gate-preflight-2).
    Anything red keeps that part paused with the reason; the rest can start.
    **Built in Release A (release #55, 2026-11-15)**: `Operations::switchOnCheck()`, on the Workflow board and the
    Automation page. **Jason, 2026-11-15: the master switch stays off until Release B is built**; the check refuses
