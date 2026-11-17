@@ -371,34 +371,6 @@
    "callers": {}
   },
   {
-   "path": "website/js/tv-domains.js",
-   "functions": [],
-   "kind": "change",
-   "session": "domain-wording",
-   "why": "Domains wording: available, not free (Jason, 2026-11-17)",
-   "since": "2026-11-17T13:52:16Z",
-   "expires": "2026-11-17T17:52:19Z",
-   "release": "domain-wording.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/AccountDomains.php",
-   "functions": [
-    "addToCart"
-   ],
-   "kind": "change",
-   "session": "domain-wording",
-   "why": "Domains wording: available, not free (Jason, 2026-11-17)",
-   "since": "2026-11-17T13:52:16Z",
-   "expires": "2026-11-17T17:52:19Z",
-   "release": "domain-wording.zip",
-   "callers": {
-    "addToCart": [
-     "website/api/domains.php"
-    ]
-   }
-  },
-  {
    "path": "app/lib/Preflight.php",
    "functions": [],
    "kind": "add",
