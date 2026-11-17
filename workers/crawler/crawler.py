@@ -217,7 +217,7 @@ SKIP_HOSTS = {"openstreetmap.org", "npino.com", "npiprofile.com", "npidb.org", "
 
 started = time.monotonic()
 WORKER_KEYS = ("GOOGLE_PLACES_KEY", "TAVILY_API_KEY", "BRAVE_API_KEY", "RIDB_API_KEY", "HF_TOKEN")   # reported by name at each run
-WORKER_V = "2.9.0"           # 2.9.0: W1 reads our OpenStreetMap copy first (the job's "ours", from Geofabrik), Overpass only for a kind or town it lacks, and works on while every Overpass server is held (decisions/0163's source map); 2.8.0: every link on a page read goes to the page log (same site or not; no cap of 60, nor 40 other sites: W0, decisions/0164 §1.4); 2.7.5: a page whose reading had to stop is logged waiting to be read (P1-1); 2.7.4: reports which keys it has (names only), its per-run limits from the plan, Geofabrik's weekly load (osmium); 2.7.3: Geofabrik over IPv4; 2.7: the open-dataset loads and Geofabrik's test (Release B); the service's contract 2 (decisions/0160 §2): the site plans each run, the worker reports it; 2.4: calls by host; 2.5: issues, holds, probes, per-kind Overpass; 2.6: servers from the plan, the pace
+WORKER_V = "2.10.0"          # 2.10.0: web search falls to Brave when Tavily fails or is held; Google Places as the paid backup for confirming a business in the identity check, only by a director's override within its cap (decisions/0163's source map); 2.9.0: W1 reads our OpenStreetMap copy first (the job's "ours", from Geofabrik), Overpass only for a kind or town it lacks, and works on while every Overpass server is held (decisions/0163's source map); 2.8.0: every link on a page read goes to the page log (same site or not; no cap of 60, nor 40 other sites: W0, decisions/0164 §1.4); 2.7.5: a page whose reading had to stop is logged waiting to be read (P1-1); 2.7.4: reports which keys it has (names only), its per-run limits from the plan, Geofabrik's weekly load (osmium); 2.7.3: Geofabrik over IPv4; 2.7: the open-dataset loads and Geofabrik's test (Release B); the service's contract 2 (decisions/0160 §2): the site plans each run, the worker reports it; 2.4: calls by host; 2.5: issues, holds, probes, per-kind Overpass; 2.6: servers from the plan, the pace
 RUN_END = None             # when this run's own work must stop (started + TIME_BUDGET, or a bulk load's end)
 TASK_END = None            # when the capture task being worked must stop (its share of the run)
 FETCH_CAP = MAX_FETCHES    # fetches this run may have made by the end of the task being worked
@@ -497,7 +497,11 @@ OSM_INCOMPLETE = set()   # jobs whose kinds weren't all asked this run (the gap 
 OSM_RECENT = set()    # the site's town-and-kind queries already asked (3 months, Jason 2026-11-14): not asked again
 OSM_ASKED = []        # this run's, once their places reached the site: [{key, n}]
 OSM_PENDING = {}      # the keys of the job being worked, sent with its results
-OURS_USED = {"kinds": 0}   # kinds answered from our OpenStreetMap copy this run (the job's "ours"; 2.9.0), not Overpass
+OURS_USED = {"kinds": 0}
+# Paid backups by a director's override (decisions/0163's source map, step 3): the site's plan says how many this run may
+# use ("paid_backups"), only while no free source worked; 0 or missing: off. What was used goes back in the run's report.
+PAID = {"places_confirm": 0}
+PAID_USED = {"places_confirm": 0}   # kinds answered from our OpenStreetMap copy this run (the job's "ours"; 2.9.0), not Overpass
 
 
 def osm_key(job, flt):
@@ -1140,8 +1144,11 @@ def npi_lookup(lst):
     return found
 
 
+SEARCH_SWITCHES = {}   # searches a backup engine answered after the first failed or was held, this run: {engine: n}
+
+
 def search(query):
-    """One web search (Tavily, else Brave); a list of {url, title, snippet}."""
+    """One web search (Tavily, then Brave when Tavily fails or is held); a list of {url, title, snippet}."""
     global searches, last_search
     if os.environ.get("SEARCH_FIXTURE"):
         with open(os.environ["SEARCH_FIXTURE"]) as f:
@@ -1156,23 +1163,40 @@ def search(query):
             time.sleep(wait)
         searches += 1
         last_search = time.monotonic()
-        try:
-            if TAVILY_API_KEY:
-                req = urllib.request.Request("https://api.tavily.com/search", method="POST",
-                                             data=json.dumps({"query": query, "max_results": 10, "search_depth": "basic"}).encode(),
-                                             headers={"Authorization": "Bearer " + TAVILY_API_KEY, "Content-Type": "application/json",
-                                                      "Accept": "application/json", "User-Agent": UA})
-                with urllib.request.urlopen(req, timeout=30) as r:
-                    items = [{"url": x.get("url", ""), "title": x.get("title", ""), "description": x.get("content", "")}
-                             for x in json.loads(r.read().decode("utf-8")).get("results", [])]
-            else:
-                q = urllib.parse.urlencode({"q": query, "count": 20, "country": "us"})
-                req = urllib.request.Request("https://api.search.brave.com/res/v1/web/search?" + q, headers={
-                    "Accept": "application/json", "X-Subscription-Token": BRAVE_API_KEY, "User-Agent": UA})
-                with urllib.request.urlopen(req, timeout=20) as r:
-                    items = (json.loads(r.read().decode("utf-8")).get("web") or {}).get("results", [])
-        except Exception as e:
-            log(f"  search failed: {e!r}"[:200])
+        # Tavily, then Brave when Tavily fails or is held (decisions/0163's source map: free before paid, the first that
+        # works wins, each switch logged); a held service is never asked
+        items, tried = None, []
+        for engine in ("tavily", "brave"):
+            key = TAVILY_API_KEY if engine == "tavily" else BRAVE_API_KEY
+            host = "api.tavily.com" if engine == "tavily" else "api.search.brave.com"
+            if not key:
+                continue
+            if held(host):
+                tried.append(f"{engine} held ({held(host)})"[:120])
+                continue
+            try:
+                if engine == "tavily":
+                    req = urllib.request.Request("https://api.tavily.com/search", method="POST",
+                                                 data=json.dumps({"query": query, "max_results": 10, "search_depth": "basic"}).encode(),
+                                                 headers={"Authorization": "Bearer " + TAVILY_API_KEY, "Content-Type": "application/json",
+                                                          "Accept": "application/json", "User-Agent": UA})
+                    with urllib.request.urlopen(req, timeout=30) as r:
+                        items = [{"url": x.get("url", ""), "title": x.get("title", ""), "description": x.get("content", "")}
+                                 for x in json.loads(r.read().decode("utf-8")).get("results", [])]
+                else:
+                    q = urllib.parse.urlencode({"q": query, "count": 20, "country": "us"})
+                    req = urllib.request.Request("https://api.search.brave.com/res/v1/web/search?" + q, headers={
+                        "Accept": "application/json", "X-Subscription-Token": BRAVE_API_KEY, "User-Agent": UA})
+                    with urllib.request.urlopen(req, timeout=20) as r:
+                        items = (json.loads(r.read().decode("utf-8")).get("web") or {}).get("results", [])
+                if tried:
+                    SEARCH_SWITCHES[engine] = SEARCH_SWITCHES.get(engine, 0) + 1
+                    log(f"  search: {engine} instead ({'; '.join(tried)})"[:240])
+                break
+            except Exception as e:
+                tried.append(f"{engine} failed: {e!r}"[:160])
+        if items is None:
+            log(f"  search failed: {'; '.join(tried) or 'no engine'}"[:240])
             return []
     out = []
     for r in items:
@@ -2414,6 +2438,11 @@ def second_look(deadline):
             if SEARCH_ON and not found:                  # a registry match is enough on its own
                 checked.append("search")
                 found += web_references(lst, have | {h for f in found for h in [host_of(f["url"])]})
+            # the paid backup, only by a director's override and only when nothing free found it: Google's place at our
+            # address raises the find's confidence (Jason, 2026-11-17: "google match is a good thing"); never a source we keep
+            if not found and lst.get("address") and paid_left("places_confirm"):
+                checked.append("google")
+                found += google_confirm(lst, for_find=True)
             res = site_call("/api/crawl/verify.php", {"row_id": lst["row_id"], "found": found, "checked": checked})
             kinds = ", ".join(f"{f['kind']} {host_of(f['url'])}" for f in found) or "nothing more"
             if not any(f["kind"] == "registry" for f in found) and npi_note[0]:
@@ -2583,6 +2612,11 @@ def identity_jobs(deadline):
                         found.append({"fact": "social", "value": r["url"], "url": r["url"], "kind": "evidence", "evidence": ev, "label": r["title"][:120]})
                         if shown:
                             found.append({"fact": "phone", "value": shown, "url": r["url"], "kind": "evidence", "evidence": ev, "label": r["title"][:120]})
+            # 4. the paid backup, only by a director's override and only when nothing free found it (Google Places, one Text
+            # Search; its place confirms the business at our address, a link only: nothing of Google's is copied)
+            if not found and lst.get("address") and paid_left("places_confirm"):
+                checked.append("google")
+                found += google_confirm(lst)
             res = site_call("/api/crawl/identity.php", {"job_id": lst["job_id"], "found": found, "checked": checked})
             log(f"identity {lst['name']} ({lst['city']}): " + (", ".join(f"{f['fact']} from {host_of(f['url'])}" for f in found) or "nothing found")
                 + (f" -> on the listing: {', '.join(res.get('applied', []))}" if res.get("applied") else "")
@@ -2593,6 +2627,49 @@ def identity_jobs(deadline):
                 site_call("/api/crawl/identity.php", {"job_id": lst["job_id"], "error": repr(e)[:240]})
             except Exception:
                 pass
+
+
+def paid_left(need):
+    """Whether a paid backup may be used now: the override's allowance this run, and its key."""
+    if need == "places_confirm" and not (GOOGLE_PLACES_KEY or os.environ.get("PLACES_FIXTURE")):
+        return False
+    if need == "places_confirm" and held("places.googleapis.com"):
+        return False
+    return PAID_USED.get(need, 0) < PAID.get(need, 0)
+
+
+def google_confirm(lst, for_find=False):
+    """The paid backup for "Confirm a business" (by override): one Google Places Text Search (ID, name, address and status
+    only, the cheapest fields). When Google's place carries the business's name at our address, its Maps link goes back
+    as evidence (the identity record's Google kind, decisions/0163 §12's weights); nothing of Google's is copied."""
+    q = ", ".join(x for x in [lst.get("name", ""), lst.get("address", ""), lst.get("city", ""), lst.get("state", "")] if x)
+    PAID_USED["places_confirm"] += 1                # counted when asked: a refused call may still count with Google
+    try:
+        if os.environ.get("PLACES_FIXTURE"):
+            with open(os.environ["PLACES_FIXTURE"]) as f:
+                data = json.load(f).get(lst.get("name", ""), {})
+        else:
+            req = urllib.request.Request("https://places.googleapis.com/v1/places:searchText", method="POST",
+                                         data=json.dumps({"textQuery": q, "pageSize": 1}).encode(), headers={
+                                             "Content-Type": "application/json", "X-Goog-Api-Key": GOOGLE_PLACES_KEY,
+                                             "X-Goog-FieldMask": "places.id,places.displayName,places.formattedAddress,places.businessStatus"})
+            with urllib.request.urlopen(req, timeout=20) as r:
+                data = json.loads(r.read().decode("utf-8"))
+    except Exception as e:
+        log(f"  Google (paid backup) failed: {e!r}"[:200])
+        return []
+    p = (data.get("places") or [{}])[0]
+    name, addr = (p.get("displayName") or {}).get("text", ""), p.get("formattedAddress", "")
+    log(f"  Google (paid backup, by override): {name or 'nothing'} {addr}"[:200])
+    if not p.get("id") or not names_place(name, lst["name"]) or not shows_address(addr, lst["address"]):
+        return []
+    if p.get("businessStatus") and p["businessStatus"] != "OPERATIONAL":
+        return []                                    # not confirmed open: the person queue decides, never this
+    url = "https://www.google.com/maps/place/?q=place_id:" + urllib.parse.quote(p["id"])
+    label = f"Google Maps: {name} (paid backup)"[:120]
+    if for_find:                                     # the second look: a reference that raises the find's confidence
+        return [{"url": url, "kind": "google", "evidence": "address", "label": label}]
+    return [{"fact": "social", "value": url, "url": url, "kind": "evidence", "evidence": "address", "label": label}]
 
 
 # ---------------------------------------------------------------------------------------------------
@@ -3728,6 +3805,11 @@ def run_service():
     for name, key in (("MAX_SEARCHES", "searches"), ("PLACES_PER_RUN", "places"), ("OSM_PER_RUN", "osm")):
         if isinstance(lim.get(key), int) and lim[key] >= 0:
             globals()[name] = lim[key]
+    for k, v in (st.get("paid_backups") or {}).items():   # a director's override and its cap, from the site (2.10.0)
+        if k in PAID and isinstance(v, int) and v >= 0:
+            PAID[k] = v
+    if any(PAID.values()):
+        log("paid backups on (override): " + ", ".join(f"{k} {v}" for k, v in PAID.items() if v))
     if st.get("paused"):
         log(f"paused: {st.get('why', '')}")
         site_call("/api/crawl/service.php", {"report": {"run_key": run_key, "status": "ok", "why": st.get("why", "paused"), "items": []}})
@@ -3796,7 +3878,7 @@ def run_service():
     res = site_call("/api/crawl/service.php", {"report": {"run_key": run_key, "status": "ok", "seconds": int(time.monotonic() - started),
                                                          "fetches": fetches, "searches": searches, "engine": engine,
                                                          "items": items, "requests": reqs, "calls": calls_of(""),
-                                                         "issues": list(ISSUES.values()), "site_blocked": SITE_BLOCKED, "probes": PROBES, "osm_asked": OSM_ASKED, "osm_ours": OURS_USED["kinds"],
+                                                         "issues": list(ISSUES.values()), "site_blocked": SITE_BLOCKED, "probes": PROBES, "osm_asked": OSM_ASKED, "osm_ours": OURS_USED["kinds"], "paid_used": PAID_USED, "search_switches": SEARCH_SWITCHES,
                                                          "osm_used": OSM_USED}})
     status = res.get("status", "")
     log(f"run {run_key}: {status}: " + ", ".join(f"{i['task']} {i.get('outcome')}" for i in items))
