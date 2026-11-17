@@ -5,8 +5,10 @@ Check-out session name: `w0-indexer`.
 
 ## State
 
-- **Release 1 (site side): built, tested, sent to the inbox on branch `claude/w0-indexer`, waiting for Jason's OK** to
-  merge. Built on Sync: 2026-11-17 12:57 UTC (mirror `33083ea`). Zip `releases/inbox/w0-indexer.zip`, 16 files.
+- **Release 1 (site side):** Jason's OK 2026-11-17; merged (#797) as release #78, which failed staging's migration check:
+  `stored` is a reserved word in MySQL 8 (MariaDB, where it was tested, allows it). Corrected as `w0-indexer-2`
+  (`crawl_batches.stored_n`), built on Sync: 2026-11-17 13:09 UTC; `w0-indexer` marked replaced. Lesson: check every new
+  column name against MySQL 8's reserved words, not only MariaDB.
 - Release 2 (the worker): not started. Release 3 (the Railway service): ask Jason first.
 - Jason's calls (2026-11-17, "ok. go."): chambers, tourism boards, organizations and other non-public sites → Read
   regularly by the machine (facts only as licence and terms allow); the key is sha1 (the page log's). Both noted in 0164.

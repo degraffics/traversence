@@ -3,7 +3,7 @@
  "built_on": "33083ea Sync: 2026-11-17 12:57 UTC",
  "recorded": "2026-11-17 13:07 UTC",
  "note": "W0 Indexer, site side (Release 1 of 2), built on Sync: 2026-11-17 12:57 UTC Sent through git (releases/inbox).",
- "status": "pending",
+ "status": "replaced",
  "live_in": "",
  "files": {
   "app/admin/index-console.php": {
@@ -70,5 +70,6 @@
    "sha256": "00333a24febbefa4b8f99b25bf73bffd8949c3e6e1d1cac9bde9986ab1fb0b01",
    "live": false
   }
- }
+ },
+ "replaced_by": "w0-indexer-2"
 }
