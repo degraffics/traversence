@@ -367,6 +367,31 @@
    "expires": "2026-11-17T18:45:02Z",
    "release": "outside-table",
    "callers": {}
+  },
+  {
+   "path": "app/lib/OutsideServices.php",
+   "functions": [
+    "KINDS",
+    "KIND_NAMES"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5kGG8gG4QBmC4uzMzN",
+   "why": "Outside services as a table: one row per company, search, one filter, sort, a row opens its card; each card's Test (Jason, 2026-11-17)",
+   "since": "2026-11-17T14:45:08Z",
+   "expires": "2026-11-17T18:45:08Z",
+   "release": "outside-table",
+   "callers": {}
+  },
+  {
+   "path": "website/js/admin-outside.js",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kGG8gG4QBmC4uzMzN",
+   "why": "Outside services as a table: one row per company, search, one filter, sort, a row opens its card; each card's Test (Jason, 2026-11-17)",
+   "since": "2026-11-17T14:45:08Z",
+   "expires": "2026-11-17T18:45:08Z",
+   "release": "outside-table",
+   "callers": {}
   }
  ],
  "lapsed": [
