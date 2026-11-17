@@ -96,9 +96,9 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
      4. **Facebook Personal:** decisions/0168 Phase 1;
      5. **Facebook Business:** 0168 Phase 3 on (waits for Jason's Business Verification and Meta's App Review).
      6. **Storefront:** 0139 moved in; its setup includes the address (keep trvgo.us/<name>, bring a domain, or buy one).
-     7. **Domains** (0169 §1a): Shop → Domains (search, cart, register through Name.com, any account 18+) and the account's
-        Domains tab (renew, auto-renew, where it points, DNS, email records, transfer away); Storefront's address step
-        uses them. Can be built with app 6.
+     7. **Domains** (0169 §1a): **in progress** in session_01CXLi5j7MKBy27a6L7AXRHN (started 2026-11-17 00:53 UTC at
+        Jason's ask): Shop → Domains and the account's Domains tab only. Joining storefronts to the account's domains
+        stays with app 6 (Storefront), queued; the storefront's Connect your domain is left as it is until then.
 
      Others (Square, Tickets, Appointments, Gallery storage, calendars, 1Password…) to be discussed with Jason next.
   3. **Hubs by location, before the crawler works beyond the pilot** (Jason, 2026-11-16, found in the `.env` trace):
