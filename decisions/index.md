@@ -175,3 +175,4 @@ decision may be stale, or the file moved.
 | 0167 | [0167: Communications in one place: set up in System Configuration, handled in Pulse](0167-communications-in-one-place.md) | accepted |  |  | 0 |  |
 | 0168 | [0168: Facebook and Instagram for members and businesses: sign-in, sharing, connected Pages](0168-facebook-and-instagram-for-members-and-businesses.md) | accepted |  | 1 | 0 |  |
 | 0169 | [0169: The Shop's App store, and one lifecycle for every app](0169-the-shop-app-store-and-the-app-lifecycle.md) | accepted |  |  | 0 |  |
+| 0170 | [Everything placed in the discovery funnel, by location, active or planned](0170-everything-placed-in-the-discovery-funnel.md) | proposed |  |  | 0 |  |
