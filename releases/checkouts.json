@@ -2,19 +2,6 @@
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
  "claims": [
   {
-   "path": "app/lib/Domains.php",
-   "functions": [
-    "priceList"
-   ],
-   "kind": "add",
-   "session": "namecom-prices",
-   "why": "Name.com card: the prices our account pays vs Name.com's retail, per ending (Jason, 2026-11-17)",
-   "since": "2026-11-17T13:32:35Z",
-   "expires": "2026-11-17T17:32:35Z",
-   "release": "",
-   "callers": {}
-  },
-  {
    "path": "app/ui/favicon.php",
    "functions": [],
    "kind": "add",
@@ -61,41 +48,6 @@
    "callers": {}
   },
   {
-   "path": "app/ui/page-shell.php",
-   "functions": [
-    "tv_page_start"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5iXPuLbnLpdUjRWunZ",
-   "why": "Site icon on every page (favicon.ico, touch icon, one shared helper)",
-   "since": "2026-11-17T13:47:10Z",
-   "expires": "2026-11-17T17:47:10Z",
-   "release": "favicon",
-   "callers": {
-    "tv_page_start": [
-     "app/ui/admin-crawler.php",
-     "app/ui/admin-hub.php",
-     "app/ui/app-shell.php",
-     "app/ui/not-found.php",
-     "website/admin/router.php",
-     "website/hub/build.php"
-    ]
-   }
-  },
-  {
-   "path": "app/ui/auth-nav.php",
-   "functions": [
-    "tv_nav_head"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5iXPuLbnLpdUjRWunZ",
-   "why": "Site icon on every page (favicon.ico, touch icon, one shared helper)",
-   "since": "2026-11-17T13:47:10Z",
-   "expires": "2026-11-17T17:47:10Z",
-   "release": "favicon",
-   "callers": {}
-  },
-  {
    "path": "app/ui/storefront-view.php",
    "functions": [
     "(top)",
@@ -113,17 +65,6 @@
      "trvgo/index.php"
     ]
    }
-  },
-  {
-   "path": "website/admin/chamber-builder.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5iXPuLbnLpdUjRWunZ",
-   "why": "Site icon on every page (favicon.ico, touch icon, one shared helper)",
-   "since": "2026-11-17T13:47:10Z",
-   "expires": "2026-11-17T17:47:10Z",
-   "release": "favicon",
-   "callers": {}
   },
   {
    "path": "website/admin/manifest.php",
@@ -584,9 +525,105 @@
    "expires": "2026-11-17T21:28:40Z",
    "release": "job-links.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/Operations.php",
+   "functions": [
+    "switchOnCheck"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
+   "why": "Pre-flight: W1 held by the OpenStreetMap line while our copy can't load before W1 (chicken-and-egg); red reasons first; answers never cut (Jason's report 17:44 UTC)",
+   "since": "2026-11-17T17:48:17Z",
+   "expires": "2026-11-17T21:48:17Z",
+   "release": "refresh-archive",
+   "callers": {
+    "switchOnCheck": [
+     "app/admin/automation-console.php",
+     "app/admin/operations-console.php",
+     "app/lib/SystemStart.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/Preflight.php",
+   "functions": [
+    "clean",
+    "workflow"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
+   "why": "Pre-flight: W1 held by the OpenStreetMap line while our copy can't load before W1 (chicken-and-egg); red reasons first; answers never cut (Jason's report 17:44 UTC)",
+   "since": "2026-11-17T17:48:17Z",
+   "expires": "2026-11-17T21:48:17Z",
+   "release": "refresh-archive",
+   "callers": {}
   }
  ],
  "lapsed": [
+  {
+   "path": "app/lib/Domains.php",
+   "functions": [
+    "priceList"
+   ],
+   "kind": "add",
+   "session": "namecom-prices",
+   "why": "Name.com card: the prices our account pays vs Name.com's retail, per ending (Jason, 2026-11-17)",
+   "since": "2026-11-17T13:32:35Z",
+   "expires": "2026-11-17T17:32:35Z",
+   "release": "",
+   "callers": {},
+   "lapsed": "2026-11-17T17:48:17Z"
+  },
+  {
+   "path": "app/ui/page-shell.php",
+   "functions": [
+    "tv_page_start"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5iXPuLbnLpdUjRWunZ",
+   "why": "Site icon on every page (favicon.ico, touch icon, one shared helper)",
+   "since": "2026-11-17T13:47:10Z",
+   "expires": "2026-11-17T17:47:10Z",
+   "release": "favicon",
+   "callers": {
+    "tv_page_start": [
+     "app/ui/admin-crawler.php",
+     "app/ui/admin-hub.php",
+     "app/ui/app-shell.php",
+     "app/ui/not-found.php",
+     "website/admin/router.php",
+     "website/hub/build.php"
+    ]
+   },
+   "lapsed": "2026-11-17T17:48:17Z"
+  },
+  {
+   "path": "app/ui/auth-nav.php",
+   "functions": [
+    "tv_nav_head"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5iXPuLbnLpdUjRWunZ",
+   "why": "Site icon on every page (favicon.ico, touch icon, one shared helper)",
+   "since": "2026-11-17T13:47:10Z",
+   "expires": "2026-11-17T17:47:10Z",
+   "release": "favicon",
+   "callers": {},
+   "lapsed": "2026-11-17T17:48:17Z"
+  },
+  {
+   "path": "website/admin/chamber-builder.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5iXPuLbnLpdUjRWunZ",
+   "why": "Site icon on every page (favicon.ico, touch icon, one shared helper)",
+   "since": "2026-11-17T13:47:10Z",
+   "expires": "2026-11-17T17:47:10Z",
+   "release": "favicon",
+   "callers": {},
+   "lapsed": "2026-11-17T17:48:17Z"
+  },
   {
    "path": "app/lib/AccountDomains.php",
    "functions": [
