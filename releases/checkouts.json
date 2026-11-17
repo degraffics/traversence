@@ -56,8 +56,8 @@
    "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
    "why": "Check before switching on as a pre-flight group: line by line on the server, run log, filters; one engine for the board, Start and the pre-flight (Jason, 2026-11-17)",
    "since": "2026-11-17T18:43:36Z",
-   "expires": "2026-11-17T23:14:46Z",
-   "release": "switchon-group",
+   "expires": "2026-11-17T23:19:02Z",
+   "release": "preflight-follow-2.zip",
    "callers": {}
   },
   {
@@ -67,8 +67,8 @@
    "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
    "why": "Check before switching on as a pre-flight group: line by line on the server, run log, filters; one engine for the board, Start and the pre-flight (Jason, 2026-11-17)",
    "since": "2026-11-17T18:43:36Z",
-   "expires": "2026-11-17T23:14:46Z",
-   "release": "switchon-group",
+   "expires": "2026-11-17T23:19:02Z",
+   "release": "preflight-follow-2.zip",
    "callers": {}
   },
   {
@@ -81,8 +81,8 @@
    "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
    "why": "Check before switching on as a pre-flight group: line by line on the server, run log, filters; one engine for the board, Start and the pre-flight (Jason, 2026-11-17)",
    "since": "2026-11-17T18:43:36Z",
-   "expires": "2026-11-17T23:14:46Z",
-   "release": "switchon-group",
+   "expires": "2026-11-17T23:19:02Z",
+   "release": "preflight-follow-2.zip",
    "callers": {
     "tv_preflight_live": [
      "website/admin/api.php"
