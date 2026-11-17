@@ -6,12 +6,12 @@
     "zip": "favicon-everywhere.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "planned",
+    "state": "approved",
     "step": 0,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
-    "plan_at": null,
+    "plan_at": "2026-11-17 13:50:47",
     "staged_at": null,
     "vetted_at": null,
     "live_at": null,
@@ -79,6 +79,16 @@
             "at": "2026-11-17T13:50:45+00:00",
             "by": 2,
             "msg": "Uploaded favicon-everywhere.zip: 11 files."
+        },
+        {
+            "at": "2026-11-17T13:50:47+00:00",
+            "by": 2,
+            "msg": "Came from git: releases/inbox/favicon-everywhere.zip (git ac4413046e)."
+        },
+        {
+            "at": "2026-11-17T13:50:47+00:00",
+            "by": 2,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
         }
     ]
 }
