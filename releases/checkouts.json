@@ -401,6 +401,33 @@
    "expires": "2026-11-18T21:00:44Z",
    "release": "notify-1.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/Preflight.php",
+   "functions": [
+    "batchLine",
+    "workflow"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "A check shown part by part, the red one first (Jason, 2026-11-18: Red x but green checks too?)",
+   "since": "2026-11-18T17:02:06Z",
+   "expires": "2026-11-18T21:02:06Z",
+   "release": "control-board-check-parts.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/control-console.php",
+   "functions": [
+    "tv_admin_mod_control"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "A check shown part by part, the red one first (Jason, 2026-11-18: Red x but green checks too?)",
+   "since": "2026-11-18T17:02:06Z",
+   "expires": "2026-11-18T21:02:06Z",
+   "release": "control-board-check-parts.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
