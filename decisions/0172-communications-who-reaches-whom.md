@@ -154,7 +154,7 @@ for stays inside it (the message's part, below).
 4. **An outside email has no process of its own.** ⊕ **Make it a case** or **a task** turns it into one of ours,
    keeping the email inside it, so its replies stay in the same thread.
 
-**How a row opens: three views, each with its own role in processing information** (proposed). Jason, 2026-11-18,
+**How a row opens: three views, each with its own role in processing information.** Jason, 2026-11-18,
 on the drawer, the expanded toggle and the pop-up: "DRAWER: the concept is good but Ive struggled with the drawer being
 able to accommodate my needs. EXPANDED TOGGLE: this seems to be helping me more as long as it is viewing reasonable
 amount of information and set up to for proper actions/notices/logs. POP UP: I like this too as long as the window is
@@ -184,8 +184,8 @@ the other three, and holds only what its step needs.
 
 - **What fixes the drawer's struggle:** it no longer holds tools, which needed the width it didn't have. Tools open as
   pop-ups over it, and it gains Previous / Next. (Amends 0105's case drawer and its split view.)
-- **For Jason to confirm:** whether all three stay with these roles, or the drawer's role folds into the expanded
-  toggle.
+- **Kept as proposed** (Jason had no preference between keeping all three and folding the drawer in, 2026-11-18). The
+  build tries it on real cases first; if the drawer still doesn't serve, its work folds into the expanded toggle.
 
 #### The message: what it's for, and acting on it inside it
 
