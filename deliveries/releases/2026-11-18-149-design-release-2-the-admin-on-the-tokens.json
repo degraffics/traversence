@@ -1,0 +1,54 @@
+{
+    "id": 149,
+    "title": "Design Release 2: the admin on the tokens, one command header",
+    "why": "Jason's platform-wide directive (design/css-theme-brand.md §1–4, Release 2), on Release 1's tokens (#146). (1) THE ADMIN KIT (app/admin/kit-css.php) has no colour of its own: cards are the parchment micro-gradient, inputs the vellum, lines and metadata text the mixed tokens; OK text is Faded Forest Moss with Warm Near-Black (6.75:1), since no brand green passes as text; 150ms ease-out; headings in the heading serif. (2) ONE COMMAND HEADER replacing the sage bar and peach tab of 2026-11-12, its layout kept: one Deep Umber row joined to the site's top bar. Back (copper), the module, the sections menu and the page's own filter on the left; the board's light, At hand and Shortcuts on the right. One row on a wide screen, two on a phone (three before). The one search stays the header's Ctrl K box; a list's own box filters only that list. A page moves its filter or utility row up into the header with data-ak-cmd (left) or data-ak-cmd=\"right\"; opt-in. (3) THE RECORD STRIP (command-strip.php) in the same look. (4) TWO FIXES: both bars stuck 34px too low (the account bar counted twice) and covered the first card; they now stick at the measured bottom of what's pinned above them. On a phone, the sections menu ran off the right edge; it now spans the screen, and a long section name is cut with an ellipsis. (5) SPACE between groups (1.5rem), never inside list rows. FAQ: a new entry on the bar; the admin has 10 modules, not 11.",
+    "proposals": "",
+    "zip": "design-r2-admin.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/admin/kit-css.php": {
+            "sha": "782a8dbc1e142897a7f67cc8170b74d32659e0e0ca2463eeaef86494ed779eb2",
+            "size": 33392,
+            "live_was": "909bca2b468acce527733994ad8d2fcf5a0869b90f776faabb85fe192b0e744b"
+        },
+        "app/ui/command-strip.php": {
+            "sha": "9cf3a709e7fd597e802ef11597e516f955751eaa6a5cb7297dfc20d217acfa39",
+            "size": 13085,
+            "live_was": "afcf52ea3a773a7c08356a6db12adf4decba11a513c1f93a0d198a3093b02b39"
+        },
+        "app/ui/faq.md": {
+            "sha": "43ef9a8a35b09c24f753fbd87a2358a8b284415445ea700df4bb18737a0799bd",
+            "size": 352911,
+            "live_was": "770211bd3e094c6ad881e43612d01f94fdc741a4716f5529e71404be851648ab"
+        },
+        "website/admin/router.php": {
+            "sha": "2aee458753f7c2f0928e6a1bd2887d4f054892354cd8c4334f9f00d248af0a96",
+            "size": 11893,
+            "live_was": "8f9332de2effe4f83b8e0213ff91febe57b85b0433fa1146d57e03da3bd31fdf"
+        },
+        "website/js/admin-kit.js": {
+            "sha": "561830814fb0f4a84c28d3b39ac86e1f746f66e20e3e137b2ffee13821dc0838",
+            "size": 47148,
+            "live_was": "dc6774a4f8ccf9524c3550309f524a17923f59fc7ca78caa87724b697f974f85"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-18T22:28:29+00:00",
+            "by": 0,
+            "msg": "Uploaded design-r2-admin.zip: 5 files."
+        }
+    ]
+}
