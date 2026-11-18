@@ -472,6 +472,31 @@
    "expires": "2026-11-19T02:08:35Z",
    "release": "control-board-3f",
    "callers": {}
+  },
+  {
+   "path": "app/lib/Releases.php",
+   "functions": [
+    "fromUpload",
+    "straightOn",
+    "tick"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 3f: staging payment keys, release guards, Supabase, Site health",
+   "since": "2026-11-18T22:08:37Z",
+   "expires": "2026-11-19T02:08:37Z",
+   "release": "control-board-3f",
+   "callers": {
+    "tick": [
+     "app/scripts/releases_tick.php"
+    ],
+    "fromUpload": [
+     "app/lib/upload-targets.php"
+    ],
+    "straightOn": [
+     "app/lib/upload-targets.php"
+    ]
+   }
   }
  ],
  "lapsed": [
