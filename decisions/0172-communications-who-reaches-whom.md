@@ -333,7 +333,35 @@ plan or pack, **$** needs Jason's budget. Reply: whether the message can be answ
 | Group invite, group near you, about a group | member | notice | General | — | F | B (`GroupGrowth`, `Community`) |
 | New post in my group | members who chose it | notice, digest | General | yes | F | G (each group's own setting) |
 | Join request | group moderators | notice | Alert | accept, decline | F | G |
+| A post or member reported in my group | owner, moderators | notice | Alert | remove, keep | F | G (Safety staff's case is B) |
+| Mentioned, or a reply to my post or comment | that member | notice | Alert | yes | F | G |
+| A question to the business in its group | its Sales role (0102 §4c) | business Pulse | Alert | yes | F | G |
+| Group going quiet (no posts 30 days, no owner or moderator 90 days, 0103 §4) | owner, moderators | notice | Notice, then Urgent before it ends | act | F | G |
+| Handing over, made a moderator | the people named | notice | Alert | accept | F | G |
 | Post hidden | its author | notice | Alert | appeal | F | B (`tools.php:1934`) |
+
+**Group roles and what they bring (0102 §4b, §4c)** (Jason, 2026-11-18: "does it warrant a separate inbox for the
+community, maybe alerting the user on a need to act basis"):
+
+- **No separate inbox.** The group stays a channel (§"Pulse is the inbox"). What a role adds is **work**, and work comes
+  to a person by **need to act**: the group's **To do** items sit at the top of their Pulse with their buttons in place
+  (Accept, Decline, Remove, Keep), labelled with the group.
+- **What reaches whom, by role:**
+
+| Role | Gets as Alerts (need to act) | Gets as General (activity) |
+|---|---|---|
+| Member | mentions, replies to them, a post of theirs hidden | the group's posts, by their own setting |
+| Moderator | the above, plus join requests and reports | the same |
+| Group owner | the above, plus handing over and the group going quiet | the same |
+| A business's group (4c) | its duties go to the **business's** Pulse by role: Support and Creator moderate, Sales answers questions, Owner and Manager get the rest | each team member's own setting, if they also joined |
+
+- **Each group has one setting per member** (on the group, and in Pulse): **Everything**, **Highlights** (a digest of
+  the group's best, the default), **Only what needs me** (mentions, replies, and the role's To do) or **Off**. A role's
+  To do is never switched off while the person holds the role; handing the role over ends it.
+- **Up to 5 groups each** (0102 §4b): the To do items carry the group's name and the filter shows one group at a time,
+  so running several doesn't mix them.
+- **Joining is consent only inside the group** (0102 §4c, the charter): a business's group posts reach the member in
+  that group's channel, never by email, push or text unless the member chose that for the group.
 
 ### 2.9 Moments, Snaps and Keeps (0153)
 
