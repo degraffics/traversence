@@ -1,14 +1,14 @@
 # 0172: Communications: who reaches whom, about what, by which channel, and one way to deliver
 
-Status: **proposed, draft 13** (2026-11-18). Waiting for Jason's OK. No code yet.
+Status: **proposed, draft 14** (2026-11-18). Waiting for Jason's OK. No code yet.
 Drafts 2 and 3 take in Jason's changes: Pulse is the inbox, and keeps its established look (0105): it collects, organizes and
 lets you read, while each message carries its own process; outside mailboxes in Pulse (§4.7); six levels, with flags and tags kept
 apart from them; three touch points; a community group is a channel.
 Builds on: 0047 and 0052 (links, messages, marketing preferences), 0049 (consent), 0066 (nations' land), 0102 and
 0100 (roles), 0108 (sales, SMS and push), 0141 (Market 360°'s unsubscribe), 0154 (who pays), 0167 (system email in one
 place), 0171 (the Control Board's alarms).
-Amends (each marked **Note for Jason** where it happens): 0052 step 6 (messages held for unclaimed listings, §3.3), 0105's Operational
-Task Queue, 0055 §5's needs block (both to the bell), `Pulse::SEVERITY` (four levels become six), 0167 §2's
+Amends (each marked **Note for Jason** where it happens): 0052 step 6 (messages held for unclaimed listings, §3.3), 0105's case
+drawer (to the expanded toggle and pop-ups) and its Operational Task Queue, 0055 §5's needs block (both to the bell), `Pulse::SEVERITY` (four levels become six), 0167 §2's
 Sent view (§4.3) and 0167 §2a's "Outside addresses aren't connected" (§4.7).
 Nothing else is reversed.
 Hand-off: `handoffs/communications.md`. Checked against the live mirror at "Sync: 2026-11-18 02:36 UTC".
@@ -154,10 +154,24 @@ for stays inside it (the message's part, below).
 4. **An outside email has no process of its own.** ⊕ **Make it a case** or **a task** turns it into one of ours,
    keeping the email inside it, so its replies stay in the same thread.
 
-**Open, to discuss with Jason: a row opened in place, or the admin's drawer** (Jason first said "in place seems the
-most logical to me", then, 2026-11-18: "Rows open/Drawer. we need to discuss this"). The profile's Pulse opens a row in
-place (the mockup). Whether the listing's and the admin's do the same, or the admin keeps 0105's case drawer and split
-view, is decided in that discussion. Everything else in this decision works either way.
+**How a row opens: the expanded toggle, then a pop-up; the side drawer retires** (proposed; Jason, 2026-11-18,
+comparing three he uses: "DRAWER: the concept is good but Ive struggled with the drawer being able to accommodate my
+needs. EXPANDED TOGGLE: this seems to be helping me more as long as it is viewing reasonable amount of information and
+set up to for proper actions/notices/logs. POP UP: I like this too as long as the window is able to work the way I need
+it to."):
+
+| | **1. The expanded toggle** (every Pulse) | **2. The pop-up** (when the work needs room) |
+|---|---|---|
+| **Like** | Start the system's steps (▾ opens a step under itself) and the profile mockup | the admin search (Ctrl K) and Review's pop-ups (0074: "find, compare, fix, save, close") |
+| **Opens by** | the row's ▾ | the expanded row's **⤢** or a step's own button (Open the order, Compare, Edit) |
+| **Holds** | a reasonable amount, always in this order: **what happened** (one line) → **where it stands** (the stepper, for an order or a claim) → **its actions** (each a button on its line, up to 5; "All steps" opens the pop-up) → **its notice** (the latest answer, closed with ×, as Start's "Done:" boxes) → **its log** (the last 3 entries; the rest in the pop-up) → **reply or note** | the whole record or tool: the order with its work orders, the claim's evidence, a listing to compare and fix, the full log; sized to the work (most of the screen on a computer, full screen on a phone) |
+| **After acting** | the answer appears beside the button (`TvAsk.say`); the row stays open and in place | ✓ for a moment, then it closes back to the open row, which shows the change; Esc or × closes without changing anything |
+| **Never** | reloads the list or loses your place | leaves the page under it |
+
+- **The side drawer retires** (amends 0105's case drawer and its split view): what it held moves into these two. The
+  case's header (Case #, source, level, who has it, escalation) and its **Assign, Escalate, Resolve** go on the
+  expanded row; "How to clear this" becomes its actions; **Open the order** opens the pop-up.
+- **One construct for every Pulse** (profile, listing, admin), so a person learns it once.
 
 #### The message: what it's for, and acting on it inside it
 
