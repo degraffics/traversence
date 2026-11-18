@@ -1,0 +1,44 @@
+{
+    "id": 118,
+    "title": "Start the system on a phone: no sideways scroll, every press back on the card, Switch W1 on",
+    "why": "Jason, 2026-11-18, on his phone: the card scrolled sideways (the steps' column grew to 428px at 390px), hiding the 'Terms read: allowed' buttons and pushing the header band over the list; after any press the page reloaded at its top, so Check again looked like nothing happened; W1 Listings was left paused (the old 'Leave it paused' press) with no way to switch it on from the card. 1. The card fits a phone: one column at the screen's width, long words wrap, tables fit. 2. Every button returns to the card (#start), and the answer to the press shows at the top of the card. 3. A workflow a person paused after its turn shows Paused, with What to do and Switch it on (the Automation page's own switch, with its gate). 4. FAQ.",
+    "proposals": "",
+    "zip": "start-phone.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/admin/automation-console.php": {
+            "sha": "694ca381ac4327d09e93ac815a8a690a3ad4868417553a694948a39607292321",
+            "size": 23017,
+            "live_was": "a6165532c5977f2b87e7b9d0f93a64112a8061a9f4f8780ee36865ca59217216"
+        },
+        "app/ui/faq.md": {
+            "sha": "9c4f6a0f95582cf2ebddd3929c19da4e1f6b8aed03c6d9230dfd9ca812768789",
+            "size": 326208,
+            "live_was": "69ebd19384ef8f16c64016cecac32b6ae8de45d6f3c5a456d3936fbf55da3a63"
+        },
+        "app/lib/SystemStart.php": {
+            "sha": "928cf722c90ebf62a4e4ac8ead6630d9ecbe2a306c163fb62a7e62da58c5d9cf",
+            "size": 71113,
+            "live_was": "a4cf9f957a67b678ae5fa6def1ec48e5946c0bb35cbaac3308faa8e18f73704a"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-18T02:15:20+00:00",
+            "by": 0,
+            "msg": "Uploaded start-phone.zip: 3 files."
+        }
+    ]
+}
