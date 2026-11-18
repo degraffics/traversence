@@ -253,3 +253,13 @@ W1 stopped on a single timeout from overpass.kumi.systems (issue #12).
 - A stop keeps `items[id]['issue']`. In `advance()`, a step stopped by an issue that no longer holds its service carries on by itself.
 - A stopped step on the card shows Try it again / Leave it paused (`start_do`) and Check issue now / Mark issue resolved (`start_issue_check` / `start_issue_resolve` in automation-console.php).
 - The "Now" line points to the stopped step.
+
+## start-confirm (2026-11-18, built on Sync 00:45 UTC)
+
+Jason asked that Start confirm everything is operational within minutes, then fire the queue.
+- **The verify step:** a new `verify` step tests each workflow and task with `Preflight::run` (the pre-flight's line for it). Each look gets `$budget` seconds, and the open card looks itself every 15 seconds while verifying.
+- **Red lines:** a red one is held with its answer and fix, and retested at each look.
+- **The master:** waits for `verify` to finish, then every confirmed item switches on in order in one look; a task once its workflow is on.
+- **Watching:** each item that's on is watched alone (`gate`, `start_gate_runs` and `start_gate_hours` are now the watch). A failure stops that one only; the global 'stopped' state is gone.
+- **Stopped steps:** each says "What to do".
+- **Records:** decisions/0163 §10.2 has a note, and the Thresholds wording is updated.

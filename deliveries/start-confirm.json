@@ -1,0 +1,22 @@
+{
+ "zip": "start-confirm.zip",
+ "built_on": "acda60e Sync: 2026-11-18 00:45 UTC",
+ "recorded": "2026-11-18 01:13 UTC",
+ "note": "Start: confirm operational, then the queue; What to do on stopped steps. Built on Sync 20:09 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/SystemStart.php": {
+   "sha256": "9ab1defdaa5275b847bab6087d602f2b81aaf023da70d6a19f989fe2cd12c07e",
+   "live": false
+  },
+  "app/lib/Thresholds.php": {
+   "sha256": "dd8546000a672a9cd23577e9c7a82cc915a6ffbda8b651c1d3e6526515dd7170",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "db55195e436a2e0b1557497a33d55860e18295685ed7646a5a4b6366fddafbb0",
+   "live": false
+  }
+ }
+}
