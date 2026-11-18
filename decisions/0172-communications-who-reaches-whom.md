@@ -3,7 +3,11 @@
 Status: accepted (Jason, 2026-11-18, draft 16, approved with the decision pop-up). **Building (2026-11-18):** step 2 live
 as #130; steps 3–7 live as one release, #135 (§6's note); the admin's Pulse Stream as one row per thing, opening in
 place, with the row icons and views, live as #138, then as a table with needs as rows and the Operational Task Queue
-replaced by the bells, #141 (Sync 20:38 UTC). **Still open:** step 8, texting, needs its own decision. Progress: `handoffs/communications.md`.
+replaced by the bells, #141 (Sync 20:38 UTC). The gaps found against this decision on 2026-11-18 (the row's ↗ and 🛡, real opened rows, ⊕'s Address Book and Keep,
+the phone's ⋯, the bell opening the row, stewards folded in; staff messages and mail as admin rows, grouped alarms,
+Previous / Next, A task) are sent as one release, `comms-gaps.zip`. **Still open:** step 8, texting, needs its own
+decision; Journeys and the Marketplace feed in the member's chips are their own builds (2.10, 2.6); Pulse's new look
+is the design session's. Progress: `handoffs/communications.md`.
 Drafts 2 and 3 take in Jason's changes: Pulse is the inbox, and keeps its established look (0105): it collects, organizes and
 lets you read, while each message carries its own process; outside mailboxes in Pulse (§4.7); six levels, with flags and tags kept
 apart from them; three touch points; a community group is a channel.

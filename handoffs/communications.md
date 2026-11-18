@@ -278,3 +278,28 @@ name a sender (needs, dispatched notices) put the title in From. Pressed: the be
 again (the comment's status changed), Read, Pin, Add to, File. **Open against 0172's icon table:** ↗ Pass it on and 🛡
 Protect on member and business rows still only say "…is coming" (in the row's note line); raised with the session
 manager.
+
+## The gaps against 0172, as one release (2026-11-18)
+
+The session manager asked for the business Pulse to be rendered on its own; that found #959's three fixes, then a walk of
+0172 against the live code found G1–G11. Jason approved all as one release (pop-up, reviewed by the session manager),
+chose forwarding **also by email**, and then made it **functional only** (the design session restyles Pulse). Groups of
+alarms are the Control Board's (0171 §8 note); Journeys and the Marketplace feed stay open as their own builds.
+**comms-gaps.zip** (built on Sync 22:06 UTC, 72dfb94; 18 files; replaces the unsent comms-bodies.zip, PR #959):
+- `app/lib/PulseAct.php` (new) and `website/user/api/pulse-act.php` (new): a row's ↗ (connection, teammate through the
+  new `pulse.forward` kind, any email with "Forwarded by …", 20 a day, `pulse_forwards`), 🛡 (Reports, `People::block`,
+  `BizMessages::setMute`, group and link mutes; a business reporting a customer emails support), ⊕ (Address Book, Keep);
+  conversations opened and answered through People, BizMessages and GuestInquiries; `decorate()` greys what doesn't apply.
+- `MemberPulse.php`: refs on rows, moderated groups folded in with the group's name; `tv-pulse.js`: real opened rows,
+  the flows, ⋯ on phones, Groups ▾, `?pulse_msg=`; `pulse-panel.php`: the placeholder's CSS out; `pulse-msg.js`: the bell
+  opens the row in Pulse.
+- `pulse-ui.php`: staff messages (`comms:`) and mail (`mail:`) as rows with a Mail chip, mail's ↗/🛡/⊕, grouped alarms,
+  Previous / Next, A task, `TvPulse.openComms`; `admin/api/pulse.php`: their actions; `Mailboxes.php`: block, forward,
+  report phishing, the sender to the Address Book (`comms_mail_blocks`); `inbox-console.php`: points to the stream.
+- `Notify.php` (`pulse.forward`), `Community.php` (`post_id` on group posts, so they report in place),
+  `staging-tables.php` (both new tables as records), `CommsBody.php` (button look), FAQ.
+- Drops `tv-pulse.js`'s `SOON` (the mockup's "coming" lines), which Jason approved replacing.
+Tests: pulse-act 35, admin-stream 31, member-pulse 4, notify 56, comms-engine 74, step7 83, listing-messages 87, all
+passing on the live files with the release laid over. Rendered with sample state at 1280 and 390: member and business
+(every new button pressed), admin (group, message, mail, drawer, bell opening its row), no sideways scroll.
+
