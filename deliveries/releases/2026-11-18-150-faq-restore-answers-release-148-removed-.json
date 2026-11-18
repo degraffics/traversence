@@ -1,0 +1,34 @@
+{
+    "id": 150,
+    "title": "FAQ restore: answers release #148 removed by accident",
+    "why": "Release #148 (control-board-3f) carried a copy of app/ui/faq.md built on an older sync, so it took out live text: release #147's two entries (\"Can I pass a message on from my Pulse?\", \"Can I report, block or mute someone from my Pulse?\") and its newer wording on six answers (Releases, staging's Held list, My inbox, one row per thing, a group's Mute, moderators' requests, a row opened in place), and Release 1's entry (#146) \"Does loading Traversence's fonts tell another company I visited?\". This puts back exactly that text, word for word: the live copy with #148's FAQ change reversed. #149's entries stay. No other change.",
+    "proposals": "",
+    "zip": "faq-restore.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/ui/faq.md": {
+            "sha": "8dfde13ad8a879024b7a533d41a89b6a4f3d196fe68fd1f8b2571c03cdadd7dc",
+            "size": 355235,
+            "live_was": "43ef9a8a35b09c24f753fbd87a2358a8b284415445ea700df4bb18737a0799bd"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-18T22:49:19+00:00",
+            "by": 0,
+            "msg": "Uploaded faq-restore.zip: 1 files."
+        }
+    ]
+}
