@@ -1,13 +1,13 @@
 # 0172: Communications: who reaches whom, about what, by which channel, and one way to deliver
 
-Status: **proposed, draft 12** (2026-11-18). Waiting for Jason's OK. No code yet.
+Status: **proposed, draft 13** (2026-11-18). Waiting for Jason's OK. No code yet.
 Drafts 2 and 3 take in Jason's changes: Pulse is the inbox, and keeps its established look (0105): it collects, organizes and
 lets you read, while each message carries its own process; outside mailboxes in Pulse (§4.7); six levels, with flags and tags kept
 apart from them; three touch points; a community group is a channel.
 Builds on: 0047 and 0052 (links, messages, marketing preferences), 0049 (consent), 0066 (nations' land), 0102 and
 0100 (roles), 0108 (sales, SMS and push), 0141 (Market 360°'s unsubscribe), 0154 (who pays), 0167 (system email in one
 place), 0171 (the Control Board's alarms).
-Amends (each marked **Note for Jason** where it happens): 0052 step 6 (messages held for unclaimed listings, §3.3), 0105's case drawer (rows open in place) and its Operational
+Amends (each marked **Note for Jason** where it happens): 0052 step 6 (messages held for unclaimed listings, §3.3), 0105's Operational
 Task Queue, 0055 §5's needs block (both to the bell), `Pulse::SEVERITY` (four levels become six), 0167 §2's
 Sent view (§4.3) and 0167 §2a's "Outside addresses aren't connected" (§4.7).
 Nothing else is reversed.
@@ -154,12 +154,10 @@ for stays inside it (the message's part, below).
 4. **An outside email has no process of its own.** ⊕ **Make it a case** or **a task** turns it into one of ours,
    keeping the email inside it, so its replies stay in the same thread.
 
-**Every Pulse opens a row in place** (Jason, 2026-11-18: "in place seems the most logical to me"): the profile's, the
-listing's and the admin's alike, one construct. The mockup's **⤢** (bottom right of the opened row) opens it wide, for
-when a tool needs the room.
-- **Note for Jason (amends 0105's case drawer):** the admin's case drawer at the side becomes the row opened in place;
-  its contents stay (Case #, severity, SLA, status, assigned, escalation, the order's stepper and Next step buttons,
-  the reply box, history). Its split view with the tool beside it is what ⤢ opens.
+**Open, to discuss with Jason: a row opened in place, or the admin's drawer** (Jason first said "in place seems the
+most logical to me", then, 2026-11-18: "Rows open/Drawer. we need to discuss this"). The profile's Pulse opens a row in
+place (the mockup). Whether the listing's and the admin's do the same, or the admin keeps 0105's case drawer and split
+view, is decided in that discussion. Everything else in this decision works either way.
 
 #### The message: what it's for, and acting on it inside it
 
@@ -223,7 +221,7 @@ question:
 
 | | Answers | Set by | Changes delivery? |
 |---|---|---|---|
-| **Level** | "How soon must this reach you, and how?" | the system, per kind of event (§2) | **yes:** channels, quiet hours, digests |
+| **Level** | "How should this reach you?" | the system, per kind of event (§2) | **yes:** channels, and whether it waits for quiet hours |
 | **Flag** | "What do I need to do with it?" (like Outlook's Follow up, High and Low importance) | the person, on their own copy | no; a Follow up brings it back at the time chosen |
 | **Tag** | "What is it about, for me?" | the person (staff: shared team tags too) | no; sorting and filtering only |
 
@@ -242,15 +240,21 @@ question:
 
 Nothing in this table moves a message in the list; the Pulse column is how it's marked.
 
-| Level | Pulse | Email | Push | Text | Quiet hours | Digest | Can be turned off | Staff clock (`SLA_HOURS`) |
-|---|---|---|---|---|---|---|---|---|
-| Critical | red mark | always | always | only where paid and chosen | ignored | never | no | 2 h |
-| Urgent | amber mark | yes | yes | only where paid and chosen | ignored | never | codes no; the rest by channel | 4 h (new) |
-| Alert | marked, counted on the bell | by choice | by choice | no | push waits | never | by channel | 8 h |
-| Notice | listed | by choice | by choice | no | wait | can be | yes | 48 h |
-| General | in the list | digest only | by choice | no | wait | yes | yes | none |
-| Special | marked Special | by the person's marketing choice | by choice | only with that business's text consent | wait | their chosen frequency | always, one tap | none |
+| Level | Pulse | Email | Push | Text | During the person's quiet hours | Can be turned off |
+|---|---|---|---|---|---|---|
+| Critical | red mark | always | always | only where paid and chosen | goes anyway | no |
+| Urgent | amber mark | yes | yes | only where paid and chosen | goes anyway | codes no; the rest by channel |
+| Alert | marked, counted on the bell | by choice | by choice | no | push waits | by channel |
+| Notice | listed | by choice | by choice | no | waits | yes |
+| General | in the list | by choice | by choice | no | waits | yes |
+| Special | marked Special | by the person's marketing choice | by choice | only with that business's text consent | waits | always, one tap |
 
+- **No clock is set on anyone's messages** (Jason, 2026-11-18: "This infers we mandate action, i dont think that is
+  our responsibility, its and individual election"). A level says how a message reaches you, never how fast you must
+  act; a person who wants a reminder sets a Follow up. (0105's clocks on staff cases are as built; this decision adds
+  none, including for the new Urgent.)
+- **No new digests** (Jason, 2026-11-18: "I am not finding them useful right now, so maybe we consider this in the
+  future"). The weekly notice digest that exists (`Notices::digest`) stays as it is; more digests are a future idea.
 - **Note for Jason (amends `Pulse::SEVERITY`):** Pulse has four today: Critical, Alert, Update, Event
   (`Pulse.php:47`). They become the six: Urgent and Special are added; Update is shown as **Notice** and Event as
   **General** (the stored keys stay, so nothing already recorded changes). 0171's trip stays Critical and its warning
@@ -288,7 +292,7 @@ Nothing in this table moves a message in the list; the Pulse column is how it's 
 | **Can reach** | members (direct, or a message request: `message_policy`, 10 a day); managed listings (50 a day); groups they're in; our team (support) |
 | **Reached by** | members by the same rules; businesses they **linked** (Pulse only, 0047 §3), and by email or text only with the detail **shared** with that business; groups; us (account, security, orders) |
 | **Channels** | Pulse, system email, web push (new). Text only from a business they shared their number with and opted in to texts. |
-| **Preferences** | notice kinds and delivery (exist); marketing per business, frequency, master switch (exist); muted message types (exist); **new:** per kind × channel choices, quiet hours, digest time, "push on this device" |
+| **Preferences** | notice kinds and delivery (exist); marketing per business, frequency, master switch (exist); muted message types (exist); **new:** per kind × channel choices, quiet hours, "push on this device", all in their Communications setting (§4.4) |
 | **Privacy** | businesses see counts, names only where shared (0047); contact details never copied (0141); nothing about a member on nation land made public (0066) |
 | **Pays** | free; Moments, Snaps and Keeps paid from the community budget (0154) |
 
@@ -317,18 +321,11 @@ A member who publishes (guides, journeys, stories, Moments with followers).
 
 ### 1.5 Business staff (0102 §3 roles)
 
-| Role | Gets, by default |
-|---|---|
-| Owner | everything; can change anyone's share |
-| Manager | messages, orders, bookings, comments, reviews |
-| Accountant | payments, invoices, refunds, plan and billing |
-| Sales | Sales-typed messages, leads, quotes |
-| Support | Support and inquiry messages, guest questions, orders' problems |
-| Creator | comments and reports on content they made |
-| Developer | domain, API keys, webhooks |
-
-A business with one person sends everything to the owner (0102: "a business with one person sees no roles"). Each
-person then chooses their own channels and quiet hours.
+**Who on a team gets what is set in the RBAC configuration** (0102 §4, its Inbox row: all, billing, Sales view,
+Support view; Jason, 2026-11-18: "This should be addressed in the RBAC configuration"). This decision sets no defaults
+of its own: a message to a business goes to the roles 0102 gives that kind of message. A business with one person
+sends everything to the owner (0102: "a business with one person sees no roles"). Each person then chooses their own
+channels and quiet hours.
 
 ### 1.6 A business's customer
 
@@ -404,7 +401,7 @@ plan or pack, **$** needs Jason's budget. Reply: whether the message can be answ
 | Event | Told | Channels | Level | Reply | Pays | State |
 |---|---|---|---|---|---|---|
 | Comment on a member's post | author | notice | General | yes | F | B |
-| Comment on a listing | owner and the role in §1.5 | notice, email per choice | General | G | F | G (gap 3) |
+| Comment on a listing | the business, as a **notice in its Pulse, sent the same way as a message** (Jason, 2026-11-18); who on the team by RBAC (§1.5) | Pulse; email or push by choice | General | **inside the notice:** reply to the comment, hide it, report it | F | G (gap 3) |
 | Comment on a guide, journey or place | its creator; else nobody | notice | General | — | F | G |
 | A reply to my comment | commenter | notice | General | yes | F | G (comments are flat; needs replies first) |
 | Comment reported | Safety staff | Pulse | Alert | — | F | B |
@@ -450,7 +447,7 @@ plan or pack, **$** needs Jason's budget. Reply: whether the message can be answ
 | Event | Told | Channels | Level | Reply | Pays | State |
 |---|---|---|---|---|---|---|
 | Group invite, group near you, about a group | member | notice | General | — | F | B (`GroupGrowth`, `Community`) |
-| New post in my group | members who chose it | notice, digest | General | yes | F | G (each group's own setting) |
+| New post, message or comment in my group | its members, as their link settings say | Pulse | General | yes | F | G |
 | Join request | group moderators | notice | Alert | accept, decline | F | G |
 | A post or member reported in my group | owner, moderators | notice | Alert | remove, keep | F | G (Safety staff's case is B) |
 | Mentioned, or a reply to my post or comment | that member | notice | Alert | yes | F | G |
@@ -474,9 +471,11 @@ community, maybe alerting the user on a need to act basis"):
 | Group owner | the above, plus handing over and the group going quiet | the same |
 | A business's group (4c) | its duties go to the **business's** Pulse by role: Support and Creator moderate, Sales answers questions, Owner and Manager get the rest | each team member's own setting, if they also joined |
 
-- **Each group has one setting per member** (on the group, and in Pulse): **Everything**, **Highlights** (a digest of
-  the group's best, the default), **Only what's for me** (mentions, replies, and the role's duties) or **Off**. A role's
-  duties are never switched off while the person holds the role; handing the role over ends it.
+- **Joining a group works like Link** (Jason, 2026-11-18: "I see this like I see the "link to" function where when the
+  link is established any post, message or comment made will be notified to its follows, configuring how messages are
+  handled falls back to the link settings"): once joined, every post, message and comment in the group reaches the
+  member as a notice, and how they're handled is the member's **link settings** (0047, 0052), not a separate setting
+  per group. A role's duties come as their own messages while the person holds the role.
 - **Up to 5 groups each** (0102 §4b): each duty's message comes from that group by name, so a search or a search folder
   shows one group at a time.
 - **Joining is consent only inside the group** (0102 §4c, the charter): a business's group posts reach the member in
@@ -645,8 +644,9 @@ be integrated into the communication system, because the user and listing will n
     5 messages one email sent saying 5 messages waiting"):
     - the **first** request goes at once, as above;
     - later ones **wait in a queue** on the listing; when **5** are waiting, **one** email says "5 visitors have left
-      you messages on Traversence", with a link to read and answer them (good for that address only, no account
-      needed) and **Claim your listing**; then the count starts again;
+      you messages on Traversence": a **notice of messages waiting**, not the messages. Reading and answering them
+      **needs an account** (Jason, 2026-11-18): the email's **Claim your listing** (or sign in, if the address already
+      has an account) opens them. Then the count starts again;
     - **a queue that doesn't reach 5:** after **10 days** from the oldest waiting message, one email says how many are
       waiting, in the same form (Jason, 2026-11-18: "after 10 days as one message notification to listing email");
       then the count starts again. Each waiting message still expires at 90 days.
@@ -659,8 +659,8 @@ be integrated into the communication system, because the user and listing will n
     - **Sender limits:** one waiting message per sender per listing until it's answered; the guest limits (3 a day
       per device, 6 per network); a member's 10 new conversations a day (as message requests, 0052).
     - **The business decides:** every email has **Stop requests to this address** (then messages are held for a
-      claim) and **Report this as spam** (the sender is blocked from the listing; two reports and they can't leave
-      messages anywhere for 30 days).
+      claim) and **Report this as spam**, which follows the abuse process already decided: Reports to
+      Safety in Pulse (0052, 0137) and the sender's standing notices (0079), never a separate rule here.
     - **Bounces and complaints** stop emails to that address at once (`email_suppress`) and the listing falls back to
       holding.
     - **Watched by message control (§4.3):** sends, bounces and complaints for this kind are counted; complaints
@@ -711,7 +711,7 @@ how, so a message can always be found where it is now.
 |---|---|---|
 | **1. Created** | `Notify::send` (or a person writing) makes the one record: sender, recipient, kind, level, words | refused (blocked, `message_policy`, no consent, suppressed, STOP), with the reason |
 | **2. Addressed** | the channels are chosen: the kind's defaults, then the person's choices (kind × channel), then what's available (push only with a subscription) | — |
-| **3. Held** | waiting for a claim (a message left on an unclaimed listing, §3.3), or for quiet hours or the person's digest, by level (Critical and Urgent never wait; Alert holds only push; Notice, General and Special wait; General and Special can join the digest) | withdrawn by the sender before it goes; expired (an unclaimed listing's after 90 days) |
+| **3. Held** | waiting for a claim (a message left on an unclaimed listing, §3.3), or for the person's quiet hours if they set them, by level (Critical and Urgent never wait; Alert holds only push; Notice, General and Special wait) | withdrawn by the sender before it goes; expired (an unclaimed listing's after 90 days) |
 | **4. Sent** | handed to each channel: Pulse, email (Bluehost or SES), push, a connected mailbox | failed (retried by the channel's rule; a dead address or subscription is marked and not tried again) |
 | **5. Delivered** | the channel confirms: it's in Pulse; the mail server accepted it; the push service took it | bounced, complained, unsubscribed (SES events, 0137 §8) |
 | **6. Read** | opened in Pulse, or the email opened where that's known | — |
@@ -742,13 +742,15 @@ connected mailboxes).
 - For staff, a channel's failures reach them as 0171's alarms; a single failed message to a person is shown on its
   route, and on the sender's own copy.
 
-### 4.4 Quiet hours, digests and opt-outs
+### 4.4 The person's Communications setting: channels, quiet hours, opt-outs
 
-- **Quiet hours:** default 9 pm–8 am in the person's own time zone (the device's, stored with their actions, per
-  CLAUDE.md "Times"); each person can change them. Staff on their login.
-- **Digests:** daily or weekly, at the person's time. The weekly notice digest (`Notices::digest`) becomes this.
-- **Opt-outs:** per kind and channel in one page (App Settings → Notifications, which takes in today's Notices
-  settings); a business's marketing stays where 0047 put it (Privacy → Marketing); every email, push and text links to
+- **Quiet hours** are a feature each person sets, **with no default** (Jason, 2026-11-18: "this is a feature the user
+  can configure, not a default"): off until they turn it on, in their own time zone (the device's, stored with their
+  actions, per CLAUDE.md "Times"). Staff on their login.
+- **Digests:** none new (above).
+- **One Communications setting** (Jason, 2026-11-18) is where each person configures all of it: per kind and channel,
+  quiet hours, push on this device. It takes in today's Notices settings (App Settings → Notices).
+- **Opt-outs:** in that setting; a business's marketing stays where 0047 put it (Privacy → Marketing); every email, push and text links to
   the right one (0141 §5). Things that can't be turned off (codes, receipts, security) say why, greyed with the reason.
 
 ### 4.5 Staff and the system
@@ -761,7 +763,8 @@ connected mailboxes).
 ### 4.6 Web push
 
 - Our own VAPID keys (0108: "needs no outside account"), a service worker, `push_subscriptions` per device.
-- Asked **only after an action that wants it** ("Tell me when they answer"), never on arrival.
+- **Configured in the person's Communications setting** (§4.4); the browser's permission is asked **when an action
+  turns it on** ("Tell me when they answer"), never on arrival (Jason, 2026-11-18).
 - Each push carries a link to where it's answered and a "Stop these" link.
 - Staging never sends push (`StagingGate::hold()`, 0165).
 
@@ -792,7 +795,7 @@ connected."
 | Who | May connect | Pays |
 |---|---|---|
 | Our staff | our cPanel mailboxes they oversee (0167 §2a), and an outside mailbox **once their manager approves it** (Jason, 2026-11-18); this changes 0167 §2a's "Outside addresses aren't connected" | free |
-| A business | its own mailboxes, shared with the team by role (0102 §4, Inbox: all, billing, Sales view, Support view) | on paid plans; SES receiving counts against the email allowance |
+| A business | its own mailboxes, shared with the team by role (0102 §4): **how it's offered is decided in the App store build** (0169; Jason, 2026-11-18), queued there by the session manager | on paid plans; SES receiving counts against the email allowance |
 | A member | their personal mailbox, as an **add-on from the App store** (0169; Jason, 2026-11-18); its set-up and standards are decided with the app's build | the add-on's price |
 | Guests | no | — |
 
@@ -863,7 +866,7 @@ Each a release Jason reviews; free channels first.
 1. **0171's alarms** (being built by the Control Board session), then **0167**'s four releases (system email in one
    place). Unchanged.
 2. **One dispatcher, into Pulse:** `Notify`, `comms_messages`, `comms_route`, the kinds register, the preferences
-   page (kind × channel, quiet hours, digest), the bell counting everything. Closes gaps 1–4 and 6 in Pulse and by system
+   setting (kind × channel, quiet hours), the bell counting everything. Closes gaps 1–4 and 6 in Pulse and by system
    email: a business told of new messages, orders and comments; Pulse escalations told.
 3. **Flags and tags in Pulse; the six levels** (`Pulse::SEVERITY`, the bell), and **our own mailboxes read in Pulse**
    by IMAP (with 0167's step 4).
