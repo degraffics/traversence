@@ -1,6 +1,6 @@
 # 0172: Communications: who reaches whom, about what, by which channel, and one way to deliver
 
-Status: **proposed, draft 11** (2026-11-18). Waiting for Jason's OK. No code yet.
+Status: **proposed, draft 12** (2026-11-18). Waiting for Jason's OK. No code yet.
 Drafts 2 and 3 take in Jason's changes: Pulse is the inbox, and keeps its established look (0105): it collects, organizes and
 lets you read, while each message carries its own process; outside mailboxes in Pulse (§4.7); six levels, with flags and tags kept
 apart from them; three touch points; a community group is a channel.
@@ -63,7 +63,7 @@ email, push and text only tell them something is waiting, and a reply from any o
 **Every message is one record, with one sender, one recipient, one kind and one level, routed by the recipient's
 preferences, along one route (§4.2), watched by one message control (§4.3).** Who may reach whom is decided by the WHO tables (§1); what each event sends
 is decided by the WHAT tables (§2). Cards show only what a listing can do (§3). One dispatcher delivers (§4). Outside
-mailboxes can be read and answered in Pulse (§4.7). Texting is outlined in its own decision (§5).
+mailboxes can be read and answered in Pulse (§4.7). Texts go out only where revenue pays for them (§5).
 
 ### Pulse is the inbox (Jason, 2026-11-18)
 
@@ -213,7 +213,7 @@ through `ClientOrders::setStage`); every kind follows it:
 | **Business email** (SES: a business's campaigns, offers) | per send | the business's plan allowance or email pack (`commercial.md`) |
 | **Outside mailboxes in Pulse** (§4.7) | server time; Google's yearly check if Gmail is connected by sign-in | §4.7 |
 | **Web push** (our own keys, 0108) | nothing | free for a person's own notices; a business's marketing push counts against its plan's push allowance |
-| **Text** | per message, plus the number | its own decision (§5); only where revenue covers it |
+| **Text** | per message, plus the number | only a plan's text allowance or a text pack, or a budget Jason sets (§5, Q1) |
 | **Voice** | per minute | not proposed |
 
 ### Levels, flags and tags: three different things
@@ -338,7 +338,7 @@ Anyone who bought, booked, got a quote or a work order from a business (member o
 |---|---|
 | **Can reach** | that business, about that order (a reply in the order's thread) |
 | **Reached by** | that business, about that order only: receipt, changes, ready, reminders. **Not marketing** unless they also linked or opted in (0047: "buying from it never opts anyone in"). |
-| **Channels** | system email (exists), Pulse if a member, web push if a member who allowed it; text only as the texting decision allows (§5) |
+| **Channels** | system email (exists), Pulse if a member, web push if a member who allowed it; text only if they ticked "Text me about this order" at checkout (§5, Q2) |
 | **Preferences** | per order: email (always), push, text; STOP ends texts |
 | **Pays** | the business's text allowance for texts; email and push free |
 
@@ -416,7 +416,7 @@ plan or pack, **$** needs Jason's budget. Reply: whether the message can be answ
 | Client order (ours) placed, stage, done | buyer; staff | email | Notice | in thread | F | B (`ClientOrders::mail`) |
 | Marketplace order placed | buyer | email | Notice | — | F | B (`mailBuyer`) |
 | Marketplace order placed | **business** | Pulse, **email, push** | Urgent | yes | F | Pulse B; **email/push G** (gap 2) |
-| Order status for the customer by text | customer | text | Notice | STOP | P | for the texting decision (§5) |
+| Order status for the customer by text | customer | text | Notice | STOP | P | G (§5, Q2) |
 | Payment failed, refund, credit | buyer; Accountant | email + notice | Critical | — | F | B (`Orders::tell`) |
 | Quote or invoice | customer; business on approval | email | Alert | yes | F | B (`BizQuotes`, `q.php`) |
 | Work order | vendor | email from orders@ | Alert | yes | F | B |
@@ -506,7 +506,7 @@ community, maybe alerting the user on a need to act basis"):
 |---|---|---|---|---|---|---|
 | Verify email, reset, password or email changed | member | email | Critical | — | F | B |
 | Staff and admin codes | staff | email | Urgent | — | F | B (`TwoStep`, `StaffLogin`) |
-| Members' sign-in codes | member | email | Urgent | — | F | not built; text left to the texting decision (§5) |
+| Members' sign-in codes | member | email | Urgent | — | F | not built; text ruled out here (§5, Q3) |
 | New device or sign-in | member | email, push | Critical | "Not me" | F | G |
 | Account deleted, standing notices | member | email | Critical | appeal | F | B |
 | Vault codes | staff | email | Urgent | — | F | B |
@@ -592,9 +592,8 @@ be integrated into the communication system, because the user and listing will n
   - **Who, and what's required of the sender** (Jason, 2026-11-18: "message to unclaimed listing should require
     1. email 2. phone 3. user account. if none exist it shouldnt be accepted"): a message is accepted only with a way
     to answer its sender: **a member account** (the message is in their Pulse, marked **Waiting: not delivered** or
-    **Sent by email**), **a confirmed email**, or **a phone** (for "call me"; it can't be confirmed while we send no
-    texts, so it's given to the business only with the guest's say-so, and an email or account is still asked for
-    alongside it where possible). With none of them, the form doesn't send. The reply-code-only choice of 0052 isn't
+    **Sent by email**), **a confirmed email**, or **a phone** (for "call me"; confirmed by a text code once texting is built, §5;
+    until then given to the business only with the guest's say-so). With none of them, the form doesn't send. The reply-code-only choice of 0052 isn't
     offered here.
   - **A guest leaving a message** (built on 0052 step 6's guest questions):
     - **The form:** their first name, the message, and how they want the answer: **by email** (we send it; the
@@ -815,11 +814,47 @@ connected."
 
 ## 5. Texting
 
-**Outlined separately** (Jason, 2026-11-18: "Texting/SMS we can outline those separately"), in its own decision after
-this one. Until then: no texts are sent by us, and the rules already decided stand (0108's consent, STOP and HELP,
-quiet hours and "Twilio first"; 0047's per-business consent; 0100 and 0171's "no text"). The research from the
-decisions and the six open questions are kept in `handoffs/communications.md` for that outline. Where this decision's
-tables say "text", it's a place a text could go once that decision allows it.
+Jason, 2026-11-18: "texting exists: will address this build here too" (after first asking for it to be outlined
+separately). So texting is decided here, as the channel the rest of this decision already names. Checked in the live
+code: no provider is connected yet (no Twilio or other code; `sms:` links only), so §5 is what the texting build
+delivers.
+
+**Where it applies to the work above:**
+- **A guest's phone** on a message to an unclaimed listing (§3.3) is confirmed by a text code once texting is built,
+  like an email by its link; until then it's given to the business only with the guest's say-so.
+- **Critical and Urgent** items may also go by text where the person chose it and a plan pays for it (the levels
+  table).
+- **Message control** (§4.3) watches texts as one more channel: delivery receipts, STOP replies, failures.
+
+### 5.1 Where texts apply (from the decisions)
+
+| Use | Decided in | Who pays |
+|---|---|---|
+| An owner texts **in** to prove a claim | 0070, 0071 (fallback), 0133 | $: our number, inbound fees |
+| A claim code sent **out** by text | 0015, 0016 (end state) | $ (Q1) |
+| Claim invites and sales outreach, "Reply YES" | 0108 | $ (Q1) |
+| A business's marketing to people who shared their number and opted in | 0047, 0049, 0141, 0154 | P: plan allowance or text pack |
+| A business's customers about their order or booking | **new here** (Q2) | P |
+| GO Codes and member invites opening the phone's own app | 0094–0098, 0047 | free (built) |
+
+**Ruled out** (kept): staff sign-in (0100), Control Board alarms (0171), any text with no revenue behind it, texting
+someone who only tapped Link (0047), and members' sign-in codes (Q3).
+
+### 5.2 The open questions
+
+| # | Question | Proposed answer | For Jason? |
+|---|---|---|---|
+| Q1 | Who pays for our own texts (claim invites, claim codes out)? | Email and GO Codes stay first (free). Texts to businesses come from a **Sales texting budget** Jason sets in 0163's cost register, **default $0 (off)**; each text counted against it, failed ones too. The inbound claim number (~$1 a month) is the one standing cost. | **Yes:** the budget, and the $1 number |
+| Q2 | Texts to a business's customers about orders and bookings | Allowed as **transactional** texts: the customer ticks "Text me about this order" at checkout (per order, unticked by default); only that order's updates; STOP ends it; paid from the business's text allowance. Never marketing. | Yes: confirm |
+| Q3 | Members' sign-in codes by text | **No.** Members sign in by password or social login; codes stay email (free). Text codes cost with no revenue and are open to SIM swaps. Passkeys later. | Yes: confirm |
+| Q4a | The provider | **Twilio** (0108: "Twilio first"), one card under Outside services (0152), keys in `.env` (`TWILIO_ACCOUNT_SID`, `TWILIO_AUTH_TOKEN`, `TWILIO_MESSAGING_SID`), checked by the pre-flight (0171), held on staging (0165) | no |
+| Q4b | The incoming-text webhook | `/api/sms-in.php`, checking Twilio's signature, logged in `comms_deliveries`; added to the paths Bluehost is asked to exempt (`research/bluehost-bot-check-2026-11-15.md`), since a blocked STOP must never be lost | no |
+| Q4c | Toll-free or 10DLC; who registers | Start with **one toll-free number**, verified by Traversence (simpler and fast at low volume; no brand fee). Every business text starts with the business's name. Move to 10DLC, Traversence registering as the platform and each business as its own brand, only when a business's volume needs it. | **Yes:** who registers, and when to move |
+| Q5a | One STOP list or one per business? | **Both, as the carriers require:** STOP to our number stops every text from that number (carriers enforce it). Per-business choices live in the person's preferences, so they can stop one business without stopping all. | Yes: confirm |
+| Q5b | HELP wording | "Traversence: help at https://traversence.com/faq.php or support@traversence.com. Msg & data rates may apply. Reply STOP to stop." Attorney-reviewed before launch (0141). | Yes: attorney |
+| Q5c | Whose time zone sets quiet hours | **The recipient's:** the device's stored zone; else the area code's; never earlier than 8 am or later than 9 pm there (US texting rules). | no |
+| Q5d | How long consent records are kept | **5 years after consent ends** (the federal claim limit is 4), with wording, version, when, from where and how it ended (0108). Never deleted early by account deletion: kept as the proof, with nothing else of the person. | **Yes:** check against the privacy policy |
+| Q6 | Which plans include texts, the pack price | Already set in `commercial.md` §1.1: **Strategic 500, Enterprise 2,500 a month**; packs **+500 $19.95, +2,500 $89.95, +5,000 $169.95, +10,000 $299.95**. Not in `Billing::ADDONS` yet (storage and AI only): they're added with the texting release. Basic and Core can buy a pack, with no allowance. | Yes: Basic and Core may buy packs? |
 
 ## 6. The build order
 
@@ -838,7 +873,9 @@ Each a release Jason reviews; free channels first.
 6. **Outside mailboxes** (§4.7): IMAP and POP, Microsoft, then SES receiving; Gmail by sign-in only when revenue
    covers its assessment.
 7. **Comments, bookings, groups:** replies on comments, booking reminders and changes, group posts and join requests.
-8. **Text:** by its own decision (§5), only where revenue covers it.
+8. **Text, only where revenue covers it (§5):** Twilio's card and webhook, consent and STOP, a business's texts to people
+   who opted in and to customers who ticked it (plan allowance and packs in `Billing::ADDONS`), guests' phone codes;
+   then the claim number automated. Our own outgoing texts only once Jason sets the budget (Q1).
 
 ## What this doesn't do
 

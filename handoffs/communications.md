@@ -1,6 +1,6 @@
 # Communications: hand-off (2026-11-18)
 
-**Decision:** `decisions/0172-communications-who-reaches-whom.md`, draft 11, no code. Waiting for Jason's OK.
+**Decision:** `decisions/0172-communications-who-reaches-whom.md`, draft 12, no code. Waiting for Jason's OK.
 **Draft 2 (Jason's first changes, 2026-11-18):** Pulse is the inbox (everything lands there; email, push and text point
 back); outside mailboxes in Pulse (§4.7: our cPanel, IMAP, POP, Gmail, Microsoft, SES receiving); his six levels
 (Critical, Urgent, Alert, Notice, General, Special) with what each does, kept apart from a person's own flags (Follow
@@ -89,3 +89,5 @@ own release; the first new one is step 2 (the in-site dispatcher), after 0171 an
   else it's not accepted; guest email confirmed first (Jason agreed); emails to a listing: the first at once, then one
   per 5 waiting, with screening, its own sender, stop and report links, and a self-pause on complaints; Message and
   Leave a message on the listing page only (Jason). A queue under 5: one notice after 10 days (Jason).
+- Draft 12: texting is back in this decision (Jason: "will address this build here too"); §5 restored with its
+  questions, plus a guest's phone confirmed by a text code once texting is built.
