@@ -6,13 +6,13 @@
     "zip": "control-board-2a.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "approved",
+    "state": "staged",
     "step": 0,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
     "plan_at": "2026-11-18 14:16:39",
-    "staged_at": null,
+    "staged_at": "2026-11-18 14:16:41",
     "vetted_at": null,
     "live_at": null,
     "files": {
@@ -75,7 +75,39 @@
     "migrations": [
         "app/migrations/2026-11-18_control_ledger.sql"
     ],
-    "checks": [],
+    "checks": {
+        "ok": false,
+        "where": "staging",
+        "at": "2026-11-18T14:16:42+00:00",
+        "items": [
+            [
+                "PHP files parse",
+                true,
+                "9 checked"
+            ],
+            [
+                "Migrations only add",
+                true,
+                "1 checked"
+            ],
+            [
+                "Migrations ran on staging",
+                false,
+                "2026-11-18_control_ledger.sql: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'stored INT NOT NULL DEFAULT 0,\n  updated INT NOT NULL DEFAULT 0,\n  review INT NO' at line 11"
+            ],
+            [
+                "Pages answer",
+                true,
+                "2 pages answered on staging.trvgo.us"
+            ],
+            [
+                "No new fatal errors in the logs",
+                true,
+                "5 logs read"
+            ]
+        ],
+        "first_fail": "Migrations ran on staging: 2026-11-18_control_ledger.sql: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'stored INT NOT NULL DEFAULT 0,\n  updated INT NOT NULL DEFAULT 0,\n  review INT NO' at line 11"
+    },
     "log": [
         {
             "at": "2026-11-18T14:16:38+00:00",
@@ -91,6 +123,11 @@
             "at": "2026-11-18T14:16:39+00:00",
             "by": 0,
             "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
+        },
+        {
+            "at": "2026-11-18T14:16:42+00:00",
+            "by": 0,
+            "msg": "Put on staging (11 files); its checks found a problem: Migrations ran on staging: 2026-11-18_control_ledger.sql: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'stored INT NOT NULL DEFAULT 0,\n  updated INT NOT NULL DEFAULT 0,\n  review INT NO' at line 11."
         }
     ]
 }
