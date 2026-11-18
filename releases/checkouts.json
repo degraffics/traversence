@@ -90,7 +90,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Design Release 2: the admin on the tokens, one command header, the record strip",
    "since": "2026-11-18T22:15:15Z",
-   "expires": "2026-11-19T02:15:15Z",
+   "expires": "2026-11-19T02:27:50Z",
    "release": "design-r2-admin.zip",
    "callers": {}
   },
@@ -103,7 +103,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Design Release 2: the admin on the tokens, one command header, the record strip",
    "since": "2026-11-18T22:15:15Z",
-   "expires": "2026-11-19T02:15:15Z",
+   "expires": "2026-11-19T02:27:50Z",
    "release": "design-r2-admin.zip",
    "callers": {}
   },
@@ -127,7 +127,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Design Release 2: the admin on the tokens, one command header, the record strip",
    "since": "2026-11-18T22:15:15Z",
-   "expires": "2026-11-19T02:15:15Z",
+   "expires": "2026-11-19T02:27:50Z",
    "release": "design-r2-admin.zip",
    "callers": {
     "tv_command_strip": [
@@ -138,6 +138,17 @@
      "website/admin/guide-edit.php"
     ]
    }
+  },
+  {
+   "path": "website/js/admin-kit.js",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "release design-r2-admin.zip",
+   "since": "2026-11-18T22:27:50Z",
+   "expires": "2026-11-19T02:27:50Z",
+   "release": "design-r2-admin.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
