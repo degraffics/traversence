@@ -145,3 +145,16 @@ stream, Quick actions, Helper, Support inbox, Stream settings); `/admin/pulse/�
 (`Workspaces::MERGED`), and the `pulse` module stays for its tools and API (`/admin/api/pulse/…`). The others are
 renumbered: 2 Get Local 360°, 3 Let's Explore 360°, 4 Market 360°, 5 Social 360°, 6 Sales & Growth, 7 White Glove
 Concierge, 8 Back-Office, 9 Insights & Research, 10 System Configuration.
+
+**Note (2026-11-18, Jason's design directive, `design/admin-design-directive-2026-11-18.md`; brand.md §4's note):** the
+admin moves to the new palette and one command header (release `admin-design.zip`, `handoffs/admin-design.md`).
+- **Tokens, one copy:** `app/admin/kit-css.php` opens with the palette on `:root` (`--tv-canvas`, `--tv-line`,
+  `--tv-ink`, `--tv-fail`, `--tv-hold`, surfaces, radiuses, warm shadows, `--tv-gap`). Admin pages use these, never their
+  own copies; true red (`--tv-fail`) only for a halting or core failure, grounded amber (`--tv-hold`) for routine timeouts
+  and holds.
+- **One command header** replaces the sage bar and its peach tab of 2026-11-12 (its layout kept): Back, the module, the
+  sections ▾ and the page's own filter on the left; the board's light, At hand and Shortcuts on the right; one row on a
+  wide screen, two on a phone. The one search is the header's Ctrl K box. A page moves its filter or utility row into it
+  with `data-ak-cmd` (left) or `data-ak-cmd="right"`; lists keep their own search and one filter dropdown beside it.
+- **Space between groups, never inside rows:** `--tv-gap` (1.5rem) between sections, lists and metrics; list rows keep
+  their compact padding (Pulse's Outlook-compact rows are the Communications session's).
