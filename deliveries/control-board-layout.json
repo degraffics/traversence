@@ -3,24 +3,24 @@
  "built_on": "20a00b8 Sync: 2026-11-18 16:13 UTC",
  "recorded": "2026-11-18 16:45 UTC",
  "note": "The System Control Board laid out after Jason's example board. Built on Sync: 2026-11-18 16:13 UTC. Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "2eb2b4f Sync: 2026-11-18 16:50 UTC",
  "files": {
   "app/admin/control-console.php": {
    "sha256": "942358fb587ef3f5c76b33289b91770fe1d27d502f4128b1b1819e877dba8541",
-   "live": false
+   "live": true
   },
   "app/lib/ControlBoard.php": {
    "sha256": "2b589bd5fe9cd2458f87f9c2062cda27846210a197d89986047386abad06efb4",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "0974ee93f18267b6f4d07da80173d387443fac1a6184bfc1011fd5bf11b4cd7a",
-   "live": false
+   "live": true
   },
   "website/js/admin-control.js": {
    "sha256": "7631317157ff2f2f49ae6319833c0732a21d6e7864f221f0294ed5d1f34273c1",
-   "live": false
+   "live": true
   }
  }
 }
