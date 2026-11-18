@@ -7,7 +7,7 @@
 declare(strict_types=1);
 $app = $argv[1];
 if (is_file($app . '/admin/Access.php')) require_once $app . '/admin/Access.php';
-require $app . '/lib/Database.php'; require $app . '/lib/ControlAlarms.php'; require $app . '/lib/ServiceHealth.php'; require $app . '/lib/SearchIndex.php'; require $app . '/lib/Automation.php';
+require_once $app . '/lib/Database.php'; require $app . '/lib/ControlAlarms.php'; require $app . '/lib/ServiceHealth.php'; require $app . '/lib/SearchIndex.php'; require $app . '/lib/Automation.php';
 $pdo = Database::connection();
 $pass = 0; $fail = 0;
 $t = function (string $n, bool $ok, $got = null) use (&$pass, &$fail) { if ($ok) { $pass++; echo "  ok  $n\n"; } else { $fail++; echo "FAIL  $n" . ($got !== null ? ' — ' . json_encode($got, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) : '') . "\n"; } };
@@ -75,7 +75,7 @@ $s = fn (string $t, string $h, ?array $act = null, bool $auto = false) => ['t' =
 $ps = ControlAlarms::pulseSteps($pdo, $id, $s);
 $t('its Pulse item: Raise the cap as a form, Pause it as a button, its entry and the board beside it', count($ps) === 4 && $ps[0]['act'][0] === 'form' && $ps[0]['act'][1] === 'alarm_ops_cap:tavily_cap' && $ps[0]['act'][3][0][3] === '1000' && $ps[1]['act'] === ['do', 'alarm_ops_pause:tavily', 'Pause it'] && $ps[2]['act'][0] === 'tool' && str_contains((string) $ps[3]['act'][1], 'cb-alarm-' . $id), $ps);
 $bad = ''; try { ControlAlarms::pulseDo($pdo, $id, 'alarm_ops_runnext:../x', [], 1, 'T'); } catch (Throwable $x) { $bad = $x->getMessage(); }
-$t('…a step it doesn\'t carry is refused', $bad === 'Unknown step.', $bad);
+$t('…a step it doesn\'t carry is refused', $bad === 'That step isn\'t one the board does.', $bad);
 $sv = (int) ControlAlarms::raise($pdo, 'svc:issue:3', 'svc:osm', 'warning', 'retry', 'kumi times out');
 $t('…an outside service\'s alarm gets Mark resolved in Pulse too', in_array(['do', 'alarm_svcresolve:3', 'Mark resolved'], array_column(ControlAlarms::pulseSteps($pdo, $sv, $s), 'act'), true));
 echo "\n$pass passed, $fail failed\n";

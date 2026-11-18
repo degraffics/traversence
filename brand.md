@@ -65,6 +65,14 @@ This confirms the mobile menu reviewed 2026-09-25 is a faithful implementation o
 
 ## 4. Visual Identity, Color Palette & UI Tokens
 
+> **Note (Jason, 2026-11-18, final): the established palette below stands; only red and amber are new.** Jason's
+> platform-wide directive (`design/css-theme-brand.md`, worked out with Gemini) binds every page to the tokens in this
+> section: vellum `#EFE3C8`, Deep Umber `#3E2B1F`, Slate-Umbra `#231D17`, cards `#E6D8B5` → `#D8C79D`, Warm Near-Black
+> `#2A1D14`, Muted Taupe `#7A6A52`, the accents and the cartographic colours, with §7's type and 150ms ease-out. It
+> replaces an earlier note the same day that had adopted `#f8f5ec`/`#dcd6c8`/`#24201b`. New status colours: **System
+> Red `#a62b2b` only for a halting or core failure or an open trip; Grounded Amber `#8f5600` for routine timeouts,
+> waits and holds ("Held")**. Rollout: tokens and the shared shell first, then the admin, then public pages by area.
+
 - **Structural Authority** (top bars, core anchors): `#3E2B1F` Deep Umber — structural integrity, stability, authority.
 - **Atmospheric Void** (deep shadows, map oceans): `#231D17` Subtle Slate-Umbra — deep background contrast, historical cartographic framing.
 - **The Parchment Canvas** (primary backgrounds): `#EFE3C8` Warm Aged Vellum — high-legibility, tactile field for data feeds.

@@ -47,4 +47,18 @@ and `website/api/` (the mirror's `sync-storage/api/crawl` and `api/video`). Put 
   time, the seed's 5xx only when the latest call failed, the ▸ toggle (no "…", no More) and the check's other parts never
   repeated, old lines told to press Check, a long button list dropping whole buttons, an alarm's Pulse steps (Raise the
   cap as a form, Pause it, Mark resolved) and a step it doesn't carry refused. 17 tests: after `r2a`'s schema and 2a's migration, `php r3b.php <root>/app`.
+- `r3c.php`: release 3c, the Trip rule: a crash a warning for its tries, a trip on the third (or after an hour);
+  refusals at once; a trip stops only its own workflow, the master switch only when the crawler itself is down, a site job
+  tied to no workflow only trips; its good reading noted, never cleared by itself; Resolve asks what fixed it, starts
+  again what it stopped, a red check keeps it open with the reason, Undo; a back-off at its limit holds the server until a
+  person resolves it; Overpass's trip not cleared by a 200; slow calls at the ledger; the steps' families; Pulse's
+  Resolve and Undo; a red required line a warning while the system is stopped. 28 tests: after `r2a`'s schema and 2a's
+  migration, `php r3c.php <root>/app`.
+- `r3d.php`: release 3d: the group key (system, level, family), five engine feeds held as one group and a lone alarm on
+  its own, Acknowledge all, Pulse's group item with its children (a done child leaves it), the board's group row with
+  its alarms' own buttons and a fold the redraw keeps, the marks' red and amber. 17 tests: after `r2a`'s schema and 2a's
+  migration, `php r3d.php <root>/app`.
+- `r3e.php`: release 3e: a crawler run's page (the command strip, its records by workflow and kind, Peek links, a
+  person's field said to be kept, a count narrowing it, a run no longer kept), "W1 today" and the last 7 days, a workflow
+  with none. 12 tests: after `r2a`'s schema and 2a's migration, `php r3e.php <root>/app`.
 - `w2-verify.php`: W2's second look: a listing whose check throws is set aside with its error; the board reads it.

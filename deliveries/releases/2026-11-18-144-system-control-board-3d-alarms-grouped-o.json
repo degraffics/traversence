@@ -1,0 +1,125 @@
+{
+    "id": 144,
+    "title": "System Control Board 3d: alarms grouped on the board and in Pulse; red only for a trip",
+    "why": "Jason's design directive of 2026-11-18, the board's part (via the session manager and the Communications session; the one command header and the palette across the admin go to a design build). (1) GROUPED, 'Board and Pulse': open alarms sharing a system, level and kind's family are one row ('5 engine feeds held', naming what they hold) that opens to each alarm with its own buttons; Acknowledge all on the row. The key, in 0171 §8's note: the system from 0171's four (a workflow, task or a service a workflow reads → the Knowledge Engine; a worker → Workers; another service → Outside services; a site job, endpoint or stage → the site), the level, and the family (held, failing, slow, a red check); two or more make a group, one stays its own row. In Pulse one item 'alarms:<system>:<level>:<family>' with its alarm items as children (the shape agreed with the Communications session, which draws it); Done on it acknowledges each, assign and escalate pass to each. (2) COLOURS where 0171's lights are drawn: red (#a62b2b) only for a trip or a core host down; a process held by its check, a deferred source or a timeout is amber (#8f5600) with a pause mark, 'Held' or 'Holding'; warnings amber; a trip marks its row red and 'Tripped' even where it switched it off; a system's line counts tripped and held apart; the top bar's light the same. Every red and amber is drawn from the palette's tokens (--tv-fail, --tv-hold, Communications' and the design session's names) with their values as fallbacks, never a literal, so a palette change is one edit; the board's creams and browns wait for the design build's tokens. 0171 §8's note records the new Held light. 0171 §8 notes. Tests: r3d.php 18 (new), r2d 9 (its Holding pill now amber), r3c 28, r3b 21, r3a 25, r2b 14, w2-verify 5, layout 8, r1 33; rendered at 390px and 1280px with no sideways scroll; the group opened and Acknowledge all pressed. Built on Sync 21:23 UTC (3c, #143, live).",
+    "proposals": "",
+    "zip": "control-board-3d.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "live",
+    "step": 3,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": "2026-11-18 21:43:23",
+    "staged_at": "2026-11-18 21:43:24",
+    "vetted_at": "2026-11-18 21:43:27",
+    "live_at": "2026-11-18 21:43:27",
+    "files": {
+        "app/admin/control-console.php": {
+            "sha": "b3e21d5174a43a2c2731ecc3a2d089d9a71817ee4aad92f5079aebf8267a18da",
+            "size": 61200,
+            "live_was": "c5897fb748decfec8cea5d4106432fb989d9a9782b1efa7d7a42a57049ce147d",
+            "existed": true,
+            "old_sha": "c5897fb748decfec8cea5d4106432fb989d9a9782b1efa7d7a42a57049ce147d"
+        },
+        "app/ui/faq.md": {
+            "sha": "75a2911af2618bf3645c6feb370dd5f485d5e7d2897dc2759e7f9b07cbed30f7",
+            "size": 351116,
+            "live_was": "82b600cf6e6018a56fed13a0f306af4096d25950b818ffadb4797c1c4d7f73f9",
+            "existed": true,
+            "old_sha": "82b600cf6e6018a56fed13a0f306af4096d25950b818ffadb4797c1c4d7f73f9"
+        },
+        "app/lib/ControlAlarms.php": {
+            "sha": "932942cd4f42f4da74ed40a40410eafc3c68301d7567150d918026f60da25454",
+            "size": 49958,
+            "live_was": "9d4522de138cab0e2a0dc1349e5cb7c1a92b538285f23010e81fba92304b892d",
+            "existed": true,
+            "old_sha": "9d4522de138cab0e2a0dc1349e5cb7c1a92b538285f23010e81fba92304b892d"
+        },
+        "app/lib/Pulse.php": {
+            "sha": "b44cc67fe0187f408d7f69aa89c29139a88be192c8663ab3ced50d1a50a78d8e",
+            "size": 151027,
+            "live_was": "86509ec6eaf8f1cc70ff4afcf664613e18d593016d1b77322e120834de12e0b5",
+            "existed": true,
+            "old_sha": "86509ec6eaf8f1cc70ff4afcf664613e18d593016d1b77322e120834de12e0b5"
+        },
+        "website/admin/router.php": {
+            "sha": "8f9332de2effe4f83b8e0213ff91febe57b85b0433fa1146d57e03da3bd31fdf",
+            "size": 11546,
+            "live_was": "fbf46ef682f9774f309970b36a0c8a0a4196ada61ceaac94436f5692e917b0dc",
+            "existed": true,
+            "old_sha": "fbf46ef682f9774f309970b36a0c8a0a4196ada61ceaac94436f5692e917b0dc"
+        },
+        "website/admin/api.php": {
+            "sha": "bb4277b2c767218343a9163ef5bad0b0d0c73f1c304e32876c65a3d3354989e1",
+            "size": 33934,
+            "live_was": "047fe82de0feec6ca571a624be25a7ab332925d51b02ed42bc131a32a210f1f4",
+            "existed": true,
+            "old_sha": "047fe82de0feec6ca571a624be25a7ab332925d51b02ed42bc131a32a210f1f4"
+        },
+        "website/js/admin-control.js": {
+            "sha": "faed7de1cf9df44982a8f6f0ed93038f9fafb260ba8d589fcc3671463bb723c6",
+            "size": 9724,
+            "live_was": "72b653535370419d62a38fbb8b2c5284ff1ca6881812d9bd4da34a31272046c0",
+            "existed": true,
+            "old_sha": "72b653535370419d62a38fbb8b2c5284ff1ca6881812d9bd4da34a31272046c0"
+        }
+    },
+    "migrations": [],
+    "checks": {
+        "ok": true,
+        "where": "live",
+        "at": "2026-11-18T21:43:28+00:00",
+        "items": [
+            [
+                "PHP files parse",
+                true,
+                "5 checked"
+            ],
+            [
+                "Pages answer",
+                true,
+                "4 pages answered on traversence.com"
+            ],
+            [
+                "No new fatal errors in the logs",
+                true,
+                "4 logs read"
+            ]
+        ],
+        "first_fail": ""
+    },
+    "log": [
+        {
+            "at": "2026-11-18T21:43:21+00:00",
+            "by": 0,
+            "msg": "Uploaded control-board-3d.zip: 7 files."
+        },
+        {
+            "at": "2026-11-18T21:43:23+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/control-board-3d.zip (git 3dbd99c9cf)."
+        },
+        {
+            "at": "2026-11-18T21:43:23+00:00",
+            "by": 0,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
+        },
+        {
+            "at": "2026-11-18T21:43:25+00:00",
+            "by": 0,
+            "msg": "Put on staging (7 files); its checks passed."
+        },
+        {
+            "at": "2026-11-18T21:43:27+00:00",
+            "by": 0,
+            "msg": "Approved in chat before it was sent through git, and its checks on staging passed: publishing by itself."
+        },
+        {
+            "at": "2026-11-18T21:43:27+00:00",
+            "by": 0,
+            "msg": "Published: 7 files; everyone at once (no switch)."
+        }
+    ]
+}

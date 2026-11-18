@@ -5,7 +5,7 @@
 // left alone. Run: mariadb < ../release-b-tests/start-schema.sql && php r2c.php <root>/app
 declare(strict_types=1);
 $app = $argv[1];
-require $app . '/lib/Database.php'; require $app . '/lib/OutsideServices.php'; require $app . '/lib/Automation.php';
+require_once $app . '/lib/Database.php'; require $app . '/lib/OutsideServices.php'; require $app . '/lib/Automation.php';
 $pdo = Database::connection();
 $pass = 0; $fail = 0;
 $t = function (string $n, bool $ok, $got = null) use (&$pass, &$fail) { if ($ok) { $pass++; echo "  ok  $n\n"; } else { $fail++; echo "FAIL  $n" . ($got !== null ? ' — ' . json_encode($got, JSON_UNESCAPED_SLASHES) : '') . "\n"; } };

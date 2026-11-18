@@ -41,9 +41,49 @@ Alongside: `releases-self-withdraw` (#122), `releases-live-2` (#123), `releases-
   session manager: "no contact at all while they're held … never by itself"): `ServiceHealth::noProbe` (an `osm` refusal)
   stops its probe from the crawler and the site and Check it now; the alarm, case, FAQ and the statement to OSM say so;
   0171 §8 has the note. Pulse's `$rank` gains urgent and special (0172's levels, Communications' ask).
-- Next, 3c: the Starting (ops:start) and W0 (ops:w0) cases into alarms; the health report's `alarms` block for the hourly
-  push; admin Pulse read state; slow detection; the worker's retries; the crawler-run page and "W1 today"; off-region
-  sources (a rule first); the release pipeline's two guards.
+  Live as #139 (3b-2) and #140 (3b-3), verified in Sync 20:17 and 20:29.
+- `control-board-3c` (built on 20:38, checked against 20:47): Jason's Trip rule (2026-11-18, pop-up, reviewed by the
+  session manager; 0171 §5 and §7 notes). `ControlAlarms::raise` asks for a trip → a warning while the system tries
+  (`control_fix_tries` 3 / `control_fix_minutes` 60, Thresholds; slow uses `control_slow_trips`), `AT_ONCE` (held, limit)
+  trips at once; `tripped()` emails, `Pulse::escalateTo` (Director), `stop()` as narrow as its cause (wf/t via
+  ControlBoard::stopOne, out of budget → service paused, back-off at CASE_AFTER → `ServiceHealth::holdForTrip`, the
+  master switch only for `run:failed`/`silent:run`); `clear()` on a trip notes `good_at` and waits; `closeKey()` for a
+  person's Mark resolved/Reactivate; `resolve()` (note, startOne after its check, red → `resolve_note`) and
+  `unresolve()` (a day), on the board (api `resolve`/`unresolve`) and in Pulse (`alarm_resolve` form, `alarm_unresolve`).
+  New columns by migration `2026-11-18_control_alarms_trips.sql`. Per-task failures `task:failed:<t>` (CrawlService);
+  slow calls at the ledger (`ep:*:slow`) and slow jobs (`jobslow:*`) in the watch; job crashes counted per failed run;
+  `Operations::alarms()` (caps, empty, Starting the system per ask `ops:start:<md5>`, W0 needs `ops:w0:*`, a stopped
+  pre-flight run `ops:pf:stopped`), run by the watch; `ControlAlarms::opsDo` the one door for their buttons; a red
+  required pre-flight line is a trip only while what it holds is on; `/api/health.php` `alarms` block. Tests r3c.php 28;
+  r3a updated to the rule; the suites' `require_once Database.php` and r2a's `n_` columns fixed.
+  Live as #143, verified in Sync 21:23.
+- `control-board-3d` (built on 21:23): Jason's design directive, the board's part (via the session manager, 2026-11-18;
+  the command header and the palette across the admin went to a design build). Alarm grouping on the board and in Pulse
+  (`ControlAlarms::systemOf/familyOf/groupKey/groups/groupMembers/pulseGroups/ackGroup`; `Pulse::items` groups after its
+  marks, `Pulse::mark` on `alarms:` marks each child, `playbook` 'alarms'; the board's `$one` row closure and the group
+  row with Acknowledge all, api `ackgroup`; JS counts top-level rows). Colours: a red light only for an open trip or a core
+  host; a red check otherwise → light `hold` (amber pause mark, "Held"/"Holding"); a trip marks its row red even where it
+  switched it off ("Tripped"); tokens `--tv-fail`, `--tv-hold`, `--tv-canvas`, `--tv-line`, `--tv-ink` on `#cb` (the
+  Communications session's names); the top bar's light in router.php. 0171 §8 notes. Tests r3d.php 17; r2d updated.
+  Live as #144, verified in Sync 21:45.
+- `control-board-3e` (built on 21:45): the cleanup item "each crawler run opens to the records it touched". Insights →
+  Crawler: `?run=N` is the run's page (command strip; what each task did; its records by workflow, grouped Added /
+  Changed / Sent to Review / Refused, each count narrowing it with `&what=`, each record in a Peek); "What a workflow
+  touched" (`?records=W1&day=today|yesterday|7`, UTC days) lists a workflow's records by kind and by run; the last runs'
+  table links each run with its count. `ControlLedger::whatKind/runCounts/records` (reads `control_records` with
+  `control_ledger.run_id`; the workflow from the endpoint, `ControlAlarms::procOfEndpoint`). No new table. Not there:
+  values before and after, and each record's source: the ledger keeps ids and field names only (0171 §4). Tests r3e.php 12.
+- Cleanup items found done on live (Sync 21:23): AZCC's address in the pre-flight; crawler.php's cron note; the payment
+  cards' key names (r2c); outside requests kept (r2c); the switched-off words (r2c); Start's watch counting "nothing to
+  do" (r2a); self-withdraw of a failed release; a held-only run ending ok on Railway (worker 2.12.1); W1 coverage
+  reading our Geofabrik copy (worker 2.9.0). Next, 3f: the release pipeline's two guards and `Vectors::setupSql()`'s row
+  level security.
+- Known shortcut in 3c: a back-off held by a trip is `service_issues.hold_until = '2099-01-01'` (until a person resolves
+  it; `ServiceHealth::holdForTrip`), not a flag of its own. A real flag (a column, `held_by_trip`) needs a migration on
+  `service_issues`; do it with the next ServiceHealth change.
+- Not in 3c, still open: the worker reporting its own retries to the ledger (0171 §5 "Retry", needs a worker change);
+  admin Pulse read state (Communications' split, 0172); and the cleanup fixes below (the crawler-run page and "W1 today",
+  off-region sources with a rule first, the release pipeline's two guards), for the release after 3c. Then releases 4–5.
 
 **Release 3 (decisions/0171 §15.3): real-time monitoring, the alarms and Pulse.**
 - `control_alarms` and `control_tick`; slow, retry and crash caught when they happen (§5).
