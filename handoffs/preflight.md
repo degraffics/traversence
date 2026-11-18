@@ -263,3 +263,11 @@ Jason asked that Start confirm everything is operational within minutes, then fi
 - **Watching:** each item that's on is watched alone (`gate`, `start_gate_runs` and `start_gate_hours` are now the watch). A failure stops that one only; the global 'stopped' state is gone.
 - **Stopped steps:** each says "What to do".
 - **Records:** decisions/0163 §10.2 has a note, and the Thresholds wording is updated.
+
+## start-report (2026-11-18, built on Sync 01:19 UTC)
+
+Jason's phone screenshot showed four problems, fixed here:
+1. **Report downloads.** Each run log line has Download report and Open. Both go through `GET /admin/api/config/automation?action=report&run=<session start>[&view=1]`, which calls `SystemStart::report()` and returns plain text.
+2. **The check's notice is accurate.** The Automation page's "Check before switching on" notice now names what each red line holds, and claims the master is held only when an 'all' line is red.
+3. **"Starting" becomes "Operational".** `SystemStart::runLabel()` shows "Starting" until the master is on and nothing is pending, then "Operational: N on (k still watched), h held, s stopped".
+4. **Solid top bar on phones.** The minimised admin top bar on phones (`app-shell.php`, `tv-brand-min.tv-nav-min body.tv-back`) is now solid #3E2B1F instead of transparent.
