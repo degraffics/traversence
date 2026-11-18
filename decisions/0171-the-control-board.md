@@ -373,6 +373,19 @@ From Release 3:
   operator's queue of what to review and act on. Both read and write `control_alarms`.
 - **The change to the Nov 14 rule:** ServiceHealth's "one Pulse case per issue" becomes one alarm, and one Pulse item,
   per issue. The issue keeps its evidence, "Check it now" and "Mark resolved", on both.
+- **Grouped (Jason, 2026-11-18, "Board and Pulse"; release 3d):** this changes "one item per alarm line, never one
+  case gathering many". Open alarms that share a group are one row on the board and one item in Pulse, opening to each
+  alarm with its own buttons (Acknowledge, Resolve); the row's **Acknowledge all** (Done in Pulse) acknowledges each. The
+  key is **system + level + kind's family**: the system from 0171's four, read from the alarm's process (a workflow or
+  task, and a service a workflow's needs read → the Knowledge Engine; a worker → Workers; another service → Outside
+  services; a site job, endpoint or stage → the site itself); the family: held (held, out, gone quiet), failing (crashed,
+  retrying), slow, or a red check. Two or more make a group ("5 engine feeds held"); one stays its own row. In Pulse the
+  item is `alarms:<system>:<level>:<family>` with its alarm items as `children` (drawn by the Pulse stream).
+- **Colours and a new light (Jason, 2026-11-18, release 3d):** this changes §1's lights ("red: tripped, crashed or not ready"). Red (`--tv-fail`) only for a
+  trip or a core host down (Bluehost, Railway, GitHub). A new light, **Held** (`hold`: amber, `--tv-hold`, a pause mark),
+  for a process held by its check, a deferred source or a timeout: "Held", or "Holding" while switched on. A trip marks
+  its process red and "Tripped" even where it switched it off. Warnings amber. Every colour comes from the palette's
+  tokens (brand.md §4, shared with Pulse and the admin), never a literal, so a palette change is one edit.
 - **Overpass (Jason, 2026-11-18, release 3b):** every OpenStreetMap server that refuses us is one trip, "Every Overpass
   server is held", resolved by a person: no contact at all while held (no `/api/status` probe, no Check it now), and it
   never clears by itself; it clears when a person presses Reactivate on OpenStreetMap's card after OpenStreetMap releases

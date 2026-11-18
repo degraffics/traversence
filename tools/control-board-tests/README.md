@@ -54,4 +54,8 @@ and `website/api/` (the mirror's `sync-storage/api/crawl` and `api/video`). Put 
   person resolves it; Overpass's trip not cleared by a 200; slow calls at the ledger; the steps' families; Pulse's
   Resolve and Undo; a red required line a warning while the system is stopped. 28 tests: after `r2a`'s schema and 2a's
   migration, `php r3c.php <root>/app`.
+- `r3d.php`: release 3d: the group key (system, level, family), five engine feeds held as one group and a lone alarm on
+  its own, Acknowledge all, Pulse's group item with its children (a done child leaves it), the board's group row with
+  its alarms' own buttons and a fold the redraw keeps, the marks' red and amber. 17 tests: after `r2a`'s schema and 2a's
+  migration, `php r3d.php <root>/app`.
 - `w2-verify.php`: W2's second look: a listing whose check throws is set aside with its error; the board reads it.
