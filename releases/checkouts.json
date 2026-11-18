@@ -179,6 +179,19 @@
      "app/lib/crawler/CrawlService.php"
     ]
    }
+  },
+  {
+   "path": "app/admin/control-console.php",
+   "functions": [
+    "tv_cb_statement_osm"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 3b-3: no contact with Overpass while held",
+   "since": "2026-11-18T20:18:08Z",
+   "expires": "2026-11-19T00:18:08Z",
+   "release": "control-board-3b-3",
+   "callers": {}
   }
  ],
  "lapsed": [
