@@ -4,13 +4,14 @@
   {
    "path": "app/lib/Notices.php",
    "functions": [
+    "emailOne",
     "send"
    ],
    "kind": "change",
    "session": "session_01CXLi5krYPakdEQtKuVw14F",
    "why": "0172 step 2: one dispatcher into Pulse (notify-1)",
    "since": "2026-11-18T16:46:47Z",
-   "expires": "2026-11-18T20:46:47Z",
+   "expires": "2026-11-18T20:58:36Z",
    "release": "notify-1.zip",
    "callers": {
     "send": [
@@ -85,13 +86,14 @@
    "path": "app/lib/GuestInquiries.php",
    "functions": [
     "bizThread",
-    "create"
+    "create",
+    "guestReply"
    ],
    "kind": "change",
    "session": "session_01CXLi5krYPakdEQtKuVw14F",
    "why": "0172 step 2: one dispatcher into Pulse (notify-1)",
    "since": "2026-11-18T16:46:47Z",
-   "expires": "2026-11-18T20:46:47Z",
+   "expires": "2026-11-18T20:58:36Z",
    "release": "notify-1.zip",
    "callers": {
     "create": [
@@ -99,6 +101,9 @@
     ],
     "bizThread": [
      "website/user/api/business-messages.php"
+    ],
+    "guestReply": [
+     "website/api/guest-inquiry.php"
     ]
    }
   },
@@ -237,6 +242,19 @@
    "why": "0172 step 2: one dispatcher into Pulse (notify-1)",
    "since": "2026-11-18T16:47:03Z",
    "expires": "2026-11-18T20:47:03Z",
+   "release": "notify-1.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/js/tv-pulse.js",
+   "functions": [
+    "paintPulse"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5krYPakdEQtKuVw14F",
+   "why": "0172 step 2: one dispatcher into Pulse (notify-1)",
+   "since": "2026-11-18T16:58:36Z",
+   "expires": "2026-11-18T20:58:36Z",
    "release": "notify-1.zip",
    "callers": {}
   }
