@@ -59,7 +59,7 @@ Each rule below comes from a real mistake (in brackets) so it isn't repeated.
 
 - **Have the session manager review the question first** (Jason, 2026-11-18): send it your question, or the release
   summary and PR, by send_message. Ask Jason once it answers "clear to ask" or you've made its fixes, and note
-  "reviewed by the session manager". No answer in 10 minutes: ask, and say it wasn't reviewed. [3c's Trip rule
+  "reviewed by the session manager". No answer in 10 minutes: remind it; none in 30: ask, marked "not reviewed". [3c's Trip rule
   reached Jason with four problems the session manager would have caught.]
 - **Ask Jason yourself, in your own chat** (Jason, 2026-11-18: "the same question is being asked twice in two
   different sessions"): the decision pop-up (AskUserQuestion: Approve, Not now, Needs changes) and a push notification,
