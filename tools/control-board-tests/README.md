@@ -30,3 +30,7 @@ and `website/api/` (the mirror's `sync-storage/api/crawl` and `api/video`). Put 
 `mariadb < ../release-b-tests/start-schema.sql && php r1.php <root>/app`.
 - `layout.php`: the board laid out after Jason's example: a need's sources marked by the need's own verdict, the core
   hosts, which needs use a company. No database: `php layout.php <root>/app`.
+- `r2c.php`: release 2c: requests to outside companies in their own table (old ones brought over with their ids, the
+  seed once, an answer closes one), the Stripe and Square cards' key names, the switched-off words' migration.
+  12 tests: `mariadb < ../release-b-tests/start-schema.sql && php r2c.php <root>/app` (the root holding the release's
+  `app/migrations/`). The worker's side: `python3 workers/crawler/tests/test_held_task.py`.

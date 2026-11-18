@@ -217,7 +217,7 @@ SKIP_HOSTS = {"openstreetmap.org", "npino.com", "npiprofile.com", "npidb.org", "
 
 started = time.monotonic()
 WORKER_KEYS = ("GOOGLE_PLACES_KEY", "TAVILY_API_KEY", "BRAVE_API_KEY", "RIDB_API_KEY", "HF_TOKEN")   # reported by name at each run
-WORKER_V = "2.12.0"          # 2.12.0: the identity check starts from what the site's own copies hold (the job's "local"), outside only for the rest; 2.11.0: a website that doesn't load for the refresh is looked up in Common Crawl's newest crawl (W2, decisions/0163's source map: direct, then Common Crawl); 2.10.0: web search falls to Brave when Tavily fails or is held; Google Places as the paid backup for confirming a business in the identity check, only by a director's override within its cap (decisions/0163's source map); 2.9.0: W1 reads our OpenStreetMap copy first (the job's "ours", from Geofabrik), Overpass only for a kind or town it lacks, and works on while every Overpass server is held (decisions/0163's source map); 2.8.0: every link on a page read goes to the page log (same site or not; no cap of 60, nor 40 other sites: W0, decisions/0164 §1.4); 2.7.5: a page whose reading had to stop is logged waiting to be read (P1-1); 2.7.4: reports which keys it has (names only), its per-run limits from the plan, Geofabrik's weekly load (osmium); 2.7.3: Geofabrik over IPv4; 2.7: the open-dataset loads and Geofabrik's test (Release B); the service's contract 2 (decisions/0160 §2): the site plans each run, the worker reports it; 2.4: calls by host; 2.5: issues, holds, probes, per-kind Overpass; 2.6: servers from the plan, the pace
+WORKER_V = "2.12.1"          # 2.12.1: a task stopped by a held service reports "held", never "failed": the call that trips a hold says so, and Common Crawl's task checks its holds first, so a run whose only trouble is a held service ends ok on Railway, not Crashed; 2.12.0: the identity check starts from what the site's own copies hold (the job's "local"), outside only for the rest; 2.11.0: a website that doesn't load for the refresh is looked up in Common Crawl's newest crawl (W2, decisions/0163's source map: direct, then Common Crawl); 2.10.0: web search falls to Brave when Tavily fails or is held; Google Places as the paid backup for confirming a business in the identity check, only by a director's override within its cap (decisions/0163's source map); 2.9.0: W1 reads our OpenStreetMap copy first (the job's "ours", from Geofabrik), Overpass only for a kind or town it lacks, and works on while every Overpass server is held (decisions/0163's source map); 2.8.0: every link on a page read goes to the page log (same site or not; no cap of 60, nor 40 other sites: W0, decisions/0164 §1.4); 2.7.5: a page whose reading had to stop is logged waiting to be read (P1-1); 2.7.4: reports which keys it has (names only), its per-run limits from the plan, Geofabrik's weekly load (osmium); 2.7.3: Geofabrik over IPv4; 2.7: the open-dataset loads and Geofabrik's test (Release B); the service's contract 2 (decisions/0160 §2): the site plans each run, the worker reports it; 2.4: calls by host; 2.5: issues, holds, probes, per-kind Overpass; 2.6: servers from the plan, the pace
 RUN_END = None             # when this run's own work must stop (started + TIME_BUDGET, or a bulk load's end)
 TASK_END = None            # when the capture task being worked must stop (its share of the run)
 FETCH_CAP = MAX_FETCHES    # fetches this run may have made by the end of the task being worked
@@ -342,11 +342,17 @@ def _counted_urlopen(req, *a, **kw):
                 ra = overpass_slot(url)            # Overpass: its status page says when a slot is free
             note_issue(host, classify(e.code, body.decode("utf-8", "replace")), e.code, body.decode("utf-8", "replace"),
                        what=what, retry_after=ra)
+            if host in HELD:                       # this call tripped its hold: the task is held, never failed (2.12.1)
+                raise ServiceHeld(f"{host} is held ({HELD[host]})") from e
+        raise
+    except ServiceHeld:
         raise
     except Exception as e:
         c[1] += 1
         c[2] = repr(e)[:200]
         note_issue(host, "timeout", err=repr(e), what=what)   # no answer: timed out, reset or unreachable
+        if host in HELD:
+            raise ServiceHeld(f"{host} is held ({HELD[host]})") from e
         raise
 
 
@@ -1718,6 +1724,9 @@ def cc_home(site):
 
 
 def common_crawl(deadline):
+    for h in ("index.commoncrawl.org", "data.commoncrawl.org"):   # held by the site or earlier this run: held, not failed (2.12.1)
+        if held(h):
+            raise ServiceHeld(f"{h} is held ({held(h)})")
     crawl, api = cc_latest()
     d = site_call("/api/crawl/commoncrawl.php?crawl=" + urllib.parse.quote(crawl))
     # our states' local public sites: every site under az.us, nm.us … that the crawl captured, onto the register
