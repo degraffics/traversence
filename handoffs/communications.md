@@ -1,6 +1,6 @@
 # Communications: hand-off (2026-11-18)
 
-**Decision:** `decisions/0172-communications-who-reaches-whom.md`, draft 5, no code. Waiting for Jason's OK.
+**Decision:** `decisions/0172-communications-who-reaches-whom.md`, draft 6, no code. Waiting for Jason's OK.
 **Draft 2 (Jason's first changes, 2026-11-18):** Pulse is the inbox (everything lands there; email, push and text point
 back); outside mailboxes in Pulse (§4.7: our cPanel, IMAP, POP, Gmail, Microsoft, SES receiving); his six levels
 (Critical, Urgent, Alert, Notice, General, Special) with what each does, kept apart from a person's own flags (Follow
@@ -11,7 +11,8 @@ the message carries its own process** (full details and its action buttons insid
 Pulse keeps its established look (0105), not an Outlook layout (Jason: "i didnt say to use the outlook layout");
 bundled cases split. Draft 5: the profile page's Pulse per Jason's mockup
 (`design/pulse-profile-mockup.png`): channel chips, list with row icons, a row opens in place with its content and
-its own answer box. He said "there is a lot to unpack" in the rest: expect more changes.
+its own answer box. Draft 6: the row's seven icons as Pulse's managing actions on every kind, and an
+email in Pulse; open: whether every Pulse opens rows in place (recommended) or the admin keeps 0105's drawer. He said "there is a lot to unpack" in the rest: expect more changes.
 **Checked against:** the live mirror at "Sync: 2026-11-18 02:36 UTC".
 **Started by:** the session manager, with Jason's scope (2026-11-18): internal, between accounts, and listings
 communications; each WHO, then each WHAT; listing cards; texting from the decisions.

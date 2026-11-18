@@ -1,6 +1,6 @@
 # 0172: Communications: who reaches whom, about what, by which channel, and one way to deliver
 
-Status: **proposed, draft 5** (2026-11-18). Waiting for Jason's OK. No code yet.
+Status: **proposed, draft 6** (2026-11-18). Waiting for Jason's OK. No code yet.
 Drafts 2 and 3 take in Jason's changes: Pulse is the inbox, and keeps its established look (0105): it collects, organizes and
 lets you read, while each message carries its own process; outside mailboxes in Pulse (§4.7); six levels, with flags and tags kept
 apart from them; three touch points; a community group is a channel.
@@ -119,6 +119,45 @@ What changes is what flows into it, and what an opened row or case holds:
   37 sites, 15 finds) becomes one row each, as 0171 §8 already decided for alarms.
 - **The person's own marks** (flags, importance, tags, below) sit on the row and in Search.
 
+#### The row's icons: how Pulse manages any message (proposed)
+
+Jason, 2026-11-18, on the mockup's row icons: "These represent how the pulse handles managing actions, so based on our
+build I would expect you to consider this and suggest how best to handle an email from pulse construct."
+
+**The same seven icons on every row, whatever the kind.** They manage the message (Pulse's part); what the message is
+for stays inside it (the message's part, below).
+
+| Icon | Pulse's action | On a post or comment | On a message (member, business, guest) | On a case (admin, business team) | On an email (§4.7) |
+|---|---|---|---|---|---|
+| ✉ | **Read or unread** | the same | the same | the same | kept in step with the mailbox |
+| ↗ | **Pass it on** | share | forward | refer to a teammate (Assign) | forward |
+| 📌 | **Pin** in your own list (your choice; the site never pins) | the same | the same | the same | also flags it in the mailbox |
+| 🛡 | **Protect** | report, hide, mute the poster or the group | report, block | escalate | junk, block the sender, report phishing to our team |
+| 🗂 | **File** in a folder, or Archive | the same | the same | the same | moves it to the mailbox's own folder |
+| ⊕ | **Add to** | Keep, a journey, Follow up | Follow up, the Address Book | Follow up, a task, a note | Follow up, make it a case or a task, the sender to the Address Book, link it to a customer or an order (0111) |
+| ▾ | **Open** in place | | | | |
+
+- **Follow up** (a date, and it comes back unread at that time) lives under ⊕, so flags need no icon of their own.
+- Greyed with the reason where an action doesn't apply (CLAUDE.md: never silently hidden).
+- On a phone the six action icons fold into one **⋯** beside ▾.
+
+**An email in Pulse, opened:**
+1. **The row:** the sender's picture or initial; the link mark shows which mailbox it came to (support@, a Gmail);
+   Subject; Received; a paperclip for attachments. A conversation is one row with its count.
+2. **Opened in place:** From, To, Cc, when, the mailbox; the email as sent, shown safely (scripts removed, outside
+   pictures held with **Show pictures**); attachments open in a peek, and **Save to** puts one on a record (on admin
+   pages files belong to the record, 0143).
+3. **Its answer box,** the same shape as the post's: **Reply ▾** (Reply, Reply all, Forward), **From ▾** (only the
+   mailboxes you oversee, 0167 §2a), attach, spell check, and **Send ▾** (Send, Save as draft, Schedule), as
+   Publish ▾ is for a post.
+4. **An outside email has no process of its own.** ⊕ **Make it a case** or **a task** turns it into one of ours,
+   keeping the email inside it, so its replies stay in the same thread.
+
+**Open question (Jason, 2026-11-18: "As far as does the system use this as a standard drawer/row I am not sure"):**
+whether every Pulse opens a row in place, as the profile's does, or the admin's keeps 0105's side drawer. The
+recommendation: **in place everywhere**, as the one construct, with the mockup's **⤢** (bottom right of the opened row)
+opening it wide (the admin's split view, when a tool needs the room). For Jason.
+
 #### The message: what it's for, and acting on it inside it
 
 Each kind of message (`Notify::KINDS`, §4.1) has a **body made by the part of the system that owns it**, shown where
@@ -202,7 +241,7 @@ Nothing in this table moves a message in the list; the Pulse column is how it's 
 
 ### Flags and tags in Pulse
 
-- **Follow up** (a flag, as in Outlook): Today, Tomorrow, This week, Next week, a date, or no date. At its time it comes
+- **Follow up** (a flag, under the row's ⊕): Today, Tomorrow, This week, Next week, a date, or no date. At its time it comes
   back to the top of the list as unread, as a Notice to that person (by their channels), until the flag is marked complete. **Clear flag** takes it
   off.
 - **Importance:** High or Low, the person's own; they can sort or filter by it, and it changes nothing for anyone else.
