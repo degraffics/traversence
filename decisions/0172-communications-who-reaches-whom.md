@@ -1,7 +1,9 @@
 # 0172: Communications: who reaches whom, about what, by which channel, and one way to deliver
 
-Status: accepted (Jason, 2026-11-18, draft 16, approved with the decision pop-up). Not built; the builds follow §6's
-order, with the push engine and the text decision as their own items (§4.6).
+Status: accepted (Jason, 2026-11-18, draft 16, approved with the decision pop-up). **Building (2026-11-18):** step 2 live
+as #130; steps 3–7 live as one release, #135 (§6's note). **Still open:** the admin's Pulse Stream doesn't yet have
+one row per thing, rows that open in place or the row icons (the Communications session reopened for it, 2026-11-18);
+step 8, texting, needs its own decision. Progress: `handoffs/communications.md`.
 Drafts 2 and 3 take in Jason's changes: Pulse is the inbox, and keeps its established look (0105): it collects, organizes and
 lets you read, while each message carries its own process; outside mailboxes in Pulse (§4.7); six levels, with flags and tags kept
 apart from them; three touch points; a community group is a channel.

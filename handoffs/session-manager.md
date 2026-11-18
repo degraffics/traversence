@@ -12,11 +12,28 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
 - **One session per build, start to finish** (Jason, 2026-11-18): a multi-phase build stays in its session until every
   phase is built and live, then it's closed; never a fresh session per phase. Propose, Jason approves: starting a session
   for a new build or a problem he reports. At most about three working sessions at once.
+- **"Done" is checked, not taken on trust** (Jason, 2026-11-18, after Communications was closed with the admin Pulse
+  Stream untouched): before archiving, compare what's live against the build's decision and its brief, page by page
+  (every surface the decision names, e.g. *every* Pulse), and tell Jason what was checked. A gap reopens the session.
+- **Decisions kept current** (Jason, 2026-11-18): after each release goes live, check that the decision it builds
+  has a dated note of what was built, any change Jason approved along the way (e.g. 0172 §6's one release), and what's
+  left; and that `decisions/index.md` and the README's range are current. Missing: ask the build session to add it in
+  its next PR, or add it myself in the delivery PR.
+- **No scope creep, no drift** (Jason, 2026-11-18: "consistency = scope creep or drift"): after each release, check the
+  release and the build's `handoffs/<area>.md` against its decision and brief. **Scope creep:** something built or
+  promised that the decision and brief don't call for. **Drift:** something the decision calls for changed, shrunk,
+  renamed or silently dropped (e.g. 0172's admin Pulse left as it was), or a hand-off whose built/left lists, release
+  numbers or sync don't match what's live. Either goes back to the session the same hour; anything that changes the
+  decision needs Jason's OK and a note in the decision.
 - **Without asking:** archive a session that has said it's done or handed off, work in `main`, nothing waiting on him
-  (Jason, 2026-11-14). Never archive one waiting on him, the session manager itself, or "Community Build" (he keeps it).
+  (Jason, 2026-11-14), once the "done" check above passes. Never archive one waiting on him, the session manager itself, or "Community Build" (he keeps it).
   If the permission check refuses an archive, ask him for "archive it".
 - **Relay:** when Jason answers here for another session ("merge it", a choice), send it to that session with
   `send_message` in his words. Never approve anything on his behalf.
+- **Talking to Jason** (2026-11-18): read his answers literally and act on them; never ask again what he answered.
+  "Waiting for your OK" lists only what's new, mine to ask and unanswered, in plain words of what he does; what he
+  handles in another session's chat isn't listed. Nothing waiting: one line saying so. Check a timing before blaming a
+  session (cross-session messages can arrive minutes late).
 
 ## How the checks run
 

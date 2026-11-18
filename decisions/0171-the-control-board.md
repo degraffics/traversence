@@ -1,7 +1,9 @@
 # 0171: The System Control Board: start-to-finish management and control of the whole system
 
-Status: accepted (Jason, 2026-11-18, revision 2, approved with the decision pop-up). Not built yet; the five releases
-follow in §15's order.
+Status: accepted (Jason, 2026-11-18, revision 2, approved with the decision pop-up). **Building (2026-11-18):** releases 1
+(#120), 2a (#121, fixed #124), 2b (#127, layout #128), 2c (#129), then fixes #131–#134 and #136 (W2's second look) and 3a
+(#137: the alarm list as the board's queue, the watch, the top-bar light, alarms in Notify and Pulse) are live. Next: 3b,
+then releases 4 and 5. Progress and what's left: `handoffs/control-board.md`.
 Amends: 0163 §10 (switching back on) and its notes on Start the system and the pre-flight. Also amends ServiceHealth's
 "one Pulse case per issue" (2026-11-14) and the Pulse cases listed in §8.
 Builds on: 0109 (the admin: manifests and widgets), 0163 §1–§9 (the service register, costs, warnings, switches), 0164
