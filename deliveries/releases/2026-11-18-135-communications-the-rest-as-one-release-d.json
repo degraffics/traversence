@@ -6,13 +6,13 @@
     "zip": "comms-all.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "approved",
+    "state": "staged",
     "step": 0,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
     "plan_at": "2026-11-18 19:20:55",
-    "staged_at": null,
+    "staged_at": "2026-11-18 19:20:57",
     "vetted_at": null,
     "live_at": null,
     "files": {
@@ -436,7 +436,39 @@
         "app/migrations/2027-03-20_listing_messages.sql",
         "app/migrations/2027-03-20_comms_engine.sql"
     ],
-    "checks": [],
+    "checks": {
+        "ok": true,
+        "where": "staging",
+        "at": "2026-11-18T19:20:59+00:00",
+        "items": [
+            [
+                "PHP files parse",
+                true,
+                "70 checked"
+            ],
+            [
+                "Migrations only add",
+                true,
+                "2 checked"
+            ],
+            [
+                "Migrations ran on staging",
+                true,
+                "Ran 2027-03-20_comms_engine.sql, 2027-03-20_listing_messages.sql"
+            ],
+            [
+                "Pages answer",
+                true,
+                "8 pages answered on staging.trvgo.us"
+            ],
+            [
+                "No new fatal errors in the logs",
+                true,
+                "10 logs read"
+            ]
+        ],
+        "first_fail": ""
+    },
     "log": [
         {
             "at": "2026-11-18T19:20:53+00:00",
@@ -452,6 +484,11 @@
             "at": "2026-11-18T19:20:55+00:00",
             "by": 0,
             "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
+        },
+        {
+            "at": "2026-11-18T19:20:59+00:00",
+            "by": 0,
+            "msg": "Put on staging (83 files); its checks passed."
         }
     ]
 }
