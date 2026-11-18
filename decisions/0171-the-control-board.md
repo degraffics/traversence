@@ -1,7 +1,9 @@
-# 0171: The Control Board: one control room for the whole system
+# 0171: The System Control Board: start-to-finish management and control of the whole system
 
-Status: proposed (2026-11-18), waiting for Jason's OK through the session manager. Nothing is built before it.
-Amends: 0163 §10 (switching back on), and its notes of 2026-11-15 (Start the system) and 2026-11-16 (the pre-flight).
+Status: proposed (2026-11-18), revision 2, after Jason's "needs changes". Waiting for his OK through the session
+manager. Nothing is built before it.
+Amends: 0163 §10 (switching back on) and its notes on Start the system and the pre-flight. Also amends ServiceHealth's
+"one Pulse case per issue" (2026-11-14) and the Pulse cases listed in §8.
 Builds on: 0109 (the admin: manifests and widgets), 0163 §1–§9 (the service register, costs, warnings, switches), 0164
 (the Knowledge Engine and its workflows W0–W14), 0165 (staging in safe mode), 0160 (the crawler as one service).
 Hand-off: `handoffs/control-board.md`. Checked against the live mirror at "Sync: 2026-11-18 02:36 UTC".
@@ -17,293 +19,468 @@ Jason, 2026-11-18:
 - "neither of them, especially START, does not include endpoints or a way to see what data is being captured and or
   stored."
 
+His answer to the first draft (revision 1, the same day), verbatim:
+
+> "The system control board: start to finish system management and control. Organized by how an operator can see and
+> understand each system and everything within its process. Each gauge holds the entire process for whatever system
+> feature it represents along with the ability manage that feature for performance and reporting. System Board must
+> oversee Preflight, Start-up, Observation & reporting, shut-down, maintenance, historical data at system level as well
+> as individual process. The build must address: 1. real time monitoring, so any trip or issue (slow, retry, crash)
+> produces an alert. Alerts are up to 1. system notifications, 2. in a pulse for operator review and action steps to
+> address it 3. push it from the hourly check, which needs a site health token saved through my secure form (not sure
+> what this means (free); 3. Complete routing for each process and must be fast, efficient, and accurate for the board
+> and the system to be stable and operational, down time is bad, so we ensure we can handle and manage our system well
+> to ensure it is healthy always. […] The Pulse case needs to be address because I am not finding them helpful either."
+
+**What revision 2 changes:**
+- the board is organized by system, then process, and each gauge holds its whole process;
+- six stages, at system level and per process: shut-down and maintenance are new;
+- real-time monitoring of slow, retry and crash, saying how each is detected and how fast;
+- alerts go three ways;
+- the health token is explained in plain words;
+- Pulse is fixed: one item per alarm, actions in place, and it closes itself;
+- every process is routed end to end and kept fast, efficient and accurate;
+- five releases instead of four.
+
 ## What exists (checked in the live code)
 
-Most of what a control room needs already exists. It is spread over several pages, and nothing records what data comes
-in or where it is stored.
+Most of the parts exist. They are spread over several pages, and nothing records what data comes in or where it is
+stored.
 
-- **Pre-flight** (`app/lib/Preflight.php`, https://traversence.com/admin/config/preflight). Its line groups are:
-  the site, outside services, W0 and the crawler on Railway, query timings (`TIMINGS`), the source map (`NEEDS`), the
+- **Pre-flight** (`app/lib/Preflight.php`, https://traversence.com/admin/config/preflight). Its line groups are: the
+  site, outside services, W0 and the crawler on Railway, query timings (`TIMINGS`), the source map (`NEEDS`), the
   site's needs, workflows, tasks, phases (`PHASES`) and the switch-on check. Results are kept in `preflight_results` and
-  `preflight_runs`, which are staging's own tables. It runs nightly (`preflight_tick`), and its red lines become one
-  Pulse case.
+  `preflight_runs`. It runs nightly (`preflight_tick`), and its red lines become one Pulse case.
 - **Start the system** (`app/lib/SystemStart.php`). Its steps are: the keys, watching, the switch-on check, confirming
   every workflow and task, Railway's schedule, the master switch, then W0–W12 and the tasks in order, each watched by
-  itself.
-  - Its state is one row in `search_index_state` (`ops:start`), and past sessions are kept under `start:sessions`.
-  - It is carried on by `system_start_tick`.
-  - The same card appears on Automation (https://traversence.com/admin/config/automation#start) and on the Workflow
-    board (https://traversence.com/admin/config/board).
+  itself (`gate()`, `runs()`). Its state is kept in `search_index_state` (`ops:start`, `start:sessions`), it is carried
+  on by `system_start_tick`, and its card appears on Automation and on the Workflow board.
+- **The only stop is Pause everything** (`SystemStart::pauseAll`): the master switch off, and Railway's schedule
+  removed. There is no orderly per-system shut-down, and no maintenance state. A switch is either on or paused.
 - **The switches** (`app/lib/Automation.php`) have four levels: master, workflow (`WORKFLOWS`, W0–W14), task and
   service. The site's jobs per workflow are in `JOBS`, and every change is written to `automation_log`.
-- **Services** (`Operations.php`): the service register (`register()`: keys, caps, use, cost, status), the warnings at
-  50/75/95% (`LEVELS`), "returns empty", watching Railway and the sync, and `switchOnCheck()` / `blocking()`.
-  `ServiceHealth.php` covers issues, holds and probes, with one Pulse case per issue.
+- **The site's jobs** (`Scheduler.php`). Each run is kept in `job_runs` for 14 days: when it started and finished,
+  whether it was ok, and its note. A job that stops with a fatal error is recorded as "Stopped".
+- **Services:**
+  - `Operations.php` holds the service register, the warnings at 50/75/95% (`LEVELS`), "returns empty", watching
+    Railway and the sync, and `switchOnCheck()` / `blocking()`.
+  - `ServiceHealth.php` classifies each failure (`KINDS`). It backs off from 10 minutes up to 6 hours, holds the service
+    after a ban, a refused key or a used-up quota, and runs probes. It opens one Pulse case per issue.
 - **The crawler's runs** (`crawler/CrawlService.php`):
-  - `crawl_runs`: one row per run;
-  - `crawl_run_items`: per task, its outcome, seconds, fetches and `counts`;
-  - `crawl_service_calls`: per host, kept 90 days;
+  - `crawl_runs`: a run that never reports is marked "abandoned" after 40 minutes;
+  - `crawl_run_items`: per task, its outcome, seconds, fetches and counts;
+  - `crawl_service_calls`: calls and failures per host;
   - `crawl_costs`.
-- **The endpoints**: 21 under `website/api/crawl/` plus `_auth.php`: commoncrawl, geocode, guides, heritage, identity,
-  index, irs, jobs, landmarks, learn, loads, npi, places, rec, refresh, results, service, sources, targets, usage,
-  verify. The video worker has its own `website/api/video/`. **None of them records what it received, stored or
-  refused, or which records it touched.**
-- **The health report** (`website/api/health.php`, `HEALTH_TOKEN`) gives totals only, never anything about a person.
-  **The daily report** (`DailyReport.php`) is emailed at 5 am Arizona time to the Founder.
+  - The monthly bulk loads run only in the night window (`NIGHT`, 1–5 am Arizona time).
+- **The endpoints**: 21 under `website/api/crawl/` plus `_auth.php`, and the video worker's `website/api/video/`.
+  **None of them records what it received, stored or refused, or which records it touched.**
+- **Pulse** (`Pulse.php`):
+  - items with a severity (`SEVERITY`: critical, alert, update, event) and a clock (`SLA_HOURS`);
+  - done and undo, assign, escalate and notes (`mark()`);
+  - steps that act in place (`manage()`).
+- **The health report** (`website/api/health.php`, behind `HEALTH_TOKEN`) gives totals only.
+- **The daily report** (`DailyReport.php`) is emailed at 5 am Arizona time to the Founder.
 
 Four gaps, each confirmed in the code:
-1. Start's confirm step calls `Preflight::run()` for each workflow line. `Preflight::workflow()` then reads the stored
-   `nd:` results (the source map) rather than testing them. A need that is stale or has never run therefore doesn't
-   hold the workflow.
+1. Start's confirm step calls `Preflight::run()` for each workflow. `Preflight::workflow()` then reads the stored `nd:`
+   results (the source map) rather than testing them, so a stale or never-run need doesn't hold the workflow.
 2. The confirm step doesn't run the four query timings.
-3. `SystemStart.php`'s header comment (items 5–6) still says "one at a time … each starting only when the one before
-   has run cleanly". Since release start-confirm, the code confirms everything first and then switches units on in
-   order without waiting on runs.
-4. No code says which endpoints and tables belong to which workflow. Each page puts that picture together its own way.
+3. `SystemStart.php`'s header comment (items 5–6) still describes the old one-at-a-time pacing.
+4. No code says which endpoints and tables belong to which process, so no page can show a process end to end.
 
 ## Decision
 
-The **Control Board** is the system's control room: one place to see every unit and sensor, control them in place,
-start the system, hear its alarms, read its log and get its reports. The pre-flight and Start the system become two of
-its parts:
-- **the pre-flight** becomes its interlocks;
-- **Start the system** becomes its startup sequence.
+The **System Control Board** is the control room for the whole system, from start to finish:
+- **Organized by system, then process.** Each gauge holds the entire process it stands for.
+- **One lifecycle**, at system level and for each process: pre-flight, start-up, observation and reporting, shut-down,
+  maintenance, and history.
+- **Monitoring in real time**: every trip or issue raises an alarm, and every alarm reaches the operator three ways.
+- The pre-flight and Start the system become two of its stages. Their libraries stay and are read by the board.
+  Nothing that works is rebuilt.
 
-Their libraries stay and are read by the board. Nothing that works is rebuilt.
+### 1. Systems and processes: how the operator sees it
 
-### 1. The board (the mimic)
+The board is drawn the way an operator reads a plant: **systems**, and within each system its **processes**.
 
-One diagram of the whole flow, read left to right:
+| System | Its processes (each one gauge) |
+|---|---|
+| **The Knowledge Engine** | W0 Indexer, W1–W14 (`Automation::WORKFLOWS`), and the tasks under them (`SystemStart::TASKS`, the crawler's capture tasks) |
+| **Workers** | W0 Indexer, the crawler and the video worker on Railway |
+| **Outside services** | Each company in the service register (`Operations::register`) |
+| **The site** | The databases, `.env`, database updates, staging, the sync, and the site's own jobs (`Scheduler::JOBS`: billing, releases, email, Moments…) |
 
-**sources** (our copies first, then the outside services) → **workers** (W0 Indexer, the crawler, the video worker, on
-Railway) → **the site's endpoints** (`/api/crawl/*`, `/api/video/*`) → **tables** → **where it ends up** (Review,
-published, held or refused).
+- **The systems come from the register (§3), not a hand list,** so a new workflow, worker, service or job appears by
+  itself in its system.
+- **The board's first view** shows each system as one row. Its light is the worst of its processes. It shows its
+  numbers and its stage (§2).
+- **Tapping a system** opens its processes as gauges.
+- **On a phone**, the systems stack in one column. A system opens in place, a process opens in a drawer, and nothing
+  scrolls sideways at 390px.
 
-- Each box shows its live numbers and is lit by its state:
-  - **green**: running and within limits;
-  - **amber**: on a backup, near a limit, or held for one part;
-  - **red**: tripped, stopped or not ready;
-  - **grey**: off by a switch. Paused is never shown as a failure (0163 §9).
-- A line between boxes shows what passed along it in the last hour.
-- **Tapping a box opens its unit** in a drawer (§2), never on another page.
-- **On a phone** the board is drawn as one column, top to bottom, with the same colours and the same taps. No sideways
-  scroll at 390px.
+**A gauge holds the whole process.** Opened, it shows, top to bottom:
+1. **Its route**: sources → worker or job → endpoint → tables → where it ends up (Review, published, held, refused).
+   Each hop shows its state and what passed along it (§9).
+2. **Its readings**: each value against its limit, and when it was read. The pre-flight lines keep their ids
+   (`nd:places`, `svc:gemini`, `wf:W1`, `ms:radius`); new readings follow the same pattern (`ep:results`,
+   `tb:entities`, `wk:w0-indexer`, `job:listings_tick`).
+3. **Its stage and controls** (§2): run its check, start, shut down, take out for maintenance, put back.
+4. **Its data**:
+   - its last runs;
+   - the ledger rows for its endpoints;
+   - the records it touched (each opens in a peek, under that page's own access);
+   - its tables' sizes.
+5. **Its performance**: speed, throughput, refusals, retries, spend against its cap, and how long it has been up.
+6. **Its alarms, log and reports**: the alarms open on it (§7), its log entries (§10), its trend (§6) and its report
+   (§11).
 
-### 2. Units and gauges
+**Lights:**
+- **green**: running and within limits;
+- **amber**: on a backup, near a limit, slow or retrying;
+- **red**: tripped, crashed or not ready;
+- **grey**: off by a switch;
+- **blue**: in maintenance.
 
-- **A unit** is anything that can be on, off or broken: a workflow (W0–W14), a task (`SystemStart::TASKS`, and the
-  crawler's capture tasks), a worker, an outside service, a site job (`Scheduler::JOBS`), an endpoint or a table.
-- **A gauge** is one reading of a unit: its value, its limit, its state and when it was last read.
-  - Every pre-flight line is a gauge under its existing id (`site:db`, `svc:gemini`, `nd:places`, `wf:W1`, `ms:radius`).
-    New gauges follow the same pattern (`ep:results`, `tb:entities`, `wk:w0-indexer`, `job:listings_tick`).
-  - Limits come from the settings the code already reads: Thresholds & gates and the service register's caps. They are
-    never written into the board's code.
-- **A unit's drawer** holds:
-  - its gauges;
-  - its controls (§2a);
-  - its last runs;
-  - the data behind it: the ledger rows for its endpoints, the records it touched (each opens in a peek, under that
-    page's own access) and its tables' sizes;
-  - its trend (§5) and its log entries (§7).
+Off and in maintenance are never shown as failures (0163 §9).
 
-**2a. Controls at the board.** Each control acts in place and calls what exists:
-- Start the system, Pause everything;
-- pause or resume a workflow, task or service (`Automation`);
-- run its check (`Preflight::run` for its lines);
-- check it now and mark resolved (`ServiceHealth`).
+**Limits** come from the settings the code already reads (Thresholds & gates, the service register's caps). They are
+never written into the board's code.
 
-Every control shows a spinner, gives its answer beside the button and stays where it was pressed. A control the
-viewer can't use is greyed with the reason. Every action has its way back on the same drawer.
+### 2. The six stages, for the system and for each process
 
-**2b. Interlocks.** The pre-flight's lines are the interlocks.
-- A unit's Start or Resume is open only when its needs are green (`Preflight::workflow`, `Operations::blocking`).
-  Otherwise the button names the red line and carries its fix.
-- A unit that trips stops by itself; the rest carry on (0163 §10.2's note).
+Each system and each process shows the stage it is in, and its controls for that stage. The same control works on the
+whole system or on one process.
 
-**2c. The startup sequence.** Start the system keeps its steps and order. The board shows each unit coming on in its
-place in the diagram, with the step it is on.
+1. **Pre-flight** (the interlocks). The pre-flight's lines, read live.
+   - A process can start only when its needs are green (`Preflight::workflow`, `Operations::blocking`).
+   - Otherwise its Start button names the red line and carries its fix.
+2. **Start-up** (Start the system). The same steps and order as today. On the board, each process comes on in its
+   place with the step it is on. Start-up also works for one process: its checks, then on, then watched.
+3. **Observation and reporting.** The process is running and watched live (§5). Its readings feed the historian, its
+   alarms and its reports.
+4. **Shut-down (new).** An orderly stop, for one process or the whole system.
+   - **The order is the start-up order reversed:** the tasks first, then the workflow, then its worker's schedule.
+   - **What is running finishes or is handed back unchanged:**
+     - a crawler run ends at its next task;
+     - `crawl_requests` leases go back, as `CrawlService` already does;
+     - a site job skips its next run.
+   - **The board shows "stopping"** until nothing is in flight, then **"stopped, safe"**. That state lists what it left:
+     queues kept, nothing half-written, and the switch with who and why.
+   - **Before it stops, it names what depends on it.** For example, "W2 rechecks what W1 publishes". Stopping is never
+     refused.
+   - **Pause everything stays as the emergency stop**: everything at once, as today.
+5. **Maintenance (new).** A process is taken out of service on purpose, with a reason and a planned end ("Back by").
+   - **While it is out:**
+     - its alarms become notices;
+     - Start skips it and says why;
+     - it shows blue.
+   - **Put back** runs its pre-flight lines first, then starts it.
+   - **The upkeep calendar** lists what is due, from what the code already schedules:
+     - the night window's bulk loads (`CrawlService::NIGHT`);
+     - the monthly loads (IRS, NPI, Recreation.gov, landmarks);
+     - Data cleanup's daily pass;
+     - the probes due (`ServiceHealth::dueProbes`);
+     - the nightly pre-flight;
+     - staging's nightly pass.
+   - **A maintenance window** can be set ahead. The process goes out and comes back by itself, and both are logged.
+   - Kept in `control_maintenance`: the process, from, until, why, who, and when it was put back.
+6. **History.** Every reading, alarm, stage change and control, kept over time (§6, §10), for the system and for each
+   process.
 
 ### 3. The register (in code)
 
-The unit register is one file, `app/lib/ControlRegister.php`. For each unit it names:
+The unit register is one file, `app/lib/ControlRegister.php`. It is called "the unit register" so it isn't confused
+with the service register.
+
+For each system and process it names:
 - its site jobs;
 - its crawler tasks;
 - its services;
 - its endpoints;
 - its tables;
-- what it feeds.
-
-It is called "the unit register" so it isn't confused with the service register (`Operations::register`).
+- what it feeds;
+- its route (§9).
 
 - **What is already declared is read, not copied:** `Automation::WORKFLOWS` and `JOBS`, `SystemStart::ORDER` and
-  `TASKS`, `Preflight::NEEDS` and `PHASES`, the service register, `CrawlService::tasks()`, and `StagingTables` for each
-  table's class.
-- **Only what nothing declares today is added:** each endpoint's unit and each table's unit.
-  - Endpoints and tables that no unit claims are shown in the register's own "unclaimed" list.
-  - The zip check gets a rule: a new `/api/crawl/` or `/api/video/` endpoint must name its unit.
-- **The board, Start and the pre-flight all read it,** so a new workflow, task, endpoint or table appears on the board
-  by itself.
+  `TASKS`, `Preflight::NEEDS` and `PHASES`, the service register, `Scheduler::JOBS`, `CrawlService::tasks()`, and
+  `StagingTables`.
+- **Only what nothing declares today is added:** each endpoint's process and each table's process.
+  - Anything no process claims is listed as **unclaimed**.
+  - The zip check gets a rule: a new `/api/crawl/` or `/api/video/` endpoint must name its process.
 
 ### 4. The sensors and the ledger
 
 Every call to a worker's endpoint, and every run, records what it received, stored and refused.
 
 - **`control_ledger`**: one row per call. It holds:
-  - when it happened, the endpoint and its unit;
+  - when it happened, the endpoint and its process;
   - the crawler run (`crawl_runs.id`), when there is one;
   - counts of what was received, stored, updated and refused, with the reasons for refusals as counts by reason;
+  - the retries the worker made;
   - how long the call took and its answer code.
 
-  It is written by one helper, which is called at the end of each endpoint (next to `_auth.php`).
+  It is written by one helper, called at the end of each endpoint (next to `_auth.php`).
 - **`control_records`**: the ids of the records each call or run touched. It holds the kind, the id and what happened
   (stored, updated, refused, sent to Review).
   - Each call keeps at most `control_records_per_call` ids (default 500); beyond that the count is kept.
-  - The worker reports the ids it touched in its run report (`CrawlService::report`), so **each crawler run opens to
-    the records it touched**. This takes in that queue item from `handoffs/session-manager.md`.
-- **Ids and counts only.** The ledger never stores a person's name, email, phone or a page's text. A record's content
-  stays in its own table, behind its own page's access.
+  - The worker reports the ids it touched in its run report (`CrawlService::report`), so each crawler run opens to the
+    records it touched. This takes in that queue item from `handoffs/session-manager.md`.
+- **Ids and counts only.** The ledger never stores a person's name, email, phone or a page's text.
 - **Kept** for `control_ledger_days` (default 90) and `control_records_days` (default 30), which are Thresholds
-  settings. Older rows are deleted in small batches, the same way as `crawl_service_calls`.
-- **New tables are add-only and their class is named in `app/lib/staging-tables.php` (R14).** All of them are
-  `follows`, like `crawl_runs` and `automation_log`, because the system runs on live only (Start refuses on staging).
-  Staging shows live's picture, and its controls are greyed with the reason.
+  settings. Older rows are deleted in small batches.
 
-### 5. The historian
+### 5. Monitoring in real time: slow, retry, crash
 
-Each gauge's readings are kept over time, so every unit has a trend.
+Problems are caught **as they happen**, not at the hourly check.
 
-- **`control_readings`**: a gauge's value and state.
-  - It is written by `control_tick` (a new job in `Scheduler::JOBS` and `AUTO`, every 10 minutes) when a value changes,
-    and at least once an hour.
-  - Raw rows are kept `control_readings_days` (default 30). After that, one row per gauge per day (min, max, last, and
-    the time spent red or amber) is kept 400 days.
-- **The trend for each unit** covers runs, records in, stored and refused, spend against its cap, and speed (seconds
-  per item, query timings).
-  - It is drawn as a small inline SVG with no library and no outside call.
+**Where they are detected:**
+- **At the moment of the event:**
+  - each endpoint call, through the ledger helper;
+  - each site job's end, through `Scheduler::run`'s end-of-run hook;
+  - each service failure, through `ServiceHealth::failed`;
+  - each crawler run report.
+
+  Each of these checks its readings against their limits on the spot and raises or clears an alarm before it returns.
+- **Within 5 minutes, for silence:** the watch job `control_tick` (new, in `Scheduler::JOBS` and `AUTO`, every 5
+  minutes) catches what doesn't call in:
+  - a worker that stopped checking in;
+  - a crawler run that didn't report within its budget plus 5 minutes (today's "abandoned" waits 40);
+  - a job whose run never finished;
+  - a scheduled job that didn't start when due.
+
+**What counts as each kind of issue:**
+
+| Issue | Detected when | Level |
+|---|---|---|
+| **Slow** | A call, run, job or query takes longer than its limit (`ms:*` timings, an endpoint's or a job's usual time × `control_slow_factor`, default 3) | Warning; a trip after `control_slow_trips` in a row (default 3) |
+| **Retry** | A service backs off (`ServiceHealth`, back-off kinds), the worker retried a call (the ledger), or a job ran again after a failure | Warning; a trip when a back-off reaches its case limit (`CASE_AFTER`) |
+| **Crash** | A job recorded "Stopped" (`job_runs.ok = 0`), a run abandoned or failed, a worker silent, an endpoint answering 5xx, a database update failed | Trip |
+| **Held or out** | A ban, refused key or used-up quota holding a service a running process needs; out of budget | Trip |
+| **Near a limit** | Caps at 50/75/95% (`Operations::LEVELS`), "returns empty" | Warning |
+| **Wrong count** | A call's received ≠ stored + updated + refused (§9) | Warning |
+
+**How fast:** at the moment of the event for anything that calls in; at most 5 minutes for silence. The email goes out
+in the same minute (§7). The phone push comes at the session manager's next hourly check, so the email is the fast path.
+
+### 6. The historian
+
+Each reading is kept over time, so every system and process has a trend.
+
+- **`control_readings`**: a reading's value and state. It is written when the value changes, and at least once an hour.
+  - Raw rows are kept `control_readings_days` (default 30).
+  - After that, one row per reading per day (min, max, last, and the time spent red, amber or blue) is kept 400 days,
+    in `control_daily`.
+- **The trend for each process, and summed for its system:** runs, records in, stored and refused, retries, slow calls,
+  spend against its cap, speed, and **uptime** (time green or amber against time it should have been on).
+  - It is drawn as a small inline SVG with no library.
   - It shows the last 24 hours, 7 days or 30 days.
 
-### 6. The annunciator (alarms)
+### 7. The annunciator: alarms, and three ways to reach the operator
 
 One alarm list for the whole system, by level.
 
-| Level | When | Examples |
-|---|---|---|
-| **Trip** | A unit stopped, or can't run what's switched on | Start's watch stopped a unit; a ban or refused key holds a service a running unit needs; out of budget; a failed database update holding the rest; W0 not checking in; the crawler stalled |
-| **Warning** | A gauge past its warning limit | a cap at 50/75/95% (`Operations::LEVELS`); "returns empty"; a back-off past its case limit; a red pre-flight line for a unit that isn't on; a query slower than its limit |
-| **Notice** | Worth knowing; nothing to do | a unit came on; a need running on a backup; a trip that cleared by itself |
+- **Trip:** a process stopped, crashed, or can't run what's switched on.
+- **Warning:** slow, retrying, or near a limit.
+- **Notice:** worth knowing, nothing to do. A process came on, a backup is in use, a trip cleared by itself, or a
+  process in maintenance.
 
-- **Every alarm says** what happened, what to do, and its fix as a button in place (or a drawer for another module's
-  tool), never a link to another page.
-- **Kept in `control_alarms`**: when it was raised, its unit and gauge, its level, its words, its fix, who acknowledged
-  it and when (with a note), and when it cleared.
-- **Acknowledging** means "I've seen it". It stops the phone repeating it. The alarm stays listed until its condition
-  reads green.
-- **Clearing** happens by itself, when the gauge behind the alarm reads green at the next look. A trip that cleared
-  before anyone acknowledged it stays listed as "cleared, not seen" until it is acknowledged or 24 hours pass.
-- **To Jason's phone**, at no cost:
-  - each new trip is emailed to the Founder at once (the daily report's recipient; system emails are free). So is a
-    warning still unacknowledged after 24 hours;
-  - `/api/health.php` gains an `alarms` block (open trips and warnings: the unit, the level, the words and since when;
-    totals only, nothing about a person). The session manager reads it on its hourly check, sends a push notification
-    for each new trip, and lists the open ones in its reports. **One step for Jason:** `HEALTH_TOKEN` saved as a network
-    secret for traversence.com on the session manager's environment. The session manager asks for it with its secure
-    form.
-- **No Pulse cases for approvals** (Jason, 2026-11-17: Pulse carries notices, not approvals). Today these Pulse cases
-  exist:
-  - the pre-flight's case;
-  - "Starting the system";
-  - the service issue cases (`svc:<id>`);
-  - the cap warnings (`ops:cap:<service>`);
-  - "returns empty" (`ops:empty`).
+**Each alarm** says, in plain words:
+- what happened;
+- what it means;
+- what to do;
+- its fix as a button that acts in place, or a drawer for another module's tool. Never a link away.
 
-  They become alarms on the board. Pulse keeps one notice, "Control board: N trips, M warnings", which opens the board
-  in a drawer. This amends ServiceHealth's "one Pulse case per issue" (2026-11-14): the issue, its evidence, "Check it
-  now" and "Mark resolved" move onto its alarm.
+**Kept in `control_alarms`:**
+- when it was raised and its process;
+- its reading, its level and its words;
+- how many times it happened and when last;
+- who acknowledged it, and when;
+- when it cleared, and how.
 
-### 7. The logbook
+**The same problem happening again** updates its open alarm (count and last seen) and never opens a second one.
 
-Every switch, alarm and acknowledgement, with who and why, newest first, filtered by unit.
+**It clears by itself** when its reading is green at the next look, and says how it cleared. A trip that cleared before
+anyone saw it stays listed as "cleared, not seen" until it is acknowledged or 24 hours pass.
+
+**Three ways to the operator, all free:**
+1. **System notification.**
+   - Every admin page's top bar shows the board's light, with a count of open trips and warnings. Tapping it opens the
+     alarm list.
+   - Each new trip is emailed to the Founder at once, the same recipient as the daily report. So is a warning still
+     unacknowledged after 24 hours.
+   - System emails cost nothing.
+2. **Pulse, for review and action** (§8). One Pulse item per trip or warning, carrying its steps.
+3. **A push to Jason's phone** from the session manager's hourly check.
+   - `/api/health.php` gains an `alarms` block: open trips and warnings, the process, the level, the words and since
+     when. It holds nothing about a person.
+   - The session manager reads it and sends a push for each new trip.
+   - **What the "site health token" is, in one sentence:** it is a password that lets the session manager read the
+     site's alarm list. Jason saves it once in a secure form that the session manager opens for him; it's never shown
+     in chat, it can't change anything on the site, and it costs nothing.
+   - The token is `HEALTH_TOKEN`, the one the site's daily health report uses. If the site's `.env` doesn't have it
+     yet, its pre-flight line (`site:health`) says so. The session manager asks for the same value.
+
+**Acknowledging** in any of the three places (the board, Pulse, the email's link to the board) acknowledges all of them.
+There is one record: the alarm. Acknowledging stops the email repeat. The alarm stays open until its reading is green.
+
+### 8. Pulse, fixed: one item per alarm, acted on in place, closed by itself
+
+Jason doesn't find today's Pulse cases helpful. The cases from these modules each gather many steps into one case, keep
+lines after they're fixed, and send him elsewhere to see the cause. They are:
+- the pre-flight's case;
+- "Starting the system";
+- the service issue cases (`svc:<id>`);
+- the cap warnings (`ops:cap:<service>`);
+- "returns empty" (`ops:empty`).
+
+From Release 3:
+
+- **They become alarms of five kinds:** Pre-flight, Starting the system, Service issues, Cap warnings and Returns empty.
+  Pulse shows **one item per alarm line**, never one case gathering many.
+- **Each Pulse item reads the same as its alarm:**
+  - its title says what happened ("W1 stopped: Overture refused our key");
+  - it says what it means and what to do;
+  - its fix is a button that acts in place (`['do', …]` / `['form', …]` through `Pulse::manage`), with Peek to open
+    the process's gauge in a drawer.
+- **Severity follows the level:** a trip is critical, a warning is an alert. Each keeps its Pulse clock (`SLA_HOURS`)
+  and can be assigned and escalated as today. Notices stay on the board and in the reports, not in Pulse.
+- **It closes itself** when its alarm clears, with how it cleared written as its last note. **Done** in Pulse means
+  acknowledged. **Undo** reopens it.
+- **No approvals in Pulse** (Jason, 2026-11-17). Anything that needs Jason's yes goes through the session manager's
+  pop-up.
+- **The board and Pulse are one thing seen two ways.** The board shows where an alarm sits in the system. Pulse is the
+  operator's queue of what to review and act on. Both read and write `control_alarms`.
+- **The change to the Nov 14 rule:** ServiceHealth's "one Pulse case per issue" becomes one alarm, and one Pulse item,
+  per issue. The issue keeps its evidence, "Check it now" and "Mark resolved", on both.
+
+### 9. Complete routing: fast, efficient, accurate
+
+Every process is routed end to end, and the route is checked, so the board and the system stay stable.
+
+- **Complete.** Every process's route in the register runs: source → worker or job → endpoint → tables → outcome.
+  - A hop no process claims, an endpoint that doesn't answer, or a table that's missing is a red hop on its gauge, and
+    an alarm.
+  - The pre-flight gains one line per route, "route complete", read from the register.
+- **Fast.** Each hop's time is in the ledger, and the slow rule (§5) applies to each hop.
+  - The board itself stays fast. It reads `control_state`, one row per reading kept current by the sensors, so the first
+    view is one small query (a target of under 300 ms on the server).
+  - A gauge's data loads when it is opened.
+- **Efficient.** The ledger counts fetches, calls and spend per record stored. A process whose cost per record climbs
+  past `control_cost_factor` × its 30-day usual is a warning.
+- **Accurate.** Every call's counts must add up: received = stored + updated + refused. A mismatch is a warning on its
+  hop, so nothing is lost silently.
+- **Kept healthy.** Uptime per process is on its gauge and in every report, so downtime is seen and counted. A trip
+  stops only its own process (0163 §10.2's note); everything else stays up.
+
+### 10. The logbook
+
+Every stage change, switch, control, alarm and acknowledgement, with who and why, newest first, filtered by system or
+process.
 
 - **Read where it is already kept:**
-  - `automation_log` (switches);
-  - Start's sessions (`start:sessions`);
+  - `automation_log`;
+  - Start's sessions;
   - `preflight_runs`;
   - service issues opened and resolved;
+  - `job_runs` failures;
   - releases going live.
-- **New, in `control_log`:** alarms raised, acknowledged and cleared; each control pressed on the board; and an
-  operator's own note ("Log an entry", with spell check).
-- **Times** are shown in the zone where they happened, always labelled ("Nov 18, 10:00 AM MST"), as `js/tv-time.js`
-  does.
+- **New, in `control_log`:**
+  - alarms raised, acknowledged and cleared;
+  - shut-downs and maintenance;
+  - each control pressed on the board;
+  - an operator's own note ("Log an entry", with spell check).
+- **Times** are shown in the zone where they happened, always labelled (`js/tv-time.js`).
 
-### 8. The shift reports
+### 11. Reports, for the system and each process
 
-- **Daily** (at 5 am Arizona time, with the daily report) and **weekly** (Monday). Each covers the whole system and
-  each unit: what ran, records in, stored and refused, spend against caps, alarms raised, acknowledged and cleared,
-  switches changed, and the trends.
-- **Each opens as a page** that reads well on a phone, with **Download** for a CSV and the page as a file. Both work on
-  a phone.
-- **A short summary** (three to five lines) goes in the daily report's System status section and in the `alarms` block
-  of `/api/health.php`, for the morning brief and the session manager's reports.
+- **When:**
+  - **daily**, at 5 am Arizona time, with the daily report;
+  - **weekly**, on Monday;
+  - **on demand**, from any system or process.
+- **What each covers:**
+  - uptime;
+  - what ran;
+  - records in, stored and refused;
+  - slow calls, retries and crashes;
+  - spend against caps;
+  - alarms raised, acknowledged and cleared, and how long each was open;
+  - shut-downs and maintenance;
+  - switches;
+  - the trends.
+- **Each opens as a page** that reads well on a phone, with **Download** (CSV, and the page as a file).
+- **A short summary** (three to five lines) goes in the daily report's System status and in the health report's
+  `alarms` block, for the morning brief and the session manager's reports.
 
-### 9. Where it lives in the admin (0109)
+### 12. Where it lives in the admin (0109)
 
-- **A new section, System Configuration → Control board**, first in that module's menu:
-  https://traversence.com/admin/config/control, with anchors `#board`, `#alarms`, `#start`, `#preflight`, `#log` and
-  `#reports`. A unit's drawer is `/admin/config/control/<unit>` (the section's item route).
-- **Built from the manifests and widgets:** a `mimic` widget is added to `app/admin/widgets.php`. The gauges use
-  `metrics`. The alarms, logbook and ledger are `table` tools in `app/admin/tools.php` (`config/alarms`, `config/log`,
-  `config/ledger`). The unit is the detail drawer. Each `h2.hb-h` part folds.
-- **Dashboard → Today** gets one status line for the board (green, or "2 trips, 1 warning"), which opens it.
+- **A new section, System Configuration → System Control Board**, first in that module's menu:
+  https://traversence.com/admin/config/control, with anchors `#systems`, `#alarms`, `#preflight`, `#start`,
+  `#maintenance`, `#log` and `#reports`.
+- **A process's gauge** is `/admin/config/control/<process>`, the section's item route, opened as a drawer.
+- **Built from the manifests and widgets:**
+  - a `gauge` widget (a process with its route, readings and controls) is added to `app/admin/widgets.php`;
+  - readings use `metrics`;
+  - alarms, the logbook, the ledger and the upkeep calendar are `table` tools in `app/admin/tools.php` (`config/alarms`,
+    `config/log`, `config/ledger`, `config/upkeep`);
+  - each `h2.hb-h` part folds.
+- **The board's light** is in every admin page's top bar (§7). **Dashboard → Today** gets one status line.
 
-### 10. Access
+### 13. Access
 
 - **Viewing the board, acknowledging and logging an entry:** executive and above, the same as the pre-flight and
   Automation (`Access::can('config.control', ['min' => 'executive'])`).
-- **Each control keeps its own permission:** Start, pause and resume use `config.automation`, and checks use
-  `config.preflight`. A control without permission is greyed with the reason.
-- **The records a unit touched** open under their own pages' access. The ledger itself holds only ids and counts.
-- **The `alarms` block in the health report** needs `HEALTH_TOKEN`, as the rest of that report does.
+- **Each control keeps its own permission:**
+  - start, shut down, maintenance and put back use `config.automation`;
+  - checks use `config.preflight`.
 
-### 11. What it replaces or archives
+  A control without permission is greyed with the reason.
+- **The records a process touched** open under their own pages' access.
+- **The health report's `alarms` block** needs `HEALTH_TOKEN`.
+- **Staging:** the system runs on live only (Start refuses on staging). The new tables are `follows` in
+  `app/lib/staging-tables.php` (R14), so staging shows live's picture with its controls greyed.
 
-Each page stays reachable until the board's part replaces it. It is then archived (`archive.md`, out of the menu,
-still reachable), never deleted.
+### 14. What it replaces or archives
+
+Each page stays reachable until the board's part replaces it. It is then archived (`archive.md`), never deleted.
 
 | Today | Becomes | When |
 |---|---|---|
-| Pre-flight page (`config/preflight`) | The board's interlocks (`#preflight`) and each unit's checks; `Preflight.php` stays | Release 2 |
-| Start card on Automation and on the Workflow board | The board's startup sequence (`#start`); both pages link to it | Release 2 |
+| Pre-flight page (`config/preflight`) | The board's pre-flight stage; `Preflight.php` stays | Release 2 |
+| Start card on Automation and the Workflow board | The board's start-up stage; both pages link to it | Release 2 |
 | The switch-on check on the Workflow board | The board's interlocks; the Workflow board keeps each workflow's settings and versions | Release 2 |
-| Pulse cases: Pre-flight, Starting the system, `svc:<id>`, `ops:cap:<service>`, `ops:empty` | Alarms (§6); one Pulse notice | Release 3 |
-| Insights → Telemetry (coming) | The historian's trends; the card points to the board | Release 3 |
+| Pulse cases: Pre-flight, Starting the system, `svc:<id>`, `ops:cap:<service>`, `ops:empty` | Alarms, one Pulse item per line (§8) | Release 3 |
+| Insights → Telemetry (coming) | The historian's trends | Release 4 |
 
-Automation keeps its list of switches (the board's controls call the same code). The service register, Costs and
-Outside services stay as they are; the board links to them in drawers.
+Automation keeps its list of switches, and the board's controls call the same code. The service register, Costs and
+Outside services stay; the board opens them in drawers.
 
-### 12. The four releases, in order
+### 15. The releases, in order
 
-Each release is one coherent zip, checked on a phone at 390px, with its new buttons pressed once, sent with `send.py`
-and approved by Jason through the session manager.
+Five releases, not four: shut-down, maintenance and real-time monitoring add one. Each is one coherent zip, checked on a
+phone at 390px, with its new buttons pressed once, sent with `send.py`, and approved by Jason through the session
+manager.
 
-1. **The register and the three pre-flight fixes.**
-   - `ControlRegister.php`, read by Start and the pre-flight.
-   - Start's confirm step first re-tests the source-map lines (`nd:`) its workflows depend on. It also re-tests their
-     service lines (`svc:`) when they are older than `pf_fresh_mins` (default 60) or have never run, inside the step's
-     existing time budget and carried on at the next look.
-   - The confirm step runs the four timings (`TIMINGS`). A slow one is noted and holds nothing; a failed query is red.
+1. **The register, the routes and the pre-flight fixes.**
+   - `ControlRegister.php` (systems, processes, routes), read by Start and the pre-flight.
+   - The "route complete" lines.
+   - Start's confirm step re-tests the `nd:` lines its workflows depend on, and their `svc:` lines when older than
+     `pf_fresh_mins` (default 60), inside its time budget.
+   - It runs the four timings (slow is noted, a failed query is red).
    - `SystemStart.php`'s header comment is corrected.
-   - No new tables.
-2. **The sensors, the ledger and the board's live view.**
-   - `control_ledger` and `control_records`; the endpoints' helper; the worker reports the ids it touched.
-   - The section, the mimic, the units and gauges, their drawers and controls, the interlocks and the startup sequence.
-   - The Pre-flight page is archived; the Start card and the switch-on check move to the board.
-3. **The historian and the annunciator.**
-   - `control_readings`, `control_alarms` and `control_tick`; the trends.
-   - The alarm levels, acknowledgement and clearing; the email and the health report's `alarms` block.
-   - The five Pulse cases become alarms; Telemetry points to the board.
-4. **The logbook and the shift reports.**
+2. **The sensors, the ledger and the live board.**
+   - `control_ledger`, `control_records` and `control_state`; the endpoints' helper; the worker reports ids and retries.
+   - The section, with systems and processes, gauges and routes.
+   - The pre-flight and start-up stages, and shut-down per process and for the system.
+   - The Pre-flight page is archived; Start and the switch-on check move to the board.
+3. **Real-time monitoring, the alarms and Pulse.**
+   - `control_alarms` and `control_tick`; slow, retry and crash detection at the event.
+   - The top-bar light, the email, the health report's `alarms` block.
+   - Pulse fixed (§8); the five Pulse cases become alarms.
+4. **Maintenance and the historian.**
+   - `control_maintenance`, maintenance windows and the upkeep calendar.
+   - `control_readings`, trends and uptime; Telemetry points to the board.
+5. **The logbook and the reports.**
    - `control_log`, the merged logbook and "Log an entry".
-   - The daily and weekly reports with their downloads; the summary in the daily report and the health report.
+   - Daily, weekly and on-demand reports with their downloads; the summaries.
 
 ## What this doesn't do
 
@@ -314,10 +491,13 @@ and approved by Jason through the session manager.
 
 ## Consequences
 
-- **One place to look:**
-  - what is on, what is wrong and what to do (the board and its alarms);
-  - what came in and where it went (the ledger and its records);
-  - how it has gone (the historian, the log and the reports).
+- **One place to see and run the whole system:**
+  - every system and process, end to end;
+  - every stage from pre-flight to shut-down and maintenance;
+  - what came in and where it went;
+  - how it has run over time.
+- **Problems are caught as they happen,** reach the operator three ways, and close themselves when fixed.
+- **Pulse becomes a working queue:** one item per alarm, with its fix in place.
 - **Start and the pre-flight stop drifting apart:** both read the register, and Start re-tests what it relies on.
-- **Pulse gets lighter:** five kinds of case become alarms, and Pulse keeps notices.
-- **Five new tables, all add-only.** Each has its kept-days settings, so they stay small.
+- **Eight new tables, all add-only,** each with its kept-days settings: ledger, records, state, alarms, readings, daily
+  summaries, maintenance and log.
