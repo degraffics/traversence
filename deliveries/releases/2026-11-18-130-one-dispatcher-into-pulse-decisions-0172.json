@@ -1,0 +1,126 @@
+{
+    "id": 130,
+    "title": "One dispatcher into Pulse (decisions/0172 step 2): a business told of its messages, orders and comments; staff told of their cases; the Communications setting; ",
+    "why": "Decision 0172 §6 step 2 (accepted by Jason, 2026-11-18, draft 16; he asked for this session: 'yes start the dispatcher session'). 1. One dispatcher, Notify (app/lib/Notify.php): every message is one record per person (comms_messages) with its route (comms_route: created, addressed, held, sent, delivered, read, stopped), from a register of kinds with their level of the six. Pulse and free email only: system email (Bluehost) for the new kinds, Amazon SES for notices as 0137 set. 2. Gaps 1 to 4 closed: a business's team (by role: Owner, Manager, General; orders also the Accountant) is told of a new message, a guest question, a Marketplace order or a comment on its listing; staff are told by email when a Pulse case is assigned or escalated to them (to the department's Manager or Director; none set, the Founder). One email per conversation until it's read. 3. Notices go through the dispatcher, keeping everything they did (once per person, kind and thing; their off switches; SES; the weekly digest). 4. Dashboard, App Settings, Communications replaces Notices: each kind with Pulse and Email, quiet hours (off unless set, in the person's own time zone; Notice, General and Special email waits, Critical, Urgent and Alert don't) and the weekly email. 5. Every new email has Stop these (email/stop.php). 6. The bell counts everything waiting at Alert or above (gap 6). No clocks on messages, no new digests, no approvals in Pulse. Tested: 56 checks on MariaDB (tools/notify-tests/notify.php), and the setting rendered at 390px with sample state, each control pressed once (no sideways scroll). One migration (four new tables, add-only); FAQ: five entries added or updated.",
+    "proposals": "",
+    "zip": "notify-1.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/ui/faq.md": {
+            "sha": "92f6a3373ff513283cc46a8da0bf2c699a99e1087aee79c54797cad5ef82fef9",
+            "size": 337174,
+            "live_was": "fcaeefe74160f05e647dd48b3a065da49e2b3ebb35545e700dcd8c66c8259e65"
+        },
+        "app/migrations/2027-03-13_comms.sql": {
+            "sha": "3420b2943f45ac7d07ecbc1dcd3e0422c499fc3a72d7107ccbc7aaf7c35820e6",
+            "size": 2681,
+            "live_was": null
+        },
+        "app/scripts/notify_release.php": {
+            "sha": "5cad9dc090e79cfa329803182913a659ea92ebe0ab71a9551b0bb727359439f3",
+            "size": 702,
+            "live_was": null
+        },
+        "app/lib/Scheduler.php": {
+            "sha": "9302819e8e91d22ade7b20181b5d52d13dae3b1fb7dcb67e00549778fa869ca3",
+            "size": 28334,
+            "live_was": "ad87ca5b792a7aeacc0586614786697369865d332b23ec8a704cad5be79cf9d6"
+        },
+        "app/lib/Engage.php": {
+            "sha": "c784dacc7eb4959818106fc0e0282988ffb005b76e925d90679b417e2465a075",
+            "size": 14922,
+            "live_was": "15dde3ceba0cd8b768b8cd93606edb844b523d1f813983c9ad3a6603f468d8cd"
+        },
+        "app/lib/Notify.php": {
+            "sha": "b15b0574cde7a33a41bea4704d28628c91615bd8d418de2b3ef7c834fc6ec3b8",
+            "size": 31925,
+            "live_was": null
+        },
+        "app/lib/GuestInquiries.php": {
+            "sha": "c6a27c76a9ca7454099e8dec4fb3ae5c41844818fb7381bdfa8d570b0123d04a",
+            "size": 20278,
+            "live_was": "43e06c0ff0ac2a35f8fd3862a5f45ecc17fe328d0dbbcb2086d43b5e039dfa74"
+        },
+        "app/lib/MemberPulse.php": {
+            "sha": "632419a72da2757fda8232bff292760f7ac8b2427648d983275b8bb023c32001",
+            "size": 20512,
+            "live_was": "626f6d0d976b3a31194e182889485f08f9feb02d35603c5ea5e945e33c3f22e1"
+        },
+        "app/lib/MarketCheckout.php": {
+            "sha": "7f759e1cf2f298db678768a5687661c52e66407343b952f115fd7f558ea60d42",
+            "size": 60922,
+            "live_was": "6b1f3abc6f56b297388e70a531d63a6951cda0f093e77febb4fff070ed1a62ee"
+        },
+        "app/lib/BizMessages.php": {
+            "sha": "bbe7649f8947f3377ca650633f47d61c321d0549882b536b910487c74d4c444a",
+            "size": 26316,
+            "live_was": "5078d3e1d7fa9284e77d1198c2ce0c28242c22518cfe43960baa1a0eb4ce343f"
+        },
+        "app/lib/staging-tables.php": {
+            "sha": "3d496907d61e1ae26535dd71896a33e1dba33a67d8f79e7adccc17100df1fa88",
+            "size": 25961,
+            "live_was": "0e90dcb8c2dbf53de66c15907f5b726e23001ed0bb12b3f964e3995cec9b83d0"
+        },
+        "app/lib/Pulse.php": {
+            "sha": "8f22166bb8ad20c71b4fa2863bff6de69166b5e44308ef22ab75da8f650fe49a",
+            "size": 145829,
+            "live_was": "70f5d38c163df56fb80428a6563fe1a173f40fdf32fc1b68b8c4d4da78e22860"
+        },
+        "app/lib/Notices.php": {
+            "sha": "33326db852e67f2ce9bcbc95a1ef824f1c933481a6f89eb282a2d34e250eb53c",
+            "size": 11442,
+            "live_was": "09495385d98aeefbd08e0b38e887b0ce6a5cfe31e478392be423e721b2bfeb2c"
+        },
+        "website/user/dashboard.php": {
+            "sha": "0ab832e093d3cf83dcac6a464507d1f3da1cb4a1d487cfbbd46e790e0d8057b4",
+            "size": 120269,
+            "live_was": "48cd9686ea9a8b578ccc933cdb5958cfbfc4b1a94346f46ee5876c3981b77069"
+        },
+        "website/user/api/comms.php": {
+            "sha": "3ae7b51f5497f3bc06096d956981af057c6394a84f5c22021d80d7cce6524ec7",
+            "size": 2349,
+            "live_was": null
+        },
+        "website/user/api/bell.php": {
+            "sha": "7ac4947fa3cad0586fee51c13ddafc416e15002fe4bfb2c9221a513a48b15acf",
+            "size": 1990,
+            "live_was": null
+        },
+        "website/email/stop.php": {
+            "sha": "80d2b44353aec3d9789a61bc74ecbb3e3140d0ca607cc41bd02c448bfb25214f",
+            "size": 2523,
+            "live_was": null
+        },
+        "website/js/header-nav.js": {
+            "sha": "d67c8e5f97ef8dcc2d218a64d22df2a7d5d5ed291596407c231d5ab5a3cdb4fd",
+            "size": 7784,
+            "live_was": "f51ca04392b0ab62b261f9b8712f3c69379832065888c5f814f28e3ba7a2e34c"
+        },
+        "website/js/tv-pulse.js": {
+            "sha": "4883d48228716ab02da63db50cca962e7088d57019906fe02bdaab626a0e20f1",
+            "size": 18607,
+            "live_was": "06831ae5c14a8f8dde77eb453e387fcad64e38de6a2cb5b6095751e40a85deaf"
+        }
+    },
+    "migrations": [
+        "app/migrations/2027-03-13_comms.sql"
+    ],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-18T17:02:44+00:00",
+            "by": 0,
+            "msg": "Uploaded notify-1.zip: 19 files."
+        }
+    ]
+}
