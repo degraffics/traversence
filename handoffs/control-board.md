@@ -124,6 +124,10 @@ current pages stay reachable until the board replaces them (archived, not delete
   to current states", "alerts and notices need to be cleared once fixed or changed"). After it's live, rebuild 2a as
   `control-board-2a-4`: its `faq.md` on the new live copy, `"replaces": ["control-board-2a"]`.
 
+- **2026-11-18: #123 (releases-live-2) live**, synced at 15:14 UTC. The Releases page refreshes itself, and its checks fold
+  into one line. `control-board-2a-4` was built on that sync (the `-3` build set aside, never merged), with `"replaces":
+  ["control-board-2a"]`.
+
 ### Where the folded-in cleanup fixes go (build session, 2026-11-18)
 
 Release 1 closes none of them (it was built before they arrived). The plan:
