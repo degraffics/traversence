@@ -3,64 +3,64 @@
  "built_on": "c89de6a Sync: 2026-11-18 20:47 UTC",
  "recorded": "2026-11-18 20:59 UTC",
  "note": "Control Board 3c (decisions/0171 release 3, Jason's Trip rule): the system tries first, a trip stops only what it holds and waits for an admin's Resolve; slow calls; the last Pulse cases as alarms; the health report's alarms block. Built on Sync 20:38 UTC, checked against 20:47. Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "e3c2892 Sync: 2026-11-18 21:23 UTC",
  "files": {
   "app/admin/control-console.php": {
    "sha256": "c5897fb748decfec8cea5d4106432fb989d9a9782b1efa7d7a42a57049ce147d",
-   "live": false
+   "live": true
   },
   "app/lib/ControlAlarms.php": {
    "sha256": "9d4522de138cab0e2a0dc1349e5cb7c1a92b538285f23010e81fba92304b892d",
-   "live": false
+   "live": true
   },
   "app/lib/ControlLedger.php": {
    "sha256": "a668aadc000be01f1d8b2f20a547c598b8851fa108128325064efcb3e8759224",
-   "live": false
+   "live": true
   },
   "app/lib/Operations.php": {
    "sha256": "3fca72ecbe8dbcb5fafa877f06d0425747f9c08f7c80719aba581d7c416c4af7",
-   "live": false
+   "live": true
   },
   "app/lib/Preflight.php": {
    "sha256": "b7b7cc1928da1b33f6d0ea2f27b75a92ba66cfef46709c42a7cb304954ca43aa",
-   "live": false
+   "live": true
   },
   "app/lib/Pulse.php": {
    "sha256": "86509ec6eaf8f1cc70ff4afcf664613e18d593016d1b77322e120834de12e0b5",
-   "live": false
+   "live": true
   },
   "app/lib/ServiceHealth.php": {
    "sha256": "396163a9b42431d51fa30bffa52431d85a27264bf493c406e3d6b1bb8e9ce310",
-   "live": false
+   "live": true
   },
   "app/lib/Thresholds.php": {
    "sha256": "f00f468a3c5f2df6cbfa61973fe5d71a2f47322f9eca1b9d31bd780c3c7d9643",
-   "live": false
+   "live": true
   },
   "app/lib/crawler/CrawlService.php": {
    "sha256": "73e009f3845667cb6dcba033128945c6662294d70468073dfb7c20ede0e1f400",
-   "live": false
+   "live": true
   },
   "app/migrations/2026-11-18_control_alarms_trips.sql": {
    "sha256": "7d967fb667112fbe129a070910151bed03aee971ab9ad864b2bbe1a06f4f0081",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "82b600cf6e6018a56fed13a0f306af4096d25950b818ffadb4797c1c4d7f73f9",
-   "live": false
+   "live": true
   },
   "website/admin/api.php": {
    "sha256": "047fe82de0feec6ca571a624be25a7ab332925d51b02ed42bc131a32a210f1f4",
-   "live": false
+   "live": true
   },
   "website/api/health.php": {
    "sha256": "a8e2c1f4cf99e4f25a59a4ceea6bd030ebe17dd9b732e5380a0cc8d31d0e16a8",
-   "live": false
+   "live": true
   },
   "website/js/admin-control.js": {
    "sha256": "72b653535370419d62a38fbb8b2c5284ff1ca6881812d9bd4da34a31272046c0",
-   "live": false
+   "live": true
   }
  }
 }
