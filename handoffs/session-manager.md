@@ -246,6 +246,16 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
        case 'azcc' still calls `ecorp.azcc.gov`, which no longer resolves; the Commission moved to
        `arizonabusinesscenter.azcc.gov`, which answers our host 403 "Access Blocked". Test the new host and say it's
        blocked pending the records request (one line), not "No answer".
+       When it's live, tell Jason that Resume on the AZCC service card is his call (it stays paused until then).
+     - **The "Added switched off" note is out of date** (2026-11-18, from Jason's phone): AZCC, NM SoS and the Arizona
+       licence lists still read "Paused: Added switched off (Jason, 2026-11-15): nothing calls it until Release B and a
+       person's switch". Release B has shipped. Reword `Operations::seed`'s reason (and the live rows' `paused_why`, by
+       a data migration with `data_reason`) to "until a person switches it on" plus each one's real reason: AZCC and NM
+       SoS, the address fix and the records request; the licence lists, Cloudflare (by hand, queue 3a).
+     - **Start's watch counts "nothing to do" as a good run** (2026-11-18, the source-map session): the identity
+       recheck and the vector index show "0 good runs" because their runs end "nothing to do", which
+       `SystemStart::runs()` doesn't count (and `t:recheck` skips `crawl_runs` entirely), so their watch ends only at the
+       6-hour mark. Count a task's own crawler outcomes, ok or nothing to do, as good. Small; Jason's OK as its own release.
      - **A release that fails its staging checks is withdrawn by itself** (Jason, 2026-11-17: "withdrawing bad releases
        needs to be addressed so it can be automated upon fails"). Today a failed release sits on staging ("check failed:
        upload a fixed zip or put it on staging again") until someone presses Withdraw: #70, #78, #108 and #109 were all
