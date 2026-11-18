@@ -121,6 +121,30 @@
    "expires": "2026-11-18T19:00:25Z",
    "release": "releases-live.zip",
    "callers": {}
+  },
+  {
+   "path": "app/admin/sections.php",
+   "functions": [
+    "tv_admin_mod_releases"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Releases page: checks folded into a log toggle",
+   "since": "2026-11-18T15:03:04Z",
+   "expires": "2026-11-18T19:03:04Z",
+   "release": "releases-live-2",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Releases.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Releases page: checks folded into a log toggle",
+   "since": "2026-11-18T15:03:04Z",
+   "expires": "2026-11-18T19:03:04Z",
+   "release": "releases-live-2",
+   "callers": {}
   }
  ],
  "lapsed": [
