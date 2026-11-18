@@ -1,0 +1,38 @@
+{
+ "zip": "releases-table.zip",
+ "built_on": "2611fb8 Sync: 2026-11-18 15:25 UTC",
+ "recorded": "2026-11-18 15:33 UTC",
+ "note": "Releases page: the list as the standard table, each release its own page, no repeated green notice; built on Sync: 2026-11-18 15:25 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/admin/manifests.php": {
+   "sha256": "43466576569a40096151a683b6fc50d8ba570f65f56695165e33f01beaa07fd7",
+   "live": false
+  },
+  "app/admin/sections.php": {
+   "sha256": "e36f494b8ea1d21de65842e18441c3eb8085613b981a6637c70787aa5d3133a0",
+   "live": false
+  },
+  "app/admin/tools.php": {
+   "sha256": "c0b259caec1355d38d280b25ea9c4e7bda598c07860554e9451e48756627d6f2",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "c4dbedb45dde3290176be6a2740e6400f098ec8e15592f17abb69d74db4388cf",
+   "live": false
+  },
+  "website/admin/release.php": {
+   "sha256": "8048acd4e00e93f2e7d97408ce2a055882943b2d46921106f949c8e98cad7130",
+   "live": false
+  },
+  "website/js/admin-kit.js": {
+   "sha256": "2f4597d5535c3d6bfb50f8796a7da32f001310a0c5ac1913f9fce8168dc0f2b0",
+   "live": false
+  },
+  "website/js/admin-releases.js": {
+   "sha256": "fe23987113652219004974c7718e12d51aec12b3f49dde756a514c2f3b660182",
+   "live": false
+  }
+ }
+}
