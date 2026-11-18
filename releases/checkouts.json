@@ -2,6 +2,44 @@
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
  "claims": [
   {
+   "path": "app/lib/Thresholds.php",
+   "functions": [
+    "(top)"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
+   "why": "release start-confirm.zip",
+   "since": "2026-11-18T01:13:38Z",
+   "expires": "2026-11-18T05:13:38Z",
+   "release": "start-confirm.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/SystemStart.php",
+   "functions": [
+    "(top)",
+    "advance",
+    "gate",
+    "heldBy",
+    "lifeLines",
+    "pulseDo"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
+   "why": "release start-confirm.zip",
+   "since": "2026-11-18T01:13:38Z",
+   "expires": "2026-11-18T05:13:38Z",
+   "release": "start-confirm.zip",
+   "callers": {
+    "pulseDo": [
+     "app/admin/automation-console.php",
+     "app/lib/Operations.php"
+    ]
+   }
+  }
+ ],
+ "lapsed": [
+  {
    "path": "app/admin/sections.php",
    "functions": [
     "tv_admin_mod_scheduler"
@@ -12,7 +50,8 @@
    "since": "2026-11-17T17:25:49Z",
    "expires": "2026-11-17T21:54:35Z",
    "release": "",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-18T01:13:38Z"
   },
   {
    "path": "app/admin/widgets.php",
@@ -25,7 +64,8 @@
    "since": "2026-11-17T17:25:51Z",
    "expires": "2026-11-17T21:54:38Z",
    "release": "",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-18T01:13:38Z"
   },
   {
    "path": "app/lib/SystemStart.php",
@@ -36,7 +76,8 @@
    "since": "2026-11-17T19:23:54Z",
    "expires": "2026-11-17T23:23:54Z",
    "release": "switchon-group.zip",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-18T01:13:38Z"
   },
   {
    "path": "app/lib/SystemStart.php",
@@ -52,7 +93,8 @@
      "app/admin/automation-console.php",
      "app/lib/Operations.php"
     ]
-   }
+   },
+   "lapsed": "2026-11-18T01:13:38Z"
   },
   {
    "path": "app/lib/Thresholds.php",
@@ -66,10 +108,9 @@
    "since": "2026-11-17T20:15:01Z",
    "expires": "2026-11-18T00:15:04Z",
    "release": "start-confirm.zip",
-   "callers": {}
-  }
- ],
- "lapsed": [
+   "callers": {},
+   "lapsed": "2026-11-18T01:13:38Z"
+  },
   {
    "path": "app/ui/favicon.php",
    "functions": [],
