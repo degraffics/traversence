@@ -31,8 +31,9 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
 - **Relay:** when Jason answers here for another session ("merge it", a choice), send it to that session with
   `send_message` in his words. Never approve anything on his behalf.
 - **Talking to Jason** (2026-11-18): read his answers literally and act on them; never ask the same question again just to re-confirm. Asking is right when something is unclear, or to offer a counter-suggestion with its reason (Jason, 2026-11-18).
-  "Waiting for your OK" lists only what's new, mine to ask and unanswered, in plain words of what he does; what he
-  handles in another session's chat isn't listed. Nothing waiting: one line saying so. Check a timing before blaming a
+  "Waiting for your OK" lists only what's new and unanswered, in plain words of what he does. **Approval requests are
+  shared, approvals are made in the session** (Jason, 2026-11-18): a session's pending OK may be listed here with its
+  name, but the session manager directs him to approve it in that session's own chat, never takes it here. Nothing waiting: one line saying so. Check a timing before blaming a
   session (cross-session messages can arrive minutes late).
 
 ## How the checks run

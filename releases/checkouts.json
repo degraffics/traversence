@@ -27,100 +27,20 @@
    "callers": {}
   },
   {
-   "path": "app/admin/control-console.php",
-   "functions": [
-    "tv_admin_mod_control",
-    "tv_cb_alarms",
-    "tv_cb_check",
-    "tv_cb_row"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "Control Board 3b: Overpass trip, More in place, Pulse cases into the queue",
-   "since": "2026-11-18T19:59:04Z",
-   "expires": "2026-11-19T00:09:37Z",
-   "release": "control-board-3b-2.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/ServiceHealth.php",
-   "functions": [
-    "alarm",
-    "resolve"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "Control Board 3b: Overpass trip, More in place, Pulse cases into the queue",
-   "since": "2026-11-18T19:59:04Z",
-   "expires": "2026-11-19T00:09:37Z",
-   "release": "control-board-3b-2.zip",
-   "callers": {
-    "resolve": [
-     "app/admin/automation-console.php",
-     "app/lib/EngineCase.php",
-     "app/lib/Pulse.php"
-    ],
-    "alarm": [
-     "app/lib/ControlAlarms.php"
-    ]
-   }
-  },
-  {
-   "path": "app/lib/Operations.php",
-   "functions": [
-    "pulseItems"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "Control Board 3b: Overpass trip, More in place, Pulse cases into the queue",
-   "since": "2026-11-18T19:59:04Z",
-   "expires": "2026-11-19T00:09:37Z",
-   "release": "control-board-3b-2.zip",
-   "callers": {
-    "pulseItems": [
-     "app/lib/Pulse.php"
-    ]
-   }
-  },
-  {
-   "path": "app/lib/ControlAlarms.php",
-   "functions": [
-    "(top)",
-    "raise",
-    "seed",
-    "tick"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "Control Board 3b: raise(event), seed, tick",
-   "since": "2026-11-18T19:59:04Z",
-   "expires": "2026-11-19T00:09:37Z",
-   "release": "control-board-3b-2.zip",
-   "callers": {
-    "tick": [
-     "app/scripts/control_tick.php"
-    ],
-    "raise": [
-     "app/lib/ControlLedger.php",
-     "app/lib/Preflight.php",
-     "app/lib/ServiceHealth.php",
-     "app/lib/crawler/CrawlService.php"
-    ]
-   }
-  },
-  {
    "path": "app/lib/Pulse.php",
    "functions": [
+    "'square'",
+    "byOrder",
     "items",
     "manage",
     "playbook"
    ],
    "kind": "change",
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "Control Board 3b: alarm steps in Pulse",
+   "why": "Control Board 3b-3: no contact with Overpass while held",
    "since": "2026-11-18T19:59:04Z",
-   "expires": "2026-11-19T00:09:25Z",
-   "release": "control-board-3b",
+   "expires": "2026-11-19T00:19:00Z",
+   "release": "control-board-3b-3.zip",
    "callers": {
     "items": [
      "app/lib/DailyReport.php",
@@ -138,28 +58,6 @@
    }
   },
   {
-   "path": "website/admin/api.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "Control Board 3b: svcresolve action",
-   "since": "2026-11-18T19:59:11Z",
-   "expires": "2026-11-19T00:09:37Z",
-   "release": "control-board-3b-2.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/Pulse.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "release control-board-3b.zip",
-   "since": "2026-11-18T19:59:31Z",
-   "expires": "2026-11-19T00:09:37Z",
-   "release": "control-board-3b-2.zip",
-   "callers": {}
-  },
-  {
    "path": "app/lib/ControlAlarms.php",
    "functions": [
     "pulseDo",
@@ -174,16 +72,159 @@
    "callers": {}
   },
   {
-   "path": "website/js/admin-control.js",
+   "path": "app/lib/MemberPulse.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "decisions/0172's last two items: the member's needs as rows and on the bell; the admin's task queue replaced by the bell",
+   "since": "2026-11-18T20:11:23Z",
+   "expires": "2026-11-19T00:21:42Z",
+   "release": "comms-needs.zip",
+   "callers": {
+    "needs": [
+     "website/user/api/pulse.php"
+    ],
+    "sources": [
+     "website/user/api/pulse.php"
+    ]
+   }
+  },
+  {
+   "path": "website/js/tv-pulse.js",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "decisions/0172's last two items: the member's needs as rows and on the bell; the admin's task queue replaced by the bell",
+   "since": "2026-11-18T20:11:23Z",
+   "expires": "2026-11-19T00:21:42Z",
+   "release": "comms-needs.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/user/api/bell.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "decisions/0172's last two items: the member's needs as rows and on the bell; the admin's task queue replaced by the bell",
+   "since": "2026-11-18T20:11:23Z",
+   "expires": "2026-11-19T00:21:42Z",
+   "release": "comms-needs.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/ui/pulse-ui.php",
    "functions": [
-    "redraw"
+    "(top)",
+    "tv_pulse_board"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "decisions/0172's last two items: the member's needs as rows and on the bell; the admin's task queue replaced by the bell",
+   "since": "2026-11-18T20:11:23Z",
+   "expires": "2026-11-19T00:21:42Z",
+   "release": "comms-needs.zip",
+   "callers": {
+    "tv_pulse_board": [
+     "app/admin/sections.php",
+     "website/admin/w.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/ServiceHealth.php",
+   "functions": [
+    "alarm",
+    "allowed",
+    "describe",
+    "dueProbes",
+    "failed",
+    "probeSoon",
+    "serverState",
+    "steps",
+    "why"
    ],
    "kind": "change",
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "release control-board-3b-2.zip",
-   "since": "2026-11-18T20:09:37Z",
-   "expires": "2026-11-19T00:09:37Z",
-   "release": "control-board-3b-2.zip",
+   "why": "Control Board 3b-3: no contact with Overpass while held",
+   "since": "2026-11-18T20:17:47Z",
+   "expires": "2026-11-19T00:19:00Z",
+   "release": "control-board-3b-3.zip",
+   "callers": {
+    "probeSoon": [
+     "app/admin/automation-console.php",
+     "app/lib/Pulse.php",
+     "app/lib/SystemStart.php",
+     "website/admin/api.php"
+    ],
+    "serverState": [
+     "app/lib/Operations.php",
+     "app/lib/Preflight.php",
+     "app/ui/outside-services.php"
+    ],
+    "allowed": [
+     "app/lib/Gemini.php",
+     "app/lib/OpenPlaces.php",
+     "app/lib/Operations.php",
+     "app/lib/StagingGate.php",
+     "app/lib/SystemStart.php",
+     "app/lib/Vectors.php"
+    ],
+    "alarm": [
+     "app/lib/ControlAlarms.php"
+    ],
+    "steps": [
+     "app/lib/Pulse.php"
+    ],
+    "failed": [
+     "app/lib/OpenPlaces.php"
+    ],
+    "dueProbes": [
+     "app/lib/crawler/CrawlService.php"
+    ],
+    "describe": [
+     "app/lib/Operations.php",
+     "app/lib/OutsideServices.php",
+     "app/lib/Preflight.php",
+     "app/lib/Pulse.php",
+     "app/lib/SystemStart.php"
+    ]
+   }
+  },
+  {
+   "path": "app/admin/control-console.php",
+   "functions": [
+    "tv_cb_statement_osm"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 3b-3: no contact with Overpass while held",
+   "since": "2026-11-18T20:18:08Z",
+   "expires": "2026-11-19T00:19:00Z",
+   "release": "control-board-3b-3.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/admin/api.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 3b-3: no contact with Overpass while held",
+   "since": "2026-11-18T20:18:18Z",
+   "expires": "2026-11-19T00:18:18Z",
+   "release": "control-board-3b-3",
+   "callers": {}
+  },
+  {
+   "path": "website/admin/api.php",
+   "functions": [
+    "(top)"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "release control-board-3b-3.zip",
+   "since": "2026-11-18T20:18:20Z",
+   "expires": "2026-11-19T00:19:00Z",
+   "release": "control-board-3b-3.zip",
    "callers": {}
   }
  ],
