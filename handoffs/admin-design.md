@@ -23,4 +23,4 @@ Built on Sync 21:45 UTC (2026-11-18). Files:
 - `app/ui/command-strip.php`: the record strip in the same look, measured top.
 - `app/ui/faq.md`: one entry; "11 modules" corrected to 10.
 
-Status: built, rendered locally at 390px and 1280px; waiting on the session manager's review, then Jason's OK.
+Status (21:55 UTC): built and rendered locally at 390px and 1280px, then put on hold by the session manager: Jason is choosing between the #f8f5ec palette and brand.md's original tokens. No claims held, nothing sent. On his answer: re-point the token values, re-check contrast, rebuild on the newest sync, add the :root block to app/ui/page-shell.php (for the member and business Pulse), review again. The question to Jason keeps the 2026-11-12 sage bar.
