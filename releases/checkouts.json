@@ -257,6 +257,17 @@
    "expires": "2026-11-18T20:58:36Z",
    "release": "notify-1.zip",
    "callers": {}
+  },
+  {
+   "path": "website/email/stop.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5krYPakdEQtKuVw14F",
+   "why": "0172 step 2: one dispatcher into Pulse (notify-1)",
+   "since": "2026-11-18T16:58:41Z",
+   "expires": "2026-11-18T20:58:41Z",
+   "release": "notify-1.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
