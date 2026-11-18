@@ -3,12 +3,12 @@
  "built_on": "d80e9f1 Sync: 2026-11-18 20:38 UTC",
  "recorded": "2026-11-18 20:43 UTC",
  "note": "Pulse stream: the filter's notice shown centered, not in the header (built on Sync 20:38 UTC) Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "c89de6a Sync: 2026-11-18 20:47 UTC",
  "files": {
   "app/ui/pulse-ui.php": {
    "sha256": "4f7ffce6d840f285010bd032ec2907a7c949a95a645414bbaf8d1acab713a880",
-   "live": false
+   "live": true
   }
  }
 }
