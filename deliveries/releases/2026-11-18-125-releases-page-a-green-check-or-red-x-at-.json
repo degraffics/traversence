@@ -6,12 +6,12 @@
     "zip": "releases-marks.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "planned",
+    "state": "approved",
     "step": 0,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
-    "plan_at": null,
+    "plan_at": "2026-11-18 15:24:01",
     "staged_at": null,
     "vetted_at": null,
     "live_at": null,
@@ -34,6 +34,16 @@
             "at": "2026-11-18T15:23:59+00:00",
             "by": 0,
             "msg": "Uploaded releases-marks.zip: 2 files."
+        },
+        {
+            "at": "2026-11-18T15:24:01+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/releases-marks.zip (git ed24c39ccd)."
+        },
+        {
+            "at": "2026-11-18T15:24:01+00:00",
+            "by": 0,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
         }
     ]
 }
