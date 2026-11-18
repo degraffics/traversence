@@ -1,0 +1,69 @@
+{
+    "id": 148,
+    "title": "System Control Board 3f: staging's payment-key check, the release pipeline's guards, Supabase's security, Site health's fixes",
+    "why": "Cleanup fixes folded into the board (Jason, 2026-11-18), functional only. (1) STAGING AND LIVE PAYMENTS: staging could not have charged live, and still can't: on staging QuickBooksPay::testHere() is always true, so MarketPay runs in test mode; in test mode MarketPay::key() refuses any value that looks live (sk_/pk_/rk_live_, a Square app value without sandbox-) under any name; and building staging deletes every non-sandbox market_gateways and qb_connection row. What was wrong: StagingGate's list of live keys named STRIPE_LIVE_* and SQUARE_LIVE_*, which no code reads, so its warning (payments off, the site manager naming the key) missed a live STRIPE_PUBLISHABLE_KEY, Square's app id or secret, or a live key under a _TEST_/_SANDBOX_ name. Now every payment name the code reads is judged by its value (StagingGate::PAY_NAMES); the old names and checks stay. (2) THE RELEASE PIPELINE (#106, #108, #109): a release.json switch of 'none', 'off' or 'no' is no switch; a build that can't be approved or staged says why on its card (once per reason); the 10-minute job takes a build from git left at Planned or Plan approved. (3) SUPABASE: Vectors::setupSql() turns on row level security on tv_vectors and gives tv_match to the service role only (what Jason ran by hand on 2026-11-16). (4) SITE HEALTH (case #22): Insights → Sources groups its sites in the database with only the shown columns and at most 500 (it read every crawl's log and timed out, J01); Scheduler::QUIET (jobs that log only when they work) and RETIRED (staging_tick) aren't late on the dashboard's Scheduled tasks or in the health report (D03). The audit's own fixes (D06 migrations, R07 CSP reports, R12 test hosts) are in the docs repo. Left for others: the card edges at 390px (the design session), the journeys, hubs and 'open now' path findings (their owners), NPI (its data). Tests: r3f.php 12 (new), staging unit 59, r3d 18, r3c 28, r1 33. Built on Sync 21:45 UTC, the FAQ on 22:06 (3e, #145, live).",
+    "proposals": "",
+    "zip": "control-board-3f.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/admin/tools.php": {
+            "sha": "1636e064e8f688ff8c3c58b294c25d527af16f184a24cd74b5715dfcff70a983",
+            "size": 250807,
+            "live_was": "4a8d2addbdb5908fea81cc238ef800de02266bf86986f057f2c1a0ddb346cac8"
+        },
+        "app/ui/admin-dashboard.php": {
+            "sha": "57cdb15525e02a3f1ed5c8b9bf3a6b9f2f94bbaedb0e0fbb7f18aab9c27466c0",
+            "size": 56634,
+            "live_was": "b12d6c62875b4f9e3126d6bf4b879252c5aadf62e7b0118ade3a17a20aa6561b"
+        },
+        "app/ui/faq.md": {
+            "sha": "770211bd3e094c6ad881e43612d01f94fdc741a4716f5529e71404be851648ab",
+            "size": 352184,
+            "live_was": "44320fafb1b06b37954197077b16c4f8cda7e38e7eb513d317e067b8e20f3d5f"
+        },
+        "app/lib/Scheduler.php": {
+            "sha": "1899d71451f616044221bc2d1ba248d77afe86576f8c4e0c21491bbc07a3bfca",
+            "size": 30451,
+            "live_was": "d27f05bedd7fb7d01002ff4be6c4772eb7f8db0faf9d802f195e4c1d9a374037"
+        },
+        "app/lib/StagingGate.php": {
+            "sha": "c8868901948f01c6d0e75aa87404aaa34f3fbaee65f730a3253bc2a20f057335",
+            "size": 23776,
+            "live_was": "c3696af714b2f47a6bc8f9d4281a1c5ec57470c859edf1fb77553acf5f61b720"
+        },
+        "app/lib/Vectors.php": {
+            "sha": "8d678a44deb9c5887366b2ed345dbe4ae3c254da67880547ede21ab94a1ac731",
+            "size": 10548,
+            "live_was": "6060d499243d1ae7a03ef45ed57b682f0d45c2cb6e115ca6ced38e13e3603df4"
+        },
+        "app/lib/Releases.php": {
+            "sha": "b1850a090f454fc7f99d9349f5d79907bdc3bb16a938179928dbe981ff9e373a",
+            "size": 118823,
+            "live_was": "2407f8b9327a97e802172f0013f68e3bf832c5a13af4dd5fd06b3e3de5e70b2e"
+        },
+        "website/api/health.php": {
+            "sha": "c00bceb8578bf55103fb89188f6f03bcbe202f8a3b27613c4dab02943dff40ad",
+            "size": 18098,
+            "live_was": "a8e2c1f4cf99e4f25a59a4ceea6bd030ebe17dd9b732e5380a0cc8d31d0e16a8"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-18T22:24:02+00:00",
+            "by": 0,
+            "msg": "Uploaded control-board-3f.zip: 8 files."
+        }
+    ]
+}
