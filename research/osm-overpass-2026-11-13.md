@@ -87,7 +87,8 @@ promises only what's built (the table under it says where each stands).
 > - Each server has a circuit breaker. A 406, 403 or 401 stops every request to that server until a person on our team
 >   marks it resolved. A 429, a timeout or a server error backs off (10 minutes, doubling to 6 hours) before trying again.
 > - Each refusal opens a case for our team naming the server, the status and what it said.
-> - While blocked, we check `/api/status` at most once a day, with the same User-Agent that was refused.
+> - While a server blocks us, we don't contact it at all, not even its `/api/status` page. A person on our team turns it
+>   back on only after you tell us we may.
 > - Our queries are split by kind (one kind of place per query), kept to a small area, with `[timeout:25]`, and sent
 >   one at a time.
 > - A town and kind that has been answered isn't asked again for 3 months.
@@ -107,7 +108,7 @@ promises only what's built (the table under it says where each stands).
 | A breaker per server; stop on 406/403/401/quota, back off on 429/timeouts/5xx; a Pulse case naming the issue | live: site Release #43; crawler worker 2.5 on Railway since 14:01 UTC (main 84ceba9). Holds across runs and the Pulse cases start once the site has run its database update (`service_issues`) |
 | No GET retry after a 406; overpass-api.de off the crawler's list | live: worker 2.5 |
 | One small query per kind, `[timeout:25]`, one at a time | live: worker 2.5; the site, one ask at a time (Release #43) |
-| `/api/status` once a day with the refused agent | live; the first probe goes out with the first run after the database update |
+| No contact while blocked (it replaced the daily `/api/status` probe; Jason, 2026-11-18) | Control Board release 3b-3: no probe for an OpenStreetMap server that refused us; a person marks it resolved |
 | support@traversence.com in both User-Agents | live: site Release #43; crawler worker 2.5 with `CRAWLER_CONTACT` on Railway |
 | A town and kind not asked again for 3 months | live: Release #44 (`service-health2_20261114`), verified Sync 14:21 UTC |
 | The daily budget (2,500 queries / 250 MB, crawler 1,500, site 1,000; half during a ban and two weeks after), in Thresholds & gates | live: Release #44 (counted once its database update `osm_usage` runs); the worker keeps to 5 queries a run meanwhile |

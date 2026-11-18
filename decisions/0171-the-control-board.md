@@ -353,6 +353,10 @@ From Release 3:
   operator's queue of what to review and act on. Both read and write `control_alarms`.
 - **The change to the Nov 14 rule:** ServiceHealth's "one Pulse case per issue" becomes one alarm, and one Pulse item,
   per issue. The issue keeps its evidence, "Check it now" and "Mark resolved", on both.
+- **Overpass (Jason, 2026-11-18, release 3b):** every OpenStreetMap server that refuses us is one trip, "Every Overpass
+  server is held", resolved by a person: no contact at all while held (no `/api/status` probe, no Check it now), and it
+  never clears by itself; it clears when a person presses Reactivate on OpenStreetMap's card after OpenStreetMap releases
+  us, then Mark resolved. Other services keep their light probe.
 
 ### 9. Complete routing: fast, efficient, accurate
 
