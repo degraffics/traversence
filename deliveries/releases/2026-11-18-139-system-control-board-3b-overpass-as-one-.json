@@ -1,0 +1,132 @@
+{
+    "id": 139,
+    "title": "System Control Board 3b: Overpass as one trip to resolve, a long line shown once with More, Pulse's cases folded into the queue",
+    "why": "Decision 0171 §5 and §7, release 3b, with Jason's notes of 2026-11-18: 'see workers check issue' and 'this is bad design. address how you can show a line of text with a toggle or see more to expand its presentation, not repeat it in full' (the check line cut with '…' and then repeated whole under 'All of it'), and his ask that Overpass be a trip in the queue needing resolution. (1) ONE LINE WITH A TOGGLE (Jason, at review: 'use a toggle instead of … and more'): a row's check shows what holds it on one line beside a ▸ toggle, the line fading at the edge, never cut with '…'; the toggle or the line opens it in place and folds it again, and only its OTHER parts on a toggle ('Its other 3 parts'), so nothing is shown twice; an alarm's long reading the same. A check line saved before checks were kept part by part loses its 'What holds it:' prefix and says 'Tested before checks were shown part by part: press Check to see which part holds it.' (2) OVERPASS AS ONE TRIP: every OpenStreetMap server refusing us is one alarm, 'Every Overpass server is held (N refusing us)', not a notice per server, with what it means, three steps (send the statement, wait, Reactivate then Mark resolved), and its buttons: The statement (research/osm-overpass-2026-11-13.md §2 in a drawer, with Copy buttons and where to post it, community.openstreetmap.org Help and support, tag overpass), OpenStreetMap's card, and Mark resolved (asks first; resolves every open OpenStreetMap issue). It clears by itself when no server refuses us; the watch raises it from the open issues on its first run and clears 3a's per-server notices. Any outside service's alarm gets Mark resolved, as its old Pulse case had. (3) PULSE INTO THE QUEUE, managed as decisions/0171 §6–§8 set (Jason, at review: 'how did we already determine their management?'): a service near its monthly cap is a WARNING at 50/75/95% (§6 'Near a limit'), a trip only when out of budget (§6 'Held or out'); a task that keeps finding nothing is a warning per task; each carries its old case's steps as buttons done in place (Raise the cap as one field, Pause it, Check it now, Pause the task, via Operations::pulseDo), and each alarm's Pulse item has the same buttons through Pulse::manage (ControlAlarms::pulseSteps/pulseDo); the pre-flight's case is gone except 'a run stopped'; a service issue with its own open alarm no longer also opens a Pulse case. A reading that repeats doesn't count as a new time. (4) The day-one seed raises an endpoint's server error only if its latest call failed (W2's fixed verify.php no longer reopens). Tests: r3b.php 17 (new), r3a 24, r2d 9, r2b 14, w2-verify 5; rendered at 390px and 1280px with no sideways scroll; More and Less pressed. Built on Sync 20:07 UTC (3a, #137, live). FAQ: the outside-services entry and the board's entry.",
+    "proposals": "",
+    "zip": "control-board-3b-2.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "live",
+    "step": 3,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": "2026-11-18 20:14:58",
+    "staged_at": "2026-11-18 20:14:59",
+    "vetted_at": "2026-11-18 20:15:02",
+    "live_at": "2026-11-18 20:15:02",
+    "files": {
+        "app/admin/control-console.php": {
+            "sha": "afb40e144edc1bbaa5f257b0b0d133c5aac7a9d5110bfd7a95037220c073b479",
+            "size": 54415,
+            "live_was": "2c05dea65aeb52c67ba63ceaa6010cf3baa7024319fcb854b85e6ad148d2151c",
+            "existed": true,
+            "old_sha": "2c05dea65aeb52c67ba63ceaa6010cf3baa7024319fcb854b85e6ad148d2151c"
+        },
+        "app/ui/faq.md": {
+            "sha": "e8347e70a963307e26f3fcc44769149aaae46a3f31089bfa88e016c7e19f387d",
+            "size": 347768,
+            "live_was": "6b02292c8b9a31662bcbe6dd50bf53bc3031fc4ff11f8c22c4d11400137769fc",
+            "existed": true,
+            "old_sha": "6b02292c8b9a31662bcbe6dd50bf53bc3031fc4ff11f8c22c4d11400137769fc"
+        },
+        "app/lib/ServiceHealth.php": {
+            "sha": "33dcee7f8148af8909fca0cd087116fad857a08ae63e579e3b19d7928a595efb",
+            "size": 49058,
+            "live_was": "efcbec9a553f5bbdb126d83f19fafed07c12048be2d0d0b950c89e2db0fd8d5e",
+            "existed": true,
+            "old_sha": "efcbec9a553f5bbdb126d83f19fafed07c12048be2d0d0b950c89e2db0fd8d5e"
+        },
+        "app/lib/Operations.php": {
+            "sha": "2c57618de423217670e8c06bbedbd0d30a07e2b0b14d75321a7a5d4e9f6353df",
+            "size": 69739,
+            "live_was": "e39faa294b61bee74acd0b6f4201f6870c0383ba7a5f0b7c933eae6818478cca",
+            "existed": true,
+            "old_sha": "e39faa294b61bee74acd0b6f4201f6870c0383ba7a5f0b7c933eae6818478cca"
+        },
+        "app/lib/ControlAlarms.php": {
+            "sha": "6f4e7743a409642c38ecf97dfdada8b6e427fa9bd41d7ec481ebdf8bf700e3cc",
+            "size": 26541,
+            "live_was": "f6a8bc267bcc4dc824f8c72ea48783fe3ba5b32923ed4ce13f8f9ff9d858f341",
+            "existed": true,
+            "old_sha": "f6a8bc267bcc4dc824f8c72ea48783fe3ba5b32923ed4ce13f8f9ff9d858f341"
+        },
+        "app/lib/Pulse.php": {
+            "sha": "e7d29dc9b4cf579333c50f8254d7e5e3bdf8b93e84f63742e730edcf1dffc531",
+            "size": 148883,
+            "live_was": "133ad1ee7ef35d00206a79af92b23fe84d1b4f6d752e6fbf30d27caff8a01da6",
+            "existed": true,
+            "old_sha": "133ad1ee7ef35d00206a79af92b23fe84d1b4f6d752e6fbf30d27caff8a01da6"
+        },
+        "website/admin/api.php": {
+            "sha": "341990035f18d12f2450ea1e1252a743de0bb60ea8e3138c0b7cae9f33fb1d30",
+            "size": 32530,
+            "live_was": "0a63105b287169d4e9d4f8848807389cb3cf6263a9331f2f938c9f8862f32bf7",
+            "existed": true,
+            "old_sha": "0a63105b287169d4e9d4f8848807389cb3cf6263a9331f2f938c9f8862f32bf7"
+        },
+        "website/js/admin-control.js": {
+            "sha": "731560986db4edc87ad43a9905d2f05888417ad4c2678b84bc05a3fcc3daa58f",
+            "size": 9613,
+            "live_was": "7a97b25921cd033aad0d1038f16478e56baec93563bbb97d93c393f591dae49d",
+            "existed": true,
+            "old_sha": "7a97b25921cd033aad0d1038f16478e56baec93563bbb97d93c393f591dae49d"
+        }
+    },
+    "migrations": [],
+    "checks": {
+        "ok": true,
+        "where": "live",
+        "at": "2026-11-18T20:15:02+00:00",
+        "items": [
+            [
+                "PHP files parse",
+                true,
+                "6 checked"
+            ],
+            [
+                "Pages answer",
+                true,
+                "3 pages answered on traversence.com"
+            ],
+            [
+                "No new fatal errors in the logs",
+                true,
+                "4 logs read"
+            ]
+        ],
+        "first_fail": ""
+    },
+    "log": [
+        {
+            "at": "2026-11-18T20:14:56+00:00",
+            "by": 0,
+            "msg": "Uploaded control-board-3b-2.zip: 8 files."
+        },
+        {
+            "at": "2026-11-18T20:14:58+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/control-board-3b-2.zip (git 33f07cb1dc)."
+        },
+        {
+            "at": "2026-11-18T20:14:58+00:00",
+            "by": 0,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
+        },
+        {
+            "at": "2026-11-18T20:15:00+00:00",
+            "by": 0,
+            "msg": "Put on staging (8 files); its checks passed."
+        },
+        {
+            "at": "2026-11-18T20:15:02+00:00",
+            "by": 0,
+            "msg": "Approved in chat before it was sent through git, and its checks on staging passed: publishing by itself."
+        },
+        {
+            "at": "2026-11-18T20:15:02+00:00",
+            "by": 0,
+            "msg": "Published: 8 files; everyone at once (no switch)."
+        }
+    ]
+}
