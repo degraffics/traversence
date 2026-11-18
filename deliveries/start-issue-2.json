@@ -1,11 +1,15 @@
 {
- "zip": "start-issue.zip",
+ "zip": "start-issue-2.zip",
  "built_on": "e87f4da Sync: 2026-11-18 02:17 UTC",
- "recorded": "2026-11-18 02:19 UTC",
- "note": "Service issues explained on the Start card. Built on Sync 02:17 UTC Sent through git (releases/inbox).",
+ "recorded": "2026-11-18 02:21 UTC",
+ "note": "Service issues on the Start card; Automation tables on a phone. Built on Sync 02:17 UTC Sent through git (releases/inbox).",
  "status": "pending",
  "live_in": "",
  "files": {
+  "app/admin/automation-console.php": {
+   "sha256": "325a4daf5913e26c7bee64358b9b608974c7e101339c08edf362c07030729106",
+   "live": false
+  },
   "app/lib/SystemStart.php": {
    "sha256": "9e94abab155e35bfd3107add883bb6fbb6475c97fa458491ea7f8717996ab31a",
    "live": false
