@@ -28,7 +28,7 @@ brand.md's established palette, plus red #a62b2b and amber #8f5600; three releas
 - `app/ui/faq.md`: one entry on the fonts.
 - Contrast (against #EFE3C8 / #E6D8B5 / #D8C79D): ink 12.8; taupe 4.11 / 3.70 / 3.14 (fails as text, so `--tv-meta` =
   taupe + 35% ink: 6.2 / 5.59 / 4.73); `--tv-line-strong` 3.35; rail labels 2.97 → 7.4 on umber.
-- Status: summary sent to the session manager; then Jason's OK.
+- Rebuilt on Sync 22:06 UTC. Reviewed by the session manager; Jason approved 2026-11-18 (darker metadata mix, #92400E kept and added to brand.md, fonts on our own server). Send waits for control-board-3e (also carries faq.md) to go live.
 
 ## Release 2 (built, held for after Release 1)
 
