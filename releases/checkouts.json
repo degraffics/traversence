@@ -25,6 +25,107 @@
    "expires": "2026-11-18T23:58:45Z",
    "release": "control-board-3b",
    "callers": {}
+  },
+  {
+   "path": "app/admin/control-console.php",
+   "functions": [
+    "tv_admin_mod_control",
+    "tv_cb_alarms",
+    "tv_cb_check",
+    "tv_cb_row"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 3b: Overpass trip, More in place, Pulse cases into the queue",
+   "since": "2026-11-18T19:59:04Z",
+   "expires": "2026-11-18T23:59:04Z",
+   "release": "control-board-3b",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/ServiceHealth.php",
+   "functions": [
+    "alarm",
+    "resolve"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 3b: Overpass trip, More in place, Pulse cases into the queue",
+   "since": "2026-11-18T19:59:04Z",
+   "expires": "2026-11-18T23:59:04Z",
+   "release": "control-board-3b",
+   "callers": {
+    "resolve": [
+     "app/admin/automation-console.php",
+     "app/lib/EngineCase.php",
+     "app/lib/Pulse.php"
+    ],
+    "alarm": [
+     "app/lib/ControlAlarms.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/Operations.php",
+   "functions": [
+    "pulseItems"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 3b: Overpass trip, More in place, Pulse cases into the queue",
+   "since": "2026-11-18T19:59:04Z",
+   "expires": "2026-11-18T23:59:04Z",
+   "release": "control-board-3b",
+   "callers": {
+    "pulseItems": [
+     "app/lib/Pulse.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/ControlAlarms.php",
+   "functions": [
+    "raise",
+    "seed",
+    "tick"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 3b: Overpass trip, More in place, Pulse cases into the queue",
+   "since": "2026-11-18T19:59:04Z",
+   "expires": "2026-11-18T23:59:04Z",
+   "release": "control-board-3b",
+   "callers": {
+    "tick": [
+     "app/scripts/control_tick.php"
+    ],
+    "raise": [
+     "app/lib/ControlLedger.php",
+     "app/lib/Preflight.php",
+     "app/lib/ServiceHealth.php",
+     "app/lib/crawler/CrawlService.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/Pulse.php",
+   "functions": [
+    "items"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 3b: Overpass trip, More in place, Pulse cases into the queue",
+   "since": "2026-11-18T19:59:04Z",
+   "expires": "2026-11-18T23:59:04Z",
+   "release": "control-board-3b",
+   "callers": {
+    "items": [
+     "app/lib/DailyReport.php",
+     "app/ui/pulse-ui.php",
+     "website/admin/staff-profile.php",
+     "website/admin/w.php"
+    ]
+   }
   }
  ],
  "lapsed": [
