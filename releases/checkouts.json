@@ -1,6 +1,201 @@
 {
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
- "claims": [],
+ "claims": [
+  {
+   "path": "app/lib/Notify.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "Communications, the rest as one release (0167 email engine; 0172 steps 3-7)",
+   "since": "2026-11-18T17:21:27Z",
+   "expires": "2026-11-18T21:21:27Z",
+   "release": "comms-all.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Mailer.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "Communications, the rest as one release (0167 email engine; 0172 steps 3-7)",
+   "since": "2026-11-18T17:21:27Z",
+   "expires": "2026-11-18T21:21:27Z",
+   "release": "comms-all.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/EnvSettings.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "Communications, the rest as one release (0167 email engine; 0172 steps 3-7)",
+   "since": "2026-11-18T17:21:27Z",
+   "expires": "2026-11-18T21:21:27Z",
+   "release": "comms-all.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/CPanelMail.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "Communications, the rest as one release (0167 email engine; 0172 steps 3-7)",
+   "since": "2026-11-18T17:21:27Z",
+   "expires": "2026-11-18T21:21:27Z",
+   "release": "comms-all.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/staging-tables.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "Communications, the rest as one release (0167 email engine; 0172 steps 3-7)",
+   "since": "2026-11-18T17:21:27Z",
+   "expires": "2026-11-18T21:21:27Z",
+   "release": "comms-all.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Scheduler.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "Communications, the rest as one release (0167 email engine; 0172 steps 3-7)",
+   "since": "2026-11-18T17:21:27Z",
+   "expires": "2026-11-18T21:21:27Z",
+   "release": "comms-all.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/section-about.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "Communications, the rest as one release (0167 email engine; 0172 steps 3-7)",
+   "since": "2026-11-18T17:21:27Z",
+   "expires": "2026-11-18T21:21:27Z",
+   "release": "comms-all.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Engage.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "Communications, the rest as one release (0167 email engine; 0172 steps 3-7)",
+   "since": "2026-11-18T17:21:27Z",
+   "expires": "2026-11-18T21:21:27Z",
+   "release": "comms-all.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/GuestInquiries.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "Communications, the rest as one release (0167 email engine; 0172 steps 3-7)",
+   "since": "2026-11-18T17:21:27Z",
+   "expires": "2026-11-18T21:21:27Z",
+   "release": "comms-all.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/ListingActions.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "Communications, the rest as one release (0167 email engine; 0172 steps 3-7)",
+   "since": "2026-11-18T17:21:27Z",
+   "expires": "2026-11-18T21:21:27Z",
+   "release": "comms-all.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/MemberPulse.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "Communications, the rest as one release (0167 email engine; 0172 steps 3-7)",
+   "since": "2026-11-18T17:21:27Z",
+   "expires": "2026-11-18T21:21:27Z",
+   "release": "comms-all.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/ui/pulse-ui.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "Communications, the rest as one release (0167 email engine; 0172 steps 3-7)",
+   "since": "2026-11-18T17:21:27Z",
+   "expires": "2026-11-18T21:21:27Z",
+   "release": "comms-all.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/user/api/bell.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "Communications, the rest as one release (0167 email engine; 0172 steps 3-7)",
+   "since": "2026-11-18T17:21:27Z",
+   "expires": "2026-11-18T21:21:27Z",
+   "release": "comms-all.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/user/api/notices.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "Communications, the rest as one release (0167 email engine; 0172 steps 3-7)",
+   "since": "2026-11-18T17:21:27Z",
+   "expires": "2026-11-18T21:21:27Z",
+   "release": "comms-all.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/listing/view.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "Communications, the rest as one release (0167 email engine; 0172 steps 3-7)",
+   "since": "2026-11-18T17:21:27Z",
+   "expires": "2026-11-18T21:21:27Z",
+   "release": "comms-all.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/ui/storefront-view.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "Communications, the rest as one release (0167 email engine; 0172 steps 3-7)",
+   "since": "2026-11-18T17:21:27Z",
+   "expires": "2026-11-18T21:21:27Z",
+   "release": "comms-all.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Pulse.php",
+   "functions": [
+    "SEVERITY"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "Communications, the rest as one release (0167 email engine; 0172 steps 3-7)",
+   "since": "2026-11-18T17:21:27Z",
+   "expires": "2026-11-18T21:21:27Z",
+   "release": "comms-all.zip",
+   "callers": {
+    "SEVERITY": [
+     "app/lib/Notify.php",
+     "app/ui/pulse-ui.php"
+    ]
+   }
+  }
+ ],
  "lapsed": [
   {
    "path": "app/admin/sections.php",
