@@ -14,7 +14,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "Rows and details laid out like Jason's example (2026-11-18)",
    "since": "2026-11-18T17:15:28Z",
-   "expires": "2026-11-18T21:15:28Z",
+   "expires": "2026-11-18T21:15:32Z",
    "release": "control-board-rows.zip",
    "callers": {}
   },
@@ -28,6 +28,17 @@
    "why": "Rows and details laid out like Jason's example (2026-11-18)",
    "since": "2026-11-18T17:15:28Z",
    "expires": "2026-11-18T21:15:28Z",
+   "release": "control-board-rows.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/js/admin-control.js",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "release control-board-rows.zip",
+   "since": "2026-11-18T17:15:32Z",
+   "expires": "2026-11-18T21:15:32Z",
    "release": "control-board-rows.zip",
    "callers": {}
   }
