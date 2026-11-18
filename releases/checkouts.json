@@ -110,46 +110,6 @@
    "expires": "2026-11-18T18:57:18Z",
    "release": "control-board-2a-3.zip",
    "callers": {}
-  },
-  {
-   "path": "website/js/admin-releases.js",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "Releases page keeps itself current",
-   "since": "2026-11-18T14:59:23Z",
-   "expires": "2026-11-18T19:04:12Z",
-   "release": "releases-live-2.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/admin/sections.php",
-   "functions": [
-    "(top)",
-    "tv_admin_mod_releases"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "Releases page: checks folded into a log toggle",
-   "since": "2026-11-18T15:03:04Z",
-   "expires": "2026-11-18T19:04:12Z",
-   "release": "releases-live-2.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/Releases.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "Releases page: checks folded into a log toggle",
-   "since": "2026-11-18T15:03:04Z",
-   "expires": "2026-11-18T19:04:12Z",
-   "release": "releases-live-2.zip",
-   "callers": {
-    "standing": [
-     "app/admin/sections.php"
-    ]
-   }
   }
  ],
  "lapsed": [
