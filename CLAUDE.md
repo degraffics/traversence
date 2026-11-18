@@ -208,7 +208,7 @@ A session that needs Jason's OK (a PR, a decision, a key) asks him in its own ch
 **Before asking, it sends the question (or the release summary and PR) to the session manager for review**
 (Jason, 2026-11-18): against the decision, the brief and these rules, for scope creep, drift, conflicts and anything
 already decided. It asks Jason only once the session manager answers "clear to ask" or its fixes are made, noting
-"reviewed by the session manager"; no answer in 10 minutes, it asks and says it wasn't reviewed. It then tells the
+"reviewed by the session manager"; no answer in 10 minutes, it reminds the session manager; none in 30, it asks and marks it "not reviewed". It then tells the
 session manager the answer and the link by send_message. The session manager never asks the same
 question again; it lists what's still open at the top of its replies as **"Waiting for your OK:"** (with each
 session's name), and asks only its own questions. **Sessions merge their own PR** once Jason approves it in the pop-up
