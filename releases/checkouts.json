@@ -176,6 +176,17 @@
    "expires": "2026-11-18T18:26:34Z",
    "release": "control-board-2a-2.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/Releases.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Builds that fail staging withdraw themselves; replaces; withdraw cleans staging",
+   "since": "2026-11-18T14:49:17Z",
+   "expires": "2026-11-18T18:49:17Z",
+   "release": "releases-self-withdraw",
+   "callers": {}
   }
  ],
  "lapsed": [
