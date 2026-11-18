@@ -90,7 +90,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "Control Board 4a: maintenance, the upkeep calendar, the unused-names list (decisions/0171 \u00a72.5)",
    "since": "2026-11-18T22:39:26Z",
-   "expires": "2026-11-19T02:39:26Z",
+   "expires": "2026-11-19T02:40:18Z",
    "release": "control-board-4a.zip",
    "callers": {}
   },
@@ -101,7 +101,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "Control Board 4a: maintenance, the upkeep calendar, the unused-names list (decisions/0171 \u00a72.5)",
    "since": "2026-11-18T22:39:26Z",
-   "expires": "2026-11-19T02:39:26Z",
+   "expires": "2026-11-19T02:40:18Z",
    "release": "control-board-4a.zip",
    "callers": {}
   },
@@ -112,7 +112,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "Control Board 4a: maintenance, the upkeep calendar, the unused-names list (decisions/0171 \u00a72.5)",
    "since": "2026-11-18T22:39:36Z",
-   "expires": "2026-11-19T02:39:36Z",
+   "expires": "2026-11-19T02:40:18Z",
    "release": "control-board-4a.zip",
    "callers": {}
   },
@@ -163,7 +163,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "Control Board 4a: maintenance, the upkeep calendar, the unused-names list (decisions/0171 \u00a72.5)",
    "since": "2026-11-18T22:39:36Z",
-   "expires": "2026-11-19T02:39:36Z",
+   "expires": "2026-11-19T02:40:18Z",
    "release": "control-board-4a.zip",
    "callers": {
     "tick": [
@@ -174,6 +174,7 @@
   {
    "path": "app/lib/Pulse.php",
    "functions": [
+    "'square'",
     "items",
     "square"
    ],
@@ -181,7 +182,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "Control Board 4a: maintenance (decisions/0171 \u00a72.5)",
    "since": "2026-11-18T22:39:36Z",
-   "expires": "2026-11-19T02:40:05Z",
+   "expires": "2026-11-19T02:40:18Z",
    "release": "control-board-4a.zip",
    "callers": {
     "items": [
@@ -202,7 +203,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "Control Board 4a: maintenance (decisions/0171 \u00a72.5)",
    "since": "2026-11-18T22:39:36Z",
-   "expires": "2026-11-19T02:40:05Z",
+   "expires": "2026-11-19T02:40:18Z",
    "release": "control-board-4a.zip",
    "callers": {
     "JOBS": [
@@ -227,9 +228,13 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "Control Board 4a: maintenance, the upkeep calendar, the unused-names list (decisions/0171 \u00a72.5)",
    "since": "2026-11-18T22:39:36Z",
-   "expires": "2026-11-19T02:39:36Z",
+   "expires": "2026-11-19T02:40:18Z",
    "release": "control-board-4a.zip",
-   "callers": {}
+   "callers": {
+    "pulseSteps": [
+     "app/lib/Pulse.php"
+    ]
+   }
   },
   {
    "path": "app/lib/SystemStart.php",
@@ -249,7 +254,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "Control Board 4a: maintenance, the upkeep calendar, the unused-names list (decisions/0171 \u00a72.5)",
    "since": "2026-11-18T22:39:36Z",
-   "expires": "2026-11-19T02:39:36Z",
+   "expires": "2026-11-19T02:40:18Z",
    "release": "control-board-4a.zip",
    "callers": {}
   },
@@ -282,7 +287,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "Control Board 4a: maintenance, the upkeep calendar, the unused-names list (decisions/0171 \u00a72.5)",
    "since": "2026-11-18T22:39:36Z",
-   "expires": "2026-11-19T02:39:36Z",
+   "expires": "2026-11-19T02:40:18Z",
    "release": "control-board-4a.zip",
    "callers": {}
   },
@@ -296,6 +301,61 @@
    "why": "Control Board 4a: Preflight::NIGHT_HOUR",
    "since": "2026-11-18T22:39:52Z",
    "expires": "2026-11-19T02:39:52Z",
+   "release": "control-board-4a.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/sections.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "release control-board-4a.zip",
+   "since": "2026-11-18T22:40:18Z",
+   "expires": "2026-11-19T02:40:18Z",
+   "release": "control-board-4a.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/ControlAlarms.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "release control-board-4a.zip",
+   "since": "2026-11-18T22:40:18Z",
+   "expires": "2026-11-19T02:40:18Z",
+   "release": "control-board-4a.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/SystemStart.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "release control-board-4a.zip",
+   "since": "2026-11-18T22:40:18Z",
+   "expires": "2026-11-19T02:40:18Z",
+   "release": "control-board-4a.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/admin/api.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "release control-board-4a.zip",
+   "since": "2026-11-18T22:40:18Z",
+   "expires": "2026-11-19T02:40:18Z",
+   "release": "control-board-4a.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/api/health.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "release control-board-4a.zip",
+   "since": "2026-11-18T22:40:18Z",
+   "expires": "2026-11-19T02:40:18Z",
    "release": "control-board-4a.zip",
    "callers": {}
   }
