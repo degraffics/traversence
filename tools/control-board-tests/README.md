@@ -65,3 +65,10 @@ and `website/api/` (the mirror's `sync-storage/api/crawl` and `api/video`). Put 
   pieces, Supabase's row level security, Sources in one grouped query (and its search), quiet and retired jobs. 12 tests:
   after `start-schema.sql`, `php r3f.php <root>/app`.
 - `w2-verify.php`: W2's second look: a listing whose check throws is set aside with its error; the board reads it.
+
+- `r4a.php`: release 4a, maintenance: what can be taken out, refusals (no why, a Back by first, an overlap), taken out
+  now (shut down in order, its warnings notices, a trip kept), a task under its workflow's window, new alarms as notices,
+  Start skipping it, Put back with its check red (kept out, the reason on its row), a window ahead going out and coming
+  back by the watch (kept out on a red check, with a warning), a late window and a missed one, Cancel, the upkeep
+  calendar read from code, Database updates' read-only unused list, and the staging class. 35 tests:
+  `mariadb < ../release-b-tests/start-schema.sql && php r4a.php <root>/app`.

@@ -89,6 +89,32 @@ Alongside: `releases-self-withdraw` (#122), `releases-live-2` (#123), `releases-
   delete themselves), R07 (CSP reports), R12 (workers' tests, example.org). Tests r3f.php 12. Left: V01 card edges
   (design session), the path findings (journeys, hubs, open now: their owners), NPI (data). Next: the 62 unused names
   list for the session manager, then releases 4 and 5.
+  Live as #148, verified in Sync 22:26 (0abc114).
+
+**Release 4 in this session** (0171 §15.4, split in two, the session manager's OK 2026-11-18: "build 4a first").
+- `control-board-4a` (built on Sync 22:26 UTC, 0abc114): maintenance (0171 §2.5, §1 "blue", §12 `#maintenance`).
+  - `control_maintenance` (OWN; migration `2026-11-19_control_maintenance.sql`, `ensure()` too) and
+    `app/lib/ControlMaintenance.php`: take (now, or a window ahead), goOut (shut down in order through
+    `ControlBoard::stopOne`), putBack (its check first through `ControlBoard::startOne`; red keeps it out, the reason on
+    its row, and at a window's end a warning `maint:back:<proc>`), cancel, tick (in `ControlAlarms::tick`, the 5-minute
+    watch), out/outFor (a task under its workflow's window), words, listing, upkeep.
+  - While out: `ControlAlarms::raise` makes what it raises a notice that says so (a trip already open stays a trip);
+    `SystemStart` skips it in its firing and its watch, saying why; the board shows it blue (`maint`, a wrench, token
+    `--cb-maint: var(--tv-maint,#1f5f99)`), stage "In maintenance", a system's line counts "in maintenance".
+  - The session manager's three notes: a window the watch reached late still goes out and the log says how late; one
+    whose Back by passed first is logged as missed (never skipped silently); the upkeep calendar reads only code and
+    settings (crawl_capture_tasks' bulk tasks in `CrawlService::NIGHT`, read by reflection; Scheduler presets for
+    `data_cleanup_tick` and `staging_night_tick`, "not set up" for a job outside `AUTO` that hasn't run;
+    `Preflight::NIGHT_HOUR`, new; held services' `next_probe_at`), each entry opening its process in place or its job
+    in a drawer; Pulse #31's list read only.
+  - Controls: a row's **Take out for maintenance** (asks why, back in 2 hours) or **Put back**; the Maintenance panel
+    (process, Goes out, Back by, why; Put back and Cancel per window). API `config/control`: `maintout`, `maintplan`,
+    `maintback`, `maintcancel` (Automation's permission). `health.php`'s `maintenance` block.
+  - Pulse #31: Database updates gets **No code names them** (`#unused`), the monthly check's tables and columns with
+    their database and size, read only; the case and its "And N more" step link there (`SchemaUpkeep::keptUnused`).
+  - Tests: `r4a.php` (35). Rendered at 390px and 1280px, no sideways scroll.
+  - Next: the three lists of the unused names for the session manager, once 4a is live; then 4b, the historian
+    (`control_readings`, `control_daily`, trends, uptime, Telemetry pointing to the board), then release 5.
 - Known shortcut in 3c: a back-off held by a trip is `service_issues.hold_until = '2099-01-01'` (until a person resolves
   it; `ServiceHealth::holdForTrip`), not a flag of its own. A real flag (a column, `held_by_trip`) needs a migration on
   `service_issues`; do it with the next ServiceHealth change.
