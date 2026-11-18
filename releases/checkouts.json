@@ -8,9 +8,14 @@
    "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
    "why": "Fixes on the Start card itself: W14's sources' terms, drawers (Jason, 2026-11-18)",
    "since": "2026-11-18T01:55:39Z",
-   "expires": "2026-11-18T05:55:39Z",
-   "release": "start-inline-fix",
-   "callers": {}
+   "expires": "2026-11-18T05:55:42Z",
+   "release": "start-inline-fix.zip",
+   "callers": {
+    "panel": [
+     "app/admin/automation-console.php",
+     "app/admin/operations-console.php"
+    ]
+   }
   },
   {
    "path": "app/admin/automation-console.php",
@@ -21,6 +26,17 @@
    "since": "2026-11-18T01:55:39Z",
    "expires": "2026-11-18T05:55:39Z",
    "release": "start-inline-fix",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/automation-console.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
+   "why": "release start-inline-fix.zip",
+   "since": "2026-11-18T01:55:42Z",
+   "expires": "2026-11-18T05:55:42Z",
+   "release": "start-inline-fix.zip",
    "callers": {}
   }
  ],
