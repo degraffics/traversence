@@ -1,8 +1,9 @@
 # 0172: Communications: who reaches whom, about what, by which channel, and one way to deliver
 
-Status: **proposed, draft 2** (2026-11-18). Waiting for Jason's OK. No code yet.
-Draft 2 takes in Jason's first changes: Pulse is the inbox; outside mailboxes in Pulse (§4.7); six levels, with flags
-and tags kept apart from them.
+Status: **proposed, draft 3** (2026-11-18). Waiting for Jason's OK. No code yet.
+Drafts 2 and 3 take in Jason's changes: Pulse is the inbox, and works like Outlook (it collects, organizes and reads),
+while each message carries its own process; outside mailboxes in Pulse (§4.7); six levels, with flags and tags kept
+apart from them; three touch points; a community group is a channel.
 Builds on: 0047 and 0052 (links, messages, marketing preferences), 0049 (consent), 0066 (nations' land), 0102 and
 0100 (roles), 0108 (sales, SMS and push), 0141 (Market 360°'s unsubscribe), 0154 (who pays), 0167 (system email in one
 place), 0171 (the Control Board's alarms).
@@ -81,24 +82,63 @@ and messages are centrally located."
   notices, feed activity (comments, group posts, Moments), staff items and alarms (0171), and connected mailboxes
   (§4.7). Today the member's Pulse already gathers messages, community, discovery, listings, marketplace and guest
   questions (`MemberPulse::SOURCES`); notices, order threads and mailboxes join it.
-- **Channels inside Pulse** are where a message was said: a direct conversation, a business conversation, a group, an
-  order's thread, a connected mailbox. Each is a label and a filter, never a separate inbox.
-- **Like an email inbox, organized by the person, never by us** (Jason, 2026-11-18: "We shouldn't reorganize it, the
-  users should be able to configure it how ever they choose. That way FEEDS, COMMENTS, MESSAGES, etc are all flowing
-  as one incoming stream searchable, organized, and archiveable."):
-  - **One incoming stream**, newest first: feeds, comments, messages, notices, orders, group posts, mail, alarms, each
-    marked with its channel, level and flags. Nothing is moved or pinned by the site.
-  - **Search** across all of it (words, who, channel, level, flag, tag, date).
-  - **Views the person makes:** sort (newest, oldest, level, who), group by (channel, day, level, none), filters, and
-    **saved views** they name and order themselves ("Needs me", "My shop", "Hiking club"). A few come ready-made and
-    can be renamed or removed.
-  - **Rules** the person sets, as in email: "posts from Hiking club → skip the stream, keep in its view", "anything
-    from this business → tag VIP".
-  - **Archive** takes an item out of the stream and keeps it searchable; **Done** and **Undo** stay as Pulse has them.
-  - **Note for Jason (changes the member's Pulse as built, 0055 §5):** today the top of the member's Pulse is a fixed
-    "needs" block (`MemberPulse::needs`, the old Notification Center) above the stream. It becomes the ready-made
-    **Needs me** view instead, which the person can keep, move or remove. One exception stays fixed: a notice of action
-    on the account (0079), because it can stop posting and messaging.
+- **Two separate things: Pulse, and the message** (Jason, 2026-11-18, after the first drafts: "Needs Me... I am not
+  finding this feature helpful honestly. The purpose of the pulse is to allow me to find the information i need and
+  allow me to act upon it as I see fit." Then: "outlook doesnt have a way to process what an email is supposed to do,
+  it simply collects, organizes, and allows the message to be read. So as for the pulse it is the outlook and as for
+  the message we can craft how our system handles process within the message. I see these are two separate things."):
+  - **Pulse is the mail client.** It collects, organizes and lets you read. It knows nothing about orders, claims or
+    checks, and never reorders anything for you.
+  - **The message carries the process.** What a message is for (ship an order, review a claim, fix a failed check) is
+    built into the message by the part of the system that sent it.
+
+#### Pulse: collect, organize, read (like Outlook)
+
+| Pane | Holds |
+|---|---|
+| **Left: the inboxes** | each inbox the person has, with its unread count: their own (Members), each business they work for (Listings), Admin for staff, and each connected mailbox (§4.7). Under each: **Inbox, Sent, Drafts, Archive, Deleted, Junk** (message requests and spam). Search folders the person makes. |
+| **Middle: the list** | **All / Unread**, sorted **By date** (or by sender, level, flag), newest or oldest first, grouped by day (Today, Yesterday, Monday, Last week). Each row: who it's from, the subject, the first line, the time, and its marks (level, flag, attachment). **One row is one thing**, never a bundle. |
+| **Right: the reading pane** | the open message: from, to, when, its level; **Reply, Reply all, Forward** and **⋯** (Flag, Mark unread, Move, Archive, Delete; Assign for a team); then the message itself. |
+
+- **On a phone** (390px): one pane at a time. The inboxes are the ☰ drawer, the list fills the screen, a message opens
+  full screen with **Back** to the same place in the list.
+- **Everything comes in as messages**, each from its sender: a person, a business, a group, an order's thread, a
+  connected mailbox, or the system under the name of the part that sent it ("Fulfillment", "Claims", "Site health").
+  Feeds, comments and group posts arrive the same way, so the person can find all of it in one search.
+- **Search** across every inbox and folder: words, sender, level, flag, date.
+- **Organizing is the person's:** flags, folders they make (Move), search folders, Archive and Delete. The site
+  makes no views, no queues and no "Needs me".
+- **Note for Jason (changes what's built):**
+  - **The admin Pulse's queue chips** (Operational Queues, Alerts, Order Mgmt, System Health, Mine, Resolved) go. Each
+    is offered once as a search folder the person can keep or delete.
+  - **The member's fixed "needs" block** at the top (`MemberPulse::needs`, the old Notification Center, 0055 §5) goes.
+    Its items arrive as messages.
+  - **Bundled cases are split**, one message per thing: "The engine needs a person" (26 identity queue, 1 outside
+    service, 37 sites, 15 finds) becomes one message each, as 0171 §8 already decided for alarms.
+  - **One exception stays fixed:** a notice of action on the account (0079) stays shown above the list, because it can
+    stop posting and messaging.
+
+#### The message: what it's for, and acting on it inside it
+
+Each kind of message (`Notify::KINDS`, §4.1) has a **body made by the part of the system that owns it**, like a
+well-made email, read in the reading pane:
+
+1. **What happened**, in a sentence.
+2. **Everything about it**, not a count: the order and its items; the claim and its evidence; the 17 findings
+   themselves, each with its page.
+3. **Its actions as buttons in the message** (Mark shipped, Approve, Re-run the check, Accept, Decline). Each acts
+   through the owning library (`Pulse::manage`, `app/admin/workflows.php`) and answers beside the button
+   (`TvAsk.say`). It never sends you to another page; another module's tool opens inside the message (`at_hand`).
+4. **Where it stands now, read live:** a message opened after its order shipped says "Shipped Nov 11 by Jason", with
+   **Undo**; its buttons change to match. Acting on a message doesn't move or delete it. The person files it as they
+   like.
+5. **Its history and notes** underneath, and **Reply** for anything that takes a conversation.
+
+- **Messages from people** are just their words, attachments and Reply.
+- **Mail from connected mailboxes** shows as sent, with outside pictures held until asked for (as Outlook does).
+- **Feeds and comments** show the post or comment itself, with Reply (a comment) and its own small actions (Like,
+  Report).
+
 - **The bell is Pulse's count** of everything unread at Alert or above (today it counts only person messages, gap 6
   below), and opens Pulse.
 - **The other channels point back.** An email, push or text says what happened and links to the item in Pulse; replying
@@ -141,7 +181,7 @@ question:
 
 **What each level does:**
 
-Nothing in this table moves an item in the stream; the Pulse column is how it's marked.
+Nothing in this table moves a message in the list; the Pulse column is how it's marked.
 
 | Level | Pulse | Email | Push | Text | Quiet hours | Digest | Can be turned off | Staff clock (`SLA_HOURS`) |
 |---|---|---|---|---|---|---|---|---|
@@ -149,7 +189,7 @@ Nothing in this table moves an item in the stream; the Pulse column is how it's 
 | Urgent | amber mark | yes | yes | only where paid and chosen | ignored | never | codes no; the rest by channel | 4 h (new) |
 | Alert | marked, counted on the bell | by choice | by choice | no | push waits | never | by channel | 8 h |
 | Notice | listed | by choice | by choice | no | wait | can be | yes | 48 h |
-| General | in the stream | digest only | by choice | no | wait | yes | yes | none |
+| General | in the list | digest only | by choice | no | wait | yes | yes | none |
 | Special | marked Special | by the person's marketing choice | by choice | only with that business's text consent | wait | their chosen frequency | always, one tap | none |
 
 - **Note for Jason (amends `Pulse::SEVERITY`):** Pulse has four today: Critical, Alert, Update, Event
@@ -160,12 +200,13 @@ Nothing in this table moves an item in the stream; the Pulse column is how it's 
 ### Flags and tags in Pulse
 
 - **Follow up** (a flag, as in Outlook): Today, Tomorrow, This week, Next week, a date, or no date. At its time it comes
-  back into the stream as new, as a Notice to that person (by their channels), until marked **Done**. **Clear flag** takes it
+  back to the top of the list as unread, as a Notice to that person (by their channels), until the flag is marked complete. **Clear flag** takes it
   off.
 - **Importance:** High or Low, the person's own; they can sort or filter by it, and it changes nothing for anyone else.
-- **Tags:** the person's own words with a colour; a business's team and our staff can also share tags (e.g. "VIP",
-  "refund"). Filter by any of them.
-- **Done** and **Undo** stay as Pulse has them (`Pulse::mark`); assign and escalate stay for staff and business teams.
+- **Tags:** the person's own words with a colour (Outlook's categories); a business's team and our staff can also
+  share tags (e.g. "VIP", "refund"). Search by any of them.
+- **Assign** and **escalate** stay for staff and business teams (`Pulse::mark`); a message assigned to someone arrives in
+  their inbox. **Done** belongs to the message's own process (§"The message"), not to Pulse.
 - Flags and tags are kept per person (`pulse_flags`: who, item, flag, due, importance, tags), never shown to the sender.
 
 ## 1. Each WHO
@@ -361,8 +402,8 @@ plan or pack, **$** needs Jason's budget. Reply: whether the message can be answ
 community, maybe alerting the user on a need to act basis"):
 
 - **No separate inbox.** The group stays a channel (§"Pulse is the inbox"). What a role adds is **work**, and work comes
-  to a person by **need to act**: the group's **To do** items arrive in their stream marked **Needs me**, with their buttons in
-  place (Accept, Decline, Remove, Keep), labelled with the group, and show in the Needs me view if they keep one.
+  to a person by **need to act**: each duty arrives as its own message from the group (a join request, a report), carrying its
+  buttons (Accept, Decline, Remove, Keep). The person finds and files them like any other message.
 - **What reaches whom, by role:**
 
 | Role | Gets as Alerts (need to act) | Gets as General (activity) |
@@ -373,10 +414,10 @@ community, maybe alerting the user on a need to act basis"):
 | A business's group (4c) | its duties go to the **business's** Pulse by role: Support and Creator moderate, Sales answers questions, Owner and Manager get the rest | each team member's own setting, if they also joined |
 
 - **Each group has one setting per member** (on the group, and in Pulse): **Everything**, **Highlights** (a digest of
-  the group's best, the default), **Only what needs me** (mentions, replies, and the role's To do) or **Off**. A role's
-  To do is never switched off while the person holds the role; handing the role over ends it.
-- **Up to 5 groups each** (0102 §4b): the To do items carry the group's name and the filter shows one group at a time,
-  so running several doesn't mix them.
+  the group's best, the default), **Only what's for me** (mentions, replies, and the role's duties) or **Off**. A role's
+  duties are never switched off while the person holds the role; handing the role over ends it.
+- **Up to 5 groups each** (0102 §4b): each duty's message comes from that group by name, so a search or a search folder
+  shows one group at a time.
 - **Joining is consent only inside the group** (0102 §4c, the charter): a business's group posts reach the member in
   that group's channel, never by email, push or text unless the member chose that for the group.
 
