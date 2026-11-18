@@ -345,6 +345,17 @@
    "expires": "2026-11-19T01:18:15Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "website/user/api/pulse.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "0172 gaps G1-G11 as one release (Jason approved 2026-11-18)",
+   "since": "2026-11-18T21:18:17Z",
+   "expires": "2026-11-19T01:18:17Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
