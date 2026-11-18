@@ -104,12 +104,14 @@ def run(mirror, write):
                 continue
             if b is not None and b in rel.get(p, set()):
                 continue   # a release or a logged delivery put exactly this there
+            if b is None and p.startswith('app/migrations/') and p.endswith('.sql'):
+                continue   # a database update deletes itself once it has run (CLAUDE.md: migrations run themselves): not drift
             new.append({'path': p, 'what': 'removed' if b is None else ('added' if a is None else 'changed'), 'sha256': b or '', 'before': a or '', 'seen': now, 'sync': sync})
     # still open unless the file now matches a released copy, or is back to what it was before it drifted
     keep = {}
     for e in open_ + new:
         p, b = e['path'], cur.get(e['path'])
-        if (b is not None and b in rel.get(p, set())) or (b or '') == e.get('before', '\0'):
+        if (b is not None and b in rel.get(p, set())) or (b or '') == e.get('before', '\0') or (b is None and p.startswith('app/migrations/') and p.endswith('.sql')):
             keep.pop(p, None)
             continue
         if p in keep:

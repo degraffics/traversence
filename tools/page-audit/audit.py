@@ -274,7 +274,9 @@ def check_faq(files, findings):
                 find(findings, 'R06', path, line_of(src, m.start()), f'links to faq.php#{m.group(1)}, which no FAQ question has')
 
 # ---- R07: endpoints and the security token -----------------------------------------------------------------------
-TOKENLESS = re.compile(r'webhook|callback|oauth|google|microsoft|facebook|apple|stripe|square|quickbooks|qbo|ses|cron|crawl|scan|beacon|count', re.I)
+# endpoints a browser, a provider or a worker calls by itself, which can't carry the page's token: webhooks, OAuth returns,
+# beacons, and the browser's own Content Security Policy reports (stg-csp, staging only: 2026-11-18, Site health's R07)
+TOKENLESS = re.compile(r'webhook|callback|oauth|google|microsoft|facebook|apple|stripe|square|quickbooks|qbo|ses|cron|crawl|scan|beacon|count|csp', re.I)
 def check_csrf(files, findings):
     for path, src in files.items():
         if not (path.endswith('.php') and '/api/' in path):
@@ -370,8 +372,10 @@ def check_services(files, docs, findings):
     for root in ('workers',):   # the crawler and the other workers, from this repo
         base = os.path.join(docs, root)
         for r, ds, ns in os.walk(base):
+            if '/tests' in r.replace(os.sep, '/') + '/':   # the workers' own tests call made-up hosts (a.example), never a service
+                continue
             for n in ns:
-                if n.endswith(('.py', '.js', '.mjs')):
+                if n.endswith(('.py', '.js', '.mjs')) and not n.startswith('test_'):
                     try:
                         code.append((os.path.relpath(os.path.join(r, n), docs).replace(os.sep, '/'), open(os.path.join(r, n), encoding='utf-8', errors='replace').read()))
                     except OSError:

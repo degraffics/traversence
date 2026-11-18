@@ -520,7 +520,9 @@ async function healthInputs() {
     const r = await fetch(`${SITE}/api/health.php`, { headers: { Authorization: `Bearer ${CHECK_TOKEN}`, 'User-Agent': 'Traversence site checks' } });
     const d = await r.json(); if (!r.ok || d.ok === false) return { error: `answered ${r.status}` };
     // only what's safe in a public repository: no money, no row counts of people
-    const jobs = (d.jobs || []).filter(j => j.fails_today > 0 || j.ok === 0 || j.ok === false || (j.last && Date.now() - Date.parse(String(j.last).replace(' ', 'T') + 'Z') > 2 * 86400000)).map(j => ({ job: j.job, fails_today: j.fails_today || 0, last: j.last || null, ok: j.ok }));
+    // silence counts only for a job that logs every run (health.php's quiet, 2026-11-18): a retired job (staging_tick) and
+    // one that logs only when it has work (a staging refresh going) are quiet by design
+    const jobs = (d.jobs || []).filter(j => j.fails_today > 0 || j.ok === 0 || j.ok === false || (!j.quiet && j.last && Date.now() - Date.parse(String(j.last).replace(' ', 'T') + 'Z') > 2 * 86400000)).map(j => ({ job: j.job, fails_today: j.fails_today || 0, last: j.last || null, ok: j.ok }));
     const cache = d.cache ? { entries: d.cache.entries, expired: d.cache.expired, expired_share: d.cache.entries ? Math.round(100 * d.cache.expired / d.cache.entries) : 0 } : null;
     const ai = d.ai && d.ai.cap_usd ? { over_80_pct_of_cap: d.ai.month_usd >= 0.8 * d.ai.cap_usd, features: Object.keys(d.ai.by_feature || {}) } : null;
     const big = (d.tables || []).slice().sort((a, b) => b.mb - a.mb).slice(0, 8).map(t => ({ name: t.name, mb: t.mb }));
