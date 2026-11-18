@@ -203,6 +203,14 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
        to "Na…", "Bus…", "Em…". On phones, put that line under the name, full width.
      - The switch-on check's `BRAVE_API_KEY` hold is correct (Jason, 2026-11-17: Brave and Tavily both present and
        ready; which one a workflow uses is the workflow's matter). (The 36 ungated calls: gated by staging-gate.zip.)
+     - **Supabase vector security, its own small release** (handed back by the Control Board session, 2026-11-18):
+       `Vectors::setupSql()` (Supabase card) leaves `tv_vectors` without row level security and `tv_match` callable by
+       Supabase's public roles. Add `enable row level security` and revoke `tv_match` from anon/authenticated/public with
+       a grant to service_role. Jason ran these by hand on 2026-11-16, so live is safe; this makes a fresh setup safe too.
+     - **OpenStreetMap coverage reads our Geofabrik copy, its own release** (handed back by the Control Board session,
+       2026-11-18: it changes how W1 gathers, which 0171 leaves alone). Coverage jobs (800000013, 800000014) wait on
+       Overpass with every server held; read `open_places` (Geofabrik) first like W1 (#101), Overpass only when one is
+       open. With it: a crawler run whose only failure is a held service ends ok (Railway showed CRASHED).
      **For Jason to address in the cleanup** (Jason, 2026-11-17: "Add these to the queue for me to address in the clean
      up"):
      - **Records requests to the Arizona Corporation Commission and New Mexico's Secretary of State** for their
