@@ -39,8 +39,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "Control Board 3b-3: no contact with Overpass while held",
    "since": "2026-11-18T19:59:04Z",
-   "expires": "2026-11-19T00:18:16Z",
-   "release": "control-board-3b-3",
+   "expires": "2026-11-19T00:18:20Z",
+   "release": "control-board-3b-3.zip",
    "callers": {
     "items": [
      "app/lib/DailyReport.php",
@@ -147,8 +147,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "Control Board 3b-3: no contact with Overpass while held",
    "since": "2026-11-18T20:17:47Z",
-   "expires": "2026-11-19T00:18:11Z",
-   "release": "control-board-3b-3",
+   "expires": "2026-11-19T00:18:20Z",
+   "release": "control-board-3b-3.zip",
    "callers": {
     "probeSoon": [
      "app/admin/automation-console.php",
@@ -199,8 +199,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "Control Board 3b-3: no contact with Overpass while held",
    "since": "2026-11-18T20:18:08Z",
-   "expires": "2026-11-19T00:18:08Z",
-   "release": "control-board-3b-3",
+   "expires": "2026-11-19T00:18:20Z",
+   "release": "control-board-3b-3.zip",
    "callers": {}
   },
   {
@@ -212,6 +212,19 @@
    "since": "2026-11-18T20:18:18Z",
    "expires": "2026-11-19T00:18:18Z",
    "release": "control-board-3b-3",
+   "callers": {}
+  },
+  {
+   "path": "website/admin/api.php",
+   "functions": [
+    "(top)"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "release control-board-3b-3.zip",
+   "since": "2026-11-18T20:18:20Z",
+   "expires": "2026-11-19T00:18:20Z",
+   "release": "control-board-3b-3.zip",
    "callers": {}
   }
  ],
