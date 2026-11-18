@@ -126,6 +126,17 @@
      "website/admin/w.php"
     ]
    }
+  },
+  {
+   "path": "website/admin/api.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 3b: svcresolve action",
+   "since": "2026-11-18T19:59:11Z",
+   "expires": "2026-11-18T23:59:11Z",
+   "release": "control-board-3b",
+   "callers": {}
   }
  ],
  "lapsed": [
