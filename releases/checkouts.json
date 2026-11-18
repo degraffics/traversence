@@ -11,6 +11,39 @@
    "expires": "2026-11-18T17:40:35Z",
    "release": "control-board-1",
    "callers": {}
+  },
+  {
+   "path": "app/lib/Preflight.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "0171 R1: route lines, refresh of needs for Start",
+   "since": "2026-11-18T13:40:37Z",
+   "expires": "2026-11-18T17:40:37Z",
+   "release": "control-board-1",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/SystemStart.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "0171 R1: route lines, refresh of needs for Start",
+   "since": "2026-11-18T13:40:37Z",
+   "expires": "2026-11-18T17:40:37Z",
+   "release": "control-board-1",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Thresholds.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "0171 R1: route lines, refresh of needs for Start",
+   "since": "2026-11-18T13:40:37Z",
+   "expires": "2026-11-18T17:40:37Z",
+   "release": "control-board-1",
+   "callers": {}
   }
  ],
  "lapsed": [
