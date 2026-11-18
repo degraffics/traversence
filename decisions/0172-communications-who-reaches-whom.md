@@ -755,7 +755,7 @@ Each a release Jason reviews; free channels first.
 3. **Flags and tags in Pulse; the six levels** (`Pulse::SEVERITY`, the bell), and **our own mailboxes read in Pulse**
    by IMAP (with 0167's step 4).
 4. **Cards (§3):** the one actions helper, Message on every managed listing's card, Call, Email, Website and Directions
-   counted on unclaimed ones with the counts in Sales, the two broken cards fixed.
+   counted on unclaimed ones with the counts in Sales, Leave a message held until a claim, the two broken cards fixed.
 5. **Web push** (free): keys, service worker, subscriptions, asked after an action; then the business and staff kinds.
 6. **Outside mailboxes** (§4.7): IMAP and POP, Microsoft, then SES receiving; Gmail by sign-in only when revenue
    covers its assessment.
