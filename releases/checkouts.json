@@ -65,6 +65,17 @@
    "expires": "2026-11-18T19:32:47Z",
    "release": "releases-table",
    "callers": {}
+  },
+  {
+   "path": "website/admin/release.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Releases: one release's page",
+   "since": "2026-11-18T15:32:50Z",
+   "expires": "2026-11-18T19:32:50Z",
+   "release": "releases-table",
+   "callers": {}
   }
  ],
  "lapsed": [
