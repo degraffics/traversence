@@ -149,6 +149,16 @@ current pages stay reachable until the board replaces them (archived, not delete
     tool in `website/admin/api.php` (check, start1, stop, start, shutdown, pauseall), and one FAQ entry.
   - No tables or migrations. Pre-flight stays its own section (not archived); its lines also fold in at the board's foot.
   - Tests: `r2b.php`, 14 pass. Rendered at 390px and 1280px with no sideways scroll; Run its check posts the right id.
+- **2026-11-18: #127 (control-board-2b) live**, synced at 16:13 UTC. Jason: System Configuration's side-panel icon should
+  open the board (it does: the router opens a module's first section). He then sent an example board made with Gemini
+  ("review this. Please adjust the page layout and presentation of data so I can better use and understand our system
+  board"). That gave **control-board-layout**, built on 16:13: a status strip (holds, core hosts, last tested), the stages,
+  the controls with find and Open all / Close all, two panels (Holding now; Query timings with Re-test), each system a
+  card of rows in columns (Process, Where it stands, Last 24 hours), and each row opening to labelled lines with a Needs
+  table (sources in order, ours first, ✓/✗ by the need's own verdict, a Test each). New in ControlBoard: needs(),
+  core(), usedBy(), timings(). Tests: `layout.php` (8). Left out of his example, for later or a decision first: Fix,
+  Disconnect and Add source on a need (they'd change what holds a workflow, against 0163's source map), maintenance
+  windows (R4), the health token and Pulse panel (R3), uptime % and cost per record (the historian, R4).
   - Still to come in Release 2: **2c**, the services' card fixes (crawler.php's cron words, the Stripe/Square keys,
     Name.com's unsaved requests, the "Added switched off" wording migration).
 
