@@ -82,6 +82,28 @@
    "expires": "2026-11-19T02:03:07Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/lib/ControlMaintenance.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 4a: maintenance, the upkeep calendar, the unused-names list (decisions/0171 \u00a72.5)",
+   "since": "2026-11-18T22:39:26Z",
+   "expires": "2026-11-19T02:39:26Z",
+   "release": "control-board-4a.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/migrations/2026-11-19_control_maintenance.sql",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 4a: maintenance, the upkeep calendar, the unused-names list (decisions/0171 \u00a72.5)",
+   "since": "2026-11-18T22:39:26Z",
+   "expires": "2026-11-19T02:39:26Z",
+   "release": "control-board-4a.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
