@@ -3,20 +3,20 @@
  "built_on": "d390dd2 Sync: 2026-11-18 02:11 UTC",
  "recorded": "2026-11-18 02:13 UTC",
  "note": "Start card on a phone, presses back to the card, Switch W1 on. Built on Sync 02:11 UTC Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "e87f4da Sync: 2026-11-18 02:17 UTC",
  "files": {
   "app/admin/automation-console.php": {
    "sha256": "694ca381ac4327d09e93ac815a8a690a3ad4868417553a694948a39607292321",
-   "live": false
+   "live": true
   },
   "app/lib/SystemStart.php": {
    "sha256": "928cf722c90ebf62a4e4ac8ead6630d9ecbe2a306c163fb62a7e62da58c5d9cf",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "9c4f6a0f95582cf2ebddd3929c19da4e1f6b8aed03c6d9230dfd9ca812768789",
-   "live": false
+   "live": true
   }
  }
 }
