@@ -270,3 +270,11 @@ called that a later follow-up; 0172 asked for it, so it shipped in #141).
 received?" After a column's filter, its "Showing 1 of 5" notice was placed beside the ▾ inside the header cell and stood
 as a tall green bar next to the pressed ▾. Notices from the header and a row's icon pill now show as the centered notice.
 Reproduced with the live copy (header 27 px → 415 px), then fixed (27 px stays) at 1280 and 390.
+**comms-bodies.zip** (built on Sync 20:47 UTC, c89de6a; `app/lib/CommsBody.php`, `website/js/pulse-msg.js`,
+`website/js/tv-pulse.js`). The session manager asked for the business Pulse to be rendered on its own (org context, 1280
+and 390, a business's messages, needs, a delivered Leave a message and a comment notice). Found and fixed: message
+bodies' `tv-btn` buttons had no styles anywhere; a body's status line was repeated (and went stale after Hide); rows that
+name a sender (needs, dispatched notices) put the title in From. Pressed: the bell, open in place, Hide and Show it
+again (the comment's status changed), Read, Pin, Add to, File. **Open against 0172's icon table:** ↗ Pass it on and 🛡
+Protect on member and business rows still only say "…is coming" (in the row's note line); raised with the session
+manager.
