@@ -34,3 +34,6 @@ and `website/api/` (the mirror's `sync-storage/api/crawl` and `api/video`). Put 
   seed once, an answer closes one), the Stripe and Square cards' key names, the switched-off words' migration.
   12 tests: `mariadb < ../release-b-tests/start-schema.sql && php r2c.php <root>/app` (the root holding the release's
   `app/migrations/`). The worker's side: `python3 workers/crawler/tests/test_held_task.py`.
+- `r2d.php`: a check shown part by part (Jason, 2026-11-18: "Red x but green checks too?"): W0's check with a red dry
+  run names the dry run as what holds it, never the gate whose words say "no red line"; the board lists the parts with
+  their marks, the red one first. 7 tests: after `r2a`'s schema and 2a's migration, `php r2d.php <root>/app`.
