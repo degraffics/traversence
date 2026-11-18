@@ -113,6 +113,21 @@
      "website/js/tv-pulse.js"
     ]
    }
+  },
+  {
+   "path": "app/admin/control-console.php",
+   "functions": [
+    "tv_admin_mod_control",
+    "tv_cb_alarms",
+    "tv_cb_row"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 3c: the Trip rule, slow calls, the last Pulse cases as alarms",
+   "since": "2026-11-18T20:58:26Z",
+   "expires": "2026-11-19T00:58:26Z",
+   "release": "control-board-3c",
+   "callers": {}
   }
  ],
  "lapsed": [
