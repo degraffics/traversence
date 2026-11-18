@@ -1,0 +1,44 @@
+{
+    "id": 132,
+    "title": "System Control Board: everything starts closed",
+    "why": "Jason, 2026-11-18, with a screenshot of the Holding now and Query timings panels open across the top: 'these need to be collapsed on load'. Then, asked whether held systems and rows should start closed too: 'Close all on load'. Both panels are now folds, closed on load, each with a one-line summary: 'Holding now 15: W0 Indexer, W1 Listings and 13 more', 'Query timings: all 4 within their limits' (or how many are over). Every system and process row starts closed as well; each system's header still counts its held, working and off. A link in Holding now opens that process and its system. The 30-second refresh keeps whatever you opened (it already did for systems and rows; now the panels too). Built on Sync 17:09 UTC, after #924 (control-board-check-parts-2) went live. Rendered at 390px and 1280px: nothing open on load, no sideways scroll, the panel opens on tap, and a Holding now link opens W0 and its system. No tables or migrations. FAQ: one line.",
+    "proposals": "",
+    "zip": "control-board-closed.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/admin/control-console.php": {
+            "sha": "1d4da92f888b8fa94df6fd6875a1507b7fd6b35fbdd4afef22cb4cd2929a6cab",
+            "size": 30815,
+            "live_was": "785430056f6ba41baa9d095a278538052190c833f8ca2fb4788ab6d6953e0bd5"
+        },
+        "app/ui/faq.md": {
+            "sha": "ddbef0878bff3945b3c340c7c9d7fb0ac6ac0ad2f523a270858c8cd68a85a295",
+            "size": 337504,
+            "live_was": "52450e7db63382cdc32399764e4d7f8c10bef5c5ae12b6bc800e668d19fa225d"
+        },
+        "website/js/admin-control.js": {
+            "sha": "94f9ce2e306dac3227c20353200ee20cc59de3715fcb20489e82ac14a698a863",
+            "size": 6271,
+            "live_was": "7631317157ff2f2f49ae6319833c0732a21d6e7864f221f0294ed5d1f34273c1"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-18T17:12:23+00:00",
+            "by": 0,
+            "msg": "Uploaded control-board-closed.zip: 3 files."
+        }
+    ]
+}
