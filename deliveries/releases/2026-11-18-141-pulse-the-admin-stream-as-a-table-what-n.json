@@ -1,0 +1,54 @@
+{
+    "id": 141,
+    "title": "Pulse: the admin stream as a table, what needs you as rows and on the bell, the task queue replaced (decisions/0172)",
+    "why": "0172's last two items, found in a drift check against the decision. (1) The member's and a business's fixed \"Needs you\" block above the Pulse goes: its items arrive as rows under \"Needs you\" (a notice on the account Critical), and both bells show them (the Pulse's own bell filters to them; the site's bell counts them). (2) The admin's Operational Task Queue goes: the bell beside the stream's chips (critical and escalated to you) and the site's bell list replace it; Quick Actions and Your day open collapsed. Also a fix to #135: a member's messages left on unclaimed listings were drawn in the wrong function and never showed in their Pulse; now they do. And the FAQ names the row icons by name, not emoji. And the admin stream as a table (Jason, 2026-11-18: \"From is taking up so much space, severity could be handled with icons, the pulse could act like a table where the columns could be adjusted and or hold sort/filter tools\"; \"the tool bar should not be under the message snippet\"): From narrow, the level an icon, each column sorted by tapping its name, From and Level filtered from their header, columns resized by dragging, remembered; the row's icons in their own column on the row's line (on a phone, folded into ⋯ beside ▾). Then, to Jason's example of Outlook's inbox: one compact line per message, the level first and very narrow, every column sortable and sizable, the row's icons showing on its line when it's pointed at, opened or focused. (Rebuilt on Sync 20:29 UTC before the site took it, keeping release #140's FAQ line.)",
+    "proposals": "decisions/0172 (Changes to what's built; Pulse is the inbox)",
+    "zip": "comms-needs.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/ui/pulse-ui.php": {
+            "sha": "bf2d0f124ccc0ee1c47e49128085ef37aa0b1ef69f01ef4fadc00481cb539ae9",
+            "size": 109451,
+            "live_was": "08c8bf6ade9d5cde49acaf436d82fd7d5cb0ebc2b8a066e4ae9d37e36e7e1574"
+        },
+        "app/ui/faq.md": {
+            "sha": "52edbc16a3cd1abfffc5763be5c180239139f588782250712028a9d3b2383637",
+            "size": 348877,
+            "live_was": "a76fa8aa7e73da8a8110bfb1c39fec6c513353c72e361a7f0c05bfeb792c9196"
+        },
+        "app/lib/MemberPulse.php": {
+            "sha": "5a28c50fb447dbc68b0858fac4dcee1e4fe29712b45067eb6693cd8ca49ba288",
+            "size": 22491,
+            "live_was": "62152f38c2b63f127100c29e86c3bb8bce06935881a316c017fefa2312137ae7"
+        },
+        "website/user/api/bell.php": {
+            "sha": "3a95e6ad168d54aea924d42696070b2fba5c9739f2bf44c870f179d4ef41964c",
+            "size": 2666,
+            "live_was": "7ac4947fa3cad0586fee51c13ddafc416e15002fe4bfb2c9221a513a48b15acf"
+        },
+        "website/js/tv-pulse.js": {
+            "sha": "536eb930546004c54939e63ac67ea22f1df00ef3d6f50d54e15a6b3772c9a98b",
+            "size": 27725,
+            "live_was": "08b1a6330912a89faa69d662e7bb8d6af543f0e18663a27ec10df713496efd36"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-18T20:36:35+00:00",
+            "by": 0,
+            "msg": "Uploaded comms-needs.zip: 5 files."
+        }
+    ]
+}
