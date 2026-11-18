@@ -3,80 +3,80 @@
  "built_on": "7d8ee0d Sync: 2026-11-18 22:13 UTC",
  "recorded": "2026-11-18 22:15 UTC",
  "note": "Pulse to 0172: pass it on, protect, conversations, staff messages and mail as rows, grouped alarms (built on Sync 22:13 UTC; faq.md rebuilt on design Release 1's live copy). Drops tv-pulse.js SOON, the 'coming' placeholders Jason approved replacing (G2). Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "4370cc1 Sync: 2026-11-18 22:18 UTC",
  "files": {
   "app/admin/inbox-console.php": {
    "sha256": "8e0d36271ca13f2f4502038b984be070a7e62ef2c03d8b71fa658b34bf4cf811",
-   "live": false
+   "live": true
   },
   "app/lib/CommsBody.php": {
    "sha256": "124403394b8fd76b8db44858a1f1c71aa65a7fe83da6b96bca0a0c54e43748b2",
-   "live": false
+   "live": true
   },
   "app/lib/Community.php": {
    "sha256": "fdced0bca45b01a3066bc89b75eff39fd1ba3796ceab32a06bbf5308b7f60d1c",
-   "live": false
+   "live": true
   },
   "app/lib/Mailboxes.php": {
    "sha256": "9b87d34425ec53bf6dbf700c986a4295781b58fc8e35016a31d61d93467e0672",
-   "live": false
+   "live": true
   },
   "app/lib/MemberPulse.php": {
    "sha256": "bfe86e29049b999c5bd046dd862716136f8713220c88c05edbf6e366552d25ad",
-   "live": false
+   "live": true
   },
   "app/lib/Notify.php": {
    "sha256": "ca0972d4912793fa5313ceef37060f73363bc3aa0097dc973797cf4b1445c64b",
-   "live": false
+   "live": true
   },
   "app/lib/PulseAct.php": {
    "sha256": "cb161212919e84e2e4ba59a92552439843e93fabd681c180e8aa70547e3388da",
-   "live": false
+   "live": true
   },
   "app/lib/staging-tables.php": {
    "sha256": "3406895e5af263cce762deb67feb8d7a37054c31d724c64f6fc1bae087a0cb7b",
-   "live": false
+   "live": true
   },
   "app/migrations/2027-03-21_mail_blocks.sql": {
    "sha256": "546cda4ef17d60ddba6f67a6070cc6ee66c64fa67017d50fd59b00639650cf5c",
-   "live": false
+   "live": true
   },
   "app/migrations/2027-03-21_pulse_forwards.sql": {
    "sha256": "f321bc26e205b52cd13c1be0049516417faf14b927895a49df03aaea10745715",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "44320fafb1b06b37954197077b16c4f8cda7e38e7eb513d317e067b8e20f3d5f",
-   "live": false
+   "live": true
   },
   "app/ui/pulse-panel.php": {
    "sha256": "94ffa76d9d1e6cfd7bbca68c85f7289e2f26f210656b2b369111308594053457",
-   "live": false
+   "live": true
   },
   "app/ui/pulse-ui.php": {
    "sha256": "aa01ce75ac0c628a1651ae9775369d03760c561ac62aaf488eb5192e310b9d54",
-   "live": false
+   "live": true
   },
   "website/admin/api/pulse.php": {
    "sha256": "7565068f960e5f92640899ed3f5b871d4a4af64cddc0c377cec64a5b0982f069",
-   "live": false
+   "live": true
   },
   "website/js/pulse-msg.js": {
    "sha256": "4be5dc1f82a405458f08301451e2ab417c17d4162cb418dd78d4c06a8a81fe68",
-   "live": false
+   "live": true
   },
   "website/js/tv-pulse.js": {
    "sha256": "29099ae39f470e4eff68df556353e8cbd2019caccb1a0d442c09b7840797ec10",
-   "live": false
+   "live": true
   },
   "website/user/api/pulse-act.php": {
    "sha256": "7c7b608b361f90b3100ce2ff02e8cdee87f64c2d74ca91add554d4137f8cf91c",
-   "live": false
+   "live": true
   },
   "website/user/api/pulse.php": {
    "sha256": "e3631d0f2acf0a8df33dc03a0a8555863b926a2953614b6875e889eb70bdb822",
-   "live": false
+   "live": true
   }
  }
 }
