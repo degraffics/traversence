@@ -10,7 +10,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "The board starts closed (Jason, 2026-11-18)",
    "since": "2026-11-18T17:11:20Z",
-   "expires": "2026-11-18T21:11:20Z",
+   "expires": "2026-11-18T21:11:28Z",
    "release": "control-board-closed.zip",
    "callers": {}
   },
@@ -23,7 +23,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "The board starts closed (Jason, 2026-11-18)",
    "since": "2026-11-18T17:11:20Z",
-   "expires": "2026-11-18T21:11:20Z",
+   "expires": "2026-11-18T21:11:28Z",
    "release": "control-board-closed.zip",
    "callers": {}
   }
