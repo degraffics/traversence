@@ -30,7 +30,20 @@ brand.md's established palette, plus red #a62b2b and amber #8f5600; three releas
   taupe + 35% ink: 6.2 / 5.59 / 4.73); `--tv-line-strong` 3.35; rail labels 2.97 → 7.4 on umber.
 - Rebuilt on Sync 22:06 UTC. Reviewed by the session manager; Jason approved 2026-11-18 (darker metadata mix, #92400E kept and added to brand.md, fonts on our own server). Send waits for control-board-3e (also carries faq.md) to go live.
 
-## Release 2 (built, held for after Release 1)
+## Release 1: live as #146 (2026-11-18 22:12 UTC)
 
-The admin kit, the one command header, the record strip, the two fixes (bars stuck 34px low; the 390px sections menu),
-the FAQ entry on the bar. Rebuilt on Release 1's tokens before it's sent; its question to Jason includes the sage bar.
+Checked on traversence.com: the fonts served as font/woff2; the tokens in the page; Inter loaded; no sideways scroll at
+390px and 1280px.
+
+## Release 2: design-r2-admin.zip (built on Sync 22:13 UTC)
+
+- `app/admin/kit-css.php`: the kit on Release 1's tokens. Cards are the micro-gradient, inputs the vellum. OK text is
+  moss + ink (6.75:1). The command header is one Deep Umber row joined to the top bar.
+- `website/admin/router.php`: the header row (filter slot `#ak-cmdf`, Shortcuts on the right) and the measured top
+  (`--ak-top`).
+- `website/js/admin-kit.js`: the `[data-ak-cmd]` slots.
+- `app/ui/command-strip.php`: the record strip in the same look, with the measured top.
+- `app/ui/faq.md`: the bar's entry; 10 modules.
+- Pressed in a local render at 390px and 1280px: the sections menu, Shortcuts, an At hand drawer, Ctrl K, and the slot.
+  No sideways scroll.
+- Status: summary to the session manager; then Jason, with the 2026-11-12 sage bar question.
