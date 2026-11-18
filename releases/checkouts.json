@@ -1,40 +1,6 @@
 {
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
- "claims": [
-  {
-   "path": "app/lib/SystemStart.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
-   "why": "Automation page tables on a phone",
-   "since": "2026-11-18T02:18:52Z",
-   "expires": "2026-11-18T06:21:05Z",
-   "release": "start-issue-2",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/SystemStart.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
-   "why": "release start-issue.zip",
-   "since": "2026-11-18T02:18:55Z",
-   "expires": "2026-11-18T06:21:07Z",
-   "release": "start-issue-2.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/admin/automation-console.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
-   "why": "Automation page tables on a phone",
-   "since": "2026-11-18T02:21:05Z",
-   "expires": "2026-11-18T06:21:07Z",
-   "release": "start-issue-2.zip",
-   "callers": {}
-  }
- ],
+ "claims": [],
  "lapsed": [
   {
    "path": "app/admin/sections.php",
