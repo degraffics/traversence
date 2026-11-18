@@ -32,13 +32,14 @@
   {
    "path": "website/js/admin-control.js",
    "functions": [
-    "(top)"
+    "(top)",
+    "redraw"
    ],
    "kind": "change",
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "The Control Board laid out after Jason's example board (2026-11-18)",
    "since": "2026-11-18T16:44:40Z",
-   "expires": "2026-11-18T20:44:40Z",
+   "expires": "2026-11-18T20:45:11Z",
    "release": "control-board-layout.zip",
    "callers": {}
   }
