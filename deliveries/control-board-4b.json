@@ -1,8 +1,8 @@
 {
  "zip": "control-board-4b.zip",
- "built_on": "7f4b3f8 Sync: 2026-11-18 23:05 UTC",
- "recorded": "2026-11-18 23:06 UTC",
- "note": "Control Board 4b: the historian (readings over time, trends 24h/7d/30d, uptime), health.php's unused_schema, the unused list explained, Telemetry to the board (decisions/0171 \u00a76). Built on Sync: 2026-11-18 23:05 UTC Sent through git (releases/inbox).",
+ "built_on": "fd3a3b4 Sync: 2026-11-18 23:10 UTC",
+ "recorded": "2026-11-18 23:11 UTC",
+ "note": "Control Board 4b: the historian (readings over time, trends 24h/7d/30d, uptime, its own time watched), health.php's unused_schema behind its token, the unused list explained, Telemetry to the board (decisions/0171 \u00a76). Built on Sync: 2026-11-18 23:10 UTC Sent through git (releases/inbox).",
  "status": "pending",
  "live_in": "",
  "files": {
@@ -19,7 +19,7 @@
    "live": false
   },
   "app/lib/ControlAlarms.php": {
-   "sha256": "837e7bf94a0b574138d11cc39d9c47e217ae25e863f781377633d2efd82617ab",
+   "sha256": "18ac147cfeb8c54bbbf4e18ce7ed8f43e9a09645201e638ab21146608f917c75",
    "live": false
   },
   "app/lib/ControlBoard.php": {
@@ -27,7 +27,7 @@
    "live": false
   },
   "app/lib/ControlHistorian.php": {
-   "sha256": "01a362e1c0b9964303c5a7c47240238093cdfd308ee2563669f21caeae1b6525",
+   "sha256": "5cea2a37ff75842d24572d86c6169853e2bfd5d9b7d72774b75f946f9e21e281",
    "live": false
   },
   "app/lib/Thresholds.php": {
@@ -43,7 +43,7 @@
    "live": false
   },
   "app/ui/faq.md": {
-   "sha256": "cbb49350fc05c8f157f5640db571cd21976dce6939e4707cb2209310e8d70602",
+   "sha256": "b5c4aff45968aaeaf93ccd0914d98e83a727568bd6a8f9737d63b680ede07e60",
    "live": false
   },
   "website/admin/api.php": {

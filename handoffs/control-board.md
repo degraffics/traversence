@@ -120,7 +120,7 @@ Alongside: `releases-self-withdraw` (#122), `releases-live-2` (#123), `releases-
     22:50 UTC (2b5e447, the faq-restore #150).
   - Tests: `r4a.php` (39). Rendered at 390px and 1280px, no sideways scroll.
   - Live as #151, verified in Sync 22:55.
-- `control-board-4b` (built on Sync 23:03 UTC, d547f60): the historian (0171 §6, §14's Telemetry row).
+- `control-board-4b` (built on Sync 23:10 UTC, fd3a3b4): the historian (0171 §6, §14's Telemetry row).
   - `control_readings` and `control_daily` (OWN; migration `2026-11-19_control_history.sql`, `ensure()` too) and
     `app/lib/ControlHistorian.php`: tick (last in `ControlAlarms::tick`), lights (every process through
     `ControlBoard::process` and the new shared `ControlBoard::boardLight`, which the board now uses too), state written on
@@ -136,7 +136,10 @@ Alongside: `releases-self-withdraw` (#122), `releases-live-2` (#123), `releases-
   - Database updates' unused list says plainly what it means and that there's nothing to press (Jason, 2026-11-18:
     "not sure what these means to me as admin, i dont see how to act on it"), titled "Unused tables and columns (for
     Claude to sort)".
-  - Tests: `r4b.php` (28). Rendered at 390px and 1280px, no sideways scroll.
+  - The session manager's checks: `unused_schema` only behind the token (tested with a real untokened request), the
+    watch's history step timed (`hist_ms` on job:control_tick) and a slow warning when it grows (`ControlHistorian::timed`).
+    Rebuilt on Sync 23:10 UTC (fd3a3b4).
+  - Tests: `r4b.php` (35). Rendered at 390px and 1280px, no sideways scroll.
   - Next: the three lists of unused names (from `unused_schema` once 4b is live), then release 5 (the logbook and reports).
 - Known shortcut in 3c: a back-off held by a trip is `service_issues.hold_until = '2099-01-01'` (until a person resolves
   it; `ServiceHealth::holdForTrip`), not a flag of its own. A real flag (a column, `held_by_trip`) needs a migration on

@@ -106,7 +106,28 @@ $t('the board uses the same rules, and each row and system has a trend that load
 $api = file_get_contents(dirname($app) . '/website/admin/api.php');
 $t('the trend endpoint is read only and checks the id', str_contains($api, "if (\$act === 'trend')") && str_contains($api, "preg_match('/^(sys|wf|t|wk|svc|job|site):"));
 
+// 6b. the historian's own time, judged like a slow job (the session manager: a heavy watch shows on the board)
+require_once $app . '/lib/ControlAlarms.php';
+$pdo->exec("DELETE FROM control_readings WHERE reading = 'hist_ms'");
+foreach ([900, 1100, 1000, 950, 1050, 980] as $ms) ControlHistorian::timed($pdo, $ms);
+$t('each watch\'s history time is kept (hist_ms on job:control_tick); usual times raise nothing', (int) $pdo->query("SELECT COUNT(*) FROM control_readings WHERE reading = 'hist_ms'")->fetchColumn() === 6 && ControlAlarms::openOf($pdo, 'watch:history:slow') === null);
+$t('…over its usual × the slow factor and 20 s: a warning on the board', ControlHistorian::timed($pdo, 45000) && ControlAlarms::openOf($pdo, 'watch:history:slow')['level'] === 'warning');
+ControlHistorian::timed($pdo, 1000);
+$t('…its usual time again: the warning clears', ControlAlarms::openOf($pdo, 'watch:history:slow') === null);
+$t('…and the watch times its history step', str_contains(file_get_contents($app . '/lib/ControlAlarms.php'), 'ControlHistorian::timed($pdo, (int) round((microtime(true) - $h0) * 1000))'));
+
 // 7. the rest of 4b
+// health.php's unused_schema only behind its token (the session manager: names map our database): served for real by
+// PHP's own server with a HEALTH_TOKEN set for it; untokened and wrong-token requests get no block, the token gets it
+$port = 8766; $web = dirname($app) . '/website';
+$srv = proc_open(['php', '-d', 'variables_order=EGPCS', '-S', '127.0.0.1:' . $port, '-t', $web], [['pipe', 'r'], ['file', '/dev/null', 'w'], ['file', '/dev/null', 'w']], $pp, null, array_merge(getenv(), ['HEALTH_TOKEN' => 'r4b-test-token']));
+usleep(700000);
+$get = function (array $h) use ($port) { $c = stream_context_create(['http' => ['header' => implode("\r\n", $h), 'ignore_errors' => true, 'timeout' => 20]]); return (string) @file_get_contents('http://127.0.0.1:' . $port . '/api/health.php', false, $c); };
+$none = $get([]); $wrong = $get(['Authorization: Bearer nope']); $ok = $get(['Authorization: Bearer r4b-test-token']);
+proc_terminate($srv);
+$t('health.php without its token: refused, and no unused_schema in the answer', $none !== '' && !str_contains($none, 'unused_schema') && str_contains($none, '"ok":false'), mb_substr($none, 0, 160));
+$t('…with a wrong token: the same', !str_contains($wrong, 'unused_schema') && str_contains($wrong, 'Not allowed'), mb_substr($wrong, 0, 160));
+$t('…with its token: the block is there', str_contains($ok, '"unused_schema"'), mb_substr($ok, 0, 160));
 $hp = file_get_contents(dirname($app) . '/website/api/health.php');
 $t('health.php lists the unused names (names, databases and sizes only)', str_contains($hp, "\$out['unused_schema']") && !str_contains(substr($hp, (int) strpos($hp, 'unused_schema')), 'SELECT'));
 $mf = file_get_contents($app . '/admin/manifests.php');
