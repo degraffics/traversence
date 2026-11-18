@@ -1,0 +1,74 @@
+{
+    "id": 152,
+    "title": "Design Release 3a: the site frame on the tokens, headings, the Edit page switch",
+    "why": "Jason's platform-wide directive (design/css-theme-brand.md, Release 3, first area: the site frame on every page). (1) THE FRAME ON THE TOKENS: the top bar and phone corners, Quick Search (box, panel, filters), the account bar and profile menu, the footer, the page shell's placeholder note and breadcrumbs, and the notices and pop-ups (js/tv-ask.js) read Release 1's tokens. No colour literal left, apart from #fff text on copper or brand brown and the account menu's role colour table (data, kept). Text measured at 4.5:1 or better. The Error notice, the remove confirm and the spelling mark use Crimson Thread #8C3A23, not System Red; red stays for real emergencies (the search's 911 line) and a final account warning. The header and the sign-in pages' head draw the tokens themselves, for pages that build their own head (the home page, the dashboard, sign-in). (2) HEADINGS: Tailwind's font-serif and font-display map to Merriweather and Playfair Display in one setting (page-shell.php), so headings site-wide change now; the frame's own styles too. (3) EDIT PAGE SWITCH (Jason, 2026-11-17): page-builder editing is off until switched on in the profile menu, for that device. With it off, staff see exactly the published page; drafts and outlines show only with it on. A business's own storefront editing is unchanged. (4) THE EMPTY FOOTER ZONE: the zone above the footer takes the full width (up to 72rem); auto margins in the page's flex column had shrunk it to a word a line. FAQ: a new entry on the switch; the editing answer and the fonts answer updated.",
+    "proposals": "",
+    "zip": "design-r3a-frame.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/ui/brand.php": {
+            "sha": "83c00c4985a31db11ca96254d7e9509fc8e429d74d31fe45b0cec1cf246615bc",
+            "size": 6419,
+            "live_was": "cb962267b82c1cee84d26b692a420119b5381716b70007fa2377a191a7c87ca5"
+        },
+        "app/ui/context-switcher.php": {
+            "sha": "a677502e2883d781b65d306da2f2670bacc08d94d4062aca2b9c15658b449689",
+            "size": 37538,
+            "live_was": "e6744b0d76b86d6044a47d0c4eca0f5a592a960979f7bef43b6cc2aa2f907202"
+        },
+        "app/ui/footer.php": {
+            "sha": "b0d4a642e10e3720dfe3d01c48b97b752f87d0c9724f350bb94cb5c2df6c6e52",
+            "size": 7283,
+            "live_was": "9251c66a85e1d4d0023ebb2db553f89f694bcbb32b7da9e2653970e837a0aecc"
+        },
+        "app/ui/auth-nav.php": {
+            "sha": "ed1602a61de120617ba4ca5aa5fd4ae15ea9a1922ba3407dc703176b1911da96",
+            "size": 2296,
+            "live_was": "d3b211fb02359470219898a6b042f9598c20a236ac27504a6ab3c7929eca3638"
+        },
+        "app/ui/page-shell.php": {
+            "sha": "973fde741164d633c34e490c67fa7700b5674c567708e87b425a0e335f4041e5",
+            "size": 13124,
+            "live_was": "0239a7e7b2aaf04bc0982fd88276f9f0ca30062f1908a957fba1f85d882d47fb"
+        },
+        "app/ui/faq.md": {
+            "sha": "636d15f0f085d785a981ce9cbbe2ad804a9dc866ee999d7b886dfb19bc1d9e80",
+            "size": 357949,
+            "live_was": "a81f7bf87c4073ecd2f206d1cc9c40351df6545e5c0a13b458caa4eadfae8ce4"
+        },
+        "app/ui/header.php": {
+            "sha": "cd184282f5f92262078aee7139f9dff5b4e4a71f7b5896de2adbe36bc51a7726",
+            "size": 62311,
+            "live_was": "1239f78e3f59c2bb19c6e2981c73b0d6fd04629283220a8dcc1ac1a58fd41b00"
+        },
+        "app/lib/Blocks.php": {
+            "sha": "915aaabebbb9e41da4b48fceb4d8dc6c67c8ed20f200486c8d5c89da2d308d50",
+            "size": 65459,
+            "live_was": "0bcecd6947cec054239f2cb4f4e190798b88bcec5d749e52447e95ce1f00ad9d"
+        },
+        "website/js/tv-ask.js": {
+            "sha": "13447b6a33c0a2ef3436ef66f3ba24cacd49028fdfe32f3849141cf15fb73f15",
+            "size": 49943,
+            "live_was": "ce0df9343a023c03ae89ab8b2aec36826a62f865f7b53a30ba9ea6457ce44ed7"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-18T23:01:44+00:00",
+            "by": 0,
+            "msg": "Uploaded design-r3a-frame.zip: 9 files."
+        }
+    ]
+}
