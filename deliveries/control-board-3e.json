@@ -3,20 +3,20 @@
  "built_on": "b00bc22 Sync: 2026-11-18 21:45 UTC",
  "recorded": "2026-11-18 21:49 UTC",
  "note": "Control Board 3e: each crawler run opens to the records it touched; W1 today. Built on Sync 21:45 UTC. Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "72dfb94 Sync: 2026-11-18 22:06 UTC",
  "files": {
   "app/admin/crawler-console.php": {
    "sha256": "2ca4401e34b940b52c29ddebea9d812c25e9451f664698ce4594cee56ba67585",
-   "live": false
+   "live": true
   },
   "app/lib/ControlLedger.php": {
    "sha256": "71298a68a8e337ba9016105db23528ec383486738a936b13ceeb2ceb34d3fc72",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "17aa6d3ec355897bb1d9aa523dd169e3862d9e638aaef979841f74deae3ac024",
-   "live": false
+   "live": true
   }
  }
 }
