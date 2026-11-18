@@ -97,6 +97,10 @@ Jason agreed (2026-11-16) to change the earlier "by hand" rule:
 
 ## Build order (each a release Jason reviews)
 
+**Note (Jason, 2026-11-18):** the four parts below go out together, with 0172's steps 3–7, as one release
+(`comms-all.zip`; 0172 §6's note). Its Sent view reads the one route (`comms_route`, 0172 §4.3); `Mailer::send` writes
+every Bluehost send there.
+
 1. **Communications, read and check:** senders, mailboxes from cPanel, Check and Send me a test, domain health read-only.
    Bluehost sends logged.
 2. **Manage:** make, suspend and reset on any domain, passwords written to `.env` (§4), routing table, DNS fix buttons.

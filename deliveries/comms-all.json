@@ -1,0 +1,342 @@
+{
+ "zip": "comms-all.zip",
+ "built_on": "dd8d547 Sync: 2026-11-18 17:25 UTC",
+ "recorded": "2026-11-18 17:57 UTC",
+ "note": "Communications, the rest as one release (decisions/0167; 0172 steps 3-7): the email engine, flags and tags, the six levels, mailboxes in Pulse, cards and Leave a message, push, comment replies, bookings and groups. Built on Sync: 2026-11-18 17:25 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/admin/comms-console.php": {
+   "sha256": "01e1d63cabb0d64c95f21b8b4d7dc90fe29aa6c7a4b281a9f7c18e38110821dc",
+   "live": false
+  },
+  "app/admin/inbox-console.php": {
+   "sha256": "b277d5daacaaf6e5d14ba0bbbfa0efc78ad38b6705fc584fe0e1be4fc5683837",
+   "live": false
+  },
+  "app/admin/manifests.php": {
+   "sha256": "ee5f972498446b2a1c899fb7414f406d5c4ad210a98710d2da7149da7176cc75",
+   "live": false
+  },
+  "app/admin/section-about.php": {
+   "sha256": "ce5a8ad5f369f041f6cff0042e7f404a76bada0e371350db0218471922571fee",
+   "live": false
+  },
+  "app/admin/sections.php": {
+   "sha256": "1b783a80d784323a93913c1fa31171b4ec23d2dedb8ab53213c0617218f1a137",
+   "live": false
+  },
+  "app/lib/Bookings.php": {
+   "sha256": "75d77cd2bb5334486a0bd901d1f8474509c66211fb7243e396e6f2e864c0d2f7",
+   "live": false
+  },
+  "app/lib/CPanelMail.php": {
+   "sha256": "a92bd7ae0ca7f6dddae8c24f90b4fe34a45a446402aa1c0ec9c8f5a2fed5cb1e",
+   "live": false
+  },
+  "app/lib/Claims.php": {
+   "sha256": "d32b2ba5463726b18671ffe58d746f4caa0c7cf4b969b3ea55678e1a0fb2310e",
+   "live": false
+  },
+  "app/lib/CommentNotices.php": {
+   "sha256": "03af07077934512ed4177967dfb1a174489631195411020ffa07312f505a77c6",
+   "live": false
+  },
+  "app/lib/CommsBody.php": {
+   "sha256": "ef30af63812b460beb6ddd2390f5363f8c085e8b3a393e86064cd26091d193d5",
+   "live": false
+  },
+  "app/lib/CommsCrypt.php": {
+   "sha256": "788b8af1710edb688fff061d7cde188452bc9b83011fcd1dcffb3df8c5600149",
+   "live": false
+  },
+  "app/lib/CommsSetup.php": {
+   "sha256": "3211cb0a8cc8a192adbff07b74be2daf1ed83ef16c2d0ca9ba4fa2d96f5f707d",
+   "live": false
+  },
+  "app/lib/Community.php": {
+   "sha256": "edad22106074436d8e41290d07a27528141926ecdee6c39a2757f78041c183f4",
+   "live": false
+  },
+  "app/lib/Engage.php": {
+   "sha256": "12264f1ea10813ff999e3b531017bb6b6f43fa14f59d224ba8891579bc62b789",
+   "live": false
+  },
+  "app/lib/EnvSettings.php": {
+   "sha256": "d977f03831464c2b24996bcd44c43669bd9417aaa385da28d57acbce28e40b9d",
+   "live": false
+  },
+  "app/lib/GroupNotices.php": {
+   "sha256": "216dacac55a67c8fb4442d6c2d031fe20512f81c6f30e8b9a3a3a75db7011b81",
+   "live": false
+  },
+  "app/lib/GuestInquiries.php": {
+   "sha256": "77b12116ed145dd4f4f69b2efb7f362618eb8882f3748397053083178d775b95",
+   "live": false
+  },
+  "app/lib/ListingActions.php": {
+   "sha256": "516cb5cac9bcb8c317c5e584963f85146ae7ce731b7e468486925e0f8068fec4",
+   "live": false
+  },
+  "app/lib/ListingMessages.php": {
+   "sha256": "f8ee56b466cef87fb5cee394c87b4664f49cb1e5e5daed8aa3b8948b46b5e7ea",
+   "live": false
+  },
+  "app/lib/MailImap.php": {
+   "sha256": "8c2933fbda0a1f6e89a93163e46c5513ac1b6ce9a057c9edaeebf1c350d27dbe",
+   "live": false
+  },
+  "app/lib/MailMime.php": {
+   "sha256": "1c6fd357f9e40f5ac1f088895a2468c488d1c0c529ab0baedba8ab11aa8df614",
+   "live": false
+  },
+  "app/lib/MailPop.php": {
+   "sha256": "9ec554c5d246d28bbf104d6a7ad12728bc31add136ef8e7c5ed812e3990e4853",
+   "live": false
+  },
+  "app/lib/MailSmtp.php": {
+   "sha256": "c8208d083fe0e75226d52b369954b809b57d967b732e11754ea198f3591ddc3b",
+   "live": false
+  },
+  "app/lib/Mailboxes.php": {
+   "sha256": "b98dd0edefddb8a9e741025b7663d2325308ad32d7c7d0737ee217da9a518c2f",
+   "live": false
+  },
+  "app/lib/Mailer.php": {
+   "sha256": "ecb9e3a006e2bf2b75e3500549eea340173e12831e5e56e78426e6dd8a8823cb",
+   "live": false
+  },
+  "app/lib/MarketCheckout.php": {
+   "sha256": "4196be36c6d30c61a74b24e53a00c757657dfb93d1d585fd5346a9c76fbf4140",
+   "live": false
+  },
+  "app/lib/Marketing.php": {
+   "sha256": "031260cf106189e680bd8d866ddd761b3ea708b7627babb85f44bf51201141e3",
+   "live": false
+  },
+  "app/lib/MemberPulse.php": {
+   "sha256": "62152f38c2b63f127100c29e86c3bb8bce06935881a316c017fefa2312137ae7",
+   "live": false
+  },
+  "app/lib/MsGraphMail.php": {
+   "sha256": "7558249aed68780ecd767cad1acf46ec669d9145b94b5af48cca26e35503ffba",
+   "live": false
+  },
+  "app/lib/Notify.php": {
+   "sha256": "93b71b22be6aa5a25e89a1243bdd3bc023e126b95ffc577bdc1da69b919e3f5b",
+   "live": false
+  },
+  "app/lib/Pulse.php": {
+   "sha256": "1be90a257a1c062bd16332d9f7695f5e1702648de847a435039f4cb98ba80496",
+   "live": false
+  },
+  "app/lib/PulseMarks.php": {
+   "sha256": "85e93a29516fea457f88c9aba984583ff4baff0d0fbab56f6f2f6b806f5b49fe",
+   "live": false
+  },
+  "app/lib/Reports.php": {
+   "sha256": "0b398bf37fb5aff4f88aef68f863c11bc246679b2af8181ce291dfe92da11d49",
+   "live": false
+  },
+  "app/lib/Sales.php": {
+   "sha256": "f516d2bc435bcb1333d6c575606e35be988a65f26c3f120ab21ccf26bb359794",
+   "live": false
+  },
+  "app/lib/Scheduler.php": {
+   "sha256": "fa55adb036e1a4fbc2215b732117c5e807cdb25c391e4152848971c4dab179d6",
+   "live": false
+  },
+  "app/lib/SesInbound.php": {
+   "sha256": "0770a79a733f27094233b5455ccec786a11f8b23fdfd05d4ff490738487e78a1",
+   "live": false
+  },
+  "app/lib/SesMail.php": {
+   "sha256": "42fe883a79f5b9fe315b43fa2b8ecceb6556225fd3a800d7724307366712b412",
+   "live": false
+  },
+  "app/lib/WebPush.php": {
+   "sha256": "9ec52bebacbcfa82718dcc1f14680ffd9ed63ee6fe59331e5c716293efc82fe6",
+   "live": false
+  },
+  "app/lib/staging-tables.php": {
+   "sha256": "5c1cfaefd5254ebc89a90699e26e7c89299f3190cbfdeb31347afe5262948a55",
+   "live": false
+  },
+  "app/migrations/2027-03-20_comms_engine.sql": {
+   "sha256": "fd7e1c28600d8e5de7cf9f12c5531b8859fcb9becfad8d920b69810dc0827c7e",
+   "live": false
+  },
+  "app/migrations/2027-03-20_listing_messages.sql": {
+   "sha256": "affa5dbbff1391ea291d7bc26c382c88cbbd538c78dcbc2c4e6df35f35bbe73c",
+   "live": false
+  },
+  "app/scripts/booking_remind.php": {
+   "sha256": "5f99ea15d6206de0886210b32bad1c9ecff0515ae5b42a7facd28d14a42b365f",
+   "live": false
+  },
+  "app/scripts/listing_messages_tick.php": {
+   "sha256": "3950834d51dde5d0ec9fa378fb298b949365c1ae14f4fc463dabfb01e373bdb1",
+   "live": false
+  },
+  "app/scripts/mail_keep.php": {
+   "sha256": "cd1e3c689a3ffdb5523be4e01cf99cc42795a90ae0a65ac034878c2e1232fcf1",
+   "live": false
+  },
+  "app/scripts/mail_sync.php": {
+   "sha256": "5cb48276e083671b7d18db00727f892621b9916392d74deddc8f31440a20db6a",
+   "live": false
+  },
+  "app/scripts/pulse_followup.php": {
+   "sha256": "11297eb6f87380a8f8baac43f270474c67e2121e61c90d0ccf658cf67e9275e7",
+   "live": false
+  },
+  "app/ui/comms-setting.php": {
+   "sha256": "1bca2dff412f6ec25d401311d8f0ceafc2bda167813405db2f1a9cfb538012fa",
+   "live": false
+  },
+  "app/ui/engage-ui.php": {
+   "sha256": "b478ffa4d8590bacab852bad9899870f36259bfa4696c878c493e978b7ba284f",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "41db939ec0552bec5ef67bd58aa81a2334ad8bfd0aa8439ab4da991282473fa2",
+   "live": false
+  },
+  "app/ui/outside-services.php": {
+   "sha256": "b597ab662b96f570917b3543be185603ca0a0bf15459f8f0c2cc82314766059b",
+   "live": false
+  },
+  "app/ui/pulse-ui.php": {
+   "sha256": "5c69315bb62afb82fff93bc6d0941d16d1ca6bc469bb7a8ec67d5bb2fa2aad8c",
+   "live": false
+  },
+  "app/ui/storefront-view.php": {
+   "sha256": "d4930f71a27b27b1d2f594f5e17310a650d124239538355a0546db8ff33fd0e2",
+   "live": false
+  },
+  "website/admin/api/comms.php": {
+   "sha256": "29a87cd7ddfe5b2d8dab045511adcba6c5eb6ff67d5b07cbf6eebb9828483edb",
+   "live": false
+  },
+  "website/admin/sales.php": {
+   "sha256": "8139aeda9c027bd281f8c8ada9c07cc5730bb8bb54a8244f6906df6cb16a2441",
+   "live": false
+  },
+  "website/api/booking-act.php": {
+   "sha256": "6bf1c23230ebcfeb5801dfb7120084a3ef9c0d5b584bb56fb888b2b8e085a405",
+   "live": false
+  },
+  "website/api/comment-act.php": {
+   "sha256": "fbbb1f9c0b401139d3a36c9e3cb2b5c052838199c17e5c2b395c793ca9c4717a",
+   "live": false
+  },
+  "website/api/engage.php": {
+   "sha256": "f8af8a28666d8b2a24826242deb49efa0a83915ed6d3d91c5436de6c02d9a643",
+   "live": false
+  },
+  "website/api/group-act.php": {
+   "sha256": "f18fc5009f3dde0598cd7b01c1c9b0b7fc47e3495166cd7c1251818e07ba2dcb",
+   "live": false
+  },
+  "website/api/ms-mail.php": {
+   "sha256": "4289ceadbdbf499be1ee1ff647b80d2e1ea5dfb8f82262661ae539311982b851",
+   "live": false
+  },
+  "website/api/out.php": {
+   "sha256": "ae6887772f4767e5ce064195361ecad6b1ab6a9fc26e62c38c3c4ed35576eb92",
+   "live": false
+  },
+  "website/api/search_listings.php": {
+   "sha256": "5cf0722c0176985ac7640fc99c8f21802c0ab1830fa67edfe8b42e6708064cb3",
+   "live": false
+  },
+  "website/api/ses-inbound.php": {
+   "sha256": "36c61fba7773f616d551703cc8a9a8062e05a03dc00c47e31c105b239d2c9a63",
+   "live": false
+  },
+  "website/directory/index.php": {
+   "sha256": "7a6432fbac4047f5913fc625ccdd9e4fb21ed9718e04687cd01a73b420358e1f",
+   "live": false
+  },
+  "website/js/admin-comms.js": {
+   "sha256": "6c1b0fc28493ecd368fbb059f9c753d1fba327cf58a228086a2c61dccd35f899",
+   "live": false
+  },
+  "website/js/admin-inbox.js": {
+   "sha256": "65508f7850a1dfa5818f3b800b3685a4a8a45bf11ec47105655814423c936378",
+   "live": false
+  },
+  "website/js/engage.js": {
+   "sha256": "c68d3229c8c89f839c558dec21d3b2ea41c2a737cff0d64f6929b2836f560257",
+   "live": false
+  },
+  "website/js/header-nav.js": {
+   "sha256": "b97b51efea808cca3bb01248abbcfdc3278fdb5fa7bfd39ec05264e0eaea4183",
+   "live": false
+  },
+  "website/js/listing-leave.js": {
+   "sha256": "9640ac8ae246343e044fb6b6ad4e0c7cacee194e3d8cf7b7c342d4c6037f876b",
+   "live": false
+  },
+  "website/js/out-count.js": {
+   "sha256": "40ba371952a2a4cba9f64d15d00d5b3f529090d7b51e7305dadd6300c74dbd05",
+   "live": false
+  },
+  "website/js/pulse-msg.js": {
+   "sha256": "eb77e1cafb0ea3942ed4bbb554c76af58bd9cfd8ba2027600d26434405952abe",
+   "live": false
+  },
+  "website/js/tv-pulse.js": {
+   "sha256": "08b1a6330912a89faa69d662e7bb8d6af543f0e18663a27ec10df713496efd36",
+   "live": false
+  },
+  "website/js/tv-push.js": {
+   "sha256": "6385728084d5f33131d82da233649f5b16fad00bad05d718a9f60dd1c9ec7e06",
+   "live": false
+  },
+  "website/listing/api/leave.php": {
+   "sha256": "8230542be403a45d70955cc6dd51cba5b5b5528b82556ab1bd2877e8881e01c8",
+   "live": false
+  },
+  "website/listing/confirm.php": {
+   "sha256": "442adce37f8a658df2afa2fcab0fba6aff6ce74444770b2816be3145477fd72c",
+   "live": false
+  },
+  "website/listing/requests.php": {
+   "sha256": "cda3d2261473d7d12361db20d972733d4aa2d716b17e02d3e13f94fca296e10e",
+   "live": false
+  },
+  "website/listing/view.php": {
+   "sha256": "d00b55817426ba44bfd910ad193d2f2c8dc1f336ac5f1aae8b9ac6e3fe3129e9",
+   "live": false
+  },
+  "website/push-sw.js": {
+   "sha256": "3ff1858e100cd0c13c39b29782ecf016f2113a33c4bed4d5305795ac3285f221",
+   "live": false
+  },
+  "website/user/api/comms.php": {
+   "sha256": "e61038d79ce3cb606a6d6701420f42d44824377cb9ae75404f8579eff5f335ee",
+   "live": false
+  },
+  "website/user/api/mailboxes.php": {
+   "sha256": "88fabe013606ab812c4dd10fc0eb6b3e77d656ebd3cce9ed9b2836a99b94cc08",
+   "live": false
+  },
+  "website/user/api/marks.php": {
+   "sha256": "7297019ca9dc669cc579103b0d938b79d9981b46599a35f6675330767eb7be79",
+   "live": false
+  },
+  "website/user/api/pulse-msg.php": {
+   "sha256": "6c1776f820948641874fe2756d9bd0c6b9898e787407fdb9132d0351217a176a",
+   "live": false
+  },
+  "website/user/api/push.php": {
+   "sha256": "b0ce5301692ddcd1923d9e99fa1c6452a16ab409571d567c612863b8728ad019",
+   "live": false
+  },
+  "website/user/dashboard.php": {
+   "sha256": "bd364abdf8b10e489486fb07c7c45e841187e3ade30f72985c042dd5d91589ad",
+   "live": false
+  }
+ }
+}
