@@ -57,6 +57,9 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
   pre-flight with nothing needed for launch red (18:42 UTC: 114 ready, 11 on a backup, only OpenStreetMap's free
   servers red, optional). The site set the crawler's cron (*/5) itself; from now on the session manager never changes
   Railway's cron or restart policy, only reports failures.
+  Railway's build settings (watch paths, root directory, builder) the session manager changes itself and tells Jason
+  after (Jason, 2026-11-18: "This is something you can do"); the video worker's watch path is `/workers/video/**`
+  since 01:40 UTC, so release commits no longer rebuild it.
 - **Keys, traced with Jason by service on 2026-11-16:**
   - GitHub: `GITHUB_SYNC_TOKEN`, read-only on both repos.
   - Railway: limits set, compute $25 stop and $10 alert, agent $10 and $5; `RAILWAY_API_TOKEN` made; `HF_TOKEN` added.
