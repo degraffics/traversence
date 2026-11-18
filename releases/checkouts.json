@@ -8,7 +8,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "System Control Board, release 2b (decisions/0171)",
    "since": "2026-11-18T16:06:49Z",
-   "expires": "2026-11-18T20:06:49Z",
+   "expires": "2026-11-18T20:07:30Z",
    "release": "control-board-2b.zip",
    "callers": {}
   },
@@ -19,7 +19,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "System Control Board, release 2b (decisions/0171)",
    "since": "2026-11-18T16:06:49Z",
-   "expires": "2026-11-18T20:06:49Z",
+   "expires": "2026-11-18T20:07:30Z",
    "release": "control-board-2b.zip",
    "callers": {}
   },
@@ -30,7 +30,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "System Control Board, release 2b (decisions/0171)",
    "since": "2026-11-18T16:06:49Z",
-   "expires": "2026-11-18T20:06:49Z",
+   "expires": "2026-11-18T20:07:30Z",
    "release": "control-board-2b.zip",
    "callers": {}
   },
@@ -70,6 +70,39 @@
    "why": "System Control Board, release 2b (decisions/0171)",
    "since": "2026-11-18T16:06:51Z",
    "expires": "2026-11-18T20:06:51Z",
+   "release": "control-board-2b.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/sections.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "release control-board-2b.zip",
+   "since": "2026-11-18T16:07:30Z",
+   "expires": "2026-11-18T20:07:30Z",
+   "release": "control-board-2b.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/manifests.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "release control-board-2b.zip",
+   "since": "2026-11-18T16:07:30Z",
+   "expires": "2026-11-18T20:07:30Z",
+   "release": "control-board-2b.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/admin/api.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "release control-board-2b.zip",
+   "since": "2026-11-18T16:07:30Z",
+   "expires": "2026-11-18T20:07:30Z",
    "release": "control-board-2b.zip",
    "callers": {}
   }
