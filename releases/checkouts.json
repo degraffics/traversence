@@ -184,9 +184,13 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "Builds that fail staging withdraw themselves; replaces; withdraw cleans staging",
    "since": "2026-11-18T14:49:17Z",
-   "expires": "2026-11-18T18:49:17Z",
-   "release": "releases-self-withdraw",
-   "callers": {}
+   "expires": "2026-11-18T18:51:52Z",
+   "release": "releases-self-withdraw.zip",
+   "callers": {
+    "standing": [
+     "app/admin/sections.php"
+    ]
+   }
   }
  ],
  "lapsed": [
