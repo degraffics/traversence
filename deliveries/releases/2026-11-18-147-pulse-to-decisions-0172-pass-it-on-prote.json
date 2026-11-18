@@ -6,35 +6,43 @@
     "zip": "comms-gaps.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "staged",
-    "step": 0,
+    "state": "live",
+    "step": 3,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
     "plan_at": "2026-11-18 22:15:32",
     "staged_at": "2026-11-18 22:15:33",
-    "vetted_at": null,
-    "live_at": null,
+    "vetted_at": "2026-11-18 22:15:36",
+    "live_at": "2026-11-18 22:15:36",
     "files": {
         "app/admin/inbox-console.php": {
             "sha": "8e0d36271ca13f2f4502038b984be070a7e62ef2c03d8b71fa658b34bf4cf811",
             "size": 6845,
-            "live_was": "b277d5daacaaf6e5d14ba0bbbfa0efc78ad38b6705fc584fe0e1be4fc5683837"
+            "live_was": "b277d5daacaaf6e5d14ba0bbbfa0efc78ad38b6705fc584fe0e1be4fc5683837",
+            "existed": true,
+            "old_sha": "b277d5daacaaf6e5d14ba0bbbfa0efc78ad38b6705fc584fe0e1be4fc5683837"
         },
         "app/ui/pulse-ui.php": {
             "sha": "aa01ce75ac0c628a1651ae9775369d03760c561ac62aaf488eb5192e310b9d54",
             "size": 134084,
-            "live_was": "4f7ffce6d840f285010bd032ec2907a7c949a95a645414bbaf8d1acab713a880"
+            "live_was": "4f7ffce6d840f285010bd032ec2907a7c949a95a645414bbaf8d1acab713a880",
+            "existed": true,
+            "old_sha": "4f7ffce6d840f285010bd032ec2907a7c949a95a645414bbaf8d1acab713a880"
         },
         "app/ui/pulse-panel.php": {
             "sha": "94ffa76d9d1e6cfd7bbca68c85f7289e2f26f210656b2b369111308594053457",
             "size": 18103,
-            "live_was": "cdd7ce0fff45e94fb14d732496d8bfc6750b09ac7113cc30f84ce3dcbf77ef03"
+            "live_was": "cdd7ce0fff45e94fb14d732496d8bfc6750b09ac7113cc30f84ce3dcbf77ef03",
+            "existed": true,
+            "old_sha": "cdd7ce0fff45e94fb14d732496d8bfc6750b09ac7113cc30f84ce3dcbf77ef03"
         },
         "app/ui/faq.md": {
             "sha": "44320fafb1b06b37954197077b16c4f8cda7e38e7eb513d317e067b8e20f3d5f",
             "size": 354508,
-            "live_was": "052c54641429c29bd9c32ef8976a86a6517cac3392bf9595d24e2cefcbb9d1c1"
+            "live_was": "052c54641429c29bd9c32ef8976a86a6517cac3392bf9595d24e2cefcbb9d1c1",
+            "existed": true,
+            "old_sha": "052c54641429c29bd9c32ef8976a86a6517cac3392bf9595d24e2cefcbb9d1c1"
         },
         "app/migrations/2027-03-21_pulse_forwards.sql": {
             "sha": "f321bc26e205b52cd13c1be0049516417faf14b927895a49df03aaea10745715",
@@ -49,62 +57,84 @@
         "app/lib/CommsBody.php": {
             "sha": "124403394b8fd76b8db44858a1f1c71aa65a7fe83da6b96bca0a0c54e43748b2",
             "size": 7750,
-            "live_was": "ef30af63812b460beb6ddd2390f5363f8c085e8b3a393e86064cd26091d193d5"
+            "live_was": "ef30af63812b460beb6ddd2390f5363f8c085e8b3a393e86064cd26091d193d5",
+            "existed": true,
+            "old_sha": "ef30af63812b460beb6ddd2390f5363f8c085e8b3a393e86064cd26091d193d5"
         },
         "app/lib/Notify.php": {
             "sha": "ca0972d4912793fa5313ceef37060f73363bc3aa0097dc973797cf4b1445c64b",
             "size": 44948,
-            "live_was": "4e593bebaeaf179577382b0571f5dc1f367f382da2f3fe2d977a121acc124079"
+            "live_was": "4e593bebaeaf179577382b0571f5dc1f367f382da2f3fe2d977a121acc124079",
+            "existed": true,
+            "old_sha": "4e593bebaeaf179577382b0571f5dc1f367f382da2f3fe2d977a121acc124079"
         },
         "app/lib/MemberPulse.php": {
             "sha": "bfe86e29049b999c5bd046dd862716136f8713220c88c05edbf6e366552d25ad",
             "size": 27432,
-            "live_was": "5a28c50fb447dbc68b0858fac4dcee1e4fe29712b45067eb6693cd8ca49ba288"
+            "live_was": "5a28c50fb447dbc68b0858fac4dcee1e4fe29712b45067eb6693cd8ca49ba288",
+            "existed": true,
+            "old_sha": "5a28c50fb447dbc68b0858fac4dcee1e4fe29712b45067eb6693cd8ca49ba288"
         },
         "app/lib/Mailboxes.php": {
             "sha": "9b87d34425ec53bf6dbf700c986a4295781b58fc8e35016a31d61d93467e0672",
             "size": 53191,
-            "live_was": "b98dd0edefddb8a9e741025b7663d2325308ad32d7c7d0737ee217da9a518c2f"
+            "live_was": "b98dd0edefddb8a9e741025b7663d2325308ad32d7c7d0737ee217da9a518c2f",
+            "existed": true,
+            "old_sha": "b98dd0edefddb8a9e741025b7663d2325308ad32d7c7d0737ee217da9a518c2f"
         },
         "app/lib/PulseAct.php": {
             "sha": "cb161212919e84e2e4ba59a92552439843e93fabd681c180e8aa70547e3388da",
             "size": 26495,
-            "live_was": null
+            "live_was": null,
+            "existed": false
         },
         "app/lib/staging-tables.php": {
             "sha": "3406895e5af263cce762deb67feb8d7a37054c31d724c64f6fc1bae087a0cb7b",
             "size": 27729,
-            "live_was": "31102f02a41a2e66fb1f2b2c78f39e105335fb1d3e4cc859cbaf2dc1f84d7953"
+            "live_was": "31102f02a41a2e66fb1f2b2c78f39e105335fb1d3e4cc859cbaf2dc1f84d7953",
+            "existed": true,
+            "old_sha": "31102f02a41a2e66fb1f2b2c78f39e105335fb1d3e4cc859cbaf2dc1f84d7953"
         },
         "app/lib/Community.php": {
             "sha": "fdced0bca45b01a3066bc89b75eff39fd1ba3796ceab32a06bbf5308b7f60d1c",
             "size": 63352,
-            "live_was": "edad22106074436d8e41290d07a27528141926ecdee6c39a2757f78041c183f4"
+            "live_was": "edad22106074436d8e41290d07a27528141926ecdee6c39a2757f78041c183f4",
+            "existed": true,
+            "old_sha": "edad22106074436d8e41290d07a27528141926ecdee6c39a2757f78041c183f4"
         },
         "website/admin/api/pulse.php": {
             "sha": "7565068f960e5f92640899ed3f5b871d4a4af64cddc0c377cec64a5b0982f069",
             "size": 11901,
-            "live_was": "d51e419aed8520159fd3c057c52f29e5062d5a4f4119ab04ec8448f0797f9b32"
+            "live_was": "d51e419aed8520159fd3c057c52f29e5062d5a4f4119ab04ec8448f0797f9b32",
+            "existed": true,
+            "old_sha": "d51e419aed8520159fd3c057c52f29e5062d5a4f4119ab04ec8448f0797f9b32"
         },
         "website/user/api/pulse.php": {
             "sha": "e3631d0f2acf0a8df33dc03a0a8555863b926a2953614b6875e889eb70bdb822",
             "size": 1673,
-            "live_was": "e0703b5c1b3267a909376b6d432423432519dd40864108bd099d9784887c4c4c"
+            "live_was": "e0703b5c1b3267a909376b6d432423432519dd40864108bd099d9784887c4c4c",
+            "existed": true,
+            "old_sha": "e0703b5c1b3267a909376b6d432423432519dd40864108bd099d9784887c4c4c"
         },
         "website/user/api/pulse-act.php": {
             "sha": "7c7b608b361f90b3100ce2ff02e8cdee87f64c2d74ca91add554d4137f8cf91c",
             "size": 4535,
-            "live_was": null
+            "live_was": null,
+            "existed": false
         },
         "website/js/pulse-msg.js": {
             "sha": "4be5dc1f82a405458f08301451e2ab417c17d4162cb418dd78d4c06a8a81fe68",
             "size": 10630,
-            "live_was": "eb77e1cafb0ea3942ed4bbb554c76af58bd9cfd8ba2027600d26434405952abe"
+            "live_was": "eb77e1cafb0ea3942ed4bbb554c76af58bd9cfd8ba2027600d26434405952abe",
+            "existed": true,
+            "old_sha": "eb77e1cafb0ea3942ed4bbb554c76af58bd9cfd8ba2027600d26434405952abe"
         },
         "website/js/tv-pulse.js": {
             "sha": "29099ae39f470e4eff68df556353e8cbd2019caccb1a0d442c09b7840797ec10",
             "size": 39824,
-            "live_was": "536eb930546004c54939e63ac67ea22f1df00ef3d6f50d54e15a6b3772c9a98b"
+            "live_was": "536eb930546004c54939e63ac67ea22f1df00ef3d6f50d54e15a6b3772c9a98b",
+            "existed": true,
+            "old_sha": "536eb930546004c54939e63ac67ea22f1df00ef3d6f50d54e15a6b3772c9a98b"
         }
     },
     "migrations": [
@@ -113,8 +143,8 @@
     ],
     "checks": {
         "ok": true,
-        "where": "staging",
-        "at": "2026-11-18T22:15:34+00:00",
+        "where": "live",
+        "at": "2026-11-18T22:15:36+00:00",
         "items": [
             [
                 "PHP files parse",
@@ -122,19 +152,9 @@
                 "13 checked"
             ],
             [
-                "Migrations only add",
-                true,
-                "2 checked"
-            ],
-            [
-                "Migrations ran on staging",
-                true,
-                "Ran 2027-03-21_mail_blocks.sql, 2027-03-21_pulse_forwards.sql"
-            ],
-            [
                 "Pages answer",
                 true,
-                "2 pages answered on staging.trvgo.us"
+                "2 pages answered on traversence.com"
             ],
             [
                 "No new fatal errors in the logs",
@@ -164,6 +184,16 @@
             "at": "2026-11-18T22:15:34+00:00",
             "by": 0,
             "msg": "Put on staging (18 files); its checks passed."
+        },
+        {
+            "at": "2026-11-18T22:15:36+00:00",
+            "by": 0,
+            "msg": "Approved in chat before it was sent through git, and its checks on staging passed: publishing by itself."
+        },
+        {
+            "at": "2026-11-18T22:15:36+00:00",
+            "by": 0,
+            "msg": "Published: 16 files, after its 2 migrations ran first (2027-03-21_pulse_forwards.sql, 2027-03-21_mail_blocks.sql; a copy of what each touched is kept 14 days); everyone at once (no switch)."
         }
     ]
 }
