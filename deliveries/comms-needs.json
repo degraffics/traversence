@@ -1,8 +1,8 @@
 {
  "zip": "comms-needs.zip",
  "built_on": "95ab6fb Sync: 2026-11-18 20:07 UTC",
- "recorded": "2026-11-18 20:12 UTC",
- "note": "Pulse: what needs you as rows and on the bell; the admin's task queue replaced by the bell (decisions/0172). Built on Sync: 2026-11-18 20:07 UTC Sent through git (releases/inbox).",
+ "recorded": "2026-11-18 20:15 UTC",
+ "note": "Pulse: the admin stream as a table, what needs you as rows and on the bell, the task queue replaced (decisions/0172). Built on Sync: 2026-11-18 20:07 UTC Sent through git (releases/inbox).",
  "status": "pending",
  "live_in": "",
  "files": {
@@ -11,11 +11,11 @@
    "live": false
   },
   "app/ui/faq.md": {
-   "sha256": "edf019c663ca320943b3e73aa874b18176dfe452d3be77a21c9950e2f812e431",
+   "sha256": "6e13b2a3afa70c805a093ea707e857bff39af6f6c510178d498b6178cbef7e4d",
    "live": false
   },
   "app/ui/pulse-ui.php": {
-   "sha256": "d022eb941248dbf2f3457db5db5b2f7c7fcd6202dd2e55595984bc0dacf95985",
+   "sha256": "e050ca8b3139a0d5d761d738fb623affb6b2d244dc443e3facc807ea412880db",
    "live": false
   },
   "website/js/tv-pulse.js": {
