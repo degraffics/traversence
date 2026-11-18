@@ -34,6 +34,9 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
 ## Rules Jason set (all in CLAUDE.md)
 
 - Every build is a release through git; he approves each merge in chat; no zips for him to upload.
+- **Sessions merge their own PRs** (Jason, 2026-11-18: "Sessions merge"): a build session asks him in its own chat
+  with the pop-up, merges on his Approve and tells the session manager, which runs the sync, verifies the files,
+  records the delivery and sends "verified live". The session manager merges only its own PRs (deliveries, queue).
 - Both repos: sessions add `traversence` / `traverse-3way-sync` with add_repo without asking. The permission check may
   still refuse a session's own add or `create_session` with pre-approved tools: then he types "add the sync repo" there.
 - FAQ clashes resolve themselves; check-out per 0161; "how it works" questions go to the documents, not to him.
