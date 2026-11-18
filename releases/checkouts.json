@@ -237,30 +237,6 @@
    "callers": {}
   },
   {
-   "path": "app/ui/context-switcher.php",
-   "functions": [
-    "tv_acting_bar",
-    "tv_context_switcher"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
-   "why": "Design 3a-2: Edit site icon in the account bar (Jason, 2026-11-18)",
-   "since": "2026-11-18T23:06:13Z",
-   "expires": "2026-11-19T03:07:53Z",
-   "release": "design-r3a2-edit-site.zip",
-   "callers": {
-    "tv_context_switcher": [
-     "app/ui/app-shell.php",
-     "app/ui/header.php"
-    ],
-    "tv_acting_bar": [
-     "app/ui/page-shell.php",
-     "website/index.php",
-     "website/user/dashboard.php"
-    ]
-   }
-  },
-  {
    "path": "app/lib/ControlAlarms.php",
    "functions": [],
    "kind": "add",
