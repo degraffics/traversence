@@ -6,12 +6,12 @@
     "zip": "comms-gaps.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "planned",
+    "state": "approved",
     "step": 0,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
-    "plan_at": null,
+    "plan_at": "2026-11-18 22:15:32",
     "staged_at": null,
     "vetted_at": null,
     "live_at": null,
@@ -117,6 +117,16 @@
             "at": "2026-11-18T22:15:30+00:00",
             "by": 0,
             "msg": "Uploaded comms-gaps.zip: 18 files."
+        },
+        {
+            "at": "2026-11-18T22:15:32+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/comms-gaps.zip (git 1d1723da11)."
+        },
+        {
+            "at": "2026-11-18T22:15:32+00:00",
+            "by": 0,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
         }
     ]
 }
