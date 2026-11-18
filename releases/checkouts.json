@@ -8,8 +8,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "0171 R2a: the ledger",
    "since": "2026-11-18T14:01:09Z",
-   "expires": "2026-11-18T18:06:50Z",
-   "release": "control-board-2a.zip",
+   "expires": "2026-11-18T18:26:34Z",
+   "release": "control-board-2a-2.zip",
    "callers": {}
   },
   {
@@ -19,8 +19,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "0171 R2a: the ledger",
    "since": "2026-11-18T14:01:09Z",
-   "expires": "2026-11-18T18:06:50Z",
-   "release": "control-board-2a.zip",
+   "expires": "2026-11-18T18:26:34Z",
+   "release": "control-board-2a-2.zip",
    "callers": {}
   },
   {
@@ -85,8 +85,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "0171 R2a: ledger hooks, Start's watch, AZCC line, settings",
    "since": "2026-11-18T14:01:12Z",
-   "expires": "2026-11-18T18:06:50Z",
-   "release": "control-board-2a.zip",
+   "expires": "2026-11-18T18:26:34Z",
+   "release": "control-board-2a-2.zip",
    "callers": {}
   },
   {
@@ -107,8 +107,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "0171 R2a: ledger hooks, Start's watch, AZCC line, settings",
    "since": "2026-11-18T14:01:12Z",
-   "expires": "2026-11-18T18:06:50Z",
-   "release": "control-board-2a.zip",
+   "expires": "2026-11-18T18:26:34Z",
+   "release": "control-board-2a-2.zip",
    "callers": {}
   },
   {
@@ -118,8 +118,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "release control-board-2a.zip",
    "since": "2026-11-18T14:06:50Z",
-   "expires": "2026-11-18T18:06:50Z",
-   "release": "control-board-2a.zip",
+   "expires": "2026-11-18T18:26:34Z",
+   "release": "control-board-2a-2.zip",
    "callers": {}
   },
   {
@@ -129,8 +129,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "release control-board-2a.zip",
    "since": "2026-11-18T14:06:50Z",
-   "expires": "2026-11-18T18:06:50Z",
-   "release": "control-board-2a.zip",
+   "expires": "2026-11-18T18:26:34Z",
+   "release": "control-board-2a-2.zip",
    "callers": {}
   },
   {
@@ -140,8 +140,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "release control-board-2a.zip",
    "since": "2026-11-18T14:06:50Z",
-   "expires": "2026-11-18T18:06:50Z",
-   "release": "control-board-2a.zip",
+   "expires": "2026-11-18T18:26:34Z",
+   "release": "control-board-2a-2.zip",
    "callers": {}
   },
   {
@@ -151,8 +151,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "release control-board-2a.zip",
    "since": "2026-11-18T14:06:50Z",
-   "expires": "2026-11-18T18:06:50Z",
-   "release": "control-board-2a.zip",
+   "expires": "2026-11-18T18:26:34Z",
+   "release": "control-board-2a-2.zip",
    "callers": {}
   },
   {
@@ -162,8 +162,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "release control-board-2a.zip",
    "since": "2026-11-18T14:06:50Z",
-   "expires": "2026-11-18T18:06:50Z",
-   "release": "control-board-2a.zip",
+   "expires": "2026-11-18T18:26:34Z",
+   "release": "control-board-2a-2.zip",
    "callers": {}
   },
   {
@@ -173,8 +173,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "release control-board-2a.zip",
    "since": "2026-11-18T14:06:50Z",
-   "expires": "2026-11-18T18:06:50Z",
-   "release": "control-board-2a.zip",
+   "expires": "2026-11-18T18:26:34Z",
+   "release": "control-board-2a-2.zip",
    "callers": {}
   }
  ],
