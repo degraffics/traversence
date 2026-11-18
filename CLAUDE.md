@@ -48,7 +48,7 @@ waiting on Jason, is archived and named in the report. A session waiting on him 
 ## Build sessions follow the playbook (Jason, 2026-11-18): every build
 
 Before the first release, read `handoffs/builder-playbook.md`: fixes in place, a way back for every action, the phone at
-390px, words kept true, one coherent release, `send.py`'s refusals fixed at the cause, OKs through the session manager.
+390px, words kept true, one coherent release, `send.py`'s refusals fixed at the cause, OKs asked in your own chat.
 
 ## Keep this file lean
 
