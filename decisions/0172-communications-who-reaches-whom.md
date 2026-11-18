@@ -607,8 +607,21 @@ be integrated into the communication system, because the user and listing will n
         held messages are delivered then (above), and requests already sent by email arrive with the business's email
         replies, so it can carry on in Traversence. The guest's side doesn't change: answers still reach them by
         email or the code.
-    - **Kept:** guest threads are deleted after 180 days quiet (0052); a held one expires sooner, at 90 days. Their
-      email is kept only for the thread, and deleted with it.
+    - **How it's held when guest data is purged quickly** (Jason asked, 2026-11-18). Checked in the live code: the
+      form's check lives only in the session; the device and network hashes behind guests' limits and likes are
+      deleted after 30 days (`guest_tick`, 0009); guest questions themselves are kept until 180 days quiet
+      (`GuestInquiries::KEEP_DAYS`). So a guest's message is held **as its own record**, never in the session or
+      the cookie:
+      - it's a guest thread (`guest_inquiries`, the table guest questions use) on the listing's id, with a status
+        (held, sent by email, delivered, answered, expired) and its own clock;
+      - it holds only what the thread needs: the first name, the words, the confirmed email if they chose email, the
+        reply code (stored hashed, as now), the listing, and the dates;
+      - the 30-day purge of device hashes doesn't touch it (those only ever counted the limits);
+      - **its own clock:** held and never claimed, deleted at 90 days, the guest emailed first if they gave an email;
+        once delivered, the usual 180 days quiet;
+      - with no email and a lost code, the thread can't be found again by the guest; the form says so and shows the
+        code to save ("Keep this code: it's the only way back to your message").
+      - The email is deleted with the thread.
   - **Two routes, by what the listing's data holds** (Jason, 2026-11-18: "unless we assign the email from the listing
     to the message"):
     - **The listing has a public email:** the message is **delivered to that email by us as a visitor's request**
