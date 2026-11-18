@@ -10,7 +10,9 @@
 | #127 | `control-board-2b` | the board at `/admin/config/control`, first in System Configuration (its side-panel icon opens it): stages, controls, systems, processes, Start it (the interlock), Shut it down, Shut down in order, "stopped, safe" |
 | #128 | `control-board-layout` | laid out after Jason's example board (`design/control-board-mockup.html`): status strip, Holding now, Query timings, rows in columns, the Needs table |
 | #129 | `control-board-2c` | the service cards' fixes; crawler 2.12.1 (a held service ends a run ok, not Crashed) |
-| (sent) | `control-board-check-parts` | a check shown part by part, the red one first; W0 Indexer 1.1.1 (a full test batch). PR #924, approved; it waits for `notify-1` (also carries `faq.md`) to go live, then is rebuilt from the live `faq.md` and merged. **If this session ends first, do that before anything else.** |
+| #131 | `control-board-check-parts-2` | a check shown part by part, the red one first ("Holds it"); W0 Indexer 1.1.1 (a full test batch). Rebuilt on 17:04 after `notify-1`, which also carried `faq.md` |
+| #132 | `control-board-closed` | everything starts closed (Jason: "these need to be collapsed on load"; "Close all on load"); Holding now and Query timings as folds with a one-line summary |
+| (merged, #931) | `control-board-rows` | rows in aligned columns like Jason's second example (name and phases, stage pill, where it stands, last 24 hours, speed per record, OK rate, Check/Start/Shut down on the row); opened, short labelled lines with needs as chips. **Check it's live (17:14 sync or later) before building on it.** |
 
 Alongside: `releases-self-withdraw` (#122), `releases-live-2` (#123), `releases-marks` (#125) and `releases-table-2` (#126) on the Releases page.
 
@@ -45,6 +47,11 @@ Alongside: `releases-self-withdraw` (#122), `releases-live-2` (#123), `releases-
   (CLAUDE.md, #921).
 - A build that fails staging is the session's to clear: send `-2` with `"replaces"` (builder-playbook).
 - Every check that goes red must name the part that holds it (#924's lesson: never match on words).
+- Jason judges the board by his example boards (`design/control-board-mockup.html`, and the row he sent on 2026-11-18:
+  columns of metrics on the row, labelled one-line details, needs as chips). New parts follow that look: a summary
+  line first, details on a toggle, nothing open on load.
+- From the row example, still to build: **Log** and **Report** buttons on each row (release 5), **cost per record**
+  and **uptime** (release 4; the OK rate stands in until then).
 
 **Tests:** `tools/control-board-tests/`: r1 (33), r2a (21), self-withdraw (17), r2b (14), layout (8), r2c (12), r2d (7),
 releases-live.cjs (7). The worker's: `workers/crawler/tests/` (test_held_task, test_indexer and the rest).
