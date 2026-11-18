@@ -1,0 +1,34 @@
+{
+    "id": 134,
+    "title": "System Control Board: a row's answer under the row, full width",
+    "why": "Jason, 2026-11-18, with a screenshot of the Workers' Check: the answer ('Ready: Last check-in 55 seconds…') ran down the page a letter at a time. Since the rows release (#931) put Check, Start and Shut down on each row's line, the site's notice was placed beside the button, inside the row's narrow button cell. A button on a row's line now answers under the whole row at full width; its 'are you sure' (Shut down) goes there too, and pressing it doesn't open or close the row. The board's 30-second redraw, and the redraw a second after each press, keep that notice where it is instead of wiping it. Only website/js/admin-control.js changes. Rendered at 390px and 1280px: the notice spans the row and is still there after the redraw; Shut down's ask is under its row; no sideways scroll. Built on Sync 17:20 UTC, after #931 went live.",
+    "proposals": "",
+    "zip": "control-board-row-notice.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "website/js/admin-control.js": {
+            "sha": "8a914076afb7e6117d244a6265c2a639969e49fcd9c882e101ab27a26a5a6d0a",
+            "size": 7122,
+            "live_was": "f08e82e4040f750dd007682b2e6626a82113581f9555680b6282ff6b1038cbdd"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-18T17:23:32+00:00",
+            "by": 0,
+            "msg": "Uploaded control-board-row-notice.zip: 1 files."
+        }
+    ]
+}
