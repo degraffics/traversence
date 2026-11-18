@@ -1,13 +1,13 @@
 # 0172: Communications: who reaches whom, about what, by which channel, and one way to deliver
 
-Status: **proposed, draft 8** (2026-11-18). Waiting for Jason's OK. No code yet.
+Status: **proposed, draft 9** (2026-11-18). Waiting for Jason's OK. No code yet.
 Drafts 2 and 3 take in Jason's changes: Pulse is the inbox, and keeps its established look (0105): it collects, organizes and
 lets you read, while each message carries its own process; outside mailboxes in Pulse (§4.7); six levels, with flags and tags kept
 apart from them; three touch points; a community group is a channel.
 Builds on: 0047 and 0052 (links, messages, marketing preferences), 0049 (consent), 0066 (nations' land), 0102 and
 0100 (roles), 0108 (sales, SMS and push), 0141 (Market 360°'s unsubscribe), 0154 (who pays), 0167 (system email in one
 place), 0171 (the Control Board's alarms).
-Amends (each marked **Note for Jason** where it happens): 0105's case drawer (rows open in place) and its Operational
+Amends (each marked **Note for Jason** where it happens): 0052 step 6 (messages held for unclaimed listings, §3.3), 0105's case drawer (rows open in place) and its Operational
 Task Queue, 0055 §5's needs block (both to the bell), `Pulse::SEVERITY` (four levels become six), 0167 §2's
 Sent view (§4.3) and 0167 §2a's "Outside addresses aren't connected" (§4.7).
 Nothing else is reversed.
@@ -383,6 +383,8 @@ plan or pack, **$** needs Jason's budget. Reply: whether the message can be answ
 | Claim to review | claim staff | Pulse + email | Alert | — | F | B (`tellAdmins`) |
 | Claim invite (sales) | business | email, GO Code; text with "Reply YES" | Special | yes | F; text $ | email B; text D (0108) |
 | Calls, emails, website and directions taps on an unclaimed listing | Sales | counts in Pulse | General | — | F | G (§3.3; call, directions and website counted today) |
+| A message left on an unclaimed listing | held on the listing; the sender (Waiting); Sales (count only) | Pulse | General | — | F | G (§3.3) |
+| The listing is claimed: its waiting messages | the new owner; each sender (delivered) | Pulse, email | Alert; Notice to the sender | yes | F | G (§3.3) |
 | Listing changed by us or a source | owner | notice | Notice | — | F | G |
 
 ### 2.2 Messages
@@ -569,23 +571,38 @@ be integrated into the communication system, because the user and listing will n
 
 | | Unclaimed (no one manages it) | Claimed and managed |
 |---|---|---|
-| **What it offers** | its own data, where we have it: **Call**, **Email**, **Website**, **Directions** (the address) | all of that, **plus** the communication system: Message, guest questions, its Pulse, replies, notices, orders and bookings |
+| **What it offers** | its own data, where we have it: **Call**, **Email**, **Website**, **Directions** (the address); and **Leave a message**, held until it's claimed (below) | all of that, **plus** the communication system: Message, guest questions, its Pulse, replies, notices, orders and bookings |
 | **How it's reached** | on the visitor's own device: the phone app, their mail app, the website, the map | inside Traversence, to the listing's own id and its owner and team (§1.4, §1.5) |
 | **Tracked** | every tap counted (`data-out="call|email|website|directions"` with the listing id; counts only, never who) | the same counts, plus every message and its delivery (§4.3) |
 | **Where the counts go** | the listing's activity, and **Sales** (0108) as a reason to invite: "37 people called or emailed you through Traversence this month." The claim invite carries it; at most one invite every 30 days. | the business's Insights |
 
 - **Email is new on cards:** `data-out` counts call, directions, website and contact today; **email** is added, shown
   only where the listing's public email is known (from its sources or its own site).
-- **No Message on an unclaimed listing,** and nothing held for it: a message needs an owner to read it.
-- **Open for Jason: the route of an Email to an unclaimed listing** (in §4.2's terms):
-  - **The visitor's own mail app:** we see only the tap. The rest of its route (sent, delivered, read, answered) is
-    outside Traversence and can't be tracked.
-  - **Written in Traversence and delivered by us** to the listing's public email: the whole route is tracked; the
-    business's reply by email comes back into the visitor's Pulse (the reply address of §"Pulse is the inbox"); our
-    footer tells the business it can claim the listing to answer in Traversence. System email costs nothing; it is
-    still our email to a business that didn't ask, so 0052's guest limits (3 a day per device) and 0108's outreach
-    rules (an unsubscribe; one claim invite every 30 days) apply.
-  - Call, Website and Directions stay taps either way.
+- **A message form on an unclaimed listing, held until it's claimed** (Jason, 2026-11-18: "This could be a message
+  form we offer, that would store message assigned to a listing or user, since unclaimed listing dont have these the
+  temporary listing id could hold messages as long as the sender doesnt think it is actually going the a live
+  listing"):
+  - **Where:** on the unclaimed listing's page and its cards, **Leave a message** in Message's place.
+  - **What the sender is told, before and after:** "This business isn't on Traversence yet, so no one reads this here.
+    We'll keep your message on this listing and deliver it only if the business claims it. For anything now, call or
+    email them directly." The button reads **Leave it for them**, never Send.
+  - **Who:** a signed-in member (the message is in their own Pulse, marked **Waiting: not delivered**), or a guest with
+    an email and a reply code, under 0052's guest limits (3 a day per device, 6 per network).
+  - **Held on the listing's id:** the message belongs to the listing record, not to a person, until someone claims
+    it. Its route (§4.2) stops at **Held: waiting for a claim**.
+  - **When it's claimed and verified:** each waiting message is delivered to the new owner's Pulse as an Alert, with
+    when it was left, and the sender is told it was delivered (a Notice; email for a guest). Replies then work as any
+    business conversation.
+  - **If it's never claimed:** it expires after **90 days** (for Jason), and the sender is told it wasn't delivered.
+    The sender can withdraw it at any time.
+  - **Private until delivered:** no one at Traversence reads the words; Sales sees only the count, as a reason to
+    invite ("4 people have left you messages on Traversence"), never the messages or who left them. Expired and
+    withdrawn messages are deleted.
+  - **Reportable:** the claimed owner can report one as spam or abuse, as any message (0052).
+  - **The listing's own data still works:** Call, Email (opening the visitor's own mail app, only the tap seen),
+    Website and Directions, each counted (above).
+  - **Note for Jason (extends 0052 step 6):** guest questions were for managed listings only; unclaimed listings now
+    hold messages, as above, from members and guests.
 
 ## 4. One way to deliver
 
@@ -617,7 +634,7 @@ how, so a message can always be found where it is now.
 |---|---|---|
 | **1. Created** | `Notify::send` (or a person writing) makes the one record: sender, recipient, kind, level, words | refused (blocked, `message_policy`, no consent, suppressed, STOP), with the reason |
 | **2. Addressed** | the channels are chosen: the kind's defaults, then the person's choices (kind × channel), then what's available (push only with a subscription) | — |
-| **3. Held** | waiting for quiet hours or the person's digest, by level (Critical and Urgent never wait; Alert holds only push; Notice, General and Special wait; General and Special can join the digest) | withdrawn by the sender before it goes |
+| **3. Held** | waiting for a claim (a message left on an unclaimed listing, §3.3), or for quiet hours or the person's digest, by level (Critical and Urgent never wait; Alert holds only push; Notice, General and Special wait; General and Special can join the digest) | withdrawn by the sender before it goes; expired (an unclaimed listing's after 90 days) |
 | **4. Sent** | handed to each channel: Pulse, email (Bluehost or SES), push, a connected mailbox | failed (retried by the channel's rule; a dead address or subscription is marked and not tried again) |
 | **5. Delivered** | the channel confirms: it's in Pulse; the mail server accepted it; the push service took it | bounced, complained, unsubscribed (SES events, 0137 §8) |
 | **6. Read** | opened in Pulse, or the email opened where that's known | — |
