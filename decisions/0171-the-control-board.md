@@ -1,7 +1,7 @@
 # 0171: The System Control Board: start-to-finish management and control of the whole system
 
-Status: proposed (2026-11-18), revision 2, after Jason's "needs changes". Waiting for his OK through the session
-manager. Nothing is built before it.
+Status: accepted (Jason, 2026-11-18, revision 2, approved with the decision pop-up). Not built yet; the five releases
+follow in §15's order.
 Amends: 0163 §10 (switching back on) and its notes on Start the system and the pre-flight. Also amends ServiceHealth's
 "one Pulse case per issue" (2026-11-14) and the Pulse cases listed in §8.
 Builds on: 0109 (the admin: manifests and widgets), 0163 §1–§9 (the service register, costs, warnings, switches), 0164
