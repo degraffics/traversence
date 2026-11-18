@@ -1,0 +1,18 @@
+{
+ "zip": "comms-pulse.zip",
+ "built_on": "e4d4bb0 Sync: 2026-11-18 19:51 UTC",
+ "recorded": "2026-11-18 20:02 UTC",
+ "note": "The admin Pulse Stream to decisions/0172: one row per thing, rows open in place, the row's icons, flags, tags and views. Built on Sync: 2026-11-18 19:51 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/ui/faq.md": {
+   "sha256": "6b02292c8b9a31662bcbe6dd50bf53bc3031fc4ff11f8c22c4d11400137769fc",
+   "live": false
+  },
+  "app/ui/pulse-ui.php": {
+   "sha256": "08c8bf6ade9d5cde49acaf436d82fd7d5cb0ebc2b8a066e4ae9d37e36e7e1574",
+   "live": false
+  }
+ }
+}
