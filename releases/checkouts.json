@@ -92,6 +92,17 @@
    "expires": "2026-11-19T00:49:41Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "website/js/pulse-msg.js",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "A body with its own status line isn't given a second one",
+   "since": "2026-11-18T20:49:44Z",
+   "expires": "2026-11-19T00:49:44Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
