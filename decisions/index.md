@@ -1,6 +1,6 @@
 # Decision register
 
-Decision 0145 §1a. Generated on 2026-11-18 13:02 UTC from `decisions/` and the live mirror (`9c33912`). Don't edit by hand:
+Decision 0145 §1a. Generated on 2026-11-18 19:17 UTC from `decisions/` and the live mirror (`dd8d547`). Don't edit by hand:
 edit the decision, and this follows. "Missing files" are files a decision names that the site no longer has: the
 decision may be stale, or the file moved.
 
@@ -107,7 +107,7 @@ decision may be stale, or the file moved.
 | 0099 | [0099. E-Commerce operations: six departments, the order lifecycle, and outsourced vendors](0099-e-commerce-operations-departments-and-vendors.md) | accepted |  |  | 0 |  |
 | 0100 | [0100. Staff logins, separate from member accounts](0100-staff-logins.md) | accepted |  |  | 8 |  |
 | 0101 | [0101 — Orders we build for a client, and the product catalog](0101-client-orders-and-catalog.md) | accepted |  |  | 11 |  |
-| 0102 | [0102: Roles and support access (RBAC master)](0102-roles-and-support-access.md) | accepted |  | 1 | 1 |  |
+| 0102 | [0102: Roles and support access (RBAC master)](0102-roles-and-support-access.md) | proposed |  |  | 1 |  |
 | 0103 | [0103: Ending, transfer and inactivity](0103-ending-transfer-and-inactivity.md) | accepted |  |  | 0 |  |
 | 0104 | [0104: Admin workspaces, Wave 0 (foundations)](0104-admin-workspaces-wave-0.md) | accepted |  |  | 3 |  |
 | 0105 | [0105: Workspaces 1 and 2, Dashboard and Pulse](0105-dashboard-and-pulse.md) | accepted |  |  | 10 |  |
@@ -176,3 +176,5 @@ decision may be stale, or the file moved.
 | 0168 | [0168: Facebook and Instagram for members and businesses: sign-in, sharing, connected Pages](0168-facebook-and-instagram-for-members-and-businesses.md) | accepted |  | 1 | 0 |  |
 | 0169 | [0169: The Shop's App store, and one lifecycle for every app](0169-the-shop-app-store-and-the-app-lifecycle.md) | accepted |  |  | 1 |  |
 | 0170 | [0170: Everything placed in the discovery funnel, by location, active or planned](0170-everything-placed-in-the-discovery-funnel.md) | accepted |  | 1 | 0 |  |
+| 0171 | [0171: The System Control Board: start-to-finish management and control of the whole system](0171-the-control-board.md) | accepted |  |  | 8 |  |
+| 0172 | [0172: Communications: who reaches whom, about what, by which channel, and one way to deliver](0172-communications-who-reaches-whom.md) | accepted |  |  | 2 |  |

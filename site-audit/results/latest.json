@@ -1,6 +1,6 @@
 {
- "run": "2026-11-18 09:17 UTC",
- "mirror": "9c33912",
+ "run": "2026-11-18 19:17 UTC",
+ "mirror": "dd8d547",
  "findings": [
   {
    "rule": "R07",
@@ -41,7 +41,7 @@
   {
    "rule": "R12",
    "file": "workers/crawler/indexer.py",
-   "line": 331,
+   "line": 334,
    "msg": "calls example.org, which is on no card in Outside services: add it to its company in OutsideServices::HOSTS (or a new card), or to site-audit/services-ignore.txt if it isn't a service"
   },
   {

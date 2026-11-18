@@ -1,6 +1,6 @@
 # Page tree
 
-Decision 0145 §1a. Generated from the live mirror on 2026-11-18 09:17 UTC (`9c33912`). Checked against the
+Decision 0145 §1a. Generated from the live mirror on 2026-11-18 19:17 UTC (`dd8d547`). Checked against the
 register `site-audit/pages.md` (it replaced `routes.md`, P6). Columns: does the page load the session and the shell, does it draw the account bar, is it in
 `pages.md` / `archive.md`, and which decisions name its file.
 
@@ -85,6 +85,7 @@ register `site-audit/pages.md` (it replaced `routes.md`, P6). Columns: does the 
 | `/directory/` | `website/directory/index.php` | yes | yes | yes |  |
 | `/discovery/` | `website/discovery/index.php` | yes | yes | yes |  |
 | `/email-revert.php` | `website/email-revert.php` | **no** | **no** | yes |  |
+| `/email/stop.php` | `website/email/stop.php` | yes | yes | yes |  |
 | `/email/unsubscribe.php` | `website/email/unsubscribe.php` | yes | yes | yes |  |
 | `/experiences/` | `website/experiences/index.php` | redirect | — | yes |  |
 | `/experiences/view.php` | `website/experiences/view.php` | yes | yes | yes |  |

@@ -2,7 +2,7 @@
  "zip": "control-board-2a.zip",
  "built_on": "17d0627 Sync: 2026-11-18 13:57 UTC",
  "recorded": "2026-11-18 14:07 UTC",
- "note": "System Control Board release 2a (decisions/0171 §4): the ledger of every worker call and the records it touched, Start's watch counting nothing-to-do runs, the AZCC pre-flight line; built on Sync: 2026-11-18 13:57 UTC Sent through git (releases/inbox).",
+ "note": "System Control Board release 2a (decisions/0171 \u00a74): the ledger of every worker call and the records it touched, Start's watch counting nothing-to-do runs, the AZCC pre-flight line; built on Sync: 2026-11-18 13:57 UTC Sent through git (releases/inbox).",
  "status": "replaced",
  "live_in": "",
  "files": {
