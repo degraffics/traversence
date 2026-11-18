@@ -25,9 +25,21 @@ Alongside: `releases-self-withdraw` (#122), `releases-live-2` (#123), `releases-
   (procedure, time, names to alarms, Open the report, Run it again); rows that lead with why from their latest runs; the
   top-bar light; Notify `alarm.trip` / `alarm.warning` with Acknowledge in the message; Pulse items per alarm, Done =
   acknowledge. Comms (#135) owns Notify and Pulse's levels; its session agreed the kinds and the Pulse item.
-- Next, 3b: Pulse's five old case kinds (pre-flight, Starting, svc:, ops:cap, ops:empty) retired for their alarms; the
-  health report's `alarms` block for the hourly push; admin Pulse read state; slow detection; the worker's retries.
-- 3c: the crawler-run page and "W1 today"; off-region sources (a rule first); the release pipeline's two guards.
+  Live as #137 (Sync 19:49/19:51).
+- `control-board-3b-2` (built on 20:07, after #137; replaces `control-board-3b`, never merged): a long line once, on one
+  line with a ▸ toggle that opens it in place, fading at the edge, never "…" or More (`tv_cb_more`; Jason at review: "use
+  a toggle instead of ... and more"), the check's other parts on a toggle, never repeated; old lines without parts say to
+  press Check. Caps as 0171 §6 sets them (Jason: "how did we already determine their management?"): a warning at
+  50/75/95%, a trip only when out of budget; the old cases' steps as buttons in place (fix kinds `ops` and `opsask`,
+  api `opsdo` → Operations::pulseDo), and each alarm's Pulse item with the same buttons (ControlAlarms::pulseSteps/pulseDo,
+  Pulse::playbook and manage). A fix list too long for its column drops whole buttons. Overpass is one trip `svc:osm:held` (ServiceHealth::alarm, raised by
+  the watch from open issues, cleared by resolve()) with The statement (`?show=osm-statement`, research/osm-overpass §2),
+  OpenStreetMap's card and Mark resolved (`svcresolve`, api.php); any `svc:issue:` alarm gets Mark resolved. Pulse:
+  ops:cap and ops:empty are alarms (`raise(..., $event=false)` for readings), the pre-flight case only for a stopped run,
+  a svc: case skipped when its alarm is open. The seed raises an endpoint's 5xx only if its latest call failed.
+- Next, 3c: the Starting (ops:start) and W0 (ops:w0) cases into alarms; the health report's `alarms` block for the hourly
+  push; admin Pulse read state; slow detection; the worker's retries; the crawler-run page and "W1 today"; off-region
+  sources (a rule first); the release pipeline's two guards.
 
 **Release 3 (decisions/0171 §15.3): real-time monitoring, the alarms and Pulse.**
 - `control_alarms` and `control_tick`; slow, retry and crash caught when they happen (§5).

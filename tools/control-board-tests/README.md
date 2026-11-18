@@ -42,4 +42,9 @@ and `website/api/` (the mirror's `sync-storage/api/crawl` and `api/video`). Put 
   serves); the 5-minute watch (a run that never reported, a job that stopped, W0 quiet); the seed (red pre-flight lines
   named by the part that holds them, W2's server error, off-region sources), the dispatcher's alarm kinds and the Pulse
   body with Acknowledge. 24 tests: after `r2a`'s schema and 2a's migration, `php r3a.php <root>/app`.
+- `r3b.php`: release 3b: Overpass as one trip (raised once for every refusing server, a notice per server folded in,
+  Acknowledge doesn't close it, cleared when the last refusal is resolved), a reading that repeats not counted as a new
+  time, the seed's 5xx only when the latest call failed, the ▸ toggle (no "…", no More) and the check's other parts never
+  repeated, old lines told to press Check, a long button list dropping whole buttons, an alarm's Pulse steps (Raise the
+  cap as a form, Pause it, Mark resolved) and a step it doesn't carry refused. 17 tests: after `r2a`'s schema and 2a's migration, `php r3b.php <root>/app`.
 - `w2-verify.php`: W2's second look: a listing whose check throws is set aside with its error; the board reads it.
