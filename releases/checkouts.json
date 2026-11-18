@@ -510,6 +510,46 @@
    "expires": "2026-11-19T02:08:41Z",
    "release": "control-board-3f",
    "callers": {}
+  },
+  {
+   "path": "app/lib/Scheduler.php",
+   "functions": [
+    "QUIET",
+    "RETIRED"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 3f: staging payment keys, release guards, Supabase, Site health",
+   "since": "2026-11-18T22:08:43Z",
+   "expires": "2026-11-19T02:08:43Z",
+   "release": "control-board-3f",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/StagingGate.php",
+   "functions": [
+    "PAY_NAMES"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 3f: staging payment keys, release guards, Supabase, Site health",
+   "since": "2026-11-18T22:08:43Z",
+   "expires": "2026-11-19T02:08:43Z",
+   "release": "control-board-3f",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Releases.php",
+   "functions": [
+    "fromGitBuild"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 3f: staging payment keys, release guards, Supabase, Site health",
+   "since": "2026-11-18T22:08:43Z",
+   "expires": "2026-11-19T02:08:43Z",
+   "release": "control-board-3f",
+   "callers": {}
   }
  ],
  "lapsed": [
