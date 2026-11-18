@@ -1,0 +1,44 @@
+{
+    "id": 117,
+    "title": "Start the system: W14's fix done on the card (each source's terms), other fixes in a drawer",
+    "why": "Jason, 2026-11-18, on W14's 'Fix it' (a link to Pulse): 'Fix it can't take me to another page. I already explained this.' 1. W14, held by a hub's licence sources whose terms aren't read, lists each source on the card with Read its terms (the source's own terms page, opened beside this one to read) and Terms read: allowed, done right there (HubOpening's own step, with its permission hubs.open); Check again carries on once they're read. Blocked sources aren't listed (never read by the crawler). 2. Any other fix that needs another page opens in a drawer over the card (Fix it here), never by leaving it. 3. A held step with its own fixes listed doesn't repeat them in its status line. 4. FAQ.",
+    "proposals": "",
+    "zip": "start-inline-fix.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/admin/automation-console.php": {
+            "sha": "a6165532c5977f2b87e7b9d0f93a64112a8061a9f4f8780ee36865ca59217216",
+            "size": 22759,
+            "live_was": "b07566b42930df1c712142dd9a987fe84506aa41fe1f263e8a0141cc027271e6"
+        },
+        "app/ui/faq.md": {
+            "sha": "69ebd19384ef8f16c64016cecac32b6ae8de45d6f3c5a456d3936fbf55da3a63",
+            "size": 326037,
+            "live_was": "e4ddde380c2093c446f1a4a59dcb6d616a4a980a26d7b10f7dfb66241ca39340"
+        },
+        "app/lib/SystemStart.php": {
+            "sha": "a4cf9f957a67b678ae5fa6def1ec48e5946c0bb35cbaac3308faa8e18f73704a",
+            "size": 69257,
+            "live_was": "8e2572e802198ea515bd584e094f3bfff8e53d258ed8ebd83ba8ba794b82d5fe"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-18T01:58:17+00:00",
+            "by": 0,
+            "msg": "Uploaded start-inline-fix.zip: 3 files."
+        }
+    ]
+}
