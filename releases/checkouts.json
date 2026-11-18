@@ -163,7 +163,7 @@
    "session": "session_01CXLi5jn2WGptsHBfmhEav6",
    "why": "the stream's script: rows open in place (decisions/0172)",
    "since": "2026-11-18T20:01:31Z",
-   "expires": "2026-11-19T00:02:16Z",
+   "expires": "2026-11-19T00:02:20Z",
    "release": "comms-pulse.zip",
    "callers": {
     "tv_pulse_board": [
