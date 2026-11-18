@@ -145,3 +145,15 @@ stream, Quick actions, Helper, Support inbox, Stream settings); `/admin/pulse/�
 (`Workspaces::MERGED`), and the `pulse` module stays for its tools and API (`/admin/api/pulse/…`). The others are
 renumbered: 2 Get Local 360°, 3 Let's Explore 360°, 4 Market 360°, 5 Social 360°, 6 Sales & Growth, 7 White Glove
 Concierge, 8 Back-Office, 9 Insights & Research, 10 System Configuration.
+
+**Note (2026-11-18, Jason's platform-wide design directive, `design/css-theme-brand.md`; brand.md §4's final note):**
+the admin and the site move onto one set of design tokens in three releases (`handoffs/admin-design.md`).
+- **Release 1, tokens and the shell:** `app/ui/theme-tokens.php` (`tv_theme_tokens()`, drawn in every page's head by
+  `tv_page_start`) holds brand.md's values as `--tv-*` tokens, with System Red `--tv-fail` #a62b2b only for a halting or
+  core failure or an open trip, and Grounded Amber `--tv-hold` #8f5600 for routine timeouts and holds. Lines and
+  metadata text are mixed from brand values (taupe alone is 4.11:1 on the vellum). Fonts are served from our own
+  server (`website/fonts/`). `app/ui/app-shell.php` has no colour of its own. Stylesheets read the tokens, never copies.
+- **Release 2, the admin:** the kit (`app/admin/kit-css.php`), one command header replacing the sage bar and peach tab of
+  2026-11-12 (Back, module, sections ▾ and the page's own filter left; the board's light, At hand and Shortcuts right;
+  `data-ak-cmd` moves a page's filter into it), the record strip, more space between groups and none inside rows.
+- **Release 3:** public pages, one area at a time.
