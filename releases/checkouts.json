@@ -53,6 +53,157 @@
    "expires": "2026-11-18T20:45:14Z",
    "release": "control-board-layout.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/Notices.php",
+   "functions": [
+    "send"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5krYPakdEQtKuVw14F",
+   "why": "0172 step 2: one dispatcher into Pulse (notify-1)",
+   "since": "2026-11-18T16:46:47Z",
+   "expires": "2026-11-18T20:46:47Z",
+   "release": "notify-1.zip",
+   "callers": {
+    "send": [
+     "app/admin/tools.php",
+     "app/lib/Community.php",
+     "app/lib/GroupChapters.php",
+     "app/lib/GroupGrowth.php",
+     "app/lib/MemberPosts.php",
+     "app/lib/OnDemand.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/MemberPulse.php",
+   "functions": [
+    "sources",
+    "stream"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5krYPakdEQtKuVw14F",
+   "why": "0172 step 2: one dispatcher into Pulse (notify-1)",
+   "since": "2026-11-18T16:46:47Z",
+   "expires": "2026-11-18T20:46:47Z",
+   "release": "notify-1.zip",
+   "callers": {
+    "sources": [
+     "website/user/api/pulse.php"
+    ],
+    "stream": [
+     "website/user/api/pulse.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/BizMessages.php",
+   "functions": [
+    "bizThread",
+    "personSend"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5krYPakdEQtKuVw14F",
+   "why": "0172 step 2: one dispatcher into Pulse (notify-1)",
+   "since": "2026-11-18T16:46:47Z",
+   "expires": "2026-11-18T20:46:47Z",
+   "release": "notify-1.zip",
+   "callers": {
+    "personSend": [
+     "app/lib/MarketBiz.php",
+     "app/lib/MarketCheckout.php",
+     "app/lib/MarketOffers.php",
+     "website/user/api/business-messages.php"
+    ],
+    "bizThread": [
+     "website/user/api/business-messages.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/MarketCheckout.php",
+   "functions": [
+    "notify"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5krYPakdEQtKuVw14F",
+   "why": "0172 step 2: one dispatcher into Pulse (notify-1)",
+   "since": "2026-11-18T16:46:47Z",
+   "expires": "2026-11-18T20:46:47Z",
+   "release": "notify-1.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/GuestInquiries.php",
+   "functions": [
+    "bizThread",
+    "create"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5krYPakdEQtKuVw14F",
+   "why": "0172 step 2: one dispatcher into Pulse (notify-1)",
+   "since": "2026-11-18T16:46:47Z",
+   "expires": "2026-11-18T20:46:47Z",
+   "release": "notify-1.zip",
+   "callers": {
+    "create": [
+     "website/api/guest-inquiry.php"
+    ],
+    "bizThread": [
+     "website/user/api/business-messages.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/Engage.php",
+   "functions": [
+    "comment"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5krYPakdEQtKuVw14F",
+   "why": "0172 step 2: one dispatcher into Pulse (notify-1)",
+   "since": "2026-11-18T16:46:47Z",
+   "expires": "2026-11-18T20:46:47Z",
+   "release": "notify-1.zip",
+   "callers": {
+    "comment": [
+     "app/lib/Gallery.php",
+     "app/lib/MemberPosts.php",
+     "website/api/engage.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/Pulse.php",
+   "functions": [
+    "mark"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5krYPakdEQtKuVw14F",
+   "why": "0172 step 2: one dispatcher into Pulse (notify-1)",
+   "since": "2026-11-18T16:46:47Z",
+   "expires": "2026-11-18T20:46:47Z",
+   "release": "notify-1.zip",
+   "callers": {
+    "mark": [
+     "app/lib/ClientOrders.php",
+     "website/admin/api/pulse.php"
+    ]
+   }
+  },
+  {
+   "path": "website/js/header-nav.js",
+   "functions": [
+    "loadBell"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5krYPakdEQtKuVw14F",
+   "why": "0172 step 2: one dispatcher into Pulse (notify-1)",
+   "since": "2026-11-18T16:46:47Z",
+   "expires": "2026-11-18T20:46:47Z",
+   "release": "notify-1.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
