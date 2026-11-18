@@ -138,3 +138,40 @@ someone who only tapped Link (0047), and members' sign-in codes (Q3).
 | Q5d | How long consent records are kept | **5 years after consent ends** (the federal claim limit is 4), with wording, version, when, from where and how it ended (0108). Never deleted early by account deletion: kept as the proof, with nothing else of the person. | **Yes:** check against the privacy policy |
 | Q6 | Which plans include texts, the pack price | Already set in `commercial.md` §1.1: **Strategic 500, Enterprise 2,500 a month**; packs **+500 $19.95, +2,500 $89.95, +5,000 $169.95, +10,000 $299.95**. Not in `Billing::ADDONS` yet (storage and AI only): they're added with the texting release. Basic and Core can buy a pack, with no allowance. | Yes: Basic and Core may buy packs? |
 
+
+## Step 2: one dispatcher into Pulse (build session session_01CXLi5krYPakdEQtKuVw14F, 2026-11-18)
+
+**Release `notify-1.zip`**, built on **Sync: 2026-11-18 16:58 UTC**. Waiting for Jason's OK, then the session manager
+merges. Tests: `tools/notify-tests/notify.php` (56 checks on MariaDB); the setting rendered at 390px with sample state,
+each control pressed once.
+
+**What's built:**
+- `app/lib/Notify.php`: `Notify::send($pdo, $kind, $to, $about, $words)`, the one entry point. One `comms_messages` row
+  per recipient (once per person, kind and thing), its route in `comms_route` (created, addressed, held, sent,
+  delivered, read, stopped, skipped, failed). The kinds register (`Notify::KINDS` + notices as `notice.<kind>`), each
+  with one of the six levels (`Notify::LEVELS`), its default email, whether email can be turned off, its engine
+  (system: Bluehost `Mailer`; ses: notices, as 0137 §8), and the team capability that receives it (RBAC, 0102).
+- `$to`: `users`, `entity` (the team by role: Owner/Manager/General for messages; orders also the Accountant), `staff`.
+  A `thread` adds to an unread message instead of sending another email (one email per conversation until read).
+- Gaps closed: 1 (`BizMessages::personSend` tells the team, `biz.message`), 2 (`MarketCheckout::notify` →
+  `biz.order`, Urgent), 3 (`Engage::comment` on a listing → `biz.comment`, General, email by choice), 4
+  (`Pulse::mark` assign → `case.assigned`, escalate → `case.escalated` to the department's Manager or Director, else
+  the Founder), 6 (`/user/api/bell.php`: people, business messages, guest questions, the dispatcher's Alert-and-above).
+  Guest questions and follow-ups → `biz.question`.
+- `Notices::send` now calls `Notify` (notices_sent, notice_prefs, SES, the weekly digest all kept).
+- The Communications setting: Dashboard → App Settings (`/user/api/comms.php`): kind × Pulse/Email, quiet hours (off
+  unless set; `comms_quiet`, minutes in the person's zone), the weekly email. Replaces the Notices block.
+- Quiet hours hold email for Notice, General, Special; the `notify_release` job (every 10 min) sends it after, or marks
+  it skipped if read in Pulse meanwhile.
+- `/email/stop.php`: one-tap Stop these on every new email (signed link, `Notify::stopUrl`).
+- Tables: `comms_messages`, `comms_route` (staging: own), `comms_prefs`, `comms_quiet` (records).
+
+**Left for later (not in this step):**
+- Staff choices and quiet hours: staff logins have no member dashboard; a staff Communications setting is needed
+  (case emails say "coming").
+- The comment notice's own buttons (reply, hide, report inside it): step 7 (comments).
+- 0171's alarms calling `Notify` (`alarm.trip`, `alarm.warning`): the Control Board session's release 3; add the kinds
+  to `Notify::KINDS` there.
+- `user/api/notices.php` is no longer called by the dashboard; delete it once nothing else uses it.
+- Mail that isn't a notice (receipts, codes, work orders) moves to `Notify` call site by call site (0172 §4.1).
+- Step 3 (six levels in `Pulse::SEVERITY`, flags and tags, the bell's colour and list) isn't this session's.
