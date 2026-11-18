@@ -1,20 +1,6 @@
 {
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
- "claims": [
-  {
-   "path": "app/admin/tools.php",
-   "functions": [
-    "config/releases"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "Releases as the standard table",
-   "since": "2026-11-18T15:32:47Z",
-   "expires": "2026-11-18T19:32:47Z",
-   "release": "releases-table",
-   "callers": {}
-  }
- ],
+ "claims": [],
  "lapsed": [
   {
    "path": "app/admin/sections.php",
