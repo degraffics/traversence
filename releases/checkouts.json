@@ -358,6 +358,19 @@
    "expires": "2026-11-19T02:40:18Z",
    "release": "control-board-4a.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/Thresholds.php",
+   "functions": [
+    "DEFS"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 4a: control_maint_hours setting",
+   "since": "2026-11-18T22:44:49Z",
+   "expires": "2026-11-19T02:44:49Z",
+   "release": "control-board-4a.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
