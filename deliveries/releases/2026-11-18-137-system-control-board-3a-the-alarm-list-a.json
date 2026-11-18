@@ -1,0 +1,109 @@
+{
+    "id": 137,
+    "title": "System Control Board 3a: the alarm list as the board's queue, alarms raised as things happen, a result line that leads somewhere",
+    "why": "Decision 0171 §5, §7 and §8, release 3a, with Jason's notes of 2026-11-18: 'would you consider this a dead end regarding managing the system?' (the red '15 held' line), 'not sure this is helpful' (Holding now), and 'does the system board have a queue where issues can be found and addressed'. (1) THE QUEUE: the alarm list replaces Holding now, opens on load whenever anything is open, one row per problem (never per process), Trip then Warning then Notice, newest first. Each row has what happened, what it means, what to do, its fix as a button, Open its runs (or its line, its card) in a drawer, Acknowledge and Undo, how many times, first and last seen, and which process it holds; one dropdown filters Open, Acknowledged, Cleared or a level. Kept in control_alarms (new, staging's own). (2) Raised AS IT HAPPENS: a worker's call answering a server error (a trip on the process it serves, cleared by its next good answer) or counting more than it received (a warning); a crawler run that fails (a trip) or does none of its work (a warning); a service refusing us (a trip; a slow-down or timeout a warning; an OpenStreetMap server held is a notice, our Geofabrik copy being in use); a red pre-flight line (a trip if required, a warning if not, a notice on a backup; one alarm per issue: a workflow whose only red parts are its own lines raises none). Within 5 minutes for silence, by the new watch job control_tick: W0 Indexer quiet while on, a crawler run never reporting, a site job that stopped or never finished. The same problem again updates its alarm; it clears by itself, saying how. (3) SEEDED on day one with what's known: the pre-flight's red lines, the open service issues, worker calls that failed in the last day (W2's verify.php 500), and sources outside our region being read (helsinki.fi, cup.lmu.de, a warning to decide). (4) THE RESULT LINE: 'Pre-flight, 10:19 AM: 15 held: W1, W2 and 13 more', each name opening its alarm, the count opening the queue, Open the report in a drawer and Run it again in place; over an hour old, it says so. (5) ROWS: a red row starts with why, from its latest runs (red when the latest call, job or task run failed or its check is red; one failure in a day with the latest fine is amber), names what failed with its error and since when, never cuts a sentence with '…', and says what it means for the system. (6) THREE WAYS TO THE OPERATOR: the light in every admin module's top bar (open trips and warnings, opening the queue); each trip emailed and pushed to the Founder at once through the one dispatcher (Notify kinds alarm.trip, Critical, and alarm.warning, Urgent, for a warning unacknowledged a day; Acknowledge inside the message); each open trip and warning its own Pulse item, Done acknowledging it. (7) A fix: since #924 a stray quote had commented out part of the board's styles (links, green and red text); it's whole again. Tests: r3a.php 24, w2-verify 5, r2b 14, r2d 9, layout 8; rendered at 390px and 1280px with no sideways scroll; the filter, a result-line link and Acknowledge pressed. Built on Sync 19:36 UTC after #940. FAQ: the board's entry (result line, queue, light, Pulse, a row's last error).",
+    "proposals": "",
+    "zip": "control-board-3a.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/admin/control-console.php": {
+            "sha": "2c05dea65aeb52c67ba63ceaa6010cf3baa7024319fcb854b85e6ad148d2151c",
+            "size": 45197,
+            "live_was": "dd99a6a56d0f08be1ec6ff58ddbb2dd8f9a449da87882721a4c039066a594cd6"
+        },
+        "app/ui/faq.md": {
+            "sha": "e4ba483efa5097a57ff343c1ef1d001965da264b82422075486f5b069e6b239e",
+            "size": 345783,
+            "live_was": "41db939ec0552bec5ef67bd58aa81a2334ad8bfd0aa8439ab4da991282473fa2"
+        },
+        "app/scripts/control_tick.php": {
+            "sha": "9a9122abc0744262a81072853df978f3277fb5da3dcd76ecb42c713d0e4c7e4d",
+            "size": 874,
+            "live_was": null
+        },
+        "app/lib/ServiceHealth.php": {
+            "sha": "efcbec9a553f5bbdb126d83f19fafed07c12048be2d0d0b950c89e2db0fd8d5e",
+            "size": 47747,
+            "live_was": "b181e464cc34d0bfa4880cbde63f3eb77c462dcc79db1212d4a104352291559a"
+        },
+        "app/lib/Scheduler.php": {
+            "sha": "d27f05bedd7fb7d01002ff4be6c4772eb7f8db0faf9d802f195e4c1d9a374037",
+            "size": 29989,
+            "live_was": "fa55adb036e1a4fbc2215b732117c5e807cdb25c391e4152848971c4dab179d6"
+        },
+        "app/lib/Notify.php": {
+            "sha": "4e593bebaeaf179577382b0571f5dc1f367f382da2f3fe2d977a121acc124079",
+            "size": 44748,
+            "live_was": "93b71b22be6aa5a25e89a1243bdd3bc023e126b95ffc577bdc1da69b919e3f5b"
+        },
+        "app/lib/ControlLedger.php": {
+            "sha": "7adbe119aabcd7a5dc888827d9d42dd7b71b3dfddd80f502dfb09c16aaddc1a3",
+            "size": 13054,
+            "live_was": "35df47c4eddf8d2b6e66873f1d68f7237a89cef2e6c981c661b1a07d385ef6f5"
+        },
+        "app/lib/ControlAlarms.php": {
+            "sha": "f6a8bc267bcc4dc824f8c72ea48783fe3ba5b32923ed4ce13f8f9ff9d858f341",
+            "size": 21292,
+            "live_was": null
+        },
+        "app/lib/crawler/CrawlService.php": {
+            "sha": "0d80917257acaa7a91d6833a2bfd2f7e3c33ba1133cf77a8ab3f17e54605501c",
+            "size": 37277,
+            "live_was": "3e8284a823b9d9b18c85644ccd3817fb4081bc49b935ce99124610c9753bbde4"
+        },
+        "app/lib/staging-tables.php": {
+            "sha": "31102f02a41a2e66fb1f2b2c78f39e105335fb1d3e4cc859cbaf2dc1f84d7953",
+            "size": 27477,
+            "live_was": "5c1cfaefd5254ebc89a90699e26e7c89299f3190cbfdeb31347afe5262948a55"
+        },
+        "app/lib/Preflight.php": {
+            "sha": "8d8fd5c760033a93f87c3c3b7d55102009ba09cd6b98ba47aaaac8c69f4db266",
+            "size": 147223,
+            "live_was": "26dddaa1387df8615c09134e170fabcb63a814fce4fee09b92057523498bf77d"
+        },
+        "app/lib/Pulse.php": {
+            "sha": "133ad1ee7ef35d00206a79af92b23fe84d1b4f6d752e6fbf30d27caff8a01da6",
+            "size": 147722,
+            "live_was": "1be90a257a1c062bd16332d9f7695f5e1702648de847a435039f4cb98ba80496"
+        },
+        "app/lib/ControlBoard.php": {
+            "sha": "c61dedbd358fa06a9ccb686f867cff186df9d1c1a9cff1022daab6769d179313",
+            "size": 26888,
+            "live_was": "5579e0dd0080b33dafe89895a88e2e22f38f34622516a3799b836f81a839d8bd"
+        },
+        "website/admin/router.php": {
+            "sha": "fbf46ef682f9774f309970b36a0c8a0a4196ada61ceaac94436f5692e917b0dc",
+            "size": 11290,
+            "live_was": "2894d208e0e78df5af3365de46ed6ca025c960354768bba03df8fbd4b1257b02"
+        },
+        "website/admin/api.php": {
+            "sha": "0a63105b287169d4e9d4f8848807389cb3cf6263a9331f2f938c9f8862f32bf7",
+            "size": 31001,
+            "live_was": "68eea08c162708ee725f2afa2e95a9afa8bf5c18440850bbd795d14108bfeb4c"
+        },
+        "website/js/admin-control.js": {
+            "sha": "7a97b25921cd033aad0d1038f16478e56baec93563bbb97d93c393f591dae49d",
+            "size": 8620,
+            "live_was": "8a914076afb7e6117d244a6265c2a639969e49fcd9c882e101ab27a26a5a6d0a"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-18T19:46:07+00:00",
+            "by": 0,
+            "msg": "Uploaded control-board-3a.zip: 16 files."
+        }
+    ]
+}
