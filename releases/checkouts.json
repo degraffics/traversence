@@ -261,6 +261,19 @@
      "app/lib/ControlAlarms.php"
     ]
    }
+  },
+  {
+   "path": "website/admin/api.php",
+   "functions": [
+    "(top)"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 3c: the Trip rule, slow calls, the last Pulse cases as alarms",
+   "since": "2026-11-18T20:58:48Z",
+   "expires": "2026-11-19T00:58:48Z",
+   "release": "control-board-3c",
+   "callers": {}
   }
  ],
  "lapsed": [
