@@ -1,8 +1,8 @@
 {
  "zip": "comms-needs.zip",
- "built_on": "f71f5fb Sync: 2026-11-18 20:17 UTC",
- "recorded": "2026-11-18 20:21 UTC",
- "note": "Pulse: the admin stream as a table like a mail inbox, what needs you as rows and on the bell, the task queue replaced (decisions/0172). Built on Sync: 2026-11-18 20:17 UTC Sent through git (releases/inbox).",
+ "built_on": "de2c623 Sync: 2026-11-18 20:29 UTC",
+ "recorded": "2026-11-18 20:36 UTC",
+ "note": "Communications: the admin stream as a table, needs as rows; rebuilt before the site took it. Built on Sync: 2026-11-18 20:29 UTC",
  "status": "pending",
  "live_in": "",
  "files": {
@@ -11,7 +11,7 @@
    "live": false
   },
   "app/ui/faq.md": {
-   "sha256": "ae0a48bbffa72bef96029aba00b30962ced0cd20947acaa0f43ed0cd8f62cdcf",
+   "sha256": "52edbc16a3cd1abfffc5763be5c180239139f588782250712028a9d3b2383637",
    "live": false
   },
   "app/ui/pulse-ui.php": {
