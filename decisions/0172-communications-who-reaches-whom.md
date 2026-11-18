@@ -1,6 +1,6 @@
 # 0172: Communications: who reaches whom, about what, by which channel, and one way to deliver
 
-Status: **proposed, draft 14** (2026-11-18). Waiting for Jason's OK. No code yet.
+Status: **proposed, draft 15** (2026-11-18). Waiting for Jason's OK. No code yet.
 Drafts 2 and 3 take in Jason's changes: Pulse is the inbox, and keeps its established look (0105): it collects, organizes and
 lets you read, while each message carries its own process; outside mailboxes in Pulse (§4.7); six levels, with flags and tags kept
 apart from them; three touch points; a community group is a channel.
@@ -8,7 +8,7 @@ Builds on: 0047 and 0052 (links, messages, marketing preferences), 0049 (consent
 0100 (roles), 0108 (sales, SMS and push), 0141 (Market 360°'s unsubscribe), 0154 (who pays), 0167 (system email in one
 place), 0171 (the Control Board's alarms).
 Amends (each marked **Note for Jason** where it happens): 0052 step 6 (messages held for unclaimed listings, §3.3), 0105's case
-drawer (to the expanded toggle and pop-ups) and its Operational Task Queue, 0055 §5's needs block (both to the bell), `Pulse::SEVERITY` (four levels become six), 0167 §2's
+drawer (its role and contents, below) and its Operational Task Queue, 0055 §5's needs block (both to the bell), `Pulse::SEVERITY` (four levels become six), 0167 §2's
 Sent view (§4.3) and 0167 §2a's "Outside addresses aren't connected" (§4.7).
 Nothing else is reversed.
 Hand-off: `handoffs/communications.md`. Checked against the live mirror at "Sync: 2026-11-18 02:36 UTC".
@@ -154,24 +154,38 @@ for stays inside it (the message's part, below).
 4. **An outside email has no process of its own.** ⊕ **Make it a case** or **a task** turns it into one of ours,
    keeping the email inside it, so its replies stay in the same thread.
 
-**How a row opens: the expanded toggle, then a pop-up; the side drawer retires** (proposed; Jason, 2026-11-18,
-comparing three he uses: "DRAWER: the concept is good but Ive struggled with the drawer being able to accommodate my
-needs. EXPANDED TOGGLE: this seems to be helping me more as long as it is viewing reasonable amount of information and
-set up to for proper actions/notices/logs. POP UP: I like this too as long as the window is able to work the way I need
-it to."):
+**How a row opens: three views, each with its own role in processing information** (proposed). Jason, 2026-11-18,
+on the drawer, the expanded toggle and the pop-up: "DRAWER: the concept is good but Ive struggled with the drawer being
+able to accommodate my needs. EXPANDED TOGGLE: this seems to be helping me more as long as it is viewing reasonable
+amount of information and set up to for proper actions/notices/logs. POP UP: I like this too as long as the window is
+able to work the way I need it to." Then: "each have a unique interaction. Maybe we consider how each one's role plays
+into how information is processed."
 
-| | **1. The expanded toggle** (every Pulse) | **2. The pop-up** (when the work needs room) |
-|---|---|---|
-| **Like** | Start the system's steps (▾ opens a step under itself) and the profile mockup | the admin search (Ctrl K) and Review's pop-ups (0074: "find, compare, fix, save, close") |
-| **Opens by** | the row's ▾ | the expanded row's **⤢** or a step's own button (Open the order, Compare, Edit) |
-| **Holds** | a reasonable amount, always in this order: **what happened** (one line) → **where it stands** (the stepper, for an order or a claim) → **its actions** (each a button on its line, up to 5; "All steps" opens the pop-up) → **its notice** (the latest answer, closed with ×, as Start's "Done:" boxes) → **its log** (the last 3 entries; the rest in the pop-up) → **reply or note** | the whole record or tool: the order with its work orders, the claim's evidence, a listing to compare and fix, the full log; sized to the work (most of the screen on a computer, full screen on a phone) |
-| **After acting** | the answer appears beside the button (`TvAsk.say`); the row stays open and in place | ✓ for a moment, then it closes back to the open row, which shows the change; Esc or × closes without changing anything |
-| **Never** | reloads the list or loses your place | leaves the page under it |
+Information moves through four steps: **scan → look → work → fix.** The list is for scanning; each view serves one of
+the other three, and holds only what its step needs.
 
-- **The side drawer retires** (amends 0105's case drawer and its split view): what it held moves into these two. The
-  case's header (Case #, source, level, who has it, escalation) and its **Assign, Escalate, Resolve** go on the
-  expanded row; "How to clear this" becomes its actions; **Open the order** opens the pop-up.
-- **One construct for every Pulse** (profile, listing, admin), so a person learns it once.
+| | **Expanded toggle: look** | **Drawer: work** | **Pop-up: fix** |
+|---|---|---|---|
+| **Its role** | see what it is and decide, without leaving the list | carry one case through, over several steps or days, with the list still beside it | do one task on the whole record, then close |
+| **Like** | Start the system's steps; the profile mockup | 0105's case drawer | the admin search (Ctrl K); Review's pop-ups (0074: "find, compare, fix, save, close") |
+| **Opens by** | the row's ▾ | **Work on it** on the expanded row | a button that needs a tool: Open the order, Compare, Edit; or ⤢ |
+| **Holds** | what happened (one line); where it stands (the stepper); up to 5 quick actions, each a button; its latest notice (closed with ×); the last 3 log entries; a short reply | the case's header (Case #, level, who has it, escalation); every step to clear it, each a button; the conversation (reply to the sender, notes to the team); the whole history; **Previous / Next** to move through the list | the record or tool itself: the order with its work orders, a claim's evidence, a listing to compare and fix, an email to write at length |
+| **Never holds** | tools, long histories | tools (they open as pop-ups over it), so it never has to be wide | the list, the conversation |
+| **After acting** | the answer beside the button; the row stays open | the answer beside the step; the step ticks off; the drawer stays | ✓, then it closes back to where it was opened, which shows the change; Esc or × closes without changing anything |
+| **On a phone** | opens under the row | full screen, with Back to the list | full screen, with × |
+
+**By kind of message:**
+
+| Kind | Look | Work | Fix |
+|---|---|---|---|
+| A post, comment, message, notice | ✓ (reply in place) | — | photos at full size |
+| An email (§4.7) | ✓ (read, short reply) | — | write at length, attachments |
+| A case: an order, a claim, an alarm, a report | ✓ (quick actions) | ✓ | the order, the evidence, the tool |
+
+- **What fixes the drawer's struggle:** it no longer holds tools, which needed the width it didn't have. Tools open as
+  pop-ups over it, and it gains Previous / Next. (Amends 0105's case drawer and its split view.)
+- **For Jason to confirm:** whether all three stay with these roles, or the drawer's role folds into the expanded
+  toggle.
 
 #### The message: what it's for, and acting on it inside it
 

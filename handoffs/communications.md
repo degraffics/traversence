@@ -1,6 +1,6 @@
 # Communications: hand-off (2026-11-18)
 
-**Decision:** `decisions/0172-communications-who-reaches-whom.md`, draft 14, no code. Waiting for Jason's OK.
+**Decision:** `decisions/0172-communications-who-reaches-whom.md`, draft 15, no code. Waiting for Jason's OK.
 **Draft 2 (Jason's first changes, 2026-11-18):** Pulse is the inbox (everything lands there; email, push and text point
 back); outside mailboxes in Pulse (§4.7: our cPanel, IMAP, POP, Gmail, Microsoft, SES receiving); his six levels
 (Critical, Urgent, Alert, Notice, General, Special) with what each does, kept apart from a person's own flags (Follow
@@ -99,3 +99,5 @@ own release; the first new one is step 2 (the in-site dispatcher), after 0171 an
   the App store build (sent to the session manager). **Open: rows in place vs the admin's drawer: to discuss.**
 - Draft 14: rows open with the expanded toggle (what happened, stepper, up to 5 actions, notice, last 3 log entries,
   reply), and a pop-up (0074) when the work needs room; the side drawer retires. Proposed; Jason to confirm.
+- Draft 15: three views with roles (scan → look → work → fix): expanded toggle to look, drawer to work a case (no
+  tools; Previous/Next), pop-up to fix. Proposed; Jason to confirm.
