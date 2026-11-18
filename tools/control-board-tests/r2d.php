@@ -7,7 +7,7 @@ declare(strict_types=1);
 $app = $argv[1];
 if (is_file($app . '/admin/Access.php')) require_once $app . '/admin/Access.php';   // the test root's stand-in
 else { final class Access { public static function can($p, $o = []) { return [true, '']; } public static function staff() { return ['name' => 'Jason']; } } }
-require $app . '/lib/Database.php'; require $app . '/lib/Preflight.php';
+require_once $app . '/lib/Database.php'; require $app . '/lib/Preflight.php';
 $pdo = Database::connection();
 $pass = 0; $fail = 0;
 $t = function (string $n, bool $ok, $got = null) use (&$pass, &$fail) { if ($ok) { $pass++; echo "  ok  $n\n"; } else { $fail++; echo "FAIL  $n" . ($got !== null ? ' — ' . json_encode($got, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) : '') . "\n"; } };

@@ -3,7 +3,7 @@
 // hosts, which needs use a company. No database. Run: php layout.php <root>/app
 declare(strict_types=1);
 $app = $argv[1];
-require $app . '/lib/Database.php'; require $app . '/lib/ControlBoard.php'; require $app . '/lib/Preflight.php';
+require_once $app . '/lib/Database.php'; require $app . '/lib/ControlBoard.php'; require $app . '/lib/Preflight.php';
 $pass = 0; $fail = 0;
 $t = function (string $n, bool $ok, $got = null) use (&$pass, &$fail) { if ($ok) { $pass++; echo "  ok  $n\n"; } else { $fail++; echo "FAIL  $n" . ($got !== null ? ' — ' . json_encode($got, JSON_UNESCAPED_SLASHES) : '') . "\n"; } };
 $res = [
