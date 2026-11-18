@@ -153,7 +153,7 @@ the admin and the site move onto one set of design tokens in three releases (`ha
   core failure or an open trip, and Grounded Amber `--tv-hold` #8f5600 for routine timeouts and holds. Lines and
   metadata text are mixed from brand values (taupe alone is 4.11:1 on the vellum). Fonts are served from our own
   server (`website/fonts/`). `app/ui/app-shell.php` has no colour of its own. Stylesheets read the tokens, never copies.
-- **Release 2, the admin:** the kit (`app/admin/kit-css.php`), one command header replacing the sage bar and peach tab of
-  2026-11-12 (Back, module, sections ▾ and the page's own filter left; the board's light, At hand and Shortcuts right;
+- **Release 2, the admin:** the kit (`app/admin/kit-css.php`), one Deep Umber command header joined to the site's top bar,
+  replacing the sage bar and peach tab of 2026-11-12 (Jason retired them, 2026-11-18, in Release 2's approval) (Back, module, sections ▾ and the page's own filter left; the board's light, At hand and Shortcuts right;
   `data-ak-cmd` moves a page's filter into it), the record strip, more space between groups and none inside rows.
 - **Release 3:** public pages, one area at a time.

@@ -46,4 +46,5 @@ Checked on traversence.com: the fonts served as font/woff2; the tokens in the pa
 - `app/ui/faq.md`: the bar's entry; 10 modules.
 - Pressed in a local render at 390px and 1280px: the sections menu, Shortcuts, an At hand drawer, Ctrl K, and the slot.
   No sideways scroll.
-- Status: summary to the session manager; then Jason, with the 2026-11-12 sage bar question.
+- Reviewed by the session manager; Jason approved 2026-11-18 and retired the 2026-11-12 sage bar and peach tab. Rebuilt on
+  Sync 22:18 (FAQ entry only re-applied); sending waits for control-board-3f (also carries faq.md) to go live.
