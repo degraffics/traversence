@@ -68,12 +68,21 @@ mailboxes can be read and answered in Pulse (§4.7). Texts go out only where rev
 Jason: "the pulse is the inbox. The inbox is supposed to be where all messaging can be found and organized. The feeds
 and messages are centrally located."
 
-- **One inbox per person,** in the context they're acting in (0055 §5, `MemberPulse`): their own; each business they
-  work for (by role, 0102 §4's Inbox row); each group they steward; for staff, the admin Pulse.
+- **Three touch points in the site** (Jason, 2026-11-18): **Members** (each person's own Pulse; creators are members
+  here), **Listings** (each business's Pulse, shared by its team by role, 0102 §4's Inbox row) and **Admin** (our
+  staff). One person can hold several and switches between them, as the site switches context today (0055 §5).
+  Guests have no Pulse (the reply code, or email).
+- **A community group is a channel, not an inbox** (Jason: "I see the community group as more of a channel than a silo
+  for communications"). Its posts, events and chats reach each member's own Pulse, labelled with the group's name.
+  Moderation (join requests, reports) lands as Alerts in the moderators' own Pulse, or in the business's Pulse for a
+  business's own groups (0102 §4c). Today's separate steward context (`MemberPulse::sources`, `'steward'`) folds into
+  the member's Pulse as the group's label and filter.
 - **Everything incoming is there:** messages (members, businesses, guest questions, order and booking threads),
   notices, feed activity (comments, group posts, Moments), staff items and alarms (0171), and connected mailboxes
   (§4.7). Today the member's Pulse already gathers messages, community, discovery, listings, marketplace and guest
   questions (`MemberPulse::SOURCES`); notices, order threads and mailboxes join it.
+- **Channels inside Pulse** are where a message was said: a direct conversation, a business conversation, a group, an
+  order's thread, a connected mailbox. Each is a label and a filter, never a separate inbox.
 - **Organized by:** source (those tabs), level (below), the person's own flags and tags (below), read or not, done.
 - **The bell is Pulse's count** of everything unread at Alert or above (today it counts only person messages, gap 6
   below), and opens Pulse.
