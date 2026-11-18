@@ -205,7 +205,8 @@ A session that needs Jason's OK (a PR, a decision, a key) asks him in its own ch
 (AskUserQuestion: approve, not now, needs changes), never a plain line or a Pulse case, and sends a push notification.
 It then tells the session manager the answer and the link by send_message. The session manager never asks the same
 question again; it lists what's still open at the top of its replies as **"Waiting for your OK:"** (with each
-session's name), and asks only its own questions. It still merges, runs the sync and records deliveries.
+session's name), and asks only its own questions. **Sessions merge their own PR** once Jason approves it in the pop-up
+(Jason, 2026-11-18: no waiting on the session manager), then tell it the merge; it runs the sync and records deliveries.
 
 ## A link for every place Jason acts (Jason, 2026-11-16): every reply
 
