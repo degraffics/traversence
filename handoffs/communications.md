@@ -141,8 +141,10 @@ someone who only tapped Link (0047), and members' sign-in codes (Q3).
 
 ## Step 2: one dispatcher into Pulse (build session session_01CXLi5krYPakdEQtKuVw14F, 2026-11-18)
 
-**Release `notify-1.zip`**, built on **Sync: 2026-11-18 16:58 UTC**. Waiting for Jason's OK, then the session manager
-merges. Tests: `tools/notify-tests/notify.php` (56 checks on MariaDB); the setting rendered at 390px with sample state,
+**Release `notify-1.zip` (#130): live**, built on Sync: 2026-11-18 16:58 UTC; Jason approved it 2026-11-18 (PR #923),
+verified live in Sync 17:04 UTC (03649e3). Checked on the live site: `/email/stop.php` refuses a bad link with its way
+forward; `/user/api/bell.php` and `/user/api/comms.php` ask for sign-in. Step 2 is done; next in 0172 §6 is step 3
+(flags, tags, the six levels; our own mailboxes in Pulse), its own session. Tests: `tools/notify-tests/notify.php` (56 checks on MariaDB); the setting rendered at 390px with sample state,
 each control pressed once.
 
 **What's built:**
