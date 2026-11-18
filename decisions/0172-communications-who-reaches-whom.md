@@ -1,8 +1,8 @@
 # 0172: Communications: who reaches whom, about what, by which channel, and one way to deliver
 
-Status: **proposed, draft 3** (2026-11-18). Waiting for Jason's OK. No code yet.
-Drafts 2 and 3 take in Jason's changes: Pulse is the inbox, and works like Outlook (it collects, organizes and reads),
-while each message carries its own process; outside mailboxes in Pulse (§4.7); six levels, with flags and tags kept
+Status: **proposed, draft 4** (2026-11-18). Waiting for Jason's OK. No code yet.
+Drafts 2 and 3 take in Jason's changes: Pulse is the inbox, and keeps its established look (0105): it collects, organizes and
+lets you read, while each message carries its own process; outside mailboxes in Pulse (§4.7); six levels, with flags and tags kept
 apart from them; three touch points; a community group is a channel.
 Builds on: 0047 and 0052 (links, messages, marketing preferences), 0049 (consent), 0066 (nations' land), 0102 and
 0100 (roles), 0108 (sales, SMS and push), 0141 (Market 360°'s unsubscribe), 0154 (who pays), 0167 (system email in one
@@ -87,55 +87,43 @@ and messages are centrally located."
   allow me to act upon it as I see fit." Then: "outlook doesnt have a way to process what an email is supposed to do,
   it simply collects, organizes, and allows the message to be read. So as for the pulse it is the outlook and as for
   the message we can craft how our system handles process within the message. I see these are two separate things."):
-  - **Pulse is the mail client.** It collects, organizes and lets you read. It knows nothing about orders, claims or
+  - **Pulse collects, organizes and lets you read.** It knows nothing about orders, claims or
     checks, and never reorders anything for you.
   - **The message carries the process.** What a message is for (ship an order, review a claim, fix a failed check) is
     built into the message by the part of the system that sent it.
 
-#### Pulse: collect, organize, read (like Outlook)
+#### Pulse: collect, organize, read, in its established look
 
-| Pane | Holds |
-|---|---|
-| **Left: the inboxes** | each inbox the person has, with its unread count: their own (Members), each business they work for (Listings), Admin for staff, and each connected mailbox (§4.7). Under each: **Inbox, Sent, Drafts, Archive, Deleted, Junk** (message requests and spam). Search folders the person makes. |
-| **Middle: the list** | **All / Unread**, sorted **By date** (or by sender, level, flag), newest or oldest first, grouped by day (Today, Yesterday, Monday, Last week). Each row: who it's from, the subject, the first line, the time, and its marks (level, flag, attachment). **One row is one thing**, never a bundle. |
-| **Right: the reading pane** | the open message: from, to, when, its level; **Reply, Reply all, Forward** and **⋯** (Flag, Mark unread, Move, Archive, Delete; Assign for a team); then the message itself. |
-
-- **On a phone** (390px): one pane at a time. The inboxes are the ☰ drawer, the list fills the screen, a message opens
-  full screen with **Back** to the same place in the list.
-- **Everything comes in as messages**, each from its sender: a person, a business, a group, an order's thread, a
-  connected mailbox, or the system under the name of the part that sent it ("Fulfillment", "Claims", "Site health").
-  Feeds, comments and group posts arrive the same way, so the person can find all of it in one search.
-- **Search** across every inbox and folder: words, sender, level, flag, date.
-- **Organizing is the person's:** flags, folders they make (Move), search folders, Archive and Delete. The site
-  makes no views, no queues and no "Needs me".
-- **Note for Jason (changes what's built):**
-  - **The admin Pulse's queue chips** (Operational Queues, Alerts, Order Mgmt, System Health, Mine, Resolved) go. Each
-    is offered once as a search folder the person can keep or delete.
-  - **The member's fixed "needs" block** at the top (`MemberPulse::needs`, the old Notification Center, 0055 §5) goes.
-    Its items arrive as messages.
-  - **Bundled cases are split**, one message per thing: "The engine needs a person" (26 identity queue, 1 outside
-    service, 37 sites, 15 finds) becomes one message each, as 0171 §8 already decided for alarms.
-  - **One exception stays fixed:** a notice of action on the account (0079) stays shown above the list, because it can
-    stop posting and messaging.
+**Pulse keeps the look already decided and built** (0105 for the admin; the member's Pulse in the same shell, 0055 §5):
+the header (Working as, the count chips, the bell, **+**, Search), the Operational Task Queue, Quick Actions, the
+Pulse Stream table (From, Severity, Subject, Received), and the case drawer with its split view. This decision adds
+nothing to that layout and moves nothing in it. What changes is what flows into it, and what a case holds:
+- **Everything comes in**, each from its sender: a person, a business, a group, an order's thread, a connected mailbox,
+  or the system under the name of the part that sent it ("Fulfillment", "Claims", "Site health"). Feeds, comments and
+  group posts arrive the same way, so Search finds all of it.
+- **One row is one thing**, never a bundle: "The engine needs a person" (26 identity queue, 1 outside service,
+  37 sites, 15 finds) becomes one row each, as 0171 §8 already decided for alarms.
+- **The person's own marks** (flags, importance, tags, below) sit on the row and in Search.
 
 #### The message: what it's for, and acting on it inside it
 
-Each kind of message (`Notify::KINDS`, §4.1) has a **body made by the part of the system that owns it**, like a
-well-made email, read in the reading pane:
+Each kind of message (`Notify::KINDS`, §4.1) has a **body made by the part of the system that owns it**, shown in the
+case drawer. The pattern is the one 0105's order case already has (its stepper and **Next step** buttons acting
+through `ClientOrders::setStage`); every kind follows it:
 
 1. **What happened**, in a sentence.
 2. **Everything about it**, not a count: the order and its items; the claim and its evidence; the 17 findings
    themselves, each with its page.
 3. **Its actions as buttons in the message** (Mark shipped, Approve, Re-run the check, Accept, Decline). Each acts
    through the owning library (`Pulse::manage`, `app/admin/workflows.php`) and answers beside the button
-   (`TvAsk.say`). It never sends you to another page; another module's tool opens inside the message (`at_hand`).
+   (`TvAsk.say`). It never sends you to another page: the drawer's **Open the tool** stays for the rare case the message can't hold.
 4. **Where it stands now, read live:** a message opened after its order shipped says "Shipped Nov 11 by Jason", with
    **Undo**; its buttons change to match. Acting on a message doesn't move or delete it. The person files it as they
    like.
 5. **Its history and notes** underneath, and **Reply** for anything that takes a conversation.
 
 - **Messages from people** are just their words, attachments and Reply.
-- **Mail from connected mailboxes** shows as sent, with outside pictures held until asked for (as Outlook does).
+- **Mail from connected mailboxes** shows as sent, with outside pictures held until asked for.
 - **Feeds and comments** show the post or comment itself, with Reply (a comment) and its own small actions (Like,
   Report).
 
