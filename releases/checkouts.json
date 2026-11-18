@@ -1,33 +1,6 @@
 {
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
- "claims": [
-  {
-   "path": "app/admin/control-console.php",
-   "functions": [
-    "tv_admin_mod_control"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "The board starts closed (Jason, 2026-11-18)",
-   "since": "2026-11-18T17:11:20Z",
-   "expires": "2026-11-18T21:11:28Z",
-   "release": "control-board-closed.zip",
-   "callers": {}
-  },
-  {
-   "path": "website/js/admin-control.js",
-   "functions": [
-    "redraw"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "The board starts closed (Jason, 2026-11-18)",
-   "since": "2026-11-18T17:11:20Z",
-   "expires": "2026-11-18T21:11:28Z",
-   "release": "control-board-closed.zip",
-   "callers": {}
-  }
- ],
+ "claims": [],
  "lapsed": [
   {
    "path": "app/admin/sections.php",
