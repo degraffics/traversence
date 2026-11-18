@@ -1,0 +1,30 @@
+{
+ "zip": "comms-needs.zip",
+ "built_on": "f71f5fb Sync: 2026-11-18 20:17 UTC",
+ "recorded": "2026-11-18 20:21 UTC",
+ "note": "Pulse: the admin stream as a table like a mail inbox, what needs you as rows and on the bell, the task queue replaced (decisions/0172). Built on Sync: 2026-11-18 20:17 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/MemberPulse.php": {
+   "sha256": "5a28c50fb447dbc68b0858fac4dcee1e4fe29712b45067eb6693cd8ca49ba288",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "ae0a48bbffa72bef96029aba00b30962ced0cd20947acaa0f43ed0cd8f62cdcf",
+   "live": false
+  },
+  "app/ui/pulse-ui.php": {
+   "sha256": "bf2d0f124ccc0ee1c47e49128085ef37aa0b1ef69f01ef4fadc00481cb539ae9",
+   "live": false
+  },
+  "website/js/tv-pulse.js": {
+   "sha256": "536eb930546004c54939e63ac67ea22f1df00ef3d6f50d54e15a6b3772c9a98b",
+   "live": false
+  },
+  "website/user/api/bell.php": {
+   "sha256": "3a95e6ad168d54aea924d42696070b2fba5c9739f2bf44c870f179d4ef41964c",
+   "live": false
+  }
+ }
+}
