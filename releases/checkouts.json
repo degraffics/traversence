@@ -415,6 +415,19 @@
    "expires": "2026-11-19T02:07:47Z",
    "release": "comms-gaps.zip",
    "callers": {}
+  },
+  {
+   "path": "app/admin/tools.php",
+   "functions": [
+    "'insights/sources'"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 3f: staging payment keys, release guards, Supabase, Site health",
+   "since": "2026-11-18T22:08:27Z",
+   "expires": "2026-11-19T02:08:27Z",
+   "release": "control-board-3f",
+   "callers": {}
   }
  ],
  "lapsed": [
