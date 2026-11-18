@@ -600,8 +600,13 @@ be integrated into the communication system, because the user and listing will n
       stands: held, sent by email, delivered, answered.
     - **Answers reach them** by email (if they chose it) and under the code. A business's email reply (the email
       route) or its answer in Pulse (after a claim) is stored on the guest's thread.
-    - **Signing up later** moves the thread into their account with the code (0052), and it becomes an ordinary
-      conversation in their Pulse.
+    - **When either side joins later:**
+      - **The guest signs up:** the reply code moves the thread into their account (0052), and it becomes an ordinary
+        conversation in their Pulse, with everything said so far.
+      - **The business claims the listing:** every thread on it comes into the business's Pulse with its history:
+        held messages are delivered then (above), and requests already sent by email arrive with the business's email
+        replies, so it can carry on in Traversence. The guest's side doesn't change: answers still reach them by
+        email or the code.
     - **Kept:** guest threads are deleted after 180 days quiet (0052); a held one expires sooner, at 90 days. Their
       email is kept only for the thread, and deleted with it.
   - **Two routes, by what the listing's data holds** (Jason, 2026-11-18: "unless we assign the email from the listing
