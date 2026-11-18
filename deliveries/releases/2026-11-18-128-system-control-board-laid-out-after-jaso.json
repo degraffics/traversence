@@ -1,0 +1,49 @@
+{
+    "id": 128,
+    "title": "System Control Board: laid out after Jason's example board",
+    "why": "Jason, 2026-11-18, sending his example board: 'review this. Please adjust the page layout and presentation of data so I can better use and understand our system board.' Decision 0171 §12 (the page; the mock-up is a reference). The board (#127) keeps every control and reading and is laid out like his example. A status strip at the top shows what's held now, the three core hosts (Bluehost, Railway, GitHub) and when things were last tested. The six stages and where the system stands follow. The system's controls sit with a find box (a process, need or source) and Open all / Close all. Two panels: Holding now (each held process, with a link that opens it) and Query timings (the four heaviest queries: took, limit, ✓ or ✗, Re-test the four). Each system is a card with its processes in columns: Process, Where it stands (with 'n of m needs answered') and Last 24 hours (calls and average time). A row opens under its name to labelled lines: Route, Its check, Needs, Last 24 hours, Crawler task runs, Site jobs, Records touched and its controls. Needs is a table: each need, its sources in order, ours first, marked ✓ or ✗ by the need's own verdict, where the need stands, what happens if none works, and a Test button. Last 24 hours reads 'Received N = stored + updated + to Review + refused', saying every one is accounted for. Each service says which needs use it and opens its register entry. Under the site itself, What the site needs from outside lists the site's needs the same way. All read from the pre-flight's stored lines and the ledger: opening the page tests nothing. Not in this release (later releases or a decision first): Fix and Disconnect on a source, and Add source, which would change what holds a workflow; maintenance windows (release 4); the health token and Pulse panel (release 3); uptime % and cost per record (the historian, release 4). Tested: 8 checks (tools/control-board-tests/layout.php), r2b's 14 still pass; rendered at 390px and 1280px with no sideways scroll; find, Open all, Close all and Re-test pressed. No tables, no migrations. FAQ: the board's entry updated.",
+    "proposals": "",
+    "zip": "control-board-layout.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/admin/control-console.php": {
+            "sha": "942358fb587ef3f5c76b33289b91770fe1d27d502f4128b1b1819e877dba8541",
+            "size": 28746,
+            "live_was": "605f7ba0e017dee6e50b12e8c078f757976596befa9d62e7d8e2af1e052293b8"
+        },
+        "app/ui/faq.md": {
+            "sha": "0974ee93f18267b6f4d07da80173d387443fac1a6184bfc1011fd5bf11b4cd7a",
+            "size": 333500,
+            "live_was": "4f82a476e13ac54b6b17caaef5f879154746f71dde244bd2320d324e135672b2"
+        },
+        "app/lib/ControlBoard.php": {
+            "sha": "2b589bd5fe9cd2458f87f9c2062cda27846210a197d89986047386abad06efb4",
+            "size": 20730,
+            "live_was": "23467c08253cfeffd1a3f331aeaf56d610302e731b34b15bfb932c4bfba9b1b1"
+        },
+        "website/js/admin-control.js": {
+            "sha": "7631317157ff2f2f49ae6319833c0732a21d6e7864f221f0294ed5d1f34273c1",
+            "size": 6052,
+            "live_was": "591e27d4687e89a8af44697507f7979f2f36ebb391844acec9953ea73b4a83dc"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-18T16:48:02+00:00",
+            "by": 0,
+            "msg": "Uploaded control-board-layout.zip: 4 files."
+        }
+    ]
+}
