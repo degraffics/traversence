@@ -4,6 +4,15 @@
   Pre-flight's Routes lines (each hop checked, an unclaimed endpoint named), Start testing what each workflow depends on
   fresh before confirming it, and the four query timings once a Start. 33 tests.
 
+- `r2a.php`: release 2a. It covers the ledger written after each worker call through the endpoints' own `_auth.php`
+  (on PHP's built-in server), received, stored, updated, Review and refused by reason, the records touched (one line
+  per record), an error answer, a call that isn't signed in, a call before the table exists, trimming, the run's link,
+  and Start's watch counting a task's own "nothing to do" runs as good. 21 tests. Run it with `r2a-schema.sql`, the
+  migration and `zz_test.php` (a test endpoint, placed at `website/api/crawl/` in the test root only, never shipped):
+  `mariadb < r2a-schema.sql && mariadb lv_main < <app>/migrations/2026-11-18_control_ledger.sql`, then
+  `(cd <root>/website && php -S 127.0.0.1:8765 &)` and `php r2a.php <root>/app`, with `CRAWLER_API_TOKEN=testtoken`
+  and `VIDEO_WORKER_TOKEN=vtoken` in the `.env`.
+
 Run on MariaDB or MySQL, with a root that holds `app/` (the mirror's `sync-app` with the release's `app/` laid over it)
 and `website/api/` (the mirror's `sync-storage/api/crawl` and `api/video`). Put a `.env` four folders up from `lib/`:
 `mariadb < ../release-b-tests/start-schema.sql && php r1.php <root>/app`.

@@ -88,6 +88,25 @@ current pages stay reachable until the board replaces them (archived, not delete
 - **2026-11-18: Release 1 is live** as #120, synced at "Sync: 2026-11-18 13:57 UTC". All 5 files in the mirror match
   the zip byte for byte. **Release 2 builds on that sync.**
 
+- **2026-11-18: Release 2 split** into 2a (the ledger, no page change) and 2b (the board page, start-up, shut-down),
+  with Jason's "stay as current session until each phase of the build is completely built and live".
+- **2026-11-18: Release 2a built** on "Sync: 2026-11-18 13:57 UTC" and sent as `control-board-2a.zip`. It holds:
+  - `ControlLedger.php` (new): `begin()` from both `_auth.php` files, an output buffer, a row written at shutdown;
+    `touched()` marks, one line per record; `counts()`; `trim()`; `forRun()`;
+  - the migration `2026-11-18_control_ledger.sql` (`control_ledger`, `control_records`; both `follows`);
+  - marks in `IntakeStager::stage` (Review item, listing stored or gaps filled, refreshed in place) and
+    `CrawlerIngest::upsertMetadataKey` (a field updated, or kept because a person entered it);
+  - three settings: `control_ledger_days` 90, `control_records_days` 30, `control_records_per_call` 500;
+  - Start's `runs()` counts a task's own crawler outcomes (`crawl_run_items`: done or idle good, failed bad);
+  - the AZCC pre-flight line tests `arizonabusinesscenter.azcc.gov` and says "blocked pending the records request"
+    on its 403;
+  - FAQ: one entry.
+
+  Closes these folded-in fixes: Start's "nothing to do" watch, the AZCC line, and the recording half of "each crawler
+  run opens to the records it touched" (2b draws it). Tests: `r2a.php` 21 pass, `r1.php` still passes, the old
+  `start.php` the same as live. Counting rule: received = stored + updated + Review + refused, judged in release 3.
+  When it's live, tell Jason that Resume on the AZCC service card is his call (it stays paused).
+
 ### Where the folded-in cleanup fixes go (build session, 2026-11-18)
 
 Release 1 closes none of them (it was built before they arrived). The plan:
