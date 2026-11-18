@@ -253,3 +253,10 @@ it** carries it to the drawer. The seven icons and the views use `PulseMarks` (`
 and 390 wide with sample cases (a stand-in Pulse::items and endpoint); every icon pressed once; no sideways scroll.
 Pulse.php is untouched: the Control Board session's 3b changes `Pulse::items` (its `$rank` needs `urgent` and
 `special` once anything uses them; told to it).
+
+**comms-pulse (#138): live** (Sync 20:07 UTC, 95ab6fb). **comms-needs.zip** (built on that sync; `MemberPulse.php`,
+`tv-pulse.js`, `user/api/bell.php`, `pulse-ui.php`, `faq.md`): 0172's last two items from the drift check. What needs
+a person arrives as rows under "Needs you" (a notice on the account Critical) and on both bells. The admin's Operational
+Task Queue goes; the bells replace it; Quick Actions and Your day open collapsed. It also fixes #135: a member's messages
+left on unclaimed listings were drawn in `needs()` (no `$add` there) and never showed; now in `stream()`. Test:
+`tools/notify-tests/member-pulse.php` (4). Rendered at 1280 and 390 with sample data; both bells pressed.
