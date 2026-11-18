@@ -118,6 +118,9 @@ current pages stay reachable until the board replaces them (archived, not delete
   (control-board-2a-2) is closed until this is live; then rebuild it as `-3` on the new live copy (its `faq.md` must
   carry this release's entry) with `"replaces": ["control-board-2a"]`.
 
+- **2026-11-18: #122 (releases-self-withdraw) live**, synced at 14:55 UTC. `control-board-2a-3` was rebuilt on it: the
+  same code as `2a-2`, with `faq.md` from the live copy plus 2a's entry, and `"replaces": ["control-board-2a"]`.
+
 ### Where the folded-in cleanup fixes go (build session, 2026-11-18)
 
 Release 1 closes none of them (it was built before they arrived). The plan:
