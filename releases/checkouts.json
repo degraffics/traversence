@@ -91,7 +91,7 @@
    "session": "session_01CXLi5jn2WGptsHBfmhEav6",
    "why": "Stream notices from the header filter and row icons shown as the centered notice, not squeezed into the header cell",
    "since": "2026-11-18T20:11:23Z",
-   "expires": "2026-11-19T00:42:14Z",
+   "expires": "2026-11-19T00:42:35Z",
    "release": "comms-notice.zip",
    "callers": {
     "tv_pulse_board": [
