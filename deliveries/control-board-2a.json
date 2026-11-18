@@ -1,0 +1,54 @@
+{
+ "zip": "control-board-2a.zip",
+ "built_on": "17d0627 Sync: 2026-11-18 13:57 UTC",
+ "recorded": "2026-11-18 14:07 UTC",
+ "note": "System Control Board release 2a (decisions/0171 \u00a74): the ledger of every worker call and the records it touched, Start's watch counting nothing-to-do runs, the AZCC pre-flight line; built on Sync: 2026-11-18 13:57 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/ControlLedger.php": {
+   "sha256": "4ea43368ca0d2fe16af184e0d5154a8eef7bac6c2dd7eca95351af1ee3d8cd10",
+   "live": false
+  },
+  "app/lib/CrawlerIngest.php": {
+   "sha256": "028df8cad8837f4eae4486bd70a61912048a846cbbe1e9ccb9b120f499913a1a",
+   "live": false
+  },
+  "app/lib/Preflight.php": {
+   "sha256": "89e558ffd038765ef9e713986512e4ff1f57c9927b6f0aa5e8fcc524ca39ac8a",
+   "live": false
+  },
+  "app/lib/SystemStart.php": {
+   "sha256": "1bc1f528df8103c119ec2e53775d324a667acd8cb11fb4fa07f796a8f1b3b017",
+   "live": false
+  },
+  "app/lib/Thresholds.php": {
+   "sha256": "a3d4b47de10731912ba6a7e7043485ca4ce646328e352587aae271c084b49816",
+   "live": false
+  },
+  "app/lib/crawler/IntakeStager.php": {
+   "sha256": "f83c803c852e8cca8df954751c5c3b93ee06995f605b5ddf23d770f15027a726",
+   "live": false
+  },
+  "app/lib/staging-tables.php": {
+   "sha256": "45d0d30b6859f5844472a95fb2ed357bba848e341e519db131f32660e235b1a4",
+   "live": false
+  },
+  "app/migrations/2026-11-18_control_ledger.sql": {
+   "sha256": "c5a5864135e61599376fcd62e9a9d354a77942821cd54b7ec8659360fe74e053",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "8d6f17ba28733d6f87b2f5905e0f58e67ca2b6453bc88e1ecc5facf55c92ed27",
+   "live": false
+  },
+  "website/api/crawl/_auth.php": {
+   "sha256": "f5f30314cc430968fcca1c62ce30816e38c9d5746f046646fafe0b876d7d10d1",
+   "live": false
+  },
+  "website/api/video/_auth.php": {
+   "sha256": "9944fc4f4032fdb06f646e8f5bec34523f4e237ed1370858c036354d73080930",
+   "live": false
+  }
+ }
+}
