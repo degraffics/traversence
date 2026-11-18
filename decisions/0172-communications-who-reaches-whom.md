@@ -3,7 +3,11 @@
 Status: accepted (Jason, 2026-11-18, draft 16, approved with the decision pop-up). **Building (2026-11-18):** step 2 live
 as #130; steps 3–7 live as one release, #135 (§6's note); the admin's Pulse Stream as one row per thing, opening in
 place, with the row icons and views, live as #138, then as a table with needs as rows and the Operational Task Queue
-replaced by the bells, #141 (Sync 20:38 UTC). **Still open:** step 8, texting, needs its own decision. Progress: `handoffs/communications.md`.
+replaced by the bells, #141 (Sync 20:38 UTC). The gaps found against this decision on 2026-11-18 (the row's ↗ and 🛡, real opened rows, ⊕'s Address Book and Keep,
+the phone's ⋯, the bell opening the row, stewards folded in; staff messages and mail as admin rows, grouped alarms,
+Previous / Next, A task) are sent as one release, `comms-gaps.zip`. **Still open:** step 8, texting, needs its own
+decision; Journeys and the Marketplace feed in the member's chips are their own builds (2.10, 2.6); Pulse's new look
+is the design session's. Progress: `handoffs/communications.md`.
 Drafts 2 and 3 take in Jason's changes: Pulse is the inbox, and keeps its established look (0105): it collects, organizes and
 lets you read, while each message carries its own process; outside mailboxes in Pulse (§4.7); six levels, with flags and tags kept
 apart from them; three touch points; a community group is a channel.
@@ -121,6 +125,8 @@ What changes is what flows into it, and what an opened row or case holds:
   group posts arrive the same way, so Search finds all of it.
 - **One row is one thing**, never a bundle: "The engine needs a person" (26 identity queue, 1 outside service,
   37 sites, 15 finds) becomes one row each, as 0171 §8 already decided for alarms.
+  **Except alarms** (Jason, 2026-11-18, the design directive): related alarms group under one row that opens to them,
+  on the Board and in Pulse (the Control Board session's, 0171 §8 note). Everything else stays one row per thing.
 - **The person's own marks** (flags, importance, tags, below) sit on the row and in Search.
 
 #### The row's icons: how Pulse manages any message (proposed)
@@ -142,6 +148,11 @@ for stays inside it (the message's part, below).
 | ▾ | **Open** in place | | | | |
 
 - **Follow up** (a date, and it comes back unread at that time) lives under ⊕, so flags need no icon of their own.
+- **Forwarding a person's message** (Jason, 2026-11-18, decision pop-up, reviewed by the session manager): within the
+  account or the business's team, **and by email to any address**, with a line saying who forwarded it (he chose this
+  over team only and notices only). A notice from the site forwards freely. Email forwards are system emails, capped per
+  person per day so they can't be used to spam. **Report, block and mute** use the existing report path (Engage's reports
+  and the moderation queue); a blocked person is never told, and a mute is the viewer's own.
 - Greyed with the reason where an action doesn't apply (CLAUDE.md: never silently hidden).
 - On a phone the six action icons fold into one **⋯** beside ▾.
 
