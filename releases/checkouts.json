@@ -1,36 +1,6 @@
 {
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
- "claims": [
-  {
-   "path": "app/lib/Preflight.php",
-   "functions": [
-    "batchLine",
-    "runAll",
-    "w0Batch",
-    "workflow"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "A check shown part by part, the red one first (Jason, 2026-11-18), rebuilt on 17:04",
-   "since": "2026-11-18T17:02:06Z",
-   "expires": "2026-11-18T21:07:14Z",
-   "release": "control-board-check-parts-2.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/admin/control-console.php",
-   "functions": [
-    "tv_admin_mod_control"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "A check shown part by part, the red one first (Jason, 2026-11-18), rebuilt on 17:04",
-   "since": "2026-11-18T17:02:06Z",
-   "expires": "2026-11-18T21:07:14Z",
-   "release": "control-board-check-parts-2.zip",
-   "callers": {}
-  }
- ],
+ "claims": [],
  "lapsed": [
   {
    "path": "app/admin/sections.php",
