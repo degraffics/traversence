@@ -12,15 +12,25 @@ The design build session's record (session_01CXLi5jkgtUikcdUQ4Wmv28), from Jason
   and stream rows (session_01CXLi5jn2WGptsHBfmhEav6). Each drops its local token copies once this release is live.
 - Later, page by page: the public site.
 
-## Release 1: admin-design.zip
+## The brief
 
-Built on Sync 21:45 UTC (2026-11-18). Files:
-- `app/admin/kit-css.php`: `:root` tokens; every `.ak-*` colour onto them; the new command header; `--tv-gap` between
-  groups; soft corners and warm shadows on containers; rows unchanged.
-- `website/admin/router.php`: the header row (filter slot `#ak-cmdf`, Shortcuts moved into the right group), sticks
-  right under what's pinned above it (measured, `--ak-top`). The board light was already on the tokens (Control Board 3c).
-- `website/js/admin-kit.js`: `[data-ak-cmd]` moves into the header (left, or `="right"`).
-- `app/ui/command-strip.php`: the record strip in the same look, measured top.
-- `app/ui/faq.md`: one entry; "11 modules" corrected to 10.
+Jason's final directive, `design/css-theme-brand.md` (it replaced `design/admin-design-directive-2026-11-18.md`):
+brand.md's established palette, plus red #a62b2b and amber #8f5600; three releases. The token NAMES (`--tv-canvas`,
+`--tv-ink`, `--tv-line`, `--tv-fail`, `--tv-hold`…) are shared with the Control Board and Communications sessions.
 
-Status (21:55 UTC): built and rendered locally at 390px and 1280px, then put on hold by the session manager: Jason is choosing between the #f8f5ec palette and brand.md's original tokens. No claims held, nothing sent. On his answer: re-point the token values, re-check contrast, rebuild on the newest sync, add the :root block to app/ui/page-shell.php (for the member and business Pulse), review again. The question to Jason keeps the 2026-11-12 sage bar.
+## Release 1: design-r1-tokens.zip (built on Sync 21:45 UTC)
+
+- `app/ui/theme-tokens.php` (new): `tv_theme_tokens()`, the tokens, the fonts' @font-face, focus rings, reduced motion.
+- `app/ui/page-shell.php`: draws it in the head (replacing the inline vellum background).
+- `app/ui/app-shell.php` (`tv_app_css`): the rail and workspace on the tokens; also draws them for a page without the head.
+- `website/fonts/`: Inter (variable), Merriweather 300/300 italic/400/700, Playfair Display 400/400 italic/600/700, with
+  their OFL licences (Jason's CDN link named these; self-hosted so card pages' `font-src 'self'` allows them).
+- `app/ui/faq.md`: one entry on the fonts.
+- Contrast (against #EFE3C8 / #E6D8B5 / #D8C79D): ink 12.8; taupe 4.11 / 3.70 / 3.14 (fails as text, so `--tv-meta` =
+  taupe + 35% ink: 6.2 / 5.59 / 4.73); `--tv-line-strong` 3.35; rail labels 2.97 → 7.4 on umber.
+- Status: summary sent to the session manager; then Jason's OK.
+
+## Release 2 (built, held for after Release 1)
+
+The admin kit, the one command header, the record strip, the two fixes (bars stuck 34px low; the 390px sections menu),
+the FAQ entry on the bar. Rebuilt on Release 1's tokens before it's sent; its question to Jason includes the sage bar.
