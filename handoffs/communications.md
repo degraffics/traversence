@@ -303,3 +303,5 @@ Tests: pulse-act 35, admin-stream 31, member-pulse 4, notify 56, comms-engine 74
 passing on the live files with the release laid over. Rendered with sample state at 1280 and 390: member and business
 (every new button pressed), admin (group, message, mail, drawer, bell opening its row), no sideways scroll.
 
+**comms-gaps (#147): live** (verified in Sync 2026-11-18 22:18 UTC, 4370cc1, PR #972). Open: texting (step 8, its own
+decision), Journeys and the Marketplace feed (their own builds), Pulse's new look (the design session).
