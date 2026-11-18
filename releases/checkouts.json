@@ -33,13 +33,16 @@
    "session": "session_01CXLi5jn2WGptsHBfmhEav6",
    "why": "0172 gaps G1-G11 as one release (Jason approved 2026-11-18)",
    "since": "2026-11-18T20:11:23Z",
-   "expires": "2026-11-19T01:18:12Z",
-   "release": "comms-needs-2.zip",
+   "expires": "2026-11-19T02:07:47Z",
+   "release": "comms-gaps.zip",
    "callers": {
     "needs": [
      "website/user/api/pulse.php"
     ],
     "sources": [
+     "website/user/api/pulse.php"
+    ],
+    "stream": [
      "website/user/api/pulse.php"
     ]
    }
@@ -51,8 +54,8 @@
    "session": "session_01CXLi5jn2WGptsHBfmhEav6",
    "why": "Rows with a named sender: From is the sender, Subject the title (needs rows and dispatched notices)",
    "since": "2026-11-18T20:11:23Z",
-   "expires": "2026-11-19T00:52:51Z",
-   "release": "comms-bodies.zip",
+   "expires": "2026-11-19T02:07:47Z",
+   "release": "comms-gaps.zip",
    "callers": {}
   },
   {
@@ -75,8 +78,8 @@
    "session": "session_01CXLi5jn2WGptsHBfmhEav6",
    "why": "Message bodies' buttons styled (tv-btn had no styles)",
    "since": "2026-11-18T20:49:41Z",
-   "expires": "2026-11-19T00:52:51Z",
-   "release": "comms-bodies.zip",
+   "expires": "2026-11-19T02:07:47Z",
+   "release": "comms-gaps.zip",
    "callers": {
     "wrap": [
      "app/lib/Bookings.php",
@@ -92,8 +95,8 @@
    "session": "session_01CXLi5jn2WGptsHBfmhEav6",
    "why": "A body with its own status line isn't given a second one",
    "since": "2026-11-18T20:49:44Z",
-   "expires": "2026-11-19T00:52:51Z",
-   "release": "comms-bodies.zip",
+   "expires": "2026-11-19T02:07:47Z",
+   "release": "comms-gaps.zip",
    "callers": {
     "open": [
      "website/js/tv-pulse.js"
@@ -107,9 +110,14 @@
    "session": "session_01CXLi5jn2WGptsHBfmhEav6",
    "why": "0172 gaps G1-G11 as one release (Jason approved 2026-11-18)",
    "since": "2026-11-18T21:18:15Z",
-   "expires": "2026-11-19T01:18:15Z",
-   "release": "",
-   "callers": {}
+   "expires": "2026-11-19T02:07:47Z",
+   "release": "comms-gaps.zip",
+   "callers": {
+    "tv_pulse_css": [
+     "website/business/router.php",
+     "website/user/dashboard.php"
+    ]
+   }
   },
   {
    "path": "website/user/api/pulse.php",
@@ -118,8 +126,8 @@
    "session": "session_01CXLi5jn2WGptsHBfmhEav6",
    "why": "0172 gaps G1-G11 as one release (Jason approved 2026-11-18)",
    "since": "2026-11-18T21:18:17Z",
-   "expires": "2026-11-19T01:18:17Z",
-   "release": "",
+   "expires": "2026-11-19T02:07:47Z",
+   "release": "comms-gaps.zip",
    "callers": {}
   },
   {
@@ -151,8 +159,8 @@
    "session": "session_01CXLi5jn2WGptsHBfmhEav6",
    "why": "0172 gaps G1-G11 as one release (Jason approved 2026-11-18)",
    "since": "2026-11-18T21:18:24Z",
-   "expires": "2026-11-19T01:18:24Z",
-   "release": "",
+   "expires": "2026-11-19T02:07:47Z",
+   "release": "comms-gaps.zip",
    "callers": {}
   },
   {
@@ -173,8 +181,8 @@
    "session": "session_01CXLi5jn2WGptsHBfmhEav6",
    "why": "0172 gaps G1-G11 as one release (Jason approved 2026-11-18)",
    "since": "2026-11-18T21:18:28Z",
-   "expires": "2026-11-19T01:18:28Z",
-   "release": "",
+   "expires": "2026-11-19T02:07:47Z",
+   "release": "comms-gaps.zip",
    "callers": {}
   },
   {
@@ -184,8 +192,8 @@
    "session": "session_01CXLi5jn2WGptsHBfmhEav6",
    "why": "comms_mail_blocks and the forwards table classed (0172 gaps release)",
    "since": "2026-11-18T21:58:44Z",
-   "expires": "2026-11-19T01:58:44Z",
-   "release": "",
+   "expires": "2026-11-19T02:07:47Z",
+   "release": "comms-gaps.zip",
    "callers": {}
   },
   {
@@ -210,9 +218,14 @@
    "session": "session_01CXLi5jn2WGptsHBfmhEav6",
    "why": "0172 gaps G1-G11 as one release (Jason approved 2026-11-18)",
    "since": "2026-11-18T22:03:09Z",
-   "expires": "2026-11-19T02:03:09Z",
-   "release": "",
-   "callers": {}
+   "expires": "2026-11-19T02:07:47Z",
+   "release": "comms-gaps.zip",
+   "callers": {
+    "feed": [
+     "app/lib/Links.php",
+     "app/lib/MemberPulse.php"
+    ]
+   }
   },
   {
    "path": "app/lib/PulseAct.php",
@@ -221,8 +234,8 @@
    "session": "session_01CXLi5jn2WGptsHBfmhEav6",
    "why": "0172 gaps G1-G11 as one release (Jason approved 2026-11-18)",
    "since": "2026-11-18T22:03:11Z",
-   "expires": "2026-11-19T02:03:11Z",
-   "release": "",
+   "expires": "2026-11-19T02:07:47Z",
+   "release": "comms-gaps.zip",
    "callers": {}
   },
   {
@@ -232,8 +245,8 @@
    "session": "session_01CXLi5jn2WGptsHBfmhEav6",
    "why": "0172 gaps G1-G11 as one release (Jason approved 2026-11-18)",
    "since": "2026-11-18T22:03:13Z",
-   "expires": "2026-11-19T02:03:13Z",
-   "release": "",
+   "expires": "2026-11-19T02:07:47Z",
+   "release": "comms-gaps.zip",
    "callers": {}
   },
   {
@@ -243,8 +256,8 @@
    "session": "session_01CXLi5jn2WGptsHBfmhEav6",
    "why": "0172 gaps G1-G11 as one release (Jason approved 2026-11-18)",
    "since": "2026-11-18T22:03:15Z",
-   "expires": "2026-11-19T02:03:15Z",
-   "release": "",
+   "expires": "2026-11-19T02:07:47Z",
+   "release": "comms-gaps.zip",
    "callers": {}
   },
   {
@@ -333,6 +346,74 @@
    "since": "2026-11-18T22:05:18Z",
    "expires": "2026-11-19T02:05:18Z",
    "release": "design-r1-tokens.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/ui/pulse-ui.php",
+   "functions": [
+    "(top)",
+    "fill",
+    "icon",
+    "paintMarks"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "release comms-gaps.zip",
+   "since": "2026-11-18T22:07:47Z",
+   "expires": "2026-11-19T02:07:47Z",
+   "release": "comms-gaps.zip",
+   "callers": {
+    "icon": [
+     "app/ui/app-shell.php",
+     "app/ui/category-fields.php",
+     "app/ui/header.php",
+     "app/ui/page-shell.php",
+     "website/admin/client-order.php",
+     "website/admin/settings.php",
+     "website/js/search-panel.js",
+     "website/market/index.php"
+    ],
+    "fill": [
+     "app/ui/app-shell.php",
+     "website/js/tv-proof.js",
+     "website/user/dashboard.php"
+    ],
+    "paintMarks": [
+     "website/js/tv-pulse.js"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/Notify.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "release comms-gaps.zip",
+   "since": "2026-11-18T22:07:47Z",
+   "expires": "2026-11-19T02:07:47Z",
+   "release": "comms-gaps.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Mailboxes.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "release comms-gaps.zip",
+   "since": "2026-11-18T22:07:47Z",
+   "expires": "2026-11-19T02:07:47Z",
+   "release": "comms-gaps.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/admin/api/pulse.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "release comms-gaps.zip",
+   "since": "2026-11-18T22:07:47Z",
+   "expires": "2026-11-19T02:07:47Z",
+   "release": "comms-gaps.zip",
    "callers": {}
   }
  ],
