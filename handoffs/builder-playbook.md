@@ -41,6 +41,11 @@ Each rule below comes from a real mistake (in brackets) so it isn't repeated.
   no sideways scroll, cards 3px from the edges, nothing cut off. [The Start card was 428px wide; buttons were cut off.]
 - **Press every new button once** in a rendered test (or on staging after it lands) and say which you did. Never write
   "tested" for something only rendered with sample data: say "rendered with sample state; the real run happens on live".
+- **Rebuild `faq.md` on the newest sync just before zipping, every time**, with only this build's entries (CLAUDE.md's
+  "Just before zipping, fetch once more"). Then **run `zipcheck.py` again just before merging** your approved PR: a
+  release that went live while yours waited may have changed the same file, and the check now blocks a zip that would
+  take out lines put live after its base (its delivery record's `built_on`; `--base` names one). Rebuild that file on
+  the newest live copy and send `-2`. [3f's faq.md, built on 22:06, took out 16 lines #147 put live at 22:18.]
 - **`send.py` refuses** (since 2026-11-18): a zip name sent before (use `-2`), a `switch` the site doesn't know (use
   `""`), a migration that isn't add-only, data changes without `"data_reason"`. Don't work around a refusal; fix the cause.
   [#70 and #863 used MODIFY; #108 and #109 had `"switch":"none"` and stuck at Planned; #106 re-sent a name and stalled.]

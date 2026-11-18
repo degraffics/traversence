@@ -18,6 +18,12 @@ overwriting other sessions"): it fetches the mirror and blocks when the checkout
 there: rebuild on it), and blocks when another session's zip that isn't live yet carries one of this zip's files (most
 often faq.md): wait for its upload and sync, then rebuild on the live copy. --allow-pending names such zips once checked.
 
+Lines added live since (the session manager, 2026-11-18, after 3f's faq.md took out 16 lines #147 put live while 3f
+waited): a zip sent earlier is checked again before it's merged. Its base is the sync its delivery record says it was
+built on; each of its files is compared with that base and with the newest sync, and a line another release put live
+after the base that the zip's copy doesn't have blocks it (lost_lines): rebuild that file on the newest live copy with
+only this build's changes. faq.md is always compared with the newest sync this way.
+
 Check-out (decisions/0161 §4, §8): it blocks a zip that changes a function or entry another session holds a change claim on
 (`checkout.py`, `releases/checkouts.json`), and one that changes a function's arguments so that a call on the live site
 (with this zip laid over it) no longer fits; --callers-checked names such functions once each call is checked. A change
@@ -138,6 +144,58 @@ def current(mirror):
         return ''
     return 'its main has ' + os.popen(f'git -C "{mirror}" log -1 --format="%s" origin/main').read().strip()
 
+def _git_show(mirror, rev, path):
+    """A file as it was at rev in the mirror, or None (not there, or rev not fetched: a shallow clone deepens once)."""
+    for attempt in (0, 1):
+        r = os.popen(f'git -C "{mirror}" cat-file -e "{rev}:{path}" 2>/dev/null && git -C "{mirror}" show "{rev}:{path}"')
+        out = r.read(); ok = r.close() is None
+        if ok:
+            return out
+        if attempt == 0:
+            if os.system(f'git -C "{mirror}" cat-file -e "{rev}^{{commit}}" 2>/dev/null') == 0:
+                return None   # the commit is here; the file wasn't in it (new since)
+            os.system(f'git -C "{mirror}" fetch -q --deepen=400 origin main >/dev/null 2>&1')
+    return None
+
+def lost_lines(docs, zpath, mirror, base=''):
+    """
+    Lines put live after this zip's base sync that its copy of a file would take out: [(path, base, [lines], [syncs])].
+    The base is --base, else the sync named in deliveries/<zip>.json's built_on (a zip already sent, checked again before
+    its merge). Only lines added since the base count: what the zip itself changes on purpose is its own business (and
+    named() still guards functions and FAQ questions). Blank lines are ignored. No base: nothing to compare (the stale
+    check covers a first send).
+    """
+    me = os.path.splitext(os.path.basename(zpath))[0]
+    if not base:
+        try:
+            base = (json.load(open(os.path.join(docs, 'deliveries', me + '.json'))).get('built_on') or '').split(' ')[0]
+        except Exception:
+            base = ''
+    if not base:
+        return []
+    out = []
+    with zipfile.ZipFile(zpath) as z:
+        for n in z.namelist():
+            top, _, rest = n.partition('/')
+            if n.endswith('/') or top not in BACK:
+                continue
+            path = BACK[top] + '/' + rest
+            live_p = os.path.join(mirror, path)
+            if not os.path.exists(live_p):
+                continue
+            with open(live_p, encoding='utf-8', errors='replace') as fh:
+                live = fh.read().splitlines()
+            was = _git_show(mirror, base, path)
+            if was is None:
+                continue
+            was = set(was.splitlines())
+            mine = set(z.read(n).decode('utf-8', 'replace').splitlines())
+            gone = [l for l in live if l.strip() and l not in was and l not in mine]
+            if gone:
+                syncs = [x for x in os.popen(f'git -C "{mirror}" log --format="%h %s" {base}..HEAD -- "{path}" 2>/dev/null').read().splitlines() if x]
+                out.append((n, base, gone, syncs))
+    return out
+
 def others_pending(docs, zpath, allowed):
     """Other zips in the delivery log, not live yet, that carry a file this zip carries."""
     import json, glob
@@ -167,6 +225,7 @@ def main():
     ap.add_argument('--allow-pending', default='', help='other pending zips (by name) already built on, comma-separated')
     ap.add_argument('--session', default='', help='the sending session (default: this one); its own claims never block it')
     ap.add_argument('--callers-checked', default='', help='functions whose changed arguments were checked against every live caller')
+    ap.add_argument('--base', default='', help='the sync this zip was built on (default: its delivery record\'s built_on)')
     a = ap.parse_args()
     docs = os.path.abspath(a.docs)
     work = tempfile.mkdtemp(prefix='zipcheck-')
@@ -177,6 +236,7 @@ def main():
             if os.path.isdir(src):
                 shutil.copytree(src, os.path.join(over, top), ignore=shutil.ignore_patterns('.git'))
         stale = current(a.mirror)
+        lost = [] if stale else lost_lines(docs, a.zip, a.mirror, a.base)
         pending = others_pending(docs, a.zip, {d.strip() for d in a.allow_pending.split(',') if d.strip()})
         rows = []; dropped = []; churn = []
         allowed = {d.strip() for d in a.drops.split(',') if d.strip()}
@@ -242,6 +302,13 @@ def main():
                 print(f'  {n}: -{rm} +{ad}')
         if stale:
             print(f'\nBLOCK the mirror is behind: {stale}. Pull it and rebuild every file on the newest live copy.')
+        if lost:
+            print('\nBLOCK lines put live after this zip was built would be taken out: rebuild each file on the newest live copy, '
+                  'with only this build\'s changes (most often faq.md)')
+            for n, b, gone, syncs in lost:
+                print(f'  {n}: {len(gone)} line(s) added since {b}' + (f' (in {", ".join(s.split(" ", 1)[0] for s in syncs[:4])})' if syncs else ''))
+                for l in gone[:3]:
+                    print('    - ' + (l[:110] + '…' if len(l) > 110 else l))
         if pending:
             print(f'\nBLOCK another session\'s zip, not live yet, has the same files: wait for its upload and the sync, then rebuild on the live copy')
             for z, fs in pending:
@@ -282,7 +349,7 @@ def main():
             print(f'It fixes {fixed} failure(s) that are on the live site now.')
         if any(s.startswith('unchanged') for s, _ in rows):
             print('Some files are identical to live: leave them out (a zip holds only files that differ).')
-        sys.exit(1 if blocking or dropped or stale or pending or claimed or broken or unclaimed_block or mig_probs else 0)
+        sys.exit(1 if blocking or dropped or stale or lost or pending or claimed or broken or unclaimed_block or mig_probs else 0)
     finally:
         shutil.rmtree(work, ignore_errors=True)
 

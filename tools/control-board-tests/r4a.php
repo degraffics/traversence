@@ -118,9 +118,17 @@ $ov = null; foreach ($up as $u) if ($u[4] === 't:overture') $ov = $u;
 $t('…a task with its own switch is its process on the board (opens in place); off shows as off', $ov === null || $ov[1] === 0 || $ov[4] === 't:overture', $ov);
 $t('…soonest first', array_column($up, 1) === (function ($a) { usort($a, fn ($x, $y) => ($x ?: PHP_INT_MAX) <=> ($y ?: PHP_INT_MAX)); return $a; })(array_column($up, 1)));
 
+// 8b. Take out's length is a setting (Thresholds & gates), 2 hours until set
+require_once $app . '/lib/Thresholds.php';
+$t('Take out\'s default length: Thresholds\' control_maint_hours, 2 until set', isset(Thresholds::GATES['control_maint_hours']) && ControlMaintenance::defaultHours($pdo) === 2);
+$api = file_get_contents(dirname($app) . '/website/admin/api.php');
+$t('…the row\'s Take out uses it', str_contains($api, 'time() + 3600 * ControlMaintenance::defaultHours($pdo)'));
+
 // 9. the board and the staging class
 $cs = file_get_contents($app . '/admin/control-console.php');
-$t('the board: blue for maintenance, its stage "In maintenance", a #maintenance panel with the form and the calendar', str_contains($cs, "\$light === 'maint'") && str_contains($cs, "['maint', 'In maintenance']") && str_contains($cs, 'id="maintenance"') && str_contains($cs, 'Upkeep calendar'));
+$t('the board: blue for maintenance, its stage "In maintenance", a #maintenance panel with the form and the calendar', str_contains($cs, "\$light === 'maint'") && str_contains($cs, "['maint', 'In maintenance']") && str_contains($cs, 'id="maintenance"') && str_contains($cs, 'Upkeep calendar') && str_contains($cs, 'var(--tv-maint,var(--tv-river,#3B5A6B))'));
+$t('the alarm list\'s filter is one dropdown button for the header (data-ak-cmd), not a select', str_contains($cs, '<span class="ak-fw cb-afw" data-ak-cmd>') && !str_contains($cs, 'data-cb-afilter'));
+$t('the pre-flight result line is red only for a line really tripped or a core host down', str_contains($cs, "\$x['level'] === 'trip' && !empty(\$x['tripped_at'])) || \$coreBad ? 'bad' : 'hold'"));
 $ss = file_get_contents($app . '/admin/sections.php'); $blk = substr($ss, (int) strpos($ss, '$u = SchemaUpkeep::unused();'), 2600);
 $t('Database updates lists what no code names (#unused), read only: no Keep or remove there', str_contains($blk, "'No code names them'") && !str_contains($blk, 'name="left"') && str_contains($ss, '<div id="unused"></div>'));
 require_once $app . '/lib/staging-tables.php';
