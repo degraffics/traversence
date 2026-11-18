@@ -1,0 +1,44 @@
+{
+    "id": 133,
+    "title": "System Control Board: rows and details laid out like Jason's example",
+    "why": "Jason, 2026-11-18, with a screenshot of a row from an example board: 'this example has a much better setup for the information. please address your layouts.' Each process row is now in columns, as his example: its mark; its name with the line under it (a workflow's phases, 0164 §7); its stage as a pill (Observation; Standby when it's switched on while the system is stopped; Holding; Shut down; Pre-flight); where it stands in a few words (what holds it, else why it's off, with 'n of m needs answered'); its last 24 hours (runs, and records in with how much is accounted for); its speed per record; its OK rate (calls without a server error, runs without a failure); and Check, Start or Shut down on the row itself (a button there doesn't open or close the row). The columns line up across rows. Opened, a row shows short labelled lines, label and value on one line: Route; Its check in one line, what holds it first, its parts on a toggle; Needs as chips ('Places by kind and town ✓ (our OpenStreetMap copy)'), every source in order on hover, a press tests that need; Accounting ('Received = Stored + Updated + To Review + Refused'); Runs; Dry run; Records touched lately; then its buttons. The site's own needs use the same chips. On a phone the row stacks, and an empty metric isn't shown. From his example, not here: Log and Report on each row (the logbook and reports are release 5), cost per record and uptime (release 4); the OK rate stands in for uptime until then. Built on Sync 17:14 UTC, after #928 went live. Tests: r2d.php 9 (the row's stage and hold, the check's line and toggle); rendered at 390px and 1280px with no sideways scroll; the row's Check and a need chip pressed. No tables or migrations. FAQ: the board's entry updated.",
+    "proposals": "",
+    "zip": "control-board-rows.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/admin/control-console.php": {
+            "sha": "50a8ca9e81fdb0ca4003f5030629f757992b6304ec5bc5db3fe65be4662e7ae3",
+            "size": 36519,
+            "live_was": "1d4da92f888b8fa94df6fd6875a1507b7fd6b35fbdd4afef22cb4cd2929a6cab"
+        },
+        "app/ui/faq.md": {
+            "sha": "5d71402cb3225fce0d7464e6b68c55fb130c18294b9f9376459b4856a8f355eb",
+            "size": 337817,
+            "live_was": "ddbef0878bff3945b3c340c7c9d7fb0ac6ac0ad2f523a270858c8cd68a85a295"
+        },
+        "website/js/admin-control.js": {
+            "sha": "f08e82e4040f750dd007682b2e6626a82113581f9555680b6282ff6b1038cbdd",
+            "size": 6387,
+            "live_was": "94f9ce2e306dac3227c20353200ee20cc59de3715fcb20489e82ac14a698a863"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-18T17:17:20+00:00",
+            "by": 0,
+            "msg": "Uploaded control-board-rows.zip: 3 files."
+        }
+    ]
+}
