@@ -195,6 +195,16 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
 
      Others (Square, Tickets, Appointments, Gallery storage, calendars, 1Password…) to be discussed with Jason next.
   6. **The cleanup stage** (its own area; can run beside the above). **Fixes in the code:**
+     - **Each crawler run opens to the records it touched** (Jason, 2026-11-18: "yes queue the crawler run records fix").
+       Insights → Crawler (https://traversence.com/admin/insights/crawler, `app/admin/crawler-console.php`) counts what
+       each run and task did, but nothing opens the records themselves, so "what did W1 bring in today" means searching
+       Listings and Review by hand. Build: each run's task line and each count (added, changed, sent to Review, held,
+       failed) opens a list of those records, each linked to its page (a listing, a Review item, a landmark, a guide),
+       with what changed (fields before and after; under 0164 a run never overwrites what a person entered) and the
+       source it came from; a filter for workflow and day ("W1 today").
+       Find first whether runs already record the ids they touched (the run log, `crawl_*` tables, W0's audit log); if
+       not, the worker and `api/crawl/` report them and a new table names its class in `staging-tables.php` (R14). A
+       command-strip record page per run (0129), with Peek on each record.
      - Pulse #31's 62 unused names (Jason, 2026-11-17: "just add it to the queue"): the monthly check found 62 tables
        and columns no live file names (0-row tables like `accuracy_reports`, `ai_credit_usage`,
        `gbp_addon_subscriptions`, `guide_mentions`; dated backups like `listing_actions_bak_20261014`). A cleanup
