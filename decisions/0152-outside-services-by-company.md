@@ -90,3 +90,10 @@ controlled by another section. Also each service will be searchable so I can eas
   on Sources with no card. Hosts that aren't services (our own, examples, namespaces, sample sources) are in
   `site-audit/services-ignore.txt`, each with why.
 - **Next** (decisions/0160 note, same day): each crawler run's calls and failures counted by service, on its card.
+
+**Note (2026-11-17, releases #43, #46, #84, #87, #89, #94):** each card shows its service's open issues with their
+evidence, Check it now and Mark resolved (#43), and its server list with Add a server, Pause and Resume (#46). **Waiting
+on them** keeps a request we sent a company (what, ticket number, link) as its own Pulse case until its answer is
+recorded, an Alert after 5 days (#84; Jason: "pulse this"); fixed so it saves, and says so on the card and in Pulse when
+it can't (#87, #89). The table of the 2026-11-17 note is built (#94), and each card starts with **Test**, its pre-flight
+check: this replaces "a Test button per part is a later step" above.

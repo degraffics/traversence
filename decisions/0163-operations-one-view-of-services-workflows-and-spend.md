@@ -230,6 +230,14 @@ Each stage is a release Jason approves. The crawler revamp's own open items (the
 W12; junk listing names; the map-tile policy check) go first or alongside, from `handoffs/crawler-revamp.md` §7.1, in one
 crawler session, so nothing is built twice.
 
+**Note (2026-11-15, releases #49–#67):** built, each shipped off with the master switch off. Stage 1b, Insights → Data
+cleanup (#49 find and preview; #50 passes with a ledger, Undo and one Pulse case; #52 nothing taken off is a dead end;
+#53 why records were left; #54 drop-offs as their own kind); its "Help us find this business" cards (#51). Stages 2–6 as
+Release A (#55). The "before any switch-on" list and stages 7–11 as Release B, parts 1–7 (#58, #60, #63, #64, #66 with
+part 6, #67; #65 was withdrawn for a migration that wasn't add-only). Not built: P1-4 (grounded search, unfunded), W14's
+own finding of sources (H2, H3; Arizona's and New Mexico's staged by hand), P3-5 and P3-2's leftovers
+(`handoffs/release-b.md`).
+
 ### 9. The switches (Jason, 2026-11-14; built as release #48, automation-switches_20261114, live 2026-11-14 17:57 UTC)
 
 Jason, 2026-11-14: "Please update the site settings to be off until switched back on, also give me a master switch to
@@ -342,6 +350,13 @@ stay as above. What changes:
   he fixes one, the next tick carries on. A workflow a person pauses meanwhile stays paused; pausing the master stops
   the start.
 
+**Note (2026-11-18, releases #69, #96, #110, #112–#119): Start the system as built** (#69). The switch-on check is a
+pre-flight group run on the server, and Start's card is a queue of steps with its own run log and reports (#112, #113,
+#116). Every fix is on the card, never another page (#113, #114, #117, #119; Jason: "the corrections needs in page fix
+option"; "Fix it can't take me to another page"); Pulse keeps only a notice. A service issue fails a gate only when it
+holds the service (#114). It confirms all within minutes, then switches on in order, each watched alone (#115, §10.2's
+note), and reads Operational once on (#116). The card works at 390px (#118).
+
 **Note (2026-11-16): the pre-flight check, before Start the system.** Jason, after tracing every key: "what I also
 want is the pre-flight checklist and system check page that goes through each item and ensures it is connected and
 ready for use before we launch the updated engine." Today the cards say whether a key is *set*, and Start the system
@@ -384,6 +399,14 @@ finds what's missing as it goes. The pre-flight proves each one **works**, all o
 - Calls go through `ServiceHealth::allowed()` and `StagingGate::hold()` (0165): on staging only what's safe there runs.
 - It takes in 0152's "a Test button per part is a later step": each card's Test is that item's test.
 - Queued in `handoffs/session-manager.md` **first**, before the App store, since the launch waits on it.
+
+**Note (2026-11-17, releases #88–#99, #107, #111): the pre-flight is built** as written above, at
+https://traversence.com/admin/config/preflight (`app/lib/Preflight.php`; #88). Since then: one row per line, the mark is
+the answer (#90); results in their own table, slow checks marked, a text report (#91); tests tuned from Jason's reports
+(#92, #96, #97: ".env names each set once"); Run all starts fresh and fills in like a log (#95); every workflow, task,
+phase and the services they use are needed for launch (#98; Jason: "they are critical to our system"); a run log with
+each run's report (#99); Run all runs on the server and carries on when the page is left, an interrupted run asks
+Continue or Cancel (#107, #111).
 
 **Note (2026-11-17): the source map, ours first, a backup for every need** (Jason: "we should have backups for
 sources/apis if one fails that way it can still run in the event of failures. All workflows should be like this";
@@ -469,6 +492,14 @@ until each is built the pre-flight says "no backup yet, planned: …"):
 backup, ✗ only when nothing works; our copies checked too (loaded, with rows, fresh), so an empty or stale copy is red
 like a failed service. Then each workflow uses this order: W1 first (`open_places` before Overpass), then W2's fallbacks,
 then the rest.
+
+**Note (2026-11-17, releases #100, #101, #103, #104, #106):** built. The pre-flight judges by need, ours first, with
+"No backup yet" and the planned backup shown (#100). W1 reads our OpenStreetMap copy (`open_places`, from Geofabrik)
+before Overpass (#101). The two paid backups by override, each off until a director sets its monthly cap in Thresholds
+& gates: Google Places confirms a business, Claude reads pages when Gemini can't; web search falls from Tavily to Brave
+(#103). Each need's backups in the map's order (#104), and a hold on one server holds only that server, unless nothing
+else answers (#106). Not built: stock photos' order (0143 interleaves on purpose), menus, W6's Wikimedia and National
+Park Service steps, the AZ Corporation Commission and NM Secretary of State readers, W14 (0164 §7.1's note).
 
 ### 11. Gemini (Google AI Studio) as run (Jason's Decision 7, 2026-11-14; the rules on what may go to it: 0164 §0.8, R5)
 

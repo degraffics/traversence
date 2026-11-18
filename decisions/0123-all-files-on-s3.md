@@ -67,3 +67,7 @@ reload it reads "Every file is in S3: none left on the server" and the button is
 - An order proof opened by the customer's link through a signed S3 link. A scanned card was read back from S3.
 - With S3 off, files stayed on the server and pages worked as before.
 - A made-up address under `/uploads/` got a 404.
+
+**Note (2026-11-15, release #68):** the `/uploads/.htaccess` rule that hands a missing photo to `media.php` is written by
+the site from `Store::KINDS`, not by hand, so stock-library photos (`system`, decisions/0143) load again; they also get
+an address that works without the rule.

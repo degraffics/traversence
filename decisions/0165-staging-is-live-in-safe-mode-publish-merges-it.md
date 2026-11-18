@@ -1,6 +1,6 @@
 # ADR 0165: Staging is the live site in safe mode; Publish merges it into live
 
-**Status:** Accepted (Jason, 2026-11-15, through the session manager; his answers to the five choices are under "Choices for Jason"). **Built 2026-11-15 as one release** covering all six steps of §7 (`handoffs/0165-staging.md`: what's where, what ships off, the tests in `tools/staging-tests/`, and what's left for later).
+**Status:** Accepted (Jason, 2026-11-15, through the session manager; his answers to the five choices are under "Choices for Jason"). **Built 2026-11-15 as one release** (release #56) covering all six steps of §7 (`handoffs/0165-staging.md`: what's where, what ships off, the tests in `tools/staging-tests/`, and what's left for later).
 Once accepted it **replaces** `decisions/0159`'s 2026-11-13 progress note that builds sent through git go live by
 themselves (`Releases::autoPublish`), and `decisions/0145`'s "refreshed from live" (the weekly copy over staging,
 `staging_tick`). It keeps `0145`'s staging rules (held email, sandbox payments, not indexed, behind a password), `0159` §5
@@ -292,6 +292,14 @@ and why; held effects; how long it should take; and when it was worked out.
 The admin's rules hold: no browser dialogs (`TvAsk`), a spinner on whatever is working, notices beside the button, every
 stop with a way on (Carry on, Roll back, ask our team), times labeled in the zone they happened.
 
+**Note (2026-11-15, releases #40, #59, #61, #62, #67):** the site manager bar sits fixed along the bottom of the
+screen above everything, and reaches the live site past Bluehost's bot check (#59); it draws again after a name clash
+in its script (#61). Staff stay staff on staging after the privacy strip (#40). **Check for builds** on the live
+Releases page takes Claude's builds from git at once, and the docs repo's ping (`release-ping.yml` →
+`/api/releases-pull.php`) has the site take a merged build within a minute, one taker at a time; an approved review
+part folds to one line with Edit (#62; Jason: "need a way to push immediate fixes like this into production"). Withdraw
+is in the bar's Publish menu for any release not yet live (#67).
+
 ### 6. Risks and limits
 
 - **Bluehost's MySQL 5.7:** no `WITH`, `OVER()` or `JSON_TABLE` (the code check, R04, flags them); `JSON_OBJECT`
@@ -394,7 +402,7 @@ narrowed: Claude's builds from git, approved in chat, still go live by themselve
 (`Releases::autoPublish`, 0159's 2026-11-13 note, kept); one sent for review waits for the review and its own Publish.
 **Publish staging** (§4, §5) carries what's made on staging: its data, merged, and any zip uploaded there (the site
 manager's Upload). Everything else here stands. The first release (#702's zip) shipped the narrower §2; the next
-release puts this right (`handoffs/0165-staging.md`).
+release puts this right (`handoffs/0165-staging.md`): release #57, live 2026-11-15.
 
 ## Consequences
 

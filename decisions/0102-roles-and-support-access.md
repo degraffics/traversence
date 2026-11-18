@@ -1,6 +1,6 @@
 # 0102: Roles and support access (RBAC master)
 
-Status: Proposed (Jason, 2026-10-21). Builds on 0100 (staff logins and roles). Reviewed against an outside RBAC
+**Status:** Proposed (Jason, 2026-10-21). Builds on 0100 (staff logins and roles). Reviewed against an outside RBAC
 compliance paper; adopted what fits a small-business platform, dropped the rest (end of this doc).
 
 ## 1. Principle

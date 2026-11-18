@@ -46,3 +46,8 @@ things like cron jobs?", then "Scheduler. Then business portal."
   - This works whether or not cPanel can be reached from the admin.
 - **Without the token:** the page says what to add to `.env`, and shows each job's line to paste into cPanel → Cron
   Jobs by hand.
+
+**Note (2026-11-17, release #105):** tasks and their pages link both ways (Jason: "this is a dead end issue"). Each task
+card has Open <page> for the admin page it serves, and each such page shows a slim line above its content (when it
+runs, when it last ran, Change to the task's card; `app/admin/job-line.php`). A task with no page of its own has no
+button.

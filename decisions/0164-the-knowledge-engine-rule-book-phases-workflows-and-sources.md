@@ -684,6 +684,10 @@ say otherwise, and this makes it plain:
     it stored and a checksum of them; the indexer compares that to what it sent and resends what's missing. Three
     mismatches in a row slow the pace and open a Pulse case, so a batch a firewall swallows without an error is caught.
 
+**Note (2026-11-17, release #79):** W0 Indexer's site side is built as written (#78 was withdrawn: its migration used a
+column name MySQL 8 reserves). The worker (`workers/crawler/indexer.py`) runs as its own Railway service, `w0-indexer`,
+and sleeps while the automation is paused; W0 comes on first at Start the system (`handoffs/w0-indexer.md`).
+
 ### 1.5 Lead sources for rural businesses
 
 Finding businesses that have no website, and proving they're real, from four kinds of source. Each is a service under
@@ -779,6 +783,9 @@ Only when required fields are still empty after Step 1 and the body has prose (4
   - for the pillars: turning points, people and their roles, trades and building materials, water and land use,
     hardships, local names and lore, sites you can walk today.
 
+**Note (2026-11-15, releases #60, #67):** Compare Claude and Gemini is built for a director to press (#60), and the
+reader of pages waiting to be read (`page_read_tick`, three an hour, under W3), shipped off (#67).
+
 ### 2.4 Splitting lists and stamping provenance
 
 - **List unbundling:** a page with several items (a county directory, an events calendar) becomes one candidate per
@@ -827,6 +834,10 @@ priority by search demand and residents affected; how deep research goes; the th
     (`AutoImport::sameName`, against the longer name, so a provider at a facility stays apart); "another location" needs
     two street numbers **and** a different phone or points over 150 m apart (`geohash_7`), so a typo'd or suite-first
     number isn't a branch. The kinds and 0074, 0081, 0083, 0084 stay as they are.
+
+**Note (2026-11-15, releases #58, #60):** built in Release B, switched off: the one identity check on every path,
+within each batch, the identity keys and lock, the tuned match rules, the recheck and the identity queue (#58); the open
+data loads run through it (#60).
 
 ### 3.2 Similarity scoring and the grey-zone check
 
@@ -952,6 +963,11 @@ closed, an open dataset dropping it, or one site saying "closed" is recorded wit
 "Still open?" asks visitors and the owner; it is labelled **Closed** only when the owner says so, our team confirms it, the public
 confirms it, or its own site says so (R10, R12, W2).
 
+**Note (2026-11-15, releases #51, #54):** "Help us find this business" is built (#51; Jason: "build the Help us find
+this business card"): a name and a town is a request on its town's page and in search, never a listing (no pin, no
+Call or Directions), asking "Know its phone or address?". Drop-offs that aren't businesses are their own kind, out of
+business browse lists and never claimed (#54).
+
 ---
 
 ## Phase 4: The master catalog, knowledge graph and index
@@ -1026,6 +1042,9 @@ free tier can pause, and the index is a copy of public text, never the record. S
 a quiet "fewer matches right now" note, never an error. When it's back, the next upkeep run (`vectors_tick`) sends
 anything missed, keyed by the text's hash, so a resend changes nothing and nothing is lost. The pre-flight checks that
 Supabase is awake and the index is complete.
+
+**Note (2026-11-15, release #60):** the vector index is built on Supabase with Gemini's embeddings, as a task added
+switched off (`vectors_tick`); Supabase is a paused service until Start the system turns it on.
 
 ### 5.3 Provenance shown
 
@@ -1161,6 +1180,10 @@ What the crawler made before these rules is checked against them by the **data c
 records that fail are quarantined, re-sourced or turned into sightings or "Help us find" cards by rule, never deleted;
 what a person entered or decided is never changed by it (R4); every change is logged with an undo.
 
+**Note (2026-11-15, releases #49–#54):** the data cleanup tool is built (Insights → Data cleanup): preview (#49), passes
+by rule with a ledger and Undo (#50), nothing taken off left a dead end (#52; Jason: "Either they are reused or moved
+into restricted"), why a pass left records as they are (#53), and the rest (#54). See 0163 §8's note.
+
 ### 6.2 Splitting and the audit trail
 
 `SPLIT_CANONICAL`, triggered by an operator, separates a wrong merge into distinct records, keeping all history, and
@@ -1279,6 +1302,10 @@ terms are read and a director chooses one.
   call where unclear.
 - **Makes:** staged rows in the source register, ready for a hub; the state's readiness line in the hub meter (R17).
 - **Cost:** free sources and Gemini's free tier only; its switch is off until Jason turns it on (0163 §9).
+
+**Note (2026-11-18, releases #60, #117):** W14 is added paused (#60); its own finding of sources isn't built, and
+Arizona's and New Mexico's were staged by hand. At Start the system, a hub's licence sources whose terms aren't read
+are listed on the card, each with Read its terms and Terms read: allowed, done there (#117).
 
 ## 8. Mapping onto what exists
 

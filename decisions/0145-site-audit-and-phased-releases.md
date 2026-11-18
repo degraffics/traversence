@@ -209,6 +209,9 @@ for Jason.
 
 **Urgent fixes** can be published straight away with a reason, then recorded and checked like any release.
 
+**Note (2026-11-17, release #80):** on System Configuration → Releases each release folds to one line (#N, title,
+where it stands, when); it opens by itself only while it needs Jason (Jason: "the releases should be collapsed").
+
 ## 6. Rules the release process needs
 
 - **Feature switches.** Every new feature checks its switch (on, off, who sees it). A switch is a kill switch without

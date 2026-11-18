@@ -1,6 +1,7 @@
 # ADR 0162: Migrations at publish, copied first; leftovers after a rollback tracked and removed by release
 
-**Status:** Accepted (Jason, 2026-11-14, "go", through the session manager). It amends `decisions/0145` §6
+**Status:** Accepted (Jason, 2026-11-14, "go", through the session manager). Built 2026-11-14: migrations at publish,
+copied first (release #45), and leftovers and unused schema in Pulse (release #47; `handoffs/migration-safety.md`). It amends `decisions/0145` §6
 ("Add-only database changes within a release") and keeps every other rule of 0145 and `decisions/0159` §5.
 
 ## Context
@@ -59,3 +60,8 @@ up unseen.
 - Disk: copies are compressed and pruned at 14 days, with per-table and total caps.
 - Release 2 (Pulse cases for leftovers and unused schema, the monthly check) waits for `Pulse.php`'s claim by the
   crawler session to end (decisions/0161).
+
+**Note (2026-11-17, releases #65, #70, #78):** the rule held on staging three times: "Migrations only add" stopped #65
+(an ENUM turned to text) and #70 (a `MODIFY`), and MySQL 8 refused #78's column named `stored`, a reserved word. Each was
+withdrawn and resent add-only (#66 with no migration, #71, #79); nothing reached live. Check new column names against
+MySQL 8's reserved words, not only MariaDB's.

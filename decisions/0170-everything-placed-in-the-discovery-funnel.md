@@ -113,6 +113,9 @@ the Chameleon Filter (not yet built; Jason to sort out its design) has the data 
     trees: for a visitor's intent, it chooses which links to follow and what to show ("stargazing near Springerville",
     "Route 66 across Arizona").
 
+**Note (2026-11-17, release #110):** §2's rule already holds in the switch-on check: a hub's stage holds only W14 (its
+authority sources), never the master switch or the other workflows (0163 §10's note).
+
 ### 3. Once organized, research builds the bigger picture
 
 With everything placed, Phase 4 rolls what's under each level up into that level's picture, town → zone → hub:
