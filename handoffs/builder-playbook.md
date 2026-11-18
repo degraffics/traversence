@@ -44,9 +44,10 @@ Each rule below comes from a real mistake (in brackets) so it isn't repeated.
 
 ## 4. Communication
 
-- **Anything that needs Jason goes to the session manager** (send_message: what, why, its link), who asks him with the
-  decision pop-up. If Jason is talking to you directly, ask with the pop-up (AskUserQuestion: Approve, Not now, Needs
-  changes), never a plain line and never a Pulse case. Then tell the session manager his answer and the PR's link.
+- **Ask Jason yourself, in your own chat** (Jason, 2026-11-18: "the same question is being asked twice in two
+  different sessions"): the decision pop-up (AskUserQuestion: Approve, Not now, Needs changes) and a push notification,
+  never a plain line and never a Pulse case. Then send the session manager his answer and the PR's link, so it merges.
+  Don't also ask the session manager to ask him.
 - **Only the session manager merges, runs the sync and records deliveries.** A build session's PR carries its own
   release zip, hand-off and decision notes, not `deliveries/` verification. [#891 conflicted with #890: both recorded
   #117's verification.]

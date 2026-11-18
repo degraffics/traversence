@@ -31,7 +31,7 @@ current pages stay reachable until the board replaces them (archived, not delete
 1. **A decision** (new ADR, numbered next after `decisions/0170`), amending 0163 §10 and folding in the pre-flight and
    Start: the board, its units and gauges, the register, the ledger, the historian, alarms, logbook, reports, where it
    lives in the admin (decisions/0109: a section from the manifests, built from widgets), access, and what it replaces.
-   **Send it to the session manager for Jason's OK (decision pop-up) before any build.**
+   **Ask Jason for his OK in your own chat with the decision pop-up before any build, then tell the session manager.**
 2. **Release 1: the register + the three pre-flight fixes.**
    - The register: in code, each unit (workflow, task, worker, service) names its site jobs, crawler tasks, services,
      endpoints and tables; the board, Start and the pre-flight read it, so a new workflow appears by itself.

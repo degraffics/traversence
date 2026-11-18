@@ -48,7 +48,7 @@ waiting on Jason, is archived and named in the report. A session waiting on him 
 ## Build sessions follow the playbook (Jason, 2026-11-18): every build
 
 Before the first release, read `handoffs/builder-playbook.md`: fixes in place, a way back for every action, the phone at
-390px, words kept true, one coherent release, `send.py`'s refusals fixed at the cause, OKs through the session manager.
+390px, words kept true, one coherent release, `send.py`'s refusals fixed at the cause, OKs asked in your own chat.
 
 ## Keep this file lean
 
@@ -199,12 +199,13 @@ Listings, outdoor places, experiences, places, journeys and any new content kind
 - **Comments** at the end: `tv_engage_comments($pdo, $kind, $ref)` (public, 18+, reportable).
 - **Views:** `tv_count_item('<kind>:<id>')`. Maps opened as their own view pass `panel: true` to `TvMap.open()`.
 
-## Jason's OKs come through the session manager (Jason, 2026-11-17): every session
+## Each session asks Jason itself (Jason, 2026-11-18; replaces 2026-11-17's): every session
 
-Jason answers in the session manager's chat, not in the system or in each session. Anything that waits on him (a PR to
-approve, a decision, a key to add) goes to the session manager by send_message, with what it is, why, and its link; he
-asks him each with the app's decision pop-up (AskUserQuestion: approve, not now, needs changes), lists any still
-open at the top of his replies as **"Waiting for your OK:"** with a push notification, and relays the answer. A session Jason is talking to may ask him there too, always with the same decision pop-up, never a plain line.
+A session that needs Jason's OK (a PR, a decision, a key) asks him in its own chat with the decision pop-up
+(AskUserQuestion: approve, not now, needs changes), never a plain line or a Pulse case, and sends a push notification.
+It then tells the session manager the answer and the link by send_message. The session manager never asks the same
+question again; it lists what's still open at the top of its replies as **"Waiting for your OK:"** (with each
+session's name), and asks only its own questions. It still merges, runs the sync and records deliveries.
 
 ## A link for every place Jason acts (Jason, 2026-11-16): every reply
 
