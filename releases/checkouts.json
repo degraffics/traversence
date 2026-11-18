@@ -246,6 +246,38 @@
    "expires": "2026-11-19T01:49:32Z",
    "release": "control-board-3e",
    "callers": {}
+  },
+  {
+   "path": "app/lib/ControlLedger.php",
+   "functions": [
+    "records",
+    "runCounts",
+    "whatKind"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 3e: each crawler run opens to its records",
+   "since": "2026-11-18T21:49:34Z",
+   "expires": "2026-11-19T01:49:34Z",
+   "release": "control-board-3e",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/crawler-console.php",
+   "functions": [
+    "tv_crawler_rec",
+    "tv_crawler_rec_css",
+    "tv_crawler_rec_groups",
+    "tv_crawler_records_page",
+    "tv_crawler_run_page"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 3e: each crawler run opens to its records",
+   "since": "2026-11-18T21:49:34Z",
+   "expires": "2026-11-19T01:49:34Z",
+   "release": "control-board-3e",
+   "callers": {}
   }
  ],
  "lapsed": [
