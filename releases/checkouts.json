@@ -239,6 +239,75 @@
    "expires": "2026-11-18T20:47:03Z",
    "release": "notify-1.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/OutsideServices.php",
+   "functions": [
+    "(top)",
+    "parts",
+    "requests",
+    "store"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 2c: the service cards' fixes (decisions/0171, folded-in cleanup)",
+   "since": "2026-11-18T16:53:35Z",
+   "expires": "2026-11-18T20:53:35Z",
+   "release": "control-board-2c.zip",
+   "callers": {
+    "parts": [
+     "app/ui/outside-services.php"
+    ],
+    "requests": [
+     "app/lib/Pulse.php",
+     "app/ui/outside-services.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/Operations.php",
+   "functions": [
+    "(top)",
+    "seed"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 2c: the service cards' fixes (decisions/0171, folded-in cleanup)",
+   "since": "2026-11-18T16:53:35Z",
+   "expires": "2026-11-18T20:53:35Z",
+   "release": "control-board-2c.zip",
+   "callers": {
+    "seed": [
+     "app/admin/operations-console.php",
+     "app/lib/SystemStart.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/staging-tables.php",
+   "functions": [
+    "(top)"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 2c: the service cards' fixes (decisions/0171, folded-in cleanup)",
+   "since": "2026-11-18T16:53:35Z",
+   "expires": "2026-11-18T20:53:35Z",
+   "release": "control-board-2c.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/admin/crawler.php",
+   "functions": [
+    "(top)"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 2c: the service cards' fixes (decisions/0171, folded-in cleanup)",
+   "since": "2026-11-18T16:53:35Z",
+   "expires": "2026-11-18T20:53:35Z",
+   "release": "control-board-2c.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
