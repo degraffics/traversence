@@ -27,88 +27,6 @@
    "callers": {}
   },
   {
-   "path": "app/admin/control-console.php",
-   "functions": [
-    "tv_admin_mod_control",
-    "tv_cb_alarms",
-    "tv_cb_check",
-    "tv_cb_row"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "Control Board 3b: Overpass trip, More in place, Pulse cases into the queue",
-   "since": "2026-11-18T19:59:04Z",
-   "expires": "2026-11-19T00:09:37Z",
-   "release": "control-board-3b-2.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/ServiceHealth.php",
-   "functions": [
-    "alarm",
-    "resolve"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "Control Board 3b: Overpass trip, More in place, Pulse cases into the queue",
-   "since": "2026-11-18T19:59:04Z",
-   "expires": "2026-11-19T00:09:37Z",
-   "release": "control-board-3b-2.zip",
-   "callers": {
-    "resolve": [
-     "app/admin/automation-console.php",
-     "app/lib/EngineCase.php",
-     "app/lib/Pulse.php"
-    ],
-    "alarm": [
-     "app/lib/ControlAlarms.php"
-    ]
-   }
-  },
-  {
-   "path": "app/lib/Operations.php",
-   "functions": [
-    "pulseItems"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "Control Board 3b: Overpass trip, More in place, Pulse cases into the queue",
-   "since": "2026-11-18T19:59:04Z",
-   "expires": "2026-11-19T00:09:37Z",
-   "release": "control-board-3b-2.zip",
-   "callers": {
-    "pulseItems": [
-     "app/lib/Pulse.php"
-    ]
-   }
-  },
-  {
-   "path": "app/lib/ControlAlarms.php",
-   "functions": [
-    "(top)",
-    "raise",
-    "seed",
-    "tick"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "Control Board 3b: raise(event), seed, tick",
-   "since": "2026-11-18T19:59:04Z",
-   "expires": "2026-11-19T00:09:37Z",
-   "release": "control-board-3b-2.zip",
-   "callers": {
-    "tick": [
-     "app/scripts/control_tick.php"
-    ],
-    "raise": [
-     "app/lib/ControlLedger.php",
-     "app/lib/Preflight.php",
-     "app/lib/ServiceHealth.php",
-     "app/lib/crawler/CrawlService.php"
-    ]
-   }
-  },
-  {
    "path": "app/lib/Pulse.php",
    "functions": [
     "items",
@@ -138,28 +56,6 @@
    }
   },
   {
-   "path": "website/admin/api.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "Control Board 3b: svcresolve action",
-   "since": "2026-11-18T19:59:11Z",
-   "expires": "2026-11-19T00:09:37Z",
-   "release": "control-board-3b-2.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/Pulse.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "release control-board-3b.zip",
-   "since": "2026-11-18T19:59:31Z",
-   "expires": "2026-11-19T00:09:37Z",
-   "release": "control-board-3b-2.zip",
-   "callers": {}
-  },
-  {
    "path": "app/lib/ControlAlarms.php",
    "functions": [
     "pulseDo",
@@ -171,19 +67,6 @@
    "since": "2026-11-18T20:09:29Z",
    "expires": "2026-11-19T00:09:29Z",
    "release": "control-board-3b",
-   "callers": {}
-  },
-  {
-   "path": "website/js/admin-control.js",
-   "functions": [
-    "redraw"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "release control-board-3b-2.zip",
-   "since": "2026-11-18T20:09:37Z",
-   "expires": "2026-11-19T00:09:37Z",
-   "release": "control-board-3b-2.zip",
    "callers": {}
   },
   {
