@@ -441,6 +441,24 @@
    "expires": "2026-11-19T02:08:30Z",
    "release": "control-board-3f",
    "callers": {}
+  },
+  {
+   "path": "app/lib/StagingGate.php",
+   "functions": [
+    "liveKeys"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 3f: staging payment keys, release guards, Supabase, Site health",
+   "since": "2026-11-18T22:08:32Z",
+   "expires": "2026-11-19T02:08:32Z",
+   "release": "control-board-3f",
+   "callers": {
+    "liveKeys": [
+     "app/lib/QuickBooksPay.php",
+     "app/lib/StagingApi.php"
+    ]
+   }
   }
  ],
  "lapsed": [
