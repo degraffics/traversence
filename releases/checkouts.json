@@ -194,6 +194,28 @@
      "app/ui/pulse-ui.php"
     ]
    }
+  },
+  {
+   "path": "app/lib/Pulse.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "Communications, the rest as one release (0167 email engine; 0172 steps 3-7)",
+   "since": "2026-11-18T17:21:29Z",
+   "expires": "2026-11-18T21:21:29Z",
+   "release": "comms-all.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/manifests.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "Communications, the rest as one release (0167 email engine; 0172 steps 3-7)",
+   "since": "2026-11-18T17:21:29Z",
+   "expires": "2026-11-18T21:21:29Z",
+   "release": "comms-all.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
