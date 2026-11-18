@@ -159,8 +159,18 @@ current pages stay reachable until the board replaces them (archived, not delete
   core(), usedBy(), timings(). Tests: `layout.php` (8). Left out of his example, for later or a decision first: Fix,
   Disconnect and Add source on a need (they'd change what holds a workflow, against 0163's source map), maintenance
   windows (R4), the health token and Pulse panel (R3), uptime % and cost per record (the historian, R4).
-  - Still to come in Release 2: **2c**, the services' card fixes (crawler.php's cron words, the Stripe/Square keys,
-    Name.com's unsaved requests, the "Added switched off" wording migration).
+- **2026-11-18: control-board-layout live** (synced 16:50 UTC, all 4 files matched). Then **control-board-2c**, built on
+  16:50, closing release 2's folded-in fixes:
+  - `outside_requests`, the requests' own table (old `staff_settings` ones brought over with ids; #3113488 seeded);
+  - the Stripe and Square cards read MarketPay's names (plain set live, `STRIPE_TEST_…`/`SQUARE_SANDBOX_…` for tests);
+  - "Added switched off" reworded (`Operations::ADDED_OFF_WHY`, migration `2026-11-18_added_off_words.sql`, data_reason);
+  - `/admin/crawler.php`'s cron steps: Start the system sets the schedule;
+  - crawler 2.12.1: a task stopped by a held service reports held (the tripping call too; Common Crawl checks first),
+    so a run whose only trouble is a held service ends ok, not Crashed.
+  - Tests: `r2c.php` (12), `workers/crawler/tests/test_held_task.py` (5).
+  - Release 2's fixes now all closed: the run records (2a), "nothing to do" counts (2a), AZCC's host (2a), the held-run
+    exit, cron words, Stripe/Square, Name.com's requests, the off words (2c). Not taken: Vectors RLS and coverage from
+    Geofabrik (handed back, as planned).
 
 ### Where the folded-in cleanup fixes go (build session, 2026-11-18)
 
