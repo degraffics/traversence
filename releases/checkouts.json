@@ -190,6 +190,22 @@
    "expires": "2026-11-19T01:18:28Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/admin/control-console.php",
+   "functions": [
+    "tv_admin_mod_control",
+    "tv_cb_alarms",
+    "tv_cb_mark",
+    "tv_cb_row"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 3d: alarms grouped on the board and in Pulse; red only for a trip",
+   "since": "2026-11-18T21:30:31Z",
+   "expires": "2026-11-19T01:30:31Z",
+   "release": "control-board-3d",
+   "callers": {}
   }
  ],
  "lapsed": [
