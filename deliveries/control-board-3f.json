@@ -1,0 +1,42 @@
+{
+ "zip": "control-board-3f.zip",
+ "built_on": "72dfb94 Sync: 2026-11-18 22:06 UTC",
+ "recorded": "2026-11-18 22:09 UTC",
+ "note": "Control Board 3f: staging's payment-key check by value (staging could never charge live), the release pipeline's guards, Supabase's row level security, Site health's fixes. Built on Sync 21:45, the FAQ on 22:06 UTC. Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/admin/tools.php": {
+   "sha256": "1636e064e8f688ff8c3c58b294c25d527af16f184a24cd74b5715dfcff70a983",
+   "live": false
+  },
+  "app/lib/Releases.php": {
+   "sha256": "b1850a090f454fc7f99d9349f5d79907bdc3bb16a938179928dbe981ff9e373a",
+   "live": false
+  },
+  "app/lib/Scheduler.php": {
+   "sha256": "1899d71451f616044221bc2d1ba248d77afe86576f8c4e0c21491bbc07a3bfca",
+   "live": false
+  },
+  "app/lib/StagingGate.php": {
+   "sha256": "c8868901948f01c6d0e75aa87404aaa34f3fbaee65f730a3253bc2a20f057335",
+   "live": false
+  },
+  "app/lib/Vectors.php": {
+   "sha256": "8d678a44deb9c5887366b2ed345dbe4ae3c254da67880547ede21ab94a1ac731",
+   "live": false
+  },
+  "app/ui/admin-dashboard.php": {
+   "sha256": "57cdb15525e02a3f1ed5c8b9bf3a6b9f2f94bbaedb0e0fbb7f18aab9c27466c0",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "770211bd3e094c6ad881e43612d01f94fdc741a4716f5529e71404be851648ab",
+   "live": false
+  },
+  "website/api/health.php": {
+   "sha256": "c00bceb8578bf55103fb89188f6f03bcbe202f8a3b27613c4dab02943dff40ad",
+   "live": false
+  }
+ }
+}

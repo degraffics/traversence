@@ -7,6 +7,7 @@ worker.traversence       # the crawler's own jobs' name on Sources, not an addre
 127.0.0.1                # the server itself
 localhost                # the server itself
 example.com              # an example in a placeholder
+example.org              # made-up addresses in W0 Indexer's pre-flight test batch (workers/crawler/indexer.py), never fetched
 www.wmrmc.example        # an example in a code comment's data
 schema.org               # the structured-data vocabulary (a name, not a call)
 www.w3.org               # SVG and XML namespaces (names, not calls)
