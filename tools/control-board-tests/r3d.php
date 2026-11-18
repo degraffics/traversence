@@ -51,7 +51,9 @@ $t('the board: one group row with its title, opening to its five alarms', substr
 $t('…Acknowledge all for the one still unacknowledged', str_contains($html, 'data-cb="ackgroup" data-cb-id="engine:trip:held"'));
 $t('…each alarm inside keeps its own buttons (Acknowledge, Resolve)', substr_count($html, 'data-cb="resolve"') >= 5);
 $t('…its fold has an id, so the 30-second redraw keeps it open', str_contains($html, 'id="cb-grpd-engine-trip-held"'));
-$t('marks: a trip red (#a62b2b), a warning or a hold amber (#8f5600), never a check', str_contains(tv_cb_mark('bad'), '#a62b2b') && str_contains(tv_cb_mark('hold'), '#8f5600') && str_contains(tv_cb_mark('warn'), '#8f5600'));
+$t('marks: a trip red, a warning or a hold amber, from the tokens (no literal)', str_contains(tv_cb_mark('bad'), 'var(--cb-fail)') && str_contains(tv_cb_mark('hold'), 'var(--cb-hold)') && str_contains(tv_cb_mark('warn'), 'var(--cb-hold)'));
+$css = file_get_contents($app . '/admin/control-console.php');
+$t('…the tokens fall back to the palette\'s values; no other literal red or amber', str_contains($css, '--cb-fail:var(--tv-fail,#a62b2b)') && str_contains($css, '--cb-hold:var(--tv-hold,#8f5600)') && substr_count($css, '#a62b2b') === 1 && substr_count($css, '#8f5600') === 1 && !preg_match('/#(FBEDED|FBF1DE|FEF6F6|E6B8B8|E5CFA3|B91C1C)/i', $css));
 
 echo "\n$pass passed, $fail failed\n";
 exit($fail ? 1 : 0);

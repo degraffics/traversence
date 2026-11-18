@@ -1,13 +1,13 @@
 {
  "zip": "control-board-3d.zip",
  "built_on": "e3c2892 Sync: 2026-11-18 21:23 UTC",
- "recorded": "2026-11-18 21:30 UTC",
- "note": "Control Board 3d: alarms grouped on the board and in Pulse (0171 \u00a78 note); red only for a trip or a core host, amber for held. Built on Sync 21:23 UTC. Sent through git (releases/inbox).",
+ "recorded": "2026-11-18 21:33 UTC",
+ "note": "Control Board 3d: alarms grouped on the board and in Pulse (0171 \u00a78 note); red only for a trip or a core host, amber Held; every colour from the palette's tokens. Built on Sync 21:23 UTC. Sent through git (releases/inbox).",
  "status": "pending",
  "live_in": "",
  "files": {
   "app/admin/control-console.php": {
-   "sha256": "1fc99126942a733c4186824f2ab7d2852f9135a30b067a8ca87b3ff93733556f",
+   "sha256": "b3e21d5174a43a2c2731ecc3a2d089d9a71817ee4aad92f5079aebf8267a18da",
    "live": false
   },
   "app/lib/ControlAlarms.php": {
@@ -27,7 +27,7 @@
    "live": false
   },
   "website/admin/router.php": {
-   "sha256": "1627f985e892b1ffa59131fc813101a728c0e1c250df2db2ca724987521296de",
+   "sha256": "8f9332de2effe4f83b8e0213ff91febe57b85b0433fa1146d57e03da3bd31fdf",
    "live": false
   },
   "website/js/admin-control.js": {
