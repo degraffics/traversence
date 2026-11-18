@@ -3,15 +3,12 @@
  "claims": [
   {
    "path": "app/lib/Notices.php",
-   "functions": [
-    "emailOne",
-    "send"
-   ],
+   "functions": [],
    "kind": "change",
    "session": "session_01CXLi5krYPakdEQtKuVw14F",
    "why": "0172 step 2: one dispatcher into Pulse (notify-1)",
    "since": "2026-11-18T16:46:47Z",
-   "expires": "2026-11-18T20:58:36Z",
+   "expires": "2026-11-18T20:59:45Z",
    "release": "notify-1.zip",
    "callers": {
     "send": [
@@ -26,15 +23,12 @@
   },
   {
    "path": "app/lib/MemberPulse.php",
-   "functions": [
-    "sources",
-    "stream"
-   ],
+   "functions": [],
    "kind": "change",
    "session": "session_01CXLi5krYPakdEQtKuVw14F",
    "why": "0172 step 2: one dispatcher into Pulse (notify-1)",
    "since": "2026-11-18T16:46:47Z",
-   "expires": "2026-11-18T20:46:47Z",
+   "expires": "2026-11-18T20:59:45Z",
    "release": "notify-1.zip",
    "callers": {
     "sources": [
@@ -47,15 +41,12 @@
   },
   {
    "path": "app/lib/BizMessages.php",
-   "functions": [
-    "bizThread",
-    "personSend"
-   ],
+   "functions": [],
    "kind": "change",
    "session": "session_01CXLi5krYPakdEQtKuVw14F",
    "why": "0172 step 2: one dispatcher into Pulse (notify-1)",
    "since": "2026-11-18T16:46:47Z",
-   "expires": "2026-11-18T20:46:47Z",
+   "expires": "2026-11-18T20:59:45Z",
    "release": "notify-1.zip",
    "callers": {
     "personSend": [
@@ -71,14 +62,12 @@
   },
   {
    "path": "app/lib/MarketCheckout.php",
-   "functions": [
-    "notify"
-   ],
+   "functions": [],
    "kind": "change",
    "session": "session_01CXLi5krYPakdEQtKuVw14F",
    "why": "0172 step 2: one dispatcher into Pulse (notify-1)",
    "since": "2026-11-18T16:46:47Z",
-   "expires": "2026-11-18T20:46:47Z",
+   "expires": "2026-11-18T20:59:45Z",
    "release": "notify-1.zip",
    "callers": {}
   },
@@ -146,14 +135,12 @@
   },
   {
    "path": "website/js/header-nav.js",
-   "functions": [
-    "loadBell"
-   ],
+   "functions": [],
    "kind": "change",
    "session": "session_01CXLi5krYPakdEQtKuVw14F",
    "why": "0172 step 2: one dispatcher into Pulse (notify-1)",
    "since": "2026-11-18T16:46:47Z",
-   "expires": "2026-11-18T20:46:47Z",
+   "expires": "2026-11-18T20:59:45Z",
    "release": "notify-1.zip",
    "callers": {}
   },
@@ -248,13 +235,14 @@
   {
    "path": "website/js/tv-pulse.js",
    "functions": [
+    "esc",
     "paintPulse"
    ],
    "kind": "change",
    "session": "session_01CXLi5krYPakdEQtKuVw14F",
    "why": "0172 step 2: one dispatcher into Pulse (notify-1)",
    "since": "2026-11-18T16:58:36Z",
-   "expires": "2026-11-18T20:58:36Z",
+   "expires": "2026-11-18T20:59:45Z",
    "release": "notify-1.zip",
    "callers": {}
   },
@@ -268,6 +256,118 @@
    "expires": "2026-11-18T20:58:41Z",
    "release": "notify-1.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/Scheduler.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5krYPakdEQtKuVw14F",
+   "why": "0172 step 2: one dispatcher into Pulse (notify-1)",
+   "since": "2026-11-18T16:59:45Z",
+   "expires": "2026-11-18T20:59:45Z",
+   "release": "notify-1.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/staging-tables.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5krYPakdEQtKuVw14F",
+   "why": "0172 step 2: one dispatcher into Pulse (notify-1)",
+   "since": "2026-11-18T16:59:45Z",
+   "expires": "2026-11-18T20:59:45Z",
+   "release": "notify-1.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/user/dashboard.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5krYPakdEQtKuVw14F",
+   "why": "0172 step 2: one dispatcher into Pulse (notify-1)",
+   "since": "2026-11-18T16:59:45Z",
+   "expires": "2026-11-18T20:59:45Z",
+   "release": "notify-1.zip",
+   "callers": {
+    "esc": [
+     "app/lib/Pulse.php",
+     "app/ui/admin-dashboard.php",
+     "app/ui/card-scanner.php",
+     "app/ui/lead-panel.php",
+     "website/admin/client-order.php",
+     "website/admin/crawler-review.php",
+     "website/admin/listing-edit.php",
+     "website/admin/listing-intake.php",
+     "website/admin/listings.php",
+     "website/admin/nexus.php",
+     "website/admin/people.php",
+     "website/admin/rebuild.php",
+     "website/admin/sales.php",
+     "website/admin/search-misses.php",
+     "website/js/address-book.js",
+     "website/js/admin-builder.js",
+     "website/js/admin-kit.js",
+     "website/js/admin-search.js",
+     "website/js/at-tags.js",
+     "website/js/business-inbox.js",
+     "website/js/cat-more.js",
+     "website/js/claim.js",
+     "website/js/collection.js",
+     "website/js/consent.js",
+     "website/js/engage.js",
+     "website/js/evidence-offers.js",
+     "website/js/gallery.js",
+     "website/js/go-codes.js",
+     "website/js/guest-inquiry.js",
+     "website/js/hero-media.js",
+     "website/js/link-button.js",
+     "website/js/map-view.js",
+     "website/js/photo-viewer.js",
+     "website/js/profile.js",
+     "website/js/search-panel.js",
+     "website/js/section-edit.js",
+     "website/js/suggest.js",
+     "website/js/tv-ai-assist.js",
+     "website/js/tv-art.js",
+     "website/js/tv-blocks.js",
+     "website/js/tv-cost.js",
+     "website/js/tv-join.js",
+     "website/js/tv-moments.js",
+     "website/js/tv-pulse.js",
+     "website/js/tv-stock.js",
+     "website/js/tv-tagcard.js",
+     "website/js/tv-trail.js",
+     "website/js/tv-upgrade.js",
+     "website/js/tv-vault.js",
+     "website/market/index.php",
+     "website/plans.php",
+     "website/user/experiences/index.php",
+     "website/user/journeys/compose.php",
+     "website/user/market/index.php"
+    ],
+    "load": [
+     "app/lib/GeminiCompare.php",
+     "app/lib/OutsideServices.php",
+     "website/admin/crawler-review.php",
+     "website/admin/listing-intake.php",
+     "website/admin/sales.php",
+     "website/api/crawl/irs.php",
+     "website/api/crawl/landmarks.php",
+     "website/api/crawl/npi.php",
+     "website/api/crawl/rec.php",
+     "website/js/consent.js",
+     "website/js/evidence-offers.js",
+     "website/js/location-scope.js",
+     "website/js/map-view.js",
+     "website/js/photo-viewer.js",
+     "website/js/stg-bar.js",
+     "website/js/suggest.js",
+     "website/js/tv-art.js",
+     "website/js/tv-domains.js",
+     "website/js/tv-stock.js",
+     "website/market/cart.php"
+    ]
+   }
   }
  ],
  "lapsed": [
