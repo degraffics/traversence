@@ -45,9 +45,9 @@
    "functions": [],
    "kind": "change",
    "session": "session_01CXLi5jn2WGptsHBfmhEav6",
-   "why": "decisions/0172's last two items: the member's needs as rows and on the bell; the admin's task queue replaced by the bell",
+   "why": "0172 gaps G1-G11 as one release (Jason approved 2026-11-18)",
    "since": "2026-11-18T20:11:23Z",
-   "expires": "2026-11-19T00:35:12Z",
+   "expires": "2026-11-19T01:18:12Z",
    "release": "comms-needs-2.zip",
    "callers": {
     "needs": [
@@ -113,6 +113,304 @@
      "website/js/tv-pulse.js"
     ]
    }
+  },
+  {
+   "path": "app/admin/control-console.php",
+   "functions": [
+    "tv_admin_mod_control",
+    "tv_cb_alarms",
+    "tv_cb_row"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 3c: the Trip rule, slow calls, the last Pulse cases as alarms",
+   "since": "2026-11-18T20:58:26Z",
+   "expires": "2026-11-19T00:58:55Z",
+   "release": "control-board-3c.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/ServiceHealth.php",
+   "functions": [
+    "alarm",
+    "resolve"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 3c: the Trip rule, slow calls, the last Pulse cases as alarms",
+   "since": "2026-11-18T20:58:29Z",
+   "expires": "2026-11-19T00:58:55Z",
+   "release": "control-board-3c.zip",
+   "callers": {
+    "resolve": [
+     "app/admin/automation-console.php",
+     "app/lib/ControlAlarms.php",
+     "app/lib/EngineCase.php",
+     "app/lib/Pulse.php",
+     "website/admin/api.php"
+    ],
+    "alarm": [
+     "app/lib/ControlAlarms.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/Operations.php",
+   "functions": [
+    "pulseItems"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 3c: the Trip rule, slow calls, the last Pulse cases as alarms",
+   "since": "2026-11-18T20:58:32Z",
+   "expires": "2026-11-19T00:58:55Z",
+   "release": "control-board-3c.zip",
+   "callers": {
+    "pulseItems": [
+     "app/lib/Pulse.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/ControlLedger.php",
+   "functions": [
+    "alarms",
+    "finish"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 3c: the Trip rule, slow calls, the last Pulse cases as alarms",
+   "since": "2026-11-18T20:58:35Z",
+   "expires": "2026-11-19T00:58:55Z",
+   "release": "control-board-3c.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/ControlAlarms.php",
+   "functions": [
+    "(top)",
+    "clear",
+    "ensure",
+    "pulseDo",
+    "raise",
+    "tick"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 3c: the Trip rule, slow calls, the last Pulse cases as alarms",
+   "since": "2026-11-18T20:58:38Z",
+   "expires": "2026-11-19T00:58:55Z",
+   "release": "control-board-3c.zip",
+   "callers": {
+    "tick": [
+     "app/scripts/control_tick.php"
+    ],
+    "clear": [
+     "app/lib/ControlLedger.php",
+     "app/lib/Preflight.php",
+     "app/lib/ServiceHealth.php",
+     "app/lib/crawler/CrawlService.php"
+    ],
+    "raise": [
+     "app/lib/ControlLedger.php",
+     "app/lib/Operations.php",
+     "app/lib/Preflight.php",
+     "app/lib/ServiceHealth.php",
+     "app/lib/crawler/CrawlService.php"
+    ],
+    "pulseDo": [
+     "app/lib/Pulse.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/crawler/CrawlService.php",
+   "functions": [
+    "report"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 3c: the Trip rule, slow calls, the last Pulse cases as alarms",
+   "since": "2026-11-18T20:58:42Z",
+   "expires": "2026-11-19T00:58:55Z",
+   "release": "control-board-3c.zip",
+   "callers": {
+    "report": [
+     "website/api/crawl/service.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/Preflight.php",
+   "functions": [
+    "alarm",
+    "summary"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 3c: the Trip rule, slow calls, the last Pulse cases as alarms",
+   "since": "2026-11-18T20:58:45Z",
+   "expires": "2026-11-19T00:58:55Z",
+   "release": "control-board-3c.zip",
+   "callers": {
+    "summary": [
+     "app/admin/control-console.php",
+     "app/admin/preflight-console.php",
+     "app/admin/sections.php"
+    ],
+    "alarm": [
+     "app/lib/ControlAlarms.php"
+    ]
+   }
+  },
+  {
+   "path": "website/admin/api.php",
+   "functions": [
+    "(top)"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 3c: the Trip rule, slow calls, the last Pulse cases as alarms",
+   "since": "2026-11-18T20:58:48Z",
+   "expires": "2026-11-19T00:58:55Z",
+   "release": "control-board-3c.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/api/health.php",
+   "functions": [
+    "(top)"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 3c: the Trip rule, slow calls, the last Pulse cases as alarms",
+   "since": "2026-11-18T20:58:50Z",
+   "expires": "2026-11-19T00:58:55Z",
+   "release": "control-board-3c.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/js/admin-control.js",
+   "functions": [
+    "redraw"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 3c: the Trip rule, slow calls, the last Pulse cases as alarms",
+   "since": "2026-11-18T20:58:51Z",
+   "expires": "2026-11-19T00:58:55Z",
+   "release": "control-board-3c.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/migrations/2026-11-18_control_alarms_trips.sql",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "release control-board-3c.zip",
+   "since": "2026-11-18T20:58:55Z",
+   "expires": "2026-11-19T00:58:55Z",
+   "release": "control-board-3c.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Thresholds.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "release control-board-3c.zip",
+   "since": "2026-11-18T20:58:55Z",
+   "expires": "2026-11-19T00:58:55Z",
+   "release": "control-board-3c.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Pulse.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "release control-board-3c.zip",
+   "since": "2026-11-18T20:58:55Z",
+   "expires": "2026-11-19T00:58:55Z",
+   "release": "control-board-3c.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/ui/pulse-panel.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "0172 gaps G1-G11 as one release (Jason approved 2026-11-18)",
+   "since": "2026-11-18T21:18:15Z",
+   "expires": "2026-11-19T01:18:15Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "website/user/api/pulse.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "0172 gaps G1-G11 as one release (Jason approved 2026-11-18)",
+   "since": "2026-11-18T21:18:17Z",
+   "expires": "2026-11-19T01:18:17Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "website/user/api/marks.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "0172 gaps G1-G11 as one release (Jason approved 2026-11-18)",
+   "since": "2026-11-18T21:18:19Z",
+   "expires": "2026-11-19T01:18:19Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "website/admin/api/pulse.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "0172 gaps G1-G11 as one release (Jason approved 2026-11-18)",
+   "since": "2026-11-18T21:18:21Z",
+   "expires": "2026-11-19T01:18:21Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/inbox-console.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "0172 gaps G1-G11 as one release (Jason approved 2026-11-18)",
+   "since": "2026-11-18T21:18:24Z",
+   "expires": "2026-11-19T01:18:24Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/PulseMarks.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "0172 gaps G1-G11 as one release (Jason approved 2026-11-18)",
+   "since": "2026-11-18T21:18:26Z",
+   "expires": "2026-11-19T01:18:26Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "website/user/api/pulse-act.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "0172 gaps G1-G11 as one release (Jason approved 2026-11-18)",
+   "since": "2026-11-18T21:18:28Z",
+   "expires": "2026-11-19T01:18:28Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
