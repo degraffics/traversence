@@ -43,7 +43,9 @@ stuck syncs and Railway deploys. One session per area, at most about three at on
 session until the entire build is complete and live, then it's closed** (Jason, 2026-11-18: hand-offs between sessions
 broke continuity); no fresh session per phase. **Finished sessions are archived on the check without asking** (Jason,
 2026-11-14): one that has said it's done, with its work in `main` and nothing waiting on Jason, is archived and named in
-the report. A session waiting on him is never archived.
+the report, once the session manager has checked the live build against its decision and brief (Jason, 2026-11-18). A
+session waiting on him is never archived. After each release the session manager also checks the release and its hand-off for
+scope creep and drift against the decision, and that the decision has its note (`handoffs/session-manager.md`).
 
 ## Build sessions follow the playbook (Jason, 2026-11-18): every build
 

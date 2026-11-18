@@ -1,6 +1,251 @@
 {
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
- "claims": [],
+ "claims": [
+  {
+   "path": "app/admin/control-console.php",
+   "functions": [
+    "tv_cb_more",
+    "tv_cb_statement_osm"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 3b: More toggle, the OSM statement",
+   "since": "2026-11-18T19:58:45Z",
+   "expires": "2026-11-18T23:58:45Z",
+   "release": "control-board-3b",
+   "callers": {}
+  },
+  {
+   "path": "website/js/admin-control.js",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 3b: More toggle, the OSM statement",
+   "since": "2026-11-18T19:58:45Z",
+   "expires": "2026-11-18T23:59:31Z",
+   "release": "control-board-3b.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/control-console.php",
+   "functions": [
+    "tv_admin_mod_control",
+    "tv_cb_alarms",
+    "tv_cb_check",
+    "tv_cb_row"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 3b: Overpass trip, More in place, Pulse cases into the queue",
+   "since": "2026-11-18T19:59:04Z",
+   "expires": "2026-11-19T00:09:37Z",
+   "release": "control-board-3b-2.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/ServiceHealth.php",
+   "functions": [
+    "alarm",
+    "resolve"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 3b: Overpass trip, More in place, Pulse cases into the queue",
+   "since": "2026-11-18T19:59:04Z",
+   "expires": "2026-11-19T00:09:37Z",
+   "release": "control-board-3b-2.zip",
+   "callers": {
+    "resolve": [
+     "app/admin/automation-console.php",
+     "app/lib/EngineCase.php",
+     "app/lib/Pulse.php"
+    ],
+    "alarm": [
+     "app/lib/ControlAlarms.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/Operations.php",
+   "functions": [
+    "pulseItems"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 3b: Overpass trip, More in place, Pulse cases into the queue",
+   "since": "2026-11-18T19:59:04Z",
+   "expires": "2026-11-19T00:09:37Z",
+   "release": "control-board-3b-2.zip",
+   "callers": {
+    "pulseItems": [
+     "app/lib/Pulse.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/ControlAlarms.php",
+   "functions": [
+    "(top)",
+    "raise",
+    "seed",
+    "tick"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 3b: raise(event), seed, tick",
+   "since": "2026-11-18T19:59:04Z",
+   "expires": "2026-11-19T00:09:37Z",
+   "release": "control-board-3b-2.zip",
+   "callers": {
+    "tick": [
+     "app/scripts/control_tick.php"
+    ],
+    "raise": [
+     "app/lib/ControlLedger.php",
+     "app/lib/Preflight.php",
+     "app/lib/ServiceHealth.php",
+     "app/lib/crawler/CrawlService.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/Pulse.php",
+   "functions": [
+    "items",
+    "manage",
+    "playbook"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 3b: alarm steps in Pulse",
+   "since": "2026-11-18T19:59:04Z",
+   "expires": "2026-11-19T00:09:25Z",
+   "release": "control-board-3b",
+   "callers": {
+    "items": [
+     "app/lib/DailyReport.php",
+     "app/ui/pulse-ui.php",
+     "website/admin/staff-profile.php",
+     "website/admin/w.php"
+    ],
+    "manage": [
+     "website/admin/api/pulse.php"
+    ],
+    "playbook": [
+     "app/lib/DailyReport.php",
+     "app/ui/pulse-ui.php"
+    ]
+   }
+  },
+  {
+   "path": "website/admin/api.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 3b: svcresolve action",
+   "since": "2026-11-18T19:59:11Z",
+   "expires": "2026-11-19T00:09:37Z",
+   "release": "control-board-3b-2.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Pulse.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "release control-board-3b.zip",
+   "since": "2026-11-18T19:59:31Z",
+   "expires": "2026-11-19T00:09:37Z",
+   "release": "control-board-3b-2.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/ControlAlarms.php",
+   "functions": [
+    "pulseDo",
+    "pulseSteps"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 3b: alarm steps in Pulse",
+   "since": "2026-11-18T20:09:29Z",
+   "expires": "2026-11-19T00:09:29Z",
+   "release": "control-board-3b",
+   "callers": {}
+  },
+  {
+   "path": "website/js/admin-control.js",
+   "functions": [
+    "redraw"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "release control-board-3b-2.zip",
+   "since": "2026-11-18T20:09:37Z",
+   "expires": "2026-11-19T00:09:37Z",
+   "release": "control-board-3b-2.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/MemberPulse.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "decisions/0172's last two items: the member's needs as rows and on the bell; the admin's task queue replaced by the bell",
+   "since": "2026-11-18T20:11:23Z",
+   "expires": "2026-11-19T00:11:46Z",
+   "release": "comms-needs.zip",
+   "callers": {
+    "needs": [
+     "website/user/api/pulse.php"
+    ],
+    "sources": [
+     "website/user/api/pulse.php"
+    ]
+   }
+  },
+  {
+   "path": "website/js/tv-pulse.js",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "decisions/0172's last two items: the member's needs as rows and on the bell; the admin's task queue replaced by the bell",
+   "since": "2026-11-18T20:11:23Z",
+   "expires": "2026-11-19T00:11:46Z",
+   "release": "comms-needs.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/user/api/bell.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "decisions/0172's last two items: the member's needs as rows and on the bell; the admin's task queue replaced by the bell",
+   "since": "2026-11-18T20:11:23Z",
+   "expires": "2026-11-19T00:11:46Z",
+   "release": "comms-needs.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/ui/pulse-ui.php",
+   "functions": [
+    "(top)",
+    "tv_pulse_board"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "decisions/0172's last two items: the member's needs as rows and on the bell; the admin's task queue replaced by the bell",
+   "since": "2026-11-18T20:11:23Z",
+   "expires": "2026-11-19T00:11:46Z",
+   "release": "comms-needs.zip",
+   "callers": {
+    "tv_pulse_board": [
+     "app/admin/sections.php",
+     "website/admin/w.php"
+    ]
+   }
+  }
+ ],
  "lapsed": [
   {
    "path": "app/admin/sections.php",
