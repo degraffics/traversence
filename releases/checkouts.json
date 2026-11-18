@@ -1,6 +1,32 @@
 {
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
- "claims": [],
+ "claims": [
+  {
+   "path": "app/admin/control-console.php",
+   "functions": [
+    "tv_cb_more",
+    "tv_cb_statement_osm"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 3b: More toggle, the OSM statement",
+   "since": "2026-11-18T19:58:45Z",
+   "expires": "2026-11-18T23:58:45Z",
+   "release": "control-board-3b",
+   "callers": {}
+  },
+  {
+   "path": "website/js/admin-control.js",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 3b: More toggle, the OSM statement",
+   "since": "2026-11-18T19:58:45Z",
+   "expires": "2026-11-18T23:58:45Z",
+   "release": "control-board-3b",
+   "callers": {}
+  }
+ ],
  "lapsed": [
   {
    "path": "app/admin/sections.php",
