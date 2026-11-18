@@ -26,9 +26,13 @@ Alongside: `releases-self-withdraw` (#122), `releases-live-2` (#123), `releases-
   top-bar light; Notify `alarm.trip` / `alarm.warning` with Acknowledge in the message; Pulse items per alarm, Done =
   acknowledge. Comms (#135) owns Notify and Pulse's levels; its session agreed the kinds and the Pulse item.
   Live as #137 (Sync 19:49/19:51).
-- `control-board-3b` (built on 19:51, after #137): a long line once, with More/Less in place (`tv_cb_more`), the check's
-  other parts on a toggle, never repeated (Jason: "show a line of text with a toggle or see more … not repeat it in
-  full"); old lines without parts say to press Check. Overpass is one trip `svc:osm:held` (ServiceHealth::alarm, raised by
+- `control-board-3b-2` (built on 20:07, after #137; replaces `control-board-3b`, never merged): a long line once, on one
+  line with a ▸ toggle that opens it in place, fading at the edge, never "…" or More (`tv_cb_more`; Jason at review: "use
+  a toggle instead of ... and more"), the check's other parts on a toggle, never repeated; old lines without parts say to
+  press Check. Caps as 0171 §6 sets them (Jason: "how did we already determine their management?"): a warning at
+  50/75/95%, a trip only when out of budget; the old cases' steps as buttons in place (fix kinds `ops` and `opsask`,
+  api `opsdo` → Operations::pulseDo), and each alarm's Pulse item with the same buttons (ControlAlarms::pulseSteps/pulseDo,
+  Pulse::playbook and manage). A fix list too long for its column drops whole buttons. Overpass is one trip `svc:osm:held` (ServiceHealth::alarm, raised by
   the watch from open issues, cleared by resolve()) with The statement (`?show=osm-statement`, research/osm-overpass §2),
   OpenStreetMap's card and Mark resolved (`svcresolve`, api.php); any `svc:issue:` alarm gets Mark resolved. Pulse:
   ops:cap and ops:empty are alarms (`raise(..., $event=false)` for readings), the pre-flight case only for a stopped run,

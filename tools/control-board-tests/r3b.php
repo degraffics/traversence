@@ -2,7 +2,7 @@
 // The Control Board's release 3b (decisions/0171 §8; Jason, 2026-11-18): every Overpass server held is ONE trip a person
 // resolves, with its steps; 3a's per-server notices fold into it; Mark resolved clears it only when no server refuses
 // us; a reading said again doesn't bump the count; the seed raises a server error only when the latest call failed; long
-// text is one line with More, never repeated. Run: mariadb < ../release-b-tests/start-schema.sql
+// text is one line with a toggle (▸), never "…" and never repeated; an alarm's buttons the same on the board and in Pulse. Run: mariadb < ../release-b-tests/start-schema.sql
 //      && mariadb lv_main < <2a's ledger migration> && php r3b.php <root>/app
 declare(strict_types=1);
 $app = $argv[1];
@@ -45,10 +45,27 @@ $t('the seed: an endpoint whose latest call works isn\'t raised; one still faili
 require $app . '/admin/widgets.php'; require $app . '/ui/app-shell.php'; require $app . '/admin/control-console.php';
 $long = str_repeat('The indexer sent 125 addresses in one batch; ', 6);
 $m = tv_cb_more($long);
-$t('long text: one element with More, the text once', substr_count($m, 'The indexer sent 125') === 6 && str_contains($m, 'data-cb-more') && substr_count($m, 'data-cb-clamp') === 1);
+$t('long text: one toggle (▸), the text once, no "…" and no More', substr_count($m, 'The indexer sent 125') === 6 && str_contains($m, 'aria-expanded="false"') && substr_count($m, 'data-cb-clamp') === 1 && !str_contains($m, '…') && !str_contains($m, '>More<'));
+$t('short text: as it is, no toggle', tv_cb_more('Short.') === 'Short.');
 $c = tv_cb_check(['s' => 'bad', 'at' => time(), 'extra' => ['parts' => [['Dry run: the test batch: smaller than a full batch.', 'bad'], ['Needs: Read pages ✓.', 'ok'], ['Now: switched on.', null]]]]);
 $t('a check: Holds it once; the toggle lists only its other parts', substr_count($c, 'smaller than a full batch') === 1 && str_contains($c, 'Its other 2 parts'), $c);
+$c2 = tv_cb_check(['s' => 'bad', 'at' => time(), 'extra' => ['parts' => [['Railway: ' . $long, 'bad'], ['Needs: Read pages ✓.', 'ok']]]]);
+$t('…a long one: "Holds it:" sits inside its toggle\'s line', (bool) preg_match('/<span class="cb-tgt" data-cb-more><b class="cb-bad">Holds it:<\/b> Railway/u', $c2), $c2);
 $o = tv_cb_check(['s' => 'bad', 'at' => time(), 'said' => 'What holds it: Its gate: the switch-on check has no red line for it. ' . $long]);
 $t('a line from before parts: no "What holds it" lead-in, said once, and it says to press Check', substr_count($o, 'no red line') === 1 && !str_contains($o, 'What holds it') && str_contains($o, 'press Check'), $o);
+// an alarm's buttons: whole buttons dropped to fit, never a cut list; its Pulse item has the same buttons, acting in place
+$pdo->exec('DELETE FROM control_alarms');
+$many = []; for ($i = 0; $i < 4; $i++) $many[] = ['Step ' . $i . ' ' . str_repeat('x', 80), 'ops', 'ops_runnext:t' . $i, str_repeat('y', 40)];
+ControlAlarms::raise($pdo, 'ops:empty:t0', 'wf:W1', 'warning', 'check', 'W1 t0 returns empty', '', '', '', $many, false);
+$fx = json_decode((string) ControlAlarms::openOf($pdo, 'ops:empty:t0')['fix'], true);
+$t('a long list of buttons: whole ones dropped, still a list', is_array($fx) && count($fx) >= 1 && count($fx) < 4, ControlAlarms::openOf($pdo, 'ops:empty:t0')['fix']);
+$id = (int) ControlAlarms::raise($pdo, 'ops:cap:tavily', 'svc:tavily', 'warning', 'limit', 'Tavily at 95%', 'm', 'd', '95%', [['Raise the cap', 'opsask', 'ops_cap:tavily_cap', ['Tavily cap (searches)', '1000']], ['Pause it', 'ops', 'ops_pause:tavily', 'Pause Tavily?'], ['Its register entry', 'peek', '/admin/config/register#svc-tavily']], false);
+$s = fn (string $t, string $h, ?array $act = null, bool $auto = false) => ['t' => $t, 'h' => $h, 'act' => $act, 'auto' => $auto];
+$ps = ControlAlarms::pulseSteps($pdo, $id, $s);
+$t('its Pulse item: Raise the cap as a form, Pause it as a button, its entry and the board beside it', count($ps) === 4 && $ps[0]['act'][0] === 'form' && $ps[0]['act'][1] === 'alarm_ops_cap:tavily_cap' && $ps[0]['act'][3][0][3] === '1000' && $ps[1]['act'] === ['do', 'alarm_ops_pause:tavily', 'Pause it'] && $ps[2]['act'][0] === 'tool' && str_contains((string) $ps[3]['act'][1], 'cb-alarm-' . $id), $ps);
+$bad = ''; try { ControlAlarms::pulseDo($pdo, $id, 'alarm_ops_runnext:../x', [], 1, 'T'); } catch (Throwable $x) { $bad = $x->getMessage(); }
+$t('…a step it doesn\'t carry is refused', $bad === 'Unknown step.', $bad);
+$sv = (int) ControlAlarms::raise($pdo, 'svc:issue:3', 'svc:osm', 'warning', 'retry', 'kumi times out');
+$t('…an outside service\'s alarm gets Mark resolved in Pulse too', in_array(['do', 'alarm_svcresolve:3', 'Mark resolved'], array_column(ControlAlarms::pulseSteps($pdo, $sv, $s), 'act'), true));
 echo "\n$pass passed, $fail failed\n";
 exit($fail ? 1 : 0);
