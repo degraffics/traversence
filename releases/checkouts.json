@@ -90,7 +90,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Design Release 3a: the site frame on the tokens, headings serif, Edit page switch, the footer zone",
    "since": "2026-11-18T22:53:12Z",
-   "expires": "2026-11-19T02:53:12Z",
+   "expires": "2026-11-19T03:00:52Z",
    "release": "design-r3a-frame.zip",
    "callers": {}
   },
@@ -101,7 +101,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Design Release 3a: the site frame on the tokens, headings serif, Edit page switch, the footer zone",
    "since": "2026-11-18T22:53:12Z",
-   "expires": "2026-11-19T02:53:12Z",
+   "expires": "2026-11-19T03:00:52Z",
    "release": "design-r3a-frame.zip",
    "callers": {}
   },
@@ -112,9 +112,19 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Design Release 3a: the site frame on the tokens, headings serif, Edit page switch, the footer zone",
    "since": "2026-11-18T22:53:12Z",
-   "expires": "2026-11-19T02:53:12Z",
+   "expires": "2026-11-19T03:00:52Z",
    "release": "design-r3a-frame.zip",
-   "callers": {}
+   "callers": {
+    "tv_footer": [
+     "app/ui/auth-nav.php",
+     "app/ui/page-shell.php",
+     "website/directory/classic.php",
+     "website/index.php"
+    ],
+    "tv_footer_checkout": [
+     "app/ui/page-shell.php"
+    ]
+   }
   },
   {
    "path": "app/ui/context-switcher.php",
@@ -123,9 +133,19 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Design Release 3a: the site frame on the tokens, headings serif, Edit page switch, the footer zone",
    "since": "2026-11-18T22:53:12Z",
-   "expires": "2026-11-19T02:53:12Z",
+   "expires": "2026-11-19T03:00:52Z",
    "release": "design-r3a-frame.zip",
-   "callers": {}
+   "callers": {
+    "tv_acting_bar": [
+     "app/ui/page-shell.php",
+     "website/index.php",
+     "website/user/dashboard.php"
+    ],
+    "tv_context_switcher": [
+     "app/ui/app-shell.php",
+     "app/ui/header.php"
+    ]
+   }
   },
   {
    "path": "app/ui/auth-nav.php",
@@ -160,7 +180,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Design Release 3a: the site frame on the tokens",
    "since": "2026-11-18T22:53:12Z",
-   "expires": "2026-11-19T02:53:51Z",
+   "expires": "2026-11-19T03:00:52Z",
    "release": "design-r3a-frame.zip",
    "callers": {
     "tv_page_start": [
@@ -263,7 +283,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Design Release 3a: the site frame on the tokens",
    "since": "2026-11-18T22:53:12Z",
-   "expires": "2026-11-19T02:53:51Z",
+   "expires": "2026-11-19T03:00:52Z",
    "release": "design-r3a-frame.zip",
    "callers": {
     "zone": [
@@ -283,7 +303,25 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Design Release 3a: the site frame on the tokens, headings serif, Edit page switch, the footer zone",
    "since": "2026-11-18T22:53:12Z",
-   "expires": "2026-11-19T02:53:12Z",
+   "expires": "2026-11-19T03:00:52Z",
+   "release": "design-r3a-frame.zip",
+   "callers": {
+    "choose": [
+     "app/ui/pulse-ui.php",
+     "website/js/admin-preflight.js",
+     "website/js/tv-env-edit.js",
+     "website/js/tv-pulse.js"
+    ]
+   }
+  },
+  {
+   "path": "app/ui/auth-nav.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "release design-r3a-frame.zip",
+   "since": "2026-11-18T23:00:52Z",
+   "expires": "2026-11-19T03:00:52Z",
    "release": "design-r3a-frame.zip",
    "callers": {}
   }
