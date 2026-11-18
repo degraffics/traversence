@@ -37,6 +37,10 @@ Alongside: `releases-self-withdraw` (#122), `releases-live-2` (#123), `releases-
   OpenStreetMap's card and Mark resolved (`svcresolve`, api.php); any `svc:issue:` alarm gets Mark resolved. Pulse:
   ops:cap and ops:empty are alarms (`raise(..., $event=false)` for readings), the pre-flight case only for a stopped run,
   a svc: case skipped when its alarm is open. The seed raises an endpoint's 5xx only if its latest call failed.
+- `control-board-3b-3` (after 3b-2 is live): Overpass gets no contact at all while held (Jason, 2026-11-18, via the
+  session manager: "no contact at all while they're held … never by itself"): `ServiceHealth::noProbe` (an `osm` refusal)
+  stops its probe from the crawler and the site and Check it now; the alarm, case, FAQ and the statement to OSM say so;
+  0171 §8 has the note. Pulse's `$rank` gains urgent and special (0172's levels, Communications' ask).
 - Next, 3c: the Starting (ops:start) and W0 (ops:w0) cases into alarms; the health report's `alarms` block for the hourly
   push; admin Pulse read state; slow detection; the worker's retries; the crawler-run page and "W1 today"; off-region
   sources (a rule first); the release pipeline's two guards.

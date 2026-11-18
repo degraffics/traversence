@@ -53,6 +53,17 @@ $c2 = tv_cb_check(['s' => 'bad', 'at' => time(), 'extra' => ['parts' => [['Railw
 $t('…a long one: "Holds it:" sits inside its toggle\'s line', (bool) preg_match('/<span class="cb-tgt" data-cb-more><b class="cb-bad">Holds it:<\/b> Railway/u', $c2), $c2);
 $o = tv_cb_check(['s' => 'bad', 'at' => time(), 'said' => 'What holds it: Its gate: the switch-on check has no red line for it. ' . $long]);
 $t('a line from before parts: no "What holds it" lead-in, said once, and it says to press Check', substr_count($o, 'no red line') === 1 && !str_contains($o, 'What holds it') && str_contains($o, 'press Check'), $o);
+// no contact while Overpass is held (Jason, 2026-11-18): no probe goes out for an OpenStreetMap refusal; other services' do
+$pdo->exec('DELETE FROM service_issues');
+$pdo->exec("INSERT INTO service_issues (id, service, host, caller, kind, first_at, last_at, evidence, probe_url, probe_every_min, probe_agent, next_probe_at) VALUES
+    (10, 'osm', 'overpass-api.de', 'crawler', 'ban', NOW(), NOW(), '{}', 'https://overpass-api.de/api/status', 1440, 'as_refused', UTC_TIMESTAMP() - INTERVAL 1 HOUR),
+    (11, 'tavily', 'api.tavily.com', 'crawler', 'quota', NOW(), NOW(), '{}', 'https://api.tavily.com/usage', 360, '', UTC_TIMESTAMP() - INTERVAL 1 HOUR),
+    (12, 'osm', 'overpass.kumi.systems', 'crawler', 'timeout', NOW(), NOW(), '{}', 'https://overpass.kumi.systems/api/status', 360, '', UTC_TIMESTAMP() - INTERVAL 1 HOUR)");
+$due = array_column(ServiceHealth::dueProbes($pdo, 'crawler'), 'id');
+$t('held Overpass: no probe goes out (not even its status page); another service\'s and a timeout\'s still do', !in_array(10, $due, true) && in_array(11, $due, true) && in_array(12, $due, true), $due);
+$t('…and none is scheduled again for it', $pdo->query('SELECT next_probe_at FROM service_issues WHERE id = 10')->fetchColumn() === null);
+$t('…Check it now sends nothing for it', ServiceHealth::probeSoon($pdo, 10) === false && $pdo->query('SELECT next_probe_at FROM service_issues WHERE id = 10')->fetchColumn() === null);
+$t('…the rule: an OpenStreetMap refusal only', ServiceHealth::noProbe(['service' => 'osm', 'kind' => 'ban']) && ServiceHealth::noProbe(['service' => 'osm', 'kind' => 'quota']) && !ServiceHealth::noProbe(['service' => 'osm', 'kind' => 'timeout']) && !ServiceHealth::noProbe(['service' => 'tavily', 'kind' => 'ban']));
 // an alarm's buttons: whole buttons dropped to fit, never a cut list; its Pulse item has the same buttons, acting in place
 $pdo->exec('DELETE FROM control_alarms');
 $many = []; for ($i = 0; $i < 4; $i++) $many[] = ['Step ' . $i . ' ' . str_repeat('x', 80), 'ops', 'ops_runnext:t' . $i, str_repeat('y', 40)];
