@@ -8,9 +8,14 @@
    "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
    "why": "Start's report downloads; the check's notice; Operational; phone top bar (Jason, 2026-11-18)",
    "since": "2026-11-18T01:28:48Z",
-   "expires": "2026-11-18T05:28:48Z",
-   "release": "start-report",
-   "callers": {}
+   "expires": "2026-11-18T05:28:54Z",
+   "release": "start-report.zip",
+   "callers": {
+    "panel": [
+     "app/admin/automation-console.php",
+     "app/admin/operations-console.php"
+    ]
+   }
   },
   {
    "path": "app/admin/automation-console.php",
@@ -19,8 +24,8 @@
    "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
    "why": "Start's report downloads; the check's notice; Operational; phone top bar (Jason, 2026-11-18)",
    "since": "2026-11-18T01:28:48Z",
-   "expires": "2026-11-18T05:28:48Z",
-   "release": "start-report",
+   "expires": "2026-11-18T05:28:54Z",
+   "release": "start-report.zip",
    "callers": {}
   },
   {
@@ -41,8 +46,19 @@
    "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
    "why": "Start's report downloads; the check's notice; Operational; phone top bar (Jason, 2026-11-18)",
    "since": "2026-11-18T01:28:48Z",
-   "expires": "2026-11-18T05:28:48Z",
-   "release": "start-report",
+   "expires": "2026-11-18T05:28:54Z",
+   "release": "start-report.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/admin/api.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
+   "why": "release start-report.zip",
+   "since": "2026-11-18T01:28:54Z",
+   "expires": "2026-11-18T05:28:54Z",
+   "release": "start-report.zip",
    "callers": {}
   }
  ],
