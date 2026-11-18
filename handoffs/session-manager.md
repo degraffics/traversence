@@ -137,6 +137,10 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
   3a. **State licence lists: a write-up (a decision) and a build plan, then its own build** (Jason, 2026-11-17: "this
      seems like it needs a build of its own. Let's put it into the queue for a write up and build plan"). After W15,
      since it feeds the funnel and uses the one identity check.
+     - **The crawler's log line** (Jason, 2026-11-18): every run logs "held: apachecountyaz.gov (Paused by a person (Added
+       switched off (Jason, 2026-11-15): nothing calls it until Release B…". It stays off (Cloudflare; its list comes by
+       hand), but the wording is stale: this build rewords `Operations::seed`'s reason for `azlicences` to "never crawled:
+       Cloudflare; its list comes by hand (licence lists)" and finds what still sends the crawler to it.
      - **Why:** licensing sites block automation (azliquor.gov and liquor.az.gov, roc.az.gov, apachecountyaz.gov: a
        Cloudflare challenge on every page, `robots.txt` too; never worked around, 0164), but a person can export a
        county's list. Jason's Apache County export (2026-11-17, `license_search_export.csv`, DLLC): 250 licences, 23

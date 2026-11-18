@@ -3,28 +3,28 @@
  "built_on": "01a7ce2 Sync: 2026-11-18 01:19 UTC",
  "recorded": "2026-11-18 01:29 UTC",
  "note": "Start report downloads, truthful check notice, Operational, phone top bar; built on Sync 01:19 UTC Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "ac83780 Sync: 2026-11-18 01:32 UTC",
  "files": {
   "app/admin/automation-console.php": {
    "sha256": "b07566b42930df1c712142dd9a987fe84506aa41fe1f263e8a0141cc027271e6",
-   "live": false
+   "live": true
   },
   "app/lib/SystemStart.php": {
    "sha256": "8e2572e802198ea515bd584e094f3bfff8e53d258ed8ebd83ba8ba794b82d5fe",
-   "live": false
+   "live": true
   },
   "app/ui/app-shell.php": {
    "sha256": "5a549430ed96988ca54267deb231cc273b57948642356abe15031fd21e31cb4d",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "e4ddde380c2093c446f1a4a59dcb6d616a4a980a26d7b10f7dfb66241ca39340",
-   "live": false
+   "live": true
   },
   "website/admin/api.php": {
    "sha256": "7aee40a048e45a1c7b4a645bdca460a325d99fa36fb6f49fc081e7c73abf8e8b",
-   "live": false
+   "live": true
   }
  }
 }
