@@ -278,3 +278,10 @@ Jason's rule: "Fix it can't take me to another page."
 - **Hub lines:** `SystemStart::hubTermsInline` lists each hub source whose terms aren't read, skipping blocked ones. Each gets **Read its terms**, which opens the source's own page in a new tab, and **Terms read: allowed**: `au_do=start_hub_terms` → `HubOpening::pulseDo('hub_terms:<id>')`, checked against hubs.open.
 - **Other 'tool' fixes:** open in a drawer (`data-peek-frame`).
 - **Held steps:** a held step whose own fixes are listed doesn't repeat them in its status line.
+
+## start-phone (2026-11-18, built on Sync 02:11 UTC)
+
+- **Phone width.** The `.st-q` and `.st-runs` grids use `minmax(0,1fr)`, `#start` wraps long words, and tables use a fixed layout. The card now fits at 390px; before, it was 428px wide.
+- **Back to the card.** Card forms post to `<action>#start`. The Automation page sets `SystemStart::$said`, and the answer to the press is shown at the top of the card.
+- **Paused workflows.** A done or on workflow that a person paused (`personPaused`, or "Left paused") shows as Paused, with What to do and Switch it on (`wf_on`).
+- **Railway, read at 02:11 UTC.** No crashes, and no failed deploys since 18:07 UTC on Nov 17. The crawler's partial runs come only from Common Crawl's index timing out (issue #13, held).
