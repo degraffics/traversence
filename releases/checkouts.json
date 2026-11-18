@@ -1,6 +1,51 @@
 {
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
- "claims": [],
+ "claims": [
+  {
+   "path": "app/lib/SystemStart.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
+   "why": "Start's report downloads; the check's notice; Operational; phone top bar (Jason, 2026-11-18)",
+   "since": "2026-11-18T01:28:48Z",
+   "expires": "2026-11-18T05:28:48Z",
+   "release": "start-report",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/automation-console.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
+   "why": "Start's report downloads; the check's notice; Operational; phone top bar (Jason, 2026-11-18)",
+   "since": "2026-11-18T01:28:48Z",
+   "expires": "2026-11-18T05:28:48Z",
+   "release": "start-report",
+   "callers": {}
+  },
+  {
+   "path": "website/admin/api.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
+   "why": "Start's report downloads; the check's notice; Operational; phone top bar (Jason, 2026-11-18)",
+   "since": "2026-11-18T01:28:48Z",
+   "expires": "2026-11-18T05:28:48Z",
+   "release": "start-report",
+   "callers": {}
+  },
+  {
+   "path": "app/ui/app-shell.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
+   "why": "Start's report downloads; the check's notice; Operational; phone top bar (Jason, 2026-11-18)",
+   "since": "2026-11-18T01:28:48Z",
+   "expires": "2026-11-18T05:28:48Z",
+   "release": "start-report",
+   "callers": {}
+  }
+ ],
  "lapsed": [
   {
    "path": "app/admin/sections.php",
