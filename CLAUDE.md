@@ -45,6 +45,11 @@ at once; a long build moves to a fresh session per phase, from its handoff. **Fi
 without asking** (Jason, 2026-11-14): one that has said it's done or handed off, with its work in `main` and nothing
 waiting on Jason, is archived and named in the report. A session waiting on him is never archived.
 
+## Build sessions follow the playbook (Jason, 2026-11-18): every build
+
+Before the first release, read `handoffs/builder-playbook.md`: fixes in place, a way back for every action, the phone at
+390px, words kept true, one coherent release, `send.py`'s refusals fixed at the cause, OKs through the session manager.
+
 ## Keep this file lean
 
 It loads in full every session, and so does `README.md` (imported below). One short rule per point; the detail lives in

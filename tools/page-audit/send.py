@@ -13,7 +13,7 @@ kept-line edit as add, each edit of existing code as a change on the functions o
 zip's name, so a session that forgot to claim still can't collide. A clash stops the send. The claims are released when
 `deliveries.py verify` finds the release live.
 """
-import json, argparse, os, shutil, subprocess, sys, zipfile
+import json, argparse, os, re, shutil, subprocess, sys, zipfile
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import checkout  # noqa: E402
@@ -50,6 +50,41 @@ def take_claims(a, name):
         print('Note: ' + n)
 
 
+# What the site's Releases page refuses or strands, caught before sending (session manager, 2026-11-18, after #70, #106,
+# #108 and #109): the same add-only rule as Releases.php's checks, a switch the site knows, a name never sent before.
+NOT_ADD_ONLY = re.compile(r'\b(DROP\s+(TABLE|COLUMN|INDEX|KEY|DATABASE|VIEW|TRIGGER)|RENAME\s+(TABLE|COLUMN|TO)|TRUNCATE|DELIMITER'
+                          r'|CREATE\s+(DEFINER\S*\s+)?PROCEDURE|MODIFY\s+(COLUMN\s+)?\w+|CHANGE\s+(COLUMN\s+)?\w+)\b', re.I)
+
+
+def guard(a, name, plan, z):
+    stem = name[:-4]
+    if os.path.exists(os.path.join(DOCS, 'deliveries', stem + '.json')):
+        sys.exit(name + ' was sent before (deliveries/' + stem + '.json): the site won\'t take the same name twice. '
+                 'Give the rebuilt zip a new name (e.g. ' + stem + '-2.zip).')
+    sw = str(plan.get('switch', '') or '').strip()
+    if sw:
+        known = False
+        for src in (os.path.join(a.mirror, 'sync-app', 'lib', 'Switches.php'),):
+            if os.path.exists(src) and ("'" + sw + "' =>") in open(src, encoding='utf-8', errors='replace').read():
+                known = True
+        if 'app/lib/Switches.php' in z.namelist() and ("'" + sw + "' =>") in z.read('app/lib/Switches.php').decode('utf-8', 'replace'):
+            known = True
+        if not known:
+            sys.exit('release.json\'s "switch" is "' + sw + '", which isn\'t a switch on the live site or in this zip\'s '
+                     'Switches.php: the release would stop at Planned. Use "" for a release without one.')
+    removes = plan.get('removes') or []
+    for p in z.namelist():
+        if not (p.startswith('app/migrations/') and p.endswith('.sql')):
+            continue
+        sql = re.sub(r'--[^\n]*|/\*.*?\*/', ' ', z.read(p).decode('utf-8', 'replace'), flags=re.S)
+        m = NOT_ADD_ONLY.search(sql)
+        if m and not removes:
+            sys.exit(p + ' isn\'t add-only ("' + m.group(0) + '"): the site\'s "Migrations only add" check fails it. Add a new '
+                     'column or table instead (decisions/0162); a removal only of a rollback\'s leftover, named under "removes".')
+        if re.search(r'\b(UPDATE|DELETE\s+FROM)\b', sql, re.I) and not plan.get('data_reason'):
+            sys.exit(p + ' changes data (UPDATE/DELETE): release.json needs "data_reason" (decisions/0162).')
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('zip')
@@ -71,6 +106,7 @@ def main():
             sys.exit('release.json isn\'t valid JSON.')
         if not plan.get('changes'):   # the review email, Pulse case and site manager list these (Jason, 2026-11-15: legible on a phone)
             print('Warning: release.json has no "changes" list ([{"what": "a few words", "where": "where to look"}]): the review email falls back to "why" split into its numbered parts.')
+        guard(a, name, plan, z)
     take_claims(a, name)
     check = [sys.executable, os.path.join(HERE, 'zipcheck.py'), a.zip, '--mirror', a.mirror, '--docs', DOCS] + (['--drops', a.drops] if a.drops else []) \
         + (['--session', a.session] if a.session else []) + (['--callers-checked', a.callers_checked] if a.callers_checked else [])
