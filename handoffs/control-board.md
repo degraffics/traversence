@@ -16,6 +16,19 @@
 
 Alongside: `releases-self-withdraw` (#122), `releases-live-2` (#123), `releases-marks` (#125) and `releases-table-2` (#126) on the Releases page.
 
+**Release 3 in this session** (Jason, 2026-11-18: "go with 3, but keep it here"; then one session through the whole board).
+- PR #940 `board-w2-verify` (built on 19:23): W2's verify.php 500 no longer fails every run (each listing on its own, set
+  aside with its error); the real error on W2's row; the held count's test time.
+- `control-board-3a` (built on 19:36, after #940): `control_alarms` (OWN), `ControlAlarms` (raise, clear, ack, unack,
+  list, counts, seed, tick, pulseBody, procOfEndpoint), the watch `control_tick` (Scheduler JOBS and AUTO), alarms from
+  the ledger, crawler run reports, ServiceHealth and pre-flight lines; the queue replacing Holding now; the result line
+  (procedure, time, names to alarms, Open the report, Run it again); rows that lead with why from their latest runs; the
+  top-bar light; Notify `alarm.trip` / `alarm.warning` with Acknowledge in the message; Pulse items per alarm, Done =
+  acknowledge. Comms (#135) owns Notify and Pulse's levels; its session agreed the kinds and the Pulse item.
+- Next, 3b: Pulse's five old case kinds (pre-flight, Starting, svc:, ops:cap, ops:empty) retired for their alarms; the
+  health report's `alarms` block for the hourly push; admin Pulse read state; slow detection; the worker's retries.
+- 3c: the crawler-run page and "W1 today"; off-region sources (a rule first); the release pipeline's two guards.
+
 **Release 3 (decisions/0171 §15.3): real-time monitoring, the alarms and Pulse.**
 - `control_alarms` and `control_tick`; slow, retry and crash caught when they happen (§5).
 - The annunciator (§7): the top-bar light, the email, the health report's `alarms` block and the hourly push with the

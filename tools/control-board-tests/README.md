@@ -37,3 +37,9 @@ and `website/api/` (the mirror's `sync-storage/api/crawl` and `api/video`). Put 
 - `r2d.php`: a check shown part by part (Jason, 2026-11-18: "Red x but green checks too?"): W0's check with a red dry
   run names the dry run as what holds it, never the gate whose words say "no red line"; the board lists the parts with
   their marks, the red one first. 7 tests: after `r2a`'s schema and 2a's migration, `php r2d.php <root>/app`.
+- `r3a.php`: release 3a, the alarms: raised once per problem (a repeat updates it, worse becomes a trip), cleared by
+  itself saying how, acknowledged and undone; the ledger's server errors and wrong counts (by the process each endpoint
+  serves); the 5-minute watch (a run that never reported, a job that stopped, W0 quiet); the seed (red pre-flight lines
+  named by the part that holds them, W2's server error, off-region sources), the dispatcher's alarm kinds and the Pulse
+  body with Acknowledge. 24 tests: after `r2a`'s schema and 2a's migration, `php r3a.php <root>/app`.
+- `w2-verify.php`: W2's second look: a listing whose check throws is set aside with its error; the board reads it.
