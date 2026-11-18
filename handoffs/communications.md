@@ -242,3 +242,14 @@ mailboxes; Set up receiving for Amazon SES only if wanted (it costs about $0.10 
 (and a body in `Notify::BODIES` if it wants Acknowledge inside the message), and per-person read state of the admin
 stream's cases; it rebuilds `Scheduler.php`, `staging-tables.php` and `Pulse.php` from the live copy.
 **Done.** Steps 3–7 and 0167 are live; what's left is listed above, and step 8 (texting) needs its own decision first.
+
+## Reopened: the admin Pulse Stream to 0172 (2026-11-18)
+
+Jason: "if communications is done why does my inbox look the same?" Release `comms-pulse.zip` (built on Sync 19:51 UTC,
+e4d4bb0; files `app/ui/pulse-ui.php`, `app/ui/faq.md`): `tv_pulse_board` only. Bundling cases (`engine:person`,
+`sitehealth:open`) show one row per step, keyed `<case>:<the step's action>`, acting through the case (`api()` maps a
+row to its parent key and step number). A row opens in place: the case panel moves under it (one at a time); **Work on
+it** carries it to the drawer. The seven icons and the views use `PulseMarks` (`pulse:<key>` items). Rendered at 1280
+and 390 wide with sample cases (a stand-in Pulse::items and endpoint); every icon pressed once; no sideways scroll.
+Pulse.php is untouched: the Control Board session's 3b changes `Pulse::items` (its `$rank` needs `urgent` and
+`special` once anything uses them; told to it).
