@@ -178,60 +178,120 @@
    "callers": {}
   },
   {
-   "path": "app/admin/kit-css.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
-   "why": "Admin design directive: palette tokens, one command header, spacing",
-   "since": "2026-11-18T21:46:56Z",
-   "expires": "2026-11-19T01:46:56Z",
-   "release": "admin-design.zip",
-   "callers": {}
-  },
-  {
-   "path": "website/admin/router.php",
+   "path": "app/admin/crawler-console.php",
    "functions": [
     "(top)",
-    "tv_admin_board_light"
+    "tv_admin_mod_crawler"
    ],
    "kind": "change",
-   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
-   "why": "Admin design directive: palette tokens, one command header, spacing",
-   "since": "2026-11-18T21:46:56Z",
-   "expires": "2026-11-19T01:46:56Z",
-   "release": "admin-design.zip",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 3e: each crawler run opens to its records",
+   "since": "2026-11-18T21:49:32Z",
+   "expires": "2026-11-19T01:49:37Z",
+   "release": "control-board-3e.zip",
    "callers": {}
   },
   {
-   "path": "website/js/admin-kit.js",
+   "path": "app/lib/ControlLedger.php",
+   "functions": [
+    "records",
+    "runCounts",
+    "whatKind"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 3e: each crawler run opens to its records",
+   "since": "2026-11-18T21:49:34Z",
+   "expires": "2026-11-19T01:49:37Z",
+   "release": "control-board-3e.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/crawler-console.php",
+   "functions": [
+    "tv_crawler_rec",
+    "tv_crawler_rec_css",
+    "tv_crawler_rec_groups",
+    "tv_crawler_records_page",
+    "tv_crawler_run_page"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 3e: each crawler run opens to its records",
+   "since": "2026-11-18T21:49:34Z",
+   "expires": "2026-11-19T01:49:34Z",
+   "release": "control-board-3e",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/staging-tables.php",
    "functions": [],
    "kind": "change",
-   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
-   "why": "Admin design directive: palette tokens, one command header, spacing",
-   "since": "2026-11-18T21:46:56Z",
-   "expires": "2026-11-19T01:46:56Z",
-   "release": "admin-design.zip",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "comms_mail_blocks and the forwards table classed (0172 gaps release)",
+   "since": "2026-11-18T21:58:44Z",
+   "expires": "2026-11-19T01:58:44Z",
+   "release": "",
    "callers": {}
   },
   {
-   "path": "app/ui/command-strip.php",
+   "path": "app/lib/Notify.php",
    "functions": [
-    "tv_command_strip"
+    "KINDS"
    ],
    "kind": "change",
-   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
-   "why": "Admin design directive: palette tokens, one command header, spacing",
-   "since": "2026-11-18T21:46:56Z",
-   "expires": "2026-11-19T01:46:56Z",
-   "release": "admin-design.zip",
-   "callers": {
-    "tv_command_strip": [
-     "app/admin/legal-editor.php",
-     "website/admin/client-order.php",
-     "website/admin/content-template.php",
-     "website/admin/guide-edit.php"
-    ]
-   }
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "0172 gaps G1-G11 as one release (Jason approved 2026-11-18)",
+   "since": "2026-11-18T22:03:07Z",
+   "expires": "2026-11-19T02:03:07Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Community.php",
+   "functions": [
+    "feed"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "0172 gaps G1-G11 as one release (Jason approved 2026-11-18)",
+   "since": "2026-11-18T22:03:09Z",
+   "expires": "2026-11-19T02:03:09Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/PulseAct.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "0172 gaps G1-G11 as one release (Jason approved 2026-11-18)",
+   "since": "2026-11-18T22:03:11Z",
+   "expires": "2026-11-19T02:03:11Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "app/migrations/2027-03-21_pulse_forwards.sql",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "0172 gaps G1-G11 as one release (Jason approved 2026-11-18)",
+   "since": "2026-11-18T22:03:13Z",
+   "expires": "2026-11-19T02:03:13Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "app/migrations/2027-03-21_mail_blocks.sql",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "0172 gaps G1-G11 as one release (Jason approved 2026-11-18)",
+   "since": "2026-11-18T22:03:15Z",
+   "expires": "2026-11-19T02:03:15Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
