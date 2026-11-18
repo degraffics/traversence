@@ -47,6 +47,12 @@ current pages stay reachable until the board replaces them (archived, not delete
 4. **Release 3: the historian and the annunciator.**
 5. **Release 4: the logbook and the shift reports.**
 
+## Where it stands (kept current by the build session)
+
+- **2026-11-18:** the decision is written: `decisions/0171-the-control-board.md` (proposed). It was checked against the
+  live mirror at "Sync: 2026-11-18 02:36 UTC" and sent to the session manager for Jason's OK. Nothing is built.
+  Release 1 starts after his answer.
+
 ## What exists to build on (live mirror, `sync-app/` = `app/`, `sync-storage/` = `website/`)
 
 - **Pre-flight**: `app/lib/Preflight.php` (GROUPS: the site, outside services, W0 and the crawler, query timings, the
