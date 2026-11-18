@@ -107,6 +107,12 @@ current pages stay reachable until the board replaces them (archived, not delete
   `start.php` the same as live. Counting rule: received = stored + updated + Review + refused, judged in release 3.
   When it's live, tell Jason that Resume on the AZCC service card is his call (it stays paused).
 
+- **2026-11-18: #121 (control-board-2a) failed its staging check.** The migration's column `stored` is a reserved
+  word in MySQL; MariaDB, used for the tests, accepts it. It was rebuilt as `control-board-2a-2` on the same sync, with
+  the count columns renamed to `n_sent`, `n_received`, `n_stored`, `n_updated`, `n_review` and `n_refused`, and the same
+  migration file name, so it replaces the failed one. The zip check's migration rule (R08) now refuses a MySQL reserved
+  word as a column name. #121 stays on staging as failed until it's withdrawn by hand; release 3 makes that automatic.
+
 ### Where the folded-in cleanup fixes go (build session, 2026-11-18)
 
 Release 1 closes none of them (it was built before they arrived). The plan:

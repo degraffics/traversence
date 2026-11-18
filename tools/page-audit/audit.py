@@ -285,6 +285,21 @@ def check_csrf(files, findings):
             find(findings, 'R07', path, line_of(code, writes.start()), 'accepts a POST without Response::requireCsrf() (or a signature check): say why, or add it')
 
 # ---- R08: migrations -------------------------------------------------------------------------------------------------
+# MySQL 8's reserved words most likely as a column name (the full list: dev.mysql.com, "Keywords and Reserved Words")
+MYSQL_RESERVED = set('''ACCESSIBLE ADD ALL ALTER ANALYZE AND AS ASC BEFORE BETWEEN BIGINT BLOB BOTH BY CALL CASCADE CASE CHANGE CHAR
+CHARACTER CHECK COLLATE COLUMN CONDITION CONSTRAINT CONTINUE CONVERT CREATE CROSS CUBE CUME_DIST CURRENT_DATE CURRENT_TIME
+CURRENT_TIMESTAMP CURRENT_USER CURSOR DATABASE DATABASES DAY_HOUR DEC DECIMAL DECLARE DEFAULT DELAYED DELETE DENSE_RANK DESC
+DESCRIBE DETERMINISTIC DISTINCT DIV DOUBLE DROP DUAL EACH ELSE ELSEIF EMPTY ENCLOSED ESCAPED EXCEPT EXISTS EXIT EXPLAIN FALSE
+FETCH FIRST_VALUE FLOAT FOR FORCE FOREIGN FROM FULLTEXT FUNCTION GENERATED GET GRANT GROUP GROUPING GROUPS HAVING HIGH_PRIORITY
+IF IGNORE IN INDEX INFILE INNER INOUT INSERT INT INTEGER INTERVAL INTO IS ITERATE JOIN JSON_TABLE KEY KEYS KILL LAG LAST_VALUE
+LATERAL LEAD LEADING LEAVE LEFT LIKE LIMIT LINEAR LINES LOAD LOCALTIME LOCALTIMESTAMP LOCK LONG LOOP LOW_PRIORITY MATCH
+MAXVALUE MOD MODIFIES NATURAL NOT NTH_VALUE NTILE NULL NUMERIC OF ON OPTIMIZE OPTION OPTIONALLY OR ORDER OUT OUTER OUTFILE OVER
+PARTITION PERCENT_RANK PRECISION PRIMARY PROCEDURE PURGE RANGE RANK READ READS REAL RECURSIVE REFERENCES REGEXP RELEASE RENAME
+REPEAT REPLACE REQUIRE RESIGNAL RESTRICT RETURN REVOKE RIGHT RLIKE ROW ROWS ROW_NUMBER SCHEMA SCHEMAS SELECT SENSITIVE
+SEPARATOR SET SHOW SIGNAL SPATIAL SPECIFIC SQL SQLEXCEPTION SQLSTATE SQLWARNING STARTING STORED STRAIGHT_JOIN SYSTEM TABLE
+TERMINATED THEN TO TRAILING TRIGGER TRUE UNDO UNION UNIQUE UNLOCK UNSIGNED UPDATE USAGE USE USING UTC_DATE UTC_TIME
+UTC_TIMESTAMP VALUES VARCHAR VARYING VIRTUAL WHEN WHERE WHILE WINDOW WITH WRITE XOR ZEROFILL'''.split())
+
 def check_migrations(files, findings):
     bad = [(r'ADD\s+(?:COLUMN|INDEX|KEY)\s+IF\s+NOT\s+EXISTS', 'IF NOT EXISTS inside ALTER TABLE (MySQL rejects it; guard with information_schema)'),
            (r'\bDROP\s+(?:COLUMN|TABLE|INDEX|KEY)\b', 'drops something: a release is add-only, removals come in a later one'),
@@ -300,6 +315,17 @@ def check_migrations(files, findings):
                 find(findings, 'R08', path, line_of(src, m.start()), what)
         if re.search(r'\bCREATE\s+TABLE\b(?!\s+IF\s+NOT\s+EXISTS)', src, re.I):
             find(findings, 'R08', path, 1, 'CREATE TABLE without IF NOT EXISTS: not safe to run twice')
+        # a column named with a MySQL reserved word fails on the live server though MariaDB accepts it (release #121,
+        # 2026-11-18: a column `stored`): unquoted column names in CREATE TABLE and ADD COLUMN
+        clean = re.sub(r'--[^\n]*', '', src)
+        for m in re.finditer(r'CREATE\s+TABLE\s+(?:IF\s+NOT\s+EXISTS\s+)?\S+\s*\((.*?)\)\s*(?:ENGINE|;|$)', clean, re.I | re.S):
+            for line in m.group(1).split('\n'):
+                w = re.match(r'\s*([A-Za-z_][A-Za-z0-9_]*)\s+(?:BIG|TINY|SMALL|MEDIUM)?(?:INT|VARCHAR|CHAR|TEXT|DATE|DATETIME|TIMESTAMP|DECIMAL|FLOAT|DOUBLE|JSON|BLOB|ENUM|BOOL)', line, re.I)
+                if w and w.group(1).upper() in MYSQL_RESERVED:
+                    find(findings, 'R08', path, line_of(src, src.find(line.strip())) if line.strip() in src else 1, f'the column {w.group(1)} is a MySQL reserved word (MariaDB accepts it, the live server refuses it): rename it, or quote it with backticks everywhere')
+        for m in re.finditer(r'ADD\s+COLUMN\s+([A-Za-z_][A-Za-z0-9_]*)\b', clean, re.I):
+            if m.group(1).upper() in MYSQL_RESERVED:
+                find(findings, 'R08', path, 1, f'the column {m.group(1)} is a MySQL reserved word: rename it')
 
 # ---- R09: page tree ------------------------------------------------------------------------------------------------
 def page_url(path):
