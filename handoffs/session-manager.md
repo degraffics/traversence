@@ -78,6 +78,47 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
   a worker deploy restarts it (details at the top of `handoffs/crawler-revamp.md`); the automation master switch (release
   #48) makes any run that starts end at once. The hourly check expects no crawler runs meanwhile.
 
+## The working queue now (2026-11-18, 22:30 UTC; the sections below are the history behind it)
+
+**Building:**
+- **Control Board (0171)**, session_01CXLi5ivMY6BdkfHK1xdLWS: live through 3f (#120–#148). Next 4a (maintenance, Pulse
+  #31's list of unused names), 4b (the historian), 5 (logbook and reports); then the three lists of unused names for
+  Jason's OK.
+- **Design (`design/css-theme-brand.md`)**, session_01CXLi5jkgtUikcdUQ4Wmv28: Release 1 live (#146); Release 2 (the
+  admin, umber header; the 2026-11-12 sage bar retired) approved, sending; Release 3, public pages area by area, with
+  the visual fixes below and Pulse's new look.
+
+**Queued builds, in order:** W15 Funnel (0170); state licence lists (3a: decision first); the App store (0169) and its
+apps (QuickBooks Bookkeeper, QuickBooks Payments, Stripe Payments, Facebook Personal, Facebook Business, Storefront with
+trvgo.us's hyphenated addresses, members' and businesses' outside mailboxes); Release B's small leftovers; backups for
+the needs that have none; OpenStreetMap coverage from our Geofabrik copy.
+
+**Communications' open items** (Jason, 2026-11-18: "move still open to the working queue"; the build itself is done,
+#130, #135, #138, #141, #142, #147):
+1. Texting (0172 step 8): its own decision first (0172 §5; research in `handoffs/communications.md`).
+2. Journeys in Pulse's chips (2.10): its own build.
+3. The Marketplace feed in Pulse's chips (2.6): its own build.
+4. Pulse's new look: the design session's Release 3.
+5. A member's or business's own outside mailbox (0172 §4.7): decided in the App store build (0169).
+6. Gmail by sign-in: gated until a year's revenue reaches `GMAIL_ASSESSMENT_USD` (`Mailboxes::gmailGate`).
+7. Live checks: push on a real device; mailboxes against real servers once Jason adds keys at
+   https://traversence.com/admin/config/communications#cs-mailboxes; each new button pressed once on the live site.
+
+**Jason's own:** records requests (Arizona Corporation Commission, New Mexico's Secretary of State); Wikimedia Commons
+for heritage (store with credit, or link); approve 0164 §7.1's licence-source strategy; renew `GITHUB_SYNC_TOKEN`
+before Dec 16 (https://github.com/settings/tokens); the OpenStreetMap statement (a step on the board's Overpass trip).
+
+**Visual fixes** (to the design session's Release 3): Discovery's hero; the squeezed footer edit zone; page-builder
+editing switched on, not always on; stock photo bylines.
+
+**To purge or remove:** the old S3 bucket, then narrow the AWS key to SES; `.env` leftovers (Jason); the "Default
+place" settings row; merged branches on GitHub; the `_moved_npi_orgs` / `_moved_irs_orgs` drop (Jason's OK);
+`user/api/notices.php` (nothing calls it: through the sync's delete path, checked first); the unused names once
+Jason approves the Control Board's lists.
+
+**Done 2026-11-18:** Supabase vector security (3f); the Control Board's cleanup fixes (3e, 3f); 0167 (#135); 0172
+steps 2–7 (#130–#147).
+
 ## Where things stand (2026-11-16, 14:30 UTC)
 
 - **Built and live:** decisions/0165 (#56, #57), Release B (#58–#67), the photo fix (#68), and Start the system plus the
