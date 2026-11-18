@@ -1,6 +1,8 @@
 # 0102: Roles and support access (RBAC master)
 
-**Status:** Proposed (Jason, 2026-10-21). Builds on 0100 (staff logins and roles). Reviewed against an outside RBAC
+**Status:** Accepted and built (Jason, 2026-11-18, through the session manager: "Approve"). Proposed 2026-10-21. Its roles are
+what the admin runs on: `Access::can()` and `Modules::canTool()` (decisions/0109), staff roles, and White Glove support
+access (decisions/0117). Builds on 0100 (staff logins and roles). Reviewed against an outside RBAC
 compliance paper; adopted what fits a small-business platform, dropped the rest (end of this doc).
 
 ## 1. Principle
