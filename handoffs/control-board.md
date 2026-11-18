@@ -132,6 +132,14 @@ current pages stay reachable until the board replaces them (archived, not delete
   on 15:21: a green check, red X or grey dash at the start of each release and each check (Jason). After it: 2b, the
   board page.
 
+- **2026-11-18: #125 (releases-marks) live**, synced at 15:25 UTC. Then **releases-table-2**, built on 15:25 (Jason:
+  "formatted like our standard table format"; "a release opens on toggle under the title"; "why keep the green
+  notification?"). The Releases list is laid out as a table: search, one Shown filter, a header row, one row per release
+  in columns, each opening on its toggle under its title, stacking on a phone. There is no green notice on a live release
+  that's well. Only `sections.php` (the Releases section), `admin-releases.js` and `faq.md` change. The first
+  `releases-table` (each release on its own page) was withdrawn before merge: Jason said a page of its own deviates from
+  how our tables open. 2b waits behind it.
+
 ### Where the folded-in cleanup fixes go (build session, 2026-11-18)
 
 Release 1 closes none of them (it was built before they arrived). The plan:

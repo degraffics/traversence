@@ -1,0 +1,22 @@
+{
+ "zip": "releases-table-2.zip",
+ "built_on": "2611fb8 Sync: 2026-11-18 15:25 UTC",
+ "recorded": "2026-11-18 15:43 UTC",
+ "note": "Releases page laid out as a table, each release opening under its title, no repeated green notice; built on Sync: 2026-11-18 15:25 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/admin/sections.php": {
+   "sha256": "ef26a2537e80bcc5158fc2abd0c7d2f9d363ebc857e50d08cdfa45ae93cc1b9d",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "e7b5440f987b6fa20cb10a0e23675ca1f06be102b764644e1f8e3cdcc36a88cd",
+   "live": false
+  },
+  "website/js/admin-releases.js": {
+   "sha256": "a208849d40b1fcfaccd1c1cd84ca8f3f0eef86472a1b6dcdc46588f0d43d137d",
+   "live": false
+  }
+ }
+}
