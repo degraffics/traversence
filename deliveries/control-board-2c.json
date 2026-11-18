@@ -3,32 +3,32 @@
  "built_on": "2eb2b4f Sync: 2026-11-18 16:50 UTC",
  "recorded": "2026-11-18 16:54 UTC",
  "note": "System Control Board release 2c: the service cards' fixes. Built on Sync: 2026-11-18 16:50 UTC. Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "31ccfb2 Sync: 2026-11-18 16:58 UTC",
  "files": {
   "app/lib/Operations.php": {
    "sha256": "e39faa294b61bee74acd0b6f4201f6870c0383ba7a5f0b7c933eae6818478cca",
-   "live": false
+   "live": true
   },
   "app/lib/OutsideServices.php": {
    "sha256": "95aabea7cee3e7d135a1ab38da5a890d473a41c2f6d741877dc7d8ec866d386b",
-   "live": false
+   "live": true
   },
   "app/lib/staging-tables.php": {
    "sha256": "0e90dcb8c2dbf53de66c15907f5b726e23001ed0bb12b3f964e3995cec9b83d0",
-   "live": false
+   "live": true
   },
   "app/migrations/2026-11-18_added_off_words.sql": {
    "sha256": "68c69a0957106dc849506404f676bba05e7d4ec1e13c0862dc184898a175cbc4",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "fcaeefe74160f05e647dd48b3a065da49e2b3ebb35545e700dcd8c66c8259e65",
-   "live": false
+   "live": true
   },
   "website/admin/crawler.php": {
    "sha256": "34f90090feb4b6368268837b7e6b30fb543b2c24148dc89ba84618ef0a27bbc8",
-   "live": false
+   "live": true
   }
  }
 }
