@@ -118,21 +118,22 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "Releases page keeps itself current",
    "since": "2026-11-18T14:59:23Z",
-   "expires": "2026-11-18T19:00:25Z",
-   "release": "releases-live.zip",
+   "expires": "2026-11-18T19:04:12Z",
+   "release": "releases-live-2.zip",
    "callers": {}
   },
   {
    "path": "app/admin/sections.php",
    "functions": [
+    "(top)",
     "tv_admin_mod_releases"
    ],
    "kind": "change",
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "Releases page: checks folded into a log toggle",
    "since": "2026-11-18T15:03:04Z",
-   "expires": "2026-11-18T19:03:04Z",
-   "release": "releases-live-2",
+   "expires": "2026-11-18T19:04:12Z",
+   "release": "releases-live-2.zip",
    "callers": {}
   },
   {
@@ -142,9 +143,13 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "Releases page: checks folded into a log toggle",
    "since": "2026-11-18T15:03:04Z",
-   "expires": "2026-11-18T19:03:04Z",
-   "release": "releases-live-2",
-   "callers": {}
+   "expires": "2026-11-18T19:04:12Z",
+   "release": "releases-live-2.zip",
+   "callers": {
+    "standing": [
+     "app/admin/sections.php"
+    ]
+   }
   }
  ],
  "lapsed": [
