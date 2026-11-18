@@ -362,15 +362,23 @@
   {
    "path": "app/lib/Thresholds.php",
    "functions": [
-    "DEFS"
+    "DEFS",
+    "GATES"
    ],
    "kind": "change",
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "Control Board 4a: control_maint_hours setting",
    "since": "2026-11-18T22:44:49Z",
-   "expires": "2026-11-19T02:44:49Z",
+   "expires": "2026-11-19T02:46:24Z",
    "release": "control-board-4a.zip",
-   "callers": {}
+   "callers": {
+    "GATES": [
+     "app/admin/operations-console.php",
+     "app/admin/sections.php",
+     "app/lib/Operations.php",
+     "app/lib/WorkflowSettings.php"
+    ]
+   }
   }
  ],
  "lapsed": [
