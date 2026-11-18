@@ -3,40 +3,40 @@
  "built_on": "95ab6fb Sync: 2026-11-18 20:07 UTC",
  "recorded": "2026-11-18 20:09 UTC",
  "note": "System Control Board 3b (decisions/0171), after Jason's review: a \u25b8 toggle in place of \u2026 and More; caps a warning at 50/75/95% and a trip only when out, with the old cases' buttons on the board and in Pulse. Built on Sync 20:07 UTC. Replaces control-board-3b (never merged). Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "f71f5fb Sync: 2026-11-18 20:17 UTC",
  "files": {
   "app/admin/control-console.php": {
    "sha256": "afb40e144edc1bbaa5f257b0b0d133c5aac7a9d5110bfd7a95037220c073b479",
-   "live": false
+   "live": true
   },
   "app/lib/ControlAlarms.php": {
    "sha256": "6f4e7743a409642c38ecf97dfdada8b6e427fa9bd41d7ec481ebdf8bf700e3cc",
-   "live": false
+   "live": true
   },
   "app/lib/Operations.php": {
    "sha256": "2c57618de423217670e8c06bbedbd0d30a07e2b0b14d75321a7a5d4e9f6353df",
-   "live": false
+   "live": true
   },
   "app/lib/Pulse.php": {
    "sha256": "e7d29dc9b4cf579333c50f8254d7e5e3bdf8b93e84f63742e730edcf1dffc531",
-   "live": false
+   "live": true
   },
   "app/lib/ServiceHealth.php": {
    "sha256": "33dcee7f8148af8909fca0cd087116fad857a08ae63e579e3b19d7928a595efb",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "e8347e70a963307e26f3fcc44769149aaae46a3f31089bfa88e016c7e19f387d",
-   "live": false
+   "live": true
   },
   "website/admin/api.php": {
    "sha256": "341990035f18d12f2450ea1e1252a743de0bb60ea8e3138c0b7cae9f33fb1d30",
-   "live": false
+   "live": true
   },
   "website/js/admin-control.js": {
    "sha256": "731560986db4edc87ad43a9905d2f05888417ad4c2678b84bc05a3fcc3daa58f",
-   "live": false
+   "live": true
   }
  }
 }
