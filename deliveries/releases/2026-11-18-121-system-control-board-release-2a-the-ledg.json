@@ -6,7 +6,7 @@
     "zip": "control-board-2a.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "staged",
+    "state": "withdrawn",
     "step": 0,
     "paused": false,
     "urgent": null,
@@ -128,6 +128,16 @@
             "at": "2026-11-18T14:16:42+00:00",
             "by": 0,
             "msg": "Put on staging (11 files); its checks found a problem: Migrations ran on staging: 2026-11-18_control_ledger.sql: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'stored INT NOT NULL DEFAULT 0,\n  updated INT NOT NULL DEFAULT 0,\n  review INT NO' at line 11."
+        },
+        {
+            "at": "2026-11-18T14:24:14+00:00",
+            "by": 2,
+            "msg": "Opened on staging by Jason DeGraff (the staging bar)."
+        },
+        {
+            "at": "2026-11-18T15:00:02+00:00",
+            "by": 0,
+            "msg": "Withdrawn by itself: its checks on staging failed (Migrations ran on staging: 2026-11-18_control_ledger.sql: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'stored INT NOT NULL DEFAULT 0,\n  updated INT NOT NULL DEFAULT 0,\n  review INT NO' at line 11). Nothing on the live site changed; the session that built it sends a fixed build (9 files back to live's copy on staging; 2 taken off staging (its migrations, and files that were new))."
         }
     ]
 }
