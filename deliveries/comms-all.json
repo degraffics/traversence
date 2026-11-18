@@ -1,7 +1,7 @@
 {
  "zip": "comms-all.zip",
  "built_on": "dd8d547 Sync: 2026-11-18 17:25 UTC",
- "recorded": "2026-11-18 17:57 UTC",
+ "recorded": "2026-11-18 19:20 UTC",
  "note": "Communications, the rest as one release (decisions/0167; 0172 steps 3-7): the email engine, flags and tags, the six levels, mailboxes in Pulse, cards and Leave a message, push, comment replies, bookings and groups. Built on Sync: 2026-11-18 17:25 UTC Sent through git (releases/inbox).",
  "status": "pending",
  "live_in": "",
@@ -83,7 +83,7 @@
    "live": false
   },
   "app/lib/MailImap.php": {
-   "sha256": "8c2933fbda0a1f6e89a93163e46c5513ac1b6ce9a057c9edaeebf1c350d27dbe",
+   "sha256": "455fa793afe82d3e021a1d971366b2ef85144d8fa1364d12a4d8fead6e2810d1",
    "live": false
   },
   "app/lib/MailMime.php": {

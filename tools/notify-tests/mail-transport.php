@@ -275,6 +275,14 @@ $m = new MailImap(['host' => 'h', 'login' => 'a@b.test', 'password' => 'x']);
 $m->move(5, 'Trash');
 $said = $sent();
 $t('move without MOVE: COPY + \\Deleted, no EXPUNGE without UIDPLUS', str_contains($said, 'A0003 UID COPY 5 "Trash"') && str_contains($said, 'A0004 UID STORE 5 +FLAGS.SILENT (\\Deleted)') && !str_contains($said, 'EXPUNGE'), $said);
+// flagsOf (read state brought in) and special (the mailbox's own Sent, Junk, Archive)
+MailImap::$open = fn ($h, $p, $tls) => $server("* OK [CAPABILITY IMAP4rev1] hi\r\nA0001 OK [CAPABILITY IMAP4rev1] in\r\n* 3 EXISTS\r\nA0002 OK sel\r\n* 1 FETCH (UID 7 FLAGS (\\Seen))\r\n* 2 FETCH (UID 8 FLAGS ())\r\n* 3 FETCH (FLAGS (\\Seen \\Flagged) UID 9)\r\nA0003 OK fetched\r\n"
+    . "* LIST (\\HasNoChildren) \".\" \"INBOX\"\r\n* LIST (\\HasNoChildren \\Sent) \".\" \"INBOX.Sent Messages\"\r\n* LIST (\\HasNoChildren) \".\" \"INBOX.spam\"\r\nA0004 OK listed\r\n");
+$m = new MailImap(['host' => 'h', 'login' => 'a@b.test', 'password' => 'x']);
+$m->select('INBOX');
+$fl = $m->flagsOf([7, 8, 9]);
+$t('flagsOf: each uid\'s flags, whichever order the server gives them', $fl === [7 => ['\\Seen'], 8 => [], 9 => ['\\Seen', '\\Flagged']], $fl);
+$t('special: Sent by its special-use flag, Junk by its usual name, none for Archive', $m->special('Sent') === 'INBOX.Sent Messages' && $m->special('Junk') === 'INBOX.spam' && $m->special('Archive') === '', [$m->special('Sent')]);
 MailImap::$open = null;
 StagingGate::$say = 'TEST MODE: ACTIVE · mail.biz.test wasn\'t called (held on staging). Nothing was sent.';
 $t('staging: held before any connection', str_contains(MailImap::check(['host' => 'mail.biz.test', 'login' => 'a@b.test', 'password' => 'x']), 'held on staging') && end(StagingGate::$asked) === 'imap://mail.biz.test');
