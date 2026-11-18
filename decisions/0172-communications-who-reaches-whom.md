@@ -1,6 +1,6 @@
 # 0172: Communications: who reaches whom, about what, by which channel, and one way to deliver
 
-Status: **proposed, draft 9** (2026-11-18). Waiting for Jason's OK. No code yet.
+Status: **proposed, draft 10** (2026-11-18). Waiting for Jason's OK. No code yet.
 Drafts 2 and 3 take in Jason's changes: Pulse is the inbox, and keeps its established look (0105): it collects, organizes and
 lets you read, while each message carries its own process; outside mailboxes in Pulse (§4.7); six levels, with flags and tags kept
 apart from them; three touch points; a community group is a channel.
@@ -383,7 +383,7 @@ plan or pack, **$** needs Jason's budget. Reply: whether the message can be answ
 | Claim to review | claim staff | Pulse + email | Alert | — | F | B (`tellAdmins`) |
 | Claim invite (sales) | business | email, GO Code; text with "Reply YES" | Special | yes | F; text $ | email B; text D (0108) |
 | Calls, emails, website and directions taps on an unclaimed listing | Sales | counts in Pulse | General | — | F | G (§3.3; call, directions and website counted today) |
-| A message left on an unclaimed listing | held on the listing; the sender (Waiting); Sales (count only) | Pulse | General | — | F | G (§3.3) |
+| A message left on an unclaimed listing | the listing's public email (if it has one), else held on the listing; the sender; Sales (count only) | email or held; Pulse | General | the business's email reply, back to the sender | F | G (§3.3) |
 | The listing is claimed: its waiting messages | the new owner; each sender (delivered) | Pulse, email | Alert; Notice to the sender | yes | F | G (§3.3) |
 | Listing changed by us or a source | owner | notice | Notice | — | F | G |
 
@@ -583,18 +583,29 @@ be integrated into the communication system, because the user and listing will n
   temporary listing id could hold messages as long as the sender doesnt think it is actually going the a live
   listing"):
   - **Where:** on the unclaimed listing's page and its cards, **Leave a message** in Message's place.
-  - **What the sender is told, before and after:** "This business isn't on Traversence yet, so no one reads this here.
-    We'll keep your message on this listing and deliver it only if the business claims it. For anything now, call or
-    email them directly." The button reads **Leave it for them**, never Send.
+  - **What the sender is told, before and after**, by the route below. Held: "This business isn't on Traversence yet,
+    so no one reads this here. We'll keep your message on this listing and deliver it only if the business claims it.
+    For anything now, call them directly." The button reads **Leave it for them**, never Send. Emailed: "This business
+    isn't on Traversence yet. We'll send your message to the email this listing gives, and bring any reply back here."
+    The button reads **Send by email**.
   - **Who:** a signed-in member (the message is in their own Pulse, marked **Waiting: not delivered**), or a guest with
     an email and a reply code, under 0052's guest limits (3 a day per device, 6 per network).
-  - **Held on the listing's id:** the message belongs to the listing record, not to a person, until someone claims
-    it. Its route (§4.2) stops at **Held: waiting for a claim**.
+  - **Two routes, by what the listing's data holds** (Jason, 2026-11-18: "unless we assign the email from the listing
+    to the message"):
+    - **The listing has a public email:** the message is **delivered to that email by us**, from the system sender,
+      saying who it's from (their name only, never their address) and that the business can claim the listing to
+      answer in Traversence. The whole route is tracked (§4.2). The business's email reply comes back into the
+      sender's Pulse through the reply address (§"Pulse is the inbox"). The sender is told "Sent to the email this
+      listing gives; they may not have joined Traversence." 0108's outreach rules apply to the email: an
+      unsubscribe, and at most one such email to a listing a day, the rest gathered into it.
+    - **No email on the listing:** the message is **held on the listing's id** (it belongs to the listing record, not
+      to a person) until someone claims it. Its route (§4.2) stops at **Held: waiting for a claim**.
   - **When it's claimed and verified:** each waiting message is delivered to the new owner's Pulse as an Alert, with
     when it was left, and the sender is told it was delivered (a Notice; email for a guest). Replies then work as any
     business conversation.
   - **If it's never claimed:** it expires after **90 days** (for Jason), and the sender is told it wasn't delivered.
     The sender can withdraw it at any time.
+  - **Unsubscribed or bounced:** a listing whose email bounced or unsubscribed falls back to held.
   - **Private until delivered:** no one at Traversence reads the words; Sales sees only the count, as a reason to
     invite ("4 people have left you messages on Traversence"), never the messages or who left them. Expired and
     withdrawn messages are deleted.
