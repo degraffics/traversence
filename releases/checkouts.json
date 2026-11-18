@@ -221,6 +221,23 @@
      "app/lib/Pulse.php"
     ]
    }
+  },
+  {
+   "path": "app/lib/crawler/CrawlService.php",
+   "functions": [
+    "report"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 3c: the Trip rule, slow calls, the last Pulse cases as alarms",
+   "since": "2026-11-18T20:58:42Z",
+   "expires": "2026-11-19T00:58:42Z",
+   "release": "control-board-3c",
+   "callers": {
+    "report": [
+     "website/api/crawl/service.php"
+    ]
+   }
   }
  ],
  "lapsed": [
