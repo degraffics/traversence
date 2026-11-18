@@ -70,3 +70,6 @@ and storefronts (business colours kept, owner warned below 4.5:1); 3f sign-in, l
 - Left for their areas (contrast below 4.5:1 found by the probe, same before and after): the home hero's text (3b), the
   admin Shortcuts list's group labels (admin-hub.php) and the dashboard's small labels, Pulse's column headers (3d), the
   FAQ's anchors and "Help" kicker (3f).
+- Approved by Jason 2026-11-18 (reviewed by the session manager): 3a as built; headings everywhere now; errors in
+  Crimson Thread, red for emergencies; trails and routes to a new nature/navigation colour in the map's release (3b/3c,
+  brand.md §4 note). Next kit-css release: fold in the admin contrast items above (Shortcuts labels, dashboard labels).

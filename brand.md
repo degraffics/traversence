@@ -95,6 +95,10 @@ This confirms the mobile menu reviewed 2026-09-25 is a faithful implementation o
 - Waterways & deep hydrology: `#3B5A6B` Oxidized River Blue.
 - Natural reserves & topography: `#6B7F62` Faded Forest Moss.
 - Journey routing & expedition trails: `#8C3A23` Crimson Thread / Oxidized Iron Red.
+  - *Note (Jason, 2026-11-18, design Release 3a):* Crimson Thread is now the **system's own colour for errors** (an
+    "Error:" notice, a remove confirm, a spelling mark); System Red `#a62b2b` stays for emergencies and halts. Trails and
+    routes move to **a different nature colour, one suited to navigation**, chosen in the map's release (3b/3c), so
+    errors and routes no longer share a colour.
 
 ## 5. The Compass Axiom & The Chameleon Filter Architecture
 
