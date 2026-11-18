@@ -3,28 +3,28 @@
  "built_on": "de2c623 Sync: 2026-11-18 20:29 UTC",
  "recorded": "2026-11-18 20:36 UTC",
  "note": "Communications: the admin stream as a table, needs as rows; rebuilt before the site took it. Built on Sync: 2026-11-18 20:29 UTC",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "d80e9f1 Sync: 2026-11-18 20:38 UTC",
  "files": {
   "app/lib/MemberPulse.php": {
    "sha256": "5a28c50fb447dbc68b0858fac4dcee1e4fe29712b45067eb6693cd8ca49ba288",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "52edbc16a3cd1abfffc5763be5c180239139f588782250712028a9d3b2383637",
-   "live": false
+   "live": true
   },
   "app/ui/pulse-ui.php": {
    "sha256": "bf2d0f124ccc0ee1c47e49128085ef37aa0b1ef69f01ef4fadc00481cb539ae9",
-   "live": false
+   "live": true
   },
   "website/js/tv-pulse.js": {
    "sha256": "536eb930546004c54939e63ac67ea22f1df00ef3d6f50d54e15a6b3772c9a98b",
-   "live": false
+   "live": true
   },
   "website/user/api/bell.php": {
    "sha256": "3a95e6ad168d54aea924d42696070b2fba5c9739f2bf44c870f179d4ef41964c",
-   "live": false
+   "live": true
   }
  }
 }
