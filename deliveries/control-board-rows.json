@@ -3,20 +3,20 @@
  "built_on": "a9da952 Sync: 2026-11-18 17:14 UTC",
  "recorded": "2026-11-18 17:15 UTC",
  "note": "The board's rows and details laid out like Jason's example. Built on Sync: 2026-11-18 17:14 UTC. Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "85f60f5 Sync: 2026-11-18 17:20 UTC",
  "files": {
   "app/admin/control-console.php": {
    "sha256": "50a8ca9e81fdb0ca4003f5030629f757992b6304ec5bc5db3fe65be4662e7ae3",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "5d71402cb3225fce0d7464e6b68c55fb130c18294b9f9376459b4856a8f355eb",
-   "live": false
+   "live": true
   },
   "website/js/admin-control.js": {
    "sha256": "f08e82e4040f750dd007682b2e6626a82113581f9555680b6282ff6b1038cbdd",
-   "live": false
+   "live": true
   }
  }
 }
