@@ -69,6 +69,7 @@ and the portal's routers and endpoints, the sitemap) are live like any other.*
 | `/two-step.php` | Two-step sign-in | — | Live (P6, 2026-11-13) |
 | `/verify-listing.php` | Verify a listing (from its link) | — | Live (P6, 2026-11-13) |
 | `/email/unsubscribe.php` | Unsubscribe (from the link in our emails) | — | Live (P6, 2026-11-13) |
+| `/email/stop.php` | Stop these: one kind of message by email, from the link in the one dispatcher's emails | 0172 | Coming (release notify-1) |
 
 ## 2. Accounts and sign-in
 
