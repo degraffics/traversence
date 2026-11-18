@@ -3,36 +3,36 @@
  "built_on": "ee082f7 Sync: 2026-11-18 15:59 UTC",
  "recorded": "2026-11-18 16:07 UTC",
  "note": "System Control Board release 2b: the board, start-up and shut-down (decisions/0171). Built on Sync: 2026-11-18 15:59 UTC. Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "20a00b8 Sync: 2026-11-18 16:13 UTC",
  "files": {
   "app/admin/control-console.php": {
    "sha256": "605f7ba0e017dee6e50b12e8c078f757976596befa9d62e7d8e2af1e052293b8",
-   "live": false
+   "live": true
   },
   "app/admin/manifests.php": {
    "sha256": "d7b691366b050e741c3efaea25e1d0261cf7337884b39a20fe58ed596248e573",
-   "live": false
+   "live": true
   },
   "app/admin/sections.php": {
    "sha256": "1168f1a591d933f9941553d5bdd57c5cfb5c248eb4248962ba4b28d1b2a63107",
-   "live": false
+   "live": true
   },
   "app/lib/ControlBoard.php": {
    "sha256": "23467c08253cfeffd1a3f331aeaf56d610302e731b34b15bfb932c4bfba9b1b1",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "4f82a476e13ac54b6b17caaef5f879154746f71dde244bd2320d324e135672b2",
-   "live": false
+   "live": true
   },
   "website/admin/api.php": {
    "sha256": "68eea08c162708ee725f2afa2e95a9afa8bf5c18440850bbd795d14108bfeb4c",
-   "live": false
+   "live": true
   },
   "website/js/admin-control.js": {
    "sha256": "591e27d4687e89a8af44697507f7979f2f36ebb391844acec9953ea73b4a83dc",
-   "live": false
+   "live": true
   }
  }
 }

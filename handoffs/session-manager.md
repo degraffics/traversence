@@ -273,7 +273,17 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
      - **Claims:** the lapsed claim on `app/lib/Store.php` by the archived photos session: clear it with `checkout.py`.
      - **GitHub:** merged `claude/…` branches (Branches → trash), keeping `claude/session-manager-checks`.
   7. **Release B's small leftovers:** P3-5 (the owner's "Check these") and P3-2's Facebook-link case.
-  8. **decisions/0167, communications in one place** (accepted 2026-11-16). Build it in its four steps, each a release
+  8. **Communications, decisions/0172** (accepted 2026-11-18, draft 16; hand-off `handoffs/communications.md`). Builds in
+     0172 §6's order (Jason: "Text, Email, Push engines... are separate builds"):
+     1. 0171's alarms (the Control Board, building), then 0167, the email engine (its four steps below);
+     2. one dispatcher into Pulse;
+     3. levels, flags and mailboxes in Pulse;
+     4. listing pages and cards (only what a listing can do);
+     5. the push engine, its own build;
+     6. outside mailboxes (app 8 in item 5);
+     7. comments, bookings and groups;
+     8. the text decision first (the open questions are in `handoffs/communications.md`), then its engine.
+     **0167, the email engine** (accepted 2026-11-16), in its four steps, each a release
      for Jason's review:
      1. System Configuration → Communications: senders, mailboxes from cPanel on every domain, Check and Send me a
         test, domain health read-only; Bluehost sends logged;
