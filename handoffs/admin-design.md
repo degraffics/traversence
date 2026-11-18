@@ -47,4 +47,4 @@ Checked on traversence.com: the fonts served as font/woff2; the tokens in the pa
 - Pressed in a local render at 390px and 1280px: the sections menu, Shortcuts, an At hand drawer, Ctrl K, and the slot.
   No sideways scroll.
 - Reviewed by the session manager; Jason approved 2026-11-18 and retired the 2026-11-12 sage bar and peach tab. Rebuilt on
-  Sync 22:18 (FAQ entry only re-applied); sending waits for control-board-3f (also carries faq.md) to go live.
+  Sync 22:26 (FAQ entry only re-applied) and sent.

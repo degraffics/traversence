@@ -1,0 +1,30 @@
+{
+ "zip": "design-r2-admin.zip",
+ "built_on": "0abc114 Sync: 2026-11-18 22:26 UTC",
+ "recorded": "2026-11-18 22:28 UTC",
+ "note": "Design Release 2: the admin on the tokens, one Deep Umber command header (the 2026-11-12 sage bar retired), the record strip, the 34px and 390px fixes, FAQ. Approved by Jason 2026-11-18 (reviewed by the session manager). Built on Sync: 22:26 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/admin/kit-css.php": {
+   "sha256": "782a8dbc1e142897a7f67cc8170b74d32659e0e0ca2463eeaef86494ed779eb2",
+   "live": false
+  },
+  "app/ui/command-strip.php": {
+   "sha256": "9cf3a709e7fd597e802ef11597e516f955751eaa6a5cb7297dfc20d217acfa39",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "43ef9a8a35b09c24f753fbd87a2358a8b284415445ea700df4bb18737a0799bd",
+   "live": false
+  },
+  "website/admin/router.php": {
+   "sha256": "2aee458753f7c2f0928e6a1bd2887d4f054892354cd8c4334f9f00d248af0a96",
+   "live": false
+  },
+  "website/js/admin-kit.js": {
+   "sha256": "561830814fb0f4a84c28d3b39ac86e1f746f66e20e3e137b2ffee13821dc0838",
+   "live": false
+  }
+ }
+}
