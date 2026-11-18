@@ -1,6 +1,7 @@
 # 0172: Communications: who reaches whom, about what, by which channel, and one way to deliver
 
-Status: **proposed, draft 16** (2026-11-18). Waiting for Jason's OK. No code yet.
+Status: accepted (Jason, 2026-11-18, draft 16, approved with the decision pop-up). Not built; the builds follow §6's
+order, with the push engine and the text decision as their own items (§4.6).
 Drafts 2 and 3 take in Jason's changes: Pulse is the inbox, and keeps its established look (0105): it collects, organizes and
 lets you read, while each message carries its own process; outside mailboxes in Pulse (§4.7); six levels, with flags and tags kept
 apart from them; three touch points; a community group is a channel.
