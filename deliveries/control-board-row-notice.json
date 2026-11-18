@@ -3,12 +3,12 @@
  "built_on": "85f60f5 Sync: 2026-11-18 17:20 UTC",
  "recorded": "2026-11-18 17:22 UTC",
  "note": "A row's answer under the row, full width. Built on Sync: 2026-11-18 17:20 UTC. Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "dd8d547 Sync: 2026-11-18 17:25 UTC",
  "files": {
   "website/js/admin-control.js": {
    "sha256": "8a914076afb7e6117d244a6265c2a639969e49fcd9c882e101ab27a26a5a6d0a",
-   "live": false
+   "live": true
   }
  }
 }
