@@ -1,0 +1,97 @@
+{
+    "id": 145,
+    "title": "System Control Board 3e: each crawler run opens to the records it touched; \"W1 today\"",
+    "why": "A cleanup fix folded into the board (Jason, 2026-11-18: 'yes queue the crawler run records fix'; 'clean up fixes that touch the system should move into the system board session'), on the ledger of decisions/0171 §4 (release 2a, control_ledger and control_records). Insights → Crawler: (1) each of the last runs links to its page (with how many records it touched): a record page with the command strip (decisions/0129), what each task did, and its records under their workflow, grouped Added, Changed (the fields), Sent to Review and Refused (a field a person entered kept, and it says so); each count narrows the list; each record opens in a Peek (a listing, a Review item). (2) 'What a workflow touched': a workflow and a day (today, yesterday, the last 7 days; UTC) list its records by kind and by run. No new table: the run comes from control_ledger.run_id, the workflow from the endpoint (the register). Only what the ledger keeps is shown: record numbers and field names, never values before and after (0171 §4: ids and counts only). Tests: r3e.php 12 (new); rendered at 390px. Built on Sync 21:45 UTC (3d, #144, live).",
+    "proposals": "",
+    "zip": "control-board-3e.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "live",
+    "step": 3,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": "2026-11-18 22:05:08",
+    "staged_at": "2026-11-18 22:05:09",
+    "vetted_at": "2026-11-18 22:05:12",
+    "live_at": "2026-11-18 22:05:12",
+    "files": {
+        "app/admin/crawler-console.php": {
+            "sha": "2ca4401e34b940b52c29ddebea9d812c25e9451f664698ce4594cee56ba67585",
+            "size": 24719,
+            "live_was": "59ca75179d8e7a860c69ad1bc7e027eb38b274aeb43fb7a5be733cb1f5401833",
+            "existed": true,
+            "old_sha": "59ca75179d8e7a860c69ad1bc7e027eb38b274aeb43fb7a5be733cb1f5401833"
+        },
+        "app/ui/faq.md": {
+            "sha": "17aa6d3ec355897bb1d9aa523dd169e3862d9e638aaef979841f74deae3ac024",
+            "size": 351656,
+            "live_was": "75a2911af2618bf3645c6feb370dd5f485d5e7d2897dc2759e7f9b07cbed30f7",
+            "existed": true,
+            "old_sha": "75a2911af2618bf3645c6feb370dd5f485d5e7d2897dc2759e7f9b07cbed30f7"
+        },
+        "app/lib/ControlLedger.php": {
+            "sha": "71298a68a8e337ba9016105db23528ec383486738a936b13ceeb2ceb34d3fc72",
+            "size": 16663,
+            "live_was": "a668aadc000be01f1d8b2f20a547c598b8851fa108128325064efcb3e8759224",
+            "existed": true,
+            "old_sha": "a668aadc000be01f1d8b2f20a547c598b8851fa108128325064efcb3e8759224"
+        }
+    },
+    "migrations": [],
+    "checks": {
+        "ok": true,
+        "where": "live",
+        "at": "2026-11-18T22:05:12+00:00",
+        "items": [
+            [
+                "PHP files parse",
+                true,
+                "2 checked"
+            ],
+            [
+                "Pages answer",
+                true,
+                "2 pages answered on traversence.com"
+            ],
+            [
+                "No new fatal errors in the logs",
+                true,
+                "3 logs read"
+            ]
+        ],
+        "first_fail": ""
+    },
+    "log": [
+        {
+            "at": "2026-11-18T22:05:06+00:00",
+            "by": 0,
+            "msg": "Uploaded control-board-3e.zip: 3 files."
+        },
+        {
+            "at": "2026-11-18T22:05:08+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/control-board-3e.zip (git e4a06e49f7)."
+        },
+        {
+            "at": "2026-11-18T22:05:08+00:00",
+            "by": 0,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
+        },
+        {
+            "at": "2026-11-18T22:05:10+00:00",
+            "by": 0,
+            "msg": "Put on staging (3 files); its checks passed."
+        },
+        {
+            "at": "2026-11-18T22:05:12+00:00",
+            "by": 0,
+            "msg": "Approved in chat before it was sent through git, and its checks on staging passed: publishing by itself."
+        },
+        {
+            "at": "2026-11-18T22:05:12+00:00",
+            "by": 0,
+            "msg": "Published: 3 files; everyone at once (no switch)."
+        }
+    ]
+}
