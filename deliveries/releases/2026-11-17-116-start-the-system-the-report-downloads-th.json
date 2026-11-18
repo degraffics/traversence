@@ -1,0 +1,54 @@
+{
+    "id": 116,
+    "title": "Start the system: the report downloads, the check's notice tells the truth, Operational, the phone header",
+    "why": "Jason, 2026-11-18, on his phone: 'Report is not downloadable'. 1. Each Start in the run log has Download report (a text file: status, who and when, every step, every event) and Open (the same report as a page, to read, save or share). 2. The Automation page's 'Check before switching on' notice said 'Switch automation on is refused until they're green (… until Release B)' while the master was on: it now says what each red line holds (everything, or only its own part), and claims the master is held only when a line for everything is red. 3. A Start reads Starting while it confirms or switches on, then Operational with how many are on, still watched, held or stopped (it said Starting for 6.5 hours). 4. On phones, the admin's minimised top bar was transparent, so notices showed through behind it: it's solid now. 5. FAQ.",
+    "proposals": "",
+    "zip": "start-report.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/admin/automation-console.php": {
+            "sha": "b07566b42930df1c712142dd9a987fe84506aa41fe1f263e8a0141cc027271e6",
+            "size": 22223,
+            "live_was": "d1ecc45c2cbac8a751d748dcb6c041cbd5f24fb8a8ea9d642647b488863c3d1b"
+        },
+        "app/ui/faq.md": {
+            "sha": "e4ddde380c2093c446f1a4a59dcb6d616a4a980a26d7b10f7dfb66241ca39340",
+            "size": 325762,
+            "live_was": "db55195e436a2e0b1557497a33d55860e18295685ed7646a5a4b6366fddafbb0"
+        },
+        "app/ui/app-shell.php": {
+            "sha": "5a549430ed96988ca54267deb231cc273b57948642356abe15031fd21e31cb4d",
+            "size": 47367,
+            "live_was": "d8d00f68b14c7e1042b0c84f2262f1fe182d0fc7b548f44ec05e146a39381593"
+        },
+        "app/lib/SystemStart.php": {
+            "sha": "8e2572e802198ea515bd584e094f3bfff8e53d258ed8ebd83ba8ba794b82d5fe",
+            "size": 66386,
+            "live_was": "9ab1defdaa5275b847bab6087d602f2b81aaf023da70d6a19f989fe2cd12c07e"
+        },
+        "website/admin/api.php": {
+            "sha": "7aee40a048e45a1c7b4a645bdca460a325d99fa36fb6f49fc081e7c73abf8e8b",
+            "size": 26824,
+            "live_was": "95c7e6c81dd3803b9362a6fc8d3b2172658f841ccbb7824602480043a66d6783"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-18T01:30:23+00:00",
+            "by": 0,
+            "msg": "Uploaded start-report.zip: 5 files."
+        }
+    ]
+}
