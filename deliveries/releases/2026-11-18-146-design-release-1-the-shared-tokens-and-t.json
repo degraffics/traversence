@@ -6,102 +6,121 @@
     "zip": "design-r1-tokens.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "staged",
-    "step": 0,
+    "state": "live",
+    "step": 3,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
     "plan_at": "2026-11-18 22:11:04",
     "staged_at": "2026-11-18 22:11:06",
-    "vetted_at": null,
-    "live_at": null,
+    "vetted_at": "2026-11-18 22:11:08",
+    "live_at": "2026-11-18 22:11:08",
     "files": {
         "app/ui/theme-tokens.php": {
             "sha": "a2cf64d8f56a1d51ee8eeeccfae76023d7a4979fd7a3f9201b133f12a1656ef9",
             "size": 6272,
-            "live_was": null
+            "live_was": null,
+            "existed": false
         },
         "app/ui/page-shell.php": {
             "sha": "0239a7e7b2aaf04bc0982fd88276f9f0ca30062f1908a957fba1f85d882d47fb",
             "size": 12333,
-            "live_was": "dbab163a39b86cc7f5d977ea77043fe235530424a7295a496f3d0ca9df597187"
+            "live_was": "dbab163a39b86cc7f5d977ea77043fe235530424a7295a496f3d0ca9df597187",
+            "existed": true,
+            "old_sha": "dbab163a39b86cc7f5d977ea77043fe235530424a7295a496f3d0ca9df597187"
         },
         "app/ui/faq.md": {
             "sha": "052c54641429c29bd9c32ef8976a86a6517cac3392bf9595d24e2cefcbb9d1c1",
             "size": 352101,
-            "live_was": "17aa6d3ec355897bb1d9aa523dd169e3862d9e638aaef979841f74deae3ac024"
+            "live_was": "17aa6d3ec355897bb1d9aa523dd169e3862d9e638aaef979841f74deae3ac024",
+            "existed": true,
+            "old_sha": "17aa6d3ec355897bb1d9aa523dd169e3862d9e638aaef979841f74deae3ac024"
         },
         "app/ui/app-shell.php": {
             "sha": "c16e3e380bf0e8d2e51b656212eef95047ca21828601c7cfd121e0764665fd25",
             "size": 48543,
-            "live_was": "5a549430ed96988ca54267deb231cc273b57948642356abe15031fd21e31cb4d"
+            "live_was": "5a549430ed96988ca54267deb231cc273b57948642356abe15031fd21e31cb4d",
+            "existed": true,
+            "old_sha": "5a549430ed96988ca54267deb231cc273b57948642356abe15031fd21e31cb4d"
         },
         "website/fonts/playfair-400.woff2": {
             "sha": "51c8eae79bf05bbcc1811da8cb56ff69d87d40bafdce8282fea8a43259b4afcb",
             "size": 21904,
-            "live_was": null
+            "live_was": null,
+            "existed": false
         },
         "website/fonts/merriweather-700.woff2": {
             "sha": "273c8613cdd2852dd5318f224d804ae6d2fc717c48d3f1dab587b6d396fb4fc8",
             "size": 19740,
-            "live_was": null
+            "live_was": null,
+            "existed": false
         },
         "website/fonts/OFL-inter.txt": {
             "sha": "8c8fa881d9091ee315d2c80d207bb73afd4e90a66c9782ca445c5642f25db6dc",
             "size": 4375,
-            "live_was": null
+            "live_was": null,
+            "existed": false
         },
         "website/fonts/OFL-playfair-display.txt": {
             "sha": "4d4c865ff8d7ebfa445add31a5447e94bc146b63eaaa8cccb0bd3ef3c16229b3",
             "size": 4449,
-            "live_was": null
+            "live_was": null,
+            "existed": false
         },
         "website/fonts/merriweather-400.woff2": {
             "sha": "5c2d662e92bcbf1a5970b97040f901031295e79a96314db8302f549003022087",
             "size": 20028,
-            "live_was": null
+            "live_was": null,
+            "existed": false
         },
         "website/fonts/merriweather-300-italic.woff2": {
             "sha": "75ca7c01eaa8136d970bde6ea6ae0896d2fe30febf82e7679257df6e1f8a7496",
             "size": 19720,
-            "live_was": null
+            "live_was": null,
+            "existed": false
         },
         "website/fonts/playfair-600.woff2": {
             "sha": "4ac034337b5b7e75044750ffda722eb16047029742831f753a65f77840dfd538",
             "size": 23268,
-            "live_was": null
+            "live_was": null,
+            "existed": false
         },
         "website/fonts/playfair-700.woff2": {
             "sha": "1b84e1dfe5a2e44e2252547b665a68b2c6d2b9108e06a4937c3afb5f3090ba9a",
             "size": 23316,
-            "live_was": null
+            "live_was": null,
+            "existed": false
         },
         "website/fonts/playfair-400-italic.woff2": {
             "sha": "ba6bf611a3c2ee0ee424366546d3f2215cac1f92072d5a4a1ef695427da9024d",
             "size": 21916,
-            "live_was": null
+            "live_was": null,
+            "existed": false
         },
         "website/fonts/inter-var.woff2": {
             "sha": "f052ee44c3728dfd23aba8a4567150bc314d23903026fbb6ad089422c2df56af",
             "size": 48444,
-            "live_was": null
+            "live_was": null,
+            "existed": false
         },
         "website/fonts/merriweather-300.woff2": {
             "sha": "c8356c413b566272ba50c98d4ce0546e1fce6177ceb6cf8c2a7efe0a65e085a1",
             "size": 19752,
-            "live_was": null
+            "live_was": null,
+            "existed": false
         },
         "website/fonts/OFL-merriweather.txt": {
             "sha": "11a504a25eccbb59a48e9acd2c2d2543d6142eb0c856910fbeff943a2d40b830",
             "size": 4436,
-            "live_was": null
+            "live_was": null,
+            "existed": false
         }
     },
     "migrations": [],
     "checks": {
         "ok": true,
-        "where": "staging",
-        "at": "2026-11-18T22:11:07+00:00",
+        "where": "live",
+        "at": "2026-11-18T22:11:08+00:00",
         "items": [
             [
                 "PHP files parse",
@@ -111,7 +130,7 @@
             [
                 "Pages answer",
                 true,
-                "2 pages answered on staging.trvgo.us"
+                "2 pages answered on traversence.com"
             ],
             [
                 "No new fatal errors in the logs",
@@ -141,6 +160,16 @@
             "at": "2026-11-18T22:11:07+00:00",
             "by": 0,
             "msg": "Put on staging (16 files); its checks passed."
+        },
+        {
+            "at": "2026-11-18T22:11:08+00:00",
+            "by": 0,
+            "msg": "Approved in chat before it was sent through git, and its checks on staging passed: publishing by itself."
+        },
+        {
+            "at": "2026-11-18T22:11:08+00:00",
+            "by": 0,
+            "msg": "Published: 16 files; everyone at once (no switch)."
         }
     ]
 }
