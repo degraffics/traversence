@@ -91,9 +91,9 @@
    ],
    "kind": "change",
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "Control Board 3b: Overpass trip, More in place, Pulse cases into the queue",
+   "why": "Control Board 3b: raise(event), seed, tick",
    "since": "2026-11-18T19:59:04Z",
-   "expires": "2026-11-18T23:59:04Z",
+   "expires": "2026-11-18T23:59:23Z",
    "release": "control-board-3b",
    "callers": {
     "tick": [
