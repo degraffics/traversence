@@ -17,6 +17,10 @@
   Withdraw putting staging back (migrations off, live's copy back, new files off, a later release's copy kept). 17
   tests: `mariadb -e 'DROP DATABASE IF EXISTS lv_main; CREATE DATABASE lv_main' && php self-withdraw.php <root>/app`.
 
+- `releases-live.cjs` (with `releases-live-page.js`): the Releases page keeping itself current (a release drawn again
+  as it moves on, its stale notice gone, a new one at the top, open cards kept, a card being typed in waiting), at 390px.
+  7 tests: `node releases-live.cjs <website/js/admin-releases.js>`.
+
 Run on MariaDB or MySQL, with a root that holds `app/` (the mirror's `sync-app` with the release's `app/` laid over it)
 and `website/api/` (the mirror's `sync-storage/api/crawl` and `api/video`). Put a `.env` four folders up from `lib/`:
 `mariadb < ../release-b-tests/start-schema.sql && php r1.php <root>/app`.
