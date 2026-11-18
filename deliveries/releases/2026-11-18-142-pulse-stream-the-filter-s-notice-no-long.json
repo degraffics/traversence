@@ -1,0 +1,34 @@
+{
+    "id": 142,
+    "title": "Pulse stream: the filter's notice no longer squeezed into the header",
+    "why": "Jason, 2026-11-18: \"why the double toggle on received?\" After choosing senders or levels in a column's filter, the \"Showing 1 of 5\" notice was put beside the ▾ inside the table's header cell, where it stood as a tall green bar (and stretched the header) next to the ▾ that shows the filter is on. Notices from the table's header and from a row's icon pill now show as the site's centered notice; the pressed ▾ stays as the filter's state. Everywhere else in the stream, notices still show beside what was clicked.",
+    "proposals": "decisions/0172 (Pulse is the inbox)",
+    "zip": "comms-notice.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/ui/pulse-ui.php": {
+            "sha": "4f7ffce6d840f285010bd032ec2907a7c949a95a645414bbaf8d1acab713a880",
+            "size": 109667,
+            "live_was": "bf2d0f124ccc0ee1c47e49128085ef37aa0b1ef69f01ef4fadc00481cb539ae9"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-18T20:45:41+00:00",
+            "by": 0,
+            "msg": "Uploaded comms-notice.zip: 1 files."
+        }
+    ]
+}
