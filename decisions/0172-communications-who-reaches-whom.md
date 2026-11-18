@@ -121,6 +121,8 @@ What changes is what flows into it, and what an opened row or case holds:
   group posts arrive the same way, so Search finds all of it.
 - **One row is one thing**, never a bundle: "The engine needs a person" (26 identity queue, 1 outside service,
   37 sites, 15 finds) becomes one row each, as 0171 §8 already decided for alarms.
+  **Except alarms** (Jason, 2026-11-18, the design directive): related alarms group under one row that opens to them,
+  on the Board and in Pulse (the Control Board session's, 0171 §8 note). Everything else stays one row per thing.
 - **The person's own marks** (flags, importance, tags, below) sit on the row and in Search.
 
 #### The row's icons: how Pulse manages any message (proposed)
