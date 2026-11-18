@@ -88,9 +88,9 @@
    ],
    "kind": "change",
    "session": "session_01CXLi5jn2WGptsHBfmhEav6",
-   "why": "decisions/0172's last two items: the member's needs as rows and on the bell; the admin's task queue replaced by the bell",
+   "why": "Stream notices from the header filter and row icons shown as the centered notice, not squeezed into the header cell",
    "since": "2026-11-18T20:11:23Z",
-   "expires": "2026-11-19T00:35:12Z",
+   "expires": "2026-11-19T00:41:13Z",
    "release": "comms-needs-2.zip",
    "callers": {
     "tv_pulse_board": [
