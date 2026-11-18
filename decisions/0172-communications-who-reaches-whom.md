@@ -1,6 +1,6 @@
 # 0172: Communications: who reaches whom, about what, by which channel, and one way to deliver
 
-Status: **proposed, draft 4** (2026-11-18). Waiting for Jason's OK. No code yet.
+Status: **proposed, draft 5** (2026-11-18). Waiting for Jason's OK. No code yet.
 Drafts 2 and 3 take in Jason's changes: Pulse is the inbox, and keeps its established look (0105): it collects, organizes and
 lets you read, while each message carries its own process; outside mailboxes in Pulse (§4.7); six levels, with flags and tags kept
 apart from them; three touch points; a community group is a channel.
@@ -94,10 +94,24 @@ and messages are centrally located."
 
 #### Pulse: collect, organize, read, in its established look
 
-**Pulse keeps the look already decided and built** (0105 for the admin; the member's Pulse in the same shell, 0055 §5):
-the header (Working as, the count chips, the bell, **+**, Search), the Operational Task Queue, Quick Actions, the
-Pulse Stream table (From, Severity, Subject, Received), and the case drawer with its split view. This decision adds
-nothing to that layout and moves nothing in it. What changes is what flows into it, and what a case holds:
+**Pulse keeps the look Jason has set.** This decision adds nothing to it and moves nothing in it.
+
+- **The admin's Pulse** (0105, built): the header (Working as, the count chips, the bell, **+**, Search), the
+  Operational Task Queue, Quick Actions, the Pulse Stream table (From, Severity, Subject, Received) and the case drawer
+  with its split view.
+- **The member's and the listing's Pulse, on the profile page** (Jason's mockup, 2026-11-18,
+  `design/pulse-profile-mockup.png`):
+  - **Header:** the Pulse mark, **Pulse ▾** (whose Pulse: your own, or a business you work for), a count chip per
+    channel (**Messages, Community, Marketplace, Listings, Journeys**), the bell and settings (⚙).
+  - **+** (write or post) and the search box.
+  - **The list:** From (their picture), the source's link mark, Subject, Received; and on each row its icons: read or
+    unread, forward or share, pin, the shield, file to a folder, **+**, and **▾** to open it.
+  - **A row opens in place, under itself:** what it holds on the left (a post's photos with views and comments, opening
+    full size), its words on the right (with **See more**), and under them its own answer box: here **Comment as
+    (you)**, with attach, photo, video, the broadcast mark and **Publish ▾** (Publish, Save as draft, Schedule).
+  - The next row's ◂ shows it's closed; one opens at a time.
+
+What changes is what flows into it, and what an opened row or case holds:
 - **Everything comes in**, each from its sender: a person, a business, a group, an order's thread, a connected mailbox,
   or the system under the name of the part that sent it ("Fulfillment", "Claims", "Site health"). Feeds, comments and
   group posts arrive the same way, so Search finds all of it.
@@ -107,8 +121,9 @@ nothing to that layout and moves nothing in it. What changes is what flows into 
 
 #### The message: what it's for, and acting on it inside it
 
-Each kind of message (`Notify::KINDS`, §4.1) has a **body made by the part of the system that owns it**, shown in the
-case drawer. The pattern is the one 0105's order case already has (its stepper and **Next step** buttons acting
+Each kind of message (`Notify::KINDS`, §4.1) has a **body made by the part of the system that owns it**, shown where
+the row opens (in place on the profile's Pulse, in the case drawer on the admin's). The mockup's post is one kind: its
+photos and words, with a comment box and Publish. The pattern is the one 0105's order case already has (its stepper and **Next step** buttons acting
 through `ClientOrders::setStage`); every kind follows it:
 
 1. **What happened**, in a sentence.
