@@ -3,7 +3,7 @@
  "built_on": "2611fb8 Sync: 2026-11-18 15:25 UTC",
  "recorded": "2026-11-18 15:33 UTC",
  "note": "Releases page: the list as the standard table, each release its own page, no repeated green notice; built on Sync: 2026-11-18 15:25 UTC Sent through git (releases/inbox).",
- "status": "pending",
+ "status": "replaced",
  "live_in": "",
  "files": {
   "app/admin/manifests.php": {
@@ -34,5 +34,7 @@
    "sha256": "fe23987113652219004974c7718e12d51aec12b3f49dde756a514c2f3b660182",
    "live": false
   }
- }
+ },
+ "replaced_by": "releases-table-2",
+ "replaced_why": "Rebuilt before merge: Jason, 'a release opens on toggle under the title' (no page of its own)."
 }
