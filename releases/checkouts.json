@@ -11,6 +11,17 @@
    "expires": "2026-11-18T06:18:52Z",
    "release": "start-issue",
    "callers": {}
+  },
+  {
+   "path": "app/lib/SystemStart.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
+   "why": "release start-issue.zip",
+   "since": "2026-11-18T02:18:55Z",
+   "expires": "2026-11-18T06:18:55Z",
+   "release": "start-issue.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
