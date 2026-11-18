@@ -142,3 +142,97 @@ Deviations Jason had to correct:
 - two PRs recording the same delivery.
 
 The playbook covers each one.
+
+## Cleanup fixes folded in (Jason, 2026-11-18)
+
+Jason: "clean up fixes that touch the system should move into the system board session so they can be addressed as it
+builds the board." Moved from the session manager's queue (cleanup stage). Fold each into the board release it
+belongs to (most fit Release 1's register and routes, Release 2's ledger and Start/shut-down, Release 3's alarms and
+Pulse, or Release 4's maintenance); say in each release which ones it closes, and list any you'd rather leave out.
+
+- **Each crawler run opens to the records it touched** (Jason, 2026-11-18: "yes queue the crawler run records fix").
+  Insights → Crawler (https://traversence.com/admin/insights/crawler, `app/admin/crawler-console.php`) counts what
+  each run and task did, but nothing opens the records themselves, so "what did W1 bring in today" means searching
+  Listings and Review by hand. Build: each run's task line and each count (added, changed, sent to Review, held,
+  failed) opens a list of those records, each linked to its page (a listing, a Review item, a landmark, a guide),
+  with what changed (fields before and after; under 0164 a run never overwrites what a person entered) and the
+  source it came from; a filter for workflow and day ("W1 today").
+  Find first whether runs already record the ids they touched (the run log, `crawl_*` tables, W0's audit log); if
+  not, the worker and `api/crawl/` report them and a new table names its class in `staging-tables.php` (R14). A
+  command-strip record page per run (0129), with Peek on each record.
+- Pulse #31's 62 unused names (Jason, 2026-11-17: "just add it to the queue"): the monthly check found 62 tables
+  and columns no live file names (0-row tables like `accuracy_reports`, `ai_credit_usage`,
+  `gbp_addon_subscriptions`, `guide_mentions`; dated backups like `listing_actions_bak_20261014`). A cleanup
+  session checks each against the live code, names built on the fly included, and gives Jason one list: safe to
+  remove, keep (with the reason), unsure. On his OK, a release removes the safe ones (copied first, under 0162,
+  named under "removes"), Keep it is pressed on the rest, and the case closes. With it, Jason's rule (2026-11-17):
+  "we dont want a ton of non-used items in our dbase". Also: that case's "Open the tool" view is blank on the
+  left (no tool drawn for it); give it its list, or open the case alone.
+- Pulse #22's Site health items;
+- `/admin/crawler.php`'s outdated "Cron Schedule */5" instruction (Start the system sets the cron now).
+- Outside services' Stripe card checks `STRIPE_LIVE_SECRET_KEY`/`STRIPE_LIVE_CLIENT_ID` for live, but `MarketPay` reads
+  live keys as `STRIPE_SECRET_KEY`… (no `LIVE_`), so a correct live setup shows "keys missing" (found 2026-11-16).
+  Make the card read what `MarketPay::missingAll()` reads; same check for Square's card.
+- `Vectors::setupSql()` (Supabase card) leaves `tv_vectors` without row level security and `tv_match` callable by
+  Supabase's public roles. Add `enable row level security` and revoke `tv_match` from anon/authenticated/public with
+  a grant to service_role (Jason ran these by hand on 2026-11-16).
+- Outside requests don't save (Name.com ticket #3113488, after #84/#87/#89): likely the same cause the pre-flight
+  found in `search_index_state.v`, a live column shorter than the code assumes, cutting the JSON silently; fix as
+  the pre-flight did (their own table), confirmed by the card's "Can't keep requests" line.
+- **A build merged while its zip name was already in the inbox stalls at "Plan approved"** (release #106,
+  2026-11-17): `large-fallbacks.zip` was sent, then rebuilt under the same name; on merge the site recorded "taken
+  from the inbox (it was already in)" and never put it on staging, and Check for builds said "nothing is waiting".
+  Jason had to press Put it on staging, then Publish. Fix: a rebuilt zip (new bytes, same name) is taken as a new
+  build and goes on to staging by itself; a release left at Plan approved with its zip present is picked up by the
+  10-minute job and by Check for builds; and a Claude build that passes staging publishes itself as usual.
+- **Unused database leftovers are removed, not kept** (Jason, 2026-11-17: "we dont want a ton of non-used items in
+  our dbase"). First: `search_index_state.v`, the 200-character column left after #107 added `v_long` (add-only,
+  since the release check refuses `MODIFY`). Once every reader uses `SearchIndex::state()` (grep for direct reads of
+  `search_index_state`, e.g. health.php's listing_mark) and `v_long` holds every row, a later release copies any
+  remaining `v` into `v_long`, moves reads and writes to `v_long` alone, and drops `v` as a recorded leftover under
+  0162 (named under `"removes"` in release.json; Pulse #31's unused-schema list shows it). Same sweep for the other
+  leftovers that list names.
+- **The pre-flight's Arizona Corporation Commission line tests a dead address** (2026-11-17): `Preflight::test`
+  case 'azcc' still calls `ecorp.azcc.gov`, which no longer resolves; the Commission moved to
+  `arizonabusinesscenter.azcc.gov`, which answers our host 403 "Access Blocked". Test the new host and say it's
+  blocked pending the records request (one line), not "No answer".
+  When it's live, tell Jason that Resume on the AZCC service card is his call (it stays paused until then).
+- **The "Added switched off" note is out of date** (2026-11-18, from Jason's phone): AZCC, NM SoS and the Arizona
+  licence lists still read "Paused: Added switched off (Jason, 2026-11-15): nothing calls it until Release B and a
+  person's switch". Release B has shipped. Reword `Operations::seed`'s reason (and the live rows' `paused_why`, by
+  a data migration with `data_reason`) to "until a person switches it on" plus each one's real reason: AZCC and NM
+  SoS, the address fix and the records request; the licence lists, Cloudflare (by hand, queue 3a).
+- **OpenStreetMap coverage jobs wait forever on Overpass** (2026-11-18, the crawler's log): coverage jobs
+  800000013 and 800000014 say "waits for OpenStreetMap, every OpenStreetMap server is held" (overpass-api.de's ban
+  and the three mirrors held). W1 already reads our Geofabrik copy first (#101); coverage still asks only Overpass.
+  Make coverage read the Geofabrik copy the same way, Overpass only as a fallback when one is open (never retried
+  while held). Also: the crawler exits non-zero when its only task (Common Crawl, held by issue #13) fails, which
+  Railway shows as CRASHED; a run whose only failure is a held service should end ok.
+- **Start's watch counts "nothing to do" as a good run** (2026-11-18, the source-map session): the identity
+  recheck and the vector index show "0 good runs" because their runs end "nothing to do", which
+  `SystemStart::runs()` doesn't count (and `t:recheck` skips `crawl_runs` entirely), so their watch ends only at the
+  6-hour mark. Count a task's own crawler outcomes, ok or nothing to do, as good. Small; Jason's OK as its own release.
+- **A release that fails its staging checks is withdrawn by itself** (Jason, 2026-11-17: "withdrawing bad releases
+  needs to be addressed so it can be automated upon fails"). Today a failed release sits on staging ("check failed:
+  upload a fixed zip or put it on staging again") until someone presses Withdraw: #70, #78, #108 and #109 were all
+  withdrawn by hand. Make it automatic: when a Claude build (from git) fails its staging checks, the site withdraws
+  it ("Withdrawn: its checks failed: <which check and why>"), records that in its release record (so the building
+  session sees it in git), and raises one Pulse item for staff; nothing on live changes. A build uploaded by a
+  person isn't auto-withdrawn (they may fix it on staging), but gets the same Pulse item. A later build with the
+  same name replaces it as usual.
+- **A bad `release.json` can't strand a release at Planned** (#108, #109, 2026-11-17: `"switch": "none"` was stored
+  as a switch key, `approve` found no such switch and threw, so both sat at Planned and never reached staging;
+  Jason, on #109's card: "this is not how this is supposed to work"). `send.py`/zipcheck refuse a `switch` that
+  isn't empty or a known `Switches::DEFS` key; `Releases::fromUpload` treats "none" as empty; a release that can't
+  be approved says why on its card and in Pulse, never sits silently.
+- **Pulse shows what each person has read** (Jason, 2026-11-17: "also need a way to know when Ive read something in
+  the pulse"): Pulse items and cases have no read state per person today (only message threads and sources' rules
+  do). Add it: an item is **unread** (bold, a dot) for each staff member until they open it; it goes unread again
+  when something new happens on it (a step, a note, a change of status); a filter "Unread" in the list's one
+  filter dropdown and a count on Pulse's tab; "Mark all read" and "Mark unread" per item. Read state is per person,
+  so two people can see what the other hasn't opened; kept small (one row per person per item, last seen time).
+- **Database leftovers:** the `_moved_npi_orgs` (38 MB) and `_moved_irs_orgs` (16 MB) tables in the health report:
+  confirm they're leftovers of a finished move (decisions/0110, 0162's leftover check in Pulse) and nothing reads
+  them, then drop them through a release's `"removes"` ⚑.
+- **Pulse:** the old Overpass/OSM cases from before the pause (resolve, keeping the overpass-api.de one), and the
+  62 unused names (above).
