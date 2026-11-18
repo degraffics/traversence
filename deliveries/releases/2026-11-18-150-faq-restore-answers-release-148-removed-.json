@@ -1,0 +1,83 @@
+{
+    "id": 150,
+    "title": "FAQ restore: answers release #148 removed by accident",
+    "why": "Release #148 (control-board-3f) carried a copy of app/ui/faq.md built on an older sync, so it took out live text: release #147's two entries (\"Can I pass a message on from my Pulse?\", \"Can I report, block or mute someone from my Pulse?\") and its newer wording on six answers (Releases, staging's Held list, My inbox, one row per thing, a group's Mute, moderators' requests, a row opened in place), and Release 1's entry (#146) \"Does loading Traversence's fonts tell another company I visited?\". This puts back exactly that text, word for word: the live copy with #148's FAQ change reversed. #149's entries stay. No other change.",
+    "proposals": "",
+    "zip": "faq-restore.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "live",
+    "step": 3,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": "2026-11-18 22:49:21",
+    "staged_at": "2026-11-18 22:49:23",
+    "vetted_at": "2026-11-18 22:49:25",
+    "live_at": "2026-11-18 22:49:25",
+    "files": {
+        "app/ui/faq.md": {
+            "sha": "8dfde13ad8a879024b7a533d41a89b6a4f3d196fe68fd1f8b2571c03cdadd7dc",
+            "size": 355235,
+            "live_was": "43ef9a8a35b09c24f753fbd87a2358a8b284415445ea700df4bb18737a0799bd",
+            "existed": true,
+            "old_sha": "43ef9a8a35b09c24f753fbd87a2358a8b284415445ea700df4bb18737a0799bd"
+        }
+    },
+    "migrations": [],
+    "checks": {
+        "ok": true,
+        "where": "live",
+        "at": "2026-11-18T22:49:25+00:00",
+        "items": [
+            [
+                "PHP files parse",
+                true,
+                "0 checked"
+            ],
+            [
+                "Pages answer",
+                true,
+                "2 pages answered on traversence.com"
+            ],
+            [
+                "No new fatal errors in the logs",
+                true,
+                "3 logs read"
+            ]
+        ],
+        "first_fail": ""
+    },
+    "log": [
+        {
+            "at": "2026-11-18T22:49:19+00:00",
+            "by": 0,
+            "msg": "Uploaded faq-restore.zip: 1 files."
+        },
+        {
+            "at": "2026-11-18T22:49:21+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/faq-restore.zip (git 3b9fb81783)."
+        },
+        {
+            "at": "2026-11-18T22:49:21+00:00",
+            "by": 0,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
+        },
+        {
+            "at": "2026-11-18T22:49:23+00:00",
+            "by": 0,
+            "msg": "Put on staging (1 files); its checks passed."
+        },
+        {
+            "at": "2026-11-18T22:49:25+00:00",
+            "by": 0,
+            "msg": "Approved in chat before it was sent through git, and its checks on staging passed: publishing by itself."
+        },
+        {
+            "at": "2026-11-18T22:49:25+00:00",
+            "by": 0,
+            "msg": "Published: 1 files; everyone at once (no switch)."
+        }
+    ]
+}
