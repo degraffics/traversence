@@ -19,6 +19,10 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
   has a dated note of what was built, any change Jason approved along the way (e.g. 0172 §6's one release), and what's
   left; and that `decisions/index.md` and the README's range are current. Missing: ask the build session to add it in
   its next PR, or add it myself in the delivery PR.
+- **Review every question before it reaches Jason** (Jason, 2026-11-18): a session sends me its question or release
+  summary first. Within 10 minutes, check it against its decision, the brief, CLAUDE.md and the playbook: scope creep,
+  drift, a conflict between sections, something he already decided, a hold wider than its cause, unclear words. Answer
+  "clear to ask" or the fixes, with the sections quoted. Never approve for him; the OK stays his, in the session.
 - **No scope creep, no drift** (Jason, 2026-11-18: "consistency = scope creep or drift"): after each release, check the
   release and the build's `handoffs/<area>.md` against its decision and brief. **Scope creep:** something built or
   promised that the decision and brief don't call for. **Drift:** something the decision calls for changed, shrunk,
