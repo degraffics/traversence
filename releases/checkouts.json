@@ -33,6 +33,45 @@
    "expires": "2026-11-18T20:06:49Z",
    "release": "control-board-2b.zip",
    "callers": {}
+  },
+  {
+   "path": "app/admin/manifests.php",
+   "functions": [
+    "(top)"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "System Control Board, release 2b (decisions/0171)",
+   "since": "2026-11-18T16:06:51Z",
+   "expires": "2026-11-18T20:06:51Z",
+   "release": "control-board-2b.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/sections.php",
+   "functions": [
+    "(top)"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "System Control Board, release 2b (decisions/0171)",
+   "since": "2026-11-18T16:06:51Z",
+   "expires": "2026-11-18T20:06:51Z",
+   "release": "control-board-2b.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/admin/api.php",
+   "functions": [
+    "(top)"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "System Control Board, release 2b (decisions/0171)",
+   "since": "2026-11-18T16:06:51Z",
+   "expires": "2026-11-18T20:06:51Z",
+   "release": "control-board-2b.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
