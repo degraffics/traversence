@@ -128,6 +128,10 @@ current pages stay reachable until the board replaces them (archived, not delete
   into one line. `control-board-2a-4` was built on that sync (the `-3` build set aside, never merged), with `"replaces":
   ["control-board-2a"]`.
 
+- **2026-11-18: #124 (control-board-2a-4) live**, synced at 15:21 UTC. The ledger is live. Then **releases-marks**, built
+  on 15:21: a green check, red X or grey dash at the start of each release and each check (Jason). After it: 2b, the
+  board page.
+
 ### Where the folded-in cleanup fixes go (build session, 2026-11-18)
 
 Release 1 closes none of them (it was built before they arrived). The plan:
