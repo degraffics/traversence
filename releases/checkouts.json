@@ -462,6 +462,62 @@
    "expires": "2026-11-19T02:08:43Z",
    "release": "control-board-3f",
    "callers": {}
+  },
+  {
+   "path": "app/admin/kit-css.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Design Release 2: the admin on the tokens, one command header, the record strip",
+   "since": "2026-11-18T22:15:15Z",
+   "expires": "2026-11-19T02:15:15Z",
+   "release": "design-r2-admin.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/admin/router.php",
+   "functions": [
+    "(top)"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Design Release 2: the admin on the tokens, one command header, the record strip",
+   "since": "2026-11-18T22:15:15Z",
+   "expires": "2026-11-19T02:15:15Z",
+   "release": "design-r2-admin.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/js/admin-kit.js",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Design Release 2: the admin on the tokens, one command header, the record strip",
+   "since": "2026-11-18T22:15:15Z",
+   "expires": "2026-11-19T02:15:15Z",
+   "release": "design-r2-admin.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/ui/command-strip.php",
+   "functions": [
+    "tv_command_strip"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Design Release 2: the admin on the tokens, one command header, the record strip",
+   "since": "2026-11-18T22:15:15Z",
+   "expires": "2026-11-19T02:15:15Z",
+   "release": "design-r2-admin.zip",
+   "callers": {
+    "tv_command_strip": [
+     "app/admin/crawler-console.php",
+     "app/admin/legal-editor.php",
+     "website/admin/client-order.php",
+     "website/admin/content-template.php",
+     "website/admin/guide-edit.php"
+    ]
+   }
   }
  ],
  "lapsed": [
