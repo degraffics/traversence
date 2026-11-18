@@ -243,8 +243,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "Control Board 3e: each crawler run opens to its records",
    "since": "2026-11-18T21:49:32Z",
-   "expires": "2026-11-19T01:49:32Z",
-   "release": "control-board-3e",
+   "expires": "2026-11-19T01:49:37Z",
+   "release": "control-board-3e.zip",
    "callers": {}
   },
   {
@@ -258,8 +258,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "Control Board 3e: each crawler run opens to its records",
    "since": "2026-11-18T21:49:34Z",
-   "expires": "2026-11-19T01:49:34Z",
-   "release": "control-board-3e",
+   "expires": "2026-11-19T01:49:37Z",
+   "release": "control-board-3e.zip",
    "callers": {}
   },
   {
