@@ -47,6 +47,26 @@ current pages stay reachable until the board replaces them (archived, not delete
 4. **Release 3: the historian and the annunciator.**
 5. **Release 4: the logbook and the shift reports.**
 
+## Where it stands (kept current by the build session)
+
+- **2026-11-18:** the decision is written: `decisions/0171-the-control-board.md` (proposed). It was checked against the
+  live mirror at "Sync: 2026-11-18 02:36 UTC" and sent to the session manager for Jason's OK. Nothing is built.
+  Release 1 starts after his answer.
+- **2026-11-18, later:** Jason answered "needs changes". Revision 2 of 0171 is in the same PR (#896). It adds:
+  - organization by system, then process, with each gauge holding its whole process;
+  - six stages, with shut-down and maintenance new;
+  - real-time monitoring of slow, retry and crash;
+  - alerts three ways (system notification, Pulse, push), and the health token explained;
+  - Pulse fixed: one item per alarm, closed by itself;
+  - complete routing per process (fast, efficient, accurate);
+  - five releases instead of four.
+
+  Sent back to the session manager for his OK.
+- **2026-11-18:** Jason's example board is saved as `design/control-board-mockup.html` ("for your reference … you
+  will be the decision makers"). Decision 0171 §12 lists what Release 2 keeps from it and what it changes. A summary for
+  sharing, corrected against the code, is at https://claude.ai/artifact/699FnCRCPZBR5N3HxxyW1v.
+- **2026-11-18:** Jason approved 0171 revision 2. Next: Release 1 (the register and routes, plus the pre-flight fixes).
+
 ## What exists to build on (live mirror, `sync-app/` = `app/`, `sync-storage/` = `website/`)
 
 - **Pre-flight**: `app/lib/Preflight.php` (GROUPS: the site, outside services, W0 and the crawler, query timings, the

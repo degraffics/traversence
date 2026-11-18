@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traversence System Control Board — Decision 0171.R2</title>
+    <style>
+        :root {
+            --bg-canvas: #0f172a;
+            --bg-surface: #1e293b;
+            --bg-card: #1e293b;
+            --bg-elevated: #334155;
+            --border-subtle: #334155;
+            --border-strong: #475569;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --green: #34d399;
+            --green-bg: rgba(52, 211, 153, 0.15);
+            --amber: #fbbf24;
+            --amber-bg: rgba(251, 191, 36, 0.15);
+            --red: #f87171;
+            --red-bg: rgba(248, 113, 113, 0.15);
+            --purple: #c084fc;
+            --purple-bg: rgba(192, 132, 252, 0.15);
+            --blue: #38bdf8;
+            --blue-bg: rgba(56, 189, 248, 0.15);
+            --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background: var(--bg-canvas);
+            color: var(--text-primary);
+            font-family: var(--sans);
+            line-height: 1.5;
+            padding-bottom: 5rem;
+        }
+
+        /* 1. Top Admin Beacon Bar */
+        .admin-topbar {
+            background: #0b1329;
+            border-bottom: 1px solid var(--border-subtle);
+            padding: 0.65rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .beacon-group {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.85rem;
+        }
+        .beacon-dot {
+            width: 11px;
+            height: 11px;
+            border-radius: 50%;
+            background: var(--amber);
+            box-shadow: 0 0 10px var(--amber);
+            animation: pulse-beacon 2s infinite;
+        }
+        .beacon-dot.red { background: var(--red); box-shadow: 0 0 10px var(--red); }
+        .beacon-dot.green { background: var(--green); box-shadow: 0 0 10px var(--green); }
+        @keyframes pulse-beacon {
+            0% { opacity: 1; }
+            50% { opacity: 0.4; }
+            100% { opacity: 1; }
+        }
+        .alert-channels {
+            display: flex;
+            gap: 0.75rem;
+            font-family: var(--mono);
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+        .alert-pill {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+        }
+
+        .container { max-width: 1520px; margin: 0 auto; padding: 1.5rem; }
+
+        /* 2. Board Header & Global Actions */
+        .board-header {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.25rem;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+        .board-title h1 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .tag {
+            font-family: var(--mono);
+            font-size: 0.72rem;
+            padding: 0.2rem 0.55rem;
+            border-radius: 4px;
+            background: var(--blue-bg);
+            color: var(--blue);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+        }
+        .board-title p { color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.25rem; }
+
+        .controls-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            align-items: center;
+        }
+        .btn {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-strong);
+            color: var(--text-primary);
+            padding: 0.5rem 0.9rem;
+            border-radius: 6px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.15s, border-color 0.15s;
+        }
+        .btn:hover { background: var(--bg-elevated); border-color: var(--blue); }
+        .btn-start { border-color: var(--green); color: var(--green); background: var(--green-bg); }
+        .btn-start:hover { background: var(--green); color: #000; }
+        .btn-shutdown { border-color: var(--amber); color: var(--amber); background: var(--amber-bg); }
+        .btn-shutdown:hover { background: var(--amber); color: #000; }
+        .btn-emergency { border-color: var(--red); color: var(--red); background: var(--red-bg); font-weight: 700; }
+        .btn-emergency:hover { background: var(--red); color: #fff; }
+
+        /* 3. Six-Stage Lifecycle Progress Strip */
+        .lifecycle-strip {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        @media (max-width: 1024px) {
+            .lifecycle-strip { grid-template-columns: repeat(3, 1fr); }
+        }
+        .stage-step {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: 6px;
+            padding: 0.65rem 0.85rem;
+            font-size: 0.8rem;
+        }
+        .stage-step.active {
+            border-color: var(--blue);
+            background: var(--blue-bg);
+            box-shadow: 0 0 12px rgba(56, 189, 248, 0.15);
+        }
+        .stage-step span {
+            display: block;
+            font-family: var(--mono);
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+        }
+        .stage-step strong { font-size: 0.85rem; }
+
+        /* 4. Dual Panel (Gate & Pulse Queue) */
+        .gate-grid {
+            display: grid;
+            grid-template-columns: 1.25fr 1fr;
+            gap: 1.25rem;
+            margin-bottom: 2rem;
+        }
+        @media (max-width: 1024px) {
+            .gate-grid { grid-template-columns: 1fr; }
+        }
+        .panel {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.85rem;
+        }
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+        .panel-header h2 { font-size: 1.05rem; font-weight: 700; }
+
+        /* Pulse Item */
+        .pulse-item {
+            background: var(--red-bg);
+            border: 1px solid rgba(248, 113, 113, 0.4);
+            border-radius: 6px;
+            padding: 0.85rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+        .pulse-item.resolved {
+            background: var(--green-bg);
+            border-color: rgba(52, 211, 153, 0.4);
+        }
+        .pulse-meta { font-family: var(--mono); font-size: 0.72rem; color: var(--text-secondary); }
+        .pulse-actions { display: flex; gap: 0.5rem; flex-shrink: 0; }
+
+        /* 5. System Sections & Gauges */
+        .system-block { margin-bottom: 2.5rem; }
+        .system-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-left: 0.75rem;
+            border-left: 4px solid var(--blue);
+        }
+        .system-heading h2 { font-size: 1.2rem; font-weight: 700; }
+        .system-heading span { font-family: var(--mono); font-size: 0.78rem; color: var(--text-secondary); }
+
+        .gauge-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 1.15rem;
+        }
+
+        /* Process Gauge Card */
+        .gauge-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.85rem;
+            transition: border-color 0.2s;
+        }
+        .gauge-card:hover { border-color: var(--border-strong); }
+        .gauge-card.red { border-color: var(--red); background: linear-gradient(180deg, rgba(248,113,113,0.06) 0%, var(--bg-card) 40%); }
+        .gauge-card.maint { border-color: var(--purple); background: linear-gradient(180deg, rgba(192,132,252,0.06) 0%, var(--bg-card) 40%); }
+
+        .gauge-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 0.5rem;
+        }
+        .gauge-title h3 { font-size: 1rem; font-weight: 700; }
+        .gauge-sub { font-family: var(--mono); font-size: 0.73rem; color: var(--text-secondary); }
+
+        .pill {
+            font-family: var(--mono);
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 0.2rem 0.55rem;
+            border-radius: 999px;
+            text-transform: uppercase;
+        }
+        .pill-green { background: var(--green-bg); color: var(--green); border: 1px solid rgba(52,211,153,0.3); }
+        .pill-amber { background: var(--amber-bg); color: var(--amber); border: 1px solid rgba(251,191,36,0.3); }
+        .pill-red { background: var(--red-bg); color: var(--red); border: 1px solid rgba(248,113,113,0.3); }
+        .pill-purple { background: var(--purple-bg); color: var(--purple); border: 1px solid rgba(192,132,252,0.3); }
+
+        /* Route Bar */
+        .gauge-route {
+            font-family: var(--mono);
+            font-size: 0.74rem;
+            background: #0b1120;
+            border: 1px dashed var(--border-strong);
+            padding: 0.45rem 0.65rem;
+            border-radius: 5px;
+            color: var(--text-secondary);
+        }
+
+        /* Readings Grid */
+        .gauge-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
+            background: rgba(11, 17, 32, 0.65);
+            padding: 0.7rem;
+            border-radius: 6px;
+        }
+        .stat label {
+            display: block;
+            font-size: 0.68rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+        .stat span {
+            font-family: var(--mono);
+            font-size: 0.82rem;
+            font-weight: 600;
+        }
+
+        /* Accounting Bar */
+        .accounting-bar {
+            display: flex;
+            justify-content: space-between;
+            font-family: var(--mono);
+            font-size: 0.73rem;
+            padding: 0.45rem 0.65rem;
+            background: #0b1120;
+            border-radius: 5px;
+            color: var(--text-secondary);
+        }
+
+        /* Footer */
+        .gauge-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid var(--border-subtle);
+            padding-top: 0.65rem;
+            font-size: 0.76rem;
+        }
+        .gauge-controls { display: flex; gap: 0.4rem; }
+        .mini-btn {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-primary);
+            padding: 0.25rem 0.55rem;
+            border-radius: 4px;
+            font-size: 0.72rem;
+            cursor: pointer;
+            transition: background 0.1s;
+        }
+        .mini-btn:hover { background: var(--bg-elevated); border-color: var(--blue); }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.83rem;
+        }
+        th, td {
+            text-align: left;
+            padding: 0.6rem 0.75rem;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+        th {
+            font-family: var(--mono);
+            font-size: 0.72rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            background: rgba(11, 17, 32, 0.4);
+        }
+        input[type="number"], input[type="text"], input[type="password"] {
+            background: #0b1120;
+            border: 1px solid var(--border-strong);
+            color: var(--text-primary);
+            padding: 0.3rem 0.5rem;
+            border-radius: 4px;
+            font-family: var(--mono);
+            font-size: 0.78rem;
+        }
+
+        /* Modal Backdrop */
+        .modal-backdrop {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(4px);
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+        .modal-backdrop.open { display: flex; }
+        .modal {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-strong);
+            border-radius: 10px;
+            max-width: 680px;
+            width: 100%;
+            padding: 1.5rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+        }
+        .modal h3 { margin-bottom: 0.75rem; font-size: 1.15rem; }
+        .log-box {
+            background: #0b1120;
+            border: 1px solid var(--border-subtle);
+            font-family: var(--mono);
+            font-size: 0.76rem;
+            padding: 0.9rem;
+            border-radius: 6px;
+            max-height: 280px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. Top Admin Beacon Bar -->
+    <div class="admin-topbar">
+        <div class="beacon-group">
+            <div class="beacon-dot red" id="globalBeacon"></div>
+            <strong id="beaconLabel">ADMIN ALERT LIGHT: 1 ISOLATED ALARM (W3 HELD)</strong>
+        </div>
+        <div class="alert-channels">
+            <span class="alert-pill">Email: Instant Trip Armed</span>
+            <span class="alert-pill" id="pulseCountBadge">Pulse: 1 Open Item</span>
+            <span class="alert-pill">Phone Push: Hourly Token OK</span>
+        </div>
+    </div>
+
+    <div class="container">
+
+        <!-- 2. Board Header & Global Actions -->
+        <div class="board-header">
+            <div class="board-title">
+                <h1>Traversence System Control Board <span class="tag">Decision 0171 &bull; Rev 2</span></h1>
+                <p>Four-system process registry, local-first source routing, 6-stage lifecycle, and zero-cost real-time telemetry.</p>
+            </div>
+            <div class="controls-bar">
+                <button class="btn" onclick="runPreFlight()">1. Pre-Flight Check</button>
+                <button class="btn btn-start" onclick="startSystem()">2. Start System</button>
+                <button class="btn btn-shutdown" onclick="orderlyShutdown()">4. Orderly Shut-Down</button>
+                <button class="btn" onclick="openHealthTokenModal()">Health Token</button>
+                <button class="btn btn-emergency" onclick="emergencyPause()">PAUSE EVERYTHING</button>
+            </div>
+        </div>
+
+        <!-- 3. Six-Stage Lifecycle Progress Strip -->
+        <div class="lifecycle-strip" id="lifecycleStrip">
+            <div class="stage-step" data-stage="pre-flight"><span>STAGE 1</span><strong>Pre-Flight</strong></div>
+            <div class="stage-step" data-stage="start-up"><span>STAGE 2</span><strong>Start-Up (W0&rarr;W14)</strong></div>
+            <div class="stage-step active" data-stage="observation"><span>STAGE 3</span><strong>Observation &amp; Reporting</strong></div>
+            <div class="stage-step" data-stage="shut-down"><span>STAGE 4</span><strong>Shut-Down (Reverse)</strong></div>
+            <div class="stage-step" data-stage="maintenance"><span>STAGE 5</span><strong>Maintenance</strong></div>
+            <div class="stage-step" data-stage="history"><span>STAGE 6</span><strong>History</strong></div>
+        </div>
+
+        <!-- 4. Dual Panel (Start's Pre-Flight Gate & Unified Pulse Queue) -->
+        <div class="gate-grid">
+            <div class="panel">
+                <div class="panel-header">
+                    <h2>Unified Pulse Alarm Queue (1 Item Per Problem)</h2>
+                    <span class="tag">Nov 14 Rule Replaced</span>
+                </div>
+                <div id="pulseContainer">
+                    <div class="pulse-item" id="pulse-w3">
+                        <div>
+                            <div class="pulse-meta">KEY: engine.w3.common_crawl &bull; Trips: 3 (merged) &bull; Caught immediately</div>
+                            <strong>Common Crawl (W3) mirror unreachable — holding W3 only</strong>
+                            <div style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.2rem;">Core (Bluehost, Railway, GitHub) and W0–W2, W4–W14 remain cleared.</div>
+                        </div>
+                        <div class="pulse-actions">
+                            <button class="btn btn-start" onclick="fixPulseInPlace()">Fix in Place</button>
+                            <button class="btn" onclick="acknowledgePulse()">Done</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel">
+                <div class="panel-header">
+                    <h2>Query Timings &amp; Speed Gates (Live)</h2>
+                    <button class="mini-btn" onclick="runQueryBenchmarks()">Re-Test All 4</button>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Benchmark Query</th>
+                            <th>Measured</th>
+                            <th>Limit (ms)</th>
+                            <th>Gate</th>
+                        </tr>
+                    </thead>
+                    <tbody id="queryTableBody">
+                        <tr>
+                            <td>50-mile radius around Kayenta</td>
+                            <td style="font-family:var(--mono)" id="q1-val">142 ms</td>
+                            <td><input type="number" id="q1-lim" value="250" style="width:72px" onchange="evaluateQueries()"></td>
+                            <td id="q1-gate"><span class="pill pill-green">Pass</span></td>
+                        </tr>
+                        <tr>
+                            <td>Count of live listings per hub</td>
+                            <td style="font-family:var(--mono)" id="q2-val">38 ms</td>
+                            <td><input type="number" id="q2-lim" value="100" style="width:72px" onchange="evaluateQueries()"></td>
+                            <td id="q2-gate"><span class="pill pill-green">Pass</span></td>
+                        </tr>
+                        <tr>
+                            <td>Two-step walk through knowledge graph</td>
+                            <td style="font-family:var(--mono)" id="q3-val">94 ms</td>
+                            <td><input type="number" id="q3-lim" value="150" style="width:72px" onchange="evaluateQueries()"></td>
+                            <td id="q3-gate"><span class="pill pill-green">Pass</span></td>
+                        </tr>
+                        <tr>
+                            <td>One address looked up in W0's list</td>
+                            <td style="font-family:var(--mono)" id="q4-val">11 ms</td>
+                            <td><input type="number" id="q4-lim" value="50" style="width:72px" onchange="evaluateQueries()"></td>
+                            <td id="q4-gate"><span class="pill pill-green">Pass</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 5. System Sections -->
+
+        <!-- System 1: The Knowledge Engine -->
+        <section class="system-block">
+            <div class="system-heading">
+                <h2>1. The Knowledge Engine (Phases 01–06 &amp; Core Workflows)</h2>
+                <span>Phases: 01 Discovery &bull; 02 Extraction &bull; 03 Resolution &bull; 04 Catalog/Graph &bull; 05 Serving &bull; 06 Self-Healing</span>
+            </div>
+            <div class="gauge-grid" id="engineGauges"></div>
+        </section>
+
+        <!-- System 2: Workers & Pipelines -->
+        <section class="system-block">
+            <div class="system-heading">
+                <h2>2. Workers &amp; Pipelines (W4–W14 &amp; Recent Release Jobs)</h2>
+                <span>Silence Alarm Threshold: &le; 5 minutes</span>
+            </div>
+            <div class="gauge-grid" id="workerGauges"></div>
+        </section>
+
+        <!-- System 3: Outside Services -->
+        <section class="system-block">
+            <div class="system-heading">
+                <h2>3. Outside Services (Core Hold Rule + API Ledgers &amp; Source Priority Map)</h2>
+                <span>Core: Bluehost, Railway, GitHub (Red holds everything)</span>
+            </div>
+            <div class="gauge-grid" id="serviceGauges"></div>
+
+            <div class="panel" style="margin-top: 1.25rem;">
+                <div class="panel-header">
+                    <h2>Engine Source Priority Map — Ours First, Then Outside Services</h2>
+                    <span class="tag">21 Required Capabilities</span>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Engine Need (Workflows)</th>
+                            <th>1st: Our Own Copy</th>
+                            <th>2nd / 3rd: Outside Fallbacks</th>
+                            <th>If None Works</th>
+                        </tr>
+                    </thead>
+                    <tbody id="sourceMapBody"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- System 4: The Site Itself -->
+        <section class="system-block">
+            <div class="system-heading">
+                <h2>4. The Site Itself (Bluehost, Databases, Cron &amp; Non-Blocking Platform Services)</h2>
+                <span>Site services never block Knowledge Engine start-up</span>
+            </div>
+            <div class="gauge-grid" id="siteGauges"></div>
+
+            <div class="panel" style="margin-top: 1.25rem;">
+                <div class="panel-header">
+                    <h2>Maintenance Windows &amp; Upkeep Calendar</h2>
+                    <button class="mini-btn" onclick="openMaintenanceModal('W3: Common Crawl Ingest')">+ Schedule Window</button>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Process</th>
+                            <th>Stage / Window</th>
+                            <th>Reason</th>
+                            <th>Back By</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="upkeepBody">
+                        <tr>
+                            <td><strong>W3: Sources &amp; Place Store</strong></td>
+                            <td><span class="pill pill-purple">Maintenance</span></td>
+                            <td>Common Crawl S3 mirror timeout; holding W3 only</td>
+                            <td style="font-family:var(--mono)">2026-11-18 12:00 MST</td>
+                            <td><button class="mini-btn" onclick="fixPulseInPlace()">Return to Service</button></td>
+                        </tr>
+                        <tr>
+                            <td><strong>W1: Geofabrik OSM Refresh</strong></td>
+                            <td><span class="pill pill-amber">Scheduled</span></td>
+                            <td>Monthly Southwest PBF extract import</td>
+                            <td style="font-family:var(--mono)">2026-12-01 03:00 MST</td>
+                            <td><button class="mini-btn" onclick="alert('Window verified; silence detector will auto-suppress during window.')">Verify</button></td>
+                        </tr>
+                        <tr>
+                            <td><strong>W1: NPI / CMS Monthly Copy</strong></td>
+                            <td><span class="pill pill-amber">Scheduled</span></td>
+                            <td>Healthcare provider local table sync</td>
+                            <td style="font-family:var(--mono)">2026-12-05 02:30 MST</td>
+                            <td><button class="mini-btn" onclick="alert('Window verified.')">Verify</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Modal for Process Logs, Reports, Maintenance & Health Token -->
+    <div class="modal-backdrop" id="modalBackdrop">
+        <div class="modal">
+            <h3 id="modalTitle">Process Details</h3>
+            <div id="modalContent"></div>
+            <div style="display:flex; justify-content:flex-end; gap:0.5rem; margin-top:1.25rem;">
+                <button class="btn" onclick="closeModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 6. Interactive JavaScript Data & Handlers
+        const processes = [
+            // SYSTEM 1: KNOWLEDGE ENGINE
+            {
+                id: 'eng-w0',
+                system: 'engine',
+                name: 'W0: Indexer & Frontier',
+                sub: 'Phase 01: Wide Discovery & Classification',
+                status: 'green',
+                stage: 'Observation',
+                route: 'Seed Queue -> Railway W0 Indexer -> Bluehost MySQL Frontier',
+                readings: { heartbeat: '11s ago', latency: '14 ms', cost: '$0.000/rec' },
+                runs: 1840,
+                received: 52400, stored: 49100, updated: 3120, refused: 180,
+                uptime: '99.98%',
+                alarms: 0
+            },
+            {
+                id: 'eng-w1',
+                system: 'engine',
+                name: 'W1: Bulk Listings & Local Copies',
+                sub: 'Phase 02: Contextual Extraction (OSM, Overture, Foursquare, NPI)',
+                status: 'green',
+                stage: 'Observation',
+                route: 'Geofabrik / Overture / Foursquare / NPI -> W1 Parser -> Master Catalog',
+                readings: { heartbeat: '28s ago', latency: '42 ms', cost: '$0.000/rec' },
+                runs: 412,
+                received: 142800, stored: 131000, updated: 11450, refused: 350,
+                uptime: '100.0%',
+                alarms: 0
+            },
+            {
+                id: 'eng-w2',
+                system: 'engine',
+                name: 'W2: Keeping Listings Current & Identity Recheck',
+                sub: 'Phase 03: Entity Resolution, Vetting & Privacy',
+                status: 'green',
+                stage: 'Observation',
+                route: 'Catalog Record -> Site Re-Read / Identity Check -> Verified Entity',
+                readings: { heartbeat: '19s ago', latency: '165 ms', cost: '$0.001/rec' },
+                runs: 9210,
+                received: 9210, stored: 410, updated: 8740, refused: 60,
+                uptime: '99.91%',
+                alarms: 0
+            },
+            {
+                id: 'eng-w3',
+                system: 'engine',
+                name: 'W3: Sources, Place Store & Vector Index',
+                sub: 'Phase 04: Master Catalog, Graph & Index',
+                status: 'red',
+                stage: 'Maintenance',
+                route: 'Common Crawl S3 -> W3 Vector Indexer -> Semantic & Keyword Store',
+                readings: { heartbeat: '4m 12s (Held)', latency: 'Timeout', cost: '$0.000/rec' },
+                runs: 42,
+                received: 1200, stored: 0, updated: 0, refused: 1200,
+                uptime: '94.20%',
+                alarms: 1
+            },
+
+            // SYSTEM 2: WORKERS
+            {
+                id: 'wrk-guides',
+                system: 'workers',
+                name: 'W4–W6: Place Guides, On-Demand & Heritage',
+                sub: 'Anthropic Editorial & Judging Pipeline',
+                status: 'green',
+                stage: 'Observation',
+                route: 'Verified Entities + Archives -> Anthropic -> Published Guides',
+                readings: { heartbeat: '32s ago', latency: '310 ms', cost: '$0.018/guide' },
+                runs: 615,
+                received: 615, stored: 590, updated: 25, refused: 0,
+                uptime: '99.95%',
+                alarms: 0
+            },
+            {
+                id: 'wrk-discovery',
+                system: 'workers',
+                name: 'W7–W12: Journeys, Find It, Landmarks, Events & Search',
+                sub: 'Phase 05: Publishing, Serving & Access',
+                status: 'green',
+                stage: 'Observation',
+                route: 'Graph + Drive Times + Wikimedia/Web -> Live Routes & Events',
+                readings: { heartbeat: '9s ago', latency: '78 ms', cost: '$0.002/rec' },
+                runs: 3490,
+                received: 14800, stored: 12100, updated: 2590, refused: 110,
+                uptime: '99.99%',
+                alarms: 0
+            },
+            {
+                id: 'wrk-auth',
+                system: 'workers',
+                name: 'W13–W14: Human Stories & Authority Sources',
+                sub: 'Phase 06: Lifecycle & AZCC / NM SoS Verification',
+                status: 'green',
+                stage: 'Observation',
+                route: 'AZCC & NM SoS Registries -> W14 Authority Worker -> Trust Ledger',
+                readings: { heartbeat: '44s ago', latency: '210 ms', cost: '$0.000/rec' },
+                runs: 880,
+                received: 4320, stored: 3900, updated: 412, refused: 8,
+                uptime: '99.97%',
+                alarms: 0
+            },
+
+            // SYSTEM 3: OUTSIDE SERVICES
+            {
+                id: 'svc-core',
+                system: 'services',
+                name: 'Core Hosts: Bluehost, Railway & GitHub',
+                sub: 'Global Gate Rule: Any red holds entire platform',
+                status: 'green',
+                stage: 'Observation',
+                route: 'GitHub Repo -> Railway Workers <-> Bluehost MySQL & Web',
+                readings: { heartbeat: '5s ago', latency: '22 ms', cost: 'Fixed Plan' },
+                runs: 2880,
+                received: 2880, stored: 2880, updated: 0, refused: 0,
+                uptime: '100.0%',
+                alarms: 0
+            },
+            {
+                id: 'svc-apis',
+                system: 'services',
+                name: 'External APIs: Gemini, Anthropic, Google, Tavily, Brave & Overture',
+                sub: 'Key Validity, Latency, Remaining Budget & Pause State',
+                status: 'green',
+                stage: 'Observation',
+                route: 'Engine Calls -> Provider APIs -> Budget & Rate-Limit Guard',
+                readings: { heartbeat: '15s ago', latency: '190 ms', cost: '$30.60 left' },
+                runs: 11420,
+                received: 11420, stored: 11398, updated: 0, refused: 22,
+                uptime: '99.92%',
+                alarms: 0
+            },
+
+            // SYSTEM 4: THE SITE ITSELF
+            {
+                id: 'site-base',
+                system: 'site',
+                name: 'Bluehost Hosting, MySQL 8.0 & Cron Scheduler',
+                sub: 'Foundation everything else stands on',
+                status: 'green',
+                stage: 'Observation',
+                route: 'Cron Dispatcher -> PHP 8.x / MySQL 8.0 Spatial -> Backup Sync',
+                readings: { heartbeat: '3s ago', latency: '8 ms', cost: 'Active' },
+                runs: 4320,
+                received: 4320, stored: 4320, updated: 0, refused: 0,
+                uptime: '100.0%',
+                alarms: 0
+            },
+            {
+                id: 'site-ops',
+                system: 'site',
+                name: 'Platform Ops: Checkout, Auth, Sync, Email & Domains',
+                sub: 'Non-Blocking Fallbacks ("Pay at pickup", "Email/password always work")',
+                status: 'green',
+                stage: 'Observation',
+                route: 'User Traffic -> Checkout / Auth / Storage -> Safe Fallback Handlers',
+                readings: { heartbeat: '12s ago', latency: '34 ms', cost: '$0 Commission' },
+                runs: 1940,
+                received: 1940, stored: 1940, updated: 0, refused: 0,
+                uptime: '99.99%',
+                alarms: 0
+            }
+        ];
+
+        const sourceMap = [
+            ['Read pages (W0)', 'Local page cache', 'Direct HTTP fetch -> Common Crawl', 'Queue for retry; keep existing data'],
+            ['Places by kind & town (W1)', 'Geofabrik OSM local copy', 'Overpass API -> Overture Maps', 'Serve cached town directory'],
+            ['Businesses in bulk (W1)', 'Overture + Foursquare local dumps', 'AZCC / NM SoS bulk files', 'Defer bulk import; no data loss'],
+            ['Health providers (W1)', 'Local NPI / CMS database copy', 'CMS NPI Registry API', 'Display last verified NPI snapshot'],
+            ['Nonprofits (W1)', 'Local IRS EO BMF copy', 'ProPublica Nonprofit Explorer', 'Show existing nonprofit listing'],
+            ['Recreation areas (W1)', 'Local USFS / NPS / BLM GIS copy', 'Recreation.gov / OSM', 'Use static trailhead & park records'],
+            ['Official places (W1, W9)', 'Local civic & tribal boundary table', 'Wikidata -> Google Places', 'Fallback to verified county records'],
+            ['Confirm a business (W1, W2)', 'Local registry & prior check', 'Direct website check -> AZCC/SoS', 'Mark "Unconfirmed — check pending"'],
+            ['Page prose into facts (W1–W3, W10, W11)', 'Deterministic regex/schema parser', 'Gemini API', 'Store raw text for deferred extraction'],
+            ['Re-read websites (W2)', 'Local ETag / hash snapshot', 'Direct HTTP fetch', 'Keep current listing; retry in 24h'],
+            ['Missing phone or website (W2)', 'Local Overture / OSM / NPI cross-ref', 'Brave Search -> Tavily', 'Leave blank; never fabricate'],
+            ['Map points (W2)', 'Local MySQL spatial index + OSM', 'OpenStreetMap Nominatim -> Google', 'Use town centroid with pin warning'],
+            ['Still open? (W2)', 'Recent site/HTTP liveness check', 'Google Places status -> Web search', 'Display last verified hours'],
+            ['Sources read regularly (W3)', 'Local RSS / sitemap mirror', 'Direct feed fetch -> Common Crawl', 'Hold W3 feed update; keep live index'],
+            ['Semantic search (W3)', 'Local vector index', 'Keyword full-text search (MySQL)', 'Falls back automatically to keyword search'],
+            ['Writing & judging (W4–W6, W8, W10)', 'Structured local templates', 'Anthropic Claude API', 'Serve factual directory card without prose'],
+            ['Archives & history (W6)', 'Local Southwest history corpus', 'Library of Congress -> Wikimedia', 'Publish verified timeline facts only'],
+            ['Drive times (W7)', 'Local road-graph distance matrix', 'OSRM / OpenStreetMap routing', 'Show straight-line miles + estimate'],
+            ['Landmarks, names & photos (W9)', 'Local curated media archive', 'Wikimedia Commons -> Wikidata', 'Render typographic landmark card'],
+            ['Web search (W8, W10–W12)', 'Local index & site search', 'Brave Search API -> Tavily', 'Search internal Knowledge Graph only'],
+            ['Authority sources (W14)', 'Local AZCC & NM SoS snapshots', 'AZCC eCorp / NM SoS portals', 'Retain prior standing & filing date']
+        ];
+
+        function renderGauges() {
+            const containers = {
+                engine: document.getElementById('engineGauges'),
+                workers: document.getElementById('workerGauges'),
+                services: document.getElementById('serviceGauges'),
+                site: document.getElementById('siteGauges')
+            };
+            Object.values(containers).forEach(el => el.innerHTML = '');
+
+            processes.forEach(p => {
+                const pillClass = p.status === 'green' ? 'pill-green' : (p.status === 'red' ? 'pill-red' : 'pill-purple');
+                const pillLabel = p.status === 'green' ? 'Healthy' : (p.status === 'red' ? 'Held / Red' : 'Maintenance');
+                const cardClass = p.status === 'red' ? 'gauge-card red' : (p.status === 'maint' ? 'gauge-card maint' : 'gauge-card');
+                const accounted = (p.stored + p.updated + p.refused) === p.received ? '100% Accounted' : 'Mismatch!';
+
+                const card = document.createElement('div');
+                card.className = cardClass;
+                card.innerHTML = `
+                    <div class="gauge-top">
+                        <div class="gauge-title">
+                            <h3>${p.name}</h3>
+                            <div class="gauge-sub">${p.sub}</div>
+                        </div>
+                        <span class="pill ${pillClass}">${pillLabel}</span>
+                    </div>
+                    <div class="gauge-route">Route: ${p.route}</div>
+                    <div class="gauge-stats">
+                        <div class="stat"><label>Stage</label><span>${p.stage}</span></div>
+                        <div class="stat"><label>Heartbeat</label><span>${p.readings.heartbeat}</span></div>
+                        <div class="stat"><label>Step Speed</label><span>${p.readings.latency}</span></div>
+                        <div class="stat"><label>Runs</label><span>${p.runs.toLocaleString()}</span></div>
+                        <div class="stat"><label>Efficiency</label><span>${p.readings.cost}</span></div>
+                        <div class="stat"><label>Uptime</label><span>${p.uptime}</span></div>
+                    </div>
+                    <div class="accounting-bar">
+                        <span>In: ${p.received.toLocaleString()}</span>
+                        <span>Stored: ${p.stored.toLocaleString()}</span>
+                        <span>Upd: ${p.updated.toLocaleString()}</span>
+                        <span>Ref: ${p.refused.toLocaleString()}</span>
+                        <strong style="color:var(--green)">${accounted}</strong>
+                    </div>
+                    <div class="gauge-footer">
+                        <span>Alarms: <strong>${p.alarms}</strong></span>
+                        <div class="gauge-controls">
+                            <button class="mini-btn" onclick="openMaintenanceModal('${p.name}')">Maint</button>
+                            <button class="mini-btn" onclick="viewLog('${p.id}')">Log</button>
+                            <button class="mini-btn" onclick="viewReport('${p.id}')">Report</button>
+                        </div>
+                    </div>
+                `;
+                containers[p.system].appendChild(card);
+            });
+        }
+
+        function renderSourceMap() {
+            const tbody = document.getElementById('sourceMapBody');
+            tbody.innerHTML = sourceMap.map(row => `
+                <tr>
+                    <td><strong>${row[0]}</strong></td>
+                    <td style="color:var(--green); font-family:var(--mono); font-size:0.76rem;">${row[1]}</td>
+                    <td style="font-family:var(--mono); font-size:0.76rem;">${row[2]}</td>
+                    <td style="color:var(--text-secondary);">${row[3]}</td>
+                </tr>
+            `).join('');
+        }
+
+        function setLifecycleStage(stageName) {
+            document.querySelectorAll('.stage-step').forEach(el => {
+                el.classList.toggle('active', el.dataset.stage === stageName);
+            });
+        }
+
+        function runPreFlight() {
+            setLifecycleStage('pre-flight');
+            openModal('Pre-Flight Gate Inspection', `
+                <div class="log-box">[PRE-FLIGHT] Checking Core Services (Bluehost, Railway, GitHub)... OK
+[PRE-FLIGHT] Checking Query Timing Gates (Kayenta 50mi, Hub Count, 2-Step Walk, W0 Lookup)... PASS
+[PRE-FLIGHT] Checking Local-First Copies (Geofabrik OSM, Overture, NPI/CMS, Foursquare)... READY
+[PRE-FLIGHT] Checking W3 Common Crawl S3... RED (Isolated: holds W3 only; other workflows cleared)</div>
+            `);
+        }
+
+        function startSystem() {
+            setLifecycleStage('start-up');
+            setTimeout(() => setLifecycleStage('observation'), 800);
+            openModal('Start-Up Sequence (W0 -> W14)', `
+                <div class="log-box">[START] W0 Indexer started... OK
+[START] W1 Listings & Local Copies started... OK
+[START] W2 Keeping Listings Current started... OK
+[HOLD]  W3 Sources & Place Store held due to Common Crawl alarm
+[START] W4–W14 Workers online... OK
+[STATE] System transitioned to: Observation & Reporting</div>
+            `);
+        }
+
+        function orderlyShutdown() {
+            setLifecycleStage('shut-down');
+            openModal('Orderly Shut-Down (Reverse Order)', `
+                <div class="log-box">[SHUT-DOWN] Draining W14 -> W4 workers... COMPLETE
+[SHUT-DOWN] Flushing W2 & W1 batches to Bluehost MySQL 8.0... 0 orphaned locks
+[SHUT-DOWN] Halting W0 Indexer frontier... COMPLETE
+[FINAL STATE] stopped, safe</div>
+            `);
+        }
+
+        function emergencyPause() {
+            openModal('EMERGENCY STOP: PAUSE EVERYTHING', `
+                <div class="log-box" style="color:var(--red)">[EMERGENCY BRAKE] Immediate halt signal sent to Railway workers and Bluehost cron dispatcher.
+All active jobs suspended immediately.</div>
+            `);
+        }
+
+        function fixPulseInPlace() {
+            const w3 = processes.find(p => p.id === 'eng-w3');
+            w3.status = 'green';
+            w3.stage = 'Observation';
+            w3.readings.heartbeat = '4s ago';
+            w3.readings.latency = '118 ms';
+            w3.alarms = 0;
+
+            const pulseEl = document.getElementById('pulse-w3');
+            pulseEl.classList.add('resolved');
+            pulseEl.innerHTML = `
+                <div>
+                    <div class="pulse-meta">AUTO-CLOSED &bull; Resolution: Switched W3 to secondary Common Crawl mirror &amp; verified vector index</div>
+                    <strong>Common Crawl (W3) recovered — W3 cleared to run</strong>
+                </div>
+                <span class="pill pill-green">Closed</span>
+            `;
+
+            document.getElementById('globalBeacon').className = 'beacon-dot green';
+            document.getElementById('globalLabel').textContent = 'ADMIN ALERT LIGHT: ALL SYSTEMS GREEN (0 OPEN ALARMS)';
+            document.getElementById('pulseCountBadge').textContent = 'Pulse: 0 Open Items';
+            renderGauges();
+        }
+
+        function acknowledgePulse() {
+            alert('Marked "Done" (acknowledged). Item remains visible until underlying alarm clears and auto-closes.');
+        }
+
+        function evaluateQueries() {
+            for (let i = 1; i <= 4; i++) {
+                const val = parseInt(document.getElementById(`q${i}-val`).textContent, 10);
+                const lim = parseInt(document.getElementById(`q${i}-lim`).value, 10);
+                const gate = document.getElementById(`q${i}-gate`);
+                gate.innerHTML = val <= lim
+                    ? '<span class="pill pill-green">Pass</span>'
+                    : '<span class="pill pill-red">Slow Trip</span>';
+            }
+        }
+
+        function runQueryBenchmarks() {
+            const samples = [136, 34, 89, 9];
+            samples.forEach((ms, idx) => {
+                document.getElementById(`q${idx + 1}-val`).textContent = `${ms} ms`;
+            });
+            evaluateQueries();
+        }
+
+        function viewLog(id) {
+            const p = processes.find(item => item.id === id);
+            openModal(`Live Process Log — ${p.name}`, `
+                <div class="log-box">[2026-11-18 06:24:10] Heartbeat OK (${p.readings.heartbeat})
+[2026-11-18 06:24:11] Route verified: ${p.route}
+[2026-11-18 06:24:12] Batch accounting: Received=${p.received}, Stored=${p.stored}, Updated=${p.updated}, Refused=${p.refused}
+[2026-11-18 06:24:12] Step timing: ${p.readings.latency} | Cost/record: ${p.readings.cost}</div>
+            `);
+        }
+
+        function viewReport(id) {
+            const p = processes.find(item => item.id === id);
+            openModal(`Process Audit Report — ${p.name}`, `
+                <div class="log-box">PROCESS: ${p.name}
+STAGE:   ${p.stage}
+UPTIME:  ${p.uptime}
+RUNS:    ${p.runs.toLocaleString()}
+RECORDS: ${p.received.toLocaleString()} received = ${p.stored.toLocaleString()} stored + ${p.updated.toLocaleString()} updated + ${p.refused.toLocaleString()} refused (0 unaccounted)
+VERDICT: Complete, Fast, Efficient, Accurate</div>
+            `);
+        }
+
+        function openMaintenanceModal(procName) {
+            openModal(`Schedule Maintenance — ${procName}`, `
+                <p style="font-size:0.85rem; color:var(--text-secondary); margin-bottom:0.75rem;">
+                    Taking a process into Maintenance suppresses silence alarms until the "Back by" timestamp expires.
+                </p>
+                <div style="display:flex; flex-direction:column; gap:0.65rem;">
+                    <input type="text" placeholder="Reason (e.g., Geofabrik PBF monthly refresh)">
+                    <input type="text" value="2026-11-18 14:00 MST">
+                    <button class="btn btn-start" onclick="closeModal()">Save Maintenance Window</button>
+                </div>
+            `);
+        }
+
+        function openHealthTokenModal() {
+            openModal('Read-Only Session Manager Health Token', `
+                <p style="font-size:0.85rem; color:var(--text-secondary); margin-bottom:0.75rem;">
+                    This password lets the session manager read the site's alarm list for hourly phone pushes. Saved once securely, never shown in chat, read-only, and free.
+                </p>
+                <div style="display:flex; gap:0.5rem;">
+                    <input type="password" placeholder="Enter read-only health token..." style="flex:1;">
+                    <button class="btn btn-start" onclick="alert('Health token stored securely.'); closeModal();">Save Once</button>
+                </div>
+            `);
+        }
+
+        function openModal(title, html) {
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('modalContent').innerHTML = html;
+            document.getElementById('modalBackdrop').classList.add('open');
+        }
+
+        function closeModal() {
+            document.getElementById('modalBackdrop').classList.remove('open');
+        }
+
+        renderGauges();
+        renderSourceMap();
+    </script>
+</body>
+</html>

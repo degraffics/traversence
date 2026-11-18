@@ -14,7 +14,7 @@ The site's code isn't here. It runs on the server and in OneDrive, and its live 
 | `prd.md` | Functional spec and feature roadmap |
 | `architecture.md` | System architecture and operational spec (living) |
 | `traversence-platform-spec.md` | The live master technical spec: an append-only phase log |
-| `decisions/` | Architecture Decision Records, numbered `0001`–`0170`. A newer decision can replace an older one. |
+| `decisions/` | Architecture Decision Records, numbered `0001`–`0171`. A newer decision can replace an older one. |
 
 ## Business and brand
 
@@ -44,7 +44,7 @@ The site's code isn't here. It runs on the server and in OneDrive, and its live 
 | `toolkit.md` | The Traversence toolkit |
 | `faq.md` | The site's FAQ, shipped as `app/ui/faq.md` |
 | `archive.md` | Register of archived and removed site pages |
-| `design/` | Reference mockups: `community-landing-mockup.png` (to build to); `marketplace-landing-mockup.png` (Jason, 2026-11-02: the Marketplace landing page to review for a cleaner, more functional design); `css-shells-brief.md` (2026-11-04: the page shells and class names for the CSS rework) |
+| `design/` | Reference mockups: `community-landing-mockup.png` (to build to); `marketplace-landing-mockup.png` (Jason, 2026-11-02: the Marketplace landing page to review for a cleaner, more functional design); `css-shells-brief.md` (2026-11-04: the page shells and class names for the CSS rework); `control-board-mockup.html` (2026-11-18: Jason's example System Control Board, a reference for decisions/0171's build) |
 
 ## Process
 
