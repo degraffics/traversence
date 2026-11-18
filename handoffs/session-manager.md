@@ -252,6 +252,12 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
        person's switch". Release B has shipped. Reword `Operations::seed`'s reason (and the live rows' `paused_why`, by
        a data migration with `data_reason`) to "until a person switches it on" plus each one's real reason: AZCC and NM
        SoS, the address fix and the records request; the licence lists, Cloudflare (by hand, queue 3a).
+     - **OpenStreetMap coverage jobs wait forever on Overpass** (2026-11-18, the crawler's log): coverage jobs
+       800000013 and 800000014 say "waits for OpenStreetMap, every OpenStreetMap server is held" (overpass-api.de's ban
+       and the three mirrors held). W1 already reads our Geofabrik copy first (#101); coverage still asks only Overpass.
+       Make coverage read the Geofabrik copy the same way, Overpass only as a fallback when one is open (never retried
+       while held). Also: the crawler exits non-zero when its only task (Common Crawl, held by issue #13) fails, which
+       Railway shows as CRASHED; a run whose only failure is a held service should end ok.
      - **Start's watch counts "nothing to do" as a good run** (2026-11-18, the source-map session): the identity
        recheck and the vector index show "0 good runs" because their runs end "nothing to do", which
        `SystemStart::runs()` doesn't count (and `t:recheck` skips `crawl_runs` entirely), so their watch ends only at the
