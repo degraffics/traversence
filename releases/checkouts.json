@@ -149,6 +149,24 @@
    "expires": "2026-11-18T23:59:31Z",
    "release": "control-board-3b.zip",
    "callers": {}
+  },
+  {
+   "path": "app/ui/pulse-ui.php",
+   "functions": [
+    "tv_pulse_board"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "The admin Pulse Stream to decisions/0172: one row per thing, rows open in place, the row's icons, flags, tags and views",
+   "since": "2026-11-18T20:01:31Z",
+   "expires": "2026-11-19T00:01:31Z",
+   "release": "comms-pulse.zip",
+   "callers": {
+    "tv_pulse_board": [
+     "app/admin/sections.php",
+     "website/admin/w.php"
+    ]
+   }
   }
  ],
  "lapsed": [
