@@ -56,6 +56,15 @@ Alongside: `releases-self-withdraw` (#122), `releases-live-2` (#123), `releases-
   pre-flight run `ops:pf:stopped`), run by the watch; `ControlAlarms::opsDo` the one door for their buttons; a red
   required pre-flight line is a trip only while what it holds is on; `/api/health.php` `alarms` block. Tests r3c.php 28;
   r3a updated to the rule; the suites' `require_once Database.php` and r2a's `n_` columns fixed.
+  Live as #143, verified in Sync 21:23.
+- `control-board-3d` (built on 21:23): Jason's design directive, the board's part (via the session manager, 2026-11-18;
+  the command header and the palette across the admin went to a design build). Alarm grouping on the board and in Pulse
+  (`ControlAlarms::systemOf/familyOf/groupKey/groups/groupMembers/pulseGroups/ackGroup`; `Pulse::items` groups after its
+  marks, `Pulse::mark` on `alarms:` marks each child, `playbook` 'alarms'; the board's `$one` row closure and the group
+  row with Acknowledge all, api `ackgroup`; JS counts top-level rows). Colours: a red light only for an open trip or a core
+  host; a red check otherwise → light `hold` (amber pause mark, "Held"/"Holding"); a trip marks its row red even where it
+  switched it off ("Tripped"); tokens `--tv-fail`, `--tv-hold`, `--tv-canvas`, `--tv-line`, `--tv-ink` on `#cb` (the
+  Communications session's names); the top bar's light in router.php. 0171 §8 notes. Tests r3d.php 17; r2d updated.
 - Known shortcut in 3c: a back-off held by a trip is `service_issues.hold_until = '2099-01-01'` (until a person resolves
   it; `ServiceHealth::holdForTrip`), not a flag of its own. A real flag (a column, `held_by_trip`) needs a migration on
   `service_issues`; do it with the next ServiceHealth change.

@@ -33,6 +33,6 @@ $t('the board lists W0\'s check part by part', substr_count($seg, '<li>') >= 3 &
 $ul = substr($seg, (int) strpos($seg, 'class="cb-parts"'));
 $t('…its line says what holds it: the dry run, not the gate', (bool) preg_match('#Holds it:</b> Dry run#', $seg) && !preg_match('#Holds it:</b> Its gate#', $seg), mb_substr(strip_tags($seg), 0, 300));
 $t('…its parts on a toggle, the red one first', str_contains($seg, 'class="cb-more"') && strpos($ul, 'Dry run') < strpos($ul, 'Its gate'), mb_substr(strip_tags($ul), 0, 300));
-$t('…its row: the Holding stage, and the hold in a few words (its test batch is its own alarm, one per issue)', str_contains($seg, 'cb-pill-bad">Holding') && str_contains($seg, 'Holds it: Dry run'), mb_substr(strip_tags($seg), 0, 300));
+$t('…its row: the Holding stage in amber (held, not tripped: 3d), and the hold in a few words (its test batch is its own alarm, one per issue)', str_contains($seg, 'cb-pill-hold">Holding') && str_contains($seg, 'Holds it: Dry run'), mb_substr(strip_tags($seg), 0, 300));
 echo "\n$pass passed, $fail failed\n";
 exit($fail ? 1 : 0);
