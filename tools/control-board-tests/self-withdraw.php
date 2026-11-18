@@ -7,7 +7,7 @@
 // aren't written to git).
 declare(strict_types=1);
 $app = $argv[1];
-require $app . '/lib/Database.php'; require $app . '/lib/Releases.php';
+require_once $app . '/lib/Database.php'; require $app . '/lib/Releases.php';
 $pdo = Database::connection();
 $pass = 0; $fail = 0;
 $t = function (string $n, bool $ok, $got = null) use (&$pass, &$fail) { if ($ok) { $pass++; echo "  ok  $n\n"; } else { $fail++; echo "FAIL  $n" . ($got !== null ? ' — ' . json_encode($got, JSON_UNESCAPED_SLASHES) : '') . "\n"; } };

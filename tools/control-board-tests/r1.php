@@ -6,7 +6,7 @@
 declare(strict_types=1);
 $app = $argv[1];
 final class Access { public static $ok = true; public static function can($p, $o = []) { return [self::$ok, 'Executives only']; } public static function staff() { return ['name' => 'Jason']; } }
-require $app . '/lib/Database.php'; require $app . '/lib/SystemStart.php'; require $app . '/lib/Preflight.php'; require $app . '/lib/ControlRegister.php';
+require_once $app . '/lib/Database.php'; require $app . '/lib/SystemStart.php'; require $app . '/lib/Preflight.php'; require $app . '/lib/ControlRegister.php';
 $pdo = Database::connection();
 $pass = 0; $fail = 0;
 $t = function (string $n, bool $ok, $got = null) use (&$pass, &$fail) { if ($ok) { $pass++; echo "  ok  $n\n"; } else { $fail++; echo "FAIL  $n" . ($got !== null ? ' — ' . json_encode($got, JSON_UNESCAPED_SLASHES) : '') . "\n"; } };

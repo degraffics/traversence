@@ -260,6 +260,13 @@ Problems are caught **as they happen**, not at the hourly check.
 | **Near a limit** | Caps at 50/75/95% (`Operations::LEVELS`), "returns empty" | Warning |
 | **Wrong count** | A call's received ≠ stored + updated + refused (§9) | Warning |
 
+**Note (Jason, 2026-11-18, release 3c): the system tries first; a trip is what it couldn't fix.** A crash (above) is a
+**warning** while the system tries again by itself, for `control_fix_tries` (default 3) or `control_fix_minutes`
+(default 60) from the first failure, whichever comes first, then a **trip**; slow keeps `control_slow_trips`, and a
+back-off trips at its case limit as above. Held or out (a refusal, a refused key, a used-up quota or budget) trips at
+once: there's nothing to try. Both settings are in Thresholds & gates (0163). A red required pre-flight line is a trip
+only while what it holds is switched on; otherwise a warning Start holds.
+
 **How fast:** at the moment of the event for anything that calls in; at most 5 minutes for silence. The email goes out
 in the same minute (§7). The phone push comes at the session manager's next hourly check, so the email is the fast path.
 
@@ -302,6 +309,19 @@ One alarm list for the whole system, by level.
 
 **It clears by itself** when its reading is green at the next look, and says how it cleared. A trip that cleared before
 anyone saw it stays listed as "cleared, not seen" until it is acknowledged or 24 hours pass.
+
+**Note (Jason, 2026-11-18, release 3c): a trip doesn't clear by itself.** "A trip is when the system identifies a problem
+and can't resolve it: 1. internal testing and procedures to systematically resolve the issue. 2. pushing the issue to an
+admin and ceasing internal process until admin resolves it." So, for trips only:
+- **It goes to an admin:** the Founder is emailed at once (as below); its Pulse item goes to the Director's level.
+- **It stops what it holds, as narrow as its cause** (playbook §2): a task's failures stop that workflow; a task, that
+  task; out of budget, that service; a back-off at its limit, that server's calls; W0 gone quiet, W0. The master switch
+  only when the crawler itself is down (runs that fail outright or never report). A site job tied to no workflow can't be
+  stopped from here: it only trips.
+- **Only an executive's Resolve clears it** (§13): it asks what fixed it, runs the check, and starts again only what the
+  trip stopped (Automation's permission). A check still red keeps it open with the reason on its row. **Undo** for a day.
+  When its reading turns green, the row says so and waits. A person's own act on the cause (Mark resolved, Reactivate)
+  closes it too. Warnings and notices still clear by themselves; a trip raised before 3c (no `tripped_at`) does as well.
 
 **Three ways to the operator, all free:**
 1. **System notification.**

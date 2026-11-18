@@ -8,7 +8,7 @@
 // zz_test.php): a worker call that stores, refreshes and refuses. CRAWLER_API_TOKEN=testtoken, VIDEO_WORKER_TOKEN=vtoken.
 declare(strict_types=1);
 $app = $argv[1];
-require $app . '/lib/Database.php'; require $app . '/lib/ControlLedger.php'; require $app . '/lib/SystemStart.php';
+require_once $app . '/lib/Database.php'; require $app . '/lib/ControlLedger.php'; require $app . '/lib/SystemStart.php';
 $pdo = Database::connection();
 $pass = 0; $fail = 0;
 $t = function (string $n, bool $ok, $got = null) use (&$pass, &$fail) { if ($ok) { $pass++; echo "  ok  $n\n"; } else { $fail++; echo "FAIL  $n" . ($got !== null ? ' — ' . json_encode($got, JSON_UNESCAPED_SLASHES) : '') . "\n"; } };
@@ -30,9 +30,9 @@ $t('the worker gets its answer as before', $code === 200 && $raw === '{"ok":true
 $l = $last();
 $t('one row: the endpoint, POST, 200, how long', $l && $l['endpoint'] === 'crawl/zz_test' && $l['method'] === 'POST' && (int) $l['code'] === 200 && (int) $l['ms'] >= 0, $l);
 $t('…linked to the crawler run going on', (int) $l['run_id'] === $run, $l['run_id']);
-$t('received: the candidates, not the log', (int) $l['received'] === 3, $l['received']);
-$t('stored, updated, Review from what the libraries marked', (int) $l['stored'] === 1 && (int) $l['updated'] === 1 && (int) $l['review'] === 1, $l);
-$t('refused by reason: already known (the answer) and a person\'s entry kept', (int) $l['refused'] === 3 && str_contains((string) $l['reasons'], 'already known: 2') && str_contains((string) $l['reasons'], 'kept what a person entered: 1'), $l['reasons']);
+$t('received: the candidates, not the log', (int) $l['n_received'] === 3, $l['n_received']);
+$t('stored, updated, Review from what the libraries marked', (int) $l['n_stored'] === 1 && (int) $l['n_updated'] === 1 && (int) $l['n_review'] === 1, $l);
+$t('refused by reason: already known (the answer) and a person\'s entry kept', (int) $l['n_refused'] === 3 && str_contains((string) $l['reasons'], 'already known: 2') && str_contains((string) $l['reasons'], 'kept what a person entered: 1'), $l['reasons']);
 $r = $recs((int) $l['id']);
 $t('one line per record touched', count($r) === 4, $r);
 $t('a listing written field by field is one line', $r[0]['what'] === 'updated: zz_phone, zz_site', $r[0]);

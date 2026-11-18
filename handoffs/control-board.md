@@ -41,9 +41,24 @@ Alongside: `releases-self-withdraw` (#122), `releases-live-2` (#123), `releases-
   session manager: "no contact at all while they're held … never by itself"): `ServiceHealth::noProbe` (an `osm` refusal)
   stops its probe from the crawler and the site and Check it now; the alarm, case, FAQ and the statement to OSM say so;
   0171 §8 has the note. Pulse's `$rank` gains urgent and special (0172's levels, Communications' ask).
-- Next, 3c: the Starting (ops:start) and W0 (ops:w0) cases into alarms; the health report's `alarms` block for the hourly
-  push; admin Pulse read state; slow detection; the worker's retries; the crawler-run page and "W1 today"; off-region
-  sources (a rule first); the release pipeline's two guards.
+  Live as #139 (3b-2) and #140 (3b-3), verified in Sync 20:17 and 20:29.
+- `control-board-3c` (built on 20:38, checked against 20:47): Jason's Trip rule (2026-11-18, pop-up, reviewed by the
+  session manager; 0171 §5 and §7 notes). `ControlAlarms::raise` asks for a trip → a warning while the system tries
+  (`control_fix_tries` 3 / `control_fix_minutes` 60, Thresholds; slow uses `control_slow_trips`), `AT_ONCE` (held, limit)
+  trips at once; `tripped()` emails, `Pulse::escalateTo` (Director), `stop()` as narrow as its cause (wf/t via
+  ControlBoard::stopOne, out of budget → service paused, back-off at CASE_AFTER → `ServiceHealth::holdForTrip`, the
+  master switch only for `run:failed`/`silent:run`); `clear()` on a trip notes `good_at` and waits; `closeKey()` for a
+  person's Mark resolved/Reactivate; `resolve()` (note, startOne after its check, red → `resolve_note`) and
+  `unresolve()` (a day), on the board (api `resolve`/`unresolve`) and in Pulse (`alarm_resolve` form, `alarm_unresolve`).
+  New columns by migration `2026-11-18_control_alarms_trips.sql`. Per-task failures `task:failed:<t>` (CrawlService);
+  slow calls at the ledger (`ep:*:slow`) and slow jobs (`jobslow:*`) in the watch; job crashes counted per failed run;
+  `Operations::alarms()` (caps, empty, Starting the system per ask `ops:start:<md5>`, W0 needs `ops:w0:*`, a stopped
+  pre-flight run `ops:pf:stopped`), run by the watch; `ControlAlarms::opsDo` the one door for their buttons; a red
+  required pre-flight line is a trip only while what it holds is on; `/api/health.php` `alarms` block. Tests r3c.php 28;
+  r3a updated to the rule; the suites' `require_once Database.php` and r2a's `n_` columns fixed.
+- Not in 3c, still open: the worker reporting its own retries to the ledger (0171 §5 "Retry", needs a worker change);
+  admin Pulse read state (Communications' split, 0172); and the cleanup fixes below (the crawler-run page and "W1 today",
+  off-region sources with a rule first, the release pipeline's two guards), for the release after 3c. Then releases 4–5.
 
 **Release 3 (decisions/0171 §15.3): real-time monitoring, the alarms and Pulse.**
 - `control_alarms` and `control_tick`; slow, retry and crash caught when they happen (§5).
