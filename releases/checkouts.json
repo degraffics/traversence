@@ -6,10 +6,10 @@
    "functions": [],
    "kind": "change",
    "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
-   "why": "Service issues explained on the Start card (Jason, 2026-11-18)",
+   "why": "Automation page tables on a phone",
    "since": "2026-11-18T02:18:52Z",
-   "expires": "2026-11-18T06:18:52Z",
-   "release": "start-issue",
+   "expires": "2026-11-18T06:21:05Z",
+   "release": "start-issue-2",
    "callers": {}
   },
   {
@@ -21,6 +21,17 @@
    "since": "2026-11-18T02:18:55Z",
    "expires": "2026-11-18T06:18:55Z",
    "release": "start-issue.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/automation-console.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
+   "why": "Automation page tables on a phone",
+   "since": "2026-11-18T02:21:05Z",
+   "expires": "2026-11-18T06:21:05Z",
+   "release": "start-issue-2",
    "callers": {}
   }
  ],
