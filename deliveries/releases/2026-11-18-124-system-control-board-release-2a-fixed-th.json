@@ -6,13 +6,13 @@
     "zip": "control-board-2a-4.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "approved",
+    "state": "staged",
     "step": 0,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
     "plan_at": "2026-11-18 15:18:44",
-    "staged_at": null,
+    "staged_at": "2026-11-18 15:18:46",
     "vetted_at": null,
     "live_at": null,
     "files": {
@@ -75,7 +75,39 @@
     "migrations": [
         "app/migrations/2026-11-18_control_ledger.sql"
     ],
-    "checks": [],
+    "checks": {
+        "ok": true,
+        "where": "staging",
+        "at": "2026-11-18T15:18:47+00:00",
+        "items": [
+            [
+                "PHP files parse",
+                true,
+                "9 checked"
+            ],
+            [
+                "Migrations only add",
+                true,
+                "1 checked"
+            ],
+            [
+                "Migrations ran on staging",
+                true,
+                "Ran 2026-11-18_control_ledger.sql"
+            ],
+            [
+                "Pages answer",
+                true,
+                "2 pages answered on staging.trvgo.us"
+            ],
+            [
+                "No new fatal errors in the logs",
+                true,
+                "5 logs read"
+            ]
+        ],
+        "first_fail": ""
+    },
     "log": [
         {
             "at": "2026-11-18T15:18:42+00:00",
@@ -91,6 +123,11 @@
             "at": "2026-11-18T15:18:44+00:00",
             "by": 0,
             "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
+        },
+        {
+            "at": "2026-11-18T15:18:47+00:00",
+            "by": 0,
+            "msg": "Put on staging (11 files); its checks passed."
         }
     ]
 }
