@@ -1,7 +1,8 @@
 # 0167: Communications in one place: set up in System Configuration, handled in Pulse
 
-Status: accepted (Jason, 2026-11-16: "yes to your recommendations and the outline. Queue for future work."). Not built;
-queued in `handoffs/session-manager.md`.
+Status: accepted (Jason, 2026-11-16: "yes to your recommendations and the outline. Queue for future work."). **Built and live
+2026-11-18** as part of Release #135 (`comms-all.zip`, verified in Sync 19:23 UTC); SES bulk sending "coming". What's
+built and left: `handoffs/communications.md`.
 Builds on: 0097 (two-step sign-in, the captcha), 0105 (Dashboard and Pulse), 0125 (settings changed from the admin),
 0137 §8 (Amazon SES: two accounts, bounces through SNS), 0152 (outside services, one card per company), 0163 (operations).
 Amends: the rule on Staff → System mailboxes that a mailbox password "goes in by hand, never through a web page" (§4).
