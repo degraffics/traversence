@@ -6,12 +6,12 @@
     "zip": "control-board-2b.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "planned",
+    "state": "approved",
     "step": 0,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
-    "plan_at": null,
+    "plan_at": "2026-11-18 16:11:09",
     "staged_at": null,
     "vetted_at": null,
     "live_at": null,
@@ -59,6 +59,16 @@
             "at": "2026-11-18T16:11:08+00:00",
             "by": 0,
             "msg": "Uploaded control-board-2b.zip: 7 files."
+        },
+        {
+            "at": "2026-11-18T16:11:09+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/control-board-2b.zip (git 1ac77b66f4)."
+        },
+        {
+            "at": "2026-11-18T16:11:09+00:00",
+            "by": 0,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
         }
     ]
 }
