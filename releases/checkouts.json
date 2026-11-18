@@ -283,6 +283,19 @@
    "expires": "2026-11-19T02:39:36Z",
    "release": "control-board-4a.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/Preflight.php",
+   "functions": [
+    "(top)"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 4a: Preflight::NIGHT_HOUR",
+   "since": "2026-11-18T22:39:52Z",
+   "expires": "2026-11-19T02:39:52Z",
+   "release": "control-board-4a.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
