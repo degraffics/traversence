@@ -53,9 +53,10 @@ Each rule below comes from a real mistake (in brackets) so it isn't repeated.
 
 - **Ask Jason yourself, in your own chat** (Jason, 2026-11-18: "the same question is being asked twice in two
   different sessions"): the decision pop-up (AskUserQuestion: Approve, Not now, Needs changes) and a push notification,
-  never a plain line and never a Pulse case. Then send the session manager his answer and the PR's link, so it merges.
+  never a plain line and never a Pulse case. Then merge the PR yourself and send the session manager his answer, the link and the merge, so it runs the sync.
   Don't also ask the session manager to ask him.
-- **Only the session manager merges, runs the sync and records deliveries.** A build session's PR carries its own
+- **Merge your own approved PR; only the session manager runs the sync and records deliveries** (Jason, 2026-11-18:
+  sessions merge, no waiting). Merge only after his Approve in your own pop-up, one PR at a time. A build session's PR carries its own
   release zip, hand-off and decision notes, not `deliveries/` verification. [#891 conflicted with #890: both recorded
   #117's verification.]
 - **Short, plain messages**: what changed, what Jason will see, what's next; links as full URLs.
