@@ -25,7 +25,7 @@ $lid = (int) $pdo->query('SELECT MIN(id) FROM control_ledger')->fetchColumn();
 $pdo->exec("INSERT INTO control_records (ledger_id, at, kind, ref_id, what) VALUES ($lid, UTC_TIMESTAMP(), 'listing', 501, 'stored'), ($lid, UTC_TIMESTAMP(), 'review', 77, 'review')");
 $p = ControlBoard::process($pdo, 'wf:W1', ['engine', 'W1 Listings'], []);
 $t('W1: its worker calls in the last day, counted', $p['calls']['calls'] === 2 && $p['calls']['received'] === 7 && $p['calls']['review'] === 3 && $p['calls']['errors'] === 1, $p['calls']);
-$t('…a server error lights it red, said in words', $p['light'] === 'bad' && str_contains($p['words'], '1 answered with a server error'), [$p['light'], $p['words']]);
+$t('…its latest call failed: red, and its words start with why', $p['light'] === 'bad' && str_starts_with($p['words'], 'The site\'s /api/crawl/results answers a server error'), [$p['light'], $p['words']]);
 $t('…its switch is on', $p['switch'] === 'on');
 $r = ControlBoard::records($pdo, ['crawl/results']);
 $t('the records it touched, newest first', count($r) === 2 && $r[0][0] === 'review' && (int) $r[1][1] === 501, $r);
