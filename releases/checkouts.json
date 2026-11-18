@@ -1,6 +1,31 @@
 {
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
- "claims": [],
+ "claims": [
+  {
+   "path": "app/admin/sections.php",
+   "functions": [
+    "tv_admin_mod_releases"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Releases list laid out as a table, opening under each title",
+   "since": "2026-11-18T15:42:54Z",
+   "expires": "2026-11-18T19:42:54Z",
+   "release": "releases-table-2",
+   "callers": {}
+  },
+  {
+   "path": "website/js/admin-releases.js",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Releases list laid out as a table, opening under each title",
+   "since": "2026-11-18T15:42:54Z",
+   "expires": "2026-11-18T19:42:54Z",
+   "release": "releases-table-2",
+   "callers": {}
+  }
+ ],
  "lapsed": [
   {
    "path": "app/admin/sections.php",
