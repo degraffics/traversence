@@ -7,7 +7,8 @@ apart from them; three touch points; a community group is a channel.
 Builds on: 0047 and 0052 (links, messages, marketing preferences), 0049 (consent), 0066 (nations' land), 0102 and
 0100 (roles), 0108 (sales, SMS and push), 0141 (Market 360°'s unsubscribe), 0154 (who pays), 0167 (system email in one
 place), 0171 (the Control Board's alarms).
-Amends (each marked **Note for Jason** where it happens): 0105's case drawer (rows open in place), `Pulse::SEVERITY` (four levels become six), 0052 step 6
+Amends (each marked **Note for Jason** where it happens): 0105's case drawer (rows open in place) and its Operational
+Task Queue, 0055 §5's needs block (both to the bell), `Pulse::SEVERITY` (four levels become six), 0052 step 6
 (guest questions, §3.3), 0167 §2's Sent view (§4.3) and 0167 §2a's "Outside addresses aren't connected" (§4.7).
 Nothing else is reversed.
 Hand-off: `handoffs/communications.md`. Checked against the live mirror at "Sync: 2026-11-18 02:36 UTC".
@@ -183,8 +184,18 @@ through `ClientOrders::setStage`); every kind follows it:
 - **Feeds and comments** show the post or comment itself, with Reply (a comment) and its own small actions (Like,
   Report).
 
-- **The bell is Pulse's count** of everything unread at Alert or above (today it counts only person messages, gap 6
-  below), and opens Pulse.
+- **Nothing in Pulse is pinned, moved or held on top by the site; the bell and the item carry the signal** (Jason,
+  2026-11-18: "the notification bell should be used for these items. we dont pin or control how the inbox works, so
+  when an incoming item is marked a certain way the bell and the item itself holds the visual queues"):
+  - **The item** shows its level on its row (Critical red, Urgent amber, Alert marked) wherever the person has filed it.
+  - **The bell** counts everything unread at Alert or above (today it counts only person messages, gap 6 below), takes
+    the colour of the highest level waiting, and lists those items; tapping one opens its row in place in Pulse.
+  - **A notice of action on an account** (0079: a warning, or posting and messaging stopped) is no exception: a
+    Critical item, on the bell until it's dealt with, and by email.
+  - **Note for Jason (changes what's built):** the member's fixed "needs" block above the stream (`MemberPulse::needs`,
+    the old Notification Center, 0055 §5: "The Notification Center becomes the top of the Pulse") goes; its items
+    arrive as rows and on the bell. The admin's Operational Task Queue (0105), which lists critical and alert cases
+    above the stream, becomes the bell's list the same way.
 - **The other channels point back.** An email, push or text says what happened and links to the item in Pulse; replying
   to the email (or the text, where texts are on) posts the reply in the same thread: each email carries a reply
   address tied to its thread, read by the site from one of our cPanel mailboxes (§4.7).

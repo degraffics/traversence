@@ -12,7 +12,9 @@ Pulse keeps its established look (0105), not an Outlook layout (Jason: "i didnt 
 bundled cases split. Draft 5: the profile page's Pulse per Jason's mockup
 (`design/pulse-profile-mockup.png`): channel chips, list with row icons, a row opens in place with its content and
 its own answer box. Draft 6: the row's seven icons as Pulse's managing actions on every kind, and an
-email in Pulse; Jason chose: every Pulse opens rows in place; 0105's drawer becomes ⤢ open wide. He said "there is a lot to unpack" in the rest: expect more changes.
+email in Pulse; Jason chose: every Pulse opens rows in place; 0105's drawer becomes ⤢ open wide. Nothing is pinned or held on top by the site: the bell and the
+item's own marks carry the signal (account notices included); the needs block and the Operational Task Queue go to
+the bell. He said "there is a lot to unpack" in the rest: expect more changes.
 **Checked against:** the live mirror at "Sync: 2026-11-18 02:36 UTC".
 **Started by:** the session manager, with Jason's scope (2026-11-18): internal, between accounts, and listings
 communications; each WHO, then each WHAT; listing cards; texting from the decisions.
