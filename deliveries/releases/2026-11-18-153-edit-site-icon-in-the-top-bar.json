@@ -1,0 +1,90 @@
+{
+    "id": 153,
+    "title": "Edit site icon in the top bar",
+    "why": "Jason, 2026-11-18: \"move the edit button up to a edit site icon in the row of icons by dashboard\". The Edit page switch (Release 3a, #152) moves out of the account menu into the account bar's icons, beside the dashboard (⌂) and sign-out: a pencil-in-a-square, lit sage while editing is on, for staff with Pages: edit. Same behaviour: off until switched on, per device; off, staff see exactly the published page. FAQ: the two answers now point to the icon.",
+    "proposals": "",
+    "zip": "design-r3a2-edit-site.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "live",
+    "step": 3,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": "2026-11-18 23:08:33",
+    "staged_at": "2026-11-18 23:08:35",
+    "vetted_at": "2026-11-18 23:08:37",
+    "live_at": "2026-11-18 23:08:37",
+    "files": {
+        "app/ui/context-switcher.php": {
+            "sha": "1006982908e266f0b64b824b3acfb7dbf4ac32b0c8ae5474efee47f1bd3b33a3",
+            "size": 38028,
+            "live_was": "a677502e2883d781b65d306da2f2670bacc08d94d4062aca2b9c15658b449689",
+            "existed": true,
+            "old_sha": "a677502e2883d781b65d306da2f2670bacc08d94d4062aca2b9c15658b449689"
+        },
+        "app/ui/faq.md": {
+            "sha": "2d92365d497241e880310a7873869c60fd22a238ecc89e9b04d65db8d6bd41e8",
+            "size": 358064,
+            "live_was": "636d15f0f085d785a981ce9cbbe2ad804a9dc866ee999d7b886dfb19bc1d9e80",
+            "existed": true,
+            "old_sha": "636d15f0f085d785a981ce9cbbe2ad804a9dc866ee999d7b886dfb19bc1d9e80"
+        }
+    },
+    "migrations": [],
+    "checks": {
+        "ok": true,
+        "where": "live",
+        "at": "2026-11-18T23:08:38+00:00",
+        "items": [
+            [
+                "PHP files parse",
+                true,
+                "1 checked"
+            ],
+            [
+                "Pages answer",
+                true,
+                "2 pages answered on traversence.com"
+            ],
+            [
+                "No new fatal errors in the logs",
+                true,
+                "3 logs read"
+            ]
+        ],
+        "first_fail": ""
+    },
+    "log": [
+        {
+            "at": "2026-11-18T23:08:31+00:00",
+            "by": 0,
+            "msg": "Uploaded design-r3a2-edit-site.zip: 2 files."
+        },
+        {
+            "at": "2026-11-18T23:08:33+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/design-r3a2-edit-site.zip (git cb50b0762a)."
+        },
+        {
+            "at": "2026-11-18T23:08:33+00:00",
+            "by": 0,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
+        },
+        {
+            "at": "2026-11-18T23:08:36+00:00",
+            "by": 0,
+            "msg": "Put on staging (2 files); its checks passed."
+        },
+        {
+            "at": "2026-11-18T23:08:37+00:00",
+            "by": 0,
+            "msg": "Approved in chat before it was sent through git, and its checks on staging passed: publishing by itself."
+        },
+        {
+            "at": "2026-11-18T23:08:37+00:00",
+            "by": 0,
+            "msg": "Published: 2 files; everyone at once (no switch)."
+        }
+    ]
+}

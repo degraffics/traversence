@@ -82,6 +82,203 @@
    "expires": "2026-11-19T02:03:07Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/lib/ControlHistorian.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 4b: the historian (decisions/0171 \u00a76)",
+   "since": "2026-11-18T23:05:59Z",
+   "expires": "2026-11-19T03:10:48Z",
+   "release": "control-board-4b.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/migrations/2026-11-19_control_history.sql",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 4b: the historian (decisions/0171 \u00a76)",
+   "since": "2026-11-18T23:05:59Z",
+   "expires": "2026-11-19T03:10:48Z",
+   "release": "control-board-4b.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/control-console.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 4b: the historian (decisions/0171 \u00a76)",
+   "since": "2026-11-18T23:06:01Z",
+   "expires": "2026-11-19T03:10:48Z",
+   "release": "control-board-4b.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/manifests.php",
+   "functions": [
+    "'insights'",
+    "insights",
+    "telemetry"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 4b: Telemetry points to the board",
+   "since": "2026-11-18T23:06:01Z",
+   "expires": "2026-11-19T03:10:48Z",
+   "release": "control-board-4b.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/sections.php",
+   "functions": [
+    "tv_admin_mod_dbupdates"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 4b: the historian (decisions/0171 \u00a76)",
+   "since": "2026-11-18T23:06:01Z",
+   "expires": "2026-11-19T03:10:48Z",
+   "release": "control-board-4b.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/ControlAlarms.php",
+   "functions": [
+    "tick"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 4b: the historian (decisions/0171 \u00a76)",
+   "since": "2026-11-18T23:06:01Z",
+   "expires": "2026-11-19T03:06:01Z",
+   "release": "control-board-4b.zip",
+   "callers": {
+    "tick": [
+     "app/scripts/control_tick.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/ControlBoard.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 4b: the historian (decisions/0171 \u00a76)",
+   "since": "2026-11-18T23:06:01Z",
+   "expires": "2026-11-19T03:10:48Z",
+   "release": "control-board-4b.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Thresholds.php",
+   "functions": [
+    "GATES"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 4b: the historian (decisions/0171 \u00a76)",
+   "since": "2026-11-18T23:06:01Z",
+   "expires": "2026-11-19T03:06:01Z",
+   "release": "control-board-4b.zip",
+   "callers": {
+    "GATES": [
+     "app/admin/operations-console.php",
+     "app/admin/sections.php",
+     "app/lib/Operations.php",
+     "app/lib/WorkflowSettings.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/staging-tables.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 4b: the historian (decisions/0171 \u00a76)",
+   "since": "2026-11-18T23:06:01Z",
+   "expires": "2026-11-19T03:10:48Z",
+   "release": "control-board-4b.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/admin/api.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 4b: the historian (decisions/0171 \u00a76)",
+   "since": "2026-11-18T23:06:01Z",
+   "expires": "2026-11-19T03:06:01Z",
+   "release": "control-board-4b.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/api/health.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 4b: the historian (decisions/0171 \u00a76)",
+   "since": "2026-11-18T23:06:01Z",
+   "expires": "2026-11-19T03:06:01Z",
+   "release": "control-board-4b.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/js/admin-control.js",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 4b: the historian (decisions/0171 \u00a76)",
+   "since": "2026-11-18T23:06:01Z",
+   "expires": "2026-11-19T03:10:48Z",
+   "release": "control-board-4b.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/ControlAlarms.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "release control-board-4b.zip",
+   "since": "2026-11-18T23:06:31Z",
+   "expires": "2026-11-19T03:10:48Z",
+   "release": "control-board-4b.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Thresholds.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "release control-board-4b.zip",
+   "since": "2026-11-18T23:06:31Z",
+   "expires": "2026-11-19T03:10:48Z",
+   "release": "control-board-4b.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/admin/api.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "release control-board-4b.zip",
+   "since": "2026-11-18T23:06:31Z",
+   "expires": "2026-11-19T03:10:48Z",
+   "release": "control-board-4b.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/api/health.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "release control-board-4b.zip",
+   "since": "2026-11-18T23:06:31Z",
+   "expires": "2026-11-19T03:10:48Z",
+   "release": "control-board-4b.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
