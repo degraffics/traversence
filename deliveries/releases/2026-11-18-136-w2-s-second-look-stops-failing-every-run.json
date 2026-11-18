@@ -1,0 +1,54 @@
+{
+    "id": 136,
+    "title": "W2's second look stops failing every run; the board says the real error, and how old its held count is",
+    "why": "The session manager, 2026-11-18, from the crawler's Railway logs: GET /api/crawl/verify.php?limit=4 answered 500 'Could not record the verification.' on 5 of 5 runs (18:37–19:17 UTC), so W2's second look did nothing. The endpoint's catch hid the cause, which went only to the server's error log (not mirrored, so it can't be read here). (1) Verify::lease now works each waiting listing on its own: one whose check throws is set aside 6 hours with its error kept on it, logged, and named in the answer ('set_aside'), and the rest still go to the worker. One bad listing no longer stops every run. (2) A failure that still reaches the endpoint answers with its real cause ('Could not hand out listings to verify: <class>: <message>'): the worker's log shows it. (3) The ledger keeps those words, set-aside listings included, and the board's W2 row shows 'Last error' with its time, so a hidden 500 can't hide again. Once live, the next W2 run either works or names its cause on the board at https://traversence.com/admin/config/control#cb-p-wf-W2. (4) Jason read '15 held' as most of the system down, when it came from a pre-flight two hours old while the crawler worked every 5 minutes. The strip's count now says the time of the test behind it ('15 held at the Nov 18, 10:19 AM test, over an hour old') with Test again beside it, and 'Last tested' is renamed 'Newest single check' (it is one line, not the whole test). Tests: w2-verify.php 5 (a listing that throws is set aside with its words, the other handed out, not tripped on again; the board reads the last error); r2b 14, r2d 9 and layout 8 still pass; rendered at 390px with no sideways scroll. Not in this release: the W3 source register reading helsinki.fi and cup.lmu.de (off-region universities): they are registered sources (reference_sources, status 'read'), so whether off-region sources belong is a rule to decide first. Built on Sync 19:23 UTC. No tables or migrations. FAQ: its two lines (the strip's test time, a row's last error) go with release 3a, because comms-all, not live yet, carries faq.md.",
+    "proposals": "",
+    "zip": "board-w2-verify.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/admin/control-console.php": {
+            "sha": "dd99a6a56d0f08be1ec6ff58ddbb2dd8f9a449da87882721a4c039066a594cd6",
+            "size": 37716,
+            "live_was": "50a8ca9e81fdb0ca4003f5030629f757992b6304ec5bc5db3fe65be4662e7ae3"
+        },
+        "app/lib/ControlLedger.php": {
+            "sha": "35df47c4eddf8d2b6e66873f1d68f7237a89cef2e6c981c661b1a07d385ef6f5",
+            "size": 11056,
+            "live_was": "55fb4b816be6e007a475b424f83133ca0616f561614351e3f609ce44a053de63"
+        },
+        "app/lib/crawler/Verify.php": {
+            "sha": "fd0ec2cd1737d388c0f27813d1261c8d92056f65552e0fdcf2cde02505e5744b",
+            "size": 17560,
+            "live_was": "caf41503ec334b53f9e682f2e9840abb5d1be01ad28c6d1d893e1db5659195cf"
+        },
+        "app/lib/ControlBoard.php": {
+            "sha": "5579e0dd0080b33dafe89895a88e2e22f38f34622516a3799b836f81a839d8bd",
+            "size": 21467,
+            "live_was": "2b589bd5fe9cd2458f87f9c2062cda27846210a197d89986047386abad06efb4"
+        },
+        "website/api/crawl/verify.php": {
+            "sha": "6ca945c51bfed10a7a3ebe9e8c333e35f0de6229006c58421a85072b1417117f",
+            "size": 1923,
+            "live_was": "68fe3551e7ae62e75e0511ce88bef35bbe178d7a4667cb5d078ea7eb8de44e65"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-18T19:34:43+00:00",
+            "by": 0,
+            "msg": "Uploaded board-w2-verify.zip: 5 files."
+        }
+    ]
+}
