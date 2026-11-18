@@ -3,16 +3,16 @@
  "built_on": "17d0627 Sync: 2026-11-18 13:57 UTC",
  "recorded": "2026-11-18 14:52 UTC",
  "note": "Releases: a build from Claude that fails its staging checks withdraws itself (clears #121); Withdraw puts staging back; replaces; built on Sync: 2026-11-18 13:57 UTC Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "a09bd4b Sync: 2026-11-18 14:55 UTC",
  "files": {
   "app/lib/Releases.php": {
    "sha256": "9651c9d8fb9ce678f5166b16922bbbb6e733ec8fb8e5d58aa830bc18c45efd6e",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "78258e43643c93bb86d710d2619c761440ade8f931d2b2f0250c4c06f3d492b2",
-   "live": false
+   "live": true
   }
  }
 }
