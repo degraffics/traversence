@@ -1,0 +1,54 @@
+{
+    "id": 120,
+    "title": "System Control Board, release 1: the unit register, routes on the Pre-flight, and Start re-testing what it depends on",
+    "why": "Decision 0171 (Jason approved revision 2, 2026-11-18), release 1 of 5. The unit register (app/lib/ControlRegister.php) names each system and process: every workflow's site jobs, crawler tasks, needs, services, workers, the endpoints the workers call and the tables they write, read from what the code already declares, so a new one appears by itself. The Pre-flight gains a Routes group: each workflow's and each worker's route checked hop by hop to be there, and every endpoint claimed by a process; for now these lines hold nothing. Start the system's confirm step now tests what each workflow depends on fresh before confirming it (its services and workers when older than pf_fresh_mins, default 60 minutes; its source-map needs always), so a stale or never-run need no longer passes; it runs the four query timings once a Start (slow is noted and holds nothing, a failed query is a step on the card). SystemStart.php's header now describes how Start works today. FAQ: two entries.",
+    "proposals": "",
+    "zip": "control-board-1.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/ui/faq.md": {
+            "sha": "89f595bc24f6872ca86b71e667a8754ccbb140e4743eedf9cf7fd67642e7de69",
+            "size": 328229,
+            "live_was": "fc906bc87e8bb1eece24642ca38eb0a65ac2b8bfc9a177806ea5866b7d50552f"
+        },
+        "app/lib/Thresholds.php": {
+            "sha": "e64940cb97760e876c1079af6d30aeca486ec7e2f9e99b44be2958982021df6a",
+            "size": 27212,
+            "live_was": "dd8546000a672a9cd23577e9c7a82cc915a6ffbda8b651c1d3e6526515dd7170"
+        },
+        "app/lib/ControlRegister.php": {
+            "sha": "51f755b2db9b23a3a0cf69d565f4d6a540197d2a4b12d72a8bf41e5789b288e8",
+            "size": 17800,
+            "live_was": null
+        },
+        "app/lib/Preflight.php": {
+            "sha": "3965854852c2cb25dc951ecc359ea1a29e61f7760c5489c17758ef599abd00a3",
+            "size": 141647,
+            "live_was": "3ed65ed207cf91831f1bffa0d40de16485f03ef64e6379ffc4414cd0fe20fbf3"
+        },
+        "app/lib/SystemStart.php": {
+            "sha": "0060f67041cc0343e830b8011e4c39cc4c8346f575e4eb006e671e0cac8e33e4",
+            "size": 75877,
+            "live_was": "9e94abab155e35bfd3107add883bb6fbb6475c97fa458491ea7f8717996ab31a"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-18T13:55:11+00:00",
+            "by": 0,
+            "msg": "Uploaded control-board-1.zip: 5 files."
+        }
+    ]
+}
