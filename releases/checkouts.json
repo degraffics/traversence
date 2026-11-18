@@ -35,10 +35,10 @@
    ],
    "kind": "change",
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "Control Board 3b: alarm steps in Pulse",
+   "why": "Control Board 3b-3: no contact with Overpass while held",
    "since": "2026-11-18T19:59:04Z",
-   "expires": "2026-11-19T00:09:25Z",
-   "release": "control-board-3b",
+   "expires": "2026-11-19T00:17:47Z",
+   "release": "control-board-3b-3",
    "callers": {
     "items": [
      "app/lib/DailyReport.php",
@@ -125,6 +125,58 @@
     "tv_pulse_board": [
      "app/admin/sections.php",
      "website/admin/w.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/ServiceHealth.php",
+   "functions": [
+    "alarm",
+    "allowed",
+    "dueProbes",
+    "failed",
+    "probeSoon",
+    "serverState",
+    "steps",
+    "why"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 3b-3: no contact with Overpass while held",
+   "since": "2026-11-18T20:17:47Z",
+   "expires": "2026-11-19T00:17:47Z",
+   "release": "control-board-3b-3",
+   "callers": {
+    "probeSoon": [
+     "app/admin/automation-console.php",
+     "app/lib/Pulse.php",
+     "app/lib/SystemStart.php",
+     "website/admin/api.php"
+    ],
+    "serverState": [
+     "app/lib/Operations.php",
+     "app/lib/Preflight.php",
+     "app/ui/outside-services.php"
+    ],
+    "allowed": [
+     "app/lib/Gemini.php",
+     "app/lib/OpenPlaces.php",
+     "app/lib/Operations.php",
+     "app/lib/StagingGate.php",
+     "app/lib/SystemStart.php",
+     "app/lib/Vectors.php"
+    ],
+    "alarm": [
+     "app/lib/ControlAlarms.php"
+    ],
+    "steps": [
+     "app/lib/Pulse.php"
+    ],
+    "failed": [
+     "app/lib/OpenPlaces.php"
+    ],
+    "dueProbes": [
+     "app/lib/crawler/CrawlService.php"
     ]
    }
   }
