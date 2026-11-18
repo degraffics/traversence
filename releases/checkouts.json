@@ -204,6 +204,94 @@
    "expires": "2026-11-18T20:46:47Z",
    "release": "notify-1.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/Notify.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5krYPakdEQtKuVw14F",
+   "why": "0172 step 2: one dispatcher into Pulse (notify-1)",
+   "since": "2026-11-18T16:47:03Z",
+   "expires": "2026-11-18T20:47:03Z",
+   "release": "notify-1.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/staging-tables.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5krYPakdEQtKuVw14F",
+   "why": "0172 step 2: one dispatcher into Pulse (notify-1)",
+   "since": "2026-11-18T16:47:03Z",
+   "expires": "2026-11-18T20:47:03Z",
+   "release": "notify-1.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Scheduler.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5krYPakdEQtKuVw14F",
+   "why": "0172 step 2: one dispatcher into Pulse (notify-1)",
+   "since": "2026-11-18T16:47:03Z",
+   "expires": "2026-11-18T20:47:03Z",
+   "release": "notify-1.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/scripts/notify_release.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5krYPakdEQtKuVw14F",
+   "why": "0172 step 2: one dispatcher into Pulse (notify-1)",
+   "since": "2026-11-18T16:47:03Z",
+   "expires": "2026-11-18T20:47:03Z",
+   "release": "notify-1.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/user/api/bell.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5krYPakdEQtKuVw14F",
+   "why": "0172 step 2: one dispatcher into Pulse (notify-1)",
+   "since": "2026-11-18T16:47:03Z",
+   "expires": "2026-11-18T20:47:03Z",
+   "release": "notify-1.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/user/api/comms.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5krYPakdEQtKuVw14F",
+   "why": "0172 step 2: one dispatcher into Pulse (notify-1)",
+   "since": "2026-11-18T16:47:03Z",
+   "expires": "2026-11-18T20:47:03Z",
+   "release": "notify-1.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/user/dashboard.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5krYPakdEQtKuVw14F",
+   "why": "0172 step 2: one dispatcher into Pulse (notify-1)",
+   "since": "2026-11-18T16:47:03Z",
+   "expires": "2026-11-18T20:47:03Z",
+   "release": "notify-1.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/migrations/2027-03-13_comms.sql",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5krYPakdEQtKuVw14F",
+   "why": "0172 step 2: one dispatcher into Pulse (notify-1)",
+   "since": "2026-11-18T16:47:03Z",
+   "expires": "2026-11-18T20:47:03Z",
+   "release": "notify-1.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
