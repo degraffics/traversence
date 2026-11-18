@@ -1,6 +1,18 @@
 {
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
- "claims": [],
+ "claims": [
+  {
+   "path": "app/lib/SystemStart.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
+   "why": "Service issues explained on the Start card (Jason, 2026-11-18)",
+   "since": "2026-11-18T02:18:52Z",
+   "expires": "2026-11-18T06:18:52Z",
+   "release": "start-issue",
+   "callers": {}
+  }
+ ],
  "lapsed": [
   {
    "path": "app/admin/sections.php",
