@@ -202,6 +202,17 @@
    "expires": "2026-11-19T00:18:08Z",
    "release": "control-board-3b-3",
    "callers": {}
+  },
+  {
+   "path": "website/admin/api.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 3b-3: no contact with Overpass while held",
+   "since": "2026-11-18T20:18:18Z",
+   "expires": "2026-11-19T00:18:18Z",
+   "release": "control-board-3b-3",
+   "callers": {}
   }
  ],
  "lapsed": [
