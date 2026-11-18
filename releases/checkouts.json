@@ -153,13 +153,14 @@
   {
    "path": "app/ui/pulse-ui.php",
    "functions": [
+    "(top)",
     "tv_pulse_board"
    ],
    "kind": "change",
    "session": "session_01CXLi5jn2WGptsHBfmhEav6",
-   "why": "The admin Pulse Stream to decisions/0172: one row per thing, rows open in place, the row's icons, flags, tags and views",
+   "why": "pulse-ui.php's header words for the stream (decisions/0172)",
    "since": "2026-11-18T20:01:31Z",
-   "expires": "2026-11-19T00:01:31Z",
+   "expires": "2026-11-19T00:01:48Z",
    "release": "comms-pulse.zip",
    "callers": {
     "tv_pulse_board": [
