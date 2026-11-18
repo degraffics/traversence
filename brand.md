@@ -65,6 +65,14 @@ This confirms the mobile menu reviewed 2026-09-25 is a faithful implementation o
 
 ## 4. Visual Identity, Color Palette & UI Tokens
 
+> **Note (Jason, 2026-11-18): the new palette is adopted.** From a design directive Jason reviewed and approved: canvas
+> `#f8f5ec` (replaces Warm Aged Vellum `#EFE3C8` for primary backgrounds), hairlines and dividers `#dcd6c8`, primary
+> type `#24201b` (replaces `#2A1D14`), soft radiuses and warm shadows. Status colours: **true red `#a62b2b` only for a
+> halting or core failure** (a trip, a core host down: Bluehost, Railway, GitHub); **grounded amber `#8f5600` for
+> routine timeouts and holds** (warnings). The accent tokens below (copper, sage, amethyst), Deep Umber and the
+> cartographic colours are unchanged until a later note says otherwise. Rolled out first on the admin (the Control
+> Board and the Dashboard), then page by page; the lines below are the old values until each page moves.
+
 - **Structural Authority** (top bars, core anchors): `#3E2B1F` Deep Umber — structural integrity, stability, authority.
 - **Atmospheric Void** (deep shadows, map oceans): `#231D17` Subtle Slate-Umbra — deep background contrast, historical cartographic framing.
 - **The Parchment Canvas** (primary backgrounds): `#EFE3C8` Warm Aged Vellum — high-legibility, tactile field for data feeds.
