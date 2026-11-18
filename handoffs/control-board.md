@@ -66,6 +66,24 @@ current pages stay reachable until the board replaces them (archived, not delete
   will be the decision makers"). Decision 0171 §12 lists what Release 2 keeps from it and what it changes. A summary for
   sharing, corrected against the code, is at https://claude.ai/artifact/699FnCRCPZBR5N3HxxyW1v.
 - **2026-11-18:** Jason approved 0171 revision 2. Next: Release 1 (the register and routes, plus the pre-flight fixes).
+- **2026-11-18, Release 1 built** on "Sync: 2026-11-18 02:36 UTC" and sent as `control-board-1.zip`. It holds:
+  - `app/lib/ControlRegister.php` (new): systems, processes, workers, the 23 worker endpoints with their tasks and
+    tables, `of()`, `dependsOn()`, `route()` and `unclaimed()`;
+  - `Preflight.php`: the Routes group, with one line per workflow (W0–W12, W14), one per worker and "Every endpoint
+    claimed". They are optional and hold nothing. `refreshFor()` is new;
+  - `SystemStart.php`: the header rewritten; the confirm step calls `refreshFor()` before each line; the four timings run
+    once a session (`$st['timings']`); a failed query becomes a step on the card;
+  - `Thresholds.php`: `pf_fresh_mins` (60);
+  - `faq.md`: two entries.
+
+  Repo changes: zip-check rule R15 (a worker endpoint must be in `ControlRegister::ENDPOINTS`) and
+  `tools/control-board-tests/r1.php` (33 pass).
+
+  Checked at 390px: the Pre-flight console was rendered with the route lines open, with no sideways scroll. The Start
+  card only gains words on its confirm line. Nothing new to press: a route line's Test is the existing button, and it
+  was run through `Preflight::run`.
+
+  Next, after it's live: Release 2 (the ledger and the live board).
 
 ## What exists to build on (live mirror, `sync-app/` = `app/`, `sync-storage/` = `website/`)
 
