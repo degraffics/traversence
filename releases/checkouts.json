@@ -460,13 +460,15 @@
   {
    "path": "app/ui/page-shell.php",
    "functions": [
-    "tv_page_start"
+    "(top)",
+    "tv_page_start",
+    "tv_placeholder_banner"
    ],
    "kind": "change",
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
-   "why": "Design Release 3a: the site frame on the tokens, headings serif, Edit page switch, the footer zone",
+   "why": "Design Release 3a: the site frame on the tokens",
    "since": "2026-11-18T22:53:12Z",
-   "expires": "2026-11-19T02:53:12Z",
+   "expires": "2026-11-19T02:53:51Z",
    "release": "design-r3a-frame.zip",
    "callers": {
     "tv_page_start": [
@@ -549,20 +551,27 @@
      "website/user/staff-link.php",
      "website/user/transfer.php",
      "website/verify-listing.php"
+    ],
+    "tv_placeholder_banner": [
+     "website/privacy.php",
+     "website/terms.php"
     ]
    }
   },
   {
    "path": "app/lib/Blocks.php",
    "functions": [
+    "(top)",
+    "kit",
+    "live",
     "site",
     "zone"
    ],
    "kind": "change",
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
-   "why": "Design Release 3a: the site frame on the tokens, headings serif, Edit page switch, the footer zone",
+   "why": "Design Release 3a: the site frame on the tokens",
    "since": "2026-11-18T22:53:12Z",
-   "expires": "2026-11-19T02:53:12Z",
+   "expires": "2026-11-19T02:53:51Z",
    "release": "design-r3a-frame.zip",
    "callers": {
     "zone": [
