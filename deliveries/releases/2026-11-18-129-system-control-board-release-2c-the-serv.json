@@ -6,20 +6,22 @@
     "zip": "control-board-2c.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "staged",
-    "step": 0,
+    "state": "live",
+    "step": 3,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
     "plan_at": "2026-11-18 16:56:06",
     "staged_at": "2026-11-18 16:56:08",
-    "vetted_at": null,
-    "live_at": null,
+    "vetted_at": "2026-11-18 16:56:11",
+    "live_at": "2026-11-18 16:56:11",
     "files": {
         "app/ui/faq.md": {
             "sha": "fcaeefe74160f05e647dd48b3a065da49e2b3ebb35545e700dcd8c66c8259e65",
             "size": 335013,
-            "live_was": "0974ee93f18267b6f4d07da80173d387443fac1a6184bfc1011fd5bf11b4cd7a"
+            "live_was": "0974ee93f18267b6f4d07da80173d387443fac1a6184bfc1011fd5bf11b4cd7a",
+            "existed": true,
+            "old_sha": "0974ee93f18267b6f4d07da80173d387443fac1a6184bfc1011fd5bf11b4cd7a"
         },
         "app/migrations/2026-11-18_added_off_words.sql": {
             "sha": "68c69a0957106dc849506404f676bba05e7d4ec1e13c0862dc184898a175cbc4",
@@ -29,22 +31,30 @@
         "app/lib/Operations.php": {
             "sha": "e39faa294b61bee74acd0b6f4201f6870c0383ba7a5f0b7c933eae6818478cca",
             "size": 67299,
-            "live_was": "f0e1733bd35997c7ad883b89c3c719b11dc1f832735ed05fd9656bceafc8d576"
+            "live_was": "f0e1733bd35997c7ad883b89c3c719b11dc1f832735ed05fd9656bceafc8d576",
+            "existed": true,
+            "old_sha": "f0e1733bd35997c7ad883b89c3c719b11dc1f832735ed05fd9656bceafc8d576"
         },
         "app/lib/OutsideServices.php": {
             "sha": "95aabea7cee3e7d135a1ab38da5a890d473a41c2f6d741877dc7d8ec866d386b",
             "size": 86697,
-            "live_was": "c20ee985a12e39a923e64eaecae735968125aba790e619058783fc02637261ea"
+            "live_was": "c20ee985a12e39a923e64eaecae735968125aba790e619058783fc02637261ea",
+            "existed": true,
+            "old_sha": "c20ee985a12e39a923e64eaecae735968125aba790e619058783fc02637261ea"
         },
         "app/lib/staging-tables.php": {
             "sha": "0e90dcb8c2dbf53de66c15907f5b726e23001ed0bb12b3f964e3995cec9b83d0",
             "size": 25434,
-            "live_was": "45d0d30b6859f5844472a95fb2ed357bba848e341e519db131f32660e235b1a4"
+            "live_was": "45d0d30b6859f5844472a95fb2ed357bba848e341e519db131f32660e235b1a4",
+            "existed": true,
+            "old_sha": "45d0d30b6859f5844472a95fb2ed357bba848e341e519db131f32660e235b1a4"
         },
         "website/admin/crawler.php": {
             "sha": "34f90090feb4b6368268837b7e6b30fb543b2c24148dc89ba84618ef0a27bbc8",
             "size": 14042,
-            "live_was": "20ffe65bacefb911049f9d68dd1c974bcfeb61e65bfd942ee39a71d64ddf1cc2"
+            "live_was": "20ffe65bacefb911049f9d68dd1c974bcfeb61e65bfd942ee39a71d64ddf1cc2",
+            "existed": true,
+            "old_sha": "20ffe65bacefb911049f9d68dd1c974bcfeb61e65bfd942ee39a71d64ddf1cc2"
         }
     },
     "migrations": [
@@ -52,8 +62,8 @@
     ],
     "checks": {
         "ok": true,
-        "where": "staging",
-        "at": "2026-11-18T16:56:09+00:00",
+        "where": "live",
+        "at": "2026-11-18T16:56:11+00:00",
         "items": [
             [
                 "PHP files parse",
@@ -61,24 +71,9 @@
                 "4 checked"
             ],
             [
-                "Migrations only add",
-                true,
-                "1 checked"
-            ],
-            [
-                "Data changes have a reason",
-                true,
-                "2026-11-18_added_off_words.sql change rows: Rewords the reason on the services added switched off on 2026-11-15 (automation_switches.why, kind 'service', only rows still reading 'Added switched off (Jason, 2026-11-15)…'): 'until Release B' is out of date now B has shipped. No switch changes; a person's own reason is left as it is. (a copy of every table they touch is kept first)"
-            ],
-            [
-                "Migrations ran on staging",
-                true,
-                "Ran 2026-11-18_added_off_words.sql"
-            ],
-            [
                 "Pages answer",
                 true,
-                "3 pages answered on staging.trvgo.us"
+                "3 pages answered on traversence.com"
             ],
             [
                 "No new fatal errors in the logs",
@@ -108,6 +103,16 @@
             "at": "2026-11-18T16:56:09+00:00",
             "by": 0,
             "msg": "Put on staging (6 files); its checks passed."
+        },
+        {
+            "at": "2026-11-18T16:56:11+00:00",
+            "by": 0,
+            "msg": "Approved in chat before it was sent through git, and its checks on staging passed: publishing by itself."
+        },
+        {
+            "at": "2026-11-18T16:56:11+00:00",
+            "by": 0,
+            "msg": "Published: 5 files, after its 1 migration ran first (2026-11-18_added_off_words.sql; a copy of what each touched is kept 14 days); everyone at once (no switch)."
         }
     ]
 }
