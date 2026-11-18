@@ -61,4 +61,7 @@ and `website/api/` (the mirror's `sync-storage/api/crawl` and `api/video`). Put 
 - `r3e.php`: release 3e: a crawler run's page (the command strip, its records by workflow and kind, Peek links, a
   person's field said to be kept, a count narrowing it, a run no longer kept), "W1 today" and the last 7 days, a workflow
   with none. 12 tests: after `r2a`'s schema and 2a's migration, `php r3e.php <root>/app`.
+- `r3f.php`: release 3f: staging's live payment keys by value under every name the code reads, the release pipeline's
+  pieces, Supabase's row level security, Sources in one grouped query (and its search), quiet and retired jobs. 12 tests:
+  after `start-schema.sql`, `php r3f.php <root>/app`.
 - `w2-verify.php`: W2's second look: a listing whose check throws is set aside with its error; the board reads it.

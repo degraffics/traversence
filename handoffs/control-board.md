@@ -78,6 +78,17 @@ Alongside: `releases-self-withdraw` (#122), `releases-live-2` (#123), `releases-
   do" (r2a); self-withdraw of a failed release; a held-only run ending ok on Railway (worker 2.12.1); W1 coverage
   reading our Geofabrik copy (worker 2.9.0). Next, 3f: the release pipeline's two guards and `Vectors::setupSql()`'s row
   level security.
+  Live as #145, verified in Sync 22:06.
+- `control-board-3f` (built on 21:45, FAQ on 22:06): cleanup fixes. Staging's payment-key check
+  (`StagingGate::PAY_NAMES`, each judged by value; staging could never charge live: `testHere()` on staging forces test
+  mode, `MarketPay::key()` refuses live values, `StagingSite` deletes live `market_gateways`/`qb_connection` rows). The
+  release pipeline: `fromUpload` reads "none"/"off"/"no" as no switch; `straightOn` notes why on the card (once per
+  reason); `Releases::tick` takes a git build left at Planned or Plan approved (`fromGitBuild`). `Vectors::setupSql()`
+  with row level security and tv_match for service_role only. Site health: Sources grouped in SQL (J01's timeout);
+  `Scheduler::QUIET` and `RETIRED` (D03; the dashboard's status and health.php's `quiet`); the audit's D06 (migrations
+  delete themselves), R07 (CSP reports), R12 (workers' tests, example.org). Tests r3f.php 12. Left: V01 card edges
+  (design session), the path findings (journeys, hubs, open now: their owners), NPI (data). Next: the 62 unused names
+  list for the session manager, then releases 4 and 5.
 - Known shortcut in 3c: a back-off held by a trip is `service_issues.hold_until = '2099-01-01'` (until a person resolves
   it; `ServiceHealth::holdForTrip`), not a flag of its own. A real flag (a column, `held_by_trip`) needs a migration on
   `service_issues`; do it with the next ServiceHealth change.
