@@ -2,20 +2,6 @@
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
  "claims": [
   {
-   "path": "app/admin/sections.php",
-   "functions": [
-    "(top)",
-    "tv_admin_mod_releases"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "Releases as the standard table",
-   "since": "2026-11-18T15:28:56Z",
-   "expires": "2026-11-18T19:33:34Z",
-   "release": "releases-table.zip",
-   "callers": {}
-  },
-  {
    "path": "app/admin/tools.php",
    "functions": [
     "config/releases"
@@ -26,57 +12,6 @@
    "since": "2026-11-18T15:32:47Z",
    "expires": "2026-11-18T19:32:47Z",
    "release": "releases-table",
-   "callers": {}
-  },
-  {
-   "path": "app/admin/manifests.php",
-   "functions": [
-    "'config'",
-    "config"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "Releases as the standard table",
-   "since": "2026-11-18T15:32:47Z",
-   "expires": "2026-11-18T19:33:34Z",
-   "release": "releases-table.zip",
-   "callers": {
-    "config": [
-     "website/index.php"
-    ]
-   }
-  },
-  {
-   "path": "website/js/admin-releases.js",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "Releases as the standard table",
-   "since": "2026-11-18T15:32:47Z",
-   "expires": "2026-11-18T19:33:34Z",
-   "release": "releases-table.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/admin/tools.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "release releases-table.zip",
-   "since": "2026-11-18T15:33:34Z",
-   "expires": "2026-11-18T19:33:34Z",
-   "release": "releases-table.zip",
-   "callers": {}
-  },
-  {
-   "path": "website/js/admin-kit.js",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "release releases-table.zip",
-   "since": "2026-11-18T15:33:34Z",
-   "expires": "2026-11-18T19:33:34Z",
-   "release": "releases-table.zip",
    "callers": {}
   }
  ],
