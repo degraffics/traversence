@@ -269,7 +269,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Design Release 1: shared tokens and the app shell (design/css-theme-brand.md)",
    "since": "2026-11-18T22:05:18Z",
-   "expires": "2026-11-19T02:05:18Z",
+   "expires": "2026-11-19T02:10:12Z",
    "release": "design-r1-tokens.zip",
    "callers": {
     "tv_page_start": [
@@ -344,7 +344,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Design Release 1: shared tokens and the app shell (design/css-theme-brand.md)",
    "since": "2026-11-18T22:05:18Z",
-   "expires": "2026-11-19T02:05:18Z",
+   "expires": "2026-11-19T02:10:12Z",
    "release": "design-r1-tokens.zip",
    "callers": {}
   },
@@ -549,6 +549,149 @@
    "since": "2026-11-18T22:08:43Z",
    "expires": "2026-11-19T02:08:43Z",
    "release": "control-board-3f",
+   "callers": {}
+  },
+  {
+   "path": "app/ui/theme-tokens.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "release design-r1-tokens.zip",
+   "since": "2026-11-18T22:10:12Z",
+   "expires": "2026-11-19T02:10:12Z",
+   "release": "design-r1-tokens.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/fonts/playfair-400.woff2",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "release design-r1-tokens.zip",
+   "since": "2026-11-18T22:10:12Z",
+   "expires": "2026-11-19T02:10:12Z",
+   "release": "design-r1-tokens.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/fonts/merriweather-700.woff2",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "release design-r1-tokens.zip",
+   "since": "2026-11-18T22:10:12Z",
+   "expires": "2026-11-19T02:10:12Z",
+   "release": "design-r1-tokens.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/fonts/OFL-inter.txt",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "release design-r1-tokens.zip",
+   "since": "2026-11-18T22:10:12Z",
+   "expires": "2026-11-19T02:10:12Z",
+   "release": "design-r1-tokens.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/fonts/OFL-playfair-display.txt",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "release design-r1-tokens.zip",
+   "since": "2026-11-18T22:10:12Z",
+   "expires": "2026-11-19T02:10:12Z",
+   "release": "design-r1-tokens.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/fonts/merriweather-400.woff2",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "release design-r1-tokens.zip",
+   "since": "2026-11-18T22:10:12Z",
+   "expires": "2026-11-19T02:10:12Z",
+   "release": "design-r1-tokens.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/fonts/merriweather-300-italic.woff2",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "release design-r1-tokens.zip",
+   "since": "2026-11-18T22:10:12Z",
+   "expires": "2026-11-19T02:10:12Z",
+   "release": "design-r1-tokens.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/fonts/playfair-600.woff2",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "release design-r1-tokens.zip",
+   "since": "2026-11-18T22:10:12Z",
+   "expires": "2026-11-19T02:10:12Z",
+   "release": "design-r1-tokens.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/fonts/playfair-700.woff2",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "release design-r1-tokens.zip",
+   "since": "2026-11-18T22:10:12Z",
+   "expires": "2026-11-19T02:10:12Z",
+   "release": "design-r1-tokens.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/fonts/playfair-400-italic.woff2",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "release design-r1-tokens.zip",
+   "since": "2026-11-18T22:10:12Z",
+   "expires": "2026-11-19T02:10:12Z",
+   "release": "design-r1-tokens.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/fonts/inter-var.woff2",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "release design-r1-tokens.zip",
+   "since": "2026-11-18T22:10:12Z",
+   "expires": "2026-11-19T02:10:12Z",
+   "release": "design-r1-tokens.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/fonts/merriweather-300.woff2",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "release design-r1-tokens.zip",
+   "since": "2026-11-18T22:10:12Z",
+   "expires": "2026-11-19T02:10:12Z",
+   "release": "design-r1-tokens.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/fonts/OFL-merriweather.txt",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "release design-r1-tokens.zip",
+   "since": "2026-11-18T22:10:12Z",
+   "expires": "2026-11-19T02:10:12Z",
+   "release": "design-r1-tokens.zip",
    "callers": {}
   }
  ],
