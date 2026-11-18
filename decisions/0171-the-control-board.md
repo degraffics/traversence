@@ -423,6 +423,26 @@ process.
     `config/log`, `config/ledger`, `config/upkeep`);
   - each `h2.hb-h` part folds.
 - **The board's light** is in every admin page's top bar (§7). **Dashboard → Today** gets one status line.
+- **Reference mock-up:** `design/control-board-mockup.html` (Jason, 2026-11-18: "for your reference"). It is a guide
+  to the layout, not a spec.
+  - **Kept from it:**
+    - the light and the three channels in the top bar;
+    - the six-stage strip;
+    - each gauge card's route line, readings grid, and in/stored/updated/refused bar with its "accounted" check;
+    - Maint, Log and Report on each card;
+    - the query timings table;
+    - the source map table;
+    - the upkeep calendar;
+    - the Pulse queue beside the board.
+  - **Changed when built:**
+    - the admin's own look and brand colours, not its dark theme;
+    - one column at 390px (its cards are at least 400px);
+    - answers in place (`TvAsk`) and drawers, never `alert()` or modals;
+    - every value and the source map read live from the code (`Preflight::NEEDS`), not written in;
+    - one gauge per workflow under the Knowledge Engine, with Workers meaning the three Railway services;
+    - phases shown as rolling up several workflows each (`Preflight::PHASES`);
+    - no token box on the board (the token is saved only in the session manager's secure form);
+    - shut-down and maintenance as §2 says.
 
 ### 13. Access
 

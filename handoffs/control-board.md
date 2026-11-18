@@ -62,6 +62,9 @@ current pages stay reachable until the board replaces them (archived, not delete
   - five releases instead of four.
 
   Sent back to the session manager for his OK.
+- **2026-11-18:** Jason's example board is saved as `design/control-board-mockup.html` ("for your reference … you
+  will be the decision makers"). Decision 0171 §12 lists what Release 2 keeps from it and what it changes. A summary for
+  sharing, corrected against the code, is at https://claude.ai/artifact/699FnCRCPZBR5N3HxxyW1v.
 
 ## What exists to build on (live mirror, `sync-app/` = `app/`, `sync-storage/` = `website/`)
 
