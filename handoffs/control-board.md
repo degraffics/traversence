@@ -140,6 +140,18 @@ current pages stay reachable until the board replaces them (archived, not delete
   `releases-table` (each release on its own page) was withdrawn before merge: Jason said a page of its own deviates from
   how our tables open. 2b waits behind it.
 
+- **2026-11-18: #126 (releases-table-2) live.** Then **control-board-2b**, built on Sync 15:59 UTC (`ee082f7`): the
+  board itself at `/admin/config/control`, first in System Configuration.
+  - New: `app/lib/ControlBoard.php` (the stage, a process's readings from the ledger, Start it with the interlock,
+    Shut it down, Shut down in order, "stopped, safe"), `app/admin/control-console.php` (the page),
+    `website/js/admin-control.js` (the buttons; redrawn every 30 seconds, keeping what's open).
+  - Changed: the `control` section in `manifests.php`, a require at the top of `sections.php`, the `config/control`
+    tool in `website/admin/api.php` (check, start1, stop, start, shutdown, pauseall), and one FAQ entry.
+  - No tables or migrations. Pre-flight stays its own section (not archived); its lines also fold in at the board's foot.
+  - Tests: `r2b.php`, 14 pass. Rendered at 390px and 1280px with no sideways scroll; Run its check posts the right id.
+  - Still to come in Release 2: **2c**, the services' card fixes (crawler.php's cron words, the Stripe/Square keys,
+    Name.com's unsaved requests, the "Added switched off" wording migration).
+
 ### Where the folded-in cleanup fixes go (build session, 2026-11-18)
 
 Release 1 closes none of them (it was built before they arrived). The plan:

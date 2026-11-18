@@ -20,6 +20,10 @@
 - `releases-live.cjs` (with `releases-live-page.js`): the Releases page keeping itself current (a release drawn again
   as it moves on, its stale notice gone, a new one at the top, open cards kept, a card being typed in waiting), at 390px.
   7 tests: `node releases-live.cjs <website/js/admin-releases.js>`.
+- `r2b.php`: release 2b, the board: its stage, a process's worker calls and records from the ledger, Shut it down
+  (tasks first), Start it refused while its check is red, Shut down in order (workflows in reverse start-up order, then
+  the master switch) and "stopped, safe" once no crawler run is going. 14 tests: after `r2a`'s schema and 2a's
+  migration, `php r2b.php <root>/app`.
 
 Run on MariaDB or MySQL, with a root that holds `app/` (the mirror's `sync-app` with the release's `app/` laid over it)
 and `website/api/` (the mirror's `sync-storage/api/crawl` and `api/video`). Put a `.env` four folders up from `lib/`:
