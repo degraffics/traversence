@@ -4,14 +4,15 @@
   {
    "path": "app/admin/sections.php",
    "functions": [
+    "(top)",
     "tv_admin_mod_releases"
    ],
    "kind": "change",
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "Releases list laid out as a table, opening under each title",
    "since": "2026-11-18T15:42:54Z",
-   "expires": "2026-11-18T19:42:54Z",
-   "release": "releases-table-2",
+   "expires": "2026-11-18T19:43:10Z",
+   "release": "releases-table-2.zip",
    "callers": {}
   },
   {
@@ -23,6 +24,17 @@
    "since": "2026-11-18T15:42:54Z",
    "expires": "2026-11-18T19:42:54Z",
    "release": "releases-table-2",
+   "callers": {}
+  },
+  {
+   "path": "website/js/admin-releases.js",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "release releases-table-2.zip",
+   "since": "2026-11-18T15:43:10Z",
+   "expires": "2026-11-18T19:43:10Z",
+   "release": "releases-table-2.zip",
    "callers": {}
   }
  ],
