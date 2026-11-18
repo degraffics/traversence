@@ -6,102 +6,132 @@
     "zip": "control-board-3a.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "staged",
-    "step": 0,
+    "state": "live",
+    "step": 3,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
     "plan_at": "2026-11-18 19:46:09",
     "staged_at": "2026-11-18 19:46:11",
-    "vetted_at": null,
-    "live_at": null,
+    "vetted_at": "2026-11-18 19:46:14",
+    "live_at": "2026-11-18 19:46:14",
     "files": {
         "app/admin/control-console.php": {
             "sha": "2c05dea65aeb52c67ba63ceaa6010cf3baa7024319fcb854b85e6ad148d2151c",
             "size": 45197,
-            "live_was": "dd99a6a56d0f08be1ec6ff58ddbb2dd8f9a449da87882721a4c039066a594cd6"
+            "live_was": "dd99a6a56d0f08be1ec6ff58ddbb2dd8f9a449da87882721a4c039066a594cd6",
+            "existed": true,
+            "old_sha": "dd99a6a56d0f08be1ec6ff58ddbb2dd8f9a449da87882721a4c039066a594cd6"
         },
         "app/ui/faq.md": {
             "sha": "e4ba483efa5097a57ff343c1ef1d001965da264b82422075486f5b069e6b239e",
             "size": 345783,
-            "live_was": "41db939ec0552bec5ef67bd58aa81a2334ad8bfd0aa8439ab4da991282473fa2"
+            "live_was": "41db939ec0552bec5ef67bd58aa81a2334ad8bfd0aa8439ab4da991282473fa2",
+            "existed": true,
+            "old_sha": "41db939ec0552bec5ef67bd58aa81a2334ad8bfd0aa8439ab4da991282473fa2"
         },
         "app/scripts/control_tick.php": {
             "sha": "9a9122abc0744262a81072853df978f3277fb5da3dcd76ecb42c713d0e4c7e4d",
             "size": 874,
-            "live_was": null
+            "live_was": null,
+            "existed": false
         },
         "app/lib/ServiceHealth.php": {
             "sha": "efcbec9a553f5bbdb126d83f19fafed07c12048be2d0d0b950c89e2db0fd8d5e",
             "size": 47747,
-            "live_was": "b181e464cc34d0bfa4880cbde63f3eb77c462dcc79db1212d4a104352291559a"
+            "live_was": "b181e464cc34d0bfa4880cbde63f3eb77c462dcc79db1212d4a104352291559a",
+            "existed": true,
+            "old_sha": "b181e464cc34d0bfa4880cbde63f3eb77c462dcc79db1212d4a104352291559a"
         },
         "app/lib/Scheduler.php": {
             "sha": "d27f05bedd7fb7d01002ff4be6c4772eb7f8db0faf9d802f195e4c1d9a374037",
             "size": 29989,
-            "live_was": "fa55adb036e1a4fbc2215b732117c5e807cdb25c391e4152848971c4dab179d6"
+            "live_was": "fa55adb036e1a4fbc2215b732117c5e807cdb25c391e4152848971c4dab179d6",
+            "existed": true,
+            "old_sha": "fa55adb036e1a4fbc2215b732117c5e807cdb25c391e4152848971c4dab179d6"
         },
         "app/lib/Notify.php": {
             "sha": "4e593bebaeaf179577382b0571f5dc1f367f382da2f3fe2d977a121acc124079",
             "size": 44748,
-            "live_was": "93b71b22be6aa5a25e89a1243bdd3bc023e126b95ffc577bdc1da69b919e3f5b"
+            "live_was": "93b71b22be6aa5a25e89a1243bdd3bc023e126b95ffc577bdc1da69b919e3f5b",
+            "existed": true,
+            "old_sha": "93b71b22be6aa5a25e89a1243bdd3bc023e126b95ffc577bdc1da69b919e3f5b"
         },
         "app/lib/ControlLedger.php": {
             "sha": "7adbe119aabcd7a5dc888827d9d42dd7b71b3dfddd80f502dfb09c16aaddc1a3",
             "size": 13054,
-            "live_was": "35df47c4eddf8d2b6e66873f1d68f7237a89cef2e6c981c661b1a07d385ef6f5"
+            "live_was": "35df47c4eddf8d2b6e66873f1d68f7237a89cef2e6c981c661b1a07d385ef6f5",
+            "existed": true,
+            "old_sha": "35df47c4eddf8d2b6e66873f1d68f7237a89cef2e6c981c661b1a07d385ef6f5"
         },
         "app/lib/ControlAlarms.php": {
             "sha": "f6a8bc267bcc4dc824f8c72ea48783fe3ba5b32923ed4ce13f8f9ff9d858f341",
             "size": 21292,
-            "live_was": null
+            "live_was": null,
+            "existed": false
         },
         "app/lib/crawler/CrawlService.php": {
             "sha": "0d80917257acaa7a91d6833a2bfd2f7e3c33ba1133cf77a8ab3f17e54605501c",
             "size": 37277,
-            "live_was": "3e8284a823b9d9b18c85644ccd3817fb4081bc49b935ce99124610c9753bbde4"
+            "live_was": "3e8284a823b9d9b18c85644ccd3817fb4081bc49b935ce99124610c9753bbde4",
+            "existed": true,
+            "old_sha": "3e8284a823b9d9b18c85644ccd3817fb4081bc49b935ce99124610c9753bbde4"
         },
         "app/lib/staging-tables.php": {
             "sha": "31102f02a41a2e66fb1f2b2c78f39e105335fb1d3e4cc859cbaf2dc1f84d7953",
             "size": 27477,
-            "live_was": "5c1cfaefd5254ebc89a90699e26e7c89299f3190cbfdeb31347afe5262948a55"
+            "live_was": "5c1cfaefd5254ebc89a90699e26e7c89299f3190cbfdeb31347afe5262948a55",
+            "existed": true,
+            "old_sha": "5c1cfaefd5254ebc89a90699e26e7c89299f3190cbfdeb31347afe5262948a55"
         },
         "app/lib/Preflight.php": {
             "sha": "8d8fd5c760033a93f87c3c3b7d55102009ba09cd6b98ba47aaaac8c69f4db266",
             "size": 147223,
-            "live_was": "26dddaa1387df8615c09134e170fabcb63a814fce4fee09b92057523498bf77d"
+            "live_was": "26dddaa1387df8615c09134e170fabcb63a814fce4fee09b92057523498bf77d",
+            "existed": true,
+            "old_sha": "26dddaa1387df8615c09134e170fabcb63a814fce4fee09b92057523498bf77d"
         },
         "app/lib/Pulse.php": {
             "sha": "133ad1ee7ef35d00206a79af92b23fe84d1b4f6d752e6fbf30d27caff8a01da6",
             "size": 147722,
-            "live_was": "1be90a257a1c062bd16332d9f7695f5e1702648de847a435039f4cb98ba80496"
+            "live_was": "1be90a257a1c062bd16332d9f7695f5e1702648de847a435039f4cb98ba80496",
+            "existed": true,
+            "old_sha": "1be90a257a1c062bd16332d9f7695f5e1702648de847a435039f4cb98ba80496"
         },
         "app/lib/ControlBoard.php": {
             "sha": "c61dedbd358fa06a9ccb686f867cff186df9d1c1a9cff1022daab6769d179313",
             "size": 26888,
-            "live_was": "5579e0dd0080b33dafe89895a88e2e22f38f34622516a3799b836f81a839d8bd"
+            "live_was": "5579e0dd0080b33dafe89895a88e2e22f38f34622516a3799b836f81a839d8bd",
+            "existed": true,
+            "old_sha": "5579e0dd0080b33dafe89895a88e2e22f38f34622516a3799b836f81a839d8bd"
         },
         "website/admin/router.php": {
             "sha": "fbf46ef682f9774f309970b36a0c8a0a4196ada61ceaac94436f5692e917b0dc",
             "size": 11290,
-            "live_was": "2894d208e0e78df5af3365de46ed6ca025c960354768bba03df8fbd4b1257b02"
+            "live_was": "2894d208e0e78df5af3365de46ed6ca025c960354768bba03df8fbd4b1257b02",
+            "existed": true,
+            "old_sha": "2894d208e0e78df5af3365de46ed6ca025c960354768bba03df8fbd4b1257b02"
         },
         "website/admin/api.php": {
             "sha": "0a63105b287169d4e9d4f8848807389cb3cf6263a9331f2f938c9f8862f32bf7",
             "size": 31001,
-            "live_was": "68eea08c162708ee725f2afa2e95a9afa8bf5c18440850bbd795d14108bfeb4c"
+            "live_was": "68eea08c162708ee725f2afa2e95a9afa8bf5c18440850bbd795d14108bfeb4c",
+            "existed": true,
+            "old_sha": "68eea08c162708ee725f2afa2e95a9afa8bf5c18440850bbd795d14108bfeb4c"
         },
         "website/js/admin-control.js": {
             "sha": "7a97b25921cd033aad0d1038f16478e56baec93563bbb97d93c393f591dae49d",
             "size": 8620,
-            "live_was": "8a914076afb7e6117d244a6265c2a639969e49fcd9c882e101ab27a26a5a6d0a"
+            "live_was": "8a914076afb7e6117d244a6265c2a639969e49fcd9c882e101ab27a26a5a6d0a",
+            "existed": true,
+            "old_sha": "8a914076afb7e6117d244a6265c2a639969e49fcd9c882e101ab27a26a5a6d0a"
         }
     },
     "migrations": [],
     "checks": {
         "ok": true,
-        "where": "staging",
-        "at": "2026-11-18T19:46:12+00:00",
+        "where": "live",
+        "at": "2026-11-18T19:46:14+00:00",
         "items": [
             [
                 "PHP files parse",
@@ -111,7 +141,7 @@
             [
                 "Pages answer",
                 true,
-                "4 pages answered on staging.trvgo.us"
+                "4 pages answered on traversence.com"
             ],
             [
                 "No new fatal errors in the logs",
@@ -141,6 +171,16 @@
             "at": "2026-11-18T19:46:12+00:00",
             "by": 0,
             "msg": "Put on staging (16 files); its checks passed."
+        },
+        {
+            "at": "2026-11-18T19:46:14+00:00",
+            "by": 0,
+            "msg": "Approved in chat before it was sent through git, and its checks on staging passed: publishing by itself."
+        },
+        {
+            "at": "2026-11-18T19:46:14+00:00",
+            "by": 0,
+            "msg": "Published: 16 files; everyone at once (no switch)."
         }
     ]
 }
