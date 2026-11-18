@@ -3,28 +3,28 @@
  "built_on": "be5695e Sync: 2026-11-18 19:23 UTC",
  "recorded": "2026-11-18 19:24 UTC",
  "note": "W2's second look stops failing every run; the board shows the real error and the held count's age. Built on Sync: 2026-11-18 19:23 UTC. Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "08ed86a Sync: 2026-11-18 19:36 UTC",
  "files": {
   "app/admin/control-console.php": {
    "sha256": "dd99a6a56d0f08be1ec6ff58ddbb2dd8f9a449da87882721a4c039066a594cd6",
-   "live": false
+   "live": true
   },
   "app/lib/ControlBoard.php": {
    "sha256": "5579e0dd0080b33dafe89895a88e2e22f38f34622516a3799b836f81a839d8bd",
-   "live": false
+   "live": true
   },
   "app/lib/ControlLedger.php": {
    "sha256": "35df47c4eddf8d2b6e66873f1d68f7237a89cef2e6c981c661b1a07d385ef6f5",
-   "live": false
+   "live": true
   },
   "app/lib/crawler/Verify.php": {
    "sha256": "fd0ec2cd1737d388c0f27813d1261c8d92056f65552e0fdcf2cde02505e5744b",
-   "live": false
+   "live": true
   },
   "website/api/crawl/verify.php": {
    "sha256": "6ca945c51bfed10a7a3ebe9e8c333e35f0de6229006c58421a85072b1417117f",
-   "live": false
+   "live": true
   }
  }
 }
