@@ -592,9 +592,14 @@ be integrated into the communication system, because the user and listing will n
     an email and a reply code, under 0052's guest limits (3 a day per device, 6 per network).
   - **Two routes, by what the listing's data holds** (Jason, 2026-11-18: "unless we assign the email from the listing
     to the message"):
-    - **The listing has a public email:** the message is **delivered to that email by us**, from the system sender,
-      saying who it's from (their name only, never their address) and that the business can claim the listing to
-      answer in Traversence. The whole route is tracked (§4.2). The business's email reply comes back into the
+    - **The listing has a public email:** the message is **delivered to that email by us as a visitor's request**
+      (Jason, 2026-11-18: "route that message to that email as a request from a visitor"), from the system sender:
+      - subject: "A visitor asked about <business name> on Traversence";
+      - the visitor's first name and their words (never their email or phone), and what it's typed as (General
+        inquiry, 0052 step 4);
+      - **Reply to this email to answer them**, and **Claim your listing** (free) to see and answer every request in
+        Traversence;
+      - an unsubscribe ("Stop requests to this address"). The whole route is tracked (§4.2). The business's email reply comes back into the
       sender's Pulse through the reply address (§"Pulse is the inbox"). The sender is told "Sent to the email this
       listing gives; they may not have joined Traversence." 0108's outreach rules apply to the email: an
       unsubscribe, and at most one such email to a listing a day, the rest gathered into it.
