@@ -497,6 +497,19 @@
      "app/lib/upload-targets.php"
     ]
    }
+  },
+  {
+   "path": "website/api/health.php",
+   "functions": [
+    "(top)"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 3f: staging payment keys, release guards, Supabase, Site health",
+   "since": "2026-11-18T22:08:41Z",
+   "expires": "2026-11-19T02:08:41Z",
+   "release": "control-board-3f",
+   "callers": {}
   }
  ],
  "lapsed": [
