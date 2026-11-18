@@ -3,20 +3,20 @@
  "built_on": "ac83780 Sync: 2026-11-18 01:32 UTC",
  "recorded": "2026-11-18 01:55 UTC",
  "note": "W14's terms on the Start card; fixes in drawers. Built on Sync 01:32 UTC Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "d390dd2 Sync: 2026-11-18 02:11 UTC",
  "files": {
   "app/admin/automation-console.php": {
    "sha256": "a6165532c5977f2b87e7b9d0f93a64112a8061a9f4f8780ee36865ca59217216",
-   "live": false
+   "live": true
   },
   "app/lib/SystemStart.php": {
    "sha256": "a4cf9f957a67b678ae5fa6def1ec48e5946c0bb35cbaac3308faa8e18f73704a",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "69ebd19384ef8f16c64016cecac32b6ae8de45d6f3c5a456d3936fbf55da3a63",
-   "live": false
+   "live": true
   }
  }
 }
