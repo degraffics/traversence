@@ -13,6 +13,10 @@
   `(cd <root>/website && php -S 127.0.0.1:8765 &)` and `php r2a.php <root>/app`, with `CRAWLER_API_TOKEN=testtoken`
   and `VIDEO_WORKER_TOKEN=vtoken` in the `.env`.
 
+- `self-withdraw.php`: a build from git that fails on staging withdraws itself; the job's sweep; `"replaces"`;
+  Withdraw putting staging back (migrations off, live's copy back, new files off, a later release's copy kept). 17
+  tests: `mariadb -e 'DROP DATABASE IF EXISTS lv_main; CREATE DATABASE lv_main' && php self-withdraw.php <root>/app`.
+
 Run on MariaDB or MySQL, with a root that holds `app/` (the mirror's `sync-app` with the release's `app/` laid over it)
 and `website/api/` (the mirror's `sync-storage/api/crawl` and `api/video`). Put a `.env` four folders up from `lib/`:
 `mariadb < ../release-b-tests/start-schema.sql && php r1.php <root>/app`.

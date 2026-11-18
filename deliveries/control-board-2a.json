@@ -2,8 +2,8 @@
  "zip": "control-board-2a.zip",
  "built_on": "17d0627 Sync: 2026-11-18 13:57 UTC",
  "recorded": "2026-11-18 14:07 UTC",
- "note": "System Control Board release 2a (decisions/0171 \u00a74): the ledger of every worker call and the records it touched, Start's watch counting nothing-to-do runs, the AZCC pre-flight line; built on Sync: 2026-11-18 13:57 UTC Sent through git (releases/inbox).",
- "status": "pending",
+ "note": "System Control Board release 2a (decisions/0171 §4): the ledger of every worker call and the records it touched, Start's watch counting nothing-to-do runs, the AZCC pre-flight line; built on Sync: 2026-11-18 13:57 UTC Sent through git (releases/inbox).",
+ "status": "replaced",
  "live_in": "",
  "files": {
   "app/lib/ControlLedger.php": {
@@ -50,5 +50,7 @@
    "sha256": "9944fc4f4032fdb06f646e8f5bec34523f4e237ed1370858c036354d73080930",
    "live": false
   }
- }
+ },
+ "replaced_by": "control-board-2a-2",
+ "replaced_why": "Release #121's staging check failed: the migration's column `stored` is a reserved word in MySQL. It withdraws itself once releases-self-withdraw is live; the fix follows as a new build."
 }
