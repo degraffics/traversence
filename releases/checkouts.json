@@ -111,13 +111,15 @@
   {
    "path": "app/lib/Pulse.php",
    "functions": [
-    "items"
+    "items",
+    "manage",
+    "playbook"
    ],
    "kind": "change",
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "Control Board 3b: Overpass trip, More in place, Pulse cases into the queue",
+   "why": "Control Board 3b: alarm steps in Pulse",
    "since": "2026-11-18T19:59:04Z",
-   "expires": "2026-11-18T23:59:04Z",
+   "expires": "2026-11-19T00:09:25Z",
    "release": "control-board-3b",
    "callers": {
     "items": [
@@ -125,6 +127,13 @@
      "app/ui/pulse-ui.php",
      "website/admin/staff-profile.php",
      "website/admin/w.php"
+    ],
+    "manage": [
+     "website/admin/api/pulse.php"
+    ],
+    "playbook": [
+     "app/lib/DailyReport.php",
+     "app/ui/pulse-ui.php"
     ]
    }
   },
