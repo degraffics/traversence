@@ -216,20 +216,6 @@
    "expires": "2026-11-18T21:21:29Z",
    "release": "comms-all.zip",
    "callers": {}
-  },
-  {
-   "path": "website/js/admin-control.js",
-   "functions": [
-    "(top)",
-    "redraw"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "A row's answer under the row, full width (Jason, 2026-11-18)",
-   "since": "2026-11-18T17:21:37Z",
-   "expires": "2026-11-18T21:21:48Z",
-   "release": "control-board-row-notice.zip",
-   "callers": {}
   }
  ],
  "lapsed": [
