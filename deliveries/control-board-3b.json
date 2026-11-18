@@ -1,0 +1,42 @@
+{
+ "zip": "control-board-3b.zip",
+ "built_on": "e4d4bb0 Sync: 2026-11-18 19:51 UTC",
+ "recorded": "2026-11-18 19:59 UTC",
+ "note": "System Control Board 3b (decisions/0171): Overpass as one trip with its statement and Mark resolved; a long line once with More; Pulse's cap and empty-task cases into the alarm queue. Built on Sync 19:51 UTC. Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/admin/control-console.php": {
+   "sha256": "55f6df9b919dd58737cb8ecf183a56f2bb654219959076ec148b9a41466b0c9f",
+   "live": false
+  },
+  "app/lib/ControlAlarms.php": {
+   "sha256": "2490210d3ca59052c97a26af169d360c4e9e48dc8b6c5ea911a5e5c70c1ac75e",
+   "live": false
+  },
+  "app/lib/Operations.php": {
+   "sha256": "548c2acd48a1d6828a91e042c5196641155bb364a96cdb0c5bbb75e74c338264",
+   "live": false
+  },
+  "app/lib/Pulse.php": {
+   "sha256": "a571f0faf58ba39d31e0a73efbb8f47d35cb614689d67d6ed0ae60a7baba181a",
+   "live": false
+  },
+  "app/lib/ServiceHealth.php": {
+   "sha256": "33dcee7f8148af8909fca0cd087116fad857a08ae63e579e3b19d7928a595efb",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "136605157c2043622114c3f55f90862084313bd37305e89177ef7ee6a9663163",
+   "live": false
+  },
+  "website/admin/api.php": {
+   "sha256": "91a043f3a1343482b6e848a6cd032d134a1bc23f39062f33c8e5db2be3482ef0",
+   "live": false
+  },
+  "website/js/admin-control.js": {
+   "sha256": "1acad9f4e49c7c53f88c64d2c34b0842d7f408e125914de6059afca270e876b0",
+   "live": false
+  }
+ }
+}
