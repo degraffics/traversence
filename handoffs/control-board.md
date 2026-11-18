@@ -112,7 +112,13 @@ Alongside: `releases-self-withdraw` (#122), `releases-live-2` (#123), `releases-
     `maintback`, `maintcancel` (Automation's permission). `health.php`'s `maintenance` block.
   - Pulse #31: Database updates gets **No code names them** (`#unused`), the monthly check's tables and columns with
     their database and size, read only; the case and its "And N more" step link there (`SchemaUpkeep::keptUnused`).
-  - Tests: `r4a.php` (35). Rendered at 390px and 1280px, no sideways scroll.
+  - The session manager's review (2026-11-18) added: the pre-flight result line amber unless a line really tripped
+    (`tripped_at`) or a core host is down; the alarm list's filter as one dropdown button moved into the header
+    (`tv_cb_afilter`, `data-ak-cmd`); maintenance in the brand's river blue (`--tv-river`); Take out's length as
+    Thresholds' `control_maint_hours`; and zipcheck's lost-lines guard (`lost_lines`, `--base`; test
+    `tools/page-audit/test_zipcheck_lost.py`) after 3f's faq.md took out 16 lines #147 had put live. Rebuilt on Sync
+    22:50 UTC (2b5e447, the faq-restore #150).
+  - Tests: `r4a.php` (39). Rendered at 390px and 1280px, no sideways scroll.
   - Next: the three lists of the unused names for the session manager, once 4a is live; then 4b, the historian
     (`control_readings`, `control_daily`, trends, uptime, Telemetry pointing to the board), then release 5.
 - Known shortcut in 3c: a back-off held by a trip is `service_issues.hold_until = '2099-01-01'` (until a person resolves

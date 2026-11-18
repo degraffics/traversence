@@ -1,13 +1,13 @@
 {
  "zip": "control-board-4a.zip",
- "built_on": "2937240 Sync: 2026-11-18 22:30 UTC",
- "recorded": "2026-11-18 22:40 UTC",
- "note": "Control Board 4a: maintenance (take out, Put back after its check, windows set ahead), the upkeep calendar, Database updates' read-only unused list (decisions/0171 \u00a72.5). Built on Sync: 2026-11-18 22:30 UTC Sent through git (releases/inbox).",
+ "built_on": "2b5e447 Sync: 2026-11-18 22:50 UTC",
+ "recorded": "2026-11-18 22:51 UTC",
+ "note": "Control Board 4a: maintenance (take out, Put back after its check, windows set ahead), the upkeep calendar, the read-only unused list; the pre-flight line's amber, the alarm filter button, river blue, control_maint_hours (decisions/0171 \u00a72.5). Built on Sync: 2026-11-18 22:50 UTC (faq.md on the faq-restore) Sent through git (releases/inbox).",
  "status": "pending",
  "live_in": "",
  "files": {
   "app/admin/control-console.php": {
-   "sha256": "c5acbd8b98e79581ecee00c1ec44e25ed552afd1afc1fab30aa2ce7f7f8de1de",
+   "sha256": "f02eded0b0fde6c09676ee3706341e5da34a660f7f6a7df83344f245a2d4064d",
    "live": false
   },
   "app/admin/sections.php": {
@@ -19,7 +19,7 @@
    "live": false
   },
   "app/lib/ControlMaintenance.php": {
-   "sha256": "dd4286a869ea574fb578dc2f092e338106c93d5b63875d16b8da69a050ee2d1f",
+   "sha256": "0580e8c87522770dfa4b7db55a0783d127941ce551a8b1e01d7540367950f2a8",
    "live": false
   },
   "app/lib/Preflight.php": {
@@ -42,6 +42,10 @@
    "sha256": "c14e14800c4d8c27baaa5ad30967087e60dc6ae206b30caefbdae01194d5d2a8",
    "live": false
   },
+  "app/lib/Thresholds.php": {
+   "sha256": "ecf21cdcbcb9266a44028d2a2f814072e46c9599db4f4ff08ae5c92132518cb5",
+   "live": false
+  },
   "app/lib/staging-tables.php": {
    "sha256": "0fa8639fc3781423672ff4173218d54c5105f31722686990157b38a469ef8586",
    "live": false
@@ -51,11 +55,11 @@
    "live": false
   },
   "app/ui/faq.md": {
-   "sha256": "1894f819028dd2799a6ba2e0322547d4a7b0e92c6dc02d39414d1d67884f0a68",
+   "sha256": "a81f7bf87c4073ecd2f206d1cc9c40351df6545e5c0a13b458caa4eadfae8ce4",
    "live": false
   },
   "website/admin/api.php": {
-   "sha256": "833907c82831dc415d9aab3d7fdfcbd00f3d5a5c9bd955cf755ff673e0c81c46",
+   "sha256": "08bd513047b4ced1f271d926ec6f00894d33b112292a4df09a7e6f150b8ab3ec",
    "live": false
   },
   "website/api/health.php": {
@@ -63,7 +67,7 @@
    "live": false
   },
   "website/js/admin-control.js": {
-   "sha256": "5ab79652369eced2fb90e5c12d4bbc6a840fefcd08b20c35e2fb10b182882dc7",
+   "sha256": "18177b126d03b1b1a9a9757c36b2b67dda43eb4186f9568cf104cf4f7d7f0ba7",
    "live": false
   }
  }
