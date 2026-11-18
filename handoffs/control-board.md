@@ -118,6 +118,12 @@ current pages stay reachable until the board replaces them (archived, not delete
   (control-board-2a-2) is closed until this is live; then rebuild it as `-3` on the new live copy (its `faq.md` must
   carry this release's entry) with `"replaces": ["control-board-2a"]`.
 
+- **2026-11-18: #121 withdrew itself on live** at 15:00 UTC (#122 works).
+- **2026-11-18: releases-live**, built on Sync 14:55 UTC. `js/admin-releases.js`: the page looks again every 15 seconds
+  and redraws changed cards in place, and a press redraws its card without a reload (Jason: "release page needs to update
+  to current states", "alerts and notices need to be cleared once fixed or changed"). After it's live, rebuild 2a as
+  `control-board-2a-4`: its `faq.md` on the new live copy, `"replaces": ["control-board-2a"]`.
+
 ### Where the folded-in cleanup fixes go (build session, 2026-11-18)
 
 Release 1 closes none of them (it was built before they arrived). The plan:
