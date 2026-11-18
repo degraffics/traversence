@@ -1,0 +1,18 @@
+{
+ "zip": "releases-live.zip",
+ "built_on": "a09bd4b Sync: 2026-11-18 14:55 UTC",
+ "recorded": "2026-11-18 15:00 UTC",
+ "note": "Releases page keeps itself current: each release drawn again as it moves on, its notices with it; built on Sync: 2026-11-18 14:55 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/ui/faq.md": {
+   "sha256": "376168eab79a39737d41218e3ad3e23079c56346711d3d4a0b5a618c810cf085",
+   "live": false
+  },
+  "website/js/admin-releases.js": {
+   "sha256": "b913a81e89328db6a676ef427124ba524fed3e43c4c81cb0c355e4de6a9e9739",
+   "live": false
+  }
+ }
+}
