@@ -1,0 +1,86 @@
+{
+    "id": 121,
+    "title": "System Control Board, release 2a: the ledger of every worker call and the records it touched",
+    "why": "Decision 0171 §4 (Jason approved revision 2, 2026-11-18), release 2a of 5. Jason: 'neither of them, especially START, does not include endpoints or a way to see what data is being captured and or stored.' Every call W0 Indexer, the crawler and the video worker make to /api/crawl/* and /api/video/* now leaves one row in control_ledger: what it handed out, received, stored, updated, sent to Review and refused (by reason), its answer code, its time and its crawler run. The ids of the listings and Review items it touched go to control_records, so each run can open to what it brought in. Measured once in the endpoints' shared _auth.php, so no endpoint changes and a new one is measured by itself; it never changes an answer. Ids and counts only. Kept 90 and 30 days (three new settings in Thresholds). Two folded-in fixes: Start's watch counts a task's own 'nothing to do' runs as good (the identity recheck no longer waits for the 6-hour mark), and the pre-flight's AZCC line tests the Commission's new address and says it's blocked pending the records request. No page changes; the board draws it in release 2b. FAQ: one entry.",
+    "proposals": "",
+    "zip": "control-board-2a.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/ui/faq.md": {
+            "sha": "8d6f17ba28733d6f87b2f5905e0f58e67ca2b6453bc88e1ecc5facf55c92ed27",
+            "size": 329227,
+            "live_was": "89f595bc24f6872ca86b71e667a8754ccbb140e4743eedf9cf7fd67642e7de69"
+        },
+        "app/migrations/2026-11-18_control_ledger.sql": {
+            "sha": "c5a5864135e61599376fcd62e9a9d354a77942821cd54b7ec8659360fe74e053",
+            "size": 1786,
+            "live_was": null
+        },
+        "app/lib/ControlLedger.php": {
+            "sha": "4ea43368ca0d2fe16af184e0d5154a8eef7bac6c2dd7eca95351af1ee3d8cd10",
+            "size": 10683,
+            "live_was": null
+        },
+        "app/lib/Thresholds.php": {
+            "sha": "a3d4b47de10731912ba6a7e7043485ca4ce646328e352587aae271c084b49816",
+            "size": 28065,
+            "live_was": "e64940cb97760e876c1079af6d30aeca486ec7e2f9e99b44be2958982021df6a"
+        },
+        "app/lib/crawler/IntakeStager.php": {
+            "sha": "f83c803c852e8cca8df954751c5c3b93ee06995f605b5ddf23d770f15027a726",
+            "size": 64204,
+            "live_was": "0d3d8bda6fc650bd7c273b560f11a61896aa6d44854f6a37b453e9cc889712e9"
+        },
+        "app/lib/staging-tables.php": {
+            "sha": "45d0d30b6859f5844472a95fb2ed357bba848e341e519db131f32660e235b1a4",
+            "size": 25352,
+            "live_was": "f057f89df788d9f4a4d1a1503eba67b3c6edafeef9f09d61db5f074c94bc71c9"
+        },
+        "app/lib/Preflight.php": {
+            "sha": "89e558ffd038765ef9e713986512e4ff1f57c9927b6f0aa5e8fcc524ca39ac8a",
+            "size": 142087,
+            "live_was": "3965854852c2cb25dc951ecc359ea1a29e61f7760c5489c17758ef599abd00a3"
+        },
+        "app/lib/CrawlerIngest.php": {
+            "sha": "028df8cad8837f4eae4486bd70a61912048a846cbbe1e9ccb9b120f499913a1a",
+            "size": 30019,
+            "live_was": "b8c92d9e6d680f3e9634b7658d64b2b157f5e747aa9a51bd7780b4e1d8ec605e"
+        },
+        "app/lib/SystemStart.php": {
+            "sha": "1bc1f528df8103c119ec2e53775d324a667acd8cb11fb4fa07f796a8f1b3b017",
+            "size": 76645,
+            "live_was": "0060f67041cc0343e830b8011e4c39cc4c8346f575e4eb006e671e0cac8e33e4"
+        },
+        "website/api/crawl/_auth.php": {
+            "sha": "f5f30314cc430968fcca1c62ce30816e38c9d5746f046646fafe0b876d7d10d1",
+            "size": 1666,
+            "live_was": "03d140568e73a314314490b3d00b81b4a9b68a2dcd04986fccb2865de8ca15e8"
+        },
+        "website/api/video/_auth.php": {
+            "sha": "9944fc4f4032fdb06f646e8f5bec34523f4e237ed1370858c036354d73080930",
+            "size": 1550,
+            "live_was": "8ef03cd9d472a101ccbc4f817774b39e0693a51aead3953faded2a50652e52f2"
+        }
+    },
+    "migrations": [
+        "app/migrations/2026-11-18_control_ledger.sql"
+    ],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-18T14:16:38+00:00",
+            "by": 0,
+            "msg": "Uploaded control-board-2a.zip: 11 files."
+        }
+    ]
+}
