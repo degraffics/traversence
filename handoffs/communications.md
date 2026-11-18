@@ -1,6 +1,6 @@
 # Communications: hand-off (2026-11-18)
 
-**Decision:** `decisions/0172-communications-who-reaches-whom.md`, draft 15, no code. Waiting for Jason's OK.
+**Decision:** `decisions/0172-communications-who-reaches-whom.md`, draft 16, no code. Waiting for Jason's OK.
 **Draft 2 (Jason's first changes, 2026-11-18):** Pulse is the inbox (everything lands there; email, push and text point
 back); outside mailboxes in Pulse (§4.7: our cPanel, IMAP, POP, Gmail, Microsoft, SES receiving); his six levels
 (Critical, Urgent, Alert, Notice, General, Special) with what each does, kept apart from a person's own flags (Follow
@@ -101,3 +101,40 @@ own release; the first new one is step 2 (the in-site dispatcher), after 0171 an
   reply), and a pop-up (0074) when the work needs room; the side drawer retires. Proposed; Jason to confirm.
 - Draft 15: three views with roles (scan → look → work → fix): expanded toggle to look, drawer to work a case (no
   tools; Previous/Next), pop-up to fix. Proposed; Jason to confirm.
+- Draft 16: email, push and text are delivery engines, separate builds on one contract (§4.6): email is 0167, push is
+  its own build, text is its own decision then build. The texting research is kept below for that decision.
+
+## For the text decision: the research and proposals from the first draft (2026-11-18)
+
+Checked against the live mirror at Sync 2026-11-18 02:36 UTC: no SMS provider in the code; `sms:` links only.
+
+### T1 Where texts apply (from the decisions)
+
+| Use | Decided in | Who pays |
+|---|---|---|
+| An owner texts **in** to prove a claim | 0070, 0071 (fallback), 0133 | $: our number, inbound fees |
+| A claim code sent **out** by text | 0015, 0016 (end state) | $ (Q1) |
+| Claim invites and sales outreach, "Reply YES" | 0108 | $ (Q1) |
+| A business's marketing to people who shared their number and opted in | 0047, 0049, 0141, 0154 | P: plan allowance or text pack |
+| A business's customers about their order or booking | **new here** (Q2) | P |
+| GO Codes and member invites opening the phone's own app | 0094–0098, 0047 | free (built) |
+
+**Ruled out** (kept): staff sign-in (0100), Control Board alarms (0171), any text with no revenue behind it, texting
+someone who only tapped Link (0047), and members' sign-in codes (Q3).
+
+### T2 The open questions
+
+| # | Question | Proposed answer | For Jason? |
+|---|---|---|---|
+| Q1 | Who pays for our own texts (claim invites, claim codes out)? | Email and GO Codes stay first (free). Texts to businesses come from a **Sales texting budget** Jason sets in 0163's cost register, **default $0 (off)**; each text counted against it, failed ones too. The inbound claim number (~$1 a month) is the one standing cost. | **Yes:** the budget, and the $1 number |
+| Q2 | Texts to a business's customers about orders and bookings | Allowed as **transactional** texts: the customer ticks "Text me about this order" at checkout (per order, unticked by default); only that order's updates; STOP ends it; paid from the business's text allowance. Never marketing. | Yes: confirm |
+| Q3 | Members' sign-in codes by text | **No.** Members sign in by password or social login; codes stay email (free). Text codes cost with no revenue and are open to SIM swaps. Passkeys later. | Yes: confirm |
+| Q4a | The provider | **Twilio** (0108: "Twilio first"), one card under Outside services (0152), keys in `.env` (`TWILIO_ACCOUNT_SID`, `TWILIO_AUTH_TOKEN`, `TWILIO_MESSAGING_SID`), checked by the pre-flight (0171), held on staging (0165) | no |
+| Q4b | The incoming-text webhook | `/api/sms-in.php`, checking Twilio's signature, logged in `comms_deliveries`; added to the paths Bluehost is asked to exempt (`research/bluehost-bot-check-2026-11-15.md`), since a blocked STOP must never be lost | no |
+| Q4c | Toll-free or 10DLC; who registers | Start with **one toll-free number**, verified by Traversence (simpler and fast at low volume; no brand fee). Every business text starts with the business's name. Move to 10DLC, Traversence registering as the platform and each business as its own brand, only when a business's volume needs it. | **Yes:** who registers, and when to move |
+| Q5a | One STOP list or one per business? | **Both, as the carriers require:** STOP to our number stops every text from that number (carriers enforce it). Per-business choices live in the person's preferences, so they can stop one business without stopping all. | Yes: confirm |
+| Q5b | HELP wording | "Traversence: help at https://traversence.com/faq.php or support@traversence.com. Msg & data rates may apply. Reply STOP to stop." Attorney-reviewed before launch (0141). | Yes: attorney |
+| Q5c | Whose time zone sets quiet hours | **The recipient's:** the device's stored zone; else the area code's; never earlier than 8 am or later than 9 pm there (US texting rules). | no |
+| Q5d | How long consent records are kept | **5 years after consent ends** (the federal claim limit is 4), with wording, version, when, from where and how it ended (0108). Never deleted early by account deletion: kept as the proof, with nothing else of the person. | **Yes:** check against the privacy policy |
+| Q6 | Which plans include texts, the pack price | Already set in `commercial.md` §1.1: **Strategic 500, Enterprise 2,500 a month**; packs **+500 $19.95, +2,500 $89.95, +5,000 $169.95, +10,000 $299.95**. Not in `Billing::ADDONS` yet (storage and AI only): they're added with the texting release. Basic and Core can buy a pack, with no allowance. | Yes: Basic and Core may buy packs? |
+
