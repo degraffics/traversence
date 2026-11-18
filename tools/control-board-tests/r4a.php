@@ -130,7 +130,7 @@ $t('the board: blue for maintenance, its stage "In maintenance", a #maintenance 
 $t('the alarm list\'s filter is one dropdown button for the header (data-ak-cmd), not a select', str_contains($cs, '<span class="ak-fw cb-afw" data-ak-cmd>') && !str_contains($cs, 'data-cb-afilter'));
 $t('the pre-flight result line is red only for a line really tripped or a core host down', str_contains($cs, "\$x['level'] === 'trip' && !empty(\$x['tripped_at'])) || \$coreBad ? 'bad' : 'hold'"));
 $ss = file_get_contents($app . '/admin/sections.php'); $blk = substr($ss, (int) strpos($ss, '$u = SchemaUpkeep::unused();'), 2600);
-$t('Database updates lists what no code names (#unused), read only: no Keep or remove there', str_contains($blk, "'No code names them'") && !str_contains($blk, 'name="left"') && str_contains($ss, '<div id="unused"></div>'));
+$t('Database updates lists what no code names (#unused), read only: no Keep or remove there', str_contains($blk, "'Unused tables and columns (for Claude to sort)'") && !str_contains($blk, 'name="left"') && str_contains($ss, '<div id="unused"></div>'));
 require_once $app . '/lib/staging-tables.php';
 $t('control_maintenance is each site\'s own on staging', in_array('control_maintenance', StagingTables::OWN, true));
 
