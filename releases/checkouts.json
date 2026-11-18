@@ -1367,6 +1367,80 @@
    "expires": "2026-11-18T23:19:40Z",
    "release": "comms-all.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/crawler/Verify.php",
+   "functions": [
+    "lease"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "W2's second look: per-listing isolation, the real error on the board, the held count's age (2026-11-18)",
+   "since": "2026-11-18T19:23:47Z",
+   "expires": "2026-11-18T23:23:47Z",
+   "release": "board-w2-verify.zip",
+   "callers": {
+    "lease": [
+     "website/api/crawl/verify.php"
+    ]
+   }
+  },
+  {
+   "path": "website/api/crawl/verify.php",
+   "functions": [
+    "(top)"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "W2's second look: per-listing isolation, the real error on the board, the held count's age (2026-11-18)",
+   "since": "2026-11-18T19:23:47Z",
+   "expires": "2026-11-18T23:23:47Z",
+   "release": "board-w2-verify.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/ControlLedger.php",
+   "functions": [
+    "finish"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "W2's second look: per-listing isolation, the real error on the board, the held count's age (2026-11-18)",
+   "since": "2026-11-18T19:23:47Z",
+   "expires": "2026-11-18T23:23:47Z",
+   "release": "board-w2-verify.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/ControlBoard.php",
+   "functions": [
+    "calls",
+    "process"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "W2's second look: per-listing isolation, the real error on the board, the held count's age (2026-11-18)",
+   "since": "2026-11-18T19:23:47Z",
+   "expires": "2026-11-18T23:23:47Z",
+   "release": "board-w2-verify.zip",
+   "callers": {
+    "process": [
+     "app/admin/control-console.php"
+    ]
+   }
+  },
+  {
+   "path": "app/admin/control-console.php",
+   "functions": [
+    "tv_admin_mod_control"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "W2's second look: per-listing isolation, the real error on the board, the held count's age (2026-11-18)",
+   "since": "2026-11-18T19:23:47Z",
+   "expires": "2026-11-18T23:23:47Z",
+   "release": "board-w2-verify.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
