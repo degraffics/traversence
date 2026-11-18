@@ -90,7 +90,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "Control Board 4a: maintenance, the upkeep calendar, the unused-names list (decisions/0171 \u00a72.5)",
    "since": "2026-11-18T22:39:26Z",
-   "expires": "2026-11-19T02:40:18Z",
+   "expires": "2026-11-19T02:51:32Z",
    "release": "control-board-4a.zip",
    "callers": {}
   },
@@ -101,7 +101,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "Control Board 4a: maintenance, the upkeep calendar, the unused-names list (decisions/0171 \u00a72.5)",
    "since": "2026-11-18T22:39:26Z",
-   "expires": "2026-11-19T02:40:18Z",
+   "expires": "2026-11-19T02:51:32Z",
    "release": "control-board-4a.zip",
    "callers": {}
   },
@@ -112,7 +112,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "Control Board 4a: maintenance, the upkeep calendar, the unused-names list (decisions/0171 \u00a72.5)",
    "since": "2026-11-18T22:39:36Z",
-   "expires": "2026-11-19T02:40:18Z",
+   "expires": "2026-11-19T02:51:32Z",
    "release": "control-board-4a.zip",
    "callers": {}
   },
@@ -163,7 +163,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "Control Board 4a: maintenance, the upkeep calendar, the unused-names list (decisions/0171 \u00a72.5)",
    "since": "2026-11-18T22:39:36Z",
-   "expires": "2026-11-19T02:40:18Z",
+   "expires": "2026-11-19T02:51:32Z",
    "release": "control-board-4a.zip",
    "callers": {
     "tick": [
@@ -182,7 +182,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "Control Board 4a: maintenance (decisions/0171 \u00a72.5)",
    "since": "2026-11-18T22:39:36Z",
-   "expires": "2026-11-19T02:40:18Z",
+   "expires": "2026-11-19T02:51:32Z",
    "release": "control-board-4a.zip",
    "callers": {
     "items": [
@@ -203,7 +203,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "Control Board 4a: maintenance (decisions/0171 \u00a72.5)",
    "since": "2026-11-18T22:39:36Z",
-   "expires": "2026-11-19T02:40:18Z",
+   "expires": "2026-11-19T02:51:32Z",
    "release": "control-board-4a.zip",
    "callers": {
     "JOBS": [
@@ -228,7 +228,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "Control Board 4a: maintenance, the upkeep calendar, the unused-names list (decisions/0171 \u00a72.5)",
    "since": "2026-11-18T22:39:36Z",
-   "expires": "2026-11-19T02:40:18Z",
+   "expires": "2026-11-19T02:51:32Z",
    "release": "control-board-4a.zip",
    "callers": {
     "pulseSteps": [
@@ -254,7 +254,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "Control Board 4a: maintenance, the upkeep calendar, the unused-names list (decisions/0171 \u00a72.5)",
    "since": "2026-11-18T22:39:36Z",
-   "expires": "2026-11-19T02:40:18Z",
+   "expires": "2026-11-19T02:51:32Z",
    "release": "control-board-4a.zip",
    "callers": {}
   },
@@ -287,7 +287,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "Control Board 4a: maintenance, the upkeep calendar, the unused-names list (decisions/0171 \u00a72.5)",
    "since": "2026-11-18T22:39:36Z",
-   "expires": "2026-11-19T02:40:18Z",
+   "expires": "2026-11-19T02:51:32Z",
    "release": "control-board-4a.zip",
    "callers": {}
   },
@@ -311,7 +311,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "release control-board-4a.zip",
    "since": "2026-11-18T22:40:18Z",
-   "expires": "2026-11-19T02:40:18Z",
+   "expires": "2026-11-19T02:51:32Z",
    "release": "control-board-4a.zip",
    "callers": {}
   },
@@ -322,7 +322,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "release control-board-4a.zip",
    "since": "2026-11-18T22:40:18Z",
-   "expires": "2026-11-19T02:40:18Z",
+   "expires": "2026-11-19T02:51:32Z",
    "release": "control-board-4a.zip",
    "callers": {}
   },
@@ -333,7 +333,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "release control-board-4a.zip",
    "since": "2026-11-18T22:40:18Z",
-   "expires": "2026-11-19T02:40:18Z",
+   "expires": "2026-11-19T02:51:32Z",
    "release": "control-board-4a.zip",
    "callers": {}
   },
@@ -344,7 +344,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "release control-board-4a.zip",
    "since": "2026-11-18T22:40:18Z",
-   "expires": "2026-11-19T02:40:18Z",
+   "expires": "2026-11-19T02:51:32Z",
    "release": "control-board-4a.zip",
    "callers": {}
   },
@@ -355,7 +355,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "release control-board-4a.zip",
    "since": "2026-11-18T22:40:18Z",
-   "expires": "2026-11-19T02:40:18Z",
+   "expires": "2026-11-19T02:51:32Z",
    "release": "control-board-4a.zip",
    "callers": {}
   },
@@ -379,6 +379,17 @@
      "app/lib/WorkflowSettings.php"
     ]
    }
+  },
+  {
+   "path": "app/lib/Thresholds.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "release control-board-4a.zip",
+   "since": "2026-11-18T22:51:32Z",
+   "expires": "2026-11-19T02:51:32Z",
+   "release": "control-board-4a.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
