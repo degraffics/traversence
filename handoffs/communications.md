@@ -1,6 +1,6 @@
 # Communications: hand-off (2026-11-18)
 
-**Decision:** `decisions/0172-communications-who-reaches-whom.md`, draft 10, no code. Waiting for Jason's OK.
+**Decision:** `decisions/0172-communications-who-reaches-whom.md`, draft 11, no code. Waiting for Jason's OK.
 **Draft 2 (Jason's first changes, 2026-11-18):** Pulse is the inbox (everything lands there; email, push and text point
 back); outside mailboxes in Pulse (§4.7: our cPanel, IMAP, POP, Gmail, Microsoft, SES receiving); his six levels
 (Critical, Urgent, Alert, Notice, General, Special) with what each does, kept apart from a person's own flags (Follow
@@ -85,3 +85,7 @@ own release; the first new one is step 2 (the in-site dispatcher), after 0171 an
   told plainly it isn't going to a live business; Sales sees counts only; expires after 90 days (for Jason).
 - Draft 10: if the unclaimed listing has a public email, the message is emailed there by us (tracked, reply back to
   the sender's Pulse); if not, held until a claim.
+- Draft 11: a message to an unclaimed listing needs a way to answer its sender (account, confirmed email or phone),
+  else it's not accepted; guest email confirmed first (Jason agreed); emails to a listing: the first at once, then one
+  per 5 waiting, with screening, its own sender, stop and report links, and a self-pause on complaints; Message and
+  Leave a message on the listing page only (Jason). Open: a queue that never reaches 5 (send after 14 days, or wait).

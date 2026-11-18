@@ -1,6 +1,6 @@
 # 0172: Communications: who reaches whom, about what, by which channel, and one way to deliver
 
-Status: **proposed, draft 10** (2026-11-18). Waiting for Jason's OK. No code yet.
+Status: **proposed, draft 11** (2026-11-18). Waiting for Jason's OK. No code yet.
 Drafts 2 and 3 take in Jason's changes: Pulse is the inbox, and keeps its established look (0105): it collects, organizes and
 lets you read, while each message carries its own process; outside mailboxes in Pulse (§4.7); six levels, with flags and tags kept
 apart from them; three touch points; a community group is a channel.
@@ -529,7 +529,7 @@ Each action on any card shows **only when it works for that listing, for that vi
 
 | Action | Shows when |
 |---|---|
-| **Message** | the listing is **managed** (someone holds `listing_access`) and the viewer isn't its owner |
+| **Message** | **on the listing page only** (Jason, 2026-11-18), when the listing is **managed** (someone holds `listing_access`) and the viewer isn't its owner; **Leave a message** there when it isn't (§3.3) |
 | **Ask a question** (guests) | managed, and the viewer is signed out |
 | **Call** | it has a phone |
 | **Directions** | it has a place on the map, and isn't held (0066) |
@@ -560,8 +560,9 @@ $viewer)`) returns the list, and every card asks it. The search API returns `man
 | Address Book contact | `js/address-book.js:134` | Message when `can_message` | fine |
 | Marketplace item | `market/item.php:102` | Message | fine (only managed businesses sell) |
 
-**So:** two cards offer a Message that can't work (storefront edge case, Dashboard → Marketing), and every grid, map
-and guide card leaves Message off listings that **can** take one. Both are fixed by the one helper in §3.1.
+**So:** two cards offer a Message that can't work (storefront edge case, Dashboard → Marketing); both are fixed by the
+one helper in §3.1. Grids, maps, search and guide cards **keep no Message** (Jason, 2026-11-18: messaging stays on the
+listing page); their "no Message on managed" above is as intended, and they keep Call, Directions and Website.
 
 ### 3.3 Unclaimed and claimed listings: what each can do
 
@@ -582,20 +583,25 @@ be integrated into the communication system, because the user and listing will n
   form we offer, that would store message assigned to a listing or user, since unclaimed listing dont have these the
   temporary listing id could hold messages as long as the sender doesnt think it is actually going the a live
   listing"):
-  - **Where:** on the unclaimed listing's page and its cards, **Leave a message** in Message's place.
+  - **Where:** on the unclaimed listing's page only, **Leave a message** in Message's place.
   - **What the sender is told, before and after**, by the route below. Held: "This business isn't on Traversence yet,
     so no one reads this here. We'll keep your message on this listing and deliver it only if the business claims it.
     For anything now, call them directly." The button reads **Leave it for them**, never Send. Emailed: "This business
     isn't on Traversence yet. We'll send your message to the email this listing gives, and bring any reply back here."
     The button reads **Send by email**.
-  - **Who:** a signed-in member (the message is in their own Pulse, marked **Waiting: not delivered** or **Sent by
-    email**), or a guest (below).
+  - **Who, and what's required of the sender** (Jason, 2026-11-18: "message to unclaimed listing should require
+    1. email 2. phone 3. user account. if none exist it shouldnt be accepted"): a message is accepted only with a way
+    to answer its sender: **a member account** (the message is in their Pulse, marked **Waiting: not delivered** or
+    **Sent by email**), **a confirmed email**, or **a phone** (for "call me"; it can't be confirmed while we send no
+    texts, so it's given to the business only with the guest's say-so, and an email or account is still asked for
+    alongside it where possible). With none of them, the form doesn't send. The reply-code-only choice of 0052 isn't
+    offered here.
   - **A guest leaving a message** (built on 0052 step 6's guest questions):
     - **The form:** their first name, the message, and how they want the answer: **by email** (we send it; the
-      business never sees their address) or **by reply code only**. The self-hosted check and limits stay (3 a day
+      business never sees their address) or **by phone** (the business calls them), at least one required. The self-hosted check and limits stay (3 a day
       per device, 6 per network).
     - **Their email is confirmed first:** a link to it, and nothing goes to the business until it's pressed, so no one
-      can send in someone else's name. (For Jason: new; 0052's guest questions didn't confirm.)
+      can send in someone else's name. (Jason agreed, 2026-11-18; new here, 0052's guest questions didn't confirm.)
     - **A reply code** (8 characters) is shown and emailed. **Check a reply** on the listing page shows where it
       stands: held, sent by email, delivered, answered.
     - **Answers reach them** by email (if they chose it) and under the code. A business's email reply (the email
@@ -633,14 +639,37 @@ be integrated into the communication system, because the user and listing will n
         Traversence;
       - an unsubscribe ("Stop requests to this address"). The whole route is tracked (§4.2). The business's email reply comes back into the
       sender's Pulse through the reply address (§"Pulse is the inbox"). The sender is told "Sent to the email this
-      listing gives; they may not have joined Traversence." 0108's outreach rules apply to the email: an
-      unsubscribe, and at most one such email to a listing a day, the rest gathered into it.
+      listing gives; they may not have joined Traversence." The pace and the protections are below.
     - **No email on the listing:** the message is **held on the listing's id** (it belongs to the listing record, not
       to a person) until someone claims it. Its route (§4.2) stops at **Held: waiting for a claim**.
+  - **The pace of emails to an unclaimed listing** (Jason, 2026-11-18: "first email. then queued if the que gets to
+    5 messages one email sent saying 5 messages waiting"):
+    - the **first** request goes at once, as above;
+    - later ones **wait in a queue** on the listing; when **5** are waiting, **one** email says "5 visitors have left
+      you messages on Traversence", with a link to read and answer them (good for that address only, no account
+      needed) and **Claim your listing**; then the count starts again;
+    - **for Jason:** a queue that never reaches 5: send the waiting count after 14 days anyway, or hold until 5 or a
+      claim (each waiting message still expires at 90 days).
+  - **Protecting our name and the business** (Jason: "this could also be spam or abuse so we need a way to ensure our
+    reputation and client is protected"):
+    - **Its own sender:** these emails go from their own address (e.g. `requests@traversence.com`, a Bluehost mailbox,
+      free), never the system sender, so a complaint can't touch sign-in codes or receipts (0167 §1's routing).
+    - **Screened before sending:** no attachments; links removed; a length cap; the site's word checks; a
+      message that looks like spam or abuse is held for Safety in Pulse instead of sent.
+    - **Sender limits:** one waiting message per sender per listing until it's answered; the guest limits (3 a day
+      per device, 6 per network); a member's 10 new conversations a day (as message requests, 0052).
+    - **The business decides:** every email has **Stop requests to this address** (then messages are held for a
+      claim) and **Report this as spam** (the sender is blocked from the listing; two reports and they can't leave
+      messages anywhere for 30 days).
+    - **Bounces and complaints** stop emails to that address at once (`email_suppress`) and the listing falls back to
+      holding.
+    - **Watched by message control (§4.3):** sends, bounces and complaints for this kind are counted; complaints
+      over **0.1%** of the last 1,000, or any bounce surge, raise an alarm (0171) and **pause the kind by itself**
+      until an owner resumes it; held messages wait meanwhile.
   - **When it's claimed and verified:** each waiting message is delivered to the new owner's Pulse as an Alert, with
     when it was left, and the sender is told it was delivered (a Notice; email for a guest). Replies then work as any
     business conversation.
-  - **If it's never claimed:** it expires after **90 days** (for Jason), and the sender is told it wasn't delivered.
+  - **If it's never claimed:** it expires after **90 days**, and the sender is told it wasn't delivered.
     The sender can withdraw it at any time.
   - **Unsubscribed or bounced:** a listing whose email bounced or unsubscribed falls back to held.
   - **Private until delivered:** no one at Traversence reads the words; Sales sees only the count, as a reason to
@@ -802,7 +831,7 @@ Each a release Jason reviews; free channels first.
    email: a business told of new messages, orders and comments; Pulse escalations told.
 3. **Flags and tags in Pulse; the six levels** (`Pulse::SEVERITY`, the bell), and **our own mailboxes read in Pulse**
    by IMAP (with 0167's step 4).
-4. **Cards (§3):** the one actions helper, Message on every managed listing's card, Call, Email, Website and Directions
+4. **Cards (§3):** the one actions helper, Message and Leave a message on the listing page only, Call, Email, Website and Directions
    counted on unclaimed ones with the counts in Sales, Leave a message held until a claim, the two broken cards fixed.
 5. **Web push** (free): keys, service worker, subscriptions, asked after an action; then the business and staff kinds.
 6. **Outside mailboxes** (§4.7): IMAP and POP, Microsoft, then SES receiving; Gmail by sign-in only when revenue
