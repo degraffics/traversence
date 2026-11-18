@@ -180,8 +180,9 @@ each control pressed once.
 
 ## Steps 3–7 and 0167: the rest as one release (build session session_01CXLi5jn2WGptsHBfmhEav6, 2026-11-18)
 
-Jason, 2026-11-18: "can you have the entire build pushed for one release." **Release `comms-all.zip`: sent, waiting for
-Jason's OK** (not live yet). Built on **Sync: 2026-11-18 17:25 UTC** (dd8d547). Tests, all on MariaDB 10.11 or with no
+Jason, 2026-11-18: "can you have the entire build pushed for one release." **Release `comms-all.zip` (#135): live.** Jason approved it
+2026-11-18 (PR #937); verified live in Sync 2026-11-18 19:23 UTC (be5695e), all 83 files byte for byte (PR #938).
+`MailImap::flagsOf()` and `special()` were added before the merge (Mailboxes calls them; 114 transport checks). Built on **Sync: 2026-11-18 17:25 UTC** (dd8d547). Tests, all on MariaDB 10.11 or with no
 network: `notify.php` 56, `comms-engine.php` 74, `step7.php` 83, `listing-messages.php` 87, `push.php` 54 (incl. RFC
 8291's test vector), `mail-transport.php` 112. Pages rendered at 390px **with sample state** (a stand-in sign-in, cPanel
 and outside services; nothing sent or connected): Communications, My inbox, Your communications, the bell's list; no
@@ -222,7 +223,7 @@ message and the comment replies were rendered by their builders with sample stat
   mentions, join requests (Accept/Decline inside), reports (Keep/Remove inside).
 - **From step 2's list:** the staff Communications setting (Dashboard → Your communications; one component,
   `app/ui/comms-setting.php`, for members and staff). `user/api/notices.php` is called by nothing: a release can't delete a
-  file, so **the session manager deletes it** after this goes live.
+  file, so the session manager deletes it through the sync's delete path (taken on 2026-11-18).
 
 **Left (not in this release):**
 - **Step 8, texting:** its own decision first (0172 §5; the research is above).
@@ -233,3 +234,11 @@ message and the comment replies were rendered by their builders with sample stat
   taps counted. Group comments and "a reply to my post" (groups have no comments yet); handing over and quiet groups.
 - Attachments in mail open in the mailbox itself for now; Graph mail has no attachment list; SES mail over 150 KB.
 - Existing `Mailer::send(…, 'ORDERS')` callers keep their sender; new code asks `CommsSetup::prefixFor(kind)`.
+
+**For Jason, on live:** choose who reads support@ and orders@ in Pulse
+(https://traversence.com/admin/config/communications#cs-mailboxes); add the Microsoft app's keys there for Microsoft 365
+mailboxes; Set up receiving for Amazon SES only if wanted (it costs about $0.10 per 1,000 messages).
+**Agreed with the Control Board session (2026-11-18):** it adds `alarm.trip` and `alarm.warning` to `Notify::KINDS`
+(and a body in `Notify::BODIES` if it wants Acknowledge inside the message), and per-person read state of the admin
+stream's cases; it rebuilds `Scheduler.php`, `staging-tables.php` and `Pulse.php` from the live copy.
+**Done.** Steps 3–7 and 0167 are live; what's left is listed above, and step 8 (texting) needs its own decision first.
