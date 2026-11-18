@@ -648,8 +648,9 @@ be integrated into the communication system, because the user and listing will n
     - later ones **wait in a queue** on the listing; when **5** are waiting, **one** email says "5 visitors have left
       you messages on Traversence", with a link to read and answer them (good for that address only, no account
       needed) and **Claim your listing**; then the count starts again;
-    - **for Jason:** a queue that never reaches 5: send the waiting count after 14 days anyway, or hold until 5 or a
-      claim (each waiting message still expires at 90 days).
+    - **a queue that doesn't reach 5:** after **10 days** from the oldest waiting message, one email says how many are
+      waiting, in the same form (Jason, 2026-11-18: "after 10 days as one message notification to listing email");
+      then the count starts again. Each waiting message still expires at 90 days.
   - **Protecting our name and the business** (Jason: "this could also be spam or abuse so we need a way to ensure our
     reputation and client is protected"):
     - **Its own sender:** these emails go from their own address (e.g. `requests@traversence.com`, a Bluehost mailbox,

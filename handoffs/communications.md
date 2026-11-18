@@ -88,4 +88,4 @@ own release; the first new one is step 2 (the in-site dispatcher), after 0171 an
 - Draft 11: a message to an unclaimed listing needs a way to answer its sender (account, confirmed email or phone),
   else it's not accepted; guest email confirmed first (Jason agreed); emails to a listing: the first at once, then one
   per 5 waiting, with screening, its own sender, stop and report links, and a self-pause on complaints; Message and
-  Leave a message on the listing page only (Jason). Open: a queue that never reaches 5 (send after 14 days, or wait).
+  Leave a message on the listing page only (Jason). A queue under 5: one notice after 10 days (Jason).
