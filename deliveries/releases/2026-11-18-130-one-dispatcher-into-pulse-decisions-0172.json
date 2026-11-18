@@ -1,17 +1,17 @@
 {
     "id": 130,
-    "title": "One dispatcher into Pulse (decisions/0172 step 2): a business told of its messages, orders and comments; staff told of their cases; the Communications setting; ",
+    "title": "One dispatcher into Pulse (decisions/0172 step 2): a business told of its messages, orders and comments; staff told of their cases; the Communications setting;",
     "why": "Decision 0172 §6 step 2 (accepted by Jason, 2026-11-18, draft 16; he asked for this session: 'yes start the dispatcher session'). 1. One dispatcher, Notify (app/lib/Notify.php): every message is one record per person (comms_messages) with its route (comms_route: created, addressed, held, sent, delivered, read, stopped), from a register of kinds with their level of the six. Pulse and free email only: system email (Bluehost) for the new kinds, Amazon SES for notices as 0137 set. 2. Gaps 1 to 4 closed: a business's team (by role: Owner, Manager, General; orders also the Accountant) is told of a new message, a guest question, a Marketplace order or a comment on its listing; staff are told by email when a Pulse case is assigned or escalated to them (to the department's Manager or Director; none set, the Founder). One email per conversation until it's read. 3. Notices go through the dispatcher, keeping everything they did (once per person, kind and thing; their off switches; SES; the weekly digest). 4. Dashboard, App Settings, Communications replaces Notices: each kind with Pulse and Email, quiet hours (off unless set, in the person's own time zone; Notice, General and Special email waits, Critical, Urgent and Alert don't) and the weekly email. 5. Every new email has Stop these (email/stop.php). 6. The bell counts everything waiting at Alert or above (gap 6). No clocks on messages, no new digests, no approvals in Pulse. Tested: 56 checks on MariaDB (tools/notify-tests/notify.php), and the setting rendered at 390px with sample state, each control pressed once (no sideways scroll). One migration (four new tables, add-only); FAQ: five entries added or updated.",
     "proposals": "",
     "zip": "notify-1.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "planned",
+    "state": "approved",
     "step": 0,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
-    "plan_at": null,
+    "plan_at": "2026-11-18 17:02:47",
     "staged_at": null,
     "vetted_at": null,
     "live_at": null,
@@ -121,6 +121,16 @@
             "at": "2026-11-18T17:02:44+00:00",
             "by": 0,
             "msg": "Uploaded notify-1.zip: 19 files."
+        },
+        {
+            "at": "2026-11-18T17:02:47+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/notify-1.zip (git 88749563be)."
+        },
+        {
+            "at": "2026-11-18T17:02:47+00:00",
+            "by": 0,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
         }
     ]
 }
