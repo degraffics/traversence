@@ -28,3 +28,5 @@
 Run on MariaDB or MySQL, with a root that holds `app/` (the mirror's `sync-app` with the release's `app/` laid over it)
 and `website/api/` (the mirror's `sync-storage/api/crawl` and `api/video`). Put a `.env` four folders up from `lib/`:
 `mariadb < ../release-b-tests/start-schema.sql && php r1.php <root>/app`.
+- `layout.php`: the board laid out after Jason's example: a need's sources marked by the need's own verdict, the core
+  hosts, which needs use a company. No database: `php layout.php <root>/app`.
