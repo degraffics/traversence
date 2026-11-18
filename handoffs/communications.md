@@ -5,7 +5,8 @@
 back); outside mailboxes in Pulse (§4.7: our cPanel, IMAP, POP, Gmail, Microsoft, SES receiving); his six levels
 (Critical, Urgent, Alert, Notice, General, Special) with what each does, kept apart from a person's own flags (Follow
 up, importance) and tags. Then: three touch points (Members, Listings, Admin), and a
-community group is a channel inside the member's Pulse, not its own inbox. He said "there is a lot to unpack" in the rest: expect more changes.
+community group is a channel inside the member's Pulse, not its own inbox; Pulse works like an email inbox: one stream,
+searchable, archivable, organized only by the person (views, rules), never reordered by us. He said "there is a lot to unpack" in the rest: expect more changes.
 **Checked against:** the live mirror at "Sync: 2026-11-18 02:36 UTC".
 **Started by:** the session manager, with Jason's scope (2026-11-18): internal, between accounts, and listings
 communications; each WHO, then each WHAT; listing cards; texting from the decisions.

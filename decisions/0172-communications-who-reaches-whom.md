@@ -83,7 +83,22 @@ and messages are centrally located."
   questions (`MemberPulse::SOURCES`); notices, order threads and mailboxes join it.
 - **Channels inside Pulse** are where a message was said: a direct conversation, a business conversation, a group, an
   order's thread, a connected mailbox. Each is a label and a filter, never a separate inbox.
-- **Organized by:** source (those tabs), level (below), the person's own flags and tags (below), read or not, done.
+- **Like an email inbox, organized by the person, never by us** (Jason, 2026-11-18: "We shouldn't reorganize it, the
+  users should be able to configure it how ever they choose. That way FEEDS, COMMENTS, MESSAGES, etc are all flowing
+  as one incoming stream searchable, organized, and archiveable."):
+  - **One incoming stream**, newest first: feeds, comments, messages, notices, orders, group posts, mail, alarms, each
+    marked with its channel, level and flags. Nothing is moved or pinned by the site.
+  - **Search** across all of it (words, who, channel, level, flag, tag, date).
+  - **Views the person makes:** sort (newest, oldest, level, who), group by (channel, day, level, none), filters, and
+    **saved views** they name and order themselves ("Needs me", "My shop", "Hiking club"). A few come ready-made and
+    can be renamed or removed.
+  - **Rules** the person sets, as in email: "posts from Hiking club → skip the stream, keep in its view", "anything
+    from this business → tag VIP".
+  - **Archive** takes an item out of the stream and keeps it searchable; **Done** and **Undo** stay as Pulse has them.
+  - **Note for Jason (changes the member's Pulse as built, 0055 §5):** today the top of the member's Pulse is a fixed
+    "needs" block (`MemberPulse::needs`, the old Notification Center) above the stream. It becomes the ready-made
+    **Needs me** view instead, which the person can keep, move or remove. One exception stays fixed: a notice of action
+    on the account (0079), because it can stop posting and messaging.
 - **The bell is Pulse's count** of everything unread at Alert or above (today it counts only person messages, gap 6
   below), and opens Pulse.
 - **The other channels point back.** An email, push or text says what happened and links to the item in Pulse; replying
@@ -126,14 +141,16 @@ question:
 
 **What each level does:**
 
+Nothing in this table moves an item in the stream; the Pulse column is how it's marked.
+
 | Level | Pulse | Email | Push | Text | Quiet hours | Digest | Can be turned off | Staff clock (`SLA_HOURS`) |
 |---|---|---|---|---|---|---|---|---|
-| Critical | top, red | always | always | only where paid and chosen | ignored | never | no | 2 h |
-| Urgent | top, amber | yes | yes | only where paid and chosen | ignored | never | codes no; the rest by channel | 4 h (new) |
-| Alert | listed, counted on the bell | by choice | by choice | no | push waits | never | by channel | 8 h |
+| Critical | red mark | always | always | only where paid and chosen | ignored | never | no | 2 h |
+| Urgent | amber mark | yes | yes | only where paid and chosen | ignored | never | codes no; the rest by channel | 4 h (new) |
+| Alert | marked, counted on the bell | by choice | by choice | no | push waits | never | by channel | 8 h |
 | Notice | listed | by choice | by choice | no | wait | can be | yes | 48 h |
-| General | listed, quiet | digest only | by choice | no | wait | yes | yes | none |
-| Special | its own tab | by the person's marketing choice | by choice | only with that business's text consent | wait | their chosen frequency | always, one tap | none |
+| General | in the stream | digest only | by choice | no | wait | yes | yes | none |
+| Special | marked Special | by the person's marketing choice | by choice | only with that business's text consent | wait | their chosen frequency | always, one tap | none |
 
 - **Note for Jason (amends `Pulse::SEVERITY`):** Pulse has four today: Critical, Alert, Update, Event
   (`Pulse.php:47`). They become the six: Urgent and Special are added; Update is shown as **Notice** and Event as
@@ -143,9 +160,9 @@ question:
 ### Flags and tags in Pulse
 
 - **Follow up** (a flag, as in Outlook): Today, Tomorrow, This week, Next week, a date, or no date. At its time it comes
-  back to the top of Pulse as a Notice to that person (by their channels), until marked **Done**. **Clear flag** takes it
+  back into the stream as new, as a Notice to that person (by their channels), until marked **Done**. **Clear flag** takes it
   off.
-- **Importance:** High or Low, the person's own; it sorts their view and changes nothing for anyone else.
+- **Importance:** High or Low, the person's own; they can sort or filter by it, and it changes nothing for anyone else.
 - **Tags:** the person's own words with a colour; a business's team and our staff can also share tags (e.g. "VIP",
   "refund"). Filter by any of them.
 - **Done** and **Undo** stay as Pulse has them (`Pulse::mark`); assign and escalate stay for staff and business teams.
@@ -344,8 +361,8 @@ plan or pack, **$** needs Jason's budget. Reply: whether the message can be answ
 community, maybe alerting the user on a need to act basis"):
 
 - **No separate inbox.** The group stays a channel (§"Pulse is the inbox"). What a role adds is **work**, and work comes
-  to a person by **need to act**: the group's **To do** items sit at the top of their Pulse with their buttons in place
-  (Accept, Decline, Remove, Keep), labelled with the group.
+  to a person by **need to act**: the group's **To do** items arrive in their stream marked **Needs me**, with their buttons in
+  place (Accept, Decline, Remove, Keep), labelled with the group, and show in the Needs me view if they keep one.
 - **What reaches whom, by role:**
 
 | Role | Gets as Alerts (need to act) | Gets as General (activity) |
