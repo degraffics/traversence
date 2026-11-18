@@ -29,6 +29,8 @@
   {
    "path": "app/lib/Pulse.php",
    "functions": [
+    "'square'",
+    "byOrder",
     "items",
     "manage",
     "playbook"
@@ -37,7 +39,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "Control Board 3b-3: no contact with Overpass while held",
    "since": "2026-11-18T19:59:04Z",
-   "expires": "2026-11-19T00:17:47Z",
+   "expires": "2026-11-19T00:18:16Z",
    "release": "control-board-3b-3",
    "callers": {
     "items": [
