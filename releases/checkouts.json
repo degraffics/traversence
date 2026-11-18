@@ -232,6 +232,36 @@
    "expires": "2026-11-19T01:30:37Z",
    "release": "control-board-3d",
    "callers": {}
+  },
+  {
+   "path": "app/lib/Pulse.php",
+   "functions": [
+    "items",
+    "mark",
+    "playbook"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 3d: alarms grouped on the board and in Pulse; red only for a trip",
+   "since": "2026-11-18T21:30:39Z",
+   "expires": "2026-11-19T01:30:39Z",
+   "release": "control-board-3d",
+   "callers": {
+    "items": [
+     "app/lib/DailyReport.php",
+     "app/ui/pulse-ui.php",
+     "website/admin/staff-profile.php",
+     "website/admin/w.php"
+    ],
+    "mark": [
+     "app/lib/ClientOrders.php",
+     "website/admin/api/pulse.php"
+    ],
+    "playbook": [
+     "app/lib/DailyReport.php",
+     "app/ui/pulse-ui.php"
+    ]
+   }
   }
  ],
  "lapsed": [
