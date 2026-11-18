@@ -142,6 +142,11 @@ for stays inside it (the message's part, below).
 | ▾ | **Open** in place | | | | |
 
 - **Follow up** (a date, and it comes back unread at that time) lives under ⊕, so flags need no icon of their own.
+- **Forwarding a person's message** (Jason, 2026-11-18, decision pop-up, reviewed by the session manager): within the
+  account or the business's team, **and by email to any address**, with a line saying who forwarded it (he chose this
+  over team only and notices only). A notice from the site forwards freely. Email forwards are system emails, capped per
+  person per day so they can't be used to spam. **Report, block and mute** use the existing report path (Engage's reports
+  and the moderation queue); a blocked person is never told, and a mute is the viewer's own.
 - Greyed with the reason where an action doesn't apply (CLAUDE.md: never silently hidden).
 - On a phone the six action icons fold into one **⋯** beside ▾.
 
