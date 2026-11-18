@@ -252,7 +252,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "Control Board 2c: the service cards' fixes (decisions/0171, folded-in cleanup)",
    "since": "2026-11-18T16:53:35Z",
-   "expires": "2026-11-18T20:53:35Z",
+   "expires": "2026-11-18T20:54:14Z",
    "release": "control-board-2c.zip",
    "callers": {
     "parts": [
@@ -274,7 +274,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "Control Board 2c: the service cards' fixes (decisions/0171, folded-in cleanup)",
    "since": "2026-11-18T16:53:35Z",
-   "expires": "2026-11-18T20:53:35Z",
+   "expires": "2026-11-18T20:54:14Z",
    "release": "control-board-2c.zip",
    "callers": {
     "seed": [
@@ -292,7 +292,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "Control Board 2c: the service cards' fixes (decisions/0171, folded-in cleanup)",
    "since": "2026-11-18T16:53:35Z",
-   "expires": "2026-11-18T20:53:35Z",
+   "expires": "2026-11-18T20:54:14Z",
    "release": "control-board-2c.zip",
    "callers": {}
   },
@@ -305,7 +305,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "Control Board 2c: the service cards' fixes (decisions/0171, folded-in cleanup)",
    "since": "2026-11-18T16:53:35Z",
-   "expires": "2026-11-18T20:53:35Z",
+   "expires": "2026-11-18T20:54:14Z",
    "release": "control-board-2c.zip",
    "callers": {}
   },
@@ -316,7 +316,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "Control Board 2c: the service cards' fixes (decisions/0171, folded-in cleanup)",
    "since": "2026-11-18T16:53:39Z",
-   "expires": "2026-11-18T20:53:39Z",
+   "expires": "2026-11-18T20:54:14Z",
    "release": "control-board-2c.zip",
    "callers": {}
   }
