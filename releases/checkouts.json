@@ -79,59 +79,6 @@
    "expires": "2026-11-19T00:35:12Z",
    "release": "comms-needs-2.zip",
    "callers": {}
-  },
-  {
-   "path": "app/ui/pulse-ui.php",
-   "functions": [
-    "(top)",
-    "say",
-    "tv_pulse_board"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
-   "why": "Stream notices from the header filter and row icons shown as the centered notice, not squeezed into the header cell",
-   "since": "2026-11-18T20:11:23Z",
-   "expires": "2026-11-19T00:42:56Z",
-   "release": "comms-notice.zip",
-   "callers": {
-    "tv_pulse_board": [
-     "app/admin/sections.php",
-     "website/admin/w.php"
-    ],
-    "say": [
-     "app/lib/Learning.php",
-     "app/lib/crawler/SourceIndex.php",
-     "website/admin/geocode.php",
-     "website/js/admin-builder.js",
-     "website/js/admin-comms.js",
-     "website/js/admin-control.js",
-     "website/js/admin-inbox.js",
-     "website/js/admin-kit.js",
-     "website/js/admin-preflight.js",
-     "website/js/admin-releases.js",
-     "website/js/admin-staging.js",
-     "website/js/business-inbox.js",
-     "website/js/claim.js",
-     "website/js/gallery.js",
-     "website/js/photo-viewer.js",
-     "website/js/pulse-msg.js",
-     "website/js/stg-bar.js",
-     "website/js/tv-art.js",
-     "website/js/tv-ask.js",
-     "website/js/tv-blocks.js",
-     "website/js/tv-domains.js",
-     "website/js/tv-editor.js",
-     "website/js/tv-moments.js",
-     "website/js/tv-push.js",
-     "website/js/tv-stock.js",
-     "website/js/tv-upload.js",
-     "website/js/tv-vault.js",
-     "website/listing/businessportal.php",
-     "website/listing/location.php",
-     "website/pages/view.php",
-     "website/verify-email.php"
-    ]
-   }
   }
  ],
  "lapsed": [
