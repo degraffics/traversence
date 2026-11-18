@@ -3,12 +3,12 @@
  "built_on": "2937240 Sync: 2026-11-18 22:30 UTC",
  "recorded": "2026-11-18 22:48 UTC",
  "note": "FAQ restore: the answers #148 removed (it built faq.md on an older sync), put back word for word; no other change. Approved by Jason 2026-11-18 (reviewed by the session manager). Built on Sync: 22:30 UTC Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "2b5e447 Sync: 2026-11-18 22:50 UTC",
  "files": {
   "app/ui/faq.md": {
    "sha256": "8dfde13ad8a879024b7a533d41a89b6a4f3d196fe68fd1f8b2571c03cdadd7dc",
-   "live": false
+   "live": true
   }
  }
 }
