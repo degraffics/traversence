@@ -65,6 +65,19 @@ Alongside: `releases-self-withdraw` (#122), `releases-live-2` (#123), `releases-
   host; a red check otherwise → light `hold` (amber pause mark, "Held"/"Holding"); a trip marks its row red even where it
   switched it off ("Tripped"); tokens `--tv-fail`, `--tv-hold`, `--tv-canvas`, `--tv-line`, `--tv-ink` on `#cb` (the
   Communications session's names); the top bar's light in router.php. 0171 §8 notes. Tests r3d.php 17; r2d updated.
+  Live as #144, verified in Sync 21:45.
+- `control-board-3e` (built on 21:45): the cleanup item "each crawler run opens to the records it touched". Insights →
+  Crawler: `?run=N` is the run's page (command strip; what each task did; its records by workflow, grouped Added /
+  Changed / Sent to Review / Refused, each count narrowing it with `&what=`, each record in a Peek); "What a workflow
+  touched" (`?records=W1&day=today|yesterday|7`, UTC days) lists a workflow's records by kind and by run; the last runs'
+  table links each run with its count. `ControlLedger::whatKind/runCounts/records` (reads `control_records` with
+  `control_ledger.run_id`; the workflow from the endpoint, `ControlAlarms::procOfEndpoint`). No new table. Not there:
+  values before and after, and each record's source: the ledger keeps ids and field names only (0171 §4). Tests r3e.php 12.
+- Cleanup items found done on live (Sync 21:23): AZCC's address in the pre-flight; crawler.php's cron note; the payment
+  cards' key names (r2c); outside requests kept (r2c); the switched-off words (r2c); Start's watch counting "nothing to
+  do" (r2a); self-withdraw of a failed release; a held-only run ending ok on Railway (worker 2.12.1); W1 coverage
+  reading our Geofabrik copy (worker 2.9.0). Next, 3f: the release pipeline's two guards and `Vectors::setupSql()`'s row
+  level security.
 - Known shortcut in 3c: a back-off held by a trip is `service_issues.hold_until = '2099-01-01'` (until a person resolves
   it; `ServiceHealth::holdForTrip`), not a flag of its own. A real flag (a column, `held_by_trip`) needs a migration on
   `service_issues`; do it with the next ServiceHealth change.
