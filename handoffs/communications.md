@@ -1,6 +1,6 @@
 # Communications: hand-off (2026-11-18)
 
-**Decision:** `decisions/0172-communications-who-reaches-whom.md`, draft 6, no code. Waiting for Jason's OK.
+**Decision:** `decisions/0172-communications-who-reaches-whom.md`, draft 7, no code. Waiting for Jason's OK.
 **Draft 2 (Jason's first changes, 2026-11-18):** Pulse is the inbox (everything lands there; email, push and text point
 back); outside mailboxes in Pulse (§4.7: our cPanel, IMAP, POP, Gmail, Microsoft, SES receiving); his six levels
 (Critical, Urgent, Alert, Notice, General, Special) with what each does, kept apart from a person's own flags (Follow
@@ -58,3 +58,14 @@ communications; each WHO, then each WHAT; listing cards; texting from the decisi
 
 Once Jason approves (or after his changes), the session manager merges. Each §6 step is its own build session with its
 own release; the first new one is step 2 (the in-site dispatcher), after 0171 and 0167.
+
+## Draft 7 (Jason, 2026-11-18)
+
+- Critical and Urgent items: in Pulse with the bell, and emailed.
+- Admin: the Operational Task Queue goes (the bell's list replaces it); Your day and Quick Actions stay, opening
+  collapsed (maybe Quick Actions as ⋯ and Your day as a pop-up icon, decided at the build).
+- Unclaimed listings offer their own data (Call, Email, Website, Directions), opened on the visitor's device and
+  counted (`data-out`, email added), the counts to Sales; claimed listings join the communication system. Open: ever
+  sending a visitor's question through Traversence to an unclaimed listing's public email (0108's outreach limits).
+- Outside mailboxes: staff once their manager approves; members as an App store add-on (0169), set up at its build.
+- **Texting is outlined in its own decision.** The research and the open questions above (Q1–Q6) are kept here for it.

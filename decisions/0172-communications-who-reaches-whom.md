@@ -1,6 +1,6 @@
 # 0172: Communications: who reaches whom, about what, by which channel, and one way to deliver
 
-Status: **proposed, draft 6** (2026-11-18). Waiting for Jason's OK. No code yet.
+Status: **proposed, draft 7** (2026-11-18). Waiting for Jason's OK. No code yet.
 Drafts 2 and 3 take in Jason's changes: Pulse is the inbox, and keeps its established look (0105): it collects, organizes and
 lets you read, while each message carries its own process; outside mailboxes in Pulse (§4.7); six levels, with flags and tags kept
 apart from them; three touch points; a community group is a channel.
@@ -8,8 +8,8 @@ Builds on: 0047 and 0052 (links, messages, marketing preferences), 0049 (consent
 0100 (roles), 0108 (sales, SMS and push), 0141 (Market 360°'s unsubscribe), 0154 (who pays), 0167 (system email in one
 place), 0171 (the Control Board's alarms).
 Amends (each marked **Note for Jason** where it happens): 0105's case drawer (rows open in place) and its Operational
-Task Queue, 0055 §5's needs block (both to the bell), `Pulse::SEVERITY` (four levels become six), 0052 step 6
-(guest questions, §3.3), 0167 §2's Sent view (§4.3) and 0167 §2a's "Outside addresses aren't connected" (§4.7).
+Task Queue, 0055 §5's needs block (both to the bell), `Pulse::SEVERITY` (four levels become six), 0167 §2's
+Sent view (§4.3) and 0167 §2a's "Outside addresses aren't connected" (§4.7).
 Nothing else is reversed.
 Hand-off: `handoffs/communications.md`. Checked against the live mirror at "Sync: 2026-11-18 02:36 UTC".
 
@@ -63,7 +63,7 @@ email, push and text only tell them something is waiting, and a reply from any o
 **Every message is one record, with one sender, one recipient, one kind and one level, routed by the recipient's
 preferences, through one delivery log.** Who may reach whom is decided by the WHO tables (§1); what each event sends
 is decided by the WHAT tables (§2). Cards show only what a listing can do (§3). One dispatcher delivers (§4). Outside
-mailboxes can be read and answered in Pulse (§4.7). Texts go out only where revenue pays for them (§5).
+mailboxes can be read and answered in Pulse (§4.7). Texting is outlined in its own decision (§5).
 
 ### Pulse is the inbox (Jason, 2026-11-18)
 
@@ -192,10 +192,14 @@ through `ClientOrders::setStage`); every kind follows it:
     the colour of the highest level waiting, and lists those items; tapping one opens its row in place in Pulse.
   - **A notice of action on an account** (0079: a warning, or posting and messaging stopped) is no exception: a
     Critical item, on the bell until it's dealt with, and by email.
-  - **Note for Jason (changes what's built):** the member's fixed "needs" block above the stream (`MemberPulse::needs`,
-    the old Notification Center, 0055 §5: "The Notification Center becomes the top of the Pulse") goes; its items
-    arrive as rows and on the bell. The admin's Operational Task Queue (0105), which lists critical and alert cases
-    above the stream, becomes the bell's list the same way.
+  - **Inside and outside:** a Critical or Urgent item is in Pulse (with the bell) **and** emailed (Jason confirmed,
+    2026-11-18).
+  - **Changes to what's built** (Jason, 2026-11-18):
+    - the member's fixed "needs" block above the stream (`MemberPulse::needs`, the old Notification Center, 0055 §5)
+      goes; its items arrive as rows and on the bell;
+    - the admin's **Operational Task Queue** (0105) goes; the bell's list replaces it;
+    - **Your day** and **Quick Actions** stay, opening collapsed; Quick Actions may become a **⋯** in the Pulse header
+      and Your day an icon that opens it on screen as a pop-up, decided at the build.
 - **The other channels point back.** An email, push or text says what happened and links to the item in Pulse; replying
   to the email (or the text, where texts are on) posts the reply in the same thread: each email carries a reply
   address tied to its thread, read by the site from one of our cPanel mailboxes (§4.7).
@@ -209,7 +213,7 @@ through `ClientOrders::setStage`); every kind follows it:
 | **Business email** (SES: a business's campaigns, offers) | per send | the business's plan allowance or email pack (`commercial.md`) |
 | **Outside mailboxes in Pulse** (§4.7) | server time; Google's yearly check if Gmail is connected by sign-in | §4.7 |
 | **Web push** (our own keys, 0108) | nothing | free for a person's own notices; a business's marketing push counts against its plan's push allowance |
-| **Text** | per message, plus the number | only a plan's text allowance or a text pack, or a budget Jason sets (§5, Q1) |
+| **Text** | per message, plus the number | its own decision (§5); only where revenue covers it |
 | **Voice** | per minute | not proposed |
 
 ### Levels, flags and tags: three different things
@@ -334,7 +338,7 @@ Anyone who bought, booked, got a quote or a work order from a business (member o
 |---|---|
 | **Can reach** | that business, about that order (a reply in the order's thread) |
 | **Reached by** | that business, about that order only: receipt, changes, ready, reminders. **Not marketing** unless they also linked or opted in (0047: "buying from it never opts anyone in"). |
-| **Channels** | system email (exists), Pulse if a member, web push if a member who allowed it; text only if they ticked "Text me about this order" at checkout (§5, Q2) |
+| **Channels** | system email (exists), Pulse if a member, web push if a member who allowed it; text only as the texting decision allows (§5) |
 | **Preferences** | per order: email (always), push, text; STOP ends texts |
 | **Pays** | the business's text allowance for texts; email and push free |
 
@@ -378,7 +382,7 @@ plan or pack, **$** needs Jason's budget. Reply: whether the message can be answ
 | Claim verified, held, declined, more asked | claimant | email + notice | Notice | in Pulse | F | B (`tellClaimant`) |
 | Claim to review | claim staff | Pulse + email | Alert | — | F | B (`tellAdmins`) |
 | Claim invite (sales) | business | email, GO Code; text with "Reply YES" | Special | yes | F; text $ | email B; text D (0108) |
-| Someone tried to message an unclaimed listing | Sales | Pulse count | General | — | F | G (§3.3) |
+| Calls, emails, website and directions taps on an unclaimed listing | Sales | counts in Pulse | General | — | F | G (§3.3; call, directions and website counted today) |
 | Listing changed by us or a source | owner | notice | Notice | — | F | G |
 
 ### 2.2 Messages
@@ -410,7 +414,7 @@ plan or pack, **$** needs Jason's budget. Reply: whether the message can be answ
 | Client order (ours) placed, stage, done | buyer; staff | email | Notice | in thread | F | B (`ClientOrders::mail`) |
 | Marketplace order placed | buyer | email | Notice | — | F | B (`mailBuyer`) |
 | Marketplace order placed | **business** | Pulse, **email, push** | Urgent | yes | F | Pulse B; **email/push G** (gap 2) |
-| Order status for the customer by text | customer | text | Notice | STOP | P | G (§5, Q2) |
+| Order status for the customer by text | customer | text | Notice | STOP | P | for the texting decision (§5) |
 | Payment failed, refund, credit | buyer; Accountant | email + notice | Critical | — | F | B (`Orders::tell`) |
 | Quote or invoice | customer; business on approval | email | Alert | yes | F | B (`BizQuotes`, `q.php`) |
 | Work order | vendor | email from orders@ | Alert | yes | F | B |
@@ -500,7 +504,7 @@ community, maybe alerting the user on a need to act basis"):
 |---|---|---|---|---|---|---|
 | Verify email, reset, password or email changed | member | email | Critical | — | F | B |
 | Staff and admin codes | staff | email | Urgent | — | F | B (`TwoStep`, `StaffLogin`) |
-| Members' sign-in codes | member | email | Urgent | — | F | not built; text ruled out here (§5, Q3) |
+| Members' sign-in codes | member | email | Urgent | — | F | not built; text left to the texting decision (§5) |
 | New device or sign-in | member | email, push | Critical | "Not me" | F | G |
 | Account deleted, standing notices | member | email | Critical | appeal | F | B |
 | Vault codes | staff | email | Urgent | — | F | B |
@@ -557,17 +561,26 @@ $viewer)`) returns the list, and every card asks it. The search API returns `man
 **So:** two cards offer a Message that can't work (storefront edge case, Dashboard → Marketing), and every grid, map
 and guide card leaves Message off listings that **can** take one. Both are fixed by the one helper in §3.1.
 
-### 3.3 Messaging an unclaimed listing: what the visitor sees instead
+### 3.3 Unclaimed and claimed listings: what each can do
 
-An unclaimed listing has no one to read a message, so it never offers **Message**. Instead, where Message would sit:
+Jason, 2026-11-18: "A listing offers communications via its data, so email, phone, website, address which we can route
+and track when it is unclaimed and information is available. As for active claimed listings it grants the ability to
+be integrated into the communication system, because the user and listing will now have an id and assigned owner."
 
-- **"Wish you could message them?"** (one tap, signed in or not, counted only: listing, day, never who). It answers:
-  "No one manages this listing yet. Call them, or we'll let them know people are asking." With **Call** if there's a
-  phone.
-- The count goes to **Sales** (0108) as a reason to invite: "12 people tried to message you this month." The claim
-  invite carries it, and the 30-day limit per business still holds.
-- **Note for Jason (changes 0052 step 6's scope only by adding):** we **don't** hold a visitor's message for a business
-  that may never claim; it would promise an answer we can't give. Guest questions stay managed-only, as built.
+| | Unclaimed (no one manages it) | Claimed and managed |
+|---|---|---|
+| **What it offers** | its own data, where we have it: **Call**, **Email**, **Website**, **Directions** (the address) | all of that, **plus** the communication system: Message, guest questions, its Pulse, replies, notices, orders and bookings |
+| **How it's reached** | on the visitor's own device: the phone app, their mail app, the website, the map | inside Traversence, to the listing's own id and its owner and team (§1.4, §1.5) |
+| **Tracked** | every tap counted (`data-out="call|email|website|directions"` with the listing id; counts only, never who) | the same counts, plus every message and its delivery (§4.3) |
+| **Where the counts go** | the listing's activity, and **Sales** (0108) as a reason to invite: "37 people called or emailed you through Traversence this month." The claim invite carries it; at most one invite every 30 days. | the business's Insights |
+
+- **Email is new on cards:** `data-out` counts call, directions, website and contact today; **email** is added, shown
+  only where the listing's public email is known (from its sources or its own site).
+- **No Message on an unclaimed listing,** and nothing held for it: a message needs an owner to read it.
+- **Note for Jason:** "route" here means sending the visitor to the listing's own phone, email or site and counting it.
+  Whether we should ever send a visitor's question **through Traversence** to an unclaimed listing's public email (with
+  a claim invite at its foot) is left open; it would be our email to a business that never asked for it, so it falls
+  under 0108's outreach limits.
 
 ## 4. One way to deliver
 
@@ -654,9 +667,9 @@ connected."
 
 | Who | May connect | Pays |
 |---|---|---|
-| Our staff | our cPanel mailboxes they oversee (0167 §2a); **Note for Jason:** also an outside mailbox used for Traversence work, which changes 0167 §2a's "Outside addresses aren't connected" | free |
+| Our staff | our cPanel mailboxes they oversee (0167 §2a), and an outside mailbox **once their manager approves it** (Jason, 2026-11-18); this changes 0167 §2a's "Outside addresses aren't connected" | free |
 | A business | its own mailboxes, shared with the team by role (0102 §4, Inbox: all, billing, Sales view, Support view) | on paid plans; SES receiving counts against the email allowance |
-| A member | their personal mailbox | **for Jason:** offer it on Personal Plus and Pro only, or not yet |
+| A member | their personal mailbox, as an **add-on from the App store** (0169; Jason, 2026-11-18); its set-up and standards are decided with the app's build | the add-on's price |
 | Guests | no | — |
 
 **Rules:**
@@ -677,35 +690,11 @@ connected."
 
 ## 5. Texting
 
-### 5.1 Where texts apply (from the decisions)
-
-| Use | Decided in | Who pays |
-|---|---|---|
-| An owner texts **in** to prove a claim | 0070, 0071 (fallback), 0133 | $: our number, inbound fees |
-| A claim code sent **out** by text | 0015, 0016 (end state) | $ (Q1) |
-| Claim invites and sales outreach, "Reply YES" | 0108 | $ (Q1) |
-| A business's marketing to people who shared their number and opted in | 0047, 0049, 0141, 0154 | P: plan allowance or text pack |
-| A business's customers about their order or booking | **new here** (Q2) | P |
-| GO Codes and member invites opening the phone's own app | 0094–0098, 0047 | free (built) |
-
-**Ruled out** (kept): staff sign-in (0100), Control Board alarms (0171), any text with no revenue behind it, texting
-someone who only tapped Link (0047), and members' sign-in codes (Q3).
-
-### 5.2 The open questions
-
-| # | Question | Proposed answer | For Jason? |
-|---|---|---|---|
-| Q1 | Who pays for our own texts (claim invites, claim codes out)? | Email and GO Codes stay first (free). Texts to businesses come from a **Sales texting budget** Jason sets in 0163's cost register, **default $0 (off)**; each text counted against it, failed ones too. The inbound claim number (~$1 a month) is the one standing cost. | **Yes:** the budget, and the $1 number |
-| Q2 | Texts to a business's customers about orders and bookings | Allowed as **transactional** texts: the customer ticks "Text me about this order" at checkout (per order, unticked by default); only that order's updates; STOP ends it; paid from the business's text allowance. Never marketing. | Yes: confirm |
-| Q3 | Members' sign-in codes by text | **No.** Members sign in by password or social login; codes stay email (free). Text codes cost with no revenue and are open to SIM swaps. Passkeys later. | Yes: confirm |
-| Q4a | The provider | **Twilio** (0108: "Twilio first"), one card under Outside services (0152), keys in `.env` (`TWILIO_ACCOUNT_SID`, `TWILIO_AUTH_TOKEN`, `TWILIO_MESSAGING_SID`), checked by the pre-flight (0171), held on staging (0165) | no |
-| Q4b | The incoming-text webhook | `/api/sms-in.php`, checking Twilio's signature, logged in `comms_deliveries`; added to the paths Bluehost is asked to exempt (`research/bluehost-bot-check-2026-11-15.md`), since a blocked STOP must never be lost | no |
-| Q4c | Toll-free or 10DLC; who registers | Start with **one toll-free number**, verified by Traversence (simpler and fast at low volume; no brand fee). Every business text starts with the business's name. Move to 10DLC, Traversence registering as the platform and each business as its own brand, only when a business's volume needs it. | **Yes:** who registers, and when to move |
-| Q5a | One STOP list or one per business? | **Both, as the carriers require:** STOP to our number stops every text from that number (carriers enforce it). Per-business choices live in the person's preferences, so they can stop one business without stopping all. | Yes: confirm |
-| Q5b | HELP wording | "Traversence: help at https://traversence.com/faq.php or support@traversence.com. Msg & data rates may apply. Reply STOP to stop." Attorney-reviewed before launch (0141). | Yes: attorney |
-| Q5c | Whose time zone sets quiet hours | **The recipient's:** the device's stored zone; else the area code's; never earlier than 8 am or later than 9 pm there (US texting rules). | no |
-| Q5d | How long consent records are kept | **5 years after consent ends** (the federal claim limit is 4), with wording, version, when, from where and how it ended (0108). Never deleted early by account deletion: kept as the proof, with nothing else of the person. | **Yes:** check against the privacy policy |
-| Q6 | Which plans include texts, the pack price | Already set in `commercial.md` §1.1: **Strategic 500, Enterprise 2,500 a month**; packs **+500 $19.95, +2,500 $89.95, +5,000 $169.95, +10,000 $299.95**. Not in `Billing::ADDONS` yet (storage and AI only): they're added with the texting release. Basic and Core can buy a pack, with no allowance. | Yes: Basic and Core may buy packs? |
+**Outlined separately** (Jason, 2026-11-18: "Texting/SMS we can outline those separately"), in its own decision after
+this one. Until then: no texts are sent by us, and the rules already decided stand (0108's consent, STOP and HELP,
+quiet hours and "Twilio first"; 0047's per-business consent; 0100 and 0171's "no text"). The research from the
+decisions and the six open questions are kept in `handoffs/communications.md` for that outline. Where this decision's
+tables say "text", it's a place a text could go once that decision allows it.
 
 ## 6. The build order
 
@@ -718,15 +707,13 @@ Each a release Jason reviews; free channels first.
    email: a business told of new messages, orders and comments; Pulse escalations told.
 3. **Flags and tags in Pulse; the six levels** (`Pulse::SEVERITY`, the bell), and **our own mailboxes read in Pulse**
    by IMAP (with 0167's step 4).
-4. **Cards (§3):** the one actions helper, Message on every managed listing's card, "Wish you could message them?" on
-   unclaimed ones and its count in Sales, the two broken cards fixed.
+4. **Cards (§3):** the one actions helper, Message on every managed listing's card, Call, Email, Website and Directions
+   counted on unclaimed ones with the counts in Sales, the two broken cards fixed.
 5. **Web push** (free): keys, service worker, subscriptions, asked after an action; then the business and staff kinds.
 6. **Outside mailboxes** (§4.7): IMAP and POP, Microsoft, then SES receiving; Gmail by sign-in only when revenue
    covers its assessment.
 7. **Comments, bookings, groups:** replies on comments, booking reminders and changes, group posts and join requests.
-8. **Text, only where revenue covers it:** Twilio's card and webhook, consent and STOP, a business's texts to people who
-   opted in and to customers who ticked it (plan allowance and packs in `Billing::ADDONS`); then the claim number
-   automated. Our own outgoing texts only once Jason sets the budget (Q1).
+8. **Text:** by its own decision (§5), only where revenue covers it.
 
 ## What this doesn't do
 
