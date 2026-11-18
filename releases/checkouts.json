@@ -43,8 +43,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "Control Board 3d: alarms grouped on the board and in Pulse; red only for a trip",
    "since": "2026-11-18T20:09:29Z",
-   "expires": "2026-11-19T01:30:44Z",
-   "release": "control-board-3d",
+   "expires": "2026-11-19T01:30:47Z",
+   "release": "control-board-3d.zip",
    "callers": {}
   },
   {
@@ -210,8 +210,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "Control Board 3d: alarms grouped on the board and in Pulse; red only for a trip",
    "since": "2026-11-18T21:30:31Z",
-   "expires": "2026-11-19T01:30:31Z",
-   "release": "control-board-3d",
+   "expires": "2026-11-19T01:30:47Z",
+   "release": "control-board-3d.zip",
    "callers": {}
   },
   {
@@ -223,8 +223,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "Control Board 3d: alarms grouped on the board and in Pulse; red only for a trip",
    "since": "2026-11-18T21:30:34Z",
-   "expires": "2026-11-19T01:30:34Z",
-   "release": "control-board-3d",
+   "expires": "2026-11-19T01:30:47Z",
+   "release": "control-board-3d.zip",
    "callers": {}
   },
   {
@@ -236,8 +236,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "Control Board 3d: alarms grouped on the board and in Pulse; red only for a trip",
    "since": "2026-11-18T21:30:37Z",
-   "expires": "2026-11-19T01:30:37Z",
-   "release": "control-board-3d",
+   "expires": "2026-11-19T01:30:47Z",
+   "release": "control-board-3d.zip",
    "callers": {}
   },
   {
@@ -281,6 +281,28 @@
    "since": "2026-11-18T21:30:42Z",
    "expires": "2026-11-19T01:30:42Z",
    "release": "control-board-3d",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Pulse.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "release control-board-3d.zip",
+   "since": "2026-11-18T21:30:47Z",
+   "expires": "2026-11-19T01:30:47Z",
+   "release": "control-board-3d.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/admin/api.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "release control-board-3d.zip",
+   "since": "2026-11-18T21:30:47Z",
+   "expires": "2026-11-19T01:30:47Z",
+   "release": "control-board-3d.zip",
    "callers": {}
   }
  ],
