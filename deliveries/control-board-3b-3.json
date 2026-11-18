@@ -3,28 +3,28 @@
  "built_on": "f71f5fb Sync: 2026-11-18 20:17 UTC",
  "recorded": "2026-11-18 20:19 UTC",
  "note": "Control Board 3b-3: no contact with Overpass while it's held (Jason, 2026-11-18); Pulse sorts Urgent and Special. Built on Sync 20:17 UTC. Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "de2c623 Sync: 2026-11-18 20:29 UTC",
  "files": {
   "app/admin/control-console.php": {
    "sha256": "5c88a6dd43e53c57d334d877dd7264dd7146d0640f29434e6dfe59a22cabe5a0",
-   "live": false
+   "live": true
   },
   "app/lib/Pulse.php": {
    "sha256": "72db0e064c3010f100d5144c3db55d944166e3e542f986d9c7040a72f2eceb13",
-   "live": false
+   "live": true
   },
   "app/lib/ServiceHealth.php": {
    "sha256": "8795deea4a3390a57c21b21fad6e2acd83e5c3e045e8a6e3d6315e40f4d82393",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "a76fa8aa7e73da8a8110bfb1c39fec6c513353c72e361a7f0c05bfeb792c9196",
-   "live": false
+   "live": true
   },
   "website/admin/api.php": {
    "sha256": "4d212f6f4b5b6486027d181bcb3115accc58f2ad6537dc7cee0d300db44947b7",
-   "live": false
+   "live": true
   }
  }
 }

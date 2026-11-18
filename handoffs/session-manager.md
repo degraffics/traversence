@@ -34,7 +34,9 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
   "Waiting for your OK" lists only what's new and unanswered, in plain words of what he does. **Approval requests are
   shared, approvals are made in the session** (Jason, 2026-11-18): a session's pending OK may be listed here with its
   name, but the session manager directs him to approve it in that session's own chat, never takes it here. Nothing waiting: one line saying so. Check a timing before blaming a
-  session (cross-session messages can arrive minutes late).
+  session (cross-session messages can arrive minutes late). Relay what a session told me only when it needs his decision or I found a
+  problem it hasn't; routine progress stays between me and the sessions; a release live and checked is one line.
+  When I pass on a session's question or decision, check it against the decision it cites first.
 
 ## How the checks run
 

@@ -10,6 +10,12 @@ Each rule below comes from a real mistake (in brackets) so it isn't repeated.
 - **Read the decisions and the live code for the area first**, and the hand-off you were given. If Jason "already
   outlined" it, it's in a decision: find it (`grep -rl` in `decisions/`) before proposing anything. [The hero and stock
   photos process was re-proposed though 0058 §30, 0138 and 0143 §4–5 already set it.]
+- **Before asking Jason how something should work, quote the decision.** Search the decision for the area, then ask
+  only about a real gap or a conflict, naming the sections ("0171 §6 says the system tries its own fix first; §7 says a
+  trip clears by itself; your Overpass answer says a person clears it. Which applies to every trip?"). Never ask him to
+  define again what a decision already defines, and never describe how today's code works as if it were the rule.
+  Re-read the decision before each release: in a long session, what you read early has been condensed. [3b-3: Jason was
+  asked "when should a trip wait for a person?" though 0171 §6 already said the system tries its own fix first.]
 - **Start from the newest sync**: fetch the mirror, and if a release went live after its last "Sync:" commit, ask the
   session manager to run one. Never build on a copy held earlier in the session. [#117's follow-up was nearly built on 01:32.]
 - **Claim before writing** (`checkout.py claim`), as CLAUDE.md says.
