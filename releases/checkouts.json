@@ -158,6 +158,20 @@
    "expires": "2026-11-18T23:59:31Z",
    "release": "control-board-3b.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/ControlAlarms.php",
+   "functions": [
+    "pulseDo",
+    "pulseSteps"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 3b: alarm steps in Pulse",
+   "since": "2026-11-18T20:09:29Z",
+   "expires": "2026-11-19T00:09:29Z",
+   "release": "control-board-3b",
+   "callers": {}
   }
  ],
  "lapsed": [
