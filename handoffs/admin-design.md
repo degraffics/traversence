@@ -55,7 +55,7 @@ Checked on traversence.com: the fonts served as font/woff2; the tokens in the pa
 dashboard and Pulse's new look (pulse-ui.php is ours now, look only, notify-tests must pass); 3e Marketplace, checkout
 and storefronts (business colours kept, owner warned below 4.5:1); 3f sign-in, long text, standalone pages, leftovers.
 
-### 3a: design-r3a-frame.zip (built on Sync 22:50 UTC)
+### 3a: design-r3a-frame.zip (built on Sync 22:55 UTC)
 
 - `header.php`, `brand.php`, `footer.php`, `context-switcher.php`, `page-shell.php`, `auth-nav.php::tv_nav_head`,
   `js/tv-ask.js`: every colour on the tokens (mapped by property: text, background, line). Text 4.5:1 or better,
