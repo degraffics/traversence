@@ -180,14 +180,15 @@
   {
    "path": "app/lib/Pulse.php",
    "functions": [
+    "'square'",
     "SEVERITY",
     "SLA_HOURS"
    ],
    "kind": "change",
    "session": "session_01CXLi5jn2WGptsHBfmhEav6",
-   "why": "Communications, the rest as one release (0167 email engine; 0172 steps 3-7)",
+   "why": "Communications, the rest as one release (the Text messages card's words; the six levels)",
    "since": "2026-11-18T17:21:27Z",
-   "expires": "2026-11-18T21:49:09Z",
+   "expires": "2026-11-18T21:56:12Z",
    "release": "comms-all.zip",
    "callers": {
     "SEVERITY": [
@@ -345,13 +346,14 @@
   {
    "path": "app/admin/manifests.php",
    "functions": [
+    "'config'",
     "notify"
    ],
    "kind": "change",
    "session": "session_01CXLi5jn2WGptsHBfmhEav6",
-   "why": "Communications, the rest as one release (0167 email engine; 0172 steps 3-7)",
+   "why": "Communications, the rest as one release (the Text messages card's words; the six levels)",
    "since": "2026-11-18T17:49:09Z",
-   "expires": "2026-11-18T21:49:09Z",
+   "expires": "2026-11-18T21:56:12Z",
    "release": "comms-all.zip",
    "callers": {}
   },
