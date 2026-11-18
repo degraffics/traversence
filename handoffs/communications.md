@@ -1,6 +1,10 @@
 # Communications: hand-off (2026-11-18)
 
-**Decision:** `decisions/0172-communications-who-reaches-whom.md`, a first draft, no code. Waiting for Jason's OK.
+**Decision:** `decisions/0172-communications-who-reaches-whom.md`, draft 2, no code. Waiting for Jason's OK.
+**Draft 2 (Jason's first changes, 2026-11-18):** Pulse is the inbox (everything lands there; email, push and text point
+back); outside mailboxes in Pulse (§4.7: our cPanel, IMAP, POP, Gmail, Microsoft, SES receiving); his six levels
+(Critical, Urgent, Alert, Notice, General, Special) with what each does, kept apart from a person's own flags (Follow
+up, importance) and tags. He said "there is a lot to unpack" in the rest: expect more changes.
 **Checked against:** the live mirror at "Sync: 2026-11-18 02:36 UTC".
 **Started by:** the session manager, with Jason's scope (2026-11-18): internal, between accounts, and listings
 communications; each WHO, then each WHAT; listing cards; texting from the decisions.
@@ -35,6 +39,9 @@ communications; each WHO, then each WHAT; listing cards; texting from the decisi
 - Q4c toll-free first; who registers 10DLC and when.
 - Q5a STOP per number plus per-business choices; Q5b HELP wording (attorney); Q5d consent kept 5 years.
 - Q6 whether Basic and Core may buy text packs.
+- Pulse's four severities become six (`Pulse::SEVERITY`, keys kept).
+- §4.7: outside mailboxes for staff (changes 0167 §2a); members' mailboxes on Personal Plus and Pro, or not yet; Gmail
+  by sign-in only once revenue covers Google's yearly assessment.
 - Notes: §3.3 (no held messages for unclaimed listings) and §4.3 (0167's Sent view reads the one delivery log).
 
 ## Next

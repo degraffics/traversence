@@ -1,11 +1,14 @@
 # 0172: Communications: who reaches whom, about what, by which channel, and one way to deliver
 
-Status: **proposed, first draft** (2026-11-18). Waiting for Jason's OK. No code yet.
+Status: **proposed, draft 2** (2026-11-18). Waiting for Jason's OK. No code yet.
+Draft 2 takes in Jason's first changes: Pulse is the inbox; outside mailboxes in Pulse (§4.7); six levels, with flags
+and tags kept apart from them.
 Builds on: 0047 and 0052 (links, messages, marketing preferences), 0049 (consent), 0066 (nations' land), 0102 and
 0100 (roles), 0108 (sales, SMS and push), 0141 (Market 360°'s unsubscribe), 0154 (who pays), 0167 (system email in one
 place), 0171 (the Control Board's alarms).
-Amends (each marked **Note for Jason** where it happens): 0052 step 6 (guest questions, §3.3) and 0167 §2's Sent view
-(§4.3). Nothing else is reversed.
+Amends (each marked **Note for Jason** where it happens): `Pulse::SEVERITY` (four levels become six), 0052 step 6
+(guest questions, §3.3), 0167 §2's Sent view (§4.3) and 0167 §2a's "Outside addresses aren't connected" (§4.7).
+Nothing else is reversed.
 Hand-off: `handoffs/communications.md`. Checked against the live mirror at "Sync: 2026-11-18 02:36 UTC".
 
 ## What Jason asked for
@@ -17,6 +20,9 @@ Jason, 2026-11-18:
 - "Who: we need communication outlines for each WHO and then for each WHAT regarding services."
 - On listings: "how can an [un]claimed listing have a message sent, this is a listing card layout and functions issue."
 - On texting: "need to look at adr's to fully understand where texting services should be applied."
+- On the first draft: "the pulse is the inbox. […] I would also like to see how the inbox (Pulse) can be used for
+  external email services (Gmail, SES, pop/imap)." And: "Event Levels: 1. Critical 2. Urgent 3. Alert 4. Notice
+  5. General 6. Special; each with their list of means. […] Are these supposed to be tags or flags?"
 
 ## What exists (checked in the live code)
 
@@ -46,33 +52,95 @@ App Settings → Notices); marketing per business with frequency and a master sw
 5. **"Claimed" and "managed" mean two things.** Search uses `entities.status !== 'unclaimed'`
    (`search_listings.php:413`); the listing page and messages use a `listing_access` row (`view.php:180`,
    `Marketing::staff`).
+6. **The bell counts only person messages** (`header-nav.js:30-40`), not notices, business messages or guest questions.
 
 ## Decision
 
-**Every message is one record, with one sender, one recipient, one kind, routed by the recipient's preferences, through
-one delivery log.** Who may reach whom is decided by the WHO tables (§1); what each event sends is decided by the WHAT
-tables (§2). Cards show only what a listing can do (§3). One dispatcher delivers (§4). Texts go out only where revenue
-pays for them (§5).
+**Pulse is the inbox.** Every message, notice, feed item and alarm for a person lands in their Pulse, organized there;
+email, push and text only tell them something is waiting, and a reply from any of them threads back into Pulse.
+**Every message is one record, with one sender, one recipient, one kind and one level, routed by the recipient's
+preferences, through one delivery log.** Who may reach whom is decided by the WHO tables (§1); what each event sends
+is decided by the WHAT tables (§2). Cards show only what a listing can do (§3). One dispatcher delivers (§4). Outside
+mailboxes can be read and answered in Pulse (§4.7). Texts go out only where revenue pays for them (§5).
+
+### Pulse is the inbox (Jason, 2026-11-18)
+
+Jason: "the pulse is the inbox. The inbox is supposed to be where all messaging can be found and organized. The feeds
+and messages are centrally located."
+
+- **One inbox per person,** in the context they're acting in (0055 §5, `MemberPulse`): their own; each business they
+  work for (by role, 0102 §4's Inbox row); each group they steward; for staff, the admin Pulse.
+- **Everything incoming is there:** messages (members, businesses, guest questions, order and booking threads),
+  notices, feed activity (comments, group posts, Moments), staff items and alarms (0171), and connected mailboxes
+  (§4.7). Today the member's Pulse already gathers messages, community, discovery, listings, marketplace and guest
+  questions (`MemberPulse::SOURCES`); notices, order threads and mailboxes join it.
+- **Organized by:** source (those tabs), level (below), the person's own flags and tags (below), read or not, done.
+- **The bell is Pulse's count** of everything unread at Alert or above (today it counts only person messages, gap 6
+  below), and opens Pulse.
+- **The other channels point back.** An email, push or text says what happened and links to the item in Pulse; replying
+  to the email (or the text, where texts are on) posts the reply in the same thread: each email carries a reply
+  address tied to its thread, read by the site from one of our cPanel mailboxes (§4.7).
 
 ### The channels, and who pays
 
 | Channel | Costs us | Who pays |
 |---|---|---|
-| **In the site** (Pulse, the bell, inboxes) | nothing | free, always on, can't be switched off for things that need an answer |
+| **Pulse** (the inbox, the bell) | nothing | free, always on; can't be switched off for things that need an answer |
 | **System email** (Bluehost, the site's own notices) | nothing | free (CLAUDE.md: system emails cost nothing) |
 | **Business email** (SES: a business's campaigns, offers) | per send | the business's plan allowance or email pack (`commercial.md`) |
+| **Outside mailboxes in Pulse** (§4.7) | server time; Google's yearly check if Gmail is connected by sign-in | §4.7 |
 | **Web push** (our own keys, 0108) | nothing | free for a person's own notices; a business's marketing push counts against its plan's push allowance |
 | **Text** | per message, plus the number | only a plan's text allowance or a text pack, or a budget Jason sets (§5, Q1) |
 | **Voice** | per minute | not proposed |
 
-**Urgency levels** (one list for every event):
+### Levels, flags and tags: three different things
 
-| Level | Means | Quiet hours | Digest |
+Jason asked whether this section is tags or flags. It's neither; there are three things, and each answers a different
+question:
+
+| | Answers | Set by | Changes delivery? |
 |---|---|---|---|
-| **Now** | security, a code, money moved, a trip | ignored | never |
-| **Soon** | someone wrote to you, an order or booking changed | push and text wait; in-site and email go | never |
-| **Daily** | activity: comments, likes, group posts | wait | can be gathered |
-| **Offers** | a business's marketing (0047 §3) | wait | the person's chosen frequency |
+| **Level** | "How soon must this reach you, and how?" | the system, per kind of event (§2) | **yes:** channels, quiet hours, digests |
+| **Flag** | "What do I need to do with it?" (like Outlook's Follow up, High and Low importance) | the person, on their own copy | no; a Follow up brings it back at the time chosen |
+| **Tag** | "What is it about, for me?" | the person (staff: shared team tags too) | no; sorting and filtering only |
+
+### The six levels (Jason, 2026-11-18)
+
+| Level | Means | Examples |
+|---|---|---|
+| **1. Critical** | something is broken or at risk now: security, money, the system | a sign-in from a new device; password or email changed; a payment failed; a system trip (0171); a domain failed to renew; an account closed |
+| **2. Urgent** | needs you within hours, or you're waiting for it | a sign-in or claim code; a new order or booking for a business; a booking changed or cancelled; a booking in 2 hours; a warning unanswered 24 hours (0171) |
+| **3. Alert** | someone wrote to you, or something needs your action | a message or message request; a guest question; a question on an item; a claim to review; a report; a join request; a mail failure |
+| **4. Notice** | information about something of yours; nothing to do | a claim verified; an order's stage, a receipt; a guide ready; a domain renewed; a booking tomorrow; low stock |
+| **5. General** | activity around you | comments; group posts; Moments and Snaps activity; a tag; a group near you; your business named in a guide |
+| **6. Special** | offers and announcements, only for people who chose them | a business's offers and news (0047 §3); a claim invite (0108); Traversence's own news and events |
+
+**What each level does:**
+
+| Level | Pulse | Email | Push | Text | Quiet hours | Digest | Can be turned off | Staff clock (`SLA_HOURS`) |
+|---|---|---|---|---|---|---|---|---|
+| Critical | top, red | always | always | only where paid and chosen | ignored | never | no | 2 h |
+| Urgent | top, amber | yes | yes | only where paid and chosen | ignored | never | codes no; the rest by channel | 4 h (new) |
+| Alert | listed, counted on the bell | by choice | by choice | no | push waits | never | by channel | 8 h |
+| Notice | listed | by choice | by choice | no | wait | can be | yes | 48 h |
+| General | listed, quiet | digest only | by choice | no | wait | yes | yes | none |
+| Special | its own tab | by the person's marketing choice | by choice | only with that business's text consent | wait | their chosen frequency | always, one tap | none |
+
+- **Note for Jason (amends `Pulse::SEVERITY`):** Pulse has four today: Critical, Alert, Update, Event
+  (`Pulse.php:47`). They become the six: Urgent and Special are added; Update is shown as **Notice** and Event as
+  **General** (the stored keys stay, so nothing already recorded changes). 0171's trip stays Critical and its warning
+  Alert.
+
+### Flags and tags in Pulse
+
+- **Follow up** (a flag, as in Outlook): Today, Tomorrow, This week, Next week, a date, or no date. At its time it comes
+  back to the top of Pulse as a Notice to that person (by their channels), until marked **Done**. **Clear flag** takes it
+  off.
+- **Importance:** High or Low, the person's own; it sorts their view and changes nothing for anyone else.
+- **Tags:** the person's own words with a colour; a business's team and our staff can also share tags (e.g. "VIP",
+  "refund"). Filter by any of them.
+- **Done** and **Undo** stay as Pulse has them (`Pulse::mark`); assign and escalate stay for staff and business teams.
+- Flags and tags are kept per person (`pulse_flags`: who, item, flag, due, importance, tags), never shown to the sender.
 
 ## 1. Each WHO
 
@@ -92,8 +160,8 @@ pays for them (§5).
 | | |
 |---|---|
 | **Can reach** | members (direct, or a message request: `message_policy`, 10 a day); managed listings (50 a day); groups they're in; our team (support) |
-| **Reached by** | members by the same rules; businesses they **linked** (in-site only, 0047 §3), and by email or text only with the detail **shared** with that business; groups; us (account, security, orders) |
-| **Channels** | in the site, system email, web push (new). Text only from a business they shared their number with and opted in to texts. |
+| **Reached by** | members by the same rules; businesses they **linked** (Pulse only, 0047 §3), and by email or text only with the detail **shared** with that business; groups; us (account, security, orders) |
+| **Channels** | Pulse, system email, web push (new). Text only from a business they shared their number with and opted in to texts. |
 | **Preferences** | notice kinds and delivery (exist); marketing per business, frequency, master switch (exist); muted message types (exist); **new:** per kind × channel choices, quiet hours, digest time, "push on this device" |
 | **Privacy** | businesses see counts, names only where shared (0047); contact details never copied (0141); nothing about a member on nation land made public (0066) |
 | **Pays** | free; Moments, Snaps and Keeps paid from the community budget (0154) |
@@ -114,12 +182,12 @@ A member who publishes (guides, journeys, stories, Moments with followers).
 
 | | |
 |---|---|
-| **Can reach** | people who linked it (in-site, typed messages, 0052 step 4); anyone who wrote first (30 days); guests who asked; its customers about their orders and bookings; people who shared email or phone and opted in, by that channel |
+| **Can reach** | people who linked it (Pulse, typed messages, 0052 step 4); anyone who wrote first (30 days); guests who asked; its customers about their orders and bookings; people who shared email or phone and opted in, by that channel |
 | **Reached by** | members and guests (only once managed); its customers; us (claims, billing, plan, policy, Pulse support); the system (orders, bookings, low stock, domain) |
 | **Channels** | the business inbox and Pulse, system email, web push (new); text **to** them only for paid alerts they choose (§5) |
 | **Preferences** | **new:** per kind × channel for the business (new message, new order, new booking, comment, review) and who on the team gets each (§1.5) |
 | **Privacy** | never sees a person's email or phone unless shared (0047); a guest's device never |
-| **Pays** | business email, marketing push and text from its plan or packs; its own alerts by in-site, email and push free |
+| **Pays** | business email, marketing push and text from its plan or packs; its own alerts by Pulse, email and push free |
 
 ### 1.5 Business staff (0102 §3 roles)
 
@@ -144,7 +212,7 @@ Anyone who bought, booked, got a quote or a work order from a business (member o
 |---|---|
 | **Can reach** | that business, about that order (a reply in the order's thread) |
 | **Reached by** | that business, about that order only: receipt, changes, ready, reminders. **Not marketing** unless they also linked or opted in (0047: "buying from it never opts anyone in"). |
-| **Channels** | system email (exists), in the site if a member, web push if a member who allowed it; text only if they ticked "Text me about this order" at checkout (§5, Q2) |
+| **Channels** | system email (exists), Pulse if a member, web push if a member who allowed it; text only if they ticked "Text me about this order" at checkout (§5, Q2) |
 | **Preferences** | per order: email (always), push, text; STOP ends texts |
 | **Pays** | the business's text allowance for texts; email and push free |
 
@@ -163,8 +231,8 @@ Anyone who bought, booked, got a quote or a work order from a business (member o
 - **Pulse is the staff inbox.** An item assigned or escalated to someone becomes a **notice to that person** (new:
   today escalating only adds a note), delivered by their own channel choices.
 - **Who oversees which mailbox** is 0167 §2a.
-- Staff choose channels and quiet hours on their staff login; **Now** items ignore quiet hours.
-- **Pays:** free (in-site, system email, our own web push). Never text (0100: "no text messages"; 0171).
+- Staff choose channels and quiet hours on their staff login; Critical and Urgent items ignore quiet hours.
+- **Pays:** free (Pulse, system email, our own web push). Never text (0100: "no text messages"; 0171).
 
 ### 1.8 The system itself
 
@@ -182,120 +250,120 @@ plan or pack, **$** needs Jason's budget. Reply: whether the message can be answ
 
 | Event | Told | Channels | Level | Reply | Pays | State |
 |---|---|---|---|---|---|---|
-| Claim started, code | claimant | email | Now | — | F | B (`Claims::start`) |
-| Claim by text to us | staff | text in → Pulse | Soon | — | $ (the number) | B by hand; D automatic (0070, 0133) |
-| Claim code sent by text or voice | claimant | text | Now | — | $ | D, end state (0015, 0016) |
-| Claim verified, held, declined, more asked | claimant | email + notice | Soon | in Pulse | F | B (`tellClaimant`) |
-| Claim to review | claim staff | Pulse + email | Soon | — | F | B (`tellAdmins`) |
-| Claim invite (sales) | business | email, GO Code; text with "Reply YES" | Offers | yes | F; text $ | email B; text D (0108) |
-| Someone tried to message an unclaimed listing | Sales | Pulse count | Daily | — | F | G (§3.3) |
-| Listing changed by us or a source | owner | notice | Daily | — | F | G |
+| Claim started, code | claimant | email | Urgent | — | F | B (`Claims::start`) |
+| Claim by text to us | staff | text in → Pulse | Alert | — | $ (the number) | B by hand; D automatic (0070, 0133) |
+| Claim code sent by text or voice | claimant | text | Urgent | — | $ | D, end state (0015, 0016) |
+| Claim verified, held, declined, more asked | claimant | email + notice | Notice | in Pulse | F | B (`tellClaimant`) |
+| Claim to review | claim staff | Pulse + email | Alert | — | F | B (`tellAdmins`) |
+| Claim invite (sales) | business | email, GO Code; text with "Reply YES" | Special | yes | F; text $ | email B; text D (0108) |
+| Someone tried to message an unclaimed listing | Sales | Pulse count | General | — | F | G (§3.3) |
+| Listing changed by us or a source | owner | notice | Notice | — | F | G |
 
 ### 2.2 Messages
 
 | Event | Told | Channels | Level | Reply | Pays | State |
 |---|---|---|---|---|---|---|
-| Member → member | recipient | in-site, bell | Soon | yes | F | B |
-| Message request | recipient | in-site, bell | Soon | accept, decline, block | F | B |
-| Member → business | business staff by role (§1.5) | in-site, **email, push** | Soon | yes | F | in-site B; **email/push G** (gap 1) |
-| Guest question | business staff | in-site, **email, push** | Soon | yes | F | in-site B; email/push G |
-| Business answers a guest | guest | email (if chosen), reply code | Soon | yes | F | B (`bizReply`) |
-| Business → linked people (typed) | members | in-site; email or text only if shared + opted in | Offers or Soon | yes | in-site F; email, text P | in-site B; email, text D (0047, 0141) |
-| Message reported | Safety staff | Pulse | Soon | — | F | B |
+| Member → member | recipient | Pulse, bell | Alert | yes | F | B |
+| Message request | recipient | Pulse, bell | Alert | accept, decline, block | F | B |
+| Member → business | business staff by role (§1.5) | Pulse, **email, push** | Alert | yes | F | Pulse B; **email/push G** (gap 1) |
+| Guest question | business staff | Pulse, **email, push** | Alert | yes | F | Pulse B; email/push G |
+| Business answers a guest | guest | email (if chosen), reply code | Alert | yes | F | B (`bizReply`) |
+| Business → linked people (typed) | members | Pulse; email or text only if shared + opted in | Special, or Alert for a reply | yes | Pulse F; email, text P | Pulse B; email, text D (0047, 0141) |
+| Message reported | Safety staff | Pulse | Alert | — | F | B |
 
 ### 2.3 Comments
 
 | Event | Told | Channels | Level | Reply | Pays | State |
 |---|---|---|---|---|---|---|
-| Comment on a member's post | author | notice | Daily | yes | F | B |
-| Comment on a listing | owner and the role in §1.5 | notice, email per choice | Daily | G | F | G (gap 3) |
-| Comment on a guide, journey or place | its creator; else nobody | notice | Daily | — | F | G |
-| A reply to my comment | commenter | notice | Daily | yes | F | G (comments are flat; needs replies first) |
-| Comment reported | Safety staff | Pulse | Soon | — | F | B |
+| Comment on a member's post | author | notice | General | yes | F | B |
+| Comment on a listing | owner and the role in §1.5 | notice, email per choice | General | G | F | G (gap 3) |
+| Comment on a guide, journey or place | its creator; else nobody | notice | General | — | F | G |
+| A reply to my comment | commenter | notice | General | yes | F | G (comments are flat; needs replies first) |
+| Comment reported | Safety staff | Pulse | Alert | — | F | B |
 
 ### 2.4 Orders and payments
 
 | Event | Told | Channels | Level | Reply | Pays | State |
 |---|---|---|---|---|---|---|
-| Client order (ours) placed, stage, done | buyer; staff | email | Soon | in thread | F | B (`ClientOrders::mail`) |
-| Marketplace order placed | buyer | email | Soon | — | F | B (`mailBuyer`) |
-| Marketplace order placed | **business** | in-site, **email, push** | Now | yes | F | in-site B; **email/push G** (gap 2) |
-| Order status for the customer by text | customer | text | Soon | STOP | P | G (§5, Q2) |
-| Payment failed, refund, credit | buyer; Accountant | email + notice | Now | — | F | B (`Orders::tell`) |
-| Quote or invoice | customer; business on approval | email | Soon | yes | F | B (`BizQuotes`, `q.php`) |
-| Work order | vendor | email from orders@ | Soon | yes | F | B |
+| Client order (ours) placed, stage, done | buyer; staff | email | Notice | in thread | F | B (`ClientOrders::mail`) |
+| Marketplace order placed | buyer | email | Notice | — | F | B (`mailBuyer`) |
+| Marketplace order placed | **business** | Pulse, **email, push** | Urgent | yes | F | Pulse B; **email/push G** (gap 2) |
+| Order status for the customer by text | customer | text | Notice | STOP | P | G (§5, Q2) |
+| Payment failed, refund, credit | buyer; Accountant | email + notice | Critical | — | F | B (`Orders::tell`) |
+| Quote or invoice | customer; business on approval | email | Alert | yes | F | B (`BizQuotes`, `q.php`) |
+| Work order | vendor | email from orders@ | Alert | yes | F | B |
 
 ### 2.5 Bookings and appointments
 
 | Event | Told | Channels | Level | Reply | Pays | State |
 |---|---|---|---|---|---|---|
-| Booking or rental placed | customer; business | as orders (§2.4) | Soon | yes | F | B for the customer; G for the business |
-| Reminder before it (24 h, 2 h) | customer | email, push; text if ticked | Soon | — | F; text P | G |
-| Changed or cancelled | the other side | email, push, notice | Now | yes | F | G |
-| Claim appointment | staff | email | Soon | — | F | B (`Claims::appointment`) |
+| Booking or rental placed | customer; business | as orders (§2.4) | Urgent | yes | F | B for the customer; G for the business |
+| Reminder before it (24 h, 2 h) | customer | email, push; text if ticked | Notice (24 h), Urgent (2 h) | — | F; text P | G |
+| Changed or cancelled | the other side | email, push, notice | Urgent | yes | F | G |
+| Claim appointment | staff | email | Alert | — | F | B (`Claims::appointment`) |
 
 ### 2.6 The marketplace and storefronts
 
 | Event | Told | Channels | Level | Reply | Pays | State |
 |---|---|---|---|---|---|---|
-| A question on an item | business | in-site; email, push | Soon | yes | F | in-site B (`MarketBiz::message`); G for email/push |
-| Offer made, countered, accepted | both sides | email | Soon | yes | F | B (`MarketOffers`) |
-| Low stock, item paused | business | notice | Daily | — | F | G |
+| A question on an item | business | Pulse; email, push | Alert | yes | F | Pulse B (`MarketBiz::message`); G for email/push |
+| Offer made, countered, accepted | both sides | email | Alert | yes | F | B (`MarketOffers`) |
+| Low stock, item paused | business | notice | Notice | — | F | G |
 | Storefront "Message us" | visitor → business | opens the listing page | — | — | F | B (see §3.2) |
 
 ### 2.7 Domains
 
 | Event | Told | Channels | Level | Reply | Pays | State |
 |---|---|---|---|---|---|---|
-| Bought, verified, renewal due, renewed, failed | owner; Developer role | email + notice | Now for failures | — | F | email B (`AccountDomains`); notice G |
+| Bought, verified, renewal due, renewed, failed | owner; Developer role | email + notice | Notice; Critical when it fails | — | F | email B (`AccountDomains`); notice G |
 
 ### 2.8 Community and groups
 
 | Event | Told | Channels | Level | Reply | Pays | State |
 |---|---|---|---|---|---|---|
-| Group invite, group near you, about a group | member | notice | Daily | — | F | B (`GroupGrowth`, `Community`) |
-| New post in my group | members who chose it | notice, digest | Daily | yes | F | G (each group's own setting) |
-| Join request | group moderators | notice | Soon | accept, decline | F | G |
-| Post hidden | its author | notice | Soon | appeal | F | B (`tools.php:1934`) |
+| Group invite, group near you, about a group | member | notice | General | — | F | B (`GroupGrowth`, `Community`) |
+| New post in my group | members who chose it | notice, digest | General | yes | F | G (each group's own setting) |
+| Join request | group moderators | notice | Alert | accept, decline | F | G |
+| Post hidden | its author | notice | Alert | appeal | F | B (`tools.php:1934`) |
 
 ### 2.9 Moments, Snaps and Keeps (0153)
 
 | Event | Told | Channels | Level | Reply | Pays | State |
 |---|---|---|---|---|---|---|
-| Comment on my Moment | author | notice | Daily | yes | F | B |
-| My Moment is ending | author | notice | Daily | — | F | B (`moment_ending`) |
-| Someone kept my Snap | sender | in the chat | Soon | — | F | B (0153) |
-| Daily limit reached | author | in-page | Now | — | F | B |
-| Tagged in a Moment | the person tagged | notice, push | Soon | remove tag | F | G |
+| Comment on my Moment | author | notice | General | yes | F | B |
+| My Moment is ending | author | notice | General | — | F | B (`moment_ending`) |
+| Someone kept my Snap | sender | in the chat | General | — | F | B (0153) |
+| Daily limit reached | author | in-page | Notice | — | F | B |
+| Tagged in a Moment | the person tagged | notice, push | General | remove tag | F | G |
 
 ### 2.10 Guides and journeys
 
 | Event | Told | Channels | Level | Reply | Pays | State |
 |---|---|---|---|---|---|---|
-| My guide is ready | who asked | notice + email | Soon | — | F (inside the AI cap) | B (`OnDemand::mailReady`) |
-| A business named in a guide | owner | notice | Daily | — | F | G |
-| Guide audit, takedown | content staff | email, Pulse | Soon | — | F | B |
+| My guide is ready | who asked | notice + email | Notice | — | F (inside the AI cap) | B (`OnDemand::mailReady`) |
+| A business named in a guide | owner | notice | General | — | F | G |
+| Guide audit, takedown | content staff | email, Pulse | Alert | — | F | B |
 
 ### 2.11 Sign-in and security
 
 | Event | Told | Channels | Level | Reply | Pays | State |
 |---|---|---|---|---|---|---|
-| Verify email, reset, password or email changed | member | email | Now | — | F | B |
-| Staff and admin codes | staff | email | Now | — | F | B (`TwoStep`, `StaffLogin`) |
-| Members' sign-in codes | member | email | Now | — | F | not built; text ruled out here (§5, Q3) |
-| New device or sign-in | member | email, push | Now | "Not me" | F | G |
-| Account deleted, standing notices | member | email | Now | appeal | F | B |
-| Vault codes | staff | email | Now | — | F | B |
+| Verify email, reset, password or email changed | member | email | Critical | — | F | B |
+| Staff and admin codes | staff | email | Urgent | — | F | B (`TwoStep`, `StaffLogin`) |
+| Members' sign-in codes | member | email | Urgent | — | F | not built; text ruled out here (§5, Q3) |
+| New device or sign-in | member | email, push | Critical | "Not me" | F | G |
+| Account deleted, standing notices | member | email | Critical | appeal | F | B |
+| Vault codes | staff | email | Urgent | — | F | B |
 
 ### 2.12 Our system alerts (0171)
 
 | Event | Told | Channels | Level | Reply | Pays | State |
 |---|---|---|---|---|---|---|
-| Trip | Founder; the process's staff | board light, Pulse item, email at once, the hourly push | Now | acknowledge | F | D (0171 §7, being built) |
-| Warning unacknowledged 24 h | Founder | email | Soon | acknowledge | F | D (0171) |
-| Notice | — | board and reports only | Daily | — | F | D (0171) |
-| Daily report | Founder | email | Daily | — | F | B |
-| Mail failure, bounce | mailbox's overseers | Pulse | Soon | fix | F | D (0167 §2) |
+| Trip | Founder; the process's staff | board light, Pulse item, email at once, the hourly push | Critical | acknowledge | F | D (0171 §7, being built) |
+| Warning unacknowledged 24 h | Founder | email | Urgent | acknowledge | F | D (0171) |
+| Notice | — | board and reports only | Notice | — | F | D (0171) |
+| Daily report | Founder | email | Notice | — | F | B |
+| Mail failure, bounce | mailbox's overseers | Pulse | Alert | fix | F | D (0167 §2) |
 
 ## 3. Listing cards show only what the listing can do
 
@@ -374,13 +442,13 @@ For each recipient, in order:
    STOP lists. If not, the record says why and stops.
 2. **Which channels?** The kind's defaults, then the person's choices (kind × channel), then what's available (push
    only with a subscription; text only with consent and a paid allowance).
-3. **When?** Now ignores quiet hours; Soon waits only for push and text; Daily and Offers go to the person's digest at
-   their chosen time.
-4. **In-site always**, for anything that needs an answer.
+3. **When?** By level (the table above): Critical and Urgent ignore quiet hours; Alert holds only push; Notice,
+   General and Special wait, and General and Special can go to the person's digest at their chosen time.
+4. **Pulse always**: every message is an item in the recipient's Pulse, whatever else is sent.
 
 ### 4.3 One delivery log
 
-**`comms_deliveries`**: one row per channel tried (in-site, email, push, text), with its status, the provider's id,
+**`comms_deliveries`**: one row per channel tried (Pulse, email, push, text), with its status, the provider's id,
 the error and when. 0167's **Sent view** in Pulse reads this log.
 - **Note for Jason (refines 0167 §2):** 0167 says `Mailer::send` records each Bluehost send. That stays true; the record
   lands in `comms_deliveries` (with `email_sends` kept for SES), so there is one Sent view, not two.
@@ -400,7 +468,7 @@ the error and when. 0167's **Sent view** in Pulse reads this log.
 
 - **0171's alarms** stay their own table (`control_alarms`) and their own three ways. When an alarm must reach a person
   (the Founder's email, a role's Pulse item), it calls `Notify` with the kind `alarm.trip` or `alarm.warning`, so it
-  appears in the same log and respects the person's channels, with **Now** ignoring quiet hours.
+  appears in the same log and respects the person's channels, with Critical and Urgent ignoring quiet hours.
 - **Pulse items** assigned or escalated call `Notify` (gap 4).
 
 ### 4.6 Web push
@@ -409,6 +477,53 @@ the error and when. 0167's **Sent view** in Pulse reads this log.
 - Asked **only after an action that wants it** ("Tell me when they answer"), never on arrival.
 - Each push carries a link to where it's answered and a "Stop these" link.
 - Staging never sends push (`StagingGate::hold()`, 0165).
+
+### 4.7 Outside mailboxes in Pulse: Gmail, Microsoft, IMAP, POP and SES (Jason, 2026-11-18)
+
+Jason: "I would also like to see how the inbox (Pulse) can be used for external email services (Gmail, SES, pop/imap)."
+
+**What it means:** a person connects a mailbox they already have, and its mail appears in their Pulse beside everything
+else, labelled with the mailbox. They read, flag, tag and answer it there; a reply goes out **from that mailbox**, so it
+reaches the other person from their real address and lands in that mailbox's own Sent folder. The mailbox stays the
+original: Pulse is a window onto it, not a copy that takes over.
+
+**Today:** Pulse → Support inbox opens support@'s webmail in a new tab, signed in through cPanel
+(`sections.php:1411`); 0167 §2a plans "My inbox" across our cPanel mailboxes and says "Outside addresses aren't
+connected."
+
+| Service | How it connects | Reads | Sends as | Cost to us | Notes |
+|---|---|---|---|---|---|
+| **Our own mailboxes** (cPanel: support@, orders@, staff) | IMAP, signed in by the site (0167 §4 writes the passwords) | folders, read state both ways | that mailbox, through its SMTP | none | replaces opening webmail in a new tab; 0167 §2a's "My inbox" is built on this |
+| **Any IMAP mailbox** (a business's own host, Yahoo, iCloud, Zoho, Bluehost) | server, port 993, login with an **app password** | folders, read state both ways | that mailbox's SMTP (port 587) | server time only | the general case; covers most providers |
+| **POP3** | server, port 995 | the inbox only, no folders, no read state back | that provider's SMTP | server time | only where IMAP isn't offered; leaves a copy on the server |
+| **Gmail and Google Workspace** | **first:** IMAP with an app password (needs Google's 2-Step Verification on); **later:** "Sign in with Google" | as IMAP | Gmail's SMTP; later the Gmail API | none by IMAP; by sign-in, Google requires a yearly outside security assessment to read mail, which costs money | sign-in only once revenue covers the assessment (No income, no expense); a Workspace admin can block app passwords |
+| **Microsoft 365 and Outlook.com** | "Sign in with Microsoft" (Microsoft Graph); Microsoft no longer accepts passwords for IMAP | folders, read state both ways | the mailbox, through Graph | none (publisher verification is free) | the one service that needs sign-in from the start |
+| **Amazon SES** | not a mailbox: SES **sends** (0137 §8) and can **receive** for a domain whose mail is pointed at it | SES stores each message and tells our webhook; it lands in Pulse | the business's own domain, through our SES | per 1,000 messages and their storage: counted against the business's email allowance | gives a business an address on its own domain (hello@theirdomain) with no mail host; the webhook joins the Bluehost exemption list (`research/bluehost-bot-check-2026-11-15.md`) |
+
+**Who can connect:**
+
+| Who | May connect | Pays |
+|---|---|---|
+| Our staff | our cPanel mailboxes they oversee (0167 §2a); **Note for Jason:** also an outside mailbox used for Traversence work, which changes 0167 §2a's "Outside addresses aren't connected" | free |
+| A business | its own mailboxes, shared with the team by role (0102 §4, Inbox: all, billing, Sales view, Support view) | on paid plans; SES receiving counts against the email allowance |
+| A member | their personal mailbox | **for Jason:** offer it on Personal Plus and Pro only, or not yet |
+| Guests | no | — |
+
+**Rules:**
+- **Passwords and sign-ins** are stored encrypted, never shown back, and removed by **Disconnect**. Sign-in (Google,
+  Microsoft) is preferred wherever it's free, because no password is kept.
+- **How fresh:** the site checks each connected mailbox every 5 minutes (a `Scheduler` job; Bluehost can't hold a
+  connection open), and at once when the person opens Pulse. SES mail arrives the moment the webhook is called.
+- **We keep a working copy** of the last 90 days, for search and threading; the mailbox stays the original. Disconnecting
+  deletes our copy.
+- **Private:** a person's mailbox is theirs; a business's is seen only by the roles allowed; staff mailboxes only by
+  their overseers (0167 §2a). Nothing from a mailbox goes to AI unless the person asks (0164), never to Gemini's free
+  tier. No support role reads it (0102 §5).
+- **One way to fix a failure:** a refused password, an expired sign-in or a full mailbox becomes an Alert in that
+  person's Pulse with **Reconnect** on it (never a dead end).
+- **Staging** never connects to a mailbox (`StagingGate::hold()`, 0165).
+- **Build check:** Bluehost's PHP may not have the IMAP extension (it left PHP's core in 8.4); the reader is written
+  over a plain socket, as `Mailer` already does for SMTP.
 
 ## 5. Texting
 
@@ -448,14 +563,18 @@ Each a release Jason reviews; free channels first.
 
 1. **0171's alarms** (being built by the Control Board session), then **0167**'s four releases (system email in one
    place). Unchanged.
-2. **One dispatcher, in-site:** `Notify`, `comms_messages`, `comms_deliveries`, the kinds register, the preferences
-   page (kind × channel, quiet hours, digest), the bell counting everything. Closes gaps 1–4 in the site and by system
+2. **One dispatcher, into Pulse:** `Notify`, `comms_messages`, `comms_deliveries`, the kinds register, the preferences
+   page (kind × channel, quiet hours, digest), the bell counting everything. Closes gaps 1–4 and 6 in Pulse and by system
    email: a business told of new messages, orders and comments; Pulse escalations told.
-3. **Cards (§3):** the one actions helper, Message on every managed listing's card, "Wish you could message them?" on
+3. **Flags and tags in Pulse; the six levels** (`Pulse::SEVERITY`, the bell), and **our own mailboxes read in Pulse**
+   by IMAP (with 0167's step 4).
+4. **Cards (§3):** the one actions helper, Message on every managed listing's card, "Wish you could message them?" on
    unclaimed ones and its count in Sales, the two broken cards fixed.
-4. **Web push** (free): keys, service worker, subscriptions, asked after an action; then the business and staff kinds.
-5. **Comments, bookings, groups:** replies on comments, booking reminders and changes, group posts and join requests.
-6. **Text, only where revenue covers it:** Twilio's card and webhook, consent and STOP, a business's texts to people who
+5. **Web push** (free): keys, service worker, subscriptions, asked after an action; then the business and staff kinds.
+6. **Outside mailboxes** (§4.7): IMAP and POP, Microsoft, then SES receiving; Gmail by sign-in only when revenue
+   covers its assessment.
+7. **Comments, bookings, groups:** replies on comments, booking reminders and changes, group posts and join requests.
+8. **Text, only where revenue covers it:** Twilio's card and webhook, consent and STOP, a business's texts to people who
    opted in and to customers who ticked it (plan allowance and packs in `Billing::ADDONS`); then the claim number
    automated. Our own outgoing texts only once Jason sets the budget (Q1).
 
