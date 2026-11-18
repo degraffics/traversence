@@ -90,7 +90,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "Control Board 4b: the historian (decisions/0171 \u00a76)",
    "since": "2026-11-18T23:05:59Z",
-   "expires": "2026-11-19T03:10:26Z",
+   "expires": "2026-11-19T03:10:48Z",
    "release": "control-board-4b.zip",
    "callers": {}
   },
@@ -101,7 +101,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "Control Board 4b: the historian (decisions/0171 \u00a76)",
    "since": "2026-11-18T23:05:59Z",
-   "expires": "2026-11-19T03:10:26Z",
+   "expires": "2026-11-19T03:10:48Z",
    "release": "control-board-4b.zip",
    "callers": {}
   },
@@ -112,7 +112,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "Control Board 4b: the historian (decisions/0171 \u00a76)",
    "since": "2026-11-18T23:06:01Z",
-   "expires": "2026-11-19T03:10:26Z",
+   "expires": "2026-11-19T03:10:48Z",
    "release": "control-board-4b.zip",
    "callers": {}
   },
@@ -127,7 +127,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "Control Board 4b: Telemetry points to the board",
    "since": "2026-11-18T23:06:01Z",
-   "expires": "2026-11-19T03:10:26Z",
+   "expires": "2026-11-19T03:10:48Z",
    "release": "control-board-4b.zip",
    "callers": {}
   },
@@ -140,7 +140,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "Control Board 4b: the historian (decisions/0171 \u00a76)",
    "since": "2026-11-18T23:06:01Z",
-   "expires": "2026-11-19T03:10:26Z",
+   "expires": "2026-11-19T03:10:48Z",
    "release": "control-board-4b.zip",
    "callers": {}
   },
@@ -168,7 +168,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "Control Board 4b: the historian (decisions/0171 \u00a76)",
    "since": "2026-11-18T23:06:01Z",
-   "expires": "2026-11-19T03:10:26Z",
+   "expires": "2026-11-19T03:10:48Z",
    "release": "control-board-4b.zip",
    "callers": {}
   },
@@ -199,7 +199,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "Control Board 4b: the historian (decisions/0171 \u00a76)",
    "since": "2026-11-18T23:06:01Z",
-   "expires": "2026-11-19T03:10:26Z",
+   "expires": "2026-11-19T03:10:48Z",
    "release": "control-board-4b.zip",
    "callers": {}
   },
@@ -232,7 +232,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "Control Board 4b: the historian (decisions/0171 \u00a76)",
    "since": "2026-11-18T23:06:01Z",
-   "expires": "2026-11-19T03:10:26Z",
+   "expires": "2026-11-19T03:10:48Z",
    "release": "control-board-4b.zip",
    "callers": {}
   },
@@ -243,7 +243,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "release control-board-4b.zip",
    "since": "2026-11-18T23:06:31Z",
-   "expires": "2026-11-19T03:10:26Z",
+   "expires": "2026-11-19T03:10:48Z",
    "release": "control-board-4b.zip",
    "callers": {}
   },
@@ -254,7 +254,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "release control-board-4b.zip",
    "since": "2026-11-18T23:06:31Z",
-   "expires": "2026-11-19T03:10:26Z",
+   "expires": "2026-11-19T03:10:48Z",
    "release": "control-board-4b.zip",
    "callers": {}
   },
@@ -265,7 +265,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "release control-board-4b.zip",
    "since": "2026-11-18T23:06:31Z",
-   "expires": "2026-11-19T03:10:26Z",
+   "expires": "2026-11-19T03:10:48Z",
    "release": "control-board-4b.zip",
    "callers": {}
   },
@@ -276,7 +276,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "release control-board-4b.zip",
    "since": "2026-11-18T23:06:31Z",
-   "expires": "2026-11-19T03:10:26Z",
+   "expires": "2026-11-19T03:10:48Z",
    "release": "control-board-4b.zip",
    "callers": {}
   }
