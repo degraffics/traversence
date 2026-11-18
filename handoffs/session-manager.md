@@ -47,6 +47,8 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
 - **Hourly, while he's checked in:** a scheduled task named "Hourly session check" (cron `14 * * * *`) fires into the
   session manager. "Checking out" disables it; "checking in" (or "check in") enables it. Its prompt lists every check.
 - **Notify** (PushNotification) only when something needs him: a session waiting, or a proposal. One line.
+- **A website/ file missing from the first sync after a publish** (#137 and #152, 2026-11-18): the publish wrote it after
+  the sync had listed the website side. Run the sync once more before calling anything missing; it arrived both times.
 - **Claims check without stray files:** `git status -s` empty, then `git checkout -B <own branch> origin/main`, push it,
   `checkout.py list`. Never leave main's files as uncommitted changes (the stop hook complains).
 - **Railway:** a token for `backboard.railway.com` is saved on the "cloud" environment; query

@@ -3,44 +3,44 @@
  "built_on": "0e4906b Sync: 2026-11-18 22:55 UTC",
  "recorded": "2026-11-18 23:01 UTC",
  "note": "Design Release 3a: the site frame on the tokens, headings in Merriweather, the Edit page switch, the footer zone, errors in Crimson Thread. Approved by Jason 2026-11-18 (reviewed by the session manager). Built on Sync: 22:55 UTC Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "7f4b3f8 Sync: 2026-11-18 23:05 UTC",
  "files": {
   "app/lib/Blocks.php": {
    "sha256": "915aaabebbb9e41da4b48fceb4d8dc6c67c8ed20f200486c8d5c89da2d308d50",
-   "live": false
+   "live": true
   },
   "app/ui/auth-nav.php": {
    "sha256": "ed1602a61de120617ba4ca5aa5fd4ae15ea9a1922ba3407dc703176b1911da96",
-   "live": false
+   "live": true
   },
   "app/ui/brand.php": {
    "sha256": "83c00c4985a31db11ca96254d7e9509fc8e429d74d31fe45b0cec1cf246615bc",
-   "live": false
+   "live": true
   },
   "app/ui/context-switcher.php": {
    "sha256": "a677502e2883d781b65d306da2f2670bacc08d94d4062aca2b9c15658b449689",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "636d15f0f085d785a981ce9cbbe2ad804a9dc866ee999d7b886dfb19bc1d9e80",
-   "live": false
+   "live": true
   },
   "app/ui/footer.php": {
    "sha256": "b0d4a642e10e3720dfe3d01c48b97b752f87d0c9724f350bb94cb5c2df6c6e52",
-   "live": false
+   "live": true
   },
   "app/ui/header.php": {
    "sha256": "cd184282f5f92262078aee7139f9dff5b4e4a71f7b5896de2adbe36bc51a7726",
-   "live": false
+   "live": true
   },
   "app/ui/page-shell.php": {
    "sha256": "973fde741164d633c34e490c67fa7700b5674c567708e87b425a0e335f4041e5",
-   "live": false
+   "live": true
   },
   "website/js/tv-ask.js": {
    "sha256": "13447b6a33c0a2ef3436ef66f3ba24cacd49028fdfe32f3849141cf15fb73f15",
-   "live": false
+   "live": true
   }
  }
 }
