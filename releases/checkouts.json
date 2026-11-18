@@ -82,6 +82,28 @@
    "expires": "2026-11-19T02:03:07Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/lib/ControlHistorian.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 4b: the historian (decisions/0171 \u00a76)",
+   "since": "2026-11-18T23:05:59Z",
+   "expires": "2026-11-19T03:05:59Z",
+   "release": "control-board-4b.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/migrations/2026-11-19_control_history.sql",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 4b: the historian (decisions/0171 \u00a76)",
+   "since": "2026-11-18T23:05:59Z",
+   "expires": "2026-11-19T03:05:59Z",
+   "release": "control-board-4b.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
