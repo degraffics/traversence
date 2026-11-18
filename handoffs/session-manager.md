@@ -193,6 +193,12 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
         Jason's ask): Shop → Domains, the account's Domains tab, and the shared wallet (0166 §6a) only. Joining storefronts to the account's domains
         stays with app 6 (Storefront), queued; the storefront's Connect your domain is left as it is until then.
 
+     8. **Outside mailboxes in Pulse** (Jason, 2026-11-18, from the Communications draft decisions/0172 §4.7, PR #903:
+        "the app build should address these questions, so move it to the session manager to include into the app build
+        queue"). Members get outside mailboxes as an App store add-on; for businesses the app build settles: how a
+        business connects its own mailboxes (IMAP/POP, Microsoft sign-in, Gmail, SES receiving), whether it's an add-on,
+        in plans, or from which plan up, its price, and set-up and standards. Connection details and rules are in 0172
+        §4.7 (once 0172 is approved).
      Others (Square, Tickets, Appointments, Gallery storage, calendars, 1Password…) to be discussed with Jason next.
   6. **The cleanup stage** (its own area; can run beside the above). **Fixes in the code:**
      **Moved to the Control Board** (Jason, 2026-11-18: "clean up fixes that touch the system should move into the
