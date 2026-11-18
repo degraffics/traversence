@@ -588,8 +588,22 @@ be integrated into the communication system, because the user and listing will n
     For anything now, call them directly." The button reads **Leave it for them**, never Send. Emailed: "This business
     isn't on Traversence yet. We'll send your message to the email this listing gives, and bring any reply back here."
     The button reads **Send by email**.
-  - **Who:** a signed-in member (the message is in their own Pulse, marked **Waiting: not delivered**), or a guest with
-    an email and a reply code, under 0052's guest limits (3 a day per device, 6 per network).
+  - **Who:** a signed-in member (the message is in their own Pulse, marked **Waiting: not delivered** or **Sent by
+    email**), or a guest (below).
+  - **A guest leaving a message** (built on 0052 step 6's guest questions):
+    - **The form:** their first name, the message, and how they want the answer: **by email** (we send it; the
+      business never sees their address) or **by reply code only**. The self-hosted check and limits stay (3 a day
+      per device, 6 per network).
+    - **Their email is confirmed first:** a link to it, and nothing goes to the business until it's pressed, so no one
+      can send in someone else's name. (For Jason: new; 0052's guest questions didn't confirm.)
+    - **A reply code** (8 characters) is shown and emailed. **Check a reply** on the listing page shows where it
+      stands: held, sent by email, delivered, answered.
+    - **Answers reach them** by email (if they chose it) and under the code. A business's email reply (the email
+      route) or its answer in Pulse (after a claim) is stored on the guest's thread.
+    - **Signing up later** moves the thread into their account with the code (0052), and it becomes an ordinary
+      conversation in their Pulse.
+    - **Kept:** guest threads are deleted after 180 days quiet (0052); a held one expires sooner, at 90 days. Their
+      email is kept only for the thread, and deleted with it.
   - **Two routes, by what the listing's data holds** (Jason, 2026-11-18: "unless we assign the email from the listing
     to the message"):
     - **The listing has a public email:** the message is **delivered to that email by us as a visitor's request**
