@@ -65,5 +65,8 @@ Each rule below comes from a real mistake (in brackets) so it isn't repeated.
 ## 5. Finishing
 
 - Wait for the session manager's "verified live" message, then check the page once more if you can.
-- Update your hand-off file (what's built, what's left, the sync it's built on), say "done" to the session manager,
-  and stop. The session manager archives finished sessions.
+- **A multi-phase build stays in your session until every phase is built and live** (Jason, 2026-11-18): never hand a
+  phase to a fresh session. Keep your hand-off file current as you go (what's built, what's left, the sync it's built
+  on) as the record, not as a hand-over.
+- When the whole build is live: say "done" to the session manager and stop. The session manager archives finished
+  sessions.
