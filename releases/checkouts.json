@@ -1,43 +1,6 @@
 {
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
- "claims": [
-  {
-   "path": "app/lib/Thresholds.php",
-   "functions": [
-    "(top)"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
-   "why": "release start-confirm.zip",
-   "since": "2026-11-18T01:13:38Z",
-   "expires": "2026-11-18T05:13:38Z",
-   "release": "start-confirm.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/SystemStart.php",
-   "functions": [
-    "(top)",
-    "advance",
-    "gate",
-    "heldBy",
-    "lifeLines",
-    "pulseDo"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
-   "why": "release start-confirm.zip",
-   "since": "2026-11-18T01:13:38Z",
-   "expires": "2026-11-18T05:13:38Z",
-   "release": "start-confirm.zip",
-   "callers": {
-    "pulseDo": [
-     "app/admin/automation-console.php",
-     "app/lib/Operations.php"
-    ]
-   }
-  }
- ],
+ "claims": [],
  "lapsed": [
   {
    "path": "app/admin/sections.php",
