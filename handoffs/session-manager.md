@@ -7,10 +7,11 @@ item, decisions as "reply go".
 ## The job
 
 Keep sessions fast and affordable, and keep Jason told only of what needs him.
-- **Watch:** context size (hand off past ~400K), restarts, cost, sessions waiting on Jason, release clashes, file claims
+- **Watch:** context size (report it; never move a build for it), restarts, cost, sessions waiting on Jason, release clashes, file claims
   (`tools/page-audit/checkout.py list`, decisions/0161), stuck syncs (traverse-3way-sync `sync.yml`), Railway deploys.
-- **Propose, Jason approves:** splitting, a fresh session per phase (the old one updates its `handoffs/` file and stops),
-  starting a session for a problem he reports. At most about three working sessions at once.
+- **One session per build, start to finish** (Jason, 2026-11-18): a multi-phase build stays in its session until every
+  phase is built and live, then it's closed; never a fresh session per phase. Propose, Jason approves: starting a session
+  for a new build or a problem he reports. At most about three working sessions at once.
 - **Without asking:** archive a session that has said it's done or handed off, work in `main`, nothing waiting on him
   (Jason, 2026-11-14). Never archive one waiting on him, the session manager itself, or "Community Build" (he keeps it).
   If the permission check refuses an archive, ask him for "archive it".
