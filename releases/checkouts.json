@@ -1,6 +1,29 @@
 {
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
- "claims": [],
+ "claims": [
+  {
+   "path": "app/lib/ControlLedger.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "0171 R2a: the ledger",
+   "since": "2026-11-18T14:01:09Z",
+   "expires": "2026-11-18T18:01:09Z",
+   "release": "control-board-2a",
+   "callers": {}
+  },
+  {
+   "path": "app/migrations/2026-11-18_control_ledger.sql",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "0171 R2a: the ledger",
+   "since": "2026-11-18T14:01:09Z",
+   "expires": "2026-11-18T18:01:09Z",
+   "release": "control-board-2a",
+   "callers": {}
+  }
+ ],
  "lapsed": [
   {
    "path": "app/admin/sections.php",
