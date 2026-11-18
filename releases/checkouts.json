@@ -1,6 +1,29 @@
 {
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
- "claims": [],
+ "claims": [
+  {
+   "path": "app/lib/SystemStart.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
+   "why": "Start card on a phone; back to the card; Switch W1 on (Jason, 2026-11-18)",
+   "since": "2026-11-18T02:12:26Z",
+   "expires": "2026-11-18T06:12:26Z",
+   "release": "start-phone",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/automation-console.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
+   "why": "Start card on a phone; back to the card; Switch W1 on (Jason, 2026-11-18)",
+   "since": "2026-11-18T02:12:26Z",
+   "expires": "2026-11-18T06:12:26Z",
+   "release": "start-phone",
+   "callers": {}
+  }
+ ],
  "lapsed": [
   {
    "path": "app/admin/sections.php",
