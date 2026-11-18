@@ -128,6 +128,31 @@
    "expires": "2026-11-19T00:58:26Z",
    "release": "control-board-3c",
    "callers": {}
+  },
+  {
+   "path": "app/lib/ServiceHealth.php",
+   "functions": [
+    "alarm",
+    "resolve"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 3c: the Trip rule, slow calls, the last Pulse cases as alarms",
+   "since": "2026-11-18T20:58:29Z",
+   "expires": "2026-11-19T00:58:29Z",
+   "release": "control-board-3c",
+   "callers": {
+    "resolve": [
+     "app/admin/automation-console.php",
+     "app/lib/ControlAlarms.php",
+     "app/lib/EngineCase.php",
+     "app/lib/Pulse.php",
+     "website/admin/api.php"
+    ],
+    "alarm": [
+     "app/lib/ControlAlarms.php"
+    ]
+   }
   }
  ],
  "lapsed": [
