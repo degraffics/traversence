@@ -1,0 +1,39 @@
+{
+    "id": 122,
+    "title": "Releases: a build from Claude that fails its checks on staging withdraws itself, and Withdraw puts staging back",
+    "why": "Jason, 2026-11-18, on #121: 'having to require me to remove bad releases is not helpful. Since you create them, you need a way to deal with issues, so address that.' A build from git whose checks on staging fail now withdraws itself, the moment they fail or at the 10-minute job's next look (which also clears #121). Nothing on live changes: a build goes live only after its checks pass. Withdrawing, by itself or by a person's Withdraw, puts staging back: the build's migrations leave staging's folder (a failed one held every migration after it on staging), and its other files get live's copy back, or come off when they were new, unless a later build on staging carries them. The record in git says which check failed, so the building session sends a fixed build; a fixed build can name the ones it replaces (\"replaces\" in its release.json), and they're withdrawn as it arrives. A zip a person uploaded stays on staging for them. The release card says so in place of 'Upload a fixed zip'. FAQ: one entry.",
+    "proposals": "",
+    "zip": "releases-self-withdraw.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/ui/faq.md": {
+            "sha": "78258e43643c93bb86d710d2619c761440ade8f931d2b2f0250c4c06f3d492b2",
+            "size": 329095,
+            "live_was": "89f595bc24f6872ca86b71e667a8754ccbb140e4743eedf9cf7fd67642e7de69"
+        },
+        "app/lib/Releases.php": {
+            "sha": "9651c9d8fb9ce678f5166b16922bbbb6e733ec8fb8e5d58aa830bc18c45efd6e",
+            "size": 116747,
+            "live_was": "ba0309dd57f807bde9e9fb57c042aa247d0b8e865afeb8add399e6bc13a6e6e0"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-18T14:53:55+00:00",
+            "by": 0,
+            "msg": "Uploaded releases-self-withdraw.zip: 2 files."
+        }
+    ]
+}
