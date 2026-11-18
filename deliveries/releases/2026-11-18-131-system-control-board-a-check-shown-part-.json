@@ -1,0 +1,44 @@
+{
+    "id": 131,
+    "title": "System Control Board: a check shown part by part, the red one first",
+    "why": "Jason, 2026-11-18, with a screenshot of W0 Indexer on the board: 'Confused. Red x but green checks too?' W0's check was red, yet every part shown read fine. Two causes. (1) The check chose 'what holds it' by its words, and 'the switch-on check has no red line' contains 'red line', so the gate (fine) was named as the hold. The real red part, the dry run, was never marked. (2) That dry run was red because W0 Indexer sent its test batch at the size it had dropped to after a slow answer (125) instead of the full 250. Fixes: a workflow's check now records each part's own state (needs, scheduled jobs, gate, dry run), and 'what holds it' is the part whose state is red. The board shows a check part by part, each with its ✓ or ✗; a red part comes first, marked 'Holds it'. The dry run's words name the real cause. W0 Indexer 1.1.1 (in this PR's workers/, built by Railway from git) always sends its test batch at full size. Lines tested before this release show as before until their check runs again (Run its check). Rebuilt on Sync 17:04 UTC after notify-1 (#130), which also carried faq.md: the same change, its one FAQ line re-applied on the live copy; replaces control-board-check-parts. Tests: r2d.php 7; r1 33, r2b 14 and the indexer's tests still pass; rendered at 390px with no sideways scroll. No tables or migrations. FAQ: one line.",
+    "proposals": "",
+    "zip": "control-board-check-parts-2.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/admin/control-console.php": {
+            "sha": "785430056f6ba41baa9d095a278538052190c833f8ca2fb4788ab6d6953e0bd5",
+            "size": 29828,
+            "live_was": "942358fb587ef3f5c76b33289b91770fe1d27d502f4128b1b1819e877dba8541"
+        },
+        "app/ui/faq.md": {
+            "sha": "52450e7db63382cdc32399764e4d7f8c10bef5c5ae12b6bc800e668d19fa225d",
+            "size": 337263,
+            "live_was": "92f6a3373ff513283cc46a8da0bf2c699a99e1087aee79c54797cad5ef82fef9"
+        },
+        "app/lib/Preflight.php": {
+            "sha": "26dddaa1387df8615c09134e170fabcb63a814fce4fee09b92057523498bf77d",
+            "size": 142677,
+            "live_was": "89e558ffd038765ef9e713986512e4ff1f57c9927b6f0aa5e8fcc524ca39ac8a"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-18T17:07:54+00:00",
+            "by": 0,
+            "msg": "Uploaded control-board-check-parts-2.zip: 3 files."
+        }
+    ]
+}
