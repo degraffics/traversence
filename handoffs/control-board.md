@@ -66,6 +66,53 @@ current pages stay reachable until the board replaces them (archived, not delete
   will be the decision makers"). Decision 0171 §12 lists what Release 2 keeps from it and what it changes. A summary for
   sharing, corrected against the code, is at https://claude.ai/artifact/699FnCRCPZBR5N3HxxyW1v.
 - **2026-11-18:** Jason approved 0171 revision 2. Next: Release 1 (the register and routes, plus the pre-flight fixes).
+- **2026-11-18, Release 1 built** on "Sync: 2026-11-18 02:36 UTC" and sent as `control-board-1.zip`. It holds:
+  - `app/lib/ControlRegister.php` (new): systems, processes, workers, the 23 worker endpoints with their tasks and
+    tables, `of()`, `dependsOn()`, `route()` and `unclaimed()`;
+  - `Preflight.php`: the Routes group, with one line per workflow (W0–W12, W14), one per worker and "Every endpoint
+    claimed". They are optional and hold nothing. `refreshFor()` is new;
+  - `SystemStart.php`: the header rewritten; the confirm step calls `refreshFor()` before each line; the four timings run
+    once a session (`$st['timings']`); a failed query becomes a step on the card;
+  - `Thresholds.php`: `pf_fresh_mins` (60);
+  - `faq.md`: two entries.
+
+  Repo changes: zip-check rule R15 (a worker endpoint must be in `ControlRegister::ENDPOINTS`) and
+  `tools/control-board-tests/r1.php` (33 pass).
+
+  Checked at 390px: the Pre-flight console was rendered with the route lines open, with no sideways scroll. The Start
+  card only gains words on its confirm line. Nothing new to press: a route line's Test is the existing button, and it
+  was run through `Preflight::run`.
+
+  Next, after it's live: Release 2 (the ledger and the live board).
+
+### Where the folded-in cleanup fixes go (build session, 2026-11-18)
+
+Release 1 closes none of them (it was built before they arrived). The plan:
+
+- **Release 2: the ledger, the board, start-up and shut-down, the services' gauges**
+  - each crawler run opens to the records it touched (the ledger's `control_records`);
+  - Start's watch counts "nothing to do" as a good run;
+  - a run whose only failure is a held service ends ok, not CRASHED;
+  - `/admin/crawler.php`'s outdated "Cron Schedule */5" words;
+  - the pre-flight's AZCC line tests the new host;
+  - the "Added switched off" wording, by a data migration with `data_reason`;
+  - the Stripe and Square cards read the keys `MarketPay` reads;
+  - Name.com's outside requests that don't save (their own table, like the pre-flight's).
+- **Release 3: the alarms and Pulse**
+  - Pulse shows what each person has read;
+  - the old Overpass and OSM cases resolved;
+  - Pulse #22's Site health items;
+  - the release pipeline as a process with alarms: a build that fails its staging checks is withdrawn by itself, a bad
+    `release.json` can't strand a release at Planned, and a rebuilt zip under the same name isn't stuck at "Plan
+    approved".
+- **Release 4: maintenance and the upkeep calendar**
+  - Pulse #31's 62 unused names (one list for Jason: safe, keep, unsure), and that case's blank tool view;
+  - the leftovers `_moved_npi_orgs`, `_moved_irs_orgs` and `search_index_state.v`, removed under 0162's `"removes"`.
+- **Rather leave out of the board's releases:**
+  - **`Vectors::setupSql()`'s row level security:** a security fix, too small and too urgent to wait for Release 2.
+    Its own small release.
+  - **Coverage reading our Geofabrik copy before Overpass:** it changes how W1 gathers, which 0171 leaves alone. The
+    source-map session's line of work.
 
 ## What exists to build on (live mirror, `sync-app/` = `app/`, `sync-storage/` = `website/`)
 

@@ -31,6 +31,7 @@ RULES = {
     'R12': ('Every outside service the code calls has its card in Outside services', False),
     'R13': ("A new outside call goes through staging's gate (decisions/0165 §1)", True),
     'R14': ("A new table has its class in app/lib/staging-tables.php (decisions/0165 §3)", True),
+    'R15': ("A worker's endpoint is named by a process in app/lib/ControlRegister.php (decisions/0171 §3)", True),
 }
 
 def load(mirror):
@@ -539,13 +540,24 @@ def check_table_class(files, findings):
             if t in names or any(p.search(t) for p in pats): continue
             find(findings, 'R14', path, text.count('\n', 0, m.start()) + 1, f'the table {t} has no class in app/lib/staging-tables.php: name it there (records, money, follows, own or never) in the same release')
 
+# ---- R15: every worker endpoint names its process (decisions/0171 §3) -------------------------------------------------
+def check_endpoint_process(files, findings):
+    reg = files.get('app/lib/ControlRegister.php')
+    if reg is None: return   # no unit register yet (before decisions/0171's release 1)
+    named = set(re.findall(r"'((?:crawl|video)/[a-z0-9_]+)'\s*=>", reg))
+    for path in files:
+        m = re.match(r'website/api/(crawl|video)/([a-z0-9_]+)\.php$', path)
+        if not m or m.group(2) == '_auth': continue
+        if f'{m.group(1)}/{m.group(2)}' not in named:
+            find(findings, 'R15', path, 1, f'/api/{m.group(1)}/{m.group(2)}.php is called by a worker but no process names it: add it to ControlRegister::ENDPOINTS (what it carries, the tasks it serves, the tables it writes) in the same release, so its route is watched')
+
 def run(mirror, docs, keep_exceptions=False):
     files = load(mirror)
     findings, tree = [], []
     check_calls(files, findings); check_shell_order(files, findings); check_dialogs(files, findings); check_uploads(files, findings); check_php80(files, findings, server_php(docs))
     check_shell(files, findings); check_faq(files, findings); check_csrf(files, findings); check_migrations(files, findings)
     check_listed(files, docs, findings, tree); check_emoji_crumbs(files, findings); check_services(files, docs, findings)
-    check_gate(files, findings); check_table_class(files, findings)
+    check_gate(files, findings); check_table_class(files, findings); check_endpoint_process(files, findings)
     ex = {(e['rule'], e['file']): e for e in exceptions(docs) if e.get('reason')}
     kept = []
     for f in findings:

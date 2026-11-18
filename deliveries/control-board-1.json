@@ -1,0 +1,30 @@
+{
+ "zip": "control-board-1.zip",
+ "built_on": "9c33912 Sync: 2026-11-18 02:36 UTC",
+ "recorded": "2026-11-18 13:49 UTC",
+ "note": "System Control Board release 1 (decisions/0171 \u00a715.1): the unit register, Routes on the Pre-flight, Start testing what each workflow depends on fresh and running the query timings, SystemStart's header, FAQ; built on Sync: 2026-11-18 02:36 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/ControlRegister.php": {
+   "sha256": "51f755b2db9b23a3a0cf69d565f4d6a540197d2a4b12d72a8bf41e5789b288e8",
+   "live": false
+  },
+  "app/lib/Preflight.php": {
+   "sha256": "3965854852c2cb25dc951ecc359ea1a29e61f7760c5489c17758ef599abd00a3",
+   "live": false
+  },
+  "app/lib/SystemStart.php": {
+   "sha256": "0060f67041cc0343e830b8011e4c39cc4c8346f575e4eb006e671e0cac8e33e4",
+   "live": false
+  },
+  "app/lib/Thresholds.php": {
+   "sha256": "e64940cb97760e876c1079af6d30aeca486ec7e2f9e99b44be2958982021df6a",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "89f595bc24f6872ca86b71e667a8754ccbb140e4743eedf9cf7fd67642e7de69",
+   "live": false
+  }
+ }
+}
