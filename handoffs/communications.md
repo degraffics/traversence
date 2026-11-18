@@ -285,7 +285,7 @@ The session manager asked for the business Pulse to be rendered on its own; that
 0172 against the live code found G1–G11. Jason approved all as one release (pop-up, reviewed by the session manager),
 chose forwarding **also by email**, and then made it **functional only** (the design session restyles Pulse). Groups of
 alarms are the Control Board's (0171 §8 note); Journeys and the Marketplace feed stay open as their own builds.
-**comms-gaps.zip** (built on Sync 22:06 UTC, 72dfb94; 18 files; replaces the unsent comms-bodies.zip, PR #959):
+**comms-gaps.zip** (built on Sync 22:13 UTC, 7d8ee0d, faq.md rebuilt on design Release 1's copy; 18 files; replaces the unsent comms-bodies.zip, PR #959):
 - `app/lib/PulseAct.php` (new) and `website/user/api/pulse-act.php` (new): a row's ↗ (connection, teammate through the
   new `pulse.forward` kind, any email with "Forwarded by …", 20 a day, `pulse_forwards`), 🛡 (Reports, `People::block`,
   `BizMessages::setMute`, group and link mutes; a business reporting a customer emails support), ⊕ (Address Book, Keep);
