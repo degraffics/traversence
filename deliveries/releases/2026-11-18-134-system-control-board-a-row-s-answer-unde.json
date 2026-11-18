@@ -6,12 +6,12 @@
     "zip": "control-board-row-notice.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "planned",
+    "state": "approved",
     "step": 0,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
-    "plan_at": null,
+    "plan_at": "2026-11-18 17:23:34",
     "staged_at": null,
     "vetted_at": null,
     "live_at": null,
@@ -29,6 +29,16 @@
             "at": "2026-11-18T17:23:32+00:00",
             "by": 0,
             "msg": "Uploaded control-board-row-notice.zip: 1 files."
+        },
+        {
+            "at": "2026-11-18T17:23:34+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/control-board-row-notice.zip (git d74ed77a7d)."
+        },
+        {
+            "at": "2026-11-18T17:23:34+00:00",
+            "by": 0,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
         }
     ]
 }
