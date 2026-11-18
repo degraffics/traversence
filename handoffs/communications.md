@@ -228,8 +228,6 @@ message and the comment replies were rendered by their builders with sample stat
 **Left (not in this release):**
 - **Step 8, texting:** its own decision first (0172 §5; the research is above).
 - `alarm.trip` / `alarm.warning`: the Control Board session's release 3.
-- The member's "needs" block and the admin's Operational Task Queue still show (the bell's list is built; removing
-  them is a follow-up once Jason has used the list).
 - Sales counts in Pulse (they're on the Sales page); Email on the search peek, map, guide and blocks cards; storefront
   taps counted. Group comments and "a reply to my post" (groups have no comments yet); handing over and quiet groups.
 - Attachments in mail open in the mailbox itself for now; Graph mail has no attachment list; SES mail over 150 KB.
@@ -264,3 +262,11 @@ The same release turns the admin stream into a table like Outlook's inbox (Jason
 line per message, the level first as a narrow icon, sender's mark, From, Subject with its words after it, Received;
 every column sorts from its header (From and Level also filter), the edges drag to resize, remembered in the browser
 (`pb_table`); the row's icons show on its line when pointed at, opened or focused (on a phone, ⋯ beside ▾).
+
+**comms-needs (#141): live** (rebuilt on Sync 20:29 UTC as PR #953 to keep #140's FAQ line; taken 20:36 UTC, verified in
+Sync 20:38 UTC, d80e9f1, PR #954). The "needs" block and the Operational Task Queue are gone (an earlier line here
+called that a later follow-up; 0172 asked for it, so it shipped in #141).
+**comms-notice.zip** (built on Sync 20:38 UTC, d80e9f1; `app/ui/pulse-ui.php` only). Jason: "why the double toggle on
+received?" After a column's filter, its "Showing 1 of 5" notice was placed beside the ▾ inside the header cell and stood
+as a tall green bar next to the pressed ▾. Notices from the header and a row's icon pill now show as the centered notice.
+Reproduced with the live copy (header 27 px → 415 px), then fixed (27 px stays) at 1280 and 390.
