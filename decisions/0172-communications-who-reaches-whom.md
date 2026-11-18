@@ -874,6 +874,10 @@ open questions are in `handoffs/communications.md`.
 
 Each a release Jason reviews; free channels first.
 
+**Note (Jason, 2026-11-18): "can you have the entire build pushed for one release."** Steps 3–7 and 0167's four parts go
+as **one release** (`comms-all.zip`), not one release per step. Step 8 (texting) stays its own decision first, then its
+build. Built: see `handoffs/communications.md`, "Steps 3–7 and 0167".
+
 1. **0171's alarms** (being built by the Control Board session), then **0167**'s four releases: the email engine.
    Unchanged.
 2. **One dispatcher, into Pulse:** `Notify`, `comms_messages`, `comms_route`, the kinds register, the preferences

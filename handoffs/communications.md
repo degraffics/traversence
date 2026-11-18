@@ -177,3 +177,59 @@ each control pressed once.
 - `user/api/notices.php` is no longer called by the dashboard; delete it once nothing else uses it.
 - Mail that isn't a notice (receipts, codes, work orders) moves to `Notify` call site by call site (0172 §4.1).
 - Step 3 (six levels in `Pulse::SEVERITY`, flags and tags, the bell's colour and list) isn't this session's.
+
+## Steps 3–7 and 0167: the rest as one release (build session session_01CXLi5jn2WGptsHBfmhEav6, 2026-11-18)
+
+Jason, 2026-11-18: "can you have the entire build pushed for one release." **Release `comms-all.zip`: sent, waiting for
+Jason's OK** (not live yet). Built on **Sync: 2026-11-18 17:25 UTC** (dd8d547). Tests, all on MariaDB 10.11 or with no
+network: `notify.php` 56, `comms-engine.php` 74, `step7.php` 83, `listing-messages.php` 87, `push.php` 54 (incl. RFC
+8291's test vector), `mail-transport.php` 112. Pages rendered at 390px **with sample state** (a stand-in sign-in, cPanel
+and outside services; nothing sent or connected): Communications, My inbox, Your communications, the bell's list; no
+sideways scroll; each new button there pressed once (Check, Edit settings, Reset, Read in Pulse, Domain health, Sent,
+a routing change, open a mail, Mark unread, a push choice, the bell, a message's own button). The listing page's Leave a
+message and the comment replies were rendered by their builders with sample state. The real runs happen on live.
+
+**What's built:**
+- **0167, the email engine:** System Configuration → Communications (`app/admin/comms-console.php`,
+  `/admin/api/comms.php`, `js/admin-comms.js`, `app/lib/CommsSetup.php`): senders (system, orders@, requests@ new,
+  SES personal; SES bulk "coming") with Check (`MailSmtp::check`), Send me a test, their settings (moved from
+  Settings, which now points here), a password typed; every cPanel mailbox on every domain (make, suspend, unsuspend,
+  reset; typed or made passwords; a sender's written straight into .env, old one kept as `# OLD …` until Check passes,
+  Undo puts it back: `EnvSettings::setMailSecret/putBack`); who reads each in Pulse (overseers); routing by kind
+  (`CommsSetup::prefixFor`); SPF/DKIM/DMARC with fixes; message control (pause/resume a kind or channel, 7-day counts, the
+  Sent view on `comms_route`). `Mailer::send` logs every Bluehost send there (message 0), takes a 7th `$replyTo`, and a
+  failure becomes `mail.failure` to the mailbox's overseers with Check again inside it. SES receiving for
+  `in.traversence.com` only (`SesInbound`, `/api/ses-inbound.php`; Set up receiving button). Sign in with Microsoft's app
+  keys are typed on the page.
+- **Step 3:** `Pulse::SEVERITY` six (keys kept; no clock on Urgent/Special); flags and tags (`PulseMarks`,
+  `/user/api/marks.php`, `pulse_flags`, `pulse_tags`; Follow up comes back unread via the `pulse_followup` job); the member
+  Pulse's row icons work (read/unread, pin, file/archive, ⊕ Follow up/importance/tags; views Inbox, Pinned, Follow up,
+  Archived, folders); a dispatcher message opens in place with its own body (`Notify::BODIES`, `/user/api/pulse-msg.php`,
+  `js/pulse-msg.js`), read when opened (no longer marked read by listing); the bell's colour and list.
+- **Mailboxes in Pulse (§4.7, 0167 §2a):** Dashboard → My inbox (`app/admin/inbox-console.php`, `js/admin-inbox.js`,
+  `/user/api/mailboxes.php`, `app/lib/Mailboxes.php` over `MailImap`, `MailPop`, `MailSmtp`, `MailMime`, `MsGraphMail`;
+  secrets sealed by `CommsCrypt`); ours by IMAP for their overseers; a staff member's outside one after their manager's OK;
+  Gmail by app password; Sign in with Microsoft (`/api/ms-mail.php`); Google sign-in gated (`Mailboxes::gmailGate`,
+  `GMAIL_ASSESSMENT_USD`). `mail_sync` every 5 min, `mail_keep` 90 days. Members' and businesses' mailboxes: not offered
+  (the App store, 0169).
+- **Step 4 (cards):** `ListingActions::actions()` and `::managed()` (the one test); Email counted (`data-out="email"`);
+  counts in Sales; Leave a message (`ListingMessages`, `/listing/api/leave.php`, `/listing/confirm.php`,
+  `/listing/requests.php`, `js/listing-leave.js`; `listing_messages_tick` hourly); storefront and Marketing cards fixed.
+- **Step 5 (push):** `WebPush` (our VAPID keys, made and written to .env), `/push-sw.js`, `js/tv-push.js`,
+  `/user/api/push.php`; Notify's push channel (on by default for Alert and up once a device is on; Critical always).
+- **Step 7:** comment replies (one level), the `biz.comment` notice's Reply/Hide/Report, `content.comment`;
+  booking reminders (`booking_remind`, 24 h and 2 h) and changes (`biz.booking`, `booking.changed`); group posts,
+  mentions, join requests (Accept/Decline inside), reports (Keep/Remove inside).
+- **From step 2's list:** the staff Communications setting (Dashboard → Your communications; one component,
+  `app/ui/comms-setting.php`, for members and staff). `user/api/notices.php` is called by nothing: a release can't delete a
+  file, so **the session manager deletes it** after this goes live.
+
+**Left (not in this release):**
+- **Step 8, texting:** its own decision first (0172 §5; the research is above).
+- `alarm.trip` / `alarm.warning`: the Control Board session's release 3.
+- The member's "needs" block and the admin's Operational Task Queue still show (the bell's list is built; removing
+  them is a follow-up once Jason has used the list).
+- Sales counts in Pulse (they're on the Sales page); Email on the search peek, map, guide and blocks cards; storefront
+  taps counted. Group comments and "a reply to my post" (groups have no comments yet); handing over and quiet groups.
+- Attachments in mail open in the mailbox itself for now; Graph mail has no attachment list; SES mail over 150 KB.
+- Existing `Mailer::send(…, 'ORDERS')` callers keep their sender; new code asks `CommsSetup::prefixFor(kind)`.

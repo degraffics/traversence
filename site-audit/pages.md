@@ -69,7 +69,7 @@ and the portal's routers and endpoints, the sitemap) are live like any other.*
 | `/two-step.php` | Two-step sign-in | — | Live (P6, 2026-11-13) |
 | `/verify-listing.php` | Verify a listing (from its link) | — | Live (P6, 2026-11-13) |
 | `/email/unsubscribe.php` | Unsubscribe (from the link in our emails) | — | Live (P6, 2026-11-13) |
-| `/email/stop.php` | Stop these: one kind of message by email, from the link in the one dispatcher's emails | 0172 | Coming (release notify-1) |
+| `/email/stop.php` | Stop these: one kind of message by email, from the link in the one dispatcher's emails | 0172 | Live (release notify-1, #130) |
 
 ## 2. Accounts and sign-in
 
@@ -107,6 +107,8 @@ and the portal's routers and endpoints, the sitemap) are live like any other.*
 |---|---|---|---|
 | `/listing/businessportal.php` | Your business: claims and where each stands, plan, a question about your listing, and the listing editor (`?id=`) | 0070 | Live |
 | `/listing/confirm-referral.php` | Confirm a Tier 2 referral (token link) | — | Live |
+| `/listing/confirm.php?t=` | A guest's message to an unclaimed listing: confirm the email (token link, no sign-in); a dead link offers a new one, our team and support@ | 0172 | Coming (release comms-all) |
+| `/listing/requests.php?t=` | For an unclaimed listing's email: Stop requests (Send again undoes it) and Report this as spam (token link, no sign-in) | 0172 | Coming (release comms-all) |
 | `/business/` | The business portal (the admin, scoped to a business) | 0109 | Live (P6, 2026-11-13) |
 | `/business/router.php` | Draws the portal's sections (reached by rewrite) | 0109 | Live (P6, 2026-11-13) |
 | `/business/api.php` | The portal's endpoint (reached by rewrite) | 0109 | Live (P6, 2026-11-13) |
@@ -207,7 +209,12 @@ All admin pages sit in the admin shell (left rail by job, no breadcrumbs, decisi
 | `/api/locate.php` | Place an approximate listing at its street address | 0058 | Live |
 | `/api/count.php`, `/api/out.php` | Counts only: page views and flow; calls, directions, website, contact | 0066 | Live |
 | `/api/auth/*` | `session`, `login`, `logout`, `register`, `verify-email`, `change-password`, `password/request-reset`, `password/reset`, `email/request-change`, `email/confirm-change`, `email/revert` | 0047, 0058, 0062 (register) | Live |
-| `/user/api/*` | `profile`, `people` (Address Book), `links`, `consent`, `context`, `pulse`, `marketing`, `business-messages`, `community`, `referrals`, `saved-searches` | 0047, 0049, 0052, 0053, 0055 | Live |
+| `/user/api/*` | `profile`, `people` (Address Book), `links`, `consent`, `context`, `pulse`, `marketing`, `business-messages`, `community`, `referrals`, `saved-searches`, `bell`, `comms` (the Communications setting), `marks` (flags, tags, pins, folders), `pulse-msg` (a message opened in place; the bell's list), `push` (devices), `mailboxes` (mail in Pulse) | 0047, 0049, 0052, 0053, 0055, 0172 | Live; marks, pulse-msg, push, mailboxes coming (release comms-all) |
+| `/api/ses-inbound.php` | Mail received by Amazon SES, through SNS (signature checked), into its mailbox in Pulse | 0172 | Coming (release comms-all) |
+| `/api/ms-mail.php` | Sign in with Microsoft for a mailbox read in Pulse (start and callback) | 0172 | Coming (release comms-all) |
+| `/api/comment-act.php`, `/api/booking-act.php`, `/api/group-act.php` | The buttons inside comment, booking and group messages in Pulse | 0172 | Coming (release comms-all) |
+| `/admin/api/comms.php` | System Configuration → Communications' buttons | 0167 | Coming (release comms-all) |
+| `/push-sw.js` | The web push service worker (served at the root so its scope is the site) | 0172 | Coming (release comms-all) |
 | `/listing/api/*` | `claim` (every claim action, disputes and the owner's answer), `evidence`, `update-metadata` (owner edits; name, phone, address and website wait for an admin until verified), `my-listings`, `vouch`, `referral/request`, `referral/confirm` (Tiers 2–3: future upgrades, not offered). `verify/tier1` answers 410 (retired by 0070) | 0070, 0062 | Live |
 | `/api/admin/intake/*` | `candidates`, `review`, `existing`, `crawl`, `clusters` (admin only) | — | Live |
 
