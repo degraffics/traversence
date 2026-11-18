@@ -262,6 +262,19 @@
      "app/ui/pulse-ui.php"
     ]
    }
+  },
+  {
+   "path": "website/admin/api.php",
+   "functions": [
+    "(top)"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 3d: alarms grouped on the board and in Pulse; red only for a trip",
+   "since": "2026-11-18T21:30:42Z",
+   "expires": "2026-11-19T01:30:42Z",
+   "release": "control-board-3d",
+   "callers": {}
   }
  ],
  "lapsed": [
