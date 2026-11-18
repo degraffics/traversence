@@ -36,7 +36,7 @@ import urllib.parse
 
 import crawler as C
 
-VERSION = "1.1.0"
+VERSION = "1.1.1"   # 1.1.1: the pre-flight's test batch is always the full size, not the size after a back-off
 C.WORKER_V = "indexer " + VERSION
 # the crawler's per-run budgets don't apply: the indexer runs all the time, paced by the site and by each site's rules
 C.MAX_FETCHES = C.FETCH_CAP = 10 ** 12
@@ -328,8 +328,11 @@ def flush(deadline):
 
 def preflight():
     """The pre-flight's full-size test batch (0164 §1.4): marked test, checked and answered, never stored."""
-    rows = [{"u": f"https://example.org/w0-preflight/{i}?n={i}", "f": "https://example.org/", "t": "pre-flight"} for i in range(B.size)]
-    rows = B.take(collections.deque(rows), B.size)
+    # the full size the site set, never the size it's at now: after a slow answer B.size halves for an hour, and a
+    # half-size test proves nothing about a full batch (1.1.1: W0's check went red on 125 of 250, 2026-11-18)
+    full = max(MIN_BATCH, min(int(B.s["found_batch"]), int(B.s["batch_max"])))
+    rows = [{"u": f"https://example.org/w0-preflight/{i}?n={i}", "f": "https://example.org/", "t": "pre-flight"} for i in range(full)]
+    rows = B.take(collections.deque(rows), full)
     res = B.post("test", rows, collections.deque(), test=True)
     C.log(f"pre-flight: {len(rows)} URLs in one batch: {json.dumps(res)[:400]}")
     return 0 if res and res.get("ok") else 1

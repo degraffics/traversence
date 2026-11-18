@@ -1,5 +1,54 @@
 # The System Control Board (the command center): hand-off for its build session (2026-11-18)
 
+## Start here: release 3 (written at the end of release 2, 2026-11-18)
+
+**Release 2 is complete and live.** It went out as these releases:
+
+| # | Zip | What |
+|---|---|---|
+| #124 | `control-board-2a-4` | the ledger: `control_ledger`, `control_records` (`ControlLedger.php`, measured once in the endpoints' `_auth.php`) |
+| #127 | `control-board-2b` | the board at `/admin/config/control`, first in System Configuration (its side-panel icon opens it): stages, controls, systems, processes, Start it (the interlock), Shut it down, Shut down in order, "stopped, safe" |
+| #128 | `control-board-layout` | laid out after Jason's example board (`design/control-board-mockup.html`): status strip, Holding now, Query timings, rows in columns, the Needs table |
+| #129 | `control-board-2c` | the service cards' fixes; crawler 2.12.1 (a held service ends a run ok, not Crashed) |
+| (sent) | `control-board-check-parts` | a check shown part by part, the red one first; W0 Indexer 1.1.1 (a full test batch). PR #924, approved; it waits for `notify-1` (also carries `faq.md`) to go live, then is rebuilt from the live `faq.md` and merged. **If this session ends first, do that before anything else.** |
+
+Alongside: `releases-self-withdraw` (#122), `releases-live-2` (#123), `releases-marks` (#125) and `releases-table-2` (#126) on the Releases page.
+
+**Release 3 (decisions/0171 §15.3): real-time monitoring, the alarms and Pulse.**
+- `control_alarms` and `control_tick`; slow, retry and crash caught when they happen (§5).
+- The annunciator (§7): the top-bar light, the email, the health report's `alarms` block and the hourly push with the
+  health token.
+- Pulse fixed (§8): one item per alarm, acted on in place, closed by itself; the five Pulse cases become alarms.
+- Folded into 3 (below, "Cleanup fixes"): Pulse read state per person; the old Overpass/OSM cases; Pulse #22's Site
+  health items; the release pipeline's guards (a bad `release.json` can't strand a release at Planned; a rebuilt zip
+  under the same name isn't stuck at "Plan approved").
+
+**Carried from release 2** (0171 §15.2 lists them; not built):
+- **The crawler run records, part 2.** There is no command-strip page per run, and no "W1 today" filter on Insights →
+  Crawler. Today the board's crawler row opens each run to its records, from the ledger.
+- **The worker doesn't report its retries** to the ledger yet (§4), so §5's "retry" needs that first.
+- **`control_state`** (§4) isn't built.
+- **The Pre-flight page isn't archived.** It's a live section, and its lines also fold in at the board's foot.
+  Archive it when release 3's alarms cover what it shows, and only with Jason's OK (archive.md).
+- **Start's card still lives on Automation.** The board's Start the system calls the same `SystemStart::start`; the card
+  can move to the board in release 3.
+
+**From Jason's example board, not built** (he saw this list when approving the layout):
+- **Fix / Disconnect / Add source on a need:** they would change what holds a workflow, against 0163's source map, so a
+  decision comes first.
+- **Maintenance windows** (release 4).
+- **The health token and the Pulse panel** (release 3).
+- **Uptime % and cost per record** (the historian, release 4).
+
+**How this work runs now:**
+- Sessions merge their own PR after Jason's Approve in their pop-up, then tell the session manager, which syncs
+  (CLAUDE.md, #921).
+- A build that fails staging is the session's to clear: send `-2` with `"replaces"` (builder-playbook).
+- Every check that goes red must name the part that holds it (#924's lesson: never match on words).
+
+**Tests:** `tools/control-board-tests/`: r1 (33), r2a (21), self-withdraw (17), r2b (14), layout (8), r2c (12), r2d (7),
+releases-live.cjs (7). The worker's: `workers/crawler/tests/` (test_held_task, test_indexer and the rest).
+
 ## What Jason asked for
 
 Jason, 2026-11-18: "I see START as PREFLIGHT, ACTIVATION, MONITORING, REPORTING for the entire system (each step
