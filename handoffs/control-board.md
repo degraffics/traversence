@@ -85,6 +85,9 @@ current pages stay reachable until the board replaces them (archived, not delete
 
   Next, after it's live: Release 2 (the ledger and the live board).
 
+- **2026-11-18: Release 1 is live** as #120, synced at "Sync: 2026-11-18 13:57 UTC". All 5 files in the mirror match
+  the zip byte for byte. **Release 2 builds on that sync.**
+
 ### Where the folded-in cleanup fixes go (build session, 2026-11-18)
 
 Release 1 closes none of them (it was built before they arrived). The plan:
