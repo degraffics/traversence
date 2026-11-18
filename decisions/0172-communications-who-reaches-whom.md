@@ -5,7 +5,7 @@ as #130; steps 3–7 live as one release, #135 (§6's note); the admin's Pulse S
 place, with the row icons and views, live as #138, then as a table with needs as rows and the Operational Task Queue
 replaced by the bells, #141 (Sync 20:38 UTC). The gaps found against this decision on 2026-11-18 (the row's ↗ and 🛡, real opened rows, ⊕'s Address Book and Keep,
 the phone's ⋯, the bell opening the row, stewards folded in; staff messages and mail as admin rows, grouped alarms,
-Previous / Next, A task) are sent as one release, `comms-gaps.zip`. **Still open:** step 8, texting, needs its own
+Previous / Next, A task) are live as one release, #147 (`comms-gaps.zip`, Sync 22:18 UTC). **Still open:** step 8, texting, needs its own
 decision; Journeys and the Marketplace feed in the member's chips are their own builds (2.10, 2.6); Pulse's new look
 is the design session's. Progress: `handoffs/communications.md`.
 Drafts 2 and 3 take in Jason's changes: Pulse is the inbox, and keeps its established look (0105): it collects, organizes and
