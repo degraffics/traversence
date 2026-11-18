@@ -3,16 +3,16 @@
  "built_on": "7f4b3f8 Sync: 2026-11-18 23:05 UTC",
  "recorded": "2026-11-18 23:08 UTC",
  "note": "Edit site icon in the top bar (Jason, 2026-11-18). Approved by Jason (reviewed by the session manager). Built on Sync: 23:05 UTC Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "fd3a3b4 Sync: 2026-11-18 23:10 UTC",
  "files": {
   "app/ui/context-switcher.php": {
    "sha256": "1006982908e266f0b64b824b3acfb7dbf4ac32b0c8ae5474efee47f1bd3b33a3",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "2d92365d497241e880310a7873869c60fd22a238ecc89e9b04d65db8d6bd41e8",
-   "live": false
+   "live": true
   }
  }
 }
