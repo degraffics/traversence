@@ -1,0 +1,39 @@
+{
+    "id": 125,
+    "title": "Releases page: a green check or red X at the start of each release, and of each check",
+    "why": "Jason, 2026-11-18: 'make each line easier to see if it passed or failed. so green check box or red x at the beginning of the title.' Each release's line on System Configuration → Releases now starts with a mark in a small box, as the Pre-flight's: green check when its checks passed or it's live, red X when a check failed, it withdrew itself or it's paused, grey dash when it hasn't been checked yet or a person withdrew it. Each check line in its folded checks has the same mark. Only the Releases section of app/admin/sections.php changes. FAQ: the Releases entry says so.",
+    "proposals": "",
+    "zip": "releases-marks.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/admin/sections.php": {
+            "sha": "b1cfceb3ff6f6d02b1aa1f8c936fe447029d33424894c36bb6fbc1a486edc676",
+            "size": 245229,
+            "live_was": "7255a72936d5459350f23be959a122aeb02212b83cd23292051e3091bb1eba49"
+        },
+        "app/ui/faq.md": {
+            "sha": "54fefade6990fc531edaa71e6889d6f5cdd716204d4e13b6b2427a0bb9fef43b",
+            "size": 331191,
+            "live_was": "11618b5d1fc7be248310b5bc63b42beefa85f57536e20eeaaeb212c0fa202b47"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-18T15:23:59+00:00",
+            "by": 0,
+            "msg": "Uploaded releases-marks.zip: 2 files."
+        }
+    ]
+}
