@@ -367,6 +367,17 @@
    "expires": "2026-11-18T21:49:09Z",
    "release": "comms-all.zip",
    "callers": {}
+  },
+  {
+   "path": "app/admin/sections.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "Communications, the rest as one release (0167 email engine; 0172 steps 3-7)",
+   "since": "2026-11-18T17:49:12Z",
+   "expires": "2026-11-18T21:49:12Z",
+   "release": "comms-all.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
