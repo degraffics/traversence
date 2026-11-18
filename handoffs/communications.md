@@ -1,6 +1,6 @@
 # Communications: hand-off (2026-11-18)
 
-**Decision:** `decisions/0172-communications-who-reaches-whom.md`, draft 7, no code. Waiting for Jason's OK.
+**Decision:** `decisions/0172-communications-who-reaches-whom.md`, draft 8, no code. Waiting for Jason's OK.
 **Draft 2 (Jason's first changes, 2026-11-18):** Pulse is the inbox (everything lands there; email, push and text point
 back); outside mailboxes in Pulse (§4.7: our cPanel, IMAP, POP, Gmail, Microsoft, SES receiving); his six levels
 (Critical, Urgent, Alert, Notice, General, Special) with what each does, kept apart from a person's own flags (Follow
@@ -69,3 +69,12 @@ own release; the first new one is step 2 (the in-site dispatcher), after 0171 an
   sending a visitor's question through Traversence to an unclaimed listing's public email (0108's outreach limits).
 - Outside mailboxes: staff once their manager approves; members as an App store add-on (0169), set up at its build.
 - **Texting is outlined in its own decision.** The research and the open questions above (Q1–Q6) are kept here for it.
+
+## Draft 8 (Jason, 2026-11-18)
+
+- **Routing** is a message's path from creation through delivery to its end point (filed, archived, deleted, expired):
+  §4.2's eight stages. **Message control** is a separate function over every route: creating, tracking, monitoring,
+  verifying, reporting, controlling (§4.3), in Communications (0167) and on the Control Board (0171). The log table is
+  `comms_route`.
+- Open: an Email to an unclaimed listing by the visitor's own app (only the tap is seen) or written in Traversence and
+  delivered by us (the whole route tracked, the reply back in Pulse).

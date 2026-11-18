@@ -1,6 +1,6 @@
 # 0172: Communications: who reaches whom, about what, by which channel, and one way to deliver
 
-Status: **proposed, draft 7** (2026-11-18). Waiting for Jason's OK. No code yet.
+Status: **proposed, draft 8** (2026-11-18). Waiting for Jason's OK. No code yet.
 Drafts 2 and 3 take in Jason's changes: Pulse is the inbox, and keeps its established look (0105): it collects, organizes and
 lets you read, while each message carries its own process; outside mailboxes in Pulse (§4.7); six levels, with flags and tags kept
 apart from them; three touch points; a community group is a channel.
@@ -61,7 +61,7 @@ App Settings → Notices); marketing per business with frequency and a master sw
 **Pulse is the inbox.** Every message, notice, feed item and alarm for a person lands in their Pulse, organized there;
 email, push and text only tell them something is waiting, and a reply from any of them threads back into Pulse.
 **Every message is one record, with one sender, one recipient, one kind and one level, routed by the recipient's
-preferences, through one delivery log.** Who may reach whom is decided by the WHO tables (§1); what each event sends
+preferences, along one route (§4.2), watched by one message control (§4.3).** Who may reach whom is decided by the WHO tables (§1); what each event sends
 is decided by the WHAT tables (§2). Cards show only what a listing can do (§3). One dispatcher delivers (§4). Outside
 mailboxes can be read and answered in Pulse (§4.7). Texting is outlined in its own decision (§5).
 
@@ -577,10 +577,15 @@ be integrated into the communication system, because the user and listing will n
 - **Email is new on cards:** `data-out` counts call, directions, website and contact today; **email** is added, shown
   only where the listing's public email is known (from its sources or its own site).
 - **No Message on an unclaimed listing,** and nothing held for it: a message needs an owner to read it.
-- **Note for Jason:** "route" here means sending the visitor to the listing's own phone, email or site and counting it.
-  Whether we should ever send a visitor's question **through Traversence** to an unclaimed listing's public email (with
-  a claim invite at its foot) is left open; it would be our email to a business that never asked for it, so it falls
-  under 0108's outreach limits.
+- **Open for Jason: the route of an Email to an unclaimed listing** (in §4.2's terms):
+  - **The visitor's own mail app:** we see only the tap. The rest of its route (sent, delivered, read, answered) is
+    outside Traversence and can't be tracked.
+  - **Written in Traversence and delivered by us** to the listing's public email: the whole route is tracked; the
+    business's reply by email comes back into the visitor's Pulse (the reply address of §"Pulse is the inbox"); our
+    footer tells the business it can claim the listing to answer in Traversence. System email costs nothing; it is
+    still our email to a business that didn't ask, so 0052's guest limits (3 a day per device) and 0108's outreach
+    rules (an unsubscribe; one claim invite every 30 days) apply.
+  - Call, Website and Directions stay taps either way.
 
 ## 4. One way to deliver
 
@@ -598,25 +603,50 @@ address), the kind (from §2's tables, each with its level), what it's about, an
 - Mail that's not a notice (receipts, work orders, codes) moves to `Notify` call site by call site, starting with the
   gaps in §2. `Mailer::send` stays as the email driver underneath.
 
-### 4.2 Routing
+Jason, 2026-11-18: "routing is how a message is creation through delivery of a message and to its ultimate end point
+(deleted/archived/etc.). The creation, tracking, monitoring, verification, reporting, and control of a message is a
+separate function." So there are two parts: **the route** every message travels (§4.2), and **message control**, the
+function that watches over every route (§4.3).
 
-For each recipient, in order:
-1. **May they be reached at all?** Blocks, `message_policy`, a business's link and consent (0047), suppression lists,
-   STOP lists. If not, the record says why and stops.
-2. **Which channels?** The kind's defaults, then the person's choices (kind × channel), then what's available (push
-   only with a subscription; text only with consent and a paid allowance).
-3. **When?** By level (the table above): Critical and Urgent ignore quiet hours; Alert holds only push; Notice,
-   General and Special wait, and General and Special can go to the person's digest at their chosen time.
-4. **Pulse always**: every message is an item in the recipient's Pulse, whatever else is sent.
+### 4.2 The route: from creation to its end point
 
-### 4.3 One delivery log
+Every message, on every channel, travels the same stages. Each stage is written to the message's record with when and
+how, so a message can always be found where it is now.
 
-**`comms_deliveries`**: one row per channel tried (Pulse, email, push, text), with its status, the provider's id,
-the error and when. 0167's **Sent view** in Pulse reads this log.
-- **Note for Jason (refines 0167 §2):** 0167 says `Mailer::send` records each Bluehost send. That stays true; the record
-  lands in `comms_deliveries` (with `email_sends` kept for SES), so there is one Sent view, not two.
-- A failed delivery: retried by the channel's own rule; a dead address or subscription is marked and not tried again.
-  For staff, failures are 0167's Pulse cases.
+| Stage | What happens | Can end here as |
+|---|---|---|
+| **1. Created** | `Notify::send` (or a person writing) makes the one record: sender, recipient, kind, level, words | refused (blocked, `message_policy`, no consent, suppressed, STOP), with the reason |
+| **2. Addressed** | the channels are chosen: the kind's defaults, then the person's choices (kind × channel), then what's available (push only with a subscription) | — |
+| **3. Held** | waiting for quiet hours or the person's digest, by level (Critical and Urgent never wait; Alert holds only push; Notice, General and Special wait; General and Special can join the digest) | withdrawn by the sender before it goes |
+| **4. Sent** | handed to each channel: Pulse, email (Bluehost or SES), push, a connected mailbox | failed (retried by the channel's rule; a dead address or subscription is marked and not tried again) |
+| **5. Delivered** | the channel confirms: it's in Pulse; the mail server accepted it; the push service took it | bounced, complained, unsubscribed (SES events, 0137 §8) |
+| **6. Read** | opened in Pulse, or the email opened where that's known | — |
+| **7. Answered or acted on** | a reply in the thread, or a button in the message used (§"The message") | — |
+| **8. Its end point** | where the recipient puts it: **filed** in a folder, **archived**, **deleted** (to Deleted, emptied after 30 days), or **expired** by its kind's keeping rule (a guest question after 180 days quiet, 0052) | the end |
+
+- **Pulse always:** every message reaches stage 4 in the recipient's Pulse, whatever else is sent.
+- **The same route for a message that comes in** (a connected mailbox, an incoming email reply): it starts at
+  **Received** instead of Created, and goes on from stage 5.
+
+### 4.3 Message control: creating, tracking, monitoring, verifying, reporting and controlling
+
+A separate function that watches over every route, set up in **System Configuration → Communications** (0167 §1) and
+shown as one system on the Control Board (0171 §1, with a process per channel: Pulse, Bluehost email, SES, push,
+connected mailboxes).
+
+| Function | What it does |
+|---|---|
+| **Creating** | the kinds register (`Notify::KINDS`, §4.1): what each kind says, its level, its default channels, its keeping rule; changed in one place |
+| **Tracking** | **`comms_route`**: one row per stage per channel (§4.2), with when, how and the provider's id; any message's whole route shown on one line |
+| **Monitoring** | live, as 0171 §5: a channel failing, slow or refused raises an alarm (a mailbox refusing its password, SES bounces climbing, push keys refused, a digest not sent) |
+| **Verifying** | the channel's own proof: SES's delivery and bounce events, the mail server's acceptance, the push service's answer, the connected mailbox's sync; a message with no proof in time is marked "not confirmed" |
+| **Reporting** | per kind, channel, sender and business: sent, delivered, read, answered, failed, unsubscribed; in 0171's reports, and each business's share in its Insights |
+| **Controlling** | pause or resume a kind, a channel or a sender; retry a failed delivery; withdraw a held message; quiet hours and limits; all owner-level and logged (0171 §13) |
+
+- **Note for Jason (refines 0167 §2):** 0167's **Sent view** in Pulse reads `comms_route`, and `Mailer::send`'s
+  record of each Bluehost send lands there too (with `email_sends` kept for SES), so there is one record, not two.
+- For staff, a channel's failures reach them as 0171's alarms; a single failed message to a person is shown on its
+  route, and on the sender's own copy.
 
 ### 4.4 Quiet hours, digests and opt-outs
 
@@ -702,7 +732,7 @@ Each a release Jason reviews; free channels first.
 
 1. **0171's alarms** (being built by the Control Board session), then **0167**'s four releases (system email in one
    place). Unchanged.
-2. **One dispatcher, into Pulse:** `Notify`, `comms_messages`, `comms_deliveries`, the kinds register, the preferences
+2. **One dispatcher, into Pulse:** `Notify`, `comms_messages`, `comms_route`, the kinds register, the preferences
    page (kind × channel, quiet hours, digest), the bell counting everything. Closes gaps 1–4 and 6 in Pulse and by system
    email: a business told of new messages, orders and comments; Pulse escalations told.
 3. **Flags and tags in Pulse; the six levels** (`Pulse::SEVERITY`, the bell), and **our own mailboxes read in Pulse**
