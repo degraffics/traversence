@@ -6,12 +6,12 @@
     "zip": "design-r2-admin.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "planned",
+    "state": "approved",
     "step": 0,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
-    "plan_at": null,
+    "plan_at": "2026-11-18 22:28:31",
     "staged_at": null,
     "vetted_at": null,
     "live_at": null,
@@ -49,6 +49,16 @@
             "at": "2026-11-18T22:28:29+00:00",
             "by": 0,
             "msg": "Uploaded design-r2-admin.zip: 5 files."
+        },
+        {
+            "at": "2026-11-18T22:28:31+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/design-r2-admin.zip (git 56eacf523b)."
+        },
+        {
+            "at": "2026-11-18T22:28:31+00:00",
+            "by": 0,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
         }
     ]
 }
