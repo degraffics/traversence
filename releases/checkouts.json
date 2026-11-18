@@ -222,6 +222,17 @@
    "expires": "2026-11-19T01:49:34Z",
    "release": "control-board-3e",
    "callers": {}
+  },
+  {
+   "path": "app/lib/staging-tables.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "comms_mail_blocks and the forwards table classed (0172 gaps release)",
+   "since": "2026-11-18T21:58:44Z",
+   "expires": "2026-11-19T01:58:44Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
