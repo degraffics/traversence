@@ -48,3 +48,28 @@ Checked on traversence.com: the fonts served as font/woff2; the tokens in the pa
   No sideways scroll.
 - Reviewed by the session manager; Jason approved 2026-11-18 and retired the 2026-11-12 sage bar and peach tab. Rebuilt on
   Sync 22:26 (FAQ entry only re-applied) and sent.
+
+## Release 3: public pages, one area at a time (order approved by the session manager)
+
+3a the site frame; 3b Home and Explore (Discovery's hero, stock bylines); 3c Get Local; 3d Community, the member
+dashboard and Pulse's new look (pulse-ui.php is ours now, look only, notify-tests must pass); 3e Marketplace, checkout
+and storefronts (business colours kept, owner warned below 4.5:1); 3f sign-in, long text, standalone pages, leftovers.
+
+### 3a: design-r3a-frame.zip (built on Sync 22:55 UTC)
+
+- `header.php`, `brand.php`, `footer.php`, `context-switcher.php`, `page-shell.php`, `auth-nav.php::tv_nav_head`,
+  `js/tv-ask.js`: every colour on the tokens (mapped by property: text, background, line). Text 4.5:1 or better,
+  checked by a probe in the render. Errors, the remove confirm and the spelling mark use Crimson Thread; System Red stays
+  for the 911 line and a final account warning. `header.php` and `tv_nav_head` draw the tokens for pages with their own
+  head (the home page, the dashboard, sign-in): without them the home page's bar went see-through (Jason saw it).
+- Headings: Tailwind's `font-serif` and `font-display` mapped once in `page-shell.php`.
+- Edit page switch: `Blocks::editingOn()` (cookie `tv_edit=1`, set from the profile menu, `[data-cx-edit]`); `zone()` and
+  `site()` edit only with it on; storefronts unchanged. Test: `tools/design-tests/edit-switch.php`, 9 pass.
+- The empty zone above the footer: `Blocks::site()`'s wrapper gets `width:100%` (auto margins in the flex column shrank it).
+- Found and shipped first: `faq-restore.zip` (#150), the FAQ text #148 removed by building on an older sync.
+- Left for their areas (contrast below 4.5:1 found by the probe, same before and after): the home hero's text (3b), the
+  admin Shortcuts list's group labels (admin-hub.php) and the dashboard's small labels, Pulse's column headers (3d), the
+  FAQ's anchors and "Help" kicker (3f).
+- Approved by Jason 2026-11-18 (reviewed by the session manager): 3a as built; headings everywhere now; errors in
+  Crimson Thread, red for emergencies; trails and routes to a new nature/navigation colour in the map's release (3b/3c,
+  brand.md §4 note). Next kit-css release: fold in the admin contrast items above (Shortcuts labels, dashboard labels).
