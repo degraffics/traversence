@@ -21,6 +21,11 @@
   as it moves on, its stale notice gone, a new one at the top, open cards kept, a card being typed in waiting), at 390px.
   7 tests: `node releases-live.cjs <website/js/admin-releases.js>`.
 
+- `releases-table-render.php` and `releases-table.cjs`: the Releases list as the standard table, rendered from the real
+  section and tool (marks, row links to each release's page), and a release's page (a live one without a green notice,
+  a withdrawn one with its sentence), at 390px and 1280px: `php releases-table-render.php <root>/app section|item|json`
+  into `render/`, then `node releases-table.cjs` (paths inside; for a local run).
+
 Run on MariaDB or MySQL, with a root that holds `app/` (the mirror's `sync-app` with the release's `app/` laid over it)
 and `website/api/` (the mirror's `sync-storage/api/crawl` and `api/video`). Put a `.env` four folders up from `lib/`:
 `mariadb < ../release-b-tests/start-schema.sql && php r1.php <root>/app`.

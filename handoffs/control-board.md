@@ -132,6 +132,15 @@ current pages stay reachable until the board replaces them (archived, not delete
   on 15:21: a green check, red X or grey dash at the start of each release and each check (Jason). After it: 2b, the
   board page.
 
+- **2026-11-18: #125 (releases-marks) live**, synced at 15:25 UTC. Then **releases-table**, built on 15:25 (Jason: "formatted
+  like our standard table format"; "why keep the green notification?"):
+  - the Releases list is `tools.php` `config/releases` (the kit's table), and each release is its own page,
+    `admin/release.php` (item route `/admin/config/releases/N`), drawn by `tv_admin_mod_releases($pdo, $only)`;
+  - the kit's name cells take an optional `mark`;
+  - no green notice on a live release that's well.
+
+  It holds the never-sent `releases-quiet` change. 2b waits behind it (it touches `sections.php` too).
+
 ### Where the folded-in cleanup fixes go (build session, 2026-11-18)
 
 Release 1 closes none of them (it was built before they arrived). The plan:

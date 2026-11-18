@@ -149,6 +149,7 @@ All admin pages sit in the admin shell (left rail by job, no breadcrumbs, decisi
 | `/admin/api.php` | The admin's one endpoint (`/admin/api/<module>/<tool>`, reached by rewrite) | 0109 | Live (P6, 2026-11-13) |
 | `/admin/client-order.php` | A client's order | — | Live (P6, 2026-11-13) |
 | `/admin/content-template.php` | Content templates | — | Live (P6, 2026-11-13) |
+| `/admin/release.php` | Releases: one release (its own page in the section, /admin/config/releases/N) | — | Live (2026-11-18, releases-table) |
 | `/admin/data.php` | Data tools | — | Live (P6, 2026-11-13) (a working tool, archive.md) |
 | `/admin/ecommerce.php` | E-commerce | — | Live (P6, 2026-11-13) (a working tool, archive.md) |
 | `/admin/guide-edit.php` | Edit a guide | — | Live (P6, 2026-11-13) |
