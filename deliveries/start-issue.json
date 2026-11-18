@@ -1,0 +1,18 @@
+{
+ "zip": "start-issue.zip",
+ "built_on": "e87f4da Sync: 2026-11-18 02:17 UTC",
+ "recorded": "2026-11-18 02:19 UTC",
+ "note": "Service issues explained on the Start card. Built on Sync 02:17 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/SystemStart.php": {
+   "sha256": "9e94abab155e35bfd3107add883bb6fbb6475c97fa458491ea7f8717996ab31a",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "fc906bc87e8bb1eece24642ca38eb0a65ac2b8bfc9a177806ea5866b7d50552f",
+   "live": false
+  }
+ }
+}

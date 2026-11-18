@@ -285,3 +285,12 @@ Jason's rule: "Fix it can't take me to another page."
 - **Back to the card.** Card forms post to `<action>#start`. The Automation page sets `SystemStart::$said`, and the answer to the press is shown at the top of the card.
 - **Paused workflows.** A done or on workflow that a person paused (`personPaused`, or "Left paused") shows as Paused, with What to do and Switch it on (`wf_on`).
 - **Railway, read at 02:11 UTC.** No crashes, and no failed deploys since 18:07 UTC on Nov 17. The crawler's partial runs come only from Common Crawl's index timing out (issue #13, held).
+
+## start-issue (2026-11-18, built on Sync 02:17 UTC)
+
+A switch-on line held by a service issue ("Issue #N" in its words) now shows `SystemStart::issueInline()` on the card instead of a drawer:
+- **What happened:** the issue's evidence, from `ServiceHealth::describe()`.
+- **What to do:** for a 'back' kind (the service's own server), nothing; for a 'stop' kind, what a person does, plus a link to the service's own page.
+- **Buttons:** Check issue now and Mark resolved.
+
+State after #118: W1 has been switched back on by Jason, and W14 is running now that he marked the terms read. The run reads "Operational: 19 on (3 still watched)".
