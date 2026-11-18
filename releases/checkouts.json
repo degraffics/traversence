@@ -238,6 +238,29 @@
      "website/api/crawl/service.php"
     ]
    }
+  },
+  {
+   "path": "app/lib/Preflight.php",
+   "functions": [
+    "alarm",
+    "summary"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 3c: the Trip rule, slow calls, the last Pulse cases as alarms",
+   "since": "2026-11-18T20:58:45Z",
+   "expires": "2026-11-19T00:58:45Z",
+   "release": "control-board-3c",
+   "callers": {
+    "summary": [
+     "app/admin/control-console.php",
+     "app/admin/preflight-console.php",
+     "app/admin/sections.php"
+    ],
+    "alarm": [
+     "app/lib/ControlAlarms.php"
+    ]
+   }
   }
  ],
  "lapsed": [
