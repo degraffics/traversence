@@ -1,0 +1,44 @@
+{
+    "id": 126,
+    "title": "Releases page: laid out as a table, each release opening under its title; no repeated green notice",
+    "why": "Jason, 2026-11-18: 'the release list of releases needs to be formatted like our standard table format to function better'; 'a release opens on toggle under the title'; 'once we have a green check why keep the green notification?' System Configuration → Releases now has the list's search box and one Shown filter (waiting, live, a check failed, withdrawn, rolled back or off) above a header row (Release, Where it stands, When, Files), then one row per release in those columns, its title starting with its mark; a release opens on its toggle under its title, as before. On a phone each row stacks with its labels. Filters are kept for the next visit and applied to releases the page draws again. A release that's live and well no longer shows a green notice: its mark and 'Live' say it. Only the Releases section of app/admin/sections.php and js/admin-releases.js change. FAQ: the Releases entry rewritten. Replaces releases-table (never merged), which opened each release on its own page.",
+    "proposals": "",
+    "zip": "releases-table-2.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/admin/sections.php": {
+            "sha": "ef26a2537e80bcc5158fc2abd0c7d2f9d363ebc857e50d08cdfa45ae93cc1b9d",
+            "size": 247850,
+            "live_was": "b1cfceb3ff6f6d02b1aa1f8c936fe447029d33424894c36bb6fbc1a486edc676"
+        },
+        "app/ui/faq.md": {
+            "sha": "e7b5440f987b6fa20cb10a0e23675ca1f06be102b764644e1f8e3cdcc36a88cd",
+            "size": 331311,
+            "live_was": "54fefade6990fc531edaa71e6889d6f5cdd716204d4e13b6b2427a0bb9fef43b"
+        },
+        "website/js/admin-releases.js": {
+            "sha": "a208849d40b1fcfaccd1c1cd84ca8f3f0eef86472a1b6dcdc46588f0d43d137d",
+            "size": 11817,
+            "live_was": "b913a81e89328db6a676ef427124ba524fed3e43c4c81cb0c355e4de6a9e9739"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-18T15:57:36+00:00",
+            "by": 0,
+            "msg": "Uploaded releases-table-2.zip: 3 files."
+        }
+    ]
+}
