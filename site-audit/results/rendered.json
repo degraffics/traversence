@@ -1,12 +1,13 @@
 {
- "at": "2026-11-17T09:28:44.141Z",
+ "at": "2026-11-18T09:35:58.948Z",
  "site": "https://traversence.com",
- "run_url": "https://github.com/degraffics/traversence/actions/runs/44054162267",
+ "run_url": "https://github.com/degraffics/traversence/actions/runs/44274474430",
  "full": false,
  "signed_in": true,
- "pages": 380,
+ "pages": 384,
  "by": {
-  "scroll": 1
+  "status": 2,
+  "edges": 3
  },
  "results": [
   {
@@ -5200,7 +5201,7 @@
    "url": "/admin/insights/sources",
    "size": "phone",
    "must": true,
-   "status": 200,
+   "status": 0,
    "console": [],
    "requests": [],
    "dialogs": [],
@@ -5208,15 +5209,40 @@
    "edges": 0,
    "alt": 0,
    "names": 0,
-   "final": "/admin/insights/sources",
-   "eg": {},
-   "why": []
+   "error": "TimeoutError: page.goto: Timeout 45000ms exceeded.\nCall log:\n  - navigating to \"https://traversence.com/admin/insights/sources\", waiting until \"load\"\n",
+   "why": [
+    [
+     "status",
+     "TimeoutError: page.goto: Timeout 45000ms exceeded.\nCall log:\n  - navigating to \"https://traversence.com/admin/insights/sources\", waiting until \"load\"\n"
+    ]
+   ]
   },
   {
    "who": "staff-executive",
    "url": "/admin/insights/sources",
    "size": "desktop",
    "must": true,
+   "status": 0,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "error": "TimeoutError: page.goto: Timeout 45000ms exceeded.\nCall log:\n  - navigating to \"https://traversence.com/admin/insights/sources\", waiting until \"load\"\n",
+   "why": [
+    [
+     "status",
+     "TimeoutError: page.goto: Timeout 45000ms exceeded.\nCall log:\n  - navigating to \"https://traversence.com/admin/insights/sources\", waiting until \"load\"\n"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/insights/index",
+   "size": "phone",
+   "must": true,
    "status": 200,
    "console": [],
    "requests": [],
@@ -5225,7 +5251,24 @@
    "edges": 0,
    "alt": 0,
    "names": 0,
-   "final": "/admin/insights/sources",
+   "final": "/admin/insights/index",
+   "eg": {},
+   "why": []
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/insights/index",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "final": "/admin/insights/index",
    "eg": {},
    "why": []
   },
@@ -5566,6 +5609,51 @@
    "alt": 0,
    "names": 0,
    "final": "/admin/config/scheduler",
+   "eg": {},
+   "why": []
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/config/preflight",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 10,
+   "alt": 0,
+   "names": 0,
+   "final": "/admin/config/preflight",
+   "eg": {
+    "edges": [
+     "<details class=\"pf-g ak-card tv-bleed\" id=\"pf-g-site\" open=\"\" data-gap=\"14px left, 14px right; #ta-work pads 13.6px/13.6px\"></details>",
+     "<details class=\"pf-g ak-card tv-bleed\" id=\"pf-g-services\" open=\"\" data-gap=\"14px left, 14px right; #ta-work pads 13.6px/13.6px\"></details>",
+     "<details class=\"pf-g ak-card tv-bleed\" id=\"pf-g-railway\" open=\"\" data-gap=\"14px left, 14px right; #ta-work pads 13.6px/13.6px\"></details>"
+    ]
+   },
+   "why": [
+    [
+     "edges",
+     "10 card(s) e.g. <details class=\"pf-g ak-card tv-bleed\" id=\"pf-g-site\" open=\"\" data-gap=\"14px left, 14px right; #ta-work pads 13.6px/13.6px\"></details>"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/config/preflight",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "final": "/admin/config/preflight",
    "eg": {},
    "why": []
   },
@@ -5579,12 +5667,21 @@
    "requests": [],
    "dialogs": [],
    "scroll": false,
-   "edges": 0,
+   "edges": 1,
    "alt": 0,
    "names": 0,
    "final": "/admin/config/automation",
-   "eg": {},
-   "why": []
+   "eg": {
+    "edges": [
+     "<div class=\"ak-card tv-bleed au-m\" id=\"start\" data-gap=\"3px left, 24px right; #ta-work pads 13.6px/13.6px\"></div>"
+    ]
+   },
+   "why": [
+    [
+     "edges",
+     "1 card(s) e.g. <div class=\"ak-card tv-bleed au-m\" id=\"start\" data-gap=\"3px left, 24px right; #ta-work pads 13.6px/13.6px\"></div>"
+    ]
+   ]
   },
   {
    "who": "staff-executive",
@@ -5681,12 +5778,21 @@
    "requests": [],
    "dialogs": [],
    "scroll": false,
-   "edges": 0,
+   "edges": 1,
    "alt": 0,
    "names": 0,
    "final": "/admin/config/board",
-   "eg": {},
-   "why": []
+   "eg": {
+    "edges": [
+     "<div class=\"ak-card tv-bleed au-m\" id=\"start\" data-gap=\"3px left, 24px right; #ta-work pads 13.6px/13.6px\"></div>"
+    ]
+   },
+   "why": [
+    [
+     "edges",
+     "1 card(s) e.g. <div class=\"ak-card tv-bleed au-m\" id=\"start\" data-gap=\"3px left, 24px right; #ta-work pads 13.6px/13.6px\"></div>"
+    ]
+   ]
   },
   {
    "who": "staff-executive",
@@ -5748,24 +5854,13 @@
    "console": [],
    "requests": [],
    "dialogs": [],
-   "scroll": true,
+   "scroll": false,
    "edges": 0,
    "alt": 0,
    "names": 0,
    "final": "/admin/config/services",
-   "eg": {
-    "scroll": [
-     "528px: <a href=\"/admin/config/workflows\"><svg class=\"ak-svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"3\"></circle><path d=\"M19.4 15a1.65 1.65 0 ",
-     "528px: <a href=\"/admin/config/permissions\"><svg class=\"ak-svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z\"></path></svg>",
-     "405px: <span>Data separation</span>"
-    ]
-   },
-   "why": [
-    [
-     "scroll",
-     ""
-    ]
-   ]
+   "eg": {},
+   "why": []
   },
   {
    "who": "staff-executive",
