@@ -8,9 +8,26 @@
    "session": "session_01CXLi5jn2WGptsHBfmhEav6",
    "why": "Communications, the rest as one release (0167 email engine; 0172 steps 3-7)",
    "since": "2026-11-18T17:21:27Z",
-   "expires": "2026-11-18T21:21:27Z",
+   "expires": "2026-11-18T21:57:08Z",
    "release": "comms-all.zip",
-   "callers": {}
+   "callers": {
+    "setChannel": [
+     "website/user/api/comms.php"
+    ],
+    "settings": [
+     "website/user/api/comms.php"
+    ],
+    "releaseHeld": [
+     "app/scripts/notify_release.php"
+    ],
+    "send": [
+     "app/lib/BizMessages.php",
+     "app/lib/Engage.php",
+     "app/lib/GuestInquiries.php",
+     "app/lib/Notices.php",
+     "app/lib/Pulse.php"
+    ]
+   }
   },
   {
    "path": "app/lib/Mailer.php",
@@ -19,9 +36,67 @@
    "session": "session_01CXLi5jn2WGptsHBfmhEav6",
    "why": "Communications, the rest as one release (0167 email engine; 0172 steps 3-7)",
    "since": "2026-11-18T17:21:27Z",
-   "expires": "2026-11-18T21:21:27Z",
+   "expires": "2026-11-18T21:57:08Z",
    "release": "comms-all.zip",
-   "callers": {}
+   "callers": {
+    "send": [
+     "app/admin/Workflow.php",
+     "app/admin/tools.php",
+     "app/lib/AccountDeletion.php",
+     "app/lib/AccountDomains.php",
+     "app/lib/AddBusiness.php",
+     "app/lib/AiAssist.php",
+     "app/lib/Billing.php",
+     "app/lib/BizQuotes.php",
+     "app/lib/Claims.php",
+     "app/lib/ClientOrders.php",
+     "app/lib/Clients.php",
+     "app/lib/Collateral.php",
+     "app/lib/DailyReport.php",
+     "app/lib/Gallery.php",
+     "app/lib/GalleryModes.php",
+     "app/lib/GuestInquiries.php",
+     "app/lib/GuideAudits.php",
+     "app/lib/Inform.php",
+     "app/lib/Market.php",
+     "app/lib/MarketCheckout.php",
+     "app/lib/MarketOffers.php",
+     "app/lib/Notify.php",
+     "app/lib/OnDemand.php",
+     "app/lib/OneOffs.php",
+     "app/lib/Orders.php",
+     "app/lib/People.php",
+     "app/lib/Promotions.php",
+     "app/lib/Pulse.php",
+     "app/lib/QrIssue.php",
+     "app/lib/Releases.php",
+     "app/lib/Sales.php",
+     "app/lib/Services.php",
+     "app/lib/SocialAuth.php",
+     "app/lib/StaffLogin.php",
+     "app/lib/StagingApi.php",
+     "app/lib/StagingPublish.php",
+     "app/lib/StagingSite.php",
+     "app/lib/Standing.php",
+     "app/lib/SuggestionActions.php",
+     "app/lib/SupportAccess.php",
+     "app/lib/Takedowns.php",
+     "app/lib/Team.php",
+     "app/lib/Vault.php",
+     "app/lib/Vendors.php",
+     "app/lib/VerifyRequests.php",
+     "app/lib/Wallet.php",
+     "app/lib/WorkOrders.php",
+     "website/api/auth/change-password.php",
+     "website/api/auth/email/confirm-change.php",
+     "website/api/auth/email/request-change.php",
+     "website/api/auth/password/request-reset.php",
+     "website/api/auth/register.php",
+     "website/api/auth/resend-confirmation.php",
+     "website/listing/api/claim.php",
+     "website/q.php"
+    ]
+   }
   },
   {
    "path": "app/lib/EnvSettings.php",
@@ -30,7 +105,7 @@
    "session": "session_01CXLi5jn2WGptsHBfmhEav6",
    "why": "Communications, the rest as one release (0167 email engine; 0172 steps 3-7)",
    "since": "2026-11-18T17:21:27Z",
-   "expires": "2026-11-18T21:21:27Z",
+   "expires": "2026-11-18T21:57:08Z",
    "release": "comms-all.zip",
    "callers": {}
   },
@@ -52,7 +127,7 @@
    "session": "session_01CXLi5jn2WGptsHBfmhEav6",
    "why": "Communications, the rest as one release (0167 email engine; 0172 steps 3-7)",
    "since": "2026-11-18T17:21:27Z",
-   "expires": "2026-11-18T21:21:27Z",
+   "expires": "2026-11-18T21:57:08Z",
    "release": "comms-all.zip",
    "callers": {}
   },
@@ -63,7 +138,7 @@
    "session": "session_01CXLi5jn2WGptsHBfmhEav6",
    "why": "Communications, the rest as one release (0167 email engine; 0172 steps 3-7)",
    "since": "2026-11-18T17:21:27Z",
-   "expires": "2026-11-18T21:21:27Z",
+   "expires": "2026-11-18T21:57:08Z",
    "release": "comms-all.zip",
    "callers": {}
   },
@@ -74,7 +149,7 @@
    "session": "session_01CXLi5jn2WGptsHBfmhEav6",
    "why": "Communications, the rest as one release (0167 email engine; 0172 steps 3-7)",
    "since": "2026-11-18T17:21:27Z",
-   "expires": "2026-11-18T21:21:27Z",
+   "expires": "2026-11-18T21:57:08Z",
    "release": "comms-all.zip",
    "callers": {}
   },
@@ -85,9 +160,26 @@
    "session": "session_01CXLi5jn2WGptsHBfmhEav6",
    "why": "Communications, the rest as one release (0167 email engine; 0172 steps 3-7)",
    "since": "2026-11-18T17:21:27Z",
-   "expires": "2026-11-18T21:21:27Z",
+   "expires": "2026-11-18T21:57:08Z",
    "release": "comms-all.zip",
-   "callers": {}
+   "callers": {
+    "comment": [
+     "app/lib/Gallery.php",
+     "app/lib/MemberPosts.php",
+     "website/api/engage.php"
+    ],
+    "commentCount": [
+     "app/ui/engage-ui.php"
+    ],
+    "comments": [
+     "app/lib/Gallery.php",
+     "app/lib/MemberPosts.php",
+     "app/ui/engage-ui.php"
+    ],
+    "setCommentHidden": [
+     "app/lib/Reports.php"
+    ]
+   }
   },
   {
    "path": "app/lib/GuestInquiries.php",
@@ -96,9 +188,29 @@
    "session": "session_01CXLi5jn2WGptsHBfmhEav6",
    "why": "Communications, the rest as one release (0167 email engine; 0172 steps 3-7)",
    "since": "2026-11-18T17:21:27Z",
-   "expires": "2026-11-18T21:21:27Z",
+   "expires": "2026-11-18T21:57:08Z",
    "release": "comms-all.zip",
-   "callers": {}
+   "callers": {
+    "bizList": [
+     "app/lib/MemberPulse.php",
+     "website/user/api/business-messages.php"
+    ],
+    "bizThread": [
+     "website/user/api/business-messages.php"
+    ],
+    "staffUnread": [
+     "website/user/api/bell.php"
+    ],
+    "create": [
+     "website/api/guest-inquiry.php"
+    ],
+    "guestView": [
+     "website/api/guest-inquiry.php"
+    ],
+    "managed": [
+     "website/api/guest-inquiry.php"
+    ]
+   }
   },
   {
    "path": "app/lib/ListingActions.php",
@@ -107,7 +219,7 @@
    "session": "session_01CXLi5jn2WGptsHBfmhEav6",
    "why": "Communications, the rest as one release (0167 email engine; 0172 steps 3-7)",
    "since": "2026-11-18T17:21:27Z",
-   "expires": "2026-11-18T21:21:27Z",
+   "expires": "2026-11-18T21:57:08Z",
    "release": "comms-all.zip",
    "callers": {}
   },
@@ -118,9 +230,13 @@
    "session": "session_01CXLi5jn2WGptsHBfmhEav6",
    "why": "Communications, the rest as one release (0167 email engine; 0172 steps 3-7)",
    "since": "2026-11-18T17:21:27Z",
-   "expires": "2026-11-18T21:21:27Z",
+   "expires": "2026-11-18T21:57:08Z",
    "release": "comms-all.zip",
-   "callers": {}
+   "callers": {
+    "stream": [
+     "website/user/api/pulse.php"
+    ]
+   }
   },
   {
    "path": "app/ui/pulse-ui.php",
@@ -129,9 +245,18 @@
    "session": "session_01CXLi5jn2WGptsHBfmhEav6",
    "why": "Communications, the rest as one release (0167 email engine; 0172 steps 3-7)",
    "since": "2026-11-18T17:21:27Z",
-   "expires": "2026-11-18T21:21:27Z",
+   "expires": "2026-11-18T21:57:08Z",
    "release": "comms-all.zip",
-   "callers": {}
+   "callers": {
+    "tv_pulse_board": [
+     "app/admin/sections.php",
+     "website/admin/w.php"
+    ],
+    "tv_pulse_settings": [
+     "app/admin/sections.php",
+     "website/admin/w.php"
+    ]
+   }
   },
   {
    "path": "website/user/api/bell.php",
@@ -162,7 +287,7 @@
    "session": "session_01CXLi5jn2WGptsHBfmhEav6",
    "why": "Communications, the rest as one release (0167 email engine; 0172 steps 3-7)",
    "since": "2026-11-18T17:21:27Z",
-   "expires": "2026-11-18T21:21:27Z",
+   "expires": "2026-11-18T21:57:08Z",
    "release": "comms-all.zip",
    "callers": {}
   },
@@ -173,7 +298,7 @@
    "session": "session_01CXLi5jn2WGptsHBfmhEav6",
    "why": "Communications, the rest as one release (0167 email engine; 0172 steps 3-7)",
    "since": "2026-11-18T17:21:27Z",
-   "expires": "2026-11-18T21:21:27Z",
+   "expires": "2026-11-18T21:57:08Z",
    "release": "comms-all.zip",
    "callers": {}
   },
@@ -188,7 +313,7 @@
    "session": "session_01CXLi5jn2WGptsHBfmhEav6",
    "why": "Communications, the rest as one release (the Text messages card's words; the six levels)",
    "since": "2026-11-18T17:21:27Z",
-   "expires": "2026-11-18T21:56:12Z",
+   "expires": "2026-11-18T21:57:08Z",
    "release": "comms-all.zip",
    "callers": {
     "SEVERITY": [
@@ -229,9 +354,16 @@
    "session": "session_01CXLi5jn2WGptsHBfmhEav6",
    "why": "Communications, the rest as one release (0167 email engine; 0172 steps 3-7)",
    "since": "2026-11-18T17:49:09Z",
-   "expires": "2026-11-18T21:49:09Z",
+   "expires": "2026-11-18T21:57:08Z",
    "release": "comms-all.zip",
-   "callers": {}
+   "callers": {
+    "decide": [
+     "app/admin/workflows.php",
+     "app/lib/Helper.php",
+     "app/lib/TrustScore.php",
+     "website/admin/reports.php"
+    ]
+   }
   },
   {
    "path": "app/lib/MarketCheckout.php",
@@ -240,9 +372,13 @@
    "session": "session_01CXLi5jn2WGptsHBfmhEav6",
    "why": "Communications, the rest as one release (0167 email engine; 0172 steps 3-7)",
    "since": "2026-11-18T17:49:09Z",
-   "expires": "2026-11-18T21:49:09Z",
+   "expires": "2026-11-18T21:57:08Z",
    "release": "comms-all.zip",
-   "callers": {}
+   "callers": {
+    "cancel": [
+     "website/api/market-pay.php"
+    ]
+   }
   },
   {
    "path": "app/lib/Community.php",
@@ -262,9 +398,35 @@
    "session": "session_01CXLi5jn2WGptsHBfmhEav6",
    "why": "Communications, the rest as one release (0167 email engine; 0172 steps 3-7)",
    "since": "2026-11-18T17:49:09Z",
-   "expires": "2026-11-18T21:49:09Z",
+   "expires": "2026-11-18T21:57:08Z",
    "release": "comms-all.zip",
-   "callers": {}
+   "callers": {
+    "tv_engage_bar": [
+     "app/lib/Blocks.php",
+     "website/community/group.php",
+     "website/experiences/view.php",
+     "website/guide/how.php",
+     "website/guide/resources.php",
+     "website/hub/index.php",
+     "website/journeys/suggested.php",
+     "website/listing/view.php",
+     "website/market/item.php",
+     "website/market/view.php",
+     "website/place/landmark.php",
+     "website/place/recreation.php"
+    ],
+    "tv_engage_comments": [
+     "app/lib/Blocks.php",
+     "website/experiences/view.php",
+     "website/guide/how.php",
+     "website/guide/resources.php",
+     "website/hub/index.php",
+     "website/journeys/suggested.php",
+     "website/listing/view.php",
+     "website/place/landmark.php",
+     "website/place/recreation.php"
+    ]
+   }
   },
   {
    "path": "website/js/engage.js",
@@ -273,7 +435,7 @@
    "session": "session_01CXLi5jn2WGptsHBfmhEav6",
    "why": "Communications, the rest as one release (0167 email engine; 0172 steps 3-7)",
    "since": "2026-11-18T17:49:09Z",
-   "expires": "2026-11-18T21:49:09Z",
+   "expires": "2026-11-18T21:57:08Z",
    "release": "comms-all.zip",
    "callers": {}
   },
@@ -284,7 +446,7 @@
    "session": "session_01CXLi5jn2WGptsHBfmhEav6",
    "why": "Communications, the rest as one release (0167 email engine; 0172 steps 3-7)",
    "since": "2026-11-18T17:49:09Z",
-   "expires": "2026-11-18T21:49:09Z",
+   "expires": "2026-11-18T21:57:08Z",
    "release": "comms-all.zip",
    "callers": {}
   },
@@ -295,7 +457,7 @@
    "session": "session_01CXLi5jn2WGptsHBfmhEav6",
    "why": "Communications, the rest as one release (0167 email engine; 0172 steps 3-7)",
    "since": "2026-11-18T17:49:09Z",
-   "expires": "2026-11-18T21:49:09Z",
+   "expires": "2026-11-18T21:57:08Z",
    "release": "comms-all.zip",
    "callers": {}
   },
@@ -317,9 +479,13 @@
    "session": "session_01CXLi5jn2WGptsHBfmhEav6",
    "why": "Communications, the rest as one release (0167 email engine; 0172 steps 3-7)",
    "since": "2026-11-18T17:49:09Z",
-   "expires": "2026-11-18T21:49:09Z",
+   "expires": "2026-11-18T21:57:08Z",
    "release": "comms-all.zip",
-   "callers": {}
+   "callers": {
+    "tv_site_settings": [
+     "app/admin/sections.php"
+    ]
+   }
   },
   {
    "path": "website/js/header-nav.js",
@@ -339,7 +505,7 @@
    "session": "session_01CXLi5jn2WGptsHBfmhEav6",
    "why": "Communications, the rest as one release (0167 email engine; 0172 steps 3-7)",
    "since": "2026-11-18T17:49:09Z",
-   "expires": "2026-11-18T21:49:09Z",
+   "expires": "2026-11-18T21:57:08Z",
    "release": "comms-all.zip",
    "callers": {}
   },
@@ -353,7 +519,7 @@
    "session": "session_01CXLi5jn2WGptsHBfmhEav6",
    "why": "Communications, the rest as one release (the Text messages card's words; the six levels)",
    "since": "2026-11-18T17:49:09Z",
-   "expires": "2026-11-18T21:56:12Z",
+   "expires": "2026-11-18T21:57:08Z",
    "release": "comms-all.zip",
    "callers": {}
   },
@@ -377,7 +543,7 @@
    "session": "session_01CXLi5jn2WGptsHBfmhEav6",
    "why": "Communications, the rest as one release (0167 email engine; 0172 steps 3-7)",
    "since": "2026-11-18T17:49:12Z",
-   "expires": "2026-11-18T21:49:12Z",
+   "expires": "2026-11-18T21:57:08Z",
    "release": "comms-all.zip",
    "callers": {}
   },
@@ -399,9 +565,14 @@
    "session": "session_01CXLi5jn2WGptsHBfmhEav6",
    "why": "Communications, the rest as one release (0167 email engine; 0172 steps 3-7)",
    "since": "2026-11-18T17:50:53Z",
-   "expires": "2026-11-18T21:50:53Z",
+   "expires": "2026-11-18T21:57:08Z",
    "release": "comms-all.zip",
-   "callers": {}
+   "callers": {
+    "list": [
+     "app/admin/tools.php",
+     "website/admin/api/sales.php"
+    ]
+   }
   },
   {
    "path": "app/lib/Marketing.php",
@@ -410,9 +581,14 @@
    "session": "session_01CXLi5jn2WGptsHBfmhEav6",
    "why": "Communications, the rest as one release (0167 email engine; 0172 steps 3-7)",
    "since": "2026-11-18T17:50:53Z",
-   "expires": "2026-11-18T21:50:53Z",
+   "expires": "2026-11-18T21:57:08Z",
    "release": "comms-all.zip",
-   "callers": {}
+   "callers": {
+    "all": [
+     "app/lib/BizMessages.php",
+     "website/user/api/marketing.php"
+    ]
+   }
   },
   {
    "path": "website/api/search_listings.php",
@@ -421,7 +597,7 @@
    "session": "session_01CXLi5jn2WGptsHBfmhEav6",
    "why": "Communications, the rest as one release (0167 email engine; 0172 steps 3-7)",
    "since": "2026-11-18T17:50:53Z",
-   "expires": "2026-11-18T21:50:53Z",
+   "expires": "2026-11-18T21:57:08Z",
    "release": "comms-all.zip",
    "callers": {}
   },
@@ -443,9 +619,149 @@
    "session": "session_01CXLi5jn2WGptsHBfmhEav6",
    "why": "Communications, the rest as one release (0167 email engine; 0172 steps 3-7)",
    "since": "2026-11-18T17:50:53Z",
-   "expires": "2026-11-18T21:50:53Z",
+   "expires": "2026-11-18T21:57:08Z",
    "release": "comms-all.zip",
-   "callers": {}
+   "callers": {
+    "esc": [
+     "app/lib/Pulse.php",
+     "app/ui/admin-dashboard.php",
+     "app/ui/card-scanner.php",
+     "app/ui/lead-panel.php",
+     "website/admin/client-order.php",
+     "website/admin/crawler-review.php",
+     "website/admin/listing-edit.php",
+     "website/admin/listing-intake.php",
+     "website/admin/listings.php",
+     "website/admin/nexus.php",
+     "website/admin/people.php",
+     "website/admin/rebuild.php",
+     "website/admin/sales.php",
+     "website/admin/search-misses.php",
+     "website/community/group.php",
+     "website/community/index.php",
+     "website/directory/index.php",
+     "website/discovery/index.php",
+     "website/hub/index.php",
+     "website/journeys/view.php",
+     "website/js/address-book.js",
+     "website/js/admin-builder.js",
+     "website/js/admin-kit.js",
+     "website/js/admin-search.js",
+     "website/js/at-tags.js",
+     "website/js/business-inbox.js",
+     "website/js/cat-more.js",
+     "website/js/claim.js",
+     "website/js/collection.js",
+     "website/js/consent.js",
+     "website/js/engage.js",
+     "website/js/evidence-offers.js",
+     "website/js/gallery.js",
+     "website/js/go-codes.js",
+     "website/js/guest-inquiry.js",
+     "website/js/hero-media.js",
+     "website/js/link-button.js",
+     "website/js/map-view.js",
+     "website/js/photo-viewer.js",
+     "website/js/profile.js",
+     "website/js/search-panel.js",
+     "website/js/section-edit.js",
+     "website/js/suggest.js",
+     "website/js/tv-ai-assist.js",
+     "website/js/tv-art.js",
+     "website/js/tv-blocks.js",
+     "website/js/tv-cost.js",
+     "website/js/tv-join.js",
+     "website/js/tv-moments.js",
+     "website/js/tv-pulse.js",
+     "website/js/tv-stock.js",
+     "website/js/tv-tagcard.js",
+     "website/js/tv-trail.js",
+     "website/js/tv-upgrade.js",
+     "website/js/tv-vault.js",
+     "website/market/index.php",
+     "website/plans.php",
+     "website/user/experiences/index.php",
+     "website/user/journeys/compose.php",
+     "website/user/market/index.php"
+    ],
+    "post": [
+     "app/business/checkout.php",
+     "app/business/marketplace.php",
+     "app/business/storefront.php",
+     "app/lib/Community.php",
+     "app/lib/Experiences.php",
+     "app/lib/Market.php",
+     "app/lib/MarketBiz.php",
+     "app/lib/MarketOffers.php",
+     "app/lib/MemberPosts.php",
+     "app/lib/OneOffs.php",
+     "app/lib/Pulse.php",
+     "website/admin/people.php",
+     "website/admin/search-index.php",
+     "website/admin/search-misses.php",
+     "website/business/router.php",
+     "website/community/group.php",
+     "website/journeys/view.php",
+     "website/js/address-book.js",
+     "website/js/admin-control.js",
+     "website/js/admin-kit.js",
+     "website/js/admin-preflight.js",
+     "website/js/admin-releases.js",
+     "website/js/admin-staging.js",
+     "website/js/business-inbox.js",
+     "website/js/claim.js",
+     "website/js/engage.js",
+     "website/js/guest-inquiry.js",
+     "website/js/header-nav.js",
+     "website/js/link-button.js",
+     "website/js/profile.js",
+     "website/js/tv-env-edit.js",
+     "website/js/tv-moments.js",
+     "website/js/tv-pulse.js",
+     "website/js/tv-stock.js",
+     "website/js/tv-upload.js",
+     "website/listing/businessportal.php",
+     "website/listing/location.php",
+     "website/market/cart.php",
+     "website/market/view.php",
+     "website/user/accounts.php",
+     "website/user/api/posts.php",
+     "website/user/market/index.php",
+     "website/user/notice.php"
+    ],
+    "load": [
+     "app/lib/GeminiCompare.php",
+     "app/lib/OutsideServices.php",
+     "website/admin/crawler-review.php",
+     "website/admin/listing-intake.php",
+     "website/admin/sales.php",
+     "website/api/crawl/irs.php",
+     "website/api/crawl/landmarks.php",
+     "website/api/crawl/npi.php",
+     "website/api/crawl/rec.php",
+     "website/community/group.php",
+     "website/community/index.php",
+     "website/directory/classic.php",
+     "website/js/consent.js",
+     "website/js/evidence-offers.js",
+     "website/js/location-scope.js",
+     "website/js/map-view.js",
+     "website/js/photo-viewer.js",
+     "website/js/stg-bar.js",
+     "website/js/suggest.js",
+     "website/js/tv-art.js",
+     "website/js/tv-domains.js",
+     "website/js/tv-stock.js",
+     "website/market/cart.php"
+    ],
+    "render": [
+     "app/lib/Blocks.php",
+     "app/lib/Qr.php",
+     "website/admin/crawler-review.php",
+     "website/directory/classic.php",
+     "website/js/collection.js"
+    ]
+   }
   },
   {
    "path": "website/admin/sales.php",
@@ -465,7 +781,7 @@
    "session": "session_01CXLi5jn2WGptsHBfmhEav6",
    "why": "Communications, the rest as one release (0167 email engine; 0172 steps 3-7)",
    "since": "2026-11-18T17:50:53Z",
-   "expires": "2026-11-18T21:50:53Z",
+   "expires": "2026-11-18T21:57:08Z",
    "release": "comms-all.zip",
    "callers": {}
   },
@@ -476,7 +792,579 @@
    "session": "session_01CXLi5jn2WGptsHBfmhEav6",
    "why": "Communications, the rest as one release (0167 email engine; 0172 steps 3-7)",
    "since": "2026-11-18T17:50:53Z",
-   "expires": "2026-11-18T21:50:53Z",
+   "expires": "2026-11-18T21:57:08Z",
+   "release": "comms-all.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/comms-console.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "release comms-all.zip",
+   "since": "2026-11-18T17:57:08Z",
+   "expires": "2026-11-18T21:57:08Z",
+   "release": "comms-all.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/inbox-console.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "release comms-all.zip",
+   "since": "2026-11-18T17:57:08Z",
+   "expires": "2026-11-18T21:57:08Z",
+   "release": "comms-all.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/ui/comms-setting.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "release comms-all.zip",
+   "since": "2026-11-18T17:57:08Z",
+   "expires": "2026-11-18T21:57:08Z",
+   "release": "comms-all.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/migrations/2027-03-20_listing_messages.sql",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "release comms-all.zip",
+   "since": "2026-11-18T17:57:08Z",
+   "expires": "2026-11-18T21:57:08Z",
+   "release": "comms-all.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/migrations/2027-03-20_comms_engine.sql",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "release comms-all.zip",
+   "since": "2026-11-18T17:57:08Z",
+   "expires": "2026-11-18T21:57:08Z",
+   "release": "comms-all.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/scripts/mail_sync.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "release comms-all.zip",
+   "since": "2026-11-18T17:57:08Z",
+   "expires": "2026-11-18T21:57:08Z",
+   "release": "comms-all.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/scripts/booking_remind.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "release comms-all.zip",
+   "since": "2026-11-18T17:57:08Z",
+   "expires": "2026-11-18T21:57:08Z",
+   "release": "comms-all.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/scripts/listing_messages_tick.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "release comms-all.zip",
+   "since": "2026-11-18T17:57:08Z",
+   "expires": "2026-11-18T21:57:08Z",
+   "release": "comms-all.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/scripts/mail_keep.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "release comms-all.zip",
+   "since": "2026-11-18T17:57:08Z",
+   "expires": "2026-11-18T21:57:08Z",
+   "release": "comms-all.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/scripts/pulse_followup.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "release comms-all.zip",
+   "since": "2026-11-18T17:57:08Z",
+   "expires": "2026-11-18T21:57:08Z",
+   "release": "comms-all.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/CommsSetup.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "release comms-all.zip",
+   "since": "2026-11-18T17:57:08Z",
+   "expires": "2026-11-18T21:57:08Z",
+   "release": "comms-all.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/MailMime.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "release comms-all.zip",
+   "since": "2026-11-18T17:57:08Z",
+   "expires": "2026-11-18T21:57:08Z",
+   "release": "comms-all.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/CommsBody.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "release comms-all.zip",
+   "since": "2026-11-18T17:57:08Z",
+   "expires": "2026-11-18T21:57:08Z",
+   "release": "comms-all.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/MsGraphMail.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "release comms-all.zip",
+   "since": "2026-11-18T17:57:08Z",
+   "expires": "2026-11-18T21:57:08Z",
+   "release": "comms-all.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/ListingMessages.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "release comms-all.zip",
+   "since": "2026-11-18T17:57:08Z",
+   "expires": "2026-11-18T21:57:08Z",
+   "release": "comms-all.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/MailPop.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "release comms-all.zip",
+   "since": "2026-11-18T17:57:08Z",
+   "expires": "2026-11-18T21:57:08Z",
+   "release": "comms-all.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/CommentNotices.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "release comms-all.zip",
+   "since": "2026-11-18T17:57:08Z",
+   "expires": "2026-11-18T21:57:08Z",
+   "release": "comms-all.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/MailImap.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "release comms-all.zip",
+   "since": "2026-11-18T17:57:08Z",
+   "expires": "2026-11-18T21:57:08Z",
+   "release": "comms-all.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Bookings.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "release comms-all.zip",
+   "since": "2026-11-18T17:57:08Z",
+   "expires": "2026-11-18T21:57:08Z",
+   "release": "comms-all.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/CPanelMail.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "release comms-all.zip",
+   "since": "2026-11-18T17:57:08Z",
+   "expires": "2026-11-18T21:57:08Z",
+   "release": "comms-all.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/MailSmtp.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "release comms-all.zip",
+   "since": "2026-11-18T17:57:08Z",
+   "expires": "2026-11-18T21:57:08Z",
+   "release": "comms-all.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/SesMail.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "release comms-all.zip",
+   "since": "2026-11-18T17:57:08Z",
+   "expires": "2026-11-18T21:57:08Z",
+   "release": "comms-all.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Mailboxes.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "release comms-all.zip",
+   "since": "2026-11-18T17:57:08Z",
+   "expires": "2026-11-18T21:57:08Z",
+   "release": "comms-all.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/SesInbound.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "release comms-all.zip",
+   "since": "2026-11-18T17:57:08Z",
+   "expires": "2026-11-18T21:57:08Z",
+   "release": "comms-all.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/WebPush.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "release comms-all.zip",
+   "since": "2026-11-18T17:57:08Z",
+   "expires": "2026-11-18T21:57:08Z",
+   "release": "comms-all.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/GroupNotices.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "release comms-all.zip",
+   "since": "2026-11-18T17:57:08Z",
+   "expires": "2026-11-18T21:57:08Z",
+   "release": "comms-all.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/PulseMarks.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "release comms-all.zip",
+   "since": "2026-11-18T17:57:08Z",
+   "expires": "2026-11-18T21:57:08Z",
+   "release": "comms-all.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/CommsCrypt.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "release comms-all.zip",
+   "since": "2026-11-18T17:57:08Z",
+   "expires": "2026-11-18T21:57:08Z",
+   "release": "comms-all.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Community.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "release comms-all.zip",
+   "since": "2026-11-18T17:57:08Z",
+   "expires": "2026-11-18T21:57:08Z",
+   "release": "comms-all.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Claims.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "release comms-all.zip",
+   "since": "2026-11-18T17:57:08Z",
+   "expires": "2026-11-18T21:57:08Z",
+   "release": "comms-all.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/listing/api/leave.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "release comms-all.zip",
+   "since": "2026-11-18T17:57:08Z",
+   "expires": "2026-11-18T21:57:08Z",
+   "release": "comms-all.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/listing/confirm.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "release comms-all.zip",
+   "since": "2026-11-18T17:57:08Z",
+   "expires": "2026-11-18T21:57:08Z",
+   "release": "comms-all.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/listing/requests.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "release comms-all.zip",
+   "since": "2026-11-18T17:57:08Z",
+   "expires": "2026-11-18T21:57:08Z",
+   "release": "comms-all.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/admin/sales.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "release comms-all.zip",
+   "since": "2026-11-18T17:57:08Z",
+   "expires": "2026-11-18T21:57:08Z",
+   "release": "comms-all.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/admin/api/comms.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "release comms-all.zip",
+   "since": "2026-11-18T17:57:08Z",
+   "expires": "2026-11-18T21:57:08Z",
+   "release": "comms-all.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/user/api/mailboxes.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "release comms-all.zip",
+   "since": "2026-11-18T17:57:08Z",
+   "expires": "2026-11-18T21:57:08Z",
+   "release": "comms-all.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/user/api/pulse-msg.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "release comms-all.zip",
+   "since": "2026-11-18T17:57:08Z",
+   "expires": "2026-11-18T21:57:08Z",
+   "release": "comms-all.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/user/api/push.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "release comms-all.zip",
+   "since": "2026-11-18T17:57:08Z",
+   "expires": "2026-11-18T21:57:08Z",
+   "release": "comms-all.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/user/api/marks.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "release comms-all.zip",
+   "since": "2026-11-18T17:57:08Z",
+   "expires": "2026-11-18T21:57:08Z",
+   "release": "comms-all.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/push-sw.js",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "release comms-all.zip",
+   "since": "2026-11-18T17:57:08Z",
+   "expires": "2026-11-18T21:57:08Z",
+   "release": "comms-all.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/api/booking-act.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "release comms-all.zip",
+   "since": "2026-11-18T17:57:08Z",
+   "expires": "2026-11-18T21:57:08Z",
+   "release": "comms-all.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/api/group-act.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "release comms-all.zip",
+   "since": "2026-11-18T17:57:08Z",
+   "expires": "2026-11-18T21:57:08Z",
+   "release": "comms-all.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/api/ses-inbound.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "release comms-all.zip",
+   "since": "2026-11-18T17:57:08Z",
+   "expires": "2026-11-18T21:57:08Z",
+   "release": "comms-all.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/api/ms-mail.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "release comms-all.zip",
+   "since": "2026-11-18T17:57:08Z",
+   "expires": "2026-11-18T21:57:08Z",
+   "release": "comms-all.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/api/comment-act.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "release comms-all.zip",
+   "since": "2026-11-18T17:57:08Z",
+   "expires": "2026-11-18T21:57:08Z",
+   "release": "comms-all.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/directory/index.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "release comms-all.zip",
+   "since": "2026-11-18T17:57:08Z",
+   "expires": "2026-11-18T21:57:08Z",
+   "release": "comms-all.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/js/admin-inbox.js",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "release comms-all.zip",
+   "since": "2026-11-18T17:57:08Z",
+   "expires": "2026-11-18T21:57:08Z",
+   "release": "comms-all.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/js/listing-leave.js",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "release comms-all.zip",
+   "since": "2026-11-18T17:57:08Z",
+   "expires": "2026-11-18T21:57:08Z",
+   "release": "comms-all.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/js/tv-push.js",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "release comms-all.zip",
+   "since": "2026-11-18T17:57:08Z",
+   "expires": "2026-11-18T21:57:08Z",
+   "release": "comms-all.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/js/pulse-msg.js",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "release comms-all.zip",
+   "since": "2026-11-18T17:57:08Z",
+   "expires": "2026-11-18T21:57:08Z",
+   "release": "comms-all.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/js/admin-comms.js",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "release comms-all.zip",
+   "since": "2026-11-18T17:57:08Z",
+   "expires": "2026-11-18T21:57:08Z",
+   "release": "comms-all.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/js/header-nav.js",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "release comms-all.zip",
+   "since": "2026-11-18T17:57:08Z",
+   "expires": "2026-11-18T21:57:08Z",
    "release": "comms-all.zip",
    "callers": {}
   }
