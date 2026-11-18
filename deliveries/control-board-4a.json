@@ -3,72 +3,72 @@
  "built_on": "2b5e447 Sync: 2026-11-18 22:50 UTC",
  "recorded": "2026-11-18 22:51 UTC",
  "note": "Control Board 4a: maintenance (take out, Put back after its check, windows set ahead), the upkeep calendar, the read-only unused list; the pre-flight line's amber, the alarm filter button, river blue, control_maint_hours (decisions/0171 \u00a72.5). Built on Sync: 2026-11-18 22:50 UTC (faq.md on the faq-restore) Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "0e4906b Sync: 2026-11-18 22:55 UTC",
  "files": {
   "app/admin/control-console.php": {
    "sha256": "f02eded0b0fde6c09676ee3706341e5da34a660f7f6a7df83344f245a2d4064d",
-   "live": false
+   "live": true
   },
   "app/admin/sections.php": {
    "sha256": "84d2df6b5db29f7cf3d7ab69254822d151553971de827e1156de9d121c2adc67",
-   "live": false
+   "live": true
   },
   "app/lib/ControlAlarms.php": {
    "sha256": "b6d2651e5f95173368d39c03d2179137d4563e119485f2e951c7f0c4280d60f3",
-   "live": false
+   "live": true
   },
   "app/lib/ControlMaintenance.php": {
    "sha256": "0580e8c87522770dfa4b7db55a0783d127941ce551a8b1e01d7540367950f2a8",
-   "live": false
+   "live": true
   },
   "app/lib/Preflight.php": {
    "sha256": "1e44dc01b7747d69d1150b7ce5a00a85f78e0f16de4c95d1a8454c4599662ec6",
-   "live": false
+   "live": true
   },
   "app/lib/Pulse.php": {
    "sha256": "c63f527ee75edf62ca3a889ccbda99d23d81244a4966d8e6a752643f198ae209",
-   "live": false
+   "live": true
   },
   "app/lib/Scheduler.php": {
    "sha256": "d0218b7bda07836ae4eef280329bc6f5d147f84a9afa08d6ef6c5293ea8822bc",
-   "live": false
+   "live": true
   },
   "app/lib/SchemaUpkeep.php": {
    "sha256": "23636bc21bffade644a934c267b8892b4b048f6b1d002964b985a627d554d908",
-   "live": false
+   "live": true
   },
   "app/lib/SystemStart.php": {
    "sha256": "c14e14800c4d8c27baaa5ad30967087e60dc6ae206b30caefbdae01194d5d2a8",
-   "live": false
+   "live": true
   },
   "app/lib/Thresholds.php": {
    "sha256": "ecf21cdcbcb9266a44028d2a2f814072e46c9599db4f4ff08ae5c92132518cb5",
-   "live": false
+   "live": true
   },
   "app/lib/staging-tables.php": {
    "sha256": "0fa8639fc3781423672ff4173218d54c5105f31722686990157b38a469ef8586",
-   "live": false
+   "live": true
   },
   "app/migrations/2026-11-19_control_maintenance.sql": {
    "sha256": "db842ccdbfbfe1de7450fe34a76e02f78a6cf4164ab66db70715c56a184e26fd",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "a81f7bf87c4073ecd2f206d1cc9c40351df6545e5c0a13b458caa4eadfae8ce4",
-   "live": false
+   "live": true
   },
   "website/admin/api.php": {
    "sha256": "08bd513047b4ced1f271d926ec6f00894d33b112292a4df09a7e6f150b8ab3ec",
-   "live": false
+   "live": true
   },
   "website/api/health.php": {
    "sha256": "3d31950ddbece6da477edca8e9379864c7228ffe41edc8105d7dabdd31b35ad0",
-   "live": false
+   "live": true
   },
   "website/js/admin-control.js": {
    "sha256": "18177b126d03b1b1a9a9757c36b2b67dda43eb4186f9568cf104cf4f7d7f0ba7",
-   "live": false
+   "live": true
   }
  }
 }
