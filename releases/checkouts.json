@@ -180,17 +180,21 @@
   {
    "path": "app/lib/Pulse.php",
    "functions": [
-    "SEVERITY"
+    "SEVERITY",
+    "SLA_HOURS"
    ],
    "kind": "change",
    "session": "session_01CXLi5jn2WGptsHBfmhEav6",
    "why": "Communications, the rest as one release (0167 email engine; 0172 steps 3-7)",
    "since": "2026-11-18T17:21:27Z",
-   "expires": "2026-11-18T21:21:27Z",
+   "expires": "2026-11-18T21:49:09Z",
    "release": "comms-all.zip",
    "callers": {
     "SEVERITY": [
      "app/lib/Notify.php",
+     "app/ui/pulse-ui.php"
+    ],
+    "SLA_HOURS": [
      "app/ui/pulse-ui.php"
     ]
    }
@@ -214,6 +218,153 @@
    "why": "Communications, the rest as one release (0167 email engine; 0172 steps 3-7)",
    "since": "2026-11-18T17:21:29Z",
    "expires": "2026-11-18T21:21:29Z",
+   "release": "comms-all.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Reports.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "Communications, the rest as one release (0167 email engine; 0172 steps 3-7)",
+   "since": "2026-11-18T17:49:09Z",
+   "expires": "2026-11-18T21:49:09Z",
+   "release": "comms-all.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/MarketCheckout.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "Communications, the rest as one release (0167 email engine; 0172 steps 3-7)",
+   "since": "2026-11-18T17:49:09Z",
+   "expires": "2026-11-18T21:49:09Z",
+   "release": "comms-all.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Community.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "Communications, the rest as one release (0167 email engine; 0172 steps 3-7)",
+   "since": "2026-11-18T17:49:09Z",
+   "expires": "2026-11-18T21:49:09Z",
+   "release": "comms-all.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/ui/engage-ui.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "Communications, the rest as one release (0167 email engine; 0172 steps 3-7)",
+   "since": "2026-11-18T17:49:09Z",
+   "expires": "2026-11-18T21:49:09Z",
+   "release": "comms-all.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/js/engage.js",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "Communications, the rest as one release (0167 email engine; 0172 steps 3-7)",
+   "since": "2026-11-18T17:49:09Z",
+   "expires": "2026-11-18T21:49:09Z",
+   "release": "comms-all.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/api/engage.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "Communications, the rest as one release (0167 email engine; 0172 steps 3-7)",
+   "since": "2026-11-18T17:49:09Z",
+   "expires": "2026-11-18T21:49:09Z",
+   "release": "comms-all.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/js/tv-pulse.js",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "Communications, the rest as one release (0167 email engine; 0172 steps 3-7)",
+   "since": "2026-11-18T17:49:09Z",
+   "expires": "2026-11-18T21:49:09Z",
+   "release": "comms-all.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/SesMail.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "Communications, the rest as one release (0167 email engine; 0172 steps 3-7)",
+   "since": "2026-11-18T17:49:09Z",
+   "expires": "2026-11-18T21:49:09Z",
+   "release": "comms-all.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/ui/outside-services.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "Communications, the rest as one release (0167 email engine; 0172 steps 3-7)",
+   "since": "2026-11-18T17:49:09Z",
+   "expires": "2026-11-18T21:49:09Z",
+   "release": "comms-all.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/js/header-nav.js",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "Communications, the rest as one release (0167 email engine; 0172 steps 3-7)",
+   "since": "2026-11-18T17:49:09Z",
+   "expires": "2026-11-18T21:49:09Z",
+   "release": "comms-all.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/user/api/comms.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "Communications, the rest as one release (0167 email engine; 0172 steps 3-7)",
+   "since": "2026-11-18T17:49:09Z",
+   "expires": "2026-11-18T21:49:09Z",
+   "release": "comms-all.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/manifests.php",
+   "functions": [
+    "notify"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "Communications, the rest as one release (0167 email engine; 0172 steps 3-7)",
+   "since": "2026-11-18T17:49:09Z",
+   "expires": "2026-11-18T21:49:09Z",
+   "release": "comms-all.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/sections.php",
+   "functions": [
+    "(top)"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
+   "why": "Communications, the rest as one release (0167 email engine; 0172 steps 3-7)",
+   "since": "2026-11-18T17:49:09Z",
+   "expires": "2026-11-18T21:49:09Z",
    "release": "comms-all.zip",
    "callers": {}
   }
