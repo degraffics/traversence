@@ -10,7 +10,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "Control Board 3a: alarms, the queue, the result line (decisions/0171 \u00a75, \u00a77, \u00a78)",
    "since": "2026-11-18T19:43:59Z",
-   "expires": "2026-11-18T23:43:59Z",
+   "expires": "2026-11-18T23:44:29Z",
    "release": "control-board-3a.zip",
    "callers": {}
   },
@@ -23,7 +23,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "Control Board 3a: alarms, the queue, the result line (decisions/0171 \u00a75, \u00a77, \u00a78)",
    "since": "2026-11-18T19:43:59Z",
-   "expires": "2026-11-18T23:43:59Z",
+   "expires": "2026-11-18T23:44:29Z",
    "release": "control-board-3a.zip",
    "callers": {}
   },
@@ -50,7 +50,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "Control Board 3a: alarms, the queue, the result line (decisions/0171 \u00a75, \u00a77, \u00a78)",
    "since": "2026-11-18T19:43:59Z",
-   "expires": "2026-11-18T23:43:59Z",
+   "expires": "2026-11-18T23:44:29Z",
    "release": "control-board-3a.zip",
    "callers": {
     "items": [
@@ -94,7 +94,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "Control Board 3a: alarms, the queue, the result line (decisions/0171 \u00a75, \u00a77, \u00a78)",
    "since": "2026-11-18T19:43:59Z",
-   "expires": "2026-11-18T23:43:59Z",
+   "expires": "2026-11-18T23:44:29Z",
    "release": "control-board-3a.zip",
    "callers": {
     "resolve": [
@@ -146,7 +146,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "Control Board 3a: alarms, the queue, the result line (decisions/0171 \u00a75, \u00a77, \u00a78)",
    "since": "2026-11-18T19:43:59Z",
-   "expires": "2026-11-18T23:43:59Z",
+   "expires": "2026-11-18T23:44:29Z",
    "release": "control-board-3a.zip",
    "callers": {
     "process": [
@@ -168,7 +168,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "Control Board 3a: alarms, the queue, the result line (decisions/0171 \u00a75, \u00a77, \u00a78)",
    "since": "2026-11-18T19:43:59Z",
-   "expires": "2026-11-18T23:43:59Z",
+   "expires": "2026-11-18T23:44:29Z",
    "release": "control-board-3a.zip",
    "callers": {}
   },
@@ -181,7 +181,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "Control Board 3a: alarms, the queue, the result line (decisions/0171 \u00a75, \u00a77, \u00a78)",
    "since": "2026-11-18T19:43:59Z",
-   "expires": "2026-11-18T23:43:59Z",
+   "expires": "2026-11-18T23:44:29Z",
    "release": "control-board-3a.zip",
    "callers": {}
   },
@@ -208,7 +208,84 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "Control Board 3a: alarms, the queue, the result line (decisions/0171 \u00a75, \u00a77, \u00a78)",
    "since": "2026-11-18T19:43:59Z",
-   "expires": "2026-11-18T23:43:59Z",
+   "expires": "2026-11-18T23:44:29Z",
+   "release": "control-board-3a.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/scripts/control_tick.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "release control-board-3a.zip",
+   "since": "2026-11-18T19:44:29Z",
+   "expires": "2026-11-18T23:44:29Z",
+   "release": "control-board-3a.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Notify.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "release control-board-3a.zip",
+   "since": "2026-11-18T19:44:29Z",
+   "expires": "2026-11-18T23:44:29Z",
+   "release": "control-board-3a.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/ControlLedger.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "release control-board-3a.zip",
+   "since": "2026-11-18T19:44:29Z",
+   "expires": "2026-11-18T23:44:29Z",
+   "release": "control-board-3a.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/ControlAlarms.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "release control-board-3a.zip",
+   "since": "2026-11-18T19:44:29Z",
+   "expires": "2026-11-18T23:44:29Z",
+   "release": "control-board-3a.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/crawler/CrawlService.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "release control-board-3a.zip",
+   "since": "2026-11-18T19:44:29Z",
+   "expires": "2026-11-18T23:44:29Z",
+   "release": "control-board-3a.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Preflight.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "release control-board-3a.zip",
+   "since": "2026-11-18T19:44:29Z",
+   "expires": "2026-11-18T23:44:29Z",
+   "release": "control-board-3a.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/admin/api.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "release control-board-3a.zip",
+   "since": "2026-11-18T19:44:29Z",
+   "expires": "2026-11-18T23:44:29Z",
    "release": "control-board-3a.zip",
    "callers": {}
   }
