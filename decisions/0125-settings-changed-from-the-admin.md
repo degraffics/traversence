@@ -37,3 +37,8 @@ in .env, is coming."
 **Note (2026-11-11, decisions/0152):** Settings is rebuilt in the new admin. A setting that belongs to an outside company
 (the AWS sign-in link and region, the storage bucket, plan prices, the AI cap, the domain switches) is changed on that
 company's card in Outside services; the rest stay in Settings, in groups.
+
+**Note (2026-11-17, releases #73, #74):** a setting with set answers (Domain sales, Own domains on storefronts, Name.com
+sandbox or live, Ways clients can pay) opens its choices, each saying what it does, the current one marked, and shows
+the choice's name, not its code; after a save the page offers the step that finishes the job as a button (Jason: "We
+use intuitive processing for action steps"). One shared script, `js/tv-env-edit.js`, on Settings and the company cards.

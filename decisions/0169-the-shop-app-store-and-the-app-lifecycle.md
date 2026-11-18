@@ -1,7 +1,8 @@
 # 0169: The Shop's App store, and one lifecycle for every app
 
-Status: accepted (Jason, 2026-11-16: "perfect", with the order of the first apps). Not built; first in the queue in
-`handoffs/session-manager.md`.
+Status: accepted (Jason, 2026-11-16: "perfect", with the order of the first apps). §1a, Domains in the Shop and the
+Domains tab, built 2026-11-17 (releases #71–#77, #81–#83, #86; `handoffs/domains.md`); sales stay off until Domain sales
+is set. The App store and the lifecycle (§1–§6) not built; first in the queue in `handoffs/session-manager.md`.
 Builds on: 0035/0037 (a person is their own account; a business is a listing they manage), 0098 (the order system),
 0108 (plans), 0135 (businesses' own Stripe and Square), 0152 (Outside services), 0154 §6 (the Shop and one cart), 0155
 (add-ons and 1Password), 0166 (payments and bookkeeping), 0168 (Facebook and Instagram).
@@ -76,6 +77,12 @@ integrate the domain buy process into the storefront process."
   Connect your domain only (0139). The sandbox rules hold on the new switch (test mode, test accounts, the staging copy;
   live refused while `NAMECOM_ENV` is sandbox), and a sale's Name.com calls follow only the sales switch
   (`Domains::forSales`). Release `domain-sales-switch`.
+- **Note (2026-11-17, releases #71–#86):** built as #71 (#70 never went live), the sales switch #72. Since: Test lets
+  the Founder in (#74); a test searches Name.com live, read only, and buys in the sandbox (#75; Jason: "Live prices and
+  testing purchase sounds like a much better UI and UX for me"); Name.com's Core API, 1 to 10 years at its real total,
+  only the terms it sells, the cost a year shown (#76, #77, #81); the registrant's confirmation followed until done,
+  Critical in Pulse at 3 days left (#81); the prices our account pays on the Name.com card (#82); .app and .ai (#83);
+  "available", not "free" (#86).
 
 ### 2. Apps belong to accounts, members and businesses alike
 

@@ -153,6 +153,13 @@ when they're missing); a refusal is remembered, businesses see "Buying a domain 
 link and **Check again**; the 15-minute domains job re-checks, so buying reopens by itself. `DOMAINS_MODE=live` with
 the sandbox refuses to sell, so no real charge is ever made for a sandbox domain.
 
+**Note (2026-11-17, releases #72, #74, #76, #93, #102):** `DOMAINS_MODE` is again only the storefront's Connect your
+domain; domain sales have their own switch (0169 §1a, #72). Its test mode counts our whole team, the Founder's admin
+login included (`Domains::isTeam`, #74). The storefront's own buy and renew moved with every Name.com call to the Core
+API (`/core/v1`, was v4), with Name.com's pricing guide followed: registrations only, no `purchasePrice` on a standard
+name or renewal, Name.com's auto-renew off, an idempotency key (#76). The edge's certificates take Fly's `FlyV1 …` token
+as it is, any other as Bearer (#93). Fly and Name.com calls ask staging's gate first (0165 §1, #102).
+
 **Note (2026-11-13, decisions/0158):** storefront changes become drafts until Publish, with versions and Roll back, and the staging bar on the team's preview. Publish is the team role's `publish` permission. Scheduling waits for Jason.
 
 **Note (2026-11-13, decisions/0159):** storefront pages are built in Storefront Studio (blocks, themes, the team's Publish) and stay script-free on trvgo.us.

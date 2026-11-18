@@ -1,6 +1,6 @@
 # ADR 0158: One way to publish: our site's releases and businesses' storefronts
 
-**Status:** Accepted (Jason, 2026-11-13), one point left open (§6). Not built yet. It extends `decisions/0145` (planned,
+**Status:** Accepted (Jason, 2026-11-13), one point left open (§6). Partly built (release #41, note at the end). It extends `decisions/0145` (planned,
 phased releases, Phase 5: the Releases page and the staging bar), `0139` (storefronts on trvgo.us) and `0141` (Market
 360°: publishing from the catalog card), and keeps `0127` (one uploader) and `0129` (the command strip).
 
@@ -76,3 +76,8 @@ Each is a release (0145 note, 2026-11-13), tried on staging first.
 - One bar to learn, for our team and for businesses.
 
 **Note (2026-11-13, decisions/0159):** the shared core (blocks, versions, the bar) and Storefront Studio as the listings level of one builder.
+
+**Note (2026-11-14, release #41):** build order step 1 is built for a storefront's pages (decisions/0159's Storefront
+Studio 5a): each page waits as a draft only its team sees, the team's Publish permission publishes it with no approval,
+and each publish keeps a version with Roll back. The look and the shop's settings as a draft version, the bar on the
+storefront's preview (step 2) and catalog items (step 3) aren't built yet.

@@ -1,6 +1,6 @@
 # Decision register
 
-Decision 0145 §1a. Generated on 2026-11-18 09:17 UTC from `decisions/` and the live mirror (`9c33912`). Don't edit by hand:
+Decision 0145 §1a. Generated on 2026-11-18 13:02 UTC from `decisions/` and the live mirror (`9c33912`). Don't edit by hand:
 edit the decision, and this follows. "Missing files" are files a decision names that the site no longer has: the
 decision may be stale, or the file moved.
 
@@ -107,7 +107,7 @@ decision may be stale, or the file moved.
 | 0099 | [0099. E-Commerce operations: six departments, the order lifecycle, and outsourced vendors](0099-e-commerce-operations-departments-and-vendors.md) | accepted |  |  | 0 |  |
 | 0100 | [0100. Staff logins, separate from member accounts](0100-staff-logins.md) | accepted |  |  | 8 |  |
 | 0101 | [0101 — Orders we build for a client, and the product catalog](0101-client-orders-and-catalog.md) | accepted |  |  | 11 |  |
-| 0102 | [0102: Roles and support access (RBAC master)](0102-roles-and-support-access.md) | accepted |  |  | 1 |  |
+| 0102 | [0102: Roles and support access (RBAC master)](0102-roles-and-support-access.md) | proposed |  |  | 1 |  |
 | 0103 | [0103: Ending, transfer and inactivity](0103-ending-transfer-and-inactivity.md) | accepted |  |  | 0 |  |
 | 0104 | [0104: Admin workspaces, Wave 0 (foundations)](0104-admin-workspaces-wave-0.md) | accepted |  |  | 3 |  |
 | 0105 | [0105: Workspaces 1 and 2, Dashboard and Pulse](0105-dashboard-and-pulse.md) | accepted |  |  | 10 |  |
@@ -118,7 +118,7 @@ decision may be stale, or the file moved.
 | 0110 | [0110: Data separation: three realms (member, business, admin), walls in the database, not only in the code](0110-data-separation.md) | accepted |  | 1 | 0 |  |
 | 0111 | [0111: Customers (CRM), built in our admin first](0111-customers-crm.md) | accepted |  |  | 0 |  |
 | 0112 | [0112: Taxes and shipping, price lists, and Storefront & pages, built in our admin first](0112-taxes-shipping-pricelists-pages.md) | accepted |  | 1 | 2 | `website/_errors/404.php` |
-| 0113 | [0113: Scheduled tasks, set from the admin through the cPanel API](0113-scheduled-tasks.md) | accepted |  |  | 7 |  |
+| 0113 | [0113: Scheduled tasks, set from the admin through the cPanel API](0113-scheduled-tasks.md) | accepted |  | 1 | 8 |  |
 | 0114 | [0114: Navigation: one place for where, one for what](0114-navigation-where-and-what.md) | accepted |  |  | 4 |  |
 | 0115 | [0115: The business portal's foundation: one engine, scoped to a business, walled in the database](0115-business-portal-foundation.md) | accepted |  |  | 5 |  |
 | 0116 | [0116: The catalog in the business portal (step 2, first tool)](0116-catalog-in-the-business-portal.md) | accepted |  |  | 1 |  |
@@ -128,9 +128,9 @@ decision may be stale, or the file moved.
 | 0120 | [0120: Handing over a business; proofs and files on quotes, counting against storage](0120-handover-and-quote-files.md) | accepted | 0122 |  | 1 |  |
 | 0121 | [0121: A business's own discount codes](0121-business-discount-codes.md) | accepted |  |  | 2 |  |
 | 0122 | [0122: Business files go straight to S3](0122-business-files-straight-to-s3.md) | accepted |  | 1 | 0 |  |
-| 0123 | [0123: Every file the site keeps lives in S3](0123-all-files-on-s3.md) | accepted |  |  | 3 |  |
+| 0123 | [0123: Every file the site keeps lives in S3](0123-all-files-on-s3.md) | accepted |  | 1 | 3 |  |
 | 0124 | [0124: Every owner's files in one folder; moving them on a schedule](0124-owner-folders-and-files-schedule.md) | accepted |  |  | 3 |  |
-| 0125 | [0125: Plain settings changed from the admin, not File Manager](0125-settings-changed-from-the-admin.md) | accepted |  | 1 | 0 |  |
+| 0125 | [0125: Plain settings changed from the admin, not File Manager](0125-settings-changed-from-the-admin.md) | accepted |  | 2 | 0 |  |
 | 0126 | [0126: The gallery, one module for every photo and video](0126-gallery.md) | accepted |  |  | 4 |  |
 | 0127 | [0127: One uploader for every file](0127-one-uploader.md) | accepted |  |  | 4 |  |
 | 0128 | [0128: QuickBooks invoices into Traversence orders, and one product list across both](0128-quickbooks-invoices-and-products.md) | accepted |  |  | 4 |  |
@@ -144,35 +144,35 @@ decision may be stale, or the file moved.
 | 0136 | [Topic Groups, Chapters, and the Places a Group Is About](0136-topic-groups-and-chapters.md) | accepted |  |  | 7 |  |
 | 0137 | [Group Charters, the Group Page, Group-Led Moderation, and Notices](0137-group-charters-page-moderation.md) | accepted |  | 1 | 20 |  |
 | 0138 | [The Home Page: Search First, Four Doors, Five Tabs, Honest When Thin](0138-home-page.md) | accepted |  | 1 | 4 |  |
-| 0139 | [Storefronts on trvgo.us and Businesses' Own Domains](0139-storefronts-and-domains.md) | accepted |  | 3 | 7 |  |
+| 0139 | [Storefronts on trvgo.us and Businesses' Own Domains](0139-storefronts-and-domains.md) | accepted |  | 4 | 7 |  |
 | 0140 | [Market 360 for a Business: One Module, Guided Segments](0140-market-360-for-a-business.md) | accepted |  |  | 4 |  |
 | 0141 | [Market 360° Architecture: Four Levels, Six Modules, Nine Item Kinds](0141-market-360-architecture.md) | accepted |  | 1 | 5 |  |
 | 0142 | [Terms, Store Policies and the Acceptance Log](0142-terms-policies-and-acceptance-log.md) | proposed |  | 1 | 3 |  |
 | 0143 | [The Stock Library: a System Repository of Non-User Photos](0143-stock-library.md) | accepted |  | 2 | 35 |  |
 | 0144 | [Word Suggestions and the List ⓘ](0144-word-suggestions-and-list-help.md) | accepted |  |  | 3 |  |
-| 0145 | [The Site Audit and Phased Releases](0145-site-audit-and-phased-releases.md) | accepted |  | 8 | 1 |  |
+| 0145 | [The Site Audit and Phased Releases](0145-site-audit-and-phased-releases.md) | accepted |  | 9 | 1 |  |
 | 0146 | [Suggested Journeys from Guides](0146-suggested-journeys-from-guides.md) | accepted |  | 1 | 2 |  |
 | 0147 | [Guides and Journeys on Demand](0147-guides-and-journeys-on-demand.md) | accepted |  | 1 | 0 |  |
 | 0148 | [Places on Demand](0148-places-on-demand.md) | accepted |  | 1 | 0 |  |
 | 0149 | [Listings on Demand](0149-listings-on-demand.md) | accepted |  | 1 | 0 |  |
 | 0150 | [Vendor links (one page of a vendor's work orders, 30 days)](0150-vendor-links.md) | accepted |  |  | 9 |  |
 | 0151 | [Files on Cloudflare R2 (no charge when people view or play them)](0151-files-on-cloudflare-r2.md) | accepted |  |  | 1 |  |
-| 0152 | [Outside services, one card per company; Settings rebuilt in the new admin](0152-outside-services-by-company.md) | accepted |  | 6 | 1 |  |
+| 0152 | [Outside services, one card per company; Settings rebuilt in the new admin](0152-outside-services-by-company.md) | accepted |  | 7 | 1 |  |
 | 0153 | [Moments, Snaps and Keep (the personal feed)](0153-moments-snaps-and-keep.md) | accepted |  |  | 9 |  |
 | 0154 | [Free, Creator and Business: Who Pays for What, and How Upgrades Are Offered](0154-free-creator-and-business-balance.md) | accepted |  | 1 | 6 |  |
 | 0155 | [Add-ons (plug-in modules) and 1Password, resold and managed from our site](0155-add-ons-and-1password.md) | proposed | 0169 | 3 | 0 |  |
 | 0156 | [The Vault: passwords only their owner can open](0156-the-vault.md) | accepted |  | 6 | 2 |  |
 | 0157 | [Our own index: reading pages and reading searches](0157-our-own-index-reading-pages-and-searches.md) | accepted |  | 1 | 1 |  |
-| 0158 | [One way to publish: our site's releases and businesses' storefronts](0158-one-way-to-publish.md) | accepted |  | 1 | 0 |  |
+| 0158 | [One way to publish: our site's releases and businesses' storefronts](0158-one-way-to-publish.md) | accepted |  | 2 | 0 |  |
 | 0159 | [The builder: Traversence's platform builder and Storefront Studio](0159-the-builder-platform-and-storefront-studio.md) | accepted |  | 1 | 1 |  |
-| 0160 | [The crawler as one service, and each creation workflow start to finish](0160-the-crawler-as-a-service-and-the-creation-workflows.md) | accepted |  | 2 | 0 |  |
+| 0160 | [The crawler as one service, and each creation workflow start to finish](0160-the-crawler-as-a-service-and-the-creation-workflows.md) | accepted |  | 3 | 0 |  |
 | 0161 | [Check-out for site files: the page manager](0161-check-out-for-site-files-the-page-manager.md) | accepted |  |  | 5 |  |
-| 0162 | [Migrations at publish, copied first; leftovers after a rollback tracked and removed by release](0162-migrations-at-publish-copied-first-leftovers-tracked.md) | accepted |  |  | 0 |  |
-| 0163 | [Operations: one view of outside services, workflows and spend](0163-operations-one-view-of-services-workflows-and-spend.md) | accepted |  | 4 | 3 |  |
-| 0164 | [The Knowledge Engine: rule book, phases, workflows and sources](0164-the-knowledge-engine-rule-book-phases-workflows-and-sources.md) | accepted |  | 4 | 1 |  |
-| 0165 | [Staging is the live site in safe mode; Publish merges it into live](0165-staging-is-live-in-safe-mode-publish-merges-it.md) | accepted |  |  | 2 |  |
+| 0162 | [Migrations at publish, copied first; leftovers after a rollback tracked and removed by release](0162-migrations-at-publish-copied-first-leftovers-tracked.md) | accepted |  | 1 | 0 |  |
+| 0163 | [Operations: one view of outside services, workflows and spend](0163-operations-one-view-of-services-workflows-and-spend.md) | accepted |  | 8 | 4 |  |
+| 0164 | [The Knowledge Engine: rule book, phases, workflows and sources](0164-the-knowledge-engine-rule-book-phases-workflows-and-sources.md) | accepted |  | 11 | 1 |  |
+| 0165 | [Staging is the live site in safe mode; Publish merges it into live](0165-staging-is-live-in-safe-mode-publish-merges-it.md) | accepted |  | 1 | 2 |  |
 | 0166 | [0166: Provider-neutral payments and bookkeeping: our own ledger, connectors, and QuickBooks set up once](0166-provider-neutral-payments-and-bookkeeping.md) | accepted |  | 1 | 1 |  |
 | 0167 | [0167: Communications in one place: set up in System Configuration, handled in Pulse](0167-communications-in-one-place.md) | accepted |  |  | 0 |  |
 | 0168 | [0168: Facebook and Instagram for members and businesses: sign-in, sharing, connected Pages](0168-facebook-and-instagram-for-members-and-businesses.md) | accepted |  | 1 | 0 |  |
 | 0169 | [0169: The Shop's App store, and one lifecycle for every app](0169-the-shop-app-store-and-the-app-lifecycle.md) | accepted |  |  | 1 |  |
-| 0170 | [0170: Everything placed in the discovery funnel, by location, active or planned](0170-everything-placed-in-the-discovery-funnel.md) | accepted |  |  | 0 |  |
+| 0170 | [0170: Everything placed in the discovery funnel, by location, active or planned](0170-everything-placed-in-the-discovery-funnel.md) | accepted |  | 1 | 0 |  |

@@ -5,7 +5,7 @@
 > kept as history (with how each rule was built); where it and 0164 disagree, 0164 rules (0164 §12 lists the
 > disagreements for Jason).
 
-**Status:** Superseded by 0164 (2026-11-14, Jason's Decision 5; 0164 is Proposed for his approval). Was Accepted (2026-10-30) by Jason. **This was the master record for the crawler and everything it feeds**
+**Status:** Superseded by 0164 (2026-11-14, Jason's Decision 5; 0164 was accepted the same day). Was Accepted (2026-10-30) by Jason. **This was the master record for the crawler and everything it feeds**
 (listings, landmarks, outdoor places, dossiers, research, guides and stories). Where an older record says otherwise, this
 one rules. Older records keep their history; each carries a line at its top pointing here (list at the end).
 

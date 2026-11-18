@@ -2,7 +2,8 @@
 
 **Note (2026-11-16, decisions/0169):** built as apps in the Shop's App store, after 0169's first release (see its build order).
 
-Status: accepted (Jason, 2026-11-16: "set decision, and let's put this in a queue for future work"). Not built; queued
+Status: accepted (Jason, 2026-11-16: "set decision, and let's put this in a queue for future work"). §6a, the wallet, built 2026-11-17 with
+Domains (release #71, `app/lib/Wallet.php`); the rest not built; queued
 in `handoffs/session-manager.md` for after the usage reset.
 Builds on: 0095 (GO Codes, QuickBooks checkout), 0096 (the QuickBooks connector), 0128 (QuickBooks invoices and
 products), 0141 (Market 360, its gateways), 0145 ("no test moves real money": `QuickBooksPay::guardReal()`,

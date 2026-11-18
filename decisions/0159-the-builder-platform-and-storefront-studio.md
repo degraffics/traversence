@@ -2,7 +2,9 @@
 
 **Note (2026-11-15, decisions/0165, accepted and built; corrected the same day):** builds approved in chat still go live by themselves (Jason: "The publish feature is for me to push the changes I make from within staging"). As first built, 0165 replaced the 2026-11-13 progress note that builds sent through git go live by themselves (`Releases::autoPublish`): every build waits on staging, releases stack there, and Publish (Jason's, on the site manager) merges staging's code and data into live. §5's site manager stays. Built as one release (`handoffs/0165-staging.md`): `autoPublish` is gone from `Releases.php`.
 
-**Status:** Accepted (Jason, 2026-11-13: "accepted, but I want this built in a new session"; the hand-off is `handoffs/0159-the-builder.md`). Not built yet.
+**Status:** Accepted (Jason, 2026-11-13: "accepted, but I want this built in a new session"; the hand-off is `handoffs/0159-the-builder.md`). Built in steps, one release each: steps 1–4 (releases #4–#34; the
+site manager, builds from git, the editor and the full editor) and step 5's first two parts, Storefront Studio 5a
+(#41) and 5b (#42). Next: 5c, commerce blocks; then 5d, the studio bar, and step 6, AI writing.
 (the release process, Phases 5 and 6), `0158` (one way to publish), `0112` §3 (`SitePages`), `0139` (storefronts on
 trvgo.us) and `0135` (the Marketplace and Storefronts), and keeps `0109` (the admin), `0129` (the command strip), `0058`
 (the visual standard) and commercial.md's plans.
@@ -199,6 +201,13 @@ Progress (2026-11-13):
   as a plain link without its script, and is only placed and set up in the editor. On our own pages, a Page tab sets the
   title, search description and share picture. Next, 4c: the engage bar and a form as live parts, global components
   (header, footer), and publishing on a schedule.
+- **Note (2026-11-14, releases #33, #34, #41, #42):** step 4 finished with 4c (#33: Publish later, zones on every page)
+  and 4d (#34: likes, comments and a form as live parts in our own pages' zones). **5a** (#41, Jason, 2026-11-13: "go
+  ahead with step 5"): a business's storefront pages open in the same builder, in the portal's Storefront & pages; a
+  draft only its team sees, Publish by the team's Publish permission (0158 §3), versions and Roll back; trvgo.us draws
+  the published blocks as plain HTML with no script (0139); a page's Markdown is where the builder starts and is kept.
+  **5b** (#42): the storefront's theme (Canyon, Sage, Paper, Night) is the whole look of its blocks; blocks hold no
+  colours of their own, so a change of theme restyles every page. Our own pages keep the brand's look. Next: 5c.
 3. **The editor's core:** blocks, Edit, Save draft, Publish, Roll back, on block pages and the home page's first zone.
 4. **The full editor:** the widget panel, drag and drop, columns, the design panel, breakpoints, global components,
    live components, SEO fields.

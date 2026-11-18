@@ -62,6 +62,13 @@ The crawler runs them; the workflow decides what the results become.
   failure, never as a result.
 - Each run reports, request by request, what was done, found, skipped and why.
 
+**Note (2026-11-14, releases #43, #44, #46):** outside services' health is one check for the crawler and the site
+(`ServiceHealth`): each failure is classified with its evidence; a ban, a refused key or a used-up quota holds every
+call to that server, with one Pulse case per issue, while the rest keeps working (#43). OpenStreetMap has a daily budget,
+a quarter of the public guidance, and a town and kind isn't asked again for 3 months, each a setting in Thresholds &
+gates (#44). Server lists are settings, and calls are paced per service (#46). #46's automatic return after a ban was
+replaced before any switch-on by "looks lifted" with Reactivate for a person (0163 §8 stage 1, 0164 §6.1; release #58).
+
 ### 3. The workflows, start to finish
 
 Each workflow below: what starts it, its steps, what it asks the crawler for, its gate, what it makes, where a person
