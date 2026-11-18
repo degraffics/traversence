@@ -6,27 +6,29 @@
     "zip": "control-board-row-notice.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "staged",
-    "step": 0,
+    "state": "live",
+    "step": 3,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
     "plan_at": "2026-11-18 17:23:34",
     "staged_at": "2026-11-18 17:23:36",
-    "vetted_at": null,
-    "live_at": null,
+    "vetted_at": "2026-11-18 17:23:38",
+    "live_at": "2026-11-18 17:23:38",
     "files": {
         "website/js/admin-control.js": {
             "sha": "8a914076afb7e6117d244a6265c2a639969e49fcd9c882e101ab27a26a5a6d0a",
             "size": 7122,
-            "live_was": "f08e82e4040f750dd007682b2e6626a82113581f9555680b6282ff6b1038cbdd"
+            "live_was": "f08e82e4040f750dd007682b2e6626a82113581f9555680b6282ff6b1038cbdd",
+            "existed": true,
+            "old_sha": "f08e82e4040f750dd007682b2e6626a82113581f9555680b6282ff6b1038cbdd"
         }
     },
     "migrations": [],
     "checks": {
         "ok": true,
-        "where": "staging",
-        "at": "2026-11-18T17:23:37+00:00",
+        "where": "live",
+        "at": "2026-11-18T17:23:38+00:00",
         "items": [
             [
                 "PHP files parse",
@@ -36,7 +38,7 @@
             [
                 "Pages answer",
                 true,
-                "2 pages answered on staging.trvgo.us"
+                "2 pages answered on traversence.com"
             ],
             [
                 "No new fatal errors in the logs",
@@ -66,6 +68,16 @@
             "at": "2026-11-18T17:23:37+00:00",
             "by": 0,
             "msg": "Put on staging (1 files); its checks passed."
+        },
+        {
+            "at": "2026-11-18T17:23:38+00:00",
+            "by": 0,
+            "msg": "Approved in chat before it was sent through git, and its checks on staging passed: publishing by itself."
+        },
+        {
+            "at": "2026-11-18T17:23:38+00:00",
+            "by": 0,
+            "msg": "Published: 1 files; everyone at once (no switch)."
         }
     ]
 }
