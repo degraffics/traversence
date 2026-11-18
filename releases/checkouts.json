@@ -24,61 +24,6 @@
    "callers": {}
   },
   {
-   "path": "website/api/crawl/_auth.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "0171 R2a: ledger hooks, Start's watch, AZCC line, settings",
-   "since": "2026-11-18T14:01:12Z",
-   "expires": "2026-11-18T18:01:12Z",
-   "release": "control-board-2a",
-   "callers": {}
-  },
-  {
-   "path": "website/api/video/_auth.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "0171 R2a: ledger hooks, Start's watch, AZCC line, settings",
-   "since": "2026-11-18T14:01:12Z",
-   "expires": "2026-11-18T18:01:12Z",
-   "release": "control-board-2a",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/crawler/IntakeStager.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "0171 R2a: ledger hooks, Start's watch, AZCC line, settings",
-   "since": "2026-11-18T14:01:12Z",
-   "expires": "2026-11-18T18:01:12Z",
-   "release": "control-board-2a",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/CrawlerIngest.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "0171 R2a: ledger hooks, Start's watch, AZCC line, settings",
-   "since": "2026-11-18T14:01:12Z",
-   "expires": "2026-11-18T18:01:12Z",
-   "release": "control-board-2a",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/SystemStart.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "0171 R2a: ledger hooks, Start's watch, AZCC line, settings",
-   "since": "2026-11-18T14:01:12Z",
-   "expires": "2026-11-18T18:01:12Z",
-   "release": "control-board-2a",
-   "callers": {}
-  },
-  {
    "path": "app/lib/Preflight.php",
    "functions": [],
    "kind": "change",
@@ -87,17 +32,6 @@
    "since": "2026-11-18T14:01:12Z",
    "expires": "2026-11-18T18:26:34Z",
    "release": "control-board-2a-2.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/Thresholds.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "0171 R2a: ledger hooks, Start's watch, AZCC line, settings",
-   "since": "2026-11-18T14:01:12Z",
-   "expires": "2026-11-18T18:01:12Z",
-   "release": "control-board-2a",
    "callers": {}
   },
   {
@@ -176,21 +110,6 @@
    "expires": "2026-11-18T18:26:34Z",
    "release": "control-board-2a-2.zip",
    "callers": {}
-  },
-  {
-   "path": "app/lib/Releases.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "Builds that fail staging withdraw themselves; replaces; withdraw cleans staging",
-   "since": "2026-11-18T14:49:17Z",
-   "expires": "2026-11-18T18:51:52Z",
-   "release": "releases-self-withdraw.zip",
-   "callers": {
-    "standing": [
-     "app/admin/sections.php"
-    ]
-   }
   }
  ],
  "lapsed": [
