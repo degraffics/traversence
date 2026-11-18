@@ -184,6 +184,43 @@
    "expires": "2026-11-19T00:58:35Z",
    "release": "control-board-3c",
    "callers": {}
+  },
+  {
+   "path": "app/lib/ControlAlarms.php",
+   "functions": [
+    "clear",
+    "ensure",
+    "pulseDo",
+    "raise",
+    "tick"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 3c: the Trip rule, slow calls, the last Pulse cases as alarms",
+   "since": "2026-11-18T20:58:38Z",
+   "expires": "2026-11-19T00:58:38Z",
+   "release": "control-board-3c",
+   "callers": {
+    "tick": [
+     "app/scripts/control_tick.php"
+    ],
+    "clear": [
+     "app/lib/ControlLedger.php",
+     "app/lib/Preflight.php",
+     "app/lib/ServiceHealth.php",
+     "app/lib/crawler/CrawlService.php"
+    ],
+    "raise": [
+     "app/lib/ControlLedger.php",
+     "app/lib/Operations.php",
+     "app/lib/Preflight.php",
+     "app/lib/ServiceHealth.php",
+     "app/lib/crawler/CrawlService.php"
+    ],
+    "pulseDo": [
+     "app/lib/Pulse.php"
+    ]
+   }
   }
  ],
  "lapsed": [
