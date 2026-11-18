@@ -78,6 +78,12 @@ This confirms the mobile menu reviewed 2026-09-25 is a faithful implementation o
 - **The Parchment Canvas** (primary backgrounds): `#EFE3C8` Warm Aged Vellum — high-legibility, tactile field for data feeds.
 - **Elevated Surfaces** (cards, interactive containers): micro-gradient `#E6D8B5` → `#D8C79D`, mimicking physical parchment and relief maps.
 - **Typography & Hierarchy:** Warm Near-Black `#2A1D14` for primary headings; Muted Taupe `#7A6A52` for metadata and subheadings.
+  - *Note (Jason, 2026-11-18, design Release 1):* taupe is 4.11:1 on the vellum, under §8's 4.5:1, so **small metadata
+    text** is taupe with 35% Warm Near-Black mixed in (`--tv-meta`, 6.2:1 on the vellum, 4.73:1 on `#D8C79D`); taupe itself
+    stays for icons, rules and large text.
+- **Links and card names:** `#92400E` brand brown, underlined (5.57:1 on the vellum; CLAUDE.md's card anatomy, decisions/0058
+  §11). Added by Jason, 2026-11-18. Tokens for all of this: `app/ui/theme-tokens.php`. Fonts are served from our own
+  server (`website/fonts/`), not a font company (Jason, 2026-11-18).
 
 **Luminous Action States & Active Focus** (track-specific accent tokens — this supersedes any single-accent token referenced elsewhere, e.g. the older `#B8863B` Brass Amber in earlier architecture notes):
 
