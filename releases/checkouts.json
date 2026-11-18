@@ -1,6 +1,40 @@
 {
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
- "claims": [],
+ "claims": [
+  {
+   "path": "app/lib/ControlBoard.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "System Control Board, release 2b (decisions/0171)",
+   "since": "2026-11-18T16:06:49Z",
+   "expires": "2026-11-18T20:06:49Z",
+   "release": "control-board-2b.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/control-console.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "System Control Board, release 2b (decisions/0171)",
+   "since": "2026-11-18T16:06:49Z",
+   "expires": "2026-11-18T20:06:49Z",
+   "release": "control-board-2b.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/js/admin-control.js",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "System Control Board, release 2b (decisions/0171)",
+   "since": "2026-11-18T16:06:49Z",
+   "expires": "2026-11-18T20:06:49Z",
+   "release": "control-board-2b.zip",
+   "callers": {}
+  }
+ ],
  "lapsed": [
   {
    "path": "app/admin/sections.php",
