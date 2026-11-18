@@ -1,0 +1,44 @@
+{
+    "id": 115,
+    "title": "Start the system confirms everything is operational within minutes, then fires the queue in order",
+    "why": "Jason, 2026-11-17: 'the start needs to confirm it's operational within minutes similar to the preflight. Once its operational the queue for firing each is clean and efficient, no need to rush. I just dont want the system acting incorrectly because something wont become active until step 999 or 6 hours later.' 1. A new step, Confirm each workflow and task is operational: every workflow and task is tested like the pre-flight (services, keys, scheduled jobs, gate, a dry run where one exists); the open card looks again every 15 seconds, so it takes minutes; one not operational is held with its answer and fix, retested at each look, and the rest go on. 2. The master comes on once all are tested; then every confirmed workflow switches on in order at once, each new task once its workflow is on; nothing waits for the one before to run. 3. Each one on is watched by itself (start_gate_runs / start_gate_hours, now the watch): a service issue that holds it, out of budget or too many failed runs stops that one alone, with its fixes on the card; the rest carry on. A step stopped by an issue that no longer holds carries on by itself. 4. Each workflow and task opens to Confirmed, Started, Running, Complete, Active status. 5. Thresholds' wording, decisions/0163 §10.2's note, FAQ. 6. A stopped step names the right action ('What to do:'): Check again when its issue no longer holds the service, Check issue now when it still does, Try it again otherwise.",
+    "proposals": "",
+    "zip": "start-confirm.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/ui/faq.md": {
+            "sha": "db55195e436a2e0b1557497a33d55860e18295685ed7646a5a4b6366fddafbb0",
+            "size": 325426,
+            "live_was": "1476ad3534ca5801382de0819c0239a3e36e066b8191aea7384b9958791b848c"
+        },
+        "app/lib/Thresholds.php": {
+            "sha": "dd8546000a672a9cd23577e9c7a82cc915a6ffbda8b651c1d3e6526515dd7170",
+            "size": 26842,
+            "live_was": "3c79f90d92f957fadf4b6d29ebca67097f05aae627d9bd84552a5242667ab7d6"
+        },
+        "app/lib/SystemStart.php": {
+            "sha": "9ab1defdaa5275b847bab6087d602f2b81aaf023da70d6a19f989fe2cd12c07e",
+            "size": 63559,
+            "live_was": "c0b49a8d5903d3559887bb57bab9061646f9c2c36f517f76202545e29672b75b"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-18T01:17:40+00:00",
+            "by": 0,
+            "msg": "Uploaded start-confirm.zip: 3 files."
+        }
+    ]
+}
