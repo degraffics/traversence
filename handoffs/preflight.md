@@ -271,3 +271,10 @@ Jason's phone screenshot showed four problems, fixed here:
 2. **The check's notice is accurate.** The Automation page's "Check before switching on" notice now names what each red line holds, and claims the master is held only when an 'all' line is red.
 3. **"Starting" becomes "Operational".** `SystemStart::runLabel()` shows "Starting" until the master is on and nothing is pending, then "Operational: N on (k still watched), h held, s stopped".
 4. **Solid top bar on phones.** The minimised admin top bar on phones (`app-shell.php`, `tv-brand-min.tv-nav-min body.tv-back`) is now solid #3E2B1F instead of transparent.
+
+## start-inline-fix (2026-11-18, built on Sync 01:32 UTC)
+
+Jason's rule: "Fix it can't take me to another page."
+- **Hub lines:** `SystemStart::hubTermsInline` lists each hub source whose terms aren't read, skipping blocked ones. Each gets **Read its terms**, which opens the source's own page in a new tab, and **Terms read: allowed**: `au_do=start_hub_terms` → `HubOpening::pulseDo('hub_terms:<id>')`, checked against hubs.open.
+- **Other 'tool' fixes:** open in a drawer (`data-peek-frame`).
+- **Held steps:** a held step whose own fixes are listed doesn't repeat them in its status line.
