@@ -56,6 +56,9 @@ Alongside: `releases-self-withdraw` (#122), `releases-live-2` (#123), `releases-
   pre-flight run `ops:pf:stopped`), run by the watch; `ControlAlarms::opsDo` the one door for their buttons; a red
   required pre-flight line is a trip only while what it holds is on; `/api/health.php` `alarms` block. Tests r3c.php 28;
   r3a updated to the rule; the suites' `require_once Database.php` and r2a's `n_` columns fixed.
+- Known shortcut in 3c: a back-off held by a trip is `service_issues.hold_until = '2099-01-01'` (until a person resolves
+  it; `ServiceHealth::holdForTrip`), not a flag of its own. A real flag (a column, `held_by_trip`) needs a migration on
+  `service_issues`; do it with the next ServiceHealth change.
 - Not in 3c, still open: the worker reporting its own retries to the ledger (0171 §5 "Retry", needs a worker change);
   admin Pulse read state (Communications' split, 0172); and the cleanup fixes below (the crawler-run page and "W1 today",
   off-region sources with a rule first, the release pipeline's two guards), for the release after 3c. Then releases 4–5.
