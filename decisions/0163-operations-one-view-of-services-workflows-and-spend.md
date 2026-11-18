@@ -304,6 +304,14 @@ anything run:
    lines are red until each is built (`handoffs/release-b.md`).
 2. **Resume in steps, not all at once:** one workflow at a time (W1 first), each new or returning service at half
    budget for its first 14 days (the ramp already live), with the "returns empty" and 50/75/95% warnings watching.
+   **Note (Jason, 2026-11-17, after Start took hours over one workflow's gate):** "the start needs to confirm it's
+   operational within minutes similar to the preflight. Once its operational the queue for firing each is clean and
+   efficient, no need to rush. I just dont want the system acting incorrectly because something wont become active until
+   step 999 or 6 hours later." So Start the system confirms every workflow and task first (the pre-flight's test of each,
+   all of them, within minutes), then switches the confirmed ones on in order without waiting on runs (a task once its
+   workflow is on), and watches each one by itself afterwards (`start_gate_runs`, `start_gate_hours`): one that misbehaves
+   is stopped alone, with its fixes on the card. The half-budget ramp for 14 days stays. This replaces "one workflow at a
+   time" (release start-confirm).
 3. **New services are added switched off** (Gemini, Overture, Foursquare's open data, each licence source) with their
    cards complete, so switching them on is the only step left.
 4. **The one step for Jason** at resume: any key the site needs in `.env` (File Manager), named by the check.
