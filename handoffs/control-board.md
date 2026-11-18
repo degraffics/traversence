@@ -107,6 +107,17 @@ current pages stay reachable until the board replaces them (archived, not delete
   `start.php` the same as live. Counting rule: received = stored + updated + Review + refused, judged in release 3.
   When it's live, tell Jason that Resume on the AZCC service card is his call (it stays paused).
 
+- **2026-11-18: releases-self-withdraw**, built on Sync 13:57 UTC, sent before the fixed 2a (Jason: "Once you do, we can
+  talk about approving the correction"). It changes `Releases.php`:
+  - `withdrawAs()` with `unstage()`;
+  - `selfWithdraw()`, run as a build arrives from git and swept by `tick()`;
+  - `replaceEarlier()` for `"replaces"`;
+  - the card's words.
+
+  It closes the folded-in fix "a release that fails its staging checks is withdrawn by itself", ahead of release 3. #905
+  (control-board-2a-2) is closed until this is live; then rebuild it as `-3` on the new live copy (its `faq.md` must
+  carry this release's entry) with `"replaces": ["control-board-2a"]`.
+
 ### Where the folded-in cleanup fixes go (build session, 2026-11-18)
 
 Release 1 closes none of them (it was built before they arrived). The plan:

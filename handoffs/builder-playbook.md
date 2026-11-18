@@ -42,6 +42,13 @@ Each rule below comes from a real mistake (in brackets) so it isn't repeated.
   together; a follow-up release only for something found after it went live. [#115–#119 were five releases in two
   hours on one card, each needing Jason's OK.]
 
+- **A build that fails on staging is yours to clear, not Jason's** (Jason, 2026-11-18: "having to require me to remove
+  bad releases is not helpful. Since you create them, you need a way to deal with issues"). It withdraws itself (the
+  site, since release releases-self-withdraw). Watch its record in `deliveries/releases/` after the merge. On
+  "Withdrawn by itself", fix the cause, send the fix as a new name (`-2`) with `"replaces": ["<the failed zip's
+  name>"]` in its `release.json`, and tell Jason what failed and what the fix is. Never ask him to press Withdraw.
+  [#121's migration used the column name `stored`, which MySQL reserves; Jason was left to withdraw it.]
+
 ## 4. Communication
 
 - **Ask Jason yourself, in your own chat** (Jason, 2026-11-18: "the same question is being asked twice in two
