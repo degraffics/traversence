@@ -287,6 +287,19 @@
    "expires": "2026-11-19T00:58:50Z",
    "release": "control-board-3c",
    "callers": {}
+  },
+  {
+   "path": "website/js/admin-control.js",
+   "functions": [
+    "redraw"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 3c: the Trip rule, slow calls, the last Pulse cases as alarms",
+   "since": "2026-11-18T20:58:51Z",
+   "expires": "2026-11-19T00:58:51Z",
+   "release": "control-board-3c",
+   "callers": {}
   }
  ],
  "lapsed": [
