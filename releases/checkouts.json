@@ -22,8 +22,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "Control Board 3b: More toggle, the OSM statement",
    "since": "2026-11-18T19:58:45Z",
-   "expires": "2026-11-18T23:58:45Z",
-   "release": "control-board-3b",
+   "expires": "2026-11-18T23:59:31Z",
+   "release": "control-board-3b.zip",
    "callers": {}
   },
   {
@@ -38,8 +38,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "Control Board 3b: Overpass trip, More in place, Pulse cases into the queue",
    "since": "2026-11-18T19:59:04Z",
-   "expires": "2026-11-18T23:59:04Z",
-   "release": "control-board-3b",
+   "expires": "2026-11-18T23:59:31Z",
+   "release": "control-board-3b.zip",
    "callers": {}
   },
   {
@@ -52,8 +52,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "Control Board 3b: Overpass trip, More in place, Pulse cases into the queue",
    "since": "2026-11-18T19:59:04Z",
-   "expires": "2026-11-18T23:59:04Z",
-   "release": "control-board-3b",
+   "expires": "2026-11-18T23:59:31Z",
+   "release": "control-board-3b.zip",
    "callers": {
     "resolve": [
      "app/admin/automation-console.php",
@@ -74,8 +74,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "Control Board 3b: Overpass trip, More in place, Pulse cases into the queue",
    "since": "2026-11-18T19:59:04Z",
-   "expires": "2026-11-18T23:59:04Z",
-   "release": "control-board-3b",
+   "expires": "2026-11-18T23:59:31Z",
+   "release": "control-board-3b.zip",
    "callers": {
     "pulseItems": [
      "app/lib/Pulse.php"
@@ -85,6 +85,7 @@
   {
    "path": "app/lib/ControlAlarms.php",
    "functions": [
+    "(top)",
     "raise",
     "seed",
     "tick"
@@ -93,8 +94,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "Control Board 3b: raise(event), seed, tick",
    "since": "2026-11-18T19:59:04Z",
-   "expires": "2026-11-18T23:59:23Z",
-   "release": "control-board-3b",
+   "expires": "2026-11-18T23:59:31Z",
+   "release": "control-board-3b.zip",
    "callers": {
     "tick": [
      "app/scripts/control_tick.php"
@@ -134,8 +135,19 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "Control Board 3b: svcresolve action",
    "since": "2026-11-18T19:59:11Z",
-   "expires": "2026-11-18T23:59:11Z",
-   "release": "control-board-3b",
+   "expires": "2026-11-18T23:59:31Z",
+   "release": "control-board-3b.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Pulse.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "release control-board-3b.zip",
+   "since": "2026-11-18T19:59:31Z",
+   "expires": "2026-11-18T23:59:31Z",
+   "release": "control-board-3b.zip",
    "callers": {}
   }
  ],
