@@ -6,13 +6,13 @@
     "zip": "control-board-2c.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "approved",
+    "state": "staged",
     "step": 0,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
     "plan_at": "2026-11-18 16:56:06",
-    "staged_at": null,
+    "staged_at": "2026-11-18 16:56:08",
     "vetted_at": null,
     "live_at": null,
     "files": {
@@ -50,7 +50,44 @@
     "migrations": [
         "app/migrations/2026-11-18_added_off_words.sql"
     ],
-    "checks": [],
+    "checks": {
+        "ok": true,
+        "where": "staging",
+        "at": "2026-11-18T16:56:09+00:00",
+        "items": [
+            [
+                "PHP files parse",
+                true,
+                "4 checked"
+            ],
+            [
+                "Migrations only add",
+                true,
+                "1 checked"
+            ],
+            [
+                "Data changes have a reason",
+                true,
+                "2026-11-18_added_off_words.sql change rows: Rewords the reason on the services added switched off on 2026-11-15 (automation_switches.why, kind 'service', only rows still reading 'Added switched off (Jason, 2026-11-15)…'): 'until Release B' is out of date now B has shipped. No switch changes; a person's own reason is left as it is. (a copy of every table they touch is kept first)"
+            ],
+            [
+                "Migrations ran on staging",
+                true,
+                "Ran 2026-11-18_added_off_words.sql"
+            ],
+            [
+                "Pages answer",
+                true,
+                "3 pages answered on staging.trvgo.us"
+            ],
+            [
+                "No new fatal errors in the logs",
+                true,
+                "3 logs read"
+            ]
+        ],
+        "first_fail": ""
+    },
     "log": [
         {
             "at": "2026-11-18T16:56:05+00:00",
@@ -66,6 +103,11 @@
             "at": "2026-11-18T16:56:06+00:00",
             "by": 0,
             "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
+        },
+        {
+            "at": "2026-11-18T16:56:09+00:00",
+            "by": 0,
+            "msg": "Put on staging (6 files); its checks passed."
         }
     ]
 }
