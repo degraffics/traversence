@@ -7,7 +7,7 @@ apart from them; three touch points; a community group is a channel.
 Builds on: 0047 and 0052 (links, messages, marketing preferences), 0049 (consent), 0066 (nations' land), 0102 and
 0100 (roles), 0108 (sales, SMS and push), 0141 (Market 360°'s unsubscribe), 0154 (who pays), 0167 (system email in one
 place), 0171 (the Control Board's alarms).
-Amends (each marked **Note for Jason** where it happens): `Pulse::SEVERITY` (four levels become six), 0052 step 6
+Amends (each marked **Note for Jason** where it happens): 0105's case drawer (rows open in place), `Pulse::SEVERITY` (four levels become six), 0052 step 6
 (guest questions, §3.3), 0167 §2's Sent view (§4.3) and 0167 §2a's "Outside addresses aren't connected" (§4.7).
 Nothing else is reversed.
 Hand-off: `handoffs/communications.md`. Checked against the live mirror at "Sync: 2026-11-18 02:36 UTC".
@@ -97,8 +97,8 @@ and messages are centrally located."
 **Pulse keeps the look Jason has set.** This decision adds nothing to it and moves nothing in it.
 
 - **The admin's Pulse** (0105, built): the header (Working as, the count chips, the bell, **+**, Search), the
-  Operational Task Queue, Quick Actions, the Pulse Stream table (From, Severity, Subject, Received) and the case drawer
-  with its split view.
+  Operational Task Queue, Quick Actions and the Pulse Stream table (From, Severity, Subject, Received); its rows now
+  open in place (below).
 - **The member's and the listing's Pulse, on the profile page** (Jason's mockup, 2026-11-18,
   `design/pulse-profile-mockup.png`):
   - **Header:** the Pulse mark, **Pulse ▾** (whose Pulse: your own, or a business you work for), a count chip per
@@ -153,15 +153,17 @@ for stays inside it (the message's part, below).
 4. **An outside email has no process of its own.** ⊕ **Make it a case** or **a task** turns it into one of ours,
    keeping the email inside it, so its replies stay in the same thread.
 
-**Open question (Jason, 2026-11-18: "As far as does the system use this as a standard drawer/row I am not sure"):**
-whether every Pulse opens a row in place, as the profile's does, or the admin's keeps 0105's side drawer. The
-recommendation: **in place everywhere**, as the one construct, with the mockup's **⤢** (bottom right of the opened row)
-opening it wide (the admin's split view, when a tool needs the room). For Jason.
+**Every Pulse opens a row in place** (Jason, 2026-11-18: "in place seems the most logical to me"): the profile's, the
+listing's and the admin's alike, one construct. The mockup's **⤢** (bottom right of the opened row) opens it wide, for
+when a tool needs the room.
+- **Note for Jason (amends 0105's case drawer):** the admin's case drawer at the side becomes the row opened in place;
+  its contents stay (Case #, severity, SLA, status, assigned, escalation, the order's stepper and Next step buttons,
+  the reply box, history). Its split view with the tool beside it is what ⤢ opens.
 
 #### The message: what it's for, and acting on it inside it
 
 Each kind of message (`Notify::KINDS`, §4.1) has a **body made by the part of the system that owns it**, shown where
-the row opens (in place on the profile's Pulse, in the case drawer on the admin's). The mockup's post is one kind: its
+the row opens, in place, in every Pulse. The mockup's post is one kind: its
 photos and words, with a comment box and Publish. The pattern is the one 0105's order case already has (its stepper and **Next step** buttons acting
 through `ClientOrders::setStage`); every kind follows it:
 
