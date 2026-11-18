@@ -8,7 +8,7 @@
    "session": "session_01CXLi5krYPakdEQtKuVw14F",
    "why": "0172 step 2: one dispatcher into Pulse (notify-1)",
    "since": "2026-11-18T16:46:47Z",
-   "expires": "2026-11-18T20:59:45Z",
+   "expires": "2026-11-18T21:00:44Z",
    "release": "notify-1.zip",
    "callers": {
     "send": [
@@ -28,7 +28,7 @@
    "session": "session_01CXLi5krYPakdEQtKuVw14F",
    "why": "0172 step 2: one dispatcher into Pulse (notify-1)",
    "since": "2026-11-18T16:46:47Z",
-   "expires": "2026-11-18T20:59:45Z",
+   "expires": "2026-11-18T21:00:44Z",
    "release": "notify-1.zip",
    "callers": {
     "sources": [
@@ -46,7 +46,7 @@
    "session": "session_01CXLi5krYPakdEQtKuVw14F",
    "why": "0172 step 2: one dispatcher into Pulse (notify-1)",
    "since": "2026-11-18T16:46:47Z",
-   "expires": "2026-11-18T20:59:45Z",
+   "expires": "2026-11-18T21:00:44Z",
    "release": "notify-1.zip",
    "callers": {
     "personSend": [
@@ -67,7 +67,7 @@
    "session": "session_01CXLi5krYPakdEQtKuVw14F",
    "why": "0172 step 2: one dispatcher into Pulse (notify-1)",
    "since": "2026-11-18T16:46:47Z",
-   "expires": "2026-11-18T20:59:45Z",
+   "expires": "2026-11-18T21:00:44Z",
    "release": "notify-1.zip",
    "callers": {}
   },
@@ -140,7 +140,7 @@
    "session": "session_01CXLi5krYPakdEQtKuVw14F",
    "why": "0172 step 2: one dispatcher into Pulse (notify-1)",
    "since": "2026-11-18T16:46:47Z",
-   "expires": "2026-11-18T20:59:45Z",
+   "expires": "2026-11-18T21:00:44Z",
    "release": "notify-1.zip",
    "callers": {}
   },
@@ -151,7 +151,7 @@
    "session": "session_01CXLi5krYPakdEQtKuVw14F",
    "why": "0172 step 2: one dispatcher into Pulse (notify-1)",
    "since": "2026-11-18T16:47:03Z",
-   "expires": "2026-11-18T20:47:03Z",
+   "expires": "2026-11-18T21:00:44Z",
    "release": "notify-1.zip",
    "callers": {}
   },
@@ -184,7 +184,7 @@
    "session": "session_01CXLi5krYPakdEQtKuVw14F",
    "why": "0172 step 2: one dispatcher into Pulse (notify-1)",
    "since": "2026-11-18T16:47:03Z",
-   "expires": "2026-11-18T20:47:03Z",
+   "expires": "2026-11-18T21:00:44Z",
    "release": "notify-1.zip",
    "callers": {}
   },
@@ -195,7 +195,7 @@
    "session": "session_01CXLi5krYPakdEQtKuVw14F",
    "why": "0172 step 2: one dispatcher into Pulse (notify-1)",
    "since": "2026-11-18T16:47:03Z",
-   "expires": "2026-11-18T20:47:03Z",
+   "expires": "2026-11-18T21:00:44Z",
    "release": "notify-1.zip",
    "callers": {}
   },
@@ -206,7 +206,7 @@
    "session": "session_01CXLi5krYPakdEQtKuVw14F",
    "why": "0172 step 2: one dispatcher into Pulse (notify-1)",
    "since": "2026-11-18T16:47:03Z",
-   "expires": "2026-11-18T20:47:03Z",
+   "expires": "2026-11-18T21:00:44Z",
    "release": "notify-1.zip",
    "callers": {}
   },
@@ -228,7 +228,7 @@
    "session": "session_01CXLi5krYPakdEQtKuVw14F",
    "why": "0172 step 2: one dispatcher into Pulse (notify-1)",
    "since": "2026-11-18T16:47:03Z",
-   "expires": "2026-11-18T20:47:03Z",
+   "expires": "2026-11-18T21:00:44Z",
    "release": "notify-1.zip",
    "callers": {}
   },
@@ -242,7 +242,7 @@
    "session": "session_01CXLi5krYPakdEQtKuVw14F",
    "why": "0172 step 2: one dispatcher into Pulse (notify-1)",
    "since": "2026-11-18T16:58:36Z",
-   "expires": "2026-11-18T20:59:45Z",
+   "expires": "2026-11-18T21:00:44Z",
    "release": "notify-1.zip",
    "callers": {}
   },
@@ -253,7 +253,7 @@
    "session": "session_01CXLi5krYPakdEQtKuVw14F",
    "why": "0172 step 2: one dispatcher into Pulse (notify-1)",
    "since": "2026-11-18T16:58:41Z",
-   "expires": "2026-11-18T20:58:41Z",
+   "expires": "2026-11-18T21:00:44Z",
    "release": "notify-1.zip",
    "callers": {}
   },
@@ -264,7 +264,7 @@
    "session": "session_01CXLi5krYPakdEQtKuVw14F",
    "why": "0172 step 2: one dispatcher into Pulse (notify-1)",
    "since": "2026-11-18T16:59:45Z",
-   "expires": "2026-11-18T20:59:45Z",
+   "expires": "2026-11-18T21:00:44Z",
    "release": "notify-1.zip",
    "callers": {}
   },
@@ -275,7 +275,7 @@
    "session": "session_01CXLi5krYPakdEQtKuVw14F",
    "why": "0172 step 2: one dispatcher into Pulse (notify-1)",
    "since": "2026-11-18T16:59:45Z",
-   "expires": "2026-11-18T20:59:45Z",
+   "expires": "2026-11-18T21:00:44Z",
    "release": "notify-1.zip",
    "callers": {}
   },
@@ -286,7 +286,7 @@
    "session": "session_01CXLi5krYPakdEQtKuVw14F",
    "why": "0172 step 2: one dispatcher into Pulse (notify-1)",
    "since": "2026-11-18T16:59:45Z",
-   "expires": "2026-11-18T20:59:45Z",
+   "expires": "2026-11-18T21:00:44Z",
    "release": "notify-1.zip",
    "callers": {
     "esc": [
@@ -368,6 +368,39 @@
      "website/market/cart.php"
     ]
    }
+  },
+  {
+   "path": "app/lib/Engage.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5krYPakdEQtKuVw14F",
+   "why": "release notify-1.zip",
+   "since": "2026-11-18T17:00:44Z",
+   "expires": "2026-11-18T21:00:44Z",
+   "release": "notify-1.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/GuestInquiries.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5krYPakdEQtKuVw14F",
+   "why": "release notify-1.zip",
+   "since": "2026-11-18T17:00:44Z",
+   "expires": "2026-11-18T21:00:44Z",
+   "release": "notify-1.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Pulse.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5krYPakdEQtKuVw14F",
+   "why": "release notify-1.zip",
+   "since": "2026-11-18T17:00:44Z",
+   "expires": "2026-11-18T21:00:44Z",
+   "release": "notify-1.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
