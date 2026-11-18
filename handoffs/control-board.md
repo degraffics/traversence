@@ -168,8 +168,10 @@ current pages stay reachable until the board replaces them (archived, not delete
   - crawler 2.12.1: a task stopped by a held service reports held (the tripping call too; Common Crawl checks first),
     so a run whose only trouble is a held service ends ok, not Crashed.
   - Tests: `r2c.php` (12), `workers/crawler/tests/test_held_task.py` (5).
-  - Release 2's fixes now all closed: the run records (2a), "nothing to do" counts (2a), AZCC's host (2a), the held-run
-    exit, cron words, Stripe/Square, Name.com's requests, the off words (2c). Not taken: Vectors RLS and coverage from
+  - Release 2's fixes closed: "nothing to do" counts (2a), AZCC's host (2a), the held-run
+    exit, cron words, Stripe/Square, Name.com's requests, the off words (2c). **Partly:** the crawler run records: the
+    ledger keeps them (2a) and the board's crawler row opens each run to its records (2b), but there is no page per run
+    yet, nor a "W1 today" filter on Insights → Crawler: carried to release 3. Not taken: Vectors RLS and coverage from
     Geofabrik (handed back, as planned).
 
 ### Where the folded-in cleanup fixes go (build session, 2026-11-18)
