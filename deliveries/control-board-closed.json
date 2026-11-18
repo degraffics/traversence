@@ -1,0 +1,22 @@
+{
+ "zip": "control-board-closed.zip",
+ "built_on": "3db4d2b Sync: 2026-11-18 17:09 UTC",
+ "recorded": "2026-11-18 17:11 UTC",
+ "note": "The System Control Board starts closed. Built on Sync: 2026-11-18 17:09 UTC. Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/admin/control-console.php": {
+   "sha256": "1d4da92f888b8fa94df6fd6875a1507b7fd6b35fbdd4afef22cb4cd2929a6cab",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "ddbef0878bff3945b3c340c7c9d7fb0ac6ac0ad2f523a270858c8cd68a85a295",
+   "live": false
+  },
+  "website/js/admin-control.js": {
+   "sha256": "94f9ce2e306dac3227c20353200ee20cc59de3715fcb20489e82ac14a698a863",
+   "live": false
+  }
+ }
+}
