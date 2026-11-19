@@ -26,7 +26,7 @@ It applies to the admin's tables and the admin's Pulse. The profile page's Pulse
 icons Jason set in his own mockup (`design/pulse-profile-mockup.png`: read/unread, forward, pin, shield, file, +, ▾) unless
 he says otherwise.
 
-1. **One component:** `tv_table()` in `app/admin/kit-table.php` with `js/tv-table.js`; pages pass columns and rows, never
+1. **One component:** `tv_table()` in `app/admin/kit-table.php`, filled by `js/admin-kit.js`'s List, extended in place (no second file); pages pass columns and rows, never
    their own `<table>` styles. `tv_w_table()` stays as a wrapper that calls `tv_table()` (the zip check keeps live functions).
 2. **Columns:** a status mark first (icon, colour and word, never colour alone), the name, then data, then the row's
    actions last; numbers and dates right-aligned. **Pulse keeps 0172's columns and order (From, Severity, Subject,
@@ -53,7 +53,7 @@ he says otherwise.
    the count come from the server (a page at a time, `LIMIT`/`OFFSET` with a `COUNT(*)`), so a table of 100,000 rows
    loads as fast as one of 50. A filter or sort goes back to page 1 and the count follows it ("12 of 1,234 match").
    In Pulse the default order stays 0172's ("never reorders anything for you"); a sort the person clicks is theirs, and
-   paging never changes the order. `tv-table.js` calls the existing `.ak-pgb` page bar in `admin-kit.js`, never a copy.
+   paging never changes the order. The List's existing `.ak-pgb` page bar is kept and extended, never copied.
    Group rows count as one row for paging; their members show when opened. On phones the bar keeps previous, "Page 3 of
    25" and next.
 10. **Selecting rows:** a checkbox column only where there's a bulk action; the bulk bar appears when one is ticked.
@@ -76,7 +76,7 @@ he says otherwise.
 
 ## Order (each its own release, each reviewed)
 
-1. **T1, the component:** `tv_table()`, `tv-table.js`, `tv_w_table()` as its wrapper, group rows, the ⋯ menu (shared with
+1. **T1, the component:** `tv_table()`, admin-kit.js's List extended, `tv_w_table()` as its wrapper, group rows, the ⋯ menu (shared with
    the public cards), a test page and `tools/design-tests/table.php`. **The Control Board's table stays with its own
    session:** once T1 is live I tell it, and it moves its process table onto the component in its own release.
 2. **T2, Pulse (admin):** the stream on the component (▾ and ⋯, no hover bar; 0172's columns; alarm groups), and the top
