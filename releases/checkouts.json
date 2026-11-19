@@ -105,6 +105,17 @@
    "expires": "2026-11-19T18:17:21Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "website/js/admin-control.js",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "control-board-logbook-list: the logbook's list grouped and searchable",
+   "since": "2026-11-19T14:17:24Z",
+   "expires": "2026-11-19T18:17:24Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
