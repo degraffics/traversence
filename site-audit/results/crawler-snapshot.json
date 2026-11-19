@@ -633,7 +633,7 @@
   }
  },
  "2026-11-19": {
-  "at": "2026-11-19T03:19:19-07:00",
+  "at": "2026-11-19T03:57:25-07:00",
   "finds": {
    "staged": 13783,
    "quarantined": 41,
@@ -656,17 +656,17 @@
    "of": 13783
   },
   "place_store": {
-   "places": 3692,
-   "hosts": 270,
-   "sources_read": 3185,
-   "sources_read_empty": 285
+   "places": 3703,
+   "hosts": 273,
+   "sources_read": 3204,
+   "sources_read_empty": 287
   },
   "websites_taken_off": {
    "2026-11": 10
   },
   "refresh": {
    "abandoned_listings": 2,
-   "failed_once": 64
+   "failed_once": 65
   },
   "map_points": {
    "public": 10289,
@@ -688,14 +688,14 @@
   "identity_jobs": {
    "done": 61,
    "leased (set aside)": 2,
-   "nothing": 4755,
+   "nothing": 4775,
    "nothing (set aside)": 13,
-   "queued": 630
+   "queued": 610
   },
   "register": {
    "by_status": {
-    "suggested": 2478,
-    "read": 3185,
+    "suggested": 2499,
+    "read": 3204,
     "cite_only": 213,
     "ignore": 2
    },
@@ -731,14 +731,14 @@
   "landmarks": {
    "approved": 1,
    "hidden": 29,
-   "shown": 5311,
+   "shown": 5351,
    "story_only": 11,
    "waiting": 33
   },
   "guides": {
    "draft / done": 80,
-   "draft / gathering": 16,
-   "draft / queued": 3,
+   "draft / gathering": 15,
+   "draft / queued": 5,
    "live / done": 6
   }
  }

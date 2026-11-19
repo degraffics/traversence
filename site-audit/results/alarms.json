@@ -1,5 +1,5 @@
 {
- "at": "2026-11-19T10:19:20.100Z",
+ "at": "2026-11-19T10:57:26.178Z",
  "open": [
   {
    "key": "pf:t:vectors",
@@ -57,28 +57,6 @@
    "stopped": ""
   },
   {
-   "key": "svc:issue:27",
-   "level": "warning",
-   "process": "svc:gemini",
-   "title": "generativelanguage.googleapis.com: Didn't answer (the site, on Bluehost)",
-   "reading": "getaddrinfo() thread failed to start",
-   "means": "Calls to generativelanguage.googleapis.com wait a little and try again by themselves, longer each time (1 of 6).",
-   "since": "2026-11-19T10:17:02+00:00",
-   "tripped": null,
-   "stopped": ""
-  },
-  {
-   "key": "ep:crawl/refresh:count",
-   "level": "warning",
-   "process": "wf:W2",
-   "title": "/api/crawl/refresh counted more than it received",
-   "reading": "received 2, counted 3",
-   "means": "Its record of what it stored, updated, sent to Review or refused doesn't add up, so its numbers on the board can't be trusted.",
-   "since": "2026-11-19T09:56:05+00:00",
-   "tripped": null,
-   "stopped": ""
-  },
-  {
    "key": "ops:w0:held:lawrenceks.gov",
    "level": "warning",
    "process": "wf:W0",
@@ -101,17 +79,6 @@
    "stopped": ""
   },
   {
-   "key": "jobslow:guide_finds_tick",
-   "level": "warning",
-   "process": "job:guide_finds_tick",
-   "title": "The job \"guide_finds_tick\" is slow",
-   "reading": "95 s (usual 18)",
-   "means": "Its last run took 95 s against its usual 18 s (10 slow in a row): what follows it waits.",
-   "since": "2026-11-19T07:20:01+00:00",
-   "tripped": null,
-   "stopped": ""
-  },
-  {
    "key": "ops:cap:anthropic",
    "level": "warning",
    "process": "svc:anthropic",
@@ -119,6 +86,17 @@
    "reading": "55%",
    "means": "Claude (AI): $22.30 of $40.00 (55%).",
    "since": "2026-11-19T07:20:02+00:00",
+   "tripped": null,
+   "stopped": ""
+  },
+  {
+   "key": "ep:crawl/refresh:count",
+   "level": "warning",
+   "process": "wf:W2",
+   "title": "/api/crawl/refresh counted more than it received",
+   "reading": "received 2, counted 3",
+   "means": "Its record of what it stored, updated, sent to Review or refused doesn't add up, so its numbers on the board can't be trusted.",
+   "since": "2026-11-19T09:56:05+00:00",
    "tripped": null,
    "stopped": ""
   },
@@ -171,7 +149,7 @@
    "level": "warning",
    "process": "svc:osm",
    "title": "OpenStreetMap: 1 of 4 Overpass servers free.",
-   "reading": "1 of 4 Overpass servers free. overpass.kumi.systems: No answer: Operation timed out after 10004 milliseconds with 0 bytes received.",
+   "reading": "1 of 4 Overpass servers free. maps.mail.ru: Answered 504 in 1450 ms: \"a page titled 504 Gateway Time-out\".",
    "means": "What needs this company waits; everything else runs.",
    "since": "2026-11-18T20:05:03+00:00",
    "tripped": null,

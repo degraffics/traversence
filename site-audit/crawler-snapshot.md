@@ -33,10 +33,10 @@ Change is since 2026-11-13, the first day recorded.
 
 | What | Now | Change |
 |---|---|---|
-| places | 3692 | +2753 |
-| hosts | 270 | +200 |
-| sources_read | 3185 | +2869 |
-| sources_read_empty | 285 | +164 |
+| places | 3703 | +2764 |
+| hosts | 273 | +203 |
+| sources_read | 3204 | +2888 |
+| sources_read_empty | 287 | +166 |
 
 ## Websites taken off listings, by month
 
@@ -49,7 +49,7 @@ Change is since 2026-11-13, the first day recorded.
 | What | Now | Change |
 |---|---|---|
 | abandoned_listings | 2 | +2 |
-| failed_once | 64 | +55 |
+| failed_once | 65 | +56 |
 
 ## Public listings and map points
 
@@ -83,16 +83,16 @@ Change is since 2026-11-13, the first day recorded.
 |---|---|---|
 | done | 61 | -21 |
 | leased (set aside) | 2 | 0 |
-| nothing | 4755 | +251 |
+| nothing | 4775 | +271 |
 | nothing (set aside) | 13 | 0 |
-| queued | 630 |  |
+| queued | 610 |  |
 
 ## The source register
 
 | What | Now | Change |
 |---|---|---|
-| by_status · suggested | 2478 | +2015 |
-| by_status · read | 3185 | +2869 |
+| by_status · suggested | 2499 | +2036 |
+| by_status · read | 3204 | +2888 |
 | by_status · cite_only | 213 | +24 |
 | by_status · ignore | 2 |  |
 | waiting_after_describe | 7 | -399 |
@@ -132,7 +132,7 @@ Change is since 2026-11-13, the first day recorded.
 |---|---|---|
 | approved | 1 | 0 |
 | hidden | 29 | +28 |
-| shown | 5311 | +1591 |
+| shown | 5351 | +1631 |
 | story_only | 11 |  |
 | waiting | 33 | +6 |
 
@@ -141,7 +141,7 @@ Change is since 2026-11-13, the first day recorded.
 | What | Now | Change |
 |---|---|---|
 | draft / done | 80 | +22 |
-| draft / gathering | 16 |  |
-| draft / queued | 3 |  |
+| draft / gathering | 15 |  |
+| draft / queued | 5 |  |
 | live / done | 6 | 0 |
 
