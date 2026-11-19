@@ -3,36 +3,36 @@
  "built_on": "3b95c3b Sync: 2026-11-19 11:58 UTC",
  "recorded": "2026-11-19 12:03 UTC",
  "note": "Control Board 5b: the reports (decisions/0171 \u00a711), built on demand from what's kept; built on Sync: 11:58 UTC (its files unchanged since 11:50) Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "3044ea8 Sync: 2026-11-19 12:08 UTC",
  "files": {
   "app/admin/control-console.php": {
    "sha256": "a21b0cc2cebd548333dfa104295c90d28f15b249d6534cca047c402b4ef8bc13",
-   "live": false
+   "live": true
   },
   "app/lib/ControlReport.php": {
    "sha256": "d286d05a0a53152c88beefbee046770f4d3c676b00521258f90fcf85f01aa054",
-   "live": false
+   "live": true
   },
   "app/lib/DailyReport.php": {
    "sha256": "6ea01ef40c77444bb4fbae70a2c929fc9c3627e531390f31e57ba471177236b9",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "07f78fb8ab3dfa6477e84ab99e80f9331d68b6577338a43e4c5198534ccb86a8",
-   "live": false
+   "live": true
   },
   "website/admin/api.php": {
    "sha256": "406f2088593df22d18c2f98e1f286114b71db283386207914603afcdd2a92910",
-   "live": false
+   "live": true
   },
   "website/api/health.php": {
    "sha256": "c896b1f7fc420047400fd68e406c4bd0fc95fdbf018b5b2b8d141813ee984faa",
-   "live": false
+   "live": true
   },
   "website/js/admin-control.js": {
    "sha256": "6c51a27197911432644f73ccade8f9e0c28fc6c3865d1fdae8cf9a5647487e88",
-   "live": false
+   "live": true
   }
  }
 }
