@@ -36,7 +36,7 @@ final class MailImap { public static string $refuse = ''; public static array $b
 final class MailSmtp { public static array $sent = []; public static function send(array $c, string $from, array $r, string $raw): void { self::$sent[] = compact('from', 'r'); } public static function check(array $c): string { return $c['password'] === 'right' ? '' : 'The mail server refused the password for ' . $c['login'] . '.'; } }
 final class ListingMessages { public static array $replies = []; public static array $bounced = [];
     public static function emailReply(PDO $p, string $to, array $parsed): bool { self::$replies[] = $to; return true; } public static function bounced(PDO $p, string $a): void { self::$bounced[] = $a; } }
-final class Operations { public static function costs(PDO $p): array { return ['revenue' => 100.0]; } }
+final class Operations { public const KEYS = []; public static function costs(PDO $p): array { return ['revenue' => 100.0]; } }   // KEYS: EnvSettings::secrets() reads it (decisions/0173 §3)
 final class Notices { const KINDS = []; public static function ready(PDO $p): bool { return false; } public static function emailOn(PDO $p): bool { return false; } public static function delivery(PDO $p, int $u): string { return 'pulse'; } public static function deliveryReady(PDO $p): bool { return false; } }
 foreach (['Database', 'Mailer', 'StagingGate', 'WebPush', 'MailImap', 'MailSmtp', 'ListingMessages', 'Operations', 'Notices'] as $c) file_put_contents($app . '/lib/' . $c . '.php', "<?php\n// test stand-in\n");
 

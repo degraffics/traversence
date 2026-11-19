@@ -18,6 +18,11 @@ Amends (each marked **Note for Jason** where it happens): 0052 step 6 (messages 
 drawer (its role and contents, below) and its Operational Task Queue, 0055 §5's needs block (both to the bell), `Pulse::SEVERITY` (four levels become six), 0167 §2's
 Sent view (§4.3) and 0167 §2a's "Outside addresses aren't connected" (§4.7).
 Nothing else is reversed.
+**Note (2026-11-19, push-polish; the Control Board session, after Chrome flagged our push test as possible spam on
+Jason's phone):** the push step tags a push by its thing (an update replaces it; it alerts again only when the level rises,
+or for Critical), keeps a pace per person (past 3 in 5 minutes the rest fold into one quiet "N new in your Pulse" summary,
+Critical exempt, each folded message's route saying so), and the site has an app manifest and a status-bar badge
+(`handoffs/push-polish.md`).
 Hand-off: `handoffs/communications.md`. Checked against the live mirror at "Sync: 2026-11-18 02:36 UTC".
 
 ## What Jason asked for
