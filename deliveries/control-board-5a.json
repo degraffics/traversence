@@ -1,8 +1,8 @@
 {
  "zip": "control-board-5a.zip",
  "built_on": "262ca5b Sync: 2026-11-19 02:18 UTC",
- "recorded": "2026-11-19 02:24 UTC",
- "note": "Control Board 5a: the logbook (0171 \u00a710) and the night's fixes (phase lines, speed per record, short names, #19's checks). Built on Sync: 2026-11-19 02:18 UTC Sent through git (releases/inbox).",
+ "recorded": "2026-11-19 02:30 UTC",
+ "note": "Control Board 5a: the logbook and the night's fixes, plus a 429 as a warning that waits twice as long, never a trip; built on Sync: 02:18 UTC Sent through git (releases/inbox).",
  "status": "pending",
  "live_in": "",
  "files": {
@@ -11,7 +11,7 @@
    "live": false
   },
   "app/lib/ControlAlarms.php": {
-   "sha256": "c4655d38c6277071fb88d8733f6de383b0fcb64caac6bcf38b227746f7c13341",
+   "sha256": "a3fe849b18c1e2d2b3adbec09e59ca0fed449df3515dc2ab5d0a5ee443825753",
    "live": false
   },
   "app/lib/ControlBoard.php": {
@@ -38,6 +38,10 @@
    "sha256": "1ab70f4bc1bfa8b4cf8c820d3345205000bf4e16e06c34bedd7730e258c352ba",
    "live": false
   },
+  "app/lib/ServiceHealth.php": {
+   "sha256": "5c3c7a1fb08e8ebd22af9ff17e12d27845e412eeea42f7344e633c2d85abe7e3",
+   "live": false
+  },
   "app/lib/SystemStart.php": {
    "sha256": "83658383b958354ecc4ef7a99cd57bee488d57c87469850d0a984e0495742b2d",
    "live": false
@@ -51,7 +55,7 @@
    "live": false
   },
   "app/ui/faq.md": {
-   "sha256": "30dc04b6f69a7eb913972690ceca51c273c1bdee5fdc2067bfb16652bab90237",
+   "sha256": "91298a0567700fe76a32b10fa0fb67f0a2827298b41e8c5e7067fc40eae3edec",
    "live": false
   },
   "website/admin/api.php": {
