@@ -1,0 +1,34 @@
+{
+    "id": 171,
+    "title": "Hub weather strip: one town per district, no repeats",
+    "why": "Jason's screenshot, 2026-11-19: a hub's weather strip showed The Show Low District and then Albuquerque four times. Guides::stripTowns took the hub's districts' places, sorted all of them by listings and kept the first 5, so one busy district filled the strip and nothing skipped repeats. Now (Guides::stripPick, testable without the database): one place per district first, best by listings, then the best left; a town already shown is skipped by name (\"The\" ignored) and by a point within about 2 km. Same 5 at most, same cards. Test: tools/design-tests/strip-towns.php (8 pass).",
+    "proposals": "",
+    "zip": "hub-weather-strip.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/lib/Guides.php": {
+            "sha": "28dd38f915904768d4b82634294a300bf19b6125ee449fb03182517d78f37f18",
+            "size": 135578,
+            "live_was": "71d8367b7df97086269dba2f937dfbfb0a127ac7b85fbb73bd6ecbacbf3181ee"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-19T11:54:53+00:00",
+            "by": 0,
+            "msg": "Uploaded hub-weather-strip.zip: 1 files."
+        }
+    ]
+}
