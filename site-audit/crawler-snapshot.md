@@ -10,8 +10,8 @@ Change is since 2026-11-13, the first day recorded.
 |---|---|---|
 | staged | 13785 | +13140 |
 | quarantined | 41 |  |
-| published | 6070 | +5752 |
-| merged | 330 | +168 |
+| published | 6071 | +5753 |
+| merged | 331 | +169 |
 | rejected | 591 | +408 |
 
 ## Of the staged (newest 3,000 checked)
@@ -33,10 +33,10 @@ Change is since 2026-11-13, the first day recorded.
 
 | What | Now | Change |
 |---|---|---|
-| places | 3705 | +2766 |
-| hosts | 274 | +204 |
-| sources_read | 3212 | +2896 |
-| sources_read_empty | 288 | +167 |
+| places | 3718 | +2779 |
+| hosts | 276 | +206 |
+| sources_read | 3229 | +2913 |
+| sources_read_empty | 289 | +168 |
 
 ## Websites taken off listings, by month
 
@@ -49,15 +49,15 @@ Change is since 2026-11-13, the first day recorded.
 | What | Now | Change |
 |---|---|---|
 | abandoned_listings | 2 | +2 |
-| failed_once | 65 | +56 |
+| failed_once | 66 | +57 |
 
 ## Public listings and map points
 
 | What | Now | Change |
 |---|---|---|
-| public | 10289 | +5594 |
+| public | 10290 | +5595 |
 | no_point | 0 | 0 |
-| approximate | 1712 | +32 |
+| approximate | 1713 | +33 |
 
 ## Town jobs
 
@@ -83,16 +83,16 @@ Change is since 2026-11-13, the first day recorded.
 |---|---|---|
 | done | 61 | -21 |
 | leased (set aside) | 2 | 0 |
-| nothing | 4783 | +279 |
+| nothing | 4795 | +291 |
 | nothing (set aside) | 13 | 0 |
-| queued | 602 |  |
+| queued | 590 |  |
 
 ## The source register
 
 | What | Now | Change |
 |---|---|---|
-| by_status · suggested | 2539 | +2076 |
-| by_status · read | 3212 | +2896 |
+| by_status · suggested | 2550 | +2087 |
+| by_status · read | 3229 | +2913 |
 | by_status · cite_only | 213 | +24 |
 | by_status · ignore | 2 |  |
 | waiting_after_describe | 7 | -399 |
@@ -132,7 +132,7 @@ Change is since 2026-11-13, the first day recorded.
 |---|---|---|
 | approved | 1 | 0 |
 | hidden | 29 | +28 |
-| shown | 5371 | +1651 |
+| shown | 5411 | +1691 |
 | story_only | 11 |  |
 | waiting | 33 | +6 |
 
@@ -141,7 +141,7 @@ Change is since 2026-11-13, the first day recorded.
 | What | Now | Change |
 |---|---|---|
 | draft / done | 80 | +22 |
-| draft / gathering | 13 |  |
-| draft / queued | 7 |  |
+| draft / gathering | 10 |  |
+| draft / queued | 10 |  |
 | live / done | 6 | 0 |
 

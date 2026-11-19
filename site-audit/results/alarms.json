@@ -1,5 +1,5 @@
 {
- "at": "2026-11-19T11:23:12.953Z",
+ "at": "2026-11-19T11:54:16.143Z",
  "open": [
   {
    "key": "pf:wf:W1",
@@ -53,6 +53,17 @@
    "reading": "overpass-api.de: 406 406 Not Acceptable nginx (the GET retry the same)",
    "means": "Listings of the kinds that aren't in our OpenStreetMap copy aren't being found; the other kinds come from our copy (Geofabrik), so most of W1 runs.",
    "since": "2026-11-18T20:15:02+00:00",
+   "tripped": null,
+   "stopped": ""
+  },
+  {
+   "key": "ep:crawl/sources:slow",
+   "level": "warning",
+   "process": "wf:W3",
+   "title": "/api/crawl/sources is slow",
+   "reading": "1,030 ms for 67 records (usual 2.0 ms a record)",
+   "means": "It took 15 ms a record, against its usual 2.0 ms a record (67 records in 1.0 s): the worker waits, so its runs do less. Nothing is stopped; this clears by itself when it answers at its usual speed.",
+   "since": "2026-11-19T11:46:18+00:00",
    "tripped": null,
    "stopped": ""
   },
