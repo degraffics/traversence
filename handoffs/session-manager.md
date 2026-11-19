@@ -118,6 +118,17 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
   sales (`DOMAIN_SALES_MODE`) goes past off:** read each ending's minimum term (the requirements lookup it already
   allows) and register, renew and price .ai for 2 years, shown as "2 years". To a session when Jason chooses.
 
+**Insights: people vs automated, new vs returning** (Jason, 2026-11-19: "how do I know if a visitor is unique or
+returning vs bot or crawler?"; on the session manager's proposal, "good, just add it to the work queue"). Today
+`PlatformCounts` (0058 §13, "never who") stores no IP, device or id, drops only bots that name themselves
+(`isBot()`: bot, crawl, spider, curl…), and counts a visit per server session, so a crawler without cookies makes every
+view a visit: Insights → Numbers shows Visits = Views on every page (/directory/ 615 = 615, /claim.php 393 = 393).
+- **People vs automated:** a view counts as a person's only when the page's own script runs in a real browser and
+  reports back (a small beacon after load); requests that never report are shown apart as "Automated", per page.
+- **New vs returning:** a first-party cookie that only says "been here before" (no id, nothing that identifies a
+  person or device), so 0058's "never who" holds; Insights shows new and returning visits. A 0058 §13 note.
+- Free (no outside service). To a session when Jason chooses (the Control Board session, idle, knows Insights).
+
 **Pulse's load-time warning** (Jason, 2026-11-19: "add Pulse's load-time warning", to the Control Board session): time
 how long `Pulse::items` takes to gather (its ~15 sources) on each open of the admin's Pulse. Keep the reading in the
 board's timings (`ms:pulse`) with its history. Show it as a part on the board. A warning (board only) when the usual time
