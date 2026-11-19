@@ -111,6 +111,24 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
   (owners edit their hidden listings). It reads the "Edit my listing" path after the 2026-11-20 run, then stays open for
   more listing work.
 
+**Widen the OpenStreetMap copy** (Jason, 2026-11-19: "Seems like we could use everything openstreet has as long as it is
+cited", "Yea add to work que"; "the score could account for provided data so these entries would show lower than our
+vetted entries"). Under decisions/0065: its own layer, credited, never copied into our records; ODbL means we offer our
+filtered copy on request (a "How our copy is made" note, Geofabrik's file + our filter, linked from the credit line).
+In order, each measured after its first load (rows, MB; Supabase only if the total nears 500 MB):
+1. traveler facilities: fuel, EV chargers, restrooms, drinking water, campgrounds, RV dump stations, picnic areas,
+   viewpoints, rest areas;
+2. trails and the outdoors: trails with difficulty, peaks, springs, waterfalls, arches, caves, land use;
+3. place details (hours, phone, website, wheelchair) shown beside our listings, labeled "From OpenStreetMap", never
+   saved into them;
+4. boundaries (county, park, forest; tribal under 0066);
+5. history: held or story only under 0066 and 0164 R7;
+6. roads, once Jason picks the routing engine (below).
+**Ranking:** today `UniversalSearch` adds OSM only as its own block when ours are thin (:1587). Once wider, an OSM
+entry never outranks a vetted entry of ours for the same search; it shows after ours, with no trust score, its card
+saying "From OpenStreetMap, not checked by us" (the Get Local score chip's ⓘ explains); one that matches our listing
+shows once, as ours. To the Control Board session (it owns OpenLoads) with the design session for the cards.
+
 **Domains: Name.com reseller pricing and .ai** (Name.com support's answer, ticket 7Y5JM6-5L7GX, 2026-11-18):
 - No fees or deposit. Enrolling in the API Reseller Program at https://www.name.com/nameapi/pricing unlocks tiered
   prices on **new registrations only** (not renewals or transfers); custom rates only well past the top tier. **Jason's
