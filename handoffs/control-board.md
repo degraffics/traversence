@@ -8,6 +8,10 @@ The last were 5a (#166, the logbook), the old trips settled (#168), a back-off i
 files passed on the last build.
 
 **Not built, and why:**
+- §12: a process's own route (`/admin/config/control/<process>`, a drawer) and the four table tools (`config/alarms`,
+  `config/log`, `config/ledger`, `config/upkeep`) weren't built: the four systems are folding sections of the one board,
+  each process opens in place, and the board's panels do the tables' work. Missed in the first close-out (Jason asked
+  2026-11-19: "where are the system department pages"); his call whether to build them.
 - §14: archiving the Pre-flight page (`config/preflight`) waits for Jason's OK; `Preflight.php` stays either way.
 - §14: the Start card on Automation and the Workflow board's switch-on check don't yet link to the board. A small release
   (links only), when asked.

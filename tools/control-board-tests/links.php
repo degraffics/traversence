@@ -38,6 +38,10 @@ $t('the page takes a resolved row out of the queue at once and says it\'s in the
 $t('Check and start again is greyed while the trip\'s own check is red, saying which part', str_contains($cc, "'Its check is red: ' . \$redChecks[substr((string) \$a['akey'], 3)]"));
 $t('a group\'s Holds line is plain words, so a press on its header opens the group', str_contains($cc, "'<div class=\"cb-am\"><span><b>Holds:</b> ' . \$e(implode(', ', \$nm))") && !str_contains($cc, "tv_cb_more(implode(', ', \$nm), 110"));
 
+$api = file_get_contents(dirname($app) . '/website/admin/api.php'); $ca = file_get_contents($app . '/lib/ControlAlarms.php');
+$t('Check it now on a service that isn\'t set up (az511, no key) closes its issue and says why; the watch does too', str_contains($api, "if ((\$r['s'] ?? '') === 'na') ServiceHealth::resolve(") && str_contains($api, "'Closed: '") && str_contains($ca, "if ((\$rr['s'] ?? '') === 'na') ServiceHealth::resolve("));
+$t('…a check that leaves it open says "Still open", never "Success" alone; a closed one leaves the queue at once', str_contains($api, "'Still open: it hasn") && str_contains($api, "'bad' => !\$closed") && str_contains($js, "act === 'svccheck' && /^(Closed|It answered)/"));
+
 // 4. 0171 §14: Start's card and the switch-on check link to the board
 $ss = file_get_contents($app . '/lib/SystemStart.php'); $oc = file_get_contents($app . '/admin/operations-console.php');
 $t('Start the system\'s card and the Workflow board\'s switch-on check link to the System Control Board', str_contains($ss, 'href="/admin/config/control">System Control Board</a>') && str_contains($oc, 'href="/admin/config/control">System Control Board</a>'));
