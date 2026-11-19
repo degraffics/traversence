@@ -1,0 +1,30 @@
+{
+ "zip": "board-phone.zip",
+ "built_on": "0d368eb Sync: 2026-11-19 23:45 UTC",
+ "recorded": "2026-11-19 23:56 UTC",
+ "note": "board-phone: the Control Board at 390px; a switched-off task on its service's card (built on Sync 23:45 UTC) Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/admin/automation-console.php": {
+   "sha256": "ef44f421c1a77f20612cac61dbfec606ec9d8346cc8ced2a887e3c21a6d9f1f2",
+   "live": false
+  },
+  "app/admin/control-console.php": {
+   "sha256": "d400f8914951887ad126c34b8d403d9b749a7fae6b2889631dc1f0064045e62a",
+   "live": false
+  },
+  "app/lib/OutsideServices.php": {
+   "sha256": "7b64c32832baf065e41c48379365cc9bcf0094b626906b18cf8360ad8d4001da",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "2b3af456f6c36ae40f2ecea89f6e0c58b53f1d753b5f0a71b84e029c01d83240",
+   "live": false
+  },
+  "app/ui/outside-services.php": {
+   "sha256": "94e750cb733826602fbb6e56cda4e06f2c12da9d45d8972c33809f13fa5c346e",
+   "live": false
+  }
+ }
+}

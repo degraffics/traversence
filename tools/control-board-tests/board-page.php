@@ -9,6 +9,7 @@ if (($argv[2] ?? '') === 'rows') {
     echo json_encode(['ok' => true, 'rows' => $rows, 'total' => $total, 'counts' => (object) $counts, 'per' => 10, 'sortable' => []]); exit;
 }
 require_once $app . '/ui/theme-tokens.php'; ob_start(); include $app . '/admin/kit-css.php'; $css = tv_theme_tokens() . ob_get_clean();
+if (getenv('PROC')) $_GET['proc'] = (string) getenv('PROC');   // a part's own page (board-phone.cjs)
 $body = tv_admin_mod_control($pdo);
 echo '<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">' . $css . '</head><body>' . $body
     . '<script src="/js/tv-ask.js"></script><script src="/js/tv-time.js"></script><script src="/js/admin-kit.js"></script></body></html>';
