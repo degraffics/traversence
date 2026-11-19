@@ -6,13 +6,13 @@
     "zip": "control-board-routes.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "approved",
+    "state": "staged",
     "step": 0,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
     "plan_at": "2026-11-19 13:51:12",
-    "staged_at": null,
+    "staged_at": "2026-11-19 13:51:14",
     "vetted_at": null,
     "live_at": null,
     "files": {
@@ -116,7 +116,44 @@
         "app/migrations/2026-11-19_alarm_retrying.sql",
         "app/migrations/2026-11-19_alarm_messages_pulse_ref.sql"
     ],
-    "checks": [],
+    "checks": {
+        "ok": true,
+        "where": "staging",
+        "at": "2026-11-19T13:51:15+00:00",
+        "items": [
+            [
+                "PHP files parse",
+                true,
+                "14 checked"
+            ],
+            [
+                "Migrations only add",
+                true,
+                "2 checked"
+            ],
+            [
+                "Data changes have a reason",
+                true,
+                "2026-11-19_alarm_messages_pulse_ref.sql change rows: Marks the Control Board alarm messages already sent (comms_messages, kinds alarm.trip and alarm.warning) with their alarm's Pulse item, so Jason's Pulse stream stops listing each a second time beside the alarm's own item. Only pulse_ref is set, only where it's empty; nothing is deleted and the email (a copy of every table they touch is kept first)"
+            ],
+            [
+                "Migrations ran on staging",
+                true,
+                "Ran 2026-11-19_alarm_messages_pulse_ref.sql, 2026-11-19_alarm_retrying.sql"
+            ],
+            [
+                "Pages answer",
+                true,
+                "2 pages answered on staging.trvgo.us"
+            ],
+            [
+                "No new fatal errors in the logs",
+                true,
+                "4 logs read"
+            ]
+        ],
+        "first_fail": ""
+    },
     "log": [
         {
             "at": "2026-11-19T13:51:10+00:00",
@@ -132,6 +169,11 @@
             "at": "2026-11-19T13:51:12+00:00",
             "by": 0,
             "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
+        },
+        {
+            "at": "2026-11-19T13:51:15+00:00",
+            "by": 0,
+            "msg": "Put on staging (19 files); its checks passed."
         }
     ]
 }
