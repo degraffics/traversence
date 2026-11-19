@@ -8,8 +8,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "0173 R1: one home (Service register takes in Outside services)",
    "since": "2026-11-19T21:33:25Z",
-   "expires": "2026-11-20T02:45:16Z",
-   "release": "r1.zip",
+   "expires": "2026-11-20T02:45:44Z",
+   "release": "service-register-r1.zip",
    "callers": {
     "tv_outside_services": [
      "app/admin/sections.php"
@@ -26,8 +26,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "0173 R1: one home (Service register takes in Outside services)",
    "since": "2026-11-19T22:42:01Z",
-   "expires": "2026-11-20T02:45:16Z",
-   "release": "r1.zip",
+   "expires": "2026-11-20T02:45:44Z",
+   "release": "service-register-r1.zip",
    "callers": {}
   },
   {
@@ -37,8 +37,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "0173 R1: one home (Service register takes in Outside services)",
    "since": "2026-11-19T22:42:03Z",
-   "expires": "2026-11-20T02:45:16Z",
-   "release": "r1.zip",
+   "expires": "2026-11-20T02:45:44Z",
+   "release": "service-register-r1.zip",
    "callers": {}
   },
   {
@@ -48,8 +48,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "0173 R1: one home (Service register takes in Outside services)",
    "since": "2026-11-19T22:42:05Z",
-   "expires": "2026-11-20T02:45:16Z",
-   "release": "r1.zip",
+   "expires": "2026-11-20T02:45:44Z",
+   "release": "service-register-r1.zip",
    "callers": {
     "tv_cb_proc_records": [
      "app/admin/tools.php"
@@ -63,8 +63,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "0173 R1: one home (Service register takes in Outside services)",
    "since": "2026-11-19T22:42:07Z",
-   "expires": "2026-11-20T02:45:16Z",
-   "release": "r1.zip",
+   "expires": "2026-11-20T02:45:44Z",
+   "release": "service-register-r1.zip",
    "callers": {}
   },
   {
@@ -74,8 +74,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "0173 R1: one home (Service register takes in Outside services)",
    "since": "2026-11-19T22:42:09Z",
-   "expires": "2026-11-20T02:45:16Z",
-   "release": "r1.zip",
+   "expires": "2026-11-20T02:45:44Z",
+   "release": "service-register-r1.zip",
    "callers": {}
   },
   {
@@ -85,8 +85,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "0173 R1: one home (Service register takes in Outside services)",
    "since": "2026-11-19T22:42:11Z",
-   "expires": "2026-11-20T02:45:16Z",
-   "release": "r1.zip",
+   "expires": "2026-11-20T02:45:44Z",
+   "release": "service-register-r1.zip",
    "callers": {
     "tv_preflight_line": [
      "website/admin/api.php"
@@ -104,8 +104,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "0173 R1: one home (Service register takes in Outside services)",
    "since": "2026-11-19T22:42:13Z",
-   "expires": "2026-11-20T02:45:16Z",
-   "release": "r1.zip",
+   "expires": "2026-11-20T02:45:44Z",
+   "release": "service-register-r1.zip",
    "callers": {}
   },
   {
@@ -115,8 +115,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "0173 R1: one home (Service register takes in Outside services)",
    "since": "2026-11-19T22:42:15Z",
-   "expires": "2026-11-20T02:45:16Z",
-   "release": "r1.zip",
+   "expires": "2026-11-20T02:45:44Z",
+   "release": "service-register-r1.zip",
    "callers": {}
   },
   {
@@ -148,8 +148,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "0173 R1: one home (Service register takes in Outside services)",
    "since": "2026-11-19T22:42:21Z",
-   "expires": "2026-11-20T02:45:16Z",
-   "release": "r1.zip",
+   "expires": "2026-11-20T02:45:44Z",
+   "release": "service-register-r1.zip",
    "callers": {
     "pulseItems": [
      "app/lib/Pulse.php"
@@ -163,8 +163,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "0173 R1: one home (Service register takes in Outside services)",
    "since": "2026-11-19T22:42:23Z",
-   "expires": "2026-11-20T02:45:16Z",
-   "release": "r1.zip",
+   "expires": "2026-11-20T02:45:44Z",
+   "release": "service-register-r1.zip",
    "callers": {}
   },
   {
@@ -174,8 +174,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "0173 R1: one home (Service register takes in Outside services)",
    "since": "2026-11-19T22:42:25Z",
-   "expires": "2026-11-20T02:45:16Z",
-   "release": "r1.zip",
+   "expires": "2026-11-20T02:45:44Z",
+   "release": "service-register-r1.zip",
    "callers": {
     "steps": [
      "app/lib/Pulse.php"
@@ -189,8 +189,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "0173 R1: one home (Service register takes in Outside services)",
    "since": "2026-11-19T22:42:27Z",
-   "expires": "2026-11-20T02:45:16Z",
-   "release": "r1.zip",
+   "expires": "2026-11-20T02:45:44Z",
+   "release": "service-register-r1.zip",
    "callers": {
     "report": [
      "app/ui/outside-services.php"
@@ -204,8 +204,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "0173 R1: one home (Service register takes in Outside services)",
    "since": "2026-11-19T22:42:29Z",
-   "expires": "2026-11-20T02:45:16Z",
-   "release": "r1.zip",
+   "expires": "2026-11-20T02:45:44Z",
+   "release": "service-register-r1.zip",
    "callers": {}
   },
   {
@@ -226,8 +226,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "0173 R1: one home (Service register takes in Outside services)",
    "since": "2026-11-19T22:42:35Z",
-   "expires": "2026-11-20T02:45:16Z",
-   "release": "r1.zip",
+   "expires": "2026-11-20T02:45:44Z",
+   "release": "service-register-r1.zip",
    "callers": {}
   },
   {
@@ -237,8 +237,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "0173 R1: one home (Service register takes in Outside services)",
    "since": "2026-11-19T22:42:37Z",
-   "expires": "2026-11-20T02:45:16Z",
-   "release": "r1.zip",
+   "expires": "2026-11-20T02:45:44Z",
+   "release": "service-register-r1.zip",
    "callers": {}
   },
   {
@@ -259,8 +259,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "0173 R1: each service's stage",
    "since": "2026-11-19T22:42:41Z",
-   "expires": "2026-11-20T02:45:16Z",
-   "release": "r1.zip",
+   "expires": "2026-11-20T02:45:44Z",
+   "release": "service-register-r1.zip",
    "callers": {}
   },
   {
@@ -276,8 +276,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "0173 R1: one home",
    "since": "2026-11-19T22:42:46Z",
-   "expires": "2026-11-20T02:45:16Z",
-   "release": "r1.zip",
+   "expires": "2026-11-20T02:45:44Z",
+   "release": "service-register-r1.zip",
    "callers": {}
   },
   {
@@ -287,8 +287,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "0173 R1: one home: TV_ADMIN_MOVED redirect",
    "since": "2026-11-19T22:42:52Z",
-   "expires": "2026-11-20T02:45:16Z",
-   "release": "r1.zip",
+   "expires": "2026-11-20T02:45:44Z",
+   "release": "service-register-r1.zip",
    "callers": {}
   },
   {
@@ -298,8 +298,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "release r1.zip",
    "since": "2026-11-19T22:45:16Z",
-   "expires": "2026-11-20T02:45:16Z",
-   "release": "r1.zip",
+   "expires": "2026-11-20T02:45:44Z",
+   "release": "service-register-r1.zip",
    "callers": {}
   },
   {
@@ -309,8 +309,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "release r1.zip",
    "since": "2026-11-19T22:45:16Z",
-   "expires": "2026-11-20T02:45:16Z",
-   "release": "r1.zip",
+   "expires": "2026-11-20T02:45:44Z",
+   "release": "service-register-r1.zip",
    "callers": {}
   },
   {
@@ -320,8 +320,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "release r1.zip",
    "since": "2026-11-19T22:45:16Z",
-   "expires": "2026-11-20T02:45:16Z",
-   "release": "r1.zip",
+   "expires": "2026-11-20T02:45:44Z",
+   "release": "service-register-r1.zip",
    "callers": {}
   },
   {
@@ -331,8 +331,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "release r1.zip",
    "since": "2026-11-19T22:45:16Z",
-   "expires": "2026-11-20T02:45:16Z",
-   "release": "r1.zip",
+   "expires": "2026-11-20T02:45:44Z",
+   "release": "service-register-r1.zip",
    "callers": {}
   },
   {
@@ -342,8 +342,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "release r1.zip",
    "since": "2026-11-19T22:45:16Z",
-   "expires": "2026-11-20T02:45:16Z",
-   "release": "r1.zip",
+   "expires": "2026-11-20T02:45:44Z",
+   "release": "service-register-r1.zip",
    "callers": {}
   }
  ],
