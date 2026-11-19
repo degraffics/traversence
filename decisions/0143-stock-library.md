@@ -298,3 +298,14 @@ Files in the zip (7): `app/lib/RecordFiles.php`, `app/lib/Uploads.php`, `app/ui/
 the fifth zip's changes).
 
 **Note (2026-11-06): photos for landmarks without one (Jason: Agate Bridge had none).** An hourly job (`landmark_photos_tick`, `Landmarks::findPhotos`) looks on Wikimedia Commons, 20 shown landmarks an hour, one at a time and paced, for a photo when the landmark's own Wikidata entry has none. It keeps a photo only if it is free to use (the landmarks' licence rule, never marked non-free), at least 640 px wide, has every word of the landmark's name in its own file name or title (tags alone don't count: a building in the town of Window Rock isn't the rock), and was taken within 1.5 km (Commons' location search) or, named for it, within 5 miles; a photo with no location counts only with the whole name in its title and the landmark's state, county or nearest town in its words. Credit and licence are kept and shown as for any Commons photo; a landmark with none found is looked at again after 30 days, and the monthly landmark load keeps a photo found this way (or chosen by a person) when its own data has none. Held, sensitive and closed landmarks are never looked up (`visibleSql`). Free, no key; Commons slows a caller that hurries, so a refusal stops that hour's run without marking anything tried.
+
+> **Note (Jason, 2026-11-19, card-photos): photos specific to each card.** He asked "cant our system find photos specific
+> to these cards?" of the Parks strip, where every card showed one Pixabay photo, and approved "Both". The landmarks'
+> Commons finder (`Landmarks::bestPhoto`, these rules) now also runs, in the same W9 job and at the same pace, for the
+> parks, monuments, visitor centres and historic sites we list and the National Park Service's Recreation.gov places
+> (`app/lib/PlacePhotos.php`, `place_photos`). A place kept private (ListingSafety) is never looked up. Cards and a
+> listing's hero show a found photo before any stock photo. Stock stays the fallback, labelled. NPS photos ("possible
+> later" above) come once `NPS_API_KEY` is in the site's `.env`; until then they're skipped. The same release puts the
+> strip near the place: within 150 miles of the place's towns, nearest first, with the miles. A Lawrence, KS visitor
+> centre had reached an Arizona strip through a nationwide, name-ordered query.
+

@@ -1,0 +1,10 @@
+CREATE TABLE categories (id INT PRIMARY KEY, name VARCHAR(100));
+CREATE TABLE entities (id INT PRIMARY KEY, name VARCHAR(200), category_id INT, entity_type VARCHAR(20) DEFAULT 'merchant', is_suppressed TINYINT DEFAULT 0, status VARCHAR(30) DEFAULT 'unclaimed', latitude DECIMAL(10,6), longitude DECIMAL(10,6));
+CREATE TABLE entity_metadata (entity_id INT, meta_key VARCHAR(40), meta_value TEXT);
+CREATE TABLE hero_media (id INT AUTO_INCREMENT PRIMARY KEY, owner_kind VARCHAR(10), owner_ref INT, kind VARCHAR(10), path VARCHAR(300), sort INT DEFAULT 0);
+CREATE TABLE rec_places (ridb_id VARCHAR(20) PRIMARY KEY, name VARCHAR(200), state VARCHAR(4), city VARCHAR(80), summary TEXT, lat DECIMAL(10,6), lon DECIMAL(10,6), hidden TINYINT DEFAULT 0, kind VARCHAR(20) DEFAULT 'recarea', org VARCHAR(100) DEFAULT 'National Park Service') COLLATE utf8mb4_unicode_ci;
+INSERT INTO categories VALUES (1,'National Park/Preserves Visitor Centers'),(2,'Park Visitor Centers'),(3,'Restaurants'),(4,'Shelters');
+INSERT INTO entities (id,name,category_id,latitude,longitude) VALUES (10,'Painted Desert Visitor Ctr',1,35.0656,-109.7826),(11,'KU Visitor Center',1,38.9586,-95.2475),(12,'Painted Desert Inn',1,35.0841,-109.7905),(13,'Pizza Place',3,34.5,-109.36),(14,'Desert Visitor Shelter Center',1,34.6,-109.4);
+INSERT INTO entity_metadata VALUES (10,'state','"AZ"'),(10,'city','"PETRIFIED FOREST NATIONAL PARK"'),(11,'state','"KS"'),(11,'city','"LAWRENCE"'),(12,'state','"AZ"'),(12,'city','"Petrified Forest"');
+INSERT INTO hero_media (owner_kind,owner_ref,kind,path) VALUES ('listing',12,'photo','/uploads/inn-own.jpg');
+INSERT INTO rec_places (ridb_id,name,state,city,lat,lon) VALUES ('2803','Petrified Forest National Park','AZ','Petrified Forest',34.91,-109.81),('1','Yellowstone National Park','WY','Mammoth',44.6,-110.5);
