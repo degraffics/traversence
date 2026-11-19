@@ -143,6 +143,17 @@
    "expires": "2026-11-20T03:31:42Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/lib/Notify.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "push-polish: one push per thing, a pace per person, the badge and the app manifest",
+   "since": "2026-11-19T23:31:44Z",
+   "expires": "2026-11-20T03:31:44Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
