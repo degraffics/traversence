@@ -2,21 +2,6 @@
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
  "claims": [
   {
-   "path": "app/lib/crawler/CrawlService.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "osm-copy-wider (Jason 2026-11-19: Yes, add them; Yes, widen it)",
-   "since": "2026-11-19T21:33:23Z",
-   "expires": "2026-11-20T01:57:27Z",
-   "release": "osm-copy-wider.zip",
-   "callers": {
-    "report": [
-     "website/api/crawl/service.php"
-    ]
-   }
-  },
-  {
    "path": "app/ui/outside-services.php",
    "functions": [],
    "kind": "change",
@@ -28,116 +13,273 @@
    "callers": {}
   },
   {
+   "path": "app/lib/StagingGate.php",
+   "functions": [
+    "here"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "StagingGate::here() public: the staging guards in CommsSetup, Mailboxes and SesInbound never held",
+   "since": "2026-11-19T22:09:06Z",
+   "expires": "2026-11-20T02:09:36Z",
+   "release": "staging-guard.zip",
+   "callers": {
+    "here": [
+     "app/lib/CommsSetup.php",
+     "app/lib/Mailboxes.php",
+     "app/lib/SesInbound.php"
+    ]
+   }
+  },
+  {
+   "path": "app/ui/engage-ui.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Get Local R2 (Jason, 2026-11-19: approved the concept, Change 1 and 2, the header search, the PO box, the comments box)",
+   "since": "2026-11-19T22:18:59Z",
+   "expires": "2026-11-20T02:20:25Z",
+   "release": "get-local-r2.zip",
+   "callers": {
+    "tv_engage_comments": [
+     "app/lib/Blocks.php",
+     "website/experiences/view.php",
+     "website/guide/how.php",
+     "website/guide/resources.php",
+     "website/hub/index.php",
+     "website/journeys/suggested.php",
+     "website/listing/view.php",
+     "website/place/landmark.php",
+     "website/place/recreation.php"
+    ]
+   }
+  },
+  {
+   "path": "app/ui/header.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Get Local R2 (Jason, 2026-11-19: approved the concept, Change 1 and 2, the header search, the PO box, the comments box)",
+   "since": "2026-11-19T22:18:59Z",
+   "expires": "2026-11-20T02:20:25Z",
+   "release": "get-local-r2.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/business/portal.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Get Local R2 (Jason, 2026-11-19: approved the concept, Change 1 and 2, the header search, the PO box, the comments box)",
+   "since": "2026-11-19T22:18:59Z",
+   "expires": "2026-11-20T02:18:59Z",
+   "release": "get-local-r2.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/ListingActions.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Get Local R2 (Jason, 2026-11-19: approved the concept, Change 1 and 2, the header search, the PO box, the comments box)",
+   "since": "2026-11-19T22:18:59Z",
+   "expires": "2026-11-20T02:20:25Z",
+   "release": "get-local-r2.zip",
+   "callers": {
+    "actions": [
+     "app/lib/Marketing.php",
+     "website/listing/view.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/UniversalSearch.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Get Local R2 (Jason, 2026-11-19: approved the concept, Change 1 and 2, the header search, the PO box, the comments box)",
+   "since": "2026-11-19T22:18:59Z",
+   "expires": "2026-11-20T02:20:25Z",
+   "release": "get-local-r2.zip",
+   "callers": {
+    "peek": [
+     "website/api/search.php"
+    ]
+   }
+  },
+  {
    "path": "website/listing/view.php",
    "functions": [],
    "kind": "change",
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
-   "why": "card-photos (Jason, 2026-11-19, approved)",
-   "since": "2026-11-19T21:45:00Z",
-   "expires": "2026-11-20T01:45:00Z",
-   "release": "",
+   "why": "Get Local R2 (Jason, 2026-11-19: approved the concept, Change 1 and 2, the header search, the PO box, the comments box)",
+   "since": "2026-11-19T22:18:59Z",
+   "expires": "2026-11-20T02:20:25Z",
+   "release": "get-local-r2.zip",
    "callers": {}
   },
   {
-   "path": "app/scripts/landmark_photos_tick.php",
+   "path": "website/api/search_listings.php",
    "functions": [],
    "kind": "change",
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
-   "why": "card-photos (Jason, 2026-11-19, approved)",
-   "since": "2026-11-19T21:45:02Z",
-   "expires": "2026-11-20T01:45:02Z",
-   "release": "",
+   "why": "Get Local R2 (Jason, 2026-11-19: approved the concept, Change 1 and 2, the header search, the PO box, the comments box)",
+   "since": "2026-11-19T22:18:59Z",
+   "expires": "2026-11-20T02:18:59Z",
+   "release": "get-local-r2.zip",
    "callers": {}
   },
   {
-   "path": "app/lib/OpenPlaces.php",
+   "path": "website/directory/index.php",
    "functions": [],
    "kind": "change",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "osm-copy-wider (Jason 2026-11-19: Yes, add them; Yes, widen it)",
-   "since": "2026-11-19T21:49:49Z",
-   "expires": "2026-11-20T01:57:27Z",
-   "release": "osm-copy-wider.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/crawler/OpenLoads.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "osm-copy-wider (Jason 2026-11-19: Yes, add them; Yes, widen it)",
-   "since": "2026-11-19T21:49:51Z",
-   "expires": "2026-11-20T01:57:27Z",
-   "release": "osm-copy-wider.zip",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Get Local R2 (Jason, 2026-11-19: approved the concept, Change 1 and 2, the header search, the PO box, the comments box)",
+   "since": "2026-11-19T22:18:59Z",
+   "expires": "2026-11-20T02:20:25Z",
+   "release": "get-local-r2.zip",
    "callers": {
-    "batch": [
-     "website/api/crawl/loads.php"
+    "search": [
+     "app/lib/AccountDomains.php",
+     "app/lib/AiClient.php",
+     "app/lib/Checkouts.php",
+     "app/lib/Concepts.php",
+     "app/lib/Experiences.php",
+     "app/lib/Learning.php",
+     "app/lib/PlaceFinder.php",
+     "app/lib/PlatformCounts.php",
+     "app/lib/Preflight.php",
+     "app/lib/Scheduler.php",
+     "app/lib/SearchDemand.php",
+     "app/lib/SearchIndex.php",
+     "app/lib/Services.php",
+     "app/lib/StockLibrary.php",
+     "app/lib/SuggestionActions.php",
+     "app/lib/SuggestionFlags.php",
+     "app/lib/UniversalSearch.php",
+     "app/lib/Vectors.php",
+     "app/lib/crawler/NpiBulk.php",
+     "app/lib/crawler/SourceIndex.php",
+     "app/lib/crawler/Sources.php",
+     "app/lib/synonyms.php",
+     "app/ui/admin-dashboard.php",
+     "app/ui/header.php",
+     "app/ui/outside-services.php",
+     "website/admin/api/find.php",
+     "website/admin/api/people.php",
+     "website/admin/search-learning.php",
+     "website/admin/settings.php",
+     "website/api/crawl/usage.php",
+     "website/api/nearby_hubs.php",
+     "website/api/search.php",
+     "website/api/search_listings.php",
+     "website/community/group.php",
+     "website/directory/classic.php",
+     "website/discovery/index.php",
+     "website/js/search-panel.js",
+     "website/listing/view.php"
     ],
-    "ensureTasks": [
-     "app/lib/SystemStart.php",
-     "website/api/crawl/loads.php"
+    "pins": [
+     "app/lib/Community.php",
+     "app/lib/DataCleanup.php",
+     "app/lib/Guides.php",
+     "website/api/search.php",
+     "website/discovery/index.php"
+    ],
+    "readHtml": [
+     "website/js/search-panel.js"
+    ],
+    "setView": [
+     "website/js/tv-editor.js"
     ]
    }
   },
   {
-   "path": "app/lib/OutsideServices.php",
+   "path": "website/js/map-view.js",
    "functions": [],
    "kind": "change",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "osm-copy-wider (Jason 2026-11-19: Yes, add them; Yes, widen it)",
-   "since": "2026-11-19T21:49:53Z",
-   "expires": "2026-11-20T01:57:27Z",
-   "release": "osm-copy-wider.zip",
-   "callers": {
-    "parts": [
-     "app/ui/outside-services.php"
-    ]
-   }
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Get Local R2 (Jason, 2026-11-19: approved the concept, Change 1 and 2, the header search, the PO box, the comments box)",
+   "since": "2026-11-19T22:18:59Z",
+   "expires": "2026-11-20T02:20:25Z",
+   "release": "get-local-r2.zip",
+   "callers": {}
   },
   {
-   "path": "app/lib/SystemStart.php",
+   "path": "website/js/engage.js",
    "functions": [],
    "kind": "change",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "osm-copy-wider: Start card's issue buttons; an issue closed everywhere (Jason 2026-11-19)",
-   "since": "2026-11-19T21:54:33Z",
-   "expires": "2026-11-20T01:57:27Z",
-   "release": "osm-copy-wider.zip",
-   "callers": {
-    "panel": [
-     "app/admin/automation-console.php",
-     "app/admin/operations-console.php"
-    ]
-   }
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Get Local R2 (Jason, 2026-11-19: approved the concept, Change 1 and 2, the header search, the PO box, the comments box)",
+   "since": "2026-11-19T22:18:59Z",
+   "expires": "2026-11-20T02:18:59Z",
+   "release": "get-local-r2.zip",
+   "callers": {}
   },
   {
-   "path": "app/lib/ServiceHealth.php",
+   "path": "website/js/search-panel.js",
    "functions": [],
    "kind": "change",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "osm-copy-wider: Start card's issue buttons; an issue closed everywhere (Jason 2026-11-19)",
-   "since": "2026-11-19T21:54:35Z",
-   "expires": "2026-11-20T01:57:27Z",
-   "release": "osm-copy-wider.zip",
-   "callers": {
-    "resolve": [
-     "app/admin/automation-console.php",
-     "app/lib/ControlAlarms.php",
-     "app/lib/EngineCase.php",
-     "app/lib/Pulse.php",
-     "website/admin/api.php"
-    ]
-   }
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Get Local R2 (Jason, 2026-11-19: approved the concept, Change 1 and 2, the header search, the PO box, the comments box)",
+   "since": "2026-11-19T22:18:59Z",
+   "expires": "2026-11-20T02:20:25Z",
+   "release": "get-local-r2.zip",
+   "callers": {}
   },
   {
-   "path": "app/admin/automation-console.php",
+   "path": "website/js/tv-conf.js",
    "functions": [],
    "kind": "change",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "osm-copy-wider: Start card's issue buttons; an issue closed everywhere (Jason 2026-11-19)",
-   "since": "2026-11-19T21:54:37Z",
-   "expires": "2026-11-20T01:57:27Z",
-   "release": "osm-copy-wider.zip",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Get Local R2 (Jason, 2026-11-19: approved the concept, Change 1 and 2, the header search, the PO box, the comments box)",
+   "since": "2026-11-19T22:18:59Z",
+   "expires": "2026-11-20T02:18:59Z",
+   "release": "get-local-r2.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/business/portal.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "release get-local-r2.zip",
+   "since": "2026-11-19T22:20:25Z",
+   "expires": "2026-11-20T02:20:25Z",
+   "release": "get-local-r2.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/api/search_listings.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "release get-local-r2.zip",
+   "since": "2026-11-19T22:20:25Z",
+   "expires": "2026-11-20T02:20:25Z",
+   "release": "get-local-r2.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/js/engage.js",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "release get-local-r2.zip",
+   "since": "2026-11-19T22:20:25Z",
+   "expires": "2026-11-20T02:20:25Z",
+   "release": "get-local-r2.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/js/tv-conf.js",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "release get-local-r2.zip",
+   "since": "2026-11-19T22:20:25Z",
+   "expires": "2026-11-20T02:20:25Z",
+   "release": "get-local-r2.zip",
    "callers": {}
   }
  ],
