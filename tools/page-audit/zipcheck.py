@@ -33,13 +33,25 @@ Migrations (decisions/0162): one that changes rows (UPDATE, DELETE, TRUNCATE, a 
 "data_reason" (a sentence); a drop (R08) passes only when release.json names it under "removes" ("table t", "column t.c",
 "index t.i"): the site then checks it's a recorded leftover of a rolled-back release, and copies the table first.
 """
-import argparse, difflib, hashlib, json, os, re, shutil, sys, tempfile, zipfile
+import argparse, difflib, hashlib, json, os, re, shutil, subprocess, sys, tempfile, zipfile
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import audit  # noqa: E402
 import checkout  # noqa: E402
 
 BACK = {v: k for k, v in audit.MAP.items()}
+# the outside services' lists generated from app/lib/service-defs.php (decisions/0173 §4): a zip carrying either side is
+# checked against the other, so they never drift
+SERVICE_DEFS = {'service-defs.php', 'OutsideServices.php', 'Operations.php', 'StagingGate.php', 'ServiceStages.php'}
+
+def service_defs_check(docs, app_dir, names):
+    """'' when the lists match app/lib/service-defs.php (or the zip touches neither); else what php says, with its fix."""
+    if not any(n.startswith('app/lib/') and n.count('/') == 2 and os.path.basename(n) in SERVICE_DEFS for n in names):
+        return ''
+    if not os.path.isfile(os.path.join(app_dir, 'lib', 'service-defs.php')):
+        return ''
+    r = subprocess.run(['php', os.path.join(docs, 'tools', 'page-audit', 'service-defs.php'), '--check', app_dir], capture_output=True, text=True)
+    return '' if r.returncode == 0 else (r.stdout + r.stderr).strip()
 
 
 def _sql_clean(sql):
@@ -275,6 +287,8 @@ def main():
                             have.setdefault(nm, []).append(n)
             moved = [(n, nm, have[nm]) for n, nm in dropped if any(o != n for o in have.get(nm, []))]
             dropped = [(n, nm) for n, nm in dropped if not any(o != n for o in have.get(nm, []))]
+        with zipfile.ZipFile(a.zip) as z:
+            defs_bad = service_defs_check(docs, os.path.join(over, BACK['app']), z.namelist())
         session = checkout.my_session(a.session)
         try:
             claimed, unclaimed = checkout.zip_review(a.zip, a.mirror, session, docs)
@@ -335,6 +349,8 @@ def main():
             print(f'\nBLOCK earlier work this zip would remove ({len(dropped)}): keep it, or name it with --drops once Jason agrees')
             for n, nm in dropped:
                 print(f'  {n}: {nm}')
+        if defs_bad:
+            print('\nBLOCK the outside services\' lists (decisions/0173 §4): ' + defs_bad)
         if mig_probs:
             print('\nBLOCK migrations (decisions/0162):')
             for n, why in mig_probs:
@@ -349,7 +365,7 @@ def main():
             print(f'It fixes {fixed} failure(s) that are on the live site now.')
         if any(s.startswith('unchanged') for s, _ in rows):
             print('Some files are identical to live: leave them out (a zip holds only files that differ).')
-        sys.exit(1 if blocking or dropped or stale or lost or pending or claimed or broken or unclaimed_block or mig_probs else 0)
+        sys.exit(1 if blocking or dropped or stale or lost or pending or claimed or broken or unclaimed_block or mig_probs or defs_bad else 0)
     finally:
         shutil.rmtree(work, ignore_errors=True)
 

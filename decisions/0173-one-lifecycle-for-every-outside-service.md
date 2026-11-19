@@ -143,7 +143,13 @@ As in 0169 §6, each service is defined in one place: `app/lib/service-defs.php`
 - its probe and pre-flight test;
 - its stage on shipping (`added_off`, with the reason).
 
-The 9 constants become reads of it, one release at a time, and nothing else changes behaviour. A new service is one
+The 9 constants become reads of it, one release at a time, and nothing else changes behaviour.
+
+**Note (2026-11-19, release 3; the session manager, as the decision's intent):** PHP's class constants can't be computed
+from a file, so the lists aren't read from `service-defs.php` at run time: they're **generated** from it by
+`tools/page-audit/service-defs.php` (`--write`), with the same values, and the zip check (`--check`) blocks any release
+whose lists differ from the file, saying to run it. One place to edit, no hunt across files; no caller changed. The
+retired records (`ServiceStages::RETIRED`) are generated from it too. A new service is one
 entry and its connector. A retired one keeps its entry with `stage: retired`, so its notice and its words come from one
 place.
 
