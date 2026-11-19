@@ -8,9 +8,16 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "0173 R1: one home (Service register takes in Outside services)",
    "since": "2026-11-19T21:33:25Z",
-   "expires": "2026-11-20T02:42:31Z",
-   "release": "",
-   "callers": {}
+   "expires": "2026-11-20T02:45:16Z",
+   "release": "r1.zip",
+   "callers": {
+    "tv_outside_services": [
+     "app/admin/sections.php"
+    ],
+    "tv_site_settings": [
+     "app/admin/sections.php"
+    ]
+   }
   },
   {
    "path": "app/admin/automation-console.php",
@@ -19,8 +26,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "0173 R1: one home (Service register takes in Outside services)",
    "since": "2026-11-19T22:42:01Z",
-   "expires": "2026-11-20T02:42:01Z",
-   "release": "",
+   "expires": "2026-11-20T02:45:16Z",
+   "release": "r1.zip",
    "callers": {}
   },
   {
@@ -30,8 +37,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "0173 R1: one home (Service register takes in Outside services)",
    "since": "2026-11-19T22:42:03Z",
-   "expires": "2026-11-20T02:42:03Z",
-   "release": "",
+   "expires": "2026-11-20T02:45:16Z",
+   "release": "r1.zip",
    "callers": {}
   },
   {
@@ -41,9 +48,13 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "0173 R1: one home (Service register takes in Outside services)",
    "since": "2026-11-19T22:42:05Z",
-   "expires": "2026-11-20T02:42:05Z",
-   "release": "",
-   "callers": {}
+   "expires": "2026-11-20T02:45:16Z",
+   "release": "r1.zip",
+   "callers": {
+    "tv_cb_proc_records": [
+     "app/admin/tools.php"
+    ]
+   }
   },
   {
    "path": "app/admin/job-line.php",
@@ -52,8 +63,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "0173 R1: one home (Service register takes in Outside services)",
    "since": "2026-11-19T22:42:07Z",
-   "expires": "2026-11-20T02:42:07Z",
-   "release": "",
+   "expires": "2026-11-20T02:45:16Z",
+   "release": "r1.zip",
    "callers": {}
   },
   {
@@ -63,8 +74,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "0173 R1: one home (Service register takes in Outside services)",
    "since": "2026-11-19T22:42:09Z",
-   "expires": "2026-11-20T02:42:09Z",
-   "release": "",
+   "expires": "2026-11-20T02:45:16Z",
+   "release": "r1.zip",
    "callers": {}
   },
   {
@@ -74,9 +85,17 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "0173 R1: one home (Service register takes in Outside services)",
    "since": "2026-11-19T22:42:11Z",
-   "expires": "2026-11-20T02:42:11Z",
-   "release": "",
-   "callers": {}
+   "expires": "2026-11-20T02:45:16Z",
+   "release": "r1.zip",
+   "callers": {
+    "tv_preflight_line": [
+     "website/admin/api.php"
+    ],
+    "tv_admin_mod_preflight": [
+     "app/admin/control-console.php",
+     "app/admin/operations-console.php"
+    ]
+   }
   },
   {
    "path": "app/admin/section-about.php",
@@ -85,8 +104,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "0173 R1: one home (Service register takes in Outside services)",
    "since": "2026-11-19T22:42:13Z",
-   "expires": "2026-11-20T02:42:13Z",
-   "release": "",
+   "expires": "2026-11-20T02:45:16Z",
+   "release": "r1.zip",
    "callers": {}
   },
   {
@@ -96,8 +115,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "0173 R1: one home (Service register takes in Outside services)",
    "since": "2026-11-19T22:42:15Z",
-   "expires": "2026-11-20T02:42:15Z",
-   "release": "",
+   "expires": "2026-11-20T02:45:16Z",
+   "release": "r1.zip",
    "callers": {}
   },
   {
@@ -129,9 +148,13 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "0173 R1: one home (Service register takes in Outside services)",
    "since": "2026-11-19T22:42:21Z",
-   "expires": "2026-11-20T02:42:21Z",
-   "release": "",
-   "callers": {}
+   "expires": "2026-11-20T02:45:16Z",
+   "release": "r1.zip",
+   "callers": {
+    "pulseItems": [
+     "app/lib/Pulse.php"
+    ]
+   }
   },
   {
    "path": "app/lib/Preflight.php",
@@ -140,8 +163,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "0173 R1: one home (Service register takes in Outside services)",
    "since": "2026-11-19T22:42:23Z",
-   "expires": "2026-11-20T02:42:23Z",
-   "release": "",
+   "expires": "2026-11-20T02:45:16Z",
+   "release": "r1.zip",
    "callers": {}
   },
   {
@@ -151,9 +174,13 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "0173 R1: one home (Service register takes in Outside services)",
    "since": "2026-11-19T22:42:25Z",
-   "expires": "2026-11-20T02:42:25Z",
-   "release": "",
-   "callers": {}
+   "expires": "2026-11-20T02:45:16Z",
+   "release": "r1.zip",
+   "callers": {
+    "steps": [
+     "app/lib/Pulse.php"
+    ]
+   }
   },
   {
    "path": "app/lib/Services.php",
@@ -162,9 +189,13 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "0173 R1: one home (Service register takes in Outside services)",
    "since": "2026-11-19T22:42:27Z",
-   "expires": "2026-11-20T02:42:27Z",
-   "release": "",
-   "callers": {}
+   "expires": "2026-11-20T02:45:16Z",
+   "release": "r1.zip",
+   "callers": {
+    "report": [
+     "app/ui/outside-services.php"
+    ]
+   }
   },
   {
    "path": "app/lib/staging-tables.php",
@@ -173,8 +204,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "0173 R1: one home (Service register takes in Outside services)",
    "since": "2026-11-19T22:42:29Z",
-   "expires": "2026-11-20T02:42:29Z",
-   "release": "",
+   "expires": "2026-11-20T02:45:16Z",
+   "release": "r1.zip",
    "callers": {}
   },
   {
@@ -195,8 +226,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "0173 R1: one home (Service register takes in Outside services)",
    "since": "2026-11-19T22:42:35Z",
-   "expires": "2026-11-20T02:42:35Z",
-   "release": "",
+   "expires": "2026-11-20T02:45:16Z",
+   "release": "r1.zip",
    "callers": {}
   },
   {
@@ -206,8 +237,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "0173 R1: one home (Service register takes in Outside services)",
    "since": "2026-11-19T22:42:37Z",
-   "expires": "2026-11-20T02:42:37Z",
-   "release": "",
+   "expires": "2026-11-20T02:45:16Z",
+   "release": "r1.zip",
    "callers": {}
   },
   {
@@ -228,13 +259,14 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "0173 R1: each service's stage",
    "since": "2026-11-19T22:42:41Z",
-   "expires": "2026-11-20T02:42:41Z",
-   "release": "",
+   "expires": "2026-11-20T02:45:16Z",
+   "release": "r1.zip",
    "callers": {}
   },
   {
    "path": "app/admin/manifests.php",
    "functions": [
+    "'config'",
     "config",
     "register",
     "services",
@@ -244,8 +276,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "0173 R1: one home",
    "since": "2026-11-19T22:42:46Z",
-   "expires": "2026-11-20T02:43:38Z",
-   "release": "",
+   "expires": "2026-11-20T02:45:16Z",
+   "release": "r1.zip",
    "callers": {}
   },
   {
@@ -255,8 +287,63 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "0173 R1: one home: TV_ADMIN_MOVED redirect",
    "since": "2026-11-19T22:42:52Z",
-   "expires": "2026-11-20T02:42:52Z",
-   "release": "",
+   "expires": "2026-11-20T02:45:16Z",
+   "release": "r1.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/migrations/2026-11-19_service_stages.sql",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "release r1.zip",
+   "since": "2026-11-19T22:45:16Z",
+   "expires": "2026-11-20T02:45:16Z",
+   "release": "r1.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Automation.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "release r1.zip",
+   "since": "2026-11-19T22:45:16Z",
+   "expires": "2026-11-20T02:45:16Z",
+   "release": "r1.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/ControlBoard.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "release r1.zip",
+   "since": "2026-11-19T22:45:16Z",
+   "expires": "2026-11-20T02:45:16Z",
+   "release": "r1.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/admin/api.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "release r1.zip",
+   "since": "2026-11-19T22:45:16Z",
+   "expires": "2026-11-20T02:45:16Z",
+   "release": "r1.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/js/admin-outside.js",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "release r1.zip",
+   "since": "2026-11-19T22:45:16Z",
+   "expires": "2026-11-20T02:45:16Z",
+   "release": "r1.zip",
    "callers": {}
   }
  ],
