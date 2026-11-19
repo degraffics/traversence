@@ -1,0 +1,59 @@
+{
+    "id": 201,
+    "title": "The bell for a staff login: it counts and opens the admin's Pulse; a staff login never lands on the member dashboard",
+    "why": "Jason, 2026-11-19: \"this happened when I clicked on the bell in the nav header\" and \"the side bar navigation is wrong for the type of user I am\" (approved a+b+c). A staff login (decisions/0100: no member side) got the member dashboard, an empty member Pulse and the member sidebar beside a 99+ count of staff messages. Now (a) its bell counts what the admin Pulse's bell counts (critical, overdue, escalated to you), kept by admin Pulse as it draws, and opens /admin/dashboard#bell with that filter on; (b) /user/dashboard.php sends a staff login to the admin (password and 2FA at /admin/staff.php; its member account through the account switch); (c) the member Pulse in an admin-only context points to the admin's Pulse. Members, and members with admin access, keep their own dashboard and bell. FAQ.",
+    "proposals": "",
+    "zip": "staff-bell.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/ui/pulse-ui.php": {
+            "sha": "a6eb6e5f0c84d14d2b5212fd32d39bf097409be2d6a7c04d978985996ad76fd5",
+            "size": 161607,
+            "live_was": "50e21a72a3f14018d11fce63b59412c954424a8935a89e557a40aff462e6443b"
+        },
+        "app/ui/faq.md": {
+            "sha": "522bde80572578d95954a8f981ff0154bbf071cbd74a6ce784cc109e6ca80875",
+            "size": 380131,
+            "live_was": "c1210f4a86c4342cdd532490ccc9692ef4864f80a6d9273ae289170a4412964b"
+        },
+        "website/user/dashboard.php": {
+            "sha": "8defeb37a96781c54c17941c0f71ee4fa2576277e3ef417a9d830779cfddb6b6",
+            "size": 113654,
+            "live_was": "c25b21e6a6f866c248d276b0a57ff20b218e96dbd5b4738ab6db56426b1cb9d9"
+        },
+        "website/user/api/bell.php": {
+            "sha": "8d34a449ecc9dbd9241e3ab564dc38432b69c34236aab3d051e29af3cb2c70e3",
+            "size": 3652,
+            "live_was": "3a95e6ad168d54aea924d42696070b2fba5c9739f2bf44c870f179d4ef41964c"
+        },
+        "website/js/header-nav.js": {
+            "sha": "1dd413df93c9e5c0398bc434c81afd4fca9830effd61bdb6f5987d0072711d17",
+            "size": 8373,
+            "live_was": "b97b51efea808cca3bb01248abbcfdc3278fdb5fa7bfd39ec05264e0eaea4183"
+        },
+        "website/js/tv-pulse.js": {
+            "sha": "251dd0d3dac2f7b87c80befac74f786d0b3ec31999875adba25c604ecd37ac05",
+            "size": 40166,
+            "live_was": "29099ae39f470e4eff68df556353e8cbd2019caccb1a0d442c09b7840797ec10"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-19T17:36:07+00:00",
+            "by": 0,
+            "msg": "Uploaded staff-bell.zip: 6 files."
+        }
+    ]
+}
