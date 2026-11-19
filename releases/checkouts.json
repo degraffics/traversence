@@ -165,6 +165,17 @@
    "expires": "2026-11-20T03:31:46Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "website/manifest.json",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "push-polish: one push per thing, a pace per person, the badge and the app manifest",
+   "since": "2026-11-19T23:31:48Z",
+   "expires": "2026-11-20T03:31:48Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
