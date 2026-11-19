@@ -22,8 +22,8 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Design 3c: Get Local on the tokens",
    "since": "2026-11-19T02:19:33Z",
-   "expires": "2026-11-19T06:19:33Z",
-   "release": "",
+   "expires": "2026-11-19T08:07:30Z",
+   "release": "design-r3c-local.zip",
    "callers": {}
   },
   {
@@ -33,9 +33,17 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Design 3c: Get Local on the tokens",
    "since": "2026-11-19T02:19:35Z",
-   "expires": "2026-11-19T06:19:35Z",
-   "release": "",
-   "callers": {}
+   "expires": "2026-11-19T08:07:30Z",
+   "release": "design-r3c-local.zip",
+   "callers": {
+    "render": [
+     "app/lib/Blocks.php",
+     "app/lib/Qr.php",
+     "website/admin/crawler-review.php",
+     "website/js/collection.js",
+     "website/user/dashboard.php"
+    ]
+   }
   },
   {
    "path": "app/lib/ControlLog.php",
