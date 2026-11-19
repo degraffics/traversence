@@ -44,13 +44,14 @@
   {
    "path": "app/lib/ControlAlarms.php",
    "functions": [
+    "resolve",
     "watch"
    ],
    "kind": "change",
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "control-board-legacy: old trips settled, titles by the part that holds, W0's batch asked again",
+   "why": "control-board-legacy (the watch)",
    "since": "2026-11-19T04:27:33Z",
-   "expires": "2026-11-19T08:27:33Z",
+   "expires": "2026-11-19T08:27:58Z",
    "release": "",
    "callers": {}
   }
