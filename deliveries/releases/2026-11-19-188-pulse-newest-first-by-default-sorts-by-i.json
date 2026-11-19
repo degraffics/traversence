@@ -1,0 +1,39 @@
+{
+    "id": 188,
+    "title": "Pulse: newest first by default; ! sorts by importance",
+    "why": "Jason, 2026-11-19: \"might need to reorder the priorities so clock is higher than others\", then \"default is by when received, on sort it should priority by most important or least\". The stream's own order is now newest received first (resolved at the bottom; your pins stay on top), as 0172 has it (\"Nothing in Pulse is pinned, moved or held on top by the site\"); it no longer lifts escalated or higher-level items itself: the bell, the tint and the clock carry the signal. Tapping ! puts the most important first (overdue rows, then by level), again the least important first, a third time newest again. app/ui/pulse-ui.php; FAQ.",
+    "proposals": "",
+    "zip": "pulse-order.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/ui/pulse-ui.php": {
+            "sha": "27c42d671d377a313417a24a3324da80d0812e773d8cb488d20647e4e123c45b",
+            "size": 136873,
+            "live_was": "7bb5ce65c588192294b99a55ccb21323d9bfedcf84b0ab1f362f569b944d85e4"
+        },
+        "app/ui/faq.md": {
+            "sha": "714704a2eac034a54d58db09046647b078ccd686c8208de77c0066f1ce925668",
+            "size": 372699,
+            "live_was": "cdff68429047265a3e8fdcf9b283a2519c07d1c3c06365ebccb7d67a8a9cff65"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-19T14:26:05+00:00",
+            "by": 0,
+            "msg": "Uploaded pulse-order.zip: 2 files."
+        }
+    ]
+}
