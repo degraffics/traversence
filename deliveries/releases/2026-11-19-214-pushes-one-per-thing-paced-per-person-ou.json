@@ -6,12 +6,12 @@
     "zip": "push-polish.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "planned",
+    "state": "approved",
     "step": 0,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
-    "plan_at": null,
+    "plan_at": "2026-11-19 23:36:41",
     "staged_at": null,
     "vetted_at": null,
     "live_at": null,
@@ -74,6 +74,16 @@
             "at": "2026-11-19T23:36:39+00:00",
             "by": 0,
             "msg": "Uploaded push-polish.zip: 10 files."
+        },
+        {
+            "at": "2026-11-19T23:36:41+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/push-polish.zip (git 861ce0b05d)."
+        },
+        {
+            "at": "2026-11-19T23:36:41+00:00",
+            "by": 0,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
         }
     ]
 }
