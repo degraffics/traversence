@@ -144,6 +144,11 @@ and to support@traversence.com. When they lift the block: Reactivate on OpenStre
 (https://traversence.com/admin/config/register#svc-osm), then Mark resolved on the alarm. The topic link goes here once
 it's approved.
 
+**First answer (2026-11-19, Mateusz_Konieczny, about 30 minutes after it showed):** "these bans are almost certainly
+automatic", and a pointer to the usage hints on the OSM wiki's Overpass API page. An automatic ban suggests it lifts by
+itself once requests stop; our reply (drafted for Jason) confirms we follow the hints and asks whether it lifts on its own
+and how to check safely before resuming. Until they answer that, overpass-api.de stays held (no contact).
+
 ## 4. What we change either way (for the crawler session)
 
 Built 2026-11-14 (the table in §2 says where each stands): per-kind queries one at a time, the breaker per server,
