@@ -3,12 +3,12 @@
  "built_on": "3044ea8 Sync: 2026-11-19 12:08 UTC",
  "recorded": "2026-11-19 12:23 UTC",
  "note": "Home: the local group card names the place only. Approved by Jason 2026-11-19 (reviewed by the session manager). Built on Sync: 12:08 UTC Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "a5b73ad Sync: 2026-11-19 12:36 UTC",
  "files": {
   "website/index.php": {
    "sha256": "f38f535625ebde2b4625394673a177a2aa10e4eaeae8754609bc2c1c3dace8cc",
-   "live": false
+   "live": true
   }
  }
 }

@@ -18,21 +18,24 @@ concurrency:
 jobs:
   ping:
     runs-on: ubuntu-latest
-    timeout-minutes: 6
+    timeout-minutes: 12
     steps:
       - name: Ask the live site to take the build now
         run: |
           url=https://traversence.com/api/releases-pull.php
           # an empty POST with no Content-Type got ModSecurity's 406 (2026-11-15): a JSON body like the crawler worker's calls
           cookie='humans_21909=1'   # the host's bot check (research/bluehost-bot-check-2026-11-15.md)
-          for try in 1 2 3; do
+          for try in 1 2 3 4; do
             code=$(curl -sS -o out.txt -w '%{http_code}' -X POST --max-time 240 -A 'Mozilla/5.0 (compatible; TraversenceReleasePing/1.0)' -H 'Content-Type: application/json' -H 'Accept: application/json, */*' --data '{}' -b "$cookie" "$url" || echo 000)
             echo "try $try: $code"; head -c 1500 out.txt; echo
             if [ "$code" = 200 ]; then exit 0; fi
             if [ "$code" = 409 ]; then
               n=$(grep -o 'humans_[0-9]*=[0-9]*' out.txt | head -1); [ -n "$n" ] && cookie="$n"
             fi
-            if [ "$code" = 429 ] || [ "$code" = 404 ]; then echo "Taken by the next look (404: the endpoint isn't live yet)."; exit 0; fi
+            if [ "$code" = 404 ]; then echo "Taken by the next look (404: the endpoint isn't live yet)."; exit 0; fi
+            # 429 "too_soon": the site looked under a minute ago (often for the release just before this one), and its
+            # 10-minute job hasn't always followed up (2026-11-19: #168 and #175 each waited). Wait past the minute and ask again.
+            if [ "$code" = 429 ]; then sleep 65; continue; fi
             sleep 20
           done
           echo "::warning::The site didn't take it now; its 10-minute job or Check for builds on the Releases page will."
