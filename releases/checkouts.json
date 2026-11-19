@@ -573,6 +573,17 @@
    "expires": "2026-11-19T17:08:52Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "website/js/tv-pager.js",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Buttons standard: one filled button, Claim, Peek dim, search bars",
+   "since": "2026-11-19T13:08:54Z",
+   "expires": "2026-11-19T17:08:54Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
