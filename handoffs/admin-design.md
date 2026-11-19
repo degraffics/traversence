@@ -94,3 +94,16 @@ Merriweather. `sections.php` claimed per function (the Control Board holds `tv_a
 - Contrast below 4.5:1 found by 3a's probe: the Shortcuts list's group labels (`admin-hub.php`, #8A7355 on #FFFBF2,
   4.36:1), the dashboard's small labels (`.ad-k`, `.ad-*` in `admin-dashboard.php`), Pulse's column headers
   (`.ps-sort`, `.ps-flt`; 3d).
+
+### 3b-1: design-r3b1-explore.zip (built on Sync 00:17 UTC, by `build3b1.sh`, replayable)
+
+- `explore-hero.php`: `fallback_slides` (the page's own landmark photos) before stock; stock only with no real photo.
+  Test: `tools/design-tests/hero-order.php` (6 pass; the live code fails 4).
+- `discovery/index.php`: Parks passes its place and "national park", Experiences "outdoor experience"; its styles on the
+  tokens; the timeline's dates in link brown; "Join the team" white on brand brown.
+- `stock-ui.php`: the credit on the photo with an i (Jason, 2026-11-17); styles on the tokens with fallbacks (storefronts).
+- `website/index.php`: its own styles on the tokens (the door tone table kept, data); kickers in link brown.
+- FAQ: the stock photo answer (question unchanged, its anchor is linked).
+- Route colour: proposed --tv-route, Juniper Teal #2F6B66 (4.83:1 on the vellum, 5.36 on map land, 3.83 on water), with a
+  light casing over dark imagery; no map draws routes yet.
+- 3b-2 next: listing, place and hub, experiences, journeys, gallery pages; engage-ui; comments.
