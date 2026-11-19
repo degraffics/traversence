@@ -1,0 +1,18 @@
+{
+ "zip": "control-board-4d.zip",
+ "built_on": "ed8fd78 Sync: 2026-11-19 00:22 UTC",
+ "recorded": "2026-11-19 00:25 UTC",
+ "note": "Control Board 4d: rows holding a value in each unused column, in the health report (counts only). Built on Sync: 2026-11-19 00:22 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/SchemaUpkeep.php": {
+   "sha256": "0d7d39eb50c8c8372e728c700bf0aafbbf4d1fd015122032d492ba297eed5c50",
+   "live": false
+  },
+  "website/api/health.php": {
+   "sha256": "eafbfbf68ffd0d5be4b917051a5884c640f8aee2f9c8723b8ca2ff58d84610c3",
+   "live": false
+  }
+ }
+}
