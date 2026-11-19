@@ -1,0 +1,30 @@
+{
+ "zip": "control-board-offregion.zip",
+ "built_on": "2bbaa1d Sync: 2026-11-19 12:40 UTC",
+ "recorded": "2026-11-19 12:42 UTC",
+ "note": "control-board-offregion: sources outside our region shown and decided in one place; Acknowledge leaves the open list; built on Sync: 12:36 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/ControlAlarms.php": {
+   "sha256": "82eb41c5dae4e697c3dc6d73e45b3f71910851e475c093af1be658400c1e09ff",
+   "live": false
+  },
+  "app/lib/crawler/Sources.php": {
+   "sha256": "61fe536994afcf6660a797661453741538d25011c91f9a05a01101630032996e",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "5809a8a99d3d3be0c6b9f7f517e1935b0fcaa08f5ce75aa79643446dbd27690c",
+   "live": false
+  },
+  "website/admin/sources.php": {
+   "sha256": "a791e8affaa9a32110bd5f64a9c272df1729bef19524cf8527900ddd23229751",
+   "live": false
+  },
+  "website/js/admin-control.js": {
+   "sha256": "e9e8828f77a5c2f43100781baf9dab788397eb1b58800789d37658ac2283dc16",
+   "live": false
+  }
+ }
+}

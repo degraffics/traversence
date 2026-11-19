@@ -79,7 +79,10 @@ $n = ControlAlarms::seed($pdo);
 $w2 = ControlAlarms::openOf($pdo, 'pf:wf:W2'); $ep = ControlAlarms::openOf($pdo, 'ep:crawl/verify:5xx'); $off = ControlAlarms::openOf($pdo, 'w3:offregion');
 $t('the seed: a red pre-flight line, named by the part that holds it, with what it means', $w2 && str_starts_with((string) $w2['title'], 'W2') && str_contains((string) $w2['title'], 'Its gate') && str_contains((string) $w2['means'], "won't start"), $w2);
 $t('…W2\'s server error at /api/crawl/verify.php, in its own words', $ep && $ep['proc'] === 'wf:W2' && str_contains((string) $ep['reading'], 'Unknown column'), $ep);
-$t('…sources outside our region (only the country domains other than .us)', $off && str_contains((string) $off['reading'], 'helsinki.fi') && !str_contains((string) $off['reading'], 'azdot.gov'), $off);
+// sources outside our region moved from the seed to the watch's hourly recount (control-board-offregion, 2026-11-19)
+SearchIndex::setState($pdo, 'control:offregion_at', ''); try { ControlAlarms::tick($pdo); } catch (Throwable $x) {}
+$off = ControlAlarms::openOf($pdo, 'w3:offregion');
+$t('…sources outside our region (a country\'s address, never .gov), raised by the watch with the button that opens them', $off && str_contains((string) $off['reading'], 'helsinki.fi') && !str_contains((string) $off['reading'], 'azdot.gov') && str_contains((string) $off['fix'], 'show=offregion'), $off);
 $t('…and only once', ControlAlarms::seed($pdo) === 0 && $n >= 3, $n);
 // the dispatcher knows the kinds; the message in Pulse carries Acknowledge
 require_once $app . '/lib/Notify.php';
