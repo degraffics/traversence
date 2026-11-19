@@ -3,14 +3,12 @@
  "claims": [
   {
    "path": "app/lib/Operations.php",
-   "functions": [
-    "status"
-   ],
+   "functions": [],
    "kind": "change",
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "control-board-backoff-gate",
+   "why": "control-board-routes: every alarm leads to its fix",
    "since": "2026-11-19T11:21:46Z",
-   "expires": "2026-11-19T15:21:46Z",
+   "expires": "2026-11-19T17:26:09Z",
    "release": "",
    "callers": {}
   },
