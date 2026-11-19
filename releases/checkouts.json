@@ -185,6 +185,17 @@
    "expires": "2026-11-19T17:07:38Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/ui/vault.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Buttons standard: one filled button, Claim, Peek dim, search bars",
+   "since": "2026-11-19T13:07:40Z",
+   "expires": "2026-11-19T17:07:40Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
