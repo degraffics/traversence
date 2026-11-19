@@ -62,6 +62,61 @@
      "app/scripts/landmark_photos_tick.php"
     ]
    }
+  },
+  {
+   "path": "app/lib/Claims.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "claim-kinds (Jason, 2026-11-19, approved): who might claim it, the short button, the form by kind",
+   "since": "2026-11-19T23:28:22Z",
+   "expires": "2026-11-20T03:28:22Z",
+   "release": "claim-kinds.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/claim.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "claim-kinds (Jason, 2026-11-19, approved): who might claim it, the short button, the form by kind",
+   "since": "2026-11-19T23:28:22Z",
+   "expires": "2026-11-20T03:28:22Z",
+   "release": "claim-kinds.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/js/claim.js",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "claim-kinds (Jason, 2026-11-19, approved): who might claim it, the short button, the form by kind",
+   "since": "2026-11-19T23:28:22Z",
+   "expires": "2026-11-20T03:28:22Z",
+   "release": "claim-kinds.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/listing/api/claim.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "claim-kinds (Jason, 2026-11-19, approved): who might claim it, the short button, the form by kind",
+   "since": "2026-11-19T23:28:22Z",
+   "expires": "2026-11-20T03:28:22Z",
+   "release": "claim-kinds.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/listing/view.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "claim-kinds (Jason, 2026-11-19, approved): who might claim it, the short button, the form by kind",
+   "since": "2026-11-19T23:28:22Z",
+   "expires": "2026-11-20T03:28:22Z",
+   "release": "claim-kinds.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
