@@ -229,6 +229,17 @@
    "expires": "2026-11-19T20:32:39Z",
    "release": "control-board-itsdata.zip",
    "callers": {}
+  },
+  {
+   "path": "app/ui/pulse-ui.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Pulse: filters start all ticked; Group by (Jason approved 2026-11-19)",
+   "since": "2026-11-19T16:39:16Z",
+   "expires": "2026-11-19T20:39:16Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
