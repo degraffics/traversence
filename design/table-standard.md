@@ -52,6 +52,8 @@ he says otherwise.
    standard button), **Show more** under the list, and **Columns** to choose which show. Paging, sorting, filtering and
    the count come from the server (a page at a time, `LIMIT`/`OFFSET` with a `COUNT(*)`), so a table of 100,000 rows
    loads as fast as one of 50. A filter or sort goes back to page 1 and the count follows it ("12 of 1,234 match").
+   In Pulse the default order stays 0172's ("never reorders anything for you"); a sort the person clicks is theirs, and
+   paging never changes the order. `tv-table.js` calls the existing `.ak-pgb` page bar in `admin-kit.js`, never a copy.
    Group rows count as one row for paging; their members show when opened. On phones the bar keeps previous, "Page 3 of
    25" and next.
 10. **Selecting rows:** a checkbox column only where there's a bulk action; the bulk bar appears when one is ticked.
