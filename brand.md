@@ -85,6 +85,12 @@ This confirms the mobile menu reviewed 2026-09-25 is a faithful implementation o
     4.5:1 on every level. Tokens: `--tv-canvas` (the page), `--tv-sec`, `--tv-sec-edge`, `--tv-card-a`/`-b`,
     `--tv-card-edge`, `--tv-tag`, `--tv-field`, `--tv-field-edge` in `app/ui/theme-tokens.php`. Primary buttons stay brand
     brown `#92400E` with white text until Jason chooses (gold `#C69A47` takes umber text, 5.2:1; white on gold fails, 2.6:1).
+  - *Note (Jason, 2026-11-19): the button standard.* "The button color should be our standard button color default. The
+    Text color should match the bg color." A filled button is brand brown `#92400E` with the page colour `#E4DCC5` as its text
+    (5.18:1), a pill, no shadow; one filled button per box, the rest outlined (brown edge and text). On a dark bar it reverses:
+    the page colour with brown text (5.18:1), hover the card colour. The hover is Jason's pick (release buttons-standard).
+    Tokens: `--tv-btn`, `--tv-btn-hover`, `--tv-btn-text`, `--tv-btn-inv`, `--tv-btn-inv-hover`, `--tv-btn-inv-text`. Danger
+    stays crimson; active tabs stay sage; email templates keep their own colours. A thin cream line sits under the header.
 - **Typography & Hierarchy:** Warm Near-Black `#2A1D14` for primary headings; Muted Taupe `#7A6A52` for metadata and subheadings.
   - *Note (Jason, 2026-11-18, design Release 1):* taupe is 4.11:1 on the vellum, under §8's 4.5:1, so **small metadata
     text** is taupe with 35% Warm Near-Black mixed in (`--tv-meta`, 6.2:1 on the vellum, 4.73:1 on `#D8C79D`); taupe itself

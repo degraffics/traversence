@@ -170,3 +170,8 @@ header's bar, and the panel hangs from its bar. `home-v4_20261101.zip` (built on
   one surface and shadow (`.hm-sopen`). The place in Let's get local shows its name only.
 
 **Since 2026-11-04 (decisions/0143):** §6's stock library is a system repository in System Configuration, open to anyone publishing in illustrative slots only (never as a product's, journey's or event's own photo), with per-source handling (copies, or Unsplash's links).
+
+**Note (2026-11-19, Jason: "go ahead, build it"): the split search's words box.** Its placeholder is **What are you
+looking for?** in sentence case, the same as Get Local's bar, in place of "Discover more" in capitals, which read as a label
+or a button rather than a place to type. Both boxes take the field colour with its edge (brand.md §4), the words box has a ×
+to clear it, and the Go icon is the page colour (release buttons-standard).

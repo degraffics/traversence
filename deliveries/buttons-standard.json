@@ -1,0 +1,182 @@
+{
+ "zip": "buttons-standard.zip",
+ "built_on": "e08af8a Sync: 2026-11-19 13:14 UTC",
+ "recorded": "2026-11-19 13:17 UTC",
+ "note": "Buttons standard, hover B #78350F; the account bar unchanged; the listing kind line as pills. Approved by Jason in the pop-up (reviewed by the session manager). Built on Sync: 13:14 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/admin/kit-css.php": {
+   "sha256": "d85b9c229b2bb4c8ad38a2819dbb9e8ab67f68400fae79df8154647c591afd2d",
+   "live": false
+  },
+  "app/ui/command-strip.php": {
+   "sha256": "dbb430a5c8cf928d564b561f0e171250cbb3ce3fb8660966dcf24ead50d88049",
+   "live": false
+  },
+  "app/ui/explore-hero.php": {
+   "sha256": "14bd3650dbe83481594caaa69af7bdfb291943de2f597ae9cca29132b107687b",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "1e2c75052b2d214bc4f2ab990404acfc6d6cc2266e7f4ae9175cd08844f33176",
+   "live": false
+  },
+  "app/ui/footer.php": {
+   "sha256": "cc2235f4d9768f9a0abb0a9dd138451b69bcccfd0449d2363925e6b90f4fdc52",
+   "live": false
+  },
+  "app/ui/gallery-ui.php": {
+   "sha256": "b853317d6d8be3612b64929dd37e3397372c9ee080b45bf88a7977995a97f52c",
+   "live": false
+  },
+  "app/ui/go-codes.php": {
+   "sha256": "74c0a31bf71a34de259b6c90113e6738769bfa93e36b0430c8e571270353f8df",
+   "live": false
+  },
+  "app/ui/header.php": {
+   "sha256": "3f757f1d59bbe99f889f0261d93bf5b613dcef8d07e1c8b336b3caf270c53c10",
+   "live": false
+  },
+  "app/ui/location-modal.php": {
+   "sha256": "ba01c711707f7ec8cd49067eac0a0b5e08e508904da7551652f573d06fb23269",
+   "live": false
+  },
+  "app/ui/profile-header.php": {
+   "sha256": "81c4d01f49d8870a69196ecba591f1aece773d9500858984911d230003a9de05",
+   "live": false
+  },
+  "app/ui/stock-ui.php": {
+   "sha256": "e2e6af133c2849ec458440ae6981a8e477fc84b93a63a0ab7ebc6b6af60e7679",
+   "live": false
+  },
+  "app/ui/tag-chips.php": {
+   "sha256": "21f72dcab2c8d475e8ab54450acb5a894008e0de3acfc913ae39a4eadbc96787",
+   "live": false
+  },
+  "app/ui/theme-tokens.php": {
+   "sha256": "c2b4e34773e5c4d612002b9a084345345d93855e2b8227c3f45e06556b5b1937",
+   "live": false
+  },
+  "app/ui/vault.php": {
+   "sha256": "b76c57308f388b2c832b1edf97fffba408f49f86d940cc1f38a1cd7d6b750fbc",
+   "live": false
+  },
+  "website/admin/login.php": {
+   "sha256": "74f79f291355a19471648bee086bf6bca14b9e42e51ae0257766fd651fbd2b97",
+   "live": false
+  },
+  "website/admin/quickbooks.php": {
+   "sha256": "aea3a7b90d3775dd58ec380edb3dcbbc42f6ea9c640bd073bc0ecefad1a71020",
+   "live": false
+  },
+  "website/admin/setup.php": {
+   "sha256": "f577a4c1dd658cd612d02bc1ed87f3cc9167445fcbc95c903a1ef4fe0484c3e7",
+   "live": false
+  },
+  "website/ai/index.php": {
+   "sha256": "c18c00b75bbbdc563c6df906ad1ff1eb936307770296796dfc0b5bc5897b5c5a",
+   "live": false
+  },
+  "website/directory/index.php": {
+   "sha256": "a6e69210afc63661e63dad7585b0a6d0a014902a392f2d0d03517a92df940744",
+   "live": false
+  },
+  "website/discovery/index.php": {
+   "sha256": "e463b1c4b96ecedb3f80803b460a2c9344f71a136101b14eb9033e3e1b576a06",
+   "live": false
+  },
+  "website/hub/index.php": {
+   "sha256": "ee47c1c74d63626c646e7a59b24832b30ca7512108e7cceab90e9485811ee0e8",
+   "live": false
+  },
+  "website/index.php": {
+   "sha256": "d8d863a7fe8e289cd6babb38aeac230de9450ba744095a0ba9ace9345d024a84",
+   "live": false
+  },
+  "website/join.php": {
+   "sha256": "47ab66317c12b747d2267506eb8bc6652f41a82359d53e03da39b7d7dacbf06d",
+   "live": false
+  },
+  "website/js/listing-leave.js": {
+   "sha256": "f51560ec5d0bf53f4e784df4f6732653c7d9ba41c1d44f2f9e0caad0a7ca1698",
+   "live": false
+  },
+  "website/js/location-scope.js": {
+   "sha256": "bb1cf1c93f585958372ba17c6656ae5c7787d5eb9bf7ca1ab2e3d0f4a41c7f90",
+   "live": false
+  },
+  "website/js/map-view.js": {
+   "sha256": "0d1135c5601f50f9b9ec993d6305a724cafe42eba431ccfe1e33ac9baf46dff2",
+   "live": false
+  },
+  "website/js/search-panel.js": {
+   "sha256": "1c64923c4bb53c5c801a4d82142f94071c21bed22ab050d16a38d94e27676e06",
+   "live": false
+  },
+  "website/js/tv-ai-assist.js": {
+   "sha256": "f0fe816b629f31be5a5ac273cb6b086b4a7cea8145103c9537634d0082314764",
+   "live": false
+  },
+  "website/js/tv-art.js": {
+   "sha256": "36928bb148fc9d6184908af6d6628b6eacb9e06e8d205d5b0a6896c8d9005be9",
+   "live": false
+  },
+  "website/js/tv-join.js": {
+   "sha256": "ffef37819922b8a2da188399e873172f452d0cb33fe4647095400e297f151a79",
+   "live": false
+  },
+  "website/js/tv-pager.js": {
+   "sha256": "a35fb0b4870f01339038ec3c6e10afae8a512baa980387b23f149309f52ad875",
+   "live": false
+  },
+  "website/js/tv-stock.js": {
+   "sha256": "345fea0988846ae9ca8ffe178e4e21e0561aba52835148bbb1d3b0d3ca593300",
+   "live": false
+  },
+  "website/js/tv-tagcard.js": {
+   "sha256": "65089b81909e2d74ed7bfe6cdc03150edb15d450868031dd7680b10136f723c3",
+   "live": false
+  },
+  "website/listing/view.php": {
+   "sha256": "dd919947c0c6da07b2634afcb55fc4b1b44ef8da1da03bd23c923b3235905e51",
+   "live": false
+  },
+  "website/market/index.php": {
+   "sha256": "c2b22f13c413d65302b0d5626e621987c61cc7ffde5ae35061c7a7e9cbb6083c",
+   "live": false
+  },
+  "website/q.php": {
+   "sha256": "ce07b18300c994fdd91eb4a21308fbf1e69da5a310ebb5d94b73c5a63be38bc9",
+   "live": false
+  },
+  "website/takedown.php": {
+   "sha256": "42da671f8338d7e2ebec762dc9bf3f9f3e4c4010a830dcc10cbbf2c1664ded58",
+   "live": false
+  },
+  "website/two-step.php": {
+   "sha256": "aee503378deeb34c5ca357c4cd024e4c928957e606f2f38f21e3c07701336ef9",
+   "live": false
+  },
+  "website/user/accounts.php": {
+   "sha256": "0ce6afd14f5a44c8e8be09d4f96c3b523ddaaefe1c591e1c48118427b7f4fb98",
+   "live": false
+  },
+  "website/user/orders.php": {
+   "sha256": "89689851685ed06ec083491817751fe89c1747ab25ec44a594367155d9de6480",
+   "live": false
+  },
+  "website/user/staff-link.php": {
+   "sha256": "2405e3a79f1d94cc3ddf8d5063027835ae281fe0904556176b4a23e36fd368c2",
+   "live": false
+  },
+  "website/user/transfer.php": {
+   "sha256": "b1fa45ef1ff53cf55d093ea642a206a4853f6a5d4c96439422b5ebfd73c8f8ac",
+   "live": false
+  },
+  "website/verify-email.php": {
+   "sha256": "14bf31cc8182e3f49ffa3b27432869e86f3cbe3f6eb5161e9f9e681f1f808375",
+   "live": false
+  }
+ }
+}

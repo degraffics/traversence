@@ -1150,3 +1150,10 @@ always. This replaces the 30-day guest cookie and the 60-an-hour limit above.
 `body:not(.tv-back):has(#ta-rail) .ta-body{margin-top:1.1rem}` outranked explore-hero's `.ta-body:has(.xh){margin-top:0}`,
 and the hero's −.8rem collapsed into that margin, leaving a 23px band above every hero. explore-hero now matches that
 selector for pages with a hero. `tools/page-audit/layout-probe.mjs` measures it daily (`site-audit/layout-probe.md`).
+
+**Note (2026-11-19, Jason: "claim needs to pop"; "popups should dim bg"): Claim and Peek.** On an unclaimed listing's
+hero, the top-right corner (§34) holds **Claim this business** in the standard filled button (brand.md §4's button note) with
+the store icon, and "Add your own photos, hours and more" under it: on a stock or grey photo it is the one colour. The Peek
+card dims the page behind it (a tap on the dim or Esc closes it), and **Open listing** is its one filled button. The message
+box on an unclaimed listing leads with **Call them** (filled); Leave a message and Check a reply are outlined. Once a
+business claims its listing, its own message tools lead (release buttons-standard).
