@@ -159,6 +159,8 @@ and how to check safely before resuming. Until they answer that, overpass-api.de
   Geofabrik copy (weekly), extended to nearby states if he wants. Built by the Control Board session; decision notes
   on 0065 and 0164.
 
+**Thanked (2026-11-19):** Jason posted our reply on the topic: we've stopped using the public Overpass servers entirely and use our own Geofabrik copy (release #204, live 21:42 UTC).
+
 ## 4. What we change either way (for the crawler session)
 
 Built 2026-11-14 (the table in §2 says where each stands): per-kind queries one at a time, the breaker per server,
