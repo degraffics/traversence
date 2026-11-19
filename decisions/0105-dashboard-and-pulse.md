@@ -228,6 +228,6 @@ steps.
   services, with the month's total (plans + usage so far), and the report on the 1st includes them.
 
 **Note (2026-11-19, Jason: "a clock makes sense on work a person owes an answer to"; "go that way, bell alerts and row
-marks"): clocks on work cases only.** The clocks above run only on Support, Sales, Fulfillment, Payments and Safety
-(`Pulse::CLOCKED`); System, Security and Team items carry none. An overdue row is marked in place (its level icon becomes a
+marks"): clocks on work cases only.** The clocks above run only on Support, Sales, Fulfillment, Payments, Safety and Security
+(`Pulse::CLOCKED`; Security: Jason, "Yes, clock security"); System and Team items carry none. An overdue row is marked in place (its level icon becomes a
 clock, a subtle amber tint, red when Critical) and listed by the bell; the settings' hours still set each level's clock.
