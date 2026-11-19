@@ -105,6 +105,19 @@
    "expires": "2026-11-19T21:42:11Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/admin/operations-console.php",
+   "functions": [
+    "tv_admin_mod_register"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "control-board-card (Jason 2026-11-19: how am I supposed to fix this? the card shows its issue and its buttons)",
+   "since": "2026-11-19T17:42:17Z",
+   "expires": "2026-11-19T21:42:17Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
