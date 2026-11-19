@@ -1,0 +1,14 @@
+{
+ "zip": "map-back.zip",
+ "built_on": "f29a07f Sync: 2026-11-19 17:38 UTC",
+ "recorded": "2026-11-19 17:42 UTC",
+ "note": "map-back: back to the list. Built on Sync: 17:38 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "website/js/map-view.js": {
+   "sha256": "bdee10e171ae3df3bdc6bcd9473854f8ceaf92d415c11257adcb3d2ec8169283",
+   "live": false
+  }
+ }
+}
