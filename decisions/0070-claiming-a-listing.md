@@ -211,3 +211,19 @@ then the claim proceeds from step 1.
 - The 7-day dispute answer is a first default.
 
 **Since 2026-11-01** (decisions/0133, "The observations store is the identity record"): a claim is a claim: any claim (email code included) puts the listing in the top band, Claimed by owner, with the owner as a strong source; the ✓ follows once the owner's link to the business is proved.
+
+**Note (2026-11-19, Jason approved, reviewed by the session manager: "Claim: shorten text and needs to know who might claim it... and how its form fitting its claim process."; plans: "Their own plan later"): who might claim a listing, and a claim form that fits them (`claim-kinds.zip`).**
+- **The kind comes from the listing's category group (decisions/0073)** via one map, `Claims::KIND_GROUPS`:
+  - **public:** Government & Public Services (parks, offices, libraries, emergency services);
+  - **community:** Non-Profit & Community, Religious & Faith-Based;
+  - **business:** everything else;
+  - **nation:** a public place on a tribal nation's land. A nation is the top of its own tree (decisions/0054), and its own tools decide (decisions/0066). Until they exist, a claim there is a request our team checks with the nation (the hold form).
+- **The button is short:** "Claim it", "Staff? Claim it", "Run it? Claim it", "Nation staff? Claim it". The longer line moves into its title. "Claim this business" and "Add your own photos, hours and more" are gone.
+- **The form fits the kind.**
+  - The page title, the roles (`Claims::KIND_ROLES`) and "your business / your agency / your organization" all follow the kind.
+  - A public place shows who runs it from its Nexus (decisions/0054, with the tree above it, e.g. State of Arizona › Arizona State Parks & Trails), never typed in as its name. If the Nexus is wrong or missing, the claimant can say which agency runs it (`agency_suggest`). Admins are told, and staff make the link (0054 §6).
+  - Following 0054 §5, a claim covers the place the claimant looks after. Claiming for the whole agency at once is shown as coming.
+  - **Proof:** for an agency or an organization, the code to an email at its own domain comes first. That's the listing's website, or for a public place its agency's (`Claims::domains`). The text, the document and the appointment follow, as before.
+- **Plans:** agencies and nonprofits stay on Free, and step 3 says plans for them are coming. Their own plan needs a decision of its own (Jason's answer).
+- **Tests:** `tools/listing-tests/claim-kinds.php` (11 checks) and `claim-kinds.cjs` (33 checks at 1280 and 390).
+
