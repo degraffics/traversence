@@ -595,6 +595,17 @@
    "expires": "2026-11-19T17:08:56Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "website/market/index.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Buttons standard: one filled button, Claim, Peek dim, search bars",
+   "since": "2026-11-19T13:08:58Z",
+   "expires": "2026-11-19T17:08:58Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
