@@ -2,20 +2,6 @@
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
  "claims": [
   {
-   "path": "website/index.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
-   "why": "Design 3b-1",
-   "since": "2026-11-19T00:20:04Z",
-   "expires": "2026-11-19T04:28:53Z",
-   "release": "design-r3b1-explore-2.zip",
-   "callers": {},
-   "zones": [
-    "home.after-doors"
-   ]
-  },
-  {
    "path": "website/directory/index.php",
    "functions": [],
    "kind": "change",
@@ -37,13 +23,18 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "control-board-legacy",
    "since": "2026-11-19T04:27:29Z",
-   "expires": "2026-11-19T08:27:56Z",
-   "release": "",
-   "callers": {}
+   "expires": "2026-11-19T08:29:41Z",
+   "release": "control-board-legacy.zip",
+   "callers": {
+    "alarm": [
+     "app/lib/ControlAlarms.php"
+    ]
+   }
   },
   {
    "path": "app/lib/ControlAlarms.php",
    "functions": [
+    "(top)",
     "resolve",
     "watch"
    ],
@@ -51,12 +42,31 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "control-board-legacy (the watch)",
    "since": "2026-11-19T04:27:33Z",
-   "expires": "2026-11-19T08:27:58Z",
-   "release": "",
-   "callers": {}
+   "expires": "2026-11-19T08:29:41Z",
+   "release": "control-board-legacy.zip",
+   "callers": {
+    "resolve": [
+     "website/admin/api.php"
+    ]
+   }
   }
  ],
  "lapsed": [
+  {
+   "path": "website/index.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Design 3b-1",
+   "since": "2026-11-19T00:20:04Z",
+   "expires": "2026-11-19T04:28:53Z",
+   "release": "design-r3b1-explore-2.zip",
+   "callers": {},
+   "zones": [
+    "home.after-doors"
+   ],
+   "lapsed": "2026-11-19T04:29:41Z"
+  },
   {
    "path": "app/admin/control-console.php",
    "functions": [
