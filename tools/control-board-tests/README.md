@@ -188,5 +188,5 @@ and `website/api/` (the mirror's `sync-storage/api/crawl` and `api/video`). Put 
   old address and lands on the same card.
 - `keys.php`: decisions/0173 release 2 (the key on its card): EnvSettings' writer (`setKey`) and its guards (a key it
   knows, never on staging, the Founder only, never logged), Add, Replace, Put back, Forget, Remove, the card's buttons
-  (greyed for an Executive), Railway's keys with their link, the Park Service's optional key. 27 tests; it writes the test
+  (greyed for an Executive), Railway's keys with their link, the Park Service's optional key. 30 tests (the .env stays 0600 through every change); it writes the test
   root's `.env` and puts it back: `mariadb < ../release-b-tests/start-schema.sql && php keys.php <root>/app`.

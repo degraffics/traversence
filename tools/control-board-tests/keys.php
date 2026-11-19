@@ -48,6 +48,16 @@ try {
     $t('Put the old one back: the first key again, nothing left to put back', $o === 'first-key-123|none', $o);
     $o = $sub("EnvSettings::setKey('NPS_API_KEY', 'third-key-789'); EnvSettings::forgetOld('NPS_API_KEY'); echo (EnvSettings::hasOld('NPS_API_KEY') ? 'old' : 'none') . '|' . (str_contains((string) file_get_contents(Database::envPath()), 'first-key-123') ? 'kept' : 'gone');");
     $t('Forget (or a passing Check): the old value is gone from .env', $o === 'none|gone', $o);
+    // one write path: every change under the lock, whole, and never wider than the .env it replaces (the session manager)
+    $mode = fileperms($env) & 0777; chmod($env, 0600);
+    $o = $sub("EnvSettings::setKey('NPS_API_KEY', 'perm-a'); EnvSettings::setKey('NPS_API_KEY', 'perm-b'); EnvSettings::putBack('NPS_API_KEY'); EnvSettings::setKey('NPS_API_KEY', 'perm-c'); EnvSettings::forgetOld('NPS_API_KEY'); clearstatcache(); echo decoct(fileperms(Database::envPath()) & 0777);");
+    $t('a 0600 .env stays 0600 through Add, Replace (its # OLD line), Put back and Forget', $o === '600', $o);
+    $src2 = (string) file_get_contents($app . '/lib/EnvSettings.php');
+    $t('…# OLD lines and forgetting go through the same lock and swap as every write', (bool) preg_match('/function keepOld.*?self::swap\(/s', $src2) && (bool) preg_match('/function forgetOld.*?self::swap\(/s', $src2) && (bool) preg_match('/function swap.*?flock\(\$lock, LOCK_EX\).*?chmod\(\$tmp, fileperms\(\$path\) & 0777\).*?rename/s', $src2));
+    $o = $sub("EnvSettings::removeKey('NPS_API_KEY'); clearstatcache(); echo decoct(fileperms(Database::envPath()) & 0777);");
+    $t('…and through Remove', $o === '600', $o);
+    $o = $sub("EnvSettings::putBack('NPS_API_KEY'); EnvSettings::forgetOld('NPS_API_KEY'); echo EnvSettings::value('NPS_API_KEY');");
+    chmod($env, $mode);
     $o = $sub("EnvSettings::removeKey('NPS_API_KEY'); echo '[' . EnvSettings::value('NPS_API_KEY') . ']|' . (EnvSettings::hasOld('NPS_API_KEY') ? 'old' : 'none');");
     $t('Remove the key: taken out, kept so Put back still works', $o === '[]|old', $o);
     $o = $sub("try { EnvSettings::removeKey('NPS_API_KEY'); echo 'X'; } catch (Throwable \$x) { echo \$x->getMessage(); }");
