@@ -3,40 +3,40 @@
  "built_on": "14dac50 Sync: 2026-11-19 21:44 UTC",
  "recorded": "2026-11-19 21:46 UTC",
  "note": "card-photos: real photos on park cards and heroes; the strip near the place. Built on Sync: 21:44 UTC Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "2f423c8 Sync: 2026-11-19 21:49 UTC",
  "files": {
   "app/lib/PlacePhotos.php": {
    "sha256": "9849834bab028f44536ebd06055faa47c71017b97ab4f63fcc496989c2751f1a",
-   "live": false
+   "live": true
   },
   "app/lib/Scheduler.php": {
    "sha256": "920c1e1da36f9457af9d0c1aba84126474d23e1aedd594a83d08886e2f6770f8",
-   "live": false
+   "live": true
   },
   "app/lib/staging-tables.php": {
    "sha256": "ddee21af3ab90fd306a0da19a02b30ba87b9f70803a484912b2a14082553b761",
-   "live": false
+   "live": true
   },
   "app/migrations/2027-03-22_place_photos.sql": {
    "sha256": "287944779209ba7f9c0d9b4f58b89d0855107ddff93a78107d9273375874eef3",
-   "live": false
+   "live": true
   },
   "app/scripts/landmark_photos_tick.php": {
    "sha256": "70e362f0a8e0b86df8f736e9af2a0ab99d08308e53e02bd4d1586eba70d929df",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "2760254cacaaa0361fec1e00761a8d8df480c71429db5af0ff091f5c6f91486b",
-   "live": false
+   "live": true
   },
   "website/discovery/index.php": {
    "sha256": "a01b6b93c42e9042cc1ff0f3eb1a4ba27416bb5ecf16087e0c1990db7aaf890d",
-   "live": false
+   "live": true
   },
   "website/listing/view.php": {
    "sha256": "c2e1eb4bea29aeb1a645ad56ee6a3343fcb59f945f8058fa92b57dac8887ef13",
-   "live": false
+   "live": true
   }
  }
 }
