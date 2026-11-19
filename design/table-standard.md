@@ -84,6 +84,9 @@ he says otherwise.
 3. **T3–T5, the rest by module:** the consoles other than the Board (automation, comms, crawler, operations, index), the
    admin pages (insights, sources, products, vendors…), then the shared parts (vault, cost tab, outside services, domains).
    Each lists the tables it moved; the zip check keeps every column and action.
+   A tool whose own query is capped (orders at 400) says "of 400" when more exist: as each moves, it pages in SQL
+   (`LIMIT`/`OFFSET` with a `COUNT`) or says "400+". T1 sends one page at a time to the browser; three tools page in
+   the database so far.
 
 ## The admin's test (principle 5)
 
