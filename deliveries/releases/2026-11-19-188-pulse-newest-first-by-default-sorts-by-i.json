@@ -6,12 +6,12 @@
     "zip": "pulse-order.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "planned",
+    "state": "approved",
     "step": 0,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
-    "plan_at": null,
+    "plan_at": "2026-11-19 14:26:07",
     "staged_at": null,
     "vetted_at": null,
     "live_at": null,
@@ -34,6 +34,16 @@
             "at": "2026-11-19T14:26:05+00:00",
             "by": 0,
             "msg": "Uploaded pulse-order.zip: 2 files."
+        },
+        {
+            "at": "2026-11-19T14:26:07+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/pulse-order.zip (git 9bee04d616)."
+        },
+        {
+            "at": "2026-11-19T14:26:07+00:00",
+            "by": 0,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
         }
     ]
 }
