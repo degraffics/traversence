@@ -2,46 +2,6 @@
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
  "claims": [
   {
-   "path": "app/ui/explore-hero.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
-   "why": "Design 3b-1: Home and Discovery (hero order, stock byline, tokens)",
-   "since": "2026-11-19T00:20:04Z",
-   "expires": "2026-11-19T04:28:53Z",
-   "release": "design-r3b1-explore-2.zip",
-   "callers": {
-    "tv_explore_hero": [
-     "website/community/group.php",
-     "website/discovery/index.php",
-     "website/hub/index.php",
-     "website/listing/view.php",
-     "website/place/landmark.php",
-     "website/place/recreation.php",
-     "website/user/profile.php"
-    ]
-   }
-  },
-  {
-   "path": "app/ui/stock-ui.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
-   "why": "Design 3b-1: Home and Discovery (hero order, stock byline, tokens)",
-   "since": "2026-11-19T00:20:04Z",
-   "expires": "2026-11-19T04:28:53Z",
-   "release": "design-r3b1-explore-2.zip",
-   "callers": {
-    "tv_stock_tag": [
-     "app/admin/sections.php",
-     "app/business/storefront.php",
-     "app/ui/explore-hero.php",
-     "app/ui/storefront-view.php",
-     "website/index.php"
-    ]
-   }
-  },
-  {
    "path": "website/index.php",
    "functions": [],
    "kind": "change",
@@ -60,27 +20,198 @@
    "functions": [],
    "kind": "change",
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
-   "why": "Design 3b-1: Home and Discovery (hero order, stock byline, tokens)",
+   "why": "Design 3b-2: content pages on the tokens; park cards' photos",
    "since": "2026-11-19T00:20:04Z",
-   "expires": "2026-11-19T04:28:53Z",
+   "expires": "2026-11-19T04:43:47Z",
    "release": "design-r3b1-explore-2.zip",
    "callers": {}
   },
   {
-   "path": "app/ui/theme-tokens.php",
+   "path": "app/admin/control-console.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 4e: slow is never a trip; Resolve is Check and start again",
+   "since": "2026-11-19T00:40:03Z",
+   "expires": "2026-11-19T04:40:08Z",
+   "release": "control-board-4e.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/ControlAlarms.php",
+   "functions": [
+    "pulseSteps",
+    "raise",
+    "resolve",
+    "tick"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 4e: slow is never a trip; Resolve is Check and start again",
+   "since": "2026-11-19T00:40:03Z",
+   "expires": "2026-11-19T04:40:08Z",
+   "release": "control-board-4e.zip",
+   "callers": {
+    "resolve": [
+     "website/admin/api.php"
+    ],
+    "tick": [
+     "app/scripts/control_tick.php"
+    ],
+    "raise": [
+     "app/lib/ControlHistorian.php",
+     "app/lib/ControlLedger.php",
+     "app/lib/ControlMaintenance.php",
+     "app/lib/Operations.php",
+     "app/lib/Preflight.php",
+     "app/lib/ServiceHealth.php",
+     "app/lib/crawler/CrawlService.php"
+    ],
+    "pulseSteps": [
+     "app/lib/Pulse.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/ControlLedger.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 4e: slow is never a trip; Resolve is Check and start again",
+   "since": "2026-11-19T00:40:03Z",
+   "expires": "2026-11-19T04:40:08Z",
+   "release": "control-board-4e.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Thresholds.php",
+   "functions": [
+    "(top)",
+    "GATES"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 4e: slow is never a trip; Resolve is Check and start again",
+   "since": "2026-11-19T00:40:03Z",
+   "expires": "2026-11-19T04:40:08Z",
+   "release": "control-board-4e.zip",
+   "callers": {
+    "GATES": [
+     "app/admin/operations-console.php",
+     "app/admin/sections.php",
+     "app/lib/Operations.php",
+     "app/lib/WorkflowSettings.php"
+    ]
+   }
+  },
+  {
+   "path": "website/listing/view.php",
    "functions": [],
    "kind": "change",
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
-   "why": "Design 3b-1: the route colour token (Electric Lime, Jason 2026-11-19)",
-   "since": "2026-11-19T00:27:39Z",
-   "expires": "2026-11-19T04:28:53Z",
-   "release": "design-r3b1-explore-2.zip",
+   "why": "Design 3b-2: content pages on the tokens; park cards' photos",
+   "since": "2026-11-19T00:43:30Z",
+   "expires": "2026-11-19T04:43:30Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "website/hub/index.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Design 3b-2: content pages on the tokens; park cards' photos",
+   "since": "2026-11-19T00:43:33Z",
+   "expires": "2026-11-19T04:43:33Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "website/place/landmark.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Design 3b-2: content pages on the tokens; park cards' photos",
+   "since": "2026-11-19T00:43:35Z",
+   "expires": "2026-11-19T04:43:35Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "website/place/recreation.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Design 3b-2: content pages on the tokens; park cards' photos",
+   "since": "2026-11-19T00:43:37Z",
+   "expires": "2026-11-19T04:43:37Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "website/gallery/index.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Design 3b-2: content pages on the tokens; park cards' photos",
+   "since": "2026-11-19T00:43:39Z",
+   "expires": "2026-11-19T04:43:39Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "app/ui/engage-ui.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Design 3b-2: content pages on the tokens; park cards' photos",
+   "since": "2026-11-19T00:43:41Z",
+   "expires": "2026-11-19T04:43:41Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "website/experiences/view.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Design 3b-2: content pages on the tokens; park cards' photos",
+   "since": "2026-11-19T00:43:43Z",
+   "expires": "2026-11-19T04:43:43Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "website/journeys/view.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Design 3b-2: content pages on the tokens; park cards' photos",
+   "since": "2026-11-19T00:43:45Z",
+   "expires": "2026-11-19T04:43:45Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Preflight.php",
+   "functions": [
+    "alarm",
+    "run"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 4e: words only on the watch's re-test",
+   "since": "2026-11-19T00:44:55Z",
+   "expires": "2026-11-19T04:44:55Z",
+   "release": "control-board-4e.zip",
    "callers": {
-    "tv_theme_tokens": [
-     "app/ui/app-shell.php",
-     "app/ui/auth-nav.php",
-     "app/ui/header.php",
-     "app/ui/page-shell.php"
+    "run": [
+     "app/lib/ControlBoard.php",
+     "app/lib/SystemStart.php",
+     "website/admin/api.php"
+    ],
+    "alarm": [
+     "app/lib/ControlAlarms.php"
     ]
    }
   }

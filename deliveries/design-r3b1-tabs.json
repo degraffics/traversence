@@ -1,0 +1,26 @@
+{
+ "zip": "design-r3b1-tabs.zip",
+ "built_on": "5f82843 Sync: 2026-11-19 00:35 UTC",
+ "recorded": "2026-11-19 00:38 UTC",
+ "note": "Design 3b-1 follow-up: the open tab in sage (Jason's B, 2026-11-19), and #158's four app files again (the 00:31 sync put them back). Built on Sync: 00:35 UTC Sent through git (releases/inbox).",
+ "status": "live",
+ "live_in": "d08820a Sync: 2026-11-19 00:42 UTC",
+ "files": {
+  "app/ui/explore-hero.php": {
+   "sha256": "ac0249d19d3a3a51dd01486a9b3e1cd910ddd3f2f38a733440a22877ff6e2266",
+   "live": true
+  },
+  "app/ui/faq.md": {
+   "sha256": "67eac03f978f623092df61b199ea9401f3b4e333a4849bb40dd55cf176792861",
+   "live": true
+  },
+  "app/ui/stock-ui.php": {
+   "sha256": "17b6ae9cb5bac33b8f9d05d2cae0b9596ab1c424ce8727d5caddec9f8ffa77a3",
+   "live": true
+  },
+  "app/ui/theme-tokens.php": {
+   "sha256": "63bd672d246a17062c52aa030e19581ef5d4bfea0dbae27f9bf7d3cba9bd330b",
+   "live": true
+  }
+ }
+}

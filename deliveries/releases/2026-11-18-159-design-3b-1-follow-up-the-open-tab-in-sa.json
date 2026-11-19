@@ -1,0 +1,104 @@
+{
+    "id": 159,
+    "title": "Design 3b-1 follow-up: the open tab in sage, and 3b-1's app files again",
+    "why": "(1) Jason, 2026-11-19, on the tabs under Let's Explore's hero: \"The active state feels lacking\"; he chose option B: the open tab in a sage fill with a full-width bar and the icon's active glow. (2) Release #158 (design-r3b1-explore-2) published its six files, but the 00:31 UTC sync ran during the publish and put the four app/ files back (kept in the sync's conflicts/2026-11-19/), so the hero's order, the stock photo credit, the route token and the FAQ answer aren't live. This release carries those four files again, byte for byte as #158 had them, with only the tab rule changed in explore-hero.php.",
+    "proposals": "",
+    "zip": "design-r3b1-tabs.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "live",
+    "step": 3,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": "2026-11-19 00:38:48",
+    "staged_at": "2026-11-19 00:38:49",
+    "vetted_at": "2026-11-19 00:38:52",
+    "live_at": "2026-11-19 00:38:52",
+    "files": {
+        "app/ui/explore-hero.php": {
+            "sha": "ac0249d19d3a3a51dd01486a9b3e1cd910ddd3f2f38a733440a22877ff6e2266",
+            "size": 35570,
+            "live_was": "b78842c244502e5607edb7e89980ce83207c4ffdde3f0f4756fedc8df77aa158",
+            "existed": true,
+            "old_sha": "b78842c244502e5607edb7e89980ce83207c4ffdde3f0f4756fedc8df77aa158"
+        },
+        "app/ui/theme-tokens.php": {
+            "sha": "63bd672d246a17062c52aa030e19581ef5d4bfea0dbae27f9bf7d3cba9bd330b",
+            "size": 6555,
+            "live_was": "a2cf64d8f56a1d51ee8eeeccfae76023d7a4979fd7a3f9201b133f12a1656ef9",
+            "existed": true,
+            "old_sha": "a2cf64d8f56a1d51ee8eeeccfae76023d7a4979fd7a3f9201b133f12a1656ef9"
+        },
+        "app/ui/stock-ui.php": {
+            "sha": "17b6ae9cb5bac33b8f9d05d2cae0b9596ab1c424ce8727d5caddec9f8ffa77a3",
+            "size": 13470,
+            "live_was": "9cb53ffba049ee328e2902a21382d96fdc8d496ef0c99d093de51cf4bf1ca973",
+            "existed": true,
+            "old_sha": "9cb53ffba049ee328e2902a21382d96fdc8d496ef0c99d093de51cf4bf1ca973"
+        },
+        "app/ui/faq.md": {
+            "sha": "67eac03f978f623092df61b199ea9401f3b4e333a4849bb40dd55cf176792861",
+            "size": 359445,
+            "live_was": "e7cfa99c7af067831ea21b9f0225afcb7ad03157976e1d058f3526c9fa8bc850",
+            "existed": true,
+            "old_sha": "e7cfa99c7af067831ea21b9f0225afcb7ad03157976e1d058f3526c9fa8bc850"
+        }
+    },
+    "migrations": [],
+    "checks": {
+        "ok": true,
+        "where": "live",
+        "at": "2026-11-19T00:38:52+00:00",
+        "items": [
+            [
+                "PHP files parse",
+                true,
+                "3 checked"
+            ],
+            [
+                "Pages answer",
+                true,
+                "2 pages answered on traversence.com"
+            ],
+            [
+                "No new fatal errors in the logs",
+                true,
+                "3 logs read"
+            ]
+        ],
+        "first_fail": ""
+    },
+    "log": [
+        {
+            "at": "2026-11-19T00:38:46+00:00",
+            "by": 0,
+            "msg": "Uploaded design-r3b1-tabs.zip: 4 files."
+        },
+        {
+            "at": "2026-11-19T00:38:48+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/design-r3b1-tabs.zip (git 494511d18a)."
+        },
+        {
+            "at": "2026-11-19T00:38:48+00:00",
+            "by": 0,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
+        },
+        {
+            "at": "2026-11-19T00:38:50+00:00",
+            "by": 0,
+            "msg": "Put on staging (4 files); its checks passed."
+        },
+        {
+            "at": "2026-11-19T00:38:52+00:00",
+            "by": 0,
+            "msg": "Approved in chat before it was sent through git, and its checks on staging passed: publishing by itself."
+        },
+        {
+            "at": "2026-11-19T00:38:52+00:00",
+            "by": 0,
+            "msg": "Published: 4 files; everyone at once (no switch)."
+        }
+    ]
+}
