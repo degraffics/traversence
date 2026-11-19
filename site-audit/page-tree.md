@@ -1,6 +1,6 @@
 # Page tree
 
-Decision 0145 §1a. Generated from the live mirror on 2026-11-18 19:17 UTC (`dd8d547`). Checked against the
+Decision 0145 §1a. Generated from the live mirror on 2026-11-19 07:17 UTC (`7b18f55`). Checked against the
 register `site-audit/pages.md` (it replaced `routes.md`, P6). Columns: does the page load the session and the shell, does it draw the account bar, is it in
 `pages.md` / `archive.md`, and which decisions name its file.
 
@@ -109,7 +109,9 @@ register `site-audit/pages.md` (it replaced `routes.md`, P6). Columns: does the 
 | `/journeys/view.php` | `website/journeys/view.php` | yes | yes | yes |  |
 | `/listing/businessportal.php` | `website/listing/businessportal.php` | yes | yes | yes |  |
 | `/listing/confirm-referral.php` | `website/listing/confirm-referral.php` | yes | yes | yes |  |
+| `/listing/confirm.php` | `website/listing/confirm.php` | yes | yes | yes |  |
 | `/listing/location.php` | `website/listing/location.php` | yes | yes | yes |  |
+| `/listing/requests.php` | `website/listing/requests.php` | yes | yes | yes |  |
 | `/listing/view.php` | `website/listing/view.php` | yes | yes | yes | 0072, 0143 |
 | `/login.php` | `website/login.php` | **no** | **no** | yes | 0055, 0090 |
 | `/market/cart.php` | `website/market/cart.php` | yes | yes | yes |  |

@@ -1,6 +1,39 @@
 {
- "at": "2026-11-19T04:22:02.104Z",
+ "at": "2026-11-19T10:19:20.100Z",
  "open": [
+  {
+   "key": "pf:t:vectors",
+   "level": "trip",
+   "process": "t:vectors",
+   "title": "The vector index: Supabase: Not ready. Google AI Studio (Gemini): Ready.",
+   "reading": "Supabase: Not ready. Google AI Studio (Gemini): Ready. Vector index: its cron line is there. Its workflow W3: Not ready (it comes on after its workflow).",
+   "means": "Its check didn't pass; what depends on it waits.",
+   "since": "2026-11-18T20:05:03+00:00",
+   "tripped": null,
+   "stopped": ""
+  },
+  {
+   "key": "pf:wf:W3",
+   "level": "trip",
+   "process": "wf:W3",
+   "title": "W3 Sources and the place store: Its gate: 1 red line(s) in the switch-on check: \"Common Crawl (W3)\" (Held: Issue #25: Common Crawl: its server failed at index.commoncrawl.org).",
+   "reading": "Its gate: 1 red line(s) in the switch-on check: \"Common Crawl (W3)\" (Held: Issue #25: Common Crawl: its server failed at index.commoncrawl.org).",
+   "means": "W3 won't start until this is fixed; the rest of the system runs.",
+   "since": "2026-11-18T20:05:04+00:00",
+   "tripped": null,
+   "stopped": ""
+  },
+  {
+   "key": "pf:wf:W1",
+   "level": "trip",
+   "process": "wf:W1",
+   "title": "W1 Listings: Its gate: 1 red line(s) in the switch-on check: \"Wikimedia (Wikipedia, Wikidata, Commons) (W1, W9)\" (Held: Issue #26: Wikimedia (Wikipedia, Wikidata, Commons): asked us to slow down at qu",
+   "reading": "Its gate: 1 red line(s) in the switch-on check: \"Wikimedia (Wikipedia, Wikidata, Commons) (W1, W9)\" (Held: Issue #26: Wikimedia (Wikipedia, Wikidata, Commons): asked us to slow down at query.wikidata.org).",
+   "means": "W1 won't start until this is fixed; the rest of the system runs.",
+   "since": "2026-11-18T20:05:04+00:00",
+   "tripped": "2026-11-19T09:00:42+00:00",
+   "stopped": "W1 (its tasks first, then the workflow)"
+  },
   {
    "key": "svc:issue:25",
    "level": "trip",
@@ -24,46 +57,24 @@
    "stopped": ""
   },
   {
-   "key": "pf:wf:W0",
-   "level": "trip",
-   "process": "wf:W0",
-   "title": "W0 Indexer: Its gate: the switch-on check has no red line for it (keys, holds, budget and caps set).",
-   "reading": "Its gate: the switch-on check has no red line for it (keys, holds, budget and caps set). Needs: Read pages ✓. Dry run: the test batch: The indexer sent 125 addresses in one batch (14.8 KB); the site received 125 and checked 125 in 0 ms, storing none (a te",
-   "means": "W0 won't start until this is fixed; the rest of the system runs.",
-   "since": "2026-11-18T20:05:04+00:00",
+   "key": "svc:issue:27",
+   "level": "warning",
+   "process": "svc:gemini",
+   "title": "generativelanguage.googleapis.com: Didn't answer (the site, on Bluehost)",
+   "reading": "getaddrinfo() thread failed to start",
+   "means": "Calls to generativelanguage.googleapis.com wait a little and try again by themselves, longer each time (1 of 6).",
+   "since": "2026-11-19T10:17:02+00:00",
    "tripped": null,
    "stopped": ""
   },
   {
-   "key": "pf:wf:W3",
-   "level": "trip",
-   "process": "wf:W3",
-   "title": "W3 Sources and the place store: Its gate: 1 red line(s) in the switch-on check: \"Common Crawl (W3)\" (Held: Issue #25: Common Crawl: didn't answer at index.commoncrawl.org).",
-   "reading": "Its gate: 1 red line(s) in the switch-on check: \"Common Crawl (W3)\" (Held: Issue #25: Common Crawl: didn't answer at index.commoncrawl.org).",
-   "means": "W3 won't start until this is fixed; the rest of the system runs.",
-   "since": "2026-11-18T20:05:04+00:00",
-   "tripped": null,
-   "stopped": ""
-  },
-  {
-   "key": "pf:rw:batch",
-   "level": "trip",
-   "process": "wk:w0-indexer",
-   "title": "W0's full-size test batch through the intake (marked test, never stored): The indexer sent 125 addresses in one batch (14.8 KB); the site received 125 and checked 125 in 0 ms, storing none (a test).",
-   "reading": "The indexer sent 125 addresses in one batch (14.8 KB); the site received 125 and checked 125 in 0 ms, storing none (a test). It was smaller than a full batch (250): the worker's settings didn't reach it.",
-   "means": "A worker on Railway isn't ready: its work waits.",
-   "since": "2026-11-18T20:05:03+00:00",
-   "tripped": null,
-   "stopped": ""
-  },
-  {
-   "key": "pf:t:vectors",
-   "level": "trip",
-   "process": "t:vectors",
-   "title": "The vector index: Supabase: Not ready. Google AI Studio (Gemini): Ready.",
-   "reading": "Supabase: Not ready. Google AI Studio (Gemini): Ready. Vector index: its cron line is there. Its workflow W3: Not ready (it comes on after its workflow).",
-   "means": "Its check didn't pass; what depends on it waits.",
-   "since": "2026-11-18T20:05:03+00:00",
+   "key": "ep:crawl/refresh:count",
+   "level": "warning",
+   "process": "wf:W2",
+   "title": "/api/crawl/refresh counted more than it received",
+   "reading": "received 2, counted 3",
+   "means": "Its record of what it stored, updated, sent to Review or refused doesn't add up, so its numbers on the board can't be trusted.",
+   "since": "2026-11-19T09:56:05+00:00",
    "tripped": null,
    "stopped": ""
   },
@@ -90,6 +101,83 @@
    "stopped": ""
   },
   {
+   "key": "jobslow:guide_finds_tick",
+   "level": "warning",
+   "process": "job:guide_finds_tick",
+   "title": "The job \"guide_finds_tick\" is slow",
+   "reading": "95 s (usual 18)",
+   "means": "Its last run took 95 s against its usual 18 s (10 slow in a row): what follows it waits.",
+   "since": "2026-11-19T07:20:01+00:00",
+   "tripped": null,
+   "stopped": ""
+  },
+  {
+   "key": "ops:cap:anthropic",
+   "level": "warning",
+   "process": "svc:anthropic",
+   "title": "Anthropic (Claude) at 50%",
+   "reading": "55%",
+   "means": "Claude (AI): $22.30 of $40.00 (55%).",
+   "since": "2026-11-19T07:20:02+00:00",
+   "tripped": null,
+   "stopped": ""
+  },
+  {
+   "key": "pf:so:commoncrawl-common-crawl-a5bbfe76",
+   "level": "warning",
+   "process": "so:commoncrawl-common-crawl-a5bbfe76",
+   "title": "Common Crawl (W3): Held: Issue #25: Common Crawl: its server failed at index.commoncrawl.org.",
+   "reading": "Held: Issue #25: Common Crawl: its server failed at index.commoncrawl.org. It holds only what it's for (commoncrawl); the rest can start.",
+   "means": "Its check didn't pass; what depends on it waits.",
+   "since": "2026-11-19T09:00:44+00:00",
+   "tripped": null,
+   "stopped": ""
+  },
+  {
+   "key": "pf:wf:W9",
+   "level": "warning",
+   "process": "wf:W9",
+   "title": "W9 Landmarks and places on demand: Its gate: 1 red line(s) in the switch-on check: \"Wikimedia (Wikipedia, Wikidata, Commons) (W1, W9)\" (Held: Issue #26: Wikimedia (Wikipedia, Wikidata, Commons): asked",
+   "reading": "Its gate: 1 red line(s) in the switch-on check: \"Wikimedia (Wikipedia, Wikidata, Commons) (W1, W9)\" (Held: Issue #26: Wikimedia (Wikipedia, Wikidata, Commons): asked us to slow down at query.wikidata.org).",
+   "means": "W9 won't start until this is fixed; the rest of the system runs. The system is trying again by itself (1 of 3 tries, until 10:00 UTC); if that doesn't fix it, it's a trip for an admin.",
+   "since": "2026-11-19T09:00:43+00:00",
+   "tripped": null,
+   "stopped": ""
+  },
+  {
+   "key": "pf:svc:loc",
+   "level": "warning",
+   "process": "svc:loc",
+   "title": "Library of Congress: No answer: Operation timed out after 15004 milliseconds with 0 bytes received.",
+   "reading": "No answer: Operation timed out after 15004 milliseconds with 0 bytes received.",
+   "means": "What needs this company waits; everything else runs.",
+   "since": "2026-11-19T09:00:35+00:00",
+   "tripped": null,
+   "stopped": ""
+  },
+  {
+   "key": "pf:svc:supabase",
+   "level": "warning",
+   "process": "svc:supabase",
+   "title": "Supabase: Awake, 841 ms. The index holds 450 vector(s) for 10,289 public listings; 7,731 changed since its last upkeep and wait for it (its task is on, so it should be catching up).",
+   "reading": "Awake, 841 ms. The index holds 450 vector(s) for 10,289 public listings; 7,731 changed since its last upkeep and wait for it (its task is on, so it should be catching up). Without our key it refuses (locked down).",
+   "means": "What needs this company waits; everything else runs.",
+   "since": "2026-11-18T20:05:03+00:00",
+   "tripped": null,
+   "stopped": ""
+  },
+  {
+   "key": "pf:svc:osm",
+   "level": "warning",
+   "process": "svc:osm",
+   "title": "OpenStreetMap: 1 of 4 Overpass servers free.",
+   "reading": "1 of 4 Overpass servers free. overpass.kumi.systems: No answer: Operation timed out after 10004 milliseconds with 0 bytes received.",
+   "means": "What needs this company waits; everything else runs.",
+   "since": "2026-11-18T20:05:03+00:00",
+   "tripped": null,
+   "stopped": ""
+  },
+  {
    "key": "task:failed:commoncrawl",
    "level": "warning",
    "process": "wf:W3",
@@ -108,17 +196,6 @@
    "reading": "429",
    "means": "It asked us to slow down (a 429): calls wait longer each time and start again by themselves. A request to go slower, never a stop; this clears itself when it answers.",
    "since": "2026-11-18T20:05:05+00:00",
-   "tripped": null,
-   "stopped": ""
-  },
-  {
-   "key": "pf:svc:osm",
-   "level": "warning",
-   "process": "svc:osm",
-   "title": "OpenStreetMap: 0 of 4 Overpass servers free.",
-   "reading": "0 of 4 Overpass servers free. overpass-api.de: No answer: Operation timed out after 10004 milliseconds with 0 bytes received.",
-   "means": "What needs this company waits; everything else runs.",
-   "since": "2026-11-18T20:05:03+00:00",
    "tripped": null,
    "stopped": ""
   },
@@ -163,17 +240,6 @@
    "reading": "v1-identity.dudesolutions.io, maps.app.goo.gl, goo.gl, ebi.ac.uk, gofan.co, youtu.be, weather.tomorrow.io, live-sasg-financialaid.pantheonsite.io, bit.ly, jcis.jp, educacionyfp.gob.es, gov.uk",
    "means": "W3 reads them every few days; their facts are likely about other places, and reading them uses the crawler's time.",
    "since": "2026-11-18T20:05:05+00:00",
-   "tripped": null,
-   "stopped": ""
-  },
-  {
-   "key": "pf:svc:supabase",
-   "level": "warning",
-   "process": "svc:supabase",
-   "title": "Supabase: Awake, 888 ms. The index holds 330 vector(s) for 10,273 public listings; 8,078 changed since its last upkeep and wait for it (its task is on, so it should be catching up).",
-   "reading": "Awake, 888 ms. The index holds 330 vector(s) for 10,273 public listings; 8,078 changed since its last upkeep and wait for it (its task is on, so it should be catching up). Without our key it refuses (locked down).",
-   "means": "What needs this company waits; everything else runs.",
-   "since": "2026-11-18T20:05:03+00:00",
    "tripped": null,
    "stopped": ""
   }

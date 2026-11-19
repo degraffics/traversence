@@ -2,6 +2,73 @@
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
  "claims": [
   {
+   "path": "website/directory/index.php",
+   "functions": [
+    "(top)"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "release getlocal-fix.zip",
+   "since": "2026-11-19T10:52:07Z",
+   "expires": "2026-11-19T14:52:07Z",
+   "release": "getlocal-fix.zip",
+   "callers": {}
+  }
+ ],
+ "lapsed": [
+  {
+   "path": "website/directory/index.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Get Local: Kind fits the card; the search hint on the palette (Jason's screenshot 2026-11-19)",
+   "since": "2026-11-19T04:19:47Z",
+   "expires": "2026-11-19T08:19:47Z",
+   "release": "",
+   "callers": {},
+   "lapsed": "2026-11-19T10:52:07Z"
+  },
+  {
+   "path": "app/lib/Preflight.php",
+   "functions": [
+    "alarm",
+    "runAll",
+    "w0Batch"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "control-board-legacy",
+   "since": "2026-11-19T04:27:29Z",
+   "expires": "2026-11-19T08:29:41Z",
+   "release": "control-board-legacy.zip",
+   "callers": {
+    "alarm": [
+     "app/lib/ControlAlarms.php"
+    ]
+   },
+   "lapsed": "2026-11-19T10:52:07Z"
+  },
+  {
+   "path": "app/lib/ControlAlarms.php",
+   "functions": [
+    "(top)",
+    "resolve",
+    "watch"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "control-board-legacy (the watch)",
+   "since": "2026-11-19T04:27:33Z",
+   "expires": "2026-11-19T08:29:41Z",
+   "release": "control-board-legacy.zip",
+   "callers": {
+    "resolve": [
+     "website/admin/api.php"
+    ]
+   },
+   "lapsed": "2026-11-19T10:52:07Z"
+  },
+  {
    "path": "website/index.php",
    "functions": [],
    "kind": "change",
@@ -13,21 +80,9 @@
    "callers": {},
    "zones": [
     "home.after-doors"
-   ]
+   ],
+   "lapsed": "2026-11-19T04:29:41Z"
   },
-  {
-   "path": "website/directory/index.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
-   "why": "Get Local: Kind fits the card; the search hint on the palette (Jason's screenshot 2026-11-19)",
-   "since": "2026-11-19T04:19:47Z",
-   "expires": "2026-11-19T08:19:47Z",
-   "release": "",
-   "callers": {}
-  }
- ],
- "lapsed": [
   {
    "path": "app/admin/control-console.php",
    "functions": [

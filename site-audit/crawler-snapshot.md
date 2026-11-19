@@ -8,35 +8,35 @@ Change is since 2026-11-13, the first day recorded.
 
 | What | Now | Change |
 |---|---|---|
-| staged | 13779 | +13134 |
+| staged | 13783 | +13138 |
 | quarantined | 41 |  |
-| published | 6061 | +5743 |
-| merged | 329 | +167 |
-| rejected | 573 | +390 |
+| published | 6070 | +5752 |
+| merged | 330 | +168 |
+| rejected | 591 | +408 |
 
 ## Of the staged (newest 3,000 checked)
 
 | What | Now | Change |
 |---|---|---|
 | checked | 3000 | +2355 |
-| ready_stuck | 4 | -1 |
+| ready_stuck | 5 | 0 |
 | review | 27 | -560 |
-| looking | 2969 | +2916 |
-| no_kind | 2439 | +2279 |
-| one_source | 885 | +358 |
+| looking | 2968 | +2915 |
+| no_kind | 2435 | +2275 |
+| one_source | 889 | +362 |
 | by_reason · category | 26 | -35 |
 | by_reason · dupe | 1 | -5 |
 | auto_import_on | true |  |
-| of | 13779 | +13134 |
+| of | 13783 | +13138 |
 
 ## The place store
 
 | What | Now | Change |
 |---|---|---|
-| places | 3473 | +2534 |
-| hosts | 247 | +177 |
-| sources_read | 2951 | +2635 |
-| sources_read_empty | 268 | +147 |
+| places | 3692 | +2753 |
+| hosts | 270 | +200 |
+| sources_read | 3185 | +2869 |
+| sources_read_empty | 285 | +164 |
 
 ## Websites taken off listings, by month
 
@@ -49,15 +49,15 @@ Change is since 2026-11-13, the first day recorded.
 | What | Now | Change |
 |---|---|---|
 | abandoned_listings | 2 | +2 |
-| failed_once | 47 | +38 |
+| failed_once | 64 | +55 |
 
 ## Public listings and map points
 
 | What | Now | Change |
 |---|---|---|
-| public | 10280 | +5585 |
+| public | 10289 | +5594 |
 | no_point | 0 | 0 |
-| approximate | 1711 | +31 |
+| approximate | 1712 | +32 |
 
 ## Town jobs
 
@@ -81,19 +81,19 @@ Change is since 2026-11-13, the first day recorded.
 
 | What | Now | Change |
 |---|---|---|
-| done | 60 | -22 |
+| done | 61 | -21 |
 | leased (set aside) | 2 | 0 |
-| nothing | 4594 | +90 |
+| nothing | 4755 | +251 |
 | nothing (set aside) | 13 | 0 |
-| queued | 792 |  |
+| queued | 630 |  |
 
 ## The source register
 
 | What | Now | Change |
 |---|---|---|
-| by_status · suggested | 1958 | +1495 |
-| by_status · read | 2951 | +2635 |
-| by_status · cite_only | 208 | +19 |
+| by_status · suggested | 2478 | +2015 |
+| by_status · read | 3185 | +2869 |
+| by_status · cite_only | 213 | +24 |
 | by_status · ignore | 2 |  |
 | waiting_after_describe | 7 | -399 |
 
@@ -122,7 +122,7 @@ Change is since 2026-11-13, the first day recorded.
 
 | What | Now | Change |
 |---|---|---|
-| public / cataloged | 257 | +71 |
+| public / cataloged | 344 | +158 |
 | public / pending | 5 | 0 |
 | restricted / cataloged | 5 | 0 |
 
@@ -132,16 +132,16 @@ Change is since 2026-11-13, the first day recorded.
 |---|---|---|
 | approved | 1 | 0 |
 | hidden | 29 | +28 |
-| shown | 5272 | +1552 |
+| shown | 5311 | +1591 |
 | story_only | 11 |  |
-| waiting | 32 | +5 |
+| waiting | 33 | +6 |
 
 ## Guides (status / last draft)
 
 | What | Now | Change |
 |---|---|---|
-| draft / done | 70 | +12 |
-| draft / gathering | 19 |  |
-| draft / queued | 9 |  |
+| draft / done | 80 | +22 |
+| draft / gathering | 16 |  |
+| draft / queued | 3 |  |
 | live / done | 6 | 0 |
 
