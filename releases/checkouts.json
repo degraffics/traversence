@@ -268,6 +268,17 @@
    "expires": "2026-11-19T18:08:12Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "website/js/admin-control.js",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "control-board-critical-2: the stages as tabs",
+   "since": "2026-11-19T14:08:15Z",
+   "expires": "2026-11-19T18:08:15Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
