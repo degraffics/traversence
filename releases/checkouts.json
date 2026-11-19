@@ -313,6 +313,17 @@
    "expires": "2026-11-20T03:15:51Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/lib/StagingGate.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "0173 R3: defined once, Propose, Retire, Removed",
+   "since": "2026-11-19T23:15:53Z",
+   "expires": "2026-11-20T03:15:53Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
