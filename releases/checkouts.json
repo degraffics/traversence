@@ -8,8 +8,8 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Design 3b-1 follow-up: the open tab in sage; #158's app files again",
    "since": "2026-11-19T00:20:04Z",
-   "expires": "2026-11-19T04:37:17Z",
-   "release": "design-r3b1-explore-2.zip",
+   "expires": "2026-11-19T04:37:58Z",
+   "release": "design-r3b1-tabs.zip",
    "callers": {
     "tv_explore_hero": [
      "website/community/group.php",
@@ -29,8 +29,8 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Design 3b-1: Home and Discovery (hero order, stock byline, tokens)",
    "since": "2026-11-19T00:20:04Z",
-   "expires": "2026-11-19T04:28:53Z",
-   "release": "design-r3b1-explore-2.zip",
+   "expires": "2026-11-19T04:37:58Z",
+   "release": "design-r3b1-tabs.zip",
    "callers": {
     "tv_stock_tag": [
      "app/admin/sections.php",
@@ -73,8 +73,8 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Design 3b-1: the route colour token (Electric Lime, Jason 2026-11-19)",
    "since": "2026-11-19T00:27:39Z",
-   "expires": "2026-11-19T04:28:53Z",
-   "release": "design-r3b1-explore-2.zip",
+   "expires": "2026-11-19T04:37:58Z",
+   "release": "design-r3b1-tabs.zip",
    "callers": {
     "tv_theme_tokens": [
      "app/ui/app-shell.php",
