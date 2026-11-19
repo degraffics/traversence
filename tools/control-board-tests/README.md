@@ -87,3 +87,8 @@ and `website/api/` (the mirror's `sync-storage/api/crawl` and `api/video`). Put 
 - `r4d.php`: release 4d: how many rows hold a value in each unused column, and each unused table's exact rows
   (`SchemaUpkeep::filled`, counts only, only names on the list, identifiers checked), carried by health.php. 7 tests:
   `mariadb < ../release-b-tests/start-schema.sql && php r4d.php <root>/app`.
+
+- `r4e.php`: release 4e: a slow call or job is a warning however many times in a row and stops nothing, a slow alarm
+  asked for as a trip by any caller is a warning, the watch lifts an old slow trip itself (or keeps it a warning while a
+  check is red), and Resolve needs no words ("Check and start again" on the board and in Pulse). 8 tests:
+  `mariadb < ../release-b-tests/start-schema.sql && mariadb lv_main < <2a's ledger migration> && php r4e.php <root>/app`.

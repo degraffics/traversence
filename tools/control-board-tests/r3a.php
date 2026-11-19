@@ -16,7 +16,7 @@ $a = ControlAlarms::raise($pdo, 'x:slow', 'wf:W1', 'warning', 'slow', 'W1 is slo
 $b = ControlAlarms::raise($pdo, 'x:slow', 'wf:W1', 'warning', 'slow', 'W1 is slow', 'means', 'do', '950 ms');
 $r = ControlAlarms::openOf($pdo, 'x:slow');
 $t('a repeat updates the open alarm, never a second', $a === $b && (int) $r['n_times'] === 2 && $r['reading'] === '950 ms', $r);
-ControlAlarms::raise($pdo, 'x:slow', 'wf:W1', 'trip', 'slow', 'W1 stopped', '', '', '');
+ControlAlarms::raise($pdo, 'x:slow', 'wf:W1', 'trip', 'crash', 'W1 stopped', '', '', '', [], true, false);   // worse: a crash (since 4e a slow alarm itself is never a trip)
 $t('worse becomes a trip', ControlAlarms::openOf($pdo, 'x:slow')['level'] === 'trip');
 ControlAlarms::raise($pdo, 'x:slow', 'wf:W1', 'warning', 'slow', 'W1 is slow again', '', '', '');
 $t('…and a lesser repeat never lowers it', ControlAlarms::openOf($pdo, 'x:slow')['level'] === 'trip');
