@@ -3,48 +3,48 @@
  "built_on": "ad17dec Sync: 2026-11-19 00:56 UTC",
  "recorded": "2026-11-19 00:59 UTC",
  "note": "Design 3b-2: content pages on the tokens; park cards' photos. Approved by Jason 2026-11-19 (reviewed by the session manager). Built on Sync: 00:47 UTC Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "262ca5b Sync: 2026-11-19 02:18 UTC",
  "files": {
   "app/ui/engage-ui.php": {
    "sha256": "e91c0f9266b8f3510c6aadc17863ca4fb69eb7476a91d7f7ea4cab4f96376f02",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "47ebcbf269a1696962b28b3ba9a54965abd327b40ec82e6e68d52153762ff1a9",
-   "live": false
+   "live": true
   },
   "website/discovery/index.php": {
    "sha256": "f110fb3f679fab0d783afc15563b0c33c61caa4e4db37be999f89d036385a609",
-   "live": false
+   "live": true
   },
   "website/experiences/view.php": {
    "sha256": "baf02346b6ad2a4121cb0ad1bffe3aa9215c10e7f366a1c96976f084bbfd28ba",
-   "live": false
+   "live": true
   },
   "website/gallery/index.php": {
    "sha256": "791476f4c4c5057cc5c06a3f7f887633deccab19f03b169383ee1e0bfdf75c7a",
-   "live": false
+   "live": true
   },
   "website/hub/index.php": {
    "sha256": "e2cbe9ced29ace2f1aa1364496539ab469d56ac208ba3f28c00c97321f2a1a91",
-   "live": false
+   "live": true
   },
   "website/journeys/view.php": {
    "sha256": "4794aac636c0d8183447507a3406a3a4287f99b5f83432f83d79f1a9bb1bb95f",
-   "live": false
+   "live": true
   },
   "website/listing/view.php": {
    "sha256": "f0ad1055c7e122cd663c2a81f540c1ccf727c2159f73d305aad2b08a78072b03",
-   "live": false
+   "live": true
   },
   "website/place/landmark.php": {
    "sha256": "423c31c4c9c7861bf19c52131571a49cae85a8bb48935dd20444c4cf2b04a7a8",
-   "live": false
+   "live": true
   },
   "website/place/recreation.php": {
    "sha256": "1c5f367770684f199e5ea0776b85fc2b6b3976eaef19162b95f7544bb0139677",
-   "live": false
+   "live": true
   }
  }
 }
