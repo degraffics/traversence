@@ -103,3 +103,8 @@ and `website/api/` (the mirror's `sync-storage/api/crawl` and `api/video`). Put 
 - `r5a-rate.php`: release 5a, a 429: a warning however long it lasts, twice the wait (Retry-After obeyed), a timeout
   still trips at its limit, Check it now is greyed with the next try (never past the wait, only timeouts and server errors go past), the watch turns an open 429 trip into a warning (its hold back to its back-off, logged), and
   it clears when the host answers. 18 tests: `mariadb < ../release-b-tests/start-schema.sql && php r5a-rate.php <root>/app`.
+- `legacy.php`: control-board-legacy, after 5a: a pre-flight trip from before 3c (no trip time) settled by the watch to
+  what a fresh raise would be today (closed, its notice or warning, or a trip timed from now when switched on), logged;
+  titles by the red part, else the amber part; a trip with its time keeps its level; W0's waiting or short test batch
+  asked again, naming the indexer's version. 11 tests:
+  `mariadb < ../release-b-tests/start-schema.sql && mariadb lv_main < <2a's ledger migration> && php legacy.php <root>/app`.

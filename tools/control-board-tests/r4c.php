@@ -55,7 +55,7 @@ $t('…and a warning whose check passes now is cleared', ControlAlarms::openOf($
 
 // 5. the watch does it, every 5 minutes, for every open pre-flight alarm
 $src = file_get_contents($app . '/lib/ControlAlarms.php');
-$t('the watch refreshes every open pre-flight alarm\'s words from stored results (event false)', str_contains($src, "akey LIKE 'pf:%'") && str_contains($src, 'Preflight::alarm($pdo, $lid, $pl[$lid], $pr[$lid], false)'));
+$t('the watch refreshes every open pre-flight alarm\'s words from stored results (event false)', str_contains($src, "akey LIKE 'pf:%'") && str_contains($src, 'Preflight::alarm($pdo, $lid, $pl[$lid], $pr[$lid], false'));
 
 // 6. a trend with nothing recorded: "No history yet", never "not due to be on"
 $pdo->exec('DROP TABLE IF EXISTS control_readings'); $pdo->exec('DROP TABLE IF EXISTS control_daily');

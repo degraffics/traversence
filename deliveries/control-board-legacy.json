@@ -1,0 +1,22 @@
+{
+ "zip": "control-board-legacy.zip",
+ "built_on": "7b18f55 Sync: 2026-11-19 04:19 UTC",
+ "recorded": "2026-11-19 04:29 UTC",
+ "note": "control-board-legacy: old pre-flight trips settled to what they are today, titles by the part that holds, W0's test batch asked again; built on Sync: 04:19 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/ControlAlarms.php": {
+   "sha256": "0a0fee0bc43e13eacfd33bd91f722560805d76583ab787d9cf7f66ff5f2687d0",
+   "live": false
+  },
+  "app/lib/Preflight.php": {
+   "sha256": "c194270c99765a3ffbc77ed8c2a9904efbbef05f1d715c9ad02afa92cb295b5d",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "ce49aaaa39a61f39036e1642693d661c18f8f6a5c925edadce8b2b19790dc61f",
+   "live": false
+  }
+ }
+}

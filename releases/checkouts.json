@@ -1,20 +1,6 @@
 {
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
- "claims": [
-  {
-   "path": "website/directory/index.php",
-   "functions": [
-    "(top)"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
-   "why": "release getlocal-fix.zip",
-   "since": "2026-11-19T10:52:07Z",
-   "expires": "2026-11-19T14:52:07Z",
-   "release": "getlocal-fix.zip",
-   "callers": {}
-  }
- ],
+ "claims": [],
  "lapsed": [
   {
    "path": "website/directory/index.php",
