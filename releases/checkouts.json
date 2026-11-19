@@ -83,9 +83,9 @@
    "functions": [],
    "kind": "change",
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "control-board-5b: the reports",
+   "why": "control-board-links: Resolve",
    "since": "2026-11-19T12:00:45Z",
-   "expires": "2026-11-19T16:00:45Z",
+   "expires": "2026-11-19T16:15:57Z",
    "release": "",
    "callers": {}
   },
