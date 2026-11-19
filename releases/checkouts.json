@@ -18,13 +18,14 @@
    "path": "app/admin/control-console.php",
    "functions": [
     "tv_admin_mod_control",
+    "tv_cb_alarms",
     "tv_cb_controls"
    ],
    "kind": "change",
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "control-board-5b: the reports",
+   "why": "control-board-links: Resolve",
    "since": "2026-11-19T11:21:48Z",
-   "expires": "2026-11-19T16:00:32Z",
+   "expires": "2026-11-19T16:15:53Z",
    "release": "",
    "callers": {}
   },
