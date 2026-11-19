@@ -1,0 +1,54 @@
+{
+    "id": 179,
+    "title": "Control Board: each process's own page, and its four tables",
+    "why": "decisions/0171 §12, built as the decision says (the session manager's call for Jason, 2026-11-19, after he asked \"where are the system department pages\"): each process has its own page, /admin/config/control/<kind>-<name>, opened from its row as a drawer, with its controls, its open alarms and their buttons, its readings, route, trend and check, its logbook and its report. And the board's four tables are sections under it in System Configuration: Alarms (every alarm, open, acknowledged or cleared in 30 days; its drawer's Acknowledge and Check and start again go through the board's own calls and are greyed with the reason when the role can't), Logbook, Ledger (each worker call in 7 days, with the records it touched) and Upkeep (what runs next, and the maintenance windows). Executives, as the board. Nothing new is kept: they read what the board keeps.",
+    "proposals": "",
+    "zip": "control-board-12.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/admin/control-console.php": {
+            "sha": "7d14fe29483001e250e7ea7b9d89ed9a0d7cb1846d3d37cd9c5ecdde8ea16938",
+            "size": 87216,
+            "live_was": "5d8be29d7ebaa572c0ebb0f7160f524452db749ccba640b14344fbb1ea7e94ae"
+        },
+        "app/admin/tools.php": {
+            "sha": "99bda01d6ecb84283c5732aa7fba6e6eafc0d6f3e316ab40947ac7dae313969d",
+            "size": 264651,
+            "live_was": "1636e064e8f688ff8c3c58b294c25d527af16f184a24cd74b5715dfcff70a983"
+        },
+        "app/admin/manifests.php": {
+            "sha": "3b9cdaf381940ae10c5c3908766983dcf48fd62c38906aef3b69d0459d3f7f41",
+            "size": 23315,
+            "live_was": "727c70d79470b69f0dd18c6a1d7a612a35d2d51509f5df881e75625158f24b8a"
+        },
+        "website/js/admin-kit.js": {
+            "sha": "d0e26d10f2fde2b17a54c6f0a34706c0f5f18e5659dc559033da9bb67dba12df",
+            "size": 47209,
+            "live_was": "561830814fb0f4a84c28d3b39ac86e1f746f66e20e3e137b2ffee13821dc0838"
+        },
+        "app/ui/faq.md": {
+            "sha": "9658746d15b5c95437429ec13520a93c5baf80625e818f27b30da60eafd18763",
+            "size": 365723,
+            "live_was": "45f2da573ed5db57832acb99c1258c296c700ec2117762b84c0831a7406f7d8d"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-19T12:57:56+00:00",
+            "by": 0,
+            "msg": "Uploaded control-board-12.zip: 5 files."
+        }
+    ]
+}
