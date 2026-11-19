@@ -24,7 +24,7 @@
   },
   "website/discovery/index.php": {
    "sha256": "de67ff5a80f1d8866b478b333532e6a18f60b21f9a32891037ce633d39d952bc",
-   "live": true
+   "live": false
   },
   "website/index.php": {
    "sha256": "f682cece69867398811ac7e4698970db2104efa1f068776df491f41e6aad706e",
