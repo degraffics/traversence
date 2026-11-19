@@ -1,6 +1,6 @@
 # Decision register
 
-Decision 0145 §1a. Generated on 2026-11-18 19:17 UTC from `decisions/` and the live mirror (`dd8d547`). Don't edit by hand:
+Decision 0145 §1a. Generated on 2026-11-19 07:17 UTC from `decisions/` and the live mirror (`7b18f55`). Don't edit by hand:
 edit the decision, and this follows. "Missing files" are files a decision names that the site no longer has: the
 decision may be stale, or the file moved.
 
@@ -114,7 +114,7 @@ decision may be stale, or the file moved.
 | 0106 | [0106: Vendor orders and jobs, margin](0106-vendor-orders.md) | accepted |  |  | 1 |  |
 | 0107 | [0107: The item panel, proof versions with several files, and item statuses from the vendor](0107-item-panel.md) | accepted |  |  | 1 |  |
 | 0108 | [0108: Sales & Growth: the merchant funnel, AI Assist credits, OCR, promotions, plans and onboarding](0108-sales-and-growth.md) | accepted |  |  | 5 |  |
-| 0109 | [0109: The admin rebuilt: modules, sections, widgets and workflows](0109-admin-engine.md) | accepted |  | 1 | 4 |  |
+| 0109 | [0109: The admin rebuilt: modules, sections, widgets and workflows](0109-admin-engine.md) | accepted |  | 2 | 7 |  |
 | 0110 | [0110: Data separation: three realms (member, business, admin), walls in the database, not only in the code](0110-data-separation.md) | accepted |  | 1 | 0 |  |
 | 0111 | [0111: Customers (CRM), built in our admin first](0111-customers-crm.md) | accepted |  |  | 0 |  |
 | 0112 | [0112: Taxes and shipping, price lists, and Storefront & pages, built in our admin first](0112-taxes-shipping-pricelists-pages.md) | accepted |  | 1 | 2 | `website/_errors/404.php` |
@@ -172,9 +172,9 @@ decision may be stale, or the file moved.
 | 0164 | [The Knowledge Engine: rule book, phases, workflows and sources](0164-the-knowledge-engine-rule-book-phases-workflows-and-sources.md) | accepted |  | 11 | 1 |  |
 | 0165 | [Staging is the live site in safe mode; Publish merges it into live](0165-staging-is-live-in-safe-mode-publish-merges-it.md) | accepted |  | 1 | 2 |  |
 | 0166 | [0166: Provider-neutral payments and bookkeeping: our own ledger, connectors, and QuickBooks set up once](0166-provider-neutral-payments-and-bookkeeping.md) | accepted |  | 1 | 1 |  |
-| 0167 | [0167: Communications in one place: set up in System Configuration, handled in Pulse](0167-communications-in-one-place.md) | accepted |  |  | 0 |  |
+| 0167 | [0167: Communications in one place: set up in System Configuration, handled in Pulse](0167-communications-in-one-place.md) | accepted |  | 1 | 0 |  |
 | 0168 | [0168: Facebook and Instagram for members and businesses: sign-in, sharing, connected Pages](0168-facebook-and-instagram-for-members-and-businesses.md) | accepted |  | 1 | 0 |  |
 | 0169 | [0169: The Shop's App store, and one lifecycle for every app](0169-the-shop-app-store-and-the-app-lifecycle.md) | accepted |  |  | 1 |  |
 | 0170 | [0170: Everything placed in the discovery funnel, by location, active or planned](0170-everything-placed-in-the-discovery-funnel.md) | accepted |  | 1 | 0 |  |
-| 0171 | [0171: The System Control Board: start-to-finish management and control of the whole system](0171-the-control-board.md) | accepted |  |  | 8 |  |
-| 0172 | [0172: Communications: who reaches whom, about what, by which channel, and one way to deliver](0172-communications-who-reaches-whom.md) | accepted |  |  | 2 |  |
+| 0171 | [0171: The System Control Board: start-to-finish management and control of the whole system](0171-the-control-board.md) | accepted |  | 3 | 8 |  |
+| 0172 | [0172: Communications: who reaches whom, about what, by which channel, and one way to deliver](0172-communications-who-reaches-whom.md) | accepted |  | 1 | 2 |  |
