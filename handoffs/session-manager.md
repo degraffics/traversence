@@ -106,6 +106,18 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
   (owners edit their hidden listings). It reads the "Edit my listing" path after the 2026-11-20 run, then stays open for
   more listing work.
 
+**Domains: Name.com reseller pricing and .ai** (Name.com support's answer, ticket 7Y5JM6-5L7GX, 2026-11-18):
+- No fees or deposit. Enrolling in the API Reseller Program at https://www.name.com/nameapi/pricing unlocks tiered
+  prices on **new registrations only** (not renewals or transfers); custom rates only well past the top tier. **Jason's
+  step: enroll.** Nothing to change in code: `Domains::priceList()` and getPricing read our account's cost live (12-hour
+  cache), and our price is that cost + `DOMAIN_MARKUP_CENTS`.
+- Renewals stay at Name.com's renewal price (.com $21.99 today), so a member's renewal costs more than their first year.
+  The search already shows the renewal price beside it (Domains.php:375); the cart and FAQ should say so plainly.
+- **.ai needs 2 years minimum** (register and renew). `Domains.php` registers and renews with `'years' => 1`
+  (:406, :476), and prices "a year": a .ai sale would fail at Name.com or be priced as one year. **Fix before Domain
+  sales (`DOMAIN_SALES_MODE`) goes past off:** read each ending's minimum term (the requirements lookup it already
+  allows) and register, renew and price .ai for 2 years, shown as "2 years". To a session when Jason chooses.
+
 **Pulse's load-time warning** (Jason, 2026-11-19: "add Pulse's load-time warning", to the Control Board session): time
 how long `Pulse::items` takes to gather (its ~15 sources) on each open of the admin's Pulse. Keep the reading in the
 board's timings (`ms:pulse`) with its history. Show it as a part on the board. A warning (board only) when the usual time
