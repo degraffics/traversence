@@ -2,19 +2,6 @@
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
  "claims": [
   {
-   "path": "app/lib/EngineCase.php",
-   "functions": [
-    "blockReason"
-   ],
-   "kind": "add",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "control-board-table: the parts in the admin's one table",
-   "since": "2026-11-19T16:02:01Z",
-   "expires": "2026-11-19T20:02:01Z",
-   "release": "",
-   "callers": {}
-  },
-  {
    "path": "app/lib/crawler/Sources.php",
    "functions": [],
    "kind": "change",
@@ -108,6 +95,20 @@
   }
  ],
  "lapsed": [
+  {
+   "path": "app/lib/EngineCase.php",
+   "functions": [
+    "blockReason"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "control-board-table: the parts in the admin's one table",
+   "since": "2026-11-19T16:02:01Z",
+   "expires": "2026-11-19T20:02:01Z",
+   "release": "",
+   "callers": {},
+   "lapsed": "2026-11-19T20:17:37Z"
+  },
   {
    "path": "app/ui/theme-tokens.php",
    "functions": [],
