@@ -280,6 +280,17 @@
    "expires": "2026-11-20T02:56:41Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/lib/Preflight.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "0173 R2: the key on its card",
+   "since": "2026-11-19T22:56:43Z",
+   "expires": "2026-11-20T02:56:43Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
