@@ -51,6 +51,8 @@ scope creep and drift against the decision, and that the decision has its note (
 
 Before the first release, read `handoffs/builder-playbook.md`: fixes in place, a way back for every action, the phone at
 390px, words kept true, one coherent release, `send.py`'s refusals fixed at the cause, OKs asked in your own chat.
+…and its principles (§2–3): the system fixes first; stop only for harm; every alarm carries its fix; words follow the
+state; the admin's test before sending.
 
 ## Keep this file lean
 
