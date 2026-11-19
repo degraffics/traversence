@@ -3,12 +3,12 @@
  "built_on": "5fc35bc Sync: 2026-11-19 11:50 UTC",
  "recorded": "2026-11-19 11:54 UTC",
  "note": "Hub weather strip: one town per district, no repeats. Approved by Jason 2026-11-19 (reviewed by the session manager). Built on Sync: 11:20 UTC Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "3b95c3b Sync: 2026-11-19 11:58 UTC",
  "files": {
   "app/lib/Guides.php": {
    "sha256": "28dd38f915904768d4b82634294a300bf19b6125ee449fb03182517d78f37f18",
-   "live": false
+   "live": true
   }
  }
 }
