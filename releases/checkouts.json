@@ -8,9 +8,13 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "osm-copy-wider (Jason 2026-11-19: Yes, add them; Yes, widen it)",
    "since": "2026-11-19T21:33:23Z",
-   "expires": "2026-11-20T01:49:55Z",
-   "release": "",
-   "callers": {}
+   "expires": "2026-11-20T01:51:02Z",
+   "release": "osm-copy-wider.zip",
+   "callers": {
+    "report": [
+     "website/api/crawl/service.php"
+    ]
+   }
   },
   {
    "path": "app/ui/outside-services.php",
@@ -52,8 +56,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "osm-copy-wider (Jason 2026-11-19: Yes, add them; Yes, widen it)",
    "since": "2026-11-19T21:49:49Z",
-   "expires": "2026-11-20T01:49:49Z",
-   "release": "",
+   "expires": "2026-11-20T01:51:02Z",
+   "release": "osm-copy-wider.zip",
    "callers": {}
   },
   {
@@ -63,9 +67,17 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "osm-copy-wider (Jason 2026-11-19: Yes, add them; Yes, widen it)",
    "since": "2026-11-19T21:49:51Z",
-   "expires": "2026-11-20T01:49:51Z",
-   "release": "",
-   "callers": {}
+   "expires": "2026-11-20T01:51:02Z",
+   "release": "osm-copy-wider.zip",
+   "callers": {
+    "batch": [
+     "website/api/crawl/loads.php"
+    ],
+    "ensureTasks": [
+     "app/lib/SystemStart.php",
+     "website/api/crawl/loads.php"
+    ]
+   }
   },
   {
    "path": "app/lib/OutsideServices.php",
@@ -74,9 +86,13 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "osm-copy-wider (Jason 2026-11-19: Yes, add them; Yes, widen it)",
    "since": "2026-11-19T21:49:53Z",
-   "expires": "2026-11-20T01:49:53Z",
-   "release": "",
-   "callers": {}
+   "expires": "2026-11-20T01:51:02Z",
+   "release": "osm-copy-wider.zip",
+   "callers": {
+    "parts": [
+     "app/ui/outside-services.php"
+    ]
+   }
   }
  ],
  "lapsed": [
