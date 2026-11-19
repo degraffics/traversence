@@ -126,8 +126,8 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Design: lighter controls (Jason 2026-11-19)",
    "since": "2026-11-19T11:44:06Z",
-   "expires": "2026-11-19T15:44:06Z",
-   "release": "",
+   "expires": "2026-11-19T15:45:00Z",
+   "release": "design-controls.zip",
    "callers": {}
   },
   {
@@ -137,9 +137,13 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Design: lighter controls (Jason 2026-11-19)",
    "since": "2026-11-19T11:44:08Z",
-   "expires": "2026-11-19T15:44:08Z",
-   "release": "",
-   "callers": {}
+   "expires": "2026-11-19T15:45:00Z",
+   "release": "design-controls.zip",
+   "callers": {
+    "tv_confidence_ring": [
+     "website/listing/view.php"
+    ]
+   }
   },
   {
    "path": "app/ui/context-switcher.php",
@@ -148,9 +152,14 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Design: lighter controls (Jason 2026-11-19)",
    "since": "2026-11-19T11:44:10Z",
-   "expires": "2026-11-19T15:44:10Z",
-   "release": "",
-   "callers": {}
+   "expires": "2026-11-19T15:45:00Z",
+   "release": "design-controls.zip",
+   "callers": {
+    "tv_context_switcher": [
+     "app/ui/app-shell.php",
+     "app/ui/header.php"
+    ]
+   }
   },
   {
    "path": "app/ui/engage-ui.php",
@@ -159,8 +168,8 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Design: lighter controls (Jason 2026-11-19)",
    "since": "2026-11-19T11:44:12Z",
-   "expires": "2026-11-19T15:44:12Z",
-   "release": "",
+   "expires": "2026-11-19T15:45:00Z",
+   "release": "design-controls.zip",
    "callers": {}
   },
   {
@@ -170,9 +179,14 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Design: lighter controls (Jason 2026-11-19)",
    "since": "2026-11-19T11:44:14Z",
-   "expires": "2026-11-19T15:44:14Z",
-   "release": "",
-   "callers": {}
+   "expires": "2026-11-19T15:45:00Z",
+   "release": "design-controls.zip",
+   "callers": {
+    "tv_explore_art": [
+     "website/admin/landmarks.php",
+     "website/experiences/view.php"
+    ]
+   }
   },
   {
    "path": "app/ui/header.php",
@@ -181,8 +195,8 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Design: lighter controls (Jason 2026-11-19)",
    "since": "2026-11-19T11:44:17Z",
-   "expires": "2026-11-19T15:44:17Z",
-   "release": "",
+   "expires": "2026-11-19T15:45:00Z",
+   "release": "design-controls.zip",
    "callers": {}
   },
   {
@@ -203,8 +217,8 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Design: lighter controls (Jason 2026-11-19)",
    "since": "2026-11-19T11:44:21Z",
-   "expires": "2026-11-19T15:44:21Z",
-   "release": "",
+   "expires": "2026-11-19T15:45:00Z",
+   "release": "design-controls.zip",
    "callers": {}
   },
   {
@@ -214,8 +228,8 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Design: lighter controls (Jason 2026-11-19)",
    "since": "2026-11-19T11:44:23Z",
-   "expires": "2026-11-19T15:44:23Z",
-   "release": "",
+   "expires": "2026-11-19T15:45:00Z",
+   "release": "design-controls.zip",
    "callers": {}
   },
   {
@@ -225,8 +239,8 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Design: lighter controls (Jason 2026-11-19)",
    "since": "2026-11-19T11:44:25Z",
-   "expires": "2026-11-19T15:44:25Z",
-   "release": "",
+   "expires": "2026-11-19T15:45:00Z",
+   "release": "design-controls.zip",
    "callers": {}
   },
   {
@@ -236,8 +250,8 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Design: lighter controls (Jason 2026-11-19)",
    "since": "2026-11-19T11:44:27Z",
-   "expires": "2026-11-19T15:44:27Z",
-   "release": "",
+   "expires": "2026-11-19T15:45:00Z",
+   "release": "design-controls.zip",
    "callers": {}
   },
   {
@@ -247,8 +261,8 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Design: lighter controls (Jason 2026-11-19)",
    "since": "2026-11-19T11:44:29Z",
-   "expires": "2026-11-19T15:44:29Z",
-   "release": "",
+   "expires": "2026-11-19T15:45:00Z",
+   "release": "design-controls.zip",
    "callers": {},
    "zones": [
     "home.after-doors"
@@ -261,8 +275,8 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Design: lighter controls (Jason 2026-11-19)",
    "since": "2026-11-19T11:44:31Z",
-   "expires": "2026-11-19T15:44:31Z",
-   "release": "",
+   "expires": "2026-11-19T15:45:00Z",
+   "release": "design-controls.zip",
    "callers": {}
   },
   {
@@ -272,8 +286,8 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Design: lighter controls (Jason 2026-11-19)",
    "since": "2026-11-19T11:44:33Z",
-   "expires": "2026-11-19T15:44:33Z",
-   "release": "",
+   "expires": "2026-11-19T15:45:00Z",
+   "release": "design-controls.zip",
    "callers": {}
   },
   {
@@ -283,8 +297,8 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Design: lighter controls (Jason 2026-11-19)",
    "since": "2026-11-19T11:44:35Z",
-   "expires": "2026-11-19T15:44:35Z",
-   "release": "",
+   "expires": "2026-11-19T15:45:00Z",
+   "release": "design-controls.zip",
    "callers": {}
   },
   {
@@ -294,8 +308,8 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Design: lighter controls (Jason 2026-11-19)",
    "since": "2026-11-19T11:44:37Z",
-   "expires": "2026-11-19T15:44:37Z",
-   "release": "",
+   "expires": "2026-11-19T15:45:00Z",
+   "release": "design-controls.zip",
    "callers": {}
   },
   {
@@ -305,8 +319,19 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Design: lighter controls (Jason 2026-11-19)",
    "since": "2026-11-19T11:44:39Z",
-   "expires": "2026-11-19T15:44:39Z",
-   "release": "",
+   "expires": "2026-11-19T15:45:00Z",
+   "release": "design-controls.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/ui/theme-tokens.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "release design-controls.zip",
+   "since": "2026-11-19T11:45:00Z",
+   "expires": "2026-11-19T15:45:00Z",
+   "release": "design-controls.zip",
    "callers": {}
   }
  ],
