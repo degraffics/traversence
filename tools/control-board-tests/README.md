@@ -157,3 +157,9 @@ and `website/api/` (the mirror's `sync-storage/api/crawl` and `api/video`). Put 
   opens the part's own page; the search finds a part by a source's name; no sideways scroll. 20 tests (it fails on the
   board as #192 left it): after the start schema, 2a's migration, `render`'s seed and a trip on W1,
   `node board-rendered.cjs <root>`.
+- `peek-anchor.cjs` (with `peek-anchor-page.php`) and `evidence.php`: control-board-landing (Jason, 2026-11-19: "Open card
+  shows the specific place to fix issues"). The side panel keeps a link's anchor (its own settings go before the #), so
+  an alarm's **Open its card** opens the real Service register on that one card, opened, in view and marked, at 1280 and
+  390 (7 tests; it fails on the panel as it was). A workflow's, task's or the crawler's alarm opens its run: the one its
+  fix names, else the run going when it was last seen, the list only with no run yet (6 tests). `node peek-anchor.cjs
+  <root>`; `mariadb < ../release-b-tests/start-schema.sql && php evidence.php <root>/app`.
