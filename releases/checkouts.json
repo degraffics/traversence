@@ -17,13 +17,14 @@
   {
    "path": "app/admin/control-console.php",
    "functions": [
+    "tv_admin_mod_control",
     "tv_cb_controls"
    ],
    "kind": "change",
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "control-board-backoff-gate",
+   "why": "control-board-5b: the reports",
    "since": "2026-11-19T11:21:48Z",
-   "expires": "2026-11-19T15:21:48Z",
+   "expires": "2026-11-19T16:00:32Z",
    "release": "",
    "callers": {}
   },
@@ -32,9 +33,9 @@
    "functions": [],
    "kind": "change",
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "control-board-backoff-gate",
+   "why": "control-board-5b: the reports",
    "since": "2026-11-19T11:21:53Z",
-   "expires": "2026-11-19T15:21:53Z",
+   "expires": "2026-11-19T16:00:37Z",
    "release": "",
    "callers": {}
   },
@@ -52,17 +53,6 @@
    "callers": {}
   },
   {
-   "path": "app/ui/theme-tokens.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
-   "why": "Inter with hinting (Jason: pixelated text)",
-   "since": "2026-11-19T11:44:19Z",
-   "expires": "2026-11-19T15:56:48Z",
-   "release": "",
-   "callers": {}
-  },
-  {
    "path": "app/lib/Guides.php",
    "functions": [
     "stripPick"
@@ -73,6 +63,102 @@
    "since": "2026-11-19T11:47:25Z",
    "expires": "2026-11-19T15:47:25Z",
    "release": "",
+   "callers": {}
+  },
+  {
+   "path": "website/admin/api.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "control-board-5b: the reports",
+   "since": "2026-11-19T12:00:34Z",
+   "expires": "2026-11-19T16:00:34Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/DailyReport.php",
+   "functions": [
+    "build",
+    "html",
+    "text"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "control-board-5b: the reports",
+   "since": "2026-11-19T12:00:39Z",
+   "expires": "2026-11-19T16:03:29Z",
+   "release": "control-board-5b.zip",
+   "callers": {
+    "build": [
+     "website/admin/api/pulse.php"
+    ]
+   }
+  },
+  {
+   "path": "website/js/admin-control.js",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "control-board-5b: the reports",
+   "since": "2026-11-19T12:00:45Z",
+   "expires": "2026-11-19T16:00:45Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/ControlReport.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "control-board-5b",
+   "since": "2026-11-19T12:00:48Z",
+   "expires": "2026-11-19T16:03:29Z",
+   "release": "control-board-5b.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/control-console.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "release control-board-5b.zip",
+   "since": "2026-11-19T12:02:45Z",
+   "expires": "2026-11-19T16:03:29Z",
+   "release": "control-board-5b.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/admin/api.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "release control-board-5b.zip",
+   "since": "2026-11-19T12:02:45Z",
+   "expires": "2026-11-19T16:03:29Z",
+   "release": "control-board-5b.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/js/admin-control.js",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "release control-board-5b.zip",
+   "since": "2026-11-19T12:02:45Z",
+   "expires": "2026-11-19T16:03:29Z",
+   "release": "control-board-5b.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/api/health.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "release control-board-5b.zip",
+   "since": "2026-11-19T12:02:45Z",
+   "expires": "2026-11-19T16:03:29Z",
+   "release": "control-board-5b.zip",
    "callers": {}
   }
  ],

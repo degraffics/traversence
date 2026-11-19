@@ -1,0 +1,34 @@
+{
+ "zip": "inter-hinted.zip",
+ "built_on": "3b95c3b Sync: 2026-11-19 11:58 UTC",
+ "recorded": "2026-11-19 12:02 UTC",
+ "note": "Inter with hinting: sharper text on Windows. Approved by Jason 2026-11-19 (reviewed by the session manager). Built on Sync: 11:50 UTC Sent through git (releases/inbox).",
+ "status": "live",
+ "live_in": "d4bbbbe Sync: 2026-11-19 12:04 UTC",
+ "files": {
+  "app/ui/theme-tokens.php": {
+   "sha256": "6763a5b17724c38156a12896041f6beca27fe13be44c7f662ac9ac5195723f18",
+   "live": true
+  },
+  "website/fonts/inter-400.woff2": {
+   "sha256": "c9fa684fbcd7bdee218a2c3bf296b3a465c154ca8ef1630c5c55fcc8f6cd09ea",
+   "live": true
+  },
+  "website/fonts/inter-500.woff2": {
+   "sha256": "c6748fcd45ffbc025e1504317d9258f3f45f2e4152ffa0b484e366cfb9df155d",
+   "live": true
+  },
+  "website/fonts/inter-600.woff2": {
+   "sha256": "865ea283a242727e774e9827ef16cede143a41004e153599436112be569aa8b1",
+   "live": true
+  },
+  "website/fonts/inter-700.woff2": {
+   "sha256": "cafe781bf0ec2ca30e6cab1d037b27d3963f6261efbe7ca16dab1fe9b89a25b7",
+   "live": true
+  },
+  "website/fonts/inter-800.woff2": {
+   "sha256": "4602eff35f4fc25e176ec3bece4e6e1e7b4b1d2f0cfc722bc1e7d0779a767a07",
+   "live": true
+  }
+ }
+}
