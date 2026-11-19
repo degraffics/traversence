@@ -38,9 +38,21 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Get Local R2 (Jason, 2026-11-19: approved the concept, Change 1 and 2, the header search, the PO box, the comments box)",
    "since": "2026-11-19T22:18:59Z",
-   "expires": "2026-11-20T02:18:59Z",
+   "expires": "2026-11-20T02:20:25Z",
    "release": "get-local-r2.zip",
-   "callers": {}
+   "callers": {
+    "tv_engage_comments": [
+     "app/lib/Blocks.php",
+     "website/experiences/view.php",
+     "website/guide/how.php",
+     "website/guide/resources.php",
+     "website/hub/index.php",
+     "website/journeys/suggested.php",
+     "website/listing/view.php",
+     "website/place/landmark.php",
+     "website/place/recreation.php"
+    ]
+   }
   },
   {
    "path": "app/ui/header.php",
@@ -49,7 +61,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Get Local R2 (Jason, 2026-11-19: approved the concept, Change 1 and 2, the header search, the PO box, the comments box)",
    "since": "2026-11-19T22:18:59Z",
-   "expires": "2026-11-20T02:18:59Z",
+   "expires": "2026-11-20T02:20:25Z",
    "release": "get-local-r2.zip",
    "callers": {}
   },
@@ -71,9 +83,14 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Get Local R2 (Jason, 2026-11-19: approved the concept, Change 1 and 2, the header search, the PO box, the comments box)",
    "since": "2026-11-19T22:18:59Z",
-   "expires": "2026-11-20T02:18:59Z",
+   "expires": "2026-11-20T02:20:25Z",
    "release": "get-local-r2.zip",
-   "callers": {}
+   "callers": {
+    "actions": [
+     "app/lib/Marketing.php",
+     "website/listing/view.php"
+    ]
+   }
   },
   {
    "path": "app/lib/UniversalSearch.php",
@@ -82,9 +99,13 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Get Local R2 (Jason, 2026-11-19: approved the concept, Change 1 and 2, the header search, the PO box, the comments box)",
    "since": "2026-11-19T22:18:59Z",
-   "expires": "2026-11-20T02:18:59Z",
+   "expires": "2026-11-20T02:20:25Z",
    "release": "get-local-r2.zip",
-   "callers": {}
+   "callers": {
+    "peek": [
+     "website/api/search.php"
+    ]
+   }
   },
   {
    "path": "website/listing/view.php",
@@ -93,7 +114,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Get Local R2 (Jason, 2026-11-19: approved the concept, Change 1 and 2, the header search, the PO box, the comments box)",
    "since": "2026-11-19T22:18:59Z",
-   "expires": "2026-11-20T02:18:59Z",
+   "expires": "2026-11-20T02:20:25Z",
    "release": "get-local-r2.zip",
    "callers": {}
   },
@@ -115,9 +136,63 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Get Local R2 (Jason, 2026-11-19: approved the concept, Change 1 and 2, the header search, the PO box, the comments box)",
    "since": "2026-11-19T22:18:59Z",
-   "expires": "2026-11-20T02:18:59Z",
+   "expires": "2026-11-20T02:20:25Z",
    "release": "get-local-r2.zip",
-   "callers": {}
+   "callers": {
+    "search": [
+     "app/lib/AccountDomains.php",
+     "app/lib/AiClient.php",
+     "app/lib/Checkouts.php",
+     "app/lib/Concepts.php",
+     "app/lib/Experiences.php",
+     "app/lib/Learning.php",
+     "app/lib/PlaceFinder.php",
+     "app/lib/PlatformCounts.php",
+     "app/lib/Preflight.php",
+     "app/lib/Scheduler.php",
+     "app/lib/SearchDemand.php",
+     "app/lib/SearchIndex.php",
+     "app/lib/Services.php",
+     "app/lib/StockLibrary.php",
+     "app/lib/SuggestionActions.php",
+     "app/lib/SuggestionFlags.php",
+     "app/lib/UniversalSearch.php",
+     "app/lib/Vectors.php",
+     "app/lib/crawler/NpiBulk.php",
+     "app/lib/crawler/SourceIndex.php",
+     "app/lib/crawler/Sources.php",
+     "app/lib/synonyms.php",
+     "app/ui/admin-dashboard.php",
+     "app/ui/header.php",
+     "app/ui/outside-services.php",
+     "website/admin/api/find.php",
+     "website/admin/api/people.php",
+     "website/admin/search-learning.php",
+     "website/admin/settings.php",
+     "website/api/crawl/usage.php",
+     "website/api/nearby_hubs.php",
+     "website/api/search.php",
+     "website/api/search_listings.php",
+     "website/community/group.php",
+     "website/directory/classic.php",
+     "website/discovery/index.php",
+     "website/js/search-panel.js",
+     "website/listing/view.php"
+    ],
+    "pins": [
+     "app/lib/Community.php",
+     "app/lib/DataCleanup.php",
+     "app/lib/Guides.php",
+     "website/api/search.php",
+     "website/discovery/index.php"
+    ],
+    "readHtml": [
+     "website/js/search-panel.js"
+    ],
+    "setView": [
+     "website/js/tv-editor.js"
+    ]
+   }
   },
   {
    "path": "website/js/map-view.js",
@@ -126,7 +201,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Get Local R2 (Jason, 2026-11-19: approved the concept, Change 1 and 2, the header search, the PO box, the comments box)",
    "since": "2026-11-19T22:18:59Z",
-   "expires": "2026-11-20T02:18:59Z",
+   "expires": "2026-11-20T02:20:25Z",
    "release": "get-local-r2.zip",
    "callers": {}
   },
@@ -148,7 +223,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Get Local R2 (Jason, 2026-11-19: approved the concept, Change 1 and 2, the header search, the PO box, the comments box)",
    "since": "2026-11-19T22:18:59Z",
-   "expires": "2026-11-20T02:18:59Z",
+   "expires": "2026-11-20T02:20:25Z",
    "release": "get-local-r2.zip",
    "callers": {}
   },
@@ -160,6 +235,50 @@
    "why": "Get Local R2 (Jason, 2026-11-19: approved the concept, Change 1 and 2, the header search, the PO box, the comments box)",
    "since": "2026-11-19T22:18:59Z",
    "expires": "2026-11-20T02:18:59Z",
+   "release": "get-local-r2.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/business/portal.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "release get-local-r2.zip",
+   "since": "2026-11-19T22:20:25Z",
+   "expires": "2026-11-20T02:20:25Z",
+   "release": "get-local-r2.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/api/search_listings.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "release get-local-r2.zip",
+   "since": "2026-11-19T22:20:25Z",
+   "expires": "2026-11-20T02:20:25Z",
+   "release": "get-local-r2.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/js/engage.js",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "release get-local-r2.zip",
+   "since": "2026-11-19T22:20:25Z",
+   "expires": "2026-11-20T02:20:25Z",
+   "release": "get-local-r2.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/js/tv-conf.js",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "release get-local-r2.zip",
+   "since": "2026-11-19T22:20:25Z",
+   "expires": "2026-11-20T02:20:25Z",
    "release": "get-local-r2.zip",
    "callers": {}
   }
