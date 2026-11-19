@@ -149,6 +149,16 @@ automatic", and a pointer to the usage hints on the OSM wiki's Overpass API page
 itself once requests stop; our reply (drafted for Jason) confirms we follow the hints and asks whether it lifts on its own
 and how to check safely before resuming. Until they answer that, overpass-api.de stays held (no contact).
 
+**The forum's answer and Jason's decision (2026-11-19, https://community.openstreetmap.org/t/150369):**
+- Woazboat: the published numbers are rough; for regular use, "divide those numbers by 100". About 50 requests a day
+  (or about 150 seconds of query time a day) is a fair share, counted for the whole application and all its users.
+- Woazboat: "Stop using the public OSM overpass server altogether. It is intended to help OSM editors and not as a backend
+  for unrelated apps/websites… Set up your own overpass server if necessary or pay someone to do it for you."
+- Mateusz_Konieczny: the ban probably lifts by itself.
+- **Jason: "Stop entirely."** Overpass is off everywhere, for good. All OpenStreetMap data comes from our own
+  Geofabrik copy (weekly), extended to nearby states if he wants. Built by the Control Board session; decision notes
+  on 0065 and 0164.
+
 ## 4. What we change either way (for the crawler session)
 
 Built 2026-11-14 (the table in §2 says where each stands): per-kind queries one at a time, the breaker per server,
