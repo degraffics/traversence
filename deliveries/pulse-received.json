@@ -3,16 +3,16 @@
  "built_on": "5bd98bf Sync: 2026-11-19 13:20 UTC",
  "recorded": "2026-11-19 13:40 UTC",
  "note": "Pulse Received: the date, and its sort reverses before it turns off. Approved by Jason in the pop-up (reviewed by the session manager). Built on Sync: 13:20 UTC (5bd98bf) Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "014b565 Sync: 2026-11-19 13:42 UTC",
  "files": {
   "app/ui/faq.md": {
    "sha256": "a405cc0441a255a69c693a156cbe2da935e50d9efc2446134efc289c1799f5fd",
-   "live": false
+   "live": true
   },
   "app/ui/pulse-ui.php": {
    "sha256": "dc101d8037bdf74f3e0fba8d2c445b831b03a40ca733b89bf32364e1227a79d4",
-   "live": false
+   "live": true
   }
  }
 }
