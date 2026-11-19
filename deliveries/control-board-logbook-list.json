@@ -1,0 +1,22 @@
+{
+ "zip": "control-board-logbook-list.zip",
+ "built_on": "d470e95 Sync: 2026-11-19 14:18 UTC",
+ "recorded": "2026-11-19 14:20 UTC",
+ "note": "Control Board: the logbook's list grouped and searchable (t1-tables, #186, is live: all 5 of its files match Sync 14:18; its record isn't marked yet). Built on Sync: 2026-11-19 14:18 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/admin/control-console.php": {
+   "sha256": "077aa97719b1a41add40c89e2e3743a4d20f845928bbc16bc7bc47b06be02d6a",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "38766fb4fdf365e938e2ed584648115eb967ae148a41269e0697511466cbf439",
+   "live": false
+  },
+  "website/js/admin-control.js": {
+   "sha256": "85abdf46ab65db573f73a6b3f6c43d12f58f857fbc62d73f0ce324d27a888a65",
+   "live": false
+  }
+ }
+}
