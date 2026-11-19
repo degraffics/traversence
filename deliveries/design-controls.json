@@ -1,0 +1,78 @@
+{
+ "zip": "design-controls.zip",
+ "built_on": "4d73c9f Sync: 2026-11-19 11:20 UTC",
+ "recorded": "2026-11-19 11:45 UTC",
+ "note": "Design: lighter controls. Approved by Jason 2026-11-19 (reviewed by the session manager). Built on Sync: 11:20 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/admin/kit-css.php": {
+   "sha256": "1d7e19bdcadba80292e3acae966dfab1896e5d744c42fdae183eb4981932e45d",
+   "live": false
+  },
+  "app/ui/confidence-ui.php": {
+   "sha256": "c6e394cb754ad5e6aad92b998f5132c472a6c1cd23af989cdeb086f4447de1f7",
+   "live": false
+  },
+  "app/ui/context-switcher.php": {
+   "sha256": "4c0def461dda15be28368ddc809ad2c11ecc5927fab9d2fac5df51b3a3a9c8e6",
+   "live": false
+  },
+  "app/ui/engage-ui.php": {
+   "sha256": "38f18fd7a7a6322d29d123f642d5f900202fdc79a7253df98c51c095800f6518",
+   "live": false
+  },
+  "app/ui/explore-hero.php": {
+   "sha256": "9bfdd312aa1758704f1f8cd6479c97656cf3a5f6e9676dfaac626d9b2f7756ef",
+   "live": false
+  },
+  "app/ui/header.php": {
+   "sha256": "33f347963258d08329180d5484b3eb8086646e1ffb7bcd2f8ce04975369b3455",
+   "live": false
+  },
+  "app/ui/theme-tokens.php": {
+   "sha256": "28d2eb07256aafb6a05e1446500f161135fcd5fc29869ff7e0ee71f2a2f12aa8",
+   "live": false
+  },
+  "website/directory/index.php": {
+   "sha256": "70ba842b4e3ada163a0d1a1a8611bfe45fdeafd82522ddf0e1bf27d49ce22833",
+   "live": false
+  },
+  "website/discovery/index.php": {
+   "sha256": "b4dfbefa9392cc2466219fdfed627e4a76135c8ed5d1fdfb3a0d7fbde1db6be6",
+   "live": false
+  },
+  "website/gallery/index.php": {
+   "sha256": "f1a31fdd4643019b1fc6b46b22c57528a57ff14a1ac543556a805fc39da96e7e",
+   "live": false
+  },
+  "website/hub/index.php": {
+   "sha256": "53b3d689dcd6f52cde9447e4ec2ed2ff336dc97040c70b424b453c666edd9417",
+   "live": false
+  },
+  "website/index.php": {
+   "sha256": "980ffe1c234b154ee24df8998e906d0090db73123056270a503cfca769fd24cb",
+   "live": false
+  },
+  "website/journeys/view.php": {
+   "sha256": "4b2b9b87c95c5a46397cac52b622c0120129101109073e3fb83291101679e883",
+   "live": false
+  },
+  "website/js/tv-ask.js": {
+   "sha256": "49eb1b3ef263070d151365377587c17dd131cecbbaf0931bcfe04b1ee67f4dac",
+   "live": false
+  },
+  "website/listing/view.php": {
+   "sha256": "313bcbbd6295cf253ae6f25525e04f2806ab2b9ff01c00690d12213cb88a6d94",
+   "live": false
+  },
+  "website/place/landmark.php": {
+   "sha256": "6ea74b7f23c98bdd688a97c54b1e70c81bd13895e7ae2c97f3f5409c4fd636be",
+   "live": false
+  },
+  "website/place/recreation.php": {
+   "sha256": "f22fe14bc2ef650310aee5f8d821ee82b7631063dd5338e412aea5e283c40c98",
+   "live": false
+  }
+ }
+}

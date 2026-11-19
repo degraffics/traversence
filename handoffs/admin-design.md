@@ -159,4 +159,35 @@ Merriweather. `sections.php` claimed per function (the Control Board holds `tv_a
 - Jason, 2026-11-19: approved 3c, and "Archive it" for the classic directory: a separate small release once 3c is live
   (the rail's Classic directory link removed from `directory/index.php`, `archive.md` entry: replaced by Get Local; the
   page stays reachable at its address).
+### Get Local's finder and Refine: a concept for Jason (2026-11-19, not built)
+
+- Jason chose B ("Refine with the results") with changes: the Find a business card condensed into the home page's split
+  bar (what | where | search), and Refine rethought: "Originally we had the radial distance tool with category selector
+  and extended location pills. Now this is sort and filter. I want something intuitive." He sent DuckDuckGo's places
+  view to study.
+- What DuckDuckGo does well: the search names the kind for you (typing "barber" offers "Barber shops · near my location /
+  in this map area" before any business), so there's no Kind dropdown; a numbered list beside a numbered map; one quiet
+  bar of filters; settings out of the way.
+- The concept (`design/review/getlocal-concept-1280.png`, `-390.png`; mock source in the session's scratchpad):
+  1. The home page's split bar: What are you looking for? | the place (with ⌖) | search.
+  2. Suggestions under it: the kind first ("Barber shops · near Show Low / near me / in this map area"), then businesses.
+  3. Refine as a sentence over the list: "4 [Barber shops ×] within [5 mi ▾] of [Show Low ▾]". The kind chip comes from
+     the search; How far opens the radial tool (2·5·10·25·50 mi·Any, the ring drawn on the map); the place opens the
+     nearby towns as pills (the old "extended location pills").
+  4. One row of toggles (Open now, Has a phone, Has a website, Favorites) and Sort on the right.
+  5. Desktop: the numbered list beside the map, the radius drawn, "Search this area". Phone: List | Map.
+- Jason's two more examples (a settings panel: results per page, options, column options; a spreadsheet column menu: sort
+  A to Z / Z to A, clear filter, search): folded in as **Arrange** (per page, Show toggles, the details on each card in
+  order, remembered on the device) and a **Table** view (List | Table | Map) whose columns sort and filter
+  (`getlocal-concept-arrange-1280.png`, `-390.png`).
+- Rules the build keeps (CLAUDE.md "Places in search"): a city typed in Where is always found in `zip_coordinates` and
+  becomes the place; "near me" is nearest first, no cap, with miles, so How far defaults to **Any** (5 mi in the mock is
+  a choice, not the start); fewer than 3 within 5 mi (30 for the outdoors) says results are lacking and tells the team;
+  OpenStreetMap's places stay their own credited layer.
+- It changes decisions/0058's 2026-11-12 note on Get Local (its own Find a business box and Refine row): Jason's OK to
+  build is his OK to change it, and the build adds the note to 0058.
+- The numbered pins and the radius ring are in `js/map-view.js`, shared by every map: the Get Local rebuild claims it and
+  takes in the map release's colour work (`--tv-route`, the 50 literals), so there's one release on that file, not two.
+- Phones keep List | Map (and Table only if it reads at 390; else List | Map) whatever the desktop layout.
+- Also pending his OK: design-controls (lighter fields and round buttons, the score ring, the softer chip, white on brown).
 - 3d next: Community, the member dashboard, Pulse's new look.
