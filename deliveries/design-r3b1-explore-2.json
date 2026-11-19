@@ -3,7 +3,7 @@
  "built_on": "ed8fd78 Sync: 2026-11-19 00:22 UTC",
  "recorded": "2026-11-19 00:29 UTC",
  "note": "Design 3b-1: Home and Discovery (hero order, stock credits, tabs under the hero, route token). Approved by Jason 2026-11-19 with the tab-colour change made. Built on Sync: 00:22 UTC Sent through git (releases/inbox).",
- "status": "partial",
+ "status": "pending",
  "live_in": "",
  "files": {
   "app/ui/explore-hero.php": {
@@ -16,7 +16,7 @@
   },
   "app/ui/stock-ui.php": {
    "sha256": "17b6ae9cb5bac33b8f9d05d2cae0b9596ab1c424ce8727d5caddec9f8ffa77a3",
-   "live": true
+   "live": false
   },
   "app/ui/theme-tokens.php": {
    "sha256": "63bd672d246a17062c52aa030e19581ef5d4bfea0dbae27f9bf7d3cba9bd330b",
