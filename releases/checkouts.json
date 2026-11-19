@@ -361,6 +361,17 @@
    "expires": "2026-11-19T17:45:08Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/lib/ControlRegister.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "control-board-routes: duties and critical parts (0171 \u00a75's note)",
+   "since": "2026-11-19T13:49:21Z",
+   "expires": "2026-11-19T17:49:21Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
