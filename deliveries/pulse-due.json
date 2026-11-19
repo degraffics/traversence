@@ -1,0 +1,18 @@
+{
+ "zip": "pulse-due.zip",
+ "built_on": "2605ced Sync: 2026-11-19 13:53 UTC",
+ "recorded": "2026-11-19 14:02 UTC",
+ "note": "Pulse: overdue rows tinted with a clock for the level icon, Received as an icon, no filter notice, the phone's level icon first. Approved by Jason in the pop-up (reviewed by the session manager). Built on Sync: 13:53 UTC Sent through git (releases/inbox).",
+ "status": "live",
+ "live_in": "8ddabc1 Sync: 2026-11-19 14:04 UTC",
+ "files": {
+  "app/ui/faq.md": {
+   "sha256": "7f24125940130a202a84048c2d6d9f994042ae2eb557580cdbbc00cd6d3244c1",
+   "live": true
+  },
+  "app/ui/pulse-ui.php": {
+   "sha256": "7bb5ce65c588192294b99a55ccb21323d9bfedcf84b0ab1f362f569b944d85e4",
+   "live": true
+  }
+ }
+}

@@ -1,0 +1,90 @@
+{
+    "id": 184,
+    "title": "Pulse: overdue rows tinted (amber, red when Critical) with a clock for their level icon; Received as an icon; no notice for a filter",
+    "why": "Jason, 2026-11-19, after #182: the due time beside the date was cut (\"o…\", \"7…\") and the column's name to \"RECEIV…\". He chose \"bell alerts and row marks: put clock in line with priority… inside the priority column, next to the level icon\". So: the Received column holds only the date; a row past its time to be handled (0105's clock) shows a clock in place of its level icon (\"no need for two icons side by side\"), amber, red when the row is Critical (\"change clock icon to make colors\"), its level and words (\"Alert · Over by 3 d\") on hover and to screen readers; and the row takes a subtle tint (\"subtle tints please\"): amber, red when it's Critical (\"normal, amber, red tint to show issue too\"); nothing changes while there's still time. Received's heading is the brand's tray icon (\"how about an icon instead of text\"), its name on hover; the column never narrows below a date. Choosing senders or levels no longer pops up \"Showing 1 of 6\" (\"dont think we need a notice for this\"). Next, its own release: clocks only on work cases, and overdue ones in the bell (Pulse.php). app/ui/pulse-ui.php; FAQ. On a phone, the level icon alone, with no words, comes before the sender's icon (\"on phone put priority icon with no text before source icon\").",
+    "proposals": "",
+    "zip": "pulse-due.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "live",
+    "step": 3,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": "2026-11-19 14:02:47",
+    "staged_at": "2026-11-19 14:02:49",
+    "vetted_at": "2026-11-19 14:02:51",
+    "live_at": "2026-11-19 14:02:51",
+    "files": {
+        "app/ui/pulse-ui.php": {
+            "sha": "7bb5ce65c588192294b99a55ccb21323d9bfedcf84b0ab1f362f569b944d85e4",
+            "size": 136754,
+            "live_was": "dc101d8037bdf74f3e0fba8d2c445b831b03a40ca733b89bf32364e1227a79d4",
+            "existed": true,
+            "old_sha": "dc101d8037bdf74f3e0fba8d2c445b831b03a40ca733b89bf32364e1227a79d4"
+        },
+        "app/ui/faq.md": {
+            "sha": "7f24125940130a202a84048c2d6d9f994042ae2eb557580cdbbc00cd6d3244c1",
+            "size": 370397,
+            "live_was": "f1ada09a8d922917ba50866d6acb80f9c6c5c852d8bd551fb95cf94df5e376e0",
+            "existed": true,
+            "old_sha": "f1ada09a8d922917ba50866d6acb80f9c6c5c852d8bd551fb95cf94df5e376e0"
+        }
+    },
+    "migrations": [],
+    "checks": {
+        "ok": true,
+        "where": "live",
+        "at": "2026-11-19T14:02:52+00:00",
+        "items": [
+            [
+                "PHP files parse",
+                true,
+                "1 checked"
+            ],
+            [
+                "Pages answer",
+                true,
+                "2 pages answered on traversence.com"
+            ],
+            [
+                "No new fatal errors in the logs",
+                true,
+                "3 logs read"
+            ]
+        ],
+        "first_fail": ""
+    },
+    "log": [
+        {
+            "at": "2026-11-19T14:02:46+00:00",
+            "by": 0,
+            "msg": "Uploaded pulse-due.zip: 2 files."
+        },
+        {
+            "at": "2026-11-19T14:02:47+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/pulse-due.zip (git 2dae7c690f)."
+        },
+        {
+            "at": "2026-11-19T14:02:47+00:00",
+            "by": 0,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
+        },
+        {
+            "at": "2026-11-19T14:02:50+00:00",
+            "by": 0,
+            "msg": "Put on staging (2 files); its checks passed."
+        },
+        {
+            "at": "2026-11-19T14:02:51+00:00",
+            "by": 0,
+            "msg": "Approved in chat before it was sent through git, and its checks on staging passed: publishing by itself."
+        },
+        {
+            "at": "2026-11-19T14:02:51+00:00",
+            "by": 0,
+            "msg": "Published: 2 files; everyone at once (no switch)."
+        }
+    ]
+}
