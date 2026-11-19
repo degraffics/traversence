@@ -15,19 +15,6 @@
    "callers": {}
   },
   {
-   "path": "app/lib/crawler/Sources.php",
-   "functions": [
-    "offRegion"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "control-board-offregion",
-   "since": "2026-11-19T12:37:47Z",
-   "expires": "2026-11-19T16:37:47Z",
-   "release": "",
-   "callers": {}
-  },
-  {
    "path": "app/ui/theme-tokens.php",
    "functions": [],
    "kind": "change",
