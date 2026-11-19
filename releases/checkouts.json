@@ -79,6 +79,21 @@
    "expires": "2026-11-19T21:16:36Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/ui/pulse-ui.php",
+   "functions": [
+    "api",
+    "apply",
+    "tv_pulse_board"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "pulse-menu: Show, + New, \u00d7 (Jason, 2026-11-19)",
+   "since": "2026-11-19T17:18:37Z",
+   "expires": "2026-11-19T21:18:37Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
