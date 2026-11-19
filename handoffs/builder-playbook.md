@@ -87,6 +87,12 @@ Each one comes from a request Jason had to send. Build to them, and the session 
 - **`send.py` refuses** (since 2026-11-18): a zip name sent before (use `-2`), a `switch` the site doesn't know (use
   `""`), a migration that isn't add-only, data changes without `"data_reason"`. Don't work around a refusal; fix the cause.
   [#70 and #863 used MODIFY; #108 and #109 had `"switch":"none"` and stuck at Planned; #106 re-sent a name and stalled.]
+- **Replacing a screen keeps everything it did** (Jason, 2026-11-19: "These issues need to be caught!"). When a page,
+  table or control is rebuilt or moved onto a shared part, list every control and behaviour the old one had (each
+  button, link, filter, count that filters, sort, keyboard key, remembered choice), and say where each lives now: kept,
+  moved (to where), or dropped (only with Jason's OK, quoted). The list goes in the release summary. Test each kept
+  behaviour in the rendered page, not only its PHP helper. [#192 moved the board onto the table and its system counts,
+  which filtered the rows since #180, became plain text; filter.php still passed because it tests the helper.]
 - **One coherent release, not a string of patches.** Gather the fixes for one area into one zip after checking them
   together; a follow-up release only for something found after it went live. [#115–#119 were five releases in two
   hours on one card, each needing Jason's OK.]

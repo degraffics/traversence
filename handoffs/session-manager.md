@@ -25,7 +25,7 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
   "clear to ask" or the fixes, with the sections quoted. Never approve for him; the OK stays his, in the session.
   Also check it against the playbook's principles (2026-11-19, builder-playbook §2–3): what waits on a person (could
   the system do it?), what stops (only for harm, as narrow as its cause), whether each alarm carries its fix, whether the
-  words say what's true now, and the summary's admin's-test line for each new state (what he sees, means, presses).
+  words say what's true now, and the summary's admin's-test line for each new state (what he sees, means, presses). For a release that rebuilds or moves a screen, ask for its "what this replaces" list (playbook §3) and check each old control against the live page before clearing it (2026-11-19: #192 dropped the board's filtering counts and my review missed it).
 - **No scope creep, no drift** (Jason, 2026-11-18: "consistency = scope creep or drift"): after each release, check the
   release and the build's `handoffs/<area>.md` against its decision and brief. **Scope creep:** something built or
   promised that the decision and brief don't call for. **Drift:** something the decision calls for changed, shrunk,
