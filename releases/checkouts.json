@@ -120,6 +120,17 @@
    "expires": "2026-11-19T20:02:03Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "website/js/admin-control.js",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "control-board-table: the parts in the admin's one table",
+   "since": "2026-11-19T16:02:05Z",
+   "expires": "2026-11-19T20:02:05Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
