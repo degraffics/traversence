@@ -59,75 +59,34 @@
    "callers": {}
   },
   {
-   "path": "app/admin/kit-css.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
-   "why": "pulse-menu: table \u22ef menus never cut off",
-   "since": "2026-11-19T17:16:34Z",
-   "expires": "2026-11-19T21:18:40Z",
-   "release": "pulse-menu.zip",
-   "callers": {}
-  },
-  {
-   "path": "website/js/admin-kit.js",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
-   "why": "pulse-menu: table \u22ef menus never cut off",
-   "since": "2026-11-19T17:16:36Z",
-   "expires": "2026-11-19T21:18:40Z",
-   "release": "pulse-menu.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/ui/pulse-ui.php",
+   "path": "website/js/tv-ask.js",
    "functions": [
-    "(top)",
-    "api",
-    "apply",
-    "tv_pulse_board"
+    "peek"
    ],
    "kind": "change",
-   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
-   "why": "pulse-menu: Show, + New, \u00d7 (Jason, 2026-11-19)",
-   "since": "2026-11-19T17:18:37Z",
-   "expires": "2026-11-19T21:18:40Z",
-   "release": "pulse-menu.zip",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "control-board-landing (Jason 2026-11-19: Open its card lands on the card; a workflow's alarm opens its run)",
+   "since": "2026-11-19T17:21:52Z",
+   "expires": "2026-11-19T21:22:35Z",
+   "release": "control-board-landing.zip",
    "callers": {
-    "api": [
-     "app/ui/card-scanner.php",
-     "app/ui/lead-panel.php",
-     "website/admin/listing-edit.php",
-     "website/admin/listing-intake.php",
-     "website/admin/listings.php",
-     "website/admin/nexus.php",
-     "website/admin/rebuild.php",
-     "website/admin/sales.php",
-     "website/js/gallery.js",
-     "website/js/hero-media.js",
-     "website/js/stg-bar.js",
-     "website/js/tv-domains.js",
-     "website/js/tv-editor.js",
-     "website/js/tv-vault.js",
-     "website/plans.php",
-     "website/qr/manage.php",
-     "website/user/dashboard.php"
-    ],
-    "tv_pulse_board": [
-     "app/admin/sections.php",
-     "website/admin/w.php"
-    ],
-    "apply": [
-     "app/lib/Rebuild.php",
-     "app/lib/SearchEdits.php",
-     "app/lib/SuggestionActions.php",
-     "app/lib/Thresholds.php",
-     "app/lib/Uploads.php",
-     "app/lib/crawler/ClusterRecluster.php",
-     "website/js/consent.js"
+    "peek": [
+     "website/js/admin-control.js"
     ]
    }
+  },
+  {
+   "path": "app/admin/control-console.php",
+   "functions": [
+    "tv_cb_evidence"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "control-board-landing (Jason 2026-11-19: Open its card lands on the card; a workflow's alarm opens its run)",
+   "since": "2026-11-19T17:21:56Z",
+   "expires": "2026-11-19T21:22:35Z",
+   "release": "control-board-landing.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
