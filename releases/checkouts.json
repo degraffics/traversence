@@ -141,6 +141,19 @@
    "expires": "2026-11-19T21:21:52Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/admin/control-console.php",
+   "functions": [
+    "tv_cb_evidence"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "control-board-landing (Jason 2026-11-19: Open its card lands on the card; a workflow's alarm opens its run)",
+   "since": "2026-11-19T17:21:56Z",
+   "expires": "2026-11-19T21:21:56Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
