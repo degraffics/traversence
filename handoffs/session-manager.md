@@ -87,16 +87,33 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
   a worker deploy restarts it (details at the top of `handoffs/crawler-revamp.md`); the automation master switch (release
   #48) makes any run that starts end at once. The hourly check expects no crawler runs meanwhile.
 
-## The working queue now (2026-11-19, 11:00 UTC; the sections below are the history behind it)
+## The working queue now (2026-11-19, 16:15 UTC; the sections below are the history behind it)
 
 **Building:**
-- **Control Board (0171)**, session_01CXLi5ivMY6BdkfHK1xdLWS: live through 5a (#166); unused-schema removal live
-  (#161); control-board-legacy approved, sending. Next 5b (reports). Trips follow 0171 §5's 3c rule (Jason, 2026-11-19:
-  "We already have a rule for how trips get set"); not to be reopened.
-- **Design (`design/css-theme-brand.md`)**, session_01CXLi5jkgtUikcdUQ4Wmv28: live through 3c (#164), the Classic
-  directory archived (#165), the Get Local fix (#167). Next 3d (Community, the member dashboard, Pulse's new look), then
-  3e (Marketplace); the map release (map-view.js, `--tv-route` lime); the next tokens release (`--tv-hold` contrast,
-  location-scope.js).
+- **Control Board (0171)**, session_01CXLi5ivMY6BdkfHK1xdLWS: live through #189. That covers every alarm landing on its
+  fix (#183), trips-only to a person, critical parts by duty with Recovered and the Escalation Notice (#183, #185),
+  search, sign-in and payments watched (#185), stage tabs, cleared alarms to the logbook, the logbook filter and the
+  corrected OSM statement (#189). Asking now: control-board-table (PR #1064), the process table on tv_table() with Q2
+  (blocked sites as one notice, a warning above 5% of the day's fetches), Q3 ("Its data" on each process's page, ids and
+  field names only) and Q4 (W0 logs off-region addresses as "Outside our region", never fetched). Next: **Pulse's
+  load-time warning** (below). The session stays open (Jason, 2026-11-19).
+- **Design (`design/css-theme-brand.md`, `design/table-standard.md`)**, session_01CXLi5jkgtUikcdUQ4Wmv28: live through
+  #190. That covers buttons (#181), Pulse dates, due clocks, tints and order (#182, #184, #188, #190; clocks only on work
+  cases, open trips still escalate), T1 the table component (#186) and the home bar (#187). Asking now: T2, the admin's
+  Pulse on the standard on its own engine (▾ and ⋯, two rows on top, paging of the gathered rows). Then T3–T5 (the rest
+  by module; capped lists paged in SQL or shown as "400+"), 3e (Marketplace), the map release, the tokens release.
+- **Business listings**, session_01CXLi5kipJLJoRvo3jqLnQQ (opened 2026-11-19 at Jason's word): case #22 live as #191
+  (owners edit their hidden listings). It reads the "Edit my listing" path after the 2026-11-20 run, then stays open for
+  more listing work.
+
+**Pulse's load-time warning** (Jason, 2026-11-19: "add Pulse's load-time warning", to the Control Board session): time
+how long `Pulse::items` takes to gather (its ~15 sources) on each open of the admin's Pulse. Keep the reading in the
+board's timings (`ms:pulse`) with its history. Show it as a part on the board. A warning (board only) when the usual time
+passes a limit in Thresholds & gates (default 2 seconds, the median of the last 20 opens). Its words: "Pulse is slow to
+gather (2.4 s). The fix is the Pulse store: a communications build." Slow is never a trip (4e). This warning is the
+signal to build the **Pulse store**, a communications build (0172: the dispatcher writes each item into one Pulse table
+as it happens; Pulse reads one page at a time; a writer and a backfill per source, checked against today's view). Not
+built until the warning shows or Jason asks (Jason, 2026-11-19, on the session manager's recommendation).
 
 **Dispatch tool** (Jason, 2026-11-19, queued; decision first): one tool that controls (1) alerts, (2) button actions,
 (3) form submissions, (4) the message gate and (5) role-based (RBAC) actions. The decision starts from what each already
@@ -124,7 +141,7 @@ the needs that have none; OpenStreetMap coverage from our Geofabrik copy.
 
 **Jason's own:** records requests (Arizona Corporation Commission, New Mexico's Secretary of State); Wikimedia Commons
 for heritage (store with credit, or link); approve 0164 §7.1's licence-source strategy; renew `GITHUB_SYNC_TOKEN`
-before Dec 16 (https://github.com/settings/tokens); the OpenStreetMap statement (a step on the board's Overpass trip).
+before Dec 16 (https://github.com/settings/tokens); the OpenStreetMap statement: posted 2026-11-19, about 16:10 UTC, waiting for a forum moderator (research/osm-overpass-2026-11-13.md §3); on their answer, Reactivate and Mark resolved.
 
 **Visual fixes** (to the design session's Release 3): the squeezed footer edit zone (Discovery's hero, the Edit switch and stock
 bylines are done: #153, #158, #159).
