@@ -465,6 +465,23 @@ Journeys keep their own likes and comments. Code: `api/lib/Engage.php`, `/api/en
 `includes/engage-ui.php`, `js/engage.js`; Reports gained `content_comment` and `experience`. Migration:
 `2026-10-14_engage.sql` (`content_comments`, `content_likes`).
 
+**Note (2026-11-19, Jason approved, reviewed by the session manager: "the social numbers should always be present shouldnt they?"; "Maybe a ... tool kit for things?"; "maybe a way to create a trip right from here"): the Engage bar's views and ⋯ (`place-page.zip`).**
+- **Views at 0.** The bar listed "**views:** visits that saw it, from the platform's counts, never who"; the code showed them only above 0. They now always show, 0 included. Likes and comments already did. "Listings have no Like, because the Link button is how you keep a business" is unchanged.
+- **⋯ after Share and QR** holds the page's other tools in words: See on the map, Directions, Plan a trip here, Add to a trip, Save contact (businesses), Suggest an edit, and Report where the page has it. Report moves into ⋯ on pages that pass their tools (landmarks, outdoor places, listings, place pages); elsewhere it stays on the bar.
+  - Each item runs the page's own button where there is one (`data-eg-click`: one way to do a thing).
+  - Anything the page can't offer is greyed with its reason, never hidden.
+  - Directions only for a street that isn't private. A mailbox has none, on the business's own page too: R2's rule had missed that page.
+  - Copy link isn't in ⋯: Share already copies the link, and Link connects the business to your account.
+  - It closes with ×, Esc, a click outside or a scroll. It sits on the page while open, so no hero or card covers it.
+- **Plan a trip here** (decisions/0146): the place's ready-made journeys (`JourneyPlan::forPlace`) first, then the Trip Planner set to the place (`/discovery/?view=plan&cluster=…`). A point finds its nearest area within 40 miles. **Add to a trip** is greyed, "coming", until the saved-trips decision Jason asked for is drafted and approved.
+- **The hero's corner folds** (Jason, 2026-11-19, on his phone's screenshot of a listing: "Should share, add a photo, etc be added to minimize how much real-estate is used on hero."). It replaces §28's "views, likes, comments, Share, Save, Claim, Photos & video" in the corner on landmarks, outdoor places, listings and place pages.
+  - The corner keeps the numbers (views, ♥ where likes apply, comments) and ⋯.
+  - ⋯ starts with Share, QR code, Share a photo or video (the owner's Photos and video) and Save to Address Book, in words.
+  - What the page already shows beside its card isn't repeated in ⋯: on a listing, Call, Directions, the map, Save contact, QR and Suggest an edit; on a landmark or outdoor place, the map, Directions and Suggest an edit. This removed the listing's QR and contact buttons that showed twice.
+  - Claim, Link and the owner's Manage keep their corners.
+  - Pages with no hero keep Share on the bar.
+- Code: `tv_engage_tools()` in `app/ui/engage-ui.php`; `/api/engage.php` GET `counts` (read only) and `trip`; `js/engage.js`. Tests: `tools/design-tests/place-page.cjs` (48 checks at 1280 and 390).
+
 Also fixed: the listing header's category and name were centered and wrapped oddly. They're buttons, and now align
 left.
 
@@ -740,6 +757,10 @@ This matches Jason's concept (2026-09-29): the title top left, the Link button t
   - closes with ×, Esc or a tap outside the photo;
   - the page's social bar comes along at the bottom (views, Like, Comments, Share, Report): a like made there shows on
     the page, and Comments closes the lightbox and goes to them.
+
+**Note (2026-11-19, Jason approved: "maybe we have a way for the view to see the location/url of the subject"): the viewer names what's in the photo.** The photo viewer's top line names the photo's subject, linked to its page, with **See on the map** and **Copy link** (the viewer has no Link or Share of its own).
+- On Let's Explore the hero's fallback photos are landmarks', each of a different place. So each slide carries its landmark's page, its point (on a nation's land, its public place, `Nations::pin`) and its own views, likes and comments, fetched when it shows.
+- On a page's own photos, the line names the page, and its bar comes along as before; a like made in the viewer is copied back only to that bar.
 
   Photos that link to a journey (Let's Explore) still open the journey. Videos play in place. Buttons and links on
   the hero never open it.

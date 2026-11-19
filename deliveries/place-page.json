@@ -1,0 +1,50 @@
+{
+ "zip": "place-page.zip",
+ "built_on": "669a6d7 Sync: 2026-11-19 23:05 UTC",
+ "recorded": "2026-11-19 23:08 UTC",
+ "note": "The place page: the hero's corner folds into \u22ef, the viewer names what's in the photo, views at 0, Plan a trip here; built on Sync: 23:05 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/ui/engage-ui.php": {
+   "sha256": "62c158523b76f31da9e60aace6a46897535400efdd173d0545b2abcf0da6b7dc",
+   "live": false
+  },
+  "app/ui/explore-hero.php": {
+   "sha256": "a53628a95e55e80f99dfc32ac79f3088a0004b9507609faf542698bd309021f7",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "1ba25c000451b5f8eb9cd185f18ed27841b553746365d77326a799b7fcd40e5c",
+   "live": false
+  },
+  "website/api/engage.php": {
+   "sha256": "7f41309a4490ce7ce9d1f3189c9e76c839534fb091c4574397dd02146df9332c",
+   "live": false
+  },
+  "website/discovery/index.php": {
+   "sha256": "ad449c57451048844f481a7d8f90f0d79efd1a197234c13b79c40c20a56caa13",
+   "live": false
+  },
+  "website/hub/index.php": {
+   "sha256": "658dfbfedfc3a69914d30dd934958ad2cee515de1e08be4f0974514b409c7047",
+   "live": false
+  },
+  "website/js/engage.js": {
+   "sha256": "80b8b4e076e16ba7855e165beb24210dab6c1a18eca46e91381a4131fbfe752b",
+   "live": false
+  },
+  "website/listing/view.php": {
+   "sha256": "4ee08846489fe93a47f55d4973ffa995ce001917a748f0b526c66499f9e682d9",
+   "live": false
+  },
+  "website/place/landmark.php": {
+   "sha256": "e7bb541a9843577ff4f0e66bb13bae4511ff03656cf49b74d5e417319af30491",
+   "live": false
+  },
+  "website/place/recreation.php": {
+   "sha256": "727a8e31e9e374cb4da44dfd8d4ebcd2ecfda35922d0e5c586e69b70c60d328c",
+   "live": false
+  }
+ }
+}
