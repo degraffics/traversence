@@ -1,8 +1,8 @@
 {
  "zip": "control-board-routes.zip",
  "built_on": "5bd98bf Sync: 2026-11-19 13:20 UTC",
- "recorded": "2026-11-19 13:27 UTC",
- "note": "Control Board routes: every alarm leads to its own fix; the stage tiles route; one pre-flight; one alarm count. Built on Sync: 2026-11-19 13:20 UTC Sent through git (releases/inbox).",
+ "recorded": "2026-11-19 13:31 UTC",
+ "note": "Control Board routes: every alarm leads to its own fix; the stage tiles route; one pre-flight; one alarm count; no second Pulse row for an alarm's message. Built on Sync: 2026-11-19 13:20 UTC Sent through git (releases/inbox).",
  "status": "pending",
  "live_in": "",
  "files": {
@@ -14,12 +14,16 @@
    "sha256": "7d1fee2530e134f05d08d3e2f043ec7133c399d1d76fc5e2c47d5f70c4d0886e",
    "live": false
   },
+  "app/admin/preflight-console.php": {
+   "sha256": "6a35d83744a015b84dd785ed504f3fcefb2c798ee8c58e3c02366c89eb6f4a94",
+   "live": false
+  },
   "app/admin/sections.php": {
    "sha256": "cc2d0d16b84dcb92d6c641c8345fbda181ea80e17130ef256373eb6b23bfc869",
    "live": false
   },
   "app/lib/ControlAlarms.php": {
-   "sha256": "c10f59754d925460ad3be701425a8a84e494983611efed1ae039bcd7c21c0cd0",
+   "sha256": "47142f81a5425e375f9083de79e10e21d39bf5502b2a8bdcb415d6a49e74fb9e",
    "live": false
   },
   "app/lib/ControlHistorian.php": {
@@ -46,8 +50,12 @@
    "sha256": "d646f583bda158623103d48edd60158cf1a5a282d19fbbbbaedb39f760d0cc77",
    "live": false
   },
+  "app/migrations/2026-11-19_alarm_messages_pulse_ref.sql": {
+   "sha256": "772bafbac320126c33ac8afd556386c96ae57cd8c7e4ddc91f828055cdc381f7",
+   "live": false
+  },
   "app/ui/faq.md": {
-   "sha256": "e4512255dc9e4c5ad57a8a7a8ccd7262d5df06eb67f2f4f81f3d32ab72631006",
+   "sha256": "026685a9fc9ca2863dd76cedbce86f5df86332f0fa04f8b83d5885b0bb5abb56",
    "live": false
   },
   "website/js/admin-control.js": {

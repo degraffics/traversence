@@ -80,4 +80,14 @@ $t('…but leaves #open= to the drawer', (bool) preg_match("/indexOf\('='\)|incl
 $jl = (string) file_get_contents($app . '/admin/job-line.php');
 $t('the pre-flight\'s Runs line: it looks every 15 minutes, runs every test only at night, after a .env change or Run all', str_contains($jl, "runs every test only at 2 am Arizona time, after a .env change, or when you press Run all") && str_contains($jl, "last full run"));
 
+// 5. Pulse: an alarm's message is shown by its alarm's item, never a second stream row; the email still goes
+$t('an alarm\'s message carries its Pulse item, so the stream leaves it to the item', str_contains($ca, "'pulse_ref' => 'alarm:' . \$id]"));
+$mg = (string) @file_get_contents($app . '/migrations/2026-11-19_alarm_messages_pulse_ref.sql');
+$t('…the ones already sent get the same mark, once, safe to run twice', str_contains($mg, "SET pulse_ref = thing WHERE kind IN ('alarm.trip', 'alarm.warning') AND pulse_ref IS NULL"));
+$nt = (string) file_get_contents($app . '/lib/Notify.php');
+$t('…the stream reads only messages without a Pulse item (Notify)', str_contains($nt, 'pulse_ref IS NULL'));
+// 6. the pre-flight opens fresh and says its last full run beside it (both truths)
+$pc = (string) file_get_contents($app . '/admin/preflight-console.php');
+$t('the pre-flight opens fresh and says its last full run, with the report a tap away', str_contains($pc, 'data-tv-label="Not run in this view yet:">Last full run') && str_contains($pc, 'href="#pf-runs">Its report is in the run log'));
+
 echo "\n$pass passed, $fail failed\n"; exit($fail ? 1 : 0);
