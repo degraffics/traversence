@@ -53,24 +53,6 @@
    "callers": {}
   },
   {
-   "path": "app/ui/theme-tokens.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
-   "why": "Inter with hinting (Jason: pixelated text)",
-   "since": "2026-11-19T11:44:19Z",
-   "expires": "2026-11-19T16:02:14Z",
-   "release": "inter-hinted.zip",
-   "callers": {
-    "tv_theme_tokens": [
-     "app/ui/app-shell.php",
-     "app/ui/auth-nav.php",
-     "app/ui/header.php",
-     "app/ui/page-shell.php"
-    ]
-   }
-  },
-  {
    "path": "app/lib/Guides.php",
    "functions": [
     "stripPick"
@@ -133,61 +115,6 @@
    "since": "2026-11-19T12:00:48Z",
    "expires": "2026-11-19T16:03:29Z",
    "release": "control-board-5b.zip",
-   "callers": {}
-  },
-  {
-   "path": "website/fonts/inter-600.woff2",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
-   "why": "release inter-hinted.zip",
-   "since": "2026-11-19T12:02:14Z",
-   "expires": "2026-11-19T16:02:14Z",
-   "release": "inter-hinted.zip",
-   "callers": {}
-  },
-  {
-   "path": "website/fonts/inter-500.woff2",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
-   "why": "release inter-hinted.zip",
-   "since": "2026-11-19T12:02:14Z",
-   "expires": "2026-11-19T16:02:14Z",
-   "release": "inter-hinted.zip",
-   "callers": {}
-  },
-  {
-   "path": "website/fonts/inter-700.woff2",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
-   "why": "release inter-hinted.zip",
-   "since": "2026-11-19T12:02:14Z",
-   "expires": "2026-11-19T16:02:14Z",
-   "release": "inter-hinted.zip",
-   "callers": {}
-  },
-  {
-   "path": "website/fonts/inter-800.woff2",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
-   "why": "release inter-hinted.zip",
-   "since": "2026-11-19T12:02:14Z",
-   "expires": "2026-11-19T16:02:14Z",
-   "release": "inter-hinted.zip",
-   "callers": {}
-  },
-  {
-   "path": "website/fonts/inter-400.woff2",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
-   "why": "release inter-hinted.zip",
-   "since": "2026-11-19T12:02:14Z",
-   "expires": "2026-11-19T16:02:14Z",
-   "release": "inter-hinted.zip",
    "callers": {}
   },
   {
