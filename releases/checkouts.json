@@ -48,6 +48,17 @@
    "expires": "2026-11-19T18:26:37Z",
    "release": "listing-portal-hidden.zip",
    "callers": {}
+  },
+  {
+   "path": "app/admin/control-console.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "control-board-table: the parts in the admin's one table",
+   "since": "2026-11-19T16:01:50Z",
+   "expires": "2026-11-19T20:01:50Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
