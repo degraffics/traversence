@@ -107,6 +107,10 @@ and messages are centrally located."
 - **The admin's Pulse** (0105, built): the header (Working as, the count chips, the bell, **+**, Search), the
   Operational Task Queue, Quick Actions and the Pulse Stream table (From, Severity, Subject, Received); its rows now
   open in place (below).
+  > **Note (Jason, 2026-11-19, pulse-top, release #1077): "Working as" is removed.** Asked whether its department
+  > choices still applied ("the original drop down items dont even apply now do they?"), he answered "Remove it". It
+  > narrowed a Founder's or Executive's stream to one department; From, Kind and Group by Kind do that now, so the
+  > stream shows every department's work.
 - **The member's and the listing's Pulse, on the profile page** (Jason's mockup, 2026-11-18,
   `design/pulse-profile-mockup.png`):
   - **Header:** the Pulse mark, **Pulse ▾** (whose Pulse: your own, or a business you work for), a count chip per
