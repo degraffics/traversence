@@ -1,0 +1,71 @@
+{
+    "id": 205,
+    "title": "Real photos on park cards and heroes; the Parks strip shows what's near",
+    "why": "Jason, 2026-11-19: \"cant our system find photos specific to these cards?\" (approved \"Both\"), and his screenshot's Kansas card in an Arizona strip. The landmarks' Commons finder (free licence, every word of the name, taken within 1.5 km or named within 5 miles, 640 px+, credit kept, retried after 30 days) now also runs for the parks, monuments, visitor centres and historic sites we list and the National Park Service's places, in the same W9 job and pace; never for a place kept private. Cards and listing heroes show a found photo before stock. With a place being explored, the Parks strip shows what's within 150 miles of its towns, nearest first, with the miles (a private place never shows there); \"Visitor Ctr\" reads \"Visitor Center\". NPS photos follow once the key is set. New table place_photos (follows live).",
+    "proposals": "",
+    "zip": "card-photos.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/ui/faq.md": {
+            "sha": "2760254cacaaa0361fec1e00761a8d8df480c71429db5af0ff091f5c6f91486b",
+            "size": 382570,
+            "live_was": "93b1b887a5b7e9e2113030b58ccccd6bc74aa08a2efdf93e362a6cd811656cc0"
+        },
+        "app/migrations/2027-03-22_place_photos.sql": {
+            "sha": "287944779209ba7f9c0d9b4f58b89d0855107ddff93a78107d9273375874eef3",
+            "size": 754,
+            "live_was": null
+        },
+        "app/scripts/landmark_photos_tick.php": {
+            "sha": "70e362f0a8e0b86df8f736e9af2a0ab99d08308e53e02bd4d1586eba70d929df",
+            "size": 1261,
+            "live_was": "95757c8a12bc8fbbe20122f490cc510035bbfe4b82827412fddc54c37bf66f36"
+        },
+        "app/lib/Scheduler.php": {
+            "sha": "920c1e1da36f9457af9d0c1aba84126474d23e1aedd594a83d08886e2f6770f8",
+            "size": 30644,
+            "live_was": "d0218b7bda07836ae4eef280329bc6f5d147f84a9afa08d6ef6c5293ea8822bc"
+        },
+        "app/lib/PlacePhotos.php": {
+            "sha": "9849834bab028f44536ebd06055faa47c71017b97ab4f63fcc496989c2751f1a",
+            "size": 8917,
+            "live_was": null
+        },
+        "app/lib/staging-tables.php": {
+            "sha": "ddee21af3ab90fd306a0da19a02b30ba87b9f70803a484912b2a14082553b761",
+            "size": 28147,
+            "live_was": "b0f49fea5571cf819309dbf62c5ee068edec13bead7478412b6be575b47486c4"
+        },
+        "website/listing/view.php": {
+            "sha": "c2e1eb4bea29aeb1a645ad56ee6a3343fcb59f945f8058fa92b57dac8887ef13",
+            "size": 60521,
+            "live_was": "dd919947c0c6da07b2634afcb55fc4b1b44ef8da1da03bd23c923b3235905e51"
+        },
+        "website/discovery/index.php": {
+            "sha": "a01b6b93c42e9042cc1ff0f3eb1a4ba27416bb5ecf16087e0c1990db7aaf890d",
+            "size": 92152,
+            "live_was": "e463b1c4b96ecedb3f80803b460a2c9344f71a136101b14eb9033e3e1b576a06"
+        }
+    },
+    "migrations": [
+        "app/migrations/2027-03-22_place_photos.sql"
+    ],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-19T21:47:21+00:00",
+            "by": 0,
+            "msg": "Uploaded card-photos.zip: 8 files."
+        }
+    ]
+}
