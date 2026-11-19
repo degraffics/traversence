@@ -419,6 +419,17 @@
    "expires": "2026-11-19T17:08:23Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "website/verify-email.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Buttons standard: one filled button, Claim, Peek dim, search bars",
+   "since": "2026-11-19T13:08:25Z",
+   "expires": "2026-11-19T17:08:25Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
