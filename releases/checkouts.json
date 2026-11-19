@@ -56,8 +56,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "control-board-table: the parts in the admin's one table",
    "since": "2026-11-19T16:01:50Z",
-   "expires": "2026-11-19T20:01:50Z",
-   "release": "",
+   "expires": "2026-11-19T20:02:16Z",
+   "release": "control-board-table.zip",
    "callers": {}
   },
   {
@@ -67,8 +67,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "control-board-table: the parts in the admin's one table",
    "since": "2026-11-19T16:01:54Z",
-   "expires": "2026-11-19T20:01:54Z",
-   "release": "",
+   "expires": "2026-11-19T20:02:16Z",
+   "release": "control-board-table.zip",
    "callers": {}
   },
   {
@@ -80,9 +80,13 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "control-board-table: the parts in the admin's one table",
    "since": "2026-11-19T16:01:56Z",
-   "expires": "2026-11-19T20:01:56Z",
-   "release": "",
-   "callers": {}
+   "expires": "2026-11-19T20:02:16Z",
+   "release": "control-board-table.zip",
+   "callers": {
+    "needs": [
+     "app/lib/Operations.php"
+    ]
+   }
   },
   {
    "path": "app/lib/EngineCase.php",
@@ -93,9 +97,15 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "control-board-table: the parts in the admin's one table",
    "since": "2026-11-19T16:01:59Z",
-   "expires": "2026-11-19T20:01:59Z",
-   "release": "",
-   "callers": {}
+   "expires": "2026-11-19T20:02:16Z",
+   "release": "control-board-table.zip",
+   "callers": {
+    "blockedSite": [
+     "app/lib/crawler/Refresh.php",
+     "app/lib/crawler/SiteFetcher.php",
+     "app/lib/crawler/SourceIndex.php"
+    ]
+   }
   },
   {
    "path": "app/lib/EngineCase.php",
@@ -117,8 +127,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "control-board-table: the parts in the admin's one table",
    "since": "2026-11-19T16:02:03Z",
-   "expires": "2026-11-19T20:02:03Z",
-   "release": "",
+   "expires": "2026-11-19T20:02:16Z",
+   "release": "control-board-table.zip",
    "callers": {}
   },
   {
@@ -128,8 +138,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "control-board-table: the parts in the admin's one table",
    "since": "2026-11-19T16:02:05Z",
-   "expires": "2026-11-19T20:02:05Z",
-   "release": "",
+   "expires": "2026-11-19T20:02:16Z",
+   "release": "control-board-table.zip",
    "callers": {}
   },
   {
@@ -139,8 +149,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "control-board-table: the config/processes tool",
    "since": "2026-11-19T16:02:10Z",
-   "expires": "2026-11-19T20:02:10Z",
-   "release": "",
+   "expires": "2026-11-19T20:02:16Z",
+   "release": "control-board-table.zip",
    "callers": {}
   }
  ],
