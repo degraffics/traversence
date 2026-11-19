@@ -232,6 +232,8 @@ needing an outside service (Railway, QuickBooks, AWS, Cloudflare…) carries its
 ## No browser dialogs; one look for notices (`js/tv-ask.js`): every page
 
 Never `alert()`, `confirm()` or `prompt()`.
+- **Everything that pops open closes** (Jason, 2026-11-19: "anything that pops open should have a way to close it"): a
+  visible ×, Esc and a click outside, on every pop-up, panel, menu and drawer.
 - Needs a yes: `data-confirm="Hide it from the site?" data-yes="Hide it"` (+ `data-danger` for removing or hiding); in
   code `if (!TvAsk.gate(btn, 'Remove this comment?', {yes: 'Remove', danger: true})) return;`. Also
   `TvAsk.confirm(msg, {anchor})`, `TvAsk.ask(label, value)` (one-field form).
