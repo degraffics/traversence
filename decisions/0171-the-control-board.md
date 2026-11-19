@@ -452,6 +452,16 @@ There is one record: the alarm. Acknowledging stops the email repeat. The alarm 
 > `control_pulse_ms` (2 s) it's a warning on the board only: "Pulse is slow to gather (2.4 s). The fix is the Pulse
 > store: a communications build." Never a trip, never in Pulse.
 
+> **Note (Jason, 2026-11-19, control-board-card): no Mark resolved; a service's card says how to fix its issue.** Asked
+> what case #45's buttons did: "marked resolved - this should not be an option, it should be the result of an issue being
+> fixed." So an outside service's alarm no longer offers Mark resolved, on the board, in Pulse or on its card: a passing
+> check closes it (**Check it now**; on a trip **Check and start again**, which checks first), and a tripped alarm's
+> Pulse case shows the board's own buttons. Every Overpass server held is closed by Check and start again once
+> OpenStreetMap releases us. A service case with no check of its own keeps one button, "It's fixed: try it again"
+> (its next call is the check). Asked of Common Crawl's card, "how am I supposed to fix this?": each service's card in
+> the Service register shows its open issue (what came back, how often, since when, what it means, what to do) with the
+> button that does it. Not changed here: the Start the system card's "Mark issue resolved", for Jason to decide.
+
 ### 8. Pulse, fixed: one item per alarm, acted on in place, closed by itself
 
 Jason doesn't find today's Pulse cases helpful. The cases from these modules each gather many steps into one case, keep
