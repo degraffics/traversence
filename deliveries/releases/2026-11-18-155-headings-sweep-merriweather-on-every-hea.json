@@ -6,12 +6,12 @@
     "zip": "design-headings-2.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "planned",
+    "state": "approved",
     "step": 0,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
-    "plan_at": null,
+    "plan_at": "2026-11-19 00:12:42",
     "staged_at": null,
     "vetted_at": null,
     "live_at": null,
@@ -734,6 +734,16 @@
             "at": "2026-11-19T00:12:40+00:00",
             "by": 0,
             "msg": "Uploaded design-headings-2.zip: 142 files."
+        },
+        {
+            "at": "2026-11-19T00:12:42+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/design-headings-2.zip (git 15091839a3)."
+        },
+        {
+            "at": "2026-11-19T00:12:42+00:00",
+            "by": 0,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
         }
     ]
 }
