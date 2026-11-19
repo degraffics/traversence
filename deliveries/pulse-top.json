@@ -3,20 +3,20 @@
  "built_on": "9785734 Sync: 2026-11-19 16:41 UTC",
  "recorded": "2026-11-19 16:51 UTC",
  "note": "Pulse's top row, headings, Working as removed; board light off the Dashboard. Built on Sync: 16:41 UTC Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "5ae710d Sync: 2026-11-19 16:54 UTC",
  "files": {
   "app/ui/faq.md": {
    "sha256": "745796cc95f4109e94653a9af18a1cb1cc863fe01469e5e2f6eadf7d0926777e",
-   "live": false
+   "live": true
   },
   "app/ui/pulse-ui.php": {
    "sha256": "d81a8b3070d8a28cb52668adfe3d80814f2702eee317c5a26be67946eaf7a74a",
-   "live": false
+   "live": true
   },
   "website/admin/router.php": {
    "sha256": "37fd2e5172860f570570ead5a411c42fd33c6485e823ea254b896d29a6ef2933",
-   "live": false
+   "live": true
   }
  }
 }
