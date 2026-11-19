@@ -6,9 +6,9 @@
    "functions": [],
    "kind": "change",
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
-   "why": "Design 3b-1: Home and Discovery (hero order, stock byline, tokens)",
+   "why": "Design 3b-1 follow-up: the open tab in sage; #158's app files again",
    "since": "2026-11-19T00:20:04Z",
-   "expires": "2026-11-19T04:28:53Z",
+   "expires": "2026-11-19T04:37:17Z",
    "release": "design-r3b1-explore-2.zip",
    "callers": {
     "tv_explore_hero": [
