@@ -1,20 +1,14 @@
 # The System Control Board (the command center): hand-off for its build session (2026-11-18)
 
-## Start here: the build is finished (2026-11-19, 12:10 UTC)
+## Start here: the build is finished (2026-11-19)
 
-All of decisions/0171 is built and live, as releases #120–#173 (listed by section in the decision's 2026-11-19 note).
-The last were 5a (#166, the logbook), the old trips settled (#168), a back-off in its wait isn't a hold (#169) and 5b
-(#173, the reports). Every test is in `tools/control-board-tests/` (README there, how to run them on MariaDB); all 22
-files passed on the last build.
+All of decisions/0171 is built and live: releases #120–#173, then the links and Resolve fixes (#175), the off-region
+sources (#177) and §12's process pages and four tables (control-board-12, the last). They're listed by section in the
+decision's 2026-11-19 note. Every test is in `tools/control-board-tests/` (README there, how to run them on MariaDB).
 
-**Not built, and why:**
-- §12: a process's own route (`/admin/config/control/<process>`, a drawer) and the four table tools (`config/alarms`,
-  `config/log`, `config/ledger`, `config/upkeep`) weren't built: the four systems are folding sections of the one board,
-  each process opens in place, and the board's panels do the tables' work. Missed in the first close-out (Jason asked
-  2026-11-19: "where are the system department pages"); his call whether to build them.
-- §14: archiving the Pre-flight page (`config/preflight`) waits for Jason's OK; `Preflight.php` stays either way.
-- §14: the Start card on Automation and the Workflow board's switch-on check don't yet link to the board. A small release
-  (links only), when asked.
+**Kept as they are, by decision:** the Pre-flight page (Jason: "need a way to use preflight before start up"; the
+board runs the same pre-flight) and §2's layout of stage tiles and separate buttons (the session manager's call when
+Jason was unsure, 2026-11-19).
 
 **Open on the board that needs Jason** (probe 11:54 UTC, `site-audit/results/alarms.json`):
 - W1's trip from 09:00 (raised by the back-off bug #169 fixed): his **Check and start again** on W1's row.

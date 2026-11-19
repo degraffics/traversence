@@ -123,3 +123,6 @@ and `website/api/` (the mirror's `sync-storage/api/crawl` and `api/video`). Put 
   outside AZ and NM; never a shortener or a generic ending), the welcome rules, Pause, Pause all and Undo for a day,
   shorteners followed (one try an hour, 429 backs off), the watch's recount; Acknowledge leaves the open list at once.
   17 tests. Run as the others.
+- `r12.php`: control-board-12 (0171 §12): the four tables (alarms with their drawer's Acknowledge and Check and start
+  again, greyed with the reason; logbook; ledger with the records each call touched; upkeep), executives only, as
+  sections under the board; each process's own page from its path, an unknown one, and the row's drawer link. 12 tests.
