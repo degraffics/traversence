@@ -302,6 +302,17 @@
    "expires": "2026-11-20T02:56:46Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/admin/operations-console.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "0173 R2: the key on its card",
+   "since": "2026-11-19T22:56:48Z",
+   "expires": "2026-11-20T02:56:48Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
