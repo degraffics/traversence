@@ -21,9 +21,13 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "T4: the table standard on the admin's older pages (approved 2026-11-19)",
    "since": "2026-11-19T16:21:50Z",
-   "expires": "2026-11-19T21:09:44Z",
-   "release": "",
-   "callers": {}
+   "expires": "2026-11-19T21:10:22Z",
+   "release": "t4-tables.zip",
+   "callers": {
+    "staticTable": [
+     "app/admin/kit-css.php"
+    ]
+   }
   },
   {
    "path": "app/lib/crawler/Sources.php",
@@ -89,8 +93,8 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "T4: the table standard on the admin's older pages (approved 2026-11-19)",
    "since": "2026-11-19T17:09:42Z",
-   "expires": "2026-11-19T21:09:42Z",
-   "release": "",
+   "expires": "2026-11-19T21:10:22Z",
+   "release": "t4-tables.zip",
    "callers": {}
   },
   {
@@ -100,8 +104,8 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "T4: the table standard on the admin's older pages (approved 2026-11-19)",
    "since": "2026-11-19T17:09:47Z",
-   "expires": "2026-11-19T21:09:47Z",
-   "release": "",
+   "expires": "2026-11-19T21:10:22Z",
+   "release": "t4-tables.zip",
    "callers": {}
   },
   {
@@ -111,8 +115,8 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "T4: the table standard on the admin's older pages (approved 2026-11-19)",
    "since": "2026-11-19T17:09:49Z",
-   "expires": "2026-11-19T21:09:49Z",
-   "release": "",
+   "expires": "2026-11-19T21:10:22Z",
+   "release": "t4-tables.zip",
    "callers": {}
   },
   {
@@ -122,8 +126,8 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "T4: the table standard on the admin's older pages (approved 2026-11-19)",
    "since": "2026-11-19T17:09:51Z",
-   "expires": "2026-11-19T21:09:51Z",
-   "release": "",
+   "expires": "2026-11-19T21:10:22Z",
+   "release": "t4-tables.zip",
    "callers": {}
   },
   {
@@ -133,8 +137,8 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "T4: the table standard on the admin's older pages (approved 2026-11-19)",
    "since": "2026-11-19T17:09:53Z",
-   "expires": "2026-11-19T21:09:53Z",
-   "release": "",
+   "expires": "2026-11-19T21:10:22Z",
+   "release": "t4-tables.zip",
    "callers": {}
   },
   {
@@ -144,8 +148,8 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "T4: the table standard on the admin's older pages (approved 2026-11-19)",
    "since": "2026-11-19T17:09:55Z",
-   "expires": "2026-11-19T21:09:55Z",
-   "release": "",
+   "expires": "2026-11-19T21:10:22Z",
+   "release": "t4-tables.zip",
    "callers": {}
   },
   {
@@ -155,8 +159,8 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "T4: the table standard on the admin's older pages (approved 2026-11-19)",
    "since": "2026-11-19T17:09:57Z",
-   "expires": "2026-11-19T21:09:57Z",
-   "release": "",
+   "expires": "2026-11-19T21:10:22Z",
+   "release": "t4-tables.zip",
    "callers": {}
   },
   {
@@ -166,8 +170,30 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "T4: the table standard on the admin's older pages (approved 2026-11-19)",
    "since": "2026-11-19T17:09:59Z",
-   "expires": "2026-11-19T21:09:59Z",
-   "release": "",
+   "expires": "2026-11-19T21:10:22Z",
+   "release": "t4-tables.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/ui/table-kit.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "release t4-tables.zip",
+   "since": "2026-11-19T17:10:22Z",
+   "expires": "2026-11-19T21:10:22Z",
+   "release": "t4-tables.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/js/tv-table.js",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "release t4-tables.zip",
+   "since": "2026-11-19T17:10:22Z",
+   "expires": "2026-11-19T21:10:22Z",
+   "release": "t4-tables.zip",
    "callers": {}
   }
  ],
