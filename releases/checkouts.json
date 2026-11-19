@@ -8,9 +8,13 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "control-board-routes: every alarm leads to its fix",
    "since": "2026-11-19T11:21:46Z",
-   "expires": "2026-11-19T17:26:09Z",
-   "release": "",
-   "callers": {}
+   "expires": "2026-11-19T17:27:33Z",
+   "release": "control-board-routes.zip",
+   "callers": {
+    "alarms": [
+     "app/lib/ControlAlarms.php"
+    ]
+   }
   },
   {
    "path": "website/api/health.php",
@@ -93,8 +97,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "control-board-routes: every alarm leads to its fix",
    "since": "2026-11-19T13:26:02Z",
-   "expires": "2026-11-19T17:26:02Z",
-   "release": "",
+   "expires": "2026-11-19T17:27:33Z",
+   "release": "control-board-routes.zip",
    "callers": {}
   },
   {
@@ -104,9 +108,13 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "control-board-routes: every alarm leads to its fix",
    "since": "2026-11-19T13:26:04Z",
-   "expires": "2026-11-19T17:26:04Z",
-   "release": "",
-   "callers": {}
+   "expires": "2026-11-19T17:27:33Z",
+   "release": "control-board-routes.zip",
+   "callers": {
+    "tv_admin_job_line": [
+     "app/admin/widgets.php"
+    ]
+   }
   },
   {
    "path": "app/admin/sections.php",
@@ -115,8 +123,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "control-board-routes: every alarm leads to its fix",
    "since": "2026-11-19T13:26:07Z",
-   "expires": "2026-11-19T17:26:07Z",
-   "release": "",
+   "expires": "2026-11-19T17:27:33Z",
+   "release": "control-board-routes.zip",
    "callers": {}
   },
   {
@@ -126,8 +134,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "control-board-routes: every alarm leads to its fix",
    "since": "2026-11-19T13:26:11Z",
-   "expires": "2026-11-19T17:26:11Z",
-   "release": "",
+   "expires": "2026-11-19T17:27:33Z",
+   "release": "control-board-routes.zip",
    "callers": {}
   },
   {
@@ -137,9 +145,17 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "control-board-routes: every alarm leads to its fix",
    "since": "2026-11-19T13:26:13Z",
-   "expires": "2026-11-19T17:26:13Z",
-   "release": "",
-   "callers": {}
+   "expires": "2026-11-19T17:27:33Z",
+   "release": "control-board-routes.zip",
+   "callers": {
+    "counts": [
+     "app/admin/control-console.php",
+     "website/admin/router.php"
+    ],
+    "tick": [
+     "app/scripts/control_tick.php"
+    ]
+   }
   },
   {
    "path": "app/lib/ControlHistorian.php",
@@ -148,9 +164,13 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "control-board-routes: every alarm leads to its fix",
    "since": "2026-11-19T13:26:15Z",
-   "expires": "2026-11-19T17:26:15Z",
-   "release": "",
-   "callers": {}
+   "expires": "2026-11-19T17:27:33Z",
+   "release": "control-board-routes.zip",
+   "callers": {
+    "timed": [
+     "app/lib/ControlAlarms.php"
+    ]
+   }
   },
   {
    "path": "app/lib/ControlMaintenance.php",
@@ -159,9 +179,13 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "control-board-routes: every alarm leads to its fix",
    "since": "2026-11-19T13:26:17Z",
-   "expires": "2026-11-19T17:26:17Z",
-   "release": "",
-   "callers": {}
+   "expires": "2026-11-19T17:27:33Z",
+   "release": "control-board-routes.zip",
+   "callers": {
+    "putBack": [
+     "website/admin/api.php"
+    ]
+   }
   },
   {
    "path": "app/lib/crawler/CrawlService.php",
@@ -170,9 +194,13 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "control-board-routes: every alarm leads to its fix",
    "since": "2026-11-19T13:26:20Z",
-   "expires": "2026-11-19T17:26:20Z",
-   "release": "",
-   "callers": {}
+   "expires": "2026-11-19T17:27:33Z",
+   "release": "control-board-routes.zip",
+   "callers": {
+    "report": [
+     "website/api/crawl/service.php"
+    ]
+   }
   },
   {
    "path": "app/lib/Preflight.php",
@@ -181,9 +209,15 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "control-board-routes: every alarm leads to its fix",
    "since": "2026-11-19T13:26:22Z",
-   "expires": "2026-11-19T17:26:22Z",
-   "release": "",
-   "callers": {}
+   "expires": "2026-11-19T17:27:33Z",
+   "release": "control-board-routes.zip",
+   "callers": {
+    "lines": [
+     "app/admin/preflight-console.php",
+     "app/lib/ControlAlarms.php",
+     "website/admin/api.php"
+    ]
+   }
   },
   {
    "path": "website/js/admin-kit.js",
@@ -203,8 +237,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "control-board-routes: every alarm leads to its fix",
    "since": "2026-11-19T13:26:26Z",
-   "expires": "2026-11-19T17:26:26Z",
-   "release": "",
+   "expires": "2026-11-19T17:27:33Z",
+   "release": "control-board-routes.zip",
    "callers": {}
   },
   {
@@ -240,6 +274,17 @@
    "since": "2026-11-19T13:26:37Z",
    "expires": "2026-11-19T17:26:37Z",
    "release": "",
+   "callers": {}
+  },
+  {
+   "path": "website/js/admin-kit.js",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "release control-board-routes.zip",
+   "since": "2026-11-19T13:27:33Z",
+   "expires": "2026-11-19T17:27:33Z",
+   "release": "control-board-routes.zip",
    "callers": {}
   }
  ],
