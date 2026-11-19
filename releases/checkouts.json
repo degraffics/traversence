@@ -67,30 +67,6 @@
    "callers": {}
   },
   {
-   "path": "website/api/health.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "Control Board 4d: rows holding a value in each unused column",
-   "since": "2026-11-19T00:25:33Z",
-   "expires": "2026-11-19T04:25:38Z",
-   "release": "control-board-4d.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/SchemaUpkeep.php",
-   "functions": [
-    "filled"
-   ],
-   "kind": "add",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "Control Board 4d: rows holding a value in each unused column",
-   "since": "2026-11-19T00:25:36Z",
-   "expires": "2026-11-19T04:25:38Z",
-   "release": "control-board-4d.zip",
-   "callers": {}
-  },
-  {
    "path": "app/ui/theme-tokens.php",
    "functions": [],
    "kind": "change",
