@@ -45,10 +45,19 @@ he says otherwise.
    item says why. Other tables: at most one visible button (Check, Approve…) and ⋯.
 8. **Group rows:** alarms and other system feeds group under one row that opens to its members, on the Board and in Pulse
    (0172, 0171 §8's note; the directive's "rollups for system feeds only"). Part of the component from T1, with its tests.
-9. **Selecting rows:** a checkbox column only where there's a bulk action; the bulk bar appears when one is ticked.
-10. **Empty and loading:** "Nothing here yet" with the way forward; a skeleton row while loading.
-11. **Phones (390px):** each row becomes a card (status, name, sub-line, ▾ or its button, ⋯), edge to edge (§11).
-12. **Levels:** the table sits on a section (`--tv-sec`); rows on the card colour; the header row on the section colour.
+9. **Paging and counts, for large sets** (Jason, 2026-11-19: "pagination and count controls too. This is something that
+   large data sets need for presentation control"). The component carries the admin's list standard of 2026-11-12
+   (`js/admin-kit.js`, `.ak-pgb`): the count always shown ("1–50 of 1,234"), **Show 10 / 25 / 50 / 100** a page (kept in
+   this browser per table), a page bar (first, previous, the pages around this one, next, last; current page in the
+   standard button), **Show more** under the list, and **Columns** to choose which show. Paging, sorting, filtering and
+   the count come from the server (a page at a time, `LIMIT`/`OFFSET` with a `COUNT(*)`), so a table of 100,000 rows
+   loads as fast as one of 50. A filter or sort goes back to page 1 and the count follows it ("12 of 1,234 match").
+   Group rows count as one row for paging; their members show when opened. On phones the bar keeps previous, "Page 3 of
+   25" and next.
+10. **Selecting rows:** a checkbox column only where there's a bulk action; the bulk bar appears when one is ticked.
+11. **Empty and loading:** "Nothing here yet" with the way forward; a skeleton row while loading.
+12. **Phones (390px):** each row becomes a card (status, name, sub-line, ▾ or its button, ⋯), edge to edge (§11).
+13. **Levels:** the table sits on a section (`--tv-sec`); rows on the card colour; the header row on the section colour.
 
 ## Pulse's top half (one header, then the list)
 
@@ -83,4 +92,5 @@ he says otherwise.
 | A group row | "Overpass: 4 alarms ▸" as one row | the row: it opens to the four, each with its own ▾ and ⋯ |
 | A greyed ⋯ item | "Protect" greyed, with "Only an owner can protect this" under it | nothing; the reason is shown |
 | A phone card | each row as a card: severity, from, subject, the sub-line, ▾ and ⋯ | ▾ opens it under itself |
+| A large table | "1–50 of 1,234", Show 50 ▾, the page bar | a page number, or Show 100 |
 | No history yet | "No history yet" once in Last 24 hours | nothing; it fills as readings come |
