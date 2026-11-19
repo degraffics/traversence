@@ -102,6 +102,11 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
   cases, open trips still escalate), T1 the table component (#186) and the home bar (#187). Asking now: T2, the admin's
   Pulse on the standard on its own engine (▾ and ⋯, two rows on top, paging of the gathered rows). Then T3–T5 (the rest
   by module; capped lists paged in SQL or shown as "400+"), 3e (Marketplace), the map release, the tokens release.
+- **Approved, not yet built (design session, in order):** Get Local R2 (the approved concept with within ▾, Arrange and
+  the list beside the map; the Filters line and card tools approved 2026-11-19; the PO-box Directions rule; the
+  comments box and card tools Jason approved earlier on 2026-11-19 as "release (2)", never built until found from his
+  "thought we fixed this too"; the header search after his one-line OK), then card photos (Commons + NPS, approved
+  "Both"), then the place page (lightbox link, Add to a trip, counts, the ⋯ toolkit: proposal first).
 - **Business listings**, session_01CXLi5kipJLJoRvo3jqLnQQ (opened 2026-11-19 at Jason's word): case #22 live as #191
   (owners edit their hidden listings). It reads the "Edit my listing" path after the 2026-11-20 run, then stays open for
   more listing work.
