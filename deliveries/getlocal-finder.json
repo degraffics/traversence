@@ -1,0 +1,22 @@
+{
+ "zip": "getlocal-finder.zip",
+ "built_on": "49ca152 Sync: 2026-11-19 12:45 UTC",
+ "recorded": "2026-11-19 12:48 UTC",
+ "note": "Get Local R1: the finder bar, kind-first suggestions, the line over the list, Best match by the confidence score. Approved by Jason in the pop-up (reviewed by the session manager). Built on Sync: 12:45 UTC (49ca152); files: website/directory/index.php, website/api/search_listings.php, app/ui/faq.md Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/ui/faq.md": {
+   "sha256": "45f2da573ed5db57832acb99c1258c296c700ec2117762b84c0831a7406f7d8d",
+   "live": false
+  },
+  "website/api/search_listings.php": {
+   "sha256": "c9ceb21e7654626b9d1404cdaf72e7837e92c98e8d4ed38974ef5c42c743b843",
+   "live": false
+  },
+  "website/directory/index.php": {
+   "sha256": "4fd4ef7874d4bf8f8b5f086423309194dd12145427a5d4ef48906db09714192f",
+   "live": false
+  }
+ }
+}
