@@ -118,6 +118,19 @@
    "expires": "2026-11-19T21:42:30Z",
    "release": "control-board-card.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/ControlAlarms.php",
+   "functions": [
+    "pulseSteps"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "control-board-card: a trip's Pulse steps match the board (session manager 2026-11-19)",
+   "since": "2026-11-19T17:47:35Z",
+   "expires": "2026-11-19T21:47:35Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
