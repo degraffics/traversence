@@ -633,9 +633,9 @@
   }
  },
  "2026-11-19": {
-  "at": "2026-11-18T17:33:48-07:00",
+  "at": "2026-11-18T17:49:58-07:00",
   "finds": {
-   "staged": 13761,
+   "staged": 13764,
    "quarantined": 41,
    "published": 6053,
    "merged": 326,
@@ -646,32 +646,32 @@
    "ready_stuck": 4,
    "review": 27,
    "looking": 2969,
-   "no_kind": 2446,
-   "one_source": 877,
+   "no_kind": 2445,
+   "one_source": 878,
    "by_reason": {
     "category": 26,
     "dupe": 1
    },
    "auto_import_on": true,
-   "of": 13761
+   "of": 13764
   },
   "place_store": {
-   "places": 3254,
-   "hosts": 231,
-   "sources_read": 2795,
-   "sources_read_empty": 259
+   "places": 3255,
+   "hosts": 232,
+   "sources_read": 2804,
+   "sources_read_empty": 260
   },
   "websites_taken_off": {
    "2026-11": 10
   },
   "refresh": {
    "abandoned_listings": 2,
-   "failed_once": 37
+   "failed_once": 38
   },
   "map_points": {
    "public": 10272,
    "no_point": 0,
-   "approximate": 1709
+   "approximate": 1708
   },
   "town_jobs": {
    "done": 83,
@@ -686,16 +686,16 @@
    "failed (3+ tries)": 8
   },
   "identity_jobs": {
-   "done": 59,
+   "done": 60,
    "leased (set aside)": 2,
-   "nothing": 4500,
+   "nothing": 4507,
    "nothing (set aside)": 13,
-   "queued": 888
+   "queued": 880
   },
   "register": {
    "by_status": {
-    "suggested": 1926,
-    "read": 2795,
+    "suggested": 1925,
+    "read": 2804,
     "cite_only": 208,
     "ignore": 2
    },

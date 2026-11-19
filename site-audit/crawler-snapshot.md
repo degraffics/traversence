@@ -8,7 +8,7 @@ Change is since 2026-11-13, the first day recorded.
 
 | What | Now | Change |
 |---|---|---|
-| staged | 13761 | +13116 |
+| staged | 13764 | +13119 |
 | quarantined | 41 |  |
 | published | 6053 | +5735 |
 | merged | 326 | +164 |
@@ -22,21 +22,21 @@ Change is since 2026-11-13, the first day recorded.
 | ready_stuck | 4 | -1 |
 | review | 27 | -560 |
 | looking | 2969 | +2916 |
-| no_kind | 2446 | +2286 |
-| one_source | 877 | +350 |
+| no_kind | 2445 | +2285 |
+| one_source | 878 | +351 |
 | by_reason · category | 26 | -35 |
 | by_reason · dupe | 1 | -5 |
 | auto_import_on | true |  |
-| of | 13761 | +13116 |
+| of | 13764 | +13119 |
 
 ## The place store
 
 | What | Now | Change |
 |---|---|---|
-| places | 3254 | +2315 |
-| hosts | 231 | +161 |
-| sources_read | 2795 | +2479 |
-| sources_read_empty | 259 | +138 |
+| places | 3255 | +2316 |
+| hosts | 232 | +162 |
+| sources_read | 2804 | +2488 |
+| sources_read_empty | 260 | +139 |
 
 ## Websites taken off listings, by month
 
@@ -49,7 +49,7 @@ Change is since 2026-11-13, the first day recorded.
 | What | Now | Change |
 |---|---|---|
 | abandoned_listings | 2 | +2 |
-| failed_once | 37 | +28 |
+| failed_once | 38 | +29 |
 
 ## Public listings and map points
 
@@ -57,7 +57,7 @@ Change is since 2026-11-13, the first day recorded.
 |---|---|---|
 | public | 10272 | +5577 |
 | no_point | 0 | 0 |
-| approximate | 1709 | +29 |
+| approximate | 1708 | +28 |
 
 ## Town jobs
 
@@ -81,18 +81,18 @@ Change is since 2026-11-13, the first day recorded.
 
 | What | Now | Change |
 |---|---|---|
-| done | 59 | -23 |
+| done | 60 | -22 |
 | leased (set aside) | 2 | 0 |
-| nothing | 4500 | -4 |
+| nothing | 4507 | +3 |
 | nothing (set aside) | 13 | 0 |
-| queued | 888 |  |
+| queued | 880 |  |
 
 ## The source register
 
 | What | Now | Change |
 |---|---|---|
-| by_status · suggested | 1926 | +1463 |
-| by_status · read | 2795 | +2479 |
+| by_status · suggested | 1925 | +1462 |
+| by_status · read | 2804 | +2488 |
 | by_status · cite_only | 208 | +19 |
 | by_status · ignore | 2 |  |
 | waiting_after_describe | 7 | -399 |
