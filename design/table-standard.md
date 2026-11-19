@@ -95,8 +95,9 @@ he says otherwise.
 ## Open items
 
 - **Pulse's paging in the database.** Pulse pages what it gathers (about fifteen sources); the database still reads them
-  all on each load. Moving that into the database is a rebuild of how Pulse collects, offered as its own release if
-  loading slows.
+  all on each load. Moving that into the database is the Pulse store, a communications build (0172's dispatcher writing
+  one Pulse table). The Control Board's Pulse load-time warning (over 2 s) is its signal (Jason, 2026-11-19;
+  handoffs/session-manager.md).
 
 ## The admin's test (principle 5)
 
