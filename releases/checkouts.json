@@ -91,7 +91,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "Control Board 4e: slow is never a trip; Resolve is Check and start again",
    "since": "2026-11-19T00:40:03Z",
-   "expires": "2026-11-19T04:40:03Z",
+   "expires": "2026-11-19T04:40:08Z",
    "release": "control-board-4e.zip",
    "callers": {}
   },
@@ -107,7 +107,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "Control Board 4e: slow is never a trip; Resolve is Check and start again",
    "since": "2026-11-19T00:40:03Z",
-   "expires": "2026-11-19T04:40:03Z",
+   "expires": "2026-11-19T04:40:08Z",
    "release": "control-board-4e.zip",
    "callers": {
     "resolve": [
@@ -137,20 +137,21 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "Control Board 4e: slow is never a trip; Resolve is Check and start again",
    "since": "2026-11-19T00:40:03Z",
-   "expires": "2026-11-19T04:40:03Z",
+   "expires": "2026-11-19T04:40:08Z",
    "release": "control-board-4e.zip",
    "callers": {}
   },
   {
    "path": "app/lib/Thresholds.php",
    "functions": [
+    "(top)",
     "GATES"
    ],
    "kind": "change",
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "Control Board 4e: slow is never a trip; Resolve is Check and start again",
    "since": "2026-11-19T00:40:03Z",
-   "expires": "2026-11-19T04:40:03Z",
+   "expires": "2026-11-19T04:40:08Z",
    "release": "control-board-4e.zip",
    "callers": {
     "GATES": [
