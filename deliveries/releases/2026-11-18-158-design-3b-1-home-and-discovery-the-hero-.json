@@ -1,0 +1,59 @@
+{
+    "id": 158,
+    "title": "Design 3b-1: Home and Discovery, the hero's photos and tabs, stock photo credits, the route colour",
+    "why": "Jason's directive (design/css-theme-brand.md, Release 3, Home and Explore) and two of his visual fixes (2026-11-17). (1) THE HERO'S ORDER: Let's Explore's hero showed a stock photo before the page's own landmark photos (explore-hero.php checked them after stock), so switching views didn't change it. Now: the page's own and shared photos, then the landmarks' Commons photos (each view its own set), and a stock photo only when there's no real one (decisions/0058 §30, 0138, 0143 §4). Parks passes its place and the subject \"national park\", Experiences \"outdoor experience\". (2) STOCK PHOTO CREDITS: the credit on the photo, \"Photo: <who> on <source>\", with a small i that opens its details (Stock photo, Representative, licence, source); before, only a \"Stock photo · Representative\" pill. (3) TOKENS: the home page's and Discovery's own styles, the hero's and the stock label's, on the shared tokens; small labels in the icon colour (3.6:1) now in link brown (5:1); the Discovery \"Join the team\" button white on brand brown (was cream on brass, 2.3:1). FAQ: the stock photo answer describes the credit and the i. (4) THE TABS UNDER THE HERO (Jason, 2026-11-19: \"I dont care for the button colors under the hero\"): back to light cream with copper icons and the sage bar on the open one; the old gold accent reads as the icon colour across Discovery (tiles, places, the plan's ▾), and \"More\" is white on brand brown. (5) THE ROUTE COLOUR (Jason, 2026-11-19: \"Electric lime for activity like trail\"): theme-tokens.php gains --tv-route #B6F22E over a Deep Umber casing (--tv-route-casing), for routes and trails only; no map draws routes yet, so nothing changes on screen. River Blue, Moss and Crimson stay for map features.",
+    "proposals": "",
+    "zip": "design-r3b1-explore-2.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/ui/explore-hero.php": {
+            "sha": "12e04f1ded2291784b38ea855b1a980b499187db61b9f46402cb9ae8cd04fc0f",
+            "size": 35214,
+            "live_was": "b78842c244502e5607edb7e89980ce83207c4ffdde3f0f4756fedc8df77aa158"
+        },
+        "app/ui/theme-tokens.php": {
+            "sha": "63bd672d246a17062c52aa030e19581ef5d4bfea0dbae27f9bf7d3cba9bd330b",
+            "size": 6555,
+            "live_was": "a2cf64d8f56a1d51ee8eeeccfae76023d7a4979fd7a3f9201b133f12a1656ef9"
+        },
+        "app/ui/stock-ui.php": {
+            "sha": "17b6ae9cb5bac33b8f9d05d2cae0b9596ab1c424ce8727d5caddec9f8ffa77a3",
+            "size": 13470,
+            "live_was": "9cb53ffba049ee328e2902a21382d96fdc8d496ef0c99d093de51cf4bf1ca973"
+        },
+        "app/ui/faq.md": {
+            "sha": "67eac03f978f623092df61b199ea9401f3b4e333a4849bb40dd55cf176792861",
+            "size": 359445,
+            "live_was": "e7cfa99c7af067831ea21b9f0225afcb7ad03157976e1d058f3526c9fa8bc850"
+        },
+        "website/discovery/index.php": {
+            "sha": "de67ff5a80f1d8866b478b333532e6a18f60b21f9a32891037ce633d39d952bc",
+            "size": 84085,
+            "live_was": "4f650bcdb36e6c2e998921e0df03ea47d2d584a8e83c0a77aa1a1f0488d28e76"
+        },
+        "website/index.php": {
+            "sha": "f682cece69867398811ac7e4698970db2104efa1f068776df491f41e6aad706e",
+            "size": 46722,
+            "live_was": "579e0cfc28a875566fb886ab8ede344fb307c28f48b6b3b61be6e037ee3feaf5"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-19T00:30:04+00:00",
+            "by": 0,
+            "msg": "Uploaded design-r3b1-explore-2.zip: 6 files."
+        }
+    ]
+}
