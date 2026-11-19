@@ -16,7 +16,14 @@ else {
     const r = await fetch(`${SITE}/api/health.php`, { headers: { Authorization: `Bearer ${TOKEN}`, 'User-Agent': 'traversence-towns' } });
     const d = await r.json();
     // the server's versions (site audit P1, Jason 2026-11-08): the code check (R04) judges code against the real PHP
-    if (r.ok && d.php) { mkdirSync('site-audit/results', { recursive: true }); writeFileSync('site-audit/results/server.json', JSON.stringify({ at: new Date().toISOString(), php: d.php, php_major_minor: d.php_major_minor || '', mysql: d.mysql || '' }, null, 1) + '\n'); }
+    if (r.ok && d.php) { mkdirSync('site-audit/results', { recursive: true }); // the database's size (2026-11-19, the session manager: so a question like "does open_places fit?" is never guesswork):
+      // the main database's total and its ten biggest tables by MB, and open_places' rows (places, not people)
+      const tbl = Array.isArray(d.tables) ? d.tables : [];
+      const dbMb = Math.round(tbl.reduce((n, t) => n + (Number(t.mb) || 0), 0) * 100) / 100;
+      const biggest = tbl.slice().sort((a, b) => (b.mb || 0) - (a.mb || 0)).slice(0, 10).map(t => ({ table: t.name, mb: t.mb }));   // sizes only: a row count can count people (a public repo)
+      const op = tbl.find(t => t.name === 'open_places');
+      writeFileSync('site-audit/results/server.json', JSON.stringify({ at: new Date().toISOString(), php: d.php, php_major_minor: d.php_major_minor || '', mysql: d.mysql || '',
+        db: { tables: tbl.length, mb: dbMb, biggest, open_places: op ? { rows: op.rows, mb: op.mb } : null } }, null, 1) + '\n'); }
     // the tables and columns no live code names (the Control Board's 4b, Pulse #31): names and sizes only, never row data,
     // for the Founder's one list (safe to remove, keep, unsure); and the board's open trips and warnings, by process and title
     if (r.ok && d.unused_schema) writeFileSync('site-audit/results/unused-schema.json', JSON.stringify({ at: new Date().toISOString(), checked: d.unused_schema.checked || '', files_read: d.unused_schema.files_read || 0,

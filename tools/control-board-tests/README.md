@@ -23,7 +23,8 @@
 - `r2b.php`: release 2b, the board: its stage, a process's worker calls and records from the ledger, Shut it down
   (tasks first), Start it refused while its check is red, Shut down in order (workflows in reverse start-up order, then
   the master switch) and "stopped, safe" once no crawler run is going. 14 tests: after `r2a`'s schema and 2a's
-  migration, `php r2b.php <root>/app`.
+  migration, `php r2b.php <root>/app` (on a fresh `r2a-schema.sql`, which since 2026-11-19 has the switches and
+  workflows it needs; not straight after r2a, whose crawler run is still going).
 
 Run on MariaDB or MySQL, with a root that holds `app/` (the mirror's `sync-app` with the release's `app/` laid over it)
 and `website/api/` (the mirror's `sync-storage/api/crawl` and `api/video`). Put a `.env` four folders up from `lib/`:
@@ -195,3 +196,6 @@ and `website/api/` (the mirror's `sync-storage/api/crawl` and `api/video`). Put 
   Overpass its own retired entry, OpenStreetMap kept; Retire, Bring it back, nothing switching a retired one on; Proposed
   only words; the register's Retire fold, Bring it back, Proposed and Removed. 32 tests:
   `mariadb < ../release-b-tests/start-schema.sql && php defs.php <root>/app <mirror>/sync-app`.
+- `board-menu.cjs`: the board's parts table, every system open and the last row at the window's bottom: its ⋯ menu
+  is wholly in the window, each item tappable, and Esc closes it, at 1280 and 390 (T4's fix, on the board itself). 6 tests:
+  after the start schema and 2a's migration, `node board-menu.cjs <root>`.
