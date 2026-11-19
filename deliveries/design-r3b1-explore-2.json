@@ -12,7 +12,7 @@
   },
   "app/ui/faq.md": {
    "sha256": "67eac03f978f623092df61b199ea9401f3b4e333a4849bb40dd55cf176792861",
-   "live": true
+   "live": false
   },
   "app/ui/stock-ui.php": {
    "sha256": "17b6ae9cb5bac33b8f9d05d2cae0b9596ab1c424ce8727d5caddec9f8ffa77a3",
