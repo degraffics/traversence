@@ -108,3 +108,7 @@ and `website/api/` (the mirror's `sync-storage/api/crawl` and `api/video`). Put 
   titles by the red part, else the amber part; a trip with its time keeps its level; W0's waiting or short test batch
   asked again, naming the indexer's version. 11 tests:
   `mariadb < ../release-b-tests/start-schema.sql && mariadb lv_main < <2a's ledger migration> && php legacy.php <root>/app`.
+- `backoff-gate.php`: control-board-backoff-gate: a back-off in its wait is paced, not held (0171 §6's 3c note), a
+  refusal or a back-off tripped at its limit still holds; a tripped row offers Check and start again, never a bare Start,
+  and its Check says the trip stays red; the 10-minute release job quiet for 30 minutes warns. 12 tests:
+  `mariadb < ../release-b-tests/start-schema.sql && mariadb lv_main < <2a's ledger migration> && php backoff-gate.php <root>/app`.

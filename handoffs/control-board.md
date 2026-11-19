@@ -209,6 +209,16 @@ Alongside: `releases-self-withdraw` (#122), `releases-live-2` (#123), `releases-
 - Asked alongside it (the session manager, principle 7): outside servers that fail or time out stay a warning that keeps
   backing off, never a trip; a trip only for a refusal, a rejected key, a used-up quota or our own fault (changes 3c's
   "6 failures or 6 hours"). Built only on Jason's yes, its own zip with its test and the decisions/0171 note.
+- Legacy live as #168 (Sync 11:20 UTC). Jason's answer on the rule change (2026-11-19): "We already have a rule for how
+  trips get set": 0171 §6's 3c note stands (a back-off trips at its case limit); nothing built, never re-asked.
+- `control-board-backoff-gate` (built on Sync 11:20 UTC; files: `app/lib/Operations.php`, `app/lib/ServiceHealth.php`,
+  `app/lib/ControlAlarms.php`, `app/admin/control-console.php`, `website/admin/api.php`, `website/api/health.php`,
+  `app/ui/faq.md`): Wikidata's 429 made Wikimedia "held" and W1 tripped at 09:00 through its gate. `Operations::status`
+  now calls a back-off whose alarm isn't a trip `paced` (`ServiceHealth::spentHold`). From Jason's screenshot: a tripped
+  row shows Check and start again (its Resolve) instead of Start, and its Check says the trip stays red. The 10-minute
+  release job quiet for 30 minutes raises `rel:job:quiet` (legacy waited 25 minutes: the ping got "too soon");
+  `health.php` carries `releases_looked`. W1's trip isn't lifted by the system: Jason's Check and start again. Test:
+  `backoff-gate.php` (12).
 - Next: `control-board-5b`, the reports (one question).
 - Known shortcut in 3c: a back-off held by a trip is `service_issues.hold_until = '2099-01-01'` (until a person resolves
   it; `ServiceHealth::holdForTrip`), not a flag of its own. A real flag (a column, `held_by_trip`) needs a migration on
