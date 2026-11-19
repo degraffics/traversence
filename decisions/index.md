@@ -1,6 +1,6 @@
 # Decision register
 
-Decision 0145 §1a. Generated on 2026-11-19 07:17 UTC from `decisions/` and the live mirror (`7b18f55`). Don't edit by hand:
+Decision 0145 §1a. Generated on 2026-11-19 17:41 UTC from `decisions/` and the live mirror (`f29a07f`). Don't edit by hand:
 edit the decision, and this follows. "Missing files" are files a decision names that the site no longer has: the
 decision may be stale, or the file moved.
 
@@ -63,7 +63,7 @@ decision may be stale, or the file moved.
 | 0055 | [App Shell, Dashboards and Roles](0055-app-shell-dashboards-and-roles.md) | accepted |  | 2 | 8 |  |
 | 0056 | [Journeys, Contributors and the Six-Tier Discovery Funnel](0056-journeys-contributors-and-the-six-tier-funnel.md) | accepted |  |  | 0 |  |
 | 0057 | [The FAQ Grows With Every Build](0057-faq-grows-with-every-build.md) | accepted |  |  | 1 | `website/includes/faq.md` |
-| 0058 | [Public Profiles, Journey Management, and Adult Accounts](0058-public-profiles-journey-management-and-adult-accounts.md) | accepted |  | 8 | 0 |  |
+| 0058 | [Public Profiles, Journey Management, and Adult Accounts](0058-public-profiles-journey-management-and-adult-accounts.md) | accepted |  | 10 | 0 |  |
 | 0059 | [Experiences](0059-experiences.md) | accepted |  |  | 0 |  |
 | 0060 | [0060: Search & Suggestion Architecture](0060-search-and-suggestion-architecture.md) | accepted |  | 1 | 0 |  |
 | 0061 | [0061: Situations: an intent map, the Chameleon Filter as router, and search that learns](0061-situations-intent-map-and-learning-search.md) | accepted | 0133 | 1 | 0 |  |
@@ -110,7 +110,7 @@ decision may be stale, or the file moved.
 | 0102 | [0102: Roles and support access (RBAC master)](0102-roles-and-support-access.md) | proposed |  |  | 1 |  |
 | 0103 | [0103: Ending, transfer and inactivity](0103-ending-transfer-and-inactivity.md) | accepted |  |  | 0 |  |
 | 0104 | [0104: Admin workspaces, Wave 0 (foundations)](0104-admin-workspaces-wave-0.md) | accepted |  |  | 3 |  |
-| 0105 | [0105: Workspaces 1 and 2, Dashboard and Pulse](0105-dashboard-and-pulse.md) | accepted |  |  | 10 |  |
+| 0105 | [0105: Workspaces 1 and 2, Dashboard and Pulse](0105-dashboard-and-pulse.md) | accepted |  | 1 | 10 |  |
 | 0106 | [0106: Vendor orders and jobs, margin](0106-vendor-orders.md) | accepted |  |  | 1 |  |
 | 0107 | [0107: The item panel, proof versions with several files, and item statuses from the vendor](0107-item-panel.md) | accepted |  |  | 1 |  |
 | 0108 | [0108: Sales & Growth: the merchant funnel, AI Assist credits, OCR, promotions, plans and onboarding](0108-sales-and-growth.md) | accepted |  |  | 5 |  |
@@ -138,12 +138,12 @@ decision may be stale, or the file moved.
 | 0130 | [0130: The catalog model, and how it maps to the books](0130-catalog-model-and-books-mapping.md) | accepted |  |  | 0 |  |
 | 0131 | [Place Guides on the Six-Tier Funnel](0131-place-guides.md) | accepted | 0133 | 2 | 5 |  |
 | 0132 | [Tags and Links — What Content Is About, and Who It Reaches](0132-tags-and-links.md) | accepted |  |  | 3 |  |
-| 0133 | [The Intelligence & Publishing Engine (the crawler's one rule book)](0133-the-intelligence-and-publishing-engine.md) | replaced | 0164 | 3 | 0 |  |
+| 0133 | [The Intelligence & Publishing Engine (the crawler's one rule book)](0133-the-intelligence-and-publishing-engine.md) | replaced | 0164 | 4 | 0 |  |
 | 0134 | [Events, One Tool for the Whole Site](0134-events.md) | accepted |  | 1 | 0 |  |
 | 0135 | [The Marketplace and Storefronts (the one record)](0135-marketplace-and-storefronts.md) | accepted |  |  | 11 |  |
 | 0136 | [Topic Groups, Chapters, and the Places a Group Is About](0136-topic-groups-and-chapters.md) | accepted |  |  | 7 |  |
 | 0137 | [Group Charters, the Group Page, Group-Led Moderation, and Notices](0137-group-charters-page-moderation.md) | accepted |  | 1 | 20 |  |
-| 0138 | [The Home Page: Search First, Four Doors, Five Tabs, Honest When Thin](0138-home-page.md) | accepted |  | 1 | 4 |  |
+| 0138 | [The Home Page: Search First, Four Doors, Five Tabs, Honest When Thin](0138-home-page.md) | accepted |  | 2 | 4 |  |
 | 0139 | [Storefronts on trvgo.us and Businesses' Own Domains](0139-storefronts-and-domains.md) | accepted |  | 4 | 7 |  |
 | 0140 | [Market 360 for a Business: One Module, Guided Segments](0140-market-360-for-a-business.md) | accepted |  |  | 4 |  |
 | 0141 | [Market 360° Architecture: Four Levels, Six Modules, Nine Item Kinds](0141-market-360-architecture.md) | accepted |  | 1 | 5 |  |
@@ -169,12 +169,12 @@ decision may be stale, or the file moved.
 | 0161 | [Check-out for site files: the page manager](0161-check-out-for-site-files-the-page-manager.md) | accepted |  |  | 5 |  |
 | 0162 | [Migrations at publish, copied first; leftovers after a rollback tracked and removed by release](0162-migrations-at-publish-copied-first-leftovers-tracked.md) | accepted |  | 1 | 0 |  |
 | 0163 | [Operations: one view of outside services, workflows and spend](0163-operations-one-view-of-services-workflows-and-spend.md) | accepted |  | 8 | 4 |  |
-| 0164 | [The Knowledge Engine: rule book, phases, workflows and sources](0164-the-knowledge-engine-rule-book-phases-workflows-and-sources.md) | accepted |  | 11 | 1 |  |
+| 0164 | [The Knowledge Engine: rule book, phases, workflows and sources](0164-the-knowledge-engine-rule-book-phases-workflows-and-sources.md) | accepted |  | 12 | 1 |  |
 | 0165 | [Staging is the live site in safe mode; Publish merges it into live](0165-staging-is-live-in-safe-mode-publish-merges-it.md) | accepted |  | 1 | 2 |  |
 | 0166 | [0166: Provider-neutral payments and bookkeeping: our own ledger, connectors, and QuickBooks set up once](0166-provider-neutral-payments-and-bookkeeping.md) | accepted |  | 1 | 1 |  |
 | 0167 | [0167: Communications in one place: set up in System Configuration, handled in Pulse](0167-communications-in-one-place.md) | accepted |  | 1 | 0 |  |
 | 0168 | [0168: Facebook and Instagram for members and businesses: sign-in, sharing, connected Pages](0168-facebook-and-instagram-for-members-and-businesses.md) | accepted |  | 1 | 0 |  |
 | 0169 | [0169: The Shop's App store, and one lifecycle for every app](0169-the-shop-app-store-and-the-app-lifecycle.md) | accepted |  |  | 1 |  |
 | 0170 | [0170: Everything placed in the discovery funnel, by location, active or planned](0170-everything-placed-in-the-discovery-funnel.md) | accepted |  | 1 | 0 |  |
-| 0171 | [0171: The System Control Board: start-to-finish management and control of the whole system](0171-the-control-board.md) | accepted |  | 3 | 8 |  |
-| 0172 | [0172: Communications: who reaches whom, about what, by which channel, and one way to deliver](0172-communications-who-reaches-whom.md) | accepted |  | 1 | 2 |  |
+| 0171 | [0171: The System Control Board: start-to-finish management and control of the whole system](0171-the-control-board.md) | accepted |  | 5 | 9 |  |
+| 0172 | [0172: Communications: who reaches whom, about what, by which channel, and one way to deliver](0172-communications-who-reaches-whom.md) | accepted |  | 2 | 2 |  |

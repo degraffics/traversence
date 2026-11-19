@@ -1,6 +1,6 @@
 # Page tree
 
-Decision 0145 §1a. Generated from the live mirror on 2026-11-19 07:17 UTC (`7b18f55`). Checked against the
+Decision 0145 §1a. Generated from the live mirror on 2026-11-19 17:41 UTC (`f29a07f`). Checked against the
 register `site-audit/pages.md` (it replaced `routes.md`, P6). Columns: does the page load the session and the shell, does it draw the account bar, is it in
 `pages.md` / `archive.md`, and which decisions name its file.
 
@@ -49,7 +49,7 @@ register `site-audit/pages.md` (it replaced `routes.md`, P6). Columns: does the 
 | `/admin/reports.php` | `website/admin/reports.php` | yes | yes | yes |  |
 | `/admin/resource-guides.php` | `website/admin/resource-guides.php` | yes | yes | yes |  |
 | `/admin/review-item.php` | `website/admin/review-item.php` | yes | yes | yes | 0074 |
-| `/admin/router.php` | `website/admin/router.php` | yes | yes | yes |  |
+| `/admin/router.php` | `website/admin/router.php` | yes | yes | yes | 0171 |
 | `/admin/safety.php` | `website/admin/safety.php` | yes | yes | yes |  |
 | `/admin/sales.php` | `website/admin/sales.php` | yes | yes | yes |  |
 | `/admin/search-demand.php` | `website/admin/search-demand.php` | yes | yes | yes |  |
