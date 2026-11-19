@@ -466,9 +466,11 @@ There is one record: the alarm. Acknowledging stops the email repeat. The alarm 
 > resolved": "If this was resolved by system or marked as resolved by admin it should be handled." The Start card's
 > service issue carries the board's one button (Check and start again on a trip, else Check issue now; It's fixed: try it
 > again only where nothing can check), never a bare Mark resolved. And whichever way it closes, the issue and its alarm
-> close together, saying how: the service answering its check now closes a tripped alarm too ("Cleared by its check",
-> through the board's resolve, which checks and starts again what the trip stopped), which changes 3c's "a trip waits
-> for an admin" for service issues; a person's Check and start again closes the issue ("Fixed by <name>").
+> close together, saying how: a person's Check and start again closes the issue ("Fixed by <name>"). For a failure that
+> clears by itself (a back-off kind: a timeout, a server error, a 429), the service answering its check closes its trip
+> too ("Cleared by its check", through the board's resolve, which checks and starts again what the trip stopped), asked
+> of him as its own question; a refusal, a refused key or a used-up quota always waits for a person's button (principle
+> 1's exception).
 
 ### 8. Pulse, fixed: one item per alarm, acted on in place, closed by itself
 
