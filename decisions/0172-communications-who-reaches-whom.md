@@ -272,7 +272,7 @@ question:
 | Level | Means | Examples |
 |---|---|---|
 | **1. Critical** | something is broken or at risk now: security, money, the system | a sign-in from a new device; password or email changed; a payment failed; a system trip (0171); a domain failed to renew; an account closed |
-| **2. Urgent** | needs you within hours, or you're waiting for it | a sign-in or claim code; a new order or booking for a business; a booking changed or cancelled; a booking in 2 hours; a warning unanswered 24 hours (0171) |
+| **2. Urgent** | needs you within hours, or you're waiting for it | a sign-in or claim code; a new order or booking for a business; a booking changed or cancelled; a booking in 2 hours (0171's warning unanswered 24 hours was here until 2026-11-19: warnings stay on the board) |
 | **3. Alert** | someone wrote to you, or something needs your action | a message or message request; a guest question; a question on an item; a claim to review; a report; a join request; a mail failure |
 | **4. Notice** | information about something of yours; nothing to do | a claim verified; an order's stage, a receipt; a guide ready; a domain renewed; a booking tomorrow; low stock |
 | **5. General** | activity around you | comments; group posts; Moments and Snaps activity; a tag; a group near you; your business named in a guide |
@@ -800,6 +800,9 @@ connected mailboxes).
 - **0171's alarms** stay their own table (`control_alarms`) and their own three ways. When an alarm must reach a person
   (the Founder's email, a role's Pulse item), it calls `Notify` with the kind `alarm.trip` or `alarm.warning`, so it
   appears in the same log and respects the person's channels, with Critical and Urgent ignoring quiet hours.
+  **Since 2026-11-19 only `alarm.trip` reaches a person** (0171 §7's note, Jason: "everything else should be cleared by
+  the system so why send and pulse?"); `alarm.warning` stays defined but is no longer sent. A trip's message carries its
+  alarm's Pulse item (`pulse_ref`), so Pulse shows the alarm once, not again as a stream row.
 - **Pulse items** assigned or escalated call `Notify` (gap 4).
 
 ### 4.6 The delivery engines: email, push and text are separate builds

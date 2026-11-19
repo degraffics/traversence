@@ -280,6 +280,26 @@ tries again every watch. An admin's Resolve is **Check and start again** (no que
 reason while what it would start has a red check. Every open pre-flight alarm's words follow its line as it stands now
 (4c), and a line not tested in 6 hours is tested again by the watch, words only.
 
+> **Note (Jason, 2026-11-19, control-board-routes): critical parts trip at once.** In the session manager's chat: "I am
+> concerned if a system critical part goes into retry it misses the fact that it was system critical, this is one that
+> should immediately trip even it is to be retried, may not require admin but because it causes the system to fail in
+> its ability to perform it needs admin oversight immediately." What counts as critical, his words: "Critical is that our
+> site can perform its duties. Search, page load, payment processing, database connections, system critical processing
+> or procedures." And how it closes: "The system fixes it: the trip closes as 'Recovered…' … This is a notification, not
+> need for me to acknowledge. Retries run out: it becomes an ordinary trip that only Resolve clears: Escalation Notice,
+> retries unsuccessful, now admin required."
+> - **The register:** each part carries a duty or none (`ControlRegister::DUTIES`: page, search, payments, database,
+>   procedures; defaults in `ControlRegister::CRITICAL`, changed on Thresholds & gates → Critical parts, each change in
+>   the logbook). The board marks a critical part with its duty ("Payments: critical").
+> - **First failure:** a trip at once, to Pulse, the Founder's email and the push; the system keeps trying and nothing is
+>   stopped (`retrying_at`). A critical part's retry warnings count as failures too.
+> - **The system fixes it:** the trip closes itself, "Recovered: <part> was down <n> min, the system fixed it.", a notice
+>   (Notify `alarm.recovered`) with nothing to press; it doesn't hold the bell; it's in the logbook.
+> - **Its tries run out:** the Escalation Notice ("Retries unsuccessful, now admin required: <part>, <duty>", Notify
+>   `alarm.escalated`, critical); it's an ordinary trip now, what it holds is stopped, and only Resolve clears it.
+> - **Not critical by themselves:** the crawler, W0, the video worker, enrichment, and Railway or GitHub as hosts
+>   (GitHub is critical through releases). They keep 3c: a warning while the system tries, a trip when it can't.
+
 ### 6. The historian
 
 Each reading is kept over time, so every system and process has a trend.
@@ -341,10 +361,11 @@ admin and ceasing internal process until admin resolves it." So, for trips only:
 1. **System notification.**
    - Every admin page's top bar shows the board's light, with a count of open trips and warnings. Tapping it opens the
      alarm list.
-   - Each new trip is emailed to the Founder at once, the same recipient as the daily report. So is a warning still
-     unacknowledged after 24 hours.
+   - Each new trip is emailed to the Founder at once, the same recipient as the daily report. (A warning still
+     unacknowledged after 24 hours was too, until 2026-11-19: see the note below.)
    - System emails cost nothing.
-2. **Pulse, for review and action** (§8). One Pulse item per trip or warning, carrying its steps.
+2. **Pulse, for review and action** (§8). One Pulse item per trip, carrying its steps (warnings too until 2026-11-19:
+   see the note below).
 3. **A push to Jason's phone** from the session manager's hourly check.
    - `/api/health.php` gains an `alarms` block: open trips and warnings, the process, the level, the words and since
      when. It holds nothing about a person.
@@ -357,6 +378,18 @@ admin and ceasing internal process until admin resolves it." So, for trips only:
 
 **Acknowledging** in any of the three places (the board, Pulse, the email's link to the board) acknowledges all of them.
 There is one record: the alarm. Acknowledging stops the email repeat. The alarm stays open until its reading is green.
+
+> **Note (Jason, 2026-11-19, control-board-routes): only a trip reaches a person.** In the session manager's chat: "I
+> think trips that require the admin are sent immediately because they wont clear unless the admin clears them.
+> Everything else should be cleared by the system so why send and pulse?" So a trip goes to Pulse, the Founder's email
+> and the push at once, as before; under 3c only a trip waits for a person (only Resolve clears it). Warnings, held
+> lines that clear themselves and slow lines go nowhere but the board: its light and count in every admin page's top
+> bar, and the reports. No Pulse item, no email (the "warning still unacknowledged after 24 hours" email above is
+> dropped) and no push. Nothing is lost: 3c already turns a warning the system can't clear into a trip (a back-off at
+> its case limit, a crash past its tries, a refusal or out-of-budget at once), and the trip then reaches him. Warning
+> items already in Pulse leave it by themselves (Pulse reads open trips only). An alarm's email is no longer also its
+> own stream row: it carries its alarm's Pulse item (`pulse_ref`), so Pulse shows the alarm in one place (§8's "one
+> thing"; the messages already sent got the same mark in a migration).
 
 ### 8. Pulse, fixed: one item per alarm, acted on in place, closed by itself
 
@@ -377,7 +410,7 @@ From Release 3:
   - it says what it means and what to do;
   - its fix is a button that acts in place (`['do', …]` / `['form', …]` through `Pulse::manage`), with Peek to open
     the process's gauge in a drawer.
-- **Severity follows the level:** a trip is critical, a warning is an alert. Each keeps its Pulse clock (`SLA_HOURS`)
+- **Severity follows the level:** a trip is critical, a warning is an alert (since 2026-11-19 only trips are in Pulse: §7's note). Each keeps its Pulse clock (`SLA_HOURS`)
   and can be assigned and escalated as today. Notices stay on the board and in the reports, not in Pulse.
 - **It closes itself** when its alarm clears, with how it cleared written as its last note. **Done** in Pulse means
   acknowledged. **Undo** reopens it.
