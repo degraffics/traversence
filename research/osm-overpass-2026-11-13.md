@@ -99,8 +99,8 @@ promises only what's built (the table under it says where each stands).
 > - Our own daily budget is a quarter of the published guidance for the public instances (2,500 queries and 250 MB a day,
 >   crawler and site together), and half that while any server blocks us and for two weeks after.
 >
-> Could you tell us whether we're banned, and why, and what you'd like us to change to be allowed back? Our bulk reading
-> has already moved to Geofabrik's extracts. If even single lookups are more than you'd like on the public instance,
+> Could you tell us whether we're banned, and why, and what you'd like us to change to be allowed back? Our crawler's bulk
+> reading has already moved to Geofabrik's extracts. If even single lookups are more than you'd like on the public instance,
 > we'll keep to the extracts or run our own instance.
 >
 > Jason, Traversence, support@traversence.com
