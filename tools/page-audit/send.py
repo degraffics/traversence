@@ -93,6 +93,7 @@ def main():
     ap.add_argument('--drops', default='')
     ap.add_argument('--session', default='')
     ap.add_argument('--callers-checked', default='')
+    ap.add_argument('--allow-pending', default='', help="pending zips (by name) this one is built on, e.g. a release of yours whose files the sync put back")
     a = ap.parse_args()
     name = os.path.basename(a.zip)
     if not name.endswith('.zip') or not all(c.isalnum() or c in '._-' for c in name):
@@ -109,7 +110,8 @@ def main():
         guard(a, name, plan, z)
     take_claims(a, name)
     check = [sys.executable, os.path.join(HERE, 'zipcheck.py'), a.zip, '--mirror', a.mirror, '--docs', DOCS] + (['--drops', a.drops] if a.drops else []) \
-        + (['--session', a.session] if a.session else []) + (['--callers-checked', a.callers_checked] if a.callers_checked else [])
+        + (['--session', a.session] if a.session else []) + (['--callers-checked', a.callers_checked] if a.callers_checked else []) \
+        + (['--allow-pending', a.allow_pending] if a.allow_pending else [])
     if subprocess.call(check) != 0:
         sys.exit('The zip check didn\'t pass: nothing was sent.')
     if subprocess.call([sys.executable, os.path.join(HERE, 'deliveries.py'), 'record', a.zip, '--mirror', a.mirror, '--note', a.note + ' Sent through git (releases/inbox).']) != 0:
