@@ -496,6 +496,17 @@
    "expires": "2026-11-19T17:08:37Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "website/js/tv-art.js",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Buttons standard: one filled button, Claim, Peek dim, search bars",
+   "since": "2026-11-19T13:08:39Z",
+   "expires": "2026-11-19T17:08:39Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
