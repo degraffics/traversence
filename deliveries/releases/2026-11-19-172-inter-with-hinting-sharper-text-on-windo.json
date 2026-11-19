@@ -6,13 +6,13 @@
     "zip": "inter-hinted.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "planned",
+    "state": "staged",
     "step": 0,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
-    "plan_at": null,
-    "staged_at": null,
+    "plan_at": "2026-11-19 12:02:52",
+    "staged_at": "2026-11-19 12:02:53",
     "vetted_at": null,
     "live_at": null,
     "files": {
@@ -48,12 +48,49 @@
         }
     },
     "migrations": [],
-    "checks": [],
+    "checks": {
+        "ok": true,
+        "where": "staging",
+        "at": "2026-11-19T12:02:54+00:00",
+        "items": [
+            [
+                "PHP files parse",
+                true,
+                "1 checked"
+            ],
+            [
+                "Pages answer",
+                true,
+                "2 pages answered on staging.trvgo.us"
+            ],
+            [
+                "No new fatal errors in the logs",
+                true,
+                "4 logs read"
+            ]
+        ],
+        "first_fail": ""
+    },
     "log": [
         {
             "at": "2026-11-19T12:02:50+00:00",
             "by": 0,
             "msg": "Uploaded inter-hinted.zip: 6 files."
+        },
+        {
+            "at": "2026-11-19T12:02:52+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/inter-hinted.zip (git 9dbe09d26f)."
+        },
+        {
+            "at": "2026-11-19T12:02:52+00:00",
+            "by": 0,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
+        },
+        {
+            "at": "2026-11-19T12:02:54+00:00",
+            "by": 0,
+            "msg": "Put on staging (6 files); its checks passed."
         }
     ]
 }
