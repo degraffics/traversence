@@ -922,3 +922,10 @@ build. Built: see `handoffs/communications.md`, "Steps 3–7 and 0167".
 - A business finally hears about its messages, orders and comments.
 - Cards stop offering what can't work, and offer Message where it can.
 - Texts stay off until revenue pays for them, and their rules (consent, STOP, quiet hours) are set before the first one.
+
+**Note (2026-11-19, Jason: "default is by when received, on sort it should priority by most important or least"): the
+stream's order.** The admin's Pulse stream is newest received first (resolved at the bottom; a person's own pins on top),
+as this decision's "Nothing in Pulse is pinned, moved or held on top by the site" has it: the site no longer lifts
+escalated or higher-level items itself; the bell, the row's tint and its clock carry the signal. Tapping ! is the
+person's own sort: the most important first (overdue rows, then by level), again the least important, a third time
+newest again (release pulse-overdue-first).

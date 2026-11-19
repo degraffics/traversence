@@ -1,0 +1,18 @@
+{
+ "zip": "pulse-order.zip",
+ "built_on": "d3cced6 Sync: 2026-11-19 14:24 UTC",
+ "recorded": "2026-11-19 14:25 UTC",
+ "note": "Pulse: newest first; ! sorts by importance. Approved by Jason in the pop-up (reviewed by the session manager). Built on Sync: 14:24 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/ui/faq.md": {
+   "sha256": "714704a2eac034a54d58db09046647b078ccd686c8208de77c0066f1ce925668",
+   "live": false
+  },
+  "app/ui/pulse-ui.php": {
+   "sha256": "27c42d671d377a313417a24a3324da80d0812e773d8cb488d20647e4e123c45b",
+   "live": false
+  }
+ }
+}
