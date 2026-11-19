@@ -1,0 +1,44 @@
+{
+    "id": 180,
+    "title": "Control Board: a system's counts filter its rows",
+    "why": "Jason, 2026-11-19, on a system's header (\"34 working · 1 tripped · 2 held · 3 off · 4 not tested\"): \"I should be able to click on trip or held and have the section filter to those.\" Each count is now a button: it opens the system and shows only the rows in that state; pressed again, or Show all, every row shows. Kept through the board's redraws.",
+    "proposals": "",
+    "zip": "control-board-filter.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/admin/control-console.php": {
+            "sha": "9b17d72c20e6ab50c946f26ba280d7b077fca3833960f9ea5f8632e4d17ecdb0",
+            "size": 88011,
+            "live_was": "7d14fe29483001e250e7ea7b9d89ed9a0d7cb1846d3d37cd9c5ecdde8ea16938"
+        },
+        "website/js/admin-control.js": {
+            "sha": "c5708282bd0cea5279b3266646aa29ef65bf69b4152ff5d8c0d851d00d7998b1",
+            "size": 19446,
+            "live_was": "e9e8828f77a5c2f43100781baf9dab788397eb1b58800789d37658ac2283dc16"
+        },
+        "app/ui/faq.md": {
+            "sha": "04c4aa158b79b92165661f0c4dba40dcbb360434906d30dddcee1234d676f301",
+            "size": 365967,
+            "live_was": "9658746d15b5c95437429ec13520a93c5baf80625e818f27b30da60eafd18763"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-19T13:12:50+00:00",
+            "by": 0,
+            "msg": "Uploaded control-board-filter.zip: 3 files."
+        }
+    ]
+}
