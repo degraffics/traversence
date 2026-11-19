@@ -128,3 +128,7 @@ and `website/api/` (the mirror's `sync-storage/api/crawl` and `api/video`). Put 
   sections under the board; each process's own page from its path, an unknown one, and the row's drawer link. 12 tests.
 - `filter.php`: control-board-filter: a system's header counts are buttons that filter its rows, Show all, kept through
   redraws (checked in a browser at 390 and 1280). 5 tests: `php filter.php <root>/app`.
+- `routes.php`: control-board-routes (Jason, 2026-11-19: "I always hit a dead end"): every ControlAlarms raise in the
+  code (read by the tokenizer) carries a fix, and each link lands on one item (a hash, a query or an id); the Ledger
+  call, the run, the job, Railway as a link only, the pre-flight line's own fix; Supabase catching up measured; the
+  stage tiles' routes; one pre-flight; the Runs line; one alarm count. 64 tests, static: `php routes.php <root>/app`.

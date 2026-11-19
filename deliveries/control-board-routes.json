@@ -1,0 +1,62 @@
+{
+ "zip": "control-board-routes.zip",
+ "built_on": "5bd98bf Sync: 2026-11-19 13:20 UTC",
+ "recorded": "2026-11-19 13:27 UTC",
+ "note": "Control Board routes: every alarm leads to its own fix; the stage tiles route; one pre-flight; one alarm count. Built on Sync: 2026-11-19 13:20 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/admin/control-console.php": {
+   "sha256": "8025c7d32cb7efb0caab410675e32d8b0809f4475b0e177d3f4cfafefa2a0a41",
+   "live": false
+  },
+  "app/admin/job-line.php": {
+   "sha256": "7d1fee2530e134f05d08d3e2f043ec7133c399d1d76fc5e2c47d5f70c4d0886e",
+   "live": false
+  },
+  "app/admin/sections.php": {
+   "sha256": "cc2d0d16b84dcb92d6c641c8345fbda181ea80e17130ef256373eb6b23bfc869",
+   "live": false
+  },
+  "app/lib/ControlAlarms.php": {
+   "sha256": "c10f59754d925460ad3be701425a8a84e494983611efed1ae039bcd7c21c0cd0",
+   "live": false
+  },
+  "app/lib/ControlHistorian.php": {
+   "sha256": "71d18330af47964c22800c43b0a02757dc745424fc2c9ff4b565571c48a20027",
+   "live": false
+  },
+  "app/lib/ControlLedger.php": {
+   "sha256": "5ddf8eb0d948f247d6d666d7607d7a68cc7866e3eda4b526dfe93a026f8f6d4a",
+   "live": false
+  },
+  "app/lib/ControlMaintenance.php": {
+   "sha256": "11a81803258d92e631a94c677bb76120bdffc236c126d2e5ac358065ff12291a",
+   "live": false
+  },
+  "app/lib/Operations.php": {
+   "sha256": "a3a0dcf3e7309646b5d344b22006f0abc01a450ed24bda75d7f5ff9f5801853b",
+   "live": false
+  },
+  "app/lib/Preflight.php": {
+   "sha256": "6acdaa88c539af9a843f979fa16a3bbb070011bc878c7c16b04d348b04f926e1",
+   "live": false
+  },
+  "app/lib/crawler/CrawlService.php": {
+   "sha256": "d646f583bda158623103d48edd60158cf1a5a282d19fbbbbaedb39f760d0cc77",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "e4512255dc9e4c5ad57a8a7a8ccd7262d5df06eb67f2f4f81f3d32ab72631006",
+   "live": false
+  },
+  "website/js/admin-control.js": {
+   "sha256": "b179eb10f8062b219f68b5c62e7599b1a4b813f71621bf9abefaf7bdde9a6b2d",
+   "live": false
+  },
+  "website/js/admin-kit.js": {
+   "sha256": "012b1964317ee9e2eb2b71fa177d1de1ab099a71cb44104e82a2fb3d3a2a7a33",
+   "live": false
+  }
+ }
+}
