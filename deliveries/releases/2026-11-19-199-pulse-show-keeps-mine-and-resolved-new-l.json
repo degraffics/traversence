@@ -1,0 +1,49 @@
+{
+    "id": 199,
+    "title": "Pulse: Show keeps Mine and Resolved, + New lists what you can start, a × on every pop-up; table menus never cut off; drawer links land on their card",
+    "why": "Jason, 2026-11-19, in one pop-up: \"Drop four, keep Mine+Resolved\" (Operational Queues, Alerts, Order Mgmt and System Health went; the funnels and Group cover them, the bell keeps critical, overdue and escalated); + New \"should offer the different kinds of messages or posts someone can make\" (Post to the team, A task, A client order, A listing; An email and A message to one teammate shown as coming, with what to do today); \"anything that pops open should have a way to close it\" (a × on Quick actions, + New, the filter list and Group, with Esc and a click outside). And a fix to approved work, from his screenshot: the ⋯ menu on a table's last rows was cut off by the table's rounded corners; now the corner cells carry the rounding and a menu near the window's bottom opens upward. And Jason's \"i thought we fixed this. Open card shows the specific place to fix issues.\": the admin's drawer put its panel=1 after a link's #card, so the page never landed on the card; the #card now stays last. app/ui/pulse-ui.php, app/admin/kit-css.php, js/admin-kit.js, FAQ.",
+    "proposals": "",
+    "zip": "pulse-menu.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/admin/kit-css.php": {
+            "sha": "9f023766b1ac7531eb90e25b3b129b3ef82fb01ff2d7b9ce1efbf05836e239d1",
+            "size": 36950,
+            "live_was": "9b29f4998f3d787b3ce4263dc6057c5a32d0b008de2c12174ac1e9476cc09ea5"
+        },
+        "app/ui/pulse-ui.php": {
+            "sha": "50e21a72a3f14018d11fce63b59412c954424a8935a89e557a40aff462e6443b",
+            "size": 160797,
+            "live_was": "ac869feab72e83866ab4205197a315428473af222305b6f3cb665b301cfd7076"
+        },
+        "app/ui/faq.md": {
+            "sha": "183881f51920567eec58884ff46d6a3250909b13079b79d06079f6fa9138c82f",
+            "size": 379489,
+            "live_was": "ea505f3972a86fb89abad250b00e619544a2fecdf48acebaf3dfe12a8865f00e"
+        },
+        "website/js/admin-kit.js": {
+            "sha": "d82f138b2de7f98484fa0ac7f0fe3ed06427490235dfc130955f867456ea39dd",
+            "size": 58657,
+            "live_was": "ab9c2e068dc092a7b503b67174964a813f024329771791eb61f2ff2df5a8bc5d"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-19T17:19:23+00:00",
+            "by": 0,
+            "msg": "Uploaded pulse-menu.zip: 4 files."
+        }
+    ]
+}
