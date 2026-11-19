@@ -3,7 +3,7 @@
  "built_on": "d3cced6 Sync: 2026-11-19 14:24 UTC",
  "recorded": "2026-11-19 14:25 UTC",
  "note": "Pulse: newest first; ! sorts by importance. Approved by Jason in the pop-up (reviewed by the session manager). Built on Sync: 14:24 UTC Sent through git (releases/inbox).",
- "status": "partial",
+ "status": "replaced",
  "live_in": "",
  "files": {
   "app/ui/faq.md": {
@@ -12,7 +12,8 @@
   },
   "app/ui/pulse-ui.php": {
    "sha256": "27c42d671d377a313417a24a3324da80d0812e773d8cb488d20647e4e123c45b",
-   "live": true
+   "live": false
   }
- }
+ },
+ "replaced_by": "superseded: pulse-clocks (#190) carries both its files on a newer live copy, with its FAQ lines restored"
 }
