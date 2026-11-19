@@ -112,6 +112,17 @@
    "expires": "2026-11-19T16:00:45Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/lib/ControlReport.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "control-board-5b",
+   "since": "2026-11-19T12:00:48Z",
+   "expires": "2026-11-19T16:00:48Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
