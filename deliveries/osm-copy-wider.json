@@ -3,40 +3,40 @@
  "built_on": "2f423c8 Sync: 2026-11-19 21:49 UTC",
  "recorded": "2026-11-19 21:57 UTC",
  "note": "osm-copy-wider: Jason 2026-11-19 'Yes, add them', 'Yes, widen it', and the Start card's issue closed everywhere (back-off kinds only close by their check); built on Sync: 2026-11-19 21:49 UTC Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "eb78395 Sync: 2026-11-19 22:06 UTC",
  "files": {
   "app/admin/automation-console.php": {
    "sha256": "74d8cee04cdb2f805465913220183737f029d623bfefd2ee9f2c3483302f48f7",
-   "live": false
+   "live": true
   },
   "app/lib/OpenPlaces.php": {
    "sha256": "09dcbd073bfcd8ec8b27c3eac98fe5e69d7af1480f786015c1e9b7bf51c87118",
-   "live": false
+   "live": true
   },
   "app/lib/OutsideServices.php": {
    "sha256": "2de8b941b56906ccc3daae563973329079c8e9ce198d759bc5ed14c5a78d79eb",
-   "live": false
+   "live": true
   },
   "app/lib/ServiceHealth.php": {
    "sha256": "c644ea78cf6966890a191953a835824919e984a6b1f2db2815298208198c9f83",
-   "live": false
+   "live": true
   },
   "app/lib/SystemStart.php": {
    "sha256": "b1567cac030804649ccbe1196b93f307359930fa6bf7cf4318c70d59953b9402",
-   "live": false
+   "live": true
   },
   "app/lib/crawler/CrawlService.php": {
    "sha256": "c34c80078cc12eec440d78298bdbcfac6ad8a8cbc1d88b77a57a868c2cf5d8e3",
-   "live": false
+   "live": true
   },
   "app/lib/crawler/OpenLoads.php": {
    "sha256": "0a5cd44e0ef9acf689a3ff95734c6921049a52106c7cc19abecf8d7c5643f1e9",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "f3b5f112ad624236dc701e11938566e9cd09f74a2ac31c3c523b9f526da32349",
-   "live": false
+   "live": true
   }
  }
 }
