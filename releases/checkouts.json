@@ -6,9 +6,9 @@
    "functions": [],
    "kind": "change",
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "overpass-off (Jason 2026-11-19: Stop entirely; and Geofabrik's 308 and 503)",
+   "why": "osm-copy-wider (Jason 2026-11-19: Yes, add them; Yes, widen it)",
    "since": "2026-11-19T21:33:23Z",
-   "expires": "2026-11-20T01:33:23Z",
+   "expires": "2026-11-20T01:49:55Z",
    "release": "",
    "callers": {}
   },
