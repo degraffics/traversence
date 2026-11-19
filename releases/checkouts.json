@@ -125,6 +125,17 @@
    "expires": "2026-11-19T21:09:51Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "website/admin/search-misses.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "T4: the table standard on the admin's older pages (approved 2026-11-19)",
+   "since": "2026-11-19T17:09:53Z",
+   "expires": "2026-11-19T21:09:53Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
