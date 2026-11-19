@@ -14,6 +14,17 @@
    "zones": [
     "home.after-doors"
    ]
+  },
+  {
+   "path": "website/directory/index.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Get Local: Kind fits the card; the search hint on the palette (Jason's screenshot 2026-11-19)",
+   "since": "2026-11-19T04:19:47Z",
+   "expires": "2026-11-19T08:19:47Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
