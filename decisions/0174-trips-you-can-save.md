@@ -1,8 +1,12 @@
 # 0174: Trips you can save: Add to a trip, the trip page, sending it to Maps, and routes on our own site
 
-Status: **draft for Jason's review** (2026-11-19). Jason answered "Yes" to the decision pop-up "Draft one decision for
-trips you can save" (reviewed by the session manager). The place-page release shows **Add to a trip** greyed, as
-"Coming: trips you can save and add places to", until this is approved and built.
+Status: **accepted** (Jason, 2026-11-19, in the decision pop-up, reviewed by the session manager). His answers:
+- the five releases in order (§7);
+- routing: **(b) openrouteservice's free tier** (§5), its terms checked at release 5;
+- guests: **one trip on the device** (§2).
+
+He answered "Yes" earlier to "Draft one decision for trips you can save". **Add to a trip** stays greyed, "Coming", until
+release 2. **Next:** release 1, Send to Maps.
 
 Builds on:
 - 0058 §1: Favorites (private) and **Personal Guides** ("published collections" of listings, places and journeys).
@@ -132,7 +136,7 @@ server.
 4. **Sharing and Personal Guides:** the link, publishing, and counts for businesses and places.
 5. **Routes on our own site** (§5), with the engine Jason chooses.
 
-## Questions for Jason
+## Questions for Jason (answered 2026-11-19: Approve; openrouteservice's free tier; one trip on the device)
 
 1. Approve this decision, with its five releases in that order?
 2. The routing engine:
