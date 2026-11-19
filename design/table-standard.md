@@ -81,6 +81,10 @@ he says otherwise.
    session:** once T1 is live I tell it, and it moves its process table onto the component in its own release.
 2. **T2, Pulse (admin):** the stream on the component (▾ and ⋯, no hover bar; 0172's columns; alarm groups), and the top
    half as above.
+   **As built (2026-11-19, the session manager's review):** Pulse keeps its own engine (rows open in place, live marks,
+   0172's columns and order) and takes the standard's look, ⋯ with words, groups, paging and the count, and phone cards;
+   only server-listed tables use `tv_table()`. Its paging pages the rows Pulse gathers (from many sources in one pass),
+   not a database query. The hover bar goes from the admin's Pulse only; the profile Pulse keeps Jason's mockup's icons.
 3. **T3–T5, the rest by module:** the consoles other than the Board (automation, comms, crawler, operations, index), the
    admin pages (insights, sources, products, vendors…), then the shared parts (vault, cost tab, outside services, domains).
    Each lists the tables it moved; the zip check keeps every column and action.
