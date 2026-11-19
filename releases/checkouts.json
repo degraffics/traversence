@@ -37,7 +37,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "control-board-logbook-list: the OSM statement updated",
    "since": "2026-11-19T14:17:21Z",
-   "expires": "2026-11-19T18:22:27Z",
+   "expires": "2026-11-19T18:25:00Z",
    "release": "control-board-logbook-list.zip",
    "callers": {}
   },
@@ -48,7 +48,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "control-board-logbook-list: the logbook's list grouped and searchable",
    "since": "2026-11-19T14:17:24Z",
-   "expires": "2026-11-19T18:22:27Z",
+   "expires": "2026-11-19T18:25:00Z",
    "release": "control-board-logbook-list.zip",
    "callers": {}
   },
