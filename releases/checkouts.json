@@ -115,7 +115,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "control-board-card (Jason 2026-11-19: how am I supposed to fix this? the card shows its issue and its buttons)",
    "since": "2026-11-19T17:42:19Z",
-   "expires": "2026-11-19T21:47:55Z",
+   "expires": "2026-11-19T21:56:32Z",
    "release": "control-board-card-2.zip",
    "callers": {}
   },
@@ -128,9 +128,13 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "control-board-card: a trip's Pulse steps match the board (session manager 2026-11-19)",
    "since": "2026-11-19T17:47:35Z",
-   "expires": "2026-11-19T21:47:35Z",
-   "release": "",
-   "callers": {}
+   "expires": "2026-11-19T21:56:32Z",
+   "release": "control-board-card-2.zip",
+   "callers": {
+    "pulseSteps": [
+     "app/lib/Pulse.php"
+    ]
+   }
   },
   {
    "path": "app/lib/ControlAlarms.php",
@@ -152,8 +156,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "control-board-card: no Mark resolved (Jason 2026-11-19)",
    "since": "2026-11-19T17:56:25Z",
-   "expires": "2026-11-19T21:56:25Z",
-   "release": "",
+   "expires": "2026-11-19T21:56:32Z",
+   "release": "control-board-card-2.zip",
    "callers": {}
   },
   {
@@ -166,9 +170,16 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "control-board-card: no Mark resolved (Jason 2026-11-19)",
    "since": "2026-11-19T17:56:27Z",
-   "expires": "2026-11-19T21:56:29Z",
-   "release": "",
-   "callers": {}
+   "expires": "2026-11-19T21:56:32Z",
+   "release": "control-board-card-2.zip",
+   "callers": {
+    "alarm": [
+     "app/lib/ControlAlarms.php"
+    ],
+    "steps": [
+     "app/lib/Pulse.php"
+    ]
+   }
   }
  ],
  "lapsed": [
