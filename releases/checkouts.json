@@ -43,8 +43,19 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "T3: the standard for the tables the server writes (design/table-standard.md)",
    "since": "2026-11-19T16:21:52Z",
-   "expires": "2026-11-19T20:21:52Z",
-   "release": "",
+   "expires": "2026-11-19T20:28:49Z",
+   "release": "t3-consoles.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/js/admin-kit.js",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "release t3-consoles.zip",
+   "since": "2026-11-19T16:28:49Z",
+   "expires": "2026-11-19T20:28:49Z",
+   "release": "t3-consoles.zip",
    "callers": {}
   }
  ],
