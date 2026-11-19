@@ -1,0 +1,44 @@
+{
+    "id": 191,
+    "title": "Business portal: owners open their hidden listing's editor",
+    "why": "Site-audit case #22: Edit my listing got stuck on the hidden test listing. The portal used the public lookup, so a hidden listing gave no editor, and its name in Your business linked back to the same page (a dead end). Real owners of a listing held for review hit the same. Reviewed by the session manager (merged listings made read only).",
+    "proposals": "site-audit case #22",
+    "zip": "listing-portal-hidden.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/ui/faq.md": {
+            "sha": "1fcb2eaff420227c566e608290244e11df1a84752688893c8dc9e660d541ecef",
+            "size": 373821,
+            "live_was": "851cedb6e5c4a60b406e0c9f34056564402101c4f4d5456dbb3f9a0fd2214cd4"
+        },
+        "app/lib/Claims.php": {
+            "sha": "6f4ba43dd49d9add42c1616f2886afab6fa96359584abcbc507334c55bcd382b",
+            "size": 64493,
+            "live_was": "d32b2ba5463726b18671ffe58d746f4caa0c7cf4b969b3ea55678e1a0fb2310e"
+        },
+        "website/listing/businessportal.php": {
+            "sha": "0929988c8aace5ae23414b79a99f774229982d494166e9cc74fc2ef534cf8180",
+            "size": 22221,
+            "live_was": "c49da9889b7f4f3f42784058bd109784e58b7ecea319bf3cb9cb038a3678be64"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-19T16:02:56+00:00",
+            "by": 0,
+            "msg": "Uploaded listing-portal-hidden.zip: 3 files."
+        }
+    ]
+}
