@@ -3,6 +3,21 @@
  "claims": [
   {
    "path": "website/directory/index.php",
+   "functions": [
+    "(top)"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "release getlocal-fix.zip",
+   "since": "2026-11-19T10:52:07Z",
+   "expires": "2026-11-19T14:52:07Z",
+   "release": "getlocal-fix.zip",
+   "callers": {}
+  }
+ ],
+ "lapsed": [
+  {
+   "path": "website/directory/index.php",
    "functions": [],
    "kind": "change",
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
@@ -10,7 +25,8 @@
    "since": "2026-11-19T04:19:47Z",
    "expires": "2026-11-19T08:19:47Z",
    "release": "",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-19T10:52:07Z"
   },
   {
    "path": "app/lib/Preflight.php",
@@ -29,7 +45,8 @@
     "alarm": [
      "app/lib/ControlAlarms.php"
     ]
-   }
+   },
+   "lapsed": "2026-11-19T10:52:07Z"
   },
   {
    "path": "app/lib/ControlAlarms.php",
@@ -48,10 +65,9 @@
     "resolve": [
      "website/admin/api.php"
     ]
-   }
-  }
- ],
- "lapsed": [
+   },
+   "lapsed": "2026-11-19T10:52:07Z"
+  },
   {
    "path": "website/index.php",
    "functions": [],
