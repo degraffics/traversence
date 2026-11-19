@@ -65,49 +65,6 @@
    "callers": {}
   },
   {
-   "path": "app/ui/theme-tokens.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
-   "why": "Design: three levels (Jason 2026-11-19)",
-   "since": "2026-11-19T12:37:10Z",
-   "expires": "2026-11-19T16:38:03Z",
-   "release": "design-levels.zip",
-   "callers": {
-    "tv_theme_tokens": [
-     "app/ui/app-shell.php",
-     "app/ui/auth-nav.php",
-     "app/ui/header.php",
-     "app/ui/page-shell.php"
-    ]
-   }
-  },
-  {
-   "path": "website/index.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
-   "why": "Design: three levels (Jason 2026-11-19)",
-   "since": "2026-11-19T12:37:13Z",
-   "expires": "2026-11-19T16:38:03Z",
-   "release": "design-levels.zip",
-   "callers": {},
-   "zones": [
-    "home.after-doors"
-   ]
-  },
-  {
-   "path": "website/directory/index.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
-   "why": "Design: three levels (Jason 2026-11-19)",
-   "since": "2026-11-19T12:37:15Z",
-   "expires": "2026-11-19T16:38:03Z",
-   "release": "design-levels.zip",
-   "callers": {}
-  },
-  {
    "path": "app/lib/crawler/Sources.php",
    "functions": [
     "offRegion"
