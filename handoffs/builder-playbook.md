@@ -130,5 +130,7 @@ Each one comes from a request Jason had to send. Build to them, and the session 
 - **A multi-phase build stays in your session until every phase is built and live** (Jason, 2026-11-18): never hand a
   phase to a fresh session. Keep your hand-off file current as you go (what's built, what's left, the sync it's built
   on) as the record, not as a hand-over.
+- **A plan of several releases approved at once** (2026-11-19, Get Local R2: an approved part sat unbuilt while others
+  shipped): list each one in your hand-off, with its state (built, sent, live), until it's live; none is dropped quietly.
 - When the whole build is live: say "done" to the session manager and stop. The session manager archives finished
   sessions.
