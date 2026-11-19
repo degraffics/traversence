@@ -240,6 +240,19 @@
    "expires": "2026-11-19T20:54:33Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/ui/pulse-ui.php",
+   "functions": [
+    "tv_pulse_board"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "control-board-itsdata: Pulse's gathering time around Pulse::items (Jason 2026-11-19), after #196",
+   "since": "2026-11-19T17:03:02Z",
+   "expires": "2026-11-19T21:03:02Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
