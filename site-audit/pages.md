@@ -6,7 +6,7 @@ what's designed and not built is under **Coming**. `site-audit/page-tree.md` is 
 against this file on every audit run (rule R09); `site-audit/routes-check.md` lists what's out of step. A release that adds,
 moves or removes a page updates this file in the same release.*
 
-*Status words: **Live**; **Live, placeholder** (the page says it's a stand-in); **Moved** (forwards to the new home);
+*Status words: **Live**; **Live, placeholder** (the page says it's a stand-in); **Moved** (forwards to the new home); **Archived** (out of menus, still reachable; listed in `archive.md`);
 **Built (… zip)** (delivered, live once its release is published). Pages reached by a rewrite rather than a link (the admin's
 and the portal's routers and endpoints, the sitemap) are live like any other.*
 
@@ -17,7 +17,7 @@ and the portal's routers and endpoints, the sitemap) are live like any other.*
 | `/` (`index.php`) | Home: the two ways in, Let's Explore and Get Local | 0058 | Live |
 | `/discovery/` | Let's Explore: overview, map, regions, outdoors, things to do, journeys, the Trip Planner (`?view=plan`) | 0053, 0055, 0056, 0058, 0059 | Live |
 | `/directory/` | Get Local: businesses near you, list and map | 0044, 0053, 0058 | Live |
-| `/directory/classic.php` | The earlier directory page | 0053 | Live, superseded by `/directory/` |
+| `/directory/classic.php` | The earlier directory page | 0053 | Archived (`archive.md`, Jason 2026-11-19): out of Get Local's rail, reachable by its address; replaced by `/directory/` |
 | `/hub/?hub=` `?geo=` `?cluster=` | One landing page for a hub, geo-hub or cluster | 0043, 0047, 0048, 0058 | Live, placeholder |
 | `/hub/build.php?city=&state=&q=` | A guide built while you wait, for a searched place with none (never indexed) | 0147 | Live once uploaded |
 | `/listing/view.php?id=` | A business's page (hero, engage bar, comments, the Link button) | 0044, 0047, 0052, 0053, 0058, 0062 | Live |
