@@ -111,6 +111,10 @@ and messages are centrally located."
   > choices still applied ("the original drop down items dont even apply now do they?"), he answered "Remove it". It
   > narrowed a Founder's or Executive's stream to one department; From, Kind and Group by Kind do that now, so the
   > stream shows every department's work.
+  > **Note (Jason, 2026-11-19, pulse-menu): of the count chips, Show keeps Mine and Resolved** (0105's note), and **+**
+  > is a menu of what you can start ("it should offer the different kinds of messages or posts someone can make"):
+  > Post to the team, A task, A client order and A listing; An email and A message to one teammate are shown as coming.
+  > Every pop-up closes with a ×, Esc or a click outside.
 - **The member's and the listing's Pulse, on the profile page** (Jason's mockup, 2026-11-18,
   `design/pulse-profile-mockup.png`):
   - **Header:** the Pulse mark, **Pulse ▾** (whose Pulse: your own, or a business you work for), a count chip per
