@@ -239,6 +239,20 @@
    "expires": "2026-11-19T15:44:27Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "website/index.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Design: lighter controls (Jason 2026-11-19)",
+   "since": "2026-11-19T11:44:29Z",
+   "expires": "2026-11-19T15:44:29Z",
+   "release": "",
+   "callers": {},
+   "zones": [
+    "home.after-doors"
+   ]
   }
  ],
  "lapsed": [
