@@ -1,0 +1,36 @@
+{
+    "id": 161,
+    "title": "Remove unused tables and columns (the Safe list)",
+    "why": "Jason approved the Safe list of unused tables and columns (2026-11-19, Pulse #31), reviewed by the session manager: no live code names them, no decision plans them, and every row of each column is empty. Each table is copied first, so it can be restored from Database updates.",
+    "proposals": "",
+    "zip": "unused-schema-removal.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/migrations/2026-11-19_unused_schema_removal.sql": {
+            "sha": "570e92899931e61717bdb86ee372f0037888e1ec56e46ffcc7179c9b32865c17",
+            "size": 3354,
+            "live_was": null
+        }
+    },
+    "migrations": [
+        "app/migrations/2026-11-19_unused_schema_removal.sql"
+    ],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-19T00:54:32+00:00",
+            "by": 0,
+            "msg": "Uploaded unused-schema-removal.zip: 1 files."
+        }
+    ]
+}
