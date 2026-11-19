@@ -150,8 +150,15 @@ Alongside: `releases-self-withdraw` (#122), `releases-live-2` (#123), `releases-
   an admin's Resolve". (2) A trend with nothing recorded says "No history yet: readings start now" (`trend()['history']`,
   a `.cb-tre` line over the empty bars), and one off or in maintenance all along says so; never "not due to be on".
   Tests: `r4c.php` (9).
-  - Next: the three lists of unused names (from `unused_schema`, via the session manager: this session has no
-    HEALTH_TOKEN), then release 5 (the logbook and reports).
+  - Live as #156, verified in Sync 00:22 UTC.
+- The unused names: `towns.mjs` (search-probe.yml's HEALTH_TOKEN step, PR #990) saves `site-audit/results/unused-schema.json`
+  and `alarms.json`. The three lists went to the session manager (2026-11-19); its review asked for each column's rows
+  holding a value first, so:
+- `control-board-4d` (built on Sync 00:22 UTC, ed8fd78): `SchemaUpkeep::filled` (a listed column's rows holding a value,
+  a listed table's exact rows; counts only, identifiers checked, capped at 1,000,000) in health.php's `unused_schema`
+  (`filled`, `rows_exact`); towns.mjs saves them. Tests: `r4d.php` (7). Next: the lists to Jason with the counts (one
+  question; removals as one release with "removes", copies first), then release 5 (the logbook and reports; with the
+  scan's short-name fix: k, v, n, q, w reported as unused).
 - Known shortcut in 3c: a back-off held by a trip is `service_issues.hold_until = '2099-01-01'` (until a person resolves
   it; `ServiceHealth::holdForTrip`), not a flag of its own. A real flag (a column, `held_by_trip`) needs a migration on
   `service_issues`; do it with the next ServiceHealth change.

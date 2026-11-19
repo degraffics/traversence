@@ -20,8 +20,8 @@ else {
     // the tables and columns no live code names (the Control Board's 4b, Pulse #31): names and sizes only, never row data,
     // for the Founder's one list (safe to remove, keep, unsure); and the board's open trips and warnings, by process and title
     if (r.ok && d.unused_schema) writeFileSync('site-audit/results/unused-schema.json', JSON.stringify({ at: new Date().toISOString(), checked: d.unused_schema.checked || '', files_read: d.unused_schema.files_read || 0,
-      tables: (d.unused_schema.tables || []).map(t => ({ db: t.db, table: t.table, rows: t.rows, mb: t.mb, kept: !!t.kept })),
-      columns: (d.unused_schema.columns || []).map(c => ({ db: c.db, table: c.table, column: c.column, kept: !!c.kept })) }, null, 1) + '\n');
+      tables: (d.unused_schema.tables || []).map(t => ({ db: t.db, table: t.table, rows: t.rows, rows_exact: t.rows_exact ?? null, mb: t.mb, kept: !!t.kept })),
+      columns: (d.unused_schema.columns || []).map(c => ({ db: c.db, table: c.table, column: c.column, filled: c.filled ?? null, kept: !!c.kept })) }, null, 1) + '\n');
     if (r.ok && Array.isArray(d.alarms)) writeFileSync('site-audit/results/alarms.json', JSON.stringify({ at: new Date().toISOString(),
       open: d.alarms.map(a => ({ level: a.level, process: a.process, title: a.title, since: a.since, tripped: a.tripped, stopped: a.stopped })) }, null, 1) + '\n');
     if (r.ok && d.crawler) crawlerSnapshot(d.crawler);   // the crawler revamp's numbers (handoffs/crawler-revamp.md Phase 0)
