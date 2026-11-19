@@ -1,5 +1,7 @@
 # ADR 0152: Outside services, one card per company; Settings rebuilt in the new admin
 
+**Note (2026-11-19, decisions/0173):** Outside services' cards move into the Service register (`/admin/config/register`), the one home for every outside service; `/admin/config/services` becomes a redirect to the same card (`#svc-<key>` kept). What's kept, moved and dropped is 0173 §1's table.
+
 **Note (2026-11-14, decisions/0164):** Amended by `decisions/0164` R1, R19, §10 (Services & usage (independence reported), now with 0163's register). 0133, named below, is closed and its rules are in 0164. The rest of this record stands; where it and 0164 disagree, 0164 rules.
 
 **Note (2026-11-17):** the page becomes a table (search, one filter dropdown by status and kind, sort, each row opening to its full card), built with 0163 §10's pre-flight check and sharing its status (Jason: "treat it like the table view with search and filters sorting").

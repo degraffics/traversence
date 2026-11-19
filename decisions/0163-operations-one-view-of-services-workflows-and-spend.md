@@ -1,5 +1,7 @@
 # ADR 0163: Operations: one view of outside services, workflows and spend
 
+**Note (2026-11-19, decisions/0173):** §1's register becomes the one home for every outside service, with its stages (Proposed to Removed, 0173 §2) and each service defined once (`service-defs.php`, §4). A `.env` key is entered on its card, not in cPanel (§3); Railway's keys stay on Railway, with their link.
+
 **Note (2026-11-14, decisions/0164):** Works under `decisions/0164` §10 (the Knowledge Engine: rule book, phases, workflows and sources), which took in 0133's rule book. This record stays separate: this record is the operations layer under 0164. **One home per fact** (Jason, 2026-11-14): the numbers and
 operating settings (caps, budgets, paces, warning levels, the AI cap, Anthropic's and Gemini's settings, the switches, the
 switch-on check, the collaborative score's weights, a hub's opening budget, AI Assist's allowances, the AI cap's shares,

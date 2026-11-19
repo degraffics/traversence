@@ -1,5 +1,7 @@
 # 0167: Communications in one place: set up in System Configuration, handled in Pulse
 
+**Note (2026-11-19, decisions/0173 §3):** §4's writer is extended to every service's `.env` key (`EnvSettings::setSecret()`), with its guards inside the writer: owner-only, never on staging, never shown or logged, the old value kept until Check passes.
+
 Status: accepted (Jason, 2026-11-16: "yes to your recommendations and the outline. Queue for future work."). **Built and live
 2026-11-18** as part of Release #135 (`comms-all.zip`, verified in Sync 19:23 UTC); SES bulk sending "coming". What's
 built and left: `handoffs/communications.md`.
