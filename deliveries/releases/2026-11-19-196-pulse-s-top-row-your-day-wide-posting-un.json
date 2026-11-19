@@ -1,0 +1,44 @@
+{
+    "id": 196,
+    "title": "Pulse's top row: Your day wide, posting under + New, settings in a panel, sort arrows on every heading, Working as removed; the board's light off the Dashboard",
+    "why": "Jason's notes of 2026-11-19 on Pulse: Your day (\"bad design\") opens wide over a dimmed page; posting is under + New (\"best handled under the + for creating messages\"), Quick actions keeps only its links; Stream settings has a sliders icon and opens in the drawer (\"shouldnt send me to a new page\"); every heading shows its sort arrow, faint until used (\"visible by every column title\"), with a funnel for the filters; a line sets the row's buttons apart (\"they should have a separator\"); \"Working as\" removed (\"the original drop down items dont even apply now do they?\" then \"Remove it\"); Group's label in the menu's words; and the System Control Board's light isn't on the Dashboard, where Pulse lists the trips (\"is this really needed here on the pulse?\" then \"Hide it on Pulse\"; decisions/0171 §7's note). app/ui/pulse-ui.php, website/admin/router.php, FAQ.",
+    "proposals": "",
+    "zip": "pulse-top.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/ui/pulse-ui.php": {
+            "sha": "d81a8b3070d8a28cb52668adfe3d80814f2702eee317c5a26be67946eaf7a74a",
+            "size": 154794,
+            "live_was": "d4443585ae2aabf057ee293f1f5d86239c59e0b93810189b3b88af7f4f5bd3da"
+        },
+        "app/ui/faq.md": {
+            "sha": "745796cc95f4109e94653a9af18a1cb1cc863fe01469e5e2f6eadf7d0926777e",
+            "size": 376194,
+            "live_was": "a62381fe05f44c72ea772d988d8b7947c4612a448f4b2bc23890620b5dc8555d"
+        },
+        "website/admin/router.php": {
+            "sha": "37fd2e5172860f570570ead5a411c42fd33c6485e823ea254b896d29a6ef2933",
+            "size": 11922,
+            "live_was": "2aee458753f7c2f0928e6a1bd2887d4f054892354cd8c4334f9f00d248af0a96"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-19T16:51:49+00:00",
+            "by": 0,
+            "msg": "Uploaded pulse-top.zip: 3 files."
+        }
+    ]
+}
