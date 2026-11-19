@@ -43,4 +43,9 @@ $st = $pdo->query("SELECT state, resolved_how FROM service_issues WHERE id = 40"
 $t('a person\'s Check and start again closes the alarm and its issue, saying who', $ok && $st['state'] === 'resolved' && str_contains((string) $st['resolved_how'], 'Jason'), [$ok, $msg, $st]);
 $ac = (string) file_get_contents($app . '/admin/automation-console.php');
 $t('the Start card\'s actions: Check and start again through the board\'s resolve; no "Marked resolved"', str_contains($ac, "case 'start_issue_restart':") && str_contains($ac, 'ControlAlarms::resolve($pdo, (int) $ref, $uid, $who') && !str_contains($ac, 'Marked resolved on Start the system'));
+// a refusal (a stop kind) closed by the system's own probe never closes its trip: it waits for a person (principle 1)
+$pdo->exec("INSERT INTO service_issues (id, service, host, caller, kind, hits, first_at, last_at, evidence, probe_url) VALUES (50, 'tavily', 'api.tavily.com', 'site', 'quota', 1, UTC_TIMESTAMP(), UTC_TIMESTAMP(), '{}', 'https://api.tavily.com/')");
+$a3 = ControlAlarms::raise($pdo, 'svc:issue:50', 'svc:tavily', 'trip', 'held', 'Tavily: over its quota', '', '', '', [], true, false);
+ServiceHealth::resolve($pdo, 50, 0, 'Its probe answered 200.');
+$t('a used-up quota answering again doesn\'t close its trip by itself: it waits for a person\'s button', ControlAlarms::openOf($pdo, 'svc:issue:50') !== null);
 echo "\n$pass passed, $fail failed\n"; exit($fail ? 1 : 0);
