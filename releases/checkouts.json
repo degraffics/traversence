@@ -131,6 +131,17 @@
    "expires": "2026-11-19T20:02:05Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/admin/tools.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "control-board-table: the config/processes tool",
+   "since": "2026-11-19T16:02:10Z",
+   "expires": "2026-11-19T20:02:10Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
