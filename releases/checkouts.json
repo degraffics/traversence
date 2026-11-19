@@ -78,31 +78,6 @@
    "callers": {}
   },
   {
-   "path": "website/admin/sources.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "control-board-offregion",
-   "since": "2026-11-19T12:37:50Z",
-   "expires": "2026-11-19T16:42:19Z",
-   "release": "control-board-offregion.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/ControlAlarms.php",
-   "functions": [
-    "seed",
-    "tick"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "control-board-offregion",
-   "since": "2026-11-19T12:37:53Z",
-   "expires": "2026-11-19T16:42:19Z",
-   "release": "control-board-offregion.zip",
-   "callers": {}
-  },
-  {
    "path": "website/js/admin-control.js",
    "functions": [],
    "kind": "change",
@@ -111,28 +86,6 @@
    "since": "2026-11-19T12:37:58Z",
    "expires": "2026-11-19T16:37:58Z",
    "release": "",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/crawler/Sources.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "release control-board-offregion.zip",
-   "since": "2026-11-19T12:42:19Z",
-   "expires": "2026-11-19T16:42:19Z",
-   "release": "control-board-offregion.zip",
-   "callers": {}
-  },
-  {
-   "path": "website/js/admin-control.js",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "release control-board-offregion.zip",
-   "since": "2026-11-19T12:42:19Z",
-   "expires": "2026-11-19T16:42:19Z",
-   "release": "control-board-offregion.zip",
    "callers": {}
   },
   {
