@@ -2,19 +2,6 @@
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
  "claims": [
   {
-   "path": "app/lib/Guides.php",
-   "functions": [
-    "stripPick"
-   ],
-   "kind": "add",
-   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
-   "why": "Hub weather strip's pick, testable",
-   "since": "2026-11-19T11:47:25Z",
-   "expires": "2026-11-19T15:47:25Z",
-   "release": "",
-   "callers": {}
-  },
-  {
    "path": "app/ui/theme-tokens.php",
    "functions": [],
    "kind": "change",
@@ -32,7 +19,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Pulse: overdue rows rise (Jason, 2026-11-19)",
    "since": "2026-11-19T14:20:04Z",
-   "expires": "2026-11-19T18:32:27Z",
+   "expires": "2026-11-19T19:53:48Z",
    "release": "pulse-clocks.zip",
    "callers": {
     "tv_pulse_board": [
@@ -97,12 +84,26 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Pulse: clocks on work cases only; an open trip still escalates (Jason, 2026-11-19)",
    "since": "2026-11-19T14:27:07Z",
-   "expires": "2026-11-19T18:32:27Z",
+   "expires": "2026-11-19T19:53:48Z",
    "release": "pulse-clocks.zip",
    "callers": {}
   }
  ],
  "lapsed": [
+  {
+   "path": "app/lib/Guides.php",
+   "functions": [
+    "stripPick"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Hub weather strip's pick, testable",
+   "since": "2026-11-19T11:47:25Z",
+   "expires": "2026-11-19T15:47:25Z",
+   "release": "",
+   "callers": {},
+   "lapsed": "2026-11-19T15:53:48Z"
+  },
   {
    "path": "website/directory/index.php",
    "functions": [],
