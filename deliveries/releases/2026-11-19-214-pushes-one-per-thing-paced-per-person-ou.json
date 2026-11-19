@@ -6,72 +6,87 @@
     "zip": "push-polish.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "staged",
-    "step": 0,
+    "state": "live",
+    "step": 3,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
     "plan_at": "2026-11-19 23:36:41",
     "staged_at": "2026-11-19 23:36:42",
-    "vetted_at": null,
-    "live_at": null,
+    "vetted_at": "2026-11-19 23:36:45",
+    "live_at": "2026-11-19 23:36:45",
     "files": {
         "app/ui/favicon.php": {
             "sha": "1e358b34d5a8e12a8cfbce6e6b9f6e796e0ae19284e929a205246da9420456fb",
             "size": 2236,
-            "live_was": "7b9694b50da2e7c7506125deaa3336efd05d353ca73203ce464967b25e710ebe"
+            "live_was": "7b9694b50da2e7c7506125deaa3336efd05d353ca73203ce464967b25e710ebe",
+            "existed": true,
+            "old_sha": "7b9694b50da2e7c7506125deaa3336efd05d353ca73203ce464967b25e710ebe"
         },
         "app/ui/faq.md": {
             "sha": "047c3e2e23240e017900a77d78e75c01426e4fecfd96489d0c1664840046baf1",
             "size": 392199,
-            "live_was": "694be57862ba137b334e9acd9c2e5df2c4b7111669b712a61f03963ebb29e952"
+            "live_was": "694be57862ba137b334e9acd9c2e5df2c4b7111669b712a61f03963ebb29e952",
+            "existed": true,
+            "old_sha": "694be57862ba137b334e9acd9c2e5df2c4b7111669b712a61f03963ebb29e952"
         },
         "app/lib/Notify.php": {
             "sha": "b1156a9c81b4aa0d21658d619b5801abe824d4f104268baf5262f958e833a2bd",
             "size": 48311,
-            "live_was": "0ed8f495f52b48dba04ac83291b3dee0df3fed4da009eac3f35fc0cc3481b4a9"
+            "live_was": "0ed8f495f52b48dba04ac83291b3dee0df3fed4da009eac3f35fc0cc3481b4a9",
+            "existed": true,
+            "old_sha": "0ed8f495f52b48dba04ac83291b3dee0df3fed4da009eac3f35fc0cc3481b4a9"
         },
         "app/lib/WebPush.php": {
             "sha": "24d5c1bcd280f94a76aeee860a5eaa095cb762ed88be94185347434f02da6d23",
             "size": 22394,
-            "live_was": "9ec52bebacbcfa82718dcc1f14680ffd9ed63ee6fe59331e5c716293efc82fe6"
+            "live_was": "9ec52bebacbcfa82718dcc1f14680ffd9ed63ee6fe59331e5c716293efc82fe6",
+            "existed": true,
+            "old_sha": "9ec52bebacbcfa82718dcc1f14680ffd9ed63ee6fe59331e5c716293efc82fe6"
         },
         "website/push-sw.js": {
             "sha": "d061a6dc98c111c1caf7e6ab37d967f692e5924dae40cfddaa93e669c8cc1bc2",
             "size": 2363,
-            "live_was": "3ff1858e100cd0c13c39b29782ecf016f2113a33c4bed4d5305795ac3285f221"
+            "live_was": "3ff1858e100cd0c13c39b29782ecf016f2113a33c4bed4d5305795ac3285f221",
+            "existed": true,
+            "old_sha": "3ff1858e100cd0c13c39b29782ecf016f2113a33c4bed4d5305795ac3285f221"
         },
         "website/image/app-icon-512.png": {
             "sha": "ca0aef3f86ffecfb6bd750dbaf1c2ca0f7a67e5f5c2d51febf216be161589098",
             "size": 70996,
-            "live_was": null
+            "live_was": null,
+            "existed": false
         },
         "website/image/push-badge.png": {
             "sha": "7ae472565c4cea7c132ab51da5ea8f0921194b73fc0e26917e3450d5b9f5de3c",
             "size": 4048,
-            "live_was": null
+            "live_was": null,
+            "existed": false
         },
         "website/image/app-icon-maskable-512.png": {
             "sha": "871a16598b5086b66daf5a7a27d5b2658721ca8342f45d24455b98a0c076b57e",
             "size": 49316,
-            "live_was": null
+            "live_was": null,
+            "existed": false
         },
         "website/image/app-icon-192.png": {
             "sha": "9d7dd76c2be2f6d25427a4f0f96fd454d95c9f982dc43fe0c12266cd5d258874",
             "size": 17527,
-            "live_was": null
+            "live_was": null,
+            "existed": false
         },
         "website/manifest.json": {
             "sha": "7e0dca55f6cac44358c646b1203c58818261e698967abdeb54fe778f771dd353",
             "size": 660,
-            "live_was": null
+            "live_was": null,
+            "existed": false
         }
     },
     "migrations": [],
     "checks": {
         "ok": true,
-        "where": "staging",
-        "at": "2026-11-19T23:36:43+00:00",
+        "where": "live",
+        "at": "2026-11-19T23:36:45+00:00",
         "items": [
             [
                 "PHP files parse",
@@ -81,7 +96,7 @@
             [
                 "Pages answer",
                 true,
-                "2 pages answered on staging.trvgo.us"
+                "2 pages answered on traversence.com"
             ],
             [
                 "No new fatal errors in the logs",
@@ -111,6 +126,16 @@
             "at": "2026-11-19T23:36:43+00:00",
             "by": 0,
             "msg": "Put on staging (10 files); its checks passed."
+        },
+        {
+            "at": "2026-11-19T23:36:45+00:00",
+            "by": 0,
+            "msg": "Approved in chat before it was sent through git, and its checks on staging passed: publishing by itself."
+        },
+        {
+            "at": "2026-11-19T23:36:45+00:00",
+            "by": 0,
+            "msg": "Published: 10 files; everyone at once (no switch)."
         }
     ]
 }
