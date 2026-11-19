@@ -1,0 +1,64 @@
+{
+    "id": 173,
+    "title": "Control Board 5b: the reports",
+    "why": "decisions/0171 §11 (release 5, the session manager's OK): reports for the whole system, one system or one process, over the last 24 hours or 7 days: uptime; what ran, with records in, stored and refused; slow calls, retries and crashes; spend against caps; alarms raised, acknowledged and cleared, and how long each was open; shut-downs, maintenance and switches; the trend. Each opens as a page on the board that reads on a phone, with Download CSV and the page as a file. Built on demand from what the site already keeps: no new table, nothing stored, no AI and no outside call. The daily report's System status carries the day's summary with its link (Monday's adds the week), and the health report carries it for the morning brief. Nothing private: who is a staff member or the system, and email addresses, phone numbers and IPs are taken out.",
+    "proposals": "",
+    "zip": "control-board-5b.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/lib/ControlReport.php": {
+            "sha": "d286d05a0a53152c88beefbee046770f4d3c676b00521258f90fcf85f01aa054",
+            "size": 16412,
+            "live_was": null
+        },
+        "app/admin/control-console.php": {
+            "sha": "a21b0cc2cebd548333dfa104295c90d28f15b249d6534cca047c402b4ef8bc13",
+            "size": 84052,
+            "live_was": "c6d2302381a3ee46e554d53b0a523cd7e24d02abc881bf4fc7f986ef7f7e0b99"
+        },
+        "website/admin/api.php": {
+            "sha": "406f2088593df22d18c2f98e1f286114b71db283386207914603afcdd2a92910",
+            "size": 40710,
+            "live_was": "53b4dff5e690873a95d4716519a3745ee28baef0fd0d67d497108e1435f51bb0"
+        },
+        "website/js/admin-control.js": {
+            "sha": "6c51a27197911432644f73ccade8f9e0c28fc6c3865d1fdae8cf9a5647487e88",
+            "size": 16529,
+            "live_was": "7cb24503e37f9f468d4a26d480effe9e426f33acc897adef914b4c299a7d1a1f"
+        },
+        "website/api/health.php": {
+            "sha": "c896b1f7fc420047400fd68e406c4bd0fc95fdbf018b5b2b8d141813ee984faa",
+            "size": 20777,
+            "live_was": "ba06ef808fd441bf99d017920b49edeb91de5978847b2b891d222b61ac0173ca"
+        },
+        "app/lib/DailyReport.php": {
+            "sha": "6ea01ef40c77444bb4fbae70a2c929fc9c3627e531390f31e57ba471177236b9",
+            "size": 25233,
+            "live_was": "fdda4aa416dbf11f13026847f34ca276573761a1d9b86585f542132989a3cac1"
+        },
+        "app/ui/faq.md": {
+            "sha": "07f78fb8ab3dfa6477e84ab99e80f9331d68b6577338a43e4c5198534ccb86a8",
+            "size": 363101,
+            "live_was": "237af3f54875cc2effbb0d06df2b8f008d415ce9fd3caa38bf518810d2815ed9"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-19T12:06:36+00:00",
+            "by": 0,
+            "msg": "Uploaded control-board-5b.zip: 7 files."
+        }
+    ]
+}
