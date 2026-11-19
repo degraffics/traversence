@@ -640,3 +640,8 @@ manager.
 - **Start and the pre-flight stop drifting apart:** both read the register, and Start re-tests what it relies on.
 - **Eight new tables, all add-only,** each with its kept-days settings: ledger, records, state, alarms, readings, daily
   summaries, maintenance and log.
+
+**Note to §8 (2026-11-19, Jason): an alarm's Pulse clock.** Alarms no longer show a clock on their row (decisions/0105's
+note: clocks on work cases only). Asked "if no one resolves a Control Board trip, should it still be escalated?", Jason:
+"YES". So an open trip still goes up by itself: to the Manager once its level's hours have passed, to the Director after
+twice that, and it is in the bell's list throughout (it is Critical).
