@@ -235,15 +235,16 @@
   {
    "path": "app/admin/manifests.php",
    "functions": [
+    "config",
     "register",
     "services",
     "storage"
    ],
    "kind": "change",
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "0173 R1: one home: its link",
+   "why": "0173 R1: one home",
    "since": "2026-11-19T22:42:46Z",
-   "expires": "2026-11-20T02:42:50Z",
+   "expires": "2026-11-20T02:43:38Z",
    "release": "",
    "callers": {}
   },
