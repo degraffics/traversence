@@ -13,4 +13,9 @@ $t('each process row carries the light its header counted', str_contains($cc, "d
 $t('a Show all line under the header, hidden until a filter is on', str_contains($cc, '<p class="cb-lfon" hidden><span data-cb-lfw></span> <button type="button" class="ak-b cb-xs" data-cb-lf="">Show all</button></p>'));
 $t('the press opens the system and filters its rows without toggling the header; again clears it', str_contains($js, "lf[sys.id] = k && lf[sys.id] !== k ? k : '';") && str_contains($js, 'sys.open = true; lfApply();') && str_contains($js, 'e.preventDefault(); e.stopPropagation();'));
 $t('kept through each redraw', str_contains($js, 'loadOpen(); lfApply();'));
+// the parts' table (2026-11-19, Jason after #192: "thought I could click listed items on the right to filter the rows?")
+$t('a group row\'s counts are links again, each picking its light in the table\'s own Show menu', str_contains($js, "'<span role=\"button\" tabindex=\"0\" class=\"cb-lf'") && str_contains($js, ".ak-fb[data-fk=\"show\"] + .ak-fl [data-fv=\"' + v + '\"]'"));
+$t('…the count, not the group\'s own open and close; again shows every part', str_contains($js, "e.preventDefault(); e.stopPropagation();   // the count, not the group's own open and close") && str_contains($js, "v = f.on === k ? '' : k"));
+$t('…the system opens once the table has drawn its new rows', str_contains($js, "if (g && g !== gfWant.old) { gfWant = null;"));
+$t('…kept through the table\'s redraws (a watch on its rows), and by keyboard too', str_contains($js, "new MutationObserver(function () { gfPaint(); })") && str_contains($js, "e.key === 'Enter' || e.key === ' '"));
 echo "\n$pass passed, $fail failed\n"; exit($fail ? 1 : 0);

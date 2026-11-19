@@ -688,6 +688,16 @@ say otherwise, and this makes it plain:
 column name MySQL 8 reserves). The worker (`workers/crawler/indexer.py`) runs as its own Railway service, `w0-indexer`,
 and sleeps while the automation is paused; W0 comes on first at Start the system (`handoffs/w0-indexer.md`).
 
+**Note (Jason, 2026-11-19, control-board-itsdata): outside our region is logged, never skipped silently.** His answer:
+"W0 skips sites outside your region: skip or logged as outside the region?" → log it. Every address W0 is handed is
+still kept, but one about another state or country goes to its own state, `outside` ("Outside our region", reason
+`OUTSIDE_REGION`), and is never handed out to read. It's judged by `Sources::offWhyHost` from the address alone and what
+we already hold: a country's ending (`offWhy`); a state's own `.gov` ("the state of Maryland's site"); `.xx.us` or
+`.xx.gov` for a state not ours; a city or county site ending in another state's code (`lawrenceks.gov`). Federal sites
+(nps.gov, recreation.gov…), ours (`tucsonaz.gov`), and a site any of whose places are in our hubs are never outside. A
+welcome rule (W3's off-region rules, decisions/0171's Pause and Undo) brings it back to be read at the next hourly tick
+(`Frontier::sweepOutside`). Sites that blocked W0 are now one quiet notice on the board (0171 §7 note), never a trip.
+
 ### 1.5 Lead sources for rural businesses
 
 Finding businesses that have no website, and proving they're real, from four kinds of source. Each is a service under
