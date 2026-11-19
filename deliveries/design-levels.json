@@ -1,0 +1,22 @@
+{
+ "zip": "design-levels.zip",
+ "built_on": "a5b73ad Sync: 2026-11-19 12:36 UTC",
+ "recorded": "2026-11-19 12:38 UTC",
+ "note": "Design: three levels (page, section, card). Approved by Jason 2026-11-19 (reviewed by the session manager). Built on Sync: 12:36 UTC Sent through git (releases/inbox).",
+ "status": "live",
+ "live_in": "2bbaa1d Sync: 2026-11-19 12:40 UTC",
+ "files": {
+  "app/ui/theme-tokens.php": {
+   "sha256": "1305a8396ff06e20a9d859a7453d13fcbb389cd6d02fb0eb2f23fc30b00232ff",
+   "live": true
+  },
+  "website/directory/index.php": {
+   "sha256": "faa0e446e810c6ede420ab1d3b84c4debccdec5049af22a6641822d03d9aa544",
+   "live": true
+  },
+  "website/index.php": {
+   "sha256": "114c0b9ed38e561039168a9fda70e313804e3d9163e4c204d8f1f14a1bfd364c",
+   "live": true
+  }
+ }
+}
