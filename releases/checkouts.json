@@ -114,6 +114,21 @@
    "expires": "2026-11-19T18:25:25Z",
    "release": "pulse-order.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/Claims.php",
+   "functions": [
+    "askAboutHidden",
+    "hiddenReason",
+    "ownListing"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5kipJLJoRvo3jqLnQQ",
+   "why": "Owner-scoped listing lookup and hidden reason for the business portal (site-audit case #22)",
+   "since": "2026-11-19T14:26:29Z",
+   "expires": "2026-11-19T18:26:29Z",
+   "release": "listing-portal-hidden.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
