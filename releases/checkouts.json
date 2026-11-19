@@ -65,64 +65,6 @@
    "callers": {}
   },
   {
-   "path": "app/lib/ControlRegister.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "control-board-critical-2: search, sign-in and payments watched (0171 \u00a75's note)",
-   "since": "2026-11-19T13:49:21Z",
-   "expires": "2026-11-19T18:08:22Z",
-   "release": "control-board-critical-2.zip",
-   "callers": {
-    "processes": [
-     "app/admin/control-console.php",
-     "app/admin/sections.php",
-     "app/admin/tools.php",
-     "app/lib/ControlAlarms.php",
-     "app/lib/ControlHistorian.php",
-     "app/lib/ControlLog.php",
-     "app/lib/ControlReport.php"
-    ]
-   }
-  },
-  {
-   "path": "app/lib/ControlSensor.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "control-board-critical-2: search, sign-in and payments watched (0171 \u00a75's note)",
-   "since": "2026-11-19T14:01:20Z",
-   "expires": "2026-11-19T18:08:22Z",
-   "release": "control-board-critical-2.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/Database.php",
-   "functions": [
-    "open"
-   ],
-   "kind": "add",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "control-board-critical-2: search, sign-in and payments watched (0171 \u00a75's note)",
-   "since": "2026-11-19T14:01:22Z",
-   "expires": "2026-11-19T18:08:22Z",
-   "release": "control-board-critical-2.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/QuickBooksPay.php",
-   "functions": [
-    "ping"
-   ],
-   "kind": "add",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "control-board-critical-2: search, sign-in and payments watched (0171 \u00a75's note)",
-   "since": "2026-11-19T14:01:24Z",
-   "expires": "2026-11-19T18:08:22Z",
-   "release": "control-board-critical-2.zip",
-   "callers": {}
-  },
-  {
    "path": "app/lib/ControlAlarms.php",
    "functions": [
     "tick"
@@ -147,17 +89,6 @@
    "callers": {}
   },
   {
-   "path": "app/lib/staging-tables.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "control-board-critical-2: search, sign-in and payments watched (0171 \u00a75's note)",
-   "since": "2026-11-19T14:01:33Z",
-   "expires": "2026-11-19T18:08:22Z",
-   "release": "control-board-critical-2.zip",
-   "callers": {}
-  },
-  {
    "path": "website/admin/api.php",
    "functions": [],
    "kind": "change",
@@ -166,61 +97,6 @@
    "since": "2026-11-19T14:01:35Z",
    "expires": "2026-11-19T18:01:35Z",
    "release": "",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/ControlAlarms.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "release control-board-critical-2.zip",
-   "since": "2026-11-19T14:01:41Z",
-   "expires": "2026-11-19T18:08:22Z",
-   "release": "control-board-critical-2.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/Thresholds.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "release control-board-critical-2.zip",
-   "since": "2026-11-19T14:01:41Z",
-   "expires": "2026-11-19T18:08:22Z",
-   "release": "control-board-critical-2.zip",
-   "callers": {}
-  },
-  {
-   "path": "website/admin/api.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "release control-board-critical-2.zip",
-   "since": "2026-11-19T14:01:41Z",
-   "expires": "2026-11-19T18:08:22Z",
-   "release": "control-board-critical-2.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/admin/control-console.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "control-board-critical-2: the stages as tabs; cleared alarms to the logbook",
-   "since": "2026-11-19T14:08:12Z",
-   "expires": "2026-11-19T18:08:22Z",
-   "release": "control-board-critical-2.zip",
-   "callers": {}
-  },
-  {
-   "path": "website/js/admin-control.js",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "control-board-critical-2: the stages as tabs",
-   "since": "2026-11-19T14:08:15Z",
-   "expires": "2026-11-19T18:08:22Z",
-   "release": "control-board-critical-2.zip",
    "callers": {}
   },
   {
