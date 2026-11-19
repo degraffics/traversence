@@ -3,36 +3,36 @@
  "built_on": "4d73c9f Sync: 2026-11-19 11:20 UTC",
  "recorded": "2026-11-19 11:23 UTC",
  "note": "control-board-backoff-gate: a back-off in its wait isn't a hold (0171 \u00a76, 3c); a trip clears only by its Resolve on the row; the release job's quiet warning; built on Sync: 11:20 UTC Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "5fc35bc Sync: 2026-11-19 11:50 UTC",
  "files": {
   "app/admin/control-console.php": {
    "sha256": "c6d2302381a3ee46e554d53b0a523cd7e24d02abc881bf4fc7f986ef7f7e0b99",
-   "live": false
+   "live": true
   },
   "app/lib/ControlAlarms.php": {
    "sha256": "16cb1e396431463364755b9997bd6bac6bff07b00f71c6a00c48955a8f0780bc",
-   "live": false
+   "live": true
   },
   "app/lib/Operations.php": {
    "sha256": "19ebf98e5096ac0e0b4256028c9bb541950ec89fd56d2c50dc70aeefef14b71d",
-   "live": false
+   "live": true
   },
   "app/lib/ServiceHealth.php": {
    "sha256": "4c534a3a4355fb6d0b22441d27738dea1a7d5c811587375366cc877892322751",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "237af3f54875cc2effbb0d06df2b8f008d415ce9fd3caa38bf518810d2815ed9",
-   "live": false
+   "live": true
   },
   "website/admin/api.php": {
    "sha256": "53b4dff5e690873a95d4716519a3745ee28baef0fd0d67d497108e1435f51bb0",
-   "live": false
+   "live": true
   },
   "website/api/health.php": {
    "sha256": "ba06ef808fd441bf99d017920b49edeb91de5978847b2b891d222b61ac0173ca",
-   "live": false
+   "live": true
   }
  }
 }
