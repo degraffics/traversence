@@ -1,8 +1,8 @@
 {
  "zip": "card-photos-first.zip",
- "built_on": "03acc4b Sync: 2026-11-19 23:17 UTC",
- "recorded": "2026-11-19 23:21 UTC",
- "note": "Card photos follow-up: the page someone opens is looked up first; built on Sync: 23:17 UTC Sent through git (releases/inbox).",
+ "built_on": "020ef77 Sync: 2026-11-19 23:27 UTC",
+ "recorded": "2026-11-19 23:29 UTC",
+ "note": "Card photos follow-up: the page someone opens is looked up first; built on Sync: 23:27 UTC Sent through git (releases/inbox).",
  "status": "pending",
  "live_in": "",
  "files": {
@@ -11,7 +11,7 @@
    "live": false
   },
   "app/ui/faq.md": {
-   "sha256": "d93f433a534730508451292093ee9f3a20e05351bb175baef38aca905724c05e",
+   "sha256": "694be57862ba137b334e9acd9c2e5df2c4b7111669b712a61f03963ebb29e952",
    "live": false
   }
  }
