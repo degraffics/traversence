@@ -104,6 +104,17 @@
    "expires": "2026-11-20T01:54:33Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/lib/ServiceHealth.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "osm-copy-wider: Start card's issue buttons; an issue closed everywhere (Jason 2026-11-19)",
+   "since": "2026-11-19T21:54:35Z",
+   "expires": "2026-11-20T01:54:35Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
