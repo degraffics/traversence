@@ -420,6 +420,12 @@ There is one record: the alarm. Acknowledging stops the email repeat. The alarm 
 > items already in Pulse leave it by themselves (Pulse reads open trips only). An alarm's email is no longer also its
 > own stream row: it carries its alarm's Pulse item (`pulse_ref`), so Pulse shows the alarm in one place (§8's "one
 > thing"; the messages already sent got the same mark in a migration).
+>
+> **Note (Jason, 2026-11-19, pulse-top): the light isn't on the Dashboard.** Asked of the red count on Pulse: "is this
+> really needed here on the pulse?", then "Hide it on Pulse". The Dashboard (Today and the Pulse stream) lists the open
+> trips as rows and its bell counts them, so the light repeated them there. Warnings, which Pulse doesn't list, are seen
+> on the board and in the light on every other admin page. The whole Dashboard module, since Today draws the Pulse board
+> itself (`tv_admin_mod_today` → `tv_pulse_board`). Built in `website/admin/router.php` (`$mk === 'dashboard'`).
 
 ### 8. Pulse, fixed: one item per alarm, acted on in place, closed by itself
 
