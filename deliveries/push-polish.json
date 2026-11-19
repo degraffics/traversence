@@ -3,48 +3,48 @@
  "built_on": "d8611c5 Sync: 2026-11-19 23:34 UTC",
  "recorded": "2026-11-19 23:36 UTC",
  "note": "push-polish: one push per thing (tag by the thing, renotify only on a rise or Critical), a pace per person (summary past 3 in 5 minutes, Critical exempt), the status-bar badge, the site's app manifest. Built on Sync 2026-11-19 23:34 UTC (d8611c5). Jason approved it in the pop-up (reviewed by the session manager). Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "e80b023 Sync: 2026-11-19 23:38 UTC",
  "files": {
   "app/lib/Notify.php": {
    "sha256": "b1156a9c81b4aa0d21658d619b5801abe824d4f104268baf5262f958e833a2bd",
-   "live": false
+   "live": true
   },
   "app/lib/WebPush.php": {
    "sha256": "24d5c1bcd280f94a76aeee860a5eaa095cb762ed88be94185347434f02da6d23",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "047c3e2e23240e017900a77d78e75c01426e4fecfd96489d0c1664840046baf1",
-   "live": false
+   "live": true
   },
   "app/ui/favicon.php": {
    "sha256": "1e358b34d5a8e12a8cfbce6e6b9f6e796e0ae19284e929a205246da9420456fb",
-   "live": false
+   "live": true
   },
   "website/image/app-icon-192.png": {
    "sha256": "9d7dd76c2be2f6d25427a4f0f96fd454d95c9f982dc43fe0c12266cd5d258874",
-   "live": false
+   "live": true
   },
   "website/image/app-icon-512.png": {
    "sha256": "ca0aef3f86ffecfb6bd750dbaf1c2ca0f7a67e5f5c2d51febf216be161589098",
-   "live": false
+   "live": true
   },
   "website/image/app-icon-maskable-512.png": {
    "sha256": "871a16598b5086b66daf5a7a27d5b2658721ca8342f45d24455b98a0c076b57e",
-   "live": false
+   "live": true
   },
   "website/image/push-badge.png": {
    "sha256": "7ae472565c4cea7c132ab51da5ea8f0921194b73fc0e26917e3450d5b9f5de3c",
-   "live": false
+   "live": true
   },
   "website/manifest.json": {
    "sha256": "7e0dca55f6cac44358c646b1203c58818261e698967abdeb54fe778f771dd353",
-   "live": false
+   "live": true
   },
   "website/push-sw.js": {
    "sha256": "d061a6dc98c111c1caf7e6ab37d967f692e5924dae40cfddaa93e669c8cc1bc2",
-   "live": false
+   "live": true
   }
  }
 }
