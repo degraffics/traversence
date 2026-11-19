@@ -87,15 +87,23 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
   a worker deploy restarts it (details at the top of `handoffs/crawler-revamp.md`); the automation master switch (release
   #48) makes any run that starts end at once. The hourly check expects no crawler runs meanwhile.
 
-## The working queue now (2026-11-18, 22:30 UTC; the sections below are the history behind it)
+## The working queue now (2026-11-19, 11:00 UTC; the sections below are the history behind it)
 
 **Building:**
-- **Control Board (0171)**, session_01CXLi5ivMY6BdkfHK1xdLWS: live through 3f (#120–#148). Next 4a (maintenance, Pulse
-  #31's list of unused names), 4b (the historian), 5 (logbook and reports); then the three lists of unused names for
-  Jason's OK.
-- **Design (`design/css-theme-brand.md`)**, session_01CXLi5jkgtUikcdUQ4Wmv28: Release 1 live (#146); Release 2 (the
-  admin, umber header; the 2026-11-12 sage bar retired) approved, sending; Release 3, public pages area by area, with
-  the visual fixes below and Pulse's new look.
+- **Control Board (0171)**, session_01CXLi5ivMY6BdkfHK1xdLWS: live through 5a (#166); unused-schema removal live
+  (#161); control-board-legacy approved, sending. Next 5b (reports). Trips follow 0171 §5's 3c rule (Jason, 2026-11-19:
+  "We already have a rule for how trips get set"); not to be reopened.
+- **Design (`design/css-theme-brand.md`)**, session_01CXLi5jkgtUikcdUQ4Wmv28: live through 3c (#164), the Classic
+  directory archived (#165), the Get Local fix (#167). Next 3d (Community, the member dashboard, Pulse's new look), then
+  3e (Marketplace); the map release (map-view.js, `--tv-route` lime); the next tokens release (`--tv-hold` contrast,
+  location-scope.js).
+
+**Dispatch tool** (Jason, 2026-11-19, queued; decision first): one tool that controls (1) alerts, (2) button actions,
+(3) form submissions, (4) the message gate and (5) role-based (RBAC) actions. The decision starts from what each already
+has: alerts in ControlAlarms and 0172's one dispatcher (`Notify`) with `TvAsk.say`; buttons in `TvAsk.busy`/`gate` and
+`Pulse::manage`; forms in `tv-ask.js`'s wrap and `Response::jsonBody`; the message gate in Notify's quiet hours, Stop
+these and `StagingGate`; roles in `Access::can` / `Modules::canTool`. It extends them in place (one front door), never a
+second copy. Ask Jason what "control" means for each (rules he sets, a log, both) before drafting.
 
 **Queued builds, in order:** W15 Funnel (0170); state licence lists (3a: decision first); the App store (0169) and its
 apps (QuickBooks Bookkeeper, QuickBooks Payments, Stripe Payments, Facebook Personal, Facebook Business, Storefront with
@@ -117,8 +125,8 @@ the needs that have none; OpenStreetMap coverage from our Geofabrik copy.
 for heritage (store with credit, or link); approve 0164 §7.1's licence-source strategy; renew `GITHUB_SYNC_TOKEN`
 before Dec 16 (https://github.com/settings/tokens); the OpenStreetMap statement (a step on the board's Overpass trip).
 
-**Visual fixes** (to the design session's Release 3): Discovery's hero; the squeezed footer edit zone; page-builder
-editing switched on, not always on; stock photo bylines.
+**Visual fixes** (to the design session's Release 3): the squeezed footer edit zone (Discovery's hero, the Edit switch and stock
+bylines are done: #153, #158, #159).
 
 **To purge or remove:** the old S3 bucket, then narrow the AWS key to SES; `.env` leftovers (Jason); the "Default
 place" settings row; merged branches on GitHub; the `_moved_npi_orgs` / `_moved_irs_orgs` drop (Jason's OK);
