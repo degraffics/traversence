@@ -84,8 +84,8 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Buttons standard: one filled button, Claim, Peek dim, search bars",
    "since": "2026-11-19T13:07:31Z",
-   "expires": "2026-11-19T17:07:31Z",
-   "release": "",
+   "expires": "2026-11-19T17:15:38Z",
+   "release": "buttons-standard.zip",
    "callers": {}
   },
   {
@@ -95,9 +95,17 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Buttons standard: one filled button, Claim, Peek dim, search bars",
    "since": "2026-11-19T13:07:33Z",
-   "expires": "2026-11-19T17:07:33Z",
-   "release": "",
-   "callers": {}
+   "expires": "2026-11-19T17:15:38Z",
+   "release": "buttons-standard.zip",
+   "callers": {
+    "tv_command_strip": [
+     "app/admin/crawler-console.php",
+     "app/admin/legal-editor.php",
+     "website/admin/client-order.php",
+     "website/admin/content-template.php",
+     "website/admin/guide-edit.php"
+    ]
+   }
   },
   {
    "path": "app/ui/explore-hero.php",
@@ -106,9 +114,14 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Buttons standard: one filled button, Claim, Peek dim, search bars",
    "since": "2026-11-19T13:07:35Z",
-   "expires": "2026-11-19T17:07:35Z",
-   "release": "",
-   "callers": {}
+   "expires": "2026-11-19T17:15:38Z",
+   "release": "buttons-standard.zip",
+   "callers": {
+    "tv_explore_art": [
+     "website/admin/landmarks.php",
+     "website/experiences/view.php"
+    ]
+   }
   },
   {
    "path": "app/ui/gallery-ui.php",
@@ -117,9 +130,18 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Buttons standard: one filled button, Claim, Peek dim, search bars",
    "since": "2026-11-19T13:07:38Z",
-   "expires": "2026-11-19T17:07:38Z",
-   "release": "",
-   "callers": {}
+   "expires": "2026-11-19T17:15:38Z",
+   "release": "buttons-standard.zip",
+   "callers": {
+    "tv_gallery_css": [
+     "website/gallery/album.php",
+     "website/gallery/drop.php",
+     "website/gallery/index.php",
+     "website/listing/view.php",
+     "website/user/dashboard.php",
+     "website/user/profile.php"
+    ]
+   }
   },
   {
    "path": "app/ui/vault.php",
@@ -128,8 +150,8 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Buttons standard: one filled button, Claim, Peek dim, search bars",
    "since": "2026-11-19T13:07:40Z",
-   "expires": "2026-11-19T17:07:40Z",
-   "release": "",
+   "expires": "2026-11-19T17:15:38Z",
+   "release": "buttons-standard.zip",
    "callers": {}
   },
   {
@@ -150,9 +172,16 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Buttons standard: one filled button, Claim, Peek dim, search bars",
    "since": "2026-11-19T13:07:44Z",
-   "expires": "2026-11-19T17:07:44Z",
-   "release": "",
-   "callers": {}
+   "expires": "2026-11-19T17:15:38Z",
+   "release": "buttons-standard.zip",
+   "callers": {
+    "tv_footer": [
+     "app/ui/auth-nav.php",
+     "app/ui/page-shell.php",
+     "website/directory/classic.php",
+     "website/index.php"
+    ]
+   }
   },
   {
    "path": "app/ui/profile-header.php",
@@ -161,8 +190,8 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Buttons standard: one filled button, Claim, Peek dim, search bars",
    "since": "2026-11-19T13:07:47Z",
-   "expires": "2026-11-19T17:07:47Z",
-   "release": "",
+   "expires": "2026-11-19T17:15:38Z",
+   "release": "buttons-standard.zip",
    "callers": {}
   },
   {
@@ -172,8 +201,8 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Buttons standard: one filled button, Claim, Peek dim, search bars",
    "since": "2026-11-19T13:07:49Z",
-   "expires": "2026-11-19T17:07:49Z",
-   "release": "",
+   "expires": "2026-11-19T17:15:38Z",
+   "release": "buttons-standard.zip",
    "callers": {}
   },
   {
@@ -183,8 +212,8 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Buttons standard: one filled button, Claim, Peek dim, search bars",
    "since": "2026-11-19T13:07:51Z",
-   "expires": "2026-11-19T17:07:51Z",
-   "release": "",
+   "expires": "2026-11-19T17:15:38Z",
+   "release": "buttons-standard.zip",
    "callers": {}
   },
   {
@@ -194,9 +223,15 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Buttons standard: one filled button, Claim, Peek dim, search bars",
    "since": "2026-11-19T13:07:53Z",
-   "expires": "2026-11-19T17:07:53Z",
-   "release": "",
-   "callers": {}
+   "expires": "2026-11-19T17:15:38Z",
+   "release": "buttons-standard.zip",
+   "callers": {
+    "tv_tag_chips": [
+     "website/experiences/view.php",
+     "website/journeys/view.php",
+     "website/user/journeys/compose.php"
+    ]
+   }
   },
   {
    "path": "app/ui/go-codes.php",
@@ -205,9 +240,23 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Buttons standard: one filled button, Claim, Peek dim, search bars",
    "since": "2026-11-19T13:07:55Z",
-   "expires": "2026-11-19T17:07:55Z",
-   "release": "",
-   "callers": {}
+   "expires": "2026-11-19T17:15:38Z",
+   "release": "buttons-standard.zip",
+   "callers": {
+    "tv_go_head": [
+     "app/business/domains.php",
+     "app/ui/domains-view.php",
+     "website/order.php",
+     "website/plans.php",
+     "website/promo.php",
+     "website/qr/cart.php",
+     "website/qr/index.php",
+     "website/qr/manage.php",
+     "website/shop/domains.php",
+     "website/shop/index.php",
+     "website/user/domains/index.php"
+    ]
+   }
   },
   {
    "path": "app/ui/header.php",
@@ -216,8 +265,8 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Buttons standard: one filled button, Claim, Peek dim, search bars",
    "since": "2026-11-19T13:07:57Z",
-   "expires": "2026-11-19T17:07:57Z",
-   "release": "",
+   "expires": "2026-11-19T17:15:38Z",
+   "release": "buttons-standard.zip",
    "callers": {}
   },
   {
@@ -227,8 +276,8 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Buttons standard: one filled button, Claim, Peek dim, search bars",
    "since": "2026-11-19T13:07:59Z",
-   "expires": "2026-11-19T17:07:59Z",
-   "release": "",
+   "expires": "2026-11-19T17:15:38Z",
+   "release": "buttons-standard.zip",
    "callers": {}
   },
   {
@@ -238,8 +287,8 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Buttons standard: one filled button, Claim, Peek dim, search bars",
    "since": "2026-11-19T13:08:02Z",
-   "expires": "2026-11-19T17:08:02Z",
-   "release": "",
+   "expires": "2026-11-19T17:15:38Z",
+   "release": "buttons-standard.zip",
    "callers": {}
   },
   {
@@ -249,8 +298,8 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Buttons standard: one filled button, Claim, Peek dim, search bars",
    "since": "2026-11-19T13:08:04Z",
-   "expires": "2026-11-19T17:08:04Z",
-   "release": "",
+   "expires": "2026-11-19T17:15:38Z",
+   "release": "buttons-standard.zip",
    "callers": {}
   },
   {
@@ -260,8 +309,8 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Buttons standard: one filled button, Claim, Peek dim, search bars",
    "since": "2026-11-19T13:08:06Z",
-   "expires": "2026-11-19T17:08:06Z",
-   "release": "",
+   "expires": "2026-11-19T17:15:38Z",
+   "release": "buttons-standard.zip",
    "callers": {}
   },
   {
@@ -271,8 +320,8 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Buttons standard: one filled button, Claim, Peek dim, search bars",
    "since": "2026-11-19T13:08:08Z",
-   "expires": "2026-11-19T17:08:08Z",
-   "release": "",
+   "expires": "2026-11-19T17:15:38Z",
+   "release": "buttons-standard.zip",
    "callers": {}
   },
   {
@@ -282,8 +331,8 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Buttons standard: one filled button, Claim, Peek dim, search bars",
    "since": "2026-11-19T13:08:10Z",
-   "expires": "2026-11-19T17:08:10Z",
-   "release": "",
+   "expires": "2026-11-19T17:15:38Z",
+   "release": "buttons-standard.zip",
    "callers": {}
   },
   {
@@ -293,8 +342,8 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Buttons standard: one filled button, Claim, Peek dim, search bars",
    "since": "2026-11-19T13:08:12Z",
-   "expires": "2026-11-19T17:08:12Z",
-   "release": "",
+   "expires": "2026-11-19T17:15:38Z",
+   "release": "buttons-standard.zip",
    "callers": {}
   },
   {
@@ -304,8 +353,8 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Buttons standard: one filled button, Claim, Peek dim, search bars",
    "since": "2026-11-19T13:08:14Z",
-   "expires": "2026-11-19T17:08:14Z",
-   "release": "",
+   "expires": "2026-11-19T17:15:38Z",
+   "release": "buttons-standard.zip",
    "callers": {}
   },
   {
@@ -315,8 +364,8 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Buttons standard: one filled button, Claim, Peek dim, search bars",
    "since": "2026-11-19T13:08:16Z",
-   "expires": "2026-11-19T17:08:16Z",
-   "release": "",
+   "expires": "2026-11-19T17:15:38Z",
+   "release": "buttons-standard.zip",
    "callers": {}
   },
   {
@@ -326,8 +375,8 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Buttons standard: one filled button, Claim, Peek dim, search bars",
    "since": "2026-11-19T13:08:18Z",
-   "expires": "2026-11-19T17:08:18Z",
-   "release": "",
+   "expires": "2026-11-19T17:15:38Z",
+   "release": "buttons-standard.zip",
    "callers": {}
   },
   {
@@ -337,8 +386,8 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Buttons standard: one filled button, Claim, Peek dim, search bars",
    "since": "2026-11-19T13:08:20Z",
-   "expires": "2026-11-19T17:08:20Z",
-   "release": "",
+   "expires": "2026-11-19T17:15:38Z",
+   "release": "buttons-standard.zip",
    "callers": {},
    "zones": [
     "home.after-doors"
@@ -351,8 +400,8 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Buttons standard: one filled button, Claim, Peek dim, search bars",
    "since": "2026-11-19T13:08:23Z",
-   "expires": "2026-11-19T17:08:23Z",
-   "release": "",
+   "expires": "2026-11-19T17:15:38Z",
+   "release": "buttons-standard.zip",
    "callers": {}
   },
   {
@@ -362,8 +411,8 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Buttons standard: one filled button, Claim, Peek dim, search bars",
    "since": "2026-11-19T13:08:25Z",
-   "expires": "2026-11-19T17:08:25Z",
-   "release": "",
+   "expires": "2026-11-19T17:15:38Z",
+   "release": "buttons-standard.zip",
    "callers": {}
   },
   {
@@ -373,8 +422,8 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Buttons standard: one filled button, Claim, Peek dim, search bars",
    "since": "2026-11-19T13:08:27Z",
-   "expires": "2026-11-19T17:08:27Z",
-   "release": "",
+   "expires": "2026-11-19T17:15:38Z",
+   "release": "buttons-standard.zip",
    "callers": {}
   },
   {
@@ -384,8 +433,8 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Buttons standard: one filled button, Claim, Peek dim, search bars",
    "since": "2026-11-19T13:08:29Z",
-   "expires": "2026-11-19T17:08:29Z",
-   "release": "",
+   "expires": "2026-11-19T17:15:38Z",
+   "release": "buttons-standard.zip",
    "callers": {}
   },
   {
@@ -395,8 +444,8 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Buttons standard: one filled button, Claim, Peek dim, search bars",
    "since": "2026-11-19T13:08:31Z",
-   "expires": "2026-11-19T17:08:31Z",
-   "release": "",
+   "expires": "2026-11-19T17:15:38Z",
+   "release": "buttons-standard.zip",
    "callers": {}
   },
   {
@@ -406,8 +455,8 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Buttons standard: one filled button, Claim, Peek dim, search bars",
    "since": "2026-11-19T13:08:33Z",
-   "expires": "2026-11-19T17:08:33Z",
-   "release": "",
+   "expires": "2026-11-19T17:15:38Z",
+   "release": "buttons-standard.zip",
    "callers": {}
   },
   {
@@ -417,8 +466,8 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Buttons standard: one filled button, Claim, Peek dim, search bars",
    "since": "2026-11-19T13:08:35Z",
-   "expires": "2026-11-19T17:08:35Z",
-   "release": "",
+   "expires": "2026-11-19T17:15:38Z",
+   "release": "buttons-standard.zip",
    "callers": {}
   },
   {
@@ -428,8 +477,8 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Buttons standard: one filled button, Claim, Peek dim, search bars",
    "since": "2026-11-19T13:08:37Z",
-   "expires": "2026-11-19T17:08:37Z",
-   "release": "",
+   "expires": "2026-11-19T17:15:38Z",
+   "release": "buttons-standard.zip",
    "callers": {}
   },
   {
@@ -439,8 +488,8 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Buttons standard: one filled button, Claim, Peek dim, search bars",
    "since": "2026-11-19T13:08:39Z",
-   "expires": "2026-11-19T17:08:39Z",
-   "release": "",
+   "expires": "2026-11-19T17:15:38Z",
+   "release": "buttons-standard.zip",
    "callers": {}
   },
   {
@@ -450,8 +499,8 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Buttons standard: one filled button, Claim, Peek dim, search bars",
    "since": "2026-11-19T13:08:41Z",
-   "expires": "2026-11-19T17:08:41Z",
-   "release": "",
+   "expires": "2026-11-19T17:15:38Z",
+   "release": "buttons-standard.zip",
    "callers": {}
   },
   {
@@ -461,8 +510,8 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Buttons standard: one filled button, Claim, Peek dim, search bars",
    "since": "2026-11-19T13:08:43Z",
-   "expires": "2026-11-19T17:08:43Z",
-   "release": "",
+   "expires": "2026-11-19T17:15:38Z",
+   "release": "buttons-standard.zip",
    "callers": {}
   },
   {
@@ -472,8 +521,8 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Buttons standard: one filled button, Claim, Peek dim, search bars",
    "since": "2026-11-19T13:08:46Z",
-   "expires": "2026-11-19T17:08:46Z",
-   "release": "",
+   "expires": "2026-11-19T17:15:38Z",
+   "release": "buttons-standard.zip",
    "callers": {}
   },
   {
@@ -483,8 +532,8 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Buttons standard: one filled button, Claim, Peek dim, search bars",
    "since": "2026-11-19T13:08:48Z",
-   "expires": "2026-11-19T17:08:48Z",
-   "release": "",
+   "expires": "2026-11-19T17:15:38Z",
+   "release": "buttons-standard.zip",
    "callers": {}
   },
   {
@@ -494,8 +543,8 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Buttons standard: one filled button, Claim, Peek dim, search bars",
    "since": "2026-11-19T13:08:49Z",
-   "expires": "2026-11-19T17:08:49Z",
-   "release": "",
+   "expires": "2026-11-19T17:15:38Z",
+   "release": "buttons-standard.zip",
    "callers": {}
   },
   {
@@ -505,8 +554,8 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Buttons standard: one filled button, Claim, Peek dim, search bars",
    "since": "2026-11-19T13:08:52Z",
-   "expires": "2026-11-19T17:08:52Z",
-   "release": "",
+   "expires": "2026-11-19T17:15:38Z",
+   "release": "buttons-standard.zip",
    "callers": {}
   },
   {
@@ -516,8 +565,8 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Buttons standard: one filled button, Claim, Peek dim, search bars",
    "since": "2026-11-19T13:08:54Z",
-   "expires": "2026-11-19T17:08:54Z",
-   "release": "",
+   "expires": "2026-11-19T17:15:38Z",
+   "release": "buttons-standard.zip",
    "callers": {}
   },
   {
@@ -527,8 +576,8 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Buttons standard: one filled button, Claim, Peek dim, search bars",
    "since": "2026-11-19T13:08:56Z",
-   "expires": "2026-11-19T17:08:56Z",
-   "release": "",
+   "expires": "2026-11-19T17:15:38Z",
+   "release": "buttons-standard.zip",
    "callers": {}
   },
   {
@@ -538,8 +587,19 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Buttons standard: one filled button, Claim, Peek dim, search bars",
    "since": "2026-11-19T13:08:58Z",
-   "expires": "2026-11-19T17:08:58Z",
-   "release": "",
+   "expires": "2026-11-19T17:15:38Z",
+   "release": "buttons-standard.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/ui/theme-tokens.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "release buttons-standard.zip",
+   "since": "2026-11-19T13:15:38Z",
+   "expires": "2026-11-19T17:15:38Z",
+   "release": "buttons-standard.zip",
    "callers": {}
   }
  ],
