@@ -189,6 +189,19 @@
    "expires": "2026-11-19T16:49:54Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/admin/manifests.php",
+   "functions": [
+    "config"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "control-board-12 (0171 \u00a712)",
+   "since": "2026-11-19T12:49:56Z",
+   "expires": "2026-11-19T16:49:56Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
