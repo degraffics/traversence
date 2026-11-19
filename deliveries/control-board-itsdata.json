@@ -3,64 +3,64 @@
  "built_on": "5ae710d Sync: 2026-11-19 16:54 UTC",
  "recorded": "2026-11-19 17:04 UTC",
  "note": "control-board-itsdata: Jason's pop-up answers 2026-11-19 (blocked sites as one notice, Its data, W0 outside our region), the Pulse load-time warning, and what the board did before #192 kept (counts that filter, systems kept open, Open every system, Holds: links, search by source); built on Sync: 2026-11-19 16:54 UTC Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "30351d5 Sync: 2026-11-19 17:08 UTC",
  "files": {
   "app/admin/control-console.php": {
    "sha256": "90b315e99c504e720f41349e8ffa7aeb29534a1af8995f3da1796bbe5266441a",
-   "live": false
+   "live": true
   },
   "app/admin/index-console.php": {
    "sha256": "7d845280b422aa96feb2744b7eda764cfd6c70e6590093f3aef088d60c303dd2",
-   "live": false
+   "live": true
   },
   "app/admin/sections.php": {
    "sha256": "9cfde4c9e0495543597898a330e2fca1835867f83735d5535ca679b2a3893e09",
-   "live": false
+   "live": true
   },
   "app/admin/tools.php": {
    "sha256": "c5ba3e8fdff04a2732513eb976780bf2ec3e38736518624c868a2c3ef2e83db6",
-   "live": false
+   "live": true
   },
   "app/lib/ControlBoard.php": {
    "sha256": "88c539066be329806178a16f8adbfd52add1e22e74b9d3ced754f48662bf91dd",
-   "live": false
+   "live": true
   },
   "app/lib/ControlRegister.php": {
    "sha256": "c2a1b087f561afc317a31bf6ee664b6d3d92ceb4a1e83042ab51625233c74136",
-   "live": false
+   "live": true
   },
   "app/lib/ControlSensor.php": {
    "sha256": "67b7ec4a6e40fa6a36963235228cc454d251c0100a2da900bdab5e2016cf0ff6",
-   "live": false
+   "live": true
   },
   "app/lib/Operations.php": {
    "sha256": "89130d6859719973d26f33f596c1a17992746c36d0e82df190b329ff2c3597e0",
-   "live": false
+   "live": true
   },
   "app/lib/Thresholds.php": {
    "sha256": "8d1c6fdd0e338ea8721c3aff8d81264169eb1b5b1ea062b0d027fccbb4379526",
-   "live": false
+   "live": true
   },
   "app/lib/crawler/Frontier.php": {
    "sha256": "867797aab7871272922e3a61f286187965d9af90241c163bc9eabbf41ed81755",
-   "live": false
+   "live": true
   },
   "app/lib/crawler/Sources.php": {
    "sha256": "934f21e7f080ea56ddf258697d269e88f30f47460260793a44f5c2ae9701522f",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "43d9f18c615cb1d148e9ee73ebd7436b6ca9b0dbfcc36e28cc87e1ee4e4897c9",
-   "live": false
+   "live": true
   },
   "app/ui/pulse-ui.php": {
    "sha256": "ac869feab72e83866ab4205197a315428473af222305b6f3cb665b301cfd7076",
-   "live": false
+   "live": true
   },
   "website/js/admin-control.js": {
    "sha256": "7969219cf15c978d43031ba0a944012f1c33a681f29115e7c7ce96414fdefb88",
-   "live": false
+   "live": true
   }
  }
 }
