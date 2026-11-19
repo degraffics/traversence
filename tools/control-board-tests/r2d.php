@@ -27,7 +27,8 @@ $t('…"Now:" carries no mark of its own', array_key_exists('Now', $by) && $by['
 // the board: Holds it first, every part with its mark
 require $app . '/admin/widgets.php'; require $app . '/ui/app-shell.php'; $_SESSION = ['csrf_token' => 'x'];
 require $app . '/admin/preflight-console.php'; require $app . '/admin/control-console.php';
-$html = tv_admin_mod_control($pdo);
+$_GET['proc'] = 'wf-W0';   // the row's detail is on its own page since the parts table (2026-11-19: the table standard, rule 6)
+$html = tv_admin_mod_control($pdo); unset($_GET['proc']);
 $i = strpos($html, 'id="cb-p-wf-W0"'); $seg = substr($html, $i, (int) strpos($html, '</details>', $i) - $i);
 $t('the board lists W0\'s check part by part', substr_count($seg, '<li>') >= 3 && str_contains($seg, 'class="cb-parts"'), mb_substr(strip_tags($seg), 0, 300));
 $ul = substr($seg, (int) strpos($seg, 'class="cb-parts"'));
