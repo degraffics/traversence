@@ -7,3 +7,4 @@
 - `hero-order.php`: 3b-1's Explore hero: the page's own photos (landmarks' Commons) shown before any stock photo; stock
   only with no real photo; the stock credit on the photo ("Photo: <who> on <source>") with its i and details. 6 tests on
   MariaDB or MySQL: `php hero-order.php <root>` (it makes `stock_images` and `stock_uses` in the test database).
+- `strip-towns.php`: the hub's weather strip (`Guides::stripPick`, 2026-11-19): one town per district first, then the best left; a name or a point within about 2 km already shown is skipped. Run it against a Guides.php: `php tools/design-tests/strip-towns.php <path>`.
