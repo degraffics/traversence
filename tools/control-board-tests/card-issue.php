@@ -30,7 +30,7 @@ $t('never Mark resolved on the card (Jason: "it should be the result of an issue
 $t('no open issue: nothing added to the card', tv_ops_issues($pdo, 'osm', 'x', '') === '');
 $t('the buttons post the board\'s own actions with the page\'s token, busy while working, the answer beside the button', str_contains($cc, 'fetch("/admin/api/config/control"') && str_contains($cc, '"X-CSRF-Token":"x"') && str_contains($cc, 'TvAsk.busy(b,true)') && str_contains($cc, '{anchor:b,bad:!j.ok}'));
 $src = (string) file_get_contents($app . '/admin/operations-console.php');
-$t('the register draws it in each service\'s card', str_contains($src, '$b .= tv_ops_issues($pdo, (string) $k, $csrf, $tz);'));
+$t('the register draws it in each service\'s card', (bool) preg_match('/\$b \.= tv_ops_issues\(\$pdo, (\(string\) )?\$k, \$csrf, \$tz\);/', $src));
 // Pulse's steps match the board (the session manager, 2026-11-19): on a trip, Check and start again stands for Mark resolved
 $s = fn ($l, $w = '', $act = null) => [$l, $act];
 $labels = fn (int $id) => array_map(fn ($x) => $x[0], ControlAlarms::pulseSteps($pdo, $id, $s));
