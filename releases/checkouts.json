@@ -56,9 +56,9 @@
    "functions": [],
    "kind": "change",
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
-   "why": "Design: lighter controls (Jason 2026-11-19)",
+   "why": "Inter with hinting (Jason: pixelated text)",
    "since": "2026-11-19T11:44:19Z",
-   "expires": "2026-11-19T15:44:19Z",
+   "expires": "2026-11-19T15:56:48Z",
    "release": "",
    "callers": {}
   },
