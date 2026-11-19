@@ -1,0 +1,111 @@
+{
+    "id": 166,
+    "title": "Control Board 5a: the logbook, and the night's fixes",
+    "why": "decisions/0171 §10 (release 5, the session manager's OK): every switch, control, alarm and note in one logbook, newest first, filtered by system or process, with Log an entry. Folded in, from the night of 2026-11-19: a phase raises no alarm of its own (six trips repeated the workflows' own); a call carrying records is judged per record, so a big batch isn't slow; the unused check stops listing one- and two-letter columns; and Claude's held issue #19: a passing check closes a back-off issue, Check it now checks at once, and the system re-checks such an issue by itself hourly (never a refusal or block); and a server asking us to slow down (a 429, Wikidata's last night) is a warning that waits twice as long and clears itself, never a trip, with the watch turning any such trip back into a warning.",
+    "proposals": "",
+    "zip": "control-board-5a.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/admin/control-console.php": {
+            "sha": "6396f31489ff88471b1c9d64498248bc418a7a0dab5fb5be45fdba7f92785f4b",
+            "size": 77682,
+            "live_was": "a366b06c1a719af61ccf719b21fe39f1eebd8a144cf54891684e753cf18d970d"
+        },
+        "app/ui/faq.md": {
+            "sha": "44356b0a5db72e4199ad938d786c5ec488cf280e34ead7592eeae7b721220236",
+            "size": 361459,
+            "live_was": "47ebcbf269a1696962b28b3ba9a54965abd327b40ec82e6e68d52153762ff1a9"
+        },
+        "app/migrations/2026-11-19_control_log.sql": {
+            "sha": "900bf8398b80b022fa3ebbb3f1d91d90c98bd2f4e0669d1d24600f06736c35f8",
+            "size": 835,
+            "live_was": null
+        },
+        "app/lib/ControlLedger.php": {
+            "sha": "244ad30e6ba9aae5b3422fac55385f9a8e220fe51d8e2f816ca7ccb1f199010f",
+            "size": 17323,
+            "live_was": "6276960311a527516fbae1d8b6bde43be0d2504f7e8c971511484cb8728ef7e0"
+        },
+        "app/lib/ControlAlarms.php": {
+            "sha": "a3fe849b18c1e2d2b3adbec09e59ca0fed449df3515dc2ab5d0a5ee443825753",
+            "size": 57858,
+            "live_was": "4e4191f486030f23dcb2447e07e21680aae5f1eb86a500c86c82a771169e59ba"
+        },
+        "app/lib/ControlMaintenance.php": {
+            "sha": "0967b9ecbddbf9acb1ef4d57e310e84566acb4c5f714eadf9fddc2fef6943386",
+            "size": 19685,
+            "live_was": "0580e8c87522770dfa4b7db55a0783d127941ce551a8b1e01d7540367950f2a8"
+        },
+        "app/lib/SchemaUpkeep.php": {
+            "sha": "1ab70f4bc1bfa8b4cf8c820d3345205000bf4e16e06c34bedd7730e258c352ba",
+            "size": 18612,
+            "live_was": "0d7d39eb50c8c8372e728c700bf0aafbbf4d1fd015122032d492ba297eed5c50"
+        },
+        "app/lib/ControlLog.php": {
+            "sha": "8f68f49178a706c3e96fc49cadcb7029faf17af160a714301bc8d268d8e037d5",
+            "size": 8454,
+            "live_was": null
+        },
+        "app/lib/staging-tables.php": {
+            "sha": "adbf74309d1ab455093d4ee095a336e6093a9776b73ef98719e5e7399914dc0b",
+            "size": 28007,
+            "live_was": "78129c44cead002934f47c5c8a346274de10c0da93a8692257c9567455250a47"
+        },
+        "app/lib/Preflight.php": {
+            "sha": "b1260c6ebeb62a0385e7d6782ac454e1be2a7cff08d65960dd977982a9803bdd",
+            "size": 150740,
+            "live_was": "c4f74d2d48bccbabff187eba84d31819909cafe9220207067d7b7e7eced8b2c0"
+        },
+        "app/lib/ControlBoard.php": {
+            "sha": "0731eabcf4f96b1e5f42f727e20abb05c06d3d65676f6cd084be866d2a7ab053",
+            "size": 29644,
+            "live_was": "ad39569df894ce064dd48da37ba1ae643b93e9e78870c003f50d796ebb85fd6a"
+        },
+        "app/lib/SystemStart.php": {
+            "sha": "83658383b958354ecc4ef7a99cd57bee488d57c87469850d0a984e0495742b2d",
+            "size": 77398,
+            "live_was": "c14e14800c4d8c27baaa5ad30967087e60dc6ae206b30caefbdae01194d5d2a8"
+        },
+        "app/lib/ServiceHealth.php": {
+            "sha": "7422764df2873974e6caa4c63c21b2a0b93ce1c2d306ef89e2cda6a08190095b",
+            "size": 55419,
+            "live_was": "396163a9b42431d51fa30bffa52431d85a27264bf493c406e3d6b1bb8e9ce310"
+        },
+        "website/admin/api.php": {
+            "sha": "bccd701b6e70712e4bcc9ed30a8a754a499382532e6be1b273a8b905a22ebbdc",
+            "size": 39145,
+            "live_was": "c207fcdb7f500bc56e62009ea377b26381fed7ec060e27431b8f504c1cec63fa"
+        },
+        "website/api/health.php": {
+            "sha": "c5b68e9dea49ce2c0e1c96c064f152acd3325f00f8fa915dbb7637db71f823bb",
+            "size": 20077,
+            "live_was": "eafbfbf68ffd0d5be4b917051a5884c640f8aee2f9c8723b8ca2ff58d84610c3"
+        },
+        "website/js/admin-control.js": {
+            "sha": "7cb24503e37f9f468d4a26d480effe9e426f33acc897adef914b4c299a7d1a1f",
+            "size": 15579,
+            "live_was": "b14c8e008e2edb77554979f82e23c1dc5b75d779df331bc0d507c90bb75b75e3"
+        }
+    },
+    "migrations": [
+        "app/migrations/2026-11-19_control_log.sql"
+    ],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-19T04:13:58+00:00",
+            "by": 0,
+            "msg": "Uploaded control-board-5a.zip: 16 files."
+        }
+    ]
+}
