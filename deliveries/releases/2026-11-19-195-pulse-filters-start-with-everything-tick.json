@@ -1,0 +1,39 @@
+{
+    "id": 195,
+    "title": "Pulse: filters start with everything ticked, and Group ▾",
+    "why": "Jason, 2026-11-19: \"all default with clicks to select specifics if wanted\" (the From and Level filters open with every choice ticked; untick what you don't want; all ticked, or none, is no filter, so the ▾ isn't marked) and \"maybe a group by icon to group types into one row header\" (Group ▾: None, Sender, Kind or Level; one heading per group with its count, closed to start, opening in place; a group is one row for paging; the person's own view, remembered on the device, never the site's, 0172). app/ui/pulse-ui.php; FAQ.",
+    "proposals": "",
+    "zip": "pulse-filters.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/ui/pulse-ui.php": {
+            "sha": "d4443585ae2aabf057ee293f1f5d86239c59e0b93810189b3b88af7f4f5bd3da",
+            "size": 153456,
+            "live_was": "af8b33fbfa728510b1e18216c50e8574dde0038d2ad4644af57cd9058dbc3826"
+        },
+        "app/ui/faq.md": {
+            "sha": "a62381fe05f44c72ea772d988d8b7947c4612a448f4b2bc23890620b5dc8555d",
+            "size": 375804,
+            "live_was": "8fffbeb303bd571d83034cb86b3b6155ad55cb843b907a6236fe97c476d65546"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-19T16:40:22+00:00",
+            "by": 0,
+            "msg": "Uploaded pulse-filters.zip: 2 files."
+        }
+    ]
+}
