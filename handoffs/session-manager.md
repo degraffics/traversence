@@ -102,6 +102,11 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
   cases, open trips still escalate), T1 the table component (#186) and the home bar (#187). Asking now: T2, the admin's
   Pulse on the standard on its own engine (▾ and ⋯, two rows on top, paging of the gathered rows). Then T3–T5 (the rest
   by module; capped lists paged in SQL or shown as "400+"), 3e (Marketplace), the map release, the tokens release.
+- **Approved, not yet built (design session, in order):** Get Local R2 (the approved concept with within ▾, Arrange and
+  the list beside the map; the Filters line and card tools approved 2026-11-19; the PO-box Directions rule; the
+  comments box and card tools Jason approved earlier on 2026-11-19 as "release (2)", never built until found from his
+  "thought we fixed this too"; the header search after his one-line OK), then card photos (Commons + NPS, approved
+  "Both"), then the place page (lightbox link, Add to a trip, counts, the ⋯ toolkit: proposal first).
 - **Business listings**, session_01CXLi5kipJLJoRvo3jqLnQQ (opened 2026-11-19 at Jason's word): case #22 live as #191
   (owners edit their hidden listings). It reads the "Edit my listing" path after the 2026-11-20 run, then stays open for
   more listing work.
@@ -117,6 +122,41 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
   (:406, :476), and prices "a year": a .ai sale would fail at Name.com or be priced as one year. **Fix before Domain
   sales (`DOMAIN_SALES_MODE`) goes past off:** read each ending's minimum term (the requirements lookup it already
   allows) and register, renew and price .ai for 2 years, shown as "2 years". To a session when Jason chooses.
+
+**Insights: people vs automated, new vs returning** (Jason, 2026-11-19: "how do I know if a visitor is unique or
+returning vs bot or crawler?"; on the session manager's proposal, "good, just add it to the work queue"). Today
+`PlatformCounts` (0058 §13, "never who") stores no IP, device or id, drops only bots that name themselves
+(`isBot()`: bot, crawl, spider, curl…), and counts a visit per server session, so a crawler without cookies makes every
+view a visit: Insights → Numbers shows Visits = Views on every page (/directory/ 615 = 615, /claim.php 393 = 393).
+- **People vs automated:** a view counts as a person's only when the page's own script runs in a real browser and
+  reports back (a small beacon after load); requests that never report are shown apart as "Automated", per page.
+- **New vs returning:** a first-party cookie that only says "been here before" (no id, nothing that identifies a
+  person or device), so 0058's "never who" holds; Insights shows new and returning visits. A 0058 §13 note.
+- Free (no outside service). To a session when Jason chooses (the Control Board session, idle, knows Insights).
+
+**Routes and trip plans on our own site, from OpenStreetMap** (Jason, 2026-11-19, with a screenshot of a guide's
+"About 4 mi in all. Open the route in Maps", which sends people to Google Maps directions: "cant we offer a route or trip
+plan using OSM and keep people on our own site?"). Decision first; nothing built. What it needs:
+- **A routing engine over OSM roads**, choosing by "No income, no expense" and OSM's usage policies:
+  - (a) self-hosted OSRM or Valhalla on Railway, from the Geofabrik Arizona and New Mexico extracts we already download.
+    It has a monthly server cost, so it needs revenue or Jason's OK.
+  - (b) openrouteservice's free tier (a key, daily cap), through StagingGate and counted on the board.
+  - (c) FOSSGIS's public routing (routing.openstreetmap.de), light use only under its policy, with the same care as
+    Overpass (decision 0065; research/osm-overpass-2026-11-13.md).
+- **On our map** (map-view.js, the `--tv-route` lime line already in the design queue): the route drawn, its miles and
+  time, the stops in order. A guide or journey's stops become a trip plan to save, share and print. "Open in Google
+  Maps" stays as a choice for turn-by-turn on the road (never a dead end).
+- **Send the whole trip to Google Maps or Apple Maps to navigate** (Jason, 2026-11-19: "take a planned trip and send the
+  entire thing to google maps or apple maps on request of the user to start navigation"). Free; no key, just a link the
+  person taps (it doesn't depend on the engine choice and can come first).
+  - Google Maps links take an origin, a destination and stops in order (the guide's "Open the route in Maps" already
+    does this). Google limits the stops per link, fewer on phones; check the limit at build.
+  - Apple Maps links take a destination; whether they take several stops in one link must be checked against Apple's
+    current documentation at build.
+  - A trip with more stops than a link allows is sent in legs ("Leg 1 of 3"), each opening the next, never cut silently.
+  - Offer the person's own choice (Google or Apple, remembered on the device), from "My location" or the first stop.
+- OSM's credit on the route (0065); no visitor data kept (0058 §13).
+- To a session when Jason chooses the engine.
 
 **Pulse's load-time warning** (Jason, 2026-11-19: "add Pulse's load-time warning", to the Control Board session): time
 how long `Pulse::items` takes to gather (its ~15 sources) on each open of the admin's Pulse. Keep the reading in the
