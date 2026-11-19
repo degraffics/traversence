@@ -200,6 +200,22 @@
    "expires": "2026-11-20T01:44:55Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "website/discovery/index.php",
+   "functions": [
+    "dv_card_photos",
+    "dv_landmark_cards",
+    "dv_park_cards",
+    "dv_parks"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "card-photos (Jason, 2026-11-19, approved)",
+   "since": "2026-11-19T21:44:58Z",
+   "expires": "2026-11-20T01:44:58Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
