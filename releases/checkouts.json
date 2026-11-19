@@ -2,49 +2,198 @@
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
  "claims": [
   {
-   "path": "app/lib/crawler/Sources.php",
-   "functions": [],
+   "path": "app/admin/operations-console.php",
+   "functions": [
+    "tv_admin_mod_register"
+   ],
    "kind": "change",
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "control-board-itsdata (Jason 2026-11-19: blocked notice, Its data, outside our region, Pulse timing)",
-   "since": "2026-11-19T16:30:20Z",
-   "expires": "2026-11-19T20:30:20Z",
+   "why": "control-board-card (Jason 2026-11-19: how am I supposed to fix this? the card shows its issue and its buttons)",
+   "since": "2026-11-19T17:42:17Z",
+   "expires": "2026-11-19T21:42:17Z",
    "release": "",
    "callers": {}
   },
   {
-   "path": "app/lib/ControlSensor.php",
+   "path": "app/lib/OpenPlaces.php",
    "functions": [],
    "kind": "change",
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "control-board-itsdata (Jason 2026-11-19: blocked notice, Its data, outside our region, Pulse timing)",
-   "since": "2026-11-19T16:30:25Z",
-   "expires": "2026-11-19T20:30:25Z",
-   "release": "",
-   "callers": {}
+   "why": "overpass-off (Jason 2026-11-19: Stop entirely; and Geofabrik's 308 and 503)",
+   "since": "2026-11-19T21:32:57Z",
+   "expires": "2026-11-20T01:41:28Z",
+   "release": "overpass-off.zip",
+   "callers": {
+    "fetch": [
+     "app/lib/Gemini.php",
+     "app/lib/JourneyPlan.php",
+     "app/lib/OnDemand.php",
+     "app/lib/OutsideServices.php",
+     "app/lib/PlaceFinder.php",
+     "app/lib/Preflight.php",
+     "app/lib/ServiceHealth.php",
+     "app/lib/Situations.php",
+     "app/lib/UniversalSearch.php",
+     "app/lib/crawler/CrawlTargets.php",
+     "app/lib/crawler/DeepLook.php",
+     "app/lib/crawler/SourceIndex.php",
+     "app/lib/crawler/TownCrawl.php",
+     "website/api/search.php"
+    ],
+    "near": [
+     "app/lib/JourneyPlan.php",
+     "app/lib/OnDemand.php",
+     "app/lib/PlaceFinder.php",
+     "website/api/open-places.php"
+    ],
+    "overpass": [
+     "app/lib/crawler/DeepLook.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/ServiceHealth.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "overpass-off (Jason 2026-11-19: Stop entirely; and Geofabrik's 308 and 503)",
+   "since": "2026-11-19T21:33:03Z",
+   "expires": "2026-11-20T01:41:28Z",
+   "release": "overpass-off.zip",
+   "callers": {
+    "alarm": [
+     "app/lib/ControlAlarms.php"
+    ]
+   }
   },
   {
    "path": "app/lib/Thresholds.php",
    "functions": [],
    "kind": "change",
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "control-board-itsdata (Jason 2026-11-19: blocked notice, Its data, outside our region, Pulse timing)",
-   "since": "2026-11-19T16:30:27Z",
-   "expires": "2026-11-19T20:30:27Z",
+   "why": "overpass-off (Jason 2026-11-19: Stop entirely; and Geofabrik's 308 and 503)",
+   "since": "2026-11-19T21:33:07Z",
+   "expires": "2026-11-20T01:41:28Z",
+   "release": "overpass-off.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Preflight.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "overpass-off (Jason 2026-11-19: Stop entirely; and Geofabrik's 308 and 503)",
+   "since": "2026-11-19T21:33:12Z",
+   "expires": "2026-11-20T01:41:28Z",
+   "release": "overpass-off.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Operations.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "overpass-off (Jason 2026-11-19: Stop entirely; and Geofabrik's 308 and 503)",
+   "since": "2026-11-19T21:33:16Z",
+   "expires": "2026-11-20T01:41:28Z",
+   "release": "overpass-off.zip",
+   "callers": {
+    "seed": [
+     "app/admin/operations-console.php",
+     "app/lib/SystemStart.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/OutsideServices.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "overpass-off (Jason 2026-11-19: Stop entirely; and Geofabrik's 308 and 503)",
+   "since": "2026-11-19T21:33:19Z",
+   "expires": "2026-11-20T01:41:28Z",
+   "release": "overpass-off.zip",
+   "callers": {
+    "parts": [
+     "app/ui/outside-services.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/ControlAlarms.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "overpass-off (Jason 2026-11-19: Stop entirely; and Geofabrik's 308 and 503)",
+   "since": "2026-11-19T21:33:21Z",
+   "expires": "2026-11-20T01:41:28Z",
+   "release": "overpass-off.zip",
+   "callers": {
+    "tick": [
+     "app/scripts/control_tick.php"
+    ],
+    "pulseSteps": [
+     "app/lib/Pulse.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/crawler/CrawlService.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "overpass-off (Jason 2026-11-19: Stop entirely; and Geofabrik's 308 and 503)",
+   "since": "2026-11-19T21:33:23Z",
+   "expires": "2026-11-20T01:33:23Z",
    "release": "",
    "callers": {}
   },
   {
-   "path": "app/lib/ControlBoard.php",
+   "path": "app/ui/outside-services.php",
    "functions": [],
    "kind": "change",
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "control-board-itsdata (Jason 2026-11-19: blocked notice, Its data, outside our region, Pulse timing)",
-   "since": "2026-11-19T16:30:32Z",
-   "expires": "2026-11-19T20:30:32Z",
+   "why": "overpass-off (Jason 2026-11-19: Stop entirely; and Geofabrik's 308 and 503)",
+   "since": "2026-11-19T21:33:25Z",
+   "expires": "2026-11-20T01:33:25Z",
    "release": "",
    "callers": {}
   },
+  {
+   "path": "website/admin/chamber-builder.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "overpass-off (Jason 2026-11-19: Stop entirely; and Geofabrik's 308 and 503)",
+   "since": "2026-11-19T21:33:27Z",
+   "expires": "2026-11-20T01:41:28Z",
+   "release": "overpass-off.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/ui/outside-services.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "release overpass-off.zip",
+   "since": "2026-11-19T21:41:28Z",
+   "expires": "2026-11-20T01:41:28Z",
+   "release": "overpass-off.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/crawler/CrawlService.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "release overpass-off.zip",
+   "since": "2026-11-19T21:41:28Z",
+   "expires": "2026-11-20T01:41:28Z",
+   "release": "overpass-off.zip",
+   "callers": {}
+  }
+ ],
+ "lapsed": [
   {
    "path": "website/user/api/bell.php",
    "functions": [],
@@ -54,7 +203,8 @@
    "since": "2026-11-19T17:33:58Z",
    "expires": "2026-11-19T21:33:58Z",
    "release": "",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-19T21:41:28Z"
   },
   {
    "path": "website/user/dashboard.php",
@@ -65,7 +215,8 @@
    "since": "2026-11-19T17:34:04Z",
    "expires": "2026-11-19T21:34:04Z",
    "release": "",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-19T21:41:28Z"
   },
   {
    "path": "website/js/tv-pulse.js",
@@ -78,23 +229,57 @@
    "since": "2026-11-19T17:34:06Z",
    "expires": "2026-11-19T21:34:06Z",
    "release": "",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-19T21:41:28Z"
   },
   {
-   "path": "app/admin/operations-console.php",
-   "functions": [
-    "tv_admin_mod_register"
-   ],
+   "path": "app/lib/crawler/Sources.php",
+   "functions": [],
    "kind": "change",
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "control-board-card (Jason 2026-11-19: how am I supposed to fix this? the card shows its issue and its buttons)",
-   "since": "2026-11-19T17:42:17Z",
-   "expires": "2026-11-19T21:42:17Z",
+   "why": "control-board-itsdata (Jason 2026-11-19: blocked notice, Its data, outside our region, Pulse timing)",
+   "since": "2026-11-19T16:30:20Z",
+   "expires": "2026-11-19T20:30:20Z",
    "release": "",
-   "callers": {}
-  }
- ],
- "lapsed": [
+   "callers": {},
+   "lapsed": "2026-11-19T21:32:57Z"
+  },
+  {
+   "path": "app/lib/ControlSensor.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "control-board-itsdata (Jason 2026-11-19: blocked notice, Its data, outside our region, Pulse timing)",
+   "since": "2026-11-19T16:30:25Z",
+   "expires": "2026-11-19T20:30:25Z",
+   "release": "",
+   "callers": {},
+   "lapsed": "2026-11-19T21:32:57Z"
+  },
+  {
+   "path": "app/lib/Thresholds.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "control-board-itsdata (Jason 2026-11-19: blocked notice, Its data, outside our region, Pulse timing)",
+   "since": "2026-11-19T16:30:27Z",
+   "expires": "2026-11-19T20:30:27Z",
+   "release": "",
+   "callers": {},
+   "lapsed": "2026-11-19T21:32:57Z"
+  },
+  {
+   "path": "app/lib/ControlBoard.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "control-board-itsdata (Jason 2026-11-19: blocked notice, Its data, outside our region, Pulse timing)",
+   "since": "2026-11-19T16:30:32Z",
+   "expires": "2026-11-19T20:30:32Z",
+   "release": "",
+   "callers": {},
+   "lapsed": "2026-11-19T21:32:57Z"
+  },
   {
    "path": "app/lib/EngineCase.php",
    "functions": [
