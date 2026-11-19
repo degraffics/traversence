@@ -112,4 +112,10 @@ Merriweather. `sections.php` claimed per function (the Control Board holds `tv_a
 - Route colour (Jason, 2026-11-19: "Electric lime for activity like trail"): `--tv-route:#B6F22E` over
   `--tv-route-casing:#3E2B1F` in `theme-tokens.php`, routes and trails only; never text (1.05:1 on the vellum). brand.md
   has the note. The first map that draws routes uses both (casing ~2px wider under the lime).
+- Live as Release #158, but the 00:31 UTC sync ran during its publish and put the four `app/` files back (kept in the
+  sync repo's `conflicts/2026-11-19/`); the website files passed. Cause: the sync's docs checkout was older than #158's
+  delivery record, so the new bytes looked like an unreleased edit. Re-sent as `design-r3b1-tabs.zip` (built on Sync
+  00:35, `--allow-pending design-r3b1-explore-2`, which `send.py` now passes on to the zip check).
+- The open tab (Jason, 2026-11-19: "The active state feels lacking"; options in `design/review/design-r3b1-active-tab.png`,
+  he chose B): a sage fill (sage 38% into white), a full-width 4px moss-sage bar, the icon umber with the active glow.
 - 3b-2 next: listing, place and hub, experiences, journeys, gallery pages; engage-ui; comments.
