@@ -46,6 +46,8 @@ t('public listing: no notice', $why(1) === null);
 t('test listing: said plainly, no ask needed', ($w = $why(2)) && str_contains($w['text'], 'test listing') && !$w['ask']);
 t('private client: said plainly, with Ask our team', ($w = $why(3)) && str_contains($w['text'], 'private') && $w['ask']);
 t('merged: names the kept listing with its link', ($w = $why(4)) && $w['link'][0] === '/listing/view.php?id=5' && str_contains($w['link'][1], 'Kept Twin') && $w['ask']);
+t('merged: carries the kept listing, so the editor locks and points there', ($w = $why(4)) && ($w['merged'] ?? null) === [5, 'Kept Twin'] && str_contains($w['text'], 'make them on Kept Twin'));
+t('other hidden kinds keep the editable form (no merged)', !isset($why(2)['merged']) && !isset($why(3)['merged']) && !isset($why(6)['merged']));
 t('held by staff: only "under review", never the staff reason', ($w = $why(6)) && str_contains($w['text'], 'under review') && !str_contains(strtolower($w['text']), 'nation') && !str_contains(strtolower($w['text']), 'restricted') && $w['ask']);
 t('not public yet (status): said, with Ask our team', ($w = $why(10)) && str_contains($w['text'], 'isn\'t public yet') && $w['ask']);
 $pdo->exec('UPDATE entities SET is_suppressed = 1 WHERE id = 5');
