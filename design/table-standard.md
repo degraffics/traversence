@@ -91,6 +91,14 @@ he says otherwise.
    A tool whose own query is capped (orders at 400) says "of 400" when more exist: as each moves, it pages in SQL
    (`LIMIT`/`OFFSET` with a `COUNT`) or says "400+". T1 sends one page at a time to the browser; three tools page in
    the database so far.
+   **As built, T4 (2026-11-19):** two parts, one copy each. Lists the admin fetches (`tv_table()`) stay in
+   `js/admin-kit.js`'s List, unchanged. Tables the server writes (T3's `TvAdmin.staticTable()`) moved, whole, to
+   `js/tv-table.js`, with their CSS in `app/ui/table-kit.php` (`tv_table_css()`, printed in place by `kit-css.php`).
+   The reason is that the admin's older pages open in a frame without admin-kit.js, so they call `tv_table_kit()`
+   instead. admin-kit.js loads tv-table.js and keeps `staticTable` and `staticTables` as the same calls; the zip check
+   reads it as moved and kept, nothing dropped. A table with no `<thead>` reads its first row of headings as its head,
+   and a link to one row opens its page. Sorting a list with group rows orders the rows inside each group; the groups
+   follow on its name and status columns. A capped tool's list says "of 400+".
 
 ## Open items
 
