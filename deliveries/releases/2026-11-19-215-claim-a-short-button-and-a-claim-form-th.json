@@ -1,0 +1,59 @@
+{
+    "id": 215,
+    "title": "Claim: a short button, and a claim form that fits who's claiming",
+    "why": "Jason, 2026-11-19, approved (reviewed by the session manager): \"Claim: shorten text and needs to know who might claim it... and how its form fitting its claim process.\" His screenshot showed \"Claim this business\" on Lyman Lake State Park. Each listing's category group (decisions/0073) now says who might claim it: a business, a public place, a community group, or a place on a nation's land (0054, 0066). The button is short (Claim it, Staff? Claim it, Run it? Claim it). The claim page's title, roles and words fit; a public place shows its agency from its Nexus (0054), with a way to name another for our team to check; an agency's own email confirms first; agencies and nonprofits stay on Free until their own plan (Jason: \"Their own plan later\"). No new tables.",
+    "proposals": "",
+    "zip": "claim-kinds.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/ui/faq.md": {
+            "sha": "eb09050cd73f75f284013c870eef5dfa56850c021ebc8d5b6e6e874799fd54e3",
+            "size": 393520,
+            "live_was": "047c3e2e23240e017900a77d78e75c01426e4fecfd96489d0c1664840046baf1"
+        },
+        "app/lib/Claims.php": {
+            "sha": "03aa6eaa9a9445791db75def514ae4aad8c4d94543db908ce9adce9ff4e9a082",
+            "size": 70233,
+            "live_was": "6f4ba43dd49d9add42c1616f2886afab6fa96359584abcbc507334c55bcd382b"
+        },
+        "website/listing/api/claim.php": {
+            "sha": "ffb95f7c15727328e964473392c69825ba144c05139ead3140a2e3ebd9002599",
+            "size": 11305,
+            "live_was": "07e2580fd2a1f405986663e084e67a1e0436c44417858d4419412ed71fc6f7ea"
+        },
+        "website/listing/view.php": {
+            "sha": "8040844459f88b72aa7883f61ddfb8d5a3eb48d287bac8cf16b8726572ff8d3e",
+            "size": 61582,
+            "live_was": "4ee08846489fe93a47f55d4973ffa995ce001917a748f0b526c66499f9e682d9"
+        },
+        "website/claim.php": {
+            "sha": "ab038f4103181275bc7ba9c9a21331202ead4e349b052bc23b21482943502519",
+            "size": 28616,
+            "live_was": "7c0d50db2ddacbcbbea14f9c8c442069c7f74a816bd47feeab1c1cb42eb08c34"
+        },
+        "website/js/claim.js": {
+            "sha": "365f8e01cb5a0a2e689949d45a2a3efd1138802810de59369b44c28d222d1b76",
+            "size": 32282,
+            "live_was": "402467a54f66dc694479dd4e42b8072ce6fa591534bfa7775ded0e0171cf2129"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-19T23:44:10+00:00",
+            "by": 0,
+            "msg": "Uploaded claim-kinds.zip: 6 files."
+        }
+    ]
+}
