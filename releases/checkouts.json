@@ -145,6 +145,17 @@
    "expires": "2026-11-19T16:43:48Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "website/api/search_listings.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Get Local R1: the new finder, Best match by the score",
+   "since": "2026-11-19T12:43:50Z",
+   "expires": "2026-11-19T16:43:50Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
