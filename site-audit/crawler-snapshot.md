@@ -8,11 +8,11 @@ Change is since 2026-11-13, the first day recorded.
 
 | What | Now | Change |
 |---|---|---|
-| staged | 13766 | +13121 |
+| staged | 13779 | +13134 |
 | quarantined | 41 |  |
-| published | 6059 | +5741 |
-| merged | 326 | +164 |
-| rejected | 569 | +386 |
+| published | 6061 | +5743 |
+| merged | 329 | +167 |
+| rejected | 573 | +390 |
 
 ## Of the staged (newest 3,000 checked)
 
@@ -22,21 +22,21 @@ Change is since 2026-11-13, the first day recorded.
 | ready_stuck | 4 | -1 |
 | review | 27 | -560 |
 | looking | 2969 | +2916 |
-| no_kind | 2441 | +2281 |
-| one_source | 882 | +355 |
+| no_kind | 2439 | +2279 |
+| one_source | 885 | +358 |
 | by_reason · category | 26 | -35 |
 | by_reason · dupe | 1 | -5 |
 | auto_import_on | true |  |
-| of | 13766 | +13121 |
+| of | 13779 | +13134 |
 
 ## The place store
 
 | What | Now | Change |
 |---|---|---|
-| places | 3285 | +2346 |
-| hosts | 241 | +171 |
-| sources_read | 2865 | +2549 |
-| sources_read_empty | 261 | +140 |
+| places | 3473 | +2534 |
+| hosts | 247 | +177 |
+| sources_read | 2951 | +2635 |
+| sources_read_empty | 268 | +147 |
 
 ## Websites taken off listings, by month
 
@@ -49,13 +49,13 @@ Change is since 2026-11-13, the first day recorded.
 | What | Now | Change |
 |---|---|---|
 | abandoned_listings | 2 | +2 |
-| failed_once | 43 | +34 |
+| failed_once | 47 | +38 |
 
 ## Public listings and map points
 
 | What | Now | Change |
 |---|---|---|
-| public | 10278 | +5583 |
+| public | 10280 | +5585 |
 | no_point | 0 | 0 |
 | approximate | 1711 | +31 |
 
@@ -83,16 +83,16 @@ Change is since 2026-11-13, the first day recorded.
 |---|---|---|
 | done | 60 | -22 |
 | leased (set aside) | 2 | 0 |
-| nothing | 4544 | +40 |
+| nothing | 4594 | +90 |
 | nothing (set aside) | 13 | 0 |
-| queued | 842 |  |
+| queued | 792 |  |
 
 ## The source register
 
 | What | Now | Change |
 |---|---|---|
-| by_status · suggested | 1929 | +1466 |
-| by_status · read | 2865 | +2549 |
+| by_status · suggested | 1958 | +1495 |
+| by_status · read | 2951 | +2635 |
 | by_status · cite_only | 208 | +19 |
 | by_status · ignore | 2 |  |
 | waiting_after_describe | 7 | -399 |
@@ -140,8 +140,8 @@ Change is since 2026-11-13, the first day recorded.
 
 | What | Now | Change |
 |---|---|---|
-| draft / done | 68 | +10 |
-| draft / gathering | 23 |  |
-| draft / queued | 4 |  |
+| draft / done | 70 | +12 |
+| draft / gathering | 19 |  |
+| draft / queued | 9 |  |
 | live / done | 6 | 0 |
 

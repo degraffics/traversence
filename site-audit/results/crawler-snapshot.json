@@ -633,43 +633,43 @@
   }
  },
  "2026-11-19": {
-  "at": "2026-11-18T19:17:43-07:00",
+  "at": "2026-11-18T21:22:01-07:00",
   "finds": {
-   "staged": 13766,
+   "staged": 13779,
    "quarantined": 41,
-   "published": 6059,
-   "merged": 326,
-   "rejected": 569
+   "published": 6061,
+   "merged": 329,
+   "rejected": 573
   },
   "staged": {
    "checked": 3000,
    "ready_stuck": 4,
    "review": 27,
    "looking": 2969,
-   "no_kind": 2441,
-   "one_source": 882,
+   "no_kind": 2439,
+   "one_source": 885,
    "by_reason": {
     "category": 26,
     "dupe": 1
    },
    "auto_import_on": true,
-   "of": 13766
+   "of": 13779
   },
   "place_store": {
-   "places": 3285,
-   "hosts": 241,
-   "sources_read": 2865,
-   "sources_read_empty": 261
+   "places": 3473,
+   "hosts": 247,
+   "sources_read": 2951,
+   "sources_read_empty": 268
   },
   "websites_taken_off": {
    "2026-11": 10
   },
   "refresh": {
    "abandoned_listings": 2,
-   "failed_once": 43
+   "failed_once": 47
   },
   "map_points": {
-   "public": 10278,
+   "public": 10280,
    "no_point": 0,
    "approximate": 1711
   },
@@ -688,14 +688,14 @@
   "identity_jobs": {
    "done": 60,
    "leased (set aside)": 2,
-   "nothing": 4544,
+   "nothing": 4594,
    "nothing (set aside)": 13,
-   "queued": 842
+   "queued": 792
   },
   "register": {
    "by_status": {
-    "suggested": 1929,
-    "read": 2865,
+    "suggested": 1958,
+    "read": 2951,
     "cite_only": 208,
     "ignore": 2
    },
@@ -736,9 +736,9 @@
    "waiting": 32
   },
   "guides": {
-   "draft / done": 68,
-   "draft / gathering": 23,
-   "draft / queued": 4,
+   "draft / done": 70,
+   "draft / gathering": 19,
+   "draft / queued": 9,
    "live / done": 6
   }
  }
