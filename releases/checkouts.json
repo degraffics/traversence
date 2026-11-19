@@ -2,19 +2,6 @@
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
  "claims": [
   {
-   "path": "app/admin/operations-console.php",
-   "functions": [
-    "tv_admin_mod_register"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "control-board-card (Jason 2026-11-19: how am I supposed to fix this? the card shows its issue and its buttons)",
-   "since": "2026-11-19T17:42:17Z",
-   "expires": "2026-11-19T21:42:17Z",
-   "release": "",
-   "callers": {}
-  },
-  {
    "path": "app/lib/OpenPlaces.php",
    "functions": [],
    "kind": "change",
@@ -191,9 +178,34 @@
    "expires": "2026-11-20T01:41:28Z",
    "release": "overpass-off.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/Scheduler.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "card-photos (Jason, 2026-11-19, approved)",
+   "since": "2026-11-19T21:44:52Z",
+   "expires": "2026-11-20T01:44:52Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
+  {
+   "path": "app/admin/operations-console.php",
+   "functions": [
+    "tv_admin_mod_register"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "control-board-card (Jason 2026-11-19: how am I supposed to fix this? the card shows its issue and its buttons)",
+   "since": "2026-11-19T17:42:17Z",
+   "expires": "2026-11-19T21:42:17Z",
+   "release": "",
+   "callers": {},
+   "lapsed": "2026-11-19T21:44:52Z"
+  },
   {
    "path": "website/user/api/bell.php",
    "functions": [],
