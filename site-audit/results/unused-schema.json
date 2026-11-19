@@ -1,5 +1,5 @@
 {
- "at": "2026-11-19T00:19:31.224Z",
+ "at": "2026-11-19T00:33:49.903Z",
  "checked": "2026-11-14T15:38:12+00:00",
  "files_read": 784,
  "tables": [
@@ -7,6 +7,7 @@
    "db": "degraff1_traversence",
    "table": "accuracy_reports",
    "rows": 0,
+   "rows_exact": 0,
    "mb": 0.06,
    "kept": false
   },
@@ -14,6 +15,7 @@
    "db": "degraff1_traversence",
    "table": "ai_credit_usage",
    "rows": 0,
+   "rows_exact": 0,
    "mb": 0.02,
    "kept": false
   },
@@ -21,6 +23,7 @@
    "db": "degraff1_traversence",
    "table": "gbp_addon_subscriptions",
    "rows": 0,
+   "rows_exact": 0,
    "mb": 0.03,
    "kept": false
   },
@@ -28,6 +31,7 @@
    "db": "degraff1_traversence",
    "table": "guide_mentions",
    "rows": 0,
+   "rows_exact": 0,
    "mb": 0.05,
    "kept": false
   },
@@ -35,6 +39,7 @@
    "db": "degraff1_traversence",
    "table": "listing_actions_bak_20261014",
    "rows": 0,
+   "rows_exact": 0,
    "mb": 0.02,
    "kept": false
   },
@@ -42,6 +47,7 @@
    "db": "degraff1_traversence",
    "table": "platform_counts_bak_20261014",
    "rows": 668,
+   "rows_exact": 668,
    "mb": 0.08,
    "kept": false
   },
@@ -49,6 +55,7 @@
    "db": "degraff1_traversence",
    "table": "search_demand_bak_20261014",
    "rows": 6,
+   "rows_exact": 6,
    "mb": 0.02,
    "kept": false
   },
@@ -56,6 +63,7 @@
    "db": "degraff1_traversence",
    "table": "service_area_zips",
    "rows": 0,
+   "rows_exact": 0,
    "mb": 0.05,
    "kept": false
   },
@@ -63,6 +71,7 @@
    "db": "degraff1_traversence",
    "table": "subscriptions_old",
    "rows": 0,
+   "rows_exact": 0,
    "mb": 0.05,
    "kept": false
   }
@@ -72,318 +81,371 @@
    "db": "degraff1_traversence",
    "table": "_moved_crawler_sources",
    "column": "target_entity_id",
+   "filled": 0,
    "kept": false
   },
   {
    "db": "degraff1_traversence",
    "table": "_moved_pulse_settings",
    "column": "k",
+   "filled": 0,
    "kept": false
   },
   {
    "db": "degraff1_traversence",
    "table": "_moved_pulse_settings",
    "column": "v",
+   "filled": 0,
    "kept": false
   },
   {
    "db": "degraff1_traversence",
    "table": "cluster_overrides",
    "column": "is_excluded",
+   "filled": 0,
    "kept": false
   },
   {
    "db": "degraff1_traversence",
    "table": "cluster_overrides",
    "column": "created_by_user_id",
+   "filled": 0,
    "kept": false
   },
   {
    "db": "degraff1_traversence",
    "table": "community_group_joins",
    "column": "n",
+   "filled": 0,
    "kept": false
   },
   {
    "db": "degraff1_traversence",
    "table": "community_help",
    "column": "closed_at",
+   "filled": 0,
    "kept": false
   },
   {
    "db": "degraff1_traversence",
    "table": "contributors",
    "column": "home_place",
+   "filled": 0,
    "kept": false
   },
   {
    "db": "degraff1_traversence",
    "table": "crawl_capture_tasks",
    "column": "fresh_days",
+   "filled": 0,
    "kept": false
   },
   {
    "db": "degraff1_traversence",
    "table": "csp_reports",
    "column": "n",
+   "filled": 0,
    "kept": false
   },
   {
    "db": "degraff1_traversence",
    "table": "email_state",
    "column": "k",
+   "filled": 14,
    "kept": false
   },
   {
    "db": "degraff1_traversence",
    "table": "email_state",
    "column": "v",
+   "filled": 13,
    "kept": false
   },
   {
    "db": "degraff1_traversence",
    "table": "hubs",
    "column": "narrative_zone",
+   "filled": 5,
    "kept": false
   },
   {
    "db": "degraff1_traversence",
    "table": "hubs",
    "column": "visitor_volume",
+   "filled": 20,
    "kept": false
   },
   {
    "db": "degraff1_traversence",
    "table": "identity_facts",
    "column": "w",
+   "filled": 213492,
    "kept": false
   },
   {
    "db": "degraff1_traversence",
    "table": "jurisdiction_laws",
    "column": "seed_key",
+   "filled": 9,
    "kept": false
   },
   {
    "db": "degraff1_traversence",
    "table": "listing_actions",
    "column": "n",
+   "filled": 866,
    "kept": false
   },
   {
    "db": "degraff1_traversence",
    "table": "market_settings",
    "column": "k",
+   "filled": 11,
    "kept": false
   },
   {
    "db": "degraff1_traversence",
    "table": "market_settings",
    "column": "v",
+   "filled": 11,
    "kept": false
   },
   {
    "db": "degraff1_traversence",
    "table": "opt_out_requests",
    "column": "requested_by_email",
+   "filled": 0,
    "kept": false
   },
   {
    "db": "degraff1_traversence",
    "table": "order_vendor_jobs",
    "column": "expected_on",
+   "filled": 0,
    "kept": false
   },
   {
    "db": "degraff1_traversence",
    "table": "order_work_orders",
    "column": "vendor_cost_cents",
+   "filled": 0,
    "kept": false
   },
   {
    "db": "degraff1_traversence",
    "table": "platform_counts",
    "column": "k",
+   "filled": 3398,
    "kept": false
   },
   {
    "db": "degraff1_traversence",
    "table": "platform_counts",
    "column": "n",
+   "filled": 3398,
    "kept": false
   },
   {
    "db": "degraff1_traversence",
    "table": "qr_issued",
    "column": "fix_until",
+   "filled": 2,
    "kept": false
   },
   {
    "db": "degraff1_traversence",
    "table": "saved_searches",
    "column": "q",
+   "filled": 0,
    "kept": false
   },
   {
    "db": "degraff1_traversence",
    "table": "search_counts",
    "column": "k",
+   "filled": 58,
    "kept": false
   },
   {
    "db": "degraff1_traversence",
    "table": "search_counts",
    "column": "n",
+   "filled": 58,
    "kept": false
   },
   {
    "db": "degraff1_traversence",
    "table": "search_demand",
    "column": "n",
+   "filled": 53,
    "kept": false
   },
   {
    "db": "degraff1_traversence",
    "table": "search_edits",
    "column": "w",
+   "filled": 2,
    "kept": false
   },
   {
    "db": "degraff1_traversence",
    "table": "search_index_state",
    "column": "k",
+   "filled": 169,
    "kept": false
   },
   {
    "db": "degraff1_traversence",
    "table": "search_index_state",
    "column": "v",
+   "filled": 168,
    "kept": false
   },
   {
    "db": "degraff1_traversence",
    "table": "search_opens",
    "column": "q",
+   "filled": 12,
    "kept": false
   },
   {
    "db": "degraff1_traversence",
    "table": "search_opens",
    "column": "n",
+   "filled": 12,
    "kept": false
   },
   {
    "db": "degraff1_traversence",
    "table": "search_outcomes",
    "column": "q",
+   "filled": 145,
    "kept": false
   },
   {
    "db": "degraff1_traversence",
    "table": "search_outcomes",
    "column": "n",
+   "filled": 145,
    "kept": false
   },
   {
    "db": "degraff1_traversence",
    "table": "search_senses",
    "column": "w",
+   "filled": 0,
    "kept": false
   },
   {
    "db": "degraff1_traversence",
    "table": "search_suggestion_flags",
    "column": "q",
+   "filled": 2,
    "kept": false
   },
   {
    "db": "degraff1_traversence",
    "table": "search_terms",
    "column": "q",
+   "filled": 121,
    "kept": false
   },
   {
    "db": "degraff1_traversence",
    "table": "search_terms",
    "column": "n",
+   "filled": 121,
    "kept": false
   },
   {
    "db": "degraff1_traversence",
    "table": "short_scans",
    "column": "n",
+   "filled": 4,
    "kept": false
   },
   {
    "db": "degraff1_traversence",
    "table": "site_release_settings",
    "column": "k",
+   "filled": 167,
    "kept": false
   },
   {
    "db": "degraff1_traversence",
    "table": "site_release_settings",
    "column": "v",
+   "filled": 167,
    "kept": false
   },
   {
    "db": "degraff1_traversence",
    "table": "staging_state",
    "column": "k",
+   "filled": 9,
    "kept": false
   },
   {
    "db": "degraff1_traversence",
    "table": "staging_state",
    "column": "v",
+   "filled": 9,
    "kept": false
   },
   {
    "db": "degraff1_traversence",
    "table": "topic_relations",
    "column": "n",
+   "filled": 431,
    "kept": false
   },
   {
    "db": "degraff1_traversence",
    "table": "zip_coordinates",
    "column": "county_code",
+   "filled": 1,
    "kept": false
   },
   {
    "db": "degraff1_traversence",
    "table": "zip_coordinates",
    "column": "community_code",
+   "filled": 40958,
    "kept": false
   },
   {
    "db": "degraff1_trv_admin",
    "table": "crawler_sources",
    "column": "target_entity_id",
+   "filled": 0,
    "kept": false
   },
   {
    "db": "degraff1_trv_admin",
    "table": "pulse_settings",
    "column": "k",
+   "filled": 0,
    "kept": false
   },
   {
    "db": "degraff1_trv_admin",
    "table": "pulse_settings",
    "column": "v",
+   "filled": 0,
    "kept": false
   },
   {
    "db": "degraff1_trv_listings",
    "table": "biz_schema",
    "column": "k",
+   "filled": 1,
    "kept": false
   },
   {
    "db": "degraff1_trv_listings",
    "table": "biz_schema",
    "column": "v",
+   "filled": 1,
    "kept": false
   }
  ]

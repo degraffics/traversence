@@ -10,7 +10,7 @@ Change is since 2026-11-13, the first day recorded.
 |---|---|---|
 | staged | 13761 | +13116 |
 | quarantined | 41 |  |
-| published | 6051 | +5733 |
+| published | 6053 | +5735 |
 | merged | 326 | +164 |
 | rejected | 565 | +382 |
 
@@ -33,9 +33,9 @@ Change is since 2026-11-13, the first day recorded.
 
 | What | Now | Change |
 |---|---|---|
-| places | 3252 | +2313 |
-| hosts | 230 | +160 |
-| sources_read | 2784 | +2468 |
+| places | 3254 | +2315 |
+| hosts | 231 | +161 |
+| sources_read | 2795 | +2479 |
 | sources_read_empty | 259 | +138 |
 
 ## Websites taken off listings, by month
@@ -49,15 +49,15 @@ Change is since 2026-11-13, the first day recorded.
 | What | Now | Change |
 |---|---|---|
 | abandoned_listings | 2 | +2 |
-| failed_once | 36 | +27 |
+| failed_once | 37 | +28 |
 
 ## Public listings and map points
 
 | What | Now | Change |
 |---|---|---|
-| public | 10270 | +5575 |
+| public | 10272 | +5577 |
 | no_point | 0 | 0 |
-| approximate | 1707 | +27 |
+| approximate | 1709 | +29 |
 
 ## Town jobs
 
@@ -83,16 +83,16 @@ Change is since 2026-11-13, the first day recorded.
 |---|---|---|
 | done | 59 | -23 |
 | leased (set aside) | 2 | 0 |
-| nothing | 4496 | -8 |
+| nothing | 4500 | -4 |
 | nothing (set aside) | 13 | 0 |
-| queued | 892 |  |
+| queued | 888 |  |
 
 ## The source register
 
 | What | Now | Change |
 |---|---|---|
 | by_status · suggested | 1926 | +1463 |
-| by_status · read | 2784 | +2468 |
+| by_status · read | 2795 | +2479 |
 | by_status · cite_only | 208 | +19 |
 | by_status · ignore | 2 |  |
 | waiting_after_describe | 7 | -399 |
