@@ -78,6 +78,20 @@
    "expires": "2026-11-19T18:15:21Z",
    "release": "t1-tables.zip",
    "callers": {}
+  },
+  {
+   "path": "website/index.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "The home search bar scrolls under the header (Jason, 2026-11-19)",
+   "since": "2026-11-19T14:16:23Z",
+   "expires": "2026-11-19T18:16:23Z",
+   "release": "",
+   "callers": {},
+   "zones": [
+    "home.after-doors"
+   ]
   }
  ],
  "lapsed": [
