@@ -52,7 +52,7 @@ round a ban by changing the User-Agent. OpenStreetMap (worker 2.13.0): Overpass 
 entirely", after OpenStreetMap's forum asked apps not to use its public servers: community.openstreetmap.org/t/150369).
 No Overpass server is ever asked, whatever the plan or the environment says. A job's places come from our copy (the
 job's `ours`, Geofabrik's weekly state files on the site); a kind or town the copy lacks is counted in the report's
-`osm_not_in_copy` (one quiet notice on W1), never fetched, and the job goes on with what it has. On a 429 the server's
+`osm_not_in_copy` (one quiet notice on W1), never fetched, and the job goes on with what it has. Since 2.14.0 the extract carries health care and guides (`OSM_TAG_FILTER`), and the site lists five states (Arizona, New Mexico, Utah, Colorado, Nevada), loaded one state a run. On a 429 the server's
 Retry-After is obeyed exactly. `CRAWLER_CONTACT` adds a contact to the User-Agent.
 
 Against a site without `service.php` (contract 2) it runs the fixed order described below, as before. The per-run

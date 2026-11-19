@@ -132,3 +132,8 @@ stands as decided here: its own tables, credited, never copied into our listings
 state files (Arizona and New Mexico). What's lost: OpenStreetMap's places near a search outside those two states, and kinds
 the extract doesn't carry. Proposed for Jason, not built: add Utah, Colorado and Nevada to the copy (free, weekly), and
 widen the extract's tags (health care, offices) so W1's health kinds come from it.
+
+*Later the same day (Jason, 2026-11-19, in the pop-up: "Yes, add them", "Yes, widen it"; release osm-copy-wider):* our copy
+holds Utah, Colorado and Nevada too (Geofabrik's weekly files, one state a crawler run), and carries health care
+(`healthcare=*`) and guides (`office=guide`), so W1's health kinds and those guides come from it. Any other office kind
+stays "not in our copy". OpenStreetMap's places show near a search in those five states.

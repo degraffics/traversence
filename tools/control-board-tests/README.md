@@ -173,3 +173,7 @@ and `website/api/` (the mirror's `sync-storage/api/crawl` and `api/video`). Put 
   card shows its servers retired; and Geofabrik's pre-flight line follows a redirect on its own host. 15 tests:
   `mariadb < ../release-b-tests/start-schema.sql && php overpass-off.php <root>/app`. (r3b, r3c, r3d, r1 and layout follow
   the retirement; the worker's side is `workers/crawler/tests/test_ours.py`.)
+- `osm-copy.php`: osm-copy-wider (Jason, 2026-11-19): our OpenStreetMap copy holds five states (Arizona, New Mexico,
+  Utah, Colorado, Nevada) and carries health care and guides; another office kind isn't in our copy; a Utah town's health
+  care read from it; the states not loaded yet are due. 7 tests: `mariadb < ../release-b-tests/start-schema.sql && php
+  osm-copy.php <root>/app`. The worker's side is in `workers/crawler/tests/test_ours.py`.

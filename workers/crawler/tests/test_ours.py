@@ -128,6 +128,27 @@ class Geofabrik(unittest.TestCase):
     def test_batch_size(self):
         self.assertEqual(crawler.GEOFABRIK_BATCH, 500)
 
+    def test_health_care_and_guides_in_the_extract(self):   # 2.14.0 (Jason, 2026-11-19: "Yes, widen it")
+        self.assertIn("nwr/healthcare", crawler.OSM_TAG_FILTER)
+        self.assertIn("nwr/office=guide", crawler.OSM_TAG_FILTER)
+        self.assertTrue({"healthcare", "office"} <= crawler.OSM_KEEP_TAGS)
+
+    def test_one_state_a_run(self):                         # 2.14.0: five states due at once aren't a gigabyte in one run
+        tried = []
+        def site(path, payload=None, timeout=60):
+            return {"paused": False, "states": [{"key": "utah", "release": "r"}, {"key": "colorado", "release": "r"}, {"key": "nevada", "release": "r"}]}
+        def urlopen(req, *a, **k):
+            tried.append(req.full_url)
+            raise OSError("no network in tests")
+        old = (crawler.site_call, urllib.request.urlopen)
+        crawler.site_call, urllib.request.urlopen = site, urlopen
+        try:
+            crawler.geofabrik_load()
+        finally:
+            crawler.site_call, urllib.request.urlopen = old
+        self.assertEqual(len(tried), 1)
+        self.assertTrue(tried[0].endswith("/utah-latest.osm.pbf"))
+
 
 if __name__ == "__main__":
     unittest.main()

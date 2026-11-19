@@ -211,7 +211,7 @@ SKIP_HOSTS = {"openstreetmap.org", "npino.com", "npiprofile.com", "npidb.org", "
 
 started = time.monotonic()
 WORKER_KEYS = ("GOOGLE_PLACES_KEY", "TAVILY_API_KEY", "BRAVE_API_KEY", "RIDB_API_KEY", "HF_TOKEN")   # reported by name at each run
-WORKER_V = "2.13.0"          # 2.13.0: Overpass retired: never asked; a kind our copy lacks is reported as not in our copy. 2.12.1: a task stopped by a held service reports "held", never "failed": the call that trips a hold says so, and Common Crawl's task checks its holds first, so a run whose only trouble is a held service ends ok on Railway, not Crashed; 2.12.0: the identity check starts from what the site's own copies hold (the job's "local"), outside only for the rest; 2.11.0: a website that doesn't load for the refresh is looked up in Common Crawl's newest crawl (W2, decisions/0163's source map: direct, then Common Crawl); 2.10.0: web search falls to Brave when Tavily fails or is held; Google Places as the paid backup for confirming a business in the identity check, only by a director's override within its cap (decisions/0163's source map); 2.9.0: W1 reads our OpenStreetMap copy first (the job's "ours", from Geofabrik), Overpass only for a kind or town it lacks, and works on while every Overpass server is held (decisions/0163's source map); 2.8.0: every link on a page read goes to the page log (same site or not; no cap of 60, nor 40 other sites: W0, decisions/0164 §1.4); 2.7.5: a page whose reading had to stop is logged waiting to be read (P1-1); 2.7.4: reports which keys it has (names only), its per-run limits from the plan, Geofabrik's weekly load (osmium); 2.7.3: Geofabrik over IPv4; 2.7: the open-dataset loads and Geofabrik's test (Release B); the service's contract 2 (decisions/0160 §2): the site plans each run, the worker reports it; 2.4: calls by host; 2.5: issues, holds, probes, per-kind Overpass; 2.6: servers from the plan, the pace
+WORKER_V = "2.14.0"          # 2.14.0: our copy carries health care and guides, and Utah, Colorado and Nevada (one state a run). 2.13.0: Overpass retired: never asked; a kind our copy lacks is reported as not in our copy. 2.12.1: a task stopped by a held service reports "held", never "failed": the call that trips a hold says so, and Common Crawl's task checks its holds first, so a run whose only trouble is a held service ends ok on Railway, not Crashed; 2.12.0: the identity check starts from what the site's own copies hold (the job's "local"), outside only for the rest; 2.11.0: a website that doesn't load for the refresh is looked up in Common Crawl's newest crawl (W2, decisions/0163's source map: direct, then Common Crawl); 2.10.0: web search falls to Brave when Tavily fails or is held; Google Places as the paid backup for confirming a business in the identity check, only by a director's override within its cap (decisions/0163's source map); 2.9.0: W1 reads our OpenStreetMap copy first (the job's "ours", from Geofabrik), Overpass only for a kind or town it lacks, and works on while every Overpass server is held (decisions/0163's source map); 2.8.0: every link on a page read goes to the page log (same site or not; no cap of 60, nor 40 other sites: W0, decisions/0164 §1.4); 2.7.5: a page whose reading had to stop is logged waiting to be read (P1-1); 2.7.4: reports which keys it has (names only), its per-run limits from the plan, Geofabrik's weekly load (osmium); 2.7.3: Geofabrik over IPv4; 2.7: the open-dataset loads and Geofabrik's test (Release B); the service's contract 2 (decisions/0160 §2): the site plans each run, the worker reports it; 2.4: calls by host; 2.5: issues, holds, probes, per-kind Overpass; 2.6: servers from the plan, the pace
 RUN_END = None             # when this run's own work must stop (started + TIME_BUDGET, or a bulk load's end)
 TASK_END = None            # when the capture task being worked must stop (its share of the run)
 FETCH_CAP = MAX_FETCHES    # fetches this run may have made by the end of the task being worked
@@ -3492,8 +3492,8 @@ def geofabrik_probe():
     site_call("/api/crawl/loads.php", {"geofabrik_probe": out})
     return True
 
-OSM_TAG_FILTER = ["nwr/amenity", "nwr/shop", "nwr/tourism", "nwr/leisure", "nwr/highway=trailhead"]   # the site's kinds (OpenPlaces::KINDS)
-OSM_KEEP_TAGS = {"name", "amenity", "shop", "tourism", "leisure", "highway", "cuisine", "phone", "contact:phone", "website", "contact:website",
+OSM_TAG_FILTER = ["nwr/amenity", "nwr/shop", "nwr/tourism", "nwr/leisure", "nwr/highway=trailhead", "nwr/healthcare", "nwr/office=guide"]   # 2.14.0: health care and guides (Jason, 2026-11-19: "Yes, widen it"; the site's EXTRACT_KEYS)   # the site's kinds (OpenPlaces::KINDS)
+OSM_KEEP_TAGS = {"name", "amenity", "shop", "tourism", "leisure", "highway", "cuisine", "healthcare", "office", "phone", "contact:phone", "website", "contact:website",
                  "opening_hours", "addr:housenumber", "addr:street", "addr:city", "addr:state", "historic", "natural", "description",
                  "operator", "brand", "dog"}
 
@@ -3578,7 +3578,7 @@ def geofabrik_load():
         return False
     base = os.environ.get("OSM_EXTRACT_BASE", "https://download.geofabrik.de/north-america/us")
     did = False
-    for s in st.get("states") or []:
+    for s in (st.get("states") or [])[:1]:   # one state a run (2.14.0): five states due at once would be a gigabyte in one run; the next run takes the next
         key, rel = s["key"], s["release"]
         with tempfile.TemporaryDirectory() as wd:
             pbf = os.path.join(wd, f"{key}.osm.pbf")
