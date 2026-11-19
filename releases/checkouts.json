@@ -72,9 +72,9 @@
    "functions": [],
    "kind": "change",
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "control-board-5b: the reports",
+   "why": "control-board-links: svccheck",
    "since": "2026-11-19T12:00:34Z",
-   "expires": "2026-11-19T16:00:34Z",
+   "expires": "2026-11-19T16:19:27Z",
    "release": "",
    "callers": {}
   },
