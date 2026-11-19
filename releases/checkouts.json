@@ -132,6 +132,24 @@
    "expires": "2026-11-20T03:15:59Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/lib/PlacePhotos.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Card photos follow-up: the opened page is looked up first (fix in place of #205)",
+   "since": "2026-11-19T23:20:32Z",
+   "expires": "2026-11-20T03:21:01Z",
+   "release": "card-photos-first.zip",
+   "callers": {
+    "slides": [
+     "website/listing/view.php"
+    ],
+    "find": [
+     "app/scripts/landmark_photos_tick.php"
+    ]
+   }
   }
  ],
  "lapsed": [
