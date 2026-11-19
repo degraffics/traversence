@@ -1,0 +1,62 @@
+{
+ "zip": "get-local-r2.zip",
+ "built_on": "eb78395 Sync: 2026-11-19 22:06 UTC",
+ "recorded": "2026-11-19 22:20 UTC",
+ "note": "Get Local R2: Filters, Arrange, Table, the list beside the map (A/B), card tools, the PO box rule, the comments box, the header search; built on Sync: 22:06 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/business/portal.php": {
+   "sha256": "da00f2a1bbf906f562c405937df6464fb7e4d379644f2383de7bb4460af180bb",
+   "live": false
+  },
+  "app/lib/ListingActions.php": {
+   "sha256": "55315a000ace28fa80c93d3cf0806c72adc8af1e214aa889dce8bec7664b3131",
+   "live": false
+  },
+  "app/lib/UniversalSearch.php": {
+   "sha256": "0e7d552c925e4dc5348f542acf71634f3e960344098432fdb4dbb6793216739e",
+   "live": false
+  },
+  "app/ui/engage-ui.php": {
+   "sha256": "7d8dc3b41f9afdee2227ac158e8688721fe7e1f06cc0b17bb5db5c7ad6ae5415",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "d561066e2fff231d9773d1cb2d57ebedb501d9e0ef25c59efdfbd343570c84b7",
+   "live": false
+  },
+  "app/ui/header.php": {
+   "sha256": "a99e404dba4a348426f27c7da91e91c1546f59727b09056e6fc92f98c0d539cd",
+   "live": false
+  },
+  "website/api/search_listings.php": {
+   "sha256": "c55c517d2182689d10b3cd5045e698bc1c6c5d33126c6b429a8b92163f486ded",
+   "live": false
+  },
+  "website/directory/index.php": {
+   "sha256": "010918e1ca58e2fc02b65c2f9a2c57a9d929e14e0a417e6b1e1b2e7e16c3b3ec",
+   "live": false
+  },
+  "website/js/engage.js": {
+   "sha256": "ea95edb2a4123940bb91f504777d1596c028e4d61a68a7dc653fb487db3e3489",
+   "live": false
+  },
+  "website/js/map-view.js": {
+   "sha256": "927dbc5f48a23001d5c0dea06046d3e1b0a81c70de886eef43cd7bf4337c6456",
+   "live": false
+  },
+  "website/js/search-panel.js": {
+   "sha256": "28554d234fef4c9024f29e857404de1fd72a58878cef96f225ab3eb365f7898c",
+   "live": false
+  },
+  "website/js/tv-conf.js": {
+   "sha256": "e2f04f9cf05c69257c1d4f1367c04febecbd9d0a052cc6c934f391d926eb17d2",
+   "live": false
+  },
+  "website/listing/view.php": {
+   "sha256": "4617525a1ea4da17236b8f005e158004027be5731c1e547859ee797eb946cb6b",
+   "live": false
+  }
+ }
+}
