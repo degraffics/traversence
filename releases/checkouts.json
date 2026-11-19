@@ -44,6 +44,17 @@
    "expires": "2026-11-20T01:45:02Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/lib/OpenPlaces.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "osm-copy-wider (Jason 2026-11-19: Yes, add them; Yes, widen it)",
+   "since": "2026-11-19T21:49:49Z",
+   "expires": "2026-11-20T01:49:49Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
