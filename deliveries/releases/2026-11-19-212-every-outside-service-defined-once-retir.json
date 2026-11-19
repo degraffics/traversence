@@ -1,0 +1,86 @@
+{
+    "id": 212,
+    "title": "Every outside service defined once; Retire, Bring it back and Proposed on the Service register",
+    "why": "decisions/0173 §2 and §4 (Jason, 2026-11-19, approved with the decision pop-up). Release 3 of 3. Overpass's retirement took 11 files and left 5 leftovers: now a service is one entry.",
+    "proposals": "",
+    "zip": "service-defs-r3.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/admin/operations-console.php": {
+            "sha": "9a0d6ef26e814f7c868efe7eb1046aac9a6c330dea61ae5e6ad3eb7f194ea6f8",
+            "size": 50220,
+            "live_was": "8d6d80fcaa467c4c9bc6e794af62697f084d6e62a0015206245468cd17cde49f"
+        },
+        "app/ui/outside-services.php": {
+            "sha": "fe0d65f992ab5fb8dda8a48542006132bf5c23047f281ea8d31279aa6f2936fd",
+            "size": 48197,
+            "live_was": "59d9d6aa13f10075c31e175a54e0356412216713e58eb4f7c01bf2d639e8f622"
+        },
+        "app/ui/faq.md": {
+            "sha": "53651963c5b2516a23e96824045311426234cf994a99cca244ac8feef75051b6",
+            "size": 391212,
+            "live_was": "1ba25c000451b5f8eb9cd185f18ed27841b553746365d77326a799b7fcd40e5c"
+        },
+        "app/migrations/2026-11-20_service_proposals.sql": {
+            "sha": "d355618a9a57ec3ec9900f32fce3bf43f146deee934ac69b05e64a7e2075b920",
+            "size": 659,
+            "live_was": null
+        },
+        "app/lib/ServiceStages.php": {
+            "sha": "c83e58c54b346319d9462ecb476dbfbb00381e00800bfc182bfd15dc8a319edc",
+            "size": 11605,
+            "live_was": "ac98cf086a838994bfdf02c47338da1404ca83e4c443f6f9f891e9c56471a3c4"
+        },
+        "app/lib/Operations.php": {
+            "sha": "806954f095db3f40ef040bc8ad80a41b9a57977c65f252e0cac51772d5a92d88",
+            "size": 75105,
+            "live_was": "247947b195c19ce8e1d94fbdf757307017eefe38fdc4953a0ec347bb760434d6"
+        },
+        "app/lib/StagingGate.php": {
+            "sha": "1e2d5f0570d02ec900dcba1005437ce3efe24a0942fd8d447fb4d2c352465999",
+            "size": 24527,
+            "live_was": "944231d08986494cc55096b26ea07087a1330c6054714c7ff1360cca883be069"
+        },
+        "app/lib/OutsideServices.php": {
+            "sha": "b94bac95074203cfe69197b8d7d2ad122ad16a699a84a3400db8bc59308be41a",
+            "size": 86830,
+            "live_was": "4535dd7079aa0124548b8378cd931928a10cff61c0123cc8146ce2580fb56054"
+        },
+        "app/lib/service-defs.php": {
+            "sha": "ba6a2e5e048f7b28e0c228e8cbad8e2bd1b9426045cba979ed8423a9c23defa9",
+            "size": 36638,
+            "live_was": null
+        },
+        "app/lib/staging-tables.php": {
+            "sha": "c4f8a000914ae9df4f33e88a0b3ce1ec7350b98e839ef354fa6b1f76a87d01be",
+            "size": 28307,
+            "live_was": "7d927f0dc7a822f15fed0815369cdf7829f30a0ebf7d2c9be2264b46b343909c"
+        },
+        "app/lib/Automation.php": {
+            "sha": "84f9af7ee3e8be5cf973719754d872d962f54988c630906c8cfbeb7d9a0a4e5e",
+            "size": 22703,
+            "live_was": "d4e82d1e81cffc924feed55d165f56c4dc6578b1677c6f1a1fedea94b6ce596c"
+        }
+    },
+    "migrations": [
+        "app/migrations/2026-11-20_service_proposals.sql"
+    ],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-19T23:25:50+00:00",
+            "by": 0,
+            "msg": "Uploaded service-defs-r3.zip: 11 files."
+        }
+    ]
+}
