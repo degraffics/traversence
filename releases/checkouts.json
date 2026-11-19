@@ -214,6 +214,17 @@
    "expires": "2026-11-19T18:01:31Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/lib/staging-tables.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "control-board-critical-2: search, sign-in and payments watched (0171 \u00a75's note)",
+   "since": "2026-11-19T14:01:33Z",
+   "expires": "2026-11-19T18:01:33Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
