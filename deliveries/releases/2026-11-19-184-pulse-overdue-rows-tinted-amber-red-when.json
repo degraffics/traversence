@@ -6,12 +6,12 @@
     "zip": "pulse-due.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "planned",
+    "state": "approved",
     "step": 0,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
-    "plan_at": null,
+    "plan_at": "2026-11-19 14:02:47",
     "staged_at": null,
     "vetted_at": null,
     "live_at": null,
@@ -34,6 +34,16 @@
             "at": "2026-11-19T14:02:46+00:00",
             "by": 0,
             "msg": "Uploaded pulse-due.zip: 2 files."
+        },
+        {
+            "at": "2026-11-19T14:02:47+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/pulse-due.zip (git 2dae7c690f)."
+        },
+        {
+            "at": "2026-11-19T14:02:47+00:00",
+            "by": 0,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
         }
     ]
 }
