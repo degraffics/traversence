@@ -3,20 +3,20 @@
  "built_on": "28b8952 Sync: 2026-11-19 13:00 UTC",
  "recorded": "2026-11-19 13:10 UTC",
  "note": "control-board-filter: a system's counts filter its rows; built on Sync: 13:00 UTC Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "e08af8a Sync: 2026-11-19 13:14 UTC",
  "files": {
   "app/admin/control-console.php": {
    "sha256": "9b17d72c20e6ab50c946f26ba280d7b077fca3833960f9ea5f8632e4d17ecdb0",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "04c4aa158b79b92165661f0c4dba40dcbb360434906d30dddcee1234d676f301",
-   "live": false
+   "live": true
   },
   "website/js/admin-control.js": {
    "sha256": "c5708282bd0cea5279b3266646aa29ef65bf69b4152ff5d8c0d851d00d7998b1",
-   "live": false
+   "live": true
   }
  }
 }
