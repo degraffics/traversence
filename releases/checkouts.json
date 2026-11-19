@@ -273,6 +273,17 @@
    "expires": "2026-11-19T17:07:55Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/ui/header.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Buttons standard: one filled button, Claim, Peek dim, search bars",
+   "since": "2026-11-19T13:07:57Z",
+   "expires": "2026-11-19T17:07:57Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
