@@ -32,9 +32,23 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Pulse: overdue rows rise (Jason, 2026-11-19)",
    "since": "2026-11-19T14:20:04Z",
-   "expires": "2026-11-19T18:25:25Z",
-   "release": "pulse-order.zip",
-   "callers": {}
+   "expires": "2026-11-19T18:32:27Z",
+   "release": "pulse-clocks.zip",
+   "callers": {
+    "tv_pulse_board": [
+     "app/admin/sections.php",
+     "website/admin/w.php"
+    ],
+    "apply": [
+     "app/lib/Rebuild.php",
+     "app/lib/SearchEdits.php",
+     "app/lib/SuggestionActions.php",
+     "app/lib/Thresholds.php",
+     "app/lib/Uploads.php",
+     "app/lib/crawler/ClusterRecluster.php",
+     "website/js/consent.js"
+    ]
+   }
   },
   {
    "path": "app/lib/Claims.php",
@@ -76,14 +90,15 @@
   {
    "path": "app/lib/Pulse.php",
    "functions": [
+    "'square'",
     "items"
    ],
    "kind": "change",
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Pulse: clocks on work cases only; an open trip still escalates (Jason, 2026-11-19)",
    "since": "2026-11-19T14:27:07Z",
-   "expires": "2026-11-19T18:27:07Z",
-   "release": "",
+   "expires": "2026-11-19T18:32:27Z",
+   "release": "pulse-clocks.zip",
    "callers": {}
   }
  ],
