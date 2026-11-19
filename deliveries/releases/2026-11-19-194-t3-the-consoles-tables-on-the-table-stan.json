@@ -6,12 +6,12 @@
     "zip": "t3-consoles.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "planned",
+    "state": "approved",
     "step": 0,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
-    "plan_at": null,
+    "plan_at": "2026-11-19 16:29:29",
     "staged_at": null,
     "vetted_at": null,
     "live_at": null,
@@ -39,6 +39,16 @@
             "at": "2026-11-19T16:29:28+00:00",
             "by": 0,
             "msg": "Uploaded t3-consoles.zip: 3 files."
+        },
+        {
+            "at": "2026-11-19T16:29:29+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/t3-consoles.zip (git 09f2702d51)."
+        },
+        {
+            "at": "2026-11-19T16:29:29+00:00",
+            "by": 0,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
         }
     ]
 }
