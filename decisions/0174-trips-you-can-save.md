@@ -62,7 +62,9 @@ their own plan, or take that plan on the road.
 - **Times:**
   - With a start time, each stop is timed against its hours, as ready-made journeys are (0146).
   - A stop that would be closed when you arrive says so ("Closed when you'd arrive: opens 11 AM"), with a way to move it.
-  - Times are shown in the place's time zone, labeled (CLAUDE.md "Times where they happened").
+  - **Stored and shown with the trip's time zone** (CLAUDE.md "Times where they happened"). A trip's days and times are
+    kept with the time zone of its first stop's place, falling back to the device's when there's no place yet. They're
+    always shown labeled ("Sat, Nov 22, 9:00 AM MST"); a stop in another zone shows its own.
 - **Actions:** Share, Print, Send to Maps (§4), Publish as a Personal Guide, Delete (with a yes, and a way back for 30 days).
 - **Where trips live:**
   - **Your trips** is reached from the account menu and from Let's Explore's Trip Planner.
@@ -92,12 +94,23 @@ The engine is Jason's choice. These are the queue's options, under "No income, n
   a monthly server cost, so it needs revenue or Jason's OK.
 - **(b) openrouteservice's free tier** (a key and a daily cap), registered in the Service register (0173). It goes through
   `StagingGate::hold()` and is counted on the Control Board. It costs nothing until we outgrow its cap.
+  - **Its terms are to check at release 5,** from its own site: the free plan's limits, whether commercial use is
+    allowed, the credit it asks for, and whether routes may be stored. openrouteservice.org isn't reachable from the
+    session that wrote this draft, and these aren't stated from memory. If storing isn't allowed, routes aren't kept
+    (see below), and each trip asks again within the cap.
 - **(c) FOSSGIS's public routing**, for light use only under its policy and with the same care as Overpass (0065). It was
   retired once for the same reason, so it's not recommended.
 
 **Recommendation:** start with (b), and move to (a) when routes are used enough to outgrow its cap and revenue covers the
-server. Routes are kept with us once asked for (as 0131's town routes are), so the same trip doesn't ask again. OSM is
-credited on every route.
+server.
+
+**OpenStreetMap's licence (ODbL) on routes:**
+- **Showing a route** on our map is a Produced Work, so it needs credit only: "© OpenStreetMap contributors" on every route.
+- **Keeping routes once asked for** (as 0131's town routes are, so the same trip doesn't ask again) makes a database
+  derived from OSM. So:
+  - kept routes stay in their own table, credited, and are never mixed into our own records (0065);
+  - they're offered under the ODbL on request, as the queue's "how our copy is made" note describes for our OSM copy;
+  - a route kept from (b) is kept only if openrouteservice's terms allow it (checked at release 5).
 
 ## 6. Data and rules
 
@@ -122,6 +135,10 @@ credited on every route.
 ## Questions for Jason
 
 1. Approve this decision, with its five releases in that order?
-2. The routing engine: (b) openrouteservice's free tier to start (recommended), (a) self-hosted now, or decide at
-   release 5?
+2. The routing engine:
+   - **(b) openrouteservice's free tier** (recommended to start): no cost within its cap. The stops' points go to
+     openrouteservice (HeiGIT, Heidelberg), with no names or who; its terms are checked at release 5.
+   - **(a) self-hosted** (OSRM or Valhalla on Railway): a monthly server cost. Nothing leaves our own servers.
+   - **(c) FOSSGIS's public routing:** no cost, light use only. The points go to FOSSGIS in Germany. Not recommended.
+   - Or decide at release 5.
 3. Guests: keep one trip on the device until they make an account (recommended), or trips only with an account?
