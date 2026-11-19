@@ -115,8 +115,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "control-board-card (Jason 2026-11-19: how am I supposed to fix this? the card shows its issue and its buttons)",
    "since": "2026-11-19T17:42:19Z",
-   "expires": "2026-11-19T21:42:30Z",
-   "release": "control-board-card.zip",
+   "expires": "2026-11-19T21:47:55Z",
+   "release": "control-board-card-2.zip",
    "callers": {}
   },
   {
@@ -130,6 +130,17 @@
    "since": "2026-11-19T17:47:35Z",
    "expires": "2026-11-19T21:47:35Z",
    "release": "",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/ControlAlarms.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "release control-board-card-2.zip",
+   "since": "2026-11-19T17:47:55Z",
+   "expires": "2026-11-19T21:47:55Z",
+   "release": "control-board-card-2.zip",
    "callers": {}
   }
  ],
