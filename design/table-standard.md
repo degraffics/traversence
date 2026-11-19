@@ -92,6 +92,12 @@ he says otherwise.
    (`LIMIT`/`OFFSET` with a `COUNT`) or says "400+". T1 sends one page at a time to the browser; three tools page in
    the database so far.
 
+## Open items
+
+- **Pulse's paging in the database.** Pulse pages what it gathers (about fifteen sources); the database still reads them
+  all on each load. Moving that into the database is a rebuild of how Pulse collects, offered as its own release if
+  loading slows.
+
 ## The admin's test (principle 5)
 
 | State | What Jason sees | What he presses |
