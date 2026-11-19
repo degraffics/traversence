@@ -3,84 +3,84 @@
  "built_on": "014b565 Sync: 2026-11-19 13:42 UTC",
  "recorded": "2026-11-19 13:49 UTC",
  "note": "Control Board routes: every alarm leads to its own fix; one alarm count; only a trip reaches a person; critical parts trip at once (drops ControlAlarms::mailStale, the 24-hour warning email, by Jason's decision 2026-11-19). Built on Sync: 2026-11-19 13:42 UTC Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "2605ced Sync: 2026-11-19 13:53 UTC",
  "files": {
   "app/admin/control-console.php": {
    "sha256": "c9e4c5590759e4e8eb97b674d46d8b388824cfe8c6598a13f6a91e437ad9b3d9",
-   "live": false
+   "live": true
   },
   "app/admin/job-line.php": {
    "sha256": "7d1fee2530e134f05d08d3e2f043ec7133c399d1d76fc5e2c47d5f70c4d0886e",
-   "live": false
+   "live": true
   },
   "app/admin/preflight-console.php": {
    "sha256": "6a35d83744a015b84dd785ed504f3fcefb2c798ee8c58e3c02366c89eb6f4a94",
-   "live": false
+   "live": true
   },
   "app/admin/sections.php": {
    "sha256": "b85c805dc6860e11aee40a9deee8edee824c2428daa829929bbbf3fbc97e392c",
-   "live": false
+   "live": true
   },
   "app/lib/ControlAlarms.php": {
    "sha256": "bcaf04968313c0e2924d23e957d2b84b567bb4a4b3dc16fa946c77bb7c9c7411",
-   "live": false
+   "live": true
   },
   "app/lib/ControlHistorian.php": {
    "sha256": "71d18330af47964c22800c43b0a02757dc745424fc2c9ff4b565571c48a20027",
-   "live": false
+   "live": true
   },
   "app/lib/ControlLedger.php": {
    "sha256": "5ddf8eb0d948f247d6d666d7607d7a68cc7866e3eda4b526dfe93a026f8f6d4a",
-   "live": false
+   "live": true
   },
   "app/lib/ControlMaintenance.php": {
    "sha256": "11a81803258d92e631a94c677bb76120bdffc236c126d2e5ac358065ff12291a",
-   "live": false
+   "live": true
   },
   "app/lib/ControlRegister.php": {
    "sha256": "f59815b6c7f6c74c6f4c5f7bd43ad150f7a025babc51c2c1dd7d60d7df86364f",
-   "live": false
+   "live": true
   },
   "app/lib/Notify.php": {
    "sha256": "0ed8f495f52b48dba04ac83291b3dee0df3fed4da009eac3f35fc0cc3481b4a9",
-   "live": false
+   "live": true
   },
   "app/lib/Operations.php": {
    "sha256": "a3a0dcf3e7309646b5d344b22006f0abc01a450ed24bda75d7f5ff9f5801853b",
-   "live": false
+   "live": true
   },
   "app/lib/Preflight.php": {
    "sha256": "6acdaa88c539af9a843f979fa16a3bbb070011bc878c7c16b04d348b04f926e1",
-   "live": false
+   "live": true
   },
   "app/lib/Pulse.php": {
    "sha256": "933a1b6f3200b0d63b2998f31a10c9061118390443e02f6b9ce4479c84c760d0",
-   "live": false
+   "live": true
   },
   "app/lib/crawler/CrawlService.php": {
    "sha256": "d646f583bda158623103d48edd60158cf1a5a282d19fbbbbaedb39f760d0cc77",
-   "live": false
+   "live": true
   },
   "app/migrations/2026-11-19_alarm_messages_pulse_ref.sql": {
    "sha256": "772bafbac320126c33ac8afd556386c96ae57cd8c7e4ddc91f828055cdc381f7",
-   "live": false
+   "live": true
   },
   "app/migrations/2026-11-19_alarm_retrying.sql": {
    "sha256": "f3f799092fb6de6b77cb993c28cef79c613900a633314b968decb7556ac4578b",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "f1ada09a8d922917ba50866d6acb80f9c6c5c852d8bd551fb95cf94df5e376e0",
-   "live": false
+   "live": true
   },
   "website/js/admin-control.js": {
    "sha256": "b179eb10f8062b219f68b5c62e7599b1a4b813f71621bf9abefaf7bdde9a6b2d",
-   "live": false
+   "live": true
   },
   "website/js/admin-kit.js": {
    "sha256": "012b1964317ee9e2eb2b71fa177d1de1ab099a71cb44104e82a2fb3d3a2a7a33",
-   "live": false
+   "live": true
   }
  }
 }
