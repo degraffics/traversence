@@ -1,6 +1,38 @@
 # The System Control Board (the command center): hand-off for its build session (2026-11-18)
 
-## Start here: release 3 (written at the end of release 2, 2026-11-18)
+## Start here: the build is finished (2026-11-19, 12:10 UTC)
+
+All of decisions/0171 is built and live, as releases #120–#173 (listed by section in the decision's 2026-11-19 note).
+The last were 5a (#166, the logbook), the old trips settled (#168), a back-off in its wait isn't a hold (#169) and 5b
+(#173, the reports). Every test is in `tools/control-board-tests/` (README there, how to run them on MariaDB); all 22
+files passed on the last build.
+
+**Not built, and why:**
+- §12: a process's own route (`/admin/config/control/<process>`, a drawer) and the four table tools (`config/alarms`,
+  `config/log`, `config/ledger`, `config/upkeep`) weren't built: the four systems are folding sections of the one board,
+  each process opens in place, and the board's panels do the tables' work. Missed in the first close-out (Jason asked
+  2026-11-19: "where are the system department pages"); his call whether to build them.
+- §14: archiving the Pre-flight page (`config/preflight`) waits for Jason's OK; `Preflight.php` stays either way.
+- §14: the Start card on Automation and the Workflow board's switch-on check don't yet link to the board. A small release
+  (links only), when asked.
+
+**Open on the board that needs Jason** (probe 11:54 UTC, `site-audit/results/alarms.json`):
+- W1's trip from 09:00 (raised by the back-off bug #169 fixed): his **Check and start again** on W1's row.
+- Common Crawl #25 (504s, a trip at its case limit, by the 3c rule) and W3's gate after it: his Resolve when Common
+  Crawl answers (Check it now shows when it does).
+- The vector index: Supabase isn't ready (its trip, timed 11:21).
+- Every Overpass server held: waits on OpenStreetMap's answer to our statement.
+
+**Rules learned in this build** (also in the decision's notes and `builder-playbook.md`):
+- A trip is set by 0171 §6's 3c rule: held or out trips at once; a back-off trips at its case limit; slow and a 429 never
+  trip. Don't propose changing it (Jason, 2026-11-19).
+- Only an admin's Resolve clears a trip: no automatic lift, no bare Start on a tripped row, and a Check never reads as
+  cleared.
+- Reports are built on demand from what's kept; nothing is stored, so no staging class or retention.
+- The probe (`search-probe.yml`, `towns.mjs`) writes `site-audit/results/alarms.json`: the open alarms, the report's
+  summary and when the site last looked in git for releases.
+
+## Earlier: release 3 (written at the end of release 2, 2026-11-18)
 
 **Release 2 is complete and live.** It went out as these releases:
 

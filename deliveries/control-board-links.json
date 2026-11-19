@@ -1,0 +1,38 @@
+{
+ "zip": "control-board-links.zip",
+ "built_on": "3044ea8 Sync: 2026-11-19 12:08 UTC",
+ "recorded": "2026-11-19 12:19 UTC",
+ "note": "control-board-links: the \u00a714 links, and Resolve, groups and Check it now as Jason found them on 2026-11-19; built on Sync: 12:08 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/admin/control-console.php": {
+   "sha256": "5d8be29d7ebaa572c0ebb0f7160f524452db749ccba640b14344fbb1ea7e94ae",
+   "live": false
+  },
+  "app/admin/operations-console.php": {
+   "sha256": "f35173ee0341858010dce7cb1f0037ba71819bb341f8fa91ebefab31ebaecf79",
+   "live": false
+  },
+  "app/lib/ControlAlarms.php": {
+   "sha256": "9371e4fac77d4ca7befad350b49ee0b207122008793ce9891055bbde7625bb77",
+   "live": false
+  },
+  "app/lib/SystemStart.php": {
+   "sha256": "51cb5038875b275dd54040648ed81b9bfd0c7f2047940be0d84bf5aa1a3b0138",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "e7297df3068d4298b634ded6d7df34cbf6b92d8e025ab617799fd88a73f64607",
+   "live": false
+  },
+  "website/admin/api.php": {
+   "sha256": "da662c91a79ead42f52a1b1dab53624988476ae5f3b42c4dce472d88b9a4c161",
+   "live": false
+  },
+  "website/js/admin-control.js": {
+   "sha256": "1247bd4f97d48756d6bd1d4043616db166e03df0fc92282004676bc6a902d3eb",
+   "live": false
+  }
+ }
+}
