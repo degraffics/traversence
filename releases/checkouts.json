@@ -152,6 +152,17 @@
    "expires": "2026-11-19T20:02:16Z",
    "release": "control-board-table.zip",
    "callers": {}
+  },
+  {
+   "path": "app/ui/pulse-ui.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "T2: the admin's Pulse on the table standard",
+   "since": "2026-11-19T16:04:29Z",
+   "expires": "2026-11-19T20:04:29Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
