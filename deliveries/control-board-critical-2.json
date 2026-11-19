@@ -3,52 +3,52 @@
  "built_on": "8ddabc1 Sync: 2026-11-19 14:04 UTC",
  "recorded": "2026-11-19 14:08 UTC",
  "note": "Control Board critical-2, all open board fixes in one: search, sign-in and payments watched; the stages as tabs; cleared alarms to the logbook. Built on Sync: 2026-11-19 14:04 UTC Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "eb9245a Sync: 2026-11-19 14:14 UTC",
  "files": {
   "app/admin/control-console.php": {
    "sha256": "04f6c5e5550b399b098db2a94d75dad6055ac0be222cbfab26d2404f243a272c",
-   "live": false
+   "live": true
   },
   "app/lib/ControlAlarms.php": {
    "sha256": "ed20bb673e664c0460ab311abe1d5d8ecfbbb9d21a89d42a82e43155e7e508dd",
-   "live": false
+   "live": true
   },
   "app/lib/ControlRegister.php": {
    "sha256": "660c63ed4f43ae9410423b025950ea6b1aca956d3ac70fd243bdd6aa27292d55",
-   "live": false
+   "live": true
   },
   "app/lib/ControlSensor.php": {
    "sha256": "15574aed2c117fd719f8156d123a4eb7f9077b610d91013932daf202d15ca5db",
-   "live": false
+   "live": true
   },
   "app/lib/Database.php": {
    "sha256": "389d2527406b2f0d517e6196d62454d129e791a28598e97034396d45e6e4c8d8",
-   "live": false
+   "live": true
   },
   "app/lib/QuickBooksPay.php": {
    "sha256": "f0297d75f42973c9bf4bd0511c5663517b89466c2939be05084b3c1b3dd9312b",
-   "live": false
+   "live": true
   },
   "app/lib/Thresholds.php": {
    "sha256": "391fb799585870b9aad0cdb2883218ca660ca8b185e844d9661c11e73edfdeb5",
-   "live": false
+   "live": true
   },
   "app/lib/staging-tables.php": {
    "sha256": "b0f49fea5571cf819309dbf62c5ee068edec13bead7478412b6be575b47486c4",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "7303cecea183879673e4a62148d0a0f3b04c212f11214478bc0d4c127ece836d",
-   "live": false
+   "live": true
   },
   "website/admin/api.php": {
    "sha256": "cc6148de9cbbeb923185ea07c609ec88ee9a4744d6a40159c41e571c6d0fabe2",
-   "live": false
+   "live": true
   },
   "website/js/admin-control.js": {
    "sha256": "d6cc1e3b83a4dbb084cee72ff6ed68c57a459d7a47de04b0bffefb0deaab3345",
-   "live": false
+   "live": true
   }
  }
 }
