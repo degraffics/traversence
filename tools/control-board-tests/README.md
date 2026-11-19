@@ -140,3 +140,8 @@ and `website/api/` (the mirror's `sync-storage/api/crawl` and `api/video`). Put 
   path only, path and status only), one stray error a notice, 3 a critical trip, Recovered, a failed test and the
   Escalation Notice, QuickBooks held, the search test changing no table, 7 days kept. 25 tests:
   `php sensor.php <root>/app`. (Also tried for real: a 500 from /api/search.php under `php -S` is noted.)
+- `proctable.php`: control-board-table (design/table-standard.md T1, 2026-11-19): the parts as group rows per system
+  in `tv_table()`, each part's columns, no history said once, ⋯ with greyed reasons, the Show filter with counts, the
+  search, a part's own page in a drawer (`?proc=`), the table's buttons through the board's actions; the component's two
+  fixes (a table of only groups; a phone card's actions); a block named by its reason; an alarm link to its own row.
+  27 tests: `php proctable.php <root>/app`. (r2d now reads W0's detail on its own page.)

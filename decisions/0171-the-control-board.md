@@ -189,6 +189,16 @@ whole system or on one process.
 6. **History.** Every reading, alarm, stage change and control, kept over time (§6, §10), for the system and for each
    process.
 
+
+> **Note (2026-11-19, control-board-table): the parts in the admin's one table.** Per the table standard Jason approved
+> (`design/table-standard.md`, PR #1044, rule 6: "Other tables open the record's detail" in a drawer; CLAUDE.md: another
+> module's tools open in a drawer), the board's process rows move onto `tv_table()`: the four systems are group rows; each
+> part's row has its status, stage, where it stands, last 24 hours, speed and OK, **Check**, and **⋯** with words (a greyed
+> item says why). A part's name opens its own page (§12) in a drawer, instead of opening in place under itself. The
+> counts in each system's header (the filter release, #180) become the table's one **Show** filter (CLAUDE.md's filter
+> rule); the board's own "Find a process" box and Open all / Close all give way to the table's search. The site's needs
+> and each system's trend are panels of their own. A part's own page keeps its row opened in place.
+
 ### 3. The register (in code)
 
 The unit register is one file, `app/lib/ControlRegister.php`. It is called "the unit register" so it isn't confused
