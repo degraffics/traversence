@@ -146,6 +146,15 @@ plan using OSM and keep people on our own site?"). Decision first; nothing built
 - **On our map** (map-view.js, the `--tv-route` lime line already in the design queue): the route drawn, its miles and
   time, the stops in order. A guide or journey's stops become a trip plan to save, share and print. "Open in Google
   Maps" stays as a choice for turn-by-turn on the road (never a dead end).
+- **Send the whole trip to Google Maps or Apple Maps to navigate** (Jason, 2026-11-19: "take a planned trip and send the
+  entire thing to google maps or apple maps on request of the user to start navigation"). Free; no key, just a link the
+  person taps (it doesn't depend on the engine choice and can come first).
+  - Google Maps links take an origin, a destination and stops in order (the guide's "Open the route in Maps" already
+    does this). Google limits the stops per link, fewer on phones; check the limit at build.
+  - Apple Maps links take a destination; whether they take several stops in one link must be checked against Apple's
+    current documentation at build.
+  - A trip with more stops than a link allows is sent in legs ("Leg 1 of 3"), each opening the next, never cut silently.
+  - Offer the person's own choice (Google or Apple, remembered on the device), from "My location" or the first stop.
 - OSM's credit on the route (0065); no visitor data kept (0058 §13).
 - To a session when Jason chooses the engine.
 
