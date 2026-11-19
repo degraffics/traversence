@@ -1,13 +1,13 @@
 {
  "zip": "control-board-5a.zip",
  "built_on": "262ca5b Sync: 2026-11-19 02:18 UTC",
- "recorded": "2026-11-19 02:30 UTC",
- "note": "Control Board 5a: the logbook and the night's fixes, plus a 429 as a warning that waits twice as long, never a trip; built on Sync: 02:18 UTC Sent through git (releases/inbox).",
+ "recorded": "2026-11-19 02:34 UTC",
+ "note": "Control Board 5a: the logbook and the night's fixes, plus a 429 as a warning that waits twice as long (its Check it now greyed with the next try), never a trip; built on Sync: 02:18 UTC Sent through git (releases/inbox).",
  "status": "pending",
  "live_in": "",
  "files": {
   "app/admin/control-console.php": {
-   "sha256": "d0005cded72e0ea2a0a7222f0c8d012dc6002f152ebcccbd65b6fac80aa0e02d",
+   "sha256": "634fa3625e300df6368991b6778fc1dac7507196a777f2d5a995d9e84eff1b26",
    "live": false
   },
   "app/lib/ControlAlarms.php": {
@@ -31,7 +31,7 @@
    "live": false
   },
   "app/lib/Preflight.php": {
-   "sha256": "1675234fa9ffc404fe06bf402ee3b061f285188dfe90cee6ad159ac139f8cc58",
+   "sha256": "b1260c6ebeb62a0385e7d6782ac454e1be2a7cff08d65960dd977982a9803bdd",
    "live": false
   },
   "app/lib/SchemaUpkeep.php": {
@@ -39,7 +39,7 @@
    "live": false
   },
   "app/lib/ServiceHealth.php": {
-   "sha256": "5c3c7a1fb08e8ebd22af9ff17e12d27845e412eeea42f7344e633c2d85abe7e3",
+   "sha256": "7422764df2873974e6caa4c63c21b2a0b93ce1c2d306ef89e2cda6a08190095b",
    "live": false
   },
   "app/lib/SystemStart.php": {
@@ -55,11 +55,11 @@
    "live": false
   },
   "app/ui/faq.md": {
-   "sha256": "91298a0567700fe76a32b10fa0fb67f0a2827298b41e8c5e7067fc40eae3edec",
+   "sha256": "44356b0a5db72e4199ad938d786c5ec488cf280e34ead7592eeae7b721220236",
    "live": false
   },
   "website/admin/api.php": {
-   "sha256": "b9301e4364b4146cae73a9e7474820e0177b5b14b5827c7ec56b7b054ad4b6c2",
+   "sha256": "bccd701b6e70712e4bcc9ed30a8a754a499382532e6be1b273a8b905a22ebbdc",
    "live": false
   },
   "website/api/health.php": {

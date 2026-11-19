@@ -101,5 +101,5 @@ and `website/api/` (the mirror's `sync-storage/api/crawl` and `api/video`). Put 
   labelled times; phase lines, speed per record and the short names. 17 tests:
   `mariadb < ../release-b-tests/start-schema.sql && mariadb lv_main < <2a's ledger migration> && php r5a.php <root>/app`.
 - `r5a-rate.php`: release 5a, a 429: a warning however long it lasts, twice the wait (Retry-After obeyed), a timeout
-  still trips at its limit, the watch turns an open 429 trip into a warning (its hold back to its back-off, logged), and
-  it clears when the host answers. 12 tests: `mariadb < ../release-b-tests/start-schema.sql && php r5a-rate.php <root>/app`.
+  still trips at its limit, Check it now is greyed with the next try (never past the wait, only timeouts and server errors go past), the watch turns an open 429 trip into a warning (its hold back to its back-off, logged), and
+  it clears when the host answers. 18 tests: `mariadb < ../release-b-tests/start-schema.sql && php r5a-rate.php <root>/app`.
