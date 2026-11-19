@@ -1,8 +1,8 @@
 {
  "zip": "control-board-table.zip",
- "built_on": "0437652 Sync: 2026-11-19 15:56 UTC",
- "recorded": "2026-11-19 16:02 UTC",
- "note": "Control Board: the parts in the admin's one table; a block named by its reason; the alarm link fixed. Built on Sync: 2026-11-19 15:56 UTC Sent through git (releases/inbox).",
+ "built_on": "ac2073c Sync: 2026-11-19 16:05 UTC",
+ "recorded": "2026-11-19 16:15 UTC",
+ "note": "Control Board: the parts in the admin's one table; a block named by its reason; the alarm link fixed. Built on Sync: 2026-11-19 16:05 UTC Sent through git (releases/inbox).",
  "status": "pending",
  "live_in": "",
  "files": {
@@ -27,7 +27,7 @@
    "live": false
   },
   "app/ui/faq.md": {
-   "sha256": "55805f24447fcd46cac63104b0501955aaea56ce3c3b6ff2ac3f973279d382a3",
+   "sha256": "e5d904b2f49440c3e5b64f872d3f516c1952bd44a6d88d34ce14ebb667f55911",
    "live": false
   },
   "website/js/admin-control.js": {

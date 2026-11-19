@@ -1,0 +1,22 @@
+{
+ "zip": "listing-portal-hidden.zip",
+ "built_on": "0437652 Sync: 2026-11-19 15:56 UTC",
+ "recorded": "2026-11-19 16:00 UTC",
+ "note": "Business portal: owners open their hidden listing's editor with a notice and Ask our team; merged ones read only; list links never the same page (site-audit case #22). built on Sync: 2026-11-19 15:56 UTC Sent through git (releases/inbox).",
+ "status": "live",
+ "live_in": "ac2073c Sync: 2026-11-19 16:05 UTC",
+ "files": {
+  "app/lib/Claims.php": {
+   "sha256": "6f4ba43dd49d9add42c1616f2886afab6fa96359584abcbc507334c55bcd382b",
+   "live": true
+  },
+  "app/ui/faq.md": {
+   "sha256": "1fcb2eaff420227c566e608290244e11df1a84752688893c8dc9e660d541ecef",
+   "live": true
+  },
+  "website/listing/businessportal.php": {
+   "sha256": "0929988c8aace5ae23414b79a99f774229982d494166e9cc74fc2ef534cf8180",
+   "live": true
+  }
+ }
+}

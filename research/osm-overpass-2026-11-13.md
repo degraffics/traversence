@@ -137,6 +137,13 @@ code to check, below).
 - Before posting, check the usage guidance on the OSM wiki's "Overpass API" page and the status page
   (wiki.openstreetmap.org/wiki/Overpass_API/status).
 
+**Sent (2026-11-19, about 16:10 UTC):** Jason posted the statement, as corrected in Release #189, in Help and support with
+the tag overpass, from the OpenStreetMap account **Traversence** (signed in with his GitHub account; no password of its
+own). As a new account, the post is held for a moderator's approval before it shows. Their answer comes by email to that account
+and to support@traversence.com. When they lift the block: Reactivate on OpenStreetMap's card
+(https://traversence.com/admin/config/register#svc-osm), then Mark resolved on the alarm. The topic link goes here once
+it's approved.
+
 ## 4. What we change either way (for the crawler session)
 
 Built 2026-11-14 (the table in §2 says where each stands): per-kind queries one at a time, the breaker per server,
