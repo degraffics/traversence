@@ -3,40 +3,40 @@
  "built_on": "58fe949 Sync: 2026-11-19 22:49 UTC",
  "recorded": "2026-11-19 23:03 UTC",
  "note": "0173 R2, the key on its card: EnvSettings::setKey with its guards; Add, Replace, Remove, Put back, Forget, Check on each card; Railway's keys linked; NPS_API_KEY first (optional). Built on Sync 2026-11-19 22:49 UTC (58fe949). Jason approved it in the pop-up (reviewed by the session manager). Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "669a6d7 Sync: 2026-11-19 23:05 UTC",
  "files": {
   "app/admin/operations-console.php": {
    "sha256": "8d6d80fcaa467c4c9bc6e794af62697f084d6e62a0015206245468cd17cde49f",
-   "live": false
+   "live": true
   },
   "app/lib/EnvSettings.php": {
    "sha256": "999a994b645f760f21db520b52cdba28fcac12cc3238cebfe4b185d9f59a6d55",
-   "live": false
+   "live": true
   },
   "app/lib/Operations.php": {
    "sha256": "247947b195c19ce8e1d94fbdf757307017eefe38fdc4953a0ec347bb760434d6",
-   "live": false
+   "live": true
   },
   "app/lib/OutsideServices.php": {
    "sha256": "4535dd7079aa0124548b8378cd931928a10cff61c0123cc8146ce2580fb56054",
-   "live": false
+   "live": true
   },
   "app/lib/Preflight.php": {
    "sha256": "e1384e9c0f80ad2683f1655292bf6fdc4a4725dafc4980d87bc25d3ad9b06d0a",
-   "live": false
+   "live": true
   },
   "app/lib/ServiceStages.php": {
    "sha256": "ac98cf086a838994bfdf02c47338da1404ca83e4c443f6f9f891e9c56471a3c4",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "f7a9da7d6685c231def6b55b54676f05e93680b779be9367a4e8fd2ba395c4e8",
-   "live": false
+   "live": true
   },
   "app/ui/outside-services.php": {
    "sha256": "59d9d6aa13f10075c31e175a54e0356412216713e58eb4f7c01bf2d639e8f622",
-   "live": false
+   "live": true
   }
  }
 }
