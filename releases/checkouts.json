@@ -91,13 +91,14 @@
    "path": "app/lib/DailyReport.php",
    "functions": [
     "build",
-    "html"
+    "html",
+    "text"
    ],
    "kind": "change",
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "control-board-5b: the reports",
    "since": "2026-11-19T12:00:39Z",
-   "expires": "2026-11-19T16:00:41Z",
+   "expires": "2026-11-19T16:00:43Z",
    "release": "",
    "callers": {}
   }
