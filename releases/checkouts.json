@@ -273,13 +273,14 @@
   {
    "path": "app/lib/ServiceHealth.php",
    "functions": [
-    "alarm"
+    "alarm",
+    "holdUntil"
    ],
    "kind": "change",
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "Control Board 5a: a 429 stays a warning",
+   "why": "Control Board 5a: a 429 waits twice as long",
    "since": "2026-11-19T02:28:35Z",
-   "expires": "2026-11-19T06:28:35Z",
+   "expires": "2026-11-19T06:28:38Z",
    "release": "",
    "callers": {}
   }
