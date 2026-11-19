@@ -3,16 +3,16 @@
  "built_on": "eb78395 Sync: 2026-11-19 22:06 UTC",
  "recorded": "2026-11-19 22:09 UTC",
  "note": "StagingGate::here() public: the staging guards in CommsSetup, Mailboxes and SesInbound hold. Built on Sync 2026-11-19 22:06 UTC. Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "1b268ff Sync: 2026-11-19 22:24 UTC",
  "files": {
   "app/lib/StagingGate.php": {
    "sha256": "944231d08986494cc55096b26ea07087a1330c6054714c7ff1360cca883be069",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "1a2a0e826d9f04bf918cfa0e2aa79d0b529efe2e54e30eb7ff50c86492a268fe",
-   "live": false
+   "live": true
   }
  }
 }
