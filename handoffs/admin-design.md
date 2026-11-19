@@ -145,4 +145,18 @@ Merriweather. `sections.php` claimed per function (the Control Board holds `tv_a
   pattern. Three queries for the set. FAQ: "Where do I find parks and landmarks?" describes it.
 - Rendered on the harness with seed records (a listing, landmarks, a hub, a journey, an experience):
   `design/review/design-r3b2-390.png`, `-1280.png`.
-- 3c next: Get Local (directory, its own Find a business box and Refine row).
+- Live: the command header as #162, 3b-2 as #163, both verified in Sync 02:18 UTC.
+
+### 3c: design-r3c-local.zip (built on Sync 02:18 UTC; approved and sent)
+
+- `directory/index.php` (Get Local) and `directory/classic.php` (still linked from the rail) on the tokens, layouts kept.
+  Closed right now: `--tv-meta` (never red); marked closed for good: Grounded Amber on its tint (hold 75% into ink).
+  Classic's Tailwind amber onto the palette (white-on-amber Go was 3.2:1). `recolor.py` learned the umber-panel tones
+  and Tailwind's `/NN` opacity on tokens (written as `color-mix(…, transparent)`).
+- Not in 3c: `js/map-view.js` (with the map release and `--tv-route`); `js/location-scope.js`'s place picker
+  (`.tvpp-*`: "My places" in Tailwind orange on cream, 2.9:1) for the next shared-parts release.
+- Renders: `design/review/design-r3c-390.png` (Get Local before, after; classic before, after), `-1280.png`.
+- Jason, 2026-11-19: approved 3c, and "Archive it" for the classic directory: a separate small release once 3c is live
+  (the rail's Classic directory link removed from `directory/index.php`, `archive.md` entry: replaced by Get Local; the
+  page stays reachable at its address).
+- 3d next: Community, the member dashboard, Pulse's new look.
