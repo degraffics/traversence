@@ -82,9 +82,9 @@
    "functions": [],
    "kind": "change",
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "control-board-offregion",
+   "why": "control-board-filter",
    "since": "2026-11-19T12:37:58Z",
-   "expires": "2026-11-19T16:37:58Z",
+   "expires": "2026-11-19T17:09:59Z",
    "release": "",
    "callers": {}
   },
