@@ -49,6 +49,10 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
 - **Notify** (PushNotification) only when something needs him: a session waiting, or a proposal. One line.
 - **A website/ file missing from the first sync after a publish** (#137 and #152, 2026-11-18): the publish wrote it after
   the sync had listed the website side. Run the sync once more before calling anything missing; it arrived both times.
+- **Never start a sync while a release is pending** (Jason, 2026-11-19): a zip in `releases/inbox/`, or a release Planned
+  or On staging without its Live record. #158 went live mid-run, after the run had read the release records, and its 4
+  app/ files were put back (kept in the sync repo's `conflicts/2026-11-19/`), so it was re-sent. sync.py now re-reads the
+  records before the first put-back (traverse-3way-sync PR #11), but wait for the Live record anyway.
 - **Claims check without stray files:** `git status -s` empty, then `git checkout -B <own branch> origin/main`, push it,
   `checkout.py list`. Never leave main's files as uncommitted changes (the stop hook complains).
 - **Railway:** a token for `backboard.railway.com` is saved on the "cloud" environment; query
