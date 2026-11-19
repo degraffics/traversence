@@ -99,6 +99,10 @@ This confirms the mobile menu reviewed 2026-09-25 is a faithful implementation o
     "Error:" notice, a remove confirm, a spelling mark); System Red `#a62b2b` stays for emergencies and halts. Trails and
     routes move to **a different nature colour, one suited to navigation**, chosen in the map's release (3b/3c), so
     errors and routes no longer share a colour.
+  - *Note (Jason, 2026-11-19, design Release 3b-1):* **routes and trails (activity) are Electric Lime `#B6F22E`**, drawn
+    over a Deep Umber `#3E2B1F` casing (`--tv-route`, `--tv-route-casing` in `app/ui/theme-tokens.php`). Lime alone is
+    1.05:1 on the vellum, so it is a line colour only, never text, and never without its casing (10:1). River Blue, Moss
+    and Crimson stay for map features; no map draws routes yet.
 
 ## 5. The Compass Axiom & The Chameleon Filter Architecture
 

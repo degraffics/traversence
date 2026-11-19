@@ -85,3 +85,31 @@ sweep replaces each serif stack after `font:`/`font-family:` with `var(--tv-font
 141 files, font only (undoing it returns every live file exactly). Left: `Mailer.php` (emails), `MarketCheckout.php`
 (the order packet), storefront themes' `var(--tvb-hf,…)`. Rendered: FAQ 15 of 15 and home 4 of 4 serif headings in
 Merriweather. `sections.php` claimed per function (the Control Board holds `tv_admin_mod_dbupdates`).
+
+### Queue for the next admin (kit-css / command header) release
+
+- At 390px the module name is cut off ("10. System Co…") beside a section dropdown that says nearly the same thing
+  (session manager, 2026-11-19). One header per view (css-theme-brand §1): on a phone, show only the sections ▾ (it
+  names the place), or the module's short name; never a truncated duplicate.
+- Contrast below 4.5:1 found by 3a's probe: the Shortcuts list's group labels (`admin-hub.php`, #8A7355 on #FFFBF2,
+  4.36:1), the dashboard's small labels (`.ad-k`, `.ad-*` in `admin-dashboard.php`), Pulse's column headers
+  (`.ps-sort`, `.ps-flt`; 3d).
+
+### 3b-1: design-r3b1-explore-2.zip (built on Sync 00:22 UTC, by `build3b1.sh`, replayable)
+
+- `explore-hero.php`: `fallback_slides` (the page's own landmark photos) before stock; stock only with no real photo.
+  Test: `tools/design-tests/hero-order.php` (6 pass; the live code fails 4).
+- `discovery/index.php`: Parks passes its place and "national park", Experiences "outdoor experience"; its styles on the
+  tokens; the timeline's dates in link brown; "Join the team" white on brand brown.
+- `stock-ui.php`: the credit on the photo with an i (Jason, 2026-11-17); styles on the tokens with fallbacks (storefronts).
+- `website/index.php`: its own styles on the tokens (the door tone table kept, data); kickers in link brown.
+- FAQ: the stock photo answer (question unchanged, its anchor is linked).
+- Jason's answer (2026-11-19): "Mostly ok. I dont care for the button colors under the hero": the tabs under the hero
+  (`.xh-tabs`) back to light cream (white 55% into the vellum) with copper icons (`--tv-icon`), the sage bar on the open
+  one. The cause: the recolor mapped the old gold accent `#B8863B` as text to `--tv-on-umber-meta` (a light-on-dark
+  colour) on light surfaces; it now reads as `--tv-icon` across Discovery (tiles, places, the plan's ▾), and "More" is
+  white on brand brown. For later sweeps: `#B8863B` as an icon is `--tv-icon`, as a fill `--tv-link`.
+- Route colour (Jason, 2026-11-19: "Electric lime for activity like trail"): `--tv-route:#B6F22E` over
+  `--tv-route-casing:#3E2B1F` in `theme-tokens.php`, routes and trails only; never text (1.05:1 on the vellum). brand.md
+  has the note. The first map that draws routes uses both (casing ~2px wider under the lime).
+- 3b-2 next: listing, place and hub, experiences, journeys, gallery pages; engage-ui; comments.

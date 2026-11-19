@@ -1,0 +1,34 @@
+{
+ "zip": "design-r3b1-explore-2.zip",
+ "built_on": "ed8fd78 Sync: 2026-11-19 00:22 UTC",
+ "recorded": "2026-11-19 00:29 UTC",
+ "note": "Design 3b-1: Home and Discovery (hero order, stock credits, tabs under the hero, route token). Approved by Jason 2026-11-19 with the tab-colour change made. Built on Sync: 00:22 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/ui/explore-hero.php": {
+   "sha256": "12e04f1ded2291784b38ea855b1a980b499187db61b9f46402cb9ae8cd04fc0f",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "67eac03f978f623092df61b199ea9401f3b4e333a4849bb40dd55cf176792861",
+   "live": false
+  },
+  "app/ui/stock-ui.php": {
+   "sha256": "17b6ae9cb5bac33b8f9d05d2cae0b9596ab1c424ce8727d5caddec9f8ffa77a3",
+   "live": false
+  },
+  "app/ui/theme-tokens.php": {
+   "sha256": "63bd672d246a17062c52aa030e19581ef5d4bfea0dbae27f9bf7d3cba9bd330b",
+   "live": false
+  },
+  "website/discovery/index.php": {
+   "sha256": "de67ff5a80f1d8866b478b333532e6a18f60b21f9a32891037ce633d39d952bc",
+   "live": false
+  },
+  "website/index.php": {
+   "sha256": "f682cece69867398811ac7e4698970db2104efa1f068776df491f41e6aad706e",
+   "live": false
+  }
+ }
+}
