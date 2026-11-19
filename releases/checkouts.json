@@ -162,6 +162,17 @@
    "expires": "2026-11-19T17:26:17Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/lib/crawler/CrawlService.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "control-board-routes: every alarm leads to its fix",
+   "since": "2026-11-19T13:26:20Z",
+   "expires": "2026-11-19T17:26:20Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
