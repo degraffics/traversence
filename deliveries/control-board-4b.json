@@ -1,0 +1,62 @@
+{
+ "zip": "control-board-4b.zip",
+ "built_on": "fd3a3b4 Sync: 2026-11-18 23:10 UTC",
+ "recorded": "2026-11-18 23:11 UTC",
+ "note": "Control Board 4b: the historian (readings over time, trends 24h/7d/30d, uptime, its own time watched), health.php's unused_schema behind its token, the unused list explained, Telemetry to the board (decisions/0171 \u00a76). Built on Sync: 2026-11-18 23:10 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/admin/control-console.php": {
+   "sha256": "4282f00bb91b040e44037c107255c75e008df090b444f19f5feb85c45026dfb9",
+   "live": false
+  },
+  "app/admin/manifests.php": {
+   "sha256": "727c70d79470b69f0dd18c6a1d7a612a35d2d51509f5df881e75625158f24b8a",
+   "live": false
+  },
+  "app/admin/sections.php": {
+   "sha256": "0c4f3541f1f706e7d3a342cfe0719465c11e87345f42dfe80fac45fe3adceca6",
+   "live": false
+  },
+  "app/lib/ControlAlarms.php": {
+   "sha256": "18ac147cfeb8c54bbbf4e18ce7ed8f43e9a09645201e638ab21146608f917c75",
+   "live": false
+  },
+  "app/lib/ControlBoard.php": {
+   "sha256": "ad39569df894ce064dd48da37ba1ae643b93e9e78870c003f50d796ebb85fd6a",
+   "live": false
+  },
+  "app/lib/ControlHistorian.php": {
+   "sha256": "5cea2a37ff75842d24572d86c6169853e2bfd5d9b7d72774b75f946f9e21e281",
+   "live": false
+  },
+  "app/lib/Thresholds.php": {
+   "sha256": "4df497c0b19579d7f61a3029bb7ffe508079b2deefca39cc0b100000f2db1a6c",
+   "live": false
+  },
+  "app/lib/staging-tables.php": {
+   "sha256": "78129c44cead002934f47c5c8a346274de10c0da93a8692257c9567455250a47",
+   "live": false
+  },
+  "app/migrations/2026-11-19_control_history.sql": {
+   "sha256": "e6fd109cf6644005261be1b9fae4912e9565c71ccf3ee686507dd51f5ab50181",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "b5c4aff45968aaeaf93ccd0914d98e83a727568bd6a8f9737d63b680ede07e60",
+   "live": false
+  },
+  "website/admin/api.php": {
+   "sha256": "c207fcdb7f500bc56e62009ea377b26381fed7ec060e27431b8f504c1cec63fa",
+   "live": false
+  },
+  "website/api/health.php": {
+   "sha256": "2fef0d6714281001d20d00a8b2e4fed7acc3a471b71dcdce787b16d5bd3118c9",
+   "live": false
+  },
+  "website/js/admin-control.js": {
+   "sha256": "b14c8e008e2edb77554979f82e23c1dc5b75d779df331bc0d507c90bb75b75e3",
+   "live": false
+  }
+ }
+}

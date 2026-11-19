@@ -72,3 +72,10 @@ and `website/api/` (the mirror's `sync-storage/api/crawl` and `api/video`). Put 
   back by the watch (kept out on a red check, with a warning), a late window and a missed one, Cancel, the upkeep
   calendar read from code, Database updates' read-only unused list, and the staging class. 35 tests:
   `mariadb < ../release-b-tests/start-schema.sql && php r4a.php <root>/app`.
+
+- `r4b.php`: release 4b, the historian: state written on change and at least hourly, uptime (maintenance and off not
+  counted), an hour's counts once (the windowed `ControlBoard::calls`), trends for 24h, 7d and 30d and for a system
+  summed, the SVG and its words, the day's rollup and the trim, the board's lights through `boardLight`, the trend
+  endpoint, health.php's `unused_schema` (and none without its token, on PHP's own server), the watch's history time, Telemetry
+  and the staging class. 35 tests:
+  `mariadb < ../release-b-tests/start-schema.sql && mariadb lv_main < <2a's ledger migration> && php r4b.php <root>/app`.
