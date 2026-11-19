@@ -1,6 +1,6 @@
 # 0173: One lifecycle for every outside service: add, activate, pause, retire, remove
 
-Status: **draft 1** (2026-11-19). The Control Board session wrote it at Jason's request, relayed by the session manager.
+Status: **draft 2** (2026-11-19; draft 2 takes in the session manager's review). The Control Board session wrote it at Jason's request, relayed by the session manager.
 It goes to the session manager for review, then to Jason in one decision pop-up.
 Builds on:
 - 0152: Outside services by company.
@@ -59,9 +59,8 @@ Jason, 2026-11-19, relayed by the session manager:
   - Services ship paused (`Operations::ADDED_OFF`, Jason, 2026-11-15).
   - The board can't pause a service, only show its trips.
   - Nothing records "retired" or "removed" except comments and a FAQ entry.
-- **A bug found in the survey:** `StagingGate::here()` is private. So the staging guards in `CommsSetup::onStaging()`
-  and `Mailboxes::staging()` always answer "not staging", and `SesInbound.php:31` would throw instead of refusing. The
-  public `Staging::here()` works.
+- **A bug found in the survey:** `StagingGate::here()` was private, so the staging guards in `CommsSetup`, `Mailboxes`
+  and `SesInbound` never held. It is fixed in release `staging-guard` (PR #1110, under 0165), not here.
 
 ## Decision
 
@@ -118,10 +117,15 @@ Its stage shows in one column, with ⋯ for the stage's buttons.
   the stage is Key in. Fail: the card says what the service answered and offers **Put the old one back**.
 - **Remove the key** goes through the same writer: kept as `# OLD`, then gone at the next passing Check of the rest, or
   by **Forget it**.
-- **Keys kept on Railway** (Google Places, Tavily, Brave, RIDB, the Hugging Face token) can't be written by the site.
-  Setting a Railway variable redeploys the worker, and the site never restarts Railway. The card names the variable and
-  gives the link to the crawler service's Variables. Check confirms it from the worker's key report
-  (`worker:keys`).
+- **Keys kept on Railway** (Google Places, Tavily, Brave, RIDB, the Hugging Face token): Jason's choice, asked with
+  this decision.
+  - **Kept on Railway:** he enters them on Railway's Variables page, an outside trip like the cPanel one he objected
+    to. The card gives the link and Check confirms the key from the worker's key report (`worker:keys`).
+  - **Written from the card:** every key in one place, through Railway's API (`variableUpsert`, with the
+    `RAILWAY_API_TOKEN` the site already holds for watching). Each save redeploys the crawler, about a minute. A run in
+    progress is cut short and retried at its next turn.
+  - No decision forbids the site redeploying Railway. 0171 (§ Consequences) says only that the board doesn't change
+    Railway's cron or restart policy. Keeping the site's hands off Railway has been this session's working habit.
 - **The first user is the National Park Service:** `NPS_API_KEY` from `https://api.data.gov/signup/`, for the stock
   photos (`StockLibrary`). It's added on its card, then checked.
 
@@ -137,9 +141,15 @@ As in 0169 §6, each service is defined in one place: `app/lib/service-defs.php`
 
 The 9 constants become reads of it, one release at a time, and nothing else changes behaviour. A new service is one
 entry and its connector. A retired one keeps its entry with `stage: retired`, so its notice and its words come from one
-place. Overpass's 5 leftovers go into OpenStreetMap's entry as its retirement record. **OpenStreetMap's retirement
-(Overpass, 2026-11-19, #204) is the register's first Retired record:** why ("its community asked us not to use the
-public servers"), what replaced it (our copy from Geofabrik, five states), and when.
+place.
+
+**Overpass, OpenStreetMap's live query server, is the register's first Retired record**: why (its community's
+request on the forum, #204, 2026-11-19), what replaced it ("our own copy from Geofabrik"), and when. It gets its own
+entry, `overpass`. Today it shares the `osm` key with the rest of OpenStreetMap.
+- The 5 leftovers move into Overpass's entry: its hosts (`overpass-api.de` and the mirrors) out of `HOSTS['osm']`, the
+  `overpass` contact, its gates out of `Operations::CAPS['osm']`, and its notice and staging answer.
+- **OpenStreetMap stays Active**: our Geofabrik copy, the map tiles and the credit "© OpenStreetMap contributors" (0065,
+  0066) are unchanged.
 
 ### 5. What doesn't change
 
@@ -156,19 +166,18 @@ public servers"), what replaced it (our copy from Geofabrik, five states), and w
    - the 22 links changed (and `#amazon` to `#svc-aws`);
    - the stage column and its log (`service_stages`, with a migration and its staging class);
    - Pause and Activate on the board;
-   - the staging-guard bug fixed (`Staging::here()` in `CommsSetup`, `Mailboxes` and `SesInbound`);
-   - OpenStreetMap as the first Retired record;
+   - Overpass as the first Retired record (OpenStreetMap stays Active);
    - FAQ;
    - tests: `peek-anchor.cjs` through the redirect, plus a `register.php` test for the stages and the way back.
 2. **The key on its card**, about 5 files:
    - `EnvSettings::setSecret()` with its guards;
    - Add, Replace, Remove, Put back and Check on the card;
-   - the Railway keys' links and their Check from `worker:keys`;
+   - the Railway keys as Jason chooses (§3), with their Check from `worker:keys`;
    - NPS first;
    - tests: the writer's guards (staging, a non-owner, nothing logged) and Undo.
 3. **Defined once**, about 10 files:
    - `service-defs.php`, with the constants turned into reads of it;
-   - Overpass's 5 leftovers moved into OpenStreetMap's entry;
+   - Overpass's own entry, with its 5 leftovers moved into it;
    - Propose a service, Retire and Bring it back;
    - the Removed list;
    - tests: every constant reads the same values as before.
@@ -176,7 +185,7 @@ public servers"), what replaced it (our copy from Geofabrik, five states), and w
 ## Consequences
 
 - One page and one address for a service. An alarm's Open its card, a Pulse case and Pre-flight all land on the same card.
-- Adding a key no longer needs cPanel, and it's proven at once with a way back. Railway's keys stay on Railway, with their
-  link.
+- Adding a `.env` key no longer needs cPanel, and it's proven at once with a way back. Railway's keys follow Jason's choice
+  in §3.
 - Retiring a service is one press and one record, not 11 files and a search for leftovers.
 - Risk: the merged card is long. It folds by section (`h2.hb-h`), so the issue and the stage come first.
