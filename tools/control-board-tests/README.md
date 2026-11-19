@@ -136,3 +136,7 @@ and `website/api/` (the mirror's `sync-storage/api/crawl` and `api/video`). Put 
   logged), a critical part's first failure a trip at once while still retrying, Recovered closing itself with nothing to
   press, the Escalation Notice when its tries run out (then only Resolve), any other part unchanged. 20 tests, on
   MariaDB: `php critical.php <root>/app`.
+- `sensor.php`: control-board-critical-2 (0171 §5's second note): the hook (no connection, table missing, a watched
+  path only, path and status only), one stray error a notice, 3 a critical trip, Recovered, a failed test and the
+  Escalation Notice, QuickBooks held, the search test changing no table, 7 days kept. 25 tests:
+  `php sensor.php <root>/app`. (Also tried for real: a 500 from /api/search.php under `php -S` is noted.)
