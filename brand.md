@@ -77,6 +77,14 @@ This confirms the mobile menu reviewed 2026-09-25 is a faithful implementation o
 - **Atmospheric Void** (deep shadows, map oceans): `#231D17` Subtle Slate-Umbra — deep background contrast, historical cartographic framing.
 - **The Parchment Canvas** (primary backgrounds): `#EFE3C8` Warm Aged Vellum — high-legibility, tactile field for data feeds.
 - **Elevated Surfaces** (cards, interactive containers): micro-gradient `#E6D8B5` → `#D8C79D`, mimicking physical parchment and relief maps.
+  - *Note (Jason, 2026-11-19): three levels.* The page, a section and a card are one warm hue, stepping only in lightness:
+    page `#E4DCC5`, section `#EDE6D5` (edge `#DBD2BA`), card `#F6F1E4` (edge `#E3DBC6`, flat, Jason: "i like this card
+    color"). Tags on a card take the section colour. Text boxes and dropdowns share the card colour, with their own edge
+    `#8D7E68` (3.5:1 on the card) so a box can be found. This replaces the vellum canvas `#EFE3C8` as the page and the
+    micro-gradient `#E6D8B5` → `#D8C79D` as the card; the vellum stays a brand colour. Ink, metadata and link brown pass
+    4.5:1 on every level. Tokens: `--tv-canvas` (the page), `--tv-sec`, `--tv-sec-edge`, `--tv-card-a`/`-b`,
+    `--tv-card-edge`, `--tv-tag`, `--tv-field`, `--tv-field-edge` in `app/ui/theme-tokens.php`. Primary buttons stay brand
+    brown `#92400E` with white text until Jason chooses (gold `#C69A47` takes umber text, 5.2:1; white on gold fails, 2.6:1).
 - **Typography & Hierarchy:** Warm Near-Black `#2A1D14` for primary headings; Muted Taupe `#7A6A52` for metadata and subheadings.
   - *Note (Jason, 2026-11-18, design Release 1):* taupe is 4.11:1 on the vellum, under §8's 4.5:1, so **small metadata
     text** is taupe with 35% Warm Near-Black mixed in (`--tv-meta`, 6.2:1 on the vellum, 4.73:1 on `#D8C79D`); taupe itself
