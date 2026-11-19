@@ -45,4 +45,17 @@ $t('a refusal holds at once (held or out trips at once)', $st()[0] === 'held', $
 $src = file_get_contents($app . '/lib/Operations.php');
 $t('the switch-on check reds a service only when held or out, so a back-off in its wait leaves the gate green', str_contains($src, "if (\$r['status'][0] === 'held') \$why[] = 'held: '") && str_contains($src, 'if (!ServiceHealth::spentHold($pdo, $si))'));
 
+// 6. a process with an open trip: its row offers Check and start again (its Resolve), never a bare Start; its Check's
+// notice says the trip stays red until then (Jason, 2026-11-19: the notice read as cleared beside a red X)
+require_once $app . '/admin/widgets.php'; require_once $app . '/ui/app-shell.php'; require_once $app . '/admin/preflight-console.php'; require_once $app . '/admin/control-console.php';
+$pdo->exec("INSERT INTO control_alarms (akey, proc, level, kind, title, n_times, first_at, last_at, tripped_at) VALUES ('pf:wf:W1', 'wf:W1', 'trip', 'check', 'W1: its gate', 1, UTC_TIMESTAMP(), UTC_TIMESTAMP(), UTC_TIMESTAMP() - INTERVAL 2 HOUR)");
+$aid = (int) $pdo->lastInsertId();
+$btn = fn ($act, $label, $ok, $why, $id = '', $attr = []) => '<button data-cb="' . $act . '" data-cb-id="' . $id . '">' . $label . '</button>';
+$h = tv_cb_controls('wf:W1', ['switch' => 'off', 'name' => 'W1 Listings'], [], $btn, true, '', true, '', true);
+$t('a tripped process\'s row: Check and start again on its trip, no bare Start', str_contains($h, 'data-cb="resolve" data-cb-id="' . $aid . '">Check and start again') && !str_contains($h, 'data-cb="start1"'), $h);
+$h2 = tv_cb_controls('wf:W2', ['switch' => 'off', 'name' => 'W2'], [], $btn, true, '', true, '', true);
+$t('…a process with no trip keeps its Start', str_contains($h2, 'data-cb="start1"'), $h2);
+$api = file_get_contents(dirname($app) . '/website/admin/api.php');
+$t('…and a Check on a tripped process says its trip stays red until Check and start again', str_contains($api, "stays red until you press Check and start again on this row"));
+
 echo "\n$pass passed, $fail failed\n"; exit($fail ? 1 : 0);
