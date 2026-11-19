@@ -17,13 +17,14 @@
   {
    "path": "app/admin/control-console.php",
    "functions": [
+    "tv_admin_mod_control",
     "tv_cb_controls"
    ],
    "kind": "change",
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "control-board-backoff-gate",
+   "why": "control-board-5b: the reports",
    "since": "2026-11-19T11:21:48Z",
-   "expires": "2026-11-19T15:21:48Z",
+   "expires": "2026-11-19T16:00:32Z",
    "release": "",
    "callers": {}
   },
