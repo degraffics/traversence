@@ -59,6 +59,17 @@
    "expires": "2026-11-19T20:01:50Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/admin/kit-css.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "control-board-table: the parts in the admin's one table",
+   "since": "2026-11-19T16:01:54Z",
+   "expires": "2026-11-19T20:01:54Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
