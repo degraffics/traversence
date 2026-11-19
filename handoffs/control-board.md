@@ -693,3 +693,19 @@ to `/admin/config/register`). Jason approved it, and the removal of `tv_admin_mo
   plus the ledger) lacks `automation_switches`, `crawl_workflows` and what `CrawlService::pause` needs. Add them to
   `r2a-schema.sql` so r2b runs again.
 - Next: release 2, the key on its card (`EnvSettings::setSecret()`, NPS first); then release 3, defined once.
+
+## decisions/0173 release 2, the key on its card (2026-11-19, built on Sync 22:49 UTC, 58fe949)
+
+`service-keys-r2.zip`, 8 files; Jason approved it in the pop-up (reviewed by the session manager).
+- `EnvSettings::setKey()` is 0173 §3's writer (named setKey: `setSecret()` already writes the secrets the site makes). Its
+  guards are inside: a key it knows (`secrets()`: Operations::KEYS kept in .env, not one also on Railway, plus
+  MAIL_SECRETS), never on staging, the Founder only (`Access::who()`, since `Access::can` lets Executives through), a
+  value .env can hold; logged as key and how, never the value. `removeKey()`, `putBack()` through the same guard;
+  `setMailSecret()` calls it, so Executives no longer reset mailbox passwords (0167 §4: owner-only).
+- `keepOld()` and `forgetOld()` now write through `swap()`: the same lock as `write()`, the old file's permissions.
+- The card (`tv_ops_keys`): Add its key / Replace / Remove / Put the old one back / Forget, and Check (the service's
+  pre-flight line, run at once after a save; a pass forgets the old value). Railway's keys: the full link to the
+  crawler's Variables, and Check.
+- `NPS_API_KEY` is optional (the photos; NPGallery needs none): it never holds a switch-on, and its check asks
+  developer.nps.gov with it.
+- Tests: `keys.php` (30). Next: release 3, defined once (`service-defs.php`, Proposed, Retire, Removed list).
