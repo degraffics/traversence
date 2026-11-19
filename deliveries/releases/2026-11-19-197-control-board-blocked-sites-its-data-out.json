@@ -1,0 +1,99 @@
+{
+    "id": 197,
+    "title": "Control Board: blocked sites, Its data, outside our region, Pulse's speed, counts that filter",
+    "why": "Jason's four answers in the pop-up (2026-11-19) and the session manager's queued Pulse warning, as one release: sites that blocked W0 are one quiet notice with their reasons and Reactivate (a warning only past a share of the day's reads); each process's own page shows Its data (the records its calls touched, ids and what happened only); W0 logs addresses about other states as Outside our region and never reads them (a welcome rule brings them back); Pulse is a part on the board, timed per open, a warning past 2 s naming the Pulse store. decisions/0171 §4 and §7 notes, 0164 §1.4 note.",
+    "proposals": "",
+    "zip": "control-board-itsdata.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/admin/control-console.php": {
+            "sha": "90b315e99c504e720f41349e8ffa7aeb29534a1af8995f3da1796bbe5266441a",
+            "size": 109393,
+            "live_was": "7a4da3804bca559023e46d35ae0c9cda3d4604bbbc5a91a758278f4e61ad9e44"
+        },
+        "app/admin/tools.php": {
+            "sha": "c5ba3e8fdff04a2732513eb976780bf2ec3e38736518624c868a2c3ef2e83db6",
+            "size": 266541,
+            "live_was": "d5c72f2be1fa9139dcd05838a53247c3c6cee8f0b2f727edae4db08dd3439cb8"
+        },
+        "app/admin/sections.php": {
+            "sha": "9cfde4c9e0495543597898a330e2fca1835867f83735d5535ca679b2a3893e09",
+            "size": 254279,
+            "live_was": "b85c805dc6860e11aee40a9deee8edee824c2428daa829929bbbf3fbc97e392c"
+        },
+        "app/admin/index-console.php": {
+            "sha": "7d845280b422aa96feb2744b7eda764cfd6c70e6590093f3aef088d60c303dd2",
+            "size": 15266,
+            "live_was": "3cbb506b519d76a53aed9451d375fc1e43f07e9214311f6aa4f288204591faf3"
+        },
+        "app/ui/pulse-ui.php": {
+            "sha": "ac869feab72e83866ab4205197a315428473af222305b6f3cb665b301cfd7076",
+            "size": 155175,
+            "live_was": "d81a8b3070d8a28cb52668adfe3d80814f2702eee317c5a26be67946eaf7a74a"
+        },
+        "app/ui/faq.md": {
+            "sha": "43d9f18c615cb1d148e9ee73ebd7436b6ca9b0dbfcc36e28cc87e1ee4e4897c9",
+            "size": 378783,
+            "live_was": "745796cc95f4109e94653a9af18a1cb1cc863fe01469e5e2f6eadf7d0926777e"
+        },
+        "app/lib/Operations.php": {
+            "sha": "89130d6859719973d26f33f596c1a17992746c36d0e82df190b329ff2c3597e0",
+            "size": 75196,
+            "live_was": "a3a0dcf3e7309646b5d344b22006f0abc01a450ed24bda75d7f5ff9f5801853b"
+        },
+        "app/lib/Thresholds.php": {
+            "sha": "8d1c6fdd0e338ea8721c3aff8d81264169eb1b5b1ea062b0d027fccbb4379526",
+            "size": 31412,
+            "live_was": "391fb799585870b9aad0cdb2883218ca660ca8b185e844d9661c11e73edfdeb5"
+        },
+        "app/lib/crawler/Frontier.php": {
+            "sha": "867797aab7871272922e3a61f286187965d9af90241c163bc9eabbf41ed81755",
+            "size": 65038,
+            "live_was": "800bf01cdf5c260f1b9f6f447a1c5589e1a02b53fbb1e350c55bfa9f2be3fe1b"
+        },
+        "app/lib/crawler/Sources.php": {
+            "sha": "934f21e7f080ea56ddf258697d269e88f30f47460260793a44f5c2ae9701522f",
+            "size": 61595,
+            "live_was": "61fe536994afcf6660a797661453741538d25011c91f9a05a01101630032996e"
+        },
+        "app/lib/ControlRegister.php": {
+            "sha": "c2a1b087f561afc317a31bf6ee664b6d3d92ceb4a1e83042ab51625233c74136",
+            "size": 22485,
+            "live_was": "660c63ed4f43ae9410423b025950ea6b1aca956d3ac70fd243bdd6aa27292d55"
+        },
+        "app/lib/ControlSensor.php": {
+            "sha": "67b7ec4a6e40fa6a36963235228cc454d251c0100a2da900bdab5e2016cf0ff6",
+            "size": 17227,
+            "live_was": "15574aed2c117fd719f8156d123a4eb7f9077b610d91013932daf202d15ca5db"
+        },
+        "app/lib/ControlBoard.php": {
+            "sha": "88c539066be329806178a16f8adbfd52add1e22e74b9d3ced754f48662bf91dd",
+            "size": 30313,
+            "live_was": "0731eabcf4f96b1e5f42f727e20abb05c06d3d65676f6cd084be866d2a7ab053"
+        },
+        "website/js/admin-control.js": {
+            "sha": "7969219cf15c978d43031ba0a944012f1c33a681f29115e7c7ce96414fdefb88",
+            "size": 30927,
+            "live_was": "8e6c541273bcc2789346c3bd2d68e93976c673353169d2bdb862ff556fc8c753"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-19T17:06:09+00:00",
+            "by": 0,
+            "msg": "Uploaded control-board-itsdata.zip: 14 files."
+        }
+    ]
+}
