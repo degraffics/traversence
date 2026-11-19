@@ -309,3 +309,9 @@ the fifth zip's changes).
 > strip near the place: within 150 miles of the place's towns, nearest first, with the miles. A Lawrence, KS visitor
 > centre had reached an Arizona strip through a nationwide, name-ordered query.
 
+**Note (2026-11-19, a fix in place of card photos, #205; Jason's screenshot of Lyman Lake State Park with a stock photo of a shopping street): the page someone opens is looked up first.**
+- **Why it waited:** the finder reaches 15 places an hour, national parks first, then by listing id, so a state park someone is looking at could wait days.
+- **The fix:** a qualifying listing opened without a photo is added to a short list of wanted places (`PlacePhotos::want`, kept in PageCache for a week, at most 50). The next run of `find()` takes those first.
+- **Unchanged:** the same finder, pace (one place at a time, 2 seconds apart, 15 an hour) and rules (every word of the name, taken nearby, a free licence, 640 px or more). A private place is never looked up, and the W9 and Wikimedia switches still stop it. A place tried in the last 30 days with nothing found isn't tried again sooner.
+- **If gathering is paused**, nothing is looked up until it's switched back on: https://traversence.com/admin/config/automation.
+- **Tests:** `tools/design-tests/place-photos/want.php` (8 checks).

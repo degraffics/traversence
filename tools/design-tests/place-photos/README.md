@@ -10,3 +10,4 @@ The finder (`app/lib/PlacePhotos.php`) and the strip's own functions (`website/d
 3. `php website/discovery/test.php`: 19 checks. These cover the finder's rules (name words, distance, size, licence, a
    private place never looked up), the W9 pause, the strip near the place (no Kansas), photos found before stock, credits
    and miles, the fallback when nothing is close, and no place set unchanged.
+4. `php website/discovery/want.php` (copy it beside `test.php`; it adds a `page_cache` table): 8 checks. A listing opened without a photo is wanted once, only listings are wanted, the next run looks it up first and only it, it then leaves the list, and its photo shows.
