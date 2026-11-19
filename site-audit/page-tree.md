@@ -1,6 +1,6 @@
 # Page tree
 
-Decision 0145 §1a. Generated from the live mirror on 2026-11-19 17:41 UTC (`f29a07f`). Checked against the
+Decision 0145 §1a. Generated from the live mirror on 2026-11-19 20:17 UTC (`df23f1c`). Checked against the
 register `site-audit/pages.md` (it replaced `routes.md`, P6). Columns: does the page load the session and the shell, does it draw the account bar, is it in
 `pages.md` / `archive.md`, and which decisions name its file.
 
