@@ -83,6 +83,83 @@
      "app/ui/page-shell.php"
     ]
    }
+  },
+  {
+   "path": "app/admin/control-console.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 4e: slow is never a trip; Resolve is Check and start again",
+   "since": "2026-11-19T00:40:03Z",
+   "expires": "2026-11-19T04:40:03Z",
+   "release": "control-board-4e.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/ControlAlarms.php",
+   "functions": [
+    "pulseSteps",
+    "raise",
+    "resolve",
+    "tick"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 4e: slow is never a trip; Resolve is Check and start again",
+   "since": "2026-11-19T00:40:03Z",
+   "expires": "2026-11-19T04:40:03Z",
+   "release": "control-board-4e.zip",
+   "callers": {
+    "resolve": [
+     "website/admin/api.php"
+    ],
+    "tick": [
+     "app/scripts/control_tick.php"
+    ],
+    "raise": [
+     "app/lib/ControlHistorian.php",
+     "app/lib/ControlLedger.php",
+     "app/lib/ControlMaintenance.php",
+     "app/lib/Operations.php",
+     "app/lib/Preflight.php",
+     "app/lib/ServiceHealth.php",
+     "app/lib/crawler/CrawlService.php"
+    ],
+    "pulseSteps": [
+     "app/lib/Pulse.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/ControlLedger.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 4e: slow is never a trip; Resolve is Check and start again",
+   "since": "2026-11-19T00:40:03Z",
+   "expires": "2026-11-19T04:40:03Z",
+   "release": "control-board-4e.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Thresholds.php",
+   "functions": [
+    "GATES"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 4e: slow is never a trip; Resolve is Check and start again",
+   "since": "2026-11-19T00:40:03Z",
+   "expires": "2026-11-19T04:40:03Z",
+   "release": "control-board-4e.zip",
+   "callers": {
+    "GATES": [
+     "app/admin/operations-console.php",
+     "app/admin/sections.php",
+     "app/lib/Operations.php",
+     "app/lib/WorkflowSettings.php"
+    ]
+   }
   }
  ],
  "lapsed": [
