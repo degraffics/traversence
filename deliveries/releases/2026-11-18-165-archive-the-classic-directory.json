@@ -1,0 +1,34 @@
+{
+    "id": 165,
+    "title": "Archive the classic directory",
+    "why": "Jason, 2026-11-19 (the 3c pop-up): \"Archive it\". The Classic directory link comes out of Get Local's rail; the page itself stays on the server and reachable at /directory/classic.php (archive.md: Archived pages outside the admin, replaced by Get Local). Nothing else links to it.",
+    "proposals": "",
+    "zip": "archive-classic-directory.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "website/directory/index.php": {
+            "sha": "114ddbe7dd3f430081aedf30d00c4af2cffa20a5f0c51ce4dc4e31b1dfdfc7cd",
+            "size": 63456,
+            "live_was": "9d8d0e64f910f35b73c95c16fb0176545bf3604376bd3c344bcf6306f4226dd6"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-19T04:13:48+00:00",
+            "by": 0,
+            "msg": "Uploaded archive-classic-directory.zip: 1 files."
+        }
+    ]
+}
