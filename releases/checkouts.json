@@ -125,6 +125,17 @@
    "expires": "2026-11-20T01:33:21Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/lib/crawler/CrawlService.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "overpass-off (Jason 2026-11-19: Stop entirely; and Geofabrik's 308 and 503)",
+   "since": "2026-11-19T21:33:23Z",
+   "expires": "2026-11-20T01:33:23Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
