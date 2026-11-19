@@ -147,6 +147,17 @@
    "expires": "2026-11-19T21:09:55Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "website/admin/content-template.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "T4: the table standard on the admin's older pages (approved 2026-11-19)",
+   "since": "2026-11-19T17:09:57Z",
+   "expires": "2026-11-19T21:09:57Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
