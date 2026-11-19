@@ -1,0 +1,34 @@
+{
+    "id": 174,
+    "title": "Home: the local group card names the place only",
+    "why": "Jason's screenshots, 2026-11-19: the home page's local group card read \"Ancient America · region you came from neighbors\". The home page copied the header menu's display text for the place, which adds where the place came from (\" · region you came from\", \" · your default\"); the Where field cut that off, the group card did not. Both now use the place's own name (location-scope.js's tvPlaceLabel), so the card reads \"Ancient America neighbors\".",
+    "proposals": "",
+    "zip": "home-place-name.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "website/index.php": {
+            "sha": "f38f535625ebde2b4625394673a177a2aa10e4eaeae8754609bc2c1c3dace8cc",
+            "size": 47092,
+            "live_was": "980ffe1c234b154ee24df8998e906d0090db73123056270a503cfca769fd24cb"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-19T12:23:53+00:00",
+            "by": 0,
+            "msg": "Uploaded home-place-name.zip: 1 files."
+        }
+    ]
+}
