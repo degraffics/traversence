@@ -13,31 +13,6 @@
    "callers": {}
   },
   {
-   "path": "app/ui/pulse-ui.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
-   "why": "Pulse: overdue rows rise (Jason, 2026-11-19)",
-   "since": "2026-11-19T14:20:04Z",
-   "expires": "2026-11-19T19:53:48Z",
-   "release": "pulse-clocks.zip",
-   "callers": {
-    "tv_pulse_board": [
-     "app/admin/sections.php",
-     "website/admin/w.php"
-    ],
-    "apply": [
-     "app/lib/Rebuild.php",
-     "app/lib/SearchEdits.php",
-     "app/lib/SuggestionActions.php",
-     "app/lib/Thresholds.php",
-     "app/lib/Uploads.php",
-     "app/lib/crawler/ClusterRecluster.php",
-     "website/js/consent.js"
-    ]
-   }
-  },
-  {
    "path": "app/lib/Claims.php",
    "functions": [
     "askAboutHidden",
@@ -72,20 +47,6 @@
    "since": "2026-11-19T14:26:37Z",
    "expires": "2026-11-19T18:26:37Z",
    "release": "listing-portal-hidden.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/Pulse.php",
-   "functions": [
-    "'square'",
-    "items"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
-   "why": "Pulse: clocks on work cases only; an open trip still escalates (Jason, 2026-11-19)",
-   "since": "2026-11-19T14:27:07Z",
-   "expires": "2026-11-19T19:53:48Z",
-   "release": "pulse-clocks.zip",
    "callers": {}
   }
  ],
