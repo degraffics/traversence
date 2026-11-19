@@ -112,6 +112,28 @@
    "expires": "2026-11-19T16:11:47Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/lib/SystemStart.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "release control-board-links.zip",
+   "since": "2026-11-19T12:13:15Z",
+   "expires": "2026-11-19T16:13:15Z",
+   "release": "control-board-links.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/operations-console.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "release control-board-links.zip",
+   "since": "2026-11-19T12:13:15Z",
+   "expires": "2026-11-19T16:13:15Z",
+   "release": "control-board-links.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
