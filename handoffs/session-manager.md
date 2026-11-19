@@ -134,6 +134,21 @@ view a visit: Insights → Numbers shows Visits = Views on every page (/director
   person or device), so 0058's "never who" holds; Insights shows new and returning visits. A 0058 §13 note.
 - Free (no outside service). To a session when Jason chooses (the Control Board session, idle, knows Insights).
 
+**Routes and trip plans on our own site, from OpenStreetMap** (Jason, 2026-11-19, with a screenshot of a guide's
+"About 4 mi in all. Open the route in Maps", which sends people to Google Maps directions: "cant we offer a route or trip
+plan using OSM and keep people on our own site?"). Decision first; nothing built. What it needs:
+- **A routing engine over OSM roads**, choosing by "No income, no expense" and OSM's usage policies:
+  - (a) self-hosted OSRM or Valhalla on Railway, from the Geofabrik Arizona and New Mexico extracts we already download.
+    It has a monthly server cost, so it needs revenue or Jason's OK.
+  - (b) openrouteservice's free tier (a key, daily cap), through StagingGate and counted on the board.
+  - (c) FOSSGIS's public routing (routing.openstreetmap.de), light use only under its policy, with the same care as
+    Overpass (decision 0065; research/osm-overpass-2026-11-13.md).
+- **On our map** (map-view.js, the `--tv-route` lime line already in the design queue): the route drawn, its miles and
+  time, the stops in order. A guide or journey's stops become a trip plan to save, share and print. "Open in Google
+  Maps" stays as a choice for turn-by-turn on the road (never a dead end).
+- OSM's credit on the route (0065); no visitor data kept (0058 §13).
+- To a session when Jason chooses the engine.
+
 **Pulse's load-time warning** (Jason, 2026-11-19: "add Pulse's load-time warning", to the Control Board session): time
 how long `Pulse::items` takes to gather (its ~15 sources) on each open of the admin's Pulse. Keep the reading in the
 board's timings (`ms:pulse`) with its history. Show it as a part on the board. A warning (board only) when the usual time
