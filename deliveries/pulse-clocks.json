@@ -1,0 +1,22 @@
+{
+ "zip": "pulse-clocks.zip",
+ "built_on": "087842f Sync: 2026-11-19 15:29 UTC",
+ "recorded": "2026-11-19 15:54 UTC",
+ "note": "Pulse: clocks on work cases only (with security), overdue in the bell, open trips still escalate; restores #188's FAQ lines, overwritten by #189. Approved by Jason in the pop-up (reviewed by the session manager). Built on Sync: 15:29 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/Pulse.php": {
+   "sha256": "6c85d57d73f8859d5866f523daecf53d25f62bfb603e32327fcca16a93cce521",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "851cedb6e5c4a60b406e0c9f34056564402101c4f4d5456dbb3f9a0fd2214cd4",
+   "live": false
+  },
+  "app/ui/pulse-ui.php": {
+   "sha256": "a8abbe1d359942d72055fecd6648e7ed22b770f3ba09d9877a7ff24c318ce296",
+   "live": false
+  }
+ }
+}
