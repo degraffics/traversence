@@ -6,237 +6,323 @@
     "zip": "buttons-standard.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "staged",
-    "step": 0,
+    "state": "live",
+    "step": 3,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
     "plan_at": "2026-11-19 13:17:38",
     "staged_at": "2026-11-19 13:17:40",
-    "vetted_at": null,
-    "live_at": null,
+    "vetted_at": "2026-11-19 13:17:44",
+    "live_at": "2026-11-19 13:17:44",
     "files": {
         "app/admin/kit-css.php": {
             "sha": "d85b9c229b2bb4c8ad38a2819dbb9e8ab67f68400fae79df8154647c591afd2d",
             "size": 33815,
-            "live_was": "1d7e19bdcadba80292e3acae966dfab1896e5d744c42fdae183eb4981932e45d"
+            "live_was": "1d7e19bdcadba80292e3acae966dfab1896e5d744c42fdae183eb4981932e45d",
+            "existed": true,
+            "old_sha": "1d7e19bdcadba80292e3acae966dfab1896e5d744c42fdae183eb4981932e45d"
         },
         "app/ui/command-strip.php": {
             "sha": "dbb430a5c8cf928d564b561f0e171250cbb3ce3fb8660966dcf24ead50d88049",
             "size": 13159,
-            "live_was": "9cf3a709e7fd597e802ef11597e516f955751eaa6a5cb7297dfc20d217acfa39"
+            "live_was": "9cf3a709e7fd597e802ef11597e516f955751eaa6a5cb7297dfc20d217acfa39",
+            "existed": true,
+            "old_sha": "9cf3a709e7fd597e802ef11597e516f955751eaa6a5cb7297dfc20d217acfa39"
         },
         "app/ui/explore-hero.php": {
             "sha": "14bd3650dbe83481594caaa69af7bdfb291943de2f597ae9cca29132b107687b",
             "size": 36101,
-            "live_was": "9bfdd312aa1758704f1f8cd6479c97656cf3a5f6e9676dfaac626d9b2f7756ef"
+            "live_was": "9bfdd312aa1758704f1f8cd6479c97656cf3a5f6e9676dfaac626d9b2f7756ef",
+            "existed": true,
+            "old_sha": "9bfdd312aa1758704f1f8cd6479c97656cf3a5f6e9676dfaac626d9b2f7756ef"
         },
         "app/ui/gallery-ui.php": {
             "sha": "b853317d6d8be3612b64929dd37e3397372c9ee080b45bf88a7977995a97f52c",
             "size": 18227,
-            "live_was": "4f0e7106516df571b32c19815909f891645c963cff2703685549c4d0124dc563"
+            "live_was": "4f0e7106516df571b32c19815909f891645c963cff2703685549c4d0124dc563",
+            "existed": true,
+            "old_sha": "4f0e7106516df571b32c19815909f891645c963cff2703685549c4d0124dc563"
         },
         "app/ui/vault.php": {
             "sha": "b76c57308f388b2c832b1edf97fffba408f49f86d940cc1f38a1cd7d6b750fbc",
             "size": 44307,
-            "live_was": "00524a1acf9927c4f4d16c669fc0a1025b614bcf39bb9f84830537e58a34248e"
+            "live_was": "00524a1acf9927c4f4d16c669fc0a1025b614bcf39bb9f84830537e58a34248e",
+            "existed": true,
+            "old_sha": "00524a1acf9927c4f4d16c669fc0a1025b614bcf39bb9f84830537e58a34248e"
         },
         "app/ui/theme-tokens.php": {
             "sha": "c2b4e34773e5c4d612002b9a084345345d93855e2b8227c3f45e06556b5b1937",
             "size": 8900,
-            "live_was": "1305a8396ff06e20a9d859a7453d13fcbb389cd6d02fb0eb2f23fc30b00232ff"
+            "live_was": "1305a8396ff06e20a9d859a7453d13fcbb389cd6d02fb0eb2f23fc30b00232ff",
+            "existed": true,
+            "old_sha": "1305a8396ff06e20a9d859a7453d13fcbb389cd6d02fb0eb2f23fc30b00232ff"
         },
         "app/ui/footer.php": {
             "sha": "cc2235f4d9768f9a0abb0a9dd138451b69bcccfd0449d2363925e6b90f4fdc52",
             "size": 7307,
-            "live_was": "b0d4a642e10e3720dfe3d01c48b97b752f87d0c9724f350bb94cb5c2df6c6e52"
+            "live_was": "b0d4a642e10e3720dfe3d01c48b97b752f87d0c9724f350bb94cb5c2df6c6e52",
+            "existed": true,
+            "old_sha": "b0d4a642e10e3720dfe3d01c48b97b752f87d0c9724f350bb94cb5c2df6c6e52"
         },
         "app/ui/profile-header.php": {
             "sha": "81c4d01f49d8870a69196ecba591f1aece773d9500858984911d230003a9de05",
             "size": 22746,
-            "live_was": "c359bfd8dbdf26017d04f3cf475298e458638687b7cac29e70dbbc92ca586cec"
+            "live_was": "c359bfd8dbdf26017d04f3cf475298e458638687b7cac29e70dbbc92ca586cec",
+            "existed": true,
+            "old_sha": "c359bfd8dbdf26017d04f3cf475298e458638687b7cac29e70dbbc92ca586cec"
         },
         "app/ui/stock-ui.php": {
             "sha": "e2e6af133c2849ec458440ae6981a8e477fc84b93a63a0ab7ebc6b6af60e7679",
             "size": 13469,
-            "live_was": "17b6ae9cb5bac33b8f9d05d2cae0b9596ab1c424ce8727d5caddec9f8ffa77a3"
+            "live_was": "17b6ae9cb5bac33b8f9d05d2cae0b9596ab1c424ce8727d5caddec9f8ffa77a3",
+            "existed": true,
+            "old_sha": "17b6ae9cb5bac33b8f9d05d2cae0b9596ab1c424ce8727d5caddec9f8ffa77a3"
         },
         "app/ui/location-modal.php": {
             "sha": "ba01c711707f7ec8cd49067eac0a0b5e08e508904da7551652f573d06fb23269",
             "size": 13507,
-            "live_was": "c417f5659dafa16fe1009e3a5e6d8d073ebcef9031e3b24d4fdfef5b976382e4"
+            "live_was": "c417f5659dafa16fe1009e3a5e6d8d073ebcef9031e3b24d4fdfef5b976382e4",
+            "existed": true,
+            "old_sha": "c417f5659dafa16fe1009e3a5e6d8d073ebcef9031e3b24d4fdfef5b976382e4"
         },
         "app/ui/tag-chips.php": {
             "sha": "21f72dcab2c8d475e8ab54450acb5a894008e0de3acfc913ae39a4eadbc96787",
             "size": 4085,
-            "live_was": "4897f5e7f1af30a1e8f5a9425e0cfce59e3fb67205be932d3fe9fc2dc5ffdced"
+            "live_was": "4897f5e7f1af30a1e8f5a9425e0cfce59e3fb67205be932d3fe9fc2dc5ffdced",
+            "existed": true,
+            "old_sha": "4897f5e7f1af30a1e8f5a9425e0cfce59e3fb67205be932d3fe9fc2dc5ffdced"
         },
         "app/ui/go-codes.php": {
             "sha": "74c0a31bf71a34de259b6c90113e6738769bfa93e36b0430c8e571270353f8df",
             "size": 6829,
-            "live_was": "fc211cf6163175d287d3022571b07aabf5447242e0151415e3c59685233762c3"
+            "live_was": "fc211cf6163175d287d3022571b07aabf5447242e0151415e3c59685233762c3",
+            "existed": true,
+            "old_sha": "fc211cf6163175d287d3022571b07aabf5447242e0151415e3c59685233762c3"
         },
         "app/ui/faq.md": {
             "sha": "1e2c75052b2d214bc4f2ab990404acfc6d6cc2266e7f4ae9175cd08844f33176",
             "size": 366115,
-            "live_was": "04c4aa158b79b92165661f0c4dba40dcbb360434906d30dddcee1234d676f301"
+            "live_was": "04c4aa158b79b92165661f0c4dba40dcbb360434906d30dddcee1234d676f301",
+            "existed": true,
+            "old_sha": "04c4aa158b79b92165661f0c4dba40dcbb360434906d30dddcee1234d676f301"
         },
         "app/ui/header.php": {
             "sha": "3f757f1d59bbe99f889f0261d93bf5b613dcef8d07e1c8b336b3caf270c53c10",
             "size": 62561,
-            "live_was": "33f347963258d08329180d5484b3eb8086646e1ffb7bcd2f8ce04975369b3455"
+            "live_was": "33f347963258d08329180d5484b3eb8086646e1ffb7bcd2f8ce04975369b3455",
+            "existed": true,
+            "old_sha": "33f347963258d08329180d5484b3eb8086646e1ffb7bcd2f8ce04975369b3455"
         },
         "website/listing/view.php": {
             "sha": "dd919947c0c6da07b2634afcb55fc4b1b44ef8da1da03bd23c923b3235905e51",
             "size": 60057,
-            "live_was": "313bcbbd6295cf253ae6f25525e04f2806ab2b9ff01c00690d12213cb88a6d94"
+            "live_was": "313bcbbd6295cf253ae6f25525e04f2806ab2b9ff01c00690d12213cb88a6d94",
+            "existed": true,
+            "old_sha": "313bcbbd6295cf253ae6f25525e04f2806ab2b9ff01c00690d12213cb88a6d94"
         },
         "website/ai/index.php": {
             "sha": "c18c00b75bbbdc563c6df906ad1ff1eb936307770296796dfc0b5bc5897b5c5a",
             "size": 15080,
-            "live_was": "0abea4c33fa2dd1b6f6174de6cf6b29e906c407b8275e89a4cb7259b7a4069c5"
+            "live_was": "0abea4c33fa2dd1b6f6174de6cf6b29e906c407b8275e89a4cb7259b7a4069c5",
+            "existed": true,
+            "old_sha": "0abea4c33fa2dd1b6f6174de6cf6b29e906c407b8275e89a4cb7259b7a4069c5"
         },
         "website/admin/quickbooks.php": {
             "sha": "aea3a7b90d3775dd58ec380edb3dcbbc42f6ea9c640bd073bc0ecefad1a71020",
             "size": 23907,
-            "live_was": "fb4f909579273a7d0f91f3ce9eb4bad86ab5f4c665e900e29492cde15407a84e"
+            "live_was": "fb4f909579273a7d0f91f3ce9eb4bad86ab5f4c665e900e29492cde15407a84e",
+            "existed": true,
+            "old_sha": "fb4f909579273a7d0f91f3ce9eb4bad86ab5f4c665e900e29492cde15407a84e"
         },
         "website/admin/setup.php": {
             "sha": "f577a4c1dd658cd612d02bc1ed87f3cc9167445fcbc95c903a1ef4fe0484c3e7",
             "size": 7138,
-            "live_was": "5f997be6c882a3ba011d7793495a36ee8ebe5518f73b8965e985e7bc0d19d7a2"
+            "live_was": "5f997be6c882a3ba011d7793495a36ee8ebe5518f73b8965e985e7bc0d19d7a2",
+            "existed": true,
+            "old_sha": "5f997be6c882a3ba011d7793495a36ee8ebe5518f73b8965e985e7bc0d19d7a2"
         },
         "website/admin/login.php": {
             "sha": "74f79f291355a19471648bee086bf6bca14b9e42e51ae0257766fd651fbd2b97",
             "size": 7338,
-            "live_was": "e8af52f2f9654b7f9e9dd1e792c93d6504ad3437f0a8f2e835f28827e9049348"
+            "live_was": "e8af52f2f9654b7f9e9dd1e792c93d6504ad3437f0a8f2e835f28827e9049348",
+            "existed": true,
+            "old_sha": "e8af52f2f9654b7f9e9dd1e792c93d6504ad3437f0a8f2e835f28827e9049348"
         },
         "website/user/accounts.php": {
             "sha": "0ce6afd14f5a44c8e8be09d4f96c3b523ddaaefe1c591e1c48118427b7f4fb98",
             "size": 8759,
-            "live_was": "5154a68c14745fe3d7c47746f8aa704e8ab117557621be1ce7713ccddc9ea254"
+            "live_was": "5154a68c14745fe3d7c47746f8aa704e8ab117557621be1ce7713ccddc9ea254",
+            "existed": true,
+            "old_sha": "5154a68c14745fe3d7c47746f8aa704e8ab117557621be1ce7713ccddc9ea254"
         },
         "website/user/orders.php": {
             "sha": "89689851685ed06ec083491817751fe89c1747ab25ec44a594367155d9de6480",
             "size": 9095,
-            "live_was": "ba9623576116e73143ba797d9626e0b5a3c23636776bf688fdc0942d889ca701"
+            "live_was": "ba9623576116e73143ba797d9626e0b5a3c23636776bf688fdc0942d889ca701",
+            "existed": true,
+            "old_sha": "ba9623576116e73143ba797d9626e0b5a3c23636776bf688fdc0942d889ca701"
         },
         "website/user/staff-link.php": {
             "sha": "2405e3a79f1d94cc3ddf8d5063027835ae281fe0904556176b4a23e36fd368c2",
             "size": 3963,
-            "live_was": "39dfba963a11b28cf75f5ab4a61224049f6229eb7d33b85ec66f94f472e00251"
+            "live_was": "39dfba963a11b28cf75f5ab4a61224049f6229eb7d33b85ec66f94f472e00251",
+            "existed": true,
+            "old_sha": "39dfba963a11b28cf75f5ab4a61224049f6229eb7d33b85ec66f94f472e00251"
         },
         "website/user/transfer.php": {
             "sha": "b1fa45ef1ff53cf55d093ea642a206a4853f6a5d4c96439422b5ebfd73c8f8ac",
             "size": 5593,
-            "live_was": "ab46608b2f3e608f0f52064de821f9a65cbc528a163d4194a64b7ddf0926c82f"
+            "live_was": "ab46608b2f3e608f0f52064de821f9a65cbc528a163d4194a64b7ddf0926c82f",
+            "existed": true,
+            "old_sha": "ab46608b2f3e608f0f52064de821f9a65cbc528a163d4194a64b7ddf0926c82f"
         },
         "website/discovery/index.php": {
             "sha": "e463b1c4b96ecedb3f80803b460a2c9344f71a136101b14eb9033e3e1b576a06",
             "size": 88222,
-            "live_was": "b4dfbefa9392cc2466219fdfed627e4a76135c8ed5d1fdfb3a0d7fbde1db6be6"
+            "live_was": "b4dfbefa9392cc2466219fdfed627e4a76135c8ed5d1fdfb3a0d7fbde1db6be6",
+            "existed": true,
+            "old_sha": "b4dfbefa9392cc2466219fdfed627e4a76135c8ed5d1fdfb3a0d7fbde1db6be6"
         },
         "website/index.php": {
             "sha": "d8d863a7fe8e289cd6babb38aeac230de9450ba744095a0ba9ace9345d024a84",
             "size": 47954,
-            "live_was": "114c0b9ed38e561039168a9fda70e313804e3d9163e4c204d8f1f14a1bfd364c"
+            "live_was": "114c0b9ed38e561039168a9fda70e313804e3d9163e4c204d8f1f14a1bfd364c",
+            "existed": true,
+            "old_sha": "114c0b9ed38e561039168a9fda70e313804e3d9163e4c204d8f1f14a1bfd364c"
         },
         "website/hub/index.php": {
             "sha": "ee47c1c74d63626c646e7a59b24832b30ca7512108e7cceab90e9485811ee0e8",
             "size": 66504,
-            "live_was": "53b3d689dcd6f52cde9447e4ec2ed2ff336dc97040c70b424b453c666edd9417"
+            "live_was": "53b3d689dcd6f52cde9447e4ec2ed2ff336dc97040c70b424b453c666edd9417",
+            "existed": true,
+            "old_sha": "53b3d689dcd6f52cde9447e4ec2ed2ff336dc97040c70b424b453c666edd9417"
         },
         "website/verify-email.php": {
             "sha": "14bf31cc8182e3f49ffa3b27432869e86f3cbe3f6eb5161e9f9e681f1f808375",
             "size": 10365,
-            "live_was": "5c1b61b22479884f491edb868cc329eadb3961728bfb9b3a2649257db2663e83"
+            "live_was": "5c1b61b22479884f491edb868cc329eadb3961728bfb9b3a2649257db2663e83",
+            "existed": true,
+            "old_sha": "5c1b61b22479884f491edb868cc329eadb3961728bfb9b3a2649257db2663e83"
         },
         "website/two-step.php": {
             "sha": "aee503378deeb34c5ca357c4cd024e4c928957e606f2f38f21e3c07701336ef9",
             "size": 6763,
-            "live_was": "175fe8405874715d78a92a866ee6e994e3d368fca3f8276f91baedd35bf98f5e"
+            "live_was": "175fe8405874715d78a92a866ee6e994e3d368fca3f8276f91baedd35bf98f5e",
+            "existed": true,
+            "old_sha": "175fe8405874715d78a92a866ee6e994e3d368fca3f8276f91baedd35bf98f5e"
         },
         "website/join.php": {
             "sha": "47ab66317c12b747d2267506eb8bc6652f41a82359d53e03da39b7d7dacbf06d",
             "size": 7529,
-            "live_was": "8c7f6f44a4ffcdca8aa5feb5bb8c18055a7bdda1f9ecaf976eb8389cfd08d8ae"
+            "live_was": "8c7f6f44a4ffcdca8aa5feb5bb8c18055a7bdda1f9ecaf976eb8389cfd08d8ae",
+            "existed": true,
+            "old_sha": "8c7f6f44a4ffcdca8aa5feb5bb8c18055a7bdda1f9ecaf976eb8389cfd08d8ae"
         },
         "website/directory/index.php": {
             "sha": "a6e69210afc63661e63dad7585b0a6d0a014902a392f2d0d03517a92df940744",
             "size": 77095,
-            "live_was": "4fd4ef7874d4bf8f8b5f086423309194dd12145427a5d4ef48906db09714192f"
+            "live_was": "4fd4ef7874d4bf8f8b5f086423309194dd12145427a5d4ef48906db09714192f",
+            "existed": true,
+            "old_sha": "4fd4ef7874d4bf8f8b5f086423309194dd12145427a5d4ef48906db09714192f"
         },
         "website/q.php": {
             "sha": "ce07b18300c994fdd91eb4a21308fbf1e69da5a310ebb5d94b73c5a63be38bc9",
             "size": 17804,
-            "live_was": "2f839043e711e1dd08084eca2986c61d4f3c100a59d40384d9176efb0769501e"
+            "live_was": "2f839043e711e1dd08084eca2986c61d4f3c100a59d40384d9176efb0769501e",
+            "existed": true,
+            "old_sha": "2f839043e711e1dd08084eca2986c61d4f3c100a59d40384d9176efb0769501e"
         },
         "website/takedown.php": {
             "sha": "42da671f8338d7e2ebec762dc9bf3f9f3e4c4010a830dcc10cbbf2c1664ded58",
             "size": 7068,
-            "live_was": "173b9efb1bb7004df01bb912166d90f6f427728f544e0db044f88a9bfd6bbaa9"
+            "live_was": "173b9efb1bb7004df01bb912166d90f6f427728f544e0db044f88a9bfd6bbaa9",
+            "existed": true,
+            "old_sha": "173b9efb1bb7004df01bb912166d90f6f427728f544e0db044f88a9bfd6bbaa9"
         },
         "website/js/map-view.js": {
             "sha": "0d1135c5601f50f9b9ec993d6305a724cafe42eba431ccfe1e33ac9baf46dff2",
             "size": 68023,
-            "live_was": "25495d60a8d52f73383f6326ac1ba9ca40da5b7204cdcd3ca3ac4e0a93d4dd07"
+            "live_was": "25495d60a8d52f73383f6326ac1ba9ca40da5b7204cdcd3ca3ac4e0a93d4dd07",
+            "existed": true,
+            "old_sha": "25495d60a8d52f73383f6326ac1ba9ca40da5b7204cdcd3ca3ac4e0a93d4dd07"
         },
         "website/js/tv-art.js": {
             "sha": "36928bb148fc9d6184908af6d6628b6eacb9e06e8d205d5b0a6896c8d9005be9",
             "size": 27997,
-            "live_was": "cf62e3602cc810a1fc7262bd835fdb35439b80331e6e2e1fc325fdcea596b76c"
+            "live_was": "cf62e3602cc810a1fc7262bd835fdb35439b80331e6e2e1fc325fdcea596b76c",
+            "existed": true,
+            "old_sha": "cf62e3602cc810a1fc7262bd835fdb35439b80331e6e2e1fc325fdcea596b76c"
         },
         "website/js/listing-leave.js": {
             "sha": "f51560ec5d0bf53f4e784df4f6732653c7d9ba41c1d44f2f9e0caad0a7ca1698",
             "size": 15990,
-            "live_was": "57cae85eff967ebc10ca7ca2dddd550a90c31bc0a0de61ba4624c5e3c89e4654"
+            "live_was": "57cae85eff967ebc10ca7ca2dddd550a90c31bc0a0de61ba4624c5e3c89e4654",
+            "existed": true,
+            "old_sha": "57cae85eff967ebc10ca7ca2dddd550a90c31bc0a0de61ba4624c5e3c89e4654"
         },
         "website/js/tv-ai-assist.js": {
             "sha": "f0fe816b629f31be5a5ac273cb6b086b4a7cea8145103c9537634d0082314764",
             "size": 6712,
-            "live_was": "f9830a0deca58ea97e7c80fd5c1b31afc706f506cb907f0d0df3c299469b1e86"
+            "live_was": "f9830a0deca58ea97e7c80fd5c1b31afc706f506cb907f0d0df3c299469b1e86",
+            "existed": true,
+            "old_sha": "f9830a0deca58ea97e7c80fd5c1b31afc706f506cb907f0d0df3c299469b1e86"
         },
         "website/js/tv-tagcard.js": {
             "sha": "65089b81909e2d74ed7bfe6cdc03150edb15d450868031dd7680b10136f723c3",
             "size": 7117,
-            "live_was": "847811083c0abc01eef914e64181c5f5a988f407c34f9a34b455ce9c7383e965"
+            "live_was": "847811083c0abc01eef914e64181c5f5a988f407c34f9a34b455ce9c7383e965",
+            "existed": true,
+            "old_sha": "847811083c0abc01eef914e64181c5f5a988f407c34f9a34b455ce9c7383e965"
         },
         "website/js/search-panel.js": {
             "sha": "1c64923c4bb53c5c801a4d82142f94071c21bed22ab050d16a38d94e27676e06",
             "size": 135105,
-            "live_was": "f7b56bdd178ac8db152c853e0ad413b02151d612f35dc4399531c0166eb1d323"
+            "live_was": "f7b56bdd178ac8db152c853e0ad413b02151d612f35dc4399531c0166eb1d323",
+            "existed": true,
+            "old_sha": "f7b56bdd178ac8db152c853e0ad413b02151d612f35dc4399531c0166eb1d323"
         },
         "website/js/location-scope.js": {
             "sha": "bb1cf1c93f585958372ba17c6656ae5c7787d5eb9bf7ca1ab2e3d0f4a41c7f90",
             "size": 54557,
-            "live_was": "533e53f80ef60de052c3885ce6dd7ea85c8ef9448b0273693d457f48c7e6d43f"
+            "live_was": "533e53f80ef60de052c3885ce6dd7ea85c8ef9448b0273693d457f48c7e6d43f",
+            "existed": true,
+            "old_sha": "533e53f80ef60de052c3885ce6dd7ea85c8ef9448b0273693d457f48c7e6d43f"
         },
         "website/js/tv-join.js": {
             "sha": "ffef37819922b8a2da188399e873172f452d0cb33fe4647095400e297f151a79",
             "size": 6729,
-            "live_was": "b520ef9b5a906f080e27755e29bc1f553925ebf022e2ad3741eabe3f26e88c4d"
+            "live_was": "b520ef9b5a906f080e27755e29bc1f553925ebf022e2ad3741eabe3f26e88c4d",
+            "existed": true,
+            "old_sha": "b520ef9b5a906f080e27755e29bc1f553925ebf022e2ad3741eabe3f26e88c4d"
         },
         "website/js/tv-pager.js": {
             "sha": "a35fb0b4870f01339038ec3c6e10afae8a512baa980387b23f149309f52ad875",
             "size": 10914,
-            "live_was": "1f54f7d61edcffe7fcb66ab042d3d29e5fe286a4a1af68f1ec60f4799f178b58"
+            "live_was": "1f54f7d61edcffe7fcb66ab042d3d29e5fe286a4a1af68f1ec60f4799f178b58",
+            "existed": true,
+            "old_sha": "1f54f7d61edcffe7fcb66ab042d3d29e5fe286a4a1af68f1ec60f4799f178b58"
         },
         "website/js/tv-stock.js": {
             "sha": "345fea0988846ae9ca8ffe178e4e21e0561aba52835148bbb1d3b0d3ca593300",
             "size": 18681,
-            "live_was": "d09dfa17e0013cbbee43768fc4d0138aa74506e2142d20893d6cb81ee7fbc178"
+            "live_was": "d09dfa17e0013cbbee43768fc4d0138aa74506e2142d20893d6cb81ee7fbc178",
+            "existed": true,
+            "old_sha": "d09dfa17e0013cbbee43768fc4d0138aa74506e2142d20893d6cb81ee7fbc178"
         },
         "website/market/index.php": {
             "sha": "c2b22f13c413d65302b0d5626e621987c61cc7ffde5ae35061c7a7e9cbb6083c",
             "size": 26169,
-            "live_was": "620e1489f72390994185585401e1bca33906d0ea2ccb686eb3c62e6960675a9a"
+            "live_was": "620e1489f72390994185585401e1bca33906d0ea2ccb686eb3c62e6960675a9a",
+            "existed": true,
+            "old_sha": "620e1489f72390994185585401e1bca33906d0ea2ccb686eb3c62e6960675a9a"
         }
     },
     "migrations": [],
     "checks": {
         "ok": true,
-        "where": "staging",
-        "at": "2026-11-19T13:17:43+00:00",
+        "where": "live",
+        "at": "2026-11-19T13:17:46+00:00",
         "items": [
             [
                 "PHP files parse",
@@ -246,7 +332,7 @@
             [
                 "Pages answer",
                 true,
-                "20 pages answered on staging.trvgo.us"
+                "20 pages answered on traversence.com"
             ],
             [
                 "No new fatal errors in the logs",
@@ -276,6 +362,16 @@
             "at": "2026-11-19T13:17:43+00:00",
             "by": 0,
             "msg": "Put on staging (43 files); its checks passed."
+        },
+        {
+            "at": "2026-11-19T13:17:44+00:00",
+            "by": 0,
+            "msg": "Approved in chat before it was sent through git, and its checks on staging passed: publishing by itself."
+        },
+        {
+            "at": "2026-11-19T13:17:44+00:00",
+            "by": 0,
+            "msg": "Published: 43 files; everyone at once (no switch)."
         }
     ]
 }
