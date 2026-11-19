@@ -1,5 +1,7 @@
 # ADR 0133: The Intelligence & Publishing Engine (the crawler's one rule book)
 
+**Note (2026-11-19, Jason: "Unclaimed businesses are guesses, so we should push the ones we are more confident in. once claimed that pushes them to the top").** The listing confidence score (`listing_confidence`, `ListingConfidence`) orders Get Local's Best match: the words first when there are any, then the score, highest first, then the nearest (`api/search_listings.php`). "Near me" stays nearest first (CLAUDE.md). Closed listings stay last whatever the sort (decisions/0072).
+
 > **Closed (2026-11-14): superseded by `decisions/0164`** (the Knowledge Engine: rule book, phases, workflows and
 > sources). Its rule book is 0164 R1–R19 and its six phases 0164 §1–§6; operations stay in 0163 underneath. This text is
 > kept as history (with how each rule was built); where it and 0164 disagree, 0164 rules (0164 §12 lists the
