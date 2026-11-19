@@ -187,6 +187,17 @@
    "expires": "2026-11-20T03:31:50Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "website/image/app-icon-192.png",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "push-polish: one push per thing, a pace per person, the badge and the app manifest",
+   "since": "2026-11-19T23:31:52Z",
+   "expires": "2026-11-20T03:31:52Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
