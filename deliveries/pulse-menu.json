@@ -1,0 +1,26 @@
+{
+ "zip": "pulse-menu.zip",
+ "built_on": "e8b20ab Sync: 2026-11-19 17:13 UTC",
+ "recorded": "2026-11-19 17:18 UTC",
+ "note": "Pulse: Show, + New menu, \u00d7 everywhere; table \u22ef menus; drawer #card links. Built on Sync: 17:13 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/admin/kit-css.php": {
+   "sha256": "9f023766b1ac7531eb90e25b3b129b3ef82fb01ff2d7b9ce1efbf05836e239d1",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "183881f51920567eec58884ff46d6a3250909b13079b79d06079f6fa9138c82f",
+   "live": false
+  },
+  "app/ui/pulse-ui.php": {
+   "sha256": "50e21a72a3f14018d11fce63b59412c954424a8935a89e557a40aff462e6443b",
+   "live": false
+  },
+  "website/js/admin-kit.js": {
+   "sha256": "d82f138b2de7f98484fa0ac7f0fe3ed06427490235dfc130955f867456ea39dd",
+   "live": false
+  }
+ }
+}

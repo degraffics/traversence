@@ -65,6 +65,9 @@ the same shell as the member Pulse. Workspaces 1 and 2 are now one screen (`tv_p
   - the Pulse mark;
   - **Working as**: Platform Admin or a department for Founders and Executives, your own department otherwise;
   - count chips: Operational Queues, Alerts, Order Mgmt, System Health, Mine, Resolved;
+    > **Note (Jason, 2026-11-19, pulse-menu): Show keeps Mine and Resolved.** Asked "is this really needed?" of the Show
+    > views, he chose "Drop four, keep Mine+Resolved". Operational Queues was nearly All. Alerts is the level funnel.
+    > Order Mgmt and System Health are the From funnel or Group by Kind. The bell keeps critical, overdue and escalated.
   - the bell (critical cases, and those escalated to you), Stream settings;
   - **+** (post to the team) and **Search all platform events**.
 - **Operational Task Queue:** critical and alert cases, each with its action link and a live **SLA clock**, filtered by
