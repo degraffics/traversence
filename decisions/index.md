@@ -178,4 +178,4 @@ decision may be stale, or the file moved.
 | 0170 | [0170: Everything placed in the discovery funnel, by location, active or planned](0170-everything-placed-in-the-discovery-funnel.md) | accepted |  | 1 | 0 |  |
 | 0171 | [0171: The System Control Board: start-to-finish management and control of the whole system](0171-the-control-board.md) | accepted |  | 5 | 9 |  |
 | 0172 | [0172: Communications: who reaches whom, about what, by which channel, and one way to deliver](0172-communications-who-reaches-whom.md) | accepted |  | 2 | 2 |  |
-| 0173 | [0173: One lifecycle for every outside service: add, activate, pause, retire, remove](0173-one-lifecycle-for-every-outside-service.md) | draft |  |  |  |  |
+| 0173 | [0173: One lifecycle for every outside service: add, activate, pause, retire, remove](0173-one-lifecycle-for-every-outside-service.md) | accepted |  |  |  |  |

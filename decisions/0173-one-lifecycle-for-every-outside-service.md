@@ -1,7 +1,8 @@
 # 0173: One lifecycle for every outside service: add, activate, pause, retire, remove
 
-Status: **draft 2** (2026-11-19; draft 2 takes in the session manager's review). The Control Board session wrote it at Jason's request, relayed by the session manager.
-It goes to the session manager for review, then to Jason in one decision pop-up.
+Status: **accepted** (Jason, 2026-11-19, draft 2, approved with the decision pop-up; reviewed by the session manager).
+His answers: Railway's keys are kept on Railway (§3); the Proposed stage is kept (§2). The Control Board session wrote
+it at Jason's request, relayed by the session manager. Next: release 1, One home.
 Builds on:
 - 0152: Outside services by company.
 - 0163: the service register (§1), the switches (§9), switching back on (§10).
@@ -117,8 +118,8 @@ Its stage shows in one column, with ⋯ for the stage's buttons.
   the stage is Key in. Fail: the card says what the service answered and offers **Put the old one back**.
 - **Remove the key** goes through the same writer: kept as `# OLD`, then gone at the next passing Check of the rest, or
   by **Forget it**.
-- **Keys kept on Railway** (Google Places, Tavily, Brave, RIDB, the Hugging Face token): Jason's choice, asked with
-  this decision.
+- **Keys kept on Railway** (Google Places, Tavily, Brave, RIDB, the Hugging Face token): **kept on Railway** (Jason,
+  2026-11-19, in the pop-up: "Keep on Railway"). The two choices he had:
   - **Kept on Railway:** he enters them on Railway's Variables page, an outside trip like the cPanel one he objected
     to. The card gives the link and Check confirms the key from the worker's key report (`worker:keys`).
   - **Written from the card:** every key in one place, through Railway's API (`variableUpsert`, with the
@@ -172,7 +173,7 @@ entry, `overpass`. Today it shares the `osm` key with the rest of OpenStreetMap.
 2. **The key on its card**, about 5 files:
    - `EnvSettings::setSecret()` with its guards;
    - Add, Replace, Remove, Put back and Check on the card;
-   - the Railway keys as Jason chooses (§3), with their Check from `worker:keys`;
+   - the Railway keys' link to Railway's Variables page (kept there, §3), with their Check from `worker:keys`;
    - NPS first;
    - tests: the writer's guards (staging, a non-owner, nothing logged) and Undo.
 3. **Defined once**, about 10 files:
@@ -185,7 +186,7 @@ entry, `overpass`. Today it shares the `osm` key with the rest of OpenStreetMap.
 ## Consequences
 
 - One page and one address for a service. An alarm's Open its card, a Pulse case and Pre-flight all land on the same card.
-- Adding a `.env` key no longer needs cPanel, and it's proven at once with a way back. Railway's keys follow Jason's choice
-  in §3.
+- Adding a `.env` key no longer needs cPanel, and it's proven at once with a way back. Railway's keys stay on Railway
+  (§3), with their link and Check.
 - Retiring a service is one press and one record, not 11 files and a search for leftovers.
 - Risk: the merged card is long. It folds by section (`h2.hb-h`), so the issue and the stage come first.
