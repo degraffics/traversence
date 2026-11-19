@@ -6,52 +6,59 @@
     "zip": "inter-hinted.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "staged",
-    "step": 0,
+    "state": "live",
+    "step": 3,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
     "plan_at": "2026-11-19 12:02:52",
     "staged_at": "2026-11-19 12:02:53",
-    "vetted_at": null,
-    "live_at": null,
+    "vetted_at": "2026-11-19 12:02:55",
+    "live_at": "2026-11-19 12:02:55",
     "files": {
         "app/ui/theme-tokens.php": {
             "sha": "6763a5b17724c38156a12896041f6beca27fe13be44c7f662ac9ac5195723f18",
             "size": 7717,
-            "live_was": "28d2eb07256aafb6a05e1446500f161135fcd5fc29869ff7e0ee71f2a2f12aa8"
+            "live_was": "28d2eb07256aafb6a05e1446500f161135fcd5fc29869ff7e0ee71f2a2f12aa8",
+            "existed": true,
+            "old_sha": "28d2eb07256aafb6a05e1446500f161135fcd5fc29869ff7e0ee71f2a2f12aa8"
         },
         "website/fonts/inter-600.woff2": {
             "sha": "865ea283a242727e774e9827ef16cede143a41004e153599436112be569aa8b1",
             "size": 31524,
-            "live_was": null
+            "live_was": null,
+            "existed": false
         },
         "website/fonts/inter-500.woff2": {
             "sha": "c6748fcd45ffbc025e1504317d9258f3f45f2e4152ffa0b484e366cfb9df155d",
             "size": 31408,
-            "live_was": null
+            "live_was": null,
+            "existed": false
         },
         "website/fonts/inter-700.woff2": {
             "sha": "cafe781bf0ec2ca30e6cab1d037b27d3963f6261efbe7ca16dab1fe9b89a25b7",
             "size": 31780,
-            "live_was": null
+            "live_was": null,
+            "existed": false
         },
         "website/fonts/inter-800.woff2": {
             "sha": "4602eff35f4fc25e176ec3bece4e6e1e7b4b1d2f0cfc722bc1e7d0779a767a07",
             "size": 31668,
-            "live_was": null
+            "live_was": null,
+            "existed": false
         },
         "website/fonts/inter-400.woff2": {
             "sha": "c9fa684fbcd7bdee218a2c3bf296b3a465c154ca8ef1630c5c55fcc8f6cd09ea",
             "size": 30836,
-            "live_was": null
+            "live_was": null,
+            "existed": false
         }
     },
     "migrations": [],
     "checks": {
         "ok": true,
-        "where": "staging",
-        "at": "2026-11-19T12:02:54+00:00",
+        "where": "live",
+        "at": "2026-11-19T12:02:55+00:00",
         "items": [
             [
                 "PHP files parse",
@@ -61,7 +68,7 @@
             [
                 "Pages answer",
                 true,
-                "2 pages answered on staging.trvgo.us"
+                "2 pages answered on traversence.com"
             ],
             [
                 "No new fatal errors in the logs",
@@ -91,6 +98,16 @@
             "at": "2026-11-19T12:02:54+00:00",
             "by": 0,
             "msg": "Put on staging (6 files); its checks passed."
+        },
+        {
+            "at": "2026-11-19T12:02:55+00:00",
+            "by": 0,
+            "msg": "Approved in chat before it was sent through git, and its checks on staging passed: publishing by itself."
+        },
+        {
+            "at": "2026-11-19T12:02:55+00:00",
+            "by": 0,
+            "msg": "Published: 6 files; everyone at once (no switch)."
         }
     ]
 }
