@@ -1,0 +1,39 @@
+{
+    "id": 157,
+    "title": "Control Board 4d: how many rows hold a value in each unused column",
+    "why": "Before the Founder decides which unused tables and columns to remove (Pulse #31), the session manager asked for each one's rows holding a value: a column that holds data (money or dates on orders, an email) is unsure, not safe. The health report (token only) now carries each listed column's count and each listed table's exact rows. Counts only, never a value; only names on the unused list are read.",
+    "proposals": "",
+    "zip": "control-board-4d.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/lib/SchemaUpkeep.php": {
+            "sha": "0d7d39eb50c8c8372e728c700bf0aafbbf4d1fd015122032d492ba297eed5c50",
+            "size": 18328,
+            "live_was": "23636bc21bffade644a934c267b8892b4b048f6b1d002964b985a627d554d908"
+        },
+        "website/api/health.php": {
+            "sha": "eafbfbf68ffd0d5be4b917051a5884c640f8aee2f9c8723b8ca2ff58d84610c3",
+            "size": 20010,
+            "live_was": "2fef0d6714281001d20d00a8b2e4fed7acc3a471b71dcdce787b16d5bd3118c9"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-19T00:28:39+00:00",
+            "by": 0,
+            "msg": "Uploaded control-board-4d.zip: 2 files."
+        }
+    ]
+}
