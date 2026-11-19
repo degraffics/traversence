@@ -23,7 +23,8 @@ else {
       tables: (d.unused_schema.tables || []).map(t => ({ db: t.db, table: t.table, rows: t.rows, rows_exact: t.rows_exact ?? null, mb: t.mb, kept: !!t.kept })),
       columns: (d.unused_schema.columns || []).map(c => ({ db: c.db, table: c.table, column: c.column, filled: c.filled ?? null, kept: !!c.kept })) }, null, 1) + '\n');
     if (r.ok && Array.isArray(d.alarms)) writeFileSync('site-audit/results/alarms.json', JSON.stringify({ at: new Date().toISOString(),
-      open: d.alarms.map(a => ({ key: a.key, level: a.level, process: a.process, title: a.title, reading: a.reading, means: a.means, since: a.since, tripped: a.tripped, stopped: a.stopped })) }, null, 1) + '\n');
+      open: d.alarms.map(a => ({ key: a.key, level: a.level, process: a.process, title: a.title, reading: a.reading, means: a.means, since: a.since, tripped: a.tripped, stopped: a.stopped })),
+      summary: d.alarms_summary || null, releases_looked: d.releases_looked || null }, null, 1) + '\n');   // 5b's summary and the release job's last look
     if (r.ok && d.crawler) crawlerSnapshot(d.crawler);   // the crawler revamp's numbers (handoffs/crawler-revamp.md Phase 0)
     if (!r.ok || d.ok === false) md += `The health report answered ${r.status}: ${s(d.error?.message || '')}\n`;
     else if (!d.towns) md += 'The health report has no towns section yet (it comes with health.php from towns-health_20261110.zip).\n';

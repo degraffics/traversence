@@ -1,9 +1,11 @@
 # 0171: The System Control Board: start-to-finish management and control of the whole system
 
-Status: accepted (Jason, 2026-11-18, revision 2, approved with the decision pop-up). **Building (2026-11-18):** releases 1
-(#120), 2a (#121, fixed #124), 2b (#127, layout #128), 2c (#129), then fixes #131–#134 and #136 (W2's second look) and 3a
-(#137: the alarm list as the board's queue, the watch, the top-bar light, alarms in Notify and Pulse) are live. Next: 3b,
-then releases 4 and 5. Progress and what's left: `handoffs/control-board.md`.
+Status: accepted (Jason, 2026-11-18, revision 2, approved with the decision pop-up). **Built (2026-11-19):** all five
+releases are live: 1 (#120), 2a (#121, fixed #124), 2b (#127, layout #128), 2c (#129), fixes #131–#134, 3a (#137),
+3b (#139, #140), 3c (#143), 3d (#144), 3e (#145), 3f (#148), 4a (#151), 4b (#154), 4c (#156), 4d (#157), 4e (#160), 5a
+(#166), the old trips settled (#168), a back-off in its wait isn't a hold (#169) and 5b, the reports (#173). Not built:
+§14's archiving of the Pre-flight page (waits for Jason's OK) and the Start card's and switch-on check's links from
+Automation and the Workflow board to the board. Progress and what's left: `handoffs/control-board.md`.
 Amends: 0163 §10 (switching back on) and its notes on Start the system and the pre-flight. Also amends ServiceHealth's
 "one Pulse case per issue" (2026-11-14) and the Pulse cases listed in §8.
 Builds on: 0109 (the admin: manifests and widgets), 0163 §1–§9 (the service register, costs, warnings, switches), 0164
@@ -520,6 +522,17 @@ Each page stays reachable until the board's part replaces it. It is then archive
 
 Automation keeps its list of switches, and the board's controls call the same code. The service register, Costs and
 Outside services stay; the board opens them in drawers.
+
+**Note (2026-11-19, the build finished):** what each section became, by release. §1–§3 (systems, stages, the register):
+releases 1 and 2 (#120–#129). §4 (sensors and the ledger): 2a (#121, #124), 3e (#145). §5 (real-time monitoring): 3a–3c,
+with Jason's notes there; slow is never a trip (4e, #160); a 429 is a warning that waits twice as long (5a, #166); a
+back-off in its wait isn't a hold, so no gate goes red for it (#169; the 3c rule unchanged, Jason 2026-11-19: "We already
+have a rule for how trips get set"). §6 (the historian): 4b (#154), 4c (#156). §7 (the annunciator): 3a–3d; a trip clears
+only by its Resolve, and a tripped row offers Check and start again, never a bare Start (#169); old trips raised before
+trips had their time are settled by the watch (#168). §8 (Pulse): 3a, 3c, 3d. §9 (routing): 2a, 3e. §10 (the logbook):
+5a (#166). §11 (the reports): 5b (#173), built on demand from what's kept, nothing stored. §12–§13 (where it lives,
+access): 2b onward. §14: Pulse cases became alarms (3a, 3c) and Telemetry points to the board (4b); the Pre-flight page
+stays until Jason's OK to archive it, and the links from Automation and the Workflow board are still to do.
 
 ### 15. The releases, in order
 
