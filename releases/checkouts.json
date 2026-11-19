@@ -96,15 +96,33 @@
   {
    "path": "website/js/map-view.js",
    "functions": [
-    "select"
+    "close",
+    "open",
+    "select",
+    "stackList"
    ],
    "kind": "change",
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "map-back (Jason, 2026-11-19, approved)",
    "since": "2026-11-19T17:42:11Z",
-   "expires": "2026-11-19T21:42:11Z",
-   "release": "",
-   "callers": {}
+   "expires": "2026-11-19T21:42:36Z",
+   "release": "map-back.zip",
+   "callers": {
+    "open": [
+     "website/directory/classic.php",
+     "website/directory/index.php",
+     "website/discovery/index.php",
+     "website/js/search-panel.js",
+     "website/js/tv-blocks.js",
+     "website/js/tv-tagcard.js",
+     "website/listing/view.php",
+     "website/place/landmark.php",
+     "website/place/recreation.php"
+    ],
+    "close": [
+     "website/discovery/index.php"
+    ]
+   }
   },
   {
    "path": "app/admin/operations-console.php",
