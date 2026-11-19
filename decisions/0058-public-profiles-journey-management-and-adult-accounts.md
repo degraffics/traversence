@@ -474,6 +474,12 @@ Journeys keep their own likes and comments. Code: `api/lib/Engage.php`, `/api/en
   - Copy link isn't in ⋯: Share already copies the link, and Link connects the business to your account.
   - It closes with ×, Esc, a click outside or a scroll. It sits on the page while open, so no hero or card covers it.
 - **Plan a trip here** (decisions/0146): the place's ready-made journeys (`JourneyPlan::forPlace`) first, then the Trip Planner set to the place (`/discovery/?view=plan&cluster=…`). A point finds its nearest area within 40 miles. **Add to a trip** is greyed, "coming", until the saved-trips decision Jason asked for is drafted and approved.
+- **The hero's corner folds** (Jason, 2026-11-19, on his phone's screenshot of a listing: "Should share, add a photo, etc be added to minimize how much real-estate is used on hero."). It replaces §28's "views, likes, comments, Share, Save, Claim, Photos & video" in the corner on landmarks, outdoor places, listings and place pages.
+  - The corner keeps the numbers (views, ♥ where likes apply, comments) and ⋯.
+  - ⋯ starts with Share, QR code, Share a photo or video (the owner's Photos and video) and Save to Address Book, in words.
+  - What the page already shows beside its card isn't repeated in ⋯: on a listing, Call, Directions, the map, Save contact, QR and Suggest an edit; on a landmark or outdoor place, the map, Directions and Suggest an edit. This removed the listing's QR and contact buttons that showed twice.
+  - Claim, Link and the owner's Manage keep their corners.
+  - Pages with no hero keep Share on the bar.
 - Code: `tv_engage_tools()` in `app/ui/engage-ui.php`; `/api/engage.php` GET `counts` (read only) and `trip`; `js/engage.js`. Tests: `tools/design-tests/place-page.cjs` (48 checks at 1280 and 390).
 
 Also fixed: the listing header's category and name were centered and wrapped oddly. They're buttons, and now align

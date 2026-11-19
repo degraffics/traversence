@@ -9,7 +9,7 @@ const { chromium } = require('playwright'); const fs = require('fs');
 const BASE = process.env.BASE || 'http://127.0.0.1:8790', N = process.env.NPM_DIR || '.', out = process.argv[2] || '.';
 let pass = 0, fail = 0; const ok = (c, m) => { if (c) pass++; else { fail++; console.log('FAIL ' + m); } };
 async function page(b, w, h, url) {
-  const ctx = await b.newContext({ viewport: { width: w, height: h } }); const p = await ctx.newPage(); const errs = [];
+  const ctx = await b.newContext({ viewport: { width: w, height: h } }); await ctx.grantPermissions(['clipboard-read', 'clipboard-write'], { origin: BASE }); const p = await ctx.newPage(); const errs = [];
   p.on('pageerror', e => errs.push(e.message));
   await p.route(/^https?:\/\/(?!127\.0\.0\.1|localhost)/, r => { const u = r.request().url();
     const m = { 'leaflet.min.css': 'leaflet-1.9.4/dist/leaflet.css', 'leaflet.min.js': 'leaflet-1.9.4/dist/leaflet.js' }, k = Object.keys(m).find(x => u.endsWith('/' + x));
@@ -39,17 +39,23 @@ async function page(b, w, h, url) {
     // ---- a landmark's own page ----
     ({ p, ctx, errs } = await page(b, w, h, '/place/landmark.php?id=1'));
     ok(await p.evaluate(() => (document.querySelector('.eg-bar .eg-n span') || {}).textContent === '0'), w + ': views show at 0 on the page');
+    const corner = await p.evaluate(() => { const a = document.querySelector('.xh-acts'); return [...a.querySelectorAll('.eg-n, .eg-b, .xh-a, .xh-own, .tv-save')].filter(x => !x.closest('.eg-ml') && x.offsetParent).map(x => x.className.split(' ').pop()); });
+    ok(corner.join() === 'eg-n,eg-b,eg-b,eg-more', w + ': the hero\'s corner: views, like, comments, ⋯ only: ' + corner);
+    await p.click('.eg-bar .eg-more'); await p.click('.eg-ml [data-eg-share-m]'); await p.waitForTimeout(300);
+    ok(await p.evaluate(() => !document.querySelector('.eg-ml:not([hidden])') && !document.querySelector('.tv-ask-lb')), w + ': Share from ⋯ copies the link and closes it'); await p.waitForTimeout(2200);
+    await p.click('.eg-bar .eg-more'); await p.click('.eg-ml [data-eg-qr-m]'); await p.waitForTimeout(500);
+    ok(await p.evaluate(() => !!document.querySelector('.tvq') && !document.querySelector('.eg-ml:not([hidden])')), w + ': QR code from ⋯ opens the code'); await p.keyboard.press('Escape'); await p.waitForTimeout(200); await p.evaluate(() => document.querySelectorAll('.tvq, .tvq-dim').forEach(x => x.remove()));
     await p.click('.xh-acts .eg-more, .eg-bar .eg-more'); await p.waitForTimeout(200);
     const items = await p.evaluate(() => { const m = document.querySelector('.eg-ml:not([hidden])'); if (!m) return null; const r = m.getBoundingClientRect();
       return { t: [...m.querySelectorAll('[role=menuitem]')].map(x => x.textContent.trim()), on: r.left >= 0 && r.right <= innerWidth && r.top >= 0 && r.bottom <= innerHeight }; });
-    ok(items && items.t[0] === 'See on the map' && items.t.some(x => x === 'Directions') && items.t.some(x => /^Add to a tripComing/.test(x)) && items.t.some(x => x === 'Suggest an edit'), w + ': ⋯ items: ' + (items && items.t));
+    ok(items && items.t.slice(0, 3).join() === 'Share,QR code,Share a photo or video' && items.t.includes('Plan a trip here') && items.t.some(x => /^Add to a tripComing/.test(x)) && !items.t.includes('Suggest an edit') && !items.t.includes('Directions'), w + ': ⋯ items, Share first, nothing the page already shows: ' + (items && items.t));
     ok(items && items.on, w + ': ⋯ fully on screen');
     await p.screenshot({ path: out + '/pp-' + w + '-menu.png' });
     await p.keyboard.press('Escape'); ok(await p.evaluate(() => !document.querySelector('.eg-ml:not([hidden])')), w + ': ⋯ closes with Esc');
     await p.click('.eg-bar .eg-more'); await p.click('.eg-ml .eg-mx'); ok(await p.evaluate(() => !document.querySelector('.eg-ml:not([hidden])')), w + ': ⋯ closes with ×');
     await p.click('.eg-bar .eg-more'); await p.mouse.click(5, h - 5); ok(await p.evaluate(() => !document.querySelector('.eg-ml:not([hidden])')), w + ': ⋯ closes with a click outside');
     // the viewer on its own photo: the page itself
-    if (await p.$('.xh [data-lb]')) { await p.click('.xh [data-lb]'); await p.waitForTimeout(400);
+    if (await p.$('.xh [data-lb]')) { await p.click('.xh [data-lb]', { position: { x: 30, y: 30 } }); await p.waitForTimeout(400);
       ok(await p.evaluate(() => (document.querySelector('.xlb-sub a.xlb-to') || {}).textContent === 'Painted Desert Inn' && !!document.querySelector('.xlb-acts .eg-bar')), w + ': on its own page the viewer names the page, with its bar');
       await p.keyboard.press('Escape'); }
     ok(!errs.length, w + ': no script errors (landmark): ' + errs.join('; ')); await ctx.close();
@@ -57,7 +63,8 @@ async function page(b, w, h, url) {
     ({ p, ctx, errs } = await page(b, w, h, '/listing/view.php?id=7003'));
     await p.click('.eg-bar .eg-more'); await p.waitForTimeout(150);
     const li = await p.evaluate(() => [...document.querySelectorAll('.eg-ml:not([hidden]) [role=menuitem]')].map(x => x.textContent.trim()));
-    ok(li.includes('Directions') && li.includes('Save contact') && li.includes('Plan a trip here'), w + ': a business with a street: ' + li);
+    ok(li[0] === 'Share' && !li.includes('QR code') && !li.includes('Directions') && !li.includes('Save contact') && li.includes('Plan a trip here'), w + ': a business: Share first; QR, Directions and Save contact stay in its column: ' + li);
+    ok(await p.evaluate(() => { const a = document.querySelector('.xh-acts'); return ![...a.querySelectorAll('[data-qr], [data-eg-share], .tv-save, .xh-shr, .xh-own')].some(x => !x.closest('.eg-ml') && x.offsetParent); }), w + ': no QR, Share, Save or camera left on the business\'s hero');
     await p.click('.eg-ml [data-eg-trip]'); await p.waitForSelector('.eg-trip', { timeout: 4000 });
     const tp = await p.evaluate(() => { const t = document.querySelector('.eg-trip'), r = t.getBoundingClientRect(); return { j: t.querySelectorAll('li a').length, plan: t.querySelector('.eg-plan').getAttribute('href'), on: r.left >= 0 && r.right <= innerWidth }; });
     ok(tp.j === 2 && tp.plan === '/discovery/?view=plan&cluster=1', w + ': Plan a trip here: the ready-made journeys first, then the planner: ' + JSON.stringify(tp));
@@ -71,7 +78,6 @@ async function page(b, w, h, url) {
     ({ p, ctx, errs } = await page(b, w, h, '/listing/view.php?id=7005'));
     const po = await p.evaluate(() => ({ page: !!document.querySelector('.lv-acts [data-out=directions]'), menu: [...document.querySelectorAll('.eg-ml .eg-mo')].map(x => x.textContent) }));
     ok(!po.page, w + ': a mailbox: no Directions on its page');
-    ok(po.menu.some(x => /^DirectionsMailing address only/.test(x)), w + ': ⋯ says why: ' + po.menu);
     ok(await p.evaluate(() => document.documentElement.scrollWidth <= innerWidth), w + ': no sideways scroll'); await ctx.close();
   }
   await b.close(); console.log(pass + ' passed, ' + fail + ' failed'); process.exit(fail ? 1 : 0);

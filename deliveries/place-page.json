@@ -1,21 +1,21 @@
 {
  "zip": "place-page.zip",
- "built_on": "58fe949 Sync: 2026-11-19 22:49 UTC",
- "recorded": "2026-11-19 23:00 UTC",
- "note": "The place page: the viewer names what's in the photo, views at 0, the engage bar's \u22ef, Plan a trip here; built on Sync: 22:49 UTC Sent through git (releases/inbox).",
+ "built_on": "669a6d7 Sync: 2026-11-19 23:05 UTC",
+ "recorded": "2026-11-19 23:08 UTC",
+ "note": "The place page: the hero's corner folds into \u22ef, the viewer names what's in the photo, views at 0, Plan a trip here; built on Sync: 23:05 UTC Sent through git (releases/inbox).",
  "status": "pending",
  "live_in": "",
  "files": {
   "app/ui/engage-ui.php": {
-   "sha256": "37af1d9cb087c110a5c2e8afc931bbc68e0c69b6276dd9d60b4beb3c21f397a4",
+   "sha256": "62c158523b76f31da9e60aace6a46897535400efdd173d0545b2abcf0da6b7dc",
    "live": false
   },
   "app/ui/explore-hero.php": {
-   "sha256": "84f64b045ec27bef3ce983793d0c9f0b032548539a5bbc1807239aaee29dfa9c",
+   "sha256": "a53628a95e55e80f99dfc32ac79f3088a0004b9507609faf542698bd309021f7",
    "live": false
   },
   "app/ui/faq.md": {
-   "sha256": "eaafba71c618a1f375ab03b6566a716f51c7fc76ebeba22084b12acb7f8626fd",
+   "sha256": "1ba25c000451b5f8eb9cd185f18ed27841b553746365d77326a799b7fcd40e5c",
    "live": false
   },
   "website/api/engage.php": {
@@ -27,23 +27,23 @@
    "live": false
   },
   "website/hub/index.php": {
-   "sha256": "1dacb4f8c67038a9d6eaa11144935ab25a42f6908cb0416c1f825d97e22de48e",
+   "sha256": "658dfbfedfc3a69914d30dd934958ad2cee515de1e08be4f0974514b409c7047",
    "live": false
   },
   "website/js/engage.js": {
-   "sha256": "65a746b2bfbd11d4724586d05eff65fa95686fee9be6328cb40ea1f6658cbb53",
+   "sha256": "80b8b4e076e16ba7855e165beb24210dab6c1a18eca46e91381a4131fbfe752b",
    "live": false
   },
   "website/listing/view.php": {
-   "sha256": "f7adb29daba172b04b2728e791c6e256c11ddb3c741b086f4b9bbef95c6e0f18",
+   "sha256": "4ee08846489fe93a47f55d4973ffa995ce001917a748f0b526c66499f9e682d9",
    "live": false
   },
   "website/place/landmark.php": {
-   "sha256": "c26c7adb2ed51e679a9e5a3ae6c56007520bcca4e58fd21327d4ef413b3d76d5",
+   "sha256": "e7bb541a9843577ff4f0e66bb13bae4511ff03656cf49b74d5e417319af30491",
    "live": false
   },
   "website/place/recreation.php": {
-   "sha256": "3bed66eca8d5c2e1b5b119a161575e618754dd6f29fd819fd6b20f09be9e56a3",
+   "sha256": "727a8e31e9e374cb4da44dfd8d4ebcd2ecfda35922d0e5c586e69b70c60d328c",
    "live": false
   }
  }

@@ -1,6 +1,6 @@
 # The place page (2026-11-19)
 
-One release, `place-page.zip`, built on Sync 22:49 UTC. Jason approved it in the pop-up, after a review by the session manager. Decision notes: decisions/0058 §20 and §28 (2026-11-19). Tests: `tools/design-tests/place-page.cjs` (48 checks at 1280 and 390).
+One release, `place-page.zip`, built on Sync 23:05 UTC. Jason approved it in the pop-up, after a review by the session manager. Decision notes: decisions/0058 §20 and §28 (2026-11-19). Tests: `tools/design-tests/place-page.cjs` (48 checks at 1280 and 390).
 
 ## What it does
 
@@ -12,12 +12,15 @@ One release, `place-page.zip`, built on Sync 22:49 UTC. Jason approved it in the
 4. **⋯ on the engage bar:** See on the map, Directions, Plan a trip here, Add to a trip, Save contact, Suggest an edit, Report.
    - Each item runs the page's own button where there is one.
    - Anything the page can't offer is greyed, with its reason.
+6. **The hero's corner folds** (Jason's change, 2026-11-19). It keeps views, ♥ and comments, plus ⋯.
+   - ⋯ starts with Share, QR code, Share a photo or video and Save to Address Book.
+   - Nothing that already shows beside the card is repeated.
 5. **A business with only a mailbox gets no Directions on its own page.** This closes a gap left by R2's rule.
 
 ## Kept, moved, dropped
 
 - **Kept:** the bar's views, Like, Comments, Share and QR; the page's own action buttons; the viewer's arrows, swipe, keys, credit and close.
-- **Moved:** Report goes into ⋯ on landmarks, outdoor places, listings and place pages. Elsewhere it stays on the bar.
+- **Moved:** the hero's Share, QR, camera (or Photos and video) and Save to Address Book go into ⋯ in words. Report goes into ⋯ on landmarks, outdoor places, listings and place pages. Elsewhere it stays on the bar.
 - **Dropped:** nothing.
 
 ## Next
@@ -26,4 +29,4 @@ The saved-trips decision (Jason said "Yes"). It builds on Favorites and Personal
 
 ## Rebuilding
 
-`PP_PARTS="pp ppfaq" handoffs/place-page/mk-pp.sh` rebuilds every file from the mirror. Edit its `S` and `M` paths first.
+`PP_PARTS="pp pp2 ppfaq" handoffs/place-page/mk-pp.sh` rebuilds every file from the mirror. Edit its `S` and `M` paths first.
