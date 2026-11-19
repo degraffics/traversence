@@ -1,0 +1,90 @@
+{
+    "id": 182,
+    "title": "Pulse: Received shows the date, and its sort reverses",
+    "why": "Jason, 2026-11-19: \"pulse receive should be date, and it is not sorting correctly\". Received now shows the date (today: the time; another year: with the year), the whole moment with its time zone on hover, in the viewer's zone. Tapping Received sorted newest first, but a second tap turned sorting off instead of reversing, so oldest first could not be reached: now newest first, oldest first, then the stream's own order, as the FAQ already says. app/ui/pulse-ui.php; FAQ.",
+    "proposals": "",
+    "zip": "pulse-received.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "live",
+    "step": 3,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": "2026-11-19 13:40:23",
+    "staged_at": "2026-11-19 13:40:25",
+    "vetted_at": "2026-11-19 13:40:27",
+    "live_at": "2026-11-19 13:40:27",
+    "files": {
+        "app/ui/pulse-ui.php": {
+            "sha": "dc101d8037bdf74f3e0fba8d2c445b831b03a40ca733b89bf32364e1227a79d4",
+            "size": 135506,
+            "live_was": "65aaff06d46fac49094bb5e93b5d35800a8c2e62c179ed161a9269f534db41b7",
+            "existed": true,
+            "old_sha": "65aaff06d46fac49094bb5e93b5d35800a8c2e62c179ed161a9269f534db41b7"
+        },
+        "app/ui/faq.md": {
+            "sha": "a405cc0441a255a69c693a156cbe2da935e50d9efc2446134efc289c1799f5fd",
+            "size": 366202,
+            "live_was": "1e2c75052b2d214bc4f2ab990404acfc6d6cc2266e7f4ae9175cd08844f33176",
+            "existed": true,
+            "old_sha": "1e2c75052b2d214bc4f2ab990404acfc6d6cc2266e7f4ae9175cd08844f33176"
+        }
+    },
+    "migrations": [],
+    "checks": {
+        "ok": true,
+        "where": "live",
+        "at": "2026-11-19T13:40:27+00:00",
+        "items": [
+            [
+                "PHP files parse",
+                true,
+                "1 checked"
+            ],
+            [
+                "Pages answer",
+                true,
+                "2 pages answered on traversence.com"
+            ],
+            [
+                "No new fatal errors in the logs",
+                true,
+                "3 logs read"
+            ]
+        ],
+        "first_fail": ""
+    },
+    "log": [
+        {
+            "at": "2026-11-19T13:40:21+00:00",
+            "by": 0,
+            "msg": "Uploaded pulse-received.zip: 2 files."
+        },
+        {
+            "at": "2026-11-19T13:40:23+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/pulse-received.zip (git a4ccfc4223)."
+        },
+        {
+            "at": "2026-11-19T13:40:23+00:00",
+            "by": 0,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
+        },
+        {
+            "at": "2026-11-19T13:40:26+00:00",
+            "by": 0,
+            "msg": "Put on staging (2 files); its checks passed."
+        },
+        {
+            "at": "2026-11-19T13:40:27+00:00",
+            "by": 0,
+            "msg": "Approved in chat before it was sent through git, and its checks on staging passed: publishing by itself."
+        },
+        {
+            "at": "2026-11-19T13:40:27+00:00",
+            "by": 0,
+            "msg": "Published: 2 files; everyone at once (no switch)."
+        }
+    ]
+}

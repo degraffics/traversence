@@ -3,8 +3,8 @@
  "built_on": "e08af8a Sync: 2026-11-19 13:14 UTC",
  "recorded": "2026-11-19 13:17 UTC",
  "note": "Buttons standard, hover B #78350F; the account bar unchanged; the listing kind line as pills. Approved by Jason in the pop-up (reviewed by the session manager). Built on Sync: 13:14 UTC Sent through git (releases/inbox).",
- "status": "partial",
- "live_in": "",
+ "status": "live",
+ "live_in": "5bd98bf Sync: 2026-11-19 13:20 UTC",
  "files": {
   "app/admin/kit-css.php": {
    "sha256": "d85b9c229b2bb4c8ad38a2819dbb9e8ab67f68400fae79df8154647c591afd2d",
@@ -76,19 +76,19 @@
   },
   "website/ai/index.php": {
    "sha256": "c18c00b75bbbdc563c6df906ad1ff1eb936307770296796dfc0b5bc5897b5c5a",
-   "live": false
+   "live": true
   },
   "website/directory/index.php": {
    "sha256": "a6e69210afc63661e63dad7585b0a6d0a014902a392f2d0d03517a92df940744",
-   "live": false
+   "live": true
   },
   "website/discovery/index.php": {
    "sha256": "e463b1c4b96ecedb3f80803b460a2c9344f71a136101b14eb9033e3e1b576a06",
-   "live": false
+   "live": true
   },
   "website/hub/index.php": {
    "sha256": "ee47c1c74d63626c646e7a59b24832b30ca7512108e7cceab90e9485811ee0e8",
-   "live": false
+   "live": true
   },
   "website/index.php": {
    "sha256": "d8d863a7fe8e289cd6babb38aeac230de9450ba744095a0ba9ace9345d024a84",
@@ -140,11 +140,11 @@
   },
   "website/listing/view.php": {
    "sha256": "dd919947c0c6da07b2634afcb55fc4b1b44ef8da1da03bd23c923b3235905e51",
-   "live": false
+   "live": true
   },
   "website/market/index.php": {
    "sha256": "c2b22f13c413d65302b0d5626e621987c61cc7ffde5ae35061c7a7e9cbb6083c",
-   "live": false
+   "live": true
   },
   "website/q.php": {
    "sha256": "ce07b18300c994fdd91eb4a21308fbf1e69da5a310ebb5d94b73c5a63be38bc9",
@@ -160,19 +160,19 @@
   },
   "website/user/accounts.php": {
    "sha256": "0ce6afd14f5a44c8e8be09d4f96c3b523ddaaefe1c591e1c48118427b7f4fb98",
-   "live": false
+   "live": true
   },
   "website/user/orders.php": {
    "sha256": "89689851685ed06ec083491817751fe89c1747ab25ec44a594367155d9de6480",
-   "live": false
+   "live": true
   },
   "website/user/staff-link.php": {
    "sha256": "2405e3a79f1d94cc3ddf8d5063027835ae281fe0904556176b4a23e36fd368c2",
-   "live": false
+   "live": true
   },
   "website/user/transfer.php": {
    "sha256": "b1fa45ef1ff53cf55d093ea642a206a4853f6a5d4c96439422b5ebfd73c8f8ac",
-   "live": false
+   "live": true
   },
   "website/verify-email.php": {
    "sha256": "14bf31cc8182e3f49ffa3b27432869e86f3cbe3f6eb5161e9f9e681f1f808375",
