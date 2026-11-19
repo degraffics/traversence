@@ -30,4 +30,12 @@ $t('no open issue: nothing added to the card', tv_ops_issues($pdo, 'osm', 'x', '
 $t('the buttons post the board\'s own actions with the page\'s token, busy while working, the answer beside the button', str_contains($cc, 'fetch("/admin/api/config/control"') && str_contains($cc, '"X-CSRF-Token":"x"') && str_contains($cc, 'TvAsk.busy(b,true)') && str_contains($cc, '{anchor:b,bad:!j.ok}'));
 $src = (string) file_get_contents($app . '/admin/operations-console.php');
 $t('the register draws it in each service\'s card', str_contains($src, '$b .= tv_ops_issues($pdo, (string) $k, $csrf, $tz);'));
+// Pulse's steps match the board (the session manager, 2026-11-19): on a trip, Check and start again stands for Mark resolved
+$s = fn ($l, $w = '', $act = null) => [$l, $act];
+$labels = fn (int $id) => array_map(fn ($x) => $x[0], ControlAlarms::pulseSteps($pdo, $id, $s));
+$tl = $labels($aid);
+$t('a trip\'s Pulse case shows the board\'s buttons: Check and start again, no Mark resolved or Check it now', in_array('Check and start again', $tl, true) && !in_array('Mark resolved', $tl, true) && !in_array('Check it now', $tl, true), json_encode($tl));
+$wid = ControlAlarms::raise($pdo, 'svc:issue:29', 'svc:tavily', 'warning', 'retry', 'api.tavily.com: asked us to slow down', '', '', '', [], true, false);
+$wl = $labels($wid);
+$t('…a warning keeps Mark resolved (nothing to Resolve yet)', in_array('Mark resolved', $wl, true) && !in_array('Check and start again', $wl, true), json_encode($wl));
 echo "\n$pass passed, $fail failed\n"; exit($fail ? 1 : 0);

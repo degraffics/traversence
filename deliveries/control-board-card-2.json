@@ -1,0 +1,22 @@
+{
+ "zip": "control-board-card-2.zip",
+ "built_on": "e553b46 Sync: 2026-11-19 17:45 UTC",
+ "recorded": "2026-11-19 17:48 UTC",
+ "note": "control-board-card-2: Jason 2026-11-19 'how am I supposed to fix this?': a service's card shows its open issue and the buttons that fix it; a trip's Pulse steps match the board; built on Sync: 2026-11-19 17:45 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/admin/operations-console.php": {
+   "sha256": "aeba6c758d7677d47c9259d3e528f1ab4645beda76cc25ba46a3e15a55b7c2de",
+   "live": false
+  },
+  "app/lib/ControlAlarms.php": {
+   "sha256": "53680be9a2a460255694f6ccf0fd30cf69604b5129f6f745ae391a5528778eb1",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "4df2152659180c73e9873b857428b3fe0d746f1d3ac328ef44d60ae6cf02a1a5",
+   "live": false
+  }
+ }
+}
