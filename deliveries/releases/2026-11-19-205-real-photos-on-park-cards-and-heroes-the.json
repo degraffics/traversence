@@ -6,13 +6,13 @@
     "zip": "card-photos.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "approved",
+    "state": "staged",
     "step": 0,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
     "plan_at": "2026-11-19 21:47:23",
-    "staged_at": null,
+    "staged_at": "2026-11-19 21:47:24",
     "vetted_at": null,
     "live_at": null,
     "files": {
@@ -60,7 +60,39 @@
     "migrations": [
         "app/migrations/2027-03-22_place_photos.sql"
     ],
-    "checks": [],
+    "checks": {
+        "ok": true,
+        "where": "staging",
+        "at": "2026-11-19T21:47:26+00:00",
+        "items": [
+            [
+                "PHP files parse",
+                true,
+                "6 checked"
+            ],
+            [
+                "Migrations only add",
+                true,
+                "1 checked"
+            ],
+            [
+                "Migrations ran on staging",
+                true,
+                "Ran 2027-03-22_place_photos.sql"
+            ],
+            [
+                "Pages answer",
+                true,
+                "4 pages answered on staging.trvgo.us"
+            ],
+            [
+                "No new fatal errors in the logs",
+                true,
+                "5 logs read"
+            ]
+        ],
+        "first_fail": ""
+    },
     "log": [
         {
             "at": "2026-11-19T21:47:21+00:00",
@@ -76,6 +108,11 @@
             "at": "2026-11-19T21:47:23+00:00",
             "by": 0,
             "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
+        },
+        {
+            "at": "2026-11-19T21:47:26+00:00",
+            "by": 0,
+            "msg": "Put on staging (8 files); its checks passed."
         }
     ]
 }
