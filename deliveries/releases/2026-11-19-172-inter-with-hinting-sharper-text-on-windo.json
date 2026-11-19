@@ -1,0 +1,59 @@
+{
+    "id": 172,
+    "title": "Inter with hinting: sharper text on Windows",
+    "why": "Jason, 2026-11-19: \"the text feels a little choppy... it feels pixelated\". The site's Inter is the variable file (the same as Google Fonts serves), which carries no hinting; Windows draws unhinted text jagged at small sizes. This release serves Inter as five fixed weights (400, 500, 600, 700, 800) made from the same file, with hinting added by ttfautohint (Windows-compatible metrics). Same family and look; nothing else changes. Inter's licence (SIL OFL 1.1, no reserved name) allows the modified copies. inter-var.woff2 stays on the server, unused, as the way back.",
+    "proposals": "",
+    "zip": "inter-hinted.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/ui/theme-tokens.php": {
+            "sha": "6763a5b17724c38156a12896041f6beca27fe13be44c7f662ac9ac5195723f18",
+            "size": 7717,
+            "live_was": "28d2eb07256aafb6a05e1446500f161135fcd5fc29869ff7e0ee71f2a2f12aa8"
+        },
+        "website/fonts/inter-600.woff2": {
+            "sha": "865ea283a242727e774e9827ef16cede143a41004e153599436112be569aa8b1",
+            "size": 31524,
+            "live_was": null
+        },
+        "website/fonts/inter-500.woff2": {
+            "sha": "c6748fcd45ffbc025e1504317d9258f3f45f2e4152ffa0b484e366cfb9df155d",
+            "size": 31408,
+            "live_was": null
+        },
+        "website/fonts/inter-700.woff2": {
+            "sha": "cafe781bf0ec2ca30e6cab1d037b27d3963f6261efbe7ca16dab1fe9b89a25b7",
+            "size": 31780,
+            "live_was": null
+        },
+        "website/fonts/inter-800.woff2": {
+            "sha": "4602eff35f4fc25e176ec3bece4e6e1e7b4b1d2f0cfc722bc1e7d0779a767a07",
+            "size": 31668,
+            "live_was": null
+        },
+        "website/fonts/inter-400.woff2": {
+            "sha": "c9fa684fbcd7bdee218a2c3bf296b3a465c154ca8ef1630c5c55fcc8f6cd09ea",
+            "size": 30836,
+            "live_was": null
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-19T12:02:50+00:00",
+            "by": 0,
+            "msg": "Uploaded inter-hinted.zip: 6 files."
+        }
+    ]
+}
