@@ -6,70 +6,92 @@
     "zip": "service-register-r1.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "staged",
-    "step": 0,
+    "state": "live",
+    "step": 3,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
     "plan_at": "2026-11-19 22:46:39",
     "staged_at": "2026-11-19 22:46:41",
-    "vetted_at": null,
-    "live_at": null,
+    "vetted_at": "2026-11-19 22:46:44",
+    "live_at": "2026-11-19 22:46:44",
     "files": {
         "app/admin/control-console.php": {
             "sha": "3dab79ecb9d20d077cabaf4c169538613d61fce053cc61b8d990fc51a5749525",
             "size": 113237,
-            "live_was": "d43b1641e4fdaec496f4f9a5994727f9933c237f4ef837fb77026455f322d2f3"
+            "live_was": "d43b1641e4fdaec496f4f9a5994727f9933c237f4ef837fb77026455f322d2f3",
+            "existed": true,
+            "old_sha": "d43b1641e4fdaec496f4f9a5994727f9933c237f4ef837fb77026455f322d2f3"
         },
         "app/admin/job-line.php": {
             "sha": "00a7b779e900c9bd9bd1d166cf07bbd2a9c092e98e6f3b5d28ec31306ee03bc1",
             "size": 10462,
-            "live_was": "7d1fee2530e134f05d08d3e2f043ec7133c399d1d76fc5e2c47d5f70c4d0886e"
+            "live_was": "7d1fee2530e134f05d08d3e2f043ec7133c399d1d76fc5e2c47d5f70c4d0886e",
+            "existed": true,
+            "old_sha": "7d1fee2530e134f05d08d3e2f043ec7133c399d1d76fc5e2c47d5f70c4d0886e"
         },
         "app/admin/sections.php": {
             "sha": "f7c1d0dae81e9297ca1ff4a9f87ea7c48e5a30fd18f8530e4198be4398fc00b4",
             "size": 253514,
-            "live_was": "9cfde4c9e0495543597898a330e2fca1835867f83735d5535ca679b2a3893e09"
+            "live_was": "9cfde4c9e0495543597898a330e2fca1835867f83735d5535ca679b2a3893e09",
+            "existed": true,
+            "old_sha": "9cfde4c9e0495543597898a330e2fca1835867f83735d5535ca679b2a3893e09"
         },
         "app/admin/automation-console.php": {
             "sha": "99ba03b717224758dbf64b630e08a08e977bd8a8e4f3e99a900806b203c08e8e",
             "size": 24166,
-            "live_was": "74d8cee04cdb2f805465913220183737f029d623bfefd2ee9f2c3483302f48f7"
+            "live_was": "74d8cee04cdb2f805465913220183737f029d623bfefd2ee9f2c3483302f48f7",
+            "existed": true,
+            "old_sha": "74d8cee04cdb2f805465913220183737f029d623bfefd2ee9f2c3483302f48f7"
         },
         "app/admin/manifests.php": {
             "sha": "23fc8bd2d7b204e3441a13c6080e1da30795cb369d0137aeea516a983317a686",
             "size": 23256,
-            "live_was": "3b9cdaf381940ae10c5c3908766983dcf48fd62c38906aef3b69d0459d3f7f41"
+            "live_was": "3b9cdaf381940ae10c5c3908766983dcf48fd62c38906aef3b69d0459d3f7f41",
+            "existed": true,
+            "old_sha": "3b9cdaf381940ae10c5c3908766983dcf48fd62c38906aef3b69d0459d3f7f41"
         },
         "app/admin/section-about.php": {
             "sha": "1b537189ded6f02c3cba2dc6e18ab942a5660ae35849b7ef429023fe54061033",
             "size": 12229,
-            "live_was": "ce5a8ad5f369f041f6cff0042e7f404a76bada0e371350db0218471922571fee"
+            "live_was": "ce5a8ad5f369f041f6cff0042e7f404a76bada0e371350db0218471922571fee",
+            "existed": true,
+            "old_sha": "ce5a8ad5f369f041f6cff0042e7f404a76bada0e371350db0218471922571fee"
         },
         "app/admin/comms-console.php": {
             "sha": "79ba03373aaff574e3192464bd17f521fa14a8282e947b99ac9de24088808bd6",
             "size": 22337,
-            "live_was": "01e1d63cabb0d64c95f21b8b4d7dc90fe29aa6c7a4b281a9f7c18e38110821dc"
+            "live_was": "01e1d63cabb0d64c95f21b8b4d7dc90fe29aa6c7a4b281a9f7c18e38110821dc",
+            "existed": true,
+            "old_sha": "01e1d63cabb0d64c95f21b8b4d7dc90fe29aa6c7a4b281a9f7c18e38110821dc"
         },
         "app/admin/operations-console.php": {
             "sha": "3776ae84fdddee16bc59ce87a3b46f34e8579b6dc59c4bcb508f76b3070bff4c",
             "size": 38153,
-            "live_was": "6b116babf94678b5a51d4993fda6861302fa2f25b6ad9a23c1c48c93d568f0ec"
+            "live_was": "6b116babf94678b5a51d4993fda6861302fa2f25b6ad9a23c1c48c93d568f0ec",
+            "existed": true,
+            "old_sha": "6b116babf94678b5a51d4993fda6861302fa2f25b6ad9a23c1c48c93d568f0ec"
         },
         "app/admin/preflight-console.php": {
             "sha": "bea94da5011c9c8b6ad785f4b0b45a12dd85447a6d48c83e8582e1295cc8b357",
             "size": 19301,
-            "live_was": "6a35d83744a015b84dd785ed504f3fcefb2c798ee8c58e3c02366c89eb6f4a94"
+            "live_was": "6a35d83744a015b84dd785ed504f3fcefb2c798ee8c58e3c02366c89eb6f4a94",
+            "existed": true,
+            "old_sha": "6a35d83744a015b84dd785ed504f3fcefb2c798ee8c58e3c02366c89eb6f4a94"
         },
         "app/ui/outside-services.php": {
             "sha": "1f04c0b29bb7c9b322938629bf1612c6ada99b3faeae51fcc5504f4dbaa39357",
             "size": 47607,
-            "live_was": "ee147dc16e889a51a94d6e1b56f770847d4db988044e10e60027c64fb3d548f6"
+            "live_was": "ee147dc16e889a51a94d6e1b56f770847d4db988044e10e60027c64fb3d548f6",
+            "existed": true,
+            "old_sha": "ee147dc16e889a51a94d6e1b56f770847d4db988044e10e60027c64fb3d548f6"
         },
         "app/ui/faq.md": {
             "sha": "7c1850e40ccb415aa4dce7dd5c17832ef6d72fb7e0609abfbf593b4e39d10ddb",
             "size": 387968,
-            "live_was": "23989ac679d78086a742d0c52846f0b46a747b38d8cb9ed79f88668700edb6e4"
+            "live_was": "23989ac679d78086a742d0c52846f0b46a747b38d8cb9ed79f88668700edb6e4",
+            "existed": true,
+            "old_sha": "23989ac679d78086a742d0c52846f0b46a747b38d8cb9ed79f88668700edb6e4"
         },
         "app/migrations/2026-11-19_service_stages.sql": {
             "sha": "d7733bae69d687aae38f7f4526294e037ceec2ac93edea035f2e3beab024a764",
@@ -79,67 +101,92 @@
         "app/lib/ServiceStages.php": {
             "sha": "93f1d8ae03d3e530fec5d317308415f8a50df69c962bb0a86ce1668fc86d56c5",
             "size": 5649,
-            "live_was": null
+            "live_was": null,
+            "existed": false
         },
         "app/lib/ServiceHealth.php": {
             "sha": "340a118f6bd4d1f2a0ae7cb10c01ac3c6b83939f17b2b631567390a4179d6d2d",
             "size": 57871,
-            "live_was": "c644ea78cf6966890a191953a835824919e984a6b1f2db2815298208198c9f83"
+            "live_was": "c644ea78cf6966890a191953a835824919e984a6b1f2db2815298208198c9f83",
+            "existed": true,
+            "old_sha": "c644ea78cf6966890a191953a835824919e984a6b1f2db2815298208198c9f83"
         },
         "app/lib/Operations.php": {
             "sha": "89d7f5e0477a5996b971cccc45b0be80aba4ca35f2e926d80dab7a1bfd645bde",
             "size": 74650,
-            "live_was": "48a41eda8fe54dc32b15e3b397f6f290e5df27f19381dbab0efcf8756cd64ba7"
+            "live_was": "48a41eda8fe54dc32b15e3b397f6f290e5df27f19381dbab0efcf8756cd64ba7",
+            "existed": true,
+            "old_sha": "48a41eda8fe54dc32b15e3b397f6f290e5df27f19381dbab0efcf8756cd64ba7"
         },
         "app/lib/staging-tables.php": {
             "sha": "7d927f0dc7a822f15fed0815369cdf7829f30a0ebf7d2c9be2264b46b343909c",
             "size": 28225,
-            "live_was": "ddee21af3ab90fd306a0da19a02b30ba87b9f70803a484912b2a14082553b761"
+            "live_was": "ddee21af3ab90fd306a0da19a02b30ba87b9f70803a484912b2a14082553b761",
+            "existed": true,
+            "old_sha": "ddee21af3ab90fd306a0da19a02b30ba87b9f70803a484912b2a14082553b761"
         },
         "app/lib/Preflight.php": {
             "sha": "1097777adbd692426559a32c5f5bb5c51b883f85e66d57086031cc7dc359dab1",
             "size": 155385,
-            "live_was": "0ce6221002953aa85e145f527345b67e93c56fa680302535a53487125c4dd71f"
+            "live_was": "0ce6221002953aa85e145f527345b67e93c56fa680302535a53487125c4dd71f",
+            "existed": true,
+            "old_sha": "0ce6221002953aa85e145f527345b67e93c56fa680302535a53487125c4dd71f"
         },
         "app/lib/Automation.php": {
             "sha": "d4e82d1e81cffc924feed55d165f56c4dc6578b1677c6f1a1fedea94b6ce596c",
             "size": 22306,
-            "live_was": "6f6733ee5a50e47b261dc4723cab01bf9350e3e749c1c0d0a653c4364a7f5787"
+            "live_was": "6f6733ee5a50e47b261dc4723cab01bf9350e3e749c1c0d0a653c4364a7f5787",
+            "existed": true,
+            "old_sha": "6f6733ee5a50e47b261dc4723cab01bf9350e3e749c1c0d0a653c4364a7f5787"
         },
         "app/lib/Services.php": {
             "sha": "8f7ea5b6be9d455bedbdeacfc57c4faf04af5b4b8dc37ec85da09fadc569c2f3",
             "size": 13235,
-            "live_was": "c7d4a6de0b111369e50e5a4c3801af4cbd20f35a1966d7ea1dd636de4db4fdf5"
+            "live_was": "c7d4a6de0b111369e50e5a4c3801af4cbd20f35a1966d7ea1dd636de4db4fdf5",
+            "existed": true,
+            "old_sha": "c7d4a6de0b111369e50e5a4c3801af4cbd20f35a1966d7ea1dd636de4db4fdf5"
         },
         "app/lib/ControlBoard.php": {
             "sha": "22082eac104d43157409b8d32cf12d0cf8104a940464f58ddf9bb1e42c8d9152",
             "size": 32111,
-            "live_was": "88c539066be329806178a16f8adbfd52add1e22e74b9d3ced754f48662bf91dd"
+            "live_was": "88c539066be329806178a16f8adbfd52add1e22e74b9d3ced754f48662bf91dd",
+            "existed": true,
+            "old_sha": "88c539066be329806178a16f8adbfd52add1e22e74b9d3ced754f48662bf91dd"
         },
         "website/admin/sources.php": {
             "sha": "39a684be032e4ae478703cc6422c9042a0142382b7719d3c26046835845ba9f9",
             "size": 23260,
-            "live_was": "3e5dd9549969685fe9fc4d0e2a5483ab4ede697380ea418b79bb1f4eedf53524"
+            "live_was": "3e5dd9549969685fe9fc4d0e2a5483ab4ede697380ea418b79bb1f4eedf53524",
+            "existed": true,
+            "old_sha": "3e5dd9549969685fe9fc4d0e2a5483ab4ede697380ea418b79bb1f4eedf53524"
         },
         "website/admin/router.php": {
             "sha": "074655fb3ff8436f248f7c308ef1953cee92c511d8c8c7a9552899db1cde5bbe",
             "size": 12520,
-            "live_was": "37fd2e5172860f570570ead5a411c42fd33c6485e823ea254b896d29a6ef2933"
+            "live_was": "37fd2e5172860f570570ead5a411c42fd33c6485e823ea254b896d29a6ef2933",
+            "existed": true,
+            "old_sha": "37fd2e5172860f570570ead5a411c42fd33c6485e823ea254b896d29a6ef2933"
         },
         "website/admin/api.php": {
             "sha": "24000788b95479bec6eaa2889e397434b37ab0dcefbd50ff5907688023a3f28c",
             "size": 43930,
-            "live_was": "03bfa8cf99e73503dd63c47abee48ad85e09fba1f95d48a802b07614d99e32f3"
+            "live_was": "03bfa8cf99e73503dd63c47abee48ad85e09fba1f95d48a802b07614d99e32f3",
+            "existed": true,
+            "old_sha": "03bfa8cf99e73503dd63c47abee48ad85e09fba1f95d48a802b07614d99e32f3"
         },
         "website/js/admin-outside.js": {
             "sha": "17cde6430c425101e64cdd8f9676f44eead7931953ebd3bdb868577275ca9018",
             "size": 6893,
-            "live_was": "eb3155a70ac9904b3ccfdfa44dc8b814fc83f3b86ac2ea47addd2956dc509298"
+            "live_was": "eb3155a70ac9904b3ccfdfa44dc8b814fc83f3b86ac2ea47addd2956dc509298",
+            "existed": true,
+            "old_sha": "eb3155a70ac9904b3ccfdfa44dc8b814fc83f3b86ac2ea47addd2956dc509298"
         },
         "website/js/admin-control.js": {
             "sha": "48b12a7ac28c0a56bacc9a054a2d227e151803a7cfdf9cac1e1ebbb4c3f8a8f5",
             "size": 31165,
-            "live_was": "7969219cf15c978d43031ba0a944012f1c33a681f29115e7c7ce96414fdefb88"
+            "live_was": "7969219cf15c978d43031ba0a944012f1c33a681f29115e7c7ce96414fdefb88",
+            "existed": true,
+            "old_sha": "7969219cf15c978d43031ba0a944012f1c33a681f29115e7c7ce96414fdefb88"
         }
     },
     "migrations": [
@@ -147,8 +194,8 @@
     ],
     "checks": {
         "ok": true,
-        "where": "staging",
-        "at": "2026-11-19T22:46:43+00:00",
+        "where": "live",
+        "at": "2026-11-19T22:46:45+00:00",
         "items": [
             [
                 "PHP files parse",
@@ -156,19 +203,9 @@
                 "21 checked"
             ],
             [
-                "Migrations only add",
-                true,
-                "1 checked"
-            ],
-            [
-                "Migrations ran on staging",
-                true,
-                "Ran 2026-11-19_service_stages.sql"
-            ],
-            [
                 "Pages answer",
                 true,
-                "5 pages answered on staging.trvgo.us"
+                "5 pages answered on traversence.com"
             ],
             [
                 "No new fatal errors in the logs",
@@ -198,6 +235,16 @@
             "at": "2026-11-19T22:46:43+00:00",
             "by": 0,
             "msg": "Put on staging (25 files); its checks passed."
+        },
+        {
+            "at": "2026-11-19T22:46:44+00:00",
+            "by": 0,
+            "msg": "Approved in chat before it was sent through git, and its checks on staging passed: publishing by itself."
+        },
+        {
+            "at": "2026-11-19T22:46:44+00:00",
+            "by": 0,
+            "msg": "Published: 24 files, after its 1 migration ran first (2026-11-19_service_stages.sql; a copy of what each touched is kept 14 days); everyone at once (no switch)."
         }
     ]
 }
