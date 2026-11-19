@@ -34,8 +34,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "control-board-backoff-gate",
    "since": "2026-11-19T11:21:50Z",
-   "expires": "2026-11-19T15:21:50Z",
-   "release": "",
+   "expires": "2026-11-19T15:23:17Z",
+   "release": "control-board-backoff-gate.zip",
    "callers": {}
   },
   {
@@ -71,8 +71,52 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "control-board-backoff-gate",
    "since": "2026-11-19T11:21:57Z",
-   "expires": "2026-11-19T15:21:57Z",
-   "release": "",
+   "expires": "2026-11-19T15:23:17Z",
+   "release": "control-board-backoff-gate.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Operations.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "release control-board-backoff-gate.zip",
+   "since": "2026-11-19T11:23:17Z",
+   "expires": "2026-11-19T15:23:17Z",
+   "release": "control-board-backoff-gate.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/ControlAlarms.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "release control-board-backoff-gate.zip",
+   "since": "2026-11-19T11:23:17Z",
+   "expires": "2026-11-19T15:23:17Z",
+   "release": "control-board-backoff-gate.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/control-console.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "release control-board-backoff-gate.zip",
+   "since": "2026-11-19T11:23:17Z",
+   "expires": "2026-11-19T15:23:17Z",
+   "release": "control-board-backoff-gate.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/api/health.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "release control-board-backoff-gate.zip",
+   "since": "2026-11-19T11:23:17Z",
+   "expires": "2026-11-19T15:23:17Z",
+   "release": "control-board-backoff-gate.zip",
    "callers": {}
   }
  ],
