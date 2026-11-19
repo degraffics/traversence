@@ -26,14 +26,43 @@
    "callers": {}
   },
   {
-   "path": "app/admin/kit-css.php",
+   "path": "app/admin/control-console.php",
+   "functions": [
+    "(top)",
+    "tv_admin_mod_control",
+    "tv_cb_logbook",
+    "tv_cb_statement_osm"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "control-board-logbook-list: the OSM statement updated",
+   "since": "2026-11-19T14:17:21Z",
+   "expires": "2026-11-19T18:25:00Z",
+   "release": "control-board-logbook-list.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/js/admin-control.js",
    "functions": [],
    "kind": "change",
-   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
-   "why": "T1: one table for the admin's lists (design/table-standard.md)",
-   "since": "2026-11-19T13:26:32Z",
-   "expires": "2026-11-19T18:15:21Z",
-   "release": "t1-tables.zip",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "control-board-logbook-list: the logbook's list grouped and searchable",
+   "since": "2026-11-19T14:17:24Z",
+   "expires": "2026-11-19T18:25:00Z",
+   "release": "control-board-logbook-list.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/kit-css.php",
+   "functions": [
+    "(top)"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "release control-board-logbook-list.zip",
+   "since": "2026-11-19T14:18:52Z",
+   "expires": "2026-11-19T18:18:52Z",
+   "release": "control-board-logbook-list.zip",
    "callers": {}
   },
   {
@@ -42,11 +71,11 @@
     "tv_w_table"
    ],
    "kind": "change",
-   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
-   "why": "T1: one table for the admin's lists (design/table-standard.md)",
-   "since": "2026-11-19T13:26:35Z",
-   "expires": "2026-11-19T18:15:21Z",
-   "release": "t1-tables.zip",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "release control-board-logbook-list.zip",
+   "since": "2026-11-19T14:18:52Z",
+   "expires": "2026-11-19T18:18:52Z",
+   "release": "control-board-logbook-list.zip",
    "callers": {
     "tv_w_table": [
      "app/admin/sections.php"
@@ -54,44 +83,37 @@
    }
   },
   {
-   "path": "app/admin/kit-table.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
-   "why": "T1: one table for the admin's lists (design/table-standard.md)",
-   "since": "2026-11-19T13:26:37Z",
-   "expires": "2026-11-19T18:15:21Z",
-   "release": "t1-tables.zip",
-   "callers": {}
-  },
-  {
    "path": "website/js/admin-kit.js",
    "functions": [
+    "cell",
     "draw",
     "drawFilters",
-    "esc"
+    "esc",
+    "find",
+    "getSrc",
+    "menuHtml",
+    "rowHtml",
+    "statusHtml",
+    "whenHtml"
    ],
    "kind": "change",
-   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
-   "why": "T1: one table for the admin's lists (design/table-standard.md)",
-   "since": "2026-11-19T14:09:15Z",
-   "expires": "2026-11-19T18:15:21Z",
-   "release": "t1-tables.zip",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "release control-board-logbook-list.zip",
+   "since": "2026-11-19T14:18:52Z",
+   "expires": "2026-11-19T18:18:52Z",
+   "release": "control-board-logbook-list.zip",
    "callers": {}
   },
   {
-   "path": "website/index.php",
+   "path": "app/ui/pulse-ui.php",
    "functions": [],
    "kind": "change",
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
-   "why": "The home search bar scrolls under the header (Jason, 2026-11-19)",
-   "since": "2026-11-19T14:16:23Z",
-   "expires": "2026-11-19T18:16:35Z",
+   "why": "Pulse: overdue rows rise (Jason, 2026-11-19)",
+   "since": "2026-11-19T14:20:04Z",
+   "expires": "2026-11-19T18:20:04Z",
    "release": "",
-   "callers": {},
-   "zones": [
-    "home.after-doors"
-   ]
+   "callers": {}
   }
  ],
  "lapsed": [

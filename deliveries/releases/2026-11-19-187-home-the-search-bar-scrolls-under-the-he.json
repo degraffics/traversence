@@ -1,0 +1,83 @@
+{
+    "id": 187,
+    "title": "Home: the search bar scrolls under the header",
+    "why": "Jason, 2026-11-19 (screenshot): \"page scroll should always be under the nav header.\" The split search sat above everything at 768px and wider (z-index 1372) so its results could hang from it, which also lifted it over the sticky header while scrolling. It now rises only while the search is open (its dim, .tvs-dim, is on the page); otherwise it scrolls under the header. Phones unchanged. website/index.php, one rule. No FAQ change: nothing a visitor reads about changes.",
+    "proposals": "",
+    "zip": "home-bar-scroll.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "live",
+    "step": 3,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": "2026-11-19 14:22:14",
+    "staged_at": "2026-11-19 14:22:15",
+    "vetted_at": "2026-11-19 14:22:18",
+    "live_at": "2026-11-19 14:22:18",
+    "files": {
+        "website/index.php": {
+            "sha": "2389ab572dbd14f86f93ea1cc716b61ad31e3284a17768af0d79c28532666693",
+            "size": 48030,
+            "live_was": "d8d863a7fe8e289cd6babb38aeac230de9450ba744095a0ba9ace9345d024a84",
+            "existed": true,
+            "old_sha": "d8d863a7fe8e289cd6babb38aeac230de9450ba744095a0ba9ace9345d024a84"
+        }
+    },
+    "migrations": [],
+    "checks": {
+        "ok": true,
+        "where": "live",
+        "at": "2026-11-19T14:22:18+00:00",
+        "items": [
+            [
+                "PHP files parse",
+                true,
+                "1 checked"
+            ],
+            [
+                "Pages answer",
+                true,
+                "2 pages answered on traversence.com"
+            ],
+            [
+                "No new fatal errors in the logs",
+                true,
+                "3 logs read"
+            ]
+        ],
+        "first_fail": ""
+    },
+    "log": [
+        {
+            "at": "2026-11-19T14:22:12+00:00",
+            "by": 0,
+            "msg": "Uploaded home-bar-scroll.zip: 1 files."
+        },
+        {
+            "at": "2026-11-19T14:22:14+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/home-bar-scroll.zip (git 88b4a71c41)."
+        },
+        {
+            "at": "2026-11-19T14:22:14+00:00",
+            "by": 0,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
+        },
+        {
+            "at": "2026-11-19T14:22:16+00:00",
+            "by": 0,
+            "msg": "Put on staging (1 files); its checks passed."
+        },
+        {
+            "at": "2026-11-19T14:22:18+00:00",
+            "by": 0,
+            "msg": "Approved in chat before it was sent through git, and its checks on staging passed: publishing by itself."
+        },
+        {
+            "at": "2026-11-19T14:22:18+00:00",
+            "by": 0,
+            "msg": "Published: 1 files; everyone at once (no switch)."
+        }
+    ]
+}
