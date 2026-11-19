@@ -90,4 +90,9 @@ $t('…the stream reads only messages without a Pulse item (Notify)', str_contai
 $pc = (string) file_get_contents($app . '/admin/preflight-console.php');
 $t('the pre-flight opens fresh and says its last full run, with the report a tap away', str_contains($pc, 'data-tv-label="Not run in this view yet:">Last full run') && str_contains($pc, 'href="#pf-runs">Its report is in the run log'));
 
+// 7. only a trip reaches a person (Jason, 2026-11-19: "everything else should be cleared by the system so why send and pulse?")
+$pl = (string) file_get_contents($app . '/lib/Pulse.php');
+$t('Pulse lists only open trips; a warning stays on the board', str_contains($pl, "if (\$al['cleared_at'] !== null || \$al['level'] !== 'trip') continue;"));
+$t('only a trip is emailed; no 24-hour warning email', str_contains($ca, "if (\$a['level'] !== 'trip') return;") && !str_contains($ca, 'mailStale'));
+
 echo "\n$pass passed, $fail failed\n"; exit($fail ? 1 : 0);

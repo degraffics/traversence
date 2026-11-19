@@ -341,10 +341,11 @@ admin and ceasing internal process until admin resolves it." So, for trips only:
 1. **System notification.**
    - Every admin page's top bar shows the board's light, with a count of open trips and warnings. Tapping it opens the
      alarm list.
-   - Each new trip is emailed to the Founder at once, the same recipient as the daily report. So is a warning still
-     unacknowledged after 24 hours.
+   - Each new trip is emailed to the Founder at once, the same recipient as the daily report. (A warning still
+     unacknowledged after 24 hours was too, until 2026-11-19: see the note below.)
    - System emails cost nothing.
-2. **Pulse, for review and action** (§8). One Pulse item per trip or warning, carrying its steps.
+2. **Pulse, for review and action** (§8). One Pulse item per trip, carrying its steps (warnings too until 2026-11-19:
+   see the note below).
 3. **A push to Jason's phone** from the session manager's hourly check.
    - `/api/health.php` gains an `alarms` block: open trips and warnings, the process, the level, the words and since
      when. It holds nothing about a person.
@@ -357,6 +358,18 @@ admin and ceasing internal process until admin resolves it." So, for trips only:
 
 **Acknowledging** in any of the three places (the board, Pulse, the email's link to the board) acknowledges all of them.
 There is one record: the alarm. Acknowledging stops the email repeat. The alarm stays open until its reading is green.
+
+> **Note (Jason, 2026-11-19, control-board-routes): only a trip reaches a person.** In the session manager's chat: "I
+> think trips that require the admin are sent immediately because they wont clear unless the admin clears them.
+> Everything else should be cleared by the system so why send and pulse?" So a trip goes to Pulse, the Founder's email
+> and the push at once, as before; under 3c only a trip waits for a person (only Resolve clears it). Warnings, held
+> lines that clear themselves and slow lines go nowhere but the board: its light and count in every admin page's top
+> bar, and the reports. No Pulse item, no email (the "warning still unacknowledged after 24 hours" email above is
+> dropped) and no push. Nothing is lost: 3c already turns a warning the system can't clear into a trip (a back-off at
+> its case limit, a crash past its tries, a refusal or out-of-budget at once), and the trip then reaches him. Warning
+> items already in Pulse leave it by themselves (Pulse reads open trips only). An alarm's email is no longer also its
+> own stream row: it carries its alarm's Pulse item (`pulse_ref`), so Pulse shows the alarm in one place (§8's "one
+> thing"; the messages already sent got the same mark in a migration).
 
 ### 8. Pulse, fixed: one item per alarm, acted on in place, closed by itself
 
@@ -377,7 +390,7 @@ From Release 3:
   - it says what it means and what to do;
   - its fix is a button that acts in place (`['do', …]` / `['form', …]` through `Pulse::manage`), with Peek to open
     the process's gauge in a drawer.
-- **Severity follows the level:** a trip is critical, a warning is an alert. Each keeps its Pulse clock (`SLA_HOURS`)
+- **Severity follows the level:** a trip is critical, a warning is an alert (since 2026-11-19 only trips are in Pulse: §7's note). Each keeps its Pulse clock (`SLA_HOURS`)
   and can be assigned and escalated as today. Notices stay on the board and in the reports, not in Pulse.
 - **It closes itself** when its alarm clears, with how it cleared written as its last note. **Done** in Pulse means
   acknowledged. **Undo** reopens it.

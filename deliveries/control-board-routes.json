@@ -1,8 +1,8 @@
 {
  "zip": "control-board-routes.zip",
  "built_on": "5bd98bf Sync: 2026-11-19 13:20 UTC",
- "recorded": "2026-11-19 13:31 UTC",
- "note": "Control Board routes: every alarm leads to its own fix; the stage tiles route; one pre-flight; one alarm count; no second Pulse row for an alarm's message. Built on Sync: 2026-11-19 13:20 UTC Sent through git (releases/inbox).",
+ "recorded": "2026-11-19 13:41 UTC",
+ "note": "Control Board routes: every alarm leads to its own fix; one alarm count; only a trip reaches a person (Pulse, email, push; drops ControlAlarms::mailStale, the 24-hour warning email, by Jason's decision 2026-11-19). Built on Sync: 2026-11-19 13:20 UTC Sent through git (releases/inbox).",
  "status": "pending",
  "live_in": "",
  "files": {
@@ -23,7 +23,7 @@
    "live": false
   },
   "app/lib/ControlAlarms.php": {
-   "sha256": "47142f81a5425e375f9083de79e10e21d39bf5502b2a8bdcb415d6a49e74fb9e",
+   "sha256": "dacd6cf8df9e85a26c14ef4eab6652c09594d48d155d32ebe4457ea7983cdd7c",
    "live": false
   },
   "app/lib/ControlHistorian.php": {
@@ -38,12 +38,20 @@
    "sha256": "11a81803258d92e631a94c677bb76120bdffc236c126d2e5ac358065ff12291a",
    "live": false
   },
+  "app/lib/Notify.php": {
+   "sha256": "56e833882085568a13310d0c299a1117ef70ef5554e6b2518d1bad3937a9b5cd",
+   "live": false
+  },
   "app/lib/Operations.php": {
    "sha256": "a3a0dcf3e7309646b5d344b22006f0abc01a450ed24bda75d7f5ff9f5801853b",
    "live": false
   },
   "app/lib/Preflight.php": {
    "sha256": "6acdaa88c539af9a843f979fa16a3bbb070011bc878c7c16b04d348b04f926e1",
+   "live": false
+  },
+  "app/lib/Pulse.php": {
+   "sha256": "933a1b6f3200b0d63b2998f31a10c9061118390443e02f6b9ce4479c84c760d0",
    "live": false
   },
   "app/lib/crawler/CrawlService.php": {
@@ -55,7 +63,7 @@
    "live": false
   },
   "app/ui/faq.md": {
-   "sha256": "026685a9fc9ca2863dd76cedbce86f5df86332f0fa04f8b83d5885b0bb5abb56",
+   "sha256": "be649bae2a5289205de2e74899d7df6ba30509ba377dab3388edc6f9e6e2eebe",
    "live": false
   },
   "website/js/admin-control.js": {
