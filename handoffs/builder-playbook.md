@@ -93,6 +93,9 @@ Each one comes from a request Jason had to send. Build to them, and the session 
   moved (to where), or dropped (only with Jason's OK, quoted). The list goes in the release summary. Test each kept
   behaviour in the rendered page, not only its PHP helper. [#192 moved the board onto the table and its system counts,
   which filtered the rows since #180, became plain text; filter.php still passed because it tests the helper.]
+- **Everything that pops open has a way to close it** (Jason, 2026-11-19: "anything that pops open should have a way to
+  close it"). Every pop-up, panel, menu and drawer: a visible ×, Esc and a click outside. Test all three in the
+  rendered page. [Pulse's + New and Quick actions panels closed only on Esc or a click outside.]
 - **One coherent release, not a string of patches.** Gather the fixes for one area into one zip after checking them
   together; a follow-up release only for something found after it went live. [#115–#119 were five releases in two
   hours on one card, each needing Jason's OK.]
