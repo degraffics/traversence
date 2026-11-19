@@ -1,0 +1,39 @@
+{
+    "id": 193,
+    "title": "T2: the admin's Pulse on the table standard (▾ and ⋯, two rows on top)",
+    "why": "Jason, 2026-11-19: \"go\" on T2 of design/table-standard.md, after \"not sure about the hover tool bar\" and \"top half of page seems very cluttered\". Pulse keeps its own engine (rows open in place, live marks, 0172's columns and order) and takes the standard: no toolbar over the text; each row ends with ▾ (open it here) and ⋯, a menu that names each action (a greyed one says why), opening upward near the bottom of the screen. The top half is two rows: one header (Pulse, the role picker only with more than one role, Filter this list, the bell, Your day as a pop-up, ⋯ for Quick actions and posting, the settings; 0172's option), then one filter button (\"Inbox · All (24)\") holding the lists and the views, with + New. Headers in sentence case. Paging and the count (item 9, \"pagination and count controls too\"): \"1–50 of N\" (\"12 of N match\" while filtering), Show 10/25/50/100 (remembered), the page bar (on a phone: previous, Page n of N, next); a new filter or sort starts at page 1, an open row closes when its page goes. Pulse keeps its own engine (in-place opening, live marks) and takes the standard's look, ⋯, groups, paging and phone cards; only server-listed tables use tv_table(); its paging pages the rows Pulse gathers, not a database query (the Pulse store, a communications build, would move it into the database; the Control Board warns past 2 s). app/ui/pulse-ui.php; FAQ.",
+    "proposals": "",
+    "zip": "t2-pulse.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/ui/pulse-ui.php": {
+            "sha": "af8b33fbfa728510b1e18216c50e8574dde0038d2ad4644af57cd9058dbc3826",
+            "size": 147969,
+            "live_was": "a8abbe1d359942d72055fecd6648e7ed22b770f3ba09d9877a7ff24c318ce296"
+        },
+        "app/ui/faq.md": {
+            "sha": "4d342d928c6e3820791add7396b53292a3afd9b6e9dd87fc04b8f2fcae10a283",
+            "size": 375039,
+            "live_was": "e5d904b2f49440c3e5b64f872d3f516c1952bd44a6d88d34ce14ebb667f55911"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-19T16:20:14+00:00",
+            "by": 0,
+            "msg": "Uploaded t2-pulse.zip: 2 files."
+        }
+    ]
+}
