@@ -1,13 +1,13 @@
 {
- "at": "2026-11-18T09:35:58.948Z",
+ "at": "2026-11-19T09:40:08.400Z",
  "site": "https://traversence.com",
- "run_url": "https://github.com/degraffics/traversence/actions/runs/44274474430",
+ "run_url": "https://github.com/degraffics/traversence/actions/runs/44494995031",
  "full": false,
  "signed_in": true,
- "pages": 384,
+ "pages": 398,
  "by": {
   "status": 2,
-  "edges": 3
+  "edges": 5
  },
  "results": [
   {
@@ -488,6 +488,40 @@
   },
   {
    "who": "guest",
+   "url": "/email/stop.php",
+   "size": "phone",
+   "must": false,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "final": "/email/stop.php",
+   "eg": {},
+   "why": []
+  },
+  {
+   "who": "guest",
+   "url": "/email/stop.php",
+   "size": "desktop",
+   "must": false,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "final": "/email/stop.php",
+   "eg": {},
+   "why": []
+  },
+  {
+   "who": "guest",
    "url": "/email/unsubscribe.php",
    "size": "phone",
    "must": false,
@@ -1096,6 +1130,40 @@
   },
   {
    "who": "guest",
+   "url": "/listing/confirm.php",
+   "size": "phone",
+   "must": false,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "final": "/listing/confirm.php",
+   "eg": {},
+   "why": []
+  },
+  {
+   "who": "guest",
+   "url": "/listing/confirm.php",
+   "size": "desktop",
+   "must": false,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "final": "/listing/confirm.php",
+   "eg": {},
+   "why": []
+  },
+  {
+   "who": "guest",
    "url": "/listing/location.php",
    "size": "phone",
    "must": false,
@@ -1125,6 +1193,40 @@
    "alt": 0,
    "names": 0,
    "final": "/listing/location.php",
+   "eg": {},
+   "why": []
+  },
+  {
+   "who": "guest",
+   "url": "/listing/requests.php",
+   "size": "phone",
+   "must": false,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "final": "/listing/requests.php",
+   "eg": {},
+   "why": []
+  },
+  {
+   "who": "guest",
+   "url": "/listing/requests.php",
+   "size": "desktop",
+   "must": false,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "final": "/listing/requests.php",
    "eg": {},
    "why": []
   },
@@ -2716,6 +2818,74 @@
   },
   {
    "who": "staff-executive",
+   "url": "/admin/dashboard/inbox",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "final": "/admin/dashboard/inbox",
+   "eg": {},
+   "why": []
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/dashboard/inbox",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "final": "/admin/dashboard/inbox",
+   "eg": {},
+   "why": []
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/dashboard/comms",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "final": "/admin/dashboard/comms",
+   "eg": {},
+   "why": []
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/dashboard/comms",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "final": "/admin/dashboard/comms",
+   "eg": {},
+   "why": []
+  },
+  {
+   "who": "staff-executive",
    "url": "/admin/dashboard/streamset",
    "size": "phone",
    "must": true,
@@ -5473,6 +5643,51 @@
    "alt": 0,
    "names": 0,
    "final": "/admin/insights/data",
+   "eg": {},
+   "why": []
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/config/control",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 8,
+   "alt": 0,
+   "names": 0,
+   "final": "/admin/config/control",
+   "eg": {
+    "edges": [
+     "<details class=\"ak-card tv-bleed cb-panel cb-alarms\" id=\"cb-alarms\" open=\"\" data-gap=\"14px left, 14px right; #ta-work pads 13.6px/13.6px\"></details>",
+     "<details class=\"ak-card tv-bleed cb-panel\" id=\"cb-times\" data-gap=\"14px left, 14px right; #ta-work pads 13.6px/13.6px\"></details>",
+     "<details class=\"ak-card tv-bleed cb-panel\" id=\"maintenance\" data-gap=\"14px left, 14px right; #ta-work pads 13.6px/13.6px\"></details>"
+    ]
+   },
+   "why": [
+    [
+     "edges",
+     "8 card(s) e.g. <details class=\"ak-card tv-bleed cb-panel cb-alarms\" id=\"cb-alarms\" open=\"\" data-gap=\"14px left, 14px right; #ta-work pads 13.6px/13.6px\"></details>"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/config/control",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "final": "/admin/config/control",
    "eg": {},
    "why": []
   },
@@ -5622,7 +5837,7 @@
    "requests": [],
    "dialogs": [],
    "scroll": false,
-   "edges": 10,
+   "edges": 11,
    "alt": 0,
    "names": 0,
    "final": "/admin/config/preflight",
@@ -5636,7 +5851,7 @@
    "why": [
     [
      "edges",
-     "10 card(s) e.g. <details class=\"pf-g ak-card tv-bleed\" id=\"pf-g-site\" open=\"\" data-gap=\"14px left, 14px right; #ta-work pads 13.6px/13.6px\"></details>"
+     "11 card(s) e.g. <details class=\"pf-g ak-card tv-bleed\" id=\"pf-g-site\" open=\"\" data-gap=\"14px left, 14px right; #ta-work pads 13.6px/13.6px\"></details>"
     ]
    ]
   },
@@ -5842,6 +6057,51 @@
    "alt": 0,
    "names": 0,
    "final": "/admin/config/ai",
+   "eg": {},
+   "why": []
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/config/communications",
+   "size": "phone",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 8,
+   "alt": 0,
+   "names": 0,
+   "final": "/admin/config/communications",
+   "eg": {
+    "edges": [
+     "<section class=\"cs-card tv-bleed\" id=\"cs-system\" data-gap=\"14px left, 14px right; #ta-work pads 13.6px/13.6px\"></section>",
+     "<section class=\"cs-card tv-bleed\" id=\"cs-orders\" data-gap=\"14px left, 14px right; #ta-work pads 13.6px/13.6px\"></section>",
+     "<section class=\"cs-card tv-bleed\" id=\"cs-requests\" data-gap=\"14px left, 14px right; #ta-work pads 13.6px/13.6px\"></section>"
+    ]
+   },
+   "why": [
+    [
+     "edges",
+     "8 card(s) e.g. <section class=\"cs-card tv-bleed\" id=\"cs-system\" data-gap=\"14px left, 14px right; #ta-work pads 13.6px/13.6px\"></section>"
+    ]
+   ]
+  },
+  {
+   "who": "staff-executive",
+   "url": "/admin/config/communications",
+   "size": "desktop",
+   "must": true,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "final": "/admin/config/communications",
    "eg": {},
    "why": []
   },
