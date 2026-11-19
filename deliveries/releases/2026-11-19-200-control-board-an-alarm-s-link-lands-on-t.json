@@ -1,0 +1,44 @@
+{
+    "id": 200,
+    "title": "Control Board: an alarm's link lands on the one thing",
+    "why": "Jason, 2026-11-19, with a screenshot of Open its card landing at the top of the whole Service register: \"i thought we fixed this. Open card shows the specific place to fix issues.\" The side panel added its own settings after the link's #, so the page inside never found the card. They go before the # now, and the page opens on the card, opened and marked. A workflow's, task's or the crawler's alarm opened the whole runs list: it opens its run now.",
+    "proposals": "",
+    "zip": "control-board-landing.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/admin/control-console.php": {
+            "sha": "f14b9a0844057ebf484476cad74d9015519925fbb5d1152ead006910c9559e38",
+            "size": 110333,
+            "live_was": "90b315e99c504e720f41349e8ffa7aeb29534a1af8995f3da1796bbe5266441a"
+        },
+        "app/ui/faq.md": {
+            "sha": "c1210f4a86c4342cdd532490ccc9692ef4864f80a6d9273ae289170a4412964b",
+            "size": 379739,
+            "live_was": "183881f51920567eec58884ff46d6a3250909b13079b79d06079f6fa9138c82f"
+        },
+        "website/js/tv-ask.js": {
+            "sha": "bc06644696cf9135e99ff8b6a6884c3a2dce23f2fd540e8eebcdd2d446cd7b14",
+            "size": 50294,
+            "live_was": "49eb1b3ef263070d151365377587c17dd131cecbbaf0931bcfe04b1ee67f4dac"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-19T17:31:28+00:00",
+            "by": 0,
+            "msg": "Uploaded control-board-landing.zip: 3 files."
+        }
+    ]
+}
