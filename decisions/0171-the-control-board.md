@@ -280,6 +280,26 @@ tries again every watch. An admin's Resolve is **Check and start again** (no que
 reason while what it would start has a red check. Every open pre-flight alarm's words follow its line as it stands now
 (4c), and a line not tested in 6 hours is tested again by the watch, words only.
 
+> **Note (Jason, 2026-11-19, control-board-routes): critical parts trip at once.** In the session manager's chat: "I am
+> concerned if a system critical part goes into retry it misses the fact that it was system critical, this is one that
+> should immediately trip even it is to be retried, may not require admin but because it causes the system to fail in
+> its ability to perform it needs admin oversight immediately." What counts as critical, his words: "Critical is that our
+> site can perform its duties. Search, page load, payment processing, database connections, system critical processing
+> or procedures." And how it closes: "The system fixes it: the trip closes as 'Recovered…' … This is a notification, not
+> need for me to acknowledge. Retries run out: it becomes an ordinary trip that only Resolve clears: Escalation Notice,
+> retries unsuccessful, now admin required."
+> - **The register:** each part carries a duty or none (`ControlRegister::DUTIES`: page, search, payments, database,
+>   procedures; defaults in `ControlRegister::CRITICAL`, changed on Thresholds & gates → Critical parts, each change in
+>   the logbook). The board marks a critical part with its duty ("Payments: critical").
+> - **First failure:** a trip at once, to Pulse, the Founder's email and the push; the system keeps trying and nothing is
+>   stopped (`retrying_at`). A critical part's retry warnings count as failures too.
+> - **The system fixes it:** the trip closes itself, "Recovered: <part> was down <n> min, the system fixed it.", a notice
+>   (Notify `alarm.recovered`) with nothing to press; it doesn't hold the bell; it's in the logbook.
+> - **Its tries run out:** the Escalation Notice ("Retries unsuccessful, now admin required: <part>, <duty>", Notify
+>   `alarm.escalated`, critical); it's an ordinary trip now, what it holds is stopped, and only Resolve clears it.
+> - **Not critical by themselves:** the crawler, W0, the video worker, enrichment, and Railway or GitHub as hosts
+>   (GitHub is critical through releases). They keep 3c: a warning while the system tries, a trip when it can't.
+
 ### 6. The historian
 
 Each reading is kept over time, so every system and process has a trend.

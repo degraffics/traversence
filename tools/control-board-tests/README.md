@@ -132,3 +132,7 @@ and `website/api/` (the mirror's `sync-storage/api/crawl` and `api/video`). Put 
   code (read by the tokenizer) carries a fix, and each link lands on one item (a hash, a query or an id); the Ledger
   call, the run, the job, Railway as a link only, the pre-flight line's own fix; Supabase catching up measured; the
   stage tiles' routes; one pre-flight; the Runs line; one alarm count. 64 tests, static: `php routes.php <root>/app`.
+- `critical.php`: control-board-routes, 0171 §5's note (Jason, 2026-11-19): duties on the register (defaults, changed,
+  logged), a critical part's first failure a trip at once while still retrying, Recovered closing itself with nothing to
+  press, the Escalation Notice when its tries run out (then only Resolve), any other part unchanged. 20 tests, on
+  MariaDB: `php critical.php <root>/app`.
