@@ -330,6 +330,17 @@
    "expires": "2026-11-19T17:32:30Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/lib/Notify.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "control-board-routes: only a trip reaches a person (0171 \u00a77's note)",
+   "since": "2026-11-19T13:39:41Z",
+   "expires": "2026-11-19T17:39:41Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
