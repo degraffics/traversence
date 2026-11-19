@@ -1,0 +1,69 @@
+{
+    "id": 192,
+    "title": "Control Board: the parts in the admin's one table; a block named by its reason; the alarm link fixed",
+    "why": "The table standard Jason approved (design/table-standard.md, T1 live as #186): the board's process rows move onto tv_table(), from his own screenshot's notes (empty columns of \"–\", the stage pill's code font, \"Working.\" repeating the pill, the button far from the name). Rows now open the process's own page in a drawer (the standard's rule 6) instead of in place (0171 §2's note), and the count buttons become the one Show filter. With it, Jason's two from the live board (2026-11-19): \"alarm list link sends me to dead end\" (each alarm now links to its own row, the filter switched to show it), and \"blocks us: should be the actual reason 1. no crawling allowed. 2. Firewall/Bot refused. 3. ### failure\".",
+    "proposals": "",
+    "zip": "control-board-table.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/admin/control-console.php": {
+            "sha": "7a4da3804bca559023e46d35ae0c9cda3d4604bbbc5a91a758278f4e61ad9e44",
+            "size": 103335,
+            "live_was": "f061f5bf1a59f357c35b9a821dec55903b77b07e70462a2557e29bf90a4c8b20"
+        },
+        "app/admin/tools.php": {
+            "sha": "d5c72f2be1fa9139dcd05838a53247c3c6cee8f0b2f727edae4db08dd3439cb8",
+            "size": 265701,
+            "live_was": "99bda01d6ecb84283c5732aa7fba6e6eafc0d6f3e316ab40947ac7dae313969d"
+        },
+        "app/admin/kit-css.php": {
+            "sha": "366adf95433a7a5442c05643637b389353f1f458c591271274fa567d761fc855",
+            "size": 37312,
+            "live_was": "1b390662d1358651add718be5b8779749171610113204513a669b44a5f791503"
+        },
+        "app/ui/faq.md": {
+            "sha": "e5d904b2f49440c3e5b64f872d3f516c1952bd44a6d88d34ce14ebb667f55911",
+            "size": 374454,
+            "live_was": "1fcb2eaff420227c566e608290244e11df1a84752688893c8dc9e660d541ecef"
+        },
+        "app/lib/crawler/Frontier.php": {
+            "sha": "800bf01cdf5c260f1b9f6f447a1c5589e1a02b53fbb1e350c55bfa9f2be3fe1b",
+            "size": 61525,
+            "live_was": "157978eb6e4501f475f56da3e0300b56aaa090b3844c3b526f97d5f864053d52"
+        },
+        "app/lib/EngineCase.php": {
+            "sha": "5e387bd0be0b16ae371c5e2da89faec41414c9a587772f7b921cbaab89310dee",
+            "size": 30882,
+            "live_was": "c6f162cd7b3580a31dcd90d3e7d649f218947988c01fd9ba84f439bf7c6e781e"
+        },
+        "website/js/admin-kit.js": {
+            "sha": "df42df515ef22654f150648f914e4e3116e0e840a42129234126cfdcc5acb945",
+            "size": 56823,
+            "live_was": "e44ea2ffe81c3057e340894727a934034f61df3b3794ecd8b3fdcbf82bf81ef5"
+        },
+        "website/js/admin-control.js": {
+            "sha": "8e6c541273bcc2789346c3bd2d68e93976c673353169d2bdb862ff556fc8c753",
+            "size": 26214,
+            "live_was": "85abdf46ab65db573f73a6b3f6c43d12f58f857fbc62d73f0ce324d27a888a65"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-19T16:16:01+00:00",
+            "by": 0,
+            "msg": "Uploaded control-board-table.zip: 8 files."
+        }
+    ]
+}
