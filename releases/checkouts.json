@@ -19,9 +19,9 @@
    "functions": [],
    "kind": "change",
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
-   "why": "T3: the standard for the tables the server writes (design/table-standard.md)",
+   "why": "T4: the table standard on the admin's older pages (approved 2026-11-19)",
    "since": "2026-11-19T16:21:50Z",
-   "expires": "2026-11-19T20:21:50Z",
+   "expires": "2026-11-19T21:09:44Z",
    "release": "",
    "callers": {}
   },
