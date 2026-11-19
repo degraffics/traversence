@@ -2,41 +2,6 @@
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
  "claims": [
   {
-   "path": "website/user/api/bell.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
-   "why": "staff-bell (Jason, 2026-11-19, approved a+b+c)",
-   "since": "2026-11-19T17:33:58Z",
-   "expires": "2026-11-19T21:33:58Z",
-   "release": "",
-   "callers": {}
-  },
-  {
-   "path": "website/user/dashboard.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
-   "why": "staff-bell (Jason, 2026-11-19, approved a+b+c)",
-   "since": "2026-11-19T17:34:04Z",
-   "expires": "2026-11-19T21:34:04Z",
-   "release": "",
-   "callers": {}
-  },
-  {
-   "path": "website/js/tv-pulse.js",
-   "functions": [
-    "paintPulse"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
-   "why": "staff-bell (Jason, 2026-11-19, approved a+b+c)",
-   "since": "2026-11-19T17:34:06Z",
-   "expires": "2026-11-19T21:34:06Z",
-   "release": "",
-   "callers": {}
-  },
-  {
    "path": "app/admin/operations-console.php",
    "functions": [
     "tv_admin_mod_register"
@@ -56,9 +21,35 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "overpass-off (Jason 2026-11-19: Stop entirely; and Geofabrik's 308 and 503)",
    "since": "2026-11-19T21:32:57Z",
-   "expires": "2026-11-20T01:32:57Z",
-   "release": "",
-   "callers": {}
+   "expires": "2026-11-20T01:41:28Z",
+   "release": "overpass-off.zip",
+   "callers": {
+    "fetch": [
+     "app/lib/Gemini.php",
+     "app/lib/JourneyPlan.php",
+     "app/lib/OnDemand.php",
+     "app/lib/OutsideServices.php",
+     "app/lib/PlaceFinder.php",
+     "app/lib/Preflight.php",
+     "app/lib/ServiceHealth.php",
+     "app/lib/Situations.php",
+     "app/lib/UniversalSearch.php",
+     "app/lib/crawler/CrawlTargets.php",
+     "app/lib/crawler/DeepLook.php",
+     "app/lib/crawler/SourceIndex.php",
+     "app/lib/crawler/TownCrawl.php",
+     "website/api/search.php"
+    ],
+    "near": [
+     "app/lib/JourneyPlan.php",
+     "app/lib/OnDemand.php",
+     "app/lib/PlaceFinder.php",
+     "website/api/open-places.php"
+    ],
+    "overpass": [
+     "app/lib/crawler/DeepLook.php"
+    ]
+   }
   },
   {
    "path": "app/lib/ServiceHealth.php",
@@ -67,9 +58,13 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "overpass-off (Jason 2026-11-19: Stop entirely; and Geofabrik's 308 and 503)",
    "since": "2026-11-19T21:33:03Z",
-   "expires": "2026-11-20T01:33:03Z",
-   "release": "",
-   "callers": {}
+   "expires": "2026-11-20T01:41:28Z",
+   "release": "overpass-off.zip",
+   "callers": {
+    "alarm": [
+     "app/lib/ControlAlarms.php"
+    ]
+   }
   },
   {
    "path": "app/lib/Thresholds.php",
@@ -78,8 +73,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "overpass-off (Jason 2026-11-19: Stop entirely; and Geofabrik's 308 and 503)",
    "since": "2026-11-19T21:33:07Z",
-   "expires": "2026-11-20T01:33:07Z",
-   "release": "",
+   "expires": "2026-11-20T01:41:28Z",
+   "release": "overpass-off.zip",
    "callers": {}
   },
   {
@@ -89,8 +84,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "overpass-off (Jason 2026-11-19: Stop entirely; and Geofabrik's 308 and 503)",
    "since": "2026-11-19T21:33:12Z",
-   "expires": "2026-11-20T01:33:12Z",
-   "release": "",
+   "expires": "2026-11-20T01:41:28Z",
+   "release": "overpass-off.zip",
    "callers": {}
   },
   {
@@ -100,9 +95,14 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "overpass-off (Jason 2026-11-19: Stop entirely; and Geofabrik's 308 and 503)",
    "since": "2026-11-19T21:33:16Z",
-   "expires": "2026-11-20T01:33:16Z",
-   "release": "",
-   "callers": {}
+   "expires": "2026-11-20T01:41:28Z",
+   "release": "overpass-off.zip",
+   "callers": {
+    "seed": [
+     "app/admin/operations-console.php",
+     "app/lib/SystemStart.php"
+    ]
+   }
   },
   {
    "path": "app/lib/OutsideServices.php",
@@ -111,9 +111,13 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "overpass-off (Jason 2026-11-19: Stop entirely; and Geofabrik's 308 and 503)",
    "since": "2026-11-19T21:33:19Z",
-   "expires": "2026-11-20T01:33:19Z",
-   "release": "",
-   "callers": {}
+   "expires": "2026-11-20T01:41:28Z",
+   "release": "overpass-off.zip",
+   "callers": {
+    "parts": [
+     "app/ui/outside-services.php"
+    ]
+   }
   },
   {
    "path": "app/lib/ControlAlarms.php",
@@ -122,9 +126,16 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "overpass-off (Jason 2026-11-19: Stop entirely; and Geofabrik's 308 and 503)",
    "since": "2026-11-19T21:33:21Z",
-   "expires": "2026-11-20T01:33:21Z",
-   "release": "",
-   "callers": {}
+   "expires": "2026-11-20T01:41:28Z",
+   "release": "overpass-off.zip",
+   "callers": {
+    "tick": [
+     "app/scripts/control_tick.php"
+    ],
+    "pulseSteps": [
+     "app/lib/Pulse.php"
+    ]
+   }
   },
   {
    "path": "app/lib/crawler/CrawlService.php",
@@ -155,12 +166,72 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "overpass-off (Jason 2026-11-19: Stop entirely; and Geofabrik's 308 and 503)",
    "since": "2026-11-19T21:33:27Z",
-   "expires": "2026-11-20T01:33:27Z",
-   "release": "",
+   "expires": "2026-11-20T01:41:28Z",
+   "release": "overpass-off.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/ui/outside-services.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "release overpass-off.zip",
+   "since": "2026-11-19T21:41:28Z",
+   "expires": "2026-11-20T01:41:28Z",
+   "release": "overpass-off.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/crawler/CrawlService.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "release overpass-off.zip",
+   "since": "2026-11-19T21:41:28Z",
+   "expires": "2026-11-20T01:41:28Z",
+   "release": "overpass-off.zip",
    "callers": {}
   }
  ],
  "lapsed": [
+  {
+   "path": "website/user/api/bell.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "staff-bell (Jason, 2026-11-19, approved a+b+c)",
+   "since": "2026-11-19T17:33:58Z",
+   "expires": "2026-11-19T21:33:58Z",
+   "release": "",
+   "callers": {},
+   "lapsed": "2026-11-19T21:41:28Z"
+  },
+  {
+   "path": "website/user/dashboard.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "staff-bell (Jason, 2026-11-19, approved a+b+c)",
+   "since": "2026-11-19T17:34:04Z",
+   "expires": "2026-11-19T21:34:04Z",
+   "release": "",
+   "callers": {},
+   "lapsed": "2026-11-19T21:41:28Z"
+  },
+  {
+   "path": "website/js/tv-pulse.js",
+   "functions": [
+    "paintPulse"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "staff-bell (Jason, 2026-11-19, approved a+b+c)",
+   "since": "2026-11-19T17:34:06Z",
+   "expires": "2026-11-19T21:34:06Z",
+   "release": "",
+   "callers": {},
+   "lapsed": "2026-11-19T21:41:28Z"
+  },
   {
    "path": "app/lib/crawler/Sources.php",
    "functions": [],
