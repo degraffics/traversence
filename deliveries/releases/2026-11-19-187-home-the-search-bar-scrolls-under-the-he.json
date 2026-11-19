@@ -1,0 +1,34 @@
+{
+    "id": 187,
+    "title": "Home: the search bar scrolls under the header",
+    "why": "Jason, 2026-11-19 (screenshot): \"page scroll should always be under the nav header.\" The split search sat above everything at 768px and wider (z-index 1372) so its results could hang from it, which also lifted it over the sticky header while scrolling. It now rises only while the search is open (its dim, .tvs-dim, is on the page); otherwise it scrolls under the header. Phones unchanged. website/index.php, one rule. No FAQ change: nothing a visitor reads about changes.",
+    "proposals": "",
+    "zip": "home-bar-scroll.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "website/index.php": {
+            "sha": "2389ab572dbd14f86f93ea1cc716b61ad31e3284a17768af0d79c28532666693",
+            "size": 48030,
+            "live_was": "d8d863a7fe8e289cd6babb38aeac230de9450ba744095a0ba9ace9345d024a84"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-19T14:22:12+00:00",
+            "by": 0,
+            "msg": "Uploaded home-bar-scroll.zip: 1 files."
+        }
+    ]
+}
