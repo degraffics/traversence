@@ -49,8 +49,7 @@ $t('a refusal (held) trips at once', ControlAlarms::openOf($pdo, 'x:held')['leve
 foreach ([1, 2, 3] as $i) ControlAlarms::raise($pdo, 'run:failed', 'wk:crawler', 'trip', 'crash', 'A crawler run failed (#' . $i . ')');
 Automation::forget(); $r = ControlAlarms::openOf($pdo, 'run:failed');
 $t('a run that failed outright, three times: a trip that pauses all gathering', $r['level'] === 'trip' && Automation::master($pdo) !== null, ControlAlarms::stoppedWords($r));
-[$ok, $msg] = ControlAlarms::resolve($pdo, (int) $r['id'], 7, 'Jason', '');
-$t('Resolve asks what fixed it', !$ok && str_contains($msg, 'what fixed it'), $msg);
+// (4e, Jason 2026-11-19: "no dead ends, system fixes first": Resolve no longer asks what fixed it; r4e tests that)
 [$ok, $msg] = ControlAlarms::resolve($pdo, (int) $r['id'], 7, 'Jason', 'Redeployed the worker');
 Automation::forget(); $r2 = ControlAlarms::byId($pdo, (int) $r['id']);
 $t('…resolved: the master switch is back on, and it says how', $ok && Automation::master($pdo) === null && $r2['cleared_at'] !== null && str_contains((string) $r2['cleared_how'], 'Redeployed the worker') && str_contains((string) $r2['cleared_how'], 'All gathering'), $r2['cleared_how']);
@@ -89,7 +88,7 @@ $pdo->exec("UPDATE service_issues SET state = 'open' WHERE id = 50");
 ServiceHealth::resolve($pdo, 50, 7, 'Reactivated by Jason after OSM released us.');
 $t('…a person\'s Reactivate does', ControlAlarms::openOf($pdo, 'svc:osm:held') === null);
 
-// 8. slow calls at the ledger: a warning, a trip after control_slow_trips in a row; the usual speed clears the warning
+// 8. slow calls at the ledger: a warning (never a trip since 4e); the usual speed clears it
 require_once $app . '/lib/ControlLedger.php';
 for ($i = 0; $i < 25; $i++) $pdo->exec("INSERT INTO control_ledger (at, endpoint, method, code, ms) VALUES (UTC_TIMESTAMP(), 'crawl/results', 'POST', 200, 300)");
 $ref = new ReflectionMethod('ControlLedger', 'alarms'); $ref->setAccessible(true);
@@ -98,7 +97,7 @@ $call(4000); $sl = ControlAlarms::openOf($pdo, 'ep:crawl/results:slow');
 $t('a call 13 times its usual time: slow, a warning', $sl && $sl['level'] === 'warning' && $sl['kind'] === 'slow', $sl);
 $call(300); $t('…one at its usual speed clears it', ControlAlarms::openOf($pdo, 'ep:crawl/results:slow') === null);
 $call(4000); $call(4000); $call(4000);
-$t('…slow three times in a row: a trip', (ControlAlarms::openOf($pdo, 'ep:crawl/results:slow')['level'] ?? '') === 'trip');
+$t('…slow three times in a row: still a warning, never a trip (4e: slow never stops anything)', (ControlAlarms::openOf($pdo, 'ep:crawl/results:slow')['level'] ?? '') === 'warning');
 $call(900); $t('…under a second is never slow', true);
 
 // 9. the steps the board and Pulse press: only the pairs each family carries

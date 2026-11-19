@@ -1,0 +1,34 @@
+{
+ "zip": "control-board-4e.zip",
+ "built_on": "d08820a Sync: 2026-11-19 00:42 UTC",
+ "recorded": "2026-11-19 00:45 UTC",
+ "note": "Control Board 4e: slow never stops anything; the system lifts slow trips; Check and start again (Jason, 2026-11-19). Built on Sync: 2026-11-19 00:42 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/admin/control-console.php": {
+   "sha256": "a366b06c1a719af61ccf719b21fe39f1eebd8a144cf54891684e753cf18d970d",
+   "live": false
+  },
+  "app/lib/ControlAlarms.php": {
+   "sha256": "4e4191f486030f23dcb2447e07e21680aae5f1eb86a500c86c82a771169e59ba",
+   "live": false
+  },
+  "app/lib/ControlLedger.php": {
+   "sha256": "6276960311a527516fbae1d8b6bde43be0d2504f7e8c971511484cb8728ef7e0",
+   "live": false
+  },
+  "app/lib/Preflight.php": {
+   "sha256": "c4f74d2d48bccbabff187eba84d31819909cafe9220207067d7b7e7eced8b2c0",
+   "live": false
+  },
+  "app/lib/Thresholds.php": {
+   "sha256": "600e3d542e503894a33c37ee85f48c9cd9eacf2c11a627e77d7948151d46899c",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "941f6ecc5fe2fe0c6fa6500404d159de75ffd2614e03ee97dec5342dbf7f1e9d",
+   "live": false
+  }
+ }
+}

@@ -159,6 +159,14 @@ Alongside: `releases-self-withdraw` (#122), `releases-live-2` (#123), `releases-
   (`filled`, `rows_exact`); towns.mjs saves them. Tests: `r4d.php` (7). Next: the lists to Jason with the counts (one
   question; removals as one release with "removes", copies first), then release 5 (the logbook and reports; with the
   scan's short-name fix: k, v, n, q, w reported as unused).
+- `control-board-4e` (built on Sync 00:42 UTC, d08820a; Jason approved it in the pop-up), Jason 2026-11-19 at 5:33 PM MST on a slow trip that had stopped
+  W1 and a Resolve that only asked "What fixed it?": "There is no way to fix this" and "no dead ends, system fixes
+  first". So: a slow call or job is a warning that says how slow, stops nothing and clears itself (`raise` turns any slow
+  trip into a warning; the ledger and the job check raise warnings; `control_slow_trips` retired, kept); the watch lifts
+  a slow trip from before itself (`resolve` as "the system", checking first; while a check is red it stays a warning
+  and is tried every watch); Resolve is **Check and start again** on the board and in Pulse, with no question (an empty
+  note is "Checked and started again"). This changes 3c's rule (slow trips after 3), with Jason's OK. Tests: `r4e.php`
+  (8); r3a and r3c updated where they tested the old rule.
 - Known shortcut in 3c: a back-off held by a trip is `service_issues.hold_until = '2099-01-01'` (until a person resolves
   it; `ServiceHealth::holdForTrip`), not a flag of its own. A real flag (a column, `held_by_trip`) needs a migration on
   `service_issues`; do it with the next ServiceHealth change.
