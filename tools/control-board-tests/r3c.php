@@ -71,10 +71,14 @@ ServiceHealth::alarm($pdo, 40, 'tavily', 'api.tavily.com', 'timeout', ['status' 
 $s = ControlAlarms::openOf($pdo, 'svc:issue:40');
 $t('a back-off that ran out (6 in a row): a trip, its calls held until resolved', $s['level'] === 'trip' && $pdo->query('SELECT hold_until FROM service_issues WHERE id = 40')->fetchColumn() === '2099-01-01 00:00:00', $s);
 ServiceHealth::resolve($pdo, 40, 0, 'It answered.');
-$t('…a server answering by itself doesn\'t close the trip', ControlAlarms::openOf($pdo, 'svc:issue:40') !== null);
-$pdo->exec("UPDATE service_issues SET state = 'open' WHERE id = 40");
-ServiceHealth::resolve($pdo, 40, 7, 'Marked resolved by Jason.');
-$t('…a person\'s Mark resolved does', ControlAlarms::openOf($pdo, 'svc:issue:40') === null);
+// Jason, 2026-11-19 ("If this was resolved by system or marked as resolved by admin it should be handled"): the service
+// answering (its check passing) closes its trip too, through the board's resolve, saying how
+$t('…the server answering closes its trip too, saying "Cleared by its check"', ControlAlarms::openOf($pdo, 'svc:issue:40') === null
+    && str_contains((string) $pdo->query("SELECT cleared_how FROM control_alarms WHERE akey = 'svc:issue:40' ORDER BY id DESC LIMIT 1")->fetchColumn(), 'Cleared by its check'));
+$pdo->exec("UPDATE service_issues SET state = 'open', resolved_at = NULL WHERE id = 40");
+ServiceHealth::alarm($pdo, 40, 'tavily', 'api.tavily.com', 'timeout', ['status' => 0, 'error' => 'timed out', 'body' => ''], 'crawler');
+ServiceHealth::resolve($pdo, 40, 7, 'Fixed by Jason, check passed.');
+$t('…and a person\'s fix closes it, saying who', ControlAlarms::openOf($pdo, 'svc:issue:40') === null);
 $pdo->exec("INSERT INTO service_issues (id, service, host, caller, kind, hits, first_at, last_at, evidence) VALUES (41, 'tavily', 'api.tavily.com', 'crawler', 'timeout', 2, UTC_TIMESTAMP(), UTC_TIMESTAMP(), '{}')");
 ServiceHealth::alarm($pdo, 41, 'tavily', 'api.tavily.com', 'timeout', ['status' => 0, 'error' => 'timed out', 'body' => ''], 'crawler');
 $t('…while it backs off it\'s a warning, counting its tries', ControlAlarms::openOf($pdo, 'svc:issue:41')['level'] === 'warning' && str_contains((string) ControlAlarms::openOf($pdo, 'svc:issue:41')['means'], '2 of 6'));
