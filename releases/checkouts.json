@@ -2,21 +2,6 @@
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
  "claims": [
   {
-   "path": "app/lib/crawler/CrawlService.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "osm-copy-wider (Jason 2026-11-19: Yes, add them; Yes, widen it)",
-   "since": "2026-11-19T21:33:23Z",
-   "expires": "2026-11-20T01:57:27Z",
-   "release": "osm-copy-wider.zip",
-   "callers": {
-    "report": [
-     "website/api/crawl/service.php"
-    ]
-   }
-  },
-  {
    "path": "app/ui/outside-services.php",
    "functions": [],
    "kind": "change",
@@ -47,97 +32,6 @@
    "since": "2026-11-19T21:45:02Z",
    "expires": "2026-11-20T01:45:02Z",
    "release": "",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/OpenPlaces.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "osm-copy-wider (Jason 2026-11-19: Yes, add them; Yes, widen it)",
-   "since": "2026-11-19T21:49:49Z",
-   "expires": "2026-11-20T01:57:27Z",
-   "release": "osm-copy-wider.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/crawler/OpenLoads.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "osm-copy-wider (Jason 2026-11-19: Yes, add them; Yes, widen it)",
-   "since": "2026-11-19T21:49:51Z",
-   "expires": "2026-11-20T01:57:27Z",
-   "release": "osm-copy-wider.zip",
-   "callers": {
-    "batch": [
-     "website/api/crawl/loads.php"
-    ],
-    "ensureTasks": [
-     "app/lib/SystemStart.php",
-     "website/api/crawl/loads.php"
-    ]
-   }
-  },
-  {
-   "path": "app/lib/OutsideServices.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "osm-copy-wider (Jason 2026-11-19: Yes, add them; Yes, widen it)",
-   "since": "2026-11-19T21:49:53Z",
-   "expires": "2026-11-20T01:57:27Z",
-   "release": "osm-copy-wider.zip",
-   "callers": {
-    "parts": [
-     "app/ui/outside-services.php"
-    ]
-   }
-  },
-  {
-   "path": "app/lib/SystemStart.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "osm-copy-wider: Start card's issue buttons; an issue closed everywhere (Jason 2026-11-19)",
-   "since": "2026-11-19T21:54:33Z",
-   "expires": "2026-11-20T01:57:27Z",
-   "release": "osm-copy-wider.zip",
-   "callers": {
-    "panel": [
-     "app/admin/automation-console.php",
-     "app/admin/operations-console.php"
-    ]
-   }
-  },
-  {
-   "path": "app/lib/ServiceHealth.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "osm-copy-wider: Start card's issue buttons; an issue closed everywhere (Jason 2026-11-19)",
-   "since": "2026-11-19T21:54:35Z",
-   "expires": "2026-11-20T01:57:27Z",
-   "release": "osm-copy-wider.zip",
-   "callers": {
-    "resolve": [
-     "app/admin/automation-console.php",
-     "app/lib/ControlAlarms.php",
-     "app/lib/EngineCase.php",
-     "app/lib/Pulse.php",
-     "website/admin/api.php"
-    ]
-   }
-  },
-  {
-   "path": "app/admin/automation-console.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "osm-copy-wider: Start card's issue buttons; an issue closed everywhere (Jason 2026-11-19)",
-   "since": "2026-11-19T21:54:37Z",
-   "expires": "2026-11-20T01:57:27Z",
-   "release": "osm-copy-wider.zip",
    "callers": {}
   }
  ],
