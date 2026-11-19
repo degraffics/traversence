@@ -8,9 +8,19 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Design 3b-1: Home and Discovery (hero order, stock byline, tokens)",
    "since": "2026-11-19T00:20:04Z",
-   "expires": "2026-11-19T04:20:04Z",
-   "release": "design-r3b1-explore.zip",
-   "callers": {}
+   "expires": "2026-11-19T04:28:53Z",
+   "release": "design-r3b1-explore-2.zip",
+   "callers": {
+    "tv_explore_hero": [
+     "website/community/group.php",
+     "website/discovery/index.php",
+     "website/hub/index.php",
+     "website/listing/view.php",
+     "website/place/landmark.php",
+     "website/place/recreation.php",
+     "website/user/profile.php"
+    ]
+   }
   },
   {
    "path": "app/ui/stock-ui.php",
@@ -19,9 +29,17 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Design 3b-1: Home and Discovery (hero order, stock byline, tokens)",
    "since": "2026-11-19T00:20:04Z",
-   "expires": "2026-11-19T04:20:04Z",
-   "release": "design-r3b1-explore.zip",
-   "callers": {}
+   "expires": "2026-11-19T04:28:53Z",
+   "release": "design-r3b1-explore-2.zip",
+   "callers": {
+    "tv_stock_tag": [
+     "app/admin/sections.php",
+     "app/business/storefront.php",
+     "app/ui/explore-hero.php",
+     "app/ui/storefront-view.php",
+     "website/index.php"
+    ]
+   }
   },
   {
    "path": "website/index.php",
@@ -30,8 +48,8 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Design 3b-1",
    "since": "2026-11-19T00:20:04Z",
-   "expires": "2026-11-19T04:20:11Z",
-   "release": "design-r3b1-explore.zip",
+   "expires": "2026-11-19T04:28:53Z",
+   "release": "design-r3b1-explore-2.zip",
    "callers": {},
    "zones": [
     "home.after-doors"
@@ -44,8 +62,8 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Design 3b-1: Home and Discovery (hero order, stock byline, tokens)",
    "since": "2026-11-19T00:20:04Z",
-   "expires": "2026-11-19T04:20:04Z",
-   "release": "design-r3b1-explore.zip",
+   "expires": "2026-11-19T04:28:53Z",
+   "release": "design-r3b1-explore-2.zip",
    "callers": {}
   },
   {
@@ -79,9 +97,16 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Design 3b-1: the route colour token (Electric Lime, Jason 2026-11-19)",
    "since": "2026-11-19T00:27:39Z",
-   "expires": "2026-11-19T04:27:39Z",
-   "release": "",
-   "callers": {}
+   "expires": "2026-11-19T04:28:53Z",
+   "release": "design-r3b1-explore-2.zip",
+   "callers": {
+    "tv_theme_tokens": [
+     "app/ui/app-shell.php",
+     "app/ui/auth-nav.php",
+     "app/ui/header.php",
+     "app/ui/page-shell.php"
+    ]
+   }
   }
  ],
  "lapsed": [
