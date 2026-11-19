@@ -78,7 +78,7 @@ and storefronts (business colours kept, owner warned below 4.5:1); 3f sign-in, l
 
 The Edit page switch moved from the account menu to an icon in the account bar, beside ⌂ and sign-out (Jason, 2026-11-18).
 
-### Headings sweep: design-headings.zip (built on Sync 23:10 UTC)
+### Headings sweep: design-headings.zip (built on Sync 00:03 UTC)
 
 3a's single setting reached only Tailwind's `font-serif` (on the live FAQ, 14 of 15 headings stayed the device serif). The
 sweep replaces each serif stack after `font:`/`font-family:` with `var(--tv-font-head,<the same stack>)`: 288 places in
