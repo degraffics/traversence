@@ -1,0 +1,18 @@
+{
+ "zip": "card-photos-first.zip",
+ "built_on": "03acc4b Sync: 2026-11-19 23:17 UTC",
+ "recorded": "2026-11-19 23:21 UTC",
+ "note": "Card photos follow-up: the page someone opens is looked up first; built on Sync: 23:17 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/PlacePhotos.php": {
+   "sha256": "b557070e0fa9569719f8bcd2ca91d7a10d0880eb01171647500b32ed3f2481f8",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "d93f433a534730508451292093ee9f3a20e05351bb175baef38aca905724c05e",
+   "live": false
+  }
+ }
+}
