@@ -73,3 +73,15 @@ and storefronts (business colours kept, owner warned below 4.5:1); 3f sign-in, l
 - Approved by Jason 2026-11-18 (reviewed by the session manager): 3a as built; headings everywhere now; errors in
   Crimson Thread, red for emergencies; trails and routes to a new nature/navigation colour in the map's release (3b/3c,
   brand.md §4 note). Next kit-css release: fold in the admin contrast items above (Shortcuts labels, dashboard labels).
+
+### Edit site icon: design-r3a2-edit-site.zip (PR #985, approved by Jason)
+
+The Edit page switch moved from the account menu to an icon in the account bar, beside ⌂ and sign-out (Jason, 2026-11-18).
+
+### Headings sweep: design-headings.zip (built on Sync 00:09 UTC)
+
+3a's single setting reached only Tailwind's `font-serif` (on the live FAQ, 14 of 15 headings stayed the device serif). The
+sweep replaces each serif stack after `font:`/`font-family:` with `var(--tv-font-head,<the same stack>)`: 288 places in
+141 files, font only (undoing it returns every live file exactly). Left: `Mailer.php` (emails), `MarketCheckout.php`
+(the order packet), storefront themes' `var(--tvb-hf,…)`. Rendered: FAQ 15 of 15 and home 4 of 4 serif headings in
+Merriweather. `sections.php` claimed per function (the Control Board holds `tv_admin_mod_dbupdates`).
