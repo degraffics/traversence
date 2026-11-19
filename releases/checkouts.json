@@ -124,6 +124,17 @@
    "expires": "2026-11-19T04:48:29Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/migrations/2026-11-19_unused_schema_removal.sql",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Remove the approved unused tables and columns (Pulse #31)",
+   "since": "2026-11-19T00:52:57Z",
+   "expires": "2026-11-19T04:52:57Z",
+   "release": "unused-schema-removal.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
