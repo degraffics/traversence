@@ -96,13 +96,14 @@
   {
    "path": "app/admin/control-console.php",
    "functions": [
+    "tv_admin_mod_control",
     "tv_cb_logbook"
    ],
    "kind": "change",
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "control-board-logbook-list: the logbook's list grouped and searchable",
+   "why": "control-board-logbook-list: its list's style",
    "since": "2026-11-19T14:17:21Z",
-   "expires": "2026-11-19T18:17:21Z",
+   "expires": "2026-11-19T18:17:30Z",
    "release": "",
    "callers": {}
   },
