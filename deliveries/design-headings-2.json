@@ -1,0 +1,578 @@
+{
+ "zip": "design-headings-2.zip",
+ "built_on": "68ad9f6 Sync: 2026-11-19 00:09 UTC",
+ "recorded": "2026-11-19 00:12 UTC",
+ "note": "Headings sweep: serif stacks to var(--tv-font-head,<the same stack>), 141 files, font only; rebuilt after control-board-4b. Approved by Jason 2026-11-18 (reviewed by the session manager). Built on Sync: 00:09 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/admin/sections.php": {
+   "sha256": "0a1cda23a1c03f315f3d599a845c2503b1f9fada1697771db1fb903066b99a7c",
+   "live": false
+  },
+  "app/bootstrap.php": {
+   "sha256": "485df674bb98ec57a06367d1fcfce1f9c9a7e15a30a2f009f8716ba5799a58ad",
+   "live": false
+  },
+  "app/business/portal.php": {
+   "sha256": "812a870bdcd2aecaf21b8754cd838a26032d5814932b54ad1426f6241edded08",
+   "live": false
+  },
+  "app/lib/Blocks.php": {
+   "sha256": "0253ba97420e1be93554fb9b06ba983df4cfb6d151705b36ef6eeb4c6b8bb127",
+   "live": false
+  },
+  "app/lib/LegalTexts.php": {
+   "sha256": "de33260aed32977df66db449415dde243cbf8e6dbd873142b45ba6e77dff745c",
+   "live": false
+  },
+  "app/lib/LiveEvents.php": {
+   "sha256": "d0e3425fe782ed74be9514dfed8c62cd4642e19730bff55f4d429e704736e1c3",
+   "live": false
+  },
+  "app/lib/Staging.php": {
+   "sha256": "8f24f78609433641e479d4fa4fb79e4725ae562fb7bf96341fe9dc747dceb7eb",
+   "live": false
+  },
+  "app/lib/StagingSite.php": {
+   "sha256": "303dbbd69accbc52fe67b852741506ea3a7ee25de8cb4cf6d48c5b41cd4370d8",
+   "live": false
+  },
+  "app/ui/admin-crawler.php": {
+   "sha256": "e7588e53b58e55da6d4985ccaf869c13213437e3b852a65971500b7e43f51036",
+   "live": false
+  },
+  "app/ui/admin-dashboard.php": {
+   "sha256": "120e13cadb3f019984975110139465f824e28b416c1133068a9b7f47d946bf2d",
+   "live": false
+  },
+  "app/ui/admin-hub.php": {
+   "sha256": "8e3da99f09644e1a79cc9b165a309306f820355de6485360c2ed151853da3b35",
+   "live": false
+  },
+  "app/ui/app-shell.php": {
+   "sha256": "ceef7ca24476ea30946047dd52fbee1cfce3801208cf9b275f9c5c4c169aae62",
+   "live": false
+  },
+  "app/ui/card-scanner.php": {
+   "sha256": "bd2598f2802e527ec1aa49cb3bcd0de84ad49bda8920c4d19475c668707fb454",
+   "live": false
+  },
+  "app/ui/collections.php": {
+   "sha256": "a7f788b01a708a3008866a113e779042d52fd919399e1485ea9bc8e3b84b9350",
+   "live": false
+  },
+  "app/ui/domains-view.php": {
+   "sha256": "ba1378b5878ec6b49556cbf4e9ce8e171e2d72e9956739a02f26152f06c9a28e",
+   "live": false
+  },
+  "app/ui/engage-ui.php": {
+   "sha256": "8baa8054e1bbc38016e4473a419b265b34bf16b315ab77edc1155520ae9a0454",
+   "live": false
+  },
+  "app/ui/explore-hero.php": {
+   "sha256": "b78842c244502e5607edb7e89980ce83207c4ffdde3f0f4756fedc8df77aa158",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "bb288005a31e771bf86c95c09a7e7c7cb4e87b22352f8ee8b704b9207e55bb23",
+   "live": false
+  },
+  "app/ui/featured-in.php": {
+   "sha256": "2ab661a4aac663ce050877bc828d07fd1dffb7b16790c1306ecc637d99c31a01",
+   "live": false
+  },
+  "app/ui/gallery-ui.php": {
+   "sha256": "4f0e7106516df571b32c19815909f891645c963cff2703685549c4d0124dc563",
+   "live": false
+  },
+  "app/ui/go-codes.php": {
+   "sha256": "fc211cf6163175d287d3022571b07aabf5447242e0151415e3c59685233762c3",
+   "live": false
+  },
+  "app/ui/journey-ui.php": {
+   "sha256": "461574bc297ff6b5813f073cd25a5c827b7c6cb4e4731bde0feaf715f342936e",
+   "live": false
+  },
+  "app/ui/lead-panel.php": {
+   "sha256": "83177d7409bfdafc65d869c8dd83240148bfaf7ef71b2e9e5eb5d3c95a8f7a29",
+   "live": false
+  },
+  "app/ui/location-modal.php": {
+   "sha256": "c417f5659dafa16fe1009e3a5e6d8d073ebcef9031e3b24d4fdfef5b976382e4",
+   "live": false
+  },
+  "app/ui/not-found.php": {
+   "sha256": "44a1dd7a3d07a589b0b3881be3ad3cf1fd221d32d589cd8e06d223abc2bfafec",
+   "live": false
+  },
+  "app/ui/profile-header.php": {
+   "sha256": "c359bfd8dbdf26017d04f3cf475298e458638687b7cac29e70dbbc92ca586cec",
+   "live": false
+  },
+  "app/ui/pulse-panel.php": {
+   "sha256": "c8a6ce903caa39bf9598233282d3361abed096de5c5d0a674416831c21600177",
+   "live": false
+  },
+  "app/ui/pulse-ui.php": {
+   "sha256": "65aaff06d46fac49094bb5e93b5d35800a8c2e62c179ed161a9269f534db41b7",
+   "live": false
+  },
+  "app/ui/social-buttons.php": {
+   "sha256": "374eb50c3a3a7649aaeffda21c3900525e73da3376f76d1ddd93a1c7463054cd",
+   "live": false
+  },
+  "app/ui/stock-ui.php": {
+   "sha256": "9cb53ffba049ee328e2902a21382d96fdc8d496ef0c99d093de51cf4bf1ca973",
+   "live": false
+  },
+  "app/ui/storefront-view.php": {
+   "sha256": "8c5c8ffad6f138f6dffe6c3ce67163b9e82f725ecc654c177eb4d7abd66c414f",
+   "live": false
+  },
+  "app/ui/suggested-journeys.php": {
+   "sha256": "4df3a882c803c1a1663aca1e31574aacc972fb44b240acb817596391a90ccd5d",
+   "live": false
+  },
+  "app/ui/tag-chips.php": {
+   "sha256": "4897f5e7f1af30a1e8f5a9425e0cfce59e3fb67205be932d3fe9fc2dc5ffdced",
+   "live": false
+  },
+  "app/ui/vault.php": {
+   "sha256": "00524a1acf9927c4f4d16c669fc0a1025b614bcf39bb9f84830537e58a34248e",
+   "live": false
+  },
+  "website/admin/claims.php": {
+   "sha256": "6a80d6ffa47d472944736191e3686f72ca6688744e875a725b5bab12eb5643e0",
+   "live": false
+  },
+  "website/admin/client-order.php": {
+   "sha256": "a0733786d81f5c76bc974bc25b92ce2bcddc66236bc28862884800bf39dfeace",
+   "live": false
+  },
+  "website/admin/cluster-tools.php": {
+   "sha256": "15e01cc195cbdf8f0c7ab1891c9492c7caee4eb1b873d48427095d0af0ff9c4e",
+   "live": false
+  },
+  "website/admin/content-template.php": {
+   "sha256": "1f9248e556a6fb4bc6fd3c52192c42a08f9ba62f656fd2df02e4e6f83d3caf5f",
+   "live": false
+  },
+  "website/admin/crawler-review.php": {
+   "sha256": "f3249f1be9bc026ecabc0f0bbdfdb0e2f514ec05d1db5c90dbc592977839860a",
+   "live": false
+  },
+  "website/admin/crawler.php": {
+   "sha256": "224b362a3765804af5b0d3af06d44406368b3c9d54f2a70e1c589568a854bd07",
+   "live": false
+  },
+  "website/admin/experiences.php": {
+   "sha256": "9688655370e87a2e7ae89c2c4c2a5f15f8a98399c5982c0a8be2b5d394b1a101",
+   "live": false
+  },
+  "website/admin/geocode.php": {
+   "sha256": "318f1f3db369ea3e44d6b49400d9516d1e6a30685f8a4828eb5b4e6fdc6b0930",
+   "live": false
+  },
+  "website/admin/guide-edit.php": {
+   "sha256": "3b197963b3634a608bc725a49f962ae06098939aedd608024fec3375e3831d29",
+   "live": false
+  },
+  "website/admin/helper.php": {
+   "sha256": "a73a0d44511ceb916ee6e5702f33b906d011e05510836769955f5f7d5ce81408",
+   "live": false
+  },
+  "website/admin/how-guides.php": {
+   "sha256": "6a00fc8f8e96cde0c7929ee0129b353377f462a41c9b9e20431b5d12626d7b0a",
+   "live": false
+  },
+  "website/admin/identities.php": {
+   "sha256": "63d2da5b17084b143216bd97a572a0f5fd3305a0e263eb31cb6896d447dd03cd",
+   "live": false
+  },
+  "website/admin/insights.php": {
+   "sha256": "b12f65d927fb66ffdfdc793caa3b4cc8605b5d4427946f7c5d0972f98b51a58a",
+   "live": false
+  },
+  "website/admin/journeys.php": {
+   "sha256": "89411aba5923fe527629b2eeae9ca0ef3d68427e7a92a8f9bae5ac322deda7d3",
+   "live": false
+  },
+  "website/admin/landmarks.php": {
+   "sha256": "3698579a5ac696aaef84c68223b65db9a62455f4971eac2ddde35dba310e6bad",
+   "live": false
+  },
+  "website/admin/listing-edit.php": {
+   "sha256": "be82a84f5d8da67201e51a190954a46557e57e276911d6a2417dcd6a50d20d7b",
+   "live": false
+  },
+  "website/admin/listing-intake.php": {
+   "sha256": "b3f2edd86f8bea05087679ce9872d8b7e9d8955402b2e51af552638f89b6888e",
+   "live": false
+  },
+  "website/admin/listings.php": {
+   "sha256": "3157fbb73d965b7c0b7a159a8f40bf93d44fd8512d55dd6c5e50644e1b88ecba",
+   "live": false
+  },
+  "website/admin/login.php": {
+   "sha256": "e8af52f2f9654b7f9e9dd1e792c93d6504ad3437f0a8f2e835f28827e9049348",
+   "live": false
+  },
+  "website/admin/manifest.php": {
+   "sha256": "1f8d086c4da7ecb883c20456ce42696fb70d0d97ec55405d19dc13ac297e15cf",
+   "live": false
+  },
+  "website/admin/nations.php": {
+   "sha256": "6b19b25c7bbba0b80b4b26f4cbeb87f1066fe71457df596bdb52b9e10af24c3d",
+   "live": false
+  },
+  "website/admin/nexus.php": {
+   "sha256": "2c75f12e90a567ab7b7c79510a885ff504aab819314e1be758b798cb9c361330",
+   "live": false
+  },
+  "website/admin/order.php": {
+   "sha256": "41da70afcbaa65186f2fedcabdb039dd54aad461efa908b0fe9b0e18b5554e46",
+   "live": false
+  },
+  "website/admin/people.php": {
+   "sha256": "cf0b1fb5a44423b8844c87ebe4017aa2db71ffff00038e879d5088dd539c8b30",
+   "live": false
+  },
+  "website/admin/quickbooks.php": {
+   "sha256": "fb4f909579273a7d0f91f3ce9eb4bad86ab5f4c665e900e29492cde15407a84e",
+   "live": false
+  },
+  "website/admin/rebuild.php": {
+   "sha256": "5368451978dc35dfce580fcbb11d7b4cf8a1f59baeec5cec04840d7fde1dfe40",
+   "live": false
+  },
+  "website/admin/resource-guides.php": {
+   "sha256": "863d9ec465d13ce05db3ad4a2a6fe57b78c187812c4737dee93a4397bf4c60af",
+   "live": false
+  },
+  "website/admin/review-item.php": {
+   "sha256": "81b56cc7c234e267ed0bfef319e08a210ac7418520dfb22bbca7a2eb399c23d7",
+   "live": false
+  },
+  "website/admin/sales.php": {
+   "sha256": "beeb7b490a82bf7892e1c1b99dd5c2de114fd34b9b99ff7067c4751df602f44c",
+   "live": false
+  },
+  "website/admin/search-demand.php": {
+   "sha256": "8c7fa7e58dbd6ebacaae0e7ac812399a83e470e9f07e7d1da438d0f7862e5422",
+   "live": false
+  },
+  "website/admin/search-learning.php": {
+   "sha256": "0afab2afdcc572da48a68cdbdb060a3856c0ab800c49fee877c041a74ae4b25e",
+   "live": false
+  },
+  "website/admin/search-misses.php": {
+   "sha256": "a456976c3920aa6e3080ef04c9fa9163311e9c5c4bf2a6e7d23fe3b3c74bd036",
+   "live": false
+  },
+  "website/admin/search-oversight.php": {
+   "sha256": "ad9b5aada17bd030e0ab6432d976c8f30f2d7176d9e50bcfcaacf49ec6db66c4",
+   "live": false
+  },
+  "website/admin/setup.php": {
+   "sha256": "5f997be6c882a3ba011d7793495a36ee8ebe5518f73b8965e985e7bc0d19d7a2",
+   "live": false
+  },
+  "website/admin/short-codes.php": {
+   "sha256": "1b81a013d87c5d9bb056e3cb31f7310e6dabcf98b17cb10bc57d571570630756",
+   "live": false
+  },
+  "website/admin/sitemap.php": {
+   "sha256": "5bf54880b843c7701b57014c3109d50bf251f59cc0f75e9c87e0809a9de9f02b",
+   "live": false
+  },
+  "website/admin/staff-profile.php": {
+   "sha256": "b746a36d5721be311c7897bb3260db9e1567b154d3eac567855aec011221a9ac",
+   "live": false
+  },
+  "website/admin/suggestion.php": {
+   "sha256": "35a6464a8dc90cfdf8cc5b7aed90fe9c8e16cb35a90c38685a0c0d30faa961cd",
+   "live": false
+  },
+  "website/ai/index.php": {
+   "sha256": "0abea4c33fa2dd1b6f6174de6cf6b29e906c407b8275e89a4cb7259b7a4069c5",
+   "live": false
+  },
+  "website/claim.php": {
+   "sha256": "7c0d50db2ddacbcbbea14f9c8c442069c7f74a816bd47feeab1c1cb42eb08c34",
+   "live": false
+  },
+  "website/community/group.php": {
+   "sha256": "35b4562254adcc74c63911a957f201afb45cc8bf08b4bb48bb70a4a5731e0afc",
+   "live": false
+  },
+  "website/community/index.php": {
+   "sha256": "05f60a3a78cf6a3513ab489d9e0d4d4fe109a599f6fa567033a3359f075563a4",
+   "live": false
+  },
+  "website/data-deletion.php": {
+   "sha256": "d464a3ebd60e95212190f7ceea33537430c65e9a2708f1823b33fe171fb55c2d",
+   "live": false
+  },
+  "website/directory/index.php": {
+   "sha256": "95cd22653e96b20637d4ebbc96cb3d58e478c165c6827a26e68fb0aaf7eb6436",
+   "live": false
+  },
+  "website/discovery/index.php": {
+   "sha256": "4f650bcdb36e6c2e998921e0df03ea47d2d584a8e83c0a77aa1a1f0488d28e76",
+   "live": false
+  },
+  "website/experiences/view.php": {
+   "sha256": "59d8780476c352ff705c7c02f2186eeab11015142beaf89d45b74602d7a92f59",
+   "live": false
+  },
+  "website/faq.php": {
+   "sha256": "1df9442e5ae35908477d8e26e8467ed32f797e679a9f7e173a49ec659266ebef",
+   "live": false
+  },
+  "website/gallery/index.php": {
+   "sha256": "d730289cec6c18af511a2daf27cb72804e54814a9b56736b44811d1a8c8f09e8",
+   "live": false
+  },
+  "website/guide/how.php": {
+   "sha256": "0dd915716b8e9e0338e7675ca6cd3e7514b53092744ebf1409ec3fb7d79cdae3",
+   "live": false
+  },
+  "website/guide/resources.php": {
+   "sha256": "10d2d88cff8ba8a70e02aed2a3ab2fd9a30b4489db7372aafda50389425f0969",
+   "live": false
+  },
+  "website/hub/build.php": {
+   "sha256": "e9d0405ec3a50805ace15b932e4369debca56e5ac89571e1d9b8b49354a2f20e",
+   "live": false
+  },
+  "website/hub/index.php": {
+   "sha256": "5f6651f42a9528022c7f6c5ed2849a2818cdd153e5c20ab93cd497e389985458",
+   "live": false
+  },
+  "website/index.php": {
+   "sha256": "579e0cfc28a875566fb886ab8ede344fb307c28f48b6b3b61be6e037ee3feaf5",
+   "live": false
+  },
+  "website/join.php": {
+   "sha256": "8c7f6f44a4ffcdca8aa5feb5bb8c18055a7bdda1f9ecaf976eb8389cfd08d8ae",
+   "live": false
+  },
+  "website/journeys/suggested.php": {
+   "sha256": "dae2e74961c250dc4c14318bba9c75a7620541392a1ac7682cd07e25d45450b3",
+   "live": false
+  },
+  "website/journeys/view.php": {
+   "sha256": "971e50db47818e6e669e26cc1aa9465c4905d4e6a55c8281d55c523a40876f14",
+   "live": false
+  },
+  "website/js/claim.js": {
+   "sha256": "402467a54f66dc694479dd4e42b8072ce6fa591534bfa7775ded0e0171cf2129",
+   "live": false
+  },
+  "website/js/consent.js": {
+   "sha256": "11ae797ff6ecacc397c55f16862202e0bf983033467529ee53c8dc9e4c2a84b0",
+   "live": false
+  },
+  "website/js/hero-media.js": {
+   "sha256": "8ace51becdcd791a57502f8630d29463dd86dd185073a9dc2eda88f03e015d3f",
+   "live": false
+  },
+  "website/js/listing-leave.js": {
+   "sha256": "57cae85eff967ebc10ca7ca2dddd550a90c31bc0a0de61ba4624c5e3c89e4654",
+   "live": false
+  },
+  "website/js/map-view.js": {
+   "sha256": "25495d60a8d52f73383f6326ac1ba9ca40da5b7204cdcd3ca3ac4e0a93d4dd07",
+   "live": false
+  },
+  "website/js/photo-viewer.js": {
+   "sha256": "78c2991279b66c55b00ac1afe370e0b098af454abd828287d9b35dfa2b6b8a3c",
+   "live": false
+  },
+  "website/js/short-link.js": {
+   "sha256": "0fe644de50d5c7e2035230b7605b62de056b48868ba730939930b2bbe82b79fc",
+   "live": false
+  },
+  "website/js/stg-bar.js": {
+   "sha256": "cad7a1c0d3764a0f3a037864177bee51254181a933aa1f8ee3a3468ebc678323",
+   "live": false
+  },
+  "website/js/suggest.js": {
+   "sha256": "d80282fce1ca119ed48d119592d5bcbbd510724dd166fe31ad977351a0194091",
+   "live": false
+  },
+  "website/js/tv-art.js": {
+   "sha256": "cf62e3602cc810a1fc7262bd835fdb35439b80331e6e2e1fc325fdcea596b76c",
+   "live": false
+  },
+  "website/js/tv-editor.js": {
+   "sha256": "9d02c84f7597171df0c5c3b84251b39bc47e34d2d510d1a595056036cbb9a5a8",
+   "live": false
+  },
+  "website/js/tv-join.js": {
+   "sha256": "b520ef9b5a906f080e27755e29bc1f553925ebf022e2ad3741eabe3f26e88c4d",
+   "live": false
+  },
+  "website/js/tv-moments.js": {
+   "sha256": "7ba4e106c8e59284d811a767ca403d4694dde95149c2ad9eb065f94459a0c743",
+   "live": false
+  },
+  "website/js/tv-proof.js": {
+   "sha256": "efdad16cf067163cceeb9fdcc3b0f3106336ec588eb8f511f1c62dac3797cd12",
+   "live": false
+  },
+  "website/js/tv-stock.js": {
+   "sha256": "d09dfa17e0013cbbee43768fc4d0138aa74506e2142d20893d6cb81ee7fbc178",
+   "live": false
+  },
+  "website/js/tv-tagcard.js": {
+   "sha256": "847811083c0abc01eef914e64181c5f5a988f407c34f9a34b455ce9c7383e965",
+   "live": false
+  },
+  "website/js/tv-upgrade.js": {
+   "sha256": "03de1a9d2b54f1ff35eb1b71966eb64a7c38836a8a7950184e56995ae59077d7",
+   "live": false
+  },
+  "website/listing/businessportal.php": {
+   "sha256": "c49da9889b7f4f3f42784058bd109784e58b7ecea319bf3cb9cb038a3678be64",
+   "live": false
+  },
+  "website/listing/location.php": {
+   "sha256": "54a032dbe58c85a91d6c856c873c14b6baeefa9db09187ba529624cf575e4e64",
+   "live": false
+  },
+  "website/listing/view.php": {
+   "sha256": "8814f30d0ed0ba361bcf5aa5f697aaabaf2e2768131cf5039d5365a0349733da",
+   "live": false
+  },
+  "website/market/cart.php": {
+   "sha256": "58e0c5932bcbca67e544284d1f5d4750b8182c1593bbe5b2085a84a79082f4ab",
+   "live": false
+  },
+  "website/market/download.php": {
+   "sha256": "98be167afa8bd63ceb28bb3ef04955da3365fbb4a231848bae9b8fc7d94a5c4b",
+   "live": false
+  },
+  "website/market/index.php": {
+   "sha256": "620e1489f72390994185585401e1bca33906d0ea2ccb686eb3c62e6960675a9a",
+   "live": false
+  },
+  "website/market/item.php": {
+   "sha256": "40e135bc90146bb6a84a42e46c89a5d251c1c75fed2be0059193e1bb39e334e7",
+   "live": false
+  },
+  "website/market/order.php": {
+   "sha256": "fca9ec46af4c6675e9b59692df52c3ee593b9a979324d3aa71c8211a06668942",
+   "live": false
+  },
+  "website/market/rules.php": {
+   "sha256": "cf5d8a43ab9591739189e5ac641f2e17113706b08fd51e866c460cde5908ef0e",
+   "live": false
+  },
+  "website/market/ticket.php": {
+   "sha256": "551f5c665ccfa6283307657cc9aaacf32d940c398e4f5da964e8dbb11f74775b",
+   "live": false
+  },
+  "website/market/view.php": {
+   "sha256": "69b34eb56c4c27bb9ce3c7455836b08df9762cf80d514967c27d6922ec498715",
+   "live": false
+  },
+  "website/nexus.php": {
+   "sha256": "ea29c1b2a27fd2729c27569504be505bf73d0f65a6295a4eada2185f16a816eb",
+   "live": false
+  },
+  "website/order.php": {
+   "sha256": "c4f12701897d94f2eeaa9f427efa9b686e3447bea23f751f48c604d37641b441",
+   "live": false
+  },
+  "website/pages/view.php": {
+   "sha256": "285b9f2841b986dfffc8642e5aec49c5713d0dfd6b8ae38adf7c05ba2ebfce52",
+   "live": false
+  },
+  "website/place/recreation.php": {
+   "sha256": "83d3288d183a8cb03a4f8210503f4a3692821e83b2f091424026fb3100dc7bd0",
+   "live": false
+  },
+  "website/q.php": {
+   "sha256": "2f839043e711e1dd08084eca2986c61d4f3c100a59d40384d9176efb0769501e",
+   "live": false
+  },
+  "website/qr/cart.php": {
+   "sha256": "dc0686eba31773616fab2f9c4a6afa2fb50f82b82a67493532765c185678fad0",
+   "live": false
+  },
+  "website/stg-enter.php": {
+   "sha256": "b3252a3abd7438f5902dcbc787c13c10c90a226e5dd2069065d9974558a87f3e",
+   "live": false
+  },
+  "website/takedown.php": {
+   "sha256": "173b9efb1bb7004df01bb912166d90f6f427728f544e0db044f88a9bfd6bbaa9",
+   "live": false
+  },
+  "website/two-step.php": {
+   "sha256": "175fe8405874715d78a92a866ee6e994e3d368fca3f8276f91baedd35bf98f5e",
+   "live": false
+  },
+  "website/user/accounts.php": {
+   "sha256": "5154a68c14745fe3d7c47746f8aa704e8ab117557621be1ce7713ccddc9ea254",
+   "live": false
+  },
+  "website/user/dashboard.php": {
+   "sha256": "c25b21e6a6f866c248d276b0a57ff20b218e96dbd5b4738ab6db56426b1cb9d9",
+   "live": false
+  },
+  "website/user/experiences/index.php": {
+   "sha256": "b05daa331c6559bff06894c158cf56fb0ae129e11c689239a674d804dc8b04e9",
+   "live": false
+  },
+  "website/user/journeys/compose.php": {
+   "sha256": "ac9bd0b42c598a94652b8ebdec2707c2eb955f0c22fd584940083c19460eab1e",
+   "live": false
+  },
+  "website/user/journeys/index.php": {
+   "sha256": "a71921db10699c737f4155177b2ae5ab3498df9f1ae8b2f48513090baffeac3c",
+   "live": false
+  },
+  "website/user/market/index.php": {
+   "sha256": "3245f862b8249f4940ae0afd22ef853a848e29f3912d1a8380b01a93284fd7a0",
+   "live": false
+  },
+  "website/user/notice.php": {
+   "sha256": "d8fb7e77fa07ed48add35ff97964cfe6e320b95ae9908849ce8f4289949aafa4",
+   "live": false
+  },
+  "website/user/orders.php": {
+   "sha256": "ba9623576116e73143ba797d9626e0b5a3c23636776bf688fdc0942d889ca701",
+   "live": false
+  },
+  "website/user/profile.php": {
+   "sha256": "bc9577bc619ff4fc6d6fd6636660ed5abfc1df0887c5f4df92425cbb847d7196",
+   "live": false
+  },
+  "website/user/staff-link.php": {
+   "sha256": "39dfba963a11b28cf75f5ab4a61224049f6229eb7d33b85ec66f94f472e00251",
+   "live": false
+  },
+  "website/user/transfer.php": {
+   "sha256": "ab46608b2f3e608f0f52064de821f9a65cbc528a163d4194a64b7ddf0926c82f",
+   "live": false
+  },
+  "website/vendor.php": {
+   "sha256": "b81d792d3fbe86bdd013e313e97ce512624cc54d9588ff5fa1c68285ee1213e2",
+   "live": false
+  },
+  "website/verify-email.php": {
+   "sha256": "5c1b61b22479884f491edb868cc329eadb3961728bfb9b3a2649257db2663e83",
+   "live": false
+  },
+  "website/verify-listing.php": {
+   "sha256": "80570c1a3199fc917065b92a548a80cd9f032baa2a980766ccf52da8c8433033",
+   "live": false
+  },
+  "website/wo.php": {
+   "sha256": "6034abf88b20224783c84097047692cc06737970d2ed6ee02363a19f19cd527d",
+   "live": false
+  }
+ }
+}
