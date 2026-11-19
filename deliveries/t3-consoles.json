@@ -1,0 +1,22 @@
+{
+ "zip": "t3-consoles.zip",
+ "built_on": "83e849a Sync: 2026-11-19 16:21 UTC",
+ "recorded": "2026-11-19 16:29 UTC",
+ "note": "T3: the consoles' tables on the table standard. Approved by Jason in the pop-up (reviewed by the session manager). Built on Sync: 16:21 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/admin/kit-css.php": {
+   "sha256": "3b82f313ba89212309a7c3b16c82b99d7fc24d0a6ce13a1e76482a293d261857",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "8fffbeb303bd571d83034cb86b3b6155ad55cb843b907a6236fe97c476d65546",
+   "live": false
+  },
+  "website/js/admin-kit.js": {
+   "sha256": "506cd5c6b6ad128b4572cc7ea04c2b17a4ff9ba5d7a8945de96c513835487eec",
+   "live": false
+  }
+ }
+}
