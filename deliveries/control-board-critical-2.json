@@ -1,0 +1,46 @@
+{
+ "zip": "control-board-critical-2.zip",
+ "built_on": "2605ced Sync: 2026-11-19 13:53 UTC",
+ "recorded": "2026-11-19 14:01 UTC",
+ "note": "Control Board critical-2: search, sign-in and payments watched as critical parts. Built on Sync: 2026-11-19 13:53 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/ControlAlarms.php": {
+   "sha256": "ed20bb673e664c0460ab311abe1d5d8ecfbbb9d21a89d42a82e43155e7e508dd",
+   "live": false
+  },
+  "app/lib/ControlRegister.php": {
+   "sha256": "660c63ed4f43ae9410423b025950ea6b1aca956d3ac70fd243bdd6aa27292d55",
+   "live": false
+  },
+  "app/lib/ControlSensor.php": {
+   "sha256": "9d1c01491707aabd6ea0d942de652a507c80aa2e804ba274cab1a80a710a77cf",
+   "live": false
+  },
+  "app/lib/Database.php": {
+   "sha256": "389d2527406b2f0d517e6196d62454d129e791a28598e97034396d45e6e4c8d8",
+   "live": false
+  },
+  "app/lib/QuickBooksPay.php": {
+   "sha256": "f0297d75f42973c9bf4bd0511c5663517b89466c2939be05084b3c1b3dd9312b",
+   "live": false
+  },
+  "app/lib/Thresholds.php": {
+   "sha256": "391fb799585870b9aad0cdb2883218ca660ca8b185e844d9661c11e73edfdeb5",
+   "live": false
+  },
+  "app/lib/staging-tables.php": {
+   "sha256": "b0f49fea5571cf819309dbf62c5ee068edec13bead7478412b6be575b47486c4",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "0d5d60d0572ab304bdba6e0473bc4c7f5b9205726a9a7325bc4b6325a5d8d5be",
+   "live": false
+  },
+  "website/admin/api.php": {
+   "sha256": "cc6148de9cbbeb923185ea07c609ec88ee9a4744d6a40159c41e571c6d0fabe2",
+   "live": false
+  }
+ }
+}

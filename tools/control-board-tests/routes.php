@@ -30,8 +30,8 @@ foreach ($it as $f) {
 $t('the scan finds the raises (' . count($calls) . ')', count($calls) >= 25, count($calls));
 // fixes built elsewhere (a variable or a helper), each checked by its own test: the register's caps and "returns empty"
 // (Operations, r3b), a service's issue (ServiceHealth, r3b/r4f), the pre-flight line's fix (below)
-$built = ['$fx', '$fxc', '$afx'];
-$single = ['/admin/config/releases'];   // a page that is the one thing to do (its Check for builds), not a list
+$built = ['$fx', '$fxc', '$afx', '$fix'];   // $fix: ControlSensor's, checked in sensor.php
+$single = ['/admin/config/releases', '/admin/quickbooks.php'];   // QuickBooks' connection is that page's one thing   // a page that is the one thing to do (its Check for builds), not a list
 foreach ($calls as $cl) {
     $notice = str_contains($cl['level'], "'notice'") && !str_contains($cl['level'], '?');
     if ($notice) continue;
@@ -83,7 +83,7 @@ $t('the pre-flight\'s Runs line: it looks every 15 minutes, runs every test only
 // 5. Pulse: an alarm's message is shown by its alarm's item, never a second stream row; the email still goes
 $t('an alarm\'s message carries its Pulse item, so the stream leaves it to the item', str_contains($ca, "'pulse_ref' => 'alarm:' . \$id]"));
 $mg = (string) @file_get_contents($app . '/migrations/2026-11-19_alarm_messages_pulse_ref.sql');
-$t('…the ones already sent get the same mark, once, safe to run twice', str_contains($mg, "SET pulse_ref = thing WHERE kind IN ('alarm.trip', 'alarm.warning') AND pulse_ref IS NULL"));
+$t('…the ones already sent get the same mark, once, safe to run twice (or it has run and been removed, as migrations are)', $mg === '' || str_contains($mg, "SET pulse_ref = thing WHERE kind IN ('alarm.trip', 'alarm.warning') AND pulse_ref IS NULL"));
 $nt = (string) file_get_contents($app . '/lib/Notify.php');
 $t('…the stream reads only messages without a Pulse item (Notify)', str_contains($nt, 'pulse_ref IS NULL'));
 // 6. the pre-flight opens fresh and says its last full run beside it (both truths)

@@ -299,6 +299,19 @@ reason while what it would start has a red check. Every open pre-flight alarm's 
 >   `alarm.escalated`, critical); it's an ordinary trip now, what it holds is stopped, and only Resolve clears it.
 > - **Not critical by themselves:** the crawler, W0, the video worker, enrichment, and Railway or GitHub as hosts
 >   (GitHub is critical through releases). They keep 3c: a warning while the system tries, a trip when it can't.
+>
+> **Note (control-board-critical-2, 2026-11-19): the duties visitors use, watched.** Search, sign-in and payments are
+> called by browsers and by Intuit, so the ledger (workers' calls only) never saw them. `ControlSensor` adds three parts
+> (`site:search` → search, `site:signin` → procedures, `site:payments` → payments), watched two ways, both free:
+> - **What visitors hit:** a hook in `Database.php` notes a server error (5xx or fatal) on their paths, path and status
+>   only (no query string, address or user), kept 7 days; it writes only with a connection already open, never throws,
+>   and loads nothing on a good answer.
+> - **A test every 5 minutes** (the board's watch): one search through the search library with `no_side` (no demand,
+>   no crawler, no view, no AI); QuickBooks' token read on the site, asked of QuickBooks at most once an hour (held on
+>   staging); refused or needing reconnecting is a trip at once (held).
+> - **A failure** is a failed test, or server errors on `control_crit_requests` (3) or more requests in the 5 minutes;
+>   fewer are a notice on the part's row. Then the critical rule above: a trip at once, Recovered, or the Escalation
+>   Notice. Sign-in has no test of its own (it would need a sign-in); its server errors are its reading.
 
 ### 6. The historian
 
