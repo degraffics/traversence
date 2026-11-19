@@ -1,0 +1,34 @@
+{
+    "id": 162,
+    "title": "Design: the admin command header on phones",
+    "why": "Jason, 2026-11-19, on the System Control Board at 390px: \"Command needs help\". The command header took three rows (127px) and cut the module name (\"10. System Co\"). Now, below 768px only: row one is Back, the sections dropdown (it names the page), the board light and Shortcuts; row two only the page's own filter and the tools at hand. The module's name gives way on phones (Back returns to the module). CSS only, in kit-css.php's phone block; desktop unchanged.",
+    "proposals": "",
+    "zip": "design-admin-cmd-phone.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/admin/kit-css.php": {
+            "sha": "74c9e73c72c5673ab8b21d5991e0cdbb17dfd89c4680f433b2fedae26560c85f",
+            "size": 33750,
+            "live_was": "782a8dbc1e142897a7f67cc8170b74d32659e0e0ca2463eeaef86494ed779eb2"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-19T02:15:37+00:00",
+            "by": 0,
+            "msg": "Uploaded design-admin-cmd-phone.zip: 1 files."
+        }
+    ]
+}
