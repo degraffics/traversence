@@ -1,0 +1,70 @@
+{
+ "zip": "control-board-5a.zip",
+ "built_on": "262ca5b Sync: 2026-11-19 02:18 UTC",
+ "recorded": "2026-11-19 02:24 UTC",
+ "note": "Control Board 5a: the logbook (0171 \u00a710) and the night's fixes (phase lines, speed per record, short names, #19's checks). Built on Sync: 2026-11-19 02:18 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/admin/control-console.php": {
+   "sha256": "d0005cded72e0ea2a0a7222f0c8d012dc6002f152ebcccbd65b6fac80aa0e02d",
+   "live": false
+  },
+  "app/lib/ControlAlarms.php": {
+   "sha256": "c4655d38c6277071fb88d8733f6de383b0fcb64caac6bcf38b227746f7c13341",
+   "live": false
+  },
+  "app/lib/ControlBoard.php": {
+   "sha256": "0731eabcf4f96b1e5f42f727e20abb05c06d3d65676f6cd084be866d2a7ab053",
+   "live": false
+  },
+  "app/lib/ControlLedger.php": {
+   "sha256": "244ad30e6ba9aae5b3422fac55385f9a8e220fe51d8e2f816ca7ccb1f199010f",
+   "live": false
+  },
+  "app/lib/ControlLog.php": {
+   "sha256": "8f68f49178a706c3e96fc49cadcb7029faf17af160a714301bc8d268d8e037d5",
+   "live": false
+  },
+  "app/lib/ControlMaintenance.php": {
+   "sha256": "0967b9ecbddbf9acb1ef4d57e310e84566acb4c5f714eadf9fddc2fef6943386",
+   "live": false
+  },
+  "app/lib/Preflight.php": {
+   "sha256": "1675234fa9ffc404fe06bf402ee3b061f285188dfe90cee6ad159ac139f8cc58",
+   "live": false
+  },
+  "app/lib/SchemaUpkeep.php": {
+   "sha256": "1ab70f4bc1bfa8b4cf8c820d3345205000bf4e16e06c34bedd7730e258c352ba",
+   "live": false
+  },
+  "app/lib/SystemStart.php": {
+   "sha256": "83658383b958354ecc4ef7a99cd57bee488d57c87469850d0a984e0495742b2d",
+   "live": false
+  },
+  "app/lib/staging-tables.php": {
+   "sha256": "adbf74309d1ab455093d4ee095a336e6093a9776b73ef98719e5e7399914dc0b",
+   "live": false
+  },
+  "app/migrations/2026-11-19_control_log.sql": {
+   "sha256": "900bf8398b80b022fa3ebbb3f1d91d90c98bd2f4e0669d1d24600f06736c35f8",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "30dc04b6f69a7eb913972690ceca51c273c1bdee5fdc2067bfb16652bab90237",
+   "live": false
+  },
+  "website/admin/api.php": {
+   "sha256": "b9301e4364b4146cae73a9e7474820e0177b5b14b5827c7ec56b7b054ad4b6c2",
+   "live": false
+  },
+  "website/api/health.php": {
+   "sha256": "c5b68e9dea49ce2c0e1c96c064f152acd3325f00f8fa915dbb7637db71f823bb",
+   "live": false
+  },
+  "website/js/admin-control.js": {
+   "sha256": "7cb24503e37f9f468d4a26d480effe9e426f33acc897adef914b4c299a7d1a1f",
+   "live": false
+  }
+ }
+}

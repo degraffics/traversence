@@ -90,7 +90,7 @@ $t('…a person\'s Reactivate does', ControlAlarms::openOf($pdo, 'svc:osm:held')
 
 // 8. slow calls at the ledger: a warning (never a trip since 4e); the usual speed clears it
 require_once $app . '/lib/ControlLedger.php';
-for ($i = 0; $i < 25; $i++) $pdo->exec("INSERT INTO control_ledger (at, endpoint, method, code, ms, n_received) VALUES (UTC_TIMESTAMP(), 'crawl/results', 'POST', 200, 300, 1)")   // one record a call, as the test's own calls (5a judges speed per record);
+for ($i = 0; $i < 25; $i++) $pdo->exec("INSERT INTO control_ledger (at, endpoint, method, code, ms, n_received) VALUES (UTC_TIMESTAMP(), 'crawl/results', 'POST', 200, 300, 1)");   // one record a call, as the test's own calls (5a judges speed per record)
 $ref = new ReflectionMethod('ControlLedger', 'alarms'); $ref->setAccessible(true);
 $call = fn (int $ms) => $ref->invoke(null, $pdo, 'crawl/results', 200, 1, ['stored' => 1, 'updated' => 0, 'review' => 0, 'refused' => 0], [], $ms);
 $call(4000); $sl = ControlAlarms::openOf($pdo, 'ep:crawl/results:slow');
