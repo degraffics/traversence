@@ -52,7 +52,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "The place page (Jason, 2026-11-19, approved: the viewer names the photo's place, views at 0, the engage bar's \u22ef, Plan a trip here)",
    "since": "2026-11-19T22:46:19Z",
-   "expires": "2026-11-20T02:46:53Z",
+   "expires": "2026-11-20T02:59:57Z",
    "release": "place-page.zip",
    "callers": {
     "tv_engage_bar": [
@@ -78,7 +78,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "The place page (Jason, 2026-11-19, approved: the viewer names the photo's place, views at 0, the engage bar's \u22ef, Plan a trip here)",
    "since": "2026-11-19T22:46:19Z",
-   "expires": "2026-11-20T02:46:53Z",
+   "expires": "2026-11-20T02:59:57Z",
    "release": "place-page.zip",
    "callers": {
     "open": [
@@ -200,7 +200,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "The place page (Jason, 2026-11-19, approved: the viewer names the photo's place, views at 0, the engage bar's \u22ef, Plan a trip here)",
    "since": "2026-11-19T22:46:19Z",
-   "expires": "2026-11-20T02:46:53Z",
+   "expires": "2026-11-20T02:59:57Z",
    "release": "place-page.zip",
    "callers": {}
   },
@@ -211,7 +211,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "The place page (Jason, 2026-11-19, approved: the viewer names the photo's place, views at 0, the engage bar's \u22ef, Plan a trip here)",
    "since": "2026-11-19T22:46:19Z",
-   "expires": "2026-11-20T02:46:53Z",
+   "expires": "2026-11-20T02:59:57Z",
    "release": "place-page.zip",
    "callers": {}
   },
@@ -222,7 +222,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "The place page (Jason, 2026-11-19, approved: the viewer names the photo's place, views at 0, the engage bar's \u22ef, Plan a trip here)",
    "since": "2026-11-19T22:46:19Z",
-   "expires": "2026-11-20T02:46:53Z",
+   "expires": "2026-11-20T02:59:57Z",
    "release": "place-page.zip",
    "callers": {}
   },
@@ -233,7 +233,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "The place page (Jason, 2026-11-19, approved: the viewer names the photo's place, views at 0, the engage bar's \u22ef, Plan a trip here)",
    "since": "2026-11-19T22:46:19Z",
-   "expires": "2026-11-20T02:46:53Z",
+   "expires": "2026-11-20T02:59:57Z",
    "release": "place-page.zip",
    "callers": {}
   },
@@ -244,7 +244,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "The place page (Jason, 2026-11-19, approved: the viewer names the photo's place, views at 0, the engage bar's \u22ef, Plan a trip here)",
    "since": "2026-11-19T22:46:19Z",
-   "expires": "2026-11-20T02:46:53Z",
+   "expires": "2026-11-20T02:59:57Z",
    "release": "place-page.zip",
    "callers": {}
   },
@@ -255,7 +255,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "release place-page.zip",
    "since": "2026-11-19T22:46:53Z",
-   "expires": "2026-11-20T02:46:53Z",
+   "expires": "2026-11-20T02:59:57Z",
    "release": "place-page.zip",
    "callers": {}
   },
@@ -266,7 +266,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "release place-page.zip",
    "since": "2026-11-19T22:46:53Z",
-   "expires": "2026-11-20T02:46:53Z",
+   "expires": "2026-11-20T02:59:57Z",
    "release": "place-page.zip",
    "callers": {}
   },
@@ -333,6 +333,17 @@
    "why": "0173 R2: the key on its card",
    "since": "2026-11-19T22:56:52Z",
    "expires": "2026-11-20T02:56:52Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/OutsideServices.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "0173 R2: the Park Service's API hosts",
+   "since": "2026-11-19T22:57:11Z",
+   "expires": "2026-11-20T02:57:11Z",
    "release": "",
    "callers": {}
   }
