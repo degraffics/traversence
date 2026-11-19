@@ -32,8 +32,8 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "T1: one table for the admin's lists (design/table-standard.md)",
    "since": "2026-11-19T13:26:32Z",
-   "expires": "2026-11-19T18:05:45Z",
-   "release": "",
+   "expires": "2026-11-19T18:11:52Z",
+   "release": "t1-tables.zip",
    "callers": {}
   },
   {
@@ -45,9 +45,13 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "T1: one table for the admin's lists (design/table-standard.md)",
    "since": "2026-11-19T13:26:35Z",
-   "expires": "2026-11-19T18:05:47Z",
-   "release": "",
-   "callers": {}
+   "expires": "2026-11-19T18:11:52Z",
+   "release": "t1-tables.zip",
+   "callers": {
+    "tv_w_table": [
+     "app/admin/sections.php"
+    ]
+   }
   },
   {
    "path": "app/admin/kit-table.php",
@@ -56,8 +60,8 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "T1: one table for the admin's lists (design/table-standard.md)",
    "since": "2026-11-19T13:26:37Z",
-   "expires": "2026-11-19T18:05:50Z",
-   "release": "",
+   "expires": "2026-11-19T18:11:52Z",
+   "release": "t1-tables.zip",
    "callers": {}
   },
   {
@@ -230,8 +234,8 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "T1: one table for the admin's lists (design/table-standard.md)",
    "since": "2026-11-19T14:09:15Z",
-   "expires": "2026-11-19T18:09:15Z",
-   "release": "",
+   "expires": "2026-11-19T18:11:52Z",
+   "release": "t1-tables.zip",
    "callers": {}
   }
  ],
