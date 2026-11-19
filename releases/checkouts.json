@@ -29,13 +29,14 @@
   {
    "path": "app/lib/Preflight.php",
    "functions": [
-    "alarm"
+    "alarm",
+    "w0Batch"
    ],
    "kind": "change",
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "control-board-legacy: old trips settled, titles by the part that holds, W0's batch asked again",
    "since": "2026-11-19T04:27:29Z",
-   "expires": "2026-11-19T08:27:29Z",
+   "expires": "2026-11-19T08:27:31Z",
    "release": "",
    "callers": {}
   }
