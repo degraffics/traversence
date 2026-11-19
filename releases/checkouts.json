@@ -2,50 +2,6 @@
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
  "claims": [
   {
-   "path": "app/lib/crawler/Sources.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "control-board-itsdata (Jason 2026-11-19: blocked notice, Its data, outside our region, Pulse timing)",
-   "since": "2026-11-19T16:30:20Z",
-   "expires": "2026-11-19T20:30:20Z",
-   "release": "",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/ControlSensor.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "control-board-itsdata (Jason 2026-11-19: blocked notice, Its data, outside our region, Pulse timing)",
-   "since": "2026-11-19T16:30:25Z",
-   "expires": "2026-11-19T20:30:25Z",
-   "release": "",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/Thresholds.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "control-board-itsdata (Jason 2026-11-19: blocked notice, Its data, outside our region, Pulse timing)",
-   "since": "2026-11-19T16:30:27Z",
-   "expires": "2026-11-19T20:30:27Z",
-   "release": "",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/ControlBoard.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "control-board-itsdata (Jason 2026-11-19: blocked notice, Its data, outside our region, Pulse timing)",
-   "since": "2026-11-19T16:30:32Z",
-   "expires": "2026-11-19T20:30:32Z",
-   "release": "",
-   "callers": {}
-  },
-  {
    "path": "website/user/api/bell.php",
    "functions": [],
    "kind": "change",
@@ -92,9 +48,68 @@
    "expires": "2026-11-19T21:42:17Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/lib/OpenPlaces.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "overpass-off (Jason 2026-11-19: Stop entirely; and Geofabrik's 308 and 503)",
+   "since": "2026-11-19T21:32:57Z",
+   "expires": "2026-11-20T01:32:57Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
+  {
+   "path": "app/lib/crawler/Sources.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "control-board-itsdata (Jason 2026-11-19: blocked notice, Its data, outside our region, Pulse timing)",
+   "since": "2026-11-19T16:30:20Z",
+   "expires": "2026-11-19T20:30:20Z",
+   "release": "",
+   "callers": {},
+   "lapsed": "2026-11-19T21:32:57Z"
+  },
+  {
+   "path": "app/lib/ControlSensor.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "control-board-itsdata (Jason 2026-11-19: blocked notice, Its data, outside our region, Pulse timing)",
+   "since": "2026-11-19T16:30:25Z",
+   "expires": "2026-11-19T20:30:25Z",
+   "release": "",
+   "callers": {},
+   "lapsed": "2026-11-19T21:32:57Z"
+  },
+  {
+   "path": "app/lib/Thresholds.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "control-board-itsdata (Jason 2026-11-19: blocked notice, Its data, outside our region, Pulse timing)",
+   "since": "2026-11-19T16:30:27Z",
+   "expires": "2026-11-19T20:30:27Z",
+   "release": "",
+   "callers": {},
+   "lapsed": "2026-11-19T21:32:57Z"
+  },
+  {
+   "path": "app/lib/ControlBoard.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "control-board-itsdata (Jason 2026-11-19: blocked notice, Its data, outside our region, Pulse timing)",
+   "since": "2026-11-19T16:30:32Z",
+   "expires": "2026-11-19T20:30:32Z",
+   "release": "",
+   "callers": {},
+   "lapsed": "2026-11-19T21:32:57Z"
+  },
   {
    "path": "app/lib/EngineCase.php",
    "functions": [
