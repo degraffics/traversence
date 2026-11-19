@@ -1,0 +1,39 @@
+{
+    "id": 207,
+    "title": "Staging's guard holds again for mailboxes, .env and Amazon's email setup",
+    "why": "Found in the survey for decisions/0173 (2026-11-19) and confirmed by the session manager: StagingGate::here() was private, so CommsSetup's, Mailboxes' and SesInbound's checks threw, were caught as 'not staging', and the safe-mode guard of decisions/0165 never held there. Staging could have written .env and mailbox passwords; SesInbound threw an Error instead of refusing.",
+    "proposals": "",
+    "zip": "staging-guard.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/ui/faq.md": {
+            "sha": "1a2a0e826d9f04bf918cfa0e2aa79d0b529efe2e54e30eb7ff50c86492a268fe",
+            "size": 383150,
+            "live_was": "f3b5f112ad624236dc701e11938566e9cd09f74a2ac31c3c523b9f526da32349"
+        },
+        "app/lib/StagingGate.php": {
+            "sha": "944231d08986494cc55096b26ea07087a1330c6054714c7ff1360cca883be069",
+            "size": 24065,
+            "live_was": "c8868901948f01c6d0e75aa87404aaa34f3fbaee65f730a3253bc2a20f057335"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-19T22:22:46+00:00",
+            "by": 0,
+            "msg": "Uploaded staging-guard.zip: 2 files."
+        }
+    ]
+}
