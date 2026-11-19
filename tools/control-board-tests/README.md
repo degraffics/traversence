@@ -181,3 +181,8 @@ and `website/api/` (the mirror's `sync-storage/api/crawl` and `api/video`). Put 
   resolved by admin it should be handled"): the Start card's issue carries the board's buttons, never Mark resolved;
   the issue and its alarm close together whichever way, saying how. 7 tests:
   `mariadb < ../release-b-tests/start-schema.sql && php start-issue.php <root>/app`. (r3c follows it.)
+- `register.php`: decisions/0173 release 1 (One home): the update run twice, the stages from what's true now, one card a
+  service with the register's parts, Pause and Activate on a card and on the board, Overpass retired while OpenStreetMap
+  stays Active, Watching on the board, the old address's links moved. 36 tests: `mariadb < ../release-b-tests/start-schema.sql`,
+  the release's migration in `<root>/app/migrations`, then `php register.php <root>/app`. `peek-anchor.cjs` also opens the
+  old address and lands on the same card.
