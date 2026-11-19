@@ -145,3 +145,15 @@ and `website/api/` (the mirror's `sync-storage/api/crawl` and `api/video`). Put 
   search, a part's own page in a drawer (`?proc=`), the table's buttons through the board's actions; the component's two
   fixes (a table of only groups; a phone card's actions); a block named by its reason; an alarm link to its own row.
   27 tests: `php proctable.php <root>/app`. (r2d now reads W0's detail on its own page.)
+- `itsdata.php`: control-board-itsdata (Jason's answers, 2026-11-19): W0 logging an address about another state as
+  "Outside our region" and never reading it (a welcome rule brings it back), the sites that blocked us as one notice (a
+  warning only past `w0_block_share`), Its data on a process's own page (its records, what happened, a link each, ids
+  only), and Pulse's gathering time (the middle of the last 20, a warning past `control_pulse_ms`, never a trip). 22
+  tests: `mariadb < ../release-b-tests/start-schema.sql && mariadb lv_main < <2a's ledger migration> && php itsdata.php
+  <root>/app` (it makes a `crawl_frontier` with the columns it needs when the schema has none).
+- `board-rendered.cjs` (with `board-page.php`): what the board did before its parts moved into the table (#192), tested
+  in the rendered board at 1280 and 390 (playbook §3): a system's counts filter its parts and open it, again shows every
+  part; the systems opened stay open through the table's redraw; Open every system / Close them; an alarm's Holds: link
+  opens the part's own page; the search finds a part by a source's name; no sideways scroll. 20 tests (it fails on the
+  board as #192 left it): after the start schema, 2a's migration, `render`'s seed and a trip on W1,
+  `node board-rendered.cjs <root>`.

@@ -30,7 +30,7 @@ foreach ($it as $f) {
 $t('the scan finds the raises (' . count($calls) . ')', count($calls) >= 25, count($calls));
 // fixes built elsewhere (a variable or a helper), each checked by its own test: the register's caps and "returns empty"
 // (Operations, r3b), a service's issue (ServiceHealth, r3b/r4f), the pre-flight line's fix (below)
-$built = ['$fx', '$fxc', '$afx', '$fix'];   // $fix: ControlSensor's, checked in sensor.php
+$built = ['$fx', '$fxc', '$afx', '$fix', '$hfx'];   // $fix: ControlSensor's, checked in sensor.php; $hfx: W0's blocked sites, in itsdata.php
 $single = ['/admin/config/releases', '/admin/quickbooks.php'];   // QuickBooks' connection is that page's one thing   // a page that is the one thing to do (its Check for builds), not a list
 foreach ($calls as $cl) {
     $notice = str_contains($cl['level'], "'notice'") && !str_contains($cl['level'], '?');

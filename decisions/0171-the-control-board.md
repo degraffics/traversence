@@ -198,6 +198,13 @@ whole system or on one process.
 > counts in each system's header (the filter release, #180) become the table's one **Show** filter (CLAUDE.md's filter
 > rule); the board's own "Find a process" box and Open all / Close all give way to the table's search. The site's needs
 > and each system's trend are panels of their own. A part's own page keeps its row opened in place.
+> *Later (Jason, 2026-11-19, control-board-itsdata): "thought I could click listed items on the right to filter the rows?" The counts
+> on each system's line are links again, as they were on the cards: a count picks its status in **Show** and opens that
+> system; pressed again, every part shows (`admin-control.js`, beside the table component). With it, by the playbook's §3
+> rule (a rebuilt screen keeps everything the old one did), the rest #192 had lost: the systems you opened stay open
+> through the 30-second redraw, **Open every system** / **Close them** under the table, an alarm's **Holds:** link opens
+> the part's own page, and the search finds a part by its sources' names. Tested in the rendered board
+> (`board-rendered.cjs`).*
 
 ### 3. The register (in code)
 
@@ -240,6 +247,14 @@ Every call to a worker's endpoint, and every run, records what it received, stor
 - **Ids and counts only.** The ledger never stores a person's name, email, phone or a page's text.
 - **Kept** for `control_ledger_days` (default 90) and `control_records_days` (default 30), which are Thresholds
   settings. Older rows are deleted in small batches.
+
+> **Note (Jason, 2026-11-19, control-board-itsdata): "Its data" on each process's own page.** His question, "How do I see
+> what data the workflow is creating (Real Data)", and his answer in the pop-up (Build it): each process's own page has
+> a table, the admin's one table (`config/proc_records`), of the records its calls touched: newest first, the record by
+> its number (a listing, a Review item, a source…), what happened (Stored, Updated, Sent to Review, Refused), the call
+> and run, and when, with **Show** by what happened. A record opens its own page (a listing's editor, a Review item),
+> else the call in the Ledger, never a dead end. Ids and what happened only, as above. W0's page also counts its index
+> by state, linked to Insights → Index.
 
 ### 5. Monitoring in real time: slow, retry, crash
 
@@ -426,6 +441,16 @@ There is one record: the alarm. Acknowledging stops the email repeat. The alarm 
 > trips as rows and its bell counts them, so the light repeated them there. Warnings, which Pulse doesn't list, are seen
 > on the board and in the light on every other admin page. The whole Dashboard module, since Today draws the Pulse board
 > itself (`tv_admin_mod_today` → `tv_pulse_board`). Built in `website/admin/router.php` (`$mk === 'dashboard'`).
+
+> **Note (Jason, 2026-11-19, control-board-itsdata): sites that blocked us, and Pulse's own speed.** Sites refusing W0
+> are no longer one warning per site: one notice, "N sites blocked us", each named with its reason (no crawling allowed,
+> a firewall or bot check, or the failure's number), up to two **Reactivate** buttons in place and **Every blocked
+> site** (Insights → Index, `#held`). It's a warning only when the sites blocking us in a day pass `w0_block_share` (5%
+> unless changed, with at least 20 read), since that points at our side; never a trip. Pulse itself is a part on the
+> board (`site:pulse`, under the site): `pulse-ui.php` times each gathering of its rows (`Pulse::items`, untouched) and
+> keeps the time only (`control_readings`, `gather_ms`); its row shows the middle of the last 20, and past
+> `control_pulse_ms` (2 s) it's a warning on the board only: "Pulse is slow to gather (2.4 s). The fix is the Pulse
+> store: a communications build." Never a trip, never in Pulse.
 
 ### 8. Pulse, fixed: one item per alarm, acted on in place, closed by itself
 
