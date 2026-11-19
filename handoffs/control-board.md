@@ -195,7 +195,21 @@ Alongside: `releases-self-withdraw` (#122), `releases-live-2` (#123), `releases-
     Retry-After), and the watch's `ServiceHealth::liftRateTrips` turns an open 429 trip (Wikidata's of the night) into a
     warning, its `hold_until` back from 2099 to its back-off, logged by the system. Its Check it now is greyed (`ServiceHealth::rateFix`, a `#wait:` fourth element the board renders disabled with its reason and next try in UTC, shown as text beside it since a phone has no hover); `Preflight::held` and the api's `svccheck` never go past a 429's wait (the session manager, 2026-11-19).
   - Tests: `r4f.php` (7, local server as the outside host), `r5a.php` (17), `r5a-rate.php` (18).
-- Next: `control-board-5b`, the reports (only after 5a is live; one question each).
+- 5a live as release #166 (Sync 04:19 UTC, 2026-11-19). The board then (04:22): Wikidata's 429 amber ✓, phase alarms
+  gone ✓, #19 gone ✓; 16 open (6 trips, 10 warnings).
+- `control-board-legacy` (built on Sync 04:19 UTC; files: `app/lib/Preflight.php`, `app/lib/ControlAlarms.php`,
+  `app/ui/faq.md`): four red trips from before 3c (W0, W3, `rw:batch`, `t:vectors`; `tripped_at` null) kept old words.
+  Cause: W0's line is amber, and a title came only from a red part, so it took the first sentence (its passing gate);
+  the watch's refresh never changed a level. Now the watch tests each old trip again first (3 a watch, old trips first)
+  and settles it with `Preflight::alarm(..., $settle = true)`: passes → closed; amber → its notice; red → a trip timed
+  from now when what it holds is switched on, else a warning; logged by the system. Titles: red part, else amber part.
+  A line left `wait` over 2 minutes is read back (W0's test batch was asked and never read back); `rw:batch` red over
+  half an hour is asked again; a short batch names the indexer's version (`w0:beat.v`), Railway's link under 1.1.1. The
+  125 result was from 2026-11-18 20:05, before 1.1.1: stale, not a settings gap. Test: `legacy.php` (11).
+- Asked alongside it (the session manager, principle 7): outside servers that fail or time out stay a warning that keeps
+  backing off, never a trip; a trip only for a refusal, a rejected key, a used-up quota or our own fault (changes 3c's
+  "6 failures or 6 hours"). Built only on Jason's yes, its own zip with its test and the decisions/0171 note.
+- Next: `control-board-5b`, the reports (one question).
 - Known shortcut in 3c: a back-off held by a trip is `service_issues.hold_until = '2099-01-01'` (until a person resolves
   it; `ServiceHealth::holdForTrip`), not a flag of its own. A real flag (a column, `held_by_trip`) needs a migration on
   `service_issues`; do it with the next ServiceHealth change.
