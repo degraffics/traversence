@@ -52,7 +52,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Card photos follow-up: the opened page is looked up first (fix in place of #205)",
    "since": "2026-11-19T23:20:32Z",
-   "expires": "2026-11-20T03:21:01Z",
+   "expires": "2026-11-20T03:29:30Z",
    "release": "card-photos-first.zip",
    "callers": {
     "slides": [
