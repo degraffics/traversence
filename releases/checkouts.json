@@ -147,6 +147,17 @@
    "expires": "2026-11-19T04:43:37Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "website/gallery/index.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Design 3b-2: content pages on the tokens; park cards' photos",
+   "since": "2026-11-19T00:43:39Z",
+   "expires": "2026-11-19T04:43:39Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
