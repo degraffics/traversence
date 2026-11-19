@@ -1,0 +1,84 @@
+{
+    "id": 204,
+    "title": "Overpass retired: OpenStreetMap from our own copy only; Geofabrik's load and test fixed",
+    "why": "OpenStreetMap's forum answered our statement (community.openstreetmap.org/t/150369): an app's fair share of the public Overpass servers is about 50 requests a day, and \"Stop using the public OSM overpass server altogether.\" Jason, in the session manager's pop-up: \"Stop entirely\". Also Jason's screenshot of Geofabrik's card: its pre-flight test \"Not ready: Answered 308\" and W1's load failed on our own loads.php answering the host's 503.",
+    "proposals": "Add Utah, Colorado and Nevada to our OpenStreetMap copy (Geofabrik, free, weekly), Widen the extract's tags (health care, offices) so W1's health kinds come from our copy",
+    "zip": "overpass-off.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/ui/outside-services.php": {
+            "sha": "ee147dc16e889a51a94d6e1b56f770847d4db988044e10e60027c64fb3d548f6",
+            "size": 46435,
+            "live_was": "b597ab662b96f570917b3543be185603ca0a0bf15459f8f0c2cc82314766059b"
+        },
+        "app/ui/faq.md": {
+            "sha": "93b1b887a5b7e9e2113030b58ccccd6bc74aa08a2efdf93e362a6cd811656cc0",
+            "size": 382137,
+            "live_was": "aa51ac2160efdf1030a0efa443e0d4fb3caeb99397711126476283bb9fa4f11b"
+        },
+        "app/lib/ServiceHealth.php": {
+            "sha": "b5bb09ae3e12a92c71ca39d2c9df6d0eb32f6e1d205d8198ab85755993589655",
+            "size": 56871,
+            "live_was": "2cc4d3b1990e7b2f7d17fba5ca5f5a5e3bd1bc5087903093c5de031e4ce22a8a"
+        },
+        "app/lib/Operations.php": {
+            "sha": "48a41eda8fe54dc32b15e3b397f6f290e5df27f19381dbab0efcf8756cd64ba7",
+            "size": 74646,
+            "live_was": "89130d6859719973d26f33f596c1a17992746c36d0e82df190b329ff2c3597e0"
+        },
+        "app/lib/ControlAlarms.php": {
+            "sha": "7f81e64ab1515135fe1422656cdcfe3fe86d5929544109251f77754f84014192",
+            "size": 70394,
+            "live_was": "08861099ba52b64090077e41c56ccd6fd9d8a95c52202928a55d6239b00feca8"
+        },
+        "app/lib/Thresholds.php": {
+            "sha": "4445a839d0f222f8f97d55f43e2995465d3285f4937d4d7b285da9269cf9adfd",
+            "size": 32106,
+            "live_was": "8d1c6fdd0e338ea8721c3aff8d81264169eb1b5b1ea062b0d027fccbb4379526"
+        },
+        "app/lib/crawler/CrawlService.php": {
+            "sha": "7ee4f1871c2e342d4dc3c537f34f97b072195556e37bddcaca69f7071e46cc39",
+            "size": 40548,
+            "live_was": "d646f583bda158623103d48edd60158cf1a5a282d19fbbbbaedb39f760d0cc77"
+        },
+        "app/lib/OutsideServices.php": {
+            "sha": "519ecea28b2e9ee4f4efe9b9a2da3a648b76e1b701b2d8553c1cdfcbb64b6d25",
+            "size": 86893,
+            "live_was": "95aabea7cee3e7d135a1ab38da5a890d473a41c2f6d741877dc7d8ec866d386b"
+        },
+        "app/lib/Preflight.php": {
+            "sha": "0ce6221002953aa85e145f527345b67e93c56fa680302535a53487125c4dd71f",
+            "size": 155385,
+            "live_was": "6acdaa88c539af9a843f979fa16a3bbb070011bc878c7c16b04d348b04f926e1"
+        },
+        "app/lib/OpenPlaces.php": {
+            "sha": "0b093f632db4e518cca430665b6391df44d9d462cc09fdf1b77e9bd741b4c0fd",
+            "size": 31234,
+            "live_was": "6548accd964fec2dfd23bff5c9ee13cf28a6db3369c0ba536c4efbf34a8428a0"
+        },
+        "website/admin/chamber-builder.php": {
+            "sha": "6690455e5130f14ad41735ea5d374efdd838e9844e931b0664fd8012e68dabd9",
+            "size": 34449,
+            "live_was": "b4cf087e781e9b027d2df7cba9aeaf7b46a8ef879a56ae74ba1eb9e971cddd12"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-19T21:42:19+00:00",
+            "by": 0,
+            "msg": "Uploaded overpass-off.zip: 11 files."
+        }
+    ]
+}
