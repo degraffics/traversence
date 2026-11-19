@@ -3,9 +3,8 @@
 Status: accepted (Jason, 2026-11-18, revision 2, approved with the decision pop-up). **Built (2026-11-19):** all five
 releases are live: 1 (#120), 2a (#121, fixed #124), 2b (#127, layout #128), 2c (#129), fixes #131–#134, 3a (#137),
 3b (#139, #140), 3c (#143), 3d (#144), 3e (#145), 3f (#148), 4a (#151), 4b (#154), 4c (#156), 4d (#157), 4e (#160), 5a
-(#166), the old trips settled (#168), a back-off in its wait isn't a hold (#169) and 5b, the reports (#173). Not built:
-§12's per-process routes and its four table tools (the board's panels do their work), and §14's archiving of the
-Pre-flight page (waits for Jason's OK). Progress and what's left: `handoffs/control-board.md`.
+(#166), the old trips settled (#168), a back-off in its wait isn't a hold (#169) and 5b, the reports (#173); then the links and Resolve fixes (#175) and the off-region sources (#177). §12's process
+pages and four tables: control-board-12 (2026-11-19, the session manager's call for Jason). Kept as they are (decided 2026-11-19): the Pre-flight page, available as the pre-start check, and §2's layout. Progress and what's left: `handoffs/control-board.md`.
 Amends: 0163 §10 (switching back on) and its notes on Start the system and the pre-flight. Also amends ServiceHealth's
 "one Pulse case per issue" (2026-11-14) and the Pulse cases listed in §8.
 Builds on: 0109 (the admin: manifests and widgets), 0163 §1–§9 (the service register, costs, warnings, switches), 0164
@@ -535,10 +534,9 @@ have a rule for how trips get set"). §6 (the historian): 4b (#154), 4c (#156). 
 only by its Resolve, and a tripped row offers Check and start again, never a bare Start (#169); old trips raised before
 trips had their time are settled by the watch (#168). §8 (Pulse): 3a, 3c, 3d. §9 (routing): 2a, 3e. §10 (the logbook):
 5a (#166). §11 (the reports): 5b (#173), built on demand from what's kept, nothing stored. §12 (where it lives):
-in part: the section, its anchors, the top-bar light and Today's line (2b, 3a); the four systems are folding sections of
-the one board and each process opens in place. Not built: a process's own route (`/admin/config/control/<process>` as
-a drawer) and the `config/alarms`, `config/log`, `config/ledger` and `config/upkeep` table tools (the board's panels do
-their work). §13 (access): 2b onward. §14: Pulse cases became alarms (3a, 3c) and Telemetry points to the board (4b); the Pre-flight page
+the section, its anchors, the top-bar light and Today's line (2b, 3a); each process's own page
+(`/admin/config/control/<kind>-<name>`, a drawer from its row) and the `config/alarms`, `config/log`, `config/ledger` and
+`config/upkeep` tables as sections under the board: control-board-12. §13 (access): 2b onward. §14: Pulse cases became alarms (3a, 3c) and Telemetry points to the board (4b); the Pre-flight page
 stays until Jason's OK to archive it, and the links from Automation and the Workflow board are still to do.
 
 ### 15. The releases, in order
