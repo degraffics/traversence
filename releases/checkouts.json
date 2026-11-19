@@ -6,9 +6,9 @@
    "functions": [],
    "kind": "change",
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "overpass-off (Jason 2026-11-19: Stop entirely; and Geofabrik's 308 and 503)",
+   "why": "0173 R1: one home (Service register takes in Outside services)",
    "since": "2026-11-19T21:33:25Z",
-   "expires": "2026-11-20T01:33:25Z",
+   "expires": "2026-11-20T02:42:31Z",
    "release": "",
    "callers": {}
   },
