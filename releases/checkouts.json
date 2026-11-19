@@ -217,6 +217,17 @@
    "expires": "2026-11-19T15:44:23Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "website/gallery/index.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Design: lighter controls (Jason 2026-11-19)",
+   "since": "2026-11-19T11:44:25Z",
+   "expires": "2026-11-19T15:44:25Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
