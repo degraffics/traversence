@@ -2,19 +2,6 @@
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
  "claims": [
   {
-   "path": "app/lib/Notify.php",
-   "functions": [
-    "KINDS"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5jn2WGptsHBfmhEav6",
-   "why": "0172 gaps G1-G11 as one release (Jason approved 2026-11-18)",
-   "since": "2026-11-18T22:03:07Z",
-   "expires": "2026-11-19T02:03:07Z",
-   "release": "",
-   "callers": {}
-  },
-  {
    "path": "app/lib/Preflight.php",
    "functions": [
     "alarm"
