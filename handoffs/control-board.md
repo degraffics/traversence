@@ -140,7 +140,18 @@ Alongside: `releases-self-withdraw` (#122), `releases-live-2` (#123), `releases-
     watch's history step timed (`hist_ms` on job:control_tick) and a slow warning when it grows (`ControlHistorian::timed`).
     Rebuilt on Sync 23:10 UTC (fd3a3b4).
   - Tests: `r4b.php` (35). Rendered at 390px and 1280px, no sideways scroll.
-  - Next: the three lists of unused names (from `unused_schema` once 4b is live), then release 5 (the logbook and reports).
+  - Live as #154, verified in Sync 00:09 UTC.
+- `control-board-4c` (built on Sync 00:09 UTC, 68ad9f6): two fixes from Jason's phone screenshot (the session manager,
+  2026-11-19). (1) W0 showed "Tripped" with the passing gate text as its reason: its pre-flight trip was raised before
+  checks were read part by part, and a trip never clears by itself, so it kept those words while its real red part (the
+  test batch) became its own alarm. `Preflight::alarm` takes `$event` (false: the watch's refresh, words only through
+  `ControlAlarms::retitle`, never a level); the watch refreshes every open `pf:` alarm from stored results; a held trip
+  names its red part, says "held by its needs/its test batch, each its own alarm", or "its check passes now; it waits for
+  an admin's Resolve". (2) A trend with nothing recorded says "No history yet: readings start now" (`trend()['history']`,
+  a `.cb-tre` line over the empty bars), and one off or in maintenance all along says so; never "not due to be on".
+  Tests: `r4c.php` (9).
+  - Next: the three lists of unused names (from `unused_schema`, via the session manager: this session has no
+    HEALTH_TOKEN), then release 5 (the logbook and reports).
 - Known shortcut in 3c: a back-off held by a trip is `service_issues.hold_until = '2099-01-01'` (until a person resolves
   it; `ServiceHealth::holdForTrip`), not a flag of its own. A real flag (a column, `held_by_trip`) needs a migration on
   `service_issues`; do it with the next ServiceHealth change.
