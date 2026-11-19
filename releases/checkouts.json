@@ -88,6 +88,17 @@
    "expires": "2026-11-20T03:55:32Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/admin/automation-console.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "board-phone: the board at 390px; a service's switched-off task said and switched on from its card",
+   "since": "2026-11-19T23:55:34Z",
+   "expires": "2026-11-20T03:55:34Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
