@@ -26,60 +26,6 @@
    "callers": {}
   },
   {
-   "path": "app/admin/kit-css.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
-   "why": "T1: one table for the admin's lists (design/table-standard.md)",
-   "since": "2026-11-19T13:26:32Z",
-   "expires": "2026-11-19T18:15:21Z",
-   "release": "t1-tables.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/admin/widgets.php",
-   "functions": [
-    "tv_w_table"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
-   "why": "T1: one table for the admin's lists (design/table-standard.md)",
-   "since": "2026-11-19T13:26:35Z",
-   "expires": "2026-11-19T18:15:21Z",
-   "release": "t1-tables.zip",
-   "callers": {
-    "tv_w_table": [
-     "app/admin/sections.php"
-    ]
-   }
-  },
-  {
-   "path": "app/admin/kit-table.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
-   "why": "T1: one table for the admin's lists (design/table-standard.md)",
-   "since": "2026-11-19T13:26:37Z",
-   "expires": "2026-11-19T18:15:21Z",
-   "release": "t1-tables.zip",
-   "callers": {}
-  },
-  {
-   "path": "website/js/admin-kit.js",
-   "functions": [
-    "draw",
-    "drawFilters",
-    "esc"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
-   "why": "T1: one table for the admin's lists (design/table-standard.md)",
-   "since": "2026-11-19T14:09:15Z",
-   "expires": "2026-11-19T18:15:21Z",
-   "release": "t1-tables.zip",
-   "callers": {}
-  },
-  {
    "path": "website/index.php",
    "functions": [],
    "kind": "change",
