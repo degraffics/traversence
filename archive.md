@@ -95,6 +95,7 @@ Opened from a working tool (pop-up, detail, action or print page):
 | Page | What it is | Its work is now in |
 |---|---|---|
 | `/gallery/join.php` | Only forwards (site audit P6, Jason 2026-11-13) | The Gallery (`/gallery/`) |
+| `/directory/classic.php` | The earlier directory, with its tools; out of Get Local's rail, still reachable by its address (Jason, 2026-11-19) | Get Local (`/directory/`) |
 
 ## Waiting on Jason (not ours to remove)
 
