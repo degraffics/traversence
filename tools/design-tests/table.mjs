@@ -23,6 +23,7 @@ async function page(view, w = 1200, delay = 0) {
     if (sort === 'name') rows = rows.slice().sort((a, c) => (a.name < c.name ? -1 : 1) * (dir === 'desc' ? -1 : 1));
     const total = rows.length; rows = rows.slice(pg * per, pg * per + per);
     if (u.pathname.endsWith('/group') && pg === 0) rows = [GROUP].concat(rows.slice(0, per - 1));
+    if (u.pathname.endsWith('/groups')) return r.fulfill({ contentType: 'application/json', body: JSON.stringify({ rows: [GROUP], total: 1, sortable: [] }) });   // a table of groups only (the Control Board's, #1064)
     r.fulfill({ contentType: 'application/json', body: JSON.stringify({ rows, total, sortable: ['name', 'runs'] }) });
   });
   await p.goto('http://127.0.0.1:8791/?view=' + view); return { p, errs };
@@ -57,6 +58,11 @@ async function page(view, w = 1200, delay = 0) {
   if (shots) await p.screenshot({ path: shots + '/t1-group-closed.png' });
   await p.click('[data-ak-grp]'); ok(await p.locator('tr[data-in="g1"]:visible').count() === 4, 'a group row opens to its 4 members');
   if (shots) await p.screenshot({ path: shots + '/t1-group-open.png' }); await p.close(); }
+// a table made only of groups: its columns aren't marked empty (#1064's fix), and on a phone they show
+{ const { p } = await page('groups'); await p.waitForSelector('.akt-grp');
+  ok(await p.locator('th.akt-nod, td.akt-nod').count() === 0, 'a table of groups only: no column marked empty'); await p.close(); }
+{ const { p } = await page('list', 390); await p.waitForSelector('.ak-t');
+  ok(await p.evaluate(() => { const c = document.querySelector('td.akt-acts'); return c && c.getBoundingClientRect().width > 40; }), 'a phone card: the actions cell has its width (#1064\'s fix)'); await p.close(); }
 // empty
 { const { p } = await page('empty'); await p.waitForSelector('.ak-empty'); ok((await p.textContent('.ak-empty')).includes('Nothing here yet'), 'empty says Nothing here yet'); await p.close(); }
 // a phone: rows as cards, no sideways scroll

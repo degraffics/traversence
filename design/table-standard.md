@@ -81,12 +81,23 @@ he says otherwise.
    session:** once T1 is live I tell it, and it moves its process table onto the component in its own release.
 2. **T2, Pulse (admin):** the stream on the component (▾ and ⋯, no hover bar; 0172's columns; alarm groups), and the top
    half as above.
+   **As built (2026-11-19, the session manager's review):** Pulse keeps its own engine (rows open in place, live marks,
+   0172's columns and order) and takes the standard's look, ⋯ with words, groups, paging and the count, and phone cards;
+   only server-listed tables use `tv_table()`. Its paging pages the rows Pulse gathers (from many sources in one pass),
+   not a database query. The hover bar goes from the admin's Pulse only; the profile Pulse keeps Jason's mockup's icons.
 3. **T3–T5, the rest by module:** the consoles other than the Board (automation, comms, crawler, operations, index), the
    admin pages (insights, sources, products, vendors…), then the shared parts (vault, cost tab, outside services, domains).
    Each lists the tables it moved; the zip check keeps every column and action.
    A tool whose own query is capped (orders at 400) says "of 400" when more exist: as each moves, it pages in SQL
    (`LIMIT`/`OFFSET` with a `COUNT`) or says "400+". T1 sends one page at a time to the browser; three tools page in
    the database so far.
+
+## Open items
+
+- **Pulse's paging in the database.** Pulse pages what it gathers (about fifteen sources); the database still reads them
+  all on each load. Moving that into the database is the Pulse store, a communications build (0172's dispatcher writing
+  one Pulse table). The Control Board's Pulse load-time warning (over 2 s) is its signal (Jason, 2026-11-19;
+  handoffs/session-manager.md).
 
 ## The admin's test (principle 5)
 

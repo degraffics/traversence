@@ -1,0 +1,18 @@
+{
+ "zip": "t2-pulse.zip",
+ "built_on": "f9e153b Sync: 2026-11-19 16:18 UTC",
+ "recorded": "2026-11-19 16:19 UTC",
+ "note": "T2: the admin's Pulse on the table standard. Approved by Jason in the pop-up (reviewed by the session manager). Built on Sync: 16:18 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/ui/faq.md": {
+   "sha256": "4d342d928c6e3820791add7396b53292a3afd9b6e9dd87fc04b8f2fcae10a283",
+   "live": false
+  },
+  "app/ui/pulse-ui.php": {
+   "sha256": "af8b33fbfa728510b1e18216c50e8574dde0038d2ad4644af57cd9058dbc3826",
+   "live": false
+  }
+ }
+}
