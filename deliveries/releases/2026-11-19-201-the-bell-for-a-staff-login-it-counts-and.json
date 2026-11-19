@@ -6,12 +6,12 @@
     "zip": "staff-bell.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "planned",
+    "state": "approved",
     "step": 0,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
-    "plan_at": null,
+    "plan_at": "2026-11-19 17:36:09",
     "staged_at": null,
     "vetted_at": null,
     "live_at": null,
@@ -54,6 +54,16 @@
             "at": "2026-11-19T17:36:07+00:00",
             "by": 0,
             "msg": "Uploaded staff-bell.zip: 6 files."
+        },
+        {
+            "at": "2026-11-19T17:36:09+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/staff-bell.zip (git 95969c0833)."
+        },
+        {
+            "at": "2026-11-19T17:36:09+00:00",
+            "by": 0,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
         }
     ]
 }
