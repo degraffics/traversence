@@ -87,6 +87,19 @@
    "expires": "2026-11-19T21:22:35Z",
    "release": "control-board-landing.zip",
    "callers": {}
+  },
+  {
+   "path": "app/ui/pulse-ui.php",
+   "functions": [
+    "tv_pulse_board"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "staff-bell (Jason, 2026-11-19, approved a+b+c)",
+   "since": "2026-11-19T17:33:55Z",
+   "expires": "2026-11-19T21:33:55Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
