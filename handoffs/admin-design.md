@@ -118,4 +118,31 @@ Merriweather. `sections.php` claimed per function (the Control Board holds `tv_a
   00:35, `--allow-pending design-r3b1-explore-2`, which `send.py` now passes on to the zip check).
 - The open tab (Jason, 2026-11-19: "The active state feels lacking"; options in `design/review/design-r3b1-active-tab.png`,
   he chose B): a sage fill (sage 38% into white), a full-width 4px moss-sage bar, the icon umber with the active glow.
-- 3b-2 next: listing, place and hub, experiences, journeys, gallery pages; engage-ui; comments.
+- 3b-1 complete: live as #158 and #159, verified in Sync 00:42 UTC.
+
+### Admin command header on phones: design-admin-cmd-phone.zip (built on Sync 00:47 UTC; waiting for Jason's OK)
+
+- Jason, 2026-11-19, on the Control Board at 390: "Command needs help" (three rows, 127px, "10. System Co" cut).
+  `kit-css.php`'s phone block only: row one Back, the sections dropdown, the board light, Shortcuts (`.ak-cmdr` as
+  `display:contents`, ordered); row two the page's filter and the tools at hand (a zero-height break, `.ak-cmd::after`).
+  The module's name is hidden on phones (css-theme-brand §1, one header per view); Back returns to the module. 127 → 94px.
+  Render: `design/review/design-admin-cmd-phone-390.png`.
+
+### 3b-2: design-r3b2-content.zip (built on Sync 00:47 UTC; waiting for Jason's OK)
+
+- On the tokens: `listing/view.php`, `hub/index.php`, `place/landmark.php`, `place/recreation.php`, `gallery/index.php`,
+  `experiences/view.php`, `journeys/view.php`, `app/ui/engage-ui.php`. `recolor.py` learned the gold `#B8863B` (icon →
+  `--tv-icon`, fill → `--tv-link`) and a few more tans, greens and ambers.
+- Contrast: 37 probe failures → 0 real ones (what's left: text over photos and gradients the probe can't read; the
+  harness's compiled Tailwind lacks classes the CDN makes). Hold text on `--tv-hold-bg` is 4.04:1 with the token as is:
+  these pages use hold 75% into ink (5.25:1). For the tokens' next release: darken `--tv-hold` text use, or lighten
+  `--tv-hold-bg`, platform-wide.
+- Listing badges in the palette: Verified on moss mixed into ink; Managed by owner white on Grounded Amber (white on
+  Tailwind's amber was 3.2:1).
+- Park cards' photos (`dv_park_cards` → `dv_card_photos`, Jason's screenshot 2026-11-19), decisions/0143's order: a
+  listing's hero photos, the Commons photo of the visible landmark of the same name and state (`Landmarks::visibleSql`),
+  a stock photo labelled "Stock photo (representative)" with its credit (slot `card`, owner `park:<id>`), else the
+  pattern. Three queries for the set. FAQ: "Where do I find parks and landmarks?" describes it.
+- Rendered on the harness with seed records (a listing, landmarks, a hub, a journey, an experience):
+  `design/review/design-r3b2-390.png`, `-1280.png`.
+- 3c next: Get Local (directory, its own Find a business box and Refine row).
