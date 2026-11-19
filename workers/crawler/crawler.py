@@ -5,7 +5,7 @@ Traversence guide-crawl worker (decisions/0044) — runs off Bluehost, on Railwa
 Each run is one small, budgeted increment:
   1. Ask the site for the next few jobs (GET /api/crawl/jobs.php). A job is one coverage gap, e.g.
      "Gallup x Health care", with the cluster's towns, ZIPs and ZIP centre points.
-  2. Ask OpenStreetMap (Overpass API) for that kind of place around the cluster: one query per job.
+  2. Read that kind of place around the cluster from our OpenStreetMap copy (the job's "ours"); Overpass is retired.
   3. For each place with a website, fetch its homepage once (robots.txt respected) and count it as a
      second, independent source only if the page names the place.
   4. Send the findings back (POST /api/crawl/results.php). The site stages them and auto-imports those
@@ -42,7 +42,6 @@ Settings (environment variables):
   JOBS_PER_RUN         default 5 (the site hands out at most 10)
   MAX_FETCHES          website fetches per run, default 60
   TIME_BUDGET          seconds per run, default 240
-  OVERPASS_URL         first Overpass server only when the site sends no servers list (the list is a setting on the site)
   CRAWLER_CONTACT      a contact address added to the User-Agent (the OSM statement's fourth promise)
   VERIFY_PER_RUN       listings given a second look per run, default 10 (0 turns it off)
   VERIFY_TIME          seconds of each run for the second look, default 100
@@ -67,7 +66,7 @@ Settings (environment variables):
                        recreation areas, trailheads and visitor centers in the site's states for place pages
   LANDMARKS            "off" stops the monthly natural landmarks load (default on): USGS Geographic Names for the site's
                        states, tribal nations' boundaries (Census), Wikidata, Wikipedia summaries and Commons photos
-Test hooks (not for production): OVERPASS_FIXTURE=file.json, WEB_FIXTURE=file.json ({url: html}),
+Test hooks (not for production): WEB_FIXTURE=file.json ({url: html}),
 NPI_FIXTURE=file.json (an NPI API reply), NPI_FILE_FIXTURE=file.zip (a small NPI file), IRS_FIXTURE_DIR=dir (eo_az.csv…), RIDB_FIXTURE=file.json ({"facilities|AZ|0": reply}), SEARCH_FIXTURE=file.json ({query: {"results": [...]}}),
 GNIS_FIXTURE_DIR=dir (DomesticNames_AZ_Text.zip…), AIANNH_FIXTURE=file.zip, WIKI_FIXTURE=file.json ({sparql: [bindings], images: {file: {url, page, artist, license}}, extracts: {title: text}}).
 Standard library only.
@@ -105,16 +104,11 @@ TOKEN = os.environ.get("CRAWLER_API_TOKEN", "")
 JOBS_PER_RUN = int(os.environ.get("JOBS_PER_RUN", "5"))
 MAX_FETCHES = int(os.environ.get("MAX_FETCHES", "60"))
 TIME_BUDGET = int(os.environ.get("TIME_BUDGET", "240"))
-# Overpass servers, tried in order. The list is a setting on the site (OpenStreetMap's card in Outside services, Jason
-# 2026-11-14: "server lists become settings, not code"), sent with each plan (servers.overpass); the pre-use check is the
-# only gate: a server with an open issue is in the plan's holds and skipped, and comes back by itself when it's resolved
-# (overpass-api.de: when its daily probe answers 200). Only when the site sends no list (an older site, which can't hold a
-# server either) does this fallback apply, and it leaves out overpass-api.de, whose ban (406 since 2026-11-13,
-# research/osm-overpass-2026-11-13.md) nothing would then hold. overpass.openstreetmap.fr: 403 "white-listed usages".
-OVERPASS_URLS = list(dict.fromkeys(u for u in [os.environ.get("OVERPASS_URL"),
-                             "https://overpass.private.coffee/api/interpreter",
-                             "https://overpass.kumi.systems/api/interpreter",
-                             "https://maps.mail.ru/osm/tools/overpass/api/interpreter"] if u))
+# Overpass is retired (2.13.0; Jason, 2026-11-19, "Stop entirely"): OpenStreetMap's community asked apps not to use its
+# public Overpass servers (community.openstreetmap.org/t/150369). No server is ever asked, whatever the site or the
+# environment says: places come only from our copy (the job's "ours", Geofabrik's weekly state files on the site), and a
+# kind or town the copy lacks is reported as not in our copy (osm_not_in_copy in the run's report), never fetched.
+OVERPASS_URLS = []
 
 
 class OutOfTime(Exception):
@@ -217,7 +211,7 @@ SKIP_HOSTS = {"openstreetmap.org", "npino.com", "npiprofile.com", "npidb.org", "
 
 started = time.monotonic()
 WORKER_KEYS = ("GOOGLE_PLACES_KEY", "TAVILY_API_KEY", "BRAVE_API_KEY", "RIDB_API_KEY", "HF_TOKEN")   # reported by name at each run
-WORKER_V = "2.12.1"          # 2.12.1: a task stopped by a held service reports "held", never "failed": the call that trips a hold says so, and Common Crawl's task checks its holds first, so a run whose only trouble is a held service ends ok on Railway, not Crashed; 2.12.0: the identity check starts from what the site's own copies hold (the job's "local"), outside only for the rest; 2.11.0: a website that doesn't load for the refresh is looked up in Common Crawl's newest crawl (W2, decisions/0163's source map: direct, then Common Crawl); 2.10.0: web search falls to Brave when Tavily fails or is held; Google Places as the paid backup for confirming a business in the identity check, only by a director's override within its cap (decisions/0163's source map); 2.9.0: W1 reads our OpenStreetMap copy first (the job's "ours", from Geofabrik), Overpass only for a kind or town it lacks, and works on while every Overpass server is held (decisions/0163's source map); 2.8.0: every link on a page read goes to the page log (same site or not; no cap of 60, nor 40 other sites: W0, decisions/0164 §1.4); 2.7.5: a page whose reading had to stop is logged waiting to be read (P1-1); 2.7.4: reports which keys it has (names only), its per-run limits from the plan, Geofabrik's weekly load (osmium); 2.7.3: Geofabrik over IPv4; 2.7: the open-dataset loads and Geofabrik's test (Release B); the service's contract 2 (decisions/0160 §2): the site plans each run, the worker reports it; 2.4: calls by host; 2.5: issues, holds, probes, per-kind Overpass; 2.6: servers from the plan, the pace
+WORKER_V = "2.13.0"          # 2.13.0: Overpass retired: never asked; a kind our copy lacks is reported as not in our copy. 2.12.1: a task stopped by a held service reports "held", never "failed": the call that trips a hold says so, and Common Crawl's task checks its holds first, so a run whose only trouble is a held service ends ok on Railway, not Crashed; 2.12.0: the identity check starts from what the site's own copies hold (the job's "local"), outside only for the rest; 2.11.0: a website that doesn't load for the refresh is looked up in Common Crawl's newest crawl (W2, decisions/0163's source map: direct, then Common Crawl); 2.10.0: web search falls to Brave when Tavily fails or is held; Google Places as the paid backup for confirming a business in the identity check, only by a director's override within its cap (decisions/0163's source map); 2.9.0: W1 reads our OpenStreetMap copy first (the job's "ours", from Geofabrik), Overpass only for a kind or town it lacks, and works on while every Overpass server is held (decisions/0163's source map); 2.8.0: every link on a page read goes to the page log (same site or not; no cap of 60, nor 40 other sites: W0, decisions/0164 §1.4); 2.7.5: a page whose reading had to stop is logged waiting to be read (P1-1); 2.7.4: reports which keys it has (names only), its per-run limits from the plan, Geofabrik's weekly load (osmium); 2.7.3: Geofabrik over IPv4; 2.7: the open-dataset loads and Geofabrik's test (Release B); the service's contract 2 (decisions/0160 §2): the site plans each run, the worker reports it; 2.4: calls by host; 2.5: issues, holds, probes, per-kind Overpass; 2.6: servers from the plan, the pace
 RUN_END = None             # when this run's own work must stop (started + TIME_BUDGET, or a bulk load's end)
 TASK_END = None            # when the capture task being worked must stop (its share of the run)
 FETCH_CAP = MAX_FETCHES    # fetches this run may have made by the end of the task being worked
@@ -485,15 +479,7 @@ def time_left(deadline=None):
 
 
 OVERPASS_MIN = 20     # seconds: a lookup with less than this left isn't sent (the job goes back for a later run)
-OVERPASS_SERVER_TIMEOUT = 25   # the server's own limit for one query: small queries, so the mirrors answer (OSM promise 1)
-# The public instances' published limits (wiki.openstreetmap.org/wiki/Overpass_API, "Public Overpass API instances";
-# FOSSGIS's terms for overpass-api.de): under about 10,000 queries and 1 GB of downloads a day per user, a few slots per
-# address (its /api/status). A 429 means no slot free: wait (our back-off), never ask again at once. A 406 is a ban set by
-# hand: stop entirely (a held issue), never change the agent. Our own budget is a quarter of that (Jason, 2026-11-14:
-# 2,500 queries and 250 MB a day, the crawler up to 1,500 of them, half while a server bans us or for two weeks after),
-# set in Thresholds & gates on the site and sent with each plan (osm_budget); without one, OSM_PER_RUN a run.
-OVERPASS_PUBLIC_DAILY_QUERIES = 10000
-OVERPASS_PUBLIC_DAILY_BYTES = 1_000_000_000
+# Overpass's published limits and our share of them were here; Overpass is retired (2.13.0), so nothing is budgeted for it.
 OSM_PER_RUN = int(os.environ.get("OSM_PER_RUN", "5"))   # 1,500 a day over 288 runs
 OSM_BUDGET = {"queries": OSM_PER_RUN, "bytes": 3_000_000}   # what this run may still use (the plan's osm_budget replaces it)
 OSM_USED = {"queries": 0, "bytes": 0}
@@ -504,159 +490,38 @@ OSM_RECENT = set()    # the site's town-and-kind queries already asked (3 months
 OSM_ASKED = []        # this run's, once their places reached the site: [{key, n}]
 OSM_PENDING = {}      # the keys of the job being worked, sent with its results
 OURS_USED = {"kinds": 0}
+NOT_IN_COPY = {"kinds": 0, "jobs": []}   # 2.13.0: kinds our copy doesn't hold, by job (Overpass is retired: reported, never fetched)
 # Paid backups by a director's override (decisions/0163's source map, step 3): the site's plan says how many this run may
 # use ("paid_backups"), only while no free source worked; 0 or missing: off. What was used goes back in the run's report.
 PAID = {"places_confirm": 0}
 PAID_USED = {"places_confirm": 0}   # kinds answered from our OpenStreetMap copy this run (the job's "ours"; 2.9.0), not Overpass
 
 
-def osm_key(job, flt):
-    """One town (or cluster) and one kind: what the month's cache is kept by."""
-    pl = job.get("place") or {}
-    zs = sorted(str(p.get("zip") or f"{p.get('lat')},{p.get('lon')}") for p in pl.get("zip_points", []))
-    return hashlib.sha1(json.dumps([pl.get("key") or pl.get("name"), pl.get("state"), zs, flt]).encode()).hexdigest()[:16]
-
-
 def overpass(job, deadline=None):
-    """The job's places from OpenStreetMap. Ours first (decisions/0163's source map, 2026-11-17): a kind the site's copy
-    of the state's OpenStreetMap file holds for this town (Geofabrik, weekly; the job's "ours", by filter) is read from it
-    and Overpass isn't asked. Overpass only for a kind or town our copy lacks, by the statement's promises
-    (research/osm-overpass-2026-11-13.md §2): one small query per kind, one at a time, a short server timeout, never a
-    kind asked for this town in the last month, and never a held server (an open issue on the site). A server that
-    refuses is never asked again in another way (the old GET after a 406 was exactly "keeps asking"). Inside the task's
-    time: when it runs out before an answer, OutOfTime hands the job back untried; when every server is held, ServiceHeld
-    does. Either way, once our copy has answered some kinds the job goes on with those, marked partial, and its other
-    kinds wait for Overpass."""
+    """The job's places from OpenStreetMap: only our copy (the job's "ours", by filter: Geofabrik's weekly state files on
+    the site). Overpass is retired (2.13.0, Jason 2026-11-19: "Stop entirely"): a kind or town our copy lacks is counted
+    as not in our copy and reported with the run (osm_not_in_copy), never fetched; the job goes on with what the copy
+    holds, and isn't handed back to wait for a server."""
     ref = job.get("job_id") or job.get("target_id")
     ours = job.get("ours") or {}
-    if os.environ.get("OVERPASS_FIXTURE") and not ours:
-        with open(os.environ["OVERPASS_FIXTURE"]) as f:
-            return json.load(f).get("elements", [])
-    pts = [p for p in job["place"].get("zip_points", []) if p.get("lat") is not None] or \
-          [{"lat": job["place"]["center"]["lat"], "lon": job["place"]["center"]["lon"]}]
     filters = job["looking_for"].get("osm") or GROUP_QUERIES.get(job["looking_for"].get("group"), [])
-    filters = [f for f in filters if f in ours] + [f for f in filters if f not in ours]   # ours first: a held server can't undo them
-    out, keys, cached, from_ours, waiting = [], {}, 0, 0, 0
-    for i, flt in enumerate(filters):
+    out, from_ours, missing = [], 0, []
+    for flt in filters:
         if flt in ours:                             # our copy answers this kind here (an empty list: none here)
             out += [e for e in ours[flt] if isinstance(e, dict)]
             from_ours += 1
-            continue
-        k = osm_key(job, flt)
-        if k in OSM_RECENT:
-            cached += 1
-            continue
-        if from_ours and osm_all_held():            # our copy answered the rest: this kind waits for a server
-            waiting += 1
-            continue
-        try:
-            if os.environ.get("OVERPASS_FIXTURE"):
-                with open(os.environ["OVERPASS_FIXTURE"]) as f:
-                    els = json.load(f).get("elements", [])
-            else:
-                els = overpass_one(job, pts, flt, deadline)
-        except (OutOfTime, ServiceHeld) as e:
-            if isinstance(e, SiteBotCheck) or (not keys and not from_ours):
-                raise                               # nothing answered yet: the job goes back untried
-            OSM_INCOMPLETE.add(ref)                 # the kinds answered count; the rest next time
-            waiting += len(filters) - i
-            break
-        keys[k] = len(els)
-        out += els
-    if waiting:
-        OSM_INCOMPLETE.add(ref)
+        else:
+            missing.append(flt)
     if from_ours:
-        log(f"  OpenStreetMap: {from_ours} of {len(filters)} kind(s) from our copy ({job.get('ours_note') or 'Geofabrik'})"
-            + (f"; {waiting} wait for Overpass" if waiting else ""))
+        log(f"  OpenStreetMap: {from_ours} of {len(filters)} kind(s) from our copy ({job.get('ours_note') or 'Geofabrik'})")
         OURS_USED["kinds"] += from_ours
-    if cached:
-        log(f"  OpenStreetMap: {cached} of {len(filters)} kind(s) asked for this place in the last month, not asked again")
-    OSM_PENDING[ref] = keys
+    if missing:
+        log(f"  OpenStreetMap: {len(missing)} of {len(filters)} kind(s) not in our copy (Overpass is retired; not fetched)")
+        NOT_IN_COPY["kinds"] += len(missing)
+        if len(NOT_IN_COPY["jobs"]) < 20:
+            NOT_IN_COPY["jobs"].append({"ref": ref, "place": (job.get("place") or {}).get("name") or "", "kinds": missing[:8]})
+    OSM_PENDING[ref] = {}
     return out
-
-
-def overpass_one(job, pts, flt, deadline):
-    """One kind's query, to the first server not held that answers."""
-    tried, timed_out = [], False
-    for url in OVERPASS_URLS:
-        host = (urllib.parse.urlparse(url).hostname or "").lower()
-        if held(host):
-            tried.append(f"{host} held")
-            continue
-        left = time_left(deadline)
-        if left < OVERPASS_MIN:
-            raise OutOfTime(f"{int(max(0, left))}s left for OpenStreetMap" + (": " + " | ".join(tried) if tried else ""))
-        if OSM_USED["queries"] >= OSM_BUDGET["queries"] or OSM_USED["bytes"] >= OSM_BUDGET["bytes"]:
-            raise ServiceHeld(f"the OpenStreetMap budget for now is used ({OSM_USED['queries']} queries, "
-                              f"{OSM_USED['bytes'] // 1000} kB this run; the site's daily share)")
-        global _osm_last
-        wait = _osm_last + OSM_GAP - time.monotonic()   # the pace: one query a gap, one at a time (OSM promise 2)
-        if wait > 0:
-            if time_left(deadline) - wait < OVERPASS_MIN:
-                raise OutOfTime(f"the next OpenStreetMap query waits {int(wait)}s for its pace")
-            time.sleep(wait)
-            left = time_left(deadline)
-        query = overpass_query(job, pts, [flt], OVERPASS_SERVER_TIMEOUT)
-        OSM_USED["queries"] += 1
-        _osm_last = time.monotonic()
-        req = urllib.request.Request(url, data=urllib.parse.urlencode({"data": query}).encode(), headers={
-            "User-Agent": UA, "Accept": "*/*",   # a strict "application/json" can earn a 406 Not Acceptable
-            "Content-Type": "application/x-www-form-urlencoded"})
-        try:
-            with urllib.request.urlopen(req, timeout=max(5, min(OVERPASS_SERVER_TIMEOUT + 10, left - 3))) as r:
-                raw = r.read()
-            OSM_USED["bytes"] += len(raw)
-            try:
-                d = json.loads(raw.decode("utf-8"))
-            except ValueError:
-                malformed(url, "not JSON: " + raw[:200].decode("utf-8", "replace"))
-                tried.append(f"{host} answered something that isn't JSON")
-                continue
-            # Overpass answers 200 with no elements and a remark when it ran out of time or memory: that's a failure, not
-            # "nothing here" (2026-11-10: Dana Point's places to eat were recorded as done, 0 found)
-            rem = str(d.get("remark") or "")
-            if re.search(r"runtime (error|remark)|timed out|out of memory", rem, re.I):
-                malformed(url, rem[:200])
-                tried.append(f"{host} remark {rem[:100]!r}")
-                continue
-            return d.get("elements", [])
-        except ServiceHeld as e:                    # tripped by an earlier kind this run
-            tried.append(str(e)[:120])
-        except urllib.error.HTTPError as e:
-            tried.append(f"{host} {e.code} {e.read()[:120]!r}")
-        except (urllib.error.URLError, TimeoutError, OSError) as e:
-            tried.append(f"{host} {e!r}"[:160])
-            timed_out = timed_out or "timed out" in repr(e).lower()
-    if osm_all_held():
-        raise ServiceHeld("every OpenStreetMap server is held: " + " | ".join(tried))
-    if timed_out and time_left(deadline) < OVERPASS_MIN:
-        raise OutOfTime("OpenStreetMap didn't answer in the time left: " + " | ".join(tried))   # slow, not refused
-    raise RuntimeError("OpenStreetMap lookup failed: " + " | ".join(tried))
-
-
-def overpass_query(job, pts, filters=None, timeout=OVERPASS_SERVER_TIMEOUT):
-    """The Overpass query for one kind (OSM promise 1: small queries): a circle around each ZIP centre when there are a
-    few, else one box around them all, kept to the cluster (2026-11-10: Phoenix's ~60 ZIPs made a query too large to send
-    or run). Names only; 120 places at most."""
-    filters = filters if filters is not None else (job["looking_for"].get("osm") or GROUP_QUERIES.get(job["looking_for"].get("group"), []))
-    if len(pts) * max(1, len(filters)) <= 6:
-        parts = [f'{q}["name"](around:{ZIP_RADIUS_M},{p["lat"]},{p["lon"]});' for q in filters for p in pts]
-        return f"[out:json][timeout:{int(timeout)}];(" + "".join(parts) + ");out center tags 120;"
-    pad_lat = min(ZIP_RADIUS_M, 8000) / 111000.0
-    mid = sum(p["lat"] for p in pts) / len(pts)
-    pad_lon = pad_lat / max(0.2, math.cos(math.radians(mid)))
-    s_, n_ = min(p["lat"] for p in pts) - pad_lat, max(p["lat"] for p in pts) + pad_lat
-    w_, e_ = min(p["lon"] for p in pts) - pad_lon, max(p["lon"] for p in pts) + pad_lon
-    parts = [f'{q}["name"];' for q in filters]
-    return f"[out:json][timeout:{int(timeout)}][bbox:{s_:.4f},{w_:.4f},{n_:.4f},{e_:.4f}];(" + "".join(parts) + ");out center tags 120;"
-
-
-def osm_hosts():
-    return [(urllib.parse.urlparse(u).hostname or "").lower() for u in OVERPASS_URLS]
-
-
-def osm_all_held():
-    return not os.environ.get("OVERPASS_FIXTURE") and all(held(h) for h in osm_hosts())
 
 
 def osm_sent(ref):
@@ -3682,6 +3547,28 @@ def osm_places(pbf, workdir):
             yield {"type": typ, "id": int(oid), "lat": round(ll[0], 6), "lon": round(ll[1], 6), "tags": tags}
 
 
+# 2.13.0 (Jason, 2026-11-19: W1's Geofabrik load failed on "site /api/crawl/loads.php said 503", the host's own page): a
+# batch of 2,000 places with their tags was too much for one request on Bluehost; 500 a batch, and a 502, 503 or 504 from
+# the host waits and sends the same batch again (the site keeps each place by its OpenStreetMap id, so a resend changes
+# nothing), 3 times at most.
+GEOFABRIK_BATCH = 500
+GEOFABRIK_WAITS = (30, 90, 180)
+
+
+def geofabrik_send(rel, key, batch):
+    """One batch of a state's places to the site, its 502, 503 or 504 waited out and sent again (GEOFABRIK_WAITS)."""
+    for i, wait in enumerate((0,) + GEOFABRIK_WAITS):
+        if wait:
+            log(f"geofabrik: {key}: the site was busy; sending the batch again in {wait} s ({i} of {len(GEOFABRIK_WAITS)})")
+            time.sleep(wait)
+        try:
+            return site_call("/api/crawl/loads.php", {"dataset": "geofabrik", "release": rel, "key": key, "osm": batch}, timeout=120)
+        except RuntimeError as e:
+            if not re.search(r" said 50[234]: ", str(e)) or i == len(GEOFABRIK_WAITS):
+                raise
+    raise RuntimeError("unreachable")
+
+
 def geofabrik_load():
     """W1's geofabrik_bulk (0163 §8 stage 8): each state the site says is due (one a week at most), its Geofabrik file over
     IPv4, read by osmium-tool, its places sent in batches to OpenStreetMap's own table on the site (decisions/0065)."""
@@ -3706,17 +3593,21 @@ def geofabrik_load():
                 continue
             log(f"geofabrik: {key}: {os.path.getsize(pbf) // (1 << 20)} MB")
             batch, sent, kept = [], 0, 0
-            for p in osm_places(pbf, wd):
-                batch.append(p)
-                if len(batch) >= 2000:
-                    r = site_call("/api/crawl/loads.php", {"dataset": "geofabrik", "release": rel, "key": key, "osm": batch}, timeout=120)
-                    if r.get("paused"):
-                        log(f"geofabrik: paused mid-load: {r.get('why', '')}")
-                        return did
-                    sent += len(batch); kept += int(r.get("kept", 0)); batch = []
-            if batch:
-                r = site_call("/api/crawl/loads.php", {"dataset": "geofabrik", "release": rel, "key": key, "osm": batch}, timeout=120)
-                sent += len(batch); kept += int(r.get("kept", 0))
+            try:
+                for p in osm_places(pbf, wd):
+                    batch.append(p)
+                    if len(batch) >= GEOFABRIK_BATCH:
+                        r = geofabrik_send(rel, key, batch)
+                        if r.get("paused"):
+                            log(f"geofabrik: paused mid-load: {r.get('why', '')}")
+                            return did
+                        sent += len(batch); kept += int(r.get("kept", 0)); batch = []
+                if batch:
+                    r = geofabrik_send(rel, key, batch)
+                    sent += len(batch); kept += int(r.get("kept", 0))
+            except RuntimeError as e:   # the host still busy after its retries: this state waits for the next run (resending is harmless)
+                log(f"geofabrik: {key}: stopped after {sent} places: {e}"[:300])
+                continue
             site_call("/api/crawl/loads.php", {"dataset": "geofabrik", "release": rel, "key": key, "done": True})
             log(f"geofabrik: {key}: {sent} places sent, {kept} kept")
             did = True
@@ -3883,9 +3774,8 @@ def run_service():
         HELD[str(h).lower()] = str(why)[:200]
     OSM_RECENT.update(str(k) for k in (st.get("osm_recent") or []))
     srv = [u for u in ((st.get("servers") or {}).get("overpass") or []) if isinstance(u, str) and u.startswith("https://")]
-    if srv:                                             # the servers list, a setting on the site
-        OVERPASS_URLS[:] = list(dict.fromkeys(srv))
-        API_HOSTS.update((urllib.parse.urlparse(u).hostname or "").lower() for u in srv)
+    if srv:                                             # Overpass is retired (2.13.0): a list from the site is logged, never used
+        log(f"Overpass is retired: the site sent {len(srv)} server(s); none is asked")
     global OSM_GAP
     if st.get("osm_gap") is not None:
         OSM_GAP = max(0, min(3600, int(st["osm_gap"])))
@@ -3941,7 +3831,7 @@ def run_service():
     res = site_call("/api/crawl/service.php", {"report": {"run_key": run_key, "status": "ok", "seconds": int(time.monotonic() - started),
                                                          "fetches": fetches, "searches": searches, "engine": engine,
                                                          "items": items, "requests": reqs, "calls": calls_of(""),
-                                                         "issues": list(ISSUES.values()), "site_blocked": SITE_BLOCKED, "probes": PROBES, "osm_asked": OSM_ASKED, "osm_ours": OURS_USED["kinds"], "paid_used": PAID_USED, "search_switches": SEARCH_SWITCHES,
+                                                         "issues": list(ISSUES.values()), "site_blocked": SITE_BLOCKED, "probes": PROBES, "osm_asked": OSM_ASKED, "osm_ours": OURS_USED["kinds"], "osm_not_in_copy": NOT_IN_COPY, "paid_used": PAID_USED, "search_switches": SEARCH_SWITCHES,
                                                          "osm_used": OSM_USED}})
     status = res.get("status", "")
     log(f"run {run_key}: {status}: " + ", ".join(f"{i['task']} {i.get('outcome')}" for i in items))

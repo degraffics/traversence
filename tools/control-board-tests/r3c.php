@@ -79,11 +79,12 @@ $pdo->exec("INSERT INTO service_issues (id, service, host, caller, kind, hits, f
 ServiceHealth::alarm($pdo, 41, 'tavily', 'api.tavily.com', 'timeout', ['status' => 0, 'error' => 'timed out', 'body' => ''], 'crawler');
 $t('…while it backs off it\'s a warning, counting its tries', ControlAlarms::openOf($pdo, 'svc:issue:41')['level'] === 'warning' && str_contains((string) ControlAlarms::openOf($pdo, 'svc:issue:41')['means'], '2 of 6'));
 
-// 7. Overpass: a server answering never clears its trip; only a person's resolve
+// 7. Overpass retired (Jason, 2026-11-19): nothing about it is held for a person
 $pdo->exec("INSERT INTO service_issues (id, service, host, caller, kind, hits, first_at, last_at, evidence) VALUES (50, 'osm', 'overpass-api.de', 'crawler', 'ban', 1, UTC_TIMESTAMP(), UTC_TIMESTAMP(), '{}')");
 ServiceHealth::alarm($pdo, 50, 'osm', 'overpass-api.de', 'ban', ['status' => 406, 'error' => '', 'body' => 'Not Acceptable'], 'crawler');
 ServiceHealth::resolve($pdo, 50, 0, 'Its probe answered 200.');
-$t('Overpass: a 200 doesn\'t clear "Every Overpass server is held"', ControlAlarms::openOf($pdo, 'svc:osm:held') !== null && ControlAlarms::openOf($pdo, 'svc:osm:held')['level'] === 'trip');
+$t('Overpass retired (2026-11-19): a refusal raises no "Every Overpass server is held"; its issue closes as retired', ControlAlarms::openOf($pdo, 'svc:osm:held') === null
+    && (string) $pdo->query("SELECT state FROM service_issues WHERE id = 50")->fetchColumn() === 'resolved');
 $pdo->exec("UPDATE service_issues SET state = 'open' WHERE id = 50");
 ServiceHealth::resolve($pdo, 50, 7, 'Reactivated by Jason after OSM released us.');
 $t('…a person\'s Reactivate does', ControlAlarms::openOf($pdo, 'svc:osm:held') === null);

@@ -15,11 +15,11 @@ $pdo->exec('DROP TABLE IF EXISTS control_alarms');
 // the key: system, level, kind's family
 $t('workflows and tasks are the engine', ControlAlarms::systemOf('wf:W5') === 'engine' && ControlAlarms::systemOf('t:recheck') === 'engine');
 $t('workers, and the site\'s own parts', ControlAlarms::systemOf('wk:crawler') === 'workers' && ControlAlarms::systemOf('job:daily_report') === 'site' && ControlAlarms::systemOf('stage:start') === 'site');
-$t('a service a workflow reads is the engine\'s; one only the site uses is a service', ControlAlarms::systemOf('svc:osm') === 'engine' && ControlAlarms::systemOf('svc:bluehost') === 'services', [ControlAlarms::systemOf('svc:osm'), ControlAlarms::systemOf('svc:bluehost')]);
+$t('a service a workflow reads is the engine\'s; one only the site uses is a service', ControlAlarms::systemOf('svc:overture') === 'engine' && ControlAlarms::systemOf('svc:bluehost') === 'services', [ControlAlarms::systemOf('svc:overture'), ControlAlarms::systemOf('svc:bluehost')]);
 $t('families: held, failing, slow, check', ControlAlarms::familyOf('held') === 'held' && ControlAlarms::familyOf('silent') === 'held' && ControlAlarms::familyOf('crash') === 'failing' && ControlAlarms::familyOf('retry') === 'failing' && ControlAlarms::familyOf('slow') === 'slow' && ControlAlarms::familyOf('count') === 'check');
 
 // five engine feeds held: one group; a lone one stays its own row
-ControlAlarms::raise($pdo, 'svc:osm:held', 'svc:osm', 'trip', 'held', 'Every Overpass server is held');
+ControlAlarms::raise($pdo, 'svc:overture:held', 'svc:overture', 'trip', 'held', 'Overture Maps is held');   // OpenStreetMap's Overpass is retired (2026-11-19): Overture stands in as an engine feed
 foreach (['W5', 'W6', 'W8', 'W9'] as $w) ControlAlarms::raise($pdo, 'x:' . $w, 'wf:' . $w, 'trip', 'held', $w . ' is held: its source is deferred');
 ControlAlarms::raise($pdo, 'job:daily_report', 'job:daily_report', 'warning', 'crash', 'The job "daily_report" stopped');
 $g = ControlAlarms::groups(ControlAlarms::list($pdo));
@@ -46,7 +46,7 @@ $t('…a child marked done leaves the group (four left)', count(array_values(arr
 require_once $app . '/admin/widgets.php'; require_once $app . '/ui/app-shell.php'; require_once $app . '/admin/control-console.php';
 $btn = fn (string $act, string $label, bool $ok, string $why, string $id = '', array $attr = []) => '<button data-cb="' . $act . '" data-cb-id="' . htmlspecialchars($id) . '">' . htmlspecialchars($label) . '</button>';
 $pdo->exec("UPDATE control_alarms SET ack_at = NULL WHERE akey = 'x:W9'");
-$html = tv_cb_alarms(ControlAlarms::list($pdo), ControlAlarms::counts($pdo), ['wf:W5' => 'W5 Events', 'svc:osm' => 'OpenStreetMap'], fn ($id) => 'cb-p-' . str_replace(':', '-', $id), true, '', $btn);
+$html = tv_cb_alarms(ControlAlarms::list($pdo), ControlAlarms::counts($pdo), ['wf:W5' => 'W5 Events', 'svc:overture' => 'Overture Maps'], fn ($id) => 'cb-p-' . str_replace(':', '-', $id), true, '', $btn);
 $t('the board: one group row with its title, opening to its five alarms', substr_count($html, 'class="cb-al-grp') === 1 && str_contains($html, '5 engine feeds held') && substr_count($html, 'id="cb-alarm-') === 6, substr_count($html, 'id="cb-alarm-'));
 $t('…Acknowledge all for the one still unacknowledged', str_contains($html, 'data-cb="ackgroup" data-cb-id="engine:trip:held"'));
 $t('…each alarm inside keeps its own buttons (Acknowledge, Resolve)', substr_count($html, 'data-cb="resolve"') >= 5);

@@ -164,3 +164,10 @@ and how to check safely before resuming. Until they answer that, overpass-api.de
 Built 2026-11-14 (the table in §2 says where each stands): per-kind queries one at a time, the breaker per server,
 overpass-api.de off both lists, the daily probe, the contact in both User-Agents; next, the 3-month cache and the daily
 budget. Still to check: our map code against the tile usage policy (attribution, a real Referer, no bulk download).
+
+## 5. Built (2026-11-19, release overpass-off)
+
+The forum's answer and Jason's decision are recorded above. What was built: no Overpass query from the site or the crawler
+(worker 2.13.0), its servers listed as retired and never probed, its budgets 0, its alarm closed as "Retired: we no
+longer use Overpass". OpenStreetMap comes only from our own copy (Geofabrik's weekly files for Arizona and New Mexico); a
+kind or town the copy lacks is reported as not in our copy (a quiet notice on W1). decisions/0065 and 0164 carry the note.

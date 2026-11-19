@@ -48,13 +48,12 @@ unreadable) and reported with its evidence; a ban, a refused key or a used-up qu
 the rest of the run, and the site holds it in later runs (the plan's `holds`) until a person marks it resolved in Pulse
 or its probe (the plan's `probes`, e.g. Overpass `/api/status` once a day, with exactly the agent that was refused)
 answers 200. A task whose service is held reports **held**, never failed, and the rest of the run goes on. Never get
-round a ban by changing the User-Agent. OpenStreetMap (worker 2.6): the servers list is a setting on the site
-(OpenStreetMap's card in Outside services), sent with each plan; overpass-api.de is on it, held by its ban until its daily
-probe answers 200, then it comes back by itself at half the budget. One small query per kind (`[timeout:25]`), one at a
-time, at most one a minute (the plan's `osm_gap`), inside the run's share of the day's budget (`osm_budget`); a job
-whose kinds didn't all fit goes round again (partial). A town and kind asked in the last 3 months isn't asked again (the
-plan's `osm_recent`, the report's `osm_asked`). On a 429 the server's Retry-After, or Overpass's status page slot time,
-is obeyed exactly. `CRAWLER_CONTACT` adds a contact to the User-Agent.
+round a ban by changing the User-Agent. OpenStreetMap (worker 2.13.0): Overpass is retired (Jason, 2026-11-19, "Stop
+entirely", after OpenStreetMap's forum asked apps not to use its public servers: community.openstreetmap.org/t/150369).
+No Overpass server is ever asked, whatever the plan or the environment says. A job's places come from our copy (the
+job's `ours`, Geofabrik's weekly state files on the site); a kind or town the copy lacks is counted in the report's
+`osm_not_in_copy` (one quiet notice on W1), never fetched, and the job goes on with what it has. On a 429 the server's
+Retry-After is obeyed exactly. `CRAWLER_CONTACT` adds a contact to the User-Agent.
 
 Against a site without `service.php` (contract 2) it runs the fixed order described below, as before. The per-run
 settings below (`VERIFY_PER_RUN`, `REFRESH_PER_RUN`…) are now the most a task may take; the plan may ask for fewer.
@@ -67,7 +66,7 @@ Every 5 minutes Railway starts the container; it does one small, budgeted run an
 
 1. `GET /api/crawl/jobs.php`: the next 5 jobs from the coverage queue (Admin → Cluster tools →
    *Queue these gaps for the crawler*). A job is one gap, e.g. *Gallup × Health care*.
-2. One OpenStreetMap (Overpass) query per job for that kind of place around the cluster's ZIPs.
+2. That kind of place around the cluster's ZIPs from our OpenStreetMap copy (the job's `ours`); Overpass is retired.
 3. For each place with a website, one polite homepage fetch (robots.txt respected, 1.5 s apart). The
    website counts as a second, independent source only if the page names the place.
 4. `POST /api/crawl/results.php`: the findings. Places seen in OpenStreetMap **and** on their own
@@ -160,7 +159,7 @@ Optional variables: `TAVILY_API_KEY` (turns on the web search part of the second
 plan of 1,000 searches a month, about 500 listings at two searches each), `BRAVE_API_KEY` (paid alternative,
 used only when there is no Tavily key), `VERIFY_PER_RUN` (10; 0 turns the second look off), `VERIFY_TIME` (100),
 `MAX_SEARCHES` (10 per run), `JOBS_PER_RUN` (5, at most 10), `MAX_FETCHES` (60), `TIME_BUDGET` (240),
-`OVERPASS_URL` (an Overpass server to try first; the public one and two mirrors are always tried after it), `LEARN_PER_RUN` (3 Tier 2 searches per run; 0 turns
+`LEARN_PER_RUN` (3 Tier 2 searches per run; 0 turns
 them off), `LEARN_TIME` (45 seconds). Tier 2 shares `MAX_SEARCHES` with the second look. `SEARCH_MONTHLY` (1000): the search plan's monthly allowance. After each run the worker tells the site which search it has and how many searches it made (`POST /api/crawl/usage.php`), and the admin dashboard's System status shows "Tavily: 340 of 1,000 searches this month", amber at 80%, red when it's used up.
 
 ## Search targets (decisions/0066)
@@ -262,17 +261,16 @@ listing.
 
 ```
 TRAVERSENCE_URL=http://localhost:8000 CRAWLER_API_TOKEN=... \
-OVERPASS_FIXTURE=osm-sample.json WEB_FIXTURE=web-sample.json python3 crawler.py
+WEB_FIXTURE=web-sample.json python3 crawler.py
 ```
 
-`OVERPASS_FIXTURE` is an Overpass JSON reply and `WEB_FIXTURE` maps URLs to HTML, so no network is
+`WEB_FIXTURE` maps URLs to HTML, so no network is
 needed. `WIKIDATA_FIXTURE` is a SPARQL JSON reply and `SEARCH_FIXTURE` maps a query (or `*`) to
 `{"results": [{"url", "title", "description"}]}`.
 
 ## Workload
 
-About 60 jobs an hour: one OpenStreetMap query per job (well inside the public Overpass fair-use
-limits), at most 60 homepage fetches per run, 1.5 s apart. Bluehost sees one small request to hand out
+About 60 jobs an hour, each read from our OpenStreetMap copy (no Overpass query), at most 60 homepage fetches per run, 1.5 s apart. Bluehost sees one small request to hand out
 jobs and one per finished job. To go faster, raise `JOBS_PER_RUN` (the site caps it at 10) before
 shortening the schedule; keep `TIME_BUDGET` below the schedule interval so runs don't overlap.
 

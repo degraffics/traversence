@@ -1,9 +1,12 @@
-"""Ours first (2.9.0, decisions/0163's source map): a kind the site's OpenStreetMap copy holds for the town (the job's
-"ours") is read from it, never asked of Overpass; Overpass only for the rest; with every server held, the job goes on with
-what our copy answered (partial), and a job our copy can't answer goes back with its lease. Run: python3 tests/test_ours.py"""
+"""Our copy only (2.13.0; Jason, 2026-11-19, "Stop entirely"): Overpass is retired. A kind the site's OpenStreetMap copy
+holds for the town (the job's "ours") is read from it; a kind or town it lacks is counted as not in our copy and reported
+with the run (osm_not_in_copy), never fetched, and the job goes on with what the copy holds. No server is ever asked,
+whatever the plan sends. The Geofabrik load sends 500 places a batch and waits out the host's 502, 503 or 504.
+Run: python3 tests/test_ours.py"""
 import os
 import sys
 import unittest
+import urllib.request
 
 os.environ.setdefault("CRAWLER_API_TOKEN", "t")
 os.environ.pop("OVERPASS_FIXTURE", None)
@@ -25,54 +28,54 @@ def job(filters, ours=None, jid=7):
     return j
 
 
+class NoNetwork:
+    """Any request to an Overpass host fails the test: retired means never asked."""
+    def __enter__(self):
+        self.old = urllib.request.urlopen
+        def guard(req, *a, **k):
+            url = req.full_url if hasattr(req, "full_url") else str(req)
+            raise AssertionError("a request went out: " + url)
+        urllib.request.urlopen = guard
+        return self
+
+    def __exit__(self, *a):
+        urllib.request.urlopen = self.old
+
+
 class Ours(unittest.TestCase):
     def setUp(self):
-        self.asked = []
-        self.all_held = False
-        crawler.OSM_INCOMPLETE.clear(); crawler.OSM_RECENT.clear(); crawler.OSM_PENDING.clear()
+        crawler.OSM_INCOMPLETE.clear(); crawler.OSM_PENDING.clear()
         crawler.OURS_USED["kinds"] = 0
+        crawler.NOT_IN_COPY.update({"kinds": 0, "jobs": []})
 
-        def one(j, pts, flt, deadline):
-            self.asked.append(flt)
-            if self.all_held:
-                raise crawler.ServiceHeld("every OpenStreetMap server is held: overpass-api.de (406)")
-            return [{"type": "node", "id": 99, "lat": 36.7, "lon": -110.2, "tags": {"name": "From Overpass"}}]
-        self._one, self._held = crawler.overpass_one, crawler.osm_all_held
-        crawler.overpass_one = one
-        crawler.osm_all_held = lambda: self.all_held
+    def test_no_server_list(self):
+        self.assertEqual(crawler.OVERPASS_URLS, [])
 
-    def tearDown(self):
-        crawler.overpass_one, crawler.osm_all_held = self._one, self._held
-
-    def test_ours_never_asks_overpass(self):
-        els = crawler.overpass(job([EAT, SHOP], {EAT: [PUB], SHOP: []}))
-        self.assertEqual(self.asked, [])
+    def test_ours_read(self):
+        with NoNetwork():
+            els = crawler.overpass(job([EAT, SHOP], {EAT: [PUB], SHOP: []}))
         self.assertEqual([e["tags"]["name"] for e in els], ["Kayenta Pub"])
         self.assertEqual(crawler.OURS_USED["kinds"], 2)
+        self.assertEqual(crawler.NOT_IN_COPY["kinds"], 0)
         self.assertNotIn(7, crawler.OSM_INCOMPLETE)
-        self.assertEqual(crawler.OSM_PENDING[7], {})          # nothing recorded as asked of Overpass
 
-    def test_gap_goes_to_overpass(self):
-        els = crawler.overpass(job([CARE, EAT], {EAT: [PUB]}))
-        self.assertEqual(self.asked, [CARE])
-        self.assertEqual(sorted(e["tags"]["name"] for e in els), ["From Overpass", "Kayenta Pub"])
-
-    def test_held_keeps_ours_partial(self):
-        self.all_held = True
-        els = crawler.overpass(job([CARE, EAT], {EAT: [PUB]}))   # the gap first in the job: ours still read first
+    def test_gap_is_not_in_our_copy_never_fetched(self):
+        with NoNetwork():
+            els = crawler.overpass(job([CARE, EAT], {EAT: [PUB]}))
         self.assertEqual([e["tags"]["name"] for e in els], ["Kayenta Pub"])
-        self.assertEqual(self.asked, [])
-        self.assertIn(7, crawler.OSM_INCOMPLETE)               # sent as partial: the gap goes round again
+        self.assertEqual(crawler.NOT_IN_COPY["kinds"], 1)
+        self.assertEqual(crawler.NOT_IN_COPY["jobs"][0]["kinds"], [CARE])
+        self.assertNotIn(7, crawler.OSM_INCOMPLETE)                # not waiting for a server: there is none
 
-    def test_held_no_ours_goes_back(self):
-        self.all_held = True
-        with self.assertRaises(crawler.ServiceHeld):
-            crawler.overpass(job([CARE]))
+    def test_town_outside_our_copy(self):
+        with NoNetwork():
+            els = crawler.overpass(job([CARE, EAT], {}))
+        self.assertEqual(els, [])
+        self.assertEqual(crawler.NOT_IN_COPY["kinds"], 2)
 
-    def test_coverage_works_on_while_held(self):
-        self.all_held = True
+    def test_coverage_works_every_job(self):
         sent = []
-        jobs = [job([CARE], jid=1), job([EAT], {EAT: [PUB]}, jid=2)]
+        jobs = [job([CARE], {}, jid=1), job([EAT], {EAT: [PUB]}, jid=2)]
 
         def site(path, payload=None, timeout=60):
             if payload is None:
@@ -85,22 +88,45 @@ class Ours(unittest.TestCase):
         crawler.candidate = lambda el, j: {"name": el["tags"]["name"], "where": {"zip": "86033"}}
         crawler.time.sleep = lambda s: None
         try:
-            crawler.coverage(crawler.time.monotonic() + 600)
-        finally:
-            crawler.site_call, crawler.wikidata, crawler.candidate, crawler.time.sleep = old
-        self.assertEqual([p["job_id"] for p in sent], [2])      # job 1 waits with its lease; job 2 worked from ours
-        self.assertEqual([c["name"] for c in sent[0]["candidates"]], ["Kayenta Pub"])
-
-    def test_coverage_held_when_nothing_worked(self):
-        self.all_held = True
-        old = (crawler.site_call, crawler.wikidata)
-        crawler.site_call = lambda path, payload=None, timeout=60: {"jobs": [job([CARE], jid=1)]}
-        crawler.wikidata = lambda j, d=None: []
-        try:
-            with self.assertRaises(crawler.ServiceHeld):
+            with NoNetwork():
                 crawler.coverage(crawler.time.monotonic() + 600)
         finally:
-            crawler.site_call, crawler.wikidata = old
+            crawler.site_call, crawler.wikidata, crawler.candidate, crawler.time.sleep = old
+        self.assertEqual(sorted(p["job_id"] for p in sent), [1, 2])     # both worked: none goes back waiting for Overpass
+        by = {p["job_id"]: p for p in sent}
+        self.assertEqual([c["name"] for c in by[2]["candidates"]], ["Kayenta Pub"])
+
+
+class Geofabrik(unittest.TestCase):
+    def test_busy_host_is_waited_out(self):
+        calls, waits = [], []
+        def site(path, payload=None, timeout=60):
+            calls.append(len(payload["osm"]))
+            if len(calls) < 3:
+                raise RuntimeError("site /api/crawl/loads.php said 503: b'<!DOCTYPE HTML'")
+            return {"kept": len(payload["osm"])}
+        old = (crawler.site_call, crawler.time.sleep)
+        crawler.site_call, crawler.time.sleep = site, waits.append
+        try:
+            r = crawler.geofabrik_send("rel", "arizona", [{"id": 1}] * 3)
+        finally:
+            crawler.site_call, crawler.time.sleep = old
+        self.assertEqual(r["kept"], 3)
+        self.assertEqual(waits, [30, 90])
+
+    def test_other_errors_not_retried(self):
+        old = (crawler.site_call, crawler.time.sleep)
+        def site(path, payload=None, timeout=60):
+            raise RuntimeError("site /api/crawl/loads.php said 422: b'bad'")
+        crawler.site_call, crawler.time.sleep = site, lambda s: self.fail("waited on a 422")
+        try:
+            with self.assertRaises(RuntimeError):
+                crawler.geofabrik_send("rel", "arizona", [{"id": 1}])
+        finally:
+            crawler.site_call, crawler.time.sleep = old
+
+    def test_batch_size(self):
+        self.assertEqual(crawler.GEOFABRIK_BATCH, 500)
 
 
 if __name__ == "__main__":

@@ -18,7 +18,7 @@ $t('on a backup: the sources before it marked ✗, the one it names ✓', $n['bu
 $t('red: every source marked ✗, whatever its words', !array_filter(array_column($n['nonprofits'][2], 2)), $n['nonprofits'][2]);
 $t('answered first: source 1 ✓, its name read whole', $n['health'][2][0] === ['Ours (our NPI copy)', 'about 9,800 rows, newest 12 days old', true] && $n['health'][2][1][2] === true, $n['health'][2]);
 $t('a source name with a colon in its words, after "No backup yet"', count($n['hosting'][2]) === 1 && $n['hosting'][2][0][2] === true && $n['hosting'][0] === 'Hosting', $n['hosting']);
-$t('not tested: its sources from the map, marked unknown', $n['places'][1] === 'new' && $n['places'][2][0][2] === null && count($n['places'][2]) === 3, $n['places']);
+$t('not tested: its sources from the map, marked unknown', $n['places'][1] === 'new' && $n['places'][2][0][2] === null && count($n['places'][2]) === 2, $n['places']);   // our copy, then Overture (Overpass retired 2026-11-19)
 $t('the need\'s fallback and soft flag carried', $n['nonprofits'][3] === 'the last load is kept' && $n['nonprofits'][4] === false);
 $c = ControlBoard::core($res);
 $t('core hosts: Bluehost, Railway, GitHub with their states', array_keys($c) === ['bluehost', 'railway', 'github'] && $c['railway'][1] === 'bad' && $c['github'][1] === 'new', $c);
