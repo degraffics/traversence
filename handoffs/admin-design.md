@@ -159,4 +159,22 @@ Merriweather. `sections.php` claimed per function (the Control Board holds `tv_a
 - Jason, 2026-11-19: approved 3c, and "Archive it" for the classic directory: a separate small release once 3c is live
   (the rail's Classic directory link removed from `directory/index.php`, `archive.md` entry: replaced by Get Local; the
   page stays reachable at its address).
+### Get Local's finder and Refine: a concept for Jason (2026-11-19, not built)
+
+- Jason chose B ("Refine with the results") with changes: the Find a business card condensed into the home page's split
+  bar (what | where | search), and Refine rethought: "Originally we had the radial distance tool with category selector
+  and extended location pills. Now this is sort and filter. I want something intuitive." He sent DuckDuckGo's places
+  view to study.
+- What DuckDuckGo does well: the search names the kind for you (typing "barber" offers "Barber shops · near my location /
+  in this map area" before any business), so there's no Kind dropdown; a numbered list beside a numbered map; one quiet
+  bar of filters; settings out of the way.
+- The concept (`design/review/getlocal-concept-1280.png`, `-390.png`; mock source in the session's scratchpad):
+  1. The home page's split bar: What are you looking for? | the place (with ⌖) | search.
+  2. Suggestions under it: the kind first ("Barber shops · near Show Low / near me / in this map area"), then businesses.
+  3. Refine as a sentence over the list: "4 [Barber shops ×] within [5 mi ▾] of [Show Low ▾]". The kind chip comes from
+     the search; How far opens the radial tool (2·5·10·25·50 mi·Any, the ring drawn on the map); the place opens the
+     nearby towns as pills (the old "extended location pills").
+  4. One row of toggles (Open now, Has a phone, Has a website, Favorites) and Sort on the right.
+  5. Desktop: the numbered list beside the map, the radius drawn, "Search this area". Phone: List | Map.
+- Also pending his OK: design-controls (lighter fields and round buttons, the score ring, the softer chip, white on brown).
 - 3d next: Community, the member dashboard, Pulse's new look.
