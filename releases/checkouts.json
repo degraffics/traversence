@@ -150,9 +150,25 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Home: the local group card names the place only",
    "since": "2026-11-19T12:21:59Z",
-   "expires": "2026-11-19T16:21:59Z",
-   "release": "",
-   "callers": {},
+   "expires": "2026-11-19T16:23:17Z",
+   "release": "home-place-name.zip",
+   "callers": {
+    "sync": [
+     "app/admin/operations-console.php",
+     "app/lib/Gallery.php",
+     "app/lib/MarketPay.php",
+     "app/lib/Operations.php",
+     "app/lib/Plan.php",
+     "app/lib/Scheduler.php",
+     "app/ui/promotions-admin.php",
+     "app/ui/pulse-ui.php",
+     "website/admin/crawler-review.php",
+     "website/api/market-webhook.php",
+     "website/js/cat-more.js",
+     "website/js/gallery.js",
+     "website/user/market/index.php"
+    ]
+   },
    "zones": [
     "home.after-doors"
    ]
