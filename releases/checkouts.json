@@ -13,28 +13,6 @@
    "callers": {}
   },
   {
-   "path": "website/listing/view.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
-   "why": "card-photos (Jason, 2026-11-19, approved)",
-   "since": "2026-11-19T21:45:00Z",
-   "expires": "2026-11-20T01:45:00Z",
-   "release": "",
-   "callers": {}
-  },
-  {
-   "path": "app/scripts/landmark_photos_tick.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
-   "why": "card-photos (Jason, 2026-11-19, approved)",
-   "since": "2026-11-19T21:45:02Z",
-   "expires": "2026-11-20T01:45:02Z",
-   "release": "",
-   "callers": {}
-  },
-  {
    "path": "app/lib/StagingGate.php",
    "functions": [
     "here"
