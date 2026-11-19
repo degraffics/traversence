@@ -19,7 +19,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "control-board-table: the parts in the admin's one table",
    "since": "2026-11-19T16:01:50Z",
-   "expires": "2026-11-19T20:02:16Z",
+   "expires": "2026-11-19T20:15:18Z",
    "release": "control-board-table.zip",
    "callers": {}
   },
@@ -30,7 +30,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "control-board-table: the parts in the admin's one table",
    "since": "2026-11-19T16:01:54Z",
-   "expires": "2026-11-19T20:02:16Z",
+   "expires": "2026-11-19T20:15:18Z",
    "release": "control-board-table.zip",
    "callers": {}
   },
@@ -43,7 +43,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "control-board-table: the parts in the admin's one table",
    "since": "2026-11-19T16:01:56Z",
-   "expires": "2026-11-19T20:02:16Z",
+   "expires": "2026-11-19T20:15:18Z",
    "release": "control-board-table.zip",
    "callers": {
     "needs": [
@@ -60,7 +60,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "control-board-table: the parts in the admin's one table",
    "since": "2026-11-19T16:01:59Z",
-   "expires": "2026-11-19T20:02:16Z",
+   "expires": "2026-11-19T20:15:18Z",
    "release": "control-board-table.zip",
    "callers": {
     "blockedSite": [
@@ -90,7 +90,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "control-board-table: the parts in the admin's one table",
    "since": "2026-11-19T16:02:03Z",
-   "expires": "2026-11-19T20:02:16Z",
+   "expires": "2026-11-19T20:15:18Z",
    "release": "control-board-table.zip",
    "callers": {}
   },
@@ -101,7 +101,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "control-board-table: the parts in the admin's one table",
    "since": "2026-11-19T16:02:05Z",
-   "expires": "2026-11-19T20:02:16Z",
+   "expires": "2026-11-19T20:15:18Z",
    "release": "control-board-table.zip",
    "callers": {}
   },
@@ -112,7 +112,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "control-board-table: the config/processes tool",
    "since": "2026-11-19T16:02:10Z",
-   "expires": "2026-11-19T20:02:16Z",
+   "expires": "2026-11-19T20:15:18Z",
    "release": "control-board-table.zip",
    "callers": {}
   },
