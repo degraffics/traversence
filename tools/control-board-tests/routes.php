@@ -83,6 +83,8 @@ $t('…but leaves #open= to the drawer', (bool) preg_match("/indexOf\('='\)|incl
 $jl = (string) file_get_contents($app . '/admin/job-line.php');
 $t('the pre-flight\'s Runs line: it looks every 15 minutes, runs every test only at night, after a .env change or Run all', str_contains($jl, "runs every test only at 2 am Arizona time, after a .env change, or when you press Run all") && str_contains($jl, "last full run"));
 
+$t('the logbook\'s list: grouped by system, parts with entries first with their count, a box to find one (Jason: "very messy")', str_contains($cc, 'data-cb-lgs') && str_contains($cc, 'data-cb-logq') && str_contains($cc, 'strnatcasecmp') && str_contains($acj, "e.target.closest('[data-cb-logq]')") && str_contains($cc, '<optgroup label="'));
+
 // 5. Pulse: an alarm's message is shown by its alarm's item, never a second stream row; the email still goes
 $t('an alarm\'s message carries its Pulse item, so the stream leaves it to the item', str_contains($ca, "'pulse_ref' => 'alarm:' . \$id]"));
 $mg = (string) @file_get_contents($app . '/migrations/2026-11-19_alarm_messages_pulse_ref.sql');

@@ -1,0 +1,22 @@
+{
+ "zip": "control-board-logbook-list.zip",
+ "built_on": "d3cced6 Sync: 2026-11-19 14:24 UTC",
+ "recorded": "2026-11-19 14:26 UTC",
+ "note": "Control Board: the logbook's list grouped and searchable; the OSM statement updated. Built on Sync: 2026-11-19 14:24 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/admin/control-console.php": {
+   "sha256": "f061f5bf1a59f357c35b9a821dec55903b77b07e70462a2557e29bf90a4c8b20",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "38766fb4fdf365e938e2ed584648115eb967ae148a41269e0697511466cbf439",
+   "live": false
+  },
+  "website/js/admin-control.js": {
+   "sha256": "85abdf46ab65db573f73a6b3f6c43d12f58f857fbc62d73f0ce324d27a888a65",
+   "live": false
+  }
+ }
+}

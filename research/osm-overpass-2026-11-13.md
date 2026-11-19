@@ -84,23 +84,28 @@ promises only what's built (the table under it says where each stands).
 > **What we've changed so it won't happen again.**
 > - We've stopped asking overpass-api.de, from the crawler and from our site, until we hear from you. We won't change
 >   our User-Agent or address to get round the block.
-> - Each server has a circuit breaker. A 406, 403 or 401 stops every request to that server until a person on our team
->   marks it resolved. A 429, a timeout or a server error backs off (10 minutes, doubling to 6 hours) before trying again.
-> - Each refusal opens a case for our team naming the server, the status and what it said.
-> - While a server blocks us, we don't contact it at all, not even its `/api/status` page. A person on our team turns it
->   back on only after you tell us we may.
+> - **We no longer use Overpass for bulk reading.** Our crawler reads OpenStreetMap from Geofabrik's weekly state
+>   extracts (Arizona and New Mexico), kept in a table of its own on our site. Overpass is only a fallback: for a town
+>   or kind our copy doesn't hold, and on our site when a visitor's search finds little near a place; and only on a
+>   server that hasn't refused us.
+> - Each server has a circuit breaker. A 406, 403 or 401 stops every request to that server at once and alerts a person
+>   on our team. We never retry a refused server on our own; only a person turns it back on, after you tell us we may.
+>   While it's blocked, we don't contact it at all, not even its `/api/status` page.
+> - A 429 makes us follow your Retry-After, or without one wait twice as long. A timeout or server error backs off
+>   (10 minutes, doubling to 6 hours).
 > - Our queries are split by kind (one kind of place per query), kept to a small area, with `[timeout:25]`, and sent
 >   one at a time.
 > - A town and kind that has been answered isn't asked again for 3 months.
 > - Our own daily budget is a quarter of the published guidance for the public instances (2,500 queries and 250 MB a day,
 >   crawler and site together), and half that while any server blocks us and for two weeks after.
 >
-> Could you tell us whether we're banned, and why, and what you'd like us to change to be allowed back? If our use is
-> more than the public instance should carry, we'll stay on another instance or run our own.
+> Could you tell us whether we're banned, and why, and what you'd like us to change to be allowed back? Our crawler's bulk
+> reading has already moved to Geofabrik's extracts. If even single lookups are more than you'd like on the public instance,
+> we'll keep to the extracts or run our own instance.
 >
 > Jason, Traversence, support@traversence.com
 
-**Where each fix stands** (all live 2026-11-14 14:21 UTC; the statement can be sent):
+**Where each fix stands** (all live 2026-11-14 14:21 UTC; the statement can be sent; updated 2026-11-19 with Geofabrik and the 429 wait):
 
 | Fix | Status |
 |---|---|
@@ -112,6 +117,8 @@ promises only what's built (the table under it says where each stands).
 | support@traversence.com in both User-Agents | live: site Release #43; crawler worker 2.5 with `CRAWLER_CONTACT` on Railway |
 | A town and kind not asked again for 3 months | live: Release #44 (`service-health2_20261114`), verified Sync 14:21 UTC |
 | The daily budget (2,500 queries / 250 MB, crawler 1,500, site 1,000; half during a ban and two weeks after), in Thresholds & gates | live: Release #44 (counted once its database update `osm_usage` runs); the worker keeps to 5 queries a run meanwhile |
+| Bulk reading from Geofabrik's weekly state extracts (Arizona, New Mexico) in OpenStreetMap's own table on the site; Overpass only for a town or kind the copy lacks, and the site's own lookups | live: crawler worker 2.9.0 (W1's targets and coverage read the copy first) and Release #101; the site's OpenPlaces still asks Overpass directly (once per spot and kind every 3 months) |
+| A 429 follows Retry-After, else twice the usual wait (never a trip) | live: Control Board 5a (`ServiceHealth`, 2026-11-19) |
 
 **The published limits we build to** (verify against the OSM wiki's "Overpass API" page and FOSSGIS's terms before
 relying on them): overpass-api.de, under about 10,000 queries and 1 GB of downloads a day per user, a few slots per
