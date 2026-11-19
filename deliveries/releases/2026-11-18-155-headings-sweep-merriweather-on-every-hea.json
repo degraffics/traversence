@@ -1,0 +1,739 @@
+{
+    "id": 155,
+    "title": "Headings sweep: Merriweather on every heading",
+    "why": "Jason chose \"headings everywhere now\" (2026-11-18, Release 3a). 3a's one setting moved only Tailwind's font-serif headings; most headings set their font in their page's own styles (ui-serif,Georgia,serif, Georgia,serif, Georgia,'Times New Roman',serif), so on the live FAQ 14 of 15 headings were still the device's serif. This replaces each of those stacks, where it follows font: or font-family:, with var(--tv-font-head,<the same stack>): 288 places in 141 files. Font only: undoing the replacement gives back every live file exactly. Left as they are: emails (Mailer.php; mail apps can't read var()), the order packet document (MarketCheckout.php), and storefront themes' own fonts (var(--tvb-hf,…)). FAQ: the fonts answer updated.",
+    "proposals": "",
+    "zip": "design-headings-2.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/admin/sections.php": {
+            "sha": "0a1cda23a1c03f315f3d599a845c2503b1f9fada1697771db1fb903066b99a7c",
+            "size": 250862,
+            "live_was": "0c4f3541f1f706e7d3a342cfe0719465c11e87345f42dfe80fac45fe3adceca6"
+        },
+        "app/ui/card-scanner.php": {
+            "sha": "bd2598f2802e527ec1aa49cb3bcd0de84ad49bda8920c4d19475c668707fb454",
+            "size": 23352,
+            "live_was": "9464b9e1eabfb7583b4e7b1440b975219f75c08ee2ed028406d3b680cc3455f2"
+        },
+        "app/ui/explore-hero.php": {
+            "sha": "b78842c244502e5607edb7e89980ce83207c4ffdde3f0f4756fedc8df77aa158",
+            "size": 34441,
+            "live_was": "353d5ef425c9bef543fc8b0d40b099a9a31701d4808e417a5876616a231cfa01"
+        },
+        "app/ui/pulse-ui.php": {
+            "sha": "65aaff06d46fac49094bb5e93b5d35800a8c2e62c179ed161a9269f534db41b7",
+            "size": 134244,
+            "live_was": "aa01ce75ac0c628a1651ae9775369d03760c561ac62aaf488eb5192e310b9d54"
+        },
+        "app/ui/featured-in.php": {
+            "sha": "2ab661a4aac663ce050877bc828d07fd1dffb7b16790c1306ecc637d99c31a01",
+            "size": 1752,
+            "live_was": "53631572f62c55f85c1f0e564324b9b5c11c24b172d8e88d4806968a6cf9f295"
+        },
+        "app/ui/gallery-ui.php": {
+            "sha": "4f0e7106516df571b32c19815909f891645c963cff2703685549c4d0124dc563",
+            "size": 18169,
+            "live_was": "e3ff05ac54aab156b56e53faf92df7a802664423cb77676e0a54c4f99dc6a50d"
+        },
+        "app/ui/lead-panel.php": {
+            "sha": "83177d7409bfdafc65d869c8dd83240148bfaf7ef71b2e9e5eb5d3c95a8f7a29",
+            "size": 19547,
+            "live_was": "697bc9e29649b3a7df80b9c3dd0236203cc5d9acbffd6759c47a0b75d5d3acf2"
+        },
+        "app/ui/admin-hub.php": {
+            "sha": "8e3da99f09644e1a79cc9b165a309306f820355de6485360c2ed151853da3b35",
+            "size": 16914,
+            "live_was": "10613ec5680791d65648f1f9ab8533c99cf52d809a93daa7eecd3e48e76fced8"
+        },
+        "app/ui/storefront-view.php": {
+            "sha": "8c5c8ffad6f138f6dffe6c3ce67163b9e82f725ecc654c177eb4d7abd66c414f",
+            "size": 20404,
+            "live_was": "d4930f71a27b27b1d2f594f5e17310a650d124239538355a0546db8ff33fd0e2"
+        },
+        "app/ui/vault.php": {
+            "sha": "00524a1acf9927c4f4d16c669fc0a1025b614bcf39bb9f84830537e58a34248e",
+            "size": 44255,
+            "live_was": "8a5f554c8a3d93e7f8c002b335f8f1eb0890e3a64ee4fc721ce7f6aedca593bf"
+        },
+        "app/ui/domains-view.php": {
+            "sha": "ba1378b5878ec6b49556cbf4e9ce8e171e2d72e9956739a02f26152f06c9a28e",
+            "size": 3707,
+            "live_was": "34176a86d86a9ea35c0b330b7fff2247e1d4e8910fccfca9c60de7bd811fda62"
+        },
+        "app/ui/profile-header.php": {
+            "sha": "c359bfd8dbdf26017d04f3cf475298e458638687b7cac29e70dbbc92ca586cec",
+            "size": 22729,
+            "live_was": "3b322000e1f3de3b74ab6c7e05f13ee8aed8a1af2f0430e09e13bc81710c348a"
+        },
+        "app/ui/stock-ui.php": {
+            "sha": "9cb53ffba049ee328e2902a21382d96fdc8d496ef0c99d093de51cf4bf1ca973",
+            "size": 12393,
+            "live_was": "4ad8d9820f39395df268fe287e1dbed4283b1f42ce06335209471db199587ea2"
+        },
+        "app/ui/location-modal.php": {
+            "sha": "c417f5659dafa16fe1009e3a5e6d8d073ebcef9031e3b24d4fdfef5b976382e4",
+            "size": 13405,
+            "live_was": "7530ddf11328cd00a4af31ac7d8384cdb7dfb2302011d5f45240f1254555e0d6"
+        },
+        "app/ui/journey-ui.php": {
+            "sha": "461574bc297ff6b5813f073cd25a5c827b7c6cb4e4731bde0feaf715f342936e",
+            "size": 9848,
+            "live_was": "9dc20cf2d49ec5fca49d870b9063dc57fa47a6a779f82b71b3cb08dbc9d27238"
+        },
+        "app/ui/not-found.php": {
+            "sha": "44a1dd7a3d07a589b0b3881be3ad3cf1fd221d32d589cd8e06d223abc2bfafec",
+            "size": 3173,
+            "live_was": "e7d406aae6c80fc949c2c35298c018b59bdcaa8fcbf11896b909b0e973b47d9a"
+        },
+        "app/ui/collections.php": {
+            "sha": "a7f788b01a708a3008866a113e779042d52fd919399e1485ea9bc8e3b84b9350",
+            "size": 9347,
+            "live_was": "91a0a1d66fc51852ab4a9aa3154a3ba9863360339aa3d6d512e2be847e6a329e"
+        },
+        "app/ui/social-buttons.php": {
+            "sha": "374eb50c3a3a7649aaeffda21c3900525e73da3376f76d1ddd93a1c7463054cd",
+            "size": 4622,
+            "live_was": "76c5ce0411bcbb641de1ae924bc689cf475e8a5dfde94e4b3191b7387d3c4586"
+        },
+        "app/ui/suggested-journeys.php": {
+            "sha": "4df3a882c803c1a1663aca1e31574aacc972fb44b240acb817596391a90ccd5d",
+            "size": 7513,
+            "live_was": "78b2bad4cb2006c50a45cfc756d0ddc8da2208ae785fb5dab7ed436cf96b0a2b"
+        },
+        "app/ui/admin-dashboard.php": {
+            "sha": "120e13cadb3f019984975110139465f824e28b416c1133068a9b7f47d946bf2d",
+            "size": 56714,
+            "live_was": "57cdb15525e02a3f1ed5c8b9bf3a6b9f2f94bbaedb0e0fbb7f18aab9c27466c0"
+        },
+        "app/ui/tag-chips.php": {
+            "sha": "4897f5e7f1af30a1e8f5a9425e0cfce59e3fb67205be932d3fe9fc2dc5ffdced",
+            "size": 4065,
+            "live_was": "6307a5cff189b509f4db8f9394c514d6d7a47e5fb731c1c418971f06892b3963"
+        },
+        "app/ui/admin-crawler.php": {
+            "sha": "e7588e53b58e55da6d4985ccaf869c13213437e3b852a65971500b7e43f51036",
+            "size": 10246,
+            "live_was": "aad712753447f78ef162f3ef7e2da2c915e5572e9951a5eeee1ccaed69179bf0"
+        },
+        "app/ui/go-codes.php": {
+            "sha": "fc211cf6163175d287d3022571b07aabf5447242e0151415e3c59685233762c3",
+            "size": 6803,
+            "live_was": "f6bf2884d045710daa9c5940e8c3d6593154cf7518c7439768b168fac954f55a"
+        },
+        "app/ui/pulse-panel.php": {
+            "sha": "c8a6ce903caa39bf9598233282d3361abed096de5c5d0a674416831c21600177",
+            "size": 18283,
+            "live_was": "94ffa76d9d1e6cfd7bbca68c85f7289e2f26f210656b2b369111308594053457"
+        },
+        "app/ui/faq.md": {
+            "sha": "bb288005a31e771bf86c95c09a7e7c7cb4e87b22352f8ee8b704b9207e55bb23",
+            "size": 359070,
+            "live_was": "b5c4aff45968aaeaf93ccd0914d98e83a727568bd6a8f9737d63b680ede07e60"
+        },
+        "app/ui/engage-ui.php": {
+            "sha": "8baa8054e1bbc38016e4473a419b265b34bf16b315ab77edc1155520ae9a0454",
+            "size": 8932,
+            "live_was": "b478ffa4d8590bacab852bad9899870f36259bfa4696c878c493e978b7ba284f"
+        },
+        "app/ui/app-shell.php": {
+            "sha": "ceef7ca24476ea30946047dd52fbee1cfce3801208cf9b275f9c5c4c169aae62",
+            "size": 48623,
+            "live_was": "c16e3e380bf0e8d2e51b656212eef95047ca21828601c7cfd121e0764665fd25"
+        },
+        "app/business/portal.php": {
+            "sha": "812a870bdcd2aecaf21b8754cd838a26032d5814932b54ad1426f6241edded08",
+            "size": 18024,
+            "live_was": "ce1aa8ba640293dd1c3086bde3d91ac0226bee802c1b3ebbd7975a173a0351b4"
+        },
+        "app/bootstrap.php": {
+            "sha": "485df674bb98ec57a06367d1fcfce1f9c9a7e15a30a2f009f8716ba5799a58ad",
+            "size": 10561,
+            "live_was": "1546327816a2a06362ec2d30bb70ae55812635cce5eead2634d1f92c8fd53d21"
+        },
+        "app/lib/LegalTexts.php": {
+            "sha": "de33260aed32977df66db449415dde243cbf8e6dbd873142b45ba6e77dff745c",
+            "size": 18511,
+            "live_was": "6c66e3ceaa78391cfb4cb6e5a0abcbdf634f13e478efef30b9c8133c22eaa761"
+        },
+        "app/lib/Staging.php": {
+            "sha": "8f24f78609433641e479d4fa4fb79e4725ae562fb7bf96341fe9dc747dceb7eb",
+            "size": 15022,
+            "live_was": "a668cc898d9073e68dc4b15ddee95c59abe40542c6be23da456f958d0f5dc352"
+        },
+        "app/lib/StagingSite.php": {
+            "sha": "303dbbd69accbc52fe67b852741506ea3a7ee25de8cb4cf6d48c5b41cd4370d8",
+            "size": 103280,
+            "live_was": "b4fd355b8e9006366deb63946f1d0d8615af0c3bc863c7ee642b8fb0ae5b1aa2"
+        },
+        "app/lib/Blocks.php": {
+            "sha": "0253ba97420e1be93554fb9b06ba983df4cfb6d151705b36ef6eeb4c6b8bb127",
+            "size": 65499,
+            "live_was": "915aaabebbb9e41da4b48fceb4d8dc6c67c8ed20f200486c8d5c89da2d308d50"
+        },
+        "app/lib/LiveEvents.php": {
+            "sha": "d0e3425fe782ed74be9514dfed8c62cd4642e19730bff55f4d429e704736e1c3",
+            "size": 21689,
+            "live_was": "acf72919092b19e570c887b5bc923951ce531462bde8db0d3fbea557048ba6ad"
+        },
+        "website/listing/view.php": {
+            "sha": "8814f30d0ed0ba361bcf5aa5f697aaabaf2e2768131cf5039d5365a0349733da",
+            "size": 57895,
+            "live_was": "d00b55817426ba44bfd910ad193d2f2c8dc1f336ac5f1aae8b9ac6e3fe3129e9"
+        },
+        "website/listing/location.php": {
+            "sha": "54a032dbe58c85a91d6c856c873c14b6baeefa9db09187ba529624cf575e4e64",
+            "size": 11843,
+            "live_was": "74660c07c90e30302c8655b526a146ecbca0ba0fdb967a60e01eff07d31188e7"
+        },
+        "website/listing/businessportal.php": {
+            "sha": "c49da9889b7f4f3f42784058bd109784e58b7ecea319bf3cb9cb038a3678be64",
+            "size": 16425,
+            "live_was": "0bbf5e99b82ddd17b2625d0b948a5ee53691708a643091d251a4c9f24cdd1bc3"
+        },
+        "website/community/index.php": {
+            "sha": "05f60a3a78cf6a3513ab489d9e0d4d4fe109a599f6fa567033a3359f075563a4",
+            "size": 14933,
+            "live_was": "ef0db255c450e37c7f6a4520e8fdfe617f6fd3b2e2348853fed9cab1353cb67a"
+        },
+        "website/community/group.php": {
+            "sha": "35b4562254adcc74c63911a957f201afb45cc8bf08b4bb48bb70a4a5731e0afc",
+            "size": 68477,
+            "live_was": "99173877f9cd417aefe8b6d9dc64c10862c9ef5028a21493014b39832ebd3449"
+        },
+        "website/ai/index.php": {
+            "sha": "0abea4c33fa2dd1b6f6174de6cf6b29e906c407b8275e89a4cb7259b7a4069c5",
+            "size": 15063,
+            "live_was": "2b42e5d091dc555748e234739281331e53c8f62b7d74541d4e1689548a25c006"
+        },
+        "website/admin/insights.php": {
+            "sha": "b12f65d927fb66ffdfdc793caa3b4cc8605b5d4427946f7c5d0972f98b51a58a",
+            "size": 23779,
+            "live_was": "82ff39211449fbd4a1ba6b2ff35151e39e61adac9705a629de7d871fa24eb119"
+        },
+        "website/admin/content-template.php": {
+            "sha": "1f9248e556a6fb4bc6fd3c52192c42a08f9ba62f656fd2df02e4e6f83d3caf5f",
+            "size": 34263,
+            "live_was": "ab901767b06b9e6601fc4537222f3737479dd3c3f5d50aef8201b4715ec34cc2"
+        },
+        "website/admin/guide-edit.php": {
+            "sha": "3b197963b3634a608bc725a49f962ae06098939aedd608024fec3375e3831d29",
+            "size": 27839,
+            "live_was": "8d356bfe29fa4010d62ef75fd3b079dca8515168050144c84c87a4af8b329aa6"
+        },
+        "website/admin/quickbooks.php": {
+            "sha": "fb4f909579273a7d0f91f3ce9eb4bad86ab5f4c665e900e29492cde15407a84e",
+            "size": 23881,
+            "live_was": "760e31b3c566b8f36aab77c3d43d01387e0693564a66799bc13054415bc0f1d9"
+        },
+        "website/admin/order.php": {
+            "sha": "41da70afcbaa65186f2fedcabdb039dd54aad461efa908b0fe9b0e18b5554e46",
+            "size": 27793,
+            "live_was": "fccbfcde91901c2718c1c12b62a1398715481bd7d2eed28991f0b74ffa2b995b"
+        },
+        "website/admin/claims.php": {
+            "sha": "6a80d6ffa47d472944736191e3686f72ca6688744e875a725b5bab12eb5643e0",
+            "size": 16999,
+            "live_was": "45a7b38d3dffd7d7ab4a016129c04a1b57055c75a41ca3a4b5f76370f21c2720"
+        },
+        "website/admin/sitemap.php": {
+            "sha": "5bf54880b843c7701b57014c3109d50bf251f59cc0f75e9c87e0809a9de9f02b",
+            "size": 13276,
+            "live_was": "23437f540bbfb509d07907939d92a4e56da639c5bd1c1b7b6db9ea3df748a8d3"
+        },
+        "website/admin/how-guides.php": {
+            "sha": "6a00fc8f8e96cde0c7929ee0129b353377f462a41c9b9e20431b5d12626d7b0a",
+            "size": 13541,
+            "live_was": "c49eb940e7de024afb20e9ce54956e18db2b476c47482b81a139d28c384192ec"
+        },
+        "website/admin/staff-profile.php": {
+            "sha": "b746a36d5721be311c7897bb3260db9e1567b154d3eac567855aec011221a9ac",
+            "size": 9331,
+            "live_was": "82c706ad1022db1571c3a0842d60ca8bc973d431e695cc2cf35866e3b143dc93"
+        },
+        "website/admin/setup.php": {
+            "sha": "5f997be6c882a3ba011d7793495a36ee8ebe5518f73b8965e985e7bc0d19d7a2",
+            "size": 7118,
+            "live_was": "5d6ec73c33235315dfbf9cb6dc305db145cec42b7d312aa8e1161c97f6ce7549"
+        },
+        "website/admin/rebuild.php": {
+            "sha": "5368451978dc35dfce580fcbb11d7b4cf8a1f59baeec5cec04840d7fde1dfe40",
+            "size": 15908,
+            "live_was": "ce22d8217becd18b39ee43682367fb8af34accdf7f82b3758c67b0c355f354dd"
+        },
+        "website/admin/experiences.php": {
+            "sha": "9688655370e87a2e7ae89c2c4c2a5f15f8a98399c5982c0a8be2b5d394b1a101",
+            "size": 10085,
+            "live_was": "c461562ed5757ac2dc79df9f605a801c2c39fb64857e756ce48d5212c24bf919"
+        },
+        "website/admin/sales.php": {
+            "sha": "beeb7b490a82bf7892e1c1b99dd5c2de114fd34b9b99ff7067c4751df602f44c",
+            "size": 28068,
+            "live_was": "8139aeda9c027bd281f8c8ada9c07cc5730bb8bb54a8244f6906df6cb16a2441"
+        },
+        "website/admin/listings.php": {
+            "sha": "3157fbb73d965b7c0b7a159a8f40bf93d44fd8512d55dd6c5e50644e1b88ecba",
+            "size": 33222,
+            "live_was": "8a13e1112b0256746c4500c05ee54916c3051dfc0ced341398385e66d0318935"
+        },
+        "website/admin/listing-intake.php": {
+            "sha": "b3f2edd86f8bea05087679ce9872d8b7e9d8955402b2e51af552638f89b6888e",
+            "size": 57708,
+            "live_was": "727295a94b79bc1dd76778a7aaf64c1d1b18e1fa1be43a3f478c3d3cb1948140"
+        },
+        "website/admin/suggestion.php": {
+            "sha": "35a6464a8dc90cfdf8cc5b7aed90fe9c8e16cb35a90c38685a0c0d30faa961cd",
+            "size": 13414,
+            "live_was": "831a6bbcb17eec1068092d268a2c6bea9eec38a03cb125fc35531ff38ae16e54"
+        },
+        "website/admin/people.php": {
+            "sha": "cf0b1fb5a44423b8844c87ebe4017aa2db71ffff00038e879d5088dd539c8b30",
+            "size": 21386,
+            "live_was": "0eccb426581bdce22bdaddaffaf1ce547eeab5d3640cf0e65e64b15a396ca5ea"
+        },
+        "website/admin/review-item.php": {
+            "sha": "81b56cc7c234e267ed0bfef319e08a210ac7418520dfb22bbca7a2eb399c23d7",
+            "size": 21047,
+            "live_was": "74dbe2a81a2ea27a884628ca7d5c837d31d6a72094d54810d136b8607d6a3190"
+        },
+        "website/admin/listing-edit.php": {
+            "sha": "be82a84f5d8da67201e51a190954a46557e57e276911d6a2417dcd6a50d20d7b",
+            "size": 24193,
+            "live_was": "1b9db383e4005aabba8508093d65e9ce86219197759b22166bc102f911d2c290"
+        },
+        "website/admin/search-oversight.php": {
+            "sha": "ad9b5aada17bd030e0ab6432d976c8f30f2d7176d9e50bcfcaacf49ec6db66c4",
+            "size": 16412,
+            "live_was": "5eebf9e51ad879274e91d4a5432ac045b4ee9712d168ed18c0b6fc86860697b0"
+        },
+        "website/admin/nexus.php": {
+            "sha": "2c75f12e90a567ab7b7c79510a885ff504aab819314e1be758b798cb9c361330",
+            "size": 18713,
+            "live_was": "426f319409cfad57a8f6ef225b7d34df2455a2435d240c87cd85aa7793c2b7bd"
+        },
+        "website/admin/short-codes.php": {
+            "sha": "1b81a013d87c5d9bb056e3cb31f7310e6dabcf98b17cb10bc57d571570630756",
+            "size": 5617,
+            "live_was": "d66a1f804a62bd997426396bb07ae2d7f8e6765ee7bdca3edf4ee430b620587b"
+        },
+        "website/admin/helper.php": {
+            "sha": "a73a0d44511ceb916ee6e5702f33b906d011e05510836769955f5f7d5ce81408",
+            "size": 31496,
+            "live_was": "0f525fc65140292287f19c6fd044b749449dc1f3b1351b7990b67b5ede66602c"
+        },
+        "website/admin/resource-guides.php": {
+            "sha": "863d9ec465d13ce05db3ad4a2a6fe57b78c187812c4737dee93a4397bf4c60af",
+            "size": 18258,
+            "live_was": "720be8531e65e5c1bf2199e4a60ab4a99ae7edbf013a0b930b316c549ad2d25c"
+        },
+        "website/admin/search-misses.php": {
+            "sha": "a456976c3920aa6e3080ef04c9fa9163311e9c5c4bf2a6e7d23fe3b3c74bd036",
+            "size": 164004,
+            "live_was": "02ea1dbb19216ceaf8451504e9b3883b07aaaa5e5921a078d4b7d73fd470aa25"
+        },
+        "website/admin/cluster-tools.php": {
+            "sha": "15e01cc195cbdf8f0c7ab1891c9492c7caee4eb1b873d48427095d0af0ff9c4e",
+            "size": 46826,
+            "live_was": "35e2351574937e3aefa964f345357fda8b2574032216bc7deab87f5559681f87"
+        },
+        "website/admin/landmarks.php": {
+            "sha": "3698579a5ac696aaef84c68223b65db9a62455f4971eac2ddde35dba310e6bad",
+            "size": 17686,
+            "live_was": "dbe339a6a8745a46d8adf8e5b38f6c381e41cbd0e2b29a810d86584fe63f6bc9"
+        },
+        "website/admin/client-order.php": {
+            "sha": "a0733786d81f5c76bc974bc25b92ce2bcddc66236bc28862884800bf39dfeace",
+            "size": 230963,
+            "live_was": "ee89c0034a987e3020b99a127cdbbf63cd3f8dec2242e424d2116ec4250caf46"
+        },
+        "website/admin/login.php": {
+            "sha": "e8af52f2f9654b7f9e9dd1e792c93d6504ad3437f0a8f2e835f28827e9049348",
+            "size": 7318,
+            "live_was": "13ac2499a0112ac66451189fa63caaa61b63ae620a171ff5db82eae5c94c671c"
+        },
+        "website/admin/nations.php": {
+            "sha": "6b19b25c7bbba0b80b4b26f4cbeb87f1066fe71457df596bdb52b9e10af24c3d",
+            "size": 10271,
+            "live_was": "b555a6e37b43ca94292303c8823db815ee3e9b3a0a6e1cb0a2467505c635e177"
+        },
+        "website/admin/manifest.php": {
+            "sha": "1f8d086c4da7ecb883c20456ce42696fb70d0d97ec55405d19dc13ac297e15cf",
+            "size": 7352,
+            "live_was": "fd7355fd10815083d7c906d65bb8c09a086a77a76815bb0d73b608a5c3033cb3"
+        },
+        "website/admin/crawler-review.php": {
+            "sha": "f3249f1be9bc026ecabc0f0bbdfdb0e2f514ec05d1db5c90dbc592977839860a",
+            "size": 54559,
+            "live_was": "48782b136f184442f668cea1abde77d965ef5355f60c110528f3fe7dbe69997f"
+        },
+        "website/admin/search-demand.php": {
+            "sha": "8c7fa7e58dbd6ebacaae0e7ac812399a83e470e9f07e7d1da438d0f7862e5422",
+            "size": 10577,
+            "live_was": "5e4565519bbf93315ad94ec8a28509366a0f9974fe6f793965b69e9fc52d12c1"
+        },
+        "website/admin/crawler.php": {
+            "sha": "224b362a3765804af5b0d3af06d44406368b3c9d54f2a70e1c589568a854bd07",
+            "size": 14062,
+            "live_was": "34f90090feb4b6368268837b7e6b30fb543b2c24148dc89ba84618ef0a27bbc8"
+        },
+        "website/admin/geocode.php": {
+            "sha": "318f1f3db369ea3e44d6b49400d9516d1e6a30685f8a4828eb5b4e6fdc6b0930",
+            "size": 7608,
+            "live_was": "3fc9c7ebc07d0cd17202cdd2d0ed72422aec19a9ac86ac952fd383f98957d4dc"
+        },
+        "website/admin/search-learning.php": {
+            "sha": "0afab2afdcc572da48a68cdbdb060a3856c0ab800c49fee877c041a74ae4b25e",
+            "size": 16112,
+            "live_was": "1e6ea63414e371e521888dea0c9fc1efe2f82ea5145afb7ab5181b0ff33a505c"
+        },
+        "website/admin/identities.php": {
+            "sha": "63d2da5b17084b143216bd97a572a0f5fd3305a0e263eb31cb6896d447dd03cd",
+            "size": 32215,
+            "live_was": "32972d7c3c267380ba3adb96726022c95d78174533b54874fe85e8a33eb2953d"
+        },
+        "website/admin/journeys.php": {
+            "sha": "89411aba5923fe527629b2eeae9ca0ef3d68427e7a92a8f9bae5ac322deda7d3",
+            "size": 13309,
+            "live_was": "617be5536deb38a51b5eb211aee9a704db2a01d32da1f7ee25e096e3c2df99a9"
+        },
+        "website/order.php": {
+            "sha": "c4f12701897d94f2eeaa9f427efa9b686e3447bea23f751f48c604d37641b441",
+            "size": 65618,
+            "live_was": "0bdbc63903cfe438155b05aac33fadd8f184a649f1e5f610ab59d9783d03a4f0"
+        },
+        "website/user/journeys/index.php": {
+            "sha": "a71921db10699c737f4155177b2ae5ab3498df9f1ae8b2f48513090baffeac3c",
+            "size": 10741,
+            "live_was": "c13ac0ac67a34c1f9612d839e6ea9b2c252cd410c8dac4d450135a3e34f8921b"
+        },
+        "website/user/journeys/compose.php": {
+            "sha": "ac9bd0b42c598a94652b8ebdec2707c2eb955f0c22fd584940083c19460eab1e",
+            "size": 37254,
+            "live_was": "5e13ba8892704f6099c9bafd85db9c1e9cbb15e6966d371bc0c0b66af42f8b4a"
+        },
+        "website/user/dashboard.php": {
+            "sha": "c25b21e6a6f866c248d276b0a57ff20b218e96dbd5b4738ab6db56426b1cb9d9",
+            "size": 113214,
+            "live_was": "bd364abdf8b10e489486fb07c7c45e841187e3ade30f72985c042dd5d91589ad"
+        },
+        "website/user/notice.php": {
+            "sha": "d8fb7e77fa07ed48add35ff97964cfe6e320b95ae9908849ce8f4289949aafa4",
+            "size": 11158,
+            "live_was": "a1c1a9b3784806b1709d4e12acc24d05ec449aa8de018a8c21ef36e24b146b66"
+        },
+        "website/user/experiences/index.php": {
+            "sha": "b05daa331c6559bff06894c158cf56fb0ae129e11c689239a674d804dc8b04e9",
+            "size": 16987,
+            "live_was": "f522385bae8797fed61fb8f4b6ec5761f4e790a4415122a8056707104b3723e2"
+        },
+        "website/user/accounts.php": {
+            "sha": "5154a68c14745fe3d7c47746f8aa704e8ab117557621be1ce7713ccddc9ea254",
+            "size": 8739,
+            "live_was": "5ac226d344466d0e1bc480222d39dfaf833e5273ac4ba88ef2eb752a93336f88"
+        },
+        "website/user/orders.php": {
+            "sha": "ba9623576116e73143ba797d9626e0b5a3c23636776bf688fdc0942d889ca701",
+            "size": 9075,
+            "live_was": "cbfdd18031604c38c1569f6358d4b43c91405d3f4fdaa1e27a0460b448f4af47"
+        },
+        "website/user/profile.php": {
+            "sha": "bc9577bc619ff4fc6d6fd6636660ed5abfc1df0887c5f4df92425cbb847d7196",
+            "size": 19209,
+            "live_was": "ed99e447634ae4a099c5cd6d84376bd25308631c049e3ec6de7cfa0e0edde15b"
+        },
+        "website/user/market/index.php": {
+            "sha": "3245f862b8249f4940ae0afd22ef853a848e29f3912d1a8380b01a93284fd7a0",
+            "size": 30871,
+            "live_was": "85e147fba2dca1ab53eee874d63596d97fb45c7e6aaf47abaad618410deaa2e9"
+        },
+        "website/user/staff-link.php": {
+            "sha": "39dfba963a11b28cf75f5ab4a61224049f6229eb7d33b85ec66f94f472e00251",
+            "size": 3937,
+            "live_was": "2901bba51cb00fa628fdbc8f60afa303212f3cd844a489a8495da56d2418aa7f"
+        },
+        "website/user/transfer.php": {
+            "sha": "ab46608b2f3e608f0f52064de821f9a65cbc528a163d4194a64b7ddf0926c82f",
+            "size": 5567,
+            "live_was": "9d5813123d92c8d34cc6e318f9632c821205763e092db55a2d76f92ca364bc07"
+        },
+        "website/place/recreation.php": {
+            "sha": "83d3288d183a8cb03a4f8210503f4a3692821e83b2f091424026fb3100dc7bd0",
+            "size": 13248,
+            "live_was": "f844ca4a7a6d362f638709bf77f51c525b25e8f5a25fd0394054d256a4d5d2ec"
+        },
+        "website/stg-enter.php": {
+            "sha": "b3252a3abd7438f5902dcbc787c13c10c90a226e5dd2069065d9974558a87f3e",
+            "size": 5904,
+            "live_was": "9a2129082fb1da087c833b254166d45d0fa33a355243e07673138dbaabf5feff"
+        },
+        "website/journeys/suggested.php": {
+            "sha": "dae2e74961c250dc4c14318bba9c75a7620541392a1ac7682cd07e25d45450b3",
+            "size": 3117,
+            "live_was": "83cbc08863a2852d069d5983561d36ba8bda065599e612d12c287b38f77af7aa"
+        },
+        "website/journeys/view.php": {
+            "sha": "971e50db47818e6e669e26cc1aa9465c4905d4e6a55c8281d55c523a40876f14",
+            "size": 21966,
+            "live_was": "b77e62b599d3c198a932faffd7d922867ba8df9a51d4c0beee6991e6054ad5af"
+        },
+        "website/faq.php": {
+            "sha": "1df9442e5ae35908477d8e26e8467ed32f797e679a9f7e173a49ec659266ebef",
+            "size": 8379,
+            "live_was": "95cea12d33164918a0851513a17c7d7a03fc4a52ece0945b9ab04ab2fe09c3c8"
+        },
+        "website/discovery/index.php": {
+            "sha": "4f650bcdb36e6c2e998921e0df03ea47d2d584a8e83c0a77aa1a1f0488d28e76",
+            "size": 83072,
+            "live_was": "132f4bc3f34f47cedaa2d593759ce9aa434b2254617043cf470ce701d957863e"
+        },
+        "website/index.php": {
+            "sha": "579e0cfc28a875566fb886ab8ede344fb307c28f48b6b3b61be6e037ee3feaf5",
+            "size": 45640,
+            "live_was": "8edd91b8d35089eea6b6b5120c320795c509f62d6763343a1b220be5757d4b7d"
+        },
+        "website/qr/cart.php": {
+            "sha": "dc0686eba31773616fab2f9c4a6afa2fb50f82b82a67493532765c185678fad0",
+            "size": 17300,
+            "live_was": "2543d4ad105bf2795414036534d4ed65c08ee5ea0475efa98d26d0135c19b7ef"
+        },
+        "website/hub/index.php": {
+            "sha": "5f6651f42a9528022c7f6c5ed2849a2818cdd153e5c20ab93cd497e389985458",
+            "size": 65473,
+            "live_was": "cb0b8862ceae08e5976b2d7fc17cb6da050d81e02d4e178797be2e056d5ee020"
+        },
+        "website/hub/build.php": {
+            "sha": "e9d0405ec3a50805ace15b932e4369debca56e5ac89571e1d9b8b49354a2f20e",
+            "size": 13795,
+            "live_was": "8800486547c8da51f4de0535f51c350a55a7c13d9984babea6fa8c76f038e460"
+        },
+        "website/verify-email.php": {
+            "sha": "5c1b61b22479884f491edb868cc329eadb3961728bfb9b3a2649257db2663e83",
+            "size": 10345,
+            "live_was": "e6522bff316f2e35590e89ad2c87576e979d84586d8a6a10125f0c8d1e7cb089"
+        },
+        "website/experiences/view.php": {
+            "sha": "59d8780476c352ff705c7c02f2186eeab11015142beaf89d45b74602d7a92f59",
+            "size": 10503,
+            "live_was": "fa036312c13bf854cd4e44ac6cef2b0b67ee8175af37c3b38f2c0ec66e6d9b3a"
+        },
+        "website/vendor.php": {
+            "sha": "b81d792d3fbe86bdd013e313e97ce512624cc54d9588ff5fa1c68285ee1213e2",
+            "size": 9544,
+            "live_was": "764eaf83a828718f575536395b68151bbadb86a0322a3f401e8bf1fc318247ff"
+        },
+        "website/data-deletion.php": {
+            "sha": "d464a3ebd60e95212190f7ceea33537430c65e9a2708f1823b33fe171fb55c2d",
+            "size": 4276,
+            "live_was": "6329d645bac72572596ea997f27d9bb8255fe9a5bcfc2aefcc7de98f983b9119"
+        },
+        "website/claim.php": {
+            "sha": "7c0d50db2ddacbcbbea14f9c8c442069c7f74a816bd47feeab1c1cb42eb08c34",
+            "size": 26376,
+            "live_was": "5fdeda86b2aba9801957c365be7840296088778ed3907198692148d567d78f20"
+        },
+        "website/two-step.php": {
+            "sha": "175fe8405874715d78a92a866ee6e994e3d368fca3f8276f91baedd35bf98f5e",
+            "size": 6743,
+            "live_was": "135e38c039a8487d38231c1dd4f3270e92f53a193fa4212ba58b1e228457ebb8"
+        },
+        "website/verify-listing.php": {
+            "sha": "80570c1a3199fc917065b92a548a80cd9f032baa2a980766ccf52da8c8433033",
+            "size": 6260,
+            "live_was": "d036271c59858f2e9a4865f4643f7713ff00429ba3724d179f6e32f4d6ad418c"
+        },
+        "website/gallery/index.php": {
+            "sha": "d730289cec6c18af511a2daf27cb72804e54814a9b56736b44811d1a8c8f09e8",
+            "size": 18174,
+            "live_was": "ba146ef605dd7a674e558b5176d34c3d4d137899b0081e23ddf4cec2caab033d"
+        },
+        "website/nexus.php": {
+            "sha": "ea29c1b2a27fd2729c27569504be505bf73d0f65a6295a4eada2185f16a816eb",
+            "size": 7573,
+            "live_was": "e43ee9cfe9d75f36b932e5893810525493c5edb51308e7404b959089784ae1f4"
+        },
+        "website/wo.php": {
+            "sha": "6034abf88b20224783c84097047692cc06737970d2ed6ee02363a19f19cd527d",
+            "size": 20525,
+            "live_was": "ab4635b219cbc2fe7497651812650bda3beeb242c6b142f016c48e48aa503dcd"
+        },
+        "website/join.php": {
+            "sha": "8c7f6f44a4ffcdca8aa5feb5bb8c18055a7bdda1f9ecaf976eb8389cfd08d8ae",
+            "size": 7509,
+            "live_was": "1c2af89d533cd7b898e66dc887dc7e0edb75577aefa4987f2193a35332212a4f"
+        },
+        "website/directory/index.php": {
+            "sha": "95cd22653e96b20637d4ebbc96cb3d58e478c165c6827a26e68fb0aaf7eb6436",
+            "size": 62157,
+            "live_was": "7a6432fbac4047f5913fc625ccdd9e4fb21ed9718e04687cd01a73b420358e1f"
+        },
+        "website/guide/resources.php": {
+            "sha": "10d2d88cff8ba8a70e02aed2a3ab2fd9a30b4489db7372aafda50389425f0969",
+            "size": 7339,
+            "live_was": "01e3ce6a1a0721a6e2d4e61876ceeeef24e851a58e44f5d61cd5c1f5b9ab476c"
+        },
+        "website/guide/how.php": {
+            "sha": "0dd915716b8e9e0338e7675ca6cd3e7514b53092744ebf1409ec3fb7d79cdae3",
+            "size": 6606,
+            "live_was": "47488d5d408d8ce60b9964af463a2988b1913930eac82a17c6b0ea2575dfa89d"
+        },
+        "website/q.php": {
+            "sha": "2f839043e711e1dd08084eca2986c61d4f3c100a59d40384d9176efb0769501e",
+            "size": 17778,
+            "live_was": "1e9aad79f8fb6e3f22c9d557121fbc674253b64d98ba99b9900512a8d436606f"
+        },
+        "website/takedown.php": {
+            "sha": "173b9efb1bb7004df01bb912166d90f6f427728f544e0db044f88a9bfd6bbaa9",
+            "size": 7051,
+            "live_was": "c55958a456512c1809b78815bd5ef9d714bb6c4c975e0643def1fd5746489234"
+        },
+        "website/pages/view.php": {
+            "sha": "285b9f2841b986dfffc8642e5aec49c5713d0dfd6b8ae38adf7c05ba2ebfce52",
+            "size": 8255,
+            "live_was": "0480c34a121fe2cf910ae2af4f06abff510be863528be6ac2024848109d39162"
+        },
+        "website/js/map-view.js": {
+            "sha": "25495d60a8d52f73383f6326ac1ba9ca40da5b7204cdcd3ca3ac4e0a93d4dd07",
+            "size": 68000,
+            "live_was": "547651ffabcb86487cd120f780d4da296dacc7655883d85ddcf94337cb72dac2"
+        },
+        "website/js/stg-bar.js": {
+            "sha": "cad7a1c0d3764a0f3a037864177bee51254181a933aa1f8ee3a3468ebc678323",
+            "size": 41928,
+            "live_was": "17b901e4f890aa5f15525b75ec0bd6db43172885313fbd6015b89222bdd5b737"
+        },
+        "website/js/suggest.js": {
+            "sha": "d80282fce1ca119ed48d119592d5bcbbd510724dd166fe31ad977351a0194091",
+            "size": 20926,
+            "live_was": "6d344eb07e396cc2628bd971c50211fc6c9e24ff6ecb48f88e657e3c98e48f4c"
+        },
+        "website/js/tv-art.js": {
+            "sha": "cf62e3602cc810a1fc7262bd835fdb35439b80331e6e2e1fc325fdcea596b76c",
+            "size": 27962,
+            "live_was": "0fc38db9d9c728e1f9d06d3bd99dd9d840ffada347b2cf02038b3797c84eb511"
+        },
+        "website/js/listing-leave.js": {
+            "sha": "57cae85eff967ebc10ca7ca2dddd550a90c31bc0a0de61ba4624c5e3c89e4654",
+            "size": 15808,
+            "live_was": "9640ac8ae246343e044fb6b6ad4e0c7cacee194e3d8cf7b7c342d4c6037f876b"
+        },
+        "website/js/short-link.js": {
+            "sha": "0fe644de50d5c7e2035230b7605b62de056b48868ba730939930b2bbe82b79fc",
+            "size": 6667,
+            "live_was": "ce20c5a09d3f798ce3e499d0446d54df9dc6ebfa49272cbb1c7f208a48f246e7"
+        },
+        "website/js/tv-tagcard.js": {
+            "sha": "847811083c0abc01eef914e64181c5f5a988f407c34f9a34b455ce9c7383e965",
+            "size": 7100,
+            "live_was": "f95cef69c4ef5dd0dab7ce111ed6689f02b281868188b6665c93541f88e18119"
+        },
+        "website/js/tv-proof.js": {
+            "sha": "efdad16cf067163cceeb9fdcc3b0f3106336ec588eb8f511f1c62dac3797cd12",
+            "size": 12704,
+            "live_was": "80a8ae88b092fceaeb0dedf36838e5ef1fc8898ce8d5fd5213dfe536e7785487"
+        },
+        "website/js/tv-moments.js": {
+            "sha": "7ba4e106c8e59284d811a767ca403d4694dde95149c2ad9eb065f94459a0c743",
+            "size": 74228,
+            "live_was": "65348d22547df7304c43e2f0c8538875c3094ab8e9a9e866dcb5ba5561a3ee7d"
+        },
+        "website/js/hero-media.js": {
+            "sha": "8ace51becdcd791a57502f8630d29463dd86dd185073a9dc2eda88f03e015d3f",
+            "size": 6894,
+            "live_was": "27f4789c04eb465c960a5b4ead11c5a45d3cb74c65d56f272536467164b6c2c6"
+        },
+        "website/js/photo-viewer.js": {
+            "sha": "78c2991279b66c55b00ac1afe370e0b098af454abd828287d9b35dfa2b6b8a3c",
+            "size": 44558,
+            "live_was": "51aa3b310063089d26606529c992f89ea6b46787af334b9147debe2006ba0292"
+        },
+        "website/js/claim.js": {
+            "sha": "402467a54f66dc694479dd4e42b8072ce6fa591534bfa7775ded0e0171cf2129",
+            "size": 30773,
+            "live_was": "31e3105695d0fcc1d6cc981b27c4831e84efafa02714f1336dac040cc9e19e6d"
+        },
+        "website/js/tv-upgrade.js": {
+            "sha": "03de1a9d2b54f1ff35eb1b71966eb64a7c38836a8a7950184e56995ae59077d7",
+            "size": 5288,
+            "live_was": "652e27e7f0edc5402fcbdb2a85ea85bdee7aef8a329f3bf24800306b760fafa2"
+        },
+        "website/js/consent.js": {
+            "sha": "11ae797ff6ecacc397c55f16862202e0bf983033467529ee53c8dc9e4c2a84b0",
+            "size": 11554,
+            "live_was": "8faa6c62e1362a11d681502bc4762aa0815bf9dffd9fca4639dc998ffd0debf0"
+        },
+        "website/js/tv-join.js": {
+            "sha": "b520ef9b5a906f080e27755e29bc1f553925ebf022e2ad3741eabe3f26e88c4d",
+            "size": 6689,
+            "live_was": "1f21a577bf4ed9b3f3fd6000d9644cb43083855b37ee91024aa3e8da1f112568"
+        },
+        "website/js/tv-stock.js": {
+            "sha": "d09dfa17e0013cbbee43768fc4d0138aa74506e2142d20893d6cb81ee7fbc178",
+            "size": 18652,
+            "live_was": "c25a20cf9fa227ba87af0ee633863df83a3578b374c9c46aed0137638a7e7115"
+        },
+        "website/js/tv-editor.js": {
+            "sha": "9d02c84f7597171df0c5c3b84251b39bc47e34d2d510d1a595056036cbb9a5a8",
+            "size": 52013,
+            "live_was": "6727e969fa54dd5f37e6082f3de54d343b7f5f9d7e6c7dcdd6329ae5d1099d52"
+        },
+        "website/market/order.php": {
+            "sha": "fca9ec46af4c6675e9b59692df52c3ee593b9a979324d3aa71c8211a06668942",
+            "size": 13202,
+            "live_was": "01de65dfdaf51de3214a4bf83742cc85d426e4d3968e7748181fa1e41e446fce"
+        },
+        "website/market/ticket.php": {
+            "sha": "551f5c665ccfa6283307657cc9aaacf32d940c398e4f5da964e8dbb11f74775b",
+            "size": 4820,
+            "live_was": "9ca0be7444b82e640173de52320d2b9a15919866b245b9d8c2e0a876672035fc"
+        },
+        "website/market/cart.php": {
+            "sha": "58e0c5932bcbca67e544284d1f5d4750b8182c1593bbe5b2085a84a79082f4ab",
+            "size": 24761,
+            "live_was": "952107437eac528e0d867df212afc0508d00fb20e4f9b1490eb564cea750bdaf"
+        },
+        "website/market/download.php": {
+            "sha": "98be167afa8bd63ceb28bb3ef04955da3365fbb4a231848bae9b8fc7d94a5c4b",
+            "size": 1895,
+            "live_was": "5721c6af616097e43358bd6f60a0e3a84a9ba0d63ebe6e37af6958bdc7d8fe3f"
+        },
+        "website/market/index.php": {
+            "sha": "620e1489f72390994185585401e1bca33906d0ea2ccb686eb3c62e6960675a9a",
+            "size": 26140,
+            "live_was": "1dd3cacf889019c512a13376c979e4c6fed7a2bcca00fc5934b74ad89a057ca4"
+        },
+        "website/market/view.php": {
+            "sha": "69b34eb56c4c27bb9ce3c7455836b08df9762cf80d514967c27d6922ec498715",
+            "size": 18587,
+            "live_was": "cb666fe4cf8bf35ec94bf59b27c84a3b7292f6e368430c0907a2feecaafbee78"
+        },
+        "website/market/rules.php": {
+            "sha": "cf5d8a43ab9591739189e5ac641f2e17113706b08fd51e866c460cde5908ef0e",
+            "size": 5704,
+            "live_was": "7d7669000196949a9502263a7e9b0546c788a96fb1f6c3c1c4c83330b2fb621c"
+        },
+        "website/market/item.php": {
+            "sha": "40e135bc90146bb6a84a42e46c89a5d251c1c75fed2be0059193e1bb39e334e7",
+            "size": 21415,
+            "live_was": "82217817a4dcff63d30e9f980e92c184a37ca757a01757caa8ae9abaf9378bf1"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-19T00:12:40+00:00",
+            "by": 0,
+            "msg": "Uploaded design-headings-2.zip: 142 files."
+        }
+    ]
+}
