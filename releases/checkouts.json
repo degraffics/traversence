@@ -23,7 +23,7 @@
    "session": "session_01CXLi5kipJLJoRvo3jqLnQQ",
    "why": "Owner-scoped listing lookup and hidden reason for the business portal (site-audit case #22)",
    "since": "2026-11-19T14:26:29Z",
-   "expires": "2026-11-19T18:26:29Z",
+   "expires": "2026-11-19T19:59:58Z",
    "release": "listing-portal-hidden.zip",
    "callers": {}
   },
@@ -34,7 +34,7 @@
    "session": "session_01CXLi5kipJLJoRvo3jqLnQQ",
    "why": "Owners open their hidden listing's editor, with a notice; list links never point at the same page (case #22)",
    "since": "2026-11-19T14:26:37Z",
-   "expires": "2026-11-19T18:26:37Z",
+   "expires": "2026-11-19T19:59:58Z",
    "release": "listing-portal-hidden.zip",
    "callers": {}
   },
