@@ -190,8 +190,11 @@ Alongside: `releases-self-withdraw` (#122), `releases-live-2` (#123), `releases-
     or block), `Preflight::$now` lets a person's Check it now past a back-off's wait, the api's `svccheck` runs the
     service's check at once on a site back-off issue, and the watch rechecks a site back-off issue nothing calls, hourly,
     two a watch; (v) health.php's alarms carry `key` and `reading` (towns.mjs keeps them), to find why W0's old trip
-    keeps its words.
-  - Tests: `r4f.php` (7, local server as the outside host), `r5a.php` (17).
+    keeps its words; (vi) a 429 ("asked us to slow down", the session manager, 2026-11-19) is a warning, never a trip:
+    `ServiceHealth::alarm` never counts it spent, `holdUntil` gives it twice the wait (20 minutes doubling, or its
+    Retry-After), and the watch's `ServiceHealth::liftRateTrips` turns an open 429 trip (Wikidata's of the night) into a
+    warning, its `hold_until` back from 2099 to its back-off, logged by the system.
+  - Tests: `r4f.php` (7, local server as the outside host), `r5a.php` (17), `r5a-rate.php` (12).
 - Next: `control-board-5b`, the reports (only after 5a is live; one question each).
 - Known shortcut in 3c: a back-off held by a trip is `service_issues.hold_until = '2099-01-01'` (until a person resolves
   it; `ServiceHealth::holdForTrip`), not a flag of its own. A real flag (a column, `held_by_trip`) needs a migration on
