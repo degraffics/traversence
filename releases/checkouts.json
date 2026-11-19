@@ -123,6 +123,19 @@
    "expires": "2026-11-19T16:37:50Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/lib/ControlAlarms.php",
+   "functions": [
+    "tick"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "control-board-offregion",
+   "since": "2026-11-19T12:37:53Z",
+   "expires": "2026-11-19T16:37:53Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
