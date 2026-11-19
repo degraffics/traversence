@@ -191,6 +191,29 @@
    "expires": "2026-11-19T04:43:45Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/lib/Preflight.php",
+   "functions": [
+    "alarm",
+    "run"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 4e: words only on the watch's re-test",
+   "since": "2026-11-19T00:44:55Z",
+   "expires": "2026-11-19T04:44:55Z",
+   "release": "control-board-4e.zip",
+   "callers": {
+    "run": [
+     "app/lib/ControlBoard.php",
+     "app/lib/SystemStart.php",
+     "website/admin/api.php"
+    ],
+    "alarm": [
+     "app/lib/ControlAlarms.php"
+    ]
+   }
   }
  ],
  "lapsed": [
