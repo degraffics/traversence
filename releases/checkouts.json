@@ -184,6 +184,17 @@
    "expires": "2026-11-19T17:26:22Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "website/js/admin-kit.js",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "control-board-routes: every alarm leads to its fix",
+   "since": "2026-11-19T13:26:24Z",
+   "expires": "2026-11-19T17:26:24Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
