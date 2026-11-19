@@ -1,0 +1,54 @@
+{
+    "id": 156,
+    "title": "Control Board 4c: an alarm says what really holds it; No history yet",
+    "why": "Two fixes from Jason's screenshot of the live board (the session manager, 2026-11-19). W0 showed Tripped with the passing gate text as its reason: a pre-flight trip raised before checks were read part by part kept its old words, since a trip never clears by itself. The board's watch now refreshes every open pre-flight alarm's words from the stored results every 5 minutes (words only, never a level), so each trip names what holds it, or says its check passes and it waits for Resolve. And a trend with nothing recorded yet says No history yet: readings start now, never not due to be on.",
+    "proposals": "",
+    "zip": "control-board-4c.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/admin/control-console.php": {
+            "sha": "e724522842dc0a44da1b6d85cd5086b9955727b01fd9bbe5dd6d8a2ae0796fb3",
+            "size": 71347,
+            "live_was": "4282f00bb91b040e44037c107255c75e008df090b444f19f5feb85c45026dfb9"
+        },
+        "app/lib/ControlAlarms.php": {
+            "sha": "5bbe4640d4fc9f4ce73de2f4693a827fa2d452257cf0b49348f74a425213b972",
+            "size": 52993,
+            "live_was": "18ac147cfeb8c54bbbf4e18ce7ed8f43e9a09645201e638ab21146608f917c75"
+        },
+        "app/lib/ControlHistorian.php": {
+            "sha": "770d0d8f65248af4dad0f453ce56d56238da435ce349ec665f7d2cb546a708cd",
+            "size": 23896,
+            "live_was": "5cea2a37ff75842d24572d86c6169853e2bfd5d9b7d72774b75f946f9e21e281"
+        },
+        "app/lib/Preflight.php": {
+            "sha": "e6253cdd24180e92fe6cedf3f99f3d8d2f0347da60ac4f68bb875ee94ce571e1",
+            "size": 149178,
+            "live_was": "1e44dc01b7747d69d1150b7ce5a00a85f78e0f16de4c95d1a8454c4599662ec6"
+        },
+        "app/ui/faq.md": {
+            "sha": "e7cfa99c7af067831ea21b9f0225afcb7ad03157976e1d058f3526c9fa8bc850",
+            "size": 359334,
+            "live_was": "bb288005a31e771bf86c95c09a7e7c7cb4e87b22352f8ee8b704b9207e55bb23"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-19T00:20:25+00:00",
+            "by": 0,
+            "msg": "Uploaded control-board-4c.zip: 5 files."
+        }
+    ]
+}
