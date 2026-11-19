@@ -158,6 +158,17 @@
    "expires": "2026-11-19T04:43:39Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/ui/engage-ui.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Design 3b-2: content pages on the tokens; park cards' photos",
+   "since": "2026-11-19T00:43:41Z",
+   "expires": "2026-11-19T04:43:41Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
