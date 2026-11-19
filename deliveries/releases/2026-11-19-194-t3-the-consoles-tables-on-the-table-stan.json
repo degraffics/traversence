@@ -1,0 +1,44 @@
+{
+    "id": 194,
+    "title": "T3: the consoles' tables on the table standard",
+    "why": "Jason, 2026-11-19: \"go on all three\" (T3-T5 of design/table-standard.md). One enhancer in admin-kit.js, TvAdmin.staticTable(), puts the tables the admin's pages write themselves on the standard, starting with the consoles' (.ak-aa and .cs-t: Automation, Service register, Costs, Workflow board, Communications, Crawler, the index): sentence-case headers, tap a header to sort (again to reverse, a third time for the page's own order), numbers right-aligned, a column with nothing in it named under the table, phone cards, and past 25 rows the count, Show 10/25/50/100 (remembered) and the page bar. Rows are only shown or hidden, never rebuilt, so their buttons and fields keep working; a field or button counts as filled. T4 (the admin pages) and T5 (the shared parts) mark their tables with data-tv-table. FAQ: the admin's lists entry.",
+    "proposals": "",
+    "zip": "t3-consoles.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/admin/kit-css.php": {
+            "sha": "3b82f313ba89212309a7c3b16c82b99d7fc24d0a6ce13a1e76482a293d261857",
+            "size": 39129,
+            "live_was": "366adf95433a7a5442c05643637b389353f1f458c591271274fa567d761fc855"
+        },
+        "app/ui/faq.md": {
+            "sha": "8fffbeb303bd571d83034cb86b3b6155ad55cb843b907a6236fe97c476d65546",
+            "size": 375494,
+            "live_was": "4d342d928c6e3820791add7396b53292a3afd9b6e9dd87fc04b8f2fcae10a283"
+        },
+        "website/js/admin-kit.js": {
+            "sha": "506cd5c6b6ad128b4572cc7ea04c2b17a4ff9ba5d7a8945de96c513835487eec",
+            "size": 63587,
+            "live_was": "df42df515ef22654f150648f914e4e3116e0e840a42129234126cfdcc5acb945"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-19T16:29:28+00:00",
+            "by": 0,
+            "msg": "Uploaded t3-consoles.zip: 3 files."
+        }
+    ]
+}
