@@ -44,13 +44,14 @@
    "functions": [
     "(top)",
     "tv_admin_mod_control",
-    "tv_cb_logbook"
+    "tv_cb_logbook",
+    "tv_cb_statement_osm"
    ],
    "kind": "change",
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "control-board-logbook-list: its list's style",
+   "why": "control-board-logbook-list: the OSM statement updated",
    "since": "2026-11-19T14:17:21Z",
-   "expires": "2026-11-19T18:19:57Z",
+   "expires": "2026-11-19T18:22:25Z",
    "release": "control-board-logbook-list.zip",
    "callers": {}
   },
