@@ -633,45 +633,45 @@
   }
  },
  "2026-11-19": {
-  "at": "2026-11-18T21:22:01-07:00",
+  "at": "2026-11-19T03:19:19-07:00",
   "finds": {
-   "staged": 13779,
+   "staged": 13783,
    "quarantined": 41,
-   "published": 6061,
-   "merged": 329,
-   "rejected": 573
+   "published": 6070,
+   "merged": 330,
+   "rejected": 591
   },
   "staged": {
    "checked": 3000,
-   "ready_stuck": 4,
+   "ready_stuck": 5,
    "review": 27,
-   "looking": 2969,
-   "no_kind": 2439,
-   "one_source": 885,
+   "looking": 2968,
+   "no_kind": 2435,
+   "one_source": 889,
    "by_reason": {
     "category": 26,
     "dupe": 1
    },
    "auto_import_on": true,
-   "of": 13779
+   "of": 13783
   },
   "place_store": {
-   "places": 3473,
-   "hosts": 247,
-   "sources_read": 2951,
-   "sources_read_empty": 268
+   "places": 3692,
+   "hosts": 270,
+   "sources_read": 3185,
+   "sources_read_empty": 285
   },
   "websites_taken_off": {
    "2026-11": 10
   },
   "refresh": {
    "abandoned_listings": 2,
-   "failed_once": 47
+   "failed_once": 64
   },
   "map_points": {
-   "public": 10280,
+   "public": 10289,
    "no_point": 0,
-   "approximate": 1711
+   "approximate": 1712
   },
   "town_jobs": {
    "done": 83,
@@ -686,17 +686,17 @@
    "failed (3+ tries)": 8
   },
   "identity_jobs": {
-   "done": 60,
+   "done": 61,
    "leased (set aside)": 2,
-   "nothing": 4594,
+   "nothing": 4755,
    "nothing (set aside)": 13,
-   "queued": 792
+   "queued": 630
   },
   "register": {
    "by_status": {
-    "suggested": 1958,
-    "read": 2951,
-    "cite_only": 208,
+    "suggested": 2478,
+    "read": 3185,
+    "cite_only": 213,
     "ignore": 2
    },
    "waiting_after_describe": 7
@@ -724,21 +724,21 @@
    }
   },
   "heritage": {
-   "public / cataloged": 257,
+   "public / cataloged": 344,
    "public / pending": 5,
    "restricted / cataloged": 5
   },
   "landmarks": {
    "approved": 1,
    "hidden": 29,
-   "shown": 5272,
+   "shown": 5311,
    "story_only": 11,
-   "waiting": 32
+   "waiting": 33
   },
   "guides": {
-   "draft / done": 70,
-   "draft / gathering": 19,
-   "draft / queued": 9,
+   "draft / done": 80,
+   "draft / gathering": 16,
+   "draft / queued": 3,
    "live / done": 6
   }
  }
