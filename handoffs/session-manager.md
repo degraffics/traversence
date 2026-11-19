@@ -103,7 +103,8 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
 has: alerts in ControlAlarms and 0172's one dispatcher (`Notify`) with `TvAsk.say`; buttons in `TvAsk.busy`/`gate` and
 `Pulse::manage`; forms in `tv-ask.js`'s wrap and `Response::jsonBody`; the message gate in Notify's quiet hours, Stop
 these and `StagingGate`; roles in `Access::can` / `Modules::canTool`. It extends them in place (one front door), never a
-second copy. Ask Jason what "control" means for each (rules he sets, a log, both) before drafting.
+second copy. "Control" means **both** (Jason, 2026-11-19): rules he sets for each of the five, and a log of every
+one that ran (who, what, when, where, the rule that allowed or stopped it).
 
 **Queued builds, in order:** W15 Funnel (0170); state licence lists (3a: decision first); the App store (0169) and its
 apps (QuickBooks Bookkeeper, QuickBooks Payments, Stripe Payments, Facebook Personal, Facebook Business, Storefront with
