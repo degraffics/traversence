@@ -58,4 +58,15 @@ $t('…a process with no trip keeps its Start', str_contains($h2, 'data-cb="star
 $api = file_get_contents(dirname($app) . '/website/admin/api.php');
 $t('…and a Check on a tripped process says its trip stays red until Check and start again', str_contains($api, "stays red until you press Check and start again on this row"));
 
+// 7. the 10-minute release job quiet for 30 minutes: a warning on the board, cleared when it looks again
+require_once $app . '/lib/Releases.php'; Releases::ensure($pdo);
+$pdo->prepare("REPLACE INTO site_release_settings (k, v) VALUES ('git_seen_job', ?)")->execute([json_encode(['at' => time() - 3600, 'found' => 0])]);
+try { ControlAlarms::tick($pdo); } catch (Throwable $x) {}
+$q = ControlAlarms::openOf($pdo, 'rel:job:quiet');
+$t('the release job not looking in git for 30 minutes: a warning naming when it last looked, with Check for builds beside it', $q && $q['level'] === 'warning' && str_contains((string) $q['title'], 'hasn\'t looked in git since') && str_contains((string) $q['fix'], '/admin/config/releases'), $q['title'] ?? null);
+$pdo->prepare("REPLACE INTO site_release_settings (k, v) VALUES ('git_seen_job', ?)")->execute([json_encode(['at' => time() - 60, 'found' => 1])]);
+try { ControlAlarms::tick($pdo); } catch (Throwable $x) {}
+$t('…cleared when it looks again', ControlAlarms::openOf($pdo, 'rel:job:quiet') === null);
+$t('health.php reports when the site last looked in git, by whom', str_contains(file_get_contents(dirname($app) . '/website/api/health.php'), "\$out['releases_looked']"));
+
 echo "\n$pass passed, $fail failed\n"; exit($fail ? 1 : 0);
