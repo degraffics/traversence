@@ -6,72 +6,92 @@
     "zip": "place-page.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "staged",
-    "step": 0,
+    "state": "live",
+    "step": 3,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
     "plan_at": "2026-11-19 23:15:33",
     "staged_at": "2026-11-19 23:15:35",
-    "vetted_at": null,
-    "live_at": null,
+    "vetted_at": "2026-11-19 23:15:38",
+    "live_at": "2026-11-19 23:15:38",
     "files": {
         "app/ui/explore-hero.php": {
             "sha": "a53628a95e55e80f99dfc32ac79f3088a0004b9507609faf542698bd309021f7",
             "size": 44721,
-            "live_was": "14bd3650dbe83481594caaa69af7bdfb291943de2f597ae9cca29132b107687b"
+            "live_was": "14bd3650dbe83481594caaa69af7bdfb291943de2f597ae9cca29132b107687b",
+            "existed": true,
+            "old_sha": "14bd3650dbe83481594caaa69af7bdfb291943de2f597ae9cca29132b107687b"
         },
         "app/ui/faq.md": {
             "sha": "1ba25c000451b5f8eb9cd185f18ed27841b553746365d77326a799b7fcd40e5c",
             "size": 390591,
-            "live_was": "f7a9da7d6685c231def6b55b54676f05e93680b779be9367a4e8fd2ba395c4e8"
+            "live_was": "f7a9da7d6685c231def6b55b54676f05e93680b779be9367a4e8fd2ba395c4e8",
+            "existed": true,
+            "old_sha": "f7a9da7d6685c231def6b55b54676f05e93680b779be9367a4e8fd2ba395c4e8"
         },
         "app/ui/engage-ui.php": {
             "sha": "62c158523b76f31da9e60aace6a46897535400efdd173d0545b2abcf0da6b7dc",
             "size": 18839,
-            "live_was": "7d8dc3b41f9afdee2227ac158e8688721fe7e1f06cc0b17bb5db5c7ad6ae5415"
+            "live_was": "7d8dc3b41f9afdee2227ac158e8688721fe7e1f06cc0b17bb5db5c7ad6ae5415",
+            "existed": true,
+            "old_sha": "7d8dc3b41f9afdee2227ac158e8688721fe7e1f06cc0b17bb5db5c7ad6ae5415"
         },
         "website/listing/view.php": {
             "sha": "4ee08846489fe93a47f55d4973ffa995ce001917a748f0b526c66499f9e682d9",
             "size": 61361,
-            "live_was": "4617525a1ea4da17236b8f005e158004027be5731c1e547859ee797eb946cb6b"
+            "live_was": "4617525a1ea4da17236b8f005e158004027be5731c1e547859ee797eb946cb6b",
+            "existed": true,
+            "old_sha": "4617525a1ea4da17236b8f005e158004027be5731c1e547859ee797eb946cb6b"
         },
         "website/place/landmark.php": {
             "sha": "e7bb541a9843577ff4f0e66bb13bae4511ff03656cf49b74d5e417319af30491",
             "size": 20984,
-            "live_was": "6ea74b7f23c98bdd688a97c54b1e70c81bd13895e7ae2c97f3f5409c4fd636be"
+            "live_was": "6ea74b7f23c98bdd688a97c54b1e70c81bd13895e7ae2c97f3f5409c4fd636be",
+            "existed": true,
+            "old_sha": "6ea74b7f23c98bdd688a97c54b1e70c81bd13895e7ae2c97f3f5409c4fd636be"
         },
         "website/place/recreation.php": {
             "sha": "727a8e31e9e374cb4da44dfd8d4ebcd2ecfda35922d0e5c586e69b70c60d328c",
             "size": 13585,
-            "live_was": "f22fe14bc2ef650310aee5f8d821ee82b7631063dd5338e412aea5e283c40c98"
+            "live_was": "f22fe14bc2ef650310aee5f8d821ee82b7631063dd5338e412aea5e283c40c98",
+            "existed": true,
+            "old_sha": "f22fe14bc2ef650310aee5f8d821ee82b7631063dd5338e412aea5e283c40c98"
         },
         "website/discovery/index.php": {
             "sha": "ad449c57451048844f481a7d8f90f0d79efd1a197234c13b79c40c20a56caa13",
             "size": 93061,
-            "live_was": "a01b6b93c42e9042cc1ff0f3eb1a4ba27416bb5ecf16087e0c1990db7aaf890d"
+            "live_was": "a01b6b93c42e9042cc1ff0f3eb1a4ba27416bb5ecf16087e0c1990db7aaf890d",
+            "existed": true,
+            "old_sha": "a01b6b93c42e9042cc1ff0f3eb1a4ba27416bb5ecf16087e0c1990db7aaf890d"
         },
         "website/hub/index.php": {
             "sha": "658dfbfedfc3a69914d30dd934958ad2cee515de1e08be4f0974514b409c7047",
             "size": 66737,
-            "live_was": "ee47c1c74d63626c646e7a59b24832b30ca7512108e7cceab90e9485811ee0e8"
+            "live_was": "ee47c1c74d63626c646e7a59b24832b30ca7512108e7cceab90e9485811ee0e8",
+            "existed": true,
+            "old_sha": "ee47c1c74d63626c646e7a59b24832b30ca7512108e7cceab90e9485811ee0e8"
         },
         "website/api/engage.php": {
             "sha": "7f41309a4490ce7ce9d1f3189c9e76c839534fb091c4574397dd02146df9332c",
             "size": 8953,
-            "live_was": "f8af8a28666d8b2a24826242deb49efa0a83915ed6d3d91c5436de6c02d9a643"
+            "live_was": "f8af8a28666d8b2a24826242deb49efa0a83915ed6d3d91c5436de6c02d9a643",
+            "existed": true,
+            "old_sha": "f8af8a28666d8b2a24826242deb49efa0a83915ed6d3d91c5436de6c02d9a643"
         },
         "website/js/engage.js": {
             "sha": "80b8b4e076e16ba7855e165beb24210dab6c1a18eca46e91381a4131fbfe752b",
             "size": 20782,
-            "live_was": "ea95edb2a4123940bb91f504777d1596c028e4d61a68a7dc653fb487db3e3489"
+            "live_was": "ea95edb2a4123940bb91f504777d1596c028e4d61a68a7dc653fb487db3e3489",
+            "existed": true,
+            "old_sha": "ea95edb2a4123940bb91f504777d1596c028e4d61a68a7dc653fb487db3e3489"
         }
     },
     "migrations": [],
     "checks": {
         "ok": true,
-        "where": "staging",
-        "at": "2026-11-19T23:15:36+00:00",
+        "where": "live",
+        "at": "2026-11-19T23:15:38+00:00",
         "items": [
             [
                 "PHP files parse",
@@ -81,7 +101,7 @@
             [
                 "Pages answer",
                 true,
-                "7 pages answered on staging.trvgo.us"
+                "7 pages answered on traversence.com"
             ],
             [
                 "No new fatal errors in the logs",
@@ -111,6 +131,16 @@
             "at": "2026-11-19T23:15:36+00:00",
             "by": 0,
             "msg": "Put on staging (10 files); its checks passed."
+        },
+        {
+            "at": "2026-11-19T23:15:38+00:00",
+            "by": 0,
+            "msg": "Approved in chat before it was sent through git, and its checks on staging passed: publishing by itself."
+        },
+        {
+            "at": "2026-11-19T23:15:38+00:00",
+            "by": 0,
+            "msg": "Published: 10 files; everyone at once (no switch)."
         }
     ]
 }
