@@ -1,0 +1,39 @@
+{
+    "id": 164,
+    "title": "Design 3c: Get Local on the tokens",
+    "why": "Jason's directive (design/css-theme-brand.md, Release 3, Get Local). Get Local's directory (directory/index.php) and the classic directory (directory/classic.php, still linked from the rail) on the shared tokens, layouts unchanged: Get Local keeps its own Find a business box and Refine row (decisions/0058 note, 2026-11-12). Result cards keep their anatomy (name in link brown, Link top right, 30px icon actions). Status colours: closed right now in the metadata colour, never red (red is for real faults); a business marked closed for good in Grounded Amber on its tint (darker text, 5.2:1). The classic directory's Tailwind amber moved to the palette (its Go buttons were white on amber, 3.2:1; now white on brand brown). Contrast: no failures at 390 or 1280 on either page in the harness.",
+    "proposals": "",
+    "zip": "design-r3c-local.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "website/directory/index.php": {
+            "sha": "9d8d0e64f910f35b73c95c16fb0176545bf3604376bd3c344bcf6306f4226dd6",
+            "size": 63485,
+            "live_was": "95cd22653e96b20637d4ebbc96cb3d58e478c165c6827a26e68fb0aaf7eb6436"
+        },
+        "website/directory/classic.php": {
+            "sha": "a8d2715b285aa4e9e44d8817eb8a00b8246eb59142a9fc225056efe81c0f4094",
+            "size": 109233,
+            "live_was": "4a4bdee1015c852752284ddfb26a2b06d6d30d9059e5c196d6251465d3168c38"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-19T04:08:27+00:00",
+            "by": 0,
+            "msg": "Uploaded design-r3c-local.zip: 2 files."
+        }
+    ]
+}
