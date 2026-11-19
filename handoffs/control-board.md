@@ -220,7 +220,7 @@ Alongside: `releases-self-withdraw` (#122), `releases-live-2` (#123), `releases-
   `health.php` carries `releases_looked`. W1's trip isn't lifted by the system: Jason's Check and start again. Test:
   `backoff-gate.php` (12).
 - backoff-gate live as #169 (Sync 11:50 UTC). W1's trip waits for Jason's Check and start again.
-- `control-board-5b`, the reports (built on Sync 11:50 UTC; files: `app/lib/ControlReport.php` (new),
+- `control-board-5b`, the reports (built on Sync 11:58 UTC, its files unchanged since 11:50; files: `app/lib/ControlReport.php` (new),
   `app/admin/control-console.php`, `website/admin/api.php`, `website/js/admin-control.js`, `website/api/health.php`,
   `app/lib/DailyReport.php`, `app/ui/faq.md`): `ControlReport::build($pdo, $scope, 'day'|'week')`, built on demand from
   what's kept (no table, nothing stored, no AI, no outside call), so no staging class or retention is needed. The board's
