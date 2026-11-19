@@ -1,0 +1,97 @@
+{
+    "id": 168,
+    "title": "Control Board: old trips settled, and titles that name what holds",
+    "why": "The session manager's review of the board after 5a (2026-11-19): four red trips from before trips had their time (W0, W3, W0's test batch, the vector index) kept old words and stayed red. W0 is amber today, and its title showed its passing gate (\"no red line for it\") because a title came only from a red part. The watch now tests each old trip again and settles it to what it would be today: closed if it passes, amber if amber, still red only if red, each in the logbook. A title is the red part, else the amber part, never a passing one. W0's test batch is asked again when its answer is left waiting or was short, and a short one names the indexer's version (with Railway's link under 1.1.1).",
+    "proposals": "",
+    "zip": "control-board-legacy.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "live",
+    "step": 3,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": "2026-11-19 11:18:59",
+    "staged_at": "2026-11-19 11:19:00",
+    "vetted_at": "2026-11-19 11:19:03",
+    "live_at": "2026-11-19 11:19:03",
+    "files": {
+        "app/lib/Preflight.php": {
+            "sha": "c194270c99765a3ffbc77ed8c2a9904efbbef05f1d715c9ad02afa92cb295b5d",
+            "size": 152786,
+            "live_was": "b1260c6ebeb62a0385e7d6782ac454e1be2a7cff08d65960dd977982a9803bdd",
+            "existed": true,
+            "old_sha": "b1260c6ebeb62a0385e7d6782ac454e1be2a7cff08d65960dd977982a9803bdd"
+        },
+        "app/lib/ControlAlarms.php": {
+            "sha": "0a0fee0bc43e13eacfd33bd91f722560805d76583ab787d9cf7f66ff5f2687d0",
+            "size": 58649,
+            "live_was": "a3fe849b18c1e2d2b3adbec09e59ca0fed449df3515dc2ab5d0a5ee443825753",
+            "existed": true,
+            "old_sha": "a3fe849b18c1e2d2b3adbec09e59ca0fed449df3515dc2ab5d0a5ee443825753"
+        },
+        "app/ui/faq.md": {
+            "sha": "ce49aaaa39a61f39036e1642693d661c18f8f6a5c925edadce8b2b19790dc61f",
+            "size": 361716,
+            "live_was": "44356b0a5db72e4199ad938d786c5ec488cf280e34ead7592eeae7b721220236",
+            "existed": true,
+            "old_sha": "44356b0a5db72e4199ad938d786c5ec488cf280e34ead7592eeae7b721220236"
+        }
+    },
+    "migrations": [],
+    "checks": {
+        "ok": true,
+        "where": "live",
+        "at": "2026-11-19T11:19:03+00:00",
+        "items": [
+            [
+                "PHP files parse",
+                true,
+                "2 checked"
+            ],
+            [
+                "Pages answer",
+                true,
+                "2 pages answered on traversence.com"
+            ],
+            [
+                "No new fatal errors in the logs",
+                true,
+                "3 logs read"
+            ]
+        ],
+        "first_fail": ""
+    },
+    "log": [
+        {
+            "at": "2026-11-19T11:18:57+00:00",
+            "by": 0,
+            "msg": "Uploaded control-board-legacy.zip: 3 files."
+        },
+        {
+            "at": "2026-11-19T11:18:59+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/control-board-legacy.zip (git a6591150ce)."
+        },
+        {
+            "at": "2026-11-19T11:18:59+00:00",
+            "by": 0,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
+        },
+        {
+            "at": "2026-11-19T11:19:01+00:00",
+            "by": 0,
+            "msg": "Put on staging (3 files); its checks passed."
+        },
+        {
+            "at": "2026-11-19T11:19:03+00:00",
+            "by": 0,
+            "msg": "Approved in chat before it was sent through git, and its checks on staging passed: publishing by itself."
+        },
+        {
+            "at": "2026-11-19T11:19:03+00:00",
+            "by": 0,
+            "msg": "Published: 3 files; everyone at once (no switch)."
+        }
+    ]
+}
