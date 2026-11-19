@@ -81,6 +81,17 @@
    "expires": "2026-11-19T21:03:02Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/admin/kit-css.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "T4: the table standard on the admin's older pages (approved 2026-11-19)",
+   "since": "2026-11-19T17:09:42Z",
+   "expires": "2026-11-19T21:09:42Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
