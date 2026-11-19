@@ -1,0 +1,390 @@
+{
+ "at": "2026-11-19T00:19:31.224Z",
+ "checked": "2026-11-14T15:38:12+00:00",
+ "files_read": 784,
+ "tables": [
+  {
+   "db": "degraff1_traversence",
+   "table": "accuracy_reports",
+   "rows": 0,
+   "mb": 0.06,
+   "kept": false
+  },
+  {
+   "db": "degraff1_traversence",
+   "table": "ai_credit_usage",
+   "rows": 0,
+   "mb": 0.02,
+   "kept": false
+  },
+  {
+   "db": "degraff1_traversence",
+   "table": "gbp_addon_subscriptions",
+   "rows": 0,
+   "mb": 0.03,
+   "kept": false
+  },
+  {
+   "db": "degraff1_traversence",
+   "table": "guide_mentions",
+   "rows": 0,
+   "mb": 0.05,
+   "kept": false
+  },
+  {
+   "db": "degraff1_traversence",
+   "table": "listing_actions_bak_20261014",
+   "rows": 0,
+   "mb": 0.02,
+   "kept": false
+  },
+  {
+   "db": "degraff1_traversence",
+   "table": "platform_counts_bak_20261014",
+   "rows": 668,
+   "mb": 0.08,
+   "kept": false
+  },
+  {
+   "db": "degraff1_traversence",
+   "table": "search_demand_bak_20261014",
+   "rows": 6,
+   "mb": 0.02,
+   "kept": false
+  },
+  {
+   "db": "degraff1_traversence",
+   "table": "service_area_zips",
+   "rows": 0,
+   "mb": 0.05,
+   "kept": false
+  },
+  {
+   "db": "degraff1_traversence",
+   "table": "subscriptions_old",
+   "rows": 0,
+   "mb": 0.05,
+   "kept": false
+  }
+ ],
+ "columns": [
+  {
+   "db": "degraff1_traversence",
+   "table": "_moved_crawler_sources",
+   "column": "target_entity_id",
+   "kept": false
+  },
+  {
+   "db": "degraff1_traversence",
+   "table": "_moved_pulse_settings",
+   "column": "k",
+   "kept": false
+  },
+  {
+   "db": "degraff1_traversence",
+   "table": "_moved_pulse_settings",
+   "column": "v",
+   "kept": false
+  },
+  {
+   "db": "degraff1_traversence",
+   "table": "cluster_overrides",
+   "column": "is_excluded",
+   "kept": false
+  },
+  {
+   "db": "degraff1_traversence",
+   "table": "cluster_overrides",
+   "column": "created_by_user_id",
+   "kept": false
+  },
+  {
+   "db": "degraff1_traversence",
+   "table": "community_group_joins",
+   "column": "n",
+   "kept": false
+  },
+  {
+   "db": "degraff1_traversence",
+   "table": "community_help",
+   "column": "closed_at",
+   "kept": false
+  },
+  {
+   "db": "degraff1_traversence",
+   "table": "contributors",
+   "column": "home_place",
+   "kept": false
+  },
+  {
+   "db": "degraff1_traversence",
+   "table": "crawl_capture_tasks",
+   "column": "fresh_days",
+   "kept": false
+  },
+  {
+   "db": "degraff1_traversence",
+   "table": "csp_reports",
+   "column": "n",
+   "kept": false
+  },
+  {
+   "db": "degraff1_traversence",
+   "table": "email_state",
+   "column": "k",
+   "kept": false
+  },
+  {
+   "db": "degraff1_traversence",
+   "table": "email_state",
+   "column": "v",
+   "kept": false
+  },
+  {
+   "db": "degraff1_traversence",
+   "table": "hubs",
+   "column": "narrative_zone",
+   "kept": false
+  },
+  {
+   "db": "degraff1_traversence",
+   "table": "hubs",
+   "column": "visitor_volume",
+   "kept": false
+  },
+  {
+   "db": "degraff1_traversence",
+   "table": "identity_facts",
+   "column": "w",
+   "kept": false
+  },
+  {
+   "db": "degraff1_traversence",
+   "table": "jurisdiction_laws",
+   "column": "seed_key",
+   "kept": false
+  },
+  {
+   "db": "degraff1_traversence",
+   "table": "listing_actions",
+   "column": "n",
+   "kept": false
+  },
+  {
+   "db": "degraff1_traversence",
+   "table": "market_settings",
+   "column": "k",
+   "kept": false
+  },
+  {
+   "db": "degraff1_traversence",
+   "table": "market_settings",
+   "column": "v",
+   "kept": false
+  },
+  {
+   "db": "degraff1_traversence",
+   "table": "opt_out_requests",
+   "column": "requested_by_email",
+   "kept": false
+  },
+  {
+   "db": "degraff1_traversence",
+   "table": "order_vendor_jobs",
+   "column": "expected_on",
+   "kept": false
+  },
+  {
+   "db": "degraff1_traversence",
+   "table": "order_work_orders",
+   "column": "vendor_cost_cents",
+   "kept": false
+  },
+  {
+   "db": "degraff1_traversence",
+   "table": "platform_counts",
+   "column": "k",
+   "kept": false
+  },
+  {
+   "db": "degraff1_traversence",
+   "table": "platform_counts",
+   "column": "n",
+   "kept": false
+  },
+  {
+   "db": "degraff1_traversence",
+   "table": "qr_issued",
+   "column": "fix_until",
+   "kept": false
+  },
+  {
+   "db": "degraff1_traversence",
+   "table": "saved_searches",
+   "column": "q",
+   "kept": false
+  },
+  {
+   "db": "degraff1_traversence",
+   "table": "search_counts",
+   "column": "k",
+   "kept": false
+  },
+  {
+   "db": "degraff1_traversence",
+   "table": "search_counts",
+   "column": "n",
+   "kept": false
+  },
+  {
+   "db": "degraff1_traversence",
+   "table": "search_demand",
+   "column": "n",
+   "kept": false
+  },
+  {
+   "db": "degraff1_traversence",
+   "table": "search_edits",
+   "column": "w",
+   "kept": false
+  },
+  {
+   "db": "degraff1_traversence",
+   "table": "search_index_state",
+   "column": "k",
+   "kept": false
+  },
+  {
+   "db": "degraff1_traversence",
+   "table": "search_index_state",
+   "column": "v",
+   "kept": false
+  },
+  {
+   "db": "degraff1_traversence",
+   "table": "search_opens",
+   "column": "q",
+   "kept": false
+  },
+  {
+   "db": "degraff1_traversence",
+   "table": "search_opens",
+   "column": "n",
+   "kept": false
+  },
+  {
+   "db": "degraff1_traversence",
+   "table": "search_outcomes",
+   "column": "q",
+   "kept": false
+  },
+  {
+   "db": "degraff1_traversence",
+   "table": "search_outcomes",
+   "column": "n",
+   "kept": false
+  },
+  {
+   "db": "degraff1_traversence",
+   "table": "search_senses",
+   "column": "w",
+   "kept": false
+  },
+  {
+   "db": "degraff1_traversence",
+   "table": "search_suggestion_flags",
+   "column": "q",
+   "kept": false
+  },
+  {
+   "db": "degraff1_traversence",
+   "table": "search_terms",
+   "column": "q",
+   "kept": false
+  },
+  {
+   "db": "degraff1_traversence",
+   "table": "search_terms",
+   "column": "n",
+   "kept": false
+  },
+  {
+   "db": "degraff1_traversence",
+   "table": "short_scans",
+   "column": "n",
+   "kept": false
+  },
+  {
+   "db": "degraff1_traversence",
+   "table": "site_release_settings",
+   "column": "k",
+   "kept": false
+  },
+  {
+   "db": "degraff1_traversence",
+   "table": "site_release_settings",
+   "column": "v",
+   "kept": false
+  },
+  {
+   "db": "degraff1_traversence",
+   "table": "staging_state",
+   "column": "k",
+   "kept": false
+  },
+  {
+   "db": "degraff1_traversence",
+   "table": "staging_state",
+   "column": "v",
+   "kept": false
+  },
+  {
+   "db": "degraff1_traversence",
+   "table": "topic_relations",
+   "column": "n",
+   "kept": false
+  },
+  {
+   "db": "degraff1_traversence",
+   "table": "zip_coordinates",
+   "column": "county_code",
+   "kept": false
+  },
+  {
+   "db": "degraff1_traversence",
+   "table": "zip_coordinates",
+   "column": "community_code",
+   "kept": false
+  },
+  {
+   "db": "degraff1_trv_admin",
+   "table": "crawler_sources",
+   "column": "target_entity_id",
+   "kept": false
+  },
+  {
+   "db": "degraff1_trv_admin",
+   "table": "pulse_settings",
+   "column": "k",
+   "kept": false
+  },
+  {
+   "db": "degraff1_trv_admin",
+   "table": "pulse_settings",
+   "column": "v",
+   "kept": false
+  },
+  {
+   "db": "degraff1_trv_listings",
+   "table": "biz_schema",
+   "column": "k",
+   "kept": false
+  },
+  {
+   "db": "degraff1_trv_listings",
+   "table": "biz_schema",
+   "column": "v",
+   "kept": false
+  }
+ ]
+}

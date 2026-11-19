@@ -1,0 +1,277 @@
+{
+ "at": "2026-11-19T00:19:31.224Z",
+ "open": [
+  {
+   "level": "trip",
+   "process": "wf:W1",
+   "title": "/api/crawl/results is slow",
+   "since": "2026-11-18T23:46:11+00:00",
+   "tripped": "2026-11-18T23:48:00+00:00",
+   "stopped": "W1 (its tasks first, then the workflow)"
+  },
+  {
+   "level": "trip",
+   "process": "job:guide_finds_tick",
+   "title": "The job \"guide_finds_tick\" is slow",
+   "since": "2026-11-18T22:20:02+00:00",
+   "tripped": "2026-11-18T22:50:02+00:00",
+   "stopped": "W4 (its tasks first, then the workflow)"
+  },
+  {
+   "level": "trip",
+   "process": "svc:osm",
+   "title": "Every Overpass server is held (1 refusing us)",
+   "since": "2026-11-18T20:15:02+00:00",
+   "tripped": null,
+   "stopped": ""
+  },
+  {
+   "level": "trip",
+   "process": "wf:W5",
+   "title": "W5 Guides on demand: Its gate: 1 red line(s) in the switch-on check: \"Anthropic (Claude) (W1, W3, W4, W5, W6, W8, W9, W10)\" (Held: Issue #19: Anthropic (Claude): didn't answer at api.anthropic.com).",
+   "since": "2026-11-18T20:05:05+00:00",
+   "tripped": null,
+   "stopped": ""
+  },
+  {
+   "level": "trip",
+   "process": "wf:W6",
+   "title": "W6 Heritage and topics: Its gate: 1 red line(s) in the switch-on check: \"Anthropic (Claude) (W1, W3, W4, W5, W6, W8, W9, W10)\" (Held: Issue #19: Anthropic (Claude): didn't answer at api.anthropic.com)",
+   "since": "2026-11-18T20:05:05+00:00",
+   "tripped": null,
+   "stopped": ""
+  },
+  {
+   "level": "trip",
+   "process": "wf:W8",
+   "title": "W8 Find it: Its gate: 1 red line(s) in the switch-on check: \"Anthropic (Claude) (W1, W3, W4, W5, W6, W8, W9, W10)\" (Held: Issue #19: Anthropic (Claude): didn't answer at api.anthropic.com).",
+   "since": "2026-11-18T20:05:05+00:00",
+   "tripped": null,
+   "stopped": ""
+  },
+  {
+   "level": "trip",
+   "process": "wf:W9",
+   "title": "W9 Landmarks and places on demand: Its gate: 1 red line(s) in the switch-on check: \"Anthropic (Claude) (W1, W3, W4, W5, W6, W8, W9, W10)\" (Held: Issue #19: Anthropic (Claude): didn't answer at api.ant",
+   "since": "2026-11-18T20:05:05+00:00",
+   "tripped": null,
+   "stopped": ""
+  },
+  {
+   "level": "trip",
+   "process": "wf:W0",
+   "title": "W0 Indexer: Its gate: the switch-on check has no red line for it (keys, holds, budget and caps set).",
+   "since": "2026-11-18T20:05:04+00:00",
+   "tripped": null,
+   "stopped": ""
+  },
+  {
+   "level": "trip",
+   "process": "wf:W1",
+   "title": "W1 Listings: Its gate: 1 red line(s) in the switch-on check: \"Anthropic (Claude) (W1, W3, W4, W5, W6, W8, W9, W10)\" (Held: Issue #19: Anthropic (Claude): didn't answer at api.anthropic.com).",
+   "since": "2026-11-18T20:05:04+00:00",
+   "tripped": null,
+   "stopped": ""
+  },
+  {
+   "level": "trip",
+   "process": "wf:W10",
+   "title": "W10 Live events: Its gate: 1 red line(s) in the switch-on check: \"Anthropic (Claude) (W1, W3, W4, W5, W6, W8, W9, W10)\" (Held: Issue #19: Anthropic (Claude): didn't answer at api.anthropic.com).",
+   "since": "2026-11-18T20:05:04+00:00",
+   "tripped": null,
+   "stopped": ""
+  },
+  {
+   "level": "trip",
+   "process": "wf:W3",
+   "title": "W3 Sources and the place store: Its gate: 2 red line(s) in the switch-on check: \"Anthropic (Claude) (W1, W3, W4, W5, W6, W8, W9, W10)\" (Held: Issue #19: Anthropic (Claude): didn't answer at api.anthro",
+   "since": "2026-11-18T20:05:04+00:00",
+   "tripped": null,
+   "stopped": ""
+  },
+  {
+   "level": "trip",
+   "process": "wf:W4",
+   "title": "W4 Place guides: Its gate: 1 red line(s) in the switch-on check: \"Anthropic (Claude) (W1, W3, W4, W5, W6, W8, W9, W10)\" (Held: Issue #19: Anthropic (Claude): didn't answer at api.anthropic.com).",
+   "since": "2026-11-18T20:05:04+00:00",
+   "tripped": null,
+   "stopped": ""
+  },
+  {
+   "level": "trip",
+   "process": "ph:2",
+   "title": "Phase 2: Contextual extraction: Its workflows: W1 ✗, W2 ✓, W3 ✗, W6 ✗, W9 ✗, W10 ✗, W11 ✓, W14 (waits for its terms).",
+   "since": "2026-11-18T20:05:03+00:00",
+   "tripped": null,
+   "stopped": ""
+  },
+  {
+   "level": "trip",
+   "process": "ph:3",
+   "title": "Phase 3: Entity resolution, vetting and privacy: Its workflows: W1 ✗, W2 ✓, W6 ✗, W8 ✗, W9 ✗, W10 ✗, W11 ✓.",
+   "since": "2026-11-18T20:05:03+00:00",
+   "tripped": null,
+   "stopped": ""
+  },
+  {
+   "level": "trip",
+   "process": "ph:4",
+   "title": "Phase 4: The master catalog, graph and index: Its workflows: W1 ✗, W4 ✗, W5 ✗, W6 ✗, W8 ✗, W9 ✗, W10 ✗, W11 ✓, W12 ✓.",
+   "since": "2026-11-18T20:05:03+00:00",
+   "tripped": null,
+   "stopped": ""
+  },
+  {
+   "level": "trip",
+   "process": "ph:5",
+   "title": "Phase 5: Publishing, serving and access: Its workflows: W1 ✗, W4 ✗, W5 ✗, W7 ✓, W10 ✗, W11 ✓.",
+   "since": "2026-11-18T20:05:03+00:00",
+   "tripped": null,
+   "stopped": ""
+  },
+  {
+   "level": "trip",
+   "process": "ph:6",
+   "title": "Phase 6: Lifecycle and self-healing: Its workflows: W2 ✓, W6 ✗, W14 (waits for its terms).",
+   "since": "2026-11-18T20:05:03+00:00",
+   "tripped": null,
+   "stopped": ""
+  },
+  {
+   "level": "trip",
+   "process": "wk:w0-indexer",
+   "title": "W0's full-size test batch through the intake (marked test, never stored): The indexer sent 125 addresses in one batch (14.8 KB); the site received 125 and checked 125 in 0 ms, storing none (a test).",
+   "since": "2026-11-18T20:05:03+00:00",
+   "tripped": null,
+   "stopped": ""
+  },
+  {
+   "level": "trip",
+   "process": "t:vectors",
+   "title": "The vector index: Supabase: Not ready. Google AI Studio (Gemini): Ready.",
+   "since": "2026-11-18T20:05:03+00:00",
+   "tripped": null,
+   "stopped": ""
+  },
+  {
+   "level": "trip",
+   "process": "wf:W4",
+   "title": "Writing and judging (W4–W6, W8, W10): No source works, so queued; W5 gives a first look from what we hold.",
+   "since": "2026-11-18T20:05:02+00:00",
+   "tripped": null,
+   "stopped": ""
+  },
+  {
+   "level": "trip",
+   "process": "ph:1",
+   "title": "Phase 1: Wide discovery and source classification: Its workflows: W0 …, W1 ✗, W2 ✓, W3 ✗, W6 ✗, W9 ✗, W10 ✗, W11 ✓, W14 (waits for its terms).",
+   "since": "2026-11-18T20:05:02+00:00",
+   "tripped": null,
+   "stopped": ""
+  },
+  {
+   "level": "warning",
+   "process": "wf:W0",
+   "title": "W0 Indexer: lawrenceks.gov blocked us",
+   "since": "2026-11-18T21:20:02+00:00",
+   "tripped": null,
+   "stopped": ""
+  },
+  {
+   "level": "warning",
+   "process": "wf:W0",
+   "title": "W0 Indexer: parentpowered.com blocked us",
+   "since": "2026-11-18T21:20:02+00:00",
+   "tripped": null,
+   "stopped": ""
+  },
+  {
+   "level": "warning",
+   "process": "wf:W2",
+   "title": "/api/crawl/refresh counted more than it received",
+   "since": "2026-11-18T22:25:56+00:00",
+   "tripped": null,
+   "stopped": ""
+  },
+  {
+   "level": "warning",
+   "process": "svc:wikimedia",
+   "title": "query.wikidata.org: Its server failed (the site, on Bluehost)",
+   "since": "2026-11-18T20:05:05+00:00",
+   "tripped": null,
+   "stopped": ""
+  },
+  {
+   "level": "warning",
+   "process": "svc:commoncrawl",
+   "title": "index.commoncrawl.org: Didn't answer (the crawler, on Railway)",
+   "since": "2026-11-18T20:05:05+00:00",
+   "tripped": null,
+   "stopped": ""
+  },
+  {
+   "level": "warning",
+   "process": "svc:commoncrawl",
+   "title": "data.commoncrawl.org: Its server failed (the crawler, on Railway)",
+   "since": "2026-11-18T20:05:05+00:00",
+   "tripped": null,
+   "stopped": ""
+  },
+  {
+   "level": "warning",
+   "process": "svc:anthropic",
+   "title": "api.anthropic.com: Didn't answer (the site, on Bluehost)",
+   "since": "2026-11-18T20:05:05+00:00",
+   "tripped": null,
+   "stopped": ""
+  },
+  {
+   "level": "warning",
+   "process": "svc:census",
+   "title": "geocoding.geo.census.gov: Didn't answer (the site, on Bluehost)",
+   "since": "2026-11-18T20:05:05+00:00",
+   "tripped": null,
+   "stopped": ""
+  },
+  {
+   "level": "warning",
+   "process": "svc:az511",
+   "title": "az511.com: Its server failed (the site, on Bluehost)",
+   "since": "2026-11-18T20:05:05+00:00",
+   "tripped": null,
+   "stopped": ""
+  },
+  {
+   "level": "warning",
+   "process": "wf:W3",
+   "title": "79 sources outside our region being read (v1-identity.dudesolutions.io, maps.app.goo.gl, goo.gl and more)",
+   "since": "2026-11-18T20:05:05+00:00",
+   "tripped": null,
+   "stopped": ""
+  },
+  {
+   "level": "warning",
+   "process": "svc:azcc",
+   "title": "Arizona Corporation Commission: No answer. (Paused on Automation until Start the system: this read-only test runs anyway.)",
+   "since": "2026-11-18T20:05:03+00:00",
+   "tripped": null,
+   "stopped": ""
+  },
+  {
+   "level": "warning",
+   "process": "svc:osm",
+   "title": "OpenStreetMap: 0 of 4 Overpass servers free.",
+   "since": "2026-11-18T20:05:03+00:00",
+   "tripped": null,
+   "stopped": ""
+  },
+  {
+   "level": "warning",
+   "process": "svc:supabase",
+   "title": "Supabase: Awake, 864 ms. The index holds 105 vector(s) for 10,198 public listings; 9,867 changed since its last upkeep and wait for it (its task is on, so it should be catching up).",
+   "since": "2026-11-18T20:05:03+00:00",
+   "tripped": null,
+   "stopped": ""
+  }
+ ]
+}
