@@ -118,6 +118,17 @@
    "expires": "2026-11-19T17:26:07Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/lib/ControlLedger.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "control-board-routes: every alarm leads to its fix",
+   "since": "2026-11-19T13:26:11Z",
+   "expires": "2026-11-19T17:26:11Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
