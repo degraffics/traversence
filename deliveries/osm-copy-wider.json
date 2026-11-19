@@ -1,17 +1,29 @@
 {
  "zip": "osm-copy-wider.zip",
  "built_on": "2f423c8 Sync: 2026-11-19 21:49 UTC",
- "recorded": "2026-11-19 21:51 UTC",
- "note": "osm-copy-wider: Jason 2026-11-19 'Yes, add them' and 'Yes, widen it': Utah, Colorado, Nevada and health care and guides in our OpenStreetMap copy; built on Sync: 2026-11-19 21:49 UTC Sent through git (releases/inbox).",
+ "recorded": "2026-11-19 21:55 UTC",
+ "note": "osm-copy-wider: Jason 2026-11-19 'Yes, add them', 'Yes, widen it', and the Start card's issue closed everywhere; built on Sync: 2026-11-19 21:49 UTC Sent through git (releases/inbox).",
  "status": "pending",
  "live_in": "",
  "files": {
+  "app/admin/automation-console.php": {
+   "sha256": "74d8cee04cdb2f805465913220183737f029d623bfefd2ee9f2c3483302f48f7",
+   "live": false
+  },
   "app/lib/OpenPlaces.php": {
    "sha256": "09dcbd073bfcd8ec8b27c3eac98fe5e69d7af1480f786015c1e9b7bf51c87118",
    "live": false
   },
   "app/lib/OutsideServices.php": {
    "sha256": "2de8b941b56906ccc3daae563973329079c8e9ce198d759bc5ed14c5a78d79eb",
+   "live": false
+  },
+  "app/lib/ServiceHealth.php": {
+   "sha256": "91a711e6f49cf08a2f0baad78b5f2ed23adedd922cc58d1df0895f5fd9fe6371",
+   "live": false
+  },
+  "app/lib/SystemStart.php": {
+   "sha256": "b1567cac030804649ccbe1196b93f307359930fa6bf7cf4318c70d59953b9402",
    "live": false
   },
   "app/lib/crawler/CrawlService.php": {
@@ -23,7 +35,7 @@
    "live": false
   },
   "app/ui/faq.md": {
-   "sha256": "5a73cc4c99bf772fe6b4a29534b512c42fa4f0cbce78ff9e79bb54fa5b1db9ca",
+   "sha256": "f3b5f112ad624236dc701e11938566e9cd09f74a2ac31c3c523b9f526da32349",
    "live": false
   }
  }

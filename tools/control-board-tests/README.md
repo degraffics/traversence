@@ -177,3 +177,7 @@ and `website/api/` (the mirror's `sync-storage/api/crawl` and `api/video`). Put 
   Utah, Colorado, Nevada) and carries health care and guides; another office kind isn't in our copy; a Utah town's health
   care read from it; the states not loaded yet are due. 7 tests: `mariadb < ../release-b-tests/start-schema.sql && php
   osm-copy.php <root>/app`. The worker's side is in `workers/crawler/tests/test_ours.py`.
+- `start-issue.php`: osm-copy-wider's Start-card fold-in (Jason, 2026-11-19: "If this was resolved by system or marked as
+  resolved by admin it should be handled"): the Start card's issue carries the board's buttons, never Mark resolved;
+  the issue and its alarm close together whichever way, saying how. 7 tests:
+  `mariadb < ../release-b-tests/start-schema.sql && php start-issue.php <root>/app`. (r3c follows it.)
