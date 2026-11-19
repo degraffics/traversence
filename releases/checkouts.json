@@ -349,9 +349,9 @@
    ],
    "kind": "change",
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "release control-board-routes.zip",
+   "why": "control-board-routes: Pulse lists only trips (0171 \u00a77's note)",
    "since": "2026-11-19T13:39:54Z",
-   "expires": "2026-11-19T17:39:54Z",
+   "expires": "2026-11-19T17:40:35Z",
    "release": "control-board-routes.zip",
    "callers": {
     "items": [
