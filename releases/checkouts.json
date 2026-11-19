@@ -37,7 +37,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "control-board-logbook-list: the OSM statement updated",
    "since": "2026-11-19T14:17:21Z",
-   "expires": "2026-11-19T18:25:00Z",
+   "expires": "2026-11-19T18:25:58Z",
    "release": "control-board-logbook-list.zip",
    "callers": {}
   },
@@ -48,7 +48,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "control-board-logbook-list: the logbook's list grouped and searchable",
    "since": "2026-11-19T14:17:24Z",
-   "expires": "2026-11-19T18:25:00Z",
+   "expires": "2026-11-19T18:25:58Z",
    "release": "control-board-logbook-list.zip",
    "callers": {}
   },
@@ -111,8 +111,45 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Pulse: overdue rows rise (Jason, 2026-11-19)",
    "since": "2026-11-19T14:20:04Z",
-   "expires": "2026-11-19T18:20:04Z",
-   "release": "",
+   "expires": "2026-11-19T18:25:25Z",
+   "release": "pulse-order.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Claims.php",
+   "functions": [
+    "askAboutHidden",
+    "hiddenReason",
+    "ownListing"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5kipJLJoRvo3jqLnQQ",
+   "why": "Owner-scoped listing lookup and hidden reason for the business portal (site-audit case #22)",
+   "since": "2026-11-19T14:26:29Z",
+   "expires": "2026-11-19T18:26:29Z",
+   "release": "listing-portal-hidden.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/listing/businessportal.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5kipJLJoRvo3jqLnQQ",
+   "why": "Owners open their hidden listing's editor, with a notice; list links never point at the same page (case #22)",
+   "since": "2026-11-19T14:26:37Z",
+   "expires": "2026-11-19T18:26:37Z",
+   "release": "listing-portal-hidden.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/listing/businessportal.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kipJLJoRvo3jqLnQQ",
+   "why": "Owners open their hidden listing's editor, with a notice; list links never point at the same page (case #22)",
+   "since": "2026-11-19T14:26:37Z",
+   "expires": "2026-11-19T18:26:37Z",
+   "release": "listing-portal-hidden.zip",
    "callers": {}
   }
  ],

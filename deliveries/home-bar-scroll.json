@@ -3,12 +3,12 @@
  "built_on": "d470e95 Sync: 2026-11-19 14:18 UTC",
  "recorded": "2026-11-19 14:21 UTC",
  "note": "Home: the search bar scrolls under the header. Approved by Jason in the pop-up (reviewed by the session manager). Built on Sync: 14:18 UTC Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "d3cced6 Sync: 2026-11-19 14:24 UTC",
  "files": {
   "website/index.php": {
    "sha256": "2389ab572dbd14f86f93ea1cc716b61ad31e3284a17768af0d79c28532666693",
-   "live": false
+   "live": true
   }
  }
 }
