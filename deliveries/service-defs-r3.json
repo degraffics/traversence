@@ -1,0 +1,54 @@
+{
+ "zip": "service-defs-r3.zip",
+ "built_on": "03acc4b Sync: 2026-11-19 23:17 UTC",
+ "recorded": "2026-11-19 23:25 UTC",
+ "note": "0173 R3, defined once: app/lib/service-defs.php with the lists generated from it (tools/page-audit/service-defs.php; zipcheck blocks drift); Overpass its own retired entry; Retire, Bring it back, Proposed, Removed. Built on Sync 2026-11-19 23:17 UTC (03acc4b). Jason approved it in the pop-up (reviewed by the session manager). Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/admin/operations-console.php": {
+   "sha256": "9a0d6ef26e814f7c868efe7eb1046aac9a6c330dea61ae5e6ad3eb7f194ea6f8",
+   "live": false
+  },
+  "app/lib/Automation.php": {
+   "sha256": "84f9af7ee3e8be5cf973719754d872d962f54988c630906c8cfbeb7d9a0a4e5e",
+   "live": false
+  },
+  "app/lib/Operations.php": {
+   "sha256": "806954f095db3f40ef040bc8ad80a41b9a57977c65f252e0cac51772d5a92d88",
+   "live": false
+  },
+  "app/lib/OutsideServices.php": {
+   "sha256": "b94bac95074203cfe69197b8d7d2ad122ad16a699a84a3400db8bc59308be41a",
+   "live": false
+  },
+  "app/lib/ServiceStages.php": {
+   "sha256": "c83e58c54b346319d9462ecb476dbfbb00381e00800bfc182bfd15dc8a319edc",
+   "live": false
+  },
+  "app/lib/StagingGate.php": {
+   "sha256": "1e2d5f0570d02ec900dcba1005437ce3efe24a0942fd8d447fb4d2c352465999",
+   "live": false
+  },
+  "app/lib/service-defs.php": {
+   "sha256": "ba6a2e5e048f7b28e0c228e8cbad8e2bd1b9426045cba979ed8423a9c23defa9",
+   "live": false
+  },
+  "app/lib/staging-tables.php": {
+   "sha256": "c4f8a000914ae9df4f33e88a0b3ce1ec7350b98e839ef354fa6b1f76a87d01be",
+   "live": false
+  },
+  "app/migrations/2026-11-20_service_proposals.sql": {
+   "sha256": "d355618a9a57ec3ec9900f32fce3bf43f146deee934ac69b05e64a7e2075b920",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "53651963c5b2516a23e96824045311426234cf994a99cca244ac8feef75051b6",
+   "live": false
+  },
+  "app/ui/outside-services.php": {
+   "sha256": "fe0d65f992ab5fb8dda8a48542006132bf5c23047f281ea8d31279aa6f2936fd",
+   "live": false
+  }
+ }
+}

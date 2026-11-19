@@ -5,7 +5,8 @@ His answers: Railway's keys are kept on Railway (§3); the Proposed stage is kep
 it at Jason's request, relayed by the session manager. **Building:** release 1, One home, sent as
 `service-register-r1.zip` (live as #209); release 2, the key on its card, sent as `service-keys-r2.zip` (built on
 Sync 22:49 UTC; its writer is named `EnvSettings::setKey()`, since `setSecret()` already writes the secrets the site
-makes); next, release 3, defined once.
+makes), live as #210; release 3, defined once, sent as `service-defs-r3.zip` (built on Sync 23:17 UTC): with it the
+decision is fully built.
 Builds on:
 - 0152: Outside services by company.
 - 0163: the service register (§1), the switches (§9), switching back on (§10).
