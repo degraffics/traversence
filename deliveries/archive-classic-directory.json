@@ -3,12 +3,12 @@
  "built_on": "e3e14af Sync: 2026-11-19 04:11 UTC",
  "recorded": "2026-11-19 04:13 UTC",
  "note": "Archive the classic directory (Jason 2026-11-19, the 3c pop-up; reviewed by the session manager). Built on Sync: 04:11 UTC Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "7b18f55 Sync: 2026-11-19 04:19 UTC",
  "files": {
   "website/directory/index.php": {
    "sha256": "114ddbe7dd3f430081aedf30d00c4af2cffa20a5f0c51ce4dc4e31b1dfdfc7cd",
-   "live": false
+   "live": true
   }
  }
 }
