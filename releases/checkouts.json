@@ -319,6 +319,17 @@
    "expires": "2026-11-19T17:30:42Z",
    "release": "control-board-routes.zip",
    "callers": {}
+  },
+  {
+   "path": "app/ui/pulse-ui.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Pulse's Received: the date, and its sort reverses before it turns off (Jason, 2026-11-19)",
+   "since": "2026-11-19T13:32:30Z",
+   "expires": "2026-11-19T17:32:30Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
