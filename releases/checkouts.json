@@ -257,6 +257,17 @@
    "expires": "2026-11-19T18:01:41Z",
    "release": "control-board-critical-2.zip",
    "callers": {}
+  },
+  {
+   "path": "app/admin/control-console.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "control-board-critical-2: the stages as tabs; cleared alarms to the logbook",
+   "since": "2026-11-19T14:08:12Z",
+   "expires": "2026-11-19T18:08:12Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
