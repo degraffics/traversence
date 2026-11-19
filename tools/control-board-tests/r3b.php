@@ -22,7 +22,7 @@ ControlAlarms::raise($pdo, 'svc:issue:1', 'svc:osm', 'notice', 'held', 'overpass
 SearchIndex::setState($pdo, 'control:alarms_seeded', '1');
 ControlAlarms::tick($pdo);
 $a = ControlAlarms::openOf($pdo, 'svc:osm:held');
-$t('every Overpass server held: ONE trip, its steps as buttons in place', $a && $a['level'] === 'trip' && str_contains((string) $a['title'], '2 refusing us') && count((array) json_decode((string) $a['fix'], true)) === 3 && str_contains((string) $a['fix'], 'osm-statement'), $a);
+$t('every Overpass server held: ONE trip, its steps as buttons in place', $a && $a['level'] === 'trip' && str_contains((string) $a['title'], '2 refusing us') && count((array) json_decode((string) $a['fix'], true)) === 2 && str_contains((string) $a['fix'], 'osm-statement') && !str_contains((string) $a['fix'], 'svcresolve'), $a);   // no Mark resolved (Jason, 2026-11-19): Check and start again
 $t('…3a\'s per-server notice folded into it', ControlAlarms::openOf($pdo, 'svc:issue:1') === null);
 ControlAlarms::tick($pdo);
 $t('…the watch doesn\'t raise it twice or bump its count', (int) ControlAlarms::openOf($pdo, 'svc:osm:held')['n_times'] === 1);
@@ -77,6 +77,6 @@ $t('its Pulse item: Raise the cap as a form, Pause it as a button, its entry and
 $bad = ''; try { ControlAlarms::pulseDo($pdo, $id, 'alarm_ops_runnext:../x', [], 1, 'T'); } catch (Throwable $x) { $bad = $x->getMessage(); }
 $t('…a step it doesn\'t carry is refused', $bad === 'That step isn\'t one the board does.', $bad);
 $sv = (int) ControlAlarms::raise($pdo, 'svc:issue:3', 'svc:osm', 'warning', 'retry', 'kumi times out');
-$t('…an outside service\'s alarm gets Mark resolved in Pulse too', in_array(['do', 'alarm_svcresolve:3', 'Mark resolved'], array_column(ControlAlarms::pulseSteps($pdo, $sv, $s), 'act'), true));
+$t('…an outside service\'s alarm never offers Mark resolved in Pulse (Jason, 2026-11-19: "it should be the result of an issue being fixed")', !in_array(['do', 'alarm_svcresolve:3', 'Mark resolved'], array_column(ControlAlarms::pulseSteps($pdo, $sv, $s), 'act'), true));
 echo "\n$pass passed, $fail failed\n";
 exit($fail ? 1 : 0);
