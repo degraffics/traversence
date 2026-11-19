@@ -1,0 +1,44 @@
+{
+    "id": 189,
+    "title": "Control Board: the logbook's list grouped and searchable; OSM statement: our Geofabrik copy and today's breaker",
+    "why": "Jason, 2026-11-19, on the logbook's \"whose log\" dropdown: \"this drop down is very messy.\" It listed every part the board knows (over a hundred) in one flat list. Now it's grouped by system, the parts with entries this week first with their count, the quiet ones greyed, A to Z in order (W2 before W10), with a box to find a part; the Log an entry picker has the same groups. With it (Jason approved, in the session manager's chat, 2026-11-19): the statement to the OpenStreetMap community says our bulk reading moved to Geofabrik's extracts and states today's breaker and back-off, each line checked against the live code.",
+    "proposals": "",
+    "zip": "control-board-logbook-list.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/admin/control-console.php": {
+            "sha": "f061f5bf1a59f357c35b9a821dec55903b77b07e70462a2557e29bf90a4c8b20",
+            "size": 94578,
+            "live_was": "04f6c5e5550b399b098db2a94d75dad6055ac0be222cbfab26d2404f243a272c"
+        },
+        "app/ui/faq.md": {
+            "sha": "38766fb4fdf365e938e2ed584648115eb967ae148a41269e0697511466cbf439",
+            "size": 372685,
+            "live_was": "714704a2eac034a54d58db09046647b078ccd686c8208de77c0066f1ce925668"
+        },
+        "website/js/admin-control.js": {
+            "sha": "85abdf46ab65db573f73a6b3f6c43d12f58f857fbc62d73f0ce324d27a888a65",
+            "size": 23413,
+            "live_was": "d6cc1e3b83a4dbb084cee72ff6ed68c57a459d7a47de04b0bffefb0deaab3345"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-19T14:27:28+00:00",
+            "by": 0,
+            "msg": "Uploaded control-board-logbook-list.zip: 3 files."
+        }
+    ]
+}
