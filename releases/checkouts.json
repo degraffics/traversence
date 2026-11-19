@@ -335,6 +335,17 @@
    "expires": "2026-11-20T02:56:52Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/lib/OutsideServices.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "0173 R2: the Park Service's API hosts",
+   "since": "2026-11-19T22:57:11Z",
+   "expires": "2026-11-20T02:57:11Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
