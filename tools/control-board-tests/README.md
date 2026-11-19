@@ -79,3 +79,7 @@ and `website/api/` (the mirror's `sync-storage/api/crawl` and `api/video`). Put 
   endpoint, health.php's `unused_schema` (and none without its token, on PHP's own server), the watch's history time, Telemetry
   and the staging class. 35 tests:
   `mariadb < ../release-b-tests/start-schema.sql && mariadb lv_main < <2a's ledger migration> && php r4b.php <root>/app`.
+
+- `r4c.php`: release 4c: an open pre-flight alarm's words follow its line as it stands now (W0's trip named by its test
+  batch, a red part by itself, a passing line "waits for an admin's Resolve"), the refresh never changing a level, and
+  a trend with nothing recorded saying "No history yet". 9 tests: `mariadb < ../release-b-tests/start-schema.sql && php r4c.php <root>/app`.
