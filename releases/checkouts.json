@@ -1,6 +1,293 @@
 {
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
- "claims": [],
+ "claims": [
+  {
+   "path": "app/lib/Operations.php",
+   "functions": [
+    "status"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "control-board-backoff-gate",
+   "since": "2026-11-19T11:21:46Z",
+   "expires": "2026-11-19T15:21:46Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/control-console.php",
+   "functions": [
+    "tv_cb_controls"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "control-board-backoff-gate",
+   "since": "2026-11-19T11:21:48Z",
+   "expires": "2026-11-19T15:21:48Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "website/admin/api.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "control-board-backoff-gate",
+   "since": "2026-11-19T11:21:50Z",
+   "expires": "2026-11-19T15:23:17Z",
+   "release": "control-board-backoff-gate.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/api/health.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "control-board-backoff-gate",
+   "since": "2026-11-19T11:21:53Z",
+   "expires": "2026-11-19T15:21:53Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/ControlAlarms.php",
+   "functions": [
+    "tick"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "control-board-backoff-gate",
+   "since": "2026-11-19T11:21:55Z",
+   "expires": "2026-11-19T15:21:55Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/ServiceHealth.php",
+   "functions": [
+    "spentHold"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "control-board-backoff-gate",
+   "since": "2026-11-19T11:21:57Z",
+   "expires": "2026-11-19T15:23:17Z",
+   "release": "control-board-backoff-gate.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Operations.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "release control-board-backoff-gate.zip",
+   "since": "2026-11-19T11:23:17Z",
+   "expires": "2026-11-19T15:23:17Z",
+   "release": "control-board-backoff-gate.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/ControlAlarms.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "release control-board-backoff-gate.zip",
+   "since": "2026-11-19T11:23:17Z",
+   "expires": "2026-11-19T15:23:17Z",
+   "release": "control-board-backoff-gate.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/control-console.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "release control-board-backoff-gate.zip",
+   "since": "2026-11-19T11:23:17Z",
+   "expires": "2026-11-19T15:23:17Z",
+   "release": "control-board-backoff-gate.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/api/health.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "release control-board-backoff-gate.zip",
+   "since": "2026-11-19T11:23:17Z",
+   "expires": "2026-11-19T15:23:17Z",
+   "release": "control-board-backoff-gate.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/kit-css.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Design: lighter controls (Jason 2026-11-19)",
+   "since": "2026-11-19T11:44:06Z",
+   "expires": "2026-11-19T15:44:06Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "app/ui/confidence-ui.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Design: lighter controls (Jason 2026-11-19)",
+   "since": "2026-11-19T11:44:08Z",
+   "expires": "2026-11-19T15:44:08Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "app/ui/context-switcher.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Design: lighter controls (Jason 2026-11-19)",
+   "since": "2026-11-19T11:44:10Z",
+   "expires": "2026-11-19T15:44:10Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "app/ui/engage-ui.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Design: lighter controls (Jason 2026-11-19)",
+   "since": "2026-11-19T11:44:12Z",
+   "expires": "2026-11-19T15:44:12Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "app/ui/explore-hero.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Design: lighter controls (Jason 2026-11-19)",
+   "since": "2026-11-19T11:44:14Z",
+   "expires": "2026-11-19T15:44:14Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "app/ui/header.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Design: lighter controls (Jason 2026-11-19)",
+   "since": "2026-11-19T11:44:17Z",
+   "expires": "2026-11-19T15:44:17Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "app/ui/theme-tokens.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Design: lighter controls (Jason 2026-11-19)",
+   "since": "2026-11-19T11:44:19Z",
+   "expires": "2026-11-19T15:44:19Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "website/directory/index.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Design: lighter controls (Jason 2026-11-19)",
+   "since": "2026-11-19T11:44:21Z",
+   "expires": "2026-11-19T15:44:21Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "website/discovery/index.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Design: lighter controls (Jason 2026-11-19)",
+   "since": "2026-11-19T11:44:23Z",
+   "expires": "2026-11-19T15:44:23Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "website/gallery/index.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Design: lighter controls (Jason 2026-11-19)",
+   "since": "2026-11-19T11:44:25Z",
+   "expires": "2026-11-19T15:44:25Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "website/hub/index.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Design: lighter controls (Jason 2026-11-19)",
+   "since": "2026-11-19T11:44:27Z",
+   "expires": "2026-11-19T15:44:27Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "website/index.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Design: lighter controls (Jason 2026-11-19)",
+   "since": "2026-11-19T11:44:29Z",
+   "expires": "2026-11-19T15:44:29Z",
+   "release": "",
+   "callers": {},
+   "zones": [
+    "home.after-doors"
+   ]
+  },
+  {
+   "path": "website/journeys/view.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Design: lighter controls (Jason 2026-11-19)",
+   "since": "2026-11-19T11:44:31Z",
+   "expires": "2026-11-19T15:44:31Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "website/js/tv-ask.js",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Design: lighter controls (Jason 2026-11-19)",
+   "since": "2026-11-19T11:44:33Z",
+   "expires": "2026-11-19T15:44:33Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "website/listing/view.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Design: lighter controls (Jason 2026-11-19)",
+   "since": "2026-11-19T11:44:35Z",
+   "expires": "2026-11-19T15:44:35Z",
+   "release": "",
+   "callers": {}
+  }
+ ],
  "lapsed": [
   {
    "path": "website/directory/index.php",

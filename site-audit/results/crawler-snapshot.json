@@ -633,9 +633,9 @@
   }
  },
  "2026-11-19": {
-  "at": "2026-11-19T03:57:25-07:00",
+  "at": "2026-11-19T04:23:12-07:00",
   "finds": {
-   "staged": 13783,
+   "staged": 13785,
    "quarantined": 41,
    "published": 6070,
    "merged": 330,
@@ -653,13 +653,13 @@
     "dupe": 1
    },
    "auto_import_on": true,
-   "of": 13783
+   "of": 13785
   },
   "place_store": {
-   "places": 3703,
-   "hosts": 273,
-   "sources_read": 3204,
-   "sources_read_empty": 287
+   "places": 3705,
+   "hosts": 274,
+   "sources_read": 3212,
+   "sources_read_empty": 288
   },
   "websites_taken_off": {
    "2026-11": 10
@@ -688,14 +688,14 @@
   "identity_jobs": {
    "done": 61,
    "leased (set aside)": 2,
-   "nothing": 4775,
+   "nothing": 4783,
    "nothing (set aside)": 13,
-   "queued": 610
+   "queued": 602
   },
   "register": {
    "by_status": {
-    "suggested": 2499,
-    "read": 3204,
+    "suggested": 2539,
+    "read": 3212,
     "cite_only": 213,
     "ignore": 2
    },
@@ -731,14 +731,14 @@
   "landmarks": {
    "approved": 1,
    "hidden": 29,
-   "shown": 5351,
+   "shown": 5371,
    "story_only": 11,
    "waiting": 33
   },
   "guides": {
    "draft / done": 80,
-   "draft / gathering": 15,
-   "draft / queued": 5,
+   "draft / gathering": 13,
+   "draft / queued": 7,
    "live / done": 6
   }
  }
