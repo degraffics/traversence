@@ -37,7 +37,7 @@ $pdo->prepare('UPDATE service_issues SET hold_until = ? WHERE id = ?')->execute(
 Preflight::$now = true; $hh = $held->invoke(null, $pdo, 'query.wikidata.org'); Preflight::$now = false;
 $t('…and even a press that reached the check would not go past a 429\'s wait', $hh !== null && str_contains($hh, 'Held by issue #' . $id), $hh);
 $api = file_get_contents(dirname($app) . '/website/admin/api.php'); $cc = file_get_contents($app . '/admin/control-console.php');
-$t('…the api refuses Check it now on a 429 with the same words; the board greys a #wait button with its reason', str_contains($api, "if (\$si && \$si['kind'] === 'rate') Response::error(") && str_contains($cc, "str_starts_with(\$f[3], '#wait:')") && str_contains($cc, "false, substr(\$f[3], 6)"));
+$t('…the api refuses Check it now on a 429 with the same words; the board greys a #wait button and shows its reason as text beside it (a phone has no hover)', str_contains($api, "if (\$si && \$si['kind'] === 'rate') Response::error(") && str_contains($cc, "str_starts_with(\$f[3], '#wait:')") && str_contains($cc, "false, substr(\$f[3], 6)") && str_contains($cc, "'<span class=\"cb-wt\">' . \$e(substr(\$f[3], 6))"));
 
 // 2. a timeout at the same count still trips (only 429 changes)
 $id2 = $add('timeout', 9, 8);
