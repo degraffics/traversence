@@ -2,31 +2,6 @@
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
  "claims": [
   {
-   "path": "app/admin/control-console.php",
-   "functions": [
-    "tv_cb_more",
-    "tv_cb_statement_osm"
-   ],
-   "kind": "add",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "Control Board 3b: More toggle, the OSM statement",
-   "since": "2026-11-18T19:58:45Z",
-   "expires": "2026-11-18T23:58:45Z",
-   "release": "control-board-3b",
-   "callers": {}
-  },
-  {
-   "path": "website/js/admin-control.js",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "Control Board 3b: More toggle, the OSM statement",
-   "since": "2026-11-18T19:58:45Z",
-   "expires": "2026-11-18T23:59:31Z",
-   "release": "control-board-3b.zip",
-   "callers": {}
-  },
-  {
    "path": "website/user/api/bell.php",
    "functions": [],
    "kind": "change",
@@ -287,7 +262,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -298,9 +273,13 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
-   "callers": {}
+   "callers": {
+    "tv_biz_glance": [
+     "website/business/router.php"
+    ]
+   }
   },
   {
    "path": "app/lib/Blocks.php",
@@ -309,7 +288,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -320,9 +299,15 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
-   "callers": {}
+   "callers": {
+    "css": [
+     "app/admin/legal-editor.php",
+     "website/privacy.php",
+     "website/terms.php"
+    ]
+   }
   },
   {
    "path": "app/lib/LiveEvents.php",
@@ -331,9 +316,15 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
-   "callers": {}
+   "callers": {
+    "html": [
+     "website/admin/content-template.php",
+     "website/hub/index.php",
+     "website/listing/view.php"
+    ]
+   }
   },
   {
    "path": "app/lib/Staging.php",
@@ -342,7 +333,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -353,7 +344,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -364,9 +355,29 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
-   "callers": {}
+   "callers": {
+    "tv_crawler_start": [
+     "website/admin/auto-imports.php",
+     "website/admin/cluster-tools.php",
+     "website/admin/crawler-review.php",
+     "website/admin/crawler.php",
+     "website/admin/geocode.php",
+     "website/admin/listing-add.php",
+     "website/admin/listing-edit.php",
+     "website/admin/listing-intake.php",
+     "website/admin/listing-new.php",
+     "website/admin/listings.php",
+     "website/admin/nexus.php",
+     "website/admin/rebuild.php",
+     "website/admin/recreation.php",
+     "website/admin/search-index.php",
+     "website/admin/sources.php",
+     "website/admin/stories.php",
+     "website/admin/suggestion.php"
+    ]
+   }
   },
   {
    "path": "app/ui/admin-dashboard.php",
@@ -375,7 +386,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -386,9 +397,33 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
-   "callers": {}
+   "callers": {
+    "tv_admin_start": [
+     "app/admin/legal-editor.php",
+     "website/admin/client-order.php",
+     "website/admin/content-template.php",
+     "website/admin/data-crawler.php",
+     "website/admin/ecommerce.php",
+     "website/admin/guide-edit.php",
+     "website/admin/logs.php",
+     "website/admin/order.php",
+     "website/admin/people.php",
+     "website/admin/products.php",
+     "website/admin/router.php",
+     "website/admin/safety.php",
+     "website/admin/sales.php",
+     "website/admin/search.php",
+     "website/admin/settings.php",
+     "website/admin/sitemap.php",
+     "website/admin/staff-levels.php",
+     "website/admin/staff-profile.php",
+     "website/admin/staff.php",
+     "website/admin/vendors.php",
+     "website/admin/w.php"
+    ]
+   }
   },
   {
    "path": "app/ui/app-shell.php",
@@ -397,7 +432,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -408,9 +443,14 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
-   "callers": {}
+   "callers": {
+    "tv_card_scanner": [
+     "app/admin/sections.php",
+     "website/admin/sales.php"
+    ]
+   }
   },
   {
    "path": "app/ui/collections.php",
@@ -419,9 +459,14 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
-   "callers": {}
+   "callers": {
+    "tv_collections_css": [
+     "website/discovery/index.php",
+     "website/hub/index.php"
+    ]
+   }
   },
   {
    "path": "app/ui/domains-view.php",
@@ -430,9 +475,15 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
-   "callers": {}
+   "callers": {
+    "tv_domains_view": [
+     "app/business/domains.php",
+     "website/shop/domains.php",
+     "website/user/domains/index.php"
+    ]
+   }
   },
   {
    "path": "app/ui/engage-ui.php",
@@ -441,7 +492,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -452,7 +503,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -463,9 +514,15 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
-   "callers": {}
+   "callers": {
+    "tv_featured_in": [
+     "website/listing/view.php",
+     "website/place/landmark.php",
+     "website/place/recreation.php"
+    ]
+   }
   },
   {
    "path": "app/ui/gallery-ui.php",
@@ -474,9 +531,18 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
-   "callers": {}
+   "callers": {
+    "tv_gallery_css": [
+     "website/gallery/album.php",
+     "website/gallery/drop.php",
+     "website/gallery/index.php",
+     "website/listing/view.php",
+     "website/user/dashboard.php",
+     "website/user/profile.php"
+    ]
+   }
   },
   {
    "path": "app/ui/go-codes.php",
@@ -485,9 +551,23 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
-   "callers": {}
+   "callers": {
+    "tv_go_head": [
+     "app/business/domains.php",
+     "app/ui/domains-view.php",
+     "website/order.php",
+     "website/plans.php",
+     "website/promo.php",
+     "website/qr/cart.php",
+     "website/qr/index.php",
+     "website/qr/manage.php",
+     "website/shop/domains.php",
+     "website/shop/index.php",
+     "website/user/domains/index.php"
+    ]
+   }
   },
   {
    "path": "app/ui/journey-ui.php",
@@ -496,9 +576,20 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
-   "callers": {}
+   "callers": {
+    "tv_journey_css": [
+     "website/admin/journeys.php",
+     "website/discovery/index.php",
+     "website/experiences/view.php",
+     "website/journeys/view.php",
+     "website/listing/view.php",
+     "website/user/journeys/compose.php",
+     "website/user/journeys/index.php",
+     "website/user/profile.php"
+    ]
+   }
   },
   {
    "path": "app/ui/lead-panel.php",
@@ -507,9 +598,14 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
-   "callers": {}
+   "callers": {
+    "tv_lead_panel": [
+     "website/admin/router.php",
+     "website/admin/sales.php"
+    ]
+   }
   },
   {
    "path": "app/ui/location-modal.php",
@@ -518,7 +614,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -529,9 +625,15 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
-   "callers": {}
+   "callers": {
+    "tv_not_found": [
+     "website/_errors/404.php",
+     "website/pages/view.php",
+     "website/q.php"
+    ]
+   }
   },
   {
    "path": "app/ui/profile-header.php",
@@ -540,7 +642,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -551,9 +653,14 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
-   "callers": {}
+   "callers": {
+    "tv_pulse_css": [
+     "website/business/router.php",
+     "website/user/dashboard.php"
+    ]
+   }
   },
   {
    "path": "app/ui/pulse-ui.php",
@@ -562,9 +669,14 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
-   "callers": {}
+   "callers": {
+    "tv_pulse_settings": [
+     "app/admin/sections.php",
+     "website/admin/w.php"
+    ]
+   }
   },
   {
    "path": "app/ui/social-buttons.php",
@@ -573,9 +685,15 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
-   "callers": {}
+   "callers": {
+    "tv_social_buttons": [
+     "app/ui/header.php",
+     "website/login.php",
+     "website/register.php"
+    ]
+   }
   },
   {
    "path": "app/ui/stock-ui.php",
@@ -584,7 +702,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -595,7 +713,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -606,9 +724,14 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
-   "callers": {}
+   "callers": {
+    "tv_sj_css": [
+     "website/hub/index.php",
+     "website/journeys/suggested.php"
+    ]
+   }
   },
   {
    "path": "app/ui/tag-chips.php",
@@ -617,9 +740,15 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
-   "callers": {}
+   "callers": {
+    "tv_tag_chips": [
+     "website/experiences/view.php",
+     "website/journeys/view.php",
+     "website/user/journeys/compose.php"
+    ]
+   }
   },
   {
    "path": "app/ui/vault.php",
@@ -628,7 +757,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -639,7 +768,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -650,7 +779,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -661,7 +790,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -672,7 +801,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -683,7 +812,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -694,7 +823,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -705,7 +834,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -716,7 +845,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -727,7 +856,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -738,7 +867,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -749,7 +878,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -760,7 +889,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -771,7 +900,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -782,7 +911,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -793,7 +922,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -804,7 +933,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -815,7 +944,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -826,7 +955,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -837,7 +966,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -848,7 +977,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -859,7 +988,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -870,7 +999,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -881,7 +1010,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -892,7 +1021,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -903,7 +1032,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -914,7 +1043,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -925,7 +1054,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -936,7 +1065,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -947,7 +1076,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -958,7 +1087,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -969,7 +1098,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -980,7 +1109,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -991,7 +1120,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -1002,7 +1131,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -1013,7 +1142,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -1024,7 +1153,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -1035,7 +1164,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -1046,7 +1175,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -1057,7 +1186,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -1068,7 +1197,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -1079,7 +1208,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -1090,7 +1219,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -1101,7 +1230,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -1112,7 +1241,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -1123,7 +1252,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -1134,7 +1263,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -1145,7 +1274,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -1156,7 +1285,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -1167,7 +1296,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -1178,7 +1307,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -1189,7 +1318,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -1200,7 +1329,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -1211,7 +1340,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {},
    "zones": [
@@ -1225,7 +1354,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -1236,7 +1365,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -1247,7 +1376,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -1258,7 +1387,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -1269,7 +1398,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -1280,7 +1409,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -1291,7 +1420,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -1302,7 +1431,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -1313,7 +1442,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -1324,7 +1453,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -1335,7 +1464,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -1346,7 +1475,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -1357,7 +1486,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -1368,7 +1497,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -1379,7 +1508,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -1390,7 +1519,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -1401,7 +1530,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -1412,7 +1541,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -1423,7 +1552,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -1434,7 +1563,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -1445,7 +1574,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -1456,7 +1585,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -1467,7 +1596,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -1478,7 +1607,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -1489,7 +1618,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -1500,7 +1629,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -1511,7 +1640,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -1522,7 +1651,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -1533,7 +1662,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -1544,7 +1673,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -1555,7 +1684,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -1566,7 +1695,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -1577,7 +1706,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -1588,7 +1717,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {},
    "zones": [
@@ -1602,7 +1731,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -1613,7 +1742,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -1624,7 +1753,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -1635,7 +1764,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -1646,7 +1775,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -1657,7 +1786,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -1668,7 +1797,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -1679,7 +1808,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -1690,7 +1819,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -1701,7 +1830,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -1712,7 +1841,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -1723,7 +1852,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -1734,7 +1863,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -1745,7 +1874,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -1756,7 +1885,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -1767,7 +1896,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -1778,7 +1907,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -1789,7 +1918,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -1800,7 +1929,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -1811,7 +1940,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -1822,7 +1951,7 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "x",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:54Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   },
@@ -1836,12 +1965,39 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Headings sweep: serif stacks to var(--tv-font-head) (Jason, 2026-11-18: headings everywhere now)",
    "since": "2026-11-18T23:11:49Z",
-   "expires": "2026-11-19T03:11:49Z",
+   "expires": "2026-11-19T04:05:05Z",
    "release": "design-headings.zip",
    "callers": {}
   }
  ],
  "lapsed": [
+  {
+   "path": "app/admin/control-console.php",
+   "functions": [
+    "tv_cb_more",
+    "tv_cb_statement_osm"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 3b: More toggle, the OSM statement",
+   "since": "2026-11-18T19:58:45Z",
+   "expires": "2026-11-18T23:58:45Z",
+   "release": "control-board-3b",
+   "callers": {},
+   "lapsed": "2026-11-19T00:05:05Z"
+  },
+  {
+   "path": "website/js/admin-control.js",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 3b: More toggle, the OSM statement",
+   "since": "2026-11-18T19:58:45Z",
+   "expires": "2026-11-18T23:59:31Z",
+   "release": "control-board-3b.zip",
+   "callers": {},
+   "lapsed": "2026-11-19T00:05:05Z"
+  },
   {
    "path": "app/admin/sections.php",
    "functions": [
