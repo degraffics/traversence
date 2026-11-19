@@ -3,16 +3,16 @@
  "built_on": "37f9225 Sync: 2026-11-19 16:31 UTC",
  "recorded": "2026-11-19 16:40 UTC",
  "note": "Pulse: filters start all ticked; Group by. Built on Sync: 16:31 UTC Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "9785734 Sync: 2026-11-19 16:41 UTC",
  "files": {
   "app/ui/faq.md": {
    "sha256": "a62381fe05f44c72ea772d988d8b7947c4612a448f4b2bc23890620b5dc8555d",
-   "live": false
+   "live": true
   },
   "app/ui/pulse-ui.php": {
    "sha256": "d4443585ae2aabf057ee293f1f5d86239c59e0b93810189b3b88af7f4f5bd3da",
-   "live": false
+   "live": true
   }
  }
 }
