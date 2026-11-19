@@ -85,3 +85,12 @@ sweep replaces each serif stack after `font:`/`font-family:` with `var(--tv-font
 141 files, font only (undoing it returns every live file exactly). Left: `Mailer.php` (emails), `MarketCheckout.php`
 (the order packet), storefront themes' `var(--tvb-hf,…)`. Rendered: FAQ 15 of 15 and home 4 of 4 serif headings in
 Merriweather. `sections.php` claimed per function (the Control Board holds `tv_admin_mod_dbupdates`).
+
+### Queue for the next admin (kit-css / command header) release
+
+- At 390px the module name is cut off ("10. System Co…") beside a section dropdown that says nearly the same thing
+  (session manager, 2026-11-19). One header per view (css-theme-brand §1): on a phone, show only the sections ▾ (it
+  names the place), or the module's short name; never a truncated duplicate.
+- Contrast below 4.5:1 found by 3a's probe: the Shortcuts list's group labels (`admin-hub.php`, #8A7355 on #FFFBF2,
+  4.36:1), the dashboard's small labels (`.ad-k`, `.ad-*` in `admin-dashboard.php`), Pulse's column headers
+  (`.ps-sort`, `.ps-flt`; 3d).
