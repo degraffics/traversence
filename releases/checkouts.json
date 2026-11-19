@@ -36,6 +36,28 @@
    "expires": "2026-11-19T06:19:35Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/lib/ControlLog.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 5a: the logbook and the night's folded fixes (0171 \u00a710)",
+   "since": "2026-11-19T02:22:22Z",
+   "expires": "2026-11-19T06:22:22Z",
+   "release": "control-board-5a.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/migrations/2026-11-19_control_log.sql",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "Control Board 5a: the logbook and the night's folded fixes (0171 \u00a710)",
+   "since": "2026-11-19T02:22:22Z",
+   "expires": "2026-11-19T06:22:22Z",
+   "release": "control-board-5a.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
