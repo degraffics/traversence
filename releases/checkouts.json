@@ -105,9 +105,13 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "control-board-5b: the reports",
    "since": "2026-11-19T12:00:39Z",
-   "expires": "2026-11-19T16:00:43Z",
-   "release": "",
-   "callers": {}
+   "expires": "2026-11-19T16:02:45Z",
+   "release": "control-board-5b.zip",
+   "callers": {
+    "build": [
+     "website/admin/api/pulse.php"
+    ]
+   }
   },
   {
    "path": "website/js/admin-control.js",
@@ -127,8 +131,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "control-board-5b",
    "since": "2026-11-19T12:00:48Z",
-   "expires": "2026-11-19T16:00:48Z",
-   "release": "",
+   "expires": "2026-11-19T16:02:45Z",
+   "release": "control-board-5b.zip",
    "callers": {}
   },
   {
@@ -184,6 +188,50 @@
    "since": "2026-11-19T12:02:14Z",
    "expires": "2026-11-19T16:02:14Z",
    "release": "inter-hinted.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/control-console.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "release control-board-5b.zip",
+   "since": "2026-11-19T12:02:45Z",
+   "expires": "2026-11-19T16:02:45Z",
+   "release": "control-board-5b.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/admin/api.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "release control-board-5b.zip",
+   "since": "2026-11-19T12:02:45Z",
+   "expires": "2026-11-19T16:02:45Z",
+   "release": "control-board-5b.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/js/admin-control.js",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "release control-board-5b.zip",
+   "since": "2026-11-19T12:02:45Z",
+   "expires": "2026-11-19T16:02:45Z",
+   "release": "control-board-5b.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/api/health.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "release control-board-5b.zip",
+   "since": "2026-11-19T12:02:45Z",
+   "expires": "2026-11-19T16:02:45Z",
+   "release": "control-board-5b.zip",
    "callers": {}
   }
  ],
