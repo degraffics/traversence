@@ -6,37 +6,43 @@
     "zip": "control-board-logbook-list.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "staged",
-    "step": 0,
+    "state": "live",
+    "step": 3,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
     "plan_at": "2026-11-19 14:27:30",
     "staged_at": "2026-11-19 14:27:31",
-    "vetted_at": null,
-    "live_at": null,
+    "vetted_at": "2026-11-19 14:27:33",
+    "live_at": "2026-11-19 14:27:33",
     "files": {
         "app/admin/control-console.php": {
             "sha": "f061f5bf1a59f357c35b9a821dec55903b77b07e70462a2557e29bf90a4c8b20",
             "size": 94578,
-            "live_was": "04f6c5e5550b399b098db2a94d75dad6055ac0be222cbfab26d2404f243a272c"
+            "live_was": "04f6c5e5550b399b098db2a94d75dad6055ac0be222cbfab26d2404f243a272c",
+            "existed": true,
+            "old_sha": "04f6c5e5550b399b098db2a94d75dad6055ac0be222cbfab26d2404f243a272c"
         },
         "app/ui/faq.md": {
             "sha": "38766fb4fdf365e938e2ed584648115eb967ae148a41269e0697511466cbf439",
             "size": 372685,
-            "live_was": "714704a2eac034a54d58db09046647b078ccd686c8208de77c0066f1ce925668"
+            "live_was": "714704a2eac034a54d58db09046647b078ccd686c8208de77c0066f1ce925668",
+            "existed": true,
+            "old_sha": "714704a2eac034a54d58db09046647b078ccd686c8208de77c0066f1ce925668"
         },
         "website/js/admin-control.js": {
             "sha": "85abdf46ab65db573f73a6b3f6c43d12f58f857fbc62d73f0ce324d27a888a65",
             "size": 23413,
-            "live_was": "d6cc1e3b83a4dbb084cee72ff6ed68c57a459d7a47de04b0bffefb0deaab3345"
+            "live_was": "d6cc1e3b83a4dbb084cee72ff6ed68c57a459d7a47de04b0bffefb0deaab3345",
+            "existed": true,
+            "old_sha": "d6cc1e3b83a4dbb084cee72ff6ed68c57a459d7a47de04b0bffefb0deaab3345"
         }
     },
     "migrations": [],
     "checks": {
         "ok": true,
-        "where": "staging",
-        "at": "2026-11-19T14:27:32+00:00",
+        "where": "live",
+        "at": "2026-11-19T14:27:33+00:00",
         "items": [
             [
                 "PHP files parse",
@@ -46,7 +52,7 @@
             [
                 "Pages answer",
                 true,
-                "2 pages answered on staging.trvgo.us"
+                "2 pages answered on traversence.com"
             ],
             [
                 "No new fatal errors in the logs",
@@ -76,6 +82,16 @@
             "at": "2026-11-19T14:27:32+00:00",
             "by": 0,
             "msg": "Put on staging (3 files); its checks passed."
+        },
+        {
+            "at": "2026-11-19T14:27:33+00:00",
+            "by": 0,
+            "msg": "Approved in chat before it was sent through git, and its checks on staging passed: publishing by itself."
+        },
+        {
+            "at": "2026-11-19T14:27:33+00:00",
+            "by": 0,
+            "msg": "Published: 3 files; everyone at once (no switch)."
         }
     ]
 }
