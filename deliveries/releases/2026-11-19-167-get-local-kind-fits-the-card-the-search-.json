@@ -1,0 +1,34 @@
+{
+    "id": 167,
+    "title": "Get Local: Kind fits the card; the search hint on the palette",
+    "why": "Jason's phone screenshot of Get Local, 2026-11-19 (St. Johns). (1) The Refine row's Kind box ran past the card at 390px: on phones each Refine label is a flex item that could not shrink below its select's widest option, and a long kind name made Kind wider than the card (there before 3c, which changed colours only). Now the label may shrink (min-width:0) and the select fills it, a long name cut inside the box. (2) The Find a business box's placeholder was the browser's blue-grey: now the palette's metadata colour, and shorter, \"Business name or kind\", so it fits at 390 (the box's spoken label keeps the full wording).",
+    "proposals": "",
+    "zip": "getlocal-fix.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "website/directory/index.php": {
+            "sha": "c1c4ecff73711e6fc2adee606d0fac8da2cf61a4e8873607c3e78e4b2a88f57d",
+            "size": 63665,
+            "live_was": "114ddbe7dd3f430081aedf30d00c4af2cffa20a5f0c51ce4dc4e31b1dfdfc7cd"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-19T10:52:50+00:00",
+            "by": 0,
+            "msg": "Uploaded getlocal-fix.zip: 1 files."
+        }
+    ]
+}
