@@ -1,0 +1,30 @@
+{
+ "zip": "control-board-4c.zip",
+ "built_on": "65deb7b Sync: 2026-11-19 00:17 UTC",
+ "recorded": "2026-11-19 00:18 UTC",
+ "note": "Control Board 4c: pre-flight alarms' words follow their line (W0's stale trip), No history yet. Built on Sync: 2026-11-19 00:17 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/admin/control-console.php": {
+   "sha256": "e724522842dc0a44da1b6d85cd5086b9955727b01fd9bbe5dd6d8a2ae0796fb3",
+   "live": false
+  },
+  "app/lib/ControlAlarms.php": {
+   "sha256": "5bbe4640d4fc9f4ce73de2f4693a827fa2d452257cf0b49348f74a425213b972",
+   "live": false
+  },
+  "app/lib/ControlHistorian.php": {
+   "sha256": "770d0d8f65248af4dad0f453ce56d56238da435ce349ec665f7d2cb546a708cd",
+   "live": false
+  },
+  "app/lib/Preflight.php": {
+   "sha256": "e6253cdd24180e92fe6cedf3f99f3d8d2f0347da60ac4f68bb875ee94ce571e1",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "e7cfa99c7af067831ea21b9f0225afcb7ad03157976e1d058f3526c9fa8bc850",
+   "live": false
+  }
+ }
+}

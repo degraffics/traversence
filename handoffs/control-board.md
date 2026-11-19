@@ -141,7 +141,7 @@ Alongside: `releases-self-withdraw` (#122), `releases-live-2` (#123), `releases-
     Rebuilt on Sync 23:10 UTC (fd3a3b4).
   - Tests: `r4b.php` (35). Rendered at 390px and 1280px, no sideways scroll.
   - Live as #154, verified in Sync 00:09 UTC.
-- `control-board-4c` (built on Sync 00:09 UTC, 68ad9f6): two fixes from Jason's phone screenshot (the session manager,
+- `control-board-4c` (built on Sync 00:17 UTC, 65deb7b): two fixes from Jason's phone screenshot (the session manager,
   2026-11-19). (1) W0 showed "Tripped" with the passing gate text as its reason: its pre-flight trip was raised before
   checks were read part by part, and a trip never clears by itself, so it kept those words while its real red part (the
   test batch) became its own alarm. `Preflight::alarm` takes `$event` (false: the watch's refresh, words only through
