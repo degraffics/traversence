@@ -167,3 +167,9 @@ and `website/api/` (the mirror's `sync-storage/api/crawl` and `api/video`). Put 
   Service register shows its open issue (what came back, how often, since when, what it means, what to do) with the
   board's buttons: Check and start again on a trip, else Check it now (never for a 429) and Mark resolved. 9 tests:
   `mariadb < ../release-b-tests/start-schema.sql && php card-issue.php <root>/app`.
+- `overpass-off.php`: overpass-off (Jason, 2026-11-19, "Stop entirely"): the site asks Overpass nothing (no request code
+  left, `near()` reads our copy only), a job's kinds outside our copy are "not in our copy", no server handed out, probed
+  or budgeted, the pre-flight sends nothing for it, the crawler's report becomes one quiet notice on W1, OpenStreetMap's
+  card shows its servers retired; and Geofabrik's pre-flight line follows a redirect on its own host. 15 tests:
+  `mariadb < ../release-b-tests/start-schema.sql && php overpass-off.php <root>/app`. (r3b, r3c, r3d, r1 and layout follow
+  the retirement; the worker's side is `workers/crawler/tests/test_ours.py`.)

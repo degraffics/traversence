@@ -20,7 +20,7 @@ $t('every workflow W0–W14 is a process of the Knowledge Engine', count(array_f
 $t('the three workers', isset($p['wk:w0-indexer'], $p['wk:crawler'], $p['wk:video-worker']));
 $t('a site job under a workflow isn\'t listed twice', !isset($p['job:listings_tick']) && isset($p['job:billing_tick']));
 $w1 = ControlRegister::of($pdo, 'W1');
-$t('W1: its job, its needs, its services', in_array('listings_tick', $w1['jobs'], true) && in_array('places', $w1['needs'], true) && in_array('osm', $w1['services'], true), $w1);
+$t('W1: its job, its needs, its services', in_array('listings_tick', $w1['jobs'], true) && in_array('places', $w1['needs'], true) && in_array('overture', $w1['services'], true) && !in_array('osm', $w1['services'], true), $w1);   // Overpass retired 2026-11-19: W1 doesn't read OpenStreetMap's servers
 $t('W1 reads our copies (open_places, npi_orgs)', in_array('open_places', $w1['reads'], true) && in_array('npi_orgs', $w1['reads'], true));
 $w0 = ControlRegister::of($pdo, 'W0');
 $t('W0: carried by W0 Indexer, through /api/crawl/index', $w0['workers'] === ['w0-indexer'] && $w0['endpoints'] === ['crawl/index'], $w0);
@@ -35,7 +35,7 @@ $t('W0 depends on its worker\'s line, then its need', $d === ['rw:beat', 'nd:pag
 $d = ControlRegister::dependsOn($pdo, 'wf:W1');
 $firstNd = min(array_keys(array_filter($d, fn ($x) => str_starts_with($x, 'nd:'))));
 $lastSvc = max(array_keys(array_filter($d, fn ($x) => !str_starts_with($x, 'nd:'))));
-$t('W1: its services first, then its needs', $lastSvc < $firstNd && in_array('svc:osm', $d, true) && in_array('nd:places', $d, true), $d);
+$t('W1: its services first, then its needs', $lastSvc < $firstNd && in_array('svc:overture', $d, true) && !in_array('svc:osm', $d, true) && in_array('nd:places', $d, true), $d);
 $t('a task depends on its services', ControlRegister::dependsOn($pdo, 't:overture') === ['svc:overture']);
 
 // the pre-flight's Routes lines

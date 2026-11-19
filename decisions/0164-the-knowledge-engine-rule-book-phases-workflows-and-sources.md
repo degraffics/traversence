@@ -1498,3 +1498,9 @@ code fixes are in 0163 §8's build stages. Documentation only: no site code, no 
 **F5 and Run 2 together:** Run 2's lead order sends Google's check to finds without a website that have a phone, which
 mostly start at one witness (20–25, below 35). So the check order in 0163 §12 runs Run 2's group first, then F5's
 "from 35", with F5's two exceptions; both are settings a director tunes.
+
+**Note (Jason, 2026-11-19, overpass-off): Overpass retired from every phase.** After OpenStreetMap's forum answered our
+statement (https://community.openstreetmap.org/t/150369: "Stop using the public OSM overpass server altogether. It is intended to help OSM editors and not as a backend for unrelated apps/websites."), Jason chose "Stop entirely". The engine's OpenStreetMap
+source is our copy alone (Geofabrik's weekly files, `open_places`; decisions/0163's source map: our copy, then Overture). A
+job's kind or town the copy doesn't hold is reported as "not in our copy" (one quiet notice on W1), never fetched, and the
+job carries on with what it has. Overpass is not a fallback, a backup or a later step anywhere in this rule book.

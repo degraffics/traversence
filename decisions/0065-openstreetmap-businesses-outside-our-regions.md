@@ -121,3 +121,14 @@ data as long as we dont have to share back data"; `osm-leads_20261110.zip`).** R
   `map-ask-where_20261110.zip`). Refused: the map says to allow location or choose a place.
 - Discovery's map opens on Everything, then narrowed (Jason, 2026-11-10: "Initial open as things to do is limiting
   options"); closing it (Exit, or the phone's back) returns to the page before, never the bare map page.
+
+**Note (Jason, 2026-11-19, overpass-off): Overpass is retired; OpenStreetMap comes only from our own copy.** OpenStreetMap's
+community answered our statement (https://community.openstreetmap.org/t/150369): an app's fair share of the public
+Overpass servers is about 50 requests a day (about 150 seconds of query time), and "Stop using the public OSM overpass server altogether. It is intended to help OSM editors and not as a backend for unrelated apps/websites." (a maintainer also said the ban
+probably lifts by itself). Jason, in the session manager's pop-up: "Stop entirely". So no Overpass query is sent, by the
+site (OpenPlaces, DeepLook) or the crawler (worker 2.13.0); its servers stay listed on OpenStreetMap's card, marked retired,
+never asked or probed; its budgets are 0; its alarm is closed as "Retired: we no longer use Overpass". The layer itself
+stands as decided here: its own tables, credited, never copied into our listings, now filled only from Geofabrik's weekly
+state files (Arizona and New Mexico). What's lost: OpenStreetMap's places near a search outside those two states, and kinds
+the extract doesn't carry. Proposed for Jason, not built: add Utah, Colorado and Nevada to the copy (free, weekly), and
+widen the extract's tags (health care, offices) so W1's health kinds come from it.
