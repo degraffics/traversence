@@ -112,3 +112,8 @@ and `website/api/` (the mirror's `sync-storage/api/crawl` and `api/video`). Put 
   refusal or a back-off tripped at its limit still holds; a tripped row offers Check and start again, never a bare Start,
   and its Check says the trip stays red; the 10-minute release job quiet for 30 minutes warns. 12 tests:
   `mariadb < ../release-b-tests/start-schema.sql && mariadb lv_main < <2a's ledger migration> && php backoff-gate.php <root>/app`.
+- `r5b.php`: release 5b, the reports (0171 §11): every section from seeded tables (uptime from the historian, alarms in
+  the window with who acknowledged, when cleared and how long open, faults, the logbook's shut-downs, spend), a scope and a
+  week, the summary's 3–5 lines, the CSV's columns as the page's, the page as a self-contained file, nothing private (a
+  seeded email, phone and IP never appear), no new table or outside call. 17 tests:
+  `mariadb < ../release-b-tests/start-schema.sql && mariadb lv_main < <2a's ledger migration> && php r5b.php <root>/app`.

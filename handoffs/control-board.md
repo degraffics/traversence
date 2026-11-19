@@ -219,7 +219,16 @@ Alongside: `releases-self-withdraw` (#122), `releases-live-2` (#123), `releases-
   release job quiet for 30 minutes raises `rel:job:quiet` (legacy waited 25 minutes: the ping got "too soon");
   `health.php` carries `releases_looked`. W1's trip isn't lifted by the system: Jason's Check and start again. Test:
   `backoff-gate.php` (12).
-- Next: `control-board-5b`, the reports (one question).
+- backoff-gate live as #169 (Sync 11:50 UTC). W1's trip waits for Jason's Check and start again.
+- `control-board-5b`, the reports (built on Sync 11:58 UTC, its files unchanged since 11:50; files: `app/lib/ControlReport.php` (new),
+  `app/admin/control-console.php`, `website/admin/api.php`, `website/js/admin-control.js`, `website/api/health.php`,
+  `app/lib/DailyReport.php`, `app/ui/faq.md`): `ControlReport::build($pdo, $scope, 'day'|'week')`, built on demand from
+  what's kept (no table, nothing stored, no AI, no outside call), so no staging class or retention is needed. The board's
+  `#reports` panel, and the report as a query on config/control (`?report=<scope>&range=`); Download CSV and the page as
+  a self-contained file through the api's `report` action (a Blob in the browser). Summary: the daily report's System
+  status (Monday adds the week), and `health.php`'s `alarms_summary`. Scrubbed of emails, phones and IPs; no readings.
+  Test: `r5b.php` (17).
+- Next: the decision's releases are all built; what's left is in the review list.
 - Known shortcut in 3c: a back-off held by a trip is `service_issues.hold_until = '2099-01-01'` (until a person resolves
   it; `ServiceHealth::holdForTrip`), not a flag of its own. A real flag (a column, `held_by_trip`) needs a migration on
   `service_issues`; do it with the next ServiceHealth change.
