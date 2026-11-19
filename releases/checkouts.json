@@ -43,9 +43,13 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "control-board-itsdata (Jason 2026-11-19: blocked notice, Its data, outside our region, Pulse timing)",
    "since": "2026-11-19T16:30:18Z",
-   "expires": "2026-11-19T20:30:18Z",
-   "release": "",
-   "callers": {}
+   "expires": "2026-11-19T20:32:39Z",
+   "release": "control-board-itsdata.zip",
+   "callers": {
+    "needs": [
+     "app/lib/Operations.php"
+    ]
+   }
   },
   {
    "path": "app/lib/crawler/Sources.php",
@@ -65,9 +69,13 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "control-board-itsdata (Jason 2026-11-19: blocked notice, Its data, outside our region, Pulse timing)",
    "since": "2026-11-19T16:30:23Z",
-   "expires": "2026-11-19T20:30:23Z",
-   "release": "",
-   "callers": {}
+   "expires": "2026-11-19T20:32:39Z",
+   "release": "control-board-itsdata.zip",
+   "callers": {
+    "pulseSteps": [
+     "app/lib/Pulse.php"
+    ]
+   }
   },
   {
    "path": "app/lib/ControlSensor.php",
@@ -98,9 +106,19 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "control-board-itsdata (Jason 2026-11-19: blocked notice, Its data, outside our region, Pulse timing)",
    "since": "2026-11-19T16:30:30Z",
-   "expires": "2026-11-19T20:30:30Z",
-   "release": "",
-   "callers": {}
+   "expires": "2026-11-19T20:32:39Z",
+   "release": "control-board-itsdata.zip",
+   "callers": {
+    "processes": [
+     "app/admin/control-console.php",
+     "app/admin/sections.php",
+     "app/admin/tools.php",
+     "app/lib/ControlAlarms.php",
+     "app/lib/ControlHistorian.php",
+     "app/lib/ControlLog.php",
+     "app/lib/ControlReport.php"
+    ]
+   }
   },
   {
    "path": "app/lib/ControlBoard.php",
@@ -131,8 +149,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "control-board-itsdata (Jason 2026-11-19: blocked notice, Its data, outside our region, Pulse timing)",
    "since": "2026-11-19T16:30:36Z",
-   "expires": "2026-11-19T20:30:36Z",
-   "release": "",
+   "expires": "2026-11-19T20:32:39Z",
+   "release": "control-board-itsdata.zip",
    "callers": {}
   },
   {
@@ -142,8 +160,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "control-board-itsdata (Jason 2026-11-19: blocked notice, Its data, outside our region, Pulse timing)",
    "since": "2026-11-19T16:30:38Z",
-   "expires": "2026-11-19T20:30:38Z",
-   "release": "",
+   "expires": "2026-11-19T20:32:39Z",
+   "release": "control-board-itsdata.zip",
    "callers": {}
   },
   {
@@ -164,8 +182,74 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "control-board-itsdata (Jason 2026-11-19: blocked notice, Its data, outside our region, Pulse timing)",
    "since": "2026-11-19T16:30:44Z",
-   "expires": "2026-11-19T20:30:44Z",
-   "release": "",
+   "expires": "2026-11-19T20:32:39Z",
+   "release": "control-board-itsdata.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/control-console.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "release control-board-itsdata.zip",
+   "since": "2026-11-19T16:32:39Z",
+   "expires": "2026-11-19T20:32:39Z",
+   "release": "control-board-itsdata.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/ui/pulse-ui.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "release control-board-itsdata.zip",
+   "since": "2026-11-19T16:32:39Z",
+   "expires": "2026-11-19T20:32:39Z",
+   "release": "control-board-itsdata.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Thresholds.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "release control-board-itsdata.zip",
+   "since": "2026-11-19T16:32:39Z",
+   "expires": "2026-11-19T20:32:39Z",
+   "release": "control-board-itsdata.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/crawler/Sources.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "release control-board-itsdata.zip",
+   "since": "2026-11-19T16:32:39Z",
+   "expires": "2026-11-19T20:32:39Z",
+   "release": "control-board-itsdata.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/ControlSensor.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "release control-board-itsdata.zip",
+   "since": "2026-11-19T16:32:39Z",
+   "expires": "2026-11-19T20:32:39Z",
+   "release": "control-board-itsdata.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/ControlBoard.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "release control-board-itsdata.zip",
+   "since": "2026-11-19T16:32:39Z",
+   "expires": "2026-11-19T20:32:39Z",
+   "release": "control-board-itsdata.zip",
    "callers": {}
   }
  ],
