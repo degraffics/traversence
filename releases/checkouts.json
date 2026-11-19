@@ -86,6 +86,19 @@
    "expires": "2026-11-19T16:00:45Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/lib/SystemStart.php",
+   "functions": [
+    "panel"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "control-board-links (0171 \u00a714)",
+   "since": "2026-11-19T12:11:45Z",
+   "expires": "2026-11-19T16:11:45Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
