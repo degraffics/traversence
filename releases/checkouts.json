@@ -43,7 +43,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "control-board-itsdata (Jason 2026-11-19: blocked notice, Its data, outside our region, Pulse timing)",
    "since": "2026-11-19T16:30:18Z",
-   "expires": "2026-11-19T20:32:39Z",
+   "expires": "2026-11-19T21:04:02Z",
    "release": "control-board-itsdata.zip",
    "callers": {
     "needs": [
@@ -69,7 +69,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "control-board-itsdata (Jason 2026-11-19: blocked notice, Its data, outside our region, Pulse timing)",
    "since": "2026-11-19T16:30:23Z",
-   "expires": "2026-11-19T20:32:39Z",
+   "expires": "2026-11-19T21:04:02Z",
    "release": "control-board-itsdata.zip",
    "callers": {
     "pulseSteps": [
@@ -106,7 +106,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "control-board-itsdata (Jason 2026-11-19: blocked notice, Its data, outside our region, Pulse timing)",
    "since": "2026-11-19T16:30:30Z",
-   "expires": "2026-11-19T20:32:39Z",
+   "expires": "2026-11-19T21:04:02Z",
    "release": "control-board-itsdata.zip",
    "callers": {
     "processes": [
@@ -138,9 +138,16 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "control-board-itsdata (Jason 2026-11-19: blocked notice, Its data, outside our region, Pulse timing)",
    "since": "2026-11-19T16:30:34Z",
-   "expires": "2026-11-19T20:30:34Z",
-   "release": "",
-   "callers": {}
+   "expires": "2026-11-19T21:04:02Z",
+   "release": "control-board-itsdata.zip",
+   "callers": {
+    "tv_cb_process_table": [
+     "app/admin/tools.php"
+    ],
+    "tv_cb_table_rows": [
+     "app/admin/tools.php"
+    ]
+   }
   },
   {
    "path": "app/admin/sections.php",
@@ -149,7 +156,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "control-board-itsdata (Jason 2026-11-19: blocked notice, Its data, outside our region, Pulse timing)",
    "since": "2026-11-19T16:30:36Z",
-   "expires": "2026-11-19T20:32:39Z",
+   "expires": "2026-11-19T21:04:02Z",
    "release": "control-board-itsdata.zip",
    "callers": {}
   },
@@ -160,7 +167,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "control-board-itsdata (Jason 2026-11-19: blocked notice, Its data, outside our region, Pulse timing)",
    "since": "2026-11-19T16:30:38Z",
-   "expires": "2026-11-19T20:32:39Z",
+   "expires": "2026-11-19T21:04:02Z",
    "release": "control-board-itsdata.zip",
    "callers": {}
   },
@@ -171,7 +178,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "control-board-itsdata (Jason 2026-11-19: blocked notice, Its data, outside our region, Pulse timing)",
    "since": "2026-11-19T16:30:44Z",
-   "expires": "2026-11-19T20:32:39Z",
+   "expires": "2026-11-19T21:04:02Z",
    "release": "control-board-itsdata.zip",
    "callers": {}
   },
@@ -193,7 +200,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "release control-board-itsdata.zip",
    "since": "2026-11-19T16:32:39Z",
-   "expires": "2026-11-19T20:32:39Z",
+   "expires": "2026-11-19T21:04:02Z",
    "release": "control-board-itsdata.zip",
    "callers": {}
   },
@@ -204,7 +211,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "release control-board-itsdata.zip",
    "since": "2026-11-19T16:32:39Z",
-   "expires": "2026-11-19T20:32:39Z",
+   "expires": "2026-11-19T21:04:02Z",
    "release": "control-board-itsdata.zip",
    "callers": {}
   },
@@ -215,7 +222,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "release control-board-itsdata.zip",
    "since": "2026-11-19T16:32:39Z",
-   "expires": "2026-11-19T20:32:39Z",
+   "expires": "2026-11-19T21:04:02Z",
    "release": "control-board-itsdata.zip",
    "callers": {}
   },
@@ -226,7 +233,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "release control-board-itsdata.zip",
    "since": "2026-11-19T16:32:39Z",
-   "expires": "2026-11-19T20:32:39Z",
+   "expires": "2026-11-19T21:04:02Z",
    "release": "control-board-itsdata.zip",
    "callers": {}
   },
@@ -237,8 +244,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "control-board-itsdata: a system's counts filter its parts again (Jason 2026-11-19)",
    "since": "2026-11-19T16:54:33Z",
-   "expires": "2026-11-19T20:54:33Z",
-   "release": "",
+   "expires": "2026-11-19T21:04:02Z",
+   "release": "control-board-itsdata.zip",
    "callers": {}
   },
   {
@@ -252,6 +259,17 @@
    "since": "2026-11-19T17:03:02Z",
    "expires": "2026-11-19T21:03:02Z",
    "release": "",
+   "callers": {}
+  },
+  {
+   "path": "app/ui/pulse-ui.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "release control-board-itsdata.zip",
+   "since": "2026-11-19T17:04:02Z",
+   "expires": "2026-11-19T21:04:02Z",
+   "release": "control-board-itsdata.zip",
    "callers": {}
   }
  ],
