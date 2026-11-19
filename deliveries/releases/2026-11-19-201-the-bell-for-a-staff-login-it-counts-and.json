@@ -6,13 +6,13 @@
     "zip": "staff-bell.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "approved",
+    "state": "staged",
     "step": 0,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
     "plan_at": "2026-11-19 17:36:09",
-    "staged_at": null,
+    "staged_at": "2026-11-19 17:36:11",
     "vetted_at": null,
     "live_at": null,
     "files": {
@@ -48,7 +48,29 @@
         }
     },
     "migrations": [],
-    "checks": [],
+    "checks": {
+        "ok": true,
+        "where": "staging",
+        "at": "2026-11-19T17:36:12+00:00",
+        "items": [
+            [
+                "PHP files parse",
+                true,
+                "3 checked"
+            ],
+            [
+                "Pages answer",
+                true,
+                "3 pages answered on staging.trvgo.us"
+            ],
+            [
+                "No new fatal errors in the logs",
+                true,
+                "6 logs read"
+            ]
+        ],
+        "first_fail": ""
+    },
     "log": [
         {
             "at": "2026-11-19T17:36:07+00:00",
@@ -64,6 +86,11 @@
             "at": "2026-11-19T17:36:09+00:00",
             "by": 0,
             "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
+        },
+        {
+            "at": "2026-11-19T17:36:12+00:00",
+            "by": 0,
+            "msg": "Put on staging (6 files); its checks passed."
         }
     ]
 }
