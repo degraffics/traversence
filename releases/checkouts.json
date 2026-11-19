@@ -89,65 +89,57 @@
    "callers": {}
   },
   {
-   "path": "website/directory/index.php",
-   "functions": [],
+   "path": "app/admin/control-console.php",
+   "functions": [
+    "(top)",
+    "tv_admin_mod_control"
+   ],
    "kind": "change",
-   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
-   "why": "Get Local R1: the new finder, Best match by the score",
-   "since": "2026-11-19T12:43:48Z",
-   "expires": "2026-11-19T16:47:51Z",
-   "release": "getlocal-finder.zip",
-   "callers": {
-    "search": [
-     "app/lib/AccountDomains.php",
-     "app/lib/AiClient.php",
-     "app/lib/Checkouts.php",
-     "app/lib/Concepts.php",
-     "app/lib/Experiences.php",
-     "app/lib/Learning.php",
-     "app/lib/PlaceFinder.php",
-     "app/lib/PlatformCounts.php",
-     "app/lib/Preflight.php",
-     "app/lib/Scheduler.php",
-     "app/lib/SearchDemand.php",
-     "app/lib/SearchIndex.php",
-     "app/lib/Services.php",
-     "app/lib/StockLibrary.php",
-     "app/lib/SuggestionActions.php",
-     "app/lib/SuggestionFlags.php",
-     "app/lib/UniversalSearch.php",
-     "app/lib/Vectors.php",
-     "app/lib/crawler/NpiBulk.php",
-     "app/lib/crawler/SourceIndex.php",
-     "app/lib/crawler/Sources.php",
-     "app/lib/synonyms.php",
-     "app/ui/admin-dashboard.php",
-     "app/ui/header.php",
-     "app/ui/outside-services.php",
-     "website/admin/api/find.php",
-     "website/admin/api/people.php",
-     "website/admin/search-learning.php",
-     "website/admin/settings.php",
-     "website/api/crawl/usage.php",
-     "website/api/nearby_hubs.php",
-     "website/api/search.php",
-     "website/api/search_listings.php",
-     "website/community/group.php",
-     "website/directory/classic.php",
-     "website/discovery/index.php",
-     "website/js/search-panel.js"
-    ]
-   }
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "control-board-12 (0171 \u00a712)",
+   "since": "2026-11-19T12:49:46Z",
+   "expires": "2026-11-19T16:52:23Z",
+   "release": "control-board-12.zip",
+   "callers": {}
   },
   {
-   "path": "website/api/search_listings.php",
+   "path": "website/js/admin-kit.js",
    "functions": [],
    "kind": "change",
-   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
-   "why": "Get Local R1: the new finder, Best match by the score",
-   "since": "2026-11-19T12:43:50Z",
-   "expires": "2026-11-19T16:47:51Z",
-   "release": "getlocal-finder.zip",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "control-board-12 (0171 \u00a712)",
+   "since": "2026-11-19T12:49:49Z",
+   "expires": "2026-11-19T16:52:23Z",
+   "release": "control-board-12.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/tools.php",
+   "functions": [
+    "config/alarms",
+    "config/ledger",
+    "config/log",
+    "config/upkeep"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "control-board-12 (0171 \u00a712)",
+   "since": "2026-11-19T12:49:54Z",
+   "expires": "2026-11-19T16:52:23Z",
+   "release": "control-board-12.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/manifests.php",
+   "functions": [
+    "config"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "control-board-12 (0171 \u00a712)",
+   "since": "2026-11-19T12:49:56Z",
+   "expires": "2026-11-19T16:52:23Z",
+   "release": "control-board-12.zip",
    "callers": {}
   }
  ],
