@@ -149,3 +149,10 @@ themselves (the Privacy box and its code are gone; `/user/api/staff-link.php` on
   ("Fill in "Staff ID or work email" first."), never Chrome's "Please fill out this field" (`js/tv-ask.js`, every page).
 - Delivered as `staff-switch_20261102.zip` (built on the 14:41 UTC sync): `app/lib/StaffLogin.php`,
   `app/ui/context-switcher.php`, `website/user/api/context.php`, `website/js/tv-ask.js`, `app/ui/faq.md`.
+
+> **Note (Jason, 2026-11-19, staff-bell): a staff login's bell and dashboard.** From his reports ("this happened when I
+> clicked on the bell in the nav header"; "the side bar navigation is wrong for the type of user I am"), approved a+b+c:
+> a staff login's header bell counts and opens the admin's Pulse (critical, overdue, escalated to you; /admin/dashboard#bell),
+> `/user/dashboard.php` sends a staff login on to the admin (its password and 2FA stay at `/admin/staff.php`; its member
+> side is the linked member account, through the account switch), and the member Pulse in an admin-only context points
+> to the admin's Pulse. Members, and members with admin access, keep their own dashboard and bell.
