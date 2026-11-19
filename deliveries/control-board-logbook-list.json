@@ -1,13 +1,13 @@
 {
  "zip": "control-board-logbook-list.zip",
  "built_on": "d470e95 Sync: 2026-11-19 14:18 UTC",
- "recorded": "2026-11-19 14:20 UTC",
- "note": "Control Board: the logbook's list grouped and searchable (t1-tables, #186, is live: all 5 of its files match Sync 14:18; its record isn't marked yet). Built on Sync: 2026-11-19 14:18 UTC Sent through git (releases/inbox).",
+ "recorded": "2026-11-19 14:22 UTC",
+ "note": "Control Board: the logbook's list grouped and searchable; the OSM statement updated. Built on Sync: 2026-11-19 14:18 UTC Sent through git (releases/inbox).",
  "status": "pending",
  "live_in": "",
  "files": {
   "app/admin/control-console.php": {
-   "sha256": "077aa97719b1a41add40c89e2e3743a4d20f845928bbc16bc7bc47b06be02d6a",
+   "sha256": "64603d6b908187f655e335ed3d698f4e07d2083a533a2b67bb18a1ce46ccf9fa",
    "live": false
   },
   "app/ui/faq.md": {
