@@ -1,0 +1,127 @@
+{
+    "id": 183,
+    "title": "Control Board: every alarm leads to its own fix; one count; the stages and the pre-flight made plain",
+    "why": "Jason, 2026-11-19: \"when something is wrong and I go to fix it I always hit a dead end. The card or section should always have a route that I can follow to fix the specific issues at hand.\" Then: \"I don't understand how the section works\" (the six stage tiles), \"Preflight is a pre-system launch check vs every 15 mins? Why does it feel like it's in multiple places?\", and \"alarms everywhere, the drop down doesn't do anything\" (15, 23 and 5 for the same list). Every alarm now carries a button or a link that lands on its one item (the failing call in the Ledger, the run, the scheduled job, the pre-flight line's own fix, Railway as a link only); a link to part of a page opens and outlines it; Supabase catching up is measured, not held; the stage tiles route to their parts; Open the report goes to the board's own pre-flight; the Runs line says it only looks every 15 minutes; the top bar, panel and filter count the same alarms, and a filter pick brings the list into view. And \"system is blowing up my pulse\": each alarm's message was its own stream row beside the alarm's item. Then Jason's decision (2026-11-19, in the session manager's chat): \"I think trips that require the admin are sent immediately because they wont clear unless the admin clears them. Everything else should be cleared by the system so why send and pulse?\" Only a trip reaches a person (Pulse, email, push); warnings stay on the board (0171 §7's note). And Jason's critical-part rule (2026-11-19): \"Critical is that our site can perform its duties. Search, page load, payment processing, database connections, system critical processing or procedures.\" A critical part trips at once while the system keeps trying; Recovered is a notice; retries running out is the Escalation Notice (0171 §5's note).",
+    "proposals": "",
+    "zip": "control-board-routes.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/admin/control-console.php": {
+            "sha": "c9e4c5590759e4e8eb97b674d46d8b388824cfe8c6598a13f6a91e437ad9b3d9",
+            "size": 89930,
+            "live_was": "9b17d72c20e6ab50c946f26ba280d7b077fca3833960f9ea5f8632e4d17ecdb0"
+        },
+        "app/admin/job-line.php": {
+            "sha": "7d1fee2530e134f05d08d3e2f043ec7133c399d1d76fc5e2c47d5f70c4d0886e",
+            "size": 10462,
+            "live_was": "a00587dce26f5e5bc55c852e7609482a329508651af611120338683db99e53e5"
+        },
+        "app/admin/sections.php": {
+            "sha": "b85c805dc6860e11aee40a9deee8edee824c2428daa829929bbbf3fbc97e392c",
+            "size": 254199,
+            "live_was": "0a1cda23a1c03f315f3d599a845c2503b1f9fada1697771db1fb903066b99a7c"
+        },
+        "app/admin/preflight-console.php": {
+            "sha": "6a35d83744a015b84dd785ed504f3fcefb2c798ee8c58e3c02366c89eb6f4a94",
+            "size": 19293,
+            "live_was": "07d372f8b8d4f9d2940f2cfcb8a9ade06ed3b9dd0faa5574478294ac9b5e0f69"
+        },
+        "app/ui/faq.md": {
+            "sha": "f1ada09a8d922917ba50866d6acb80f9c6c5c852d8bd551fb95cf94df5e376e0",
+            "size": 370083,
+            "live_was": "a405cc0441a255a69c693a156cbe2da935e50d9efc2446134efc289c1799f5fd"
+        },
+        "app/migrations/2026-11-19_alarm_retrying.sql": {
+            "sha": "f3f799092fb6de6b77cb993c28cef79c613900a633314b968decb7556ac4578b",
+            "size": 655,
+            "live_was": null
+        },
+        "app/migrations/2026-11-19_alarm_messages_pulse_ref.sql": {
+            "sha": "772bafbac320126c33ac8afd556386c96ae57cd8c7e4ddc91f828055cdc381f7",
+            "size": 484,
+            "live_was": null
+        },
+        "app/lib/Operations.php": {
+            "sha": "a3a0dcf3e7309646b5d344b22006f0abc01a450ed24bda75d7f5ff9f5801853b",
+            "size": 73816,
+            "live_was": "19ebf98e5096ac0e0b4256028c9bb541950ec89fd56d2c50dc70aeefef14b71d"
+        },
+        "app/lib/Notify.php": {
+            "sha": "0ed8f495f52b48dba04ac83291b3dee0df3fed4da009eac3f35fc0cc3481b4a9",
+            "size": 45772,
+            "live_was": "ca0972d4912793fa5313ceef37060f73363bc3aa0097dc973797cf4b1445c64b"
+        },
+        "app/lib/ControlLedger.php": {
+            "sha": "5ddf8eb0d948f247d6d666d7607d7a68cc7866e3eda4b526dfe93a026f8f6d4a",
+            "size": 18223,
+            "live_was": "244ad30e6ba9aae5b3422fac55385f9a8e220fe51d8e2f816ca7ccb1f199010f"
+        },
+        "app/lib/ControlAlarms.php": {
+            "sha": "bcaf04968313c0e2924d23e957d2b84b567bb4a4b3dc16fa946c77bb7c9c7411",
+            "size": 70231,
+            "live_was": "82eb41c5dae4e697c3dc6d73e45b3f71910851e475c093af1be658400c1e09ff"
+        },
+        "app/lib/ControlHistorian.php": {
+            "sha": "71d18330af47964c22800c43b0a02757dc745424fc2c9ff4b565571c48a20027",
+            "size": 23973,
+            "live_was": "770d0d8f65248af4dad0f453ce56d56238da435ce349ec665f7d2cb546a708cd"
+        },
+        "app/lib/ControlMaintenance.php": {
+            "sha": "11a81803258d92e631a94c677bb76120bdffc236c126d2e5ac358065ff12291a",
+            "size": 19838,
+            "live_was": "0967b9ecbddbf9acb1ef4d57e310e84566acb4c5f714eadf9fddc2fef6943386"
+        },
+        "app/lib/crawler/CrawlService.php": {
+            "sha": "d646f583bda158623103d48edd60158cf1a5a282d19fbbbbaedb39f760d0cc77",
+            "size": 39084,
+            "live_was": "73e009f3845667cb6dcba033128945c6662294d70468073dfb7c20ede0e1f400"
+        },
+        "app/lib/ControlRegister.php": {
+            "sha": "f59815b6c7f6c74c6f4c5f7bd43ad150f7a025babc51c2c1dd7d60d7df86364f",
+            "size": 21884,
+            "live_was": "51f755b2db9b23a3a0cf69d565f4d6a540197d2a4b12d72a8bf41e5789b288e8"
+        },
+        "app/lib/Preflight.php": {
+            "sha": "6acdaa88c539af9a843f979fa16a3bbb070011bc878c7c16b04d348b04f926e1",
+            "size": 155769,
+            "live_was": "c194270c99765a3ffbc77ed8c2a9904efbbef05f1d715c9ad02afa92cb295b5d"
+        },
+        "app/lib/Pulse.php": {
+            "sha": "933a1b6f3200b0d63b2998f31a10c9061118390443e02f6b9ce4479c84c760d0",
+            "size": 151345,
+            "live_was": "c63f527ee75edf62ca3a889ccbda99d23d81244a4966d8e6a752643f198ae209"
+        },
+        "website/js/admin-kit.js": {
+            "sha": "012b1964317ee9e2eb2b71fa177d1de1ab099a71cb44104e82a2fb3d3a2a7a33",
+            "size": 49095,
+            "live_was": "d0e26d10f2fde2b17a54c6f0a34706c0f5f18e5659dc559033da9bb67dba12df"
+        },
+        "website/js/admin-control.js": {
+            "sha": "b179eb10f8062b219f68b5c62e7599b1a4b813f71621bf9abefaf7bdde9a6b2d",
+            "size": 20207,
+            "live_was": "c5708282bd0cea5279b3266646aa29ef65bf69b4152ff5d8c0d851d00d7998b1"
+        }
+    },
+    "migrations": [
+        "app/migrations/2026-11-19_alarm_retrying.sql",
+        "app/migrations/2026-11-19_alarm_messages_pulse_ref.sql"
+    ],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-19T13:51:10+00:00",
+            "by": 0,
+            "msg": "Uploaded control-board-routes.zip: 19 files."
+        }
+    ]
+}
