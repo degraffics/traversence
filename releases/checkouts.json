@@ -87,6 +87,17 @@
    "expires": "2026-11-19T17:07:42Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/admin/control-console.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "control-board-routes: every alarm leads to its fix",
+   "since": "2026-11-19T13:26:02Z",
+   "expires": "2026-11-19T17:26:02Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
