@@ -187,6 +187,17 @@
    "expires": "2026-11-20T02:42:33Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "website/admin/sources.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "0173 R1: one home (Service register takes in Outside services)",
+   "since": "2026-11-19T22:42:35Z",
+   "expires": "2026-11-20T02:42:35Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
