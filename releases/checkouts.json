@@ -83,6 +83,53 @@
    "expires": "2026-11-19T04:18:34Z",
    "release": "control-board-4c.zip",
    "callers": {}
+  },
+  {
+   "path": "app/ui/explore-hero.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Design 3b-1: Home and Discovery (hero order, stock byline, tokens)",
+   "since": "2026-11-19T00:20:04Z",
+   "expires": "2026-11-19T04:20:04Z",
+   "release": "design-r3b1-explore.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/ui/stock-ui.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Design 3b-1: Home and Discovery (hero order, stock byline, tokens)",
+   "since": "2026-11-19T00:20:04Z",
+   "expires": "2026-11-19T04:20:04Z",
+   "release": "design-r3b1-explore.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/index.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Design 3b-1: Home and Discovery (hero order, stock byline, tokens)",
+   "since": "2026-11-19T00:20:04Z",
+   "expires": "2026-11-19T04:20:04Z",
+   "release": "design-r3b1-explore.zip",
+   "callers": {},
+   "zones": [
+    "home.after-doors"
+   ]
+  },
+  {
+   "path": "website/discovery/index.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Design 3b-1: Home and Discovery (hero order, stock byline, tokens)",
+   "since": "2026-11-19T00:20:04Z",
+   "expires": "2026-11-19T04:20:04Z",
+   "release": "design-r3b1-explore.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
