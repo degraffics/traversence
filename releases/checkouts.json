@@ -78,17 +78,6 @@
    "callers": {}
   },
   {
-   "path": "website/js/admin-control.js",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "control-board-filter",
-   "since": "2026-11-19T12:37:58Z",
-   "expires": "2026-11-19T17:10:01Z",
-   "release": "control-board-filter.zip",
-   "callers": {}
-  },
-  {
    "path": "app/admin/kit-css.php",
    "functions": [],
    "kind": "change",
@@ -551,20 +540,6 @@
    "since": "2026-11-19T13:08:58Z",
    "expires": "2026-11-19T17:08:58Z",
    "release": "",
-   "callers": {}
-  },
-  {
-   "path": "app/admin/control-console.php",
-   "functions": [
-    "(top)",
-    "tv_admin_mod_control"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "control-board-filter",
-   "since": "2026-11-19T13:09:57Z",
-   "expires": "2026-11-19T17:10:01Z",
-   "release": "control-board-filter.zip",
    "callers": {}
   }
  ],
