@@ -286,6 +286,17 @@
    "expires": "2026-11-19T15:44:35Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "website/place/landmark.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Design: lighter controls (Jason 2026-11-19)",
+   "since": "2026-11-19T11:44:37Z",
+   "expires": "2026-11-19T15:44:37Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
