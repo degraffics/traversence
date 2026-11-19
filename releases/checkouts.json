@@ -43,9 +43,15 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "StagingGate::here() public: the staging guards in CommsSetup, Mailboxes and SesInbound never held",
    "since": "2026-11-19T22:09:06Z",
-   "expires": "2026-11-20T02:09:06Z",
-   "release": "",
-   "callers": {}
+   "expires": "2026-11-20T02:09:36Z",
+   "release": "staging-guard.zip",
+   "callers": {
+    "here": [
+     "app/lib/CommsSetup.php",
+     "app/lib/Mailboxes.php",
+     "app/lib/SesInbound.php"
+    ]
+   }
   }
  ],
  "lapsed": [
