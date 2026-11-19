@@ -81,6 +81,17 @@
    "expires": "2026-11-19T21:16:34Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "website/js/admin-kit.js",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "pulse-menu: table \u22ef menus never cut off",
+   "since": "2026-11-19T17:16:36Z",
+   "expires": "2026-11-19T21:16:36Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
