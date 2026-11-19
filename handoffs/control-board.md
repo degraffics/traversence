@@ -674,3 +674,22 @@ Pulse, or Release 4's maintenance); say in each release which ones it closes, an
   them, then drop them through a release's `"removes"` ⚑.
 - **Pulse:** the old Overpass/OSM cases from before the pause (resolve, keeping the overpass-api.de one), and the
   62 unused names (above).
+
+## decisions/0173 release 1, One home (2026-11-19, built on Sync 22:28 UTC, f0f3329)
+
+`service-register-r1.zip`, 25 files (more than the decision's estimate of about 6: most are one-line moves of the 22 links
+to `/admin/config/register`). Jason approved it, and the removal of `tv_admin_mod_services`, in the pop-up.
+- The Service register draws Outside services' table and cards (`tv_outside_services($pdo, ['blocks', 'stages'])`), with
+  the register's parts first on each card (`tv_ops_reg_block`), the Pre-flight count line kept on top, the month's totals
+  and report at the foot. `router.php`'s `TV_ADMIN_MOVED` sends `config/services` there (302, query kept, the browser
+  keeps the `#svc-`). Pulse.php's 8 links are left to the redirect (its items rule).
+- Stages (`ServiceStages`): derived from Automation's switch, `Operations::keys`, `ADDED_OFF` and whether a person ever
+  switched it on; `Automation::log` also writes `service_stages`. "Added" (not "Added, off"): a service on with no key is
+  Added too, and its words say which.
+- Board: a service's process has a switch (Pause, Activate; `startOne`/`stopOne` handle `svc:`); Watching Railway and the
+  sync is the panel `#cb-watch` (api `watch`).
+- Tests: `register.php` (36), `peek-anchor.cjs` (10, the old address too), `card-issue.php` reads the merged card.
+- **Follow-up (harness only):** `r2b.php` fails the same on the live copy and this release: its schema (`r2a-schema.sql`
+  plus the ledger) lacks `automation_switches`, `crawl_workflows` and what `CrawlService::pause` needs. Add them to
+  `r2a-schema.sql` so r2b runs again.
+- Next: release 2, the key on its card (`EnvSettings::setSecret()`, NPS first); then release 3, defined once.

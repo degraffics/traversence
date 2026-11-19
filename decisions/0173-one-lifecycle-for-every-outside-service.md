@@ -2,7 +2,8 @@
 
 Status: **accepted** (Jason, 2026-11-19, draft 2, approved with the decision pop-up; reviewed by the session manager).
 His answers: Railway's keys are kept on Railway (§3); the Proposed stage is kept (§2). The Control Board session wrote
-it at Jason's request, relayed by the session manager. Next: release 1, One home.
+it at Jason's request, relayed by the session manager. **Building:** release 1, One home, sent as
+`service-register-r1.zip` (built on Sync 2026-11-19 22:28 UTC); next, release 2, the key on its card.
 Builds on:
 - 0152: Outside services by company.
 - 0163: the service register (§1), the switches (§9), switching back on (§10).
