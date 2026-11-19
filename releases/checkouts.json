@@ -111,8 +111,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "push-polish: one push per thing, a pace per person, the badge and the app manifest",
    "since": "2026-11-19T23:31:40Z",
-   "expires": "2026-11-20T03:31:40Z",
-   "release": "",
+   "expires": "2026-11-20T03:36:03Z",
+   "release": "push-polish.zip",
    "callers": {}
   },
   {
@@ -133,8 +133,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "push-polish: one push per thing, a pace per person, the badge and the app manifest",
    "since": "2026-11-19T23:31:44Z",
-   "expires": "2026-11-20T03:31:44Z",
-   "release": "",
+   "expires": "2026-11-20T03:36:03Z",
+   "release": "push-polish.zip",
    "callers": {}
   },
   {
@@ -144,9 +144,18 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "push-polish: one push per thing, a pace per person, the badge and the app manifest",
    "since": "2026-11-19T23:31:46Z",
-   "expires": "2026-11-20T03:31:46Z",
-   "release": "",
-   "callers": {}
+   "expires": "2026-11-20T03:36:03Z",
+   "release": "push-polish.zip",
+   "callers": {
+    "tv_favicon_links": [
+     "app/ui/auth-nav.php",
+     "app/ui/page-shell.php",
+     "app/ui/storefront-view.php",
+     "website/admin/chamber-builder.php",
+     "website/admin/manifest.php",
+     "website/index.php"
+    ]
+   }
   },
   {
    "path": "website/manifest.json",
@@ -155,8 +164,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "push-polish: one push per thing, a pace per person, the badge and the app manifest",
    "since": "2026-11-19T23:31:48Z",
-   "expires": "2026-11-20T03:31:48Z",
-   "release": "",
+   "expires": "2026-11-20T03:36:03Z",
+   "release": "push-polish.zip",
    "callers": {}
   },
   {
@@ -166,8 +175,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "push-polish: one push per thing, a pace per person, the badge and the app manifest",
    "since": "2026-11-19T23:31:50Z",
-   "expires": "2026-11-20T03:31:50Z",
-   "release": "",
+   "expires": "2026-11-20T03:36:03Z",
+   "release": "push-polish.zip",
    "callers": {}
   },
   {
@@ -177,8 +186,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "push-polish: one push per thing, a pace per person, the badge and the app manifest",
    "since": "2026-11-19T23:31:52Z",
-   "expires": "2026-11-20T03:31:52Z",
-   "release": "",
+   "expires": "2026-11-20T03:36:03Z",
+   "release": "push-polish.zip",
    "callers": {}
   },
   {
@@ -188,8 +197,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "push-polish: one push per thing, a pace per person, the badge and the app manifest",
    "since": "2026-11-19T23:31:54Z",
-   "expires": "2026-11-20T03:31:54Z",
-   "release": "",
+   "expires": "2026-11-20T03:36:03Z",
+   "release": "push-polish.zip",
    "callers": {}
   },
   {
@@ -199,8 +208,19 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "push-polish: one push per thing, a pace per person, the badge and the app manifest",
    "since": "2026-11-19T23:31:56Z",
-   "expires": "2026-11-20T03:31:56Z",
-   "release": "",
+   "expires": "2026-11-20T03:36:03Z",
+   "release": "push-polish.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/WebPush.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "release push-polish.zip",
+   "since": "2026-11-19T23:36:03Z",
+   "expires": "2026-11-20T03:36:03Z",
+   "release": "push-polish.zip",
    "callers": {}
   }
  ],
