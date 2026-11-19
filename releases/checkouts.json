@@ -33,6 +33,19 @@
    "expires": "2026-11-20T01:45:02Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/lib/StagingGate.php",
+   "functions": [
+    "here"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "StagingGate::here() public: the staging guards in CommsSetup, Mailboxes and SesInbound never held",
+   "since": "2026-11-19T22:09:06Z",
+   "expires": "2026-11-20T02:09:06Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
