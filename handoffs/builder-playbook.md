@@ -45,8 +45,11 @@ Each one comes from a request Jason had to send. Build to them, and the session 
    and the system never retries it on its own (Overpass; 0164's R-rules). Retrying is for our own failures and
    timeouts, never for someone else's refusal. [A slow call stopped W1 and waited for an admin.]
 2. **Stop only for harm, never for "doing less".** A stop is for a refusal, being out of budget, or risk to data or
-   money. Slowness, retries and partial work are warnings that clear themselves. A stop is as narrow as its cause. The
-   same exception as 1 applies: a refusal or block is held for a person. [Slow trips stopped W1 and W4; 4e.]
+   money. Slowness and partial work are warnings that clear themselves. A stop is as narrow as its cause. The
+   same exception as 1 applies: a refusal or block is held for a person. **When a retry or crash becomes a trip is
+   already decided** (0171 §5, Jason's 3c note): a warning while the system tries again, a trip when a back-off reaches
+   its case limit or a crash outlasts its tries. This principle doesn't reopen it. [Slow trips stopped W1 and W4; 4e.
+   Proposing "server errors never trip" re-asked 3c's rule: "We already have a rule for how trips get set", 2026-11-19.]
 3. **Every alarm carries the button that resolves it.** Never a question to get past ("What fixed it?"), never only
    "more info". If the system can't fix it, the alarm names the one thing a person must do, with the button or the
    exact link. A button that can't work yet is greyed with the reason. The fix follows CLAUDE.md's Pulse rule: a step
@@ -66,7 +69,9 @@ Each one comes from a request Jason had to send. Build to them, and the session 
    decision) is pre-sorted by the rules and goes to him as one list to approve. Removing data or going against a
    decision always needs his OK. [The unused names: one question with three lists and the counts.]
 8. **Review against the principles, not only the decision.** The session manager's review of a release summary also
-   checks 1 to 7: what waits on a person, what stops, what each new state asks of him.
+   checks 1 to 7: what waits on a person, what stops, what each new state asks of him. **A principle never overrides a
+   decision:** before proposing a change from a principle, find the decision that governs it and quote it; if it already
+   decides the case, follow it and don't ask him again.
 
 ## 3. Before sending a release
 

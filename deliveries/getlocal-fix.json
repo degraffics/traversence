@@ -3,12 +3,12 @@
  "built_on": "7b18f55 Sync: 2026-11-19 04:19 UTC",
  "recorded": "2026-11-19 10:52 UTC",
  "note": "Get Local: Kind fits the card; the search hint on the palette. Approved by Jason 2026-11-19 (reviewed by the session manager). Built on Sync: 04:19 UTC Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "bbfbd84 Sync: 2026-11-19 10:54 UTC",
  "files": {
   "website/directory/index.php": {
    "sha256": "c1c4ecff73711e6fc2adee606d0fac8da2cf61a4e8873607c3e78e4b2a88f57d",
-   "live": false
+   "live": true
   }
  }
 }
