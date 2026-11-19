@@ -44,7 +44,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "Control Board 5a: the logbook and the night's folded fixes (0171 \u00a710)",
    "since": "2026-11-19T02:22:22Z",
-   "expires": "2026-11-19T06:22:22Z",
+   "expires": "2026-11-19T06:24:12Z",
    "release": "control-board-5a.zip",
    "callers": {}
   },
@@ -55,7 +55,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "Control Board 5a: the logbook and the night's folded fixes (0171 \u00a710)",
    "since": "2026-11-19T02:22:22Z",
-   "expires": "2026-11-19T06:22:22Z",
+   "expires": "2026-11-19T06:24:12Z",
    "release": "control-board-5a.zip",
    "callers": {}
   },
@@ -66,7 +66,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "Control Board 5a: the logbook and the night's folded fixes (0171 \u00a710)",
    "since": "2026-11-19T02:22:25Z",
-   "expires": "2026-11-19T06:22:25Z",
+   "expires": "2026-11-19T06:24:12Z",
    "release": "control-board-5a.zip",
    "callers": {}
   },
@@ -77,9 +77,14 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "Control Board 5a: the logbook and the night's folded fixes (0171 \u00a710)",
    "since": "2026-11-19T02:22:25Z",
-   "expires": "2026-11-19T06:22:25Z",
+   "expires": "2026-11-19T06:24:12Z",
    "release": "control-board-5a.zip",
-   "callers": {}
+   "callers": {
+    "ack": [
+     "app/lib/Pulse.php",
+     "website/admin/api.php"
+    ]
+   }
   },
   {
    "path": "app/lib/ControlBoard.php",
@@ -88,9 +93,15 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "Control Board 5a: the logbook and the night's folded fixes (0171 \u00a710)",
    "since": "2026-11-19T02:22:25Z",
-   "expires": "2026-11-19T06:22:25Z",
+   "expires": "2026-11-19T06:24:12Z",
    "release": "control-board-5a.zip",
-   "callers": {}
+   "callers": {
+    "startOne": [
+     "app/lib/ControlAlarms.php",
+     "app/lib/ControlMaintenance.php",
+     "website/admin/api.php"
+    ]
+   }
   },
   {
    "path": "app/lib/ControlLedger.php",
@@ -99,7 +110,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "Control Board 5a: the logbook and the night's folded fixes (0171 \u00a710)",
    "since": "2026-11-19T02:22:25Z",
-   "expires": "2026-11-19T06:22:25Z",
+   "expires": "2026-11-19T06:24:12Z",
    "release": "control-board-5a.zip",
    "callers": {}
   },
@@ -150,7 +161,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "Control Board 5a: the logbook and the night's folded fixes (0171 \u00a710)",
    "since": "2026-11-19T02:22:25Z",
-   "expires": "2026-11-19T06:22:25Z",
+   "expires": "2026-11-19T06:24:12Z",
    "release": "control-board-5a.zip",
    "callers": {
     "scanUnused": [
@@ -167,7 +178,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "Control Board 5a: the logbook and the night's folded fixes (0171 \u00a710)",
    "since": "2026-11-19T02:22:25Z",
-   "expires": "2026-11-19T06:22:25Z",
+   "expires": "2026-11-19T06:24:12Z",
    "release": "control-board-5a.zip",
    "callers": {}
   },
@@ -178,7 +189,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "Control Board 5a: the logbook and the night's folded fixes (0171 \u00a710)",
    "since": "2026-11-19T02:22:25Z",
-   "expires": "2026-11-19T06:22:25Z",
+   "expires": "2026-11-19T06:24:12Z",
    "release": "control-board-5a.zip",
    "callers": {}
   },
@@ -200,7 +211,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "Control Board 5a: the logbook and the night's folded fixes (0171 \u00a710)",
    "since": "2026-11-19T02:22:25Z",
-   "expires": "2026-11-19T06:22:25Z",
+   "expires": "2026-11-19T06:24:12Z",
    "release": "control-board-5a.zip",
    "callers": {}
   },
@@ -212,6 +223,50 @@
    "why": "Control Board 5a: the logbook and the night's folded fixes (0171 \u00a710)",
    "since": "2026-11-19T02:22:25Z",
    "expires": "2026-11-19T06:22:25Z",
+   "release": "control-board-5a.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/ControlMaintenance.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "release control-board-5a.zip",
+   "since": "2026-11-19T02:24:12Z",
+   "expires": "2026-11-19T06:24:12Z",
+   "release": "control-board-5a.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Preflight.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "release control-board-5a.zip",
+   "since": "2026-11-19T02:24:12Z",
+   "expires": "2026-11-19T06:24:12Z",
+   "release": "control-board-5a.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/admin/api.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "release control-board-5a.zip",
+   "since": "2026-11-19T02:24:12Z",
+   "expires": "2026-11-19T06:24:12Z",
+   "release": "control-board-5a.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/js/admin-control.js",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "release control-board-5a.zip",
+   "since": "2026-11-19T02:24:12Z",
+   "expires": "2026-11-19T06:24:12Z",
    "release": "control-board-5a.zip",
    "callers": {}
   }
