@@ -1,0 +1,74 @@
+{
+ "zip": "control-board-5a.zip",
+ "built_on": "262ca5b Sync: 2026-11-19 02:18 UTC",
+ "recorded": "2026-11-19 02:36 UTC",
+ "note": "Control Board 5a: the logbook and the night's fixes, plus a 429 as a warning that waits twice as long (its Check it now greyed, the next try shown beside it), never a trip; built on Sync: 02:18 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/admin/control-console.php": {
+   "sha256": "6396f31489ff88471b1c9d64498248bc418a7a0dab5fb5be45fdba7f92785f4b",
+   "live": false
+  },
+  "app/lib/ControlAlarms.php": {
+   "sha256": "a3fe849b18c1e2d2b3adbec09e59ca0fed449df3515dc2ab5d0a5ee443825753",
+   "live": false
+  },
+  "app/lib/ControlBoard.php": {
+   "sha256": "0731eabcf4f96b1e5f42f727e20abb05c06d3d65676f6cd084be866d2a7ab053",
+   "live": false
+  },
+  "app/lib/ControlLedger.php": {
+   "sha256": "244ad30e6ba9aae5b3422fac55385f9a8e220fe51d8e2f816ca7ccb1f199010f",
+   "live": false
+  },
+  "app/lib/ControlLog.php": {
+   "sha256": "8f68f49178a706c3e96fc49cadcb7029faf17af160a714301bc8d268d8e037d5",
+   "live": false
+  },
+  "app/lib/ControlMaintenance.php": {
+   "sha256": "0967b9ecbddbf9acb1ef4d57e310e84566acb4c5f714eadf9fddc2fef6943386",
+   "live": false
+  },
+  "app/lib/Preflight.php": {
+   "sha256": "b1260c6ebeb62a0385e7d6782ac454e1be2a7cff08d65960dd977982a9803bdd",
+   "live": false
+  },
+  "app/lib/SchemaUpkeep.php": {
+   "sha256": "1ab70f4bc1bfa8b4cf8c820d3345205000bf4e16e06c34bedd7730e258c352ba",
+   "live": false
+  },
+  "app/lib/ServiceHealth.php": {
+   "sha256": "7422764df2873974e6caa4c63c21b2a0b93ce1c2d306ef89e2cda6a08190095b",
+   "live": false
+  },
+  "app/lib/SystemStart.php": {
+   "sha256": "83658383b958354ecc4ef7a99cd57bee488d57c87469850d0a984e0495742b2d",
+   "live": false
+  },
+  "app/lib/staging-tables.php": {
+   "sha256": "adbf74309d1ab455093d4ee095a336e6093a9776b73ef98719e5e7399914dc0b",
+   "live": false
+  },
+  "app/migrations/2026-11-19_control_log.sql": {
+   "sha256": "900bf8398b80b022fa3ebbb3f1d91d90c98bd2f4e0669d1d24600f06736c35f8",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "44356b0a5db72e4199ad938d786c5ec488cf280e34ead7592eeae7b721220236",
+   "live": false
+  },
+  "website/admin/api.php": {
+   "sha256": "bccd701b6e70712e4bcc9ed30a8a754a499382532e6be1b273a8b905a22ebbdc",
+   "live": false
+  },
+  "website/api/health.php": {
+   "sha256": "c5b68e9dea49ce2c0e1c96c064f152acd3325f00f8fa915dbb7637db71f823bb",
+   "live": false
+  },
+  "website/js/admin-control.js": {
+   "sha256": "7cb24503e37f9f468d4a26d480effe9e426f33acc897adef914b4c299a7d1a1f",
+   "live": false
+  }
+ }
+}
