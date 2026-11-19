@@ -1,6 +1,6 @@
 # Get Local R2 (2026-11-19)
 
-One release, `get-local-r2.zip`, built on Sync 22:06 UTC. Jason approved every part (reviewed by the session manager):
+One release, `get-local-r2.zip`, built on Sync 22:24 UTC. Jason approved every part (reviewed by the session manager):
 Change 1 (the line over the list), Change 2 (card tools), the header search (a)+(b), the PO box rule, the comments box,
 and the concept ("Build as shown"; layout "Lets build it each way for a A/B test"). Decision note: `decisions/0058`
 (2026-11-19, "Get Local R2"). Tests: `tools/design-tests/get-local-r2.cjs` (42 checks, 1280 and 390).
