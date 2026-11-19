@@ -1,6 +1,17 @@
 {
- "at": "2026-11-19T10:57:26.178Z",
+ "at": "2026-11-19T11:23:12.953Z",
  "open": [
+  {
+   "key": "pf:wf:W1",
+   "level": "trip",
+   "process": "wf:W1",
+   "title": "W1 Listings: Needs: Places by kind and town ✓, Businesses in bulk ✓, Health providers (on a backup), Nonprofits ✓, Recreation areas ✓, Official places ✓, Confirm a business ✓, Page prose into facts ✓.",
+   "reading": "Needs: Places by kind and town ✓, Businesses in bulk ✓, Health providers (on a backup), Nonprofits ✓, Recreation areas ✓, Official places ✓, Confirm a business ✓, Page prose into facts ✓.",
+   "means": "It works on a backup: nothing is held, but its first source needs a look.",
+   "since": "2026-11-18T20:05:04+00:00",
+   "tripped": "2026-11-19T09:00:42+00:00",
+   "stopped": "W1 (its tasks first, then the workflow)"
+  },
   {
    "key": "pf:t:vectors",
    "level": "trip",
@@ -9,7 +20,7 @@
    "reading": "Supabase: Not ready. Google AI Studio (Gemini): Ready. Vector index: its cron line is there. Its workflow W3: Not ready (it comes on after its workflow).",
    "means": "Its check didn't pass; what depends on it waits.",
    "since": "2026-11-18T20:05:03+00:00",
-   "tripped": null,
+   "tripped": "2026-11-19T11:21:02+00:00",
    "stopped": ""
   },
   {
@@ -20,19 +31,8 @@
    "reading": "Its gate: 1 red line(s) in the switch-on check: \"Common Crawl (W3)\" (Held: Issue #25: Common Crawl: its server failed at index.commoncrawl.org).",
    "means": "W3 won't start until this is fixed; the rest of the system runs.",
    "since": "2026-11-18T20:05:04+00:00",
-   "tripped": null,
+   "tripped": "2026-11-19T11:21:02+00:00",
    "stopped": ""
-  },
-  {
-   "key": "pf:wf:W1",
-   "level": "trip",
-   "process": "wf:W1",
-   "title": "W1 Listings: Its gate: 1 red line(s) in the switch-on check: \"Wikimedia (Wikipedia, Wikidata, Commons) (W1, W9)\" (Held: Issue #26: Wikimedia (Wikipedia, Wikidata, Commons): asked us to slow down at qu",
-   "reading": "Its gate: 1 red line(s) in the switch-on check: \"Wikimedia (Wikipedia, Wikidata, Commons) (W1, W9)\" (Held: Issue #26: Wikimedia (Wikipedia, Wikidata, Commons): asked us to slow down at query.wikidata.org).",
-   "means": "W1 won't start until this is fixed; the rest of the system runs.",
-   "since": "2026-11-18T20:05:04+00:00",
-   "tripped": "2026-11-19T09:00:42+00:00",
-   "stopped": "W1 (its tasks first, then the workflow)"
   },
   {
    "key": "svc:issue:25",
@@ -86,17 +86,6 @@
    "reading": "55%",
    "means": "Claude (AI): $22.30 of $40.00 (55%).",
    "since": "2026-11-19T07:20:02+00:00",
-   "tripped": null,
-   "stopped": ""
-  },
-  {
-   "key": "ep:crawl/refresh:count",
-   "level": "warning",
-   "process": "wf:W2",
-   "title": "/api/crawl/refresh counted more than it received",
-   "reading": "received 2, counted 3",
-   "means": "Its record of what it stored, updated, sent to Review or refused doesn't add up, so its numbers on the board can't be trusted.",
-   "since": "2026-11-19T09:56:05+00:00",
    "tripped": null,
    "stopped": ""
   },

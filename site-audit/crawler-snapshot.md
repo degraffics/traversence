@@ -8,7 +8,7 @@ Change is since 2026-11-13, the first day recorded.
 
 | What | Now | Change |
 |---|---|---|
-| staged | 13783 | +13138 |
+| staged | 13785 | +13140 |
 | quarantined | 41 |  |
 | published | 6070 | +5752 |
 | merged | 330 | +168 |
@@ -27,16 +27,16 @@ Change is since 2026-11-13, the first day recorded.
 | by_reason · category | 26 | -35 |
 | by_reason · dupe | 1 | -5 |
 | auto_import_on | true |  |
-| of | 13783 | +13138 |
+| of | 13785 | +13140 |
 
 ## The place store
 
 | What | Now | Change |
 |---|---|---|
-| places | 3703 | +2764 |
-| hosts | 273 | +203 |
-| sources_read | 3204 | +2888 |
-| sources_read_empty | 287 | +166 |
+| places | 3705 | +2766 |
+| hosts | 274 | +204 |
+| sources_read | 3212 | +2896 |
+| sources_read_empty | 288 | +167 |
 
 ## Websites taken off listings, by month
 
@@ -83,16 +83,16 @@ Change is since 2026-11-13, the first day recorded.
 |---|---|---|
 | done | 61 | -21 |
 | leased (set aside) | 2 | 0 |
-| nothing | 4775 | +271 |
+| nothing | 4783 | +279 |
 | nothing (set aside) | 13 | 0 |
-| queued | 610 |  |
+| queued | 602 |  |
 
 ## The source register
 
 | What | Now | Change |
 |---|---|---|
-| by_status · suggested | 2499 | +2036 |
-| by_status · read | 3204 | +2888 |
+| by_status · suggested | 2539 | +2076 |
+| by_status · read | 3212 | +2896 |
 | by_status · cite_only | 213 | +24 |
 | by_status · ignore | 2 |  |
 | waiting_after_describe | 7 | -399 |
@@ -132,7 +132,7 @@ Change is since 2026-11-13, the first day recorded.
 |---|---|---|
 | approved | 1 | 0 |
 | hidden | 29 | +28 |
-| shown | 5351 | +1631 |
+| shown | 5371 | +1651 |
 | story_only | 11 |  |
 | waiting | 33 | +6 |
 
@@ -141,7 +141,7 @@ Change is since 2026-11-13, the first day recorded.
 | What | Now | Change |
 |---|---|---|
 | draft / done | 80 | +22 |
-| draft / gathering | 15 |  |
-| draft / queued | 5 |  |
+| draft / gathering | 13 |  |
+| draft / queued | 7 |  |
 | live / done | 6 | 0 |
 

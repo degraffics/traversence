@@ -1,5 +1,5 @@
 {
- "at": "2026-11-19T10:57:26.177Z",
+ "at": "2026-11-19T11:23:12.953Z",
  "checked": "2026-11-14T15:38:12+00:00",
  "files_read": 784,
  "tables": [
@@ -179,7 +179,7 @@
    "db": "degraff1_traversence",
    "table": "identity_facts",
    "column": "w",
-   "filled": 214126,
+   "filled": 214143,
    "kept": false
   },
   {
@@ -368,14 +368,14 @@
    "db": "degraff1_traversence",
    "table": "site_release_settings",
    "column": "k",
-   "filled": 176,
+   "filled": 177,
    "kept": false
   },
   {
    "db": "degraff1_traversence",
    "table": "site_release_settings",
    "column": "v",
-   "filled": 176,
+   "filled": 177,
    "kept": false
   },
   {
