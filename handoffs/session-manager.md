@@ -23,6 +23,9 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
   summary first. Answer fast (most take 1–3 minutes); it reminds me at 10 and asks him unreviewed only at 30. Check it against its decision, the brief, CLAUDE.md and the playbook: scope creep,
   drift, a conflict between sections, something he already decided, a hold wider than its cause, unclear words. Answer
   "clear to ask" or the fixes, with the sections quoted. Never approve for him; the OK stays his, in the session.
+  Also check it against the playbook's principles (2026-11-19, builder-playbook §2–3): what waits on a person (could
+  the system do it?), what stops (only for harm, as narrow as its cause), whether each alarm carries its fix, whether the
+  words say what's true now, and the summary's admin's-test line for each new state (what he sees, means, presses).
 - **No scope creep, no drift** (Jason, 2026-11-18: "consistency = scope creep or drift"): after each release, check the
   release and the build's `handoffs/<area>.md` against its decision and brief. **Scope creep:** something built or
   promised that the decision and brief don't call for. **Drift:** something the decision calls for changed, shrunk,
