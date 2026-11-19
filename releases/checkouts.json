@@ -159,13 +159,14 @@
   {
    "path": "app/lib/ServiceHealth.php",
    "functions": [
-    "alarm"
+    "alarm",
+    "steps"
    ],
    "kind": "change",
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "control-board-card: no Mark resolved (Jason 2026-11-19)",
    "since": "2026-11-19T17:56:27Z",
-   "expires": "2026-11-19T21:56:27Z",
+   "expires": "2026-11-19T21:56:29Z",
    "release": "",
    "callers": {}
   }
