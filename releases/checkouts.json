@@ -165,17 +165,6 @@
    "callers": {}
   },
   {
-   "path": "app/ui/pulse-ui.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "control-board-itsdata (Jason 2026-11-19: blocked notice, Its data, outside our region, Pulse timing)",
-   "since": "2026-11-19T16:30:41Z",
-   "expires": "2026-11-19T20:30:41Z",
-   "release": "",
-   "callers": {}
-  },
-  {
    "path": "app/admin/tools.php",
    "functions": [],
    "kind": "add",
@@ -188,17 +177,6 @@
   },
   {
    "path": "app/admin/control-console.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "release control-board-itsdata.zip",
-   "since": "2026-11-19T16:32:39Z",
-   "expires": "2026-11-19T20:32:39Z",
-   "release": "control-board-itsdata.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/ui/pulse-ui.php",
    "functions": [],
    "kind": "add",
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
