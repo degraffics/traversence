@@ -67,9 +67,13 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "control-board-landing (Jason 2026-11-19: Open its card lands on the card; a workflow's alarm opens its run)",
    "since": "2026-11-19T17:21:52Z",
-   "expires": "2026-11-19T21:21:52Z",
-   "release": "",
-   "callers": {}
+   "expires": "2026-11-19T21:22:35Z",
+   "release": "control-board-landing.zip",
+   "callers": {
+    "peek": [
+     "website/js/admin-control.js"
+    ]
+   }
   },
   {
    "path": "app/admin/control-console.php",
@@ -80,8 +84,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "control-board-landing (Jason 2026-11-19: Open its card lands on the card; a workflow's alarm opens its run)",
    "since": "2026-11-19T17:21:56Z",
-   "expires": "2026-11-19T21:21:56Z",
-   "release": "",
+   "expires": "2026-11-19T21:22:35Z",
+   "release": "control-board-landing.zip",
    "callers": {}
   }
  ],
