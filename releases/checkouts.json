@@ -134,6 +134,17 @@
    "expires": "2026-11-19T20:30:32Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/admin/control-console.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "control-board-itsdata (Jason 2026-11-19: blocked notice, Its data, outside our region, Pulse timing)",
+   "since": "2026-11-19T16:30:34Z",
+   "expires": "2026-11-19T20:30:34Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
