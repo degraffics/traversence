@@ -158,6 +158,17 @@ plan using OSM and keep people on our own site?"). Decision first; nothing built
 - OSM's credit on the route (0065); no visitor data kept (0058 §13).
 - To a session when Jason chooses the engine.
 
+**More sources for health care and guided tours** (Jason, 2026-11-19, after Overpass was retired: "How do we secure more
+data if this comes from our own copy?"). Our OSM copy (Geofabrik, weekly) keeps up with OSM's own edits; for more than
+OSM has, candidate sources under 0164's rules (the licence decides the use), each one researched for its terms first and
+brought to Jason as one list to approve:
+- Health care: NPI (the federal provider registry, public domain; used in the rural test), HRSA's health centres and
+  rural clinics, Overture (with Foursquare's open data, already a source).
+- Tours and things to do: state tourism offices' listings (research/state-tourism-apis.md), RIDB's activities.
+- **Not:** guide and outfitter permit lists (NPS, Forest Service, BLM). Jason, 2026-11-19: "Guide permits: not
+  additional sources".
+To the Control Board session (it owns the crawler's sources) when Jason chooses.
+
 **Pulse's load-time warning** (Jason, 2026-11-19: "add Pulse's load-time warning", to the Control Board session): time
 how long `Pulse::items` takes to gather (its ~15 sources) on each open of the admin's Pulse. Keep the reading in the
 board's timings (`ms:pulse`) with its history. Show it as a part on the board. A warning (board only) when the usual time
