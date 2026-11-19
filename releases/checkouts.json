@@ -350,6 +350,17 @@
      "website/admin/w.php"
     ]
    }
+  },
+  {
+   "path": "app/ui/pulse-ui.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Pulse: the due time as a clock beside the date (Jason's screenshot, 2026-11-19)",
+   "since": "2026-11-19T13:45:08Z",
+   "expires": "2026-11-19T17:45:08Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
