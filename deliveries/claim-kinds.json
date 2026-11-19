@@ -1,0 +1,34 @@
+{
+ "zip": "claim-kinds.zip",
+ "built_on": "020ef77 Sync: 2026-11-19 23:27 UTC",
+ "recorded": "2026-11-19 23:29 UTC",
+ "note": "claim-kinds: who might claim a listing, the short button, the form by kind; built on Sync: 23:27 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/Claims.php": {
+   "sha256": "03aa6eaa9a9445791db75def514ae4aad8c4d94543db908ce9adce9ff4e9a082",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "7e80db59ab8e6f4a77a1c98db741a3a3944a82cc7a8b4dbe9adc941c64aba13a",
+   "live": false
+  },
+  "website/claim.php": {
+   "sha256": "ab038f4103181275bc7ba9c9a21331202ead4e349b052bc23b21482943502519",
+   "live": false
+  },
+  "website/js/claim.js": {
+   "sha256": "365f8e01cb5a0a2e689949d45a2a3efd1138802810de59369b44c28d222d1b76",
+   "live": false
+  },
+  "website/listing/api/claim.php": {
+   "sha256": "ffb95f7c15727328e964473392c69825ba144c05139ead3140a2e3ebd9002599",
+   "live": false
+  },
+  "website/listing/view.php": {
+   "sha256": "8040844459f88b72aa7883f61ddfb8d5a3eb48d287bac8cf16b8726572ff8d3e",
+   "live": false
+  }
+ }
+}
