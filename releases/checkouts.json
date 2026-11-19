@@ -2,46 +2,6 @@
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
  "claims": [
   {
-   "path": "app/ui/explore-hero.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
-   "why": "Design 3b-1 follow-up: the open tab in sage; #158's app files again",
-   "since": "2026-11-19T00:20:04Z",
-   "expires": "2026-11-19T04:37:58Z",
-   "release": "design-r3b1-tabs.zip",
-   "callers": {
-    "tv_explore_hero": [
-     "website/community/group.php",
-     "website/discovery/index.php",
-     "website/hub/index.php",
-     "website/listing/view.php",
-     "website/place/landmark.php",
-     "website/place/recreation.php",
-     "website/user/profile.php"
-    ]
-   }
-  },
-  {
-   "path": "app/ui/stock-ui.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
-   "why": "Design 3b-1: Home and Discovery (hero order, stock byline, tokens)",
-   "since": "2026-11-19T00:20:04Z",
-   "expires": "2026-11-19T04:37:58Z",
-   "release": "design-r3b1-tabs.zip",
-   "callers": {
-    "tv_stock_tag": [
-     "app/admin/sections.php",
-     "app/business/storefront.php",
-     "app/ui/explore-hero.php",
-     "app/ui/storefront-view.php",
-     "website/index.php"
-    ]
-   }
-  },
-  {
    "path": "website/index.php",
    "functions": [],
    "kind": "change",
@@ -65,24 +25,6 @@
    "expires": "2026-11-19T04:28:53Z",
    "release": "design-r3b1-explore-2.zip",
    "callers": {}
-  },
-  {
-   "path": "app/ui/theme-tokens.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
-   "why": "Design 3b-1: the route colour token (Electric Lime, Jason 2026-11-19)",
-   "since": "2026-11-19T00:27:39Z",
-   "expires": "2026-11-19T04:37:58Z",
-   "release": "design-r3b1-tabs.zip",
-   "callers": {
-    "tv_theme_tokens": [
-     "app/ui/app-shell.php",
-     "app/ui/auth-nav.php",
-     "app/ui/header.php",
-     "app/ui/page-shell.php"
-    ]
-   }
   },
   {
    "path": "app/admin/control-console.php",
