@@ -1,0 +1,18 @@
+{
+ "zip": "control-board-card.zip",
+ "built_on": "f29a07f Sync: 2026-11-19 17:38 UTC",
+ "recorded": "2026-11-19 17:42 UTC",
+ "note": "control-board-card: Jason 2026-11-19 'how am I supposed to fix this?': a service's card shows its open issue and the buttons that fix it; built on Sync: 2026-11-19 17:38 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/admin/operations-console.php": {
+   "sha256": "aeba6c758d7677d47c9259d3e528f1ab4645beda76cc25ba46a3e15a55b7c2de",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "4df2152659180c73e9873b857428b3fe0d746f1d3ac328ef44d60ae6cf02a1a5",
+   "live": false
+  }
+ }
+}

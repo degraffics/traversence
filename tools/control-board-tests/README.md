@@ -163,3 +163,7 @@ and `website/api/` (the mirror's `sync-storage/api/crawl` and `api/video`). Put 
   390 (7 tests; it fails on the panel as it was). A workflow's, task's or the crawler's alarm opens its run: the one its
   fix names, else the run going when it was last seen, the list only with no run yet (6 tests). `node peek-anchor.cjs
   <root>`; `mariadb < ../release-b-tests/start-schema.sql && php evidence.php <root>/app`.
+- `card-issue.php`: control-board-card (Jason, 2026-11-19: "how am I supposed to fix this?"). A service's card in the
+  Service register shows its open issue (what came back, how often, since when, what it means, what to do) with the
+  board's buttons: Check and start again on a trip, else Check it now (never for a 429) and Mark resolved. 9 tests:
+  `mariadb < ../release-b-tests/start-schema.sql && php card-issue.php <root>/app`.
