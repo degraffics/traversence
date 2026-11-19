@@ -1,0 +1,59 @@
+{
+    "id": 160,
+    "title": "Control Board 4e: slow never stops anything; Check and start again",
+    "why": "Jason, 2026-11-19 (5:33 PM MST): a slow results endpoint (3.3 s against 0.2 s, three times) had tripped and stopped W1, and Resolve only asked What fixed it?: \"There is no way to fix this\" and \"no dead ends, system fixes first\". A slow call or job is now a warning that says how slow, stops nothing and clears itself when the speed returns. Slow trips already open are lifted by the system on the next watch: it checks first, then starts again what they stopped, and keeps trying while a check is red (logged, Undo for a day). Resolve is Check and start again, with no question, greyed with the reason while a check is red. A pre-flight line not tested in 6 hours is tested again by the watch, words only, so an old trip (W0) says what is really wrong. Replaces 3c's slow rule (decisions/0171 note).",
+    "proposals": "",
+    "zip": "control-board-4e.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/admin/control-console.php": {
+            "sha": "a366b06c1a719af61ccf719b21fe39f1eebd8a144cf54891684e753cf18d970d",
+            "size": 72373,
+            "live_was": "e724522842dc0a44da1b6d85cd5086b9955727b01fd9bbe5dd6d8a2ae0796fb3"
+        },
+        "app/lib/ControlAlarms.php": {
+            "sha": "4e4191f486030f23dcb2447e07e21680aae5f1eb86a500c86c82a771169e59ba",
+            "size": 54957,
+            "live_was": "5bbe4640d4fc9f4ce73de2f4693a827fa2d452257cf0b49348f74a425213b972"
+        },
+        "app/lib/ControlLedger.php": {
+            "sha": "6276960311a527516fbae1d8b6bde43be0d2504f7e8c971511484cb8728ef7e0",
+            "size": 16744,
+            "live_was": "71298a68a8e337ba9016105db23528ec383486738a936b13ceeb2ceb34d3fc72"
+        },
+        "app/lib/Preflight.php": {
+            "sha": "c4f74d2d48bccbabff187eba84d31819909cafe9220207067d7b7e7eced8b2c0",
+            "size": 149360,
+            "live_was": "e6253cdd24180e92fe6cedf3f99f3d8d2f0347da60ac4f68bb875ee94ce571e1"
+        },
+        "app/lib/Thresholds.php": {
+            "sha": "600e3d542e503894a33c37ee85f48c9cd9eacf2c11a627e77d7948151d46899c",
+            "size": 30336,
+            "live_was": "4df497c0b19579d7f61a3029bb7ffe508079b2deefca39cc0b100000f2db1a6c"
+        },
+        "app/ui/faq.md": {
+            "sha": "941f6ecc5fe2fe0c6fa6500404d159de75ffd2614e03ee97dec5342dbf7f1e9d",
+            "size": 359589,
+            "live_was": "67eac03f978f623092df61b199ea9401f3b4e333a4849bb40dd55cf176792861"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-19T00:45:40+00:00",
+            "by": 0,
+            "msg": "Uploaded control-board-4e.zip: 6 files."
+        }
+    ]
+}
