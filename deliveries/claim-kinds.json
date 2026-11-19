@@ -1,8 +1,8 @@
 {
  "zip": "claim-kinds.zip",
- "built_on": "d8611c5 Sync: 2026-11-19 23:34 UTC",
- "recorded": "2026-11-19 23:35 UTC",
- "note": "claim-kinds: who might claim a listing, the short button, the form by kind; built on Sync: 23:34 UTC Sent through git (releases/inbox).",
+ "built_on": "e80b023 Sync: 2026-11-19 23:38 UTC",
+ "recorded": "2026-11-19 23:43 UTC",
+ "note": "claim-kinds: who might claim a listing, the short button, the form by kind; built on Sync: 23:38 UTC Sent through git (releases/inbox).",
  "status": "pending",
  "live_in": "",
  "files": {
@@ -11,7 +11,7 @@
    "live": false
   },
   "app/ui/faq.md": {
-   "sha256": "d470020e91d52770d559209a15500cf60ef7d970a5c5a8d9bdf9b98e4ed3c5dc",
+   "sha256": "eb09050cd73f75f284013c870eef5dfa56850c021ebc8d5b6e6e874799fd54e3",
    "live": false
   },
   "website/claim.php": {

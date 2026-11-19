@@ -1,6 +1,6 @@
 # claim-kinds (2026-11-19)
 
-One release, `claim-kinds.zip`, built on Sync 23:34 UTC (d8611c5). Jason approved it in the pop-up, after a review by the session manager. For plans he chose "Their own plan later". Decision note: decisions/0070 (2026-11-19). Tests: `tools/listing-tests/claim-kinds.php` (11 checks) and `claim-kinds.cjs` (33 checks at 1280 and 390).
+One release, `claim-kinds.zip`, built on Sync 23:38 UTC (e80b023). Jason approved it in the pop-up, after a review by the session manager. For plans he chose "Their own plan later". Decision note: decisions/0070 (2026-11-19). Tests: `tools/listing-tests/claim-kinds.php` (11 checks) and `claim-kinds.cjs` (33 checks at 1280 and 390).
 
 **Files:**
 - `app/lib/Claims.php`
