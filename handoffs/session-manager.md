@@ -191,9 +191,9 @@ the needs that have none; OpenStreetMap coverage from our Geofabrik copy.
 7. Live checks: push on a real device; mailboxes against real servers once Jason adds keys at
    https://traversence.com/admin/config/communications#cs-mailboxes; each new button pressed once on the live site.
 
-**Jason's own:** enroll in Name.com's API Reseller Program (https://www.name.com/nameapi/pricing, the Traversence account; free, new registrations only; see Domains below, 2026-11-19); records requests (Arizona Corporation Commission, New Mexico's Secretary of State); Wikimedia Commons
+**Jason's own:** decide SystemStart's "Mark issue resolved" on the Start the system card (the one Mark resolved left, named in 0171's note, 2026-11-19); enroll in Name.com's API Reseller Program (https://www.name.com/nameapi/pricing, the Traversence account; free, new registrations only; see Domains below, 2026-11-19); records requests (Arizona Corporation Commission, New Mexico's Secretary of State); Wikimedia Commons
 for heritage (store with credit, or link); approve 0164 §7.1's licence-source strategy; renew `GITHUB_SYNC_TOKEN`
-before Dec 16 (https://github.com/settings/tokens); the OpenStreetMap statement: posted 2026-11-19, about 16:10 UTC, waiting for a forum moderator (research/osm-overpass-2026-11-13.md §3); on their answer, Reactivate and Mark resolved.
+before Dec 16 (https://github.com/settings/tokens); the OpenStreetMap statement: posted 2026-11-19, about 16:10 UTC, waiting for a forum moderator (research/osm-overpass-2026-11-13.md §3); on their answer, Check and start again on the Overpass alarm (no Reactivate or Mark resolved since control-board-card-2).
 
 **Visual fixes** (to the design session's Release 3): the squeezed footer edit zone (Discovery's hero, the Edit switch and stock
 bylines are done: #153, #158, #159).

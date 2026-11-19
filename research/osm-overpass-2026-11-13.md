@@ -140,8 +140,8 @@ code to check, below).
 **Sent (2026-11-19, about 16:10 UTC):** Jason posted the statement, as corrected in Release #189, in Help and support with
 the tag overpass, from the OpenStreetMap account **Traversence** (signed in with his GitHub account; no password of its
 own). As a new account, the post is held for a moderator's approval before it shows. Their answer comes by email to that account
-and to support@traversence.com. When they lift the block: Reactivate on OpenStreetMap's card
-(https://traversence.com/admin/config/register#svc-osm), then Mark resolved on the alarm. The topic link goes here once
+and to support@traversence.com. When they lift the block: press Check and start again on the "Every Overpass server is held" alarm
+(https://traversence.com/admin/config/control), which makes one status check and resumes only if it passes (Jason, 2026-11-19: no Mark resolved; release control-board-card-2). The topic link goes here once
 it's approved.
 
 **First answer (2026-11-19, Mateusz_Konieczny, about 30 minutes after it showed):** "these bans are almost certainly
