@@ -1,0 +1,14 @@
+{
+ "zip": "unused-schema-removal.zip",
+ "built_on": "b01a318 Sync: 2026-11-19 00:47 UTC",
+ "recorded": "2026-11-19 00:53 UTC",
+ "note": "Removes the unused tables and columns Jason approved (Pulse #31, the Safe list; copies first, 0162). Built on Sync: 2026-11-19 00:47 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/migrations/2026-11-19_unused_schema_removal.sql": {
+   "sha256": "570e92899931e61717bdb86ee372f0037888e1ec56e46ffcc7179c9b32865c17",
+   "live": false
+  }
+ }
+}
