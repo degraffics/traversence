@@ -1,0 +1,22 @@
+{
+ "zip": "control-board-landing.zip",
+ "built_on": "1dbbb81 Sync: 2026-11-19 17:21 UTC",
+ "recorded": "2026-11-19 17:22 UTC",
+ "note": "control-board-landing: Jason 2026-11-19 'Open card shows the specific place to fix issues': the side panel keeps a link's anchor; a workflow's alarm opens its run; FAQ on #199's live copy; built on Sync: 2026-11-19 17:21 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/admin/control-console.php": {
+   "sha256": "f14b9a0844057ebf484476cad74d9015519925fbb5d1152ead006910c9559e38",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "c1210f4a86c4342cdd532490ccc9692ef4864f80a6d9273ae289170a4412964b",
+   "live": false
+  },
+  "website/js/tv-ask.js": {
+   "sha256": "bc06644696cf9135e99ff8b6a6884c3a2dce23f2fd540e8eebcdd2d446cd7b14",
+   "live": false
+  }
+ }
+}
