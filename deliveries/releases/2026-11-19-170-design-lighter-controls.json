@@ -1,0 +1,114 @@
+{
+    "id": 170,
+    "title": "Design: lighter controls",
+    "why": "Jason, 2026-11-19: \"the inputs being the same color as the bg is a little weird. maybe a slightly lighter color\"; the round action buttons blending in; \"the score should be more subtle, use the circle look like the other circles, keep status bar the same\"; the active chip \"a little too dark, softer brown. and not quotes\"; his screenshot of Browse local businesses (dark text on brown). (1) A token, --tv-field (white 55% into the vellum), and a zero-specificity base rule for text boxes, dropdowns and text areas; the pages' own field rules onto it. (2) The 30-34px round action buttons rest in --tv-field with their brown ring (CLAUDE.md: rest cream with a brown ring). (3) The score ring: the field fill and a 1px brown ring like the others, its coloured arc unchanged, the number quieter. (4) Get Local's active chip: a softer brown (umber 40% into taupe), the search words without quote marks. (5) White text on brand brown for Browse local businesses (hub) and the listing's event button: 3b-2 had left dark text on them.",
+    "proposals": "",
+    "zip": "design-controls.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/admin/kit-css.php": {
+            "sha": "1d7e19bdcadba80292e3acae966dfab1896e5d744c42fdae183eb4981932e45d",
+            "size": 33745,
+            "live_was": "74c9e73c72c5673ab8b21d5991e0cdbb17dfd89c4680f433b2fedae26560c85f"
+        },
+        "app/ui/explore-hero.php": {
+            "sha": "9bfdd312aa1758704f1f8cd6479c97656cf3a5f6e9676dfaac626d9b2f7756ef",
+            "size": 35569,
+            "live_was": "ac0249d19d3a3a51dd01486a9b3e1cd910ddd3f2f38a733440a22877ff6e2266"
+        },
+        "app/ui/context-switcher.php": {
+            "sha": "4c0def461dda15be28368ddc809ad2c11ecc5927fab9d2fac5df51b3a3a9c8e6",
+            "size": 38027,
+            "live_was": "1006982908e266f0b64b824b3acfb7dbf4ac32b0c8ae5474efee47f1bd3b33a3"
+        },
+        "app/ui/theme-tokens.php": {
+            "sha": "28d2eb07256aafb6a05e1446500f161135fcd5fc29869ff7e0ee71f2a2f12aa8",
+            "size": 6908,
+            "live_was": "63bd672d246a17062c52aa030e19581ef5d4bfea0dbae27f9bf7d3cba9bd330b"
+        },
+        "app/ui/confidence-ui.php": {
+            "sha": "c6e394cb754ad5e6aad92b998f5132c472a6c1cd23af989cdeb086f4447de1f7",
+            "size": 8259,
+            "live_was": "b2f24c7bdd3482aefbeb0911684871f7432b412d1f9e72424e4e6b7e17ea6565"
+        },
+        "app/ui/engage-ui.php": {
+            "sha": "38f18fd7a7a6322d29d123f642d5f900202fdc79a7253df98c51c095800f6518",
+            "size": 9189,
+            "live_was": "e91c0f9266b8f3510c6aadc17863ca4fb69eb7476a91d7f7ea4cab4f96376f02"
+        },
+        "app/ui/header.php": {
+            "sha": "33f347963258d08329180d5484b3eb8086646e1ffb7bcd2f8ce04975369b3455",
+            "size": 62310,
+            "live_was": "cd184282f5f92262078aee7139f9dff5b4e4a71f7b5896de2adbe36bc51a7726"
+        },
+        "website/listing/view.php": {
+            "sha": "313bcbbd6295cf253ae6f25525e04f2806ab2b9ff01c00690d12213cb88a6d94",
+            "size": 59448,
+            "live_was": "f0ad1055c7e122cd663c2a81f540c1ccf727c2159f73d305aad2b08a78072b03"
+        },
+        "website/place/landmark.php": {
+            "sha": "6ea74b7f23c98bdd688a97c54b1e70c81bd13895e7ae2c97f3f5409c4fd636be",
+            "size": 20891,
+            "live_was": "423c31c4c9c7861bf19c52131571a49cae85a8bb48935dd20444c4cf2b04a7a8"
+        },
+        "website/place/recreation.php": {
+            "sha": "f22fe14bc2ef650310aee5f8d821ee82b7631063dd5338e412aea5e283c40c98",
+            "size": 13443,
+            "live_was": "1c5f367770684f199e5ea0776b85fc2b6b3976eaef19162b95f7544bb0139677"
+        },
+        "website/journeys/view.php": {
+            "sha": "4b2b9b87c95c5a46397cac52b622c0120129101109073e3fb83291101679e883",
+            "size": 22440,
+            "live_was": "4794aac636c0d8183447507a3406a3a4287f99b5f83432f83d79f1a9bb1bb95f"
+        },
+        "website/discovery/index.php": {
+            "sha": "b4dfbefa9392cc2466219fdfed627e4a76135c8ed5d1fdfb3a0d7fbde1db6be6",
+            "size": 88196,
+            "live_was": "f110fb3f679fab0d783afc15563b0c33c61caa4e4db37be999f89d036385a609"
+        },
+        "website/index.php": {
+            "sha": "980ffe1c234b154ee24df8998e906d0090db73123056270a503cfca769fd24cb",
+            "size": 46720,
+            "live_was": "f682cece69867398811ac7e4698970db2104efa1f068776df491f41e6aad706e"
+        },
+        "website/hub/index.php": {
+            "sha": "53b3d689dcd6f52cde9447e4ec2ed2ff336dc97040c70b424b453c666edd9417",
+            "size": 66473,
+            "live_was": "e2cbe9ced29ace2f1aa1364496539ab469d56ac208ba3f28c00c97321f2a1a91"
+        },
+        "website/gallery/index.php": {
+            "sha": "f1a31fdd4643019b1fc6b46b22c57528a57ff14a1ac543556a805fc39da96e7e",
+            "size": 18601,
+            "live_was": "791476f4c4c5057cc5c06a3f7f887633deccab19f03b169383ee1e0bfdf75c7a"
+        },
+        "website/directory/index.php": {
+            "sha": "70ba842b4e3ada163a0d1a1a8611bfe45fdeafd82522ddf0e1bf27d49ce22833",
+            "size": 63738,
+            "live_was": "c1c4ecff73711e6fc2adee606d0fac8da2cf61a4e8873607c3e78e4b2a88f57d"
+        },
+        "website/js/tv-ask.js": {
+            "sha": "49eb1b3ef263070d151365377587c17dd131cecbbaf0931bcfe04b1ee67f4dac",
+            "size": 49942,
+            "live_was": "13447b6a33c0a2ef3436ef66f3ba24cacd49028fdfe32f3849141cf15fb73f15"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-19T11:48:03+00:00",
+            "by": 0,
+            "msg": "Uploaded design-controls.zip: 17 files."
+        }
+    ]
+}
