@@ -1,0 +1,34 @@
+{
+    "id": 202,
+    "title": "The map: back to the list",
+    "why": "Jason, 2026-11-19: \"no way for me to go back to the list i had before I click an item\" (approved). A place's card opened above the list and jumped the panel to the top, its only way out a bare ×. Now an open card hides the list and leads with \"← Back to the list (N)\"; that, the × and Esc bring the list back where it was, the place opened marked; ‹ › still step; Esc with no card still leaves the map. Also a guard on a timer that ran after the map closed. js/map-view.js.",
+    "proposals": "",
+    "zip": "map-back.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "website/js/map-view.js": {
+            "sha": "bdee10e171ae3df3bdc6bcd9473854f8ceaf92d415c11257adcb3d2ec8169283",
+            "size": 69984,
+            "live_was": "0d1135c5601f50f9b9ec993d6305a724cafe42eba431ccfe1e33ac9baf46dff2"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-19T17:43:10+00:00",
+            "by": 0,
+            "msg": "Uploaded map-back.zip: 1 files."
+        }
+    ]
+}
