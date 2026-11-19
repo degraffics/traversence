@@ -111,5 +111,23 @@ $missing = array_diff(array_keys(OutsideServices::COMPANIES), array_keys(Staging
 eqv(array_values($missing), [], 'every service in the register has a staging answer');
 ok(!preg_match('~https://(?!(\*\.)?(tile\.openstreetmap|basemap\.nationalmap|upload\.wikimedia|commons\.wikimedia|cdnjs\.cloudflare|cdn\.tailwindcss|challenges\.cloudflare|js\.stripe|checkout\.stripe|api\.stripe|m\.stripe|stripe|web\.squarecdn|sandbox\.web\.squarecdn|squarecdn|sandbox\.api\.intuit|pci-connect\.squareupsandbox|connect\.squareupsandbox|amazonaws|r2\.cloudflarestorage|cloudfront|www\.youtube-nocookie|player\.vimeo|traversence|tile)\.)~', StagingGate::csp()), 'the CSP names only the hosts pages need');
 
+// ---- the guards that ask StagingGate::here() (2026-11-19): it was private, so their calls threw, were caught as "not
+// staging", and staging could write .env, mailbox passwords and our AWS account ----------------------------------------
+ok((new ReflectionMethod('StagingGate', 'here'))->isPublic(), 'StagingGate::here() can be asked from outside');
+$guard = function (string $cls, string $m) use ($app): ?bool {
+    require_once $app . '/lib/' . $cls . '.php';
+    $r = new ReflectionMethod($cls, $m); $r->setAccessible(true); return $r->invoke(null);
+};
+StagingGate::pretend(true);
+eqv($guard('CommsSetup', 'onStaging'), true, 'CommsSetup\'s guard answers "staging" on staging');
+eqv($guard('Mailboxes', 'staging'), true, 'Mailboxes\' guard answers "staging" on staging');
+require_once $app . '/lib/SesInbound.php';
+$said = ''; try { SesInbound::setup(new PDO('sqlite::memory:'), 0); } catch (Throwable $x) { $said = get_class($x) . ': ' . $x->getMessage(); }
+eqv($said, 'RuntimeException: Staging never changes our AWS account.', 'SesInbound refuses on staging, as a RuntimeException (not an Error)');
+StagingGate::pretend(false);
+eqv($guard('CommsSetup', 'onStaging'), false, '…and answers "live" on live');
+eqv($guard('Mailboxes', 'staging'), false, '…Mailboxes too');
+StagingGate::pretend(null);
+
 echo $fails ? "$fails of $n failed\n" : "All $n passed\n";
 exit($fails ? 1 : 0);
