@@ -117,3 +117,9 @@ and `website/api/` (the mirror's `sync-storage/api/crawl` and `api/video`). Put 
   week, the summary's 3–5 lines, the CSV's columns as the page's, the page as a self-contained file, nothing private (a
   seeded email, phone and IP never appear), no new table or outside call. 17 tests:
   `mariadb < ../release-b-tests/start-schema.sql && mariadb lv_main < <2a's ledger migration> && php r5b.php <root>/app`.
+- `links.php`: control-board-links (#175): Check and start again checks first; a Resolve acknowledges; a group's header
+  opens it; Check it now closes a not-set-up issue; Start's card and the switch-on check link to the board. 9 tests.
+- `offregion.php`: control-board-offregion: sources read outside our region (a country's address or places mostly
+  outside AZ and NM; never a shortener or a generic ending), the welcome rules, Pause, Pause all and Undo for a day,
+  shorteners followed (one try an hour, 429 backs off), the watch's recount; Acknowledge leaves the open list at once.
+  17 tests. Run as the others.
