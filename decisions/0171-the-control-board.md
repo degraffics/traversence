@@ -270,6 +270,15 @@ only while what it holds is switched on; otherwise a warning Start holds.
 **How fast:** at the moment of the event for anything that calls in; at most 5 minutes for silence. The email goes out
 in the same minute (§7). The phone push comes at the session manager's next hourly check, so the email is the fast path.
 
+**Note (Jason, 2026-11-19, release 4e): slow is never a trip; the system fixes first.** A slow call or job does less; it
+isn't broken, and stopping it made it do nothing ("There is no way to fix this"; "no dead ends, system fixes first"). So
+slow is a warning that says how slow, stops nothing and clears itself when the speed returns; this replaces §5's "a trip
+after control_slow_trips in a row" and 3c's rule for slow (control_slow_trips is retired, kept). A slow trip already open
+is lifted by the system itself: it checks first, then starts again what the trip stopped, and while a check is red it
+tries again every watch. An admin's Resolve is **Check and start again** (no question to answer); it's greyed with the
+reason while what it would start has a red check. Every open pre-flight alarm's words follow its line as it stands now
+(4c), and a line not tested in 6 hours is tested again by the watch, words only.
+
 ### 6. The historian
 
 Each reading is kept over time, so every system and process has a trend.

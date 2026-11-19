@@ -45,5 +45,18 @@ $cs = file_get_contents($app . '/admin/control-console.php');
 $t('the board\'s button is "Check and start again", with no question', str_contains($cs, "\$btn('resolve', 'Check and start again'") && !str_contains($cs, "'data-cb-ask' => 'What fixed it?'"));
 $t('Pulse\'s step is a button too, not a form', str_contains($src, "['do', 'alarm_resolve', 'Check and start again']") && !str_contains($src, "['note', 'What fixed it?'"));
 
+// 4. an old trip (raised before 3c, no tripped time) with a stale result: its words refreshed too (W0, 2026-11-19)
+require_once $app . '/lib/Preflight.php';
+$lines = Preflight::lines($pdo);
+$pdo->exec("INSERT INTO control_alarms (akey, proc, level, kind, title, n_times, first_at, last_at) VALUES ('pf:wf:W0', 'wf:W0', 'trip', 'check', 'W0 Indexer: Its gate: the switch-on check has no red line for it (keys, holds, budget and caps set).', 1, UTC_TIMESTAMP(), UTC_TIMESTAMP())");
+$pdo->prepare('REPLACE INTO preflight_results (id, v, at) VALUES (?, ?, NOW())')->execute(['wf:W0', json_encode(['s' => 'bad', 'said' => 'What holds it: Dry run: the test batch: 3 of 5 failed.', 'fix' => [], 'at' => time(), 'extra' => ['parts' => [['Its gate: the switch-on check has no red line for it.', 'ok'], ['Dry run: the test batch: 3 of 5 failed.', 'bad']]]])]);
+Preflight::alarm($pdo, 'wf:W0', $lines['wf:W0'], Preflight::results($pdo)['wf:W0'], false);
+$w0 = $pdo->query("SELECT * FROM control_alarms WHERE akey = 'pf:wf:W0' ORDER BY id DESC LIMIT 1")->fetch(PDO::FETCH_ASSOC);
+$t('an old trip (no tripped time) whose red part is now its own alarm (the test batch) is closed, saying so', $w0['cleared_at'] !== null && str_contains((string) $w0['cleared_how'], 'their own alarms'), [$w0['cleared_at'], $w0['cleared_how']]);
+$t('…the watch tests a line again first when its result is over 6 hours old, words only (three a watch)', str_contains($src, "Preflight::run(\$pdo, \$lid, 'the Control Board\\'s watch', true)") && str_contains(file_get_contents($app . '/lib/Preflight.php'), 'self::alarm($pdo, $id, $lines[$id], $out, !$wordsOnly);'));
+
+// 5. Check and start again waits for a red check, greyed with the reason (never a silent restart)
+$t('the board greys Check and start again while what it would start has a red check, saying which part', str_contains($cs, "\$canBoard && \$redAt === ''") && str_contains($cs, "'s check is red: '") && str_contains($cs, 'tv_cb_alarms($alarms, $ac, $names, $pid, $canPf, (string) $whyPf, $btn, $redChecks)'));
+
 echo "\n$pass passed, $fail failed\n";
 exit($fail ? 1 : 0);
