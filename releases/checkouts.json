@@ -71,9 +71,14 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Hub weather strip: one per district, no repeats (Jason's screenshot 2026-11-19)",
    "since": "2026-11-19T11:47:23Z",
-   "expires": "2026-11-19T15:47:23Z",
-   "release": "",
-   "callers": {}
+   "expires": "2026-11-19T15:54:12Z",
+   "release": "hub-weather-strip.zip",
+   "callers": {
+    "stripTowns": [
+     "website/api/guide-live.php",
+     "website/hub/index.php"
+    ]
+   }
   },
   {
    "path": "app/lib/Guides.php",
