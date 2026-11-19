@@ -35,6 +35,39 @@ Each rule below comes from a real mistake (in brackets) so it isn't repeated.
   old behaviour, in the same release. [The "until Release B" notes; Start's header still describing the old pacing.]
 - **Downloads and reports work on a phone** (a file, or a page that opens). [Start's Report didn't download.]
 
+### The principles (Jason, 2026-11-19: "Talk with manager about the principles to avoid these requests")
+
+Each one comes from a request Jason had to send. Build to them, and the session manager reviews against them (8).
+
+1. **The system fixes first; a person is the last resort.** Before anything waits on a person, the system tries what it
+   can: retry, re-check, re-run, start again after its check. A person is asked only for what needs one: a decision, a
+   key, money, someone outside. **Exception:** a site that refused or blocked us is held until a person reactivates it,
+   and the system never retries it on its own (Overpass; 0164's R-rules). Retrying is for our own failures and
+   timeouts, never for someone else's refusal. [A slow call stopped W1 and waited for an admin.]
+2. **Stop only for harm, never for "doing less".** A stop is for a refusal, being out of budget, or risk to data or
+   money. Slowness, retries and partial work are warnings that clear themselves. A stop is as narrow as its cause. The
+   same exception as 1 applies: a refusal or block is held for a person. [Slow trips stopped W1 and W4; 4e.]
+3. **Every alarm carries the button that resolves it.** Never a question to get past ("What fixed it?"), never only
+   "more info". If the system can't fix it, the alarm names the one thing a person must do, with the button or the
+   exact link. A button that can't work yet is greyed with the reason. The fix follows CLAUDE.md's Pulse rule: a step
+   doable from the alarm is a button that does it; a step at an outside service carries its link. [Resolve only asked
+   for words; 4e made it "Check and start again".]
+4. **Words follow the state as it is now.** An alarm, a row or a trend says what's true now, refreshed when the state
+   changes, never the words it was raised with. "No data yet" is said as that, never as a judgment. [W0's passing text
+   as its trip; "Uptime: not due to be on"; 4c.]
+5. **The admin's test before sending.** For each state a new screen can show: what does Jason see, what does it mean for
+   him, and what does he press? If there's no answer, it isn't ready. Every release summary carries one line per new
+   state ("Admin's test: …"), and the session manager checks for it. ["No code names them": "i dont see how to act on it".]
+6. **Never hand Jason a workaround that is itself a dead end.** If the fix isn't live yet, say what the system will do
+   and when; offer a stopgap only if it's harmless, and better, make the system do it. [Typing anything into "What fixed
+   it?" to get past it: "bad thought process".]
+7. **Fewer questions, each one whole.** Gather the decisions for an area into one question with its evidence (counts,
+   decisions cited), not a string of small asks. A cleanup the system can judge (empty in every row, no code, no
+   decision) is pre-sorted by the rules and goes to him as one list to approve. Removing data or going against a
+   decision always needs his OK. [The unused names: one question with three lists and the counts.]
+8. **Review against the principles, not only the decision.** The session manager's review of a release summary also
+   checks 1 to 7: what waits on a person, what stops, what each new state asks of him.
+
 ## 3. Before sending a release
 
 - **Phone check at 390px** for every page changed: `tools/page-audit/layout-probe.mjs` (or Playwright at 390 wide):
