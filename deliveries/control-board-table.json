@@ -3,40 +3,40 @@
  "built_on": "ac2073c Sync: 2026-11-19 16:05 UTC",
  "recorded": "2026-11-19 16:15 UTC",
  "note": "Control Board: the parts in the admin's one table; a block named by its reason; the alarm link fixed. Built on Sync: 2026-11-19 16:05 UTC Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "f9e153b Sync: 2026-11-19 16:18 UTC",
  "files": {
   "app/admin/control-console.php": {
    "sha256": "7a4da3804bca559023e46d35ae0c9cda3d4604bbbc5a91a758278f4e61ad9e44",
-   "live": false
+   "live": true
   },
   "app/admin/kit-css.php": {
    "sha256": "366adf95433a7a5442c05643637b389353f1f458c591271274fa567d761fc855",
-   "live": false
+   "live": true
   },
   "app/admin/tools.php": {
    "sha256": "d5c72f2be1fa9139dcd05838a53247c3c6cee8f0b2f727edae4db08dd3439cb8",
-   "live": false
+   "live": true
   },
   "app/lib/EngineCase.php": {
    "sha256": "5e387bd0be0b16ae371c5e2da89faec41414c9a587772f7b921cbaab89310dee",
-   "live": false
+   "live": true
   },
   "app/lib/crawler/Frontier.php": {
    "sha256": "800bf01cdf5c260f1b9f6f447a1c5589e1a02b53fbb1e350c55bfa9f2be3fe1b",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "e5d904b2f49440c3e5b64f872d3f516c1952bd44a6d88d34ce14ebb667f55911",
-   "live": false
+   "live": true
   },
   "website/js/admin-control.js": {
    "sha256": "8e6c541273bcc2789346c3bd2d68e93976c673353169d2bdb862ff556fc8c753",
-   "live": false
+   "live": true
   },
   "website/js/admin-kit.js": {
    "sha256": "df42df515ef22654f150648f914e4e3116e0e840a42129234126cfdcc5acb945",
-   "live": false
+   "live": true
   }
  }
 }
