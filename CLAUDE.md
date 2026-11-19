@@ -180,13 +180,14 @@ check `grep -rn "faq.php#"` before rewording one.
 - **Card anatomy:** the name is the link, top left, brand brown `#92400E` underlined; Link button top right; actions
   (Call, Directions, See on map, Website, Contact, Peek) as 30px round icon buttons in a row on the name's line, left of
   Link (under the name on phones), with `title`/`aria-label`, no text, icons `#B45309`; details across the card below.
-  Card grids page by whole rows (`js/tv-pager.js`).
+  Get Local's cards keep Call and Directions round, then ⋯ with Email, Website and Peek in words (decisions/0058 note,
+  2026-11-19). Card grids page by whole rows (`js/tv-pager.js`).
 - **Icons** are the brand's flat SVGs (`tv_icon()`), never emoji. Active: sage `#8FBCA8` with a soft glow; rest: cream
   with a brown ring.
 - **No breadcrumbs** on content pages (the way back up is `js/tv-trail.js`'s route, 2026-11-12); kind, category, agency, name and activity pills search for more
   (`TvSearch.open('<words> near <place>')`).
-- **Filters** live in the search (foot of Quick Search, §39), showing only active ones with ×. Get Local's directory is the
-  exception: its own **Find a business** box and Refine row (2026-11-12, decisions/0058 note). Filters on a list or queue
+- **Filters** live in the search (foot of Quick Search, §39), showing only active ones with ×. Get Local is the
+  exception: its own search bar, then **Filters ▾**, **Arrange ▾** and **Sort** on the line over the list (decisions/0058 note, 2026-11-19). Filters on a list or queue
   are one dropdown button like Shortcuts (icon, current choice, count, ▾), not rows of pills.
 - **Phone menus:** ☰ tools drop-down left, profile and role right.
 - **Count outbound taps:** `data-out="call|directions|website|contact" data-e="<listing id>"` (counts only, never who).

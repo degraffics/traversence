@@ -1,0 +1,94 @@
+{
+    "id": 208,
+    "title": "Get Local, cleaner: Filters, Arrange, Table, the list beside the map, and the card tools",
+    "why": "Jason, 2026-11-19, all approved (reviewed by the session manager): \"thought we adjusted the tools?\", \"this still feels cluttered\" (Change 1: Filters and Sort on the sentence line; Change 2: Call, Directions, ⋯ with words, Link, the score as a chip), \"Why is the search bar still looking like this?\" (the header search's split look, folded to ⌕ on Get Local), \"why would m2 serv core have directions to it when it is only a mailbox?\" (a PO Box gets no Directions), \"thought we fixed this too\" (the comments box), and the concept, \"Build as shown\" with \"Lets build it each way for a A/B test\": Arrange (per page, closed for good, each card's details in order, the computer layout), a Table view with spreadsheet-style column menus, and on computers the list beside a numbered map with the distance ring and Search this area, half of devices each way, counted without who. No new tables.",
+    "proposals": "",
+    "zip": "get-local-r2.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/ui/faq.md": {
+            "sha": "23989ac679d78086a742d0c52846f0b46a747b38d8cb9ed79f88668700edb6e4",
+            "size": 386266,
+            "live_was": "1a2a0e826d9f04bf918cfa0e2aa79d0b529efe2e54e30eb7ff50c86492a268fe"
+        },
+        "app/ui/engage-ui.php": {
+            "sha": "7d8dc3b41f9afdee2227ac158e8688721fe7e1f06cc0b17bb5db5c7ad6ae5415",
+            "size": 10734,
+            "live_was": "38f18fd7a7a6322d29d123f642d5f900202fdc79a7253df98c51c095800f6518"
+        },
+        "app/ui/header.php": {
+            "sha": "a99e404dba4a348426f27c7da91e91c1546f59727b09056e6fc92f98c0d539cd",
+            "size": 64698,
+            "live_was": "3f757f1d59bbe99f889f0261d93bf5b613dcef8d07e1c8b336b3caf270c53c10"
+        },
+        "app/business/portal.php": {
+            "sha": "da00f2a1bbf906f562c405937df6464fb7e4d379644f2383de7bb4460af180bb",
+            "size": 18524,
+            "live_was": "812a870bdcd2aecaf21b8754cd838a26032d5814932b54ad1426f6241edded08"
+        },
+        "app/lib/ListingActions.php": {
+            "sha": "55315a000ace28fa80c93d3cf0806c72adc8af1e214aa889dce8bec7664b3131",
+            "size": 14912,
+            "live_was": "516cb5cac9bcb8c317c5e584963f85146ae7ce731b7e468486925e0f8068fec4"
+        },
+        "app/lib/UniversalSearch.php": {
+            "sha": "0e7d552c925e4dc5348f542acf71634f3e960344098432fdb4dbb6793216739e",
+            "size": 283653,
+            "live_was": "849ba804e8bca418147d604c430a999fe06ffdf69197d37e5eca5a12a0ef4a79"
+        },
+        "website/listing/view.php": {
+            "sha": "4617525a1ea4da17236b8f005e158004027be5731c1e547859ee797eb946cb6b",
+            "size": 60684,
+            "live_was": "c2e1eb4bea29aeb1a645ad56ee6a3343fcb59f945f8058fa92b57dac8887ef13"
+        },
+        "website/api/search_listings.php": {
+            "sha": "c55c517d2182689d10b3cd5045e698bc1c6c5d33126c6b429a8b92163f486ded",
+            "size": 37590,
+            "live_was": "c9ceb21e7654626b9d1404cdaf72e7837e92c98e8d4ed38974ef5c42c743b843"
+        },
+        "website/directory/index.php": {
+            "sha": "010918e1ca58e2fc02b65c2f9a2c57a9d929e14e0a417e6b1e1b2e7e16c3b3ec",
+            "size": 110545,
+            "live_was": "a6e69210afc63661e63dad7585b0a6d0a014902a392f2d0d03517a92df940744"
+        },
+        "website/js/map-view.js": {
+            "sha": "927dbc5f48a23001d5c0dea06046d3e1b0a81c70de886eef43cd7bf4337c6456",
+            "size": 70167,
+            "live_was": "bdee10e171ae3df3bdc6bcd9473854f8ceaf92d415c11257adcb3d2ec8169283"
+        },
+        "website/js/engage.js": {
+            "sha": "ea95edb2a4123940bb91f504777d1596c028e4d61a68a7dc653fb487db3e3489",
+            "size": 14120,
+            "live_was": "c68d3229c8c89f839c558dec21d3b2ea41c2a737cff0d64f6929b2836f560257"
+        },
+        "website/js/search-panel.js": {
+            "sha": "28554d234fef4c9024f29e857404de1fd72a58878cef96f225ab3eb365f7898c",
+            "size": 135667,
+            "live_was": "1c64923c4bb53c5c801a4d82142f94071c21bed22ab050d16a38d94e27676e06"
+        },
+        "website/js/tv-conf.js": {
+            "sha": "e2f04f9cf05c69257c1d4f1367c04febecbd9d0a052cc6c934f391d926eb17d2",
+            "size": 5220,
+            "live_was": "18698c03a854be0fcee875d915b66aa4f5df669661237d277ce06e9e272ca444"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-19T22:26:47+00:00",
+            "by": 0,
+            "msg": "Uploaded get-local-r2.zip: 13 files."
+        }
+    ]
+}
