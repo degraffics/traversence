@@ -3,28 +3,28 @@
  "built_on": "e553b46 Sync: 2026-11-19 17:45 UTC",
  "recorded": "2026-11-19 17:56 UTC",
  "note": "control-board-card-2: Jason 2026-11-19 'how am I supposed to fix this?' and 'marked resolved should not be an option': a service's card shows its issue and the button that fixes it; no Mark resolved; a trip's Pulse steps match the board; built on Sync: 2026-11-19 17:45 UTC Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "df23f1c Sync: 2026-11-19 18:01 UTC",
  "files": {
   "app/admin/control-console.php": {
    "sha256": "d43b1641e4fdaec496f4f9a5994727f9933c237f4ef837fb77026455f322d2f3",
-   "live": false
+   "live": true
   },
   "app/admin/operations-console.php": {
    "sha256": "6b116babf94678b5a51d4993fda6861302fa2f25b6ad9a23c1c48c93d568f0ec",
-   "live": false
+   "live": true
   },
   "app/lib/ControlAlarms.php": {
    "sha256": "08861099ba52b64090077e41c56ccd6fd9d8a95c52202928a55d6239b00feca8",
-   "live": false
+   "live": true
   },
   "app/lib/ServiceHealth.php": {
    "sha256": "2cc4d3b1990e7b2f7d17fba5ca5f5a5e3bd1bc5087903093c5de031e4ce22a8a",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "aa51ac2160efdf1030a0efa443e0d4fb3caeb99397711126476283bb9fa4f11b",
-   "live": false
+   "live": true
   }
  }
 }
