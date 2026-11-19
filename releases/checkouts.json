@@ -324,6 +324,17 @@
    "expires": "2026-11-20T03:15:53Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/lib/staging-tables.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "0173 R3: defined once, Propose, Retire, Removed",
+   "since": "2026-11-19T23:15:55Z",
+   "expires": "2026-11-20T03:15:55Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
