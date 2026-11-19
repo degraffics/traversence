@@ -274,7 +274,7 @@ whole search is the exact name of something we have ("Four Corners Monument"). W
 starts a name we have is suggested wherever it is, even when the words also read as a town.
 Places come from sources, never hand lists in code: a name searched and not found is looked up (decisions/0148).
 OpenStreetMap is its own layer (decisions/0065): its own tables, credited, never copied into our records, so nothing is
-shared back; within it, show all it gives. Nothing of ours in reach: its places at once, and the town to the crawler (0149).
+shared back; within it, show all it gives. Nothing of ours in reach: its places at once, and the town to the crawler (0149). Its places come only from our copy (Geofabrik's states); Overpass is retired, so outside them there are none (Jason, 2026-11-19).
 "Near me" is the nearest first, no cap, with miles; fewer than 3 within 5 mi (30 for the outdoors) says results are lacking
 and tells the team (decisions/0060).
 
