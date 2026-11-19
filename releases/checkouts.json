@@ -430,6 +430,17 @@
    "expires": "2026-11-19T17:08:25Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "website/two-step.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Buttons standard: one filled button, Claim, Peek dim, search bars",
+   "since": "2026-11-19T13:08:27Z",
+   "expires": "2026-11-19T17:08:27Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
