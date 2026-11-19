@@ -5,7 +5,8 @@ His answers: Railway's keys are kept on Railway (§3); the Proposed stage is kep
 it at Jason's request, relayed by the session manager. **Building:** release 1, One home, sent as
 `service-register-r1.zip` (live as #209); release 2, the key on its card, sent as `service-keys-r2.zip` (built on
 Sync 22:49 UTC; its writer is named `EnvSettings::setKey()`, since `setSecret()` already writes the secrets the site
-makes); next, release 3, defined once.
+makes), live as #210; release 3, defined once, sent as `service-defs-r3.zip` (built on Sync 23:17 UTC): with it the
+decision is fully built.
 Builds on:
 - 0152: Outside services by company.
 - 0163: the service register (§1), the switches (§9), switching back on (§10).
@@ -143,7 +144,13 @@ As in 0169 §6, each service is defined in one place: `app/lib/service-defs.php`
 - its probe and pre-flight test;
 - its stage on shipping (`added_off`, with the reason).
 
-The 9 constants become reads of it, one release at a time, and nothing else changes behaviour. A new service is one
+The 9 constants become reads of it, one release at a time, and nothing else changes behaviour.
+
+**Note (2026-11-19, release 3; the session manager, as the decision's intent):** PHP's class constants can't be computed
+from a file, so the lists aren't read from `service-defs.php` at run time: they're **generated** from it by
+`tools/page-audit/service-defs.php` (`--write`), with the same values, and the zip check (`--check`) blocks any release
+whose lists differ from the file, saying to run it. One place to edit, no hunt across files; no caller changed. The
+retired records (`ServiceStages::RETIRED`) are generated from it too. A new service is one
 entry and its connector. A retired one keeps its entry with `stage: retired`, so its notice and its words come from one
 place.
 

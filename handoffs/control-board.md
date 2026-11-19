@@ -709,3 +709,17 @@ to `/admin/config/register`). Jason approved it, and the removal of `tv_admin_mo
 - `NPS_API_KEY` is optional (the photos; NPGallery needs none): it never holds a switch-on, and its check asks
   developer.nps.gov with it.
 - Tests: `keys.php` (30). Next: release 3, defined once (`service-defs.php`, Proposed, Retire, Removed list).
+
+## decisions/0173 release 3, defined once (2026-11-19, built on Sync 23:17 UTC, 03acc4b)
+
+`service-defs-r3.zip`, 11 files; Jason approved it in the pop-up (reviewed by the session manager). 0173 is fully built
+with it.
+- `app/lib/service-defs.php` is the one place a service is edited. `tools/page-audit/service-defs.php --write <app>`
+  generates OutsideServices::COMPANIES, HOSTS, NOTICES, CONTACT, LEDGER; Operations::KEYS, CAPS, ADDED_OFF;
+  StagingGate::ANSWERS; ServiceStages::RETIRED (PHP constants can't read a file: 0173 §4's note). zipcheck runs `--check`
+  on any zip carrying one of those files and blocks drift, naming the fix. **To add a service: one entry, `--write`, send.**
+- Overpass is its own entry (`stage: retired`, `record`), held on staging; OSM keeps its card, tiles and credit.
+- `ServiceStages::retire()` / `bringBack()`; `Automation::set` refuses to switch a retired one on from anywhere.
+  `service_proposals` (Proposed, words only). The register's Retire fold, Proposed and Removed sections.
+- Tests: `defs.php` (32, with the mirror's sync-app as its second argument it compares every list value for value).
+- Follow-ups: r2b's schema gap (above); the database size in the health report (server.json, approved as a small item).

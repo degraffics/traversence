@@ -190,3 +190,8 @@ and `website/api/` (the mirror's `sync-storage/api/crawl` and `api/video`). Put 
   knows, never on staging, the Founder only, never logged), Add, Replace, Put back, Forget, Remove, the card's buttons
   (greyed for an Executive), Railway's keys with their link, the Park Service's optional key. 30 tests (the .env stays 0600 through every change); it writes the test
   root's `.env` and puts it back: `mariadb < ../release-b-tests/start-schema.sql && php keys.php <root>/app`.
+- `defs.php`: decisions/0173 release 3 (defined once): `tools/page-audit/service-defs.php --check` passes and refuses a
+  hand edit naming its fix; with the live app as a second argument, every list has the same values but Overpass's split;
+  Overpass its own retired entry, OpenStreetMap kept; Retire, Bring it back, nothing switching a retired one on; Proposed
+  only words; the register's Retire fold, Bring it back, Proposed and Removed. 32 tests:
+  `mariadb < ../release-b-tests/start-schema.sql && php defs.php <root>/app <mirror>/sync-app`.
