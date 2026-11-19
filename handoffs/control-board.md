@@ -167,6 +167,32 @@ Alongside: `releases-self-withdraw` (#122), `releases-live-2` (#123), `releases-
   and is tried every watch); Resolve is **Check and start again** on the board and in Pulse, with no question (an empty
   note is "Checked and started again"). This changes 3c's rule (slow trips after 3), with Jason's OK. Tests: `r4e.php`
   (8); r3a and r3c updated where they tested the old rule.
+- Live: 4c (#156), 4d (#157), 4e (#160); `unused-schema-removal` (#161: 5 tables, 8 columns, copies kept 14 days);
+  the principles in `builder-playbook.md` §2 (PR #1004). Overnight 2026-11-19, trips went from 21 to 12 (the slow ones
+  lifted; Claude's gates passed when re-tested).
+
+**Release 5 in this session** (0171 §10, §11, §15.5; the session manager's OK and five guards, 2026-11-19).
+- `control-board-5a` (built on Sync 00:56 UTC, ad17dec): the logbook, and the night's folded fixes.
+  - `control_log` (OWN; migration `2026-11-19_control_log.sql`) and `app/lib/ControlLog.php`: add (who is staff or "the
+    system", never a member; the device's zone kept when it's a real one), note (Log an entry), feed (control_log merged
+    with automation_log, Start's sessions, preflight_runs, service issues opened and resolved, job_runs failures and
+    site_releases going live; newest first; a system as the unit register groups it, or one process; Show older).
+  - Writers: ControlAlarms (raised, acknowledged, cleared, resolved, Undo; maintenance's own notices left to
+    ControlMaintenance), ControlBoard (start, shut down, the whole system), ControlMaintenance (out, back, missed,
+    cancelled), the api (Run its check, Start the system, Pause everything, Check it now, Mark resolved, an alarm's step;
+    logged only when the person may press it). `SystemStart::session` made public for the feed.
+  - The board's #log panel: its one filter as a dropdown button (the whole system, a system, a process), each row's time
+    in its own zone (data-tv-time, data-tz), Show older, Log an entry (spell-checked, with the device's zone). API
+    `config/control`: `logfeed`, `lognote`.
+  - Folded: (i) phase lines raise no alarm of their own (open ones close on the next watch); (ii) slow judged per record
+    when a call carries records; (iii) the unused check skips 1–2 letter columns of used tables; (iv) #19, from 4f, never
+    sent alone: a passing pre-flight call closes its host's back-off issue (`ServiceHealth::answered`, never a refusal
+    or block), `Preflight::$now` lets a person's Check it now past a back-off's wait, the api's `svccheck` runs the
+    service's check at once on a site back-off issue, and the watch rechecks a site back-off issue nothing calls, hourly,
+    two a watch; (v) health.php's alarms carry `key` and `reading` (towns.mjs keeps them), to find why W0's old trip
+    keeps its words.
+  - Tests: `r4f.php` (7, local server as the outside host), `r5a.php` (17).
+- Next: `control-board-5b`, the reports (only after 5a is live; one question each).
 - Known shortcut in 3c: a back-off held by a trip is `service_issues.hold_until = '2099-01-01'` (until a person resolves
   it; `ServiceHealth::holdForTrip`), not a flag of its own. A real flag (a column, `held_by_trip`) needs a migration on
   `service_issues`; do it with the next ServiceHealth change.

@@ -15,7 +15,7 @@ $pdo->exec("INSERT IGNORE INTO crawl_capture_tasks (task, wf, enabled) VALUES ('
 Automation::set($pdo, 'master', 'all', false, 'test', 7, 'Jason'); Automation::setWorkflow($pdo, 'W1', false, 'test', 7, 'Jason'); Automation::forget();
 
 // 1. slow is never a trip, wherever it's raised
-for ($i = 0; $i < 25; $i++) $pdo->exec("INSERT INTO control_ledger (at, endpoint, method, code, ms) VALUES (UTC_TIMESTAMP(), 'crawl/results', 'POST', 200, 200)");
+for ($i = 0; $i < 25; $i++) $pdo->exec("INSERT INTO control_ledger (at, endpoint, method, code, ms, n_received) VALUES (UTC_TIMESTAMP(), 'crawl/results', 'POST', 200, 200, 1)")   // one record a call, as its own calls (5a: speed per record);
 $ref = new ReflectionMethod('ControlLedger', 'alarms'); $ref->setAccessible(true);
 foreach ([1, 2, 3, 4, 5] as $_) $ref->invoke(null, $pdo, 'crawl/results', 200, 1, ['stored' => 1, 'updated' => 0, 'review' => 0, 'refused' => 0], [], 3300);
 $sl = ControlAlarms::openOf($pdo, 'ep:crawl/results:slow');

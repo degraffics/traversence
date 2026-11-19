@@ -92,3 +92,11 @@ and `website/api/` (the mirror's `sync-storage/api/crawl` and `api/video`). Put 
   asked for as a trip by any caller is a warning, the watch lifts an old slow trip itself (or keeps it a warning while a
   check is red), and Resolve needs no words ("Check and start again" on the board and in Pulse). 8 tests:
   `mariadb < ../release-b-tests/start-schema.sql && mariadb lv_main < <2a's ledger migration> && php r4e.php <root>/app`.
+
+- `r4f.php`: #19's fix (in 5a): a passing check closes its host's back-off issue, Check it now goes past the wait, a refusal
+  is never passed or closed by the system, and the watch's hourly recheck. PHP's own server is the outside host. 7 tests:
+  `mariadb < ../release-b-tests/start-schema.sql && php r4f.php <root>/app`.
+- `r5a.php`: release 5a, the logbook: what writes to it (alarms, acknowledgements, clears, shut-downs, switches), who
+  (staff or the system), newest first, Log an entry (words, staff, its zone), the filters and Show older, the rows'
+  labelled times; phase lines, speed per record and the short names. 17 tests:
+  `mariadb < ../release-b-tests/start-schema.sql && mariadb lv_main < <2a's ledger migration> && php r5a.php <root>/app`.
