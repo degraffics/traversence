@@ -95,7 +95,7 @@ Merriweather. `sections.php` claimed per function (the Control Board holds `tv_a
   4.36:1), the dashboard's small labels (`.ad-k`, `.ad-*` in `admin-dashboard.php`), Pulse's column headers
   (`.ps-sort`, `.ps-flt`; 3d).
 
-### 3b-1: design-r3b1-explore.zip (built on Sync 00:17 UTC, by `build3b1.sh`, replayable)
+### 3b-1: design-r3b1-explore-2.zip (built on Sync 00:22 UTC, by `build3b1.sh`, replayable)
 
 - `explore-hero.php`: `fallback_slides` (the page's own landmark photos) before stock; stock only with no real photo.
   Test: `tools/design-tests/hero-order.php` (6 pass; the live code fails 4).
@@ -104,6 +104,12 @@ Merriweather. `sections.php` claimed per function (the Control Board holds `tv_a
 - `stock-ui.php`: the credit on the photo with an i (Jason, 2026-11-17); styles on the tokens with fallbacks (storefronts).
 - `website/index.php`: its own styles on the tokens (the door tone table kept, data); kickers in link brown.
 - FAQ: the stock photo answer (question unchanged, its anchor is linked).
-- Route colour: proposed --tv-route, Juniper Teal #2F6B66 (4.83:1 on the vellum, 5.36 on map land, 3.83 on water), with a
-  light casing over dark imagery; no map draws routes yet.
+- Jason's answer (2026-11-19): "Mostly ok. I dont care for the button colors under the hero": the tabs under the hero
+  (`.xh-tabs`) back to light cream (white 55% into the vellum) with copper icons (`--tv-icon`), the sage bar on the open
+  one. The cause: the recolor mapped the old gold accent `#B8863B` as text to `--tv-on-umber-meta` (a light-on-dark
+  colour) on light surfaces; it now reads as `--tv-icon` across Discovery (tiles, places, the plan's ▾), and "More" is
+  white on brand brown. For later sweeps: `#B8863B` as an icon is `--tv-icon`, as a fill `--tv-link`.
+- Route colour (Jason, 2026-11-19: "Electric lime for activity like trail"): `--tv-route:#B6F22E` over
+  `--tv-route-casing:#3E2B1F` in `theme-tokens.php`, routes and trails only; never text (1.05:1 on the vellum). brand.md
+  has the note. The first map that draws routes uses both (casing ~2px wider under the lime).
 - 3b-2 next: listing, place and hub, experiences, journeys, gallery pages; engage-ui; comments.
