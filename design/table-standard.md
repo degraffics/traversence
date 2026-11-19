@@ -20,48 +20,67 @@ What the screenshots show:
 - **Pulse's top half:** Quick Actions, Your day, a role picker, six queue pills, a bell, a gear, a +, the search, four
   folder pills, then the stream's own title (seven rows before the first message).
 
-## The standard (one table, everywhere in the admin)
+## The standard (one table for the admin's lists)
 
-1. **One component:** `tv_table()` in `app/admin/kit-table.php` with `js/tv-table.js`; pages pass columns and rows,
-   never their own `<table>` styles. The same component draws the manifests' tables (it replaces `tv_w_table`'s markup).
-2. **Columns:** a status mark first (icon, colour and word, never colour alone), the name (the link that opens the row),
-   then data, then the row's actions last. Numbers and dates right-aligned. A column that's empty on every row is hidden,
-   with "3 empty columns hidden" under the table.
-3. **Headers:** sentence case, small, the meta colour; a click sorts (▲▼ shown only on the sorted column). Filters are
-   one dropdown button above the table (CLAUDE.md: icon, choice, count, ▾), not controls in the header.
-4. **Rows:** one height (44px; two lines only when the row has a sub-line, the sub-line in the meta colour, never run
-   into the title). Hairline between rows, a soft tint on hover, no zebra stripes. Long text ends in "…" with the whole
-   text in the row's drawer, never cut dates: dates through `TvTime` ("Nov 19, 10:04 AM MST", or "10:04 AM" today).
-5. **Actions:** at most one visible button per row (the row's main act: Check, Reply, Open), in a fixed actions column,
-   plus **⋯** for the rest as a menu with icon and words ("Pin in your own list", "Archive"). A greyed item says why
-   (CLAUDE.md). Nothing appears on hover over the text. The same ⋯ as the public cards (the card plan, 2026-11-19).
-6. **Selecting rows:** a checkbox column only where there's a bulk action; the bulk bar appears above the table when
-   one is ticked.
-7. **Empty and loading:** "Nothing here yet" with the way forward (never a blank box); a skeleton row while loading.
-8. **Phones (390px):** each row becomes a card (status, name, sub-line, the one button, ⋯), edge to edge (§11).
-9. **Levels:** the table sits on a section (`--tv-sec`), rows on the card colour; the header row on the section colour.
+It applies to the admin's tables and the admin's Pulse. The profile page's Pulse (members and listings) keeps the row
+icons Jason set in his own mockup (`design/pulse-profile-mockup.png`: read/unread, forward, pin, shield, file, +, ▾) unless
+he says otherwise.
+
+1. **One component:** `tv_table()` in `app/admin/kit-table.php` with `js/tv-table.js`; pages pass columns and rows, never
+   their own `<table>` styles. `tv_w_table()` stays as a wrapper that calls `tv_table()` (the zip check keeps live functions).
+2. **Columns:** a status mark first (icon, colour and word, never colour alone), the name, then data, then the row's
+   actions last; numbers and dates right-aligned. **Pulse keeps 0172's columns and order (From, Severity, Subject,
+   Received)**: "Pulse keeps the look Jason has set" (0172).
+3. **No silent hiding:** a column with no data yet stays, saying so once ("No history yet", principle 4); where every row is
+   empty, the column folds to a narrow one with a note under the table naming why ("Last 24 hours, Speed: no history
+   yet"). Nothing that will fill is hidden.
+4. **Headers:** sentence case, small, the meta colour; a click sorts (▲▼ only on the sorted column). Filters are one
+   dropdown button above the table (CLAUDE.md), not controls in the header.
+5. **Rows:** one height (44px; two lines only for a sub-line, kept apart from the title in the meta colour). Hairlines,
+   a soft tint on hover, no stripes. Dates through `TvTime` ("Nov 19, 10:04 AM MST"), never cut. Long text ends in "…".
+6. **Opening a row:** in Pulse, **in place, under itself (▾), one at a time** (0172). Other tables open the record's detail
+   drawer (0109). Either way the whole text is there.
+7. **Actions:** no toolbar appearing over the text. Pulse: **▾** (open in place) and **⋯**, a menu with icon and words for
+   the same actions the hover bar has today (mark read, pass it on, pin in your own list, protect, add to, file); a greyed
+   item says why. Other tables: at most one visible button (Check, Approve…) and ⋯.
+8. **Group rows:** alarms and other system feeds group under one row that opens to its members, on the Board and in Pulse
+   (0172, 0171 §8's note; the directive's "rollups for system feeds only"). Part of the component from T1, with its tests.
+9. **Selecting rows:** a checkbox column only where there's a bulk action; the bulk bar appears when one is ticked.
+10. **Empty and loading:** "Nothing here yet" with the way forward; a skeleton row while loading.
+11. **Phones (390px):** each row becomes a card (status, name, sub-line, ▾ or its button, ⋯), edge to edge (§11).
+12. **Levels:** the table sits on a section (`--tv-sec`); rows on the card colour; the header row on the section colour.
 
 ## Pulse's top half (one header, then the list)
 
-- **One line:** Pulse's mark and title, the role picker (only if you hold more than one role), the search (widest), the
-  bell and the gear. The stream's own second title goes.
-- **One filter button** under it, left: "Inbox · All queues (17) ▾" holding the folders (Inbox, Pinned, Follow up,
-  Archived) and the queues (Operational Queues 17, Alerts 8, Order Mgmt 4, System Health 12, Mine 2, Resolved 1),
-  with + New beside it. Alerts' count stays red on the button when there are any.
-- **Quick Actions and Your day** become one folded "Today" strip at the top of the stream (closed by default, remembered),
-  or a right column on wide screens: Jason's choice.
+- **One line:** Pulse's mark and title, the role picker (only if you hold more than one role), the **Filter this list** box
+  (the directive's labeled local filter, distinct from the platform search), the bell, a **⋯** for Quick Actions and an
+  icon for **Your day** that opens it as a pop-up: 0172's own option ("Quick Actions may become a ⋯ in the Pulse header
+  and Your day an icon that opens it on screen as a pop-up"), which fits the directive's one header per view. The
+  stream's second title goes.
+- **One filter button** under it: "Inbox · All (17) ▾" holding the folders (Inbox, Pinned, Follow up, Archived) and the
+  stream's views (Operational Queues, Alerts, Order Mgmt, System Health, Mine, Resolved), with + New beside it. These views
+  are filters of the same stream (`tv_pulse_board()`'s `$chips`), not 0105's Operational Task Queue, which 0172 removed
+  (the bell's list replaced it); none comes back. Alerts' count stays red on the button.
 - Result: two rows before the first message instead of seven.
 
 ## Order (each its own release, each reviewed)
 
-1. **T1, the component:** `tv_table()` and `tv-table.js`, its tests (`tools/design-tests/table.php`), the Control Board's
-   process table moved onto it (the screenshot), and the ⋯ menu shared with the public cards.
-2. **T2, Pulse:** the stream on the component (no hover toolbar; one visible action, ⋯), and the top half as above.
-3. **T3–T5, the rest by module:** the consoles (control, automation, comms, crawler, operations, index), then the admin
-   pages (insights, sources, products, vendors…), then the shared parts (vault, cost tab, outside services, domains).
-   Each release lists the tables it moved; the zip check's earlier-work rule keeps every column and action.
+1. **T1, the component:** `tv_table()`, `tv-table.js`, `tv_w_table()` as its wrapper, group rows, the ⋯ menu (shared with
+   the public cards), a test page and `tools/design-tests/table.php`. **The Control Board's table stays with its own
+   session:** once T1 is live I tell it, and it moves its process table onto the component in its own release.
+2. **T2, Pulse (admin):** the stream on the component (▾ and ⋯, no hover bar; 0172's columns; alarm groups), and the top
+   half as above.
+3. **T3–T5, the rest by module:** the consoles other than the Board (automation, comms, crawler, operations, index), the
+   admin pages (insights, sources, products, vendors…), then the shared parts (vault, cost tab, outside services, domains).
+   Each lists the tables it moved; the zip check keeps every column and action.
 
-## For Jason to decide
+## The admin's test (principle 5)
 
-- Quick Actions and Your day: a folded "Today" strip, or a right column on wide screens?
-- The row's one visible action on Pulse: Open, Reply, or none (⋯ only)?
+| State | What Jason sees | What he presses |
+|---|---|---|
+| Empty | "Nothing here yet" and the way forward (e.g. "No alarms. The Board checks every 5 minutes.") | the way forward's button |
+| Loading | a grey skeleton row where rows will be | nothing; rows replace it |
+| A group row | "Overpass: 4 alarms ▸" as one row | the row: it opens to the four, each with its own ▾ and ⋯ |
+| A greyed ⋯ item | "Protect" greyed, with "Only an owner can protect this" under it | nothing; the reason is shown |
+| A phone card | each row as a card: severity, from, subject, the sub-line, ▾ and ⋯ | ▾ opens it under itself |
+| No history yet | "No history yet" once in Last 24 hours | nothing; it fills as readings come |
