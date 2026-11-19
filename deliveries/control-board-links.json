@@ -1,0 +1,22 @@
+{
+ "zip": "control-board-links.zip",
+ "built_on": "3044ea8 Sync: 2026-11-19 12:08 UTC",
+ "recorded": "2026-11-19 12:13 UTC",
+ "note": "control-board-links: Start and the switch-on check link to the board (0171 \u00a714); built on Sync: 12:08 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/admin/operations-console.php": {
+   "sha256": "f35173ee0341858010dce7cb1f0037ba71819bb341f8fa91ebefab31ebaecf79",
+   "live": false
+  },
+  "app/lib/SystemStart.php": {
+   "sha256": "51cb5038875b275dd54040648ed81b9bfd0c7f2047940be0d84bf5aa1a3b0138",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "e7297df3068d4298b634ded6d7df34cbf6b92d8e025ab617799fd88a73f64607",
+   "live": false
+  }
+ }
+}
