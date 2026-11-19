@@ -17,6 +17,7 @@
   {
    "path": "app/admin/control-console.php",
    "functions": [
+    "(top)",
     "tv_admin_mod_control",
     "tv_cb_alarms",
     "tv_cb_controls"
@@ -25,8 +26,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "control-board-links: Resolve",
    "since": "2026-11-19T11:21:48Z",
-   "expires": "2026-11-19T16:15:53Z",
-   "release": "",
+   "expires": "2026-11-19T16:19:30Z",
+   "release": "control-board-links.zip",
    "callers": {}
   },
   {
@@ -43,6 +44,7 @@
   {
    "path": "app/lib/ControlAlarms.php",
    "functions": [
+    "(top)",
     "resolve",
     "tick"
    ],
@@ -50,9 +52,13 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "control-board-links: Resolve",
    "since": "2026-11-19T11:21:55Z",
-   "expires": "2026-11-19T16:15:50Z",
-   "release": "",
-   "callers": {}
+   "expires": "2026-11-19T16:19:30Z",
+   "release": "control-board-links.zip",
+   "callers": {
+    "resolve": [
+     "website/admin/api.php"
+    ]
+   }
   },
   {
    "path": "app/lib/Guides.php",
@@ -74,8 +80,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "control-board-links: svccheck",
    "since": "2026-11-19T12:00:34Z",
-   "expires": "2026-11-19T16:19:27Z",
-   "release": "",
+   "expires": "2026-11-19T16:19:30Z",
+   "release": "control-board-links.zip",
    "callers": {}
   },
   {
@@ -85,8 +91,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "control-board-links: Resolve",
    "since": "2026-11-19T12:00:45Z",
-   "expires": "2026-11-19T16:15:57Z",
-   "release": "",
+   "expires": "2026-11-19T16:19:30Z",
+   "release": "control-board-links.zip",
    "callers": {}
   },
   {
@@ -122,7 +128,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "release control-board-links.zip",
    "since": "2026-11-19T12:13:15Z",
-   "expires": "2026-11-19T16:13:15Z",
+   "expires": "2026-11-19T16:19:30Z",
    "release": "control-board-links.zip",
    "callers": {}
   },
@@ -133,7 +139,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "release control-board-links.zip",
    "since": "2026-11-19T12:13:15Z",
-   "expires": "2026-11-19T16:13:15Z",
+   "expires": "2026-11-19T16:19:30Z",
    "release": "control-board-links.zip",
    "callers": {}
   }
