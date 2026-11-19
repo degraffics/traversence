@@ -163,6 +163,17 @@
    "expires": "2026-11-19T17:07:33Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/ui/explore-hero.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Buttons standard: one filled button, Claim, Peek dim, search bars",
+   "since": "2026-11-19T13:07:35Z",
+   "expires": "2026-11-19T17:07:35Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
