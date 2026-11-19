@@ -1,0 +1,54 @@
+{
+    "id": 177,
+    "title": "Control Board: sources read outside our region, shown and decided in one place",
+    "why": "Jason, 2026-11-19, on the \"79 sources outside our region\" warning: \"no way for me to clearly see the issue and how to fix it\". It was raised once by the seed and never recounted, judged by any two-letter web ending (so goo.gl and .io sites counted), and sent him to Insights → Sources, which lists other sources, with a button to the crawler's runs. Now the watch recounts it hourly (a country's web address that isn't a generic one, or places mostly outside Arizona and New Mexico) and clears it when none are left; its button opens the sources beside the board, each with why it's flagged, how often it's read and its last facts, with Pause and Keep, Pause all shown (with a yes) and Undo for a day; and \"Which outside sources are welcome\" takes rules so the warning counts only what no rule covers. The system follows shortened links to the site behind them first (one try per site an hour; a 429 backs off). Nothing is paused unless he or a rule says so (0164: curators, not controllers). And Acknowledge: the row leaves the open list at once, and inside a group the acknowledged ones hide too (\"I acknowledged this but it is still listed\").",
+    "proposals": "",
+    "zip": "control-board-offregion.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/lib/crawler/Sources.php": {
+            "sha": "61fe536994afcf6660a797661453741538d25011c91f9a05a01101630032996e",
+            "size": 58131,
+            "live_was": "0646345bf66af96cf84f38b5859a7b8e963aeec15f578b623fe36276e38c7d77"
+        },
+        "website/admin/sources.php": {
+            "sha": "a791e8affaa9a32110bd5f64a9c272df1729bef19524cf8527900ddd23229751",
+            "size": 23088,
+            "live_was": "37436f8c07356bdd9875630658de58470730f2b7eaf9f97ed1f158a46fd1cf93"
+        },
+        "app/lib/ControlAlarms.php": {
+            "sha": "82eb41c5dae4e697c3dc6d73e45b3f71910851e475c093af1be658400c1e09ff",
+            "size": 62570,
+            "live_was": "9371e4fac77d4ca7befad350b49ee0b207122008793ce9891055bbde7625bb77"
+        },
+        "website/js/admin-control.js": {
+            "sha": "e9e8828f77a5c2f43100781baf9dab788397eb1b58800789d37658ac2283dc16",
+            "size": 17992,
+            "live_was": "1247bd4f97d48756d6bd1d4043616db166e03df0fc92282004676bc6a902d3eb"
+        },
+        "app/ui/faq.md": {
+            "sha": "5809a8a99d3d3be0c6b9f7f517e1935b0fcaa08f5ce75aa79643446dbd27690c",
+            "size": 364400,
+            "live_was": "e7297df3068d4298b634ded6d7df34cbf6b92d8e025ab617799fd88a73f64607"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-19T12:43:39+00:00",
+            "by": 0,
+            "msg": "Uploaded control-board-offregion.zip: 5 files."
+        }
+    ]
+}
