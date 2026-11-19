@@ -49,6 +49,7 @@ $t('Search, Sign-in and Checkout are parts with their duties', ControlRegister::
 // 5. one stray error: a notice on the row, no trip
 ControlSensor::$searchProbe = fn () => [true, 'A test search answered in 40 ms (nothing recorded).'];
 ControlSensor::$payProbe = fn () => ['na', 'QuickBooks isn\'t set up here.'];
+ControlSensor::$signinProbe = fn () => [true, 'Sign-in\'s parts answer.'];
 ControlSensor::watch($pdo);
 $open = ControlAlarms::ofProc($pdo, 'site:search');
 $lv = array_column($open, 'level');
@@ -86,7 +87,25 @@ ControlSensor::$payProbe = fn () => ['held', 'QuickBooks refused us: needs recon
 ControlSensor::watch($pdo);
 $q = null; foreach (ControlAlarms::ofProc($pdo, 'site:payments') as $x) if ($x['akey'] === 'crit:site:payments:token') $q = $x;
 $t('QuickBooks\' token refused or expired: a trip at once', $q && $q['level'] === 'trip' && !empty($q['tripped_at']) && $q['title'] === 'QuickBooks needs reconnecting', $q);
+$qf = json_decode((string) ($q['fix'] ?? ''), true);
+$t('…its fix: Connect QuickBooks again (its page), Intuit\'s link, Check it now', is_array($qf) && $qf[0][0] === 'Connect QuickBooks again' && $qf[0][2] === '/admin/quickbooks.php' && $qf[1][1] === 'link' && $qf[2][0] === 'Check it now', $qf);
+SearchIndex::setState($pdo, 'control:qb_checked', (string) time());
+ControlSensor::checkOne($pdo, 'site:payments');
+$t('…Check it now asks QuickBooks at once (the hourly wait is set aside)', (int) SearchIndex::state($pdo, 'control:qb_checked') === 0 || (int) SearchIndex::state($pdo, 'control:qb_checked') >= time() - 5);
 ControlSensor::$payProbe = fn () => ['na', 'QuickBooks isn\'t set up here.'];
+
+// 9b. sign-in's own test: no one signed in; the session store takes a write (the file removed); the accounts table answers
+ControlSensor::$signinProbe = null;
+$sd = dirname($app) . '/app/storage/sessions'; @mkdir($sd, 0700, true);
+$before = glob($sd . '/*') ?: [];
+[$sok, $sw] = ControlSensor::probeSignin($pdo);
+$t('sign-in\'s test leaves nothing in the session store', (glob($sd . '/*') ?: []) === $before);
+$t('…and judges it (here: ' . ($sok ? 'its parts answer' : $sw) . ')', is_bool($sok) && $sw !== '');
+ControlSensor::$signinProbe = fn () => [false, 'The session store won\'t take a write.'];
+ControlSensor::watch($pdo);
+$sa = null; foreach (ControlAlarms::ofProc($pdo, 'site:signin') as $x) if ($x['akey'] === 'crit:site:signin') $sa = $x;
+$t('…a failed sign-in test: "Sign-in is failing", a trip at once', $sa && $sa['level'] === 'trip', $sa);
+ControlSensor::$signinProbe = fn () => [true, 'ok'];
 
 // 10. the real search test records nothing: no demand, no crawler, no view (row counts of every table unchanged)
 ControlSensor::$searchProbe = null;

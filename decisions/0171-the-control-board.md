@@ -300,6 +300,13 @@ reason while what it would start has a red check. Every open pre-flight alarm's 
 > - **Not critical by themselves:** the crawler, W0, the video worker, enrichment, and Railway or GitHub as hosts
 >   (GitHub is critical through releases). They keep 3c: a warning while the system tries, a trip when it can't.
 >
+> **Note (Jason, 2026-11-19, the same release): the stages are tabs, and cleared alarms leave the list.** On the stage
+> tiles: "these are jump links, not good design. When clicked that information is what is on page, everything else goes
+> away." Each tile now shows only its part of the board (§2's layout otherwise kept); the board opens on the stage the
+> system is in, and a link to a part opens its tab. On the list: "if alarms are cleared they should not be present, moved
+> to log." The alarm list holds open alarms only; a cleared one is in the logbook (written when it clears) and the Alarms
+> table (§12). This replaces §7's "cleared, not seen" listing: nothing waits to be marked Seen.
+>
 > **Note (control-board-critical-2, 2026-11-19): the duties visitors use, watched.** Search, sign-in and payments are
 > called by browsers and by Intuit, so the ledger (workers' calls only) never saw them. `ControlSensor` adds three parts
 > (`site:search` → search, `site:signin` → procedures, `site:payments` → payments), watched two ways, both free:

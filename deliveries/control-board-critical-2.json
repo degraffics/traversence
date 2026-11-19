@@ -1,11 +1,15 @@
 {
  "zip": "control-board-critical-2.zip",
- "built_on": "2605ced Sync: 2026-11-19 13:53 UTC",
- "recorded": "2026-11-19 14:01 UTC",
- "note": "Control Board critical-2: search, sign-in and payments watched as critical parts. Built on Sync: 2026-11-19 13:53 UTC Sent through git (releases/inbox).",
+ "built_on": "8ddabc1 Sync: 2026-11-19 14:04 UTC",
+ "recorded": "2026-11-19 14:08 UTC",
+ "note": "Control Board critical-2, all open board fixes in one: search, sign-in and payments watched; the stages as tabs; cleared alarms to the logbook. Built on Sync: 2026-11-19 14:04 UTC Sent through git (releases/inbox).",
  "status": "pending",
  "live_in": "",
  "files": {
+  "app/admin/control-console.php": {
+   "sha256": "04f6c5e5550b399b098db2a94d75dad6055ac0be222cbfab26d2404f243a272c",
+   "live": false
+  },
   "app/lib/ControlAlarms.php": {
    "sha256": "ed20bb673e664c0460ab311abe1d5d8ecfbbb9d21a89d42a82e43155e7e508dd",
    "live": false
@@ -15,7 +19,7 @@
    "live": false
   },
   "app/lib/ControlSensor.php": {
-   "sha256": "9d1c01491707aabd6ea0d942de652a507c80aa2e804ba274cab1a80a710a77cf",
+   "sha256": "15574aed2c117fd719f8156d123a4eb7f9077b610d91013932daf202d15ca5db",
    "live": false
   },
   "app/lib/Database.php": {
@@ -35,11 +39,15 @@
    "live": false
   },
   "app/ui/faq.md": {
-   "sha256": "0d5d60d0572ab304bdba6e0473bc4c7f5b9205726a9a7325bc4b6325a5d8d5be",
+   "sha256": "7303cecea183879673e4a62148d0a0f3b04c212f11214478bc0d4c127ece836d",
    "live": false
   },
   "website/admin/api.php": {
    "sha256": "cc6148de9cbbeb923185ea07c609ec88ee9a4744d6a40159c41e571c6d0fabe2",
+   "live": false
+  },
+  "website/js/admin-control.js": {
+   "sha256": "d6cc1e3b83a4dbb084cee72ff6ed68c57a459d7a47de04b0bffefb0deaab3345",
    "live": false
   }
  }
