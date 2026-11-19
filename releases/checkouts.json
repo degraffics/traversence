@@ -230,6 +230,17 @@
    "expires": "2026-11-19T17:26:35Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/admin/kit-table.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "T1: one table for the admin's lists (design/table-standard.md)",
+   "since": "2026-11-19T13:26:37Z",
+   "expires": "2026-11-19T17:26:37Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
