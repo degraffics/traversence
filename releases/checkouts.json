@@ -69,6 +69,17 @@
    "expires": "2026-11-19T20:21:50Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/admin/kit-css.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "T3: the standard for the tables the server writes (design/table-standard.md)",
+   "since": "2026-11-19T16:21:52Z",
+   "expires": "2026-11-19T20:21:52Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
