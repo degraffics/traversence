@@ -15,21 +15,6 @@
    "callers": {}
   },
   {
-   "path": "website/js/admin-kit.js",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
-   "why": "T4: the table standard on the admin's older pages (approved 2026-11-19)",
-   "since": "2026-11-19T16:21:50Z",
-   "expires": "2026-11-19T21:10:22Z",
-   "release": "t4-tables.zip",
-   "callers": {
-    "staticTable": [
-     "app/admin/kit-css.php"
-    ]
-   }
-  },
-  {
    "path": "app/lib/crawler/Sources.php",
    "functions": [],
    "kind": "change",
@@ -84,116 +69,6 @@
    "since": "2026-11-19T17:03:02Z",
    "expires": "2026-11-19T21:03:02Z",
    "release": "",
-   "callers": {}
-  },
-  {
-   "path": "app/admin/kit-css.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
-   "why": "T4: the table standard on the admin's older pages (approved 2026-11-19)",
-   "since": "2026-11-19T17:09:42Z",
-   "expires": "2026-11-19T21:10:22Z",
-   "release": "t4-tables.zip",
-   "callers": {}
-  },
-  {
-   "path": "website/admin/api.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
-   "why": "T4: the table standard on the admin's older pages (approved 2026-11-19)",
-   "since": "2026-11-19T17:09:47Z",
-   "expires": "2026-11-19T21:10:22Z",
-   "release": "t4-tables.zip",
-   "callers": {}
-  },
-  {
-   "path": "website/admin/insights.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
-   "why": "T4: the table standard on the admin's older pages (approved 2026-11-19)",
-   "since": "2026-11-19T17:09:49Z",
-   "expires": "2026-11-19T21:10:22Z",
-   "release": "t4-tables.zip",
-   "callers": {}
-  },
-  {
-   "path": "website/admin/sources.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
-   "why": "T4: the table standard on the admin's older pages (approved 2026-11-19)",
-   "since": "2026-11-19T17:09:51Z",
-   "expires": "2026-11-19T21:10:22Z",
-   "release": "t4-tables.zip",
-   "callers": {}
-  },
-  {
-   "path": "website/admin/search-misses.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
-   "why": "T4: the table standard on the admin's older pages (approved 2026-11-19)",
-   "since": "2026-11-19T17:09:53Z",
-   "expires": "2026-11-19T21:10:22Z",
-   "release": "t4-tables.zip",
-   "callers": {}
-  },
-  {
-   "path": "website/admin/auto-imports.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
-   "why": "T4: the table standard on the admin's older pages (approved 2026-11-19)",
-   "since": "2026-11-19T17:09:55Z",
-   "expires": "2026-11-19T21:10:22Z",
-   "release": "t4-tables.zip",
-   "callers": {}
-  },
-  {
-   "path": "website/admin/content-template.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
-   "why": "T4: the table standard on the admin's older pages (approved 2026-11-19)",
-   "since": "2026-11-19T17:09:57Z",
-   "expires": "2026-11-19T21:10:22Z",
-   "release": "t4-tables.zip",
-   "callers": {}
-  },
-  {
-   "path": "website/admin/guide-edit.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
-   "why": "T4: the table standard on the admin's older pages (approved 2026-11-19)",
-   "since": "2026-11-19T17:09:59Z",
-   "expires": "2026-11-19T21:10:22Z",
-   "release": "t4-tables.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/ui/table-kit.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
-   "why": "release t4-tables.zip",
-   "since": "2026-11-19T17:10:22Z",
-   "expires": "2026-11-19T21:10:22Z",
-   "release": "t4-tables.zip",
-   "callers": {}
-  },
-  {
-   "path": "website/js/tv-table.js",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
-   "why": "release t4-tables.zip",
-   "since": "2026-11-19T17:10:22Z",
-   "expires": "2026-11-19T21:10:22Z",
-   "release": "t4-tables.zip",
    "callers": {}
   }
  ],
