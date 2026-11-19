@@ -1,0 +1,1 @@
+<?php final class StockLibrary { public static function forSlot($pdo, $slot, $owner, $subject, $place, $o = []) { return ['card' => '/stock/same-pixabay.jpg', 'url' => '', 'author' => 'dizzydj311', 'source_name' => 'Pixabay']; } }
