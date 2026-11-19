@@ -1,0 +1,30 @@
+{
+ "zip": "osm-copy-wider.zip",
+ "built_on": "2f423c8 Sync: 2026-11-19 21:49 UTC",
+ "recorded": "2026-11-19 21:51 UTC",
+ "note": "osm-copy-wider: Jason 2026-11-19 'Yes, add them' and 'Yes, widen it': Utah, Colorado, Nevada and health care and guides in our OpenStreetMap copy; built on Sync: 2026-11-19 21:49 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/OpenPlaces.php": {
+   "sha256": "09dcbd073bfcd8ec8b27c3eac98fe5e69d7af1480f786015c1e9b7bf51c87118",
+   "live": false
+  },
+  "app/lib/OutsideServices.php": {
+   "sha256": "2de8b941b56906ccc3daae563973329079c8e9ce198d759bc5ed14c5a78d79eb",
+   "live": false
+  },
+  "app/lib/crawler/CrawlService.php": {
+   "sha256": "c34c80078cc12eec440d78298bdbcfac6ad8a8cbc1d88b77a57a868c2cf5d8e3",
+   "live": false
+  },
+  "app/lib/crawler/OpenLoads.php": {
+   "sha256": "0a5cd44e0ef9acf689a3ff95734c6921049a52106c7cc19abecf8d7c5643f1e9",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "5a73cc4c99bf772fe6b4a29534b512c42fa4f0cbce78ff9e79bb54fa5b1db9ca",
+   "live": false
+  }
+ }
+}
