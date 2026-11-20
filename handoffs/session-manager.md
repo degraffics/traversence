@@ -106,6 +106,8 @@ sessions take over, holding until Jason says resume. Live through Release #228 (
   note in 0047) and the same-named merge was taken out (his "crawler, workflow issue" words). The revised release is
   waiting for his second OK. **For the admin kit release:** at 390 a live hub is 392px wide; the cause is the `.tv-trl` bar
   (`js/tv-trail.js`), found on https://traversence.com/hub/?hub=ancient-america (2026-11-20).
+  **Progress (2026-11-20, later):** hero tidy live as #230 (Sync 16:01 UTC); the admin kit built and sent, PR #1185,
+  waiting for Jason's OK (the 390 header item was already done by #162).
 - **Orders** (`order-processing.md`): starts after Jason reviews `research/order-system-map-2026-11-19.md` and its six
   items; the first release carries the chargeFor fix.
 - **The session manager** also reads Monday's (2026-11-23) "Edit my listing" path check (`business-listings.md`).
