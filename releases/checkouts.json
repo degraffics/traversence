@@ -338,6 +338,23 @@
      "website/admin/client-order.php"
     ]
    }
+  },
+  {
+   "path": "app/lib/QrIssue.php",
+   "functions": [
+    "refresh"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5iruQZSTYKyuR7b1SN",
+   "why": "Orders: the order map's rulings (decisions/0101 note 2026-11-20, B.1-B.6)",
+   "since": "2026-11-20T18:56:08Z",
+   "expires": "2026-11-20T22:56:08Z",
+   "release": "orders-rulings.zip",
+   "callers": {
+    "refresh": [
+     "website/api/go-codes.php"
+    ]
+   }
   }
  ],
  "lapsed": [
