@@ -191,10 +191,18 @@ person to check.
 First thing each run, the worker asks the site to place up to `GEOCODE_PER_RUN` batches of street addresses on the map
 (2; 0 turns it off), within `GEOCODE_TIME` seconds (420). It does this with `POST /api/crawl/geocode.php`, and
 `GET` returns how many are left. The site sends each batch of up to 500 to the U.S. Census geocoder itself
-(`api/lib/Geocoder.php`), so the worker never sees addresses. Only points that are missing or exactly the ZIP's
+(`api/lib/Geocoder.php`), so the worker sees addresses only for the backup below. Only points that are missing or exactly the ZIP's
 middle change, and confidential listings are never sent. A batch can take a few minutes, so this call waits up to
 250 seconds. A Census outage is logged and the run carries on. It is the same as Admin → Crawler → Map points →
 Find points, without anyone pressing it.
+
+**The Census's backup (2.16.0; decisions/0175's note, Jason 2026-11-20: "Yes, build it").** When the site's call fails
+on its connection (reset or no answer, or the site holding the Census for that), the site answers `waits` with a
+`backup`: the Census's batch address and the batch (ids and the address file, base64; confidential listings are never
+in it). The worker sends it to the Census itself (only to `geocoding.geo.census.gov`, counted like every outside call)
+and posts the reply back as `{ids, answers_b64}`; the site places it by its own rules, each marked `via: railway`. If
+the Census doesn't answer the worker either, the task is held and the batch waits for the next run. Tests:
+`tests/test_census_backup.py`.
 
 ## How-to guides (decisions/0063 §8)
 

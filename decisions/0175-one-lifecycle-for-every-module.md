@@ -397,6 +397,12 @@ backup service where one is named"):
 - **Re-asked with the corrected picture (Jason, 2026-11-20, in the decision pop-up):** "There's no Railway path today. A
   backup means the crawler calls the Census itself and hands the answers to the site: a new worker call plus a site
   endpoint." He answered "Yes, build it".
+- **Built (Operations session, 2026-11-20, release census-backup with crawler 2.16.0, built on Sync 18:34 UTC):** the
+  site's batch call (`Geocoder::runOrHandOff`) hands its batch to the worker when the call fails on the connection
+  (curl's no answer, or the site's own hold of kind "timeout" on the Census); any other refusal waits as before, and a
+  person's pause or staging never hands it on. The worker sends it only to the Census's batch address and posts the reply
+  back (`answers_b64`); `Geocoder::takeAnswers` places only listings it was handed that still wait for a point, marked
+  `via: railway`. Tests: `tools/place-tests/census-backup.php` (15), `workers/crawler/tests/test_census_backup.py` (10).
 
 **Note (Jason, 2026-11-20, relayed by the session manager): one control board in the menu, folded into release 2.** On
 a screenshot of the System Configuration menu: "arent we combining things into one control boards, if so why does the
