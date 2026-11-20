@@ -167,3 +167,11 @@ server.
 - **The data:** §6's tables, plus `trips.deleted_at` and `trip_stops.id`/`added_at`.
 - **Moved to release 3:** the map's card and the Trip Planner's results, beside the trip page's map and Save as a trip.
 
+**Note (2026-11-20): release 3, the trip page (`trip-page.zip`; `handoffs/trip-page.md`).**
+- **The page:** each trip has its own page with days, order (drag, ↑ ↓, a day), stays, and times against hours and
+  daylight in the first stop's zone, labelled.
+- **The map:** numbered pins and "about" straight-line legs.
+- **Also:** Print, Save as a trip from the Trip Planner (the place's ready-made journeys offered), and Add to a trip on
+  the map's card and in Peek.
+- **The data:** `trips.start_min`, `trips.place_key` and `trip_stops.stay` were added.
+
