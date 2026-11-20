@@ -621,3 +621,9 @@ The recheck is a task of W2 on the switches (§9), shipped off; its runs, merges
   paused (§9).
 
 **Note (Jason, 2026-11-20, decisions/0175): §9's task switches move to their workflow's own page on the board.** A task is a step of its workflow; Automation keeps the master switch and the workflows, with one line per workflow linking to its tasks. A fault never writes into a switch: it shows as Paused by the system.
+
+**Note (2026-11-20, decisions/0164's note on Common Crawl's URL Index): the crawler's `CC_MAP_PER_RUN` (40).** The number
+of the crawl's URL Index files whose key ranges the worker reads in one run while a new crawl's file map is built. It's
+derived from today's numbers, not a new rule: the Common Crawl task's `CC_TIME` (60 seconds a run) at the worker's pace of
+one request a second leaves room for about 40. A Railway variable like `CC_TIME`, `CC_PER_SITE` (50), `CC_PAGES` (40) and
+`CC_COPY_MAX` (12). The map is whole after about 8 runs on a new crawl's 300 files, and is then read from the site.
