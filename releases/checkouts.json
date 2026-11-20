@@ -179,6 +179,17 @@
    "expires": "2026-11-20T17:45:37Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "website/js/map-view.js",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "The trip page (decisions/0174 release 3)",
+   "since": "2026-11-20T13:45:41Z",
+   "expires": "2026-11-20T17:45:41Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
