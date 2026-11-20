@@ -94,55 +94,29 @@
    }
   },
   {
-   "path": "app/admin/control-console.php",
+   "path": "website/js/tv-trail.js",
    "functions": [
-    "tv_admin_mod_control"
+    "(top)"
    ],
    "kind": "change",
-   "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
-   "why": "0175 R2b part A: one control board in the menu",
-   "since": "2026-11-20T17:52:33Z",
-   "expires": "2026-11-20T22:02:22Z",
-   "release": "0175-r2b-board.zip",
+   "session": "session_01CXLi5gxSyzVYGuXX3xuu2c",
+   "why": "listing-signin: the site's session folder on listing pages; Back to where they came from (Jason 2026-11-20)",
+   "since": "2026-11-20T18:04:51Z",
+   "expires": "2026-11-20T22:04:51Z",
+   "release": "listing-signin",
    "callers": {}
   },
   {
-   "path": "website/js/admin-control.js",
+   "path": "website/listing/view.php",
    "functions": [
-    "redraw",
-    "tabsApply",
-    "toTab"
+    "(top)"
    ],
    "kind": "change",
-   "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
-   "why": "0175 R2b part A: one control board in the menu",
-   "since": "2026-11-20T17:52:36Z",
-   "expires": "2026-11-20T22:02:22Z",
-   "release": "0175-r2b-board.zip",
-   "callers": {}
-  },
-  {
-   "path": "website/admin/router.php",
-   "functions": [
-    "TV_ADMIN_MOVED"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
-   "why": "0175 R2b part A: one control board in the menu",
-   "since": "2026-11-20T17:52:42Z",
-   "expires": "2026-11-20T21:52:42Z",
-   "release": "0175-r2b-board.zip",
-   "callers": {}
-  },
-  {
-   "path": "website/admin/router.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
-   "why": "release 0175-r2b-board.zip",
-   "since": "2026-11-20T18:02:22Z",
-   "expires": "2026-11-20T22:02:22Z",
-   "release": "0175-r2b-board.zip",
+   "session": "session_01CXLi5gxSyzVYGuXX3xuu2c",
+   "why": "listing-signin: the site's session folder on listing pages; Back to where they came from (Jason 2026-11-20)",
+   "since": "2026-11-20T18:04:51Z",
+   "expires": "2026-11-20T22:04:51Z",
+   "release": "listing-signin",
    "callers": {}
   }
  ],
