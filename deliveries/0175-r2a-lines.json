@@ -3,64 +3,64 @@
  "built_on": "c8f9c3e Sync: 2026-11-20 16:01 UTC",
  "recorded": "2026-11-20 16:13 UTC",
  "note": "0175 R2a part 2: paused now, Diagnostics, a backup as working, steps and their switches, the red hour; built on Sync: 2026-11-20 16:01 UTC Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "1ada60f Sync: 2026-11-20 16:32 UTC",
  "files": {
   "app/admin/automation-console.php": {
    "sha256": "bef5888de25b3bed0e6dd3ff8a2da9175dc50d3e2e23f9a64fe5bb5de5089a0b",
-   "live": false
+   "live": true
   },
   "app/admin/control-console.php": {
    "sha256": "dad2f494ae99bce5ba41c11ccade5d8c12f3c1acde7ab2fb1488abce4e41dc58",
-   "live": false
+   "live": true
   },
   "app/admin/crawler-console.php": {
    "sha256": "e80a2d983ab93b43280dfb9b11869bf3113fd6dda5ea1b629a3ff19cdb281729",
-   "live": false
+   "live": true
   },
   "app/admin/tools.php": {
    "sha256": "ad82bd325f637c6d45f5b3c837c74d05c2513d039e311f3d8c1f86c8c277a6ff",
-   "live": false
+   "live": true
   },
   "app/lib/ControlBoard.php": {
    "sha256": "e8b9c745c4010355b0e15ce48a705eda85aad490bb4ec64af0ec34e0d19a10f7",
-   "live": false
+   "live": true
   },
   "app/lib/ControlHistorian.php": {
    "sha256": "9930cc6e2561bfd062375e4d0ccd4c8263ef0905d3d59eb03b8674e05bafcd45",
-   "live": false
+   "live": true
   },
   "app/lib/Operations.php": {
    "sha256": "6296ea6339a8972dde038519c51441eb0449a8222b93d3a5d57dc0c874900ab2",
-   "live": false
+   "live": true
   },
   "app/lib/OutsideServices.php": {
    "sha256": "1173da81675ba320c2109c78e691eed30998214cea83ac452faec8052bc7e526",
-   "live": false
+   "live": true
   },
   "app/lib/SystemStart.php": {
    "sha256": "d54d4dc2121eeba6c850df4464cddc127793b9b58df5ca3b5fca21d7b9ee1a09",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "f1a91b71c2cc07096bd85475d9f5e5e128a917fd35726aa6eed7956bf1c792c2",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md.orig": {
    "sha256": "b7ca3f5d1ed6b12466e83dbd43e7c24b9fd052539dfa9f3fb0f0d691e72bf6fa",
-   "live": false
+   "live": true
   },
   "app/ui/outside-services.php": {
    "sha256": "2a84a75915adc635cf9e5cd4ee4a1dada9025a5700ccaf5d9f41be0cd5f39a18",
-   "live": false
+   "live": true
   },
   "website/admin/api.php": {
    "sha256": "368a7e419bc0f470ae8d1897c09b5c818cf1bda179c0c91c8216194bf9ad1d9e",
-   "live": false
+   "live": true
   },
   "website/js/admin-control.js": {
    "sha256": "220c54da9c83903fd626c8fa78d62417ff79e303d9b05756bda6df1f140823d6",
-   "live": false
+   "live": true
   }
  }
 }
