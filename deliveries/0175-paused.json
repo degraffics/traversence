@@ -3,56 +3,56 @@
  "built_on": "11c4954 Sync: 2026-11-20 13:53 UTC",
  "recorded": "2026-11-20 13:57 UTC",
  "note": "0175 release 1: a trip pauses, never switches off (no hourly try; built on Sync 13:53 UTC, 11c4954) Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "6915f42 Sync: 2026-11-20 14:01 UTC",
  "files": {
   "app/admin/automation-console.php": {
    "sha256": "d151a86ff44141effe83a95d9a95d6e6f4ad7c45b0fda509dca21ffbdb05c594",
-   "live": false
+   "live": true
   },
   "app/lib/Automation.php": {
    "sha256": "6cf41f391084955101bbda7a652207927fedc42509cf35ff724f3da010ed177d",
-   "live": false
+   "live": true
   },
   "app/lib/ControlAlarms.php": {
    "sha256": "5c32aacf5a5446c0654b6e60c4b43bd158de972835c5eb9f171e79a48cd9fd80",
-   "live": false
+   "live": true
   },
   "app/lib/ListingIdentity.php": {
    "sha256": "81919a27dfbaa57e49f37c7869f03082fc57ab03074b058610ca21b1cc1a7e36",
-   "live": false
+   "live": true
   },
   "app/lib/OutsideServices.php": {
    "sha256": "788fba386ae25b0acb795fc7b7c82e6b6f98001057ffde03095973a9b1126374",
-   "live": false
+   "live": true
   },
   "app/lib/Preflight.php": {
    "sha256": "d9b8beb8a31196877e5bb794061d80856498123f0ee87c735608f668bee56d9d",
-   "live": false
+   "live": true
   },
   "app/lib/crawler/CrawlQueue.php": {
    "sha256": "9a8e1fb0bac65d8e0ead0ab3e0af05496ef81381bbb3aeff92b715ef6f343b90",
-   "live": false
+   "live": true
   },
   "app/lib/crawler/CrawlService.php": {
    "sha256": "f7730d4e870888661a1919bd6bda9afd7ece512956fec90ecdf90c11cdff1d65",
-   "live": false
+   "live": true
   },
   "app/lib/crawler/OpenLoads.php": {
    "sha256": "27218b73fd6c474c34fb1c43384bfcd1a4ceab9c7023bb187dbb6db1e576e5d7",
-   "live": false
+   "live": true
   },
   "app/lib/staging-tables.php": {
    "sha256": "7528636b5faf22c8e34e9581b8036fb955f569e173ad282d6ddb9328cf5ad0aa",
-   "live": false
+   "live": true
   },
   "app/migrations/2026-11-20_system_pauses.sql": {
    "sha256": "0ef10c6de11ab12ca8bfdba74c9b9b5447eea697f623bb3479cb949fa9e50c4b",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "24c387563d197fda9c8a65dc9ad082601e862d3402aa7c8e6c171b1efdf5af3f",
-   "live": false
+   "live": true
   }
  }
 }
