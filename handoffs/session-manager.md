@@ -87,8 +87,9 @@ a build choice. (Missed on 0175 R1's hourly try and on 0175 draft 1's third-trip
   settled). **The crawler and the automation stay paused** until the build stages (0163 §8: operations stages 2–6, then
   7–11 for the Knowledge Engine's new parts) and the switch-on check (0163 §10) are done and Jason switches them on.
   Each stage is a release he approves, one session per stage from its handoff (`handoffs/crawler-revamp.md`).
-- **The Railway crawler's cron** was removed through the API (~15:55 UTC); `railway.json` still says every 5 minutes, so
-  a worker deploy restarts it (details at the top of `handoffs/crawler-revamp.md`); the automation master switch (release
+- **The Railway crawler's cron** was removed through the API (~15:55 UTC); since 2026-11-17 the site sets it
+  (`SystemStart::railwaySchedule`); `railway.json` names no cron, so a worker deploy keeps the site's schedule (checked
+  2026-11-20 by Operations, crawler 2.15.0 deployed 14:34 UTC); the automation master switch (release
   #48) makes any run that starts end at once. The hourly check expects no crawler runs meanwhile.
 
 ## The working queue now (2026-11-20, 15:00 UTC; the sections below are the history behind it)
