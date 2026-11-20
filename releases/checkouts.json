@@ -2,23 +2,6 @@
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
  "claims": [
   {
-   "path": "app/lib/Landmarks.php",
-   "functions": [
-    "bestPhoto"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
-   "why": "Park photos on the spot (Jason, 2026-11-19, approved)",
-   "since": "2026-11-20T03:44:22Z",
-   "expires": "2026-11-20T07:47:58Z",
-   "release": "park-photos-onspot.zip",
-   "callers": {
-    "bestPhoto": [
-     "app/lib/PlacePhotos.php"
-    ]
-   }
-  },
-  {
    "path": "app/lib/PlaceFinder.php",
    "functions": [
     "get"
