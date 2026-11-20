@@ -6,7 +6,9 @@ Status: **accepted** (Jason, 2026-11-19, in the decision pop-up, reviewed by the
 - guests: **one trip on the device** (§2).
 
 He answered "Yes" earlier to "Draft one decision for trips you can save". **Add to a trip** stays greyed, "Coming", until
-release 2. **Next:** release 1, Send to Maps.
+release 2. **Where it stands (2026-11-20):** releases 1–4 are live (#219 Send to Maps, #220 trips and Add to a trip, #221
+the trip page, #227 sharing and Personal Guides). **Next:** release 5, routes on our own site (§5), not started; building
+is held (Jason, 2026-11-20). Its hand-off: `handoffs/design.md` §3.2.
 
 Builds on:
 - 0058 §1: Favorites (private) and **Personal Guides** ("published collections" of listings, places and journeys).
