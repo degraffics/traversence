@@ -3,28 +3,28 @@
  "built_on": "1ceeb44 Sync: 2026-11-20 14:45 UTC",
  "recorded": "2026-11-20 14:46 UTC",
  "note": "w1-findings: a warning's hour kept, a handled review item, Recovered words (built on Sync 14:45 UTC, 1ceeb44) Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "6c545d9 Sync: 2026-11-20 14:48 UTC",
  "files": {
   "app/lib/ControlAlarms.php": {
    "sha256": "99c90a62d673a96c327ab6930b838768427609c56aa41e2bfa0d30ec8be1b4d3",
-   "live": false
+   "live": true
   },
   "app/lib/ControlSensor.php": {
    "sha256": "99cdf04ae2cf44603afc6d261c5162a795b7e19f802504293e9c634f7a6cc6ce",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "a46c0cffb9a644e7d46ebbbe96ec7a871107d856f8c80f973408ca016320f09b",
-   "live": false
+   "live": true
   },
   "website/admin/listing-intake.php": {
    "sha256": "62b613cf85335daee289dde5c2d7a17dcde8047c2c5a7955a310637fab5f3bc2",
-   "live": false
+   "live": true
   },
   "website/api/admin/intake/candidates.php": {
    "sha256": "9610ad21b717f88503e5fbbe04824d9d6cc3d3f9bb8a3da84b7fe2e39ef6cc06",
-   "live": false
+   "live": true
   }
  }
 }
