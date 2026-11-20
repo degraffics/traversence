@@ -114,8 +114,10 @@ sessions take over, holding until Jason says resume. Live through Release #228 (
   built and sent, PR #1193, waiting for his OK. Next: the phone menu fixes if he picks, then 3d.
   **Progress (2026-11-20, 3d):** vault icons live as #235; 3d built and sent (Community to the mockup, adapted; a group's
   page and the member dashboard on the tokens), PR #1201, waiting for Jason's OK.
-- **Orders** (`order-processing.md`): starts after Jason reviews `research/order-system-map-2026-11-19.md` and its six
-  items; the first release carries the chargeFor fix.
+- **Orders** (`order-processing.md`): started 2026-11-20 18:02 (Jason: "Start Orders now"), session
+  `session_01CXLi5iruQZSTYKyuR7b1SN`. Brief: the map, `research/order-review-crosswalk-2026-11-20.md`, 0101's and 0135's
+  notes of 2026-11-20. First a proposal (one cart that is the invoice, lines released by their requirements); the
+  first release carries the chargeFor fix. Archive the old order processing session once it confirms.
 - **The session manager** also reads Monday's (2026-11-23) "Edit my listing" path check (`business-listings.md`).
 - **Waiting on Jason:** (answered: a system hour is red only when a critical part is down, 0175 note 2026-11-20, #1177); 0176 R2's restart; the order map and its six
   items; the order file check's limits; the area data plan (ten "Albuquerque" clusters, Abilene under Ancient
