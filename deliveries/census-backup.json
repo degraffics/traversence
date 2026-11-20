@@ -3,20 +3,20 @@
  "built_on": "8f37ee8 Sync: 2026-11-20 23:43 UTC",
  "recorded": "2026-11-20 23:44 UTC",
  "note": "The Census geocoder's backup (0175's note), with crawler 2.16.0. Built on Sync 23:43 UTC (8f37ee8). Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "629ef9a Sync: 2026-11-20 23:46 UTC",
  "files": {
   "app/lib/Geocoder.php": {
    "sha256": "01ea0e49d78ef5a61277252142cf94eb61c5b8919c132db5f02bf05dc03eaff0",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "33d6b665b8322e0ed728173668b27c04432265f1c31337348b9a1352bf367965",
-   "live": false
+   "live": true
   },
   "website/api/crawl/geocode.php": {
    "sha256": "3ae41cf73b2dad54e2ecd6e181f0dcc4ab20578d5b82918cedc461c7c91f22b9",
-   "live": false
+   "live": true
   }
  }
 }
