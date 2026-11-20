@@ -1,0 +1,26 @@
+{
+ "zip": "quiet-jobs.zip",
+ "built_on": "8270202 Sync: 2026-11-20 14:22 UTC",
+ "recorded": "2026-11-20 14:24 UTC",
+ "note": "quiet-jobs: a job that runs only when it has work is never late (built on Sync 14:22 UTC, 8270202) Sent through git (releases/inbox).",
+ "status": "live",
+ "live_in": "7a2f9ab Sync: 2026-11-20 14:27 UTC",
+ "files": {
+  "app/admin/job-line.php": {
+   "sha256": "46fab79e0d1edd4b526e481159adfaddc62434a54e6d0234a40bff9162a02c2a",
+   "live": true
+  },
+  "app/admin/sections.php": {
+   "sha256": "551223714261e56200133df25669645204856cfa3c675e95811511a0cb8b221e",
+   "live": true
+  },
+  "app/lib/Scheduler.php": {
+   "sha256": "bf8784fcf98a5fa4adc1aa8d1b3d836da6348fae3b8bbc453f5aa222d902095d",
+   "live": true
+  },
+  "app/ui/faq.md": {
+   "sha256": "dcf1e91e87cb8ed91a94383499b263c14b5386dc328b58ac7529eaec966876a0",
+   "live": true
+  }
+ }
+}

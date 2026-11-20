@@ -382,3 +382,39 @@ trip that has escalated (its tries ran out) and whose check later passes should 
 Recovered". It closes itself as Recovered, its pause lifts, and the Recovered notice goes to the Founders. Nothing is
 left to press. This settles §3's "it waits for a person only where 0171's escalation already says so": once its check
 passes, nothing waits (`ControlAlarms::ESCALATED_RECOVERS`).
+
+**Note (Jason, 2026-11-20, in the decision pop-up): the Census geocoder's backup.** Asked "The Census geocoder resets the
+site's connections (Bluehost's network). Fall back to the crawler's own geocode on Railway when that happens?", he
+answered "Yes". So the Census geocoder (U.S. Census Bureau) names its backup, per §3 ("The workflow … reroutes to a
+backup service where one is named"):
+- When the site's call to geocoding.geo.census.gov fails on the connection (reset or no answer), the batch is sent from
+  Railway instead.
+- **Correction (the Control Board session, 2026-11-20, checked in the code after his answer):** the crawler's geocode
+  task doesn't call the Census itself today. It asks the site to (`/api/crawl/geocode.php` → `Geocoder.php`), so it
+  shares the site's connection. A backup on Railway means the worker sends the batch to the Census itself, then hands
+  the answers to the site to place.
+- A map point is never lost or invented in between: a batch that neither side could send waits, as it does now.
+- **Re-asked with the corrected picture (Jason, 2026-11-20, in the decision pop-up):** "There's no Railway path today. A
+  backup means the crawler calls the Census itself and hands the answers to the site: a new worker call plus a site
+  endpoint." He answered "Yes, build it".
+
+**Note (Jason, 2026-11-20, relayed by the session manager): one control board in the menu, folded into release 2.** On
+a screenshot of the System Configuration menu: "arent we combining things into one control boards, if so why does the
+drop down look like we are segmenting everything?" On folding it into release 2: "yes. fold into 2". The operations part
+of the menu becomes three entries:
+- **System Control Board:**
+  - its tabs Alarms, Logbook, Ledger, Upkeep and Reports (separate menu items today);
+  - Scheduled tasks as a tab (jobs are parts it watches);
+  - Automation's master switch, Start the system and Pause everything as its Start-up and Shut-down stages (the ignition,
+    §6).
+- **Modules** (the Service register): each card holds its stage-2 pre-flight and its caps, budget and cost (the
+  Pre-flight and Costs pages today). The system pre-flight goes into the board's Start-up stage.
+- **Workflows:** the Workflows and Workflow board pages merge. Each workflow's page has its steps, services, backups and
+  task switches.
+- **Permissions and Data separation stay** as configuration.
+
+The rules hold:
+- every old address redirects to its new tab, card or anchor, landing on the same spot;
+- old manifest sections are archived in `archive.md`, not deleted;
+- every behaviour each page had is listed in the hand-off with where it moved, and a drop needs `--drops` and his OK;
+- the zip check and the drawer and anchor tests cover the redirects.

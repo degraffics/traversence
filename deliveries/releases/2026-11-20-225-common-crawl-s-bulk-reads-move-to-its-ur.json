@@ -1,0 +1,90 @@
+{
+    "id": 225,
+    "title": "Common Crawl's bulk reads move to its URL Index: the site keeps the crawl's file map",
+    "why": "Jason, 2026-11-20, in the decision pop-up: \"Yes, allow and build it\" (decisions/0164's note): Common Crawl asks bulk users not to overload its index server and to use its URL Index.",
+    "proposals": "",
+    "zip": "ccol.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "live",
+    "step": 3,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": "2026-11-20 14:30:59",
+    "staged_at": "2026-11-20 14:31:02",
+    "vetted_at": "2026-11-20 14:31:05",
+    "live_at": "2026-11-20 14:31:05",
+    "files": {
+        "website/api/crawl/commoncrawl.php": {
+            "sha": "d17b27d6b39ada0a68f05c66900041373f6afea9a96aad2aef7f3c25df00ac34",
+            "size": 4874,
+            "live_was": "5a69265099f4fb424d347df601c1b8640087641af23decfdaa687416bc6ba7fa",
+            "existed": true,
+            "old_sha": "5a69265099f4fb424d347df601c1b8640087641af23decfdaa687416bc6ba7fa"
+        },
+        "app/ui/faq.md": {
+            "sha": "d207b3c1a040220a2ca209e4b55d4cd4d0208f1d2449c36e095b61214da5329e",
+            "size": 399649,
+            "live_was": "dcf1e91e87cb8ed91a94383499b263c14b5386dc328b58ac7529eaec966876a0",
+            "existed": true,
+            "old_sha": "dcf1e91e87cb8ed91a94383499b263c14b5386dc328b58ac7529eaec966876a0"
+        }
+    },
+    "migrations": [],
+    "checks": {
+        "ok": true,
+        "where": "live",
+        "at": "2026-11-20T14:31:05+00:00",
+        "items": [
+            [
+                "PHP files parse",
+                true,
+                "1 checked"
+            ],
+            [
+                "Pages answer",
+                true,
+                "2 pages answered on traversence.com"
+            ],
+            [
+                "No new fatal errors in the logs",
+                true,
+                "4 logs read"
+            ]
+        ],
+        "first_fail": ""
+    },
+    "log": [
+        {
+            "at": "2026-11-20T14:30:56+00:00",
+            "by": 0,
+            "msg": "Uploaded ccol.zip: 2 files."
+        },
+        {
+            "at": "2026-11-20T14:30:59+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/ccol.zip (git 7a10142145)."
+        },
+        {
+            "at": "2026-11-20T14:30:59+00:00",
+            "by": 0,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
+        },
+        {
+            "at": "2026-11-20T14:31:02+00:00",
+            "by": 0,
+            "msg": "Put on staging (2 files); its checks passed."
+        },
+        {
+            "at": "2026-11-20T14:31:05+00:00",
+            "by": 0,
+            "msg": "Approved in chat before it was sent through git, and its checks on staging passed: publishing by itself."
+        },
+        {
+            "at": "2026-11-20T14:31:05+00:00",
+            "by": 0,
+            "msg": "Published: 2 files; everyone at once (no switch)."
+        }
+    ]
+}
