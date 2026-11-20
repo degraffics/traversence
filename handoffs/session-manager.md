@@ -115,6 +115,23 @@ a build choice. (Missed on 0175 R1's hourly try and on 0175 draft 1's third-trip
   (owners edit their hidden listings). It reads the "Edit my listing" path after the 2026-11-20 run, then stays open for
   more listing work.
 
+**To discuss: the Control Board's dashboard ideas** (Jason, 2026-11-20, five reference screenshots: VTScada's
+"Dashboard 2", ThingsBoard's SCADA energy "Main" and "Consumption", a power plant monitoring dashboard, a manufacturing
+Excel dashboard; "Let's discuss if any of these could help me manage the system"; then "Put this into the work que for a
+discuss to happen"). Nothing decided or built. The session manager's reading, to open the discussion:
+1. **Main as a one-line diagram** (ThingsBoard "Main"): sources and services → workflows → what visitors see, each box its
+   stage colour and one live number, each line what flows; a paused service greys its lines and shows a backup line taking
+   over (0175, Jason's reroute rule); a box opens its card in the side panel. Recommended first, as a mock-up.
+2. **Tabs per system** across the top (Main, Crawler, Search, Payments, Communications, Releases, Alarms).
+3. **The trend panel with its stats table** (VTScada): pens over a window; min, max, average, on time, starts (pauses and
+   recoveries). Built on the board's historian (0171 r4b); stage 5 "Real Time Monitoring, Performance, Diagnostics, and
+   Reporting" (0175).
+4. **Fault lights** for the critical duties (search, sign-in, payments, page load, database, email; 0171's duties).
+5. **Capacity bars** per service: quota or budget used today ("No income, no expense").
+Skip: large gauges, pies, slicer columns (one search plus filters, design/css-theme-brand.md).
+Order once agreed, after 0175's releases (each module needs its one state first): the Main mock-up from the Control Board
+session, then build. Waiting on: a discussion with Jason.
+
 **Widen the OpenStreetMap copy** (Jason, 2026-11-19: "Seems like we could use everything openstreet has as long as it is
 cited", "Yea add to work que"; "the score could account for provided data so these entries would show lower than our
 vetted entries"). Under decisions/0065: its own layer, credited, never copied into our records; ODbL means we offer our
