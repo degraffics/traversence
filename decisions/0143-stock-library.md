@@ -315,3 +315,15 @@ the fifth zip's changes).
 - **Unchanged:** the same finder, pace (one place at a time, 2 seconds apart, 15 an hour) and rules (every word of the name, taken nearby, a free licence, 640 px or more). A private place is never looked up, and the W9 and Wikimedia switches still stop it. A place tried in the last 30 days with nothing found isn't tried again sooner.
 - **If gathering is paused**, nothing is looked up until it's switched back on: https://traversence.com/admin/config/automation.
 - **Tests:** `tools/design-tests/place-photos/want.php` (8 checks).
+
+**Note (2026-11-19, Jason approved, reviewed by the session manager: the match loosened on the spot; `park-photos-onspot.zip`).**
+- **What changed:** card photos (#205) and landmarks' photos asked for every word of the place's name in a Commons photo's file name or title. That rule exists so a KU building in Kansas named "Visitor Center" never stands in for an Arizona visitor centre. But it also rejected "Lyman Lake, Arizona", taken at the lake, because "State" and "Park" were missing.
+- **The new rule:** a photo taken within 1.5 km (Commons' own nearby search) needs only the place's own words. The kind words (`Landmarks::KIND_WORDS`: state, national, park, monument, historic, site, recreation, area, visitor, center, memorial, preserve, forest) may be missing there only.
+- **Unchanged:**
+  - words like lake or canyon stay required;
+  - a name made only of kind words still needs them all;
+  - a photo with no location, or farther away, still needs every word;
+  - Kansas stays out, 1,000 miles away.
+- **Not the cause:** the board's Wikidata 429 (issue #26) never held the photo finder. It's on query.wikidata.org, and the finder asks commons.wikimedia.org only.
+- **Tests:** `tools/design-tests/place-photos/onspot.php` (10 checks; 3 of them fail against the earlier rule). The earlier 19 and `want.php`'s 8 still pass.
+
