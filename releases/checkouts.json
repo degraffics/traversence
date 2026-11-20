@@ -16,13 +16,14 @@
    "path": "app/lib/ServiceHealth.php",
    "functions": [
     "facts",
+    "osmUse",
     "steps"
    ],
    "kind": "change",
    "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
-   "why": "0176 R3: Fix it first in the issue's Pulse case",
+   "why": "0176 R3: Fix it routing",
    "since": "2026-11-20T23:32:36Z",
-   "expires": "2026-11-21T03:37:00Z",
+   "expires": "2026-11-21T03:53:24Z",
    "release": "0176-fix-it.zip",
    "callers": {
     "facts": [
@@ -33,6 +34,9 @@
     ],
     "steps": [
      "app/lib/Pulse.php"
+    ],
+    "osmUse": [
+     "app/lib/crawler/CrawlService.php"
     ]
    }
   },
@@ -76,48 +80,47 @@
   },
   {
    "path": "app/admin/operations-console.php",
-   "functions": [
-    "tv_ops_ctx",
-    "tv_ops_issues",
-    "tv_ops_keys",
-    "tv_ops_reg_block"
-   ],
+   "functions": [],
    "kind": "change",
    "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
-   "why": "0176 R3: Set a cap runs its check on the spot",
+   "why": "0176 R3: Fix it routing",
    "since": "2026-11-20T23:32:36Z",
-   "expires": "2026-11-21T03:35:06Z",
+   "expires": "2026-11-21T03:53:24Z",
    "release": "0176-fix-it.zip",
    "callers": {}
   },
   {
    "path": "app/admin/index-console.php",
-   "functions": [
-    "tv_admin_mod_index"
-   ],
+   "functions": [],
    "kind": "change",
    "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
    "why": "0176 R3: Fix it routing",
    "since": "2026-11-20T23:32:36Z",
-   "expires": "2026-11-21T03:32:36Z",
+   "expires": "2026-11-21T03:53:24Z",
    "release": "0176-fix-it.zip",
    "callers": {}
   },
   {
    "path": "app/ui/pulse-ui.php",
    "functions": [
+    "fill",
     "tv_pulse_board"
    ],
    "kind": "change",
    "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
    "why": "0176 R3: Fix it routing",
    "since": "2026-11-20T23:32:36Z",
-   "expires": "2026-11-21T03:32:36Z",
+   "expires": "2026-11-21T03:53:24Z",
    "release": "0176-fix-it.zip",
    "callers": {
     "tv_pulse_board": [
      "app/admin/sections.php",
      "website/admin/w.php"
+    ],
+    "fill": [
+     "app/ui/app-shell.php",
+     "website/js/tv-proof.js",
+     "website/user/dashboard.php"
     ]
    }
   },
