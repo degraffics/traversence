@@ -43,6 +43,17 @@
    "expires": "2026-11-20T07:47:15Z",
    "release": "wikidata-limits.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/Wdqs.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Wikidata within its limits: the new helper",
+   "since": "2026-11-20T03:47:19Z",
+   "expires": "2026-11-20T07:47:19Z",
+   "release": "wikidata-limits.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
