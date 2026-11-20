@@ -129,6 +129,19 @@
    "expires": "2026-11-20T22:14:34Z",
    "release": "listing-signin.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/QuickBooksPay.php",
+   "functions": [
+    "chargeFor"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5iruQZSTYKyuR7b1SN",
+   "why": "chargeFor fix: a test copy that took real money can be refunded (map \u00a75, Jason: Fix in first release)",
+   "since": "2026-11-20T18:15:43Z",
+   "expires": "2026-11-20T22:15:43Z",
+   "release": "orders-chargefor.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
