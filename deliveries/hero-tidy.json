@@ -1,8 +1,8 @@
 {
  "zip": "hero-tidy.zip",
- "built_on": "eb49e51 Sync: 2026-11-20 15:06 UTC",
- "recorded": "2026-11-20 15:37 UTC",
- "note": "Hero tidy (Jason, 2026-11-20), rebuilt after his pop-up answers (journeys linkable; the merge out), built on Sync: 2026-11-20 15:06 UTC (eb49e51) Sent through git (releases/inbox).",
+ "built_on": "68d8257 Sync: 2026-11-20 15:56 UTC",
+ "recorded": "2026-11-20 15:58 UTC",
+ "note": "Hero tidy (Jason, 2026-11-20, approved twice), rebuilt on Sync: 2026-11-20 15:56 UTC (68d8257), after #229 Sent through git (releases/inbox).",
  "status": "pending",
  "live_in": "",
  "files": {
@@ -15,7 +15,7 @@
    "live": false
   },
   "app/ui/faq.md": {
-   "sha256": "25bd5f4366d3a9ff69618041f79bf772a040f4ace4d351ac4371774b94839831",
+   "sha256": "b7ca3f5d1ed6b12466e83dbd43e7c24b9fd052539dfa9f3fb0f0d691e72bf6fa",
    "live": false
   },
   "app/ui/stock-ui.php": {

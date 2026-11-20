@@ -3,7 +3,7 @@
 Jason approved this in the pop-up on 2026-11-20 (reviewed by the session manager), then held it ("Once r4 is released and
 live. Hold building anything more"). R4 went live as #227. At the restart Jason said resume (the session manager,
 2026-11-20: "now release the session to build"). The Design and trips session (session_01CXLi5gxSyzVYGuXX3xuu2c)
-rebuilt it on **Sync 15:06 UTC (eb49e51)**, which includes #228. The files are those of the approved build, plus the
+rebuilt it on **Sync 15:56 UTC (68d8257)**, which includes #228 and #229 (its faq.md re-applied on the live copy). The files are those of the approved build, plus the
 live lines put in since 8270202 (R4's trip count in `engage-ui.php`; R4's and the dispatcher's FAQ entries). It was sent
 with `send.py` (`releases/inbox/hero-tidy.zip`, `deliveries/hero-tidy.json`), and the claims are tagged
 `--release hero-tidy`. Merge only after Jason's Approve in the pop-up.
