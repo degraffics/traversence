@@ -1,0 +1,50 @@
+{
+ "zip": "orders-rulings.zip",
+ "built_on": "5674a94 Sync: 2026-11-20 18:34 UTC",
+ "recorded": "2026-11-20 18:57 UTC",
+ "note": "Orders: the order map's rulings B.1, B.2 paths 1-2, B.3-B.6 (decisions/0101 note 2026-11-20), on R0's QuickBooksPay.php. Built on Sync: 2026-11-20 18:34 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/admin/Workflow.php": {
+   "sha256": "81b1aab3788638de053dccb6d0beb88312960a763357a2c4d9bfdabb855614d6",
+   "live": false
+  },
+  "app/lib/ClientOrders.php": {
+   "sha256": "c10c2b30af69ac3e9f214afff7c43d8497f5a70898e0169f034205a4053be464",
+   "live": false
+  },
+  "app/lib/QrIssue.php": {
+   "sha256": "d6ecd3d2f432e6c8f4b20c371e6a84deed75c87c2b916cad5abfbfa98b407904",
+   "live": false
+  },
+  "app/lib/QuickBooksPay.php": {
+   "sha256": "49e9878742c2a4eb06ea8675677b4337938b4f6e53e2e3c51aa33285692680db",
+   "live": false
+  },
+  "app/lib/WorkOrders.php": {
+   "sha256": "4ef0670348e67c4757fc2497e9da3346163b707a1fa17c7faa4d78ef022aa670",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "b15cf0ce17f5aaf6ca0d3a0686112d9f84fffaddd8edfac776e3880926ccd6d9",
+   "live": false
+  },
+  "website/admin/client-order.php": {
+   "sha256": "c3ddd9db40b6ddd95abf95f6a536a0e5403a079440a308e795df014706ced9bd",
+   "live": false
+  },
+  "website/admin/order.php": {
+   "sha256": "0493cff98ca4ef1de9a2b9b65eab5a43b9c9e247ecd94909f20861cf07022473",
+   "live": false
+  },
+  "website/api/qb-webhook.php": {
+   "sha256": "b516ca020a568e217d957ed720945beb9389e2319ce7317e2ad97e6a4891b929",
+   "live": false
+  },
+  "website/order.php": {
+   "sha256": "f954308dce199b89e5b1e61e7ba9c0e45cbe15bf7f60841c2ce1f48985c33e95",
+   "live": false
+  }
+ }
+}

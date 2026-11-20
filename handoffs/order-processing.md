@@ -4,8 +4,15 @@
 is ruled, in Jason's confirmed text (`research/order-rulings-2026-11-20.md`), written into decisions/0101's note "rulings
 on the order map" and 0166's note of 2026-11-20. The one-cart proposal is `research/one-cart-proposal-2026-11-20.md` (draft decision 0177, its questions Q-A to
 Q-G). R0, the chargeFor fix, is built as `releases/inbox/orders-chargefor.zip` (built on Sync 18:05 UTC; files:
-`app/lib/QuickBooksPay.php`; test `tools/order-tests/chargefor.php`), waiting for Jason's Approve. Next: B.1 and
-B.3–B.6 (and B.2's first two proof paths as a Send gate) as one release on what's built; then the cart, after Q-A and Q-B. The sections below are the earlier session's
+`app/lib/QuickBooksPay.php`; test `tools/order-tests/chargefor.php`), waiting for Jason's Approve. The next release is built as `releases/inbox/orders-rulings.zip` (stacked on R0, branch
+`claude/orders-rulings`; built on Sync 18:34 UTC, 5674a94): B.1, B.2 paths 1–2, B.3–B.6, with the FAQ; files
+`app/lib/{ClientOrders,QuickBooksPay,QrIssue,WorkOrders}.php`, `app/admin/Workflow.php`, `app/ui/faq.md`,
+`website/order.php`, `website/admin/{order,client-order}.php`, `website/api/qb-webhook.php`; test
+`tools/order-tests/rulings.php` (24/24 on MariaDB). Waiting for Jason's Approve after R0. Open with the session manager:
+Q1 (B.2's vendor half: checked at the cart, where the vendor is chosen before release?) and Q2 (the vendor's own
+Shipped on /wo.php for a deposit order with the balance unpaid; left as it is). Left for his OK (dead code beyond B.6):
+`ClientOrders::saveAddress`, `setLineShip`, `setOptions` have no caller once B.6's actions go. Then the cart, after Q-A
+and Q-B. The sections below are the earlier session's
 record.
 
 The order processing session (opened by Jason 2026-11-19: "an order processing agent session for reviewing how the
