@@ -163,6 +163,48 @@
    "expires": "2026-11-21T03:36:04Z",
    "release": "0175-paused-now-2.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/ServiceHealth.php",
+   "functions": [
+    "fixOf"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
+   "why": "0176 R3: fixOf",
+   "since": "2026-11-20T23:37:23Z",
+   "expires": "2026-11-21T03:37:23Z",
+   "release": "0176-fix-it.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/ControlAlarms.php",
+   "functions": [
+    "fixOf",
+    "heldAnchor",
+    "pulseUrl"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
+   "why": "0176 R3: fixOf",
+   "since": "2026-11-20T23:37:23Z",
+   "expires": "2026-11-21T03:37:23Z",
+   "release": "0176-fix-it.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Thread.php",
+   "functions": [
+    "fixButton",
+    "fixOf"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
+   "why": "0176 R3: fixOf",
+   "since": "2026-11-20T23:37:23Z",
+   "expires": "2026-11-21T03:37:23Z",
+   "release": "0176-fix-it.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
