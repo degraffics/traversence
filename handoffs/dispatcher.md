@@ -7,9 +7,9 @@ every thread", accepted 2026-11-20. One session for all four releases (CLAUDE.md
 
 | # | Release | State |
 |---|---|---|
-| 1 | **The thread and the shape, for alarms** (`0176-thread.zip`) | built and tested on Sync 14:22 UTC; waiting for the Control Board session's `feeds-words` (it carries `faq.md` too), then review and Jason's OK |
+| 1 | **The thread and the shape, for alarms** (`0176-thread.zip`) | sent, built on Sync 14:33 UTC (faq.md rebuilt after #223–#225); reviewed by the session manager; approved by Jason in the pop-up |
 | 2 | Service issues as threads (the card, Pulse's `svc:` case, Outside services' lines; no ×; words from the state) | after the Control Board session's feeds release (it holds `ServiceHealth.php`, `operations-console.php`) |
-| 3 | Fix it (the cause → landing map, one side panel with Back, a push opening the Pulse row, the check on the spot) | not started; the side panel with the design session |
+| 3 | Fix it (the cause → landing map, one side panel with Back, a push opening the Pulse row, the check on the spot) | not started; it reuses the Control Board session's one-panel drawer from 0175 release 2a (`at_hand`), never its own, matching its words (session manager, 2026-11-20) |
 | 4 | Uploads (each target names its thread and landing spot; the staff thread for order files first) | not started; the order file check's limits wait for Jason |
 
 ## Release 1: what it does
