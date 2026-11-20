@@ -162,3 +162,5 @@ find and buy; Apps is where you run them.**
 - One place to find, buy and run everything; plans read as a set of apps.
 - Each new integration is smaller to build and the same to use.
 - A release goes ahead of 0166, so payments and bookkeeping are built as apps from the start and nothing is rebuilt.
+
+**Note (Jason, 2026-11-20, decisions/0175): the App store builds on 0175.** §5's lifecycle is folded into 0175's eight stages (Choose and Install → 1, Configure → 1–2, Use → 3–5, Update → 6, Remove → 7–8), with every detail here kept inside them. §6's app definition becomes 0175 §4's one definition, shared with our platform services. Release 1 (the App store) builds on 0175's releases, not on a model of its own.
