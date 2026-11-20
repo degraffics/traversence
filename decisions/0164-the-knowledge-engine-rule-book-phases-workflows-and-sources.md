@@ -1514,11 +1514,17 @@ crawler to it?", he answered "Yes, allow and build it". Common Crawl's own pages
   efficient analytical and/or bulk queries of the data … free to access or download for anybody".
 - https://commoncrawl.org/get-started: from outside Amazon's cloud, "the new URL prefix https://data.commoncrawl.org/ –
   must be used".
-- https://commoncrawl.org/terms-of-use §2: no "interfering with or disrupting the Service and/or the servers or networks
-  connected to the Service".
+- https://commoncrawl.org/terms-of-use §2: no "(f) interfering with or disrupting the Service and/or the servers or
+  networks connected to the Service", and no "(l) collecting or harvesting any personally identifiable information or
+  personal information for use separately from the Crawled Content" (we take businesses' and public bodies' websites,
+  never people).
 
 So:
 - The crawler's bulk reads (our states' public sites, a regular source's pages) query the URL Index's Parquet files on
   data.commoncrawl.org, one request at a time.
-- A single page's copy when a site doesn't load stays on index.commoncrawl.org's CDXJ index, at most `CC_COPY_MAX` a run.
+- A single page's copy when a site doesn't load (W2's and W3's fallback, decisions/0163's source map: direct, then
+  Common Crawl) stays on index.commoncrawl.org's CDXJ index, the use it's "optimised for", at most 12 a run
+  (`CC_COPY_MAX`, the worker's setting today).
+- The URL Index's file map for a crawl (each file's range of keys) is read once per crawl and kept, so the runs every
+  few minutes don't read it again (§2(f)).
 - When the URL Index can't be read, the bulk task is held and waits. It never falls back to the index server for bulk.
