@@ -338,3 +338,16 @@ This replaces "Email: 0176 doesn't change it" above for alarm threads:
   that thread, not a new email.
 - The body still says what happened and links to the item (0172 "The other channels point back"); each trip still
   reaches the Founder's email at once (0171 §7). Built by Operations with release 2.
+
+**Added (Jason, 2026-11-20): the alarm notice's format, one thread on every channel.** His words: "Wouldnt also be
+wise to send SYSTEM ALARM NOTICE: (Item or Group): (Action) and then whats going on inside the message body?
+THREAD:Push THREAD:Pulse THREAD:Email". Also: a trip is an immediate notification (it never waits for quiet hours;
+that is what "any hour" meant). Then, in the decision pop-up, "Push shortened". So, for alarm threads:
+- **Email subject and Pulse row:** `SYSTEM ALARM NOTICE: <item or group>: <action>`, e.g. "SYSTEM ALARM NOTICE: W3
+  Sources: Paused by the system". The action is the thread's state: "Paused by the system", then "Retries unsuccessful,
+  now admin required" (the Escalation Notice), then "Recovered".
+- **Push:** title `SYSTEM ALARM: <item or group>`; the body starts with the action, then what's going on (a phone cuts a
+  title at about 40 characters).
+- **The body**, on every channel: what's going on, what it means, what to do, and the link to it.
+- One thread per alarm on each channel; later states update it (Pulse, push) or reply in it (email). This sharpens the
+  note above ("W3 Sources: Paused by the system" becomes the line here).

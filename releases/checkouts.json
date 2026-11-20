@@ -11,6 +11,177 @@
    "expires": "2026-11-20T17:29:57Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/ui/cost-tab.php",
+   "functions": [
+    "tv_cost_css",
+    "tv_cost_sheet"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5gxSyzVYGuXX3xuu2c",
+   "why": "T5: the cost tab and the vault's list on the table standard (table-standard.md \u00a7Order 3)",
+   "since": "2026-11-20T16:56:47Z",
+   "expires": "2026-11-20T20:56:50Z",
+   "release": "t5.zip",
+   "callers": {
+    "tv_cost_css": [
+     "website/admin/client-order.php"
+    ]
+   }
+  },
+  {
+   "path": "app/ui/vault.php",
+   "functions": [
+    "(top)"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5gxSyzVYGuXX3xuu2c",
+   "why": "T5: the cost tab and the vault's list on the table standard (table-standard.md \u00a7Order 3)",
+   "since": "2026-11-20T16:56:47Z",
+   "expires": "2026-11-20T20:56:50Z",
+   "release": "t5.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/js/tv-cost.js",
+   "functions": [
+    "draw",
+    "wire"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5gxSyzVYGuXX3xuu2c",
+   "why": "T5: the cost tab and the vault's list on the table standard (table-standard.md \u00a7Order 3)",
+   "since": "2026-11-20T16:56:47Z",
+   "expires": "2026-11-20T20:56:50Z",
+   "release": "t5.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/js/tv-vault.js",
+   "functions": [
+    "(top)"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5gxSyzVYGuXX3xuu2c",
+   "why": "T5: the cost tab and the vault's list on the table standard (table-standard.md \u00a7Order 3)",
+   "since": "2026-11-20T16:56:47Z",
+   "expires": "2026-11-20T20:56:50Z",
+   "release": "t5.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/operations-console.php",
+   "functions": [
+    "tv_ops_issues"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
+   "why": "0176 R2: service issues as threads",
+   "since": "2026-11-20T16:59:46Z",
+   "expires": "2026-11-20T21:00:54Z",
+   "release": "0176-issues.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/ui/outside-services.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
+   "why": "0176 R2: service issues as threads",
+   "since": "2026-11-20T16:59:49Z",
+   "expires": "2026-11-20T21:00:54Z",
+   "release": "0176-issues.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/ServiceHealth.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
+   "why": "0176 R2: service issues as threads",
+   "since": "2026-11-20T16:59:51Z",
+   "expires": "2026-11-20T21:00:54Z",
+   "release": "0176-issues.zip",
+   "callers": {
+    "describe": [
+     "app/lib/Operations.php",
+     "app/lib/OutsideServices.php",
+     "app/lib/Preflight.php",
+     "app/lib/Pulse.php",
+     "app/lib/SystemStart.php"
+    ],
+    "osmUse": [
+     "app/lib/crawler/CrawlService.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/OutsideServices.php",
+   "functions": [
+    "working"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
+   "why": "0176 R2: service issues as threads",
+   "since": "2026-11-20T16:59:54Z",
+   "expires": "2026-11-20T21:00:54Z",
+   "release": "0176-issues.zip",
+   "callers": {
+    "working": [
+     "app/ui/outside-services.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/Pulse.php",
+   "functions": [
+    "items"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
+   "why": "0176 R2: service issues as threads",
+   "since": "2026-11-20T17:00:00Z",
+   "expires": "2026-11-20T21:00:54Z",
+   "release": "0176-issues.zip",
+   "callers": {
+    "items": [
+     "app/lib/DailyReport.php",
+     "app/ui/pulse-ui.php",
+     "website/admin/staff-profile.php",
+     "website/admin/w.php",
+     "website/user/api/bell.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/SystemStart.php",
+   "functions": [
+    "issueInline"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
+   "why": "0176 R2: service issues as threads",
+   "since": "2026-11-20T17:00:03Z",
+   "expires": "2026-11-20T21:00:54Z",
+   "release": "0176-issues.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/js/tv-ask.js",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
+   "why": "0176 R2: service issues as threads",
+   "since": "2026-11-20T17:00:08Z",
+   "expires": "2026-11-20T21:00:54Z",
+   "release": "0176-issues.zip",
+   "callers": {
+    "statuses": [
+     "website/js/tv-domains.js",
+     "website/js/tv-vault.js"
+    ]
+   }
   }
  ],
  "lapsed": [
