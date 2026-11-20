@@ -366,3 +366,16 @@ that is what "any hour" meant). Then, in the decision pop-up, "Push shortened". 
   2026-11-20).
 - The issue's own words no longer say "mark resolved" (0171 §7's note: a passing check closes it).
 - §7's "feeds release (to come)" is live as #223 (feeds-words); R2 reads `waitWords()` from it.
+
+**Note (2026-11-20): release 2 in two parts** (agreed with the session manager). Part 1 (`0176-issues.zip`) is live as
+#234, and part 1's FAQ lines are put back with part 2. Part 2 (`0176-notice.zip`, built on Sync 17:34 UTC) builds the
+two notes above:
+- `ControlAlarms::noticeTitle()` gives "SYSTEM ALARM NOTICE: <item>: <action>" from the thread's state
+  (`ControlAlarms::ACTIONS`). It is the trip's, Escalation Notice's and Recovered's message title and Pulse's alarm row.
+- The notice body starts with the action and its status, then what's going on, what it means and what to do.
+- Notify sends it as the email subject, without " · Traversence". The push title is "SYSTEM ALARM: <item>".
+- One email thread per alarm: `Mailer::$thread`, set only by Notify for alarm kinds, gives the first email a stable
+  Message-ID and later ones In-Reply-To and References. Every other email keeps its random Message-ID.
+- A trip goes at once: `alarm.trip` and `alarm.escalated` are Critical, which quiet hours never hold. A test checks it.
+- Known limit: Gmail joins a reply to its conversation only when the subject also matches. The subject's action changes
+  with the state, so Gmail may show Recovered as a new conversation; Outlook and Apple Mail follow the headers.

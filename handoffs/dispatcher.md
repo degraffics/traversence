@@ -19,7 +19,7 @@ off to new session so we can reduce token use without logic loss").
 | # | Release | State |
 |---|---|---|
 | 1 | **The thread and the shape, for alarms** (`0176-thread.zip`) | **live as #226**, verified on Sync b94c979 (14:37 UTC) |
-| 2 | Service issues as threads | **built** (Jason restarted it, 2026-11-20); `0176-issues.zip`, built on Sync 16:32 UTC, sent by the Operations session |
+| 2 | Service issues as threads, then the alarm notice | part 1 **live as #234**; part 2 (`0176-notice.zip`, the alarm notice: 0176's notes of 2026-11-20) sent for review |
 | 3 | Fix it routing | not started; waits for 0175 release 2a's one-panel drawer (the Control Board session) |
 | 4 | Uploads name their thread and landing spot | not started; the order file check waits for Jason's limits |
 

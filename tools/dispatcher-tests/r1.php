@@ -71,8 +71,10 @@ $fa = ControlAlarms::facts($pdo, $a);
 $t('…its status: "Paused by the system (a trip) since …", closing as Recovered when its check passes', str_starts_with($fa['status'], 'Paused by the system (a trip) since {t:') && str_contains($fa['status'], 'closes as Recovered when its check passes'), $fa['status']);
 $t('…what it affects: what it paused', in_array('Paused by the system: W2 (its tasks wait with it)', $fa['affects'], true), $fa['affects']);
 $t('…one message to the founder, thing alarm:<id>, shown by its Pulse item (no second row)', count($m) === 1 && $m[0]['kind'] === 'alarm.trip' && $m[0]['thing'] === 'alarm:' . $id && $m[0]['pulse_ref'] === 'alarm:' . $id, $m);
-$t('…its words begin with its status', str_starts_with((string) $m[0]['body'], 'Status: Paused by the system (a trip) since '), $m[0]['body'] ?? '');
-$t('…one push: its title and status only', count(WebPush::$sent) === 1 && WebPush::$sent[0]['title'] === 'W2: its task second_look failed' && str_starts_with(WebPush::$sent[0]['body'], 'Status: Paused by the system (a trip) since ') && !str_contains(WebPush::$sent[0]['body'], 'What it means'), WebPush::$sent);
+// the alarm notice (0176's notes, 2026-11-20, release 2 part 2): the title "SYSTEM ALARM NOTICE: <item>: <action>"; the words
+// start with the action and its status, then what's going on, what it means, what to do
+$t('…its title is the alarm notice, its words begin with its status', $m[0]['title'] === 'SYSTEM ALARM NOTICE: W2 Keeping listings current: Paused by the system' && str_starts_with((string) $m[0]['body'], 'Paused by the system (a trip) since ') && str_contains((string) $m[0]['body'], "\nWhat's going on: W2: its task second_look failed"), [$m[0]['title'], $m[0]['body'] ?? '']);
+$t('…one push: "SYSTEM ALARM: <item>", its body the action and status only', count(WebPush::$sent) === 1 && WebPush::$sent[0]['title'] === 'SYSTEM ALARM: W2 Keeping listings current' && str_starts_with(WebPush::$sent[0]['body'], 'Paused by the system (a trip) since ') && !str_contains(WebPush::$sent[0]['body'], 'What it means'), WebPush::$sent);
 $t('…and an email (0171 §7: every trip emails the founder at once)', count(Mailer::$sent) === 1);
 $raise(); $t('the same fault again: still one message, nothing re-sent', count($msgs()) === 1 && count(WebPush::$sent) === 1 && count(Mailer::$sent) === 1);
 
@@ -92,7 +94,7 @@ $m = $msgs(); $a = ControlAlarms::byId($pdo, $id);
 $t('its check passes: the trip closes as Recovered (0175\'s note)', $a['cleared_at'] !== null && str_starts_with((string) $a['cleared_how'], 'Recovered:'), $a['cleared_how']);
 $t('…the same message, now Recovered: a Notice, still one row', count($m) === 1 && $m[0]['kind'] === 'alarm.recovered' && $m[0]['lvl'] === 'notice' && (int) $m[0]['times'] === 2, $m);
 $t('…shown in Pulse as its own row now that the trip\'s item is gone (pulse_ref cleared)', $m[0]['pulse_ref'] === null);
-$t('…its words: the finished status ("Closed … Recovered")', str_starts_with((string) $m[0]['body'], 'Status: Closed '), $m[0]['body']);
+$t('…its notice says Recovered: its title and its first line, nothing to do', str_ends_with((string) $m[0]['title'], ': Recovered') && str_starts_with((string) $m[0]['body'], 'Recovered: ') && str_contains((string) $m[0]['body'], 'What to do: nothing; this is a notice.'), [$m[0]['title'], $m[0]['body']]);
 $t('…quietly: no push (a Notice; staff push by default at Alert and up)', !WebPush::$sent, WebPush::$sent);
 $route = (string) $pdo->query("SELECT GROUP_CONCAT(detail SEPARATOR ' | ') FROM comms_route WHERE message_id = " . (int) $m[0]['id'])->fetchColumn();
 $t('…its route says it was updated in place', str_contains($route, 'Updated in place: A part recovered by itself'), $route);
@@ -103,11 +105,11 @@ $t('the logbook keeps the finished story: title, how it closed, what it affected
 WebPush::$sent = []; Mailer::$sent = [];
 $qb = fn () => ControlAlarms::raise($pdo, 'x:qb', 'svc:quickbooks', 'trip', 'crash', 'QuickBooks failed', 'Payments fail.', 'Check its key.');
 $q = $qb(); $m = array_values(array_filter($msgs(), fn ($x) => $x['thing'] === 'alarm:' . $q));
-$t('a critical part\'s first failure: one message at once, its status "Tripped at once … still trying"', count($m) === 1 && str_contains((string) $m[0]['body'], 'Status: Tripped at once ') && count(WebPush::$sent) === 1, $m);
+$t('a critical part\'s first failure: one message at once, its status "Tripped at once … still trying"', count($m) === 1 && str_contains((string) $m[0]['body'], 'Tripped at once ') && count(WebPush::$sent) === 1, $m);
 $fq = ControlAlarms::facts($pdo, ControlAlarms::byId($pdo, $q));
 $t('…what it affects: each need that uses QuickBooks, with its backup or "no backup"', (bool) array_filter($fq['affects'], fn ($l) => str_starts_with($l, 'Our orders\' payments: no backup (wire or check)')), $fq['affects']);
 $qb(); $qb(); $m = array_values(array_filter($msgs(), fn ($x) => $x['thing'] === 'alarm:' . $q));
-$t('its tries run out: the Escalation Notice is the same message, raised (not a second row)', count($m) === 1 && $m[0]['kind'] === 'alarm.escalated' && $m[0]['lvl'] === 'critical' && str_starts_with((string) $m[0]['title'], 'Escalation Notice:'), $m);
+$t('its tries run out: the Escalation Notice is the same message, raised (not a second row)', count($m) === 1 && $m[0]['kind'] === 'alarm.escalated' && $m[0]['lvl'] === 'critical' && str_ends_with((string) $m[0]['title'], ': Retries unsuccessful, now admin required') && str_starts_with((string) $m[0]['body'], 'Retries unsuccessful, now admin required: '), $m);
 $t('…still shown by the trip\'s own Pulse item', ($m[0]['pulse_ref'] ?? '') === 'alarm:' . $q);
 $t('…unread again (it\'s Critical)', $m[0]['read_at'] === null);
 $t('…one more push, for the level\'s rise (Critical renotifies, 0172\'s push-polish note), on the same tag', count(WebPush::$sent) === 2 && WebPush::$sent[1]['tag'] === WebPush::$sent[0]['tag'] && WebPush::$sent[1]['renotify'] === true, WebPush::$sent);
