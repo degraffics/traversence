@@ -13,39 +13,6 @@
    "callers": {}
   },
   {
-   "path": "app/lib/crawler/OpenLoads.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "0175 release 1: a trip places the system's pause, never a switch; it lifts when its check passes",
-   "since": "2026-11-20T13:29:59Z",
-   "expires": "2026-11-20T17:29:59Z",
-   "release": "",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/ControlAlarms.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "W1 findings: the hour kept, a handled review item, Recovered words",
-   "since": "2026-11-20T14:40:22Z",
-   "expires": "2026-11-20T18:40:22Z",
-   "release": "",
-   "callers": {}
-  },
-  {
-   "path": "website/api/admin/intake/candidates.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "W1 findings: the hour kept, a handled review item, Recovered words",
-   "since": "2026-11-20T14:40:27Z",
-   "expires": "2026-11-20T18:40:27Z",
-   "release": "",
-   "callers": {}
-  },
-  {
    "path": "app/ui/stock-ui.php",
    "functions": [
     "tv_stock_css",
