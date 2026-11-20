@@ -379,3 +379,4 @@ two notes above:
 - A trip goes at once: `alarm.trip` and `alarm.escalated` are Critical, which quiet hours never hold. A test checks it.
 - Known limit: Gmail joins a reply to its conversation only when the subject also matches. The subject's action changes
   with the state, so Gmail may show Recovered as a new conversation; Outlook and Apple Mail follow the headers.
+  Asked in the decision pop-up (2026-11-20), Jason kept it: "Subject changes (as built)".
