@@ -1,6 +1,21 @@
 {
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
- "claims": [],
+ "claims": [
+  {
+   "path": "app/ui/engage-ui.php",
+   "functions": [
+    "tv_engage_bar",
+    "tv_engage_tools"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Trips you can save (decisions/0174 release 2)",
+   "since": "2026-11-20T13:22:56Z",
+   "expires": "2026-11-20T17:22:56Z",
+   "release": "",
+   "callers": {}
+  }
+ ],
  "lapsed": [
   {
    "path": "website/place/landmark.php",
