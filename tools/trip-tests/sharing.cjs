@@ -84,6 +84,12 @@ const ok = (c, m) => { if (c) { pass++; console.log('ok   ' + m); } else { fail+
     ok(/Guide not found/.test(await gp.locator('body').innerText()), tag + 'Withdraw: it stops showing');
 
     // ---- counts ----
+    // a place's page: "Added to N trips this month" beside its views (Jason, 2026-11-20: "Also on the place's page")
+    execSync(`mysql lv_main -e "DELETE FROM platform_counts WHERE metric = 'trip' AND k = 'lm:1'; INSERT INTO platform_counts (day, metric, k, n, visits) VALUES (CURDATE(), 'trip', 'lm:1', 3, 3)"`);
+    await go(p, '/place/landmark.php?id=1');
+    ok((await p.locator('.eg-bar [data-eg-trips]').getAttribute('title').catch(() => '')) === 'Added to 3 trips this month', tag + 'a place\'s page: "Added to 3 trips this month" beside its views');
+    await go(p, '/listing/view.php?id=3');
+    ok(await p.locator('[data-eg-trips]').count() === 0, tag + 'a business\'s page shows no trip count (theirs is in their insights)');
     await go(p, '/admin/insights.php');
     ok(/Places added to trips/.test(await p.locator('body').innerText()), tag + 'Admin → Insights: Places added to trips');
     ok(!errs.length && !gerrs.length, tag + 'no script errors' + (errs.concat(gerrs).length ? ': ' + errs.concat(gerrs).join('; ') : ''));

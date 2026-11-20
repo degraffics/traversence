@@ -63,6 +63,8 @@ if ($lm !== '') Trips::add($pdo, $u, $t2, 'lm', $lm);
 $n = (int) $pdo->query("SELECT SUM(n) FROM listing_actions WHERE entity_id = 990021 AND action = 'trip'")->fetchColumn();
 $ok($n >= 1 && isset(ListingActions::ACTIONS['trip']), 'a business added to a trip: counted in its actions ("Added to trips")');
 if ($lm !== '') $ok((int) $pdo->query("SELECT SUM(n) FROM platform_counts WHERE metric = 'trip' AND k = 'lm:" . (int) $lm . "'")->fetchColumn() >= 1, 'a place added to a trip: counted (never who)');
+if ($lm !== '') $ok(Trips::addedThisMonth($pdo, 'lm', $lm) >= 1, 'a place\'s page reads "Added to N trips this month" (Jason, 2026-11-20)');
+$ok(Trips::addedThisMonth($pdo, 'listing', '990021') === 0, 'a business\'s count isn\'t shown publicly: it\'s in its own insights');
 $cols = $pdo->query("SHOW COLUMNS FROM listing_actions")->fetchAll(PDO::FETCH_COLUMN);
 $ok(!array_intersect($cols, ['user_id', 'session', 'ip']), 'nothing about who is stored with a count');
 

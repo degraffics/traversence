@@ -43,7 +43,8 @@ behaviour is listed with its source.
 - **A business:** the `trip` action in `listing_actions`, shown in Business Insights as "Added to trips", following 0094's
   `save`.
 - **Any other place:** `PlatformCounts` metric `trip` (key `kind:ref`), listed in Admin → Insights as "Places added to
-  trips". Whether it also shows publicly is in the pop-up for Jason.
+  trips", and on its own page beside its views ("Added to N trips this month", `Trips::addedThisMonth`). Source: Jason's
+  pop-up answer, 2026-11-20, "Also on the place's page".
 - **Not counted:** bots, the team, or a business's own people (0087, as `vcard.php` does).
 - **Never stored:** who.
 
@@ -52,3 +53,9 @@ behaviour is listed with its source.
 - `tools/trip-tests/sharing.cjs` with `sharing-seed.php`: 44 checks at 1280 and 390.
 - Releases 2 and 3's tests still pass (28, 67, 21, 56). `trip-page.cjs` now counts only visible cards, because the new
   Share and Publish boxes reuse the day card's style.
+
+## Jason's answers (pop-up, 2026-11-20)
+- Approve.
+- Q1: a new link.
+- Q2: also on the place's page.
+- Q3: live with the trip.
