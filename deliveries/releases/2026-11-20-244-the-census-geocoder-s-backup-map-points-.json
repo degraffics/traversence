@@ -1,0 +1,97 @@
+{
+    "id": 244,
+    "title": "The Census geocoder's backup: map points sent from Railway when the site can't reach the Census",
+    "why": "decisions/0175's note (Jason, 2026-11-20, in the decision pop-up, re-asked with the corrected picture): \"There's no Railway path today. A backup means the crawler calls the Census itself and hands the answers to the site: a new worker call plus a site endpoint.\" He answered \"Yes, build it\". Paired with crawler 2.16.0 (workers/crawler, Railway).",
+    "proposals": "",
+    "zip": "census-backup.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "live",
+    "step": 3,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": "2026-11-20 23:44:26",
+    "staged_at": "2026-11-20 23:44:28",
+    "vetted_at": "2026-11-20 23:44:30",
+    "live_at": "2026-11-20 23:44:30",
+    "files": {
+        "app/lib/Geocoder.php": {
+            "sha": "01ea0e49d78ef5a61277252142cf94eb61c5b8919c132db5f02bf05dc03eaff0",
+            "size": 24650,
+            "live_was": "ba4ea0cd4b7b090c6aab87c23d96bc507274bfe87bfe6d633f8623c8440073d4",
+            "existed": true,
+            "old_sha": "ba4ea0cd4b7b090c6aab87c23d96bc507274bfe87bfe6d633f8623c8440073d4"
+        },
+        "website/api/crawl/geocode.php": {
+            "sha": "3ae41cf73b2dad54e2ecd6e181f0dcc4ab20578d5b82918cedc461c7c91f22b9",
+            "size": 2700,
+            "live_was": "159d396ca42d0f04eb55740989404570eebfa4f9fdd9ad0f450434c024541780",
+            "existed": true,
+            "old_sha": "159d396ca42d0f04eb55740989404570eebfa4f9fdd9ad0f450434c024541780"
+        },
+        "app/ui/faq.md": {
+            "sha": "33d6b665b8322e0ed728173668b27c04432265f1c31337348b9a1352bf367965",
+            "size": 412106,
+            "live_was": "a300a0b01187a0d82c804b11767c6a15a0f0d227af25f7b50813d5126bfbcd4c",
+            "existed": true,
+            "old_sha": "a300a0b01187a0d82c804b11767c6a15a0f0d227af25f7b50813d5126bfbcd4c"
+        }
+    },
+    "migrations": [],
+    "checks": {
+        "ok": true,
+        "where": "live",
+        "at": "2026-11-20T23:44:30+00:00",
+        "items": [
+            [
+                "PHP files parse",
+                true,
+                "2 checked"
+            ],
+            [
+                "Pages answer",
+                true,
+                "2 pages answered on traversence.com"
+            ],
+            [
+                "No new fatal errors in the logs",
+                true,
+                "4 logs read"
+            ]
+        ],
+        "first_fail": ""
+    },
+    "log": [
+        {
+            "at": "2026-11-20T23:44:24+00:00",
+            "by": 0,
+            "msg": "Uploaded census-backup.zip: 3 files."
+        },
+        {
+            "at": "2026-11-20T23:44:26+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/census-backup.zip (git b74e9a6fc6)."
+        },
+        {
+            "at": "2026-11-20T23:44:26+00:00",
+            "by": 0,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
+        },
+        {
+            "at": "2026-11-20T23:44:28+00:00",
+            "by": 0,
+            "msg": "Put on staging (3 files); its checks passed."
+        },
+        {
+            "at": "2026-11-20T23:44:30+00:00",
+            "by": 0,
+            "msg": "Approved in chat before it was sent through git, and its checks on staging passed: publishing by itself."
+        },
+        {
+            "at": "2026-11-20T23:44:30+00:00",
+            "by": 0,
+            "msg": "Published: 3 files; everyone at once (no switch)."
+        }
+    ]
+}
