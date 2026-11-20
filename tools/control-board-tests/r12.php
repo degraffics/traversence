@@ -30,8 +30,13 @@ $t('Alarms lists the open ones by default, counting each choice', $n === 1 && $r
 $t('…and the cleared ones under Cleared', count($rows2) === 1 && $rows2[0]['title'] === 'W2 old');
 $d = ($tools['config/alarms']['get'])($pdo, $aid);
 $keys = array_column($d['acts'], 'key');
-$t('its drawer: what it means, what to do, Acknowledge (not Check and start again: it isn\'t a trip), its process\'s page', $keys === ['ack'] && in_array('/admin/config/control/wf-W1', array_column($d['links'], 1), true) && $d['fields'][0][1] === 'm', [$keys, $d['links']]);
-$t('…a disallowed action is greyed with the reason (no role in a test: ControlBoard::can() says why)', is_string($d['acts'][0]['off']) && ($d['acts'][0]['off'] === '' || strlen($d['acts'][0]['off']) > 5), $d['acts'][0]);
+// a warning: no Acknowledge, the system is handling it (0175 R2a part 2, item 10; 0171 §7's 3c note), and no Check and start
+// again (it isn't a trip); the drawer says so in Acknowledged
+$t('its drawer: what it means, what to do, its process\'s page, and nothing to press on a warning (no Acknowledge, no Check and start again)', $keys === [] && in_array('/admin/config/control/wf-W1', array_column($d['links'], 1), true) && $d['fields'][0][1] === 'm', [$keys, $d['links']]);
+$t('…its Acknowledged line says the system is handling it', str_contains((string) array_column($d['fields'], 1, 0)['Acknowledged'], 'the system is handling it'));
+$pdo->exec("UPDATE control_alarms SET level = 'notice' WHERE id = " . (int) $aid); $d = ($tools['config/alarms']['get'])($pdo, $aid);
+$t('a notice still offers Acknowledge; a disallowed action is greyed with the reason (no role in a test: ControlBoard::can() says why)', array_column($d['acts'], 'key') === ['ack'] && is_string($d['acts'][0]['off']) && ($d['acts'][0]['off'] === '' || strlen($d['acts'][0]['off']) > 5), $d['acts']);
+$pdo->exec("UPDATE control_alarms SET level = 'warning' WHERE id = " . (int) $aid);
 // log, ledger, upkeep
 [$lr] = ($tools['config/log']['list'])($pdo, ['scope' => 'wf:W1']);
 $t('Logbook: one process\'s entries, with who and why in the drawer', (bool) array_filter($lr, fn ($r) => $r['title'] === 'Looked at W1' && $r['who'] === 'Jason (staff)'));

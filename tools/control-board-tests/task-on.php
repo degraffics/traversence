@@ -24,7 +24,7 @@ $t('the task\'s line says it\'s switched off, first, and what that means', str_s
 $t('…an amber notice, not a red failure (off is a choice, not a fault)', $line[1] === 'info', $line[1]);
 $t('…its last run from before, in words: the error page by its title, no HTML', str_contains($line[2], 'Its last run, before that: failed (RuntimeError(&#039;site /api/crawl/loads.php said 503: 503 Service Unavailable)') && !str_contains($line[2], 'DOCTYPE') && !str_contains($line[2], '&lt;'), $line[2]);
 $t('…and Switch on right there, asking a yes first', str_contains($line[2], 'name="svc_task_on" value="geofabrik_bulk"') && str_contains($line[2], 'data-confirm="Switch on W1 · Geofabrik: OpenStreetMap by state?') && str_contains($line[2], '>Switch on</button>'), $line[2]);
-$t('…its other link lands on the task\'s row on the Automation page', str_contains($line[2], 'href="/admin/config/automation#au-task-geofabrik_bulk">Its switch</a>'));
+$t('…its other link opens its one switch, on its workflow\'s page, in the side panel (0175 §6)', str_contains($line[2], 'href="/admin/config/control/wf-W1#task-geofabrik_bulk" data-peek-frame>Its switch</a>'), $line[2]);
 $t('OutsideServices::plainWhy leaves ordinary words alone', OutsideServices::plainWhy('timed out after 30 s') === 'timed out after 30 s');
 
 // pressing it: the Automation page's own switch and log
@@ -40,5 +40,5 @@ $t('a task that isn\'t the card\'s own is refused', (int) $pdo->query("SELECT CO
 
 require_once $app . '/admin/automation-console.php';
 $au = tv_admin_mod_automation($pdo);
-$t('the Automation page\'s task row has its anchor', str_contains($au, '<tr id="au-task-geofabrik_bulk">'));
+$t('Automation\'s Tasks: one line per workflow, opening its page, and an old link to the task\'s row lands on its workflow\'s line', (bool) preg_match('~<li id="au-wf-W1">(<span id="au-task-[a-z0-9_]+"></span>)*<span id="au-task-geofabrik_bulk"></span>~', $au) && str_contains($au, 'href="/admin/config/control/wf-W1#cb-steps" data-peek-frame>Open W1</a>'));
 echo "\n$pass passed, $fail failed\n"; exit($fail ? 1 : 0);
