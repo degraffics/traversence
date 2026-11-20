@@ -201,6 +201,17 @@
    "expires": "2026-11-20T17:45:44Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "website/js/search-panel.js",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "The trip page (decisions/0174 release 3)",
+   "since": "2026-11-20T13:45:48Z",
+   "expires": "2026-11-20T17:45:48Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
