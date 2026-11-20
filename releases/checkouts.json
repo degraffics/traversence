@@ -338,6 +338,57 @@
    "expires": "2026-11-20T18:23:49Z",
    "release": "0176-thread.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/ControlAlarms.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hJ4C32FpJfNTaTa2z",
+   "why": "decisions/0176 release 1: the alarm thread, one shape on every surface",
+   "since": "2026-11-20T14:23:56Z",
+   "expires": "2026-11-20T18:23:56Z",
+   "release": "0176-thread.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Notify.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hJ4C32FpJfNTaTa2z",
+   "why": "decisions/0176 release 1: the alarm thread, one shape on every surface",
+   "since": "2026-11-20T14:23:56Z",
+   "expires": "2026-11-20T18:23:56Z",
+   "release": "0176-thread.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/control-console.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hJ4C32FpJfNTaTa2z",
+   "why": "decisions/0176 release 1: the alarm thread, one shape on every surface",
+   "since": "2026-11-20T14:23:56Z",
+   "expires": "2026-11-20T18:23:56Z",
+   "release": "0176-thread.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Pulse.php",
+   "functions": [
+    "items"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5hJ4C32FpJfNTaTa2z",
+   "why": "decisions/0176 release 1: the alarm thread, one shape on every surface",
+   "since": "2026-11-20T14:23:56Z",
+   "expires": "2026-11-20T18:23:56Z",
+   "release": "0176-thread.zip",
+   "callers": {
+    "items": [
+     "app/lib/DailyReport.php",
+     "app/ui/pulse-ui.php"
+    ]
+   }
   }
  ],
  "lapsed": [
