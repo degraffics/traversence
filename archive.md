@@ -107,6 +107,7 @@ the link's own spot.
 | Pre-flight (`/admin/config/preflight`) | the board's **Pre-flight** stage (and Start-up) | the whole page (Run all, each line's Test, runs, report), loaded in place; `#pf-<line>` lands on its line |
 | Automation (`/admin/config/automation`) | the board's **Start-up** stage | the whole page (master switch, Start, Pause everything, the check, workflows, tasks, services, Changes), loaded in place, until release 2b's parts B and C move its services and workflows |
 | Costs (`/admin/config/costs`) | **Costs this month**, the fold at the top of Modules (Service register), `#costs` (release 2b part B; `TV_ADMIN_FOLDED_INTO`) | the whole page: the month against revenue, the community budget, by service, by workflow, the AI cap's shares, a hub's opening budget |
+| Workflow board (`/admin/config/board`) | **The crawler's workflows (W1–W14)** on Workflows, `#crawler` (release 2b part C; `TV_ADMIN_FOLDED_INTO`) | the whole board: each workflow's settings as versions, the task schedule, the switch-on check; with each workflow's own page on the board linked and its spend this month |
 
 ## Archived pages outside the admin
 
