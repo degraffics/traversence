@@ -31,6 +31,19 @@
      "app/admin/tools.php"
     ]
    }
+  },
+  {
+   "path": "app/admin/tools.php",
+   "functions": [
+    "'config/alarms'"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
+   "why": "0175 R2a part 2: paused now, Diagnostics, a backup as working, steps and their switches, the red hour",
+   "since": "2026-11-20T16:10:37Z",
+   "expires": "2026-11-20T20:10:37Z",
+   "release": "0175-r2a-lines.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
