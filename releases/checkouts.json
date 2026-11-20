@@ -137,6 +137,22 @@
    "expires": "2026-11-20T22:42:29Z",
    "release": "0175-paused-now",
    "callers": {}
+  },
+  {
+   "path": "app/lib/ControlBoard.php",
+   "functions": [
+    "duties",
+    "health",
+    "openTrips",
+    "tripOf"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
+   "why": "0175's note 2026-11-20: Paused now gives a clear picture",
+   "since": "2026-11-20T18:42:34Z",
+   "expires": "2026-11-20T22:42:34Z",
+   "release": "0175-paused-now",
+   "callers": {}
   }
  ],
  "lapsed": [
