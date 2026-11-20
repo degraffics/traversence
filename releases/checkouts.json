@@ -315,9 +315,13 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "W1 findings: the hour kept, a handled review item, Recovered words",
    "since": "2026-11-20T14:40:25Z",
-   "expires": "2026-11-20T18:40:25Z",
-   "release": "",
-   "callers": {}
+   "expires": "2026-11-20T18:41:19Z",
+   "release": "w1-findings.zip",
+   "callers": {
+    "checkOne": [
+     "website/admin/api.php"
+    ]
+   }
   },
   {
    "path": "website/api/admin/intake/candidates.php",
@@ -337,8 +341,54 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "W1 findings: the hour kept, a handled review item, Recovered words",
    "since": "2026-11-20T14:40:29Z",
-   "expires": "2026-11-20T18:40:29Z",
-   "release": "",
+   "expires": "2026-11-20T18:41:19Z",
+   "release": "w1-findings.zip",
+   "callers": {
+    "load": [
+     "app/lib/GeminiCompare.php",
+     "app/lib/OutsideServices.php",
+     "app/lib/service-defs.php",
+     "app/ui/comms-setting.php",
+     "website/admin/crawler-review.php",
+     "website/admin/sales.php",
+     "website/api/crawl/irs.php",
+     "website/api/crawl/landmarks.php",
+     "website/api/crawl/npi.php",
+     "website/api/crawl/rec.php",
+     "website/js/admin-inbox.js",
+     "website/js/consent.js",
+     "website/js/evidence-offers.js",
+     "website/js/location-scope.js",
+     "website/js/map-view.js",
+     "website/js/photo-viewer.js",
+     "website/js/stg-bar.js",
+     "website/js/suggest.js",
+     "website/js/tv-art.js",
+     "website/js/tv-domains.js",
+     "website/js/tv-stock.js"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/ControlAlarms.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "release w1-findings.zip",
+   "since": "2026-11-20T14:41:19Z",
+   "expires": "2026-11-20T18:41:19Z",
+   "release": "w1-findings.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/api/admin/intake/candidates.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "release w1-findings.zip",
+   "since": "2026-11-20T14:41:19Z",
+   "expires": "2026-11-20T18:41:19Z",
+   "release": "w1-findings.zip",
    "callers": {}
   }
  ],
