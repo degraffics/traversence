@@ -346,6 +346,19 @@
      "website/js/tv-pulse.js"
     ]
    }
+  },
+  {
+   "path": "app/admin/control-console.php",
+   "functions": [
+    "tv_admin_mod_control"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
+   "why": "0175 R2b part A: one control board in the menu",
+   "since": "2026-11-20T17:52:33Z",
+   "expires": "2026-11-20T21:52:33Z",
+   "release": "0175-r2b-board.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
