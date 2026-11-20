@@ -112,6 +112,8 @@ sessions take over, holding until Jason says resume. Live through Release #228 (
   services to Operations), waiting for Jason's OK and his answer on the vault's row icons (§7).
   **Progress (2026-11-20, vault icons):** T5 live as #233; the vault's row actions on §7 (Jason: "Follow the standard")
   built and sent, PR #1193, waiting for his OK. Next: the phone menu fixes if he picks, then 3d.
+  **Progress (2026-11-20, 3d):** vault icons live as #235; 3d built and sent (Community to the mockup, adapted; a group's
+  page and the member dashboard on the tokens), waiting for Jason's OK.
 - **Orders** (`order-processing.md`): starts after Jason reviews `research/order-system-map-2026-11-19.md` and its six
   items; the first release carries the chargeFor fix.
 - **The session manager** also reads Monday's (2026-11-23) "Edit my listing" path check (`business-listings.md`).
