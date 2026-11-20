@@ -163,6 +163,17 @@ shows once, as ours. To the Control Board session (it owns OpenLoads) with the d
   retired everywhere (2026-11-19, `overpass-off.php`); the first night load is still to be measured
   (`control-board-2026-11-20.md`, Things to watch). Owner now: Operations.
 
+**Nothing sold that may not be there** (Jason, 2026-11-20, after OmniOutdoors charged him, then cancelled "out of
+stock"; his rule is written into decisions/0135's note of that date). Owner: Orders (the Marketplace), after its first
+release. The build proposes how each gap closes, sourced to the note, for his OK.
+- Progress: tracked stock held while paid, Sold out at 0, paid takes it off, Square sync and webhook (live, mirror 6c545d9,
+  `MarketCheckout.php` :240, :249, :575; `MarketSquare.php` :102, :205).
+- Progress: authorize now, capture later exists for deposits and rentals (`MarketCheckout.php` :383, :683).
+- Open: untracked physical items sold as available; counts kept elsewhere; card orders charged at checkout; made to
+  order and services stating what's promised before money is taken.
+- Also check our own sales: domains (is the name confirmed available at Name.com before the charge?) and printed orders
+  (invoiced after approval; check against `research/order-system-map-2026-11-19.md`).
+
 **Domains: Name.com reseller pricing and .ai** (Name.com support's answer, ticket 7Y5JM6-5L7GX, 2026-11-18):
 - No fees or deposit. Enrolling in the API Reseller Program at https://www.name.com/nameapi/pricing unlocks tiered
   prices on **new registrations only** (not renewals or transfers); custom rates only well past the top tier. **Jason's
