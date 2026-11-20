@@ -1,6 +1,6 @@
 # Design and trips: hand-off at the 2026-11-20 hold (written by session_01CXLi5gxSyzVYGuXX3xuu2c)
 
-Jason asked for fresh sessions when one grows large. This one handed off at a clean hold: nothing of mine is unmerged
+Newest sync at the hold: **5674a94 (Sync 18:34 UTC)**, with #240 live. Jason asked for fresh sessions when one grows large. This one handed off at a clean hold: nothing of mine is unmerged
 except this hand-off and the Pulse answers note (branch `claude/pulse-filters`). Read CLAUDE.md, the builder playbook,
 `handoffs/design.md` (the index, with its pitfalls), then this. The harness is in `handoffs/design-harness/`.
 
