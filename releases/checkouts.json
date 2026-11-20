@@ -1,91 +1,7 @@
 {
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
- "claims": [
-  {
-   "path": "app/ui/suggested-journeys.php",
-   "functions": [
-    "(top)",
-    "tv_sj_card",
-    "tv_sj_route_url"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
-   "why": "Send to Maps (decisions/0174 release 1)",
-   "since": "2026-11-20T04:01:37Z",
-   "expires": "2026-11-20T08:03:19Z",
-   "release": "send-to-maps.zip",
-   "callers": {
-    "tv_sj_card": [
-     "website/hub/index.php",
-     "website/journeys/suggested.php"
-    ]
-   }
-  },
-  {
-   "path": "app/lib/JourneyPlan.php",
-   "functions": [
-    "candidates",
-    "dropListings"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
-   "why": "Send to Maps (decisions/0174 release 1)",
-   "since": "2026-11-20T04:01:41Z",
-   "expires": "2026-11-20T08:03:19Z",
-   "release": "send-to-maps.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/Landmarks.php",
-   "functions": [
-    "bite",
-    "near"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
-   "why": "Send to Maps (decisions/0174 release 1)",
-   "since": "2026-11-20T04:01:43Z",
-   "expires": "2026-11-20T08:03:19Z",
-   "release": "send-to-maps.zip",
-   "callers": {
-    "near": [
-     "website/discovery/index.php"
-    ]
-   }
-  },
-  {
-   "path": "app/ui/maps-send.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
-   "why": "Send to Maps (decisions/0174 release 1)",
-   "since": "2026-11-20T04:01:44Z",
-   "expires": "2026-11-20T08:03:19Z",
-   "release": "send-to-maps.zip",
-   "callers": {}
-  },
-  {
-   "path": "website/js/tv-maps.js",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
-   "why": "Send to Maps (decisions/0174 release 1)",
-   "since": "2026-11-20T04:01:46Z",
-   "expires": "2026-11-20T08:03:19Z",
-   "release": "send-to-maps.zip",
-   "callers": {}
-  },
-  {
-   "path": "website/place/landmark.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
-   "why": "Send to Maps (decisions/0174 release 1)",
-   "since": "2026-11-20T04:01:48Z",
-   "expires": "2026-11-20T08:03:19Z",
-   "release": "send-to-maps.zip",
-   "callers": {}
-  },
+ "claims": [],
+ "lapsed": [
   {
    "path": "website/place/landmark.php",
    "functions": [],
@@ -95,10 +11,9 @@
    "since": "2026-11-20T04:01:48Z",
    "expires": "2026-11-20T08:01:48Z",
    "release": "",
-   "callers": {}
-  }
- ],
- "lapsed": [
+   "callers": {},
+   "lapsed": "2026-11-20T13:10:06Z"
+  },
   {
    "path": "app/lib/Automation.php",
    "functions": [],
@@ -776,27 +691,6 @@
    "release": "",
    "callers": {},
    "lapsed": "2026-11-17T15:55:08Z"
-  },
-  {
-   "path": "app/lib/EnvSettings.php",
-   "functions": [
-    "EDITABLE"
-   ],
-   "kind": "change",
-   "session": "setting-choices",
-   "why": "Settings with set answers offer choices and the next step (Jason, 2026-11-17)",
-   "since": "2026-11-17T11:33:45Z",
-   "expires": "2026-11-17T15:33:45Z",
-   "release": "",
-   "callers": {
-    "EDITABLE": [
-     "app/lib/OutsideServices.php",
-     "app/ui/outside-services.php",
-     "website/admin/api/env-setting.php",
-     "website/admin/settings.php"
-    ]
-   },
-   "lapsed": "2026-11-17T15:49:48Z"
   }
  ]
 }
