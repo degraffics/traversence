@@ -1,6 +1,6 @@
 # Decision register
 
-Decision 0145 §1a. Generated on 2026-11-20 07:17 UTC from `decisions/` and the live mirror (`6792988`). Don't edit by hand:
+Decision 0145 §1a. Generated on 2026-11-20 17:19 UTC from `decisions/` and the live mirror (`1ada60f`). Don't edit by hand:
 edit the decision, and this follows. "Missing files" are files a decision names that the site no longer has: the
 decision may be stale, or the file moved.
 
@@ -52,7 +52,7 @@ decision may be stale, or the file moved.
 | 0044 | [Confidence-Gated Auto-Import of Directory Listings](0044-confidence-gated-auto-import-of-directory-listings.md) | accepted | 0133 | 1 | 0 |  |
 | 0045 | [Our Own Reference Index and Source-First Crawling](0045-own-reference-index-and-source-first-crawling.md) | accepted | 0133 | 2 | 0 |  |
 | 0046 | [Admin → Crawler Workspace and Icon-Rail Navigation](0046-admin-crawler-workspace-and-icon-rail.md) | accepted |  |  | 0 |  |
-| 0047 | [Connection Points, the Address Book, and the Account Hub](0047-connection-points-and-address-book.md) | accepted | 0052 |  | 0 |  |
+| 0047 | [Connection Points, the Address Book, and the Account Hub](0047-connection-points-and-address-book.md) | accepted | 0052 | 1 | 0 |  |
 | 0048 | [Continental Data Plan](0048-continental-data-plan.md) | proposed | 0133 | 1 | 2 |  |
 | 0049 | [Tool Activation and Consent Pattern](0049-tool-activation-and-consent-pattern.md) | accepted |  |  | 0 |  |
 | 0050 | [Linking and Data-Use Policy — How Traversence Treats What You Connect To](0050-linking-and-data-use-policy.md) | accepted |  |  | 0 |  |
@@ -168,15 +168,17 @@ decision may be stale, or the file moved.
 | 0160 | [The crawler as one service, and each creation workflow start to finish](0160-the-crawler-as-a-service-and-the-creation-workflows.md) | accepted |  | 3 | 0 |  |
 | 0161 | [Check-out for site files: the page manager](0161-check-out-for-site-files-the-page-manager.md) | accepted |  |  | 5 |  |
 | 0162 | [Migrations at publish, copied first; leftovers after a rollback tracked and removed by release](0162-migrations-at-publish-copied-first-leftovers-tracked.md) | accepted |  | 1 | 0 |  |
-| 0163 | [Operations: one view of outside services, workflows and spend](0163-operations-one-view-of-services-workflows-and-spend.md) | accepted |  | 9 | 4 |  |
-| 0164 | [The Knowledge Engine: rule book, phases, workflows and sources](0164-the-knowledge-engine-rule-book-phases-workflows-and-sources.md) | accepted |  | 13 | 1 |  |
+| 0163 | [Operations: one view of outside services, workflows and spend](0163-operations-one-view-of-services-workflows-and-spend.md) | accepted |  | 11 | 4 |  |
+| 0164 | [The Knowledge Engine: rule book, phases, workflows and sources](0164-the-knowledge-engine-rule-book-phases-workflows-and-sources.md) | accepted |  | 14 | 1 |  |
 | 0165 | [Staging is the live site in safe mode; Publish merges it into live](0165-staging-is-live-in-safe-mode-publish-merges-it.md) | accepted |  | 1 | 2 |  |
 | 0166 | [0166: Provider-neutral payments and bookkeeping: our own ledger, connectors, and QuickBooks set up once](0166-provider-neutral-payments-and-bookkeeping.md) | accepted |  | 1 | 1 |  |
 | 0167 | [0167: Communications in one place: set up in System Configuration, handled in Pulse](0167-communications-in-one-place.md) | accepted |  | 2 | 0 |  |
 | 0168 | [0168: Facebook and Instagram for members and businesses: sign-in, sharing, connected Pages](0168-facebook-and-instagram-for-members-and-businesses.md) | accepted |  | 1 | 0 |  |
-| 0169 | [0169: The Shop's App store, and one lifecycle for every app](0169-the-shop-app-store-and-the-app-lifecycle.md) | accepted |  |  | 1 |  |
+| 0169 | [0169: The Shop's App store, and one lifecycle for every app](0169-the-shop-app-store-and-the-app-lifecycle.md) | accepted |  | 1 | 1 |  |
 | 0170 | [0170: Everything placed in the discovery funnel, by location, active or planned](0170-everything-placed-in-the-discovery-funnel.md) | accepted |  | 1 | 0 |  |
-| 0171 | [0171: The System Control Board: start-to-finish management and control of the whole system](0171-the-control-board.md) | accepted |  | 5 | 9 |  |
+| 0171 | [0171: The System Control Board: start-to-finish management and control of the whole system](0171-the-control-board.md) | accepted |  | 7 | 9 |  |
 | 0172 | [0172: Communications: who reaches whom, about what, by which channel, and one way to deliver](0172-communications-who-reaches-whom.md) | accepted |  | 3 | 2 |  |
-| 0173 | [0173: One lifecycle for every outside service: add, activate, pause, retire, remove](0173-one-lifecycle-for-every-outside-service.md) | accepted |  | 3 | 3 |  |
-| 0174 | [0174: Trips you can save: Add to a trip, the trip page, sending it to Maps, and routes on our own site](0174-trips-you-can-save.md) | accepted |  |  | 1 |  |
+| 0173 | [0173: One lifecycle for every outside service: add, activate, pause, retire, remove](0173-one-lifecycle-for-every-outside-service.md) | accepted |  | 4 | 3 |  |
+| 0174 | [0174: Trips you can save: Add to a trip, the trip page, sending it to Maps, and routes on our own site](0174-trips-you-can-save.md) | accepted |  | 4 | 1 |  |
+| 0175 | [0175: One lifecycle for every module: our services and account apps, from selection to removal, acted on from the board](0175-one-lifecycle-for-every-module.md) | accepted |  | 9 | 1 |  |
+| 0176 | [0176: The dispatcher presents and routes every thread](0176-the-dispatcher-presents-and-routes-every-thread.md) | accepted |  | 3 | 1 |  |
