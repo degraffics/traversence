@@ -168,6 +168,17 @@
    "expires": "2026-11-20T17:45:34Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "website/api/trips.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "The trip page (decisions/0174 release 3)",
+   "since": "2026-11-20T13:45:37Z",
+   "expires": "2026-11-20T17:45:37Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
