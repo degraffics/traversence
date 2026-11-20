@@ -160,6 +160,24 @@
      "app/lib/ControlHistorian.php"
     ]
    }
+  },
+  {
+   "path": "app/lib/SystemStart.php",
+   "functions": [
+    "panel"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
+   "why": "0175 R2a part 2: paused now, Diagnostics, a backup as working, steps and their switches, the red hour",
+   "since": "2026-11-20T16:11:04Z",
+   "expires": "2026-11-20T20:11:04Z",
+   "release": "0175-r2a-lines.zip",
+   "callers": {
+    "panel": [
+     "app/admin/automation-console.php",
+     "app/admin/operations-console.php"
+    ]
+   }
   }
  ],
  "lapsed": [
