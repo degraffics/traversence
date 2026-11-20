@@ -1,0 +1,54 @@
+{
+    "id": 236,
+    "title": "The alarm notice: SYSTEM ALARM NOTICE on email and Pulse, SYSTEM ALARM on the push, one email thread per alarm",
+    "why": "decisions/0176's notes of 2026-11-20 (Jason: \"Same shape as push\"; \"SYSTEM ALARM NOTICE: (Item or Group): (Action)\"; \"Push shortened\"); release 2 part 2.",
+    "proposals": "",
+    "zip": "0176-notice.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/ui/faq.md": {
+            "sha": "eb838a681028bfff796abdb01fde357688be833b3255e9f2de956a71be208044",
+            "size": 407471,
+            "live_was": "f1578c3c7f74d18330acdb72a9998c894e4c8ef6068fa1bf2391fabf5e51c0e4"
+        },
+        "app/lib/Notify.php": {
+            "sha": "a3f16a74de83d7a2b03237ac749eb32fbc6e53b94426b76f47aa8faf6663ce0f",
+            "size": 53543,
+            "live_was": "77bca49f6b7c6fadfb6f7c91f61e10f01c1aa78475dea5f3a195fb3be9e809a7"
+        },
+        "app/lib/ControlAlarms.php": {
+            "sha": "46519fca57f637c7c7ef66739c5e28f4d9bee7211480f07a6fb6e217c88f86bf",
+            "size": 86608,
+            "live_was": "99995a85655aab56c0bc5ba1d322ae05c9626ef80f360d8758ab37b350d8d854"
+        },
+        "app/lib/Mailer.php": {
+            "sha": "c59f5848145755b2e709fa4133dc2791817212a92a4d6a3496c0c37f631b80ae",
+            "size": 21542,
+            "live_was": "ecb9e3a006e2bf2b75e3500549eea340173e12831e5e56e78426e6dd8a8823cb"
+        },
+        "app/lib/Pulse.php": {
+            "sha": "099d873f056ba2d3fd1c439040e4b67d6299c76f5f8c5d7e3d36a76efcea4d5d",
+            "size": 153013,
+            "live_was": "9df1c76e8c623316f54a33dfe91cdd1b22857adea2a3d132b0da9154eb6139ee"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-20T17:42:10+00:00",
+            "by": 0,
+            "msg": "Uploaded 0176-notice.zip: 5 files."
+        }
+    ]
+}
