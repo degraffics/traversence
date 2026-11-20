@@ -73,6 +73,22 @@
    "expires": "2026-11-20T18:04:32Z",
    "release": "feeds-words.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/Engage.php",
+   "functions": [
+    "(top)",
+    "exists",
+    "pageUrl",
+    "target"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Sharing, Personal Guides, counts (decisions/0174 release 4)",
+   "since": "2026-11-20T14:08:16Z",
+   "expires": "2026-11-20T18:08:16Z",
+   "release": "trip-share.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
