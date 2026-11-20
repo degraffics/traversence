@@ -133,3 +133,13 @@ need to fold the guide into the results where it raises the level of available e
 - **Tips and changes inline:** "Add a tip or review" (the place's comments) and "Suggest a change" sit with what it's like.
 - **The footer fits:** leave-no-trace and the land-manager line only for outdoor places.
 - Next (zip B): "why go" written ahead for each town's top 20, "Pairs with", and suggested short outings.
+
+**Note (2026-11-20, Jason approved, reviewed by the session manager: Wikidata within its limits; `wikidata-limits.zip`).**
+- **Why:** Wikidata's query service has answered 429 (too many requests) since Nov 18 (the board's issue #26). It limits each caller by query time per minute.
+- **The change:** `PlaceFinder::get` and `Dossier::get` now ask query.wikidata.org through `app/lib/Wdqs.php`.
+  - One query at a time across the site (`GET_LOCK('tv_wdqs', 5)`). A caller that finds one already running skips; it never queues.
+  - The wait Wikidata asks for (Retry-After on a 429 or 503: seconds or an HTTP date, 30 seconds to an hour) is kept, and every caller honours it.
+  - Each answer is kept 7 days (PageCache, keyed by the query), so a page doesn't ask again.
+- **Unchanged:** what we read, ServiceHealth's issue and its doubling, the pause switches, and staging's gate. Other Wikimedia hosts aren't affected.
+- **Tests:** `tools/place-tests/wdqs.php` (15 checks on a real MySQL or MariaDB).
+

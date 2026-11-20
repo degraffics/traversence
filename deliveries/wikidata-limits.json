@@ -1,0 +1,22 @@
+{
+ "zip": "wikidata-limits.zip",
+ "built_on": "21ccfbc Sync: 2026-11-20 03:51 UTC",
+ "recorded": "2026-11-20 03:58 UTC",
+ "note": "Wikidata within its limits (built on Sync 03:51 UTC, 21ccfbc). Approved by Jason in the 2026-11-20 03:42 pop-up. Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/Dossier.php": {
+   "sha256": "abd6e72951c447d4739fc78f59ddd219e2b723f01c14bf1edd50cf91fc50b718",
+   "live": false
+  },
+  "app/lib/PlaceFinder.php": {
+   "sha256": "e5a2a77541ff9acb2f2e10e735e05fe78413c78b840e1d03a405a99a6b30f449",
+   "live": false
+  },
+  "app/lib/Wdqs.php": {
+   "sha256": "9024a18af29a2653a245b85383a42735961b7d034439737029461a8217139059",
+   "live": false
+  }
+ }
+}
