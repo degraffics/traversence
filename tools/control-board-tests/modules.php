@@ -21,7 +21,7 @@ $c = substr($h, (int) $i, 20000);
 foreach (['Spent this month', 'Revenue last month', 'Community budget', 'By service', 'By workflow', 'The AI cap', 'opening budget'] as $w) $t('…with ' . $w, str_contains($c, $w));
 $t('…opened by its address\'s #costs', str_contains($h, 'location.hash==="#costs"'));
 $src = (string) file_get_contents($root . '/website/admin/router.php');
-$t('/admin/config/costs leads to the Costs fold in Modules', str_contains($src, "const TV_ADMIN_FOLDED_INTO = ['config/costs' => 'config/register#costs'];"));
+$t('/admin/config/costs leads to the Costs fold in Modules', str_contains($src, "const TV_ADMIN_FOLDED_INTO = ['config/costs' => 'config/register#costs'"));
 $t('…not when drawn on its own (panel, embed)', str_contains($src, "if (isset(TV_ADMIN_FOLDED_INTO[\$mk . '/' . \$sk]) && !\$panel && empty(\$_GET['embed']))"));
 $t('…and it leaves the sections menu', str_contains($src, "if (isset(TV_ADMIN_FOLDED_INTO[\$mk . '/' . \$k])) continue;"));
 echo "\n$pass passed, $fail failed\n"; exit($fail ? 1 : 0);

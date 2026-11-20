@@ -1,0 +1,26 @@
+{
+ "zip": "0175-r2b-workflows.zip",
+ "built_on": "63c754c Sync: 2026-11-20 23:39 UTC",
+ "recorded": "2026-11-20 23:40 UTC",
+ "note": "0175 R2b part C: the Workflow board folded into Workflows. Built on Sync 23:39 UTC (63c754c). Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/admin/manifests.php": {
+   "sha256": "3d5425bd386aa4f6100b31a5d3f702e73ec1451280c316bbab1ce44adbb2f1ab",
+   "live": false
+  },
+  "app/admin/operations-console.php": {
+   "sha256": "4730db69daa8fbe7c10eed93cfa0e7d0d9f8a2382ea9981bfa231d215594a7d1",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "a300a0b01187a0d82c804b11767c6a15a0f0d227af25f7b50813d5126bfbcd4c",
+   "live": false
+  },
+  "website/admin/router.php": {
+   "sha256": "66e6b91a7e0d8270529adb483f0a330a5cdce0bf9a60eee3c79ec6ff5d52fc2c",
+   "live": false
+  }
+ }
+}
