@@ -57,6 +57,15 @@ Tests added: `tools/control-board-tests/` `board-phone.cjs`, `task-on.php`, `pau
 
 ### 0175 release 2a: the board as the one place to act (scope cleared by the session manager, 2026-11-20)
 
+**State (the Operations session, 2026-11-20), in two parts:**
+- **Part 1, `0175-r2a-panel.zip`** (built on Sync 15:06 UTC): items 1, 2 and 9, and a trip's words. Item 1 routes by the
+  component; 0176 R3 will route by the cause. Its tests: `one-place.php` (15), `one-place.cjs` (14) and `one-panel.cjs` (12).
+  The wip branch's files were rebuilt on the live copies, and its notes are folded in here.
+- **Part 2:** items 3–8, 10 and 11, and the red hour (0175's note, "Critical part down"). Not started.
+- The session manager's answers on 2026-11-20: Insights → Crawler is part of item 8, with the Tasks table's list of what
+  is kept, moved or dropped; claim SystemStart, Preflight and OutsideServices for part 2, then build 0176 R2 on it; 0176 R2
+  needs Jason's own word to restart.
+
 Each item with its source:
 1. Every alarm's main button opens its fix in the side panel (card, key, pre-flight line, task switch, Take out/Put
    back, Activate/Pause/Resume/Deactivate). 0175 §6; Jason 2026-11-20: "The board should provide me direct action

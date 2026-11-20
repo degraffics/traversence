@@ -1,0 +1,34 @@
+{
+ "zip": "0175-r2a-panel.zip",
+ "built_on": "eb49e51 Sync: 2026-11-20 15:06 UTC",
+ "recorded": "2026-11-20 15:32 UTC",
+ "note": "0175 R2a part 1: each alarm opens its fix in the side panel, one panel at a time; built on Sync: 2026-11-20 15:06 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/admin/control-console.php": {
+   "sha256": "3665539ec2db28afd817683b5d3d7c924b07f324a4d1fba6c1d7d7bf10e4a715",
+   "live": false
+  },
+  "app/lib/ControlAlarms.php": {
+   "sha256": "99995a85655aab56c0bc5ba1d322ae05c9626ef80f360d8758ab37b350d8d854",
+   "live": false
+  },
+  "app/lib/ControlMaintenance.php": {
+   "sha256": "30a9873f09fe79d668129e2b81a3c258cf93fbeba2e178de293583e4ceca9a97",
+   "live": false
+  },
+  "app/lib/ControlRegister.php": {
+   "sha256": "55b488e851c597c4b2aa90c34e3296fb2ca3ca5a2e42858fb06fc5af4091ca70",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "9d62db60168e08aca4a3c6daf7beba38a45daa380fcd216fafe42c592ed95a4f",
+   "live": false
+  },
+  "website/js/tv-ask.js": {
+   "sha256": "40227b19a77726b27a3c9fade8151af5d61f0d49c1fa4bff3942ae1251261dff",
+   "live": false
+  }
+ }
+}
