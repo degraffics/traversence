@@ -96,15 +96,22 @@
   {
    "path": "app/lib/QuickBooksPay.php",
    "functions": [
-    "chargeFor"
+    "chargeFor",
+    "paid"
    ],
    "kind": "change",
    "session": "session_01CXLi5iruQZSTYKyuR7b1SN",
-   "why": "chargeFor fix: a test copy that took real money can be refunded (map \u00a75, Jason: Fix in first release)",
+   "why": "Orders: the order map's rulings (decisions/0101 note 2026-11-20, B.1-B.6)",
    "since": "2026-11-20T18:15:43Z",
-   "expires": "2026-11-20T22:16:08Z",
-   "release": "orders-chargefor.zip",
-   "callers": {}
+   "expires": "2026-11-20T22:56:03Z",
+   "release": "orders-rulings.zip",
+   "callers": {
+    "paid": [
+     "app/lib/QrIssue.php",
+     "website/admin/order.php",
+     "website/api/qb-webhook.php"
+    ]
+   }
   },
   {
    "path": "app/lib/ControlBoard.php",
