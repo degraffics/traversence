@@ -11,6 +11,64 @@
    "expires": "2026-11-20T17:29:57Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/ui/cost-tab.php",
+   "functions": [
+    "tv_cost_css",
+    "tv_cost_sheet"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5gxSyzVYGuXX3xuu2c",
+   "why": "T5: the cost tab and the vault's list on the table standard (table-standard.md \u00a7Order 3)",
+   "since": "2026-11-20T16:56:47Z",
+   "expires": "2026-11-20T20:56:47Z",
+   "release": "t5",
+   "callers": {
+    "tv_cost_css": [
+     "website/admin/client-order.php"
+    ]
+   }
+  },
+  {
+   "path": "app/ui/vault.php",
+   "functions": [
+    "(top)"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5gxSyzVYGuXX3xuu2c",
+   "why": "T5: the cost tab and the vault's list on the table standard (table-standard.md \u00a7Order 3)",
+   "since": "2026-11-20T16:56:47Z",
+   "expires": "2026-11-20T20:56:47Z",
+   "release": "t5",
+   "callers": {}
+  },
+  {
+   "path": "website/js/tv-cost.js",
+   "functions": [
+    "draw",
+    "wire"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5gxSyzVYGuXX3xuu2c",
+   "why": "T5: the cost tab and the vault's list on the table standard (table-standard.md \u00a7Order 3)",
+   "since": "2026-11-20T16:56:47Z",
+   "expires": "2026-11-20T20:56:47Z",
+   "release": "t5",
+   "callers": {}
+  },
+  {
+   "path": "website/js/tv-vault.js",
+   "functions": [
+    "(top)"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5gxSyzVYGuXX3xuu2c",
+   "why": "T5: the cost tab and the vault's list on the table standard (table-standard.md \u00a7Order 3)",
+   "since": "2026-11-20T16:56:47Z",
+   "expires": "2026-11-20T20:56:47Z",
+   "release": "t5",
+   "callers": {}
   }
  ],
  "lapsed": [
