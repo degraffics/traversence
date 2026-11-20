@@ -6,30 +6,36 @@
     "zip": "trips.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "staged",
-    "step": 0,
+    "state": "live",
+    "step": 3,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
     "plan_at": "2026-11-20 13:29:46",
     "staged_at": "2026-11-20 13:29:47",
-    "vetted_at": null,
-    "live_at": null,
+    "vetted_at": "2026-11-20 13:29:51",
+    "live_at": "2026-11-20 13:29:51",
     "files": {
         "app/ui/suggested-journeys.php": {
             "sha": "253e16465baaed046b4e26635332068c20ad8743b8e698fefd11fbb6c21e5b66",
             "size": 7868,
-            "live_was": "4a9ada689411235587021b73ca49b016850bf61bb4d5b7e32c6c7106a3289e13"
+            "live_was": "4a9ada689411235587021b73ca49b016850bf61bb4d5b7e32c6c7106a3289e13",
+            "existed": true,
+            "old_sha": "4a9ada689411235587021b73ca49b016850bf61bb4d5b7e32c6c7106a3289e13"
         },
         "app/ui/faq.md": {
             "sha": "8e936e51673d5c84921286c8624f481b39e00b357c75d18f4244d79b8c53c92e",
             "size": 396780,
-            "live_was": "16772f83f0962c4cb9a3e7ea3721d628cfeb5dda32e39fb92472af24f29207ee"
+            "live_was": "16772f83f0962c4cb9a3e7ea3721d628cfeb5dda32e39fb92472af24f29207ee",
+            "existed": true,
+            "old_sha": "16772f83f0962c4cb9a3e7ea3721d628cfeb5dda32e39fb92472af24f29207ee"
         },
         "app/ui/engage-ui.php": {
             "sha": "8e773029a01af6da6b8d90c3cd650e5ce16a81b546c4c0fa0775ef8dc287e940",
             "size": 20144,
-            "live_was": "62c158523b76f31da9e60aace6a46897535400efdd173d0545b2abcf0da6b7dc"
+            "live_was": "62c158523b76f31da9e60aace6a46897535400efdd173d0545b2abcf0da6b7dc",
+            "existed": true,
+            "old_sha": "62c158523b76f31da9e60aace6a46897535400efdd173d0545b2abcf0da6b7dc"
         },
         "app/migrations/2026-11-20_trips.sql": {
             "sha": "0d2c32126e2584f87b90807d6a8ffc24c940668070735011355fa4077eadf250",
@@ -39,47 +45,61 @@
         "app/lib/AccountDeletion.php": {
             "sha": "fef0fbfc16a0b8ea9ace7be62c5756dfb7195ded12c7fc2a0075ea17a76f23ee",
             "size": 21512,
-            "live_was": "6f77b6fa7134461c8512cce3f00da2867c1573ffdf2ad475c66f37e6e2f2af2e"
+            "live_was": "6f77b6fa7134461c8512cce3f00da2867c1573ffdf2ad475c66f37e6e2f2af2e",
+            "existed": true,
+            "old_sha": "6f77b6fa7134461c8512cce3f00da2867c1573ffdf2ad475c66f37e6e2f2af2e"
         },
         "app/lib/Trips.php": {
             "sha": "c4ef51e3eb8a958871fa48bb8b99fb7e07f19c1806707d399a96abe6d4297b47",
             "size": 17415,
-            "live_was": null
+            "live_was": null,
+            "existed": false
         },
         "app/lib/staging-tables.php": {
             "sha": "478fe30d6872f861a03128857ad0ddc823c33dbcd25f9fa518a02c0302d2cf2a",
             "size": 28378,
-            "live_was": "c4f8a000914ae9df4f33e88a0b3ce1ec7350b98e839ef354fa6b1f76a87d01be"
+            "live_was": "c4f8a000914ae9df4f33e88a0b3ce1ec7350b98e839ef354fa6b1f76a87d01be",
+            "existed": true,
+            "old_sha": "c4f8a000914ae9df4f33e88a0b3ce1ec7350b98e839ef354fa6b1f76a87d01be"
         },
         "website/user/trips/index.php": {
             "sha": "20a4bf267f7a4e5efbfa89500e9f2d40a45b77fe0d80b536299e6ce696c101d0",
             "size": 10577,
-            "live_was": null
+            "live_was": null,
+            "existed": false
         },
         "website/user/dashboard.php": {
             "sha": "15cc00061bbcedf1b4f625b383887f3d18edb37e620075bd231f5588f2117e4d",
             "size": 113736,
-            "live_was": "8defeb37a96781c54c17941c0f71ee4fa2576277e3ef417a9d830779cfddb6b6"
+            "live_was": "8defeb37a96781c54c17941c0f71ee4fa2576277e3ef417a9d830779cfddb6b6",
+            "existed": true,
+            "old_sha": "8defeb37a96781c54c17941c0f71ee4fa2576277e3ef417a9d830779cfddb6b6"
         },
         "website/discovery/index.php": {
             "sha": "b03110318bf2d7d98c91389f54898f0ab6222be0bf6743a0527c7c6bf52a4d2f",
             "size": 93190,
-            "live_was": "ad449c57451048844f481a7d8f90f0d79efd1a197234c13b79c40c20a56caa13"
+            "live_was": "ad449c57451048844f481a7d8f90f0d79efd1a197234c13b79c40c20a56caa13",
+            "existed": true,
+            "old_sha": "ad449c57451048844f481a7d8f90f0d79efd1a197234c13b79c40c20a56caa13"
         },
         "website/api/trips.php": {
             "sha": "34d21600adade843e46254bae16d38c057e5028982a2c94274031a42f2d2911c",
             "size": 7292,
-            "live_was": null
+            "live_was": null,
+            "existed": false
         },
         "website/directory/index.php": {
             "sha": "a860847557e20dfc8b8254dd0cc68ba513e595e8848581ff5fc9155805a485d0",
             "size": 111325,
-            "live_was": "010918e1ca58e2fc02b65c2f9a2c57a9d929e14e0a417e6b1e1b2e7e16c3b3ec"
+            "live_was": "010918e1ca58e2fc02b65c2f9a2c57a9d929e14e0a417e6b1e1b2e7e16c3b3ec",
+            "existed": true,
+            "old_sha": "010918e1ca58e2fc02b65c2f9a2c57a9d929e14e0a417e6b1e1b2e7e16c3b3ec"
         },
         "website/js/tv-trips.js": {
             "sha": "94d655f9670e4c1f0c6652a12df5f34a6b9a242eb19fb79b50e4a75b8d1118ae",
             "size": 19689,
-            "live_was": null
+            "live_was": null,
+            "existed": false
         }
     },
     "migrations": [
@@ -87,8 +107,8 @@
     ],
     "checks": {
         "ok": true,
-        "where": "staging",
-        "at": "2026-11-20T13:29:49+00:00",
+        "where": "live",
+        "at": "2026-11-20T13:29:52+00:00",
         "items": [
             [
                 "PHP files parse",
@@ -96,19 +116,9 @@
                 "10 checked"
             ],
             [
-                "Migrations only add",
-                true,
-                "1 checked"
-            ],
-            [
-                "Migrations ran on staging",
-                true,
-                "Ran 2026-11-20_trips.sql"
-            ],
-            [
                 "Pages answer",
                 true,
-                "6 pages answered on staging.trvgo.us"
+                "6 pages answered on traversence.com"
             ],
             [
                 "No new fatal errors in the logs",
@@ -138,6 +148,16 @@
             "at": "2026-11-20T13:29:49+00:00",
             "by": 0,
             "msg": "Put on staging (13 files); its checks passed."
+        },
+        {
+            "at": "2026-11-20T13:29:51+00:00",
+            "by": 0,
+            "msg": "Approved in chat before it was sent through git, and its checks on staging passed: publishing by itself."
+        },
+        {
+            "at": "2026-11-20T13:29:51+00:00",
+            "by": 0,
+            "msg": "Published: 12 files, after its 1 migration ran first (2026-11-20_trips.sql; a copy of what each touched is kept 14 days); everyone at once (no switch)."
         }
     ]
 }
