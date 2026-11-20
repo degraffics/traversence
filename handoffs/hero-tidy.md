@@ -12,6 +12,10 @@ with `send.py` (`releases/inbox/hero-tidy.zip`, `deliveries/hero-tidy.json`), an
 (`place:jr:N`), which has no case in `Links::resolve`. Should it be fixed here, or should Link to be left out on
 journeys? No source covers it.
 
+**Also asked (the session manager's review, 2026-11-20):** which area a merged same-named row opens. As built, the one with
+the most listings opens; the other choice is a short list of every area of that name, with none chosen for him. This is
+display only: the ten Albuquerque clusters are his open area data plan, and this release doesn't change or hide that data.
+
 ## What it does (each with its source)
 - **⋯ starts Link to, Claim, Add to a trip, then the rest.** Source: Jason, 2026-11-20, "should start with Link to, then
   Claim, Add to Trip, then the rest of the list of options".
@@ -41,7 +45,8 @@ journeys? No source covers it.
 Run on the rebuild (2026-11-20, a harness on MariaDB built from the live mirror): **30 passed, 0 failed** at 1280 and 390.
 `stock-page.php` loaded the bootstrap itself, so `tv_page_start()` never set HTML and the page went out as JSON. It is
 fixed (test-only). At 390, the hub and the test page scroll 2px sideways with the live files too, so that isn't from
-this release.
+this release. On live, a hub at 390 is 392px wide too: the `.tv-trl` bar (`js/tv-trail.js`) is 392px. It was
+already live, and the session manager has queued it for the admin kit release.
 
 `tools/design-tests/hero-tidy.cjs` with `hero-tidy-seed.php` and `stock-page.php` (copied to the harness's
 `website/test/stock.php`): 30 checks at 1280 and 390. These went into `main` with R4 (#1153); they're tests only.
