@@ -4,13 +4,14 @@
   {
    "path": "app/ui/suggested-journeys.php",
    "functions": [
+    "tv_sj_card",
     "tv_sj_route_url"
    ],
    "kind": "change",
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Send to Maps (decisions/0174 release 1)",
    "since": "2026-11-20T04:01:37Z",
-   "expires": "2026-11-20T08:01:37Z",
+   "expires": "2026-11-20T08:01:39Z",
    "release": "",
    "callers": {}
   }
