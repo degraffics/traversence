@@ -173,39 +173,6 @@
    "expires": "2026-11-21T03:37:23Z",
    "release": "0176-fix-it.zip",
    "callers": {}
-  },
-  {
-   "path": "app/lib/Geocoder.php",
-   "functions": [
-    "post",
-    "run"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
-   "why": "release census-backup.zip",
-   "since": "2026-11-20T23:43:47Z",
-   "expires": "2026-11-21T03:43:47Z",
-   "release": "census-backup.zip",
-   "callers": {
-    "run": [
-     "app/scripts/geocode_listings.php",
-     "website/admin/geocode.php",
-     "website/api/crawl/geocode.php"
-    ]
-   }
-  },
-  {
-   "path": "website/api/crawl/geocode.php",
-   "functions": [
-    "(top)"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
-   "why": "release census-backup.zip",
-   "since": "2026-11-20T23:43:47Z",
-   "expires": "2026-11-21T03:43:47Z",
-   "release": "census-backup.zip",
-   "callers": {}
   }
  ],
  "lapsed": [
