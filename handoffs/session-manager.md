@@ -102,7 +102,7 @@ sessions take over, holding until Jason says resume. Live through Release #228 (
 - **Orders** (`order-processing.md`): starts after Jason reviews `research/order-system-map-2026-11-19.md` and its six
   items; the first release carries the chargeFor fix.
 - **The session manager** also reads Monday's (2026-11-23) "Edit my listing" path check (`business-listings.md`).
-- **Waiting on Jason:** the red threshold for a system hour (0175 R2a); 0176 R2's restart; the order map and its six
+- **Waiting on Jason:** (answered: a system hour is red only when a critical part is down, 0175 note 2026-11-20, #1177); 0176 R2's restart; the order map and its six
   items; the order file check's limits; the area data plan (ten "Albuquerque" clusters, Abilene under Ancient
   Borderlands: find the cause in the five cluster-creating paths, preview in Data cleanup, he decides); the dashboard
   discussion; done: the Park Service key (Jason, 2026-11-20: "done. its in!"); control_tick is back on `*/5` (Jason pressed it, 2026-11-20).
