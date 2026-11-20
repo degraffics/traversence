@@ -194,6 +194,23 @@
      "app/lib/Preflight.php"
     ]
    }
+  },
+  {
+   "path": "website/js/tv-ask.js",
+   "functions": [
+    "peek"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
+   "why": "0175 R2a part 1: each alarm opens its fix in the side panel, one panel at a time",
+   "since": "2026-11-20T15:30:23Z",
+   "expires": "2026-11-20T19:30:23Z",
+   "release": "0175-r2a-panel.zip",
+   "callers": {
+    "peek": [
+     "website/js/admin-control.js"
+    ]
+   }
   }
  ],
  "lapsed": [
