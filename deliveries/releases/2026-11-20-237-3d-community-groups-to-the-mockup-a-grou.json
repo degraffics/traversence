@@ -1,0 +1,69 @@
+{
+    "id": 237,
+    "title": "3d: Community groups to the mockup; a group's page, the member dashboard and its Pulse on the tokens",
+    "why": "design/css-theme-brand.md §4 Release 3, one area at a time: 3d is Community and the member dashboard. Jason, 2026-11-20, 3d's pop-up: \"Mockup, adapted\" (community-scope.md's note): /community/ to his 2026-11-02 mockup, adapted to his 2026-11-18 directive (topics in a dropdown, not chips; cards on the card colour, not white).",
+    "proposals": "",
+    "zip": "r3d.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/ui/profile-header.php": {
+            "sha": "78c0718e89cd59073d9945b97f41ad6ae8bf0930dd6d4b9078be50b01b53058f",
+            "size": 23327,
+            "live_was": "81c4d01f49d8870a69196ecba591f1aece773d9500858984911d230003a9de05"
+        },
+        "app/ui/admin-dashboard.php": {
+            "sha": "d8de448b15b174ee420d1ce718f62c99bb150bfdf7bc6292ea8b1376aa1848f1",
+            "size": 56804,
+            "live_was": "997c3afc32df2b22380e77452ab65aa0b87a25c3dfed63d930981ffaa307ab3e"
+        },
+        "app/ui/pulse-panel.php": {
+            "sha": "56d1d9c4eaf7ccc7969cca0fe979c01496a51dd983edb302f4d012dd43cbcd19",
+            "size": 19862,
+            "live_was": "c8a6ce903caa39bf9598233282d3361abed096de5c5d0a674416831c21600177"
+        },
+        "app/ui/faq.md": {
+            "sha": "d1b0201b05ef829711c67b6b6852af946dfc16b4bc2aa1c49d950773cb23500a",
+            "size": 408123,
+            "live_was": "eb838a681028bfff796abdb01fde357688be833b3255e9f2de956a71be208044"
+        },
+        "app/lib/Community.php": {
+            "sha": "caee424aae3f1c5dc530ca0a029b1e7f2663404c1b5543abc42720a7aafaeebc",
+            "size": 63921,
+            "live_was": "fdced0bca45b01a3066bc89b75eff39fd1ba3796ceab32a06bbf5308b7f60d1c"
+        },
+        "website/community/index.php": {
+            "sha": "9ba34d74ac18483792270bec7941e2b8ba8ced0597fbc4aef35c9315b8f93407",
+            "size": 21396,
+            "live_was": "05f60a3a78cf6a3513ab489d9e0d4d4fe109a599f6fa567033a3359f075563a4"
+        },
+        "website/community/group.php": {
+            "sha": "421b2b2a5f7ef0332b2c2685d6f8fd1c8a235a7aefce0a6d2b2b2714233c277b",
+            "size": 69339,
+            "live_was": "35b4562254adcc74c63911a957f201afb45cc8bf08b4bb48bb70a4a5731e0afc"
+        },
+        "website/user/dashboard.php": {
+            "sha": "c7bc4de05f8b8cbc86a761d2e751453719d3d236be65144dbc439815d6b20b4d",
+            "size": 117783,
+            "live_was": "15cc00061bbcedf1b4f625b383887f3d18edb37e620075bd231f5588f2117e4d"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-20T17:51:31+00:00",
+            "by": 0,
+            "msg": "Uploaded r3d.zip: 8 files."
+        }
+    ]
+}
