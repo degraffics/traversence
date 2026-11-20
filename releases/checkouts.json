@@ -227,6 +227,17 @@
    "expires": "2026-11-20T17:29:48Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/lib/crawler/CrawlService.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "0175 release 1: a trip places the system's pause, never a switch; it lifts when its check passes",
+   "since": "2026-11-20T13:29:57Z",
+   "expires": "2026-11-20T17:29:57Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
