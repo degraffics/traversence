@@ -1,0 +1,44 @@
+{
+    "id": 218,
+    "title": "Wikidata within its limits: one query at a time, its wait honoured, answers kept",
+    "why": "Jason, 2026-11-20, approved (reviewed by the session manager). Wikidata's query service has answered 429 (too many requests) since Nov 18 (the board's issue #26), so place pages miss nearby places and labels. PlaceFinder and Dossier now ask it through app/lib/Wdqs.php: one query at a time across the site (others skip, never pile up), the wait Wikidata asks for (Retry-After) kept and honoured by every caller, and each answer kept 7 days. It changes how we ask, not what we read. No new tables.",
+    "proposals": "",
+    "zip": "wikidata-limits.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/lib/Dossier.php": {
+            "sha": "abd6e72951c447d4739fc78f59ddd219e2b723f01c14bf1edd50cf91fc50b718",
+            "size": 32255,
+            "live_was": "6964c56734a585a2948528876c1d042709b220a7c76076ec3b52cc66e69849fb"
+        },
+        "app/lib/PlaceFinder.php": {
+            "sha": "e5a2a77541ff9acb2f2e10e735e05fe78413c78b840e1d03a405a99a6b30f449",
+            "size": 49865,
+            "live_was": "9d5f2b6a8d30eecdc925550185e250f1133cf20bf9b9c970d125563b30f362b8"
+        },
+        "app/lib/Wdqs.php": {
+            "sha": "9024a18af29a2653a245b85383a42735961b7d034439737029461a8217139059",
+            "size": 3825,
+            "live_was": null
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-20T03:59:01+00:00",
+            "by": 0,
+            "msg": "Uploaded wikidata-limits.zip: 3 files."
+        }
+    ]
+}
