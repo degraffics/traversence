@@ -241,43 +241,6 @@
    "callers": {}
   },
   {
-   "path": "app/lib/Scheduler.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "quiet jobs aren't late (system_start_tick)",
-   "since": "2026-11-20T14:19:27Z",
-   "expires": "2026-11-20T18:24:04Z",
-   "release": "quiet-jobs.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/admin/job-line.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "quiet jobs aren't late (system_start_tick)",
-   "since": "2026-11-20T14:19:31Z",
-   "expires": "2026-11-20T18:24:04Z",
-   "release": "quiet-jobs.zip",
-   "callers": {
-    "tv_admin_job_line": [
-     "app/admin/widgets.php"
-    ]
-   }
-  },
-  {
-   "path": "app/admin/sections.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "quiet jobs aren't late (system_start_tick)",
-   "since": "2026-11-20T14:19:33Z",
-   "expires": "2026-11-20T18:24:04Z",
-   "release": "quiet-jobs.zip",
-   "callers": {}
-  },
-  {
    "path": "app/lib/AccountDeletion.php",
    "functions": [],
    "kind": "add",
