@@ -114,7 +114,7 @@ callers (B.4), the refund's work order (B.5), dead code (B.6), watermarks (B.7),
 - **Q-B, each process's requirements** beyond the printed product's four (J3): what releases a graphic-design line, a
   custom line, a shipping line.
 - **Q-C, design earned vs production refundable**: "remains an open question to ask, not an assumed rule" (R §3); B.5 leaves "what the client gets back" to it.
-- **Q-D, nudges when a client's assets are missing** (crosswalk; client upload itself is R2's third path).
+- **Q-D, nudges when a client's assets are missing** (crosswalk; client upload itself is B.2's third path).
 - **Q-E, design capacity** (no decision).
 - **Q-F, a fingerprint of the exact approved file.**
 - **Q-G, order mail onto the one dispatcher** (0172, 0176), (order mail sent without repeats).
