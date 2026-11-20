@@ -77,6 +77,9 @@ $t('a long list of buttons: whole ones dropped, still a list', is_array($fx) && 
 $id = (int) ControlAlarms::raise($pdo, 'ops:cap:tavily', 'svc:tavily', 'warning', 'limit', 'Tavily at 95%', 'm', 'd', '95%', [['Raise the cap', 'opsask', 'ops_cap:tavily_cap', ['Tavily cap (searches)', '1000']], ['Pause it', 'ops', 'ops_pause:tavily', 'Pause Tavily?'], ['Its register entry', 'peek', '/admin/config/register#svc-tavily']], false);
 $s = fn (string $t, string $h, ?array $act = null, bool $auto = false) => ['t' => $t, 'h' => $h, 'act' => $act, 'auto' => $auto];
 $ps = ControlAlarms::pulseSteps($pdo, $id, $s);
+// decisions/0176 R3: Fix it first (the card's Caps and budget, in the case's panel), then the item's own steps
+$t('its Pulse item: Fix it on the card\'s caps first', ($ps[0]['t'] ?? '') === 'Fix it' && $ps[0]['act'] === ['tool', '/admin/config/register#svc-tavily-caps'], $ps[0] ?? null);
+array_shift($ps);
 $t('its Pulse item: Raise the cap as a form, Pause it as a button, its entry and the board beside it', count($ps) === 4 && $ps[0]['act'][0] === 'form' && $ps[0]['act'][1] === 'alarm_ops_cap:tavily_cap' && $ps[0]['act'][3][0][3] === '1000' && $ps[1]['act'] === ['do', 'alarm_ops_pause:tavily', 'Pause it'] && $ps[2]['act'][0] === 'tool' && str_contains((string) $ps[3]['act'][1], 'cb-alarm-' . $id), $ps);
 $bad = ''; try { ControlAlarms::pulseDo($pdo, $id, 'alarm_ops_runnext:../x', [], 1, 'T'); } catch (Throwable $x) { $bad = $x->getMessage(); }
 $t('…a step it doesn\'t carry is refused', $bad === 'That step isn\'t one the board does.', $bad);

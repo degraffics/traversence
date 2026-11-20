@@ -380,3 +380,31 @@ two notes above:
 - Known limit: Gmail joins a reply to its conversation only when the subject also matches. The subject's action changes
   with the state, so Gmail may show Recovered as a new conversation; Outlook and Apple Mail follow the headers.
   Asked in the decision pop-up (2026-11-20), Jason kept it: "Subject changes (as built)".
+
+**Note (2026-11-20): release 3 built** (`0176-fix-it.zip`, built on Sync 23:49 UTC 66b591f; cleared by the session
+manager 2026-11-20 18:54, "go ahead with A for both"). §5 as built:
+- `Thread::FIX` is §5's table: key, quota, blocked, backup, shutdown, and theirs (no Fix it). A thread's facts carry
+  `fix` (its cause and one spot). Fix it is first among its buttons and opens in the one side panel (tv-ask's peek,
+  0175 release 2a). A spot still to come is a greyed Fix it with its reason shown.
+- **Where each cause lands:** a refused key on the card's Its key (`#svc-<k>-key`), with Replace or Add its key focused
+  when it can be pressed. A used-up quota or a cap on the card's Caps and paces (`#svc-<k>-caps`, or This month where a
+  card has no caps); the community budget on Costs (`#costs`). An outside service that refused us on its issue on its
+  card (`#issue-<id>`), where Check it now is, since a service has no Reactivate of its own. A site that blocked W0 on
+  its line under Sites that blocked us (Insights → Index, `#held-<host>`), with Reactivate: W0's own page has no list of
+  blocked sites, so this is that source's rule as it exists.
+- **No alarm carries "no backup" or "repair needs shutdown" today.** I checked every `ControlAlarms::raise` caller. The
+  map holds their spots, but nothing draws them until an owner sets that cause.
+- **An alarm with no mapped cause** (a crash, a red check, a payments token) keeps its component button (0175 release
+  2a), as before.
+- **Their trouble** (5xx, no answer, a 429, an answer we can't read): no Fix it. The thread's "What the system is doing"
+  starts "The system is handling it". On the card: Check it now (not on a 429, as before), Pause it (the card's own
+  Pause, not for a service that can't be paused), and Use backup, greyed "to come".
+- **From a push or an email:** a trip and its Escalation Notice open `/admin/dashboard/stream#case=alarm:<id>`, plus
+  `&fix=1` when it has a Fix it, which opens the case's panel on Fix it. Recovered keeps the board's link.
+- **After acting:** Replace runs Check at once and offers Put the old one back (0173 release 2, kept). Setting a cap now
+  looks at its budget again on the spot (`Operations::alarms`), and says Fixed or what it still reads, with the old
+  value.
+- **A dead end found and fixed at its cause:** in Pulse, a case opened in its row showed nothing when a step's Open was
+  pressed. The drawer's tool panel is hidden with the drawer, so the tool now opens in the side panel. Fix it from Pulse
+  depends on this.
+

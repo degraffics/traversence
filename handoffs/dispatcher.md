@@ -148,7 +148,7 @@ card's issue line become **one thread**, drawn by Thread. There's no × that loo
 Run the Control Board's `card-issue.php`, `start-issue.php`, `feeds-words.php`, `task-on.php`, `register.php` and
 `backoff-gate.php` against the live mirror first, for the baseline.
 
-## Release 3, not started: Fix it routing
+## Release 3, built 2026-11-20 (`handoffs/0176-fix-it/0176-fix-it.zip`, on Sync 23:49 UTC 66b591f; 0176's note "release 3 built"): Fix it routing
 
 Source: 0176 §5, A5.
 - **Each thread carries its cause, and a cause → landing map gives one spot:**
