@@ -47,6 +47,10 @@ Keep sessions fast and affordable, and keep Jason told only of what needs him.
 
 ## How the checks run
 
+**Every behaviour sourced** (Jason, 2026-11-20): before "clear to ask", check each behaviour in the summary against
+the decision line it cites. Reject any with no source, or one whose source doesn't say it, as a question for Jason, not
+a build choice. (Missed on 0175 R1's hourly try and on 0175 draft 1's third-trip guard.)
+
 - **Hourly, while he's checked in:** a scheduled task named "Hourly session check" (cron `14 * * * *`) fires into the
   session manager. "Checking out" disables it; "checking in" (or "check in") enables it. Its prompt lists every check.
 - **Notify** (PushNotification) only when something needs him: a session waiting, or a proposal. One line.
