@@ -286,6 +286,17 @@
    "expires": "2026-11-20T18:19:27Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/admin/job-line.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "quiet jobs aren't late (system_start_tick)",
+   "since": "2026-11-20T14:19:31Z",
+   "expires": "2026-11-20T18:19:31Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
