@@ -1,5 +1,5 @@
 {
- "at": "2026-11-19T11:54:16.143Z",
+ "at": "2026-11-20T10:20:11.547Z",
  "checked": "2026-11-14T15:38:12+00:00",
  "files_read": 784,
  "tables": [
@@ -179,7 +179,7 @@
    "db": "degraff1_traversence",
    "table": "identity_facts",
    "column": "w",
-   "filled": 214159,
+   "filled": 267260,
    "kept": false
   },
   {
@@ -193,7 +193,7 @@
    "db": "degraff1_traversence",
    "table": "listing_actions",
    "column": "n",
-   "filled": 886,
+   "filled": 915,
    "kept": false
   },
   {
@@ -235,14 +235,14 @@
    "db": "degraff1_traversence",
    "table": "platform_counts",
    "column": "k",
-   "filled": 3418,
+   "filled": 3506,
    "kept": false
   },
   {
    "db": "degraff1_traversence",
    "table": "platform_counts",
    "column": "n",
-   "filled": 3418,
+   "filled": 3506,
    "kept": false
   },
   {
@@ -263,21 +263,21 @@
    "db": "degraff1_traversence",
    "table": "search_counts",
    "column": "k",
-   "filled": 60,
+   "filled": 64,
    "kept": false
   },
   {
    "db": "degraff1_traversence",
    "table": "search_counts",
    "column": "n",
-   "filled": 60,
+   "filled": 64,
    "kept": false
   },
   {
    "db": "degraff1_traversence",
    "table": "search_demand",
    "column": "n",
-   "filled": 57,
+   "filled": 63,
    "kept": false
   },
   {
@@ -291,14 +291,14 @@
    "db": "degraff1_traversence",
    "table": "search_index_state",
    "column": "k",
-   "filled": 179,
+   "filled": 195,
    "kept": false
   },
   {
    "db": "degraff1_traversence",
    "table": "search_index_state",
    "column": "v",
-   "filled": 178,
+   "filled": 193,
    "kept": false
   },
   {
@@ -319,14 +319,14 @@
    "db": "degraff1_traversence",
    "table": "search_outcomes",
    "column": "q",
-   "filled": 145,
+   "filled": 151,
    "kept": false
   },
   {
    "db": "degraff1_traversence",
    "table": "search_outcomes",
    "column": "n",
-   "filled": 145,
+   "filled": 151,
    "kept": false
   },
   {
@@ -347,14 +347,14 @@
    "db": "degraff1_traversence",
    "table": "search_terms",
    "column": "q",
-   "filled": 124,
+   "filled": 131,
    "kept": false
   },
   {
    "db": "degraff1_traversence",
    "table": "search_terms",
    "column": "n",
-   "filled": 124,
+   "filled": 131,
    "kept": false
   },
   {
@@ -368,14 +368,14 @@
    "db": "degraff1_traversence",
    "table": "site_release_settings",
    "column": "k",
-   "filled": 179,
+   "filled": 227,
    "kept": false
   },
   {
    "db": "degraff1_traversence",
    "table": "site_release_settings",
    "column": "v",
-   "filled": 179,
+   "filled": 227,
    "kept": false
   },
   {
@@ -396,7 +396,7 @@
    "db": "degraff1_traversence",
    "table": "topic_relations",
    "column": "n",
-   "filled": 494,
+   "filled": 583,
    "kept": false
   },
   {

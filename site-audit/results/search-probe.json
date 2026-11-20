@@ -6,7 +6,7 @@
    "expect": "Dana Point, CA and its guide (it has one), not Point, TX",
    "url": "/api/search.php?q=Dana%20point",
    "status": 200,
-   "ms": 792,
+   "ms": 1549,
    "place": "Dana Point, CA",
    "chips": [
     "place: Dana Point, CA"
@@ -48,7 +48,7 @@
    "expect": "Dana Point, CA: its guide, places and listings",
    "url": "/api/search.php?q=Dana%20Point%2C%20CA",
    "status": 200,
-   "ms": 154,
+   "ms": 139,
    "place": "Dana Point, CA",
    "chips": [
     "place: Dana Point, CA"
@@ -90,7 +90,7 @@
    "expect": "Dana Point, CA",
    "url": "/api/search.php?q=dana%20point%20california",
    "status": 200,
-   "ms": 116,
+   "ms": 125,
    "place": "Dana Point, CA",
    "chips": [
     "place: Dana Point, CA"
@@ -132,7 +132,7 @@
    "expect": "places to eat in Dana Point",
    "url": "/api/search.php?q=restaurants%20in%20Dana%20Point%2C%20CA",
    "status": 200,
-   "ms": 156,
+   "ms": 175,
    "place": "Dana Point, CA",
    "chips": [
     "place: Dana Point, CA",
@@ -179,7 +179,7 @@
    "expect": "places to eat in Dana Point",
    "url": "/api/search.php?q=Places%20to%20eat%20around%20dana%20point%2C%20ca",
    "status": 200,
-   "ms": 127,
+   "ms": 149,
    "place": "Dana Point, CA",
    "chips": [
     "why: Somewhere to eat",
@@ -226,7 +226,7 @@
    "expect": "Phoenix, AZ: its guide, listings, places",
    "url": "/api/search.php?q=Phoenix%2C%20az",
    "status": 200,
-   "ms": 129,
+   "ms": 110,
    "place": "Phoenix, AZ",
    "chips": [
     "place: Phoenix, AZ"
@@ -270,7 +270,7 @@
    "expect": "Phoenix, AZ (the pilot state first)",
    "url": "/api/search.php?q=Phoenix",
    "status": 200,
-   "ms": 96,
+   "ms": 104,
    "place": "Phoenix, AZ",
    "chips": [
     "place: Phoenix, AZ"
@@ -315,7 +315,7 @@
    "expect": "places to eat in Phoenix",
    "url": "/api/search.php?q=restaurants&city=Phoenix&state=AZ&reach=25",
    "status": 200,
-   "ms": 100,
+   "ms": 150,
    "place": "Phoenix, AZ",
    "chips": [
     "place: Phoenix, AZ",
@@ -324,31 +324,31 @@
    "text": "",
    "guide": "Phoenix, AZ [new]: We don't have a guide to Phoenix, AZ yet. We can build one now: a first look in about two minutes.",
    "ask": "",
-   "total": 30,
+   "total": 52,
    "kinds": [
     {
      "kind": "listing",
      "label": "Listing",
      "plural": "Listings",
-     "count": 30
+     "count": 52
     }
    ],
    "note": "",
    "osm": "",
    "mentions": 0,
    "first": [
+    "Ahipoki (listing · Restaurants · Phoenix, AZ · 1 mi)",
+    "Ahipoki (listing · Restaurants · Phoenix, AZ · <1 mi)",
     "Cartel Coffee Lab (listing · Restaurants · Phoenix, AZ · <1 mi)",
     "Centrico (listing · Restaurants · Phoenix, AZ · <1 mi)",
     "CiBO Pizzeria (listing · Restaurants · Phoenix, AZ · <1 mi)",
-    "CiBO Pizzeria (listing · Restaurants · Phoenix, AZ · <1 mi)",
-    "Fair Trade Cafe (listing · Restaurants · Phoenix, AZ · <1 mi)",
-    "Majerle's Sports Grill (listing · Restaurants · Phoenix, AZ · <1 mi)"
+    "CiBO Pizzeria (listing · Restaurants · Phoenix, AZ · <1 mi)"
    ],
    "groups": [
     "Listings 5"
    ],
    "funnels": [
-    "Get Local 30 → /directory/?lat=33.4484&lon=-112.074&radius=25&near=Phoenix%2C+AZ&q=restaurants"
+    "Get Local 52 → /directory/?lat=33.4484&lon=-112.074&radius=25&near=Phoenix%2C+AZ&q=restaurants"
    ],
    "intent": "",
    "near": "",
@@ -360,7 +360,7 @@
    "expect": "pizza places in Phoenix",
    "url": "/api/search.php?q=pizza%20in%20phoenix",
    "status": 200,
-   "ms": 161,
+   "ms": 169,
    "place": "Phoenix, AZ",
    "chips": [
     "place: Phoenix, AZ",
@@ -369,13 +369,13 @@
    "text": "",
    "guide": "",
    "ask": "",
-   "total": 3,
+   "total": 4,
    "kinds": [
     {
      "kind": "listing",
      "label": "Listing",
      "plural": "Listings",
-     "count": 3
+     "count": 4
     }
    ],
    "note": "",
@@ -384,7 +384,8 @@
    "first": [
     "CiBO Pizzeria (listing · Restaurants · Phoenix, AZ)",
     "CiBO Pizzeria (listing · Restaurants · Phoenix, AZ)",
-    "Domino's (listing · Restaurants · Phoenix, AZ)"
+    "Domino's (listing · Restaurants · Phoenix, AZ)",
+    "Yum Pizza 3 Llc (listing · Pizza · Phoenix, AZ)"
    ],
    "groups": [
     "Places 1",
@@ -392,7 +393,7 @@
    ],
    "funnels": [
     "Let's Explore 1 → /hub/?cluster=cluster-auto-phoenix",
-    "Get Local 3 → /directory/"
+    "Get Local 4 → /directory/"
    ],
    "intent": "",
    "near": "",
@@ -438,10 +439,10 @@
     "Coffee Shops (topic · Category in Food & Dining)"
    ],
    "groups": [
-    "Listings 2"
+    "Listings 5"
    ],
    "funnels": [
-    "Get Local 5 → /directory/?q=coffee"
+    "Get Local 5 → /directory/?lat=33.5675&lon=-112.1753&radius=10&near=Glendale%2C+AZ&q=coffee"
    ],
    "intent": "",
    "near": "",
@@ -453,7 +454,7 @@
    "expect": "trails and hikes within 2 mi of Phoenix, then 5",
    "url": "/api/search.php?q=hiking%20near%20me&city=Phoenix&state=AZ&reach=2",
    "status": 200,
-   "ms": 413,
+   "ms": 436,
    "place": "Phoenix, AZ",
    "chips": [
     "do: Hiking",
@@ -462,13 +463,13 @@
    "text": "hiking trail trails trailhead",
    "guide": "Phoenix, AZ [new]: We don't have a guide to Phoenix, AZ yet. We can build one now: a first look in about two minutes.",
    "ask": "",
-   "total": 373,
+   "total": 374,
    "kinds": [
     {
      "kind": "outdoors",
      "label": "Outdoors",
      "plural": "Outdoors",
-     "count": 373
+     "count": 374
     }
    ],
    "note": "",
@@ -484,7 +485,7 @@
    ],
    "groups": [],
    "funnels": [
-    "Let's Explore 373 → /discovery/?view=outdoors"
+    "Let's Explore 374 → /discovery/?view=outdoors"
    ],
    "intent": "hiking near Phoenix, AZ",
    "near": "10 within undefined mi",
@@ -496,7 +497,7 @@
    "expect": "trails and hikes around Phoenix",
    "url": "/api/search.php?q=hiking&city=Phoenix&state=AZ&reach=25",
    "status": 200,
-   "ms": 111,
+   "ms": 144,
    "place": "Phoenix, AZ",
    "chips": [
     "do: Hiking",
@@ -541,7 +542,7 @@
    "expect": "coffee shops in Phoenix (OpenStreetMap at once, ours once crawled)",
    "url": "/api/search.php?q=coffee%20near%20me&city=Phoenix&state=AZ&reach=10",
    "status": 200,
-   "ms": 213,
+   "ms": 244,
    "place": "Phoenix, AZ",
    "chips": [
     "place: Phoenix, AZ"
@@ -598,7 +599,7 @@
    "expect": "things to do around 85302",
    "url": "/api/search.php?q=Things%20to%20do%20near%20me&zip=85302&reach=25",
    "status": 200,
-   "ms": 236,
+   "ms": 246,
    "place": "Glendale, AZ",
    "chips": [
     "why: Things to do",
@@ -625,7 +626,7 @@
    "expect": "Glendale, AZ: its guide (built on demand) and listings",
    "url": "/api/search.php?q=Glendale%2C%20AZ",
    "status": 200,
-   "ms": 111,
+   "ms": 104,
    "place": "Glendale, AZ",
    "chips": [
     "place: Glendale, AZ"
@@ -669,7 +670,7 @@
    "expect": "places to stay in Sedona",
    "url": "/api/search.php?q=hotels%20in%20sedona",
    "status": 200,
-   "ms": 347,
+   "ms": 342,
    "place": "Sedona, AZ",
    "chips": [
     "place: Sedona, AZ"
@@ -720,7 +721,7 @@
    "expect": "Show Low, AZ (a pilot town)",
    "url": "/api/search.php?q=show%20low",
    "status": 200,
-   "ms": 134,
+   "ms": 769,
    "place": "Show Low, AZ",
    "chips": [
     "place: Show Low, AZ"
@@ -761,7 +762,7 @@
    "expect": "Greer, AZ (a pilot town)",
    "url": "/api/search.php?q=greer%20arizona",
    "status": 200,
-   "ms": 102,
+   "ms": 98,
    "place": "Greer, AZ",
    "chips": [
     "place: Greer, AZ"
@@ -805,7 +806,7 @@
    "expect": "Four Corners Monument, not Four Corners, WY",
    "url": "/api/search.php?q=Four%20Corners",
    "status": 200,
-   "ms": 173,
+   "ms": 195,
    "place": "Four Corners, WY",
    "chips": [
     "place: Four Corners, WY"
@@ -833,7 +834,7 @@
    "expect": "Grand Canyon National Park",
    "url": "/api/search.php?q=grand%20canyon",
    "status": 200,
-   "ms": 460,
+   "ms": 426,
    "place": "",
    "chips": [],
    "text": "grand canyon",
@@ -866,7 +867,7 @@
     "Grand Canyon–Parashant National Monument (outdoors · National monument of the united states · near Mohave County)"
    ],
    "groups": [
-    "Listings 1"
+    "Listings 4"
    ],
    "funnels": [
     "Let's Explore 148 → /discovery/?view=outdoors",
@@ -882,7 +883,7 @@
    "expect": "Four Corners Monument (a landmark added by hand)",
    "url": "/api/search.php?q=four%20corners%20monument",
    "status": 200,
-   "ms": 400,
+   "ms": 492,
    "place": "",
    "chips": [],
    "text": "four corners monument",
@@ -917,7 +918,7 @@
    "expect": "Laguna Art Museum (found for the Laguna Beach guide)",
    "url": "/api/search.php?q=laguna%20art%20museum",
    "status": 200,
-   "ms": 405,
+   "ms": 429,
    "place": "",
    "chips": [],
    "text": "laguna art museum",
@@ -961,7 +962,7 @@
    "expect": "plumbers in Show Low",
    "url": "/api/search.php?q=plumber%20in%20show%20low",
    "status": 200,
-   "ms": 201,
+   "ms": 215,
    "place": "Show Low, AZ",
    "chips": [
     "place: Show Low, AZ",
@@ -1049,7 +1050,7 @@
     "pizza in Phoenix, NY (place · Search there · no listings yet)",
     "pizza in Phoenix, OR (place · Search there · no listings yet)",
     "pizza in Phoenixville, PA (place · Search there · no listings yet)",
-    "Pizza (category · 63 listed · for “pizza in photographer”)"
+    "Pizza (category · 64 listed · for “pizza in photographer”)"
    ]
   },
   {
@@ -1114,7 +1115,7 @@
    "q": "four corners mon",
    "ctx": "",
    "first": [
-    "Schools (category · 302 listed · for “four corners mon”)",
+    "Schools (category · 311 listed · for “four corners mon”)",
     "Building Contractors (category · 6 listed · for “four corners mon”)",
     "Dishchii'Bikoh Community Sch (listing · Show Low › Schools)",
     "Linden Elementary (listing · Show Low › Schools)",
@@ -1139,14 +1140,10 @@
  "directory": {
   "ok": false,
   "place": "St. Johns, AZ",
-  "all": 4162,
-  "name": "1st Assembly Of God",
+  "all": 5866,
+  "name": "111 West Monroe",
   "api": 1,
   "api_has": true,
-  "before": "4,162 businesses near St. Johns · showing 1–10",
-  "title": "“1st Assembly Of God” near St. Johns",
-  "after": "4,162 businesses near St. Johns · showing 1–10",
-  "names": [],
-  "error": "typing \"1st Assembly Of God\" didn't narrow the list: \"4,162 businesses near St. Johns · showing 1–10\" became \"4,162 businesses near St. Johns · showing 1–10\""
+  "error": "browser: TimeoutError: page.waitForFunction: Timeout 20000ms exceeded."
  }
 }

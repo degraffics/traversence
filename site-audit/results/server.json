@@ -1,6 +1,56 @@
 {
- "at": "2026-11-19T11:54:16.142Z",
+ "at": "2026-11-20T10:20:11.547Z",
  "php": "8.0.31",
  "php_major_minor": "8.0",
- "mysql": "5.7.44-48"
+ "mysql": "5.7.44-48",
+ "db": {
+  "tables": 409,
+  "mb": 571.51,
+  "biggest": [
+   {
+    "table": "identity_fact_sources",
+    "mb": 83.2
+   },
+   {
+    "table": "identity_facts",
+    "mb": 76.38
+   },
+   {
+    "table": "crawl_frontier",
+    "mb": 67.16
+   },
+   {
+    "table": "_moved_npi_orgs",
+    "mb": 38.13
+   },
+   {
+    "table": "crawl_pages",
+    "mb": 37.61
+   },
+   {
+    "table": "place_profile",
+    "mb": 33.08
+   },
+   {
+    "table": "open_places",
+    "mb": 27.55
+   },
+   {
+    "table": "ip_eu_ranges",
+    "mb": 25.06
+   },
+   {
+    "table": "search_index",
+    "mb": 17.67
+   },
+   {
+    "table": "page_cache",
+    "mb": 17.31
+   }
+  ],
+  "open_places": {
+   "rows": 99661,
+   "mb": 27.55
+  }
+ }
 }
