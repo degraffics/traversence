@@ -73,15 +73,16 @@
   {
    "path": "app/admin/operations-console.php",
    "functions": [
+    "tv_ops_ctx",
     "tv_ops_issues",
     "tv_ops_keys",
     "tv_ops_reg_block"
    ],
    "kind": "change",
    "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
-   "why": "0176 R3: Fix it routing",
+   "why": "0176 R3: Set a cap runs its check on the spot",
    "since": "2026-11-20T23:32:36Z",
-   "expires": "2026-11-21T03:32:36Z",
+   "expires": "2026-11-21T03:35:06Z",
    "release": "0176-fix-it.zip",
    "callers": {}
   },
