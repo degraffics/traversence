@@ -16,7 +16,7 @@
   },
   "app/lib/Pulse.php": {
    "sha256": "9df1c76e8c623316f54a33dfe91cdd1b22857adea2a3d132b0da9154eb6139ee",
-   "live": true
+   "live": false
   },
   "app/lib/ServiceHealth.php": {
    "sha256": "1f53c2c5ddf9ba09fc2534f815b73a76deb04e02ed38b523affe81b24b85910f",
