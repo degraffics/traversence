@@ -45,8 +45,8 @@ decided (the session manager's check):
 1. **One cart/invoice for every order, each line released by its own pre-cart steps.** Matches Jason's words above
    (cart, cart as invoice, release to cart). Business sales (0135, the Marketplace) stay a separate system (map §1).
 2. **Terms and availability before payment, per kind** (stocked or back-ordered; made to order and services confirmed;
-   tickets final, the pass is the product). Matches 0135's note of 2026-11-20. **To confirm:** that note sits in the
-   Marketplace's decision; Gemini applies it to our own sales too. Jason's words were general, so likely yes.
+   tickets final, the pass is the product). Matches 0135's note of 2026-11-20. Applies to our own sales too: Jason, "Yes,
+   both" (0101's note of 2026-11-20).
 3. **Design and production as separate tracks with their own money rules.** Still open (above): when design is earned,
    when production is refundable, and what a refund does to an open work order. A suggestion, not a decision.
 4. **Proof gates, collateral hygiene, exact repeat vs update and reprint.** Mostly built (0101: signed approval, files
@@ -56,3 +56,5 @@ decided (the session manager's check):
    record nothing until paid in full (0101, deliberate, map §5).
 6. **Keep 0101's deliberate rules, fix the real bug, list unknowns as questions.** Matches the map (§5, §7) and the
    playbook; the chargeFor fix is in the first release (order-processing.md).
+
+**Answered since** (2026-11-20): the map is confirmed and its §5 items settled, `research/order-rulings-2026-11-20.md`.
