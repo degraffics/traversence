@@ -98,6 +98,7 @@ and the portal's routers and endpoints, the sitemap) are live like any other.*
 | `/user/notice.php` | One notice | — | Live (P6, 2026-11-13) |
 | `/user/orders.php` | Your orders | — | Live (P6, 2026-11-13) |
 | `/user/trips/` | Your trips: a member's trips (a guest's one trip on the device), stops, Send to Maps, Delete | 0174 | Live (release 2) |
+| `/user/trips/trip.php?id=` | A trip's own page: days, order, times against hours, the map, Print (the owner's only) | 0174 | Live (release 3) |
 | `/user/restore-account.php` | Restore a deleted account | — | Live (P6, 2026-11-13) |
 | `/user/staff-link.php` | Link your staff login (from its link) | — | Live (P6, 2026-11-13) |
 | `/user/transfer.php` | Hand over an account or listing (from its link) | — | Live (P6, 2026-11-13) |

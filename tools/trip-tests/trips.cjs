@@ -34,7 +34,7 @@ const api = (p) => p.evaluate(() => fetch('/api/trips.php', {credentials: 'inclu
     ok(/Added to Trip to /.test(done) && done.includes('Open it') && done.includes('Undo'), tag + '"Added to Trip to …" with Open it and Undo');
     let d = await api(p);
     ok(d.trips.length === 1 && d.trips[0].stops === 1, tag + 'the trip is saved with its stop');
-    ok(/\/user\/trips\/#trip-\d+$/.test(await p.locator('.tvtp-done a').getAttribute('href')), tag + 'Open it goes to the trip on Your trips');
+    ok(/\/user\/trips\/trip\.php\?id=\d+$/.test(await p.locator('.tvtp-done a').getAttribute('href')), tag + 'Open it goes to the trip\'s page');
     await p.click('.tvtp [data-undo]'); await p.waitForTimeout(400);
     d = await api(p);
     ok(d.trips[0].stops === 0 && (await p.locator('.tvtp').innerText()).includes('Taken out'), tag + 'Undo takes it out again');
