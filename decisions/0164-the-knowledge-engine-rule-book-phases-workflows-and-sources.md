@@ -1504,3 +1504,27 @@ statement (https://community.openstreetmap.org/t/150369: "Stop using the public 
 source is our copy alone (Geofabrik's weekly files, `open_places`; decisions/0163's source map: our copy, then Overture). A
 job's kind or town the copy doesn't hold is reported as "not in our copy" (one quiet notice on W1), never fetched, and the
 job carries on with what it has. Overpass is not a fallback, a backup or a later step anywhere in this rule book.
+
+**Note (Jason, 2026-11-20, in the decision pop-up): Common Crawl's bulk reads move to its URL Index.** Asked "Common
+Crawl's own site asks bulk users to use its Columnar Index instead of the URL index server we call today. Move the
+crawler to it?", he answered "Yes, allow and build it". Common Crawl's own pages, read 2026-11-20:
+- https://commoncrawl.org/cdxj-index: the CDXJ index "is optimised for querying individual page captures. The index is
+  served from index.commoncrawl.org".
+- https://commoncrawl.org/columnar-index: the URL Index ("previously called the 'Columnar Index'") "is suited to
+  efficient analytical and/or bulk queries of the data … free to access or download for anybody".
+- https://commoncrawl.org/get-started: from outside Amazon's cloud, "the new URL prefix https://data.commoncrawl.org/ –
+  must be used".
+- https://commoncrawl.org/terms-of-use §2: no "(f) interfering with or disrupting the Service and/or the servers or
+  networks connected to the Service", and no "(l) collecting or harvesting any personally identifiable information or
+  personal information for use separately from the Crawled Content" (we take businesses' and public bodies' websites,
+  never people).
+
+So:
+- The crawler's bulk reads (our states' public sites, a regular source's pages) query the URL Index's Parquet files on
+  data.commoncrawl.org, one request at a time.
+- A single page's copy when a site doesn't load (W2's and W3's fallback, decisions/0163's source map: direct, then
+  Common Crawl) stays on index.commoncrawl.org's CDXJ index, the use it's "optimised for", at most 12 a run
+  (`CC_COPY_MAX`, the worker's setting today).
+- The URL Index's file map for a crawl (each file's range of keys) is read once per crawl and kept, so the runs every
+  few minutes don't read it again (§2(f)).
+- When the URL Index can't be read, the bulk task is held and waits. It never falls back to the index server for bulk.
