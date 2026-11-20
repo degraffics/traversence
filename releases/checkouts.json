@@ -178,6 +178,24 @@
      "website/js/admin-control.js"
     ]
    }
+  },
+  {
+   "path": "app/lib/ControlAlarms.php",
+   "functions": [
+    "pulseSteps",
+    "tripped"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
+   "why": "0175 R2a part 1: a trip's words (closes as Recovered)",
+   "since": "2026-11-20T15:31:46Z",
+   "expires": "2026-11-20T19:31:46Z",
+   "release": "0175-r2a-panel.zip",
+   "callers": {
+    "pulseSteps": [
+     "app/lib/Pulse.php"
+    ]
+   }
   }
  ],
  "lapsed": [
