@@ -1,8 +1,16 @@
-# Hero tidy: HELD, approved but not sent (Jason, 2026-11-20)
+# Hero tidy: rebuilt and sent to the branch, waiting for Jason's OK to merge (2026-11-20)
 
-Jason approved this in the pop-up on 2026-11-20 (reviewed by the session manager), then said "Once r4 is released and
-live. Hold building anything more." So it's **not sent**: there's no zip in `releases/inbox/` and no PR. Send it only when
-Jason or the session manager says.
+Jason approved this in the pop-up on 2026-11-20 (reviewed by the session manager), then held it ("Once r4 is released and
+live. Hold building anything more"). R4 went live as #227. At the restart Jason said resume (the session manager,
+2026-11-20: "now release the session to build"). The Design and trips session (session_01CXLi5gxSyzVYGuXX3xuu2c)
+rebuilt it on **Sync 15:06 UTC (eb49e51)**, which includes #228. The files are those of the approved build, plus the
+live lines put in since 8270202 (R4's trip count in `engage-ui.php`; R4's and the dispatcher's FAQ entries). It was sent
+with `send.py` (`releases/inbox/hero-tidy.zip`, `deliveries/hero-tidy.json`), and the claims are tagged
+`--release hero-tidy`. Merge only after Jason's Approve in the pop-up.
+
+**Asked in the pop-up (the session manager, 2026-11-20):** Link to on a journey would press the page's Link button
+(`place:jr:N`), which has no case in `Links::resolve`. Should it be fixed here, or should Link to be left out on
+journeys? No source covers it.
 
 ## What it does (each with its source)
 - **⋯ starts Link to, Claim, Add to a trip, then the rest.** Source: Jason, 2026-11-20, "should start with Link to, then
@@ -30,5 +38,10 @@ Jason or the session manager says.
 4. Open a PR, and merge once it's cleared.
 
 ## Tests
+Run on the rebuild (2026-11-20, a harness on MariaDB built from the live mirror): **30 passed, 0 failed** at 1280 and 390.
+`stock-page.php` loaded the bootstrap itself, so `tv_page_start()` never set HTML and the page went out as JSON. It is
+fixed (test-only). At 390, the hub and the test page scroll 2px sideways with the live files too, so that isn't from
+this release.
+
 `tools/design-tests/hero-tidy.cjs` with `hero-tidy-seed.php` and `stock-page.php` (copied to the harness's
 `website/test/stock.php`): 30 checks at 1280 and 390. These went into `main` with R4 (#1153); they're tests only.

@@ -73,7 +73,7 @@ session manager's `session-manager.md` is the check if one is in doubt.
      column headers (`.ps-sort`, `.ps-flt`).
 7. **The footer's squeezed edit zone** (session-manager.md "Visual fixes", to Release 3).
 8. **Park Service photos:** built into card photos, and skipped until `NPS_API_KEY` is set (0143's note).
-   - Jason adds the key on its card: https://traversence.com/admin/config/services (the Park Service's optional key,
+   - Jason adds the key on its card: https://traversence.com/admin/config/register (the Park Service's optional key,
      0173 R2).
    - Once it's set, check a park's card shows an NPS photo with its credit. Nothing to build.
 
