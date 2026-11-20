@@ -3,16 +3,16 @@
  "built_on": "16f0cb0 Sync: 2026-11-20 03:45 UTC",
  "recorded": "2026-11-20 03:48 UTC",
  "note": "Park photos: a photo taken on the spot needs only the place's own words; built on Sync: 03:45 UTC Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "21ccfbc Sync: 2026-11-20 03:51 UTC",
  "files": {
   "app/lib/Landmarks.php": {
    "sha256": "084dc3bc1db3c13a3cd3239be53502abe6be18d34e1eb3fcbb38f0d84dead692",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "db6923744c4e3d8d7770d13f7b35f492149572072bf5f76a99ba3c0898b4835c",
-   "live": false
+   "live": true
   }
  }
 }
