@@ -394,3 +394,6 @@ backup service where one is named"):
   shares the site's connection. A backup on Railway means the worker sends the batch to the Census itself, then hands
   the answers to the site to place.
 - A map point is never lost or invented in between: a batch that neither side could send waits, as it does now.
+- **Re-asked with the corrected picture (Jason, 2026-11-20, in the decision pop-up):** "There's no Railway path today. A
+  backup means the crawler calls the Census itself and hands the answers to the site: a new worker call plus a site
+  endpoint." He answered "Yes, build it".
