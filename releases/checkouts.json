@@ -211,6 +211,41 @@
      "website/admin/w.php"
     ]
    }
+  },
+  {
+   "path": "app/lib/PulseViews.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5hFvhtEKj2JuNVmjWZ",
+   "why": "Pulse saved views: pulse_views table, its API, its staging class",
+   "since": "2026-11-20T18:49:16Z",
+   "expires": "2026-11-20T22:49:16Z",
+   "release": "pulse-filters.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/user/api/pulse-views.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5hFvhtEKj2JuNVmjWZ",
+   "why": "Pulse saved views: pulse_views table, its API, its staging class",
+   "since": "2026-11-20T18:49:16Z",
+   "expires": "2026-11-20T22:49:16Z",
+   "release": "pulse-filters.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/staging-tables.php",
+   "functions": [
+    "(top)"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5hFvhtEKj2JuNVmjWZ",
+   "why": "Pulse saved views: pulse_views table, its API, its staging class",
+   "since": "2026-11-20T18:49:16Z",
+   "expires": "2026-11-20T22:49:16Z",
+   "release": "pulse-filters.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
