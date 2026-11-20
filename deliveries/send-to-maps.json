@@ -1,0 +1,38 @@
+{
+ "zip": "send-to-maps.zip",
+ "built_on": "6792988 Sync: 2026-11-20 04:00 UTC",
+ "recorded": "2026-11-20 04:03 UTC",
+ "note": "Send to Maps, decisions/0174 release 1 (built on Sync 04:00 UTC, 6792988). Reviewed by the session manager; waiting for Jason's OK. Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/JourneyPlan.php": {
+   "sha256": "901a77c6a12171579a9d6ead107b654aa9e2237732a4e98b13b1d0b18a0c1a4b",
+   "live": false
+  },
+  "app/lib/Landmarks.php": {
+   "sha256": "4f2b5b89c12ac231a5b7f6765d0ad0c1d12c4b1da2f252a496bd5527b8f26a28",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "16772f83f0962c4cb9a3e7ea3721d628cfeb5dda32e39fb92472af24f29207ee",
+   "live": false
+  },
+  "app/ui/maps-send.php": {
+   "sha256": "401ace0759c2373eeb0117dd524dbc7a79cf156ba642355beb354aa56254e8d0",
+   "live": false
+  },
+  "app/ui/suggested-journeys.php": {
+   "sha256": "4a9ada689411235587021b73ca49b016850bf61bb4d5b7e32c6c7106a3289e13",
+   "live": false
+  },
+  "website/js/tv-maps.js": {
+   "sha256": "e542bf3106fd51f28fa24ddac69c707850954c54c684d38a70bd68a5b18a3ce4",
+   "live": false
+  },
+  "website/place/landmark.php": {
+   "sha256": "779d3a70397b32b9c5f469b9b980edeffacab2f87aa5d339f02f9b89933547a6",
+   "live": false
+  }
+ }
+}

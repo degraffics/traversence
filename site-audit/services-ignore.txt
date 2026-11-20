@@ -22,3 +22,4 @@ www.navopache.org        # a local co-op's website, cited in a resource guide
 www.holbrook.k12.az.us   # a school district's website, cited when rebuilding a listing
 login.yahoo.com          # a help link (where a person makes a Yahoo app password), not a call
 account.apple.com        # a help link (where a person makes an iCloud app-specific password), not a call
+maps.apple.com           # a link the visitor taps for directions in Apple Maps (Send to Maps, decisions/0174 §4), not a call
