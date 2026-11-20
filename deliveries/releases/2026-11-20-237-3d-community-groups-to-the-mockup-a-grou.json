@@ -6,12 +6,12 @@
     "zip": "r3d.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "planned",
+    "state": "approved",
     "step": 0,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
-    "plan_at": null,
+    "plan_at": "2026-11-20 17:51:33",
     "staged_at": null,
     "vetted_at": null,
     "live_at": null,
@@ -64,6 +64,16 @@
             "at": "2026-11-20T17:51:31+00:00",
             "by": 0,
             "msg": "Uploaded r3d.zip: 8 files."
+        },
+        {
+            "at": "2026-11-20T17:51:33+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/r3d.zip (git 50c7c5ff66)."
+        },
+        {
+            "at": "2026-11-20T17:51:33+00:00",
+            "by": 0,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
         }
     ]
 }
