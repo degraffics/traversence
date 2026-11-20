@@ -161,6 +161,17 @@
    "expires": "2026-11-20T18:08:33Z",
    "release": "trip-share.zip",
    "callers": {}
+  },
+  {
+   "path": "website/api/engage.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Sharing, Personal Guides, counts (decisions/0174 release 4)",
+   "since": "2026-11-20T14:08:35Z",
+   "expires": "2026-11-20T18:08:35Z",
+   "release": "trip-share.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
