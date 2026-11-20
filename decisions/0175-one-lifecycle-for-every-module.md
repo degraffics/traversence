@@ -397,3 +397,24 @@ backup service where one is named"):
 - **Re-asked with the corrected picture (Jason, 2026-11-20, in the decision pop-up):** "There's no Railway path today. A
   backup means the crawler calls the Census itself and hands the answers to the site: a new worker call plus a site
   endpoint." He answered "Yes, build it".
+
+**Note (Jason, 2026-11-20, relayed by the session manager): one control board in the menu, folded into release 2.** On
+a screenshot of the System Configuration menu: "arent we combining things into one control boards, if so why does the
+drop down look like we are segmenting everything?" On folding it into release 2: "yes. fold into 2". The operations part
+of the menu becomes three entries:
+- **System Control Board:**
+  - its tabs Alarms, Logbook, Ledger, Upkeep and Reports (separate menu items today);
+  - Scheduled tasks as a tab (jobs are parts it watches);
+  - Automation's master switch, Start the system and Pause everything as its Start-up and Shut-down stages (the ignition,
+    §6).
+- **Modules** (the Service register): each card holds its stage-2 pre-flight and its caps, budget and cost (the
+  Pre-flight and Costs pages today). The system pre-flight goes into the board's Start-up stage.
+- **Workflows:** the Workflows and Workflow board pages merge. Each workflow's page has its steps, services, backups and
+  task switches.
+- **Permissions and Data separation stay** as configuration.
+
+The rules hold:
+- every old address redirects to its new tab, card or anchor, landing on the same spot;
+- old manifest sections are archived in `archive.md`, not deleted;
+- every behaviour each page had is listed in the hand-off with where it moved, and a drop needs `--drops` and his OK;
+- the zip check and the drawer and anchor tests cover the redirects.
