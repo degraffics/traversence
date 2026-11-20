@@ -69,6 +69,19 @@
    "expires": "2026-11-20T20:56:50Z",
    "release": "t5.zip",
    "callers": {}
+  },
+  {
+   "path": "app/admin/operations-console.php",
+   "functions": [
+    "tv_ops_issues"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
+   "why": "0176 R2: service issues as threads",
+   "since": "2026-11-20T16:59:46Z",
+   "expires": "2026-11-20T20:59:46Z",
+   "release": "0176-issues.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
