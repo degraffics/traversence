@@ -102,6 +102,28 @@
      "app/lib/Pulse.php"
     ]
    }
+  },
+  {
+   "path": "app/lib/ControlHistorian.php",
+   "functions": [
+    "html",
+    "trend"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
+   "why": "0175 R2a part 2: paused now, Diagnostics, a backup as working, steps and their switches, the red hour",
+   "since": "2026-11-20T16:10:52Z",
+   "expires": "2026-11-20T20:10:52Z",
+   "release": "0175-r2a-lines.zip",
+   "callers": {
+    "html": [
+     "website/admin/api.php"
+    ],
+    "trend": [
+     "app/lib/ControlReport.php",
+     "website/admin/api.php"
+    ]
+   }
   }
  ],
  "lapsed": [
