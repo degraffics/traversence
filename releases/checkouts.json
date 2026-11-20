@@ -91,6 +91,17 @@
    "expires": "2026-11-20T17:23:10Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/lib/Trips.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Trips you can save (decisions/0174 release 2)",
+   "since": "2026-11-20T13:23:12Z",
+   "expires": "2026-11-20T17:23:12Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
