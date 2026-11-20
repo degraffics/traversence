@@ -398,7 +398,7 @@
    "session": "session_01CXLi5hFvhtEKj2JuNVmjWZ",
    "why": "Pulse filters in one button, saved views (table-standard note 2026-11-20)",
    "since": "2026-11-20T19:01:21Z",
-   "expires": "2026-11-20T23:01:21Z",
+   "expires": "2026-11-20T23:02:10Z",
    "release": "pulse-filter-panel.zip",
    "callers": {
     "api": [
@@ -450,7 +450,40 @@
    "session": "session_01CXLi5hFvhtEKj2JuNVmjWZ",
    "why": "Pulse filters in one button, saved views (table-standard note 2026-11-20)",
    "since": "2026-11-20T19:01:21Z",
-   "expires": "2026-11-20T23:01:21Z",
+   "expires": "2026-11-20T23:02:10Z",
+   "release": "pulse-filter-panel.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/migrations/2026-11-20_pulse_views.sql",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5hFvhtEKj2JuNVmjWZ",
+   "why": "release pulse-filter-panel.zip",
+   "since": "2026-11-20T19:02:10Z",
+   "expires": "2026-11-20T23:02:10Z",
+   "release": "pulse-filter-panel.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/PulseViews.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5hFvhtEKj2JuNVmjWZ",
+   "why": "release pulse-filter-panel.zip",
+   "since": "2026-11-20T19:02:10Z",
+   "expires": "2026-11-20T23:02:10Z",
+   "release": "pulse-filter-panel.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/user/api/pulse-views.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5hFvhtEKj2JuNVmjWZ",
+   "why": "release pulse-filter-panel.zip",
+   "since": "2026-11-20T19:02:10Z",
+   "expires": "2026-11-20T23:02:10Z",
    "release": "pulse-filter-panel.zip",
    "callers": {}
   }
