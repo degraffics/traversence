@@ -81,6 +81,27 @@
    "expires": "2026-11-20T20:10:45Z",
    "release": "0175-r2a-lines.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/Operations.php",
+   "functions": [
+    "alarms",
+    "pulseSteps"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
+   "why": "0175 R2a part 2: paused now, Diagnostics, a backup as working, steps and their switches, the red hour",
+   "since": "2026-11-20T16:10:48Z",
+   "expires": "2026-11-20T20:10:48Z",
+   "release": "0175-r2a-lines.zip",
+   "callers": {
+    "alarms": [
+     "app/lib/ControlAlarms.php"
+    ],
+    "pulseSteps": [
+     "app/lib/Pulse.php"
+    ]
+   }
   }
  ],
  "lapsed": [
