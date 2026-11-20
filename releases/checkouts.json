@@ -8,7 +8,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "0175 release 1: a trip places the system's pause, never a switch; it lifts when its check passes",
    "since": "2026-11-20T13:29:41Z",
-   "expires": "2026-11-20T17:52:46Z",
+   "expires": "2026-11-20T17:56:53Z",
    "release": "0175-paused.zip",
    "callers": {}
   },
@@ -19,7 +19,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "0175 release 1: a trip places the system's pause, never a switch; it lifts when its check passes",
    "since": "2026-11-20T13:29:43Z",
-   "expires": "2026-11-20T17:52:46Z",
+   "expires": "2026-11-20T17:56:53Z",
    "release": "0175-paused.zip",
    "callers": {}
   },
@@ -30,7 +30,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "0175 release 1: a trip places the system's pause, never a switch; it lifts when its check passes",
    "since": "2026-11-20T13:29:48Z",
-   "expires": "2026-11-20T17:52:46Z",
+   "expires": "2026-11-20T17:56:53Z",
    "release": "0175-paused.zip",
    "callers": {
     "tick": [
@@ -67,7 +67,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "0175 release 1: a trip places the system's pause, never a switch; it lifts when its check passes",
    "since": "2026-11-20T13:30:01Z",
-   "expires": "2026-11-20T17:52:46Z",
+   "expires": "2026-11-20T17:56:53Z",
    "release": "0175-paused.zip",
    "callers": {
     "pausedWhy": [
@@ -82,7 +82,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "0175 release 1: a trip places the system's pause, never a switch; it lifts when its check passes",
    "since": "2026-11-20T13:30:03Z",
-   "expires": "2026-11-20T17:52:46Z",
+   "expires": "2026-11-20T17:56:53Z",
    "release": "0175-paused.zip",
    "callers": {
     "working": [
@@ -97,7 +97,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "0175 release 1: a trip places the system's pause, never a switch; it lifts when its check passes",
    "since": "2026-11-20T13:30:05Z",
-   "expires": "2026-11-20T17:52:46Z",
+   "expires": "2026-11-20T17:56:53Z",
    "release": "0175-paused.zip",
    "callers": {
     "alarm": [
@@ -112,7 +112,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "0175 release 1: a trip places the system's pause, never a switch; it lifts when its check passes",
    "since": "2026-11-20T13:30:08Z",
-   "expires": "2026-11-20T17:52:46Z",
+   "expires": "2026-11-20T17:56:53Z",
    "release": "0175-paused.zip",
    "callers": {
     "pausedHosts": [
@@ -154,7 +154,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "0175 release 1: system_pauses' class",
    "since": "2026-11-20T13:47:53Z",
-   "expires": "2026-11-20T17:52:46Z",
+   "expires": "2026-11-20T17:56:53Z",
    "release": "0175-paused.zip",
    "callers": {}
   },
@@ -165,7 +165,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "release 0175-paused.zip",
    "since": "2026-11-20T13:48:13Z",
-   "expires": "2026-11-20T17:52:46Z",
+   "expires": "2026-11-20T17:55:20Z",
    "release": "0175-paused.zip",
    "callers": {}
   },
@@ -176,7 +176,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "release 0175-paused.zip",
    "since": "2026-11-20T13:48:13Z",
-   "expires": "2026-11-20T17:52:46Z",
+   "expires": "2026-11-20T17:56:53Z",
    "release": "0175-paused.zip",
    "callers": {}
   },
@@ -187,7 +187,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "release 0175-paused.zip",
    "since": "2026-11-20T13:48:13Z",
-   "expires": "2026-11-20T17:52:46Z",
+   "expires": "2026-11-20T17:56:53Z",
    "release": "0175-paused.zip",
    "callers": {}
   },
@@ -198,7 +198,7 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "release 0175-paused.zip",
    "since": "2026-11-20T13:48:13Z",
-   "expires": "2026-11-20T17:52:46Z",
+   "expires": "2026-11-20T17:56:53Z",
    "release": "0175-paused.zip",
    "callers": {}
   }

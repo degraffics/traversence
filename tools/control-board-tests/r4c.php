@@ -25,7 +25,7 @@ $put('wf:W0', ['s' => 'bad', 'said' => 'What holds it: Dry run: the test batch: 
 Preflight::alarm($pdo, 'wf:W0', $lines['wf:W0'], Preflight::results($pdo)['wf:W0'], false);
 $a = ControlAlarms::openOf($pdo, 'pf:wf:W0');
 $t('W0\'s trip now names what holds it (its test batch), not the passing gate', $a && str_contains((string) $a['title'], 'held by its test batch') && !str_contains((string) $a['title'], 'no red line') && str_contains((string) $a['reading'], 'Dry run: the test batch'), $a['title'] ?? null);
-$t('…still a trip, still open (only an admin\'s Resolve clears it), its count unchanged', $a['level'] === 'trip' && (int) $a['n_times'] === 1 && $a['cleared_at'] === null);
+$t('…still a trip, still open (its line is still red), its count unchanged', $a['level'] === 'trip' && (int) $a['n_times'] === 1 && $a['cleared_at'] === null);
 
 // 2. a trip whose line has a red part of its own: named by that part
 $trip('pf:wf:W3', 'wf:W3', 'W3: Its gate: the switch-on check has no red line for it.');
@@ -40,7 +40,7 @@ $trip('pf:wf:W5', 'wf:W5', 'W5: something old.');
 $put('wf:W5', ['s' => 'ok', 'said' => 'Every part passes.', 'fix' => [], 'at' => time(), 'extra' => ['parts' => [['Needs: ✓.', 'ok']]]]);
 Preflight::alarm($pdo, 'wf:W5', $lines['wf:W5'], Preflight::results($pdo)['wf:W5'], false);
 $a = ControlAlarms::openOf($pdo, 'pf:wf:W5');
-$t('a trip whose check passes now: still open, saying it passes and waits for an admin\'s Resolve', $a && str_ends_with((string) $a['title'], 'its check passes now; it waits for an admin\'s Resolve') && !empty($a['good_at']), $a['title'] ?? null);
+$t('a trip whose check passes now closes itself as Recovered (decisions/0175 §3)', $a === null && str_starts_with((string) $pdo->query("SELECT cleared_how FROM control_alarms WHERE akey = 'pf:wf:W5' ORDER BY id DESC LIMIT 1")->fetchColumn(), 'Recovered:'));
 
 // 4. the refresh never changes a level: a warning stays a warning however long it's been
 $pdo->prepare("INSERT INTO control_alarms (akey, proc, level, kind, title, n_times, first_at, last_at) VALUES ('pf:wf:W6', 'wf:W6', 'warning', 'check', 'W6: old', 1, UTC_TIMESTAMP() - INTERVAL 5 HOUR, UTC_TIMESTAMP() - INTERVAL 5 HOUR)")->execute();

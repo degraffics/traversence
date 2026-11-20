@@ -350,3 +350,35 @@ come" is built when the first integration needs it.
    - **on the card of the module it serves** (recommended), or its workflow's page when it serves none, both opened from
      the board in a drawer. Automation keeps the master and the workflows;
    - or it stays on Automation's Tasks table, with the card's button as a second way in.
+
+**Note (Jason, 2026-11-20, relayed by the session manager): pre-flight before a module is active, diagnostics once it is.**
+His words: "Pre-flight shows where it belongs: on each module's card as its stage-2 result, and in the Start-up stage
+when you turn the system on. 'Run it again' stays there. There's a difference between an app preflight and a system
+preflight. App: 1. new apps needs to know if can run prior to integration. 2. when something is paused or deactivated, it
+must preflight before it can go active again." And his correction: "once something is active it is not longer
+preflight, it is diagnostics."
+- **A module's pre-flight** is its own test, and it applies only while the module isn't active:
+  - before its first Activation (stage 2): Activate is offered only once it passes;
+  - before Activate or Resume after a person paused or deactivated it: only a pass switches it on. A fail says why, with
+    its fix in place.
+  - On the card it shows as "Pre-flight", with **Run it again**, until the module is active.
+- **Diagnostics** apply once a module is active (stage 5). That includes when the system pauses it: the module is still
+  switched on, so its diagnostics check it and lift the pause when they pass (§3). The card shows "Diagnostics" once the
+  module is active, and the word "pre-flight" never appears for an active module.
+- **The system pre-flight** runs at Start the system (the ignition): core hosts, the database, every active module's
+  check, and each workflow's dependencies and backups. It's shown in the Start-up stage, with **Run it again**. The 2 AM
+  run may stay as a nightly self-test that feeds the cards. It's never the board's top line.
+- **The board's top line becomes live diagnostics:** what's paused right now (by the system or a person) and why, each
+  item opening its fix in a drawer (`at_hand`). No stale snapshot ("over an hour old") on the dashboard.
+- Built in release 2 (the board as the one place to act).
+
+**Note (Jason, 2026-11-20): Trip, and fault.** Asked "Trip or Fault", he agreed with this reading: "I am good with this
+definition." A **fault** is the part not working. A **trip** is the system placing its pause because of it ("A trip is
+when the PAUSE has been placed"). The board's word stays **Trip**, and what it pauses reads "Paused by the system (a
+trip): …".
+
+**Note (Jason, 2026-11-20, in the decision pop-up on release 1): an escalated trip closes as Recovered.** Asked whether a
+trip that has escalated (its tries ran out) and whose check later passes should close itself, he chose "Close as
+Recovered". It closes itself as Recovered, its pause lifts, and the Recovered notice goes to the Founders. Nothing is
+left to press. This settles §3's "it waits for a person only where 0171's escalation already says so": once its check
+passes, nothing waits (`ControlAlarms::ESCALATED_RECOVERS`).

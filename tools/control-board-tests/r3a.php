@@ -24,7 +24,7 @@ $t('no email while the dispatcher has no alarm.trip kind (nothing sent, the alar
 $c = ControlAlarms::counts($pdo);
 $t('the light counts it', $c['trip'] === 1 && $c['warning'] === 0, $c);
 $t('acknowledged once', ControlAlarms::ack($pdo, $a, 7, 'Jason') && !ControlAlarms::ack($pdo, $a, 7, 'Jason'));
-$t('a trip doesn\'t clear by itself (3c): its good reading is noted, it waits for Resolve', !ControlAlarms::clear($pdo, 'x:slow', 'Fast again at 10:00 UTC.') && (string) ControlAlarms::openOf($pdo, 'x:slow')['good_how'] === 'Fast again at 10:00 UTC.');
+$t('a trip whose reading is good again closes itself as Recovered (decisions/0175 §3, replacing 3c\'s wait for Resolve)', ControlAlarms::clear($pdo, 'x:slow', 'Fast again at 10:00 UTC.') && ControlAlarms::openOf($pdo, 'x:slow') === null);
 $w = ControlAlarms::raise($pdo, 'x:warn', 'wf:W1', 'warning', 'slow', 'W1 slow');
 $t('a warning clears by itself, saying how', ControlAlarms::clear($pdo, 'x:warn', 'Fast again.') && ControlAlarms::openOf($pdo, 'x:warn') === null);
 // a trip from before 3c's rule (no tripped_at) still clears as it did, and stays listed unseen
@@ -83,7 +83,7 @@ $t('…W2\'s server error at /api/crawl/verify.php, in its own words', $ep && $e
 SearchIndex::setState($pdo, 'control:offregion_at', ''); try { ControlAlarms::tick($pdo); } catch (Throwable $x) {}
 $off = ControlAlarms::openOf($pdo, 'w3:offregion');
 $t('…sources outside our region (a country\'s address, never .gov), raised by the watch with the button that opens them', $off && str_contains((string) $off['reading'], 'helsinki.fi') && !str_contains((string) $off['reading'], 'azdot.gov') && str_contains((string) $off['fix'], 'show=offregion'), $off);
-$t('…and only once', ControlAlarms::seed($pdo) === 0 && $n >= 3, $n);
+$t('…and only once', ControlAlarms::seed($pdo) === 0 && $n >= 2, $n);   // the fixture's two (W2's line, the server error); before 0175 a trip's stop also ran the pre-flight, adding more
 // the dispatcher knows the kinds; the message in Pulse carries Acknowledge
 require_once $app . '/lib/Notify.php';
 $t('Notify::KINDS has alarm.trip (Critical, email can\'t be turned off) and alarm.warning (Urgent)', (Notify::KINDS['alarm.trip'][2] ?? '') === 'critical' && (Notify::KINDS['alarm.trip'][6] ?? true) === false && (Notify::KINDS['alarm.warning'][2] ?? '') === 'urgent');
