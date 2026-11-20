@@ -3,28 +3,28 @@
  "built_on": "1ada60f Sync: 2026-11-20 16:32 UTC",
  "recorded": "2026-11-20 17:01 UTC",
  "note": "0176 R2: service issues as threads; built on Sync: 2026-11-20 16:32 UTC Sent through git (releases/inbox).",
- "status": "pending",
+ "status": "partial",
  "live_in": "",
  "files": {
   "app/admin/operations-console.php": {
    "sha256": "080f0f434b4a0ccefc2de31095d3eae8a975858e903ef301ad1059e599adb400",
-   "live": false
+   "live": true
   },
   "app/lib/OutsideServices.php": {
    "sha256": "f3e4c3561f9b775c843a15250d7fd00cabf428fff85765d30ac658f6f4ec3ac7",
-   "live": false
+   "live": true
   },
   "app/lib/Pulse.php": {
    "sha256": "9df1c76e8c623316f54a33dfe91cdd1b22857adea2a3d132b0da9154eb6139ee",
-   "live": false
+   "live": true
   },
   "app/lib/ServiceHealth.php": {
    "sha256": "1f53c2c5ddf9ba09fc2534f815b73a76deb04e02ed38b523affe81b24b85910f",
-   "live": false
+   "live": true
   },
   "app/lib/SystemStart.php": {
    "sha256": "044f4704c5e4c71427b42044c8cf1c534f2f8d9a989d647b31597f0518b387dc",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "c426112960e38c8992a1ac26cc17e9857e2f3a3219074c889d80b7ffd557b06d",
@@ -32,11 +32,11 @@
   },
   "app/ui/outside-services.php": {
    "sha256": "eda94f636c76a8102fe82f45b110520c4e2d110262697d0845b08a8c244a7d07",
-   "live": false
+   "live": true
   },
   "website/js/tv-ask.js": {
    "sha256": "e701bb165da96d8559a9529777de744944cc20068c74d44e81e538b374004d56",
-   "live": false
+   "live": true
   }
  }
 }
