@@ -13,64 +13,6 @@
    "callers": {}
   },
   {
-   "path": "app/ui/cost-tab.php",
-   "functions": [
-    "tv_cost_css",
-    "tv_cost_sheet"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5gxSyzVYGuXX3xuu2c",
-   "why": "T5: the cost tab and the vault's list on the table standard (table-standard.md \u00a7Order 3)",
-   "since": "2026-11-20T16:56:47Z",
-   "expires": "2026-11-20T20:56:50Z",
-   "release": "t5.zip",
-   "callers": {
-    "tv_cost_css": [
-     "website/admin/client-order.php"
-    ]
-   }
-  },
-  {
-   "path": "app/ui/vault.php",
-   "functions": [
-    "(top)"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5gxSyzVYGuXX3xuu2c",
-   "why": "T5: the cost tab and the vault's list on the table standard (table-standard.md \u00a7Order 3)",
-   "since": "2026-11-20T16:56:47Z",
-   "expires": "2026-11-20T20:56:50Z",
-   "release": "t5.zip",
-   "callers": {}
-  },
-  {
-   "path": "website/js/tv-cost.js",
-   "functions": [
-    "draw",
-    "wire"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5gxSyzVYGuXX3xuu2c",
-   "why": "T5: the cost tab and the vault's list on the table standard (table-standard.md \u00a7Order 3)",
-   "since": "2026-11-20T16:56:47Z",
-   "expires": "2026-11-20T20:56:50Z",
-   "release": "t5.zip",
-   "callers": {}
-  },
-  {
-   "path": "website/js/tv-vault.js",
-   "functions": [
-    "(top)"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5gxSyzVYGuXX3xuu2c",
-   "why": "T5: the cost tab and the vault's list on the table standard (table-standard.md \u00a7Order 3)",
-   "since": "2026-11-20T16:56:47Z",
-   "expires": "2026-11-20T20:56:50Z",
-   "release": "t5.zip",
-   "callers": {}
-  },
-  {
    "path": "app/admin/operations-console.php",
    "functions": [
     "tv_ops_issues"
@@ -79,7 +21,7 @@
    "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
    "why": "0176 R2: service issues as threads",
    "since": "2026-11-20T16:59:46Z",
-   "expires": "2026-11-20T20:59:46Z",
+   "expires": "2026-11-20T21:00:54Z",
    "release": "0176-issues.zip",
    "callers": {}
   },
@@ -90,7 +32,7 @@
    "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
    "why": "0176 R2: service issues as threads",
    "since": "2026-11-20T16:59:49Z",
-   "expires": "2026-11-20T20:59:49Z",
+   "expires": "2026-11-20T21:00:54Z",
    "release": "0176-issues.zip",
    "callers": {}
   },
@@ -101,9 +43,20 @@
    "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
    "why": "0176 R2: service issues as threads",
    "since": "2026-11-20T16:59:51Z",
-   "expires": "2026-11-20T20:59:51Z",
+   "expires": "2026-11-20T21:00:54Z",
    "release": "0176-issues.zip",
-   "callers": {}
+   "callers": {
+    "describe": [
+     "app/lib/Operations.php",
+     "app/lib/OutsideServices.php",
+     "app/lib/Preflight.php",
+     "app/lib/Pulse.php",
+     "app/lib/SystemStart.php"
+    ],
+    "osmUse": [
+     "app/lib/crawler/CrawlService.php"
+    ]
+   }
   },
   {
    "path": "app/lib/OutsideServices.php",
@@ -114,7 +67,7 @@
    "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
    "why": "0176 R2: service issues as threads",
    "since": "2026-11-20T16:59:54Z",
-   "expires": "2026-11-20T20:59:54Z",
+   "expires": "2026-11-20T21:00:54Z",
    "release": "0176-issues.zip",
    "callers": {
     "working": [
@@ -131,7 +84,7 @@
    "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
    "why": "0176 R2: service issues as threads",
    "since": "2026-11-20T17:00:00Z",
-   "expires": "2026-11-20T21:00:00Z",
+   "expires": "2026-11-20T21:00:54Z",
    "release": "0176-issues.zip",
    "callers": {
     "items": [
@@ -152,7 +105,7 @@
    "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
    "why": "0176 R2: service issues as threads",
    "since": "2026-11-20T17:00:03Z",
-   "expires": "2026-11-20T21:00:03Z",
+   "expires": "2026-11-20T21:00:54Z",
    "release": "0176-issues.zip",
    "callers": {}
   },
@@ -163,8 +116,51 @@
    "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
    "why": "0176 R2: service issues as threads",
    "since": "2026-11-20T17:00:08Z",
-   "expires": "2026-11-20T21:00:08Z",
+   "expires": "2026-11-20T21:00:54Z",
    "release": "0176-issues.zip",
+   "callers": {
+    "statuses": [
+     "website/js/tv-domains.js",
+     "website/js/tv-vault.js"
+    ]
+   }
+  },
+  {
+   "path": "website/js/tv-vault.js",
+   "functions": [
+    "drawItems",
+    "onItem"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5gxSyzVYGuXX3xuu2c",
+   "why": "vault icons: Copy password and \u22ef (table-standard \u00a77; Jason 2026-11-20 'Follow the standard')",
+   "since": "2026-11-20T17:28:00Z",
+   "expires": "2026-11-20T21:29:05Z",
+   "release": "vault-icons.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/ui/vault.php",
+   "functions": [
+    "(top)"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5gxSyzVYGuXX3xuu2c",
+   "why": "vault icons: Copy password and \u22ef (table-standard \u00a77; Jason 2026-11-20 'Follow the standard')",
+   "since": "2026-11-20T17:28:00Z",
+   "expires": "2026-11-20T21:28:00Z",
+   "release": "vault-icons",
+   "callers": {}
+  },
+  {
+   "path": "app/ui/vault.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5gxSyzVYGuXX3xuu2c",
+   "why": "release vault-icons.zip",
+   "since": "2026-11-20T17:29:05Z",
+   "expires": "2026-11-20T21:29:05Z",
+   "release": "vault-icons.zip",
    "callers": {}
   }
  ],

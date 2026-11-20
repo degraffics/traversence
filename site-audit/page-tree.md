@@ -1,6 +1,6 @@
 # Page tree
 
-Decision 0145 §1a. Generated from the live mirror on 2026-11-20 07:17 UTC (`6792988`). Checked against the
+Decision 0145 §1a. Generated from the live mirror on 2026-11-20 17:19 UTC (`1ada60f`). Checked against the
 register `site-audit/pages.md` (it replaced `routes.md`, P6). Columns: does the page load the session and the shell, does it draw the account bar, is it in
 `pages.md` / `archive.md`, and which decisions name its file.
 
@@ -98,6 +98,7 @@ register `site-audit/pages.md` (it replaced `routes.md`, P6). Columns: does the 
 | `/gallery/join.php` | `website/gallery/join.php` | yes | yes | yes |  |
 | `/gallery/m.php` | `website/gallery/m.php` | redirect | yes | yes |  |
 | `/guide/how.php` | `website/guide/how.php` | yes | yes | yes |  |
+| `/guide/personal.php` | `website/guide/personal.php` | — | — | yes |  |
 | `/guide/resources.php` | `website/guide/resources.php` | yes | yes | yes |  |
 | `/hub/build.php` | `website/hub/build.php` | yes | yes | yes |  |
 | `/hub/` | `website/hub/index.php` | yes | yes | yes | 0136, 0143 |
@@ -147,6 +148,7 @@ register `site-audit/pages.md` (it replaced `routes.md`, P6). Columns: does the 
 | `/stg-enter.php` | `website/stg-enter.php` | yes | yes | yes |  |
 | `/takedown.php` | `website/takedown.php` | yes | yes | yes |  |
 | `/terms.php` | `website/terms.php` | yes | yes | yes |  |
+| `/trip/` | `website/trip/index.php` | — | — | yes |  |
 | `/two-step.php` | `website/two-step.php` | yes | yes | yes |  |
 | `/user/accounts.php` | `website/user/accounts.php` | yes | yes | yes |  |
 | `/user/dashboard.php` | `website/user/dashboard.php` | yes | yes | yes |  |
@@ -163,6 +165,8 @@ register `site-audit/pages.md` (it replaced `routes.md`, P6). Columns: does the 
 | `/user/restore-account.php` | `website/user/restore-account.php` | yes | yes | yes |  |
 | `/user/staff-link.php` | `website/user/staff-link.php` | yes | yes | yes |  |
 | `/user/transfer.php` | `website/user/transfer.php` | yes | yes | yes |  |
+| `/user/trips/` | `website/user/trips/index.php` | yes | yes | yes |  |
+| `/user/trips/trip.php` | `website/user/trips/trip.php` | yes | yes | yes |  |
 | `/vendor.php` | `website/vendor.php` | yes | yes | yes | 0150 |
 | `/verify-email.php` | `website/verify-email.php` | **no** | **no** | yes |  |
 | `/verify-listing.php` | `website/verify-listing.php` | yes | yes | yes |  |

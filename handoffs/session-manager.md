@@ -108,6 +108,8 @@ sessions take over, holding until Jason says resume. Live through Release #228 (
   (`js/tv-trail.js`), found on https://traversence.com/hub/?hub=ancient-america (2026-11-20).
   **Progress (2026-11-20, later):** hero tidy live as #230 (Sync 16:01 UTC); the admin kit built and sent, PR #1185,
   waiting for Jason's OK (the 390 header item was already done by #162).
+  **Progress (2026-11-20, T5):** admin kit live as #232; T5 built and sent (the vault and the cost tab; domains to 3e, outside
+  services to Operations), waiting for Jason's OK and his answer on the vault's row icons (§7).
 - **Orders** (`order-processing.md`): starts after Jason reviews `research/order-system-map-2026-11-19.md` and its six
   items; the first release carries the chargeFor fix.
 - **The session manager** also reads Monday's (2026-11-23) "Edit my listing" path check (`business-listings.md`).

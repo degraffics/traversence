@@ -87,6 +87,17 @@ he says otherwise.
    not a database query. The hover bar goes from the admin's Pulse only; the profile Pulse keeps Jason's mockup's icons.
 3. **T3–T5, the rest by module:** the consoles other than the Board (automation, comms, crawler, operations, index), the
    admin pages (insights, sources, products, vendors…), then the shared parts (vault, cost tab, outside services, domains).
+   **Note (2026-11-20, the session manager and the Design and trips session):** domains moves out of T5 to Release 3e
+   (the Marketplace, checkout and storefronts). This standard's own scope line ("the admin's tables and the admin's
+   Pulse") is the specific rule, and domains (`tv-domains.js`, `domains-view.php`) is drawn only on members' and businesses'
+   pages (`/user/domains/`, `/shop/domains.php`, the business portal). Outside services goes to the Operations session
+   after 0175 R2b (the Service register is its area). **As built, T5:** the cost tab's price tiers through `tv-table.js`;
+   the vault keeps its own engine (its list is opened in the browser, so it can't page on the server: T2's precedent) and
+   takes the standard's look and TvTime's dates.
+   **Note (Jason, 2026-11-20, T5's pop-up, reviewed by the session manager):** asked whether the vault keeps its five row
+   icons (copy password, show for 10 seconds, copy user name, change, delete) or follows §7, he answered **"Follow the
+   standard"**: Copy password stays visible; Show, Copy user name, Change it and Delete it go into ⋯ with words. Its own
+   small release, after T5.
    Each lists the tables it moved; the zip check keeps every column and action.
    A tool whose own query is capped (orders at 400) says "of 400" when more exist: as each moves, it pages in SQL
    (`LIMIT`/`OFFSET` with a `COUNT`) or says "400+". T1 sends one page at a time to the browser; three tools page in
