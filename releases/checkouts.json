@@ -296,6 +296,17 @@
    "expires": "2026-11-20T18:39:59Z",
    "release": "trip-share.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/ControlAlarms.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "W1 findings: the hour kept, a handled review item, Recovered words",
+   "since": "2026-11-20T14:40:22Z",
+   "expires": "2026-11-20T18:40:22Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
