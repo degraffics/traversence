@@ -1,0 +1,64 @@
+{
+    "id": 219,
+    "title": "Send to Maps: a journey's whole route to Google Maps or Apple Maps, every stop, in legs when long",
+    "why": "decisions/0174 release 1 (accepted 2026-11-19). The route icon on a suggested journey and a place's 'Make a day of it' opened Google Maps only and cut every stop after the tenth without a word. Send to Maps lets a visitor pick Google Maps or Apple Maps and start from their location or the first stop (both remembered on the device), and sends every stop in order, in legs ('Leg 1 of 2') when one link can't hold them. It's a plain link: no key, no call from our server, no cost. Also fixed, the same rules as Directions: a shelter or a mailbox could appear as a stop in a suggested journey, and a private place as a landmark's place to eat.",
+    "proposals": "",
+    "zip": "send-to-maps.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/ui/maps-send.php": {
+            "sha": "401ace0759c2373eeb0117dd524dbc7a79cf156ba642355beb354aa56254e8d0",
+            "size": 2928,
+            "live_was": null
+        },
+        "app/ui/suggested-journeys.php": {
+            "sha": "4a9ada689411235587021b73ca49b016850bf61bb4d5b7e32c6c7106a3289e13",
+            "size": 7445,
+            "live_was": "4df3a882c803c1a1663aca1e31574aacc972fb44b240acb817596391a90ccd5d"
+        },
+        "app/ui/faq.md": {
+            "sha": "16772f83f0962c4cb9a3e7ea3721d628cfeb5dda32e39fb92472af24f29207ee",
+            "size": 395007,
+            "live_was": "db6923744c4e3d8d7770d13f7b35f492149572072bf5f76a99ba3c0898b4835c"
+        },
+        "app/lib/JourneyPlan.php": {
+            "sha": "901a77c6a12171579a9d6ead107b654aa9e2237732a4e98b13b1d0b18a0c1a4b",
+            "size": 29644,
+            "live_was": "02569ff23ab0a5f300a6adfbb9eb3b29c156107e8447065db972ef3807851930"
+        },
+        "app/lib/Landmarks.php": {
+            "sha": "4f2b5b89c12ac231a5b7f6765d0ad0c1d12c4b1da2f252a496bd5527b8f26a28",
+            "size": 58498,
+            "live_was": "084dc3bc1db3c13a3cd3239be53502abe6be18d34e1eb3fcbb38f0d84dead692"
+        },
+        "website/place/landmark.php": {
+            "sha": "779d3a70397b32b9c5f469b9b980edeffacab2f87aa5d339f02f9b89933547a6",
+            "size": 21323,
+            "live_was": "e7bb541a9843577ff4f0e66bb13bae4511ff03656cf49b74d5e417319af30491"
+        },
+        "website/js/tv-maps.js": {
+            "sha": "e542bf3106fd51f28fa24ddac69c707850954c54c684d38a70bd68a5b18a3ce4",
+            "size": 8797,
+            "live_was": null
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-20T13:07:19+00:00",
+            "by": 0,
+            "msg": "Uploaded send-to-maps.zip: 7 files."
+        }
+    ]
+}
