@@ -1,0 +1,44 @@
+{
+    "id": 240,
+    "title": "A listing's page knows you're signed in again (your account bar and Back); Back to where you came from",
+    "why": "Jason, 2026-11-20 (signed in, on https://traversence.com/listing/view.php?id=8916): no account bar and no way back. listing/view.php read its session from PHP's default folder, not the site's (since 2026-10-10), so every listing page showed signed-in people as guests. His answer on Back: \"back to where they came from\" (decisions/0058's note of 2026-11-20).",
+    "proposals": "",
+    "zip": "listing-signin.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/ui/faq.md": {
+            "sha": "cfc1eefac4e10912354d6353b59d3bec46939f45412d1872a8e3f6582c15e06f",
+            "size": 409699,
+            "live_was": "69fc6d0859bb8693132f4bf39d04e5f07f9407b6d4afe7f0a2a4942cdc46342b"
+        },
+        "website/listing/view.php": {
+            "sha": "b40880f3a6d7c4b2427986d3d78aa794fbffee16d486c0d333160273d4966426",
+            "size": 62260,
+            "live_was": "2f29ad3a753dcbb2c84d54312ae7793763844f87ac0146e01c6133121c000d6a"
+        },
+        "website/js/tv-trail.js": {
+            "sha": "2603ab6ab5eff68dcfb3854050b67c2b6b01ca77725b9ac2dece9f36795a6a91",
+            "size": 9235,
+            "live_was": "bd84b904f4ba32eae4b14d508a205821de3a67faa35d7f22e755d9469bfbe50e"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-20T18:32:52+00:00",
+            "by": 0,
+            "msg": "Uploaded listing-signin.zip: 3 files."
+        }
+    ]
+}
