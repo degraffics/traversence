@@ -6,12 +6,12 @@
     "zip": "0176-issues.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "planned",
+    "state": "approved",
     "step": 0,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
-    "plan_at": null,
+    "plan_at": "2026-11-20 17:30:54",
     "staged_at": null,
     "vetted_at": null,
     "live_at": null,
@@ -64,6 +64,16 @@
             "at": "2026-11-20T17:30:52+00:00",
             "by": 0,
             "msg": "Uploaded 0176-issues.zip: 8 files."
+        },
+        {
+            "at": "2026-11-20T17:30:54+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/0176-issues.zip (git ebd6281b04)."
+        },
+        {
+            "at": "2026-11-20T17:30:54+00:00",
+            "by": 0,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
         }
     ]
 }
