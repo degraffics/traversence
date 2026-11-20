@@ -449,4 +449,5 @@ PR #1186, built on Sync 16:01 UTC):
 - A system's hour turns red only for a critical part. A process's own hour is amber while it is held: a words fix,
   since green while held was untrue (playbook principle 4).
 - Each task's switch is on its workflow's page.
-- Open question for Jason: the card's in-place Switch on (#216) beside the one home of §6.
+- The card's in-place Switch on (#216) stays beside the one home of §6. Jason, 2026-11-20, in the decision pop-up: "Keep
+  both". It presses the same switch, and the card also links to it.
