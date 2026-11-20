@@ -24,54 +24,238 @@
    "callers": {}
   },
   {
-   "path": "app/lib/ServiceHealth.php",
-   "functions": [],
+   "path": "app/lib/Engage.php",
+   "functions": [
+    "(top)",
+    "exists",
+    "pageUrl",
+    "target"
+   ],
    "kind": "change",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "feeds: an outside service's words follow its state; SlowDown is a rate wait",
-   "since": "2026-11-20T14:02:38Z",
-   "expires": "2026-11-20T18:04:32Z",
-   "release": "feeds-words.zip",
-   "callers": {
-    "serverState": [
-     "app/ui/outside-services.php"
-    ],
-    "describe": [
-     "app/lib/Operations.php",
-     "app/lib/OutsideServices.php",
-     "app/lib/Preflight.php",
-     "app/lib/Pulse.php",
-     "app/lib/SystemStart.php"
-    ],
-    "holdForTrip": [
-     "app/lib/ControlAlarms.php"
-    ]
-   }
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Sharing, Personal Guides, counts (decisions/0174 release 4)",
+   "since": "2026-11-20T14:08:16Z",
+   "expires": "2026-11-20T18:08:16Z",
+   "release": "trip-share.zip",
+   "callers": {}
   },
   {
-   "path": "app/lib/Operations.php",
-   "functions": [],
+   "path": "app/lib/Reports.php",
+   "functions": [
+    "(top)",
+    "authorOf",
+    "decide",
+    "file",
+    "reported"
+   ],
    "kind": "change",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "feeds: an outside service's words follow its state; SlowDown is a rate wait",
-   "since": "2026-11-20T14:02:40Z",
-   "expires": "2026-11-20T18:04:32Z",
-   "release": "feeds-words.zip",
-   "callers": {
-    "status": [
-     "app/lib/SystemStart.php"
-    ]
-   }
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Sharing, Personal Guides, counts (decisions/0174 release 4)",
+   "since": "2026-11-20T14:08:19Z",
+   "expires": "2026-11-20T18:08:19Z",
+   "release": "trip-share.zip",
+   "callers": {}
   },
   {
-   "path": "app/admin/operations-console.php",
+   "path": "app/lib/ListingActions.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Sharing, Personal Guides, counts (decisions/0174 release 4)",
+   "since": "2026-11-20T14:08:23Z",
+   "expires": "2026-11-20T18:08:23Z",
+   "release": "trip-share.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Trips.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Sharing, Personal Guides, counts (decisions/0174 release 4)",
+   "since": "2026-11-20T14:08:26Z",
+   "expires": "2026-11-20T18:08:26Z",
+   "release": "trip-share.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/staging-tables.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Sharing, Personal Guides, counts (decisions/0174 release 4)",
+   "since": "2026-11-20T14:08:29Z",
+   "expires": "2026-11-20T18:08:29Z",
+   "release": "trip-share.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/PlatformCounts.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Sharing, Personal Guides, counts (decisions/0174 release 4)",
+   "since": "2026-11-20T14:08:31Z",
+   "expires": "2026-11-20T18:08:31Z",
+   "release": "trip-share.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/user/trips/trip.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Sharing, Personal Guides, counts (decisions/0174 release 4)",
+   "since": "2026-11-20T14:08:33Z",
+   "expires": "2026-11-20T18:08:33Z",
+   "release": "trip-share.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/api/engage.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Sharing, Personal Guides, counts (decisions/0174 release 4)",
+   "since": "2026-11-20T14:08:35Z",
+   "expires": "2026-11-20T18:08:35Z",
+   "release": "trip-share.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/AccountDeletion.php",
+   "functions": [
+    "run"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Sharing, Personal Guides, counts (decisions/0174 release 4)",
+   "since": "2026-11-20T14:08:38Z",
+   "expires": "2026-11-20T18:08:38Z",
+   "release": "trip-share.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Links.php",
+   "functions": [
+    "resolve"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Sharing, Personal Guides, counts (decisions/0174 release 4)",
+   "since": "2026-11-20T14:08:40Z",
+   "expires": "2026-11-20T18:08:40Z",
+   "release": "trip-share.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/admin/insights.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Sharing, Personal Guides, counts (decisions/0174 release 4)",
+   "since": "2026-11-20T14:08:43Z",
+   "expires": "2026-11-20T18:08:43Z",
+   "release": "trip-share.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/admin/journeys.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Sharing, Personal Guides, counts (decisions/0174 release 4)",
+   "since": "2026-11-20T14:08:46Z",
+   "expires": "2026-11-20T18:08:46Z",
+   "release": "trip-share.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/api/trips.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Sharing, Personal Guides, counts (decisions/0174 release 4)",
+   "since": "2026-11-20T14:08:48Z",
+   "expires": "2026-11-20T18:08:48Z",
+   "release": "trip-share.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/guide/personal.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Sharing, Personal Guides, counts (decisions/0174 release 4)",
+   "since": "2026-11-20T14:08:50Z",
+   "expires": "2026-11-20T18:08:50Z",
+   "release": "trip-share.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/trip/index.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Sharing, Personal Guides, counts (decisions/0174 release 4)",
+   "since": "2026-11-20T14:08:53Z",
+   "expires": "2026-11-20T18:08:53Z",
+   "release": "trip-share.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/migrations/2026-11-21_personal-guides.sql",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Sharing, Personal Guides, counts (decisions/0174 release 4)",
+   "since": "2026-11-20T14:08:56Z",
+   "expires": "2026-11-20T18:08:56Z",
+   "release": "trip-share.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/api/crawl/commoncrawl.php",
    "functions": [],
    "kind": "change",
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "feeds: an outside service's words follow its state; SlowDown is a rate wait",
-   "since": "2026-11-20T14:02:42Z",
-   "expires": "2026-11-20T18:04:32Z",
-   "release": "feeds-words.zip",
+   "why": "Common Crawl's URL Index: the crawl's file map kept for the worker (decisions/0164's note of 2026-11-20)",
+   "since": "2026-11-20T14:14:42Z",
+   "expires": "2026-11-20T18:14:42Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Scheduler.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "quiet jobs aren't late (system_start_tick)",
+   "since": "2026-11-20T14:19:27Z",
+   "expires": "2026-11-20T18:19:27Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/job-line.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "quiet jobs aren't late (system_start_tick)",
+   "since": "2026-11-20T14:19:31Z",
+   "expires": "2026-11-20T18:19:31Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/sections.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "quiet jobs aren't late (system_start_tick)",
+   "since": "2026-11-20T14:19:33Z",
+   "expires": "2026-11-20T18:19:33Z",
+   "release": "",
    "callers": {}
   }
  ],
