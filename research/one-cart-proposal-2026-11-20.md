@@ -114,10 +114,15 @@ callers (R4), the refund's work order (R5), dead code (R6), watermarks (R7).
 - **Q-B, each process's requirements** beyond the printed product's four (J3): what releases a graphic-design line, a
   custom line, a shipping line.
 - **Q-C, design earned vs production refundable** (R's first open item): the rule itself.
-- **Q-D, the order file check's limits** (0176 R4; Jason: "I'll set the limits").
+- **Q-D, nudges when a client's assets are missing** (crosswalk; client upload itself is R2's third path).
 - **Q-E, design capacity** (no decision).
 - **Q-F, a fingerprint of the exact approved file.**
 - **Q-G, order mail onto the one dispatcher** (0172, 0176), and R Part 2 §5's milestone messages without repeats.
+
+Asked when the build reaches it (order-processing.md; session manager, 2026-11-20): the order file check's limits,
+with 0176 R4 (Jason: "I'll set the limits"). Order questions are posted plainly in chat first for Jason, the session
+manager and Gemini, then the pop-up (Jason, 2026-11-20: "before asking questions provide me the question plainly for
+everyone to review and respond").
 
 ## The first release: the chargeFor fix only (Jason: "Fix in first release")
 
