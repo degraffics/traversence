@@ -71,6 +71,7 @@ NPI_FIXTURE=file.json (an NPI API reply), NPI_FILE_FIXTURE=file.zip (a small NPI
 GNIS_FIXTURE_DIR=dir (DomesticNames_AZ_Text.zip…), AIANNH_FIXTURE=file.zip, WIKI_FIXTURE=file.json ({sparql: [bindings], images: {file: {url, page, artist, license}}, extracts: {title: text}}).
 Standard library only.
 """
+import base64
 import csv
 import gzip
 import hashlib
@@ -211,7 +212,7 @@ SKIP_HOSTS = {"openstreetmap.org", "npino.com", "npiprofile.com", "npidb.org", "
 
 started = time.monotonic()
 WORKER_KEYS = ("GOOGLE_PLACES_KEY", "TAVILY_API_KEY", "BRAVE_API_KEY", "RIDB_API_KEY", "HF_TOKEN")   # reported by name at each run
-WORKER_V = "2.15.0"          # 2.15.0: Common Crawl's bulk reads (our states' public sites, a source's pages) query its URL Index (Parquet on data.commoncrawl.org, one request at a time, the crawl's file map kept on the site), never the index server, which keeps only a single page's copy (decisions/0164's note of 2026-11-20). 2.14.1: a 503 asking us to slow down (S3's SlowDown, Common Crawl's data server) is a rate wait, not a server error. 2.14.0: our copy carries health care and guides, and Utah, Colorado and Nevada (one state a run). 2.13.0: Overpass retired: never asked; a kind our copy lacks is reported as not in our copy. 2.12.1: a task stopped by a held service reports "held", never "failed": the call that trips a hold says so, and Common Crawl's task checks its holds first, so a run whose only trouble is a held service ends ok on Railway, not Crashed; 2.12.0: the identity check starts from what the site's own copies hold (the job's "local"), outside only for the rest; 2.11.0: a website that doesn't load for the refresh is looked up in Common Crawl's newest crawl (W2, decisions/0163's source map: direct, then Common Crawl); 2.10.0: web search falls to Brave when Tavily fails or is held; Google Places as the paid backup for confirming a business in the identity check, only by a director's override within its cap (decisions/0163's source map); 2.9.0: W1 reads our OpenStreetMap copy first (the job's "ours", from Geofabrik), Overpass only for a kind or town it lacks, and works on while every Overpass server is held (decisions/0163's source map); 2.8.0: every link on a page read goes to the page log (same site or not; no cap of 60, nor 40 other sites: W0, decisions/0164 §1.4); 2.7.5: a page whose reading had to stop is logged waiting to be read (P1-1); 2.7.4: reports which keys it has (names only), its per-run limits from the plan, Geofabrik's weekly load (osmium); 2.7.3: Geofabrik over IPv4; 2.7: the open-dataset loads and Geofabrik's test (Release B); the service's contract 2 (decisions/0160 §2): the site plans each run, the worker reports it; 2.4: calls by host; 2.5: issues, holds, probes, per-kind Overpass; 2.6: servers from the plan, the pace
+WORKER_V = "2.16.0"          # 2.16.0: the Census geocoder's backup: when the site can't reach the Census on its connection, the worker sends the same batch itself and hands the reply to the site to place (decisions/0175's note, 2026-11-20). 2.15.0: Common Crawl's bulk reads (our states' public sites, a source's pages) query its URL Index (Parquet on data.commoncrawl.org, one request at a time, the crawl's file map kept on the site), never the index server, which keeps only a single page's copy (decisions/0164's note of 2026-11-20). 2.14.1: a 503 asking us to slow down (S3's SlowDown, Common Crawl's data server) is a rate wait, not a server error. 2.14.0: our copy carries health care and guides, and Utah, Colorado and Nevada (one state a run). 2.13.0: Overpass retired: never asked; a kind our copy lacks is reported as not in our copy. 2.12.1: a task stopped by a held service reports "held", never "failed": the call that trips a hold says so, and Common Crawl's task checks its holds first, so a run whose only trouble is a held service ends ok on Railway, not Crashed; 2.12.0: the identity check starts from what the site's own copies hold (the job's "local"), outside only for the rest; 2.11.0: a website that doesn't load for the refresh is looked up in Common Crawl's newest crawl (W2, decisions/0163's source map: direct, then Common Crawl); 2.10.0: web search falls to Brave when Tavily fails or is held; Google Places as the paid backup for confirming a business in the identity check, only by a director's override within its cap (decisions/0163's source map); 2.9.0: W1 reads our OpenStreetMap copy first (the job's "ours", from Geofabrik), Overpass only for a kind or town it lacks, and works on while every Overpass server is held (decisions/0163's source map); 2.8.0: every link on a page read goes to the page log (same site or not; no cap of 60, nor 40 other sites: W0, decisions/0164 §1.4); 2.7.5: a page whose reading had to stop is logged waiting to be read (P1-1); 2.7.4: reports which keys it has (names only), its per-run limits from the plan, Geofabrik's weekly load (osmium); 2.7.3: Geofabrik over IPv4; 2.7: the open-dataset loads and Geofabrik's test (Release B); the service's contract 2 (decisions/0160 §2): the site plans each run, the worker reports it; 2.4: calls by host; 2.5: issues, holds, probes, per-kind Overpass; 2.6: servers from the plan, the pace
 RUN_END = None             # when this run's own work must stop (started + TIME_BUDGET, or a bulk load's end)
 TASK_END = None            # when the capture task being worked must stop (its share of the run)
 FETCH_CAP = MAX_FETCHES    # fetches this run may have made by the end of the task being worked
@@ -254,7 +255,7 @@ _SITE_HOST = (urllib.parse.urlsplit(SITE).hostname or "").lower() if SITE else "
 API_HOSTS = {"overpass-api.de", "overpass.private.coffee", "overpass.kumi.systems", "maps.mail.ru", "overpass.openstreetmap.fr",
              "query.wikidata.org", "www.wikidata.org", "commons.wikimedia.org", "en.wikipedia.org", "api.tavily.com",
              "api.search.brave.com", "places.googleapis.com", "npiregistry.cms.hhs.gov", "download.cms.gov", "www.irs.gov",
-             "ridb.recreation.gov", "www.loc.gov", "index.commoncrawl.org", "data.commoncrawl.org", "www2.census.gov",
+             "ridb.recreation.gov", "www.loc.gov", "index.commoncrawl.org", "data.commoncrawl.org", "www2.census.gov", "geocoding.geo.census.gov",
              "prd-tnm.s3.amazonaws.com"}
 STOP_KINDS = ("ban", "auth", "quota")         # held until resolved
 HELD = {}                  # host -> why: the site's holds at the start of the run, and what tripped during it
@@ -2207,12 +2208,46 @@ def geocode(deadline):
         if r.get("paused"):
             log("map points: queue paused on the site")
             break
-        if r.get("waits"):                          # the Census didn't answer: the batch waits, the task is held (2.12.0)
+        if r.get("waits") and r.get("backup"):      # the site couldn't reach the Census on its connection: send it from here (2.16.0)
+            r = census_backup(r["backup"], str(r.get("why") or ""))
+            task_got += int(r.get("sent", 0) or 0)
+        elif r.get("waits"):                        # the Census didn't answer: the batch waits, the task is held (2.12.0)
             raise ServiceHeld(str(r.get("why") or "the Census geocoder didn't answer")[:200])
         log(f"map points: sent {r.get('sent', 0)}, placed {r.get('found', 0)}, not found {r.get('not_found', 0)}, "
             f"placed another way {r.get('skipped', 0)}, left {r.get('left', 0)}")
         if not r.get("left") or (r.get("sent", 0) + r.get("skipped", 0) + r.get("private", 0)) == 0:
             break
+
+
+def census_backup(backup, why):
+    """The Census geocoder's named backup (decisions/0175's note, Jason 2026-11-20: "Yes, build it"): the site's call to
+    geocoding.geo.census.gov failed on its connection (Bluehost's network resets it), so the worker sends the same batch
+    to the Census itself and hands the reply to the site, which places it by its own rules (only empty or ZIP-middle
+    points). If the Census doesn't answer here either, the batch waits on the site, as before: nothing lost or invented."""
+    url = str(backup.get("url") or "")
+    if urllib.parse.urlsplit(url).hostname != "geocoding.geo.census.gov":   # only the Census's own batch address
+        raise ServiceHeld("the site's backup named another address; the batch waits")
+    ids = [int(i) for i in backup.get("ids") or []]
+    csv_bytes = base64.b64decode(str(backup.get("csv") or ""))
+    if not ids or not csv_bytes:
+        raise ServiceHeld("the site's backup batch was empty; it waits")
+    log(f"map points: {why[:160]}. Sending its {len(ids)} addresses to the Census from Railway (the backup)")
+    boundary = "tvgeo" + hashlib.sha1(csv_bytes).hexdigest()[:24]
+    body = (f"--{boundary}\r\nContent-Disposition: form-data; name=\"benchmark\"\r\n\r\n{backup.get('benchmark') or 'Public_AR_Current'}\r\n"
+            f"--{boundary}\r\nContent-Disposition: form-data; name=\"addressFile\"; filename=\"addresses.csv\"\r\n"
+            f"Content-Type: text/csv\r\n\r\n").encode() + csv_bytes + f"\r\n--{boundary}--\r\n".encode()
+    req = urllib.request.Request(url, data=body, method="POST", headers={
+        "User-Agent": UA, "Content-Type": f"multipart/form-data; boundary={boundary}", "Accept": "*/*"})
+    try:
+        with _counted_urlopen(req, timeout=170) as resp:   # counted and its failures noted, as every outside call
+            raw = resp.read()
+    except ServiceHeld:
+        raise
+    except Exception as e:                          # not from here either: the batch waits on the site
+        raise ServiceHeld(f"the Census geocoder didn't answer the site or Railway ({e!r})"[:200]) from None
+    if b"<html" in raw[:2000].lower():
+        raise ServiceHeld("the Census geocoder sent back a page instead of results; the batch waits")
+    return site_call("/api/crawl/geocode.php", {"ids": ids, "answers_b64": base64.b64encode(raw).decode()}, timeout=120)
 
 
 def fetch_json(url, timeout=30):
