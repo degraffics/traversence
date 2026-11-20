@@ -44,6 +44,113 @@
    "expires": "2026-11-20T18:40:27Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/ui/stock-ui.php",
+   "functions": [
+    "tv_stock_css",
+    "tv_stock_tag"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5gxSyzVYGuXX3xuu2c",
+   "why": "hero tidy (Jason, 2026-11-20): \u22ef order, Link icon, stock details, Explore's place line, hub's stray text and same-named areas",
+   "since": "2026-11-20T15:28:50Z",
+   "expires": "2026-11-20T19:28:50Z",
+   "release": "hero-tidy",
+   "callers": {
+    "tv_stock_tag": [
+     "app/admin/sections.php",
+     "app/business/storefront.php",
+     "app/ui/explore-hero.php",
+     "app/ui/storefront-view.php",
+     "website/index.php"
+    ]
+   }
+  },
+  {
+   "path": "app/ui/engage-ui.php",
+   "functions": [
+    "(top)",
+    "tv_engage_assets",
+    "tv_engage_tools"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5gxSyzVYGuXX3xuu2c",
+   "why": "hero tidy (Jason, 2026-11-20): \u22ef order, Link icon, stock details, Explore's place line, hub's stray text and same-named areas",
+   "since": "2026-11-20T15:28:50Z",
+   "expires": "2026-11-20T19:28:50Z",
+   "release": "hero-tidy",
+   "callers": {}
+  },
+  {
+   "path": "website/listing/view.php",
+   "functions": [
+    "(top)"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5gxSyzVYGuXX3xuu2c",
+   "why": "hero tidy (Jason, 2026-11-20): \u22ef order, Link icon, stock details, Explore's place line, hub's stray text and same-named areas",
+   "since": "2026-11-20T15:28:50Z",
+   "expires": "2026-11-20T19:28:50Z",
+   "release": "hero-tidy",
+   "callers": {}
+  },
+  {
+   "path": "website/discovery/index.php",
+   "functions": [
+    "ask",
+    "dv_hero_photos"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5gxSyzVYGuXX3xuu2c",
+   "why": "hero tidy (Jason, 2026-11-20): \u22ef order, Link icon, stock details, Explore's place line, hub's stray text and same-named areas",
+   "since": "2026-11-20T15:28:50Z",
+   "expires": "2026-11-20T19:28:50Z",
+   "release": "hero-tidy",
+   "callers": {
+    "ask": [
+     "app/admin/automation-console.php",
+     "app/lib/AiAssist.php",
+     "app/lib/ListingConfidence.php",
+     "app/lib/Releases.php",
+     "app/lib/SituationReasoner.php",
+     "app/lib/StagingSite.php",
+     "app/lib/UniversalSearch.php",
+     "website/admin/client-order.php",
+     "website/api/short.php",
+     "website/js/engage.js",
+     "website/js/guest-inquiry.js",
+     "website/js/tv-ai-assist.js",
+     "website/js/tv-ask.js",
+     "website/js/tv-editor.js"
+    ]
+   }
+  },
+  {
+   "path": "website/hub/index.php",
+   "functions": [
+    "hub_card"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5gxSyzVYGuXX3xuu2c",
+   "why": "hero tidy (Jason, 2026-11-20): \u22ef order, Link icon, stock details, Explore's place line, hub's stray text and same-named areas",
+   "since": "2026-11-20T15:28:50Z",
+   "expires": "2026-11-20T19:28:50Z",
+   "release": "hero-tidy",
+   "callers": {}
+  },
+  {
+   "path": "website/js/engage.js",
+   "functions": [
+    "closeMenus"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5gxSyzVYGuXX3xuu2c",
+   "why": "hero tidy (Jason, 2026-11-20): \u22ef order, Link icon, stock details, Explore's place line, hub's stray text and same-named areas",
+   "since": "2026-11-20T15:28:50Z",
+   "expires": "2026-11-20T19:28:50Z",
+   "release": "hero-tidy",
+   "callers": {}
   }
  ],
  "lapsed": [
