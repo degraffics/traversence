@@ -144,6 +144,32 @@
    "expires": "2026-11-20T22:02:22Z",
    "release": "0175-r2b-board.zip",
    "callers": {}
+  },
+  {
+   "path": "website/js/tv-trail.js",
+   "functions": [
+    "(top)"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5gxSyzVYGuXX3xuu2c",
+   "why": "listing-signin: the site's session folder on listing pages; Back to where they came from (Jason 2026-11-20)",
+   "since": "2026-11-20T18:04:51Z",
+   "expires": "2026-11-20T22:04:51Z",
+   "release": "listing-signin",
+   "callers": {}
+  },
+  {
+   "path": "website/listing/view.php",
+   "functions": [
+    "(top)"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5gxSyzVYGuXX3xuu2c",
+   "why": "listing-signin: the site's session folder on listing pages; Back to where they came from (Jason 2026-11-20)",
+   "since": "2026-11-20T18:04:51Z",
+   "expires": "2026-11-20T22:04:51Z",
+   "release": "listing-signin",
+   "callers": {}
   }
  ],
  "lapsed": [
