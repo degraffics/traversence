@@ -135,6 +135,21 @@ stage filter in his words). R4: one definition (`level`, `kind`, `touch_points`,
 `service-defs.php`; the zip check refuses a module without them; the appendix's hooks "to come" built as needed). Then
 0169's App store builds on them.
 
+## The area data plan: findings to look into (Operations' area; nothing built until Jason decides)
+
+From the session manager, 2026-11-20. Jason sent the clusters' assignment by funnel level to Operations (on hero tidy's
+merged row: "This seems to be a crawler, workflow issue, because the page should show what is properly assigned to that
+area based on its funnel level"). The direction already decided is 0170 (W15 Funnel: no default hub; a find goes to its
+zone by the zone's geography) and `handoffs/business-listings.md` §3: the five cluster-creating paths, with moves
+previewed in Data cleanup with Undo. Findings so far:
+1. Ten micro-clusters named "Albuquerque", and Abilene, filed under the Ancient Borderlands zone (the intake paths file any
+   ZIP outside an existing area under the default hub).
+2. Memorials filed as business listings (Jason's screenshots, 2026-11-20): the Navajo Code Talkers Memorial under
+   "Entertainment & Recreation" / "State Parks", carrying a state office's phone number. To look into: which path made it
+   a business (the crawler's identity check, 0164 §3.1, or an intake path), and why a place got an agency's phone.
+3. Phoenix under Ancient America (Jason's screenshots, 2026-11-20): the same cluster-assignment cause as 1, to check
+   against the five paths.
+
 ## Open questions for Jason (each sourced)
 
 1. **When should an hour on a system's strip turn red?** No decision sets it. Options: only when a critical part
