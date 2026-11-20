@@ -15,13 +15,14 @@
   {
    "path": "app/lib/ServiceHealth.php",
    "functions": [
-    "facts"
+    "facts",
+    "steps"
    ],
    "kind": "change",
    "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
-   "why": "0176 R3: Fix it routing",
+   "why": "0176 R3: Fix it first in the issue's Pulse case",
    "since": "2026-11-20T23:32:36Z",
-   "expires": "2026-11-21T03:32:36Z",
+   "expires": "2026-11-21T03:37:00Z",
    "release": "0176-fix-it.zip",
    "callers": {
     "facts": [
@@ -29,6 +30,9 @@
      "app/lib/OutsideServices.php",
      "app/lib/Pulse.php",
      "app/lib/SystemStart.php"
+    ],
+    "steps": [
+     "app/lib/Pulse.php"
     ]
    }
   },
