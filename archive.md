@@ -90,6 +90,23 @@ Opened from a working tool (pop-up, detail, action or print page):
 
 `/admin/index.php` is the Dashboard module's own entry (6 lines), not an archived page.
 
+## Sections folded into another (kept, their address leads there)
+
+decisions/0175's note "one control board in the menu" (Jason, 2026-11-20: "yes. fold into 2"), release 2b part A. Each
+stays a section in `app/admin/manifests.php`, which draws it in its tab (`?panel=1`) or the side panel (`?embed=1`). It's
+out of the sections menu, and its address redirects (`TV_ADMIN_MOVED`, `website/admin/router.php`) with its query and
+the link's own spot.
+
+| Section | Its address now leads to | Kept there |
+|---|---|---|
+| Control Board: Alarms (`/admin/config/alarms`) | the board's **Alarms** tab | the table, its filters and drawer (Acknowledge, Check and start again) |
+| Control Board: Logbook (`/admin/config/log`) | the board's **Logbook** tab | the table, its filters and drawer |
+| Control Board: Ledger (`/admin/config/ledger`) | the board's **Ledger** tab | the table, each call's records |
+| Control Board: Upkeep (`/admin/config/upkeep`) | the board's **Upkeep** tab | the table |
+| Scheduled tasks (`/admin/config/scheduler`) | the board's **Scheduled tasks** tab | the whole page, loaded in place; `#job-<key>` lands on its job |
+| Pre-flight (`/admin/config/preflight`) | the board's **Pre-flight** stage (and Start-up) | the whole page (Run all, each line's Test, runs, report), loaded in place; `#pf-<line>` lands on its line |
+| Automation (`/admin/config/automation`) | the board's **Start-up** stage | the whole page (master switch, Start, Pause everything, the check, workflows, tasks, services, Changes), loaded in place, until release 2b's parts B and C move its services and workflows |
+
 ## Archived pages outside the admin
 
 | Page | What it is | Its work is now in |
