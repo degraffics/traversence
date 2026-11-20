@@ -1,0 +1,14 @@
+{
+ "zip": "orders-chargefor.zip",
+ "built_on": "c6eff9a Sync: 2026-11-20 18:05 UTC",
+ "recorded": "2026-11-20 18:16 UTC",
+ "note": "Orders R0: chargeFor looks the card up before any test guard, so a test copy that took real money can be refunded. Built on Sync: 2026-11-20 18:05 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/QuickBooksPay.php": {
+   "sha256": "d2222925e26fd7206c1b25432d9dd1ef2b1d2f9b677bb72af71e8d062ce47b41",
+   "live": false
+  }
+ }
+}
