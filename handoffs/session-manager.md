@@ -91,29 +91,25 @@ a build choice. (Missed on 0175 R1's hourly try and on 0175 draft 1's third-trip
   a worker deploy restarts it (details at the top of `handoffs/crawler-revamp.md`); the automation master switch (release
   #48) makes any run that starts end at once. The hourly check expects no crawler runs meanwhile.
 
-## The working queue now (2026-11-19, 16:15 UTC; the sections below are the history behind it)
+## The working queue now (2026-11-20, 15:00 UTC; the sections below are the history behind it)
 
-**Building:**
-- **Control Board (0171)**, session_01CXLi5ivMY6BdkfHK1xdLWS: live through #189. That covers every alarm landing on its
-  fix (#183), trips-only to a person, critical parts by duty with Recovered and the Escalation Notice (#183, #185),
-  search, sign-in and payments watched (#185), stage tabs, cleared alarms to the logbook, the logbook filter and the
-  corrected OSM statement (#189). Asking now: control-board-table (PR #1064), the process table on tv_table() with Q2
-  (blocked sites as one notice, a warning above 5% of the day's fetches), Q3 ("Its data" on each process's page, ids and
-  field names only) and Q4 (W0 logs off-region addresses as "Outside our region", never fetched). Next: **Pulse's
-  load-time warning** (below). The session stays open (Jason, 2026-11-19).
-- **Design (`design/css-theme-brand.md`, `design/table-standard.md`)**, session_01CXLi5jkgtUikcdUQ4Wmv28: live through
-  #190. That covers buttons (#181), Pulse dates, due clocks, tints and order (#182, #184, #188, #190; clocks only on work
-  cases, open trips still escalate), T1 the table component (#186) and the home bar (#187). Asking now: T2, the admin's
-  Pulse on the standard on its own engine (▾ and ⋯, two rows on top, paging of the gathered rows). Then T3–T5 (the rest
-  by module; capped lists paged in SQL or shown as "400+"), 3e (Marketplace), the map release, the tokens release.
-- **Approved, not yet built (design session, in order):** Get Local R2 (the approved concept with within ▾, Arrange and
-  the list beside the map; the Filters line and card tools approved 2026-11-19; the PO-box Directions rule; the
-  comments box and card tools Jason approved earlier on 2026-11-19 as "release (2)", never built until found from his
-  "thought we fixed this too"; the header search after his one-line OK), then card photos (Commons + NPS, approved
-  "Both"), then the place page (lightbox link, Add to a trip, counts, the ⋯ toolkit: proposal first).
-- **Business listings**, session_01CXLi5kipJLJoRvo3jqLnQQ (opened 2026-11-19 at Jason's word): case #22 live as #191
-  (owners edit their hidden listings). It reads the "Edit my listing" path after the 2026-11-20 run, then stays open for
-  more listing work.
+**Restart (Jason approved `handoffs/restart-outline.md`, 2026-11-20):** every session was held and handed off; fresh
+sessions take over, holding until Jason says resume. Live through Release #228 (Sync 6c545d9, 14:48 UTC).
+- **Operations** (0175 + 0176; hand-offs `control-board-2026-11-20.md`, `dispatcher.md`): 0175 R2a → 0176 R2 → 0175 R2b →
+  Census backup → 0176 R3, R4 → 0175 R3, R4 (then the App store, 0169). Held work on branches: `claude/0175-r2a-wip`.
+- **Design and trips** (`design.md` and its area files): hero-tidy (`claude/hero-tidy`, approved, unsent) → admin kit →
+  T5 → 3d/3e/3f → the map release → 0174 R5 (openrouteservice; read its terms first).
+- **Orders** (`order-processing.md`): starts after Jason reviews `research/order-system-map-2026-11-19.md` and its six
+  items; the first release carries the chargeFor fix.
+- **The session manager** also reads Monday's (2026-11-23) "Edit my listing" path check (`business-listings.md`).
+- **Waiting on Jason:** the red threshold for a system hour (0175 R2a); 0176 R2's restart; the order map and its six
+  items; the order file check's limits; the area data plan (ten "Albuquerque" clusters, Abilene under Ancient
+  Borderlands: find the cause in the five cluster-creating paths, preview in Data cleanup, he decides); the dashboard
+  discussion; a screenshot of `/admin/config/scheduler#job-control_tick`; the Park Service key on its card.
+- **Review rule** (Jason, 2026-11-20, playbook §3): every behaviour in a summary is checked against the decision line it
+  cites; unsourced is a question for Jason, never a build choice; a gap's answer is written into its decision first.
+- **Routes and Send to Maps** are now 0174 (R1 Send to Maps live #219; R5 routing to come). **The Dispatch tool** item
+  below is partly 0176 (alerts and messages); buttons, forms and roles stay queued.
 
 **To discuss: the Control Board's dashboard ideas** (Jason, 2026-11-20, five reference screenshots: VTScada's
 "Dashboard 2", ThingsBoard's SCADA energy "Main" and "Consumption", a power plant monitoring dashboard, a manufacturing
