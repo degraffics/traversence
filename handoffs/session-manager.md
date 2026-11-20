@@ -104,7 +104,9 @@ sessions take over, holding until Jason says resume. Live through Release #228 (
 - **The session manager** also reads Monday's (2026-11-23) "Edit my listing" path check (`business-listings.md`).
 - **Waiting on Jason:** (answered: a system hour is red only when a critical part is down, 0175 note 2026-11-20, #1177); 0176 R2's restart; the order map and its six
   items; the order file check's limits; the area data plan (ten "Albuquerque" clusters, Abilene under Ancient
-  Borderlands: find the cause in the five cluster-creating paths, preview in Data cleanup, he decides); the dashboard
+  Borderlands: find the cause in the five cluster-creating paths, preview in Data cleanup, he decides; Jason, 2026-11-20, on hero tidy's merged row: "This seems to be a crawler, workflow
+  issue, because the page should show what is properly assigned to that area based on its funnel level", so the hub
+  shows the data as it is, no merge, and the fix is the clusters' assignment by funnel level, to Operations); the dashboard
   discussion; done: the Park Service key (Jason, 2026-11-20: "done. its in!"); control_tick is back on `*/5` (Jason pressed it, 2026-11-20).
 - **Operations, a small fix after 0175 R2a** (from Jason's screenshots, 2026-11-20; playbook §4, words follow the state):
   the scheduler's dropdown shows "Every minute" when a line matches no preset (`presetOf` returns '', the select falls
