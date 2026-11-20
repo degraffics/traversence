@@ -1,0 +1,91 @@
+{
+    "id": 222,
+    "title": "A trip pauses, never switches off: Paused by the system (decisions/0175 release 1)",
+    "why": "Jason, 2026-11-20: Geofabrik showed four states in three places because a trip wrote into a person's switch. \"A trip is when the PAUSE has been placed\"; a fault never means Off.",
+    "proposals": "",
+    "zip": "0175-paused.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/admin/automation-console.php": {
+            "sha": "d151a86ff44141effe83a95d9a95d6e6f4ad7c45b0fda509dca21ffbdb05c594",
+            "size": 24602,
+            "live_was": "ef44f421c1a77f20612cac61dbfec606ec9d8346cc8ced2a887e3c21a6d9f1f2"
+        },
+        "app/ui/faq.md": {
+            "sha": "24c387563d197fda9c8a65dc9ad082601e862d3402aa7c8e6c171b1efdf5af3f",
+            "size": 398729,
+            "live_was": "fdfbb695f25b935129f222055a15e60dc5bd29ba026f502c1348ef6526ed3f83"
+        },
+        "app/migrations/2026-11-20_system_pauses.sql": {
+            "sha": "0ef10c6de11ab12ca8bfdba74c9b9b5447eea697f623bb3479cb949fa9e50c4b",
+            "size": 617,
+            "live_was": null
+        },
+        "app/lib/ListingIdentity.php": {
+            "sha": "81919a27dfbaa57e49f37c7869f03082fc57ab03074b058610ca21b1cc1a7e36",
+            "size": 55048,
+            "live_was": "0373e876267e80bc6416875de35231a94b549f825e5597f8dc3223fcc538847e"
+        },
+        "app/lib/ControlAlarms.php": {
+            "sha": "5c32aacf5a5446c0654b6e60c4b43bd158de972835c5eb9f171e79a48cd9fd80",
+            "size": 74747,
+            "live_was": "7f81e64ab1515135fe1422656cdcfe3fe86d5929544109251f77754f84014192"
+        },
+        "app/lib/crawler/CrawlService.php": {
+            "sha": "f7730d4e870888661a1919bd6bda9afd7ece512956fec90ecdf90c11cdff1d65",
+            "size": 40793,
+            "live_was": "c34c80078cc12eec440d78298bdbcfac6ad8a8cbc1d88b77a57a868c2cf5d8e3"
+        },
+        "app/lib/crawler/OpenLoads.php": {
+            "sha": "27218b73fd6c474c34fb1c43384bfcd1a4ceab9c7023bb187dbb6db1e576e5d7",
+            "size": 16867,
+            "live_was": "0a5cd44e0ef9acf689a3ff95734c6921049a52106c7cc19abecf8d7c5643f1e9"
+        },
+        "app/lib/crawler/CrawlQueue.php": {
+            "sha": "9a8e1fb0bac65d8e0ead0ab3e0af05496ef81381bbb3aeff92b715ef6f343b90",
+            "size": 20284,
+            "live_was": "2c447ab5149dbb3af83baa591fab9264a057cdbd2d6ccf2d2cba81511b530d0f"
+        },
+        "app/lib/OutsideServices.php": {
+            "sha": "788fba386ae25b0acb795fc7b7c82e6b6f98001057ffde03095973a9b1126374",
+            "size": 88313,
+            "live_was": "7b64c32832baf065e41c48379365cc9bcf0094b626906b18cf8360ad8d4001da"
+        },
+        "app/lib/staging-tables.php": {
+            "sha": "7528636b5faf22c8e34e9581b8036fb955f569e173ad282d6ddb9328cf5ad0aa",
+            "size": 28508,
+            "live_was": "478fe30d6872f861a03128857ad0ddc823c33dbcd25f9fa518a02c0302d2cf2a"
+        },
+        "app/lib/Preflight.php": {
+            "sha": "d9b8beb8a31196877e5bb794061d80856498123f0ee87c735608f668bee56d9d",
+            "size": 156166,
+            "live_was": "e1384e9c0f80ad2683f1655292bf6fdc4a4725dafc4980d87bc25d3ad9b06d0a"
+        },
+        "app/lib/Automation.php": {
+            "sha": "6cf41f391084955101bbda7a652207927fedc42509cf35ff724f3da010ed177d",
+            "size": 31385,
+            "live_was": "84f9af7ee3e8be5cf973719754d872d962f54988c630906c8cfbeb7d9a0a4e5e"
+        }
+    },
+    "migrations": [
+        "app/migrations/2026-11-20_system_pauses.sql"
+    ],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-20T13:58:59+00:00",
+            "by": 0,
+            "msg": "Uploaded 0175-paused.zip: 12 files."
+        }
+    ]
+}
