@@ -22,5 +22,5 @@ $t('…whether its fix comes as JSON or already read (the board\'s own list)', t
 $pdo->exec('DELETE FROM crawl_runs');
 $t('…the runs list only when there\'s no run yet', tv_cb_evidence(['proc' => 'wk:crawler', 'akey' => 'x', 'last_at' => $at, 'fix' => '']) === ['Open its runs', '/admin/insights/crawler']);
 $ask = (string) file_get_contents(dirname($app) . '/website/js/tv-ask.js');
-$t('the side panel puts its own settings before the # (the page inside lands on it)', str_contains($ask, "u = base + (base.indexOf('?') >= 0 ? '&' : '?') + 'embed=1&peek=1' + (hi < 0 ? '' : url.slice(hi));"));
+$t('the side panel puts its own settings before the # (the page inside lands on it)', str_contains($ask, "base + (base.indexOf('?') >= 0 ? '&' : '?') + 'embed=1&peek=1' + (hi < 0 ? '' : url.slice(hi))"));
 echo "\n$pass passed, $fail failed\n"; exit($fail ? 1 : 0);
