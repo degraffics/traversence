@@ -6,12 +6,12 @@
     "zip": "send-to-maps.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "planned",
+    "state": "approved",
     "step": 0,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
-    "plan_at": null,
+    "plan_at": "2026-11-20 13:07:20",
     "staged_at": null,
     "vetted_at": null,
     "live_at": null,
@@ -59,6 +59,16 @@
             "at": "2026-11-20T13:07:19+00:00",
             "by": 0,
             "msg": "Uploaded send-to-maps.zip: 7 files."
+        },
+        {
+            "at": "2026-11-20T13:07:20+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/send-to-maps.zip (git 5751601a8a)."
+        },
+        {
+            "at": "2026-11-20T13:07:20+00:00",
+            "by": 0,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
         }
     ]
 }
