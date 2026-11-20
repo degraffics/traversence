@@ -242,6 +242,17 @@
    "expires": "2026-11-20T18:08:50Z",
    "release": "trip-share.zip",
    "callers": {}
+  },
+  {
+   "path": "website/trip/index.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Sharing, Personal Guides, counts (decisions/0174 release 4)",
+   "since": "2026-11-20T14:08:53Z",
+   "expires": "2026-11-20T18:08:53Z",
+   "release": "trip-share.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
