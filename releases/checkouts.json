@@ -18,13 +18,14 @@
   {
    "path": "app/lib/JourneyPlan.php",
    "functions": [
+    "candidates",
     "dropListings"
    ],
    "kind": "change",
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Send to Maps (decisions/0174 release 1)",
    "since": "2026-11-20T04:01:41Z",
-   "expires": "2026-11-20T08:01:41Z",
+   "expires": "2026-11-20T08:02:16Z",
    "release": "",
    "callers": {}
   },
