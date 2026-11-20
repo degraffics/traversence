@@ -15,7 +15,7 @@ Amends (each marked **Note for Jason** where it happens):
 - 0171 §8's "The issue keeps its evidence, Check it now and Mark resolved": the card's issue box becomes the thread (§3).
   Mark resolved is already gone (0171 §7's note, 2026-11-19).
 
-Checked against the live mirror at "Sync: 2026-11-20 13:53 UTC".
+Checked against the live mirror at "Sync: 2026-11-20 13:53 UTC", and 0175 release 1 (#222, `0175-paused.zip`) as merged.
 
 ## What Jason asked for
 
@@ -142,7 +142,9 @@ Six parts, in this order (A2):
   channels point back"), and each trip still emails the Founder at once (0171 §7).
 
 **Status reads 0175's states:**
-- "Paused by the system" or a person's pause (0175 §2);
+- "Paused by the system (a trip)" or a person's pause (0175 §2 and its note "Trip, and fault": a fault is the part
+  not working, a trip is the pause placed because of it);
+- an active module's checks are **Diagnostics**, never "pre-flight" (0175's note, 2026-11-20);
 - the next try from the system's own clock;
 - never a stored date that no longer holds (§7).
 
@@ -169,10 +171,10 @@ shape, updated in place.
 | Step | What happens | Source |
 |---|---|---|
 | **1. A fault** | A warning on the board and the card only. No Pulse row, email or push. The thread opens, status "Trying again (1 of 3)". | 0171 §7's note, 2026-11-19 ("only a trip reaches a person"); §5's 3c note |
-| **2. The tries run out** | `control_fix_tries` (default 3) or `control_fix_minutes` (default 60), whichever comes first. It's **Paused by the system**: the same thread, raised; a Pulse row for duty staff; a push only for critical parts (see Question 2). | 0171 §5's 3c note; 0175 §3; A4 |
+| **2. The tries run out: a trip** | `control_fix_tries` (default 3) or `control_fix_minutes` (default 60), whichever comes first. A trip is the system placing its pause, so it reads **"Paused by the system (a trip): …"**: the same thread, raised; a Pulse row for duty staff; a push only for critical parts (see Question 2). | 0171 §5's 3c note; 0175 §3 and its note "Trip, and fault" (2026-11-20); A4 |
 | **3. Each check** | Updates the status in place: "Checked 09:42 MST: still refused. Next check 10:12 MST." No new message. | A1; 0171 §7 ("the same problem happening again updates its open alarm") |
 | **4a. Recovered** | It closes quietly. "Recovered: <part> was down <n> min, the system fixed it." A notice with nothing to press (Notice level, so no push by default). | 0171 §5's note, 2026-11-19; 0175 §3 |
-| **4b. Escalated** | 0171's Escalation Notice: "Retries unsuccessful, now admin required: <part>, <duty>". The level rise brings one push. On Pulse's clock it goes to the Manager, then the Director. | 0171 §5's note; the note to §8, 2026-11-19; 0172's push-polish note |
+| **4b. Escalated** | 0171's Escalation Notice: "Retries unsuccessful, now admin required: <part>, <duty>". The level rise brings one push. On Pulse's clock it goes to the Manager, then the Director. If its check passes later, it still closes itself as Recovered (4a), its pause lifts, and the Recovered notice goes to the Founders: nothing is left to press (`ControlAlarms::ESCALATED_RECOVERS`). | 0171 §5's note; the note to §8, 2026-11-19; 0172's push-polish note; 0175's note "an escalated trip closes as Recovered" (2026-11-20) |
 | **5. Closed** | It goes to the logbook as the finished story: raised, each check, how it closed, who. | 0171 §10; §7's note ("a cleared one is in the logbook") |
 
 - **A critical part** keeps 0171's rule: a trip at once, to Pulse, the Founder's email and the push, while the system
@@ -252,7 +254,7 @@ customer target on the order's link (Question 4). **Ask for a new file** is to c
 1. **The thread and the shape, for alarms.**
    - Notify draws the six parts from facts and buttons; `ControlAlarms` supplies them instead of HTML.
    - The thread is updated in place; the board, Pulse, push and the logbook each show their part (§1, §2, §4).
-   - Builds on 0175 release 1 (Paused by the system), which the Control Board session is sending now.
+   - Builds on 0175 release 1 (Paused by the system), live as #222.
 2. **Service issues as threads.**
    - The card, Pulse's `svc:` case and Outside services' lines become the one thread; no ×; "Its alarm on the board"
      goes (§3).
