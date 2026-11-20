@@ -117,6 +117,8 @@ sessions take over, holding until Jason says resume. Live through Release #228 (
   issue, because the page should show what is properly assigned to that area based on its funnel level", so the hub
   shows the data as it is, no merge, and the fix is the clusters' assignment by funnel level, to Operations); the dashboard
   discussion; done: the Park Service key (Jason, 2026-11-20: "done. its in!"); control_tick is back on `*/5` (Jason pressed it, 2026-11-20).
+- **Operations, with 0176 R2:** alarm emails take the push's shape (0176 note, Jason 2026-11-20, "Same shape as push"):
+  plain-words subject, one thread per alarm, news as replies.
 - **Operations, a small fix after 0175 R2a** (from Jason's screenshots, 2026-11-20; playbook §4, words follow the state):
   the scheduler's dropdown shows "Every minute" when a line matches no preset (`presetOf` returns '', the select falls
   to its first option): show the line's real schedule. The National Park Service card (0173's card): two "Active"
