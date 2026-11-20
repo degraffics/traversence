@@ -247,8 +247,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "quiet jobs aren't late (system_start_tick)",
    "since": "2026-11-20T14:19:27Z",
-   "expires": "2026-11-20T18:19:27Z",
-   "release": "",
+   "expires": "2026-11-20T18:24:04Z",
+   "release": "quiet-jobs.zip",
    "callers": {}
   },
   {
@@ -258,9 +258,13 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "quiet jobs aren't late (system_start_tick)",
    "since": "2026-11-20T14:19:31Z",
-   "expires": "2026-11-20T18:19:31Z",
-   "release": "",
-   "callers": {}
+   "expires": "2026-11-20T18:24:04Z",
+   "release": "quiet-jobs.zip",
+   "callers": {
+    "tv_admin_job_line": [
+     "app/admin/widgets.php"
+    ]
+   }
   },
   {
    "path": "app/admin/sections.php",
@@ -269,8 +273,8 @@
    "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
    "why": "quiet jobs aren't late (system_start_tick)",
    "since": "2026-11-20T14:19:33Z",
-   "expires": "2026-11-20T18:19:33Z",
-   "release": "",
+   "expires": "2026-11-20T18:24:04Z",
+   "release": "quiet-jobs.zip",
    "callers": {}
   },
   {
