@@ -6,25 +6,29 @@
     "zip": "trip-share.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "staged",
-    "step": 0,
+    "state": "live",
+    "step": 3,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
     "plan_at": "2026-11-20 14:42:52",
     "staged_at": "2026-11-20 14:42:53",
-    "vetted_at": null,
-    "live_at": null,
+    "vetted_at": "2026-11-20 14:42:57",
+    "live_at": "2026-11-20 14:42:57",
     "files": {
         "app/ui/faq.md": {
             "sha": "d4e4287e3bea8928a1f017465866774c2945f2c7575903cd1543324be7ce8547",
             "size": 402243,
-            "live_was": "19c6833eac13f777dafd9d3ccc45c90745b65cbf7ad4f9b0f6f1f070ef1fce5a"
+            "live_was": "19c6833eac13f777dafd9d3ccc45c90745b65cbf7ad4f9b0f6f1f070ef1fce5a",
+            "existed": true,
+            "old_sha": "19c6833eac13f777dafd9d3ccc45c90745b65cbf7ad4f9b0f6f1f070ef1fce5a"
         },
         "app/ui/engage-ui.php": {
             "sha": "f87dfa9630716851cb51ee7ad81fe89168beb5cc1d3eba00e92a241b154e3592",
             "size": 20781,
-            "live_was": "8e773029a01af6da6b8d90c3cd650e5ce16a81b546c4c0fa0775ef8dc287e940"
+            "live_was": "8e773029a01af6da6b8d90c3cd650e5ce16a81b546c4c0fa0775ef8dc287e940",
+            "existed": true,
+            "old_sha": "8e773029a01af6da6b8d90c3cd650e5ce16a81b546c4c0fa0775ef8dc287e940"
         },
         "app/migrations/2026-11-21_personal-guides.sql": {
             "sha": "31e2ff0356048972e5b4d4f63bf919702aeb7b89b81854e25dff8e71fd1823dc",
@@ -34,77 +38,105 @@
         "app/lib/Engage.php": {
             "sha": "4aa2c5083304dfc0ef3efec8b6f7b3fe8d28fbb50e5414de8abde6b86a4544f2",
             "size": 26706,
-            "live_was": "12264f1ea10813ff999e3b531017bb6b6f43fa14f59d224ba8891579bc62b789"
+            "live_was": "12264f1ea10813ff999e3b531017bb6b6f43fa14f59d224ba8891579bc62b789",
+            "existed": true,
+            "old_sha": "12264f1ea10813ff999e3b531017bb6b6f43fa14f59d224ba8891579bc62b789"
         },
         "app/lib/Reports.php": {
             "sha": "3178a885b71a8be52dfbe8831e992036dd8b8911247ac788eff80c6fe0cdbe38",
             "size": 34904,
-            "live_was": "0b398bf37fb5aff4f88aef68f863c11bc246679b2af8181ce291dfe92da11d49"
+            "live_was": "0b398bf37fb5aff4f88aef68f863c11bc246679b2af8181ce291dfe92da11d49",
+            "existed": true,
+            "old_sha": "0b398bf37fb5aff4f88aef68f863c11bc246679b2af8181ce291dfe92da11d49"
         },
         "app/lib/ListingActions.php": {
             "sha": "4f00979920a9d1b8606125bfe2ce72e4228c05bee74cf04e4053e616b4a71fab",
             "size": 14981,
-            "live_was": "55315a000ace28fa80c93d3cf0806c72adc8af1e214aa889dce8bec7664b3131"
+            "live_was": "55315a000ace28fa80c93d3cf0806c72adc8af1e214aa889dce8bec7664b3131",
+            "existed": true,
+            "old_sha": "55315a000ace28fa80c93d3cf0806c72adc8af1e214aa889dce8bec7664b3131"
         },
         "app/lib/AccountDeletion.php": {
             "sha": "0538ec8e7a651b26c73fb6350d7e9b660708f01f5e3af1311012236ff69b8b20",
             "size": 21727,
-            "live_was": "fef0fbfc16a0b8ea9ace7be62c5756dfb7195ded12c7fc2a0075ea17a76f23ee"
+            "live_was": "fef0fbfc16a0b8ea9ace7be62c5756dfb7195ded12c7fc2a0075ea17a76f23ee",
+            "existed": true,
+            "old_sha": "fef0fbfc16a0b8ea9ace7be62c5756dfb7195ded12c7fc2a0075ea17a76f23ee"
         },
         "app/lib/Links.php": {
             "sha": "1c5a07f25eb7037efa80dd3a19acac284cb021ec59140dc7891d328a77fec862",
             "size": 18969,
-            "live_was": "e77314d80dc72337be964dbc89290adf70a6f1ee42d833cc028c23641783244d"
+            "live_was": "e77314d80dc72337be964dbc89290adf70a6f1ee42d833cc028c23641783244d",
+            "existed": true,
+            "old_sha": "e77314d80dc72337be964dbc89290adf70a6f1ee42d833cc028c23641783244d"
         },
         "app/lib/Trips.php": {
             "sha": "e928024ac3ad2eb4e805dc50cb396e1dca6dbb6eb6ad0e05911f67559d9f9f58",
             "size": 39547,
-            "live_was": "ac7c2d99a72adf07629c8879f3f340b229597565297c40fa0fa0a22cbd7b6f0a"
+            "live_was": "ac7c2d99a72adf07629c8879f3f340b229597565297c40fa0fa0a22cbd7b6f0a",
+            "existed": true,
+            "old_sha": "ac7c2d99a72adf07629c8879f3f340b229597565297c40fa0fa0a22cbd7b6f0a"
         },
         "app/lib/staging-tables.php": {
             "sha": "d69e8d03db4d9e130121e2b82a32ed1f3c0d7d65bad6ecbb9c48319e2d7dd01c",
             "size": 28581,
-            "live_was": "7528636b5faf22c8e34e9581b8036fb955f569e173ad282d6ddb9328cf5ad0aa"
+            "live_was": "7528636b5faf22c8e34e9581b8036fb955f569e173ad282d6ddb9328cf5ad0aa",
+            "existed": true,
+            "old_sha": "7528636b5faf22c8e34e9581b8036fb955f569e173ad282d6ddb9328cf5ad0aa"
         },
         "app/lib/PlatformCounts.php": {
             "sha": "50664a637b51852ee2ecf7a1947238a42c6dbcb8b34a83075f285fc0b3e0a936",
             "size": 13342,
-            "live_was": "e3d795f9a798439cced26a94102a68cd866f3132e4b7aa00a851a62ea0bfc801"
+            "live_was": "e3d795f9a798439cced26a94102a68cd866f3132e4b7aa00a851a62ea0bfc801",
+            "existed": true,
+            "old_sha": "e3d795f9a798439cced26a94102a68cd866f3132e4b7aa00a851a62ea0bfc801"
         },
         "website/admin/insights.php": {
             "sha": "f52d3371362ab57c3e17f8d16fcd50fa9e07f261cf5e2ed08ff44d3a72cb7891",
             "size": 24865,
-            "live_was": "fe2ac54110d96f8cbab5852be017f17a7902bec14e445acf5fa262baf6b3f813"
+            "live_was": "fe2ac54110d96f8cbab5852be017f17a7902bec14e445acf5fa262baf6b3f813",
+            "existed": true,
+            "old_sha": "fe2ac54110d96f8cbab5852be017f17a7902bec14e445acf5fa262baf6b3f813"
         },
         "website/admin/journeys.php": {
             "sha": "35e66a2b85fc8d312e4779aeb4545155a3d2b3ecfb4cf4077c5f01f8e5687263",
             "size": 16066,
-            "live_was": "89411aba5923fe527629b2eeae9ca0ef3d68427e7a92a8f9bae5ac322deda7d3"
+            "live_was": "89411aba5923fe527629b2eeae9ca0ef3d68427e7a92a8f9bae5ac322deda7d3",
+            "existed": true,
+            "old_sha": "89411aba5923fe527629b2eeae9ca0ef3d68427e7a92a8f9bae5ac322deda7d3"
         },
         "website/user/trips/trip.php": {
             "sha": "49fa43e8223d8fcd5516c85dcfc45da405eac9195411831994a1dfc4dea91e4a",
             "size": 35562,
-            "live_was": "b16526202e9699680da4e492bf19e926b3833ad4ac6e020962f6c62d0b49e526"
+            "live_was": "b16526202e9699680da4e492bf19e926b3833ad4ac6e020962f6c62d0b49e526",
+            "existed": true,
+            "old_sha": "b16526202e9699680da4e492bf19e926b3833ad4ac6e020962f6c62d0b49e526"
         },
         "website/trip/index.php": {
             "sha": "65ebcc74fa5cfc8072881066fc4259ad5642d3aa26a5b3f356a7500d9171cc6d",
             "size": 260,
-            "live_was": null
+            "live_was": null,
+            "existed": false
         },
         "website/api/engage.php": {
             "sha": "9a0d653f46f5b7da4c2640072da6d16265830fa90257a2acfbb188b84cef5925",
             "size": 8971,
-            "live_was": "7f41309a4490ce7ce9d1f3189c9e76c839534fb091c4574397dd02146df9332c"
+            "live_was": "7f41309a4490ce7ce9d1f3189c9e76c839534fb091c4574397dd02146df9332c",
+            "existed": true,
+            "old_sha": "7f41309a4490ce7ce9d1f3189c9e76c839534fb091c4574397dd02146df9332c"
         },
         "website/api/trips.php": {
             "sha": "9406bbf1469e1b3f68f5819f06f51074defd5f2b70ed383fecd48bc59d525f06",
             "size": 12259,
-            "live_was": "dcfa7fda49daecb5d1b6f4b485afc69a0519ee8cbe94dc78d853020d823abcdf"
+            "live_was": "dcfa7fda49daecb5d1b6f4b485afc69a0519ee8cbe94dc78d853020d823abcdf",
+            "existed": true,
+            "old_sha": "dcfa7fda49daecb5d1b6f4b485afc69a0519ee8cbe94dc78d853020d823abcdf"
         },
         "website/guide/personal.php": {
             "sha": "ff0018f1b4780195d3e85f6825b2599ce1ea2d0b99ab3af211b51f68057c4b96",
             "size": 334,
-            "live_was": null
+            "live_was": null,
+            "existed": false
         }
     },
     "migrations": [
@@ -112,8 +144,8 @@
     ],
     "checks": {
         "ok": true,
-        "where": "staging",
-        "at": "2026-11-20T14:42:55+00:00",
+        "where": "live",
+        "at": "2026-11-20T14:42:57+00:00",
         "items": [
             [
                 "PHP files parse",
@@ -121,19 +153,9 @@
                 "16 checked"
             ],
             [
-                "Migrations only add",
-                true,
-                "1 checked"
-            ],
-            [
-                "Migrations ran on staging",
-                true,
-                "Ran 2026-11-21_personal-guides.sql"
-            ],
-            [
                 "Pages answer",
                 true,
-                "7 pages answered on staging.trvgo.us"
+                "7 pages answered on traversence.com"
             ],
             [
                 "No new fatal errors in the logs",
@@ -163,6 +185,16 @@
             "at": "2026-11-20T14:42:55+00:00",
             "by": 0,
             "msg": "Put on staging (18 files); its checks passed."
+        },
+        {
+            "at": "2026-11-20T14:42:57+00:00",
+            "by": 0,
+            "msg": "Approved in chat before it was sent through git, and its checks on staging passed: publishing by itself."
+        },
+        {
+            "at": "2026-11-20T14:42:57+00:00",
+            "by": 0,
+            "msg": "Published: 17 files, after its 1 migration ran first (2026-11-21_personal-guides.sql; a copy of what each touched is kept 14 days); everyone at once (no switch)."
         }
     ]
 }
