@@ -116,8 +116,8 @@
    "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
    "why": "0175's note 2026-11-20: Paused now gives a clear picture",
    "since": "2026-11-20T18:42:29Z",
-   "expires": "2026-11-20T22:42:29Z",
-   "release": "0175-paused-now",
+   "expires": "2026-11-20T22:44:21Z",
+   "release": "0175-paused-now.zip",
    "callers": {
     "pausedHtml": [
      "app/admin/automation-console.php",
@@ -134,8 +134,8 @@
    "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
    "why": "0175's note 2026-11-20: Paused now gives a clear picture",
    "since": "2026-11-20T18:42:29Z",
-   "expires": "2026-11-20T22:42:29Z",
-   "release": "0175-paused-now",
+   "expires": "2026-11-20T22:44:21Z",
+   "release": "0175-paused-now.zip",
    "callers": {}
   },
   {
