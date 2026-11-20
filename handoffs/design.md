@@ -1,5 +1,8 @@
 # The design session's hand-off (index)
 
+**Newest: `handoffs/design-and-trips-2026-11-20.md`** (the Design and trips session's hand-off at its 2026-11-20 hold). Read it
+after this index; where they differ, it's the newer.
+
 Written 2026-11-20 by session_01CXLi5jkgtUikcdUQ4Wmv28, when Jason held every session ("every session is held… review
 each session and hand off to new session so we can reduce token use without logic loss"). This is the one place to start;
 each area's own hand-off (linked below) has the detail. **Building is held:** start nothing until Jason or the session

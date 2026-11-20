@@ -146,3 +146,8 @@ the pulse and display easier." He chose all six of the session manager's suggest
    the same button.
 6. **Words beside the header's four icons** (bell, calendar, ⋯, settings) on a wide screen.
 Built by the Design and trips session.
+
+**Answers (Jason, 2026-11-20, a pop-up reviewed by the session manager):** a group opens by itself when it has **3 rows or
+fewer**. Saved views are kept **with his account** across devices ("With my account"), not on the device as Pulse's other
+choices are. That needs a new add-only table (`pulse_views`: the person, the name, the filters as JSON, when made), with
+its staging class (decisions/0165, R14). Pulse's other choices stay on the device, as before.
