@@ -283,6 +283,19 @@
    "expires": "2026-11-20T18:23:43Z",
    "release": "trip-share.zip",
    "callers": {}
+  },
+  {
+   "path": "app/ui/engage-ui.php",
+   "functions": [
+    "tv_engage_bar"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Sharing, Personal Guides, counts (decisions/0174 release 4): a place's trip count",
+   "since": "2026-11-20T14:39:59Z",
+   "expires": "2026-11-20T18:39:59Z",
+   "release": "trip-share.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
