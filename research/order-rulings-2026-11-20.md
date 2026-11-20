@@ -1,15 +1,62 @@
-# Order processing: Jason's rulings on the map (2026-11-20)
+# Order processing: Jason's confirmed rulings (2026-11-20)
 
-Jason sent this to the session manager for the Orders session: "response from Gem for order pro" (his review of the
-map with Gemini, written "ready to copy and paste directly to Claude"). Taken as his answers to the map's §5 items and
-his direction for the rewrite. Kept verbatim below. The Orders session writes each ruling into decisions/0101 as a
-dated note quoting it before building on it (builder-playbook §3).
+**Status: confirmed by Jason, 2026-11-20**, in the decision pop-up, after the session manager's review of Gemini's
+answers. His confirmed text is first, verbatim; Gemini's earlier answers (below the line) are kept as history only.
+The Orders session writes each ruling into decisions/0101 (and the accounting clarification into 0166) as dated notes
+quoting this text before building on it.
 
-**Still open after this** (ask one at a time): when design work is earned / non-refundable and when production is
-refundable (Part 2 §3 states the aim, not the rule); the order file check's limits (0176 R4); design capacity; a
-fingerprint of the exact approved file; moving order mail onto the one dispatcher (0172).
+**Still open** (ask one at a time, plainly first): design vs production money (Part 2 §3); the order file check's limits
+(0176 R4, when the build reaches them); design capacity; a fingerprint of the approved file; order mail onto the one
+dispatcher (0172).
+
+## Confirmed text (Jason, 2026-11-20)
+
+**1. Confirmed map baseline.** A. `order-system-map-2026-11-19.md`: confirmed as the accurate baseline snapshot of the live
+codebase (Sync: 2026-11-19 16:21 UTC) and decision log (0035–0172). Rewrite direction: layer the 2026-11-20
+Process-Before-Cart and Pre-Transaction Terms rules on top of this confirmed map, so each line item completes its required
+preparation/confirmation gates (proofs/preflight, production files, vendor selection, drop-ship setup, or two-way
+service/appointment confirmation) before releasing into the unified cart for final confirmation and payment.
+
+**2. Settled rulings.**
+- **B.1 Ship-to prefill:** change it to match the staff "Approve for the client" form. When an order already has a Ship to
+  address (`orders.ship_*`) entered by staff, prefill the client's form with that destination and leave "To the billing
+  address above" unticked. Default to the billing address only when Ship to is blank.
+- **B.2 Proof gate before Send / cart release:** require proof approval for every printed item before Send or release to
+  the cart/production, through one of three paths: (1) staff-built / custom proof, uploaded by staff and approved by the
+  client (initials/sign-off); (2) exact reorder (`reuse_of`), reusing a previously approved proof with client
+  confirmation, only when the product's specs and vendor are unchanged; if specs or vendor change, a fresh proof;
+  (3) client-supplied artwork: the client's file passes our file check (0176) → we generate a proof showing what will
+  actually print (trim and bleed) → the client approves that proof (not their raw file).
+- **B.3 Part payments on QuickBooks' hosted invoice page:** record them in `order_ledger` as partial/deposit entries rather
+  than waiting until the balance is $0.00. A recorded part payment that reaches the required deposit amount releases
+  production as a deposit paid on our site does.
+- **B.4 Centralized paid_in_full check:** enforce across every path (order page, Pulse, work orders, `/wo.php`, the
+  Back-Office drawer), except where Release to production before payment, invoice later, or outside terms apply.
+- **B.5 Refunds with an open work order:** offer "Cancel the work order and notify the vendor" in the refund flow, and show
+  the vendor job's current status first (accepted or already-printed work carries unrecoverable vendor costs; what the
+  client gets back is a separate decision).
+- **B.6 Six unused builder actions** (`terms`, `line_save`, `addr_save`, `line_ship`, `options_save`, `stage`): delete as
+  dead code, only after searching the live code to confirm nothing calls them.
+- **B.7 Watermarks (0099 vs 0101):** 0101 replaced 0099: no watermark rule; no file downloads before the order is paid in
+  full, except the active proof awaiting the client's approval.
+
+**3. Architecture and accounting clarifications.**
+- **Two layers (0166 vs QuickBooks Online).** The payment processing layer (the app + QuickBooks Payments) handles card
+  charges, deposits, part payments, refunds and webhooks, updating `order_ledger` as the real-time operational
+  transaction log that drives order states and production release gates. The books (QuickBooks Online) remain the
+  authoritative accounting record for invoices, taxes, credits and financial reporting. Because 0166 §2's full
+  double-entry ledger is not yet built (only the wallet is live) and QuickBooks holds years of accurate, verified data,
+  QuickBooks stays primary for the books unless and until an internal double-entry ledger is completely built,
+  reconciled in parallel against QuickBooks, and explicitly promoted.
+- **Subscriptions (0108):** no dunning/retry loop on plans; a declined plan drops to Free.
+- **Design vs production money (Part 2 §3):** remains an open question to ask, not an assumed rule.
+- **Guard 0101's invariants:** unpicked options default to the first choice ("The first choice is the standard one"); tax
+  only at approval/invoice creation; Traversence's own sales (`orders`) walled off from business/marketplace sales
+  (`market_orders`, `b_biz_quotes`).
 
 ---
+
+## History: Gemini's first answers (superseded by the confirmed text above)
 
 ## Part 1: Confirmed map and answers to open questions
 
