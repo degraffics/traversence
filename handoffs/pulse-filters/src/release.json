@@ -1,0 +1,10 @@
+{
+ "title": "Pulse's filters in one button: lists, Show, Senders, Levels, Group by and saved views",
+ "why": "Jason, 2026-11-20 (design/table-standard.md, his note and its answers): \"the group, filter, box drop down are kind of hard to work with\". The admin's Pulse now has one filter button (\"Inbox · All (n) ▾\") whose panel opens under it and holds your lists, Show, Senders and Levels (ticks that apply at once, each with how many your other choices leave, a greyed 0 for none), Group by and Saved views. The panel stays open so filters combine, and closes with ×, Esc or a click outside. What's on shows as tags beside the button, each with × (Clear all for every one). The From and level funnels in the column headers and the centred \"Show these …\" box are gone; sorting stays on the headers. Grouped, a group of 3 rows or fewer opens by itself, what you open or close is remembered on the device, and Open all / Close all sit beside the button. Saved views are kept with the account across devices (a new table, pulse_views: the person, the name, the filters); × removes one, with Undo. On a wide screen the bell, Your day, Quick actions and Settings say their names. No outside calls, no cost.",
+ "changes": [
+  {"what": "Pulse: the one filter button, tags, groups and saved views", "where": "https://traversence.com/admin/dashboard/today"},
+  {"what": "FAQ: How do I work the Pulse stream?", "where": "https://traversence.com/faq.php#i-m-on-the-traversence-team-how-do-i-work-the-pulse-stream"}
+ ],
+ "proposals": [],
+ "switch": ""
+}

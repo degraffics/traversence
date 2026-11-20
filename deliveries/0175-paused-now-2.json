@@ -1,0 +1,22 @@
+{
+ "zip": "0175-paused-now-2.zip",
+ "built_on": "a0e83e7 Sync: 2026-11-20 23:30 UTC",
+ "recorded": "2026-11-20 23:36 UTC",
+ "note": "0175's note 2026-11-20: Paused now gives a clear picture. Rebuilt on Sync 23:30 UTC (faq.md); replaces 0175-paused-now.zip, never sent to main. Sent through git (releases/inbox).",
+ "status": "live",
+ "live_in": "63c754c Sync: 2026-11-20 23:39 UTC",
+ "files": {
+  "app/admin/control-console.php": {
+   "sha256": "5436bd9c67050d643a38ffbdfd93a910f1b3aa32ca5545621a0eafd75842b8b3",
+   "live": true
+  },
+  "app/lib/ControlBoard.php": {
+   "sha256": "275d45fd00c68c2a842520fd43af73e19af85d8cf4df40d866da129d3a86d1cf",
+   "live": true
+  },
+  "app/ui/faq.md": {
+   "sha256": "910361a0d3f8847e0ce2eb3337497a3ce8f3bd2335af2dff2709c5c684182742",
+   "live": true
+  }
+ }
+}
