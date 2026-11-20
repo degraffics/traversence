@@ -6,12 +6,12 @@
     "zip": "pulse-filter-panel.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "planned",
+    "state": "approved",
     "step": 0,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
-    "plan_at": null,
+    "plan_at": "2026-11-20 23:28:12",
     "staged_at": null,
     "vetted_at": null,
     "live_at": null,
@@ -56,6 +56,16 @@
             "at": "2026-11-20T23:28:10+00:00",
             "by": 0,
             "msg": "Uploaded pulse-filter-panel.zip: 6 files."
+        },
+        {
+            "at": "2026-11-20T23:28:12+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/pulse-filter-panel.zip (git 3a5b19a6bc)."
+        },
+        {
+            "at": "2026-11-20T23:28:12+00:00",
+            "by": 0,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
         }
     ]
 }
