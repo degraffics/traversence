@@ -232,3 +232,10 @@ names. Code is in `api/lib/Profile.php` and `user/api/profile.php`. A profile ph
 shown for now.
 
 **Since 2026-11-03 (decisions/0141):** 0141 §2.5–2.6: this preference framework is Market 360°'s unsubscribe for every email, text and push. Linkers are **prospects**: linking is the consent to be known to the business; contact details only as shared, read live and never copied; no export of prospects. Business Insights' "counts only" applies to anonymous reach; the portal's linkers view shows names as the Linking consent promises (Phase A). Offers are grouped one card per business.
+
+**Note (Jason, 2026-11-20, hero tidy's pop-up):** journeys can be linked. The Link button that journey pages and
+journey cards already drew (`place:jr:<id>`) had no case in `Links::resolve`. Asked "fix it here, or leave Link to out
+on journeys?", Jason answered **"Fix it here"**. Following §"One Link button, on anything" (a guide or story), a
+**published** journey can be linked, as `place:jr:<id>`, the same way a Personal Guide is (`place:pg:<id>`). A draft, or
+a journey hidden after reports, can't be ("That journey isn't available."). In the linked-places feed it reads "A
+journey you linked". Release: hero-tidy.

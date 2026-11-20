@@ -1,0 +1,42 @@
+{
+ "zip": "hero-tidy.zip",
+ "built_on": "68d8257 Sync: 2026-11-20 15:56 UTC",
+ "recorded": "2026-11-20 15:58 UTC",
+ "note": "Hero tidy (Jason, 2026-11-20, approved twice), rebuilt on Sync: 2026-11-20 15:56 UTC (68d8257), after #229 Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/Links.php": {
+   "sha256": "b521731d10b77fd67a960e398d9129f6cfe7b6c4fe7e41f80b191802222c3276",
+   "live": false
+  },
+  "app/ui/engage-ui.php": {
+   "sha256": "44905ad01f6ae45df9b187f8f00010d215087352878ef5c25fdd7777367406ea",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "b7ca3f5d1ed6b12466e83dbd43e7c24b9fd052539dfa9f3fb0f0d691e72bf6fa",
+   "live": false
+  },
+  "app/ui/stock-ui.php": {
+   "sha256": "c3700a62241b6885518b655c2df781a10a8936c7b75beaa087046cdae0a5c620",
+   "live": false
+  },
+  "website/discovery/index.php": {
+   "sha256": "4913117f471319f38fdd351d9215b5d53f05fbfc3662da8c70d7e22c404b9187",
+   "live": false
+  },
+  "website/hub/index.php": {
+   "sha256": "6f5f96e5d9255c9400995e75a8133e5c636e670e8d22357da320a7172eb173df",
+   "live": false
+  },
+  "website/js/engage.js": {
+   "sha256": "ae3b45119935fb96512884665af005870c315fe426c10db59c8b27069bbe8459",
+   "live": false
+  },
+  "website/listing/view.php": {
+   "sha256": "2f29ad3a753dcbb2c84d54312ae7793763844f87ac0146e01c6133121c000d6a",
+   "live": false
+  }
+ }
+}

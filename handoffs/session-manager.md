@@ -101,6 +101,11 @@ sessions take over, holding until Jason says resume. Live through Release #228 (
   the red hour) next, built on part 1 once it's live. `claude/0175-r2a-wip` is folded into part 1.
 - **Design and trips** (`design.md` and its area files): hero-tidy (`claude/hero-tidy`, approved, unsent) → admin kit →
   T5 → 3d/3e/3f → the map release → 0174 R5 (openrouteservice; read its terms first).
+  **Progress (2026-11-20):** hero tidy rebuilt on Sync 15:06 UTC (eb49e51) and sent (`releases/inbox/hero-tidy.zip`,
+  PR #1180). Jason approved it, then answered "Fix it here" (journeys can be linked: `Links::resolve`'s `jr:` case, with a
+  note in 0047) and the same-named merge was taken out (his "crawler, workflow issue" words). The revised release is
+  waiting for his second OK. **For the admin kit release:** at 390 a live hub is 392px wide; the cause is the `.tv-trl` bar
+  (`js/tv-trail.js`), found on https://traversence.com/hub/?hub=ancient-america (2026-11-20).
 - **Orders** (`order-processing.md`): starts after Jason reviews `research/order-system-map-2026-11-19.md` and its six
   items; the first release carries the chargeFor fix.
 - **The session manager** also reads Monday's (2026-11-23) "Edit my listing" path check (`business-listings.md`).
