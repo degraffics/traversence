@@ -133,38 +133,6 @@
    "callers": {}
   },
   {
-   "path": "app/lib/ControlBoard.php",
-   "functions": [
-    "pausedHtml",
-    "pausedNow"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
-   "why": "release 0175-paused-now-2.zip",
-   "since": "2026-11-20T23:36:04Z",
-   "expires": "2026-11-21T03:36:04Z",
-   "release": "0175-paused-now-2.zip",
-   "callers": {
-    "pausedHtml": [
-     "app/admin/automation-console.php",
-     "app/admin/control-console.php"
-    ]
-   }
-  },
-  {
-   "path": "app/admin/control-console.php",
-   "functions": [
-    "tv_admin_mod_control"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
-   "why": "release 0175-paused-now-2.zip",
-   "since": "2026-11-20T23:36:04Z",
-   "expires": "2026-11-21T03:36:04Z",
-   "release": "0175-paused-now-2.zip",
-   "callers": {}
-  },
-  {
    "path": "app/lib/ServiceHealth.php",
    "functions": [
     "fixOf"
