@@ -122,6 +122,12 @@ session manager's `session-manager.md` is the check if one is in doubt.
 
 ## 6. Rules and pitfalls learned (add to the builder playbook's spirit)
 
+- **faq.md before every merge (2026-11-20, #235):** #234 (0176 R2 part 1) went live between my last check and my merge.
+  The vault icons' faq.md, built on 740d308, then dropped #234's two FAQ changes when it published. The zip check passed,
+  because it compares against the mirror the zip was built on. So, immediately before merging: fetch `main`, read the
+  newest `deliveries/releases/` records, and if any release that carries faq.md went live after my build sync, ask for a
+  sync and rebuild faq.md on it, even when the check is clean.
+
 - **Rebuild on the newest sync, every time.** Before zipping, pull the mirror. If a release went live since, rebuild from
   the live copies: every build script here (`build-*.py`) reads the mirror, so re-running it is the rebuild.
 - **faq.md order.** faq.md is add-only and shared. A zip blocked only by another pending zip's faq.md waits for that
