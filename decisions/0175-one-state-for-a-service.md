@@ -11,7 +11,7 @@ Builds on:
 Amends (each marked **Note for Jason** where it happens):
 - 0163 §9: a crawler task's switch moves from Automation to the service it serves (§3).
 - 0171 §7's note of 2026-11-18 ("a trip waits for an admin's Resolve"): a trip clears itself when its check passes,
-  except the three kinds only a person can fix (§4).
+  except the three kinds only a person can fix and the third trip of a cause in a day (§4), per his rule of 2026-11-19.
 - 0171 §7: a trip no longer switches anything off; it holds (§4).
 
 Checked against the live mirror at "Sync: 2026-11-20 04:00 UTC".
@@ -31,7 +31,8 @@ Jason, 2026-11-20, with screenshots of Automation, the Service register and the 
 > 7. Deactivation
 > 8. Removal (System keeps historical data even after removed)
 
-And on 2026-11-19: "If this was resolved by system … it should be handled."
+And on 2026-11-19: "If this was resolved by system or marked as resolved by admin it should be handled." That is the
+rule §4 applies; it isn't asked again.
 
 ## What exists (checked in the live code)
 
@@ -138,10 +139,13 @@ else it's named. Jason's eight stages, with 0173 §2's stages folded into them:
   - a workflow;
   - all gathering, when the crawler itself is down.
 
-  What it held is kept in the trip's record. The Founder is still emailed at once, and Pulse still gets its item.
-- **It clears by itself when its check passes.** This replaces 0171 §7's note of 2026-11-18. It applies to every kind,
+  What it held is kept in the trip's record, and Pulse gets its item. The Founder is emailed at once only for a trip that
+  waits for a person (the three kinds below, and the third trip of a cause in 24 hours).
+- **It clears by itself when its check passes.** Jason's rule (2026-11-19): "If this was resolved by system or marked
+  as resolved by admin it should be handled." This replaces 0171 §7's note of 2026-11-18. It applies to every kind,
   "not ready" included. What it held runs again, and the logbook says so. Pulse's item closes with "The system fixed it:
-  its check passed at 09:42 UTC". The Founder gets a short mail saying it's resolved.
+  its check passed at 09:42 UTC", and a **Recovered** row at notice level is added to Pulse. There's no push and no email
+  (Pulse stays trips only: only a trip that waits for a person reaches him at once).
 - **Three kinds wait for a person,** because only a person can fix them:
   - a **refusal** (a block, like 406, or a site saying "don't");
   - a **refused key** (401 or 403 on our key);
@@ -202,11 +206,9 @@ One database update. It's safe to run twice and needs no person:
 ## Questions for Jason
 
 1. Approve this decision, with its three releases in that order?
-2. When a trip's check passes:
-   - **it clears itself** (recommended): refusals, refused keys and used-up quotas still wait for a person, and so does
-     the third trip in a day;
-   - or every trip waits for **Check and start again**, as today.
-3. A crawler task's switch:
+   This includes one guard that's new: the third trip of the same cause in 24 hours waits for a person. (A trip whose
+   check passes clears itself by Jason's rule of 2026-11-19, so that isn't asked again.)
+2. A crawler task's switch:
    - **on the card of the service it serves** (recommended), and on its workflow's page when it serves none. Automation
      keeps the master and the workflows;
    - or it stays on Automation's Tasks table, with the card's button as a second way in.
