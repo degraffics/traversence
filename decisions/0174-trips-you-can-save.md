@@ -131,8 +131,8 @@ server.
 ## 7. Releases, in order (each its own release and OK)
 
 1. **Send to Maps** on guides and ready-made journeys (§4). Free, small, no tables.
-2. **Trips and Add to a trip** (§1–2): the tables, the picker, the guest's trip on the device, and Your trips.
-3. **The trip page** (§3): days, reorder, times, the map with straight-line legs, Save as a trip from the planner.
+2. **Trips and Add to a trip** (§1–2): the tables, the picker, the guest's trip on the device, and Your trips. (Delete, with its 30 days, came forward from 3; Add to a trip on the map's card and in the Trip Planner's results moved to 3, 2026-11-20.)
+3. **The trip page** (§3): days, reorder, times, the map with straight-line legs, Save as a trip from the planner, and Add to a trip on the map's card and in the Trip Planner's results (moved from 2).
 4. **Sharing and Personal Guides:** the link, publishing, and counts for businesses and places.
 5. **Routes on our own site** (§5), with the engine Jason chooses.
 
