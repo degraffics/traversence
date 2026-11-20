@@ -200,3 +200,5 @@ entry, `overpass`. Today it shares the `osm` key with the rest of OpenStreetMap.
   (§3), with their link and Check.
 - Retiring a service is one press and one record, not 11 files and a search for leftovers.
 - Risk: the merged card is long. It folds by section (`h2.hb-h`), so the issue and the stage come first.
+
+**Note (Jason, 2026-11-20, decisions/0175): §2's stages are named and ordered as Jason's eight** (Selection and configuration, Integrated, Activation, Assigned, Operational, Maintenance, Deactivation, Removal), shared with account apps (0169). The buttons and `service_stages` history are kept; §4's definition gains level, kind, touch points, repair and fallback.

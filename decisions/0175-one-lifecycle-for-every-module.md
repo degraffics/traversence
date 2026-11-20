@@ -1,8 +1,9 @@
 # 0175: One lifecycle for every module: our services and account apps, from selection to removal, acted on from the board
 
-Status: **draft 2** (the Control Board session, 2026-11-20, at Jason's request relayed by the session manager). It
-rewrites draft 1 (one state for a service) with Jason's five messages of the morning. Nothing is built until Jason
-approves it in the decision pop-up.
+Status: **accepted** (Jason, 2026-11-20, draft 2, approved with the decision pop-up; reviewed by the session manager).
+The Control Board session wrote it at Jason's request, relayed by the session manager. Draft 2 rewrote draft 1 (one
+state for a service) with Jason's five messages of the morning. His answer on where a task's switch goes is quoted in
+§6 and applied there, and in §3. **Next:** release 1, Paused by the system.
 
 Builds on:
 - 0169: the Shop's App store and one lifecycle for every app (accepted 2026-11-16, not built). Its §5 lifecycle is
@@ -21,7 +22,7 @@ Amends (each marked **Note for Jason** where it happens):
   inside the stages.
 - 0173 §2: its stages are named and ordered as Jason's eight (§1). Its buttons and history are kept.
 - 0171 §7: a fault no longer switches anything off. The system pauses the module, with its reason (§3).
-- 0163 §9: a crawler task's switch moves to the module it serves (§6, question 2).
+- 0163 §9: a crawler task's switch moves to its workflow's own page on the board (§6).
 
 Checked against the live mirror at "Sync: 2026-11-20 04:00 UTC".
 
@@ -163,6 +164,12 @@ one stage it's in, the same everywhere it's named: its card, the register, the b
     way.
   - Draft 1's "third trip in 24 hours" guard is dropped: it wasn't Jason's and isn't in 0171.
 
+**Two things are checked at a failure: the component and the workflow** (Jason, 2026-11-20, quoted in §6):
+- **The component** (the module): its own check, its own pause, its card.
+- **The workflow** that uses it: it **reroutes to a backup service** where one is named, as today's "On a backup" does
+  (Tavily to Brave, our OpenStreetMap copy before any server). It's **paused by the system** only when it can't do its
+  work without that component. The alarm names which of the two is the source, and the board opens that one.
+
 **Two kinds of repair, declared in each module's definition (§4):**
 - **Fix while running** (the faulty headlight): a key, a retry, a setting, a server added. Nothing else stops. The module
   is Paused by the system until its check passes; its dependants carry on without it (§5's fallback).
@@ -245,10 +252,18 @@ What this means:
 - **Start the system, Pause everything and Shut the system down** stay where they are on the board's Start-up and
   Shut-down stages, and on Automation. They're one function, now named as the ignition. **Shut down** one workflow or
   module stays on its row, as Deactivate, recorded with who.
-- **A task's switch** goes on the card of the module it serves, or on its workflow's own page on the board when it
-  serves none (Note for Jason: 0163 §9 amended). Automation's Tasks table becomes one line per workflow, "W1: 6 tasks, 5
-  on. Open W1", linked to that page. Insights → Crawler's on and off become links to the same switch. This is question
-  2; the alternative keeps the Tasks table as it is.
+- **A task's switch lives with its workflow** (Jason, 2026-11-20, answering where it goes): "Workflows are multi-step
+  tasks or procedures that use services to render a specific action/result/outcome. So if a workflow has a component
+  that is failing it needs to either reroute to a back up service or trip if it is not able to function properly. So two
+  things are happening at the time of a failure 1. component 2. workflow are checked. The system board will access both
+  depending on the source of the issue."
+  - A task is a step of its workflow, so its switch is on the workflow's own page on the board
+    (https://traversence.com/admin/config/control/wf-W1), with the services each step uses and its backup.
+  - A module's card lists the workflows and steps it serves (stage 4), each linking to that switch. It's the same
+    switch, never a second one.
+  - Automation's Tasks table becomes one line per workflow, "W1: 6 tasks, 5 on. Open W1", linked to that page (Note
+    for Jason: 0163 §9 amended). Insights → Crawler's on and off become links to the same switch.
+  - The board opens the component or the workflow in a drawer, whichever the failure's source is.
 - **Nothing is lost** (playbook: "replacing a screen keeps everything it did"): every page that changes keeps its
   functions, moved, with the old address leading to the new one.
 
@@ -283,7 +298,7 @@ One database update. It's safe to run twice and needs no person:
    This ends the disagreement Jason saw.
 2. **The board as the one place to act** (§6):
    - every alarm opens its card, key, pre-flight line, assignment, maintenance or switch in a drawer;
-   - the task's switch goes to its module's card (question 2);
+   - the task's switch goes to its workflow's page, with each step's services and backup; the card lists what it serves;
    - Automation's Tasks table becomes a line per workflow.
 3. **The eight stages and the actions on the card** (§1–2): the strip, Activate, Pause, Resume, Deactivate and Delete;
    the register's stage filter in Jason's words.
@@ -328,7 +343,7 @@ come" is built when the first integration needs it.
 | Calendars and bookings | `Bookings.php` (0172 §2.5) | a booking's times and reminders | exists in part; calendar sync to come |
 | Storefronts | `Storefront.php` (0139) | a shop's pages and items | exists |
 
-## Questions for Jason
+## Questions for Jason (answered 2026-11-20: Approve; a task's switch lives with its workflow, §6)
 
 1. Approve this decision, with its four releases in that order, and 0169's App store built on it afterwards?
 2. A crawler task's switch:

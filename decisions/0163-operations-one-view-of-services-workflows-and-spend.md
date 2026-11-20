@@ -619,3 +619,5 @@ The recheck is a task of W2 on the switches (§9), shipped off; its runs, merges
 - Providers without a usage feed (and Claude, without an admin key) are shown as "our count only".
 - Everything that gathers or creates content can be paused in one place, by workflow, task or service, and was shipped
   paused (§9).
+
+**Note (Jason, 2026-11-20, decisions/0175): §9's task switches move to their workflow's own page on the board.** A task is a step of its workflow; Automation keeps the master switch and the workflows, with one line per workflow linking to its tasks. A fault never writes into a switch: it shows as Paused by the system.

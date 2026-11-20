@@ -706,3 +706,5 @@ manager.
 note: clocks on work cases only). Asked "if no one resolves a Control Board trip, should it still be escalated?", Jason:
 "YES". So an open trip still goes up by itself: to the Manager once its level's hours have passed, to the Director after
 twice that, and it is in the bell's list throughout (it is Critical).
+
+**Note (Jason, 2026-11-20, decisions/0175): a fault pauses, never switches off.** §7's trip no longer writes into a person's switch: the system pauses what its cause touches ("Paused by the system", with its reason) and it clears itself when its check passes. The escalation set in §5's note of 2026-11-19 and 3c's note stays exactly as it is. At a failure both the component and the workflow are checked; the workflow reroutes to a backup where one is named. Every alarm opens its fix in a drawer (at_hand): the board is the one place to act.
