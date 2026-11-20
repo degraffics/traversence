@@ -451,3 +451,8 @@ PR #1186, built on Sync 16:01 UTC):
 - Each task's switch is on its workflow's page.
 - The card's in-place Switch on (#216) stays beside the one home of §6. Jason, 2026-11-20, in the decision pop-up: "Keep
   both". It presses the same switch, and the card also links to it.
+
+**Note (Jason, 2026-11-20, in the decision pop-up): where Costs lives.** Asked where Costs' figures that aren't one
+service's go (the month against revenue, the community budget, the AI cap's shares, a hub's opening budget), he chose
+"Top of Modules": the whole Costs page is a fold at the top of Modules (Service register), and in release 2b part C By
+workflow also shows on Workflows. Automation's Services table stays in Start-up (asked in the same pop-up, not removed).

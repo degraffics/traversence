@@ -1,0 +1,26 @@
+{
+ "zip": "0175-r2b-modules.zip",
+ "built_on": "c6eff9a Sync: 2026-11-20 18:05 UTC",
+ "recorded": "2026-11-20 18:25 UTC",
+ "note": "0175 R2b part B: Modules (Service register), Costs folded in; built on Sync: 2026-11-20 18:05 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/admin/manifests.php": {
+   "sha256": "b9433b5c852c261ea5f05dc93cda899daf51c3681b8d8cc1ecb50f6e381972c1",
+   "live": false
+  },
+  "app/admin/operations-console.php": {
+   "sha256": "0b74e2b216437a242f93316753d6930c6d72e867554a021c0b15b0dcdd21b325",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "69fc6d0859bb8693132f4bf39d04e5f07f9407b6d4afe7f0a2a4942cdc46342b",
+   "live": false
+  },
+  "website/admin/router.php": {
+   "sha256": "539223447737bc4f8c04ed35d22ef92b98ccaca3df371679e9a3a451b39c0fa4",
+   "live": false
+  }
+ }
+}
