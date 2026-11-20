@@ -27,7 +27,7 @@ $over = $base + ['id' => 22, 'hold_until' => '2026-11-18 12:01:00'];
 $t('a wait that\'s over says so, never "until" a past time (issue #22 read "Backing off until Nov 18")', str_contains($w, 'Its wait ended') && str_contains($w, 'the next call tries it again') && !str_contains($w, 'Backing off until'), $w);
 $t('the trip\'s stamp is one constant, used where the hold is set', str_contains((string) file_get_contents($app . '/lib/ServiceHealth.php'), "SET hold_until = '\" . self::TRIP_HOLD . \"'"));
 $ops = (string) file_get_contents($app . '/lib/Operations.php'); $con = (string) file_get_contents($app . '/admin/operations-console.php');
-$t('the switch-on check\'s "Backing off" line and the card\'s Next try use the same words', str_contains($ops, 'lcfirst(ServiceHealth::waitWords($si))') && str_contains($con, 'ServiceHealth::waitWords($i)'));
+$t('the switch-on check\'s "Backing off" line and the card\'s status use the same words (the card reads its thread, 0176 R2)', str_contains($ops, 'lcfirst(ServiceHealth::waitWords($si))') && str_contains($con, 'ServiceHealth::facts($pdo, $i)') && str_contains((string) file_get_contents($app . '/lib/ServiceHealth.php'), 'self::waitWords($r)'));
 $py = (string) @file_get_contents(dirname(__DIR__, 2) . '/workers/crawler/crawler.py');
 $t('the crawler classifies SlowDown the same way', $py === '' || str_contains($py, 'if status == 503 and re.search(r"slowdown|reduce your request rate", b):'));
 echo "\n$pass passed, $fail failed\n"; exit($fail ? 1 : 0);

@@ -124,6 +124,44 @@
      "website/js/tv-vault.js"
     ]
    }
+  },
+  {
+   "path": "website/js/tv-vault.js",
+   "functions": [
+    "drawItems",
+    "onItem"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5gxSyzVYGuXX3xuu2c",
+   "why": "vault icons: Copy password and \u22ef (table-standard \u00a77; Jason 2026-11-20 'Follow the standard')",
+   "since": "2026-11-20T17:28:00Z",
+   "expires": "2026-11-20T21:29:05Z",
+   "release": "vault-icons.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/ui/vault.php",
+   "functions": [
+    "(top)"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5gxSyzVYGuXX3xuu2c",
+   "why": "vault icons: Copy password and \u22ef (table-standard \u00a77; Jason 2026-11-20 'Follow the standard')",
+   "since": "2026-11-20T17:28:00Z",
+   "expires": "2026-11-20T21:28:00Z",
+   "release": "vault-icons",
+   "callers": {}
+  },
+  {
+   "path": "app/ui/vault.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5gxSyzVYGuXX3xuu2c",
+   "why": "release vault-icons.zip",
+   "since": "2026-11-20T17:29:05Z",
+   "expires": "2026-11-20T21:29:05Z",
+   "release": "vault-icons.zip",
+   "callers": {}
   }
  ],
  "lapsed": [

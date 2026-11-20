@@ -19,7 +19,7 @@ off to new session so we can reduce token use without logic loss").
 | # | Release | State |
 |---|---|---|
 | 1 | **The thread and the shape, for alarms** (`0176-thread.zip`) | **live as #226**, verified on Sync b94c979 (14:37 UTC) |
-| 2 | Service issues as threads | **held** (Jason, 2026-11-20: "hold on r2 build"). Surveyed, nothing written, claims released |
+| 2 | Service issues as threads | **built** (Jason restarted it, 2026-11-20); `0176-issues.zip`, built on Sync 16:32 UTC, sent by the Operations session |
 | 3 | Fix it routing | not started; waits for 0175 release 2a's one-panel drawer (the Control Board session) |
 | 4 | Uploads name their thread and landing spot | not started; the order file check waits for Jason's limits |
 
@@ -191,14 +191,13 @@ Source: 0176 §6, A6.
 
 1. **Release 2's restart:** Jason's word (he held it).
 2. **The order file check's limits:** minimum resolution, bleed and size (Jason: "I'll set the limits").
-3. **The × in Jason's screenshot of Common Crawl's card.** No × is drawn in `tv_ops_issues`. Check:
+3. ~~**The × in Jason's screenshot of Common Crawl's card.**~~ **Found (Operations, 2026-11-20):** `tv-ask.js`'s status lines carry a ×; R2 draws the thread without one and adds `data-tv-keep`. No × is drawn in `tv_ops_issues`. Check:
    - `ui/outside-services.php`'s "Is it working" lines;
    - the card's notices (`news`, closed with ×);
    - the drawer chrome.
 
    Ask the session manager before guessing.
-4. **R2's link change** (Outside services and Start pointing at the card, not Pulse's case): confirm with the session
-   manager.
+4. ~~**R2's link change**~~ cleared by the session manager (2026-11-20), with the Pulse case kept reachable (Its case in Pulse).
 5. ~~`ControlSensor.php`'s "Only Resolve clears it" is untrue since 0175.~~ **Closed (Operations, 2026-11-20):** w1-findings (#228)
    fixed ControlSensor's words; the same words left in `ControlAlarms.php` (Pulse's escalation line, three comments) and
    `ControlMaintenance.php` are fixed in 0175 release 2a part 1 (`0175-r2a-panel.zip`).
