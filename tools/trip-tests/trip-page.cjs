@@ -44,7 +44,7 @@ const ok = (c, m) => { if (c) { pass++; console.log('ok   ' + m); } else { fail+
     ok(/About .* of travel, [\d.]+ mi · done about/.test(await p.locator('.tp-tot').first().innerText()), tag + 'a day\'s travel, miles and when it\'s done');
     await p.waitForSelector('.tp-pin', {timeout: 6000}).catch(() => {});
     ok(await p.locator('.tp-pin').count() === 3 && (await p.locator('.tp-pin b').first().innerText()) === '1' && await p.locator('#tp-map path.leaflet-interactive').count() >= 1, tag + 'the map: numbered pins and the line between');
-    if (w === 390) ok(await p.evaluate(() => document.querySelector('.tp-mapw').getBoundingClientRect().top < document.querySelector('.tp-day').getBoundingClientRect().top), tag + 'on a phone the map comes before the list');
+    if (w === 390) ok(await p.evaluate(() => document.querySelector('.tp-mapw').getBoundingClientRect().top < document.querySelector('.tp-grid .tp-day').getBoundingClientRect().top), tag + 'on a phone the map comes before the list');
 
     // reorder with ↓, then ↑ back
     const n0 = await names();
@@ -85,7 +85,7 @@ const ok = (c, m) => { if (c) { pass++; console.log('ok   ' + m); } else { fail+
     await p.click('[data-tp-rename]'); await p.fill('.tv-ask input, .tv-ask textarea', 'Show Low weekend'); await p.click('.tv-ask .yes'); await p.waitForTimeout(500);
     ok((await p.locator('h1[data-trip-name]').innerText()) === 'Show Low weekend', tag + 'Rename');
     ok(await p.evaluate(() => document.documentElement.scrollWidth <= innerWidth), tag + 'no sideways scroll');
-    if (w === 390) ok(await p.evaluate(() => [...document.querySelectorAll('.tp-day, .tp-set')].every(x => { const r = x.getBoundingClientRect(); return r.left <= 4 && innerWidth - r.right <= 4; })), tag + 'days and settings edge to edge');
+    if (w === 390) ok(await p.evaluate(() => [...document.querySelectorAll('.tp-day, .tp-set')].filter(x => x.offsetParent !== null).every(x => { const r = x.getBoundingClientRect(); return r.left <= 4 && innerWidth - r.right <= 4; })), tag + 'days and settings edge to edge');
     // Your trips links here; Delete goes back to Your trips
     await go('/user/trips/');
     ok(await p.locator('a[href^="/user/trips/trip.php?id="]', {hasText: 'Show Low weekend'}).count() === 1, tag + 'Your trips links to the trip page');

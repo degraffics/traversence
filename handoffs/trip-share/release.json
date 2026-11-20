@@ -1,0 +1,12 @@
+{
+ "title": "Trips: share a link, publish as a Personal Guide, and counts for businesses and places",
+ "why": "decisions/0174 release 4 (accepted 2026-11-19). Share makes a view-only link to a trip ('anyone with the link can view it, not edit it. The link can be turned off any time', 0174 §1); turning it on again makes a new link. Publish as a Personal Guide makes a trip public and credited ('checked like a journey before it shows', 0174 §1; 0058 §1): a contributor only, the journeys' automated check, reportable, and staff hide it in Admin → Journeys; it's a content page with likes, comments and the Link button (0058 §20). Shown publicly, a place kept private never appears, nor its name; a business marked closed shows greyed. Businesses see 'Added to trips' in their insights, and Admin → Insights lists places added to trips: counts only, never who (0058 §13, 0094, 0087). Account deletion hides and empties a person's guides, as journeys (0174 §6). No AI, no outside calls, no cost.",
+ "changes": [
+  {"what": "A trip's page: Share, and Publish as a guide", "where": "https://traversence.com/user/trips/"},
+  {"what": "Admin → Journeys: Personal Guides", "where": "https://traversence.com/admin/journeys.php#personal-guides"},
+  {"what": "Admin → Insights: Places added to trips", "where": "https://traversence.com/admin/insights.php"},
+  {"what": "FAQ: What's a Personal Guide?", "where": "https://traversence.com/faq.php#whats-a-personal-guide"}
+ ],
+ "proposals": [],
+ "switch": ""
+}
