@@ -555,3 +555,25 @@ So a later build doesn't "fix" them:
   (10 a page, or 25, 50, 100), so "More" no longer skips posts listed in the same second.
 - **At the cap (§7)**, Post it on Your Marketplace and Post something on `/market/` are greyed out with the reason; a
   team member's test post doesn't count, so ticking Test post frees it.
+
+## Note (Jason, 2026-11-20): nothing sold that may not be there
+
+After an outside shop (OmniOutdoors) charged Jason, then cancelled "out of stock" and refunded, asked whether no physical
+item should be charged until the shop can send it, Jason answered: "Physical Items must be available at time of
+purchase. If not, it cant be sold under the guise as available but could be out of stock, that would mean making false
+promises, so either stocked and ready, or back-ordered and possibly not available must be known before transaction
+occurs. Custom orders, made to order, services that require confirmation must set proper expectations before money is
+taken, it is not so much about the product and more about the delivery of said service per agreed to expectations."
+
+The rule:
+- **A physical item is sold only as what it is:** stocked and ready, or back-ordered (possibly not available), and the
+  buyer knows which before paying. Nothing is offered as available that may be out of stock.
+- **Made to order, custom and services that need confirming** state what's promised (what, when, how it's confirmed)
+  before any money is taken.
+
+Live today (mirror 6c545d9, `MarketCheckout.php`): a tracked item is held while it's paid for (30 minutes for a card,
+the business's days for a manual method), is Sold out at 0 and can't be bought, and paying takes it off; Square's
+counts come in by sync and webhook. Not yet: "Track stock" is optional, so an untracked physical item is sold as if
+available; a count kept elsewhere can be wrong here; every card order is charged at checkout (only deposits and
+rentals authorize first). How each is closed (required stock, a back-order state, authorize-then-confirm, an
+expectations line at checkout) is the build session's proposal, each part sourced to this note, for Jason's OK.
