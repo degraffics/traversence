@@ -1,0 +1,59 @@
+{
+    "id": 226,
+    "title": "The alarm thread: one shape on every surface, one message per alarm (decisions/0176 release 1)",
+    "why": "Jason, 2026-11-20, on Common Crawl's card: \"if the dispatcher controls how things are routed from action to view it should also handle how something like this is presented.\" decisions/0176 (approved): one thread per thing, updated in place, never re-sent; the owner supplies facts and buttons and the dispatcher draws one shape.",
+    "proposals": "",
+    "zip": "0176-thread.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/lib/Thread.php": {
+            "sha": "11227bdeddb793b3358d67161f95901fbaaf53986549163504c1acfc83823595",
+            "size": 8785,
+            "live_was": null
+        },
+        "app/lib/ControlAlarms.php": {
+            "sha": "67c0eb159d517092233746a3a3e1790e4b6f85eec83a79609c3b5aabd2f76f2f",
+            "size": 81330,
+            "live_was": "5c32aacf5a5446c0654b6e60c4b43bd158de972835c5eb9f171e79a48cd9fd80"
+        },
+        "app/lib/Notify.php": {
+            "sha": "77bca49f6b7c6fadfb6f7c91f61e10f01c1aa78475dea5f3a195fb3be9e809a7",
+            "size": 52113,
+            "live_was": "b1156a9c81b4aa0d21658d619b5801abe824d4f104268baf5262f958e833a2bd"
+        },
+        "app/lib/Pulse.php": {
+            "sha": "a031da6e43dd67b05874ed6b908c669ae20246d399d5fff70d85641955f822d2",
+            "size": 152618,
+            "live_was": "6c85d57d73f8859d5866f523daecf53d25f62bfb603e32327fcca16a93cce521"
+        },
+        "app/admin/control-console.php": {
+            "sha": "5aa64b731da061875b7841c07b1a40d553270bf34efd9412caeb8d6d6ea49753",
+            "size": 112476,
+            "live_was": "d400f8914951887ad126c34b8d403d9b749a7fae6b2889631dc1f0064045e62a"
+        },
+        "app/ui/faq.md": {
+            "sha": "19c6833eac13f777dafd9d3ccc45c90745b65cbf7ad4f9b0f6f1f070ef1fce5a",
+            "size": 400825,
+            "live_was": "d207b3c1a040220a2ca209e4b55d4cd4d0208f1d2449c36e095b61214da5329e"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-20T14:35:42+00:00",
+            "by": 0,
+            "msg": "Uploaded 0176-thread.zip: 6 files."
+        }
+    ]
+}
