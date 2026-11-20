@@ -102,7 +102,7 @@
    "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
    "why": "0175 R2b part A: one control board in the menu",
    "since": "2026-11-20T17:52:33Z",
-   "expires": "2026-11-20T21:52:33Z",
+   "expires": "2026-11-20T22:02:22Z",
    "release": "0175-r2b-board.zip",
    "callers": {}
   },
@@ -117,7 +117,7 @@
    "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
    "why": "0175 R2b part A: one control board in the menu",
    "since": "2026-11-20T17:52:36Z",
-   "expires": "2026-11-20T21:52:36Z",
+   "expires": "2026-11-20T22:02:22Z",
    "release": "0175-r2b-board.zip",
    "callers": {}
   },
@@ -131,6 +131,17 @@
    "why": "0175 R2b part A: one control board in the menu",
    "since": "2026-11-20T17:52:42Z",
    "expires": "2026-11-20T21:52:42Z",
+   "release": "0175-r2b-board.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/admin/router.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
+   "why": "release 0175-r2b-board.zip",
+   "since": "2026-11-20T18:02:22Z",
+   "expires": "2026-11-20T22:02:22Z",
    "release": "0175-r2b-board.zip",
    "callers": {}
   }
