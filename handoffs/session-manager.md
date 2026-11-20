@@ -105,7 +105,17 @@ sessions take over, holding until Jason says resume. Live through Release #228 (
 - **Waiting on Jason:** the red threshold for a system hour (0175 R2a); 0176 R2's restart; the order map and its six
   items; the order file check's limits; the area data plan (ten "Albuquerque" clusters, Abilene under Ancient
   Borderlands: find the cause in the five cluster-creating paths, preview in Data cleanup, he decides); the dashboard
-  discussion; a screenshot of `/admin/config/scheduler#job-control_tick`; the Park Service key on its card.
+  discussion; the Park Service key on its card (optional, photos only); **press "Every 5 minutes", then Change** on
+  https://traversence.com/admin/config/scheduler#job-control_tick (its live line is `*/21 * * * *`; `Scheduler::JOBS`
+  says '5min'; nothing in the code writes */21; screenshot item closed, Jason 2026-11-20).
+- **Operations, a small fix after 0175 R2a** (from Jason's screenshots, 2026-11-20; playbook §4, words follow the state):
+  the scheduler's dropdown shows "Every minute" when a line matches no preset (`presetOf` returns '', the select falls
+  to its first option): show the line's real schedule. The National Park Service card (0173's card): two "Active"
+  boxes say the same thing and the first is wrong while the key is missing; "Retire it…" wraps onto two lines under its
+  spinner; "Linked, not called" shows three times.
+- **New sessions:** Operations `session_01CXLi5iPPT6FpHPEMPUcaw4`, Design and trips `session_01CXLi5gxSyzVYGuXX3xuu2c`
+  (both held). Session manager `session_01CXLi5mGX2sg5QS11gg3Wrh`; Monday's listing check moved to it
+  (`trig_01SYS5pgeFj79vmeE35fvgha`).
 - **Review rule** (Jason, 2026-11-20, playbook §3): every behaviour in a summary is checked against the decision line it
   cites; unsourced is a question for Jason, never a build choice; a gap's answer is written into its decision first.
 - **Routes and Send to Maps** are now 0174 (R1 Send to Maps live #219; R5 routing to come). **The Dispatch tool** item
