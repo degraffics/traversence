@@ -211,7 +211,7 @@ SKIP_HOSTS = {"openstreetmap.org", "npino.com", "npiprofile.com", "npidb.org", "
 
 started = time.monotonic()
 WORKER_KEYS = ("GOOGLE_PLACES_KEY", "TAVILY_API_KEY", "BRAVE_API_KEY", "RIDB_API_KEY", "HF_TOKEN")   # reported by name at each run
-WORKER_V = "2.14.1"          # 2.14.1: a 503 asking us to slow down (S3's SlowDown, Common Crawl's data server) is a rate wait, not a server error. 2.14.0: our copy carries health care and guides, and Utah, Colorado and Nevada (one state a run). 2.13.0: Overpass retired: never asked; a kind our copy lacks is reported as not in our copy. 2.12.1: a task stopped by a held service reports "held", never "failed": the call that trips a hold says so, and Common Crawl's task checks its holds first, so a run whose only trouble is a held service ends ok on Railway, not Crashed; 2.12.0: the identity check starts from what the site's own copies hold (the job's "local"), outside only for the rest; 2.11.0: a website that doesn't load for the refresh is looked up in Common Crawl's newest crawl (W2, decisions/0163's source map: direct, then Common Crawl); 2.10.0: web search falls to Brave when Tavily fails or is held; Google Places as the paid backup for confirming a business in the identity check, only by a director's override within its cap (decisions/0163's source map); 2.9.0: W1 reads our OpenStreetMap copy first (the job's "ours", from Geofabrik), Overpass only for a kind or town it lacks, and works on while every Overpass server is held (decisions/0163's source map); 2.8.0: every link on a page read goes to the page log (same site or not; no cap of 60, nor 40 other sites: W0, decisions/0164 §1.4); 2.7.5: a page whose reading had to stop is logged waiting to be read (P1-1); 2.7.4: reports which keys it has (names only), its per-run limits from the plan, Geofabrik's weekly load (osmium); 2.7.3: Geofabrik over IPv4; 2.7: the open-dataset loads and Geofabrik's test (Release B); the service's contract 2 (decisions/0160 §2): the site plans each run, the worker reports it; 2.4: calls by host; 2.5: issues, holds, probes, per-kind Overpass; 2.6: servers from the plan, the pace
+WORKER_V = "2.15.0"          # 2.15.0: Common Crawl's bulk reads (our states' public sites, a source's pages) query its URL Index (Parquet on data.commoncrawl.org, one request at a time, the crawl's file map kept on the site), never the index server, which keeps only a single page's copy (decisions/0164's note of 2026-11-20). 2.14.1: a 503 asking us to slow down (S3's SlowDown, Common Crawl's data server) is a rate wait, not a server error. 2.14.0: our copy carries health care and guides, and Utah, Colorado and Nevada (one state a run). 2.13.0: Overpass retired: never asked; a kind our copy lacks is reported as not in our copy. 2.12.1: a task stopped by a held service reports "held", never "failed": the call that trips a hold says so, and Common Crawl's task checks its holds first, so a run whose only trouble is a held service ends ok on Railway, not Crashed; 2.12.0: the identity check starts from what the site's own copies hold (the job's "local"), outside only for the rest; 2.11.0: a website that doesn't load for the refresh is looked up in Common Crawl's newest crawl (W2, decisions/0163's source map: direct, then Common Crawl); 2.10.0: web search falls to Brave when Tavily fails or is held; Google Places as the paid backup for confirming a business in the identity check, only by a director's override within its cap (decisions/0163's source map); 2.9.0: W1 reads our OpenStreetMap copy first (the job's "ours", from Geofabrik), Overpass only for a kind or town it lacks, and works on while every Overpass server is held (decisions/0163's source map); 2.8.0: every link on a page read goes to the page log (same site or not; no cap of 60, nor 40 other sites: W0, decisions/0164 §1.4); 2.7.5: a page whose reading had to stop is logged waiting to be read (P1-1); 2.7.4: reports which keys it has (names only), its per-run limits from the plan, Geofabrik's weekly load (osmium); 2.7.3: Geofabrik over IPv4; 2.7: the open-dataset loads and Geofabrik's test (Release B); the service's contract 2 (decisions/0160 §2): the site plans each run, the worker reports it; 2.4: calls by host; 2.5: issues, holds, probes, per-kind Overpass; 2.6: servers from the plan, the pace
 RUN_END = None             # when this run's own work must stop (started + TIME_BUDGET, or a bulk load's end)
 TASK_END = None            # when the capture task being worked must stop (its share of the run)
 FETCH_CAP = MAX_FETCHES    # fetches this run may have made by the end of the task being worked
@@ -1559,6 +1559,110 @@ def cc_page(rec):
         return parts[2][:400_000].decode("utf-8", "replace")
 
 
+# ---- Common Crawl's URL Index (decisions/0164's note of 2026-11-20, Jason: "Yes, allow and build it"): the bulk reads
+# (our states' public sites, a source's pages) query its Parquet files on data.commoncrawl.org, "suited to efficient
+# analytical and/or bulk queries", never the CDXJ index server ("optimised for querying individual page captures"),
+# which stays only for a single page's copy (cc_home, at most CC_COPY_MAX a run). One request at a time (DuckDB with one
+# thread, a second apart as cc_get keeps), and the crawl's file map is read once per crawl, a few files a run, and kept on
+# the site, so runs every few minutes never read it again (Terms of use §2(f)).
+CC_COLUMNAR = os.environ.get("CC_COLUMNAR_BASE", CC_DATA)   # tests point it at a local folder of Parquet files
+CC_MAP_PER_RUN = int(os.environ.get("CC_MAP_PER_RUN", "40"))   # files' key ranges read a run while a crawl's map is built
+
+
+def cc_newest_crawl():
+    """The newest crawl's id, from data.commoncrawl.org's own list (the bulk path never asks the index server)."""
+    if os.environ.get("CC_COLUMNAR_CRAWL"):
+        return os.environ["CC_COLUMNAR_CRAWL"]
+    page = cc_get(CC_DATA + "crawl-data/index.html").decode("utf-8", "replace")
+    found = re.findall(r"CC-MAIN-\d{4}-\d{2}", page)
+    if not found:
+        raise RuntimeError("data.commoncrawl.org listed no crawl")
+    return max(found)
+
+
+def cc_surt_host(host):
+    """A host as the URL Index keys it ("www.example.com" -> "com,example,www"); a domain match is it plus ")" or ","."""
+    return ",".join(reversed([p for p in (host or "").lower().strip(".").split(".") if p]))
+
+
+def _cc_duck():
+    """DuckDB for the URL Index: one thread, so one request at a time. Behind a proxy (tests), its address and CA."""
+    con = _duck()
+    con.execute("SET threads=1;")
+    px = os.environ.get("https_proxy") or os.environ.get("HTTPS_PROXY") or ""
+    if px:
+        con.execute("SET http_proxy=?", [re.sub(r"^https?://", "", px).rstrip("/")])
+        ca = os.environ.get("SSL_CERT_FILE") or os.environ.get("REQUESTS_CA_BUNDLE") or ""
+        if ca:
+            con.execute("SET ca_cert_file=?", [ca])
+    return con
+
+
+def _cc_held_from(e):
+    """A DuckDB read that failed: noted as data.commoncrawl.org's issue (a SlowDown is a rate wait), and held."""
+    msg = str(e)
+    m = re.search(r"\b(\d{3})\b", msg)
+    status = int(m.group(1)) if m and 400 <= int(m.group(1)) <= 599 else 0
+    kind = classify(status, msg, "" if status else msg[:200]) or "timeout"
+    note_issue("data.commoncrawl.org", kind, status, msg[:300], "" if status else msg[:200], "URL Index")
+    raise ServiceHeld(f"data.commoncrawl.org: {kind} ({msg[:120]})")
+
+
+def cc_index_files(crawl):
+    """The crawl's URL Index files (subset=warc), from its cc-index-table.paths.gz: one request a crawl."""
+    if CC_COLUMNAR != CC_DATA:
+        return sorted(p for p in os.listdir(CC_COLUMNAR) if p.endswith(".parquet"))
+    raw = gzip.decompress(cc_get(CC_DATA + f"crawl-data/{crawl}/cc-index-table.paths.gz")).decode("utf-8", "replace")
+    return [ln.strip() for ln in raw.splitlines() if "/subset=warc/" in ln]
+
+
+def cc_map_step(crawl, m, deadline):
+    """Reads more of the crawl's file map ({file: [lowest host key, highest host key]}) while the run has time, and keeps it on
+    the site. Returns the map, and whether it's whole."""
+    files = m.get("files") or cc_index_files(crawl)
+    done = dict(m.get("map") or {})
+    todo = [f for f in files if f not in done][:CC_MAP_PER_RUN]
+    if todo:
+        con = _cc_duck()
+        got = {}
+        for f in todo:
+            if time.monotonic() > deadline or out_of_time():
+                break
+            wait = 1.0 - (time.monotonic() - last_cc)   # a second apart, as cc_get keeps
+            if wait > 0 and CC_COLUMNAR == CC_DATA:
+                time.sleep(wait)
+            try:
+                lo, hi = con.execute("SELECT min(stats_min_value), max(stats_max_value) FROM parquet_metadata(?) WHERE path_in_schema = 'url_surtkey'",
+                                     [CC_COLUMNAR + f if CC_COLUMNAR == CC_DATA else os.path.join(CC_COLUMNAR, f)]).fetchone()
+            except Exception as e:
+                if got:
+                    site_call("/api/crawl/commoncrawl.php", {"crawl": crawl, "urlmap": got, "files": files})
+                _cc_held_from(e)
+            got[f] = [str(lo or "").split(")")[0], str(hi or "").split(")")[0]]
+        if got:
+            site_call("/api/crawl/commoncrawl.php", {"crawl": crawl, "urlmap": got, "files": files})
+        done.update(got)
+    return {"files": files, "map": done}, len(done) >= len(files)
+
+
+def cc_index_query(crawl, m, host, cols, limit):
+    """Pages the crawl captured for a domain (the host and every name under it), status 200 and HTML, from the URL Index:
+    only the files whose key range covers it, and DuckDB reads only their matching row groups."""
+    key = cc_surt_host(host)
+    files = [f for f, (lo, hi) in (m.get("map") or {}).items() if lo[:len(key)] <= key <= hi[:len(key)] + "~"]
+    if not files:
+        return []
+    paths = [CC_COLUMNAR + f if CC_COLUMNAR == CC_DATA else os.path.join(CC_COLUMNAR, f) for f in sorted(files)]
+    con = _cc_duck()
+    sql = (f"SELECT {', '.join(cols)} FROM read_parquet(?) WHERE url_surtkey >= ? AND url_surtkey < ? "
+           "AND (url_surtkey LIKE ? OR url_surtkey LIKE ?) AND fetch_status = 200 AND content_mime_type ILIKE '%html%' LIMIT ?")
+    try:
+        rows = con.execute(sql, [paths, key + ")", key + "-", key + ")%", key + ",%", int(limit)]).fetchall()
+    except Exception as e:
+        _cc_held_from(e)
+    return [dict(zip([c.split(" AS ")[-1] for c in cols], r)) for r in rows]
+
+
 _CC_NEWEST = []    # the newest crawl (its id, its index), looked up once a run
 CC_COPIES = [0]    # copies looked up this run: at most CC_COPY_MAX, so a site that's down can't spend the run on the archive
 CC_COPY_MAX = int(os.environ.get("CC_COPY_MAX", "12"))
@@ -1594,13 +1698,17 @@ def common_crawl(deadline):
     for h in ("index.commoncrawl.org", "data.commoncrawl.org"):   # held by the site or earlier this run: held, not failed (2.12.1)
         if held(h):
             raise ServiceHeld(f"{h} is held ({held(h)})")
-    crawl, api = cc_latest()
+    crawl = cc_newest_crawl()      # the bulk reads ask the URL Index on data.commoncrawl.org, never the index server
     d = site_call("/api/crawl/commoncrawl.php?crawl=" + urllib.parse.quote(crawl))
+    m, whole = cc_map_step(crawl, d.get("urlmap") or {}, deadline)
+    if not whole:                  # the crawl's file map is still being read (a few files a run): the reads wait for it
+        log(f"Common Crawl {crawl}: its URL Index map, {len(m['map'])} of {len(m['files'])} file(s) read; the reads start once it's whole")
+        return
     # our states' local public sites: every site under az.us, nm.us … that the crawl captured, onto the register
     for st in (d.get("discover") or [])[:1]:
         if time.monotonic() > deadline or out_of_time():
             return
-        recs = cc_list(api, {"url": st.lower() + ".us", "matchType": "domain", "fl": "url", "filter": ["status:200", "mime:text/html"]}, 5000)
+        recs = cc_index_query(crawl, m, st.lower() + ".us", ["url"], 5000)
         hosts = sorted({host_of(r.get("url", "")) for r in recs if r.get("url")})
         res = site_call("/api/crawl/commoncrawl.php", {"state": st, "crawl": crawl,
                                                       "discovered": [{"url": "https://" + h + "/", "text": ""} for h in hosts if h][:400]})
@@ -1610,8 +1718,8 @@ def common_crawl(deadline):
         if left <= 0 or time.monotonic() > deadline or out_of_time():
             break
         host = h.get("host") or ""
-        recs = cc_list(api, {"url": host, "matchType": "domain", "fl": "url,filename,offset,length", "filter": ["status:200", "mime:text/html"],
-                             "collapse": "urlkey"}, 2000)
+        recs = cc_index_query(crawl, m, host, ["url", "warc_filename AS filename", "warc_record_offset AS offset", "warc_record_length AS length"], 2000)
+        recs = list({r["url"]: r for r in recs}.values())   # one capture a page
         already = set(h.get("read") or [])                # read from this crawl on an earlier run: not again
         recs = [r for r in recs if host_of(r.get("url", "")) == host and r.get("url") not in already]
         recs.sort(key=lambda r: 0 if any(k in r["url"].lower() for k in LINK_HINTS) else 1)   # directory-like pages first
