@@ -61,7 +61,12 @@ Tests added: `tools/control-board-tests/` `board-phone.cjs`, `task-on.php`, `pau
 - **Part 1, `0175-r2a-panel.zip`** (built on Sync 15:06 UTC): items 1, 2 and 9, and a trip's words. Item 1 routes by the
   component; 0176 R3 will route by the cause. Its tests: `one-place.php` (15), `one-place.cjs` (14) and `one-panel.cjs` (12).
   The wip branch's files were rebuilt on the live copies, and its notes are folded in here.
-- **Part 2:** items 3–8, 10 and 11, and the red hour (0175's note, "Critical part down"). Not started.
+- **Part 1 live** as Release #229 (verified on Sync 15:56 UTC, 68d8257).
+- **Part 2, `0175-r2a-lines.zip`** (built on Sync 16:01 UTC, c8f9c3e): items 3–8, 10 and 11, and the red hour (0175's note,
+  "Critical part down"). Its tests: `lines.php` (33) and `lines.cjs` (16); `r12.php` and `task-on.php` were updated for
+  item 10 (no Acknowledge on a warning) and item 8 (the task's link and anchor). Kept on purpose: the card's in-place
+  **Switch on** for a switched-off task (#216) stays. It presses the same `Automation::setTask`, and the card also links
+  to the task's one switch. Automation's old task forms (`task_on`/`task_off`) still answer for an open tab.
 - The session manager's answers on 2026-11-20: Insights → Crawler is part of item 8, with the Tasks table's list of what
   is kept, moved or dropped; claim SystemStart, Preflight and OutsideServices for part 2, then build 0176 R2 on it; 0176 R2
   needs Jason's own word to restart.
