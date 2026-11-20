@@ -71,6 +71,8 @@ session manager's `session-manager.md` is the check if one is in doubt.
    - at 390, the module name cut beside a near-duplicate sections ▾ (one header per view);
    - contrast under 4.5:1: Shortcuts' group labels (admin-hub.php), the dashboard's small labels (`.ad-*`), Pulse's
      column headers (`.ps-sort`, `.ps-flt`).
+   - at 390 a hub is 392px wide on live: the `.tv-trl` bar (`js/tv-trail.js`) (found 2026-11-20 on hero tidy; queued here
+     by the session manager).
 7. **The footer's squeezed edit zone** (session-manager.md "Visual fixes", to Release 3).
 8. **Park Service photos:** built into card photos, and skipped until `NPS_API_KEY` is set (0143's note).
    - Jason adds the key on its card: https://traversence.com/admin/config/register (the Park Service's optional key,
