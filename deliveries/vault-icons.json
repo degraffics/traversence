@@ -3,20 +3,20 @@
  "built_on": "740d308 Sync: 2026-11-20 17:24 UTC",
  "recorded": "2026-11-20 17:29 UTC",
  "note": "Vault icons (table-standard \u00a77; Jason 2026-11-20 'Follow the standard'), built on Sync: 2026-11-20 17:24 UTC (740d308) Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "a3582fe Sync: 2026-11-20 17:34 UTC",
  "files": {
   "app/ui/faq.md": {
    "sha256": "f1578c3c7f74d18330acdb72a9998c894e4c8ef6068fa1bf2391fabf5e51c0e4",
-   "live": false
+   "live": true
   },
   "app/ui/vault.php": {
    "sha256": "ff3ffc790411ab858bf3260371412921ab4ab414375daf22944c26e5f752aa65",
-   "live": false
+   "live": true
   },
   "website/js/tv-vault.js": {
    "sha256": "4e6a1895cba85265bda610f087b2a280180091b40d07006636a599750cda4e01",
-   "live": false
+   "live": true
   }
  }
 }
