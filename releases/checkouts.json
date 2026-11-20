@@ -102,7 +102,7 @@
    "session": "session_01CXLi5gxSyzVYGuXX3xuu2c",
    "why": "listing-signin: the site's session folder on listing pages; Back to where they came from (Jason 2026-11-20)",
    "since": "2026-11-20T18:04:51Z",
-   "expires": "2026-11-20T22:14:34Z",
+   "expires": "2026-11-20T22:31:12Z",
    "release": "listing-signin.zip",
    "callers": {}
   },
@@ -126,7 +126,7 @@
    "session": "session_01CXLi5gxSyzVYGuXX3xuu2c",
    "why": "release listing-signin.zip",
    "since": "2026-11-20T18:14:34Z",
-   "expires": "2026-11-20T22:14:34Z",
+   "expires": "2026-11-20T22:31:12Z",
    "release": "listing-signin.zip",
    "callers": {}
   },
