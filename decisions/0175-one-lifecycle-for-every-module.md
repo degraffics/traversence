@@ -382,3 +382,11 @@ trip that has escalated (its tries ran out) and whose check later passes should 
 Recovered". It closes itself as Recovered, its pause lifts, and the Recovered notice goes to the Founders. Nothing is
 left to press. This settles §3's "it waits for a person only where 0171's escalation already says so": once its check
 passes, nothing waits (`ControlAlarms::ESCALATED_RECOVERS`).
+
+**Note (Jason, 2026-11-20, in the decision pop-up): the Census geocoder's backup.** Asked "The Census geocoder resets the
+site's connections (Bluehost's network). Fall back to the crawler's own geocode on Railway when that happens?", he
+answered "Yes". So the Census geocoder (U.S. Census Bureau) names its backup, per §3 ("The workflow … reroutes to a
+backup service where one is named"):
+- when the site's call to geocoding.geo.census.gov fails on the connection (reset or no answer), the address waits for
+  the crawler's geocode task on Railway, which calls the same Census service from there;
+- a map point is never lost or invented in between.
