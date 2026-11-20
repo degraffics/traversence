@@ -22,6 +22,17 @@
    "expires": "2026-11-20T17:29:59Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/lib/ServiceHealth.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "feeds: an outside service's words follow its state; SlowDown is a rate wait",
+   "since": "2026-11-20T14:02:38Z",
+   "expires": "2026-11-20T18:02:38Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
