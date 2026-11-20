@@ -1,6 +1,6 @@
 # 0176: The dispatcher presents and routes every thread
 
-Status: **draft 1, proposed** (2026-11-20). Written by the dispatcher session at Jason's request, relayed by the session
+Status: **draft 2, proposed** (2026-11-20; reviewed by the session manager). Written by the dispatcher session at Jason's request, relayed by the session
 manager. Nothing is built until he approves it.
 
 Builds on:
@@ -171,14 +171,26 @@ shape, updated in place.
 | Step | What happens | Source |
 |---|---|---|
 | **1. A fault** | A warning on the board and the card only. No Pulse row, email or push. The thread opens, status "Trying again (1 of 3)". | 0171 §7's note, 2026-11-19 ("only a trip reaches a person"); §5's 3c note |
-| **2. The tries run out: a trip** | `control_fix_tries` (default 3) or `control_fix_minutes` (default 60), whichever comes first. A trip is the system placing its pause, so it reads **"Paused by the system (a trip): …"**: the same thread, raised; a Pulse row for duty staff; a push only for critical parts (see Question 2). | 0171 §5's 3c note; 0175 §3 and its note "Trip, and fault" (2026-11-20); A4 |
+| **2. The tries run out: a trip** | `control_fix_tries` (default 3) or `control_fix_minutes` (default 60), whichever comes first. A trip is the system placing its pause, so it reads **"Paused by the system (a trip): …"**: the same thread, raised; and since its tries ran out, 0175 §3's Escalation Notice. It needs a person now, so it reaches one: Pulse, the Founder's email and the push, at once. | 0171 §5's 3c note; 0175 §3 and its note "Trip, and fault" (2026-11-20); A4 |
 | **3. Each check** | Updates the status in place: "Checked 09:42 MST: still refused. Next check 10:12 MST." No new message. | A1; 0171 §7 ("the same problem happening again updates its open alarm") |
 | **4a. Recovered** | It closes quietly. "Recovered: <part> was down <n> min, the system fixed it." A notice with nothing to press (Notice level, so no push by default). | 0171 §5's note, 2026-11-19; 0175 §3 |
 | **4b. Escalated** | 0171's Escalation Notice: "Retries unsuccessful, now admin required: <part>, <duty>". The level rise brings one push. On Pulse's clock it goes to the Manager, then the Director. If its check passes later, it still closes itself as Recovered (4a), its pause lifts, and the Recovered notice goes to the Founders: nothing is left to press (`ControlAlarms::ESCALATED_RECOVERS`). | 0171 §5's note; the note to §8, 2026-11-19; 0172's push-polish note; 0175's note "an escalated trip closes as Recovered" (2026-11-20) |
 | **5. Closed** | It goes to the logbook as the finished story: raised, each check, how it closed, who. | 0171 §10; §7's note ("a cleared one is in the logbook") |
 
-- **A critical part** keeps 0171's rule: a trip at once, to Pulse, the Founder's email and the push, while the system
-  keeps trying (§5's note, 2026-11-19).
+**Who is told, and when** (session manager's review, 2026-11-20, from these sources):
+- 0171 §7's note (2026-11-19, control-board-routes), Jason: "I think trips that require the admin are sent immediately
+  because they wont clear unless the admin clears them. Everything else should be cleared by the system so why send and
+  pulse?"
+- 0175 §3: a system pause "clears itself when its check passes"; "Its tries run out … the Escalation Notice … Only then
+  does it wait for a person"; any other part is "escalated the same way".
+- So **a fault the system is still trying to fix goes to the board and the card only.** Pulse, email and push go to a
+  thread that needs a person:
+  - **held or out** at once: a refusal, a refused key, a used-up quota or budget (0171 §5's 3c note: "there's nothing to
+    try");
+  - **an escalation**, when the tries run out (step 2);
+  - **a critical part's first failure**, at once, while the system keeps trying (0171 §5's note, 2026-11-19), then
+    Recovered or the Escalation Notice.
+- A4's "a push only for critical parts" was the brief's loose wording, not a rule; the sources above decide it.
 - **Stopping:** what it pauses is as narrow as its cause (0171 §7, 0175 §3).
 
 ### 5. Fix it: from the button to the right display (A5)
@@ -221,24 +233,26 @@ Each upload target in `upload-targets.php` (0127) gains two things:
 **Fixes in place for upload errors** (A6): the error is shown beside the button with what to do, as 0127 already has
 (`TvUpload`'s answer beside what you were working on). A failed file check offers its fix there.
 
-**A landmark photo** (A6):
-1. The uploader sees a notice beside the button.
-2. Staff get a thread, "New photo to review", with **Review it**. It opens the photo in the panel with **Approve** or
-   **Hide**.
-3. Later the uploader is told it's live.
+**A photo of a landmark or place** (A6), on today's rule (CLAUDE.md "Build on what's there"): a place's photo is a
+journey, live at once, with reports after (`Journeys.php`'s header: "post first, respond to flags and reports"; FAQ "How
+do I add a photo of a place?"):
+1. The uploader sees a notice beside the button that it's live (0127: the answer beside what you were working on).
+2. Staff get a thread, "New photo of <place>", with **Hide** (`Journeys::setHidden`, which exists) and **Open it**, the
+   photo in the panel.
+3. A report on it joins the same thread (A1: one thread per thing).
 
-**Note for Jason:** today a place's photo is a journey, published at once, with reports after (`Journeys.php`). There's
-no landmark photo target and no review step. Question 3 asks which applies.
+A6's "review before live, then Approve or Hide, and the uploader told later" was an illustration, not a decision. It
+would change today's post-first rule, so it stays Question 2. The session manager and I recommend keeping post first.
 
 **An order file** (A6):
 1. **The order's file check acts as its pre-flight:** resolution, size and bleed. **To come:** it doesn't exist today
-   (What exists). Its limits are Question 4.
+   (What exists). Its limits are Question 3.
 2. Staff get a thread, "New artwork on Order #N", with **Open the order**. It opens the order's **Files** in the panel,
    with **Approve proof** or **Ask for a new file**.
 3. A failed check gives the customer **Fix it → Replace file**.
 
 **Note for Jason:** customers can't upload to an order today; the order targets are staff only. **Replace file** needs a
-customer target on the order's link (Question 4). **Ask for a new file** is to come. The client's Approve exists
+customer target on the order's link (Question 3). **Ask for a new file** is to come. The client's Approve exists
 (`ClientOrders::approve`).
 
 ### 7. Words follow the state (A7)
@@ -246,8 +260,11 @@ customer target on the order's link (Question 4). **Ask for a new file** is to c
 - Every part of the shape is read from the state as it is now, each time it's drawn: playbook principle 4, "Words
   follow the state as it is now".
 - Nothing like "Backing off until Jan 1" is drawn from a stored date that no longer means a time.
-- **The Control Board session's feeds release** caps the back-off and fixes the stale issues (A7). 0176 builds on it and
-  doesn't repeat it.
+- **The Control Board session's feeds release (to come): the back-off cap and stale issues** (A7). 0176 builds on it
+  and doesn't repeat it.
+- What it has to fix includes the 2099-01-01 hold found here: a trip holds a back-off's calls by setting
+  `hold_until = '2099-01-01'` (`ServiceHealth::holdForTrip`), and `describe()` prints it as "Backing off until Jan 1".
+  The session manager has forwarded this to that session.
 
 ## Releases, in order (each one Jason reviews)
 
@@ -266,7 +283,8 @@ customer target on the order's link (Question 4). **Ask for a new file** is to c
      that can't work yet is greyed with the reason").
 4. **Uploads.**
    - Each target names its thread and its landing spot. The order file thread for staff first (§6).
-   - The landmark photo, the order file check and Replace file follow Jason's answers to Questions 3 and 4.
+   - The photo of a place on post first (unless Question 2 says review first); the order file check and Replace file
+     follow Jason's answer to Question 3.
 
 Releases 1 and 2 touch `ControlAlarms.php` and `ServiceHealth.php`, which the Control Board session owns. They're
 claimed through `checkout.py` and coordinated through the session manager (decisions/0161).
@@ -279,16 +297,15 @@ claimed through `checkout.py` and coordinated through the session manager (decis
 
 ## Questions for Jason
 
+Reviewed by the session manager (2026-11-20).
+
 1. **Approve this decision** and its four releases, in that order?
-2. **A push when a part is Paused by the system.** 0171 §7's note (2026-11-19) says a trip goes "to Pulse, the
-   Founder's email and the push at once", for every trip. A4 says "a push only for critical parts". Which applies to a
-   non-critical part paused by the system: a push, or Pulse and email only?
-3. **A landmark photo: review first, or post first?** Today a place's photo is a journey, live at once, with reports
-   after (`Journeys.php`). A6 has staff Review it, with Approve or Hide, and the uploader told later that it's live.
-   Does every visitor's place photo wait for review, or does it stay post first, with the staff thread offering Hide?
-4. **An order's files.**
+2. **A photo of a place: keep post first?** Today it's a journey, live at once, with reports after (`Journeys.php`).
+   §6 keeps that, with a staff thread offering Hide (recommended). Or should every visitor's place photo wait for staff
+   review (Approve or Hide) before it's live?
+3. **An order's files.**
    - What does the file check test, and at what limits? The minimum resolution, the bleed, the most it takes. No
      decision sets these, and the code has none.
    - May a customer upload a replacement on the order's link? Today only staff can upload to an order.
-5. **How far the one shape reaches.** Should Notify draw every kind in the one shape (comments, bookings and groups
-   too, whose bodies have their own reply boxes), or only incidents and uploads first, with the rest later?
+4. **How far the one shape reaches.** Incidents and uploads first, and the other kinds (comments, bookings, groups,
+   whose bodies have their own reply boxes) in a later release (recommended)? Or every kind at once?
