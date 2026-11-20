@@ -41,7 +41,7 @@ session manager's `session-manager.md` is the check if one is in doubt.
 
 ## 3. What's held, and where
 
-1. **Hero tidy: approved, not sent.** Branch `claude/hero-tidy`, `handoffs/hero-tidy.md`, `hero-tidy/build-ht.py`, with
+1. **Hero tidy: live as #230 (2026-11-20, verified in Sync 16:01 UTC).** Kept below as the record. Branch `claude/hero-tidy`, `handoffs/hero-tidy.md`, `hero-tidy/build-ht.py`, with
    the files as approved in `hero-tidy/built-on-8270202/`.
    - What it does:
      - ⋯ starts Link to, Claim, Add to a trip;
@@ -67,7 +67,8 @@ session manager's `session-manager.md` is the check if one is in doubt.
    - 3f: sign-in, long text, standalone pages, leftovers.
 5. **The map release** (brand.md §4 note, Jason 2026-11-18): trails and routes in a new nature/navigation colour
    (`--tv-route`), the ~50 colour literals in `js/map-view.js`. One release on that file; R5's route line goes on it.
-6. **The next admin kit release** (`admin-design.md` "Queue for the next admin release"):
+6. **The next admin kit release** (`admin-design.md` "Queue for the next admin release"): **built and sent, 2026-11-20**
+   (`handoffs/admin-kit.md`; the 390 header item was already done by #162):
    - at 390, the module name cut beside a near-duplicate sections ▾ (one header per view);
    - contrast under 4.5:1: Shortcuts' group labels (admin-hub.php), the dashboard's small labels (`.ad-*`), Pulse's
      column headers (`.ps-sort`, `.ps-flt`).
