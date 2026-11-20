@@ -376,14 +376,12 @@
   },
   {
    "path": "app/admin/Workflow.php",
-   "functions": [
-    "checks"
-   ],
+   "functions": [],
    "kind": "change",
    "session": "session_01CXLi5iruQZSTYKyuR7b1SN",
-   "why": "Orders: the order map's rulings (decisions/0101 note 2026-11-20, B.1-B.6)",
+   "why": "Orders: B.4 one paid-in-full rule in the workflow's check (decisions/0101 note 2026-11-20)",
    "since": "2026-11-20T18:56:19Z",
-   "expires": "2026-11-20T22:56:19Z",
+   "expires": "2026-11-20T22:57:19Z",
    "release": "orders-rulings.zip",
    "callers": {
     "checks": [
