@@ -151,6 +151,21 @@
    "expires": "2026-11-20T19:29:15Z",
    "release": "hero-tidy.zip",
    "callers": {}
+  },
+  {
+   "path": "app/admin/control-console.php",
+   "functions": [
+    "tv_admin_mod_control",
+    "tv_cb_alarms",
+    "tv_cb_evidence"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
+   "why": "0175 R2a part 1: each alarm opens its fix in the side panel, one panel at a time",
+   "since": "2026-11-20T15:30:10Z",
+   "expires": "2026-11-20T19:30:10Z",
+   "release": "0175-r2a-panel.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
