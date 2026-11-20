@@ -40,6 +40,17 @@
    "expires": "2026-11-20T08:01:43Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/ui/maps-send.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Send to Maps (decisions/0174 release 1)",
+   "since": "2026-11-20T04:01:44Z",
+   "expires": "2026-11-20T08:01:44Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
