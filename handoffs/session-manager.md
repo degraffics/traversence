@@ -118,8 +118,11 @@ sessions take over, holding until Jason says resume. Live through Release #228 (
   (`trig_01SYS5pgeFj79vmeE35fvgha`).
 - **Review rule** (Jason, 2026-11-20, playbook §3): every behaviour in a summary is checked against the decision line it
   cites; unsourced is a question for Jason, never a build choice; a gap's answer is written into its decision first.
-- **Routes and Send to Maps** are now 0174 (R1 Send to Maps live #219; R5 routing to come). **The Dispatch tool** item
-  below is partly 0176 (alerts and messages); buttons, forms and roles stay queued.
+- **Progress lines** (Jason, 2026-11-20: "a way for the work que to get bullets that say something has been started which
+  will apply to it… so it doesnt lose progress weve made"): every queued item carries **Progress:** lines naming what's
+  already live, decided or held elsewhere that applies to it, each with its source (release, decision note, branch,
+  hand-off). A release or decision that advances a queued item adds its line in the same PR; the session manager checks
+  it in review. Whoever picks an item up starts from its Progress lines, never from the item's first words alone.
 
 **To discuss: the Control Board's dashboard ideas** (Jason, 2026-11-20, five reference screenshots: VTScada's
 "Dashboard 2", ThingsBoard's SCADA energy "Main" and "Consumption", a power plant monitoring dashboard, a manufacturing
@@ -137,6 +140,8 @@ discuss to happen"). Nothing decided or built. The session manager's reading, to
 Skip: large gauges, pies, slicer columns (one search plus filters, design/css-theme-brand.md).
 Order once agreed, after 0175's releases (each module needs its one state first): the Main mock-up from the Control Board
 session, then build. Waiting on: a discussion with Jason.
+- **Progress:** the historian is live (0171 r4b: readings over time, uptime, trends); the trend strips' counting and
+  labels are held in 0175 R2a item 11 (`control-board-2026-11-20.md`); 0175's stage 5 names the operational view.
 
 **Widen the OpenStreetMap copy** (Jason, 2026-11-19: "Seems like we could use everything openstreet has as long as it is
 cited", "Yea add to work que"; "the score could account for provided data so these entries would show lower than our
@@ -155,6 +160,9 @@ In order, each measured after its first load (rows, MB; Supabase only if the tot
 entry never outranks a vetted entry of ours for the same search; it shows after ours, with no trust score, its card
 saying "From OpenStreetMap, not checked by us" (the Get Local score chip's ⓘ explains); one that matches our listing
 shows once, as ours. To the Control Board session (it owns OpenLoads) with the design session for the cards.
+- **Progress:** our Geofabrik copy is live for five states with health care and guides (`osm-copy.php`); Overpass is
+  retired everywhere (2026-11-19, `overpass-off.php`); the first night load is still to be measured
+  (`control-board-2026-11-20.md`, Things to watch). Owner now: Operations.
 
 **Domains: Name.com reseller pricing and .ai** (Name.com support's answer, ticket 7Y5JM6-5L7GX, 2026-11-18):
 - No fees or deposit. Enrolling in the API Reseller Program at https://www.name.com/nameapi/pricing unlocks tiered
@@ -202,6 +210,10 @@ plan using OSM and keep people on our own site?"). Decision first; nothing built
   - Offer the person's own choice (Google or Apple, remembered on the device), from "My location" or the first stop.
 - OSM's credit on the route (0065); no visitor data kept (0058 §13).
 - To a session when Jason chooses the engine.
+- **Progress:** this item became decisions/0174. Sending the whole trip is done (R1, #219), with trips (R2 #220), the
+  trip page (R3 #221) and sharing (R4 #227) live. Jason chose the engine: (b) openrouteservice's free tier (0174's
+  status, 2026-11-19). Routes on our own site are 0174 R5, last in Design and trips' order, its terms checked first;
+  legs read "about" (straight line) until then (0174 §5).
 
 **More sources for health care and guided tours** (Jason, 2026-11-19, after Overpass was retired: "How do we secure more
 data if this comes from our own copy?"). Our OSM copy (Geofabrik, weekly) keeps up with OSM's own edits; for more than
@@ -213,6 +225,8 @@ brought to Jason as one list to approve:
 - **Not:** guide and outfitter permit lists (NPS, Forest Service, BLM). Jason, 2026-11-19: "Guide permits: not
   additional sources".
 To the Control Board session (it owns the crawler's sources) when Jason chooses.
+- **Progress:** health care in our OSM copy is live (`osm-copy.php`); NPI was reached in the rural test's Run 2
+  (`research/rural-test-2026-11-14.md` §8). Owner now: Operations.
 
 **Pulse's load-time warning** (Jason, 2026-11-19: "add Pulse's load-time warning", to the Control Board session): time
 how long `Pulse::items` takes to gather (its ~15 sources) on each open of the admin's Pulse. Keep the reading in the
@@ -230,11 +244,21 @@ has: alerts in ControlAlarms and 0172's one dispatcher (`Notify`) with `TvAsk.sa
 these and `StagingGate`; roles in `Access::can` / `Modules::canTool`. It extends them in place (one front door), never a
 second copy. "Control" means **both** (Jason, 2026-11-19): rules he sets for each of the five, and a log of every
 one that ran (who, what, when, where, the rule that allowed or stopped it).
+- **Progress:** decisions/0176 (accepted 2026-11-20) covers (1) alerts as threads in one shape (R1 live, #226), part of
+  (2) buttons as Fix it routing (R3, held) and part of (3) forms as uploads (R4, held), all in Operations' order. Still
+  to decide: (4) the message gate's rules, (5) the role-based actions, and the log of every one that ran.
 
 **Queued builds, in order:** W15 Funnel (0170); state licence lists (3a: decision first); the App store (0169) and its
 apps (QuickBooks Bookkeeper, QuickBooks Payments, Stripe Payments, Facebook Personal, Facebook Business, Storefront with
 trvgo.us's hyphenated addresses, members' and businesses' outside mailboxes); Release B's small leftovers; backups for
 the needs that have none; OpenStreetMap coverage from our Geofabrik copy.
+- **Progress (the App store, 0169, and the modules model):** decided in 0175 (one lifecycle of eight stages; standalone
+  and integration modules with the integration procedure, §5; one definition, §4); 0169's note (2026-11-20) folds its
+  §5 lifecycle and §6 app definition into 0175. Live under it: 0173 R1–R3 (#209, #210, #212: the Service register, the
+  key on its card, defined once in `service-defs.php`) and 0175 R1 (#222, Paused by the system). Next, in Operations'
+  order: 0175 R2a (built, `claude/0175-r2a-wip`), R2b, R3 (the eight-stage strip and its actions), R4 (one definition);
+  then the App store's Release 1. Domains in the Shop: built #71–#86 (0169's note).
+- **Progress (OpenStreetMap coverage):** see "Widen the OpenStreetMap copy" above.
 
 **Communications' open items** (Jason, 2026-11-18: "move still open to the working queue"; the build itself is done,
 #130, #135, #138, #141, #142, #147):
