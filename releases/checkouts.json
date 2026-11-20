@@ -219,6 +219,19 @@
      "website/user/api/links.php"
     ]
    }
+  },
+  {
+   "path": "website/hub/index.php",
+   "functions": [
+    "(top)"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5gxSyzVYGuXX3xuu2c",
+   "why": "hero tidy: the hub's stray text",
+   "since": "2026-11-20T15:36:55Z",
+   "expires": "2026-11-20T19:36:55Z",
+   "release": "hero-tidy",
+   "callers": {}
   }
  ],
  "lapsed": [
