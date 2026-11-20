@@ -173,43 +173,6 @@
    "expires": "2026-11-21T03:37:23Z",
    "release": "0176-fix-it.zip",
    "callers": {}
-  },
-  {
-   "path": "app/admin/manifests.php",
-   "functions": [
-    "'config'"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
-   "why": "release 0175-r2b-workflows.zip",
-   "since": "2026-11-20T23:39:59Z",
-   "expires": "2026-11-21T03:40:18Z",
-   "release": "0175-r2b-workflows.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/admin/operations-console.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
-   "why": "release 0175-r2b-workflows.zip",
-   "since": "2026-11-20T23:39:59Z",
-   "expires": "2026-11-21T03:40:18Z",
-   "release": "0175-r2b-workflows.zip",
-   "callers": {}
-  },
-  {
-   "path": "website/admin/router.php",
-   "functions": [
-    "'config/scheduler'"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
-   "why": "release 0175-r2b-workflows.zip",
-   "since": "2026-11-20T23:39:59Z",
-   "expires": "2026-11-21T03:40:18Z",
-   "release": "0175-r2b-workflows.zip",
-   "callers": {}
   }
  ],
  "lapsed": [
