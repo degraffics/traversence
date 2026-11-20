@@ -193,6 +193,24 @@
    "expires": "2026-11-20T22:46:20Z",
    "release": "0175-r2b-workflows",
    "callers": {}
+  },
+  {
+   "path": "app/ui/pulse-ui.php",
+   "functions": [
+    "tv_pulse_board"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5hFvhtEKj2JuNVmjWZ",
+   "why": "Pulse filters: one button with lists, views, senders, levels, group by and saved views (table-standard note 2026-11-20)",
+   "since": "2026-11-20T18:49:14Z",
+   "expires": "2026-11-20T22:49:14Z",
+   "release": "pulse-filters.zip",
+   "callers": {
+    "tv_pulse_board": [
+     "app/admin/sections.php",
+     "website/admin/w.php"
+    ]
+   }
   }
  ],
  "lapsed": [
