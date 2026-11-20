@@ -3,24 +3,24 @@
  "built_on": "6915f42 Sync: 2026-11-20 14:01 UTC",
  "recorded": "2026-11-20 14:04 UTC",
  "note": "feeds-words: an outside service's words follow its state; SlowDown is a rate wait (built on Sync 14:01 UTC, 6915f42) Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "8270202 Sync: 2026-11-20 14:22 UTC",
  "files": {
   "app/admin/operations-console.php": {
    "sha256": "3e15b5560dbf3a0638fea9b20f41f8e13ba690e4dd9f1fc38231c055c4fc03df",
-   "live": false
+   "live": true
   },
   "app/lib/Operations.php": {
    "sha256": "63e6c63119eab24dfd4309dcf354618f15bc07ee1a9a52dd278d13dccb19b85e",
-   "live": false
+   "live": true
   },
   "app/lib/ServiceHealth.php": {
    "sha256": "47a656e071ea1e2bc5893c2e7a25b45518a83d12a45afb8dcb7bd1a3850b20b0",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "221f3d05a545973b81b881ffe930a124af453250c9f285fdfced757036ba7093",
-   "live": false
+   "live": true
   }
  }
 }
