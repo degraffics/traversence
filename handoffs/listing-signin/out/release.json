@@ -1,0 +1,11 @@
+{
+  "title": "A listing's page knows you're signed in again (your account bar and Back); Back to where you came from",
+  "why": "Jason, 2026-11-20 (signed in, on https://traversence.com/listing/view.php?id=8916): no account bar and no way back. listing/view.php read its session from PHP's default folder, not the site's (since 2026-10-10), so every listing page showed signed-in people as guests. His answer on Back: \"back to where they came from\" (decisions/0058's note of 2026-11-20).",
+  "changes": [
+    {"what": "On a listing's page, a signed-in person is signed in again: the account bar (with Back in it), and everything that depends on who you are (the admin's Edit, an owner's Manage, Claim knowing it's yours)", "where": "https://traversence.com/listing/view.php?id=8916"},
+    {"what": "A listing, place or guide opened with no route (from Pulse, the admin or elsewhere on the site) shows ‹ Back to the page it came from; the Let's Explore route is unchanged", "where": "a listing opened from Pulse"},
+    {"what": "FAQ: How do I get back to where I was?", "where": "https://traversence.com/faq.php"}
+  ],
+  "proposals": [],
+  "switch": ""
+}
