@@ -17,6 +17,8 @@ Built on Sync 13:32 UTC (e4602d8), in `releases/inbox/trip-page.zip`, 10 files. 
   - the first stop is at the day's start; each next one comes after the stay (by kind, or the person's choice) and the
     leg's estimate;
   - with a date, each stop is checked against its hours (`Hours::openAt`), and outdoor places against sunrise and sunset;
+    sunrise and sunset come from PHP's own `date_sun_info()` at the stop's point, computed locally with no outside call, as
+    `JourneyPlan::day()` does;
   - "Closed when you'd arrive: Opens 11 AM" carries a **Move to day N** button.
 - **Time zones:** times are in the trip's zone, which `touch()` sets from the first stop's place
   (`JourneyPlan::timezone`). They're always labelled ("9:00 AM MST"); a stop in another zone shows its own ("… there").
