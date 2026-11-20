@@ -24,7 +24,7 @@
    "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
    "why": "0175 R2a part 2: paused now, Diagnostics, a backup as working, steps and their switches, the red hour",
    "since": "2026-11-20T16:10:33Z",
-   "expires": "2026-11-20T20:10:33Z",
+   "expires": "2026-11-20T20:12:55Z",
    "release": "0175-r2a-lines.zip",
    "callers": {
     "tv_cb_table_rows": [
@@ -41,7 +41,7 @@
    "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
    "why": "0175 R2a part 2: paused now, Diagnostics, a backup as working, steps and their switches, the red hour",
    "since": "2026-11-20T16:10:37Z",
-   "expires": "2026-11-20T20:10:37Z",
+   "expires": "2026-11-20T20:12:55Z",
    "release": "0175-r2a-lines.zip",
    "callers": {}
   },
@@ -52,7 +52,7 @@
    "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
    "why": "0175 R2a part 2: paused now, steps and their switches",
    "since": "2026-11-20T16:10:39Z",
-   "expires": "2026-11-20T20:11:39Z",
+   "expires": "2026-11-20T20:12:55Z",
    "release": "0175-r2a-lines.zip",
    "callers": {}
   },
@@ -63,7 +63,7 @@
    "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
    "why": "0175 R2a part 2: paused now, steps and their switches",
    "since": "2026-11-20T16:10:42Z",
-   "expires": "2026-11-20T20:11:42Z",
+   "expires": "2026-11-20T20:12:55Z",
    "release": "0175-r2a-lines.zip",
    "callers": {}
   },
@@ -74,7 +74,7 @@
    "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
    "why": "0175 R2a part 2: paused now, Diagnostics, a backup as working, steps and their switches, the red hour",
    "since": "2026-11-20T16:10:45Z",
-   "expires": "2026-11-20T20:10:45Z",
+   "expires": "2026-11-20T20:12:55Z",
    "release": "0175-r2a-lines.zip",
    "callers": {}
   },
@@ -88,7 +88,7 @@
    "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
    "why": "0175 R2a part 2: paused now, Diagnostics, a backup as working, steps and their switches, the red hour",
    "since": "2026-11-20T16:10:48Z",
-   "expires": "2026-11-20T20:10:48Z",
+   "expires": "2026-11-20T20:12:55Z",
    "release": "0175-r2a-lines.zip",
    "callers": {
     "alarms": [
@@ -109,7 +109,7 @@
    "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
    "why": "0175 R2a part 2: paused now, Diagnostics, a backup as working, steps and their switches, the red hour",
    "since": "2026-11-20T16:10:52Z",
-   "expires": "2026-11-20T20:10:52Z",
+   "expires": "2026-11-20T20:12:55Z",
    "release": "0175-r2a-lines.zip",
    "callers": {
     "html": [
@@ -130,7 +130,7 @@
    "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
    "why": "0175 R2a part 2: paused now, Diagnostics, a backup as working, steps and their switches, the red hour",
    "since": "2026-11-20T16:10:56Z",
-   "expires": "2026-11-20T20:10:56Z",
+   "expires": "2026-11-20T20:12:55Z",
    "release": "0175-r2a-lines.zip",
    "callers": {
     "working": [
@@ -148,7 +148,7 @@
    "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
    "why": "0175 R2a part 2: paused now, Diagnostics, a backup as working, steps and their switches, the red hour",
    "since": "2026-11-20T16:11:00Z",
-   "expires": "2026-11-20T20:11:00Z",
+   "expires": "2026-11-20T20:12:55Z",
    "release": "0175-r2a-lines.zip",
    "callers": {
     "process": [
@@ -166,7 +166,7 @@
    "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
    "why": "0175 R2a part 2: paused now, Diagnostics, a backup as working, steps and their switches, the red hour",
    "since": "2026-11-20T16:11:04Z",
-   "expires": "2026-11-20T20:11:04Z",
+   "expires": "2026-11-20T20:12:55Z",
    "release": "0175-r2a-lines.zip",
    "callers": {
     "panel": [
@@ -184,7 +184,7 @@
    "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
    "why": "0175 R2a part 2: paused now, Diagnostics, a backup as working, steps and their switches, the red hour",
    "since": "2026-11-20T16:11:07Z",
-   "expires": "2026-11-20T20:11:07Z",
+   "expires": "2026-11-20T20:12:55Z",
    "release": "0175-r2a-lines.zip",
    "callers": {}
   },
@@ -272,6 +272,28 @@
    "since": "2026-11-20T16:12:30Z",
    "expires": "2026-11-20T20:12:39Z",
    "release": "admin-kit.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/ui/faq.md.orig",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
+   "why": "release 0175-r2a-lines.zip",
+   "since": "2026-11-20T16:12:55Z",
+   "expires": "2026-11-20T20:12:55Z",
+   "release": "0175-r2a-lines.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/admin/api.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
+   "why": "release 0175-r2a-lines.zip",
+   "since": "2026-11-20T16:12:55Z",
+   "expires": "2026-11-20T20:12:55Z",
+   "release": "0175-r2a-lines.zip",
    "callers": {}
   }
  ],
