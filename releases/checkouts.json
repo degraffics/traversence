@@ -11,6 +11,290 @@
    "expires": "2026-11-20T17:29:57Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/admin/control-console.php",
+   "functions": [
+    "tv_admin_mod_control",
+    "tv_cb_by_system",
+    "tv_cb_evidence",
+    "tv_cb_table_rows"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
+   "why": "0175 R2a part 2: paused now, Diagnostics, a backup as working, steps and their switches, the red hour",
+   "since": "2026-11-20T16:10:33Z",
+   "expires": "2026-11-20T20:12:55Z",
+   "release": "0175-r2a-lines.zip",
+   "callers": {
+    "tv_cb_table_rows": [
+     "app/admin/tools.php"
+    ]
+   }
+  },
+  {
+   "path": "app/admin/tools.php",
+   "functions": [
+    "'config/alarms'"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
+   "why": "0175 R2a part 2: paused now, Diagnostics, a backup as working, steps and their switches, the red hour",
+   "since": "2026-11-20T16:10:37Z",
+   "expires": "2026-11-20T20:12:55Z",
+   "release": "0175-r2a-lines.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/automation-console.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
+   "why": "0175 R2a part 2: paused now, steps and their switches",
+   "since": "2026-11-20T16:10:39Z",
+   "expires": "2026-11-20T20:12:55Z",
+   "release": "0175-r2a-lines.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/crawler-console.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
+   "why": "0175 R2a part 2: paused now, steps and their switches",
+   "since": "2026-11-20T16:10:42Z",
+   "expires": "2026-11-20T20:12:55Z",
+   "release": "0175-r2a-lines.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/ui/outside-services.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
+   "why": "0175 R2a part 2: paused now, Diagnostics, a backup as working, steps and their switches, the red hour",
+   "since": "2026-11-20T16:10:45Z",
+   "expires": "2026-11-20T20:12:55Z",
+   "release": "0175-r2a-lines.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Operations.php",
+   "functions": [
+    "alarms",
+    "pulseSteps"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
+   "why": "0175 R2a part 2: paused now, Diagnostics, a backup as working, steps and their switches, the red hour",
+   "since": "2026-11-20T16:10:48Z",
+   "expires": "2026-11-20T20:12:55Z",
+   "release": "0175-r2a-lines.zip",
+   "callers": {
+    "alarms": [
+     "app/lib/ControlAlarms.php"
+    ],
+    "pulseSteps": [
+     "app/lib/Pulse.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/ControlHistorian.php",
+   "functions": [
+    "html",
+    "trend"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
+   "why": "0175 R2a part 2: paused now, Diagnostics, a backup as working, steps and their switches, the red hour",
+   "since": "2026-11-20T16:10:52Z",
+   "expires": "2026-11-20T20:12:55Z",
+   "release": "0175-r2a-lines.zip",
+   "callers": {
+    "html": [
+     "website/admin/api.php"
+    ],
+    "trend": [
+     "app/lib/ControlReport.php",
+     "website/admin/api.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/OutsideServices.php",
+   "functions": [
+    "working"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
+   "why": "0175 R2a part 2: paused now, Diagnostics, a backup as working, steps and their switches, the red hour",
+   "since": "2026-11-20T16:10:56Z",
+   "expires": "2026-11-20T20:12:55Z",
+   "release": "0175-r2a-lines.zip",
+   "callers": {
+    "working": [
+     "app/ui/outside-services.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/ControlBoard.php",
+   "functions": [
+    "latest",
+    "process"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
+   "why": "0175 R2a part 2: paused now, Diagnostics, a backup as working, steps and their switches, the red hour",
+   "since": "2026-11-20T16:11:00Z",
+   "expires": "2026-11-20T20:12:55Z",
+   "release": "0175-r2a-lines.zip",
+   "callers": {
+    "process": [
+     "app/admin/control-console.php",
+     "app/lib/ControlHistorian.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/SystemStart.php",
+   "functions": [
+    "panel"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
+   "why": "0175 R2a part 2: paused now, Diagnostics, a backup as working, steps and their switches, the red hour",
+   "since": "2026-11-20T16:11:04Z",
+   "expires": "2026-11-20T20:12:55Z",
+   "release": "0175-r2a-lines.zip",
+   "callers": {
+    "panel": [
+     "app/admin/automation-console.php",
+     "app/admin/operations-console.php"
+    ]
+   }
+  },
+  {
+   "path": "website/js/admin-control.js",
+   "functions": [
+    "redraw"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
+   "why": "0175 R2a part 2: paused now, Diagnostics, a backup as working, steps and their switches, the red hour",
+   "since": "2026-11-20T16:11:07Z",
+   "expires": "2026-11-20T20:12:55Z",
+   "release": "0175-r2a-lines.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/ui/pulse-ui.php",
+   "functions": [
+    "(top)",
+    "tv_pulse_settings"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5gxSyzVYGuXX3xuu2c",
+   "why": "admin kit: metadata text on --tv-meta (css-theme-brand \u00a73, 4.5:1); the way-back bar's width on phones",
+   "since": "2026-11-20T16:12:30Z",
+   "expires": "2026-11-20T20:12:39Z",
+   "release": "admin-kit.zip",
+   "callers": {
+    "tv_pulse_settings": [
+     "app/admin/sections.php",
+     "website/admin/w.php"
+    ]
+   }
+  },
+  {
+   "path": "app/ui/admin-hub.php",
+   "functions": [
+    "tv_admin_bar",
+    "tv_admin_start"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5gxSyzVYGuXX3xuu2c",
+   "why": "admin kit: metadata text on --tv-meta (css-theme-brand \u00a73, 4.5:1); the way-back bar's width on phones",
+   "since": "2026-11-20T16:12:30Z",
+   "expires": "2026-11-20T20:12:39Z",
+   "release": "admin-kit.zip",
+   "callers": {
+    "tv_admin_start": [
+     "app/admin/legal-editor.php",
+     "website/admin/client-order.php",
+     "website/admin/content-template.php",
+     "website/admin/data-crawler.php",
+     "website/admin/ecommerce.php",
+     "website/admin/guide-edit.php",
+     "website/admin/logs.php",
+     "website/admin/order.php",
+     "website/admin/people.php",
+     "website/admin/products.php",
+     "website/admin/router.php",
+     "website/admin/safety.php",
+     "website/admin/sales.php",
+     "website/admin/search.php",
+     "website/admin/settings.php",
+     "website/admin/sitemap.php",
+     "website/admin/staff-levels.php",
+     "website/admin/staff-profile.php",
+     "website/admin/staff.php",
+     "website/admin/vendors.php",
+     "website/admin/w.php"
+    ],
+    "tv_admin_bar": [
+     "website/admin/router.php"
+    ]
+   }
+  },
+  {
+   "path": "app/ui/admin-dashboard.php",
+   "functions": [
+    "(top)"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5gxSyzVYGuXX3xuu2c",
+   "why": "admin kit: metadata text on --tv-meta (css-theme-brand \u00a73, 4.5:1); the way-back bar's width on phones",
+   "since": "2026-11-20T16:12:30Z",
+   "expires": "2026-11-20T20:12:39Z",
+   "release": "admin-kit.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/js/tv-trail.js",
+   "functions": [
+    "(top)"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5gxSyzVYGuXX3xuu2c",
+   "why": "admin kit: metadata text on --tv-meta (css-theme-brand \u00a73, 4.5:1); the way-back bar's width on phones",
+   "since": "2026-11-20T16:12:30Z",
+   "expires": "2026-11-20T20:12:39Z",
+   "release": "admin-kit.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/ui/faq.md.orig",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
+   "why": "release 0175-r2a-lines.zip",
+   "since": "2026-11-20T16:12:55Z",
+   "expires": "2026-11-20T20:12:55Z",
+   "release": "0175-r2a-lines.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/admin/api.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
+   "why": "release 0175-r2a-lines.zip",
+   "since": "2026-11-20T16:12:55Z",
+   "expires": "2026-11-20T20:12:55Z",
+   "release": "0175-r2a-lines.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
