@@ -80,7 +80,7 @@ for ($i = 0; $i < $max; $i++) ControlSensor::watch($pdo);
 $a = null; foreach (ControlAlarms::ofProc($pdo, 'site:search') as $x) if ($x['akey'] === 'crit:site:search') $a = $x;
 $t('a failed test: Search fails; after its tries, the Escalation Notice and only Resolve', $a && $a['level'] === 'trip' && empty($a['retrying_at']) && (int) $pdo->query("SELECT COUNT(*) FROM control_log WHERE what LIKE 'Escalation Notice: retries unsuccessful, now admin required: Search, Search%'")->fetchColumn() === 1, $a);
 [$bad, $words] = ControlSensor::checkOne($pdo, 'site:search');
-$t('Check on its row says it\'s still failing, and that only Resolve clears it now', $bad && str_contains($words, 'Only Resolve clears it now'), $words);
+$t('Check on its row says it\'s still failing, and that it closes as Recovered once its check passes (decisions/0175 note, Jason 2026-11-20: "Close as Recovered")', $bad && str_contains($words, 'It closes as Recovered once its check passes, or with Check and start again.'), $words);
 
 // 9. QuickBooks refused: a trip at once (held)
 ControlSensor::$payProbe = fn () => ['held', 'QuickBooks refused us: needs reconnecting.'];

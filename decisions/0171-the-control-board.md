@@ -708,3 +708,10 @@ note: clocks on work cases only). Asked "if no one resolves a Control Board trip
 twice that, and it is in the bell's list throughout (it is Critical).
 
 **Note (Jason, 2026-11-20, decisions/0175): a fault pauses, never switches off.** §7's trip no longer writes into a person's switch: the system pauses what its cause touches ("Paused by the system", with its reason) and it clears itself when its check passes. The escalation set in §5's note of 2026-11-19 and 3c's note stays exactly as it is. At a failure both the component and the workflow are checked; the workflow reroutes to a backup where one is named. Every alarm opens its fix in a drawer (at_hand): the board is the one place to act.
+
+**Note (Jason, 2026-11-20, in the decision pop-up): a nightly task keeps the hour.** Asked how a nightly task's tries
+should count (a bulk task runs only 1–5 AM Arizona, so a second try can't come inside the hour, and W1's alarm read
+"1 of 3 tries, until 09:25 UTC" hours after that time had passed), he chose "Keep the hour": as 3c set it, after
+`control_fix_minutes` (60) with no fix, it's a trip. Found with it: the trip only happened when the same failure was
+raised again, so a warning whose hour ran out with no new failure stayed a warning, its words saying a time that had
+passed. The board's watch now trips a warning whose tries or time ran out, and its words follow the state.
