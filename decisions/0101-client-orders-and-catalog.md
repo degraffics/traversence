@@ -822,3 +822,14 @@ Follow-up (Jason, 2026-10-30):
   (`app/scripts/got_it_tick.php`, hourly, set up in cPanel through the API), to orders that went out within the last
   30 days, none while a ticket is open. After it, the Pulse shows "Not confirmed yet" so our team can complete it.
 - **The thank-you** goes to every client on completion, progress emails or not: it's the last message on the order.
+
+## Note (Jason, 2026-11-20): terms before money, for our own sales too
+
+Asked whether decisions/0135's note of 2026-11-20 ("nothing sold that may not be there": stocked and ready or
+back-ordered known before paying; made to order, custom and services that need confirming state what's promised before
+money is taken; two-way confirmation where needed; tickets final, the pass is the product; each kind's terms explicit
+before money moves) also applies to Traversence's own sales, Jason answered **"Yes, both"**. One rule for every sale.
+Also recorded the same day (research/order-review-crosswalk-2026-11-20.md, his words): every order ends in a cart, the
+cart is the invoice the client confirms and pays, and an item is released to the cart only once its own process's
+requirements are met (proof approved, production files uploaded, vendor selected, drop-ship configured…). How this
+meets the client order flow above is the Orders session's proposal, for his OK.
