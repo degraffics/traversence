@@ -1,6 +1,6 @@
 # Draft decision: one cart is the invoice, each line released to it by its own process (2026-11-20)
 
-Status: **draft, for the session manager's review and then Jason's OK** (updated with Jason's rulings, R). Nothing here is built. Orders session.
+Status: **draft, for the session manager's review and then Jason's OK** (R, Gemini's review, folded in as proposals pending Jason's confirmation). Nothing here is built. Orders session.
 Built on: the live mirror at "Sync: 2026-11-20 17:54 UTC" (`6f955cf`); `main` at `a0f0db6`; the map
 (`research/order-system-map-2026-11-19.md`, Jason's accepted baseline) and the crosswalk
 (`research/order-review-crosswalk-2026-11-20.md`).
@@ -19,10 +19,10 @@ flows end (0101 client orders, 0154 §6 the one cart, 0096 GO Codes checkout) an
 - **J3** Jason, 2026-11-20: "Process of an item should address requirements to release to cart, so proofs get approved,
   production files get uploaded, vendor is selected, drops ship is configured, etc. then released"
 - **T** 0101's note and 0135's note of 2026-11-20: terms before money, for our own sales too ("Yes, both").
-- **R** Jason's rulings on the map, 2026-11-20 (`research/order-rulings-2026-11-20.md`, written into 0101 as its note
-  "rulings on the order map"): R1 ship-to, R2 three proof paths, R3 part payments, R4 one paid-in-full check, R5
-  refund offers Cancel the work order, R6 delete six dead actions, R7 no watermark; his Part 2 §1: "one Cart/Invoice
-  flow for every entry path (today's private order approval page and the cart for GO Codes, one-offs, domains, plans)".
+- **R** Gemini's review of the map (`research/order-rulings-2026-11-20.md`), which Jason sent **for review, not as his
+  answers** (session manager, 2026-11-20: "Gemini's items are proposals until he confirms them"). R1–R7 and its Part 2
+  are **proposals pending Jason's confirmation**; nothing below that cites R is decided until he does, and none goes
+  into 0101 before then.
 - **0154 §6**: "one cart for everything Traversence sells" (`/qr/cart.php`, `CartPlans.php` header).
 - **0101**: the client order rules (map §3), kept unless named below.
 - **CLAUDE.md**: stages are workflows (System Configuration → Workflows), not hard-coded; Pulse: one case per kind of
@@ -104,7 +104,7 @@ Anything not in J1–J3, T or an earlier decision is a question, never a build c
 
 ## The questions for Jason, one area at a time (each reviewed by the session manager first)
 
-Settled by R and not asked again: the ship-to (R1), a proof per printed line (R2), part payments (R3), paid-in-full
+Proposed by R, pending Jason's confirmation of the review (not asked as separate questions if he confirms it): the ship-to (R1), a proof per printed line (R2), part payments (R3), paid-in-full
 callers (R4), the refund's work order (R5), dead code (R6), watermarks (R7).
 
 - **Q-A, the cart's shape** (this proposal): R Part 2 §1 asks for one Cart/Invoice flow for every entry path. Open: (1)
