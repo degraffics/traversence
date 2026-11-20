@@ -1,0 +1,26 @@
+{
+ "zip": "admin-kit.zip",
+ "built_on": "c8f9c3e Sync: 2026-11-20 16:01 UTC",
+ "recorded": "2026-11-20 16:13 UTC",
+ "note": "Admin kit (css-theme-brand \u00a73), built on Sync: 2026-11-20 16:01 UTC (c8f9c3e) Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/ui/admin-dashboard.php": {
+   "sha256": "997c3afc32df2b22380e77452ab65aa0b87a25c3dfed63d930981ffaa307ab3e",
+   "live": false
+  },
+  "app/ui/admin-hub.php": {
+   "sha256": "8404e3f3e779de29a4b110888da3890b0d131203b2c27193998404d84387622d",
+   "live": false
+  },
+  "app/ui/pulse-ui.php": {
+   "sha256": "cef7bbb3b6a91c246afa7b505848cd397d3cf75891b1b4aea33f5b7255f85c0c",
+   "live": false
+  },
+  "website/js/tv-trail.js": {
+   "sha256": "bd84b904f4ba32eae4b14d508a205821de3a67faa35d7f22e755d9469bfbe50e",
+   "live": false
+  }
+ }
+}
