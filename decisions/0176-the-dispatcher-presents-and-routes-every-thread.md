@@ -351,3 +351,18 @@ that is what "any hour" meant). Then, in the decision pop-up, "Push shortened". 
 - **The body**, on every channel: what's going on, what it means, what to do, and the link to it.
 - One thread per alarm on each channel; later states update it (Pulse, push) or reply in it (email). This sharpens the
   note above ("W3 Sources: Paused by the system" becomes the line here).
+
+**Note (Jason, 2026-11-20, in the decision pop-up): release 2 restarted.** Asked "Restart it now?", he chose "Restart R2".
+
+**Note (2026-11-20): release 2 built** (`0176-issues.zip`, built on Sync 16:32 UTC):
+- `ServiceHealth::facts()` gives an issue's six parts, read from its state now; the card's issue box, Pulse's `svc:` case,
+  Outside services' line and the Start card's issue line all read it.
+- The card draws the thread with its buttons kept (Check it now, Check and start again) and **Its case in Pulse**. There's
+  no "Its alarm on the board".
+- **Where the × came from:** `js/tv-ask.js` turns every `data-tv-status` line into a notice box with its own ×. The old
+  issue box's "What to do" was such a line, and so was the card's "Is it working" line for the issue. The thread draws
+  plain lines, and those two lines carry `data-tv-keep`, which keeps the box and drops its ×.
+- The lines link to the issue on the card (`#issue-<id>`); its Pulse case stays reachable (the session manager's review,
+  2026-11-20).
+- The issue's own words no longer say "mark resolved" (0171 §7's note: a passing check closes it).
+- §7's "feeds release (to come)" is live as #223 (feeds-words); R2 reads `waitWords()` from it.
