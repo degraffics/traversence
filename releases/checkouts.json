@@ -22,7 +22,7 @@
    "session": "session_01CXLi5gxSyzVYGuXX3xuu2c",
    "why": "hero tidy (Jason, 2026-11-20): \u22ef order, Link icon, stock details, Explore's place line, hub's stray text and same-named areas",
    "since": "2026-11-20T15:28:50Z",
-   "expires": "2026-11-20T19:29:15Z",
+   "expires": "2026-11-20T19:36:58Z",
    "release": "hero-tidy.zip",
    "callers": {
     "tv_stock_tag": [
@@ -45,7 +45,7 @@
    "session": "session_01CXLi5gxSyzVYGuXX3xuu2c",
    "why": "hero tidy (Jason, 2026-11-20): \u22ef order, Link icon, stock details, Explore's place line, hub's stray text and same-named areas",
    "since": "2026-11-20T15:28:50Z",
-   "expires": "2026-11-20T19:29:15Z",
+   "expires": "2026-11-20T19:36:58Z",
    "release": "hero-tidy.zip",
    "callers": {}
   },
@@ -58,7 +58,7 @@
    "session": "session_01CXLi5gxSyzVYGuXX3xuu2c",
    "why": "hero tidy (Jason, 2026-11-20): \u22ef order, Link icon, stock details, Explore's place line, hub's stray text and same-named areas",
    "since": "2026-11-20T15:28:50Z",
-   "expires": "2026-11-20T19:29:15Z",
+   "expires": "2026-11-20T19:36:58Z",
    "release": "hero-tidy.zip",
    "callers": {}
   },
@@ -72,7 +72,7 @@
    "session": "session_01CXLi5gxSyzVYGuXX3xuu2c",
    "why": "hero tidy (Jason, 2026-11-20): \u22ef order, Link icon, stock details, Explore's place line, hub's stray text and same-named areas",
    "since": "2026-11-20T15:28:50Z",
-   "expires": "2026-11-20T19:29:15Z",
+   "expires": "2026-11-20T19:36:58Z",
    "release": "hero-tidy.zip",
    "callers": {
     "ask": [
@@ -102,7 +102,7 @@
    "session": "session_01CXLi5gxSyzVYGuXX3xuu2c",
    "why": "hero tidy (Jason, 2026-11-20): \u22ef order, Link icon, stock details, Explore's place line, hub's stray text and same-named areas",
    "since": "2026-11-20T15:28:50Z",
-   "expires": "2026-11-20T19:29:15Z",
+   "expires": "2026-11-20T19:36:58Z",
    "release": "hero-tidy.zip",
    "callers": {}
   },
@@ -191,8 +191,8 @@
    "session": "session_01CXLi5gxSyzVYGuXX3xuu2c",
    "why": "hero tidy: journeys can be linked (Jason, 2026-11-20: \"Fix it here\")",
    "since": "2026-11-20T15:36:44Z",
-   "expires": "2026-11-20T19:36:44Z",
-   "release": "hero-tidy",
+   "expires": "2026-11-20T19:36:58Z",
+   "release": "hero-tidy.zip",
    "callers": {
     "resolve": [
      "app/lib/Community.php",
@@ -223,14 +223,15 @@
   {
    "path": "website/hub/index.php",
    "functions": [
-    "(top)"
+    "(top)",
+    "hub_card"
    ],
    "kind": "change",
    "session": "session_01CXLi5gxSyzVYGuXX3xuu2c",
    "why": "hero tidy: the hub's stray text",
    "since": "2026-11-20T15:36:55Z",
-   "expires": "2026-11-20T19:36:55Z",
-   "release": "hero-tidy",
+   "expires": "2026-11-20T19:36:58Z",
+   "release": "hero-tidy.zip",
    "callers": {}
   }
  ],
