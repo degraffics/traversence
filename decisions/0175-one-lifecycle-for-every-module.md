@@ -424,3 +424,18 @@ The rules hold:
 chose "Critical part down": an hour turns **red only when a critical part is down** (its duty: search, sign-in,
 payments, page load, the database; 0171 §5's note, Thresholds & gates → Critical parts). Any other part held or red
 that hour makes it **amber, with the cause named** ("1 of 20 held: Common Crawl"). Built in release 2a.
+
+**Note (the Operations session, 2026-11-20, reviewed by the session manager): §6's homes after "one control board in the
+menu".** §6 says each switch keeps one home, "the card, or Automation for the master and workflows", and that Start the
+system, Pause everything and Shut the system down stay "on Automation". The note "one control board in the menu" (Jason:
+"yes. fold into 2") moves Automation's master switch, Start and Pause everything into the board's Start-up and Shut-down
+stages, and the menu keeps three entries. So from release 2b, the master's and those three presses' home is the board's
+Start-up and Shut-down stages, and Automation's address leads there. Until 2b, release 2a puts the live "paused now"
+line on both the board and Automation; 2b's list of moved behaviours carries Automation's line into Start-up. Nothing new:
+this records what the two notes already say together.
+
+**Note (2026-11-20): release 2a is sent in two parts**, as its scope allows (`handoffs/control-board-2026-11-20.md`):
+part 1, the side panel (an alarm's first button opens its component, routed by the component: a service's card, a
+pre-flight line, a workflow's or task's own page, a site job on Scheduled tasks; one panel at a time with Back), the
+Routes line's words, and a trip's words ("closes as Recovered", ESCALATED_RECOVERS); part 2, the lines and words (items
+3–8, 10–11). 0176 release 3 routes a cause to its exact spot inside the component (the session manager, 2026-11-20).

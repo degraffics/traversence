@@ -199,7 +199,9 @@ Source: 0176 §6, A6.
    Ask the session manager before guessing.
 4. **R2's link change** (Outside services and Start pointing at the card, not Pulse's case): confirm with the session
    manager.
-5. `ControlSensor.php`'s "Only Resolve clears it" is untrue since 0175. Passed to the Control Board session (its file).
+5. ~~`ControlSensor.php`'s "Only Resolve clears it" is untrue since 0175.~~ **Closed (Operations, 2026-11-20):** w1-findings (#228)
+   fixed ControlSensor's words; the same words left in `ControlAlarms.php` (Pulse's escalation line, three comments) and
+   `ControlMaintenance.php` are fixed in 0175 release 2a part 1 (`0175-r2a-panel.zip`).
 
 ## Coordination
 
