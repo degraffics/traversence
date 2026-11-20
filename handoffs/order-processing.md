@@ -5,7 +5,7 @@ is ruled, in Jason's confirmed text (`research/order-rulings-2026-11-20.md`), wr
 on the order map" and 0166's note of 2026-11-20. The one-cart proposal is `research/one-cart-proposal-2026-11-20.md` (draft decision 0177, its questions Q-A to
 Q-G). R0, the chargeFor fix, is built as `releases/inbox/orders-chargefor.zip` (built on Sync 18:05 UTC; files:
 `app/lib/QuickBooksPay.php`; test `tools/order-tests/chargefor.php`), waiting for Jason's Approve. Next: B.1 and
-B.3–B.6 (and R2's first two proof paths as a Send gate) as one release on what's built; then the cart, after Q-A and Q-B. The sections below are the earlier session's
+B.3–B.6 (and B.2's first two proof paths as a Send gate) as one release on what's built; then the cart, after Q-A and Q-B. The sections below are the earlier session's
 record.
 
 The order processing session (opened by Jason 2026-11-19: "an order processing agent session for reviewing how the
