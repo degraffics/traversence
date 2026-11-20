@@ -139,6 +139,24 @@
    "expires": "2026-11-20T17:30:08Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/lib/Trips.php",
+   "functions": [
+    "add",
+    "create",
+    "remove",
+    "resolve",
+    "stops",
+    "touch"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "The trip page (decisions/0174 release 3)",
+   "since": "2026-11-20T13:45:31Z",
+   "expires": "2026-11-20T17:45:31Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
