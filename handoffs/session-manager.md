@@ -171,6 +171,9 @@ release. The build proposes how each gap closes, sourced to the note, for his OK
 - Progress: authorize now, capture later exists for deposits and rentals (`MarketCheckout.php` :383, :683).
 - Open: untracked physical items sold as available; counts kept elsewhere; card orders charged at checkout; made to
   order and services stating what's promised before money is taken.
+- Open (Jason's addition, 2026-11-20, same note): two-way confirmation before the transaction where needed (appointment
+  requested, set, then paid); tickets final, the pass is the product; each item kind's terms explicit before money moves
+  (`ItemKinds`: what's delivered, when, final or not, what's confirmed first).
 - Also check our own sales: domains (is the name confirmed available at Name.com before the charge?) and printed orders
   (invoiced after approval; check against `research/order-system-map-2026-11-19.md`).
 
