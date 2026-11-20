@@ -97,6 +97,7 @@ and the portal's routers and endpoints, the sitemap) are live like any other.*
 | `/user/market/` | Your Marketplace posts | — | Live (P6, 2026-11-13) |
 | `/user/notice.php` | One notice | — | Live (P6, 2026-11-13) |
 | `/user/orders.php` | Your orders | — | Live (P6, 2026-11-13) |
+| `/user/trips/` | Your trips: a member's trips (a guest's one trip on the device), stops, Send to Maps, Delete | 0174 | Live (release 2) |
 | `/user/restore-account.php` | Restore a deleted account | — | Live (P6, 2026-11-13) |
 | `/user/staff-link.php` | Link your staff login (from its link) | — | Live (P6, 2026-11-13) |
 | `/user/transfer.php` | Hand over an account or listing (from its link) | — | Live (P6, 2026-11-13) |

@@ -131,8 +131,8 @@ server.
 ## 7. Releases, in order (each its own release and OK)
 
 1. **Send to Maps** on guides and ready-made journeys (§4). Free, small, no tables.
-2. **Trips and Add to a trip** (§1–2): the tables, the picker, the guest's trip on the device, and Your trips.
-3. **The trip page** (§3): days, reorder, times, the map with straight-line legs, Save as a trip from the planner.
+2. **Trips and Add to a trip** (§1–2): the tables, the picker, the guest's trip on the device, and Your trips. (Delete, with its 30 days, came forward from 3; Add to a trip on the map's card and in the Trip Planner's results moved to 3, 2026-11-20.)
+3. **The trip page** (§3): days, reorder, times, the map with straight-line legs, Save as a trip from the planner, and Add to a trip on the map's card and in the Trip Planner's results (moved from 2).
 4. **Sharing and Personal Guides:** the link, publishing, and counts for businesses and places.
 5. **Routes on our own site** (§5), with the engine Jason chooses.
 
@@ -157,4 +157,13 @@ server.
 - **Also fixed, the same rules as Directions:**
   - a shelter or a mailbox could be a stop in a suggested journey;
   - a private place could be a landmark's place to eat.
+
+**Note (2026-11-20): release 2, trips and Add to a trip (`trips.zip`; `handoffs/trips.md`).**
+- **Where Add to a trip is:** ⋯ on businesses, places, outdoor places and towns, Get Local's cards, and Make it my trip on
+  a ready-made journey.
+- **Your trips:** remove with Undo, rename, Send to Maps, and Delete, kept 30 days (brought forward from §3 so every
+  action has a way back).
+- **Guests:** one trip on the device, moved into the account at sign-in.
+- **The data:** §6's tables, plus `trips.deleted_at` and `trip_stops.id`/`added_at`.
+- **Moved to release 3:** the map's card and the Trip Planner's results, beside the trip page's map and Save as a trip.
 
