@@ -3,28 +3,28 @@
  "built_on": "a3582fe Sync: 2026-11-20 17:34 UTC",
  "recorded": "2026-11-20 17:37 UTC",
  "note": "0176 R2 part 2: the alarm notice; built on Sync: 2026-11-20 17:34 UTC Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "ac9cc04 Sync: 2026-11-20 17:44 UTC",
  "files": {
   "app/lib/ControlAlarms.php": {
    "sha256": "46519fca57f637c7c7ef66739c5e28f4d9bee7211480f07a6fb6e217c88f86bf",
-   "live": false
+   "live": true
   },
   "app/lib/Mailer.php": {
    "sha256": "c59f5848145755b2e709fa4133dc2791817212a92a4d6a3496c0c37f631b80ae",
-   "live": false
+   "live": true
   },
   "app/lib/Notify.php": {
    "sha256": "a3f16a74de83d7a2b03237ac749eb32fbc6e53b94426b76f47aa8faf6663ce0f",
-   "live": false
+   "live": true
   },
   "app/lib/Pulse.php": {
    "sha256": "099d873f056ba2d3fd1c439040e4b67d6299c76f5f8c5d7e3d36a76efcea4d5d",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "eb838a681028bfff796abdb01fde357688be833b3255e9f2de956a71be208044",
-   "live": false
+   "live": true
   }
  }
 }
