@@ -27,6 +27,19 @@
    "expires": "2026-11-20T08:01:41Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/lib/Landmarks.php",
+   "functions": [
+    "bite"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Send to Maps (decisions/0174 release 1)",
+   "since": "2026-11-20T04:01:43Z",
+   "expires": "2026-11-20T08:01:43Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
