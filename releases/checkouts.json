@@ -71,10 +71,10 @@
    ],
    "kind": "change",
    "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
-   "why": "0176 R2: service issues as threads",
+   "why": "0176 R2 part 2: the alarm notice",
    "since": "2026-11-20T17:00:00Z",
-   "expires": "2026-11-20T21:00:54Z",
-   "release": "0176-issues.zip",
+   "expires": "2026-11-20T21:36:17Z",
+   "release": "0176-notice.zip",
    "callers": {
     "items": [
      "app/lib/DailyReport.php",
