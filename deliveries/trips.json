@@ -1,0 +1,62 @@
+{
+ "zip": "trips.zip",
+ "built_on": "8095ddb Sync: 2026-11-20 13:09 UTC",
+ "recorded": "2026-11-20 13:24 UTC",
+ "note": "Trips you can save, decisions/0174 release 2 (built on Sync 13:09 UTC, 8095ddb). Waiting for the session manager's review and Jason's OK. Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/AccountDeletion.php": {
+   "sha256": "fef0fbfc16a0b8ea9ace7be62c5756dfb7195ded12c7fc2a0075ea17a76f23ee",
+   "live": false
+  },
+  "app/lib/Trips.php": {
+   "sha256": "c4ef51e3eb8a958871fa48bb8b99fb7e07f19c1806707d399a96abe6d4297b47",
+   "live": false
+  },
+  "app/lib/staging-tables.php": {
+   "sha256": "478fe30d6872f861a03128857ad0ddc823c33dbcd25f9fa518a02c0302d2cf2a",
+   "live": false
+  },
+  "app/migrations/2026-11-20_trips.sql": {
+   "sha256": "0d2c32126e2584f87b90807d6a8ffc24c940668070735011355fa4077eadf250",
+   "live": false
+  },
+  "app/ui/engage-ui.php": {
+   "sha256": "8e773029a01af6da6b8d90c3cd650e5ce16a81b546c4c0fa0775ef8dc287e940",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "8e936e51673d5c84921286c8624f481b39e00b357c75d18f4244d79b8c53c92e",
+   "live": false
+  },
+  "app/ui/suggested-journeys.php": {
+   "sha256": "253e16465baaed046b4e26635332068c20ad8743b8e698fefd11fbb6c21e5b66",
+   "live": false
+  },
+  "website/api/trips.php": {
+   "sha256": "34d21600adade843e46254bae16d38c057e5028982a2c94274031a42f2d2911c",
+   "live": false
+  },
+  "website/directory/index.php": {
+   "sha256": "a860847557e20dfc8b8254dd0cc68ba513e595e8848581ff5fc9155805a485d0",
+   "live": false
+  },
+  "website/discovery/index.php": {
+   "sha256": "b03110318bf2d7d98c91389f54898f0ab6222be0bf6743a0527c7c6bf52a4d2f",
+   "live": false
+  },
+  "website/js/tv-trips.js": {
+   "sha256": "94d655f9670e4c1f0c6652a12df5f34a6b9a242eb19fb79b50e4a75b8d1118ae",
+   "live": false
+  },
+  "website/user/dashboard.php": {
+   "sha256": "15cc00061bbcedf1b4f625b383887f3d18edb37e620075bd231f5588f2117e4d",
+   "live": false
+  },
+  "website/user/trips/index.php": {
+   "sha256": "20a4bf267f7a4e5efbfa89500e9f2d40a45b77fe0d80b536299e6ce696c101d0",
+   "live": false
+  }
+ }
+}
