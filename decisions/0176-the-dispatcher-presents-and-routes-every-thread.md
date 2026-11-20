@@ -320,3 +320,8 @@ Reviewed by the session manager (2026-11-20).
    the staff thread first.
 4. **Incidents first.** Alarms, service issues and uploads move to the one shape in these releases. Comments, bookings
    and groups follow in a later release.
+
+**Note (2026-11-20, release 1 built: `0176-thread.zip`, not yet live):** the alarm thread. `app/lib/Thread.php` draws
+the one shape; `ControlAlarms::facts()` supplies an alarm's parts; the trip, its Escalation Notice and Recovered are one
+message (`Notify::IN_PLACE`), updated in place; the board's rows, Pulse's item and body, the push and the logbook read the
+same shape. Record: `handoffs/dispatcher.md`.
