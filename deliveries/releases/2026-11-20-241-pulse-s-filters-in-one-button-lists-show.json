@@ -6,25 +6,29 @@
     "zip": "pulse-filter-panel.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "staged",
-    "step": 0,
+    "state": "live",
+    "step": 3,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
     "plan_at": "2026-11-20 23:28:12",
     "staged_at": "2026-11-20 23:28:14",
-    "vetted_at": null,
-    "live_at": null,
+    "vetted_at": "2026-11-20 23:28:17",
+    "live_at": "2026-11-20 23:28:17",
     "files": {
         "app/ui/pulse-ui.php": {
             "sha": "7a3d26087ac19b05bd3ea905747f9b48f7878b29e4fb01e4f243a08e720ae156",
             "size": 173401,
-            "live_was": "cef7bbb3b6a91c246afa7b505848cd397d3cf75891b1b4aea33f5b7255f85c0c"
+            "live_was": "cef7bbb3b6a91c246afa7b505848cd397d3cf75891b1b4aea33f5b7255f85c0c",
+            "existed": true,
+            "old_sha": "cef7bbb3b6a91c246afa7b505848cd397d3cf75891b1b4aea33f5b7255f85c0c"
         },
         "app/ui/faq.md": {
             "sha": "2abe969af9074ec53f6ae203339fca59d9a8cd4d40f02dd725820fce62dce97f",
             "size": 410148,
-            "live_was": "cfc1eefac4e10912354d6353b59d3bec46939f45412d1872a8e3f6582c15e06f"
+            "live_was": "cfc1eefac4e10912354d6353b59d3bec46939f45412d1872a8e3f6582c15e06f",
+            "existed": true,
+            "old_sha": "cfc1eefac4e10912354d6353b59d3bec46939f45412d1872a8e3f6582c15e06f"
         },
         "app/migrations/2026-11-20_pulse_views.sql": {
             "sha": "a3bc3c12f6ec7eabffca57e89ad637b2e65622c528f8eb0c3f92b46003668200",
@@ -34,17 +38,21 @@
         "app/lib/PulseViews.php": {
             "sha": "583a8e1a6f7e14bac2c9eee1c847d13eb302522b805ae98856a01e001095da3f",
             "size": 5089,
-            "live_was": null
+            "live_was": null,
+            "existed": false
         },
         "app/lib/staging-tables.php": {
             "sha": "504ab38bb2906dc85fdd30c1e47116e062fe0a6d3162980af7d9829ecf122d77",
             "size": 28697,
-            "live_was": "d69e8d03db4d9e130121e2b82a32ed1f3c0d7d65bad6ecbb9c48319e2d7dd01c"
+            "live_was": "d69e8d03db4d9e130121e2b82a32ed1f3c0d7d65bad6ecbb9c48319e2d7dd01c",
+            "existed": true,
+            "old_sha": "d69e8d03db4d9e130121e2b82a32ed1f3c0d7d65bad6ecbb9c48319e2d7dd01c"
         },
         "website/user/api/pulse-views.php": {
             "sha": "ce80a8e691f1e424742ad9b969a3120b977f983cd5e2e26ec1e63c2df5625eb7",
             "size": 2159,
-            "live_was": null
+            "live_was": null,
+            "existed": false
         }
     },
     "migrations": [
@@ -52,8 +60,8 @@
     ],
     "checks": {
         "ok": true,
-        "where": "staging",
-        "at": "2026-11-20T23:28:16+00:00",
+        "where": "live",
+        "at": "2026-11-20T23:28:17+00:00",
         "items": [
             [
                 "PHP files parse",
@@ -61,19 +69,9 @@
                 "4 checked"
             ],
             [
-                "Migrations only add",
-                true,
-                "1 checked"
-            ],
-            [
-                "Migrations ran on staging",
-                true,
-                "Ran 2026-11-20_pulse_views.sql"
-            ],
-            [
                 "Pages answer",
                 true,
-                "2 pages answered on staging.trvgo.us"
+                "2 pages answered on traversence.com"
             ],
             [
                 "No new fatal errors in the logs",
@@ -103,6 +101,16 @@
             "at": "2026-11-20T23:28:16+00:00",
             "by": 0,
             "msg": "Put on staging (6 files); its checks passed."
+        },
+        {
+            "at": "2026-11-20T23:28:17+00:00",
+            "by": 0,
+            "msg": "Approved in chat before it was sent through git, and its checks on staging passed: publishing by itself."
+        },
+        {
+            "at": "2026-11-20T23:28:17+00:00",
+            "by": 0,
+            "msg": "Published: 5 files, after its 1 migration ran first (2026-11-20_pulse_views.sql; a copy of what each touched is kept 14 days); everyone at once (no switch)."
         }
     ]
 }
