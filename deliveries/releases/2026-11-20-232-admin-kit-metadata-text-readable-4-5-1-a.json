@@ -1,0 +1,49 @@
+{
+    "id": 232,
+    "title": "Admin kit: metadata text readable (4.5:1 and up) in Shortcuts, the dashboard and Pulse; the way-back bar no wider than a phone",
+    "why": "design/css-theme-brand.md §3 (Jason, 2026-11-18): \"guarantee a minimum 4.5:1 contrast\". The queue for the next admin release (handoffs/admin-design.md, from 3a's probe): Shortcuts' group labels at 4.36:1, the dashboard's small labels at 3.93:1, Pulse's column headers at 3.93:1. And §3's \"zero horizontal scrolling at 390px\" (0058 §11): the way-back bar made pages 392px wide on phones (found on live 2026-11-20).",
+    "proposals": "",
+    "zip": "admin-kit.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/ui/pulse-ui.php": {
+            "sha": "cef7bbb3b6a91c246afa7b505848cd397d3cf75891b1b4aea33f5b7255f85c0c",
+            "size": 161787,
+            "live_was": "a6eb6e5f0c84d14d2b5212fd32d39bf097409be2d6a7c04d978985996ad76fd5"
+        },
+        "app/ui/admin-hub.php": {
+            "sha": "8404e3f3e779de29a4b110888da3890b0d131203b2c27193998404d84387622d",
+            "size": 16974,
+            "live_was": "8e3da99f09644e1a79cc9b165a309306f820355de6485360c2ed151853da3b35"
+        },
+        "app/ui/admin-dashboard.php": {
+            "sha": "997c3afc32df2b22380e77452ab65aa0b87a25c3dfed63d930981ffaa307ab3e",
+            "size": 56759,
+            "live_was": "120e13cadb3f019984975110139465f824e28b416c1133068a9b7f47d946bf2d"
+        },
+        "website/js/tv-trail.js": {
+            "sha": "bd84b904f4ba32eae4b14d508a205821de3a67faa35d7f22e755d9469bfbe50e",
+            "size": 7152,
+            "live_was": "87c8a2c278c78208845a350d13205c3c726c293b942d7b91213de8f178a45ede"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-20T16:30:05+00:00",
+            "by": 0,
+            "msg": "Uploaded admin-kit.zip: 4 files."
+        }
+    ]
+}
