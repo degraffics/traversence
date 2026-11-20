@@ -1,8 +1,9 @@
 # 0176: The dispatcher presents and routes every thread
 
 Status: **accepted** (Jason, 2026-11-20, draft 2, approved with the decision pop-up; reviewed by the session manager).
-His answers to the questions are below them. **Next:** release 1, the thread and the shape, for alarms.
-manager. Nothing is built until he approves it.
+His answers to the questions are below them. **Built:** release 1 (the alarm thread) live as #226, 2026-11-20.
+**Held** (Jason, 2026-11-20: "hold on r2 build"): releases 2–4, each planned in `handoffs/dispatcher.md`. Written by the
+dispatcher session at Jason's request, relayed by the session manager.
 
 Builds on:
 - 0172: Communications. `Notify` is the one dispatcher (§4.1); the route (§4.2); the six levels; "The message".
@@ -321,7 +322,7 @@ Reviewed by the session manager (2026-11-20).
 4. **Incidents first.** Alarms, service issues and uploads move to the one shape in these releases. Comments, bookings
    and groups follow in a later release.
 
-**Note (2026-11-20, release 1 built: `0176-thread.zip`, not yet live):** the alarm thread. `app/lib/Thread.php` draws
+**Note (2026-11-20, release 1 live as #226, `0176-thread.zip`, verified on Sync 14:37 UTC):** the alarm thread. `app/lib/Thread.php` draws
 the one shape; `ControlAlarms::facts()` supplies an alarm's parts; the trip, its Escalation Notice and Recovered are one
 message (`Notify::IN_PLACE`), updated in place; the board's rows, Pulse's item and body, the push and the logbook read the
 same shape. Record: `handoffs/dispatcher.md`.

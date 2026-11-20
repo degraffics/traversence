@@ -107,7 +107,9 @@ Each one comes from a request Jason had to send. Build to them, and the session 
 - **One coherent release, not a string of patches.** Gather the fixes for one area into one zip after checking them
   together; a follow-up release only for something found after it went live. [#115–#119 were five releases in two
   hours on one card, each needing Jason's OK.]
-
+- **A release that advances a queued item says so in the queue** (Jason, 2026-11-20). In the same PR, add a **Progress:**
+  line to that item in `handoffs/session-manager.md`'s working queue: what's now live or decided, with its source.
+  Picking up a queued item starts from its Progress lines.
 - **A build that fails on staging is yours to clear, not Jason's** (Jason, 2026-11-18: "having to require me to remove
   bad releases is not helpful. Since you create them, you need a way to deal with issues"). It withdraws itself (the
   site, since release releases-self-withdraw). Watch its record in `deliveries/releases/` after the merge. On

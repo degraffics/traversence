@@ -41,7 +41,10 @@ check blocks a zip that removes a live function, constant or FAQ question; `--dr
 A standing session watches the others (hourly while Jason is checked in): context size, restarts, cost, release clashes,
 stuck syncs and Railway deploys. One session per area, at most about three at once. **A multi-phase build stays in one
 session until the entire build is complete and live, then it's closed** (Jason, 2026-11-18: hand-offs between sessions
-broke continuity); no fresh session per phase. **Finished sessions are archived on the check without asking** (Jason,
+broke continuity); no fresh session per phase. **Except when it grows too large** (Jason, 2026-11-20: "Each session is
+large and usage is draining… hand off to new session so we can reduce token use without logic loss"): at a hold, it
+writes a complete hand-off (live, held and where, open questions, next releases sourced), the session manager reviews it,
+a fresh session takes over from it, and the old one is archived. **Finished sessions are archived on the check without asking** (Jason,
 2026-11-14): one that has said it's done, with its work in `main` and nothing waiting on Jason, is archived and named in
 the report, once the session manager has checked the live build against its decision and brief (Jason, 2026-11-18). A
 session waiting on him is never archived. After each release the session manager also checks the release and its hand-off for

@@ -1,0 +1,111 @@
+{
+    "id": 228,
+    "title": "W1's findings: a warning's hour is kept, a handled review item says what happened, a critical part's words",
+    "why": "Jason's screenshots of W1 Listings on the board, 2026-11-20: the alarm read \"1 of 3 tries, until 09:25 UTC\" hours later; a Review item opened only \"This listing has already been handled\"; and a critical part still said \"Only Resolve clears it\" after he chose \"Close as Recovered\".",
+    "proposals": "",
+    "zip": "w1-findings.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "live",
+    "step": 3,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": "2026-11-20 14:46:35",
+    "staged_at": "2026-11-20 14:46:36",
+    "vetted_at": "2026-11-20 14:46:39",
+    "live_at": "2026-11-20 14:46:39",
+    "files": {
+        "app/ui/faq.md": {
+            "sha": "a46c0cffb9a644e7d46ebbbe96ec7a871107d856f8c80f973408ca016320f09b",
+            "size": 402607,
+            "live_was": "d4e4287e3bea8928a1f017465866774c2945f2c7575903cd1543324be7ce8547",
+            "existed": true,
+            "old_sha": "d4e4287e3bea8928a1f017465866774c2945f2c7575903cd1543324be7ce8547"
+        },
+        "app/lib/ControlAlarms.php": {
+            "sha": "99c90a62d673a96c327ab6930b838768427609c56aa41e2bfa0d30ec8be1b4d3",
+            "size": 83711,
+            "live_was": "67c0eb159d517092233746a3a3e1790e4b6f85eec83a79609c3b5aabd2f76f2f",
+            "existed": true,
+            "old_sha": "67c0eb159d517092233746a3a3e1790e4b6f85eec83a79609c3b5aabd2f76f2f"
+        },
+        "app/lib/ControlSensor.php": {
+            "sha": "99cdf04ae2cf44603afc6d261c5162a795b7e19f802504293e9c634f7a6cc6ce",
+            "size": 17276,
+            "live_was": "67b7ec4a6e40fa6a36963235228cc454d251c0100a2da900bdab5e2016cf0ff6",
+            "existed": true,
+            "old_sha": "67b7ec4a6e40fa6a36963235228cc454d251c0100a2da900bdab5e2016cf0ff6"
+        },
+        "website/admin/listing-intake.php": {
+            "sha": "62b613cf85335daee289dde5c2d7a17dcde8047c2c5a7955a310637fab5f3bc2",
+            "size": 58641,
+            "live_was": "b3f2edd86f8bea05087679ce9872d8b7e9d8955402b2e51af552638f89b6888e",
+            "existed": true,
+            "old_sha": "b3f2edd86f8bea05087679ce9872d8b7e9d8955402b2e51af552638f89b6888e"
+        },
+        "website/api/admin/intake/candidates.php": {
+            "sha": "9610ad21b717f88503e5fbbe04824d9d6cc3d3f9bb8a3da84b7fe2e39ef6cc06",
+            "size": 2128,
+            "live_was": "1453a7f8c33b43b8a4e27c2be341899ea1523a8c665ca9ea6ff0d2333e29eb5d",
+            "existed": true,
+            "old_sha": "1453a7f8c33b43b8a4e27c2be341899ea1523a8c665ca9ea6ff0d2333e29eb5d"
+        }
+    },
+    "migrations": [],
+    "checks": {
+        "ok": true,
+        "where": "live",
+        "at": "2026-11-20T14:46:40+00:00",
+        "items": [
+            [
+                "PHP files parse",
+                true,
+                "4 checked"
+            ],
+            [
+                "Pages answer",
+                true,
+                "3 pages answered on traversence.com"
+            ],
+            [
+                "No new fatal errors in the logs",
+                true,
+                "4 logs read"
+            ]
+        ],
+        "first_fail": ""
+    },
+    "log": [
+        {
+            "at": "2026-11-20T14:46:33+00:00",
+            "by": 0,
+            "msg": "Uploaded w1-findings.zip: 5 files."
+        },
+        {
+            "at": "2026-11-20T14:46:35+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/w1-findings.zip (git 7a71d173a5)."
+        },
+        {
+            "at": "2026-11-20T14:46:35+00:00",
+            "by": 0,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
+        },
+        {
+            "at": "2026-11-20T14:46:37+00:00",
+            "by": 0,
+            "msg": "Put on staging (5 files); its checks passed."
+        },
+        {
+            "at": "2026-11-20T14:46:39+00:00",
+            "by": 0,
+            "msg": "Approved in chat before it was sent through git, and its checks on staging passed: publishing by itself."
+        },
+        {
+            "at": "2026-11-20T14:46:39+00:00",
+            "by": 0,
+            "msg": "Published: 5 files; everyone at once (no switch)."
+        }
+    ]
+}

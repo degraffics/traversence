@@ -91,29 +91,37 @@ a build choice. (Missed on 0175 R1's hourly try and on 0175 draft 1's third-trip
   a worker deploy restarts it (details at the top of `handoffs/crawler-revamp.md`); the automation master switch (release
   #48) makes any run that starts end at once. The hourly check expects no crawler runs meanwhile.
 
-## The working queue now (2026-11-19, 16:15 UTC; the sections below are the history behind it)
+## The working queue now (2026-11-20, 15:00 UTC; the sections below are the history behind it)
 
-**Building:**
-- **Control Board (0171)**, session_01CXLi5ivMY6BdkfHK1xdLWS: live through #189. That covers every alarm landing on its
-  fix (#183), trips-only to a person, critical parts by duty with Recovered and the Escalation Notice (#183, #185),
-  search, sign-in and payments watched (#185), stage tabs, cleared alarms to the logbook, the logbook filter and the
-  corrected OSM statement (#189). Asking now: control-board-table (PR #1064), the process table on tv_table() with Q2
-  (blocked sites as one notice, a warning above 5% of the day's fetches), Q3 ("Its data" on each process's page, ids and
-  field names only) and Q4 (W0 logs off-region addresses as "Outside our region", never fetched). Next: **Pulse's
-  load-time warning** (below). The session stays open (Jason, 2026-11-19).
-- **Design (`design/css-theme-brand.md`, `design/table-standard.md`)**, session_01CXLi5jkgtUikcdUQ4Wmv28: live through
-  #190. That covers buttons (#181), Pulse dates, due clocks, tints and order (#182, #184, #188, #190; clocks only on work
-  cases, open trips still escalate), T1 the table component (#186) and the home bar (#187). Asking now: T2, the admin's
-  Pulse on the standard on its own engine (▾ and ⋯, two rows on top, paging of the gathered rows). Then T3–T5 (the rest
-  by module; capped lists paged in SQL or shown as "400+"), 3e (Marketplace), the map release, the tokens release.
-- **Approved, not yet built (design session, in order):** Get Local R2 (the approved concept with within ▾, Arrange and
-  the list beside the map; the Filters line and card tools approved 2026-11-19; the PO-box Directions rule; the
-  comments box and card tools Jason approved earlier on 2026-11-19 as "release (2)", never built until found from his
-  "thought we fixed this too"; the header search after his one-line OK), then card photos (Commons + NPS, approved
-  "Both"), then the place page (lightbox link, Add to a trip, counts, the ⋯ toolkit: proposal first).
-- **Business listings**, session_01CXLi5kipJLJoRvo3jqLnQQ (opened 2026-11-19 at Jason's word): case #22 live as #191
-  (owners edit their hidden listings). It reads the "Edit my listing" path after the 2026-11-20 run, then stays open for
-  more listing work.
+**Restart (Jason approved `handoffs/restart-outline.md`, 2026-11-20):** every session was held and handed off; fresh
+sessions take over, holding until Jason says resume. Live through Release #228 (Sync 6c545d9, 14:48 UTC).
+- **Operations** (0175 + 0176; hand-offs `control-board-2026-11-20.md`, `dispatcher.md`): 0175 R2a → 0176 R2 → 0175 R2b →
+  Census backup → 0176 R3, R4 → 0175 R3, R4 (then the App store, 0169). Held work on branches: `claude/0175-r2a-wip`.
+- **Design and trips** (`design.md` and its area files): hero-tidy (`claude/hero-tidy`, approved, unsent) → admin kit →
+  T5 → 3d/3e/3f → the map release → 0174 R5 (openrouteservice; read its terms first).
+- **Orders** (`order-processing.md`): starts after Jason reviews `research/order-system-map-2026-11-19.md` and its six
+  items; the first release carries the chargeFor fix.
+- **The session manager** also reads Monday's (2026-11-23) "Edit my listing" path check (`business-listings.md`).
+- **Waiting on Jason:** (answered: a system hour is red only when a critical part is down, 0175 note 2026-11-20, #1177); 0176 R2's restart; the order map and its six
+  items; the order file check's limits; the area data plan (ten "Albuquerque" clusters, Abilene under Ancient
+  Borderlands: find the cause in the five cluster-creating paths, preview in Data cleanup, he decides); the dashboard
+  discussion; done: the Park Service key (Jason, 2026-11-20: "done. its in!"); control_tick is back on `*/5` (Jason pressed it, 2026-11-20).
+- **Operations, a small fix after 0175 R2a** (from Jason's screenshots, 2026-11-20; playbook §4, words follow the state):
+  the scheduler's dropdown shows "Every minute" when a line matches no preset (`presetOf` returns '', the select falls
+  to its first option): show the line's real schedule. The National Park Service card (0173's card): two "Active"
+  boxes say the same thing and the first is wrong while the key is missing; "Retire it…" wraps onto two lines under its
+  spinner; "Linked, not called" shows three times.
+- **Old sessions archived at the restart** (2026-11-20): Control Board, dispatcher, design, business listings.
+- **New sessions:** Operations `session_01CXLi5iPPT6FpHPEMPUcaw4`, Design and trips `session_01CXLi5gxSyzVYGuXX3xuu2c`
+  (both held). Session manager `session_01CXLi5mGX2sg5QS11gg3Wrh`; Monday's listing check moved to it
+  (`trig_01SYS5pgeFj79vmeE35fvgha`).
+- **Review rule** (Jason, 2026-11-20, playbook §3): every behaviour in a summary is checked against the decision line it
+  cites; unsourced is a question for Jason, never a build choice; a gap's answer is written into its decision first.
+- **Progress lines** (Jason, 2026-11-20: "a way for the work que to get bullets that say something has been started which
+  will apply to it… so it doesnt lose progress weve made"): every queued item carries **Progress:** lines naming what's
+  already live, decided or held elsewhere that applies to it, each with its source (release, decision note, branch,
+  hand-off). A release or decision that advances a queued item adds its line in the same PR; the session manager checks
+  it in review. Whoever picks an item up starts from its Progress lines, never from the item's first words alone.
 
 **To discuss: the Control Board's dashboard ideas** (Jason, 2026-11-20, five reference screenshots: VTScada's
 "Dashboard 2", ThingsBoard's SCADA energy "Main" and "Consumption", a power plant monitoring dashboard, a manufacturing
@@ -131,6 +139,8 @@ discuss to happen"). Nothing decided or built. The session manager's reading, to
 Skip: large gauges, pies, slicer columns (one search plus filters, design/css-theme-brand.md).
 Order once agreed, after 0175's releases (each module needs its one state first): the Main mock-up from the Control Board
 session, then build. Waiting on: a discussion with Jason.
+- **Progress:** the historian is live (0171 r4b: readings over time, uptime, trends); the trend strips' counting and
+  labels are held in 0175 R2a item 11 (`control-board-2026-11-20.md`); 0175's stage 5 names the operational view.
 
 **Widen the OpenStreetMap copy** (Jason, 2026-11-19: "Seems like we could use everything openstreet has as long as it is
 cited", "Yea add to work que"; "the score could account for provided data so these entries would show lower than our
@@ -149,6 +159,23 @@ In order, each measured after its first load (rows, MB; Supabase only if the tot
 entry never outranks a vetted entry of ours for the same search; it shows after ours, with no trust score, its card
 saying "From OpenStreetMap, not checked by us" (the Get Local score chip's ⓘ explains); one that matches our listing
 shows once, as ours. To the Control Board session (it owns OpenLoads) with the design session for the cards.
+- **Progress:** our Geofabrik copy is live for five states with health care and guides (`osm-copy.php`); Overpass is
+  retired everywhere (2026-11-19, `overpass-off.php`); the first night load is still to be measured
+  (`control-board-2026-11-20.md`, Things to watch). Owner now: Operations.
+
+**Nothing sold that may not be there** (Jason, 2026-11-20, after OmniOutdoors charged him, then cancelled "out of
+stock"; his rule is written into decisions/0135's note of that date). Owner: Orders (the Marketplace), after its first
+release. The build proposes how each gap closes, sourced to the note, for his OK.
+- Progress: tracked stock held while paid, Sold out at 0, paid takes it off, Square sync and webhook (live, mirror 6c545d9,
+  `MarketCheckout.php` :240, :249, :575; `MarketSquare.php` :102, :205).
+- Progress: authorize now, capture later exists for deposits and rentals (`MarketCheckout.php` :383, :683).
+- Open: untracked physical items sold as available; counts kept elsewhere; card orders charged at checkout; made to
+  order and services stating what's promised before money is taken.
+- Open (Jason's addition, 2026-11-20, same note): two-way confirmation before the transaction where needed (appointment
+  requested, set, then paid); tickets final, the pass is the product; each item kind's terms explicit before money moves
+  (`ItemKinds`: what's delivered, when, final or not, what's confirmed first).
+- Also check our own sales: domains (is the name confirmed available at Name.com before the charge?) and printed orders
+  (invoiced after approval; check against `research/order-system-map-2026-11-19.md`).
 
 **Domains: Name.com reseller pricing and .ai** (Name.com support's answer, ticket 7Y5JM6-5L7GX, 2026-11-18):
 - No fees or deposit. Enrolling in the API Reseller Program at https://www.name.com/nameapi/pricing unlocks tiered
@@ -196,6 +223,10 @@ plan using OSM and keep people on our own site?"). Decision first; nothing built
   - Offer the person's own choice (Google or Apple, remembered on the device), from "My location" or the first stop.
 - OSM's credit on the route (0065); no visitor data kept (0058 §13).
 - To a session when Jason chooses the engine.
+- **Progress:** this item became decisions/0174. Sending the whole trip is done (R1, #219), with trips (R2 #220), the
+  trip page (R3 #221) and sharing (R4 #227) live. Jason chose the engine: (b) openrouteservice's free tier (0174's
+  status, 2026-11-19). Routes on our own site are 0174 R5, last in Design and trips' order, its terms checked first;
+  legs read "about" (straight line) until then (0174 §5).
 
 **More sources for health care and guided tours** (Jason, 2026-11-19, after Overpass was retired: "How do we secure more
 data if this comes from our own copy?"). Our OSM copy (Geofabrik, weekly) keeps up with OSM's own edits; for more than
@@ -207,6 +238,8 @@ brought to Jason as one list to approve:
 - **Not:** guide and outfitter permit lists (NPS, Forest Service, BLM). Jason, 2026-11-19: "Guide permits: not
   additional sources".
 To the Control Board session (it owns the crawler's sources) when Jason chooses.
+- **Progress:** health care in our OSM copy is live (`osm-copy.php`); NPI was reached in the rural test's Run 2
+  (`research/rural-test-2026-11-14.md` §8). Owner now: Operations.
 
 **Pulse's load-time warning** (Jason, 2026-11-19: "add Pulse's load-time warning", to the Control Board session): time
 how long `Pulse::items` takes to gather (its ~15 sources) on each open of the admin's Pulse. Keep the reading in the
@@ -224,11 +257,21 @@ has: alerts in ControlAlarms and 0172's one dispatcher (`Notify`) with `TvAsk.sa
 these and `StagingGate`; roles in `Access::can` / `Modules::canTool`. It extends them in place (one front door), never a
 second copy. "Control" means **both** (Jason, 2026-11-19): rules he sets for each of the five, and a log of every
 one that ran (who, what, when, where, the rule that allowed or stopped it).
+- **Progress:** decisions/0176 (accepted 2026-11-20) covers (1) alerts as threads in one shape (R1 live, #226), part of
+  (2) buttons as Fix it routing (R3, held) and part of (3) forms as uploads (R4, held), all in Operations' order. Still
+  to decide: (4) the message gate's rules, (5) the role-based actions, and the log of every one that ran.
 
 **Queued builds, in order:** W15 Funnel (0170); state licence lists (3a: decision first); the App store (0169) and its
 apps (QuickBooks Bookkeeper, QuickBooks Payments, Stripe Payments, Facebook Personal, Facebook Business, Storefront with
 trvgo.us's hyphenated addresses, members' and businesses' outside mailboxes); Release B's small leftovers; backups for
 the needs that have none; OpenStreetMap coverage from our Geofabrik copy.
+- **Progress (the App store, 0169, and the modules model):** decided in 0175 (one lifecycle of eight stages; standalone
+  and integration modules with the integration procedure, §5; one definition, §4); 0169's note (2026-11-20) folds its
+  §5 lifecycle and §6 app definition into 0175. Live under it: 0173 R1–R3 (#209, #210, #212: the Service register, the
+  key on its card, defined once in `service-defs.php`) and 0175 R1 (#222, Paused by the system). Next, in Operations'
+  order: 0175 R2a (built, `claude/0175-r2a-wip`), R2b, R3 (the eight-stage strip and its actions), R4 (one definition);
+  then the App store's Release 1. Domains in the Shop: built #71–#86 (0169's note).
+- **Progress (OpenStreetMap coverage):** see "Widen the OpenStreetMap copy" above.
 
 **Communications' open items** (Jason, 2026-11-18: "move still open to the working queue"; the build itself is done,
 #130, #135, #138, #141, #142, #147):
@@ -245,8 +288,8 @@ the needs that have none; OpenStreetMap coverage from our Geofabrik copy.
 for heritage (store with credit, or link); approve 0164 §7.1's licence-source strategy; renew `GITHUB_SYNC_TOKEN`
 before Dec 16 (https://github.com/settings/tokens); the OpenStreetMap statement: posted 2026-11-19, about 16:10 UTC, waiting for a forum moderator (research/osm-overpass-2026-11-13.md §3); on their answer, Check and start again on the Overpass alarm (no Reactivate or Mark resolved since control-board-card-2).
 
-**Visual fixes** (to the design session's Release 3): the squeezed footer edit zone (Discovery's hero, the Edit switch and stock
-bylines are done: #153, #158, #159).
+**Visual fixes:** all done (Discovery's hero, the Edit switch and stock bylines: #153, #158, #159; the footer edit zone:
+`width:100%` live at Blocks.php:841, checked 2026-11-20).
 
 **To purge or remove:** the old S3 bucket, then narrow the AWS key to SES; `.env` leftovers (Jason); the "Default
 place" settings row; merged branches on GitHub; the `_moved_npi_orgs` / `_moved_irs_orgs` drop (Jason's OK);

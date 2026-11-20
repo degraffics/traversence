@@ -555,3 +555,37 @@ So a later build doesn't "fix" them:
   (10 a page, or 25, 50, 100), so "More" no longer skips posts listed in the same second.
 - **At the cap (§7)**, Post it on Your Marketplace and Post something on `/market/` are greyed out with the reason; a
   team member's test post doesn't count, so ticking Test post frees it.
+
+## Note (Jason, 2026-11-20): nothing sold that may not be there
+
+After an outside shop (OmniOutdoors) charged Jason, then cancelled "out of stock" and refunded, asked whether no physical
+item should be charged until the shop can send it, Jason answered: "Physical Items must be available at time of
+purchase. If not, it cant be sold under the guise as available but could be out of stock, that would mean making false
+promises, so either stocked and ready, or back-ordered and possibly not available must be known before transaction
+occurs. Custom orders, made to order, services that require confirmation must set proper expectations before money is
+taken, it is not so much about the product and more about the delivery of said service per agreed to expectations."
+
+The rule:
+- **A physical item is sold only as what it is:** stocked and ready, or back-ordered (possibly not available), and the
+  buyer knows which before paying. Nothing is offered as available that may be out of stock.
+- **Made to order, custom and services that need confirming** state what's promised (what, when, how it's confirmed)
+  before any money is taken.
+
+Live today (mirror 6c545d9, `MarketCheckout.php`): a tracked item is held while it's paid for (30 minutes for a card,
+the business's days for a manual method), is Sold out at 0 and can't be bought, and paying takes it off; Square's
+counts come in by sync and webhook. Not yet: "Track stock" is optional, so an untracked physical item is sold as if
+available; a count kept elsewhere can be wrong here; every card order is charged at checkout (only deposits and
+rentals authorize first). How each is closed (required stock, a back-order state, authorize-then-confirm, an
+expectations line at checkout) is the build session's proposal, each part sourced to this note, for Jason's OK.
+
+**Added (Jason, 2026-11-20):** "The ordering process may require a two way confirmation of what is being sold/set as
+expectations before the transaction can be rendered. IE. schedule appointment, appointment set, then transact. Items like
+event tickets are sold as final and come as a physical/digital pass for entry so the delivery of that is the product, not
+the person actually using it. so we need to be explicit in how we define the terms of the transactions prior to
+conducting final transaction and money transfer."
+- **Two-way confirmation where it's needed:** for what needs confirming, the buyer and the business both confirm what's
+  being sold and the expectations (e.g. the appointment is requested, then set) before the transaction; then it's paid.
+- **What is delivered defines the sale:** an event ticket is sold as final; the product is the pass (physical or
+  digital) for entry, delivered when issued, not the person's use of it.
+- **Every kind's terms are explicit before money moves:** what's delivered, when it counts as delivered, whether it's
+  final, and what needs confirming first, shown to the buyer before the final transaction.
