@@ -166,6 +166,17 @@
    "expires": "2026-11-20T19:30:10Z",
    "release": "0175-r2a-panel.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/ControlMaintenance.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
+   "why": "0175 R2a part 1: each alarm opens its fix in the side panel, one panel at a time",
+   "since": "2026-11-20T15:30:16Z",
+   "expires": "2026-11-20T19:30:16Z",
+   "release": "0175-r2a-panel.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
