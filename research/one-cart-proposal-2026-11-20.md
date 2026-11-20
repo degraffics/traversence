@@ -1,6 +1,6 @@
 # Draft decision: one cart is the invoice, each line released to it by its own process (2026-11-20)
 
-Status: **draft, for the session manager's review and then Jason's OK.** Nothing here is built. Orders session.
+Status: **draft, for the session manager's review and then Jason's OK** (updated with Jason's rulings, R). Nothing here is built. Orders session.
 Built on: the live mirror at "Sync: 2026-11-20 17:54 UTC" (`6f955cf`); `main` at `a0f0db6`; the map
 (`research/order-system-map-2026-11-19.md`, Jason's accepted baseline) and the crosswalk
 (`research/order-review-crosswalk-2026-11-20.md`).
@@ -19,6 +19,10 @@ flows end (0101 client orders, 0154 §6 the one cart, 0096 GO Codes checkout) an
 - **J3** Jason, 2026-11-20: "Process of an item should address requirements to release to cart, so proofs get approved,
   production files get uploaded, vendor is selected, drops ship is configured, etc. then released"
 - **T** 0101's note and 0135's note of 2026-11-20: terms before money, for our own sales too ("Yes, both").
+- **R** Jason's rulings on the map, 2026-11-20 (`research/order-rulings-2026-11-20.md`, written into 0101 as its note
+  "rulings on the order map"): R1 ship-to, R2 three proof paths, R3 part payments, R4 one paid-in-full check, R5
+  refund offers Cancel the work order, R6 delete six dead actions, R7 no watermark; his Part 2 §1: "one Cart/Invoice
+  flow for every entry path (today's private order approval page and the cart for GO Codes, one-offs, domains, plans)".
 - **0154 §6**: "one cart for everything Traversence sells" (`/qr/cart.php`, `CartPlans.php` header).
 - **0101**: the client order rules (map §3), kept unless named below.
 - **CLAUDE.md**: stages are workflows (System Configuration → Workflows), not hard-coded; Pulse: one case per kind of
@@ -36,6 +40,12 @@ flows end (0101 client orders, 0154 §6 the one cart, 0096 GO Codes checkout) an
 - The requirements live in the workflow (System Configuration → Workflows, `admin/workflows.php`), as checks like the
   `proofs_approved` that exists today, not in code (CLAUDE.md). Nothing new is invented as a requirement: the printed
   product's four come from J3; any other kind's list is a question (Q-B below).
+- **Proof approved** is met by one of R2's three paths: a staff proof the client signs off; an exact reorder's
+  `reuse_of` confirmed with initials; or client-supplied artwork that passes the order file check (0176) and the client
+  approves. "Nothing goes to press without one of those three verified paths" (R2). Until Jason sets the file check's
+  limits, the third path waits (0176's Question 3).
+- Services that need a two-way confirmation (an appointment requested, then set) add **Confirmed by both** as their
+  requirement (0135's added note; R Part 2 §1).
 - Kinds with nothing to prove or produce (a GO Code bought in the cart, a one-off, a domain, a plan) are released the
   moment they're added. That is how the one cart works today (0154 §6, 0096, 0169 §1a); kept.
 
@@ -76,11 +86,14 @@ shown stay as today. That replaces a live card, so it's named here for Jason's O
 | Send (step 5) | emails the link for proofs and approval | **Kept** for proofs; a second notice, "Ready for you to confirm", when lines are released (Q-A says how) |
 | Production files (step 11, `order_file` setup/print 1-up) | uploaded any time; required by nothing | **Moved before the cart**: a release requirement for a printed product (J3) |
 | Vendor (step 11) | picked when the work order is made, after payment | **Moved before the cart**: the vendor (and so its cost) is **selected** before release (J3). The work order is still **sent** only after payment or Release to production before payment (0101, T: no production before money unless our team releases it) |
-| Delivery / per-item ship-to (step 3, `setLineShip`, `WorkOrders::DELIVERY` incl. `blind_drop`) | set any time; the client's approval form ticks "To the billing address" (map §5 item 1) | **Moved before the cart**: configured as a release requirement (J3). The approval form's default then has to be settled (Q-A) |
+| Delivery / per-item ship-to (step 3, `setLineShip`, `WorkOrders::DELIVERY` incl. `blind_drop`) | set any time; the client's approval form ticks "To the billing address" (map §5 item 1) | **Moved before the cart**: configured as a release requirement (J3). The Confirm form starts from the order's Ship to with "To the billing address above" unticked; billing only when Ship to is blank (R1) |
 | Approve the order (step 8) | after every proof | **Replaced by Confirm** over released lines: same fields, same invoice moment (part 2) |
-| Pay, receipts, ledger, refunds (steps 9–10, 16) | as built | **Kept** |
+| Pay, receipts, ledger, refunds (steps 9–10, 16) | as built | **Kept**, with: a part payment on QuickBooks' page recorded as it arrives (R3); a refund of printed work with an open work order offers "Cancel the work order and notify the vendor" (R5) |
+| Shipped / Ready (steps 12–13) | only the Orders drawer checks paid in full | **One check on every path** (order page, Pulse, work orders, `/wo.php`), except Release to production, invoice or outside terms (R4) |
+| Proof downloads before paying (map §3a) | 0101's rule, no watermark | **Kept**: 0101 replaces 0099 (R7) |
+| Six uncalled builder actions (map §5 item 6) | dead code | **Deleted** (R6) |
 | Work orders, vendor's page, 4over paste, shipping, completion, reorder (steps 11–15) | as built | **Kept**, starting from the vendor and files already chosen |
-| The one cart `/qr/cart.php` (GO Codes, one-offs, domains, plans) | as built | **Kept**; an order waiting on the client's Confirm is listed there for a signed-in client (Q-A) |
+| The one cart `/qr/cart.php` (GO Codes, one-offs, domains, plans) | as built | **One Cart/Invoice flow with the order page** (R Part 2 §1): how the two pages become one is Q-A |
 | Workflow `client_order` stages (`workflows.php:15-72`) | Draft → With the client → Approved … | A per-line "Released" check and an order stage "Ready to confirm" between With the client and Approved (Q-A) |
 | Pulse: one case per order (0105) | steps per item | **Kept**; each unmet requirement is that item's step, with its button (Select vendor, Upload production file, Set delivery) (CLAUDE.md Pulse rule) |
 | Business sales (0135, Marketplace, `market_orders`) | a separate system | **Untouched** (map §1). Only T applies to both |
@@ -91,23 +104,20 @@ Anything not in J1–J3, T or an earlier decision is a question, never a build c
 
 ## The questions for Jason, one area at a time (each reviewed by the session manager first)
 
-- **Q-A, the cart's shape** (this proposal): (1) where a team-configured cart lives: the order's own link (no account
-  needed, 0101) with a line in a signed-in client's `/qr/cart.php`, or moved into `/qr/cart.php`; (2) all lines released
-  before Confirm, or Confirm and pay what's released while the rest is still in process; (3) the approval form's
-  ship-to once delivery is configured before release (map §5 item 1 in its new form); (4) the Shop card replaced by
-  configuring shown products.
-- **Q-B, each process's requirements:** J3's four for a printed product; is a proof required on every printed line
-  (map §5 item 2 seems answered by J3: confirm); what releases a graphic-design line, a custom line, a shipping line;
-  design capacity (crosswalk: no decision).
-- **Q-C, money between design and production** (crosswalk row; map §5 item 5): when design is earned, when production
-  is refundable, what a refund does to an open work order.
-- **Q-D, payment and stage gates** (map §5 items 3, 4): a part payment on QuickBooks' own page; which callers must check
-  paid in full before Shipped/Ready.
-- **Q-E, the client's files:** client artwork upload and nudges when assets are missing (crosswalk; 0176 Q3 already
-  decided Replace file on the order's link); a fingerprint of the approved file (crosswalk); 0099's watermark rule vs
-  0101's download rule (map §3a); the order file check's limits (0176 R4, Jason: "I'll set the limits").
-- **Q-F, order mail and dead code:** moving order mail from `Mailer` onto the one dispatcher (0172, 0176); deleting the
-  six uncalled builder actions (map §5 item 6).
+Settled by R and not asked again: the ship-to (R1), a proof per printed line (R2), part payments (R3), paid-in-full
+callers (R4), the refund's work order (R5), dead code (R6), watermarks (R7).
+
+- **Q-A, the cart's shape** (this proposal): R Part 2 §1 asks for one Cart/Invoice flow for every entry path. Open: (1)
+  how the order page and `/qr/cart.php` become one (one page at one address, or the order's link opening the same cart
+  part; a client with no account keeps a link, 0101); (2) all lines released before Confirm, or confirm and pay what's
+  released while the rest is in process; (3) the Shop's "Ask for a quote" card replaced by configuring shown products.
+- **Q-B, each process's requirements** beyond the printed product's four (J3): what releases a graphic-design line, a
+  custom line, a shipping line.
+- **Q-C, design earned vs production refundable** (R's first open item): the rule itself.
+- **Q-D, the order file check's limits** (0176 R4; Jason: "I'll set the limits").
+- **Q-E, design capacity** (no decision).
+- **Q-F, a fingerprint of the exact approved file.**
+- **Q-G, order mail onto the one dispatcher** (0172, 0176), and R Part 2 §5's milestone messages without repeats.
 
 ## The first release: the chargeFor fix only (Jason: "Fix in first release")
 
