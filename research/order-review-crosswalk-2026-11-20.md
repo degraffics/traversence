@@ -25,8 +25,10 @@ built**, or **Open** (no decision: a question for Jason).
 | Artwork preflight (bleed, resolution, colour, fonts) | **Open, waiting** | nothing checks artwork (map §3a); 0176 R4's order file check waits on Jason's limits |
 | Client uploads artwork; nudges when assets are missing | **Open** | today only our team uploads; no rule either way (map §3a) |
 | Design capacity (slots per week) | **Open** | no decision |
-| Self-serve cart for print | **Different on purpose** | print is quoted and built by our team; the Shop's card is "Ask for a quote" (map §2) |
+| Every order ends in a cart | **Missing (Jason's correction)** | Jason, 2026-11-20: "We dont quote and build, our orders either configured by us with separate building processes to yield something in a cart or the client can configure it and have us support their item needs ending up as a cart as well." Today print can't be configured by the client (the Shop's card is "Ask for a quote", map §2), and a staff-built order goes to the client's private order page, not a cart. The one cart exists for GO Codes, one-offs, domains and plans (map §2 rows 5–7). The 4over example (`research/order-intake-2026-11-19.md`) shows the configure → cart → checkout path |
 | Set expectations before money is taken | **Decided today** | 0135 note (Jason, 2026-11-20): stocked or back-ordered known before paying; made to order and services confirm first |
+
+**The main gap** (Jason's correction above): both ways in, our team configuring it or the client configuring it, end as a cart, as on 4over. The Orders session's first proposal starts here, on top of the map; how it meets 0101's proofs and approval is its question for Jason.
 
 What it adds for the Orders session: the **Open** rows are questions for Jason, asked one at a time with the map's six,
 never built as choices. The order file check's limits are already on his list.
