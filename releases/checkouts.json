@@ -374,6 +374,19 @@
    "expires": "2026-11-20T21:52:36Z",
    "release": "0175-r2b-board.zip",
    "callers": {}
+  },
+  {
+   "path": "website/admin/router.php",
+   "functions": [
+    "TV_ADMIN_MOVED"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
+   "why": "0175 R2b part A: one control board in the menu",
+   "since": "2026-11-20T17:52:42Z",
+   "expires": "2026-11-20T21:52:42Z",
+   "release": "0175-r2b-board.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
